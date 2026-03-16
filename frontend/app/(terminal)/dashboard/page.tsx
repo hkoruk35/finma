@@ -33,7 +33,13 @@ export default function DashboardPage() {
   const trades = tradesData || mockTrades
   const signals = (signalsData || mockSignals) as import('@/types').SignalReport
   const indices = indicesData && indicesData.length > 0 ? indicesData : mockIndices
-  const vix = regimeData?.vix ?? signals.vix_level
+
+  // VIX sanity check: tarihsel max ~89 (COVID). 90+ yfinance veri hatasıdır.
+  // Öncelik: indices içindeki VIX (fast_info) → regime endpoint → signals → mock
+  const indicesVix = indices.find(i => i.symbol === 'VIX')?.price
+  const rawRegimeVix = regimeData?.vix
+  const safeRegimeVix = rawRegimeVix && rawRegimeVix > 0 && rawRegimeVix <= 90 ? rawRegimeVix : null
+  const vix = safeRegimeVix ?? indicesVix ?? signals.vix_level
   const regime = regimeData?.regime_tr ?? (signals.market_regime === 'Bull' ? '🐂 Boğa' : '🐻 Ayı')
   const sectorLeaders = signals.sector_leaders?.join(', ') ?? 'Utilities, Materials'
 

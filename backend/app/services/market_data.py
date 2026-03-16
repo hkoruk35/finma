@@ -405,10 +405,28 @@ def get_sector_performance(period: str = "1mo") -> List[Dict[str, Any]]:
 def get_market_regime() -> Dict[str, Any]:
     """Determine market regime based on VIX and S&P 500"""
     try:
-        vix_data = get_ticker_data("^VIX", period="5d")
         spy_data = get_ticker_data("^GSPC", period="1mo")
 
-        vix_level = float(vix_data["Close"].iloc[-1]) if vix_data is not None and not vix_data.empty else 20
+        # VIX: fast_info kullan (yf.download ^VIX hatalı veri döndürebilir)
+        vix_level = 20.0
+        try:
+            vix_ticker = yf.Ticker("^VIX")
+            vix_fast = vix_ticker.fast_info
+            raw_vix = float(vix_fast.get("lastPrice", 0) or vix_fast.get("last_price", 0) or 0)
+            # Sanity check: VIX tarihsel max ~89 (COVID). 90+ kesinlikle hatalı veri.
+            if 5 <= raw_vix <= 90:
+                vix_level = raw_vix
+            else:
+                # Fallback: yf.download ile dene
+                vix_data = get_ticker_data("^VIX", period="5d")
+                if vix_data is not None and not vix_data.empty:
+                    raw_vix2 = float(vix_data["Close"].iloc[-1])
+                    if 5 <= raw_vix2 <= 90:
+                        vix_level = raw_vix2
+                logger.warning(f"VIX geçersiz değer ({raw_vix}), fallback: {vix_level}")
+        except Exception as e:
+            logger.warning(f"VIX fast_info alınamadı: {e}")
+
         spy_close = spy_data["Close"] if spy_data is not None else pd.Series()
 
         if len(spy_close) >= 20:
