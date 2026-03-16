@@ -1,15 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { HUDMetrics, RiskBanner } from '@/components/terminal/HUDMetrics'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
-import { Badge } from '@/components/shared/Badge'
+import { Badge, ActionBadge } from '@/components/shared/Badge'
 import { usePortfolioSummary, useTrades } from '@/hooks/usePortfolio'
 import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useRegime } from '@/hooks/useMarketData'
 import { mockPortfolio, mockSignals, mockTrades, mockIndices } from '@/lib/mock-data'
 import { useAuthStore } from '@/store/auth'
+import { api } from '@/lib/api-client'
 import { cn } from '@/lib/utils'
 import {
   Brain, Clock, AlertCircle, Globe2, DollarSign,
@@ -166,6 +168,7 @@ const SECTOR_BADGE: Record<string, string> = {
 }
 
 export default function DashboardPage() {
+  const router = useRouter()
   const { canAccess } = useAuthStore()
   const isPro = canAccess('pro')
   const { data: portfolioData } = usePortfolioSummary()
@@ -173,6 +176,10 @@ export default function DashboardPage() {
   const { data: signalsData } = useLatestSignals()
   const { data: indicesData } = useIndices()
   const { data: regimeData } = useRegime()
+
+  // Canlı fiyatlar — top10 ticker'ları için batch quote
+  const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
+
 
   const portfolio = portfolioData || mockPortfolio
   const trades = tradesData || mockTrades
@@ -204,6 +211,24 @@ export default function DashboardPage() {
 
   // Bot 112 (swing112) sonuçlarından ilk 10 — signals.candidates canlı API'den gelir
   const top10Candidates = signals.candidates?.slice(0, 10) || []
+
+  // Canlı fiyatları çek (15 dk'da bir yenile)
+  useEffect(() => {
+    if (!top10Candidates.length) return
+    const tickers = top10Candidates.map((c: any) => c.ticker)
+    const fetchPrices = () => {
+      api.getBatchQuotes(tickers)
+        .then(quotes => {
+          const map: Record<string, { price: number; change: number; change_pct: number }> = {}
+          quotes.forEach((q: any) => { map[q.symbol] = { price: q.price, change: q.change, change_pct: q.change_pct } })
+          setLiveQuotes(map)
+        })
+        .catch(() => {})
+    }
+    fetchPrices()
+    const interval = setInterval(fetchPrices, 15 * 60 * 1000) // 15 dakikada bir
+    return () => clearInterval(interval)
+  }, [top10Candidates.length])
 
   return (
     <div className="space-y-4 animate-fade-in">
@@ -279,15 +304,15 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 2. GÜNÜN 10 AI SEÇİMİ (Swing112 Bot) ═══════════════ */}
+      {/* ═══════════════ 2. GÜNÜN YAPAY ZEKA SEÇİMİ ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Flame className="w-5 h-5 text-orange-400" />
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
-            Günün 10 AI Seçimi
+            Günün Yapay Zeka Seçimi
           </span>
-          <span className="text-[9px] bg-finma-primary/20 text-finma-primary px-2 py-0.5 rounded-full font-medium ml-2">
-            Swing112 Bot
+          <span className="text-[9px] bg-finma-yellow/10 text-finma-yellow px-2 py-0.5 rounded-full font-medium ml-2 border border-finma-yellow/20">
+            Veriler 15 dk gecikmeli
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
             <Clock className="w-3 h-3" /> {dateStr}
@@ -297,55 +322,63 @@ export default function DashboardPage() {
         {top10Candidates.length === 0 ? (
           <div className="text-center py-8 text-finma-text-dim">
             <Brain className="w-8 h-8 mx-auto mb-2 opacity-30" />
-            <p className="text-xs">Swing112 bot henüz çalışmadı. Sonuçlar bot çalıştığında otomatik güncellenecek.</p>
+            <p className="text-xs">Bot henüz çalışmadı. Sonuçlar otomatik güncellenecek.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">
-            {top10Candidates.map((c: any, idx: number) => (
-              <div
-                key={c.ticker}
-                className="flex items-center gap-3 bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 hover:border-finma-primary/30 transition-colors group cursor-pointer"
-              >
-                <div className={cn(
-                  'w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0',
-                  idx < 3 ? 'bg-finma-primary text-white' : 'bg-finma-bg text-finma-text-dim border border-finma-border'
-                )}>
-                  {idx + 1}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-finma-primary finma-number">{c.ticker}</span>
-                    <Badge variant={c.action === 'BUY' ? 'buy' : c.action === 'HOLD' ? 'hold' : 'sell'}>
-                      {c.action}
-                    </Badge>
-                    <span className="text-[9px] text-finma-text-dim">{c.sector}</span>
-                  </div>
-                  <p className="text-[10px] text-finma-text-muted mt-0.5 truncate">
-                    {c.notes?.[0] || 'AI analiz devam ediyor...'}
-                  </p>
-                </div>
-
-                <div className="text-right shrink-0">
-                  <div className="finma-number text-xs font-semibold text-finma-text">${c.price?.toFixed(2)}</div>
+            {top10Candidates.map((c: any, idx: number) => {
+              const live = liveQuotes[c.ticker]
+              const livePrice = live?.price
+              const changePct = live?.change_pct
+              return (
+                <div
+                  key={c.ticker}
+                  onClick={() => router.push(`/stock-analysis?ticker=${c.ticker}`)}
+                  className="flex items-center gap-3 bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 hover:border-finma-primary/30 transition-colors group cursor-pointer"
+                >
                   <div className={cn(
-                    'finma-number text-[10px] font-medium',
-                    (c.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
+                    'w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0',
+                    idx < 3 ? 'bg-finma-primary text-white' : 'bg-finma-bg text-finma-text-dim border border-finma-border'
                   )}>
-                    {(c.potential_pct ?? 0) >= 0 ? '+' : ''}{(c.potential_pct ?? 0).toFixed(1)}%
+                    {idx + 1}
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-sm font-bold text-finma-primary finma-number">{c.ticker}</span>
+                      <ActionBadge action={c.action} />
+                      <span className="text-[9px] text-finma-text-dim">{c.sector}</span>
+                    </div>
+                    {/* Bot alım fiyatı + canlı fiyat */}
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-finma-text-dim">
+                        Alım: <span className="finma-number text-finma-text font-semibold">${c.price?.toFixed(2)}</span>
+                      </span>
+                      {livePrice && (
+                        <span className="text-[10px] text-finma-text-dim">
+                          Anlık: <span className="finma-number text-white font-semibold">${livePrice.toFixed(2)}</span>
+                          <span className={cn(
+                            'ml-1 finma-number font-medium',
+                            (changePct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
+                          )}>
+                            {(changePct ?? 0) >= 0 ? '+' : ''}{(changePct ?? 0).toFixed(2)}%
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className={cn(
+                    'finma-number text-sm font-bold px-2 py-1 rounded shrink-0',
+                    c.score >= 10 ? 'bg-finma-green/20 text-finma-green' :
+                    c.score >= 8 ? 'bg-finma-primary/20 text-finma-primary' :
+                    'bg-finma-yellow/20 text-finma-yellow'
+                  )}>
+                    {c.score?.toFixed(1)}
                   </div>
                 </div>
-
-                <div className={cn(
-                  'finma-number text-sm font-bold px-2 py-1 rounded shrink-0',
-                  c.score >= 10 ? 'bg-finma-green/20 text-finma-green' :
-                  c.score >= 8 ? 'bg-finma-primary/20 text-finma-primary' :
-                  'bg-finma-yellow/20 text-finma-yellow'
-                )}>
-                  {c.score?.toFixed(1)}
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
       </Card>

@@ -203,14 +203,6 @@ export function Sidebar() {
                     {isExpanded && (
                       <>
                         <span className={cn('flex-1 truncate', isLocked && 'opacity-50')}>{item.label}</span>
-                        {badge && (
-                          <span className={cn(
-                            'text-[8px] font-bold px-1.5 py-0.5 rounded border leading-none',
-                            badge.color
-                          )}>
-                            {badge.label}
-                          </span>
-                        )}
                         {hasChildren && (
                           <ChevronDown className={cn(
                             'w-3.5 h-3.5 transition-transform duration-200',

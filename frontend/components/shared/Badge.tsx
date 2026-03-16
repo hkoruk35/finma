@@ -36,9 +36,9 @@ export function Badge({ children, variant = 'default', className }: BadgeProps) 
 
 /* ─── Türkçe aksiyon etiketleri ─── */
 const actionLabel: Record<string, string> = {
-  BUY:   'AL',
-  SELL:  'SAT',
-  HOLD:  'TUT',
+  BUY:   'Alım Fırsatı',
+  SELL:  'Düşme Riski',
+  HOLD:  'İncele',
   CLOSE: 'KAPAT',
   SHORT: 'AÇİĞA SAT',
   WATCH: 'İZLE',
