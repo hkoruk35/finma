@@ -52,10 +52,8 @@ export default function MarketPage() {
     : mockSectorData
 
   useEffect(() => {
-    if (indices.length > 0) {
-      setChartSymbol(indices[0].symbol)
-    }
-  }, [setChartSymbol, indices])
+    setChartSymbol('SPX')
+  }, [setChartSymbol])
 
   const now = new Date()
   const updateTime = now.toLocaleString('tr-TR', {

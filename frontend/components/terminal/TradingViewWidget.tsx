@@ -20,7 +20,7 @@ export function TradingViewWidget() {
     script.innerHTML = JSON.stringify({
       autosize: true,
       symbol: chartSymbol,
-      interval: '15',
+      interval: '60',
       timezone: 'America/New_York',
       theme: 'dark',
       style: '1',

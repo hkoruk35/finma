@@ -7,6 +7,18 @@ import type { MarketIndex } from '@/types'
 import { Globe, ChevronLeft, ChevronRight } from 'lucide-react'
 import { createPortal } from 'react-dom'
 
+/* ── Backend sembol → TradingView sembol eşleştirme ── */
+const tvSymbolMap: Record<string, string> = {
+  GSPC: 'SPX', DJI: 'DJI', IXIC: 'IXIC', RUT: 'RUT', VIX: 'VIX',
+  SPX: 'SPX', NDX: 'NDX',
+  BTC: 'BTCUSD', ETH: 'ETHUSD',
+  GC: 'COMEX:GC1!', SI: 'COMEX:SI1!', CL: 'NYMEX:CL1!',
+}
+
+function toTvSymbol(symbol: string): string {
+  return tvSymbolMap[symbol] || symbol
+}
+
 /* ── Türkçe sektör/açıklama haritası ── */
 const sectorMapTR: Record<string, string> = {
   DJI: 'Dow Jones Sanayi Endeksi – ABD\'nin en büyük 30 şirketi',
@@ -132,11 +144,12 @@ export function MarketContext({ indices, onSelectChart }: MarketContextProps) {
   }
 
   const handleClick = (symbol: string, e: React.MouseEvent<HTMLDivElement>) => {
+    const tvSym = toTvSymbol(symbol)
     const rect = e.currentTarget.getBoundingClientRect()
     if (isMobile) {
       if (tappedSymbol === symbol) {
-        setChartSymbol(symbol)
-        onSelectChart?.(symbol)
+        setChartSymbol(tvSym)
+        onSelectChart?.(tvSym)
         setSelectedSymbol(symbol)
         setTappedSymbol(null)
         setTappedRect(null)
@@ -145,8 +158,8 @@ export function MarketContext({ indices, onSelectChart }: MarketContextProps) {
         setTappedRect(rect)
       }
     } else {
-      setChartSymbol(symbol)
-      onSelectChart?.(symbol)
+      setChartSymbol(tvSym)
+      onSelectChart?.(tvSym)
       setSelectedSymbol(symbol)
     }
   }
@@ -162,10 +175,10 @@ export function MarketContext({ indices, onSelectChart }: MarketContextProps) {
       <div className="flex items-center gap-2">
         <Globe className="w-3.5 h-3.5 text-finma-cyan" />
         <span className="text-xs font-semibold text-finma-text uppercase tracking-wider">
-          Piyasa Bağlamı
+          Piyasa Özeti
         </span>
         <span className="text-[10px] text-finma-text-dim ml-1">
-          ({indices.length} endeks/sektör)
+          ({indices.length} endeks/kripto/emtia)
         </span>
       </div>
 
