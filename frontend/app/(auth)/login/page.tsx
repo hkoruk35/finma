@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Activity, Eye, EyeOff, ChevronDown } from 'lucide-react'
+import { Activity } from 'lucide-react'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import { useSearchParams } from 'next/navigation'
@@ -25,10 +25,6 @@ export default function LoginPage() {
   const searchParams = useSearchParams()
   const redirect = searchParams.get('redirect') || '/dashboard'
 
-  const [showAdminLogin, setShowAdminLogin] = useState(false)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -98,23 +94,6 @@ export default function LoginPage() {
     }
   }, [handleGoogleResponse])
 
-  // Admin login handler
-  const handleAdminLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-
-    try {
-      const result = await api.login(username, password)
-      login(result.access_token, result.user as any)
-      window.location.href = redirect
-    } catch (err: any) {
-      setError(err.message || 'Geçersiz kullanıcı adı veya şifre')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
     <div className="min-h-screen bg-finma-bg flex items-center justify-center px-4">
       <div className="w-full max-w-md">
@@ -149,71 +128,6 @@ export default function LoginPage() {
             <div className="text-xs text-finma-red bg-finma-red/10 border border-finma-red/30 rounded-md px-3 py-2 mb-4">
               {error}
             </div>
-          )}
-
-          {/* Divider */}
-          <div className="relative my-5">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-finma-border" />
-            </div>
-            <div className="relative flex justify-center text-[10px]">
-              <span className="bg-finma-card px-3 text-finma-text-dim">veya</span>
-            </div>
-          </div>
-
-          {/* Admin Login Toggle */}
-          <button
-            onClick={() => setShowAdminLogin(!showAdminLogin)}
-            className="w-full flex items-center justify-center gap-1 text-xs text-finma-text-dim hover:text-finma-text transition-colors py-2"
-          >
-            Admin Girişi
-            <ChevronDown className={`w-3 h-3 transition-transform ${showAdminLogin ? 'rotate-180' : ''}`} />
-          </button>
-
-          {/* Admin Form */}
-          {showAdminLogin && (
-            <form onSubmit={handleAdminLogin} className="space-y-4 mt-3">
-              <div>
-                <label className="text-xs text-finma-text-dim block mb-1.5">Kullanıcı Adı</label>
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="admin"
-                  className="finma-input w-full"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="text-xs text-finma-text-dim block mb-1.5">Şifre</label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Şifrenizi girin"
-                    className="finma-input w-full pr-10"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-finma-text-dim hover:text-finma-text"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="finma-btn-primary w-full py-2.5 disabled:opacity-50"
-              >
-                {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
-              </button>
-            </form>
           )}
         </div>
 
