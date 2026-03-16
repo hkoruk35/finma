@@ -65,6 +65,23 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
             output_file = os.path.join(output_dir, f"{bot_name}_latest.json")
             if os.path.exists(output_file):
                 logger.info(f"Çıktı dosyası: {output_file}")
+
+            # Swing112 bittikten sonra FinMA sitesini güncelle
+            if bot_name == "swing112":
+                try:
+                    push_script = os.path.join(bots_dir, "push_to_finma.py")
+                    if os.path.exists(push_script):
+                        push_result = subprocess.run(
+                            ["python", push_script],
+                            capture_output=True, text=True,
+                            timeout=120, cwd=bots_dir,
+                        )
+                        if push_result.returncode == 0:
+                            logger.info("FinMA push başarılı — site güncelleniyor")
+                        else:
+                            logger.warning(f"FinMA push hatası: {push_result.stderr[:300]}")
+                except Exception as push_err:
+                    logger.warning(f"FinMA push çalıştırılamadı: {push_err}")
         else:
             logger.error(f"Bot hatası {bot_name}: {result.stderr[:500]}")
 

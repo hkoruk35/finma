@@ -3809,6 +3809,94 @@ UNIVERSE_TTL = 24 * 3600        # 24 saat (1 Gün) - Her gün güncellenir
 # ATMACA SWING MASTER – HEDGE FUND TARAYICI (v103 Optimized)
 # ============================================================
 
+async def push_results_to_finma(top_candidates: list, now_ny, duration: float):
+    """
+    Tarama sonuçlarını FinMA sitesine push et.
+    frontend/data/signals-latest.json dosyasını günceller ve git push yapar.
+    Vercel otomatik deploy eder (~2 dakika).
+    """
+    import json as _json
+    import subprocess as _sp
+
+    # Proje kökünü bul (bots/ → finma/)
+    bots_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(bots_dir)
+    signals_json = os.path.join(project_root, "frontend", "data", "signals-latest.json")
+
+    # Bot output'u FinMA formatına dönüştür
+    candidates_data = []
+    for c in top_candidates:
+        ticker = c.get("ticker", "")
+        score = c.get("score", 0)
+        price = c.get("current_price", 0)
+        stop_loss = c.get("stop_loss", 0)
+        tp2 = c.get("profit_target", price * 1.10)
+        tp1 = price + (tp2 - price) * 0.40
+        sector = c.get("sector", "Unknown")
+        potential_pct = round(((tp2 - price) / price) * 100, 2) if price > 0 else 0
+
+        candidates_data.append({
+            "ticker": ticker,
+            "score": round(score, 1),
+            "price": round(price, 4),
+            "action": "BUY",
+            "entry_zone": f"{price:.2f} - {tp1:.2f}",
+            "stop_loss": round(stop_loss, 4),
+            "target": round(tp2, 2),
+            "potential_pct": potential_pct,
+            "sector": sector,
+            "trend_phase": "Expansion",
+        })
+
+    # Score'a göre sırala
+    candidates_data.sort(key=lambda x: x["score"], reverse=True)
+
+    timestamp = now_ny.strftime("%Y-%m-%d %H:%M:%S")
+    regime = MARKET_STATUS.get("regime", "Bull")
+    vix = MARKET_STATUS.get("vix", 20.0)
+
+    signals_payload = {
+        "timestamp": timestamp,
+        "bot_name": "swing112",
+        "market_regime": regime,
+        "vix_level": round(vix, 1),
+        "candidates": candidates_data,
+    }
+
+    # JSON dosyasına yaz
+    os.makedirs(os.path.dirname(signals_json), exist_ok=True)
+    with open(signals_json, "w", encoding="utf-8") as f:
+        _json.dump(signals_payload, f, indent=2, ensure_ascii=False)
+
+    logging.info(f"📄 signals-latest.json güncellendi: {len(candidates_data)} aday")
+
+    # Git push (Vercel otomatik deploy eder)
+    try:
+        os.chdir(project_root)
+        _sp.run(["git", "add", "frontend/data/signals-latest.json"], check=True, capture_output=True)
+
+        # Değişiklik var mı kontrol
+        result = _sp.run(["git", "diff", "--cached", "--quiet"], capture_output=True)
+        if result.returncode == 0:
+            logging.info("📄 Sinyal verisi aynı — git push atlanıyor.")
+            return
+
+        msg = f"bot: swing112 sinyal guncelleme — {timestamp}"
+        _sp.run(["git", "commit", "-m", msg], check=True, capture_output=True)
+        _sp.run(["git", "push"], check=True, capture_output=True)
+        logging.info("🚀 Git push başarılı! Vercel ~2 dk içinde deploy edecek.")
+
+        await send_telegram_message(
+            f"📡 <b>FinMA Push Başarılı</b>\n"
+            f"🌐 {len(candidates_data)} sinyal siteye gönderildi\n"
+            f"⏱ Vercel ~2 dk içinde güncellenecek"
+        )
+    except _sp.CalledProcessError as e:
+        err_msg = e.stderr.decode() if e.stderr else str(e)
+        logging.warning(f"Git push hatası: {err_msg}")
+        await send_telegram_message(f"⚠️ Git push hatası: {err_msg[:200]}")
+
+
 async def scan_top_stocks():
     """
     ATMACA MASTER TARAYICI:
@@ -4086,7 +4174,13 @@ async def scan_top_stocks():
                 await asyncio.sleep(0.5)
 
     logging.info(f"✅ NY 13:00 Taraması başarıyla tamamlandı. ({scanned_count} hisse taranmış)")
-    
+
+    # ─── FinMA PUSH: Sonuçları siteye gönder ───
+    try:
+        await push_results_to_finma(top_candidates, now_ny, duration)
+    except Exception as e:
+        logging.warning(f"FinMA push hatası (site yine de çalışır): {e}")
+
 from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta, timezone
 
