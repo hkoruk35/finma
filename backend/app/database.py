@@ -1,0 +1,433 @@
+"""
+FinMA Database Layer — Supabase PostgreSQL
+Binlerce eşzamanlı kullanıcı için tasarlanmış CRUD helper'lar.
+
+Supabase credentials yoksa graceful fallback ile in-memory çalışır.
+"""
+
+import logging
+from typing import Optional, List
+from app.config import get_settings
+
+logger = logging.getLogger(__name__)
+
+# ─── Supabase Client Singleton ───
+
+_supabase_client = None
+_initialized = False
+
+
+def get_supabase():
+    """Supabase client döndürür. Credentials yoksa None."""
+    global _supabase_client, _initialized
+
+    if _initialized:
+        return _supabase_client
+
+    _initialized = True
+    settings = get_settings()
+
+    if not settings.supabase_url or not settings.supabase_key:
+        logger.warning("⚠️  Supabase credentials bulunamadı — in-memory fallback aktif")
+        return None
+
+    try:
+        from supabase import create_client, Client
+        _supabase_client = create_client(settings.supabase_url, settings.supabase_key)
+        logger.info("✅ Supabase bağlantısı başarılı")
+        return _supabase_client
+    except Exception as e:
+        logger.error(f"❌ Supabase bağlantı hatası: {e}")
+        return None
+
+
+def is_db_available() -> bool:
+    """Supabase bağlantısı aktif mi?"""
+    return get_supabase() is not None
+
+
+# ═══════════════════════════════════════════
+# USERS TABLE CRUD
+# ═══════════════════════════════════════════
+
+class UsersDB:
+    """
+    users tablosu CRUD operasyonları.
+    Supabase yoksa in-memory dict kullanır.
+    """
+
+    # In-memory fallback
+    _memory: dict = {}
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def get_by_username(cls, username: str) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("users").select("*").eq("username", username).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB get_by_username hatası: {e}")
+                return cls._memory.get(username)
+        return cls._memory.get(username)
+
+    @classmethod
+    def get_by_email(cls, email: str) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("users").select("*").eq("email", email).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB get_by_email hatası: {e}")
+                # fallback: search memory
+                for u in cls._memory.values():
+                    if u.get("email") == email:
+                        return u
+                return None
+        # memory fallback
+        for u in cls._memory.values():
+            if u.get("email") == email:
+                return u
+        return None
+
+    @classmethod
+    def get_by_id(cls, user_id: str) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("users").select("*").eq("id", user_id).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB get_by_id hatası: {e}")
+                return None
+        # memory fallback
+        for u in cls._memory.values():
+            if u.get("id") == user_id:
+                return u
+        return None
+
+    @classmethod
+    def create(cls, user_data: dict) -> dict:
+        sb = cls._sb()
+        if sb:
+            try:
+                # Supabase'de id auto-generated (UUID)
+                insert_data = {k: v for k, v in user_data.items() if k != "id"}
+                result = sb.table("users").insert(insert_data).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                raise Exception("Insert sonucu boş")
+            except Exception as e:
+                logger.error(f"DB create user hatası: {e}")
+                # fallback to memory
+                cls._memory[user_data["username"]] = user_data
+                return user_data
+        # memory
+        cls._memory[user_data["username"]] = user_data
+        return user_data
+
+    @classmethod
+    def update(cls, username: str, updates: dict) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("users").update(updates).eq("username", username).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB update user hatası: {e}")
+                if username in cls._memory:
+                    cls._memory[username].update(updates)
+                    return cls._memory[username]
+                return None
+        if username in cls._memory:
+            cls._memory[username].update(updates)
+            return cls._memory[username]
+        return None
+
+    @classmethod
+    def count(cls) -> int:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("users").select("id", count="exact").execute()
+                return result.count or 0
+            except Exception:
+                return len(cls._memory)
+        return len(cls._memory)
+
+
+# ═══════════════════════════════════════════
+# TRADES TABLE CRUD
+# ═══════════════════════════════════════════
+
+class TradesDB:
+    """
+    trades tablosu CRUD operasyonları.
+    user_id ile kullanıcıya özel trade'ler.
+    """
+
+    _memory: List[dict] = []
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def get_all(cls, user_id: Optional[str] = None, status: Optional[str] = None) -> List[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                query = sb.table("trades").select("*")
+                if user_id:
+                    query = query.eq("user_id", user_id)
+                if status:
+                    query = query.eq("status", status.upper())
+                query = query.order("created_at", desc=True)
+                result = query.execute()
+                return result.data or []
+            except Exception as e:
+                logger.error(f"DB get_all trades hatası: {e}")
+                return cls._filter_memory(user_id, status)
+        return cls._filter_memory(user_id, status)
+
+    @classmethod
+    def _filter_memory(cls, user_id: Optional[str], status: Optional[str]) -> List[dict]:
+        trades = cls._memory
+        if user_id:
+            trades = [t for t in trades if t.get("user_id") == user_id]
+        if status:
+            trades = [t for t in trades if t.get("status", "").upper() == status.upper()]
+        return trades
+
+    @classmethod
+    def get_by_id(cls, trade_id: str) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("trades").select("*").eq("id", trade_id).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB get_by_id trade hatası: {e}")
+                for t in cls._memory:
+                    if t.get("id") == trade_id:
+                        return t
+                return None
+        for t in cls._memory:
+            if t.get("id") == trade_id:
+                return t
+        return None
+
+    @classmethod
+    def create(cls, trade_data: dict) -> dict:
+        sb = cls._sb()
+        if sb:
+            try:
+                insert_data = {k: v for k, v in trade_data.items() if k != "id"}
+                result = sb.table("trades").insert(insert_data).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                raise Exception("Insert sonucu boş")
+            except Exception as e:
+                logger.error(f"DB create trade hatası: {e}")
+                cls._memory.append(trade_data)
+                return trade_data
+        cls._memory.append(trade_data)
+        return trade_data
+
+    @classmethod
+    def update(cls, trade_id: str, updates: dict) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("trades").update(updates).eq("id", trade_id).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB update trade hatası: {e}")
+                for t in cls._memory:
+                    if t.get("id") == trade_id:
+                        t.update(updates)
+                        return t
+                return None
+        for t in cls._memory:
+            if t.get("id") == trade_id:
+                t.update(updates)
+                return t
+        return None
+
+    @classmethod
+    def count_open(cls, user_id: Optional[str] = None) -> int:
+        sb = cls._sb()
+        if sb:
+            try:
+                query = sb.table("trades").select("id", count="exact").eq("status", "OPEN")
+                if user_id:
+                    query = query.eq("user_id", user_id)
+                result = query.execute()
+                return result.count or 0
+            except Exception:
+                return len([t for t in cls._memory if t.get("status") == "OPEN"])
+        return len([t for t in cls._memory if t.get("status") == "OPEN"])
+
+
+# ═══════════════════════════════════════════
+# SIGNALS TABLE CRUD
+# ═══════════════════════════════════════════
+
+class SignalsDB:
+    """
+    signals tablosu — bot sinyal raporları geçmişi.
+    """
+
+    _memory: List[dict] = []
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def save_report(cls, report: dict) -> bool:
+        """Tam sinyal raporunu kaydet"""
+        sb = cls._sb()
+        if sb:
+            try:
+                # Her aday için ayrı satır
+                rows = []
+                for candidate in report.get("candidates", []):
+                    rows.append({
+                        "bot_name": report.get("bot_name", "unknown"),
+                        "timestamp": report.get("timestamp"),
+                        "market_regime": report.get("market_regime"),
+                        "vix_level": report.get("vix_level"),
+                        "ticker": candidate.get("ticker"),
+                        "score": candidate.get("score"),
+                        "price": candidate.get("price"),
+                        "action": candidate.get("action"),
+                        "entry_zone": candidate.get("entry_zone"),
+                        "stop_loss": candidate.get("stop_loss"),
+                        "target": candidate.get("target"),
+                        "potential_pct": candidate.get("potential_pct"),
+                        "sector": candidate.get("sector"),
+                        "trend_phase": candidate.get("trend_phase"),
+                        "rvol": candidate.get("rvol"),
+                        "notes": candidate.get("notes"),
+                    })
+
+                if rows:
+                    sb.table("signals").insert(rows).execute()
+                    logger.info(f"✅ {len(rows)} sinyal kaydedildi")
+                return True
+            except Exception as e:
+                logger.error(f"DB save_report hatası: {e}")
+                cls._memory.append(report)
+                return False
+        cls._memory.append(report)
+        return True
+
+    @classmethod
+    def get_history(cls, limit: int = 10, ticker: Optional[str] = None) -> List[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                query = sb.table("signals").select("*").order("created_at", desc=True).limit(limit)
+                if ticker:
+                    query = query.eq("ticker", ticker.upper())
+                result = query.execute()
+                return result.data or []
+            except Exception as e:
+                logger.error(f"DB get_history hatası: {e}")
+                return cls._memory[:limit]
+        return cls._memory[:limit]
+
+    @classmethod
+    def get_unique_tickers(cls) -> List[str]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("signals").select("ticker").execute()
+                return list(set(r["ticker"] for r in (result.data or [])))
+            except Exception:
+                return []
+        return []
+
+
+# ═══════════════════════════════════════════
+# PORTFOLIO SNAPSHOTS TABLE CRUD
+# ═══════════════════════════════════════════
+
+class SnapshotsDB:
+    """
+    portfolio_snapshots tablosu — günlük NAV/PnL snapshot'ları.
+    """
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def save_snapshot(cls, user_id: str, snapshot: dict) -> bool:
+        sb = cls._sb()
+        if sb:
+            try:
+                data = {**snapshot, "user_id": user_id}
+                sb.table("portfolio_snapshots").insert(data).execute()
+                return True
+            except Exception as e:
+                logger.error(f"DB save_snapshot hatası: {e}")
+                return False
+        return False
+
+    @classmethod
+    def get_latest(cls, user_id: str) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = (
+                    sb.table("portfolio_snapshots")
+                    .select("*")
+                    .eq("user_id", user_id)
+                    .order("created_at", desc=True)
+                    .limit(1)
+                    .execute()
+                )
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB get_latest snapshot hatası: {e}")
+                return None
+        return None
+
+    @classmethod
+    def get_history(cls, user_id: str, days: int = 30) -> List[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = (
+                    sb.table("portfolio_snapshots")
+                    .select("*")
+                    .eq("user_id", user_id)
+                    .order("created_at", desc=True)
+                    .limit(days)
+                    .execute()
+                )
+                return result.data or []
+            except Exception:
+                return []
+        return []

@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Environment
+.env
+.env.local
+.env.production
+frontend/.env.local
+backend/.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+
+# Python
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Database
+*.db
+*.sqlite3
+
+# Test files
+backend/test_*.py
+
+# Claude local
+.claude/

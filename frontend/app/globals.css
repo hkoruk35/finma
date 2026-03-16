@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #0a0a0a;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-finma-bg text-finma-text antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  * {
+    @apply border-finma-border;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-finma-bg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-finma-border-light rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-finma-text-dim;
+  }
+}
+
+@layer components {
+  .finma-card {
+    @apply bg-finma-card border border-finma-border rounded-lg p-4;
+  }
+
+  .finma-card-hover {
+    @apply finma-card transition-colors duration-200 hover:bg-finma-card-hover hover:border-finma-border-light;
+  }
+
+  .finma-number {
+    font-family: 'JetBrains Mono', monospace;
+    @apply tabular-nums;
+  }
+
+  .finma-green {
+    @apply text-finma-green;
+  }
+
+  .finma-red {
+    @apply text-finma-red;
+  }
+
+  .finma-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
+  }
+
+  .finma-input {
+    @apply bg-finma-bg border border-finma-border rounded-md px-3 py-2 text-sm text-finma-text
+           placeholder:text-finma-text-dim focus:outline-none focus:ring-1 focus:ring-finma-primary focus:border-finma-primary;
+  }
+
+  .finma-btn-primary {
+    @apply bg-finma-primary hover:bg-finma-primary-hover text-white px-4 py-2 rounded-md text-sm font-medium
+           transition-colors duration-200;
+  }
+
+  /* Yatay kaydırma çubuğunu gizle */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer utilities {
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+}
