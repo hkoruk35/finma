@@ -17,26 +17,34 @@ export function useIndices() {
 }
 
 /**
- * Tek hisse detaylı bilgi
+ * Tek hisse detaylı bilgi — anında yüklenir, 15sn'de bir güncellenir
  */
 export function useQuote(ticker: string) {
   return useQuery({
     queryKey: ['quote', ticker],
     queryFn: () => api.getQuote(ticker),
     enabled: !!ticker,
-    staleTime: 30_000,
+    staleTime: 10_000,
+    refetchInterval: 15_000,
+    retry: 2,
+    retryDelay: 1000,
+    placeholderData: (prev: any) => prev,
   })
 }
 
 /**
- * Teknik analiz göstergeleri (RSI, EMA, MACD, Bollinger, ADX, ATR)
+ * Teknik analiz göstergeleri — 20sn'de bir güncellenir
  */
 export function useTechnicals(ticker: string) {
   return useQuery({
     queryKey: ['technicals', ticker],
     queryFn: () => api.getTechnicals(ticker),
     enabled: !!ticker,
-    staleTime: 60_000,
+    staleTime: 15_000,
+    refetchInterval: 20_000,
+    retry: 2,
+    retryDelay: 1000,
+    placeholderData: (prev: any) => prev,
   })
 }
 
@@ -48,7 +56,11 @@ export function useFullAnalysis(ticker: string) {
     queryKey: ['full-analysis', ticker],
     queryFn: () => api.getFullAnalysis(ticker),
     enabled: !!ticker,
-    staleTime: 60_000,
+    staleTime: 30_000,
+    refetchInterval: 60_000,
+    retry: 2,
+    retryDelay: 1000,
+    placeholderData: (prev: any) => prev,
   })
 }
 
@@ -60,6 +72,7 @@ export function useSectors(period = '1mo') {
     queryKey: ['sectors', period],
     queryFn: () => api.getSectors(period),
     staleTime: 60_000,
+    refetchInterval: 120_000,
   })
 }
 

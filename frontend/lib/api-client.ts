@@ -34,17 +34,32 @@ class APIClient {
       headers['Authorization'] = `Bearer ${authToken}`
     }
 
-    const res = await fetch(`${this.baseUrl}${endpoint}`, {
-      ...fetchOptions,
-      headers,
-    })
+    // 12sn timeout — takılma engellenir
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 12_000)
 
-    if (!res.ok) {
-      const error = await res.json().catch(() => ({ detail: 'API hatası' }))
-      throw new Error(error.detail || `HTTP ${res.status}`)
+    try {
+      const res = await fetch(`${this.baseUrl}${endpoint}`, {
+        ...fetchOptions,
+        headers,
+        signal: controller.signal,
+      })
+
+      clearTimeout(timeoutId)
+
+      if (!res.ok) {
+        const error = await res.json().catch(() => ({ detail: 'API hatası' }))
+        throw new Error(error.detail || `HTTP ${res.status}`)
+      }
+
+      return res.json()
+    } catch (err: any) {
+      clearTimeout(timeoutId)
+      if (err.name === 'AbortError') {
+        throw new Error('İstek zaman aşımına uğradı (12s)')
+      }
+      throw err
     }
-
-    return res.json()
   }
 
   // ─── Market Data ───

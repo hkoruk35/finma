@@ -24,9 +24,11 @@ function StockAnalysisContent() {
   const [aiLoading, setAiLoading] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
 
-  // Canlı veri hook'ları
-  const { data: quoteData, isLoading: quoteLoading } = useQuote(ticker)
-  const { data: techData } = useTechnicals(ticker)
+  // Canlı veri hook'ları — otomatik refetch + placeholder ile kesintisiz
+  const { data: quoteData, isLoading: quoteLoading, isFetching: quoteFetching } = useQuote(ticker)
+  const { data: techData, isLoading: techLoading, isFetching: techFetching } = useTechnicals(ticker)
+  const isAnyLoading = quoteLoading || techLoading
+  const isRefreshing = (quoteFetching && !quoteLoading) || (techFetching && !techLoading)
 
   useEffect(() => {
     setChartSymbol(ticker)
@@ -104,6 +106,12 @@ function StockAnalysisContent() {
           <span className="text-[8px] font-bold px-1.5 py-0.5 rounded border text-yellow-400 bg-yellow-400/10 border-yellow-400/30">Gold</span>
         </div>
         <div className="flex items-center gap-2">
+          {isRefreshing && (
+            <div className="flex items-center gap-1 text-[9px] text-finma-primary">
+              <div className="w-2 h-2 rounded-full bg-finma-primary animate-pulse" />
+              Güncelleniyor
+            </div>
+          )}
           <div className="flex items-center bg-finma-card border border-finma-border rounded-md overflow-hidden">
             <input
               type="text" value={searchInput}
@@ -129,14 +137,18 @@ function StockAnalysisContent() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold text-finma-primary finma-number">{ticker}</span>
-                <span className="text-sm text-finma-text-muted">— {quoteLoading ? '...' : name}</span>
+                <span className="text-sm text-finma-text-muted">— {isAnyLoading ? <span className="inline-block w-24 h-4 bg-finma-border/30 rounded animate-pulse" /> : name}</span>
               </div>
               <div className="flex items-center gap-4 mt-1">
-                <span className="finma-number text-2xl font-bold text-white">{price > 0 ? `$${price.toFixed(2)}` : '...'}</span>
-                {price > 0 && (
-                  <span className={cn('finma-number text-sm font-bold', change >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                    {change >= 0 ? '+' : ''}{change.toFixed(2)}%
-                  </span>
+                {isAnyLoading && price === 0 ? (
+                  <span className="inline-block w-28 h-8 bg-finma-border/30 rounded animate-pulse" />
+                ) : (
+                  <>
+                    <span className="finma-number text-2xl font-bold text-white transition-all duration-300">${price.toFixed(2)}</span>
+                    <span className={cn('finma-number text-sm font-bold transition-all duration-300', change >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      {change >= 0 ? '+' : ''}{change.toFixed(2)}%
+                    </span>
+                  </>
                 )}
               </div>
             </div>
@@ -225,7 +237,14 @@ function StockAnalysisContent() {
                 </div>
               </>
             ) : (
-              <div className="text-[11px] text-finma-text-dim py-4 text-center animate-pulse">Teknik veri yükleniyor...</div>
+              <div className="space-y-2 py-1">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="flex justify-between items-center">
+                    <span className="w-16 h-3 bg-finma-border/30 rounded animate-pulse" />
+                    <span className="w-12 h-3 bg-finma-border/30 rounded animate-pulse" />
+                  </div>
+                ))}
+              </div>
             )}
           </Card>
 
@@ -313,7 +332,14 @@ function StockAnalysisContent() {
               <Row label="Boll. %B" value={techData.indicators.bollinger_pctb.toFixed(2)} />
             </>
           ) : (
-            <div className="text-[11px] text-finma-text-dim py-4 text-center animate-pulse">Yükleniyor...</div>
+            <div className="space-y-2 py-1">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="flex justify-between items-center">
+                  <span className="w-16 h-3 bg-finma-border/30 rounded animate-pulse" />
+                  <span className="w-12 h-3 bg-finma-border/30 rounded animate-pulse" />
+                </div>
+              ))}
+            </div>
           )}
         </Card>
       </div>

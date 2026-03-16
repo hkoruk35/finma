@@ -7,11 +7,50 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 import logging
+import time
+import threading
 from typing import Optional, Dict, List, Any
 from datetime import datetime, timedelta
 from functools import lru_cache
 
 logger = logging.getLogger(__name__)
+
+
+# ─── In-Memory TTL Cache ───
+# yfinance çağrılarını 30sn cache'le — aynı ticker için tekrar istek gitmez
+class TTLCache:
+    """Thread-safe TTL cache for market data"""
+    def __init__(self, ttl: int = 30):
+        self._store: Dict[str, Any] = {}
+        self._expiry: Dict[str, float] = {}
+        self._ttl = ttl
+        self._lock = threading.Lock()
+
+    def get(self, key: str) -> Optional[Any]:
+        with self._lock:
+            if key in self._store and time.time() < self._expiry.get(key, 0):
+                return self._store[key]
+            # Expired — temizle
+            self._store.pop(key, None)
+            self._expiry.pop(key, None)
+            return None
+
+    def set(self, key: str, value: Any):
+        with self._lock:
+            self._store[key] = value
+            self._expiry[key] = time.time() + self._ttl
+
+    def clear(self):
+        with self._lock:
+            self._store.clear()
+            self._expiry.clear()
+
+
+# Quote: 30sn, Technicals: 45sn, Indices: 30sn, Sectors: 120sn
+_quote_cache = TTLCache(ttl=30)
+_tech_cache = TTLCache(ttl=45)
+_indices_cache = TTLCache(ttl=30)
+_sector_cache = TTLCache(ttl=120)
 
 # ─── Sector ETF Mappings ───
 SECTOR_ETFS = {
@@ -153,7 +192,10 @@ def get_ticker_data(ticker: str, period: str = "6mo", interval: str = "1d") -> O
 
 
 def get_ticker_info(ticker: str) -> Dict[str, Any]:
-    """Get comprehensive ticker info"""
+    """Get comprehensive ticker info — 30sn cache"""
+    cached = _quote_cache.get(ticker)
+    if cached:
+        return cached
     try:
         t = yf.Ticker(ticker)
         info = t.info or {}
@@ -164,7 +206,7 @@ def get_ticker_info(ticker: str) -> Dict[str, Any]:
         change = price - prev if prev else 0
         change_pct = (change / prev * 100) if prev else 0
 
-        return {
+        result = {
             "symbol": ticker.upper(),
             "name": info.get("shortName") or info.get("longName", ticker),
             "price": round(price, 2),
@@ -196,13 +238,18 @@ def get_ticker_info(ticker: str) -> Dict[str, Any]:
             "analyst_count": info.get("numberOfAnalystOpinions"),
             "institutional_pct": info.get("heldPercentInstitutions"),
         }
+        _quote_cache.set(ticker, result)
+        return result
     except Exception as e:
         logger.error(f"Ticker bilgisi alınamadı {ticker}: {e}")
         return {"symbol": ticker.upper(), "error": str(e)}
 
 
 def get_technical_analysis(ticker: str) -> Dict[str, Any]:
-    """Full technical analysis for a ticker"""
+    """Full technical analysis for a ticker — 45sn cache"""
+    cached = _tech_cache.get(ticker)
+    if cached:
+        return cached
     df = get_ticker_data(ticker, period="1y")
     if df is None or len(df) < 50:
         return {"error": "Yetersiz veri"}
@@ -273,7 +320,7 @@ def get_technical_analysis(ticker: str) -> Dict[str, Any]:
     macd_signal_val = float(signal_line.iloc[-1]) if not pd.isna(signal_line.iloc[-1]) else 0
     macd_hist_val = float(histogram.iloc[-1]) if not pd.isna(histogram.iloc[-1]) else 0
 
-    return {
+    result = {
         "ticker": ticker.upper(),
         "price": current_price,
         "trend": trend,
@@ -306,10 +353,16 @@ def get_technical_analysis(ticker: str) -> Dict[str, Any]:
             "rvol": rvol,
         },
     }
+    _tech_cache.set(ticker, result)
+    return result
 
 
 def get_sector_performance(period: str = "1mo") -> List[Dict[str, Any]]:
-    """Get performance of all sector ETFs"""
+    """Get performance of all sector ETFs — 120sn cache"""
+    cache_key = f"sectors_{period}"
+    cached = _sector_cache.get(cache_key)
+    if cached:
+        return cached
     results = []
     etf_list = list(SECTOR_ETFS.values())
 
@@ -344,7 +397,9 @@ def get_sector_performance(period: str = "1mo") -> List[Dict[str, Any]]:
     except Exception as e:
         logger.error(f"Sektör performansı alınamadı: {e}")
 
-    return sorted(results, key=lambda x: x["change_pct"], reverse=True)
+    sorted_results = sorted(results, key=lambda x: x["change_pct"], reverse=True)
+    _sector_cache.set(cache_key, sorted_results)
+    return sorted_results
 
 
 def get_market_regime() -> Dict[str, Any]:
@@ -391,7 +446,11 @@ def get_market_regime() -> Dict[str, Any]:
 
 
 def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
-    """Get quotes for multiple symbols efficiently"""
+    """Get quotes for multiple symbols efficiently — 30sn cache"""
+    cache_key = ",".join(sorted(symbols))
+    cached = _indices_cache.get(cache_key)
+    if cached:
+        return cached
     results = []
     try:
         tickers = yf.Tickers(" ".join(symbols))
@@ -416,4 +475,6 @@ def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
     except Exception as e:
         logger.error(f"Toplu fiyat alınamadı: {e}")
 
+    if results:
+        _indices_cache.set(cache_key, results)
     return results
