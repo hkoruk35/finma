@@ -62,3 +62,28 @@ export function toTvSymbol(symbol: string): string {
  * Always use this constant instead of hardcoding 'SPX' or similar.
  */
 export const DEFAULT_CHART_SYMBOL = TV_SYMBOL_MAP.SPX  // FOREXCOM:SPXUSD
+
+/* ── UI Display Name Map ──
+ * Backend sends yfinance symbols (GSPC, IXIC, GC, SI, CL).
+ * Users expect to see standard/recognizable names.
+ * Use toDisplaySymbol() in ALL UI labels (TopBar ticker, Market cards, etc.)
+ */
+const DISPLAY_SYMBOL_MAP: Record<string, string> = {
+  // Backend → UI label
+  GSPC:  'SPX',       // ^GSPC → S&P 500
+  IXIC:  'NASDAQ',    // ^IXIC → NASDAQ Composite
+  GC:    'GOLD',      // Gold Futures
+  SI:    'SILVER',    // Silver Futures
+  CL:    'OIL',       // Crude Oil WTI
+}
+
+/**
+ * Convert backend symbol to user-friendly display name.
+ * GSPC → SPX, IXIC → NASDAQ, GC → GOLD, SI → SILVER, CL → OIL
+ * Unknown symbols pass through unchanged (DJI, BTC, ETH, NVDA, etc.)
+ */
+export function toDisplaySymbol(symbol: string): string {
+  if (!symbol) return symbol
+  const upper = symbol.toUpperCase().trim()
+  return DISPLAY_SYMBOL_MAP[upper] || upper
+}

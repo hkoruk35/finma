@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils'
 import { useIndices } from '@/hooks/useMarketData'
 import { mockIndices } from '@/lib/mock-data'
+import { toDisplaySymbol } from '@/lib/tv-symbols'
 
 export function MarketTicker() {
   const { data: liveIndices } = useIndices()
@@ -26,7 +27,7 @@ export function MarketTicker() {
             className="flex items-center gap-2 px-4 shrink-0 cursor-pointer hover:bg-white/5 h-full py-2 transition-colors"
           >
             <span className="text-xs font-semibold text-finma-text whitespace-nowrap">
-              {index.symbol}
+              {toDisplaySymbol(index.symbol)}
             </span>
             <span className="finma-number text-xs text-finma-text whitespace-nowrap">
               ${index.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}

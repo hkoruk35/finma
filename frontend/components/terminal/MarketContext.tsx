@@ -6,6 +6,7 @@ import { useTerminalStore } from '@/store/terminal'
 import type { MarketIndex } from '@/types'
 import { Globe, ChevronLeft, ChevronRight } from 'lucide-react'
 import { createPortal } from 'react-dom'
+import { toDisplaySymbol } from '@/lib/tv-symbols'
 
 /* ── Symbol dönüşümü artık store seviyesinde yapılıyor (lib/tv-symbols.ts) ──
  * setChartSymbol() her çağrıda otomatik olarak toTvSymbol() uygular.
@@ -220,7 +221,7 @@ export function MarketContext({ indices, onSelectChart }: MarketContextProps) {
                   )}
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-semibold text-finma-primary">{index.symbol}</span>
+                    <span className="text-[10px] font-semibold text-finma-primary">{toDisplaySymbol(index.symbol)}</span>
                     <span
                       className={cn(
                         'text-[9px] finma-number font-medium',
