@@ -2,35 +2,39 @@
 FinMA Signal Push Script
 ========================
 Swing112 botu çalıştıktan sonra bu script otomatik olarak çağrılır.
-Bot sonuçlarını Railway'deki FinMA API'ye push eder.
+Bot sonuçlarını JSON dosyasına yazar → git push → Vercel otomatik deploy eder.
 
 KULLANIM:
   python push_to_finma.py                          # output/bot_analysis_latest.json okur
   python push_to_finma.py --file path/to/file.json # özel dosya yolu
+  python push_to_finma.py --dry-run                # sadece görüntüle, push etme
 
-BOT SCHEDULER'A EKLEMEK İÇİN:
-  Swing112 botu bittikten sonra bu scripti çağır:
-    subprocess.run(["python", "push_to_finma.py"], check=True)
-  veya scheduler'da sırayla çalıştır.
+NASIL ÇALIŞIR:
+  1. Bot output JSON okunur (20 aday)
+  2. FinMA formatına dönüştürülür
+  3. frontend/data/signals-latest.json dosyasına yazılır
+  4. Git add → commit → push
+  5. Vercel otomatik deploy eder (~2 dakika)
+  6. Dashboard ve landing page güncellenir
 """
 
 import json
 import os
 import sys
 import argparse
-import requests
+import subprocess
 from datetime import datetime
 
-# ─── Konfigürasyon ───
-# Vercel'e push (Supabase'e kalıcı yazar) — Railway bypass
-FINMA_API_URL = "https://www.finmasmart.com"
-BOT_API_KEY   = os.environ.get("BOT_API_KEY", "finma-bot-2026")
+# ─── Dosya Yolları ───
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)  # finma/
+SIGNALS_JSON = os.path.join(PROJECT_ROOT, "frontend", "data", "signals-latest.json")
 
 # Bot output dosya yolları (sırayla dener)
 DEFAULT_PATHS = [
-    os.path.join(os.path.dirname(__file__), "output", "bot_analysis_latest.json"),
-    os.path.join(os.path.dirname(__file__), "output", "swing112_latest.json"),
-    os.path.join(os.path.dirname(__file__), "..", "output", "bot_analysis_latest.json"),
+    os.path.join(SCRIPT_DIR, "output", "bot_analysis_latest.json"),
+    os.path.join(SCRIPT_DIR, "output", "swing112_latest.json"),
+    os.path.join(PROJECT_ROOT, "output", "bot_analysis_latest.json"),
 ]
 
 
@@ -42,96 +46,115 @@ def load_bot_output(file_path: str = None) -> dict:
         if path and os.path.exists(path):
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                print(f"✅ Dosya okundu: {path}")
+                print(f"  Dosya okundu: {path}")
                 return data
 
     raise FileNotFoundError(
-        f"Bot output dosyası bulunamadı. Beklenen konumlar:\n"
+        f"Bot output dosyasi bulunamadi. Beklenen konumlar:\n"
         + "\n".join(f"  - {p}" for p in paths)
     )
 
 
-def convert_to_push_format(bot_data: dict) -> dict:
+def convert_to_signals_format(bot_data: dict) -> dict:
     """
-    Bot output formatını FinMA push formatına dönüştür.
+    Bot output formatını signals-latest.json formatına dönüştür.
 
-    Bot output formatı (bot_analysis_latest.json):
-      candidates: [{ticker, score, price, entry, stop_loss, tp1, tp2, sector, ...}]
-
-    FinMA push formatı:
-      candidates: [{ticker, score, price, entry, stop_loss, tp1, tp2, action, sector, notes}]
+    Bot output: candidates: [{ticker, score, price, entry, stop_loss, tp1, tp2, sector, ...}]
+    Signals format: candidates: [{ticker, score, price, action, entry_zone, stop_loss, target, potential_pct, sector, trend_phase}]
     """
     candidates = bot_data.get("candidates", [])
-    push_candidates = []
+    signals = []
 
     for c in candidates:
         ticker = str(c.get("ticker", "")).upper()
-        score  = float(c.get("score", 0))
-        price  = float(c.get("price", 0))
+        score = float(c.get("score", 0))
+        price = float(c.get("price", 0))
 
-        # Giriş fiyatı: entry veya price
-        entry  = float(c.get("entry", c.get("entry_price", price)))
-
-        # Stop loss
+        entry = float(c.get("entry", c.get("entry_price", price)))
         stop_loss = float(c.get("stop_loss", c.get("stop", 0)))
-
-        # Hedefler: tp1/tp2 veya target1/target2 veya target
-        tp1 = float(c.get("tp1", c.get("target1", c.get("target", entry * 1.05))))
-        tp2 = float(c.get("tp2", c.get("target2", c.get("target", entry * 1.10))))
+        tp1 = float(c.get("tp1", c.get("target1", entry * 1.05)))
+        tp2 = float(c.get("tp2", c.get("target2", entry * 1.10)))
 
         sector = str(c.get("sector", "Unknown"))
         action = str(c.get("action", "BUY")).upper()
-        notes  = c.get("notes", [f"Swing112 skor: {score}"])
+        trend_phase = str(c.get("trend_phase", "Expansion"))
+
+        potential_pct = round(((tp2 - entry) / entry) * 100, 2) if entry > 0 else 0
 
         if not ticker or score <= 0:
             continue
 
-        push_candidates.append({
-            "ticker":    ticker,
-            "score":     round(score, 1),
-            "price":     round(price, 4),
-            "entry":     round(entry, 4),
+        signals.append({
+            "ticker": ticker,
+            "score": round(score, 1),
+            "price": round(price, 4),
+            "action": action,
+            "entry_zone": f"{entry:.2f} - {tp1:.2f}",
             "stop_loss": round(stop_loss, 4),
-            "tp1":       round(tp1, 4),
-            "tp2":       round(tp2, 4),
-            "action":    action,
-            "sector":    sector,
-            "notes":     notes if isinstance(notes, list) else [str(notes)],
+            "target": round(tp2, 2),
+            "potential_pct": round(potential_pct, 2),
+            "sector": sector,
+            "trend_phase": trend_phase,
         })
 
+    # Score'a göre sırala (en yüksek üstte)
+    signals.sort(key=lambda x: x["score"], reverse=True)
+
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     return {
-        "bot_name":      bot_data.get("bot_name", "swing112"),
+        "timestamp": timestamp,
+        "bot_name": bot_data.get("bot_name", "swing112"),
         "market_regime": bot_data.get("market_regime", "Bull"),
-        "vix_level":     float(bot_data.get("vix_level", 20.0)),
-        "sector_leaders": bot_data.get("sector_leaders", []),
-        "candidates":    push_candidates,
+        "vix_level": float(bot_data.get("vix_level", 20.0)),
+        "candidates": signals,
     }
 
 
-def push_to_finma(payload: dict) -> dict:
-    """FinMA API'ye push et."""
-    url = f"{FINMA_API_URL}/api/signals/push"
-    headers = {
-        "Content-Type": "application/json",
-        "X-Api-Key": BOT_API_KEY,
-    }
+def write_signals_json(data: dict):
+    """signals-latest.json dosyasına yaz."""
+    os.makedirs(os.path.dirname(SIGNALS_JSON), exist_ok=True)
 
-    print(f"🚀 FinMA API'ye push ediliyor: {url}")
-    print(f"   Aday sayısı: {len(payload['candidates'])}")
-    print(f"   Bot: {payload['bot_name']} | Rejim: {payload['market_regime']} | VIX: {payload['vix_level']}")
+    with open(SIGNALS_JSON, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
-    resp = requests.post(url, json=payload, headers=headers, timeout=30)
-    resp.raise_for_status()
+    print(f"  JSON yazildi: {SIGNALS_JSON}")
 
-    result = resp.json()
-    print(f"✅ Başarılı! {result.get('count', 0)} sinyal push edildi — {result.get('timestamp', '')}")
-    return result
+
+def git_push():
+    """Git add → commit → push."""
+    try:
+        # Proje kökünden çalıştır
+        os.chdir(PROJECT_ROOT)
+
+        # Sadece signals JSON dosyasını ekle
+        subprocess.run(["git", "add", "frontend/data/signals-latest.json"], check=True, capture_output=True)
+
+        # Değişiklik var mı kontrol et
+        result = subprocess.run(["git", "diff", "--cached", "--quiet"], capture_output=True)
+        if result.returncode == 0:
+            print("  Degisiklik yok — ayni veri, push atlanıyor.")
+            return False
+
+        # Commit
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+        msg = f"bot: swing112 sinyal guncelleme — {timestamp}"
+        subprocess.run(["git", "commit", "-m", msg], check=True, capture_output=True)
+
+        # Push
+        subprocess.run(["git", "push"], check=True, capture_output=True)
+        print(f"  Git push basarili! Vercel ~2 dk icinde deploy edecek.")
+        return True
+
+    except subprocess.CalledProcessError as e:
+        print(f"  Git hatasi: {e.stderr.decode() if e.stderr else str(e)}")
+        return False
 
 
 def main():
     parser = argparse.ArgumentParser(description="FinMA Signal Push")
     parser.add_argument("--file", help="Bot output JSON dosya yolu (opsiyonel)")
-    parser.add_argument("--dry-run", action="store_true", help="API'ye göndermeden sadece dosyayı okur/gösterir")
+    parser.add_argument("--dry-run", action="store_true", help="JSON yaz ama git push yapma")
     args = parser.parse_args()
 
     print(f"\n{'='*50}")
@@ -140,33 +163,41 @@ def main():
 
     try:
         # 1. Bot output'unu oku
+        print("[1/3] Bot output okunuyor...")
         bot_data = load_bot_output(args.file)
 
-        # 2. Formatı dönüştür
-        payload = convert_to_push_format(bot_data)
+        # 2. Formatı dönüştür ve JSON yaz
+        print("[2/3] Sinyal formatina donusturuluyor...")
+        signals = convert_to_signals_format(bot_data)
+        write_signals_json(signals)
+        print(f"  {len(signals['candidates'])} aday yazildi")
+        print(f"  Bot: {signals['bot_name']} | Rejim: {signals['market_regime']} | VIX: {signals['vix_level']}")
+        print(f"  Top 5: {', '.join(c['ticker'] for c in signals['candidates'][:5])}")
 
         if args.dry_run:
-            print("\n[DRY RUN] Push edilecek veri:")
-            print(json.dumps(payload, indent=2, ensure_ascii=False)[:1000])
-            print(f"\nToplam {len(payload['candidates'])} aday")
+            print("\n[DRY RUN] Git push atlanıyor.")
+            print(f"Dosya: {SIGNALS_JSON}")
             return
 
-        # 3. API'ye push et
-        push_to_finma(payload)
+        # 3. Git push
+        print("[3/3] Git push ediliyor...")
+        pushed = git_push()
+
+        if pushed:
+            print(f"\n{'='*50}")
+            print("  FinMA guncellendi!")
+            print("  Vercel ~2 dakika icinde deploy edecek.")
+            print("  https://www.finmasmart.com")
+            print(f"{'='*50}\n")
+        else:
+            print(f"\n  Sinyal verisi ayni — site zaten guncel.")
 
     except FileNotFoundError as e:
-        print(f"❌ Hata: {e}")
-        sys.exit(1)
-    except requests.HTTPError as e:
-        print(f"❌ API Hatası: {e.response.status_code} — {e.response.text}")
+        print(f"\nHATA: {e}")
         sys.exit(1)
     except Exception as e:
-        print(f"❌ Beklenmedik hata: {e}")
+        print(f"\nBeklenmedik hata: {e}")
         sys.exit(1)
-
-    print(f"\n{'='*50}")
-    print("  FinMA güncellendi. Site otomatik yenilendi.")
-    print(f"{'='*50}\n")
 
 
 if __name__ == "__main__":
