@@ -1,52 +1,51 @@
 /**
- * Next.js API Proxy — Vercel Edge'den Railway backend'e proxy
+ * Next.js API Proxy — Vercel Edge → Railway backend
+ *
+ * Flow: Browser → /api/proxy/market/quote/DELL → Railway /api/market/quote/DELL
  *
  * Avantajlar:
- * 1. CORS sorunları ortadan kalkar (same-origin)
- * 2. Vercel CDN edge caching ile hız artar
- * 3. Backend URL client'a açıklanmaz (güvenlik)
- * 4. Yüzlerce concurrent user için Vercel edge'de scale edilir
+ * 1. Same-origin — CORS sorunları yok
+ * 2. Vercel CDN edge cache (s-maxage)
+ * 3. Backend URL gizli (güvenlik)
  */
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
 
-// Cache süreleri (saniye)
-const CACHE_RULES: Record<string, number> = {
-  '/api/market/indices': 30,
-  '/api/market/sectors': 120,
-  '/api/market/regime': 60,
-  '/api/signals/latest': 300,
-  '/api/signals/featured': 300,
-}
+// Cache süreleri (saniye) — path prefix match
+const CACHE_RULES: [string, number][] = [
+  ['/api/market/indices', 30],
+  ['/api/market/sectors', 120],
+  ['/api/market/regime', 60],
+  ['/api/market/quote/', 15],
+  ['/api/market/technicals/', 20],
+  ['/api/market/analysis/', 30],
+  ['/api/signals/', 300],
+  ['/api/portfolio/', 0], // no cache — user-specific
+  ['/api/auth/', 0],
+]
 
 function getCacheDuration(path: string): number {
-  // Exact match
-  if (CACHE_RULES[path]) return CACHE_RULES[path]
-  // Quote ve technicals — 15sn cache
-  if (path.startsWith('/api/market/quote/')) return 15
-  if (path.startsWith('/api/market/technicals/')) return 20
-  if (path.startsWith('/api/market/analysis/')) return 30
-  // Signals — 5dk
-  if (path.startsWith('/api/signals/')) return 300
-  // Default
+  for (const [prefix, ttl] of CACHE_RULES) {
+    if (path === prefix || path.startsWith(prefix)) return ttl
+  }
   return 0
 }
 
 async function handler(request: Request, { params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params
-  const backendPath = '/api/' + path.join('/')
+
+  // path = ['api', 'market', 'quote', 'DELL'] → backendPath = '/api/market/quote/DELL'
+  const backendPath = '/' + path.join('/')
   const url = new URL(request.url)
   const queryString = url.search
 
   const backendUrl = `${BACKEND_URL}${backendPath}${queryString}`
 
   try {
-    // Forward request to backend
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     }
 
-    // Forward auth header
     const auth = request.headers.get('Authorization')
     if (auth) headers['Authorization'] = auth
 
@@ -55,7 +54,6 @@ async function handler(request: Request, { params }: { params: Promise<{ path: s
       headers,
     }
 
-    // Forward body for POST/PUT/DELETE
     if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method)) {
       try {
         fetchOptions.body = await request.text()
@@ -66,19 +64,17 @@ async function handler(request: Request, { params }: { params: Promise<{ path: s
 
     const response = await fetch(backendUrl, {
       ...fetchOptions,
-      signal: AbortSignal.timeout(25_000), // 25s timeout
+      signal: AbortSignal.timeout(25_000),
     })
 
     const data = await response.text()
 
-    // Build response with cache headers
     const cacheDuration = getCacheDuration(backendPath)
     const responseHeaders: Record<string, string> = {
-      'Content-Type': 'application/json',
+      'Content-Type': response.headers.get('Content-Type') || 'application/json',
     }
 
     if (cacheDuration > 0 && request.method === 'GET' && response.ok) {
-      // s-maxage: Vercel CDN cache, stale-while-revalidate: arka planda güncelle
       responseHeaders['Cache-Control'] = `public, s-maxage=${cacheDuration}, stale-while-revalidate=${cacheDuration * 2}`
     } else {
       responseHeaders['Cache-Control'] = 'no-store'

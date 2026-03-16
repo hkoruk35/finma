@@ -20,6 +20,12 @@ from app.services.market_data import (
     get_market_regime,
     get_sector_performance,
 )
+from app.services.stock_cache import (
+    get_cached_quote,
+    get_cached_technicals,
+    get_cached_ai_analysis,
+    save_to_cache,
+)
 from app.dependencies import get_current_user
 
 router = APIRouter()
@@ -66,15 +72,29 @@ async def analyze(request: AIRequest):
 
 @router.get("/stock-analysis/{ticker}", response_model=AIResponse)
 async def stock_analysis(ticker: str):
-    """Kapsamlı AI hisse analizi (Gold üyelik)"""
+    """Cache-first AI hisse analizi — cache hit: <10ms, miss: Gemini call"""
+    t = ticker.upper()
     try:
-        info = get_ticker_info(ticker.upper())
-        technicals = get_technical_analysis(ticker.upper())
+        # 1. Cache'den AI analiz bak
+        cached_ai = get_cached_ai_analysis(t)
+        if cached_ai:
+            return AIResponse(response=cached_ai)
+
+        # 2. Cache miss — hesapla
+        info = get_cached_quote(t) or get_ticker_info(t)
+        technicals = get_cached_technicals(t) or get_technical_analysis(t)
 
         if "error" in technicals:
             raise HTTPException(status_code=404, detail=f"Yeterli veri yok: {ticker}")
 
-        response = await analyze_stock(ticker.upper(), technicals, info)
+        response = await analyze_stock(t, technicals, info)
+
+        # 3. Cache'e yaz
+        try:
+            save_to_cache(t, ai_analysis=response)
+        except Exception:
+            pass
+
         return AIResponse(response=response)
     except HTTPException:
         raise
