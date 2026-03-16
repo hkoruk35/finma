@@ -1,6 +1,7 @@
 """
-Market Data Service - Ported from data_engine.py
-yfinance wrapper with technical indicators (RSI, EMA, ADX, ATR, RVOL, CMF, Bollinger)
+Market Data Service
+Yahoo Finance v8/v7 API (direct HTTP) + yfinance fast_info
+Technical indicators: RSI, EMA, ADX, ATR, RVOL, CMF, Bollinger
 """
 
 import yfinance as yf
@@ -9,9 +10,19 @@ import numpy as np
 import logging
 import time
 import threading
+import httpx
 from typing import Optional, Dict, List, Any
 from datetime import datetime, timedelta
 from functools import lru_cache
+
+# Yahoo Finance doğrudan HTTP endpoint'leri
+_YF_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+_YF_QUOTE_URL = "https://query1.finance.yahoo.com/v7/finance/quote"
+_YF_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "application/json",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 
 logger = logging.getLogger(__name__)
 
@@ -177,17 +188,48 @@ def calc_rvol(df: pd.DataFrame, period: int = 20) -> float:
 # ─── Data Fetching ───
 
 def get_ticker_data(ticker: str, period: str = "6mo", interval: str = "1d") -> Optional[pd.DataFrame]:
-    """Fetch OHLCV data for a ticker"""
+    """Fetch OHLCV via Yahoo Finance v8 Chart API (direct HTTP — yf.download bypass)"""
+    cache_key = f"ohlcv:{ticker}:{period}:{interval}"
+    cached = _tech_cache.get(cache_key)
+    if cached is not None:
+        return cached
     try:
-        df = yf.download(ticker, period=period, interval=interval, progress=False)
+        url = _YF_CHART_URL.format(symbol=ticker)
+        params = {"range": period, "interval": interval, "includePrePost": "false"}
+        with httpx.Client(timeout=15, follow_redirects=True) as client:
+            resp = client.get(url, params=params, headers=_YF_HEADERS)
+            resp.raise_for_status()
+            data = resp.json()
+
+        result = data["chart"]["result"][0]
+        timestamps = result["timestamp"]
+        q = result["indicators"]["quote"][0]
+
+        df = pd.DataFrame({
+            "Open":   q.get("open",   [None] * len(timestamps)),
+            "High":   q.get("high",   [None] * len(timestamps)),
+            "Low":    q.get("low",    [None] * len(timestamps)),
+            "Close":  q.get("close",  [None] * len(timestamps)),
+            "Volume": q.get("volume", [0]    * len(timestamps)),
+        }, index=pd.to_datetime(timestamps, unit="s", utc=True).tz_convert(None))
+
+        df = df.dropna(subset=["Close"])
         if df.empty:
             return None
-        # Handle multi-level columns from yfinance
-        if isinstance(df.columns, pd.MultiIndex):
-            df.columns = df.columns.get_level_values(0)
+        _tech_cache.set(cache_key, df)
         return df
+
     except Exception as e:
-        logger.error(f"Veri çekilemedi {ticker}: {e}")
+        logger.error(f"Veri çekilemedi {ticker} (v8 chart): {e}")
+        # Fallback: yfinance download
+        try:
+            df = yf.download(ticker, period=period, interval=interval, progress=False, auto_adjust=True)
+            if not df.empty:
+                if isinstance(df.columns, pd.MultiIndex):
+                    df.columns = df.columns.get_level_values(0)
+                return df
+        except Exception as e2:
+            logger.error(f"Fallback yf.download da başarısız {ticker}: {e2}")
         return None
 
 
@@ -464,34 +506,68 @@ def get_market_regime() -> Dict[str, Any]:
 
 
 def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
-    """Get quotes for multiple symbols efficiently — 30sn cache"""
+    """Get real-time quotes via Yahoo Finance v7 Quote API — tek HTTP isteği, 30sn cache"""
     cache_key = ",".join(sorted(symbols))
     cached = _indices_cache.get(cache_key)
     if cached:
         return cached
+
     results = []
     try:
-        tickers = yf.Tickers(" ".join(symbols))
-        for symbol in symbols:
-            try:
-                t = tickers.tickers[symbol]
-                fast = t.fast_info
-                price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
-                prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or 0)
-                change = price - prev if prev else 0
-                change_pct = (change / prev * 100) if prev else 0
+        params = {
+            "symbols": ",".join(symbols),
+            "fields": "regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketPreviousClose",
+            "formatted": "false",
+        }
+        with httpx.Client(timeout=15, follow_redirects=True) as client:
+            resp = client.get(_YF_QUOTE_URL, params=params, headers=_YF_HEADERS)
+            resp.raise_for_status()
+            data = resp.json()
 
-                display = symbol.replace("^", "").replace("-USD", "").replace("=F", "")
-                results.append({
-                    "symbol": display,
-                    "price": round(price, 2),
-                    "change": round(change, 2),
-                    "change_pct": round(change_pct, 2),
-                })
-            except Exception:
+        quotes = data.get("quoteResponse", {}).get("result", [])
+        for q in quotes:
+            symbol_raw = q.get("symbol", "")
+            price = float(q.get("regularMarketPrice", 0) or 0)
+            change = float(q.get("regularMarketChange", 0) or 0)
+            change_pct = float(q.get("regularMarketChangePercent", 0) or 0)
+
+            if price <= 0:
                 continue
+
+            display = symbol_raw.replace("^", "").replace("-USD", "").replace("=F", "")
+            results.append({
+                "symbol": display,
+                "price": round(price, 2),
+                "change": round(change, 2),
+                "change_pct": round(change_pct, 4),
+            })
+
     except Exception as e:
-        logger.error(f"Toplu fiyat alınamadı: {e}")
+        logger.error(f"Toplu fiyat alınamadı (v7 quote): {e}")
+        # Fallback: yfinance fast_info
+        try:
+            tickers = yf.Tickers(" ".join(symbols))
+            for symbol in symbols:
+                try:
+                    t = tickers.tickers[symbol]
+                    fast = t.fast_info
+                    price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
+                    prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or 0)
+                    change = price - prev if prev else 0
+                    change_pct = (change / prev * 100) if prev else 0
+                    if price <= 0:
+                        continue
+                    display = symbol.replace("^", "").replace("-USD", "").replace("=F", "")
+                    results.append({
+                        "symbol": display,
+                        "price": round(price, 2),
+                        "change": round(change, 2),
+                        "change_pct": round(change_pct, 4),
+                    })
+                except Exception:
+                    continue
+        except Exception as e2:
+            logger.error(f"Fallback fast_info da başarısız: {e2}")
 
     if results:
         _indices_cache.set(cache_key, results)
