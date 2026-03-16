@@ -19,7 +19,7 @@ const CACHE_RULES: [string, number][] = [
   ['/api/market/quote/', 15],
   ['/api/market/technicals/', 20],
   ['/api/market/analysis/', 30],
-  ['/api/signals/', 300],
+  ['/api/signals/', 60],
   ['/api/portfolio/', 0], // no cache — user-specific
   ['/api/auth/', 0],
 ]

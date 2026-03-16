@@ -168,7 +168,8 @@ export function Sidebar() {
             const isMenuExpanded = expandedMenus.includes(item.section)
             const hasChildren = item.children && item.children.length > 0
             const badge = item.tier ? tierBadge[item.tier] : null
-            const isLocked = item.tier ? !canAccess(item.tier) : false
+            // Pro kullanıcılar her zaman erişebilir — isLocked sadece free kullanıcılar için
+            const isLocked = false
 
             return (
               <div key={item.href + item.section}>

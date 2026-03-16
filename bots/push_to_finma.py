@@ -22,7 +22,7 @@ import requests
 from datetime import datetime
 
 # ─── Konfigürasyon ───
-FINMA_API_URL = "https://finmasmart-backend.up.railway.app"
+FINMA_API_URL = "https://finma-production.up.railway.app"
 BOT_API_KEY   = os.environ.get("BOT_API_KEY", "finma-bot-2026")
 
 # Bot output dosya yolları (sırayla dener)
