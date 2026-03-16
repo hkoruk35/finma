@@ -153,10 +153,17 @@ class APIClient {
     return this.request<{ info: any; technicals: any }>(`/api/market/analysis/${ticker}`)
   }
 
-  // ─── Signals ───
+  // ─── Signals (Vercel → Supabase doğrudan, Railway bypass) ───
 
   async getLatestSignals() {
-    return this.request<{
+    // Production: /api/signals/latest (Vercel serverless → Supabase)
+    // Dev: Railway proxy fallback
+    const signalUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+      ? '/api/signals/latest'
+      : `${this.baseUrl}/api/signals/latest`
+    const res = await fetch(signalUrl, { cache: 'no-store' })
+    if (!res.ok) throw new Error(`Signals ${res.status}`)
+    return res.json() as Promise<{
       timestamp: string; bot_name?: string; market_regime: string;
       sector_leaders?: string[]; vix_level: number;
       candidates: Array<{
@@ -165,11 +172,16 @@ class APIClient {
         potential_pct: number; sector: string; trend_phase?: string;
         rvol?: number; notes?: string[];
       }>
-    }>('/api/signals/latest')
+    }>
   }
 
   async getFeaturedSignals(limit = 5) {
-    return this.request<{
+    const signalUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+      ? `/api/signals/featured?limit=${limit}`
+      : `${this.baseUrl}/api/signals/featured?limit=${limit}`
+    const res = await fetch(signalUrl, { cache: 'no-store' })
+    if (!res.ok) throw new Error(`Featured ${res.status}`)
+    return res.json() as Promise<{
       timestamp: string; market_regime: string; vix_level: number;
       featured: Array<{
         ticker: string; score: number; price: number; action: string;
@@ -177,7 +189,7 @@ class APIClient {
         potential_pct: number; sector: string; trend_phase?: string;
         rvol?: number; notes?: string[];
       }>
-    }>(`/api/signals/featured?limit=${limit}`)
+    }>
   }
 
   async getCandidates(params?: { sector?: string; action?: string; min_score?: number; limit?: number }) {

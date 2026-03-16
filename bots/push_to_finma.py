@@ -22,7 +22,8 @@ import requests
 from datetime import datetime
 
 # ─── Konfigürasyon ───
-FINMA_API_URL = "https://finma-production.up.railway.app"
+# Vercel'e push (Supabase'e kalıcı yazar) — Railway bypass
+FINMA_API_URL = "https://www.finmasmart.com"
 BOT_API_KEY   = os.environ.get("BOT_API_KEY", "finma-bot-2026")
 
 # Bot output dosya yolları (sırayla dener)
