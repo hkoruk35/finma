@@ -1,6 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
+import { toTvSymbol, DEFAULT_CHART_SYMBOL } from '@/lib/tv-symbols'
 
 interface TerminalState {
   sidebarOpen: boolean
@@ -10,6 +11,11 @@ interface TerminalState {
   setSidebarOpen: (open: boolean) => void
   setActiveSection: (section: string) => void
   setSelectedTicker: (ticker: string) => void
+  /**
+   * Sets the TradingView chart symbol.
+   * Automatically converts to exchange-prefixed format via toTvSymbol().
+   * Safe to call with raw symbols like 'SPX', 'BTC', 'XLK', 'NVDA' etc.
+   */
   setChartSymbol: (symbol: string) => void
 }
 
@@ -17,9 +23,9 @@ export const useTerminalStore = create<TerminalState>((set) => ({
   sidebarOpen: true,
   activeSection: 'dashboard',
   selectedTicker: 'AAPL',
-  chartSymbol: 'AAPL',
+  chartSymbol: DEFAULT_CHART_SYMBOL,
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
   setActiveSection: (section) => set({ activeSection: section }),
-  setSelectedTicker: (ticker) => set({ selectedTicker: ticker, chartSymbol: ticker }),
-  setChartSymbol: (symbol) => set({ chartSymbol: symbol }),
+  setSelectedTicker: (ticker) => set({ selectedTicker: ticker, chartSymbol: toTvSymbol(ticker) }),
+  setChartSymbol: (symbol) => set({ chartSymbol: toTvSymbol(symbol) }),
 }))

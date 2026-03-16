@@ -7,17 +7,10 @@ import type { MarketIndex } from '@/types'
 import { Globe, ChevronLeft, ChevronRight } from 'lucide-react'
 import { createPortal } from 'react-dom'
 
-/* ── Backend sembol → TradingView sembol eşleştirme ── */
-const tvSymbolMap: Record<string, string> = {
-  GSPC: 'SPX', DJI: 'DJI', IXIC: 'IXIC', RUT: 'RUT', VIX: 'VIX',
-  SPX: 'SPX', NDX: 'NDX',
-  BTC: 'BTCUSD', ETH: 'ETHUSD',
-  GC: 'COMEX:GC1!', SI: 'COMEX:SI1!', CL: 'NYMEX:CL1!',
-}
-
-function toTvSymbol(symbol: string): string {
-  return tvSymbolMap[symbol] || symbol
-}
+/* ── Symbol dönüşümü artık store seviyesinde yapılıyor (lib/tv-symbols.ts) ──
+ * setChartSymbol() her çağrıda otomatik olarak toTvSymbol() uygular.
+ * Bu sayede tüm sayfalardan gelen semboller doğru exchange-prefixed formata çözümlenir.
+ */
 
 /* ── Türkçe sektör/açıklama haritası ── */
 const sectorMapTR: Record<string, string> = {
@@ -144,12 +137,12 @@ export function MarketContext({ indices, onSelectChart }: MarketContextProps) {
   }
 
   const handleClick = (symbol: string, e: React.MouseEvent<HTMLDivElement>) => {
-    const tvSym = toTvSymbol(symbol)
     const rect = e.currentTarget.getBoundingClientRect()
     if (isMobile) {
       if (tappedSymbol === symbol) {
-        setChartSymbol(tvSym)
-        onSelectChart?.(tvSym)
+        // setChartSymbol otomatik olarak toTvSymbol() uygular (store seviyesinde)
+        setChartSymbol(symbol)
+        onSelectChart?.(symbol)
         setSelectedSymbol(symbol)
         setTappedSymbol(null)
         setTappedRect(null)
@@ -158,8 +151,8 @@ export function MarketContext({ indices, onSelectChart }: MarketContextProps) {
         setTappedRect(rect)
       }
     } else {
-      setChartSymbol(tvSym)
-      onSelectChart?.(tvSym)
+      setChartSymbol(symbol)
+      onSelectChart?.(symbol)
       setSelectedSymbol(symbol)
     }
   }
