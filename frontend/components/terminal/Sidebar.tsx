@@ -30,6 +30,10 @@ import {
   Shield,
   LogOut,
   User,
+  Globe2,
+  Newspaper,
+  UserCheck,
+  History,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
@@ -58,7 +62,16 @@ const navItems: NavItem[] = [
       { href: '/market/maps', icon: Map, label: 'Haritalar' },
     ],
   },
-  { href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured' },
+  {
+    href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured',
+    children: [
+      { href: '/featured', icon: Star, label: 'Günlük Seçimler' },
+      { href: '/featured/backtest', icon: History, label: 'Backtest' },
+    ],
+  },
+  { href: '/insider', icon: UserCheck, label: 'Insider', section: 'insider' },
+  { href: '/news', icon: Newspaper, label: 'Şirket Haberleri', section: 'news' },
+  { href: '/world-markets', icon: Globe2, label: 'Dünya Borsaları', section: 'world-markets' },
   { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'pro' },
   { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'pro' },
   { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'pro' },

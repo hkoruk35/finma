@@ -49,6 +49,10 @@ except Exception as e:
     logger.warning(f"Admin kullanıcı oluşturulamadı: {e}")
 
 
+# Whitelist: Bu e-postalar ödeme yapmadan tam erişim alır
+WHITELISTED_EMAILS = {"hkoruk3535@gmail.com"}
+
+
 class GoogleLoginRequest(BaseModel):
     id_token: str
 
@@ -146,10 +150,25 @@ async def google_login(request: GoogleLoginRequest):
         if not email:
             raise HTTPException(status_code=401, detail="Google hesabından e-posta alınamadı")
 
+        # Whitelist kontrolü: Bu e-postalar otomatik pro alır
+        is_whitelisted = email.lower() in WHITELISTED_EMAILS
+        default_role = "pro" if is_whitelisted else "free"
+        default_tier = "pro" if is_whitelisted else "free"
+
         # Mevcut kullanıcı ara
         existing_user = UsersDB.get_by_email(email)
 
         if existing_user:
+            # Whitelisted kullanıcıyı otomatik pro yap (eğer değilse)
+            if is_whitelisted and existing_user.get("subscription_tier") == "free":
+                UsersDB.update(existing_user["username"], {
+                    "role": "pro",
+                    "subscription_tier": "pro",
+                })
+                existing_user["role"] = "pro"
+                existing_user["subscription_tier"] = "pro"
+                logger.info(f"Whitelisted kullanıcı pro yapıldı: {email}")
+
             token = create_token({"sub": existing_user["username"], "role": existing_user["role"]})
             return TokenResponse(
                 access_token=token,
@@ -170,8 +189,8 @@ async def google_login(request: GoogleLoginRequest):
                 "username": username,
                 "email": email,
                 "password_hash": "",
-                "role": "free",
-                "subscription_tier": "free",
+                "role": default_role,
+                "subscription_tier": default_tier,
                 "full_name": name,
                 "account_type": "individual",
                 "company": None,
@@ -179,9 +198,9 @@ async def google_login(request: GoogleLoginRequest):
                 "created_at": datetime.utcnow().isoformat(),
             }
             created = UsersDB.create(user_data)
-            logger.info(f"Google ile yeni kullanıcı: {username}")
+            logger.info(f"Google ile yeni kullanıcı: {username} (tier: {default_tier})")
 
-            token = create_token({"sub": username, "role": "free"})
+            token = create_token({"sub": username, "role": default_role})
             return TokenResponse(
                 access_token=token,
                 user=UserResponse(**{k: v for k, v in created.items()

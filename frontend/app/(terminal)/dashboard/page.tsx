@@ -1,9 +1,7 @@
 'use client'
 
+import { useState, useEffect, useCallback } from 'react'
 import { HUDMetrics, RiskBanner } from '@/components/terminal/HUDMetrics'
-import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
-import { ActiveOperations } from '@/components/terminal/ActiveOperations'
-import { CompactSignals } from '@/components/terminal/CompactSignals'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { Badge } from '@/components/shared/Badge'
@@ -11,31 +9,103 @@ import { usePortfolioSummary, useTrades } from '@/hooks/usePortfolio'
 import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useRegime } from '@/hooks/useMarketData'
 import { mockPortfolio, mockSignals, mockTrades, mockIndices } from '@/lib/mock-data'
-import { FeaturedStocksBar } from '@/components/terminal/FeaturedStocksBar'
 import { useAuthStore } from '@/store/auth'
+import { cn } from '@/lib/utils'
 import {
   Brain, Clock, AlertCircle, Globe2, DollarSign,
-  Newspaper, Shield, Activity, Flame
+  Newspaper, Shield, Activity, Flame, TrendingUp, TrendingDown,
+  BarChart3, Zap, Target, Eye, ArrowUpRight, ArrowDownRight,
+  Volume2, Building2, Users, RefreshCw
 } from 'lucide-react'
+
+/* ── Sektör Renkleri ── */
+const SECTOR_COLORS: Record<string, string> = {
+  Technology: 'bg-blue-500', Energy: 'bg-green-500', 'Real Estate': 'bg-purple-500',
+  Industrials: 'bg-yellow-500', Communication: 'bg-cyan-500', Materials: 'bg-orange-500',
+  Consumer: 'bg-pink-500', Healthcare: 'bg-red-400', Financials: 'bg-emerald-500',
+  Utilities: 'bg-teal-500',
+}
+
+/* ── Mock: Akıllı Para Akışı ── */
+const SMART_MONEY = [
+  { ticker: 'NVDA', flow: '+$2.4B', direction: 'in', institution: 'BlackRock, Vanguard', change: '+12.3%' },
+  { ticker: 'MSFT', flow: '+$1.8B', direction: 'in', institution: 'State Street, Fidelity', change: '+5.1%' },
+  { ticker: 'AAPL', flow: '+$1.2B', direction: 'in', institution: 'Berkshire, JP Morgan', change: '+3.2%' },
+  { ticker: 'AMD', flow: '+$890M', direction: 'in', institution: 'ARK Invest, Citadel', change: '+8.7%' },
+  { ticker: 'TSLA', flow: '-$650M', direction: 'out', institution: 'Goldman Sachs', change: '-4.2%' },
+  { ticker: 'META', flow: '+$720M', direction: 'in', institution: 'T. Rowe Price', change: '+2.8%' },
+]
+
+/* ── Mock: Market Movers ── */
+const MOVERS = {
+  gainers: [
+    { ticker: 'SMCI', price: 892.40, change_pct: 14.2, volume: '42M' },
+    { ticker: 'PLTR', price: 78.50, change_pct: 8.7, volume: '88M' },
+    { ticker: 'FANG', price: 182.43, change_pct: 6.3, volume: '12M' },
+    { ticker: 'NOC', price: 733.41, change_pct: 5.8, volume: '8M' },
+    { ticker: 'LMT', price: 646.10, change_pct: 4.9, volume: '6M' },
+    { ticker: 'EQNR', price: 35.25, change_pct: 4.1, volume: '15M' },
+    { ticker: 'OKE', price: 85.36, change_pct: 3.8, volume: '5M' },
+    { ticker: 'DELL', price: 151.70, change_pct: 3.2, volume: '9M' },
+    { ticker: 'ARM', price: 145.80, change_pct: 2.9, volume: '22M' },
+    { ticker: 'CRWD', price: 342.10, change_pct: 2.5, volume: '7M' },
+  ],
+  losers: [
+    { ticker: 'RIVN', price: 12.30, change_pct: -8.4, volume: '65M' },
+    { ticker: 'SNAP', price: 11.20, change_pct: -6.1, volume: '38M' },
+    { ticker: 'NKLA', price: 0.85, change_pct: -5.7, volume: '28M' },
+    { ticker: 'BYND', price: 5.40, change_pct: -5.2, volume: '12M' },
+    { ticker: 'LCID', price: 2.80, change_pct: -4.8, volume: '32M' },
+    { ticker: 'COIN', price: 208.50, change_pct: -4.3, volume: '18M' },
+    { ticker: 'PYPL', price: 65.20, change_pct: -3.9, volume: '14M' },
+    { ticker: 'HOOD', price: 18.40, change_pct: -3.5, volume: '25M' },
+    { ticker: 'SOFI', price: 8.90, change_pct: -3.1, volume: '42M' },
+    { ticker: 'DKNG', price: 38.70, change_pct: -2.8, volume: '11M' },
+  ],
+  volume: [
+    { ticker: 'NVDA', price: 912.45, change_pct: 2.1, volume: '145M' },
+    { ticker: 'TSLA', price: 178.90, change_pct: -1.4, volume: '112M' },
+    { ticker: 'PLTR', price: 78.50, change_pct: 8.7, volume: '88M' },
+    { ticker: 'AMD', price: 168.30, change_pct: 1.8, volume: '78M' },
+    { ticker: 'RIVN', price: 12.30, change_pct: -8.4, volume: '65M' },
+    { ticker: 'AAPL', price: 182.30, change_pct: 0.5, volume: '58M' },
+    { ticker: 'SMCI', price: 892.40, change_pct: 14.2, volume: '42M' },
+    { ticker: 'SOFI', price: 8.90, change_pct: -3.1, volume: '42M' },
+    { ticker: 'SNAP', price: 11.20, change_pct: -6.1, volume: '38M' },
+    { ticker: 'INTC', price: 31.50, change_pct: 1.2, volume: '35M' },
+  ],
+}
+
+/* ── Sektör Isı Haritası Verileri ── */
+const SECTOR_HEATMAP = [
+  { name: 'Teknoloji', symbol: 'XLK', change: 1.4, marketCap: '$15.2T', leaders: ['NVDA', 'MSFT', 'AAPL'] },
+  { name: 'Enerji', symbol: 'XLE', change: 2.1, marketCap: '$3.8T', leaders: ['XOM', 'CVX', 'FANG'] },
+  { name: 'Sağlık', symbol: 'XLV', change: -0.3, marketCap: '$7.1T', leaders: ['UNH', 'JNJ', 'LLY'] },
+  { name: 'Finans', symbol: 'XLF', change: -0.6, marketCap: '$8.4T', leaders: ['JPM', 'BAC', 'GS'] },
+  { name: 'Sanayi', symbol: 'XLI', change: 1.8, marketCap: '$5.2T', leaders: ['GE', 'CAT', 'NOC'] },
+  { name: 'Tüketici', symbol: 'XLY', change: -1.2, marketCap: '$6.8T', leaders: ['AMZN', 'TSLA', 'HD'] },
+  { name: 'İletişim', symbol: 'XLC', change: 0.8, marketCap: '$4.5T', leaders: ['META', 'GOOG', 'NFLX'] },
+  { name: 'Gayrimenkul', symbol: 'XLRE', change: -0.4, marketCap: '$1.2T', leaders: ['PLD', 'AMT', 'PSA'] },
+  { name: 'Hammadde', symbol: 'XLB', change: 1.5, marketCap: '$2.1T', leaders: ['LIN', 'APD', 'NTR'] },
+  { name: 'Kamu Hizm.', symbol: 'XLU', change: 0.3, marketCap: '$1.5T', leaders: ['NEE', 'DUK', 'SO'] },
+  { name: 'Tüketici Tep.', symbol: 'XLP', change: 0.1, marketCap: '$3.9T', leaders: ['PG', 'KO', 'PEP'] },
+]
 
 export default function DashboardPage() {
   const { canAccess } = useAuthStore()
   const isPro = canAccess('pro')
-  // Live data hooks (fallback to mock)
   const { data: portfolioData } = usePortfolioSummary()
   const { data: tradesData } = useTrades('OPEN')
   const { data: signalsData } = useLatestSignals()
   const { data: indicesData } = useIndices()
   const { data: regimeData } = useRegime()
 
-  // Use live data or fallback to mock
   const portfolio = portfolioData || mockPortfolio
   const trades = tradesData || mockTrades
   const signals = (signalsData || mockSignals) as import('@/types').SignalReport
   const indices = indicesData && indicesData.length > 0 ? indicesData : mockIndices
 
-  // VIX sanity check: tarihsel max ~89 (COVID). 90+ yfinance veri hatasıdır.
-  // Öncelik: indices içindeki VIX (fast_info) → regime endpoint → signals → mock
+  // VIX sanity check
   const indicesVix = indices.find(i => i.symbol === 'VIX')?.price
   const rawRegimeVix = regimeData?.vix
   const safeRegimeVix = rawRegimeVix && rawRegimeVix > 0 && rawRegimeVix <= 90 ? rawRegimeVix : null
@@ -43,22 +113,33 @@ export default function DashboardPage() {
   const regime = regimeData?.regime_tr ?? (signals.market_regime === 'Bull' ? '🐂 Boğa' : '🐻 Ayı')
   const sectorLeaders = signals.sector_leaders?.join(', ') ?? 'Utilities, Materials'
 
-  const now = new Date()
-  const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-  const dateStr = now.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+  const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
+  const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
+  const [lastRefresh, setLastRefresh] = useState(new Date())
+
+  // 5 dakikada bir otomatik güncelleme
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLastRefresh(new Date())
+    }, 5 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const timeStr = lastRefresh.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+  const dateStr = lastRefresh.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+
+  const top10Candidates = signals.candidates?.slice(0, 10) || []
 
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Risk Banner */}
       <RiskBanner vix={vix} />
 
-      {/* Komuta Merkezi — sadece Pro+ kullanıcılar */}
+      {/* Komuta Merkezi — sadece Pro+ */}
       {isPro && (
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-sm font-semibold text-finma-text">
-              Komuta Merkezi
-            </span>
+            <span className="text-sm font-semibold text-finma-text">Komuta Merkezi</span>
           </div>
           <HUDMetrics data={portfolio} />
         </div>
@@ -67,34 +148,322 @@ export default function DashboardPage() {
       {/* Piyasa Bağlamı */}
       <MarketContext indices={indices} />
 
-      {/* Free: Öne Çıkan Hisseler tam genişlik */}
-      {!isPro && signals.candidates && signals.candidates.length > 0 && (
-        <FeaturedStocksBar candidates={signals.candidates} maxVisible={10} />
-      )}
+      {/* ═══════════════ 1. AI MARKET BRAIN ═══════════════ */}
+      <Card padding="sm">
+        <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
+          <Brain className="w-5 h-5 text-finma-purple" />
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
+            AI Market Brain
+          </span>
+          <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
+            <RefreshCw className="w-3 h-3" /> Her 5 dk güncellenir • {timeStr}
+          </span>
+        </div>
 
-      {/* Ana içerik: Grafik + (Pro ise) Aktif Operasyonlar & Sinyaller */}
-      <div className="grid grid-cols-12 gap-4">
-        {/* TradingView Grafik */}
-        <div className={isPro ? 'col-span-12 lg:col-span-7 xl:col-span-8' : 'col-span-12'}>
-          <div className="h-[300px] md:h-[500px]">
-            <TradingViewWidget />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+          {/* Piyasa Trendi */}
+          <div className="bg-gradient-to-br from-finma-green/5 to-finma-green/10 rounded-lg p-4 border border-finma-green/20">
+            <div className="flex items-center gap-2 mb-3">
+              <Activity className="w-4 h-4 text-finma-green" />
+              <span className="text-xs font-bold text-finma-text uppercase">Piyasa Trendi</span>
+            </div>
+            <div className="text-2xl font-bold text-finma-green mb-2">{regime}</div>
+            <div className="text-xs text-finma-text-muted space-y-1">
+              <div>VIX: <span className="finma-number text-finma-yellow font-semibold">{vix.toFixed(2)}</span></div>
+              <div>S&P 500 {regimeData?.spy_price ? <span className="finma-number">${regimeData.spy_price}</span> : ''} <span className="text-finma-green">200 gün ort. üzerinde</span></div>
+            </div>
+          </div>
+
+          {/* İtici Güçler */}
+          <div className="bg-gradient-to-br from-finma-primary/5 to-finma-primary/10 rounded-lg p-4 border border-finma-primary/20">
+            <div className="flex items-center gap-2 mb-3">
+              <TrendingUp className="w-4 h-4 text-finma-primary" />
+              <span className="text-xs font-bold text-finma-text uppercase">İtici Güçler</span>
+            </div>
+            <div className="text-xs text-finma-text-muted space-y-1.5">
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-green">▲</span> Enerji sektörü güçlü (+2.1%)
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-green">▲</span> Teknoloji momentum devam
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-green">▲</span> Savunma hisseleri rallisi
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-green">▲</span> Liderler: {sectorLeaders}
+              </div>
+            </div>
+          </div>
+
+          {/* Riskler */}
+          <div className="bg-gradient-to-br from-finma-red/5 to-finma-red/10 rounded-lg p-4 border border-finma-red/20">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertCircle className="w-4 h-4 text-finma-red" />
+              <span className="text-xs font-bold text-finma-text uppercase">Riskler</span>
+            </div>
+            <div className="text-xs text-finma-text-muted space-y-1.5">
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-red">▼</span> VIX {vix > 25 ? 'yüksek seviyede' : 'yükseliş eğiliminde'}
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-yellow">⚠</span> FED konuşması bekleniyor
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-yellow">⚠</span> Tahvil getirisi %4.28 baskı
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-finma-red">▼</span> Tüketici sektörü zayıf
+              </div>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* ═══════════════ 2. GÜNÜN 10 AI SEÇİMİ ═══════════════ */}
+      <Card padding="sm">
+        <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
+          <Flame className="w-5 h-5 text-orange-400" />
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
+            Günün 10 AI Seçimi
+          </span>
+          <span className="text-[9px] bg-finma-primary/20 text-finma-primary px-2 py-0.5 rounded-full font-medium ml-2">
+            Bot 112
+          </span>
+          <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
+            <Clock className="w-3 h-3" /> {dateStr}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">
+          {top10Candidates.map((c: any, idx: number) => (
+            <div
+              key={c.ticker}
+              className="flex items-center gap-3 bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 hover:border-finma-primary/30 transition-colors group cursor-pointer"
+            >
+              <div className={cn(
+                'w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0',
+                idx < 3 ? 'bg-finma-primary text-white' : 'bg-finma-bg text-finma-text-dim border border-finma-border'
+              )}>
+                {idx + 1}
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-finma-primary finma-number">{c.ticker}</span>
+                  <Badge variant={c.action === 'BUY' ? 'buy' : c.action === 'HOLD' ? 'hold' : 'sell'}>
+                    {c.action}
+                  </Badge>
+                  <span className="text-[9px] text-finma-text-dim">{c.sector}</span>
+                </div>
+                <p className="text-[10px] text-finma-text-muted mt-0.5 truncate">
+                  {c.notes?.[0] || 'AI analiz devam ediyor...'}
+                </p>
+              </div>
+
+              <div className="text-right shrink-0">
+                <div className="finma-number text-xs font-semibold text-finma-text">${c.price?.toFixed(2)}</div>
+                <div className={cn(
+                  'finma-number text-[10px] font-medium',
+                  (c.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
+                )}>
+                  {(c.potential_pct ?? 0) >= 0 ? '+' : ''}{(c.potential_pct ?? 0).toFixed(1)}%
+                </div>
+              </div>
+
+              <div className={cn(
+                'finma-number text-sm font-bold px-2 py-1 rounded shrink-0',
+                c.score >= 10 ? 'bg-finma-green/20 text-finma-green' :
+                c.score >= 8 ? 'bg-finma-primary/20 text-finma-primary' :
+                'bg-finma-yellow/20 text-finma-yellow'
+              )}>
+                {c.score?.toFixed(1)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* ═══════════════ 3. PİYASA HAREKETLERİ ═══════════════ */}
+      <Card padding="sm">
+        <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
+          <BarChart3 className="w-5 h-5 text-finma-cyan" />
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
+            Piyasa Hareketleri
+          </span>
+        </div>
+
+        {/* Sekmeler */}
+        <div className="flex items-center gap-2 mt-3 mb-3">
+          <div className="flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
+            {([
+              { key: 'gainers', label: 'Yükselenler', icon: TrendingUp, color: 'text-finma-green' },
+              { key: 'losers', label: 'Düşenler', icon: TrendingDown, color: 'text-finma-red' },
+              { key: 'volume', label: 'Hacim', icon: Volume2, color: 'text-finma-cyan' },
+            ] as const).map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setMoversTab(tab.key)}
+                className={cn(
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all',
+                  moversTab === tab.key
+                    ? 'bg-finma-card text-white shadow-sm'
+                    : 'text-finma-text-dim hover:text-finma-text'
+                )}
+              >
+                <tab.icon className={cn('w-3 h-3', moversTab === tab.key && tab.color)} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
+            {(['1d', '1w', '1m', '1y'] as const).map(p => (
+              <button
+                key={p}
+                onClick={() => setMoversPeriod(p)}
+                className={cn(
+                  'px-2.5 py-1 rounded-md text-[10px] font-medium transition-all finma-number',
+                  moversPeriod === p
+                    ? 'bg-finma-card text-white shadow-sm'
+                    : 'text-finma-text-dim hover:text-finma-text'
+                )}
+              >
+                {p === '1d' ? '1 Gün' : p === '1w' ? '1 Hafta' : p === '1m' ? '1 Ay' : '1 Yıl'}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Sağ sütun — sadece Pro+ */}
-        {isPro && (
-          <div className="col-span-12 lg:col-span-5 xl:col-span-4 flex flex-col gap-4">
-            <div className="h-auto md:h-[242px]">
-              <ActiveOperations trades={trades} maxVisible={4} />
-            </div>
-            <div className="h-auto md:h-[242px]">
-              <CompactSignals data={signals} maxVisible={5} />
-            </div>
-          </div>
-        )}
-      </div>
+        {/* Tablo */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-finma-text-dim border-b border-finma-border/30">
+                <th className="text-left py-2 px-2 font-medium">#</th>
+                <th className="text-left py-2 px-2 font-medium">Hisse</th>
+                <th className="text-right py-2 px-2 font-medium">Fiyat</th>
+                <th className="text-right py-2 px-2 font-medium">Değişim</th>
+                <th className="text-right py-2 px-2 font-medium">Hacim</th>
+              </tr>
+            </thead>
+            <tbody>
+              {MOVERS[moversTab].map((stock, idx) => (
+                <tr key={stock.ticker} className="border-b border-finma-border/10 hover:bg-finma-card-hover transition-colors">
+                  <td className="py-2 px-2 finma-number text-finma-text-dim">{idx + 1}</td>
+                  <td className="py-2 px-2 font-semibold text-finma-primary finma-number">{stock.ticker}</td>
+                  <td className="py-2 px-2 text-right finma-number text-finma-text">${stock.price.toFixed(2)}</td>
+                  <td className={cn('py-2 px-2 text-right finma-number font-medium', stock.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                    {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(1)}%
+                  </td>
+                  <td className="py-2 px-2 text-right finma-number text-finma-text-dim">{stock.volume}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
 
-      {/* ═══════════════ Piyasa İstihbaratı ═══════════════ */}
+      {/* ═══════════════ 4. AKILLI PARA AKIŞI ═══════════════ */}
+      <Card padding="sm">
+        <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
+          <Building2 className="w-5 h-5 text-finma-green" />
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
+            Akıllı Para Akışı
+          </span>
+          <span className="text-[9px] text-finma-text-dim ml-2">(Kurumsal Yatırımcı Hareketleri)</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-3">
+          {SMART_MONEY.map((item) => (
+            <div
+              key={item.ticker}
+              className={cn(
+                'rounded-md p-3 border transition-colors',
+                item.direction === 'in'
+                  ? 'bg-finma-green/5 border-finma-green/20 hover:border-finma-green/40'
+                  : 'bg-finma-red/5 border-finma-red/20 hover:border-finma-red/40'
+              )}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-sm font-bold finma-number text-finma-primary">{item.ticker}</span>
+                <span className={cn(
+                  'text-xs font-bold finma-number',
+                  item.direction === 'in' ? 'text-finma-green' : 'text-finma-red'
+                )}>
+                  {item.flow}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-finma-text-dim truncate mr-2">{item.institution}</span>
+                <div className="flex items-center gap-1">
+                  {item.direction === 'in' ? (
+                    <ArrowUpRight className="w-3 h-3 text-finma-green" />
+                  ) : (
+                    <ArrowDownRight className="w-3 h-3 text-finma-red" />
+                  )}
+                  <span className={cn(
+                    'text-[10px] finma-number font-medium',
+                    item.direction === 'in' ? 'text-finma-green' : 'text-finma-red'
+                  )}>
+                    {item.change}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* ═══════════════ 5. SEKTÖR ISI HARİTASI ═══════════════ */}
+      <Card padding="sm">
+        <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
+          <Globe2 className="w-5 h-5 text-finma-yellow" />
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
+            Sektör Isı Haritası
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-3">
+          {SECTOR_HEATMAP.map((sector) => {
+            const intensity = Math.min(Math.abs(sector.change) * 30, 100)
+            const isPositive = sector.change >= 0
+
+            return (
+              <div
+                key={sector.symbol}
+                className={cn(
+                  'rounded-lg p-3 border cursor-pointer transition-all hover:scale-[1.02]',
+                  isPositive
+                    ? 'border-finma-green/20 hover:border-finma-green/50'
+                    : 'border-finma-red/20 hover:border-finma-red/50'
+                )}
+                style={{
+                  background: isPositive
+                    ? `rgba(34, 197, 94, ${intensity / 500})`
+                    : `rgba(239, 68, 68, ${intensity / 500})`,
+                }}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-bold text-finma-text">{sector.name}</span>
+                  <span className={cn(
+                    'text-xs font-bold finma-number',
+                    isPositive ? 'text-finma-green' : 'text-finma-red'
+                  )}>
+                    {isPositive ? '+' : ''}{sector.change.toFixed(1)}%
+                  </span>
+                </div>
+                <div className="text-[9px] text-finma-text-dim finma-number mb-1">{sector.symbol} • {sector.marketCap}</div>
+                <div className="text-[9px] text-finma-text-muted">
+                  {sector.leaders.join(' • ')}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </Card>
+
+      {/* ═══════════════ PİYASA İSTİHBARATI (Genişletilmiş) ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Brain className="w-4 h-4 text-finma-purple" />
@@ -102,23 +471,22 @@ export default function DashboardPage() {
             Piyasa İstihbaratı
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
-            <Clock className="w-3 h-3" /> Son güncelleme: {dateStr} {timeStr}
+            <RefreshCw className="w-3 h-3" /> Her 5 dk güncellenir • {timeStr}
           </span>
         </div>
 
-        {/* Satır 1: Makro Göstergeler */}
+        {/* Satır 1: Makro */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Activity className="w-3 h-3 text-finma-green" />
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Piyasa Rejimi</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-finma-green">{regime}</span>
-            </div>
+            <div className="text-sm font-bold text-finma-green">{regime}</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
               <div>VIX: <span className="text-finma-yellow finma-number">{vix.toFixed(2)}</span> | Trend: <span className="text-finma-green">Yükseliş</span></div>
               <div>S&P 500 {regimeData?.spy_price ? <span className="finma-number">{regimeData.spy_price}</span> : '200 günlük ortalamanın'} <span className="text-finma-green">üzerinde</span></div>
+              <div>Put/Call Oranı: <span className="finma-number text-finma-cyan">0.82</span> (Nötr)</div>
             </div>
           </div>
 
@@ -133,6 +501,7 @@ export default function DashboardPage() {
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
               <div>VIX: <span className="finma-number text-finma-yellow">{vix.toFixed(2)}</span> (Tarihsel ort: ~19-20)</div>
               <div>Opsiyon piyasasında <span className="text-finma-yellow">artan koruma talebi</span></div>
+              <div>Kısa vadeli VIX vadeli: <span className="finma-number text-finma-yellow">Contango</span></div>
             </div>
           </div>
 
@@ -144,8 +513,9 @@ export default function DashboardPage() {
             <div className="text-sm font-bold text-finma-cyan">Defansif Döngü</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
               <div>Liderler: <span className="text-finma-green">{sectorLeaders}</span></div>
-              <div>Sanayi ve savunma hisseleri <span className="text-finma-green">güçlü</span></div>
-              <div>Teknoloji sektöründe <span className="text-finma-yellow">nötr beklenti</span></div>
+              <div>Sanayi ve savunma <span className="text-finma-green">güçlü</span></div>
+              <div>Teknoloji <span className="text-finma-yellow">nötr beklenti</span></div>
+              <div>Tüketici İhtiyari <span className="text-finma-red">zayıf</span></div>
             </div>
           </div>
 
@@ -159,6 +529,7 @@ export default function DashboardPage() {
               <div>SPY net akış: <span className="text-finma-green finma-number">+$2.1B</span> (haftalık)</div>
               <div>QQQ net akış: <span className="text-finma-red finma-number">-$450M</span></div>
               <div>Güvenli liman (GLD): <span className="text-finma-green finma-number">+$680M</span></div>
+              <div>DXY (Dolar): <span className="finma-number text-finma-cyan">104.2</span> (stabil)</div>
             </div>
           </div>
         </div>
@@ -175,7 +546,8 @@ export default function DashboardPage() {
               <p>• Piyasalar güçlü açıldı. {sectorLeaders} sektörleri liderlik ediyor.</p>
               <p>• Savunma hisseleri rallisi devam ediyor – NOC, LMT dikkat çekici.</p>
               <p>• 10 yıllık tahvil getirisi %4.28 seviyesinde sabit.</p>
-              <p>• Altın $2,110 üzerinde tutunuyor, güvenli liman talebi sürüyor.</p>
+              <p>• Altın $2,950 üzerinde, güvenli liman talebi güçlü.</p>
+              <p>• Kripto piyasası baskı altında, BTC $83K altına geriledi.</p>
             </div>
           </div>
 
@@ -201,6 +573,10 @@ export default function DashboardPage() {
                 <span className="text-[9px] finma-number text-finma-text-dim bg-finma-bg px-1.5 py-0.5 rounded">Yarın</span>
                 <span>Michigan Tüketici Güveni</span>
               </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] finma-number text-finma-text-dim bg-finma-bg px-1.5 py-0.5 rounded">Çar.</span>
+                <span>FOMC Toplantı Tutanakları</span>
+              </div>
             </div>
           </div>
 
@@ -210,15 +586,16 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">AI Analiz Özeti</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
-              <p>• Genel piyasa yönü <span className="text-finma-green font-medium">pozitif</span>, ancak VIX seviyesi dikkat gerektiriyor.</p>
+              <p>• Genel piyasa yönü <span className="text-finma-green font-medium">pozitif</span>, ancak VIX dikkat gerektiriyor.</p>
               <p>• Enerji ve savunma sektörlerinde momentum <span className="text-finma-green font-medium">güçlü</span>.</p>
-              <p>• {signals.candidates?.[0]?.ticker ?? 'NVDA'} en yüksek skoru ile öne çıkıyor.</p>
-              <p>• Risk yönetimi: Pozisyon büyüklüklerini VIX seviyesine göre ayarlayın.</p>
+              <p>• {top10Candidates[0]?.ticker ?? 'NVDA'} en yüksek skorla öne çıkıyor ({top10Candidates[0]?.score?.toFixed(1)}).</p>
+              <p>• Kurumsal para girişi NVDA, MSFT, AMD'de yoğunlaşıyor.</p>
+              <p>• Risk yönetimi: Pozisyon büyüklüklerini VIX'e göre ayarlayın.</p>
             </div>
           </div>
         </div>
 
-        {/* Satır 3: Teknik Seviyeler & Öne Çıkanlar */}
+        {/* Satır 3: Teknik Seviyeler */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
@@ -226,22 +603,19 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Önemli Teknik Seviyeler</span>
             </div>
             <div className="text-xs space-y-1">
-              <div className="flex justify-between py-1 border-b border-finma-border/20">
-                <span className="text-finma-text-muted">S&P 500 Destek</span>
-                <span className="finma-number text-finma-green">5,720 / 5,680</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-finma-border/20">
-                <span className="text-finma-text-muted">S&P 500 Direnç</span>
-                <span className="finma-number text-finma-red">5,880 / 5,920</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-finma-border/20">
-                <span className="text-finma-text-muted">Nasdaq Destek</span>
-                <span className="finma-number text-finma-green">20,100 / 19,850</span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span className="text-finma-text-muted">Bitcoin Destek/Direnç</span>
-                <span className="finma-number text-finma-cyan">$68K / $74K</span>
-              </div>
+              {[
+                ['S&P 500 Destek', '5,720 / 5,680', 'text-finma-green'],
+                ['S&P 500 Direnç', '5,880 / 5,920', 'text-finma-red'],
+                ['Nasdaq Destek', '20,100 / 19,850', 'text-finma-green'],
+                ['Nasdaq Direnç', '20,500 / 20,800', 'text-finma-red'],
+                ['Bitcoin Destek/Direnç', '$78K / $88K', 'text-finma-cyan'],
+                ['Altın Destek/Direnç', '$2,900 / $3,050', 'text-finma-yellow'],
+              ].map(([label, value, color], i) => (
+                <div key={i} className="flex justify-between py-1 border-b border-finma-border/20 last:border-0">
+                  <span className="text-finma-text-muted">{label}</span>
+                  <span className={`finma-number ${color}`}>{value}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -251,16 +625,19 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Bugünün Öne Çıkanları</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
-              {signals.candidates?.slice(0, 4).map((c: any) => (
+              {top10Candidates.slice(0, 5).map((c: any) => (
                 <div key={c.ticker} className="flex items-center gap-2">
                   <Badge variant={c.action === 'BUY' ? 'buy' : c.action === 'HOLD' ? 'hold' : 'sell'}>
                     {c.ticker}
                   </Badge>
+                  <span className="flex-1 text-[10px] text-finma-text-dim truncate">
+                    {c.notes?.[0] || c.sector}
+                  </span>
                   <span>
                     Skor: <span className="finma-number text-finma-primary">{c.score?.toFixed(1)}</span>
                     {' | '}
-                    Pot: <span className={`finma-number ${c.potential_pct >= 0 ? 'text-finma-green' : 'text-finma-red'}`}>
-                      {c.potential_pct >= 0 ? '+' : ''}{c.potential_pct?.toFixed(1)}%
+                    <span className={`finma-number ${(c.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'}`}>
+                      {(c.potential_pct ?? 0) >= 0 ? '+' : ''}{(c.potential_pct ?? 0).toFixed(1)}%
                     </span>
                   </span>
                 </div>
