@@ -219,6 +219,14 @@ async def get_current_user_info(user: dict = Depends(get_current_user)):
     user_data = UsersDB.get_by_username(user["username"])
     if not user_data:
         raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+
+    # Whitelist: Bu e-postalar her zaman pro tier alır (DB constraint bypass)
+    email = user_data.get("email", "").lower()
+    if email in WHITELISTED_EMAILS and user_data.get("subscription_tier") in ("free", "gold"):
+        user_data = dict(user_data)
+        user_data["role"] = "pro"
+        user_data["subscription_tier"] = "pro"
+
     return UserResponse(**{k: v for k, v in user_data.items()
                           if k not in ("password_hash", "google_id", "updated_at")})
 

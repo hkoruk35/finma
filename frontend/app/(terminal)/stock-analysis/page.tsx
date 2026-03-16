@@ -5,6 +5,7 @@ import { TierGate } from '@/components/auth/TierGate'
 import { useSearchParams } from 'next/navigation'
 import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
 import { Card } from '@/components/shared/Card'
+import { sectorLabel } from '@/components/shared/Badge'
 import { useTerminalStore } from '@/store/terminal'
 import { useQuote, useTechnicals } from '@/hooks/useMarketData'
 import { api } from '@/lib/api-client'
@@ -157,7 +158,7 @@ function StockAnalysisContent() {
             <div className="flex gap-3 md:gap-6 flex-wrap text-[11px]">
               <div><span className="text-finma-text-dim block">Piyasa Değeri</span><span className="finma-number font-semibold text-finma-text">{marketCap}</span></div>
               <div><span className="text-finma-text-dim block">Hacim</span><span className="finma-number font-semibold text-finma-text">{volume}</span></div>
-              <div><span className="text-finma-text-dim block">Sektör</span><span className="font-semibold text-finma-cyan">{sector}</span></div>
+              <div><span className="text-finma-text-dim block">Sektör</span><span className="font-semibold text-finma-cyan">{sectorLabel(sector)}</span></div>
             </div>
           </div>
           <div className="flex items-center gap-3">

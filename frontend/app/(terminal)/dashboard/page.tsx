@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { HUDMetrics, RiskBanner } from '@/components/terminal/HUDMetrics'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
-import { Badge, ActionBadge } from '@/components/shared/Badge'
+import { Badge, ActionBadge, sectorLabel } from '@/components/shared/Badge'
 import { usePortfolioSummary, useTrades } from '@/hooks/usePortfolio'
 import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useRegime } from '@/hooks/useMarketData'
@@ -309,7 +309,7 @@ export default function DashboardPage() {
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Flame className="w-5 h-5 text-orange-400" />
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
-            Günün Yapay Zeka Seçimi
+            Günün Fırsatları
           </span>
           <span className="text-[9px] bg-finma-yellow/10 text-finma-yellow px-2 py-0.5 rounded-full font-medium ml-2 border border-finma-yellow/20">
             Veriler 15 dk gecikmeli
@@ -347,24 +347,25 @@ export default function DashboardPage() {
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <span className="text-sm font-bold text-finma-primary finma-number">{c.ticker}</span>
                       <ActionBadge action={c.action} />
-                      <span className="text-[9px] text-finma-text-dim">{c.sector}</span>
+                      <span className="text-[9px] text-finma-text-dim">{sectorLabel(c.sector)}</span>
                     </div>
-                    {/* Bot alım fiyatı + canlı fiyat */}
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-[10px] text-finma-text-dim">
-                        Alım: <span className="finma-number text-finma-text font-semibold">${c.price?.toFixed(2)}</span>
+                    {/* Bot alım fiyatı + canlı fiyat — aynı büyüklükte */}
+                    <div className="flex items-center gap-3 mt-1 flex-wrap">
+                      <span className="finma-number text-xs font-semibold text-finma-text-muted">
+                        Alım: <span className="text-finma-text font-bold">${c.price?.toFixed(2)}</span>
                       </span>
-                      {livePrice && (
-                        <span className="text-[10px] text-finma-text-dim">
-                          Anlık: <span className="finma-number text-white font-semibold">${livePrice.toFixed(2)}</span>
+                      {livePrice ? (
+                        <>
+                          <span className="text-finma-text-dim text-xs">→</span>
+                          <span className="finma-number text-xs font-bold text-white">${livePrice.toFixed(2)}</span>
                           <span className={cn(
-                            'ml-1 finma-number font-medium',
+                            'finma-number text-xs font-bold',
                             (changePct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
                           )}>
                             {(changePct ?? 0) >= 0 ? '+' : ''}{(changePct ?? 0).toFixed(2)}%
                           </span>
-                        </span>
-                      )}
+                        </>
+                      ) : null}
                     </div>
                   </div>
 
@@ -462,7 +463,7 @@ export default function DashboardPage() {
                       'text-[9px] px-1.5 py-0.5 rounded border font-medium',
                       SECTOR_BADGE[stock.sector] || 'bg-white/5 text-finma-text-dim border-white/10'
                     )}>
-                      {stock.sector}
+                      {sectorLabel(stock.sector)}
                     </span>
                   </td>
                   <td className="py-2.5 px-2 text-right finma-number text-finma-text font-medium">${stock.price.toFixed(2)}</td>
@@ -759,7 +760,7 @@ export default function DashboardPage() {
                     {c.ticker}
                   </Badge>
                   <span className="flex-1 text-[10px] text-finma-text-dim truncate">
-                    {c.notes?.[0] || c.sector}
+                    {c.notes?.[0] || sectorLabel(c.sector)}
                   </span>
                   <span>
                     Skor: <span className="finma-number text-finma-primary">{c.score?.toFixed(1)}</span>
