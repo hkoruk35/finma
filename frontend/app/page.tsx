@@ -33,13 +33,13 @@ declare global {
   }
 }
 
-/* ── Featured stocks (static preview for landing) ── */
-const previewStocks = [
-  { symbol: 'NVDA', name: 'NVIDIA', sector: 'Technology', change: '+3.2%', score: 14.5, badge: 'BUY' },
-  { symbol: 'PLTR', name: 'Palantir', sector: 'Technology', change: '+5.1%', score: 13.8, badge: 'BUY' },
-  { symbol: 'FANG', name: 'Diamondback', sector: 'Energy', change: '+2.4%', score: 12.7, badge: 'BUY' },
-  { symbol: 'GFS', name: 'GlobalFoundries', sector: 'Semiconductors', change: '+4.5%', score: 11.6, badge: 'BUY' },
-  { symbol: 'NOC', name: 'Northrop Grumman', sector: 'Defense', change: '+1.9%', score: 11.4, badge: 'BUY' },
+/* ── Featured stocks — default: gerçek Swing112 verileri, API'den güncellenir ── */
+const DEFAULT_PREVIEW_STOCKS = [
+  { symbol: 'CGON', sector: 'Energy',     score: 35.1, badge: 'BUY', potential: '+10.0%' },
+  { symbol: 'LXU',  sector: 'Materials',  score: 33.5, badge: 'BUY', potential: '+10.0%' },
+  { symbol: 'ADEA', sector: 'Technology', score: 32.5, badge: 'BUY', potential: '+9.9%'  },
+  { symbol: 'PBR',  sector: 'Energy',     score: 30.4, badge: 'BUY', potential: '+7.7%'  },
+  { symbol: 'STGW', sector: 'Technology', score: 30.0, badge: 'BUY', potential: '+10.1%' },
 ]
 
 const features = [
@@ -91,6 +91,24 @@ export default function LandingPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [previewStocks, setPreviewStocks] = useState(DEFAULT_PREVIEW_STOCKS)
+
+  // Canlı sinyal verilerini çek (bot push edince otomatik güncellenir)
+  useEffect(() => {
+    api.getFeaturedSignals(5)
+      .then((data) => {
+        if (data?.featured?.length) {
+          setPreviewStocks(data.featured.map((c: any) => ({
+            symbol: c.ticker,
+            sector: c.sector,
+            score: c.score,
+            badge: c.action,
+            potential: `+${c.potential_pct?.toFixed(1)}%`,
+          })))
+        }
+      })
+      .catch(() => { /* fallback: default veriler kalır */ })
+  }, [])
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -267,7 +285,7 @@ export default function LandingPage() {
                     <div className="text-[10px] text-finma-text-dim mb-1">{stock.sector}</div>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-finma-primary font-semibold">Skor: {stock.score}</span>
-                      <span className="text-xs text-finma-green font-medium">{stock.change}</span>
+                      <span className="text-xs text-finma-green font-medium">{stock.potential}</span>
                     </div>
                   </div>
                 ))}
