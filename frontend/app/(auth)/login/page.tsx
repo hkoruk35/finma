@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Activity } from 'lucide-react'
+import { Activity, Home } from 'lucide-react'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 
 declare global {
   interface Window {
@@ -130,6 +131,14 @@ export default function LoginPage() {
             </div>
           )}
         </div>
+
+        {/* Ana Sayfa Butonu */}
+        <Link href="/">
+          <button className="w-full mt-4 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-finma-bg border border-finma-border hover:border-finma-primary/50 hover:bg-finma-card transition-all text-sm font-medium text-finma-text">
+            <Home className="w-4 h-4" />
+            Ana Sayfa
+          </button>
+        </Link>
 
         {/* Footer */}
         <div className="text-center mt-6 text-[10px] text-finma-text-dim">
