@@ -930,7 +930,7 @@ logging.basicConfig(
 logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 
 # --- AI API KEYS ---
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyB8tXHV2C9A68fh9AWa0iSe6d4m_t0qOdU")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")  # Key sadece Railway env'de olmalı, koda yazma!
 
 # --- SENTIMENT API KEYS ---
 # ... (API Keys stay data) ...
