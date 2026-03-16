@@ -38,6 +38,14 @@ async def lifespan(app: FastAPI):
     else:
         logger.info("🗄️  Supabase: ℹ️ Not configured — using in-memory storage (add SUPABASE_URL & SUPABASE_KEY to .env)")
 
+    # Start market data prefetch service — popüler ticker'ları arka planda cache'le
+    try:
+        from app.services.market_data import start_periodic_prefetch
+        start_periodic_prefetch(interval_minutes=5)
+        logger.info("📈 Market data prefetch servisi başlatıldı (5dk aralıkla)")
+    except Exception as e:
+        logger.warning(f"Prefetch servisi başlatılamadı: {e}")
+
     # Create bot output directory
     os.makedirs(settings.signals_output_dir, exist_ok=True)
 

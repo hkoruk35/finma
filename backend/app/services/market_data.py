@@ -478,3 +478,58 @@ def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
     if results:
         _indices_cache.set(cache_key, results)
     return results
+
+
+# ─── Background Prefetch Service ───
+# Popüler ticker'ları arka planda cache'e yükler
+# Böylece kullanıcı ilk tıklamada anında veri alır
+
+POPULAR_TICKERS = [
+    "NVDA", "AAPL", "MSFT", "GOOGL", "AMZN", "META", "TSLA",
+    "AMD", "AVGO", "NFLX", "DELL", "FANG", "LMT", "EQNR",
+    "JPM", "V", "UNH", "XOM", "JNJ", "PG", "HD",
+]
+
+_prefetch_running = False
+
+
+def prefetch_popular_tickers():
+    """Arka planda popüler ticker'ların verisini cache'e yükle"""
+    global _prefetch_running
+    if _prefetch_running:
+        return
+    _prefetch_running = True
+
+    def _worker():
+        global _prefetch_running
+        logger.info(f"Prefetch başlatılıyor: {len(POPULAR_TICKERS)} ticker")
+        for ticker in POPULAR_TICKERS:
+            try:
+                # Quote cache'le
+                if not _quote_cache.get(ticker):
+                    get_ticker_info(ticker)
+                # Technicals cache'le
+                if not _tech_cache.get(ticker):
+                    get_technical_analysis(ticker)
+            except Exception as e:
+                logger.warning(f"Prefetch hatası {ticker}: {e}")
+        logger.info("Prefetch tamamlandı")
+        _prefetch_running = False
+
+    thread = threading.Thread(target=_worker, daemon=True)
+    thread.start()
+
+
+def start_periodic_prefetch(interval_minutes: int = 5):
+    """Her N dakikada bir popüler ticker'ları arka planda yenile"""
+    def _loop():
+        while True:
+            try:
+                prefetch_popular_tickers()
+            except Exception as e:
+                logger.error(f"Periodic prefetch hatası: {e}")
+            time.sleep(interval_minutes * 60)
+
+    thread = threading.Thread(target=_loop, daemon=True)
+    thread.start()
+    logger.info(f"Periodic prefetch başladı ({interval_minutes}dk aralıkla)")

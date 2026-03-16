@@ -1,9 +1,23 @@
 /**
  * FinMA API Client
- * Backend: FastAPI (http://localhost:8000)
+ * Production: Vercel proxy → Railway backend (CORS-free, edge-cached)
+ * Development: Direct → localhost:8000
  */
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+function getApiUrl(): string {
+  // Server-side (SSR) — always use direct backend URL
+  if (typeof window === 'undefined') {
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+  }
+  // Client-side production — use Next.js proxy (same-origin, no CORS)
+  if (window.location.hostname !== 'localhost') {
+    return '/api/proxy'
+  }
+  // Client-side dev — direct backend
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+}
+
+const API_URL = getApiUrl()
 
 interface FetchOptions extends RequestInit {
   token?: string
