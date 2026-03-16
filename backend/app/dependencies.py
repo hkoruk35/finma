@@ -41,7 +41,7 @@ async def require_pro(user: dict = Depends(get_current_user)) -> dict:
     if user_data and user_data.get("subscription_tier") == "pro" and user_data.get("trial_start_date"):
         try:
             trial_start = datetime.fromisoformat(str(user_data["trial_start_date"]).replace("Z", "+00:00"))
-            if datetime.utcnow().replace(tzinfo=trial_start.tzinfo) > trial_start + timedelta(days=7):
+            if datetime.utcnow().replace(tzinfo=trial_start.tzinfo) > trial_start + timedelta(days=14):
                 raise HTTPException(status_code=403, detail="Deneme süreniz doldu. Pro üyeliğinizi yükseltin.")
         except (ValueError, TypeError):
             pass  # Invalid date format, skip check

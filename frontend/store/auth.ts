@@ -103,7 +103,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const { user } = get()
     if (!user || user.subscription_tier !== 'pro' || !user.trial_start_date) return false
     const trialStart = new Date(user.trial_start_date)
-    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000)
+    const trialEnd = new Date(trialStart.getTime() + 14 * 24 * 60 * 60 * 1000)
     return new Date() > trialEnd
   },
 

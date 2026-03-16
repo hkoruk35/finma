@@ -2,29 +2,33 @@
 
 import { useState } from 'react'
 import { Card } from '@/components/shared/Card'
-import { Settings, User, Bell, Key, Globe, CreditCard, Send, Ticket, Crown, Gem } from 'lucide-react'
+import { Settings, User, Bell, Globe, CreditCard, Crown, Gem, CheckCircle2, Mail } from 'lucide-react'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
+import { SubscriptionAgreement } from '@/components/auth/SubscriptionAgreement'
 
 export default function SettingsPage() {
   const { user } = useAuthStore()
-  const [inviteCode, setInviteCode] = useState('')
-  const [inviteLoading, setInviteLoading] = useState(false)
-  const [inviteMsg, setInviteMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [upgradeLoading, setUpgradeLoading] = useState(false)
+  const [upgradeMsg, setUpgradeMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [showAgreement, setShowAgreement] = useState(false)
 
-  const handleRedeemInvite = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!inviteCode.trim()) return
-    setInviteLoading(true)
-    setInviteMsg(null)
+  const handleUpgrade = () => {
+    setShowAgreement(true)
+  }
+
+  const handleAgreementAccept = async () => {
+    setShowAgreement(false)
+    setUpgradeLoading(true)
+    setUpgradeMsg(null)
     try {
-      await api.redeemInvite(inviteCode.trim())
-      setInviteMsg({ type: 'success', text: 'Premium üyelik aktif! Sayfa yenileniyor...' })
+      await api.startTrial()
+      setUpgradeMsg({ type: 'success', text: 'Pro üyeliğiniz aktif! Sayfa yenileniyor...' })
       setTimeout(() => window.location.reload(), 1500)
     } catch (err: any) {
-      setInviteMsg({ type: 'error', text: err.message || 'Davet kodu geçersiz' })
+      setUpgradeMsg({ type: 'error', text: err.message || 'Üyelik başlatılamadı' })
     } finally {
-      setInviteLoading(false)
+      setUpgradeLoading(false)
     }
   }
 
@@ -37,6 +41,9 @@ export default function SettingsPage() {
     user?.subscription_tier === 'admin' ? 'text-finma-green' :
     user?.subscription_tier === 'premium' ? 'text-purple-400' :
     user?.subscription_tier === 'pro' ? 'text-finma-primary' : 'text-finma-text-dim'
+
+  const isFreeTier = !user?.subscription_tier || user.subscription_tier === 'free'
+  const isPro = user?.subscription_tier === 'pro'
 
   return (
     <div className="space-y-4 animate-fade-in max-w-3xl">
@@ -69,97 +76,90 @@ export default function SettingsPage() {
           <CreditCard className="w-4 h-4 text-finma-primary" />
           <span className="text-sm font-semibold">Abonelik</span>
         </div>
-        <div className="flex items-center justify-between">
-          <div>
-            <div className={`text-sm font-semibold ${tierColor} flex items-center gap-1.5`}>
-              {user?.subscription_tier === 'premium' ? <Gem className="w-4 h-4" /> : <Crown className="w-4 h-4" />}
-              {tierLabel}
-            </div>
-            <div className="text-[10px] text-finma-text-dim mt-0.5">
-              {user?.subscription_tier === 'admin' ? 'Tüm özelliklere erişim' :
-               user?.subscription_tier === 'premium' ? 'Premium — Tüm Pro + Sinyaller + Takip Listeleri' :
-               user?.subscription_tier === 'pro' ? 'Pro — Hisse Analiz, İşlemler, Portföy, AI Analiz' :
-               'Free — Dashboard + Piyasa verileri'}
-            </div>
-            {user?.subscription_tier === 'pro' && user?.trial_start_date && (
-              <div className="text-[10px] text-finma-yellow mt-1">
-                Deneme süresi: {new Date(user.trial_start_date).toLocaleDateString('tr-TR')} tarihinde başladı
-              </div>
-            )}
+
+        <div className="mb-4">
+          <div className={`text-sm font-semibold ${tierColor} flex items-center gap-1.5`}>
+            {user?.subscription_tier === 'premium' ? <Gem className="w-4 h-4" /> : <Crown className="w-4 h-4" />}
+            {tierLabel}
+          </div>
+          <div className="text-[10px] text-finma-text-dim mt-0.5">
+            {user?.subscription_tier === 'admin' ? 'Tüm özelliklere erişim' :
+             user?.subscription_tier === 'premium' ? 'Premium — Tüm Pro + Sinyaller + Takip Listeleri' :
+             user?.subscription_tier === 'pro' ? 'Pro — Hisse Analiz, İşlemler, Portföy, AI Analiz' :
+             'Free — Sadece temel piyasa verileri'}
           </div>
         </div>
-      </Card>
 
-      {/* Invite Code — only for non-premium users */}
-      {user?.subscription_tier !== 'premium' && user?.subscription_tier !== 'admin' && (
-        <Card>
-          <div className="flex items-center gap-2 mb-4">
-            <Ticket className="w-4 h-4 text-purple-400" />
-            <span className="text-sm font-semibold">Davet Kodu</span>
+        {/* Pro subscription info */}
+        {isPro && (
+          <div className="bg-finma-primary/5 border border-finma-primary/20 rounded-lg p-3 mb-4">
+            <div className="flex items-center gap-2 mb-1">
+              <Crown className="w-4 h-4 text-finma-primary" />
+              <span className="text-xs font-semibold text-finma-primary">Pro Üyelik Aktif</span>
+            </div>
+            <p className="text-[10px] text-finma-text-dim">
+              Aylık abonelik: <span className="text-white font-medium">$19 USD/ay</span>
+            </p>
+            <p className="text-[10px] text-finma-text-dim mt-1">
+              Aboneliğinizi istediğiniz zaman iptal edebilirsiniz. İptal durumunda erişiminiz dönem sonuna kadar devam eder.
+            </p>
           </div>
-          <p className="text-xs text-finma-text-dim mb-3">
-            Premium üyelik için davet kodunuzu girin.
-          </p>
-          <form onSubmit={handleRedeemInvite} className="flex items-center gap-2">
-            <input
-              type="text"
-              value={inviteCode}
-              onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
-              placeholder="DAVET KODU"
-              className="finma-input flex-1 text-center tracking-widest font-mono"
-              maxLength={8}
-            />
+        )}
+
+        {/* Pro upgrade for Free users */}
+        {isFreeTier && (
+          <div className="bg-gradient-to-r from-finma-primary/5 to-finma-primary/10 border border-finma-primary/20 rounded-lg p-4">
+            <h4 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
+              <Crown className="w-4 h-4 text-finma-primary" />
+              Pro Seviyesine Yükselt
+            </h4>
+            <p className="text-xs text-finma-text-dim mb-3">
+              Tüm Pro özelliklerine erişim sağlayın.
+            </p>
+
+            <div className="space-y-2 mb-4">
+              {[
+                'AI destekli hisse analizi',
+                'İşlem açma/kapama & portföy yönetimi',
+                'Piyasa istihbaratı & rejim analizi',
+                'TradingView grafikleri',
+              ].map((feat) => (
+                <div key={feat} className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-finma-green shrink-0" />
+                  <span className="text-xs text-finma-text">{feat}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-baseline gap-1 mb-3">
+              <span className="text-2xl font-bold text-white">$19</span>
+              <span className="text-xs text-finma-text-dim">/ay</span>
+            </div>
+
             <button
-              type="submit"
-              disabled={inviteLoading || !inviteCode.trim()}
-              className="finma-btn-primary text-xs py-2 px-4 disabled:opacity-50"
+              onClick={handleUpgrade}
+              disabled={upgradeLoading}
+              className="finma-btn-primary w-full text-sm py-2.5 disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {inviteLoading ? 'Kontrol...' : 'Kullan'}
+              <Crown className="w-4 h-4" />
+              {upgradeLoading ? 'Başlatılıyor...' : 'Pro Üyeliğe Geç — $19/ay'}
             </button>
-          </form>
-          {inviteMsg && (
-            <div className={`text-xs mt-2 px-3 py-2 rounded-md ${
-              inviteMsg.type === 'success'
-                ? 'text-finma-green bg-finma-green/10 border border-finma-green/30'
-                : 'text-finma-red bg-finma-red/10 border border-finma-red/30'
-            }`}>
-              {inviteMsg.text}
-            </div>
-          )}
-        </Card>
-      )}
 
-      {/* API Keys */}
-      <Card>
-        <div className="flex items-center gap-2 mb-4">
-          <Key className="w-4 h-4 text-finma-yellow" />
-          <span className="text-sm font-semibold">API Anahtarları</span>
-        </div>
-        <div className="space-y-3">
-          <div>
-            <label className="text-xs text-finma-text-dim block mb-1">Gemini API Key</label>
-            <input type="password" defaultValue="••••••••••••" className="finma-input w-full" />
+            <p className="text-[9px] text-finma-text-dim text-center mt-2">
+              İstediğiniz zaman iptal edebilirsiniz.
+            </p>
           </div>
-        </div>
-      </Card>
+        )}
 
-      {/* Telegram */}
-      <Card>
-        <div className="flex items-center gap-2 mb-4">
-          <Send className="w-4 h-4 text-finma-cyan" />
-          <span className="text-sm font-semibold">Telegram Bildirimler</span>
-        </div>
-        <div className="space-y-3">
-          <div>
-            <label className="text-xs text-finma-text-dim block mb-1">Bot Token</label>
-            <input type="password" placeholder="Telegram bot token" className="finma-input w-full" />
+        {upgradeMsg && (
+          <div className={`text-xs mt-3 px-3 py-2 rounded-md ${
+            upgradeMsg.type === 'success'
+              ? 'text-finma-green bg-finma-green/10 border border-finma-green/30'
+              : 'text-finma-red bg-finma-red/10 border border-finma-red/30'
+          }`}>
+            {upgradeMsg.text}
           </div>
-          <div>
-            <label className="text-xs text-finma-text-dim block mb-1">Chat ID</label>
-            <input type="text" placeholder="Telegram chat ID" className="finma-input w-full" />
-          </div>
-          <button className="finma-btn-primary text-xs">Test Mesajı Gönder</button>
-        </div>
+        )}
       </Card>
 
       {/* Notifications */}
@@ -170,10 +170,10 @@ export default function SettingsPage() {
         </div>
         <div className="space-y-3">
           {[
+            { label: 'E-posta bildirimleri', defaultChecked: true },
             { label: 'Yeni sinyal bildirimi', defaultChecked: true },
             { label: 'Stop-loss tetikleme uyarısı', defaultChecked: true },
             { label: 'Piyasa özeti (günlük)', defaultChecked: false },
-            { label: 'Telegram bildirimleri', defaultChecked: true },
           ].map((item) => (
             <label key={item.label} className="flex items-center justify-between cursor-pointer">
               <span className="text-xs text-finma-text">{item.label}</span>
@@ -194,6 +194,14 @@ export default function SettingsPage() {
           <option value="en">English</option>
         </select>
       </Card>
+
+      {/* Subscription Agreement Modal */}
+      {showAgreement && (
+        <SubscriptionAgreement
+          onAccept={handleAgreementAccept}
+          onClose={() => setShowAgreement(false)}
+        />
+      )}
     </div>
   )
 }

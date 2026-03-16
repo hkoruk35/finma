@@ -148,6 +148,9 @@ export function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => {
+            // Completely hide premium items from non-admin users
+            if (item.tier === 'premium' && !isAdmin) return null
+
             const isActive = pathname === item.href || (item.children && pathname.startsWith(item.href + '/'))
             const isMenuExpanded = expandedMenus.includes(item.section)
             const hasChildren = item.children && item.children.length > 0

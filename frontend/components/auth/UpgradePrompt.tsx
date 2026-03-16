@@ -125,7 +125,7 @@ export function UpgradePrompt({ requiredTier }: UpgradePromptProps) {
           disabled={loading}
           className="finma-btn-primary w-full py-3 text-sm font-semibold disabled:opacity-50"
         >
-          {loading ? 'Başlatılıyor...' : '7 Gün Ücretsiz Deneyin'}
+          {loading ? 'Başlatılıyor...' : 'Pro Üyeliğe Geç — $19/ay'}
         </button>
 
         {error && (
