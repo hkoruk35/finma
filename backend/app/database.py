@@ -369,6 +369,57 @@ class SignalsDB:
         return cls._memory[:limit]
 
     @classmethod
+    def get_latest_report(cls) -> Optional[dict]:
+        """Supabase'den en son bot raporunu tam format olarak getir"""
+        sb = cls._sb()
+        if not sb:
+            return None
+        try:
+            # Son kaydedilen timestamp'i bul
+            latest = sb.table("signals").select("timestamp, bot_name, market_regime, vix_level").order("created_at", desc=True).limit(1).execute()
+            if not latest.data:
+                return None
+
+            ts = latest.data[0].get("timestamp")
+            if not ts:
+                return None
+
+            # O timestamp'e ait tüm adayları getir
+            result = sb.table("signals").select("*").eq("timestamp", ts).order("score", desc=True).execute()
+            rows = result.data or []
+            if not rows:
+                return None
+
+            meta = rows[0]
+            candidates = []
+            for r in rows:
+                candidates.append({
+                    "ticker": r.get("ticker"),
+                    "score": r.get("score"),
+                    "price": r.get("price"),
+                    "action": r.get("action"),
+                    "entry_zone": r.get("entry_zone"),
+                    "stop_loss": r.get("stop_loss"),
+                    "target": r.get("target"),
+                    "potential_pct": r.get("potential_pct"),
+                    "sector": r.get("sector"),
+                    "trend_phase": r.get("trend_phase"),
+                    "rvol": r.get("rvol"),
+                    "notes": r.get("notes"),
+                })
+
+            return {
+                "timestamp": ts,
+                "bot_name": meta.get("bot_name", "swing112"),
+                "market_regime": meta.get("market_regime", "Bull"),
+                "vix_level": meta.get("vix_level", 20.0),
+                "candidates": candidates,
+            }
+        except Exception as e:
+            logger.error(f"DB get_latest_report hatası: {e}")
+            return None
+
+    @classmethod
     def get_unique_tickers(cls) -> List[str]:
         sb = cls._sb()
         if sb:

@@ -36,10 +36,18 @@ FALLBACK_PATHS = [
 
 
 def load_latest_signals() -> Optional[dict]:
-    """Load: 1) pushed via API  2) local file  3) None"""
+    """
+    Load sinyaller (öncelik sırası):
+      1) RAM'deki push verisi (hızlı, sunucu açıkken)
+      2) Yerel dosya (bot aynı makinedeyse)
+      3) Supabase'deki son rapor (kalıcı — Railway restart sonrası bile çalışır)
+      4) None → MOCK_SIGNALS fallback
+    """
     global _pushed_signals
+    # 1. RAM
     if _pushed_signals:
         return _pushed_signals
+    # 2. Yerel dosya
     for path in SIGNAL_PATHS + FALLBACK_PATHS:
         abs_path = os.path.abspath(path)
         if os.path.exists(abs_path):
@@ -48,6 +56,15 @@ def load_latest_signals() -> Optional[dict]:
                     return json.load(f)
             except Exception:
                 continue
+    # 3. Supabase (kalıcı)
+    try:
+        db_report = SignalsDB.get_latest_report()
+        if db_report and db_report.get("candidates"):
+            logger.info(f"Supabase'den {len(db_report['candidates'])} sinyal yüklendi")
+            _pushed_signals = db_report  # RAM'e de kaydet (sonraki istekler hızlı)
+            return db_report
+    except Exception as e:
+        logger.warning(f"Supabase okuma hatası: {e}")
     return None
 
 
