@@ -12,6 +12,11 @@ export function LegalFooter() {
           FinMA bir yatırım danışmanlığı veya aracı kurum hizmeti sunmamaktadır. Bu platformda yer alan bilgiler, analizler ve sinyaller yalnızca bilgilendirme amaçlıdır ve yatırım tavsiyesi niteliği taşımaz. FinMA yalnızca finansal analiz ve portföy yönetim aracıdır. Yatırım kararlarınız tamamen kendi sorumluluğunuzdadır. Geçmiş performans gelecekteki sonuçların garantisi değildir.
         </p>
       </div>
+      <div className="text-center mt-3">
+        <span className="text-[9px] text-finma-text-dim/40">
+          Developed by <span className="font-semibold text-finma-text-dim/60">AFK DaSYS</span> • FinMA Terminal v4.0
+        </span>
+      </div>
     </footer>
   )
 }

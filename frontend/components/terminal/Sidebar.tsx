@@ -307,6 +307,14 @@ export function Sidebar() {
           >
             {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
+
+          {isExpanded && (
+            <div className="text-center pt-1 pb-1 border-t border-finma-border/20">
+              <span className="text-[8px] text-finma-text-dim/40">
+                Developed by <span className="font-semibold text-finma-text-dim/60">AFK DaSYS</span>
+              </span>
+            </div>
+          )}
         </div>
       </aside>
     </>
