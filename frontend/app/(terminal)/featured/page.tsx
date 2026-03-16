@@ -71,9 +71,6 @@ export default function FeaturedPage() {
           <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">
             Öne Çıkanlar — Günlük Seçimler
           </span>
-          <span className="text-[10px] bg-finma-yellow/15 text-finma-yellow px-2 py-0.5 rounded font-semibold">
-            inday312 Bot
-          </span>
         </div>
         <div className="flex items-center gap-1 text-[10px] text-finma-text-dim">
           <Clock className="w-3 h-3" />
