@@ -50,8 +50,8 @@ export default function PortfolioPage() {
                 <th className="text-right px-2 py-2">Adet</th>
                 <th className="text-right px-2 py-2">PnL</th>
                 <th className="text-right px-2 py-2">PnL%</th>
-                <th className="text-right px-2 py-2">Stop</th>
-                <th className="text-right px-2 py-2">Hedef</th>
+                <th className="text-right px-2 py-2 hidden md:table-cell">Stop</th>
+                <th className="text-right px-2 py-2 hidden md:table-cell">Hedef</th>
               </tr>
             </thead>
             <tbody>
@@ -70,8 +70,8 @@ export default function PortfolioPage() {
                   <td className={cn('px-2 py-2 text-right finma-number', getPnlColor(trade.pnl_pct))}>
                     {trade.pnl_pct >= 0 ? '+' : ''}{trade.pnl_pct.toFixed(2)}%
                   </td>
-                  <td className="px-2 py-2 text-right finma-number text-finma-red">${trade.stop_loss.toFixed(2)}</td>
-                  <td className="px-2 py-2 text-right finma-number text-finma-green">${trade.target_price.toFixed(2)}</td>
+                  <td className="px-2 py-2 text-right finma-number text-finma-red hidden md:table-cell">${trade.stop_loss.toFixed(2)}</td>
+                  <td className="px-2 py-2 text-right finma-number text-finma-green hidden md:table-cell">${trade.target_price.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
@@ -95,7 +95,7 @@ export default function PortfolioPage() {
             <thead>
               <tr className="border-b border-finma-border text-finma-text-dim">
                 <th className="text-left px-3 py-2">Sembol</th>
-                <th className="text-left px-2 py-2">Sektör</th>
+                <th className="text-left px-2 py-2 hidden md:table-cell">Sektör</th>
                 <th className="text-right px-2 py-2">Giriş</th>
                 <th className="text-right px-2 py-2">Canlı</th>
                 <th className="text-right px-2 py-2">PnL$</th>
@@ -106,7 +106,7 @@ export default function PortfolioPage() {
               {mockWatchlist.map((item) => (
                 <tr key={item.symbol} className="border-b border-finma-border/50 hover:bg-finma-card-hover transition-colors cursor-pointer">
                   <td className="px-3 py-2 font-semibold text-finma-primary finma-number">{item.symbol}</td>
-                  <td className="px-2 py-2 text-finma-text-dim">{item.sector}</td>
+                  <td className="px-2 py-2 text-finma-text-dim hidden md:table-cell">{item.sector}</td>
                   <td className="px-2 py-2 text-right finma-number">${item.entry.toFixed(2)}</td>
                   <td className="px-2 py-2 text-right finma-number text-white">${item.live.toFixed(2)}</td>
                   <td className={cn('px-2 py-2 text-right finma-number font-semibold', getPnlColor(item.pnl))}>

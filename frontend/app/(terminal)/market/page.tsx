@@ -82,8 +82,7 @@ export default function MarketPage() {
 
       {/* Grafik */}
       <div
-        className="w-full bg-finma-card border border-finma-border rounded-lg overflow-hidden"
-        style={{ height: '460px' }}
+        className="w-full bg-finma-card border border-finma-border rounded-lg overflow-hidden h-[300px] md:h-[460px]"
       >
         <TradingViewWidget />
       </div>

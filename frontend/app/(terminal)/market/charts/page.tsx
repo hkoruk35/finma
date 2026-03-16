@@ -139,9 +139,8 @@ export default function ChartsPage() {
         <div
           className={cn(
             'bg-finma-card border border-finma-border rounded-lg overflow-hidden transition-all',
-            isFullscreen && 'fixed inset-4 z-50'
+            isFullscreen ? 'fixed inset-4 z-50' : 'h-[350px] md:h-[550px]'
           )}
-          style={{ height: isFullscreen ? 'auto' : '550px' }}
         >
           <TradingViewWidget />
         </div>
@@ -156,8 +155,10 @@ export default function ChartsPage() {
             return (
               <div
                 key={`${sym}-${idx}`}
-                className="bg-finma-card border border-finma-border rounded-lg overflow-hidden"
-                style={{ height: chartMode === 'dual' ? '420px' : '320px' }}
+                className={cn(
+                  'bg-finma-card border border-finma-border rounded-lg overflow-hidden',
+                  chartMode === 'dual' ? 'h-[280px] md:h-[420px]' : 'h-[220px] md:h-[320px]'
+                )}
               >
                 <div className="flex items-center justify-between px-3 py-1.5 border-b border-finma-border bg-finma-bg/50">
                   <div>

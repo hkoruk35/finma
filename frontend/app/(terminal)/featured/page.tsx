@@ -83,9 +83,8 @@ export default function FeaturedPage() {
         <div
           className={cn(
             'w-full bg-finma-card border border-finma-border rounded-lg overflow-hidden',
-            isFullscreen && 'fixed inset-4 z-50'
+            isFullscreen ? 'fixed inset-4 z-50' : 'h-[300px] md:h-[420px]'
           )}
-          style={{ height: isFullscreen ? 'auto' : '420px' }}
         >
           <div className="absolute top-2 right-2 z-20 flex items-center gap-2">
             <span className="text-[10px] bg-finma-primary/20 text-finma-primary px-2 py-1 rounded font-semibold">
@@ -121,7 +120,7 @@ export default function FeaturedPage() {
                   : 'border-finma-border hover:border-finma-border-light hover:bg-finma-card-hover'
               )}
             >
-              <div className="flex items-start gap-4">
+              <div className="flex flex-col md:flex-row items-start gap-3 md:gap-4">
                 {/* Sol: Sıra numarası */}
                 <div className={cn(
                   'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0',

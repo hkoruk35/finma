@@ -92,3 +92,14 @@
     animation: fade-in 0.3s ease-out;
   }
 }
+
+/* ── PWA Safe Area Insets (notch / Dynamic Island desteği) ── */
+@supports (padding: env(safe-area-inset-top)) {
+  .safe-area-top { padding-top: env(safe-area-inset-top); }
+  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* Mobil dokunmatik kaydırma iyileştirmesi */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}

@@ -133,7 +133,7 @@ export default function AIPage() {
       </div>
 
       {/* Sohbet Arayüzü */}
-      <Card className="flex flex-col h-[500px]">
+      <Card className="flex flex-col h-[350px] md:h-[500px]">
         {/* Mesajlar */}
         <div className="flex-1 overflow-auto p-4 space-y-4">
           {messages.map((msg, idx) => (

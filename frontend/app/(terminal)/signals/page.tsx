@@ -14,7 +14,7 @@ export default function SignalsPage() {
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-3">
           <Radio className="w-5 h-5 text-finma-primary" />
           <h1 className="text-lg font-bold text-white">Bot Sinyalleri</h1>
@@ -34,7 +34,7 @@ export default function SignalsPage() {
       </div>
 
       {/* Signal Stats */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Card padding="sm">
           <div className="text-[10px] text-finma-text-dim uppercase">Toplam Sinyal</div>
           <div className="finma-number text-xl font-bold text-white mt-1">{signals.candidates.length}</div>

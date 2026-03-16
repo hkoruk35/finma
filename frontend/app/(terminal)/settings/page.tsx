@@ -17,7 +17,7 @@ export default function SettingsPage() {
           <User className="w-4 h-4 text-finma-primary" />
           <span className="text-sm font-semibold">Profil</span>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="text-xs text-finma-text-dim block mb-1">Kullanıcı Adı</label>
             <input type="text" defaultValue="admin" className="finma-input w-full" />

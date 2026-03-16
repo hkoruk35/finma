@@ -41,12 +41,12 @@ export default function WatchlistsPage() {
       </div>
 
       {/* Watchlist tabs */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 overflow-x-auto">
         {['Ana Liste', 'Swing Adayları', 'Opsiyon Adayları', 'Kripto'].map((name, i) => (
           <button
             key={name}
             className={cn(
-              'px-4 py-2 rounded-md text-xs font-medium transition-colors',
+              'px-4 py-2 rounded-md text-xs font-medium transition-colors shrink-0 whitespace-nowrap',
               i === 0
                 ? 'bg-finma-primary/15 text-finma-primary border border-finma-primary/30'
                 : 'bg-finma-card text-finma-text-muted hover:text-finma-text border border-finma-border hover:border-finma-border-light'
@@ -76,7 +76,7 @@ export default function WatchlistsPage() {
                   <input type="checkbox" className="rounded border-finma-border" />
                 </th>
                 <th className="text-left px-3 py-2">Sembol</th>
-                <th className="text-left px-2 py-2">Sektör</th>
+                <th className="text-left px-2 py-2 hidden md:table-cell">Sektör</th>
                 <th className="text-right px-2 py-2">Giriş</th>
                 <th className="text-right px-2 py-2">Canlı</th>
                 <th className="text-right px-2 py-2">PnL$</th>
@@ -90,7 +90,7 @@ export default function WatchlistsPage() {
                     <input type="checkbox" className="rounded border-finma-border" />
                   </td>
                   <td className="px-3 py-2 font-semibold text-finma-primary finma-number">{item.symbol}</td>
-                  <td className="px-2 py-2 text-finma-text-dim">{item.sector}</td>
+                  <td className="px-2 py-2 text-finma-text-dim hidden md:table-cell">{item.sector}</td>
                   <td className="px-2 py-2 text-right finma-number">${item.entry.toFixed(2)}</td>
                   <td className="px-2 py-2 text-right finma-number text-white">${item.live.toFixed(2)}</td>
                   <td className={cn('px-2 py-2 text-right finma-number font-semibold', getPnlColor(item.pnl))}>

@@ -11,7 +11,7 @@ interface CardProps {
 }
 
 export function Card({ children, className, hover = false, padding = 'md', onClick }: CardProps) {
-  const paddings = { none: 'p-0', sm: 'p-3', md: 'p-4', lg: 'p-5' }
+  const paddings = { none: 'p-0', sm: 'p-2 md:p-3', md: 'p-3 md:p-4', lg: 'p-4 md:p-5' }
 
   return (
     <div

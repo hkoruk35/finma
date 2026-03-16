@@ -59,17 +59,17 @@ export default function DashboardPage() {
       <div className="grid grid-cols-12 gap-4">
         {/* TradingView Grafik */}
         <div className="col-span-12 lg:col-span-7 xl:col-span-8">
-          <div className="h-[500px]">
+          <div className="h-[300px] md:h-[500px]">
             <TradingViewWidget />
           </div>
         </div>
 
         {/* Sağ sütun */}
         <div className="col-span-12 lg:col-span-5 xl:col-span-4 flex flex-col gap-4">
-          <div className="h-[242px]">
+          <div className="h-auto md:h-[242px]">
             <ActiveOperations trades={trades} maxVisible={4} />
           </div>
-          <div className="h-[242px]">
+          <div className="h-auto md:h-[242px]">
             <CompactSignals data={signals} maxVisible={5} />
           </div>
         </div>

@@ -50,7 +50,7 @@ export default function OperationsPage() {
 
       {/* Grafik */}
       <Card padding="sm">
-        <div className="h-[55vh] min-h-[400px]">
+        <div className="h-[40vh] min-h-[280px] md:h-[55vh] md:min-h-[400px]">
           <TradingViewWidget />
         </div>
       </Card>
@@ -73,7 +73,7 @@ export default function OperationsPage() {
               <tr className="border-b border-finma-border text-finma-text-dim">
                 <th className="text-left px-3 py-2 font-medium">Sembol</th>
                 <th className="text-left px-2 py-2 font-medium">Yön</th>
-                <th className="text-left px-2 py-2 font-medium">Strateji</th>
+                <th className="text-left px-2 py-2 font-medium hidden md:table-cell">Strateji</th>
                 <th className="text-right px-2 py-2 font-medium">Adet</th>
                 <th className="text-right px-2 py-2 font-medium">Giriş Fiyatı</th>
                 <th className="text-right px-2 py-2 font-medium">Güncel Fiyat</th>
@@ -81,7 +81,7 @@ export default function OperationsPage() {
                 <th className="text-right px-2 py-2 font-medium">Hedef</th>
                 <th className="text-right px-2 py-2 font-medium">PnL ($)</th>
                 <th className="text-right px-2 py-2 font-medium">PnL (%)</th>
-                <th className="text-right px-2 py-2 font-medium">Giriş Tarihi</th>
+                <th className="text-right px-2 py-2 font-medium hidden md:table-cell">Giriş Tarihi</th>
               </tr>
             </thead>
             <tbody>
@@ -99,7 +99,7 @@ export default function OperationsPage() {
                       {trade.direction}
                     </Badge>
                   </td>
-                  <td className="px-2 py-3 text-finma-text-muted">{trade.strategy}</td>
+                  <td className="px-2 py-3 text-finma-text-muted hidden md:table-cell">{trade.strategy}</td>
                   <td className="px-2 py-3 text-right finma-number text-white">{trade.qty}</td>
                   <td className="px-2 py-3 text-right finma-number text-finma-text">${trade.entry_price.toFixed(2)}</td>
                   <td className="px-2 py-3 text-right finma-number text-white font-semibold">${trade.current_price.toFixed(2)}</td>
@@ -111,7 +111,7 @@ export default function OperationsPage() {
                   <td className={cn('px-2 py-3 text-right finma-number', getPnlColor(trade.pnl_pct))}>
                     {trade.pnl_pct >= 0 ? '+' : ''}{trade.pnl_pct.toFixed(2)}%
                   </td>
-                  <td className="px-2 py-3 text-right finma-number text-finma-text-dim">{trade.entry_date}</td>
+                  <td className="px-2 py-3 text-right finma-number text-finma-text-dim hidden md:table-cell">{trade.entry_date}</td>
                 </tr>
               ))}
             </tbody>

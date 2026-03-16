@@ -153,7 +153,7 @@ function StockAnalysisContent() {
               </div>
             </div>
             <div className="h-12 w-px bg-finma-border" />
-            <div className="flex gap-6 text-[11px]">
+            <div className="flex gap-3 md:gap-6 flex-wrap text-[11px]">
               <div><span className="text-finma-text-dim block">Piyasa Değeri</span><span className="finma-number font-semibold text-finma-text">{marketCap}</span></div>
               <div><span className="text-finma-text-dim block">Hacim</span><span className="finma-number font-semibold text-finma-text">{volume}</span></div>
               <div><span className="text-finma-text-dim block">Sektör</span><span className="font-semibold text-finma-cyan">{sector}</span></div>
@@ -196,8 +196,7 @@ function StockAnalysisContent() {
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-12 lg:col-span-8">
           <div className="relative">
-            <div className={cn('bg-finma-card border border-finma-border rounded-lg overflow-hidden', isFullscreen && 'fixed inset-4 z-50')}
-              style={{ height: isFullscreen ? 'auto' : '420px' }}>
+            <div className={cn('bg-finma-card border border-finma-border rounded-lg overflow-hidden', isFullscreen ? 'fixed inset-4 z-50' : 'h-[300px] md:h-[420px]')}>
               <div className="absolute top-2 right-2 z-20">
                 <button onClick={() => setIsFullscreen(f => !f)}
                   className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-finma-bg/80 backdrop-blur text-finma-text-dim hover:text-finma-text border border-finma-border/50">
@@ -351,7 +350,7 @@ function StockAnalysisContent() {
           <span className="text-xs font-semibold text-finma-text uppercase tracking-wider">AI&apos;a Sor</span>
           <span className="ml-auto text-[9px] text-finma-text-dim">Gemini destekli</span>
         </div>
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-2 mb-2 flex-wrap">
           {['Detaylı analiz yap', 'Riskler neler?', 'Almalı mıyım?'].map(q => (
             <button key={q} onClick={() => handleAiAsk(`${ticker}: ${q}`)}
               className="text-[10px] px-2.5 py-1.5 rounded bg-finma-bg border border-finma-border text-finma-text-dim hover:text-finma-primary hover:border-finma-primary/50 transition-all">

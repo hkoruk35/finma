@@ -186,10 +186,10 @@ export default function PerformancePage() {
           {sorted.map((row, idx) => (
             <div key={row.etf} className="flex items-center gap-3 hover:bg-finma-card-hover rounded-md px-3 py-2 transition-colors cursor-pointer">
               <span className="text-[10px] finma-number text-finma-text-dim w-4">{idx + 1}.</span>
-              <span className="text-[11px] text-finma-text font-medium w-36 shrink-0">{row.sector}</span>
+              <span className="text-[11px] text-finma-text font-medium w-24 md:w-36 shrink-0">{row.sector}</span>
               <span className="text-[9px] text-finma-primary finma-number w-10 shrink-0">{row.etf}</span>
               <PerfBar value={row.change} maxAbs={maxAbs} />
-              <span className="text-[9px] text-finma-text-dim finma-number w-16 text-right shrink-0">
+              <span className="text-[9px] text-finma-text-dim finma-number w-16 text-right shrink-0 hidden md:inline">
                 ${row.price.toFixed(2)}
               </span>
             </div>

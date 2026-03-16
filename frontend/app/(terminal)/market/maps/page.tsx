@@ -237,11 +237,10 @@ export default function MapsPage() {
       </Card>
 
       {/* ── Tek Büyük Grafik Ekranı ── */}
-      <div className="bg-finma-card border border-finma-border rounded-lg overflow-hidden relative"
-        style={isFullscreen
-          ? { position: 'fixed', inset: '16px', zIndex: 50, height: 'auto' }
-          : { height: '560px' }
-        }
+      <div className={cn(
+          'bg-finma-card border border-finma-border rounded-lg overflow-hidden relative',
+          isFullscreen ? 'fixed inset-4 z-50' : 'h-[350px] md:h-[560px]'
+        )}
       >
         {/* Grafik toolbar */}
         <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-3 py-1.5 bg-finma-bg/90 backdrop-blur-sm border-b border-finma-border/50">

@@ -28,6 +28,7 @@ export function SignalsTable({ data, compact = false }: SignalsTableProps) {
 
   return (
     /* overflow buraya verildi — sticky thead çalışması için */
+    <div className="relative w-full">
     <div className="overflow-x-auto w-full" style={{ maxHeight: compact ? 'none' : '520px', overflowY: compact ? 'visible' : 'auto' }}>
       <table className="w-full min-w-[640px] text-xs border-collapse">
 
@@ -120,6 +121,8 @@ export function SignalsTable({ data, compact = false }: SignalsTableProps) {
           ))}
         </tbody>
       </table>
+    </div>
+    <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-finma-card to-transparent pointer-events-none md:hidden" />
     </div>
   )
 }
