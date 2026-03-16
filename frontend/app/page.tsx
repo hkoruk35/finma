@@ -191,8 +191,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Activity className="w-7 h-7 text-finma-primary" />
-            <span className="text-xl font-bold text-white">Fin</span>
-            <span className="text-xl font-bold text-finma-primary">MA</span>
+            <span className="text-xl font-bold text-finma-primary">FinMA</span>
             <span className="text-[10px] text-finma-text-dim ml-1 font-mono">v4.0</span>
           </div>
           <div className="flex items-center gap-4">
@@ -390,7 +389,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
               { value: 'S&P 500', label: 'Endeks Takibi' },
-              { value: '500+', label: 'Hisse Analizi' },
+              { value: '7000+', label: 'Hisse Analizi' },
               { value: 'AI', label: 'Destekli Sinyaller' },
               { value: '7/24', label: 'Veri Akışı' },
             ].map((stat) => (
@@ -406,11 +405,13 @@ export default function LandingPage() {
       {/* ─── Footer ─── */}
       <footer className="border-t border-finma-border/30 py-8 px-4">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Activity className="w-5 h-5 text-finma-primary" />
-            <span className="text-sm font-bold text-white">Fin</span>
-            <span className="text-sm font-bold text-finma-primary">MA</span>
-            <span className="text-[10px] text-finma-text-dim ml-1">v4.0</span>
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-[10px] text-finma-text-dim">
+            <div className="flex items-center gap-2">
+              <Activity className="w-5 h-5 text-finma-primary" />
+              <span className="text-sm font-bold text-finma-primary">FinMA</span>
+              <span className="text-[10px] text-finma-text-dim ml-1">v4.0</span>
+            </div>
+            <span className="text-[10px] text-finma-text-dim">Developed by <span className="text-finma-primary font-semibold">AFK DaSYS</span></span>
           </div>
           <div className="flex items-center gap-6 text-[10px] text-finma-text-dim">
             <span>Gizlilik Politikası</span>
