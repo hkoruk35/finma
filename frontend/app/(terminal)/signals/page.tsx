@@ -6,8 +6,17 @@ import { Badge } from '@/components/shared/Badge'
 import { useLatestSignals } from '@/hooks/useSignals'
 import { mockSignals } from '@/lib/mock-data'
 import { Radio, Filter } from 'lucide-react'
+import { TierGate } from '@/components/auth/TierGate'
 
 export default function SignalsPage() {
+  return (
+    <TierGate tier="premium">
+      <SignalsContent />
+    </TierGate>
+  )
+}
+
+function SignalsContent() {
   const { data: liveSignals } = useLatestSignals()
   const signals = (liveSignals || mockSignals) as import('@/types').SignalReport
 

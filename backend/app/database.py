@@ -7,6 +7,7 @@ Supabase credentials yoksa graceful fallback ile in-memory çalışır.
 
 import logging
 from typing import Optional, List
+from datetime import datetime
 from app.config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -156,6 +157,18 @@ class UsersDB:
             cls._memory[username].update(updates)
             return cls._memory[username]
         return None
+
+    @classmethod
+    def get_all(cls, limit: int = 100, offset: int = 0) -> List[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("users").select("*").range(offset, offset + limit - 1).order("created_at", desc=True).execute()
+                return result.data or []
+            except Exception as e:
+                logger.error(f"DB get_all users hatası: {e}")
+                return list(cls._memory.values())[:limit]
+        return list(cls._memory.values())[:limit]
 
     @classmethod
     def count(cls) -> int:
@@ -431,3 +444,86 @@ class SnapshotsDB:
             except Exception:
                 return []
         return []
+
+
+# ═══════════════════════════════════════════
+# INVITE CODES TABLE CRUD
+# ═══════════════════════════════════════════
+
+class InviteCodesDB:
+    """
+    invite_codes tablosu — Premium üyelik davet kodları.
+    """
+
+    _memory: List[dict] = []
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def create(cls, data: dict) -> dict:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("invite_codes").insert(data).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+            except Exception as e:
+                logger.error(f"DB create invite_code hatası: {e}")
+                cls._memory.append(data)
+                return data
+        cls._memory.append(data)
+        return data
+
+    @classmethod
+    def get_by_code(cls, code: str) -> Optional[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("invite_codes").select("*").eq("code", code).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB get_by_code hatası: {e}")
+                for ic in cls._memory:
+                    if ic.get("code") == code:
+                        return ic
+                return None
+        for ic in cls._memory:
+            if ic.get("code") == code:
+                return ic
+        return None
+
+    @classmethod
+    def mark_used(cls, code: str, user_id: str) -> bool:
+        sb = cls._sb()
+        if sb:
+            try:
+                sb.table("invite_codes").update({
+                    "used_by": user_id,
+                    "used_at": datetime.utcnow().isoformat(),
+                }).eq("code", code).execute()
+                return True
+            except Exception as e:
+                logger.error(f"DB mark_used hatası: {e}")
+                return False
+        for ic in cls._memory:
+            if ic.get("code") == code:
+                ic["used_by"] = user_id
+                ic["used_at"] = datetime.utcnow().isoformat()
+                return True
+        return False
+
+    @classmethod
+    def get_all(cls, limit: int = 100) -> List[dict]:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("invite_codes").select("*").order("created_at", desc=True).limit(limit).execute()
+                return result.data or []
+            except Exception as e:
+                logger.error(f"DB get_all invite_codes hatası: {e}")
+                return cls._memory[:limit]
+        return cls._memory[:limit]

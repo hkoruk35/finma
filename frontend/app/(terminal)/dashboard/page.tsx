@@ -11,12 +11,16 @@ import { usePortfolioSummary, useTrades } from '@/hooks/usePortfolio'
 import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useRegime } from '@/hooks/useMarketData'
 import { mockPortfolio, mockSignals, mockTrades, mockIndices } from '@/lib/mock-data'
+import { FeaturedStocksBar } from '@/components/terminal/FeaturedStocksBar'
+import { useAuthStore } from '@/store/auth'
 import {
   Brain, Clock, AlertCircle, Globe2, DollarSign,
   Newspaper, Shield, Activity, Flame
 } from 'lucide-react'
 
 export default function DashboardPage() {
+  const { canAccess } = useAuthStore()
+  const isPro = canAccess('pro')
   // Live data hooks (fallback to mock)
   const { data: portfolioData } = usePortfolioSummary()
   const { data: tradesData } = useTrades('OPEN')
@@ -42,37 +46,46 @@ export default function DashboardPage() {
       {/* Risk Banner */}
       <RiskBanner vix={vix} />
 
-      {/* Komuta Merkezi */}
-      <div>
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-sm font-semibold text-finma-text">
-            🏛️ Komuta Merkezi
-          </span>
+      {/* Komuta Merkezi — sadece Pro+ kullanıcılar */}
+      {isPro && (
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-sm font-semibold text-finma-text">
+              Komuta Merkezi
+            </span>
+          </div>
+          <HUDMetrics data={portfolio} />
         </div>
-        <HUDMetrics data={portfolio} />
-      </div>
+      )}
 
       {/* Piyasa Bağlamı */}
       <MarketContext indices={indices} />
 
-      {/* Ana içerik: Grafik (sol) + Aktif Operasyonlar & Sinyaller (sağ) */}
+      {/* Free: Öne Çıkan Hisseler tam genişlik */}
+      {!isPro && signals.candidates && signals.candidates.length > 0 && (
+        <FeaturedStocksBar candidates={signals.candidates} maxVisible={10} />
+      )}
+
+      {/* Ana içerik: Grafik + (Pro ise) Aktif Operasyonlar & Sinyaller */}
       <div className="grid grid-cols-12 gap-4">
         {/* TradingView Grafik */}
-        <div className="col-span-12 lg:col-span-7 xl:col-span-8">
+        <div className={isPro ? 'col-span-12 lg:col-span-7 xl:col-span-8' : 'col-span-12'}>
           <div className="h-[300px] md:h-[500px]">
             <TradingViewWidget />
           </div>
         </div>
 
-        {/* Sağ sütun */}
-        <div className="col-span-12 lg:col-span-5 xl:col-span-4 flex flex-col gap-4">
-          <div className="h-auto md:h-[242px]">
-            <ActiveOperations trades={trades} maxVisible={4} />
+        {/* Sağ sütun — sadece Pro+ */}
+        {isPro && (
+          <div className="col-span-12 lg:col-span-5 xl:col-span-4 flex flex-col gap-4">
+            <div className="h-auto md:h-[242px]">
+              <ActiveOperations trades={trades} maxVisible={4} />
+            </div>
+            <div className="h-auto md:h-[242px]">
+              <CompactSignals data={signals} maxVisible={5} />
+            </div>
           </div>
-          <div className="h-auto md:h-[242px]">
-            <CompactSignals data={signals} maxVisible={5} />
-          </div>
-        </div>
+        )}
       </div>
 
       {/* ═══════════════ Piyasa İstihbaratı ═══════════════ */}

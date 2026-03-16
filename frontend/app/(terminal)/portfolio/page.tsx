@@ -8,8 +8,17 @@ import { mockPortfolio, mockTrades, mockWatchlist } from '@/lib/mock-data'
 import { cn, formatCurrency, getPnlColor } from '@/lib/utils'
 import type { PortfolioSnapshot } from '@/types'
 import { Briefcase, Plus, TrendingUp } from 'lucide-react'
+import { TierGate } from '@/components/auth/TierGate'
 
 export default function PortfolioPage() {
+  return (
+    <TierGate tier="pro">
+      <PortfolioContent />
+    </TierGate>
+  )
+}
+
+function PortfolioContent() {
   const { data: portfolioData } = usePortfolioSummary()
   const { data: tradesData } = useTrades('OPEN')
 

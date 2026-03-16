@@ -9,8 +9,17 @@ import { mockTrades, mockPortfolio } from '@/lib/mock-data'
 import { useTerminalStore } from '@/store/terminal'
 import type { PortfolioSnapshot } from '@/types'
 import { Zap } from 'lucide-react'
+import { TierGate } from '@/components/auth/TierGate'
 
 export default function OperationsPage() {
+  return (
+    <TierGate tier="pro">
+      <OperationsContent />
+    </TierGate>
+  )
+}
+
+function OperationsContent() {
   const { data: portfolioData } = usePortfolioSummary()
   const { data: tradesData } = useTrades('OPEN')
   const { setChartSymbol } = useTerminalStore()

@@ -5,8 +5,17 @@ import { useLatestSignals } from '@/hooks/useSignals'
 import { mockWatchlist } from '@/lib/mock-data'
 import { cn, getPnlColor } from '@/lib/utils'
 import { List, Plus, Upload, Download } from 'lucide-react'
+import { TierGate } from '@/components/auth/TierGate'
 
 export default function WatchlistsPage() {
+  return (
+    <TierGate tier="premium">
+      <WatchlistsContent />
+    </TierGate>
+  )
+}
+
+function WatchlistsContent() {
   const { data: signalsData } = useLatestSignals()
 
   // Sinyal adaylarından watchlist oluştur veya mock fallback

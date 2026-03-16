@@ -27,18 +27,22 @@ import {
   Crown,
   Gem,
   X,
+  Shield,
+  LogOut,
+  User,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
+import { useAuthStore } from '@/store/auth'
 import { useState, useEffect } from 'react'
 
-type Tier = 'free' | 'gold' | 'premium'
+type Tier = 'free' | 'pro' | 'premium' | 'admin'
 
 interface NavItem {
   href: string
   icon: React.ElementType
   label: string
   section: string
-  tier?: Tier // minimum üyelik seviyesi
+  tier?: Tier
   children?: { href: string; icon: React.ElementType; label: string }[]
 }
 
@@ -55,28 +59,39 @@ const navItems: NavItem[] = [
     ],
   },
   { href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured' },
-  { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'gold' },
-  { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'gold' },
-  { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'gold' },
+  { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'pro' },
+  { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'pro' },
+  { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'pro' },
   { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'premium' },
   { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'premium' },
-  { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'gold' },
+  { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'pro' },
   { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
 ]
 
 const tierBadge: Record<Tier, { label: string; color: string; icon: React.ElementType }> = {
-  free: { label: '', color: '', icon: Activity },
-  gold: { label: 'Gold', color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/30' , icon: Crown },
+  free: { label: 'Free', color: 'text-finma-text-dim bg-white/5 border-white/10', icon: Activity },
+  pro: { label: 'Pro', color: 'text-finma-primary bg-finma-primary/10 border-finma-primary/30', icon: Crown },
   premium: { label: 'Premium', color: 'text-purple-400 bg-purple-400/10 border-purple-400/30', icon: Gem },
+  admin: { label: 'Admin', color: 'text-finma-green bg-finma-green/10 border-finma-green/30', icon: Shield },
+}
+
+const tierColors: Record<string, string> = {
+  free: 'text-finma-text-dim',
+  pro: 'text-finma-primary',
+  premium: 'text-purple-400',
+  admin: 'text-finma-red',
 }
 
 export function Sidebar() {
   const pathname = usePathname()
   const { sidebarOpen, setSidebarOpen, mobileMenuOpen, setMobileMenuOpen } = useTerminalStore()
+  const { user, canAccess, logout } = useAuthStore()
   const [expandedMenus, setExpandedMenus] = useState<string[]>(['market'])
 
-  // Mobilde: etiketler her zaman görünür (expanded mode)
   const isExpanded = sidebarOpen || mobileMenuOpen
+
+  const userTier = (user?.subscription_tier || 'free') as Tier
+  const isAdmin = user?.role === 'admin'
 
   const toggleMenu = (section: string) => {
     setExpandedMenus(prev =>
@@ -84,17 +99,6 @@ export function Sidebar() {
     )
   }
 
-  // Navigasyon tıklandığında mobil menüyü kapat
-  const handleNavClick = (href: string, hasChildren: boolean, section: string) => {
-    if (hasChildren && isExpanded) {
-      toggleMenu(section)
-      return
-    }
-    // Mobil menüyü kapat
-    setMobileMenuOpen(false)
-  }
-
-  // ESC tuşu ile mobil menüyü kapat
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && mobileMenuOpen) setMobileMenuOpen(false)
@@ -105,7 +109,6 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobil backdrop overlay */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-40 md:hidden animate-fade-in"
@@ -116,10 +119,8 @@ export function Sidebar() {
       <aside
         className={cn(
           'fixed top-0 h-screen bg-finma-sidebar border-r border-finma-border flex flex-col transition-all duration-300',
-          // Mobil: drawer overlay
           'max-md:w-72 max-md:z-50 max-md:shadow-2xl',
           mobileMenuOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-full',
-          // Masaüstü: normal sidebar
           'md:z-40 md:left-0',
           sidebarOpen ? 'md:w-56' : 'md:w-16'
         )}
@@ -134,7 +135,6 @@ export function Sidebar() {
               <span className="text-[10px] text-finma-text-dim ml-1.5 font-mono">v4.0</span>
             </div>
           )}
-          {/* Mobilde kapat butonu */}
           {mobileMenuOpen && (
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -149,14 +149,13 @@ export function Sidebar() {
         <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (item.children && pathname.startsWith(item.href + '/'))
-              || pathname === item.href
             const isMenuExpanded = expandedMenus.includes(item.section)
             const hasChildren = item.children && item.children.length > 0
             const badge = item.tier ? tierBadge[item.tier] : null
+            const isLocked = item.tier ? !canAccess(item.tier) : false
 
             return (
               <div key={item.href + item.section}>
-                {/* Ana menü öğesi */}
                 <div className="flex items-center">
                   <Link
                     href={hasChildren && isExpanded ? '#' : item.href}
@@ -170,17 +169,23 @@ export function Sidebar() {
                     }}
                     className={cn(
                       'flex-1 flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200',
-                      isActive
-                        ? 'bg-finma-primary/15 text-finma-primary border-l-2 border-finma-primary'
-                        : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5',
+                      isLocked
+                        ? 'text-finma-text-dim/50 hover:text-finma-text-dim/70 hover:bg-white/3'
+                        : isActive
+                          ? 'bg-finma-primary/15 text-finma-primary border-l-2 border-finma-primary'
+                          : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5',
                       !isExpanded && 'justify-center px-0'
                     )}
                     title={!isExpanded ? item.label : undefined}
                   >
-                    <item.icon className={cn('w-4.5 h-4.5 shrink-0', isActive && 'text-finma-primary')} />
+                    {isLocked ? (
+                      <Lock className="w-4.5 h-4.5 shrink-0 opacity-50" />
+                    ) : (
+                      <item.icon className={cn('w-4.5 h-4.5 shrink-0', isActive && 'text-finma-primary')} />
+                    )}
                     {isExpanded && (
                       <>
-                        <span className="flex-1 truncate">{item.label}</span>
+                        <span className={cn('flex-1 truncate', isLocked && 'opacity-50')}>{item.label}</span>
                         {badge && (
                           <span className={cn(
                             'text-[8px] font-bold px-1.5 py-0.5 rounded border leading-none',
@@ -200,7 +205,6 @@ export function Sidebar() {
                   </Link>
                 </div>
 
-                {/* Alt menüler */}
                 {hasChildren && isExpanded && isMenuExpanded && (
                   <div className="ml-4 mt-0.5 space-y-0.5 border-l border-finma-border/40 pl-2">
                     {item.children!.map((child) => {
@@ -227,21 +231,60 @@ export function Sidebar() {
               </div>
             )
           })}
+
+          {/* Admin link */}
+          {isAdmin && (
+            <div className="pt-2 mt-2 border-t border-finma-border/40">
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200',
+                  pathname.startsWith('/admin')
+                    ? 'bg-finma-red/15 text-finma-red'
+                    : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5',
+                  !isExpanded && 'justify-center px-0'
+                )}
+                title={!isExpanded ? 'Admin Panel' : undefined}
+              >
+                <Shield className="w-4.5 h-4.5 shrink-0" />
+                {isExpanded && <span>Admin Panel</span>}
+              </Link>
+            </div>
+          )}
         </nav>
 
         {/* Bottom section */}
         <div className="border-t border-finma-border p-2 space-y-1">
-          {isExpanded && (
+          {isExpanded && user && (
             <div className="px-3 py-2">
-              <div className="text-xs text-finma-text-dim">
-                <span className="text-finma-green font-mono text-[10px]">●</span> Bağlı
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-6 h-6 rounded-full bg-finma-primary/20 flex items-center justify-center">
+                  <User className="w-3.5 h-3.5 text-finma-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-white truncate">{user.full_name || user.username}</div>
+                  <div className="text-[10px] text-finma-text-dim truncate">{user.email}</div>
+                </div>
               </div>
-              <div className="text-[10px] text-finma-text-dim font-mono mt-0.5">
-                Üyelik: <span className="text-yellow-400">Gold</span>
+              <div className="text-[10px] text-finma-text-dim font-mono mt-1">
+                Üyelik: <span className={tierColors[userTier] || 'text-finma-text-dim'}>
+                  {userTier === 'admin' ? 'Admin' : tierBadge[userTier]?.label || 'Free'}
+                </span>
               </div>
             </div>
           )}
-          {/* Collapse toggle — sadece masaüstünde */}
+
+          {isExpanded && (
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 w-full px-3 py-2 text-xs text-finma-text-dim hover:text-finma-red transition-colors rounded-md hover:bg-finma-red/5"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>Çıkış Yap</span>
+            </button>
+          )}
+
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="hidden md:flex items-center justify-center w-full py-2 text-finma-text-dim hover:text-finma-text transition-colors rounded-md hover:bg-white/5"

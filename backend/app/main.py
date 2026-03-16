@@ -9,7 +9,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
-from app.routers import auth, market, signals, portfolio, ai, telegram
+from app.routers import auth, market, signals, portfolio, ai, telegram, invite
 from app.ws.price_feed import websocket_endpoint
 
 # Configure logging
@@ -102,6 +102,7 @@ app.include_router(signals.router, prefix="/api/signals", tags=["Signals & Bots"
 app.include_router(portfolio.router, prefix="/api/portfolio", tags=["Portfolio"])
 app.include_router(ai.router, prefix="/api/ai", tags=["AI Analysis"])
 app.include_router(telegram.router, prefix="/api/telegram", tags=["Telegram"])
+app.include_router(invite.router, prefix="/api/invite", tags=["Invite"])
 
 
 # ─── Root Endpoints ───

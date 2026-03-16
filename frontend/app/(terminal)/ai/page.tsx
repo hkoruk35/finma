@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Card } from '@/components/shared/Card'
 import { api } from '@/lib/api-client'
 import { Brain, Send, Sparkles, TrendingUp, Shield, BarChart3, Clock, AlertTriangle, Lock, Loader2 } from 'lucide-react'
+import { TierGate } from '@/components/auth/TierGate'
 
 const MAX_FREE_ANALYSES = 5
 const ANALYSIS_PERIOD = '24 saat'
@@ -15,6 +16,14 @@ interface Message {
 }
 
 export default function AIPage() {
+  return (
+    <TierGate tier="pro">
+      <AIContent />
+    </TierGate>
+  )
+}
+
+function AIContent() {
   const [message, setMessage] = useState('')
   const [analysisCount, setAnalysisCount] = useState(0)
   const [isLoading, setIsLoading] = useState(false)

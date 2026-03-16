@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { Providers } from './providers'
 import './globals.css'
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     title: 'FinMA',
   },
   icons: {
-    apple: '/icons/apple-touch-icon.png',
+    apple: '/icons/apple-touch-icon.svg',
   },
 }
 
@@ -33,6 +34,7 @@ export default function RootLayout({
     <html lang="tr" className="dark">
       <body className="min-h-screen bg-finma-bg safe-area-top">
         <Providers>{children}</Providers>
+        <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" />
       </body>
     </html>
   )

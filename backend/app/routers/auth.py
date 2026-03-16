@@ -1,6 +1,6 @@
 """
 Auth API Router — Supabase PostgreSQL entegrasyonlu
-Endpoints: register, login, google-login, me, update-tier
+Endpoints: register, login, google-login, me, update-tier, start-trial, users
 """
 
 from fastapi import APIRouter, HTTPException, Depends
@@ -40,7 +40,7 @@ def ensure_admin_user():
             "created_at": datetime.utcnow().isoformat(),
         }
         UsersDB.create(admin_data)
-        logger.info("👤 Admin kullanıcı oluşturuldu")
+        logger.info("Admin kullanıcı oluşturuldu")
 
 # İlk import'ta admin oluştur
 try:
@@ -55,7 +55,7 @@ class GoogleLoginRequest(BaseModel):
 
 class UpdateTierRequest(BaseModel):
     username: str
-    tier: str  # free, gold, premium
+    tier: str  # free, pro, premium
 
 
 def create_token(data: dict) -> str:
@@ -78,11 +78,8 @@ def verify_token(token: str) -> dict:
 @router.post("/register", response_model=TokenResponse)
 async def register(user: UserCreate):
     """Yeni kullanıcı kaydı"""
-    # Username kontrolü
     if UsersDB.get_by_username(user.username):
         raise HTTPException(status_code=400, detail="Kullanıcı adı zaten mevcut")
-
-    # Email kontrolü
     if UsersDB.get_by_email(user.email):
         raise HTTPException(status_code=400, detail="Bu e-posta adresi zaten kayıtlı")
 
@@ -100,7 +97,7 @@ async def register(user: UserCreate):
     }
 
     created = UsersDB.create(user_data)
-    logger.info(f"✅ Yeni kullanıcı kaydedildi: {user.username}")
+    logger.info(f"Yeni kullanıcı kaydedildi: {user.username}")
 
     token = create_token({"sub": user.username, "role": "free"})
     return TokenResponse(
@@ -182,7 +179,7 @@ async def google_login(request: GoogleLoginRequest):
                 "created_at": datetime.utcnow().isoformat(),
             }
             created = UsersDB.create(user_data)
-            logger.info(f"✅ Google ile yeni kullanıcı: {username}")
+            logger.info(f"Google ile yeni kullanıcı: {username}")
 
             token = create_token({"sub": username, "role": "free"})
             return TokenResponse(
@@ -207,10 +204,35 @@ async def get_current_user_info(user: dict = Depends(get_current_user)):
                           if k not in ("password_hash", "google_id", "updated_at")})
 
 
+@router.post("/start-trial", response_model=TokenResponse)
+async def start_trial(user: dict = Depends(get_current_user)):
+    """Free kullanıcıyı Pro deneme sürecine başlat (7 gün)"""
+    user_data = UsersDB.get_by_username(user["username"])
+    if not user_data:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    if user_data.get("subscription_tier") != "free":
+        raise HTTPException(status_code=400, detail="Deneme sadece ücretsiz üyeler için geçerlidir")
+
+    UsersDB.update(user["username"], {
+        "role": "pro",
+        "subscription_tier": "pro",
+        "trial_start_date": datetime.utcnow().isoformat(),
+    })
+    logger.info(f"{user['username']} Pro deneme başlattı")
+
+    token = create_token({"sub": user["username"], "role": "pro"})
+    updated_user = UsersDB.get_by_username(user["username"])
+    return TokenResponse(
+        access_token=token,
+        user=UserResponse(**{k: v for k, v in updated_user.items()
+                            if k not in ("password_hash", "google_id", "updated_at")}),
+    )
+
+
 @router.post("/update-tier")
 async def update_user_tier(request: UpdateTierRequest, admin: dict = Depends(require_admin)):
     """Kullanıcı üyelik seviyesini güncelle (Sadece admin)"""
-    if request.tier not in ("free", "gold", "premium", "admin"):
+    if request.tier not in ("free", "pro", "premium", "admin"):
         raise HTTPException(status_code=400, detail="Geçersiz üyelik seviyesi")
 
     user = UsersDB.get_by_username(request.username)
@@ -221,5 +243,15 @@ async def update_user_tier(request: UpdateTierRequest, admin: dict = Depends(req
         "role": request.tier,
         "subscription_tier": request.tier,
     })
-    logger.info(f"🔄 {request.username} üyeliği güncellendi: {request.tier}")
+    logger.info(f"{request.username} üyeliği güncellendi: {request.tier}")
     return {"message": f"{request.username} kullanıcısının üyeliği {request.tier} olarak güncellendi"}
+
+
+@router.get("/users")
+async def list_users(admin: dict = Depends(require_admin), limit: int = 100, offset: int = 0):
+    """Tüm kullanıcıları listele (Sadece admin)"""
+    users = UsersDB.get_all(limit=limit, offset=offset)
+    return [
+        {k: v for k, v in u.items() if k not in ("password_hash", "google_id")}
+        for u in users
+    ]

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, Suspense } from 'react'
+import { TierGate } from '@/components/auth/TierGate'
 import { useSearchParams } from 'next/navigation'
 import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
 import { Card } from '@/components/shared/Card'
@@ -382,9 +383,11 @@ function StockAnalysisContent() {
 
 export default function StockAnalysisPage() {
   return (
-    <Suspense fallback={<div className="text-center py-20 text-finma-text-dim">Yükleniyor...</div>}>
-      <StockAnalysisContent />
-    </Suspense>
+    <TierGate tier="pro">
+      <Suspense fallback={<div className="text-center py-20 text-finma-text-dim">Yükleniyor...</div>}>
+        <StockAnalysisContent />
+      </Suspense>
+    </TierGate>
   )
 }
 

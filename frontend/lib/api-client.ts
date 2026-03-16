@@ -63,6 +63,23 @@ class APIClient {
 
       if (!res.ok) {
         const error = await res.json().catch(() => ({ detail: 'API hatası' }))
+
+        // 401: Token expired or invalid
+        if (res.status === 401 && typeof window !== 'undefined') {
+          localStorage.removeItem('finma_token')
+          document.cookie = 'finma_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+          window.location.href = '/login'
+          throw new Error('Oturum süresi doldu')
+        }
+
+        // 403: Trial expired or tier insufficient
+        if (res.status === 403 && typeof window !== 'undefined') {
+          const detail = error.detail || ''
+          if (detail.includes('Deneme')) {
+            window.dispatchEvent(new CustomEvent('trial-expired'))
+          }
+        }
+
         throw new Error(error.detail || `HTTP ${res.status}`)
       }
 
@@ -302,14 +319,65 @@ class APIClient {
   async getMe() {
     return this.request<{
       id: string; username: string; email: string; role: string;
-      subscription_tier: string; full_name?: string
+      subscription_tier: string; full_name?: string; trial_start_date?: string
     }>('/api/auth/me')
   }
 
   logout() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('finma_token')
+      document.cookie = 'finma_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     }
+  }
+
+  // ─── Trial ───
+
+  async startTrial() {
+    const result = await this.request<{
+      access_token: string; token_type: string;
+      user: { id: string; username: string; email: string; role: string; subscription_tier: string; trial_start_date?: string }
+    }>('/api/auth/start-trial', { method: 'POST' })
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('finma_token', result.access_token)
+    }
+    return result
+  }
+
+  // ─── Invite ───
+
+  async redeemInvite(code: string) {
+    return this.request<{ message: string; tier: string }>('/api/invite/redeem', {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+    })
+  }
+
+  async generateInvite() {
+    return this.request<{ code: string; created_at: string }>('/api/invite/generate', {
+      method: 'POST',
+    })
+  }
+
+  async listInvites() {
+    return this.request<Array<{
+      code: string; created_by: string; used_by?: string; used_at?: string; created_at: string
+    }>>('/api/invite/list')
+  }
+
+  // ─── Admin ───
+
+  async listUsers(limit = 100, offset = 0) {
+    return this.request<Array<{
+      id: string; username: string; email: string; role: string;
+      subscription_tier: string; full_name?: string; trial_start_date?: string; created_at?: string
+    }>>(`/api/auth/users?limit=${limit}&offset=${offset}`)
+  }
+
+  async updateUserTier(username: string, tier: string) {
+    return this.request<{ message: string }>('/api/auth/update-tier', {
+      method: 'POST',
+      body: JSON.stringify({ username, tier }),
+    })
   }
 
   // ─── Telegram ───

@@ -27,6 +27,7 @@ class UserResponse(BaseModel):
     account_type: str = "individual"
     company: Optional[str] = None
     created_at: Optional[datetime] = None
+    trial_start_date: Optional[datetime] = None
 
 
 class TokenResponse(BaseModel):
