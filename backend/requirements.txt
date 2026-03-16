@@ -17,3 +17,5 @@ stripe>=8.0.0
 websockets>=12.0
 python-telegram-bot>=20.7
 python-multipart>=0.0.6
+httpx>=0.27.0
+python-dotenv>=1.0.0
