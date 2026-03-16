@@ -1,19 +1,24 @@
 """
 Signals API Router — Supabase entegrasyonlu sinyal geçmişi
-Endpoints: latest signals, history, candidates, featured (top 5), bot status
+Endpoints: latest signals, history, candidates, featured (top 5), bot status, push
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Header
 from typing import List, Optional
+from pydantic import BaseModel
 import json
 import os
 from datetime import datetime
 from app.database import SignalsDB
+from app.config import get_settings
 import logging
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+# ─── In-memory pushed signal store (Railway'de kalıcı) ───
+_pushed_signals: Optional[dict] = None
 
 # Paths to bot output files
 SIGNAL_PATHS = [
@@ -31,7 +36,10 @@ FALLBACK_PATHS = [
 
 
 def load_latest_signals() -> Optional[dict]:
-    """Load the latest signal report from bot output files"""
+    """Load: 1) pushed via API  2) local file  3) None"""
+    global _pushed_signals
+    if _pushed_signals:
+        return _pushed_signals
     for path in SIGNAL_PATHS + FALLBACK_PATHS:
         abs_path = os.path.abspath(path)
         if os.path.exists(abs_path):
@@ -43,98 +51,56 @@ def load_latest_signals() -> Optional[dict]:
     return None
 
 
-# Mock signal data for development
+# ─── Push Request Schema ───
+class CandidatePush(BaseModel):
+    ticker: str
+    score: float
+    price: float
+    entry: float          # Giriş fiyatı
+    stop_loss: float
+    tp1: float            # Target 1
+    tp2: float            # Target 2
+    action: str = "BUY"
+    sector: str = "Unknown"
+    notes: Optional[List[str]] = None
+
+
+class SignalsPushRequest(BaseModel):
+    bot_name: str = "swing112"
+    market_regime: str = "Bull"
+    vix_level: float = 20.0
+    sector_leaders: Optional[List[str]] = None
+    candidates: List[CandidatePush]
+
+
+# Mock signal data — Swing112 bot formatı (bot push etmediğinde fallback)
 MOCK_SIGNALS = {
     "timestamp": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
-    "bot_name": "inday312",
+    "bot_name": "swing112",
     "market_regime": "Bull",
-    "sector_leaders": ["Energy", "Utilities"],
-    "vix_level": 24.74,
+    "sector_leaders": ["Energy", "Materials"],
+    "vix_level": 20.5,
     "candidates": [
-        {
-            "ticker": "NVDA", "score": 8.4, "price": 912.45, "action": "BUY",
-            "entry_zone": "895 - 910", "stop_loss": 865, "target": 980,
-            "potential_pct": 7.41, "sector": "Technology",
-            "trend_phase": "Expansion", "rvol": 1.85,
-            "notes": ["AI çip talebi güçlü", "Kurumsal alım baskısı yüksek"],
-        },
-        {
-            "ticker": "FANG", "score": 7.9, "price": 182.43, "action": "BUY",
-            "entry_zone": "174 - 180", "stop_loss": 168.50, "target": 198,
-            "potential_pct": 8.53, "sector": "Energy",
-            "trend_phase": "Expansion", "rvol": 1.42,
-            "notes": ["Enerji sektörü momentum güçlü", "Teknik kırılım beklentisi"],
-        },
-        {
-            "ticker": "LMT", "score": 7.5, "price": 646.10, "action": "BUY",
-            "entry_zone": "635 - 645", "stop_loss": 620, "target": 690,
-            "potential_pct": 6.80, "sector": "Industrials",
-            "trend_phase": "Expansion", "rvol": 1.15,
-            "notes": ["Savunma harcamaları artışta", "Güçlü sipariş defteri"],
-        },
-        {
-            "ticker": "EQNR", "score": 7.2, "price": 35.25, "action": "BUY",
-            "entry_zone": "31 - 33", "stop_loss": 29.50, "target": 38.50,
-            "potential_pct": 9.22, "sector": "Energy",
-            "trend_phase": "Recovery", "rvol": 1.30,
-            "notes": ["Düşük değerleme", "Yüksek temettü verimi"],
-        },
-        {
-            "ticker": "DELL", "score": 7.0, "price": 151.70, "action": "BUY",
-            "entry_zone": "140 - 148", "stop_loss": 132, "target": 175,
-            "potential_pct": 15.36, "sector": "Technology",
-            "trend_phase": "Expansion", "rvol": 1.55,
-            "notes": ["AI sunucu satışları beklentileri aşıyor"],
-        },
-        {
-            "ticker": "OKE", "score": 6.8, "price": 85.36, "action": "BUY",
-            "entry_zone": "83.70 - 85.50", "stop_loss": 81, "target": 92,
-            "potential_pct": 7.78, "sector": "Energy",
-            "trend_phase": "Accumulation", "rvol": 1.10,
-            "notes": ["Temettü oyunu", "Enerji toparlanması"],
-        },
-        {
-            "ticker": "NTR", "score": 6.5, "price": 82.86, "action": "BUY",
-            "entry_zone": "72.49 - 76", "stop_loss": 68, "target": 90,
-            "potential_pct": 8.61, "sector": "Materials",
-            "trend_phase": "Recovery", "rvol": 1.08,
-            "notes": ["Tarım sektörü oyunu"],
-        },
-        {
-            "ticker": "OUT", "score": 6.2, "price": 26.71, "action": "CLOSE",
-            "entry_zone": "28.37 - 29.25", "stop_loss": 27.05, "target": 32.34,
-            "potential_pct": 21.08, "sector": "Real Estate",
-            "trend_phase": "Exhaustion", "rvol": 0.85,
-            "notes": ["RS: Güçlü ayrışma"],
-        },
-        {
-            "ticker": "GFS", "score": 5.8, "price": 41.88, "action": "BUY",
-            "entry_zone": "46.37 - 48", "stop_loss": 43.20, "target": 52.50,
-            "potential_pct": 25.38, "sector": "Technology",
-            "trend_phase": "Accumulation", "rvol": 1.22,
-            "notes": ["Kırılım adayı", "Yarı iletken talebi"],
-        },
-        {
-            "ticker": "NOC", "score": 5.5, "price": 733.41, "action": "BUY",
-            "entry_zone": "729 - 735", "stop_loss": 715, "target": 765,
-            "potential_pct": 4.31, "sector": "Industrials",
-            "trend_phase": "Expansion", "rvol": 1.05,
-            "notes": ["Savunma rallisi"],
-        },
-        {
-            "ticker": "CVX", "score": 5.2, "price": 158.40, "action": "BUY",
-            "entry_zone": "155 - 158", "stop_loss": 150, "target": 170,
-            "potential_pct": 7.32, "sector": "Energy",
-            "trend_phase": "Accumulation", "rvol": 0.95,
-            "notes": ["Petrol fiyatları destekli"],
-        },
-        {
-            "ticker": "META", "score": 4.8, "price": 485.20, "action": "HOLD",
-            "entry_zone": "470 - 480", "stop_loss": 455, "target": 520,
-            "potential_pct": 7.17, "sector": "Communication Services",
-            "trend_phase": "Distribution", "rvol": 1.35,
-            "notes": ["AI yatırımları harcama baskısı"],
-        },
+        {"ticker": "CGON", "score": 35.1, "price": 64.82, "action": "BUY", "entry_zone": "64.82 - 67.41", "stop_loss": 58.41, "target": 71.30, "tp1": 67.41, "tp2": 71.30, "potential_pct": 10.00, "sector": "Energy", "trend_phase": "Expansion", "notes": ["Swing112 skor: 35.1"]},
+        {"ticker": "LXU",  "score": 33.5, "price": 14.75, "action": "BUY", "entry_zone": "14.75 - 15.34", "stop_loss": 13.02, "target": 16.23, "tp1": 15.34, "tp2": 16.23, "potential_pct": 10.03, "sector": "Materials", "trend_phase": "Expansion", "notes": ["Swing112 skor: 33.5"]},
+        {"ticker": "ADEA", "score": 32.5, "price": 23.10, "action": "BUY", "entry_zone": "23.10 - 24.02", "stop_loss": 21.07, "target": 25.41, "tp1": 24.02, "tp2": 25.41, "potential_pct": 9.96, "sector": "Technology", "trend_phase": "Expansion", "notes": ["Swing112 skor: 32.5"]},
+        {"ticker": "PBR",  "score": 30.4, "price": 18.57, "action": "BUY", "entry_zone": "18.57 - 19.14", "stop_loss": 17.43, "target": 19.99, "tp1": 19.14, "tp2": 19.99, "potential_pct": 7.65, "sector": "Energy", "trend_phase": "Expansion", "notes": ["Swing112 skor: 30.4"]},
+        {"ticker": "STGW", "score": 30.0, "price": 5.95,  "action": "BUY", "entry_zone": "5.95 - 6.19",  "stop_loss": 5.17,  "target": 6.55,  "tp1": 6.19,  "tp2": 6.55,  "potential_pct": 10.08, "sector": "Technology", "trend_phase": "Expansion", "notes": ["Swing112 skor: 30.0"]},
+        {"ticker": "BP",   "score": 29.6, "price": 42.67, "action": "BUY", "entry_zone": "42.67 - 43.65", "stop_loss": 40.70, "target": 45.13, "tp1": 43.65, "tp2": 45.13, "potential_pct": 5.76, "sector": "Energy", "trend_phase": "Expansion", "notes": ["Swing112 skor: 29.6"]},
+        {"ticker": "DNTH", "score": 29.3, "price": 78.89, "action": "BUY", "entry_zone": "78.89 - 82.04", "stop_loss": 68.49, "target": 86.77, "tp1": 82.04, "tp2": 86.77, "potential_pct": 9.99, "sector": "Healthcare", "trend_phase": "Expansion", "notes": ["Swing112 skor: 29.3"]},
+        {"ticker": "UNFI", "score": 27.8, "price": 41.69, "action": "BUY", "entry_zone": "41.69 - 43.36", "stop_loss": 37.98, "target": 45.86, "tp1": 43.36, "tp2": 45.86, "potential_pct": 10.00, "sector": "Consumer", "trend_phase": "Expansion", "notes": ["Swing112 skor: 27.8"]},
+        {"ticker": "OXY",  "score": 27.4, "price": 57.33, "action": "BUY", "entry_zone": "57.33 - 59.26", "stop_loss": 53.48, "target": 62.15, "tp1": 59.26, "tp2": 62.15, "potential_pct": 8.41, "sector": "Energy", "trend_phase": "Expansion", "notes": ["Swing112 skor: 27.4"]},
+        {"ticker": "EGY",  "score": 27.3, "price": 5.49,  "action": "BUY", "entry_zone": "5.49 - 5.70",  "stop_loss": 4.91,  "target": 6.03,  "tp1": 5.70,  "tp2": 6.03,  "potential_pct": 9.84, "sector": "Energy", "trend_phase": "Expansion", "notes": ["Swing112 skor: 27.3"]},
+        {"ticker": "ERIC", "score": 27.2, "price": 11.89, "action": "BUY", "entry_zone": "11.89 - 12.20", "stop_loss": 11.26, "target": 12.67, "tp1": 12.20, "tp2": 12.67, "potential_pct": 6.56, "sector": "Communication", "trend_phase": "Expansion", "notes": ["Swing112 skor: 27.2"]},
+        {"ticker": "CAPR", "score": 26.9, "price": 30.65, "action": "BUY", "entry_zone": "30.65 - 31.88", "stop_loss": 26.15, "target": 33.72, "tp1": 31.88, "tp2": 33.72, "potential_pct": 10.02, "sector": "Healthcare", "trend_phase": "Expansion", "notes": ["Swing112 skor: 26.9"]},
+        {"ticker": "UTHR", "score": 26.8, "price": 533.37,"action": "BUY", "entry_zone": "533.37 - 551.08","stop_loss": 497.95,"target": 577.64,"tp1": 551.08,"tp2": 577.64,"potential_pct": 8.30, "sector": "Healthcare", "trend_phase": "Expansion", "notes": ["Swing112 skor: 26.8"]},
+        {"ticker": "NOK",  "score": 26.5, "price": 8.64,  "action": "BUY", "entry_zone": "8.64 - 8.98",  "stop_loss": 7.95,  "target": 9.49,  "tp1": 8.98,  "tp2": 9.49,  "potential_pct": 9.84, "sector": "Communication", "trend_phase": "Expansion", "notes": ["Swing112 skor: 26.5"]},
+        {"ticker": "DAR",  "score": 26.0, "price": 54.57, "action": "BUY", "entry_zone": "54.57 - 56.36", "stop_loss": 50.99, "target": 59.05, "tp1": 56.36, "tp2": 59.05, "potential_pct": 8.21, "sector": "Energy", "trend_phase": "Expansion", "notes": ["Swing112 skor: 26.0"]},
+        {"ticker": "NSSC", "score": 25.6, "price": 42.99, "action": "BUY", "entry_zone": "42.99 - 44.61", "stop_loss": 39.76, "target": 47.03, "tp1": 44.61, "tp2": 47.03, "potential_pct": 9.40, "sector": "Industrials", "trend_phase": "Expansion", "notes": ["Swing112 skor: 25.6"]},
+        {"ticker": "RLAY", "score": 25.0, "price": 10.30, "action": "BUY", "entry_zone": "10.30 - 10.71", "stop_loss": 8.80,  "target": 11.32, "tp1": 10.71, "tp2": 11.32, "potential_pct": 9.90, "sector": "Healthcare", "trend_phase": "Expansion", "notes": ["Swing112 skor: 25.0"]},
+        {"ticker": "APEI", "score": 24.7, "price": 54.12, "action": "BUY", "entry_zone": "54.12 - 55.32", "stop_loss": 48.55, "target": 57.13, "tp1": 55.32, "tp2": 57.13, "potential_pct": 5.56, "sector": "Consumer", "trend_phase": "Expansion", "notes": ["Swing112 skor: 24.7 [E]"]},
+        {"ticker": "PSX",  "score": 24.5, "price": 173.67,"action": "BUY", "entry_zone": "173.67 - 178.93","stop_loss": 163.14,"target": 186.83,"tp1": 178.93,"tp2": 186.83,"potential_pct": 7.58, "sector": "Energy", "trend_phase": "Expansion", "notes": ["Swing112 skor: 24.5"]},
+        {"ticker": "TALK", "score": 23.7, "price": 5.14,  "action": "BUY", "entry_zone": "5.14 - 5.35",  "stop_loss": 4.73,  "target": 5.66,  "tp1": 5.35,  "tp2": 5.66,  "potential_pct": 10.12, "sector": "Technology", "trend_phase": "Expansion", "notes": ["Swing112 skor: 23.7"]},
     ],
 }
 
@@ -226,3 +192,62 @@ async def get_bot_status():
             "inday312": {"name": "Intraday Scanner", "scheduled": False, "next_run": None},
             "opsiyon217": {"name": "Opsiyon Scanner", "scheduled": False, "next_run": None},
         }
+
+
+@router.post("/push")
+async def push_signals(
+    payload: SignalsPushRequest,
+    x_api_key: Optional[str] = Header(None),
+):
+    """
+    Bot sonuçlarını API'ye push et.
+    Header: X-Api-Key: <BOT_API_KEY env var>
+    """
+    global _pushed_signals
+
+    # API Key doğrulama
+    settings = get_settings()
+    expected_key = getattr(settings, "bot_api_key", None) or os.environ.get("BOT_API_KEY", "finma-bot-2026")
+    if x_api_key != expected_key:
+        raise HTTPException(status_code=401, detail="Geçersiz API anahtarı")
+
+    # Kandidatları standart formata dönüştür
+    candidates = []
+    for c in payload.candidates:
+        # TP1 ve TP2'yi kullanarak entry_zone hesapla
+        candidates.append({
+            "ticker": c.ticker.upper(),
+            "score": round(c.score, 1),
+            "price": c.price,
+            "action": c.action.upper(),
+            "entry_zone": f"{c.entry:.2f} - {c.tp1:.2f}",
+            "stop_loss": c.stop_loss,
+            "target": c.tp2,   # Ana hedef = TP2
+            "tp1": c.tp1,
+            "tp2": c.tp2,
+            "potential_pct": round(((c.tp2 - c.entry) / c.entry) * 100, 2) if c.entry > 0 else 0,
+            "sector": c.sector,
+            "trend_phase": "Expansion",
+            "notes": c.notes or [f"Swing112 skor: {c.score}"],
+        })
+
+    # Skora göre sırala, ilk 20'yi al
+    candidates = sorted(candidates, key=lambda x: x["score"], reverse=True)[:20]
+
+    _pushed_signals = {
+        "timestamp": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+        "bot_name": payload.bot_name,
+        "market_regime": payload.market_regime,
+        "vix_level": payload.vix_level,
+        "sector_leaders": payload.sector_leaders or [],
+        "candidates": candidates,
+    }
+
+    # Supabase'e kaydet
+    try:
+        SignalsDB.save_report(_pushed_signals)
+    except Exception as e:
+        logger.warning(f"Sinyal kayıt hatası: {e}")
+
+    logger.info(f"✅ {len(candidates)} sinyal push edildi — bot: {payload.bot_name}")
+    return {"status": "ok", "count": len(candidates), "timestamp": _pushed_signals["timestamp"]}

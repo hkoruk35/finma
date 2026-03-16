@@ -20,6 +20,7 @@ export interface BotSignal {
 
 export interface SignalReport {
   timestamp: string
+  bot_name?: string
   market_regime: string
   sector_leaders?: string[]
   vix_level: number
