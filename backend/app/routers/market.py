@@ -29,6 +29,7 @@ from app.services.market_data import (
     CRYPTO_SYMBOLS,
     COMMODITY_SYMBOLS,
 )
+from app.services.world_markets import get_world_market_data, get_world_analysis
 from app.services.stock_cache import (
     get_cached_quote,
     get_cached_technicals,
@@ -191,3 +192,17 @@ async def get_history(ticker: str):
 async def get_holders(ticker: str):
     """Kurumsal sahiplik ve büyük hissedarlar"""
     return get_holders_info(ticker.upper())
+
+
+# ─── World Markets ───
+
+@router.get("/world")
+async def get_world():
+    """Dünya borsaları canlı verileri (30+ endeks + emtia/döviz/kripto)"""
+    return get_world_market_data()
+
+
+@router.get("/world/analysis")
+async def get_world_ai_analysis():
+    """AI destekli dünya piyasası istihbarat raporu"""
+    return await get_world_analysis()

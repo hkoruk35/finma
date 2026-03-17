@@ -197,6 +197,39 @@ class APIClient {
     }>(`/api/market/holders/${ticker}`)
   }
 
+  async getWorldMarkets() {
+    return this.request<{
+      timestamp: string;
+      total_exchanges: number;
+      total_open: number;
+      regions: Array<{
+        id: string; name: string; icon: string;
+        open_count: number; total_count: number; avg_change_pct: number;
+        exchanges: Array<{
+          id: string; symbol: string; name: string; full_name: string;
+          country: string; city: string; flag: string;
+          price: number; change: number; change_pct: number;
+          prev_close: number; day_high: number; day_low: number; volume: number;
+          status: string; status_tr: string;
+          local_open: string; local_close: string; tz: string;
+        }>;
+      }>;
+      commodities: Array<{
+        id: string; symbol: string; name: string; flag: string; type: string;
+        price: number; change: number; change_pct: number; status: string;
+      }>;
+    }>('/api/market/world')
+  }
+
+  async getWorldAnalysis() {
+    return this.request<{
+      trend: string; summary: string; strong: string; weak: string;
+      risks: string; opportunities: string;
+      regions: Record<string, string>;
+      raw: string;
+    }>('/api/market/world/analysis')
+  }
+
   // ─── Signals (Vercel → Supabase doğrudan, Railway bypass) ───
 
   async getLatestSignals() {

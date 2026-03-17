@@ -1,117 +1,643 @@
 'use client'
 
+import { useState } from 'react'
 import { Card } from '@/components/shared/Card'
 import { cn } from '@/lib/utils'
-import { Globe2, Clock, TrendingUp, TrendingDown } from 'lucide-react'
+import { api } from '@/lib/api-client'
+import { useWorldMarkets, useWorldAnalysis, useSectors } from '@/hooks/useMarketData'
+import {
+  Globe2, Clock, TrendingUp, TrendingDown, Brain, Send,
+  ArrowUp, ArrowDown, AlertTriangle, Lightbulb, Shield,
+  ChevronDown, ChevronUp, BarChart3, Zap, RefreshCw
+} from 'lucide-react'
 
-const WORLD_MARKETS = [
-  {
-    region: 'Amerika',
-    markets: [
-      { name: 'S&P 500', symbol: 'SPX', price: 5580, change: -0.80, status: 'Açık' },
-      { name: 'Dow Jones', symbol: 'DJI', price: 41800, change: -0.76, status: 'Açık' },
-      { name: 'Nasdaq', symbol: 'NDX', price: 19400, change: -0.92, status: 'Açık' },
-      { name: 'Russell 2000', symbol: 'RUT', price: 2080, change: -0.88, status: 'Açık' },
-      { name: 'Bovespa', symbol: 'BVSP', price: 128500, change: 0.45, status: 'Açık' },
-      { name: 'S&P/TSX', symbol: 'TSX', price: 22400, change: -0.32, status: 'Açık' },
-    ],
-  },
-  {
-    region: 'Avrupa',
-    markets: [
-      { name: 'FTSE 100', symbol: 'UKX', price: 8420, change: 0.35, status: 'Kapalı' },
-      { name: 'DAX', symbol: 'DAX', price: 18950, change: 0.62, status: 'Kapalı' },
-      { name: 'CAC 40', symbol: 'CAC', price: 8150, change: 0.28, status: 'Kapalı' },
-      { name: 'BIST 100', symbol: 'XU100', price: 9850, change: 1.24, status: 'Kapalı' },
-      { name: 'STOXX 600', symbol: 'SXXP', price: 520, change: 0.41, status: 'Kapalı' },
-      { name: 'IBEX 35', symbol: 'IBEX', price: 11250, change: 0.18, status: 'Kapalı' },
-    ],
-  },
-  {
-    region: 'Asya-Pasifik',
-    markets: [
-      { name: 'Nikkei 225', symbol: 'NI225', price: 38900, change: -1.20, status: 'Kapalı' },
-      { name: 'Hang Seng', symbol: 'HSI', price: 22800, change: 0.85, status: 'Kapalı' },
-      { name: 'Shanghai', symbol: 'SSEC', price: 3280, change: 0.32, status: 'Kapalı' },
-      { name: 'ASX 200', symbol: 'AXJO', price: 7950, change: -0.45, status: 'Kapalı' },
-      { name: 'KOSPI', symbol: 'KS11', price: 2680, change: -0.68, status: 'Kapalı' },
-      { name: 'Sensex', symbol: 'BSESN', price: 74500, change: 0.52, status: 'Kapalı' },
-    ],
-  },
-  {
-    region: 'Emtia & Döviz',
-    markets: [
-      { name: 'Altın', symbol: 'GC', price: 2950, change: 0.63, status: '24 Saat' },
-      { name: 'Gümüş', symbol: 'SI', price: 33.20, change: 0.76, status: '24 Saat' },
-      { name: 'Petrol (WTI)', symbol: 'CL', price: 78.50, change: 1.85, status: '24 Saat' },
-      { name: 'EUR/USD', symbol: 'EURUSD', price: 1.0892, change: 0.12, status: '24 Saat' },
-      { name: 'USD/TRY', symbol: 'USDTRY', price: 38.45, change: 0.08, status: '24 Saat' },
-      { name: 'Bitcoin', symbol: 'BTC', price: 83000, change: -1.42, status: '24 Saat' },
-    ],
-  },
-]
+// ═══════════════════════════════════════════════════════════════════════
+// STATUS BADGE
+// ═══════════════════════════════════════════════════════════════════════
 
-export default function WorldMarketsPage() {
-  const now = new Date()
-  const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+function StatusBadge({ status, label }: { status: string; label: string }) {
+  const styles: Record<string, string> = {
+    open: 'bg-finma-green/20 text-finma-green border-finma-green/30',
+    pre: 'bg-finma-yellow/20 text-finma-yellow border-finma-yellow/30',
+    post: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+    closed: 'bg-finma-text-dim/15 text-finma-text-dim border-finma-text-dim/20',
+    '24s': 'bg-finma-cyan/20 text-finma-cyan border-finma-cyan/30',
+  }
+  return (
+    <span className={cn(
+      'text-[8px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide border leading-none',
+      styles[status] || styles.closed
+    )}>
+      {status === 'open' && <span className="inline-block w-1.5 h-1.5 bg-finma-green rounded-full mr-1 animate-pulse" />}
+      {label}
+    </span>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// AI GLOBAL SUMMARY BANNER
+// ═══════════════════════════════════════════════════════════════════════
+
+function AIGlobalSummary() {
+  const { data, isLoading, isFetching } = useWorldAnalysis()
+  const [expanded, setExpanded] = useState(true)
+
+  if (isLoading) {
+    return (
+      <Card padding="none" className="overflow-hidden">
+        <div className="p-4 space-y-3 animate-pulse">
+          <div className="h-5 bg-finma-border/30 rounded w-48" />
+          <div className="h-4 bg-finma-border/20 rounded w-full" />
+          <div className="h-4 bg-finma-border/20 rounded w-3/4" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="h-16 bg-finma-border/20 rounded" />
+            ))}
+          </div>
+        </div>
+      </Card>
+    )
+  }
+
+  if (!data) return null
+
+  const trendColor = data.trend?.includes('YUKARI') ? 'text-finma-green' :
+    data.trend?.includes('ASAGI') ? 'text-finma-red' : 'text-finma-yellow'
+  const trendBg = data.trend?.includes('YUKARI') ? 'bg-finma-green/10 border-finma-green/30' :
+    data.trend?.includes('ASAGI') ? 'bg-finma-red/10 border-finma-red/30' : 'bg-finma-yellow/10 border-finma-yellow/30'
 
   return (
-    <div className="space-y-4 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Globe2 className="w-4 h-4 text-finma-cyan" />
-          <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">
-            Dünya Borsaları
-          </span>
+    <Card padding="none" className="overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-finma-primary/10 via-finma-card to-finma-card border-b border-finma-border">
+        <div className="flex items-center gap-2.5">
+          <div className="relative">
+            <Brain className="w-5 h-5 text-finma-primary" />
+            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-finma-primary rounded-full animate-ping" />
+          </div>
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">AI Global Istihbarat</span>
+          {isFetching && (
+            <div className="flex items-center gap-1 text-[9px] text-finma-primary">
+              <RefreshCw className="w-3 h-3 animate-spin" />
+              <span>Guncelleniyor</span>
+            </div>
+          )}
         </div>
-        <div className="flex items-center gap-1 text-[10px] text-finma-text-dim">
-          <Clock className="w-3 h-3" />
-          <span className="finma-number">Son güncelleme: {timeStr}</span>
+        <div className="flex items-center gap-3">
+          {/* Trend badge */}
+          <div className={cn('flex items-center gap-1.5 px-3 py-1 rounded-full border', trendBg)}>
+            {data.trend?.includes('YUKARI') ? <ArrowUp className="w-3.5 h-3.5" /> :
+             data.trend?.includes('ASAGI') ? <ArrowDown className="w-3.5 h-3.5" /> :
+             <BarChart3 className="w-3.5 h-3.5" />}
+            <span className={cn('text-xs font-bold', trendColor)}>
+              {data.trend || 'KARISIK'}
+            </span>
+          </div>
+          <button onClick={() => setExpanded(!expanded)}
+            className="text-finma-text-dim hover:text-finma-text transition-colors">
+            {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </button>
         </div>
       </div>
 
-      {WORLD_MARKETS.map((region) => (
-        <Card key={region.region} padding="sm">
-          <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
-            <Globe2 className="w-4 h-4 text-finma-primary" />
-            <span className="text-sm font-bold text-finma-text">{region.region}</span>
-          </div>
+      {expanded && (
+        <div className="p-4 space-y-4">
+          {/* Summary */}
+          {data.summary && (
+            <p className="text-[13px] text-finma-text leading-relaxed">{data.summary}</p>
+          )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-3">
-            {region.markets.map((market) => (
-              <div
-                key={market.symbol}
-                className="flex items-center justify-between bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 hover:border-finma-primary/30 transition-colors cursor-pointer"
-              >
-                <div>
-                  <div className="text-xs font-semibold text-finma-text">{market.name}</div>
-                  <div className="text-[9px] text-finma-text-dim finma-number">{market.symbol}</div>
+          {/* 4-column grid: Strong / Weak / Risks / Opportunities */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+            {data.strong && (
+              <div className="p-3 rounded-lg bg-finma-green/5 border border-finma-green/20">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <TrendingUp className="w-3.5 h-3.5 text-finma-green" />
+                  <span className="text-[11px] font-bold text-finma-green uppercase">Guclu</span>
                 </div>
-                <div className="text-right">
-                  <div className="text-xs font-bold finma-number text-finma-text">
-                    {market.price >= 1000 ? market.price.toLocaleString() : market.price.toFixed(2)}
-                  </div>
-                  <div className={cn(
-                    'text-[10px] finma-number font-medium flex items-center justify-end gap-0.5',
-                    market.change >= 0 ? 'text-finma-green' : 'text-finma-red'
-                  )}>
-                    {market.change >= 0 ? <TrendingUp className="w-2.5 h-2.5" /> : <TrendingDown className="w-2.5 h-2.5" />}
-                    {market.change >= 0 ? '+' : ''}{market.change.toFixed(2)}%
-                  </div>
-                </div>
-                <span className={cn(
-                  'text-[8px] px-1.5 py-0.5 rounded font-medium ml-2',
-                  market.status === 'Açık' ? 'bg-finma-green/20 text-finma-green' :
-                  market.status === '24 Saat' ? 'bg-finma-cyan/20 text-finma-cyan' :
-                  'bg-finma-text-dim/20 text-finma-text-dim'
-                )}>
-                  {market.status}
-                </span>
+                <p className="text-[12px] text-finma-text-muted leading-relaxed whitespace-pre-line">{data.strong}</p>
               </div>
-            ))}
+            )}
+            {data.weak && (
+              <div className="p-3 rounded-lg bg-finma-red/5 border border-finma-red/20">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <TrendingDown className="w-3.5 h-3.5 text-finma-red" />
+                  <span className="text-[11px] font-bold text-finma-red uppercase">Zayif</span>
+                </div>
+                <p className="text-[12px] text-finma-text-muted leading-relaxed whitespace-pre-line">{data.weak}</p>
+              </div>
+            )}
+            {data.risks && (
+              <div className="p-3 rounded-lg bg-finma-yellow/5 border border-finma-yellow/20">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <AlertTriangle className="w-3.5 h-3.5 text-finma-yellow" />
+                  <span className="text-[11px] font-bold text-finma-yellow uppercase">Risk</span>
+                </div>
+                <p className="text-[12px] text-finma-text-muted leading-relaxed whitespace-pre-line">{data.risks}</p>
+              </div>
+            )}
+            {data.opportunities && (
+              <div className="p-3 rounded-lg bg-finma-cyan/5 border border-finma-cyan/20">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <Lightbulb className="w-3.5 h-3.5 text-finma-cyan" />
+                  <span className="text-[11px] font-bold text-finma-cyan uppercase">Firsat</span>
+                </div>
+                <p className="text-[12px] text-finma-text-muted leading-relaxed whitespace-pre-line">{data.opportunities}</p>
+              </div>
+            )}
           </div>
-        </Card>
+        </div>
+      )}
+    </Card>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// EXCHANGE CARD
+// ═══════════════════════════════════════════════════════════════════════
+
+type Exchange = {
+  id: string; symbol: string; name: string; full_name: string;
+  country: string; city: string; flag: string;
+  price: number; change: number; change_pct: number;
+  prev_close: number; day_high: number; day_low: number; volume: number;
+  status: string; status_tr: string;
+  local_open: string; local_close: string; tz: string;
+}
+
+function ExchangeCard({ ex }: { ex: Exchange }) {
+  const isUp = ex.change_pct >= 0
+  const changeColor = isUp ? 'text-finma-green' : 'text-finma-red'
+  const changeBg = isUp ? 'bg-finma-green/10' : 'bg-finma-red/10'
+
+  // Format price
+  const formatPrice = (p: number) => {
+    if (p === 0) return '—'
+    if (p >= 10000) return p.toLocaleString('tr-TR', { maximumFractionDigits: 0 })
+    if (p >= 100) return p.toLocaleString('tr-TR', { maximumFractionDigits: 1 })
+    return p.toLocaleString('tr-TR', { maximumFractionDigits: 2 })
+  }
+
+  // Format volume
+  const formatVol = (v: number) => {
+    if (!v || v === 0) return null
+    if (v >= 1e9) return `${(v / 1e9).toFixed(1)}B`
+    if (v >= 1e6) return `${(v / 1e6).toFixed(1)}M`
+    if (v >= 1e3) return `${(v / 1e3).toFixed(0)}K`
+    return v.toString()
+  }
+
+  const vol = formatVol(ex.volume)
+
+  return (
+    <div className={cn(
+      'relative p-3 rounded-lg border transition-all duration-200 group',
+      'bg-finma-bg/50 hover:bg-finma-primary/5',
+      ex.status === 'open'
+        ? 'border-finma-green/20 hover:border-finma-green/40'
+        : 'border-finma-border/30 hover:border-finma-primary/30'
+    )}>
+      {/* Open indicator line */}
+      {ex.status === 'open' && (
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-finma-green via-finma-green/50 to-transparent rounded-t-lg" />
+      )}
+
+      <div className="flex items-start justify-between gap-2">
+        {/* Left: Info */}
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-base">{ex.flag}</span>
+            <div className="min-w-0">
+              <div className="text-xs font-bold text-finma-text truncate">{ex.name}</div>
+              <div className="text-[10px] text-finma-text-dim">
+                {ex.city} <span className="text-finma-text-dim/50">|</span> {ex.local_open}–{ex.local_close} {ex.tz}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Price + Status */}
+        <div className="text-right shrink-0">
+          <div className="text-sm font-bold finma-number text-finma-text">
+            {formatPrice(ex.price)}
+          </div>
+          <div className={cn('text-xs font-bold finma-number flex items-center justify-end gap-0.5', changeColor)}>
+            {isUp ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+            {isUp ? '+' : ''}{ex.change_pct.toFixed(2)}%
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom row: status + volume + day range */}
+      <div className="flex items-center justify-between mt-2 pt-2 border-t border-finma-border/20">
+        <StatusBadge status={ex.status} label={ex.status_tr} />
+        <div className="flex items-center gap-2 text-[10px] text-finma-text-dim">
+          {ex.day_high > 0 && ex.day_low > 0 && (
+            <span className="finma-number">
+              <span className="text-finma-red">{formatPrice(ex.day_low)}</span>
+              <span className="mx-0.5">—</span>
+              <span className="text-finma-green">{formatPrice(ex.day_high)}</span>
+            </span>
+          )}
+          {vol && <span className="finma-number text-finma-text-dim/70">Vol: {vol}</span>}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// REGION SECTION
+// ═══════════════════════════════════════════════════════════════════════
+
+type Region = {
+  id: string; name: string; icon: string;
+  open_count: number; total_count: number; avg_change_pct: number;
+  exchanges: Exchange[];
+}
+
+function RegionSection({ region, aiComment }: { region: Region; aiComment?: string }) {
+  const isUp = region.avg_change_pct >= 0
+  const [showAI, setShowAI] = useState(true)
+
+  return (
+    <Card padding="none" className="overflow-hidden">
+      {/* Region Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-finma-border bg-finma-bg/30">
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg">{region.icon}</span>
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">{region.name}</span>
+          <div className="flex items-center gap-2 text-[10px]">
+            <span className={cn(
+              'font-bold finma-number px-2 py-0.5 rounded-full',
+              isUp ? 'bg-finma-green/10 text-finma-green' : 'bg-finma-red/10 text-finma-red'
+            )}>
+              Ort: {isUp ? '+' : ''}{region.avg_change_pct.toFixed(2)}%
+            </span>
+            {region.open_count > 0 && (
+              <span className="text-finma-green font-medium">
+                {region.open_count}/{region.total_count} Acik
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* AI Comment */}
+      {aiComment && showAI && (
+        <div className="px-4 py-2.5 bg-finma-primary/5 border-b border-finma-border/30">
+          <div className="flex items-start gap-2">
+            <Brain className="w-3.5 h-3.5 text-finma-primary shrink-0 mt-0.5" />
+            <p className="text-[12px] text-finma-text-muted leading-relaxed">{aiComment}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Exchange Grid */}
+      <div className="p-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
+        {region.exchanges.map(ex => (
+          <ExchangeCard key={ex.id} ex={ex} />
+        ))}
+      </div>
+    </Card>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// US SECTOR BAR
+// ═══════════════════════════════════════════════════════════════════════
+
+function USSectorBar() {
+  const { data } = useSectors('1d')
+
+  if (!data || data.length === 0) return null
+
+  return (
+    <Card padding="sm">
+      <div className="flex items-center gap-2 mb-2">
+        <BarChart3 className="w-3.5 h-3.5 text-finma-primary" />
+        <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">ABD Sektorleri (Gunluk)</span>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {data.slice(0, 11).map((s: any, i: number) => {
+          const isUp = (s.change_pct || 0) >= 0
+          return (
+            <div key={i} className={cn(
+              'flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border text-[11px]',
+              isUp ? 'bg-finma-green/5 border-finma-green/20' : 'bg-finma-red/5 border-finma-red/20'
+            )}>
+              <span className="text-finma-text-muted font-medium">{s.sector_tr || s.sector}</span>
+              <span className={cn('font-bold finma-number', isUp ? 'text-finma-green' : 'text-finma-red')}>
+                {isUp ? '+' : ''}{(s.change_pct || 0).toFixed(2)}%
+              </span>
+            </div>
+          )
+        })}
+      </div>
+    </Card>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// COMMODITIES SECTION
+// ═══════════════════════════════════════════════════════════════════════
+
+type Commodity = {
+  id: string; symbol: string; name: string; flag: string; type: string;
+  price: number; change_pct: number; status: string;
+}
+
+function CommoditiesSection({ commodities, aiComment }: { commodities: Commodity[]; aiComment?: string }) {
+  const typeOrder = ['emtia', 'doviz', 'kripto']
+  const typeLabels: Record<string, string> = { emtia: 'Emtia', doviz: 'Doviz', kripto: 'Kripto' }
+
+  return (
+    <Card padding="none" className="overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-finma-border bg-finma-bg/30">
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg">💰</span>
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">Emtia, Doviz & Kripto</span>
+        </div>
+        <StatusBadge status="24s" label="24 Saat" />
+      </div>
+
+      {/* AI Comment */}
+      {aiComment && (
+        <div className="px-4 py-2.5 bg-finma-primary/5 border-b border-finma-border/30">
+          <div className="flex items-start gap-2">
+            <Brain className="w-3.5 h-3.5 text-finma-primary shrink-0 mt-0.5" />
+            <p className="text-[12px] text-finma-text-muted leading-relaxed">{aiComment}</p>
+          </div>
+        </div>
+      )}
+
+      <div className="p-3">
+        {typeOrder.map(type => {
+          const items = commodities.filter(c => c.type === type)
+          if (items.length === 0) return null
+          return (
+            <div key={type} className="mb-3 last:mb-0">
+              <div className="text-[10px] text-finma-text-dim uppercase font-bold mb-1.5 px-1">{typeLabels[type]}</div>
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2">
+                {items.map(c => {
+                  const isUp = c.change_pct >= 0
+                  return (
+                    <div key={c.id} className="flex items-center justify-between p-2.5 rounded-lg bg-finma-bg/50 border border-finma-border/30 hover:border-finma-primary/30 transition-colors">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">{c.flag}</span>
+                        <span className="text-[11px] font-medium text-finma-text">{c.name}</span>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-[11px] font-bold finma-number text-finma-text">
+                          {c.type === 'doviz' ? c.price.toFixed(4) :
+                           c.price >= 1000 ? c.price.toLocaleString('tr-TR', { maximumFractionDigits: 0 }) :
+                           c.price.toFixed(2)}
+                        </div>
+                        <div className={cn('text-[10px] font-bold finma-number', isUp ? 'text-finma-green' : 'text-finma-red')}>
+                          {isUp ? '+' : ''}{c.change_pct.toFixed(2)}%
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </Card>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// AI ASK SECTION
+// ═══════════════════════════════════════════════════════════════════════
+
+function AIAskSection() {
+  const [question, setQuestion] = useState('')
+  const [response, setResponse] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const quickQuestions = [
+    'Bugun piyasa neden dusuyuyor?',
+    'Hangi sektor guclu?',
+    'VIX ne diyor?',
+    'Asya piyasalarini analiz et',
+  ]
+
+  const handleAsk = async (q: string) => {
+    if (!q.trim()) return
+    setLoading(true)
+    try {
+      const result = await api.chatWithAI(q, [])
+      setResponse(result.response)
+    } catch {
+      setResponse('AI yanit su an kullanilamiyor. Lutfen tekrar deneyin.')
+    }
+    setLoading(false)
+    setQuestion('')
+  }
+
+  return (
+    <Card padding="sm">
+      <div className="flex items-center gap-2 pb-2 border-b border-finma-border mb-3">
+        <Brain className="w-4 h-4 text-finma-purple" />
+        <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">AI&apos;a Sor</span>
+        <span className="ml-auto text-[10px] text-finma-text-dim">Gemini destekli</span>
+      </div>
+
+      <div className="flex items-center gap-2 mb-3 flex-wrap">
+        {quickQuestions.map(q => (
+          <button key={q} onClick={() => handleAsk(q)}
+            className="text-[11px] px-3 py-2 rounded-lg bg-finma-bg border border-finma-border text-finma-text-dim hover:text-finma-primary hover:border-finma-primary/50 transition-all">
+            {q}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex items-center gap-2">
+        <input type="text" value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleAsk(question)}
+          placeholder="Dunya piyasalari hakkinda soru sorun..."
+          className="finma-input flex-1 text-sm" />
+        <button onClick={() => handleAsk(question)} disabled={loading}
+          className="finma-btn-primary p-2.5">
+          {loading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
+        </button>
+      </div>
+
+      {response && (
+        <div className="mt-3 p-4 bg-finma-bg rounded-lg border border-finma-border/50">
+          <p className="text-[12px] text-finma-text-muted leading-relaxed whitespace-pre-wrap">{response}</p>
+        </div>
+      )}
+    </Card>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// GLOBAL SUMMARY STATS
+// ═══════════════════════════════════════════════════════════════════════
+
+function GlobalStats({ totalExchanges, totalOpen, regions }: {
+  totalExchanges: number; totalOpen: number;
+  regions: Array<{ avg_change_pct: number; exchanges: Exchange[] }>;
+}) {
+  // Calculate global average
+  const allExchanges = regions.flatMap(r => r.exchanges)
+  const upCount = allExchanges.filter(e => e.change_pct > 0).length
+  const downCount = allExchanges.filter(e => e.change_pct < 0).length
+  const globalAvg = allExchanges.length > 0
+    ? allExchanges.reduce((sum, e) => sum + e.change_pct, 0) / allExchanges.length
+    : 0
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div className="bg-finma-card border border-finma-border rounded-lg p-3 text-center">
+        <div className="text-[10px] text-finma-text-dim uppercase">Takip Edilen</div>
+        <div className="text-lg font-bold finma-number text-finma-text">{totalExchanges}</div>
+        <div className="text-[10px] text-finma-text-dim">borsa</div>
+      </div>
+      <div className="bg-finma-card border border-finma-border rounded-lg p-3 text-center">
+        <div className="text-[10px] text-finma-text-dim uppercase">Su An Acik</div>
+        <div className="text-lg font-bold finma-number text-finma-green">{totalOpen}</div>
+        <div className="text-[10px] text-finma-text-dim">borsa</div>
+      </div>
+      <div className="bg-finma-card border border-finma-border rounded-lg p-3 text-center">
+        <div className="text-[10px] text-finma-text-dim uppercase">Yukselis / Dusus</div>
+        <div className="flex items-center justify-center gap-1.5">
+          <span className="text-lg font-bold finma-number text-finma-green">{upCount}</span>
+          <span className="text-finma-text-dim">/</span>
+          <span className="text-lg font-bold finma-number text-finma-red">{downCount}</span>
+        </div>
+      </div>
+      <div className="bg-finma-card border border-finma-border rounded-lg p-3 text-center">
+        <div className="text-[10px] text-finma-text-dim uppercase">Global Ortalama</div>
+        <div className={cn('text-lg font-bold finma-number', globalAvg >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+          {globalAvg >= 0 ? '+' : ''}{globalAvg.toFixed(2)}%
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// MAIN PAGE
+// ═══════════════════════════════════════════════════════════════════════
+
+export default function WorldMarketsPage() {
+  const { data: marketData, isLoading, isFetching, dataUpdatedAt } = useWorldMarkets()
+  const { data: analysisData } = useWorldAnalysis()
+
+  const now = new Date()
+  const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+  const lastUpdate = dataUpdatedAt
+    ? new Date(dataUpdatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+    : timeStr
+
+  if (isLoading) {
+    return (
+      <div className="space-y-4 animate-fade-in">
+        <div className="flex items-center gap-2">
+          <Globe2 className="w-5 h-5 text-finma-cyan" />
+          <span className="text-base font-bold text-finma-text uppercase tracking-wider">Global Piyasa Istihbarat Merkezi</span>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="h-20 bg-finma-card border border-finma-border rounded-lg animate-pulse" />
+          ))}
+        </div>
+        <div className="h-48 bg-finma-card border border-finma-border rounded-lg animate-pulse" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="h-64 bg-finma-card border border-finma-border rounded-lg animate-pulse" />
+        ))}
+      </div>
+    )
+  }
+
+  if (!marketData) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-finma-text-dim">
+        <Globe2 className="w-10 h-10 mb-3" />
+        <p>Dunya borsalari verisi yuklenemedi. Lutfen tekrar deneyin.</p>
+      </div>
+    )
+  }
+
+  // Region order for display (follows market open times, East → West)
+  const regionOrder = ['okyanusya', 'asya', 'orta_dogu', 'afrika', 'avrupa', 'g_amerika', 'k_amerika']
+  const orderedRegions = regionOrder
+    .map(id => marketData.regions.find(r => r.id === id))
+    .filter(Boolean) as Region[]
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      {/* HEADER */}
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-2">
+          <Globe2 className="w-5 h-5 text-finma-cyan" />
+          <span className="text-base font-bold text-finma-text uppercase tracking-wider">
+            Global Piyasa Istihbarat Merkezi
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
+          {isFetching && (
+            <div className="flex items-center gap-1.5 text-[10px] text-finma-primary">
+              <div className="w-2 h-2 rounded-full bg-finma-primary animate-pulse" />
+              Guncelleniyor
+            </div>
+          )}
+          <div className="flex items-center gap-1.5 text-[11px] text-finma-text-dim">
+            <Clock className="w-3.5 h-3.5" />
+            <span className="finma-number">Son guncelleme: {lastUpdate}</span>
+          </div>
+          <span className="text-[9px] px-2 py-0.5 bg-finma-primary/10 text-finma-primary rounded-full border border-finma-primary/20 font-medium">
+            3 dk&apos;da bir guncellenir
+          </span>
+        </div>
+      </div>
+
+      {/* GLOBAL STATS */}
+      <GlobalStats
+        totalExchanges={marketData.total_exchanges}
+        totalOpen={marketData.total_open}
+        regions={marketData.regions}
+      />
+
+      {/* AI GLOBAL SUMMARY */}
+      <AIGlobalSummary />
+
+      {/* REGIONS (East → West order) */}
+      {orderedRegions.map(region => (
+        <div key={region.id}>
+          <RegionSection
+            region={region}
+            aiComment={analysisData?.regions?.[region.id] || undefined}
+          />
+          {/* US Sectors — right after K. Amerika */}
+          {region.id === 'k_amerika' && <div className="mt-3"><USSectorBar /></div>}
+        </div>
       ))}
+
+      {/* COMMODITIES / FX / CRYPTO */}
+      {marketData.commodities && marketData.commodities.length > 0 && (
+        <CommoditiesSection
+          commodities={marketData.commodities}
+          aiComment={analysisData?.regions?.emtia || undefined}
+        />
+      )}
+
+      {/* AI ASK */}
+      <AIAskSection />
+
+      {/* DISCLAIMER */}
+      <div className="text-center py-2">
+        <p className="text-[11px] text-finma-text-dim">
+          Bu bir yatirim tavsiyesi degildir. Tum analizler bilgilendirme amaclidir.
+          Veriler Yahoo Finance&apos;ten alinmaktadir.
+        </p>
+      </div>
     </div>
   )
 }

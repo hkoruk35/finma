@@ -168,3 +168,31 @@ export function useHolders(ticker: string) {
     retry: 1,
   })
 }
+
+/**
+ * Dünya borsaları canlı veri — 3 dakikada bir güncelleme
+ */
+export function useWorldMarkets() {
+  return useQuery({
+    queryKey: ['world-markets'],
+    queryFn: () => api.getWorldMarkets(),
+    staleTime: 120_000,
+    refetchInterval: 180_000,
+    retry: 2,
+    retryDelay: 2000,
+  })
+}
+
+/**
+ * AI dünya piyasası analizi — 5 dakikada bir güncelleme
+ */
+export function useWorldAnalysis() {
+  return useQuery({
+    queryKey: ['world-analysis'],
+    queryFn: () => api.getWorldAnalysis(),
+    staleTime: 180_000,
+    refetchInterval: 300_000,
+    retry: 1,
+    retryDelay: 3000,
+  })
+}
