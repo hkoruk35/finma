@@ -31,8 +31,8 @@ async def get_current_user(authorization: Optional[str] = Header(None)) -> dict:
 
 
 async def require_pro(user: dict = Depends(get_current_user)) -> dict:
-    """Require Pro or higher tier"""
-    if user["role"] not in ("pro", "premium", "admin"):
+    """Require Pro or Admin tier"""
+    if user["role"] not in ("pro", "admin"):
         raise HTTPException(status_code=403, detail="Bu özellik Pro üyelik gerektirir")
 
     # Trial expiration check
@@ -50,10 +50,8 @@ async def require_pro(user: dict = Depends(get_current_user)) -> dict:
 
 
 async def require_premium(user: dict = Depends(get_current_user)) -> dict:
-    """Require Pro, Premium or admin tier"""
-    if user["role"] not in ("pro", "premium", "admin"):
-        raise HTTPException(status_code=403, detail="Bu özellik Pro/Premium üyelik gerektirir")
-    return user
+    """Require Pro or Admin tier (Legacy naming)"""
+    return await require_pro(user)
 
 
 async def require_admin(user: dict = Depends(get_current_user)) -> dict:

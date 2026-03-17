@@ -62,6 +62,8 @@ _quote_cache = TTLCache(ttl=30)
 _tech_cache = TTLCache(ttl=45)
 _indices_cache = TTLCache(ttl=30)
 _sector_cache = TTLCache(ttl=120)
+_search_cache = TTLCache(ttl=3600)  # Arama sonuçları 1 saat
+_extra_cache = TTLCache(ttl=300)    # Haberler, Insider vb. 5 dk
 
 # ─── Sector ETF Mappings ───
 SECTOR_ETFS = {
@@ -577,12 +579,21 @@ def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
                 fast = t.fast_info
                 
                 # Robust price fetching: try multiple fields
-                price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
+                price = 0.0
+                try:
+                    price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
+                except (TypeError, ValueError):
+                    pass
+
                 if price <= 0:
                     # Fallback to history if fast_info fails
                     hist = t.history(period="1d")
                     if not hist.empty:
                         price = float(hist["Close"].iloc[-1])
+                    else:
+                        # Extra fallback for hard-to-fetch symbols
+                        info = t.info
+                        price = float(info.get("currentPrice", 0) or info.get("regularMarketPrice", 0) or 0)
 
                 prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or 0)
                 if prev <= 0:
@@ -732,15 +743,18 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
         if not results:
             return {"gainers": [], "losers": [], "volume": []}
 
-        # Enrich data with names and sectors from cache if available
+        # Enrich data with names and sectors
         for item in results:
-            cached_info = _quote_cache.get(item["symbol"])
+            sym = item["symbol"]
+            cached_info = _quote_cache.get(sym)
             if cached_info:
-                item["name"] = cached_info.get("name", item["symbol"])
-                item["price"] = cached_info.get("price", 0)
+                item["name"] = cached_info.get("name", sym)
                 item["sector"] = cached_info.get("sector", "Diğer")
+                if item["price"] == 0:
+                    item["price"] = cached_info.get("price", 0)
             else:
-                item["name"] = item["symbol"]
+                # Basic fallback if not cached
+                item["name"] = sym
                 item["sector"] = "Diğer"
 
         # Sort and filter
@@ -761,7 +775,7 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
 # ═══════════════════════════════════════════════════════════════════
 
 def search_tickers(query: str, limit: int = 15) -> List[Dict[str, Any]]:
-    """Ticker/şirket adı araması"""
+    """Ticker/şirket adı araması — Yahoo Finance Search API ile"""
     cache_key = f"search_{query.lower()}_{limit}"
     cached = _search_cache.get(cache_key)
     if cached:
@@ -769,42 +783,32 @@ def search_tickers(query: str, limit: int = 15) -> List[Dict[str, Any]]:
 
     results = []
     try:
-        import yfinance as yf
-        # yfinance doesn't have native search, use a simple approach
-        # Try exact match first
-        q = query.upper().strip()
-        try:
-            t = yf.Ticker(q)
-            info = t.fast_info
-            price = float(info.get("lastPrice", 0) or info.get("last_price", 0) or 0)
-            if price > 0:
-                results.append({
-                    "symbol": q,
-                    "name": getattr(t, 'info', {}).get('shortName', q),
-                    "exchange": getattr(t, 'info', {}).get('exchange', ''),
-                    "type": "equity",
-                })
-        except Exception:
-            pass
+        # Yahoo Finance Search API
+        url = "https://query2.finance.yahoo.com/v1/finance/search"
+        params = {"q": query, "quotesCount": limit, "newsCount": 0}
+        headers = _YF_HEADERS
+        
+        with httpx.Client(timeout=10, follow_redirects=True) as client:
+            resp = client.get(url, params=params, headers=headers)
+            if resp.status_code == 200:
+                data = resp.json()
+                for q in data.get("quotes", []):
+                    # Sadece hisse, ETF ve endeksleri al
+                    if q.get("quoteType") in ("EQUITY", "ETF", "INDEX"):
+                        results.append({
+                            "symbol": q.get("symbol"),
+                            "name": q.get("shortname") or q.get("longname") or q.get("symbol"),
+                            "exchange": q.get("exchange"),
+                            "type": q.get("quoteType").lower(),
+                        })
 
-        # Common US tickers that match query
-        common = [
-            "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "BRK-B",
-            "JPM", "V", "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD",
-            "AVGO", "ORCL", "COST", "CVX", "ABBV", "MRK", "BAC", "PEP", "KO",
-            "ADBE", "CRM", "AMD", "NFLX", "WFC", "TMO", "ACN", "CSCO", "INTC",
-            "DIS", "COIN", "MSTR", "ARM", "SMCI", "RDDT", "PLTR", "SOFI",
-            "RIVN", "LCID", "NIO", "SNAP", "HOOD", "DKNG", "SQ", "PYPL",
-            "BA", "GE", "F", "GM", "T", "VZ", "PFE", "MRNA", "BABA", "TSM",
-        ]
-        matching = [s for s in common if q in s and s != q][:limit]
-        for sym in matching:
-            results.append({
-                "symbol": sym,
-                "name": sym,
-                "exchange": "NASDAQ/NYSE",
-                "type": "equity",
-            })
+        if not results:
+            # Fallback to local common list if API fails
+            q = query.upper().strip()
+            common = ["AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "NFLX", "AMD", "PLTR"]
+            for sym in common:
+                if q in sym:
+                    results.append({"symbol": sym, "name": sym, "exchange": "NASDAQ", "type": "equity"})
 
     except Exception as e:
         logger.error(f"Search error: {e}")
