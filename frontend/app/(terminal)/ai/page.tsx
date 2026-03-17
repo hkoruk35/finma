@@ -31,7 +31,7 @@ function AIContent() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'ai',
-      content: 'Merhaba! Ben FinMA AI asistanınız (Gemini destekli). Size piyasa analizi, sinyal değerlendirmesi, risk yönetimi ve teknik analiz konularında yardımcı olabilirim.\n\nÖrnek komutlar:\n• "AAPL için teknik analiz yap"\n• "Portföyümdeki riskleri değerlendir"\n• "Bugünkü bot sinyallerini özetle"\n• "NVDA ile AMD karşılaştır"',
+      content: 'Merhaba! Ben FinMA AI asistanınız. Size piyasa analizi, sinyal değerlendirmesi, risk yönetimi ve teknik analiz konularında yardımcı olabilirim.\n\nÖrnek komutlar:\n• "AAPL için teknik analiz yap"\n• "Portföyümdeki riskleri değerlendir"\n• "Bugünkü bot sinyallerini özetle"\n• "NVDA ile AMD karşılaştır"',
       timestamp: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
     },
   ])
@@ -92,7 +92,7 @@ function AIContent() {
           <Brain className="w-5 h-5 text-finma-purple" />
           <h1 className="text-lg font-bold text-white">AI Analiz</h1>
           <span className="text-[8px] font-bold px-1.5 py-0.5 rounded border text-yellow-400 bg-yellow-400/10 border-yellow-400/30">Gold</span>
-          <span className="text-xs text-finma-text-dim">Gemini ile güçlendirilmiş</span>
+          <span className="text-xs text-finma-text-dim">FinMA AI ile güçlendirilmiş</span>
         </div>
         <div className="flex items-center gap-3">
           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-medium border ${
@@ -168,7 +168,7 @@ function AIContent() {
               <div className="rounded-lg p-3 bg-finma-bg/50">
                 <div className="flex items-center gap-2 text-xs text-finma-text-dim">
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-finma-purple" />
-                  Gemini analiz ediyor...
+                  FinMA AI analiz ediyor...
                 </div>
               </div>
             </div>

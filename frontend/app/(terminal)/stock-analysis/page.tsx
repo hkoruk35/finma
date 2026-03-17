@@ -969,7 +969,7 @@ function StockAnalysisContent() {
         <div className="flex items-center gap-2 pb-2 border-b border-finma-border mb-3">
           <Brain className="w-4 h-4 text-finma-purple" />
           <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">AI&apos;a Sor</span>
-          <span className="ml-auto text-[10px] text-finma-text-dim">Gemini destekli</span>
+          <span className="ml-auto text-[10px] text-finma-text-dim">FinMA AI destekli</span>
         </div>
         <div className="flex items-center gap-2 mb-3 flex-wrap">
           {['Detaylı analiz yap', 'Riskler neler?', 'Almalı mıyım?'].map(q => (
