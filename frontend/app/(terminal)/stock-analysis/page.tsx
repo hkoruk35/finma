@@ -112,21 +112,42 @@ function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
 // ─── TAB COMPONENTS ───
 
 function NewsTab({ ticker }: { ticker: string }) {
-  const { data, isLoading } = useNews(ticker)
+  const { data, isLoading, error } = useNews(ticker)
   if (isLoading) return <TabSkeleton rows={5} />
-  if (!data || data.length === 0) return <EmptyState text="Haber bulunamadı" />
+  if (error) return <EmptyState text="Haberler yüklenemedi, lütfen tekrar deneyin." />
+  if (!data || data.length === 0) return <EmptyState text="Bu hisse için haber bulunamadı" />
+
+  const trCount = data.filter(n => n.lang === 'tr').length
+  const enCount = data.filter(n => n.lang !== 'tr').length
+
   return (
     <div className="space-y-2">
+      {/* Dil özeti */}
+      <div className="flex items-center gap-3 mb-3 text-[11px] text-finma-text-dim">
+        <span>Toplam {data.length} haber</span>
+        {trCount > 0 && <span className="px-2 py-0.5 bg-finma-green/10 text-finma-green rounded-full font-medium">🇹🇷 {trCount} Türkçe</span>}
+        {enCount > 0 && <span className="px-2 py-0.5 bg-finma-text-dim/10 text-finma-text-dim rounded-full font-medium">🇺🇸 {enCount} İngilizce</span>}
+      </div>
+
       {data.map((n, i) => (
         <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
           className="flex items-start gap-3 p-3 rounded-lg bg-finma-bg/50 hover:bg-finma-primary/5 border border-finma-border/30 transition-colors group">
           <Newspaper className="w-4 h-4 text-finma-text-dim mt-0.5 shrink-0" />
           <div className="flex-1 min-w-0">
-            <p className="text-sm text-finma-text group-hover:text-finma-primary transition-colors leading-snug">{n.title}</p>
+            <div className="flex items-start gap-2">
+              <p className="text-sm text-finma-text group-hover:text-finma-primary transition-colors leading-snug flex-1">{n.title}</p>
+              {n.lang === 'en' && (
+                <span className="shrink-0 text-[9px] px-1.5 py-0.5 bg-finma-border/30 text-finma-text-dim rounded uppercase tracking-wide mt-0.5">EN</span>
+              )}
+            </div>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-[11px] text-finma-text-dim">{n.publisher}</span>
-              <span className="text-[10px] text-finma-text-dim">•</span>
-              <span className="text-[11px] text-finma-text-dim">{n.date}</span>
+              <span className="text-[11px] text-finma-text-dim font-medium">{n.publisher}</span>
+              {n.date && (
+                <>
+                  <span className="text-[10px] text-finma-text-dim">•</span>
+                  <span className="text-[11px] text-finma-text-dim">{n.date}</span>
+                </>
+              )}
             </div>
           </div>
           <ExternalLink className="w-3.5 h-3.5 text-finma-text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-1" />

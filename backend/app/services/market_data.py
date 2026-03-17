@@ -765,76 +765,195 @@ def get_price_changes(ticker: str) -> Dict[str, Any]:
     return result
 
 
+def _parse_rss_date(date_str: str) -> str:
+    """RSS tarih formatını YYYY-MM-DD HH:MM formatına çevir"""
+    if not date_str:
+        return ""
+    try:
+        # RFC 2822: "Mon, 17 Mar 2025 12:30:00 GMT"
+        from email.utils import parsedate_to_datetime
+        dt = parsedate_to_datetime(date_str)
+        return dt.strftime("%Y-%m-%d %H:%M")
+    except Exception:
+        return date_str[:16]
+
+
 def get_ticker_news(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
-    """yfinance ile hisse haberlerini getir — tüm yfinance sürümlerini destekler"""
+    """
+    Türkçe haber kaynakları:
+    1. Google News RSS — Türkçe (hl=tr, gl=TR)
+    2. Yahoo Finance RSS — Türkçe şirket adı araması
+    3. yfinance fallback — İngilizce (son çare)
+    """
     cache_key = f"news:{ticker}"
     cached = _extra_cache.get(cache_key)
     if cached is not None:
         return cached
 
     results = []
+
+    # Şirket adını al (arama için)
+    company_name = ticker
     try:
-        t = yf.Ticker(ticker)
-        raw_news = t.news
-        if raw_news is None:
-            raw_news = []
+        info_cached = _quote_cache.get(ticker)
+        if info_cached:
+            company_name = info_cached.get("name", ticker)
+        else:
+            t_tmp = yf.Ticker(ticker)
+            tmp_info = t_tmp.info or {}
+            company_name = tmp_info.get("shortName") or tmp_info.get("longName") or ticker
+    except Exception:
+        pass
 
-        # yfinance sürüm tespiti: list of dict vs list of dict with "content" key
-        news_items = []
-        for item in raw_news[:count * 2]:  # Fazla al, filtreleyeceğiz
-            if isinstance(item, dict):
-                news_items.append(item)
+    # Şirket adını kısalt (Google News arama için)
+    # Örn: "AT&T Inc." → "AT&T", "Apple Inc." → "Apple"
+    short_name = company_name.split(" ")[0] if " " in company_name else company_name
+    short_name = short_name.replace(".", "").replace(",", "").strip()
 
-        for n in news_items[:count]:
-            # Yeni format (yfinance >= 0.2.36): {"content": {"title": ..., "canonicalUrl": {"url": ...}}}
-            content = n.get("content") if isinstance(n.get("content"), dict) else {}
+    # ─── Yöntem 1: Google News RSS Türkçe ───
+    try:
+        import xml.etree.ElementTree as ET
+        # Hem ticker hem de şirket adıyla ara — daha kapsamlı sonuç
+        search_queries = [
+            f"{ticker} hisse",
+            f"{short_name} borsa",
+        ]
 
-            # Title: Yeni format → Eski format fallback
-            title = (
-                content.get("title")
-                or n.get("title")
-                or ""
-            )
+        google_results = []
+        for query in search_queries:
+            if len(google_results) >= count:
+                break
+            try:
+                encoded_q = query.replace(" ", "%20")
+                rss_url = f"https://news.google.com/rss/search?q={encoded_q}&hl=tr&gl=TR&ceid=TR:tr"
+                with httpx.Client(timeout=8, follow_redirects=True) as client:
+                    resp = client.get(rss_url, headers={
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                        "Accept-Language": "tr-TR,tr;q=0.9",
+                    })
+                    if resp.status_code == 200:
+                        root = ET.fromstring(resp.content)
+                        ns = {"media": "http://search.yahoo.com/mrss/"}
+                        items = root.findall(".//item")
+                        for item in items:
+                            title_el = item.find("title")
+                            link_el = item.find("link")
+                            pub_el = item.find("pubDate")
+                            source_el = item.find("source")
 
-            # URL: Yeni format → Eski format
-            canonical = content.get("canonicalUrl")
-            if isinstance(canonical, dict):
-                link = canonical.get("url", "")
-            else:
-                link = n.get("link", "") or n.get("url", "")
+                            title = title_el.text if title_el is not None else ""
+                            link = link_el.text if link_el is not None else ""
+                            pub_date = pub_el.text if pub_el is not None else ""
+                            source = source_el.text if source_el is not None else "Google Haberler"
 
-            # Publisher
-            provider = content.get("provider")
-            if isinstance(provider, dict):
-                publisher = provider.get("displayName", "")
-            else:
-                publisher = n.get("publisher", "") or n.get("source", "")
+                            # Google News başlıklarında " - Kaynak" formatı var, temizle
+                            if title and " - " in title:
+                                parts = title.rsplit(" - ", 1)
+                                title = parts[0].strip()
+                                if not source or source == "Google Haberler":
+                                    source = parts[1].strip() if len(parts) > 1 else source
 
-            # Tarih
-            pub_date = content.get("pubDate") or n.get("providerPublishTime") or n.get("publish_time", "")
+                            if not title:
+                                continue
 
-            if not title:
-                continue
+                            # Mükerrer kontrolü
+                            if any(r["title"] == title for r in google_results):
+                                continue
 
-            # Unix timestamp → ISO
-            date_str = ""
-            if isinstance(pub_date, (int, float)):
-                date_str = datetime.fromtimestamp(pub_date).strftime("%Y-%m-%d %H:%M")
-            elif isinstance(pub_date, str):
-                date_str = pub_date[:16]
+                            google_results.append({
+                                "title": title,
+                                "url": link,
+                                "publisher": source,
+                                "date": _parse_rss_date(pub_date),
+                                "lang": "tr",
+                            })
+            except Exception as e:
+                logger.warning(f"Google News RSS hatası ({query}): {e}")
 
-            results.append({
-                "title": title,
-                "url": link,
-                "publisher": publisher,
-                "date": date_str,
-            })
-
-        _extra_cache.set(cache_key, results)
+        results.extend(google_results[:count])
     except Exception as e:
-        logger.error(f"Haber çekme hatası {ticker}: {e}")
+        logger.warning(f"Google News genel hatası {ticker}: {e}")
 
-    return results
+    # ─── Yöntem 2: Yahoo Finance RSS (Türkçe içerik desteği) ───
+    if len(results) < count:
+        try:
+            import xml.etree.ElementTree as ET
+            yahoo_rss = f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=TR&lang=tr-TR"
+            with httpx.Client(timeout=6, follow_redirects=True) as client:
+                resp = client.get(yahoo_rss, headers=_YF_HEADERS)
+                if resp.status_code == 200:
+                    root = ET.fromstring(resp.content)
+                    for item in root.findall(".//item"):
+                        if len(results) >= count:
+                            break
+                        title_el = item.find("title")
+                        link_el = item.find("link")
+                        pub_el = item.find("pubDate")
+
+                        title = title_el.text if title_el is not None else ""
+                        link = link_el.text if link_el is not None else ""
+                        pub_date = pub_el.text if pub_el is not None else ""
+
+                        if not title:
+                            continue
+                        if any(r["title"] == title for r in results):
+                            continue
+
+                        results.append({
+                            "title": title,
+                            "url": link,
+                            "publisher": "Yahoo Finance",
+                            "date": _parse_rss_date(pub_date),
+                            "lang": "en",
+                        })
+        except Exception as e:
+            logger.warning(f"Yahoo RSS hatası {ticker}: {e}")
+
+    # ─── Yöntem 3: yfinance fallback (İngilizce — son çare) ───
+    if len(results) < 3:
+        try:
+            t = yf.Ticker(ticker)
+            raw_news = t.news or []
+            for n in raw_news[:count]:
+                if len(results) >= count:
+                    break
+                content = n.get("content") if isinstance(n.get("content"), dict) else {}
+                title = content.get("title") or n.get("title", "")
+                canonical = content.get("canonicalUrl")
+                link = canonical.get("url", "") if isinstance(canonical, dict) else n.get("link", "") or n.get("url", "")
+                provider = content.get("provider")
+                publisher = provider.get("displayName", "") if isinstance(provider, dict) else n.get("publisher", "")
+                pub_date = content.get("pubDate") or n.get("providerPublishTime") or ""
+
+                if not title:
+                    continue
+                if any(r["title"] == title for r in results):
+                    continue
+
+                date_str = ""
+                if isinstance(pub_date, (int, float)):
+                    date_str = datetime.fromtimestamp(pub_date).strftime("%Y-%m-%d %H:%M")
+                elif isinstance(pub_date, str):
+                    date_str = pub_date[:16]
+
+                results.append({
+                    "title": title,
+                    "url": link,
+                    "publisher": publisher,
+                    "date": date_str,
+                    "lang": "en",
+                })
+        except Exception as e:
+            logger.warning(f"yfinance news fallback hatası {ticker}: {e}")
+
+    # Sonuçları kaydet (boş olsa bile — tekrar denememek için kısa cache)
+    if results:
+        _extra_cache.set(cache_key, results[:count])
+    else:
+        # Boş sonuç — 30sn cache (sürekli istek atmayı engelle)
+        _search_cache.set(cache_key, [])
+
+    return results[:count]
 
 
 def _safe_get(row, *keys, default=None):

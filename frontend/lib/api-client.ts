@@ -165,7 +165,7 @@ class APIClient {
 
   async getNews(ticker: string) {
     return this.request<Array<{
-      title: string; url: string; publisher: string; date: string
+      title: string; url: string; publisher: string; date: string; lang?: string
     }>>(`/api/market/news/${ticker}`)
   }
 
