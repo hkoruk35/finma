@@ -153,6 +153,50 @@ class APIClient {
     return this.request<{ info: any; technicals: any }>(`/api/market/analysis/${ticker}`)
   }
 
+  async searchTickers(query: string) {
+    return this.request<Array<{
+      symbol: string; name: string; exchange: string; type: string
+    }>>(`/api/market/search?q=${encodeURIComponent(query)}`)
+  }
+
+  async getPriceChanges(ticker: string) {
+    return this.request<{ week: number | null; month: number | null; year: number | null }>(`/api/market/price-changes/${ticker}`)
+  }
+
+  async getNews(ticker: string) {
+    return this.request<Array<{
+      title: string; url: string; publisher: string; date: string
+    }>>(`/api/market/news/${ticker}`)
+  }
+
+  async getInsider(ticker: string) {
+    return this.request<Array<{
+      insider: string; relation: string; transaction: string; date: string; shares: number; value: number
+    }>>(`/api/market/insider/${ticker}`)
+  }
+
+  async getEarnings(ticker: string) {
+    return this.request<{
+      next_date: string | null;
+      history: Array<{ date: string; eps_estimate: number; eps_actual: number; surprise_pct: number }>
+    }>(`/api/market/earnings/${ticker}`)
+  }
+
+  async getPriceHistory(ticker: string) {
+    return this.request<{
+      monthly: Array<{ date: string; open: number; close: number; high: number; low: number; change_pct: number }>;
+      yearly: Array<{ year: number; open: number; close: number; high: number; low: number; change_pct: number }>;
+    }>(`/api/market/history/${ticker}`)
+  }
+
+  async getHolders(ticker: string) {
+    return this.request<{
+      institutional: Array<{ holder: string; shares: number; value: number; pct: number; date: string }>;
+      major: Array<{ value: string; label: string }>;
+      institutional_pct: number | null;
+    }>(`/api/market/holders/${ticker}`)
+  }
+
   // ─── Signals (Vercel → Supabase doğrudan, Railway bypass) ───
 
   async getLatestSignals() {

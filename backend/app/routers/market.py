@@ -17,6 +17,13 @@ from app.services.market_data import (
     get_sector_performance,
     get_market_regime,
     get_batch_quotes,
+    search_tickers,
+    get_price_changes,
+    get_ticker_news,
+    get_insider_trades,
+    get_earnings_calendar,
+    get_price_history,
+    get_holders_info,
     INDEX_SYMBOLS,
     SECTOR_ETFS,
     CRYPTO_SYMBOLS,
@@ -142,3 +149,45 @@ async def get_full_analysis(ticker: str):
 async def get_sector_etf_list():
     """Sektör ETF eşleşmelerini getir"""
     return SECTOR_ETFS
+
+
+@router.get("/search")
+async def search(q: str = Query(..., min_length=1, description="Arama terimi"), limit: int = Query(15, le=30)):
+    """Ticker arama — hisse kodu, şirket adı, endeks ile eşleştir"""
+    return search_tickers(q, limit)
+
+
+@router.get("/price-changes/{ticker}")
+async def get_price_change_periods(ticker: str):
+    """Haftalık, aylık, yıllık fiyat değişim oranları"""
+    return get_price_changes(ticker.upper())
+
+
+@router.get("/news/{ticker}")
+async def get_news(ticker: str, count: int = Query(10, le=20)):
+    """Son haberleri getir"""
+    return get_ticker_news(ticker.upper(), count)
+
+
+@router.get("/insider/{ticker}")
+async def get_insider(ticker: str, count: int = Query(10, le=20)):
+    """Insider işlemlerini getir"""
+    return get_insider_trades(ticker.upper(), count)
+
+
+@router.get("/earnings/{ticker}")
+async def get_earnings(ticker: str):
+    """Bilanço takvimi ve geçmiş sonuçları"""
+    return get_earnings_calendar(ticker.upper())
+
+
+@router.get("/history/{ticker}")
+async def get_history(ticker: str):
+    """Son 5 yıllık aylık ve yıllık fiyat geçmişi"""
+    return get_price_history(ticker.upper())
+
+
+@router.get("/holders/{ticker}")
+async def get_holders(ticker: str):
+    """Kurumsal sahiplik ve büyük hissedarlar"""
+    return get_holders_info(ticker.upper())

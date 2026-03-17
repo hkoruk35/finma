@@ -87,3 +87,82 @@ export function useRegime() {
     refetchInterval: 120_000,
   })
 }
+
+/**
+ * Haftalık/Aylık/Yıllık fiyat değişim oranları
+ */
+export function usePriceChanges(ticker: string) {
+  return useQuery({
+    queryKey: ['price-changes', ticker],
+    queryFn: () => api.getPriceChanges(ticker),
+    enabled: !!ticker,
+    staleTime: 60_000,
+    refetchInterval: 120_000,
+    placeholderData: (prev: any) => prev,
+  })
+}
+
+/**
+ * Haber listesi
+ */
+export function useNews(ticker: string) {
+  return useQuery({
+    queryKey: ['news', ticker],
+    queryFn: () => api.getNews(ticker),
+    enabled: !!ticker,
+    staleTime: 120_000,
+    retry: 1,
+  })
+}
+
+/**
+ * Insider işlemleri
+ */
+export function useInsider(ticker: string) {
+  return useQuery({
+    queryKey: ['insider', ticker],
+    queryFn: () => api.getInsider(ticker),
+    enabled: !!ticker,
+    staleTime: 120_000,
+    retry: 1,
+  })
+}
+
+/**
+ * Bilanço takvimi
+ */
+export function useEarnings(ticker: string) {
+  return useQuery({
+    queryKey: ['earnings', ticker],
+    queryFn: () => api.getEarnings(ticker),
+    enabled: !!ticker,
+    staleTime: 120_000,
+    retry: 1,
+  })
+}
+
+/**
+ * Aylık/Yıllık fiyat geçmişi (5 yıl)
+ */
+export function usePriceHistory(ticker: string) {
+  return useQuery({
+    queryKey: ['price-history', ticker],
+    queryFn: () => api.getPriceHistory(ticker),
+    enabled: !!ticker,
+    staleTime: 300_000,
+    retry: 1,
+  })
+}
+
+/**
+ * Kurumsal sahiplik
+ */
+export function useHolders(ticker: string) {
+  return useQuery({
+    queryKey: ['holders', ticker],
+    queryFn: () => api.getHolders(ticker),
+    enabled: !!ticker,
+    staleTime: 300_000,
+    retry: 1,
+  })
+}

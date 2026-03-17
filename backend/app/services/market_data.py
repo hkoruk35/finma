@@ -627,3 +627,326 @@ def start_periodic_prefetch(interval_minutes: int = 5):
     thread = threading.Thread(target=_loop, daemon=True)
     thread.start()
     logger.info(f"Periodic prefetch başladı ({interval_minutes}dk aralıkla)")
+
+
+# ─── New Data Functions ───
+
+_search_cache = TTLCache(ttl=300)  # 5 dakika
+_extra_cache = TTLCache(ttl=120)   # 2 dakika
+
+
+def search_tickers(query: str, limit: int = 15) -> List[Dict[str, Any]]:
+    """Yahoo Finance autocomplete API ile ticker arama"""
+    q = query.strip().upper()
+    if not q:
+        return []
+
+    cache_key = f"search:{q}"
+    cached = _search_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    results = []
+    try:
+        url = "https://query1.finance.yahoo.com/v1/finance/search"
+        params = {
+            "q": q,
+            "quotesCount": limit,
+            "newsCount": 0,
+            "listsCount": 0,
+            "enableFuzzyQuery": True,
+            "quotesQueryId": "tss_match_phrase_query",
+        }
+        with httpx.Client(timeout=10, follow_redirects=True) as client:
+            resp = client.get(url, params=params, headers=_YF_HEADERS)
+            resp.raise_for_status()
+            data = resp.json()
+
+        for q_item in data.get("quotes", []):
+            qtype = q_item.get("quoteType", "")
+            if qtype not in ("EQUITY", "ETF"):
+                continue
+            results.append({
+                "symbol": q_item.get("symbol", ""),
+                "name": q_item.get("shortname") or q_item.get("longname", ""),
+                "exchange": q_item.get("exchange", ""),
+                "type": qtype,
+            })
+
+        _search_cache.set(cache_key, results)
+    except Exception as e:
+        logger.error(f"Ticker arama hatası '{query}': {e}")
+
+    return results[:limit]
+
+
+def get_price_changes(ticker: str) -> Dict[str, Any]:
+    """Haftalık, aylık, yıllık fiyat değişim oranlarını hesapla"""
+    cache_key = f"changes:{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    result = {"week": None, "month": None, "year": None}
+
+    try:
+        df = get_ticker_data(ticker, period="1y", interval="1d")
+        if df is None or df.empty:
+            return result
+
+        current = float(df["Close"].iloc[-1])
+        now_idx = df.index[-1]
+
+        # Haftalık (5 iş günü)
+        if len(df) >= 6:
+            week_price = float(df["Close"].iloc[-6])
+            result["week"] = round(((current - week_price) / week_price) * 100, 2)
+
+        # Aylık (~21 iş günü)
+        if len(df) >= 22:
+            month_price = float(df["Close"].iloc[-22])
+            result["month"] = round(((current - month_price) / month_price) * 100, 2)
+
+        # Yıllık (tüm veri)
+        if len(df) >= 200:
+            year_price = float(df["Close"].iloc[0])
+            result["year"] = round(((current - year_price) / year_price) * 100, 2)
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"Fiyat değişim hatası {ticker}: {e}")
+
+    return result
+
+
+def get_ticker_news(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
+    """yfinance ile hisse haberlerini getir"""
+    cache_key = f"news:{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    results = []
+    try:
+        t = yf.Ticker(ticker)
+        news = t.news or []
+        for n in news[:count]:
+            content = n.get("content", {}) if isinstance(n.get("content"), dict) else {}
+            # yfinance 0.2.x format
+            title = content.get("title") or n.get("title", "")
+            link = content.get("canonicalUrl", {}).get("url", "") if isinstance(content.get("canonicalUrl"), dict) else n.get("link", "")
+            publisher = content.get("provider", {}).get("displayName", "") if isinstance(content.get("provider"), dict) else n.get("publisher", "")
+            pub_date = content.get("pubDate") or n.get("providerPublishTime", "")
+
+            if not title:
+                continue
+
+            # Unix timestamp → ISO
+            date_str = ""
+            if isinstance(pub_date, (int, float)):
+                date_str = datetime.fromtimestamp(pub_date).strftime("%Y-%m-%d %H:%M")
+            elif isinstance(pub_date, str):
+                date_str = pub_date[:16]
+
+            results.append({
+                "title": title,
+                "url": link,
+                "publisher": publisher,
+                "date": date_str,
+            })
+
+        _extra_cache.set(cache_key, results)
+    except Exception as e:
+        logger.error(f"Haber çekme hatası {ticker}: {e}")
+
+    return results
+
+
+def get_insider_trades(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
+    """yfinance ile insider işlemlerini getir"""
+    cache_key = f"insider:{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    results = []
+    try:
+        t = yf.Ticker(ticker)
+        insider = t.insider_transactions
+        if insider is not None and not insider.empty:
+            for _, row in insider.head(count).iterrows():
+                start_date = row.get("Start Date", row.get("startDate", ""))
+                if hasattr(start_date, "strftime"):
+                    start_date = start_date.strftime("%Y-%m-%d")
+
+                results.append({
+                    "insider": str(row.get("Insider", row.get("insider", ""))),
+                    "relation": str(row.get("Relationship", row.get("position", ""))),
+                    "transaction": str(row.get("Transaction", row.get("text", ""))),
+                    "date": str(start_date),
+                    "shares": int(row.get("Shares", row.get("shares", 0)) or 0),
+                    "value": float(row.get("Value", row.get("value", 0)) or 0),
+                })
+
+        _extra_cache.set(cache_key, results)
+    except Exception as e:
+        logger.error(f"Insider veri hatası {ticker}: {e}")
+
+    return results
+
+
+def get_earnings_calendar(ticker: str) -> Dict[str, Any]:
+    """yfinance ile bilanço takvimi/sonuçları getir"""
+    cache_key = f"earnings:{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    result = {"next_date": None, "history": []}
+    try:
+        t = yf.Ticker(ticker)
+        cal = t.calendar
+        if cal is not None:
+            if isinstance(cal, dict):
+                ed = cal.get("Earnings Date", [])
+                if ed and len(ed) > 0:
+                    d = ed[0]
+                    result["next_date"] = d.strftime("%Y-%m-%d") if hasattr(d, "strftime") else str(d)
+            elif isinstance(cal, pd.DataFrame) and not cal.empty:
+                if "Earnings Date" in cal.index:
+                    vals = cal.loc["Earnings Date"]
+                    if vals is not None:
+                        result["next_date"] = str(vals.iloc[0]) if hasattr(vals, "iloc") else str(vals)
+
+        earnings = t.earnings_history
+        if earnings is not None and not earnings.empty:
+            for _, row in earnings.tail(8).iterrows():
+                date_val = row.get("Earnings Date", row.get("earningsDate", ""))
+                if hasattr(date_val, "strftime"):
+                    date_val = date_val.strftime("%Y-%m-%d")
+
+                result["history"].append({
+                    "date": str(date_val),
+                    "eps_estimate": float(row.get("EPS Estimate", row.get("epsEstimate", 0)) or 0),
+                    "eps_actual": float(row.get("Reported EPS", row.get("epsActual", 0)) or 0),
+                    "surprise_pct": float(row.get("Surprise(%)", row.get("surprisePercent", 0)) or 0),
+                })
+            result["history"].reverse()
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"Bilanço takvimi hatası {ticker}: {e}")
+
+    return result
+
+
+def get_price_history(ticker: str) -> Dict[str, Any]:
+    """Son 5 yıllık aylık ve yıllık fiyat değişimi"""
+    cache_key = f"pricehistory:{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    result = {"monthly": [], "yearly": []}
+    try:
+        df = get_ticker_data(ticker, period="5y", interval="1mo")
+        if df is None or df.empty:
+            return result
+
+        # Aylık veriler
+        for i in range(len(df)):
+            row = df.iloc[i]
+            date_str = df.index[i].strftime("%Y-%m") if hasattr(df.index[i], "strftime") else str(df.index[i])[:7]
+            close = float(row["Close"])
+            open_p = float(row["Open"]) if not pd.isna(row["Open"]) else close
+            change_pct = round(((close - open_p) / open_p) * 100, 2) if open_p > 0 else 0
+
+            result["monthly"].append({
+                "date": date_str,
+                "open": round(open_p, 2),
+                "close": round(close, 2),
+                "high": round(float(row["High"]), 2) if not pd.isna(row["High"]) else round(close, 2),
+                "low": round(float(row["Low"]), 2) if not pd.isna(row["Low"]) else round(close, 2),
+                "change_pct": change_pct,
+            })
+
+        # Yıllık özet
+        df_yearly = df.copy()
+        df_yearly["Year"] = df_yearly.index.year
+        for year, group in df_yearly.groupby("Year"):
+            first_close = float(group["Close"].iloc[0])
+            last_close = float(group["Close"].iloc[-1])
+            high = float(group["High"].max()) if not group["High"].isna().all() else last_close
+            low = float(group["Low"].min()) if not group["Low"].isna().all() else last_close
+            change_pct = round(((last_close - first_close) / first_close) * 100, 2) if first_close > 0 else 0
+            result["yearly"].append({
+                "year": int(year),
+                "open": round(first_close, 2),
+                "close": round(last_close, 2),
+                "high": round(high, 2),
+                "low": round(low, 2),
+                "change_pct": change_pct,
+            })
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"Fiyat geçmişi hatası {ticker}: {e}")
+
+    return result
+
+
+def get_holders_info(ticker: str) -> Dict[str, Any]:
+    """Kurumsal ve büyük hissedar bilgileri"""
+    cache_key = f"holders:{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    result = {"institutional": [], "major": [], "institutional_pct": None}
+    try:
+        t = yf.Ticker(ticker)
+
+        # Kurumsal sahipler
+        inst = t.institutional_holders
+        if inst is not None and not inst.empty:
+            for _, row in inst.head(15).iterrows():
+                date_val = row.get("Date Reported", "")
+                if hasattr(date_val, "strftime"):
+                    date_val = date_val.strftime("%Y-%m-%d")
+
+                shares = int(row.get("Shares", 0) or 0)
+                value = float(row.get("Value", 0) or 0)
+                pct = float(row.get("% Out", row.get("pctHeld", 0)) or 0)
+
+                result["institutional"].append({
+                    "holder": str(row.get("Holder", "")),
+                    "shares": shares,
+                    "value": value,
+                    "pct": round(pct * 100, 2) if pct < 1 else round(pct, 2),
+                    "date": str(date_val),
+                })
+
+        # Büyük hissedarlar
+        major = t.major_holders
+        if major is not None and not major.empty:
+            for _, row in major.iterrows():
+                val = row.iloc[0] if len(row) > 0 else ""
+                label = row.iloc[1] if len(row) > 1 else ""
+                result["major"].append({
+                    "value": str(val),
+                    "label": str(label),
+                })
+                # % of Shares Held by Institutions
+                label_str = str(label).lower()
+                if "institution" in label_str and "held" in label_str:
+                    try:
+                        pct_str = str(val).replace("%", "").strip()
+                        result["institutional_pct"] = float(pct_str)
+                    except (ValueError, TypeError):
+                        pass
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"Hissedar bilgisi hatası {ticker}: {e}")
+
+    return result
