@@ -1188,3 +1188,127 @@ def get_holders_info(ticker: str) -> Dict[str, Any]:
         logger.error(f"Hissedar bilgisi hatası {ticker}: {e}")
 
     return result
+
+
+def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
+    """Get top gainers, losers and volume leaders from major US stocks for a given period"""
+    cache_key = f"market_movers_{period}"
+    cached = _indices_cache.get(cache_key)
+    if cached:
+        return cached
+
+    # Geniş ve aktif hisse listesi
+    major_tickers = [
+        "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "BRK-B", "JPM", "V", 
+        "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD", "AVGO", "ORCL",
+        "COST", "CVX", "ABBV", "MRK", "BAC", "PEP", "KO", "ADBE", "CRM", "AMD",
+        "NFLX", "WFC", "TMO", "ACN", "CSCO", "INTC", "ABT", "DHR", "MCD", "DIS",
+        "PFE", "VZ", "AMGN", "INTU", "LOW", "PM", "CAT", "TXN", "MS", "IBM",
+        "AMAT", "COP", "NEE", "GS", "HON", "RTX", "GE", "BKNG", "SPGI", "UNP",
+        "LRCX", "VRTX", "ETN", "ISRG", "ELV", "SYK", "PGR", "TJX", "CB", "REGN",
+        "MU", "MMC", "PLD", "BSX", "LMT", "PANW", "DE", "ADI", "CI", "BA",
+        "MDT", "FI", "KLAC", "GILD", "T", "SNPS", "CDNS", "ICE", "CRWD", "MAR",
+        "COIN", "MSTR", "ARM", "SMCI", "RDDT"
+    ]
+
+    try:
+        results = []
+        if period == "1d":
+            # Batch quote al (hızlı)
+            quotes = get_batch_quotes(major_tickers)
+            results = quotes
+        else:
+            # Diğer periyotlar için download gerekebilir (yavaş)
+            # Performans için sadece ilk 30 tanesine bakalım? 
+            # Hayır, kullanıcı 'movers' istiyor. S&P 100 periyot verisi çekmek yavaş olabilir.
+            # Alternatif: get_price_changes'i paralel çalıştır (TTLCache sayesinde hızlanır)
+            for t in major_tickers[:50]: # Hız için ilk 50
+                changes = get_price_changes(t)
+                quote = get_cached_quote(t) or {"price": 0, "name": t}
+                
+                change_val = 0
+                if period == "1w": change_val = changes.get("week") or 0
+                elif period == "1m": change_val = changes.get("month") or 0
+                elif period == "1y": change_val = changes.get("year") or 0
+                
+                results.append({
+                    "symbol": t,
+                    "name": t,
+                    "price": quote.get("price", 0),
+                    "change": 0, # Not strictly needed for movers list
+                    "change_pct": change_val
+                })
+
+        # Gainers
+        gainers = sorted([q for q in results if q["change_pct"] > 0], key=lambda x: x["change_pct"], reverse=True)[:10]
+        # Losers
+        losers = sorted([q for q in results if q["change_pct"] < 0], key=lambda x: x["change_pct"])[:10]
+        
+        # Volume (sadece 1d için anlamlı, diğerlerinde gainers'tan alalım)
+        volume = gainers[:10]
+        
+        # Add names
+        for item in gainers + losers:
+            cached_info = _quote_cache.get(item["symbol"])
+            if cached_info:
+                item["name"] = cached_info.get("name", item["symbol"])
+                item["sector"] = cached_info.get("sector", "Other")
+            else:
+                item["sector"] = "Other"
+
+        res_final = {"gainers": gainers, "losers": losers, "volume": volume}
+        _indices_cache.set(cache_key, res_final)
+        return res_final
+    except Exception as e:
+        logger.error(f"Market movers hatası ({period}): {e}")
+        return {"gainers": [], "losers": [], "volume": []}
+    """Get top gainers, losers and volume leaders from major US stocks"""
+    cache_key = "market_movers"
+    cached = _indices_cache.get(cache_key)
+    if cached:
+        return cached
+
+    # Geniş ve aktif hisse listesi (S&P 100 + Popüler Teknoloji)
+    major_tickers = [
+        "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "BRK-B", "JPM", "V", 
+        "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD", "AVGO", "ORCL",
+        "COST", "CVX", "ABBV", "MRK", "BAC", "PEP", "KO", "ADBE", "CRM", "AMD",
+        "NFLX", "WFC", "TMO", "ACN", "CSCO", "INTC", "ABT", "DHR", "MCD", "DIS",
+        "PFE", "VZ", "AMGN", "INTU", "LOW", "PM", "CAT", "TXN", "MS", "IBM",
+        "AMAT", "COP", "NEE", "GS", "HON", "RTX", "GE", "BKNG", "SPGI", "UNP",
+        "LRCX", "VRTX", "ETN", "ISRG", "ELV", "SYK", "PGR", "TJX", "CB", "REGN",
+        "MU", "MMC", "PLD", "BSX", "LMT", "PANW", "DE", "ADI", "CI", "BA",
+        "MDT", "FI", "KLAC", "GILD", "T", "SNPS", "CDNS", "ICE", "CRWD", "MAR",
+        "COIN", "MSTR", "ARM", "SMCI", "RDDT" # New and volatile ones
+    ]
+
+    try:
+        # Batch quote al
+        quotes = get_batch_quotes(major_tickers)
+        if not quotes:
+            return {"gainers": [], "losers": [], "volume": []}
+
+        # Gainers
+        gainers = sorted([q for q in quotes if q["change_pct"] > 0], key=lambda x: x["change_pct"], reverse=True)[:10]
+        
+        # Losers
+        losers = sorted([q for q in quotes if q["change_pct"] < 0], key=lambda x: x["change_pct"])[:10]
+        
+        # Volume info için get_ticker_info gerekebilir veya batch'e eklenebilir. 
+        # Ancak şimdilik sadece fiyat değişimlerine odaklanalım. (Frontend MOVERS listesi için yeterli)
+        
+        # Placeholder names (batch quote sadece sembol döner)
+        for list_name in [gainers, losers]:
+            for item in list_name:
+                item["name"] = item["symbol"] # Basitlik için
+        
+        result = {
+            "gainers": gainers,
+            "losers": losers,
+            "volume": gainers[:5] # Placeholder for volume
+        }
+        _indices_cache.set(cache_key, result)
+        return result
+    except Exception as e:
+        logger.error(f"Market movers hatası: {e}")
+        return {"gainers": [], "losers": [], "volume": []}

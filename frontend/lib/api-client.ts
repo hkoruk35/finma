@@ -202,6 +202,14 @@ class APIClient {
     }>(`/api/market/holders/${ticker}`)
   }
 
+  async getMarketMovers(period = '1d') {
+    return this.request<{
+      gainers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number }>;
+      losers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number }>;
+      volume: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number }>;
+    }>(`/api/market/movers?period=${period}`)
+  }
+
   async getWorldMarkets() {
     return this.request<{
       timestamp: string;

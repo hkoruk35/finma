@@ -24,6 +24,7 @@ from app.services.market_data import (
     get_earnings_calendar,
     get_price_history,
     get_holders_info,
+    get_market_movers,
     INDEX_SYMBOLS,
     SECTOR_ETFS,
     CRYPTO_SYMBOLS,
@@ -212,3 +213,9 @@ async def get_world_ai_analysis():
 async def get_exchange_detail(exchange_id: str):
     """Belirli bir borsa için detaylı AI analizi (açılış/gün ortası/kapanış + sektör/şirket + global etki)"""
     return await get_exchange_analysis(exchange_id)
+
+
+@router.get("/movers")
+async def get_movers(period: str = Query("1d")):
+    """En çok yükselen, düşen ve hacimli hisseleri getir"""
+    return get_market_movers(period)

@@ -17,8 +17,7 @@ export interface User {
 const TIER_HIERARCHY: Record<string, number> = {
   free: 0,
   pro: 1,
-  premium: 2,
-  admin: 3,
+  admin: 2,
 }
 
 interface AuthState {
@@ -32,7 +31,7 @@ interface AuthState {
   initialize: () => Promise<void>
   refreshUser: () => Promise<void>
   isTrialExpired: () => boolean
-  canAccess: (tier: 'free' | 'pro' | 'premium' | 'admin') => boolean
+  canAccess: (tier: 'free' | 'pro' | 'admin') => boolean
 }
 
 function setCookie(name: string, value: string, days: number) {
@@ -135,10 +134,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     return new Date() > trialEnd
   },
 
-  canAccess: (tier: 'free' | 'pro' | 'premium' | 'admin') => {
+  canAccess: (tier: 'free' | 'pro' | 'admin') => {
     const { user } = get()
     if (!user) return tier === 'free'
-    const userLevel = TIER_HIERARCHY[user.subscription_tier] ?? 0
+    
+    // Legacy support: premium/gold -> pro
+    let currentTier = (user.subscription_tier || user.role || 'free').toLowerCase()
+    if (currentTier === 'premium' || currentTier === 'gold') currentTier = 'pro'
+    
+    const userLevel = TIER_HIERARCHY[currentTier] ?? 0
     const requiredLevel = TIER_HIERARCHY[tier] ?? 0
     return userLevel >= requiredLevel
   },

@@ -183,8 +183,10 @@ export default function DashboardPage() {
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
   // Movers canlı veri
   const [liveMovers, setLiveMovers] = useState<{
-    gainers: typeof MOVERS['gainers']; losers: typeof MOVERS['losers']; volume: typeof MOVERS['volume']
-  }>(MOVERS)
+    gainers: any[]; losers: any[]; volume: any[]
+  }>({ gainers: [], losers: [], volume: [] })
+  // Weekly highlights (Highlights of the week)
+  const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>([])
   // Heatmap son güncelleme zamanı
   const [heatmapUpdate, setHeatmapUpdate] = useState(new Date())
 
@@ -219,59 +221,37 @@ export default function DashboardPage() {
   // Bot sonuçlarından ilk 10
   const top10Candidates = signals.candidates?.slice(0, 10) || []
 
-  // Canlı fiyatları çek — hem top10 hem de movers tickers için (15 dk'da bir)
+  // Canlı fiyatları ve movers verilerini çek
   useEffect(() => {
-    const moverTickers = [
-      ...MOVERS.gainers.map(s => s.ticker),
-      ...MOVERS.losers.map(s => s.ticker),
-      ...MOVERS.volume.map(s => s.ticker),
-    ]
-    const candidateTickers = top10Candidates.map((c: any) => c.ticker)
-    const allTickers = Array.from(new Set([...moverTickers, ...candidateTickers]))
-
-    const fetchPrices = () => {
-      // 1d (Bugün) ise 3 dakikada bir, değilse daha seyrek (veya sadece ilk açılışta)
-      // Ancak burada tek bir interval kullanıyoruz, mantığı basitleştirelim.
-      api.getBatchQuotes(allTickers)
-        .then(quotes => {
-          const map: Record<string, { price: number; change: number; change_pct: number }> = {}
-          quotes.forEach((q: any) => {
-            if (q.price > 0) map[q.symbol] = { price: q.price, change: q.change, change_pct: q.change_pct }
-          })
-          setLiveQuotes(map)
-
-          const updateList = (list: any[]) => list.map(s => {
-            const live = map[s.ticker]
-            if (!live) return s
-            return { ...s, price: live.price, change_pct: live.change_pct }
-          })
-
-          const allLiveStocks = Array.from(new Set([...MOVERS.gainers, ...MOVERS.losers, ...MOVERS.volume].map(s => s.ticker)))
-            .map(ticker => {
-              const base = [...MOVERS.gainers, ...MOVERS.losers, ...MOVERS.volume].find(s => s.ticker === ticker)!
-              const live = map[ticker]
-              return live ? { ...base, price: live.price, change_pct: live.change_pct } : base
-            })
-
-          const sortedGainers = allLiveStocks.sort((a, b) => b.change_pct - a.change_pct).slice(0, 10)
-          const sortedLosers  = allLiveStocks.sort((a, b) => a.change_pct - b.change_pct).slice(0, 10)
-          const sortedVolume  = updateList(MOVERS.volume)
-
-          setLiveMovers({ gainers: sortedGainers, losers: sortedLosers, volume: sortedVolume })
-          setLastRefresh(new Date())
+    const fetchMovers = async () => {
+      try {
+        const data = await api.getMarketMovers(moversPeriod)
+        setLiveMovers(data)
+        
+        // Live quotes map'ini de güncelle ki Bot sonuçları vb. etkilensin
+        const map: Record<string, any> = { ...liveQuotes }
+        const allItems = [...data.gainers, ...data.losers, ...data.volume]
+        allItems.forEach(item => {
+          map[item.symbol] = { price: item.price, change_pct: item.change_pct }
         })
-        .catch(() => {})
+        setLiveQuotes(map)
+        setLastRefresh(new Date())
+      } catch (err) {
+        console.error('Movers fetch error:', err)
+      }
     }
 
-    fetchPrices()
-    
-    // Period '1d' ise sık güncelle, diğerleri için 1 saatte bir (veya backend zaten günlük veriyordur)
-    const intervalTime = moversPeriod === '1d' ? 3 * 60 * 1000 : 60 * 60 * 1000
-    const interval = setInterval(fetchPrices, intervalTime)
-    
+    fetchMovers()
+    const interval = setInterval(fetchMovers, moversPeriod === '1d' ? 3 * 60 * 1000 : 30 * 60 * 1000)
     return () => clearInterval(interval)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moversPeriod])
+
+  // Haftalık öne çıkanları çek (1w gainers)
+  useEffect(() => {
+    api.getMarketMovers('1w')
+      .then(data => setWeeklyHighlights(data.gainers))
+      .catch(err => console.error('Weekly highlights error:', err))
+  }, [])
 
   // Isı haritası verilerini çek
   const [heatmap, setHeatmap] = useState(heatmapData)
@@ -527,7 +507,7 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {liveMovers[moversTab].map((stock, idx) => (
+              {liveMovers[moversTab]?.map((stock: any, idx: number) => (
                 <tr key={stock.ticker} className="border-b border-finma-border/10 hover:bg-finma-card-hover transition-colors cursor-pointer">
                   <td className="py-2.5 px-2 finma-number text-finma-text-dim">{idx + 1}</td>
                   <td className="py-2.5 px-2">
@@ -884,11 +864,11 @@ export default function DashboardPage() {
             </div>
             <div className="text-xs text-finma-text-muted space-y-1">
               {/* Haftalık en yüksek kazanan 10 hisse */}
-              {liveMovers.gainers.slice(0, 10).map((s, i) => (
-                <div key={s.ticker} onClick={() => router.push(`/stock-analysis?ticker=${s.ticker}`)}
+              {weeklyHighlights.slice(0, 10).map((s: any, i: number) => (
+                <div key={s.symbol} onClick={() => router.push(`/stock-analysis?ticker=${s.symbol}`)}
                   className="flex items-center gap-2 py-0.5 cursor-pointer hover:bg-finma-primary/5 rounded px-1 -mx-1">
                   <span className="text-[10px] w-4 text-finma-text-dim">{i+1}</span>
-                  <span className="font-bold text-finma-primary finma-number text-[11px] min-w-[44px]">{s.ticker}</span>
+                  <span className="font-bold text-finma-primary finma-number text-[11px] min-w-[44px]">{s.symbol}</span>
                   <span className="flex-1 text-[10px] text-finma-text-dim truncate">{s.name}</span>
                   <span className="finma-number text-[11px] text-finma-text">${s.price.toFixed(2)}</span>
                   <span className={cn('finma-number text-[10px] font-bold', s.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
@@ -896,6 +876,9 @@ export default function DashboardPage() {
                   </span>
                 </div>
               ))}
+              {weeklyHighlights.length === 0 && (
+                <div className="text-center py-4 text-finma-text-dim text-[10px]">Yükleniyor...</div>
+              )}
             </div>
           </div>
         </div>
