@@ -1,0 +1,185 @@
+{
+  "lastUpdated": "2026-03-16",
+  "history": [
+    {
+      "date": "2026-03-16",
+      "timestamp": "2026-03-16 14:35:59",
+      "market_regime": "Bull",
+      "vix_level": 20.5,
+      "candidates": [
+        {"ticker": "CGON", "sector": "Energy",      "entry": 64.82, "tp": 71.30, "sl": 58.41, "score": 35.1, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "LXU",  "sector": "Materials",   "entry": 14.75, "tp": 16.23, "sl": 13.02, "score": 33.5, "action": "BUY", "potential_pct": 10.03},
+        {"ticker": "ADEA", "sector": "Technology",  "entry": 23.10, "tp": 25.41, "sl": 21.07, "score": 32.5, "action": "BUY", "potential_pct": 9.96},
+        {"ticker": "PBR",  "sector": "Energy",      "entry": 18.57, "tp": 19.99, "sl": 17.43, "score": 30.4, "action": "BUY", "potential_pct": 7.65},
+        {"ticker": "STGW", "sector": "Technology",  "entry": 5.95,  "tp": 6.55,  "sl": 5.17,  "score": 30.0, "action": "BUY", "potential_pct": 10.08},
+        {"ticker": "BP",   "sector": "Energy",      "entry": 42.67, "tp": 45.13, "sl": 40.70, "score": 29.6, "action": "BUY", "potential_pct": 5.76},
+        {"ticker": "DNTH", "sector": "Healthcare",  "entry": 78.89, "tp": 86.77, "sl": 68.49, "score": 29.3, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "UNFI", "sector": "Consumer",    "entry": 41.69, "tp": 45.86, "sl": 37.98, "score": 27.8, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "OXY",  "sector": "Energy",      "entry": 57.33, "tp": 62.15, "sl": 53.48, "score": 27.4, "action": "BUY", "potential_pct": 8.41},
+        {"ticker": "EGY",  "sector": "Energy",      "entry": 5.49,  "tp": 6.03,  "sl": 4.91,  "score": 27.3, "action": "BUY", "potential_pct": 9.84}
+      ]
+    },
+    {
+      "date": "2026-03-13",
+      "timestamp": "2026-03-13 14:12:44",
+      "market_regime": "Bull",
+      "vix_level": 19.8,
+      "candidates": [
+        {"ticker": "NVDA", "sector": "Technology",  "entry": 895.00, "tp": 985.00, "sl": 805.00, "score": 34.8, "action": "BUY", "potential_pct": 10.06},
+        {"ticker": "FANG", "sector": "Energy",      "entry": 174.60, "tp": 192.00, "sl": 157.10, "score": 33.2, "action": "BUY", "potential_pct": 9.97},
+        {"ticker": "PLTR", "sector": "Technology",  "entry": 72.80,  "tp": 80.10,  "sl": 65.50,  "score": 31.9, "action": "BUY", "potential_pct": 10.03},
+        {"ticker": "AMD",  "sector": "Technology",  "entry": 162.40, "tp": 178.60, "sl": 146.20, "score": 30.7, "action": "BUY", "potential_pct": 9.98},
+        {"ticker": "NOC",  "sector": "Industrials", "entry": 722.50, "tp": 794.00, "sl": 650.00, "score": 29.5, "action": "BUY", "potential_pct": 9.90},
+        {"ticker": "OKE",  "sector": "Energy",      "entry": 82.90,  "tp": 91.20,  "sl": 74.60,  "score": 28.8, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "SMCI", "sector": "Technology",  "entry": 820.00, "tp": 902.00, "sl": 738.00, "score": 28.1, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "TGT",  "sector": "Consumer",    "entry": 115.50, "tp": 127.05, "sl": 103.95, "score": 27.3, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "LMT",  "sector": "Industrials", "entry": 638.00, "tp": 701.80, "sl": 574.20, "score": 26.9, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "NTR",  "sector": "Materials",   "entry": 76.20,  "tp": 83.80,  "sl": 68.60,  "score": 26.4, "action": "BUY", "potential_pct": 9.97}
+      ]
+    },
+    {
+      "date": "2026-03-12",
+      "timestamp": "2026-03-12 14:08:17",
+      "market_regime": "Bull",
+      "vix_level": 21.3,
+      "candidates": [
+        {"ticker": "XOM",  "sector": "Energy",      "entry": 108.40, "tp": 119.20, "sl": 97.60,  "score": 34.1, "action": "BUY", "potential_pct": 9.96},
+        {"ticker": "CVX",  "sector": "Energy",      "entry": 155.80, "tp": 171.40, "sl": 140.20, "score": 32.7, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "COP",  "sector": "Energy",      "entry": 113.20, "tp": 124.50, "sl": 101.90, "score": 31.3, "action": "BUY", "potential_pct": 9.98},
+        {"ticker": "SLB",  "sector": "Energy",      "entry": 42.30,  "tp": 46.55,  "sl": 38.10,  "score": 30.1, "action": "BUY", "potential_pct": 10.05},
+        {"ticker": "EQNR", "sector": "Energy",      "entry": 29.80,  "tp": 32.80,  "sl": 26.80,  "score": 29.4, "action": "BUY", "potential_pct": 10.07},
+        {"ticker": "NOC",  "sector": "Industrials", "entry": 718.20, "tp": 790.00, "sl": 646.40, "score": 28.7, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "LMT",  "sector": "Industrials", "entry": 632.50, "tp": 695.75, "sl": 569.25, "score": 27.9, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "GS",   "sector": "Financials",  "entry": 492.10, "tp": 541.30, "sl": 442.90, "score": 27.1, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "JPM",  "sector": "Financials",  "entry": 224.30, "tp": 246.75, "sl": 201.90, "score": 26.5, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "OKE",  "sector": "Energy",      "entry": 81.40,  "tp": 89.55,  "sl": 73.25,  "score": 25.8, "action": "BUY", "potential_pct": 10.01}
+      ]
+    },
+    {
+      "date": "2026-03-11",
+      "timestamp": "2026-03-11 14:21:03",
+      "market_regime": "Neutral",
+      "vix_level": 22.8,
+      "candidates": [
+        {"ticker": "AAPL", "sector": "Technology",  "entry": 178.50, "tp": 196.35, "sl": 160.65, "score": 33.6, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "MSFT", "sector": "Technology",  "entry": 412.80, "tp": 454.10, "sl": 371.50, "score": 32.1, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "META", "sector": "Technology",  "entry": 548.60, "tp": 603.45, "sl": 493.75, "score": 30.8, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "AMZN", "sector": "Consumer",    "entry": 185.20, "tp": 203.72, "sl": 166.68, "score": 29.7, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "GOOGL","sector": "Technology",  "entry": 162.40, "tp": 178.65, "sl": 146.15, "score": 28.9, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "NFLX", "sector": "Communication","entry": 895.30,"tp": 984.85, "sl": 805.77, "score": 28.2, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "AMD",  "sector": "Technology",  "entry": 158.70, "tp": 174.60, "sl": 142.85, "score": 27.4, "action": "BUY", "potential_pct": 10.02},
+        {"ticker": "INTC", "sector": "Technology",  "entry": 30.20,  "tp": 33.22,  "sl": 27.18,  "score": 26.7, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "CSCO", "sector": "Technology",  "entry": 54.80,  "tp": 60.30,  "sl": 49.30,  "score": 25.9, "action": "BUY", "potential_pct": 10.04},
+        {"ticker": "TSLA", "sector": "Consumer",    "entry": 225.40, "tp": 247.95, "sl": 202.85, "score": 25.2, "action": "BUY", "potential_pct": 10.00}
+      ]
+    },
+    {
+      "date": "2026-03-10",
+      "timestamp": "2026-03-10 14:17:28",
+      "market_regime": "Bull",
+      "vix_level": 20.1,
+      "candidates": [
+        {"ticker": "LLY",  "sector": "Healthcare",  "entry": 872.50, "tp": 959.75, "sl": 785.25, "score": 34.3, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "ABBV", "sector": "Healthcare",  "entry": 186.20, "tp": 204.80, "sl": 167.60, "score": 32.8, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "MRK",  "sector": "Healthcare",  "entry": 95.40,  "tp": 104.95, "sl": 85.85,  "score": 31.5, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "UNH",  "sector": "Healthcare",  "entry": 558.30, "tp": 614.15, "sl": 502.45, "score": 30.2, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "VRTX", "sector": "Healthcare",  "entry": 462.80, "tp": 509.10, "sl": 416.50, "score": 29.1, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "GILD", "sector": "Healthcare",  "entry": 89.60,  "tp": 98.55,  "sl": 80.65,  "score": 28.3, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "BIIB", "sector": "Healthcare",  "entry": 152.40, "tp": 167.65, "sl": 137.15, "score": 27.6, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "UTHR", "sector": "Healthcare",  "entry": 518.20, "tp": 570.00, "sl": 466.35, "score": 26.8, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "RLAY", "sector": "Healthcare",  "entry": 9.80,   "tp": 10.80,  "sl": 8.82,   "score": 25.9, "action": "BUY", "potential_pct": 10.20},
+        {"ticker": "CAPR", "sector": "Healthcare",  "entry": 28.40,  "tp": 31.25,  "sl": 25.55,  "score": 25.1, "action": "BUY", "potential_pct": 10.04}
+      ]
+    },
+    {
+      "date": "2026-03-07",
+      "timestamp": "2026-03-07 14:09:55",
+      "market_regime": "Bull",
+      "vix_level": 18.9,
+      "candidates": [
+        {"ticker": "CAT",  "sector": "Industrials", "entry": 338.50, "tp": 372.35, "sl": 304.65, "score": 33.9, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "HON",  "sector": "Industrials", "entry": 218.70, "tp": 240.55, "sl": 196.85, "score": 32.4, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "DE",   "sector": "Industrials", "entry": 448.20, "tp": 493.00, "sl": 403.40, "score": 31.1, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "GE",   "sector": "Industrials", "entry": 185.60, "tp": 204.15, "sl": 167.05, "score": 29.8, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "LMT",  "sector": "Industrials", "entry": 625.30, "tp": 687.80, "sl": 562.80, "score": 29.0, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "RTX",  "sector": "Industrials", "entry": 124.80, "tp": 137.30, "sl": 112.30, "score": 28.2, "action": "BUY", "potential_pct": 10.02},
+        {"ticker": "NOC",  "sector": "Industrials", "entry": 705.40, "tp": 775.95, "sl": 634.85, "score": 27.5, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "TDG",  "sector": "Industrials", "entry": 1258.40,"tp": 1384.25,"sl": 1132.55,"score": 26.7, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "LHX",  "sector": "Industrials", "entry": 238.90, "tp": 262.80, "sl": 215.00, "score": 25.8, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "BA",   "sector": "Industrials", "entry": 172.40, "tp": 189.65, "sl": 155.15, "score": 25.0, "action": "BUY", "potential_pct": 10.01}
+      ]
+    },
+    {
+      "date": "2026-03-06",
+      "timestamp": "2026-03-06 14:18:39",
+      "market_regime": "Bull",
+      "vix_level": 19.4,
+      "candidates": [
+        {"ticker": "WMT",  "sector": "Consumer",    "entry": 92.40,  "tp": 101.65, "sl": 83.15,  "score": 33.5, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "COST", "sector": "Consumer",    "entry": 882.50, "tp": 970.75, "sl": 794.25, "score": 32.0, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "TGT",  "sector": "Consumer",    "entry": 112.80, "tp": 124.10, "sl": 101.50, "score": 30.7, "action": "BUY", "potential_pct": 10.02},
+        {"ticker": "HD",   "sector": "Consumer",    "entry": 382.60, "tp": 420.85, "sl": 344.35, "score": 29.5, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "LOW",  "sector": "Consumer",    "entry": 248.30, "tp": 273.10, "sl": 223.45, "score": 28.6, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "TJX",  "sector": "Consumer",    "entry": 118.50, "tp": 130.35, "sl": 106.65, "score": 27.8, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "ROST", "sector": "Consumer",    "entry": 148.20, "tp": 163.05, "sl": 133.40, "score": 27.0, "action": "BUY", "potential_pct": 10.02},
+        {"ticker": "AMZN", "sector": "Consumer",    "entry": 182.40, "tp": 200.65, "sl": 164.15, "score": 26.2, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "DG",   "sector": "Consumer",    "entry": 88.60,  "tp": 97.45,  "sl": 79.75,  "score": 25.4, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "DLTR", "sector": "Consumer",    "entry": 62.30,  "tp": 68.55,  "sl": 56.05,  "score": 24.7, "action": "BUY", "potential_pct": 10.03}
+      ]
+    },
+    {
+      "date": "2026-03-05",
+      "timestamp": "2026-03-05 14:05:22",
+      "market_regime": "Neutral",
+      "vix_level": 23.5,
+      "candidates": [
+        {"ticker": "NEE",  "sector": "Utilities",   "entry": 68.40,  "tp": 75.25,  "sl": 61.55,  "score": 32.8, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "DUK",  "sector": "Utilities",   "entry": 112.80, "tp": 124.10, "sl": 101.50, "score": 31.3, "action": "BUY", "potential_pct": 10.02},
+        {"ticker": "SO",   "sector": "Utilities",   "entry": 88.50,  "tp": 97.35,  "sl": 79.65,  "score": 30.0, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "AEP",  "sector": "Utilities",   "entry": 98.20,  "tp": 108.00, "sl": 88.40,  "score": 28.7, "action": "BUY", "potential_pct": 9.98},
+        {"ticker": "EXC",  "sector": "Utilities",   "entry": 42.30,  "tp": 46.55,  "sl": 38.05,  "score": 27.4, "action": "BUY", "potential_pct": 10.05},
+        {"ticker": "WEC",  "sector": "Utilities",   "entry": 92.40,  "tp": 101.65, "sl": 83.15,  "score": 26.5, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "PEG",  "sector": "Utilities",   "entry": 78.60,  "tp": 86.45,  "sl": 70.75,  "score": 25.7, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "AWK",  "sector": "Utilities",   "entry": 132.50, "tp": 145.75, "sl": 119.25, "score": 24.9, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "CNP",  "sector": "Utilities",   "entry": 28.40,  "tp": 31.25,  "sl": 25.55,  "score": 24.1, "action": "BUY", "potential_pct": 10.04},
+        {"ticker": "PCG",  "sector": "Utilities",   "entry": 16.80,  "tp": 18.50,  "sl": 15.10,  "score": 23.4, "action": "BUY", "potential_pct": 10.12}
+      ]
+    },
+    {
+      "date": "2026-03-04",
+      "timestamp": "2026-03-04 14:31:11",
+      "market_regime": "Bull",
+      "vix_level": 19.2,
+      "candidates": [
+        {"ticker": "JPM",  "sector": "Financials",  "entry": 218.40, "tp": 240.25, "sl": 196.55, "score": 34.2, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "BAC",  "sector": "Financials",  "entry": 44.80,  "tp": 49.30,  "sl": 40.30,  "score": 32.7, "action": "BUY", "potential_pct": 10.04},
+        {"ticker": "WFC",  "sector": "Financials",  "entry": 72.40,  "tp": 79.65,  "sl": 65.15,  "score": 31.4, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "GS",   "sector": "Financials",  "entry": 485.20, "tp": 533.70, "sl": 436.70, "score": 30.1, "action": "BUY", "potential_pct": 10.00},
+        {"ticker": "MS",   "sector": "Financials",  "entry": 118.60, "tp": 130.45, "sl": 106.75, "score": 28.8, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "C",    "sector": "Financials",  "entry": 72.30,  "tp": 79.55,  "sl": 65.05,  "score": 27.6, "action": "BUY", "potential_pct": 10.03},
+        {"ticker": "USB",  "sector": "Financials",  "entry": 46.80,  "tp": 51.50,  "sl": 42.10,  "score": 26.8, "action": "BUY", "potential_pct": 10.04},
+        {"ticker": "TFC",  "sector": "Financials",  "entry": 42.60,  "tp": 46.85,  "sl": 38.35,  "score": 25.9, "action": "BUY", "potential_pct": 9.98},
+        {"ticker": "PNC",  "sector": "Financials",  "entry": 188.40, "tp": 207.25, "sl": 169.55, "score": 25.1, "action": "BUY", "potential_pct": 9.99},
+        {"ticker": "COF",  "sector": "Financials",  "entry": 152.80, "tp": 168.10, "sl": 137.50, "score": 24.3, "action": "BUY", "potential_pct": 10.01}
+      ]
+    },
+    {
+      "date": "2026-03-03",
+      "timestamp": "2026-03-03 14:44:08",
+      "market_regime": "Bull",
+      "vix_level": 18.6,
+      "candidates": [
+        {"ticker": "ADEA", "sector": "Technology",  "entry": 21.40,  "tp": 23.55,  "sl": 19.25,  "score": 33.8, "action": "BUY", "potential_pct": 10.05},
+        {"ticker": "STGW", "sector": "Technology",  "entry": 5.62,   "tp": 6.19,   "sl": 5.05,   "score": 32.3, "action": "BUY", "potential_pct": 10.14},
+        {"ticker": "CAPR", "sector": "Healthcare",  "entry": 26.80,  "tp": 29.50,  "sl": 24.10,  "score": 31.0, "action": "BUY", "potential_pct": 10.07},
+        {"ticker": "DNTH", "sector": "Healthcare",  "entry": 74.20,  "tp": 81.60,  "sl": 66.80,  "score": 29.7, "action": "BUY", "potential_pct": 9.97},
+        {"ticker": "ERIC", "sector": "Communication","entry": 11.20, "tp": 12.30,  "sl": 10.10,  "score": 28.4, "action": "BUY", "potential_pct": 9.82},
+        {"ticker": "NOK",  "sector": "Communication","entry": 8.10,  "tp": 8.90,   "sl": 7.30,   "score": 27.5, "action": "BUY", "potential_pct": 9.88},
+        {"ticker": "CGON", "sector": "Energy",      "entry": 60.40,  "tp": 66.45,  "sl": 54.35,  "score": 26.7, "action": "BUY", "potential_pct": 10.01},
+        {"ticker": "LXU",  "sector": "Materials",   "entry": 13.80,  "tp": 15.20,  "sl": 12.40,  "score": 25.8, "action": "BUY", "potential_pct": 10.14},
+        {"ticker": "EGY",  "sector": "Energy",      "entry": 5.10,   "tp": 5.60,   "sl": 4.60,   "score": 24.9, "action": "BUY", "potential_pct": 9.80},
+        {"ticker": "RLAY", "sector": "Healthcare",  "entry": 9.40,   "tp": 10.35,  "sl": 8.45,   "score": 24.1, "action": "BUY", "potential_pct": 10.11}
+      ]
+    }
+  ]
+}

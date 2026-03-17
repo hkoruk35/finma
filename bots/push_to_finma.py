@@ -28,7 +28,9 @@ from datetime import datetime
 # ─── Dosya Yolları ───
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)  # finma/
-SIGNALS_JSON = os.path.join(PROJECT_ROOT, "frontend", "data", "signals-latest.json")
+SIGNALS_JSON   = os.path.join(PROJECT_ROOT, "frontend", "data", "signals-latest.json")
+HISTORY_JSON   = os.path.join(PROJECT_ROOT, "frontend", "data", "signals-history.json")
+HISTORY_MAX    = 10   # Kaç günlük liste saklanacak
 
 # Bot output dosya yolları (sırayla dener)
 DEFAULT_PATHS = [
@@ -121,6 +123,65 @@ def write_signals_json(data: dict):
     print(f"  JSON yazildi: {SIGNALS_JSON}")
 
 
+def update_history_json(signals: dict):
+    """
+    signals-history.json dosyasını güncelle.
+    Yeni sinyalleri başa ekle, eski girişleri (HISTORY_MAX'tan fazla) kaldır.
+    Aynı güne ait kayıt varsa üzerine yaz.
+    """
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    # Mevcut history'yi oku
+    if os.path.exists(HISTORY_JSON):
+        with open(HISTORY_JSON, "r", encoding="utf-8") as f:
+            try:
+                history_data = json.load(f)
+            except Exception:
+                history_data = {"history": []}
+    else:
+        history_data = {"history": []}
+
+    history = history_data.get("history", [])
+
+    # Backtest için sadece ilk 10 aday (top10)
+    top10 = signals["candidates"][:10]
+    entry = {
+        "date": today,
+        "timestamp": signals["timestamp"],
+        "market_regime": signals.get("market_regime", "Bull"),
+        "vix_level": signals.get("vix_level", 20.0),
+        "candidates": [
+            {
+                "ticker": c["ticker"],
+                "sector": c.get("sector", "Unknown"),
+                "entry":  round(float(c["price"]), 2),
+                "tp":     round(float(c.get("target", c["price"] * 1.10)), 2),
+                "sl":     round(float(c.get("stop_loss", c["price"] * 0.92)), 2),
+                "score":  round(float(c["score"]), 1),
+                "action": c.get("action", "BUY"),
+                "potential_pct": round(float(c.get("potential_pct", 10.0)), 2),
+            }
+            for c in top10
+        ]
+    }
+
+    # Aynı güne ait kayıt varsa kaldır (yenisini ekleyeceğiz)
+    history = [h for h in history if h.get("date") != today]
+
+    # Yeni kayıdı başa ekle
+    history.insert(0, entry)
+
+    # Son HISTORY_MAX günü tut
+    history = history[:HISTORY_MAX]
+
+    history_data = {"lastUpdated": today, "history": history}
+
+    with open(HISTORY_JSON, "w", encoding="utf-8") as f:
+        json.dump(history_data, f, indent=2, ensure_ascii=False)
+
+    print(f"  History guncellendi: {len(history)} kayit — {HISTORY_JSON}")
+
+
 def git_push():
     """Git add → commit → push."""
     try:
@@ -128,7 +189,10 @@ def git_push():
         os.chdir(PROJECT_ROOT)
 
         # Sadece signals JSON dosyasını ekle
-        subprocess.run(["git", "add", "frontend/data/signals-latest.json"], check=True, capture_output=True)
+        subprocess.run(["git", "add",
+                         "frontend/data/signals-latest.json",
+                         "frontend/data/signals-history.json"],
+                        check=True, capture_output=True)
 
         # Değişiklik var mı kontrol et
         result = subprocess.run(["git", "diff", "--cached", "--quiet"], capture_output=True)
@@ -166,10 +230,11 @@ def main():
         print("[1/3] Bot output okunuyor...")
         bot_data = load_bot_output(args.file)
 
-        # 2. Formatı dönüştür ve JSON yaz
+        # 2. Formatı dönüştür ve JSON'ları yaz
         print("[2/3] Sinyal formatina donusturuluyor...")
         signals = convert_to_signals_format(bot_data)
         write_signals_json(signals)
+        update_history_json(signals)
         print(f"  {len(signals['candidates'])} aday yazildi")
         print(f"  Bot: {signals['bot_name']} | Rejim: {signals['market_regime']} | VIX: {signals['vix_level']}")
         print(f"  Top 5: {', '.join(c['ticker'] for c in signals['candidates'][:5])}")
