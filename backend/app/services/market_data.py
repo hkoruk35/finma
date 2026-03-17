@@ -714,7 +714,7 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
             results = get_batch_quotes(major_tickers)
         else:
             # For longer periods, we use get_price_changes which is cached
-            for t in major_tickers[:30]: 
+            for t in major_tickers[:50]:
                 changes = get_price_changes(t)
                 change_val = 0
                 if period == "1w": change_val = changes.get("week") or 0
@@ -754,3 +754,301 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
     except Exception as e:
         logger.error(f"Market movers hatası ({period}): {e}")
         return {"gainers": [], "losers": [], "volume": []}
+
+
+# ═══════════════════════════════════════════════════════════════════
+# YENİ FONKSİYONLAR — market.py router import'ları için gerekli
+# ═══════════════════════════════════════════════════════════════════
+
+def search_tickers(query: str, limit: int = 15) -> List[Dict[str, Any]]:
+    """Ticker/şirket adı araması"""
+    cache_key = f"search_{query.lower()}_{limit}"
+    cached = _search_cache.get(cache_key)
+    if cached:
+        return cached
+
+    results = []
+    try:
+        import yfinance as yf
+        # yfinance doesn't have native search, use a simple approach
+        # Try exact match first
+        q = query.upper().strip()
+        try:
+            t = yf.Ticker(q)
+            info = t.fast_info
+            price = float(info.get("lastPrice", 0) or info.get("last_price", 0) or 0)
+            if price > 0:
+                results.append({
+                    "symbol": q,
+                    "name": getattr(t, 'info', {}).get('shortName', q),
+                    "exchange": getattr(t, 'info', {}).get('exchange', ''),
+                    "type": "equity",
+                })
+        except Exception:
+            pass
+
+        # Common US tickers that match query
+        common = [
+            "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "BRK-B",
+            "JPM", "V", "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD",
+            "AVGO", "ORCL", "COST", "CVX", "ABBV", "MRK", "BAC", "PEP", "KO",
+            "ADBE", "CRM", "AMD", "NFLX", "WFC", "TMO", "ACN", "CSCO", "INTC",
+            "DIS", "COIN", "MSTR", "ARM", "SMCI", "RDDT", "PLTR", "SOFI",
+            "RIVN", "LCID", "NIO", "SNAP", "HOOD", "DKNG", "SQ", "PYPL",
+            "BA", "GE", "F", "GM", "T", "VZ", "PFE", "MRNA", "BABA", "TSM",
+        ]
+        matching = [s for s in common if q in s and s != q][:limit]
+        for sym in matching:
+            results.append({
+                "symbol": sym,
+                "name": sym,
+                "exchange": "NASDAQ/NYSE",
+                "type": "equity",
+            })
+
+    except Exception as e:
+        logger.error(f"Search error: {e}")
+
+    results = results[:limit]
+    if results:
+        _search_cache.set(cache_key, results)
+    return results
+
+
+def get_price_changes(ticker: str) -> Dict[str, Any]:
+    """Haftalık, aylık, yıllık fiyat değişim yüzdeleri"""
+    cache_key = f"price_changes_{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached:
+        return cached
+
+    result = {"week": None, "month": None, "year": None}
+    try:
+        t = yf.Ticker(ticker)
+        hist = t.history(period="1y")
+        if hist.empty or len(hist) < 2:
+            return result
+
+        current = float(hist["Close"].iloc[-1])
+
+        # Haftalık (5 işlem günü)
+        if len(hist) >= 6:
+            week_ago = float(hist["Close"].iloc[-6])
+            if week_ago > 0:
+                result["week"] = round((current - week_ago) / week_ago * 100, 2)
+
+        # Aylık (~21 işlem günü)
+        if len(hist) >= 22:
+            month_ago = float(hist["Close"].iloc[-22])
+            if month_ago > 0:
+                result["month"] = round((current - month_ago) / month_ago * 100, 2)
+
+        # Yıllık (tüm veri)
+        year_ago = float(hist["Close"].iloc[0])
+        if year_ago > 0:
+            result["year"] = round((current - year_ago) / year_ago * 100, 2)
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"Price changes error for {ticker}: {e}")
+
+    return result
+
+
+def get_ticker_news(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
+    """Ticker için son haberleri getir"""
+    cache_key = f"news_{ticker}_{count}"
+    cached = _extra_cache.get(cache_key)
+    if cached:
+        return cached
+
+    results = []
+    try:
+        t = yf.Ticker(ticker)
+        news = t.news or []
+        for item in news[:count]:
+            pub_time = item.get("providerPublishTime", 0)
+            date_str = datetime.fromtimestamp(pub_time).isoformat() if pub_time else ""
+            results.append({
+                "title": item.get("title", ""),
+                "url": item.get("link", ""),
+                "publisher": item.get("publisher", ""),
+                "date": date_str,
+                "lang": item.get("lang", "en"),
+            })
+        if results:
+            _extra_cache.set(cache_key, results)
+    except Exception as e:
+        logger.error(f"News error for {ticker}: {e}")
+
+    return results
+
+
+def get_insider_trades(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
+    """Insider işlemlerini getir"""
+    cache_key = f"insider_{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached:
+        return cached
+
+    results = []
+    try:
+        t = yf.Ticker(ticker)
+        transactions = t.insider_transactions
+        if transactions is not None and not transactions.empty:
+            for _, row in transactions.head(count).iterrows():
+                results.append({
+                    "insider": str(row.get("Insider", "")),
+                    "relation": str(row.get("Relationship", "")),
+                    "transaction": str(row.get("Transaction", "")),
+                    "date": str(row.get("Start Date", "")),
+                    "shares": int(row.get("Shares", 0)) if pd.notna(row.get("Shares")) else 0,
+                    "value": float(row.get("Value", 0)) if pd.notna(row.get("Value")) else 0,
+                })
+        if results:
+            _extra_cache.set(cache_key, results)
+    except Exception as e:
+        logger.error(f"Insider error for {ticker}: {e}")
+
+    return results
+
+
+def get_earnings_calendar(ticker: str) -> Dict[str, Any]:
+    """Bilanço takvimi ve geçmiş sonuçları"""
+    cache_key = f"earnings_{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached:
+        return cached
+
+    result: Dict[str, Any] = {"next_date": None, "history": []}
+    try:
+        t = yf.Ticker(ticker)
+
+        # Gelecek bilançolar
+        try:
+            dates = t.earnings_dates
+            if dates is not None and not dates.empty:
+                future = dates[dates.index > pd.Timestamp.now()]
+                if not future.empty:
+                    result["next_date"] = str(future.index[0].date())
+        except Exception:
+            pass
+
+        # Geçmiş çeyreklik kazançlar
+        try:
+            q_earnings = t.quarterly_earnings
+            if q_earnings is not None and not q_earnings.empty:
+                for idx, row in q_earnings.iterrows():
+                    result["history"].append({
+                        "quarter": str(idx),
+                        "revenue": float(row.get("Revenue", 0)) if pd.notna(row.get("Revenue")) else 0,
+                        "earnings": float(row.get("Earnings", 0)) if pd.notna(row.get("Earnings")) else 0,
+                    })
+        except Exception:
+            pass
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"Earnings error for {ticker}: {e}")
+
+    return result
+
+
+def get_price_history(ticker: str) -> Dict[str, Any]:
+    """Son 5 yıllık aylık ve yıllık fiyat geçmişi"""
+    cache_key = f"history_{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached:
+        return cached
+
+    result: Dict[str, Any] = {"monthly": [], "yearly": []}
+    try:
+        t = yf.Ticker(ticker)
+
+        # Aylık veri (son 5 yıl)
+        hist_m = t.history(period="5y", interval="1mo")
+        if hist_m is not None and not hist_m.empty:
+            for idx, row in hist_m.iterrows():
+                result["monthly"].append({
+                    "date": str(idx.date()),
+                    "open": round(float(row["Open"]), 2) if pd.notna(row.get("Open")) else 0,
+                    "high": round(float(row["High"]), 2) if pd.notna(row.get("High")) else 0,
+                    "low": round(float(row["Low"]), 2) if pd.notna(row.get("Low")) else 0,
+                    "close": round(float(row["Close"]), 2) if pd.notna(row.get("Close")) else 0,
+                    "volume": int(row.get("Volume", 0)) if pd.notna(row.get("Volume")) else 0,
+                })
+
+        # Yıllık veri (son 10 yıl)
+        hist_y = t.history(period="10y", interval="3mo")
+        if hist_y is not None and not hist_y.empty:
+            # Yıllık grup
+            yearly_groups = hist_y.groupby(hist_y.index.year)
+            for year, group in yearly_groups:
+                result["yearly"].append({
+                    "year": int(year),
+                    "open": round(float(group["Open"].iloc[0]), 2),
+                    "close": round(float(group["Close"].iloc[-1]), 2),
+                    "high": round(float(group["High"].max()), 2),
+                    "low": round(float(group["Low"].min()), 2),
+                    "change_pct": round((float(group["Close"].iloc[-1]) - float(group["Open"].iloc[0])) / float(group["Open"].iloc[0]) * 100, 2) if float(group["Open"].iloc[0]) > 0 else 0,
+                })
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"History error for {ticker}: {e}")
+
+    return result
+
+
+def get_holders_info(ticker: str) -> Dict[str, Any]:
+    """Kurumsal sahiplik ve büyük hissedarlar"""
+    cache_key = f"holders_{ticker}"
+    cached = _extra_cache.get(cache_key)
+    if cached:
+        return cached
+
+    result: Dict[str, Any] = {"institutional_holders": [], "major": [], "institutional_pct": None}
+    try:
+        t = yf.Ticker(ticker)
+
+        # Kurumsal sahipler
+        try:
+            inst = t.institutional_holders
+            if inst is not None and not inst.empty:
+                for _, row in inst.head(10).iterrows():
+                    result["institutional_holders"].append({
+                        "holder": str(row.get("Holder", "")),
+                        "shares": int(row.get("Shares", 0)) if pd.notna(row.get("Shares")) else 0,
+                        "value": float(row.get("Value", 0)) if pd.notna(row.get("Value")) else 0,
+                        "pct_held": float(row.get("% Out", 0)) if pd.notna(row.get("% Out")) else 0,
+                        "date": str(row.get("Date Reported", "")),
+                    })
+        except Exception:
+            pass
+
+        # Büyük hissedarlar
+        try:
+            major = t.major_holders
+            if major is not None and not major.empty:
+                for _, row in major.iterrows():
+                    result["major"].append({
+                        "value": str(row.iloc[0]) if len(row) > 0 else "",
+                        "label": str(row.iloc[1]) if len(row) > 1 else "",
+                    })
+                # Institutional pct
+                for _, row in major.iterrows():
+                    label = str(row.iloc[1]).lower() if len(row) > 1 else ""
+                    if "institution" in label and "held" in label:
+                        try:
+                            val = str(row.iloc[0]).replace("%", "").strip()
+                            result["institutional_pct"] = float(val)
+                        except Exception:
+                            pass
+        except Exception:
+            pass
+
+        _extra_cache.set(cache_key, result)
+    except Exception as e:
+        logger.error(f"Holders error for {ticker}: {e}")
+
+    return result

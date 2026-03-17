@@ -9,7 +9,7 @@ import { TierGate } from '@/components/auth/TierGate'
 
 export default function WatchlistsPage() {
   return (
-    <TierGate tier="pro">
+    <TierGate tier="admin">
       <WatchlistsContent />
     </TierGate>
   )

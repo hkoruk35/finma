@@ -206,6 +206,8 @@ export default function DashboardPage() {
   const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
   const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
   const [lastRefresh, setLastRefresh] = useState(new Date())
+  const [moversLoading, setMoversLoading] = useState(false)
+  const [moversError, setMoversError] = useState(false)
 
   // 5 dakikada bir otomatik güncelleme (zaman damgası için)
   useEffect(() => {
@@ -224,9 +226,13 @@ export default function DashboardPage() {
   // Canlı fiyatları ve movers verilerini çek
   useEffect(() => {
     const fetchMovers = async () => {
+      setMoversLoading(true)
+      setMoversError(false)
       try {
         const data = await api.getMarketMovers(moversPeriod)
-        setLiveMovers(data)
+        if (data && (data.gainers?.length || data.losers?.length || data.volume?.length)) {
+          setLiveMovers(data)
+        }
 
         // Live quotes map'ini de güncelle ki Bot sonuçları vb. etkilensin
         const map: Record<string, any> = { ...liveQuotes }
@@ -239,6 +245,9 @@ export default function DashboardPage() {
         setLastRefresh(new Date())
       } catch (err) {
         console.error('Movers fetch error:', err)
+        setMoversError(true)
+      } finally {
+        setMoversLoading(false)
       }
     }
 
@@ -475,7 +484,8 @@ export default function DashboardPage() {
             Piyasa Hareketleri
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
-            <RefreshCw className="w-3 h-3" /> 3 dk'da bir güncellenir • {timeStr}
+            <RefreshCw className={cn('w-3 h-3', moversLoading && 'animate-spin')} />
+            {moversError ? <span className="text-finma-red">Veri alınamadı</span> : <>3 dk'da bir güncellenir • {timeStr}</>}
           </span>
         </div>
 

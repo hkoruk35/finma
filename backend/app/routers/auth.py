@@ -118,6 +118,13 @@ async def login(credentials: UserLogin):
     if not user or not pwd_context.verify(credentials.password, user.get("password_hash", "")):
         raise HTTPException(status_code=401, detail="Geçersiz kimlik bilgileri")
 
+    # Whitelist: Bu e-postalar her zaman pro tier alır
+    user = dict(user)  # mutable kopya
+    email = user.get("email", "").lower()
+    if email in WHITELISTED_EMAILS and user.get("subscription_tier") not in ("pro", "admin"):
+        user["role"] = "pro"
+        user["subscription_tier"] = "pro"
+
     token = create_token({"sub": user["username"], "role": user["role"]})
     return TokenResponse(
         access_token=token,
