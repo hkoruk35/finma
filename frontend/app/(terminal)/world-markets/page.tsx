@@ -683,18 +683,36 @@ type Commodity = {
   price: number; change_pct: number; status: string;
 }
 
-function CommoditiesSection({ commodities, aiComment }: { commodities: Commodity[]; aiComment?: string }) {
+function CommoditiesSection({ commodities, aiComment, lastUpdate }: { commodities: Commodity[]; aiComment?: string; lastUpdate?: string }) {
   const typeOrder = ['emtia', 'doviz', 'kripto']
-  const typeLabels: Record<string, string> = { emtia: 'Emtia', doviz: 'Doviz', kripto: 'Kripto' }
+  const typeLabels: Record<string, string> = { emtia: 'Emtia', doviz: 'Döviz', kripto: 'Kripto' }
+  const [now, setNow] = useState(new Date())
+
+  // 3 dakikada bir "son güncelleme" zamanını güncelle
+  useEffect(() => {
+    const iv = setInterval(() => setNow(new Date()), 3 * 60 * 1000)
+    return () => clearInterval(iv)
+  }, [])
+
+  const updateStr = lastUpdate || now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
 
   return (
     <Card padding="none" className="overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-finma-border bg-finma-bg/30">
         <div className="flex items-center gap-2.5">
           <span className="text-lg">💰</span>
-          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">Emtia, Doviz & Kripto</span>
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">Emtia, Döviz & Kripto</span>
         </div>
-        <StatusBadge status="24s" label="24 Saat" />
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
+            <RefreshCw className="w-3 h-3" />
+            Son güncelleme: {updateStr}
+          </span>
+          <span className="text-[9px] px-2 py-0.5 bg-finma-cyan/10 text-finma-cyan rounded-full border border-finma-cyan/20 font-medium">
+            3 dk&apos;da bir
+          </span>
+          <StatusBadge status="24s" label="24 Saat" />
+        </div>
       </div>
 
       {/* AI Comment */}
@@ -878,9 +896,17 @@ function GlobalStats({ totalExchanges, totalOpen, regions }: {
 // ═══════════════════════════════════════════════════════════════════════
 
 export default function WorldMarketsPage() {
-  const { data: marketData, isLoading, isFetching, dataUpdatedAt } = useWorldMarkets()
+  const { data: marketData, isLoading, isFetching, dataUpdatedAt, refetch } = useWorldMarkets()
   const { data: analysisData } = useWorldAnalysis()
   const [selectedExchange, setSelectedExchange] = useState<Exchange | null>(null)
+
+  // 3 dakikada bir verileri tazele
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch?.()
+    }, 3 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [refetch])
 
   const handleExchangeClick = useCallback((ex: Exchange) => {
     setSelectedExchange(ex)
@@ -897,7 +923,7 @@ export default function WorldMarketsPage() {
       <div className="space-y-4 animate-fade-in">
         <div className="flex items-center gap-2">
           <Globe2 className="w-5 h-5 text-finma-cyan" />
-          <span className="text-base font-bold text-finma-text uppercase tracking-wider">Global Piyasa Istihbarat Merkezi</span>
+          <span className="text-base font-bold text-finma-text uppercase tracking-wider">Global Piyasalar</span>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -924,8 +950,8 @@ export default function WorldMarketsPage() {
   // Stale data warning
   const isStale = marketData._stale
 
-  // Region order for display (follows market open times, East -> West)
-  const regionOrder = ['okyanusya', 'asya', 'orta_dogu', 'afrika', 'avrupa', 'g_amerika', 'k_amerika']
+  // Region order for display (ABD on top as requested)
+  const regionOrder = ['k_amerika', 'avrupa', 'asya', 'orta_dogu', 'okyanusya', 'afrika', 'g_amerika']
   const orderedRegions = regionOrder
     .map(id => marketData.regions.find(r => r.id === id))
     .filter(Boolean) as Region[]
@@ -937,7 +963,7 @@ export default function WorldMarketsPage() {
         <div className="flex items-center gap-2">
           <Globe2 className="w-5 h-5 text-finma-cyan" />
           <span className="text-base font-bold text-finma-text uppercase tracking-wider">
-            Global Piyasa Istihbarat Merkezi
+            Global Piyasalar
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -991,6 +1017,7 @@ export default function WorldMarketsPage() {
         <CommoditiesSection
           commodities={marketData.commodities}
           aiComment={analysisData?.regions?.emtia || undefined}
+          lastUpdate={lastUpdate}
         />
       )}
 

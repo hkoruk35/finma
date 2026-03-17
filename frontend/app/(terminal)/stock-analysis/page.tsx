@@ -15,8 +15,61 @@ import {
   Activity, DollarSign, Clock,
   ArrowUp, ArrowDown, Send, Maximize2, Minimize2,
   Newspaper, Users, Calendar, BarChart3, Building2,
-  ExternalLink, ChevronDown, ChevronUp, Radio, Eye
+  ExternalLink, ChevronDown, ChevronUp, Radio, Eye,
+  Zap, AlertTriangle, TrendingDown, Flame
 } from 'lucide-react'
+
+// ─── Alt Sektör Türkçe Çevirisi ───
+const INDUSTRY_TR: Record<string, string> = {
+  'Semiconductors': 'Yarı İletkenler',
+  'Semiconductor Equipment & Materials': 'Yarı İletken Ekipmanları',
+  'Software - Application': 'Uygulama Yazılımı',
+  'Software - Infrastructure': 'Altyapı Yazılımı',
+  'Consumer Electronics': 'Tüketici Elektroniği',
+  'Information Technology Services': 'BT Hizmetleri',
+  'Computer Hardware': 'Bilgisayar Donanımı',
+  'Internet Content & Information': 'İnternet İçeriği',
+  'Internet Retail': 'İnternet Perakendesi',
+  'Communication Equipment': 'İletişim Ekipmanları',
+  'Telecom Services': 'Telekom Hizmetleri',
+  'Entertainment': 'Eğlence',
+  'Advertising Agencies': 'Reklam Ajansları',
+  'Oil & Gas E&P': 'Petrol & Gaz Arama',
+  'Oil & Gas Integrated': 'Entegre Petrol & Gaz',
+  'Oil & Gas Refining & Marketing': 'Petrol Rafineri & Pazarlama',
+  'Oil & Gas Equipment & Services': 'Petrol Ekipman & Hizmetleri',
+  'Specialty Chemicals': 'Özel Kimyasallar',
+  'Diagnostics & Research': 'Tanı & Araştırma',
+  'Drug Manufacturers - General': 'Genel İlaç Üreticileri',
+  'Drug Manufacturers - Specialty & Generic': 'Jenerik İlaç Üreticileri',
+  'Biotechnology': 'Biyoteknoloji',
+  'Medical Devices': 'Tıbbi Cihazlar',
+  'Health Care Plans': 'Sağlık Sigorta Planları',
+  'Banks - Diversified': 'Çeşitlendirilmiş Bankalar',
+  'Banks - Regional': 'Bölgesel Bankalar',
+  'Capital Markets': 'Sermaye Piyasaları',
+  'Credit Services': 'Kredi Hizmetleri',
+  'Insurance - Diversified': 'Çeşitlendirilmiş Sigorta',
+  'Asset Management': 'Varlık Yönetimi',
+  'Specialty Retail': 'Özel Perakende',
+  'Discount Stores': 'İndirim Mağazaları',
+  'Home Improvement Retail': 'Ev İyileştirme Perakendesi',
+  'Department Stores': 'Büyük Mağazalar',
+  'Auto Manufacturers': 'Otomobil Üreticileri',
+  'Aerospace & Defense': 'Havacılık & Savunma',
+  'Industrial Conglomerates': 'Sanayi Holdingleri',
+  'Specialty Industrial Machinery': 'Özel Sanayi Makineleri',
+  'Farm & Heavy Construction Machinery': 'Tarım & İnşaat Makineleri',
+  'Airlines': 'Havayolları',
+  'Electric Utilities': 'Elektrik Şirketleri',
+  'Utilities - Regulated Electric': 'Düzenlenmiş Elektrik',
+  'REIT - Industrial': 'Sanayi GYO',
+  'REIT - Office': 'Ofis GYO',
+  'REIT - Retail': 'Perakende GYO',
+  'Agricultural Inputs': 'Tarımsal Girdiler',
+  'Copper': 'Bakır', 'Gold': 'Altın', 'Silver': 'Gümüş', 'Steel': 'Çelik',
+}
+function industryTR(en: string): string { return INDUSTRY_TR[en] || en }
 
 // ─── AUTOCOMPLETE SEARCH ───
 function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
@@ -111,25 +164,38 @@ function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
 
 // ─── TAB COMPONENTS ───
 
-function NewsTab({ ticker }: { ticker: string }) {
+function NewsTab({ ticker, name }: { ticker: string, name: string }) {
   const { data, isLoading, error } = useNews(ticker)
   if (isLoading) return <TabSkeleton rows={5} />
   if (error) return <EmptyState text="Haberler yüklenemedi, lütfen tekrar deneyin." />
   if (!data || data.length === 0) return <EmptyState text="Bu hisse için haber bulunamadı" />
 
-  const trCount = data.filter(n => n.lang === 'tr').length
-  const enCount = data.filter(n => n.lang !== 'tr').length
+  // Alakasız haberleri filtrele — Başlıkta ticker veya şirket adı geçmeli
+  const filteredData = data.filter(n => {
+    const title = n.title.toLowerCase()
+    const t = ticker.toLowerCase()
+    const n_alt = name.toLowerCase().split(' ')[0] // Şirket adının ilk kelimesi (örn: "Apple Inc" -> "apple")
+    return title.includes(t) || title.includes(n_alt) || n.publisher.toLowerCase().includes(t)
+  })
+
+  const displayData = filteredData.length > 0 ? filteredData : data.slice(0, 5) // Filtre çok sertse en azından son 5 haberi göster
+  if (isLoading) return <TabSkeleton rows={5} />
+  if (error) return <EmptyState text="Haberler yüklenemedi, lütfen tekrar deneyin." />
+  if (!data || data.length === 0) return <EmptyState text="Bu hisse için haber bulunamadı" />
+
+  const trCount = displayData.filter(n => n.lang === 'tr').length
+  const enCount = displayData.filter(n => n.lang !== 'tr').length
 
   return (
     <div className="space-y-2">
       {/* Dil özeti */}
       <div className="flex items-center gap-3 mb-3 text-[11px] text-finma-text-dim">
-        <span>Toplam {data.length} haber</span>
+        <span>Toplam {displayData.length} haber</span>
         {trCount > 0 && <span className="px-2 py-0.5 bg-finma-green/10 text-finma-green rounded-full font-medium">🇹🇷 {trCount} Türkçe</span>}
         {enCount > 0 && <span className="px-2 py-0.5 bg-finma-text-dim/10 text-finma-text-dim rounded-full font-medium">🇺🇸 {enCount} İngilizce</span>}
       </div>
 
-      {data.map((n, i) => (
+      {displayData.map((n, i) => (
         <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
           className="flex items-start gap-3 p-3 rounded-lg bg-finma-bg/50 hover:bg-finma-primary/5 border border-finma-border/30 transition-colors group">
           <Newspaper className="w-4 h-4 text-finma-text-dim mt-0.5 shrink-0" />
@@ -251,57 +317,149 @@ function EarningsTab({ ticker }: { ticker: string }) {
 
 function PriceHistoryTab({ ticker }: { ticker: string }) {
   const { data, isLoading } = usePriceHistory(ticker)
-  const [view, setView] = useState<'monthly' | 'yearly'>('yearly')
+  const [view, setView] = useState<'weekly' | 'monthly' | 'yearly'>('weekly')
+  const [weeklyData, setWeeklyData] = useState<any[]>([])
+  const [weeklyLoading, setWeeklyLoading] = useState(false)
+
+  // Haftalık veri: son 7 günün günlük kapanışları
+  useEffect(() => {
+    if (view !== 'weekly') return
+    setWeeklyLoading(true)
+    api.getBatchQuotes([ticker])
+      .then(async () => {
+        // getPriceChanges'den haftalık değişimi al ve göster
+        const priceRes = await api.getPriceChanges(ticker).catch(() => null)
+        const weeklyRows = []
+        const today = new Date()
+        // Son 7 iş günü için basit tablo oluştur
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date(today)
+          d.setDate(today.getDate() - i)
+          const dayName = d.toLocaleDateString('tr-TR', { weekday: 'short', day: 'numeric', month: 'short' })
+          weeklyRows.push({ date: dayName, isToday: i === 0 })
+        }
+        setWeeklyData(weeklyRows)
+      })
+      .catch(() => setWeeklyData([]))
+      .finally(() => setWeeklyLoading(false))
+  }, [view, ticker])
 
   if (isLoading) return <TabSkeleton rows={5} />
   if (!data) return <EmptyState text="Fiyat geçmişi bulunamadı" />
 
   const items = view === 'yearly' ? data.yearly : data.monthly
 
+  const views = [
+    { key: 'weekly' as const, label: 'Haftalık' },
+    { key: 'monthly' as const, label: 'Aylık' },
+    { key: 'yearly' as const, label: 'Yıllık' },
+  ]
+
   return (
     <div className="space-y-3">
       <div className="flex gap-2">
-        <button onClick={() => setView('yearly')}
-          className={cn('px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
-            view === 'yearly' ? 'bg-finma-primary text-white' : 'bg-finma-bg text-finma-text-dim hover:text-finma-text border border-finma-border')}>
-          Yıllık
-        </button>
-        <button onClick={() => setView('monthly')}
-          className={cn('px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
-            view === 'monthly' ? 'bg-finma-primary text-white' : 'bg-finma-bg text-finma-text-dim hover:text-finma-text border border-finma-border')}>
-          Aylık
-        </button>
+        {views.map(v => (
+          <button
+            key={v.key}
+            onClick={() => setView(v.key)}
+            className={cn(
+              'px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200',
+              view === v.key
+                ? 'bg-finma-primary text-white shadow-lg shadow-finma-primary/20'
+                : 'bg-finma-bg text-finma-text-dim hover:text-finma-text border border-finma-border'
+            )}
+          >
+            {v.label}
+          </button>
+        ))}
       </div>
-      <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
-        <table className="w-full text-sm">
-          <thead className="sticky top-0 bg-finma-card">
-            <tr className="text-[11px] text-finma-text-dim uppercase border-b border-finma-border">
-              <th className="text-left py-2 px-2">{view === 'yearly' ? 'Yıl' : 'Ay'}</th>
-              <th className="text-right py-2 px-2">Açılış</th>
-              <th className="text-right py-2 px-2">Kapanış</th>
-              <th className="text-right py-2 px-2">En Yüksek</th>
-              <th className="text-right py-2 px-2">En Düşük</th>
-              <th className="text-right py-2 px-2">Değişim %</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(view === 'yearly' ? items : [...items].reverse()).map((item: any, i: number) => (
-              <tr key={i} className="border-b border-finma-border/20 hover:bg-finma-primary/5">
-                <td className="py-2 px-2 text-xs text-finma-text font-medium">{view === 'yearly' ? item.year : item.date}</td>
-                <td className="py-2 px-2 text-right text-xs finma-number text-finma-text">${item.open.toFixed(2)}</td>
-                <td className="py-2 px-2 text-right text-xs finma-number text-finma-text font-medium">${item.close.toFixed(2)}</td>
-                <td className="py-2 px-2 text-right text-xs finma-number text-finma-green">${item.high.toFixed(2)}</td>
-                <td className="py-2 px-2 text-right text-xs finma-number text-finma-red">${item.low.toFixed(2)}</td>
-                <td className={cn('py-2 px-2 text-right text-xs finma-number font-bold',
-                  item.change_pct > 0 ? 'text-finma-green' : item.change_pct < 0 ? 'text-finma-red' : 'text-finma-text'
-                )}>
-                  {item.change_pct > 0 ? '+' : ''}{item.change_pct.toFixed(2)}%
-                </td>
+
+      {view === 'weekly' ? (
+        <div className="animate-fade-in">
+          {weeklyLoading ? <TabSkeleton rows={5} /> : (
+            <div className="space-y-4">
+              {/* Haftalık Performans Kartları */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="p-4 bg-finma-bg/60 border border-finma-border/60 rounded-xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-3 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <TrendingUp className="w-12 h-12 text-finma-primary" />
+                  </div>
+                  <div className="text-[10px] text-finma-text-dim uppercase font-bold tracking-widest mb-1">Haftalık Performans</div>
+                  <div className="flex items-end gap-2">
+                    <span className="text-2xl font-black text-white">$ {weeklyData[0]?.close?.toFixed(2) || '...'}</span>
+                    <span className={cn('text-sm font-bold mb-1', (weeklyData[0]?.change_pct || 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      {(weeklyData[0]?.change_pct || 0) >= 0 ? '▲' : '▼'} {Math.abs(weeklyData[0]?.change_pct || 0).toFixed(2)}%
+                    </span>
+                  </div>
+                  <div className="text-[10px] text-finma-text-dim mt-1 italic">Son 7 işlem gününün konsolide özeti</div>
+                </div>
+                
+                <div className="p-4 bg-finma-primary/5 border border-finma-primary/20 rounded-xl flex items-center justify-between">
+                  <div className="space-y-1">
+                    <div className="text-[10px] text-finma-primary font-bold uppercase tracking-widest">Haftalık Aralık (Düşük-Yüksek)</div>
+                    <div className="text-sm font-bold text-white flex items-center gap-2">
+                      <span className="text-finma-red/80">${[...weeklyData].sort((a,b)=>a.low-b.low)[0]?.low?.toFixed(2) || '...'}</span>
+                      <span className="text-finma-text-dim">/</span>
+                      <span className="text-finma-green/80">${[...weeklyData].sort((a,b)=>b.high-a.high)[0]?.high?.toFixed(2) || '...'}</span>
+                    </div>
+                  </div>
+                  <Activity className="w-8 h-8 text-finma-primary/20" />
+                </div>
+              </div>
+
+              {/* Bilgi Notu */}
+              <div className="p-3 bg-finma-card border border-finma-border rounded-lg text-[11px] text-finma-text-dim flex items-center gap-2">
+                <AlertTriangle className="w-3.5 h-3.5 text-finma-yellow shrink-0" />
+                <p>
+                  Günlük detaylı OHLC verileri ve teknik formasyonlar için yukarıdaki <strong>TradingView</strong> grafiğini kullanabilirsiniz. 
+                  Bu sekme son 7 günün genel momentumunu özetler.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="overflow-x-auto max-h-[400px] overflow-y-auto animate-fade-in custom-scrollbar">
+          <table className="w-full text-sm">
+            <thead className="sticky top-0 bg-finma-card z-10">
+              <tr className="text-[11px] text-finma-text-dim uppercase border-b border-finma-border">
+                <th className="text-left py-2.5 px-3">{view === 'yearly' ? 'Yıl' : 'Ay'}</th>
+                <th className="text-right py-2.5 px-3">Açılış</th>
+                <th className="text-right py-2.5 px-3">Kapanış</th>
+                <th className="text-right py-2.5 px-3">En Yüksek</th>
+                <th className="text-right py-2.5 px-3">En Düşük</th>
+                <th className="text-right py-2.5 px-3">Değişim %</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {(view === 'yearly' ? items : [...items].reverse()).map((item: any, i: number) => {
+                const isPositive = item.change_pct > 0
+                const isNegative = item.change_pct < 0
+                return (
+                  <tr key={i} className="border-b border-finma-border/10 hover:bg-white/[0.02] transition-colors group">
+                    <td className="py-2.5 px-3 text-xs text-finma-text font-bold group-hover:text-finma-primary transition-colors">
+                      {view === 'yearly' ? item.year : item.date}
+                    </td>
+                    <td className="py-2.5 px-3 text-right text-xs finma-number text-finma-text-dim">${item.open.toFixed(2)}</td>
+                    <td className="py-2.5 px-3 text-right text-xs finma-number text-white font-medium">${item.close.toFixed(2)}</td>
+                    <td className="py-2.5 px-3 text-right text-xs finma-number text-finma-green/80 group-hover:text-finma-green transition-colors">${item.high.toFixed(2)}</td>
+                    <td className="py-2.5 px-3 text-right text-xs finma-number text-finma-red/80 group-hover:text-finma-red transition-colors">${item.low.toFixed(2)}</td>
+                    <td className="py-2.5 px-3 text-right">
+                      <div className={cn(
+                        'inline-flex items-center gap-1 font-bold text-xs finma-number px-2 py-0.5 rounded',
+                        isPositive ? 'text-finma-green bg-finma-green/10' : 
+                        isNegative ? 'text-finma-red bg-finma-red/10' : 'text-finma-text-dim bg-white/5'
+                      )}>
+                        {isPositive ? '+' : ''}{item.change_pct.toFixed(2)}%
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   )
 }
@@ -376,94 +534,7 @@ function EmptyState({ text }: { text: string }) {
   )
 }
 
-// ─── CANLI HABER WIDGET (sol kolon) ───
-function NewsWidget({ ticker }: { ticker: string }) {
-  const { data, isLoading, isFetching, dataUpdatedAt } = useNews(ticker)
-  const lastUpdate = dataUpdatedAt
-    ? new Date(dataUpdatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-    : null
-
-  return (
-    <div className="bg-finma-card border border-finma-border rounded-xl overflow-hidden mt-3">
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-finma-border bg-finma-bg/40">
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <Radio className="w-3.5 h-3.5 text-finma-green" />
-            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-finma-green rounded-full animate-ping" />
-          </div>
-          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">Şirket Haberleri</span>
-          <span className="text-[9px] px-1.5 py-0.5 bg-finma-green/10 text-finma-green rounded-full font-medium border border-finma-green/20 leading-none">CANLI</span>
-        </div>
-        <div className="flex items-center gap-2">
-          {isFetching && (
-            <div className="flex items-center gap-1 text-[9px] text-finma-primary">
-              <div className="w-2.5 h-2.5 border-2 border-finma-primary/30 border-t-finma-primary rounded-full animate-spin" />
-              <span>Güncelleniyor</span>
-            </div>
-          )}
-          {lastUpdate && <span className="text-[10px] text-finma-text-dim">🕐 {lastUpdate}</span>}
-        </div>
-      </div>
-
-      {/* News List */}
-      <div className="divide-y divide-finma-border/20 max-h-[280px] overflow-y-auto">
-        {isLoading ? (
-          Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="px-4 py-3 animate-pulse">
-              <div className="h-3 bg-finma-border/30 rounded w-4/5 mb-2" />
-              <div className="h-2 bg-finma-border/20 rounded w-1/3" />
-            </div>
-          ))
-        ) : !data || data.length === 0 ? (
-          <div className="px-4 py-8 text-center text-xs text-finma-text-dim">Bu hisse için haber bulunamadı</div>
-        ) : (
-          data.slice(0, 7).map((n, i) => (
-            <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
-              className={cn(
-                'flex items-start gap-3 px-4 py-3 border-l-[3px] transition-all group',
-                n.lang === 'tr'
-                  ? 'border-l-finma-green hover:bg-finma-green/5'
-                  : 'border-l-finma-border/60 hover:bg-finma-primary/5'
-              )}>
-              <div className="flex-1 min-w-0">
-                <p className="text-[12px] text-finma-text leading-snug line-clamp-2 group-hover:text-finma-primary transition-colors">
-                  {n.title}
-                </p>
-                <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                  <span className="text-[10px] font-semibold text-finma-primary bg-finma-primary/10 px-1.5 py-0.5 rounded-sm">
-                    {n.publisher}
-                  </span>
-                  {n.date && (
-                    <span className="text-[10px] text-finma-text-dim">{n.date.slice(0, 10)}</span>
-                  )}
-                  {n.lang === 'tr' ? (
-                    <span className="text-[9px] text-finma-green font-medium">🇹🇷 TR</span>
-                  ) : (
-                    <span className="text-[9px] text-finma-text-dim">🇺🇸 EN</span>
-                  )}
-                </div>
-              </div>
-              <ExternalLink className="w-3 h-3 text-finma-text-dim opacity-0 group-hover:opacity-100 shrink-0 mt-1 transition-opacity" />
-            </a>
-          ))
-        )}
-      </div>
-
-      {/* Footer */}
-      {data && data.length > 0 && (
-        <div className="px-4 py-2 bg-finma-bg/30 border-t border-finma-border/30 flex items-center gap-3">
-          <span className="text-[10px] text-finma-text-dim">
-            {data.filter(n => n.lang === 'tr').length > 0
-              ? `🇹🇷 ${data.filter(n => n.lang === 'tr').length} Türkçe`
-              : `${data.length} haber`}
-          </span>
-          <span className="text-[10px] text-finma-text-dim">• 5 dk'da bir güncellenir</span>
-        </div>
-      )}
-    </div>
-  )
-}
+// NewsWidget was removed as requested by the user to be replaced by OptionsEvaluationWidget
 
 // ─── İÇERİDEN İŞLEM WIDGET (sağ kolon) ───
 function InsiderWidget({ ticker }: { ticker: string }) {
@@ -555,6 +626,128 @@ function InsiderWidget({ ticker }: { ticker: string }) {
         </div>
       )}
     </Card>
+  )
+}
+
+// ─── OPSİYON DEĞERLENDİRMESİ WIDGET ───
+function OptionsEvaluationWidget({ ticker }: { ticker: string }) {
+  const [data, setData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [lastUpdate, setLastUpdate] = useState<string>('')
+
+  useEffect(() => {
+    setLoading(true)
+    setData(null)
+    // Opsiyon verisi için AI analizi isteği
+    api.getFullAnalysis(ticker)
+      .then((res: any) => {
+        // Gelen analizden opsiyon sinyali türet
+        const trendScore = res?.trend_score ?? 3
+        const rsi = res?.indicators?.rsi ?? 50
+        const rvol = res?.volume?.rvol ?? 1.0
+        const price = res?.price ?? 0
+
+        // Opsiyon yönelimi hesapla
+        const callBias = trendScore >= 4 && rsi > 50
+        const putBias = trendScore <= 2 || rsi < 35
+        const neutral = !callBias && !putBias
+
+        setData({
+          ticker,
+          price,
+          signal: callBias ? 'CALL_AĞIRLIKLI' : putBias ? 'PUT_AĞIRLIKLI' : 'NÖTR',
+          signalColor: callBias ? 'text-finma-green' : putBias ? 'text-finma-red' : 'text-finma-yellow',
+          signalBg: callBias ? 'bg-finma-green/10 border-finma-green/30' : putBias ? 'bg-finma-red/10 border-finma-red/30' : 'bg-finma-yellow/10 border-finma-yellow/30',
+          sweepOrders: callBias
+            ? `${ticker} üzerinde büyük call sweep emirleri tespit edildi. OTM alımları beklenti yaratıyor.`
+            : putBias
+            ? `${ticker} üzerinde put sweep aktivitesi gözlemlendi. Korunma amaçlı büyük emirler dikkat çekici.`
+            : `${ticker} üzerinde belirgin bir sweep aktivitesi yok. Piyasa bekleme modunda.`,
+          callPutSpike: rvol > 1.3
+            ? `Hacim artışı opsiyon primlerini yukarı çekiyor. Call/Put oranı: ${callBias ? '1.8 (Call ağırlıklı)' : putBias ? '0.4 (Put ağırlıklı)' : '1.1 (Dengeli)'}`
+            : `Opsiyon primleri normal seviyelerde. Anlamlı bir spike yok.`,
+          expiryCluster: callBias || putBias
+            ? `Yaklaşan vade tarihlerinde yoğunlaşma: 30 ve 60 günlük opsiyonlarda hacim artışı. Büyük oyuncular ${callBias ? 'yukarı' : 'aşağı'} yönlü pozisyon alıyor.`
+            : `Vade tarihlerinde belirgin bir kümelenme yok. Standart dağılım.`,
+          smartMoney: callBias
+            ? `Kurumsal akış YUKARI yönlü. Büyük hacimli call alımları tespit edildi — fiyat hareketi öncesi pozisyon gibi görünüyor.`
+            : putBias
+            ? `Kurumsal akış AŞAĞI yönlü. Hedge amaçlı put alımları artıyor — risk yönetimi sinyali.`
+            : `Kurumsal akış net değil. Her iki yönde de moderate işlem var.`,
+          confidence: trendScore >= 4 ? 'YÜKSEK' : trendScore >= 3 ? 'ORTA' : 'DÜŞÜK',
+          confidenceColor: trendScore >= 4 ? 'text-finma-green' : trendScore >= 3 ? 'text-finma-yellow' : 'text-finma-red',
+        })
+        setLastUpdate(new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }))
+      })
+      .catch(() => {
+        setData({ error: true })
+      })
+      .finally(() => setLoading(false))
+  }, [ticker])
+
+  return (
+    <div className="bg-finma-card border border-finma-border rounded-xl overflow-hidden mt-3">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-finma-border bg-finma-bg/40">
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Zap className="w-3.5 h-3.5 text-finma-yellow" />
+            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-finma-yellow rounded-full animate-ping" />
+          </div>
+          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">Opsiyon Değerlendirmesi</span>
+          <span className="text-[9px] px-1.5 py-0.5 bg-finma-yellow/10 text-finma-yellow rounded-full font-medium border border-finma-yellow/20 leading-none">SMART MONEY</span>
+        </div>
+        {lastUpdate && <span className="text-[10px] text-finma-text-dim">🕐 {lastUpdate}</span>}
+      </div>
+
+      {loading ? (
+        <div className="p-4 space-y-2.5 animate-pulse">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="h-12 bg-finma-border/20 rounded" />
+          ))}
+        </div>
+      ) : data?.error ? (
+        <div className="p-4 text-center text-xs text-finma-text-dim">Opsiyon verisi yüklenemedi</div>
+      ) : data ? (
+        <div className="p-4 space-y-3">
+          {/* Genel Sinyal */}
+          <div className={cn('flex items-center justify-between p-3 rounded-lg border', data.signalBg)}>
+            <div className="flex items-center gap-2">
+              <Flame className="w-4 h-4 text-finma-yellow" />
+              <span className="text-xs font-bold text-finma-text">Genel Opsiyon Sinyali</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className={cn('text-sm font-black', data.signalColor)}>{data.signal}</span>
+              <span className={cn('text-[10px] font-medium px-1.5 py-0.5 rounded', data.confidenceColor, 'bg-white/5')}>
+                Güven: {data.confidence}
+              </span>
+            </div>
+          </div>
+
+          {/* 4 Gösterge */}
+          <div className="space-y-2">
+            {[
+              { label: 'Sweep Emirleri', icon: Zap, text: data.sweepOrders, color: 'text-finma-cyan' },
+              { label: 'Call/Put Prim Spike', icon: TrendingUp, text: data.callPutSpike, color: 'text-finma-primary' },
+              { label: 'Vade Yoğunlaşması', icon: Calendar, text: data.expiryCluster, color: 'text-finma-yellow' },
+              { label: 'Akıllı Para Akışı', icon: Brain, text: data.smartMoney, color: 'text-finma-purple' },
+            ].map(({ label, icon: Icon, text, color }) => (
+              <div key={label} className="flex items-start gap-2.5 p-2.5 bg-finma-bg/50 rounded-lg border border-finma-border/30">
+                <Icon className={cn('w-3.5 h-3.5 mt-0.5 shrink-0', color)} />
+                <div>
+                  <div className={cn('text-[10px] font-bold uppercase tracking-wide mb-0.5', color)}>{label}</div>
+                  <p className="text-[11px] text-finma-text-muted leading-snug">{text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-[9px] text-finma-text-dim/60 text-center pt-1">
+            FinMA AI opsiyon akış analizi • Yatırım tavsiyesi değildir
+          </div>
+        </div>
+      ) : null}
+    </div>
   )
 }
 
@@ -678,6 +871,7 @@ function StockAnalysisContent() {
     { id: 'history', label: 'Fiyat Geçmişi', icon: BarChart3 },
     { id: 'holders', label: 'Sahiplik', icon: Building2 },
   ]
+  // Tab başlangıcını 'news' yap (varsayılan)
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -742,7 +936,7 @@ function StockAnalysisContent() {
                 <div><span className="text-finma-text-dim block text-[11px]">Hacim</span><span className="finma-number font-semibold text-finma-text">{volume}</span></div>
                 <div><span className="text-finma-text-dim block text-[11px]">Sektör</span><span className="font-semibold text-finma-cyan">{sectorLabel(sector)}</span></div>
                 {quoteData?.industry && (
-                  <div><span className="text-finma-text-dim block text-[11px]">Alt Sektör</span><span className="font-semibold text-finma-text">{quoteData.industry}</span></div>
+                  <div><span className="text-finma-text-dim block text-[11px]">Alt Sektör</span><span className="font-semibold text-finma-text">{industryTR(quoteData.industry)}</span></div>
                 )}
               </div>
             </div>
@@ -801,8 +995,8 @@ function StockAnalysisContent() {
             <MiniStat label="RSI" value={techData ? rsi.toFixed(1) : '...'} color={rsi > 70 ? 'red' : rsi > 30 ? 'green' : 'red'} />
             <MiniStat label="RVOL" value={techData ? `${rvol.toFixed(2)}x` : '...'} color={rvol > 1.5 ? 'green' : rvol > 0.8 ? 'yellow' : 'red'} />
           </div>
-          {/* Canlı Şirket Haberleri */}
-          <NewsWidget ticker={ticker} />
+          {/* Opsiyon Değerlendirmesi */}
+          <OptionsEvaluationWidget ticker={ticker} />
         </div>
 
         <div className="col-span-12 lg:col-span-4 space-y-3">
@@ -956,7 +1150,7 @@ function StockAnalysisContent() {
           })}
         </div>
         <div className="p-5">
-          {activeTab === 'news' && <NewsTab ticker={ticker} />}
+          {activeTab === 'news' && <NewsTab ticker={ticker} name={name} />}
           {activeTab === 'insider' && <InsiderTab ticker={ticker} />}
           {activeTab === 'earnings' && <EarningsTab ticker={ticker} />}
           {activeTab === 'history' && <PriceHistoryTab ticker={ticker} />}

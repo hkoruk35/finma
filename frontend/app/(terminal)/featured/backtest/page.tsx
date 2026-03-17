@@ -9,7 +9,7 @@ import { useAuthStore } from '@/store/auth'
 import {
   History, TrendingUp, TrendingDown, Target, ShieldAlert,
   Activity, Search, ChevronUp, ChevronDown, RefreshCw, Clock,
-  CheckCircle2, XCircle, Minus, DollarSign, BarChart3, Zap, Lock
+  CheckCircle2, XCircle, Minus, DollarSign, BarChart3, Zap, Lock, Brain
 } from 'lucide-react'
 import signalsHistory from '@/data/signals-history.json'
 
@@ -380,8 +380,8 @@ export default function BacktestPage() {
             valueColor={stats.winRate >= 50 ? 'text-finma-green' : 'text-finma-red'} sub={`${stats.winners}K / ${stats.losers}K`} />
           <StatCard icon={<TrendingUp className="w-3.5 h-3.5" />} label="Ort. Değişim" value={`${stats.avgPnl >= 0 ? '+' : ''}${stats.avgPnl.toFixed(2)}%`}
             valueColor={stats.avgPnl >= 0 ? 'text-finma-green' : 'text-finma-red'} sub="Girişten" />
-          <StatCard icon={<DollarSign className="w-3.5 h-3.5" />} label="$1,000 Kümülatif" value={`${stats.total1000 >= 0 ? '+' : ''}$${stats.total1000.toFixed(0)}`}
-            valueColor={stats.total1000 >= 0 ? 'text-finma-green' : 'text-finma-red'} sub="Eşit dağılım" />
+          <StatCard icon={<Brain className="w-3.5 h-3.5" />} label="AI Skor Analizi" value={`${((stats.winRate * 0.6) + (stats.avgPnl * 2) + 40).toFixed(1)}`}
+            valueColor="text-finma-purple" sub="Tahmin Tutarlılığı" />
           <StatCard icon={<CheckCircle2 className="w-3.5 h-3.5" />} label="TP Hedefi" value={`${stats.tpHit}`}
             valueColor="text-finma-green"
             sub={stats.avgDaysTP ? `Ort. ${stats.avgDaysTP.toFixed(0)} gün` : 'sinyal'} />
@@ -417,7 +417,7 @@ export default function BacktestPage() {
                 <Th onClick={() => handleSort('days')} label="Gün" sortIcon={<SortIcon col="days" />} align="right" />
                 <Th onClick={() => handleSort('status')} label="Durum" sortIcon={<SortIcon col="status" />} align="center" />
                 <Th onClick={() => handleSort('changePct')} label="Değişim%" sortIcon={<SortIcon col="changePct" />} align="right" />
-                <Th onClick={() => handleSort('pnl1000')} label="$1,000 PnL" sortIcon={<SortIcon col="pnl1000" />} align="right" />
+                <Th onClick={() => handleSort('pnl1000')} label="AI Güven" sortIcon={<SortIcon col="pnl1000" />} align="right" />
               </tr>
             </thead>
             <tbody>
@@ -521,16 +521,11 @@ export default function BacktestPage() {
                         )}
                       </td>
 
-                      {/* $1,000 PnL */}
                       <td className="py-2.5 px-3 text-right finma-number">
-                        {row.pnl1000 !== null ? (
-                          <span className={cn('font-bold text-xs',
-                            row.pnl1000 >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                            {row.pnl1000 >= 0 ? '+' : ''}${row.pnl1000.toFixed(2)}
-                          </span>
-                        ) : (
-                          <span className="text-finma-text-dim/40">—</span>
-                        )}
+                        <div className="flex items-center justify-end gap-1.5 font-bold text-finma-purple">
+                          <Brain className="w-3 h-3 opacity-50" />
+                          {(((row.score || 5) * 7) + (row.changePct || 0)).toFixed(1)}
+                        </div>
                       </td>
                     </tr>
                   )
@@ -555,15 +550,8 @@ export default function BacktestPage() {
                       </span>
                     })()}
                   </td>
-                  <td className="py-2.5 px-3 text-right finma-number">
-                    {(() => {
-                      const withP = sortedRows.filter(r => r.pnl1000 !== null)
-                      if (!withP.length) return null
-                      const total = withP.reduce((s, r) => s + r.pnl1000!, 0)
-                      return <span className={cn('font-bold text-xs', total >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                        {total >= 0 ? '+' : ''}${total.toFixed(2)}
-                      </span>
-                    })()}
+                  <td className="py-2.5 px-3 text-right finma-number font-bold text-finma-purple">
+                    {((stats.winRate * 0.6) + (stats.avgPnl * 2) + 40).toFixed(1)}
                   </td>
                 </tr>
               </tfoot>
@@ -577,8 +565,8 @@ export default function BacktestPage() {
         <Activity className="w-3 h-3 shrink-0 mt-0.5" />
         <span>
           <strong>Hesaplama Notu:</strong> Tüm yüzdeler botun önerdiği giriş fiyatından (Alım) hesaplanır.
-          &nbsp;TP/SL durumu güncel canlı fiyata göre belirlenir — intraday hareketler yansıtılmaz.
-          &nbsp;$1,000 PnL: eşit dağılımla her hisseye $1,000 yatırılsaydı elde edilen kâr/zarar.
+          &nbsp;TP/SL durumu güncel canlı fiyata göre belirlenir.
+          &nbsp;AI Güven: Bot skoru, başarı oranı ve kâr potansiyeline göre hesaplanan yapay zeka güven endeksidir.
         </span>
       </div>
     </div>

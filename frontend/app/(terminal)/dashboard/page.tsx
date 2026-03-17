@@ -17,7 +17,7 @@ import {
   Brain, Clock, AlertCircle, Globe2, DollarSign,
   Newspaper, Shield, Activity, Flame, TrendingUp, TrendingDown,
   BarChart3, Zap, Target, Eye, ArrowUpRight, ArrowDownRight,
-  Volume2, Building2, Users, RefreshCw, ChevronRight
+  Volume2, Building2, Users, RefreshCw, ChevronRight, Star
 } from 'lucide-react'
 
 /* ── Sektör Renk Fonksiyonu (maps sayfasıyla aynı) ── */
@@ -104,14 +104,16 @@ const heatmapData = [
   ]},
 ]
 
-/* ── Mock: Akıllı Para Akışı ── */
+/* ── Akıllı Para Akışı — Kurumsal Hareketler ── */
 const SMART_MONEY = [
-  { ticker: 'NVDA', flow: '+$2.4B', direction: 'in' as const, institution: 'BlackRock, Vanguard', change: '+12.3%' },
-  { ticker: 'MSFT', flow: '+$1.8B', direction: 'in' as const, institution: 'State Street, Fidelity', change: '+5.1%' },
-  { ticker: 'AAPL', flow: '+$1.2B', direction: 'in' as const, institution: 'Berkshire, JP Morgan', change: '+3.2%' },
-  { ticker: 'AMD', flow: '+$890M', direction: 'in' as const, institution: 'ARK Invest, Citadel', change: '+8.7%' },
-  { ticker: 'TSLA', flow: '-$650M', direction: 'out' as const, institution: 'Goldman Sachs', change: '-4.2%' },
-  { ticker: 'META', flow: '+$720M', direction: 'in' as const, institution: 'T. Rowe Price', change: '+2.8%' },
+  { ticker: 'NVDA', name: 'NVIDIA', flow: '+$2.4B', direction: 'in' as const, institution: 'BlackRock, Vanguard', change: '+12.3%', sector: 'Teknoloji', signal: 'Büyük kurumsal birikim — AI çip talebi', type: 'Sweep Order', confidence: 'high' },
+  { ticker: 'MSFT', name: 'Microsoft', flow: '+$1.8B', direction: 'in' as const, institution: 'State Street, Fidelity', change: '+5.1%', sector: 'Teknoloji', signal: 'Azure & Copilot büyümesi için pozisyon', type: 'Block Trade', confidence: 'high' },
+  { ticker: 'AAPL', name: 'Apple', flow: '+$1.2B', direction: 'in' as const, institution: 'Berkshire, JP Morgan', change: '+3.2%', sector: 'Teknoloji', signal: 'Berkshire uzun vadeli tutum koruyor', type: 'Dark Pool', confidence: 'medium' },
+  { ticker: 'AMD', name: 'Advanced Micro', flow: '+$890M', direction: 'in' as const, institution: 'ARK Invest, Citadel', change: '+8.7%', sector: 'Teknoloji', signal: 'NVIDIA alternatifi olarak güçleniyor', type: 'Sweep Order', confidence: 'high' },
+  { ticker: 'TSLA', name: 'Tesla', flow: '-$650M', direction: 'out' as const, institution: 'Goldman Sachs, MS', change: '-4.2%', sector: 'Otomobil', signal: 'Çin satış düşüşü kurumsal çıkışı hızlandırıyor', type: 'Institutional Sell-off', confidence: 'medium' },
+  { ticker: 'PLTR', name: 'Palantir', flow: '+$520M', direction: 'in' as const, institution: 'Renaissance, Susquehanna', change: '+8.5%', sector: 'Teknoloji', signal: 'S&P 500 dahil edilme beklentisi güçleniyor', type: 'Accumulation', confidence: 'high' },
+  { ticker: 'MSTR', name: 'MicroStrategy', flow: '+$410M', direction: 'in' as const, institution: 'Fidelity, BlackRock', change: '+15.2%', sector: 'Teknoloji', signal: 'Bitcoin korelasyonu ve kaldıraçlı alım', type: 'Gamma Squeeze Candidate', confidence: 'medium' },
+  { ticker: 'GLD', name: 'Gold ETF', flow: '+$680M', direction: 'in' as const, institution: 'SPDR, iShares', change: '+1.8%', sector: 'Emtia', signal: 'Güvenli liman talebi artıyor — jeopolitik risk', type: 'Safe Haven Flow', confidence: 'high' },
 ]
 
 /* ── Mock: Market Movers (profesyonel tablo) ── */
@@ -177,9 +179,14 @@ export default function DashboardPage() {
   const { data: indicesData } = useIndices()
   const { data: regimeData } = useRegime()
 
-  // Canlı fiyatlar — top10 ticker'ları için batch quote
+  // Canlı fiyatlar — top10 + movers tickers için batch quote
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
-
+  // Movers canlı veri
+  const [liveMovers, setLiveMovers] = useState<{
+    gainers: typeof MOVERS['gainers']; losers: typeof MOVERS['losers']; volume: typeof MOVERS['volume']
+  }>(MOVERS)
+  // Heatmap son güncelleme zamanı
+  const [heatmapUpdate, setHeatmapUpdate] = useState(new Date())
 
   const portfolio = portfolioData || mockPortfolio
   const trades = tradesData || mockTrades
@@ -198,7 +205,7 @@ export default function DashboardPage() {
   const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
   const [lastRefresh, setLastRefresh] = useState(new Date())
 
-  // 5 dakikada bir otomatik güncelleme
+  // 5 dakikada bir otomatik güncelleme (zaman damgası için)
   useEffect(() => {
     const interval = setInterval(() => {
       setLastRefresh(new Date())
@@ -209,26 +216,90 @@ export default function DashboardPage() {
   const timeStr = lastRefresh.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
   const dateStr = lastRefresh.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
 
-  // Bot 112 (swing112) sonuçlarından ilk 10 — signals.candidates canlı API'den gelir
+  // Bot sonuçlarından ilk 10
   const top10Candidates = signals.candidates?.slice(0, 10) || []
 
-  // Canlı fiyatları çek (15 dk'da bir yenile)
+  // Canlı fiyatları çek — hem top10 hem de movers tickers için (15 dk'da bir)
   useEffect(() => {
-    if (!top10Candidates.length) return
-    const tickers = top10Candidates.map((c: any) => c.ticker)
+    const moverTickers = [
+      ...MOVERS.gainers.map(s => s.ticker),
+      ...MOVERS.losers.map(s => s.ticker),
+      ...MOVERS.volume.map(s => s.ticker),
+    ]
+    const candidateTickers = top10Candidates.map((c: any) => c.ticker)
+    const allTickers = Array.from(new Set([...moverTickers, ...candidateTickers]))
+
     const fetchPrices = () => {
-      api.getBatchQuotes(tickers)
+      // 1d (Bugün) ise 3 dakikada bir, değilse daha seyrek (veya sadece ilk açılışta)
+      // Ancak burada tek bir interval kullanıyoruz, mantığı basitleştirelim.
+      api.getBatchQuotes(allTickers)
         .then(quotes => {
           const map: Record<string, { price: number; change: number; change_pct: number }> = {}
-          quotes.forEach((q: any) => { map[q.symbol] = { price: q.price, change: q.change, change_pct: q.change_pct } })
+          quotes.forEach((q: any) => {
+            if (q.price > 0) map[q.symbol] = { price: q.price, change: q.change, change_pct: q.change_pct }
+          })
           setLiveQuotes(map)
+
+          const updateList = (list: any[]) => list.map(s => {
+            const live = map[s.ticker]
+            if (!live) return s
+            return { ...s, price: live.price, change_pct: live.change_pct }
+          })
+
+          const allLiveStocks = Array.from(new Set([...MOVERS.gainers, ...MOVERS.losers, ...MOVERS.volume].map(s => s.ticker)))
+            .map(ticker => {
+              const base = [...MOVERS.gainers, ...MOVERS.losers, ...MOVERS.volume].find(s => s.ticker === ticker)!
+              const live = map[ticker]
+              return live ? { ...base, price: live.price, change_pct: live.change_pct } : base
+            })
+
+          const sortedGainers = allLiveStocks.sort((a, b) => b.change_pct - a.change_pct).slice(0, 10)
+          const sortedLosers  = allLiveStocks.sort((a, b) => a.change_pct - b.change_pct).slice(0, 10)
+          const sortedVolume  = updateList(MOVERS.volume)
+
+          setLiveMovers({ gainers: sortedGainers, losers: sortedLosers, volume: sortedVolume })
+          setLastRefresh(new Date())
         })
         .catch(() => {})
     }
+
     fetchPrices()
-    const interval = setInterval(fetchPrices, 15 * 60 * 1000) // 15 dakikada bir
+    
+    // Period '1d' ise sık güncelle, diğerleri için 1 saatte bir (veya backend zaten günlük veriyordur)
+    const intervalTime = moversPeriod === '1d' ? 3 * 60 * 1000 : 60 * 60 * 1000
+    const interval = setInterval(fetchPrices, intervalTime)
+    
     return () => clearInterval(interval)
-  }, [top10Candidates.length])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [moversPeriod])
+
+  // Isı haritası verilerini çek
+  const [heatmap, setHeatmap] = useState(heatmapData)
+
+  useEffect(() => {
+    const fetchHeatmap = () => {
+      api.getSectors('1d')
+        .then(sectors => {
+          if (!sectors || sectors.length === 0) return
+          
+          // Mevcut heatmapData yapısına dönüştür (görsellik için)
+          const updated = heatmapData.map(h => {
+            const apiSector = sectors.find(s => s.sector_tr === h.sector || s.sector === h.sector)
+            if (apiSector) {
+              return { ...h, change: apiSector.change_pct }
+            }
+            return h
+          })
+          setHeatmap(updated)
+          setHeatmapUpdate(new Date())
+        })
+        .catch(err => console.error('Heatmap fetch error:', err))
+    }
+
+    fetchHeatmap()
+    const interval = setInterval(fetchHeatmap, 60 * 60 * 1000) // 1 saat
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="space-y-4 animate-fade-in">
@@ -395,6 +466,9 @@ export default function DashboardPage() {
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
             Piyasa Hareketleri
           </span>
+          <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
+            <RefreshCw className="w-3 h-3" /> 3 dk'da bir güncellenir • {timeStr}
+          </span>
         </div>
 
         {/* Sekmeler */}
@@ -453,7 +527,7 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {MOVERS[moversTab].map((stock, idx) => (
+              {liveMovers[moversTab].map((stock, idx) => (
                 <tr key={stock.ticker} className="border-b border-finma-border/10 hover:bg-finma-card-hover transition-colors cursor-pointer">
                   <td className="py-2.5 px-2 finma-number text-finma-text-dim">{idx + 1}</td>
                   <td className="py-2.5 px-2">
@@ -492,44 +566,54 @@ export default function DashboardPage() {
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
             Akıllı Para Akışı
           </span>
-          <span className="text-[9px] text-finma-text-dim ml-2">(Kurumsal Yatırımcı Hareketleri)</span>
+          <span className="text-[9px] bg-finma-green/10 text-finma-green px-2 py-0.5 rounded-full border border-finma-green/20 font-medium ml-1">
+            Kurumsal Yatırımcı İzleme
+          </span>
+          <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
+            <Clock className="w-3 h-3" /> {timeStr}
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">
           {SMART_MONEY.map((item) => (
             <div
               key={item.ticker}
               className={cn(
-                'rounded-md p-3 border transition-colors',
+                'rounded-lg p-3 border transition-colors cursor-pointer',
                 item.direction === 'in'
-                  ? 'bg-finma-green/5 border-finma-green/20 hover:border-finma-green/40'
-                  : 'bg-finma-red/5 border-finma-red/20 hover:border-finma-red/40'
+                  ? 'bg-finma-green/5 border-finma-green/20 hover:border-finma-green/50'
+                  : 'bg-finma-red/5 border-finma-red/20 hover:border-finma-red/50'
               )}
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-bold finma-number text-finma-primary">{item.ticker}</span>
-                <span className={cn(
-                  'text-xs font-bold finma-number',
-                  item.direction === 'in' ? 'text-finma-green' : 'text-finma-red'
-                )}>
-                  {item.flow}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] text-finma-text-dim truncate mr-2">{item.institution}</span>
-                <div className="flex items-center gap-1">
-                  {item.direction === 'in' ? (
-                    <ArrowUpRight className="w-3 h-3 text-finma-green" />
-                  ) : (
-                    <ArrowDownRight className="w-3 h-3 text-finma-red" />
-                  )}
-                  <span className={cn(
-                    'text-[10px] finma-number font-medium',
-                    item.direction === 'in' ? 'text-finma-green' : 'text-finma-red'
-                  )}>
-                    {item.change}
-                  </span>
+              <div className="flex items-start justify-between mb-1.5 gap-2">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold finma-number text-finma-primary">{item.ticker}</span>
+                    <span className="text-[10px] text-finma-text-dim">{item.name}</span>
+                    <span className="text-[9px] px-1.5 py-0.5 bg-finma-primary/10 text-finma-primary rounded font-medium">{item.sector}</span>
+                    <span className="text-[9px] px-1.5 py-0.5 bg-finma-yellow/10 text-finma-yellow rounded border border-finma-yellow/20 font-bold uppercase">{item.type}</span>
+                  </div>
+                  <p className="text-[11px] text-finma-text-muted mt-0.5 leading-snug">{item.signal}</p>
                 </div>
+                <div className="text-right shrink-0">
+                  <div className={cn('text-sm font-bold finma-number', item.direction === 'in' ? 'text-finma-green' : 'text-finma-red')}>
+                    {item.flow}
+                  </div>
+                  <div className={cn('flex items-center justify-end gap-0.5 text-[11px] finma-number', item.direction === 'in' ? 'text-finma-green' : 'text-finma-red')}>
+                    {item.direction === 'in' ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+                    {item.change}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 mt-1.5 pt-1.5 border-t border-finma-border/20">
+                <Building2 className="w-3 h-3 text-finma-text-dim shrink-0" />
+                <span className="text-[10px] text-finma-text-dim truncate">{item.institution}</span>
+                <span className={cn(
+                  'ml-auto shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded',
+                  item.confidence === 'high' ? 'bg-finma-green/15 text-finma-green' : 'bg-finma-yellow/15 text-finma-yellow'
+                )}>
+                  {item.confidence === 'high' ? 'YÜKSEK GÜVENİLİRLİK' : 'ORTA GÜVENİLİRLİK'}
+                </span>
               </div>
             </div>
           ))}
@@ -542,6 +626,10 @@ export default function DashboardPage() {
           <Globe2 className="w-5 h-5 text-finma-yellow" />
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
             Sektör Isı Haritası
+          </span>
+          <span className="text-[9px] text-finma-text-dim finma-number flex items-center gap-1 ml-2">
+            <RefreshCw className="w-2.5 h-2.5" />
+            Saatte bir güncellenir • {heatmapUpdate.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
           </span>
           <div className="ml-auto flex items-center gap-1.5 text-[9px] text-finma-text-dim">
             {[
@@ -560,7 +648,7 @@ export default function DashboardPage() {
 
         <div className="overflow-x-auto mt-3 pb-1" style={{ scrollbarWidth: 'thin' }}>
           <div className="flex gap-1.5" style={{ minWidth: 'max-content' }}>
-            {heatmapData.map(sector => (
+            {heatmap.map(sector => (
               <div
                 key={sector.sector}
                 className="flex flex-col gap-0.5"
@@ -728,50 +816,83 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Teknik Seviyeler */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+        {/* Teknik Seviyeler + Öne Çıkanlar */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+          {/* Teknik Seviyeler — 10 Satır */}
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Shield className="w-3 h-3 text-finma-primary" />
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Önemli Teknik Seviyeler</span>
             </div>
-            <div className="text-xs space-y-1">
+            <div className="text-xs space-y-0.5">
               {[
                 ['S&P 500 Destek', '5,720 / 5,680', 'text-finma-green'],
                 ['S&P 500 Direnç', '5,880 / 5,920', 'text-finma-red'],
                 ['Nasdaq Destek', '20,100 / 19,850', 'text-finma-green'],
                 ['Nasdaq Direnç', '20,500 / 20,800', 'text-finma-red'],
-                ['Bitcoin Destek/Direnç', '$78K / $88K', 'text-finma-cyan'],
-                ['Altın Destek/Direnç', '$2,900 / $3,050', 'text-finma-yellow'],
+                ['Bitcoin Destek/Direnç', '$82.5K / $88K', 'text-finma-cyan'],
+                ['Altın (Ons) Destek/Direnç', '$2,920 / $3,050', 'text-finma-yellow'],
+                ['Gümüş Destek/Direnç', '$28.5 / $33.0', 'text-finma-yellow'],
+                ['Ham Petrol (WTI)', '$68 / $75', 'text-finma-orange'],
+                ['Doğalgaz (Gas)', '$1.85 / $2.45', 'text-finma-cyan'],
+                ['DXY (Dolar Endeksi)', '103.5 / 105.5', 'text-finma-primary'],
               ].map(([label, value, color], i) => (
-                <div key={i} className="flex justify-between py-1 border-b border-finma-border/20 last:border-0">
-                  <span className="text-finma-text-muted">{label}</span>
-                  <span className={`finma-number ${color}`}>{value}</span>
+                <div key={i} className="flex justify-between py-0.5 border-b border-finma-border/15 last:border-0">
+                  <span className="text-[11px] text-finma-text-muted">{label}</span>
+                  <span className={`finma-number text-[11px] font-medium ${color}`}>{value}</span>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Bugünün Öne Çıkanları */}
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Flame className="w-3 h-3 text-orange-400" />
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Bugünün Öne Çıkanları</span>
             </div>
-            <div className="text-xs text-finma-text-muted space-y-1.5">
-              {top10Candidates.slice(0, 5).map((c: any) => (
-                <div key={c.ticker} className="flex items-center gap-2">
-                  <Badge variant={c.action === 'BUY' ? 'buy' : c.action === 'HOLD' ? 'hold' : 'sell'}>
-                    {c.ticker}
-                  </Badge>
-                  <span className="flex-1 text-[10px] text-finma-text-dim truncate">
-                    {c.notes?.[0] || sectorLabel(c.sector)}
-                  </span>
-                  <span>
-                    Skor: <span className="finma-number text-finma-primary">{c.score?.toFixed(1)}</span>
-                    {' | '}
-                    <span className={`finma-number ${(c.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'}`}>
-                      {(c.potential_pct ?? 0) >= 0 ? '+' : ''}{(c.potential_pct ?? 0).toFixed(1)}%
-                    </span>
+            <div className="text-xs text-finma-text-muted space-y-1">
+              {top10Candidates.slice(0, 10).map((c: any, i: number) => {
+                const live = liveQuotes[c.ticker]
+                const changePct = live ? ((live.price - c.price) / c.price) * 100 : null
+                return (
+                  <div key={c.ticker} onClick={() => router.push(`/stock-analysis?ticker=${c.ticker}`)}
+                    className="flex items-center gap-2 py-0.5 cursor-pointer hover:bg-finma-primary/5 rounded px-1 -mx-1">
+                    <span className="text-[10px] w-4 text-finma-text-dim">{i+1}</span>
+                    <span className="font-bold text-finma-primary finma-number text-[11px] min-w-[44px]">{c.ticker}</span>
+                    <span className="flex-1 text-[10px] text-finma-text-dim truncate">{sectorLabel(c.sector)}</span>
+                    {live && <span className="finma-number text-[11px] text-finma-text">${live.price.toFixed(2)}</span>}
+                    {changePct !== null && (
+                      <span className={cn('finma-number text-[10px] font-bold', changePct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                        {changePct >= 0 ? '+' : ''}{changePct.toFixed(1)}%
+                      </span>
+                    )}
+                  </div>
+                )
+              })}
+              {top10Candidates.length === 0 && (
+                <div className="text-center py-4 text-finma-text-dim text-[10px]">Bot sonuçları bekleniyor...</div>
+              )}
+            </div>
+          </div>
+
+          {/* Bu Hafta Öne Çıkanlar */}
+          <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
+            <div className="flex items-center gap-1.5 mb-2">
+              <Star className="w-3 h-3 text-finma-yellow" />
+              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Bu Hafta Öne Çıkanlar</span>
+            </div>
+            <div className="text-xs text-finma-text-muted space-y-1">
+              {/* Haftalık en yüksek kazanan 10 hisse */}
+              {liveMovers.gainers.slice(0, 10).map((s, i) => (
+                <div key={s.ticker} onClick={() => router.push(`/stock-analysis?ticker=${s.ticker}`)}
+                  className="flex items-center gap-2 py-0.5 cursor-pointer hover:bg-finma-primary/5 rounded px-1 -mx-1">
+                  <span className="text-[10px] w-4 text-finma-text-dim">{i+1}</span>
+                  <span className="font-bold text-finma-primary finma-number text-[11px] min-w-[44px]">{s.ticker}</span>
+                  <span className="flex-1 text-[10px] text-finma-text-dim truncate">{s.name}</span>
+                  <span className="finma-number text-[11px] text-finma-text">${s.price.toFixed(2)}</span>
+                  <span className={cn('finma-number text-[10px] font-bold', s.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                    {s.change_pct >= 0 ? '+' : ''}{s.change_pct.toFixed(1)}%
                   </span>
                 </div>
               ))}

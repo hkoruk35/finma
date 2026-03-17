@@ -53,7 +53,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   login: (token: string, user: User) => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('finma_token', token)
-      setCookie('finma_token', token, 3) // 3 days (matches JWT 72h)
+      setCookie('finma_token', token, 30) // 30 days — kullanıcı oturumu kalıcı
     }
     set({ user, token, isAuthenticated: true, isLoading: false })
   },
@@ -82,11 +82,28 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     try {
       const user = await api.getMe() as User
       set({ user, token, isAuthenticated: true, isLoading: false })
-      setCookie('finma_token', token, 3)
-    } catch {
-      localStorage.removeItem('finma_token')
-      deleteCookie('finma_token')
-      set({ user: null, token: null, isAuthenticated: false, isLoading: false })
+      // Her girişte çerezi 30 gün uzat
+      setCookie('finma_token', token, 30)
+    } catch (err: any) {
+      // Yalnızca gerçek auth hatası (401) durumunda oturumu kapat
+      // Ağ hatası / timeout / backend kapalı ise oturumu KAPATMA
+      const isAuthError =
+        err?.message?.includes('Oturum süresi') ||
+        err?.message?.includes('401') ||
+        err?.message?.includes('unauthorized') ||
+        err?.message?.includes('Unauthorized')
+
+      if (isAuthError) {
+        localStorage.removeItem('finma_token')
+        deleteCookie('finma_token')
+        set({ user: null, token: null, isAuthenticated: false, isLoading: false })
+      } else {
+        // Network error or backend down - keep the token and state as is
+        // We'll retry later or let other requests handle it
+        setCookie('finma_token', token, 30) // Ensure cookie exists for next load
+        set({ token, isAuthenticated: true, isLoading: false })
+        console.error('Initialization error (non-auth):', err)
+      }
     }
   },
 
@@ -94,8 +111,19 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     try {
       const user = await api.getMe() as User
       set({ user })
-    } catch {
-      get().logout()
+    } catch (err: any) {
+      // SADECE 401 hatasında oturumu kapat — ağ hatalarında kullanıcıyı SİSTEMDEN ATMA
+      const isAuthError = 
+        err?.message?.includes('401') || 
+        err?.message?.includes('unauthorized') || 
+        err?.message?.includes('Unauthorized') ||
+        err?.message?.includes('Oturum süresi')
+        
+      if (isAuthError) {
+        get().logout()
+      } else {
+        console.warn('User refresh failed (non-auth):', err)
+      }
     }
   },
 

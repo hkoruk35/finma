@@ -66,9 +66,14 @@ class APIClient {
 
         // 401: Token expired or invalid
         if (res.status === 401 && typeof window !== 'undefined') {
-          localStorage.removeItem('finma_token')
-          document.cookie = 'finma_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-          window.location.href = '/login'
+          // Check if we are on a protected route before logging out
+          const isPublicPage = window.location.pathname === '/' || window.location.pathname === '/login' || window.location.pathname === '/register'
+          
+          if (!isPublicPage) {
+            localStorage.removeItem('finma_token')
+            document.cookie = 'finma_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+            window.location.href = '/login'
+          }
           throw new Error('Oturum süresi doldu')
         }
 
