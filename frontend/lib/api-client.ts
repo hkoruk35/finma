@@ -202,15 +202,21 @@ class APIClient {
       timestamp: string;
       total_exchanges: number;
       total_open: number;
+      _stale?: boolean;
       regions: Array<{
         id: string; name: string; icon: string;
         open_count: number; total_count: number; avg_change_pct: number;
+        featured_stocks: Array<{
+          symbol: string; name: string; price: number; change_pct: number;
+        }>;
         exchanges: Array<{
           id: string; symbol: string; name: string; full_name: string;
           country: string; city: string; flag: string;
           price: number; change: number; change_pct: number;
-          prev_close: number; day_high: number; day_low: number; volume: number;
+          prev_close: number; open_price: number; open_change_pct: number;
+          day_high: number; day_low: number; volume: number;
           status: string; status_tr: string;
+          session_phase: string; session_pct: number;
           local_open: string; local_close: string; tz: string;
         }>;
       }>;

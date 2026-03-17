@@ -8,7 +8,8 @@ import { useWorldMarkets, useWorldAnalysis, useSectors } from '@/hooks/useMarket
 import {
   Globe2, Clock, TrendingUp, TrendingDown, Brain, Send,
   ArrowUp, ArrowDown, AlertTriangle, Lightbulb, Shield,
-  ChevronDown, ChevronUp, BarChart3, Zap, RefreshCw
+  ChevronDown, ChevronUp, BarChart3, Zap, RefreshCw,
+  Play, Timer, Star
 } from 'lucide-react'
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -25,11 +26,59 @@ function StatusBadge({ status, label }: { status: string; label: string }) {
   }
   return (
     <span className={cn(
-      'text-[8px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide border leading-none',
+      'text-[8px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide border leading-none inline-flex items-center gap-1',
       styles[status] || styles.closed
     )}>
-      {status === 'open' && <span className="inline-block w-1.5 h-1.5 bg-finma-green rounded-full mr-1 animate-pulse" />}
+      {status === 'open' && <span className="inline-block w-1.5 h-1.5 bg-finma-green rounded-full animate-pulse" />}
       {label}
+    </span>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// SESSION PROGRESS BAR
+// ═══════════════════════════════════════════════════════════════════════
+
+function SessionProgress({ pct, phase }: { pct: number; phase: string }) {
+  if (phase === 'kapali' || phase === 'acilis_oncesi' || phase === 'kapanis_sonrasi') return null
+
+  const phaseColor = phase === 'acilis' ? 'bg-finma-yellow'
+    : phase === 'kapanis' ? 'bg-orange-400'
+    : phase === 'gun_ortasi' ? 'bg-finma-cyan'
+    : 'bg-finma-green'
+
+  return (
+    <div className="w-full h-1 bg-finma-border/30 rounded-full overflow-hidden mt-1.5">
+      <div
+        className={cn('h-full rounded-full transition-all duration-1000', phaseColor)}
+        style={{ width: `${Math.min(pct, 100)}%` }}
+      />
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// SESSION PHASE BADGE
+// ═══════════════════════════════════════════════════════════════════════
+
+function SessionPhaseBadge({ phase, pct }: { phase: string; pct: number }) {
+  const phaseMap: Record<string, { label: string; icon: React.ReactNode; color: string }> = {
+    acilis_oncesi: { label: 'Acilis Oncesi', icon: <Timer className="w-2.5 h-2.5" />, color: 'text-finma-yellow bg-finma-yellow/10' },
+    acilis: { label: 'Acilis', icon: <Play className="w-2.5 h-2.5" />, color: 'text-finma-yellow bg-finma-yellow/10' },
+    seans: { label: `Seans %${pct}`, icon: <BarChart3 className="w-2.5 h-2.5" />, color: 'text-finma-green bg-finma-green/10' },
+    gun_ortasi: { label: 'Gun Ortasi', icon: <Clock className="w-2.5 h-2.5" />, color: 'text-finma-cyan bg-finma-cyan/10' },
+    kapanis: { label: 'Kapanisa Yakin', icon: <AlertTriangle className="w-2.5 h-2.5" />, color: 'text-orange-400 bg-orange-400/10' },
+    kapanis_sonrasi: { label: 'Kapanis Sonrasi', icon: <Clock className="w-2.5 h-2.5" />, color: 'text-finma-text-dim bg-finma-text-dim/10' },
+    kapali: { label: 'Kapali', icon: null, color: '' },
+  }
+
+  const info = phaseMap[phase]
+  if (!info || phase === 'kapali') return null
+
+  return (
+    <span className={cn('inline-flex items-center gap-1 text-[8px] font-bold px-1.5 py-0.5 rounded', info.color)}>
+      {info.icon}
+      {info.label}
     </span>
   )
 }
@@ -153,26 +202,28 @@ function AIGlobalSummary() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-// EXCHANGE CARD
+// EXCHANGE CARD (v2 — session phase, open price, progress bar)
 // ═══════════════════════════════════════════════════════════════════════
 
 type Exchange = {
   id: string; symbol: string; name: string; full_name: string;
   country: string; city: string; flag: string;
   price: number; change: number; change_pct: number;
-  prev_close: number; day_high: number; day_low: number; volume: number;
+  prev_close: number; open_price: number; open_change_pct: number;
+  day_high: number; day_low: number; volume: number;
   status: string; status_tr: string;
+  session_phase: string; session_pct: number;
   local_open: string; local_close: string; tz: string;
 }
 
 function ExchangeCard({ ex }: { ex: Exchange }) {
   const isUp = ex.change_pct >= 0
   const changeColor = isUp ? 'text-finma-green' : 'text-finma-red'
-  const changeBg = isUp ? 'bg-finma-green/10' : 'bg-finma-red/10'
+  const isOpen = ex.status === 'open'
 
   // Format price
   const formatPrice = (p: number) => {
-    if (p === 0) return '—'
+    if (!p || p === 0) return '\u2014'
     if (p >= 10000) return p.toLocaleString('tr-TR', { maximumFractionDigits: 0 })
     if (p >= 100) return p.toLocaleString('tr-TR', { maximumFractionDigits: 1 })
     return p.toLocaleString('tr-TR', { maximumFractionDigits: 2 })
@@ -188,35 +239,38 @@ function ExchangeCard({ ex }: { ex: Exchange }) {
   }
 
   const vol = formatVol(ex.volume)
+  const openChangeUp = ex.open_change_pct >= 0
 
   return (
     <div className={cn(
       'relative p-3 rounded-lg border transition-all duration-200 group',
       'bg-finma-bg/50 hover:bg-finma-primary/5',
-      ex.status === 'open'
+      isOpen
         ? 'border-finma-green/20 hover:border-finma-green/40'
+        : ex.status === 'pre' ? 'border-finma-yellow/20'
+        : ex.status === 'post' ? 'border-orange-500/20'
         : 'border-finma-border/30 hover:border-finma-primary/30'
     )}>
       {/* Open indicator line */}
-      {ex.status === 'open' && (
+      {isOpen && (
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-finma-green via-finma-green/50 to-transparent rounded-t-lg" />
       )}
 
       <div className="flex items-start justify-between gap-2">
         {/* Left: Info */}
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-base">{ex.flag}</span>
             <div className="min-w-0">
               <div className="text-xs font-bold text-finma-text truncate">{ex.name}</div>
               <div className="text-[10px] text-finma-text-dim">
-                {ex.city} <span className="text-finma-text-dim/50">|</span> {ex.local_open}–{ex.local_close} {ex.tz}
+                {ex.city} <span className="text-finma-text-dim/50">|</span> {ex.local_open}\u2013{ex.local_close} {ex.tz}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: Price + Status */}
+        {/* Right: Price + Change */}
         <div className="text-right shrink-0">
           <div className="text-sm font-bold finma-number text-finma-text">
             {formatPrice(ex.price)}
@@ -228,14 +282,35 @@ function ExchangeCard({ ex }: { ex: Exchange }) {
         </div>
       </div>
 
-      {/* Bottom row: status + volume + day range */}
+      {/* Open price + intraday data (only when open or has data) */}
+      {ex.open_price > 0 && isOpen && (
+        <div className="flex items-center gap-3 mt-1.5 text-[10px] text-finma-text-dim">
+          <span>
+            Acilis: <span className="finma-number text-finma-text-muted">{formatPrice(ex.open_price)}</span>
+          </span>
+          <span>
+            Acilistan:{' '}
+            <span className={cn('finma-number font-medium', openChangeUp ? 'text-finma-green' : 'text-finma-red')}>
+              {openChangeUp ? '+' : ''}{ex.open_change_pct.toFixed(2)}%
+            </span>
+          </span>
+        </div>
+      )}
+
+      {/* Session progress bar */}
+      {isOpen && <SessionProgress pct={ex.session_pct} phase={ex.session_phase} />}
+
+      {/* Bottom row: status + session phase + volume + day range */}
       <div className="flex items-center justify-between mt-2 pt-2 border-t border-finma-border/20">
-        <StatusBadge status={ex.status} label={ex.status_tr} />
+        <div className="flex items-center gap-1.5">
+          <StatusBadge status={ex.status} label={ex.status_tr} />
+          {isOpen && <SessionPhaseBadge phase={ex.session_phase} pct={ex.session_pct} />}
+        </div>
         <div className="flex items-center gap-2 text-[10px] text-finma-text-dim">
           {ex.day_high > 0 && ex.day_low > 0 && (
             <span className="finma-number">
               <span className="text-finma-red">{formatPrice(ex.day_low)}</span>
-              <span className="mx-0.5">—</span>
+              <span className="mx-0.5">\u2014</span>
               <span className="text-finma-green">{formatPrice(ex.day_high)}</span>
             </span>
           )}
@@ -247,12 +322,45 @@ function ExchangeCard({ ex }: { ex: Exchange }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-// REGION SECTION
+// FEATURED STOCKS (Bellwether) PER REGION
+// ═══════════════════════════════════════════════════════════════════════
+
+type FeaturedStock = { symbol: string; name: string; price: number; change_pct: number }
+
+function FeaturedStocksRow({ stocks }: { stocks: FeaturedStock[] }) {
+  if (!stocks || stocks.length === 0) return null
+
+  return (
+    <div className="flex items-center gap-2 px-4 py-2 bg-finma-bg/40 border-b border-finma-border/20 overflow-x-auto scrollbar-hide">
+      <Star className="w-3 h-3 text-finma-yellow shrink-0" />
+      <span className="text-[9px] text-finma-text-dim uppercase font-bold shrink-0 mr-1">One Cikanlar</span>
+      {stocks.map(s => {
+        const isUp = s.change_pct >= 0
+        return (
+          <div key={s.symbol} className={cn(
+            'flex items-center gap-1.5 px-2 py-1 rounded-md border shrink-0 text-[10px]',
+            isUp ? 'bg-finma-green/5 border-finma-green/15' : 'bg-finma-red/5 border-finma-red/15'
+          )}>
+            <span className="font-bold text-finma-text">{s.name}</span>
+            <span className="finma-number text-finma-text-muted">${s.price >= 1000 ? s.price.toLocaleString('en-US', {maximumFractionDigits: 0}) : s.price.toFixed(2)}</span>
+            <span className={cn('font-bold finma-number', isUp ? 'text-finma-green' : 'text-finma-red')}>
+              {isUp ? '+' : ''}{s.change_pct.toFixed(2)}%
+            </span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// REGION SECTION (v2 — with featured stocks)
 // ═══════════════════════════════════════════════════════════════════════
 
 type Region = {
   id: string; name: string; icon: string;
   open_count: number; total_count: number; avg_change_pct: number;
+  featured_stocks: FeaturedStock[];
   exchanges: Exchange[];
 }
 
@@ -279,9 +387,24 @@ function RegionSection({ region, aiComment }: { region: Region; aiComment?: stri
                 {region.open_count}/{region.total_count} Acik
               </span>
             )}
+            {region.open_count === 0 && (
+              <span className="text-finma-text-dim font-medium">
+                Tumu Kapali
+              </span>
+            )}
           </div>
         </div>
+        {aiComment && (
+          <button onClick={() => setShowAI(!showAI)}
+            className="text-[10px] text-finma-primary/60 hover:text-finma-primary transition-colors flex items-center gap-1">
+            <Brain className="w-3 h-3" />
+            {showAI ? 'Gizle' : 'AI'}
+          </button>
+        )}
       </div>
+
+      {/* Featured Stocks */}
+      <FeaturedStocksRow stocks={region.featured_stocks} />
 
       {/* AI Comment */}
       {aiComment && showAI && (
@@ -492,8 +615,14 @@ function GlobalStats({ totalExchanges, totalOpen, regions }: {
     ? allExchanges.reduce((sum, e) => sum + e.change_pct, 0) / allExchanges.length
     : 0
 
+  // Count how many are in each session phase
+  const openExchanges = allExchanges.filter(e => e.status === 'open')
+  const acilisCount = openExchanges.filter(e => e.session_phase === 'acilis').length
+  const seansCount = openExchanges.filter(e => e.session_phase === 'seans' || e.session_phase === 'gun_ortasi').length
+  const kapanisCount = openExchanges.filter(e => e.session_phase === 'kapanis').length
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
       <div className="bg-finma-card border border-finma-border rounded-lg p-3 text-center">
         <div className="text-[10px] text-finma-text-dim uppercase">Takip Edilen</div>
         <div className="text-lg font-bold finma-number text-finma-text">{totalExchanges}</div>
@@ -510,6 +639,15 @@ function GlobalStats({ totalExchanges, totalOpen, regions }: {
           <span className="text-lg font-bold finma-number text-finma-green">{upCount}</span>
           <span className="text-finma-text-dim">/</span>
           <span className="text-lg font-bold finma-number text-finma-red">{downCount}</span>
+        </div>
+      </div>
+      <div className="bg-finma-card border border-finma-border rounded-lg p-3 text-center">
+        <div className="text-[10px] text-finma-text-dim uppercase">Seans Durumu</div>
+        <div className="flex items-center justify-center gap-2 text-[11px] font-bold finma-number">
+          {acilisCount > 0 && <span className="text-finma-yellow">{acilisCount} Acilis</span>}
+          {seansCount > 0 && <span className="text-finma-green">{seansCount} Seans</span>}
+          {kapanisCount > 0 && <span className="text-orange-400">{kapanisCount} Kapanis</span>}
+          {totalOpen === 0 && <span className="text-finma-text-dim">Hepsi Kapali</span>}
         </div>
       </div>
       <div className="bg-finma-card border border-finma-border rounded-lg p-3 text-center">
@@ -543,8 +681,8 @@ export default function WorldMarketsPage() {
           <Globe2 className="w-5 h-5 text-finma-cyan" />
           <span className="text-base font-bold text-finma-text uppercase tracking-wider">Global Piyasa Istihbarat Merkezi</span>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {Array.from({ length: 4 }).map((_, i) => (
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+          {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="h-20 bg-finma-card border border-finma-border rounded-lg animate-pulse" />
           ))}
         </div>
@@ -565,7 +703,10 @@ export default function WorldMarketsPage() {
     )
   }
 
-  // Region order for display (follows market open times, East → West)
+  // Stale data warning
+  const isStale = marketData._stale
+
+  // Region order for display (follows market open times, East -> West)
   const regionOrder = ['okyanusya', 'asya', 'orta_dogu', 'afrika', 'avrupa', 'g_amerika', 'k_amerika']
   const orderedRegions = regionOrder
     .map(id => marketData.regions.find(r => r.id === id))
@@ -582,6 +723,12 @@ export default function WorldMarketsPage() {
           </span>
         </div>
         <div className="flex items-center gap-3">
+          {isStale && (
+            <div className="flex items-center gap-1.5 text-[10px] text-finma-yellow">
+              <AlertTriangle className="w-3 h-3" />
+              <span>Eski veri gosteriliyor</span>
+            </div>
+          )}
           {isFetching && (
             <div className="flex items-center gap-1.5 text-[10px] text-finma-primary">
               <div className="w-2 h-2 rounded-full bg-finma-primary animate-pulse" />
@@ -602,13 +749,13 @@ export default function WorldMarketsPage() {
       <GlobalStats
         totalExchanges={marketData.total_exchanges}
         totalOpen={marketData.total_open}
-        regions={marketData.regions}
+        regions={marketData.regions as any}
       />
 
       {/* AI GLOBAL SUMMARY */}
       <AIGlobalSummary />
 
-      {/* REGIONS (East → West order) */}
+      {/* REGIONS (East -> West order) */}
       {orderedRegions.map(region => (
         <div key={region.id}>
           <RegionSection
@@ -635,7 +782,7 @@ export default function WorldMarketsPage() {
       <div className="text-center py-2">
         <p className="text-[11px] text-finma-text-dim">
           Bu bir yatirim tavsiyesi degildir. Tum analizler bilgilendirme amaclidir.
-          Veriler Yahoo Finance&apos;ten alinmaktadir.
+          Veriler Yahoo Finance&apos;ten alinmaktadir. Piyasa saatleri yerel saat dilimine gore hesaplanmaktadir.
         </p>
       </div>
     </div>
