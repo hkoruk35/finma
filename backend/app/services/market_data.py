@@ -505,75 +505,6 @@ def get_market_regime() -> Dict[str, Any]:
         return {"regime": "Unknown", "regime_tr": "Bilinmiyor", "vix": 0}
 
 
-def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
-    """Get real-time quotes via Yahoo Finance v7 Quote API — tek HTTP isteği, 30sn cache"""
-    cache_key = ",".join(sorted(symbols))
-    cached = _indices_cache.get(cache_key)
-    if cached:
-        return cached
-
-    results = []
-    try:
-        params = {
-            "symbols": ",".join(symbols),
-            "fields": "regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketPreviousClose",
-            "formatted": "false",
-        }
-        with httpx.Client(timeout=15, follow_redirects=True) as client:
-            resp = client.get(_YF_QUOTE_URL, params=params, headers=_YF_HEADERS)
-            resp.raise_for_status()
-            data = resp.json()
-
-        quotes = data.get("quoteResponse", {}).get("result", [])
-        for q in quotes:
-            symbol_raw = q.get("symbol", "")
-            price = float(q.get("regularMarketPrice", 0) or 0)
-            change = float(q.get("regularMarketChange", 0) or 0)
-            change_pct = float(q.get("regularMarketChangePercent", 0) or 0)
-
-            if price <= 0:
-                continue
-
-            display = symbol_raw.replace("^", "").replace("-USD", "").replace("=F", "")
-            results.append({
-                "symbol": display,
-                "price": round(price, 2),
-                "change": round(change, 2),
-                "change_pct": round(change_pct, 4),
-            })
-
-    except Exception as e:
-        logger.error(f"Toplu fiyat alınamadı (v7 quote): {e}")
-        # Fallback: yfinance fast_info
-        try:
-            tickers = yf.Tickers(" ".join(symbols))
-            for symbol in symbols:
-                try:
-                    t = tickers.tickers[symbol]
-                    fast = t.fast_info
-                    price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
-                    prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or 0)
-                    change = price - prev if prev else 0
-                    change_pct = (change / prev * 100) if prev else 0
-                    if price <= 0:
-                        continue
-                    display = symbol.replace("^", "").replace("-USD", "").replace("=F", "")
-                    results.append({
-                        "symbol": display,
-                        "price": round(price, 2),
-                        "change": round(change, 2),
-                        "change_pct": round(change_pct, 4),
-                    })
-                except Exception:
-                    continue
-        except Exception as e2:
-            logger.error(f"Fallback fast_info da başarısız: {e2}")
-
-    if results:
-        _indices_cache.set(cache_key, results)
-    return results
-
-
 # ─── Background Prefetch Service ───
 # Popüler ticker'ları arka planda cache'e yükler
 # Böylece kullanıcı ilk tıklamada anında veri alır
@@ -629,565 +560,132 @@ def start_periodic_prefetch(interval_minutes: int = 5):
     logger.info(f"Periodic prefetch başladı ({interval_minutes}dk aralıkla)")
 
 
+def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
+    """Get real-time quotes via yfinance (more reliable than failing v7 quote API)"""
+    cache_key = ",".join(sorted(symbols))
+    cached = _indices_cache.get(cache_key)
+    if cached:
+        return cached
+
+    results = []
+    try:
+        # yfinance.Tickers use specialized fast_info for batch fetching
+        tickers_obj = yf.Tickers(" ".join(symbols))
+        for symbol in symbols:
+            try:
+                t = tickers_obj.tickers[symbol]
+                fast = t.fast_info
+                
+                # Robust price fetching: try multiple fields
+                price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
+                if price <= 0:
+                    # Fallback to history if fast_info fails
+                    hist = t.history(period="1d")
+                    if not hist.empty:
+                        price = float(hist["Close"].iloc[-1])
+
+                prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or 0)
+                if prev <= 0:
+                    hist_prev = t.history(period="2d")
+                    if len(hist_prev) >= 2:
+                        prev = float(hist_prev["Close"].iloc[-2])
+
+                change = price - prev if prev else 0
+                change_pct = (change / prev * 100) if prev else 0
+                
+                if price <= 0:
+                    continue
+
+                display = symbol.replace("^", "").replace("-USD", "").replace("=F", "")
+                results.append({
+                    "symbol": display,
+                    "price": round(price, 2),
+                    "change": round(change, 2),
+                    "change_pct": round(change_pct, 4),
+                })
+            except Exception as e:
+                logger.warning(f"Batch quote error for {symbol}: {e}")
+                continue
+
+    except Exception as e:
+        logger.error(f"Toplu fiyat alınamadı (yfinance batch): {e}")
+
+    if results:
+        _indices_cache.set(cache_key, results)
+    return results
+
+
 # ─── New Data Functions ───
 
 _search_cache = TTLCache(ttl=300)  # 5 dakika
 _extra_cache = TTLCache(ttl=120)   # 2 dakika
 
 
-def search_tickers(query: str, limit: int = 15) -> List[Dict[str, Any]]:
-    """Ticker arama — Yahoo Finance search API + yfinance fallback"""
-    q = query.strip()
-    if not q:
-        return []
-
-    cache_key = f"search:{q.upper()}"
-    cached = _search_cache.get(cache_key)
-    if cached is not None:
+def get_ticker_info(ticker: str) -> Dict[str, Any]:
+    """Get comprehensive ticker info — Multi-layer price fallback"""
+    cached = _quote_cache.get(ticker)
+    if cached:
         return cached
-
-    results = []
-
-    # Yöntem 1: Yahoo Finance v1/finance/search (hızlı, kapsamlı)
     try:
-        url = "https://query2.finance.yahoo.com/v1/finance/search"
-        params = {
-            "q": q,
-            "quotesCount": limit,
-            "newsCount": 0,
-            "listsCount": 0,
-            "enableFuzzyQuery": True,
-            "quotesQueryId": "tss_match_phrase_query",
+        t = yf.Ticker(ticker)
+        info = t.info or {}
+        fast = t.fast_info
+
+        # Improved Price Fallback Logic
+        price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or info.get("regularMarketPrice", 0) or 0)
+        prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or info.get("regularMarketPreviousClose", 0) or 0)
+        
+        # Final fallback: history
+        if price <= 0:
+            hist = t.history(period="1d")
+            if not hist.empty:
+                price = float(hist["Close"].iloc[-1])
+        
+        if prev <= 0:
+            hist_prev = t.history(period="5d")
+            if len(hist_prev) >= 2:
+                prev = float(hist_prev["Close"].iloc[-2])
+
+        change = price - prev if prev else 0
+        change_pct = (change / prev * 100) if prev else 0
+
+        result = {
+            "symbol": ticker.upper(),
+            "name": info.get("shortName") or info.get("longName", ticker),
+            "price": round(price, 2),
+            "change": round(change, 2),
+            "change_pct": round(change_pct, 2),
+            "volume": info.get("volume") or fast.get("lastVolume", 0),
+            "market_cap": info.get("marketCap") or fast.get("marketCap", 0),
+            "sector": info.get("sector", ""),
+            "industry": info.get("industry", ""),
+            "pe_ratio": info.get("trailingPE"),
+            "forward_pe": info.get("forwardPE"),
+            "peg_ratio": info.get("pegRatio"),
+            "ps_ratio": info.get("priceToSalesTrailing12Months"),
+            "pb_ratio": info.get("priceToBook"),
+            "dividend_yield": info.get("dividendYield"),
+            "roe": info.get("returnOnEquity"),
+            "debt_to_equity": info.get("debtToEquity"),
+            "revenue_growth": info.get("revenueGrowth"),
+            "earnings_growth": info.get("earningsGrowth"),
+            "profit_margin": info.get("profitMargins"),
+            "beta": info.get("beta"),
+            "avg_volume": info.get("averageVolume"),
+            "fifty_two_week_high": info.get("fiftyTwoWeekHigh"),
+            "fifty_two_week_low": info.get("fiftyTwoWeekLow"),
+            "target_mean": info.get("targetMeanPrice"),
+            "target_high": info.get("targetHighPrice"),
+            "target_low": info.get("targetLowPrice"),
+            "analyst_rating": info.get("recommendationKey"),
+            "analyst_count": info.get("numberOfAnalystOpinions"),
+            "institutional_pct": info.get("heldPercentInstitutions"),
         }
-        with httpx.Client(timeout=8, follow_redirects=True) as client:
-            resp = client.get(url, params=params, headers=_YF_HEADERS)
-            if resp.status_code == 200:
-                data = resp.json()
-                for q_item in data.get("quotes", []):
-                    qtype = q_item.get("quoteType", "")
-                    if qtype not in ("EQUITY", "ETF"):
-                        continue
-                    symbol = q_item.get("symbol", "")
-                    exchange = q_item.get("exchange", "")
-                    # Exchange → okunabilir endeks adı
-                    exchange_label = _exchange_to_index(exchange)
-                    results.append({
-                        "symbol": symbol,
-                        "name": q_item.get("shortname") or q_item.get("longname", ""),
-                        "exchange": exchange_label,
-                        "type": qtype,
-                    })
+        _quote_cache.set(ticker, result)
+        return result
     except Exception as e:
-        logger.warning(f"Yahoo search API hatası '{q}': {e}")
-
-    # Yöntem 2: Fallback — yfinance Ticker doğrudan sorgu (search API çalışmazsa)
-    if not results:
-        try:
-            ticker_upper = q.upper().replace(" ", "")
-            t = yf.Ticker(ticker_upper)
-            info = t.info or {}
-            if info.get("shortName") or info.get("longName"):
-                exchange_raw = info.get("exchange", "")
-                results.append({
-                    "symbol": ticker_upper,
-                    "name": info.get("shortName") or info.get("longName", ""),
-                    "exchange": _exchange_to_index(exchange_raw),
-                    "type": "EQUITY",
-                })
-        except Exception as e2:
-            logger.warning(f"yfinance fallback hatası '{q}': {e2}")
-
-    if results:
-        _search_cache.set(cache_key, results)
-    return results[:limit]
-
-
-def _exchange_to_index(exchange: str) -> str:
-    """Yahoo Finance exchange kodu → kullanıcıya anlamlı endeks adı"""
-    mapping = {
-        "NMS": "Nasdaq",
-        "NGM": "Nasdaq",
-        "NCM": "Nasdaq",
-        "NAS": "Nasdaq",
-        "NYQ": "NYSE",
-        "NYS": "NYSE",
-        "PCX": "NYSE Arca",
-        "ASE": "NYSE American",
-        "BTS": "BATS",
-        "LSE": "London",
-        "FRA": "Frankfurt",
-        "TYO": "Tokyo",
-        "HKG": "Hong Kong",
-        "SHG": "Shanghai",
-        "SHE": "Shenzhen",
-        "TSE": "Toronto",
-        "PAR": "Paris",
-    }
-    return mapping.get(exchange, exchange)
-
-
-def get_price_changes(ticker: str) -> Dict[str, Any]:
-    """Haftalık, aylık, yıllık fiyat değişim oranlarını hesapla"""
-    cache_key = f"changes:{ticker}"
-    cached = _extra_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    result = {"week": None, "month": None, "year": None}
-
-    try:
-        df = get_ticker_data(ticker, period="1y", interval="1d")
-        if df is None or df.empty:
-            return result
-
-        current = float(df["Close"].iloc[-1])
-        now_idx = df.index[-1]
-
-        # Haftalık (5 iş günü)
-        if len(df) >= 6:
-            week_price = float(df["Close"].iloc[-6])
-            result["week"] = round(((current - week_price) / week_price) * 100, 2)
-
-        # Aylık (~21 iş günü)
-        if len(df) >= 22:
-            month_price = float(df["Close"].iloc[-22])
-            result["month"] = round(((current - month_price) / month_price) * 100, 2)
-
-        # Yıllık (tüm veri)
-        if len(df) >= 200:
-            year_price = float(df["Close"].iloc[0])
-            result["year"] = round(((current - year_price) / year_price) * 100, 2)
-
-        _extra_cache.set(cache_key, result)
-    except Exception as e:
-        logger.error(f"Fiyat değişim hatası {ticker}: {e}")
-
-    return result
-
-
-def _parse_rss_date(date_str: str) -> str:
-    """RSS tarih formatını YYYY-MM-DD HH:MM formatına çevir"""
-    if not date_str:
-        return ""
-    try:
-        # RFC 2822: "Mon, 17 Mar 2025 12:30:00 GMT"
-        from email.utils import parsedate_to_datetime
-        dt = parsedate_to_datetime(date_str)
-        return dt.strftime("%Y-%m-%d %H:%M")
-    except Exception:
-        return date_str[:16]
-
-
-def get_ticker_news(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
-    """
-    Türkçe haber kaynakları:
-    1. Google News RSS — Türkçe (hl=tr, gl=TR)
-    2. Yahoo Finance RSS — Türkçe şirket adı araması
-    3. yfinance fallback — İngilizce (son çare)
-    """
-    cache_key = f"news:{ticker}"
-    cached = _extra_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    results = []
-
-    # Şirket adını al (arama için)
-    company_name = ticker
-    try:
-        info_cached = _quote_cache.get(ticker)
-        if info_cached:
-            company_name = info_cached.get("name", ticker)
-        else:
-            t_tmp = yf.Ticker(ticker)
-            tmp_info = t_tmp.info or {}
-            company_name = tmp_info.get("shortName") or tmp_info.get("longName") or ticker
-    except Exception:
-        pass
-
-    # Şirket adını kısalt (Google News arama için)
-    # Örn: "AT&T Inc." → "AT&T", "Apple Inc." → "Apple"
-    short_name = company_name.split(" ")[0] if " " in company_name else company_name
-    short_name = short_name.replace(".", "").replace(",", "").strip()
-
-    # ─── Yöntem 1: Google News RSS Türkçe ───
-    try:
-        import xml.etree.ElementTree as ET
-        # Hem ticker hem de şirket adıyla ara — daha kapsamlı sonuç
-        search_queries = [
-            f"{ticker} hisse",
-            f"{short_name} borsa",
-        ]
-
-        google_results = []
-        for query in search_queries:
-            if len(google_results) >= count:
-                break
-            try:
-                encoded_q = query.replace(" ", "%20")
-                rss_url = f"https://news.google.com/rss/search?q={encoded_q}&hl=tr&gl=TR&ceid=TR:tr"
-                with httpx.Client(timeout=8, follow_redirects=True) as client:
-                    resp = client.get(rss_url, headers={
-                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                        "Accept-Language": "tr-TR,tr;q=0.9",
-                    })
-                    if resp.status_code == 200:
-                        root = ET.fromstring(resp.content)
-                        ns = {"media": "http://search.yahoo.com/mrss/"}
-                        items = root.findall(".//item")
-                        for item in items:
-                            title_el = item.find("title")
-                            link_el = item.find("link")
-                            pub_el = item.find("pubDate")
-                            source_el = item.find("source")
-
-                            title = title_el.text if title_el is not None else ""
-                            link = link_el.text if link_el is not None else ""
-                            pub_date = pub_el.text if pub_el is not None else ""
-                            source = source_el.text if source_el is not None else "Google Haberler"
-
-                            # Google News başlıklarında " - Kaynak" formatı var, temizle
-                            if title and " - " in title:
-                                parts = title.rsplit(" - ", 1)
-                                title = parts[0].strip()
-                                if not source or source == "Google Haberler":
-                                    source = parts[1].strip() if len(parts) > 1 else source
-
-                            if not title:
-                                continue
-
-                            # Mükerrer kontrolü
-                            if any(r["title"] == title for r in google_results):
-                                continue
-
-                            google_results.append({
-                                "title": title,
-                                "url": link,
-                                "publisher": source,
-                                "date": _parse_rss_date(pub_date),
-                                "lang": "tr",
-                            })
-            except Exception as e:
-                logger.warning(f"Google News RSS hatası ({query}): {e}")
-
-        results.extend(google_results[:count])
-    except Exception as e:
-        logger.warning(f"Google News genel hatası {ticker}: {e}")
-
-    # ─── Yöntem 2: Yahoo Finance RSS (Türkçe içerik desteği) ───
-    if len(results) < count:
-        try:
-            import xml.etree.ElementTree as ET
-            yahoo_rss = f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=TR&lang=tr-TR"
-            with httpx.Client(timeout=6, follow_redirects=True) as client:
-                resp = client.get(yahoo_rss, headers=_YF_HEADERS)
-                if resp.status_code == 200:
-                    root = ET.fromstring(resp.content)
-                    for item in root.findall(".//item"):
-                        if len(results) >= count:
-                            break
-                        title_el = item.find("title")
-                        link_el = item.find("link")
-                        pub_el = item.find("pubDate")
-
-                        title = title_el.text if title_el is not None else ""
-                        link = link_el.text if link_el is not None else ""
-                        pub_date = pub_el.text if pub_el is not None else ""
-
-                        if not title:
-                            continue
-                        if any(r["title"] == title for r in results):
-                            continue
-
-                        results.append({
-                            "title": title,
-                            "url": link,
-                            "publisher": "Yahoo Finance",
-                            "date": _parse_rss_date(pub_date),
-                            "lang": "en",
-                        })
-        except Exception as e:
-            logger.warning(f"Yahoo RSS hatası {ticker}: {e}")
-
-    # ─── Yöntem 3: yfinance fallback (İngilizce — son çare) ───
-    if len(results) < 3:
-        try:
-            t = yf.Ticker(ticker)
-            raw_news = t.news or []
-            for n in raw_news[:count]:
-                if len(results) >= count:
-                    break
-                content = n.get("content") if isinstance(n.get("content"), dict) else {}
-                title = content.get("title") or n.get("title", "")
-                canonical = content.get("canonicalUrl")
-                link = canonical.get("url", "") if isinstance(canonical, dict) else n.get("link", "") or n.get("url", "")
-                provider = content.get("provider")
-                publisher = provider.get("displayName", "") if isinstance(provider, dict) else n.get("publisher", "")
-                pub_date = content.get("pubDate") or n.get("providerPublishTime") or ""
-
-                if not title:
-                    continue
-                if any(r["title"] == title for r in results):
-                    continue
-
-                date_str = ""
-                if isinstance(pub_date, (int, float)):
-                    date_str = datetime.fromtimestamp(pub_date).strftime("%Y-%m-%d %H:%M")
-                elif isinstance(pub_date, str):
-                    date_str = pub_date[:16]
-
-                results.append({
-                    "title": title,
-                    "url": link,
-                    "publisher": publisher,
-                    "date": date_str,
-                    "lang": "en",
-                })
-        except Exception as e:
-            logger.warning(f"yfinance news fallback hatası {ticker}: {e}")
-
-    # Sonuçları kaydet (boş olsa bile — tekrar denememek için kısa cache)
-    if results:
-        _extra_cache.set(cache_key, results[:count])
-    else:
-        # Boş sonuç — 30sn cache (sürekli istek atmayı engelle)
-        _search_cache.set(cache_key, [])
-
-    return results[:count]
-
-
-def _safe_get(row, *keys, default=None):
-    """DataFrame row'dan birden fazla olası sütun adı ile güvenli veri çek"""
-    for k in keys:
-        val = row.get(k, None)
-        if val is not None and str(val) != "nan":
-            return val
-    return default
-
-
-def _safe_date(val) -> str:
-    """Herhangi bir tarih değerini string'e çevir"""
-    if val is None:
-        return ""
-    if hasattr(val, "strftime"):
-        return val.strftime("%Y-%m-%d")
-    s = str(val)
-    return s[:10] if len(s) >= 10 else s
-
-
-def get_insider_trades(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
-    """yfinance ile insider işlemlerini getir — tüm sütun adı varyasyonları desteklenir"""
-    cache_key = f"insider:{ticker}"
-    cached = _extra_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    results = []
-    try:
-        t = yf.Ticker(ticker)
-        insider = t.insider_transactions
-        if insider is not None and not insider.empty:
-            for _, row in insider.head(count).iterrows():
-                date_val = _safe_get(row, "Start Date", "startDate", "Date", "date", default="")
-                insider_name = _safe_get(row, "Insider", "insider", "Insider Trading", default="")
-                relation = _safe_get(row, "Relationship", "position", "Position", default="")
-                transaction = _safe_get(row, "Transaction", "text", "Text", "Type", default="")
-                shares = _safe_get(row, "Shares", "shares", default=0)
-                value = _safe_get(row, "Value", "value", default=0)
-
-                results.append({
-                    "insider": str(insider_name),
-                    "relation": str(relation),
-                    "transaction": str(transaction),
-                    "date": _safe_date(date_val),
-                    "shares": int(shares or 0),
-                    "value": float(value or 0),
-                })
-
-        _extra_cache.set(cache_key, results)
-    except Exception as e:
-        logger.error(f"Insider veri hatası {ticker}: {e}")
-
-    return results
-
-
-def get_earnings_calendar(ticker: str) -> Dict[str, Any]:
-    """yfinance ile bilanço takvimi/sonuçları getir — tüm sürüm uyumlu"""
-    cache_key = f"earnings:{ticker}"
-    cached = _extra_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    result = {"next_date": None, "history": []}
-    try:
-        t = yf.Ticker(ticker)
-
-        # Sonraki bilanço tarihi
-        try:
-            cal = t.calendar
-            if cal is not None:
-                if isinstance(cal, dict):
-                    ed = cal.get("Earnings Date", cal.get("earningsDate", []))
-                    if isinstance(ed, list) and len(ed) > 0:
-                        result["next_date"] = _safe_date(ed[0])
-                    elif ed and not isinstance(ed, list):
-                        result["next_date"] = _safe_date(ed)
-                elif isinstance(cal, pd.DataFrame) and not cal.empty:
-                    for idx_name in ["Earnings Date", "earningsDate"]:
-                        if idx_name in cal.index:
-                            vals = cal.loc[idx_name]
-                            if vals is not None:
-                                first_val = vals.iloc[0] if hasattr(vals, "iloc") else vals
-                                result["next_date"] = _safe_date(first_val)
-                                break
-        except Exception as e:
-            logger.warning(f"Calendar hatası {ticker}: {e}")
-
-        # Geçmiş bilanço sonuçları
-        try:
-            earnings = t.earnings_history
-            if earnings is not None and not earnings.empty:
-                for _, row in earnings.tail(8).iterrows():
-                    date_val = _safe_get(row, "Earnings Date", "earningsDate", "reportDate", default="")
-                    eps_est = _safe_get(row, "EPS Estimate", "epsEstimate", "epsactual", default=0)
-                    eps_act = _safe_get(row, "Reported EPS", "epsActual", "reportedEPS", default=0)
-                    surprise = _safe_get(row, "Surprise(%)", "surprisePercent", "epsSurprisePct", default=0)
-
-                    result["history"].append({
-                        "date": _safe_date(date_val),
-                        "eps_estimate": round(float(eps_est or 0), 2),
-                        "eps_actual": round(float(eps_act or 0), 2),
-                        "surprise_pct": round(float(surprise or 0), 1),
-                    })
-                result["history"].reverse()
-        except Exception as e:
-            logger.warning(f"Earnings history hatası {ticker}: {e}")
-
-        _extra_cache.set(cache_key, result)
-    except Exception as e:
-        logger.error(f"Bilanço takvimi hatası {ticker}: {e}")
-
-    return result
-
-
-def get_price_history(ticker: str) -> Dict[str, Any]:
-    """Son 5 yıllık aylık ve yıllık fiyat değişimi"""
-    cache_key = f"pricehistory:{ticker}"
-    cached = _extra_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    result = {"monthly": [], "yearly": []}
-    try:
-        df = get_ticker_data(ticker, period="5y", interval="1mo")
-        if df is None or df.empty:
-            return result
-
-        # Aylık veriler
-        for i in range(len(df)):
-            row = df.iloc[i]
-            date_str = df.index[i].strftime("%Y-%m") if hasattr(df.index[i], "strftime") else str(df.index[i])[:7]
-            close = float(row["Close"])
-            open_p = float(row["Open"]) if not pd.isna(row["Open"]) else close
-            change_pct = round(((close - open_p) / open_p) * 100, 2) if open_p > 0 else 0
-
-            result["monthly"].append({
-                "date": date_str,
-                "open": round(open_p, 2),
-                "close": round(close, 2),
-                "high": round(float(row["High"]), 2) if not pd.isna(row["High"]) else round(close, 2),
-                "low": round(float(row["Low"]), 2) if not pd.isna(row["Low"]) else round(close, 2),
-                "change_pct": change_pct,
-            })
-
-        # Yıllık özet
-        df_yearly = df.copy()
-        df_yearly["Year"] = df_yearly.index.year
-        for year, group in df_yearly.groupby("Year"):
-            first_close = float(group["Close"].iloc[0])
-            last_close = float(group["Close"].iloc[-1])
-            high = float(group["High"].max()) if not group["High"].isna().all() else last_close
-            low = float(group["Low"].min()) if not group["Low"].isna().all() else last_close
-            change_pct = round(((last_close - first_close) / first_close) * 100, 2) if first_close > 0 else 0
-            result["yearly"].append({
-                "year": int(year),
-                "open": round(first_close, 2),
-                "close": round(last_close, 2),
-                "high": round(high, 2),
-                "low": round(low, 2),
-                "change_pct": change_pct,
-            })
-
-        _extra_cache.set(cache_key, result)
-    except Exception as e:
-        logger.error(f"Fiyat geçmişi hatası {ticker}: {e}")
-
-    return result
-
-
-def get_holders_info(ticker: str) -> Dict[str, Any]:
-    """Kurumsal ve büyük hissedar bilgileri — sağlam veri çekimi"""
-    cache_key = f"holders:{ticker}"
-    cached = _extra_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    result = {"institutional": [], "major": [], "institutional_pct": None}
-    try:
-        t = yf.Ticker(ticker)
-
-        # Kurumsal sahipler
-        try:
-            inst = t.institutional_holders
-            if inst is not None and not inst.empty:
-                for _, row in inst.head(15).iterrows():
-                    date_val = _safe_get(row, "Date Reported", "dateReported", "Date", default="")
-                    holder = _safe_get(row, "Holder", "holder", "Organization", default="")
-                    shares = _safe_get(row, "Shares", "shares", "position", default=0)
-                    value = _safe_get(row, "Value", "value", default=0)
-                    pct = _safe_get(row, "% Out", "pctHeld", "pctheld", default=0)
-
-                    pct_val = float(pct or 0)
-                    # Normalize: eğer 0-1 arası ise %'ye çevir, 1-100 arası ise olduğu gibi bırak
-                    pct_display = round(pct_val * 100, 2) if 0 < pct_val < 1 else round(pct_val, 2)
-
-                    result["institutional"].append({
-                        "holder": str(holder),
-                        "shares": int(shares or 0),
-                        "value": float(value or 0),
-                        "pct": pct_display,
-                        "date": _safe_date(date_val),
-                    })
-        except Exception as e:
-            logger.warning(f"Institutional holders hatası {ticker}: {e}")
-
-        # Büyük hissedarlar (özet tablo)
-        try:
-            major = t.major_holders
-            if major is not None and not major.empty:
-                for _, row in major.iterrows():
-                    val = row.iloc[0] if len(row) > 0 else ""
-                    label = row.iloc[1] if len(row) > 1 else ""
-                    result["major"].append({
-                        "value": str(val),
-                        "label": str(label),
-                    })
-                    # % of Shares Held by Institutions
-                    label_str = str(label).lower()
-                    if "institution" in label_str and "held" in label_str:
-                        try:
-                            pct_str = str(val).replace("%", "").strip()
-                            result["institutional_pct"] = float(pct_str)
-                        except (ValueError, TypeError):
-                            pass
-        except Exception as e:
-            logger.warning(f"Major holders hatası {ticker}: {e}")
-
-        _extra_cache.set(cache_key, result)
-    except Exception as e:
-        logger.error(f"Hissedar bilgisi hatası {ticker}: {e}")
-
-    return result
+        logger.error(f"Ticker bilgisi alınamadı {ticker}: {e}")
+        return {"symbol": ticker.upper(), "error": str(e)}
 
 
 def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
@@ -1197,7 +695,6 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
     if cached:
         return cached
 
-    # Geniş ve aktif hisse listesi
     major_tickers = [
         "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "BRK-B", "JPM", "V", 
         "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD", "AVGO", "ORCL",
@@ -1214,101 +711,45 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
     try:
         results = []
         if period == "1d":
-            # Batch quote al (hızlı)
-            quotes = get_batch_quotes(major_tickers)
-            results = quotes
+            results = get_batch_quotes(major_tickers)
         else:
-            # Diğer periyotlar için download gerekebilir (yavaş)
-            # Performans için sadece ilk 30 tanesine bakalım? 
-            # Hayır, kullanıcı 'movers' istiyor. S&P 100 periyot verisi çekmek yavaş olabilir.
-            # Alternatif: get_price_changes'i paralel çalıştır (TTLCache sayesinde hızlanır)
-            for t in major_tickers[:50]: # Hız için ilk 50
+            # For longer periods, we use get_price_changes which is cached
+            for t in major_tickers[:30]: 
                 changes = get_price_changes(t)
-                quote = get_cached_quote(t) or {"price": 0, "name": t}
-                
                 change_val = 0
                 if period == "1w": change_val = changes.get("week") or 0
                 elif period == "1m": change_val = changes.get("month") or 0
                 elif period == "1y": change_val = changes.get("year") or 0
                 
-                results.append({
-                    "symbol": t,
-                    "name": t,
-                    "price": quote.get("price", 0),
-                    "change": 0, # Not strictly needed for movers list
-                    "change_pct": change_val
-                })
+                if change_val != 0:
+                    results.append({
+                        "symbol": t,
+                        "name": t,
+                        "change_pct": change_val
+                    })
 
-        # Gainers
-        gainers = sorted([q for q in results if q["change_pct"] > 0], key=lambda x: x["change_pct"], reverse=True)[:10]
-        # Losers
-        losers = sorted([q for q in results if q["change_pct"] < 0], key=lambda x: x["change_pct"])[:10]
-        
-        # Volume (sadece 1d için anlamlı, diğerlerinde gainers'tan alalım)
-        volume = gainers[:10]
-        
-        # Add names
-        for item in gainers + losers:
+        if not results:
+            return {"gainers": [], "losers": [], "volume": []}
+
+        # Enrich data with names and sectors from cache if available
+        for item in results:
             cached_info = _quote_cache.get(item["symbol"])
             if cached_info:
                 item["name"] = cached_info.get("name", item["symbol"])
-                item["sector"] = cached_info.get("sector", "Other")
+                item["price"] = cached_info.get("price", 0)
+                item["sector"] = cached_info.get("sector", "Diğer")
             else:
-                item["sector"] = "Other"
+                item["name"] = item["symbol"]
+                item["sector"] = "Diğer"
+
+        # Sort and filter
+        gainers = sorted([q for q in results if q["change_pct"] > 0], key=lambda x: x["change_pct"], reverse=True)[:10]
+        losers = sorted([q for q in results if q["change_pct"] < 0], key=lambda x: x["change_pct"])[:10]
+        volume = sorted(results, key=lambda x: x.get("change_pct", 0), reverse=True)[:10] # Placeholder for volume
 
         res_final = {"gainers": gainers, "losers": losers, "volume": volume}
         _indices_cache.set(cache_key, res_final)
         return res_final
     except Exception as e:
         logger.error(f"Market movers hatası ({period}): {e}")
-        return {"gainers": [], "losers": [], "volume": []}
-    """Get top gainers, losers and volume leaders from major US stocks"""
-    cache_key = "market_movers"
-    cached = _indices_cache.get(cache_key)
-    if cached:
-        return cached
-
-    # Geniş ve aktif hisse listesi (S&P 100 + Popüler Teknoloji)
-    major_tickers = [
-        "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "BRK-B", "JPM", "V", 
-        "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD", "AVGO", "ORCL",
-        "COST", "CVX", "ABBV", "MRK", "BAC", "PEP", "KO", "ADBE", "CRM", "AMD",
-        "NFLX", "WFC", "TMO", "ACN", "CSCO", "INTC", "ABT", "DHR", "MCD", "DIS",
-        "PFE", "VZ", "AMGN", "INTU", "LOW", "PM", "CAT", "TXN", "MS", "IBM",
-        "AMAT", "COP", "NEE", "GS", "HON", "RTX", "GE", "BKNG", "SPGI", "UNP",
-        "LRCX", "VRTX", "ETN", "ISRG", "ELV", "SYK", "PGR", "TJX", "CB", "REGN",
-        "MU", "MMC", "PLD", "BSX", "LMT", "PANW", "DE", "ADI", "CI", "BA",
-        "MDT", "FI", "KLAC", "GILD", "T", "SNPS", "CDNS", "ICE", "CRWD", "MAR",
-        "COIN", "MSTR", "ARM", "SMCI", "RDDT" # New and volatile ones
-    ]
-
-    try:
-        # Batch quote al
-        quotes = get_batch_quotes(major_tickers)
-        if not quotes:
-            return {"gainers": [], "losers": [], "volume": []}
-
-        # Gainers
-        gainers = sorted([q for q in quotes if q["change_pct"] > 0], key=lambda x: x["change_pct"], reverse=True)[:10]
-        
-        # Losers
-        losers = sorted([q for q in quotes if q["change_pct"] < 0], key=lambda x: x["change_pct"])[:10]
-        
-        # Volume info için get_ticker_info gerekebilir veya batch'e eklenebilir. 
-        # Ancak şimdilik sadece fiyat değişimlerine odaklanalım. (Frontend MOVERS listesi için yeterli)
-        
-        # Placeholder names (batch quote sadece sembol döner)
-        for list_name in [gainers, losers]:
-            for item in list_name:
-                item["name"] = item["symbol"] # Basitlik için
-        
-        result = {
-            "gainers": gainers,
-            "losers": losers,
-            "volume": gainers[:5] # Placeholder for volume
-        }
-        _indices_cache.set(cache_key, result)
-        return result
-    except Exception as e:
-        logger.error(f"Market movers hatası: {e}")
         return {"gainers": [], "losers": [], "volume": []}
