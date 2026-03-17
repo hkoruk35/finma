@@ -42,10 +42,18 @@ function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
     setLoading(true)
     try {
       const data = await api.searchTickers(q)
-      setResults(data || [])
-      setShowDropdown(true)
+      if (Array.isArray(data) && data.length > 0) {
+        setResults(data)
+        setShowDropdown(true)
+      } else {
+        // API sonuç dönmedi ama hata da yok — kullanıcı Enter ile gönderebilir
+        setResults([])
+        setShowDropdown(false)
+      }
     } catch {
+      // API erişilemiyorsa — kullanıcı yine Enter ile ticker girebilir
       setResults([])
+      setShowDropdown(false)
     }
     setLoading(false)
   }, [])
@@ -53,7 +61,9 @@ function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
   const handleInput = (val: string) => {
     setInput(val)
     if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => doSearch(val.trim()), 250)
+    // İlk harf: 400ms bekle, 2+ harf: 200ms
+    const delay = val.trim().length <= 1 ? 400 : 200
+    debounceRef.current = setTimeout(() => doSearch(val.trim()), delay)
   }
 
   const handleSelect = (symbol: string) => {
@@ -154,8 +164,12 @@ function InsiderTab({ ticker }: { ticker: string }) {
                   t.transaction.toLowerCase().includes('sale') || t.transaction.toLowerCase().includes('sat') ? 'text-finma-red' : 'text-finma-green'
                 )}>{t.transaction}</span>
               </td>
-              <td className="py-2 px-2 text-right text-xs finma-number text-finma-text">{t.shares.toLocaleString('tr-TR')}</td>
-              <td className="py-2 px-2 text-right text-xs finma-number text-finma-text">${(t.value / 1e6).toFixed(2)}M</td>
+              <td className="py-2 px-2 text-right text-xs finma-number text-finma-text">
+                {t.shares >= 1e6 ? `${(t.shares / 1e6).toFixed(2)}M` : t.shares.toLocaleString('tr-TR')}
+              </td>
+              <td className="py-2 px-2 text-right text-xs finma-number text-finma-text">
+                {t.value >= 1e6 ? `$${(t.value / 1e6).toFixed(2)}M` : t.value > 0 ? `$${t.value.toLocaleString('tr-TR')}` : '—'}
+              </td>
               <td className="py-2 px-2 text-right text-[11px] text-finma-text-dim">{t.date}</td>
             </tr>
           ))}
@@ -306,7 +320,9 @@ function HoldersTab({ ticker }: { ticker: string }) {
               {data.institutional.map((h, i) => (
                 <tr key={i} className="border-b border-finma-border/20 hover:bg-finma-primary/5">
                   <td className="py-2 px-2 text-xs text-finma-text">{h.holder}</td>
-                  <td className="py-2 px-2 text-right text-xs finma-number text-finma-text">{(h.shares / 1e6).toFixed(2)}M</td>
+                  <td className="py-2 px-2 text-right text-xs finma-number text-finma-text">
+                    {h.shares >= 1e6 ? `${(h.shares / 1e6).toFixed(2)}M` : h.shares.toLocaleString('tr-TR')}
+                  </td>
                   <td className="py-2 px-2 text-right text-xs finma-number text-finma-primary font-medium">{h.pct.toFixed(2)}%</td>
                   <td className="py-2 px-2 text-right text-[11px] text-finma-text-dim">{h.date}</td>
                 </tr>
@@ -441,9 +457,15 @@ function StockAnalysisContent() {
     ? ((price - botEntryPrice) / botEntryPrice) * 100
     : null
 
-  // AI skor
-  const aiScore = techData ? Math.min(10, Math.max(0, (trendScore / 10) * 5 + (rsi > 50 ? 1 : -0.5) + (adx > 25 ? 1 : 0) + 3)).toFixed(1) : 'N/A'
-  const tradeBias = trendScore > 5 ? 'YUKARI' : trendScore < -5 ? 'AŞAĞI' : 'NÖTR'
+  // AI skor — Backend trend_score: 1-5 (1=Güçlü Düşüş, 5=Güçlü Yükseliş)
+  const aiScore = techData ? Math.min(10, Math.max(0,
+    (trendScore / 5) * 4 +           // Trend: 0-4 arası katkı
+    (rsi > 50 ? 1.5 : rsi > 30 ? 0 : -1) +  // RSI: momentum
+    (adx > 25 ? 1 : 0) +             // ADX: trend gücü
+    (rvol > 1.2 ? 0.5 : 0) +         // Hacim desteği
+    2                                  // Baz skor
+  )).toFixed(1) : 'N/A'
+  const tradeBias = trendScore >= 4 ? 'YUKARI' : trendScore <= 2 ? 'AŞAĞI' : 'NÖTR'
   const riskLevel = atr_pct > 3 ? 'YÜKSEK' : atr_pct > 1.5 ? 'ORTA' : 'DÜŞÜK'
 
   const tabs = [
@@ -572,7 +594,7 @@ function StockAnalysisContent() {
             {isFullscreen && <div className="fixed inset-0 bg-black/60 z-40" onClick={() => setIsFullscreen(false)} />}
           </div>
           <div className="grid grid-cols-3 gap-2 mt-3">
-            <MiniStat label="Trend Gücü" value={techData ? `${trendScore.toFixed(0)}/10` : '...'} color={trendScore > 5 ? 'green' : trendScore > 0 ? 'yellow' : 'red'} />
+            <MiniStat label="Trend Gücü" value={techData ? `${trendScore}/5` : '...'} color={trendScore >= 4 ? 'green' : trendScore >= 3 ? 'yellow' : 'red'} />
             <MiniStat label="RSI" value={techData ? rsi.toFixed(1) : '...'} color={rsi > 70 ? 'red' : rsi > 30 ? 'green' : 'red'} />
             <MiniStat label="RVOL" value={techData ? `${rvol.toFixed(2)}x` : '...'} color={rvol > 1.5 ? 'green' : rvol > 0.8 ? 'yellow' : 'red'} />
           </div>
@@ -587,7 +609,7 @@ function StockAnalysisContent() {
             </div>
             {techData ? (
               <>
-                <Row label="Trend" value={trendLabel} color={trendScore > 5 ? 'green' : trendScore > 0 ? 'yellow' : 'red'} />
+                <Row label="Trend" value={trendLabel} color={trendScore >= 4 ? 'green' : trendScore >= 3 ? 'yellow' : 'red'} />
                 <Row label="RSI (14)" value={rsi.toFixed(1)} color={rsi > 70 ? 'red' : rsi > 30 ? 'green' : 'red'} />
                 <Row label="ADX" value={adx.toFixed(1)} color={adx > 25 ? 'green' : 'yellow'} />
                 <Row label="ATR %" value={`${atr_pct.toFixed(2)}%`} />
