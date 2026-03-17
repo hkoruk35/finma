@@ -5,12 +5,16 @@ import { Card } from '@/components/shared/Card'
 import { sectorLabel } from '@/components/shared/Badge'
 import { cn } from '@/lib/utils'
 import { api } from '@/lib/api-client'
+import { useAuthStore } from '@/store/auth'
 import {
   History, TrendingUp, TrendingDown, Target, ShieldAlert,
   Activity, Search, ChevronUp, ChevronDown, RefreshCw, Clock,
-  CheckCircle2, XCircle, Minus, DollarSign, BarChart3, Zap
+  CheckCircle2, XCircle, Minus, DollarSign, BarChart3, Zap, Lock
 } from 'lucide-react'
 import signalsHistory from '@/data/signals-history.json'
+
+// Pro üyeler sadece son 10 günü görür; Admin tüm geçmişi görür
+const PRO_MAX_DAYS = 10
 
 // ─── Tip Tanımları ──────────────────────────────────────────────
 interface Candidate {
@@ -109,7 +113,12 @@ type SortDir = 'asc' | 'desc'
 
 // ─── Ana Bileşen ─────────────────────────────────────────────────
 export default function BacktestPage() {
-  const history: HistoryEntry[] = signalsHistory.history as HistoryEntry[]
+  const { user } = useAuthStore()
+  const isAdmin = user?.role === 'admin'
+
+  // Admin: tüm geçmiş — Pro: son 10 günlük liste
+  const fullHistory: HistoryEntry[] = signalsHistory.history as HistoryEntry[]
+  const history = isAdmin ? fullHistory : fullHistory.slice(0, PRO_MAX_DAYS)
 
   // Filtreler
   const [sectorFilter, setSectorFilter] = useState<string>('ALL')
@@ -276,8 +285,22 @@ export default function BacktestPage() {
             Backtest — Geçmiş Performans
           </span>
           <span className="text-[9px] text-finma-text-dim bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
-            Son {history.length} Liste · {history.length * 10} Sinyal
+            {isAdmin ? `Tüm Geçmiş` : `Son ${history.length} Gün`} · {history.length * 10} Sinyal
           </span>
+          {/* Admin: toplam arşiv büyüklüğü */}
+          {isAdmin && fullHistory.length > 0 && (
+            <span className="text-[9px] text-finma-green bg-finma-green/10 px-2 py-0.5 rounded-full border border-finma-green/20 flex items-center gap-1">
+              <Activity className="w-2.5 h-2.5" />
+              Admin · {fullHistory.length} liste arşiv
+            </span>
+          )}
+          {/* Pro: kilitli içerik uyarısı */}
+          {!isAdmin && fullHistory.length > PRO_MAX_DAYS && (
+            <span className="text-[9px] text-finma-yellow/80 bg-finma-yellow/10 px-2 py-0.5 rounded-full border border-finma-yellow/20 flex items-center gap-1">
+              <Lock className="w-2.5 h-2.5" />
+              +{fullHistory.length - PRO_MAX_DAYS} eski liste admin görünümünde
+            </span>
+          )}
         </div>
         <div className="flex items-center gap-1.5 text-[10px] text-finma-text-dim">
           {quotesLoading

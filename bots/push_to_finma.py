@@ -30,7 +30,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)  # finma/
 SIGNALS_JSON   = os.path.join(PROJECT_ROOT, "frontend", "data", "signals-latest.json")
 HISTORY_JSON   = os.path.join(PROJECT_ROOT, "frontend", "data", "signals-history.json")
-HISTORY_MAX    = 10   # Kaç günlük liste saklanacak
+HISTORY_MAX    = None  # None = sonsuz (admin tüm geçmişi görür, Pro son 10 günü)
 
 # Bot output dosya yolları (sırayla dener)
 DEFAULT_PATHS = [
@@ -171,8 +171,9 @@ def update_history_json(signals: dict):
     # Yeni kayıdı başa ekle
     history.insert(0, entry)
 
-    # Son HISTORY_MAX günü tut
-    history = history[:HISTORY_MAX]
+    # HISTORY_MAX varsa kes, None ise tüm geçmiş korunur
+    if HISTORY_MAX is not None:
+        history = history[:HISTORY_MAX]
 
     history_data = {"lastUpdated": today, "history": history}
 
