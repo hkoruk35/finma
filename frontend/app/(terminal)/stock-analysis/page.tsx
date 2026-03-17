@@ -20,6 +20,9 @@ function StockAnalysisContent() {
   const searchParams = useSearchParams()
   const { setChartSymbol } = useTerminalStore()
   const [ticker, setTicker] = useState(searchParams.get('ticker') || 'NVDA')
+  // Bot giriş fiyatı — dashboard'dan ?entry=X.XX ile gelir
+  const entryParam = searchParams.get('entry')
+  const botEntryPrice = entryParam ? parseFloat(entryParam) : null
   const [searchInput, setSearchInput] = useState('')
   const [aiQuestion, setAiQuestion] = useState('')
   const [aiResponse, setAiResponse] = useState('')
@@ -93,6 +96,11 @@ function StockAnalysisContent() {
   const resistance = techData?.levels?.resistance ?? 0
   const rvol = techData?.volume?.rvol ?? 1.0
 
+  // Bot giriş fiyatından değişim (dashboard'dan geliyorsa)
+  const botEntryChangePct = (botEntryPrice && botEntryPrice > 0 && price > 0)
+    ? ((price - botEntryPrice) / botEntryPrice) * 100
+    : null
+
   // AI skoru hesapla
   const aiScore = techData ? Math.min(10, Math.max(0, (trendScore / 10) * 5 + (rsi > 50 ? 1 : -0.5) + (adx > 25 ? 1 : 0) + 3)).toFixed(1) : 'N/A'
   const tradeBias = trendScore > 5 ? 'YUKARI' : trendScore < -5 ? 'ASAGI' : 'NÖTR'
@@ -141,15 +149,28 @@ function StockAnalysisContent() {
                 <span className="text-xl font-bold text-finma-primary finma-number">{ticker}</span>
                 <span className="text-sm text-finma-text-muted">— {isAnyLoading ? <span className="inline-block w-24 h-4 bg-finma-border/30 rounded animate-pulse" /> : name}</span>
               </div>
-              <div className="flex items-center gap-4 mt-1">
+              <div className="flex items-center gap-3 mt-1 flex-wrap">
                 {isAnyLoading && price === 0 ? (
                   <span className="inline-block w-28 h-8 bg-finma-border/30 rounded animate-pulse" />
                 ) : (
                   <>
                     <span className="finma-number text-2xl font-bold text-white transition-all duration-300">${price.toFixed(2)}</span>
-                    <span className={cn('finma-number text-sm font-bold transition-all duration-300', change >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                      {change >= 0 ? '+' : ''}{change.toFixed(2)}%
-                    </span>
+                    {/* Günlük değişim — Yahoo Finance (dünkü kapanışa göre) */}
+                    <div className="flex flex-col">
+                      <span className={cn('finma-number text-sm font-bold transition-all duration-300', change >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                        {change >= 0 ? '+' : ''}{change.toFixed(2)}%
+                      </span>
+                      <span className="text-[9px] text-finma-text-dim">Günlük</span>
+                    </div>
+                    {/* Bot giriş değişimi — dashboard'dan geliniyorsa göster */}
+                    {botEntryChangePct !== null && (
+                      <div className="flex flex-col border-l border-finma-border pl-3">
+                        <span className={cn('finma-number text-sm font-bold', botEntryChangePct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                          {botEntryChangePct >= 0 ? '+' : ''}{botEntryChangePct.toFixed(2)}%
+                        </span>
+                        <span className="text-[9px] text-finma-text-dim">Girişten (${botEntryPrice!.toFixed(2)})</span>
+                      </div>
+                    )}
                   </>
                 )}
               </div>

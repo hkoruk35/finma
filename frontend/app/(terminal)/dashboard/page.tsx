@@ -329,11 +329,15 @@ export default function DashboardPage() {
             {top10Candidates.map((c: any, idx: number) => {
               const live = liveQuotes[c.ticker]
               const livePrice = live?.price
-              const changePct = live?.change_pct
+              // changePct: bot giriş fiyatından (c.price) canlı fiyata (livePrice) değişim
+              // Yahoo Finance'in günlük change_pct DEĞİL — dünün kapanışı referans değil
+              const changePct = (livePrice != null && c.price > 0)
+                ? ((livePrice - c.price) / c.price) * 100
+                : null
               return (
                 <div
                   key={c.ticker}
-                  onClick={() => router.push(`/stock-analysis?ticker=${c.ticker}`)}
+                  onClick={() => router.push(`/stock-analysis?ticker=${c.ticker}&entry=${c.price}`)}
                   className="flex items-center gap-3 bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 hover:border-finma-primary/30 transition-colors group cursor-pointer"
                 >
                   <div className={cn(
