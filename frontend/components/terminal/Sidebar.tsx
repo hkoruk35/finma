@@ -39,7 +39,7 @@ import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
 import { useState, useEffect } from 'react'
 
-type Tier = 'free' | 'pro' | 'premium' | 'admin'
+type Tier = 'free' | 'pro' | 'admin'
 
 interface NavItem {
   href: string
@@ -75,8 +75,8 @@ const navItems: NavItem[] = [
   { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'pro' },
   { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'pro' },
   { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'pro' },
-  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'premium' },
-  { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'premium' },
+  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'pro' },
+  { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'pro' },
   { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'pro' },
   { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
 ]
@@ -84,14 +84,12 @@ const navItems: NavItem[] = [
 const tierBadge: Record<Tier, { label: string; color: string; icon: React.ElementType }> = {
   free: { label: 'Free', color: 'text-finma-text-dim bg-white/5 border-white/10', icon: Activity },
   pro: { label: 'Pro', color: 'text-finma-primary bg-finma-primary/10 border-finma-primary/30', icon: Crown },
-  premium: { label: 'Premium', color: 'text-purple-400 bg-purple-400/10 border-purple-400/30', icon: Gem },
   admin: { label: 'Admin', color: 'text-finma-green bg-finma-green/10 border-finma-green/30', icon: Shield },
 }
 
 const tierColors: Record<string, string> = {
   free: 'text-finma-text-dim',
   pro: 'text-finma-primary',
-  premium: 'text-purple-400',
   admin: 'text-finma-red',
 }
 
@@ -161,8 +159,7 @@ export function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => {
-            // Completely hide premium items from non-admin users
-            if (item.tier === 'premium' && !isAdmin) return null
+            // Hide specific items if necessary (currently all items shown for their respective tiers)
 
             const isActive = pathname === item.href || (item.children && pathname.startsWith(item.href + '/'))
             const isMenuExpanded = expandedMenus.includes(item.section)

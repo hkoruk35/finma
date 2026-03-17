@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
-import { Gem, CheckCircle, XCircle, Loader2, Activity } from 'lucide-react'
+import { Crown, CheckCircle, XCircle, Loader2, Activity } from 'lucide-react'
 
 export default function InvitePage() {
   const params = useParams()
@@ -26,10 +26,10 @@ export default function InvitePage() {
       return
     }
 
-    // Already premium
-    if (user.subscription_tier === 'premium' || user.role === 'admin') {
+    // Already Pro or Admin
+    if (user.subscription_tier === 'pro' || user.role === 'admin') {
       setStatus('success')
-      setError('Zaten Premium üyesiniz!')
+      setError('Zaten Pro üyesiniz!')
       setTimeout(() => {
         window.location.href = '/dashboard'
       }, 2000)
@@ -78,7 +78,7 @@ export default function InvitePage() {
 
           {status === 'needs_login' && (
             <>
-              <Gem className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+              <Crown className="w-12 h-12 text-finma-primary mx-auto mb-4" />
               <h2 className="text-lg font-bold text-white mb-2">Giriş Yapmanız Gerekiyor</h2>
               <p className="text-xs text-finma-text-dim mb-4">
                 Davet kodunu kullanmak için önce giriş yapmanız gerekiyor. Yönlendiriliyorsunuz...
@@ -89,14 +89,14 @@ export default function InvitePage() {
 
           {status === 'success' && (
             <>
-              <div className="w-16 h-16 bg-purple-500/15 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-purple-400" />
+              <div className="w-16 h-16 bg-finma-primary/15 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-finma-primary" />
               </div>
               <h2 className="text-lg font-bold text-white mb-2">
-                {error || 'Premium Üyelik Aktif!'}
+                {error || 'Pro Üyelik Aktif!'}
               </h2>
               <p className="text-xs text-finma-text-dim mb-4">
-                Tüm Premium özelliklere erişebilirsiniz. Dashboard'a yönlendiriliyorsunuz...
+                Tüm Pro özelliklere erişebilirsiniz. Dashboard'a yönlendiriliyorsunuz...
               </p>
               <Loader2 className="w-5 h-5 text-finma-green animate-spin mx-auto" />
             </>

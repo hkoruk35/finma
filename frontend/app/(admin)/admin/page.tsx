@@ -9,7 +9,6 @@ interface UserStats {
   total: number
   free: number
   pro: number
-  premium: number
   admin: number
   activeTrial: number
 }
@@ -37,7 +36,6 @@ export default function AdminDashboardPage() {
           total: users.length,
           free: users.filter((u: any) => u.subscription_tier === 'free').length,
           pro: users.filter((u: any) => u.subscription_tier === 'pro').length,
-          premium: users.filter((u: any) => u.subscription_tier === 'premium').length,
           admin: users.filter((u: any) => u.subscription_tier === 'admin' || u.role === 'admin').length,
           activeTrial: users.filter((u: any) => {
             if (u.subscription_tier !== 'pro' || !u.trial_start_date) return false
@@ -92,13 +90,6 @@ export default function AdminDashboardPage() {
             <span className="text-[10px] text-finma-text-dim uppercase">Pro</span>
           </div>
           <span className="finma-number text-2xl font-bold text-finma-primary">{stats?.pro ?? 0}</span>
-        </Card>
-        <Card padding="sm">
-          <div className="flex items-center gap-2 mb-2">
-            <Gem className="w-4 h-4 text-purple-400" />
-            <span className="text-[10px] text-finma-text-dim uppercase">Premium</span>
-          </div>
-          <span className="finma-number text-2xl font-bold text-purple-400">{stats?.premium ?? 0}</span>
         </Card>
         <Card padding="sm">
           <div className="flex items-center gap-2 mb-2">

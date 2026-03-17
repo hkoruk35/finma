@@ -10,7 +10,7 @@ import { TierGate } from '@/components/auth/TierGate'
 
 export default function SignalsPage() {
   return (
-    <TierGate tier="premium">
+    <TierGate tier="pro">
       <SignalsContent />
     </TierGate>
   )

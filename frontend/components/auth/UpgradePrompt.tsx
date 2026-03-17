@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 
 interface UpgradePromptProps {
-  requiredTier: 'pro' | 'premium'
+  requiredTier: 'pro' | 'admin'
 }
 
 export function UpgradePrompt({ requiredTier }: UpgradePromptProps) {
@@ -45,41 +45,17 @@ export function UpgradePrompt({ requiredTier }: UpgradePromptProps) {
     }
   }
 
-  if (requiredTier === 'premium') {
+  if (requiredTier === 'admin') {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="max-w-md w-full bg-finma-card border border-finma-border rounded-xl p-8 text-center">
-          <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Gem className="w-8 h-8 text-purple-400" />
+          <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-8 h-8 text-red-400" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Premium Özellik</h2>
+          <h2 className="text-xl font-bold text-white mb-2">Yönetici Erişimi</h2>
           <p className="text-sm text-finma-text-dim mb-6">
-            Bu özellik sadece Premium üyelere açıktır. Premium üyelik için davet kodu gereklidir.
+            Bu bölüm sadece yöneticilere özeldir. Eğer yöneticiyseniz lütfen sistem ile iletişime geçin.
           </p>
-
-          <form onSubmit={handleRedeemInvite} className="space-y-3">
-            <input
-              type="text"
-              value={inviteCode}
-              onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
-              placeholder="Davet kodunuzu girin"
-              className="finma-input w-full text-center tracking-widest text-lg"
-              maxLength={8}
-            />
-            <button
-              type="submit"
-              disabled={inviteLoading || !inviteCode.trim()}
-              className="finma-btn-primary w-full py-2.5 disabled:opacity-50"
-            >
-              {inviteLoading ? 'Kontrol ediliyor...' : 'Kodu Kullan'}
-            </button>
-          </form>
-
-          {error && (
-            <div className="text-xs text-finma-red bg-finma-red/10 border border-finma-red/30 rounded-md px-3 py-2 mt-3">
-              {error}
-            </div>
-          )}
         </div>
       </div>
     )

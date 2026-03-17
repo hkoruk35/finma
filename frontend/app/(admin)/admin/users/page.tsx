@@ -17,7 +17,7 @@ interface UserRow {
   created_at?: string
 }
 
-const TIER_OPTIONS = ['free', 'pro', 'premium', 'admin']
+const TIER_OPTIONS = ['free', 'pro', 'admin']
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserRow[]>([])
@@ -67,7 +67,6 @@ export default function AdminUsersPage() {
   const getTierBadge = (tier: string) => {
     switch (tier) {
       case 'admin': return <Badge variant="bull">Admin</Badge>
-      case 'premium': return <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-400 border border-purple-500/30 font-medium">Premium</span>
       case 'pro': return <Badge variant="buy">Pro</Badge>
       default: return <span className="text-[10px] px-2 py-0.5 rounded-full bg-finma-bg text-finma-text-dim border border-finma-border font-medium">Free</span>
     }

@@ -5,7 +5,7 @@ import { UpgradePrompt } from './UpgradePrompt'
 import { TrialExpiredPrompt } from './TrialExpiredPrompt'
 
 interface TierGateProps {
-  tier: 'pro' | 'premium'
+  tier: 'pro' | 'admin'
   children: React.ReactNode
 }
 

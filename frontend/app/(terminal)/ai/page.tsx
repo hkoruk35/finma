@@ -91,7 +91,7 @@ function AIContent() {
         <div className="flex items-center gap-3">
           <Brain className="w-5 h-5 text-finma-purple" />
           <h1 className="text-lg font-bold text-white">AI Analiz</h1>
-          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded border text-yellow-400 bg-yellow-400/10 border-yellow-400/30">Gold</span>
+          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded border text-finma-primary bg-finma-primary/10 border-finma-primary/30">Pro</span>
           <span className="text-xs text-finma-text-dim">FinMA AI ile güçlendirilmiş</span>
         </div>
         <div className="flex items-center gap-3">
@@ -181,7 +181,7 @@ function AIContent() {
           {isLimitReached ? (
             <div className="flex items-center gap-2 justify-center py-2">
               <Lock className="w-4 h-4 text-finma-red" />
-              <span className="text-xs text-finma-red">Günlük ücretsiz analiz hakkınız doldu. Gold üyelik ile sınırsız analiz yapın.</span>
+              <span className="text-xs text-finma-red">Günlük ücretsiz analiz hakkınız doldu. Pro üyelik ile sınırsız analiz yapın.</span>
             </div>
           ) : (
             <div className="flex items-center gap-2">

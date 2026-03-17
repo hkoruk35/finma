@@ -34,12 +34,10 @@ export default function SettingsPage() {
 
   const tierLabel =
     user?.subscription_tier === 'admin' ? 'Admin' :
-    user?.subscription_tier === 'premium' ? 'Premium' :
     user?.subscription_tier === 'pro' ? 'Pro' : 'Free'
 
   const tierColor =
     user?.subscription_tier === 'admin' ? 'text-finma-green' :
-    user?.subscription_tier === 'premium' ? 'text-purple-400' :
     user?.subscription_tier === 'pro' ? 'text-finma-primary' : 'text-finma-text-dim'
 
   const isFreeTier = !user?.subscription_tier || user.subscription_tier === 'free'
@@ -79,13 +77,12 @@ export default function SettingsPage() {
 
         <div className="mb-4">
           <div className={`text-sm font-semibold ${tierColor} flex items-center gap-1.5`}>
-            {user?.subscription_tier === 'premium' ? <Gem className="w-4 h-4" /> : <Crown className="w-4 h-4" />}
+            <Crown className="w-4 h-4" />
             {tierLabel}
           </div>
           <div className="text-[10px] text-finma-text-dim mt-0.5">
             {user?.subscription_tier === 'admin' ? 'Tüm özelliklere erişim' :
-             user?.subscription_tier === 'premium' ? 'Premium — Tüm Pro + Sinyaller + Takip Listeleri' :
-             user?.subscription_tier === 'pro' ? 'Pro — Hisse Analiz, İşlemler, Portföy, AI Analiz' :
+             user?.subscription_tier === 'pro' ? 'Pro — Hisse Analiz, İşlemler, Portföy, AI, Sinyaller' :
              'Free — Sadece temel piyasa verileri'}
           </div>
         </div>
