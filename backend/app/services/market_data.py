@@ -540,6 +540,15 @@ def prefetch_popular_tickers():
                     get_technical_analysis(ticker)
             except Exception as e:
                 logger.warning(f"Prefetch hatası {ticker}: {e}")
+        
+        # Market Movers'ı TÜM periyotlar için prefetch et
+        for p in ["1d", "1w", "1m", "1y"]:
+            try:
+                get_market_movers(p)
+                logger.info(f"Market Movers prefetch edildi: {p}")
+            except Exception as e:
+                logger.warning(f"Market Movers prefetch hatası ({p}): {e}")
+
         logger.info("Prefetch tamamlandı")
         _prefetch_running = False
 
@@ -596,10 +605,15 @@ def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
                         price = float(info.get("currentPrice", 0) or info.get("regularMarketPrice", 0) or 0)
 
                 prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or 0)
-                if prev <= 0:
-                    hist_prev = t.history(period="2d")
+                if prev <= 0 or prev == price:
+                    # Fallback: get at least 2 days of history to find a real previous close
+                    hist_prev = t.history(period="5d")
                     if len(hist_prev) >= 2:
+                        # Find the first close that is different from current price or different day
+                        # Usually iloc[-2] is what we want for yesterday's close
                         prev = float(hist_prev["Close"].iloc[-2])
+                    elif not hist_prev.empty:
+                        prev = float(hist_prev["Close"].iloc[0])
 
                 change = price - prev if prev else 0
                 change_pct = (change / prev * 100) if prev else 0
@@ -607,12 +621,22 @@ def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
                 if price <= 0:
                     continue
 
+                # Get volume
+                volume_raw = fast.get("last_volume") or fast.get("lastVolume") or 0
+                volume_str = "-"
+                if volume_raw > 1_000_000_000: volume_str = f"{volume_raw / 1_000_000_000:.1f}B"
+                elif volume_raw > 1_000_000: volume_str = f"{volume_raw / 1_000_000:.1f}M"
+                elif volume_raw > 1_000: volume_str = f"{volume_raw / 1_000:.1f}K"
+                elif volume_raw > 0: volume_str = str(int(volume_raw))
+
                 display = symbol.replace("^", "").replace("-USD", "").replace("=F", "")
                 results.append({
                     "symbol": display,
                     "price": round(price, 2),
                     "change": round(change, 2),
                     "change_pct": round(change_pct, 4),
+                    "volume": volume_str,
+                    "volume_raw": volume_raw
                 })
             except Exception as e:
                 logger.warning(f"Batch quote error for {symbol}: {e}")
@@ -724,21 +748,45 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
         if period == "1d":
             results = get_batch_quotes(major_tickers)
         else:
-            # For longer periods, we use get_price_changes which is cached
-            for t in major_tickers[:50]:
-                changes = get_price_changes(t)
-                change_val = 0
-                if period == "1w": change_val = changes.get("week") or 0
-                elif period == "1m": change_val = changes.get("month") or 0
-                elif period == "1y": change_val = changes.get("year") or 0
-                
-                if change_val != 0:
-                    results.append({
-                        "symbol": t,
-                        "name": t,
-                        "price": 0,
-                        "change_pct": change_val
-                    })
+            # Optimized batch download for historical changes (Avoids rate limits)
+            import yfinance as yf
+            from datetime import timedelta
+            end_dt = datetime.now()
+            days = 7 if period == "1w" else 30 if period == "1m" else 365
+            start_dt = end_dt - timedelta(days=days + 4) # Extra buffer for weekends
+            
+            # Use yf.download directly for massive speedup
+            data = yf.download(major_tickers, start=start_dt, end=end_dt, progress=False, group_by='ticker')
+            
+            if not data.empty:
+                for t in major_tickers:
+                    try:
+                        # Handle both MultiIndex formats (Ticker first or Metric first)
+                        ticker_df = None
+                        if t in data.columns.levels[0]:
+                            ticker_df = data[t].dropna()
+                        elif t in data.columns.levels[1]:
+                            # Metric is level 0, Ticker is level 1
+                            ticker_df = data.xs(t, axis=1, level=1).dropna()
+                            
+                        if ticker_df is not None and len(ticker_df) >= 2:
+                            # Use 'Close' as it's more reliable than 'Adj Close' in some YF versions
+                            price_col = "Close" if "Close" in ticker_df.columns else ticker_df.columns[0]
+                            start_p = float(ticker_df[price_col].iloc[0])
+                            end_p = float(ticker_df[price_col].iloc[-1])
+                            vol = float(ticker_df["Volume"].sum()) if "Volume" in ticker_df.columns else 0
+                            
+                            if start_p > 0:
+                                change = ((end_p - start_p) / start_p) * 100
+                                results.append({
+                                    "symbol": t,
+                                    "price": round(end_p, 2),
+                                    "change_pct": round(change, 2),
+                                    "volume_raw": vol
+                                })
+                    except Exception as e:
+                        logger.debug(f"Movers ticker error {t}: {e}")
+                        continue
 
         if not results:
             return {"gainers": [], "losers": [], "volume": []}
@@ -760,7 +808,18 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
         # Sort and filter
         gainers = sorted([q for q in results if q["change_pct"] > 0], key=lambda x: x["change_pct"], reverse=True)[:10]
         losers = sorted([q for q in results if q["change_pct"] < 0], key=lambda x: x["change_pct"])[:10]
-        volume = sorted(results, key=lambda x: x.get("change_pct", 0), reverse=True)[:10] # Placeholder for volume
+        
+        # En Yüksek Hacim: Use volume_raw for sorting
+        volume = sorted(results, key=lambda x: x.get("volume_raw", 0), reverse=True)[:10]
+        
+        # Ensure volume display string exists for non-1d results
+        for item in volume:
+            if "volume" not in item:
+                v_raw = item.get("volume_raw", 0)
+                if v_raw > 1_000_000_000: item["volume"] = f"{v_raw / 1_000_000_000:.1f}B"
+                elif v_raw > 1_000_000: item["volume"] = f"{v_raw / 1_000_000:.1f}M"
+                elif v_raw > 1_000: item["volume"] = f"{v_raw / 1_000:.1f}K"
+                else: item["volume"] = str(int(v_raw))
 
         res_final = {"gainers": gainers, "losers": losers, "volume": volume}
         _indices_cache.set(cache_key, res_final)
