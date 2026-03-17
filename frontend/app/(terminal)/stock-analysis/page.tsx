@@ -15,7 +15,7 @@ import {
   Activity, DollarSign, Clock,
   ArrowUp, ArrowDown, Send, Maximize2, Minimize2,
   Newspaper, Users, Calendar, BarChart3, Building2,
-  ExternalLink, ChevronDown, ChevronUp
+  ExternalLink, ChevronDown, ChevronUp, Radio, Eye
 } from 'lucide-react'
 
 // ─── AUTOCOMPLETE SEARCH ───
@@ -376,6 +376,188 @@ function EmptyState({ text }: { text: string }) {
   )
 }
 
+// ─── CANLI HABER WIDGET (sol kolon) ───
+function NewsWidget({ ticker }: { ticker: string }) {
+  const { data, isLoading, isFetching, dataUpdatedAt } = useNews(ticker)
+  const lastUpdate = dataUpdatedAt
+    ? new Date(dataUpdatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+    : null
+
+  return (
+    <div className="bg-finma-card border border-finma-border rounded-xl overflow-hidden mt-3">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-finma-border bg-finma-bg/40">
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Radio className="w-3.5 h-3.5 text-finma-green" />
+            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-finma-green rounded-full animate-ping" />
+          </div>
+          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">Şirket Haberleri</span>
+          <span className="text-[9px] px-1.5 py-0.5 bg-finma-green/10 text-finma-green rounded-full font-medium border border-finma-green/20 leading-none">CANLI</span>
+        </div>
+        <div className="flex items-center gap-2">
+          {isFetching && (
+            <div className="flex items-center gap-1 text-[9px] text-finma-primary">
+              <div className="w-2.5 h-2.5 border-2 border-finma-primary/30 border-t-finma-primary rounded-full animate-spin" />
+              <span>Güncelleniyor</span>
+            </div>
+          )}
+          {lastUpdate && <span className="text-[10px] text-finma-text-dim">🕐 {lastUpdate}</span>}
+        </div>
+      </div>
+
+      {/* News List */}
+      <div className="divide-y divide-finma-border/20 max-h-[280px] overflow-y-auto">
+        {isLoading ? (
+          Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="px-4 py-3 animate-pulse">
+              <div className="h-3 bg-finma-border/30 rounded w-4/5 mb-2" />
+              <div className="h-2 bg-finma-border/20 rounded w-1/3" />
+            </div>
+          ))
+        ) : !data || data.length === 0 ? (
+          <div className="px-4 py-8 text-center text-xs text-finma-text-dim">Bu hisse için haber bulunamadı</div>
+        ) : (
+          data.slice(0, 7).map((n, i) => (
+            <a key={i} href={n.url} target="_blank" rel="noopener noreferrer"
+              className={cn(
+                'flex items-start gap-3 px-4 py-3 border-l-[3px] transition-all group',
+                n.lang === 'tr'
+                  ? 'border-l-finma-green hover:bg-finma-green/5'
+                  : 'border-l-finma-border/60 hover:bg-finma-primary/5'
+              )}>
+              <div className="flex-1 min-w-0">
+                <p className="text-[12px] text-finma-text leading-snug line-clamp-2 group-hover:text-finma-primary transition-colors">
+                  {n.title}
+                </p>
+                <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                  <span className="text-[10px] font-semibold text-finma-primary bg-finma-primary/10 px-1.5 py-0.5 rounded-sm">
+                    {n.publisher}
+                  </span>
+                  {n.date && (
+                    <span className="text-[10px] text-finma-text-dim">{n.date.slice(0, 10)}</span>
+                  )}
+                  {n.lang === 'tr' ? (
+                    <span className="text-[9px] text-finma-green font-medium">🇹🇷 TR</span>
+                  ) : (
+                    <span className="text-[9px] text-finma-text-dim">🇺🇸 EN</span>
+                  )}
+                </div>
+              </div>
+              <ExternalLink className="w-3 h-3 text-finma-text-dim opacity-0 group-hover:opacity-100 shrink-0 mt-1 transition-opacity" />
+            </a>
+          ))
+        )}
+      </div>
+
+      {/* Footer */}
+      {data && data.length > 0 && (
+        <div className="px-4 py-2 bg-finma-bg/30 border-t border-finma-border/30 flex items-center gap-3">
+          <span className="text-[10px] text-finma-text-dim">
+            {data.filter(n => n.lang === 'tr').length > 0
+              ? `🇹🇷 ${data.filter(n => n.lang === 'tr').length} Türkçe`
+              : `${data.length} haber`}
+          </span>
+          <span className="text-[10px] text-finma-text-dim">• 5 dk'da bir güncellenir</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── İÇERİDEN İŞLEM WIDGET (sağ kolon) ───
+function InsiderWidget({ ticker }: { ticker: string }) {
+  const { data, isLoading, isFetching, dataUpdatedAt } = useInsider(ticker)
+  const lastUpdate = dataUpdatedAt
+    ? new Date(dataUpdatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+    : null
+
+  const isSaleTx = (t: string) => {
+    const l = t.toLowerCase()
+    return l.includes('sale') || l.includes('sat') || l.includes('sell')
+  }
+
+  const txLabel = (t: string) => {
+    const l = t.toLowerCase()
+    if (l.includes('sale') || l.includes('sat') || l.includes('sell')) return 'SATIŞ'
+    if (l.includes('purchase') || l.includes('buy') || l.includes('alım')) return 'ALIŞ'
+    if (l.includes('option') || l.includes('exercise')) return 'OPSİYON'
+    return t.length > 10 ? t.slice(0, 10) + '…' : t
+  }
+
+  return (
+    <Card padding="none">
+      <div className="flex items-center justify-between px-3 py-2.5 border-b border-finma-border bg-finma-bg/40">
+        <div className="flex items-center gap-2">
+          <Eye className="w-3.5 h-3.5 text-finma-cyan" />
+          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">İçeriden İşlemler</span>
+          <span className="text-[9px] px-1.5 py-0.5 bg-finma-cyan/10 text-finma-cyan rounded-full border border-finma-cyan/20 leading-none">CANLI</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          {isFetching && <div className="w-2.5 h-2.5 border-2 border-finma-cyan/30 border-t-finma-cyan rounded-full animate-spin" />}
+          {lastUpdate && <span className="text-[10px] text-finma-text-dim">{lastUpdate}</span>}
+        </div>
+      </div>
+
+      <div className="divide-y divide-finma-border/20">
+        {isLoading ? (
+          Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="px-3 py-2.5 animate-pulse">
+              <div className="h-3 bg-finma-border/30 rounded w-full mb-1.5" />
+              <div className="h-2 bg-finma-border/20 rounded w-2/3" />
+            </div>
+          ))
+        ) : !data || data.length === 0 ? (
+          <div className="px-3 py-6 text-center text-xs text-finma-text-dim">İçeriden işlem bulunamadı</div>
+        ) : (
+          data.slice(0, 5).map((t, i) => {
+            const sale = isSaleTx(t.transaction)
+            return (
+              <div key={i} className={cn(
+                'px-3 py-2.5 border-l-[3px] transition-colors',
+                sale
+                  ? 'border-l-finma-red bg-finma-red/[0.04] hover:bg-finma-red/[0.08]'
+                  : 'border-l-finma-green bg-finma-green/[0.04] hover:bg-finma-green/[0.08]'
+              )}>
+                <div className="flex items-start justify-between gap-1.5 mb-1">
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-semibold text-finma-text truncate leading-tight">{t.insider}</div>
+                    <div className="text-[10px] text-finma-text-dim truncate leading-tight">{t.relation}</div>
+                  </div>
+                  <span className={cn(
+                    'shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded leading-none',
+                    sale
+                      ? 'bg-finma-red/15 text-finma-red border border-finma-red/20'
+                      : 'bg-finma-green/15 text-finma-green border border-finma-green/20'
+                  )}>{txLabel(t.transaction)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] finma-number font-semibold text-finma-text">
+                    {t.value >= 1e6
+                      ? `$${(t.value / 1e6).toFixed(1)}M`
+                      : t.value > 0
+                        ? `$${t.value.toLocaleString('tr-TR')}`
+                        : t.shares > 0
+                          ? `${t.shares.toLocaleString('tr-TR')} adet`
+                          : '—'}
+                  </span>
+                  <span className="text-[10px] text-finma-text-dim">{t.date?.slice(0, 10)}</span>
+                </div>
+              </div>
+            )
+          })
+        )}
+      </div>
+
+      {data && data.length > 0 && (
+        <div className="px-3 py-1.5 bg-finma-bg/30 border-t border-finma-border/30 text-[10px] text-finma-text-dim text-center">
+          5 dk'da bir güncellenir
+        </div>
+      )}
+    </Card>
+  )
+}
+
 // ─── CHANGE BADGE ───
 function ChangeBadge({ label, value }: { label: string; value: number | null | undefined }) {
   if (value == null) return (
@@ -619,6 +801,8 @@ function StockAnalysisContent() {
             <MiniStat label="RSI" value={techData ? rsi.toFixed(1) : '...'} color={rsi > 70 ? 'red' : rsi > 30 ? 'green' : 'red'} />
             <MiniStat label="RVOL" value={techData ? `${rvol.toFixed(2)}x` : '...'} color={rvol > 1.5 ? 'green' : rvol > 0.8 ? 'yellow' : 'red'} />
           </div>
+          {/* Canlı Şirket Haberleri */}
+          <NewsWidget ticker={ticker} />
         </div>
 
         <div className="col-span-12 lg:col-span-4 space-y-3">
@@ -686,6 +870,9 @@ function StockAnalysisContent() {
               )}
             </Card>
           )}
+
+          {/* Canlı İçeriden İşlemler */}
+          <InsiderWidget ticker={ticker} />
         </div>
       </div>
 

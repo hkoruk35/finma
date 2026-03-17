@@ -103,27 +103,29 @@ export function usePriceChanges(ticker: string) {
 }
 
 /**
- * Haber listesi
+ * Haber listesi — 5 dakikada bir otomatik güncelleme
  */
 export function useNews(ticker: string) {
   return useQuery({
     queryKey: ['news', ticker],
     queryFn: () => api.getNews(ticker),
     enabled: !!ticker,
-    staleTime: 120_000,
+    staleTime: 240_000,
+    refetchInterval: 300_000,
     retry: 1,
   })
 }
 
 /**
- * Insider işlemleri
+ * Insider işlemleri — 5 dakikada bir otomatik güncelleme
  */
 export function useInsider(ticker: string) {
   return useQuery({
     queryKey: ['insider', ticker],
     queryFn: () => api.getInsider(ticker),
     enabled: !!ticker,
-    staleTime: 120_000,
+    staleTime: 240_000,
+    refetchInterval: 300_000,
     retry: 1,
   })
 }
