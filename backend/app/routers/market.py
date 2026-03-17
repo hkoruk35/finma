@@ -29,7 +29,7 @@ from app.services.market_data import (
     CRYPTO_SYMBOLS,
     COMMODITY_SYMBOLS,
 )
-from app.services.world_markets import get_world_market_data, get_world_analysis
+from app.services.world_markets import get_world_market_data, get_world_analysis, get_exchange_analysis
 from app.services.stock_cache import (
     get_cached_quote,
     get_cached_technicals,
@@ -206,3 +206,9 @@ async def get_world():
 async def get_world_ai_analysis():
     """AI destekli dünya piyasası istihbarat raporu"""
     return await get_world_analysis()
+
+
+@router.get("/world/exchange/{exchange_id}")
+async def get_exchange_detail(exchange_id: str):
+    """Belirli bir borsa için detaylı AI analizi (açılış/gün ortası/kapanış + sektör/şirket + global etki)"""
+    return await get_exchange_analysis(exchange_id)

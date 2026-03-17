@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Card } from '@/components/shared/Card'
 import { cn } from '@/lib/utils'
 import { api } from '@/lib/api-client'
@@ -9,7 +9,8 @@ import {
   Globe2, Clock, TrendingUp, TrendingDown, Brain, Send,
   ArrowUp, ArrowDown, AlertTriangle, Lightbulb, Shield,
   ChevronDown, ChevronUp, BarChart3, Zap, RefreshCw,
-  Play, Timer, Star
+  Play, Timer, Star, X, Loader2, Target, Building2,
+  Globe, ShieldAlert, Sparkles, Sun, Sunset, Moon
 } from 'lucide-react'
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -216,7 +217,7 @@ type Exchange = {
   local_open: string; local_close: string; tz: string;
 }
 
-function ExchangeCard({ ex }: { ex: Exchange }) {
+function ExchangeCard({ ex, onClick }: { ex: Exchange; onClick?: () => void }) {
   const isUp = ex.change_pct >= 0
   const changeColor = isUp ? 'text-finma-green' : 'text-finma-red'
   const isOpen = ex.status === 'open'
@@ -242,9 +243,14 @@ function ExchangeCard({ ex }: { ex: Exchange }) {
   const openChangeUp = ex.open_change_pct >= 0
 
   return (
-    <div className={cn(
+    <div
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      className={cn(
       'relative p-3 rounded-lg border transition-all duration-200 group',
       'bg-finma-bg/50 hover:bg-finma-primary/5',
+      onClick && 'cursor-pointer',
       isOpen
         ? 'border-finma-green/20 hover:border-finma-green/40'
         : ex.status === 'pre' ? 'border-finma-yellow/20'
@@ -322,6 +328,213 @@ function ExchangeCard({ ex }: { ex: Exchange }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+// EXCHANGE DETAIL MODAL
+// ═══════════════════════════════════════════════════════════════════════
+
+type ExchangeAnalysis = {
+  exchange_id: string; exchange_name: string; exchange_country: string; exchange_flag: string;
+  status: string; status_tr: string; price: number; change_pct: number;
+  session_phase: string; session_pct: number;
+  opening: string; midday: string; closing: string;
+  sectors: string; companies: string; global_impact: string;
+  risks: string; opportunities: string; raw: string;
+}
+
+function AnalysisSection({ icon, title, content, color }: {
+  icon: React.ReactNode; title: string; content: string; color: string;
+}) {
+  if (!content) return null
+  return (
+    <div className={cn('p-3 rounded-lg border', color)}>
+      <div className="flex items-center gap-1.5 mb-2">
+        {icon}
+        <span className="text-[11px] font-bold uppercase tracking-wide">{title}</span>
+      </div>
+      <p className="text-[12px] text-finma-text-muted leading-relaxed whitespace-pre-line">{content}</p>
+    </div>
+  )
+}
+
+function ExchangeDetailModal({ exchangeId, exchange, onClose }: {
+  exchangeId: string; exchange: Exchange; onClose: () => void;
+}) {
+  const [analysis, setAnalysis] = useState<ExchangeAnalysis | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  // Fetch analysis on mount
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    setError('')
+    api.getExchangeAnalysis(exchangeId).then(data => {
+      if (!cancelled) { setAnalysis(data); setLoading(false) }
+    }).catch(err => {
+      if (!cancelled) { setError(err.message); setLoading(false) }
+    })
+    return () => { cancelled = true }
+  }, [exchangeId])
+
+  const isUp = exchange.change_pct >= 0
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8 px-4 overflow-y-auto"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}>
+      {/* Backdrop */}
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+
+      {/* Modal */}
+      <div className="relative w-full max-w-3xl bg-finma-card border border-finma-border rounded-xl shadow-2xl animate-fade-in z-10">
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-finma-border bg-gradient-to-r from-finma-primary/10 via-finma-card to-finma-card rounded-t-xl">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{exchange.flag}</span>
+            <div>
+              <div className="text-base font-bold text-finma-text">{exchange.name}</div>
+              <div className="text-[11px] text-finma-text-dim">
+                {exchange.country} &middot; {exchange.city} &middot; {exchange.local_open}&ndash;{exchange.local_close} {exchange.tz}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <div className="text-lg font-bold finma-number text-finma-text">
+                {exchange.price > 10000 ? exchange.price.toLocaleString('tr-TR', { maximumFractionDigits: 0 }) : exchange.price.toFixed(2)}
+              </div>
+              <div className={cn('text-sm font-bold finma-number', isUp ? 'text-finma-green' : 'text-finma-red')}>
+                {isUp ? '+' : ''}{exchange.change_pct.toFixed(2)}%
+              </div>
+            </div>
+            <button onClick={onClose}
+              className="p-1.5 rounded-lg hover:bg-finma-border/30 text-finma-text-dim hover:text-finma-text transition-colors">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Status bar */}
+        <div className="flex items-center gap-3 px-5 py-2.5 border-b border-finma-border/50 bg-finma-bg/30">
+          <StatusBadge status={exchange.status} label={exchange.status_tr} />
+          {exchange.status === 'open' && <SessionPhaseBadge phase={exchange.session_phase} pct={exchange.session_pct} />}
+          {exchange.open_price > 0 && (
+            <>
+              <span className="text-[10px] text-finma-text-dim">
+                Acilis: <span className="finma-number text-finma-text-muted">{exchange.open_price > 10000 ? exchange.open_price.toLocaleString('tr-TR', {maximumFractionDigits: 0}) : exchange.open_price.toFixed(2)}</span>
+              </span>
+              <span className="text-[10px] text-finma-text-dim">
+                Onceki: <span className="finma-number text-finma-text-muted">{exchange.prev_close > 10000 ? exchange.prev_close.toLocaleString('tr-TR', {maximumFractionDigits: 0}) : exchange.prev_close.toFixed(2)}</span>
+              </span>
+            </>
+          )}
+          {exchange.day_high > 0 && (
+            <span className="text-[10px] finma-number">
+              <span className="text-finma-red">{exchange.day_low > 10000 ? exchange.day_low.toLocaleString('tr-TR', {maximumFractionDigits: 0}) : exchange.day_low.toFixed(2)}</span>
+              <span className="text-finma-text-dim mx-0.5">&ndash;</span>
+              <span className="text-finma-green">{exchange.day_high > 10000 ? exchange.day_high.toLocaleString('tr-TR', {maximumFractionDigits: 0}) : exchange.day_high.toFixed(2)}</span>
+            </span>
+          )}
+          {exchange.status === 'open' && (
+            <div className="flex-1">
+              <SessionProgress pct={exchange.session_pct} phase={exchange.session_phase} />
+            </div>
+          )}
+        </div>
+
+        {/* Body */}
+        <div className="p-5">
+          {loading && (
+            <div className="flex flex-col items-center justify-center py-12">
+              <Loader2 className="w-8 h-8 text-finma-primary animate-spin mb-3" />
+              <p className="text-sm text-finma-text-dim">AI analiz hazirlaniyor...</p>
+              <p className="text-[10px] text-finma-text-dim/60 mt-1">{exchange.name} detayli raporu yukleniyor</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="text-center py-8">
+              <AlertTriangle className="w-6 h-6 text-finma-yellow mx-auto mb-2" />
+              <p className="text-sm text-finma-text-dim">Analiz yuklenemedi: {error}</p>
+            </div>
+          )}
+
+          {analysis && !loading && (
+            <div className="space-y-3">
+              {/* Session analyses — 3 columns */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <AnalysisSection
+                  icon={<Sun className="w-3.5 h-3.5 text-finma-yellow" />}
+                  title="Acilis Analizi"
+                  content={analysis.opening}
+                  color="bg-finma-yellow/5 border-finma-yellow/20"
+                />
+                <AnalysisSection
+                  icon={<Clock className="w-3.5 h-3.5 text-finma-cyan" />}
+                  title="Gun Ortasi"
+                  content={analysis.midday}
+                  color="bg-finma-cyan/5 border-finma-cyan/20"
+                />
+                <AnalysisSection
+                  icon={<Sunset className="w-3.5 h-3.5 text-orange-400" />}
+                  title="Kapanis"
+                  content={analysis.closing}
+                  color="bg-orange-400/5 border-orange-400/20"
+                />
+              </div>
+
+              {/* Sectors + Companies — 2 columns */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <AnalysisSection
+                  icon={<Building2 className="w-3.5 h-3.5 text-finma-purple" />}
+                  title="One Cikan Sektorler"
+                  content={analysis.sectors}
+                  color="bg-finma-purple/5 border-finma-purple/20"
+                />
+                <AnalysisSection
+                  icon={<Star className="w-3.5 h-3.5 text-finma-primary" />}
+                  title="One Cikan Sirketler"
+                  content={analysis.companies}
+                  color="bg-finma-primary/5 border-finma-primary/20"
+                />
+              </div>
+
+              {/* Global Impact */}
+              <AnalysisSection
+                icon={<Globe className="w-3.5 h-3.5 text-finma-cyan" />}
+                title="Dunya Ekonomisine Etki"
+                content={analysis.global_impact}
+                color="bg-finma-cyan/5 border-finma-cyan/20"
+              />
+
+              {/* Risk + Opportunity — 2 columns */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <AnalysisSection
+                  icon={<ShieldAlert className="w-3.5 h-3.5 text-finma-red" />}
+                  title="Risk Faktorleri"
+                  content={analysis.risks}
+                  color="bg-finma-red/5 border-finma-red/20"
+                />
+                <AnalysisSection
+                  icon={<Sparkles className="w-3.5 h-3.5 text-finma-green" />}
+                  title="Firsatlar"
+                  content={analysis.opportunities}
+                  color="bg-finma-green/5 border-finma-green/20"
+                />
+              </div>
+
+              {/* AI badge */}
+              <div className="flex items-center justify-center gap-2 pt-2 text-[10px] text-finma-text-dim/50">
+                <Brain className="w-3 h-3" />
+                <span>Gemini AI tarafindan uretildi &middot; 5 dakikada bir guncellenir</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 // FEATURED STOCKS (Bellwether) PER REGION
 // ═══════════════════════════════════════════════════════════════════════
 
@@ -364,7 +577,7 @@ type Region = {
   exchanges: Exchange[];
 }
 
-function RegionSection({ region, aiComment }: { region: Region; aiComment?: string }) {
+function RegionSection({ region, aiComment, onExchangeClick }: { region: Region; aiComment?: string; onExchangeClick: (ex: Exchange) => void }) {
   const isUp = region.avg_change_pct >= 0
   const [showAI, setShowAI] = useState(true)
 
@@ -419,7 +632,7 @@ function RegionSection({ region, aiComment }: { region: Region; aiComment?: stri
       {/* Exchange Grid */}
       <div className="p-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
         {region.exchanges.map(ex => (
-          <ExchangeCard key={ex.id} ex={ex} />
+          <ExchangeCard key={ex.id} ex={ex} onClick={() => onExchangeClick(ex)} />
         ))}
       </div>
     </Card>
@@ -667,6 +880,11 @@ function GlobalStats({ totalExchanges, totalOpen, regions }: {
 export default function WorldMarketsPage() {
   const { data: marketData, isLoading, isFetching, dataUpdatedAt } = useWorldMarkets()
   const { data: analysisData } = useWorldAnalysis()
+  const [selectedExchange, setSelectedExchange] = useState<Exchange | null>(null)
+
+  const handleExchangeClick = useCallback((ex: Exchange) => {
+    setSelectedExchange(ex)
+  }, [])
 
   const now = new Date()
   const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
@@ -761,6 +979,7 @@ export default function WorldMarketsPage() {
           <RegionSection
             region={region}
             aiComment={analysisData?.regions?.[region.id] || undefined}
+            onExchangeClick={handleExchangeClick}
           />
           {/* US Sectors — right after K. Amerika */}
           {region.id === 'k_amerika' && <div className="mt-3"><USSectorBar /></div>}
@@ -777,6 +996,15 @@ export default function WorldMarketsPage() {
 
       {/* AI ASK */}
       <AIAskSection />
+
+      {/* EXCHANGE DETAIL MODAL */}
+      {selectedExchange && (
+        <ExchangeDetailModal
+          exchangeId={selectedExchange.id}
+          exchange={selectedExchange}
+          onClose={() => setSelectedExchange(null)}
+        />
+      )}
 
       {/* DISCLAIMER */}
       <div className="text-center py-2">

@@ -102,16 +102,16 @@ WORLD_EXCHANGES = [
     {"id": "tadawul", "symbol": "^TASI", "name": "Tadawul", "country": "S. Arabistan", "city": "Riyad",
      "region": "orta_dogu", "flag": "🇸🇦", "local_open": "10:00", "local_close": "15:00",
      "tz": "AST", "tz_iana": "Asia/Riyadh"},
-    {"id": "bist", "symbol": "XU100.IS", "name": "BIST 100", "country": "Türkiye", "city": "İstanbul",
-     "region": "orta_dogu", "flag": "🇹🇷", "local_open": "09:40", "local_close": "18:10",
-     "tz": "TRT", "tz_iana": "Europe/Istanbul"},
 
     # ─── Afrika ───
     {"id": "jse", "symbol": "^J203.JO", "name": "JSE All Share", "country": "G. Afrika", "city": "Johannesburg",
      "region": "afrika", "flag": "🇿🇦", "local_open": "09:00", "local_close": "17:00",
      "tz": "SAST", "tz_iana": "Africa/Johannesburg"},
 
-    # ─── Avrupa ───
+    # ─── Avrupa (Türkiye dahil) ───
+    {"id": "bist", "symbol": "XU100.IS", "name": "BIST 100", "country": "Türkiye", "city": "İstanbul",
+     "region": "avrupa", "flag": "🇹🇷", "local_open": "09:40", "local_close": "18:10",
+     "tz": "TRT", "tz_iana": "Europe/Istanbul"},
     {"id": "ftse", "symbol": "^FTSE", "name": "FTSE 100", "country": "İngiltere", "city": "Londra",
      "region": "avrupa", "flag": "🇬🇧", "local_open": "08:00", "local_close": "16:30",
      "tz": "GMT", "tz_iana": "Europe/London"},
@@ -202,10 +202,10 @@ BELLWETHER_STOCKS = [
     {"symbol": "ASML", "name": "ASML", "region": "avrupa"},
     {"symbol": "SHEL.L", "name": "Shell", "region": "avrupa"},
     {"symbol": "MC.PA", "name": "LVMH", "region": "avrupa"},
-    # Orta Doğu — Türkiye
-    {"symbol": "THYAO.IS", "name": "THY", "region": "orta_dogu"},
-    {"symbol": "ASELS.IS", "name": "ASELSAN", "region": "orta_dogu"},
-    {"symbol": "SISE.IS", "name": "Sise Cam", "region": "orta_dogu"},
+    # Avrupa — Türkiye
+    {"symbol": "THYAO.IS", "name": "THY", "region": "avrupa"},
+    {"symbol": "ASELS.IS", "name": "ASELSAN", "region": "avrupa"},
+    {"symbol": "SISE.IS", "name": "Sise Cam", "region": "avrupa"},
     # Asya
     {"symbol": "7203.T", "name": "Toyota", "region": "asya"},
     {"symbol": "005930.KS", "name": "Samsung", "region": "asya"},
@@ -219,7 +219,7 @@ BELLWETHER_STOCKS = [
 REGIONS = [
     {"id": "okyanusya", "name": "Okyanusya", "icon": "🌊"},
     {"id": "asya", "name": "Asya-Pasifik", "icon": "🏯"},
-    {"id": "orta_dogu", "name": "Orta Dogu & Turkiye", "icon": "🕌"},
+    {"id": "orta_dogu", "name": "Orta Dogu", "icon": "🕌"},
     {"id": "afrika", "name": "Afrika", "icon": "🌍"},
     {"id": "avrupa", "name": "Avrupa", "icon": "🏰"},
     {"id": "g_amerika", "name": "Guney Amerika", "icon": "🌎"},
@@ -567,13 +567,13 @@ ASYA:
 [2-3 cümle Asya borsaları yorumu — öne çıkan sektör/şirket]
 
 ORTA_DOGU:
-[2-3 cümle Orta Doğu ve Türkiye borsaları yorumu — BIST öne çıkan hisseler]
+[2-3 cümle Orta Doğu borsaları yorumu]
 
 AFRIKA:
 [1-2 cümle Afrika borsaları yorumu]
 
 AVRUPA:
-[2-3 cümle Avrupa borsaları yorumu — öne çıkan sektör/şirket]
+[3-4 cümle Avrupa ve Türkiye borsaları yorumu — BIST 100, THY, ASELSAN gibi öne çıkan Türk hisseleri + Avrupa sektör/şirketleri]
 
 G_AMERIKA:
 [2-3 cümle Güney Amerika borsaları yorumu — öne çıkan sektör/şirket]
@@ -762,3 +762,231 @@ def _parse_analysis(text: str) -> Dict:
             result["regions"][region_id] = sections[internal]
 
     return result
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# PER-EXCHANGE DETAIL ANALYSIS
+# ═══════════════════════════════════════════════════════════════════════
+
+_exchange_ai_cache = _TTLCache(ttl=300)  # 5 dakika — borsa bazlı AI analiz
+
+EXCHANGE_ANALYST_PROMPT = """Sen FinMA kıdemli borsa analistisin. Belirli bir borsa hakkında derinlemesine Türkçe analiz üretiyorsun.
+
+GÖREV: Verilen borsa verilerini analiz edip, o borsanın günlük detaylı raporunu oluştur.
+
+KURALLAR:
+- Her zaman Türkçe yaz
+- Profesyonel ve aksiyon odaklı ol
+- Dünya ekonomisine etkilerini mutlaka ele al
+- Spesifik sektör ve şirket isimleri ver
+- Genel/boş cümleler yerine veri bazlı yorumlar yap
+- "Yatırım tavsiyesi değildir" uyarısı EKLEME
+
+YANITINI TAM OLARAK ŞU FORMATTA VER:
+
+ACILIS:
+[3-4 cümle — borsanın açılış performansı, gecelik gelişmelerin etkisi, açılışta öne çıkan sektörler ve hisseler, dünya piyasalarıyla korelasyon]
+
+GUN_ORTASI:
+[3-4 cümle — gün ortası momentum analizi, hacim trendi, sektörel rotasyon, kurumsal alım/satım eğilimi, diğer borsalarla etkileşim]
+
+KAPANIS:
+[3-4 cümle — kapanış beklentisi veya sonucu, günlük özet, teknik seviyeler, yarına taşınacak temalar, global etki değerlendirmesi]
+
+SEKTORLER:
+[O borsada öne çıkan 3-5 sektör ve neden öne çıktıkları — madde madde]
+
+SIRKETLER:
+[O borsada öne çıkan 3-5 şirket ve performansları — madde madde, fiyat/değişim bilgisiyle]
+
+GLOBAL_ETKI:
+[2-3 cümle — bu borsanın bugünkü performansının dünya ekonomisine, emtia fiyatlarına, döviz kurlarına ve diğer borsalara olası etkileri]
+
+RISK:
+[2-3 madde — bu borsa için bugünkü risk faktörleri]
+
+FIRSAT:
+[2-3 madde — bu borsada bugün izlenecek fırsatlar ve temalar]"""
+
+
+def _build_exchange_context(exchange_data: Dict, region_data: Dict, market_data: Dict) -> str:
+    """Build detailed context for a single exchange analysis"""
+    lines = [
+        f"BORSA: {exchange_data['flag']} {exchange_data['name']} ({exchange_data['country']}, {exchange_data['city']})",
+        f"TARIH: {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}",
+        f"DURUM: {exchange_data['status_tr']}",
+        f"SEANS: {exchange_data.get('session_phase', '?')} (%{exchange_data.get('session_pct', 0)})",
+        f"SEANS SAATLERI: {exchange_data['local_open']} - {exchange_data['local_close']} ({exchange_data['tz']})",
+        "",
+        f"FIYAT: {exchange_data['price']}",
+        f"DEGISIM: {exchange_data['change_pct']:+.2f}% ({exchange_data['change']:+.2f})",
+        f"ONCEKI KAPANIS: {exchange_data['prev_close']}",
+        f"ACILIS FIYATI: {exchange_data.get('open_price', 0)}",
+        f"ACILISTAN DEGISIM: {exchange_data.get('open_change_pct', 0):+.2f}%",
+        f"GUN YUKSEK: {exchange_data['day_high']}",
+        f"GUN DUSUK: {exchange_data['day_low']}",
+    ]
+
+    if exchange_data.get("volume", 0) > 0:
+        lines.append(f"HACIM: {exchange_data['volume']:,.0f}")
+
+    # Region context
+    lines.append(f"\nBOLGE: {region_data['name']} (Ort: {region_data['avg_change_pct']:+.2f}%)")
+    lines.append("Bolgedeki diger borsalar:")
+    for ex in region_data["exchanges"]:
+        if ex["id"] != exchange_data["id"]:
+            lines.append(f"  {ex['flag']} {ex['name']}: {ex['change_pct']:+.2f}% ({ex['status_tr']})")
+
+    # Featured stocks in region
+    featured = region_data.get("featured_stocks", [])
+    if featured:
+        lines.append(f"\nBolge One Cikan Hisseler:")
+        for s in featured:
+            lines.append(f"  {s['name']} ({s['symbol']}): {s['change_pct']:+.2f}%")
+
+    # Global context — top movers
+    lines.append("\nGLOBAL BAGLAMDA DIGER BORSALAR:")
+    for r in market_data.get("regions", []):
+        if r["id"] != region_data["id"]:
+            top = sorted(r["exchanges"], key=lambda x: abs(x["change_pct"]), reverse=True)[:2]
+            for ex in top:
+                lines.append(f"  {ex['flag']} {ex['name']}: {ex['change_pct']:+.2f}%")
+
+    # Commodities context
+    lines.append("\nEMTIA & DOVIZ:")
+    for c in market_data.get("commodities", [])[:6]:
+        lines.append(f"  {c['flag']} {c['name']}: {c['price']} ({c['change_pct']:+.2f}%)")
+
+    return "\n".join(lines)
+
+
+def _parse_exchange_analysis(text: str) -> Dict:
+    """Parse per-exchange AI response into structured sections"""
+    sections: Dict[str, str] = {}
+    current_key = None
+    current_lines: List[str] = []
+
+    header_map = {
+        "ACILIS:": "opening",
+        "GUN_ORTASI:": "midday",
+        "GUN ORTASI:": "midday",
+        "KAPANIS:": "closing",
+        "SEKTORLER:": "sectors",
+        "SIRKETLER:": "companies",
+        "GLOBAL_ETKI:": "global_impact",
+        "GLOBAL ETKI:": "global_impact",
+        "RISK:": "risks",
+        "FIRSAT:": "opportunities",
+    }
+
+    for line in text.split("\n"):
+        stripped = line.strip()
+        if not stripped:
+            if current_key:
+                current_lines.append("")
+            continue
+
+        found_header = False
+        for header, key in header_map.items():
+            if stripped.upper().startswith(header):
+                if current_key and current_lines:
+                    sections[current_key] = "\n".join(current_lines).strip()
+                current_key = key
+                current_lines = []
+                after = stripped[len(header):].strip()
+                if after:
+                    current_lines.append(after)
+                found_header = True
+                break
+
+        if not found_header and current_key is not None:
+            current_lines.append(stripped)
+
+    if current_key and current_lines:
+        sections[current_key] = "\n".join(current_lines).strip()
+
+    return {
+        "opening": sections.get("opening", ""),
+        "midday": sections.get("midday", ""),
+        "closing": sections.get("closing", ""),
+        "sectors": sections.get("sectors", ""),
+        "companies": sections.get("companies", ""),
+        "global_impact": sections.get("global_impact", ""),
+        "risks": sections.get("risks", ""),
+        "opportunities": sections.get("opportunities", ""),
+        "raw": text,
+    }
+
+
+async def get_exchange_analysis(exchange_id: str) -> Dict:
+    """
+    Belirli bir borsa için detaylı AI analizi.
+    Açılış, gün ortası, kapanış yorumları + öne çıkan sektör/şirket + global etki.
+    Cache: 5 dakika.
+    """
+    cache_key = f"exchange_{exchange_id}"
+    cached = _exchange_ai_cache.get(cache_key)
+    if cached:
+        return cached
+
+    # Get current market data
+    market_data = get_world_market_data()
+
+    # Find the exchange
+    exchange_data = None
+    region_data = None
+    for region in market_data.get("regions", []):
+        for ex in region["exchanges"]:
+            if ex["id"] == exchange_id:
+                exchange_data = ex
+                region_data = region
+                break
+        if exchange_data:
+            break
+
+    if not exchange_data or not region_data:
+        return {"error": f"Borsa bulunamadi: {exchange_id}"}
+
+    context = _build_exchange_context(exchange_data, region_data, market_data)
+
+    from app.services.gemini_ai import call_gemini
+
+    prompt = f"""Asagidaki borsa verilerini analiz et ve detayli Turkce rapor olustur:
+
+{context}
+
+Lutfen yukaridaki format sablonuna tam uygun sekilde yanit ver. Her bolum basligini buyuk harfle yaz ve iki nokta ile bitir.
+Spesifik sektor ve sirket isimlerinden bahset. Dunya ekonomisine etkiyi mutlaka ele al."""
+
+    try:
+        response = await call_gemini(prompt, EXCHANGE_ANALYST_PROMPT)
+        analysis = _parse_exchange_analysis(response)
+        analysis["exchange_id"] = exchange_id
+        analysis["exchange_name"] = exchange_data["name"]
+        analysis["exchange_country"] = exchange_data["country"]
+        analysis["exchange_flag"] = exchange_data["flag"]
+        analysis["status"] = exchange_data["status"]
+        analysis["status_tr"] = exchange_data["status_tr"]
+        analysis["price"] = exchange_data["price"]
+        analysis["change_pct"] = exchange_data["change_pct"]
+        analysis["session_phase"] = exchange_data.get("session_phase", "")
+        analysis["session_pct"] = exchange_data.get("session_pct", 0)
+    except Exception as e:
+        logger.error(f"Exchange analysis AI error for {exchange_id}: {e}")
+        analysis = {
+            "exchange_id": exchange_id,
+            "exchange_name": exchange_data["name"] if exchange_data else exchange_id,
+            "exchange_country": exchange_data.get("country", "") if exchange_data else "",
+            "exchange_flag": exchange_data.get("flag", "") if exchange_data else "",
+            "opening": "AI analiz su an kullanilamiyor.",
+            "midday": "", "closing": "", "sectors": "", "companies": "",
+            "global_impact": "", "risks": "", "opportunities": "", "raw": "",
+            "status": exchange_data.get("status", "") if exchange_data else "",
+            "status_tr": exchange_data.get("status_tr", "") if exchange_data else "",
+            "price": exchange_data.get("price", 0) if exchange_data else 0,
+            "change_pct": exchange_data.get("change_pct", 0) if exchange_data else 0,
+            "session_phase": "", "session_pct": 0,
+        }
+
+    _exchange_ai_cache.set(cache_key, analysis)
+    return analysis

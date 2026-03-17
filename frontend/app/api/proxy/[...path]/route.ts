@@ -26,6 +26,7 @@ const CACHE_RULES: [string, number][] = [
   ['/api/market/earnings/', 300],     // 5dk — bilanço takvimi
   ['/api/market/history/', 600],      // 10dk — fiyat geçmişi yavaş değişir
   ['/api/market/holders/', 600],      // 10dk — sahiplik yavaş değişir
+  ['/api/market/world/exchange/', 300], // 5dk — borsa detay AI analizi
   ['/api/market/world/analysis', 180], // 3dk — AI dünya analizi
   ['/api/market/world', 120],          // 2dk — dünya borsaları canlı veri
   ['/api/signals/', 60],

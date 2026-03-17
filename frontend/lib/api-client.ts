@@ -227,6 +227,17 @@ class APIClient {
     }>('/api/market/world')
   }
 
+  async getExchangeAnalysis(exchangeId: string) {
+    return this.request<{
+      exchange_id: string; exchange_name: string; exchange_country: string; exchange_flag: string;
+      status: string; status_tr: string; price: number; change_pct: number;
+      session_phase: string; session_pct: number;
+      opening: string; midday: string; closing: string;
+      sectors: string; companies: string; global_impact: string;
+      risks: string; opportunities: string; raw: string;
+    }>(`/api/market/world/exchange/${exchangeId}`)
+  }
+
   async getWorldAnalysis() {
     return this.request<{
       trend: string; summary: string; strong: string; weak: string;
