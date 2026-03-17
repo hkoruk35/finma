@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
 import { Card } from '@/components/shared/Card'
 import { Badge } from '@/components/shared/Badge'
@@ -9,7 +9,7 @@ import { usePortfolioSummary, useTrades } from '@/hooks/usePortfolio'
 import { mockTrades, mockPortfolio } from '@/lib/mock-data'
 import { useTerminalStore } from '@/store/terminal'
 import type { PortfolioSnapshot } from '@/types'
-import { Zap, Plus, X, ChevronDown, RefreshCw, CheckCircle2 } from 'lucide-react'
+import { Zap, Plus, X, ChevronDown, RefreshCw, CheckCircle2, RotateCcw, DollarSign, Edit3 } from 'lucide-react'
 import { TierGate } from '@/components/auth/TierGate'
 import { api } from '@/lib/api-client'
 
@@ -47,6 +47,43 @@ function OperationsContent() {
   const [addError, setAddError] = useState<string | null>(null)
   const [exitPrices, setExitPrices] = useState<Record<string, string>>({})
   const [showExitInput, setShowExitInput] = useState<string | null>(null)
+
+  // Başlangıç sermayesi (localStorage'dan)
+  const [startCapital, setStartCapital] = useState<number>(10000)
+  const [editingCapital, setEditingCapital] = useState(false)
+  const [capitalInput, setCapitalInput] = useState('')
+  const [resetting, setResetting] = useState(false)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('finma_start_capital')
+    if (saved) setStartCapital(parseFloat(saved))
+  }, [])
+
+  const netLiq = portfolio.net_liquidation > 0 ? portfolio.net_liquidation : startCapital
+
+  function saveCapital() {
+    const val = parseFloat(capitalInput)
+    if (val > 0) {
+      setStartCapital(val)
+      localStorage.setItem('finma_start_capital', String(val))
+    }
+    setEditingCapital(false)
+  }
+
+  async function handleResetAll() {
+    if (!confirm('Tüm açık pozisyonları kapatıp verileri sıfırlamak istediğinize emin misiniz?')) return
+    setResetting(true)
+    try {
+      for (const trade of openTrades) {
+        await api.closeTrade(trade.id, trade.current_price)
+      }
+      refetch?.()
+    } catch (err) {
+      console.error('Reset error:', err)
+    } finally {
+      setResetting(false)
+    }
+  }
 
   const [form, setForm] = useState<NewTradeForm>({
     ticker: '',
@@ -108,7 +145,7 @@ function OperationsContent() {
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Üst Özet Kartlar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <Card padding="sm" className="flex flex-col gap-1">
           <span className="text-[10px] text-finma-text-dim uppercase">Açık Pozisyon</span>
           <span className="finma-number text-xl font-bold text-white">{openTrades.length}</span>
@@ -120,16 +157,41 @@ function OperationsContent() {
           </span>
         </Card>
         <Card padding="sm" className="flex flex-col gap-1">
-          <span className="text-[10px] text-finma-text-dim uppercase">Net Likidite</span>
-          <span className="finma-number text-xl font-bold text-white">
-            {formatCurrency(portfolio.net_liquidation)}
-          </span>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-finma-text-dim uppercase">Net Likidite</span>
+            <button onClick={() => { setEditingCapital(true); setCapitalInput(String(startCapital)) }}
+              className="text-finma-text-dim hover:text-finma-primary transition-colors" title="Sermaye ayarla">
+              <Edit3 className="w-3 h-3" />
+            </button>
+          </div>
+          {editingCapital ? (
+            <div className="flex items-center gap-1">
+              <DollarSign className="w-3.5 h-3.5 text-finma-text-dim" />
+              <input type="number" value={capitalInput} onChange={e => setCapitalInput(e.target.value)}
+                className="w-full bg-finma-bg border border-finma-border rounded px-1.5 py-0.5 text-sm finma-number text-white focus:outline-none focus:border-finma-primary"
+                autoFocus onKeyDown={e => e.key === 'Enter' && saveCapital()} />
+              <button onClick={saveCapital} className="text-[9px] bg-finma-green/20 text-finma-green px-1.5 py-0.5 rounded font-bold">OK</button>
+            </div>
+          ) : (
+            <span className="finma-number text-xl font-bold text-white">{formatCurrency(netLiq)}</span>
+          )}
         </Card>
         <Card padding="sm" className="flex flex-col gap-1">
           <span className="text-[10px] text-finma-text-dim uppercase">Marjin Kullanımı</span>
           <span className="finma-number text-xl font-bold text-white">
             {formatCurrency(portfolio.margin_used)}
           </span>
+        </Card>
+        <Card padding="sm" className="flex flex-col gap-1 items-center justify-center">
+          <button
+            onClick={handleResetAll}
+            disabled={resetting || openTrades.length === 0}
+            className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-lg font-bold transition-all bg-finma-red/10 hover:bg-finma-red/20 text-finma-red border border-finma-red/20 disabled:opacity-30"
+          >
+            <RotateCcw className={cn('w-3.5 h-3.5', resetting && 'animate-spin')} />
+            {resetting ? 'Sıfırlanıyor...' : 'Verileri Sıfırla'}
+          </button>
+          <span className="text-[9px] text-finma-text-dim">Tüm pozisyonları kapat</span>
         </Card>
       </div>
 

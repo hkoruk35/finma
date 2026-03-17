@@ -725,6 +725,7 @@ def get_market_movers(period: str = "1d") -> Dict[str, List[Dict[str, Any]]]:
                     results.append({
                         "symbol": t,
                         "name": t,
+                        "price": 0,
                         "change_pct": change_val
                     })
 

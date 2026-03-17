@@ -176,10 +176,11 @@ export function useWorldMarkets() {
   return useQuery({
     queryKey: ['world-markets'],
     queryFn: () => api.getWorldMarkets(),
-    staleTime: 120_000,
-    refetchInterval: 180_000,
-    retry: 2,
-    retryDelay: 2000,
+    staleTime: 90_000,           // 1.5 dk sonra stale
+    refetchInterval: 120_000,    // 2 dk'da bir yenile (3'ten düşürüldü)
+    retry: 5,                    // 5 deneme (2'den yükseltildi)
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10000), // exponential backoff
+    refetchOnWindowFocus: true,
   })
 }
 

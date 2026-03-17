@@ -181,10 +181,10 @@ export default function DashboardPage() {
 
   // Canlı fiyatlar — top10 + movers tickers için batch quote
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
-  // Movers canlı veri
+  // Movers canlı veri — başlangıçta mock data göster, API gelince güncelle
   const [liveMovers, setLiveMovers] = useState<{
     gainers: any[]; losers: any[]; volume: any[]
-  }>({ gainers: [], losers: [], volume: [] })
+  }>(MOVERS)
   // Weekly highlights (Highlights of the week)
   const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>([])
   // Heatmap son güncelleme zamanı
@@ -227,12 +227,13 @@ export default function DashboardPage() {
       try {
         const data = await api.getMarketMovers(moversPeriod)
         setLiveMovers(data)
-        
+
         // Live quotes map'ini de güncelle ki Bot sonuçları vb. etkilensin
         const map: Record<string, any> = { ...liveQuotes }
-        const allItems = [...data.gainers, ...data.losers, ...data.volume]
-        allItems.forEach(item => {
-          map[item.symbol] = { price: item.price, change_pct: item.change_pct }
+        const allItems = [...(data.gainers || []), ...(data.losers || []), ...(data.volume || [])]
+        allItems.forEach((item: any) => {
+          const sym = item.symbol || item.ticker
+          if (sym) map[sym] = { price: item.price, change_pct: item.change_pct }
         })
         setLiveQuotes(map)
         setLastRefresh(new Date())
@@ -245,6 +246,33 @@ export default function DashboardPage() {
     const interval = setInterval(fetchMovers, moversPeriod === '1d' ? 3 * 60 * 1000 : 30 * 60 * 1000)
     return () => clearInterval(interval)
   }, [moversPeriod])
+
+  // Top10 bot adayları için canlı fiyat çek
+  useEffect(() => {
+    if (top10Candidates.length === 0) return
+    const tickers = top10Candidates.map((c: any) => c.ticker).filter(Boolean)
+    if (tickers.length === 0) return
+
+    const fetchCandidateQuotes = async () => {
+      try {
+        const quotes = await api.getBatchQuotes(tickers)
+        if (!quotes || quotes.length === 0) return
+        setLiveQuotes(prev => {
+          const map = { ...prev }
+          quotes.forEach(q => {
+            map[q.symbol] = { price: q.price, change: q.change, change_pct: q.change_pct }
+          })
+          return map
+        })
+      } catch (err) {
+        console.error('Candidate quotes error:', err)
+      }
+    }
+
+    fetchCandidateQuotes()
+    const interval = setInterval(fetchCandidateQuotes, 3 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [top10Candidates.length])
 
   // Haftalık öne çıkanları çek (1w gainers)
   useEffect(() => {
@@ -507,12 +535,15 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {liveMovers[moversTab]?.map((stock: any, idx: number) => (
-                <tr key={stock.ticker} className="border-b border-finma-border/10 hover:bg-finma-card-hover transition-colors cursor-pointer">
+              {liveMovers[moversTab]?.map((stock: any, idx: number) => {
+                const sym = stock.symbol || stock.ticker
+                return (
+                <tr key={sym} className="border-b border-finma-border/10 hover:bg-finma-card-hover transition-colors cursor-pointer"
+                  onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
                   <td className="py-2.5 px-2 finma-number text-finma-text-dim">{idx + 1}</td>
                   <td className="py-2.5 px-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-finma-primary finma-number">{stock.ticker}</span>
+                      <span className="font-bold text-finma-primary finma-number">{sym}</span>
                       <span className="text-finma-text-muted text-[10px] hidden sm:inline">{stock.name}</span>
                     </div>
                   </td>
@@ -524,16 +555,17 @@ export default function DashboardPage() {
                       {sectorLabel(stock.sector)}
                     </span>
                   </td>
-                  <td className="py-2.5 px-2 text-right finma-number text-finma-text font-medium">${stock.price.toFixed(2)}</td>
-                  <td className={cn('py-2.5 px-2 text-right finma-number font-semibold', stock.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                  <td className="py-2.5 px-2 text-right finma-number text-finma-text font-medium">${(stock.price ?? 0).toFixed(2)}</td>
+                  <td className={cn('py-2.5 px-2 text-right finma-number font-semibold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
                     <div className="flex items-center justify-end gap-1">
-                      {stock.change_pct >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                      {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(1)}%
+                      {(stock.change_pct ?? 0) >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                      {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
                     </div>
                   </td>
-                  <td className="py-2.5 px-2 text-right finma-number text-finma-text-dim">{stock.volume}</td>
+                  <td className="py-2.5 px-2 text-right finma-number text-finma-text-dim">{stock.volume || '-'}</td>
                 </tr>
-              ))}
+                )
+              })}
             </tbody>
           </table>
         </div>
@@ -870,9 +902,9 @@ export default function DashboardPage() {
                   <span className="text-[10px] w-4 text-finma-text-dim">{i+1}</span>
                   <span className="font-bold text-finma-primary finma-number text-[11px] min-w-[44px]">{s.symbol}</span>
                   <span className="flex-1 text-[10px] text-finma-text-dim truncate">{s.name}</span>
-                  <span className="finma-number text-[11px] text-finma-text">${s.price.toFixed(2)}</span>
-                  <span className={cn('finma-number text-[10px] font-bold', s.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                    {s.change_pct >= 0 ? '+' : ''}{s.change_pct.toFixed(1)}%
+                  {s.price > 0 && <span className="finma-number text-[11px] text-finma-text">${(s.price ?? 0).toFixed(2)}</span>}
+                  <span className={cn('finma-number text-[10px] font-bold', (s.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                    {(s.change_pct ?? 0) >= 0 ? '+' : ''}{(s.change_pct ?? 0).toFixed(1)}%
                   </span>
                 </div>
               ))}

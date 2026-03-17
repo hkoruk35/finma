@@ -75,8 +75,8 @@ const navItems: NavItem[] = [
   { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'pro' },
   { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'pro' },
   { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'pro' },
-  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'pro' },
-  { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'pro' },
+  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'admin' },
+  { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'admin' },
   { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'pro' },
   { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
 ]
