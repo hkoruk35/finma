@@ -24,7 +24,7 @@ def generate_code(length: int = 8) -> str:
 
 
 @router.post("/generate")
-async def generate_invite(admin: dict = Depends(require_admin)):
+def generate_invite(admin: dict = Depends(require_admin)):
     """Yeni davet kodu oluştur (Sadece admin)"""
     code = generate_code()
     while InviteCodesDB.get_by_code(code):
@@ -40,7 +40,7 @@ async def generate_invite(admin: dict = Depends(require_admin)):
 
 
 @router.post("/redeem")
-async def redeem_invite(request: RedeemRequest, user: dict = Depends(get_current_user)):
+def redeem_invite(request: RedeemRequest, user: dict = Depends(get_current_user)):
     """Davet kodunu kullan ve Premium'a yükselt"""
     invite = InviteCodesDB.get_by_code(request.code.upper().strip())
     if not invite:
@@ -68,6 +68,6 @@ async def redeem_invite(request: RedeemRequest, user: dict = Depends(get_current
 
 
 @router.get("/list")
-async def list_invites(admin: dict = Depends(require_admin)):
+def list_invites(admin: dict = Depends(require_admin)):
     """Tüm davet kodlarını listele (Sadece admin)"""
     return InviteCodesDB.get_all()

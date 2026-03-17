@@ -43,13 +43,13 @@ ALL_DEFAULT_SYMBOLS = INDEX_SYMBOLS + CRYPTO_SYMBOLS + COMMODITY_SYMBOLS
 
 
 @router.get("/indices")
-async def get_indices():
+def get_indices():
     """Endeks, kripto ve emtia fiyatlarını getir (TopBar ticker strip)"""
     return get_batch_quotes(ALL_DEFAULT_SYMBOLS)
 
 
 @router.get("/quote/{ticker}")
-async def get_quote(ticker: str):
+def get_quote(ticker: str):
     """Cache-first hisse bilgisi — cache hit: <10ms, miss: 3-5sn"""
     t = ticker.upper()
 
@@ -73,7 +73,7 @@ async def get_quote(ticker: str):
 
 
 @router.get("/batch")
-async def get_batch(tickers: str = Query(..., description="Virgülle ayrılmış ticker listesi")):
+def get_batch(tickers: str = Query(..., description="Virgülle ayrılmış ticker listesi")):
     """Virgülle ayrılmış birden fazla ticker için toplu fiyat getir"""
     symbols = [t.strip().upper() for t in tickers.split(",") if t.strip()]
     if len(symbols) > 50:
@@ -82,19 +82,19 @@ async def get_batch(tickers: str = Query(..., description="Virgülle ayrılmış
 
 
 @router.get("/sectors")
-async def get_sectors(period: str = Query("1mo", description="Periyot: 1d, 5d, 1mo, 3mo, 6mo, 1y, ytd")):
+def get_sectors(period: str = Query("1mo", description="Periyot: 1d, 5d, 1mo, 3mo, 6mo, 1y, ytd")):
     """Sektörel performans verilerini getir"""
     return get_sector_performance(period)
 
 
 @router.get("/regime")
-async def get_regime():
+def get_regime():
     """Mevcut piyasa rejimini getir (Bull/Bear/Cautious)"""
     return get_market_regime()
 
 
 @router.get("/technicals/{ticker}")
-async def get_technicals(ticker: str):
+def get_technicals(ticker: str):
     """Cache-first teknik analiz — cache hit: <10ms, miss: 3-5sn"""
     t = ticker.upper()
 
@@ -118,7 +118,7 @@ async def get_technicals(ticker: str):
 
 
 @router.get("/analysis/{ticker}")
-async def get_full_analysis(ticker: str):
+def get_full_analysis(ticker: str):
     """Cache-first teknik + temel analiz birleşik rapor"""
     t = ticker.upper()
 
@@ -154,43 +154,43 @@ async def get_sector_etf_list():
 
 
 @router.get("/search")
-async def search(q: str = Query(..., min_length=1, description="Arama terimi"), limit: int = Query(15, le=30)):
+def search(q: str = Query(..., min_length=1, description="Arama terimi"), limit: int = Query(15, le=30)):
     """Ticker arama — hisse kodu, şirket adı, endeks ile eşleştir"""
     return search_tickers(q, limit)
 
 
 @router.get("/price-changes/{ticker}")
-async def get_price_change_periods(ticker: str):
+def get_price_change_periods(ticker: str):
     """Haftalık, aylık, yıllık fiyat değişim oranları"""
     return get_price_changes(ticker.upper())
 
 
 @router.get("/news/{ticker}")
-async def get_news(ticker: str, count: int = Query(10, le=20)):
+def get_news(ticker: str, count: int = Query(10, le=20)):
     """Son haberleri getir"""
     return get_ticker_news(ticker.upper(), count)
 
 
 @router.get("/insider/{ticker}")
-async def get_insider(ticker: str, count: int = Query(10, le=20)):
+def get_insider(ticker: str, count: int = Query(10, le=20)):
     """Insider işlemlerini getir"""
     return get_insider_trades(ticker.upper(), count)
 
 
 @router.get("/earnings/{ticker}")
-async def get_earnings(ticker: str):
+def get_earnings(ticker: str):
     """Bilanço takvimi ve geçmiş sonuçları"""
     return get_earnings_calendar(ticker.upper())
 
 
 @router.get("/history/{ticker}")
-async def get_history(ticker: str):
+def get_history(ticker: str):
     """Son 5 yıllık aylık ve yıllık fiyat geçmişi"""
     return get_price_history(ticker.upper())
 
 
 @router.get("/holders/{ticker}")
-async def get_holders(ticker: str):
+def get_holders(ticker: str):
     """Kurumsal sahiplik ve büyük hissedarlar"""
     return get_holders_info(ticker.upper())
 
@@ -198,7 +198,7 @@ async def get_holders(ticker: str):
 # ─── World Markets ───
 
 @router.get("/world")
-async def get_world():
+def get_world():
     """Dünya borsaları canlı verileri (30+ endeks + emtia/döviz/kripto)"""
     return get_world_market_data()
 
@@ -216,6 +216,6 @@ async def get_exchange_detail(exchange_id: str):
 
 
 @router.get("/movers")
-async def get_movers(period: str = Query("1d")):
+def get_movers(period: str = Query("1d")):
     """En çok yükselen, düşen ve hacimli hisseleri getir"""
     return get_market_movers(period)

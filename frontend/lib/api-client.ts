@@ -50,7 +50,7 @@ class APIClient {
 
     // 12sn timeout — takılma engellenir
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 12_000)
+    const timeoutId = setTimeout(() => controller.abort(), 30_000)
 
     try {
       const res = await fetch(`${this.baseUrl}${endpoint}`, {

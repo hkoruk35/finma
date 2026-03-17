@@ -13,6 +13,7 @@ from app.config import get_settings
 from app.schemas.user import UserCreate, UserLogin, UserResponse, TokenResponse
 from app.dependencies import get_current_user, require_admin
 from app.database import UsersDB
+from starlette.concurrency import run_in_threadpool
 import uuid
 import logging
 
@@ -42,11 +43,8 @@ def ensure_admin_user():
         UsersDB.create(admin_data)
         logger.info("Admin kullanıcı oluşturuldu")
 
-# İlk import'ta admin oluştur
-try:
-    ensure_admin_user()
-except Exception as e:
-    logger.warning(f"Admin kullanıcı oluşturulamadı: {e}")
+# İlk importta otomatik oluştur-MA (main.py lifespan'de yapılacak)
+# ensure_admin_user()
 
 
 # Whitelist: Bu e-postalar ödeme yapmadan tam erişim alır
@@ -80,7 +78,7 @@ def verify_token(token: str) -> dict:
 
 
 @router.post("/register", response_model=TokenResponse)
-async def register(user: UserCreate):
+def register(user: UserCreate):
     """Yeni kullanıcı kaydı"""
     if UsersDB.get_by_username(user.username):
         raise HTTPException(status_code=400, detail="Kullanıcı adı zaten mevcut")
@@ -112,7 +110,7 @@ async def register(user: UserCreate):
 
 
 @router.post("/login", response_model=TokenResponse)
-async def login(credentials: UserLogin):
+def login(credentials: UserLogin):
     """Kullanıcı girişi"""
     user = UsersDB.get_by_username(credentials.username)
     if not user or not pwd_context.verify(credentials.password, user.get("password_hash", "")):
@@ -163,12 +161,12 @@ async def google_login(request: GoogleLoginRequest):
         default_tier = "pro" if is_whitelisted else "free"
 
         # Mevcut kullanıcı ara
-        existing_user = UsersDB.get_by_email(email)
+        existing_user = await run_in_threadpool(UsersDB.get_by_email, email)
 
         if existing_user:
             # Whitelisted kullanıcıyı otomatik pro yap (eğer değilse)
             if is_whitelisted and existing_user.get("subscription_tier") == "free":
-                UsersDB.update(existing_user["username"], {
+                await run_in_threadpool(UsersDB.update, existing_user["username"], {
                     "role": "pro",
                     "subscription_tier": "pro",
                 })
@@ -187,7 +185,7 @@ async def google_login(request: GoogleLoginRequest):
             username = email.split("@")[0]
             base_username = username
             counter = 1
-            while UsersDB.get_by_username(username):
+            while await run_in_threadpool(UsersDB.get_by_username, username):
                 username = f"{base_username}{counter}"
                 counter += 1
 
@@ -204,7 +202,7 @@ async def google_login(request: GoogleLoginRequest):
                 "google_id": google_id,
                 "created_at": datetime.utcnow().isoformat(),
             }
-            created = UsersDB.create(user_data)
+            created = await run_in_threadpool(UsersDB.create, user_data)
             logger.info(f"Google ile yeni kullanıcı: {username} (tier: {default_tier})")
 
             token = create_token({"sub": username, "role": default_role})
@@ -221,7 +219,7 @@ async def google_login(request: GoogleLoginRequest):
 
 
 @router.get("/me", response_model=UserResponse)
-async def get_current_user_info(user: dict = Depends(get_current_user)):
+def get_current_user_info(user: dict = Depends(get_current_user)):
     """Mevcut kullanıcı bilgilerini getir"""
     user_data = UsersDB.get_by_username(user["username"])
     if not user_data:

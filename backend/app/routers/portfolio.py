@@ -59,7 +59,7 @@ class PortfolioSummary(BaseModel):
 
 
 @router.get("/summary", response_model=PortfolioSummary)
-async def get_portfolio_summary():
+def get_portfolio_summary():
     """Portföy özetini getir"""
     open_trades = TradesDB.get_all(status="OPEN")
     total_pnl = sum(float(t.get("pnl", 0)) for t in open_trades)
@@ -85,7 +85,7 @@ async def get_portfolio_summary():
 
 
 @router.get("/trades", response_model=List[TradeResponse])
-async def get_trades(status: Optional[str] = None):
+def get_trades(status: Optional[str] = None):
     """Trade listesini getir"""
     trades = TradesDB.get_all(status=status)
     result = []
@@ -115,7 +115,7 @@ async def get_trades(status: Optional[str] = None):
 
 
 @router.post("/trades", response_model=TradeResponse)
-async def create_trade(trade: TradeCreate):
+def create_trade(trade: TradeCreate):
     """Yeni trade oluştur"""
     trade_data = {
         "id": str(uuid.uuid4()),
@@ -158,7 +158,7 @@ async def create_trade(trade: TradeCreate):
 
 
 @router.delete("/trades/{trade_id}")
-async def close_trade(trade_id: str, exit_price: float):
+def close_trade(trade_id: str, exit_price: float):
     """Trade'i kapat"""
     trade = TradesDB.get_by_id(trade_id)
     if not trade:

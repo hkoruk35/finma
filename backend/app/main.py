@@ -59,6 +59,13 @@ async def lifespan(app: FastAPI):
             logger.warning(f"Bot scheduler başlatılamadı: {e}")
     else:
         logger.info(f"ℹ️  Bots dizini bulunamadı: {bots_dir} — scheduler atlanıyor")
+    
+    # Ensure admin user exists
+    try:
+        from app.routers.auth import ensure_admin_user
+        ensure_admin_user()
+    except Exception as e:
+        logger.warning(f"Admin kontrolü hatası: {e}")
 
     yield
 

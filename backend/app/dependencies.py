@@ -9,7 +9,10 @@ from jose import jwt, JWTError
 from app.config import get_settings
 
 
-async def get_current_user(authorization: Optional[str] = Header(None)) -> dict:
+from starlette.concurrency import run_in_threadpool
+
+
+def get_current_user(authorization: Optional[str] = Header(None)) -> dict:
     """Extract and verify JWT token from Authorization header"""
     if not authorization:
         raise HTTPException(status_code=401, detail="Yetkilendirme başlığı eksik")
@@ -30,7 +33,7 @@ async def get_current_user(authorization: Optional[str] = Header(None)) -> dict:
         raise HTTPException(status_code=401, detail="Token doğrulaması başarısız")
 
 
-async def require_pro(user: dict = Depends(get_current_user)) -> dict:
+def require_pro(user: dict = Depends(get_current_user)) -> dict:
     """Require Pro or Admin tier"""
     if user["role"] not in ("pro", "admin"):
         raise HTTPException(status_code=403, detail="Bu özellik Pro üyelik gerektirir")
@@ -49,19 +52,19 @@ async def require_pro(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 
-async def require_premium(user: dict = Depends(get_current_user)) -> dict:
+def require_premium(user: dict = Depends(get_current_user)) -> dict:
     """Require Pro or Admin tier (Legacy naming)"""
-    return await require_pro(user)
+    return require_pro(user)
 
 
-async def require_admin(user: dict = Depends(get_current_user)) -> dict:
+def require_admin(user: dict = Depends(get_current_user)) -> dict:
     """Require admin role"""
     if user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Yönetici yetkisi gerekli")
     return user
 
 
-async def optional_user(authorization: Optional[str] = Header(None)) -> Optional[dict]:
+def optional_user(authorization: Optional[str] = Header(None)) -> Optional[dict]:
     """Optionally extract user from token (no error if missing)"""
     if not authorization:
         return None
