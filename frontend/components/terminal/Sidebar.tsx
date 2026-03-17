@@ -166,7 +166,7 @@ export function Sidebar() {
             const hasChildren = item.children && item.children.length > 0
             const badge = item.tier ? tierBadge[item.tier] : null
             // Pro kullanıcılar her zaman erişebilir — isLocked sadece free kullanıcılar için
-            const isLocked = false
+            const isLocked = item.tier ? !canAccess(item.tier) : false
 
             return (
               <div key={item.href + item.section}>

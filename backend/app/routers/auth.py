@@ -59,7 +59,7 @@ class GoogleLoginRequest(BaseModel):
 
 class UpdateTierRequest(BaseModel):
     username: str
-    tier: str  # free, pro, premium
+    tier: str  # free, pro, admin
 
 
 def create_token(data: dict) -> str:
@@ -222,7 +222,7 @@ async def get_current_user_info(user: dict = Depends(get_current_user)):
 
     # Whitelist: Bu e-postalar her zaman pro tier alır (DB constraint bypass)
     email = user_data.get("email", "").lower()
-    if email in WHITELISTED_EMAILS and user_data.get("subscription_tier") in ("free", "gold"):
+    if email in WHITELISTED_EMAILS and user_data.get("subscription_tier") != "pro" and user_data.get("subscription_tier") != "admin":
         user_data = dict(user_data)
         user_data["role"] = "pro"
         user_data["subscription_tier"] = "pro"
@@ -259,7 +259,7 @@ async def start_trial(user: dict = Depends(get_current_user)):
 @router.post("/update-tier")
 async def update_user_tier(request: UpdateTierRequest, admin: dict = Depends(require_admin)):
     """Kullanıcı üyelik seviyesini güncelle (Sadece admin)"""
-    if request.tier not in ("free", "pro", "premium", "admin"):
+    if request.tier not in ("free", "pro", "admin"):
         raise HTTPException(status_code=400, detail="Geçersiz üyelik seviyesi")
 
     user = UsersDB.get_by_username(request.username)

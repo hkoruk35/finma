@@ -50,9 +50,9 @@ async def require_pro(user: dict = Depends(get_current_user)) -> dict:
 
 
 async def require_premium(user: dict = Depends(get_current_user)) -> dict:
-    """Require Premium or admin tier"""
-    if user["role"] not in ("premium", "admin"):
-        raise HTTPException(status_code=403, detail="Bu özellik Premium üyelik gerektirir")
+    """Require Pro, Premium or admin tier"""
+    if user["role"] not in ("pro", "premium", "admin"):
+        raise HTTPException(status_code=403, detail="Bu özellik Pro/Premium üyelik gerektirir")
     return user
 
 

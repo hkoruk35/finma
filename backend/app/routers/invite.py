@@ -53,18 +53,18 @@ async def redeem_invite(request: RedeemRequest, user: dict = Depends(get_current
     if not user_data:
         raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
 
-    if user_data.get("subscription_tier") == "premium":
-        raise HTTPException(status_code=400, detail="Zaten Premium üyesiniz")
+    if user_data.get("subscription_tier") == "pro":
+        raise HTTPException(status_code=400, detail="Zaten Pro üyesiniz")
 
-    # Upgrade to premium
+    # Upgrade to pro
     UsersDB.update(user["username"], {
-        "role": "premium",
-        "subscription_tier": "premium",
+        "role": "pro",
+        "subscription_tier": "pro",
     })
 
     InviteCodesDB.mark_used(request.code.upper().strip(), user_data.get("id", ""))
 
-    return {"message": "Premium üyeliğiniz aktif edildi!", "tier": "premium"}
+    return {"message": "Pro üyeliğiniz aktif edildi!", "tier": "pro"}
 
 
 @router.get("/list")
