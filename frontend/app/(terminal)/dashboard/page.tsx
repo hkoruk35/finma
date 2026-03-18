@@ -441,7 +441,7 @@ export default function DashboardPage() {
           <div className="bg-gradient-to-br from-finma-green/5 to-finma-green/10 rounded-lg p-4 border border-finma-green/20">
             <div className="flex items-center gap-2 mb-3">
               <Activity className="w-4 h-4 text-finma-green" />
-              <span className="text-xs font-bold text-finma-text uppercase">Piyasa Trendi</span>
+              <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">Piyasa Trendi</span>
             </div>
             <div className="text-2xl font-bold text-finma-green mb-2">{regime}</div>
             <div className="text-xs text-finma-text-muted space-y-1">
@@ -454,7 +454,7 @@ export default function DashboardPage() {
           <div className="bg-gradient-to-br from-finma-primary/5 to-finma-primary/10 rounded-lg p-4 border border-finma-primary/20">
             <div className="flex items-center gap-2 mb-3">
               <TrendingUp className="w-4 h-4 text-finma-primary" />
-              <span className="text-xs font-bold text-finma-text uppercase">İtici Güçler</span>
+              <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">İtici Güçler</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
               <div className="flex items-center gap-1.5"><span className="text-finma-green">▲</span> Enerji sektörü güçlü (+2.1%)</div>
@@ -468,7 +468,7 @@ export default function DashboardPage() {
           <div className="bg-gradient-to-br from-finma-red/5 to-finma-red/10 rounded-lg p-4 border border-finma-red/20">
             <div className="flex items-center gap-2 mb-3">
               <AlertCircle className="w-4 h-4 text-finma-red" />
-              <span className="text-xs font-bold text-finma-text uppercase">Riskler</span>
+              <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">Riskler</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
               <div className="flex items-center gap-1.5"><span className="text-finma-red">▼</span> VIX {vix > 25 ? 'yüksek seviyede' : 'yükseliş eğiliminde'}</div>
@@ -815,7 +815,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Activity className="w-3 h-3 text-finma-green" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Piyasa Rejimi</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Piyasa Rejimi</span>
             </div>
             <div className="text-sm font-bold text-finma-green">{intel?.regime_tr || regime}</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
@@ -828,7 +828,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <AlertCircle className="w-3 h-3 text-finma-yellow" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Volatilite Durumu</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Volatilite Durumu</span>
             </div>
             <div className="text-sm font-bold text-finma-yellow">
               {intel ? (intel.vix <= 20 ? 'Normal' : intel.vix <= 25 ? 'Ortalama Üstü' : 'Yüksek') : (vix <= 20 ? 'Normal' : 'Yüksek')}
@@ -843,7 +843,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Globe2 className="w-3 h-3 text-finma-cyan" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Sektör Rotasyonu</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Sektör Rotasyonu</span>
             </div>
             <div className="text-sm font-bold text-finma-cyan">{intel?.sector_rotation || 'Aktif Rotasyon'}</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
@@ -856,7 +856,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <DollarSign className="w-3 h-3 text-finma-green" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Para Akışı</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Para Akışı</span>
             </div>
             <div className="text-sm font-bold text-finma-green">{intel?.money_flow || 'Net Giriş'}</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
@@ -877,7 +877,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Newspaper className="w-3 h-3 text-finma-primary" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Günün Özeti</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Günün Özeti</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
               {intel?.daily_summary.map((s, i) => (
@@ -894,26 +894,45 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Clock className="w-3 h-3 text-finma-yellow" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Ekonomik Takvim</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Ekonomik Takvim</span>
             </div>
-            <div className="text-xs text-finma-text-muted space-y-1.5">
-              {(intel?.economic_calendar || []).map((item, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span className={cn(
-                    'text-[9px] finma-number px-1.5 py-0.5 rounded',
-                    item.hot ? 'text-finma-yellow bg-finma-yellow/10' : 'text-finma-text-dim bg-finma-bg'
-                  )}>{item.time}</span>
-                  <span>{item.event}</span>
-                </div>
-              ))}
-              {(!intel?.economic_calendar || intel.economic_calendar.length === 0) && <p>Takvim verisi yok</p>}
+            
+            <div className="overflow-hidden border border-finma-border/20 rounded">
+              <table className="w-full border-collapse text-[10px]">
+                <thead>
+                  <tr className="bg-finma-bg/80 text-finma-text-dim border-b border-finma-border/30 text-left">
+                    <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Saat / Gün</th>
+                    <th className="py-1.5 px-2 font-medium">Olay</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-finma-border/20">
+                  {(intel?.economic_calendar || []).map((item, i) => (
+                    <tr key={i} className="hover:bg-finma-primary/5 transition-colors">
+                      <td className="py-2 px-2 border-r border-finma-border/20">
+                        <span className={cn(
+                          'text-[9px] finma-number px-1.5 py-0.5 rounded font-bold uppercase',
+                          item.hot ? 'text-finma-yellow bg-finma-yellow/10 border border-finma-yellow/20' : 'text-finma-text-dim bg-finma-bg'
+                        )}>{item.time}</span>
+                      </td>
+                      <td className="py-2 px-2 text-finma-text-muted">
+                        {item.event}
+                      </td>
+                    </tr>
+                  ))}
+                  {(!intel?.economic_calendar || intel.economic_calendar.length === 0) && (
+                    <tr>
+                      <td colSpan={2} className="text-center py-4 text-finma-text-dim">Takvim verisi yok</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
 
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
               <Zap className="w-3 h-3 text-finma-yellow" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">FinMA AI Analiz Özeti</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">FinMA AI ANALİZ ÖZETİ</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
               {(intel?.ai_analysis || []).map((s, i) => (
@@ -934,7 +953,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-3">
               <Shield className="w-3 h-3 text-finma-primary" />
-              <span className="text-[10px] text-finma-text font-bold uppercase tracking-wider">Önemli Teknik Seviyeler</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Önemli Teknik Seviyeler</span>
             </div>
             
             <div className="overflow-hidden border border-finma-border/20 rounded">
@@ -970,7 +989,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-3">
               <Flame className="w-3 h-3 text-orange-400" />
-              <span className="text-[10px] text-finma-text font-bold uppercase tracking-wider">BUGÜN ÖNE ÇIKANLAR</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">BUGÜN ÖNE ÇIKANLAR</span>
             </div>
             
             <div className="overflow-hidden border border-finma-border/20 rounded">
@@ -1023,7 +1042,7 @@ export default function DashboardPage() {
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-3">
               <Star className="w-3 h-3 text-finma-yellow" />
-              <span className="text-[10px] text-finma-text font-bold uppercase tracking-wider">BU HAFTA ÖNE ÇIKANLAR</span>
+              <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">BU HAFTA ÖNE ÇIKANLAR</span>
             </div>
             
             <div className="overflow-hidden border border-finma-border/20 rounded">
