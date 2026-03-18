@@ -11,6 +11,7 @@ import logging
 import time
 import threading
 import httpx
+import xml.etree.ElementTree as ET
 from typing import Optional, Dict, List, Any
 from datetime import datetime, timedelta
 from functools import lru_cache
@@ -1131,56 +1132,111 @@ def get_holders_info(ticker: str) -> Dict[str, Any]:
     return result
 
 
+def fetch_latest_sec_insider_filings() -> List[Dict[str, Any]]:
+    """SEC EDGAR RSS feed'inden en son Form 4 bildirimlerini çek"""
+    results = []
+    # SEC RSS Feed for Form 4 filings
+    url = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=4&company=&dateb=&owner=include&start=0&count=80&output=atom"
+    headers = {
+        "User-Agent": "FinMA Analyst (contact@finmasmart.com)"
+    }
+    
+    try:
+        response = httpx.get(url, headers=headers, timeout=15)
+        if response.status_code == 200:
+            root = ET.fromstring(response.text)
+            # Atom namespace
+            ns = {'atom': 'http://www.w3.org/2005/Atom'}
+            
+            for entry in root.findall('atom:entry', ns):
+                title = entry.find('atom:title', ns).text if entry.find('atom:title', ns) is not None else ""
+                # Title format: "4 - SYMBOL - OWNER NAME (DATE)"
+                parts = title.split(' - ')
+                if len(parts) >= 3:
+                    symbol = parts[1].strip().upper()
+                    owner = parts[2].split(' (')[0].strip()
+                    
+                    summary = entry.find('atom:summary', ns).text if entry.find('atom:summary', ns) is not None else ""
+                    # Relationship calculation usually in summary or we can use "Insider" as placeholder
+                    
+                    link_elem = entry.find('atom:link', ns)
+                    link = link_elem.get('href') if link_elem is not None else ""
+                    
+                    date_str = entry.find('atom:updated', ns).text[:10] if entry.find('atom:updated', ns) is not None else ""
+                    
+                    if symbol and owner:
+                        results.append({
+                            "symbol": symbol,
+                            "owner": owner,
+                            "relationship": "Insider", # RSS summary'den detay çekmek zor, placeholder
+                            "transaction": "Reporting", # Detay yfinance ile doldurulacak
+                            "date": date_str,
+                            "cost": 0,
+                            "shares": 0,
+                            "value": 0,
+                            "shares_total": 0,
+                            "sec_form_4_url": link
+                        })
+        logger.info(f"📡 SEC RSS Feed'den {len(results)} bildirim yakalandı.")
+    except Exception as e:
+        logger.error(f"SEC RSS parse error: {e}")
+        
+    return results
+
 def update_market_insiders():
-    """Tüm major hisseler için insider işlemlerini topla ve veritabanına kaydet (Finviz stili)"""
+    """Tüm piyasadan insider verilerini topla (SEC Feed + Broad Scraper)"""
     from app.database import InsiderDB
-    from app.config import get_settings
     
-    settings = get_settings()
+    # 1. Aşama: SEC RSS Feed'den en sıcak bildirimleri al
+    sec_filings = fetch_latest_sec_insider_filings()
+    sec_tickers = list(set([f["symbol"] for f in sec_filings if len(f["symbol"]) <= 5])) # Sadece ana hisseler
     
-    # Kapsamı genişletiyoruz (S&P 100 + Popülerler)
-    major_tickers = list(set(POPULAR_TICKERS + [
-        "JPM", "V", "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD",
-        "ABBV", "MRK", "BAC", "PEP", "KO", "TMO", "CSCO", "MCD", "DIS", "ADBE",
-        "ORCL", "COST", "CVX", "CRM", "AMD", "NFLX", "WFC", "INTC", "INTU",
-        "UBER", "PYPL", "SBUX", "AMT", "QCOM", "TXN", "AMAT", "ISRG", "MDLZ", "HON"
-    ]))
+    # 2. Aşama: Bu hisseler için yfinance ile detayları zenginleştir
+    # Ayrıca popüler hisseleri de ekle ki sayfa boş kalmasın
+    base_tickers = ["AAPL", "NVDA", "TSLA", "MSFT", "AMZN", "GOOGL", "META", "BRK-B", "UNH", "LLY"]
+    all_tickers_to_check = list(set(sec_tickers + base_tickers))
     
     all_trades = []
     
-    def fetch_insider(ticker):
+    def enrich_insider(ticker):
         try:
-            # Geliştirilmiş get_insider_trades'i kullan
-            trades = get_insider_trades(ticker, count=8)
+            # get_insider_trades zaten son 15 işlemi çekiyor ve cache'liyor
+            trades = get_insider_trades(ticker, count=10)
             return trades
         except Exception as e:
-            logger.error(f"Insider fetch error for {ticker}: {e}")
+            logger.error(f"Insider enrichment error for {ticker}: {e}")
             return []
 
     from concurrent.futures import ThreadPoolExecutor, as_completed
     
-    logger.info(f"🚀 Insider veri güncellemesi başlatıldı: {len(major_tickers)} ticker taranıyor...")
+    logger.info(f"🚀 Insider zenginleştirme başlatıldı: {len(all_tickers_to_check)} ticker taranıyor...")
     
-    # Paralel çekim
+    # 10 paralel worker
     with ThreadPoolExecutor(max_workers=10) as executor:
-        futures = {executor.submit(fetch_insider, t): t for t in major_tickers}
+        futures = {executor.submit(enrich_insider, t): t for t in all_tickers_to_check}
         for future in as_completed(futures):
             res = future.result()
             if res:
                 all_trades.extend(res)
 
     if all_trades:
-        # Tarihe göre kabaca sıralama (Date: '2024-03-12' formatında ise)
+        # Son 7 günlük verileri ön plana çıkar
         try:
-            # Sadece geçerli tarihi olanları al ve sırala
+            # Tarihe göre sırala
             all_trades.sort(key=lambda x: x.get("date", ""), reverse=True)
         except:
             pass
             
-        # İlk 150-200 işlemi sakla (Finviz ana sayfası gibi)
-        InsiderDB.save_trades(all_trades[:150])
-        logger.info(f"✅ Insider güncellemesi tamamlandı: {len(all_trades)} işlem bulundu.")
+        # Toplam 200-250 işlemi sakla (Geniş bir akış için)
+        InsiderDB.save_trades(all_trades[:250])
+        logger.info(f"✅ Insider güncellemesi tamamlandı: {len(all_trades)} işlem eklendi.")
         return len(all_trades)
     
-    logger.warning("⚠️ Hiç insider işlemi bulunamadı.")
+    # Eğer yfinance bir şey döndürmezse SEC RSS verilerini ham haliyle kaydet (Boş kalmasın diye)
+    if sec_filings:
+        InsiderDB.save_trades(sec_filings[:100])
+        logger.info(f"⚠️ yfinance detayı alınamadı, {len(sec_filings)} ham SEC verisi kaydedildi.")
+        return len(sec_filings)
+        
+    logger.warning("❌ Hiç insider işlemi bulunamadı. Sayfa boş kalabilir.")
     return 0
