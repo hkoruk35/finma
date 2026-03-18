@@ -1284,9 +1284,9 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
     # 2. Fallback: Yahoo Finance RSS (Eğer AV sonuç vermezse veya ek kaynak için)
     if len(results) < 10:
         try:
-            rss_url = "https://finance.yahoo.com/news/rssindex" # Genel borsa haberleri
+            rss_url = "https://finance.yahoo.com/news/rss" # Genel borsa haberleri
             if category == "economy":
-                rss_url = "https://finance.yahoo.com/news/economy/rss"
+                rss_url = "https://finance.yahoo.com/rss/economy"
                 
             response = httpx.get(rss_url, headers=_YF_HEADERS, timeout=10)
             if response.status_code == 200:
@@ -1296,25 +1296,30 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
                     link = item.find('link').text if item.find('link') is not None else ""
                     pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
                     
-                    # Basit bir impact tahmini (opsiyonel)
-                    results.append({
-                        "title": title,
-                        "url": link,
-                        "publisher": "Yahoo Finance",
-                        "date": pub_date,
-                        "ticker": "MARKET",
-                        "impact": "neutral",
-                        "category": category
-                    })
-                logger.info(f"📰 Yahoo RSS'den haberler eklendi ({category}).")
-        except Exception as e:
-            logger.error(f"Yahoo News RSS error: {e}")
+                        # Basit bir impact tahmini (opsiyonel)
+                        results.append({
+                            "title": title,
+                            "url": link,
+                            "publisher": "Yahoo Finance",
+                            "date": pub_date,
+                            "ticker": "MARKET",
+                            "impact": "neutral",
+                            "category": category,
+                            "lang": "en" # Yahoo Haberleri İngilizcedir
+                        })
+                    logger.info(f"📰 Yahoo RSS'den {len(results)} haber eklendi ({category}).")
+            except Exception as e:
+                logger.error(f"Yahoo News RSS error: {e}")
+        else:
+            logger.info(f"📰 Zaten {len(results)} haber var, Yahoo pas geçildi.")
 
     # 3. Turkish Financial News (Bloomberg HT & Investing TR)
     try:
         tr_sources = [
             {"name": "Bloomberg HT", "url": "https://www.bloomberght.com/rss"},
-            {"name": "Investing TR", "url": "https://tr.investing.com/rss/news.rss"}
+            {"name": "Investing TR", "url": "https://tr.investing.com/rss/news.rss"},
+            {"name": "Bigpara", "url": "https://www.bigpara.com/rss/"},
+            {"name": "Hürriyet Ekonomi", "url": "https://www.hurriyet.com.tr/rss/ekonomi"}
         ]
         
         for src in tr_sources:

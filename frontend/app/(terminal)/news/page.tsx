@@ -68,6 +68,7 @@ export default function NewsPage() {
   const [news, setNews] = useState<NewsItem[]>([])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
+  const [isRefreshingBot, setIsRefreshingBot] = useState(false)
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
   const [selectedTicker, setSelectedTicker] = useState<string>('ALL')
   const [error, setError] = useState<string | null>(null)
@@ -96,6 +97,18 @@ export default function NewsPage() {
   }, [])
 
   // İlk yükleme
+  const handleManualRefreshBot = async () => {
+    setIsRefreshingBot(true)
+    try {
+      await api.refreshNews()
+      await fetchAllNews(true)
+    } catch (err) {
+      console.error("Manual news refresh error:", err)
+    } finally {
+      setIsRefreshingBot(false)
+    }
+  }
+
   useEffect(() => {
     fetchAllNews()
   }, [fetchAllNews])
@@ -135,11 +148,25 @@ export default function NewsPage() {
         </span>
         <button
           onClick={() => fetchAllNews(true)}
-          disabled={refreshing}
-          className="ml-auto flex items-center gap-1 text-[10px] text-finma-text-dim hover:text-finma-primary transition-colors disabled:opacity-50"
+          disabled={refreshing || loading}
+          className="p-1.5 hover:bg-finma-white/5 rounded-lg transition-colors ml-auto group"
+          title="Listeyi Yenile"
         >
-          <RefreshCw className={cn('w-3 h-3', refreshing && 'animate-spin')} />
-          {refreshing ? 'Güncelleniyor...' : 'Yenile'}
+          <RefreshCw className={cn("w-3.5 h-3.5 text-finma-text-dim group-hover:text-finma-primary", (refreshing || loading) && "animate-spin")} />
+        </button>
+
+        <button
+          onClick={handleManualRefreshBot}
+          disabled={isRefreshingBot}
+          className={cn(
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all border",
+            isRefreshingBot 
+              ? "bg-finma-primary/10 border-finma-primary text-finma-primary" 
+              : "bg-finma-primary text-white border-finma-primary hover:bg-finma-primary-dark shadow-lg shadow-finma-primary/20"
+          )}
+        >
+          <Globe className={cn("w-3 h-3", isRefreshingBot && "animate-spin")} />
+          {isRefreshingBot ? 'Tarama Yapılıyor...' : 'Haberleri Şimdi Tarattır'}
         </button>
       </div>
 

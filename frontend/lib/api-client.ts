@@ -211,6 +211,10 @@ class APIClient {
     }>>(`/api/market/news/latest${qs}`)
   }
 
+  async refreshNews() {
+    return this.request<{ status: string; count: number; message: string }>('/api/market/news/refresh')
+  }
+
   async getEarnings(ticker: string) {
     return this.request<{
       next_date: string | null;
