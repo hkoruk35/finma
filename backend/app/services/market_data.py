@@ -1115,3 +1115,52 @@ def get_holders_info(ticker: str) -> Dict[str, Any]:
         logger.error(f"Holders error for {ticker}: {e}")
 
     return result
+
+
+def update_market_insiders():
+    """Tüm major hisseler için insider işlemlerini topla ve veritabanına kaydet"""
+    from app.database import InsiderDB
+    
+    # Genişletilmiş liste (S&P 100 benzeri)
+    major_tickers = list(set(POPULAR_TICKERS + [
+        "JPM", "V", "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD",
+        "ABBV", "MRK", "BAC", "PEP", "KO", "TMO", "CSCO", "MCD", "DIS", "ADBE",
+        "ORCL", "COST", "CVX", "BAC", "CRM", "AMD", "NFLX", "WFC", "INTC", "INTU"
+    ]))
+    
+    all_trades = []
+    
+    # Her ticker için son 5 işlemi çek
+    def fetch_insider(ticker):
+        try:
+            trades = get_insider_trades(ticker, count=5)
+            # Sembol bilgisini her satıra ekle
+            for t in trades:
+                t["symbol"] = ticker
+            return trades
+        except Exception as e:
+            logger.error(f"Insider fetch error for {ticker}: {e}")
+            return []
+
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    
+    logger.info(f"🚀 Insider veri güncellemesi başlatıldı: {len(major_tickers)} ticker taranıyor...")
+    
+    # 10 paralel worker ile hızlandır
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {executor.submit(fetch_insider, t): t for t in major_tickers}
+        for future in as_completed(futures):
+            res = future.result()
+            if res:
+                all_trades.extend(res)
+
+    # Veriyi kaydet (En son 75-100 işlemi sakla)
+    if all_trades:
+        # Tarihe göre kabaca sıralayabiliriz ama yfinance str döndürdüğü için zor olabilir
+        # En basit haliyle gelenleri kaydediyoruz
+        InsiderDB.save_trades(all_trades[:100])
+        logger.info(f"✅ Insider güncellemesi tamamlandı: {len(all_trades)} işlem bulundu.")
+        return len(all_trades)
+    
+    logger.warning("⚠️ Hiç insider işlemi bulunamadı.")
+    return 0

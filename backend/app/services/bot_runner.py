@@ -32,6 +32,11 @@ BOT_CONFIGS = {
         "schedule": {"hour": "10,13", "minute": "0"},
         "description": "Opsiyon Scanner - 2 kez/gün",
     },
+    "insider_bot": {
+        "script": "insider_bot.py",
+        "schedule": {"hour": "10", "minute": "0"},
+        "description": "Daily Insider Trading Scanner - 1 kez/gün",
+    },
 }
 
 scheduler: Optional[AsyncIOScheduler] = None

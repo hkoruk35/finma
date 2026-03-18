@@ -675,6 +675,49 @@ class PortfolioSettingsDB:
             except Exception as e:
                 logger.error(f"DB set_initial_capital hatası: {e}")
         
-        # Fallback to memory
-        cls._memory[user_id] = {"initial_capital": amount}
+        # ═══════════════════════════════════════════
+# MARKET INSIDER TABLE CRUD
+# ═══════════════════════════════════════════
+
+class InsiderDB:
+    """
+    market_insider tablosu — En son insider işlemleri (toplu).
+    """
+
+    _memory: List[dict] = []
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def save_trades(cls, trades: List[dict]) -> bool:
+        """Yeni insider işlemlerini kaydet (eskiyi temizler)"""
+        sb = cls._sb()
+        if sb:
+            try:
+                # Opsiyonel: Eski verileri temizleyip yenilerini ekle (güncel tablo için)
+                sb.table("market_insider").delete().neq("symbol", "NONE_XYZ").execute()
+                if trades:
+                    sb.table("market_insider").insert(trades).execute()
+                logger.info(f"✅ {len(trades)} insider işlemi kaydedildi")
+                return True
+            except Exception as e:
+                logger.error(f"DB save_trades insider hatası: {e}")
+                cls._memory = trades
+                return False
+        cls._memory = trades
         return True
+
+    @classmethod
+    def get_latest(cls, limit: int = 50) -> List[dict]:
+        """En son insider işlemlerini getir"""
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("market_insider").select("*").order("created_at", desc=True).limit(limit).execute()
+                return result.data or []
+            except Exception as e:
+                logger.error(f"DB get_latest insider hatası: {e}")
+                return cls._memory[:limit]
+        return cls._memory[:limit]

@@ -171,6 +171,13 @@ def get_news(ticker: str, count: int = Query(10, le=20)):
     return get_ticker_news(ticker.upper(), count)
 
 
+@router.get("/insider/latest")
+def get_latest_insider_trades(limit: int = Query(50, le=100)):
+    """En son yapılan insider işlemlerini (toplu) getir"""
+    from app.database import InsiderDB
+    return InsiderDB.get_latest(limit)
+
+
 @router.get("/insider/{ticker}")
 def get_insider(ticker: str, count: int = Query(10, le=20)):
     """Insider işlemlerini getir"""
