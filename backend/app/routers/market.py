@@ -176,7 +176,18 @@ def get_news(ticker: str, count: int = Query(10, le=20)):
 def get_latest_market_news(limit: int = Query(50, le=100), category: Optional[str] = None):
     """En son piyasa ve ekonomi haberlerini (toplu) getir"""
     from app.database import NewsDB
-    return NewsDB.get_latest(limit, category)
+    news = NewsDB.get_latest(limit, category)
+    
+    # Haber yoksa anlık bir tarama tetikle (Boş sayfa kalmasın diye)
+    if not news:
+        try:
+            from app.services.market_data import update_all_market_news
+            update_all_market_news()
+            news = NewsDB.get_latest(limit, category)
+        except Exception:
+            pass
+            
+    return news
 
 
 @router.get("/news/refresh")
