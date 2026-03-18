@@ -10,6 +10,7 @@ Flow:
 10000 concurrent user → hepsi cache'den döner
 """
 
+from typing import Optional
 from fastapi import APIRouter, HTTPException, Query
 from app.services.market_data import (
     get_ticker_info,
