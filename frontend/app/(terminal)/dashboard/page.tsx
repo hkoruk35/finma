@@ -8,8 +8,10 @@ import { Card } from '@/components/shared/Card'
 import { Badge, ActionBadge, sectorLabel } from '@/components/shared/Badge'
 import { usePortfolioSummary, useTrades } from '@/hooks/usePortfolio'
 import { useLatestSignals } from '@/hooks/useSignals'
-import { useIndices, useRegime } from '@/hooks/useMarketData'
-import { mockPortfolio, mockSignals, mockTrades, mockIndices } from '@/lib/mock-data'
+import { useIndices, useSectors, useMarketMovers, useRegime } from '@/hooks/useMarketData'
+import { useIntelligence } from '@/hooks/useIntelligence'
+import {
+  mockPortfolio, mockSignals, mockTrades, mockIndices } from '@/lib/mock-data'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import { cn } from '@/lib/utils'
@@ -231,6 +233,11 @@ export default function DashboardPage() {
   const { data: signalsData } = useLatestSignals()
   const { data: indicesData } = useIndices()
   const { data: regimeData } = useRegime()
+  const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
+  const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
+  
+  const { data: moversData, isLoading: moversLoading, isError: moversError } = useMarketMovers(moversPeriod)
+  const { data: intel, loading: intelLoading } = useIntelligence()
 
   // Canlı fiyatlar — top10 + movers tickers için batch quote
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
@@ -254,13 +261,10 @@ export default function DashboardPage() {
   const safeRegimeVix = rawRegimeVix && rawRegimeVix > 0 && rawRegimeVix <= 90 ? rawRegimeVix : null
   const vix = safeRegimeVix ?? indicesVix ?? signals.vix_level
   const regime = regimeData?.regime_tr ?? (signals.market_regime === 'Bull' ? '🐂 Boğa' : '🐻 Ayı')
-  const sectorLeaders = signals.sector_leaders?.join(', ') ?? 'Utilities, Materials'
-
-  const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
-  const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
+  const sectorLeaders = intel?.sector_leaders || signals.sector_leaders?.join(', ') || 'Utilities, Materials'
   const [lastRefresh, setLastRefresh] = useState(new Date())
-  const [moversLoading, setMoversLoading] = useState(false)
-  const [moversError, setMoversError] = useState(false)
+  // const [moversLoading, setMoversLoading] = useState(false) // Now from useMarketMovers
+  // const [moversError, setMoversError] = useState(false) // Now from useMarketMovers
 
   // 5 dakikada bir otomatik güncelleme (zaman damgası için)
   useEffect(() => {
@@ -276,43 +280,27 @@ export default function DashboardPage() {
   // Bot sonuçlarından ilk 10
   const top10Candidates = signals.candidates?.slice(0, 10) || []
 
-  // Canlı fiyatları ve movers verilerini çek
+  // Sycnc moversData to liveMovers and liveQuotes
   useEffect(() => {
-    const fetchMovers = async () => {
-      setMoversLoading(true)
-      setMoversError(false)
-      try {
-        const data = await api.getMarketMovers(moversPeriod)
-        if (data && (data.gainers?.length || data.losers?.length || data.volume?.length)) {
-          const enrichedData = {
-            gainers: (data.gainers || []).map(enrichStock),
-            losers: (data.losers || []).map(enrichStock),
-            volume: (data.volume || []).map(enrichStock),
-          }
-          setLiveMovers(enrichedData)
-        }
-
-        // Live quotes map'ini de güncelle ki Bot sonuçları vb. etkilensin
-        const map: Record<string, any> = { ...liveQuotes }
-        const allItems = [...(data.gainers || []), ...(data.losers || []), ...(data.volume || [])]
-        allItems.forEach((item: any) => {
-          const sym = item.symbol || item.ticker
-          if (sym) map[sym] = { price: item.price, change_pct: item.change_pct }
-        })
-        setLiveQuotes(map)
-        setLastRefresh(new Date())
-      } catch (err) {
-        console.error('Movers fetch error:', err)
-        setMoversError(true)
-      } finally {
-        setMoversLoading(false)
+    if (moversData) {
+      const enrichedData = {
+        gainers: (moversData.gainers || []).map(enrichStock),
+        losers: (moversData.losers || []).map(enrichStock),
+        volume: (moversData.volume || []).map(enrichStock),
       }
-    }
+      setLiveMovers(enrichedData)
 
-    fetchMovers()
-    const interval = setInterval(fetchMovers, moversPeriod === '1d' ? 3 * 60 * 1000 : 30 * 60 * 1000)
-    return () => clearInterval(interval)
-  }, [moversPeriod])
+      // Update live quotes
+      const map: Record<string, any> = { ...liveQuotes }
+      const allItems = [...(moversData.gainers || []), ...(moversData.losers || []), ...(moversData.volume || [])]
+      allItems.forEach((item: any) => {
+        const sym = item.symbol || item.ticker
+        if (sym) map[sym] = { price: item.price, change: item.change, change_pct: item.change_pct }
+      })
+      setLiveQuotes(map)
+      setLastRefresh(new Date())
+    }
+  }, [moversData])
 
   // Top10 bot adayları için canlı fiyat çek
   useEffect(() => {
@@ -787,11 +775,11 @@ export default function DashboardPage() {
               <Activity className="w-3 h-3 text-finma-green" />
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Piyasa Rejimi</span>
             </div>
-            <div className="text-sm font-bold text-finma-green">{regime}</div>
+            <div className="text-sm font-bold text-finma-green">{intel?.regime_tr || regime}</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
-              <div>VIX: <span className="text-finma-yellow finma-number">{vix.toFixed(2)}</span> | Trend: <span className="text-finma-green">Yükseliş</span></div>
-              <div>S&P 500 {regimeData?.spy_price ? <span className="finma-number">{regimeData.spy_price}</span> : '200 günlük ortalamanın'} <span className="text-finma-green">üzerinde</span></div>
-              <div>Put/Call Oranı: <span className="finma-number text-finma-cyan">0.82</span> (Nötr)</div>
+              <div>VIX: <span className="text-finma-yellow finma-number">{(intel?.vix || vix).toFixed(2)}</span> | Trend: <span className="text-finma-green">{intel?.regime === 'Bull' ? 'Yükseliş' : 'Temkinli'}</span></div>
+              <div>S&P 500 <span className="finma-number">{intel?.spy_price || regimeData?.spy_price || '—'}</span> <span className="text-finma-green">üzerinde</span></div>
+              <div>EMA20: <span className="finma-number text-finma-cyan">{intel?.spy_ema20 || regimeData?.spy_ema20 || '—'}</span></div>
             </div>
           </div>
 
@@ -801,12 +789,12 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Volatilite Durumu</span>
             </div>
             <div className="text-sm font-bold text-finma-yellow">
-              {vix <= 20 ? 'Normal' : vix <= 25 ? 'Ortalama Üstü' : 'Yüksek'}
+              {intel ? (intel.vix <= 20 ? 'Normal' : intel.vix <= 25 ? 'Ortalama Üstü' : 'Yüksek') : (vix <= 20 ? 'Normal' : 'Yüksek')}
             </div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
-              <div>VIX: <span className="finma-number text-finma-yellow">{vix.toFixed(2)}</span> (Tarihsel ort: ~19-20)</div>
-              <div>Opsiyon piyasasında <span className="text-finma-yellow">artan koruma talebi</span></div>
-              <div>Kısa vadeli VIX vadeli: <span className="finma-number text-finma-yellow">Contango</span></div>
+              <div>VIX: <span className="finma-number text-finma-yellow">{(intel?.vix || vix).toFixed(2)}</span> (Ort: ~19-20)</div>
+              <div>Opsiyon piyasası: <span className="text-finma-yellow">{intel ? (intel.vix > 22 ? 'Koruma Talepli' : 'Stabil') : 'Stabil'}</span></div>
+              <div>Risk Algısı: <span className="finma-number text-finma-yellow">{intel?.regime === 'Bear' ? 'Risk-Off' : 'Risk-On'}</span></div>
             </div>
           </div>
 
@@ -815,12 +803,11 @@ export default function DashboardPage() {
               <Globe2 className="w-3 h-3 text-finma-cyan" />
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Sektör Rotasyonu</span>
             </div>
-            <div className="text-sm font-bold text-finma-cyan">Defansif Döngü</div>
+            <div className="text-sm font-bold text-finma-cyan">{intel?.sector_rotation || 'Aktif Rotasyon'}</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
-              <div>Liderler: <span className="text-finma-green">{sectorLeaders}</span></div>
-              <div>Sanayi ve savunma <span className="text-finma-green">güçlü</span></div>
-              <div>Teknoloji <span className="text-finma-yellow">nötr beklenti</span></div>
-              <div>Tüketici İhtiyari <span className="text-finma-red">zayıf</span></div>
+              <div>Liderler: <span className="text-finma-green">{intel?.sector_leaders || 'Utilities, Materials'}</span></div>
+              <div>Kurumsal Alım: <span className="text-finma-green">Güçlü</span></div>
+              <div>Zayıf Sektörler: <span className="text-finma-red">Temel Tüketim</span></div>
             </div>
           </div>
 
@@ -829,12 +816,16 @@ export default function DashboardPage() {
               <DollarSign className="w-3 h-3 text-finma-green" />
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Para Akışı</span>
             </div>
-            <div className="text-sm font-bold text-finma-green">Net Giriş</div>
+            <div className="text-sm font-bold text-finma-green">{intel?.money_flow || 'Net Giriş'}</div>
             <div className="text-[10px] text-finma-text-dim mt-2 space-y-0.5">
-              <div>SPY net akış: <span className="text-finma-green finma-number">+$2.1B</span> (haftalık)</div>
-              <div>QQQ net akış: <span className="text-finma-red finma-number">-$450M</span></div>
-              <div>Güvenli liman (GLD): <span className="text-finma-green finma-number">+$680M</span></div>
-              <div>DXY (Dolar): <span className="finma-number text-finma-cyan">104.2</span> (stabil)</div>
+              {intel?.money_flow_details.slice(0, 3).map((item, i) => (
+                <div key={i}>{item.label}: <span className={cn('finma-number', item.color)}>{item.value}</span></div>
+              )) || (
+                <>
+                  <div>SPY net akış: <span className="text-finma-green finma-number">+$2.1B</span></div>
+                  <div>QQQ net akış: <span className="text-finma-red finma-number">-$450M</span></div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -847,11 +838,14 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Günün Özeti</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
-              <p>• Piyasalar güçlü açıldı. {sectorLeaders} sektörleri liderlik ediyor.</p>
-              <p>• Savunma hisseleri rallisi devam ediyor – NOC, LMT dikkat çekici.</p>
-              <p>• 10 yıllık tahvil getirisi %4.28 seviyesinde sabit.</p>
-              <p>• Altın $2,950 üzerinde, güvenli liman talebi güçlü.</p>
-              <p>• Kripto piyasası baskı altında, BTC $83K altına geriledi.</p>
+              {intel?.daily_summary.map((s, i) => (
+                <p key={i}>• {s}</p>
+              )) || (
+                <>
+                  <p>• Piyasalar güçlü açıldı. {sectorLeaders} sektörleri liderlik ediyor.</p>
+                  <p>• Savunma hisseleri rallisi devam ediyor.</p>
+                </>
+              )}
             </div>
           </div>
 
@@ -861,13 +855,7 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Ekonomik Takvim</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
-              {[
-                { time: '14:30', event: 'ABD Haftalık İşsizlik Başvuruları', hot: true },
-                { time: '16:00', event: 'FED Başkanı Konuşması', hot: true },
-                { time: 'Yarın', event: 'Enflasyon Verileri (CPI)', hot: false },
-                { time: 'Yarın', event: 'Michigan Tüketici Güveni', hot: false },
-                { time: 'Çar.', event: 'FOMC Toplantı Tutanakları', hot: false },
-              ].map((item, i) => (
+              {(intel?.economic_calendar || []).map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span className={cn(
                     'text-[9px] finma-number px-1.5 py-0.5 rounded',
@@ -876,6 +864,7 @@ export default function DashboardPage() {
                   <span>{item.event}</span>
                 </div>
               ))}
+              {(!intel?.economic_calendar || intel.economic_calendar.length === 0) && <p>Takvim verisi yok</p>}
             </div>
           </div>
 
@@ -885,11 +874,14 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">AI Analiz Özeti</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
-              <p>• Genel piyasa yönü <span className="text-finma-green font-medium">pozitif</span>, ancak VIX dikkat gerektiriyor.</p>
-              <p>• Enerji ve savunma sektörlerinde momentum <span className="text-finma-green font-medium">güçlü</span>.</p>
-              <p>• {top10Candidates[0]?.ticker ?? 'NVDA'} en yüksek skorla öne çıkıyor ({top10Candidates[0]?.score?.toFixed(1) ?? '—'}).</p>
-              <p>• Kurumsal para girişi NVDA, MSFT, AMD'de yoğunlaşıyor.</p>
-              <p>• Risk yönetimi: Pozisyon büyüklüklerini VIX'e göre ayarlayın.</p>
+              {(intel?.ai_analysis || []).map((s, i) => (
+                <p key={i}>• {s}</p>
+              )) || (
+                <>
+                  <p>• Genel piyasa yönü pozitif.</p>
+                  <p>• Enerji ve savunma sektörleri güçlü.</p>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -903,23 +895,13 @@ export default function DashboardPage() {
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Önemli Teknik Seviyeler</span>
             </div>
             <div className="text-xs space-y-0.5">
-              {[
-                ['S&P 500 Destek', '5,720 / 5,680', 'text-finma-green'],
-                ['S&P 500 Direnç', '5,880 / 5,920', 'text-finma-red'],
-                ['Nasdaq Destek', '20,100 / 19,850', 'text-finma-green'],
-                ['Nasdaq Direnç', '20,500 / 20,800', 'text-finma-red'],
-                ['Bitcoin Destek/Direnç', '$82.5K / $88K', 'text-finma-cyan'],
-                ['Altın (Ons) Destek/Direnç', '$2,920 / $3,050', 'text-finma-yellow'],
-                ['Gümüş Destek/Direnç', '$28.5 / $33.0', 'text-finma-yellow'],
-                ['Ham Petrol (WTI)', '$68 / $75', 'text-finma-orange'],
-                ['Doğalgaz (Gas)', '$1.85 / $2.45', 'text-finma-cyan'],
-                ['DXY (Dolar Endeksi)', '103.5 / 105.5', 'text-finma-primary'],
-              ].map(([label, value, color], i) => (
+              {(intel?.technical_levels || []).map(([label, value, color], i) => (
                 <div key={i} className="flex justify-between py-0.5 border-b border-finma-border/15 last:border-0">
                   <span className="text-[11px] text-finma-text-muted">{label}</span>
                   <span className={`finma-number text-[11px] font-medium ${color}`}>{value}</span>
                 </div>
               ))}
+              {(!intel?.technical_levels || intel.technical_levels.length === 0) && <p>Seviye verisi yok</p>}
             </div>
           </div>
 

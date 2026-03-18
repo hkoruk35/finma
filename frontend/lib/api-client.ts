@@ -139,6 +139,10 @@ class APIClient {
     }>('/api/market/regime')
   }
 
+  async getIntelligence() {
+    return this.request<{ payload: any; created_at: string }>('/api/signals/intelligence')
+  }
+
   async getTechnicals(ticker: string) {
     return this.request<{
       ticker: string; price: number; trend: string; trend_score: number;

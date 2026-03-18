@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     supabase_url: str = ""
     supabase_key: str = ""
 
+    # Bot
+    bot_api_key: str = "finma-bot-secret-key"
+    backend_url: str = "http://localhost:8000"
+
     # Auth
     jwt_secret: str = "finma-dev-secret-change-in-production"
     jwt_algorithm: str = "HS256"

@@ -197,3 +197,14 @@ export function useWorldAnalysis() {
     retryDelay: 3000,
   })
 }
+/**
+ * Piyasa hareketleri (Gainers/Losers/Volume)
+ */
+export function useMarketMovers(period = '1d') {
+  return useQuery({
+    queryKey: ['market-movers', period],
+    queryFn: () => api.getMarketMovers(period),
+    staleTime: 60_000,
+    refetchInterval: 120_000,
+  })
+}

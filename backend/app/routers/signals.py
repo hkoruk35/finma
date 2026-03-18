@@ -9,7 +9,7 @@ from pydantic import BaseModel
 import json
 import os
 from datetime import datetime
-from app.database import SignalsDB
+from app.database import SignalsDB, IntelligenceDB
 from app.config import get_settings
 import logging
 
@@ -253,3 +253,31 @@ async def push_signals(
 
     logger.info(f"✅ {len(candidates)} sinyal push edildi — bot: {payload.bot_name}")
     return {"status": "ok", "count": len(candidates), "timestamp": _pushed_signals["timestamp"]}
+# ─── MARKET INTELLIGENCE ENDPOINTS ───
+
+class IntelligencePush(BaseModel):
+    payload: dict
+    api_key: str
+
+@router.get("/intelligence")
+async def get_market_intelligence():
+    """En son yayınlanan zeka raporunu getir"""
+    report = IntelligenceDB.get_latest()
+    if not report:
+        raise HTTPException(status_code=404, detail="No intelligence report found")
+    return report
+
+@router.post("/intelligence/push")
+async def push_market_intelligence(data: IntelligencePush, x_api_key: Optional[str] = Header(None)):
+    """Bot tarafından yeni zeka raporu gönderimi"""
+    settings = get_settings()
+    # Header veya body'den API key kontrolü
+    provided_key = x_api_key or data.api_key
+    if provided_key != settings.bot_api_key:
+        raise HTTPException(status_code=401, detail="Invalid API Key")
+    
+    success = IntelligenceDB.save_report(data.payload)
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to save report")
+    
+    return {"status": "success", "message": "Market Intelligence updated"}

@@ -578,3 +578,56 @@ class InviteCodesDB:
                 logger.error(f"DB get_all invite_codes hatası: {e}")
                 return cls._memory[:limit]
         return cls._memory[:limit]
+# ═══════════════════════════════════════════
+# MARKET INTELLIGENCE TABLE CRUD
+# ═══════════════════════════════════════════
+
+class IntelligenceDB:
+    """
+    market_intelligence tablosu — AI tarafından üretilen piyasa raporları.
+    """
+
+    _memory: List[dict] = []
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def save_report(cls, payload: dict) -> bool:
+        """Yeni bir zeka raporu kaydet"""
+        sb = cls._sb()
+        if sb:
+            try:
+                sb.table("market_intelligence").insert({
+                    "payload": payload
+                }).execute()
+                logger.info("✅ Market Intelligence raporu kaydedildi")
+                return True
+            except Exception as e:
+                logger.error(f"DB save_report intelligence hatası: {e}")
+                cls._memory.append({"payload": payload, "created_at": datetime.utcnow().isoformat()})
+                return False
+        cls._memory.append({"payload": payload, "created_at": datetime.utcnow().isoformat()})
+        return True
+
+    @classmethod
+    def get_latest(cls) -> Optional[dict]:
+        """En son yayınlanan raporu getir"""
+        sb = cls._sb()
+        if sb:
+            try:
+                result = (
+                    sb.table("market_intelligence")
+                    .select("*")
+                    .order("created_at", desc=True)
+                    .limit(1)
+                    .execute()
+                )
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+                return None
+            except Exception as e:
+                logger.error(f"DB get_latest intelligence hatası: {e}")
+                return cls._memory[-1] if cls._memory else None
+        return cls._memory[-1] if cls._memory else None
