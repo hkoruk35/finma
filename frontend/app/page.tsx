@@ -35,11 +35,11 @@ declare global {
 
 /* ── Featured stocks — default: gerçek Swing112 verileri, API'den güncellenir ── */
 const DEFAULT_PREVIEW_STOCKS = [
-  { symbol: 'CGON', sector: 'Energy',     score: 35.1, badge: 'BUY', potential: '+10.0%' },
-  { symbol: 'LXU',  sector: 'Materials',  score: 33.5, badge: 'BUY', potential: '+10.0%' },
-  { symbol: 'ADEA', sector: 'Technology', score: 32.5, badge: 'BUY', potential: '+9.9%'  },
-  { symbol: 'PBR',  sector: 'Energy',     score: 30.4, badge: 'BUY', potential: '+7.7%'  },
-  { symbol: 'STGW', sector: 'Technology', score: 30.0, badge: 'BUY', potential: '+10.1%' },
+  { symbol: 'CGON', sector: 'Energy',     score: 35.1, badge: 'BUY' },
+  { symbol: 'LXU',  sector: 'Materials',  score: 33.5, badge: 'BUY' },
+  { symbol: 'ADEA', sector: 'Technology', score: 32.5, badge: 'BUY' },
+  { symbol: 'PBR',  sector: 'Energy',     score: 30.4, badge: 'BUY' },
+  { symbol: 'STGW', sector: 'Technology', score: 30.0, badge: 'BUY' },
 ]
 
 const features = [
@@ -56,7 +56,7 @@ const features = [
   {
     icon: Target,
     title: 'Günlük Öne Çıkanlar',
-    desc: 'Her gün algoritmamızın seçtiği en güçlü 5 hisse ve performans analizi.',
+    desc: 'Her gün algoritmamızın seçtiği en güçlü 10 hisse ve performans analizi.',
   },
   {
     icon: LineChart,
@@ -65,8 +65,8 @@ const features = [
   },
   {
     icon: Zap,
-    title: 'Anlık Sinyaller',
-    desc: 'Alış/satış sinyalleri, stop-loss uyarıları ve portföy bildirimleri.',
+    title: 'Karar Tahminleri',
+    desc: 'Alış/satış analizleri, stop-loss uyarıları ve portföy yönetimi.',
   },
   {
     icon: Globe,
@@ -77,12 +77,12 @@ const features = [
 
 const proFeatures = [
   'AI destekli hisse analizi & skorlama',
-  'Günlük 5 öne çıkan hisse seçimi',
+  'Günlük 10 öne çıkan hisse seçimi',
   'Piyasa istihbaratı & rejim analizi',
   'İşlem açma/kapama & portföy yönetimi',
   'Profesyonel TradingView grafikleri',
   'Sektör heatmap & para akışı verileri',
-  'Makro ekonomik takvim & sinyaller',
+  'Dünya nın ekonomik takibi.',
   'Telegram bildirim entegrasyonu',
 ]
 
@@ -95,7 +95,7 @@ export default function LandingPage() {
 
   // Canlı sinyal verilerini çek (bot push edince otomatik güncellenir)
   useEffect(() => {
-    api.getFeaturedSignals(5)
+    api.getFeaturedSignals(10)
       .then((data) => {
         if (data?.featured?.length) {
           setPreviewStocks(data.featured.map((c: any) => ({
@@ -103,7 +103,6 @@ export default function LandingPage() {
             sector: c.sector,
             score: c.score,
             badge: c.action,
-            potential: `+${c.potential_pct?.toFixed(1)}%`,
           })))
         }
       })
@@ -199,13 +198,13 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-4">
             <span className="hidden sm:block text-sm text-finma-text-dim">
-              Aylık $19 USD
+              Aylık SADECE 19 USD
             </span>
             <a
               href="#pricing"
               className="finma-btn-primary text-sm px-5 py-2 flex items-center gap-2"
             >
-              Başla <ArrowRight className="w-4 h-4" />
+              Hemen Başla <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>
@@ -224,12 +223,12 @@ export default function LandingPage() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             ABD Borsalarında
             <br />
-            <span className="text-finma-primary">Akıllı Yatırım</span> Kararları
+            <span className="text-finma-primary">Akıllı Yatırım</span> Zamanı
           </h1>
 
           <p className="text-lg sm:text-xl text-finma-text-muted max-w-2xl mx-auto mb-8">
             Her gün yapay zeka algoritmamızın seçtiği en güçlü hisseleri keşfedin.
-            Piyasa istihbaratı, sinyal botları ve portföy yönetimi — tek platformda.
+            Piyasa istihbaratı, analiz botları ve portföy yönetimi — tek platformda.
           </p>
 
           <div className="flex flex-col items-center gap-4 mb-6">
@@ -245,7 +244,7 @@ export default function LandingPage() {
           </div>
 
           <p className="text-xs text-finma-text-dim">
-            Aylık $19 USD · İstediğin zaman iptal
+            Aylık SADECE $19 USD
           </p>
         </div>
       </section>
@@ -268,8 +267,8 @@ export default function LandingPage() {
             <div className="p-6">
               <div className="flex items-center gap-2 mb-4">
                 <TrendingUp className="w-4 h-4 text-finma-primary" />
-                <h3 className="text-sm font-bold text-white">BUGÜNÜN ÖNE ÇIKANLARI</h3>
-                <span className="text-[10px] text-finma-text-dim">(AI tarafından seçildi)</span>
+                <h3 className="text-sm font-bold text-white">BUGÜN ÖNE ÇIKANLAR</h3>
+                <span className="text-[10px] text-finma-text-dim">(FinMA AI tarafından seçildi)</span>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -287,7 +286,6 @@ export default function LandingPage() {
                     <div className="text-[10px] text-finma-text-dim mb-1">{stock.sector}</div>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-finma-primary font-semibold">Skor: {stock.score}</span>
-                      <span className="text-xs text-finma-green font-medium">{stock.potential}</span>
                     </div>
                   </div>
                 ))}
@@ -312,10 +310,10 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">
-              Yatırımcılar İçin <span className="text-finma-primary">Tasarlandı</span>
+              Analizlerde <span className="text-finma-primary">Kaybolmayın</span>
             </h2>
             <p className="text-finma-text-muted max-w-xl mx-auto">
-              Bloomberg kalitesinde terminal deneyimi, yapay zeka desteğiyle birleştirildi.
+              Yeni nesil finans deneyimi.
             </p>
           </div>
 
@@ -379,7 +377,7 @@ export default function LandingPage() {
               <p className="text-[10px] text-finma-text-dim text-center">
                 Google hesabınızla giriş yaparak hemen başlayın.
                 <br />
-                Aylık $19 USD. İstediğiniz zaman iptal edin.
+                Aylık SADECE $19 USD
               </p>
             </div>
           </div>
@@ -420,17 +418,19 @@ export default function LandingPage() {
             <span className="text-[10px] text-finma-text-dim">Developed by <span className="text-finma-primary font-semibold">AFK DaSYS</span></span>
           </div>
           <div className="flex items-center gap-6 text-[10px] text-finma-text-dim">
-            <span>Gizlilik Politikası</span>
-            <span>Kullanım Koşulları</span>
-            <span>KVKK</span>
-            <span>SPK Uyarısı</span>
+            <a href="/privacy" className="hover:text-finma-primary">Gizlilik Politikası</a>
+            <a href="/terms" className="hover:text-finma-primary">Kullanım Koşulları</a>
+            <a href="/kvkk" className="hover:text-finma-primary">KVKK</a>
+            <a href="/disclaimer" className="hover:text-finma-primary">SPK Uyarısı</a>
           </div>
           <div className="text-[10px] text-finma-text-dim">
-            &copy; 2026 FinMA. Tüm hakları saklıdır.
+            &copy; 2026 FinMA Global, New YORK / USA. Tüm hakları saklıdır.
           </div>
         </div>
         <div className="max-w-6xl mx-auto mt-4 text-center">
           <p className="text-[9px] text-finma-text-dim/60 leading-relaxed max-w-3xl mx-auto">
+            Yapay zekâ tarafından üretilen analizler hata içerebilir.
+            <br />
             Yatırım danışmanlığı kapsamında değildir. Burada yer alan bilgiler yatırım tavsiyesi niteliği taşımamaktadır.
             Yatırım kararlarınız tamamen kendi sorumluluğunuzdadır. Geçmiş performans gelecekteki sonuçların garantisi değildir.
             SPK lisanslı yatırım kuruluşlarından profesyonel destek almanız önerilir.
