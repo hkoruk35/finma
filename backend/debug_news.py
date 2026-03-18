@@ -1,8 +1,8 @@
 import sys
 import os
 import logging
-import httpx
-import xml.etree.ElementTree as ET
+import json
+import urllib.request
 
 # Add project root to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -18,30 +18,22 @@ def debug():
     
     # 1. DB Check
     db_ok = is_db_available()
-    logger.info(f"Supabase Connection: {'✅' if db_ok else '❌'}")
+    logger.info(f"Supabase Connection: {'✅' if db_ok else '❌ (In-memory mode)')}")
     
     # 2. Table Count Check
     try:
         results = NewsDB.get_latest(limit=5)
-        logger.info(f"Existing news in DB: {len(results)}")
-        if results:
-            logger.info(f"First headline: {results[0].get('title')}")
+        logger.info(f"Existing news: {len(results)}")
     except Exception as e:
-        logger.error(f"Error reading from NewsDB: {e}")
+        logger.error(f"Error reading news: {e}")
 
     # 3. Manual Fetch Trigger
-    logger.info("Triggering manual fetch...")
+    logger.info("Triggering manual fetch (using internal urllib)...")
     try:
         count = update_all_market_news()
         logger.info(f"Manual fetch results: {count} items")
     except Exception as e:
         logger.error(f"Error during manual fetch: {e}")
-
-    # 4. Final Count
-    try:
-        results = NewsDB.get_latest(limit=5)
-        logger.info(f"Final news in DB: {len(results)}")
-    except Exception: pass
 
     logger.info("--- Debug End ---")
 

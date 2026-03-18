@@ -10,7 +10,9 @@ import numpy as np
 import logging
 import time
 import threading
-import httpx
+import json
+import urllib.request
+import urllib.error
 import xml.etree.ElementTree as ET
 from typing import Optional, Dict, List, Any
 from datetime import datetime, timedelta
@@ -24,6 +26,20 @@ _YF_HEADERS = {
     "Accept": "application/json",
     "Accept-Language": "en-US,en;q=0.9",
 }
+
+def _fetch_url(url: str, headers: dict = None, timeout: int = 15):
+    """Bulit-in urllib ile HTTP GET isteği atar (httpx bağımlılığını kaldırmak için)"""
+    try:
+        final_headers = _YF_HEADERS.copy()
+        if headers:
+            final_headers.update(headers)
+        
+        req = urllib.request.Request(url, headers=final_headers)
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            return response.getcode(), response.read().decode('utf-8')
+    except Exception as e:
+        logger.error(f"Urllib Fetch Error ({url}): {e}")
+        return 0, ""
 
 logger = logging.getLogger(__name__)
 
@@ -1254,15 +1270,13 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
     # 1. Alpha Vantage News Sentiment API (Eğer anahtar varsa)
     if settings.alpha_vantage_api_key:
         try:
-            # Topic: financial_markets, economy_macro
             topic = "financial_markets" if category == "market" else "economy_macro"
             url = f"https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics={topic}&apikey={settings.alpha_vantage_api_key}&limit=50"
             
-            response = httpx.get(url, timeout=15)
-            if response.status_code == 200:
-                data = response.json()
+            status, text = _fetch_url(url)
+            if status == 200:
+                data = json.loads(text)
                 for item in data.get("feed", []):
-                    # Sentiment score -> Impact mapping
                     score = item.get("overall_sentiment_score", 0)
                     impact = "neutral"
                     if score > 0.15: impact = "positive"
@@ -1272,7 +1286,7 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
                         "title": item.get("title"),
                         "url": item.get("url"),
                         "publisher": item.get("source"),
-                        "date": item.get("time_published"), # Format: 20240318T050000
+                        "date": item.get("time_published"),
                         "ticker": item.get("ticker_sentiment", [{}])[0].get("ticker", "MARKET") if item.get("ticker_sentiment") else "MARKET",
                         "impact": impact,
                         "category": category
@@ -1281,37 +1295,36 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
         except Exception as e:
             logger.error(f"Alpha Vantage news error: {e}")
 
-    # 2. Fallback: Yahoo Finance RSS (Eğer AV sonuç vermezse veya ek kaynak için)
+    # 2. Fallback: Yahoo Finance RSS
     if len(results) < 10:
         try:
-            rss_url = "https://finance.yahoo.com/news/rss" # Genel borsa haberleri
+            rss_url = "https://finance.yahoo.com/news/rss"
             if category == "economy":
                 rss_url = "https://finance.yahoo.com/rss/economy"
                 
-            response = httpx.get(rss_url, headers=_YF_HEADERS, timeout=10)
-            if response.status_code == 200:
-                root = ET.fromstring(response.text)
+            status, text = _fetch_url(rss_url)
+            if status == 200:
+                root = ET.fromstring(text)
                 for item in root.findall('.//item'):
                     title = item.find('title').text if item.find('title') is not None else ""
                     link = item.find('link').text if item.find('link') is not None else ""
                     pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
                     
-                        # Basit bir impact tahmini (opsiyonel)
-                        results.append({
-                            "title": title,
-                            "url": link,
-                            "publisher": "Yahoo Finance",
-                            "date": pub_date,
-                            "ticker": "MARKET",
-                            "impact": "neutral",
-                            "category": category,
-                            "lang": "en" # Yahoo Haberleri İngilizcedir
-                        })
-                    logger.info(f"📰 Yahoo RSS'den {len(results)} haber eklendi ({category}).")
-            except Exception as e:
-                logger.error(f"Yahoo News RSS error: {e}")
-        else:
-            logger.info(f"📰 Zaten {len(results)} haber var, Yahoo pas geçildi.")
+                    results.append({
+                        "title": title,
+                        "url": link,
+                        "publisher": "Yahoo Finance",
+                        "date": pub_date,
+                        "ticker": "MARKET",
+                        "impact": "neutral",
+                        "category": category,
+                        "lang": "en"
+                    })
+                logger.info(f"📰 Yahoo RSS'den {len(results)} haber eklendi ({category}).")
+        except Exception as e:
+            logger.error(f"Yahoo News RSS error: {e}")
+    else:
+        logger.info(f"📰 Zaten {len(results)} haber var, Yahoo pas geçildi.")
 
     # 3. Turkish Financial News (Bloomberg HT & Investing TR)
     try:
@@ -1324,9 +1337,9 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
         
         for src in tr_sources:
             try:
-                response = httpx.get(src["url"], timeout=10)
-                if response.status_code == 200:
-                    root = ET.fromstring(response.text)
+                status, text = _fetch_url(src["url"])
+                if status == 200:
+                    root = ET.fromstring(text)
                     count = 0
                     for item in root.findall('.//item'):
                         title_el = item.find('title')

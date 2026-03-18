@@ -6,6 +6,8 @@ Supabase credentials yoksa graceful fallback ile in-memory çalışır.
 """
 
 import logging
+import json
+import urllib.request
 from typing import Optional, List
 from datetime import datetime
 from app.config import get_settings
@@ -19,24 +21,27 @@ _initialized = False
 
 
 def get_supabase():
-    """Supabase client döndürür. Credentials yoksa None."""
-    global _supabase_client, _initialized
-
-    if _initialized:
+    """Supabase client singleton — Hata durumunda (bağımlılık eksikliği vb.) None döner"""
+    global _supabase_client
+    if _supabase_client is not None:
         return _supabase_client
 
-    _initialized = True
     settings = get_settings()
+    url = settings.supabase_url
+    key = settings.supabase_key
 
-    if not settings.supabase_url or not settings.supabase_key:
+    if not url or not key:
         logger.warning("⚠️  Supabase credentials bulunamadı — in-memory fallback aktif")
         return None
 
     try:
-        from supabase import create_client, Client
-        _supabase_client = create_client(settings.supabase_url, settings.supabase_key)
+        from supabase import create_client
+        _supabase_client = create_client(url, key)
         logger.info("✅ Supabase bağlantısı başarılı")
         return _supabase_client
+    except (ImportError, ModuleNotFoundError) as e:
+        logger.warning(f"🔔 Supabase kütüphanesi veya bağımlılığı (httpx) eksik: {e}. In-memory modda devam ediliyor.")
+        return None
     except Exception as e:
         logger.error(f"❌ Supabase bağlantı hatası: {e}")
         return None
