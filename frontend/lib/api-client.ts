@@ -186,7 +186,16 @@ class APIClient {
 
   async getLatestInsiderTransactions() {
     return this.request<Array<{
-      symbol: string; insider: string; relation: string; transaction: string; date: string; shares: number; value: number
+      symbol: string; 
+      owner: string; 
+      relationship: string; 
+      transaction: string; 
+      date: string; 
+      cost: number;
+      shares: number; 
+      value: number;
+      shares_total: number;
+      sec_form_4_url: string;
     }>>('/api/market/insider/latest')
   }
 

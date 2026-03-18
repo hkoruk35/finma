@@ -947,9 +947,9 @@ def get_ticker_news(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
     return results
 
 
-def get_insider_trades(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
-    """Insider işlemlerini getir"""
-    cache_key = f"insider_{ticker}"
+def get_insider_trades(ticker: str, count: int = 15) -> List[Dict[str, Any]]:
+    """Insider işlemlerini getir (Gelişmiş veri seti)"""
+    cache_key = f"insider_v2_{ticker}"
     cached = _extra_cache.get(cache_key)
     if cached:
         return cached
@@ -957,16 +957,30 @@ def get_insider_trades(ticker: str, count: int = 10) -> List[Dict[str, Any]]:
     results = []
     try:
         t = yf.Ticker(ticker)
+        # insider_transactions DataFrame: 
+        # ['Date', 'Insider', 'Relationship', 'Transaction', 'Cost', 'Shares', 'Value', 'Text']
         transactions = t.insider_transactions
         if transactions is not None and not transactions.empty:
             for _, row in transactions.head(count).iterrows():
+                # yfinance 'Cost' bazen 0 veya NaN dönebilir, güvenli çek
+                cost = float(row.get("Cost", 0)) if pd.notna(row.get("Cost")) else 0
+                shares = int(row.get("Shares", 0)) if pd.notna(row.get("Shares")) else 0
+                value = float(row.get("Value", 0)) if pd.notna(row.get("Value")) else 0
+                
+                # 'Start Date' bazen 'Date' olarak geçer
+                date_val = row.get("Start Date") or row.get("Date") or ""
+                
                 results.append({
-                    "insider": str(row.get("Insider", "")),
-                    "relation": str(row.get("Relationship", "")),
+                    "symbol": ticker.upper(),
+                    "owner": str(row.get("Insider", "")),
+                    "relationship": str(row.get("Relationship", "")),
                     "transaction": str(row.get("Transaction", "")),
-                    "date": str(row.get("Start Date", "")),
-                    "shares": int(row.get("Shares", 0)) if pd.notna(row.get("Shares")) else 0,
-                    "value": float(row.get("Value", 0)) if pd.notna(row.get("Value")) else 0,
+                    "date": str(date_val),
+                    "cost": cost,
+                    "shares": shares,
+                    "value": value,
+                    "shares_total": 0,  # yfinance bu tabloyu sağlamaz, Finviz stilinde boş bırakılır veya 0
+                    "sec_form_4_url": "" # Bulunursa eklenecek
                 })
         if results:
             _extra_cache.set(cache_key, results)
@@ -1118,25 +1132,26 @@ def get_holders_info(ticker: str) -> Dict[str, Any]:
 
 
 def update_market_insiders():
-    """Tüm major hisseler için insider işlemlerini topla ve veritabanına kaydet"""
+    """Tüm major hisseler için insider işlemlerini topla ve veritabanına kaydet (Finviz stili)"""
     from app.database import InsiderDB
+    from app.config import get_settings
     
-    # Genişletilmiş liste (S&P 100 benzeri)
+    settings = get_settings()
+    
+    # Kapsamı genişletiyoruz (S&P 100 + Popülerler)
     major_tickers = list(set(POPULAR_TICKERS + [
         "JPM", "V", "JNJ", "WMT", "MA", "PG", "UNH", "XOM", "LLY", "HD",
         "ABBV", "MRK", "BAC", "PEP", "KO", "TMO", "CSCO", "MCD", "DIS", "ADBE",
-        "ORCL", "COST", "CVX", "BAC", "CRM", "AMD", "NFLX", "WFC", "INTC", "INTU"
+        "ORCL", "COST", "CVX", "CRM", "AMD", "NFLX", "WFC", "INTC", "INTU",
+        "UBER", "PYPL", "SBUX", "AMT", "QCOM", "TXN", "AMAT", "ISRG", "MDLZ", "HON"
     ]))
     
     all_trades = []
     
-    # Her ticker için son 5 işlemi çek
     def fetch_insider(ticker):
         try:
-            trades = get_insider_trades(ticker, count=5)
-            # Sembol bilgisini her satıra ekle
-            for t in trades:
-                t["symbol"] = ticker
+            # Geliştirilmiş get_insider_trades'i kullan
+            trades = get_insider_trades(ticker, count=8)
             return trades
         except Exception as e:
             logger.error(f"Insider fetch error for {ticker}: {e}")
@@ -1146,7 +1161,7 @@ def update_market_insiders():
     
     logger.info(f"🚀 Insider veri güncellemesi başlatıldı: {len(major_tickers)} ticker taranıyor...")
     
-    # 10 paralel worker ile hızlandır
+    # Paralel çekim
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {executor.submit(fetch_insider, t): t for t in major_tickers}
         for future in as_completed(futures):
@@ -1154,11 +1169,16 @@ def update_market_insiders():
             if res:
                 all_trades.extend(res)
 
-    # Veriyi kaydet (En son 75-100 işlemi sakla)
     if all_trades:
-        # Tarihe göre kabaca sıralayabiliriz ama yfinance str döndürdüğü için zor olabilir
-        # En basit haliyle gelenleri kaydediyoruz
-        InsiderDB.save_trades(all_trades[:100])
+        # Tarihe göre kabaca sıralama (Date: '2024-03-12' formatında ise)
+        try:
+            # Sadece geçerli tarihi olanları al ve sırala
+            all_trades.sort(key=lambda x: x.get("date", ""), reverse=True)
+        except:
+            pass
+            
+        # İlk 150-200 işlemi sakla (Finviz ana sayfası gibi)
+        InsiderDB.save_trades(all_trades[:150])
         logger.info(f"✅ Insider güncellemesi tamamlandı: {len(all_trades)} işlem bulundu.")
         return len(all_trades)
     

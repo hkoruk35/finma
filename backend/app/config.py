@@ -31,6 +31,8 @@ class Settings(BaseSettings):
     # Telegram
     telegram_bot_token: str = ""
     telegram_chat_id: str = ""
+    alpha_vantage_api_key: str = ""
+    fmp_api_key: str = ""
 
     # Stripe
     stripe_secret_key: str = ""

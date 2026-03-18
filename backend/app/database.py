@@ -699,7 +699,22 @@ class InsiderDB:
                 # Opsiyonel: Eski verileri temizleyip yenilerini ekle (güncel tablo için)
                 sb.table("market_insider").delete().neq("symbol", "NONE_XYZ").execute()
                 if trades:
-                    sb.table("market_insider").insert(trades).execute()
+                    # Supabase'e gönderirken verinin tipini kontrol et
+                    formatted_trades = []
+                    for t in trades:
+                        formatted_trades.append({
+                            "symbol": str(t.get("symbol", "")),
+                            "owner": str(t.get("owner", "")),
+                            "relationship": str(t.get("relationship", "")),
+                            "transaction": str(t.get("transaction", "")),
+                            "date": str(t.get("date", "")),
+                            "cost": float(t.get("cost", 0)) if t.get("cost") else 0,
+                            "shares": int(t.get("shares", 0)) if t.get("shares") else 0,
+                            "value": float(t.get("value", 0)) if t.get("value") else 0,
+                            "shares_total": int(t.get("shares_total", 0)) if t.get("shares_total") else 0,
+                            "sec_form_4_url": str(t.get("sec_form_4_url", ""))
+                        })
+                    sb.table("market_insider").insert(formatted_trades).execute()
                 logger.info(f"✅ {len(trades)} insider işlemi kaydedildi")
                 return True
             except Exception as e:
@@ -710,12 +725,14 @@ class InsiderDB:
         return True
 
     @classmethod
-    def get_latest(cls, limit: int = 50) -> List[dict]:
+    def get_latest(cls, limit: int = 100) -> List[dict]:
         """En son insider işlemlerini getir"""
         sb = cls._sb()
         if sb:
             try:
-                result = sb.table("market_insider").select("*").order("created_at", desc=True).limit(limit).execute()
+                # 'created_at' yerine 'date' veya ID'ye göre çekmek daha mantıklı olabilir 
+                # ama en son kaydedilenleri istiyoruz
+                result = sb.table("market_insider").select("*").order("date", desc=True).limit(limit).execute()
                 return result.data or []
             except Exception as e:
                 logger.error(f"DB get_latest insider hatası: {e}")

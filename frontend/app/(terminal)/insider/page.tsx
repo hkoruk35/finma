@@ -1,18 +1,26 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api-client'
 import { Card } from '@/components/shared/Card'
 import { cn, formatCurrency } from '@/lib/utils'
-import { UserCheck, TrendingUp, TrendingDown, DollarSign, Clock, Building2, RefreshCw } from 'lucide-react'
+import { UserCheck, RefreshCw, ExternalLink, Filter } from 'lucide-react'
 
 export default function InsiderPage() {
   const { data: insiderData, isLoading, refetch } = useQuery({
-    queryKey: ['insider-latest'],
+    queryKey: ['insider-latest-v2'],
     queryFn: () => api.getLatestInsiderTransactions(),
-    staleTime: 1000 * 60 * 60, // 1 saat
+    staleTime: 1000 * 60 * 30, // 30 dk
   })
+
+  // Format helper for large numbers
+  const formatCompact = (val: number) => {
+    if (val === 0) return '-'
+    if (val >= 1000000) return `$${(val / 1000000).toFixed(1)}M`
+    if (val >= 1000) return `$${(val / 1000).toFixed(1)}K`
+    return `$${val.toFixed(0)}`
+  }
 
   if (isLoading) {
     return (
@@ -23,112 +31,113 @@ export default function InsiderPage() {
   }
 
   const trades = insiderData || []
-  const buys = trades.filter(d => d.transaction.toLowerCase().includes('buy') || d.transaction.toLowerCase().includes('alış'))
-  const sells = trades.filter(d => d.transaction.toLowerCase().includes('sell') || d.transaction.toLowerCase().includes('satış'))
-
-  const topBuy = buys.length > 0 ? buys.reduce((prev, current) => (prev.value > current.value) ? prev : current) : null
-  const topSell = sells.length > 0 ? sells.reduce((prev, current) => (prev.value > current.value) ? prev : current) : null
 
   return (
     <div className="space-y-4 animate-fade-in">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <UserCheck className="w-4 h-4 text-finma-primary" />
-          <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">
-            Insider İşlemleri (Piyasa Geneli)
-          </span>
-          <span className="text-[10px] text-finma-text-dim ml-2 uppercase">ABD Borsaları — Günlük</span>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            <UserCheck className="w-4 h-4 text-finma-primary" />
+            <h1 className="text-sm font-bold text-finma-text uppercase tracking-widest">
+              Gelişmiş Insider Takibi
+            </h1>
+          </div>
+          <p className="text-[10px] text-finma-text-dim mt-1">
+            ABD Borsaları — En Son Bildirilen Form 4 İşlemleri
+          </p>
         </div>
-        <button 
-          onClick={() => refetch()}
-          className="text-finma-text-dim hover:text-finma-primary transition-colors"
-        >
-          <RefreshCw className="w-3.5 h-3.5" />
-        </button>
+        
+        <div className="flex items-center gap-3">
+          <div className="text-[9px] text-finma-text-dim hidden md:block">
+            Son Güncelleme: {new Date().toLocaleTimeString('tr-TR')}
+          </div>
+          <button 
+            onClick={() => refetch()}
+            className="p-1.5 rounded-md hover:bg-finma-card-hover text-finma-text-dim hover:text-finma-primary transition-all border border-finma-border/30"
+            title="Yenile"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
-      {/* Özet */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card padding="sm">
-          <div className="text-center">
-            <div className="text-[9px] text-finma-text-dim uppercase mb-1">Tespit Edilen İşlem</div>
-            <div className="text-lg font-bold text-finma-text finma-number">{trades.length}</div>
-          </div>
-        </Card>
-        <Card padding="sm">
-          <div className="text-center">
-            <div className="text-[9px] text-finma-text-dim uppercase mb-1">Alış / Satış Dağılımı</div>
-            <div className="text-lg font-bold">
-              <span className="text-finma-green finma-number">{buys.length}</span>
-              <span className="text-finma-text-dim mx-1">/</span>
-              <span className="text-finma-red finma-number">{sells.length}</span>
-            </div>
-          </div>
-        </Card>
-        <Card padding="sm">
-          <div className="text-center">
-            <div className="text-[9px] text-finma-text-dim uppercase mb-1">En Büyük Alış</div>
-            <div className="text-sm font-bold text-finma-green finma-number">
-              {topBuy ? `${topBuy.symbol} — ${formatCurrency(topBuy.value)}` : '-'}
-            </div>
-          </div>
-        </Card>
-        <Card padding="sm">
-          <div className="text-center">
-            <div className="text-[9px] text-finma-text-dim uppercase mb-1">En Büyük Satış</div>
-            <div className="text-sm font-bold text-finma-red finma-number">
-              {topSell ? `${topSell.symbol} — ${formatCurrency(topSell.value)}` : '-'}
-            </div>
-          </div>
-        </Card>
-      </div>
-
-      {/* Tablo */}
-      <Card padding="sm">
+      {/* Finviz Style Table */}
+      <Card padding="none" className="overflow-hidden border-finma-border/40 shadow-2xl">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs">
+          <table className="w-full text-[11px] border-collapse leading-tight">
             <thead>
-              <tr className="text-finma-text-dim border-b border-finma-border/30">
-                <th className="text-left py-2 px-2 font-medium">Sembol</th>
-                <th className="text-left py-2 px-2 font-medium">İsim</th>
-                <th className="text-left py-2 px-2 font-medium">Unvan</th>
-                <th className="text-center py-2 px-2 font-medium">İşlem</th>
-                <th className="text-right py-2 px-2 font-medium">Adet</th>
-                <th className="text-right py-2 px-2 font-medium">Değer</th>
-                <th className="text-right py-2 px-2 font-medium">Tarih</th>
+              <tr className="bg-[#1a1c22] text-[#8fa2b8] border-b border-finma-border/50 font-semibold">
+                <th className="py-2.5 px-3 text-left border-r border-finma-border/20">Ticker</th>
+                <th className="py-2.5 px-3 text-left border-r border-finma-border/20">Owner</th>
+                <th className="py-2.5 px-3 text-left border-r border-finma-border/20">Relationship</th>
+                <th className="py-2.5 px-3 text-center border-r border-finma-border/20">Date</th>
+                <th className="py-2.5 px-3 text-left border-r border-finma-border/20">Transaction</th>
+                <th className="py-2.5 px-3 text-right border-r border-finma-border/20">Cost</th>
+                <th className="py-2.5 px-3 text-right border-r border-finma-border/20">#Shares</th>
+                <th className="py-2.5 px-3 text-right border-r border-finma-border/20">Value ($)</th>
+                <th className="py-2.5 px-3 text-right border-r border-finma-border/20">#Shares Total</th>
+                <th className="py-2.5 px-3 text-center">SEC</th>
               </tr>
             </thead>
             <tbody>
               {trades.length === 0 ? (
-                <tr>
-                  <td colSpan={7} className="text-center py-10 text-finma-text-dim">
-                    Henüz güncel insider verisi bulunamadı.
+                <tr className="bg-finma-card">
+                  <td colSpan={10} className="py-20 text-center text-finma-text-dim text-sm italic">
+                    Güncel veri bulunamadı.
                   </td>
                 </tr>
               ) : (
                 trades.map((item, idx) => {
-                  const isBuy = item.transaction.toLowerCase().includes('buy') || item.transaction.toLowerCase().includes('alış')
+                  const tx = item.transaction.toLowerCase()
+                  const isBuy = tx.includes('buy') || tx.includes('alış')
+                  const isSell = tx.includes('sell') || tx.includes('satış')
+                  const isOption = tx.includes('option') || tx.includes('exercise')
+                  
                   return (
-                    <tr key={idx} className="border-b border-finma-border/10 hover:bg-finma-card-hover transition-colors">
-                      <td className="py-2.5 px-2 font-bold text-finma-primary finma-number">{item.symbol}</td>
-                      <td className="py-2.5 px-2 text-finma-text font-medium truncate max-w-[120px]">{item.insider}</td>
-                      <td className="py-2.5 px-2 text-finma-text-dim truncate max-w-[150px]">{item.relation}</td>
-                      <td className="py-2.5 px-2 text-center">
-                        <span className={cn(
-                          'px-2 py-0.5 rounded text-[9px] font-bold',
-                          isBuy ? 'bg-finma-green/20 text-finma-green' : 'bg-finma-red/20 text-finma-red'
-                        )}>
-                          {isBuy ? 'Alış' : 'Satış'}
-                        </span>
+                    <tr 
+                      key={idx} 
+                      className={cn(
+                        "border-b border-finma-border/10 transition-colors uppercase font-medium",
+                        isBuy ? "bg-[#003300]/30 hover:bg-[#003300]/50 text-[#00ff00]" : 
+                        isSell ? "bg-[#330000]/30 hover:bg-[#330000]/50 text-[#ff4d4d]" : 
+                        "bg-[#11141a] hover:bg-finma-card-hover text-[#8fa2b8]"
+                      )}
+                    >
+                      <td className="py-2 px-3 font-bold text-finma-primary border-r border-finma-border/10">
+                        {item.symbol}
                       </td>
-                      <td className="py-2.5 px-2 text-right finma-number text-finma-text">
-                        {item.shares.toLocaleString('tr-TR')}
+                      <td className="py-2 px-3 border-r border-finma-border/10 truncate max-w-[140px]" title={item.owner}>
+                        {item.owner}
                       </td>
-                      <td className="py-2.5 px-2 text-right finma-number font-medium text-finma-text">
-                        {formatCurrency(item.value)}
+                      <td className="py-2 px-3 border-r border-finma-border/10 text-[9px] truncate max-w-[120px]" title={item.relationship}>
+                        {item.relationship}
                       </td>
-                      <td className="py-2.5 px-2 text-right finma-number text-finma-text-dim">
+                      <td className="py-2 px-3 text-center border-r border-finma-border/10 whitespace-nowrap opacity-80">
                         {item.date}
+                      </td>
+                      <td className="py-2 px-3 border-r border-finma-border/10 text-[9px] font-bold">
+                        {item.transaction}
+                      </td>
+                      <td className="py-2 px-3 text-right border-r border-finma-border/10 finma-number">
+                        {item.cost > 0 ? item.cost.toFixed(2) : '-'}
+                      </td>
+                      <td className="py-2 px-3 text-right border-r border-finma-border/10 finma-number">
+                        {item.shares.toLocaleString()}
+                      </td>
+                      <td className="py-2 px-3 text-right border-r border-finma-border/10 finma-number font-bold">
+                        {formatCompact(item.value)}
+                      </td>
+                      <td className="py-2 px-3 text-right border-r border-finma-border/10 finma-number opacity-80">
+                        {item.shares_total > 0 ? item.shares_total.toLocaleString() : '-'}
+                      </td>
+                      <td className="py-2 px-3 text-center opacity-40 hover:opacity-100 transition-opacity">
+                        {item.sec_form_4_url ? (
+                          <a href={item.sec_form_4_url} target="_blank" rel="noreferrer" className="text-finma-text hover:text-white">
+                            <ExternalLink className="w-3 h-3 mx-auto" />
+                          </a>
+                        ) : (
+                          <span className="text-[9px]">DOC</span>
+                        )}
                       </td>
                     </tr>
                   )
@@ -138,8 +147,26 @@ export default function InsiderPage() {
           </table>
         </div>
       </Card>
-      <div className="text-[10px] text-finma-text-dim text-right italic">
-        * Veriler her gün NY saati ile 10:00'da güncellenmektedir.
+
+      <div className="flex flex-col md:flex-row justify-between items-center gap-2 px-1">
+        <div className="flex gap-4 text-[9px] text-finma-text-dim lg:flex-row flex-col">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-[#00ff00]"></div>
+            <span>İçeriden Alış (Bully)</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-[#ff4d4d]"></div>
+            <span>İçeriden Satış (Bearish)</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-[#1a1c22] border border-finma-border"></div>
+            <span>Opsiyon / Bonus / Diğer</span>
+          </div>
+        </div>
+        
+        <div className="text-[9px] text-finma-text-dim italic text-right">
+          * Kaynak: SEC Form 4 (Alpha Vantage & FMP & yf) | Güncelleme: 10:00 NY
+        </div>
       </div>
     </div>
   )
