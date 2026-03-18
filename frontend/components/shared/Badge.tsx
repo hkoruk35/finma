@@ -77,14 +77,18 @@ export const sectorTR: Record<string, string> = {
   'Real Estate':     'Gayrimenkul',
   'Materials':       'Hammadde',
   'Consumer':        'Tüketici',
+  'Consumer Discretionary': 'Tüketici',
+  'Consumer Staples': 'Temel Tüketim',
   'Communication':   'İletişim',
+  'Communication Services': 'İletişim',
   'Healthcare':      'Sağlık',
   'Financials':      'Finans',
+  'Financial Services': 'Finans',
   'Utilities':       'Kamu Hizmetleri',
-  'Consumer Staples':'Temel Tüketim',
   'Crypto':          'Kripto',
   'Commodity':       'Emtia',
   'Index':           'Endeks',
+  'Basic Materials': 'Hammadde',
 }
 
 export function sectorLabel(en: string): string {

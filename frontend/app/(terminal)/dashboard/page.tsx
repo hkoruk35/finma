@@ -158,15 +158,68 @@ const MOVERS = {
 
 /* ── Sektör Renkleri (Badge) ── */
 const SECTOR_BADGE: Record<string, string> = {
-  Technology: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  Energy: 'bg-green-500/10 text-green-400 border-green-500/20',
-  Industrials: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-  Consumer: 'bg-pink-500/10 text-pink-400 border-pink-500/20',
-  Communication: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-  Financials: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-  Healthcare: 'bg-red-400/10 text-red-400 border-red-400/20',
+  'Technology': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  'Teknoloji': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  'Energy': 'bg-green-500/10 text-green-400 border-green-500/20',
+  'Enerji': 'bg-green-500/10 text-green-400 border-green-500/20',
+  'Industrials': 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
+  'Sanayi': 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
+  'Consumer': 'bg-pink-500/10 text-pink-400 border-pink-500/20',
+  'Tüketici': 'bg-pink-500/10 text-pink-400 border-pink-500/20',
+  'Communication': 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+  'İletişim': 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+  'Financials': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  'Finans': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  'Healthcare': 'bg-red-400/10 text-red-400 border-red-400/20',
+  'Sağlık': 'bg-red-400/10 text-red-400 border-red-400/20',
   'Real Estate': 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-  Materials: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+  'Gayrimenkul': 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+  'Materials': 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+  'Hammadde': 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+}
+
+/* ── Sabit Hisse Bilgileri (API'den gelmezse fallback) ── */
+const STOCK_METADATA: Record<string, { name: string, sector: string }> = {
+  'AAPL': { name: 'Apple Inc.', sector: 'Technology' },
+  'MSFT': { name: 'Microsoft Corp.', sector: 'Technology' },
+  'NVDA': { name: 'NVIDIA Corporation', sector: 'Technology' },
+  'TSLA': { name: 'Tesla, Inc.', sector: 'Consumer' },
+  'AMZN': { name: 'Amazon.com, Inc.', sector: 'Consumer' },
+  'GOOGL': { name: 'Alphabet Inc.', sector: 'Communication' },
+  'META': { name: 'Meta Platforms', sector: 'Communication' },
+  'AMD': { name: 'Advanced Micro Devices', sector: 'Technology' },
+  'NFLX': { name: 'Netflix, Inc.', sector: 'Communication' },
+  'AVGO': { name: 'Broadcom Inc.', sector: 'Technology' },
+  'MA': { name: 'Mastercard Inc.', sector: 'Financials' },
+  'V': { name: 'Visa Inc.', sector: 'Financials' },
+  'JPM': { name: 'JPMorgan Chase', sector: 'Financials' },
+  'BKNG': { name: 'Booking Holdings', sector: 'Consumer' },
+  'ARM': { name: 'Arm Holdings', sector: 'Technology' },
+  'KLAC': { name: 'KLA Corporation', sector: 'Technology' },
+  'LRCX': { name: 'Lam Research', sector: 'Technology' },
+  'MU': { name: 'Micron Technology', sector: 'Technology' },
+  'RDDT': { name: 'Reddit, Inc.', sector: 'Communication' },
+  'CRWD': { name: 'CrowdStrike', sector: 'Technology' },
+  'PFE': { name: 'Pfizer Inc.', sector: 'Healthcare' },
+  'IBM': { name: 'IBM Corporation', sector: 'Technology' },
+  'COIN': { name: 'Coinbase Global', sector: 'Financials' },
+  'MSTR': { name: 'MicroStrategy', sector: 'Technology' },
+  'SMCI': { name: 'Super Micro Computer', sector: 'Technology' },
+}
+
+function enrichStock(stock: any) {
+  const sym = stock.symbol || stock.ticker
+  const meta = STOCK_METADATA[sym]
+  
+  // Eğer name ticker ile aynıysa veya boşsa fallback kullan
+  const needsNameFix = !stock.name || stock.name === sym || stock.name === sym.toLowerCase()
+  const needsSectorFix = !stock.sector || stock.sector === 'Other' || stock.sector === 'DİĞER'
+
+  return {
+    ...stock,
+    name: (needsNameFix && meta) ? meta.name : (stock.name || sym),
+    sector: (needsSectorFix && meta) ? meta.sector : (stock.sector || 'Technology')
+  }
 }
 
 export default function DashboardPage() {
@@ -231,7 +284,12 @@ export default function DashboardPage() {
       try {
         const data = await api.getMarketMovers(moversPeriod)
         if (data && (data.gainers?.length || data.losers?.length || data.volume?.length)) {
-          setLiveMovers(data)
+          const enrichedData = {
+            gainers: (data.gainers || []).map(enrichStock),
+            losers: (data.losers || []).map(enrichStock),
+            volume: (data.volume || []).map(enrichStock),
+          }
+          setLiveMovers(enrichedData)
         }
 
         // Live quotes map'ini de güncelle ki Bot sonuçları vb. etkilensin
@@ -286,7 +344,7 @@ export default function DashboardPage() {
   // Haftalık öne çıkanları çek (1w gainers)
   useEffect(() => {
     api.getMarketMovers('1w')
-      .then(data => setWeeklyHighlights(data.gainers))
+      .then(data => setWeeklyHighlights((data.gainers || []).map(enrichStock)))
       .catch(err => console.error('Weekly highlights error:', err))
   }, [])
 
