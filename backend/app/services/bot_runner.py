@@ -17,21 +17,6 @@ BOT_CONFIGS = {
         "schedule": {"hour": "9,12,15", "minute": "30"},
         "description": "Swing Trade Scanner - 3 kez/gün",
     },
-    "agresif411": {
-        "script": "agresif411.py",
-        "schedule": {"hour": "10,14", "minute": "0"},
-        "description": "Agresif Scanner - 2 kez/gün",
-    },
-    "inday312": {
-        "script": "inday312.py",
-        "schedule": {"hour": "9-16", "minute": "*/30"},
-        "description": "Intraday Scanner - Her 30dk",
-    },
-    "opsiyon217": {
-        "script": "opsiyon217.py",
-        "schedule": {"hour": "10,13", "minute": "0"},
-        "description": "Opsiyon Scanner - 2 kez/gün",
-    },
     "insider_bot": {
         "script": "insider_bot.py",
         "schedule": {"hour": "10", "minute": "0"},
