@@ -265,11 +265,11 @@ export default function LandingPage() {
             </div>
 
             {/* Dashboard Preview (dash1.png) */}
-            <div className="relative aspect-[16/9] w-full group overflow-hidden bg-black/50">
+            <div className="relative aspect-video w-full group overflow-hidden bg-[#0a0a0c]">
               <img 
                 src="/dash1.png?v=1" 
                 alt="FinMA Dashboard Preview" 
-                className="w-full h-full object-cover sm:object-top transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
               />
               
               {/* Blur Overlay & CTA */}
