@@ -10,9 +10,11 @@ CREATE TABLE IF NOT EXISTS market_news (
     ticker TEXT DEFAULT 'MARKET',
     impact TEXT DEFAULT 'neutral',
     category TEXT DEFAULT 'market',
+    lang TEXT DEFAULT 'en',
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Indexes for efficient retrieval
 CREATE INDEX IF NOT EXISTS idx_market_news_date ON market_news(date DESC);
 CREATE INDEX IF NOT EXISTS idx_market_news_category ON market_news(category);
+CREATE INDEX IF NOT EXISTS idx_market_news_lang ON market_news(lang);

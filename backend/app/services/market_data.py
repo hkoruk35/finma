@@ -1310,6 +1310,44 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
         except Exception as e:
             logger.error(f"Yahoo News RSS error: {e}")
 
+    # 3. Turkish Financial News (Bloomberg HT & Investing TR)
+    try:
+        tr_sources = [
+            {"name": "Bloomberg HT", "url": "https://www.bloomberght.com/rss"},
+            {"name": "Investing TR", "url": "https://tr.investing.com/rss/news.rss"}
+        ]
+        
+        for src in tr_sources:
+            try:
+                response = httpx.get(src["url"], timeout=10)
+                if response.status_code == 200:
+                    root = ET.fromstring(response.text)
+                    count = 0
+                    for item in root.findall('.//item'):
+                        title_el = item.find('title')
+                        link_el = item.find('link')
+                        date_el = item.find('pubDate')
+                        
+                        title = title_el.text if title_el is not None else ""
+                        link = link_el.text if link_el is not None else ""
+                        pub_date = date_el.text if date_el is not None else ""
+                        
+                        results.append({
+                            "title": title,
+                            "url": link,
+                            "publisher": src["name"],
+                            "date": pub_date,
+                            "ticker": "MARKET",
+                            "impact": "neutral",
+                            "category": category,
+                            "lang": "tr"
+                        })
+                        count += 1
+                        if count > 15: break 
+                    logger.info(f"🇹🇷 {src['name']}'dan {count} Türkçe haber alındı.")
+            except Exception: pass
+    except Exception: pass
+
     return results
 
 def update_all_market_news():

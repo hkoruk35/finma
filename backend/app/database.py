@@ -769,7 +769,8 @@ class NewsDB:
                         "date": str(n.get("date", "")),
                         "ticker": str(n.get("ticker", "MARKET")),
                         "impact": str(n.get("impact", "neutral")),
-                        "category": str(n.get("category", "market"))
+                        "category": str(n.get("category", "market")),
+                        "lang": str(n.get("lang", "en"))
                     })
                 
                 # Mükerrer kontrolü (son 100 başlık)
