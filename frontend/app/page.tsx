@@ -272,8 +272,8 @@ export default function LandingPage() {
                 className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
               />
               
-              {/* Blur Overlay & CTA */}
-              <div className="absolute inset-0 bg-gradient-to-t from-finma-bg via-finma-bg/20 to-transparent flex items-end justify-center pb-8 p-4">
+              {/* Blur Overlay & CTA - Hidden on Mobile */}
+              <div className="absolute inset-0 bg-gradient-to-t from-finma-bg via-finma-bg/20 to-transparent hidden sm:flex items-end justify-center pb-8 p-4">
                 <div className="flex flex-col items-center gap-4 bg-finma-bg/60 backdrop-blur-md border border-finma-border/50 rounded-2xl p-6 shadow-2xl">
                   <div className="flex items-center gap-2 text-sm font-medium text-white">
                     <Shield className="w-5 h-5 text-finma-primary" />
