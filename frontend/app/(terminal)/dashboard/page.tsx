@@ -276,7 +276,13 @@ export default function DashboardPage() {
     gainers: any[]; losers: any[]; volume: any[]
   }>(MOVERS)
   // Weekly highlights (Highlights of the week)
-  const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>([])
+  const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('finma_weekly_highlights')
+      return saved ? JSON.parse(saved) : []
+    }
+    return []
+  })
   // Heatmap son güncelleme zamanı
   const [heatmapUpdate, setHeatmapUpdate] = useState(new Date())
 
@@ -362,7 +368,13 @@ export default function DashboardPage() {
   // Haftalık öne çıkanları çek (1w gainers)
   useEffect(() => {
     api.getMarketMovers('1w')
-      .then(data => setWeeklyHighlights((data.gainers || []).map(enrichStock)))
+      .then(data => {
+        const enriched = (data.gainers || []).map(enrichStock)
+        setWeeklyHighlights(enriched)
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('finma_weekly_highlights', JSON.stringify(enriched))
+        }
+      })
       .catch(err => console.error('Weekly highlights error:', err))
   }, [])
 
@@ -920,18 +932,37 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
           {/* Teknik Seviyeler — 10 Satır */}
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
-            <div className="flex items-center gap-1.5 mb-2">
+            <div className="flex items-center gap-1.5 mb-3">
               <Shield className="w-3 h-3 text-finma-primary" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">Önemli Teknik Seviyeler</span>
+              <span className="text-[10px] text-finma-text font-bold uppercase tracking-wider">Önemli Teknik Seviyeler</span>
             </div>
-            <div className="text-xs space-y-0.5">
-              {(intel?.technical_levels || []).map(([label, value, color], i) => (
-                <div key={i} className="flex justify-between py-0.5 border-b border-finma-border/15 last:border-0">
-                  <span className="text-[11px] text-finma-text-muted">{label}</span>
-                  <span className={`finma-number text-[11px] font-medium ${color}`}>{value}</span>
-                </div>
-              ))}
-              {(!intel?.technical_levels || intel.technical_levels.length === 0) && <p>Seviye verisi yok</p>}
+            
+            <div className="overflow-hidden border border-finma-border/20 rounded">
+              <table className="w-full border-collapse text-[10px]">
+                <thead>
+                  <tr className="bg-finma-bg/80 text-finma-text-dim border-b border-finma-border/30 text-left">
+                    <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Varlık / Seviye</th>
+                    <th className="py-1.5 px-2 font-medium text-right">Değer</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-finma-border/20">
+                  {(intel?.technical_levels || []).map(([label, value, color], i) => (
+                    <tr key={i} className="hover:bg-finma-primary/5 transition-colors">
+                      <td className="py-2 px-2 border-r border-finma-border/20">
+                        <span className="text-finma-text-muted">{label}</span>
+                      </td>
+                      <td className={cn("py-2 px-2 text-right finma-number font-bold", color)}>
+                        {value}
+                      </td>
+                    </tr>
+                  ))}
+                  {(!intel?.technical_levels || intel.technical_levels.length === 0) && (
+                    <tr>
+                      <td colSpan={2} className="text-center py-4 text-finma-text-dim">Veri bekleniyor...</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -949,7 +980,7 @@ export default function DashboardPage() {
                     <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Hisse</th>
                     <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Sektör</th>
                     <th className="py-1.5 px-2 font-medium border-r border-finma-border/20 text-right">Fiyat</th>
-                    <th className="py-1.5 px-2 font-medium text-right">PnL</th>
+                    <th className="py-1.5 px-2 font-medium text-right">Değişim</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-finma-border/20">
