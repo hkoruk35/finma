@@ -298,14 +298,7 @@ class APIClient {
   // ─── Signals (Vercel → Supabase doğrudan, Railway bypass) ───
 
   async getLatestSignals() {
-    // Production: /api/signals/latest (Vercel serverless → Supabase)
-    // Dev: Railway proxy fallback
-    const signalUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
-      ? '/api/signals/latest'
-      : `${this.baseUrl}/api/signals/latest`
-    const res = await fetch(signalUrl, { cache: 'no-store' })
-    if (!res.ok) throw new Error(`Signals ${res.status}`)
-    return res.json() as Promise<{
+    return this.request<{
       timestamp: string; bot_name?: string; market_regime: string;
       sector_leaders?: string[]; vix_level: number;
       candidates: Array<{
@@ -314,16 +307,11 @@ class APIClient {
         potential_pct: number; sector: string; trend_phase?: string;
         rvol?: number; notes?: string[];
       }>
-    }>
+    }>('/api/signals/latest')
   }
 
   async getFeaturedSignals(limit = 5) {
-    const signalUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
-      ? `/api/signals/featured?limit=${limit}`
-      : `${this.baseUrl}/api/signals/featured?limit=${limit}`
-    const res = await fetch(signalUrl, { cache: 'no-store' })
-    if (!res.ok) throw new Error(`Featured ${res.status}`)
-    return res.json() as Promise<{
+    return this.request<{
       timestamp: string; market_regime: string; vix_level: number;
       featured: Array<{
         ticker: string; score: number; price: number; action: string;
@@ -331,7 +319,7 @@ class APIClient {
         potential_pct: number; sector: string; trend_phase?: string;
         rvol?: number; notes?: string[];
       }>
-    }>
+    }>(`/api/signals/featured?limit=${limit}`)
   }
 
   async getCandidates(params?: { sector?: string; action?: string; min_score?: number; limit?: number }) {
@@ -348,8 +336,20 @@ class APIClient {
 
   async getBotStatus() {
     return this.request<Record<string, {
-      name: string; script: string; scheduled: boolean; next_run: string | null
+      name: string; script: string; scheduled: boolean; next_run: string | null; is_running?: boolean
     }>>('/api/signals/bot-status')
+  }
+
+  async runBot(botName: string) {
+    return this.request<{ status: string; message: string }>(`/api/signals/bots/${botName}/run`, {
+      method: 'POST',
+    })
+  }
+
+  async toggleBot(botName: string, active: boolean) {
+    return this.request<{ status: string; active: boolean }>(`/api/signals/bots/${botName}/toggle?active=${active}`, {
+      method: 'POST',
+    })
   }
 
   // ─── Portfolio ───
@@ -389,13 +389,13 @@ class APIClient {
   }
 
   async getPortfolioSettings() {
-    return this.request<{ initial_capital: number }>('/api/portfolio/settings')
+    return this.request<{ initial_capital: number; risk_per_trade: number }>('/api/portfolio/settings')
   }
 
-  async updatePortfolioSettings(initial_capital: number) {
+  async updatePortfolioSettings(initial_capital: number, risk_per_trade: number = 2.0) {
     return this.request<any>('/api/portfolio/settings', {
       method: 'POST',
-      body: JSON.stringify({ initial_capital }),
+      body: JSON.stringify({ initial_capital, risk_per_trade }),
     })
   }
 

@@ -48,16 +48,23 @@ function OperationsContent() {
   const [exitPrices, setExitPrices] = useState<Record<string, string>>({})
   const [showExitInput, setShowExitInput] = useState<string | null>(null)
 
-  // Başlangıç sermayesi (Backend + LocalStorage fallback)
+  // Başlangıç sermayesi ve Limitler (Backend + LocalStorage fallback)
   const [startCapital, setStartCapital] = useState<number>(10000)
+  const [riskLimit, setRiskLimit] = useState<number>(2.0)
+  
   const [editingCapital, setEditingCapital] = useState(false)
   const [capitalInput, setCapitalInput] = useState('')
+  
+  const [editingRisk, setEditingRisk] = useState(false)
+  const [riskInput, setRiskInput] = useState('')
+  
   const [resetting, setResetting] = useState(false)
 
   useEffect(() => {
-    // Backend'den gerçek sermayeyi çek
+    // Backend'den gerçek sermaye ve limitleri çek
     api.getPortfolioSettings().then(settings => {
       setStartCapital(settings.initial_capital)
+      setRiskLimit(settings.risk_per_trade || 2.0)
     }).catch(() => {
       const saved = localStorage.getItem('finma_start_capital')
       if (saved) setStartCapital(parseFloat(saved))
@@ -69,19 +76,22 @@ function OperationsContent() {
     refetchTrades?.()
   }
 
-  async function saveCapital() {
-    const val = parseFloat(capitalInput)
-    if (val > 0) {
-      try {
-        await api.updatePortfolioSettings(val)
-        setStartCapital(val)
-        localStorage.setItem('finma_start_capital', String(val))
-        refetchSummary?.()
-      } catch (err) {
-        console.error('Failed to update capital:', err)
-      }
+  async function saveSettings(capital?: number, risk?: number) {
+    const finalCapital = capital ?? startCapital
+    const finalRisk = risk ?? riskLimit
+    
+    try {
+      await api.updatePortfolioSettings(finalCapital, finalRisk)
+      if (capital !== undefined) setStartCapital(capital)
+      if (risk !== undefined) setRiskLimit(risk)
+      
+      localStorage.setItem('finma_start_capital', String(finalCapital))
+      refetchSummary?.()
+    } catch (err) {
+      console.error('Failed to update portfolio settings:', err)
     }
     setEditingCapital(false)
+    setEditingRisk(false)
   }
 
   async function handleResetAll() {
@@ -185,11 +195,35 @@ function OperationsContent() {
               <DollarSign className="w-3.5 h-3.5 text-finma-text-dim" />
               <input type="number" value={capitalInput} onChange={e => setCapitalInput(e.target.value)}
                 className="w-full bg-finma-bg border border-finma-border rounded px-1.5 py-0.5 text-sm finma-number text-white focus:outline-none focus:border-finma-primary"
-                autoFocus onKeyDown={e => e.key === 'Enter' && saveCapital()} />
-              <button onClick={saveCapital} className="text-[9px] bg-finma-green/20 text-finma-green px-1.5 py-0.5 rounded font-bold">OK</button>
+                autoFocus onKeyDown={e => e.key === 'Enter' && saveSettings(parseFloat(capitalInput), undefined)} />
+              <button onClick={() => saveSettings(parseFloat(capitalInput), undefined)} className="text-[9px] bg-finma-green/20 text-finma-green px-1.5 py-0.5 rounded font-bold">OK</button>
             </div>
           ) : (
             <span className="finma-number text-xl font-bold text-finma-cyan">{formatCurrency(startCapital)}</span>
+          )}
+        </Card>
+
+        <Card padding="sm" className="flex flex-col gap-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-finma-text-dim uppercase">Risk Limiti</span>
+            <button onClick={() => { setEditingRisk(true); setRiskInput(String(riskLimit)) }}
+              className="text-finma-text-dim hover:text-finma-primary transition-colors" title="Risk limiti ayarla">
+              <Edit3 className="w-3 h-3" />
+            </button>
+          </div>
+          {editingRisk ? (
+            <div className="flex items-center gap-1">
+              <span className="text-[10px] text-finma-text-dim font-bold">%</span>
+              <input type="number" value={riskInput} onChange={e => setRiskInput(e.target.value)}
+                className="w-full bg-finma-bg border border-finma-border rounded px-1.5 py-0.5 text-sm finma-number text-white focus:outline-none focus:border-finma-primary"
+                autoFocus onKeyDown={e => e.key === 'Enter' && saveSettings(undefined, parseFloat(riskInput))} />
+              <button onClick={() => saveSettings(undefined, parseFloat(riskInput))} className="text-[9px] bg-finma-green/20 text-finma-green px-1.5 py-0.5 rounded font-bold">OK</button>
+            </div>
+          ) : (
+            <div className="flex items-baseline gap-1">
+              <span className="finma-number text-xl font-bold text-finma-yellow">%{riskLimit}</span>
+              <span className="text-[9px] text-finma-text-dim">/ Pozisyon</span>
+            </div>
           )}
         </Card>
         <Card padding="sm" className="flex flex-col gap-1">

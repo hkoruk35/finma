@@ -238,26 +238,6 @@ export function Sidebar() {
             )
           })}
 
-          {/* Admin link */}
-          {isAdmin && (
-            <div className="pt-2 mt-2 border-t border-finma-border/40">
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200',
-                  pathname.startsWith('/admin')
-                    ? 'bg-finma-red/15 text-finma-red'
-                    : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5',
-                  !isExpanded && 'justify-center px-0'
-                )}
-                title={!isExpanded ? 'Admin Panel' : undefined}
-              >
-                <Shield className="w-4.5 h-4.5 shrink-0" />
-                {isExpanded && <span>Admin Panel</span>}
-              </Link>
-            </div>
-          )}
         </nav>
 
         {/* Bottom section */}
