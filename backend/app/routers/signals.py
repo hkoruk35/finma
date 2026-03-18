@@ -11,6 +11,7 @@ import os
 from datetime import datetime
 from app.database import SignalsDB, IntelligenceDB
 from app.config import get_settings
+from app.dependencies import require_admin
 import logging
 
 logger = logging.getLogger(__name__)
@@ -281,3 +282,21 @@ async def push_market_intelligence(data: IntelligencePush, x_api_key: Optional[s
         raise HTTPException(status_code=500, detail="Failed to save report")
     
     return {"status": "success", "message": "Market Intelligence updated"}
+@router.post("/bots/{bot_name}/run")
+async def run_bot_manually(bot_name: str, admin: dict = Depends(require_admin)):
+    """Botu manuel olarak hemen çalıştır (Admin sadece)"""
+    from app.services.bot_runner import trigger_bot_manually
+    success = trigger_bot_manually(bot_name)
+    if not success:
+        raise HTTPException(status_code=400, detail=f"Bot tetiklenemedi: {bot_name}")
+    return {"status": "ok", "message": f"{bot_name} başlatıldı"}
+
+
+@router.post("/bots/{bot_name}/toggle")
+async def toggle_bot_schedule(bot_name: str, active: bool, admin: dict = Depends(require_admin)):
+    """Botun zamanlanmış çalışmasını durdur veya başlat (Admin sadece)"""
+    from app.services.bot_runner import toggle_bot_schedule as _toggle
+    success = _toggle(bot_name, active)
+    if not success:
+        raise HTTPException(status_code=400, detail=f"Bot durumu değiştirilemedi: {bot_name}")
+    return {"status": "ok", "active": active}

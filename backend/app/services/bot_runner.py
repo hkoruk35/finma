@@ -27,6 +27,26 @@ BOT_CONFIGS = {
         "schedule": {"minute": "5"}, # Her saat başı 5 geçe
         "description": "Hourly Market & Economy News Bot",
     },
+    "agresif411": {
+        "script": "agresif411.py",
+        "schedule": {"hour": "9,13", "minute": "45"},
+        "description": "Agresif Momentum Scanner",
+    },
+    "inday312": {
+        "script": "inday312.py",
+        "schedule": {"minute": "*/30"}, # Her 30 dakikada bir
+        "description": "Intraday Trend Scanner",
+    },
+    "opsiyon217": {
+        "script": "opsiyon217.py",
+        "schedule": {"hour": "11,15", "minute": "15"},
+        "description": "Option Volatility & Flow Scanner",
+    },
+    "intelligence_bot": {
+        "script": "intelligence_bot.py",
+        "schedule": {"hour": "8", "minute": "30"},
+        "description": "Daily Market Intelligence & AI Report",
+    },
 }
 
 scheduler: Optional[AsyncIOScheduler] = None
@@ -143,5 +163,59 @@ def get_bot_status():
             "script": config["script"],
             "scheduled": job is not None,
             "next_run": str(job.next_run_time) if job else None,
+            "is_running": False # subprocess monitoring is complex, placeholder
         }
     return status
+
+
+def trigger_bot_manually(bot_name: str):
+    """Run a bot immediately once"""
+    global scheduler
+    if not scheduler:
+        return False
+    
+    config = BOT_CONFIGS.get(bot_name)
+    if not config:
+        return False
+
+    # Add a one-time job that runs NOW
+    scheduler.add_job(
+        run_bot,
+        "date",
+        run_date=datetime.now(),
+        args=[bot_name, "bots", "bots/output"],
+        name=f"Manual Run: {bot_name}"
+    )
+    return True
+
+
+def toggle_bot_schedule(bot_name: str, active: bool):
+    """Enable or disable a bot in the scheduler"""
+    global scheduler
+    if not scheduler:
+        return False
+
+    job = scheduler.get_job(bot_name)
+    if active:
+        if not job:
+            # Re-add job (CRON)
+            config = BOT_CONFIGS.get(bot_name)
+            if config:
+                scheduler.add_job(
+                    run_bot,
+                    "cron",
+                    args=[bot_name, "bots", "bots/output"],
+                    id=bot_name,
+                    name=config["description"],
+                    **config["schedule"],
+                    misfire_grace_time=60,
+                )
+                return True
+        else:
+            job.resume()
+            return True
+    else:
+        if job:
+            job.pause()
+            return True
+    return False
