@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('finma_token')?.value
 
   // Public paths (landing page, login, admin-login, invite)
-  const publicPaths = ['/', '/login', '/admin-login', '/invite']
+  const publicPaths = ['/', '/login', '/admin-login', '/invite', '/dash1.png']
   const isPublic = pathname === '/' || publicPaths.some(p => p !== '/' && pathname.startsWith(p))
 
   // If on login page or landing and has token, redirect to dashboard
