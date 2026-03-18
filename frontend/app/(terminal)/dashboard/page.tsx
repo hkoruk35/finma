@@ -341,7 +341,7 @@ export default function DashboardPage() {
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Brain className="w-5 h-5 text-finma-purple" />
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
-            AI Market Brain
+            Piyasaya Genel Bakış
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
             <RefreshCw className="w-3 h-3" /> Her 5 dk güncellenir • {timeStr}
@@ -400,7 +400,7 @@ export default function DashboardPage() {
             Günün Fırsatları
           </span>
           <span className="text-[9px] bg-finma-yellow/10 text-finma-yellow px-2 py-0.5 rounded-full font-medium ml-2 border border-finma-yellow/20">
-            Veriler 15 dk gecikmeli
+            Canlı veriler 15 dk gecikmeli
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
             <Clock className="w-3 h-3" /> {dateStr}
@@ -449,12 +449,12 @@ export default function DashboardPage() {
                       {livePrice ? (
                         <>
                           <span className="text-finma-text-dim text-xs">→</span>
-                          <span className="finma-number text-xs font-bold text-white">${livePrice.toFixed(2)}</span>
+                          <span className="finma-number text-xs font-bold text-white">Canlı ${livePrice.toFixed(2)}</span>
                           <span className={cn(
                             'finma-number text-xs font-bold',
                             (changePct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
                           )}>
-                            {(changePct ?? 0) >= 0 ? '+' : ''}{(changePct ?? 0).toFixed(2)}%
+                            PnL {(changePct ?? 0) >= 0 ? '+' : ''}{(changePct ?? 0).toFixed(2)}%
                           </span>
                         </>
                       ) : null}
@@ -485,7 +485,7 @@ export default function DashboardPage() {
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
             <RefreshCw className={cn('w-3 h-3', moversLoading && 'animate-spin')} />
-            {moversError ? <span className="text-finma-red">Veri alınamadı</span> : <>3 dk'da bir güncellenir • {timeStr}</>}
+            {moversError ? <span className="text-finma-red">Veri alınamadı</span> : <>NY Saati ile 16:05 güncellenir • {timeStr}</>}
           </span>
         </div>
 
@@ -535,44 +535,42 @@ export default function DashboardPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-finma-text-dim border-b border-finma-border/30">
-                <th className="text-left py-2 px-2 font-medium w-8">#</th>
-                <th className="text-left py-2 px-2 font-medium">Hisse</th>
-                <th className="text-left py-2 px-2 font-medium hidden md:table-cell">Sektör</th>
-                <th className="text-right py-2 px-2 font-medium">Fiyat</th>
-                <th className="text-right py-2 px-2 font-medium">Değişim</th>
-                <th className="text-right py-2 px-2 font-medium">Hacim</th>
+              <tr className="text-finma-text-dim bg-finma-bg/80">
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8">#</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Hisse / Şirket</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Sektör</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Canlı Fiyat</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Gnl Değişim</th>
               </tr>
             </thead>
             <tbody>
               {liveMovers[moversTab]?.map((stock: any, idx: number) => {
                 const sym = stock.symbol || stock.ticker
                 return (
-                <tr key={sym} className="border-b border-finma-border/10 hover:bg-finma-card-hover transition-colors cursor-pointer"
+                <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
                   onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
-                  <td className="py-2.5 px-2 finma-number text-finma-text-dim">{idx + 1}</td>
-                  <td className="py-2.5 px-2">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-finma-primary finma-number">{sym}</span>
-                      <span className="text-finma-text-muted text-[10px] hidden sm:inline">{stock.name}</span>
+                  <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
+                  <td className="py-2.5 px-3 border border-finma-border/50">
+                    <div className="flex flex-col">
+                      <span className="font-bold text-finma-primary finma-number text-sm">{sym}</span>
+                      <span className="text-finma-text-dim text-[10px] uppercase">{stock.name}</span>
                     </div>
                   </td>
-                  <td className="py-2.5 px-2 hidden md:table-cell">
+                  <td className="py-2.5 px-3 border border-finma-border/50">
                     <span className={cn(
-                      'text-[9px] px-1.5 py-0.5 rounded border font-medium',
+                      'text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase',
                       SECTOR_BADGE[stock.sector] || 'bg-white/5 text-finma-text-dim border-white/10'
                     )}>
                       {sectorLabel(stock.sector)}
                     </span>
                   </td>
-                  <td className="py-2.5 px-2 text-right finma-number text-finma-text font-medium">${(stock.price ?? 0).toFixed(2)}</td>
-                  <td className={cn('py-2.5 px-2 text-right finma-number font-semibold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                  <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">${(stock.price ?? 0).toFixed(2)}</td>
+                  <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
                     <div className="flex items-center justify-end gap-1">
                       {(stock.change_pct ?? 0) >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                       {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
                     </div>
                   </td>
-                  <td className="py-2.5 px-2 text-right finma-number text-finma-text-dim">{stock.volume || '-'}</td>
                 </tr>
                 )
               })}
@@ -904,20 +902,22 @@ export default function DashboardPage() {
               <Star className="w-3 h-3 text-finma-yellow" />
               <span className="text-[10px] text-finma-text-dim uppercase font-medium">Bu Hafta Öne Çıkanlar</span>
             </div>
-            <div className="text-xs text-finma-text-muted space-y-1">
+            <div className="text-xs text-finma-text-muted space-y-0 relative">
               {/* Haftalık en yüksek kazanan 10 hisse */}
-              {weeklyHighlights.slice(0, 10).map((s: any, i: number) => (
-                <div key={s.symbol} onClick={() => router.push(`/stock-analysis?ticker=${s.symbol}`)}
-                  className="flex items-center gap-2 py-0.5 cursor-pointer hover:bg-finma-primary/5 rounded px-1 -mx-1">
-                  <span className="text-[10px] w-4 text-finma-text-dim">{i+1}</span>
-                  <span className="font-bold text-finma-primary finma-number text-[11px] min-w-[44px]">{s.symbol}</span>
-                  <span className="flex-1 text-[10px] text-finma-text-dim truncate">{s.name}</span>
-                  {s.price > 0 && <span className="finma-number text-[11px] text-finma-text">${(s.price ?? 0).toFixed(2)}</span>}
-                  <span className={cn('finma-number text-[10px] font-bold', (s.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                    {(s.change_pct ?? 0) >= 0 ? '+' : ''}{(s.change_pct ?? 0).toFixed(1)}%
-                  </span>
-                </div>
-              ))}
+              <div className="border border-finma-border/30 rounded overflow-hidden">
+                {weeklyHighlights.slice(0, 10).map((s: any, i: number) => (
+                  <div key={s.symbol} onClick={() => router.push(`/stock-analysis?ticker=${s.symbol}`)}
+                    className="flex items-center gap-2 py-2 cursor-pointer hover:bg-finma-primary/5 transition-colors px-2 border-b border-finma-border/20 last:border-0">
+                    <span className="text-[10px] w-4 text-finma-text-dim finma-number">{i+1}</span>
+                    <span className="font-bold text-finma-primary finma-number text-[11px] min-w-[40px]">{s.symbol}</span>
+                    <span className="text-[9px] px-1 py-0.5 bg-finma-primary/10 text-finma-primary rounded border border-finma-primary/20 font-bold uppercase">{sectorLabel(s.sector)}</span>
+                    <span className="flex-1 text-[10px] text-finma-text-dim truncate">{s.name}</span>
+                    <span className={cn('finma-number text-[10px] font-bold', (s.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      {(s.change_pct ?? 0) >= 0 ? '+' : ''}{(s.change_pct ?? 0).toFixed(1)}%
+                    </span>
+                  </div>
+                ))}
+              </div>
               {weeklyHighlights.length === 0 && (
                 <div className="text-center py-4 text-finma-text-dim text-[10px]">Yükleniyor...</div>
               )}
@@ -925,6 +925,27 @@ export default function DashboardPage() {
           </div>
         </div>
       </Card>
+
+      {/* Footer */}
+      <footer className="mt-8 border-t border-finma-border/30 py-8">
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex items-center gap-6 text-[11px] text-finma-text-dim">
+            <a href="/privacy" className="hover:text-finma-primary transition-colors">Gizlilik Politikası</a>
+            <a href="/terms" className="hover:text-finma-primary transition-colors">Kullanım Koşulları</a>
+            <a href="/kvkk" className="hover:text-finma-primary transition-colors">KVKK</a>
+            <a href="/disclaimer" className="hover:text-finma-primary transition-colors">SPK Uyarısı</a>
+            <a href="/contact" className="hover:text-finma-primary transition-colors">İletişim</a>
+          </div>
+          <div className="text-center space-y-3">
+            <p className="text-[10px] text-finma-text-dim/80 max-w-2xl mx-auto leading-relaxed italic">
+              "Yapay zekâ tarafından üretilen analizler hata içerebilir. Yatırım danışmanlığı kapsamında değildir."
+            </p>
+            <p className="text-[10px] text-finma-text-dim">
+              &copy; 2026 FinMA Global, New YORK / USA. Tüm hakları saklıdır.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

@@ -1,17 +1,17 @@
 import type { SignalReport, PortfolioSnapshot, MarketIndex, Trade, WatchlistItem } from '@/types'
 
 export const mockPortfolio: PortfolioSnapshot = {
-  net_liquidation: 1401.13,
+  net_liquidation: 0.00,
   active_pnl: 0.00,
-  drawdown: -0.00,
+  drawdown: 0.00,
   liquidity_pct: 100.0,
   gross_exposure: 0.0,
-  cash_available: 1401.13,
+  cash_available: 0.00,
   margin_used: 0.00,
   current_24h_pnl: 0.00,
   last_7_days_pnl: 0.00,
-  mtd_pnl: -2.88,
-  ytd_pnl: 12.13,
+  mtd_pnl: 0.00,
+  ytd_pnl: 0.00,
 }
 
 export const mockIndices: MarketIndex[] = [
