@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import {
@@ -264,11 +265,14 @@ export default function LandingPage() {
             </div>
 
             {/* Dashboard Preview (dash1.png) */}
-            <div className="relative aspect-[16/9] w-full group overflow-hidden">
-              <img 
+            <div className="relative aspect-[16/9] w-full group overflow-hidden bg-black/50">
+              <Image 
                 src="/dash1.png" 
                 alt="FinMA Dashboard Preview" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                fill
+                priority
+                unoptimized
+                className="w-full h-full object-cover sm:object-top transition-transform duration-700 group-hover:scale-105"
               />
               
               {/* Blur Overlay & CTA */}
