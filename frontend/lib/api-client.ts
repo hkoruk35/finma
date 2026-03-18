@@ -357,6 +357,23 @@ class APIClient {
     })
   }
 
+  async getPortfolioSettings() {
+    return this.request<{ initial_capital: number }>('/api/portfolio/settings')
+  }
+
+  async updatePortfolioSettings(initial_capital: number) {
+    return this.request<any>('/api/portfolio/settings', {
+      method: 'POST',
+      body: JSON.stringify({ initial_capital }),
+    })
+  }
+
+  async resetPortfolio() {
+    return this.request<any>('/api/portfolio/reset', {
+      method: 'POST',
+    })
+  }
+
   // ─── AI ───
 
   async analyzeWithAI(prompt: string, context?: string) {

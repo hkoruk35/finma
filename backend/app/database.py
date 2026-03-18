@@ -631,3 +631,50 @@ class IntelligenceDB:
                 logger.error(f"DB get_latest intelligence hatası: {e}")
                 return cls._memory[-1] if cls._memory else None
         return cls._memory[-1] if cls._memory else None
+# ═══════════════════════════════════════════
+# PORTFOLIO SETTINGS TABLE CRUD
+# ═══════════════════════════════════════════
+
+class PortfolioSettingsDB:
+    """
+    portfolio_settings tablosu — Kullanıcı bazlı bütçe/ayarlar.
+    """
+
+    _memory: dict = {}  # {user_id: {"initial_capital": float}}
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def get_initial_capital(cls, user_id: str) -> float:
+        sb = cls._sb()
+        if sb:
+            try:
+                result = sb.table("portfolio_settings").select("initial_capital").eq("user_id", user_id).execute()
+                if result.data and len(result.data) > 0:
+                    return float(result.data[0].get("initial_capital", 10000.0))
+            except Exception as e:
+                logger.error(f"DB get_initial_capital hatası: {e}")
+        
+        # Fallback to memory
+        if user_id in cls._memory:
+            return cls._memory[user_id].get("initial_capital", 10000.0)
+        return 10000.0
+
+    @classmethod
+    def set_initial_capital(cls, user_id: str, amount: float) -> bool:
+        sb = cls._sb()
+        if sb:
+            try:
+                # Upsert (Ekle veya Güncelle)
+                data = {"user_id": user_id, "initial_capital": amount}
+                result = sb.table("portfolio_settings").upsert(data, on_conflict="user_id").execute()
+                if result.data:
+                    return True
+            except Exception as e:
+                logger.error(f"DB set_initial_capital hatası: {e}")
+        
+        # Fallback to memory
+        cls._memory[user_id] = {"initial_capital": amount}
+        return True

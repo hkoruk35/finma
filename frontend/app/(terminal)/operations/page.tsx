@@ -32,8 +32,8 @@ interface NewTradeForm {
 }
 
 function OperationsContent() {
-  const { data: portfolioData } = usePortfolioSummary()
-  const { data: tradesData, refetch } = useTrades('OPEN')
+  const { data: portfolioData, refetch: refetchSummary } = usePortfolioSummary()
+  const { data: tradesData, refetch: refetchTrades } = useTrades('OPEN')
   const { setChartSymbol } = useTerminalStore()
 
   const portfolio = (portfolioData || mockPortfolio) as PortfolioSnapshot
@@ -48,36 +48,48 @@ function OperationsContent() {
   const [exitPrices, setExitPrices] = useState<Record<string, string>>({})
   const [showExitInput, setShowExitInput] = useState<string | null>(null)
 
-  // Başlangıç sermayesi (localStorage'dan)
+  // Başlangıç sermayesi (Backend + LocalStorage fallback)
   const [startCapital, setStartCapital] = useState<number>(10000)
   const [editingCapital, setEditingCapital] = useState(false)
   const [capitalInput, setCapitalInput] = useState('')
   const [resetting, setResetting] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem('finma_start_capital')
-    if (saved) setStartCapital(parseFloat(saved))
+    // Backend'den gerçek sermayeyi çek
+    api.getPortfolioSettings().then(settings => {
+      setStartCapital(settings.initial_capital)
+    }).catch(() => {
+      const saved = localStorage.getItem('finma_start_capital')
+      if (saved) setStartCapital(parseFloat(saved))
+    })
   }, [])
 
-  const netLiq = portfolio.net_liquidation > 0 ? portfolio.net_liquidation : startCapital
+  function refetchAll() {
+    refetchSummary?.()
+    refetchTrades?.()
+  }
 
-  function saveCapital() {
+  async function saveCapital() {
     const val = parseFloat(capitalInput)
     if (val > 0) {
-      setStartCapital(val)
-      localStorage.setItem('finma_start_capital', String(val))
+      try {
+        await api.updatePortfolioSettings(val)
+        setStartCapital(val)
+        localStorage.setItem('finma_start_capital', String(val))
+        refetchSummary?.()
+      } catch (err) {
+        console.error('Failed to update capital:', err)
+      }
     }
     setEditingCapital(false)
   }
 
   async function handleResetAll() {
-    if (!confirm('Tüm açık pozisyonları kapatıp verileri sıfırlamak istediğinize emin misiniz?')) return
+    if (!confirm('Tüm verileri sıfırlamak istediğinize emin misiniz? Bu işlem tüm geçmişi temizler.')) return
     setResetting(true)
     try {
-      for (const trade of openTrades) {
-        await api.closeTrade(trade.id, trade.current_price)
-      }
-      refetch?.()
+      await api.resetPortfolio()
+      refetchAll()
     } catch (err) {
       console.error('Reset error:', err)
     } finally {
@@ -115,7 +127,7 @@ function OperationsContent() {
       })
       setForm({ ticker: '', direction: 'LONG', entry_price: '', stop_loss: '', target_price: '', qty: '', strategy: 'Swing' })
       setShowAddForm(false)
-      refetch?.()
+      refetchAll()
     } catch (err: any) {
       setAddError(err.message || 'Pozisyon eklenemedi.')
     } finally {
@@ -134,7 +146,7 @@ function OperationsContent() {
       await api.closeTrade(tradeId, parseFloat(exitPrice))
       setShowExitInput(null)
       setExitPrices(prev => { const n = { ...prev }; delete n[tradeId]; return n })
-      refetch?.()
+      refetchAll()
     } catch (err) {
       // ignore
     } finally {
@@ -173,25 +185,25 @@ function OperationsContent() {
               <button onClick={saveCapital} className="text-[9px] bg-finma-green/20 text-finma-green px-1.5 py-0.5 rounded font-bold">OK</button>
             </div>
           ) : (
-            <span className="finma-number text-xl font-bold text-white">{formatCurrency(netLiq)}</span>
+            <span className="finma-number text-xl font-bold text-white">{formatCurrency(portfolio.net_liquidation)}</span>
           )}
         </Card>
         <Card padding="sm" className="flex flex-col gap-1">
-          <span className="text-[10px] text-finma-text-dim uppercase">Marjin Kullanımı</span>
-          <span className="finma-number text-xl font-bold text-white">
-            {formatCurrency(portfolio.margin_used)}
+          <span className="text-[10px] text-finma-text-dim uppercase">Nakit Likidite</span>
+          <span className="finma-number text-xl font-bold text-finma-green">
+            {formatCurrency(portfolio.cash_available)}
           </span>
         </Card>
         <Card padding="sm" className="flex flex-col gap-1 items-center justify-center">
           <button
             onClick={handleResetAll}
-            disabled={resetting || openTrades.length === 0}
+            disabled={resetting}
             className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-lg font-bold transition-all bg-finma-red/10 hover:bg-finma-red/20 text-finma-red border border-finma-red/20 disabled:opacity-30"
           >
             <RotateCcw className={cn('w-3.5 h-3.5', resetting && 'animate-spin')} />
             {resetting ? 'Sıfırlanıyor...' : 'Verileri Sıfırla'}
           </button>
-          <span className="text-[9px] text-finma-text-dim">Tüm pozisyonları kapat</span>
+          <span className="text-[9px] text-finma-text-dim">Tüm geçmişi sil</span>
         </Card>
       </div>
 

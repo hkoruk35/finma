@@ -1,13 +1,14 @@
 """
 Portfolio API Router — Supabase PostgreSQL entegrasyonlu
-Endpoints: summary, trades CRUD
+End-points: summary, trades CRUD, settings, reset
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
-from app.database import TradesDB
+from app.dependencies import get_current_user
+from app.database import TradesDB, PortfolioSettingsDB, UsersDB
 import uuid
 import logging
 
@@ -58,36 +59,99 @@ class PortfolioSummary(BaseModel):
     open_positions: int
 
 
+class PortfolioSettings(BaseModel):
+    initial_capital: float
+
+
 @router.get("/summary", response_model=PortfolioSummary)
-def get_portfolio_summary():
-    """Portföy özetini getir"""
-    open_trades = TradesDB.get_all(status="OPEN")
-    total_pnl = sum(float(t.get("pnl", 0)) for t in open_trades)
-
-    # Brüt pozisyon hesapla
+def get_portfolio_summary(current_user: dict = Depends(get_current_user)):
+    """Portföy özetini hesapla ve getir"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    
+    user_id = user["id"]
+    initial_capital = PortfolioSettingsDB.get_initial_capital(user_id)
+    
+    open_trades = TradesDB.get_all(user_id=user_id, status="OPEN")
+    closed_trades = TradesDB.get_all(user_id=user_id, status="CLOSED")
+    
+    realized_pnl = sum(float(t.get("pnl", 0)) for t in closed_trades)
+    open_pnl = sum(float(t.get("pnl", 0)) for t in open_trades)
+    
+    # Brüt pozisyon (açık olanların maliyeti)
     gross = sum(float(t.get("entry_price", 0)) * int(t.get("qty", 0)) for t in open_trades)
-
-    # Basit NAV hesabı (başlangıç sermayesi + toplam PnL)
-    base_capital = 1401.13
-    nav = base_capital + total_pnl
+    
+    # Net Likidite = Başlangıç + Gerçekleşen Kar/Zarar + Açık Kar/Zarar
+    nav = initial_capital + realized_pnl + open_pnl
+    
+    # Kullanılabilir Nakit = Başlangıç + Gerçekleşen Kar/Zarar - Açıkların Maliyeti
+    cash = initial_capital + realized_pnl - gross
 
     return PortfolioSummary(
         net_liquidation=round(nav, 2),
-        cash_available=round(nav - gross, 2) if nav > gross else 0,
-        margin_used=round(gross * 0.5, 2),  # %50 marj varsayımı
+        cash_available=round(max(0, cash), 2),
+        margin_used=round(gross * 0.5, 2),
         gross_exposure=round(gross, 2),
-        current_24h_pnl=round(total_pnl, 2),
-        last_7_days_pnl=0.00,
-        mtd_pnl=-2.88,
-        ytd_pnl=12.13,
+        current_24h_pnl=round(open_pnl, 2),
+        last_7_days_pnl=round(realized_pnl, 2),
+        mtd_pnl=0.0,
+        ytd_pnl=0.0,
         open_positions=len(open_trades),
     )
 
 
+@router.get("/settings", response_model=PortfolioSettings)
+def get_portfolio_settings(current_user: dict = Depends(get_current_user)):
+    """Portföy ayarlarını getir"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    
+    val = PortfolioSettingsDB.get_initial_capital(user["id"])
+    return PortfolioSettings(initial_capital=val)
+
+
+@router.post("/settings")
+def update_portfolio_settings(settings: PortfolioSettings, current_user: dict = Depends(get_current_user)):
+    """Başlangıç sermayesini güncelle"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    
+    PortfolioSettingsDB.set_initial_capital(user["id"], settings.initial_capital)
+    return {"message": "Sermaye güncellendi", "initial_capital": settings.initial_capital}
+
+
+@router.post("/reset")
+def reset_portfolio(current_user: dict = Depends(get_current_user)):
+    """Tüm işlemleri temizle ve portföyü sıfırla"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    
+    user_id = user["id"]
+    open_trades = TradesDB.get_all(user_id=user_id, status="OPEN")
+    
+    # Tüm açık trade'leri kapat
+    for t in open_trades:
+        TradesDB.update(t["id"], {"status": "ARCHIVED", "notes": "Portföy sıfırlandı"})
+        
+    closed_trades = TradesDB.get_all(user_id=user_id, status="CLOSED")
+    for t in closed_trades:
+        TradesDB.update(t["id"], {"status": "ARCHIVED"})
+
+    return {"message": "Portföy başarıyla sıfırlandı"}
+
+
 @router.get("/trades", response_model=List[TradeResponse])
-def get_trades(status: Optional[str] = None):
-    """Trade listesini getir"""
-    trades = TradesDB.get_all(status=status)
+def get_trades(status: Optional[str] = None, current_user: dict = Depends(get_current_user)):
+    """Trade listesini getir (Kullanıcıya özel)"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        return []
+        
+    trades = TradesDB.get_all(user_id=user["id"], status=status)
     result = []
     for t in trades:
         try:
@@ -115,10 +179,15 @@ def get_trades(status: Optional[str] = None):
 
 
 @router.post("/trades", response_model=TradeResponse)
-def create_trade(trade: TradeCreate):
+def create_trade(trade: TradeCreate, current_user: dict = Depends(get_current_user)):
     """Yeni trade oluştur"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+
     trade_data = {
         "id": str(uuid.uuid4()),
+        "user_id": user["id"],
         "ticker": trade.ticker.upper(),
         "direction": trade.direction.upper(),
         "type": trade.type,
@@ -158,7 +227,7 @@ def create_trade(trade: TradeCreate):
 
 
 @router.delete("/trades/{trade_id}")
-def close_trade(trade_id: str, exit_price: float):
+def close_trade(trade_id: str, exit_price: float, current_user: dict = Depends(get_current_user)):
     """Trade'i kapat"""
     trade = TradesDB.get_by_id(trade_id)
     if not trade:
