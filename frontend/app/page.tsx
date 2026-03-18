@@ -266,12 +266,9 @@ export default function LandingPage() {
 
             {/* Dashboard Preview (dash1.png) */}
             <div className="relative aspect-[16/9] w-full group overflow-hidden bg-black/50">
-              <Image 
-                src="/dash1.png" 
+              <img 
+                src="/dash1.png?v=1" 
                 alt="FinMA Dashboard Preview" 
-                fill
-                priority
-                unoptimized
                 className="w-full h-full object-cover sm:object-top transition-transform duration-700 group-hover:scale-105"
               />
               
