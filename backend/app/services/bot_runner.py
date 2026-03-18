@@ -22,6 +22,11 @@ BOT_CONFIGS = {
         "schedule": {"hour": "10", "minute": "0"},
         "description": "Daily Insider Trading Scanner - 1 kez/gün",
     },
+    "news_bot": {
+        "script": "news_bot.py",
+        "schedule": {"minute": "5"}, # Her saat başı 5 geçe
+        "description": "Hourly Market & Economy News Bot",
+    },
 }
 
 scheduler: Optional[AsyncIOScheduler] = None
@@ -103,8 +108,8 @@ def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
                 misfire_grace_time=60,
             )
             
-            # YENİ: insider_bot için başlangıçta hemen 1 kez çalıştır (User isteği)
-            if bot_name == "insider_bot":
+            # YENİ: insider_bot ve news_bot için başlangıçta hemen 1 kez çalıştır
+            if bot_name in ["insider_bot", "news_bot"]:
                 scheduler.add_job(
                     run_bot,
                     "date",

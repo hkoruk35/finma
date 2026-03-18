@@ -78,38 +78,16 @@ export default function NewsPage() {
     setError(null)
 
     try {
-      // Tüm tickerları paralel olarak fetch et
-      const results = await Promise.allSettled(
-        TRACKED_TICKERS.map(({ symbol }) => api.getNews(symbol).then(items => ({ symbol, items })))
-      )
-
-      const allNews: NewsItem[] = []
-      for (const result of results) {
-        if (result.status === 'fulfilled') {
-          const { symbol, items } = result.value
-          for (const item of items) {
-            allNews.push({
-              ...item,
-              ticker: symbol,
-              impact: detectImpact(item.title),
-            })
-          }
-        }
-      }
-
-      // Tarihe göre sırala (en yeni önce), aynı başlıkları çıkar
-      const seen = new Set<string>()
+      // Backend'den toplu haberleri çek (MARKET + ECONOMY)
+      const allNews = await api.getLatestNews(100)
+      
       const unique = allNews
-        .filter(n => {
-          if (seen.has(n.title)) return false
-          seen.add(n.title)
-          return true
-        })
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-      setNews(unique)
+      setNews(unique as any)
       setLastUpdate(new Date())
     } catch (err) {
+      console.error("News fetch error:", err)
       setError('Haberler yüklenirken hata oluştu.')
     } finally {
       setLoading(false)
@@ -130,6 +108,8 @@ export default function NewsPage() {
 
   const filtered = selectedTicker === 'ALL'
     ? news
+    : selectedTicker === 'MARKET' || selectedTicker === 'ECONOMY'
+    ? news.filter(n => (n as any).category?.toUpperCase() === selectedTicker)
     : news.filter(n => n.ticker === selectedTicker)
 
   const lastUpdateStr = lastUpdate
@@ -141,17 +121,17 @@ export default function NewsPage() {
       {/* Header */}
       <div className="flex items-center gap-2 flex-wrap">
         <Newspaper className="w-4 h-4 text-finma-primary" />
-        <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">
-          Şirket Haberleri
+        <span className="text-sm font-bold text-finma-text uppercase tracking-widest">
+          Borsa & Ekonomi Haberleri
         </span>
-        <span className="text-[10px] text-finma-text-dim ml-1">ABD Piyasaları</span>
+        <span className="text-[10px] text-finma-text-dim ml-1">ABD Piyasaları • Canlı</span>
         {lastUpdateStr && (
           <span className="text-[10px] text-finma-text-dim ml-2 flex items-center gap-1">
             <Clock className="w-3 h-3" /> Son: {lastUpdateStr}
           </span>
         )}
         <span className="text-[10px] bg-finma-primary/10 text-finma-primary px-2 py-0.5 rounded ml-1 uppercase tracking-tighter">
-          2 dk'da bir güncellenir
+          Her saat güncellenir
         </span>
         <button
           onClick={() => fetchAllNews(true)}
@@ -163,37 +143,58 @@ export default function NewsPage() {
         </button>
       </div>
 
-      {/* Ticker Filter */}
-      <div className="flex items-center gap-2 flex-wrap">
+      {/* Category & Ticker Filters */}
+      <div className="flex items-center gap-2 flex-wrap pb-2 border-b border-finma-border/20">
         <Filter className="w-3 h-3 text-finma-text-dim" />
         <button
           onClick={() => setSelectedTicker('ALL')}
           className={cn(
-            'text-[10px] px-2 py-1 rounded transition-colors finma-number font-bold',
+            'text-[10px] px-2.5 py-1 rounded transition-all font-bold uppercase tracking-tight',
             selectedTicker === 'ALL'
-              ? 'bg-finma-primary/20 text-finma-primary'
-              : 'text-finma-text-dim hover:text-finma-text'
+              ? 'bg-finma-primary text-white shadow-lg'
+              : 'bg-finma-card text-finma-text-dim hover:text-finma-text border border-finma-border/30'
           )}
         >
-          TÜM ({news.length})
+          Hepsi ({news.length})
         </button>
-        {TRACKED_TICKERS.map(({ symbol }) => {
-          const count = news.filter(n => n.ticker === symbol).length
-          if (count === 0) return null
+        
+        {/* Kategoriler */}
+        {['MARKET', 'ECONOMY'].map(cat => {
+          const count = news.filter(n => (n as any).category?.toUpperCase() === cat).length
+          if (count === 0 && selectedTicker !== cat) return null
           return (
             <button
-              key={symbol}
-              onClick={() => setSelectedTicker(symbol)}
+              key={cat}
+              onClick={() => setSelectedTicker(cat)}
+              className={cn(
+                'text-[10px] px-2.5 py-1 rounded transition-all font-bold uppercase tracking-tight',
+                selectedTicker === cat
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-finma-card text-finma-text-dim hover:text-finma-text border border-finma-border/30'
+              )}
+            >
+              {cat === 'MARKET' ? 'Piyasa' : 'Ekonomi'} ({count})
+            </button>
+          )
+        })}
+
+        {/* Dinamik Tickerlar (Haberlerde varsa) */}
+        {Array.from(new Set(news.map(n => n.ticker))).filter(t => t !== 'MARKET' && t !== 'NONE').slice(0, 10).map(t => {
+           const count = news.filter(n => n.ticker === t).length
+           return (
+            <button
+              key={t}
+              onClick={() => setSelectedTicker(t)}
               className={cn(
                 'text-[10px] px-2 py-1 rounded transition-colors finma-number font-bold',
-                selectedTicker === symbol
-                  ? 'bg-finma-primary/20 text-finma-primary'
+                selectedTicker === t
+                  ? 'bg-finma-primary/20 text-finma-primary border border-finma-primary/30'
                   : 'text-finma-text-dim hover:text-finma-text'
               )}
             >
-              {symbol} ({count})
+              {t} ({count})
             </button>
-          )
+           )
         })}
       </div>
 

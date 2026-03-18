@@ -171,6 +171,13 @@ def get_news(ticker: str, count: int = Query(10, le=20)):
     return get_ticker_news(ticker.upper(), count)
 
 
+@router.get("/news/latest")
+def get_latest_market_news(limit: int = Query(50, le=100), category: Optional[str] = None):
+    """En son piyasa ve ekonomi haberlerini (toplu) getir"""
+    from app.database import NewsDB
+    return NewsDB.get_latest(limit, category)
+
+
 @router.get("/insider/refresh")
 def refresh_insider_data():
     """SEC crawler'ını anlık olarak tetikle ve veritabanını güncelle"""

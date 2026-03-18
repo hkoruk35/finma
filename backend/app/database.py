@@ -738,3 +738,69 @@ class InsiderDB:
                 logger.error(f"DB get_latest insider hatası: {e}")
                 return cls._memory[:limit]
         return cls._memory[:limit]
+
+
+class NewsDB:
+    """
+    market_news tablosu — Genel piyasa ve ekonomi haberleri.
+    """
+
+    _memory: List[dict] = []
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def save_news(cls, news_list: List[dict]) -> bool:
+        """Yeni haberleri kaydet (mükerrer kontrolü ile)"""
+        sb = cls._sb()
+        if sb:
+            try:
+                if not news_list:
+                    return True
+                
+                formatted = []
+                for n in news_list:
+                    formatted.append({
+                        "title": str(n.get("title", "")),
+                        "url": str(n.get("url", "")),
+                        "publisher": str(n.get("publisher", "Unknown")),
+                        "date": str(n.get("date", "")),
+                        "ticker": str(n.get("ticker", "MARKET")),
+                        "impact": str(n.get("impact", "neutral")),
+                        "category": str(n.get("category", "market"))
+                    })
+                
+                # Mükerrer kontrolü (son 100 başlık)
+                existing = sb.table("market_news").select("title").order("created_at", desc=True).limit(100).execute()
+                titles = set(e["title"] for e in (existing.data or []))
+                
+                to_insert = [n for n in formatted if n["title"] not in titles]
+                
+                if to_insert:
+                    sb.table("market_news").insert(to_insert).execute()
+                return True
+            except Exception as e:
+                logger.error(f"DB save_news hatası: {e}")
+                return False
+        
+        cls._memory.extend(news_list)
+        cls._memory = cls._memory[-200:]
+        return True
+
+    @classmethod
+    def get_latest(cls, limit: int = 50, category: Optional[str] = None) -> List[dict]:
+        """En son haberleri getir"""
+        sb = cls._sb()
+        if sb:
+            try:
+                query = sb.table("market_news").select("*").order("date", desc=True).limit(limit)
+                if category:
+                    query = query.eq("category", category.lower())
+                result = query.execute()
+                return result.data or []
+            except Exception as e:
+                logger.error(f"DB get_latest_news hatası: {e}")
+                return cls._memory[:limit]
+        return cls._memory[:limit]

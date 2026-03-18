@@ -1240,3 +1240,89 @@ def update_market_insiders():
         
     logger.warning("❌ Hiç insider işlemi bulunamadı. Sayfa boş kalabilir.")
     return 0
+
+
+def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
+    """
+    Genel piyasa veya ekonomi haberlerini getir.
+    Alpha Vantage News Sentiment API + Yahoo Finance RSS fallback.
+    """
+    results = []
+    from app.config import get_settings
+    settings = get_settings()
+    
+    # 1. Alpha Vantage News Sentiment API (Eğer anahtar varsa)
+    if settings.alpha_vantage_api_key:
+        try:
+            # Topic: financial_markets, economy_macro
+            topic = "financial_markets" if category == "market" else "economy_macro"
+            url = f"https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics={topic}&apikey={settings.alpha_vantage_api_key}&limit=50"
+            
+            response = httpx.get(url, timeout=15)
+            if response.status_code == 200:
+                data = response.json()
+                for item in data.get("feed", []):
+                    # Sentiment score -> Impact mapping
+                    score = item.get("overall_sentiment_score", 0)
+                    impact = "neutral"
+                    if score > 0.15: impact = "positive"
+                    elif score < -0.15: impact = "negative"
+                    
+                    results.append({
+                        "title": item.get("title"),
+                        "url": item.get("url"),
+                        "publisher": item.get("source"),
+                        "date": item.get("time_published"), # Format: 20240318T050000
+                        "ticker": item.get("ticker_sentiment", [{}])[0].get("ticker", "MARKET") if item.get("ticker_sentiment") else "MARKET",
+                        "impact": impact,
+                        "category": category
+                    })
+                logger.info(f"📰 Alpha Vantage'dan {len(results)} haber alındı ({category}).")
+        except Exception as e:
+            logger.error(f"Alpha Vantage news error: {e}")
+
+    # 2. Fallback: Yahoo Finance RSS (Eğer AV sonuç vermezse veya ek kaynak için)
+    if len(results) < 10:
+        try:
+            rss_url = "https://finance.yahoo.com/news/rssindex" # Genel borsa haberleri
+            if category == "economy":
+                rss_url = "https://finance.yahoo.com/news/economy/rss"
+                
+            response = httpx.get(rss_url, headers=_YF_HEADERS, timeout=10)
+            if response.status_code == 200:
+                root = ET.fromstring(response.text)
+                for item in root.findall('.//item'):
+                    title = item.find('title').text if item.find('title') is not None else ""
+                    link = item.find('link').text if item.find('link') is not None else ""
+                    pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
+                    
+                    # Basit bir impact tahmini (opsiyonel)
+                    results.append({
+                        "title": title,
+                        "url": link,
+                        "publisher": "Yahoo Finance",
+                        "date": pub_date,
+                        "ticker": "MARKET",
+                        "impact": "neutral",
+                        "category": category
+                    })
+                logger.info(f"📰 Yahoo RSS'den haberler eklendi ({category}).")
+        except Exception as e:
+            logger.error(f"Yahoo News RSS error: {e}")
+
+    return results
+
+def update_all_market_news():
+    """Tüm kategoriler için haberleri çek ve DB'ye kaydet"""
+    from app.database import NewsDB
+    
+    all_news = []
+    # Piyasa haberleri
+    all_news.extend(fetch_market_news("market"))
+    # Ekonomi haberleri
+    all_news.extend(fetch_market_news("economy"))
+    
+    if all_news:
+        success = NewsDB.save_news(all_news)
+        return len(all_news) if success else 0
+    return 0
