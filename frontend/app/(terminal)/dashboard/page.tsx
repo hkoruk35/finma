@@ -182,31 +182,61 @@ const SECTOR_BADGE: Record<string, string> = {
 
 /* ── Sabit Hisse Bilgileri (API'den gelmezse fallback) ── */
 const STOCK_METADATA: Record<string, { name: string, sector: string }> = {
-  'AAPL': { name: 'Apple Inc.', sector: 'Technology' },
-  'MSFT': { name: 'Microsoft Corp.', sector: 'Technology' },
-  'NVDA': { name: 'NVIDIA Corporation', sector: 'Technology' },
-  'TSLA': { name: 'Tesla, Inc.', sector: 'Consumer' },
-  'AMZN': { name: 'Amazon.com, Inc.', sector: 'Consumer' },
-  'GOOGL': { name: 'Alphabet Inc.', sector: 'Communication' },
-  'META': { name: 'Meta Platforms', sector: 'Communication' },
-  'AMD': { name: 'Advanced Micro Devices', sector: 'Technology' },
-  'NFLX': { name: 'Netflix, Inc.', sector: 'Communication' },
-  'AVGO': { name: 'Broadcom Inc.', sector: 'Technology' },
-  'MA': { name: 'Mastercard Inc.', sector: 'Financials' },
-  'V': { name: 'Visa Inc.', sector: 'Financials' },
-  'JPM': { name: 'JPMorgan Chase', sector: 'Financials' },
-  'BKNG': { name: 'Booking Holdings', sector: 'Consumer' },
-  'ARM': { name: 'Arm Holdings', sector: 'Technology' },
-  'KLAC': { name: 'KLA Corporation', sector: 'Technology' },
-  'LRCX': { name: 'Lam Research', sector: 'Technology' },
-  'MU': { name: 'Micron Technology', sector: 'Technology' },
-  'RDDT': { name: 'Reddit, Inc.', sector: 'Communication' },
-  'CRWD': { name: 'CrowdStrike', sector: 'Technology' },
-  'PFE': { name: 'Pfizer Inc.', sector: 'Healthcare' },
-  'IBM': { name: 'IBM Corporation', sector: 'Technology' },
-  'COIN': { name: 'Coinbase Global', sector: 'Financials' },
-  'MSTR': { name: 'MicroStrategy', sector: 'Technology' },
-  'SMCI': { name: 'Super Micro Computer', sector: 'Technology' },
+  'AAPL': { name: 'Apple Inc.', sector: 'Teknoloji' },
+  'MSFT': { name: 'Microsoft Corp.', sector: 'Teknoloji' },
+  'NVDA': { name: 'NVIDIA Corporation', sector: 'Teknoloji' },
+  'TSLA': { name: 'Tesla, Inc.', sector: 'Tüketici' },
+  'AMZN': { name: 'Amazon.com, Inc.', sector: 'Tüketici' },
+  'GOOGL': { name: 'Alphabet Inc.', sector: 'Teknoloji' },
+  'META': { name: 'Meta Platforms', sector: 'Teknoloji' },
+  'AMD': { name: 'Advanced Micro Devices', sector: 'Teknoloji' },
+  'NFLX': { name: 'Netflix, Inc.', sector: 'İletişim' },
+  'AVGO': { name: 'Broadcom Inc.', sector: 'Teknoloji' },
+  'MA': { name: 'Mastercard Inc.', sector: 'Finans' },
+  'V': { name: 'Visa Inc.', sector: 'Finans' },
+  'JPM': { name: 'JPMorgan Chase', sector: 'Finans' },
+  'BKNG': { name: 'Booking Holdings', sector: 'Tüketici' },
+  'ARM': { name: 'Arm Holdings', sector: 'Teknoloji' },
+  'KLAC': { name: 'KLA Corporation', sector: 'Teknoloji' },
+  'LRCX': { name: 'Lam Research', sector: 'Teknoloji' },
+  'MU': { name: 'Micron Technology', sector: 'Teknoloji' },
+  'RDDT': { name: 'Reddit, Inc.', sector: 'İletişim' },
+  'CRWD': { name: 'CrowdStrike', sector: 'Teknoloji' },
+  'PFE': { name: 'Pfizer Inc.', sector: 'Sağlık' },
+  'IBM': { name: 'IBM Corporation', sector: 'Teknoloji' },
+  'COIN': { name: 'Coinbase Global', sector: 'Finans' },
+  'MSTR': { name: 'MicroStrategy', sector: 'Teknoloji' },
+  'SMCI': { name: 'Super Micro Computer', sector: 'Teknoloji' },
+  'INTC': { name: 'Intel Corporation', sector: 'Teknoloji' },
+  'ORCL': { name: 'Oracle Corp.', sector: 'Teknoloji' },
+  'COST': { name: 'Costco Wholesale', sector: 'Tüketici' },
+  'BAC': { name: 'Bank of America', sector: 'Finans' },
+  'WMT': { name: 'Walmart Inc.', sector: 'Tüketici' },
+  'XOM': { name: 'Exxon Mobil', sector: 'Enerji' },
+  'CVX': { name: 'Chevron Corp.', sector: 'Enerji' },
+  'COP': { name: 'ConocoPhillips', sector: 'Enerji' },
+  'CSCO': { name: 'Cisco Systems', sector: 'Teknoloji' },
+  'ADBE': { name: 'Adobe Inc.', sector: 'Teknoloji' },
+  'CRM': { name: 'Salesforce, Inc.', sector: 'Teknoloji' },
+  'PLTR': { name: 'Palantir Tech', sector: 'Teknoloji' },
+  'ELV': { name: 'Elevance Health', sector: 'Sağlık' },
+  'LLY': { name: 'Eli Lilly & Co', sector: 'Sağlık' },
+  'NVO': { name: 'Novo Nordisk', sector: 'Sağlık' },
+  'UNH': { name: 'UnitedHealth Group', sector: 'Sağlık' },
+  'HD': { name: 'Home Depot', sector: 'Tüketici' },
+  'PG': { name: 'Procter & Gamble', sector: 'Tüketici' },
+  'ABBV': { name: 'AbbVie Inc.', sector: 'Sağlık' },
+  'ABT': { name: 'Abbott Labs', sector: 'Sağlık' },
+  'ACN': { name: 'Accenture plc', sector: 'Teknoloji' },
+  'AMAT': { name: 'Applied Materials', sector: 'Teknoloji' },
+  'TXN': { name: 'Texas Instruments', sector: 'Teknoloji' },
+  'DHR': { name: 'Danaher Corp', sector: 'Sağlık' },
+  'GE': { name: 'GE Aerospace', sector: 'Sanayi' },
+  'CAT': { name: 'Caterpillar Inc', sector: 'Sanayi' },
+  'DE': { name: 'Deere & Co', sector: 'Sanayi' },
+  'RTX': { name: 'RTX Corporation', sector: 'Sanayi' },
+  'BA': { name: 'Boeing Company', sector: 'Sanayi' },
+  'LMT': { name: 'Lockheed Martin', sector: 'Sanayi' },
 }
 
 function enrichStock(stock: any) {
@@ -385,12 +415,12 @@ export default function DashboardPage() {
       {/* ═══════════════ 1. AI MARKET BRAIN ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
-          <Brain className="w-5 h-5 text-finma-purple" />
+          <Zap className="w-4 h-4 text-finma-yellow" />
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
-            Piyasaya Genel Bakış
+            FinMA AI Analiz Özeti
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
-            <RefreshCw className="w-3 h-3" /> Her 5 dk güncellenir • {timeStr}
+            <RefreshCw className="w-3 h-3" /> Saat başı güncellenir • {timeStr}
           </span>
         </div>
 
@@ -760,11 +790,11 @@ export default function DashboardPage() {
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Brain className="w-4 h-4 text-finma-purple" />
-          <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
             Piyasa İstihbaratı
           </span>
           <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
-            <RefreshCw className="w-3 h-3" /> Her 5 dk güncellenir • {timeStr}
+            <RefreshCw className="w-3 h-3" /> Saat başı güncellenir • {timeStr}
           </span>
         </div>
 
@@ -870,8 +900,8 @@ export default function DashboardPage() {
 
           <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
             <div className="flex items-center gap-1.5 mb-2">
-              <Brain className="w-3 h-3 text-finma-purple" />
-              <span className="text-[10px] text-finma-text-dim uppercase font-medium">AI Analiz Özeti</span>
+              <Zap className="w-3 h-3 text-finma-yellow" />
+              <span className="text-[10px] text-finma-text-dim uppercase font-medium">FinMA AI Analiz Özeti</span>
             </div>
             <div className="text-xs text-finma-text-muted space-y-1.5">
               {(intel?.ai_analysis || []).map((s, i) => (
@@ -977,19 +1007,17 @@ export default function DashboardPage() {
                 </thead>
                 <tbody className="divide-y divide-finma-border/20">
                   {weeklyHighlights.slice(0, 10).map((s: any) => {
-                    const live = liveQuotes[s.symbol]
-                    const currentPrice = live?.price ?? s.price ?? 0
                     return (
                       <tr key={s.symbol} className="hover:bg-finma-primary/5 transition-colors group cursor-pointer"
                         onClick={() => router.push(`/stock-analysis?ticker=${s.symbol}`)}>
-                        <td className="py-2 px-2 border-r border-finma-border/20">
-                          <span className="font-bold text-finma-primary">{s.symbol}</span>
+                        <td className="py-2 px-2 border-r border-finma-border/20 font-bold text-finma-primary">
+                          {s.symbol}
                         </td>
-                        <td className="py-2 px-2 border-r border-finma-border/20 text-finma-text-dim italic">
-                          {sectorLabel(s.sector)}
+                        <td className="py-2 px-2 border-r border-finma-border/20 text-finma-text-dim">
+                          {s.sector}
                         </td>
-                        <td className="py-2 px-2 border-r border-finma-border/20 text-right finma-number font-medium">
-                          ${currentPrice.toFixed(2)}
+                        <td className="py-2 px-2 border-r border-finma-border/20 text-right finma-number">
+                          ${s.price.toFixed(2)}
                         </td>
                         <td className={cn(
                           'py-2 px-2 text-right finma-number font-bold',
