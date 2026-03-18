@@ -107,6 +107,7 @@ def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
     for bot_name, config in BOT_CONFIGS.items():
         script_path = os.path.join(bots_dir, config["script"])
         if os.path.exists(script_path):
+            # Normal cron schedule
             scheduler.add_job(
                 run_bot,
                 "cron",
@@ -116,6 +117,18 @@ def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
                 **config["schedule"],
                 misfire_grace_time=60,
             )
+            
+            # YENİ: insider_bot için başlangıçta hemen 1 kez çalıştır (User isteği)
+            if bot_name == "insider_bot":
+                scheduler.add_job(
+                    run_bot,
+                    "date",
+                    run_date=datetime.now(),
+                    args=[bot_name, bots_dir, output_dir],
+                    id=f"{bot_name}_initial",
+                    name=f"{config['description']} (Initial Run)"
+                )
+            
             logger.info(f"Bot zamanlandı: {bot_name} - {config['description']}")
 
     scheduler.start()
