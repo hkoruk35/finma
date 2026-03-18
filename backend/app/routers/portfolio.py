@@ -61,6 +61,7 @@ class PortfolioSummary(BaseModel):
 
 class PortfolioSettings(BaseModel):
     initial_capital: float
+    risk_per_trade: Optional[float] = 2.0
 
 
 @router.get("/summary", response_model=PortfolioSummary)
@@ -108,19 +109,22 @@ def get_portfolio_settings(current_user: dict = Depends(get_current_user)):
     if not user:
         raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
     
-    val = PortfolioSettingsDB.get_initial_capital(user["id"])
-    return PortfolioSettings(initial_capital=val)
+    settings = PortfolioSettingsDB.get_settings(user["id"])
+    return PortfolioSettings(**settings)
 
 
 @router.post("/settings")
 def update_portfolio_settings(settings: PortfolioSettings, current_user: dict = Depends(get_current_user)):
-    """Başlangıç sermayesini güncelle"""
+    """Sermaye veya risk limitlerini güncelle"""
     user = UsersDB.get_by_username(current_user["username"])
     if not user:
         raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
     
     PortfolioSettingsDB.set_initial_capital(user["id"], settings.initial_capital)
-    return {"message": "Sermaye güncellendi", "initial_capital": settings.initial_capital}
+    if settings.risk_per_trade is not None:
+        PortfolioSettingsDB.set_risk_limit(user["id"], settings.risk_per_trade)
+        
+    return {"message": "Ayarlar güncellendi", "settings": settings}
 
 
 @router.post("/reset")

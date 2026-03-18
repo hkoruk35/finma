@@ -645,42 +645,63 @@ class PortfolioSettingsDB:
     portfolio_settings tablosu — Kullanıcı bazlı bütçe/ayarlar.
     """
 
-    _memory: dict = {}  # {user_id: {"initial_capital": float}}
+    _memory: dict = {}  # {user_id: {"initial_capital": float, "risk_per_trade": float}}
 
     @staticmethod
     def _sb():
         return get_supabase()
 
     @classmethod
-    def get_initial_capital(cls, user_id: str) -> float:
+    def get_settings(cls, user_id: str) -> dict:
         sb = cls._sb()
+        default = {"initial_capital": 10000.0, "risk_per_trade": 2.0}
         if sb:
             try:
-                result = sb.table("portfolio_settings").select("initial_capital").eq("user_id", user_id).execute()
+                result = sb.table("portfolio_settings").select("*").eq("user_id", user_id).execute()
                 if result.data and len(result.data) > 0:
-                    return float(result.data[0].get("initial_capital", 10000.0))
+                    data = result.data[0]
+                    return {
+                        "initial_capital": float(data.get("initial_capital", 10000.0)),
+                        "risk_per_trade": float(data.get("risk_per_trade", 2.0))
+                    }
             except Exception as e:
-                logger.error(f"DB get_initial_capital hatası: {e}")
+                logger.error(f"DB get_settings hatası: {e}")
         
-        # Fallback to memory
-        if user_id in cls._memory:
-            return cls._memory[user_id].get("initial_capital", 10000.0)
-        return 10000.0
+        return cls._memory.get(user_id, default)
 
     @classmethod
     def set_initial_capital(cls, user_id: str, amount: float) -> bool:
         sb = cls._sb()
         if sb:
             try:
-                # Upsert (Ekle veya Güncelle)
                 data = {"user_id": user_id, "initial_capital": amount}
-                result = sb.table("portfolio_settings").upsert(data, on_conflict="user_id").execute()
-                if result.data:
-                    return True
+                sb.table("portfolio_settings").upsert(data, on_conflict="user_id").execute()
+                return True
             except Exception as e:
                 logger.error(f"DB set_initial_capital hatası: {e}")
         
-        # ═══════════════════════════════════════════
+        if user_id not in cls._memory: cls._memory[user_id] = {}
+        cls._memory[user_id]["initial_capital"] = amount
+        return True
+
+    @classmethod
+    def set_risk_limit(cls, user_id: str, risk_pct: float) -> bool:
+        sb = cls._sb()
+        if sb:
+            try:
+                data = {"user_id": user_id, "risk_per_trade": risk_pct}
+                sb.table("portfolio_settings").upsert(data, on_conflict="user_id").execute()
+                return True
+            except Exception as e:
+                logger.error(f"DB set_risk_limit hatası: {e}")
+        
+        if user_id not in cls._memory: cls._memory[user_id] = {}
+        cls._memory[user_id]["risk_per_trade"] = risk_pct
+        return True
+
+    @classmethod
+    def get_initial_capital(cls, user_id: str) -> float:
+        return cls.get_settings(user_id)["initial_capital"]
 # MARKET INSIDER TABLE CRUD
 # ═══════════════════════════════════════════
 
