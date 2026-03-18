@@ -20,11 +20,11 @@ from app.services.market_data import (
     search_tickers,
     get_price_changes,
     get_ticker_news,
-    get_insider_trades,
-    get_earnings_calendar,
     get_price_history,
     get_holders_info,
     get_market_movers,
+    update_market_insiders,
+    INDEX_SYMBOLS,
     INDEX_SYMBOLS,
     SECTOR_ETFS,
     CRYPTO_SYMBOLS,
@@ -169,6 +169,16 @@ def get_price_change_periods(ticker: str):
 def get_news(ticker: str, count: int = Query(10, le=20)):
     """Son haberleri getir"""
     return get_ticker_news(ticker.upper(), count)
+
+
+@router.get("/insider/refresh")
+def refresh_insider_data():
+    """SEC crawler'ını anlık olarak tetikle ve veritabanını güncelle"""
+    try:
+        count = update_market_insiders()
+        return {"status": "success", "count": count, "message": f"{count} yeni işlem eklendi."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/insider/latest")

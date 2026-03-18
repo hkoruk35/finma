@@ -199,6 +199,10 @@ class APIClient {
     }>>('/api/market/insider/latest')
   }
 
+  async refreshInsiderData() {
+    return this.request<{ status: string; count: number; message: string }>('/api/market/insider/refresh')
+  }
+
   async getEarnings(ticker: string) {
     return this.request<{
       next_date: string | null;

@@ -8,11 +8,24 @@ import { cn, formatCurrency } from '@/lib/utils'
 import { UserCheck, RefreshCw, ExternalLink, Filter } from 'lucide-react'
 
 export default function InsiderPage() {
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const { data: insiderData, isLoading, refetch } = useQuery({
     queryKey: ['insider-latest-v2'],
     queryFn: () => api.getLatestInsiderTransactions(),
     staleTime: 1000 * 60 * 30, // 30 dk
   })
+
+  const handleManualRefresh = async () => {
+    setIsRefreshing(true)
+    try {
+      await api.refreshInsiderData()
+      await refetch()
+    } catch (err) {
+      console.error("Manual refresh failed:", err)
+    } finally {
+      setIsRefreshing(false)
+    }
+  }
 
   // Format helper for large numbers
   const formatCompact = (val: number) => {
@@ -52,11 +65,18 @@ export default function InsiderPage() {
             Son Güncelleme: {new Date().toLocaleTimeString('tr-TR')}
           </div>
           <button 
-            onClick={() => refetch()}
-            className="p-1.5 rounded-md hover:bg-finma-card-hover text-finma-text-dim hover:text-finma-primary transition-all border border-finma-border/30"
-            title="Yenile"
+            onClick={handleManualRefresh}
+            disabled={isRefreshing || isLoading}
+            className={cn(
+              "flex items-center gap-2 px-3 py-1.5 rounded-md text-[11px] font-bold transition-all border shadow-lg active:scale-95",
+              isRefreshing 
+                ? "bg-finma-primary/20 border-finma-primary/40 text-finma-primary cursor-wait" 
+                : "bg-finma-primary hover:bg-finma-primary-light border-finma-primary text-white"
+            )}
+            title="SEC EDGAR sisteminden canlı veri çek"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
+            <RefreshCw className={cn("w-3.5 h-3.5", isRefreshing && "animate-spin")} />
+            {isRefreshing ? 'SEC Verileri Çekiliyor...' : "SEC'den Güncelle"}
           </button>
         </div>
       </div>
