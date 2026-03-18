@@ -263,41 +263,27 @@ export default function LandingPage() {
               <span className="text-xs text-finma-text-dim ml-2 font-mono">finmasmart.com/dashboard</span>
             </div>
 
-            {/* Featured stocks preview */}
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <TrendingUp className="w-4 h-4 text-finma-primary" />
-                <h3 className="text-sm font-bold text-white">BUGÜN ÖNE ÇIKANLAR</h3>
-                <span className="text-[10px] text-finma-text-dim">(FinMA AI tarafından seçildi)</span>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                {previewStocks.map((stock) => (
-                  <div
-                    key={stock.symbol}
-                    className="bg-finma-bg/50 border border-finma-border/50 rounded-lg p-3 hover:border-finma-primary/30 transition-all"
+            {/* Dashboard Preview (dash1.png) */}
+            <div className="relative aspect-[16/9] w-full group overflow-hidden">
+              <img 
+                src="/dash1.png" 
+                alt="FinMA Dashboard Preview" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              
+              {/* Blur Overlay & CTA */}
+              <div className="absolute inset-0 bg-gradient-to-t from-finma-bg via-finma-bg/20 to-transparent flex items-end justify-center pb-8 p-4">
+                <div className="flex flex-col items-center gap-4 bg-finma-bg/60 backdrop-blur-md border border-finma-border/50 rounded-2xl p-6 shadow-2xl">
+                  <div className="flex items-center gap-2 text-sm font-medium text-white">
+                    <Shield className="w-5 h-5 text-finma-primary" />
+                    Tüm profesyonel verilere erişmek için üye olun
+                  </div>
+                  <a 
+                    href="#pricing" 
+                    className="finma-btn-primary px-8 py-2.5 text-sm flex items-center gap-2 group/btn"
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-white">{stock.symbol}</span>
-                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-finma-green/20 text-finma-green font-medium">
-                        {stock.badge}
-                      </span>
-                    </div>
-                    <div className="text-[10px] text-finma-text-dim mb-1">{stock.sector}</div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-finma-primary font-semibold">Skor: {stock.score}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Blur overlay */}
-              <div className="relative mt-6">
-                <div className="h-40 bg-gradient-to-b from-finma-card/0 via-finma-card/80 to-finma-card flex items-end justify-center pb-4">
-                  <div className="flex items-center gap-2 text-sm text-finma-text-dim">
-                    <Shield className="w-4 h-4" />
-                    <span>Tüm verilere erişmek için üye olun</span>
-                  </div>
+                    Hemen Başla <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                  </a>
                 </div>
               </div>
             </div>
