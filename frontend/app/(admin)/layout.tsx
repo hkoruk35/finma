@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
   Shield, Users, Bot, Ticket, LayoutDashboard,
-  ArrowLeft, Activity, Menu, X, Settings
+  ArrowLeft, Activity, Menu, X
 } from 'lucide-react'
 
 const adminNav = [
@@ -15,7 +15,6 @@ const adminNav = [
   { href: '/admin/users', label: 'Kullanıcılar', icon: Users },
   { href: '/admin/bots', label: 'Botlar', icon: Bot },
   { href: '/admin/invites', label: 'Davet Kodları', icon: Ticket },
-  { href: '/admin/settings', label: 'Ayarlar', icon: Settings },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

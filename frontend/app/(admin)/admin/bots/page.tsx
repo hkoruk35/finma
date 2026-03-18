@@ -119,7 +119,7 @@ export default function AdminBotsPage() {
               <Terminal className="w-4 h-4 text-finma-primary" />
               Sistem Botları Listesi
             </h2>
-            <Badge variant="outline" className="text-[10px]">
+            <Badge variant="default" className="text-[10px]">
               {botStatus ? Object.keys(botStatus).length : 0} Bot Bulundu
             </Badge>
           </div>
