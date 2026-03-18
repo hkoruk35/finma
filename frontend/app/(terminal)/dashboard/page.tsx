@@ -11,7 +11,8 @@ import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useSectors, useMarketMovers, useRegime } from '@/hooks/useMarketData'
 import { useIntelligence } from '@/hooks/useIntelligence'
 import {
-  mockPortfolio, mockSignals, mockTrades, mockIndices } from '@/lib/mock-data'
+  mockPortfolio, mockSignals, mockTrades, mockIndices
+} from '@/lib/mock-data'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import { cn } from '@/lib/utils'
@@ -24,12 +25,12 @@ import {
 
 /* ── Sektör Renk Fonksiyonu (maps sayfasıyla aynı) ── */
 function getHeatColor(change: number): string {
-  if (change >= 2)     return 'bg-green-600'
-  if (change >= 1)     return 'bg-green-700'
-  if (change >= 0.25)  return 'bg-green-800'
+  if (change >= 2) return 'bg-green-600'
+  if (change >= 1) return 'bg-green-700'
+  if (change >= 0.25) return 'bg-green-800'
   if (change >= -0.25) return 'bg-gray-700'
-  if (change >= -1)    return 'bg-red-900'
-  if (change >= -2)    return 'bg-red-800'
+  if (change >= -1) return 'bg-red-900'
+  if (change >= -2) return 'bg-red-800'
   return 'bg-red-700'
 }
 
@@ -43,67 +44,89 @@ const sectorETF: Record<string, string> = {
 
 /* ── Isı Haritası Verileri (maps sayfasıyla aynı format) ── */
 const heatmapData = [
-  { sector: 'Teknoloji', change: 1.40, size: 30, stocks: [
-    { ticker: 'AAPL', name: 'Apple', change: 0.45, size: 9 },
-    { ticker: 'MSFT', name: 'Microsoft', change: 1.20, size: 8 },
-    { ticker: 'NVDA', name: 'NVIDIA', change: 2.10, size: 7 },
-    { ticker: 'GOOG', name: 'Alphabet', change: 0.35, size: 5 },
-    { ticker: 'META', name: 'Meta', change: 0.85, size: 4 },
-    { ticker: 'AVGO', name: 'Broadcom', change: 1.55, size: 4 },
-    { ticker: 'AMD', name: 'AMD', change: 1.80, size: 3 },
-  ]},
-  { sector: 'Enerji', change: 2.10, size: 12, stocks: [
-    { ticker: 'XOM', name: 'Exxon', change: 1.85, size: 4 },
-    { ticker: 'CVX', name: 'Chevron', change: 2.28, size: 3 },
-    { ticker: 'COP', name: 'ConocoPhillips', change: 2.55, size: 3 },
-    { ticker: 'SLB', name: 'Schlumberger', change: 1.92, size: 2 },
-  ]},
-  { sector: 'Sağlık', change: -0.30, size: 17, stocks: [
-    { ticker: 'UNH', name: 'UnitedHealth', change: 0.12, size: 6 },
-    { ticker: 'JNJ', name: 'J&J', change: -0.55, size: 5 },
-    { ticker: 'LLY', name: 'Eli Lilly', change: -0.78, size: 6 },
-    { ticker: 'ABBV', name: 'AbbVie', change: 0.45, size: 4 },
-  ]},
-  { sector: 'Finans', change: -0.60, size: 18, stocks: [
-    { ticker: 'JPM', name: 'JP Morgan', change: -0.52, size: 6 },
-    { ticker: 'BAC', name: 'BofA', change: -0.18, size: 5 },
-    { ticker: 'GS', name: 'Goldman', change: -0.95, size: 4 },
-    { ticker: 'MS', name: 'Morgan Stanley', change: -0.42, size: 3 },
-  ]},
-  { sector: 'Sanayi', change: 1.80, size: 13, stocks: [
-    { ticker: 'GE', name: 'GE Aero', change: 1.35, size: 4 },
-    { ticker: 'CAT', name: 'Caterpillar', change: 1.10, size: 4 },
-    { ticker: 'LMT', name: 'Lockheed', change: 2.22, size: 3 },
-    { ticker: 'RTX', name: 'RTX', change: 1.48, size: 2 },
-  ]},
-  { sector: 'Tüketici İhtiyari', change: -1.20, size: 15, stocks: [
-    { ticker: 'AMZN', name: 'Amazon', change: -0.82, size: 6 },
-    { ticker: 'TSLA', name: 'Tesla', change: -2.45, size: 5 },
-    { ticker: 'HD', name: 'Home Depot', change: 0.18, size: 4 },
-  ]},
-  { sector: 'İletişim', change: 0.80, size: 12, stocks: [
-    { ticker: 'GOOGL', name: 'Alphabet', change: 0.38, size: 5 },
-    { ticker: 'NFLX', name: 'Netflix', change: 1.25, size: 4 },
-    { ticker: 'DIS', name: 'Disney', change: 0.55, size: 3 },
-  ]},
-  { sector: 'Temel Tüketim', change: 0.10, size: 10, stocks: [
-    { ticker: 'PG', name: 'P&G', change: 0.25, size: 4 },
-    { ticker: 'KO', name: 'Coca-Cola', change: 0.12, size: 3 },
-    { ticker: 'WMT', name: 'Walmart', change: -0.08, size: 3 },
-  ]},
-  { sector: 'Kamu Hizmetleri', change: 0.30, size: 6, stocks: [
-    { ticker: 'NEE', name: 'NextEra', change: 0.45, size: 3 },
-    { ticker: 'DUK', name: 'Duke Energy', change: 0.22, size: 3 },
-  ]},
-  { sector: 'Gayrimenkul', change: -0.40, size: 6, stocks: [
-    { ticker: 'PLD', name: 'Prologis', change: -0.28, size: 3 },
-    { ticker: 'AMT', name: 'AMT', change: -0.55, size: 3 },
-  ]},
-  { sector: 'Hammadde', change: 1.50, size: 7, stocks: [
-    { ticker: 'LIN', name: 'Linde', change: 1.50, size: 3 },
-    { ticker: 'APD', name: 'Air Products', change: 1.20, size: 2 },
-    { ticker: 'FCX', name: 'Freeport', change: 2.10, size: 2 },
-  ]},
+  {
+    sector: 'Teknoloji', change: 1.40, size: 30, stocks: [
+      { ticker: 'AAPL', name: 'Apple', change: 0.45, size: 9 },
+      { ticker: 'MSFT', name: 'Microsoft', change: 1.20, size: 8 },
+      { ticker: 'NVDA', name: 'NVIDIA', change: 2.10, size: 7 },
+      { ticker: 'GOOG', name: 'Alphabet', change: 0.35, size: 5 },
+      { ticker: 'META', name: 'Meta', change: 0.85, size: 4 },
+      { ticker: 'AVGO', name: 'Broadcom', change: 1.55, size: 4 },
+      { ticker: 'AMD', name: 'AMD', change: 1.80, size: 3 },
+    ]
+  },
+  {
+    sector: 'Enerji', change: 2.10, size: 12, stocks: [
+      { ticker: 'XOM', name: 'Exxon', change: 1.85, size: 4 },
+      { ticker: 'CVX', name: 'Chevron', change: 2.28, size: 3 },
+      { ticker: 'COP', name: 'ConocoPhillips', change: 2.55, size: 3 },
+      { ticker: 'SLB', name: 'Schlumberger', change: 1.92, size: 2 },
+    ]
+  },
+  {
+    sector: 'Sağlık', change: -0.30, size: 17, stocks: [
+      { ticker: 'UNH', name: 'UnitedHealth', change: 0.12, size: 6 },
+      { ticker: 'JNJ', name: 'J&J', change: -0.55, size: 5 },
+      { ticker: 'LLY', name: 'Eli Lilly', change: -0.78, size: 6 },
+      { ticker: 'ABBV', name: 'AbbVie', change: 0.45, size: 4 },
+    ]
+  },
+  {
+    sector: 'Finans', change: -0.60, size: 18, stocks: [
+      { ticker: 'JPM', name: 'JP Morgan', change: -0.52, size: 6 },
+      { ticker: 'BAC', name: 'BofA', change: -0.18, size: 5 },
+      { ticker: 'GS', name: 'Goldman', change: -0.95, size: 4 },
+      { ticker: 'MS', name: 'Morgan Stanley', change: -0.42, size: 3 },
+    ]
+  },
+  {
+    sector: 'Sanayi', change: 1.80, size: 13, stocks: [
+      { ticker: 'GE', name: 'GE Aero', change: 1.35, size: 4 },
+      { ticker: 'CAT', name: 'Caterpillar', change: 1.10, size: 4 },
+      { ticker: 'LMT', name: 'Lockheed', change: 2.22, size: 3 },
+      { ticker: 'RTX', name: 'RTX', change: 1.48, size: 2 },
+    ]
+  },
+  {
+    sector: 'Tüketici İhtiyari', change: -1.20, size: 15, stocks: [
+      { ticker: 'AMZN', name: 'Amazon', change: -0.82, size: 6 },
+      { ticker: 'TSLA', name: 'Tesla', change: -2.45, size: 5 },
+      { ticker: 'HD', name: 'Home Depot', change: 0.18, size: 4 },
+    ]
+  },
+  {
+    sector: 'İletişim', change: 0.80, size: 12, stocks: [
+      { ticker: 'GOOGL', name: 'Alphabet', change: 0.38, size: 5 },
+      { ticker: 'NFLX', name: 'Netflix', change: 1.25, size: 4 },
+      { ticker: 'DIS', name: 'Disney', change: 0.55, size: 3 },
+    ]
+  },
+  {
+    sector: 'Temel Tüketim', change: 0.10, size: 10, stocks: [
+      { ticker: 'PG', name: 'P&G', change: 0.25, size: 4 },
+      { ticker: 'KO', name: 'Coca-Cola', change: 0.12, size: 3 },
+      { ticker: 'WMT', name: 'Walmart', change: -0.08, size: 3 },
+    ]
+  },
+  {
+    sector: 'Kamu Hizmetleri', change: 0.30, size: 6, stocks: [
+      { ticker: 'NEE', name: 'NextEra', change: 0.45, size: 3 },
+      { ticker: 'DUK', name: 'Duke Energy', change: 0.22, size: 3 },
+    ]
+  },
+  {
+    sector: 'Gayrimenkul', change: -0.40, size: 6, stocks: [
+      { ticker: 'PLD', name: 'Prologis', change: -0.28, size: 3 },
+      { ticker: 'AMT', name: 'AMT', change: -0.55, size: 3 },
+    ]
+  },
+  {
+    sector: 'Hammadde', change: 1.50, size: 7, stocks: [
+      { ticker: 'LIN', name: 'Linde', change: 1.50, size: 3 },
+      { ticker: 'APD', name: 'Air Products', change: 1.20, size: 2 },
+      { ticker: 'FCX', name: 'Freeport', change: 2.10, size: 2 },
+    ]
+  },
 ]
 
 /* ── Akıllı Para Akışı — Kurumsal Hareketler ── */
@@ -242,7 +265,7 @@ const STOCK_METADATA: Record<string, { name: string, sector: string }> = {
 function enrichStock(stock: any) {
   const sym = stock.symbol || stock.ticker
   const meta = STOCK_METADATA[sym]
-  
+
   // Eğer name ticker ile aynıysa veya boşsa fallback kullan
   const needsNameFix = !stock.name || stock.name === sym || stock.name === sym.toLowerCase()
   const needsSectorFix = !stock.sector || stock.sector === 'Other' || stock.sector === 'DİĞER'
@@ -265,7 +288,7 @@ export default function DashboardPage() {
   const { data: regimeData } = useRegime()
   const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
   const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
-  
+
   const { data: moversData, isLoading: moversLoading, isError: moversError } = useMarketMovers(moversPeriod)
   const { data: intel, loading: intelLoading } = useIntelligence()
 
@@ -386,7 +409,7 @@ export default function DashboardPage() {
       api.getSectors('1d')
         .then(sectors => {
           if (!sectors || sectors.length === 0) return
-          
+
           // Mevcut heatmapData yapısına dönüştür (görsellik için)
           const updated = heatmapData.map(h => {
             const apiSector = sectors.find(s => s.sector_tr === h.sector || s.sector === h.sector)
@@ -552,8 +575,8 @@ export default function DashboardPage() {
                   <div className={cn(
                     'finma-number text-sm font-bold px-2 py-1 rounded shrink-0',
                     c.score >= 10 ? 'bg-finma-green/20 text-finma-green' :
-                    c.score >= 8 ? 'bg-finma-primary/20 text-finma-primary' :
-                    'bg-finma-yellow/20 text-finma-yellow'
+                      c.score >= 8 ? 'bg-finma-primary/20 text-finma-primary' :
+                        'bg-finma-yellow/20 text-finma-yellow'
                   )}>
                     {c.score?.toFixed(1)}
                   </div>
@@ -635,31 +658,31 @@ export default function DashboardPage() {
               {liveMovers[moversTab]?.map((stock: any, idx: number) => {
                 const sym = stock.symbol || stock.ticker
                 return (
-                <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
-                  onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
-                  <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
-                  <td className="py-2.5 px-3 border border-finma-border/50">
-                    <div className="flex flex-col">
-                      <span className="font-bold text-finma-primary finma-number text-sm">{sym}</span>
-                      <span className="text-finma-text-dim text-[10px] uppercase">{stock.name}</span>
-                    </div>
-                  </td>
-                  <td className="py-2.5 px-3 border border-finma-border/50">
-                    <span className={cn(
-                      'text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase',
-                      SECTOR_BADGE[stock.sector] || 'bg-white/5 text-finma-text-dim border-white/10'
-                    )}>
-                      {sectorLabel(stock.sector)}
-                    </span>
-                  </td>
-                  <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">${(stock.price ?? 0).toFixed(2)}</td>
-                  <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                    <div className="flex items-center justify-end gap-1">
-                      {(stock.change_pct ?? 0) >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                      {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
-                    </div>
-                  </td>
-                </tr>
+                  <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
+                    onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
+                    <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
+                    <td className="py-2.5 px-3 border border-finma-border/50">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-finma-primary finma-number text-sm">{sym}</span>
+                        <span className="text-finma-text-dim text-[10px] uppercase">{stock.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-2.5 px-3 border border-finma-border/50">
+                      <span className={cn(
+                        'text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase',
+                        SECTOR_BADGE[stock.sector] || 'bg-white/5 text-finma-text-dim border-white/10'
+                      )}>
+                        {sectorLabel(stock.sector)}
+                      </span>
+                    </td>
+                    <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">${(stock.price ?? 0).toFixed(2)}</td>
+                    <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      <div className="flex items-center justify-end gap-1">
+                        {(stock.change_pct ?? 0) >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                        {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
+                      </div>
+                    </td>
+                  </tr>
                 )
               })}
             </tbody>
@@ -743,9 +766,9 @@ export default function DashboardPage() {
             {[
               { color: 'bg-green-600', label: '+2%' },
               { color: 'bg-green-800', label: '+0.25%' },
-              { color: 'bg-gray-700',  label: '0' },
-              { color: 'bg-red-900',   label: '-1%' },
-              { color: 'bg-red-700',   label: '-2%' },
+              { color: 'bg-gray-700', label: '0' },
+              { color: 'bg-red-900', label: '-1%' },
+              { color: 'bg-red-700', label: '-2%' },
             ].map(({ color, label }) => (
               <span key={label} className="flex items-center gap-0.5">
                 <span className={cn('w-3 h-3 rounded-sm inline-block', color)} />{label}
@@ -863,11 +886,11 @@ export default function DashboardPage() {
               {intel?.money_flow_details.slice(0, 3).map((item, i) => (
                 <div key={i}>{item.label}: <span className={cn('finma-number', item.color)}>{item.value}</span></div>
               )) || (
-                <>
-                  <div>SPY net akış: <span className="text-finma-green finma-number">+$2.1B</span></div>
-                  <div>QQQ net akış: <span className="text-finma-red finma-number">-$450M</span></div>
-                </>
-              )}
+                  <>
+                    <div>SPY net akış: <span className="text-finma-green finma-number">+$2.1B</span></div>
+                    <div>QQQ net akış: <span className="text-finma-red finma-number">-$450M</span></div>
+                  </>
+                )}
             </div>
           </div>
         </div>
@@ -883,11 +906,11 @@ export default function DashboardPage() {
               {intel?.daily_summary.map((s, i) => (
                 <p key={i}>• {s}</p>
               )) || (
-                <>
-                  <p>• Piyasalar güçlü açıldı. {sectorLeaders} sektörleri liderlik ediyor.</p>
-                  <p>• Savunma hisseleri rallisi devam ediyor.</p>
-                </>
-              )}
+                  <>
+                    <p>• Piyasalar güçlü açıldı. {sectorLeaders} sektörleri liderlik ediyor.</p>
+                    <p>• Savunma hisseleri rallisi devam ediyor.</p>
+                  </>
+                )}
             </div>
           </div>
 
@@ -896,7 +919,7 @@ export default function DashboardPage() {
               <Clock className="w-3 h-3 text-finma-yellow" />
               <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Ekonomik Takvim</span>
             </div>
-            
+
             <div className="overflow-hidden border border-finma-border/20 rounded">
               <table className="w-full border-collapse text-[10px]">
                 <thead>
@@ -938,11 +961,11 @@ export default function DashboardPage() {
               {(intel?.ai_analysis || []).map((s, i) => (
                 <p key={i}>• {s}</p>
               )) || (
-                <>
-                  <p>• Genel piyasa yönü pozitif.</p>
-                  <p>• Enerji ve savunma sektörleri güçlü.</p>
-                </>
-              )}
+                  <>
+                    <p>• Genel piyasa yönü pozitif.</p>
+                    <p>• Enerji ve savunma sektörleri güçlü.</p>
+                  </>
+                )}
             </div>
           </div>
         </div>
@@ -955,26 +978,41 @@ export default function DashboardPage() {
               <Shield className="w-3 h-3 text-finma-primary" />
               <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Önemli Teknik Seviyeler</span>
             </div>
-            
+
             <div className="overflow-hidden border border-finma-border/20 rounded">
               <table className="w-full border-collapse text-[10px]">
                 <thead>
                   <tr className="bg-finma-bg/80 text-finma-text-dim border-b border-finma-border/30 text-left">
-                    <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Varlık / Seviye</th>
-                    <th className="py-1.5 px-2 font-medium text-right">Değer</th>
+                    <th className="py-1.5 px-2 font-medium border-r border-finma-border/20 text-[9px]">Varlık / Seviye</th>
+                    <th className="py-1.5 px-2 font-medium text-right border-r border-finma-border/20 text-[9px]">1. Seviye</th>
+                    <th className="py-1.5 px-2 font-medium text-right text-[9px]">2. Seviye</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-finma-border/20">
-                  {(intel?.technical_levels || []).map(([label, value, color], i) => (
-                    <tr key={i} className="hover:bg-finma-primary/5 transition-colors">
-                      <td className="py-2 px-2 border-r border-finma-border/20">
-                        <span className="text-finma-text-muted">{label}</span>
-                      </td>
-                      <td className={cn("py-2 px-2 text-right finma-number font-bold", color)}>
-                        {value}
-                      </td>
-                    </tr>
-                  ))}
+                  {(intel?.technical_levels || []).map((row, i) => {
+                    let label, v1, v2, color;
+                    if (row.length === 4) {
+                      [label, v1, v2, color] = row;
+                    } else {
+                      [label, v1, color] = row as any;
+                      const parts = (v1 || '').split(' / ');
+                      v1 = parts[0] || '—';
+                      v2 = parts[1] || '—';
+                    }
+                    return (
+                      <tr key={i} className="hover:bg-finma-primary/5 transition-colors">
+                        <td className="py-2 px-2 border-r border-finma-border/20 max-w-[100px] truncate">
+                          <span className="text-finma-text-muted truncate block">{label}</span>
+                        </td>
+                        <td className={cn("py-2 px-2 text-right finma-number font-bold border-r border-finma-border/20 whitespace-nowrap", color)}>
+                          {v1}
+                        </td>
+                        <td className={cn("py-2 px-2 text-right finma-number font-bold whitespace-nowrap", color)}>
+                          {v2}
+                        </td>
+                      </tr>
+                    );
+                  })}
                   {(!intel?.technical_levels || intel.technical_levels.length === 0) && (
                     <tr>
                       <td colSpan={2} className="text-center py-4 text-finma-text-dim">Veri bekleniyor...</td>
@@ -991,7 +1029,7 @@ export default function DashboardPage() {
               <Flame className="w-3 h-3 text-orange-400" />
               <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">BUGÜN ÖNE ÇIKANLAR</span>
             </div>
-            
+
             <div className="overflow-hidden border border-finma-border/20 rounded">
               <table className="w-full border-collapse text-[10px]">
                 <thead>
@@ -1044,7 +1082,7 @@ export default function DashboardPage() {
               <Star className="w-3 h-3 text-finma-yellow" />
               <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">BU HAFTA ÖNE ÇIKANLAR</span>
             </div>
-            
+
             <div className="overflow-hidden border border-finma-border/20 rounded">
               <table className="w-full border-collapse text-[10px]">
                 <thead>

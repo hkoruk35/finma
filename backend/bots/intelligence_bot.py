@@ -63,16 +63,16 @@ Yanıtın SADECE ve SADECE aşağıdaki JSON formatında olmalıdır. Hiçbir a�
     "Analiz satırı 5...", "Analiz satırı 6...", "Analiz satırı 7..."
   ],
   "technical_levels": [
-    ["S&P 500 Destek", "5,720 / 5,680", "text-finma-green"],
-    ["S&P 500 Direnç", "5,880 / 5,920", "text-finma-red"],
-    ["Nasdaq Destek", "19,800 / 19,500", "text-finma-green"],
-    ["Nasdaq Direnç", "20,500 / 20,900", "text-finma-red"],
-    ["Bitcoin Destek", "$62.5K / $58K", "text-finma-green"],
-    ["Bitcoin Direnç", "$68K / $72K", "text-finma-red"],
-    ["Altın Destek", "$2,650 / $2,620", "text-finma-green"],
-    ["Altın Direnç", "$2,750 / $2,800", "text-finma-red"],
-    ["Brent Petrol", "$72 / $78", "text-finma-yellow"],
-    ["Gümüş Seviye", "$30.5 / $34.0", "text-finma-cyan"]
+    ["S&P 500 Destek", "5,720", "5,680", "text-finma-green"],
+    ["S&P 500 Direnç", "5,880", "5,920", "text-finma-red"],
+    ["Nasdaq Destek", "19,800", "19,500", "text-finma-green"],
+    ["Nasdaq Direnç", "20,500", "20,900", "text-finma-red"],
+    ["Bitcoin Destek", "$62.5K", "$58K", "text-finma-green"],
+    ["Bitcoin Direnç", "$68K", "$72K", "text-finma-red"],
+    ["Altın Destek", "$2,650", "$2,620", "text-finma-green"],
+    ["Altın Direnç", "$2,750", "$2,800", "text-finma-red"],
+    ["Brent Petrol", "$72", "$78", "text-finma-yellow"],
+    ["Gümüş Seviye", "$30.5", "$34.0", "text-finma-cyan"]
   ]
 }
 

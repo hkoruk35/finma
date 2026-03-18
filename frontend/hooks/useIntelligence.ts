@@ -24,7 +24,7 @@ export interface IntelligenceReport {
     hot: boolean
   }>
   ai_analysis: string[]
-  technical_levels: Array<[string, string, string]>
+  technical_levels: Array<[string, string, string, string]>
   created_at?: string
 }
 
