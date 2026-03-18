@@ -157,7 +157,7 @@ function OperationsContent() {
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Üst Özet Kartlar */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-3">
         <Card padding="sm" className="flex flex-col gap-1">
           <span className="text-[10px] text-finma-text-dim uppercase">Açık Pozisyon</span>
           <span className="finma-number text-xl font-bold text-white">{openTrades.length}</span>
@@ -169,8 +169,12 @@ function OperationsContent() {
           </span>
         </Card>
         <Card padding="sm" className="flex flex-col gap-1">
+          <span className="text-[10px] text-finma-text-dim uppercase">Net Likidite</span>
+          <span className="finma-number text-xl font-bold text-white">{formatCurrency(portfolio.net_liquidation)}</span>
+        </Card>
+        <Card padding="sm" className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] text-finma-text-dim uppercase">Net Likidite</span>
+            <span className="text-[10px] text-finma-text-dim uppercase">Ana Sermaye</span>
             <button onClick={() => { setEditingCapital(true); setCapitalInput(String(startCapital)) }}
               className="text-finma-text-dim hover:text-finma-primary transition-colors" title="Sermaye ayarla">
               <Edit3 className="w-3 h-3" />
@@ -185,11 +189,11 @@ function OperationsContent() {
               <button onClick={saveCapital} className="text-[9px] bg-finma-green/20 text-finma-green px-1.5 py-0.5 rounded font-bold">OK</button>
             </div>
           ) : (
-            <span className="finma-number text-xl font-bold text-white">{formatCurrency(portfolio.net_liquidation)}</span>
+            <span className="finma-number text-xl font-bold text-finma-cyan">{formatCurrency(startCapital)}</span>
           )}
         </Card>
         <Card padding="sm" className="flex flex-col gap-1">
-          <span className="text-[10px] text-finma-text-dim uppercase">Nakit Likidite</span>
+          <span className="text-[10px] text-finma-text-dim uppercase">Kullanılabilir Nakit</span>
           <span className="finma-number text-xl font-bold text-finma-green">
             {formatCurrency(portfolio.cash_available)}
           </span>
@@ -206,13 +210,6 @@ function OperationsContent() {
           <span className="text-[9px] text-finma-text-dim">Tüm geçmişi sil</span>
         </Card>
       </div>
-
-      {/* Grafik */}
-      <Card padding="sm">
-        <div className="h-[40vh] min-h-[280px] md:h-[55vh] md:min-h-[400px]">
-          <TradingViewWidget />
-        </div>
-      </Card>
 
       {/* Detaylı Aktif Operasyonlar Listesi */}
       <Card padding="sm">
