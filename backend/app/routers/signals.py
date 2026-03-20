@@ -23,8 +23,8 @@ _pushed_signals: Optional[dict] = None
 
 # Paths to bot output files
 SIGNAL_PATHS = [
+    os.path.join("bots", "output", "swing112_latest.json"),
     os.path.join("bots", "output", "bot_analysis_latest.json"),
-    os.path.join("bots", "output", "inday312_latest.json"),
 ]
 
 # Fallback paths to original FinMA system

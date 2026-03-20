@@ -14,38 +14,23 @@ logger = logging.getLogger(__name__)
 BOT_CONFIGS = {
     "swing112": {
         "script": "swing112.py",
-        "schedule": {"hour": "9,12,15", "minute": "30"},
-        "description": "Swing Trade Scanner - 3 kez/gün",
-    },
-    "insider_bot": {
-        "script": "insider_bot.py",
-        "schedule": {"hour": "10", "minute": "0"},
-        "description": "Daily Insider Trading Scanner - 1 kez/gün",
+        "schedule": {"hour": "13", "minute": "0"},
+        "description": "ATMACA Master Swing Scanner - Günlük 13:00 NY",
     },
     "news_bot": {
         "script": "news_bot.py",
-        "schedule": {"minute": "5"}, # Her saat başı 5 geçe
-        "description": "Hourly Market & Economy News Bot",
+        "schedule": {"minute": "0"}, 
+        "description": "Market News & Sentiment Bot",
     },
-    "agresif411": {
-        "script": "agresif411.py",
-        "schedule": {"hour": "9,13", "minute": "45"},
-        "description": "Agresif Momentum Scanner",
-    },
-    "inday312": {
-        "script": "inday312.py",
-        "schedule": {"minute": "*/30"}, # Her 30 dakikada bir
-        "description": "Intraday Trend Scanner",
-    },
-    "opsiyon217": {
-        "script": "opsiyon217.py",
-        "schedule": {"hour": "11,15", "minute": "15"},
-        "description": "Option Volatility & Flow Scanner",
+    "insider_bot": {
+        "script": "insider_bot.py",
+        "schedule": {"hour": "2", "minute": "0"},
+        "description": "Daily Insider Activity Scanner",
     },
     "intelligence_bot": {
         "script": "intelligence_bot.py",
-        "schedule": {"hour": "8", "minute": "30"},
-        "description": "Daily Market Intelligence & AI Report",
+        "schedule": {"hour": "3", "minute": "0"},
+        "description": "Market Intelligence Report Builder",
     },
 }
 
@@ -67,10 +52,10 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
     try:
         logger.info(f"Bot çalıştırılıyor: {bot_name}")
         result = subprocess.run(
-            ["python", script_path],
+            ["python", script_path, "--one-shot"],
             capture_output=True,
             text=True,
-            timeout=300,  # 5 minutes max
+            timeout=1800,  # 30 minutes max (Swing112 takes time)
             cwd=bots_dir,
         )
 

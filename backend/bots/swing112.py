@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import logging
 import time
 import aiohttp
@@ -21,6 +21,8 @@ from ta.volatility import AverageTrueRange, BollingerBands
 from ta.trend import EMAIndicator, ADXIndicator
 from ta.volume import OnBalanceVolumeIndicator
 from ta.momentum import RSIIndicator
+import json
+import argparse
 
 
 # ================================================================
@@ -3815,8 +3817,39 @@ async def push_results_to_finma(top_candidates: list, now_ny, duration: float):
     frontend/data/signals-latest.json dosyasını günceller ve git push yapar.
     Vercel otomatik deploy eder (~2 dakika).
     """
-    import json as _json
     import subprocess as _sp
+
+    # --- YENİ: Sonuçları yerel output klasörüne de kaydet ---
+    try:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        output_dir = os.path.join(current_dir, "output")
+        os.makedirs(output_dir, exist_ok=True)
+        
+        output_file = os.path.join(output_dir, "swing112_latest.json")
+        
+        # JSON için sadeleştirilmiş veri
+        json_data = {
+            "timestamp": now_ny.strftime("%Y-%m-%d %H:%M:%S"),
+            "bot_name": "swing112",
+            "count": len(top_candidates),
+            "candidates": [
+                {
+                    "ticker": c.get("ticker"),
+                    "score": round(c.get("score", 0), 2),
+                    "price": round(c.get("current_price", 0), 4),
+                    "tp": round(c.get("profit_target", 0), 2),
+                    "sl": round(c.get("stop_loss", 0), 2),
+                    "sector": c.get("sector")
+                } for c in top_candidates
+            ]
+        }
+        
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(json_data, f, indent=2, ensure_ascii=False)
+        logging.info(f"✅ Sonuçlar yerel klasöre kaydedildi: {output_file}")
+    except Exception as e:
+        logging.warning(f"Yerel JSON kaydetme hatası: {e}")
+
 
     # Proje kökünü bul (bots/ → finma/)
     bots_dir = os.path.dirname(os.path.abspath(__file__))
@@ -3866,7 +3899,7 @@ async def push_results_to_finma(top_candidates: list, now_ny, duration: float):
     # JSON dosyasına yaz
     os.makedirs(os.path.dirname(signals_json), exist_ok=True)
     with open(signals_json, "w", encoding="utf-8") as f:
-        _json.dump(signals_payload, f, indent=2, ensure_ascii=False)
+        json.dump(signals_payload, f, indent=2, ensure_ascii=False)
 
     logging.info(f"📄 signals-latest.json güncellendi: {len(candidates_data)} aday")
 
@@ -4291,16 +4324,22 @@ async def run_scanner():
 # ================================================================
 
 if __name__ == "__main__":
-    # Eğer bu dosya doğrudan terminalden çalıştırılırsa (python family305.py)
-    # Standart sonsuz döngüyü başlat.
+    parser = argparse.ArgumentParser(description="ATMACA Swing Master V112")
+    parser.add_argument("--one-shot", action="store_true", help="Run once and exit")
+    args = parser.parse_args()
+
     try:
         # Windows event loop fix
         if os.name == 'nt':
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
         
-        asyncio.run(run_scanner())
+        if args.one_shot:
+            print("🚀 Bot One-Shot modunda çalıştırılıyor...")
+            asyncio.run(scan_top_stocks())
+        else:
+            asyncio.run(run_scanner())
         
     except KeyboardInterrupt:
         print("\n🦅 Bot manuel olarak durduruldu.")
     except Exception as e:
-        print(f"Kritik Başlatma Hatası: {e}")
+        print(f"Kritik Başlatma Hatası: {e}")
