@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     # App
     app_name: str = "FinMA API"
     debug: bool = False
-    frontend_url: str = "http://localhost:3000"
+    frontend_url: str = "https://finmasmart.com"
 
     # Database
     supabase_url: str = ""
@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 
     # Bot
     bot_api_key: str = "finma-bot-secret-key"
-    backend_url: str = "http://localhost:8000"
+    backend_url: str = "https://finma-production.up.railway.app"
 
     # Auth
     jwt_secret: str = "finma-dev-secret-change-in-production"
