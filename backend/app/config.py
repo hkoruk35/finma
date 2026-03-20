@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 
     # Bot
     bot_api_key: str = "finma-bot-secret-key"
-    backend_url: str = "https://finma-production.up.railway.app"
+    backend_url: str = "https://afk-nexro-production.up.railway.app"
 
     # Auth
     jwt_secret: str = "finma-dev-secret-change-in-production"

@@ -14,7 +14,7 @@ function getApiUrl(): string {
     return '/api/proxy'
   }
   // Client-side dev — direct backend
-  return process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
+  return process.env.NEXT_PUBLIC_API_URL || 'https://afk-nexro-production.up.railway.app'
 }
 
 const API_URL = getApiUrl()

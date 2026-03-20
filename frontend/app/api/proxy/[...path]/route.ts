@@ -9,7 +9,7 @@
  * 3. Backend URL gizli (güvenlik)
  */
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://afk-nexro-production.up.railway.app'
 
 // Cache süreleri (saniye) — path prefix match
 const CACHE_RULES: [string, number][] = [
