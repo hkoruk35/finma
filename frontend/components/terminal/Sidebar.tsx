@@ -34,6 +34,7 @@ import {
   Newspaper,
   UserCheck,
   History,
+  Bot,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
@@ -239,6 +240,50 @@ export function Sidebar() {
           })}
 
         </nav>
+        
+        {/* Admin Quick Access */}
+        {isAdmin && isExpanded && (
+          <div className="px-2 pb-2 mt-2 pt-2 border-t border-finma-border/30">
+            <div className="px-3 mb-1">
+              <span className="text-[9px] font-bold text-finma-primary/70 uppercase tracking-widest">Yönetim</span>
+            </div>
+            <Link
+              href="/admin/bots"
+              onClick={() => setMobileMenuOpen(false)}
+              className={cn(
+                'flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-all duration-200',
+                pathname.startsWith('/admin/bots')
+                  ? 'bg-finma-primary/15 text-finma-primary'
+                  : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5'
+              )}
+            >
+              <Bot className="w-4 h-4" />
+              <span>Bot Yönetimi</span>
+            </Link>
+            <Link
+              href="/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className={cn(
+                'flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-all duration-200 mt-0.5',
+                pathname === '/admin'
+                  ? 'bg-finma-primary/15 text-finma-primary'
+                  : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5'
+              )}
+            >
+              <Shield className="w-4 h-4" />
+              <span>Yönetim Paneli</span>
+            </Link>
+          </div>
+        )}
+
+        {/* Admin Quick Access Icon-only (Collapsed) */}
+        {isAdmin && !isExpanded && (
+          <div className="py-2 border-t border-finma-border/30 flex flex-col items-center gap-2">
+             <Link href="/admin/bots" className="p-2 text-finma-primary hover:bg-white/5 rounded-md" title="Bot Yönetimi">
+               <Bot className="w-4.5 h-4.5" />
+             </Link>
+          </div>
+        )}
 
         {/* Bottom section */}
         <div className="border-t border-finma-border p-2 space-y-1">
