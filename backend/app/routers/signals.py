@@ -196,6 +196,19 @@ async def get_bot_status():
         }
 
 
+@router.get("/bots/{bot_name}/logs")
+async def get_bot_logs(bot_name: str, lines: int = Query(100, ge=10, le=1000)):
+    """Botun canlı loglarını getir"""
+    try:
+        from app.services.bot_runner import get_logs
+        from app.config import get_settings
+        settings = get_settings()
+        logs = get_logs(bot_name, settings.signals_output_dir, lines)
+        return {"bot_name": bot_name, "logs": logs}
+    except Exception as e:
+        return {"bot_name": bot_name, "logs": f"Hata: {str(e)}", "error": True}
+
+
 @router.post("/push")
 async def push_signals(
     payload: SignalsPushRequest,

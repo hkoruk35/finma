@@ -6,7 +6,8 @@ import { Badge } from '@/components/shared/Badge'
 import { api } from '@/lib/api-client'
 import { 
   Bot, RefreshCw, Clock, Activity, Play, Square, 
-  CheckCircle2, AlertCircle, Laptop, Terminal, ExternalLink 
+  CheckCircle2, AlertCircle, Laptop, Terminal, ExternalLink, 
+  FileText, X 
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -16,6 +17,9 @@ export default function AdminBotsPage() {
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+  const [selectedBotLog, setSelectedBotLog] = useState<string | null>(null)
+  const [logContent, setLogContent] = useState<string>('')
+  const [logLoading, setLogLoading] = useState(false)
 
   useEffect(() => {
     loadData()
@@ -63,6 +67,27 @@ export default function AdminBotsPage() {
       setActionLoading(null)
     }
   }
+
+  const fetchLogs = async (botName: string) => {
+    setLogLoading(true)
+    try {
+      const res = await api.getBotLogs(botName)
+      setLogContent(res.logs)
+    } catch (err: any) {
+      setLogContent('Loglar alınamadı: ' + err.message)
+    } finally {
+      setLogLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    let interval: any
+    if (selectedBotLog) {
+      fetchLogs(selectedBotLog)
+      interval = setInterval(() => fetchLogs(selectedBotLog), 3000)
+    }
+    return () => clearInterval(interval)
+  }, [selectedBotLog])
 
   if (loading) {
     return (
@@ -169,6 +194,14 @@ export default function AdminBotsPage() {
                     >
                       <RefreshCw className={cn("w-3.5 h-3.5", actionLoading === `${id}-run` && "animate-spin")} />
                       Çalıştır
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedBotLog(id)}
+                      className="p-2 rounded-lg border border-finma-border/50 text-finma-text-dim hover:text-white hover:bg-white/5 transition-all"
+                      title="Logları Görüntüle"
+                    >
+                      <FileText className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -316,6 +349,39 @@ export default function AdminBotsPage() {
             </table>
           </div>
         </Card>
+      )}
+      {/* Log Modal */}
+      {selectedBotLog && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+          <Card className="w-full max-w-4xl max-h-[80vh] flex flex-col overflow-hidden border-finma-primary/30 shadow-2xl">
+            <div className="p-4 border-b border-finma-border flex items-center justify-between bg-finma-card">
+              <div className="flex items-center gap-3">
+                <Terminal className="w-5 h-5 text-finma-primary" />
+                <h3 className="font-bold text-white uppercase tracking-wider">{selectedBotLog} - Canlı Log Akışı</h3>
+                {logLoading && <RefreshCw className="w-3 h-3 animate-spin text-finma-primary" />}
+              </div>
+              <button 
+                onClick={() => setSelectedBotLog(null)}
+                className="p-1 px-2 rounded-md hover:bg-white/10 text-finma-text-dim hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 p-4 bg-black/50 overflow-y-auto font-mono text-[11px] leading-relaxed text-finma-green/90 whitespace-pre-wrap selection:bg-finma-primary/30">
+              {logContent || 'Log bekleniyor...'}
+              <div id="logs-end"></div>
+            </div>
+            <div className="p-3 border-t border-finma-border bg-finma-card/50 flex justify-between items-center">
+              <span className="text-[10px] text-finma-text-dim">Her 3 saniyede bir güncellenir</span>
+              <button 
+                onClick={() => setLogContent('')}
+                className="text-[10px] text-finma-text-dim hover:text-white"
+              >
+                Temizle
+              </button>
+            </div>
+          </Card>
+        </div>
       )}
     </div>
   )

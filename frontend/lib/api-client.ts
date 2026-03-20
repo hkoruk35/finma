@@ -340,6 +340,10 @@ class APIClient {
     }>>('/api/signals/bot-status')
   }
 
+  async getBotLogs(botName: string, lines = 100) {
+    return this.request<{ bot_name: string; logs: string }>(`/api/signals/bots/${botName}/logs?lines=${lines}`)
+  }
+
   async runBot(botName: string) {
     return this.request<{ status: string; message: string }>(`/api/signals/bots/${botName}/run`, {
       method: 'POST',

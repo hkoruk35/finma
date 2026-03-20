@@ -34,11 +34,11 @@ BOT_CONFIGS = {
     },
 }
 
-scheduler: Optional[AsyncIOScheduler] = None
-
+active_processes = {}
 
 def run_bot(bot_name: str, bots_dir: str, output_dir: str):
-    """Execute a bot script and save its output"""
+    """Execute a bot script in background and redirect output to a log file"""
+    global active_processes
     config = BOT_CONFIGS.get(bot_name)
     if not config:
         logger.error(f"Bot bulunamadı: {bot_name}")
@@ -49,46 +49,56 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
         logger.warning(f"Bot script yok: {script_path}")
         return
 
+    os.makedirs(output_dir, exist_ok=True)
+    log_file_path = os.path.join(output_dir, f"{bot_name}.log")
+
     try:
-        logger.info(f"Bot çalıştırılıyor: {bot_name}")
-        result = subprocess.run(
-            ["python", script_path, "--one-shot"],
-            capture_output=True,
-            text=True,
-            timeout=1800,  # 30 minutes max (Swing112 takes time)
+        # Check if already running
+        if bot_name in active_processes:
+            proc = active_processes[bot_name]
+            if proc.poll() is None:
+                logger.info(f"Bot zaten çalışıyor: {bot_name} (PID: {proc.pid})")
+                return
+            else:
+                del active_processes[bot_name]
+
+        logger.info(f"Bot başlatılıyor: {bot_name} -> {log_file_path}")
+        
+        # Open log file with header
+        with open(log_file_path, "a", encoding="utf-8") as f:
+            f.write(f"\n\n--- [ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ] STARTING BOT: {bot_name} ---\n")
+            f.flush()
+
+        log_file = open(log_file_path, "a", encoding="utf-8")
+        
+        process = subprocess.Popen(
+            ["python", config["script"], "--one-shot"], # Using script name since cwd=bots_dir
+            stdout=log_file,
+            stderr=subprocess.STDOUT,
             cwd=bots_dir,
+            text=True,
+            bufsize=1 # Line buffered
         )
 
-        if result.returncode == 0:
-            logger.info(f"Bot tamamlandı: {bot_name}")
-            # Check for output JSON
-            output_file = os.path.join(output_dir, f"{bot_name}_latest.json")
-            if os.path.exists(output_file):
-                logger.info(f"Çıktı dosyası: {output_file}")
+        active_processes[bot_name] = process
+        logger.info(f"Bot PID {process.pid} ile arka planda başlatıldı: {bot_name}")
 
-            # Swing112 bittikten sonra FinMA sitesini güncelle
-            if bot_name == "swing112":
-                try:
-                    push_script = os.path.join(bots_dir, "push_to_finma.py")
-                    if os.path.exists(push_script):
-                        push_result = subprocess.run(
-                            ["python", push_script],
-                            capture_output=True, text=True,
-                            timeout=120, cwd=bots_dir,
-                        )
-                        if push_result.returncode == 0:
-                            logger.info("FinMA push başarılı — site güncelleniyor")
-                        else:
-                            logger.warning(f"FinMA push hatası: {push_result.stderr[:300]}")
-                except Exception as push_err:
-                    logger.warning(f"FinMA push çalıştırılamadı: {push_err}")
-        else:
-            logger.error(f"Bot hatası {bot_name}: {result.stderr[:500]}")
-
-    except subprocess.TimeoutExpired:
-        logger.error(f"Bot zaman aşımı: {bot_name}")
     except Exception as e:
         logger.error(f"Bot çalıştırma hatası {bot_name}: {e}")
+
+
+def get_logs(bot_name: str, output_dir: str, lines: int = 100):
+    """Read last N lines from bot log file"""
+    log_file_path = os.path.join(output_dir, f"{bot_name}.log")
+    if not os.path.exists(log_file_path):
+        return f"Log dosyası henüz oluşmadı: {log_file_path}"
+    
+    try:
+        with open(log_file_path, "r", encoding="utf-8") as f:
+            content = f.readlines()
+            return "".join(content[-lines:])
+    except Exception as e:
+        return f"Log okuma hatası: {e}"
 
 
 def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
@@ -138,17 +148,29 @@ def stop_scheduler():
         logger.info("Bot scheduler durduruldu")
 
 
+scheduler: Optional[AsyncIOScheduler] = None
+
 def get_bot_status():
     """Get status of all bots"""
+    global active_processes
     status = {}
     for bot_name, config in BOT_CONFIGS.items():
         job = scheduler.get_job(bot_name) if scheduler else None
+        
+        # Check if running
+        is_running = False
+        if bot_name in active_processes:
+            if active_processes[bot_name].poll() is None:
+                is_running = True
+            else:
+                del active_processes[bot_name]
+
         status[bot_name] = {
             "name": config["description"],
             "script": config["script"],
             "scheduled": job is not None,
             "next_run": str(job.next_run_time) if job else None,
-            "is_running": False # subprocess monitoring is complex, placeholder
+            "is_running": is_running
         }
     return status
 
