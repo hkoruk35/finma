@@ -191,9 +191,8 @@ async def get_bot_status():
     except Exception:
         return {
             "swing112": {"name": "Swing Trade Scanner", "scheduled": False, "next_run": None},
-            "agresif411": {"name": "Agresif Scanner", "scheduled": False, "next_run": None},
-            "inday312": {"name": "Intraday Scanner", "scheduled": False, "next_run": None},
-            "opsiyon217": {"name": "Opsiyon Scanner", "scheduled": False, "next_run": None},
+            "news_bot": {"name": "Market News Bot", "scheduled": False, "next_run": None},
+            "insider_bot": {"name": "Insider Data Bot", "scheduled": False, "next_run": None},
         }
 
 

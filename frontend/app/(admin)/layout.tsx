@@ -13,7 +13,7 @@ import {
 const adminNav = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/users', label: 'Kullanıcılar', icon: Users },
-  { href: '/admin/bots', label: 'Botlar', icon: Bot },
+  { href: '/admin/bots', label: 'Bot Yönetimi', icon: Bot },
   { href: '/admin/invites', label: 'Davet Kodları', icon: Ticket },
 ]
 

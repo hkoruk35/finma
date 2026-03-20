@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react'
 import { Card } from '@/components/shared/Card'
 import { api } from '@/lib/api-client'
-import { Users, Crown, Gem, UserCheck, Activity, Server } from 'lucide-react'
+import { Users, Crown, Gem, UserCheck, Activity, Server, Bot } from 'lucide-react'
+import Link from 'next/link'
 
 interface UserStats {
   total: number
@@ -107,6 +108,17 @@ export default function AdminDashboardPage() {
             {health?.status === 'ok' ? 'Çalışıyor' : 'Bağlantı Yok'}
           </span>
         </Card>
+        <Link href="/admin/bots" className="block">
+          <Card padding="sm" className="h-full border border-finma-primary/30 hover:border-finma-primary bg-finma-primary/5 transition-all group">
+            <div className="flex items-center gap-2 mb-2">
+              <Bot className="w-4 h-4 text-finma-primary group-hover:scale-110 transition-transform" />
+              <span className="text-[10px] text-finma-text-dim uppercase">Bot Yönetimi</span>
+            </div>
+            <span className="text-sm font-bold text-white group-hover:text-finma-primary transition-colors">
+              Botları Kontrol Et →
+            </span>
+          </Card>
+        </Link>
       </div>
 
       {/* System Info */}
