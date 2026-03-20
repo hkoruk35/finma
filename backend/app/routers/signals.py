@@ -3,7 +3,7 @@ Signals API Router — Supabase entegrasyonlu sinyal geçmişi
 Endpoints: latest signals, history, candidates, featured (top 5), bot status, push
 """
 
-from fastapi import APIRouter, HTTPException, Query, Header
+from fastapi import APIRouter, HTTPException, Query, Header, Depends
 from typing import List, Optional
 from pydantic import BaseModel
 import json
