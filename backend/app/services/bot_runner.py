@@ -17,9 +17,24 @@ BOT_CONFIGS = {
         "schedule": {"hour": "13", "minute": "0"},
         "description": "ATMACA Master Swing Scanner - Günlük 13:00 NY",
     },
+    "swing113_11": {
+        "script": "swing113.py",
+        "schedule": {"hour": "11", "minute": "0"},
+        "description": "ATMACA Fırsatlar Tarayıcı - NY 11:00",
+    },
+    "swing113_13": {
+        "script": "swing113.py",
+        "schedule": {"hour": "13", "minute": "5"},
+        "description": "ATMACA Fırsatlar Tarayıcı - NY 13:05",
+    },
+    "swing113_15": {
+        "script": "swing113.py",
+        "schedule": {"hour": "15", "minute": "0"},
+        "description": "ATMACA Fırsatlar Tarayıcı - NY 15:00",
+    },
     "news_bot": {
         "script": "news_bot.py",
-        "schedule": {"minute": "0"}, 
+        "schedule": {"minute": "0"},
         "description": "Market News & Sentiment Bot",
     },
     "insider_bot": {

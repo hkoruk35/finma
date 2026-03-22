@@ -10,6 +10,7 @@ from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.routers import auth, market, signals, portfolio, ai, telegram, invite
+from app.routers import notifications, watchlist, screener
 from app.ws.price_feed import websocket_endpoint
 
 # Configure logging
@@ -81,7 +82,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="FinMA API",
     description="Profesyonel Finans Terminali Backend API — Bloomberg tarzı analiz platformu",
-    version="4.0.0",
+    version="5.0.0",
     lifespan=lifespan,
     docs_url="/docs",
     redoc_url="/redoc",
@@ -110,6 +111,9 @@ app.include_router(portfolio.router, prefix="/api/portfolio", tags=["Portfolio"]
 app.include_router(ai.router, prefix="/api/ai", tags=["AI Analysis"])
 app.include_router(telegram.router, prefix="/api/telegram", tags=["Telegram"])
 app.include_router(invite.router, prefix="/api/invite", tags=["Invite"])
+app.include_router(notifications.router, prefix="/api/notifications", tags=["Notifications"])
+app.include_router(watchlist.router, prefix="/api/watchlist", tags=["Smart Watchlist"])
+app.include_router(screener.router, prefix="/api/screener", tags=["Screener"])
 
 
 # ─── Root Endpoints ───

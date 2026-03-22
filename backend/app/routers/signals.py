@@ -20,12 +20,16 @@ router = APIRouter()
 
 # ─── In-memory pushed signal store (Railway'de kalıcı) ───
 _pushed_signals: Optional[dict] = None
+_swing113_latest: Optional[dict] = None
 
 # Paths to bot output files
 SIGNAL_PATHS = [
     os.path.join("bots", "output", "swing112_latest.json"),
     os.path.join("bots", "output", "bot_analysis_latest.json"),
 ]
+
+SWING113_PATH = os.path.join("bots", "output", "swing113_latest.json")
+SWING113_ARCHIVE_DIR = os.path.join("bots", "output", "swing113_archive")
 
 # Fallback paths to original FinMA system
 FALLBACK_PATHS = [
@@ -294,6 +298,137 @@ async def push_market_intelligence(data: IntelligencePush, x_api_key: Optional[s
         raise HTTPException(status_code=500, detail="Failed to save report")
     
     return {"status": "success", "message": "Market Intelligence updated"}
+# ─── SWING113 OPPORTUNITIES ENDPOINTS ───
+
+class Swing113OpportunityItem(BaseModel):
+    rank: int
+    ticker: str
+    company_name: str = ""
+    sector: str = "Unknown"
+    price: float
+    score: float
+    entry_zone: str = ""
+    stop_loss: float = 0.0
+    target: float = 0.0
+    potential_pct: float = 0.0
+    reason: str = ""
+
+class Swing113PushRequest(BaseModel):
+    run_id: str
+    run_at: str
+    schedule_slot: str = ""  # "11:00", "13:05", "15:00"
+    opportunities: List[Swing113OpportunityItem]
+
+
+def load_swing113_latest() -> Optional[dict]:
+    """Load latest swing113 run from RAM → file → None"""
+    global _swing113_latest
+    if _swing113_latest:
+        return _swing113_latest
+    abs_path = os.path.abspath(SWING113_PATH)
+    if os.path.exists(abs_path):
+        try:
+            with open(abs_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return None
+
+
+@router.post("/swing113/push")
+async def push_swing113(
+    payload: Swing113PushRequest,
+    x_api_key: Optional[str] = Header(None),
+):
+    """swing113 botu fırsatları API'ye gönderir"""
+    global _swing113_latest
+    settings = get_settings()
+    expected_key = getattr(settings, "bot_api_key", None) or os.environ.get("BOT_API_KEY", "finma-bot-2026")
+    if x_api_key != expected_key:
+        raise HTTPException(status_code=401, detail="Geçersiz API anahtarı")
+
+    data = {
+        "run_id": payload.run_id,
+        "run_at": payload.run_at,
+        "schedule_slot": payload.schedule_slot,
+        "opportunities": [o.dict() for o in payload.opportunities],
+    }
+    _swing113_latest = data
+
+    # Write to file
+    try:
+        os.makedirs(os.path.dirname(os.path.abspath(SWING113_PATH)), exist_ok=True)
+        with open(os.path.abspath(SWING113_PATH), "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        logger.warning(f"swing113 dosya yazma hatası: {e}")
+
+    logger.info(f"✅ swing113 push: {len(payload.opportunities)} fırsat — slot: {payload.schedule_slot}")
+    return {"status": "ok", "count": len(payload.opportunities), "run_id": payload.run_id}
+
+
+@router.get("/opportunities")
+async def get_opportunities(
+    user: dict = Depends(lambda: None),
+    x_user_tier: Optional[str] = Header(None),
+):
+    """
+    swing113 son fırsatları getir.
+    Free: sadece rank-1. Pro/Admin: tümü.
+    """
+    data = load_swing113_latest()
+    if not data:
+        return {"opportunities": [], "run_at": None, "run_id": None, "total": 0}
+
+    opportunities = data.get("opportunities", [])
+    tier = x_user_tier or "free"
+
+    # Free tier: only rank 1
+    if tier == "free":
+        opportunities = [o for o in opportunities if o.get("rank") == 1]
+
+    return {
+        "opportunities": opportunities,
+        "run_at": data.get("run_at"),
+        "run_id": data.get("run_id"),
+        "schedule_slot": data.get("schedule_slot"),
+        "total": len(data.get("opportunities", [])),
+        "visible": len(opportunities),
+    }
+
+
+@router.get("/opportunities/history")
+async def get_opportunities_history(
+    limit: int = Query(10, ge=1, le=30),
+    admin: dict = Depends(require_admin),
+):
+    """Son N swing113 çalıştırma geçmişini getir (Admin)"""
+    archive_dir = os.path.abspath(SWING113_ARCHIVE_DIR)
+    if not os.path.exists(archive_dir):
+        return {"runs": [], "total": 0}
+
+    files = sorted(
+        [f for f in os.listdir(archive_dir) if f.endswith(".json")],
+        reverse=True
+    )[:limit]
+
+    runs = []
+    for fname in files:
+        try:
+            with open(os.path.join(archive_dir, fname), "r", encoding="utf-8") as f:
+                run = json.load(f)
+                runs.append({
+                    "run_id": run.get("run_id"),
+                    "run_at": run.get("run_at"),
+                    "schedule_slot": run.get("schedule_slot"),
+                    "count": len(run.get("opportunities", [])),
+                })
+        except Exception:
+            continue
+
+    return {"runs": runs, "total": len(runs)}
+
+
 @router.post("/bots/{bot_name}/run")
 async def run_bot_manually(bot_name: str, admin: dict = Depends(require_admin)):
     """Botu manuel olarak hemen çalıştır (Admin sadece)"""

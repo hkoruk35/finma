@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
 import { TierGate } from '@/components/auth/TierGate'
 import { useSearchParams } from 'next/navigation'
-import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
+import { FinMAChart } from '@/components/terminal/FinMAChart'
 import { Card } from '@/components/shared/Card'
 import { sectorLabel } from '@/components/shared/Badge'
 import { useTerminalStore } from '@/store/terminal'
@@ -986,7 +986,7 @@ function StockAnalysisContent() {
                   {isFullscreen ? 'Küçült' : 'Tam Ekran'}
                 </button>
               </div>
-              <TradingViewWidget />
+              <FinMAChart ticker={ticker} height={380} showControls={true} />
             </div>
             {isFullscreen && <div className="fixed inset-0 bg-black/60 z-40" onClick={() => setIsFullscreen(false)} />}
           </div>

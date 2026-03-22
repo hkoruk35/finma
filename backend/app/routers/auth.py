@@ -287,3 +287,43 @@ async def list_users(admin: dict = Depends(require_admin), limit: int = 100, off
         {k: v for k, v in u.items() if k not in ("password_hash", "google_id")}
         for u in users
     ]
+
+
+@router.get("/admin/stats")
+async def get_admin_stats(admin: dict = Depends(require_admin)):
+    """Admin dashboard istatistikleri"""
+    from app.database import TradesDB
+    from app.services.bot_runner import get_bot_status, BOT_CONFIGS
+    import os
+
+    all_users = UsersDB.get_all(limit=9999)
+    total_users = len(all_users)
+    pro_users = sum(1 for u in all_users if u.get("subscription_tier") in ("pro", "admin"))
+    free_users = total_users - pro_users
+
+    # Count open trades across all users
+    all_trades = 0
+    try:
+        all_trades = len(TradesDB.get_all(status="OPEN"))
+    except Exception:
+        pass
+
+    # Bot status
+    try:
+        bot_status = get_bot_status()
+        running = sum(1 for v in bot_status.values() if v.get("is_running"))
+        scheduled = sum(1 for v in bot_status.values() if v.get("scheduled"))
+    except Exception:
+        running = 0
+        scheduled = 0
+
+    return {
+        "total_users": total_users,
+        "pro_users": pro_users,
+        "free_users": free_users,
+        "active_users": total_users,  # TODO: filter by last_login
+        "total_trades": all_trades,
+        "signals_today": 0,
+        "bots_running": f"{running}/{len(BOT_CONFIGS)} bot aktif",
+        "bots_scheduled": scheduled,
+    }

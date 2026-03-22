@@ -228,9 +228,40 @@ def get_earnings(ticker: str):
 
 
 @router.get("/history/{ticker}")
-def get_history(ticker: str):
-    """Son 5 yıllık aylık ve yıllık fiyat geçmişi"""
-    return get_price_history(ticker.upper())
+def get_history(
+    ticker: str,
+    period: str = Query("1y", description="1d|5d|1mo|3mo|6mo|1y|2y|5y|10y|ytd|max"),
+    interval: str = Query("1d", description="1m|5m|15m|30m|1h|1d|1wk|1mo"),
+):
+    """OHLCV fiyat geçmişi — FinMAChart & grafik için"""
+    import yfinance as yf
+    import pandas as pd
+    try:
+        t = yf.Ticker(ticker.upper())
+        hist = t.history(period=period, interval=interval)
+        if hist is None or hist.empty:
+            return {"history": [], "ticker": ticker.upper()}
+        result = []
+        for idx, row in hist.iterrows():
+            ts = idx
+            # Convert to unix timestamp (seconds) for lightweight-charts
+            if hasattr(ts, 'timestamp'):
+                time_val = int(ts.timestamp())
+            else:
+                time_val = str(ts.date()) if hasattr(ts, 'date') else str(ts)
+            result.append({
+                "time": time_val,
+                "open": round(float(row["Open"]), 4) if pd.notna(row.get("Open")) else None,
+                "high": round(float(row["High"]), 4) if pd.notna(row.get("High")) else None,
+                "low": round(float(row["Low"]), 4) if pd.notna(row.get("Low")) else None,
+                "close": round(float(row["Close"]), 4) if pd.notna(row.get("Close")) else None,
+                "volume": int(row["Volume"]) if pd.notna(row.get("Volume")) else 0,
+            })
+        # Remove rows with null OHLC
+        result = [r for r in result if r["open"] and r["close"]]
+        return {"history": result, "ticker": ticker.upper(), "period": period, "interval": interval}
+    except Exception as e:
+        return {"history": [], "ticker": ticker.upper(), "error": str(e)}
 
 
 @router.get("/holders/{ticker}")
@@ -260,6 +291,43 @@ async def get_exchange_detail(exchange_id: str):
 
 
 @router.get("/movers")
-def get_movers(period: str = Query("1d")):
-    """En çok yükselen, düşen ve hacimli hisseleri getir"""
-    return get_market_movers(period)
+def get_movers(
+    tab: str = Query("gainers", description="gainers|losers|volume|opportunities"),
+    period: str = Query("1d"),
+    limit: int = Query(10, ge=5, le=30),
+):
+    """4-tab piyasa hareketleri: gainers, losers, volume, opportunities"""
+    import json as _json
+    import os as _os
+
+    if tab == "opportunities":
+        # swing113 latest fırsatlarını döndür
+        swing113_path = _os.path.abspath(_os.path.join("bots", "output", "swing113_latest.json"))
+        if _os.path.exists(swing113_path):
+            try:
+                with open(swing113_path, "r", encoding="utf-8") as f:
+                    data = _json.load(f)
+                opportunities = data.get("opportunities", [])[:limit]
+                return {
+                    "tab": "opportunities",
+                    "items": opportunities,
+                    "updated_at": data.get("run_at"),
+                    "total": len(data.get("opportunities", [])),
+                }
+            except Exception:
+                pass
+        return {"tab": "opportunities", "items": [], "updated_at": None, "total": 0}
+
+    raw = get_market_movers(period)
+    tab_map = {
+        "gainers": raw.get("gainers", []),
+        "losers": raw.get("losers", []),
+        "volume": raw.get("most_active", raw.get("volume", [])),
+    }
+    items = tab_map.get(tab, tab_map["gainers"])[:limit]
+    return {
+        "tab": tab,
+        "items": items,
+        "updated_at": raw.get("timestamp"),
+        "total": len(items),
+    }

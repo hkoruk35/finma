@@ -17,10 +17,22 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
+# Product types supported
+PRODUCT_TYPES = ["Stock", "ETF", "Call", "Put", "Forex", "Oil", "Bitcoin", "Ethereum"]
+
+# Trade limits by tier
+TRADE_LIMITS = {"free": 5, "pro": 20, "admin": 9999}
+
+# Portfolio limits by tier
+PORTFOLIO_LIMITS = {"free": 1, "pro": 10, "admin": 9999}
+HOLDINGS_PER_PORTFOLIO = {"free": 20, "pro": 100, "admin": 9999}
+
+
 class TradeCreate(BaseModel):
     ticker: str
     direction: str  # LONG, SHORT
     type: str = "SWING"
+    product_type: str = "Stock"
     strategy: str = ""
     entry_price: float
     stop_loss: float
@@ -34,6 +46,7 @@ class TradeResponse(BaseModel):
     ticker: str
     direction: str
     type: str
+    product_type: str = "Stock"
     strategy: str
     entry_price: float
     current_price: float
@@ -44,6 +57,17 @@ class TradeResponse(BaseModel):
     entry_date: str
     pnl: float
     pnl_pct: float
+    notes: Optional[str] = None
+
+
+class PortfolioCreate(BaseModel):
+    name: str
+
+
+class HoldingCreate(BaseModel):
+    ticker: str
+    qty: float
+    avg_price: float
     notes: Optional[str] = None
 
 
@@ -184,10 +208,23 @@ def get_trades(status: Optional[str] = None, current_user: dict = Depends(get_cu
 
 @router.post("/trades", response_model=TradeResponse)
 def create_trade(trade: TradeCreate, current_user: dict = Depends(get_current_user)):
-    """Yeni trade oluştur"""
+    """Yeni trade oluştur (Tier limiti: Free=5, Pro=20)"""
     user = UsersDB.get_by_username(current_user["username"])
     if not user:
         raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+
+    # Tier limit check
+    tier = user.get("tier", "free")
+    limit = TRADE_LIMITS.get(tier, 5)
+    open_count = len(TradesDB.get_all(user_id=user["id"], status="OPEN"))
+    if open_count >= limit:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Trade limitine ulaştınız ({limit}). Pro'ya geçerek limiti artırın."
+        )
+
+    # Validate product type
+    product_type = trade.product_type if trade.product_type in PRODUCT_TYPES else "Stock"
 
     trade_data = {
         "id": str(uuid.uuid4()),
@@ -195,6 +232,7 @@ def create_trade(trade: TradeCreate, current_user: dict = Depends(get_current_us
         "ticker": trade.ticker.upper(),
         "direction": trade.direction.upper(),
         "type": trade.type,
+        "product_type": product_type,
         "strategy": trade.strategy,
         "entry_price": trade.entry_price,
         "current_price": trade.entry_price,
@@ -209,13 +247,14 @@ def create_trade(trade: TradeCreate, current_user: dict = Depends(get_current_us
     }
 
     created = TradesDB.create(trade_data)
-    logger.info(f"✅ Yeni trade oluşturuldu: {trade.ticker} {trade.direction}")
+    logger.info(f"✅ Yeni trade oluşturuldu: {trade.ticker} {trade.direction} ({product_type})")
 
     return TradeResponse(
         id=str(created.get("id", trade_data["id"])),
         ticker=created.get("ticker", trade_data["ticker"]),
         direction=created.get("direction", trade_data["direction"]),
         type=created.get("type", trade_data["type"]),
+        product_type=created.get("product_type", trade_data["product_type"]),
         strategy=created.get("strategy", trade_data["strategy"]),
         entry_price=float(created.get("entry_price", trade_data["entry_price"])),
         current_price=float(created.get("current_price", trade_data["current_price"])),
@@ -228,6 +267,66 @@ def create_trade(trade: TradeCreate, current_user: dict = Depends(get_current_us
         pnl_pct=float(created.get("pnl_pct", 0)),
         notes=created.get("notes"),
     )
+
+
+@router.get("/trades/limits")
+def get_trade_limits(current_user: dict = Depends(get_current_user)):
+    """Kullanıcının trade limitlerini getir"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    tier = user.get("tier", "free")
+    limit = TRADE_LIMITS.get(tier, 5)
+    open_count = len(TradesDB.get_all(user_id=user["id"], status="OPEN"))
+    return {
+        "tier": tier,
+        "limit": limit,
+        "used": open_count,
+        "remaining": max(0, limit - open_count),
+        "product_types": PRODUCT_TYPES,
+    }
+
+
+@router.get("/portfolios")
+def list_portfolios(current_user: dict = Depends(get_current_user)):
+    """Kullanıcının portföylerini listele"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    tier = user.get("tier", "free")
+    limit = PORTFOLIO_LIMITS.get(tier, 1)
+    portfolios = TradesDB.get_portfolios(user["id"]) if hasattr(TradesDB, "get_portfolios") else []
+    return {
+        "portfolios": portfolios,
+        "limit": limit,
+        "count": len(portfolios),
+        "can_create": len(portfolios) < limit,
+    }
+
+
+@router.post("/portfolios")
+def create_portfolio(portfolio: PortfolioCreate, current_user: dict = Depends(get_current_user)):
+    """Yeni portföy oluştur (Pro: 10, Free: 1)"""
+    user = UsersDB.get_by_username(current_user["username"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    tier = user.get("tier", "free")
+    limit = PORTFOLIO_LIMITS.get(tier, 1)
+    existing = TradesDB.get_portfolios(user["id"]) if hasattr(TradesDB, "get_portfolios") else []
+    if len(existing) >= limit:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Portföy limitine ulaştınız ({limit}). Pro'ya geçerek limiti artırın."
+        )
+    new_portfolio = {
+        "id": str(uuid.uuid4()),
+        "user_id": user["id"],
+        "name": portfolio.name,
+        "created_at": datetime.utcnow().isoformat(),
+    }
+    if hasattr(TradesDB, "create_portfolio"):
+        new_portfolio = TradesDB.create_portfolio(new_portfolio)
+    return new_portfolio
 
 
 @router.delete("/trades/{trade_id}")

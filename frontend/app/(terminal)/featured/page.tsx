@@ -1,279 +1,329 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
+import { useRouter } from 'next/navigation'
 import { Card } from '@/components/shared/Card'
-import { ActionBadge, sectorLabel } from '@/components/shared/Badge'
-import { useTerminalStore } from '@/store/terminal'
-import { useFeaturedSignals } from '@/hooks/useSignals'
 import { cn } from '@/lib/utils'
+import { useAuthStore } from '@/store/auth'
 import {
-  Star, Clock, Plus, ExternalLink, TrendingUp, TrendingDown,
-  Target, Shield, BarChart2, Maximize2, Minimize2, Brain,
-  Activity, Zap, Volume2, ArrowUpRight
+  Star, Clock, TrendingUp, Target, Shield, BarChart3,
+  Lock, Flame, ChevronRight, RefreshCw, Eye, History
 } from 'lucide-react'
 import Link from 'next/link'
 
-/* Fallback mock data */
-const MOCK_FEATURED = [
-  { ticker: 'OUT', score: 12.7, price: 26.71, action: 'CLOSE', entry_zone: '28.37 - 29.25', stop_loss: 27.05, target: 32.34, potential_pct: 12.25, sector: 'Real Estate', trend_phase: 'Expansion', notes: ['RS: Strong Decoupling', 'Phase: EXPANSION'] },
-  { ticker: 'FANG', score: 11.2, price: 182.43, action: 'BUY', entry_zone: '174.60 - 180.00', stop_loss: 168.50, target: 198, potential_pct: 4.48, sector: 'Energy', trend_phase: 'Expansion', notes: ['Enerji momentum güçlü', 'Hacim ortalamanın üzerinde'] },
-  { ticker: 'GFS', score: 10.5, price: 41.88, action: 'BUY', entry_zone: '46.37 - 48.00', stop_loss: 43.20, target: 52.50, potential_pct: -9.68, sector: 'Technology', trend_phase: 'Recovery', notes: ['Breakout adayı', 'Sektör rotasyonu'] },
-  { ticker: 'NOC', score: 9.8, price: 733.41, action: 'BUY', entry_zone: '728.99 - 735.00', stop_loss: 715, target: 765, potential_pct: 0.61, sector: 'Industrials', trend_phase: 'Expansion', notes: ['Savunma rallisi', 'RS: Pozitif'] },
-  { ticker: 'OKE', score: 9.3, price: 85.36, action: 'BUY', entry_zone: '83.70 - 85.50', stop_loss: 81, target: 92, potential_pct: 1.99, sector: 'Energy', trend_phase: 'Expansion', notes: ['Temettü oyunu', 'Destek tutunuyor'] },
-  { ticker: 'EQNR', score: 8.1, price: 35.25, action: 'BUY', entry_zone: '31.29 - 33.00', stop_loss: 29.50, target: 38.50, potential_pct: 12.66, sector: 'Energy', trend_phase: 'Recovery', notes: ['Düşük değerleme', 'Enerji toparlanması'] },
-  { ticker: 'TIGO', score: 8.4, price: 72.16, action: 'BUY', entry_zone: '69.77 - 71.50', stop_loss: 66, target: 80, potential_pct: 3.43, sector: 'Communication', trend_phase: 'Expansion', notes: ['Gelişen pazar', 'Büyüme potansiyeli'] },
-  { ticker: 'TGT', score: 7.5, price: 117.37, action: 'HOLD', entry_zone: '116.69 - 118.00', stop_loss: 112, target: 125, potential_pct: 0.58, sector: 'Consumer', trend_phase: 'Consolidation', notes: ['Perakende sıçrama', 'Destek testi'] },
-  { ticker: 'DELL', score: 7.2, price: 151.70, action: 'BUY', entry_zone: '139.69 - 145.00', stop_loss: 132, target: 168, potential_pct: 8.60, sector: 'Technology', trend_phase: 'Expansion', notes: ['AI sunucu satışları güçlü', 'Kâr büyümesi'] },
-  { ticker: 'LMT', score: 6.8, price: 646.10, action: 'HOLD', entry_zone: '642.21 - 648.00', stop_loss: 630, target: 670, potential_pct: 0.61, sector: 'Industrials', trend_phase: 'Consolidation', notes: ['Savunma sektörü', 'Bant hareketi'] },
-]
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+
+interface Opportunity {
+  rank: number
+  ticker: string
+  company_name: string
+  sector: string
+  price: number
+  score: number
+  entry_zone: string
+  stop_loss: number
+  target: number
+  potential_pct: number
+  reason: string
+}
+
+interface RunMeta {
+  run_id: string
+  run_at: string
+  run_date: string
+  run_time: string
+  schedule_slot: string
+  count: number
+}
 
 export default function FeaturedPage() {
-  const { setChartSymbol } = useTerminalStore()
-  const { data: featuredData } = useFeaturedSignals(10)
-  const [selectedIdx, setSelectedIdx] = useState(0)
-  const [addedToPortfolio, setAddedToPortfolio] = useState<Set<string>>(new Set())
-  const [isFullscreen, setIsFullscreen] = useState(false)
+  const router = useRouter()
+  const { canAccess, user } = useAuthStore()
+  const isPro = canAccess('pro')
+  const isAdmin = canAccess('admin')
 
-  const featuredStocks = (featuredData?.featured && featuredData.featured.length > 0)
-    ? featuredData.featured.map((s: any) => ({
-        ticker: s.ticker, score: s.score, price: s.price, action: s.action,
-        entry_zone: s.entry_zone, stop_loss: s.stop_loss, target: s.target,
-        potential_pct: s.potential_pct, sector: s.sector,
-        trend_phase: s.trend_phase || 'N/A',
-        notes: s.notes || [],
-      }))
-    : MOCK_FEATURED
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([])
+  const [runMeta, setRunMeta] = useState<{ run_at?: string; run_id?: string; schedule_slot?: string; total?: number } | null>(null)
+  const [history, setHistory] = useState<RunMeta[]>([])
+  const [loading, setLoading] = useState(true)
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null)
 
-  const selected = featuredStocks[selectedIdx] || featuredStocks[0]
+  const fetchOpportunities = async () => {
+    setLoading(true)
+    const token = localStorage.getItem('finma_token')
+    const tier = user?.subscription_tier || 'free'
+    try {
+      const res = await fetch(`${API_URL}/api/signals/opportunities`, {
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          'X-User-Tier': tier,
+        },
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setOpportunities(data.opportunities || [])
+        setRunMeta({ run_at: data.run_at, run_id: data.run_id, schedule_slot: data.schedule_slot, total: data.total })
+      }
+    } catch {}
+    setLoading(false)
+  }
+
+  const fetchHistory = async () => {
+    if (!isAdmin) return
+    const token = localStorage.getItem('finma_token')
+    try {
+      const res = await fetch(`${API_URL}/api/signals/opportunities/history?limit=10`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
+      if (res.ok) {
+        const data = await res.json()
+        const runs: RunMeta[] = (data.runs || []).map((r: any) => {
+          const dt = r.run_at ? new Date(r.run_at) : null
+          return {
+            ...r,
+            run_date: dt ? dt.toLocaleDateString('tr-TR') : '—',
+            run_time: dt ? dt.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '—',
+          }
+        })
+        setHistory(runs)
+      }
+    } catch {}
+  }
 
   useEffect(() => {
-    if (featuredStocks[0]) setChartSymbol(featuredStocks[0].ticker)
-  }, [setChartSymbol, featuredStocks[0]?.ticker])
+    fetchOpportunities()
+    fetchHistory()
+  }, [])
 
-  const handleSelect = (idx: number) => {
-    setSelectedIdx(idx)
-    setChartSymbol(featuredStocks[idx].ticker)
-  }
-
-  const handleAddPortfolio = (ticker: string, e: React.MouseEvent) => {
-    e.stopPropagation()
-    setAddedToPortfolio(prev => new Set(prev).add(ticker))
-  }
-
-  const now = new Date()
-  const updateTime = now.toLocaleString('tr-TR', {
-    day: 'numeric', month: 'long', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  })
+  const runAt = runMeta?.run_at ? new Date(runMeta.run_at) : null
 
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Başlık */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Star className="w-4 h-4 text-finma-yellow" />
-          <span className="text-sm font-semibold text-finma-text uppercase tracking-wider">
-            Öne Çıkanlar — Günlük AI Seçimleri
-          </span>
-          <span className="text-[9px] bg-finma-primary/20 text-finma-primary px-2 py-0.5 rounded-full font-medium ml-1">
-            Bot 112
-          </span>
-        </div>
+      {/* Header */}
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
-          <Link
-            href="/featured/backtest"
-            className="flex items-center gap-1 px-3 py-1.5 rounded-md text-[10px] font-medium bg-finma-purple/20 border border-finma-purple/30 text-finma-purple hover:bg-finma-purple/30 transition-all"
-          >
-            <BarChart2 className="w-3 h-3" />
-            Backtest
-          </Link>
-          <div className="flex items-center gap-1 text-[10px] text-finma-text-dim">
-            <Clock className="w-3 h-3" />
-            <span className="finma-number">{updateTime}</span>
+          <Flame className="w-5 h-5 text-orange-400" />
+          <div>
+            <h1 className="text-lg font-bold text-white">Öne Çıkanlar</h1>
+            <p className="text-xs text-finma-text-dim">ATMACA Swing Tarayıcı — NY 11:00 / 13:05 / 15:00</p>
           </div>
+        </div>
+        <div className="flex items-center gap-2">
+          {isAdmin && (
+            <Link href="/featured/backtest" className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-finma-border text-finma-text-muted hover:text-finma-text hover:border-finma-primary/40 transition-colors">
+              <History className="w-3.5 h-3.5" />
+              Geçmiş (Admin)
+            </Link>
+          )}
+          <button
+            onClick={fetchOpportunities}
+            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-finma-border text-finma-text-muted hover:text-finma-text transition-colors"
+          >
+            <RefreshCw className={cn('w-3.5 h-3.5', loading && 'animate-spin')} />
+            Yenile
+          </button>
         </div>
       </div>
 
-      {/* Sol: Liste + Sağ: Grafik & AI Analiz */}
-      <div className="grid grid-cols-12 gap-4">
-        {/* Sol: 10 Hisse Listesi */}
-        <div className="col-span-12 lg:col-span-5 space-y-1.5 max-h-[900px] overflow-y-auto pr-1">
-          {featuredStocks.map((stock, idx) => {
-            const isSelected = idx === selectedIdx
-
-            return (
-              <div
-                key={stock.ticker}
-                onClick={() => handleSelect(idx)}
-                className={cn(
-                  'bg-finma-card border rounded-lg p-3 cursor-pointer transition-all',
-                  isSelected
-                    ? 'border-finma-primary/60 bg-finma-primary/5 shadow-lg shadow-finma-primary/5'
-                    : 'border-finma-border hover:border-finma-border-light hover:bg-finma-card-hover'
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <div className={cn(
-                    'w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0',
-                    isSelected ? 'bg-finma-primary text-white' : idx < 3 ? 'bg-finma-primary/30 text-finma-primary' : 'bg-finma-bg text-finma-text-dim'
-                  )}>
-                    {idx + 1}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className="text-sm font-bold text-finma-primary finma-number">{stock.ticker}</span>
-                      <ActionBadge action={stock.action} />
-                      <span className="text-[9px] text-finma-text-dim">{sectorLabel(stock.sector)}</span>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        {/* Left sidebar: run history (admin only) */}
+        {isAdmin && (
+          <div className="lg:col-span-1">
+            <Card padding="sm">
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-finma-border">
+                <History className="w-3.5 h-3.5 text-finma-text-dim" />
+                <span className="text-xs font-semibold text-finma-text">Son Çalıştırmalar</span>
+              </div>
+              {history.length === 0 ? (
+                <p className="text-xs text-finma-text-dim text-center py-4">Geçmiş yok</p>
+              ) : (
+                <div className="space-y-1">
+                  {history.map((run) => (
+                    <div key={run.run_id} className="flex items-center gap-2 px-2 py-2 rounded hover:bg-finma-border/20 transition-colors cursor-pointer text-xs">
+                      <div className="flex-1 min-w-0">
+                        <div className="text-finma-text font-medium">{run.run_date}</div>
+                        <div className="text-finma-text-dim font-mono">{run.run_time} <span className="text-finma-text-dim/60">{run.schedule_slot}</span></div>
+                      </div>
+                      <span className="text-finma-primary font-bold finma-number">{run.count}</span>
                     </div>
-                    <p className="text-[10px] text-finma-text-muted truncate">
-                      {stock.notes?.join(' • ') || stock.trend_phase}
-                    </p>
-                  </div>
-
-                  <div className="text-right shrink-0">
-                    <div className={cn(
-                      'finma-number text-sm font-bold px-2 py-0.5 rounded',
-                      stock.score >= 10 ? 'bg-finma-green/20 text-finma-green' :
-                      stock.score >= 8 ? 'bg-finma-primary/20 text-finma-primary' :
-                      'bg-finma-yellow/20 text-finma-yellow'
-                    )}>
-                      {stock.score.toFixed(1)}
-                    </div>
-                    <span className={cn('finma-number text-[10px] font-medium', (stock.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                      {(stock.potential_pct ?? 0) >= 0 ? '+' : ''}{(stock.potential_pct ?? 0).toFixed(1)}%
-                    </span>
-                  </div>
+                  ))}
                 </div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Sağ: Grafik + AI Detay */}
-        <div className="col-span-12 lg:col-span-7 space-y-4">
-          {/* Grafik */}
-          <div className="relative">
-            <div
-              className={cn(
-                'w-full bg-finma-card border border-finma-border rounded-lg overflow-hidden',
-                isFullscreen ? 'fixed inset-4 z-50' : 'h-[300px] md:h-[420px]'
               )}
-            >
-              <div className="absolute top-2 right-2 z-20 flex items-center gap-2">
-                <span className="text-[10px] bg-finma-primary/20 text-finma-primary px-2 py-1 rounded font-semibold">
-                  {selected.ticker} — {sectorLabel(selected.sector)}
-                </span>
-                <button
-                  onClick={() => setIsFullscreen(f => !f)}
-                  className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-finma-bg/80 backdrop-blur text-finma-text-dim hover:text-finma-text border border-finma-border/50 transition-colors"
-                >
-                  {isFullscreen ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
-                  {isFullscreen ? 'Küçült' : 'Tam Ekran'}
-                </button>
-              </div>
-              <TradingViewWidget />
-            </div>
-            {isFullscreen && <div className="fixed inset-0 bg-black/60 z-40" onClick={() => setIsFullscreen(false)} />}
+            </Card>
           </div>
+        )}
 
-          {/* AI Tahmin & Analiz */}
+        {/* Main content */}
+        <div className={cn('space-y-4', isAdmin ? 'lg:col-span-3' : 'lg:col-span-4')}>
+          {/* Run info */}
+          {runMeta && (
+            <div className="flex items-center gap-4 px-4 py-2.5 rounded-lg bg-finma-surface border border-finma-border text-xs text-finma-text-muted">
+              <Clock className="w-3.5 h-3.5 shrink-0" />
+              <span>
+                Son güncelleme: <span className="text-finma-text font-medium">{runAt ? runAt.toLocaleDateString('tr-TR') : '—'}</span>
+                <span className="mx-2 text-finma-border">|</span>
+                Saat: <span className="text-finma-text font-mono">{runAt ? runAt.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '—'}</span>
+                {runMeta.schedule_slot && (
+                  <><span className="mx-2 text-finma-border">|</span>Slot: <span className="text-finma-yellow">{runMeta.schedule_slot}</span></>
+                )}
+                {runMeta.total !== undefined && (
+                  <><span className="mx-2 text-finma-border">|</span>Toplam: <span className="text-finma-primary font-bold">{runMeta.total}</span></>
+                )}
+              </span>
+              {!isPro && (
+                <span className="ml-auto flex items-center gap-1 text-finma-yellow">
+                  <Lock className="w-3 h-3" />
+                  Free: Sadece #1 görünür
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Opportunities table */}
           <Card padding="sm">
-            <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
-              <Brain className="w-4 h-4 text-finma-purple" />
-              <span className="text-sm font-bold text-finma-text">
-                AI Analiz — {selected.ticker}
+            <div className="flex items-center gap-2 pb-3 mb-1 border-b border-finma-border">
+              <Star className="w-4 h-4 text-finma-yellow" />
+              <span className="text-sm font-bold text-finma-text">Fırsat Listesi</span>
+              <span className="ml-auto text-xs text-finma-text-dim">
+                {isPro ? 'Tüm fırsatlar' : 'Free: #1 fırsat'}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
-              <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 text-center">
-                <div className="text-[9px] text-finma-text-dim uppercase mb-1">Giriş Aralığı</div>
-                <div className="text-xs font-bold text-finma-primary finma-number">{selected.entry_zone}</div>
+            {loading ? (
+              <div className="text-center py-10 text-finma-text-dim text-sm">
+                <RefreshCw className="w-6 h-6 mx-auto mb-2 animate-spin opacity-50" />
+                Yükleniyor...
               </div>
-              <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 text-center">
-                <div className="text-[9px] text-finma-text-dim uppercase mb-1">Stop Loss</div>
-                <div className="text-xs font-bold text-finma-red finma-number">${selected.stop_loss}</div>
+            ) : opportunities.length === 0 ? (
+              <div className="text-center py-10 text-finma-text-dim text-sm">
+                <Flame className="w-8 h-8 mx-auto mb-2 opacity-20 text-orange-400" />
+                <p>Henüz fırsat yüklenmedi.</p>
+                <p className="text-xs mt-1 text-finma-text-dim/60">Bot NY 11:00, 13:05, 15:00'da çalışır.</p>
               </div>
-              <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 text-center">
-                <div className="text-[9px] text-finma-text-dim uppercase mb-1">Hedef Fiyat</div>
-                <div className="text-xs font-bold text-finma-green finma-number">${selected.target}</div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="text-finma-text-dim bg-finma-bg/80">
+                      <th className="text-left py-2.5 px-3 border border-finma-border/50 w-8">#</th>
+                      <th className="text-left py-2.5 px-3 border border-finma-border/50">Hisse</th>
+                      <th className="text-left py-2.5 px-3 border border-finma-border/50">Sektör</th>
+                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Fiyat</th>
+                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Giriş Zonu</th>
+                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Stop</th>
+                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Hedef</th>
+                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Potansiyel</th>
+                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Skor</th>
+                      <th className="text-center py-2.5 px-3 border border-finma-border/50">İşlem</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* Rank 1 — always visible */}
+                    {opportunities.map((opp, idx) => {
+                      const isVisible = isPro || opp.rank === 1
+                      return (
+                        <tr
+                          key={opp.ticker}
+                          className={cn(
+                            'transition-colors border-b border-finma-border/30',
+                            isVisible ? 'cursor-pointer hover:bg-finma-primary/5' : 'cursor-default',
+                            selectedTicker === opp.ticker && 'bg-finma-primary/10'
+                          )}
+                          onClick={() => isVisible && router.push(`/stock-analysis?ticker=${opp.ticker}`)}
+                        >
+                          <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{opp.rank}</td>
+                          <td className="py-2.5 px-3 border border-finma-border/50">
+                            {isVisible ? (
+                              <div className="flex flex-col">
+                                <span className="font-bold text-finma-primary finma-number text-sm">{opp.ticker}</span>
+                                <span className="text-finma-text-dim text-[10px]">{opp.company_name}</span>
+                              </div>
+                            ) : (
+                              <div className="flex items-center gap-1 text-finma-text-dim/40">
+                                <Lock className="w-3 h-3" />
+                                <span className="font-bold">PRO</span>
+                              </div>
+                            )}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50">
+                            {isVisible ? (
+                              <span className="text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase bg-white/5 text-finma-text-dim border-white/10">
+                                {opp.sector}
+                              </span>
+                            ) : <BlurCell />}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-white">
+                            {isVisible ? `$${opp.price?.toFixed(2)}` : <BlurCell />}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-finma-text-muted">
+                            {isVisible ? opp.entry_zone : <BlurCell />}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-finma-red">
+                            {isVisible ? `$${opp.stop_loss?.toFixed(2)}` : <BlurCell />}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-finma-green">
+                            {isVisible ? `$${opp.target?.toFixed(2)}` : <BlurCell />}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-finma-green">
+                            {isVisible ? `+${opp.potential_pct?.toFixed(1)}%` : <BlurCell />}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-finma-primary">
+                            {isVisible ? opp.score?.toFixed(1) : <BlurCell />}
+                          </td>
+                          <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={e => e.stopPropagation()}>
+                            {isVisible ? (
+                              <button
+                                onClick={() => router.push(`/watchlist?add=${opp.ticker}`)}
+                                className="text-[10px] px-2 py-1 rounded bg-finma-primary/20 text-finma-primary border border-finma-primary/30 hover:bg-finma-primary/40 transition-colors whitespace-nowrap"
+                              >
+                                + Takibe Al
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => router.push('/settings?upgrade=1')}
+                                className="text-[10px] px-2 py-1 rounded bg-finma-yellow/10 text-finma-yellow border border-finma-yellow/30 hover:bg-finma-yellow/20 transition-colors whitespace-nowrap"
+                              >
+                                Pro'ya Geç
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
               </div>
-              <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30 text-center">
-                <div className="text-[9px] text-finma-text-dim uppercase mb-1">Potansiyel</div>
-                <div className={cn('text-xs font-bold finma-number', (selected.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                  {(selected.potential_pct ?? 0) >= 0 ? '+' : ''}{(selected.potential_pct ?? 0).toFixed(1)}%
-                </div>
-              </div>
-            </div>
-
-            {/* AI Yorumu */}
-            <div className="mt-3 bg-finma-purple/5 border border-finma-purple/20 rounded-lg p-3">
-              <div className="flex items-center gap-2 mb-2">
-                <Brain className="w-3.5 h-3.5 text-finma-purple" />
-                <span className="text-xs font-semibold text-finma-purple">AI Tahmini</span>
-              </div>
-              <div className="text-xs text-finma-text-muted space-y-1.5">
-                <p>• <span className="font-medium text-finma-text">{selected.ticker}</span> — {selected.notes?.[0] || 'Analiz devam ediyor...'}</p>
-                <p>• Trend Fazı: <span className="text-finma-cyan font-medium">{selected.trend_phase}</span></p>
-                <p>• Sektör: <span className="text-finma-primary">{sectorLabel(selected.sector)}</span> — {selected.sector === 'Energy' ? 'Enerji sektöründe momentum güçlü.' : selected.sector === 'Technology' ? 'Teknoloji sektöründe AI talebi artıyor.' : selected.sector === 'Industrials' ? 'Savunma harcamaları artışta.' : 'Sektörel dinamikler izleniyor.'}</p>
-                {selected.notes?.map((n: string, i: number) => (
-                  <p key={i}>• {n}</p>
-                ))}
-              </div>
-            </div>
-
-            {/* Etiketler */}
-            <div className="flex flex-wrap gap-2 mt-3">
-              {selected.score >= 9 && (
-                <span className="text-[9px] bg-finma-green/10 text-finma-green px-2 py-1 rounded-full border border-finma-green/20 flex items-center gap-1">
-                  <Zap className="w-3 h-3" /> Swing Potansiyeli
-                </span>
-              )}
-              {(selected.potential_pct ?? 0) >= 8 && (
-                <span className="text-[9px] bg-finma-primary/10 text-finma-primary px-2 py-1 rounded-full border border-finma-primary/20 flex items-center gap-1">
-                  <TrendingUp className="w-3 h-3" /> Uzun Vadeli Yatırım
-                </span>
-              )}
-              {selected.trend_phase === 'Expansion' && (
-                <span className="text-[9px] bg-finma-cyan/10 text-finma-cyan px-2 py-1 rounded-full border border-finma-cyan/20 flex items-center gap-1">
-                  <Activity className="w-3 h-3" /> Genişleme Fazı
-                </span>
-              )}
-              {selected.notes?.some((n: string) => n.toLowerCase().includes('hacim') || n.toLowerCase().includes('volume')) && (
-                <span className="text-[9px] bg-orange-400/10 text-orange-400 px-2 py-1 rounded-full border border-orange-400/20 flex items-center gap-1">
-                  <Volume2 className="w-3 h-3" /> Hacim Biriktirme
-                </span>
-              )}
-            </div>
-
-            {/* Aksiyon Butonları */}
-            <div className="flex items-center gap-2 mt-3">
-              <button
-                onClick={(e) => handleAddPortfolio(selected.ticker, e)}
-                disabled={addedToPortfolio.has(selected.ticker)}
-                className={cn(
-                  'flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium border transition-all',
-                  addedToPortfolio.has(selected.ticker)
-                    ? 'bg-finma-green/20 text-finma-green border-finma-green/30 cursor-default'
-                    : 'bg-finma-card border-finma-border text-finma-text-dim hover:text-finma-primary hover:border-finma-primary/50'
-                )}
-              >
-                <Plus className="w-3.5 h-3.5" />
-                {addedToPortfolio.has(selected.ticker) ? 'Portföye Eklendi' : 'Portföye Ekle'}
-              </button>
-              <Link
-                href={`/stock-analysis?ticker=${selected.ticker}`}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-finma-primary/20 border border-finma-primary/30 text-finma-primary hover:bg-finma-primary/30 transition-all"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                Detay Analiz
-              </Link>
-            </div>
+            )}
           </Card>
+
+          {/* Pro upsell banner for free users */}
+          {!isPro && opportunities.length > 1 && (
+            <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-finma-yellow/5 border border-finma-yellow/20">
+              <Lock className="w-5 h-5 text-finma-yellow shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-finma-yellow">
+                  {(runMeta?.total ?? opportunities.length) - 1} fırsat daha Pro üyelikte görünür
+                </p>
+                <p className="text-xs text-finma-text-dim mt-0.5">
+                  Tüm fırsatları, stop-loss ve hedef fiyatları görüntülemek için Pro'ya geçin.
+                </p>
+              </div>
+              <button
+                onClick={() => router.push('/settings?upgrade=1')}
+                className="px-4 py-2 rounded-lg bg-finma-yellow text-black text-xs font-bold hover:bg-finma-yellow/90 transition-colors whitespace-nowrap"
+              >
+                Pro'ya Geç
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
+  )
+}
+
+function BlurCell() {
+  return (
+    <span className="inline-block w-16 h-3.5 rounded bg-finma-border/40 blur-sm select-none" />
   )
 }
