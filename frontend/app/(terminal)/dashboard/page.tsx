@@ -334,6 +334,8 @@ export default function DashboardPage() {
   const regime = regimeData?.regime_tr ?? (signals.market_regime === 'Bull' ? '🐂 Boğa' : '🐻 Ayı')
   const sectorLeaders = intel?.sector_leaders || signals.sector_leaders?.join(', ') || 'Utilities, Materials'
   const [lastRefresh, setLastRefresh] = useState(new Date())
+  const [addingToWatchlist, setAddingToWatchlist] = useState<string | null>(null)
+  const [watchlistStatus, setWatchlistStatus] = useState<{ ticker: string; message: string; type: 'success' | 'error' } | null>(null)
   // const [moversLoading, setMoversLoading] = useState(false) // Now from useMarketMovers
   // const [moversError, setMoversError] = useState(false) // Now from useMarketMovers
 
@@ -441,6 +443,54 @@ export default function DashboardPage() {
     const interval = setInterval(fetchHeatmap, 60 * 60 * 1000) // 1 saat
     return () => clearInterval(interval)
   }, [])
+
+  // Takip Listesine Ekle
+  const handleAddToWatchlist = async (stock: any) => {
+    const ticker = stock.symbol || stock.ticker
+    setAddingToWatchlist(ticker)
+
+    try {
+      const token = localStorage.getItem('finma_token')
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/watchlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ticker: ticker,
+          company_name: stock.name || ticker,
+          sector: stock.sector || 'Technology',
+        }),
+      })
+
+      if (response.ok) {
+        setWatchlistStatus({
+          ticker,
+          message: `${ticker} takip listenize eklendi`,
+          type: 'success',
+        })
+      } else {
+        const errorData = await response.json()
+        setWatchlistStatus({
+          ticker,
+          message: errorData.detail || 'Hata oluştu',
+          type: 'error',
+        })
+      }
+    } catch (error) {
+      console.error('Watchlist add error:', error)
+      setWatchlistStatus({
+        ticker,
+        message: 'Bağlantı hatası',
+        type: 'error',
+      })
+    } finally {
+      setAddingToWatchlist(null)
+      // Clear message after 3 seconds
+      setTimeout(() => setWatchlistStatus(null), 3000)
+    }
+  }
 
   return (
     <div className="space-y-4 animate-fade-in">
@@ -658,12 +708,12 @@ export default function DashboardPage() {
           <table className="w-full text-xs">
             <thead>
               <tr className="text-finma-text-dim bg-finma-bg/80">
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8">#</th>
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Hisse / Şirket</th>
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Sektör</th>
-                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Canlı Fiyat</th>
-                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Gnl Değişim</th>
-                <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50 w-24">İşlem</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8 text-sm">#</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Hisse / Şirket</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Sektör</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Canlı Fiyat</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Gnl Değişim</th>
+                <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50 w-24 text-sm">İşlem</th>
               </tr>
             </thead>
             <tbody>
@@ -695,8 +745,17 @@ export default function DashboardPage() {
                       </div>
                     </td>
                     <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={(e) => e.stopPropagation()}>
-                      <button className="text-[10px] px-2 py-1 rounded bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/40 transition-all font-medium whitespace-nowrap">
-                        Takibe Al
+                      <button
+                        onClick={() => handleAddToWatchlist(stock)}
+                        disabled={addingToWatchlist === sym}
+                        className={cn(
+                          'text-[10px] px-2 py-1 rounded font-medium whitespace-nowrap transition-all',
+                          addingToWatchlist === sym
+                            ? 'bg-finma-primary/60 text-white cursor-not-allowed'
+                            : 'bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/40'
+                        )}
+                      >
+                        {addingToWatchlist === sym ? 'Ekleniyor...' : 'Takibe Al'}
                       </button>
                     </td>
                   </tr>
