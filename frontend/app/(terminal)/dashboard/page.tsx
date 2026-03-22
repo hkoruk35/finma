@@ -765,34 +765,55 @@ export default function DashboardPage() {
           <div className="mt-3 space-y-2 max-h-[500px] overflow-y-auto">
             {canAccess('pro') ? (
               <>
-                {/* Screener Results Summary */}
-                <div className="space-y-2">
-                  {[
-                    { ticker: 'NVDA', score: 85, reason: 'Momentum breakout + RVOL spike' },
-                    { ticker: 'PLTR', score: 78, reason: 'Trend alignment + volume rally' },
-                    { ticker: 'SMCI', score: 82, reason: 'Bull engulfing + RSI uptrend' },
-                    { ticker: 'ARM', score: 76, reason: 'Support bounce + MA crossover' },
-                    { ticker: 'AMD', score: 74, reason: 'Rising channel + confirmation' },
-                  ].map((stock, idx) => (
-                    <div key={stock.ticker} className="bg-finma-bg/50 rounded-md p-2 border border-finma-border/30 hover:border-finma-primary/50 transition-colors cursor-pointer group">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] text-finma-text-dim font-medium">#{idx + 1}</span>
-                          <span className="text-sm font-bold text-finma-primary finma-number">{stock.ticker}</span>
+                {top10Candidates.length > 0 ? (
+                  <div className="space-y-1.5">
+                    {top10Candidates.slice(0, 8).map((stock: any, idx: number) => {
+                      const scoreColor = stock.score >= 80 ? 'text-finma-green bg-finma-green/15' : stock.score >= 65 ? 'text-finma-primary bg-finma-primary/15' : 'text-finma-yellow bg-finma-yellow/15'
+                      const potentialColor = (stock.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
+                      return (
+                        <div
+                          key={stock.ticker}
+                          onClick={() => router.push(`/stock-analysis?ticker=${stock.ticker}`)}
+                          className="bg-finma-bg/50 rounded-md px-2.5 py-2 border border-finma-border/30 hover:border-finma-primary/40 hover:bg-finma-primary/5 transition-colors cursor-pointer"
+                        >
+                          <div className="flex items-center justify-between gap-2 mb-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] text-finma-text-dim w-5 shrink-0">#{idx + 1}</span>
+                              <span className="text-sm font-bold text-white finma-number">{stock.ticker}</span>
+                              {stock.sector && (
+                                <span className="text-[9px] text-finma-text-dim bg-white/5 px-1.5 py-0.5 rounded truncate max-w-[70px]">{stock.sector}</span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              {stock.potential_pct != null && (
+                                <span className={`text-[10px] font-bold finma-number ${potentialColor}`}>
+                                  +{typeof stock.potential_pct === 'number' ? stock.potential_pct.toFixed(1) : stock.potential_pct}%
+                                </span>
+                              )}
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded finma-number ${scoreColor}`}>
+                                {typeof stock.score === 'number' ? stock.score.toFixed(0) : stock.score}
+                              </span>
+                            </div>
+                          </div>
+                          {stock.reason && (
+                            <p className="text-[9px] text-finma-text-muted leading-tight pl-7 line-clamp-1">{stock.reason}</p>
+                          )}
                         </div>
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-finma-primary/20 text-finma-primary">{stock.score}</span>
-                      </div>
-                      <p className="text-[9px] text-finma-text-muted leading-tight">{stock.reason}</p>
-                    </div>
-                  ))}
-                </div>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <div className="text-center py-6">
+                    <p className="text-xs text-finma-text-dim">Henüz veri yok. Bot çalıştırıldığında burada görünecek.</p>
+                  </div>
+                )}
 
                 {/* Scan Button */}
                 <button
                   onClick={() => router.push('/screener')}
                   className="w-full mt-3 px-3 py-2 rounded-md text-sm font-medium bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30 transition-colors border border-finma-primary/30"
                 >
-                  Tara →
+                  Detaylı Tara →
                 </button>
               </>
             ) : (
