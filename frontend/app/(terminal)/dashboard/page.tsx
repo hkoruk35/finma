@@ -850,111 +850,7 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 6. PİYASA ÖNE ÇIKANLAR (Bugün & Bu Hafta) ═══════════════ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {/* BUGÜN ÖNE ÇIKANLAR */}
-        <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
-          <div className="flex items-center gap-1.5 mb-3">
-            <Flame className="w-3 h-3 text-orange-400" />
-            <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Bugün Öne Çıkanlar</span>
-          </div>
-
-          <div className="overflow-hidden border border-finma-border/20 rounded">
-            <table className="w-full border-collapse text-[10px]">
-              <thead>
-                <tr className="bg-finma-bg/80 text-finma-text-dim border-b border-finma-border/30 text-left">
-                  <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Hisse</th>
-                  <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Sektör</th>
-                  <th className="py-1.5 px-2 font-medium border-r border-finma-border/20 text-right">Fiyat</th>
-                  <th className="py-1.5 px-2 font-medium text-right">Değişim</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-finma-border/20">
-                {top10Candidates.slice(0, 10).map((c: any) => {
-                  const live = liveQuotes[c.ticker]
-                  const livePrice = live?.price
-                  const changePct = (livePrice != null && c.price > 0)
-                    ? ((livePrice - c.price) / c.price) * 100
-                    : null
-                  return (
-                    <tr key={c.ticker} className="hover:bg-finma-primary/5 transition-colors group cursor-pointer"
-                      onClick={() => router.push(`/stock-analysis?ticker=${c.ticker}`)}>
-                      <td className="py-2 px-2 border-r border-finma-border/20">
-                        <span className="font-bold text-finma-primary">{c.ticker}</span>
-                      </td>
-                      <td className="py-2 px-2 border-r border-finma-border/20 text-finma-text-dim italic">
-                        {sectorLabel(c.sector)}
-                      </td>
-                      <td className="py-2 px-2 border-r border-finma-border/20 text-right finma-number font-medium">
-                        ${livePrice ? livePrice.toFixed(2) : c.price.toFixed(2)}
-                      </td>
-                      <td className={cn(
-                        'py-2 px-2 text-right finma-number font-bold',
-                        (changePct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
-                      )}>
-                        {(changePct ?? 0) >= 0 ? '+' : ''}{(changePct ?? 0).toFixed(1)}%
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-            {top10Candidates.length === 0 && (
-              <div className="text-center py-4 text-finma-text-dim text-[10px]">Bot sonuçları bekleniyor...</div>
-            )}
-          </div>
-        </div>
-
-        {/* BU HAFTA ÖNE ÇIKANLAR */}
-        <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
-          <div className="flex items-center gap-1.5 mb-3">
-            <Star className="w-3 h-3 text-finma-yellow" />
-            <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">Bu Hafta Öne Çıkanlar</span>
-          </div>
-
-          <div className="overflow-hidden border border-finma-border/20 rounded">
-            <table className="w-full border-collapse text-[10px]">
-              <thead>
-                <tr className="bg-finma-bg/80 text-finma-text-dim border-b border-finma-border/30 text-left">
-                  <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Hisse</th>
-                  <th className="py-1.5 px-2 font-medium border-r border-finma-border/20">Sektör</th>
-                  <th className="py-1.5 px-2 font-medium border-r border-finma-border/20 text-right">Fiyat</th>
-                  <th className="py-1.5 px-2 font-medium text-right">Değişim</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-finma-border/20">
-                {weeklyHighlights.slice(0, 10).map((s: any) => {
-                  return (
-                    <tr key={s.symbol} className="hover:bg-finma-primary/5 transition-colors group cursor-pointer"
-                      onClick={() => router.push(`/stock-analysis?ticker=${s.symbol}`)}>
-                      <td className="py-2 px-2 border-r border-finma-border/20 font-bold text-finma-primary">
-                        {s.symbol}
-                      </td>
-                      <td className="py-2 px-2 border-r border-finma-border/20 text-finma-text-dim">
-                        {s.sector}
-                      </td>
-                      <td className="py-2 px-2 border-r border-finma-border/20 text-right finma-number">
-                        ${s.price.toFixed(2)}
-                      </td>
-                      <td className={cn(
-                        'py-2 px-2 text-right finma-number font-bold',
-                        (s.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
-                      )}>
-                        {(s.change_pct ?? 0) >= 0 ? '+' : ''}{(s.change_pct ?? 0).toFixed(1)}%
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-            {weeklyHighlights.length === 0 && (
-              <div className="text-center py-4 text-finma-text-dim text-[10px]">Yükleniyor...</div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* ═══════════════ 7. PİYASA İSTİHBARATI (Genişletilmiş) ═══════════════ */}
+      {/* ═══════════════ 6. PİYASA İSTİHBARATI (Genişletilmiş) ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Brain className="w-4 h-4 text-finma-purple" />
@@ -1045,24 +941,6 @@ export default function DashboardPage() {
                     <>
                       <p>• Piyasalar güçlü açıldı. {sectorLeaders} sektörleri liderlik ediyor.</p>
                       <p>• Savunma hisseleri rallisi devam ediyor.</p>
-                    </>
-                  )}
-              </div>
-            </div>
-
-            {/* FinMA AI ANALİZ ÖZETİ */}
-            <div className="bg-finma-bg/50 rounded-md p-3 border border-finma-border/30">
-              <div className="flex items-center gap-1.5 mb-2">
-                <Zap className="w-3 h-3 text-finma-yellow" />
-                <span className="text-[11px] text-finma-text font-bold uppercase tracking-wider">FinMA AI Analiz</span>
-              </div>
-              <div className="text-xs text-finma-text-muted space-y-1.5 max-h-[250px] overflow-y-auto">
-                {(intel?.ai_analysis || []).map((s, i) => (
-                  <p key={i}>• {s}</p>
-                )) || (
-                    <>
-                      <p>• Genel piyasa yönü pozitif.</p>
-                      <p>• Enerji ve savunma sektörleri güçlü.</p>
                     </>
                   )}
               </div>
