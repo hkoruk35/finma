@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     telegram_chat_id: str = ""
     alpha_vantage_api_key: str = ""
     fmp_api_key: str = ""
+    finnhub_api_key: str = ""
 
     # Stripe
     stripe_secret_key: str = ""

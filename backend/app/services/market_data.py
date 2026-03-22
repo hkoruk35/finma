@@ -1368,17 +1368,70 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
 
     return results
 
+def fetch_finnhub_news() -> list:
+    """Finnhub'dan genel piyasa haberlerini çek"""
+    from app.config import get_settings
+    settings = get_settings()
+    if not settings.finnhub_api_key:
+        return []
+    results = []
+    try:
+        import time
+        now = int(time.time())
+        yesterday = now - 86400
+        url = f"https://finnhub.io/api/v1/news?category=general&token={settings.finnhub_api_key}&from={yesterday}&to={now}"
+        status, text = _fetch_url(url)
+        if status == 200:
+            items = json.loads(text)
+            for item in items[:40]:
+                results.append({
+                    "title": item.get("headline", ""),
+                    "url": item.get("url", ""),
+                    "publisher": item.get("source", "Finnhub"),
+                    "date": str(item.get("datetime", "")),
+                    "ticker": "MARKET",
+                    "impact": "neutral",
+                    "category": "market",
+                    "lang": "en",
+                    "description": item.get("summary", ""),
+                })
+            logger.info(f"📰 Finnhub'dan {len(results)} haber alındı.")
+    except Exception as e:
+        logger.error(f"Finnhub news error: {e}")
+    return results
+
+
 def update_all_market_news():
-    """Tüm kategoriler için haberleri çek ve DB'ye kaydet"""
+    """Tüm kategoriler için haberleri çek ve DB'ye kaydet (Finnhub + Alpha Vantage + RSS)"""
+    import asyncio
     from app.database import NewsDB
-    
+
     all_news = []
-    # Piyasa haberleri
     all_news.extend(fetch_market_news("market"))
-    # Ekonomi haberleri
     all_news.extend(fetch_market_news("economy"))
-    
-    if all_news:
-        success = NewsDB.save_news(all_news)
-        return len(all_news) if success else 0
-    return 0
+    all_news.extend(fetch_finnhub_news())
+
+    if not all_news:
+        return 0
+
+    # Gemini Flash ile Türkçe özetler ekle (eğer API anahtarı varsa)
+    try:
+        from app.services.gemini_ai import summarize_news_batch
+        # Maksimum 20 haber için özet üret (API limitini korumak için)
+        to_summarize = [n for n in all_news if n.get("lang") != "tr"][:20]
+        rest = all_news[len(to_summarize):]
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            summarized = loop.run_until_complete(summarize_news_batch(to_summarize))
+        except RuntimeError:
+            # Event loop zaten çalışıyor (FastAPI context)
+            summarized = to_summarize
+        all_news = summarized + rest
+    except Exception as e:
+        logger.warning(f"AI özet üretme atlandı: {e}")
+
+    success = NewsDB.save_news(all_news)
+    return len(all_news) if success else 0

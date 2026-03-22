@@ -57,6 +57,7 @@ const navItems: NavItem[] = [
     href: '/market', icon: TrendingUp, label: 'Piyasa', section: 'market',
     children: [
       { href: '/market', icon: Eye, label: 'Genel Bakış' },
+      { href: '/market/flow', icon: Activity, label: 'Akıllı Para Akışı' },
       { href: '/market/valuation', icon: DollarSign, label: 'Değerleme' },
       { href: '/market/performance', icon: BarChart3, label: 'Performans' },
       { href: '/market/charts', icon: LineChart, label: 'Grafikler' },

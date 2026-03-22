@@ -788,7 +788,7 @@ class NewsDB:
                 
                 formatted = []
                 for n in news_list:
-                    formatted.append({
+                    row = {
                         "title": str(n.get("title", "")),
                         "url": str(n.get("url", "")),
                         "publisher": str(n.get("publisher", "Unknown")),
@@ -796,8 +796,11 @@ class NewsDB:
                         "ticker": str(n.get("ticker", "MARKET")),
                         "impact": str(n.get("impact", "neutral")),
                         "category": str(n.get("category", "market")),
-                        "lang": str(n.get("lang", "en"))
-                    })
+                        "lang": str(n.get("lang", "en")),
+                    }
+                    if n.get("summary_tr"):
+                        row["summary_tr"] = str(n["summary_tr"])
+                    formatted.append(row)
                 
                 # Mükerrer kontrolü (son 100 başlık)
                 existing = sb.table("market_news").select("title").order("created_at", desc=True).limit(100).execute()
