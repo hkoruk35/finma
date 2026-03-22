@@ -674,9 +674,9 @@ export default function DashboardPage() {
                     onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
                     <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
                     <td className="py-2.5 px-3 border border-finma-border/50">
-                      <div className="flex flex-col">
-                        <span className="font-bold text-finma-primary finma-number text-sm">{sym}</span>
-                        <span className="text-finma-text-dim text-[10px] uppercase">{stock.name}</span>
+                      <div className="flex flex-col gap-0.5">
+                        <span className="font-bold text-finma-primary finma-number text-sm leading-tight">{sym}</span>
+                        <span className="text-finma-text-dim text-[10px] uppercase leading-tight">{stock.name}</span>
                       </div>
                     </td>
                     <td className="py-2.5 px-3 border border-finma-border/50">
