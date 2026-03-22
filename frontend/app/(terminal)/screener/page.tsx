@@ -7,7 +7,9 @@ import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/store/auth'
 import {
   Search, Filter, RefreshCw, TrendingUp, TrendingDown, BarChart3,
-  Lock, ChevronDown, AlertCircle, Star, Zap, Eye
+  Lock, ChevronDown, AlertCircle, Star, Zap, Eye, X, Grid3x3, List, Table2,
+  DollarSign, TrendIcon, Gauge, Flame, Lightning,
+  LayoutGrid, Plus, Settings2
 } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
@@ -18,22 +20,70 @@ interface ScreenerResult {
   sector: string
   price: number
   score: number
-  score_breakdown: {
-    trend: number
-    volume: number
-    momentum: number
-    context: number
-  }
   change_pct: number
   market_cap?: number
   reason: string
 }
 
+interface ActiveFilter {
+  id: string
+  label: string
+  value: any
+}
+
 const SECTORS = ['Tümü', 'Technology', 'Energy', 'Healthcare', 'Financials', 'Consumer', 'Industrials', 'Materials', 'Utilities']
-const SORT_OPTIONS = [
-  { value: 'score', label: 'FinMA Skor' },
-  { value: 'change_pct', label: 'Günlük Değişim' },
-  { value: 'volume', label: 'Hacim' },
+
+// Candlestick patterns
+const CANDLESTICK_PATTERNS = [
+  { id: 'doji', label: 'Doji', icon: '◆' },
+  { id: 'hammer', label: 'Çekiç', icon: '⌒' },
+  { id: 'bullish_engulfing', label: 'Boğa Sarmalama', icon: '∩' },
+  { id: 'bearish_engulfing', label: 'Ayı Sarmalama', icon: '∪' },
+  { id: 'morning_star', label: 'Sabah Yıldızı', icon: '✦' },
+  { id: 'evening_star', label: 'Akşam Yıldızı', icon: '★' },
+  { id: 'shooting_star', label: 'Yıldız İzi', icon: '✻' },
+]
+
+// Chart patterns
+const CHART_PATTERNS = [
+  { id: 'cup_handle', label: 'Çanak ve Kulp', icon: '∪' },
+  { id: 'double_bottom', label: 'İkili Dip', icon: '∩∩' },
+  { id: 'double_top', label: 'İkili Tepe', icon: '⌢⌢' },
+  { id: 'flag', label: 'Bayrak', icon: '▬' },
+  { id: 'pennant', label: 'Flama', icon: '◁' },
+  { id: 'triangle', label: 'Üçgen', icon: '△' },
+]
+
+// Presets
+const PRESETS = [
+  {
+    id: 'dividend_hunters',
+    name: 'Temettü Canavarları',
+    description: 'Yüksek temettü verimli',
+    emoji: '💰',
+    filters: { minDividend: 3, maxDebtEquity: 1.5, minMarketCap: 1000 }
+  },
+  {
+    id: 'momentum_breakout',
+    name: 'Momentum Breakout',
+    description: 'Güçlü trend ve hacim',
+    emoji: '🚀',
+    filters: { minRSI: 70, minFiftyTwoWeekChange: 50, minVolumeSpike: 1.5 }
+  },
+  {
+    id: 'value_hunting',
+    name: 'Değer Avcılığı',
+    description: 'Düşük F/K, yüksek potansiyel',
+    emoji: '💎',
+    filters: { maxPE: null, minEPSGrowth: 10, maxPB: 1.5 }
+  },
+  {
+    id: 'sustainable_growth',
+    name: 'Sürdürülebilir Büyüme',
+    description: 'Dengeli büyüme ve sağlık',
+    emoji: '📈',
+    filters: { minEPSGrowth: 15, maxDebtEquity: 1, minROE: 15 }
+  },
 ]
 
 export default function ScreenerPage() {
@@ -41,97 +91,124 @@ export default function ScreenerPage() {
   const { canAccess, user } = useAuthStore()
   const isPro = canAccess('pro')
   const isAdmin = canAccess('admin')
-  const tier = user?.subscription_tier || 'free'
 
+  // State
   const [results, setResults] = useState<ScreenerResult[]>([])
-  const [history, setHistory] = useState<any[]>([])
-  const [credits, setCredits] = useState<{ remaining: number; limit: number; tier: string } | null>(null)
   const [loading, setLoading] = useState(false)
-  const [filtersOpen, setFiltersOpen] = useState(true)
+  const [viewMode, setViewMode] = useState<'list' | 'heatmap' | 'table'>('list')
+  const [activeTab, setActiveTab] = useState<'basics' | 'value' | 'trend'>('basics')
+  const [credits, setCredits] = useState<{ remaining: number; limit: number } | null>(null)
 
-  // Filters
-  const [sector, setSector] = useState('Tümü')
-  const [minScore, setMinScore] = useState('')
-  const [minChange, setMinChange] = useState('')
-  const [sortBy, setSortBy] = useState('score')
+  // Filters state
+  const [activeFilters, setActiveFilters] = useState<ActiveFilter[]>([])
 
-  const getHeaders = () => {
-    const token = localStorage.getItem('finma_token')
-    return {
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      'Content-Type': 'application/json',
-    }
-  }
+  // Tab 1: Basics
+  const [marketCapMin, setMarketCapMin] = useState(0)
+  const [marketCapMax, setMarketCapMax] = useState(100)
+  const [selectedExchanges, setSelectedExchanges] = useState<string[]>(['NYSE', 'NASDAQ'])
+  const [selectedSector, setSelectedSector] = useState('Tümü')
 
-  const fetchCredits = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/screener/credits`, { headers: getHeaders() })
-      if (res.ok) setCredits(await res.json())
-    } catch {}
-  }
+  // Tab 2: Value
+  const [peMin, setPEMin] = useState(0)
+  const [peMax, setPEMax] = useState(50)
+  const [pegMin, setPEGMin] = useState(0)
+  const [pegMax, setPEGMax] = useState(5)
+  const [debtEquityMax, setDebtEquityMax] = useState(2)
+  const [roeMin, setROEMin] = useState(0)
+  const [epsGrowthMin, setEPSGrowthMin] = useState(0)
 
-  const fetchHistory = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/screener/history`, { headers: getHeaders() })
-      if (res.ok) {
-        const d = await res.json()
-        setHistory(d.history || [])
-      }
-    } catch {}
-  }
+  // Tab 3: Trend
+  const [rsiBulls, setRSIBulls] = useState(false)
+  const [rsiValue, setRSIValue] = useState(50)
+  const [fiftyTwoWWeekMin, setFiftyTwoWWeekMin] = useState(-50)
+  const [fiftyTwoWWeekMax, setFiftyTwoWWeekMax] = useState(100)
+  const [volumeMin, setVolumeMin] = useState(1)
+  const [selectedCandlesticks, setSelectedCandlesticks] = useState<string[]>([])
+  const [selectedChartPatterns, setSelectedChartPatterns] = useState<string[]>([])
 
+  // Fetch credits
   useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const token = localStorage.getItem('finma_token')
+        const res = await fetch(`${API_URL}/api/screener/credits`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {}
+        })
+        if (res.ok) setCredits(await res.json())
+      } catch {}
+    }
     fetchCredits()
-    fetchHistory()
   }, [])
 
   const runScan = async () => {
     if (credits && credits.remaining <= 0 && !isAdmin) return
     setLoading(true)
     try {
-      const filters: any = { sort_by: sortBy }
-      if (sector !== 'Tümü') filters.sector = sector
-      if (minScore) filters.min_score = parseFloat(minScore)
-      if (minChange) filters.min_change_pct = parseFloat(minChange)
+      const filters: any = {
+        market_cap_min: marketCapMin,
+        market_cap_max: marketCapMax,
+        sector: selectedSector !== 'Tümü' ? selectedSector : undefined,
+        pe_min: peMin,
+        pe_max: peMax,
+        rsi_value: rsiValue,
+        volume_multiplier_min: volumeMin,
+      }
 
+      const token = localStorage.getItem('finma_token')
       const res = await fetch(`${API_URL}/api/screener/run`, {
         method: 'POST',
-        headers: getHeaders(),
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(filters),
       })
+
       if (res.ok) {
-        const d = await res.json()
-        setResults(d.results || [])
-        fetchCredits()
-        fetchHistory()
+        const data = await res.json()
+        setResults(data.results || [])
       }
-    } catch {}
+    } catch (err) {
+      console.error('Tarama hatası:', err)
+    }
     setLoading(false)
   }
 
-  const getScoreColor = (score: number) => {
-    if (score >= 75) return 'text-finma-green'
-    if (score >= 50) return 'text-finma-primary'
-    if (score >= 25) return 'text-finma-yellow'
-    return 'text-finma-text-dim'
+  const addFilter = (label: string, value: any) => {
+    const newFilter: ActiveFilter = {
+      id: Math.random().toString(36).substr(2, 9),
+      label,
+      value
+    }
+    setActiveFilters([...activeFilters, newFilter])
   }
 
-  const getScoreBg = (score: number) => {
-    if (score >= 75) return 'bg-finma-green/10 border-finma-green/30'
-    if (score >= 50) return 'bg-finma-primary/10 border-finma-primary/30'
-    if (score >= 25) return 'bg-finma-yellow/10 border-finma-yellow/30'
-    return 'bg-finma-border/20 border-finma-border/30'
+  const removeFilter = (id: string) => {
+    setActiveFilters(activeFilters.filter(f => f.id !== id))
+  }
+
+  const applyPreset = (preset: typeof PRESETS[0]) => {
+    setActiveFilters([])
+    // Apply preset logic
+    setMarketCapMin(preset.filters.minMarketCap || 0)
+  }
+
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-finma-green bg-finma-green/15'
+    if (score >= 65) return 'text-finma-primary bg-finma-primary/15'
+    if (score >= 50) return 'text-finma-yellow bg-finma-yellow/15'
+    return 'text-finma-text-muted bg-finma-border/10'
   }
 
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Search className="w-5 h-5 text-finma-primary" />
           <div>
             <h1 className="text-lg font-bold text-white">Hisse Tarama</h1>
-            <p className="text-xs text-finma-text-dim">FinMA Skorlama Motoru (0–100)</p>
+            <p className="text-xs text-finma-text-dim">Gelişmiş Filtreleme Motoru</p>
           </div>
         </div>
         {credits && (
@@ -140,199 +217,492 @@ export default function ScreenerPage() {
             credits.remaining > 0 ? 'border-finma-primary/30 bg-finma-primary/5 text-finma-primary' : 'border-finma-red/30 bg-finma-red/5 text-finma-red'
           )}>
             <Zap className="w-3.5 h-3.5" />
-            {isAdmin ? 'Sınırsız tarama' : `${credits.remaining}/${credits.limit} tarama kaldı`}
-            {!isPro && <span className="text-finma-text-dim ml-1">(Haftalık)</span>}
+            {isAdmin ? 'Sınırsız' : `${credits.remaining}/${credits.limit}`}
           </div>
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {/* Filters sidebar */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        {/* Left: Filters */}
         <div className="lg:col-span-1 space-y-3">
           <Card padding="sm">
-            <button
-              onClick={() => setFiltersOpen(v => !v)}
-              className="w-full flex items-center justify-between text-sm font-semibold text-finma-text mb-2"
-            >
-              <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4" />
-                Filtreler
-              </div>
-              <ChevronDown className={cn('w-4 h-4 transition-transform', filtersOpen && 'rotate-180')} />
-            </button>
-
-            {filtersOpen && (
-              <div className="space-y-3">
-                {/* Sector */}
-                <div>
-                  <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-1.5 block">Sektör</label>
-                  <select
-                    value={sector}
-                    onChange={e => setSector(e.target.value)}
-                    className="w-full bg-finma-bg border border-finma-border rounded-md px-2.5 py-2 text-xs text-finma-text focus:outline-none focus:border-finma-primary"
-                  >
-                    {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-
-                {/* Min Score */}
-                <div>
-                  <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-1.5 block">Min. Skor (0-100)</label>
-                  <input
-                    value={minScore}
-                    onChange={e => setMinScore(e.target.value)}
-                    type="number"
-                    min="0" max="100"
-                    placeholder="0"
-                    className="w-full bg-finma-bg border border-finma-border rounded-md px-2.5 py-2 text-xs text-finma-text placeholder-finma-text-dim/40 focus:outline-none focus:border-finma-primary"
-                  />
-                </div>
-
-                {/* Min Change */}
-                <div>
-                  <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-1.5 block">Min. Değişim %</label>
-                  <input
-                    value={minChange}
-                    onChange={e => setMinChange(e.target.value)}
-                    type="number"
-                    step="0.1"
-                    placeholder="-100"
-                    className="w-full bg-finma-bg border border-finma-border rounded-md px-2.5 py-2 text-xs text-finma-text placeholder-finma-text-dim/40 focus:outline-none focus:border-finma-primary"
-                  />
-                </div>
-
-                {/* Sort */}
-                <div>
-                  <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-1.5 block">Sıralama</label>
-                  <select
-                    value={sortBy}
-                    onChange={e => setSortBy(e.target.value)}
-                    className="w-full bg-finma-bg border border-finma-border rounded-md px-2.5 py-2 text-xs text-finma-text focus:outline-none focus:border-finma-primary"
-                  >
-                    {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                  </select>
-                </div>
-
-                <button
-                  onClick={runScan}
-                  disabled={loading || (!isAdmin && credits?.remaining === 0)}
-                  className={cn(
-                    'w-full py-2.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2',
-                    (!isAdmin && credits?.remaining === 0)
-                      ? 'bg-finma-border/30 text-finma-text-dim cursor-not-allowed'
-                      : 'bg-finma-primary text-white hover:bg-finma-primary/90'
-                  )}
-                >
-                  {loading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
-                  {loading ? 'Taranıyor...' : 'Tara'}
-                </button>
-
-                {!isPro && credits?.remaining === 0 && (
-                  <p className="text-[10px] text-finma-yellow text-center">Haftalık limit doldu. Pro'ya geçin.</p>
+            {/* Filter Tabs */}
+            <div className="flex flex-col gap-2 mb-4">
+              <button
+                onClick={() => setActiveTab('basics')}
+                className={cn(
+                  'px-3 py-2 rounded text-xs font-medium transition-colors',
+                  activeTab === 'basics'
+                    ? 'bg-finma-primary text-white'
+                    : 'bg-finma-border/20 text-finma-text-muted hover:bg-finma-border/30'
                 )}
-              </div>
-            )}
+              >
+                📍 Temel
+              </button>
+              <button
+                onClick={() => setActiveTab('value')}
+                className={cn(
+                  'px-3 py-2 rounded text-xs font-medium transition-colors',
+                  activeTab === 'value'
+                    ? 'bg-finma-primary text-white'
+                    : 'bg-finma-border/20 text-finma-text-muted hover:bg-finma-border/30'
+                )}
+              >
+                💎 Değer
+              </button>
+              <button
+                onClick={() => setActiveTab('trend')}
+                className={cn(
+                  'px-3 py-2 rounded text-xs font-medium transition-colors',
+                  activeTab === 'trend'
+                    ? 'bg-finma-primary text-white'
+                    : 'bg-finma-border/20 text-finma-text-muted hover:bg-finma-border/30'
+                )}
+              >
+                🔥 Trend
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            <div className="space-y-4">
+              {activeTab === 'basics' && (
+                <div className="space-y-3">
+                  {/* Market Cap */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      Piyasa Değeri: {marketCapMin}B - {marketCapMax}B
+                    </label>
+                    <input
+                      type="range"
+                      min="0" max="500" step="10"
+                      value={marketCapMin}
+                      onChange={e => setMarketCapMin(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-finma-border rounded-lg appearance-none cursor-pointer accent-finma-primary"
+                    />
+                  </div>
+
+                  {/* Exchanges */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">Borsa</label>
+                    <div className="flex gap-2">
+                      {['NYSE', 'NASDAQ', 'AMEX'].map(ex => (
+                        <button
+                          key={ex}
+                          onClick={() => {
+                            if (selectedExchanges.includes(ex)) {
+                              setSelectedExchanges(selectedExchanges.filter(e => e !== ex))
+                            } else {
+                              setSelectedExchanges([...selectedExchanges, ex])
+                            }
+                          }}
+                          className={cn(
+                            'px-2.5 py-1 rounded text-[10px] font-bold transition-colors border',
+                            selectedExchanges.includes(ex)
+                              ? 'bg-finma-primary text-white border-finma-primary'
+                              : 'bg-finma-border/20 text-finma-text-muted border-finma-border/30 hover:border-finma-primary/50'
+                          )}
+                        >
+                          {ex}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Sector */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-1.5 block">Sektör</label>
+                    <select
+                      value={selectedSector}
+                      onChange={e => setSelectedSector(e.target.value)}
+                      className="w-full bg-finma-bg border border-finma-border rounded px-2.5 py-1.5 text-xs text-finma-text focus:outline-none focus:border-finma-primary"
+                    >
+                      {SECTORS.map(s => <option key={s}>{s}</option>)}
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'value' && (
+                <div className="space-y-3">
+                  {/* P/E Ratio */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      F/K Oranı: {peMin}-{peMax}
+                    </label>
+                    <div className="flex gap-1.5">
+                      <input
+                        type="number" value={peMin} onChange={e => setPEMin(parseFloat(e.target.value))}
+                        className="w-1/2 bg-finma-bg border border-finma-border rounded px-2 py-1 text-xs text-finma-text"
+                        placeholder="Min"
+                      />
+                      <input
+                        type="number" value={peMax} onChange={e => setPEMax(parseFloat(e.target.value))}
+                        className="w-1/2 bg-finma-bg border border-finma-border rounded px-2 py-1 text-xs text-finma-text"
+                        placeholder="Max"
+                      />
+                    </div>
+                  </div>
+
+                  {/* PEG Ratio */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      PEG: {pegMin.toFixed(1)}-{pegMax.toFixed(1)}
+                    </label>
+                    <input
+                      type="range" min="0" max="5" step="0.5"
+                      value={pegMin}
+                      onChange={e => setPEGMin(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-finma-border rounded accent-finma-primary"
+                    />
+                  </div>
+
+                  {/* Debt/Equity */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      Borç/Özkaynak: {debtEquityMax.toFixed(1)}
+                    </label>
+                    <input
+                      type="range" min="0" max="5" step="0.5"
+                      value={debtEquityMax}
+                      onChange={e => setDebtEquityMax(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-finma-border rounded accent-finma-primary"
+                    />
+                  </div>
+
+                  {/* ROE */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      ROE Min: {roeMin}%
+                    </label>
+                    <input
+                      type="range" min="0" max="50" step="5"
+                      value={roeMin}
+                      onChange={e => setROEMin(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-finma-border rounded accent-finma-primary"
+                    />
+                  </div>
+
+                  {/* EPS Growth */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      EPS Büyümesi Min: {epsGrowthMin}%
+                    </label>
+                    <input
+                      type="range" min="0" max="100" step="10"
+                      value={epsGrowthMin}
+                      onChange={e => setEPSGrowthMin(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-finma-border rounded accent-finma-primary"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'trend' && (
+                <div className="space-y-3">
+                  {/* RSI */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      RSI: {rsiValue}
+                    </label>
+                    <input
+                      type="range" min="0" max="100" step="5"
+                      value={rsiValue}
+                      onChange={e => setRSIValue(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-finma-border rounded accent-finma-primary"
+                    />
+                    <div className="text-[9px] text-finma-text-dim mt-1 text-center">
+                      {rsiValue > 70 ? 'AŞIRI ALIM' : rsiValue < 30 ? 'AŞIRI SATUM' : 'NÖTR'}
+                    </div>
+                  </div>
+
+                  {/* 52-Week */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      52H Değişim: {fiftyTwoWWeekMin}% ~ {fiftyTwoWWeekMax}%
+                    </label>
+                    <div className="flex gap-1.5">
+                      <input
+                        type="number" value={fiftyTwoWWeekMin} onChange={e => setFiftyTwoWWeekMin(parseFloat(e.target.value))}
+                        className="w-1/2 bg-finma-bg border border-finma-border rounded px-2 py-1 text-xs"
+                        placeholder="Min %"
+                      />
+                      <input
+                        type="number" value={fiftyTwoWWeekMax} onChange={e => setFiftyTwoWWeekMax(parseFloat(e.target.value))}
+                        className="w-1/2 bg-finma-bg border border-finma-border rounded px-2 py-1 text-xs"
+                        placeholder="Max %"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Volume Multiplier */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">
+                      Hacim Çarpanı Min: {volumeMin.toFixed(1)}x
+                    </label>
+                    <input
+                      type="range" min="0.5" max="5" step="0.5"
+                      value={volumeMin}
+                      onChange={e => setVolumeMin(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-finma-border rounded accent-finma-primary"
+                    />
+                  </div>
+
+                  {/* Candlestick Patterns */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">Mum Formasyonları</label>
+                    <div className="grid grid-cols-4 gap-1">
+                      {CANDLESTICK_PATTERNS.map(pattern => (
+                        <button
+                          key={pattern.id}
+                          onClick={() => {
+                            setSelectedCandlesticks(
+                              selectedCandlesticks.includes(pattern.id)
+                                ? selectedCandlesticks.filter(p => p !== pattern.id)
+                                : [...selectedCandlesticks, pattern.id]
+                            )
+                          }}
+                          title={pattern.label}
+                          className={cn(
+                            'w-full aspect-square rounded border flex items-center justify-center text-lg transition-colors',
+                            selectedCandlesticks.includes(pattern.id)
+                              ? 'bg-finma-primary text-white border-finma-primary'
+                              : 'bg-finma-border/20 text-finma-text-dim border-finma-border/30 hover:border-finma-primary/50'
+                          )}
+                        >
+                          {pattern.icon}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Chart Patterns */}
+                  <div>
+                    <label className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2 block">Grafik Desenleri</label>
+                    <div className="grid grid-cols-3 gap-1">
+                      {CHART_PATTERNS.map(pattern => (
+                        <button
+                          key={pattern.id}
+                          onClick={() => {
+                            setSelectedChartPatterns(
+                              selectedChartPatterns.includes(pattern.id)
+                                ? selectedChartPatterns.filter(p => p !== pattern.id)
+                                : [...selectedChartPatterns, pattern.id]
+                            )
+                          }}
+                          title={pattern.label}
+                          className={cn(
+                            'w-full px-2 py-1.5 rounded border text-[9px] font-medium transition-colors text-center',
+                            selectedChartPatterns.includes(pattern.id)
+                              ? 'bg-finma-primary text-white border-finma-primary'
+                              : 'bg-finma-border/20 text-finma-text-dim border-finma-border/30 hover:border-finma-primary/50'
+                          )}
+                        >
+                          {pattern.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Scan Button */}
+            <button
+              onClick={runScan}
+              disabled={loading || (!isAdmin && credits?.remaining === 0)}
+              className={cn(
+                'w-full mt-4 py-2.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2',
+                (!isAdmin && credits?.remaining === 0)
+                  ? 'bg-finma-border/30 text-finma-text-dim cursor-not-allowed'
+                  : 'bg-finma-primary text-white hover:bg-finma-primary/90'
+              )}
+            >
+              {loading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
+              {loading ? 'Taranıyor...' : 'Tara'}
+            </button>
           </Card>
 
-          {/* Recent scans */}
-          {history.length > 0 && (
+          {/* Presets */}
+          <Card padding="sm">
+            <div className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2.5 font-bold">Ön Ayarlar</div>
+            <div className="space-y-1.5">
+              {PRESETS.map(preset => (
+                <button
+                  key={preset.id}
+                  onClick={() => applyPreset(preset)}
+                  className="w-full px-2.5 py-2 rounded border border-finma-border/30 hover:border-finma-primary/50 bg-finma-bg/50 hover:bg-finma-primary/5 transition-colors text-left"
+                >
+                  <div className="text-sm font-bold text-finma-text flex items-center gap-1.5">
+                    <span>{preset.emoji}</span>
+                    {preset.name}
+                  </div>
+                  <div className="text-[9px] text-finma-text-dim mt-0.5">{preset.description}</div>
+                </button>
+              ))}
+            </div>
+          </Card>
+        </div>
+
+        {/* Right: Results */}
+        <div className="lg:col-span-4 space-y-3">
+          {/* Active Filters Bar */}
+          {activeFilters.length > 0 && (
             <Card padding="sm">
-              <div className="text-[10px] text-finma-text-dim uppercase tracking-wider mb-2">Son Taramalar</div>
-              <div className="space-y-1.5">
-                {history.slice(0, 5).map((h: any, i: number) => (
-                  <div key={i} className="flex items-center justify-between text-xs text-finma-text-dim">
-                    <span>{new Date(h.scanned_at).toLocaleDateString('tr-TR')}</span>
-                    <span className="text-finma-primary font-medium">{h.result_count} sonuç</span>
+              <div className="flex items-center gap-2 flex-wrap">
+                {activeFilters.map(filter => (
+                  <div
+                    key={filter.id}
+                    className="flex items-center gap-1.5 px-2 py-1 rounded bg-finma-primary/15 text-finma-primary text-[9px] font-medium border border-finma-primary/30"
+                  >
+                    <span>{filter.label}</span>
+                    <button
+                      onClick={() => removeFilter(filter.id)}
+                      className="ml-1 hover:text-finma-primary/60"
+                    >
+                      ✕
+                    </button>
                   </div>
                 ))}
               </div>
             </Card>
           )}
-        </div>
 
-        {/* Results */}
-        <div className="lg:col-span-3">
+          {/* View Switcher & Results Header */}
           <Card padding="sm">
-            <div className="flex items-center gap-2 pb-3 mb-1 border-b border-finma-border">
-              <BarChart3 className="w-4 h-4 text-finma-primary" />
-              <span className="text-sm font-bold text-finma-text">Sonuçlar</span>
-              {results.length > 0 && (
-                <span className="ml-2 text-xs text-finma-text-dim">{results.length} hisse</span>
-              )}
+            <div className="flex items-center justify-between mb-3 pb-3 border-b border-finma-border">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-finma-primary" />
+                <span className="text-sm font-bold text-finma-text">
+                  Sonuçlar {results.length > 0 && <span className="text-finma-text-dim">({results.length})</span>}
+                </span>
+              </div>
+
+              {/* View Mode Switcher */}
+              <div className="flex gap-1 bg-finma-border/20 rounded p-1">
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={cn(
+                    'p-1.5 rounded transition-colors',
+                    viewMode === 'list'
+                      ? 'bg-finma-primary text-white'
+                      : 'text-finma-text-dim hover:text-finma-text'
+                  )}
+                  title="Liste Görünümü"
+                >
+                  <List className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode('heatmap')}
+                  className={cn(
+                    'p-1.5 rounded transition-colors',
+                    viewMode === 'heatmap'
+                      ? 'bg-finma-primary text-white'
+                      : 'text-finma-text-dim hover:text-finma-text'
+                  )}
+                  title="Isı Haritası"
+                >
+                  <Grid3x3 className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode('table')}
+                  className={cn(
+                    'p-1.5 rounded transition-colors',
+                    viewMode === 'table'
+                      ? 'bg-finma-primary text-white'
+                      : 'text-finma-text-dim hover:text-finma-text'
+                  )}
+                  title="Detaylı Tablo"
+                >
+                  <Table2 className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
+            {/* Results Display */}
             {results.length === 0 ? (
               <div className="text-center py-12 text-finma-text-dim">
                 <Search className="w-10 h-10 mx-auto mb-3 opacity-20" />
-                <p className="text-sm">Filtre seçin ve Tara butonuna basın</p>
-                <p className="text-xs mt-1 text-finma-text-dim/60">FinMA Skorlama: Trend %30 + Hacim %25 + Momentum %32 + Bağlam %13</p>
+                <p className="text-sm">Filtreleri ayarla ve Tara butonuna bas</p>
+              </div>
+            ) : viewMode === 'list' ? (
+              <div className="space-y-1.5">
+                {results.map((r, idx) => (
+                  <div
+                    key={r.ticker}
+                    onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}
+                    className="p-2.5 rounded border border-finma-border/30 hover:border-finma-primary/50 bg-finma-bg/50 hover:bg-finma-primary/5 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-finma-text-dim w-5">#{idx + 1}</span>
+                        <div>
+                          <span className="text-sm font-bold text-finma-primary finma-number">{r.ticker}</span>
+                          <span className="text-[9px] text-finma-text-dim ml-1.5">{r.company_name}</span>
+                        </div>
+                      </div>
+                      <span className={cn('px-2 py-0.5 rounded text-[10px] font-bold finma-number', getScoreColor(r.score))}>
+                        {r.score.toFixed(0)}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-[9px] text-finma-text-muted pl-7">
+                      <span>{r.sector}</span>
+                      <span className={r.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red'}>
+                        {r.change_pct >= 0 ? '+' : ''}{r.change_pct.toFixed(1)}%
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : viewMode === 'heatmap' ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {results.map(r => (
+                  <div
+                    key={r.ticker}
+                    onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}
+                    className={cn(
+                      'p-3 rounded border cursor-pointer transition-colors',
+                      r.score >= 80 ? 'bg-finma-green/15 border-finma-green/30 hover:border-finma-green/50' :
+                      r.score >= 65 ? 'bg-finma-primary/15 border-finma-primary/30 hover:border-finma-primary/50' :
+                      'bg-finma-yellow/15 border-finma-yellow/30 hover:border-finma-yellow/50'
+                    )}
+                  >
+                    <div className="font-bold text-sm text-white finma-number mb-1">{r.ticker}</div>
+                    <div className="text-[9px] text-finma-text-dim">{r.sector}</div>
+                    <div className="text-[11px] font-bold mt-1 finma-number">{r.score.toFixed(0)}</div>
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="text-finma-text-dim bg-finma-bg/80">
-                      <th className="text-left py-2.5 px-3 border border-finma-border/50">#</th>
-                      <th className="text-left py-2.5 px-3 border border-finma-border/50">Hisse</th>
-                      <th className="text-left py-2.5 px-3 border border-finma-border/50">Sektör</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Fiyat</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Değişim</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">FinMA Skor</th>
-                      <th className="text-left py-2.5 px-3 border border-finma-border/50">Skor Dağılımı</th>
-                      <th className="text-center py-2.5 px-3 border border-finma-border/50">İşlem</th>
+                    <tr className="text-finma-text-dim bg-finma-bg/50 border-b border-finma-border">
+                      <th className="text-left py-2 px-2">#</th>
+                      <th className="text-left py-2 px-2">Hisse</th>
+                      <th className="text-left py-2 px-2">Sektör</th>
+                      <th className="text-right py-2 px-2">Fiyat</th>
+                      <th className="text-right py-2 px-2">Değişim</th>
+                      <th className="text-right py-2 px-2">Skor</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-finma-border/30">
                     {results.map((r, idx) => (
-                      <tr key={r.ticker}
+                      <tr
+                        key={r.ticker}
+                        onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}
                         className="hover:bg-finma-primary/5 transition-colors cursor-pointer"
-                        onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
-                        <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
-                        <td className="py-2.5 px-3 border border-finma-border/50">
-                          <div className="flex flex-col">
-                            <span className="font-bold text-finma-primary finma-number text-sm">{r.ticker}</span>
-                            <span className="text-finma-text-dim text-[10px]">{r.company_name}</span>
-                          </div>
+                      >
+                        <td className="py-2 px-2 text-finma-text-dim">{idx + 1}</td>
+                        <td className="py-2 px-2">
+                          <div className="font-bold text-finma-primary finma-number">{r.ticker}</div>
                         </td>
-                        <td className="py-2.5 px-3 border border-finma-border/50">
-                          <span className="text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase bg-white/5 text-finma-text-dim border-white/10">
-                            {r.sector}
-                          </span>
+                        <td className="py-2 px-2 text-finma-text-dim text-[9px]">{r.sector}</td>
+                        <td className="py-2 px-2 text-right finma-number font-bold">${r.price?.toFixed(2)}</td>
+                        <td className={cn('py-2 px-2 text-right finma-number font-bold', r.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                          {r.change_pct >= 0 ? '+' : ''}{r.change_pct.toFixed(1)}%
                         </td>
-                        <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">
-                          ${r.price?.toFixed(2)}
-                        </td>
-                        <td className={cn(
-                          'py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold',
-                          (r.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
-                        )}>
-                          {(r.change_pct ?? 0) >= 0 ? '+' : ''}{(r.change_pct ?? 0).toFixed(1)}%
-                        </td>
-                        <td className="py-2.5 px-3 border border-finma-border/50 text-right">
-                          <span className={cn(
-                            'finma-number font-bold text-sm px-2 py-0.5 rounded border',
-                            getScoreBg(r.score), getScoreColor(r.score)
-                          )}>
-                            {r.score?.toFixed(0)}
-                          </span>
-                        </td>
-                        <td className="py-2.5 px-3 border border-finma-border/50">
-                          {r.score_breakdown && (
-                            <div className="flex gap-2 text-[9px] text-finma-text-dim">
-                              <span>T:{r.score_breakdown.trend?.toFixed(0)}</span>
-                              <span>H:{r.score_breakdown.volume?.toFixed(0)}</span>
-                              <span>M:{r.score_breakdown.momentum?.toFixed(0)}</span>
-                              <span>B:{r.score_breakdown.context?.toFixed(0)}</span>
-                            </div>
-                          )}
-                        </td>
-                        <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={e => e.stopPropagation()}>
-                          <button
-                            onClick={() => router.push(`/watchlist?add=${r.ticker}`)}
-                            className="text-[10px] px-2 py-1 rounded bg-finma-primary/20 text-finma-primary border border-finma-primary/30 hover:bg-finma-primary/40 transition-colors"
-                          >
-                            + Takibe Al
-                          </button>
+                        <td className={cn('py-2 px-2 text-right font-bold finma-number', getScoreColor(r.score))}>
+                          {r.score.toFixed(0)}
                         </td>
                       </tr>
                     ))}
