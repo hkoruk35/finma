@@ -498,6 +498,14 @@ class APIClient {
     }>('/api/auth/me')
   }
 
+  async getAdminStats() {
+    return this.request<{
+      total_users: number; free_users: number; pro_users: number; admin_users: number;
+      active_users: number; total_trades: number; signals_today: number;
+      bots_running: string; bots_scheduled: number
+    }>('/api/auth/admin/stats')
+  }
+
   logout() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('finma_token')

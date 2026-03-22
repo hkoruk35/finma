@@ -326,8 +326,9 @@ async def get_admin_stats(admin: dict = Depends(require_admin)):
 
     all_users = UsersDB.get_all(limit=9999)
     total_users = len(all_users)
-    pro_users = sum(1 for u in all_users if u.get("subscription_tier") in ("pro", "admin"))
-    free_users = total_users - pro_users
+    free_users = sum(1 for u in all_users if u.get("subscription_tier") == "free")
+    pro_users = sum(1 for u in all_users if u.get("subscription_tier") == "pro")
+    admin_users = sum(1 for u in all_users if u.get("subscription_tier") == "admin")
 
     # Count open trades across all users
     all_trades = 0
@@ -347,8 +348,9 @@ async def get_admin_stats(admin: dict = Depends(require_admin)):
 
     return {
         "total_users": total_users,
-        "pro_users": pro_users,
         "free_users": free_users,
+        "pro_users": pro_users,
+        "admin_users": admin_users,
         "active_users": total_users,  # TODO: filter by last_login
         "total_trades": all_trades,
         "signals_today": 0,

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { HUDMetrics } from '@/components/terminal/HUDMetrics'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { Badge, ActionBadge, sectorLabel } from '@/components/shared/Badge'
@@ -526,6 +525,7 @@ export default function DashboardPage() {
               totalUsers={adminStats.total_users}
               freeUsers={adminStats.free_users}
               proUsers={adminStats.pro_users}
+              adminUsers={adminStats.admin_users}
               activeTrades={adminStats.total_trades}
               botsRunning={adminStats.bots_running}
               totalRevenue={0} // Backend has no revenue data yet

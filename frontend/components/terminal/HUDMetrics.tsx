@@ -84,19 +84,20 @@ interface AdminHUDProps {
   totalUsers: number
   freeUsers: number
   proUsers: number
+  adminUsers: number
   activeTrades: number
   botsRunning: string
   totalRevenue: number
 }
 
-export function AdminHUDMetrics({ totalUsers, freeUsers, proUsers, activeTrades, botsRunning, totalRevenue }: AdminHUDProps) {
+export function AdminHUDMetrics({ totalUsers, freeUsers, proUsers, adminUsers, activeTrades, botsRunning, totalRevenue }: AdminHUDProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2.5">
       <MetricCard
         label="Toplam Üyeler"
         value={totalUsers.toString()}
-        change={((proUsers / totalUsers) * 100)}
-        changeSuffix="% Pro"
+        change={((proUsers + adminUsers) / totalUsers) * 100}
+        changeSuffix="% Ücretli"
         icon={<Wallet className="w-3.5 h-3.5" />}
         highlight
       />
@@ -113,6 +114,13 @@ export function AdminHUDMetrics({ totalUsers, freeUsers, proUsers, activeTrades,
         change={((proUsers / totalUsers) * 100)}
         changeSuffix="%"
         icon={<TrendingUp className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Admin Üyeler"
+        value={adminUsers.toString()}
+        change={((adminUsers / totalUsers) * 100)}
+        changeSuffix="%"
+        icon={<Shield className="w-3.5 h-3.5" />}
       />
       <MetricCard
         label="Aktif İşlem"
