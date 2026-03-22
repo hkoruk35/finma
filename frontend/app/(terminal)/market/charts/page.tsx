@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
+import { NativeChart } from '@/components/terminal/NativeChart'
 import { Card } from '@/components/shared/Card'
 import { useTerminalStore } from '@/store/terminal'
 import { LineChart, Maximize2, Minimize2, Grid3x3, Clock, LayoutGrid, Columns2 } from 'lucide-react'
@@ -138,11 +138,11 @@ export default function ChartsPage() {
       {chartMode === 'single' ? (
         <div
           className={cn(
-            'bg-finma-card border border-finma-border rounded-lg overflow-hidden transition-all',
+            'transition-all',
             isFullscreen ? 'fixed inset-4 z-50' : 'h-[350px] md:h-[550px]'
           )}
         >
-          <TradingViewWidget />
+          <NativeChart ticker={chartSymbol} period="1y" interval="1d" className="h-full" />
         </div>
       ) : (
         <div className={cn(
@@ -181,7 +181,7 @@ export default function ChartsPage() {
                   </select>
                 </div>
                 <div style={{ height: 'calc(100% - 32px)' }}>
-                  <MiniChart symbol={sym} />
+                  <NativeChart ticker={sym} period="1y" interval="1d" className="h-full" />
                 </div>
               </div>
             )
@@ -192,19 +192,6 @@ export default function ChartsPage() {
       {isFullscreen && (
         <div className="fixed inset-0 bg-black/60 z-40" onClick={() => setIsFullscreen(false)} />
       )}
-    </div>
-  )
-}
-
-/* Mini TradingView grafiği — çoklu mod için */
-function MiniChart({ symbol }: { symbol: string }) {
-  return (
-    <div className="w-full h-full">
-      <iframe
-        src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_${symbol}&symbol=${symbol}&interval=D&theme=dark&style=1&locale=tr&toolbar_bg=%23111827&hide_top_toolbar=0&save_image=0&studies=%5B%22STD%3BBollinger_Bands%22%5D&backgroundColor=%23111827`}
-        className="w-full h-full border-0"
-        allow="autoplay"
-      />
     </div>
   )
 }
