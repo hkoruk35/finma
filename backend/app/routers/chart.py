@@ -325,7 +325,7 @@ def generate_stock_chart(ticker: str, df_1d: pd.DataFrame, df_1h: pd.DataFrame =
                 plt.close(fig)
             except:
                 pass
-        return None
+        raise  # Re-raise so endpoint can report the actual error
 
 # ─────────────────────────────────────────────────────────────
 # API ENDPOINTS
@@ -349,10 +349,14 @@ async def get_chart(
         logger.info(f"Data downloaded for {ticker}: {len(df)} rows, columns: {list(df.columns)}")
 
         # Grafiği üret
-        chart_path = generate_stock_chart(ticker, df)
+        try:
+            chart_path = generate_stock_chart(ticker, df)
+        except Exception as chart_err:
+            logger.error(f"Chart generation failed for {ticker}: {chart_err}", exc_info=True)
+            raise HTTPException(status_code=500, detail=f"Chart generation error: {str(chart_err)}")
 
         if not chart_path or not os.path.exists(chart_path):
-            raise HTTPException(status_code=500, detail="Grafik oluşturulamadı")
+            raise HTTPException(status_code=500, detail="Grafik oluşturulamadı - chart_path is None")
 
         logger.info(f"Chart generated for {ticker}: {chart_path}")
 
