@@ -50,7 +50,7 @@ function WatchlistContent() {
   const [showAddForm, setShowAddForm] = useState(!!searchParams?.get('add'))
   const [usedSlots, setUsedSlots] = useState(0)
 
-  const getHeaders = () => {
+  const getHeaders = (): Record<string, string> => {
     const token = localStorage.getItem('finma_token')
     return token ? { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' }
   }

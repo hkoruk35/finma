@@ -36,6 +36,7 @@ interface NewsItem {
   lang?: string
   ticker: string
   impact: 'positive' | 'negative' | 'neutral'
+  summary_tr?: string
 }
 
 // Haber başlığından olumlu/olumsuz impact tahmini
@@ -296,20 +297,25 @@ export default function NewsPage() {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-[9px] bg-finma-primary/20 text-finma-primary px-1.5 py-0.5 rounded font-bold finma-number">
+                    <div className="flex items-start gap-2 mb-1 flex-wrap">
+                      <span className="text-[9px] bg-finma-primary/20 text-finma-primary px-1.5 py-0.5 rounded font-bold finma-number shrink-0">
                         {news_item.ticker}
                       </span>
                       {news_item.lang === 'tr' && (
-                        <span className="text-[9px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded font-bold flex items-center gap-0.5">
+                        <span className="text-[9px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded font-bold flex items-center gap-0.5 shrink-0">
                           <Globe className="w-2.5 h-2.5" /> TR
                         </span>
                       )}
-                      <h3 className="text-sm font-semibold text-finma-text group-hover:text-white transition-colors leading-tight">
+                      <h3 className="text-sm font-semibold text-finma-text group-hover:text-white transition-colors leading-tight flex-1">
                         {news_item.title}
                       </h3>
-                      <ExternalLink className="w-3 h-3 text-finma-text-dim shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+                      <ExternalLink className="w-3 h-3 text-finma-text-dim shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
+                    {news_item.summary_tr && (
+                      <p className="text-[11px] text-finma-text-dim mb-1 leading-relaxed border-l-2 border-finma-primary/30 pl-2">
+                        {news_item.summary_tr}
+                      </p>
+                    )}
                     <div className="flex items-center gap-3 text-[10px] text-finma-text-dim">
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />

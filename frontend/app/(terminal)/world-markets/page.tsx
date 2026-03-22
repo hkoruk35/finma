@@ -892,6 +892,49 @@ function GlobalStats({ totalExchanges, totalOpen, regions }: {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+// REGION HEAT BAR — compact horizontal overview of all regions
+// ═══════════════════════════════════════════════════════════════════════
+
+function RegionHeatBar({ regions }: { regions: Region[] }) {
+  if (!regions || regions.length === 0) return null
+  const sorted = [...regions].sort((a, b) => b.avg_change_pct - a.avg_change_pct)
+  const max = Math.max(...sorted.map(r => Math.abs(r.avg_change_pct)), 0.01)
+
+  return (
+    <Card padding="sm">
+      <div className="flex items-center gap-2 mb-2">
+        <Globe2 className="w-3.5 h-3.5 text-finma-cyan" />
+        <span className="text-[10px] font-bold text-finma-text uppercase tracking-wider">Bölgesel Performans Özeti</span>
+      </div>
+      <div className="space-y-1.5">
+        {sorted.map(r => {
+          const isUp = r.avg_change_pct >= 0
+          const barWidth = Math.round((Math.abs(r.avg_change_pct) / max) * 100)
+          return (
+            <div key={r.id} className="flex items-center gap-2">
+              <span className="text-sm w-6">{r.icon}</span>
+              <span className="text-[10px] text-finma-text-dim w-28 truncate">{r.name}</span>
+              <div className="flex-1 h-3 bg-finma-border/20 rounded-full overflow-hidden">
+                <div
+                  className={cn('h-full rounded-full transition-all', isUp ? 'bg-finma-green' : 'bg-finma-red')}
+                  style={{ width: `${barWidth}%`, float: isUp ? 'left' : 'right' }}
+                />
+              </div>
+              <span className={cn('text-[10px] font-bold finma-number w-14 text-right', isUp ? 'text-finma-green' : 'text-finma-red')}>
+                {isUp ? '+' : ''}{r.avg_change_pct.toFixed(2)}%
+              </span>
+              {r.open_count > 0 && (
+                <span className="w-1.5 h-1.5 rounded-full bg-finma-green animate-pulse shrink-0" />
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </Card>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 // MAIN PAGE
 // ═══════════════════════════════════════════════════════════════════════
 
@@ -995,6 +1038,9 @@ export default function WorldMarketsPage() {
         totalOpen={marketData.total_open}
         regions={marketData.regions as any}
       />
+
+      {/* REGION HEAT BAR */}
+      <RegionHeatBar regions={marketData.regions} />
 
       {/* AI GLOBAL SUMMARY */}
       <AIGlobalSummary />

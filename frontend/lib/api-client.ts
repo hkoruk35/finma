@@ -378,7 +378,7 @@ class APIClient {
   async createTrade(trade: {
     ticker: string; direction: string; entry_price: number;
     stop_loss: number; target_price: number; qty: number;
-    type?: string; strategy?: string; notes?: string;
+    type?: string; strategy?: string; notes?: string; product_type?: string;
   }) {
     return this.request<any>('/api/portfolio/trades', {
       method: 'POST',

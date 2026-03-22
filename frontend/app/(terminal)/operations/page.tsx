@@ -21,6 +21,8 @@ export default function OperationsPage() {
   )
 }
 
+const PRODUCT_TYPES = ['Stock', 'ETF', 'Call', 'Put', 'Forex', 'Oil', 'Bitcoin', 'Ethereum']
+
 interface NewTradeForm {
   ticker: string
   direction: 'LONG' | 'SHORT'
@@ -29,6 +31,7 @@ interface NewTradeForm {
   target_price: string
   qty: string
   strategy: string
+  product_type: string
 }
 
 function OperationsContent() {
@@ -115,6 +118,7 @@ function OperationsContent() {
     target_price: '',
     qty: '',
     strategy: 'Swing',
+    product_type: 'Stock',
   })
 
   function updateForm(field: keyof NewTradeForm, value: string) {
@@ -134,8 +138,9 @@ function OperationsContent() {
         target_price: parseFloat(form.target_price),
         qty: parseFloat(form.qty),
         strategy: form.strategy || 'Manuel',
+        product_type: form.product_type || 'Stock',
       })
-      setForm({ ticker: '', direction: 'LONG', entry_price: '', stop_loss: '', target_price: '', qty: '', strategy: 'Swing' })
+      setForm({ ticker: '', direction: 'LONG', entry_price: '', stop_loss: '', target_price: '', qty: '', strategy: 'Swing', product_type: 'Stock' })
       setShowAddForm(false)
       refetchAll()
     } catch (err: any) {
@@ -385,8 +390,17 @@ function OperationsContent() {
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 ml-auto">
-                <label className="text-[10px] text-finma-text-dim uppercase font-bold tracking-wider mr-1">Strateji</label>
+              <div className="flex items-center gap-2 ml-auto flex-wrap">
+                <label className="text-[10px] text-finma-text-dim uppercase font-bold tracking-wider">Ürün</label>
+                <select
+                  value={form.product_type}
+                  onChange={e => updateForm('product_type', e.target.value)}
+                  className="bg-finma-bg border border-finma-border rounded-lg px-3 py-1.5 text-xs text-finma-text focus:outline-none focus:border-finma-primary cursor-pointer"
+                >
+                  {PRODUCT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+
+                <label className="text-[10px] text-finma-text-dim uppercase font-bold tracking-wider ml-2">Strateji</label>
                 <select
                   value={form.strategy}
                   onChange={e => updateForm('strategy', e.target.value)}
@@ -398,7 +412,7 @@ function OperationsContent() {
                   <option value="Mean Reversion">Mean Reversion</option>
                   <option value="Manuel">Manuel Giriş</option>
                 </select>
-                
+
                 <div className="h-6 w-px bg-white/10 mx-2" />
                 
                 {addError && (

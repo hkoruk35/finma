@@ -196,3 +196,35 @@ Her pozisyon için:
 3. Aksiyon öner (Tut / Kâr Al / Stop Güncelle / Kapat)
 """
     return await call_gemini(prompt, RISK_AUDITOR_PROMPT)
+
+
+async def summarize_news_turkish(title: str, description: str = "") -> str:
+    """Haber başlığını Türkçe 1 cümleyle özetle (Gemini Flash)"""
+    settings = get_settings()
+    if not settings.gemini_api_key:
+        return ""
+    text = f"{title}. {description}".strip(". ")
+    prompt = f"""Aşağıdaki İngilizce finans haberini tek cümlelik, akıcı Türkçe bir özet olarak çevir.
+Sadece Türkçe özeti yaz, başka açıklama ekleme.
+
+Haber: {text[:400]}"""
+    try:
+        result = await call_gemini(prompt, "Sen finans haberi çevirmenisin.", "gemini-2.0-flash")
+        return result.strip()[:300] if result and not result.startswith("⚠️") else ""
+    except Exception:
+        return ""
+
+
+async def summarize_news_batch(items: list) -> list:
+    """Birden fazla haberi toplu olarak Türkçe özetle. items: [{title, description, ...}]"""
+    import asyncio
+    async def do_one(item: dict) -> dict:
+        if item.get("lang") == "tr":
+            return item  # Zaten Türkçe, skip
+        summary = await summarize_news_turkish(item.get("title", ""), item.get("description", ""))
+        if summary:
+            item = {**item, "summary_tr": summary}
+        return item
+
+    tasks = [do_one(item) for item in items]
+    return list(await asyncio.gather(*tasks))

@@ -57,21 +57,27 @@ const navItems: NavItem[] = [
     href: '/market', icon: TrendingUp, label: 'Piyasa', section: 'market',
     children: [
       { href: '/market', icon: Eye, label: 'Genel Bakış' },
-      { href: '/market/flow', icon: DollarSign, label: 'Para Akışı' },
+      { href: '/market/flow', icon: Activity, label: 'Akıllı Para Akışı' },
+      { href: '/market/valuation', icon: DollarSign, label: 'Değerleme' },
       { href: '/market/performance', icon: BarChart3, label: 'Performans' },
       { href: '/market/charts', icon: LineChart, label: 'Grafikler' },
       { href: '/market/maps', icon: Map, label: 'Haritalar' },
     ],
   },
-  { href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured' },
-  { href: '/screener', icon: Search, label: 'Hisse Tarama', section: 'screener' },
-  { href: '/watchlist', icon: List, label: 'Akıllı Takip', section: 'watchlist' },
+  {
+    href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured',
+    children: [
+      { href: '/featured', icon: Star, label: 'Günlük Seçimler' },
+      { href: '/featured/backtest', icon: History, label: 'Backtest' },
+    ],
+  },
   { href: '/insider', icon: UserCheck, label: 'Insider', section: 'insider' },
-  { href: '/news', icon: Newspaper, label: 'Haberler', section: 'news' },
+  { href: '/news', icon: Newspaper, label: 'Şirket Haberleri', section: 'news' },
   { href: '/world-markets', icon: Globe2, label: 'Dünya Borsaları', section: 'world-markets' },
-  { href: '/stock-analysis', icon: BarChart3, label: 'Hisse Analiz', section: 'stock-analysis' },
+  { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'pro' },
   { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'pro' },
   { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'pro' },
+  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'pro' },
   { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'pro' },
   { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'pro' },
   { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
@@ -267,19 +273,6 @@ export function Sidebar() {
             >
               <Shield className="w-4 h-4" />
               <span>Yönetim Paneli</span>
-            </Link>
-            <Link
-              href="/featured/backtest"
-              onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-all duration-200 mt-0.5',
-                pathname === '/featured/backtest'
-                  ? 'bg-finma-primary/15 text-finma-primary'
-                  : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5'
-              )}
-            >
-              <History className="w-4 h-4" />
-              <span>Backtest (Admin)</span>
             </Link>
           </div>
         )}
