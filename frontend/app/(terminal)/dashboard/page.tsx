@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { HUDMetrics, RiskBanner } from '@/components/terminal/HUDMetrics'
+import { HUDMetrics } from '@/components/terminal/HUDMetrics'
+import { ScreenerPreview } from '@/components/terminal/ScreenerPreview'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { Badge, ActionBadge, sectorLabel } from '@/components/shared/Badge'
@@ -431,9 +432,6 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Risk Banner */}
-      <RiskBanner vix={vix} />
-
       {/* Komuta Merkezi — sadece Pro+ */}
       {isPro && (
         <div>
@@ -690,7 +688,10 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 4. AKILLI PARA AKIŞI ═══════════════ */}
+      {/* ═══════════════ 4. SCREENER SONUÇLARI ═══════════════ */}
+      <ScreenerPreview />
+
+      {/* ═══════════════ 5. AKILLI PARA AKIŞI ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Building2 className="w-5 h-5 text-finma-green" />
@@ -751,7 +752,7 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 5. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
+      {/* ═══════════════ 6. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center flex-wrap gap-2 pb-3 border-b border-finma-border">
           <Globe2 className="w-5 h-5 text-finma-yellow" />
