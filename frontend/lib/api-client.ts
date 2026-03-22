@@ -229,6 +229,16 @@ class APIClient {
     }>(`/api/market/history/${ticker}`)
   }
 
+  async getTickerHistory(ticker: string, interval = '1d', period = '1y') {
+     const res = await this.request<{
+       history: Array<{ time: number|string; open: number; high: number; low: number; close: number; volume: number }>;
+       ticker: string;
+       period: string;
+       interval: string;
+     }>(`/api/market/history/${ticker}?interval=${interval}&period=${period}`)
+     return res.history
+  }
+
   async getHolders(ticker: string) {
     return this.request<{
       institutional: Array<{ holder: string; shares: number; value: number; pct: number; date: string }>;

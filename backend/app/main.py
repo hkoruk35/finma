@@ -5,6 +5,7 @@ FastAPI + yfinance + Gemini AI + APScheduler + Telegram
 
 import logging
 import os
+import asyncio
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware

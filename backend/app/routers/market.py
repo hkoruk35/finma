@@ -88,12 +88,7 @@ def get_sectors(period: str = Query("1mo", description="Periyot: 1d, 5d, 1mo, 3m
     return get_sector_performance(period)
 
 
-@router.get("/movers")
-def get_movers(tab: str = Query("gainers", description="Tab: gainers, losers, volume")):
-    """Piyasa hareketleri: Yükselenler, Düşenler, Yüksek Hacim (3 sekme)"""
-    # Map tab to period for backward compatibility
-    period = "1d" if tab in ["gainers", "losers", "volume"] else "1d"
-    return get_market_movers(period)
+    # (get_movers was here, removed)
 
 
 @router.get("/regime")
@@ -299,43 +294,36 @@ async def get_exchange_detail(exchange_id: str):
 
 
 @router.get("/movers")
-def get_movers(
-    tab: str = Query("gainers", description="gainers|losers|volume|opportunities"),
+def get_movers_v2(
     period: str = Query("1d"),
     limit: int = Query(10, ge=5, le=30),
 ):
-    """4-tab piyasa hareketleri: gainers, losers, volume, opportunities"""
+    """
+    Get All Market Movers (Gainers, Losers, Volume, Opportunities) in one call.
+    Maintains Dashboard compatibility for V5.0.
+    """
     import json as _json
     import os as _os
-
-    if tab == "opportunities":
-        # swing113 latest fırsatlarını döndür
-        swing113_path = _os.path.abspath(_os.path.join("bots", "output", "swing113_latest.json"))
-        if _os.path.exists(swing113_path):
-            try:
-                with open(swing113_path, "r", encoding="utf-8") as f:
-                    data = _json.load(f)
-                opportunities = data.get("opportunities", [])[:limit]
-                return {
-                    "tab": "opportunities",
-                    "items": opportunities,
-                    "updated_at": data.get("run_at"),
-                    "total": len(data.get("opportunities", [])),
-                }
-            except Exception:
-                pass
-        return {"tab": "opportunities", "items": [], "updated_at": None, "total": 0}
-
+    
+    # 1. Fetch standard movers (gainers, losers, active)
     raw = get_market_movers(period)
-    tab_map = {
-        "gainers": raw.get("gainers", []),
-        "losers": raw.get("losers", []),
-        "volume": raw.get("most_active", raw.get("volume", [])),
-    }
-    items = tab_map.get(tab, tab_map["gainers"])[:limit]
+    
+    # 2. Fetch opportunities (from bot output)
+    opportunities = []
+    swing113_path = _os.path.abspath(_os.path.join("bots", "output", "swing113_latest.json"))
+    if _os.path.exists(swing113_path):
+        try:
+            with open(swing113_path, "r", encoding="utf-8") as f:
+                data = _json.load(f)
+            opportunities = data.get("opportunities", [])[:limit]
+        except Exception:
+            pass
+
     return {
-        "tab": tab,
-        "items": items,
-        "updated_at": raw.get("timestamp"),
-        "total": len(items),
+        "gainers": raw.get("gainers", [])[:limit],
+        "losers": raw.get("losers", [])[:limit],
+        "volume": raw.get("most_active", raw.get("volume", []))[:limit],
+        "opportunities": opportunities,
+        "timestamp": raw.get("timestamp"),
+        "period": period
     }

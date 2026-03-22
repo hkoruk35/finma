@@ -617,10 +617,8 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* Piyasa Bağlamı (Komuta altında, %30 küçültülmüş) */}
-      <div className="scale-75 origin-top-left -ml-[25%]">
-        <MarketContext indices={indices} />
-      </div>
+      {/* Piyasa Bağlamı */}
+      <MarketContext indices={indices} />
 
       {/* ═══════════════ 2. PİYASA HAREKETLERİ & HISSE TARAMA ═══════════════ */}
       
