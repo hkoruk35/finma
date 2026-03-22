@@ -661,8 +661,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Sekmeler */}
-        <div className="flex items-center gap-2 mt-3 mb-3 flex-wrap">
-          <div className="flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
+        <div className="flex items-center gap-2 mt-3 mb-3 overflow-x-auto">
+          <div className="flex bg-finma-bg rounded-lg p-0.5 gap-0.5 shrink-0">
             {([
               { key: 'opportunities', label: 'Günün Fîrsatları', icon: Star, color: 'text-finma-yellow' },
               { key: 'gainers', label: 'Yükselenler', icon: TrendingUp, color: 'text-finma-green' },
@@ -685,7 +685,7 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
+          <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5 shrink-0">
             {(['1d', '1w', '1m', '1y'] as const).map(p => (
               <button
                 key={p}
