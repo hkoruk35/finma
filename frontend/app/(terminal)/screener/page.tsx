@@ -8,7 +8,7 @@ import { useAuthStore } from '@/store/auth'
 import {
   Search, Filter, RefreshCw, TrendingUp, TrendingDown, BarChart3,
   Lock, ChevronDown, AlertCircle, Star, Zap, Eye, X, Grid3x3, List, Table2,
-  DollarSign, Gauge, Flame, Lightning,
+  DollarSign, Gauge,
   LayoutGrid, Plus, Settings2, Check, CheckSquare, Square, Download,
   BookmarkPlus, Maximize2, ArrowRight
 } from 'lucide-react'
