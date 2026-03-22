@@ -1,14 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Card } from '@/components/shared/Card'
 import { cn } from '@/lib/utils'
-import { formatCurrency, getPnlColor } from '@/lib/utils'
+import { formatCurrency, formatPercent, getPnlColor } from '@/lib/utils'
 import type { PortfolioSnapshot } from '@/types'
-import { Wallet, TrendingUp, TrendingDown, BarChart3, DollarSign, Shield, AlertTriangle, ShieldCheck, ShieldAlert, Info, Users } from 'lucide-react'
-import { useAuthStore } from '@/store/auth'
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+import { Wallet, TrendingUp, TrendingDown, BarChart3, DollarSign, Shield, AlertTriangle, ShieldCheck, ShieldAlert, Info } from 'lucide-react'
 
 interface HUDMetricsProps {
   data: PortfolioSnapshot
@@ -17,82 +13,122 @@ interface HUDMetricsProps {
 interface MetricCardProps {
   label: string
   value: string
-  sub?: string
-  subColor?: string
+  change?: number
+  changeSuffix?: string
   icon: React.ReactNode
   highlight?: boolean
 }
 
-function MetricCard({ label, value, sub, subColor, icon, highlight }: MetricCardProps) {
+function MetricCard({ label, value, change, changeSuffix = '%', icon, highlight }: MetricCardProps) {
   return (
-    <div className={cn(
-      'flex flex-col gap-1 px-3 py-2 rounded-lg border bg-finma-surface',
-      highlight ? 'border-finma-primary/40' : 'border-finma-border/60'
-    )}>
+    <Card padding="sm" className={cn('flex flex-col gap-1.5', highlight && 'border-finma-primary/30')}>
       <div className="flex items-center justify-between">
-        <span className="text-[10px] text-finma-text-dim uppercase tracking-wider font-medium truncate">
+        <span className="text-[11px] text-finma-text-dim uppercase tracking-wider font-medium">
           {label}
         </span>
-        <span className="text-finma-text-dim shrink-0 ml-1">{icon}</span>
+        <span className="text-finma-text-dim">{icon}</span>
       </div>
-      <div className="finma-number text-sm font-bold text-white leading-none">
+      <div className="finma-number text-xl font-bold text-white">
         {value}
       </div>
-      {sub && (
-        <div className={cn('finma-number text-[10px] font-medium', subColor || 'text-finma-text-dim')}>
-          {sub}
+      {change !== undefined && (
+        <div className={cn('finma-number text-xs font-medium', getPnlColor(change))}>
+          {change >= 0 ? '▲' : '▼'} {Math.abs(change).toFixed(2)}{changeSuffix}
         </div>
       )}
-    </div>
+    </Card>
   )
 }
 
 export function HUDMetrics({ data }: HUDMetricsProps) {
-  const { canAccess } = useAuthStore()
-  const isAdmin = canAccess('admin')
-  const [adminStats, setAdminStats] = useState<any>(null)
-
-  useEffect(() => {
-    if (!isAdmin) return
-    const token = localStorage.getItem('finma_token')
-    if (!token) return
-    fetch(`${API_URL}/api/auth/admin/stats`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) setAdminStats(d) })
-      .catch(() => {})
-  }, [isAdmin])
-
-  const metrics = isAdmin && adminStats ? [
-    { label: 'Toplam Kullanıcı', value: adminStats.total_users?.toString() ?? '—', icon: <Users className="w-3 h-3" />, sub: `Pro: ${adminStats.pro_users ?? 0}`, subColor: 'text-finma-primary' },
-    { label: 'Aktif Üye', value: adminStats.active_users?.toString() ?? '—', icon: <Users className="w-3 h-3" /> },
-    { label: 'Toplam Trade', value: adminStats.total_trades?.toString() ?? '—', icon: <BarChart3 className="w-3 h-3" /> },
-    { label: 'Günlük Sinyal', value: adminStats.signals_today?.toString() ?? '—', icon: <TrendingUp className="w-3 h-3" /> },
-    { label: 'Bot Durumu', value: adminStats.bots_running ?? '—', icon: <Shield className="w-3 h-3" /> },
-  ] : [
-    { label: 'Net Likidite', value: formatCurrency(data.net_liquidation), icon: <Wallet className="w-3 h-3" />, highlight: true, sub: data.current_24h_pnl >= 0 ? `▲ ${Math.abs(data.current_24h_pnl).toFixed(2)}%` : `▼ ${Math.abs(data.current_24h_pnl).toFixed(2)}%`, subColor: getPnlColor(data.current_24h_pnl) },
-    { label: 'Günlük PnL', value: formatCurrency(data.current_24h_pnl), icon: <TrendingUp className="w-3 h-3" />, subColor: getPnlColor(data.current_24h_pnl) },
-    { label: '7 Gün PnL', value: formatCurrency(data.last_7_days_pnl), icon: <BarChart3 className="w-3 h-3" />, subColor: getPnlColor(data.last_7_days_pnl) },
-    { label: 'Aylık PnL', value: formatCurrency(data.mtd_pnl), icon: <TrendingDown className="w-3 h-3" /> },
-    { label: 'Yıllık PnL', value: formatCurrency(data.ytd_pnl), icon: <TrendingUp className="w-3 h-3" /> },
-    { label: 'Nakit', value: formatCurrency(data.cash_available), icon: <DollarSign className="w-3 h-3" /> },
-    { label: 'Marjin', value: formatCurrency(data.margin_used), icon: <Shield className="w-3 h-3" /> },
-  ]
-
+  // %30 küçültme: 7'den 5'ye indir
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
-      {metrics.map((m: any) => (
-        <MetricCard
-          key={m.label}
-          label={m.label}
-          value={m.value}
-          sub={m.sub}
-          subColor={m.subColor}
-          icon={m.icon}
-          highlight={m.highlight}
-        />
-      ))}
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
+      <MetricCard
+        label="Net Likidite"
+        value={formatCurrency(data.net_liquidation)}
+        change={0.05}
+        icon={<Wallet className="w-3.5 h-3.5" />}
+        highlight
+      />
+      <MetricCard
+        label="Günlük PnL"
+        value={formatCurrency(data.current_24h_pnl)}
+        change={data.current_24h_pnl}
+        changeSuffix="%"
+        icon={<TrendingUp className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="7 Gün PnL"
+        value={formatCurrency(data.last_7_days_pnl)}
+        change={data.last_7_days_pnl}
+        changeSuffix="%"
+        icon={<BarChart3 className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Nakit"
+        value={formatCurrency(data.cash_available)}
+        icon={<DollarSign className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Marjin"
+        value={formatCurrency(data.margin_used)}
+        icon={<Shield className="w-3.5 h-3.5" />}
+      />
+    </div>
+  )
+}
+
+// Admin versiyonu - global istatistikler
+interface AdminHUDProps {
+  totalUsers: number
+  freeUsers: number
+  proUsers: number
+  activeTrades: number
+  botsRunning: string
+  totalRevenue: number
+}
+
+export function AdminHUDMetrics({ totalUsers, freeUsers, proUsers, activeTrades, botsRunning, totalRevenue }: AdminHUDProps) {
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
+      <MetricCard
+        label="Toplam Üyeler"
+        value={totalUsers.toString()}
+        change={((proUsers / totalUsers) * 100)}
+        changeSuffix="% Pro"
+        icon={<Wallet className="w-3.5 h-3.5" />}
+        highlight
+      />
+      <MetricCard
+        label="Free Üyeler"
+        value={freeUsers.toString()}
+        change={((freeUsers / totalUsers) * 100)}
+        changeSuffix="%"
+        icon={<Shield className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Pro Üyeler"
+        value={proUsers.toString()}
+        change={((proUsers / totalUsers) * 100)}
+        changeSuffix="%"
+        icon={<TrendingUp className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Aktif İşlem"
+        value={activeTrades.toString()}
+        icon={<BarChart3 className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Boş Çalışan"
+        value={botsRunning}
+        icon={<DollarSign className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Aylık Gelir"
+        value={formatCurrency(totalRevenue)}
+        icon={<TrendingUp className="w-3.5 h-3.5" />}
+      />
     </div>
   )
 }
