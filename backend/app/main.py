@@ -11,7 +11,7 @@ from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.routers import auth, market, signals, portfolio, ai, telegram, invite
-from app.routers import notifications, watchlist, screener, events
+from app.routers import notifications, watchlist, screener, events, chart
 from app.ws.price_feed import websocket_endpoint
 
 # Configure logging
@@ -121,6 +121,7 @@ app.include_router(notifications.router, prefix="/api/notifications", tags=["Not
 app.include_router(watchlist.router, prefix="/api/watchlist", tags=["Smart Watchlist"])
 app.include_router(screener.router, prefix="/api/screener", tags=["Screener"])
 app.include_router(events.router, prefix="/api/events", tags=["Real-time Events"])
+app.include_router(chart.router, tags=["Charts"])
 
 
 # ─── Root Endpoints ───
