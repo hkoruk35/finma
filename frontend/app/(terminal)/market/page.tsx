@@ -34,7 +34,7 @@ const sectorLeaders: Record<string, string[]> = {
 }
 
 export default function MarketPage() {
-  const { setChartSymbol } = useTerminalStore()
+  const { chartSymbol, setChartSymbol } = useTerminalStore()
   const { data: indicesData } = useIndices()
   const { data: sectorsData } = useSectors('1mo')
 
