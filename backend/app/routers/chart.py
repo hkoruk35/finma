@@ -1,4 +1,4 @@
-"""Chart Router — FinMA Native Chart Engine"""
+"""Chart Router — FinMA Native Chart Engine (Public Endpoint)"""
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from typing import Optional
