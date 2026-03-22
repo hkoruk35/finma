@@ -9,6 +9,9 @@ import { usePortfolioSummary, useTrades } from '@/hooks/usePortfolio'
 import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useSectors, useMarketMovers, useRegime } from '@/hooks/useMarketData'
 import { useIntelligence } from '@/hooks/useIntelligence'
+import { useEventStream } from '@/hooks/useEventStream'
+import { GraphicEngine } from '@/components/terminal/GraphicEngine'
+import { BacktestDashboard } from '@/components/admin/BacktestDashboard'
 import {
   mockPortfolio, mockSignals, mockTrades, mockIndices
 } from '@/lib/mock-data'
@@ -305,6 +308,7 @@ export default function DashboardPage() {
 
   const { data: moversData, isLoading: moversLoading, isError: moversError } = useMarketMovers(moversPeriod)
   const { data: intel, loading: intelLoading } = useIntelligence()
+  const { lastEvent } = useEventStream()
 
   // Canlı fiyatlar — top10 + movers tickers için batch quote
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
@@ -341,6 +345,19 @@ export default function DashboardPage() {
   const [adminStats, setAdminStats] = useState<any>(null)
   // const [moversLoading, setMoversLoading] = useState(false) // Now from useMarketMovers
   // const [moversError, setMoversError] = useState(false) // Now from useMarketMovers
+
+  // Canlı SSE Güncellemelerini Dinle
+  useEffect(() => {
+    if (!lastEvent) return
+
+    if (lastEvent.type === 'PRICE_UPDATE') {
+      const { symbol, price, change, change_pct } = lastEvent.data
+      setLiveQuotes(prev => ({
+        ...prev,
+        [symbol]: { price, change, change_pct }
+      }))
+    }
+  }, [lastEvent])
 
   // 5 dakikada bir otomatik güncelleme (zaman damgası için)
   useEffect(() => {
@@ -515,12 +532,19 @@ export default function DashboardPage() {
     <div className="space-y-4 animate-fade-in">
       {/* Komuta Merkezi — Pro+ ve Admin */}
       {(isPro || isAdmin) && (
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-sm font-semibold text-finma-text">
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-sm font-semibold text-finma-text uppercase tracking-widest">
               {isAdmin ? 'Komuta Merkezi — Admin' : 'Komuta Merkezi'}
             </span>
           </div>
+          
+          {isAdmin && (
+            <div className="mb-4">
+               <BacktestDashboard />
+            </div>
+          )}
+
           {isAdmin && adminStats ? (
             <AdminHUDMetrics
               totalUsers={adminStats.total_users}
@@ -599,6 +623,12 @@ export default function DashboardPage() {
       </div>
 
       {/* ═══════════════ 2. PİYASA HAREKETLERİ & HISSE TARAMA ═══════════════ */}
+      
+      {/* NATIVE GRAPHIC HERO (New for V5.0) */}
+      <div className="mb-4">
+        <GraphicEngine ticker="NVDA" initialTimeframe="1h" height={320} />
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {/* Piyasa Hareketleri */}
         <Card padding="sm">

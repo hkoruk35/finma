@@ -10,7 +10,7 @@ from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.routers import auth, market, signals, portfolio, ai, telegram, invite
-from app.routers import notifications, watchlist, screener
+from app.routers import notifications, watchlist, screener, events
 from app.ws.price_feed import websocket_endpoint
 
 # Configure logging
@@ -25,7 +25,12 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Startup and shutdown events"""
     settings = get_settings()
-    logger.info(f"🚀 {settings.app_name} v4.0 starting...")
+    logger.info(f"🚀 {settings.app_name} v5.0 starting...")
+    
+    # Start SSE Runner (Redis -> SSE Bridge)
+    from app.services.sse_runner import sse_runner
+    asyncio.create_task(sse_runner.start())
+    logger.info("📡 SSE Multi-Stream Runner started")
     logger.info(f"📡 Frontend URL: {settings.frontend_url}")
     logger.info(f"🤖 Gemini API: {'✅ Configured' if settings.gemini_api_key else '❌ Not set'}")
     logger.info(f"📱 Telegram: {'✅ Configured' if settings.telegram_bot_token else '❌ Not set'}")
@@ -114,6 +119,7 @@ app.include_router(invite.router, prefix="/api/invite", tags=["Invite"])
 app.include_router(notifications.router, prefix="/api/notifications", tags=["Notifications"])
 app.include_router(watchlist.router, prefix="/api/watchlist", tags=["Smart Watchlist"])
 app.include_router(screener.router, prefix="/api/screener", tags=["Screener"])
+app.include_router(events.router, prefix="/api/events", tags=["Real-time Events"])
 
 
 # ─── Root Endpoints ───
@@ -122,7 +128,7 @@ app.include_router(screener.router, prefix="/api/screener", tags=["Screener"])
 async def root():
     return {
         "name": "FinMA API",
-        "version": "4.0.0",
+        "version": "5.0.0",
         "status": "operational",
         "docs": "/docs",
         "endpoints": {
