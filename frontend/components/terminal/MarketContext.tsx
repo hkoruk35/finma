@@ -139,7 +139,7 @@ export function MarketContext({ indices, onSelectChart }: MarketContextProps) {
     const rect = e.currentTarget.getBoundingClientRect()
     if (isMobile) {
       if (tappedSymbol === symbol) {
-        // setChartSymbol otomatik olarak toTvSymbol() uygular (store seviyesinde)
+        // Grafik sembolünü güncelle
         setChartSymbol(symbol)
         onSelectChart?.(symbol)
         setSelectedSymbol(symbol)

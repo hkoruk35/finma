@@ -10,7 +10,7 @@ import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useSectors, useMarketMovers, useRegime } from '@/hooks/useMarketData'
 import { useIntelligence } from '@/hooks/useIntelligence'
 import { useEventStream } from '@/hooks/useEventStream'
-import { NativeChart } from '@/components/terminal/NativeChart'
+import { FinMAChart } from '@/components/terminal/FinMAChart'
 import { BacktestDashboard } from '@/components/admin/BacktestDashboard'
 import {
   mockPortfolio, mockSignals, mockTrades, mockIndices
@@ -624,9 +624,9 @@ export default function DashboardPage() {
 
       {/* ═══════════════ 2. PİYASA HAREKETLERİ & HISSE TARAMA ═══════════════ */}
       
-      {/* NATIVE CHART (FinMA Chart Engine) */}
-      <div className="mb-4 h-[320px]">
-        <NativeChart ticker={chartSymbol} period="1y" interval="1d" className="h-full" />
+      {/* FinMA Interactive Chart Engine */}
+      <div className="mb-4">
+        <FinMAChart ticker={chartSymbol} height={380} showControls={true} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">

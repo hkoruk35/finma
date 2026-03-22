@@ -119,7 +119,7 @@ export default function SettingsPage() {
                 'AI destekli hisse analizi',
                 'İşlem açma/kapama & portföy yönetimi',
                 'Piyasa istihbaratı & rejim analizi',
-                'TradingView grafikleri',
+                'Profesyonel interaktif grafikler',
               ].map((feat) => (
                 <div key={feat} className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-finma-green shrink-0" />

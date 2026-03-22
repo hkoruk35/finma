@@ -62,7 +62,7 @@ const features = [
   {
     icon: LineChart,
     title: 'Profesyonel Grafikler',
-    desc: 'TradingView entegrasyonu ile gelişmiş teknik analiz araçları.',
+    desc: 'FinMA grafik motoru ile gelişmiş teknik analiz araçları.',
   },
   {
     icon: Zap,
@@ -81,7 +81,7 @@ const proFeatures = [
   'Günlük 10 öne çıkan hisse seçimi',
   'Piyasa istihbaratı & rejim analizi',
   'İşlem açma/kapama & portföy yönetimi',
-  'Profesyonel TradingView grafikleri',
+  'Profesyonel interaktif grafikler',
   'Sektör heatmap & para akışı verileri',
   'Dünya nın ekonomik takibi.',
   'Telegram bildirim entegrasyonu',

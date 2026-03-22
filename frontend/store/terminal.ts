@@ -12,11 +12,7 @@ interface TerminalState {
   setMobileMenuOpen: (open: boolean) => void
   setActiveSection: (section: string) => void
   setSelectedTicker: (ticker: string) => void
-  /**
-   * Sets the TradingView chart symbol.
-   * Automatically converts to exchange-prefixed format via toTvSymbol().
-   * Safe to call with raw symbols like 'SPX', 'BTC', 'XLK', 'NVDA' etc.
-   */
+  /** Sets the chart symbol for FinMA Chart Engine. */
   setChartSymbol: (symbol: string) => void
 }
 

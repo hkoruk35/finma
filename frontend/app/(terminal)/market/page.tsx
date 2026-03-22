@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { NativeChart } from '@/components/terminal/NativeChart'
+import { FinMAChart } from '@/components/terminal/FinMAChart'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { mockIndices } from '@/lib/mock-data'
@@ -80,11 +80,9 @@ export default function MarketPage() {
       {/* Piyasa Bağlamı — hover ile grafik değişir */}
       <MarketContext indices={indices} />
 
-      {/* Grafik */}
-      <div
-        className="w-full h-[300px] md:h-[460px]"
-      >
-        <NativeChart ticker={chartSymbol} period="1y" interval="1d" className="h-full" />
+      {/* FinMA Interactive Chart */}
+      <div className="w-full">
+        <FinMAChart ticker={chartSymbol} height={460} showControls={true} />
       </div>
 
       {/* Sektörel Özet */}

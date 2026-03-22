@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { NativeChart } from '@/components/terminal/NativeChart'
+import { FinMAChart } from '@/components/terminal/FinMAChart'
 import { Card } from '@/components/shared/Card'
 import { useTerminalStore } from '@/store/terminal'
 import { LineChart, Maximize2, Minimize2, Grid3x3, Clock, LayoutGrid, Columns2 } from 'lucide-react'
@@ -142,7 +142,7 @@ export default function ChartsPage() {
             isFullscreen ? 'fixed inset-4 z-50' : 'h-[350px] md:h-[550px]'
           )}
         >
-          <NativeChart ticker={chartSymbol} period="1y" interval="1d" className="h-full" />
+          <FinMAChart ticker={chartSymbol} height={550} showControls={true} />
         </div>
       ) : (
         <div className={cn(
@@ -181,7 +181,7 @@ export default function ChartsPage() {
                   </select>
                 </div>
                 <div style={{ height: 'calc(100% - 32px)' }}>
-                  <NativeChart ticker={sym} period="1y" interval="1d" className="h-full" />
+                  <FinMAChart ticker={sym} height={chartMode === 'dual' ? 380 : 280} showControls={false} />
                 </div>
               </div>
             )
