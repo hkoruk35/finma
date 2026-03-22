@@ -9,7 +9,8 @@ import {
   Search, Filter, RefreshCw, TrendingUp, TrendingDown, BarChart3,
   Lock, ChevronDown, AlertCircle, Star, Zap, Eye, X, Grid3x3, List, Table2,
   DollarSign, TrendIcon, Gauge, Flame, Lightning,
-  LayoutGrid, Plus, Settings2
+  LayoutGrid, Plus, Settings2, Check, CheckSquare, Square, Download,
+  BookmarkPlus, Maximize2, ArrowRight
 } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
@@ -23,12 +24,19 @@ interface ScreenerResult {
   change_pct: number
   market_cap?: number
   reason: string
+  performance_7d?: number[]
 }
 
 interface ActiveFilter {
   id: string
   label: string
   value: any
+}
+
+interface ColumnDef {
+  id: string
+  label: string
+  enabled: boolean
 }
 
 const SECTORS = ['Tümü', 'Technology', 'Energy', 'Healthcare', 'Financials', 'Consumer', 'Industrials', 'Materials', 'Utilities']
@@ -86,6 +94,25 @@ const PRESETS = [
   },
 ]
 
+// Available columns for customization
+const AVAILABLE_COLUMNS: ColumnDef[] = [
+  { id: 'ticker', label: 'Hisse', enabled: true },
+  { id: 'company_name', label: 'Şirket Adı', enabled: true },
+  { id: 'sector', label: 'Sektör', enabled: true },
+  { id: 'price', label: 'Fiyat', enabled: true },
+  { id: 'change', label: 'Değişim %', enabled: true },
+  { id: 'sparkline', label: 'Performans', enabled: true },
+  { id: 'score', label: 'Skor', enabled: true },
+  { id: 'gauge', label: 'Signal Gauge', enabled: true },
+]
+
+// Scan limits by tier
+const SCAN_LIMITS = {
+  free: { scans_per_week: 2, scans_per_day: 1 },
+  pro: { scans_per_week: 10, scans_per_day: 5 },
+  admin: { scans_per_week: 999, scans_per_day: 999 }
+}
+
 export default function ScreenerPage() {
   const router = useRouter()
   const { canAccess, user } = useAuthStore()
@@ -98,6 +125,9 @@ export default function ScreenerPage() {
   const [viewMode, setViewMode] = useState<'list' | 'heatmap' | 'table'>('list')
   const [activeTab, setActiveTab] = useState<'basics' | 'value' | 'trend'>('basics')
   const [credits, setCredits] = useState<{ remaining: number; limit: number } | null>(null)
+  const [columns, setColumns] = useState<ColumnDef[]>(AVAILABLE_COLUMNS)
+  const [selectedTickers, setSelectedTickers] = useState<string[]>([])
+  const [showColumnSettings, setShowColumnSettings] = useState(false)
 
   // Filters state
   const [activeFilters, setActiveFilters] = useState<ActiveFilter[]>([])
@@ -200,6 +230,89 @@ export default function ScreenerPage() {
     return 'text-finma-text-muted bg-finma-border/10'
   }
 
+  // Mini Sparkline Component
+  const MiniSparkline = ({ data }: { data?: number[] }) => {
+    if (!data || data.length === 0) {
+      return <span className="text-[10px] text-finma-text-dim">—</span>
+    }
+    const trend = data[data.length - 1] - data[0]
+    return (
+      <div className="flex items-center gap-1">
+        {trend >= 0 ? (
+          <TrendingUp className="w-3 h-3 text-finma-green" />
+        ) : (
+          <TrendingDown className="w-3 h-3 text-finma-red" />
+        )}
+        <span className={cn('text-[10px] font-medium finma-number', trend >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+          {trend >= 0 ? '+' : ''}{trend.toFixed(1)}%
+        </span>
+      </div>
+    )
+  }
+
+  // Signal Score Gauge Component
+  const SignalGauge = ({ score }: { score: number }) => {
+    const percentage = (score / 100) * 100
+    const gaugeColor = score >= 80 ? 'finma-green' : score >= 65 ? 'finma-primary' : score >= 50 ? 'finma-yellow' : 'finma-red'
+
+    return (
+      <div className="flex items-center gap-2">
+        <div className="w-12 h-2 bg-finma-border/20 rounded-full overflow-hidden">
+          <div
+            className={cn('h-full bg-gradient-to-r rounded-full transition-all duration-300',
+              score >= 80 ? 'from-finma-green to-finma-green/60' :
+              score >= 65 ? 'from-finma-primary to-finma-primary/60' :
+              score >= 50 ? 'from-finma-yellow to-finma-yellow/60' :
+              'from-finma-red to-finma-red/60'
+            )}
+            style={{ width: `${percentage}%` }}
+          />
+        </div>
+        <span className={cn('text-[10px] font-bold finma-number w-8 text-right',
+          score >= 80 ? 'text-finma-green' :
+          score >= 65 ? 'text-finma-primary' :
+          score >= 50 ? 'text-finma-yellow' :
+          'text-finma-red'
+        )}>
+          {score.toFixed(0)}
+        </span>
+      </div>
+    )
+  }
+
+  const toggleSelectAll = () => {
+    if (selectedTickers.length === results.length) {
+      setSelectedTickers([])
+    } else {
+      setSelectedTickers(results.map(r => r.ticker))
+    }
+  }
+
+  const toggleSelect = (ticker: string) => {
+    setSelectedTickers(prev =>
+      prev.includes(ticker) ? prev.filter(t => t !== ticker) : [...prev, ticker]
+    )
+  }
+
+  const bulkAddToWatchlist = async () => {
+    for (const ticker of selectedTickers) {
+      try {
+        const token = localStorage.getItem('finma_token')
+        await fetch(`${API_URL}/api/watchlist/add`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({ ticker })
+        })
+      } catch (err) {
+        console.error(`Failed to add ${ticker} to watchlist:`, err)
+      }
+    }
+    setSelectedTickers([])
+  }
+
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Header */}
@@ -211,16 +324,63 @@ export default function ScreenerPage() {
             <p className="text-xs text-finma-text-dim">Gelişmiş Filtreleme Motoru</p>
           </div>
         </div>
-        {credits && (
-          <div className={cn(
-            'flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs',
-            credits.remaining > 0 ? 'border-finma-primary/30 bg-finma-primary/5 text-finma-primary' : 'border-finma-red/30 bg-finma-red/5 text-finma-red'
-          )}>
-            <Zap className="w-3.5 h-3.5" />
-            {isAdmin ? 'Sınırsız' : `${credits.remaining}/${credits.limit}`}
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowColumnSettings(!showColumnSettings)}
+            className="p-2 rounded border border-finma-border/30 hover:bg-finma-primary/10 transition-colors"
+            title="Sütunları Özelleştir"
+          >
+            <Settings2 className="w-4 h-4 text-finma-text-muted" />
+          </button>
+          {credits && (
+            <div className={cn(
+              'flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs',
+              credits.remaining > 0 ? 'border-finma-primary/30 bg-finma-primary/5 text-finma-primary' : 'border-finma-red/30 bg-finma-red/5 text-finma-red'
+            )}>
+              <Zap className="w-3.5 h-3.5" />
+              <span>
+                {isAdmin ? 'Sınırsız' : `${credits.remaining}/${SCAN_LIMITS[user?.subscription_tier as keyof typeof SCAN_LIMITS]?.scans_per_week || 2}`}
+                {!isAdmin && <span className="text-[10px] ml-1 text-finma-text-dim">/hafta</span>}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* Column Customization Panel */}
+      {showColumnSettings && (
+        <Card padding="sm">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-bold text-finma-text">Sütun Ayarları</span>
+            <button onClick={() => setShowColumnSettings(false)} className="text-finma-text-dim hover:text-finma-text">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {columns.map(col => (
+              <button
+                key={col.id}
+                onClick={() => setColumns(columns.map(c => c.id === col.id ? { ...c, enabled: !c.enabled } : c))}
+                className={cn(
+                  'px-2.5 py-1.5 rounded text-xs font-medium border transition-colors',
+                  col.enabled
+                    ? 'bg-finma-primary/20 text-finma-primary border-finma-primary/30'
+                    : 'bg-finma-border/20 text-finma-text-muted border-finma-border/30'
+                )}
+              >
+                <div className="flex items-center gap-1.5">
+                  {col.enabled ? (
+                    <CheckSquare className="w-3.5 h-3.5" />
+                  ) : (
+                    <Square className="w-3.5 h-3.5" />
+                  )}
+                  {col.label}
+                </div>
+              </button>
+            ))}
+          </div>
+        </Card>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
         {/* Left: Filters */}
@@ -567,6 +727,39 @@ export default function ScreenerPage() {
             </Card>
           )}
 
+          {/* Bulk Actions Bar */}
+          {selectedTickers.length > 0 && (
+            <Card padding="sm" className="bg-finma-primary/5 border-finma-primary/30">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold text-finma-text">
+                  {selectedTickers.length} hisse seçildi
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={bulkAddToWatchlist}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30 border border-finma-primary/30 transition-colors"
+                  >
+                    <BookmarkPlus className="w-3.5 h-3.5" />
+                    Takip Listesine Ekle
+                  </button>
+                  <button
+                    onClick={() => router.push(`/portfolio?add=${selectedTickers.join(',')}`)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30 border border-finma-primary/30 transition-colors"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Portföye Ekle
+                  </button>
+                  <button
+                    onClick={() => setSelectedTickers([])}
+                    className="px-2.5 py-1.5 rounded text-xs text-finma-text-dim hover:text-finma-text"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </Card>
+          )}
+
           {/* View Switcher & Results Header */}
           <Card padding="sm">
             <div className="flex items-center justify-between mb-3 pb-3 border-b border-finma-border">
@@ -577,44 +770,61 @@ export default function ScreenerPage() {
                 </span>
               </div>
 
-              {/* View Mode Switcher */}
-              <div className="flex gap-1 bg-finma-border/20 rounded p-1">
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={cn(
-                    'p-1.5 rounded transition-colors',
-                    viewMode === 'list'
-                      ? 'bg-finma-primary text-white'
-                      : 'text-finma-text-dim hover:text-finma-text'
-                  )}
-                  title="Liste Görünümü"
-                >
-                  <List className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setViewMode('heatmap')}
-                  className={cn(
-                    'p-1.5 rounded transition-colors',
-                    viewMode === 'heatmap'
-                      ? 'bg-finma-primary text-white'
-                      : 'text-finma-text-dim hover:text-finma-text'
-                  )}
-                  title="Isı Haritası"
-                >
-                  <Grid3x3 className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setViewMode('table')}
-                  className={cn(
-                    'p-1.5 rounded transition-colors',
-                    viewMode === 'table'
-                      ? 'bg-finma-primary text-white'
-                      : 'text-finma-text-dim hover:text-finma-text'
-                  )}
-                  title="Detaylı Tablo"
-                >
-                  <Table2 className="w-4 h-4" />
-                </button>
+              <div className="flex items-center gap-2">
+                {/* Select All Checkbox (for table view) */}
+                {viewMode === 'table' && results.length > 0 && (
+                  <button
+                    onClick={toggleSelectAll}
+                    className="p-1.5 hover:bg-finma-border/20 rounded transition-colors"
+                    title={selectedTickers.length === results.length ? "Tüm seçimi kaldır" : "Tümünü seç"}
+                  >
+                    {selectedTickers.length === results.length ? (
+                      <CheckSquare className="w-4 h-4 text-finma-primary" />
+                    ) : (
+                      <Square className="w-4 h-4 text-finma-text-dim" />
+                    )}
+                  </button>
+                )}
+
+                {/* View Mode Switcher */}
+                <div className="flex gap-1 bg-finma-border/20 rounded p-1">
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={cn(
+                      'p-1.5 rounded transition-colors',
+                      viewMode === 'list'
+                        ? 'bg-finma-primary text-white'
+                        : 'text-finma-text-dim hover:text-finma-text'
+                    )}
+                    title="Liste Görünümü"
+                  >
+                    <List className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode('heatmap')}
+                    className={cn(
+                      'p-1.5 rounded transition-colors',
+                      viewMode === 'heatmap'
+                        ? 'bg-finma-primary text-white'
+                        : 'text-finma-text-dim hover:text-finma-text'
+                    )}
+                    title="Isı Haritası"
+                  >
+                    <Grid3x3 className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode('table')}
+                    className={cn(
+                      'p-1.5 rounded transition-colors',
+                      viewMode === 'table'
+                        ? 'bg-finma-primary text-white'
+                        : 'text-finma-text-dim hover:text-finma-text'
+                    )}
+                    title="Detaylı Tablo"
+                  >
+                    <Table2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -677,32 +887,93 @@ export default function ScreenerPage() {
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="text-finma-text-dim bg-finma-bg/50 border-b border-finma-border">
+                      <th className="text-center py-2 px-2 w-8">
+                        {results.length > 0 && (
+                          <button onClick={toggleSelectAll} className="hover:text-finma-text">
+                            {selectedTickers.length === results.length ? (
+                              <CheckSquare className="w-4 h-4 text-finma-primary mx-auto" />
+                            ) : (
+                              <Square className="w-4 h-4 mx-auto" />
+                            )}
+                          </button>
+                        )}
+                      </th>
                       <th className="text-left py-2 px-2">#</th>
                       <th className="text-left py-2 px-2">Hisse</th>
-                      <th className="text-left py-2 px-2">Sektör</th>
-                      <th className="text-right py-2 px-2">Fiyat</th>
-                      <th className="text-right py-2 px-2">Değişim</th>
-                      <th className="text-right py-2 px-2">Skor</th>
+                      {columns.find(c => c.id === 'company_name')?.enabled && <th className="text-left py-2 px-2">Şirket</th>}
+                      {columns.find(c => c.id === 'sector')?.enabled && <th className="text-left py-2 px-2">Sektör</th>}
+                      {columns.find(c => c.id === 'price')?.enabled && <th className="text-right py-2 px-2">Fiyat</th>}
+                      {columns.find(c => c.id === 'change')?.enabled && <th className="text-right py-2 px-2">Değişim</th>}
+                      {columns.find(c => c.id === 'sparkline')?.enabled && <th className="text-center py-2 px-2">Performans</th>}
+                      {columns.find(c => c.id === 'score')?.enabled && <th className="text-right py-2 px-2">Skor</th>}
+                      {columns.find(c => c.id === 'gauge')?.enabled && <th className="text-center py-2 px-2">Signal</th>}
+                      <th className="text-center py-2 px-2">İşlem</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-finma-border/30">
                     {results.map((r, idx) => (
                       <tr
                         key={r.ticker}
-                        onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}
-                        className="hover:bg-finma-primary/5 transition-colors cursor-pointer"
+                        className="hover:bg-finma-primary/5 transition-colors group"
                       >
-                        <td className="py-2 px-2 text-finma-text-dim">{idx + 1}</td>
-                        <td className="py-2 px-2">
+                        <td className="py-2 px-2 text-center" onClick={e => e.stopPropagation()}>
+                          <button onClick={() => toggleSelect(r.ticker)} className="hover:text-finma-primary">
+                            {selectedTickers.includes(r.ticker) ? (
+                              <CheckSquare className="w-4 h-4 text-finma-primary mx-auto" />
+                            ) : (
+                              <Square className="w-4 h-4 mx-auto text-finma-text-dim group-hover:text-finma-text-muted" />
+                            )}
+                          </button>
+                        </td>
+                        <td className="py-2 px-2 text-finma-text-dim cursor-pointer" onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                          {idx + 1}
+                        </td>
+                        <td className="py-2 px-2 cursor-pointer" onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
                           <div className="font-bold text-finma-primary finma-number">{r.ticker}</div>
                         </td>
-                        <td className="py-2 px-2 text-finma-text-dim text-[9px]">{r.sector}</td>
-                        <td className="py-2 px-2 text-right finma-number font-bold">${r.price?.toFixed(2)}</td>
-                        <td className={cn('py-2 px-2 text-right finma-number font-bold', r.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                          {r.change_pct >= 0 ? '+' : ''}{r.change_pct.toFixed(1)}%
-                        </td>
-                        <td className={cn('py-2 px-2 text-right font-bold finma-number', getScoreColor(r.score))}>
-                          {r.score.toFixed(0)}
+                        {columns.find(c => c.id === 'company_name')?.enabled && (
+                          <td className="py-2 px-2 text-finma-text-dim text-[9px] cursor-pointer" onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                            {r.company_name}
+                          </td>
+                        )}
+                        {columns.find(c => c.id === 'sector')?.enabled && (
+                          <td className="py-2 px-2 text-finma-text-dim text-[9px] cursor-pointer" onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                            {r.sector}
+                          </td>
+                        )}
+                        {columns.find(c => c.id === 'price')?.enabled && (
+                          <td className="py-2 px-2 text-right finma-number font-bold cursor-pointer" onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                            ${r.price?.toFixed(2)}
+                          </td>
+                        )}
+                        {columns.find(c => c.id === 'change')?.enabled && (
+                          <td className={cn('py-2 px-2 text-right finma-number font-bold cursor-pointer', r.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')} onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                            {r.change_pct >= 0 ? '+' : ''}{r.change_pct.toFixed(1)}%
+                          </td>
+                        )}
+                        {columns.find(c => c.id === 'sparkline')?.enabled && (
+                          <td className="py-2 px-2 text-center cursor-pointer" onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                            <MiniSparkline data={r.performance_7d} />
+                          </td>
+                        )}
+                        {columns.find(c => c.id === 'score')?.enabled && (
+                          <td className={cn('py-2 px-2 text-right font-bold finma-number cursor-pointer', getScoreColor(r.score))} onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                            {r.score.toFixed(0)}
+                          </td>
+                        )}
+                        {columns.find(c => c.id === 'gauge')?.enabled && (
+                          <td className="py-2 px-2 cursor-pointer" onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}>
+                            <SignalGauge score={r.score} />
+                          </td>
+                        )}
+                        <td className="py-2 px-2 text-center" onClick={e => e.stopPropagation()}>
+                          <button
+                            onClick={() => router.push(`/stock-analysis?ticker=${r.ticker}`)}
+                            className="p-1 text-finma-text-dim hover:text-finma-primary hover:bg-finma-primary/10 rounded transition-colors"
+                            title="Analiz Et"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
                         </td>
                       </tr>
                     ))}
