@@ -24,7 +24,7 @@ import {
   Newspaper, Shield, Activity, Flame, TrendingUp, TrendingDown,
   BarChart3, Zap, Target, Eye, ArrowUpRight, ArrowDownRight,
   Volume2, Building2, Users, RefreshCw, ChevronRight, Star,
-  Filter, Crown, Lock
+  Filter, Crown, Lock, Search
 } from 'lucide-react'
 
 /* ── Sektör Renk Fonksiyonu (maps sayfasıyla aynı) ── */
