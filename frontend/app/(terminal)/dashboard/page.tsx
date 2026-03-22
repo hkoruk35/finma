@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { HUDMetrics } from '@/components/terminal/HUDMetrics'
-import { ScreenerPreview } from '@/components/terminal/ScreenerPreview'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { Badge, ActionBadge, sectorLabel } from '@/components/shared/Badge'
@@ -17,6 +16,7 @@ import {
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import { cn } from '@/lib/utils'
+import { HUDMetrics, AdminHUDMetrics } from '@/components/terminal/HUDMetrics'
 import {
   Brain, Clock, AlertCircle, Globe2, DollarSign,
   Newspaper, Shield, Activity, Flame, TrendingUp, TrendingDown,
@@ -144,6 +144,18 @@ const SMART_MONEY = [
 
 /* ── Mock: Market Movers (profesyonel tablo) ── */
 const MOVERS = {
+  opportunities: [
+    { ticker: 'NVDA', name: 'NVIDIA', sector: 'Technology', price: 912.45, change_pct: 2.1, volume: '145M' },
+    { ticker: 'PLTR', name: 'Palantir', sector: 'Technology', price: 78.50, change_pct: 8.7, volume: '88M' },
+    { ticker: 'SMCI', name: 'Super Micro', sector: 'Technology', price: 892.40, change_pct: 14.2, volume: '42M' },
+    { ticker: 'ARM', name: 'ARM Holdings', sector: 'Technology', price: 145.80, change_pct: 2.9, volume: '22M' },
+    { ticker: 'AMD', name: 'AMD', sector: 'Technology', price: 168.30, change_pct: 1.8, volume: '78M' },
+    { ticker: 'LMT', name: 'Lockheed Martin', sector: 'Industrials', price: 646.10, change_pct: 4.9, volume: '6M' },
+    { ticker: 'NOC', name: 'Northrop Grumman', sector: 'Industrials', price: 733.41, change_pct: 5.8, volume: '8M' },
+    { ticker: 'FANG', name: 'Diamondback', sector: 'Energy', price: 182.43, change_pct: 6.3, volume: '12M' },
+    { ticker: 'EQNR', name: 'Equinor', sector: 'Energy', price: 35.25, change_pct: 4.1, volume: '15M' },
+    { ticker: 'DELL', name: 'Dell Technologies', sector: 'Technology', price: 151.70, change_pct: 3.2, volume: '9M' },
+  ],
   gainers: [
     { ticker: 'SMCI', name: 'Super Micro', sector: 'Technology', price: 892.40, change_pct: 14.2, volume: '42M' },
     { ticker: 'PLTR', name: 'Palantir', sector: 'Technology', price: 78.50, change_pct: 8.7, volume: '88M' },
@@ -282,12 +294,13 @@ export default function DashboardPage() {
   const router = useRouter()
   const { canAccess } = useAuthStore()
   const isPro = canAccess('pro')
+  const isAdmin = canAccess('admin')
   const { data: portfolioData } = usePortfolioSummary()
   const { data: tradesData } = useTrades('OPEN')
   const { data: signalsData } = useLatestSignals()
   const { data: indicesData } = useIndices()
   const { data: regimeData } = useRegime()
-  const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
+  const [moversTab, setMoversTab] = useState<'opportunities' | 'gainers' | 'losers' | 'volume'>('opportunities')
   const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
 
   const { data: moversData, isLoading: moversLoading, isError: moversError } = useMarketMovers(moversPeriod)
@@ -297,7 +310,7 @@ export default function DashboardPage() {
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
   // Movers canlı veri — başlangıçta mock data göster, API gelince güncelle
   const [liveMovers, setLiveMovers] = useState<{
-    gainers: any[]; losers: any[]; volume: any[]
+    opportunities: any[]; gainers: any[]; losers: any[]; volume: any[]
   }>(MOVERS)
   // Weekly highlights (Highlights of the week)
   const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>(() => {
@@ -323,6 +336,9 @@ export default function DashboardPage() {
   const regime = regimeData?.regime_tr ?? (signals.market_regime === 'Bull' ? '🐂 Boğa' : '🐻 Ayı')
   const sectorLeaders = intel?.sector_leaders || signals.sector_leaders?.join(', ') || 'Utilities, Materials'
   const [lastRefresh, setLastRefresh] = useState(new Date())
+  const [addingToWatchlist, setAddingToWatchlist] = useState<string | null>(null)
+  const [watchlistStatus, setWatchlistStatus] = useState<{ ticker: string; message: string; type: 'success' | 'error' } | null>(null)
+  const [adminStats, setAdminStats] = useState<any>(null)
   // const [moversLoading, setMoversLoading] = useState(false) // Now from useMarketMovers
   // const [moversError, setMoversError] = useState(false) // Now from useMarketMovers
 
@@ -344,6 +360,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (moversData) {
       const enrichedData = {
+        opportunities: MOVERS.opportunities.map(enrichStock),
         gainers: (moversData.gainers || []).map(enrichStock),
         losers: (moversData.losers || []).map(enrichStock),
         volume: (moversData.volume || []).map(enrichStock),
@@ -352,7 +369,7 @@ export default function DashboardPage() {
 
       // Update live quotes
       const map: Record<string, any> = { ...liveQuotes }
-      const allItems = [...(moversData.gainers || []), ...(moversData.losers || []), ...(moversData.volume || [])]
+      const allItems = [...MOVERS.opportunities, ...(moversData.gainers || []), ...(moversData.losers || []), ...(moversData.volume || [])]
       allItems.forEach((item: any) => {
         const sym = item.symbol || item.ticker
         if (sym) map[sym] = { price: item.price, change: item.change, change_pct: item.change_pct }
@@ -430,20 +447,94 @@ export default function DashboardPage() {
     return () => clearInterval(interval)
   }, [])
 
+  // Admin istatistiklerini çek
+  useEffect(() => {
+    if (!isAdmin) return
+    const fetchAdminStats = async () => {
+      try {
+        const stats = await api.getAdminStats()
+        setAdminStats(stats)
+      } catch (err) {
+        console.error('Admin stats error:', err)
+      }
+    }
+    fetchAdminStats()
+    const interval = setInterval(fetchAdminStats, 60 * 1000) // 1 dakikada bir
+    return () => clearInterval(interval)
+  }, [isAdmin])
+
+  // Takip Listesine Ekle
+  const handleAddToWatchlist = async (stock: any) => {
+    const ticker = stock.symbol || stock.ticker
+    setAddingToWatchlist(ticker)
+
+    try {
+      const token = localStorage.getItem('finma_token')
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/watchlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ticker: ticker,
+          company_name: stock.name || ticker,
+          sector: stock.sector || 'Technology',
+        }),
+      })
+
+      if (response.ok) {
+        setWatchlistStatus({
+          ticker,
+          message: `${ticker} takip listenize eklendi`,
+          type: 'success',
+        })
+      } else {
+        const errorData = await response.json()
+        setWatchlistStatus({
+          ticker,
+          message: errorData.detail || 'Hata oluştu',
+          type: 'error',
+        })
+      }
+    } catch (error) {
+      console.error('Watchlist add error:', error)
+      setWatchlistStatus({
+        ticker,
+        message: 'Bağlantı hatası',
+        type: 'error',
+      })
+    } finally {
+      setAddingToWatchlist(null)
+      // Clear message after 3 seconds
+      setTimeout(() => setWatchlistStatus(null), 3000)
+    }
+  }
+
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Komuta Merkezi — sadece Pro+ */}
-      {isPro && (
+      {/* Komuta Merkezi — Pro+ ve Admin */}
+      {(isPro || isAdmin) && (
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-sm font-semibold text-finma-text">Komuta Merkezi</span>
+            <span className="text-sm font-semibold text-finma-text">
+              {isAdmin ? 'Komuta Merkezi — Admin' : 'Komuta Merkezi'}
+            </span>
           </div>
-          <HUDMetrics data={portfolio} />
+          {isAdmin && adminStats ? (
+            <AdminHUDMetrics
+              totalUsers={adminStats.total_users}
+              freeUsers={adminStats.free_users}
+              proUsers={adminStats.pro_users}
+              activeTrades={adminStats.total_trades}
+              botsRunning={adminStats.bots_running}
+              totalRevenue={0} // Backend has no revenue data yet
+            />
+          ) : (
+            <HUDMetrics data={portfolio} />
+          )}
         </div>
       )}
-
-      {/* Piyasa Bağlamı */}
-      <MarketContext indices={indices} />
 
       {/* ═══════════════ 1. AI MARKET BRAIN ═══════════════ */}
       <Card padding="sm">
@@ -500,6 +591,11 @@ export default function DashboardPage() {
           </div>
         </div>
       </Card>
+
+      {/* Piyasa Bağlamı (Komuta altında, %30 küçültülmüş) */}
+      <div className="scale-75 origin-top-left -ml-[25%]">
+        <MarketContext indices={indices} />
+      </div>
 
       {/* ═══════════════ 2. GÜNÜN YAPAY ZEKA SEÇİMİ ═══════════════ */}
       <Card padding="sm">
@@ -599,9 +695,10 @@ export default function DashboardPage() {
         </div>
 
         {/* Sekmeler */}
-        <div className="flex items-center gap-2 mt-3 mb-3 flex-wrap">
-          <div className="flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
+        <div className="flex items-center gap-2 mt-3 mb-3 overflow-x-auto">
+          <div className="flex bg-finma-bg rounded-lg p-0.5 gap-0.5 shrink-0">
             {([
+              { key: 'opportunities', label: 'Günün Fîrsatları', icon: Star, color: 'text-finma-yellow' },
               { key: 'gainers', label: 'Yükselenler', icon: TrendingUp, color: 'text-finma-green' },
               { key: 'losers', label: 'Düşenler', icon: TrendingDown, color: 'text-finma-red' },
               { key: 'volume', label: 'En Yüksek Hacim', icon: Volume2, color: 'text-finma-cyan' },
@@ -622,7 +719,7 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
+          <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5 shrink-0">
             {(['1d', '1w', '1m', '1y'] as const).map(p => (
               <button
                 key={p}
@@ -645,11 +742,12 @@ export default function DashboardPage() {
           <table className="w-full text-xs">
             <thead>
               <tr className="text-finma-text-dim bg-finma-bg/80">
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8">#</th>
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Hisse / Şirket</th>
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Sektör</th>
-                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Canlı Fiyat</th>
-                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Gnl Değişim</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8 text-sm">#</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Hisse / Şirket</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Sektör</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Canlı Fiyat</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Gnl Değişim</th>
+                <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50 w-24 text-sm">İşlem</th>
               </tr>
             </thead>
             <tbody>
@@ -680,6 +778,20 @@ export default function DashboardPage() {
                         {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
                       </div>
                     </td>
+                    <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={(e) => e.stopPropagation()}>
+                      <button
+                        onClick={() => handleAddToWatchlist(stock)}
+                        disabled={addingToWatchlist === sym}
+                        className={cn(
+                          'text-[10px] px-2 py-1 rounded font-medium whitespace-nowrap transition-all',
+                          addingToWatchlist === sym
+                            ? 'bg-finma-primary/60 text-white cursor-not-allowed'
+                            : 'bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/40'
+                        )}
+                      >
+                        {addingToWatchlist === sym ? 'Ekleniyor...' : 'Takibe Al'}
+                      </button>
+                    </td>
                   </tr>
                 )
               })}
@@ -688,10 +800,7 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 4. SCREENER SONUÇLARI ═══════════════ */}
-      <ScreenerPreview />
-
-      {/* ═══════════════ 5. AKILLI PARA AKIŞI ═══════════════ */}
+      {/* ═══════════════ 4. AKILLI PARA AKIŞI ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Building2 className="w-5 h-5 text-finma-green" />
@@ -752,7 +861,7 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 6. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
+      {/* ═══════════════ 5. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center flex-wrap gap-2 pb-3 border-b border-finma-border">
           <Globe2 className="w-5 h-5 text-finma-yellow" />

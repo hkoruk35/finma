@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import { useTerminalStore } from '@/store/terminal'
 import { MarketTicker } from './MarketTicker'
-import { Bell, Search, User, Menu, LogOut, Settings, DollarSign } from 'lucide-react'
+import { Bell, Search, User, Menu, LogOut, Settings, DollarSign, Download } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Notification {
@@ -26,6 +26,18 @@ export function TopBar() {
   const [userDropdown, setUserDropdown] = useState(false)
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
+  const [pwaInstallPrompt, setPwaInstallPrompt] = useState<any>(null)
+
+  // PWA install prompt
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault()
+      setPwaInstallPrompt(e)
+    }
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+  }, [])
 
   // Bildirimleri getir
   useEffect(() => {
@@ -34,7 +46,7 @@ export function TopBar() {
       try {
         const token = localStorage.getItem('finma_token')
         const [notifRes, countRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/notifications?limit=5`, {
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/notifications?limit=10`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
           fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/notifications/unread-count`, {
@@ -131,6 +143,25 @@ export function TopBar() {
         <button className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-finma-text-dim hover:text-finma-text transition-colors">
           <Search className="w-4 h-4" />
         </button>
+
+        {/* PWA Install Button (Mobile only) */}
+        {pwaInstallPrompt && (
+          <button
+            onClick={async () => {
+              if (pwaInstallPrompt) {
+                pwaInstallPrompt.prompt()
+                const { outcome } = await pwaInstallPrompt.userChoice
+                if (outcome === 'accepted') {
+                  setPwaInstallPrompt(null)
+                }
+              }
+            }}
+            className="md:hidden p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-finma-text-dim hover:text-finma-text transition-colors"
+            title="Ana Ekrana Ekle"
+          >
+            <Download className="w-4 h-4" />
+          </button>
+        )}
 
         {/* Notifications dropdown */}
         <div className="relative">
