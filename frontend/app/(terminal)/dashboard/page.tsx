@@ -762,42 +762,41 @@ export default function DashboardPage() {
             </span>
           </div>
 
-          <div className="mt-3 space-y-2 max-h-[500px] overflow-y-auto">
+          <div className="mt-3 max-h-[500px] overflow-y-auto">
             {canAccess('pro') ? (
               <>
                 {top10Candidates.length > 0 ? (
-                  <div className="space-y-1.5">
+                  <div className="space-y-0">
                     {top10Candidates.slice(0, 8).map((stock: any, idx: number) => {
-                      const scoreColor = stock.score >= 80 ? 'text-finma-green bg-finma-green/15' : stock.score >= 65 ? 'text-finma-primary bg-finma-primary/15' : 'text-finma-yellow bg-finma-yellow/15'
+                      const scoreColor = stock.score >= 80 ? 'text-finma-green' : stock.score >= 65 ? 'text-finma-primary' : 'text-finma-yellow'
                       const potentialColor = (stock.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
                       return (
                         <div
                           key={stock.ticker}
                           onClick={() => router.push(`/stock-analysis?ticker=${stock.ticker}`)}
-                          className="bg-finma-bg/50 rounded-md px-2.5 py-2 border border-finma-border/30 hover:border-finma-primary/40 hover:bg-finma-primary/5 transition-colors cursor-pointer"
+                          className="flex items-center justify-between gap-2 px-2.5 py-2.5 border-b border-finma-border/20 hover:bg-finma-primary/5 transition-colors cursor-pointer group"
                         >
-                          <div className="flex items-center justify-between gap-2 mb-1">
-                            <div className="flex items-center gap-2">
-                              <span className="text-[10px] text-finma-text-dim w-5 shrink-0">#{idx + 1}</span>
-                              <span className="text-sm font-bold text-white finma-number">{stock.ticker}</span>
-                              {stock.sector && (
-                                <span className="text-[9px] text-finma-text-dim bg-white/5 px-1.5 py-0.5 rounded truncate max-w-[70px]">{stock.sector}</span>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-1.5 shrink-0">
-                              {stock.potential_pct != null && (
-                                <span className={`text-[10px] font-bold finma-number ${potentialColor}`}>
-                                  +{typeof stock.potential_pct === 'number' ? stock.potential_pct.toFixed(1) : stock.potential_pct}%
-                                </span>
-                              )}
-                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded finma-number ${scoreColor}`}>
-                                {typeof stock.score === 'number' ? stock.score.toFixed(0) : stock.score}
-                              </span>
+                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                            <span className="text-[10px] text-finma-text-dim w-4 shrink-0 font-bold finma-number">#{idx + 1}</span>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-xs font-bold text-white finma-number truncate">{stock.ticker}</span>
+                                {stock.sector && (
+                                  <span className="text-[8px] text-finma-text-dim uppercase font-medium shrink-0">{stock.sector}</span>
+                                )}
+                              </div>
                             </div>
                           </div>
-                          {stock.reason && (
-                            <p className="text-[9px] text-finma-text-muted leading-tight pl-7 line-clamp-1">{stock.reason}</p>
-                          )}
+                          <div className="flex items-center gap-2 shrink-0">
+                            {stock.potential_pct != null && (
+                              <span className={`text-[10px] font-bold finma-number ${potentialColor}`}>
+                                +{typeof stock.potential_pct === 'number' ? stock.potential_pct.toFixed(1) : stock.potential_pct}%
+                              </span>
+                            )}
+                            <span className={`text-[10px] font-bold finma-number w-6 text-right ${scoreColor}`}>
+                              {typeof stock.score === 'number' ? stock.score.toFixed(0) : stock.score}
+                            </span>
+                          </div>
                         </div>
                       )
                     })}
