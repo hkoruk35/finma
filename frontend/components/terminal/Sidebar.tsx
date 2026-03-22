@@ -35,6 +35,7 @@ import {
   UserCheck,
   History,
   Bot,
+  Filter,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
@@ -80,6 +81,7 @@ const navItems: NavItem[] = [
   { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'pro' },
   { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'pro' },
   { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'pro' },
+  { href: '/screener', icon: Filter, label: 'Hisse Tarama', section: 'screener', tier: 'pro' },
   { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
 ]
 
