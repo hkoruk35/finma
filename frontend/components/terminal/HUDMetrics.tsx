@@ -41,8 +41,9 @@ function MetricCard({ label, value, change, changeSuffix = '%', icon, highlight 
 }
 
 export function HUDMetrics({ data }: HUDMetricsProps) {
+  // %30 küçültme: 7'den 5'ye indir
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
       <MetricCard
         label="Net Likidite"
         value={formatCurrency(data.net_liquidation)}
@@ -65,18 +66,6 @@ export function HUDMetrics({ data }: HUDMetricsProps) {
         icon={<BarChart3 className="w-3.5 h-3.5" />}
       />
       <MetricCard
-        label="Aylık PnL"
-        value={formatCurrency(data.mtd_pnl)}
-        change={-0.21}
-        icon={<TrendingDown className="w-3.5 h-3.5" />}
-      />
-      <MetricCard
-        label="Yıllık PnL"
-        value={formatCurrency(data.ytd_pnl)}
-        change={0.87}
-        icon={<TrendingUp className="w-3.5 h-3.5" />}
-      />
-      <MetricCard
         label="Nakit"
         value={formatCurrency(data.cash_available)}
         icon={<DollarSign className="w-3.5 h-3.5" />}
@@ -85,6 +74,60 @@ export function HUDMetrics({ data }: HUDMetricsProps) {
         label="Marjin"
         value={formatCurrency(data.margin_used)}
         icon={<Shield className="w-3.5 h-3.5" />}
+      />
+    </div>
+  )
+}
+
+// Admin versiyonu - global istatistikler
+interface AdminHUDProps {
+  totalUsers: number
+  freeUsers: number
+  proUsers: number
+  activeTrades: number
+  botsRunning: string
+  totalRevenue: number
+}
+
+export function AdminHUDMetrics({ totalUsers, freeUsers, proUsers, activeTrades, botsRunning, totalRevenue }: AdminHUDProps) {
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
+      <MetricCard
+        label="Toplam Üyeler"
+        value={totalUsers.toString()}
+        change={((proUsers / totalUsers) * 100)}
+        changeSuffix="% Pro"
+        icon={<Wallet className="w-3.5 h-3.5" />}
+        highlight
+      />
+      <MetricCard
+        label="Free Üyeler"
+        value={freeUsers.toString()}
+        change={((freeUsers / totalUsers) * 100)}
+        changeSuffix="%"
+        icon={<Shield className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Pro Üyeler"
+        value={proUsers.toString()}
+        change={((proUsers / totalUsers) * 100)}
+        changeSuffix="%"
+        icon={<TrendingUp className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Aktif İşlem"
+        value={activeTrades.toString()}
+        icon={<BarChart3 className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Boş Çalışan"
+        value={botsRunning}
+        icon={<DollarSign className="w-3.5 h-3.5" />}
+      />
+      <MetricCard
+        label="Aylık Gelir"
+        value={formatCurrency(totalRevenue)}
+        icon={<TrendingUp className="w-3.5 h-3.5" />}
       />
     </div>
   )
