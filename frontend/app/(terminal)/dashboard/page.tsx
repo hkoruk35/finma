@@ -16,6 +16,7 @@ import {
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import { cn } from '@/lib/utils'
+import { HUDMetrics, AdminHUDMetrics } from '@/components/terminal/HUDMetrics'
 import {
   Brain, Clock, AlertCircle, Globe2, DollarSign,
   Newspaper, Shield, Activity, Flame, TrendingUp, TrendingDown,
@@ -293,6 +294,7 @@ export default function DashboardPage() {
   const router = useRouter()
   const { canAccess } = useAuthStore()
   const isPro = canAccess('pro')
+  const isAdmin = canAccess('admin')
   const { data: portfolioData } = usePortfolioSummary()
   const { data: tradesData } = useTrades('OPEN')
   const { data: signalsData } = useLatestSignals()
@@ -336,6 +338,7 @@ export default function DashboardPage() {
   const [lastRefresh, setLastRefresh] = useState(new Date())
   const [addingToWatchlist, setAddingToWatchlist] = useState<string | null>(null)
   const [watchlistStatus, setWatchlistStatus] = useState<{ ticker: string; message: string; type: 'success' | 'error' } | null>(null)
+  const [adminStats, setAdminStats] = useState<any>(null)
   // const [moversLoading, setMoversLoading] = useState(false) // Now from useMarketMovers
   // const [moversError, setMoversError] = useState(false) // Now from useMarketMovers
 
@@ -444,6 +447,22 @@ export default function DashboardPage() {
     return () => clearInterval(interval)
   }, [])
 
+  // Admin istatistiklerini çek
+  useEffect(() => {
+    if (!isAdmin) return
+    const fetchAdminStats = async () => {
+      try {
+        const stats = await api.getAdminStats()
+        setAdminStats(stats)
+      } catch (err) {
+        console.error('Admin stats error:', err)
+      }
+    }
+    fetchAdminStats()
+    const interval = setInterval(fetchAdminStats, 60 * 1000) // 1 dakikada bir
+    return () => clearInterval(interval)
+  }, [isAdmin])
+
   // Takip Listesine Ekle
   const handleAddToWatchlist = async (stock: any) => {
     const ticker = stock.symbol || stock.ticker
@@ -494,13 +513,26 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Komuta Merkezi — sadece Pro+ */}
-      {isPro && (
+      {/* Komuta Merkezi — Pro+ ve Admin */}
+      {(isPro || isAdmin) && (
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-sm font-semibold text-finma-text">Komuta Merkezi</span>
+            <span className="text-sm font-semibold text-finma-text">
+              {isAdmin ? 'Komuta Merkezi — Admin' : 'Komuta Merkezi'}
+            </span>
           </div>
-          <HUDMetrics data={portfolio} />
+          {isAdmin && adminStats ? (
+            <AdminHUDMetrics
+              totalUsers={adminStats.total_users}
+              freeUsers={adminStats.free_users}
+              proUsers={adminStats.pro_users}
+              activeTrades={adminStats.total_trades}
+              botsRunning={adminStats.bots_running}
+              totalRevenue={0} // Backend has no revenue data yet
+            />
+          ) : (
+            <HUDMetrics data={portfolio} />
+          )}
         </div>
       )}
 
