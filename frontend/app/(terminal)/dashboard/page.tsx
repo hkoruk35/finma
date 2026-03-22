@@ -536,9 +536,6 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Piyasa Bağlamı */}
-      <MarketContext indices={indices} />
-
       {/* ═══════════════ 1. AI MARKET BRAIN ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
@@ -594,6 +591,11 @@ export default function DashboardPage() {
           </div>
         </div>
       </Card>
+
+      {/* Piyasa Bağlamı (Komuta altında, %30 küçültülmüş) */}
+      <div className="scale-75 origin-top-left -ml-[25%]">
+        <MarketContext indices={indices} />
+      </div>
 
       {/* ═══════════════ 2. GÜNÜN YAPAY ZEKA SEÇİMİ ═══════════════ */}
       <Card padding="sm">
