@@ -24,11 +24,37 @@ SCREENER_UNIVERSE = [
 ]
 
 class ScreenerFilter(BaseModel):
+    # Basic & Context
+    market_cap_min: Optional[float] = 0
+    market_cap_max: Optional[float] = 500
+    sector: Optional[str] = None
+    exchanges: Optional[List[str]] = None
+
+    # Value & Growth
+    pe_min: Optional[float] = 0
+    pe_max: Optional[float] = 50
+    peg_min: Optional[float] = 0
+    peg_max: Optional[float] = 5
+    debt_equity_max: Optional[float] = 2
+    roe_min: Optional[float] = 0
+    eps_growth_min: Optional[float] = 0
+
+    # Trend & Momentum
+    rsi_value: Optional[float] = 50
+    rsi_min: Optional[float] = 30
+    rsi_max: Optional[float] = 70
+    fifty_two_week_min: Optional[float] = -50
+    fifty_two_week_max: Optional[float] = 100
+    volume_multiplier_min: Optional[float] = 1.0
+
+    # Patterns
+    candlestick_patterns: Optional[List[str]] = None
+    chart_patterns: Optional[List[str]] = None
+
+    # Legacy support
     min_price: Optional[float] = 5.0
     max_price: Optional[float] = 1000.0
     min_rvol: Optional[float] = 1.0
-    min_rsi: Optional[float] = 30.0
-    max_rsi: Optional[float] = 75.0
     ema_trend: Optional[str] = "any"
     min_score: Optional[float] = 40.0
     limit: Optional[int] = 20
@@ -93,30 +119,81 @@ async def run_screener(filters: ScreenerFilter, current_user: dict = Depends(get
                 if df.empty or len(df) < 20: continue
                 close = df["Close"].squeeze(); volume = df["Volume"].squeeze()
                 price = float(close.iloc[-1])
+
+                # Price filters
                 if not (filters.min_price <= price <= filters.max_price): continue
+
+                # Volume filters
                 recent_vol = float(volume.tail(5).mean()); baseline_vol = float(volume.tail(30).mean())
                 rvol = recent_vol / baseline_vol if baseline_vol > 0 else 1.0
-                if rvol < filters.min_rvol: continue
+                if rvol < filters.volume_multiplier_min: continue
+
+                # RSI filters
                 delta = close.diff(); gain = delta.where(delta > 0, 0).rolling(14).mean(); loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
                 rs = gain / loss.replace(0, 1e-9); rsi_val = float((100 - (100 / (1 + rs))).iloc[-1])
-                if not (filters.min_rsi <= rsi_val <= filters.max_rsi): continue
+                if not (filters.rsi_min <= rsi_val <= filters.rsi_max): continue
+                if filters.rsi_value and abs(rsi_val - filters.rsi_value) > 30: continue
+
+                # EMA/Trend filters
                 ema20 = float(close.ewm(span=20).mean().iloc[-1]); ema50 = float(close.ewm(span=50).mean().iloc[-1])
                 if filters.ema_trend == "above" and not (price > ema20): continue
+
+                # 52-week range (approximate using 60-day data)
+                fifty_two_week_low = float(close.min())
+                fifty_two_week_high = float(close.max())
+                change_52w = ((price - fifty_two_week_low) / fifty_two_week_low * 100) if fifty_two_week_low > 0 else 0
+                if not (filters.fifty_two_week_min <= change_52w <= filters.fifty_two_week_max): continue
+
+                # Calculate score
                 score = calculate_score(df)
                 if score < filters.min_score: continue
+
+                # Format result
                 signal = "STRONG BUY" if score >= 90 else ("BUY" if score >= 75 else ("WATCH" if score >= 60 else "IGNORE"))
                 change_pct = round(float((price / float(close.iloc[-2]) - 1) * 100) if len(close) >= 2 else 0, 2)
-                results.append({"ticker": ticker, "company_name": ticker, "sector": "Technology", "price": round(price, 2), "score": score, "signal": signal, "rsi": round(rsi_val, 1), "rvol": round(rvol, 2), "ema_trend": "above" if price > ema20 > ema50 else "below", "change_pct": change_pct})
-            except Exception: continue
-        results.sort(key=lambda x: x["score"], reverse=True); results = results[:filters.limit]
+                performance_7d = [float(close.iloc[i]) for i in range(max(0, len(close)-7), len(close))]
+
+                results.append({
+                    "ticker": ticker,
+                    "company_name": ticker,
+                    "sector": filters.sector or "Technology",
+                    "price": round(price, 2),
+                    "score": score,
+                    "signal": signal,
+                    "rsi": round(rsi_val, 1),
+                    "rvol": round(rvol, 2),
+                    "change_pct": change_pct,
+                    "performance_7d": performance_7d,
+                    "reason": f"RSI {rsi_val:.1f} | RVOL {rvol:.2f}x | Trend {'📈' if price > ema20 > ema50 else '📉'}"
+                })
+            except Exception as e:
+                logger.error(f"Error processing {ticker}: {e}")
+                continue
+
+        results.sort(key=lambda x: x["score"], reverse=True)
+        results = results[:filters.limit]
     except Exception as e:
-        logger.error(f"Screener error: {e}"); raise HTTPException(status_code=500, detail="Tarama hatasi")
-    scan_record = {"id": str(uuid.uuid4()), "user_id": user_id, "filter_params": filters.dict(), "results": results, "result_count": len(results), "created_at": datetime.utcnow().isoformat()}
+        logger.error(f"Screener error: {e}")
+        raise HTTPException(status_code=500, detail="Tarama hatasi")
+
+    scan_record = {
+        "id": str(uuid.uuid4()),
+        "user_id": user_id,
+        "filter_params": filters.dict(),
+        "results": results,
+        "result_count": len(results),
+        "created_at": datetime.utcnow().isoformat()
+    }
+
     sb = get_supabase()
     if sb:
-        try: sb.table("screener_results").insert({k: v for k, v in scan_record.items() if k != "id"}).execute()
-        except Exception as e: logger.error(f"Screener save: {e}")
-    else: _screener_memory.append(scan_record)
+        try:
+            sb.table("screener_results").insert({k: v for k, v in scan_record.items() if k != "id"}).execute()
+        except Exception as e:
+            logger.error(f"Screener save: {e}")
+    else:
+        _screener_memory.append(scan_record)
+
     return {"results": results, "count": len(results), "scan_id": scan_record["id"]}
 
 @router.get("/history")
