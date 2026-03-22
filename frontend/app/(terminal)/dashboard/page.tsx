@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { HUDMetrics } from '@/components/terminal/HUDMetrics'
-import { ScreenerPreview } from '@/components/terminal/ScreenerPreview'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { Badge, ActionBadge, sectorLabel } from '@/components/shared/Badge'
@@ -144,6 +143,18 @@ const SMART_MONEY = [
 
 /* ── Mock: Market Movers (profesyonel tablo) ── */
 const MOVERS = {
+  opportunities: [
+    { ticker: 'NVDA', name: 'NVIDIA', sector: 'Technology', price: 912.45, change_pct: 2.1, volume: '145M' },
+    { ticker: 'PLTR', name: 'Palantir', sector: 'Technology', price: 78.50, change_pct: 8.7, volume: '88M' },
+    { ticker: 'SMCI', name: 'Super Micro', sector: 'Technology', price: 892.40, change_pct: 14.2, volume: '42M' },
+    { ticker: 'ARM', name: 'ARM Holdings', sector: 'Technology', price: 145.80, change_pct: 2.9, volume: '22M' },
+    { ticker: 'AMD', name: 'AMD', sector: 'Technology', price: 168.30, change_pct: 1.8, volume: '78M' },
+    { ticker: 'LMT', name: 'Lockheed Martin', sector: 'Industrials', price: 646.10, change_pct: 4.9, volume: '6M' },
+    { ticker: 'NOC', name: 'Northrop Grumman', sector: 'Industrials', price: 733.41, change_pct: 5.8, volume: '8M' },
+    { ticker: 'FANG', name: 'Diamondback', sector: 'Energy', price: 182.43, change_pct: 6.3, volume: '12M' },
+    { ticker: 'EQNR', name: 'Equinor', sector: 'Energy', price: 35.25, change_pct: 4.1, volume: '15M' },
+    { ticker: 'DELL', name: 'Dell Technologies', sector: 'Technology', price: 151.70, change_pct: 3.2, volume: '9M' },
+  ],
   gainers: [
     { ticker: 'SMCI', name: 'Super Micro', sector: 'Technology', price: 892.40, change_pct: 14.2, volume: '42M' },
     { ticker: 'PLTR', name: 'Palantir', sector: 'Technology', price: 78.50, change_pct: 8.7, volume: '88M' },
@@ -287,7 +298,7 @@ export default function DashboardPage() {
   const { data: signalsData } = useLatestSignals()
   const { data: indicesData } = useIndices()
   const { data: regimeData } = useRegime()
-  const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
+  const [moversTab, setMoversTab] = useState<'opportunities' | 'gainers' | 'losers' | 'volume'>('opportunities')
   const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
 
   const { data: moversData, isLoading: moversLoading, isError: moversError } = useMarketMovers(moversPeriod)
@@ -297,7 +308,7 @@ export default function DashboardPage() {
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
   // Movers canlı veri — başlangıçta mock data göster, API gelince güncelle
   const [liveMovers, setLiveMovers] = useState<{
-    gainers: any[]; losers: any[]; volume: any[]
+    opportunities: any[]; gainers: any[]; losers: any[]; volume: any[]
   }>(MOVERS)
   // Weekly highlights (Highlights of the week)
   const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>(() => {
@@ -344,6 +355,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (moversData) {
       const enrichedData = {
+        opportunities: MOVERS.opportunities.map(enrichStock),
         gainers: (moversData.gainers || []).map(enrichStock),
         losers: (moversData.losers || []).map(enrichStock),
         volume: (moversData.volume || []).map(enrichStock),
@@ -352,7 +364,7 @@ export default function DashboardPage() {
 
       // Update live quotes
       const map: Record<string, any> = { ...liveQuotes }
-      const allItems = [...(moversData.gainers || []), ...(moversData.losers || []), ...(moversData.volume || [])]
+      const allItems = [...MOVERS.opportunities, ...(moversData.gainers || []), ...(moversData.losers || []), ...(moversData.volume || [])]
       allItems.forEach((item: any) => {
         const sym = item.symbol || item.ticker
         if (sym) map[sym] = { price: item.price, change: item.change, change_pct: item.change_pct }
@@ -602,6 +614,7 @@ export default function DashboardPage() {
         <div className="flex items-center gap-2 mt-3 mb-3 flex-wrap">
           <div className="flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
             {([
+              { key: 'opportunities', label: 'Günün Fîrsatları', icon: Star, color: 'text-finma-yellow' },
               { key: 'gainers', label: 'Yükselenler', icon: TrendingUp, color: 'text-finma-green' },
               { key: 'losers', label: 'Düşenler', icon: TrendingDown, color: 'text-finma-red' },
               { key: 'volume', label: 'En Yüksek Hacim', icon: Volume2, color: 'text-finma-cyan' },
@@ -650,6 +663,7 @@ export default function DashboardPage() {
                 <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Sektör</th>
                 <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Canlı Fiyat</th>
                 <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Gnl Değişim</th>
+                <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50 w-24">İşlem</th>
               </tr>
             </thead>
             <tbody>
@@ -680,6 +694,11 @@ export default function DashboardPage() {
                         {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
                       </div>
                     </td>
+                    <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={(e) => e.stopPropagation()}>
+                      <button className="text-[10px] px-2 py-1 rounded bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/40 transition-all font-medium whitespace-nowrap">
+                        Takibe Al
+                      </button>
+                    </td>
                   </tr>
                 )
               })}
@@ -688,10 +707,7 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 4. SCREENER SONUÇLARI ═══════════════ */}
-      <ScreenerPreview />
-
-      {/* ═══════════════ 5. AKILLI PARA AKIŞI ═══════════════ */}
+      {/* ═══════════════ 4. AKILLI PARA AKIŞI ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Building2 className="w-5 h-5 text-finma-green" />
@@ -752,7 +768,7 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 6. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
+      {/* ═══════════════ 5. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center flex-wrap gap-2 pb-3 border-b border-finma-border">
           <Globe2 className="w-5 h-5 text-finma-yellow" />
