@@ -6,6 +6,10 @@ import logging
 import yfinance as yf
 import pandas as pd
 import numpy as np
+
+# Set matplotlib to non-interactive backend for Docker/headless environments
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from datetime import datetime
