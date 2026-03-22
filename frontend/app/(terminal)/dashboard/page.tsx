@@ -655,7 +655,7 @@ export default function DashboardPage() {
 
         {/* Profesyonel Tablo */}
         <div className="overflow-x-auto">
-          <table className="w-full text-xs">
+          <table className="w-full text-xs border-collapse">
             <thead>
               <tr className="text-finma-text-dim bg-finma-bg/80">
                 <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8 text-sm">#</th>
@@ -673,10 +673,10 @@ export default function DashboardPage() {
                   <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
                     onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
                     <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
-                    <td className="py-2.5 px-3 border border-finma-border/50">
-                      <div className="flex flex-col gap-0.5">
-                        <span className="font-bold text-finma-primary finma-number text-sm leading-tight">{sym}</span>
-                        <span className="text-finma-text-dim text-[10px] uppercase leading-tight">{stock.name}</span>
+                    <td className="py-2.5 px-3 border border-finma-border/50 min-w-fit">
+                      <div className="flex flex-col gap-0.5 whitespace-nowrap">
+                        <span className="font-bold text-finma-primary finma-number text-sm leading-none">{sym}</span>
+                        <span className="text-finma-text-dim text-[10px] uppercase leading-none">{stock.name}</span>
                       </div>
                     </td>
                     <td className="py-2.5 px-3 border border-finma-border/50">
