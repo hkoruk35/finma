@@ -749,12 +749,10 @@ export default function DashboardPage() {
 
         {/* Detaylı Hisse Tarama */}
         <Card padding="sm">
-          <div className="flex items-center justify-between gap-2 px-1 pb-3 border-b border-finma-border">
+          <div className="flex items-center justify-between gap-2 pb-3 border-b border-finma-border">
             <div className="flex items-center gap-2">
-              <Filter className="w-5 h-5 text-finma-primary" />
-              <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
-                Detaylı Hisse Tarama
-              </span>
+              <Search className="w-4 h-4 text-finma-text-dim" />
+              <span className="text-sm font-bold text-finma-text">Hisse Tarama</span>
             </div>
             <span className="text-[9px] px-2 py-1 rounded bg-finma-primary/10 text-finma-primary font-bold uppercase border border-finma-primary/30 flex items-center gap-1">
               <Crown className="w-3 h-3" />
@@ -762,72 +760,110 @@ export default function DashboardPage() {
             </span>
           </div>
 
-          <div className="mt-3 max-h-[500px] overflow-y-auto">
-            {canAccess('pro') ? (
-              <>
-                {top10Candidates.length > 0 ? (
-                  <div className="space-y-0">
-                    {top10Candidates.slice(0, 8).map((stock: any, idx: number) => {
-                      const scoreColor = stock.score >= 80 ? 'text-finma-green' : stock.score >= 65 ? 'text-finma-primary' : 'text-finma-yellow'
-                      const potentialColor = (stock.potential_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red'
-                      return (
-                        <div
-                          key={stock.ticker}
-                          onClick={() => router.push(`/stock-analysis?ticker=${stock.ticker}`)}
-                          className="flex items-center justify-between gap-2 px-2.5 py-2.5 border-b border-finma-border/20 hover:bg-finma-primary/5 transition-colors cursor-pointer group"
-                        >
-                          <div className="flex items-center gap-2 min-w-0 flex-1">
-                            <span className="text-[10px] text-finma-text-dim w-4 shrink-0 font-bold finma-number">#{idx + 1}</span>
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-xs font-bold text-white finma-number truncate">{stock.ticker}</span>
-                                {stock.sector && (
-                                  <span className="text-[8px] text-finma-text-dim uppercase font-medium shrink-0">{stock.sector}</span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            {stock.potential_pct != null && (
-                              <span className={`text-[10px] font-bold finma-number ${potentialColor}`}>
-                                +{typeof stock.potential_pct === 'number' ? stock.potential_pct.toFixed(1) : stock.potential_pct}%
-                              </span>
-                            )}
-                            <span className={`text-[10px] font-bold finma-number w-6 text-right ${scoreColor}`}>
-                              {typeof stock.score === 'number' ? stock.score.toFixed(0) : stock.score}
-                            </span>
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                ) : (
-                  <div className="text-center py-6">
-                    <p className="text-xs text-finma-text-dim">Henüz veri yok. Bot çalıştırıldığında burada görünecek.</p>
-                  </div>
-                )}
-
-                {/* Scan Button */}
-                <button
-                  onClick={() => window.location.href = 'https://www.finmasmart.com/screener'}
-                  className="w-full mt-3 px-3 py-2 rounded-md text-sm font-medium bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30 transition-colors border border-finma-primary/30"
-                >
-                  Detaylı Tara →
-                </button>
-              </>
-            ) : (
-              <div className="text-center py-8">
-                <Lock className="w-8 h-8 text-finma-text-dim mx-auto mb-2" />
-                <p className="text-sm text-finma-text-dim mb-3">Pro özelliği kullanımı kısıtlandı</p>
-                <button
-                  onClick={() => router.push('/upgrade')}
-                  className="px-3 py-2 rounded-md text-sm font-medium bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30 transition-colors"
-                >
-                  Pro'ya Yükselt
-                </button>
+          {canAccess('pro') ? (
+            <div className="mt-4 space-y-4">
+              {/* Filter Tabs */}
+              <div className="space-y-2">
+                <p className="text-[9px] text-finma-text-dim uppercase font-bold tracking-widest">Gelişmiş Filtreleme Modülü</p>
+                <div className="flex gap-1.5">
+                  <button className="flex-1 px-2 py-1.5 rounded-md text-xs font-medium bg-finma-primary text-white hover:bg-finma-primary/90 transition-colors">
+                    ◆ Temel
+                  </button>
+                  <button className="flex-1 px-2 py-1.5 rounded-md text-xs font-medium bg-finma-bg hover:bg-finma-bg/80 text-finma-text-dim transition-colors border border-finma-border/30">
+                    ◆ Değer
+                  </button>
+                  <button className="flex-1 px-2 py-1.5 rounded-md text-xs font-medium bg-finma-bg hover:bg-finma-bg/80 text-finma-text-dim transition-colors border border-finma-border/30">
+                    ◆ Trend
+                  </button>
+                </div>
               </div>
-            )}
-          </div>
+
+              {/* Filter Indicators */}
+              <div className="flex gap-2 text-[9px]">
+                <div className="flex items-center gap-1 px-2 py-1 rounded bg-finma-bg/50 border border-finma-border/30">
+                  <span className="w-2 h-2 rounded-full bg-finma-primary"></span>
+                  <span className="text-finma-text-dim">Değer</span>
+                </div>
+                <div className="flex items-center gap-1 px-2 py-1 rounded bg-finma-bg/50 border border-finma-border/30">
+                  <span className="w-2 h-2 rounded-full bg-finma-yellow"></span>
+                  <span className="text-finma-text-dim">Trend</span>
+                </div>
+              </div>
+
+              {/* Market Cap Range */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] text-finma-text-dim uppercase font-bold tracking-widest">Piyasa Değeri: 08 - 1008</span>
+                </div>
+                <div className="h-1 bg-finma-bg rounded-full overflow-hidden">
+                  <div className="h-full w-1/4 bg-gradient-to-r from-finma-primary to-finma-cyan rounded-full"></div>
+                </div>
+              </div>
+
+              {/* Exchange Selection */}
+              <div className="space-y-2">
+                <span className="text-[9px] text-finma-text-dim uppercase font-bold tracking-widest">BORSA</span>
+                <div className="flex gap-1.5">
+                  <button className="px-2.5 py-1.5 rounded-md text-xs font-bold bg-finma-primary text-white hover:bg-finma-primary/90 transition-colors finma-number">NYSE</button>
+                  <button className="px-2.5 py-1.5 rounded-md text-xs font-bold bg-finma-primary text-white hover:bg-finma-primary/90 transition-colors finma-number">NASDAQ</button>
+                  <button className="px-2.5 py-1.5 rounded-md text-xs font-bold bg-finma-bg text-finma-text-dim hover:bg-finma-bg/80 transition-colors border border-finma-border/30 finma-number">AMEX</button>
+                </div>
+              </div>
+
+              {/* Select Dropdown */}
+              <div className="space-y-2">
+                <select className="w-full px-2.5 py-2 rounded-md text-xs font-medium bg-finma-bg border border-finma-border/30 text-finma-text hover:border-finma-primary/50 transition-colors appearance-none cursor-pointer">
+                  <option>Tümü</option>
+                  <option>Technology</option>
+                  <option>Energy</option>
+                  <option>Healthcare</option>
+                </select>
+              </div>
+
+              {/* Scan Button */}
+              <button
+                onClick={() => window.location.href = 'https://www.finmasmart.com/screener'}
+                className="w-full px-3 py-2.5 rounded-md text-sm font-bold bg-finma-primary text-white hover:bg-finma-primary/90 transition-colors flex items-center justify-center gap-2"
+              >
+                <Search className="w-4 h-4" />
+                Tara
+              </button>
+
+              {/* Preset Gallery */}
+              <div className="space-y-2 pt-2 border-t border-finma-border/30">
+                <span className="text-[9px] text-finma-text-dim uppercase font-bold tracking-widest block">ÖN AYARLAR</span>
+                <div className="space-y-1.5">
+                  <div className="p-2 rounded-md bg-finma-bg/50 border border-finma-border/30 hover:border-finma-primary/50 cursor-pointer transition-colors hover:bg-finma-primary/5">
+                    <p className="text-xs font-bold text-white">⭐ Temetli Canavarlar</p>
+                    <p className="text-[8px] text-finma-text-dim mt-0.5">Yüksek temettü verimi</p>
+                  </div>
+                  <div className="p-2 rounded-md bg-finma-bg/50 border border-finma-border/30 hover:border-finma-primary/50 cursor-pointer transition-colors hover:bg-finma-primary/5">
+                    <p className="text-xs font-bold text-white">🚀 Momentum Breakout</p>
+                    <p className="text-[8px] text-finma-text-dim mt-0.5">Güçlü trend hareketi</p>
+                  </div>
+                  <div className="p-2 rounded-md bg-finma-bg/50 border border-finma-border/30 hover:border-finma-primary/50 cursor-pointer transition-colors hover:bg-finma-primary/5">
+                    <p className="text-xs font-bold text-white">💎 Değer Avcılığı</p>
+                    <p className="text-[8px] text-finma-text-dim mt-0.5">Düşük F/K oranı</p>
+                  </div>
+                  <div className="p-2 rounded-md bg-finma-bg/50 border border-finma-border/30 hover:border-finma-primary/50 cursor-pointer transition-colors hover:bg-finma-primary/5">
+                    <p className="text-xs font-bold text-white">📊 Sürdürülebilir Büyüme</p>
+                    <p className="text-[8px] text-finma-text-dim mt-0.5">Dengeli büyüme profili</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <Lock className="w-8 h-8 text-finma-text-dim mx-auto mb-2" />
+              <p className="text-sm text-finma-text-dim mb-3">Pro özelliği kullanımı kısıtlandı</p>
+              <button
+                onClick={() => router.push('/upgrade')}
+                className="px-3 py-2 rounded-md text-sm font-medium bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30 transition-colors"
+              >
+                Pro'ya Yükselt
+              </button>
+            </div>
+          )}
         </Card>
       </div>
 
