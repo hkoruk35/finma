@@ -834,3 +834,194 @@ class NewsDB:
                 logger.error(f"DB get_latest_news hatası: {e}")
                 return cls._memory[:limit]
         return cls._memory[:limit]
+
+
+# ═══════════════════════════════════════════
+# NOTIFICATIONS TABLE CRUD
+# ═══════════════════════════════════════════
+
+class NotificationsDB:
+    """
+    notifications tablosu CRUD operasyonları.
+    Sistem bildirimleri, piyasa uyarıları, işlem notifikasyonları.
+    """
+
+    # In-memory fallback
+    _memory: dict = {}
+
+    @staticmethod
+    def _sb():
+        return get_supabase()
+
+    @classmethod
+    def get_user_notifications(cls, username: str, limit: int = 10, offset: int = 0) -> List[dict]:
+        """Kullanıcının bildirimlerini getir"""
+        user = UsersDB.get_by_username(username)
+        if not user:
+            return []
+
+        user_id = user.get("id")
+        sb = cls._sb()
+        if sb:
+            try:
+                result = (
+                    sb.table("notifications")
+                    .select("*")
+                    .eq("user_id", user_id)
+                    .order("created_at", desc=True)
+                    .range(offset, offset + limit)
+                    .execute()
+                )
+                return result.data or []
+            except Exception as e:
+                logger.error(f"DB get_user_notifications hatası: {e}")
+                return cls._memory.get(username, [])[:limit]
+
+        return cls._memory.get(username, [])[:limit]
+
+    @classmethod
+    def get_unread_count(cls, username: str) -> int:
+        """Okunmamış bildirim sayısını getir"""
+        user = UsersDB.get_by_username(username)
+        if not user:
+            return 0
+
+        user_id = user.get("id")
+        sb = cls._sb()
+        if sb:
+            try:
+                result = (
+                    sb.table("notifications")
+                    .select("id")
+                    .eq("user_id", user_id)
+                    .eq("is_read", False)
+                    .execute()
+                )
+                return len(result.data or [])
+            except Exception as e:
+                logger.error(f"DB get_unread_count hatası: {e}")
+
+        return 0
+
+    @classmethod
+    def create(cls, user_id: str, title: str, message: str, category: str, action_url: Optional[str] = None) -> Optional[dict]:
+        """Yeni bildirim oluştur"""
+        sb = cls._sb()
+        notification_data = {
+            "user_id": user_id,
+            "title": title,
+            "message": message,
+            "category": category,
+            "is_read": False,
+            "action_url": action_url,
+            "created_at": datetime.utcnow().isoformat(),
+        }
+
+        if sb:
+            try:
+                result = sb.table("notifications").insert(notification_data).execute()
+                if result.data and len(result.data) > 0:
+                    return result.data[0]
+            except Exception as e:
+                logger.error(f"DB create notification hatası: {e}")
+
+        return notification_data
+
+    @classmethod
+    def mark_as_read(cls, notification_id: str, username: str) -> bool:
+        """Bildirimi okundu olarak işaretle"""
+        user = UsersDB.get_by_username(username)
+        if not user:
+            return False
+
+        user_id = user.get("id")
+        sb = cls._sb()
+        if sb:
+            try:
+                # Sahiplik kontrolü
+                result = sb.table("notifications").select("*").eq("id", notification_id).eq("user_id", user_id).execute()
+                if not result.data:
+                    return False
+
+                sb.table("notifications").update({"is_read": True}).eq("id", notification_id).execute()
+                return True
+            except Exception as e:
+                logger.error(f"DB mark_as_read hatası: {e}")
+
+        return False
+
+    @classmethod
+    def mark_all_as_read(cls, username: str) -> int:
+        """Tüm bildirimleri okundu olarak işaretle"""
+        user = UsersDB.get_by_username(username)
+        if not user:
+            return 0
+
+        user_id = user.get("id")
+        sb = cls._sb()
+        if sb:
+            try:
+                # Önce sayısını al
+                count_result = sb.table("notifications").select("id").eq("user_id", user_id).eq("is_read", False).execute()
+                count = len(count_result.data or [])
+
+                # Sonra güncelle
+                sb.table("notifications").update({"is_read": True}).eq("user_id", user_id).execute()
+                return count
+            except Exception as e:
+                logger.error(f"DB mark_all_as_read hatası: {e}")
+
+        return 0
+
+    @classmethod
+    def delete_notification(cls, notification_id: str, username: str) -> bool:
+        """Bildirimi sil"""
+        user = UsersDB.get_by_username(username)
+        if not user:
+            return False
+
+        user_id = user.get("id")
+        sb = cls._sb()
+        if sb:
+            try:
+                # Sahiplik kontrolü
+                result = sb.table("notifications").select("*").eq("id", notification_id).eq("user_id", user_id).execute()
+                if not result.data:
+                    return False
+
+                sb.table("notifications").delete().eq("id", notification_id).execute()
+                return True
+            except Exception as e:
+                logger.error(f"DB delete notification hatası: {e}")
+
+        return False
+
+    @classmethod
+    def broadcast(cls, title: str, message: str, category: str, action_url: Optional[str] = None):
+        """Tüm kullanıcılara bildirim gönder (Admin)"""
+        users = UsersDB.get_all(limit=9999)
+        sb = cls._sb()
+
+        notifications = []
+        now = datetime.utcnow().isoformat()
+
+        for user in users:
+            notifications.append({
+                "user_id": user.get("id"),
+                "title": title,
+                "message": message,
+                "category": category,
+                "is_read": False,
+                "action_url": action_url,
+                "created_at": now,
+            })
+
+        if sb and notifications:
+            try:
+                sb.table("notifications").insert(notifications).execute()
+                logger.info(f"Broadcast: {len(notifications)} bildirimi gönderildi")
+                return len(notifications)
+            except Exception as e:
+                logger.error(f"DB broadcast hatası: {e}")
+
+        return len(notifications)

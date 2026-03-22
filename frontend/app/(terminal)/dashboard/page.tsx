@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { HUDMetrics } from '@/components/terminal/HUDMetrics'
+import { ScreenerPreview } from '@/components/terminal/ScreenerPreview'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { Badge, ActionBadge, sectorLabel } from '@/components/shared/Badge'
@@ -13,6 +14,7 @@ import { useIntelligence } from '@/hooks/useIntelligence'
 import {
   mockPortfolio, mockSignals, mockTrades, mockIndices
 } from '@/lib/mock-data'
+import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import { cn } from '@/lib/utils'
 import {
@@ -278,12 +280,14 @@ function enrichStock(stock: any) {
 
 export default function DashboardPage() {
   const router = useRouter()
+  const { canAccess } = useAuthStore()
+  const isPro = canAccess('pro')
   const { data: portfolioData } = usePortfolioSummary()
   const { data: tradesData } = useTrades('OPEN')
   const { data: signalsData } = useLatestSignals()
   const { data: indicesData } = useIndices()
   const { data: regimeData } = useRegime()
-  const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume' | 'opportunities'>('opportunities')
+  const [moversTab, setMoversTab] = useState<'gainers' | 'losers' | 'volume'>('gainers')
   const [moversPeriod, setMoversPeriod] = useState<'1d' | '1w' | '1m' | '1y'>('1d')
 
   const { data: moversData, isLoading: moversLoading, isError: moversError } = useMarketMovers(moversPeriod)
@@ -293,8 +297,8 @@ export default function DashboardPage() {
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
   // Movers canlı veri — başlangıçta mock data göster, API gelince güncelle
   const [liveMovers, setLiveMovers] = useState<{
-    gainers: any[]; losers: any[]; volume: any[]; opportunities: any[]
-  }>({ ...MOVERS, opportunities: [] })
+    gainers: any[]; losers: any[]; volume: any[]
+  }>(MOVERS)
   // Weekly highlights (Highlights of the week)
   const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>(() => {
     if (typeof window !== 'undefined') {
@@ -336,31 +340,15 @@ export default function DashboardPage() {
   // Bot sonuçlarından ilk 10
   const top10Candidates = signals.candidates?.slice(0, 10) || []
 
-  // Fırsatlar (swing113) verisini çek
-  useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
-    const token = typeof window !== 'undefined' ? localStorage.getItem('finma_token') : null
-    fetch(`${API_URL}/api/signals/opportunities`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    })
-      .then(r => r.ok ? r.json() : null)
-      .then(data => {
-        if (data?.opportunities) {
-          setLiveMovers(prev => ({ ...prev, opportunities: data.opportunities.slice(0, 10) }))
-        }
-      })
-      .catch(() => {})
-  }, [])
-
   // Sycnc moversData to liveMovers and liveQuotes
   useEffect(() => {
     if (moversData) {
-      setLiveMovers(prev => ({
+      const enrichedData = {
         gainers: (moversData.gainers || []).map(enrichStock),
         losers: (moversData.losers || []).map(enrichStock),
         volume: (moversData.volume || []).map(enrichStock),
-        opportunities: prev.opportunities,
-      }))
+      }
+      setLiveMovers(enrichedData)
 
       // Update live quotes
       const map: Record<string, any> = { ...liveQuotes }
@@ -444,13 +432,15 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Komuta Merkezi — tüm kullanıcılara göster */}
-      <div>
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-sm font-semibold text-finma-text">Komuta Merkezi</span>
+      {/* Komuta Merkezi — sadece Pro+ */}
+      {isPro && (
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-sm font-semibold text-finma-text">Komuta Merkezi</span>
+          </div>
+          <HUDMetrics data={portfolio} />
         </div>
-        <HUDMetrics data={portfolio} />
-      </div>
+      )}
 
       {/* Piyasa Bağlamı */}
       <MarketContext indices={indices} />
@@ -612,7 +602,6 @@ export default function DashboardPage() {
         <div className="flex items-center gap-2 mt-3 mb-3 flex-wrap">
           <div className="flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
             {([
-              { key: 'opportunities', label: 'Fırsatlar', icon: Flame, color: 'text-orange-400' },
               { key: 'gainers', label: 'Yükselenler', icon: TrendingUp, color: 'text-finma-green' },
               { key: 'losers', label: 'Düşenler', icon: TrendingDown, color: 'text-finma-red' },
               { key: 'volume', label: 'En Yüksek Hacim', icon: Volume2, color: 'text-finma-cyan' },
@@ -633,145 +622,76 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          {moversTab !== 'opportunities' && (
-            <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
-              {(['1d', '1w', '1m', '1y'] as const).map(p => (
-                <button
-                  key={p}
-                  onClick={() => setMoversPeriod(p)}
-                  className={cn(
-                    'px-2.5 py-1 rounded-md text-[10px] font-medium transition-all finma-number',
-                    moversPeriod === p
-                      ? 'bg-finma-card text-white shadow-sm'
-                      : 'text-finma-text-dim hover:text-finma-text'
-                  )}
-                >
-                  {p === '1d' ? '1 Gün' : p === '1w' ? '1 Hafta' : p === '1m' ? '1 Ay' : '1 Yıl'}
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5">
+            {(['1d', '1w', '1m', '1y'] as const).map(p => (
+              <button
+                key={p}
+                onClick={() => setMoversPeriod(p)}
+                className={cn(
+                  'px-2.5 py-1 rounded-md text-[10px] font-medium transition-all finma-number',
+                  moversPeriod === p
+                    ? 'bg-finma-card text-white shadow-sm'
+                    : 'text-finma-text-dim hover:text-finma-text'
+                )}
+              >
+                {p === '1d' ? '1 Gün' : p === '1w' ? '1 Hafta' : p === '1m' ? '1 Ay' : '1 Yıl'}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Fırsatlar Tablosu (swing113) */}
-        {moversTab === 'opportunities' ? (
-          <div className="overflow-x-auto mt-1">
-            {liveMovers.opportunities.length === 0 ? (
-              <div className="text-center py-8 text-finma-text-dim text-xs">
-                <Flame className="w-8 h-8 mx-auto mb-2 opacity-30 text-orange-400" />
-                <p>Bot fırsatları henüz yüklenmedi. Günlük NY 11:00, 13:05 ve 15:00'da otomatik güncellenir.</p>
-              </div>
-            ) : (
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="text-finma-text-dim bg-finma-bg/80">
-                    <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8">#</th>
-                    <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Hisse</th>
-                    <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Sektör</th>
-                    <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Fiyat</th>
-                    <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Hedef %</th>
-                    <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Skor</th>
-                    <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50">İşlem</th>
+        {/* Profesyonel Tablo */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-finma-text-dim bg-finma-bg/80">
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8">#</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Hisse / Şirket</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Sektör</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Canlı Fiyat</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Gnl Değişim</th>
+              </tr>
+            </thead>
+            <tbody>
+              {liveMovers[moversTab]?.map((stock: any, idx: number) => {
+                const sym = stock.symbol || stock.ticker
+                return (
+                  <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
+                    onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
+                    <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
+                    <td className="py-2.5 px-3 border border-finma-border/50">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-finma-primary finma-number text-sm">{sym}</span>
+                        <span className="text-finma-text-dim text-[10px] uppercase">{stock.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-2.5 px-3 border border-finma-border/50">
+                      <span className={cn(
+                        'text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase',
+                        SECTOR_BADGE[stock.sector] || 'bg-white/5 text-finma-text-dim border-white/10'
+                      )}>
+                        {sectorLabel(stock.sector)}
+                      </span>
+                    </td>
+                    <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">${(stock.price ?? 0).toFixed(2)}</td>
+                    <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      <div className="flex items-center justify-end gap-1">
+                        {(stock.change_pct ?? 0) >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                        {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {liveMovers.opportunities.map((opp: any, idx: number) => (
-                    <tr key={opp.ticker || idx}
-                      className="hover:bg-finma-primary/5 transition-colors cursor-pointer"
-                      onClick={() => router.push(`/stock-analysis?ticker=${opp.ticker}`)}>
-                      <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{opp.rank || idx + 1}</td>
-                      <td className="py-2.5 px-3 border border-finma-border/50">
-                        <div className="flex flex-col">
-                          <span className="font-bold text-finma-primary finma-number text-sm">{opp.ticker}</span>
-                          <span className="text-finma-text-dim text-[10px]">{opp.company_name}</span>
-                        </div>
-                      </td>
-                      <td className="py-2.5 px-3 border border-finma-border/50">
-                        <span className="text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase bg-white/5 text-finma-text-dim border-white/10">
-                          {opp.sector}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">${(opp.price ?? 0).toFixed(2)}</td>
-                      <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-finma-green">
-                        +{(opp.potential_pct ?? 0).toFixed(1)}%
-                      </td>
-                      <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-finma-primary">
-                        {(opp.score ?? 0).toFixed(1)}
-                      </td>
-                      <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={e => e.stopPropagation()}>
-                        <button
-                          onClick={() => router.push(`/watchlist?add=${opp.ticker}`)}
-                          className="text-[10px] px-2 py-1 rounded bg-finma-primary/20 text-finma-primary border border-finma-primary/30 hover:bg-finma-primary/40 transition-colors"
-                        >
-                          + Takibe Al
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-        ) : (
-          /* Profesyonel Tablo (gainers/losers/volume) */
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="text-finma-text-dim bg-finma-bg/80">
-                  <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8">#</th>
-                  <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Hisse / Şirket</th>
-                  <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50">Sektör</th>
-                  <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Canlı Fiyat</th>
-                  <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50">Gnl Değişim</th>
-                  <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50">İşlem</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(liveMovers[moversTab] as any[])?.map((stock: any, idx: number) => {
-                  const sym = stock.symbol || stock.ticker
-                  return (
-                    <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
-                      onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
-                      <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
-                      <td className="py-2.5 px-3 border border-finma-border/50">
-                        <div className="flex flex-col">
-                          <span className="font-bold text-finma-primary finma-number text-sm">{sym}</span>
-                          <span className="text-finma-text-dim text-[10px] uppercase">{stock.name}</span>
-                        </div>
-                      </td>
-                      <td className="py-2.5 px-3 border border-finma-border/50">
-                        <span className={cn(
-                          'text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase',
-                          SECTOR_BADGE[stock.sector] || 'bg-white/5 text-finma-text-dim border-white/10'
-                        )}>
-                          {sectorLabel(stock.sector)}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">${(stock.price ?? 0).toFixed(2)}</td>
-                      <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                        <div className="flex items-center justify-end gap-1">
-                          {(stock.change_pct ?? 0) >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                          {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
-                        </div>
-                      </td>
-                      <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={e => e.stopPropagation()}>
-                        <button
-                          onClick={() => router.push(`/watchlist?add=${sym}`)}
-                          className="text-[10px] px-2 py-1 rounded bg-finma-primary/20 text-finma-primary border border-finma-primary/30 hover:bg-finma-primary/40 transition-colors"
-                        >
-                          + Takibe Al
-                        </button>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
       </Card>
 
-      {/* ═══════════════ 4. AKILLI PARA AKIŞI ═══════════════ */}
+      {/* ═══════════════ 4. SCREENER SONUÇLARI ═══════════════ */}
+      <ScreenerPreview />
+
+      {/* ═══════════════ 5. AKILLI PARA AKIŞI ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Building2 className="w-5 h-5 text-finma-green" />
@@ -832,7 +752,7 @@ export default function DashboardPage() {
         </div>
       </Card>
 
-      {/* ═══════════════ 5. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
+      {/* ═══════════════ 6. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
       <Card padding="sm">
         <div className="flex items-center flex-wrap gap-2 pb-3 border-b border-finma-border">
           <Globe2 className="w-5 h-5 text-finma-yellow" />

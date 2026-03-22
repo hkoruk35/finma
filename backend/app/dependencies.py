@@ -77,3 +77,41 @@ def optional_user(authorization: Optional[str] = Header(None)) -> Optional[dict]
         return {"username": payload.get("sub"), "role": payload.get("role", "free")}
     except Exception:
         return None
+
+
+# ─── Tier-Based Access Control ───
+
+def require_screener_access(user: dict = Depends(get_current_user)) -> dict:
+    """Require screener access (tier-based limit check)"""
+    from app.services.tier_manager import TierManager
+    can_use, msg = TierManager.can_use_screener(user["username"])
+    if not can_use:
+        raise HTTPException(status_code=403, detail=msg)
+    return user
+
+
+def require_watchlist_access(user: dict = Depends(get_current_user)) -> dict:
+    """Require watchlist access (tier-based limit check)"""
+    from app.services.tier_manager import TierManager
+    can_use, msg = TierManager.can_add_to_watchlist(user["username"])
+    if not can_use:
+        raise HTTPException(status_code=403, detail=msg)
+    return user
+
+
+def require_portfolio_access(user: dict = Depends(get_current_user)) -> dict:
+    """Require portfolio access (tier-based limit check)"""
+    from app.services.tier_manager import TierManager
+    can_use, msg = TierManager.can_create_portfolio(user["username"])
+    if not can_use:
+        raise HTTPException(status_code=403, detail=msg)
+    return user
+
+
+def require_backtest_access(user: dict = Depends(get_current_user)) -> dict:
+    """Require backtest access (Pro+ only)"""
+    from app.services.tier_manager import TierManager
+    can_use, msg = TierManager.can_access_backtest(user["username"])
+    if not can_use:
+        raise HTTPException(status_code=403, detail=msg)
+    return user

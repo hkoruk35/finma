@@ -88,6 +88,14 @@ def get_sectors(period: str = Query("1mo", description="Periyot: 1d, 5d, 1mo, 3m
     return get_sector_performance(period)
 
 
+@router.get("/movers")
+def get_movers(tab: str = Query("gainers", description="Tab: gainers, losers, volume")):
+    """Piyasa hareketleri: Yükselenler, Düşenler, Yüksek Hacim (3 sekme)"""
+    # Map tab to period for backward compatibility
+    period = "1d" if tab in ["gainers", "losers", "volume"] else "1d"
+    return get_market_movers(period)
+
+
 @router.get("/regime")
 def get_regime():
     """Mevcut piyasa rejimini getir (Bull/Bear/Cautious)"""

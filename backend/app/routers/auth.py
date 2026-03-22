@@ -289,6 +289,34 @@ async def list_users(admin: dict = Depends(require_admin), limit: int = 100, off
     ]
 
 
+@router.get("/tier/info")
+async def get_tier_info(user: dict = Depends(get_current_user)):
+    """Kullanıcının mevcut tier bilgilerini ve limitlerini getir"""
+    from app.services.tier_manager import TierManager
+    return TierManager.get_usage_summary(user["username"])
+
+
+@router.post("/tier/start-trial")
+async def tier_start_trial(user: dict = Depends(get_current_user)):
+    """Free kullanıcı için Pro trial'ı başlat"""
+    from app.services.tier_manager import TierManager
+    success = TierManager.start_trial(user["username"])
+    if not success:
+        raise HTTPException(status_code=400, detail="Trial başlatılamadı")
+    return {"message": "Pro trial başlatıldı. 7 gün boyunca tüm özellikler açılmıştır."}
+
+
+@router.post("/tier/upgrade-pro")
+async def tier_upgrade_pro(user: dict = Depends(get_current_user)):
+    """Kullanıcıyı Pro'ya yüksel (Stripe payment sonrasında çağrılacak)"""
+    from app.services.tier_manager import TierManager
+    success = TierManager.upgrade_to_pro(user["username"])
+    if not success:
+        raise HTTPException(status_code=400, detail="Yükseltme başarısız oldu")
+    token = create_token({"sub": user["username"], "role": "pro"})
+    return {"message": "Pro üyeliğiniz aktivasyon oldu", "access_token": token}
+
+
 @router.get("/admin/stats")
 async def get_admin_stats(admin: dict = Depends(require_admin)):
     """Admin dashboard istatistikleri"""

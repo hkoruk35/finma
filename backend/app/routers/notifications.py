@@ -1,93 +1,79 @@
-"""Notifications Router — Kullanıcı bildirimleri"""
-from fastapi import APIRouter, Depends
+"""Notifications Router — Kullanıcı bildirimleri CRUD"""
+from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import List, Optional
 from datetime import datetime
-from app.dependencies import get_current_user
-from app.database import get_supabase
+from pydantic import BaseModel
+from app.dependencies import get_current_user, require_admin
+from app.database import NotificationsDB, UsersDB
 import logging
-import uuid
 
 logger = logging.getLogger(__name__)
-router = APIRouter()
-
-# In-memory fallback
-_notifications_memory: List[dict] = []
+router = APIRouter(prefix="/api/notifications", tags=["notifications"])
 
 
-def get_user_notifications(user_id: str, limit: int = 10) -> List[dict]:
-    sb = get_supabase()
-    if sb:
-        try:
-            result = sb.table("notifications").select("*").eq("user_id", user_id).order("created_at", desc=True).limit(limit).execute()
-            return result.data or []
-        except Exception as e:
-            logger.error(f"Notification fetch hatası: {e}")
-    return [n for n in _notifications_memory if n.get("user_id") == user_id][:limit]
+class NotificationResponse(BaseModel):
+    id: str
+    title: str
+    message: str
+    category: str
+    is_read: bool
+    created_at: str
+    action_url: Optional[str] = None
 
 
-def mark_notification_read(notification_id: str) -> bool:
-    sb = get_supabase()
-    if sb:
-        try:
-            sb.table("notifications").update({"is_read": True}).eq("id", notification_id).execute()
-            return True
-        except Exception as e:
-            logger.error(f"Notification mark read hatası: {e}")
-    for n in _notifications_memory:
-        if n.get("id") == notification_id:
-            n["is_read"] = True
-            return True
-    return False
+@router.get("", response_model=List[NotificationResponse])
+async def get_notifications(
+    user: dict = Depends(get_current_user),
+    limit: int = Query(10, le=50),
+    offset: int = Query(0, ge=0),
+):
+    """Son bildirimleri getir (max 10 varsayılan)"""
+    notifications = NotificationsDB.get_user_notifications(user["username"], limit=limit, offset=offset)
+    return notifications
 
 
-def create_notification(user_id: str, title: str, message: str = "", ntype: str = "system", action_url: str = "") -> dict:
-    notif = {
-        "id": str(uuid.uuid4()),
-        "user_id": user_id,
-        "type": ntype,
-        "title": title,
-        "message": message,
-        "is_read": False,
-        "action_url": action_url,
-        "created_at": datetime.utcnow().isoformat(),
-    }
-    sb = get_supabase()
-    if sb:
-        try:
-            result = sb.table("notifications").insert({k: v for k, v in notif.items() if k != "id"}).execute()
-            if result.data:
-                return result.data[0]
-        except Exception as e:
-            logger.error(f"Notification create hatası: {e}")
-    _notifications_memory.append(notif)
-    return notif
+@router.get("/unread-count")
+async def get_unread_count(user: dict = Depends(get_current_user)):
+    """Okunmamış bildirim sayısı"""
+    count = NotificationsDB.get_unread_count(user["username"])
+    return {"unread_count": count}
 
 
-@router.get("")
-async def get_notifications(limit: int = 10, current_user: dict = Depends(get_current_user)):
-    user_id = current_user.get("id", "")
-    notifications = get_user_notifications(user_id, limit)
-    unread_count = sum(1 for n in notifications if not n.get("is_read", False))
-    return {"notifications": notifications, "unread_count": unread_count}
+@router.patch("/{notification_id}/read")
+async def mark_as_read(notification_id: str, user: dict = Depends(get_current_user)):
+    """Bildirimi okundu işaretle"""
+    result = NotificationsDB.mark_as_read(notification_id, user["username"])
+    if not result:
+        raise HTTPException(status_code=404, detail="Bildirim bulunamadı")
+    return {"message": "Okundu işaretlendi"}
 
 
-@router.put("/{notification_id}/read")
-async def mark_read(notification_id: str, current_user: dict = Depends(get_current_user)):
-    mark_notification_read(notification_id)
-    return {"success": True}
+@router.post("/read-all")
+async def mark_all_as_read(user: dict = Depends(get_current_user)):
+    """Tüm bildirimleri okundu işaretle"""
+    count = NotificationsDB.mark_all_as_read(user["username"])
+    return {"message": f"{count} bildirim okundu işaretlendi"}
 
 
-@router.put("/read-all")
-async def mark_all_read(current_user: dict = Depends(get_current_user)):
-    user_id = current_user.get("id", "")
-    sb = get_supabase()
-    if sb:
-        try:
-            sb.table("notifications").update({"is_read": True}).eq("user_id", user_id).execute()
-        except Exception as e:
-            logger.error(f"Mark all read hatası: {e}")
-    else:
-        for n in _notifications_memory:
-            if n.get("user_id") == user_id:
-                n["is_read"] = True
-    return {"success": True}
+@router.delete("/{notification_id}")
+async def delete_notification(notification_id: str, user: dict = Depends(get_current_user)):
+    """Bildirimi sil"""
+    result = NotificationsDB.delete_notification(notification_id, user["username"])
+    if not result:
+        raise HTTPException(status_code=404, detail="Bildirim bulunamadı")
+    return {"message": "Bildirim silindi"}
+
+
+# ─── ADMIN ───
+
+@router.post("/admin/broadcast")
+async def broadcast_notification(
+    title: str,
+    message: str,
+    category: str = "system",
+    admin: dict = Depends(require_admin),
+):
+    """Tüm kullanıcılara bildirim gönder"""
+    count = NotificationsDB.broadcast(title, message, category)
+    logger.info(f"Broadcast: {count} kullanıcıya {category} bildirimi gönderildi")
+    return {"message": f"{count} bildirim gönderildi"}
