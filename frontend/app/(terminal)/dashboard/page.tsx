@@ -11,7 +11,6 @@ import { useIndices, useSectors, useMarketMovers, useRegime } from '@/hooks/useM
 import { useIntelligence } from '@/hooks/useIntelligence'
 import { useEventStream } from '@/hooks/useEventStream'
 import { FinMAChart } from '@/components/terminal/FinMAChart'
-import { BacktestDashboard } from '@/components/admin/BacktestDashboard'
 import {
   mockPortfolio, mockSignals, mockTrades, mockIndices
 } from '@/lib/mock-data'
@@ -540,12 +539,6 @@ export default function DashboardPage() {
               {isAdmin ? 'Komuta Merkezi — Admin' : 'Komuta Merkezi'}
             </span>
           </div>
-          
-          {isAdmin && (
-            <div className="mb-4">
-               <BacktestDashboard />
-            </div>
-          )}
 
           {isAdmin && adminStats ? (
             <AdminHUDMetrics

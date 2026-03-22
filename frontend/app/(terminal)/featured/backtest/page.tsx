@@ -6,6 +6,7 @@ import { sectorLabel } from '@/components/shared/Badge'
 import { cn } from '@/lib/utils'
 import { api } from '@/lib/api-client'
 import { useAuthStore } from '@/store/auth'
+import { BacktestDashboard } from '@/components/admin/BacktestDashboard'
 import {
   History, TrendingUp, TrendingDown, Target, ShieldAlert,
   Activity, Search, ChevronUp, ChevronDown, RefreshCw, Clock,
@@ -276,6 +277,9 @@ export default function BacktestPage() {
   // ─── Render ───────────────────────────────────────────────────
   return (
     <div className="space-y-4 animate-fade-in">
+
+      {/* BACKTEST DASHBOARD (ADMIN) */}
+      {isAdmin && <BacktestDashboard />}
 
       {/* BAŞLIK */}
       <div className="flex items-center justify-between flex-wrap gap-2">

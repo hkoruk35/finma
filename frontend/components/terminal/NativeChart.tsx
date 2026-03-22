@@ -36,7 +36,9 @@ export function NativeChart({
         const url = URL.createObjectURL(blob)
         setImageUrl(url)
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Bilinmeyen hata')
+        const errorMsg = err instanceof Error ? err.message : 'Bilinmeyen hata'
+        console.error(`Chart load error for ${ticker}:`, err)
+        setError(errorMsg)
       } finally {
         setLoading(false)
       }
