@@ -1,5 +1,5 @@
 """Chart Router — FinMA Native Chart Engine"""
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from typing import Optional
 import logging
@@ -13,7 +13,6 @@ from zoneinfo import ZoneInfo
 from ta.indicators import EMAIndicator, BollingerBands, RSIIndicator, AverageTrueRange, MACD
 import os
 import tempfile
-from app.dependencies import get_current_user
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/chart", tags=["chart"])
@@ -330,8 +329,7 @@ def generate_stock_chart(ticker: str, df_1d: pd.DataFrame, df_1h: pd.DataFrame =
 async def get_chart(
     ticker: str,
     period: str = "1y",
-    interval: str = "1d",
-    current_user: dict = Depends(get_current_user)
+    interval: str = "1d"
 ):
     """Hisse grafiğini getir"""
     try:
