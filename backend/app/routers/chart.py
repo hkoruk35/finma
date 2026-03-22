@@ -340,10 +340,13 @@ async def get_chart(
     """Hisse grafiğini getir"""
     try:
         # Veriyi indir
+        logger.info(f"Downloading data for {ticker} period={period} interval={interval}")
         df = yf.download(ticker, period=period, interval=interval, progress=False, auto_adjust=True)
 
         if df.empty:
             raise HTTPException(status_code=404, detail=f"Ticker {ticker} için veri bulunamadı")
+
+        logger.info(f"Data downloaded for {ticker}: {len(df)} rows, columns: {list(df.columns)}")
 
         # Grafiği üret
         chart_path = generate_stock_chart(ticker, df)
@@ -351,11 +354,13 @@ async def get_chart(
         if not chart_path or not os.path.exists(chart_path):
             raise HTTPException(status_code=500, detail="Grafik oluşturulamadı")
 
-        # Dosyayı gönder
+        logger.info(f"Chart generated for {ticker}: {chart_path}")
+
+        # Dosyayı gönder ve sonra temizle
         return FileResponse(chart_path, media_type="image/png", filename=f"{ticker}.png")
 
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Chart endpoint error: {e}")
-        raise HTTPException(status_code=500, detail="Grafik sunumunda hata oluştu")
+        logger.error(f"Chart endpoint error for {ticker}: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Grafik hatası: {str(e)}")
