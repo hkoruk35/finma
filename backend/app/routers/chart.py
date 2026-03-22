@@ -10,7 +10,9 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from ta.indicators import EMAIndicator, BollingerBands, RSIIndicator, AverageTrueRange, MACD
+from ta.trend import EMAIndicator, MACD
+from ta.volatility import BollingerBands, AverageTrueRange
+from ta.momentum import RSIIndicator
 import os
 import tempfile
 
