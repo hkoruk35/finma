@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
 import { Card } from '@/components/shared/Card'
 import { Badge } from '@/components/shared/Badge'
 import { cn, formatCurrency, getPnlColor } from '@/lib/utils'

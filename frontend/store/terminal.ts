@@ -1,7 +1,6 @@
 'use client'
 
 import { create } from 'zustand'
-import { toTvSymbol, DEFAULT_CHART_SYMBOL } from '@/lib/tv-symbols'
 
 interface TerminalState {
   sidebarOpen: boolean
@@ -26,10 +25,10 @@ export const useTerminalStore = create<TerminalState>((set) => ({
   mobileMenuOpen: false,
   activeSection: 'dashboard',
   selectedTicker: 'AAPL',
-  chartSymbol: DEFAULT_CHART_SYMBOL,
+  chartSymbol: 'AAPL',
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
   setMobileMenuOpen: (open) => set({ mobileMenuOpen: open }),
   setActiveSection: (section) => set({ activeSection: section }),
-  setSelectedTicker: (ticker) => set({ selectedTicker: ticker, chartSymbol: toTvSymbol(ticker) }),
-  setChartSymbol: (symbol) => set({ chartSymbol: toTvSymbol(symbol) }),
+  setSelectedTicker: (ticker) => set({ selectedTicker: ticker, chartSymbol: ticker }),
+  setChartSymbol: (symbol) => set({ chartSymbol: symbol }),
 }))

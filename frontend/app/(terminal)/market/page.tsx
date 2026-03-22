@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { TradingViewWidget } from '@/components/terminal/TradingViewWidget'
+import { NativeChart } from '@/components/terminal/NativeChart'
 import { MarketContext } from '@/components/terminal/MarketContext'
 import { Card } from '@/components/shared/Card'
 import { mockIndices } from '@/lib/mock-data'
@@ -82,9 +82,9 @@ export default function MarketPage() {
 
       {/* Grafik */}
       <div
-        className="w-full bg-finma-card border border-finma-border rounded-lg overflow-hidden h-[300px] md:h-[460px]"
+        className="w-full h-[300px] md:h-[460px]"
       >
-        <TradingViewWidget />
+        <NativeChart ticker={chartSymbol} period="1y" interval="1d" className="h-full" />
       </div>
 
       {/* Sektörel Özet */}
