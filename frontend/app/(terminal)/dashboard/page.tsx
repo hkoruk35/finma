@@ -810,7 +810,7 @@ export default function DashboardPage() {
 
                 {/* Scan Button */}
                 <button
-                  onClick={() => router.push('/screener')}
+                  onClick={() => window.location.href = 'https://www.finmasmart.com/screener'}
                   className="w-full mt-3 px-3 py-2 rounded-md text-sm font-medium bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30 transition-colors border border-finma-primary/30"
                 >
                   Detaylı Tara →
