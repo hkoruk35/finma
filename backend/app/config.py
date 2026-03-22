@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     # Database
     supabase_url: str = ""
     supabase_key: str = ""
+    redis_url: str = ""
 
     # Bot
     bot_api_key: str = "finma-bot-secret-key"
@@ -42,6 +43,9 @@ class Settings(BaseSettings):
     # Bot paths
     bots_dir: str = "bots"
     signals_output_dir: str = "bots/output"
+
+    # Redis
+    redis_url: str = "redis://localhost:6379"
 
     class Config:
         env_file = ".env"
