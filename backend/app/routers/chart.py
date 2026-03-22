@@ -100,8 +100,8 @@ def generate_stock_chart(ticker: str, df_1d: pd.DataFrame, df_1h: pd.DataFrame =
 
         # Destek / Direnç
         recent_window = 20
-        support_level = low.tail(recent_window).min()
-        resistance_level = high.tail(recent_window).max()
+        support_level = float(low.tail(recent_window).min())
+        resistance_level = float(high.tail(recent_window).max())
 
         # C) PERFORMANS METRİKLERİ
         curr_price = float(close.iloc[-1])
@@ -347,6 +347,10 @@ async def get_chart(
             raise HTTPException(status_code=404, detail=f"Ticker {ticker} için veri bulunamadı")
 
         logger.info(f"Data downloaded for {ticker}: {len(df)} rows, columns: {list(df.columns)}")
+
+        # Flatten MultiIndex columns from yfinance
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.droplevel(1)
 
         # Grafiği üret
         try:

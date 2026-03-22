@@ -10,12 +10,13 @@ import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useSectors, useMarketMovers, useRegime } from '@/hooks/useMarketData'
 import { useIntelligence } from '@/hooks/useIntelligence'
 import { useEventStream } from '@/hooks/useEventStream'
-import { GraphicEngine } from '@/components/terminal/GraphicEngine'
+import { NativeChart } from '@/components/terminal/NativeChart'
 import { BacktestDashboard } from '@/components/admin/BacktestDashboard'
 import {
   mockPortfolio, mockSignals, mockTrades, mockIndices
 } from '@/lib/mock-data'
 import { useAuthStore } from '@/store/auth'
+import { useTerminalStore } from '@/store/terminal'
 import { api } from '@/lib/api-client'
 import { cn } from '@/lib/utils'
 import { HUDMetrics, AdminHUDMetrics } from '@/components/terminal/HUDMetrics'
@@ -296,6 +297,7 @@ function enrichStock(stock: any) {
 export default function DashboardPage() {
   const router = useRouter()
   const { canAccess } = useAuthStore()
+  const { chartSymbol } = useTerminalStore()
   const isPro = canAccess('pro')
   const isAdmin = canAccess('admin')
   const { data: portfolioData } = usePortfolioSummary()
@@ -622,9 +624,9 @@ export default function DashboardPage() {
 
       {/* ═══════════════ 2. PİYASA HAREKETLERİ & HISSE TARAMA ═══════════════ */}
       
-      {/* NATIVE GRAPHIC HERO (New for V5.0) */}
-      <div className="mb-4">
-        <GraphicEngine ticker="NVDA" initialTimeframe="1h" height={320} />
+      {/* NATIVE CHART (FinMA Chart Engine) */}
+      <div className="mb-4 h-[320px]">
+        <NativeChart ticker={chartSymbol} period="1y" interval="1d" className="h-full" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">

@@ -411,7 +411,7 @@ function PriceHistoryTab({ ticker }: { ticker: string }) {
               <div className="p-3 bg-finma-card border border-finma-border rounded-lg text-[11px] text-finma-text-dim flex items-center gap-2">
                 <AlertTriangle className="w-3.5 h-3.5 text-finma-yellow shrink-0" />
                 <p>
-                  Günlük detaylı OHLC verileri ve teknik formasyonlar için yukarıdaki <strong>TradingView</strong> grafiğini kullanabilirsiniz. 
+                  Günlük detaylı OHLC verileri ve teknik formasyonlar için yukarıdaki <strong>FinMA</strong> grafiğini kullanabilirsiniz. 
                   Bu sekme son 7 günün genel momentumunu özetler.
                 </p>
               </div>
