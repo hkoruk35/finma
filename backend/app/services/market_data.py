@@ -1279,6 +1279,21 @@ def update_market_insiders():
         return len(sec_filings)
         
     logger.warning("❌ Hiç insider işlemi bulunamadı. Sayfa boş kalabilir.")
+    
+    # Fallback Data
+    dummy_trade = [{
+        "symbol": "FINMA",
+        "owner": "Sistem Admini",
+        "relationship": "Sistem Sağlığı (API Kesintisi)",
+        "transaction": "Test",
+        "date": datetime.utcnow().isoformat()[:10],
+        "cost": 0,
+        "shares": 0,
+        "value": 0,
+        "sec_form_4_url": "https://finmasmart.com"
+    }]
+    InsiderDB.save_trades(dummy_trade)
+    
     return 0
 
 
@@ -1350,9 +1365,48 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
     else:
         logger.info(f"📰 Zaten {len(results)} haber var, Yahoo pas geçildi.")
 
-    # 3. Turkish Financial News (Bloomberg HT & Investing TR)
+    # 2.5 Google News Global Fallback (En güveniliri)
+    if len(results) < 20:
+        try:
+            gn_url = "https://news.google.com/rss/search?q=us+stock+market+OR+wall+street+OR+nasdaq+OR+s%26p+500&hl=en-US&gl=US&ceid=US:en"
+            if category == "economy":
+                gn_url = "https://news.google.com/rss/search?q=us+economy+OR+fed+interest+rates+OR+us+inflation&hl=en-US&gl=US&ceid=US:en"
+                
+            status, text = _fetch_url(gn_url)
+            if status == 200:
+                root = ET.fromstring(text)
+                count = 0
+                for item in root.findall('.//item'):
+                    title = item.find('title').text if item.find('title') is not None else ""
+                    link = item.find('link').text if item.find('link') is not None else ""
+                    pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
+                    
+                    publisher = "Google News"
+                    if " - " in title:
+                        parts = title.rsplit(" - ", 1)
+                        title = parts[0]
+                        publisher = parts[1]
+                        
+                    results.append({
+                        "title": title,
+                        "url": link,
+                        "publisher": publisher,
+                        "date": pub_date,
+                        "ticker": "MARKET",
+                        "impact": "neutral",
+                        "category": category,
+                        "lang": "en"
+                    })
+                    count += 1
+                    if count >= 15: break
+                logger.info(f"📰 Google News EN'den {count} haber eklendi ({category}).")
+        except Exception as e:
+            logger.error(f"Google News RSS error: {e}")
+
+    # 3. Turkish Financial News (Google News TR, Bloomberg HT, Investing vb.)
     try:
         tr_sources = [
+            {"name": "Google News TR", "url": "https://news.google.com/rss/search?q=ABD+borsa+OR+Wall+Street+OR+Fed+faiz+OR+Nasdaq+OR+S%26P+500+OR+Amerikan+ekonomisi&hl=tr&gl=TR&ceid=TR:tr"},
             {"name": "Bloomberg HT", "url": "https://www.bloomberght.com/rss"},
             {"name": "Investing TR", "url": "https://tr.investing.com/rss/news.rss"},
             {"name": "Bigpara", "url": "https://www.bigpara.com/rss/"},
@@ -1374,10 +1428,16 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
                         link = link_el.text if link_el is not None else ""
                         pub_date = date_el.text if date_el is not None else ""
                         
+                        publisher = src["name"]
+                        if src["name"] == "Google News TR" and " - " in title:
+                            parts = title.rsplit(" - ", 1)
+                            title = parts[0]
+                            publisher = parts[1]
+                        
                         results.append({
                             "title": title,
                             "url": link,
-                            "publisher": src["name"],
+                            "publisher": publisher,
                             "date": pub_date,
                             "ticker": "MARKET",
                             "impact": "neutral",
@@ -1436,7 +1496,20 @@ def update_all_market_news():
     all_news.extend(fetch_finnhub_news())
 
     if not all_news:
-        return 0
+        logger.warning("No news fetched from any source! Using fallback dummy news.")
+        import time
+        from datetime import datetime
+        all_news.append({
+            "title": "FinMA Sistem Bilgilendirmesi: Piyasalar Beklemede",
+            "url": "https://finmasmart.com",
+            "publisher": "FinMA Internal",
+            "date": datetime.utcnow().isoformat(),
+            "ticker": "MARKET",
+            "impact": "neutral",
+            "category": "market",
+            "lang": "tr",
+            "summary_tr": "Sistem geçici olarak haber sağlayıcılara bağlanamıyor. Lütfen 3. parti API ayarlarınızı kontrol edin."
+        })
 
     # Gemini Flash ile Türkçe özetler ekle (eğer API anahtarı varsa)
     try:

@@ -817,7 +817,8 @@ class NewsDB:
                 cls._memory = cls._memory[-200:]
                 return True
             except Exception as e:
-                logger.error(f"DB save_news hatası: {e}")
+                cls.last_error = f"{e.__class__.__name__}: {str(e)}"
+                logger.error(f"DB save_news hatası: {cls.last_error}")
                 cls._memory.extend(news_list)
                 cls._memory = cls._memory[-200:]
                 return False
@@ -838,7 +839,8 @@ class NewsDB:
                 result = query.execute()
                 return result.data or []
             except Exception as e:
-                logger.error(f"DB get_latest_news hatası: {e}")
+                cls.last_error = f"get_latest: {e.__class__.__name__}: {str(e)}"
+                logger.error(f"DB get_latest_news hatası: {cls.last_error}")
                 return cls._memory[:limit]
         return cls._memory[:limit]
 
