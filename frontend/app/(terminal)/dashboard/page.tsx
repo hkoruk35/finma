@@ -278,7 +278,7 @@ const STOCK_METADATA: Record<string, { name: string, sector: string }> = {
 }
 
 function enrichStock(stock: any) {
-  const sym = stock.symbol || stock.ticker
+  const sym = stock.symbol || stock.ticker || ''
   const meta = STOCK_METADATA[sym]
 
   // Eğer name ticker ile aynıysa veya boşsa fallback kullan
@@ -312,10 +312,15 @@ export default function DashboardPage() {
 
   // Canlı fiyatlar — top10 + movers tickers için batch quote
   const [liveQuotes, setLiveQuotes] = useState<Record<string, { price: number; change: number; change_pct: number }>>({})
-  // Movers canlı veri — başlangıçta mock data göster, API gelince güncelle
+  // Movers canlı veri — başlangıçta boş göster, API gelince güncelle
   const [liveMovers, setLiveMovers] = useState<{
     opportunities: any[]; gainers: any[]; losers: any[]; volume: any[]
-  }>(MOVERS)
+  }>({
+    opportunities: [],
+    gainers: MOVERS.gainers,
+    losers: MOVERS.losers,
+    volume: MOVERS.volume,
+  })
   // Weekly highlights (Highlights of the week)
   const [weeklyHighlights, setWeeklyHighlights] = useState<any[]>(() => {
     if (typeof window !== 'undefined') {
@@ -724,6 +729,17 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody>
+              {(!liveMovers[moversTab] || liveMovers[moversTab].length === 0) && (
+                <tr>
+                  <td colSpan={9} className="py-12 text-center text-finma-text-dim border-b border-finma-border/50 text-xs">
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <span className="text-xl">📊</span>
+                      <span>Bu liste şu an boş veya bot henüz veri oluşturmadı.</span>
+                      <span className="text-[10px] text-finma-text-muted mt-1">Admin panelinden bot yöneticisini çalıştırabilirsiniz.</span>
+                    </div>
+                  </td>
+                </tr>
+              )}
               {liveMovers[moversTab]?.map((stock: any, idx: number) => {
                 const sym = stock.symbol || stock.ticker
                 const change1h = stock.change_1h ?? 0

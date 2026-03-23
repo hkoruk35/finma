@@ -3086,6 +3086,19 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             ret_1m_pct = 0.0
             
         change_1d = float(close_change_pct * 100)
+        
+        # 1 saatlik getiri hesapla
+        try:
+            if df_1h is not None and not df_1h.empty:
+                closes_1h = df_1h['Close'].dropna()
+                if len(closes_1h) >= 2:
+                    change_1h = float((closes_1h.iloc[-1] - closes_1h.iloc[-2]) / closes_1h.iloc[-2] * 100)
+                else:
+                    change_1h = 0.0
+            else:
+                change_1h = 0.0
+        except:
+            change_1h = 0.0
 
         # Dollar volume (mevcut fiyat * 10 günlük ortalama hacim)
         dollar_volume_val = current_price * avg_volume_10d
