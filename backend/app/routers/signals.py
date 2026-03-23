@@ -407,18 +407,18 @@ async def get_opportunities(
         return {"opportunities": [], "run_at": None, "run_id": None, "total": 0}
 
     opportunities = data.get("opportunities", [])
-    
+
     # Determine tier: Header -> JWT -> Fallback
     tier = x_user_tier
     if not tier and user:
         tier = user.get("role")
-    
+
     if not tier:
         tier = "free"
 
-    # Free tier: only rank 1
-    if tier == "free":
-        opportunities = [o for o in opportunities if o.get("rank") == 1]
+    # Featured page: show top 10 for all users (no tier restriction)
+    # Free tier gets limited to rank 1 in dashboard/other pages only
+    # opportunities = [o for o in opportunities if o.get("rank") == 1]  # DISABLED for featured page
 
     return {
         "opportunities": opportunities,
