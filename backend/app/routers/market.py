@@ -265,8 +265,24 @@ def get_history(
     """OHLCV fiyat geçmişi — FinMAChart & grafik için"""
     import yfinance as yf
     import pandas as pd
+
+    # Display adından gerçek yfinance ticker'ına çevir
+    DISPLAY_TO_YF = {
+        "SPX": "ES=F",    # S&P 500 Futures (^GSPC yerine)
+        "DJI": "YM=F",    # Dow Jones Futures
+        "NDX": "NQ=F",    # Nasdaq 100 Futures
+        "RUT": "RTY=F",   # Russell 2000 Futures
+        "VIX": "^VIX",    # VIX Index
+        "BTC": "BTC-USD",
+        "ETH": "ETH-USD",
+        "GC":  "GC=F",    # Gold Futures
+        "SI":  "SI=F",    # Silver Futures
+        "CL":  "CL=F",    # Crude Oil Futures
+    }
+    real_ticker = DISPLAY_TO_YF.get(ticker.upper(), ticker.upper())
+
     try:
-        t = yf.Ticker(ticker.upper())
+        t = yf.Ticker(real_ticker)
         hist = t.history(period=period, interval=interval)
         if hist is None or hist.empty:
             return {"history": [], "ticker": ticker.upper()}

@@ -488,7 +488,7 @@ export default function DashboardPage() {
 
     try {
       const token = localStorage.getItem('finma_token')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/watchlist`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'}/api/watchlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

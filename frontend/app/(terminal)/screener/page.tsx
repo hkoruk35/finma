@@ -13,7 +13,7 @@ import {
   BookmarkPlus, Maximize2, ArrowRight
 } from 'lucide-react'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
 
 interface ScreenerResult {
   ticker: string

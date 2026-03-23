@@ -10,7 +10,7 @@ import {
   Lock, RefreshCw, Star, Eye, AlertCircle, X
 } from 'lucide-react'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
 
 interface WatchItem {
   id: string

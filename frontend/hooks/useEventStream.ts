@@ -13,7 +13,7 @@ export function useEventStream() {
   const userId = user?.id || 'global';
 
   useEffect(() => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app';
     const sseUrl = `${apiUrl}/api/events/stream?user_id=${userId}`;
 
     const eventSource = new EventSource(sseUrl);

@@ -11,7 +11,7 @@ import {
   Star, Eye, BarChart2, PieChart, ChevronRight, Lock
 } from 'lucide-react'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
 
 const PORTFOLIO_LIMITS: Record<string, number> = { free: 1, pro: 10, admin: 999 }
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import { RefreshCw, AlertCircle, Download } from 'lucide-react'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
 
 interface NativeChartProps {
   ticker: string

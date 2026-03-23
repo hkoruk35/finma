@@ -46,10 +46,10 @@ export function TopBar() {
       try {
         const token = localStorage.getItem('finma_token')
         const [notifRes, countRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/notifications?limit=10`, {
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'}/api/notifications?limit=10`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/notifications/unread-count`, {
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'}/api/notifications/unread-count`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ])
@@ -70,7 +70,7 @@ export function TopBar() {
   const handleMarkAsRead = async (notificationId: string) => {
     try {
       const token = localStorage.getItem('finma_token')
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/notifications/${notificationId}/read`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'}/api/notifications/${notificationId}/read`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -84,7 +84,7 @@ export function TopBar() {
   const handleMarkAllRead = async () => {
     try {
       const token = localStorage.getItem('finma_token')
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'}/api/notifications/read-all`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'}/api/notifications/read-all`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       })

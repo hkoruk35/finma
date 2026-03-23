@@ -11,7 +11,7 @@ import {
 import { cn } from '@/lib/utils'
 import { RefreshCw, Maximize2, Minimize2 } from 'lucide-react'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'
 
 // ─── Types ───
 interface OHLCV {
