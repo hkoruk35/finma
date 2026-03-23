@@ -5,8 +5,7 @@ import { Card } from '@/components/shared/Card'
 import { FinMAChart } from '@/components/terminal/FinMAChart'
 import { cn } from '@/lib/utils'
 import { Map, RefreshCw, TrendingUp, TrendingDown } from 'lucide-react'
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
+import { api } from '@/lib/api-client'
 
 const SECTOR_NAMES: Record<string, string> = {
   XLK: 'Teknoloji', XLF: 'Finans', XLV: 'Sağlık', XLY: 'Tüketici İhtiyari',
@@ -90,32 +89,33 @@ export default function MapsPage() {
   const fetchData = async () => {
     setLoading(true)
     try {
-      // Fetch sector data
-      const sRes = await fetch(`${API_URL}/api/market/sectors?period=1d`)
-      if (sRes.ok) {
-        const data = await sRes.json()
-        setSectors(data || [])
-      }
+      // Fetch sector data via api-client
+      const sData = await api.getSectors('1d')
+      setSectors(sData || [])
 
       // Fetch individual stock quotes via batch
       const allTickers = Object.values(SECTOR_STOCKS).flat()
       const unique = Array.from(new Set(allTickers))
-      const bRes = await fetch(`${API_URL}/api/market/batch?tickers=${unique.join(',')}`)
-      if (bRes.ok) {
-        const bData = await bRes.json()
-        const map: Record<string, QuoteData> = {}
-        ;(bData.quotes || bData || []).forEach((q: any) => {
-          if (q.ticker) map[q.ticker] = { ticker: q.ticker, change_pct: q.change_pct || 0, price: q.price }
-        })
-        setStocks(map)
-      }
+      const bData = await api.getBatchQuotes(unique)
+      const map: Record<string, QuoteData> = {}
+      ;(Array.isArray(bData) ? bData : []).forEach((q: any) => {
+        if (q.symbol) map[q.symbol] = { ticker: q.symbol, change_pct: q.change_pct || 0, price: q.price }
+      })
+      setStocks(map)
 
       setLastUpdate(new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }))
-    } catch {}
+    } catch (e) {
+      console.error('Heatmap veri hatası:', e)
+    }
     setLoading(false)
   }
 
-  useEffect(() => { fetchData() }, [])
+  useEffect(() => {
+    fetchData()
+    // Otomatik refresh: Her 1 dakikada bir (Dashboard ile senkronize)
+    const interval = setInterval(fetchData, 60000)
+    return () => clearInterval(interval)
+  }, [])
 
   // Build heatmap data from API or fallback to static
   const heatmapData = ETF_ORDER.map(etf => {

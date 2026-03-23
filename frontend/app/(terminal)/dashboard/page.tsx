@@ -461,7 +461,7 @@ export default function DashboardPage() {
     }
 
     fetchHeatmap()
-    const interval = setInterval(fetchHeatmap, 60 * 60 * 1000) // 1 saat
+    const interval = setInterval(fetchHeatmap, 60 * 1000) // 1 dakika (market/maps ile senkronize)
     return () => clearInterval(interval)
   }, [])
 
