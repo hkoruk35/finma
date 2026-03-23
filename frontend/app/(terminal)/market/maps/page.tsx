@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Card } from '@/components/shared/Card'
 import { FinMAChart } from '@/components/terminal/FinMAChart'
 import { cn } from '@/lib/utils'
-import { Map, RefreshCw, TrendingUp, TrendingDown } from 'lucide-react'
+import { Map, RefreshCw, TrendingUp, TrendingDown, Wifi } from 'lucide-react'
 import { api } from '@/lib/api-client'
 
 const SECTOR_NAMES: Record<string, string> = {
@@ -32,18 +32,12 @@ const SECTOR_SIZES: Record<string, number> = {
   XLK: 30, XLF: 20, XLV: 17, XLY: 15, XLI: 13, XLC: 12, XLP: 10, XLE: 10, XLU: 6, XLRE: 6, XLB: 7,
 }
 
-interface SectorData {
-  etf: string
-  sector: string
-  change_pct: number
-  price?: number
-}
+const LS_SECTORS_KEY = 'finma_maps_sectors'
+const LS_STOCKS_KEY  = 'finma_maps_stocks'
+const LS_UPDATE_KEY  = 'finma_maps_updated'
 
-interface QuoteData {
-  ticker: string
-  change_pct: number
-  price?: number
-}
+interface SectorData { etf: string; sector: string; change_pct: number; price?: number }
+interface QuoteData  { ticker: string; change_pct: number; price?: number }
 
 function getHeatColor(change: number): string {
   if (change >= 2)     return '#16a34a'
@@ -56,7 +50,7 @@ function getHeatColor(change: number): string {
 }
 
 function HeatCell({ label, sub, change, size, onClick, selected }: {
-  label: string; sub?: string; change: number; size: number;
+  label: string; sub?: string; change: number; size: number
   onClick: () => void; selected?: boolean
 }) {
   const bg = getHeatColor(change)
@@ -80,20 +74,44 @@ function HeatCell({ label, sub, change, size, onClick, selected }: {
 }
 
 export default function MapsPage() {
-  const [sectors, setSectors] = useState<SectorData[]>([])
-  const [stocks, setStocks] = useState<Record<string, QuoteData>>({})
-  const [loading, setLoading] = useState(true)
-  const [selected, setSelected] = useState('XLK')
-  const [lastUpdate, setLastUpdate] = useState('')
-
-  const fetchData = async () => {
-    setLoading(true)
+  // LocalStorage'dan anlık yükle (sayfayı anında göster)
+  const [sectors, setSectors] = useState<SectorData[]>(() => {
     try {
-      // Fetch sector data via api-client
-      const sData = await api.getSectors('1d')
-      setSectors(sData || [])
+      const raw = typeof window !== 'undefined' ? localStorage.getItem(LS_SECTORS_KEY) : null
+      return raw ? JSON.parse(raw) : []
+    } catch { return [] }
+  })
+  const [stocks, setStocks] = useState<Record<string, QuoteData>>(() => {
+    try {
+      const raw = typeof window !== 'undefined' ? localStorage.getItem(LS_STOCKS_KEY) : null
+      return raw ? JSON.parse(raw) : {}
+    } catch { return {} }
+  })
 
-      // Fetch individual stock quotes via batch
+  const [refreshing, setRefreshing] = useState(false) // arka plan yenileme
+  const [lastUpdate, setLastUpdate] = useState(() => {
+    try {
+      return typeof window !== 'undefined' ? (localStorage.getItem(LS_UPDATE_KEY) || '') : ''
+    } catch { return '' }
+  })
+  const [selected, setSelected] = useState('XLK')
+  const isFetching = useRef(false)
+
+  // Arka planda veri çek — loading spinnerı GÖSTERMEZ, sadece veriler güncellenir
+  const fetchData = async (showSpinner = false) => {
+    if (isFetching.current) return
+    isFetching.current = true
+    if (showSpinner) setRefreshing(true)
+
+    try {
+      // Sektörler (backend cache'den çok hızlı gelir — startup'ta ısındı)
+      const sData = await api.getSectors('1d')
+      if (sData && sData.length > 0) {
+        setSectors(sData)
+        try { localStorage.setItem(LS_SECTORS_KEY, JSON.stringify(sData)) } catch {}
+      }
+
+      // Bireysel hisse kotasyonları (batch)
       const allTickers = Object.values(SECTOR_STOCKS).flat()
       const unique = Array.from(new Set(allTickers))
       const bData = await api.getBatchQuotes(unique)
@@ -101,23 +119,32 @@ export default function MapsPage() {
       ;(Array.isArray(bData) ? bData : []).forEach((q: any) => {
         if (q.symbol) map[q.symbol] = { ticker: q.symbol, change_pct: q.change_pct || 0, price: q.price }
       })
-      setStocks(map)
+      if (Object.keys(map).length > 0) {
+        setStocks(map)
+        try { localStorage.setItem(LS_STOCKS_KEY, JSON.stringify(map)) } catch {}
+      }
 
-      setLastUpdate(new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }))
+      const now = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+      setLastUpdate(now)
+      try { localStorage.setItem(LS_UPDATE_KEY, now) } catch {}
     } catch (e) {
       console.error('Heatmap veri hatası:', e)
     }
-    setLoading(false)
+
+    isFetching.current = false
+    setRefreshing(false)
   }
 
   useEffect(() => {
-    fetchData()
-    // Otomatik refresh: Her 1 dakikada bir (Dashboard ile senkronize)
-    const interval = setInterval(fetchData, 60000)
+    // Sayfa açılınca: eğer localStorage'da eski veri varsa hemen gösterilir (state init),
+    // ardından arka planda yenile (kullanıcı spinner görmez)
+    fetchData(false)
+
+    // Her 1 dakikada otomatik yenile (arka planda, sessiz)
+    const interval = setInterval(() => fetchData(false), 60_000)
     return () => clearInterval(interval)
   }, [])
 
-  // Build heatmap data from API or fallback to static
   const heatmapData = ETF_ORDER.map(etf => {
     const apiSector = sectors.find(s => s.etf === etf)
     const sectorChange = apiSector?.change_pct ?? 0
@@ -127,15 +154,13 @@ export default function MapsPage() {
       name: SECTOR_NAMES[etf] || etf,
       change: sectorChange,
       size: SECTOR_SIZES[etf] || 8,
-      stocks: stockList.map(t => ({
-        ticker: t,
-        change: stocks[t]?.change_pct ?? 0,
-      })),
+      stocks: stockList.map(t => ({ ticker: t, change: stocks[t]?.change_pct ?? 0 })),
     }
   })
 
   const gainers = [...heatmapData].sort((a, b) => b.change - a.change).slice(0, 3)
-  const losers = [...heatmapData].sort((a, b) => a.change - b.change).slice(0, 3)
+  const losers  = [...heatmapData].sort((a, b) => a.change - b.change).slice(0, 3)
+  const hasData = sectors.length > 0
 
   return (
     <div className="space-y-4 animate-fade-in">
@@ -144,10 +169,22 @@ export default function MapsPage() {
         <div className="flex items-center gap-2">
           <Map className="w-4 h-4 text-finma-primary" />
           <span className="text-sm font-bold text-white uppercase tracking-wider">Sektör Haritası</span>
-          {lastUpdate && <span className="text-[10px] text-finma-text-dim">· Son: {lastUpdate}</span>}
+          {lastUpdate && (
+            <span className="flex items-center gap-1 text-[10px] text-finma-text-dim">
+              <Wifi className="w-2.5 h-2.5" />
+              Son: {lastUpdate}
+            </span>
+          )}
+          {refreshing && (
+            <span className="text-[10px] text-finma-primary animate-pulse">güncelleniyor…</span>
+          )}
         </div>
-        <button onClick={fetchData} disabled={loading} className="p-1.5 text-finma-text-dim hover:text-finma-text transition-colors rounded border border-finma-border">
-          <RefreshCw className={cn('w-3.5 h-3.5', loading && 'animate-spin')} />
+        <button
+          onClick={() => fetchData(true)}
+          disabled={refreshing}
+          className="p-1.5 text-finma-text-dim hover:text-finma-text transition-colors rounded border border-finma-border"
+        >
+          <RefreshCw className={cn('w-3.5 h-3.5', refreshing && 'animate-spin')} />
         </button>
       </div>
 
@@ -194,36 +231,47 @@ export default function MapsPage() {
           </div>
         </div>
 
-        <div className="overflow-x-auto pb-1" style={{ scrollbarWidth: 'thin' }}>
-          <div className="flex gap-1.5" style={{ minWidth: 'max-content' }}>
-            {heatmapData.map(sector => (
-              <div key={sector.etf} className="flex flex-col gap-0.5" style={{ width: `${Math.max(sector.size * 5, 100)}px` }}>
-                {/* Sector header */}
-                <HeatCell
-                  label={sector.name}
-                  sub={sector.etf}
-                  change={sector.change}
-                  size={1}
-                  onClick={() => setSelected(sector.etf)}
-                  selected={selected === sector.etf}
-                />
-                {/* Stock cells */}
-                <div className="flex flex-wrap gap-0.5">
-                  {sector.stocks.map(s => (
-                    <HeatCell
-                      key={s.ticker}
-                      label={s.ticker}
-                      change={s.change}
-                      size={1}
-                      onClick={() => setSelected(s.ticker)}
-                      selected={selected === s.ticker}
-                    />
-                  ))}
-                </div>
-              </div>
+        {/* İlk yüklemede (localStorage yok) kısa bir iskelet göster */}
+        {!hasData ? (
+          <div className="flex gap-1.5">
+            {ETF_ORDER.map(etf => (
+              <div
+                key={etf}
+                className="rounded animate-pulse bg-finma-border/20"
+                style={{ width: `${Math.max(SECTOR_SIZES[etf] * 5, 100)}px`, height: '56px' }}
+              />
             ))}
           </div>
-        </div>
+        ) : (
+          <div className="overflow-x-auto pb-1" style={{ scrollbarWidth: 'thin' }}>
+            <div className="flex gap-1.5" style={{ minWidth: 'max-content' }}>
+              {heatmapData.map(sector => (
+                <div key={sector.etf} className="flex flex-col gap-0.5" style={{ width: `${Math.max(sector.size * 5, 100)}px` }}>
+                  <HeatCell
+                    label={sector.name}
+                    sub={sector.etf}
+                    change={sector.change}
+                    size={1}
+                    onClick={() => setSelected(sector.etf)}
+                    selected={selected === sector.etf}
+                  />
+                  <div className="flex flex-wrap gap-0.5">
+                    {sector.stocks.map(s => (
+                      <HeatCell
+                        key={s.ticker}
+                        label={s.ticker}
+                        change={s.change}
+                        size={1}
+                        onClick={() => setSelected(s.ticker)}
+                        selected={selected === s.ticker}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </Card>
 
       {/* FinMAChart for selected */}

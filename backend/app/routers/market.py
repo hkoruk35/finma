@@ -108,10 +108,49 @@ def get_batch(tickers: str = Query(..., description="Virgülle ayrılmış ticke
     return get_batch_quotes(symbols)
 
 
+_SECTORS_CACHE_FILE = _os.path.join(_BOT_DIR, "sectors_cache.json")
+
+def _load_sectors_file(period: str, max_age_sec: int = 300):
+    """Sektör cache dosyasını oku. max_age_sec'dan eskiyse None."""
+    try:
+        if not _os.path.exists(_SECTORS_CACHE_FILE):
+            return None
+        if _time.time() - _os.path.getmtime(_SECTORS_CACHE_FILE) > max_age_sec:
+            return None
+        with open(_SECTORS_CACHE_FILE, "r", encoding="utf-8") as f:
+            data = _json.load(f)
+        return data.get(period)
+    except Exception:
+        return None
+
+def _save_sectors_file(period: str, data):
+    """Sektör verisini dosyaya yaz."""
+    try:
+        _os.makedirs(_BOT_DIR, exist_ok=True)
+        existing = {}
+        if _os.path.exists(_SECTORS_CACHE_FILE):
+            with open(_SECTORS_CACHE_FILE, "r", encoding="utf-8") as f:
+                existing = _json.load(f)
+        existing[period] = data
+        existing["_updated_at"] = _time.time()
+        with open(_SECTORS_CACHE_FILE, "w", encoding="utf-8") as f:
+            _json.dump(existing, f)
+    except Exception:
+        pass
+
 @router.get("/sectors")
-def get_sectors(period: str = Query("1mo", description="Periyot: 1d, 5d, 1mo, 3mo, 6mo, 1y, ytd")):
-    """Sektörel performans verilerini getir"""
-    return get_sector_performance(period)
+def get_sectors(period: str = Query("1d", description="Periyot: 1d, 5d, 1mo, 3mo, 6mo, 1y, ytd")):
+    """Sektörel performans — cache-first: dosya (5dk TTL) → RAM cache → yfinance"""
+    # 1. Dosya cache (5 dakika TTL — bot veya önceki istek tarafından yazılmış)
+    from_file = _load_sectors_file(period, max_age_sec=300)
+    if from_file:
+        return from_file
+    # 2. RAM cache veya yfinance hesapla
+    result = get_sector_performance(period)
+    # 3. Dosyaya yaz (sonraki istek anında gelir)
+    if result:
+        _save_sectors_file(period, result)
+    return result
 
 
     # (get_movers was here, removed)

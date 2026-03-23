@@ -74,6 +74,26 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"Admin kontrolü hatası: {e}")
 
+    # Sectors cache warm-up — startup'ta hemen hesapla, dosyaya yaz
+    # Böylece ilk kullanıcı beklemiyor (market/maps anında açılır)
+    def _warmup_sectors():
+        import time
+        time.sleep(3)  # Diğer servisler başlasın
+        try:
+            from app.services.market_data import get_sector_performance
+            from app.routers.market import _save_sectors_file
+            for period in ("1d", "1mo"):
+                data = get_sector_performance(period)
+                if data:
+                    _save_sectors_file(period, data)
+                    logger.info(f"✅ Sectors warm-up tamamlandı: {period} ({len(data)} ETF)")
+        except Exception as e:
+            logger.warning(f"Sectors warm-up hatası: {e}")
+
+    import threading
+    threading.Thread(target=_warmup_sectors, daemon=True, name="sectors_warmup").start()
+    logger.info("🔥 Sectors warm-up başlatıldı (arka plan)")
+
     yield
 
     # Shutdown
