@@ -562,12 +562,12 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Komuta Merkezi — Pro+ ve Admin */}
-      {(isPro || isAdmin) && (
+      {/* Komuta Merkezi — Sadece Admin */}
+      {isAdmin && (
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-sm font-semibold text-finma-text uppercase tracking-widest">
-              {isAdmin ? 'Komuta Merkezi — Admin' : 'Komuta Merkezi'}
+              Komuta Merkezi — Admin
             </span>
           </div>
 
@@ -648,7 +648,7 @@ export default function DashboardPage() {
 
       {/* ═══════════════ 2. PİYASA HAREKETLERİ & HISSE TARAMA ═══════════════ */}
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+      <div className={cn('grid gap-3', isAdmin ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1')}>
         {/* Piyasa Hareketleri */}
         <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
@@ -787,8 +787,8 @@ export default function DashboardPage() {
         </div>
         </Card>
 
-        {/* Detaylı Hisse Tarama */}
-        <Card padding="sm">
+        {/* Detaylı Hisse Tarama — Sadece Admin */}
+        {isAdmin && <Card padding="sm">
           <div className="flex items-center justify-between gap-2 pb-3 border-b border-finma-border">
             <div className="flex items-center gap-2">
               <Search className="w-4 h-4 text-finma-text-dim" />
@@ -904,11 +904,11 @@ export default function DashboardPage() {
               </button>
             </div>
           )}
-        </Card>
+        </Card>}
       </div>
 
-      {/* ═══════════════ 3. AKILLI PARA AKIŞI ═══════════════ */}
-      <Card padding="sm">
+      {/* ═══════════════ 3. AKILLI PARA AKIŞI — Sadece Admin ═══════════════ */}
+      {isAdmin && <Card padding="sm">
         <div className="flex items-center gap-2 px-1 pb-3 border-b border-finma-border">
           <Building2 className="w-5 h-5 text-finma-green" />
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
@@ -966,7 +966,7 @@ export default function DashboardPage() {
             </div>
           ))}
         </div>
-      </Card>
+      </Card>}
 
       {/* ═══════════════ 5. SEKTÖR ISI HARİTASI (maps tarzı) ═══════════════ */}
       <Card padding="sm">
