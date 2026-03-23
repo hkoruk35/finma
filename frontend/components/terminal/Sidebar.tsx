@@ -63,23 +63,25 @@ const navItems: NavItem[] = [
       { href: '/market/maps', icon: Map, label: 'Haritalar' },
     ],
   },
+  // ─── Sadece Admin ───────────────────────────────────────────────────────────
   {
-    href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured',
+    href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured', tier: 'admin',
     children: [
       { href: '/featured', icon: Star, label: 'Günlük Seçimler' },
       { href: '/featured/backtest', icon: History, label: 'Backtest' },
     ],
   },
-  { href: '/insider', icon: UserCheck, label: 'Insider', section: 'insider' },
-  { href: '/news', icon: Newspaper, label: 'Şirket Haberleri', section: 'news' },
-  { href: '/world-markets', icon: Globe2, label: 'Dünya Borsaları', section: 'world-markets' },
-  { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'pro' },
-  { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'pro' },
-  { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'pro' },
-  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'pro' },
-  { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'pro' },
-  { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'pro' },
-  { href: '/screener', icon: Filter, label: 'Hisse Tarama', section: 'screener', tier: 'pro' },
+  { href: '/insider', icon: UserCheck, label: 'Insider', section: 'insider', tier: 'admin' },
+  { href: '/news', icon: Newspaper, label: 'Şirket Haberleri', section: 'news', tier: 'admin' },
+  { href: '/world-markets', icon: Globe2, label: 'Dünya Borsaları', section: 'world-markets', tier: 'admin' },
+  { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'admin' },
+  { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'admin' },
+  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'admin' },
+  { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'admin' },
+  { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'admin' },
+  { href: '/screener', icon: Filter, label: 'Hisse Tarama', section: 'screener', tier: 'admin' },
+  // ─── Herkese Açık ───────────────────────────────────────────────────────────
+  { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations' },
   { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
 ]
 
@@ -161,14 +163,15 @@ export function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => {
-            // Hide specific items if necessary (currently all items shown for their respective tiers)
+            // Admin-only items: completely hidden for non-admins
+            if (item.tier === 'admin' && !isAdmin) return null
 
             const isActive = pathname === item.href || (item.children && pathname.startsWith(item.href + '/'))
             const isMenuExpanded = expandedMenus.includes(item.section)
             const hasChildren = item.children && item.children.length > 0
-            const badge = item.tier ? tierBadge[item.tier] : null
-            // Pro kullanıcılar her zaman erişebilir — isLocked sadece free kullanıcılar için
-            const isLocked = item.tier ? !canAccess(item.tier) : false
+            const badge = item.tier && item.tier !== 'admin' ? tierBadge[item.tier] : null
+            // isLocked yalnızca pro/free farkı için — admin tier items hiç görünmez zaten
+            const isLocked = (item.tier && item.tier !== 'admin') ? !canAccess(item.tier) : false
 
             return (
               <div key={item.href + item.section}>
