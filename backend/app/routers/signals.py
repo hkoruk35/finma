@@ -23,14 +23,18 @@ _pushed_signals: Optional[dict] = None
 _swing113_latest: Optional[dict] = None
 _swing113_file_mtime: float = 0.0  # file modification time when last loaded
 
+# Backend path resolver
+current_dir = os.path.dirname(os.path.abspath(__file__)) # .../backend/app/routers
+backend_dir = os.path.dirname(os.path.dirname(current_dir)) # .../backend
+
 # Paths to bot output files
 SIGNAL_PATHS = [
-    os.path.join("bots", "output", "swing112_latest.json"),
-    os.path.join("bots", "output", "bot_analysis_latest.json"),
+    os.path.join(backend_dir, "bots", "output", "swing112_latest.json"),
+    os.path.join(backend_dir, "bots", "output", "bot_analysis_latest.json"),
 ]
 
-SWING113_PATH = os.path.join("bots", "output", "swing113_latest.json")
-SWING113_ARCHIVE_DIR = os.path.join("bots", "output", "swing113_archive")
+SWING113_PATH = os.path.join(backend_dir, "bots", "output", "swing113_latest.json")
+SWING113_ARCHIVE_DIR = os.path.join(backend_dir, "bots", "output", "swing113_archive")
 
 # Fallback paths to original FinMA system
 FALLBACK_PATHS = [
