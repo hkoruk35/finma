@@ -434,54 +434,62 @@ def get_technical_analysis(ticker: str) -> Dict[str, Any]:
 
 
 def get_sector_performance(period: str = "1mo") -> List[Dict[str, Any]]:
-    """Get performance of all sector ETFs — 120sn cache"""
+    """Get performance of all sector ETFs — 120sn cache.
+    Tek tek Ticker.history() kullanır (yf.download batch sorunu bypass)."""
     cache_key = f"sectors_{period}"
     cached = _sector_cache.get(cache_key)
     if cached:
         return cached
     results = []
-    etf_list = list(SECTOR_ETFS.values())
 
-    try:
-        data = yf.download(etf_list, period=period, progress=False)
-        if data.empty:
-            return results
-
-        for sector, etf in SECTOR_ETFS.items():
-            try:
-                if isinstance(data.columns, pd.MultiIndex):
-                    close = data["Close"][etf]
-                else:
-                    close = data["Close"]
-
-                if close.empty or len(close) < 2:
-                    continue
-
-                first_price = float(close.iloc[0])
-                last_price = float(close.iloc[-1])
-                change_pct = ((last_price - first_price) / first_price * 100) if first_price else 0
-
-                results.append({
-                    "sector": sector,
-                    "sector_tr": SECTOR_TR.get(sector, sector),
-                    "etf": etf,
-                    "price": round(last_price, 2),
-                    "change_pct": round(change_pct, 2),
-                })
-            except Exception:
+    for sector, etf in SECTOR_ETFS.items():
+        try:
+            t = yf.Ticker(etf)
+            hist = t.history(period=period, auto_adjust=True)
+            if hist is None or hist.empty or len(hist) < 2:
+                # Fallback: fast_info için günlük değişim
+                try:
+                    fi = t.fast_info
+                    price = float(fi.last_price) if fi.last_price else 0
+                    prev  = float(fi.previous_close) if fi.previous_close else price
+                    change_pct = ((price - prev) / prev * 100) if prev else 0
+                    if price > 0:
+                        results.append({
+                            "sector": sector,
+                            "sector_tr": SECTOR_TR.get(sector, sector),
+                            "etf": etf,
+                            "price": round(price, 2),
+                            "change_pct": round(change_pct, 2),
+                        })
+                except Exception:
+                    pass
                 continue
-    except Exception as e:
-        logger.error(f"Sektör performansı alınamadı: {e}")
+
+            first_price = float(hist["Close"].iloc[0])
+            last_price  = float(hist["Close"].iloc[-1])
+            change_pct  = ((last_price - first_price) / first_price * 100) if first_price else 0
+
+            results.append({
+                "sector": sector,
+                "sector_tr": SECTOR_TR.get(sector, sector),
+                "etf": etf,
+                "price": round(last_price, 2),
+                "change_pct": round(change_pct, 2),
+            })
+        except Exception as e:
+            logger.warning(f"Sektör ETF hatası {etf}: {e}")
+            continue
 
     sorted_results = sorted(results, key=lambda x: x["change_pct"], reverse=True)
-    _sector_cache.set(cache_key, sorted_results)
+    if sorted_results:
+        _sector_cache.set(cache_key, sorted_results)
     return sorted_results
 
 
 def get_market_regime() -> Dict[str, Any]:
     """Determine market regime based on VIX and S&P 500"""
     try:
-        spy_data = get_ticker_data("^GSPC", period="1mo")
+        spy_data = get_ticker_data("ES=F", period="1mo")  # ES=F = S&P 500 Futures (^GSPC yerine)
 
         # VIX: fast_info kullan (yf.download ^VIX hatalı veri döndürebilir)
         vix_level = 20.0

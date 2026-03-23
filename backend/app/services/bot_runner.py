@@ -212,23 +212,19 @@ def get_bot_status():
 
 
 def trigger_bot_manually(bot_name: str):
-    """Run a bot immediately once"""
-    global scheduler
-    if not scheduler:
-        return False
-    
+    """Run a bot immediately in a background thread (scheduler-independent)"""
+    import threading
     config = BOT_CONFIGS.get(bot_name)
     if not config:
+        logger.warning(f"trigger_bot_manually: bot bulunamadı: {bot_name}")
         return False
 
-    # Add a one-time job that runs NOW
-    scheduler.add_job(
-        run_bot,
-        "date",
-        run_date=datetime.now(),
-        args=[bot_name, "bots", "bots/output"],
-        name=f"Manual Run: {bot_name}"
-    )
+    def _run():
+        run_bot(bot_name, "bots", "bots/output")
+
+    t = threading.Thread(target=_run, daemon=True, name=f"manual_{bot_name}")
+    t.start()
+    logger.info(f"Bot manuel başlatıldı (thread): {bot_name}")
     return True
 
 
