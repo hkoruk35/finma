@@ -240,7 +240,7 @@ export default function MarketFlowPage() {
             <p className="text-sm font-bold text-finma-text-dim mb-1">Flow verisi henüz hazır değil</p>
             <p className="text-xs text-finma-text-dim/60 mb-4">
               Flow Bot her 4 saatte bir çalışır. İlk veriyi almak için{' '}
-              {isAdmin ? ('"Manuel Güncelle" butonuna tıklayın.' : 'lütfen bekleyin veya bir sonraki döngüyü bekleyin.')}
+              {isAdmin ? '"Manuel Güncelle" butonuna tıklayın.' : 'lütfen bekleyin veya bir sonraki döngüyü bekleyin.'}
             </p>
             {isAdmin && (
               <button
