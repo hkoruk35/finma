@@ -47,6 +47,27 @@ BOT_CONFIGS = {
         "schedule": {"hour": "3", "minute": "0"},
         "description": "Market Intelligence Report Builder",
     },
+    # ─── Yeni Botlar (901/902/904/907) ───
+    "market_indices_904": {
+        "script": "market_indices_bot_904.py",
+        "schedule": {"minute": "*/1"},
+        "description": "Bot 904 — Market Indices (SPX/DJI/NDX...) Her 1 Dakika",
+    },
+    "yf_movers_901": {
+        "script": "yf_movers_bot_901.py",
+        "schedule": {"minute": "*/5"},
+        "description": "Bot 901 — Yahoo Finance Movers Her 5 Dakika",
+    },
+    "yf_history_902": {
+        "script": "yf_history_bot_902.py",
+        "schedule": {"minute": "*/15"},
+        "description": "Bot 902 — Yahoo Finance Historical Data Her 15 Dakika",
+    },
+    "detail_scanner_907": {
+        "script": "detail_scanner_bot_907.py",
+        "schedule": {"minute": "*/15"},
+        "description": "Bot 907 — 60 Hisse Detay Tarama Her 15 Dakika",
+    },
 }
 
 active_processes = {}
@@ -138,8 +159,8 @@ def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
                 misfire_grace_time=60,
             )
             
-            # YENİ: insider_bot ve news_bot için başlangıçta hemen 1 kez çalıştır
-            if bot_name in ["insider_bot", "news_bot"]:
+            # Başlangıçta hemen 1 kez çalıştırılacak botlar
+            if bot_name in ["insider_bot", "news_bot", "market_indices_904", "yf_movers_901", "detail_scanner_907"]:
                 scheduler.add_job(
                     run_bot,
                     "date",

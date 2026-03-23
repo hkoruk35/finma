@@ -12,6 +12,9 @@ Flow:
 
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Query
+import json as _json
+import os as _os
+import time as _time
 from app.services.market_data import (
     get_ticker_info,
     get_technical_analysis,
@@ -26,11 +29,28 @@ from app.services.market_data import (
     get_market_movers,
     update_market_insiders,
     INDEX_SYMBOLS,
-    INDEX_SYMBOLS,
     SECTOR_ETFS,
     CRYPTO_SYMBOLS,
     COMMODITY_SYMBOLS,
 )
+
+# Bot output dosya yolları
+_BOT_DIR = _os.path.abspath("bots/output")
+_INDICES_904 = _os.path.join(_BOT_DIR, "indices_904.json")
+_MOVERS_901  = _os.path.join(_BOT_DIR, "movers_901.json")
+_DETAIL_907  = _os.path.join(_BOT_DIR, "detail_scan_907.json")
+
+def _load_bot_file(path: str, max_age_sec: int = 300):
+    """Bot çıktı dosyasını yükle, max_age_sec saniyeden eskiyse None döndür"""
+    try:
+        if not _os.path.exists(path):
+            return None
+        if _time.time() - _os.path.getmtime(path) > max_age_sec:
+            return None
+        with open(path, "r", encoding="utf-8") as f:
+            return _json.load(f)
+    except Exception:
+        return None
 from app.services.world_markets import get_world_market_data, get_world_analysis, get_exchange_analysis
 from app.services.stock_cache import (
     get_cached_quote,
@@ -45,7 +65,13 @@ ALL_DEFAULT_SYMBOLS = INDEX_SYMBOLS + CRYPTO_SYMBOLS + COMMODITY_SYMBOLS
 
 @router.get("/indices")
 def get_indices():
-    """Endeks, kripto ve emtia fiyatlarını getir (TopBar ticker strip)"""
+    """Endeks, kripto ve emtia fiyatlarını getir (TopBar ticker strip).
+    Önce Bot 904 cache'i kontrol et (5dk TTL), miss'de yfinance'den canlı çek.
+    SP500 (SPX) HER ZAMAN ilk sırada — ^GSPC kullanılmaz."""
+    bot_data = _load_bot_file(_INDICES_904, max_age_sec=300)
+    if bot_data and bot_data.get("indices"):
+        return bot_data["indices"]
+    # Fallback: canlı yfinance (SYMBOL_DISPLAY_MAP get_batch_quotes içinde uygulanır)
     return get_batch_quotes(ALL_DEFAULT_SYMBOLS)
 
 
@@ -299,18 +325,25 @@ def get_movers_v2(
     limit: int = Query(10, ge=5, le=30),
 ):
     """
-    Get All Market Movers (Gainers, Losers, Volume, Opportunities) in one call.
-    Maintains Dashboard compatibility for V5.0.
+    Yükselenler/Düşenler/Hacim/Fırsatlar.
+    Önce Bot 901 cache (5dk TTL), miss'de yfinance.
     """
-    import json as _json
-    import os as _os
-    
-    # 1. Fetch standard movers (gainers, losers, active)
-    raw = get_market_movers(period)
-    
-    # 2. Fetch opportunities (from bot output)
+    # 1. Bot 901 cache'den dene
+    bot_data = _load_bot_file(_MOVERS_901, max_age_sec=300)
+    if bot_data:
+        gainers = bot_data.get("gainers", [])[:limit]
+        losers  = bot_data.get("losers", [])[:limit]
+        volume  = bot_data.get("volume", [])[:limit]
+    else:
+        # Fallback: yfinance canlı
+        raw    = get_market_movers(period)
+        gainers = raw.get("gainers", [])[:limit]
+        losers  = raw.get("losers", [])[:limit]
+        volume  = raw.get("most_active", raw.get("volume", []))[:limit]
+
+    # 2. Opportunities (swing113)
     opportunities = []
-    swing113_path = _os.path.abspath(_os.path.join("bots", "output", "swing113_latest.json"))
+    swing113_path = _os.path.join(_BOT_DIR, "swing113_latest.json")
     if _os.path.exists(swing113_path):
         try:
             with open(swing113_path, "r", encoding="utf-8") as f:
@@ -320,10 +353,37 @@ def get_movers_v2(
             pass
 
     return {
-        "gainers": raw.get("gainers", [])[:limit],
-        "losers": raw.get("losers", [])[:limit],
-        "volume": raw.get("most_active", raw.get("volume", []))[:limit],
+        "gainers": gainers,
+        "losers": losers,
+        "volume": volume,
         "opportunities": opportunities,
-        "timestamp": raw.get("timestamp"),
-        "period": period
+        "timestamp": bot_data.get("updated_at") if bot_data else None,
+        "period": period,
+    }
+
+
+@router.get("/analyzed-stocks")
+def get_analyzed_stocks(
+    source: str = Query("all", description="Filtre: all|swing113|gainer|loser|volume"),
+    limit: int = Query(60, ge=1, le=60),
+):
+    """
+    Bot 907 — 15 dakikada bir güncellenen 60 hisse teknik analiz sonuçları.
+    Stock Analysis sayfası için kullanılır.
+    """
+    bot_data = _load_bot_file(_DETAIL_907, max_age_sec=1800)  # 30dk TTL
+    if not bot_data:
+        return {"stocks": [], "updated_at": None, "source": "none"}
+
+    stocks = bot_data.get("stocks", [])
+
+    if source != "all":
+        stocks = [s for s in stocks if s.get("source") == source]
+
+    stocks = stocks[:limit]
+    return {
+        "stocks": stocks,
+        "updated_at": bot_data.get("updated_at"),
+        "count": len(stocks),
+        "source": source,
     }

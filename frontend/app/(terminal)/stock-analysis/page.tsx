@@ -16,7 +16,8 @@ import {
   ArrowUp, ArrowDown, Send, Maximize2, Minimize2,
   Newspaper, Users, Calendar, BarChart3, Building2,
   ExternalLink, ChevronDown, ChevronUp, Radio, Eye,
-  Zap, AlertTriangle, TrendingDown, Flame
+  Zap, AlertTriangle, TrendingDown, Flame, Star,
+  RefreshCw, ChevronRight
 } from 'lucide-react'
 
 // ─── Alt Sektör Türkçe Çevirisi ───
@@ -769,6 +770,149 @@ function ChangeBadge({ label, value }: { label: string; value: number | null | u
   )
 }
 
+// ─── BOT 907 STOCK LIST ───
+type BotStock = {
+  ticker: string; company_name: string; sector: string;
+  price: number; change_pct: number;
+  ai_score: number; trend: string; risk: string;
+  source: 'swing113' | 'gainer' | 'loser' | 'volume';
+}
+
+type GroupKey = 'all' | 'swing113' | 'gainer' | 'loser' | 'volume'
+
+const GROUP_LABELS: Record<GroupKey, string> = {
+  all: 'Tümü',
+  swing113: 'Swing113',
+  gainer: 'Yükselenler',
+  loser: 'Düşenler',
+  volume: 'Hacim',
+}
+
+function BotStockPanel({ selectedTicker, onSelect }: { selectedTicker: string; onSelect: (t: string) => void }) {
+  const [stocks, setStocks] = useState<BotStock[]>([])
+  const [loading, setLoading] = useState(true)
+  const [group, setGroup] = useState<GroupKey>('all')
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null)
+
+  const load = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await api.getAnalyzedStocks('all', 60)
+      setStocks(res.stocks as BotStock[])
+      setUpdatedAt(res.updated_at)
+    } catch { /* ignore */ }
+    setLoading(false)
+  }, [])
+
+  useEffect(() => { load() }, [load])
+
+  const filtered = group === 'all' ? stocks : stocks.filter(s => s.source === group)
+
+  const counts: Record<GroupKey, number> = {
+    all: stocks.length,
+    swing113: stocks.filter(s => s.source === 'swing113').length,
+    gainer: stocks.filter(s => s.source === 'gainer').length,
+    loser: stocks.filter(s => s.source === 'loser').length,
+    volume: stocks.filter(s => s.source === 'volume').length,
+  }
+
+  return (
+    <div className="w-64 shrink-0 bg-finma-card border border-finma-border rounded-xl flex flex-col overflow-hidden" style={{ height: 'calc(100vh - 8rem)', minHeight: '600px' }}>
+      {/* Header */}
+      <div className="px-3 py-2.5 border-b border-finma-border bg-finma-bg/40 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Zap className="w-3.5 h-3.5 text-finma-primary" />
+          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">60 Hisse Listesi</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          {updatedAt && <span className="text-[9px] text-finma-text-dim">{updatedAt.slice(11, 16)}</span>}
+          <button onClick={load} className="p-1 text-finma-text-dim hover:text-finma-primary transition-colors rounded">
+            <RefreshCw className="w-3 h-3" />
+          </button>
+        </div>
+      </div>
+
+      {/* Group Tabs */}
+      <div className="flex border-b border-finma-border overflow-x-auto shrink-0">
+        {(Object.keys(GROUP_LABELS) as GroupKey[]).map(g => (
+          <button key={g} onClick={() => setGroup(g)}
+            className={cn(
+              'px-2 py-1.5 text-[10px] font-medium whitespace-nowrap transition-colors border-b-2',
+              group === g
+                ? 'text-finma-primary border-finma-primary bg-finma-primary/5'
+                : 'text-finma-text-dim border-transparent hover:text-finma-text'
+            )}>
+            {GROUP_LABELS[g]}
+            {counts[g] > 0 && <span className="ml-1 text-[9px] opacity-60">({counts[g]})</span>}
+          </button>
+        ))}
+      </div>
+
+      {/* Stock List */}
+      <div className="flex-1 overflow-y-auto">
+        {loading ? (
+          <div className="p-3 space-y-2">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div key={i} className="h-10 bg-finma-border/20 rounded animate-pulse" />
+            ))}
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-12 text-finma-text-dim">
+            <Zap className="w-8 h-8 mb-2 opacity-30" />
+            <span className="text-xs">Bot verisi bekleniyor...</span>
+            <span className="text-[10px] mt-1 opacity-60">Her 15dk'da güncellenir</span>
+          </div>
+        ) : (
+          filtered.map((s) => {
+            const isSelected = selectedTicker === s.ticker
+            const isUp = s.change_pct >= 0
+            const scoreColor = s.ai_score >= 7 ? 'text-finma-green' : s.ai_score >= 5 ? 'text-finma-yellow' : 'text-finma-red'
+            const sourceBg: Record<string, string> = {
+              swing113: 'bg-finma-purple/15 text-finma-purple border-finma-purple/20',
+              gainer: 'bg-finma-green/10 text-finma-green border-finma-green/20',
+              loser: 'bg-finma-red/10 text-finma-red border-finma-red/20',
+              volume: 'bg-finma-cyan/10 text-finma-cyan border-finma-cyan/20',
+            }
+            return (
+              <button key={s.ticker} onClick={() => onSelect(s.ticker)}
+                className={cn(
+                  'w-full text-left px-3 py-2 border-b border-finma-border/20 transition-colors',
+                  isSelected
+                    ? 'bg-finma-primary/10 border-l-2 border-l-finma-primary'
+                    : 'hover:bg-finma-primary/5'
+                )}>
+                <div className="flex items-center justify-between mb-0.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-finma-primary">{s.ticker}</span>
+                    <span className={cn('text-[9px] px-1 py-0.5 rounded border leading-none', sourceBg[s.source] || 'bg-white/5 text-finma-text-dim border-white/10')}>
+                      {s.source === 'swing113' ? 'SW' : s.source === 'gainer' ? '▲' : s.source === 'loser' ? '▼' : 'H'}
+                    </span>
+                  </div>
+                  <span className={cn('text-[10px] font-semibold finma-number', isUp ? 'text-finma-green' : 'text-finma-red')}>
+                    {isUp ? '+' : ''}{s.change_pct.toFixed(2)}%
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-finma-text-dim truncate max-w-[120px]">{s.company_name}</span>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span className="text-[10px] finma-number text-finma-text">${s.price.toFixed(2)}</span>
+                    <span className={cn('text-[9px] font-bold finma-number', scoreColor)}>AI:{s.ai_score.toFixed(1)}</span>
+                  </div>
+                </div>
+              </button>
+            )
+          })
+        )}
+      </div>
+
+      {/* Footer note */}
+      <div className="px-3 py-1.5 bg-finma-bg/30 border-t border-finma-border/30 text-[9px] text-finma-text-dim text-center shrink-0">
+        Bot 907 — 15dk'da bir güncellenir
+      </div>
+    </div>
+  )
+}
+
 // ─── MAIN PAGE ───
 function StockAnalysisContent() {
   const searchParams = useSearchParams()
@@ -874,7 +1018,14 @@ function StockAnalysisContent() {
   // Tab başlangıcını 'news' yap (varsayılan)
 
   return (
-    <div className="space-y-5 animate-fade-in">
+    <div className="flex gap-4 animate-fade-in">
+      {/* LEFT — Bot 907 Stock List */}
+      <div className="hidden xl:block">
+        <BotStockPanel selectedTicker={ticker} onSelect={handleTickerSelect} />
+      </div>
+
+      {/* RIGHT — Main Analysis Content */}
+      <div className="flex-1 min-w-0 space-y-5">
       {/* HEADER */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2">
@@ -1191,6 +1342,7 @@ function StockAnalysisContent() {
       <div className="text-center py-2">
         <p className="text-[11px] text-finma-text-dim">Bu bir yatırım tavsiyesi değildir. Tüm analizler bilgilendirme amaçlıdır.</p>
       </div>
+      </div>{/* end right panel */}
     </div>
   )
 }

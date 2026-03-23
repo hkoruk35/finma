@@ -97,9 +97,24 @@ SECTOR_ETFS = {
     "Consumer Staples": "XLP",
 }
 
-INDEX_SYMBOLS = ["^GSPC", "^DJI", "^IXIC", "^RUT", "^VIX"]
+# SP500 (SPX) HER ZAMAN İLK SIRA — ^GSPC, ^DJI, ^IXIC gibi ^ prefix'li ticker'lar KULLANILMAZ
+INDEX_SYMBOLS = ["ES=F", "YM=F", "NQ=F", "RTY=F", "^VIX"]
 CRYPTO_SYMBOLS = ["BTC-USD", "ETH-USD"]
 COMMODITY_SYMBOLS = ["GC=F", "SI=F", "CL=F"]
+
+# Display name mapping: yfinance internal ticker → kullanıcıya gösterilecek sembol
+SYMBOL_DISPLAY_MAP = {
+    "ES=F":    "SPX",   # S&P 500 Futures → SP500 display
+    "YM=F":    "DJI",   # Dow Jones Futures
+    "NQ=F":    "NDX",   # Nasdaq 100 Futures
+    "RTY=F":   "RUT",   # Russell 2000 Futures
+    "^VIX":    "VIX",
+    "BTC-USD": "BTC",
+    "ETH-USD": "ETH",
+    "GC=F":    "GC",
+    "SI=F":    "SI",
+    "CL=F":    "CL",
+}
 
 # Turkish sector names
 SECTOR_TR = {
@@ -646,7 +661,8 @@ def get_batch_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
                 elif volume_raw > 1_000: volume_str = f"{volume_raw / 1_000:.1f}K"
                 elif volume_raw > 0: volume_str = str(int(volume_raw))
 
-                display = symbol.replace("^", "").replace("-USD", "").replace("=F", "")
+                # SYMBOL_DISPLAY_MAP öncelikli, yoksa suffix'leri temizle
+                display = SYMBOL_DISPLAY_MAP.get(symbol, symbol.replace("^", "").replace("-USD", "").replace("=F", ""))
                 results.append({
                     "symbol": display,
                     "price": round(price, 2),

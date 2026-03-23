@@ -1,18 +1,17 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Card } from '@/components/shared/Card'
 import { cn } from '@/lib/utils'
+import { api } from '@/lib/api-client'
 import { useAuthStore } from '@/store/auth'
+import { FinMAChart } from '@/components/terminal/FinMAChart'
 import {
-  Star, Clock, TrendingUp, Target, Shield, BarChart3,
-  Lock, Flame, ChevronRight, RefreshCw, Eye, History
+  Star, TrendingUp, TrendingDown, RefreshCw, Maximize2, Minimize2,
+  LayoutGrid, Columns2, Square, Activity, Lock, BarChart3, Zap
 } from 'lucide-react'
-import Link from 'next/link'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://finma-api.up.railway.app'
-
+// ─── Types ───────────────────────────────────────────────────────────────────
 interface Opportunity {
   rank: number
   ticker: string
@@ -24,306 +23,354 @@ interface Opportunity {
   stop_loss: number
   target: number
   potential_pct: number
-  reason: string
+  reason?: string
 }
 
-interface RunMeta {
-  run_id: string
-  run_at: string
-  run_date: string
-  run_time: string
-  schedule_slot: string
-  count: number
+interface LiveQuote { price: number; change_pct: number }
+type LayoutMode = 1 | 2 | 4
+
+// ─── Sector Badge Colors ─────────────────────────────────────────────────────
+const SECTOR_COLORS: Record<string, string> = {
+  Technology: 'bg-blue-900/30 text-blue-400 border-blue-700/40',
+  Energy: 'bg-amber-900/30 text-amber-400 border-amber-700/40',
+  Healthcare: 'bg-green-900/30 text-green-400 border-green-700/40',
+  Financials: 'bg-cyan-900/30 text-cyan-400 border-cyan-700/40',
+  'Consumer Discretionary': 'bg-purple-900/30 text-purple-400 border-purple-700/40',
+  Industrials: 'bg-orange-900/30 text-orange-400 border-orange-700/40',
+  Materials: 'bg-yellow-900/30 text-yellow-400 border-yellow-700/40',
+  'Communication Services': 'bg-pink-900/30 text-pink-400 border-pink-700/40',
+  'Real Estate': 'bg-teal-900/30 text-teal-400 border-teal-700/40',
+  Utilities: 'bg-lime-900/30 text-lime-400 border-lime-700/40',
+  'Consumer Staples': 'bg-rose-900/30 text-rose-400 border-rose-700/40',
 }
 
+const sectorLabel = (s: string) => {
+  const map: Record<string, string> = {
+    Technology: 'Teknoloji', Energy: 'Enerji', Healthcare: 'Sağlık',
+    Financials: 'Finans', 'Consumer Discretionary': 'Tük. İhtiyari',
+    Industrials: 'Sanayi', Materials: 'Hammadde',
+    'Communication Services': 'İletişim', 'Real Estate': 'Gayrimenkul',
+    Utilities: 'Kamu Hiz.', 'Consumer Staples': 'Temel Tük.',
+  }
+  return map[s] || s
+}
+
+// ─── Ana Bileşen ─────────────────────────────────────────────────────────────
 export default function FeaturedPage() {
-  const router = useRouter()
-  const { canAccess, user } = useAuthStore()
-  const isPro = canAccess('pro')
-  const isAdmin = canAccess('admin')
+  const { user } = useAuthStore()
+  const isAdmin = user?.role === 'admin'
+  const isPro = user?.subscription_tier === 'pro' || isAdmin
 
   const [opportunities, setOpportunities] = useState<Opportunity[]>([])
-  const [runMeta, setRunMeta] = useState<{ run_at?: string; run_id?: string; schedule_slot?: string; total?: number } | null>(null)
-  const [history, setHistory] = useState<RunMeta[]>([])
+  const [runAt, setRunAt] = useState<string>('')
   const [loading, setLoading] = useState(true)
-  const [selectedTicker, setSelectedTicker] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [addingWatchlist, setAddingWatchlist] = useState<string | null>(null)
+  const [watchStatus, setWatchStatus] = useState<{ ticker: string; ok: boolean } | null>(null)
 
-  const fetchOpportunities = async () => {
+  const [selectedTickers, setSelectedTickers] = useState<string[]>([])
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>(1)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const chartPanelRef = useRef<HTMLDivElement>(null)
+  const [liveQuotes, setLiveQuotes] = useState<Record<string, LiveQuote>>({})
+
+  // ─── Veri Yükleme ──────────────────────────────────────────────────────
+  const fetchOpportunities = useCallback(async () => {
     setLoading(true)
-    const token = localStorage.getItem('finma_token')
-    const tier = user?.subscription_tier || 'free'
+    setError(null)
     try {
-      const res = await fetch(`${API_URL}/api/signals/opportunities`, {
-        headers: {
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-          'X-User-Tier': tier,
-        },
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setOpportunities(data.opportunities || [])
-        setRunMeta({ run_at: data.run_at, run_id: data.run_id, schedule_slot: data.schedule_slot, total: data.total })
-      }
-    } catch {}
-    setLoading(false)
-  }
+      const data = await api.getOpportunities()
+      const opps: Opportunity[] = data?.opportunities || []
+      setOpportunities(opps)
+      setRunAt(data?.run_at || '')
 
-  const fetchHistory = async () => {
-    if (!isAdmin) return
-    const token = localStorage.getItem('finma_token')
-    try {
-      const res = await fetch(`${API_URL}/api/signals/opportunities/history?limit=10`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      })
-      if (res.ok) {
-        const data = await res.json()
-        const runs: RunMeta[] = (data.runs || []).map((r: any) => {
-          const dt = r.run_at ? new Date(r.run_at) : null
-          return {
-            ...r,
-            run_date: dt ? dt.toLocaleDateString('tr-TR') : '—',
-            run_time: dt ? dt.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '—',
-          }
-        })
-        setHistory(runs)
+      if (opps.length > 0) {
+        const tickers = opps.map((o) => o.ticker).slice(0, 10)
+        try {
+          const quotes = await api.getBatchQuotes(tickers)
+          const map: Record<string, LiveQuote> = {}
+          quotes.forEach((q: any) => {
+            if (q.symbol && q.price > 0)
+              map[q.symbol] = { price: q.price, change_pct: q.change_pct || 0 }
+          })
+          setLiveQuotes(map)
+        } catch {}
       }
-    } catch {}
-  }
-
-  useEffect(() => {
-    fetchOpportunities()
-    fetchHistory()
+    } catch {
+      setError('Veri alınamadı')
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
-  const runAt = runMeta?.run_at ? new Date(runMeta.run_at) : null
+  useEffect(() => { fetchOpportunities() }, [fetchOpportunities])
 
+  // ─── Ticker Seçimi ────────────────────────────────────────────────────
+  const handleSelectTicker = (ticker: string) => {
+    setSelectedTickers(prev => {
+      if (prev[0] === ticker) return prev
+      return [ticker, ...prev.filter(t => t !== ticker)].slice(0, 4)
+    })
+  }
+
+  // ─── Akıllı Takip ────────────────────────────────────────────────────
+  const handleAddToWatchlist = async (opp: Opportunity) => {
+    setAddingWatchlist(opp.ticker)
+    try {
+      await api.addToWatchlist({
+        ticker: opp.ticker,
+        company_name: opp.company_name,
+        entry_price: opp.price,
+        target_price: opp.target,
+        stop_loss: opp.stop_loss,
+        notes: `ATMACA V113 - Rank ${opp.rank}`,
+      })
+      setWatchStatus({ ticker: opp.ticker, ok: true })
+    } catch {
+      setWatchStatus({ ticker: opp.ticker, ok: false })
+    } finally {
+      setAddingWatchlist(null)
+      setTimeout(() => setWatchStatus(null), 3000)
+    }
+  }
+
+  // ─── Fullscreen ───────────────────────────────────────────────────────
+  const toggleFullscreen = () => {
+    if (!isFullscreen) {
+      chartPanelRef.current?.requestFullscreen?.().catch(() => {})
+      setIsFullscreen(true)
+    } else {
+      document.exitFullscreen?.().catch(() => {})
+      setIsFullscreen(false)
+    }
+  }
+
+  const chartGridClass = layoutMode === 4 ? 'grid-cols-2 grid-rows-2' : layoutMode === 2 ? 'grid-cols-2' : 'grid-cols-1'
+  const filledTickers: (string | null)[] = [
+    ...selectedTickers.slice(0, layoutMode),
+    ...Array(Math.max(0, layoutMode - selectedTickers.length)).fill(null),
+  ]
+
+  // ─── Render ───────────────────────────────────────────────────────────
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <div className="flex items-center gap-3">
-          <Flame className="w-5 h-5 text-orange-400" />
-          <div>
-            <h1 className="text-lg font-bold text-white">Öne Çıkanlar</h1>
-            <p className="text-xs text-finma-text-dim">ATMACA Swing Tarayıcı — NY 11:00 / 13:05 / 15:00</p>
-          </div>
-        </div>
+
+      {/* BAŞLIK */}
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-2">
-          {isAdmin && (
-            <Link href="/featured/backtest" className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-finma-border text-finma-text-muted hover:text-finma-text hover:border-finma-primary/40 transition-colors">
-              <History className="w-3.5 h-3.5" />
-              Geçmiş (Admin)
-            </Link>
+          <Zap className="w-4 h-4 text-finma-yellow" />
+          <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
+            Günlük Fırsatlar — ATMACA V113
+          </span>
+          <span className="text-[9px] text-finma-text-dim bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+            NY 11:00 · 13:05 · 15:00
+          </span>
+          {runAt && (
+            <span className="text-[9px] text-finma-green bg-finma-green/10 px-2 py-0.5 rounded-full border border-finma-green/20">
+              Son: {runAt}
+            </span>
           )}
-          <button
-            onClick={fetchOpportunities}
-            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-finma-border text-finma-text-muted hover:text-finma-text transition-colors"
-          >
-            <RefreshCw className={cn('w-3.5 h-3.5', loading && 'animate-spin')} />
-            Yenile
-          </button>
         </div>
+        <button onClick={fetchOpportunities} disabled={loading}
+          className="flex items-center gap-1.5 text-[10px] text-finma-text-dim hover:text-finma-text transition-colors">
+          <RefreshCw className={cn('w-3 h-3', loading && 'animate-spin')} />
+          Yenile
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {/* Left sidebar: run history (admin only) */}
-        {isAdmin && (
-          <div className="lg:col-span-1">
-            <Card padding="sm">
-              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-finma-border">
-                <History className="w-3.5 h-3.5 text-finma-text-dim" />
-                <span className="text-xs font-semibold text-finma-text">Son Çalıştırmalar</span>
-              </div>
-              {history.length === 0 ? (
-                <p className="text-xs text-finma-text-dim text-center py-4">Geçmiş yok</p>
-              ) : (
-                <div className="space-y-1">
-                  {history.map((run) => (
-                    <div key={run.run_id} className="flex items-center gap-2 px-2 py-2 rounded hover:bg-finma-border/20 transition-colors cursor-pointer text-xs">
-                      <div className="flex-1 min-w-0">
-                        <div className="text-finma-text font-medium">{run.run_date}</div>
-                        <div className="text-finma-text-dim font-mono">{run.run_time} <span className="text-finma-text-dim/60">{run.schedule_slot}</span></div>
-                      </div>
-                      <span className="text-finma-primary font-bold finma-number">{run.count}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </Card>
-          </div>
-        )}
+      {/* ANA İÇERİK */}
+      <div className="flex gap-4" style={{ minHeight: 560 }}>
 
-        {/* Main content */}
-        <div className={cn('space-y-4', isAdmin ? 'lg:col-span-3' : 'lg:col-span-4')}>
-          {/* Run info */}
-          {runMeta && (
-            <div className="flex items-center gap-4 px-4 py-2.5 rounded-lg bg-finma-surface border border-finma-border text-xs text-finma-text-muted">
-              <Clock className="w-3.5 h-3.5 shrink-0" />
-              <span>
-                Son güncelleme: <span className="text-finma-text font-medium">{runAt ? runAt.toLocaleDateString('tr-TR') : '—'}</span>
-                <span className="mx-2 text-finma-border">|</span>
-                Saat: <span className="text-finma-text font-mono">{runAt ? runAt.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '—'}</span>
-                {runMeta.schedule_slot && (
-                  <><span className="mx-2 text-finma-border">|</span>Slot: <span className="text-finma-yellow">{runMeta.schedule_slot}</span></>
-                )}
-                {runMeta.total !== undefined && (
-                  <><span className="mx-2 text-finma-border">|</span>Toplam: <span className="text-finma-primary font-bold">{runMeta.total}</span></>
-                )}
-              </span>
-              {!isPro && (
-                <span className="ml-auto flex items-center gap-1 text-finma-yellow">
-                  <Lock className="w-3 h-3" />
-                  Free: Sadece #1 görünür
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Opportunities table */}
-          <Card padding="sm">
-            <div className="flex items-center gap-2 pb-3 mb-1 border-b border-finma-border">
-              <Star className="w-4 h-4 text-finma-yellow" />
-              <span className="text-sm font-bold text-finma-text">Fırsat Listesi</span>
-              <span className="ml-auto text-xs text-finma-text-dim">
-                {isPro ? 'Tüm fırsatlar' : 'Free: #1 fırsat'}
-              </span>
-            </div>
-
+        {/* ─── Sol Panel ─────────────────────────────────────────────── */}
+        <div className="w-[500px] shrink-0">
+          <Card padding="none" className="h-full flex flex-col">
             {loading ? (
-              <div className="text-center py-10 text-finma-text-dim text-sm">
-                <RefreshCw className="w-6 h-6 mx-auto mb-2 animate-spin opacity-50" />
-                Yükleniyor...
+              <div className="flex items-center justify-center h-64">
+                <RefreshCw className="w-5 h-5 animate-spin text-finma-primary" />
+              </div>
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center h-64 gap-2 text-finma-text-dim text-xs">
+                <Activity className="w-6 h-6 opacity-40" />
+                {error}
+                <button onClick={fetchOpportunities} className="text-finma-primary hover:underline text-[10px]">
+                  Tekrar dene
+                </button>
               </div>
             ) : opportunities.length === 0 ? (
-              <div className="text-center py-10 text-finma-text-dim text-sm">
-                <Flame className="w-8 h-8 mx-auto mb-2 opacity-20 text-orange-400" />
-                <p>Henüz fırsat yüklenmedi.</p>
-                <p className="text-xs mt-1 text-finma-text-dim/60">Bot NY 11:00, 13:05, 15:00'da çalışır.</p>
+              <div className="flex flex-col items-center justify-center h-64 gap-2 text-finma-text-dim text-xs">
+                <BarChart3 className="w-6 h-6 opacity-30" />
+                Henüz tarama yok. Bot NY 11:00, 13:05, 15:00'de çalışır.
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="text-finma-text-dim bg-finma-bg/80">
-                      <th className="text-left py-2.5 px-3 border border-finma-border/50 w-8">#</th>
-                      <th className="text-left py-2.5 px-3 border border-finma-border/50">Hisse</th>
-                      <th className="text-left py-2.5 px-3 border border-finma-border/50">Sektör</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Fiyat</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Giriş Zonu</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Stop</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Hedef</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Potansiyel</th>
-                      <th className="text-right py-2.5 px-3 border border-finma-border/50">Skor</th>
-                      <th className="text-center py-2.5 px-3 border border-finma-border/50">İşlem</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* Rank 1 — always visible */}
-                    {opportunities.map((opp, idx) => {
-                      const isVisible = isPro || opp.rank === 1
-                      return (
-                        <tr
-                          key={opp.ticker}
-                          className={cn(
-                            'transition-colors border-b border-finma-border/30',
-                            isVisible ? 'cursor-pointer hover:bg-finma-primary/5' : 'cursor-default',
-                            selectedTicker === opp.ticker && 'bg-finma-primary/10'
+              <>
+                {/* Header */}
+                <div className="grid gap-0 text-[9px] font-bold text-finma-text-dim uppercase tracking-wider px-3 py-2 border-b border-finma-border/50 bg-finma-bg/40"
+                  style={{ gridTemplateColumns: '28px 1fr 80px 68px 66px 76px' }}>
+                  <span>#</span><span>Hisse / Şirket</span><span>Sektör</span>
+                  <span className="text-right">Alım</span>
+                  <span className="text-right">24s</span>
+                  <span className="text-center">İşlem</span>
+                </div>
+                {/* Rows */}
+                <div className="overflow-y-auto flex-1">
+                  {opportunities.map(opp => {
+                    const lq = liveQuotes[opp.ticker]
+                    const changePct = lq?.change_pct ?? 0
+                    const livePrice = lq?.price ?? opp.price
+                    const isSelected = selectedTickers[0] === opp.ticker
+                    const isLocked = !isPro && opp.rank > 1
+
+                    return (
+                      <div
+                        key={opp.ticker}
+                        onClick={() => !isLocked && handleSelectTicker(opp.ticker)}
+                        className={cn(
+                          'grid gap-0 px-3 py-2.5 border-b border-finma-border/20 text-xs transition-all',
+                          isLocked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-finma-primary/5',
+                          isSelected && 'bg-finma-primary/10 border-l-2 border-l-finma-primary'
+                        )}
+                        style={{ gridTemplateColumns: '28px 1fr 80px 68px 66px 76px' }}
+                      >
+                        {/* # */}
+                        <span className="text-finma-text-dim finma-number text-[10px] self-center">
+                          {isLocked ? <Lock className="w-3 h-3" /> : opp.rank}
+                        </span>
+
+                        {/* Hisse */}
+                        <div className="flex flex-col gap-0.5 min-w-0 self-center">
+                          <span className="font-bold text-finma-primary finma-number leading-none">{opp.ticker}</span>
+                          <span className="text-finma-text-dim text-[9px] truncate leading-none">{opp.company_name}</span>
+                        </div>
+
+                        {/* Sektör */}
+                        <div className="self-center">
+                          <span className={cn('text-[8px] px-1.5 py-0.5 rounded border font-bold uppercase whitespace-nowrap',
+                            SECTOR_COLORS[opp.sector] || 'bg-white/5 text-finma-text-dim border-white/10')}>
+                            {sectorLabel(opp.sector)}
+                          </span>
+                        </div>
+
+                        {/* Alım */}
+                        <div className="text-right self-center">
+                          <span className="finma-number text-white font-bold text-[10px]">${livePrice.toFixed(2)}</span>
+                          <div className="text-[7px] text-finma-text-dim">Hdf: ${opp.target.toFixed(2)}</div>
+                        </div>
+
+                        {/* 24s */}
+                        <div className={cn('text-right self-center finma-number font-bold text-[10px]',
+                          changePct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                          <div className="flex items-center justify-end gap-0.5">
+                            {changePct >= 0 ? <TrendingUp className="w-2.5 h-2.5" /> : <TrendingDown className="w-2.5 h-2.5" />}
+                            {changePct >= 0 ? '+' : ''}{changePct.toFixed(1)}%
+                          </div>
+                          <div className="text-[7px] text-finma-green/70">+{opp.potential_pct.toFixed(1)}%↑</div>
+                        </div>
+
+                        {/* İşlem */}
+                        <div className="text-center self-center" onClick={e => e.stopPropagation()}>
+                          {isLocked ? (
+                            <span className="text-[8px] text-finma-text-dim">Pro</span>
+                          ) : watchStatus?.ticker === opp.ticker ? (
+                            <span className={cn('text-[9px] font-bold',
+                              watchStatus.ok ? 'text-finma-green' : 'text-finma-red')}>
+                              {watchStatus.ok ? '✓ Eklendi' : '✗ Hata'}
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => handleAddToWatchlist(opp)}
+                              disabled={addingWatchlist === opp.ticker}
+                              className={cn(
+                                'flex items-center gap-1 text-[9px] px-1.5 py-1 rounded font-medium transition-all mx-auto',
+                                addingWatchlist === opp.ticker
+                                  ? 'bg-finma-yellow/30 text-white cursor-not-allowed'
+                                  : 'bg-finma-yellow/10 text-finma-yellow border border-finma-yellow/30 hover:bg-finma-yellow/25'
+                              )}
+                            >
+                              <Star className="w-2.5 h-2.5" />
+                              {addingWatchlist === opp.ticker ? '...' : 'Akıllı Takip'}
+                            </button>
                           )}
-                          onClick={() => isVisible && router.push(`/stock-analysis?ticker=${opp.ticker}`)}
-                        >
-                          <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{opp.rank}</td>
-                          <td className="py-2.5 px-3 border border-finma-border/50">
-                            {isVisible ? (
-                              <div className="flex flex-col">
-                                <span className="font-bold text-finma-primary finma-number text-sm">{opp.ticker}</span>
-                                <span className="text-finma-text-dim text-[10px]">{opp.company_name}</span>
-                              </div>
-                            ) : (
-                              <div className="flex items-center gap-1 text-finma-text-dim/40">
-                                <Lock className="w-3 h-3" />
-                                <span className="font-bold">PRO</span>
-                              </div>
-                            )}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50">
-                            {isVisible ? (
-                              <span className="text-[9px] px-1.5 py-0.5 rounded border font-bold uppercase bg-white/5 text-finma-text-dim border-white/10">
-                                {opp.sector}
-                              </span>
-                            ) : <BlurCell />}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-white">
-                            {isVisible ? `$${opp.price?.toFixed(2)}` : <BlurCell />}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-finma-text-muted">
-                            {isVisible ? opp.entry_zone : <BlurCell />}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-finma-red">
-                            {isVisible ? `$${opp.stop_loss?.toFixed(2)}` : <BlurCell />}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-finma-green">
-                            {isVisible ? `$${opp.target?.toFixed(2)}` : <BlurCell />}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-finma-green">
-                            {isVisible ? `+${opp.potential_pct?.toFixed(1)}%` : <BlurCell />}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-finma-primary">
-                            {isVisible ? opp.score?.toFixed(1) : <BlurCell />}
-                          </td>
-                          <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={e => e.stopPropagation()}>
-                            {isVisible ? (
-                              <button
-                                onClick={() => router.push(`/watchlist?add=${opp.ticker}`)}
-                                className="text-[10px] px-2 py-1 rounded bg-finma-primary/20 text-finma-primary border border-finma-primary/30 hover:bg-finma-primary/40 transition-colors whitespace-nowrap"
-                              >
-                                + Takibe Al
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => router.push('/settings?upgrade=1')}
-                                className="text-[10px] px-2 py-1 rounded bg-finma-yellow/10 text-finma-yellow border border-finma-yellow/30 hover:bg-finma-yellow/20 transition-colors whitespace-nowrap"
-                              >
-                                Pro'ya Geç
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </>
+            )}
+          </Card>
+        </div>
+
+        {/* ─── Sağ Panel: Grafik ─────────────────────────────────────── */}
+        <div className="flex-1 min-w-0" ref={chartPanelRef}>
+          <Card padding="sm" className="h-full flex flex-col">
+            {/* Kontroller */}
+            <div className="flex items-center justify-between mb-3 shrink-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {selectedTickers.length > 0
+                  ? selectedTickers.slice(0, layoutMode).map(t => (
+                    <span key={t} className="text-[10px] font-bold text-finma-primary finma-number bg-finma-primary/10 px-2 py-0.5 rounded border border-finma-primary/30">
+                      {t}
+                    </span>
+                  ))
+                  : <span className="text-[10px] text-finma-text-dim">← Soldan bir hisse seçin</span>
+                }
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="flex items-center bg-finma-bg rounded border border-finma-border/30">
+                  {([1, 2, 4] as LayoutMode[]).map(mode => (
+                    <button key={mode} onClick={() => setLayoutMode(mode)}
+                      className={cn('flex items-center justify-center w-7 h-6 transition-all',
+                        layoutMode === mode ? 'bg-finma-primary/20 text-finma-primary' : 'text-finma-text-dim hover:text-finma-text')}
+                      title={mode === 1 ? 'Tek' : mode === 2 ? 'İki' : 'Dört'}>
+                      {mode === 1 ? <Square className="w-3 h-3" /> : mode === 2 ? <Columns2 className="w-3 h-3" /> : <LayoutGrid className="w-3 h-3" />}
+                    </button>
+                  ))}
+                </div>
+                <button onClick={toggleFullscreen}
+                  className="flex items-center justify-center w-7 h-6 text-finma-text-dim hover:text-finma-text bg-finma-bg rounded border border-finma-border/30 transition-all">
+                  {isFullscreen ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Grafik */}
+            {selectedTickers.length === 0 ? (
+              <div className="flex-1 flex flex-col items-center justify-center text-finma-text-dim gap-3">
+                <BarChart3 className="w-12 h-12 opacity-10" />
+                <span className="text-xs">Grafik için sol listeden bir hisse seçin</span>
+              </div>
+            ) : (
+              <div className={cn('flex-1 grid gap-2', chartGridClass)}>
+                {filledTickers.map((ticker, i) => (
+                  <div key={i} className="min-h-0 overflow-hidden">
+                    {ticker ? (
+                      <FinMAChart
+                        ticker={ticker}
+                        height={layoutMode === 4 ? 220 : layoutMode === 2 ? 360 : 480}
+                        showControls={layoutMode === 1}
+                        className="h-full"
+                      />
+                    ) : (
+                      <div className="h-full flex items-center justify-center border border-finma-border/20 rounded-lg bg-finma-bg/30 text-finma-text-dim text-xs min-h-[180px]">
+                        Boş slot
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
           </Card>
-
-          {/* Pro upsell banner for free users */}
-          {!isPro && opportunities.length > 1 && (
-            <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-finma-yellow/5 border border-finma-yellow/20">
-              <Lock className="w-5 h-5 text-finma-yellow shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-finma-yellow">
-                  {(runMeta?.total ?? opportunities.length) - 1} fırsat daha Pro üyelikte görünür
-                </p>
-                <p className="text-xs text-finma-text-dim mt-0.5">
-                  Tüm fırsatları, stop-loss ve hedef fiyatları görüntülemek için Pro'ya geçin.
-                </p>
-              </div>
-              <button
-                onClick={() => router.push('/settings?upgrade=1')}
-                className="px-4 py-2 rounded-lg bg-finma-yellow text-black text-xs font-bold hover:bg-finma-yellow/90 transition-colors whitespace-nowrap"
-              >
-                Pro'ya Geç
-              </button>
-            </div>
-          )}
         </div>
       </div>
-    </div>
-  )
-}
 
-function BlurCell() {
-  return (
-    <span className="inline-block w-16 h-3.5 rounded bg-finma-border/40 blur-sm select-none" />
+      {/* Alt Bilgi */}
+      <div className="text-[9px] text-finma-text-dim/60 flex items-start gap-1.5 px-1">
+        <Zap className="w-3 h-3 shrink-0 mt-0.5 text-finma-yellow" />
+        <span>
+          ATMACA V113 — Likidite → Momentum → Kompozit Skor (3 katmanlı filtre).
+          &nbsp;Veriler bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.
+        </span>
+      </div>
+    </div>
   )
 }

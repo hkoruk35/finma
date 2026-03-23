@@ -429,6 +429,61 @@ async def get_opportunities_history(
     return {"runs": runs, "total": len(runs)}
 
 
+@router.get("/history-last3")
+async def get_last3_opportunities():
+    """
+    Son 3 swing113 taramasının birleştirilmiş listesi (max 30 hisse).
+    Aynı ticker birden fazla taramada geçiyorsa, en son taraması tutulur.
+    Dashboard'daki 'Günün Fırsatları' sekmesi bu endpoint'i kullanır.
+    """
+    archive_dir = os.path.abspath(SWING113_ARCHIVE_DIR)
+
+    all_opportunities: dict = {}  # ticker → opportunity (sonuncusu kazanır)
+
+    # Önce archive dosyalarından son 3 taramayı al
+    if os.path.exists(archive_dir):
+        files = sorted(
+            [f for f in os.listdir(archive_dir) if f.endswith(".json")],
+            reverse=True,
+        )[:3]
+        for fname in files:
+            try:
+                with open(os.path.join(archive_dir, fname), "r", encoding="utf-8") as f:
+                    run = json.load(f)
+                run_at = run.get("run_at", "")
+                for opp in run.get("opportunities", []):
+                    ticker = opp.get("ticker", "")
+                    if ticker:
+                        opp["run_at"] = run_at
+                        all_opportunities[ticker] = opp
+            except Exception:
+                continue
+
+    # Archive boşsa veya az ise, mevcut swing113_latest'i de ekle
+    latest = _swing113_latest or {}
+    if not latest and os.path.exists(SWING113_PATH):
+        try:
+            with open(SWING113_PATH, "r", encoding="utf-8") as f:
+                latest = json.load(f)
+        except Exception:
+            pass
+
+    run_at_latest = latest.get("run_timestamp", "")
+    for opp in latest.get("opportunities", []):
+        ticker = opp.get("ticker", "")
+        if ticker and ticker not in all_opportunities:
+            opp["run_at"] = run_at_latest
+            all_opportunities[ticker] = opp
+
+    merged = list(all_opportunities.values())[:30]
+
+    return {
+        "opportunities": merged,
+        "total": len(merged),
+        "source": "last3_scans",
+    }
+
+
 @router.post("/bots/{bot_name}/run")
 async def run_bot_manually(bot_name: str, admin: dict = Depends(require_admin)):
     """Botu manuel olarak hemen çalıştır (Admin sadece)"""

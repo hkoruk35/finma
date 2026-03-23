@@ -10,7 +10,6 @@ import { useLatestSignals } from '@/hooks/useSignals'
 import { useIndices, useSectors, useMarketMovers, useRegime } from '@/hooks/useMarketData'
 import { useIntelligence } from '@/hooks/useIntelligence'
 import { useEventStream } from '@/hooks/useEventStream'
-import { FinMAChart } from '@/components/terminal/FinMAChart'
 import {
   mockPortfolio, mockSignals, mockTrades, mockIndices
 } from '@/lib/mock-data'
@@ -378,7 +377,8 @@ export default function DashboardPage() {
   useEffect(() => {
     if (moversData) {
       const enrichedData = {
-        opportunities: MOVERS.opportunities.map(enrichStock),
+        // Günün Fırsatları: API'den swing113 opportunities (history-last3 veya movers)
+        opportunities: (moversData.opportunities || []).map(enrichStock),
         gainers: (moversData.gainers || []).map(enrichStock),
         losers: (moversData.losers || []).map(enrichStock),
         volume: (moversData.volume || []).map(enrichStock),
@@ -387,10 +387,10 @@ export default function DashboardPage() {
 
       // Update live quotes
       const map: Record<string, any> = { ...liveQuotes }
-      const allItems = [...MOVERS.opportunities, ...(moversData.gainers || []), ...(moversData.losers || []), ...(moversData.volume || [])]
+      const allItems = [...(moversData.opportunities || []), ...(moversData.gainers || []), ...(moversData.losers || []), ...(moversData.volume || [])]
       allItems.forEach((item: any) => {
         const sym = item.symbol || item.ticker
-        if (sym) map[sym] = { price: item.price, change: item.change, change_pct: item.change_pct }
+        if (sym) map[sym] = { price: item.price, change: item.change || 0, change_pct: item.change_pct || 0 }
       })
       setLiveQuotes(map)
       setLastRefresh(new Date())
@@ -617,11 +617,6 @@ export default function DashboardPage() {
 
       {/* ═══════════════ 2. PİYASA HAREKETLERİ & HISSE TARAMA ═══════════════ */}
       
-      {/* FinMA Interactive Chart Engine */}
-      <div className="mb-4">
-        <FinMAChart ticker={chartSymbol} height={380} showControls={true} />
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {/* Piyasa Hareketleri */}
         <Card padding="sm">
@@ -725,13 +720,14 @@ export default function DashboardPage() {
                         onClick={() => handleAddToWatchlist(stock)}
                         disabled={addingToWatchlist === sym}
                         className={cn(
-                          'text-[10px] px-2 py-1 rounded font-medium whitespace-nowrap transition-all',
+                          'flex items-center gap-1 text-[10px] px-2 py-1 rounded font-medium whitespace-nowrap transition-all',
                           addingToWatchlist === sym
-                            ? 'bg-finma-primary/60 text-white cursor-not-allowed'
-                            : 'bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/40'
+                            ? 'bg-finma-yellow/40 text-white cursor-not-allowed'
+                            : 'bg-finma-yellow/10 text-finma-yellow border border-finma-yellow/30 hover:bg-finma-yellow/25'
                         )}
                       >
-                        {addingToWatchlist === sym ? 'Ekleniyor...' : 'Takibe Al'}
+                        <Star className="w-2.5 h-2.5" />
+                        {addingToWatchlist === sym ? 'Ekleniyor...' : 'Akıllı Takip'}
                       </button>
                     </td>
                   </tr>

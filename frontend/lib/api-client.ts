@@ -252,6 +252,8 @@ class APIClient {
       gainers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number }>;
       losers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number }>;
       volume: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number }>;
+      opportunities?: Array<{ ticker: string; company_name?: string; sector?: string; price?: number; score?: number; entry_zone?: string; stop_loss?: number; target?: number; potential_pct?: number; reason?: string }>;
+      timestamp?: string | null;
     }>(`/api/market/movers?period=${period}`)
   }
 
@@ -303,6 +305,44 @@ class APIClient {
       regions: Record<string, string>;
       raw: string;
     }>('/api/market/world/analysis')
+  }
+
+  async getOpportunities(limit = 10) {
+    return this.request<{
+      opportunities: Array<{
+        rank: number; ticker: string; company_name: string; sector: string;
+        price: number; score: number; entry_zone: string; stop_loss: number;
+        target: number; potential_pct: number; reason?: string;
+      }>;
+      total: number; market_regime?: string; updated_at?: string; run_at?: string;
+    }>(`/api/signals/opportunities?limit=${limit}`)
+  }
+
+  async addToWatchlist(data: {
+    ticker: string; company_name?: string; sector?: string;
+    alert_price?: number; notes?: string;
+    entry_price?: number; target_price?: number; stop_loss?: number;
+  }) {
+    return this.request<{ message: string; id?: string }>('/api/watchlist', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+  }
+
+  async getAnalyzedStocks(source = 'all', limit = 60) {
+    return this.request<{
+      stocks: Array<{
+        ticker: string; company_name: string; sector: string;
+        price: number; change_pct: number; market_cap?: number;
+        ai_score: number; trend: string; risk: string;
+        ema20?: number; ema50?: number; ema200?: number;
+        rsi?: number; adx?: number; atr_pct?: number; rvol?: number;
+        support?: number; resistance?: number;
+        bb_upper?: number; bb_lower?: number;
+        source: 'swing113' | 'gainer' | 'loser' | 'volume';
+      }>;
+      updated_at: string | null; count: number; source: string;
+    }>(`/api/market/analyzed-stocks?source=${source}&limit=${limit}`)
   }
 
   // ─── Signals (Vercel → Supabase doğrudan, Railway bypass) ───

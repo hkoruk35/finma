@@ -15,8 +15,8 @@ export const mockPortfolio: PortfolioSnapshot = {
 }
 
 export const mockIndices: MarketIndex[] = [
-  { symbol: 'DJI',  name: 'Dow Jones',  price: 41800,   change: -320.50, change_pct: -0.76 },
   { symbol: 'SPX',  name: 'S&P 500',    price: 5580,    change: -45.20,  change_pct: -0.80 },
+  { symbol: 'DJI',  name: 'Dow Jones',  price: 41800,   change: -320.50, change_pct: -0.76 },
   { symbol: 'NDX',  name: 'Nasdaq',     price: 19400,   change: -180.30, change_pct: -0.92 },
   { symbol: 'RUT',  name: 'Russell',    price: 2080,    change: -18.40,  change_pct: -0.88 },
   { symbol: 'VIX',  name: 'VIX',        price: 22.50,   change: 1.20,    change_pct: 5.63 },
