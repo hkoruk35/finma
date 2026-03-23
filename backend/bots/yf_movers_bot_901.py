@@ -41,15 +41,36 @@ def get_movers():
     volume_leaders = []
 
     try:
-        # yfinance batch download
-        tickers = yf.Tickers(" ".join(SCAN_UNIVERSE[:80]))  # First 80 for speed
+        # 1. Toplu veri indir (1h periyot için 2 gün yeterli)
+        # Scan universe'den ilk 80'i alıyoruz
+        symbols = SCAN_UNIVERSE[:80]
+        
+        # Hourly data for 1h change calculation
+        logger.info(f"Downloading 1h history for {len(symbols)} tickers...")
+        h_data = yf.download(symbols, period="2d", interval="1h", group_by='ticker', threads=False, progress=False)
+        
+        # Info and Fast Info for other metrics
+        tickers_obj = yf.Tickers(" ".join(symbols))
+        
         rows = []
-
-        for sym in SCAN_UNIVERSE[:80]:
+        for sym in symbols:
             try:
-                t = tickers.tickers.get(sym)
-                if not t:
-                    continue
+                t = tickers_obj.tickers.get(sym)
+                if not t: continue
+                
+                # 1 saatlik değişim hesapla
+                # h_data[sym] bir dataframe'dir (Close sütunu var)
+                df_h = h_data[sym] if sym in h_data.columns.levels[0] else None
+                change_1h = 0.0
+                if df_h is not None and not df_h.empty:
+                    # 'Close' sütununu al ve NaN olmayanları temizle
+                    closes = df_h['Close'].dropna()
+                    if len(closes) >= 2:
+                        current_h = float(closes.iloc[-1])
+                        prev_h = float(closes.iloc[-2])
+                        if prev_h > 0:
+                            change_1h = ((current_h - prev_h) / prev_h) * 100
+
                 fast = t.fast_info
                 price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
                 prev = float(fast.get("previousClose", 0) or fast.get("previous_close", 0) or 0)
@@ -58,7 +79,9 @@ def get_movers():
                 if price <= 0 or prev <= 0:
                     continue
 
-                change_pct = ((price - prev) / prev) * 100
+                change_24h = ((price - prev) / prev) * 100
+                
+                # Info'dan isim ve sektör (cache dostu)
                 info = {}
                 try:
                     info = t.info or {}
@@ -70,11 +93,12 @@ def get_movers():
                     "name": info.get("longName", info.get("shortName", sym)),
                     "sector": info.get("sector", ""),
                     "price": round(price, 2),
-                    "change_pct": round(change_pct, 2),
+                    "change_pct": round(change_24h, 2), # 24h change (daily)
+                    "change_1h": round(change_1h, 2),   # 1h change
                     "volume": int(vol),
                     "market_cap": info.get("marketCap", 0),
                 })
-            except Exception as e:
+            except Exception:
                 continue
 
         # Sort

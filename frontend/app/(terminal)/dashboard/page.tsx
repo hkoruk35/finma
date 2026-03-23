@@ -729,25 +729,27 @@ export default function DashboardPage() {
             <thead>
               <tr className="text-finma-text-dim bg-finma-bg/80">
                 <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8 text-sm">#</th>
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Hisse / Şirket</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Hisse (Kodu)</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Şirket</th>
                 <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Sektör</th>
-                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Canlı Fiyat</th>
-                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Gnl Değişim</th>
-                <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50 w-24 text-sm">İşlem</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Fiyat</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">1 Saatlik Değişim</th>
+                <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50 w-24 text-sm">Akıllı Takip</th>
               </tr>
             </thead>
             <tbody>
               {liveMovers[moversTab]?.map((stock: any, idx: number) => {
                 const sym = stock.symbol || stock.ticker
+                const change1h = stock.change_1h ?? 0
                 return (
                   <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
                     onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
                     <td className="py-2.5 px-3 border border-finma-border/50 finma-number text-finma-text-dim">{idx + 1}</td>
-                    <td className="py-2.5 px-3 border border-finma-border/50 min-w-fit">
-                      <div className="flex flex-col gap-0.5 whitespace-nowrap">
-                        <span className="font-bold text-finma-primary finma-number text-sm leading-none">{sym}</span>
-                        <span className="text-finma-text-dim text-[10px] uppercase leading-none">{stock.name}</span>
-                      </div>
+                    <td className="py-2.5 px-3 border border-finma-border/50">
+                      <span className="font-bold text-finma-primary finma-number text-sm">{sym}</span>
+                    </td>
+                    <td className="py-2.5 px-3 border border-finma-border/50 max-w-[150px] truncate">
+                      <span className="text-finma-text uppercase font-semibold text-[11px]">{stock.name}</span>
                     </td>
                     <td className="py-2.5 px-3 border border-finma-border/50">
                       <span className={cn(
@@ -757,11 +759,11 @@ export default function DashboardPage() {
                         {sectorLabel(stock.sector)}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold">${(stock.price ?? 0).toFixed(2)}</td>
-                    <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold', (stock.change_pct ?? 0) >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                    <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold text-sm">${(stock.price ?? 0).toFixed(2)}</td>
+                    <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-sm', change1h >= 0 ? 'text-finma-green' : 'text-finma-red')}>
                       <div className="flex items-center justify-end gap-1">
-                        {(stock.change_pct ?? 0) >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                        {(stock.change_pct ?? 0) >= 0 ? '+' : ''}{(stock.change_pct ?? 0).toFixed(1)}%
+                        {change1h >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                        {change1h >= 0 ? '+' : ''}{change1h.toFixed(1)}%
                       </div>
                     </td>
                     <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={(e) => e.stopPropagation()}>
@@ -769,14 +771,14 @@ export default function DashboardPage() {
                         onClick={() => handleAddToWatchlist(stock)}
                         disabled={addingToWatchlist === sym}
                         className={cn(
-                          'flex items-center gap-1 text-[10px] px-2 py-1 rounded font-medium whitespace-nowrap transition-all',
+                          'flex items-center gap-1 mx-auto text-[10px] px-2.5 py-1.5 rounded font-bold whitespace-nowrap transition-all uppercase tracking-tighter',
                           addingToWatchlist === sym
                             ? 'bg-finma-yellow/40 text-white cursor-not-allowed'
-                            : 'bg-finma-yellow/10 text-finma-yellow border border-finma-yellow/30 hover:bg-finma-yellow/25'
+                            : 'bg-finma-yellow/10 text-finma-yellow border border-finma-yellow/30 hover:bg-finma-yellow/25 active:scale-95 shadow-sm'
                         )}
                       >
-                        <Star className="w-2.5 h-2.5" />
-                        {addingToWatchlist === sym ? 'Ekleniyor...' : 'Akıllı Takip'}
+                        <Star className={cn('w-2.5 h-2.5', addingToWatchlist === sym && 'animate-spin')} />
+                        {addingToWatchlist === sym ? 'Ekleniyor' : 'Akıllı Takip'}
                       </button>
                     </td>
                   </tr>

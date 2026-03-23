@@ -2180,16 +2180,25 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
         # ========================================
         # FİYAT VERİSİ (Ardışık Fetch - YF Ban Koruması)
         # ========================================
-        df_1d = await asyncio.to_thread(get_stock_data, ticker, "1d")
-        
-        # Eğer 1D verisi başarıyla çekildiyse, kısa bir süre bekleyip 1H verisini çek
         if df_1d is not None and len(df_1d) >= 50:
             await asyncio.sleep(1.0) # YF'ye 1 saniye nefes ver
             df_1h = await asyncio.to_thread(get_stock_data, ticker, "1h")
         else:
             df_1h = None
             
-        # 🔥 5. VERİ BÜTÜNLÜĞÜ KONTROLÜ
+        # 🔥 5. 1-SAATLİK DEĞİŞİM HESABI
+        change_1h = 0.0
+        if df_1h is not None and len(df_1h) >= 2:
+            try:
+                # Son 2 barın kapanışlarını al
+                c_now = float(df_1h["Close"].iloc[-1])
+                c_prev = float(df_1h["Close"].iloc[-2])
+                if c_prev > 0:
+                    change_1h = ((c_now - c_prev) / c_prev) * 100
+            except:
+                pass
+            
+        # 🔥 6. VERİ BÜTÜNLÜĞÜ KONTROLÜ
         if df_1d is None or len(df_1d) < 50:
             logging.warning(f"🚫 {ticker}: 1D veri yetersiz -> ELEME")
             return None
@@ -3088,6 +3097,7 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             "atr_pct": round(atr_pct_1d * 100, 2),
             "rsi_1d": round(rsi_1d_val, 1),
             "adx_1d": round(adx_1d, 1),
+            "change_1h": round(change_1h, 2),
             "relative_strength": rs_label,
             "profit_target": round(profit_target, 2),
             "stop_loss": round(stop_loss, 2),
@@ -4249,6 +4259,7 @@ async def scan_top_stocks():
                 "company_name": c.get("longName", ticker),
                 "sector": sector,
                 "price": round(price, 2),
+                "change_1h": round(c.get("change_1h", 0.0), 2),
                 "score": score,
                 "entry_zone": f"{entry_low} - {entry_high}",
                 "stop_loss": round(stop_loss, 2),
