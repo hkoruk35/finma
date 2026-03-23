@@ -39,6 +39,7 @@ _BOT_DIR = _os.path.abspath("bots/output")
 _INDICES_904 = _os.path.join(_BOT_DIR, "indices_904.json")
 _MOVERS_901  = _os.path.join(_BOT_DIR, "movers_901.json")
 _DETAIL_907  = _os.path.join(_BOT_DIR, "detail_scan_907.json")
+_FLOW_CACHE  = _os.path.join(_BOT_DIR, "flow_cache.json")
 
 def _load_bot_file(path: str, max_age_sec: int = 300):
     """Bot çıktı dosyasını yükle, max_age_sec saniyeden eskiyse None döndür"""
@@ -442,3 +443,48 @@ def get_analyzed_stocks(
         "count": len(stocks),
         "source": source,
     }
+
+
+# ─── Flow Bot Endpoints ───────────────────────────────────────────────────────
+
+@router.get("/flow")
+def get_flow_data():
+    """
+    Para akışı verileri — Flow Bot cache'den okur (4 saatte bir güncellenir).
+    İçerik: sektör akışı, yükselenler/düşenler, unusual volume, insider işlemleri.
+    """
+    bot_data = _load_bot_file(_FLOW_CACHE, max_age_sec=14400 + 300)  # 4 saat + 5dk tolerans
+    if not bot_data:
+        # Dosya hiç yoksa veya çok eskiyse boş yapı döndür
+        return {
+            "updated_at": None,
+            "updated_ts": None,
+            "sector_flow": [],
+            "gainers": [],
+            "losers": [],
+            "high_volume": [],
+            "unusual_signals": [],
+            "insiders": [],
+            "summary": {
+                "inflow_sectors": 0, "outflow_sectors": 0,
+                "insider_buys": 0, "insider_sells": 0, "unusual_signals": 0
+            },
+            "stale": True,
+        }
+    return bot_data
+
+
+@router.post("/flow/refresh")
+def refresh_flow_data():
+    """
+    Flow Bot'u manuel tetikle (admin). Bot arka planda başlar, 3-5 dakikada tamamlanır.
+    """
+    try:
+        from app.services.bot_runner import trigger_bot_manually
+        ok = trigger_bot_manually("flow_bot")
+        if ok:
+            return {"status": "started", "message": "Flow bot başlatıldı — 3-5 dakika içinde veriler güncellenir."}
+        else:
+            return {"status": "error", "message": "flow_bot bulunamadı veya başlatılamadı."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Bot başlatılamadı: {e}")

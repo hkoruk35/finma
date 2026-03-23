@@ -247,6 +247,30 @@ class APIClient {
     }>(`/api/market/holders/${ticker}`)
   }
 
+  async getFlowData() {
+    return this.request<{
+      updated_at: string | null;
+      updated_ts: number | null;
+      sector_flow: Array<{
+        etf: string; sector: string; change_pct: number; price: number; volume_ratio: number; flow: 'inflow' | 'outflow' | 'neutral';
+      }>;
+      gainers: Array<{ ticker: string; price: number; change_pct: number; volume: number; rvol: number }>;
+      losers: Array<{ ticker: string; price: number; change_pct: number; volume: number; rvol: number }>;
+      high_volume: Array<{ ticker: string; price: number; change_pct: number; volume: number; rvol: number }>;
+      unusual_signals: Array<{ ticker: string; price: number; change_pct: number; rvol: number; volume: number; signal: string; signal_type: 'buy' | 'sell' }>;
+      insiders: Array<{
+        ticker: string; insider_name: string; title: string; transaction_type: string;
+        is_buy: boolean; shares: number; value: number; price: number; date: string;
+      }>;
+      summary: { inflow_sectors: number; outflow_sectors: number; insider_buys: number; insider_sells: number; unusual_signals: number };
+      stale?: boolean;
+    }>('/api/market/flow')
+  }
+
+  async refreshFlowData() {
+    return this.request<{ status: string; message: string }>('/api/market/flow/refresh', { method: 'POST' })
+  }
+
   async getMarketMovers(period = '1d') {
     return this.request<{
       gainers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number }>;

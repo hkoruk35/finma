@@ -68,6 +68,11 @@ BOT_CONFIGS = {
         "schedule": {"minute": "*/15"},
         "description": "Bot 907 — 60 Hisse Detay Tarama Her 15 Dakika",
     },
+    "flow_bot": {
+        "script": "flow_bot.py",
+        "schedule": {"hour": "*/4", "minute": "5"},
+        "description": "Flow Bot — Sektör Akışı, Insider, RVOL Her 4 Saat",
+    },
 }
 
 active_processes = {}
@@ -160,7 +165,7 @@ def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
             )
             
             # Başlangıçta hemen 1 kez çalıştırılacak botlar
-            if bot_name in ["insider_bot", "news_bot", "market_indices_904", "yf_movers_901", "detail_scanner_907"]:
+            if bot_name in ["insider_bot", "news_bot", "market_indices_904", "yf_movers_901", "detail_scanner_907", "flow_bot"]:
                 scheduler.add_job(
                     run_bot,
                     "date",
