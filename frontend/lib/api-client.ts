@@ -205,10 +205,7 @@ class APIClient {
 
   async getLatestNews(limit: number = 50, category?: string) {
     const qs = category ? `?category=${category}&limit=${limit}` : `?limit=${limit}`
-    return this.request<Array<{
-      title: string; url: string; publisher: string; date: string; 
-      ticker: string; impact: string; category: string; lang?: string
-    }>>(`/api/market/news/latest${qs}`)
+    return this.request<Array<{ title: string; url: string; publisher: string; date: string; ticker: string; impact: string; category: string; lang?: string }>>(`/api/signals/opportunities?limit=${limit}&_=${Date.now()}`)
   }
 
   async refreshNews() {
@@ -339,7 +336,7 @@ class APIClient {
         target: number; potential_pct: number; reason?: string;
       }>;
       total: number; market_regime?: string; updated_at?: string; run_at?: string;
-    }>(`/api/signals/opportunities?limit=${limit}`)
+    }>(`/api/signals/opportunities?limit=${limit}&_=${Date.now()}`)
   }
 
   async addToWatchlist(data: {

@@ -143,8 +143,22 @@ export default function FeaturedPage() {
     try {
       await api.runBot('swing113_11')
       setBotMsg('✅ swing113 başlatıldı — tarama 5-10 dakika sürer, ardından liste güncellenir')
-      // 5 dakika sonra otomatik yenile (Tarama uzun sürüyor)
-      setTimeout(() => fetchOpportunities(), 300_000)
+      // Poll bot status until it finishes
+      const poll = setInterval(async () => {
+        try {
+          const status = await api.getBotStatus()
+          const botInfo = status?.["swing113_11"]
+          if (!botInfo?.is_running) {
+            clearInterval(poll)
+            fetchOpportunities()
+          }
+        } catch {}
+      }, 5000)
+      // Fallback timeout 10 minutes
+      setTimeout(() => {
+        clearInterval(poll)
+        fetchOpportunities()
+      }, 600_000)
     } catch (e: any) {
       setBotMsg('❌ Bot başlatılamadı: ' + (e.message || 'Bilinmeyen hata'))
     } finally {

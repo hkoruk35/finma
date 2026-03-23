@@ -1,0 +1,20 @@
+{
+  "run_id": "test123",
+  "run_at": "2026-03-23T00:00:00",
+  "schedule_slot": "11:00",
+  "opportunities": [
+    {
+      "rank": 1,
+      "ticker": "AAPL",
+      "company_name": "Apple",
+      "sector": "Technology",
+      "price": 150,
+      "score": 40,
+      "entry_zone": "150-155",
+      "stop_loss": 145,
+      "target": 160,
+      "potential_pct": 6.7,
+      "reason": "Strong earnings"
+    }
+  ]
+}
