@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 from app.database import SignalsDB, IntelligenceDB
 from app.config import get_settings
-from app.dependencies import require_admin
+from app.dependencies import require_admin, optional_user
 import logging
 
 logger = logging.getLogger(__name__)
@@ -395,7 +395,7 @@ async def push_swing113(
 
 @router.get("/opportunities")
 async def get_opportunities(
-    user: dict = Depends(lambda: None),
+    user: Optional[dict] = Depends(optional_user),
     x_user_tier: Optional[str] = Header(None),
 ):
     """
@@ -407,7 +407,14 @@ async def get_opportunities(
         return {"opportunities": [], "run_at": None, "run_id": None, "total": 0}
 
     opportunities = data.get("opportunities", [])
-    tier = x_user_tier or "free"
+    
+    # Determine tier: Header -> JWT -> Fallback
+    tier = x_user_tier
+    if not tier and user:
+        tier = user.get("role")
+    
+    if not tier:
+        tier = "free"
 
     # Free tier: only rank 1
     if tier == "free":

@@ -11,10 +11,11 @@ Flow:
 """
 
 from typing import Optional
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 import json as _json
 import os as _os
 import time as _time
+from app.dependencies import optional_user
 from app.services.market_data import (
     get_ticker_info,
     get_technical_analysis,
@@ -381,6 +382,7 @@ async def get_exchange_detail(exchange_id: str):
 def get_movers_v2(
     period: str = Query("1d"),
     limit: int = Query(10, ge=5, le=30),
+    user: Optional[dict] = Depends(optional_user),
 ):
     """
     Yükselenler/Düşenler/Hacim/Fırsatlar.
@@ -406,9 +408,16 @@ def get_movers_v2(
         try:
             with open(swing113_path, "r", encoding="utf-8") as f:
                 data = _json.load(f)
-            opportunities = data.get("opportunities", [])[:limit]
         except Exception:
             pass
+
+    # 3. Tier-based filtering for opportunities
+    # Pro/Admin: all. Free: only rank 1.
+    tier = user.get("role") if user else "free"
+    if tier != "pro" and tier != "admin":
+        opportunities = [o for o in opportunities if o.get("rank") == 1]
+    
+    opportunities = opportunities[:limit]
 
     return {
         "gainers": gainers,
