@@ -205,7 +205,10 @@ class APIClient {
 
   async getLatestNews(limit: number = 50, category?: string) {
     const qs = category ? `?category=${category}&limit=${limit}` : `?limit=${limit}`
-    return this.request<Array<{ title: string; url: string; publisher: string; date: string; ticker: string; impact: string; category: string; lang?: string }>>(`/api/signals/opportunities?limit=${limit}&_=${Date.now()}`)
+    return this.request<Array<{
+      title: string; url: string; publisher: string; date: string; 
+      ticker: string; impact: string; category: string; lang?: string
+    }>>(`/api/market/news/latest${qs}`)
   }
 
   async refreshNews() {

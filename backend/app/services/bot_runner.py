@@ -104,6 +104,8 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
         # Open log file with header
         with open(log_file_path, "a", encoding="utf-8") as f:
             f.write(f"\n\n--- [ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ] STARTING BOT: {bot_name} ---\n")
+            f.write(f"Script: {script_path}\n")
+            f.write(f"Python: {sys.executable}\n")
             f.flush()
 
         log_file = open(log_file_path, "a", encoding="utf-8")
@@ -111,17 +113,33 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
         # Run from backend/ dir to ensure .env is found
         backend_dir = os.path.dirname(os.path.abspath(bots_dir))
         
+        # Ensure subprocess inherits environment + PYTHONPATH includes backend dir
+        env = os.environ.copy()
+        env["PYTHONPATH"] = backend_dir + os.pathsep + env.get("PYTHONPATH", "")
+        
         process = subprocess.Popen(
-            [sys.executable, script_path, "--one-shot"], # Script_path absolute passed
+            [sys.executable, script_path, "--one-shot"],
             stdout=log_file,
             stderr=subprocess.STDOUT,
             cwd=backend_dir,
+            env=env,
             text=True,
-            bufsize=1 # Line buffered
+            bufsize=1  # Line buffered
         )
 
         active_processes[bot_name] = process
         logger.info(f"Bot PID {process.pid} ile arka planda başlatıldı: {bot_name}")
+        
+        # Watcher thread — logs when bot finishes
+        import threading
+        def _watch():
+            code = process.wait()
+            log_file.close()
+            if code == 0:
+                logger.info(f"✅ Bot tamamlandı: {bot_name} (exit 0)")
+            else:
+                logger.error(f"❌ Bot hata ile çıktı: {bot_name} (exit {code})")
+        threading.Thread(target=_watch, daemon=True, name=f"watch_{bot_name}").start()
 
     except Exception as e:
         logger.error(f"Bot çalıştırma hatası {bot_name}: {e}")

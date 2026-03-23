@@ -72,9 +72,12 @@ async function handler(request: Request, { params }: { params: Promise<{ path: s
       }
     }
 
+    // POST/PUT/PATCH requests (e.g. bot trigger) need longer timeout
+    const timeoutMs = ['POST', 'PUT', 'PATCH'].includes(request.method) ? 120_000 : 25_000
+
     const response = await fetch(backendUrl, {
       ...fetchOptions,
-      signal: AbortSignal.timeout(25_000),
+      signal: AbortSignal.timeout(timeoutMs),
     })
 
     const data = await response.text()
