@@ -1416,9 +1416,10 @@ def get_stock_data(
     """
     Yahoo Finance'ten optimize edilmiş veri çekme motoru.
     V112: 4H yerine 1H kullanılıyor (agresif bottan alınan).
+    V113-fix: Rate limit koruması güçlendirildi (retry + backoff).
     """
     
-    time.sleep(random.uniform(2.5, 4.5))
+    MAX_RETRIES = 3
     
     try:
         t = ticker.strip().upper()
@@ -1429,42 +1430,58 @@ def get_stock_data(
             "1h": "7d"  
         }
 
-        logging.info(f"📡 {t} ({interval}) {period_map[interval]} veri talep ediliyor...")
-
-        try:
-            df = stock.history(
-                period=period_map[interval],
-                interval=interval,
-                auto_adjust=True,
-                timeout=12 
-            )
-        except Exception as fetch_err:
-            if "Too Many Requests" in str(fetch_err):
-                logging.error(f"🚨 RATE LIMIT! Yahoo bizi durdurdu ({t}).")
+        for attempt in range(MAX_RETRIES):
+            # Her istek öncesi bekleme (ilk denemede kısa, sonraki denemelerde uzun)
+            if attempt == 0:
+                time.sleep(random.uniform(4.0, 7.0))
             else:
-                logging.error(f"❌ {t} ({interval}) history() hatası: {fetch_err}")
-            return None
+                backoff = 30 * attempt  # 30s, 60s
+                logging.info(f"⏳ {t} retry {attempt+1}/{MAX_RETRIES} — {backoff}s bekleniyor...")
+                time.sleep(backoff)
 
-        if df is None or df.empty:
-            return None
+            logging.info(f"📡 {t} ({interval}) {period_map[interval]} veri talep ediliyor...")
 
-        df.columns = [c.capitalize() for c in df.columns]
-        df = df.dropna()
+            try:
+                df = stock.history(
+                    period=period_map[interval],
+                    interval=interval,
+                    auto_adjust=True,
+                    timeout=12 
+                )
+            except Exception as fetch_err:
+                if "Too Many Requests" in str(fetch_err):
+                    logging.error(f"🚨 RATE LIMIT! Yahoo bizi durdurdu ({t}). Retry {attempt+1}/{MAX_RETRIES}")
+                    if attempt < MAX_RETRIES - 1:
+                        continue  # Retry with longer backoff
+                    return None
+                else:
+                    logging.error(f"❌ {t} ({interval}) history() hatası: {fetch_err}")
+                    return None
 
-        if interval == "1d":
-            if len(df) < 50:
-                logging.warning(f"⚠️ {t} Yetersiz 1D barı ({len(df)})")
+            if df is None or df.empty:
+                if attempt < MAX_RETRIES - 1:
+                    continue  # Retry
                 return None
-            lookback = globals().get('LOOKBACK_DAYS', 200)
-            df = df.tail(lookback)
 
-        elif interval == "1h":
-            if len(df) < 10: 
-                logging.warning(f"⚠️ {t} Yetersiz 1H barı ({len(df)})")
-                return None
+            df.columns = [c.capitalize() for c in df.columns]
+            df = df.dropna()
 
-        logging.info(f"✅ {t} ({interval}) {len(df)} bar başarıyla alındı.")
-        return df
+            if interval == "1d":
+                if len(df) < 50:
+                    logging.warning(f"⚠️ {t} Yetersiz 1D barı ({len(df)})")
+                    return None
+                lookback = globals().get('LOOKBACK_DAYS', 200)
+                df = df.tail(lookback)
+
+            elif interval == "1h":
+                if len(df) < 10: 
+                    logging.warning(f"⚠️ {t} Yetersiz 1H barı ({len(df)})")
+                    return None
+
+            logging.info(f"✅ {t} ({interval}) {len(df)} bar başarıyla alındı.")
+            return df
+
+        return None  # All retries exhausted
 
     except Exception as e:
         logging.error(f"❌ {ticker} ({interval}) genel hata: {e}")
