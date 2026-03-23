@@ -255,7 +255,7 @@ async def build_atmaca_universe_full() -> List[str]:
     )
 
     # ── AŞAMA 2: Toplu indirme + vektörel filtreleme ────────
-    CHUNK = 1000
+    CHUNK = 200   # Railway container thread limiti nedeniyle küçük chunk
     PERIOD = "35d"   # 30g RVOL için en az 35 gün gerekli
 
     all_rows: list[dict] = []
@@ -270,7 +270,7 @@ async def build_atmaca_universe_full() -> List[str]:
                 chunk,
                 period=PERIOD,
                 progress=False,
-                threads=True,
+                threads=False,   # Railway thread limiti aşılmaması için
                 ignore_tz=True,
                 group_by="ticker",
             )
