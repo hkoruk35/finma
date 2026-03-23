@@ -837,7 +837,10 @@ class NewsDB:
                 if category:
                     query = query.eq("category", category.lower())
                 result = query.execute()
-                return result.data or []
+                data = result.data or []
+                if not data and cls._memory:
+                    return cls._memory[:limit]
+                return data
             except Exception as e:
                 cls.last_error = f"get_latest: {e.__class__.__name__}: {str(e)}"
                 logger.error(f"DB get_latest_news hatası: {cls.last_error}")

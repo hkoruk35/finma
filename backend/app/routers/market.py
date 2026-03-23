@@ -257,8 +257,10 @@ def get_latest_market_news(limit: int = Query(50, le=100), category: Optional[st
 def refresh_market_news():
     """Haber crawler'ını anlık olarak tetikle"""
     from app.services.market_data import update_all_market_news
+    from app.database import NewsDB
     count = update_all_market_news()
-    return {"status": "success", "count": count, "message": f"{count} yeni haber eklendi."}
+    err = getattr(NewsDB, "last_error", None)
+    return {"status": "success", "count": count, "message": f"{count} yeni haber eklendi.", "debug_error": err}
 
 
 @router.get("/news/{ticker}")
