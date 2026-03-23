@@ -67,6 +67,8 @@ export default function FeaturedPage() {
   const [error, setError] = useState<string | null>(null)
   const [addingWatchlist, setAddingWatchlist] = useState<string | null>(null)
   const [watchStatus, setWatchStatus] = useState<{ ticker: string; ok: boolean } | null>(null)
+  const [runningBot, setRunningBot] = useState(false)
+  const [botMsg, setBotMsg] = useState<string | null>(null)
 
   const [selectedTickers, setSelectedTickers] = useState<string[]>([])
   const [layoutMode, setLayoutMode] = useState<LayoutMode>(1)
@@ -134,6 +136,23 @@ export default function FeaturedPage() {
     }
   }
 
+  // ─── Admin: Manuel Bot Çalıştır ──────────────────────────────────────
+  const handleRunBot = async () => {
+    setRunningBot(true)
+    setBotMsg(null)
+    try {
+      await api.runBot('swing113_11')
+      setBotMsg('✅ swing113 başlatıldı — tarama 5-10 dakika sürer, ardından liste güncellenir')
+      // 90 saniye sonra otomatik yenile
+      setTimeout(() => fetchOpportunities(), 90_000)
+    } catch (e: any) {
+      setBotMsg('❌ Bot başlatılamadı: ' + (e.message || 'Bilinmeyen hata'))
+    } finally {
+      setRunningBot(false)
+      setTimeout(() => setBotMsg(null), 15_000)
+    }
+  }
+
   // ─── Fullscreen ───────────────────────────────────────────────────────
   const toggleFullscreen = () => {
     if (!isFullscreen) {
@@ -157,7 +176,7 @@ export default function FeaturedPage() {
 
       {/* BAŞLIK */}
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <Zap className="w-4 h-4 text-finma-yellow" />
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
             Günlük Fırsatlar — ATMACA V113
@@ -171,12 +190,41 @@ export default function FeaturedPage() {
             </span>
           )}
         </div>
-        <button onClick={fetchOpportunities} disabled={loading}
-          className="flex items-center gap-1.5 text-[10px] text-finma-text-dim hover:text-finma-text transition-colors">
-          <RefreshCw className={cn('w-3 h-3', loading && 'animate-spin')} />
-          Yenile
-        </button>
+        <div className="flex items-center gap-2">
+          {isAdmin && (
+            <button
+              onClick={handleRunBot}
+              disabled={runningBot}
+              className={cn(
+                'flex items-center gap-1.5 text-[10px] px-2.5 py-1.5 rounded border font-bold transition-all',
+                runningBot
+                  ? 'bg-finma-yellow/20 text-finma-yellow border-finma-yellow/30 cursor-not-allowed'
+                  : 'bg-finma-yellow/10 text-finma-yellow border-finma-yellow/30 hover:bg-finma-yellow/20'
+              )}
+            >
+              <RefreshCw className={cn('w-3 h-3', runningBot && 'animate-spin')} />
+              {runningBot ? 'Başlatılıyor…' : 'Manuel Tara'}
+            </button>
+          )}
+          <button onClick={fetchOpportunities} disabled={loading}
+            className="flex items-center gap-1.5 text-[10px] text-finma-text-dim hover:text-finma-text transition-colors">
+            <RefreshCw className={cn('w-3 h-3', loading && 'animate-spin')} />
+            Yenile
+          </button>
+        </div>
       </div>
+
+      {/* Admin bot mesajı */}
+      {botMsg && (
+        <div className={cn(
+          'px-3 py-2 rounded border text-xs',
+          botMsg.startsWith('✅')
+            ? 'bg-finma-green/10 border-finma-green/30 text-finma-green'
+            : 'bg-finma-red/10 border-finma-red/30 text-finma-red'
+        )}>
+          {botMsg}
+        </div>
+      )}
 
       {/* ANA İÇERİK */}
       <div className="flex gap-4" style={{ minHeight: 560 }}>

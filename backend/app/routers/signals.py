@@ -21,6 +21,7 @@ router = APIRouter()
 # ─── In-memory pushed signal store (Railway'de kalıcı) ───
 _pushed_signals: Optional[dict] = None
 _swing113_latest: Optional[dict] = None
+_swing113_file_mtime: float = 0.0  # file modification time when last loaded
 
 # Paths to bot output files
 SIGNAL_PATHS = [
@@ -321,18 +322,36 @@ class Swing113PushRequest(BaseModel):
 
 
 def load_swing113_latest() -> Optional[dict]:
-    """Load latest swing113 run from RAM → file → None"""
-    global _swing113_latest
-    if _swing113_latest:
-        return _swing113_latest
+    """Load latest swing113 run.
+    File-first: dosya RAM cache'den yeniyse her zaman diskten okur.
+    Bu sayede bot yeni sonucu yazdığında bir sonraki API çağrısı onu görür.
+    Format normalize: run_timestamp → run_at (swing113.py uyumsuzluğu)
+    """
+    global _swing113_latest, _swing113_file_mtime
     abs_path = os.path.abspath(SWING113_PATH)
+
+    file_mtime = 0.0
     if os.path.exists(abs_path):
         try:
-            with open(abs_path, "r", encoding="utf-8") as f:
-                return json.load(f)
+            file_mtime = os.path.getmtime(abs_path)
         except Exception:
             pass
-    return None
+
+    # Dosya RAM cache'den yeniyse yükle
+    if file_mtime > _swing113_file_mtime and file_mtime > 0:
+        try:
+            with open(abs_path, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+            # Format normalize: run_timestamp → run_at
+            if "run_timestamp" in raw and "run_at" not in raw:
+                raw["run_at"] = raw["run_timestamp"]
+            _swing113_latest = raw
+            _swing113_file_mtime = file_mtime
+            logger.info(f"swing113 dosyadan yüklendi: {len(raw.get('opportunities', []))} fırsat")
+        except Exception as e:
+            logger.warning(f"swing113 dosya okuma hatası: {e}")
+
+    return _swing113_latest
 
 
 @router.post("/swing113/push")
@@ -355,11 +374,15 @@ async def push_swing113(
     }
     _swing113_latest = data
 
-    # Write to file
+    # Write to file + update mtime tracker
     try:
-        os.makedirs(os.path.dirname(os.path.abspath(SWING113_PATH)), exist_ok=True)
-        with open(os.path.abspath(SWING113_PATH), "w", encoding="utf-8") as f:
+        import time as _time
+        abs_p = os.path.abspath(SWING113_PATH)
+        os.makedirs(os.path.dirname(abs_p), exist_ok=True)
+        with open(abs_p, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+        global _swing113_file_mtime
+        _swing113_file_mtime = _time.time()
     except Exception as e:
         logger.warning(f"swing113 dosya yazma hatası: {e}")
 
