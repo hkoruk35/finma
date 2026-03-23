@@ -408,15 +408,10 @@ def get_movers_v2(
         try:
             with open(swing113_path, "r", encoding="utf-8") as f:
                 data = _json.load(f)
+                opportunities = data.get("opportunities", [])
         except Exception:
             pass
 
-    # 3. Tier-based filtering for opportunities
-    # Pro/Admin: all. Free: only rank 1.
-    tier = user.get("role") if user else "free"
-    if tier != "pro" and tier != "admin":
-        opportunities = [o for o in opportunities if o.get("rank") == 1]
-    
     opportunities = opportunities[:limit]
 
     return {

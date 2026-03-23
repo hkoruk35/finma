@@ -343,6 +343,7 @@ export default function DashboardPage() {
   const [addingToWatchlist, setAddingToWatchlist] = useState<string | null>(null)
   const [watchlistStatus, setWatchlistStatus] = useState<{ ticker: string; message: string; type: 'success' | 'error' } | null>(null)
   const [adminStats, setAdminStats] = useState<any>(null)
+  const [isManuallyUpdating, setIsManuallyUpdating] = useState(false)
   // const [moversLoading, setMoversLoading] = useState(false) // Now from useMarketMovers
   // const [moversError, setMoversError] = useState(false) // Now from useMarketMovers
 
@@ -529,6 +530,36 @@ export default function DashboardPage() {
     }
   }
 
+  // Manuel swing113 botunu tetikle
+  const handleManualRefresh = async () => {
+    if (!isAdmin) return
+
+    setIsManuallyUpdating(true)
+    try {
+      const token = localStorage.getItem('finma_token')
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app'}/api/signals/bots/swing113/run`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (response.ok) {
+        // Bot tetiklendikten sonra 3 saniye bekle, sonra data yenile
+        setTimeout(() => {
+          setLastRefresh(new Date())
+          setIsManuallyUpdating(false)
+        }, 3000)
+      } else {
+        setIsManuallyUpdating(false)
+      }
+    } catch (error) {
+      console.error('Manual refresh error:', error)
+      setIsManuallyUpdating(false)
+    }
+  }
+
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Komuta Merkezi — Pro+ ve Admin */}
@@ -625,9 +656,27 @@ export default function DashboardPage() {
           <span className="text-sm font-bold text-finma-text uppercase tracking-wider">
             Piyasa Hareketleri
           </span>
-          <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-1">
-            <RefreshCw className={cn('w-3 h-3', moversLoading && 'animate-spin')} />
-            {moversError ? <span className="text-finma-red">Veri alınamadı</span> : <>NY Saati ile 16:05 güncellenir • {timeStr}</>}
+          <span className="ml-auto text-[10px] text-finma-text-dim finma-number flex items-center gap-2">
+            <RefreshCw className={cn('w-3 h-3', (moversLoading || isManuallyUpdating) && 'animate-spin')} />
+            {moversError ? (
+              <span className="text-finma-red">Veri alınamadı</span>
+            ) : isManuallyUpdating ? (
+              <>Güncelleniyor • {timeStr}</>
+            ) : null}
+            {isAdmin && moversTab === 'opportunities' && (
+              <button
+                onClick={handleManualRefresh}
+                disabled={isManuallyUpdating || moversLoading}
+                className={cn(
+                  'px-2 py-0.5 rounded text-[9px] font-medium whitespace-nowrap transition-all',
+                  isManuallyUpdating || moversLoading
+                    ? 'bg-white/5 text-finma-text-dim cursor-not-allowed'
+                    : 'bg-finma-primary/20 text-finma-primary hover:bg-finma-primary/30'
+                )}
+              >
+                Manuel Güncelle
+              </button>
+            )}
           </span>
         </div>
 
