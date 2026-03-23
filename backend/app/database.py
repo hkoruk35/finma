@@ -742,6 +742,7 @@ class InsiderDB:
                         })
                     sb.table("market_insider").insert(formatted_trades).execute()
                 logger.info(f"✅ {len(trades)} insider işlemi kaydedildi")
+                cls._memory = trades # Her ihtimale karşı memory'yi güncelle
                 return True
             except Exception as e:
                 logger.error(f"DB save_trades insider hatası: {e}")
@@ -810,9 +811,15 @@ class NewsDB:
                 
                 if to_insert:
                     sb.table("market_news").insert(to_insert).execute()
+                
+                # Başarılı olursa memory'yi de güncelle (get_latest db hatası alırsa güncel kalsın)
+                cls._memory.extend(news_list)
+                cls._memory = cls._memory[-200:]
                 return True
             except Exception as e:
                 logger.error(f"DB save_news hatası: {e}")
+                cls._memory.extend(news_list)
+                cls._memory = cls._memory[-200:]
                 return False
         
         cls._memory.extend(news_list)
