@@ -3077,6 +3077,16 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
         except:
             ret_5g_pct = 0.0
 
+        # 1 aylık getiri hesapla (yaklaşık 21 işlem günü)
+        try:
+            ret_1m_pct = float(
+                (close_1d.iloc[-1] - close_1d.iloc[-21]) / close_1d.iloc[-21] * 100
+            ) if len(close_1d) >= 21 else 0.0
+        except:
+            ret_1m_pct = 0.0
+            
+        change_1d = float(close_change_pct * 100)
+
         # Dollar volume (mevcut fiyat * 10 günlük ortalama hacim)
         dollar_volume_val = current_price * avg_volume_10d
 
@@ -3097,7 +3107,10 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             "atr_pct": round(atr_pct_1d * 100, 2),
             "rsi_1d": round(rsi_1d_val, 1),
             "adx_1d": round(adx_1d, 1),
+            "change_1d": round(change_1d, 2),
             "change_1h": round(change_1h, 2),
+            "change_1w": round(ret_5g_pct, 2),
+            "change_1m": round(ret_1m_pct, 2),
             "relative_strength": rs_label,
             "profit_target": round(profit_target, 2),
             "stop_loss": round(stop_loss, 2),
@@ -4260,6 +4273,9 @@ async def scan_top_stocks():
                 "sector": sector,
                 "price": round(price, 2),
                 "change_1h": round(c.get("change_1h", 0.0), 2),
+                "change_1d": round(c.get("change_1d", 0.0), 2),
+                "change_1w": round(c.get("change_1w", 0.0), 2),
+                "change_1m": round(c.get("change_1m", 0.0), 2),
                 "score": score,
                 "entry_zone": f"{entry_low} - {entry_high}",
                 "stop_loss": round(stop_loss, 2),

@@ -704,23 +704,6 @@ export default function DashboardPage() {
               </button>
             ))}
           </div>
-
-          <div className="ml-auto flex bg-finma-bg rounded-lg p-0.5 gap-0.5 shrink-0">
-            {(['1d', '1w', '1m', '1y'] as const).map(p => (
-              <button
-                key={p}
-                onClick={() => setMoversPeriod(p)}
-                className={cn(
-                  'px-2.5 py-1 rounded-md text-[10px] font-medium transition-all finma-number',
-                  moversPeriod === p
-                    ? 'bg-finma-card text-white shadow-sm'
-                    : 'text-finma-text-dim hover:text-finma-text'
-                )}
-              >
-                {p === '1d' ? '1 Gün' : p === '1w' ? '1 Hafta' : p === '1m' ? '1 Ay' : '1 Yıl'}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Profesyonel Tablo */}
@@ -729,11 +712,14 @@ export default function DashboardPage() {
             <thead>
               <tr className="text-finma-text-dim bg-finma-bg/80">
                 <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 w-8 text-sm">#</th>
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Hisse (Kodu)</th>
-                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Şirket</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Hisse</th>
+                <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Şirket Adı</th>
                 <th className="text-left py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Sektör</th>
                 <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">Fiyat</th>
-                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">1 Saatlik Değişim</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">1 Saat</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">1 Gün</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">1 Hafta</th>
+                <th className="text-right py-2.5 px-3 font-bold border border-finma-border/50 text-sm">1 Ay</th>
                 <th className="text-center py-2.5 px-3 font-bold border border-finma-border/50 w-24 text-sm">Akıllı Takip</th>
               </tr>
             </thead>
@@ -741,6 +727,9 @@ export default function DashboardPage() {
               {liveMovers[moversTab]?.map((stock: any, idx: number) => {
                 const sym = stock.symbol || stock.ticker
                 const change1h = stock.change_1h ?? 0
+                const change1d = stock.change_1d ?? stock.change_pct ?? 0
+                const change1w = stock.change_1w ?? 0
+                const change1m = stock.change_1m ?? 0
                 return (
                   <tr key={sym} className="hover:bg-finma-primary/5 transition-colors cursor-pointer group"
                     onClick={() => router.push(`/stock-analysis?ticker=${sym}`)}>
@@ -762,8 +751,22 @@ export default function DashboardPage() {
                     <td className="py-2.5 px-3 border border-finma-border/50 text-right finma-number text-white font-bold text-sm">${(stock.price ?? 0).toFixed(2)}</td>
                     <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-sm', change1h >= 0 ? 'text-finma-green' : 'text-finma-red')}>
                       <div className="flex items-center justify-end gap-1">
-                        {change1h >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                         {change1h >= 0 ? '+' : ''}{change1h.toFixed(1)}%
+                      </div>
+                    </td>
+                    <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-sm', change1d >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      <div className="flex items-center justify-end gap-1">
+                        {change1d >= 0 ? '+' : ''}{change1d.toFixed(1)}%
+                      </div>
+                    </td>
+                    <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-sm', change1w >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      <div className="flex items-center justify-end gap-1">
+                        {change1w >= 0 ? '+' : ''}{change1w.toFixed(1)}%
+                      </div>
+                    </td>
+                    <td className={cn('py-2.5 px-3 border border-finma-border/50 text-right finma-number font-bold text-sm', change1m >= 0 ? 'text-finma-green' : 'text-finma-red')}>
+                      <div className="flex items-center justify-end gap-1">
+                        {change1m >= 0 ? '+' : ''}{change1m.toFixed(1)}%
                       </div>
                     </td>
                     <td className="py-2.5 px-3 border border-finma-border/50 text-center" onClick={(e) => e.stopPropagation()}>

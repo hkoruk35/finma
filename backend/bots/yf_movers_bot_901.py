@@ -49,7 +49,12 @@ def get_movers():
         logger.info(f"Downloading 1h history for {len(symbols)} tickers...")
         h_data = yf.download(symbols, period="2d", interval="1h", group_by='ticker', threads=False, progress=False)
         
+        # Daily data for 1w and 1m change calculation
+        logger.info(f"Downloading 1mo history for {len(symbols)} tickers...")
+        d_data = yf.download(symbols, period="1mo", interval="1d", group_by='ticker', threads=False, progress=False)
+        
         # Info and Fast Info for other metrics
+
         tickers_obj = yf.Tickers(" ".join(symbols))
         
         rows = []
@@ -59,17 +64,37 @@ def get_movers():
                 if not t: continue
                 
                 # 1 saatlik değişim hesapla
-                # h_data[sym] bir dataframe'dir (Close sütunu var)
                 df_h = h_data[sym] if sym in h_data.columns.levels[0] else None
                 change_1h = 0.0
                 if df_h is not None and not df_h.empty:
-                    # 'Close' sütununu al ve NaN olmayanları temizle
-                    closes = df_h['Close'].dropna()
-                    if len(closes) >= 2:
-                        current_h = float(closes.iloc[-1])
-                        prev_h = float(closes.iloc[-2])
+                    closes_h = df_h['Close'].dropna()
+                    if len(closes_h) >= 2:
+                        current_h = float(closes_h.iloc[-1])
+                        prev_h = float(closes_h.iloc[-2])
                         if prev_h > 0:
                             change_1h = ((current_h - prev_h) / prev_h) * 100
+
+                # 1 haftalık ve 1 aylık değişim hesapla
+                df_d = d_data[sym] if sym in d_data.columns.levels[0] else None
+                change_1w = 0.0
+                change_1m = 0.0
+                if df_d is not None and not df_d.empty:
+                    closes_d = df_d['Close'].dropna()
+                    if len(closes_d) >= 2:
+                        current_d = float(closes_d.iloc[-1])
+                        
+                        # 1 week (~5 trading days)
+                        if len(closes_d) >= 6:
+                            prev_1w = float(closes_d.iloc[-6])
+                        else:
+                            prev_1w = float(closes_d.iloc[0])
+                        if prev_1w > 0:
+                            change_1w = ((current_d - prev_1w) / prev_1w) * 100
+                            
+                        # 1 month (~20-22 trading days) fallback to oldest available in 1mo
+                        prev_1m = float(closes_d.iloc[0])
+                        if prev_1m > 0:
+                            change_1m = ((current_d - prev_1m) / prev_1m) * 100
 
                 fast = t.fast_info
                 price = float(fast.get("lastPrice", 0) or fast.get("last_price", 0) or 0)
@@ -95,6 +120,8 @@ def get_movers():
                     "price": round(price, 2),
                     "change_pct": round(change_24h, 2), # 24h change (daily)
                     "change_1h": round(change_1h, 2),   # 1h change
+                    "change_1w": round(change_1w, 2),   # 1w change
+                    "change_1m": round(change_1m, 2),   # 1m change
                     "volume": int(vol),
                     "market_cap": info.get("marketCap", 0),
                 })

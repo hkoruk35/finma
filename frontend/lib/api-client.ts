@@ -273,10 +273,10 @@ class APIClient {
 
   async getMarketMovers(period = '1d') {
     return this.request<{
-      gainers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number; change_1h?: number }>;
-      losers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number; change_1h?: number }>;
-      volume: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number; change_1h?: number }>;
-      opportunities?: Array<{ ticker: string; company_name?: string; sector?: string; price?: number; score?: number; entry_zone?: string; stop_loss?: number; target?: number; potential_pct?: number; reason?: string; change_1h?: number }>;
+      gainers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number; change_1h?: number; change_1w?: number; change_1m?: number }>;
+      losers: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number; change_1h?: number; change_1w?: number; change_1m?: number }>;
+      volume: Array<{ symbol: string; name: string; sector: string; price: number; change: number; change_pct: number; change_1h?: number; change_1w?: number; change_1m?: number }>;
+      opportunities?: Array<{ ticker: string; company_name?: string; sector?: string; price?: number; score?: number; entry_zone?: string; stop_loss?: number; target?: number; potential_pct?: number; reason?: string; change_1h?: number; change_1d?: number; change_1w?: number; change_1m?: number }>;
       timestamp?: string | null;
     }>(`/api/market/movers?period=${period}`)
   }
