@@ -812,18 +812,27 @@ class NewsDB:
                 if to_insert:
                     sb.table("market_news").insert(to_insert).execute()
                 
-                # Başarılı olursa memory'yi de güncelle (get_latest db hatası alırsa güncel kalsın)
-                cls._memory.extend(news_list)
+                # Mükerrer eklentiyi önlemek için hafıza kontrolü
+                memory_titles = {n.get("title") for n in cls._memory}
+                new_mem = [n for n in news_list if n.get("title") not in memory_titles]
+                
+                cls._memory.extend(new_mem)
                 cls._memory = cls._memory[-200:]
                 return True
             except Exception as e:
                 cls.last_error = f"{e.__class__.__name__}: {str(e)}"
                 logger.error(f"DB save_news hatası: {cls.last_error}")
-                cls._memory.extend(news_list)
+                
+                memory_titles = {n.get("title") for n in cls._memory}
+                new_mem = [n for n in news_list if n.get("title") not in memory_titles]
+                
+                cls._memory.extend(new_mem)
                 cls._memory = cls._memory[-200:]
                 return False
         
-        cls._memory.extend(news_list)
+        memory_titles = {n.get("title") for n in cls._memory}
+        new_mem = [n for n in news_list if n.get("title") not in memory_titles]
+        cls._memory.extend(new_mem)
         cls._memory = cls._memory[-200:]
         return True
 

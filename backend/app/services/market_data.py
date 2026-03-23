@@ -1403,14 +1403,11 @@ def fetch_market_news(category: str = "market") -> List[Dict[str, Any]]:
         except Exception as e:
             logger.error(f"Google News RSS error: {e}")
 
-    # 3. Turkish Financial News (Google News TR, Bloomberg HT, Investing vb.)
+    # 3. Turkish Financial News (Sadece ABD piyasaları odaklı Google News sorgusu)
+    # Hürriyet, Bloomberg HT vs kaldırıldı çünkü çok fazla alakasız yerel haber (diplomasi, iç siyaset vb) getiriyordu.
     try:
         tr_sources = [
             {"name": "Google News TR", "url": "https://news.google.com/rss/search?q=ABD+borsa+OR+Wall+Street+OR+Fed+faiz+OR+Nasdaq+OR+S%26P+500+OR+Amerikan+ekonomisi&hl=tr&gl=TR&ceid=TR:tr"},
-            {"name": "Bloomberg HT", "url": "https://www.bloomberght.com/rss"},
-            {"name": "Investing TR", "url": "https://tr.investing.com/rss/news.rss"},
-            {"name": "Bigpara", "url": "https://www.bigpara.com/rss/"},
-            {"name": "Hürriyet Ekonomi", "url": "https://www.hurriyet.com.tr/rss/ekonomi"}
         ]
         
         for src in tr_sources:
