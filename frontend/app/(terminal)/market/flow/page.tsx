@@ -7,8 +7,8 @@ import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
 import {
-  Activity, TrendingUp, TrendingDown, BarChart2,
-  RefreshCw, AlertCircle, ArrowRight, Flame, Building2,
+  Activity, TrendingUp, TrendingDown,
+  RefreshCw, AlertCircle, Building2,
   Zap, Clock, Wifi, Shield, ChevronDown, ChevronUp,
 } from 'lucide-react'
 
@@ -163,10 +163,10 @@ export default function MarketFlowPage() {
     }
   }
 
-  const { sector_flow, gainers, losers, high_volume, unusual_signals, insiders, summary } = flowData
+  const { sector_flow, unusual_signals, insiders, summary } = flowData
   const inflowSectors  = sector_flow.filter(s => s.flow === 'inflow').sort((a, b) => b.change_pct - a.change_pct)
   const outflowSectors = sector_flow.filter(s => s.flow === 'outflow').sort((a, b) => a.change_pct - b.change_pct)
-  const hasData        = sector_flow.length > 0 || gainers.length > 0 || insiders.length > 0
+  const hasData        = sector_flow.length > 0 || insiders.length > 0
 
   return (
     <div className="space-y-4 animate-fade-in">
@@ -385,90 +385,8 @@ export default function MarketFlowPage() {
         </Card>
       )}
 
-      {/* ── Yükselenler / Düşenler / Hacim ── */}
-      {hasData && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Gainers */}
-          <Card padding="sm">
-            <div className="flex items-center gap-2 pb-2 border-b border-finma-border mb-3">
-              <Flame className="w-4 h-4 text-finma-yellow" />
-              <span className="text-sm font-bold text-finma-text">En Çok Yükselenler</span>
-            </div>
-            <div className="space-y-1.5">
-              {gainers.slice(0, 10).map((m, i) => (
-                <div
-                  key={m.ticker}
-                  className="flex items-center gap-2 hover:bg-finma-primary/5 rounded px-1 py-1 cursor-pointer transition-colors"
-                  onClick={() => router.push(`/stock-analysis?ticker=${m.ticker}`)}
-                >
-                  <span className="text-[10px] text-finma-text-dim w-4">{i + 1}</span>
-                  <span className="text-xs font-bold finma-number text-finma-primary flex-1">{m.ticker}</span>
-                  <RvolBadge rvol={m.rvol} />
-                  <span className="text-xs finma-number text-finma-text-dim">${m.price.toFixed(2)}</span>
-                  <span className="text-xs font-bold finma-number text-finma-green w-14 text-right">
-                    +{m.change_pct.toFixed(2)}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Losers */}
-          <Card padding="sm">
-            <div className="flex items-center gap-2 pb-2 border-b border-finma-border mb-3">
-              <TrendingDown className="w-4 h-4 text-finma-red" />
-              <span className="text-sm font-bold text-finma-text">En Çok Düşenler</span>
-            </div>
-            <div className="space-y-1.5">
-              {losers.slice(0, 10).map((m, i) => (
-                <div
-                  key={m.ticker}
-                  className="flex items-center gap-2 hover:bg-finma-red/5 rounded px-1 py-1 cursor-pointer transition-colors"
-                  onClick={() => router.push(`/stock-analysis?ticker=${m.ticker}`)}
-                >
-                  <span className="text-[10px] text-finma-text-dim w-4">{i + 1}</span>
-                  <span className="text-xs font-bold finma-number text-finma-primary flex-1">{m.ticker}</span>
-                  <RvolBadge rvol={m.rvol} />
-                  <span className="text-xs finma-number text-finma-text-dim">${m.price.toFixed(2)}</span>
-                  <span className="text-xs font-bold finma-number text-finma-red w-14 text-right">
-                    {m.change_pct.toFixed(2)}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* High Volume */}
-          <Card padding="sm">
-            <div className="flex items-center gap-2 pb-2 border-b border-finma-border mb-3">
-              <BarChart2 className="w-4 h-4 text-finma-primary" />
-              <span className="text-sm font-bold text-finma-text">Yüksek Hacimler</span>
-              <span className="text-[10px] text-finma-text-dim/60 ml-1">RVOL ≥ 1.8×</span>
-            </div>
-            <div className="space-y-1.5">
-              {high_volume.slice(0, 10).map((m, i) => (
-                <div
-                  key={m.ticker}
-                  className="flex items-center gap-2 hover:bg-finma-primary/5 rounded px-1 py-1 cursor-pointer transition-colors"
-                  onClick={() => router.push(`/stock-analysis?ticker=${m.ticker}`)}
-                >
-                  <span className="text-[10px] text-finma-text-dim w-4">{i + 1}</span>
-                  <span className="text-xs font-bold finma-number text-finma-primary flex-1">{m.ticker}</span>
-                  <RvolBadge rvol={m.rvol} />
-                  <span className="text-xs finma-number text-finma-text-dim">${m.price.toFixed(2)}</span>
-                  <span className={cn('text-xs font-bold finma-number w-14 text-right', m.change_pct >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                    {m.change_pct >= 0 ? '+' : ''}{m.change_pct.toFixed(2)}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </div>
-      )}
-
       {/* ── Insider İşlemleri ── */}
-      {hasData && (
-        <Card padding="sm">
+      <Card padding="sm">
           <div
             className="flex items-center justify-between pb-2 mb-3 border-b border-finma-border cursor-pointer"
             onClick={() => setExpandInsiders(v => !v)}
@@ -539,8 +457,7 @@ export default function MarketFlowPage() {
               )}
             </>
           )}
-        </Card>
-      )}
+      </Card>
 
       {/* Güncelleme zamanı bilgisi */}
       {hasData && flowData.updated_at && (
