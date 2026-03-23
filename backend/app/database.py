@@ -847,9 +847,38 @@ class NewsDB:
                     query = query.eq("category", category.lower())
                 result = query.execute()
                 data = result.data or []
-                if not data and cls._memory:
-                    return cls._memory[:limit]
-                return data
+                
+                # Geçmişte veritabanına kaydolmuş olan Hürriyet, Bloomberg gibi istenmeyenleri filtrele (Sadece US kalsın)
+                allowed_sources = {"Google News TR", "Google News", "Yahoo Finance", "Finnhub"}
+                filtered_data = []
+                seen_titles = set()
+                
+                for row in data:
+                    title = row.get("title", "")
+                    pub = row.get("publisher", "")
+                    
+                    if title in seen_titles:
+                        continue
+                        
+                    # Eğer kaynak eski Türk haber siteleriyse atla
+                    if pub not in allowed_sources and pub != "FinMA Internal":
+                        continue
+                        
+                    seen_titles.add(title)
+                    filtered_data.append(row)
+                
+                # Eğer veritabanında "izin verilen" veri kalmadıysa hafızayı dön
+                if not filtered_data and cls._memory:
+                    # Hafızayı da filtreleyelim
+                    mem_filtered = []
+                    mem_seen = set()
+                    for m in cls._memory:
+                        if m.get("title") not in mem_seen:
+                            mem_seen.add(m.get("title"))
+                            mem_filtered.append(m)
+                    return mem_filtered[:limit]
+                    
+                return filtered_data[:limit]
             except Exception as e:
                 cls.last_error = f"get_latest: {e.__class__.__name__}: {str(e)}"
                 logger.error(f"DB get_latest_news hatası: {cls.last_error}")
