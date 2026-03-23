@@ -151,14 +151,28 @@ async def root():
 async def health():
     settings = get_settings()
     from app.database import is_db_available
+    import datetime
+
+    # Son sinyal tarihini oku
+    last_signal_date = None
+    try:
+        from app.routers.signals import _pushed_signals
+        ts = (_pushed_signals or {}).get("timestamp")
+        if ts:
+            last_signal_date = ts[:16]  # "YYYY-MM-DD HH:MM"
+    except Exception:
+        pass
+
     return {
-        "status": "healthy",
+        "status": "ok",
+        "version": "v4.0",
         "services": {
             "gemini": bool(settings.gemini_api_key),
             "telegram": bool(settings.telegram_bot_token),
             "supabase": is_db_available(),
         },
-        "database": "supabase" if is_db_available() else "in-memory",
+        "database": "connected" if is_db_available() else "supabase",
+        "last_signal_date": last_signal_date or "Henüz sinyal yok",
     }
 
 
