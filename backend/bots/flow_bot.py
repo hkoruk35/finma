@@ -191,68 +191,40 @@ def get_movers_with_volume() -> Dict[str, List]:
 
 
 def get_insider_trades() -> List[Dict[str, Any]]:
-    """40 büyük hisse için insider işlemlerini yfinance'den çek."""
-    all_trades = []
-    for ticker in INSIDER_UNIVERSE:
-        try:
-            t = yf.Ticker(ticker)
-            df = t.insider_transactions
-            if df is None or df.empty:
-                continue
-            for _, row in df.head(4).iterrows():
-                txn_type = str(row.get("Transaction", row.get("transaction", ""))).strip()
-                if not txn_type or txn_type.lower() in ("", "nan", "none"):
-                    continue
-
-                # Normalize transaction type
-                txn_lower = txn_type.lower()
-                if any(w in txn_lower for w in ["purchase", "buy", "acquired", " p-"]):
-                    txn_norm = "Alış"
-                    is_buy = True
-                elif any(w in txn_lower for w in ["sale", "sell", "sold", " s-"]):
-                    txn_norm = "Satış"
-                    is_buy = False
-                elif "p" == txn_type.upper()[:1]:
-                    txn_norm = "Alış"
-                    is_buy = True
-                elif "s" == txn_type.upper()[:1]:
-                    txn_norm = "Satış"
-                    is_buy = False
-                else:
-                    continue  # Grant, option exercise vb. atla
-
-                shares = int(safe_float(row.get("Shares", row.get("shares", 0))))
-                value  = safe_float(row.get("Value", row.get("value", 0)))
-                price  = safe_float(row.get("Price", row.get("price", 0)))
-
-                # Tarih
-                raw_date = row.get("Start Date", row.get("date", row.get("Date", "")))
-                try:
-                    date_str = pd.to_datetime(raw_date).strftime("%Y-%m-%d")
-                except Exception:
-                    date_str = str(raw_date)[:10]
-
-                insider_name = str(row.get("Insider", row.get("owner", ""))).strip()
-                title = str(row.get("Position", row.get("relationship", ""))).strip()
-
-                all_trades.append({
-                    "ticker": ticker,
-                    "insider_name": insider_name,
-                    "title": title,
-                    "transaction_type": txn_norm,
-                    "is_buy": is_buy,
-                    "shares": shares,
-                    "value": value,
-                    "price": round(price, 2),
-                    "date": date_str,
-                })
-        except Exception as e:
-            logger.debug(f"Insider {ticker} hatası: {e}")
-
-    # Tarihe göre sırala (en yeni önce)
-    all_trades.sort(key=lambda x: x.get("date", ""), reverse=True)
-    logger.info(f"✅ Insider: {len(all_trades)} işlem toplandı")
-    return all_trades[:50]
+    """Gelişmiş InsiderDB üzerinden güncel insider işlemlerini al"""
+    try:
+        from app.database import InsiderDB
+        db_trades = InsiderDB.get_latest(limit=40)
+        
+        # Eğer veritabanı boşsa (veya bellek silinmişse), anlık olarak SEC crawler'ı tetikle
+        if not db_trades:
+            logger.info("InsiderDB boş, anlık SEC taraması başlatılıyor...")
+            from app.services.market_data import update_market_insiders
+            update_market_insiders()
+            db_trades = InsiderDB.get_latest(limit=40)
+        
+        flow_trades = []
+        for doc in db_trades:
+            txn = str(doc.get("transaction", ""))
+            is_buy = "Alış" in txn or "Buy" in txn or "Purchase" in txn
+            
+            flow_trades.append({
+                "ticker": doc.get("symbol", ""),
+                "insider_name": doc.get("owner", ""),
+                "title": doc.get("relationship", ""),
+                "transaction_type": txn,
+                "is_buy": is_buy,
+                "shares": doc.get("shares", 0),
+                "value": doc.get("value", 0),
+                "price": doc.get("cost", 0),
+                "date": doc.get("date", ""),
+            })
+            
+        logger.info(f"✅ Insider: {len(flow_trades)} işlem db'den çekildi")
+        return flow_trades
+    except Exception as e:
+        logger.error(f"Insider error in flow bot: {e}")
+        return []
 
 
 def get_unusual_volume_signals(high_volume: List[Dict]) -> List[Dict]:
