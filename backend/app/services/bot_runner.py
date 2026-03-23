@@ -1,6 +1,7 @@
 """Bot Runner Service - Schedules and executes signal bots via APScheduler"""
 
 import os
+import sys
 import json
 import subprocess
 import logging
@@ -113,7 +114,7 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
         log_file = open(log_file_path, "a", encoding="utf-8")
         
         process = subprocess.Popen(
-            ["python", config["script"], "--one-shot"], # Using script name since cwd=bots_dir
+            [sys.executable, config["script"], "--one-shot"], # sys.executable = doğru Python yorumlayıcısı
             stdout=log_file,
             stderr=subprocess.STDOUT,
             cwd=bots_dir,
