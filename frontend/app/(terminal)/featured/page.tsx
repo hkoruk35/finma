@@ -143,8 +143,8 @@ export default function FeaturedPage() {
     try {
       await api.runBot('swing113_11')
       setBotMsg('✅ swing113 başlatıldı — tarama 5-10 dakika sürer, ardından liste güncellenir')
-      // 90 saniye sonra otomatik yenile
-      setTimeout(() => fetchOpportunities(), 90_000)
+      // 5 dakika sonra otomatik yenile (Tarama uzun sürüyor)
+      setTimeout(() => fetchOpportunities(), 300_000)
     } catch (e: any) {
       setBotMsg('❌ Bot başlatılamadı: ' + (e.message || 'Bilinmeyen hata'))
     } finally {

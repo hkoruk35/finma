@@ -56,11 +56,16 @@ async def lifespan(app: FastAPI):
     os.makedirs(settings.signals_output_dir, exist_ok=True)
 
     # Start bot scheduler if bots directory exists
-    bots_dir = os.path.abspath(settings.bots_dir)
+    current_dir = os.path.dirname(os.path.abspath(__file__)) # .../backend/app
+    backend_dir = os.path.dirname(current_dir) # .../backend
+    
+    bots_dir = os.path.join(backend_dir, settings.bots_dir)
+    output_dir = os.path.join(backend_dir, settings.signals_output_dir)
+    
     if os.path.exists(bots_dir):
         try:
             from app.services.bot_runner import start_scheduler
-            start_scheduler(bots_dir, settings.signals_output_dir)
+            start_scheduler(bots_dir, output_dir)
             logger.info("📊 Bot scheduler başlatıldı")
         except Exception as e:
             logger.warning(f"Bot scheduler başlatılamadı: {e}")

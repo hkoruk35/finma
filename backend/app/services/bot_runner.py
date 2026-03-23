@@ -227,8 +227,13 @@ def trigger_bot_manually(bot_name: str):
         return False
 
     settings = get_settings()
-    bots_dir = os.path.abspath(settings.bots_dir)
-    output_dir = os.path.abspath(settings.signals_output_dir)
+    
+    # Her ortamda backend kök dizinini garantile
+    current_dir = os.path.dirname(os.path.abspath(__file__)) # .../backend/app/services
+    backend_dir = os.path.dirname(os.path.dirname(current_dir)) # .../backend
+    
+    bots_dir = os.path.join(backend_dir, settings.bots_dir)
+    output_dir = os.path.join(backend_dir, settings.signals_output_dir)
 
     def _run():
         run_bot(bot_name, bots_dir, output_dir)
@@ -254,10 +259,18 @@ def toggle_bot_schedule(bot_name: str, active: bool):
                 import os
                 from app.config import get_settings
                 settings = get_settings()
+                
+                # Her ortamda backend kök dizinini garantile
+                current_dir = os.path.dirname(os.path.abspath(__file__)) # .../backend/app/services
+                backend_dir = os.path.dirname(os.path.dirname(current_dir)) # .../backend
+                
+                b_dir = os.path.join(backend_dir, settings.bots_dir)
+                o_dir = os.path.join(backend_dir, settings.signals_output_dir)
+                
                 scheduler.add_job(
                     run_bot,
                     "cron",
-                    args=[bot_name, os.path.abspath(settings.bots_dir), os.path.abspath(settings.signals_output_dir)],
+                    args=[bot_name, b_dir, o_dir],
                     id=bot_name,
                     name=config["description"],
                     **config["schedule"],
