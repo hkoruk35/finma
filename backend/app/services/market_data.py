@@ -1514,16 +1514,19 @@ def update_all_market_news():
         # Maksimum 20 haber için özet üret (API limitini korumak için)
         to_summarize = [n for n in all_news if n.get("lang") != "tr"][:20]
         rest = all_news[len(to_summarize):]
-        try:
-            loop = asyncio.get_event_loop()
-            if loop.is_closed():
+        
+        if to_summarize:
+            try:
+                import asyncio
                 loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)
-            summarized = loop.run_until_complete(summarize_news_batch(to_summarize))
-        except RuntimeError:
-            # Event loop zaten çalışıyor (FastAPI context)
-            summarized = to_summarize
-        all_news = summarized + rest
+                summarized = loop.run_until_complete(summarize_news_batch(to_summarize))
+                loop.close()
+            except Exception as inner_e:
+                logger.warning(f"Translation loop hatası: {inner_e}")
+                summarized = to_summarize
+                
+            all_news = summarized + rest
     except Exception as e:
         logger.warning(f"AI özet üretme atlandı: {e}")
 

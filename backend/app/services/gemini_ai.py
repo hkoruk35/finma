@@ -223,7 +223,8 @@ async def summarize_news_batch(items: list) -> list:
             return item  # Zaten Türkçe, skip
         summary = await summarize_news_turkish(item.get("title", ""), item.get("description", ""))
         if summary:
-            item = {**item, "summary_tr": summary}
+            # Doğrudan title alanını ez, böylece UI tam Türkçe görür
+            item = {**item, "title": summary, "lang": "tr"}
         return item
 
     tasks = [do_one(item) for item in items]
