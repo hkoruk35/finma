@@ -81,7 +81,7 @@ const navItems: NavItem[] = [
   { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'admin' },
   { href: '/screener', icon: Filter, label: 'Hisse Tarama', section: 'screener', tier: 'admin' },
   // ─── Herkese Açık ───────────────────────────────────────────────────────────
-  { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations' },
+  { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'admin' },
   { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
 ]
 
