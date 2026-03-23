@@ -235,12 +235,6 @@ def get_price_change_periods(ticker: str):
     return get_price_changes(ticker.upper())
 
 
-@router.get("/news/{ticker}")
-def get_news(ticker: str, count: int = Query(10, le=20)):
-    """Son haberleri getir"""
-    return get_ticker_news(ticker.upper(), count)
-
-
 @router.get("/news/latest")
 def get_latest_market_news(limit: int = Query(50, le=100), category: Optional[str] = None):
     """En son piyasa ve ekonomi haberlerini (toplu) getir"""
@@ -265,6 +259,12 @@ def refresh_market_news():
     from app.services.market_data import update_all_market_news
     count = update_all_market_news()
     return {"status": "success", "count": count, "message": f"{count} yeni haber eklendi."}
+
+
+@router.get("/news/{ticker}")
+def get_news(ticker: str, count: int = Query(10, le=20)):
+    """Son haberleri getir"""
+    return get_ticker_news(ticker.upper(), count)
 
 
 @router.get("/insider/refresh")
