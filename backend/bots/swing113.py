@@ -12,7 +12,6 @@ import os
 import math
 import html
 import re
-from bs4 import BeautifulSoup
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('Agg')

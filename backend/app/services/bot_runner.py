@@ -13,11 +13,6 @@ logger = logging.getLogger(__name__)
 
 # Bot configurations
 BOT_CONFIGS = {
-    "swing112": {
-        "script": "swing112.py",
-        "schedule": {"hour": "13", "minute": "0"},
-        "description": "ATMACA Master Swing Scanner - Günlük 13:00 NY",
-    },
     "swing113_11": {
         "script": "swing113.py",
         "schedule": {"hour": "11", "minute": "0"},
