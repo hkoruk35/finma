@@ -99,6 +99,23 @@ async def lifespan(app: FastAPI):
     threading.Thread(target=_warmup_sectors, daemon=True, name="sectors_warmup").start()
     logger.info("🔥 Sectors warm-up başlatıldı (arka plan)")
 
+    # News warm-up — cold start'da news crawler çalıştırılmasını önle
+    def _warmup_news():
+        import time
+        time.sleep(5)  # Sectors bitiş bekleme
+        try:
+            from app.services.market_data import update_all_market_news
+            news = update_all_market_news()
+            if news:
+                logger.info(f"✅ News warm-up tamamlandı: {len(news)} haber önceden yüklendi")
+            else:
+                logger.warning("⚠️ News warm-up: haber bulunamadı")
+        except Exception as e:
+            logger.warning(f"News warm-up hatası: {e}")
+
+    threading.Thread(target=_warmup_news, daemon=True, name="news_warmup").start()
+    logger.info("🔥 News warm-up başlatıldı (arka plan)")
+
     yield
 
     # Shutdown
