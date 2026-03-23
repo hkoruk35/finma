@@ -108,11 +108,14 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
 
         log_file = open(log_file_path, "a", encoding="utf-8")
         
+        # Run from backend/ dir to ensure .env is found
+        backend_dir = os.path.dirname(os.path.abspath(bots_dir))
+        
         process = subprocess.Popen(
-            [sys.executable, config["script"], "--one-shot"], # sys.executable = doğru Python yorumlayıcısı
+            [sys.executable, script_path, "--one-shot"], # Script_path absolute passed
             stdout=log_file,
             stderr=subprocess.STDOUT,
-            cwd=bots_dir,
+            cwd=backend_dir,
             text=True,
             bufsize=1 # Line buffered
         )
@@ -215,13 +218,20 @@ def get_bot_status():
 def trigger_bot_manually(bot_name: str):
     """Run a bot immediately in a background thread (scheduler-independent)"""
     import threading
+    import os
+    from app.config import get_settings
+    
     config = BOT_CONFIGS.get(bot_name)
     if not config:
         logger.warning(f"trigger_bot_manually: bot bulunamadı: {bot_name}")
         return False
 
+    settings = get_settings()
+    bots_dir = os.path.abspath(settings.bots_dir)
+    output_dir = os.path.abspath(settings.signals_output_dir)
+
     def _run():
-        run_bot(bot_name, "bots", "bots/output")
+        run_bot(bot_name, bots_dir, output_dir)
 
     t = threading.Thread(target=_run, daemon=True, name=f"manual_{bot_name}")
     t.start()
@@ -241,10 +251,13 @@ def toggle_bot_schedule(bot_name: str, active: bool):
             # Re-add job (CRON)
             config = BOT_CONFIGS.get(bot_name)
             if config:
+                import os
+                from app.config import get_settings
+                settings = get_settings()
                 scheduler.add_job(
                     run_bot,
                     "cron",
-                    args=[bot_name, "bots", "bots/output"],
+                    args=[bot_name, os.path.abspath(settings.bots_dir), os.path.abspath(settings.signals_output_dir)],
                     id=bot_name,
                     name=config["description"],
                     **config["schedule"],
