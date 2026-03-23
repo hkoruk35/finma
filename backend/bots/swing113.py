@@ -703,8 +703,9 @@ async def send_telegram_photo(photo_path: str, caption: str = ""):
     - Dosya yoksa hata verir.
     - HTML caption sanitizer ile güvenli hâle getirilir.
     """
-    if not TELEGRAM_API_KEY or not os.path.exists(photo_path):
-        logging.error("❌ Telegram fotoğraf gönderilemedi: API key veya dosya eksik.")
+    if not ENABLE_TELEGRAM_NOTIFICATIONS or not TELEGRAM_API_KEY or not os.path.exists(photo_path):
+        if not os.path.exists(photo_path) and ENABLE_TELEGRAM_NOTIFICATIONS:
+            logging.error("❌ Telegram fotoğraf gönderilemedi: dosya eksik.")
         return
 
     url = f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendPhoto"
