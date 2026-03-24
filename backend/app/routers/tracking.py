@@ -17,6 +17,7 @@ from datetime import datetime
 from typing import Optional, Literal
 
 from fastapi import APIRouter, HTTPException, Depends
+from app.dependencies import check_tracking_limit
 from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
@@ -113,7 +114,11 @@ from fastapi import Request
 
 
 @router.post("/add")
-async def add_tracking(body: AddTrackingRequest, request: Request):
+async def add_tracking(
+    body: AddTrackingRequest,
+    request: Request,
+    _limit: dict = Depends(check_tracking_limit),
+):
     """Takip listesine hisse ekle."""
     ticker    = body.ticker.upper().strip()
     user_id   = get_user_id(request)

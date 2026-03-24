@@ -6,11 +6,12 @@ import { useFinma514Stock } from '@/hooks/useFinma514'
 import { TierBadge } from '@/components/terminal/finma514/TierBadge'
 import { ScoreBarDetailed } from '@/components/terminal/finma514/ScoreBar'
 import { LangSelector } from '@/components/terminal/finma514/LangSelector'
+import { PaywallModal } from '@/components/terminal/finma514/PaywallModal'
 import { cn } from '@/lib/utils'
 import {
   ArrowLeft, TrendingUp, TrendingDown, Minus,
   AlertTriangle, Target, BookOpen, BarChart3,
-  ExternalLink, Shield, RefreshCw,
+  ExternalLink, Shield, RefreshCw, Crown,
 } from 'lucide-react'
 import type { FinmaLang, Finma514Stock } from '@/types/finma514'
 
@@ -215,15 +216,24 @@ function TechMetrics({ stock }: { stock: Finma514Stock }) {
 /* ── Ana sayfa ────────────────────────────────────────────────────────────── */
 
 export default function StockDetailPage() {
-  const params  = useParams()
-  const router  = useRouter()
-  const ticker  = (params?.ticker as string)?.toUpperCase() || ''
-  const [lang, setLang] = useState<FinmaLang>('tr')
+  const params   = useParams()
+  const router   = useRouter()
+  const ticker   = (params?.ticker as string)?.toUpperCase() || ''
+  const [lang, setLang]       = useState<FinmaLang>('tr')
+  const [showPaywall, setShowPaywall] = useState(false)
 
-  const { data: stock, isLoading, isError, refetch, isFetching } = useFinma514Stock(ticker, lang)
+  const { data: stock, isLoading, isError, error, refetch, isFetching } = useFinma514Stock(ticker, lang)
+
+  // 403 quota_exceeded → paywall göster
+  const isQuotaError = isError && (error as any)?.message?.includes('quota_exceeded')
 
   return (
     <div className="space-y-4 animate-fade-in max-w-4xl">
+
+      {/* Paywall Modal */}
+      {(showPaywall || isQuotaError) && (
+        <PaywallModal type="stock_quota" onClose={() => setShowPaywall(false)} />
+      )}
 
       {/* ── Baslik ── */}
       <div className="flex items-start justify-between flex-wrap gap-3">
@@ -270,8 +280,25 @@ export default function StockDetailPage() {
         </div>
       )}
 
-      {/* ── Hata ── */}
-      {isError && !isLoading && (
+      {/* ── Quota hatası ── */}
+      {isQuotaError && !isLoading && (
+        <div className="finma-card text-center py-12 space-y-3">
+          <Crown className="w-8 h-8 text-finma-primary mx-auto" />
+          <p className="text-sm font-semibold text-white">Günlük limit doldu</p>
+          <p className="text-xs text-finma-text-dim">
+            Free planda günde 3 hisse detayı görüntüleyebilirsiniz.
+          </p>
+          <button
+            onClick={() => setShowPaywall(true)}
+            className="finma-btn-primary text-xs px-4 py-2"
+          >
+            Pro'ya Geç — Sınırsız Erişim
+          </button>
+        </div>
+      )}
+
+      {/* ── Diğer hata ── */}
+      {isError && !isLoading && !isQuotaError && (
         <div className="finma-card text-center py-12 space-y-3">
           <AlertTriangle className="w-8 h-8 text-finma-red mx-auto" />
           <p className="text-sm text-finma-text-dim">

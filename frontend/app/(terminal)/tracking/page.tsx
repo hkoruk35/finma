@@ -8,6 +8,7 @@ import {
   TrendingUp, TrendingDown, Minus, Shield, Clock,
   ChevronRight, Target, Zap, X, BarChart3, Lock,
 } from 'lucide-react'
+import { PaywallModal, TrackingLockBanner } from '@/components/terminal/finma514/PaywallModal'
 
 /* ── Tipler ────────────────────────────────────────────────────────────────── */
 
@@ -100,7 +101,14 @@ function AddModal({ onClose, onAdded }: { onClose: () => void; onAdded: () => vo
       onAdded()
       onClose()
     } catch (e: any) {
-      setError(e.message || 'Eklenirken hata oluştu')
+      const msg = e.message || ''
+      if (msg.includes('tracking_limit_exceeded')) {
+        onClose()
+        // Üst bileşendeki paywall'ı tetiklemek için event fırlat
+        window.dispatchEvent(new CustomEvent('tracking-limit-exceeded'))
+      } else {
+        setError(msg || 'Eklenirken hata oluştu')
+      }
     } finally {
       setLoading(false)
     }
@@ -307,10 +315,11 @@ function TrackingCard({ item, onRemove, onCompute }: {
 
 export default function TrackingPage() {
   const router = useRouter()
-  const [items,      setItems]      = useState<TrackingItem[]>([])
-  const [loading,    setLoading]    = useState(true)
-  const [showAdd,    setShowAdd]    = useState(false)
-  const [computing,  setComputing]  = useState<string | null>(null)
+  const [items,       setItems]       = useState<TrackingItem[]>([])
+  const [loading,     setLoading]     = useState(true)
+  const [showAdd,     setShowAdd]     = useState(false)
+  const [computing,   setComputing]   = useState<string | null>(null)
+  const [showPaywall, setShowPaywall] = useState(false)
 
   const fetchList = useCallback(async () => {
     try {
@@ -324,6 +333,13 @@ export default function TrackingPage() {
   }, [])
 
   useEffect(() => { fetchList() }, [fetchList])
+
+  // tracking-limit-exceeded event dinle
+  useEffect(() => {
+    const handler = () => setShowPaywall(true)
+    window.addEventListener('tracking-limit-exceeded', handler)
+    return () => window.removeEventListener('tracking-limit-exceeded', handler)
+  }, [])
 
   async function removeItem(ticker: string) {
     try {
@@ -470,7 +486,12 @@ export default function TrackingPage() {
         </p>
       </div>
 
-      {/* ── Modal ── */}
+      {/* ── Paywall Modal ── */}
+      {showPaywall && (
+        <PaywallModal type="tracking_limit" onClose={() => setShowPaywall(false)} />
+      )}
+
+      {/* ── Hisse Ekle Modal ── */}
       {showAdd && (
         <AddModal onClose={() => setShowAdd(false)} onAdded={fetchList} />
       )}

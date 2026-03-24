@@ -24,7 +24,8 @@ import os
 from datetime import datetime, date
 from typing import Optional, List
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
+from app.dependencies import check_stock_quota, optional_user
 from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
@@ -322,6 +323,7 @@ async def stock_detail(
     lang: str = Query("tr", description="Dil kodu: tr|en|es|pt|ar|id|ja"),
     target_date: Optional[str] = Query(None, alias="date",
                                        description="YYYY-MM-DD (default: bugün)"),
+    _user: dict = Depends(check_stock_quota),
 ):
     if lang not in SUPPORTED_LANGS:
         raise HTTPException(400, f"Desteklenmeyen dil: {lang}.")

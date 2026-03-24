@@ -7,6 +7,10 @@ from typing import Optional
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
 from app.config import get_settings
+import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 from starlette.concurrency import run_in_threadpool
@@ -114,4 +118,101 @@ def require_backtest_access(user: dict = Depends(get_current_user)) -> dict:
     can_use, msg = TierManager.can_access_backtest(user["username"])
     if not can_use:
         raise HTTPException(status_code=403, detail=msg)
+    return user
+
+
+# ─── FinMA514 Quota Sistemi ───────────────────────────────────────────────────
+
+FREE_DAILY_STOCK_LIMIT   = 3    # Free kullanıcı günde 3 hisse detayı
+FREE_TRACKING_LIMIT      = 1    # Free: 1 hisse takip
+PRO_TRACKING_LIMIT       = 3    # Pro (add-on yok): 3 hisse takip
+SMART_TRACKING_LIMIT     = 5    # Smart Tracking add-on: 5 hisse
+
+
+def _redis_quota():
+    """Redis bağlantısı — hata olursa None döner."""
+    try:
+        import redis as redis_lib
+        url = os.getenv("REDIS_URL", "")
+        if not url:
+            return None
+        return redis_lib.from_url(url, decode_responses=True)
+    except Exception:
+        return None
+
+
+def check_stock_quota(user: dict = Depends(get_current_user)) -> dict:
+    """
+    /api/finma514/stock/{ticker} için günlük kota kontrolü.
+    Free: 3/gün → 403 quota_exceeded
+    Pro/Admin: sınırsız
+    """
+    role = user.get("role", "free")
+    if role in ("pro", "admin"):
+        return user   # sınırsız
+
+    username = user.get("username", "anon")
+    today    = datetime.utcnow().strftime("%Y-%m-%d")
+    key      = f"quota:{username}:{today}:stock_views"
+
+    r = _redis_quota()
+    if r is None:
+        return user   # Redis yoksa kota kontrol edilemez, geç
+
+    try:
+        current = r.get(key)
+        count   = int(current) if current else 0
+        if count >= FREE_DAILY_STOCK_LIMIT:
+            raise HTTPException(
+                status_code=403,
+                detail="quota_exceeded",
+                headers={"X-Quota-Limit": str(FREE_DAILY_STOCK_LIMIT),
+                         "X-Quota-Used":  str(count)},
+            )
+        # Sayacı artır, gece yarısına kadar TTL
+        pipe = r.pipeline()
+        pipe.incr(key)
+        pipe.expireat(key, int(datetime.utcnow().replace(
+            hour=23, minute=59, second=59).timestamp()))
+        pipe.execute()
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.warning(f"Quota check hatası: {e}")   # Redis sorunu → sesiz geç
+
+    return user
+
+
+def check_tracking_limit(user: dict = Depends(get_current_user)) -> dict:
+    """
+    /api/tracking/add için takip limiti kontrolü.
+    Free:  1 hisse
+    Pro:   3 hisse
+    Admin: 5 hisse (Smart Tracking)
+    """
+    role     = user.get("role", "free")
+    username = user.get("username", "anon")
+
+    limit_map = {"free": FREE_TRACKING_LIMIT, "pro": PRO_TRACKING_LIMIT, "admin": SMART_TRACKING_LIMIT}
+    limit     = limit_map.get(role, FREE_TRACKING_LIMIT)
+
+    r = _redis_quota()
+    if r is None:
+        return user
+
+    try:
+        key   = f"tracking:list:{username}"
+        count = r.hlen(key)
+        if count >= limit:
+            raise HTTPException(
+                status_code=403,
+                detail="tracking_limit_exceeded",
+                headers={"X-Tracking-Limit": str(limit),
+                         "X-Tracking-Used":  str(count)},
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.warning(f"Tracking limit check hatası: {e}")
+
     return user
