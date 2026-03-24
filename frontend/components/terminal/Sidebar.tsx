@@ -5,34 +5,22 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
   LayoutDashboard,
-  TrendingUp,
-  Radio,
   Briefcase,
   List,
-  Brain,
   Settings,
   ChevronLeft,
   ChevronRight,
   Activity,
   Zap,
-  BarChart3,
-  Eye,
-  DollarSign,
-  Map,
   ChevronDown,
-  Star,
   Search,
   Lock,
   Crown,
-  Gem,
   X,
   Shield,
   LogOut,
   User,
-  Globe2,
   Newspaper,
-  UserCheck,
-  History,
   Bot,
   Filter,
 } from 'lucide-react'
@@ -52,38 +40,17 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { href: '/dashboard', icon: LayoutDashboard, label: 'Anasayfa', section: 'dashboard' },
-  {
-    href: '/market', icon: TrendingUp, label: 'Piyasa', section: 'market',
-    children: [
-      { href: '/market', icon: Eye, label: 'Genel Bakış' },
-      { href: '/market/flow', icon: Activity, label: 'Akıllı Para Akışı' },
-      { href: '/market/valuation', icon: DollarSign, label: 'Değerleme' },
-      { href: '/market/performance', icon: BarChart3, label: 'Performans' },
-      { href: '/market/maps', icon: Map, label: 'Haritalar' },
-    ],
-  },
-  // ─── Sadece Admin ───────────────────────────────────────────────────────────
-  {
-    href: '/featured', icon: Star, label: 'Öne Çıkanlar', section: 'featured', tier: 'admin',
-    children: [
-      { href: '/featured', icon: Star, label: 'Günlük Seçimler' },
-      { href: '/featured/backtest', icon: History, label: 'Backtest' },
-    ],
-  },
-  { href: '/insider', icon: UserCheck, label: 'Insider', section: 'insider', tier: 'admin' },
-  { href: '/news', icon: Newspaper, label: 'Şirket Haberleri', section: 'news', tier: 'admin' },
-  { href: '/world-markets', icon: Globe2, label: 'Dünya Borsaları', section: 'world-markets', tier: 'admin' },
-  { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'admin' },
-  { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'admin' },
-  { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'admin' },
-  { href: '/finma514', icon: Zap, label: 'FinMA 514', section: 'finma514', tier: 'admin' },
-  { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'admin' },
-  { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'admin' },
-  { href: '/screener', icon: Filter, label: 'Hisse Tarama', section: 'screener', tier: 'admin' },
+  // ─── Ana ────────────────────────────────────────────────────────────────────
+  { href: '/dashboard',  icon: LayoutDashboard, label: 'Anasayfa',     section: 'dashboard' },
+  { href: '/finma514',   icon: Zap,             label: 'FinMA 514',    section: 'finma514',      tier: 'admin' },
+  // ─── Araçlar ────────────────────────────────────────────────────────────────
+  { href: '/stock-analysis', icon: Search,      label: 'Hisse Analiz', section: 'stock-analysis', tier: 'admin' },
+  { href: '/screener',   icon: Filter,          label: 'Tarama',       section: 'screener',       tier: 'admin' },
+  { href: '/watchlists', icon: List,            label: 'Takip Listesi',section: 'watchlists',     tier: 'admin' },
+  { href: '/portfolio',  icon: Briefcase,       label: 'Portföy',      section: 'portfolio',      tier: 'admin' },
+  { href: '/news',       icon: Newspaper,       label: 'Haberler',     section: 'news',           tier: 'admin' },
   // ─── Herkese Açık ───────────────────────────────────────────────────────────
-  { href: '/operations', icon: Zap, label: 'İşlemler', section: 'operations', tier: 'admin' },
-  { href: '/settings', icon: Settings, label: 'Ayarlar', section: 'settings' },
+  { href: '/settings',   icon: Settings,        label: 'Ayarlar',      section: 'settings' },
 ]
 
 const tierBadge: Record<Tier, { label: string; color: string; icon: React.ElementType }> = {
@@ -148,7 +115,7 @@ export function Sidebar() {
             <div className="ml-2.5 overflow-hidden flex-1">
               <span className="text-lg font-bold text-white tracking-tight">Fin</span>
               <span className="text-lg font-bold text-finma-primary tracking-tight">MA</span>
-              <span className="text-[10px] text-finma-text-dim ml-1.5 font-mono">v4.0</span>
+              <span className="text-[10px] text-finma-text-dim ml-1.5 font-mono">v5.0</span>
             </div>
           )}
           {mobileMenuOpen && (
