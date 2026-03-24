@@ -199,18 +199,18 @@ def _get_ai_text(ticker: str, lang: str, market_date: str, rc, sb) -> dict:
 def _fetch_daily_stocks(market_date: str, lang: str) -> Optional[dict]:
     """
     Günlük 54 hisseyi çeker.
-    Kaynak: Redis → Supabase → lokal JSON
+    Kaynak: Redis (bugün) → Redis (en son key) → Supabase (bugün)
+            → Supabase (en son tarih) → Lokal JSON
     """
     rc = _get_redis()
     sb = _get_supabase()
 
-    # ── 1. Redis hot cache ──────────────────────────────────────────
+    # ── 1. Redis — bugünün cache'i ──────────────────────────────────
     if rc:
         cached = rc.get(f"daily:top54:{market_date}")
         if cached:
             try:
                 stocks = json.loads(cached)
-                # AI metinleri istenen dilde yükle
                 if lang != "tr":
                     for s in stocks:
                         ai = _get_ai_text(s.get("ticker", ""), lang, market_date, rc, sb)
@@ -220,7 +220,28 @@ def _fetch_daily_stocks(market_date: str, lang: str) -> Optional[dict]:
             except Exception:
                 pass
 
-    # ── 2. Supabase ─────────────────────────────────────────────────
+    # ── 1b. Redis — en son mevcut key ──────────────────────────────
+    if rc:
+        try:
+            keys = rc.keys("daily:top54:*")
+            if keys:
+                # En güncel tarihi bul
+                latest_key = sorted(keys)[-1]
+                cached = rc.get(latest_key)
+                if cached:
+                    stocks = json.loads(cached)
+                    actual_date = latest_key.split("daily:top54:")[-1]
+                    if lang != "tr":
+                        for s in stocks:
+                            ai = _get_ai_text(s.get("ticker", ""), lang, actual_date, rc, sb)
+                            if ai:
+                                s["ai_text"] = ai
+                    logger.info(f"Redis fallback: {latest_key} kullanıldı")
+                    return {"source": "redis_latest", "stocks": stocks, "actual_date": actual_date}
+        except Exception as e:
+            logger.debug(f"Redis latest-key hatası: {e}")
+
+    # ── 2. Supabase — bugünün tarihi ────────────────────────────────
     if sb:
         try:
             res = (
@@ -239,9 +260,42 @@ def _fetch_daily_stocks(market_date: str, lang: str) -> Optional[dict]:
         except Exception as e:
             logger.debug(f"Supabase daily_scores hatası: {e}")
 
-    # ── 3. Lokal JSON fallback ───────────────────────────────────────
+    # ── 2b. Supabase — en son tarih (bugün yoksa) ───────────────────
+    if sb:
+        try:
+            # En son mevcut market_date'i bul
+            date_res = (
+                sb.table("daily_scores")
+                .select("market_date")
+                .order("market_date", desc=True)
+                .limit(1)
+                .execute()
+            )
+            if date_res.data:
+                latest_date = date_res.data[0]["market_date"]
+                if latest_date != market_date:
+                    res = (
+                        sb.table("daily_scores")
+                        .select("*")
+                        .eq("market_date", latest_date)
+                        .order("score", desc=True)
+                        .execute()
+                    )
+                    if res.data:
+                        stocks = []
+                        for row in res.data:
+                            ai = _get_ai_text(row["ticker"], lang, latest_date, rc, sb)
+                            stocks.append({**row, "ai_text": ai})
+                        logger.info(f"Supabase fallback: {latest_date} tarihi kullanıldı (bugün: {market_date})")
+                        return {"source": "supabase_latest", "stocks": stocks,
+                                "actual_date": latest_date}
+        except Exception as e:
+            logger.debug(f"Supabase latest-date hatası: {e}")
+
+    # ── 3. Lokal JSON fallback (tarih fark etmeksizin) ───────────────
     payload = _load_from_json()
     if payload and payload.get("all_54"):
+        logger.info("Lokal JSON fallback kullanıldı")
         return {"source": "local_json", "stocks": payload["all_54"], "payload": payload}
 
     return None
