@@ -108,6 +108,8 @@ class DailyInsightsResponse(BaseModel):
     stock_count:   int
     lang:          str
     stocks:        List[StockRecord]
+    is_limited:    bool = False      # True → free tier, sadece ilk 5 hisse
+    total_count:   int  = 0          # Tüm tarama sayısı (kota aşılmışsa bilgi için)
 
 
 class StatusResponse(BaseModel):
@@ -125,6 +127,12 @@ def _get_redis():
     try:
         import redis as redis_lib
         url = os.getenv("REDIS_URL", "")
+        if not url:
+            rest_url   = os.getenv("UPSTASH_REDIS_REST_URL", "")
+            rest_token = os.getenv("UPSTASH_REDIS_REST_TOKEN", "")
+            if rest_url and rest_token:
+                host = rest_url.replace("https://", "").replace("http://", "").rstrip("/")
+                url  = f"rediss://default:{rest_token}@{host}:6379"
         if not url:
             return None
         r = redis_lib.from_url(url, decode_responses=True, socket_timeout=2)
@@ -340,6 +348,7 @@ async def daily_insights(
     lang: str = Query("tr", description="Dil kodu: tr|en|es|pt|ar|id|ja"),
     target_date: Optional[str] = Query(None, alias="date",
                                        description="YYYY-MM-DD formatında tarih (default: bugün)"),
+    current_user: Optional[dict] = Depends(optional_user),
 ):
     if lang not in SUPPORTED_LANGS:
         raise HTTPException(400, f"Desteklenmeyen dil: {lang}. Seçenekler: {sorted(SUPPORTED_LANGS)}")
@@ -381,6 +390,14 @@ async def daily_insights(
         except Exception:
             pass
 
+    # ── Tier bazlı filtreleme ─────────────────────────────────────────
+    FREE_LIMIT = 5
+    role       = (current_user or {}).get("role", "free")
+    is_limited = role not in ("pro", "admin")
+    total_cnt  = len(stocks)
+    if is_limited:
+        stocks = stocks[:FREE_LIMIT]
+
     return DailyInsightsResponse(
         bot_name      = bot_name,
         market_date   = market_date,
@@ -391,6 +408,8 @@ async def daily_insights(
         stock_count   = len(stocks),
         lang          = lang,
         stocks        = stocks,
+        is_limited    = is_limited,
+        total_count   = total_cnt,
     )
 
 

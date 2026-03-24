@@ -78,6 +78,8 @@ export interface Finma514Report {
   stock_count:   number
   lang:          FinmaLang
   stocks:        Finma514Stock[]
+  is_limited?:   boolean   // true → free tier, sadece ilk 5
+  total_count?:  number    // toplam tarama sayısı
 }
 
 export interface Finma514Status {

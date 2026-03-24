@@ -101,6 +101,8 @@ function Finma514Content() {
   const runTime     = data?.run_time_ny  ?? '—'
   const marketDate  = data?.market_date  ?? status?.market_date ?? '—'
   const stockCount  = data?.stock_count  ?? stocks.length
+  const isLimited   = data?.is_limited   ?? false
+  const totalCount  = data?.total_count  ?? stockCount
 
   // İstatistikler
   const tierCounts = stocks.reduce((acc, s) => {
@@ -258,12 +260,32 @@ function Finma514Content() {
             </button>
           </div>
         ) : (
-          <Finma514Table
-            stocks={stocks}
-            lang={lang}
-            onLangChange={setLang}
-            onAddToTracking={setQuickAddStock}
-          />
+          <>
+            <Finma514Table
+              stocks={stocks}
+              lang={lang}
+              onLangChange={setLang}
+              onAddToTracking={setQuickAddStock}
+            />
+            {isLimited && (
+              <div className="mt-3 mx-1 rounded-xl border border-finma-primary/30 bg-finma-primary/5 px-4 py-3 flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-finma-primary">
+                    🔒 {totalCount - stocks.length} hisse daha listeleniyor
+                  </p>
+                  <p className="text-xs text-finma-text-dim mt-0.5">
+                    Pro üyelik ile tüm {totalCount} adayı görüntüleyin — takibe alın, AI analizlerine erişin.
+                  </p>
+                </div>
+                <a
+                  href="/pricing"
+                  className="shrink-0 finma-btn-primary text-xs px-4 py-2"
+                >
+                  Pro'ya Geç
+                </a>
+              </div>
+            )}
+          </>
         )}
       </Card>
 

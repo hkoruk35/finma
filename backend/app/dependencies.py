@@ -135,6 +135,12 @@ def _redis_quota():
         import redis as redis_lib
         url = os.getenv("REDIS_URL", "")
         if not url:
+            rest_url   = os.getenv("UPSTASH_REDIS_REST_URL", "")
+            rest_token = os.getenv("UPSTASH_REDIS_REST_TOKEN", "")
+            if rest_url and rest_token:
+                host = rest_url.replace("https://", "").replace("http://", "").rstrip("/")
+                url  = f"rediss://default:{rest_token}@{host}:6379"
+        if not url:
             return None
         return redis_lib.from_url(url, decode_responses=True)
     except Exception:

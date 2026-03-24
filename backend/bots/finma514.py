@@ -1188,18 +1188,27 @@ def build_output_payload(
 
 
 def save_json(payload: dict) -> str:
-    """JSON'u tarihli dosyaya yazar (finma514_YYYYMMDD_HHMM.json). Dosya yolunu döner."""
+    """
+    JSON'u hem tarihli (finma514_YYYYMMDD_HHMM.json) hem
+    de finma514_latest.json olarak kaydeder. Tarihli dosya yolunu döner.
+    """
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     ts      = datetime.now(NY_TZ).strftime("%Y%m%d_%H%M")
     dated   = os.path.join(OUTPUT_DIR, f"{BOT_NAME}_{ts}.json")
+    latest  = os.path.join(OUTPUT_DIR, "finma514_latest.json")
+
+    data_str = json.dumps(payload, indent=2, ensure_ascii=False, default=str)
 
     with open(dated, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False, default=str)
+        f.write(data_str)
 
-    logging.info(
-        f"JSON kaydedildi → {dated} ({payload.get('stock_count', 0)} hisse)"
-    )
+    # Her zaman finma514_latest.json'u güncelle (router fallback için)
+    with open(latest, "w", encoding="utf-8") as f:
+        f.write(data_str)
+
+    count = payload.get("stock_count", 0)
+    logging.info(f"JSON kaydedildi → {dated}  +  finma514_latest.json ({count} hisse)")
     return dated
 
 
