@@ -5,11 +5,64 @@ import sys
 import json
 import subprocess
 import logging
+import threading
 from datetime import datetime
 from typing import Optional
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 logger = logging.getLogger(__name__)
+
+# ─── Redis log helpers ────────────────────────────────────────────────────────
+_REDIS_LOG_TTL = 60 * 60 * 24 * 3   # 3 gün
+
+def _get_redis():
+    """Basit Redis bağlantısı; başarısız olursa None."""
+    try:
+        import redis as _redis_lib
+        url = os.getenv("REDIS_URL", "redis://localhost:6379")
+        r = _redis_lib.from_url(url, decode_responses=True, socket_timeout=3)
+        r.ping()
+        return r
+    except Exception:
+        return None
+
+def _redis_log_key(bot_name: str) -> str:
+    return f"bot:log:{bot_name}"
+
+def _redis_append_log(bot_name: str, line: str):
+    """Redis listesine log satırı ekler; hata sessizce yutulur."""
+    try:
+        rc = _get_redis()
+        if rc:
+            key = _redis_log_key(bot_name)
+            rc.rpush(key, line)
+            rc.expire(key, _REDIS_LOG_TTL)
+    except Exception:
+        pass
+
+def _redis_reset_log(bot_name: str):
+    """Yeni çalışmadan önce eski Redis logunu temizler."""
+    try:
+        rc = _get_redis()
+        if rc:
+            rc.delete(_redis_log_key(bot_name))
+    except Exception:
+        pass
+
+def _redis_get_log(bot_name: str) -> Optional[str]:
+    """Redis'teki log satırlarını birleştirir; yoksa None."""
+    try:
+        rc = _get_redis()
+        if rc:
+            lines = rc.lrange(_redis_log_key(bot_name), 0, -1)
+            if lines:
+                return "\n".join(
+                    ln.decode("utf-8") if isinstance(ln, bytes) else ln
+                    for ln in lines
+                )
+    except Exception:
+        pass
+    return None
 
 # Bot configurations
 BOT_CONFIGS = {
@@ -93,7 +146,7 @@ BOT_CONFIGS = {
 active_processes = {}
 
 def run_bot(bot_name: str, bots_dir: str, output_dir: str):
-    """Execute a bot script in background and redirect output to a log file"""
+    """Execute a bot script in background and redirect output to log file + Redis."""
     global active_processes
     config = BOT_CONFIGS.get(bot_name)
     if not config:
@@ -102,80 +155,111 @@ def run_bot(bot_name: str, bots_dir: str, output_dir: str):
 
     script_path = os.path.join(bots_dir, config["script"])
     if not os.path.exists(script_path):
-        logger.warning(f"Bot script yok: {script_path}")
+        msg = f"❌ Bot script bulunamadı: {script_path}"
+        logger.warning(msg)
+        _redis_reset_log(bot_name)
+        _redis_append_log(bot_name, msg)
         return
 
     os.makedirs(output_dir, exist_ok=True)
     log_file_path = os.path.join(output_dir, f"{bot_name}.log")
 
+    # Zaten çalışıyor mu?
+    if bot_name in active_processes:
+        proc = active_processes[bot_name]
+        if proc.poll() is None:
+            logger.info(f"Bot zaten çalışıyor: {bot_name} (PID: {proc.pid})")
+            return
+        else:
+            del active_processes[bot_name]
+
+    # Redis log temizle + header yaz
+    _redis_reset_log(bot_name)
+    header = (
+        f"--- [ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ] STARTING: {bot_name} ---\n"
+        f"Script : {script_path}\n"
+        f"Python : {sys.executable}"
+    )
+    _redis_append_log(bot_name, header)
+
+    # Dosyaya header
     try:
-        # Check if already running
-        if bot_name in active_processes:
-            proc = active_processes[bot_name]
-            if proc.poll() is None:
-                logger.info(f"Bot zaten çalışıyor: {bot_name} (PID: {proc.pid})")
-                return
-            else:
-                del active_processes[bot_name]
-
-        logger.info(f"Bot başlatılıyor: {bot_name} -> {log_file_path}")
-        
-        # Open log file with header
         with open(log_file_path, "a", encoding="utf-8") as f:
-            f.write(f"\n\n--- [ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ] STARTING BOT: {bot_name} ---\n")
-            f.write(f"Script: {script_path}\n")
-            f.write(f"Python: {sys.executable}\n")
-            f.flush()
+            f.write(f"\n\n{header}\n")
+    except Exception:
+        pass
 
-        log_file = open(log_file_path, "a", encoding="utf-8")
-        
-        # Run from backend/ dir to ensure .env is found
-        backend_dir = os.path.dirname(os.path.abspath(bots_dir))
-        
-        # Ensure subprocess inherits environment + PYTHONPATH includes backend dir
-        env = os.environ.copy()
-        env["PYTHONPATH"] = backend_dir + os.pathsep + env.get("PYTHONPATH", "")
-        
+    backend_dir = os.path.dirname(os.path.abspath(bots_dir))
+    env = os.environ.copy()
+    env["PYTHONPATH"] = backend_dir + os.pathsep + env.get("PYTHONPATH", "")
+
+    try:
         process = subprocess.Popen(
             [sys.executable, script_path, "--one-shot"],
-            stdout=log_file,
+            stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             cwd=backend_dir,
             env=env,
             text=True,
-            bufsize=1  # Line buffered
+            bufsize=1,
         )
-
         active_processes[bot_name] = process
-        logger.info(f"Bot PID {process.pid} ile arka planda başlatıldı: {bot_name}")
-        
-        # Watcher thread — logs when bot finishes
-        import threading
-        def _watch():
+        logger.info(f"Bot PID {process.pid} ile başlatıldı: {bot_name}")
+
+        # Satır satır oku → hem dosyaya hem Redis'e yaz
+        def _stream():
+            try:
+                log_file = open(log_file_path, "a", encoding="utf-8")
+                for line in process.stdout:
+                    line = line.rstrip("\n")
+                    log_file.write(line + "\n")
+                    log_file.flush()
+                    _redis_append_log(bot_name, line)
+                log_file.close()
+            except Exception as ex:
+                _redis_append_log(bot_name, f"[stream error] {ex}")
+
             code = process.wait()
-            log_file.close()
-            if code == 0:
-                logger.info(f"✅ Bot tamamlandı: {bot_name} (exit 0)")
-            else:
-                logger.error(f"❌ Bot hata ile çıktı: {bot_name} (exit {code})")
-        threading.Thread(target=_watch, daemon=True, name=f"watch_{bot_name}").start()
+            result_line = (
+                f"\n✅ Tamamlandı (exit 0) — {datetime.now().strftime('%H:%M:%S')}"
+                if code == 0
+                else f"\n❌ Hata (exit {code}) — {datetime.now().strftime('%H:%M:%S')}"
+            )
+            _redis_append_log(bot_name, result_line)
+            logger.info(f"Bot bitti: {bot_name} exit={code}")
+
+        threading.Thread(target=_stream, daemon=True, name=f"stream_{bot_name}").start()
 
     except Exception as e:
+        err = f"❌ Başlatma hatası: {e}"
         logger.error(f"Bot çalıştırma hatası {bot_name}: {e}")
+        _redis_append_log(bot_name, err)
 
 
-def get_logs(bot_name: str, output_dir: str, lines: int = 100):
-    """Read last N lines from bot log file"""
+def get_logs(bot_name: str, output_dir: str, lines: int = 200):
+    """
+    Bot loglarını döner. Önce Redis (kalıcı), yoksa dosya, o da yoksa açıklayıcı mesaj.
+    """
+    # ── 1. Redis (Railway restart'ta da kalır) ─────────────────────
+    redis_log = _redis_get_log(bot_name)
+    if redis_log:
+        all_lines = redis_log.splitlines()
+        return "\n".join(all_lines[-lines:])
+
+    # ── 2. Dosya (aynı container içinde) ───────────────────────────
     log_file_path = os.path.join(output_dir, f"{bot_name}.log")
-    if not os.path.exists(log_file_path):
-        return f"Log dosyası henüz oluşmadı: {log_file_path}"
-    
-    try:
-        with open(log_file_path, "r", encoding="utf-8") as f:
-            content = f.readlines()
+    if os.path.exists(log_file_path):
+        try:
+            with open(log_file_path, "r", encoding="utf-8") as f:
+                content = f.readlines()
             return "".join(content[-lines:])
-    except Exception as e:
-        return f"Log okuma hatası: {e}"
+        except Exception as e:
+            return f"Log okuma hatası: {e}"
+
+    return (
+        f"Henüz log yok ({bot_name}).\n"
+        "Botu 'Çalıştır' butonu ile tetikleyin — log burada görünecek."
+    )
 
 
 def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
