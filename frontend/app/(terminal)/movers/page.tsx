@@ -152,11 +152,14 @@ export default function MoversPage() {
         </div>
       )}
 
-      {/* ── Hata ── */}
-      {isError && !isLoading && (
+      {/* ── Hata ── (soft — isError tek başına kırmızı gösterme) */}
+      {isError && !isLoading && stocks.length === 0 && (
         <div className="finma-card text-center py-12 space-y-3">
-          <AlertCircle className="w-8 h-8 text-finma-red mx-auto" />
-          <p className="text-sm text-finma-text-dim">Bot henüz çalışmamış veya veri yüklenemedi.</p>
+          <activeTab.icon className="w-10 h-10 text-finma-text-dim mx-auto" />
+          <p className="text-sm font-semibold text-white">Veri Yükleniyor</p>
+          <p className="text-xs text-finma-text-dim">
+            Veriler bağlanıyor, lütfen bekleyin veya sayfayı yenileyin.
+          </p>
         </div>
       )}
 
@@ -180,7 +183,7 @@ export default function MoversPage() {
       )}
 
       {/* ── Bot bekleniyor ── */}
-      {!isLoading && !isError && stocks.length === 0 && (
+      {!isLoading && !isError && !stocks.length && (
         <div className="finma-card text-center py-16 space-y-3">
           <activeTab.icon className="w-10 h-10 text-finma-text-dim mx-auto" />
           <p className="text-sm font-semibold text-white">Veri Bekleniyor</p>

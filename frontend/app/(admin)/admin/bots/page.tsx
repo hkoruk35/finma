@@ -4,16 +4,18 @@ import { useEffect, useState } from 'react'
 import { Card } from '@/components/shared/Card'
 import { Badge } from '@/components/shared/Badge'
 import { api } from '@/lib/api-client'
-import { 
-  Bot, RefreshCw, Clock, Activity, Play, Square, 
-  CheckCircle2, AlertCircle, Laptop, Terminal, ExternalLink, 
-  FileText, X 
+import {
+  Bot, RefreshCw, Clock, Activity, Play, Square,
+  CheckCircle2, AlertCircle, Laptop, Terminal, ExternalLink,
+  FileText, X, Zap
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+// Sadece finma514 ile ilgili botları göster
+const ACTIVE_BOTS = ['finma514']
+
 export default function AdminBotsPage() {
   const [botStatus, setBotStatus] = useState<any>(null)
-  const [signals, setSignals] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
@@ -27,12 +29,8 @@ export default function AdminBotsPage() {
 
   const loadData = async () => {
     try {
-      const [statusData, signalsData] = await Promise.all([
-        api.getBotStatus(),
-        api.getLatestSignals()
-      ])
+      const statusData = await api.getBotStatus()
       setBotStatus(statusData)
-      setSignals(signalsData)
     } catch (err) {
       console.error('Bot data load error:', err)
     } finally {
@@ -145,12 +143,14 @@ export default function AdminBotsPage() {
               Sistem Botları Listesi
             </h2>
             <Badge variant="default" className="text-[10px]">
-              {botStatus ? Object.keys(botStatus).length : 0} Bot Bulundu
+              {botStatus ? Object.keys(botStatus).filter(id => id.includes('finma514')).length : 0} Bot
             </Badge>
           </div>
           
           <div className="grid grid-cols-1 gap-3">
-            {botStatus && Object.entries(botStatus).map(([id, bot]: [string, any]) => (
+            {botStatus && Object.entries(botStatus)
+              .filter(([id]) => id.includes('finma514') || id === 'finma514')
+              .map(([id, bot]: [string, any]) => (
               <Card key={id} padding="none" className="overflow-hidden border border-finma-border/50 hover:border-finma-primary/30 transition-all duration-300">
                 <div className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-start gap-4">
@@ -210,58 +210,8 @@ export default function AdminBotsPage() {
           </div>
         </div>
 
-        {/* System Summary & Signal Status */}
+        {/* System Summary */}
         <div className="space-y-6">
-          <Card padding="sm" className="bg-finma-bg/40 border-finma-border/60">
-            <h2 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-finma-yellow" />
-              Son Sinyal Durumu
-            </h2>
-            {signals ? (
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-white/5 p-2.5 rounded-lg border border-white/10">
-                    <div className="text-[9px] text-finma-text-dim uppercase font-bold mb-1">Piyasa</div>
-                    <Badge variant={signals.market_regime === 'Bull' ? 'bull' : 'bear'} className="w-full justify-center">
-                      {signals.market_regime}
-                    </Badge>
-                  </div>
-                  <div className="bg-white/5 p-2.5 rounded-lg border border-white/10">
-                    <div className="text-[9px] text-finma-text-dim uppercase font-bold mb-1">VIX Seviyesi</div>
-                    <div className="text-sm font-mono font-bold text-finma-yellow">{signals.vix_level}</div>
-                  </div>
-                </div>
-
-                <div className="space-y-2 pt-2 border-t border-finma-border/40">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-finma-text-dim">Son Rapor Tarihi:</span>
-                    <span className="text-white font-mono">{signals.timestamp?.split(' ')[1] || '—'}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-finma-text-dim">Toplam Aday:</span>
-                    <span className="text-finma-primary font-bold">{signals.candidates?.length ?? 0}</span>
-                  </div>
-                </div>
-
-                <div className="mt-3">
-                  <div className="text-[9px] text-finma-text-dim uppercase font-bold mb-2">Sektör Liderleri</div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {signals.sector_leaders?.map((s: string) => (
-                      <span key={s} className="px-2 py-1 rounded bg-finma-green/10 text-finma-green text-[10px] border border-finma-green/20">
-                        {s}
-                      </span>
-                    )) || <span className="text-xs text-finma-text-muted italic">Veri yok</span>}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <AlertCircle className="w-8 h-8 text-finma-text-dim/30 mx-auto mb-2" />
-                <p className="text-xs text-finma-text-dim">Sinyal verisi bulunamadı.</p>
-              </div>
-            )}
-          </Card>
-
           <Card padding="sm" className="border-l-4 border-l-finma-primary">
             <h2 className="text-xs font-bold text-white mb-3 flex items-center gap-2">
               <Laptop className="w-4 h-4 text-finma-cyan" />
@@ -296,60 +246,6 @@ export default function AdminBotsPage() {
         </div>
       </div>
 
-      {/* Candidates Detail View */}
-      {signals?.candidates && signals.candidates.length > 0 && (
-        <Card padding="none" className="overflow-hidden border border-finma-border/50">
-          <div className="px-4 py-3 border-b border-finma-border/50 bg-white/5 flex items-center justify-between">
-            <h2 className="text-sm font-bold text-white flex items-center gap-2">
-              <Activity className="w-4 h-4 text-finma-green" />
-              Sinyal Detayları (Son Rapor)
-            </h2>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-finma-border text-finma-text-dim bg-finma-bg/20">
-                  <th className="text-left px-4 py-3">Sembol</th>
-                  <th className="text-left px-4 py-3">Aksiyon</th>
-                  <th className="text-right px-4 py-3">Skor</th>
-                  <th className="text-right px-4 py-3">Fiyat</th>
-                  <th className="text-right px-4 py-3">Hedef / Stop</th>
-                  <th className="text-right px-4 py-3">Potansiyel</th>
-                  <th className="text-left px-4 py-3 hidden md:table-cell">Sektör</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-finma-border/30">
-                {signals.candidates.map((c: any) => (
-                  <tr key={c.ticker} className="hover:bg-finma-card-hover transition-colors group">
-                    <td className="px-4 py-4 font-bold text-finma-primary finma-number text-sm">{c.ticker}</td>
-                    <td className="px-4 py-4">
-                      <Badge variant={c.action === 'BUY' ? 'buy' : c.action === 'HOLD' ? 'hold' : 'sell'} className="text-[10px] px-2">
-                        {c.action}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-4 text-right">
-                      <span className="text-xs font-bold text-finma-text finma-number bg-white/5 px-2 py-1 rounded border border-white/10">
-                        {c.score?.toFixed(1)}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 text-right finma-number text-white font-medium">${c.price?.toFixed(2)}</td>
-                    <td className="px-4 py-4 text-right">
-                      <div className="flex flex-col items-end">
-                        <span className="text-finma-green font-bold finma-number">${c.target?.toFixed(2) || c.tp2?.toFixed(2)}</span>
-                        <span className="text-[10px] text-finma-red/70 finma-number">${c.stop_loss?.toFixed(2)}</span>
-                      </div>
-                    </td>
-                    <td className={`px-4 py-4 text-right finma-number font-bold text-sm ${c.potential_pct >= 0 ? 'text-finma-green' : 'text-finma-red'}`}>
-                      {c.potential_pct >= 0 ? '+' : ''}{c.potential_pct?.toFixed(1)}%
-                    </td>
-                    <td className="px-4 py-4 text-finma-text-dim hidden md:table-cell italic">{c.sector}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
-      )}
       {/* Log Modal */}
       {selectedBotLog && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">

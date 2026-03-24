@@ -151,11 +151,14 @@ export default function SectorsPage() {
         </div>
       )}
 
-      {/* ── Hata ── */}
-      {isError && !isLoading && (
+      {/* ── Hata ── (soft) */}
+      {isError && !isLoading && leaders.length === 0 && (
         <div className="finma-card text-center py-12 space-y-3">
-          <AlertCircle className="w-8 h-8 text-finma-red mx-auto" />
-          <p className="text-sm text-finma-text-dim">Veri yüklenemedi. Bot henüz çalışmamış olabilir.</p>
+          <BarChart3 className="w-10 h-10 text-finma-text-dim mx-auto" />
+          <p className="text-sm font-semibold text-white">Veri Yükleniyor</p>
+          <p className="text-xs text-finma-text-dim">
+            Veriler bağlanıyor, lütfen bekleyin veya sayfayı yenileyin.
+          </p>
         </div>
       )}
 
@@ -182,7 +185,7 @@ export default function SectorsPage() {
       ))}
 
       {/* ── Bot bekleniyor ── */}
-      {!isLoading && !isError && leaders.length === 0 && (
+      {!isLoading && !isError && !leaders.length && (
         <div className="finma-card text-center py-16 space-y-3">
           <BarChart3 className="w-10 h-10 text-finma-text-dim mx-auto" />
           <p className="text-sm font-semibold text-white">Veri Bekleniyor</p>
