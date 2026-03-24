@@ -21,7 +21,8 @@ class SSERunner:
         """
         tasks = [
             self._start_price_consumer(),
-            self._start_signal_consumer()
+            self._start_signal_consumer(),
+            self._start_finma514_consumer(),
         ]
         await asyncio.gather(*tasks)
 
@@ -35,14 +36,35 @@ class SSERunner:
         consumer = BaseConsumer("finma:signal_stream", "sse_group", "signal_sse_worker")
         await consumer.start(self._broadcast_signal)
 
+    async def _start_finma514_consumer(self):
+        """Listen to FinMA514 scan completed stream → broadcast FINMA514_UPDATED"""
+        consumer = BaseConsumer("finma:finma514_stream", "sse_group", "finma514_sse_worker")
+        await consumer.start(self._broadcast_finma514)
+
     async def _broadcast_price(self, data: dict):
         """Callback for price data"""
         await sse_manager.broadcast("PRICE_UPDATE", data, user_id="global")
 
     async def _broadcast_signal(self, data: dict):
         """Callback for signal data"""
-        # Future: Use metadata.tenant_id or user_id for targeted broadcast
         await sse_manager.broadcast("SIGNAL_CREATED", data, user_id="global")
+
+    async def _broadcast_finma514(self, data: dict):
+        """Callback for FinMA514 scan completed event"""
+        try:
+            payload_str = data.get("payload", "{}")
+            if isinstance(payload_str, str):
+                payload = json.loads(payload_str)
+            else:
+                payload = payload_str
+        except Exception:
+            payload = data
+
+        logger.info(
+            f"FinMA514 SSE yayını: {payload.get('market_date')} "
+            f"— {payload.get('stock_count', 0)} hisse"
+        )
+        await sse_manager.broadcast("FINMA514_UPDATED", payload, user_id="global")
 
 # Singleton
 sse_runner = SSERunner()

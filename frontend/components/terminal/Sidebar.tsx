@@ -77,6 +77,7 @@ const navItems: NavItem[] = [
   { href: '/stock-analysis', icon: Search, label: 'Hisse Analiz', section: 'stock-analysis', tier: 'admin' },
   { href: '/portfolio', icon: Briefcase, label: 'Portföy', section: 'portfolio', tier: 'admin' },
   { href: '/watchlists', icon: List, label: 'Takip Listeleri', section: 'watchlists', tier: 'admin' },
+  { href: '/finma514', icon: Zap, label: 'FinMA 514', section: 'finma514', tier: 'admin' },
   { href: '/signals', icon: Radio, label: 'Sinyaller', section: 'signals', tier: 'admin' },
   { href: '/ai', icon: Brain, label: 'AI Analiz', section: 'ai', tier: 'admin' },
   { href: '/screener', icon: Filter, label: 'Hisse Tarama', section: 'screener', tier: 'admin' },

@@ -69,6 +69,19 @@ BOT_CONFIGS = {
         "schedule": {"hour": "*/4", "minute": "5"},
         "description": "Flow Bot — Sektör Akışı, Insider, RVOL Her 4 Saat",
     },
+    # ─── FinMA 514 (NY 06:30 + 12:00, hafta içi, DST-safe) ───────
+    "finma514_0630": {
+        "script":      "finma514.py",
+        "schedule":    {"day_of_week": "mon-fri", "hour": "6", "minute": "30",
+                        "timezone": "America/New_York"},
+        "description": "FinMA514 — 8000+ tarama sabah NY 06:30",
+    },
+    "finma514_1200": {
+        "script":      "finma514.py",
+        "schedule":    {"day_of_week": "mon-fri", "hour": "12", "minute": "0",
+                        "timezone": "America/New_York"},
+        "description": "FinMA514 — 8000+ tarama öğle NY 12:00",
+    },
 }
 
 active_processes = {}

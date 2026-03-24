@@ -637,6 +637,37 @@ class APIClient {
     })
   }
 
+  // ─── FinMA 514 Analytics ───
+
+  async getFinma514Insights(lang = 'tr', date?: string) {
+    const qs = new URLSearchParams({ lang })
+    if (date) qs.set('date', date)
+    return this.request<import('@/types/finma514').Finma514Report>(
+      `/api/finma514/daily-insights?${qs}`
+    )
+  }
+
+  async getFinma514Stock(ticker: string, lang = 'tr', date?: string) {
+    const qs = new URLSearchParams({ lang })
+    if (date) qs.set('date', date)
+    return this.request<import('@/types/finma514').Finma514Stock>(
+      `/api/finma514/stock/${ticker.toUpperCase()}?${qs}`
+    )
+  }
+
+  async getFinma514Categories(lang = 'tr', date?: string) {
+    const qs = new URLSearchParams({ lang })
+    if (date) qs.set('date', date)
+    return this.request<{
+      market_date: string; lang: string; total: number;
+      categories: import('@/types/finma514').Finma514Categories
+    }>(`/api/finma514/categories?${qs}`)
+  }
+
+  async getFinma514Status() {
+    return this.request<import('@/types/finma514').Finma514Status>('/api/finma514/status')
+  }
+
   // ─── Telegram ───
 
   async testTelegram() {

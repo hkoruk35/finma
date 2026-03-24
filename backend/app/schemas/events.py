@@ -10,6 +10,7 @@ class EventType(str, Enum):
     AI_ANALYSIS_READY = "AI_ANALYSIS_READY"
     POSITION_UPDATED = "POSITION_UPDATED"
     SYSTEM_ALERT = "SYSTEM_ALERT"
+    FINMA514_UPDATED = "FINMA514_UPDATED"   # FinMA514 yeni tarama tamamlandı
 
 class EventMetadata(BaseModel):
     priority: str = "medium" # low, medium, high
