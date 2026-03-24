@@ -1,14 +1,15 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect, useCallback, useRef, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
   Activity, Plus, Trash2, RefreshCw, AlertTriangle,
   TrendingUp, TrendingDown, Minus, Shield, Clock,
-  ChevronRight, Target, Zap, X, BarChart3, Lock,
+  ChevronRight, Target, Zap, X, BarChart3, Lock, Search,
 } from 'lucide-react'
 import { PaywallModal, TrackingLockBanner } from '@/components/terminal/finma514/PaywallModal'
+import { useFinma514Insights } from '@/hooks/useFinma514'
 
 /* ── Tipler ────────────────────────────────────────────────────────────────── */
 
@@ -79,21 +80,64 @@ async function apiCall(method: string, path: string, body?: object) {
 
 /* ── Hisse Ekle Modal ──────────────────────────────────────────────────────── */
 
-function AddModal({ onClose, onAdded }: { onClose: () => void; onAdded: () => void }) {
-  const [ticker,      setTicker]      = useState('')
-  const [entryPrice,  setEntryPrice]  = useState('')
+function AddModal({
+  onClose,
+  onAdded,
+  prefillTicker = '',
+  prefillPrice  = '',
+}: {
+  onClose:       () => void
+  onAdded:       () => void
+  prefillTicker?: string
+  prefillPrice?:  string
+}) {
+  const [ticker,      setTicker]      = useState(prefillTicker)
+  const [entryPrice,  setEntryPrice]  = useState(prefillPrice)
   const [profile,     setProfile]     = useState<Profile>('swing')
   const [hasPosition, setHasPosition] = useState(false)
   const [loading,     setLoading]     = useState(false)
   const [error,       setError]       = useState('')
 
+  // Combobox state
+  const [search,      setSearch]      = useState(prefillTicker)
+  const [showDrop,    setShowDrop]    = useState(false)
+  const dropRef                       = useRef<HTMLDivElement>(null)
+
+  const { data: insightsData } = useFinma514Insights('tr')
+  const stocks54 = insightsData?.stocks ?? []
+
+  const filteredStocks = stocks54.filter(s =>
+    !search.trim() ||
+    s.ticker.includes(search.toUpperCase()) ||
+    s.company_name?.toUpperCase().includes(search.toUpperCase())
+  ).slice(0, 20)
+
+  function selectStock(s: { ticker: string; price?: number; company_name?: string }) {
+    setTicker(s.ticker)
+    setSearch(s.ticker)
+    if (s.price) setEntryPrice(s.price.toFixed(2))
+    setShowDrop(false)
+  }
+
+  // Dışarı tıklanınca kapat
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropRef.current && !dropRef.current.contains(e.target as Node)) {
+        setShowDrop(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
   async function submit() {
-    if (!ticker || !entryPrice) { setError('Ticker ve giriş fiyatı zorunlu'); return }
+    const t = ticker.trim().toUpperCase() || search.trim().toUpperCase()
+    if (!t || !entryPrice) { setError('Ticker ve giriş fiyatı zorunlu'); return }
     setLoading(true)
     setError('')
     try {
       await apiCall('POST', '/add', {
-        ticker:       ticker.toUpperCase(),
+        ticker:       t,
         entry_price:  parseFloat(entryPrice),
         profile,
         has_position: hasPosition,
@@ -104,7 +148,6 @@ function AddModal({ onClose, onAdded }: { onClose: () => void; onAdded: () => vo
       const msg = e.message || ''
       if (msg.includes('tracking_limit_exceeded')) {
         onClose()
-        // Üst bileşendeki paywall'ı tetiklemek için event fırlat
         window.dispatchEvent(new CustomEvent('tracking-limit-exceeded'))
       } else {
         setError(msg || 'Eklenirken hata oluştu')
@@ -116,21 +159,60 @@ function AddModal({ onClose, onAdded }: { onClose: () => void; onAdded: () => vo
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-finma-surface border border-white/10 rounded-xl p-6 w-full max-w-sm space-y-4">
+      <div className="bg-finma-surface border border-white/10 rounded-xl p-6 w-full max-w-sm space-y-4 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-bold text-white">Hisse Ekle</h2>
           <button onClick={onClose}><X className="w-4 h-4 text-finma-text-dim" /></button>
         </div>
 
         <div className="space-y-3">
-          <div>
+          {/* Ticker Combobox */}
+          <div ref={dropRef} className="relative">
             <label className="text-xs text-finma-text-dim block mb-1">Ticker</label>
-            <input
-              value={ticker}
-              onChange={e => setTicker(e.target.value.toUpperCase())}
-              placeholder="NVDA"
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-finma-text-dim/50 focus:outline-none focus:border-finma-primary"
-            />
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-finma-text-dim pointer-events-none" />
+              <input
+                value={search}
+                onChange={e => {
+                  setSearch(e.target.value)
+                  setTicker(e.target.value.toUpperCase())
+                  setShowDrop(true)
+                }}
+                onFocus={() => setShowDrop(true)}
+                placeholder="NVDA veya Nvidia ara..."
+                autoComplete="off"
+                className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-2 text-sm text-white placeholder-finma-text-dim/50 focus:outline-none focus:border-finma-primary"
+              />
+            </div>
+
+            {/* Dropdown */}
+            {showDrop && (
+              <div className="absolute z-10 top-full left-0 right-0 mt-1 bg-[#0f1520] border border-finma-border rounded-lg shadow-xl max-h-48 overflow-y-auto">
+                {stocks54.length === 0 && (
+                  <div className="px-3 py-2 text-xs text-finma-text-dim">
+                    {insightsData ? 'Hisse bulunamadı' : 'Yükleniyor...'}
+                  </div>
+                )}
+                {filteredStocks.length === 0 && stocks54.length > 0 && (
+                  <div className="px-3 py-2 text-xs text-finma-text-dim">Sonuç yok — serbest giriş yapabilirsiniz</div>
+                )}
+                {filteredStocks.map(s => (
+                  <button
+                    key={s.ticker}
+                    onMouseDown={e => { e.preventDefault(); selectStock(s) }}
+                    className="w-full flex items-center justify-between px-3 py-2 hover:bg-white/5 text-left transition-colors"
+                  >
+                    <div>
+                      <span className="text-xs font-bold text-finma-primary finma-number">{s.ticker}</span>
+                      <span className="text-[10px] text-finma-text-dim ml-2 truncate max-w-[140px] inline-block align-middle">{s.company_name}</span>
+                    </div>
+                    {s.price && (
+                      <span className="text-[10px] text-finma-text-dim finma-number shrink-0">${s.price.toFixed(2)}</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
@@ -190,7 +272,6 @@ function AddModal({ onClose, onAdded }: { onClose: () => void; onAdded: () => vo
           </button>
         </div>
 
-        {/* Yasal uyarı */}
         <p className="text-xs text-finma-text-dim/50 text-center leading-relaxed">
           Direktifler yatırım tavsiyesi değildir. Bilgilendirme amaçlıdır.
         </p>
@@ -313,13 +394,30 @@ function TrackingCard({ item, onRemove, onCompute }: {
 
 /* ── Ana Sayfa ─────────────────────────────────────────────────────────────── */
 
-export default function TrackingPage() {
-  const router = useRouter()
-  const [items,       setItems]       = useState<TrackingItem[]>([])
-  const [loading,     setLoading]     = useState(true)
-  const [showAdd,     setShowAdd]     = useState(false)
-  const [computing,   setComputing]   = useState<string | null>(null)
-  const [showPaywall, setShowPaywall] = useState(false)
+function TrackingPageInner() {
+  const router       = useRouter()
+  const searchParams = useSearchParams()
+
+  const [items,        setItems]       = useState<TrackingItem[]>([])
+  const [loading,      setLoading]     = useState(true)
+  const [showAdd,      setShowAdd]     = useState(false)
+  const [prefillTicker, setPrefillTicker] = useState('')
+  const [prefillPrice,  setPrefillPrice]  = useState('')
+  const [computing,    setComputing]   = useState<string | null>(null)
+  const [showPaywall,  setShowPaywall] = useState(false)
+
+  // URL'den prefill — FinMA514 tablosundan yönlendirme
+  useEffect(() => {
+    const t = searchParams.get('ticker') ?? ''
+    const p = searchParams.get('price')  ?? ''
+    if (t) {
+      setPrefillTicker(t)
+      setPrefillPrice(p)
+      setShowAdd(true)
+      // URL'yi temizle
+      router.replace('/tracking', { scroll: false })
+    }
+  }, [searchParams, router])
 
   const fetchList = useCallback(async () => {
     try {
@@ -493,8 +591,21 @@ export default function TrackingPage() {
 
       {/* ── Hisse Ekle Modal ── */}
       {showAdd && (
-        <AddModal onClose={() => setShowAdd(false)} onAdded={fetchList} />
+        <AddModal
+          onClose={() => { setShowAdd(false); setPrefillTicker(''); setPrefillPrice('') }}
+          onAdded={fetchList}
+          prefillTicker={prefillTicker}
+          prefillPrice={prefillPrice}
+        />
       )}
     </div>
+  )
+}
+
+export default function TrackingPage() {
+  return (
+    <Suspense>
+      <TrackingPageInner />
+    </Suspense>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import { Card } from '@/components/shared/Card'
@@ -13,8 +13,47 @@ import { cn } from '@/lib/utils'
 import {
   Zap, RefreshCw, Clock, TrendingUp, TrendingDown,
   AlertCircle, WifiOff, Target, BarChart3, Activity,
-  ChevronRight, Layers, Star, Shield
+  ChevronRight, Layers, Star, Shield, Map
 } from 'lucide-react'
+
+/* ── Sektörel ısı haritası ── */
+function getHeatColor(change: number): string {
+  if (change >= 3)   return 'bg-emerald-500/80 border-emerald-400/60 text-white'
+  if (change >= 1.5) return 'bg-green-500/60 border-green-400/40 text-white'
+  if (change >= 0.5) return 'bg-green-500/30 border-green-400/30 text-green-300'
+  if (change >= 0)   return 'bg-white/5 border-white/10 text-finma-text-dim'
+  if (change >= -0.5) return 'bg-red-500/20 border-red-400/20 text-red-300'
+  if (change >= -1.5) return 'bg-red-500/40 border-red-400/30 text-red-300'
+  return 'bg-red-500/70 border-red-400/50 text-white'
+}
+
+interface SectorData {
+  sector: string
+  avg_change_1d: number
+  avg_score: number
+  stock_count: number
+}
+
+function SectorHeatCell({ sector, avg_change_1d, avg_score, stock_count, onClick }: SectorData & { onClick: () => void }) {
+  const colorClass = getHeatColor(avg_change_1d)
+  const sign = avg_change_1d >= 0 ? '+' : ''
+  return (
+    <button
+      onClick={onClick}
+      title={`${sector} · Ort. Skor: ${avg_score} · ${stock_count} hisse`}
+      className={cn(
+        'flex flex-col items-center justify-center px-2.5 py-2 rounded-lg border text-[10px] font-medium transition-all hover:scale-105 min-w-[80px]',
+        colorClass
+      )}
+    >
+      <span className="font-semibold truncate max-w-[76px] text-center leading-tight">{sector.replace('Technology', 'Tech').replace('Communication', 'Comm').replace('Consumer', 'Cons').replace('Financial', 'Fin').replace('Healthcare', 'Health').replace('Industrials', 'Indust').replace('Real Estate', 'R.Estate').replace('Basic Materials', 'Materials').replace('Energy', 'Energy')}</span>
+      <span className={cn('finma-number font-bold mt-0.5', avg_change_1d >= 0 ? '' : '')}>
+        {sign}{avg_change_1d.toFixed(2)}%
+      </span>
+      <span className="opacity-60 text-[9px]">{stock_count} hisse</span>
+    </button>
+  )
+}
 
 /* ── Kategori renk eşleşmesi ── */
 const CATEGORY_COLOR: Record<string, string> = {
@@ -70,6 +109,27 @@ export default function DashboardPage() {
     acc[t] = (acc[t] ?? 0) + 1
     return acc
   }, {} as Record<string, number>)
+
+  // Sektörel ısı haritası verisi
+  const sectorData = useMemo((): SectorData[] => {
+    if (!stocks.length) return []
+    const map: Record<string, { sum_change: number; sum_score: number; count: number }> = {}
+    for (const s of stocks) {
+      const sec = s.sector || 'Diğer'
+      if (!map[sec]) map[sec] = { sum_change: 0, sum_score: 0, count: 0 }
+      map[sec].sum_change += s.change_1d ?? 0
+      map[sec].sum_score  += s.score    ?? 0
+      map[sec].count      += 1
+    }
+    return Object.entries(map)
+      .map(([sector, v]) => ({
+        sector,
+        avg_change_1d: parseFloat((v.sum_change / v.count).toFixed(2)),
+        avg_score:     Math.round(v.sum_score / v.count),
+        stock_count:   v.count,
+      }))
+      .sort((a, b) => b.avg_change_1d - a.avg_change_1d)
+  }, [stocks])
 
   const isEmpty = !isLoading && !isError && stocks.length === 0
   const hasData  = stocks.length > 0
@@ -154,18 +214,28 @@ export default function DashboardPage() {
       {isError && !isLoading && (
         <Card padding="sm">
           <div className="flex flex-col items-center justify-center py-16 gap-3 text-finma-text-dim">
-            <AlertCircle className="w-8 h-8 text-finma-red/60" />
-            <p className="text-sm">Bot henüz çalışmamış.</p>
+            <Zap className="w-8 h-8 text-finma-primary/40" />
+            <p className="text-sm">Veri Bekleniyor</p>
             <p className="text-xs text-center max-w-xs">
               FinMA 514 botu NY 06:30 ve 12:00'de otomatik çalışır.
-              İlk çalıştıktan sonra veriler burada görünecek.
+              Veriler yüklenince buraya yansıyacak. Otomatik yenileme aktif.
             </p>
-            <button
-              onClick={() => router.push('/finma514')}
-              className="finma-btn-primary text-xs mt-1 px-4 py-1.5"
-            >
-              FinMA 514 Sayfasına Git
-            </button>
+            <div className="flex gap-2 mt-1">
+              <button
+                onClick={() => refetch()}
+                disabled={isFetching}
+                className="flex items-center gap-1.5 finma-btn-primary text-xs px-3 py-1.5"
+              >
+                <RefreshCw className={cn('w-3 h-3', isFetching && 'animate-spin')} />
+                Yenile
+              </button>
+              <button
+                onClick={() => router.push('/finma514')}
+                className="text-xs px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 text-finma-text-dim"
+              >
+                FinMA 514'e Git
+              </button>
+            </div>
           </div>
         </Card>
       )}
@@ -186,6 +256,26 @@ export default function DashboardPage() {
       {/* ── Ana içerik (sadece veri varsa) ── */}
       {hasData && (
         <>
+          {/* Sektörel Isı Haritası */}
+          {sectorData.length > 0 && (
+            <Card padding="sm">
+              <div className="flex items-center gap-2 mb-3">
+                <Map className="w-3.5 h-3.5 text-finma-primary" />
+                <span className="text-xs font-semibold text-finma-text">Sektörel Durum</span>
+                <span className="text-[10px] text-finma-text-dim ml-1">· günlük ortalama değişim</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {sectorData.map(s => (
+                  <SectorHeatCell
+                    key={s.sector}
+                    {...s}
+                    onClick={() => router.push(`/finma514?sector=${encodeURIComponent(s.sector)}`)}
+                  />
+                ))}
+              </div>
+            </Card>
+          )}
+
           {/* Özet kartlar */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
             <Card padding="sm">

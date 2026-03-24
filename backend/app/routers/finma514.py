@@ -489,3 +489,81 @@ async def status():
         stock_count=0, market_regime="UNKNOWN",
         vix=0.0, source="none",
     )
+
+
+# ─── Archive endpoints ────────────────────────────────────────────────────────
+
+_OUTPUT_DIR = os.path.join(_BACKEND, "bots", "output")
+
+
+@router.get("/archive", summary="Veri arşivi listesi (admin)")
+async def get_archive():
+    """
+    bots/output/ dizinindeki finma514_YYYYMMDD_HHMMSS.json dosyalarını listeler.
+    finma514_latest.json hariç tutulur.
+    """
+    import glob as _glob
+
+    pattern = os.path.join(_OUTPUT_DIR, "finma514_*.json")
+    files = sorted(_glob.glob(pattern), reverse=True)
+
+    runs = []
+    for fp in files:
+        fname = os.path.basename(fp)
+        if fname == "finma514_latest.json":
+            continue
+        try:
+            stat = os.stat(fp)
+            # Dosyayı hızlı okumak için sadece ilk 2KB
+            with open(fp, "r", encoding="utf-8") as f:
+                head = f.read(2048)
+            # Temel alanları JSON'dan çek (yükleme yapmadan basit arama)
+            import re as _re
+            market_date   = (_re.search(r'"market_date"\s*:\s*"([^"]+)"', head) or [None, ""])[1]
+            run_time_ny   = (_re.search(r'"run_time_ny"\s*:\s*"([^"]+)"', head) or [None, ""])[1]
+            market_regime = (_re.search(r'"market_regime"\s*:\s*"([^"]+)"', head) or [None, "UNKNOWN"])[1]
+            vix_m         = _re.search(r'"vix"\s*:\s*([\d.]+)', head)
+            vix_val       = float(vix_m.group(1)) if vix_m else 0.0
+            # stock_count için all_54 uzunluğunu yaklaşık say
+            count_m       = _re.search(r'"all_54"\s*:\s*\[', head)
+            stock_count   = -1  # tam sayı için tam parse gerekir; -1 = bilinmiyor
+            runs.append({
+                "filename":      fname,
+                "market_date":   market_date,
+                "run_time_ny":   run_time_ny,
+                "market_regime": market_regime,
+                "vix":           round(vix_val, 2),
+                "file_size_kb":  round(stat.st_size / 1024, 1),
+                "modified_at":   datetime.fromtimestamp(stat.st_mtime).isoformat(),
+            })
+        except Exception as e:
+            logger.debug(f"Archive dosya okuma hatası {fname}: {e}")
+            continue
+
+    return {"runs": runs, "count": len(runs)}
+
+
+@router.get("/archive/{filename}", summary="Arşiv dosyası içeriği (admin)")
+async def get_archive_file(filename: str):
+    """
+    Belirtilen arşiv dosyasının tam içeriğini döner.
+    Yalnızca finma514_*.json formatındaki dosyalara izin verilir.
+    """
+    import re as _re
+
+    # Güvenlik: path traversal önleme
+    if not _re.match(r'^finma514_[\w\-]+\.json$', filename):
+        raise HTTPException(status_code=400, detail="Geçersiz dosya adı")
+    if ".." in filename or "/" in filename or "\\" in filename:
+        raise HTTPException(status_code=400, detail="Geçersiz dosya adı")
+
+    fp = os.path.join(_OUTPUT_DIR, filename)
+    if not os.path.exists(fp):
+        raise HTTPException(status_code=404, detail="Dosya bulunamadı")
+
+    try:
+        with open(fp, "r", encoding="utf-8") as f:
+            payload = json.load(f)
+        return payload
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Dosya okunamadı: {e}")

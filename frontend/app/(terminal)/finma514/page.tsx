@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Zap, RefreshCw, Clock, TrendingUp, TrendingDown, Minus, AlertCircle, Wifi, WifiOff } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Zap, RefreshCw, Clock, TrendingUp, TrendingDown, Minus, AlertCircle, Wifi, WifiOff, X, Target } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/shared/Card'
 import { Badge } from '@/components/shared/Badge'
@@ -10,7 +11,60 @@ import { Finma514Table } from '@/components/terminal/finma514/Finma514Table'
 import { LangSelector } from '@/components/terminal/finma514/LangSelector'
 import { useFinma514Insights, useFinma514Status } from '@/hooks/useFinma514'
 import { useFinma514Events } from '@/hooks/useFinma514Events'
-import type { FinmaLang } from '@/types/finma514'
+import type { FinmaLang, Finma514Stock } from '@/types/finma514'
+
+/* ── Mini AddToTracking Modal ────────────────────────────────────────────── */
+function QuickAddModal({ stock, onClose }: { stock: Finma514Stock; onClose: () => void }) {
+  const router = useRouter()
+
+  function goToTracking() {
+    onClose()
+    const params = new URLSearchParams({
+      ticker: stock.ticker,
+      price:  String(stock.price ?? ''),
+    })
+    router.push(`/tracking?${params.toString()}`)
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div className="bg-finma-surface border border-white/10 rounded-xl p-5 w-full max-w-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Target className="w-4 h-4 text-finma-primary" />
+            <h2 className="text-sm font-bold text-white">Takibe Ekle</h2>
+          </div>
+          <button onClick={onClose}><X className="w-4 h-4 text-finma-text-dim" /></button>
+        </div>
+
+        <div className="bg-white/5 rounded-lg p-3 space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="finma-number font-bold text-finma-primary text-base">{stock.ticker}</span>
+            <span className="finma-number text-sm text-finma-text">${stock.price?.toFixed(2)}</span>
+          </div>
+          <div className="text-[10px] text-finma-text-dim truncate">{stock.company_name}</div>
+          <div className="text-[10px] text-finma-text-dim">{stock.sector}</div>
+        </div>
+
+        <p className="text-xs text-finma-text-dim">
+          Smart Tracking sayfasına yönlendirileceksiniz. Ticker ve giriş fiyatı otomatik doldurulacak.
+        </p>
+
+        <div className="flex gap-2">
+          <button onClick={onClose} className="flex-1 py-2 rounded-lg bg-white/5 text-xs text-finma-text-dim hover:bg-white/10">
+            İptal
+          </button>
+          <button
+            onClick={goToTracking}
+            className="flex-1 py-2 rounded-lg finma-btn-primary text-xs"
+          >
+            Takibe Ekle →
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function Finma514Page() {
   return (
@@ -35,6 +89,7 @@ function RegimeBadge({ regime }: { regime: string }) {
 
 function Finma514Content() {
   const [lang, setLang] = useState<FinmaLang>('tr')
+  const [quickAddStock, setQuickAddStock] = useState<Finma514Stock | null>(null)
 
   const { data, isLoading, isError, refetch, isFetching } = useFinma514Insights(lang)
   const { data: status } = useFinma514Status()
@@ -207,9 +262,18 @@ function Finma514Content() {
             stocks={stocks}
             lang={lang}
             onLangChange={setLang}
+            onAddToTracking={setQuickAddStock}
           />
         )}
       </Card>
+
+      {/* ── Quick Add Modal ──────────────────────────────── */}
+      {quickAddStock && (
+        <QuickAddModal
+          stock={quickAddStock}
+          onClose={() => setQuickAddStock(null)}
+        />
+      )}
 
       {/* ── Yasal uyarı footer ───────────────────────────── */}
       <div className="px-1 py-2 border-t border-finma-border/30">

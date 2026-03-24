@@ -11,9 +11,15 @@ export function useFinma514Insights(lang: FinmaLang = 'tr', date?: string) {
   return useQuery({
     queryKey: ['finma514-insights', lang, date],
     queryFn:  () => api.getFinma514Insights(lang, date),
-    staleTime: 5 * 60_000,      // 5 dakika
-    refetchInterval: 10 * 60_000, // 10 dakikada bir kontrol
-    retry: 2,
+    staleTime: 5 * 60_000,
+    // Veri yoksa 30sn'de bir dene, veri varsa 10 dk'da bir kontrol et
+    refetchInterval: (query) =>
+      !query.state.data || (query.state.data as any)?.stocks?.length === 0
+        ? 30_000
+        : 10 * 60_000,
+    retry: 3,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 15_000),
+    refetchOnWindowFocus: true,
   })
 }
 

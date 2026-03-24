@@ -21,6 +21,7 @@ import {
   BarChart3,
   Target,
   Bot,
+  Archive,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
@@ -240,6 +241,19 @@ export function Sidebar() {
               <Shield className="w-4 h-4" />
               <span>Yönetim Paneli</span>
             </Link>
+            <Link
+              href="/archive"
+              onClick={() => setMobileMenuOpen(false)}
+              className={cn(
+                'flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-all duration-200 mt-0.5',
+                pathname === '/archive'
+                  ? 'bg-finma-primary/15 text-finma-primary'
+                  : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5'
+              )}
+            >
+              <Archive className="w-4 h-4" />
+              <span>Veri Arşivi</span>
+            </Link>
           </div>
         )}
 
@@ -248,6 +262,9 @@ export function Sidebar() {
           <div className="py-2 border-t border-finma-border/30 flex flex-col items-center gap-2">
              <Link href="/admin/bots" className="p-2 text-finma-primary hover:bg-white/5 rounded-md" title="Bot Yönetimi">
                <Bot className="w-4.5 h-4.5" />
+             </Link>
+             <Link href="/archive" className="p-2 text-finma-primary hover:bg-white/5 rounded-md" title="Veri Arşivi">
+               <Archive className="w-4.5 h-4.5" />
              </Link>
           </div>
         )}
