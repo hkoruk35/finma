@@ -557,41 +557,92 @@ export default function LandingPage() {
 
       {/* ─── Pricing ─────────────────────────────────────────── */}
       <section id="pricing" className="pb-16 px-4">
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-3">
-              {t.plan_title.split(',')[0]},&nbsp;
-              <span className="text-finma-primary">{t.plan_title.split(',')[1]}</span>
+              {lang === 'tr' ? 'Paketler & Fiyatlandırma' :
+               lang === 'en' ? 'Plans & Pricing' :
+               lang === 'es' ? 'Planes y Precios' :
+               lang === 'pt' ? 'Planos e Preços' :
+               lang === 'ar' ? 'الخطط والتسعير' :
+               lang === 'id' ? 'Paket & Harga' :
+               '料金プラン'}
             </h2>
             <p className="text-finma-text-muted">{t.plan_sub}</p>
           </div>
 
-          <div className="bg-finma-card border-2 border-finma-primary/50 rounded-2xl p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-finma-primary text-finma-bg text-[10px] font-bold px-4 py-1 rounded-bl-xl">
-              {lang === 'tr' ? 'EN POPÜLER' : lang === 'ja' ? '人気No.1' : 'MOST POPULAR'}
-            </div>
-            <div className="text-center mb-6">
-              <h3 className="text-base font-bold text-white mb-1">{t.plan_name}</h3>
-              <div className="flex items-baseline justify-center gap-1 mb-2">
-                <span className="text-4xl font-bold text-white">$19</span>
-                <span className="text-finma-text-dim">/mo</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Pro Plan */}
+            <div className="bg-finma-card border-2 border-finma-primary/50 rounded-2xl p-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-finma-primary text-finma-bg text-[10px] font-bold px-4 py-1 rounded-bl-xl">
+                {lang === 'tr' ? 'EN POPÜLER' : lang === 'ja' ? '人気No.1' : 'MOST POPULAR'}
               </div>
-              <p className="text-xs text-finma-green font-medium">{t.cancel}</p>
-            </div>
-
-            <div className="space-y-2.5 mb-8">
-              {proFeats.map((feat) => (
-                <div key={feat} className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-finma-green shrink-0 mt-0.5" />
-                  <span className="text-sm text-finma-text">{feat}</span>
+              <div className="text-center mb-6">
+                <h3 className="text-base font-bold text-white mb-1">{lang === 'tr' ? 'Pro' : 'Pro'}</h3>
+                <div className="flex items-baseline justify-center gap-1 mb-2">
+                  <span className="text-4xl font-bold text-white">$29</span>
+                  <span className="text-finma-text-dim">/ay</span>
                 </div>
-              ))}
+                <p className="text-xs text-finma-text-dim">{lang === 'tr' ? '5 hisse takip dahil' : 'Includes 5 tracking stocks'}</p>
+              </div>
+
+              <div className="space-y-2.5 mb-8">
+                {proFeats.map((feat) => (
+                  <div key={feat} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-finma-green shrink-0 mt-0.5" />
+                    <span className="text-sm text-finma-text">{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col items-center gap-3">
+                <div id="cta-google-btn" />
+                <p className="text-[10px] text-finma-text-dim text-center">{t.plan_legal}<br />7 gün ücretsiz</p>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center gap-3">
-              <div id="cta-google-btn" />
-              <p className="text-[10px] text-finma-text-dim text-center">{t.plan_legal}<br />{t.price_note}</p>
+            {/* Smart Tracking Plan */}
+            <div className="bg-finma-card border-2 border-finma-cyan/30 rounded-2xl p-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-finma-cyan text-finma-bg text-[10px] font-bold px-4 py-1 rounded-bl-xl">
+                {lang === 'tr' ? 'HAFTALIK' : 'WEEKLY'}
+              </div>
+              <div className="text-center mb-6">
+                <h3 className="text-base font-bold text-white mb-1">{lang === 'tr' ? 'Akıllı Hisse Takip' : 'Smart Tracking'}</h3>
+                <div className="flex items-baseline justify-center gap-1 mb-2">
+                  <span className="text-4xl font-bold text-white">$19</span>
+                  <span className="text-finma-text-dim">/hafta</span>
+                </div>
+                <p className="text-xs text-finma-text-dim">{lang === 'tr' ? '10 hisse, akıllı alerts' : '10 stocks, smart alerts'}</p>
+              </div>
+
+              <div className="space-y-2.5 mb-8">
+                {[
+                  lang === 'tr' ? '10 hisse izleme (sınırsız)' : '10 stocks (unlimited)',
+                  lang === 'tr' ? 'Momentum değişim alerts' : 'Momentum change alerts',
+                  lang === 'tr' ? 'Volatilite spike bildirimleri' : 'Volatility spike alerts',
+                  lang === 'tr' ? 'Trend zayıflama sinyalleri' : 'Trend weakness signals',
+                  lang === 'tr' ? 'Push & email bildirimleri' : 'Push & email notifications',
+                  lang === 'tr' ? 'Gerçek-time tracking' : 'Real-time tracking',
+                ].map((feat) => (
+                  <div key={feat} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-finma-cyan shrink-0 mt-0.5" />
+                    <span className="text-sm text-finma-text">{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col items-center gap-3">
+                <button
+                  onClick={() => router.push('/login')}
+                  className="w-full py-2.5 rounded-xl border-2 border-finma-cyan bg-finma-cyan/10 text-finma-cyan font-semibold text-sm hover:bg-finma-cyan/20 transition-colors"
+                >
+                  {lang === 'tr' ? 'Başla' : 'Start'}
+                </button>
+                <p className="text-[10px] text-finma-text-dim text-center">{lang === 'tr' ? '7 gün ücretsiz' : '7 days free'}</p>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
