@@ -30,11 +30,15 @@ logger = logging.getLogger(__name__)
 def _get_redis():
     try:
         import redis as redis_lib
-        url = os.getenv("REDIS_URL", "redis://localhost:6379")
-        r = redis_lib.from_url(url, decode_responses=True, socket_timeout=3)
+        url = os.getenv("REDIS_URL", "")
+        if not url:
+            logger.warning("REDIS_URL env var eksik — Redis atlanıyor")
+            return None
+        r = redis_lib.from_url(url, decode_responses=True, socket_timeout=5)
         r.ping()
         return r
-    except Exception:
+    except Exception as e:
+        logger.warning(f"Redis bağlantı hatası: {e}")
         return None
 
 
@@ -110,13 +114,12 @@ def _stock_to_row(stock: dict, run_ts: str, market_date: str,
         "target_1":       _f(stock.get("target_1")),
         "target_2":       _f(stock.get("target_2")),
         # AI metin (template_v1 Türkçe)
-        "ai_market_context":     str(stock.get("ai_text", {}).get("market_context", "")),
-        "ai_interest_zone_text": str(stock.get("ai_text", {}).get("interest_zone_text", "")),
-        "ai_scenario_bull":      str(stock.get("ai_text", {}).get("scenario_bull", "")),
-        "ai_scenario_bear":      str(stock.get("ai_text", {}).get("scenario_bear", "")),
-        "ai_scenario_neutral":   str(stock.get("ai_text", {}).get("scenario_neutral", "")),
-        "ai_risk_reference":     str(stock.get("ai_text", {}).get("risk_reference", "")),
-        "ai_strategy_note":      str(stock.get("ai_text", {}).get("strategy_note", "")),
+        "ai_market_context":   str(stock.get("ai_text", {}).get("market_context", "")),
+        "ai_scenario_bull":    str(stock.get("ai_text", {}).get("scenario_bull", "")),
+        "ai_scenario_bear":    str(stock.get("ai_text", {}).get("scenario_bear", "")),
+        "ai_scenario_neutral": str(stock.get("ai_text", {}).get("scenario_neutral", "")),
+        "ai_risk_reference":   str(stock.get("ai_text", {}).get("risk_reference", "")),
+        "ai_strategy_note":    str(stock.get("ai_text", {}).get("strategy_note", "")),
     }
 
 

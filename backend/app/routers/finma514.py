@@ -124,7 +124,9 @@ class StatusResponse(BaseModel):
 def _get_redis():
     try:
         import redis as redis_lib
-        url = os.getenv("REDIS_URL", "redis://localhost:6379")
+        url = os.getenv("REDIS_URL", "")
+        if not url:
+            return None
         r = redis_lib.from_url(url, decode_responses=True, socket_timeout=2)
         r.ping()
         return r
