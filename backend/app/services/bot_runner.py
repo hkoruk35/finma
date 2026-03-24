@@ -82,6 +82,12 @@ BOT_CONFIGS = {
                         "timezone": "America/New_York"},
         "description": "FinMA514 — 8000+ tarama öğle NY 12:00",
     },
+    "tracking_5min": {
+        "script":      "finma514_tracking.py",
+        "schedule":    {"day_of_week": "mon-fri", "minute": "*/5",
+                        "timezone": "America/New_York"},
+        "description": "Smart Tracking — 5dk state machine",
+    },
 }
 
 active_processes = {}

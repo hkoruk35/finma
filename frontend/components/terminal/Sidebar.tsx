@@ -5,24 +5,22 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
   LayoutDashboard,
-  Briefcase,
-  List,
   Settings,
   ChevronLeft,
   ChevronRight,
   Activity,
   Zap,
   ChevronDown,
-  Search,
   Lock,
   Crown,
   X,
   Shield,
   LogOut,
   User,
-  Newspaper,
+  Flame,
+  BarChart3,
+  Target,
   Bot,
-  Filter,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
@@ -40,17 +38,14 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  // ─── Ana ────────────────────────────────────────────────────────────────────
-  { href: '/dashboard',  icon: LayoutDashboard, label: 'Anasayfa',     section: 'dashboard' },
-  { href: '/finma514',   icon: Zap,             label: 'FinMA 514',    section: 'finma514',      tier: 'admin' },
-  // ─── Araçlar ────────────────────────────────────────────────────────────────
-  { href: '/stock-analysis', icon: Search,      label: 'Hisse Analiz', section: 'stock-analysis', tier: 'admin' },
-  { href: '/screener',   icon: Filter,          label: 'Tarama',       section: 'screener',       tier: 'admin' },
-  { href: '/watchlists', icon: List,            label: 'Takip Listesi',section: 'watchlists',     tier: 'admin' },
-  { href: '/portfolio',  icon: Briefcase,       label: 'Portföy',      section: 'portfolio',      tier: 'admin' },
-  { href: '/news',       icon: Newspaper,       label: 'Haberler',     section: 'news',           tier: 'admin' },
-  // ─── Herkese Açık ───────────────────────────────────────────────────────────
-  { href: '/settings',   icon: Settings,        label: 'Ayarlar',      section: 'settings' },
+  // ─── FinMA514 ────────────────────────────────────────────────────────────────
+  { href: '/dashboard',  icon: LayoutDashboard, label: 'Anasayfa',        section: 'dashboard' },
+  { href: '/finma514',   icon: Zap,             label: 'Tüm Liste (54)',  section: 'finma514' },
+  { href: '/sectors',    icon: BarChart3,        label: 'Sektör Liderleri', section: 'sectors' },
+  { href: '/movers',     icon: Flame,            label: 'Market Movers',   section: 'movers' },
+  { href: '/tracking',   icon: Target,           label: 'Smart Tracking',  section: 'tracking' },
+  // ─── Hesap ──────────────────────────────────────────────────────────────────
+  { href: '/settings',   icon: Settings,         label: 'Ayarlar',         section: 'settings' },
 ]
 
 const tierBadge: Record<Tier, { label: string; color: string; icon: React.ElementType }> = {
