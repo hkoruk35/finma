@@ -7,16 +7,16 @@ import { cn } from '@/lib/utils'
 /* ── Plan verileri ─────────────────────────────────────────────────────────── */
 
 const FEATURES = [
-  { label: 'Dashboard (Top Hisseler)',   free: '5 hisse',  pro: '54 hisse',     tracking: '54 hisse'    },
+  { label: 'Dashboard (Top Hisseler)',   free: '5 hisse',  pro: '54 hisse',     tracking: '10 hisse'   },
   { label: 'AI Analiz (Senaryo Metni)', free: '3/gün',    pro: 'Sınırsız',     tracking: 'Sınırsız'    },
   { label: 'Sektör Liderleri',          free: false,       pro: true,           tracking: true          },
   { label: 'Market Movers',             free: false,       pro: true,           tracking: true          },
   { label: 'Explore All (54 hisse)',    free: false,       pro: true,           tracking: true          },
   { label: '7 Dil Desteği',            free: '1 dil',    pro: '7 dil',        tracking: '7 dil'       },
-  { label: 'Smart Tracking',           free: '1 hisse',  pro: false,          tracking: '5 hisse'     },
-  { label: 'Canlı Direktifler (5dk)',   free: false,       pro: false,          tracking: true          },
+  { label: 'Smart Tracking',           free: false,       pro: '5 hisse',       tracking: '10 hisse'    },
+  { label: 'Momentum Değişim Alerts',   free: false,       pro: false,          tracking: true          },
   { label: 'Push Bildirimleri',         free: false,       pro: false,          tracking: true          },
-  { label: 'Day-Trade / Swing Profili', free: false,       pro: false,          tracking: true          },
+  { label: 'Trend Analysis',            free: false,       pro: false,          tracking: true          },
   { label: 'Hisse Detay Sayfası',      free: false,       pro: true,           tracking: true          },
 ]
 
@@ -107,10 +107,10 @@ export default function PricingPage() {
                 <span className="text-sm font-semibold text-white">Pro</span>
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-white">$19</span>
+                <span className="text-3xl font-bold text-white">$29</span>
                 <span className="text-finma-text-dim text-sm">/ ay</span>
               </div>
-              <p className="text-xs text-finma-text-dim mt-2">Tüm analizler, sınırsız erişim</p>
+              <p className="text-xs text-finma-text-dim mt-2">54 hisse, 5 takip hissesi dahil</p>
             </div>
             <Link
               href="/login"
@@ -126,13 +126,12 @@ export default function PricingPage() {
               <div className="flex items-center gap-2 mb-3">
                 <Zap className="w-4 h-4 text-finma-cyan" />
                 <span className="text-sm font-semibold text-white">Smart Tracking</span>
-                <span className="text-xs text-finma-cyan border border-finma-cyan/30 px-1.5 py-0.5 rounded">Add-on</span>
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-white">$29</span>
-                <span className="text-finma-text-dim text-sm">/ ay</span>
+                <span className="text-3xl font-bold text-white">$19</span>
+                <span className="text-finma-text-dim text-sm">/ hafta</span>
               </div>
-              <p className="text-xs text-finma-text-dim mt-2">Pro + Kişisel asistan deneyimi</p>
+              <p className="text-xs text-finma-text-dim mt-2">10 hisse, akıllı alerts</p>
             </div>
             <Link
               href="/login"

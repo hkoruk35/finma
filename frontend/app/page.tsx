@@ -7,7 +7,7 @@ import { api } from '@/lib/api-client'
 import {
   Activity, Brain, BarChart3, Shield, Zap, ArrowRight,
   CheckCircle2, LineChart, Target, Globe2, TrendingUp,
-  Filter, ChevronDown, Layers, Cpu, Radio,
+  Filter, ChevronDown, Layers, Cpu, Radio, Download,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -164,78 +164,62 @@ const FEATURE_KEYS = [
   { icon: Filter,    key: 'f1' },
   { icon: Brain,     key: 'f2' },
   { icon: BarChart3, key: 'f3' },
-  { icon: LineChart, key: 'f4' },
   { icon: Globe2,    key: 'f5' },
-  { icon: Radio,     key: 'f6' },
 ]
 
 const FEATURES_COPY: Record<string, Record<string, { title: string; desc: string }>> = {
   tr: {
     f1: { title: '8.000+ Hisse Tarama',       desc: '3 katmanlı filtre sistemi ile likidite, momentum ve akış analizleri yapılır. En iyi 200 hisse shortlist\'e alınır.' },
-    f2: { title: 'AI Destekli Yorumlar',       desc: 'Gemini AI ile 7 alan: piyasa bağlamı, senaryo bull/bear/nötr, risk referansı ve strateji notu. Legal-safe dil garantili.' },
+    f2: { title: 'AI Destekli Yorumlar',       desc: 'AI ile 7 alan: piyasa bağlamı, senaryo bull/bear/nötr, risk referansı ve strateji notu. Legal-safe dil garantili.' },
     f3: { title: '5 Kategori Seçim',           desc: 'CORE (20), Sektör Liderleri (14), Yüksek Hacim (7), En Yükselenler (7), Aşırı Satım (7) — overlap korumalı.' },
-    f4: { title: 'Profesyonel Grafikler',      desc: 'FinMA grafik motoru ile EMA, MACD, RSI, Bollinger Bands ve ADX teknik analiz araçları.' },
-    f5: { title: '7 Dil Desteği',              desc: 'Tüm analizler TR, EN, ES, PT, AR, ID, JA dillerinde. DeepL destekli gerçek zamanlı çeviri.' },
-    f6: { title: 'Canlı Yayın & Zamanlama',   desc: 'NY 06:30 ve 12:00\'de otomatik tarama. SSE ile sonuçlar anında frontende iletilir.' },
+    f5: { title: '7 Dil Desteği',              desc: 'Tüm analizler TR, EN, ES, PT, AR, ID, JA dillerinde. Gerçek zamanlı çeviri.' },
   },
   en: {
     f1: { title: '8,000+ Stock Scanner',      desc: '3-layer filter system analyzes liquidity, momentum and flow. Top 200 stocks make the shortlist.' },
-    f2: { title: 'AI-Powered Commentary',     desc: 'Gemini AI generates 7 fields: market context, bull/bear/neutral scenarios, risk reference and strategy note.' },
+    f2: { title: 'AI-Powered Commentary',     desc: 'AI generates 7 fields: market context, bull/bear/neutral scenarios, risk reference and strategy note.' },
     f3: { title: '5-Category Selection',      desc: 'CORE (20), Sector Leaders (14), High Volume (7), Top Gainers (7), Oversold (7) — overlap protected.' },
-    f4: { title: 'Professional Charts',       desc: 'FinMA chart engine with EMA, MACD, RSI, Bollinger Bands and ADX technical analysis tools.' },
-    f5: { title: '7-Language Support',        desc: 'All analyses in TR, EN, ES, PT, AR, ID, JA. DeepL-powered real-time translation.' },
-    f6: { title: 'Live Streaming & Scheduler', desc: 'Automatic scans at NY 06:30 and 12:00. Results instantly pushed to frontend via SSE.' },
+    f5: { title: '7-Language Support',        desc: 'All analyses in TR, EN, ES, PT, AR, ID, JA. Real-time translation.' },
   },
   es: {
     f1: { title: 'Escaneo de +8.000 Acciones', desc: 'Sistema de filtro de 3 capas analiza liquidez, momentum y flujo. Las 200 mejores acciones pasan a la lista corta.' },
-    f2: { title: 'Comentarios con IA',          desc: 'Gemini AI genera 7 campos: contexto de mercado, escenarios bull/bear/neutral, referencia de riesgo y nota de estrategia.' },
+    f2: { title: 'Comentarios con IA',          desc: 'IA genera 7 campos: contexto de mercado, escenarios bull/bear/neutral, referencia de riesgo y nota de estrategia.' },
     f3: { title: 'Selección en 5 Categorías',   desc: 'CORE (20), Líderes Sectoriales (14), Alto Volumen (7), Mayores Ganadores (7), Sobrevendidos (7).' },
-    f4: { title: 'Gráficos Profesionales',      desc: 'Motor de gráficos FinMA con EMA, MACD, RSI, Bandas de Bollinger y ADX.' },
-    f5: { title: 'Soporte en 7 Idiomas',        desc: 'Todos los análisis en TR, EN, ES, PT, AR, ID, JA. Traducción en tiempo real con DeepL.' },
-    f6: { title: 'Streaming en Vivo',           desc: 'Escaneos automáticos a las 06:30 y 12:00 NY. Resultados enviados al frontend instantáneamente.' },
+    f5: { title: 'Soporte en 7 Idiomas',        desc: 'Todos los análisis en TR, EN, ES, PT, AR, ID, JA. Traducción en tiempo real.' },
   },
   pt: {
     f1: { title: 'Varredura de +8.000 Ações',   desc: 'Sistema de filtro de 3 camadas analisa liquidez, momentum e fluxo. As 200 melhores ações entram na shortlist.' },
-    f2: { title: 'Comentários com IA',           desc: 'Gemini AI gera 7 campos: contexto de mercado, cenários bull/bear/neutro, referência de risco e nota de estratégia.' },
+    f2: { title: 'Comentários com IA',           desc: 'IA gera 7 campos: contexto de mercado, cenários bull/bear/neutro, referência de risco e nota de estratégia.' },
     f3: { title: 'Seleção em 5 Categorias',      desc: 'CORE (20), Líderes Setoriais (14), Alto Volume (7), Maiores Ganhos (7), Sobrevenda (7).' },
-    f4: { title: 'Gráficos Profissionais',       desc: 'Motor de gráficos FinMA com EMA, MACD, RSI, Bandas de Bollinger e ADX.' },
-    f5: { title: 'Suporte em 7 Idiomas',         desc: 'Todas as análises em TR, EN, ES, PT, AR, ID, JA. Tradução em tempo real com DeepL.' },
-    f6: { title: 'Streaming ao Vivo',            desc: 'Varreduras automáticas às 06:30 e 12:00 NY. Resultados enviados instantaneamente ao frontend.' },
+    f5: { title: 'Suporte em 7 Idiomas',         desc: 'Todas as análises em TR, EN, ES, PT, AR, ID, JA. Tradução em tempo real.' },
   },
   ar: {
     f1: { title: 'فحص +8,000 سهم',             desc: 'نظام تصفية ثلاثي الطبقات يحلل السيولة والزخم والتدفق. أفضل 200 سهم تدخل القائمة المختصرة.' },
-    f2: { title: 'تعليقات مدعومة بالذكاء',     desc: 'يولّد Gemini AI 7 حقول: سياق السوق، سيناريوهات صعودية/هبوطية/محايدة، مرجع المخاطر وملاحظة الاستراتيجية.' },
+    f2: { title: 'تعليقات مدعومة بالذكاء',     desc: 'الذكاء الاصطناعي ينتج 7 حقول: سياق السوق، سيناريوهات صعودية/هبوطية/محايدة، مرجع المخاطر وملاحظة الاستراتيجية.' },
     f3: { title: 'اختيار في 5 فئات',            desc: 'CORE (20)، قادة القطاعات (14)، حجم عالٍ (7)، أكبر الرابحين (7)، بيع مفرط (7).' },
-    f4: { title: 'رسوم بيانية احترافية',        desc: 'محرك رسوم بيانية FinMA مع EMA وMACD وRSI وبولينجر باندز وADX.' },
-    f5: { title: 'دعم 7 لغات',                  desc: 'جميع التحليلات باللغات TR وEN وES وPT وAR وID وJA. ترجمة فورية بواسطة DeepL.' },
-    f6: { title: 'بث مباشر وجدولة',            desc: 'عمليات مسح تلقائية الساعة 06:30 و12:00 بتوقيت نيويورك. النتائج تُرسل فوراً للواجهة الأمامية.' },
+    f5: { title: 'دعم 7 لغات',                  desc: 'جميع التحليلات باللغات TR وEN وES وPT وAR وID وJA. ترجمة فورية في الوقت الفعلي.' },
   },
   id: {
     f1: { title: 'Pemindaian 8.000+ Saham',     desc: 'Sistem filter 3 lapisan menganalisis likuiditas, momentum, dan aliran. 200 saham terbaik masuk shortlist.' },
-    f2: { title: 'Komentar Berbasis AI',         desc: 'Gemini AI menghasilkan 7 bidang: konteks pasar, skenario bull/bear/netral, referensi risiko, dan catatan strategi.' },
+    f2: { title: 'Komentar Berbasis AI',         desc: 'AI menghasilkan 7 bidang: konteks pasar, skenario bull/bear/netral, referensi risiko, dan catatan strategi.' },
     f3: { title: 'Seleksi 5 Kategori',           desc: 'CORE (20), Pemimpin Sektor (14), Volume Tinggi (7), Pemenang Teratas (7), Oversold (7).' },
-    f4: { title: 'Grafik Profesional',           desc: 'Mesin grafik FinMA dengan EMA, MACD, RSI, Bollinger Bands, dan ADX.' },
-    f5: { title: 'Dukungan 7 Bahasa',            desc: 'Semua analisis dalam TR, EN, ES, PT, AR, ID, JA. Terjemahan real-time dengan DeepL.' },
-    f6: { title: 'Streaming Langsung',           desc: 'Pemindaian otomatis pukul 06:30 dan 12:00 NY. Hasil dikirim langsung ke frontend via SSE.' },
+    f5: { title: 'Dukungan 7 Bahasa',            desc: 'Semua analisis dalam TR, EN, ES, PT, AR, ID, JA. Terjemahan real-time.' },
   },
   ja: {
     f1: { title: '8,000+銘柄スキャン',          desc: '3層フィルターシステムが流動性・モメンタム・フローを分析。上位200銘柄がショートリストへ。' },
-    f2: { title: 'AIコメンタリー',               desc: 'Gemini AIが7フィールド生成：市場コンテキスト、強気/弱気/中立シナリオ、リスク参照、戦略ノート。' },
+    f2: { title: 'AIコメンタリー',               desc: 'AIが7フィールド生成：市場コンテキスト、強気/弱気/中立シナリオ、リスク参照、戦略ノート。' },
     f3: { title: '5カテゴリー選択',              desc: 'CORE(20)、セクターリーダー(14)、高出来高(7)、最高上昇(7)、売られすぎ(7)。重複保護付き。' },
-    f4: { title: 'プロフェッショナルチャート',   desc: 'FinMAチャートエンジン：EMA、MACD、RSI、ボリンジャーバンド、ADX搭載。' },
-    f5: { title: '7言語サポート',                desc: 'TR、EN、ES、PT、AR、ID、JAで全分析を提供。DeepL対応リアルタイム翻訳。' },
-    f6: { title: 'ライブストリーミング',         desc: 'NY 06:30と12:00に自動スキャン。SSEで結果を即座にフロントエンドへ配信。' },
+    f5: { title: '7言語サポート',                desc: 'TR、EN、ES、PT、AR、ID、JAで全分析を提供。リアルタイム翻訳。' },
   },
 }
 
 const PRO_FEATURES: Record<string, string[]> = {
-  tr: ['8.000+ hisse günlük tarama (3 katmanlı filtre)', 'Günlük 54 seçim — 5 kategori', 'Gemini AI analiz metinleri', '7 dil desteği (DeepL)', 'NY 06:30 + 12:00 otomatik tarama', 'Canlı SSE veri akışı', 'Piyasa rejimi & VIX analizi', 'Sektör liderliği & RVOL takibi', 'Profesyonel interaktif grafikler', 'Portföy & işlem yönetimi'],
-  en: ['8,000+ daily stock scan (3-layer filter)', 'Daily 54 picks — 5 categories', 'Gemini AI analysis texts', '7-language support (DeepL)', 'Automatic scan NY 06:30 + 12:00', 'Live SSE data stream', 'Market regime & VIX analysis', 'Sector leadership & RVOL tracking', 'Professional interactive charts', 'Portfolio & trade management'],
-  es: ['Escaneo diario de +8.000 acciones', '54 selecciones diarias en 5 categorías', 'Textos de análisis con Gemini AI', 'Soporte en 7 idiomas (DeepL)', 'Escaneo automático NY 06:30 + 12:00', 'Transmisión de datos SSE en vivo', 'Análisis de régimen de mercado y VIX', 'Seguimiento de liderazgo sectorial y RVOL', 'Gráficos interactivos profesionales', 'Gestión de portafolio y operaciones'],
-  pt: ['Varredura diária de +8.000 ações', '54 seleções diárias em 5 categorias', 'Textos de análise com Gemini AI', 'Suporte em 7 idiomas (DeepL)', 'Varredura automática NY 06:30 + 12:00', 'Stream de dados SSE ao vivo', 'Análise de regime de mercado e VIX', 'Acompanhamento de liderança setorial e RVOL', 'Gráficos interativos profissionais', 'Gestão de portfólio e operações'],
-  ar: ['فحص يومي لأكثر من 8,000 سهم', '54 اختياراً يومياً في 5 فئات', 'نصوص تحليل بالذكاء الاصطناعي Gemini', 'دعم 7 لغات (DeepL)', 'فحص تلقائي في 06:30 و12:00 بتوقيت نيويورك', 'بث بيانات SSE مباشر', 'تحليل نظام السوق و VIX', 'تتبع قيادة القطاعات و RVOL', 'رسوم بيانية تفاعلية احترافية', 'إدارة المحفظة والصفقات'],
-  id: ['Pemindaian harian 8.000+ saham', '54 pilihan harian dalam 5 kategori', 'Teks analisis Gemini AI', 'Dukungan 7 bahasa (DeepL)', 'Pemindaian otomatis NY 06:30 + 12:00', 'Stream data SSE langsung', 'Analisis rezim pasar & VIX', 'Pelacakan kepemimpinan sektor & RVOL', 'Grafik interaktif profesional', 'Manajemen portofolio & perdagangan'],
-  ja: ['毎日8,000+銘柄スキャン（3層フィルター）', '毎日54銘柄選出 — 5カテゴリー', 'Gemini AI分析テキスト', '7言語サポート（DeepL）', 'NY 06:30 + 12:00 自動スキャン', 'ライブSSEデータストリーム', '市場レジーム & VIX分析', 'セクターリーダーシップ & RVOL追跡', 'プロフェッショナルインタラクティブチャート', 'ポートフォリオ & 取引管理'],
+  tr: ['8.000+ hisse günlük tarama (3 katmanlı filtre)', 'Günlük 54 seçim — 5 kategori', 'AI analiz metinleri', '7 dil desteği', 'NY 06:30 + 12:00 otomatik tarama', 'Piyasa rejimi & VIX analizi', 'Sektör liderliği & RVOL takibi', '5 takip hissesi dahil', 'Portföy & işlem yönetimi'],
+  en: ['8,000+ daily stock scan (3-layer filter)', 'Daily 54 picks — 5 categories', 'AI analysis texts', '7-language support', 'Automatic scan NY 06:30 + 12:00', 'Market regime & VIX analysis', 'Sector leadership & RVOL tracking', '5 tracking stocks included', 'Portfolio & trade management'],
+  es: ['Escaneo diario de +8.000 acciones', '54 selecciones diarias en 5 categorías', 'Textos de análisis con IA', 'Soporte en 7 idiomas', 'Escaneo automático NY 06:30 + 12:00', 'Análisis de régimen de mercado y VIX', 'Seguimiento de liderazgo sectorial y RVOL', '5 acciones de seguimiento incluidas', 'Gestión de portafolio y operaciones'],
+  pt: ['Varredura diária de +8.000 ações', '54 seleções diárias em 5 categorias', 'Textos de análise com IA', 'Suporte em 7 idiomas', 'Varredura automática NY 06:30 + 12:00', 'Análise de regime de mercado e VIX', 'Acompanhamento de liderança setorial e RVOL', '5 ações de rastreamento incluídas', 'Gestão de portfólio e operações'],
+  ar: ['فحص يومي لأكثر من 8,000 سهم', '54 اختياراً يومياً في 5 فئات', 'نصوص تحليل بالذكاء الاصطناعي', 'دعم 7 لغات', 'فحص تلقائي في 06:30 و12:00 بتوقيت نيويورك', 'تحليل نظام السوق و VIX', 'تتبع قيادة القطاعات و RVOL', '5 أسهم متابعة مضمنة', 'إدارة المحفظة والصفقات'],
+  id: ['Pemindaian harian 8.000+ saham', '54 pilihan harian dalam 5 kategori', 'Teks analisis AI', 'Dukungan 7 bahasa', 'Pemindaian otomatis NY 06:30 + 12:00', 'Analisis rezim pasar & VIX', 'Pelacakan kepemimpinan sektor & RVOL', '5 saham pelacakan termasuk', 'Manajemen portofolio & perdagangan'],
+  ja: ['毎日8,000+銘柄スキャン（3層フィルター）', '毎日54銘柄選出 — 5カテゴリー', 'AI分析テキスト', '7言語サポート', 'NY 06:30 + 12:00 自動スキャン', '市場レジーム & VIX分析', 'セクターリーダーシップ & RVOL追跡', '5銘柄トラッキング付き', 'ポートフォリオ & 取引管理'],
 }
 
 const STATS: Record<string, { value: string; label: string }[]> = {
@@ -307,6 +291,8 @@ export default function LandingPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [lang, setLang]       = useState('tr')
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const t = COPY[lang] ?? COPY.tr
   const features = FEATURES_COPY[lang] ?? FEATURES_COPY.tr
   const stats    = STATS[lang]         ?? STATS.tr
@@ -326,6 +312,26 @@ export default function LandingPage() {
       setError(err.message || 'Google ile giriş yapılamadı')
     } finally { setLoading(false) }
   }, [login, router])
+
+  // PWA Install prompt
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+      setShowInstallPrompt(true)
+    }
+    window.addEventListener('beforeinstallprompt', handler)
+    return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [])
+
+  const handleInstall = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+      if (outcome === 'accepted') setShowInstallPrompt(false)
+      setDeferredPrompt(null)
+    }
+  }
 
   useEffect(() => {
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
@@ -352,57 +358,73 @@ export default function LandingPage() {
   return (
     <div className={cn('min-h-screen bg-finma-bg text-white', lang === 'ar' && 'dir-rtl')} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
 
+      {/* ─── Install Prompt (Mobile) ─────────────────────────── */}
+      {showInstallPrompt && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-finma-primary/90 border-b border-finma-primary/50 px-4 py-3 flex items-center justify-between sm:hidden">
+          <div className="flex items-center gap-2">
+            <Download className="w-4 h-4 text-white" />
+            <span className="text-sm text-white font-medium">Uygulama olarak ekle</span>
+          </div>
+          <button
+            onClick={handleInstall}
+            className="text-xs px-3 py-1.5 rounded bg-white text-finma-primary font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Ekle
+          </button>
+        </div>
+      )}
+
       {/* ─── Navbar ──────────────────────────────────────────── */}
       <nav className="fixed top-0 w-full z-50 bg-finma-bg/80 backdrop-blur-xl border-b border-finma-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <Activity className="w-7 h-7 text-finma-primary" />
-            <span className="text-xl font-bold text-white">Fin</span>
-            <span className="text-xl font-bold text-finma-primary">MA</span>
-            <span className="text-[10px] text-finma-text-dim ml-1 font-mono">v5.0</span>
+            <Activity className="w-6 h-6 sm:w-7 sm:h-7 text-finma-primary" />
+            <span className="text-lg sm:text-xl font-bold text-white">Fin</span>
+            <span className="text-lg sm:text-xl font-bold text-finma-primary">MA</span>
+            <span className="text-[8px] sm:text-[10px] text-finma-text-dim ml-1 font-mono">v5.0</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <LangPicker lang={lang} onChange={setLang} />
-            <span className="hidden md:block text-sm text-finma-text-dim">$19/mo</span>
-            <button onClick={() => router.push('/login')} className="text-sm text-finma-text-dim hover:text-finma-text transition-colors hidden sm:block">
+            <span className="hidden md:block text-sm text-finma-text-dim">$29/mo</span>
+            <button onClick={() => router.push('/login')} className="text-xs sm:text-sm text-finma-text-dim hover:text-finma-text transition-colors hidden sm:block">
               {t.member_cta}
             </button>
-            <a href="#pricing" className="finma-btn-primary text-sm px-4 py-2 flex items-center gap-1.5">
-              {t.cta} <ArrowRight className="w-3.5 h-3.5" />
+            <a href="#pricing" className="finma-btn-primary text-xs sm:text-sm px-3 sm:px-4 py-2 flex items-center gap-1.5">
+              {t.cta} <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </a>
           </div>
         </div>
       </nav>
 
       {/* ─── Hero ────────────────────────────────────────────── */}
-      <section className="pt-32 pb-16 px-4">
+      <section className={cn("pt-32 pb-16 px-4", showInstallPrompt && "pt-40 sm:pt-32")}>
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-finma-primary/10 border border-finma-primary/30 mb-6">
-            <Brain className="w-4 h-4 text-finma-primary" />
-            <span className="text-xs text-finma-primary font-medium">{t.badge}</span>
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-finma-primary/10 border border-finma-primary/30 mb-4 sm:mb-6">
+            <Brain className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-finma-primary" />
+            <span className="text-[10px] sm:text-xs text-finma-primary font-medium">{t.badge}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
             {t.hero1}<br />
             <span className="text-finma-primary">{t.hero2}</span> {t.hero3}
           </h1>
 
-          <p className="text-lg sm:text-xl text-finma-text-muted max-w-2xl mx-auto mb-4">
+          <p className="text-base sm:text-lg md:text-xl text-finma-text-muted max-w-2xl mx-auto mb-3 sm:mb-4 px-2">
             {t.sub}
           </p>
 
           {/* Pipeline rozeti */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-finma-green/10 border border-finma-green/30 mb-8">
-            <Zap className="w-3.5 h-3.5 text-finma-green" />
-            <span className="text-xs text-finma-green font-mono font-semibold">{t.pipeline}</span>
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-finma-green/10 border border-finma-green/30 mb-6 sm:mb-8">
+            <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-finma-green" />
+            <span className="text-[10px] sm:text-xs text-finma-green font-mono font-semibold">{t.pipeline}</span>
           </div>
 
-          <div className="flex flex-col items-center gap-4 mb-4">
-            <div id="hero-google-btn" />
+          <div className="flex flex-col items-center gap-4 mb-4 px-2">
+            <div id="hero-google-btn" style={{ display: 'flex', justifyContent: 'center' }} />
             {loading && <p className="text-xs text-finma-text-dim">Giriş yapılıyor...</p>}
             {error   && <p className="text-xs text-finma-red bg-finma-red/10 border border-finma-red/30 rounded-md px-3 py-2">{error}</p>}
           </div>
-          <p className="text-xs text-finma-text-dim">{t.price_note}</p>
+          <p className="text-xs text-finma-text-dim">7 gün ücretsiz, sonra $29/ay</p>
         </div>
       </section>
 
