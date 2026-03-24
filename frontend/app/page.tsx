@@ -263,14 +263,6 @@ const TIER_COLORS: Record<string, string> = {
   WATCH:  'text-finma-yellow border-finma-yellow/30 bg-finma-yellow/10',
 }
 
-// ─── Google declare ──────────────────────────────────────────────────────────
-declare global {
-  interface Window {
-    google?: {
-      accounts: { id: { initialize: (c: any) => void; renderButton: (el: HTMLElement, c: any) => void } }
-    }
-  }
-}
 
 // ─── Dil Seçici ─────────────────────────────────────────────────────────────
 function LangPicker({ lang, onChange }: { lang: string; onChange: (l: string) => void }) {
