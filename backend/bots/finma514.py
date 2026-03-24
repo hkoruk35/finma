@@ -1188,21 +1188,19 @@ def build_output_payload(
 
 
 def save_json(payload: dict) -> str:
-    """JSON'u latest + arşiv dosyalarına yazar. latest dosya yolunu döner."""
+    """JSON'u tarihli dosyaya yazar (finma514_YYYYMMDD_HHMM.json). Dosya yolunu döner."""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     ts      = datetime.now(NY_TZ).strftime("%Y%m%d_%H%M")
-    latest  = os.path.join(OUTPUT_DIR, f"{BOT_NAME}_latest.json")
-    archive = os.path.join(OUTPUT_DIR, f"{BOT_NAME}_{ts}.json")
+    dated   = os.path.join(OUTPUT_DIR, f"{BOT_NAME}_{ts}.json")
 
-    for path in [latest, archive]:
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=2, ensure_ascii=False, default=str)
+    with open(dated, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False, default=str)
 
     logging.info(
-        f"JSON kaydedildi → {latest} ({payload.get('stock_count', 0)} hisse, {ts})"
+        f"JSON kaydedildi → {dated} ({payload.get('stock_count', 0)} hisse)"
     )
-    return latest
+    return dated
 
 
 # ================================================================

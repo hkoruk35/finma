@@ -32,9 +32,10 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # ─── Path helpers ────────────────────────────────────────────────────
-_HERE       = os.path.dirname(os.path.abspath(__file__))          # .../app/routers
-_BACKEND    = os.path.dirname(os.path.dirname(_HERE))             # .../backend
-_LATEST_JSON = os.path.join(_BACKEND, "bots", "output", "finma514_latest.json")
+_HERE        = os.path.dirname(os.path.abspath(__file__))         # .../app/routers
+_BACKEND     = os.path.dirname(os.path.dirname(_HERE))            # .../backend
+_OUTPUT_DIR  = os.path.join(_BACKEND, "bots", "output")
+_LATEST_JSON = os.path.join(_OUTPUT_DIR, "finma514_latest.json")
 
 SUPPORTED_LANGS = {"tr", "en", "es", "pt", "ar", "id", "ja"}
 CATEGORIES_MAP = {
@@ -144,13 +145,37 @@ def _get_supabase():
 
 
 def _load_from_json() -> Optional[dict]:
-    """Lokal JSON dosyasından yükle (fallback)."""
+    """
+    Lokal JSON dosyasından yükle (fallback).
+    Önce finma514_latest.json, yoksa en son tarihli finma514_YYYYMMDD_HHMM.json.
+    """
+    import glob as _glob
+
+    # ── 1. latest.json (geriye dönük uyumluluk) ──────────────────────
     try:
         if os.path.exists(_LATEST_JSON):
             with open(_LATEST_JSON, encoding="utf-8") as f:
-                return json.load(f)
+                data = json.load(f)
+            if data:
+                logger.info("JSON fallback: finma514_latest.json kullanıldı")
+                return data
     except Exception as e:
-        logger.debug(f"JSON fallback hatası: {e}")
+        logger.debug(f"latest.json okuma hatası: {e}")
+
+    # ── 2. En son tarihli finma514_YYYYMMDD_HHMM.json ────────────────
+    try:
+        pattern = os.path.join(_OUTPUT_DIR, "finma514_[0-9]*.json")
+        files = sorted(_glob.glob(pattern))          # alfabetik = kronolojik
+        if files:
+            newest = files[-1]
+            with open(newest, encoding="utf-8") as f:
+                data = json.load(f)
+            if data:
+                logger.info(f"JSON fallback: {os.path.basename(newest)} kullanıldı")
+                return data
+    except Exception as e:
+        logger.debug(f"Tarihli JSON fallback hatası: {e}")
+
     return None
 
 
@@ -546,8 +571,6 @@ async def status():
 
 
 # ─── Archive endpoints ────────────────────────────────────────────────────────
-
-_OUTPUT_DIR = os.path.join(_BACKEND, "bots", "output")
 
 
 @router.get("/archive", summary="Veri arşivi listesi (admin)")
