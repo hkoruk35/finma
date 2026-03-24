@@ -832,14 +832,28 @@ def select_54_stocks(analyzed: List[dict]) -> dict:
 
     remaining = [s for s in eligible if s["ticker"] not in assigned]
 
-    # ─── SECTOR (~14): Her sektörden 1 lider ────────────────────
+    # ─── SECTOR (~14): Her sektörden 1 lider; yetmezse puana göre doldur ───
     seen_sectors: set = set()
     sector_leaders = []
+
+    # 1. Geçiş: benzersiz sektör başına 1 hisse
     for s in remaining:
+        if len(sector_leaders) >= SECTOR_SIZE:
+            break
         sec = s.get("sector", "Unknown")
-        if sec not in seen_sectors and len(sector_leaders) < SECTOR_SIZE:
+        if sec not in seen_sectors:
             sector_leaders.append({**s, "tag": "SECTOR"})
             seen_sectors.add(sec)
+            assigned.add(s["ticker"])
+
+    # 2. Geçiş: pazar unique sektör sayısı 14'ün altındaysa,
+    #           kalan slotları en yüksek puanlı hisselerle tamamla
+    if len(sector_leaders) < SECTOR_SIZE:
+        remaining2 = [s for s in eligible if s["ticker"] not in assigned]
+        for s in remaining2:
+            if len(sector_leaders) >= SECTOR_SIZE:
+                break
+            sector_leaders.append({**s, "tag": "SECTOR"})
             assigned.add(s["ticker"])
 
     remaining = [s for s in eligible if s["ticker"] not in assigned]
@@ -910,14 +924,15 @@ _FORBIDDEN = [
 
 
 def _guard(text: str) -> str:
-    """Yasak kelimeleri tespit et ve temizle."""
-    lower = text.lower()
+    """Yasak kelimeleri tespit et ve temizle (tam kelime eşleşmesi)."""
+    import re
     for w in _FORBIDDEN:
-        if w in lower:
+        # \b kelime sınırı — 'sat' kelimesinin 'satım', 'satış' gibi
+        # Türkçe türevlerinde yanlış tetiklenmesini önler
+        pattern = r'\b' + re.escape(w) + r'\b'
+        if re.search(pattern, text, flags=re.IGNORECASE | re.UNICODE):
             logging.warning(f"Legal-safe ihlali: '{w}' tespit edildi — temizleniyor")
-            # Büyük/küçük harf duyarsız temizleme
-            import re
-            text = re.sub(re.escape(w), "[—]", text, flags=re.IGNORECASE)
+            text = re.sub(pattern, "[—]", text, flags=re.IGNORECASE | re.UNICODE)
     return text
 
 

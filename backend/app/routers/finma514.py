@@ -399,13 +399,28 @@ async def categories(
     target_date: Optional[str] = Query(None, alias="date"),
 ):
     market_date = target_date or date.today().isoformat()
+    empty_cats  = {v: [] for v in CATEGORIES_MAP.values()}
+
     data = _fetch_daily_stocks(market_date, lang)
     if not data:
-        raise HTTPException(404, f"{market_date} için veri bulunamadı.")
+        # Veri yok → 404 throw yerine boş kategoriler dön (frontend graceful state)
+        return {"market_date": market_date, "lang": lang,
+                "categories": empty_cats, "total": 0}
 
+    # JSON kaynağında pre-built categories varsa direkt kullan
+    payload = data.get("payload") or {}
+    if payload.get("categories"):
+        raw_cats = payload["categories"]
+        # JSON key'leri snake_case kategori adlarıyla eşleşiyor
+        # (core_picks, sector_leaders, high_volume, top_gainers, oversold_losers)
+        grouped: dict = {v: raw_cats.get(v, []) for v in CATEGORIES_MAP.values()}
+        stocks  = data["stocks"]
+        return {"market_date": market_date, "lang": lang,
+                "categories": grouped, "total": len(stocks)}
+
+    # Redis / Supabase kaynağında tag'e göre grupla
     stocks = data["stocks"]
-    grouped: dict = {v: [] for v in CATEGORIES_MAP.values()}
-
+    grouped = {v: [] for v in CATEGORIES_MAP.values()}
     for s in stocks:
         tag = s.get("tag", "CORE")
         cat = CATEGORIES_MAP.get(tag, "core_picks")

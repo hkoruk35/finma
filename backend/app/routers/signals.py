@@ -211,7 +211,11 @@ async def get_bot_logs(bot_name: str, lines: int = Query(100, ge=10, le=1000)):
         from app.services.bot_runner import get_logs
         from app.config import get_settings
         settings = get_settings()
-        logs = get_logs(bot_name, settings.signals_output_dir, lines)
+        # Absolute path — trigger_bot_manually da aynı yöntemi kullanıyor
+        _router_dir  = os.path.dirname(os.path.abspath(__file__))
+        _backend_dir = os.path.dirname(os.path.dirname(_router_dir))
+        output_dir   = os.path.join(_backend_dir, settings.signals_output_dir)
+        logs = get_logs(bot_name, output_dir, lines)
         return {"bot_name": bot_name, "logs": logs}
     except Exception as e:
         return {"bot_name": bot_name, "logs": f"Hata: {str(e)}", "error": True}

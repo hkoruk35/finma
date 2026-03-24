@@ -17,6 +17,7 @@ Dışarıdan çağrı:
 import asyncio
 import json
 import logging
+import math
 import os
 from datetime import datetime
 from typing import Any, Optional
@@ -49,6 +50,17 @@ def _get_supabase():
         return None
 
 
+# ─── Float sanitizer ─────────────────────────────────────────────────────────
+
+def _f(val, default: float = 0.0) -> float:
+    """NaN / Infinity → default (0.0). JSON ve Supabase uyumlu float döner."""
+    try:
+        v = float(val)
+        return default if (math.isnan(v) or math.isinf(v)) else v
+    except (TypeError, ValueError):
+        return default
+
+
 # ─── JSON → Supabase row dönüşümü ────────────────────────────────────────────
 
 def _stock_to_row(stock: dict, run_ts: str, market_date: str,
@@ -66,37 +78,37 @@ def _stock_to_row(stock: dict, run_ts: str, market_date: str,
         "market_date":    market_date,
         "run_time_ny":    run_time_ny,
         "market_regime":  market_regime,
-        "vix":            float(vix),
+        "vix":            _f(vix),
         "ticker":         stock.get("ticker", ""),
         "company_name":   stock.get("company_name", ""),
         "sector":         stock.get("sector", ""),
         "industry":       stock.get("industry", ""),
         "exchange":       stock.get("exchange", ""),
-        "market_cap":     int(stock.get("market_cap", 0)),
+        "market_cap":     int(stock.get("market_cap", 0) or 0),
         "market_cap_fmt": stock.get("market_cap_fmt", ""),
         "tag":            stock.get("tag", "CORE"),
         "tier":           stock.get("tier", "WATCH"),
-        "score":          int(stock.get("score", 0)),
-        "score_trend":    int(breakdown.get("trend", 0)),
-        "score_volume":   int(breakdown.get("volume", 0)),
-        "score_momentum": int(breakdown.get("momentum", 0)),
-        "score_context":  int(breakdown.get("context", 0)),
-        "price":          float(stock.get("price", 0)),
-        "change_1d":      float(stock.get("change_1d", 0)),
-        "change_5d":      float(stock.get("change_5d", 0)),
-        "change_1m":      float(stock.get("change_1m", 0)),
-        "rvol":           float(stock.get("rvol", 0)),
-        "rsi":            float(stock.get("rsi", 0)),
-        "adx":            float(stock.get("adx", 0)),
-        "atr_pct":        float(stock.get("atr_pct", 0)),
-        "bb_width":       float(stock.get("bb_width", 0)),
-        "ema20":          float(stock.get("ema20", 0)),
-        "ema50":          float(stock.get("ema50", 0)),
-        "ema200":         float(stock.get("ema200", 0)),
+        "score":          int(stock.get("score", 0) or 0),
+        "score_trend":    int(breakdown.get("trend", 0) or 0),
+        "score_volume":   int(breakdown.get("volume", 0) or 0),
+        "score_momentum": int(breakdown.get("momentum", 0) or 0),
+        "score_context":  int(breakdown.get("context", 0) or 0),
+        "price":          _f(stock.get("price")),
+        "change_1d":      _f(stock.get("change_1d")),
+        "change_5d":      _f(stock.get("change_5d")),
+        "change_1m":      _f(stock.get("change_1m")),
+        "rvol":           _f(stock.get("rvol")),
+        "rsi":            _f(stock.get("rsi"), 50.0),
+        "adx":            _f(stock.get("adx")),
+        "atr_pct":        _f(stock.get("atr_pct")),
+        "bb_width":       _f(stock.get("bb_width")),
+        "ema20":          _f(stock.get("ema20")),
+        "ema50":          _f(stock.get("ema50")),
+        "ema200":         _f(stock.get("ema200")),
         "interest_zone":  str(iz),
-        "stop_loss":      float(stock.get("stop_loss", 0)),
-        "target_1":       float(stock.get("target_1", 0)),
-        "target_2":       float(stock.get("target_2", 0)),
+        "stop_loss":      _f(stock.get("stop_loss")),
+        "target_1":       _f(stock.get("target_1")),
+        "target_2":       _f(stock.get("target_2")),
         # AI metin (template_v1 Türkçe)
         "ai_market_context":     str(stock.get("ai_text", {}).get("market_context", "")),
         "ai_interest_zone_text": str(stock.get("ai_text", {}).get("interest_zone_text", "")),
