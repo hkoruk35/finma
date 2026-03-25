@@ -446,7 +446,7 @@ export default function LandingPage() {
               fontFamily: 'Manrope, sans-serif', fontSize: 12, display: 'flex', alignItems: 'center', gap: 5,
             }}
           >
-            {LANGS.find(l => l.code === lang)?.flag ?? '🌐'} {lang.toUpperCase()}
+            {lang.toUpperCase()}
             <span style={{ fontSize: 8, opacity: 0.6 }}>▼</span>
           </button>
           {langOpen && (
@@ -465,7 +465,7 @@ export default function LandingPage() {
                     fontFamily: 'Manrope, sans-serif', fontSize: 13,
                   }}
                 >
-                  {l.flag} {l.label}
+                  {l.label}
                 </button>
               ))}
             </div>
