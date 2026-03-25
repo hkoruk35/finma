@@ -541,13 +541,6 @@ export default function LandingPage() {
             {t.p1_h1}<br />
             <em style={{ fontStyle: 'italic', color: '#2D7EF8' }}>{t.p1_h2}</em>
           </h1>
-          {/* Tagline */}
-          <p style={{
-            fontFamily: 'DM Mono, monospace', fontSize: 11, letterSpacing: '2px',
-            color: '#2D7EF8', textTransform: 'uppercase', marginBottom: 14,
-          }}>
-            {t.p1_tagline}
-          </p>
           {/* Sub */}
           <p style={{
             fontFamily: 'Manrope, sans-serif', fontSize: 15, fontWeight: 300,
