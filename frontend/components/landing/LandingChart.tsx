@@ -77,12 +77,10 @@ export default function LandingChart({ ticker }: LandingChartProps) {
           crosshair: { mode: CrosshairMode.Normal },
           rightPriceScale: {
             borderColor: 'rgba(255,255,255,0.06)',
-            textColor: '#4C5A6B',
             scaleMargins: { top: 0.08, bottom: 0.08 },
           },
           timeScale: {
             borderColor: 'rgba(255,255,255,0.06)',
-            textColor: '#4C5A6B',
             timeVisible: true,
             secondsVisible: false,
           },
