@@ -86,7 +86,7 @@ function allSymbols() {
   for (const c of COMMODITIES) s.push(c.symbol)
   for (const f of FOREX)       s.push(f.symbol)
   for (const cr of CRYPTO)      s.push(cr.symbol)
-  return [...new Set(s)]
+  return Array.from(new Set(s))
 }
 
 // ─── Yahoo Finance v7 toplu çekimi ────────────────────────────────────────────
