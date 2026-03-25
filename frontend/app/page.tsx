@@ -18,10 +18,11 @@ const LandingChart = dynamic(
 )
 
 // Ticker strip — browser-only
-const LandingTicker = dynamic(
-  () => import('@/components/landing/LandingTicker').then(m => ({ default: m.LandingTicker })),
-  { ssr: false }
-)
+// LandingTicker geçici deaktif - refresh issue debug
+// const LandingTicker = dynamic(
+//   () => import('@/components/landing/LandingTicker').then(m => ({ default: m.LandingTicker })),
+//   { ssr: false }
+// )
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface AssetInfo {
@@ -1461,7 +1462,8 @@ export default function LandingPage() {
 
       {showInstall && <InstallBanner />}
       <Header />
-      <LandingTicker />
+      {/* LandingTicker geçici deaktif - refresh issue debug'u için */}
+      {/* <LandingTicker /> */}
 
       <main style={{ position: 'relative', zIndex: 1 }}>
         {page === 'p1' && <Page1 />}
