@@ -61,7 +61,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     if (typeof window !== 'undefined') {
       localStorage.removeItem('finma_token')
       deleteCookie('finma_token')
-      window.location.href = '/login'
+      // Ana sayfa'ya geri dön (/login'e değil)
+      if (window.location.pathname !== '/') {
+        window.location.href = '/'
+      }
     }
     set({ user: null, token: null, isAuthenticated: false, isLoading: false })
   },
