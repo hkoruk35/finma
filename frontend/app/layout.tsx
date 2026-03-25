@@ -12,9 +12,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'FinMA Terminal | Profesyonel Finans Terminali',
-  description: 'FinMA - Yapay zeka destekli profesyonel finans terminali. Piyasa analizi, sinyal botları ve portföy yönetimi.',
-  keywords: ['finma', 'finans', 'terminal', 'borsa', 'trading', 'sinyal'],
+  title: 'FinMA — Finansal Zeka',
+  description: 'FinMA yapay zeka destekli piyasa analiz platformudur. Hisse, kripto, emtia ve forex için tek soru, derin AI analizi.',
+  keywords: ['finma', 'finansal zeka', 'yapay zeka finans', 'borsa analizi', 'kripto analiz', 'trading', 'sinyal'],
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,

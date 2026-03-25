@@ -41,6 +41,7 @@ const LANGS = [
 ]
 
 const COPY: Record<string, {
+  p1_badge: string; p1_tagline: string
   p1_h1: string; p1_h2: string; p1_h3: string; p1_sub: string; p1_ph: string
   pill_us: string; pill_btc: string; pill_gold: string; pill_tech: string; pill_eth: string; pill_fx: string
   cta_free: string; signin: string
@@ -54,9 +55,11 @@ const COPY: Record<string, {
   legal_disclaimer: string
 }> = {
   tr: {
-    p1_h1: 'Karar', p1_h2: 'Motoru', p1_h3: 'Artık Canlı',
-    p1_sub: '8.000+ hisseyi tarayan algoritmamız piyasa koşullarını anlık ölçer. Ticker yaz, analizini al.',
-    p1_ph: 'Hisse, kripto veya döviz ara… (AAPL, BTC, XAU)',
+    p1_badge: 'ABD Borsaları · Kripto · Emtia · Forex',
+    p1_tagline: 'Finansal Zeka',
+    p1_h1: 'Piyasayı oku,', p1_h2: 'önce hareket et.', p1_h3: '',
+    p1_sub: 'Sadece veri değil — karar üretir. Hisse, kripto, emtia, forex tek soru, derin AI analizi.',
+    p1_ph: 'NVDA, Bitcoin, Altın, EUR/USD veya soru sor…',
     pill_us: 'ABD Borsaları', pill_btc: 'Bitcoin', pill_gold: 'Altın',
     pill_tech: 'Teknoloji', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
     cta_free: 'Ücretsiz Üye Ol', signin: 'Üye Girişi',
@@ -76,12 +79,14 @@ const COPY: Record<string, {
     modal_google: 'Google ile Devam Et',
     legal: "Kayıt olarak Kullanım Koşulları ve Gizlilik Politikası'nı kabul etmiş olursunuz.",
     install_cta: 'Uygulama olarak ekle', install_btn: 'Ekle',
-    legal_disclaimer: 'Bu platform yatırım tavsiyesi vermez. Tüm analizler bilgilendirme amaçlıdır.',
+    legal_disclaimer: 'FinMA yapay zeka destekli piyasa analiz platformudur. Sunulan içerikler yalnızca bilgilendirme amaçlıdır; yatırım tavsiyesi niteliği taşımaz. Nihai karar kullanıcıya aittir. © 2026 FinMA',
   },
   en: {
-    p1_h1: 'Decision', p1_h2: 'Engine', p1_h3: 'Is Live',
-    p1_sub: 'Our algorithm scanning 8,000+ stocks measures market conditions in real time. Type a ticker, get your analysis.',
-    p1_ph: 'Search stock, crypto or currency… (AAPL, BTC, XAU)',
+    p1_badge: 'US Markets · Crypto · Commodities · Forex',
+    p1_tagline: 'Financial Intelligence',
+    p1_h1: 'Read the market,', p1_h2: 'move first.', p1_h3: '',
+    p1_sub: 'Not just data — it generates decisions. Stocks, crypto, commodities, forex: one question, deep AI analysis.',
+    p1_ph: 'NVDA, Bitcoin, Gold, EUR/USD or ask a question…',
     pill_us: 'US Markets', pill_btc: 'Bitcoin', pill_gold: 'Gold',
     pill_tech: 'Technology', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
     cta_free: 'Sign Up Free', signin: 'Sign In',
@@ -101,12 +106,14 @@ const COPY: Record<string, {
     modal_google: 'Continue with Google',
     legal: 'By signing up you agree to the Terms of Service and Privacy Policy.',
     install_cta: 'Add to home screen', install_btn: 'Add',
-    legal_disclaimer: 'This platform does not provide investment advice. All analyses are for informational purposes only.',
+    legal_disclaimer: 'FinMA is an AI-powered market analysis platform. Content provided is for informational purposes only and does not constitute investment advice. The final decision rests with the user. © 2026 FinMA',
   },
   es: {
-    p1_h1: 'Motor de', p1_h2: 'Decisión', p1_h3: 'En Vivo',
-    p1_sub: 'Nuestro algoritmo escanea más de 8.000 acciones y mide las condiciones del mercado en tiempo real.',
-    p1_ph: 'Buscar acción, cripto o divisa…',
+    p1_badge: 'Mercados EE.UU. · Cripto · Materias Primas · Forex',
+    p1_tagline: 'Inteligencia Financiera',
+    p1_h1: 'Lee el mercado,', p1_h2: 'muévete primero.', p1_h3: '',
+    p1_sub: 'No solo datos — genera decisiones. Acciones, cripto, materias primas, forex: una pregunta, análisis AI profundo.',
+    p1_ph: 'NVDA, Bitcoin, Oro, EUR/USD o haz una pregunta…',
     pill_us: 'Mercados EE.UU.', pill_btc: 'Bitcoin', pill_gold: 'Oro',
     pill_tech: 'Tecnología', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
     cta_free: 'Registro Gratis', signin: 'Iniciar Sesión',
@@ -126,12 +133,14 @@ const COPY: Record<string, {
     modal_google: 'Continuar con Google',
     legal: 'Al registrarte aceptas los Términos de Servicio y la Política de Privacidad.',
     install_cta: 'Agregar a pantalla de inicio', install_btn: 'Agregar',
-    legal_disclaimer: 'Esta plataforma no proporciona asesoramiento de inversión.',
+    legal_disclaimer: 'FinMA es una plataforma de análisis de mercado con IA. El contenido es solo informativo; no constituye asesoramiento de inversión. La decisión final corresponde al usuario. © 2026 FinMA',
   },
   pt: {
-    p1_h1: 'Motor de', p1_h2: 'Decisão', p1_h3: 'Ao Vivo',
-    p1_sub: 'Nosso algoritmo analisa mais de 8.000 ações e mede as condições do mercado em tempo real.',
-    p1_ph: 'Pesquisar ação, cripto ou moeda…',
+    p1_badge: 'Mercados EUA · Cripto · Commodities · Forex',
+    p1_tagline: 'Inteligência Financeira',
+    p1_h1: 'Leia o mercado,', p1_h2: 'mova-se primeiro.', p1_h3: '',
+    p1_sub: 'Não só dados — gera decisões. Ações, cripto, commodities, forex: uma pergunta, análise AI profunda.',
+    p1_ph: 'NVDA, Bitcoin, Ouro, EUR/USD ou faça uma pergunta…',
     pill_us: 'Mercados EUA', pill_btc: 'Bitcoin', pill_gold: 'Ouro',
     pill_tech: 'Tecnologia', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
     cta_free: 'Cadastro Grátis', signin: 'Entrar',
@@ -151,12 +160,14 @@ const COPY: Record<string, {
     modal_google: 'Continuar com Google',
     legal: 'Ao se cadastrar, você concorda com os Termos de Serviço e a Política de Privacidade.',
     install_cta: 'Adicionar à tela inicial', install_btn: 'Adicionar',
-    legal_disclaimer: 'Esta plataforma não fornece aconselhamento de investimento.',
+    legal_disclaimer: 'FinMA é uma plataforma de análise de mercado com IA. O conteúdo é apenas informativo; não constitui conselho de investimento. A decisão final cabe ao usuário. © 2026 FinMA',
   },
   ar: {
-    p1_h1: 'محرك', p1_h2: 'القرار', p1_h3: 'مباشر الآن',
-    p1_sub: 'خوارزميتنا تفحص أكثر من 8,000 سهم وتقيس ظروف السوق في الوقت الفعلي.',
-    p1_ph: 'ابحث عن سهم أو عملة مشفرة أو عملة…',
+    p1_badge: 'الأسواق الأمريكية · كريبتو · السلع · فوركس',
+    p1_tagline: 'الذكاء المالي',
+    p1_h1: 'اقرأ السوق،', p1_h2: 'تحرك أولاً.', p1_h3: '',
+    p1_sub: 'ليس مجرد بيانات — يولّد القرارات. أسهم، كريبتو، سلع، فوركس: سؤال واحد، تحليل AI عميق.',
+    p1_ph: 'NVDA أو بيتكوين أو ذهب أو اطرح سؤالاً…',
     pill_us: 'الأسواق الأمريكية', pill_btc: 'بيتكوين', pill_gold: 'الذهب',
     pill_tech: 'التكنولوجيا', pill_eth: 'إيثريوم', pill_fx: 'EUR/USD',
     cta_free: 'تسجيل مجاني', signin: 'تسجيل الدخول',
@@ -176,12 +187,14 @@ const COPY: Record<string, {
     modal_google: 'الاستمرار مع Google',
     legal: 'بالتسجيل توافق على شروط الخدمة وسياسة الخصوصية.',
     install_cta: 'إضافة إلى الشاشة الرئيسية', install_btn: 'إضافة',
-    legal_disclaimer: 'لا تقدم هذه المنصة نصائح استثمارية.',
+    legal_disclaimer: 'FinMA منصة تحليل سوق مدعومة بالذكاء الاصطناعي. المحتوى لأغراض إعلامية فقط؛ لا يُعدّ نصيحة استثمارية. القرار النهائي يعود للمستخدم. © 2026 FinMA',
   },
   id: {
-    p1_h1: 'Mesin', p1_h2: 'Keputusan', p1_h3: 'Kini Aktif',
-    p1_sub: 'Algoritma kami memindai 8.000+ saham dan mengukur kondisi pasar secara real-time.',
-    p1_ph: 'Cari saham, kripto, atau mata uang…',
+    p1_badge: 'Pasar AS · Kripto · Komoditas · Forex',
+    p1_tagline: 'Kecerdasan Finansial',
+    p1_h1: 'Baca pasarnya,', p1_h2: 'bergerak lebih dulu.', p1_h3: '',
+    p1_sub: 'Bukan hanya data — menghasilkan keputusan. Saham, kripto, komoditas, forex: satu pertanyaan, analisis AI mendalam.',
+    p1_ph: 'NVDA, Bitcoin, Emas, EUR/USD atau ajukan pertanyaan…',
     pill_us: 'Pasar AS', pill_btc: 'Bitcoin', pill_gold: 'Emas',
     pill_tech: 'Teknologi', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
     cta_free: 'Daftar Gratis', signin: 'Masuk',
@@ -201,12 +214,14 @@ const COPY: Record<string, {
     modal_google: 'Lanjutkan dengan Google',
     legal: 'Dengan mendaftar Anda setuju dengan Syarat Layanan dan Kebijakan Privasi.',
     install_cta: 'Tambahkan ke layar beranda', install_btn: 'Tambah',
-    legal_disclaimer: 'Platform ini tidak memberikan saran investasi.',
+    legal_disclaimer: 'FinMA adalah platform analisis pasar bertenaga AI. Konten yang disediakan hanya untuk informasi; bukan merupakan saran investasi. Keputusan akhir ada pada pengguna. © 2026 FinMA',
   },
   ja: {
-    p1_h1: '意思決定', p1_h2: 'エンジン', p1_h3: '稼働中',
-    p1_sub: '8,000以上の銘柄をスキャンし、市場状況をリアルタイムで測定します。',
-    p1_ph: '株式、暗号資産、通貨を検索… (AAPL, BTC, XAU)',
+    p1_badge: '米国市場・暗号資産・コモディティ・為替',
+    p1_tagline: 'ファイナンシャル・インテリジェンス',
+    p1_h1: '市場を読み、', p1_h2: '先手を打て。', p1_h3: '',
+    p1_sub: 'データだけでなく — 決断を生む。株式、暗号資産、コモディティ、為替：1つの質問、深いAI分析。',
+    p1_ph: 'NVDA、ビットコイン、ゴールド、EUR/USD または質問を入力…',
     pill_us: '米国市場', pill_btc: 'ビットコイン', pill_gold: 'ゴールド',
     pill_tech: 'テクノロジー', pill_eth: 'イーサリアム', pill_fx: 'EUR/USD',
     cta_free: '無料登録', signin: 'ログイン',
@@ -226,7 +241,7 @@ const COPY: Record<string, {
     modal_google: 'Googleで続ける',
     legal: '登録することで、利用規約とプライバシーポリシーに同意したことになります。',
     install_cta: 'ホーム画面に追加', install_btn: '追加',
-    legal_disclaimer: 'このプラットフォームは投資アドバイスを提供しません。',
+    legal_disclaimer: 'FinMAはAI搭載の市場分析プラットフォームです。提供コンテンツは情報提供のみを目的としており、投資アドバイスではありません。最終決定はユーザーに帰属します。© 2026 FinMA',
   },
 }
 
@@ -404,13 +419,14 @@ export default function LandingPage() {
         onClick={() => gotoPage('p1')}
         style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#2D7EF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <svg width="26" height="22" viewBox="0 0 26 22" fill="none">
+          <polyline points="1,16 5,16 7.5,6 11,20 14,3 17.5,16 21,16 25,16"
+            stroke="#2D7EF8" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 18, color: '#EDF2FA', letterSpacing: '-0.5px' }}>
-          Fin<span style={{ color: '#2D7EF8' }}>MA</span>
-        </span>
-        <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 9, color: '#4C5A6B', letterSpacing: '1px' }}>v6.0</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          <span style={{ fontFamily: 'DM Serif Display, serif', fontSize: 19, color: '#EDF2FA', lineHeight: 1, letterSpacing: '-0.2px' }}>FinMA</span>
+          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 8, letterSpacing: '2px', color: '#2D7EF8', textTransform: 'uppercase', lineHeight: 1, marginTop: 2 }}>Finansal Zeka</span>
+        </div>
       </button>
 
       {/* Right actions */}
@@ -494,30 +510,44 @@ export default function LandingPage() {
         padding: '56px 20px 40px', position: 'relative', zIndex: 1,
       }}>
         {/* Hero heading */}
-        <div style={{ textAlign: 'center', marginBottom: 40, maxWidth: 560 }}>
-          <div style={{ marginBottom: 16 }}>
+        <div style={{ textAlign: 'center', marginBottom: 38, maxWidth: 660 }}>
+          {/* Badge */}
+          <div style={{ marginBottom: 22 }}>
             <span style={{
-              fontFamily: 'DM Mono, monospace', fontSize: 11, fontWeight: 500,
-              letterSpacing: '2px', color: '#2D7EF8', textTransform: 'uppercase',
-              background: 'rgba(45,126,248,0.10)', padding: '4px 12px', borderRadius: 20,
-              display: 'inline-block', marginBottom: 24,
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              fontFamily: 'DM Mono, monospace', fontSize: 10, fontWeight: 500,
+              letterSpacing: '1.5px', color: '#2D7EF8', textTransform: 'uppercase',
+              background: 'rgba(45,126,248,0.10)', border: '1px solid rgba(45,126,248,0.28)',
+              padding: '5px 14px', borderRadius: 20,
             }}>
-              <span className="lp-blink" style={{ color: '#10B981', marginRight: 6 }}>●</span>
-              Live AI · 8,000+ Stocks
+              <span className="lp-blink" style={{
+                width: 6, height: 6, borderRadius: '50%', background: '#2D7EF8',
+                display: 'inline-block', flexShrink: 0,
+              }} />
+              {t.p1_badge}
             </span>
           </div>
+          {/* H1 */}
           <h1 style={{
-            fontFamily: 'DM Serif Display, serif', fontSize: 'clamp(44px, 8vw, 76px)',
+            fontFamily: 'DM Serif Display, serif', fontSize: 'clamp(40px, 6.5vw, 72px)',
             fontWeight: 400, lineHeight: 1.05, color: '#EDF2FA',
-            margin: '0 0 20px', letterSpacing: '-1px',
+            margin: '0 0 12px', letterSpacing: '-1.5px',
           }}>
-            {t.p1_h1}{' '}
+            {t.p1_h1}<br />
             <em style={{ fontStyle: 'italic', color: '#2D7EF8' }}>{t.p1_h2}</em>
-            <br />{t.p1_h3}
           </h1>
+          {/* Tagline */}
           <p style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: 15, color: '#8B97AA',
-            lineHeight: 1.65, margin: 0,
+            fontFamily: 'DM Mono, monospace', fontSize: 11, letterSpacing: '2px',
+            color: '#2D7EF8', textTransform: 'uppercase', marginBottom: 14,
+          }}>
+            {t.p1_tagline}
+          </p>
+          {/* Sub */}
+          <p style={{
+            fontFamily: 'Manrope, sans-serif', fontSize: 15, fontWeight: 300,
+            color: '#8B97AA', lineHeight: 1.65, margin: 0, maxWidth: 420,
+            marginLeft: 'auto', marginRight: 'auto',
           }}>
             {t.p1_sub}
           </p>
@@ -602,7 +632,7 @@ export default function LandingPage() {
         </div>
 
         {/* Bottom features hint */}
-        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 40 }}>
           {['8,000+ Hisse', '7 Dil', 'AI Analiz', 'Legal-Safe'].map(feat => (
             <span key={feat} style={{
               fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B',
@@ -612,6 +642,16 @@ export default function LandingPage() {
               <span style={{ color: '#10B981', fontSize: 8 }}>✓</span> {feat}
             </span>
           ))}
+        </div>
+
+        {/* Legal Footer */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, width: '100%', maxWidth: 640, textAlign: 'center' }}>
+          <p style={{
+            fontFamily: 'Manrope, sans-serif', fontSize: 10, color: '#2A3849',
+            lineHeight: 1.6, margin: 0,
+          }}>
+            {t.legal_disclaimer}
+          </p>
         </div>
       </div>
     )

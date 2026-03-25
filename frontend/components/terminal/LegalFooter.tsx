@@ -8,13 +8,12 @@ export function LegalFooter() {
       <div className="flex items-start gap-2 max-w-5xl mx-auto">
         <Shield className="w-3.5 h-3.5 text-finma-text-dim/50 shrink-0 mt-0.5" />
         <p className="text-[10px] text-finma-text-dim/60 leading-relaxed">
-          <span className="font-semibold text-finma-text-dim/80">Yasal Uyarı:</span>{' '}
-          FinMA bir yatırım danışmanlığı veya aracı kurum hizmeti sunmamaktadır. Bu platformda yer alan bilgiler, analizler ve sinyaller yalnızca bilgilendirme amaçlıdır ve yatırım tavsiyesi niteliği taşımaz. FinMA yalnızca finansal analiz ve portföy yönetim aracıdır. Yatırım kararlarınız tamamen kendi sorumluluğunuzdadır. Geçmiş performans gelecekteki sonuçların garantisi değildir.
+          FinMA yapay zeka destekli piyasa analiz platformudur. Sunulan içerikler yalnızca bilgilendirme amaçlıdır; yatırım tavsiyesi niteliği taşımaz. Nihai karar kullanıcıya aittir.
         </p>
       </div>
       <div className="text-center mt-3">
         <span className="text-[9px] text-finma-text-dim/40">
-          Developed by <span className="font-semibold text-finma-text-dim/60">AFK DaSYS</span> • FinMA Terminal v4.0
+          © 2026 FinMA
         </span>
       </div>
     </footer>
