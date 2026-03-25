@@ -632,7 +632,7 @@ export default function LandingPage() {
         {/* Popular Prompts */}
         <div style={{ width: '100%', maxWidth: 640, marginBottom: 40 }}>
           <div style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: '13px',
+            fontFamily: 'Manrope, sans-serif', fontSize: '15px',
             color: '#EDF2FA', fontWeight: 600, marginBottom: 14,
             textAlign: 'left',
           }}>
@@ -655,7 +655,7 @@ export default function LandingPage() {
                 style={{
                   padding: '10px 14px', background: 'rgba(255,255,255,0.02)',
                   border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8,
-                  fontSize: '12px', color: '#EDF2FA',
+                  fontSize: '14px', color: '#EDF2FA',
                   textDecoration: 'none', cursor: 'pointer', transition: 'all 200ms',
                 }}
                 onMouseEnter={(e) => {
