@@ -17,6 +17,12 @@ const LandingChart = dynamic(
   }
 )
 
+// Ticker strip — browser-only
+const LandingTicker = dynamic(
+  () => import('@/components/landing/LandingTicker').then(m => ({ default: m.LandingTicker })),
+  { ssr: false }
+)
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface AssetInfo {
   ticker: string
@@ -419,14 +425,13 @@ export default function LandingPage() {
         onClick={() => gotoPage('p1')}
         style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
       >
-        <svg width="26" height="22" viewBox="0 0 26 22" fill="none">
-          <polyline points="1,16 5,16 7.5,6 11,20 14,3 17.5,16 21,16 25,16"
-            stroke="#2D7EF8" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round"/>
+        <svg width="22" height="20" viewBox="0 0 24 24" fill="none">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"
+            stroke="#2D7EF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          <span style={{ fontFamily: 'DM Serif Display, serif', fontSize: 19, color: '#EDF2FA', lineHeight: 1, letterSpacing: '-0.2px' }}>FinMA</span>
-          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 8, letterSpacing: '2px', color: '#2D7EF8', textTransform: 'uppercase', lineHeight: 1, marginTop: 2 }}>Finansal Zeka</span>
-        </div>
+        <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 18, color: '#EDF2FA', letterSpacing: '-0.5px' }}>
+          Fin<span style={{ color: '#2D7EF8' }}>MA</span>
+        </span>
       </button>
 
       {/* Right actions */}
@@ -506,8 +511,8 @@ export default function LandingPage() {
     return (
       <div className="lp-page-enter" style={{
         minHeight: '100vh', display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center', paddingTop: 56,
-        padding: '56px 20px 40px', position: 'relative', zIndex: 1,
+        alignItems: 'center', justifyContent: 'center',
+        padding: '84px 20px 40px', position: 'relative', zIndex: 1,
       }}>
         {/* Hero heading */}
         <div style={{ textAlign: 'center', marginBottom: 38, maxWidth: 660 }}>
@@ -664,7 +669,7 @@ export default function LandingPage() {
     const chgColor = asset.changeDir === 'up' ? upColor : downColor
 
     return (
-      <div className="lp-page-enter" style={{ paddingTop: 56, position: 'relative', zIndex: 1, minHeight: '100vh' }}>
+      <div className="lp-page-enter" style={{ paddingTop: 84, position: 'relative', zIndex: 1, minHeight: '100vh' }}>
         {/* Sub-header */}
         <div style={{
           borderBottom: '1px solid rgba(255,255,255,0.06)',
@@ -951,8 +956,8 @@ export default function LandingPage() {
 
   // ─── PAGE 3: FREE DASHBOARD ───
   const Page3 = () => (
-    <div className="lp-page-enter" style={{ paddingTop: 56, position: 'relative', zIndex: 1, minHeight: '100vh' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', minHeight: 'calc(100vh - 56px)' }}>
+    <div className="lp-page-enter" style={{ paddingTop: 84, position: 'relative', zIndex: 1, minHeight: '100vh' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', minHeight: 'calc(100vh - 84px)' }}>
         {/* Sidebar */}
         <div style={{ background: '#0A1520', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '20px 0' }}>
           <div style={{ padding: '0 14px', marginBottom: 8 }}>
@@ -1157,7 +1162,7 @@ export default function LandingPage() {
 
   // ─── PAGE 4: PRO DASHBOARD ───
   const Page4 = () => (
-    <div className="lp-page-enter" style={{ paddingTop: 56, position: 'relative', zIndex: 1, minHeight: '100vh', padding: '72px 20px 40px' }}>
+    <div className="lp-page-enter" style={{ paddingTop: 56, position: 'relative', zIndex: 1, minHeight: '100vh', padding: '100px 20px 40px' }}>
       {/* Tab bar */}
       <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: 0 }}>
         {[
@@ -1349,6 +1354,21 @@ export default function LandingPage() {
           {t.legal}
         </p>
 
+        {/* Dismiss — basic analysis still accessible */}
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <button
+            onClick={() => setShowModal(false)}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#4C5A6B',
+              textDecoration: 'underline', textUnderlineOffset: 3,
+              padding: 0,
+            }}
+          >
+            Temel analizi görüntüle →
+          </button>
+        </div>
+
         {/* Close */}
         <button
           onClick={() => setShowModal(false)}
@@ -1397,6 +1417,7 @@ export default function LandingPage() {
 
       {showInstall && <InstallBanner />}
       <Header />
+      <LandingTicker />
 
       <main style={{ position: 'relative', zIndex: 1 }}>
         {page === 'p1' && <Page1 />}
@@ -1405,29 +1426,35 @@ export default function LandingPage() {
         {page === 'p4' && <Page4 />}
       </main>
 
-      {/* Bottom nav (demo) — pages 3 & 4 accessible via modal flow */}
+      {/* Bottom nav (demo) — free page accessible directly, pro shows modal */}
       {page === 'p2' && (
         <div style={{
           position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 80,
-          background: 'rgba(6,10,15,0.9)', backdropFilter: 'blur(8px)',
+          background: 'rgba(6,10,15,0.85)', backdropFilter: 'blur(8px)',
           borderTop: '1px solid rgba(255,255,255,0.06)',
-          padding: '10px 20px', display: 'flex', justifyContent: 'center', gap: 12,
+          padding: '8px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
         }}>
-          <button onClick={() => setShowModal(true)}
+          {/* Info label */}
+          <span style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#4C5A6B' }}>
+            Daha fazlası:
+          </span>
+          {/* Free — no login required */}
+          <button onClick={() => setPage('p3')}
             style={{
               background: 'none', border: '1px solid rgba(255,255,255,0.10)',
-              borderRadius: 8, padding: '7px 16px', cursor: 'pointer', color: '#8B97AA',
+              borderRadius: 8, padding: '6px 14px', cursor: 'pointer', color: '#8B97AA',
               fontFamily: 'Manrope, sans-serif', fontSize: 12,
             }}>
-            Ücretsiz Dashboard →
+            Ücretsiz Görünüm
           </button>
+          {/* Pro — prompts signup */}
           <button onClick={() => setShowModal(true)}
             style={{
-              background: 'linear-gradient(135deg, #2D7EF8, #8B5CF6)',
-              border: 'none', borderRadius: 8, padding: '7px 16px', cursor: 'pointer', color: '#fff',
+              background: 'rgba(45,126,248,0.15)', border: '1px solid rgba(45,126,248,0.30)',
+              borderRadius: 8, padding: '6px 14px', cursor: 'pointer', color: '#2D7EF8',
               fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
             }}>
-            Pro Dashboard →
+            Pro'yu Dene ✦
           </button>
         </div>
       )}
