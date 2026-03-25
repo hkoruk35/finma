@@ -4,6 +4,10 @@
  * Background, header, footer tutarlı
  */
 
+'use client'
+
+export const dynamic = 'force-dynamic' // Skip static generation timeout
+
 function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <a
