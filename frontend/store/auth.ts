@@ -58,12 +58,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   logout: () => {
+    // State'i temizle, redirect yapma (page reload'u önle)
     if (typeof window !== 'undefined') {
       localStorage.removeItem('finma_token')
       deleteCookie('finma_token')
-      // Ana sayfa'ya geri dön (/login'e değil)
-      if (window.location.pathname !== '/') {
-        window.location.href = '/'
+      // Redirect only on protected routes, NOT on public pages like /
+      const pathname = window.location.pathname
+      const isPublicPage = pathname === '/' || pathname === '/login' || pathname.startsWith('/market') || pathname === '/world-markets'
+      if (!isPublicPage) {
+        window.location.href = '/login'
       }
     }
     set({ user: null, token: null, isAuthenticated: false, isLoading: false })
