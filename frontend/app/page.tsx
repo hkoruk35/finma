@@ -1,18 +1,35 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import { api } from '@/lib/api-client'
-import {
-  Activity, Brain, BarChart3, Shield, Zap, ArrowRight,
-  CheckCircle2, LineChart, Target, Globe2, TrendingUp,
-  Filter, ChevronDown, Layers, Cpu, Radio, Download,
-} from 'lucide-react'
-import { cn } from '@/lib/utils'
+import dynamic from 'next/dynamic'
 
-// ─── Dil sistemi ────────────────────────────────────────────────────────────
+// Chart component — browser-only (uses DOM APIs)
+const LandingChart = dynamic(
+  () => import('@/components/landing/LandingChart'),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 200, background: '#0C1017', borderRadius: 12 }} />
+    ),
+  }
+)
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+interface AssetInfo {
+  ticker: string
+  displayName: string
+  category: string
+  meta: string
+  icon: string
+  price: string
+  change: string
+  changeDir: 'up' | 'down'
+}
+
+// ─── Language Data ────────────────────────────────────────────────────────────
 const LANGS = [
   { code: 'tr', label: 'Türkçe',    flag: '🇹🇷' },
   { code: 'en', label: 'English',   flag: '🇺🇸' },
@@ -23,303 +40,341 @@ const LANGS = [
   { code: 'ja', label: '日本語',     flag: '🇯🇵' },
 ]
 
-const COPY: Record<string, Record<string, string>> = {
+const COPY: Record<string, {
+  p1_h1: string; p1_h2: string; p1_h3: string; p1_sub: string; p1_ph: string
+  pill_us: string; pill_btc: string; pill_gold: string; pill_tech: string; pill_eth: string; pill_fx: string
+  cta_free: string; signin: string
+  p2_back: string; p2_cta: string; p2_ai_label: string; p2_ai_text: string
+  p2_action_title: string; entry_lbl: string; target_lbl: string; risk_lbl: string; winrate_lbl: string
+  p2_market_shift: string; p2_corr: string
+  p3_tab1: string; p3_tab2: string; p3_tab3: string; p3_upgrade: string; p3_pro_lock: string
+  p4_tab1: string; p4_tab2: string; p4_tab3: string; p4_tab4: string
+  modal_title: string; modal_sub: string; modal_google: string; legal: string
+  install_cta: string; install_btn: string
+  legal_disclaimer: string
+}> = {
   tr: {
-    badge:      'Yapay Zeka Destekli Finans Platformu',
-    hero1:      'ABD Borsalarında',
-    hero2:      'Akıllı Yatırım',
-    hero3:      'Zamanı',
-    sub:        'Her gün 8.000+ hisseyi tarayan algoritmamız en güçlü 54 fırsatı seçer. Sektör analizi, AI yorumlar ve 7 dilde erişim — tek platformda.',
-    cta:        'Hemen Başla',
-    price_note: 'Aylık SADECE $19 USD',
-    feat_title: 'Analizlerde Kaybolmayın',
-    feat_sub:   'Yeni nesil finans deneyimi.',
-    plan_title: 'Tek Plan, Tüm Özellikler',
-    plan_sub:   'Hemen başlayın, istediğiniz zaman iptal edin.',
-    plan_name:  'Pro Üyelik',
-    plan_cta:   'Google ile Başla',
-    plan_legal: 'Google hesabınızla giriş yaparak hemen başlayın.',
-    cancel:     'İstediğiniz zaman iptal edebilirsiniz',
-    pipeline:   '8.000+ Hisse Tarama → 200 Shortlist → 54 Seçim',
-    member_cta: 'Üye girişi',
+    p1_h1: 'Karar', p1_h2: 'Motoru', p1_h3: 'Artık Canlı',
+    p1_sub: '8.000+ hisseyi tarayan algoritmamız piyasa koşullarını anlık ölçer. Ticker yaz, analizini al.',
+    p1_ph: 'Hisse, kripto veya döviz ara… (AAPL, BTC, XAU)',
+    pill_us: 'ABD Borsaları', pill_btc: 'Bitcoin', pill_gold: 'Altın',
+    pill_tech: 'Teknoloji', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    cta_free: 'Ücretsiz Üye Ol', signin: 'Üye Girişi',
+    p2_back: 'Geri', p2_cta: 'Ücretsiz Üye Ol',
+    p2_ai_label: '▸ AI Piyasa Özeti',
+    p2_ai_text: 'Analist giriş aralığı inceleniyor; mevcut momentum yapısı kritik seviyelere yaklaşmış durumda. Makro arka plan nötre dönmüş olsa da sektörel akış pozitif sinyal üretiyor. Olası hedef bölgeleri ve yapı zayıflama sinyalleri Pro üyelere açıktır.',
+    p2_action_title: 'AI Trade Insight',
+    entry_lbl: 'Analist Giriş Aralığı', target_lbl: 'Olası Hedef', risk_lbl: 'Yapı Zayıflama Sinyali', winrate_lbl: 'Geçmiş Başarı',
+    p2_market_shift: 'Çapraz Varlık (Market Shift)',
+    p2_corr: 'Bu varlığın mevcut korelasyonu:',
+    p3_tab1: 'Genel Bakış', p3_tab2: 'Geçmiş Analizler', p3_tab3: 'Varlık Performansı',
+    p3_upgrade: "Pro'ya Geç — Günlük Top 5 + Akıllı Takip",
+    p3_pro_lock: 'Pro içerik — Yükselt',
+    p4_tab1: 'Günlük Top 5', p4_tab2: 'Sektörel Analizler', p4_tab3: 'Hazır Listeler', p4_tab4: 'Akıllı Takip',
+    modal_title: 'Devam etmek için ücretsiz hesap oluştur',
+    modal_sub: 'Kayıt ücretsizdir. Kredi kartı gerekmez.',
+    modal_google: 'Google ile Devam Et',
+    legal: "Kayıt olarak Kullanım Koşulları ve Gizlilik Politikası'nı kabul etmiş olursunuz.",
+    install_cta: 'Uygulama olarak ekle', install_btn: 'Ekle',
+    legal_disclaimer: 'Bu platform yatırım tavsiyesi vermez. Tüm analizler bilgilendirme amaçlıdır.',
   },
   en: {
-    badge:      'AI-Powered Finance Platform',
-    hero1:      'Smart Investing in',
-    hero2:      'US Markets',
-    hero3:      'Starts Here',
-    sub:        'Our algorithm scans 8,000+ stocks daily and selects the 54 strongest opportunities. Sector analysis, AI commentary in 7 languages — one platform.',
-    cta:        'Get Started',
-    price_note: 'Only $19 USD / month',
-    feat_title: 'Stop Getting Lost in Analysis',
-    feat_sub:   'Next-generation finance experience.',
-    plan_title: 'One Plan, All Features',
-    plan_sub:   'Start now, cancel anytime.',
-    plan_name:  'Pro Membership',
-    plan_cta:   'Start with Google',
-    plan_legal: 'Sign in with your Google account to get started.',
-    cancel:     'Cancel anytime',
-    pipeline:   '8,000+ Stocks Scanned → 200 Shortlist → 54 Selected',
-    member_cta: 'Sign in',
+    p1_h1: 'Decision', p1_h2: 'Engine', p1_h3: 'Is Live',
+    p1_sub: 'Our algorithm scanning 8,000+ stocks measures market conditions in real time. Type a ticker, get your analysis.',
+    p1_ph: 'Search stock, crypto or currency… (AAPL, BTC, XAU)',
+    pill_us: 'US Markets', pill_btc: 'Bitcoin', pill_gold: 'Gold',
+    pill_tech: 'Technology', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    cta_free: 'Sign Up Free', signin: 'Sign In',
+    p2_back: 'Back', p2_cta: 'Sign Up Free',
+    p2_ai_label: '▸ AI Market Summary',
+    p2_ai_text: 'Analyst entry range under review; current momentum structure has approached critical levels. Macro backdrop has turned neutral but sector flow is generating positive signals. Possible target zones and structural weakness signals are available to Pro members.',
+    p2_action_title: 'AI Trade Insight',
+    entry_lbl: 'Analyst Entry Range', target_lbl: 'Possible Target', risk_lbl: 'Structure Weakness Signal', winrate_lbl: 'Historical Win Rate',
+    p2_market_shift: 'Cross-Asset (Market Shift)',
+    p2_corr: 'Current correlation for this asset:',
+    p3_tab1: 'Overview', p3_tab2: 'Past Analyses', p3_tab3: 'Asset Performance',
+    p3_upgrade: 'Go Pro — Daily Top 5 + Smart Tracking',
+    p3_pro_lock: 'Pro content — Upgrade',
+    p4_tab1: 'Daily Top 5', p4_tab2: 'Sector Analysis', p4_tab3: 'Ready Lists', p4_tab4: 'Smart Tracking',
+    modal_title: 'Create a free account to continue',
+    modal_sub: 'Registration is free. No credit card required.',
+    modal_google: 'Continue with Google',
+    legal: 'By signing up you agree to the Terms of Service and Privacy Policy.',
+    install_cta: 'Add to home screen', install_btn: 'Add',
+    legal_disclaimer: 'This platform does not provide investment advice. All analyses are for informational purposes only.',
   },
   es: {
-    badge:      'Plataforma Financiera con IA',
-    hero1:      'Inversión Inteligente en',
-    hero2:      'Mercados de EE.UU.',
-    hero3:      'Empieza Aquí',
-    sub:        'Nuestro algoritmo escanea más de 8.000 acciones diariamente y selecciona las 54 mejores oportunidades.',
-    cta:        'Comenzar',
-    price_note: 'Solo $19 USD / mes',
-    feat_title: 'No Te Pierdas en los Análisis',
-    feat_sub:   'Experiencia financiera de nueva generación.',
-    plan_title: 'Un Plan, Todo Incluido',
-    plan_sub:   'Empieza ahora, cancela cuando quieras.',
-    plan_name:  'Membresía Pro',
-    plan_cta:   'Empezar con Google',
-    plan_legal: 'Inicia sesión con tu cuenta de Google.',
-    cancel:     'Cancela cuando quieras',
-    pipeline:   '+8.000 Acciones → 200 Preselección → 54 Seleccionadas',
-    member_cta: 'Iniciar sesión',
+    p1_h1: 'Motor de', p1_h2: 'Decisión', p1_h3: 'En Vivo',
+    p1_sub: 'Nuestro algoritmo escanea más de 8.000 acciones y mide las condiciones del mercado en tiempo real.',
+    p1_ph: 'Buscar acción, cripto o divisa…',
+    pill_us: 'Mercados EE.UU.', pill_btc: 'Bitcoin', pill_gold: 'Oro',
+    pill_tech: 'Tecnología', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    cta_free: 'Registro Gratis', signin: 'Iniciar Sesión',
+    p2_back: 'Volver', p2_cta: 'Registro Gratis',
+    p2_ai_label: '▸ Resumen AI del Mercado',
+    p2_ai_text: 'Rango de entrada del analista en revisión; la estructura de momentum actual se ha acercado a niveles críticos. El telón de fondo macro se ha vuelto neutral pero el flujo sectorial genera señales positivas.',
+    p2_action_title: 'AI Trade Insight',
+    entry_lbl: 'Rango de Entrada', target_lbl: 'Objetivo Posible', risk_lbl: 'Señal de Debilidad', winrate_lbl: 'Tasa de Éxito',
+    p2_market_shift: 'Cross-Asset (Market Shift)',
+    p2_corr: 'Correlación actual para este activo:',
+    p3_tab1: 'Vista General', p3_tab2: 'Análisis Anteriores', p3_tab3: 'Rendimiento',
+    p3_upgrade: 'Ir Pro — Top 5 Diario + Seguimiento',
+    p3_pro_lock: 'Contenido Pro — Mejorar',
+    p4_tab1: 'Top 5 Diario', p4_tab2: 'Análisis Sectorial', p4_tab3: 'Listas Listas', p4_tab4: 'Seguimiento Inteligente',
+    modal_title: 'Crea una cuenta gratuita para continuar',
+    modal_sub: 'El registro es gratuito. No se requiere tarjeta de crédito.',
+    modal_google: 'Continuar con Google',
+    legal: 'Al registrarte aceptas los Términos de Servicio y la Política de Privacidad.',
+    install_cta: 'Agregar a pantalla de inicio', install_btn: 'Agregar',
+    legal_disclaimer: 'Esta plataforma no proporciona asesoramiento de inversión.',
   },
   pt: {
-    badge:      'Plataforma Financeira com IA',
-    hero1:      'Investimento Inteligente nos',
-    hero2:      'Mercados dos EUA',
-    hero3:      'Começa Aqui',
-    sub:        'Nosso algoritmo escaneia mais de 8.000 ações diariamente e seleciona as 54 melhores oportunidades.',
-    cta:        'Começar',
-    price_note: 'Apenas $19 USD / mês',
-    feat_title: 'Não Se Perca nas Análises',
-    feat_sub:   'Experiência financeira de nova geração.',
-    plan_title: 'Um Plano, Todos os Recursos',
-    plan_sub:   'Comece agora, cancele quando quiser.',
-    plan_name:  'Assinatura Pro',
-    plan_cta:   'Começar com Google',
-    plan_legal: 'Entre com sua conta Google para começar.',
-    cancel:     'Cancele quando quiser',
-    pipeline:   '+8.000 Ações → 200 Shortlist → 54 Selecionadas',
-    member_cta: 'Entrar',
+    p1_h1: 'Motor de', p1_h2: 'Decisão', p1_h3: 'Ao Vivo',
+    p1_sub: 'Nosso algoritmo analisa mais de 8.000 ações e mede as condições do mercado em tempo real.',
+    p1_ph: 'Pesquisar ação, cripto ou moeda…',
+    pill_us: 'Mercados EUA', pill_btc: 'Bitcoin', pill_gold: 'Ouro',
+    pill_tech: 'Tecnologia', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    cta_free: 'Cadastro Grátis', signin: 'Entrar',
+    p2_back: 'Voltar', p2_cta: 'Cadastro Grátis',
+    p2_ai_label: '▸ Resumo AI do Mercado',
+    p2_ai_text: 'Faixa de entrada do analista em revisão; a estrutura de momentum atual se aproximou de níveis críticos. O pano de fundo macro ficou neutro mas o fluxo setorial gera sinais positivos.',
+    p2_action_title: 'AI Trade Insight',
+    entry_lbl: 'Faixa de Entrada', target_lbl: 'Alvo Possível', risk_lbl: 'Sinal de Fraqueza', winrate_lbl: 'Taxa de Acerto',
+    p2_market_shift: 'Cross-Asset (Market Shift)',
+    p2_corr: 'Correlação atual para este ativo:',
+    p3_tab1: 'Visão Geral', p3_tab2: 'Análises Anteriores', p3_tab3: 'Desempenho',
+    p3_upgrade: 'Ir Pro — Top 5 Diário + Rastreamento',
+    p3_pro_lock: 'Conteúdo Pro — Atualizar',
+    p4_tab1: 'Top 5 Diário', p4_tab2: 'Análise Setorial', p4_tab3: 'Listas Prontas', p4_tab4: 'Rastreamento Inteligente',
+    modal_title: 'Crie uma conta gratuita para continuar',
+    modal_sub: 'O cadastro é gratuito. Não é necessário cartão de crédito.',
+    modal_google: 'Continuar com Google',
+    legal: 'Ao se cadastrar, você concorda com os Termos de Serviço e a Política de Privacidade.',
+    install_cta: 'Adicionar à tela inicial', install_btn: 'Adicionar',
+    legal_disclaimer: 'Esta plataforma não fornece aconselhamento de investimento.',
   },
   ar: {
-    badge:      'منصة مالية مدعومة بالذكاء الاصطناعي',
-    hero1:      'الاستثمار الذكي في',
-    hero2:      'الأسواق الأمريكية',
-    hero3:      'يبدأ هنا',
-    sub:        'يفحص خوارزميتنا أكثر من 8,000 سهم يوميًا ويختار أفضل 54 فرصة.',
-    cta:        'ابدأ الآن',
-    price_note: 'فقط 19 دولار شهريًا',
-    feat_title: 'لا تضيع في التحليلات',
-    feat_sub:   'تجربة مالية من الجيل التالي.',
-    plan_title: 'خطة واحدة، جميع الميزات',
-    plan_sub:   'ابدأ الآن، ألغِ في أي وقت.',
-    plan_name:  'عضوية Pro',
-    plan_cta:   'البدء مع Google',
-    plan_legal: 'سجّل الدخول بحساب Google الخاص بك.',
-    cancel:     'إلغاء في أي وقت',
-    pipeline:   '+8,000 سهم → 200 قائمة → 54 مختارة',
-    member_cta: 'تسجيل الدخول',
+    p1_h1: 'محرك', p1_h2: 'القرار', p1_h3: 'مباشر الآن',
+    p1_sub: 'خوارزميتنا تفحص أكثر من 8,000 سهم وتقيس ظروف السوق في الوقت الفعلي.',
+    p1_ph: 'ابحث عن سهم أو عملة مشفرة أو عملة…',
+    pill_us: 'الأسواق الأمريكية', pill_btc: 'بيتكوين', pill_gold: 'الذهب',
+    pill_tech: 'التكنولوجيا', pill_eth: 'إيثريوم', pill_fx: 'EUR/USD',
+    cta_free: 'تسجيل مجاني', signin: 'تسجيل الدخول',
+    p2_back: 'رجوع', p2_cta: 'تسجيل مجاني',
+    p2_ai_label: '▸ ملخص الذكاء الاصطناعي للسوق',
+    p2_ai_text: 'نطاق دخول المحلل قيد المراجعة؛ هيكل الزخم الحالي اقترب من مستويات حرجة. الخلفية الكلية أصبحت محايدة لكن تدفق القطاع يولد إشارات إيجابية.',
+    p2_action_title: 'AI Trade Insight',
+    entry_lbl: 'نطاق الدخول', target_lbl: 'الهدف المحتمل', risk_lbl: 'إشارة الضعف', winrate_lbl: 'معدل النجاح',
+    p2_market_shift: 'الأصول المتقاطعة',
+    p2_corr: 'الارتباط الحالي لهذا الأصل:',
+    p3_tab1: 'نظرة عامة', p3_tab2: 'التحليلات السابقة', p3_tab3: 'أداء الأصول',
+    p3_upgrade: 'الترقية إلى Pro',
+    p3_pro_lock: 'محتوى Pro — ترقية',
+    p4_tab1: 'أفضل 5 يومياً', p4_tab2: 'تحليل القطاعات', p4_tab3: 'قوائم جاهزة', p4_tab4: 'التتبع الذكي',
+    modal_title: 'أنشئ حساباً مجانياً للمتابعة',
+    modal_sub: 'التسجيل مجاني. لا يلزم بطاقة ائتمان.',
+    modal_google: 'الاستمرار مع Google',
+    legal: 'بالتسجيل توافق على شروط الخدمة وسياسة الخصوصية.',
+    install_cta: 'إضافة إلى الشاشة الرئيسية', install_btn: 'إضافة',
+    legal_disclaimer: 'لا تقدم هذه المنصة نصائح استثمارية.',
   },
   id: {
-    badge:      'Platform Keuangan Berbasis AI',
-    hero1:      'Investasi Cerdas di',
-    hero2:      'Pasar AS',
-    hero3:      'Dimulai Di Sini',
-    sub:        'Algoritma kami memindai lebih dari 8.000 saham setiap hari dan memilih 54 peluang terkuat.',
-    cta:        'Mulai Sekarang',
-    price_note: 'Hanya $19 USD / bulan',
-    feat_title: 'Jangan Tersesat dalam Analisis',
-    feat_sub:   'Pengalaman keuangan generasi berikutnya.',
-    plan_title: 'Satu Paket, Semua Fitur',
-    plan_sub:   'Mulai sekarang, batalkan kapan saja.',
-    plan_name:  'Keanggotaan Pro',
-    plan_cta:   'Mulai dengan Google',
-    plan_legal: 'Masuk dengan akun Google Anda untuk memulai.',
-    cancel:     'Batalkan kapan saja',
-    pipeline:   '8.000+ Saham → 200 Shortlist → 54 Dipilih',
-    member_cta: 'Masuk',
+    p1_h1: 'Mesin', p1_h2: 'Keputusan', p1_h3: 'Kini Aktif',
+    p1_sub: 'Algoritma kami memindai 8.000+ saham dan mengukur kondisi pasar secara real-time.',
+    p1_ph: 'Cari saham, kripto, atau mata uang…',
+    pill_us: 'Pasar AS', pill_btc: 'Bitcoin', pill_gold: 'Emas',
+    pill_tech: 'Teknologi', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    cta_free: 'Daftar Gratis', signin: 'Masuk',
+    p2_back: 'Kembali', p2_cta: 'Daftar Gratis',
+    p2_ai_label: '▸ Ringkasan AI Pasar',
+    p2_ai_text: 'Rentang entri analis sedang ditinjau; struktur momentum saat ini telah mendekati level kritis. Latar belakang makro menjadi netral tetapi aliran sektor menghasilkan sinyal positif.',
+    p2_action_title: 'AI Trade Insight',
+    entry_lbl: 'Rentang Entri', target_lbl: 'Target Mungkin', risk_lbl: 'Sinyal Kelemahan', winrate_lbl: 'Tingkat Kemenangan',
+    p2_market_shift: 'Cross-Asset (Market Shift)',
+    p2_corr: 'Korelasi saat ini untuk aset ini:',
+    p3_tab1: 'Ikhtisar', p3_tab2: 'Analisis Sebelumnya', p3_tab3: 'Kinerja Aset',
+    p3_upgrade: 'Beli Pro — Top 5 Harian + Pelacakan',
+    p3_pro_lock: 'Konten Pro — Tingkatkan',
+    p4_tab1: 'Top 5 Harian', p4_tab2: 'Analisis Sektor', p4_tab3: 'Daftar Siap', p4_tab4: 'Pelacakan Cerdas',
+    modal_title: 'Buat akun gratis untuk melanjutkan',
+    modal_sub: 'Pendaftaran gratis. Tidak perlu kartu kredit.',
+    modal_google: 'Lanjutkan dengan Google',
+    legal: 'Dengan mendaftar Anda setuju dengan Syarat Layanan dan Kebijakan Privasi.',
+    install_cta: 'Tambahkan ke layar beranda', install_btn: 'Tambah',
+    legal_disclaimer: 'Platform ini tidak memberikan saran investasi.',
   },
   ja: {
-    badge:      'AI搭載金融プラットフォーム',
-    hero1:      '米国市場での',
-    hero2:      'スマート投資',
-    hero3:      'はここから始まる',
-    sub:        '私たちのアルゴリズムは毎日8,000以上の銘柄をスキャンし、最強の54銘柄を選択します。',
-    cta:        '今すぐ始める',
-    price_note: '月額わずか$19 USD',
-    feat_title: '分析で迷わない',
-    feat_sub:   '次世代の金融体験。',
-    plan_title: 'ワンプラン、全機能',
-    plan_sub:   '今すぐ始め、いつでもキャンセル可能。',
-    plan_name:  'Proメンバーシップ',
-    plan_cta:   'Googleで始める',
-    plan_legal: 'Googleアカウントでログインして始めましょう。',
-    cancel:     'いつでもキャンセル可能',
-    pipeline:   '8,000+銘柄スキャン → 200候補 → 54選出',
-    member_cta: 'ログイン',
+    p1_h1: '意思決定', p1_h2: 'エンジン', p1_h3: '稼働中',
+    p1_sub: '8,000以上の銘柄をスキャンし、市場状況をリアルタイムで測定します。',
+    p1_ph: '株式、暗号資産、通貨を検索… (AAPL, BTC, XAU)',
+    pill_us: '米国市場', pill_btc: 'ビットコイン', pill_gold: 'ゴールド',
+    pill_tech: 'テクノロジー', pill_eth: 'イーサリアム', pill_fx: 'EUR/USD',
+    cta_free: '無料登録', signin: 'ログイン',
+    p2_back: '戻る', p2_cta: '無料登録',
+    p2_ai_label: '▸ AIマーケットサマリー',
+    p2_ai_text: 'アナリストのエントリー範囲を検討中；現在のモメンタム構造は重要なレベルに近づいています。マクロ環境は中立に転じましたが、セクターフローはポジティブなシグナルを生成しています。',
+    p2_action_title: 'AI Trade Insight',
+    entry_lbl: 'アナリスト参入範囲', target_lbl: '可能なターゲット', risk_lbl: '構造的弱さシグナル', winrate_lbl: '勝率',
+    p2_market_shift: 'クロスアセット (Market Shift)',
+    p2_corr: 'この資産の現在の相関:',
+    p3_tab1: '概要', p3_tab2: '過去の分析', p3_tab3: '資産パフォーマンス',
+    p3_upgrade: 'プロにアップグレード',
+    p3_pro_lock: 'プロコンテンツ — アップグレード',
+    p4_tab1: 'デイリーTop 5', p4_tab2: 'セクター分析', p4_tab3: 'レディリスト', p4_tab4: 'スマートトラッキング',
+    modal_title: '続けるには無料アカウントを作成してください',
+    modal_sub: '登録は無料です。クレジットカード不要。',
+    modal_google: 'Googleで続ける',
+    legal: '登録することで、利用規約とプライバシーポリシーに同意したことになります。',
+    install_cta: 'ホーム画面に追加', install_btn: '追加',
+    legal_disclaimer: 'このプラットフォームは投資アドバイスを提供しません。',
   },
 }
 
-// ─── Özellikler (dil bağımsız icon/key, metin COPY'dan) ─────────────────────
-const FEATURE_KEYS = [
-  { icon: Filter,    key: 'f1' },
-  { icon: Brain,     key: 'f2' },
-  { icon: BarChart3, key: 'f3' },
-  { icon: Globe2,    key: 'f5' },
+// ─── Asset Database ───────────────────────────────────────────────────────────
+const ASSETS: Record<string, AssetInfo> = {
+  stocks: { ticker: 'SPY',      displayName: 'S&P 500 ETF',    category: 'ABD Hisseleri', meta: 'NYSE ARCA · ETF',     icon: '📈', price: '582.45', change: '+1.23%', changeDir: 'up' },
+  btc:    { ticker: 'BTC-USD',  displayName: 'Bitcoin',         category: 'Kripto',        meta: 'Global · Kripto',     icon: '₿',  price: '87,420', change: '-2.41%', changeDir: 'down' },
+  gold:   { ticker: 'GC=F',     displayName: 'Altın (XAU/USD)', category: 'Emtia',         meta: 'COMEX · Emtia',      icon: '◆',  price: '3,124',  change: '+0.87%', changeDir: 'up' },
+  tech:   { ticker: 'QQQ',      displayName: 'Nasdaq-100 ETF',  category: 'Teknoloji',     meta: 'NASDAQ · ETF',        icon: '◈',  price: '494.32', change: '+0.95%', changeDir: 'up' },
+  eth:    { ticker: 'ETH-USD',  displayName: 'Ethereum',        category: 'Kripto',        meta: 'Global · Kripto',     icon: '◈',  price: '2,084',  change: '-1.87%', changeDir: 'down' },
+  forex:  { ticker: 'EURUSD=X', displayName: 'EUR/USD',         category: 'Döviz',         meta: 'Forex · Döviz',      icon: '⊕',  price: '1.0824', change: '+0.12%', changeDir: 'up' },
+}
+
+const MACRO = [
+  { label: 'SPY',   value: '582.45', chg: '+1.23%', desc: 'S&P 500 ETF',   dir: 'up'   as const },
+  { label: 'QQQ',   value: '494.32', chg: '+0.95%', desc: 'Nasdaq-100',    dir: 'up'   as const },
+  { label: 'DXY',   value: '104.2',  chg: '-0.31%', desc: 'Dolar Endeksi', dir: 'down' as const },
+  { label: 'VIX',   value: '18.4',   chg: '+2.10%', desc: 'Volatilite',    dir: 'up'   as const },
+  { label: 'US10Y', value: '4.32%',  chg: '+0.04',  desc: 'ABD Bonosu',    dir: 'up'   as const },
+  { label: 'BTC',   value: '87,420', chg: '-2.41%', desc: 'Bitcoin USD',   dir: 'down' as const },
 ]
 
-const FEATURES_COPY: Record<string, Record<string, { title: string; desc: string }>> = {
-  tr: {
-    f1: { title: '8.000+ Hisse Tarama',       desc: '3 katmanlı filtre sistemi ile likidite, momentum ve akış analizleri yapılır. En iyi 200 hisse shortlist\'e alınır.' },
-    f2: { title: 'AI Destekli Yorumlar',       desc: 'AI ile 7 alan: piyasa bağlamı, senaryo bull/bear/nötr, risk referansı ve strateji notu. Legal-safe dil garantili.' },
-    f3: { title: '5 Kategori Seçim',           desc: 'CORE (20), Sektör Liderleri (14), Yüksek Hacim (7), En Yükselenler (7), Aşırı Satım (7) — overlap korumalı.' },
-    f5: { title: '7 Dil Desteği',              desc: 'Tüm analizler TR, EN, ES, PT, AR, ID, JA dillerinde. Gerçek zamanlı çeviri.' },
+function resolveAsset(q: string): AssetInfo {
+  const ql = q.toLowerCase().trim()
+  if (['bitcoin', 'btc', 'btc-usd'].some(k => ql.includes(k))) return ASSETS.btc
+  if (['altin', 'altın', 'gold', 'xau', 'gc=f'].some(k => ql.includes(k))) return ASSETS.gold
+  if (['ethereum', 'eth', 'eth-usd'].some(k => ql.includes(k))) return ASSETS.eth
+  if (['eur', 'forex', 'döviz', 'doviz', 'eurusd'].some(k => ql.includes(k))) return ASSETS.forex
+  if (['teknoloji', 'tech', 'qqq', 'nasdaq'].some(k => ql.includes(k))) return ASSETS.tech
+  if (['abd', 'sp500', 'spy', 'us market', 'borsa'].some(k => ql.includes(k))) return ASSETS.stocks
+  const upper = q.trim().toUpperCase()
+  if (/^[A-Z]{1,5}$/.test(upper)) {
+    return { ticker: upper, displayName: upper, category: 'Hisse', meta: 'NYSE/NASDAQ · Hisse', icon: '📊', price: '—', change: '—', changeDir: 'up' }
+  }
+  return ASSETS.stocks
+}
+
+// ─── Shared Styles ────────────────────────────────────────────────────────────
+const S = {
+  card: {
+    background: '#0C1017',
+    border: '1px solid rgba(255,255,255,0.06)',
+    borderRadius: 13,
+    padding: '18px 20px',
+  } as React.CSSProperties,
+  label: {
+    fontFamily: 'DM Mono, monospace',
+    fontSize: 10,
+    fontWeight: 500,
+    letterSpacing: '1.5px',
+    color: '#4C5A6B',
+    textTransform: 'uppercase' as const,
+    marginBottom: 6,
   },
-  en: {
-    f1: { title: '8,000+ Stock Scanner',      desc: '3-layer filter system analyzes liquidity, momentum and flow. Top 200 stocks make the shortlist.' },
-    f2: { title: 'AI-Powered Commentary',     desc: 'AI generates 7 fields: market context, bull/bear/neutral scenarios, risk reference and strategy note.' },
-    f3: { title: '5-Category Selection',      desc: 'CORE (20), Sector Leaders (14), High Volume (7), Top Gainers (7), Oversold (7) — overlap protected.' },
-    f5: { title: '7-Language Support',        desc: 'All analyses in TR, EN, ES, PT, AR, ID, JA. Real-time translation.' },
-  },
-  es: {
-    f1: { title: 'Escaneo de +8.000 Acciones', desc: 'Sistema de filtro de 3 capas analiza liquidez, momentum y flujo. Las 200 mejores acciones pasan a la lista corta.' },
-    f2: { title: 'Comentarios con IA',          desc: 'IA genera 7 campos: contexto de mercado, escenarios bull/bear/neutral, referencia de riesgo y nota de estrategia.' },
-    f3: { title: 'Selección en 5 Categorías',   desc: 'CORE (20), Líderes Sectoriales (14), Alto Volumen (7), Mayores Ganadores (7), Sobrevendidos (7).' },
-    f5: { title: 'Soporte en 7 Idiomas',        desc: 'Todos los análisis en TR, EN, ES, PT, AR, ID, JA. Traducción en tiempo real.' },
-  },
-  pt: {
-    f1: { title: 'Varredura de +8.000 Ações',   desc: 'Sistema de filtro de 3 camadas analisa liquidez, momentum e fluxo. As 200 melhores ações entram na shortlist.' },
-    f2: { title: 'Comentários com IA',           desc: 'IA gera 7 campos: contexto de mercado, cenários bull/bear/neutro, referência de risco e nota de estratégia.' },
-    f3: { title: 'Seleção em 5 Categorias',      desc: 'CORE (20), Líderes Setoriais (14), Alto Volume (7), Maiores Ganhos (7), Sobrevenda (7).' },
-    f5: { title: 'Suporte em 7 Idiomas',         desc: 'Todas as análises em TR, EN, ES, PT, AR, ID, JA. Tradução em tempo real.' },
-  },
-  ar: {
-    f1: { title: 'فحص +8,000 سهم',             desc: 'نظام تصفية ثلاثي الطبقات يحلل السيولة والزخم والتدفق. أفضل 200 سهم تدخل القائمة المختصرة.' },
-    f2: { title: 'تعليقات مدعومة بالذكاء',     desc: 'الذكاء الاصطناعي ينتج 7 حقول: سياق السوق، سيناريوهات صعودية/هبوطية/محايدة، مرجع المخاطر وملاحظة الاستراتيجية.' },
-    f3: { title: 'اختيار في 5 فئات',            desc: 'CORE (20)، قادة القطاعات (14)، حجم عالٍ (7)، أكبر الرابحين (7)، بيع مفرط (7).' },
-    f5: { title: 'دعم 7 لغات',                  desc: 'جميع التحليلات باللغات TR وEN وES وPT وAR وID وJA. ترجمة فورية في الوقت الفعلي.' },
-  },
-  id: {
-    f1: { title: 'Pemindaian 8.000+ Saham',     desc: 'Sistem filter 3 lapisan menganalisis likuiditas, momentum, dan aliran. 200 saham terbaik masuk shortlist.' },
-    f2: { title: 'Komentar Berbasis AI',         desc: 'AI menghasilkan 7 bidang: konteks pasar, skenario bull/bear/netral, referensi risiko, dan catatan strategi.' },
-    f3: { title: 'Seleksi 5 Kategori',           desc: 'CORE (20), Pemimpin Sektor (14), Volume Tinggi (7), Pemenang Teratas (7), Oversold (7).' },
-    f5: { title: 'Dukungan 7 Bahasa',            desc: 'Semua analisis dalam TR, EN, ES, PT, AR, ID, JA. Terjemahan real-time.' },
-  },
-  ja: {
-    f1: { title: '8,000+銘柄スキャン',          desc: '3層フィルターシステムが流動性・モメンタム・フローを分析。上位200銘柄がショートリストへ。' },
-    f2: { title: 'AIコメンタリー',               desc: 'AIが7フィールド生成：市場コンテキスト、強気/弱気/中立シナリオ、リスク参照、戦略ノート。' },
-    f3: { title: '5カテゴリー選択',              desc: 'CORE(20)、セクターリーダー(14)、高出来高(7)、最高上昇(7)、売られすぎ(7)。重複保護付き。' },
-    f5: { title: '7言語サポート',                desc: 'TR、EN、ES、PT、AR、ID、JAで全分析を提供。リアルタイム翻訳。' },
+  tag: {
+    fontFamily: 'DM Mono, monospace',
+    fontSize: 10,
+    fontWeight: 500,
+    letterSpacing: '1.2px',
+    textTransform: 'uppercase' as const,
+    padding: '3px 8px',
+    borderRadius: 5,
   },
 }
 
-const PRO_FEATURES: Record<string, string[]> = {
-  tr: ['8.000+ hisse günlük tarama (3 katmanlı filtre)', 'Günlük 54 seçim — 5 kategori', 'AI analiz metinleri', '7 dil desteği', 'NY 06:30 + 12:00 otomatik tarama', 'Piyasa rejimi & VIX analizi', 'Sektör liderliği & RVOL takibi', '5 takip hissesi dahil', 'Portföy & işlem yönetimi'],
-  en: ['8,000+ daily stock scan (3-layer filter)', 'Daily 54 picks — 5 categories', 'AI analysis texts', '7-language support', 'Automatic scan NY 06:30 + 12:00', 'Market regime & VIX analysis', 'Sector leadership & RVOL tracking', '5 tracking stocks included', 'Portfolio & trade management'],
-  es: ['Escaneo diario de +8.000 acciones', '54 selecciones diarias en 5 categorías', 'Textos de análisis con IA', 'Soporte en 7 idiomas', 'Escaneo automático NY 06:30 + 12:00', 'Análisis de régimen de mercado y VIX', 'Seguimiento de liderazgo sectorial y RVOL', '5 acciones de seguimiento incluidas', 'Gestión de portafolio y operaciones'],
-  pt: ['Varredura diária de +8.000 ações', '54 seleções diárias em 5 categorias', 'Textos de análise com IA', 'Suporte em 7 idiomas', 'Varredura automática NY 06:30 + 12:00', 'Análise de regime de mercado e VIX', 'Acompanhamento de liderança setorial e RVOL', '5 ações de rastreamento incluídas', 'Gestão de portfólio e operações'],
-  ar: ['فحص يومي لأكثر من 8,000 سهم', '54 اختياراً يومياً في 5 فئات', 'نصوص تحليل بالذكاء الاصطناعي', 'دعم 7 لغات', 'فحص تلقائي في 06:30 و12:00 بتوقيت نيويورك', 'تحليل نظام السوق و VIX', 'تتبع قيادة القطاعات و RVOL', '5 أسهم متابعة مضمنة', 'إدارة المحفظة والصفقات'],
-  id: ['Pemindaian harian 8.000+ saham', '54 pilihan harian dalam 5 kategori', 'Teks analisis AI', 'Dukungan 7 bahasa', 'Pemindaian otomatis NY 06:30 + 12:00', 'Analisis rezim pasar & VIX', 'Pelacakan kepemimpinan sektor & RVOL', '5 saham pelacakan termasuk', 'Manajemen portofolio & perdagangan'],
-  ja: ['毎日8,000+銘柄スキャン（3層フィルター）', '毎日54銘柄選出 — 5カテゴリー', 'AI分析テキスト', '7言語サポート', 'NY 06:30 + 12:00 自動スキャン', '市場レジーム & VIX分析', 'セクターリーダーシップ & RVOL追跡', '5銘柄トラッキング付き', 'ポートフォリオ & 取引管理'],
-}
-
-const STATS: Record<string, { value: string; label: string }[]> = {
-  tr: [{ value: '8.000+', label: 'Günlük Taranan Hisse' }, { value: '54',     label: 'Günlük Seçim' }, { value: '7',      label: 'Dil Desteği' }, { value: '2x/gün', label: 'Otomatik Tarama' }],
-  en: [{ value: '8,000+', label: 'Daily Scanned Stocks' }, { value: '54',     label: 'Daily Picks' }, { value: '7',      label: 'Languages' }, { value: '2x/day', label: 'Auto Scan' }],
-  es: [{ value: '+8.000', label: 'Acciones Escaneadas' }, { value: '54',      label: 'Selecciones Diarias' }, { value: '7', label: 'Idiomas' }, { value: '2x/día', label: 'Escaneo Auto' }],
-  pt: [{ value: '+8.000', label: 'Ações Varridas' }, { value: '54',           label: 'Seleções Diárias' }, { value: '7', label: 'Idiomas' }, { value: '2x/dia', label: 'Varredura Auto' }],
-  ar: [{ value: '+8,000', label: 'أسهم ممسوحة يومياً' }, { value: '54',      label: 'اختيارات يومية' }, { value: '7', label: 'لغات' }, { value: 'مرتان/يوم', label: 'مسح تلقائي' }],
-  id: [{ value: '8.000+', label: 'Saham Dipindai Harian' }, { value: '54',    label: 'Pilihan Harian' }, { value: '7', label: 'Bahasa' }, { value: '2x/hari', label: 'Pindai Otomatis' }],
-  ja: [{ value: '8,000+', label: '毎日スキャン銘柄数' }, { value: '54',       label: '毎日の選出銘柄' }, { value: '7', label: '対応言語' }, { value: '2回/日', label: '自動スキャン' }],
-}
-
-// ─── Preview hisseler (finma514 tarzı) ──────────────────────────────────────
-const PREVIEW_STOCKS = [
-  { symbol: 'NVDA', sector: 'Technology',    score: 92, tier: 'STRONG', tag: 'CORE',   change: +4.2 },
-  { symbol: 'MSFT', sector: 'Technology',    score: 87, tier: 'HIGH',   tag: 'CORE',   change: +1.8 },
-  { symbol: 'XOM',  sector: 'Energy',        score: 83, tier: 'HIGH',   tag: 'SECTOR', change: +2.1 },
-  { symbol: 'AMZN', sector: 'Consumer',      score: 79, tier: 'HIGH',   tag: 'GAINER', change: +3.5 },
-  { symbol: 'AAPL', sector: 'Technology',    score: 76, tier: 'HIGH',   tag: 'CORE',   change: +0.9 },
-]
-
-const TIER_COLORS: Record<string, string> = {
-  STRONG: 'text-finma-green border-finma-green/30 bg-finma-green/10',
-  HIGH:   'text-finma-primary border-finma-primary/30 bg-finma-primary/10',
-  WATCH:  'text-finma-yellow border-finma-yellow/30 bg-finma-yellow/10',
-}
-
-
-// ─── Dil Seçici ─────────────────────────────────────────────────────────────
-function LangPicker({ lang, onChange }: { lang: string; onChange: (l: string) => void }) {
-  const [open, setOpen] = useState(false)
-  const cur = LANGS.find(l => l.code === lang) ?? LANGS[0]
-  return (
-    <div className="relative">
-      <button
-        onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-white/5 border border-finma-border
-                   text-xs text-finma-text hover:border-finma-border-light transition-colors"
-      >
-        <span>{cur.flag}</span>
-        <span className="hidden sm:inline">{cur.label}</span>
-        <ChevronDown className={cn('w-3 h-3 text-finma-text-dim transition-transform', open && 'rotate-180')} />
-      </button>
-      {open && (
-        <div className="absolute right-0 top-full mt-1 z-50 bg-finma-card border border-finma-border
-                        rounded-lg shadow-xl overflow-hidden min-w-[140px]">
-          {LANGS.map(l => (
-            <button
-              key={l.code}
-              onClick={() => { onChange(l.code); setOpen(false) }}
-              className={cn(
-                'flex items-center gap-2 w-full px-3 py-2 text-xs transition-colors text-left',
-                l.code === lang ? 'bg-finma-primary/15 text-finma-primary' : 'text-finma-text hover:bg-white/5'
-              )}
-            >
-              <span>{l.flag}</span><span>{l.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-// ─── Ana bileşen ─────────────────────────────────────────────────────────────
+// ─── Main Component ───────────────────────────────────────────────────────────
 export default function LandingPage() {
+  type Page = 'p1' | 'p2' | 'p3' | 'p4'
+  type P3Tab = 'overview' | 'history' | 'perf'
+  type P4Tab = 'top5' | 'sectors' | 'lists' | 'tracking'
+
+  const [page, setPage] = useState<Page>('p1')
+  const [lang, setLang] = useState('tr')
+  const [langOpen, setLangOpen] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [asset, setAsset] = useState<AssetInfo>(ASSETS.stocks)
+  const [p3tab, setP3tab] = useState<P3Tab>('overview')
+  const [p4tab, setP4tab] = useState<P4Tab>('top5')
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+  const [showInstall, setShowInstall] = useState(false)
+  const [authLoading, setAuthLoading] = useState(false)
+  const [authError, setAuthError] = useState('')
+  const [searchVal, setSearchVal] = useState('')
+  const searchRef = useRef<HTMLInputElement>(null)
+
   const { isAuthenticated, login } = useAuthStore()
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [error, setError]     = useState('')
-  const [lang, setLang]       = useState('tr')
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
-  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
-  const t = COPY[lang] ?? COPY.tr
-  const features = FEATURES_COPY[lang] ?? FEATURES_COPY.tr
-  const stats    = STATS[lang]         ?? STATS.tr
-  const proFeats = PRO_FEATURES[lang]  ?? PRO_FEATURES.tr
+  const t = (COPY[lang] ?? COPY.tr)
+  const isRtl = lang === 'ar'
 
+  // Redirect authenticated users
   useEffect(() => {
     if (isAuthenticated) router.push('/dashboard')
   }, [isAuthenticated, router])
 
-  const handleGoogleResponse = useCallback(async (response: any) => {
-    setLoading(true); setError('')
+  // Search handler
+  const doSearch = useCallback((q: string) => {
+    if (!q.trim()) return
+    setAsset(resolveAsset(q))
+    setSearchVal('')
+    setPage('p2')
+  }, [])
+
+  // Google OAuth handler
+  const handleGoogleResponse = useCallback(async (resp: any) => {
+    setAuthLoading(true)
+    setAuthError('')
     try {
-      const result = await api.googleLogin(response.credential)
+      const result = await api.googleLogin(resp.credential)
       login(result.access_token, result.user as any)
       router.push('/dashboard')
     } catch (err: any) {
-      setError(err.message || 'Google ile giriş yapılamadı')
-    } finally { setLoading(false) }
+      setAuthError(err.message || 'Giriş yapılamadı')
+    } finally {
+      setAuthLoading(false)
+    }
   }, [login, router])
 
-  // PWA Install prompt
+  // Google GSI init (re-runs when modal opens or lang changes)
   useEffect(() => {
-    const handler = (e: any) => {
-      e.preventDefault()
-      setDeferredPrompt(e)
-      setShowInstallPrompt(true)
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+    if (!clientId) return
+    const init = () => {
+      if (!window.google?.accounts?.id) return
+      window.google.accounts.id.initialize({ client_id: clientId, callback: handleGoogleResponse })
+      const el = document.getElementById('landing-google-btn')
+      if (el) {
+        el.innerHTML = ''
+        window.google!.accounts.id.renderButton(el, {
+          type: 'standard', theme: 'filled_black', size: 'large',
+          text: 'signin_with', shape: 'rectangular', width: 320,
+          locale: lang === 'tr' ? 'tr' : 'en',
+        })
+      }
     }
+    if (window.google?.accounts?.id) init()
+    else {
+      const iv = setInterval(() => {
+        if (window.google?.accounts?.id) { clearInterval(iv); init() }
+      }, 100)
+      const to = setTimeout(() => clearInterval(iv), 5000)
+      return () => { clearInterval(iv); clearTimeout(to) }
+    }
+  }, [handleGoogleResponse, lang, showModal])
+
+  // PWA install prompt
+  useEffect(() => {
+    const handler = (e: any) => { e.preventDefault(); setDeferredPrompt(e); setShowInstall(true) }
     window.addEventListener('beforeinstallprompt', handler)
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
@@ -328,361 +383,1016 @@ export default function LandingPage() {
     if (deferredPrompt) {
       deferredPrompt.prompt()
       const { outcome } = await deferredPrompt.userChoice
-      if (outcome === 'accepted') setShowInstallPrompt(false)
+      if (outcome === 'accepted') setShowInstall(false)
       setDeferredPrompt(null)
     }
   }
 
-  useEffect(() => {
-    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-    if (!clientId) return
-    const init = () => {
-      if (!window.google?.accounts?.id) return
-      window.google.accounts.id.initialize({ client_id: clientId, callback: handleGoogleResponse })
-      ;['hero-google-btn', 'cta-google-btn'].forEach(id => {
-        const el = document.getElementById(id)
-        if (el) window.google!.accounts.id.renderButton(el, {
-          type: 'standard', theme: 'filled_black', size: 'large',
-          text: 'signin_with', shape: 'rectangular', width: 320, locale: lang === 'tr' ? 'tr' : 'en',
-        })
-      })
-    }
-    if (window.google?.accounts?.id) init()
-    else {
-      const iv = setInterval(() => { if (window.google?.accounts?.id) { clearInterval(iv); init() } }, 100)
-      const to = setTimeout(() => clearInterval(iv), 5000)
-      return () => { clearInterval(iv); clearTimeout(to) }
-    }
-  }, [handleGoogleResponse, lang])
+  const gotoPage = (p: Page) => { setPage(p); window.scrollTo(0, 0) }
 
-  return (
-    <div className={cn('min-h-screen bg-finma-bg text-white', lang === 'ar' && 'dir-rtl')} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+  // ─── HEADER ───
+  const Header = () => (
+    <header style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, height: 56,
+      background: 'rgba(6,10,15,0.85)', backdropFilter: 'blur(12px)',
+      borderBottom: '1px solid rgba(255,255,255,0.06)',
+      display: 'flex', alignItems: 'center', padding: '0 20px',
+      justifyContent: 'space-between',
+    }}>
+      {/* Logo */}
+      <button
+        onClick={() => gotoPage('p1')}
+        style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#2D7EF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 18, color: '#EDF2FA', letterSpacing: '-0.5px' }}>
+          Fin<span style={{ color: '#2D7EF8' }}>MA</span>
+        </span>
+        <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 9, color: '#4C5A6B', letterSpacing: '1px' }}>v6.0</span>
+      </button>
 
-      {/* ─── Install Prompt (Mobile) ─────────────────────────── */}
-      {showInstallPrompt && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-finma-primary/90 border-b border-finma-primary/50 px-4 py-3 flex items-center justify-between sm:hidden">
-          <div className="flex items-center gap-2">
-            <Download className="w-4 h-4 text-white" />
-            <span className="text-sm text-white font-medium">Uygulama olarak ekle</span>
+      {/* Right actions */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        {/* Lang picker */}
+        <div style={{ position: 'relative' }}>
+          <button
+            onClick={() => setLangOpen(o => !o)}
+            style={{
+              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 8, padding: '5px 10px', cursor: 'pointer', color: '#8B97AA',
+              fontFamily: 'Manrope, sans-serif', fontSize: 12, display: 'flex', alignItems: 'center', gap: 5,
+            }}
+          >
+            {LANGS.find(l => l.code === lang)?.flag ?? '🌐'} {lang.toUpperCase()}
+            <span style={{ fontSize: 8, opacity: 0.6 }}>▼</span>
+          </button>
+          {langOpen && (
+            <div style={{
+              position: 'absolute', top: '110%', right: 0, background: '#0C1017',
+              border: '1px solid rgba(255,255,255,0.10)', borderRadius: 10, padding: '6px 0',
+              minWidth: 140, zIndex: 200,
+            }}>
+              {LANGS.map(l => (
+                <button key={l.code}
+                  onClick={() => { setLang(l.code); setLangOpen(false) }}
+                  style={{
+                    display: 'flex', width: '100%', padding: '8px 14px', gap: 8, alignItems: 'center',
+                    background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
+                    color: l.code === lang ? '#EDF2FA' : '#8B97AA',
+                    fontFamily: 'Manrope, sans-serif', fontSize: 13,
+                  }}
+                >
+                  {l.flag} {l.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Sign in */}
+        <button
+          onClick={() => router.push('/login')}
+          style={{
+            background: 'none', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8,
+            padding: '6px 14px', cursor: 'pointer', color: '#8B97AA',
+            fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 500,
+          }}
+        >
+          {t.signin}
+        </button>
+
+        {/* Sign up */}
+        <button
+          onClick={() => setShowModal(true)}
+          style={{
+            background: '#2D7EF8', border: 'none', borderRadius: 8,
+            padding: '7px 16px', cursor: 'pointer', color: '#fff',
+            fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
+          }}
+        >
+          {t.cta_free}
+        </button>
+      </div>
+    </header>
+  )
+
+  // ─── PAGE 1: SEARCH LANDING ───
+  const Page1 = () => {
+    const [localVal, setLocalVal] = useState('')
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    useEffect(() => { inputRef.current?.focus() }, [])
+
+    const submit = () => doSearch(localVal)
+
+    return (
+      <div className="lp-page-enter" style={{
+        minHeight: '100vh', display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center', paddingTop: 56,
+        padding: '56px 20px 40px', position: 'relative', zIndex: 1,
+      }}>
+        {/* Hero heading */}
+        <div style={{ textAlign: 'center', marginBottom: 40, maxWidth: 560 }}>
+          <div style={{ marginBottom: 16 }}>
+            <span style={{
+              fontFamily: 'DM Mono, monospace', fontSize: 11, fontWeight: 500,
+              letterSpacing: '2px', color: '#2D7EF8', textTransform: 'uppercase',
+              background: 'rgba(45,126,248,0.10)', padding: '4px 12px', borderRadius: 20,
+              display: 'inline-block', marginBottom: 24,
+            }}>
+              <span className="lp-blink" style={{ color: '#10B981', marginRight: 6 }}>●</span>
+              Live AI · 8,000+ Stocks
+            </span>
+          </div>
+          <h1 style={{
+            fontFamily: 'DM Serif Display, serif', fontSize: 'clamp(44px, 8vw, 76px)',
+            fontWeight: 400, lineHeight: 1.05, color: '#EDF2FA',
+            margin: '0 0 20px', letterSpacing: '-1px',
+          }}>
+            {t.p1_h1}{' '}
+            <em style={{ fontStyle: 'italic', color: '#2D7EF8' }}>{t.p1_h2}</em>
+            <br />{t.p1_h3}
+          </h1>
+          <p style={{
+            fontFamily: 'Manrope, sans-serif', fontSize: 15, color: '#8B97AA',
+            lineHeight: 1.65, margin: 0,
+          }}>
+            {t.p1_sub}
+          </p>
+        </div>
+
+        {/* Search box */}
+        <div style={{ width: '100%', maxWidth: 640, position: 'relative', marginBottom: 20 }}>
+          <input
+            ref={inputRef}
+            type="text"
+            value={localVal}
+            onChange={e => setLocalVal(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') submit() }}
+            placeholder={t.p1_ph}
+            style={{
+              width: '100%', height: 60, background: '#101820',
+              border: '1px solid rgba(255,255,255,0.10)', borderRadius: 14,
+              padding: '0 120px 0 20px', fontSize: 16,  // 16px — iOS zoom prevention
+              color: '#EDF2FA', outline: 'none', boxSizing: 'border-box',
+              fontFamily: 'Manrope, sans-serif', transition: 'border-color 0.25s',
+            }}
+            onFocus={e => { e.target.style.borderColor = 'rgba(45,126,248,0.5)' }}
+            onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)' }}
+          />
+          <button
+            onClick={submit}
+            style={{
+              position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)',
+              background: '#2D7EF8', border: 'none', borderRadius: 9,
+              width: 40, height: 40, cursor: 'pointer', display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="8" stroke="white" strokeWidth="2"/>
+              <path d="m21 21-4.35-4.35" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+          {/* Keyboard hint (hidden on mobile) */}
+          <span style={{
+            position: 'absolute', right: 62, top: '50%', transform: 'translateY(-50%)',
+            fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B',
+            letterSpacing: '0.5px',
+          }} className="hidden sm:block">
+            ENTER ↵
+          </span>
+        </div>
+
+        {/* Pill shortcuts */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 60 }}>
+          {[
+            { label: `⚡ ${t.pill_us}`,   q: 'ABD Borsaları' },
+            { label: `₿ ${t.pill_btc}`,   q: 'Bitcoin' },
+            { label: `◆ ${t.pill_gold}`,   q: 'Altın' },
+            { label: `◈ ${t.pill_tech}`,   q: 'Teknoloji' },
+            { label: `◈ ${t.pill_eth}`,    q: 'Ethereum' },
+            { label: `⊕ ${t.pill_fx}`,    q: 'EUR/USD' },
+          ].map(pill => (
+            <button
+              key={pill.q}
+              onClick={() => doSearch(pill.q)}
+              style={{
+                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.10)',
+                borderRadius: 40, padding: '8px 15px', cursor: 'pointer',
+                color: '#8B97AA', fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 500,
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget
+                el.style.borderColor = 'rgba(255,255,255,0.20)'
+                el.style.color = '#EDF2FA'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget
+                el.style.borderColor = 'rgba(255,255,255,0.10)'
+                el.style.color = '#8B97AA'
+              }}
+            >
+              {pill.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Bottom features hint */}
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center' }}>
+          {['8,000+ Hisse', '7 Dil', 'AI Analiz', 'Legal-Safe'].map(feat => (
+            <span key={feat} style={{
+              fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B',
+              letterSpacing: '1.5px', textTransform: 'uppercase',
+              display: 'flex', alignItems: 'center', gap: 6,
+            }}>
+              <span style={{ color: '#10B981', fontSize: 8 }}>✓</span> {feat}
+            </span>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ─── PAGE 2: RESULTS ───
+  const Page2 = () => {
+    const upColor = '#10B981'
+    const downColor = '#F43F5E'
+    const chgColor = asset.changeDir === 'up' ? upColor : downColor
+
+    return (
+      <div className="lp-page-enter" style={{ paddingTop: 56, position: 'relative', zIndex: 1, minHeight: '100vh' }}>
+        {/* Sub-header */}
+        <div style={{
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          padding: '12px 20px', display: 'flex', alignItems: 'center',
+          gap: 12, flexWrap: 'wrap',
+        }}>
+          <button
+            onClick={() => gotoPage('p1')}
+            style={{
+              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 8, padding: '6px 12px', cursor: 'pointer', color: '#8B97AA',
+              fontFamily: 'Manrope, sans-serif', fontSize: 12, display: 'flex', alignItems: 'center', gap: 5,
+            }}
+          >
+            ← {t.p2_back}
+          </button>
+
+          {/* Asset info */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+            <span style={{ fontSize: 20 }}>{asset.icon}</span>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontFamily: 'DM Serif Display, serif', fontSize: 20, color: '#EDF2FA' }}>
+                  {asset.displayName}
+                </span>
+                <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 11, color: '#4C5A6B', letterSpacing: '1px' }}>
+                  {asset.ticker}
+                </span>
+              </div>
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B', letterSpacing: '1px' }}>
+                {asset.meta}
+              </div>
+            </div>
+            {/* Live badge */}
+            <span style={{
+              fontFamily: 'DM Mono, monospace', fontSize: 10, letterSpacing: '1.5px',
+              color: '#10B981', background: 'rgba(16,185,129,0.10)',
+              padding: '3px 8px', borderRadius: 20, textTransform: 'uppercase',
+              display: 'flex', alignItems: 'center', gap: 5,
+            }}>
+              <span className="lp-blink" style={{ fontSize: 7 }}>●</span> Canlı AI
+            </span>
+          </div>
+
+          {/* CTA */}
+          <button
+            onClick={() => setShowModal(true)}
+            style={{
+              background: '#2D7EF8', border: 'none', borderRadius: 8,
+              padding: '7px 16px', cursor: 'pointer', color: '#fff',
+              fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
+            }}
+          >
+            {t.p2_cta}
+          </button>
+        </div>
+
+        {/* Macro strip */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)',
+          gap: 1, background: 'rgba(255,255,255,0.04)', margin: '0 0 1px',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}>
+          {MACRO.map(m => (
+            <div key={m.label} style={{
+              background: '#060A0F', padding: '10px 14px',
+              borderRight: '1px solid rgba(255,255,255,0.04)',
+            }}>
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B', letterSpacing: '1.5px', marginBottom: 3 }}>
+                {m.label}
+              </div>
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 13, color: '#EDF2FA', marginBottom: 2 }}>
+                {m.value}
+              </div>
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: m.dir === 'up' ? upColor : downColor }}>
+                {m.chg}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Main content grid */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 300px', gap: 16,
+          padding: '16px 20px', maxWidth: 1100, margin: '0 auto',
+        }}>
+          {/* Left: main content */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+            {/* AI Summary Card */}
+            <div style={{ ...S.card }}>
+              <div style={{ ...S.label, color: '#2D7EF8', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span className="lp-blink" style={{ color: '#2D7EF8', fontSize: 8 }}>●</span>
+                {t.p2_ai_label}
+              </div>
+              <p style={{
+                fontFamily: 'DM Serif Display, serif', fontSize: 16, fontStyle: 'italic',
+                color: '#B8C5D4', lineHeight: 1.7, margin: 0,
+              }}>
+                {t.p2_ai_text}
+              </p>
+            </div>
+
+            {/* Action Box */}
+            <div style={{ ...S.card, background: '#0A1520', border: '1px solid rgba(45,126,248,0.15)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+                <div>
+                  <div style={{ ...S.label, color: '#2D7EF8' }}>🎯 {t.p2_action_title}</div>
+                  <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: 18, color: '#EDF2FA' }}>
+                    Momentum Kırılım Yapısı
+                  </div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 28, color: '#2D7EF8', lineHeight: 1 }}>82</div>
+                  <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 9, color: '#4C5A6B', letterSpacing: '1px' }}>GÜVEN / 100</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
+                <span style={{ ...S.tag, background: 'rgba(16,185,129,0.13)', color: '#10B981' }}>Breakout</span>
+                <span style={{ ...S.tag, background: 'rgba(45,126,248,0.13)', color: '#2D7EF8' }}>Risk-On</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+                {[
+                  { label: t.entry_lbl,   value: `$${asset.price}`, sub: '± %0.8' },
+                  { label: t.target_lbl,  value: '+7.4%', sub: 'Olası Hedef' },
+                  { label: t.winrate_lbl, value: '68.3%', sub: 'Geçmiş Veri' },
+                ].map(row => (
+                  <div key={row.label} style={{
+                    background: 'rgba(255,255,255,0.03)', borderRadius: 8, padding: '10px 12px',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}>
+                    <div style={{ ...S.label }}>{row.label}</div>
+                    <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 15, color: '#EDF2FA', fontWeight: 700 }}>{row.value}</div>
+                    <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B' }}>{row.sub}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Chart — subtle, above paywall */}
+            <div style={{ ...S.card, padding: '14px 16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <div style={{ ...S.label }}>Fiyat Grafiği — 1 Ay</div>
+                <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: chgColor }}>
+                  {asset.change}
+                </div>
+              </div>
+              <LandingChart ticker={asset.ticker} />
+            </div>
+
+            {/* Paywall zone */}
+            <div style={{ position: 'relative', borderRadius: 13, overflow: 'hidden' }}>
+              {/* Blurred content */}
+              <div className="lp-blur-content" style={{ ...S.card, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                {[
+                  { label: 'Senaryo: Boğa', value: '+12.4%', color: '#10B981' },
+                  { label: 'Senaryo: Ayı',  value: '-8.7%',  color: '#F43F5E' },
+                  { label: 'Destek Seviyesi', value: '547.20', color: '#EDF2FA' },
+                  { label: 'Direnç Seviyesi', value: '598.80', color: '#EDF2FA' },
+                  { label: 'Stop-Loss Referansı', value: '541.00', color: '#F43F5E' },
+                  { label: 'Sektör Sıralaması', value: '#4 / 11',  color: '#F59E0B' },
+                ].map(item => (
+                  <div key={item.label} style={{
+                    background: 'rgba(255,255,255,0.03)', borderRadius: 8, padding: '10px 12px',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}>
+                    <div style={{ ...S.label }}>{item.label}</div>
+                    <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 16, color: item.color, fontWeight: 700 }}>
+                      {item.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Paywall overlay */}
+              <div style={{
+                position: 'absolute', inset: 0,
+                background: 'linear-gradient(to bottom, transparent 0%, rgba(12,16,23,0.75) 30%, rgba(12,16,23,0.98) 55%)',
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end',
+                padding: '20px 20px 24px', borderRadius: 13,
+              }}>
+                <div style={{ textAlign: 'center', marginBottom: 14 }}>
+                  <div style={{ fontSize: 28, marginBottom: 6 }}>🔒</div>
+                  <div style={{
+                    fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: 15, color: '#EDF2FA', marginBottom: 4,
+                  }}>
+                    Pro senaryo ve seviyeler kilitli
+                  </div>
+                  <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA' }}>
+                    Ücretsiz üye ol — kredi kartı gerekmez
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowModal(true)}
+                  style={{
+                    background: '#2D7EF8', border: 'none', borderRadius: 10,
+                    padding: '12px 28px', cursor: 'pointer', color: '#fff',
+                    fontFamily: 'Manrope, sans-serif', fontSize: 14, fontWeight: 700,
+                    boxShadow: '0 4px 20px rgba(45,126,248,0.35)',
+                  }}
+                >
+                  {t.cta_free}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: sidebar */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* Market Shift */}
+            <div style={{ ...S.card }}>
+              <div style={{ ...S.label, marginBottom: 12 }}>{t.p2_market_shift}</div>
+              <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#8B97AA', marginBottom: 10 }}>
+                {t.p2_corr}
+              </div>
+              {[
+                { label: 'DXY', tag: 'Negatif Korelasyon', color: '#F43F5E', bg: 'rgba(244,63,94,0.10)' },
+                { label: 'VIX', tag: 'Risk Baskısı: Düşük', color: '#10B981', bg: 'rgba(16,185,129,0.10)' },
+                { label: 'BTC', tag: 'Risk-On Paralel',      color: '#F59E0B', bg: 'rgba(245,158,11,0.10)' },
+              ].map(c => (
+                <div key={c.label} style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.04)',
+                }}>
+                  <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, color: '#EDF2FA' }}>{c.label}</span>
+                  <span style={{ ...S.tag, background: c.bg, color: c.color, fontSize: 9 }}>{c.tag}</span>
+                </div>
+              ))}
+              <div style={{ marginTop: 12, padding: '8px 10px', background: 'rgba(16,185,129,0.08)', borderRadius: 8, border: '1px solid rgba(16,185,129,0.15)' }}>
+                <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 9, letterSpacing: '1.5px', color: '#10B981', marginBottom: 3 }}>
+                  MACRO SIGNAL
+                </div>
+                <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#B8C5D4' }}>
+                  Risk-On ortam · Macro Tailwind
+                </div>
+              </div>
+            </div>
+
+            {/* Notification demo */}
+            <div style={{ ...S.card }}>
+              <div style={{ ...S.label, marginBottom: 10 }}>Bildirim Örneği</div>
+              {[
+                { time: '09:42', msg: 'AAPL momentum kırılım sinyali', color: '#10B981' },
+                { time: '11:15', msg: 'SPY direnç testinde', color: '#F59E0B' },
+                { time: '14:30', msg: 'BTC volatilite uyarısı', color: '#F43F5E' },
+              ].map(n => (
+                <div key={n.time} style={{
+                  display: 'flex', gap: 10, padding: '8px 0',
+                  borderBottom: '1px solid rgba(255,255,255,0.04)',
+                }}>
+                  <span style={{ width: 4, flexShrink: 0, background: n.color, borderRadius: 2 }} />
+                  <div>
+                    <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#B8C5D4' }}>{n.msg}</div>
+                    <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B' }}>{n.time}</div>
+                  </div>
+                </div>
+              ))}
+              <div style={{ marginTop: 10 }}>
+                <button
+                  onClick={() => setShowModal(true)}
+                  style={{
+                    width: '100%', background: 'rgba(45,126,248,0.10)', border: '1px solid rgba(45,126,248,0.20)',
+                    borderRadius: 8, padding: '9px', cursor: 'pointer', color: '#2D7EF8',
+                    fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
+                  }}
+                >
+                  Bildirimleri Aktif Et
+                </button>
+              </div>
+            </div>
+
+            {/* Legal note */}
+            <p style={{
+              fontFamily: 'Manrope, sans-serif', fontSize: 10, color: '#4C5A6B',
+              lineHeight: 1.6, margin: 0, padding: '10px 4px',
+            }}>
+              {t.legal_disclaimer}
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ─── PAGE 3: FREE DASHBOARD ───
+  const Page3 = () => (
+    <div className="lp-page-enter" style={{ paddingTop: 56, position: 'relative', zIndex: 1, minHeight: '100vh' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', minHeight: 'calc(100vh - 56px)' }}>
+        {/* Sidebar */}
+        <div style={{ background: '#0A1520', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '20px 0' }}>
+          <div style={{ padding: '0 14px', marginBottom: 8 }}>
+            <div style={{ ...S.label, marginBottom: 10 }}>Genel</div>
+            {[
+              { id: 'overview' as P3Tab, label: t.p3_tab1, icon: '⊞' },
+              { id: 'history'  as P3Tab, label: t.p3_tab2, icon: '◷' },
+              { id: 'perf'     as P3Tab, label: t.p3_tab3, icon: '◈' },
+            ].map(tab => (
+              <button key={tab.id}
+                onClick={() => setP3tab(tab.id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8, width: '100%',
+                  padding: '9px 10px', borderRadius: 8, marginBottom: 3,
+                  background: p3tab === tab.id ? 'rgba(45,126,248,0.12)' : 'none',
+                  border: 'none', cursor: 'pointer', textAlign: 'left',
+                  color: p3tab === tab.id ? '#2D7EF8' : '#8B97AA',
+                  fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 500,
+                }}
+              >
+                <span style={{ fontSize: 14 }}>{tab.icon}</span> {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ margin: '16px 14px 8px', height: 1, background: 'rgba(255,255,255,0.06)' }} />
+
+          <div style={{ padding: '0 14px' }}>
+            <div style={{ ...S.label, marginBottom: 10 }}>Pro İçerik</div>
+            {['Günlük Top 5', 'Sektörel Analiz', 'Akıllı Takip'].map(item => (
+              <button key={item}
+                onClick={() => setShowModal(true)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8, width: '100%',
+                  padding: '9px 10px', borderRadius: 8, marginBottom: 3,
+                  background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
+                  color: '#4C5A6B', fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 500,
+                }}
+              >
+                <span>🔒</span> {item}
+              </button>
+            ))}
+          </div>
+
+          {/* User card */}
+          <div style={{ margin: '20px 14px 0', padding: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 10, border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA', marginBottom: 8 }}>Ücretsiz Üye</div>
+            <button
+              onClick={() => setShowModal(true)}
+              style={{
+                width: '100%', background: '#2D7EF8', border: 'none', borderRadius: 7,
+                padding: '8px', cursor: 'pointer', color: '#fff',
+                fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
+              }}
+            >
+              Pro'ya Geç
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ padding: 20 }}>
+          {p3tab === 'overview' && (
+            <div>
+              {/* Stats */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+                {[
+                  { label: 'S&P 500', val: '5,826', chg: '+1.23%', dir: 'up' as const },
+                  { label: 'Nasdaq-100', val: '20,432', chg: '+0.95%', dir: 'up' as const },
+                  { label: 'Bitcoin', val: '$87,420', chg: '-2.41%', dir: 'down' as const },
+                ].map(stat => (
+                  <div key={stat.label} style={{ ...S.card }}>
+                    <div style={{ ...S.label }}>{stat.label}</div>
+                    <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 22, color: '#EDF2FA', marginBottom: 4 }}>{stat.val}</div>
+                    <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, color: stat.dir === 'up' ? '#10B981' : '#F43F5E' }}>{stat.chg}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Top 5 preview (3 visible, 2 locked) */}
+              <div style={{ ...S.card, marginBottom: 14 }}>
+                <div style={{ ...S.label, marginBottom: 12 }}>Top 5 Önizleme</div>
+                {[
+                  { rank: 1, ticker: 'NVDA', name: 'NVIDIA Corp', score: 94, chg: '+3.2%' },
+                  { rank: 2, ticker: 'META', name: 'Meta Platforms', score: 91, chg: '+1.8%' },
+                  { rank: 3, ticker: 'MSFT', name: 'Microsoft Corp', score: 88, chg: '+0.9%' },
+                ].map(s => (
+                  <div key={s.ticker} style={{
+                    display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0',
+                    borderBottom: '1px solid rgba(255,255,255,0.04)',
+                  }}>
+                    <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 13, color: '#4C5A6B', width: 16 }}>{s.rank}</span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 13, color: '#EDF2FA', fontWeight: 600 }}>{s.ticker}</div>
+                      <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#8B97AA' }}>{s.name}</div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 13, color: '#10B981' }}>{s.chg}</div>
+                      <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#2D7EF8' }}>Skor {s.score}</div>
+                    </div>
+                  </div>
+                ))}
+                {/* Locked rows */}
+                <div className="lp-blur-content">
+                  {[
+                    { rank: 4, ticker: 'AMZN', name: 'Amazon.com Inc', score: 85, chg: '+1.1%' },
+                    { rank: 5, ticker: 'AAPL', name: 'Apple Inc', score: 83, chg: '+0.6%' },
+                  ].map(s => (
+                    <div key={s.ticker} style={{
+                      display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0',
+                      borderBottom: '1px solid rgba(255,255,255,0.04)',
+                    }}>
+                      <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 13, color: '#4C5A6B', width: 16 }}>{s.rank}</span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 13, color: '#EDF2FA', fontWeight: 600 }}>{s.ticker}</div>
+                        <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#8B97AA' }}>{s.name}</div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 13, color: '#10B981' }}>{s.chg}</div>
+                        <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#2D7EF8' }}>Skor {s.score}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Upgrade banner */}
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(45,126,248,0.12) 0%, rgba(139,92,246,0.08) 100%)',
+                border: '1px solid rgba(45,126,248,0.20)', borderRadius: 13, padding: '16px 20px',
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+              }}>
+                <div>
+                  <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: 14, color: '#EDF2FA', marginBottom: 3 }}>
+                    Tam erişim için Pro'ya geç
+                  </div>
+                  <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA' }}>
+                    {t.p3_upgrade}
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowModal(true)}
+                  style={{
+                    background: '#2D7EF8', border: 'none', borderRadius: 9,
+                    padding: '10px 20px', cursor: 'pointer', color: '#fff',
+                    fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 700,
+                  }}
+                >
+                  Yükselt →
+                </button>
+              </div>
+            </div>
+          )}
+
+          {p3tab === 'history' && (
+            <div>
+              <div style={{ ...S.label, marginBottom: 16 }}>Geçmiş Analizler</div>
+              {[
+                { date: '24 Mar 2026', title: 'S&P 500 momentum kırılım analizi', note: 'Güven: 82/100 · Breakout yapısı onaylandı' },
+                { date: '23 Mar 2026', title: 'Bitcoin destek testi', note: 'Güven: 74/100 · Makro baskı yüksek' },
+                { date: '22 Mar 2026', title: 'NVIDIA sektör liderliği', note: 'Güven: 91/100 · Güçlü momentum' },
+              ].map(item => (
+                <div key={item.date} style={{ ...S.card, marginBottom: 10 }}>
+                  <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B', marginBottom: 4 }}>{item.date}</div>
+                  <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 13, color: '#EDF2FA', fontWeight: 600, marginBottom: 3 }}>{item.title}</div>
+                  <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#8B97AA' }}>{item.note}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {p3tab === 'perf' && (
+            <div>
+              <div style={{ ...S.label, marginBottom: 16 }}>Varlık Performansı</div>
+              {[
+                { asset: 'SPY', label: 'S&P 500', '1w': '+1.8%', '1m': '+4.2%', '1y': '+24.1%', dir: 'up' as const },
+                { asset: 'QQQ', label: 'Nasdaq-100', '1w': '+2.1%', '1m': '+5.8%', '1y': '+31.4%', dir: 'up' as const },
+                { asset: 'GC=F', label: 'Altın', '1w': '+0.9%', '1m': '+3.1%', '1y': '+18.7%', dir: 'up' as const },
+                { asset: 'BTC-USD', label: 'Bitcoin', '1w': '-3.2%', '1m': '-8.4%', '1y': '+42.1%', dir: 'down' as const },
+              ].map(row => (
+                <div key={row.asset} style={{
+                  display: 'grid', gridTemplateColumns: '80px 1fr 1fr 1fr 1fr',
+                  alignItems: 'center', gap: 12, padding: '10px 12px',
+                  background: '#0C1017', borderRadius: 8, marginBottom: 6,
+                  border: '1px solid rgba(255,255,255,0.06)',
+                }}>
+                  <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, color: '#EDF2FA' }}>{row.asset}</div>
+                  <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#8B97AA' }}>{row.label}</div>
+                  {[row['1w'], row['1m'], row['1y']].map((v, i) => (
+                    <div key={i} style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, color: v.startsWith('-') ? '#F43F5E' : '#10B981', textAlign: 'right' }}>
+                      {v}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+
+  // ─── PAGE 4: PRO DASHBOARD ───
+  const Page4 = () => (
+    <div className="lp-page-enter" style={{ paddingTop: 56, position: 'relative', zIndex: 1, minHeight: '100vh', padding: '72px 20px 40px' }}>
+      {/* Tab bar */}
+      <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: 0 }}>
+        {[
+          { id: 'top5' as P4Tab,     label: t.p4_tab1 },
+          { id: 'sectors' as P4Tab,  label: t.p4_tab2 },
+          { id: 'lists' as P4Tab,    label: t.p4_tab3 },
+          { id: 'tracking' as P4Tab, label: t.p4_tab4 },
+        ].map(tab => (
+          <button key={tab.id}
+            onClick={() => setP4tab(tab.id)}
+            style={{
+              padding: '10px 16px', background: 'none', border: 'none', cursor: 'pointer',
+              fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 500,
+              color: p4tab === tab.id ? '#EDF2FA' : '#8B97AA',
+              borderBottom: p4tab === tab.id ? '2px solid #2D7EF8' : '2px solid transparent',
+              transition: 'all 0.2s',
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {p4tab === 'top5' && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 12 }}>
+          {[
+            { rank: 1, ticker: 'NVDA', name: 'NVIDIA', score: 94, setup: 'Momentum Breakout', chg: '+3.2%', sector: 'Teknoloji' },
+            { rank: 2, ticker: 'META', name: 'Meta Platforms', score: 91, setup: 'Trend Continuation', chg: '+1.8%', sector: 'İletişim' },
+            { rank: 3, ticker: 'MSFT', name: 'Microsoft', score: 88, setup: 'Pullback Reversal', chg: '+0.9%', sector: 'Teknoloji' },
+            { rank: 4, ticker: 'AMZN', name: 'Amazon', score: 85, setup: 'Consolidation Break', chg: '+1.1%', sector: 'E-Ticaret' },
+            { rank: 5, ticker: 'AAPL', name: 'Apple', score: 83, setup: 'Support Bounce', chg: '+0.6%', sector: 'Tüketici' },
+          ].map(s => (
+            <div key={s.ticker} style={{ ...S.card }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 20, color: '#2D7EF8', fontWeight: 700 }}>#{s.rank}</span>
+                <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 18, color: '#10B981', fontWeight: 700 }}>{s.score}</span>
+              </div>
+              <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: 20, color: '#EDF2FA', marginBottom: 2 }}>{s.ticker}</div>
+              <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#8B97AA', marginBottom: 10 }}>{s.name}</div>
+              <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+                <span style={{ ...S.tag, background: 'rgba(45,126,248,0.13)', color: '#2D7EF8', fontSize: 9 }}>{s.setup}</span>
+                <span style={{ ...S.tag, background: 'rgba(255,255,255,0.05)', color: '#8B97AA', fontSize: 9 }}>{s.sector}</span>
+              </div>
+              <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 14, color: '#10B981', fontWeight: 700 }}>{s.chg}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {p4tab === 'tracking' && (
+        <div style={{ maxWidth: 600 }}>
+          <div style={{ ...S.label, marginBottom: 16 }}>Akıllı Takip — Aktif Pozisyon</div>
+          <div style={{ ...S.card, marginBottom: 14, border: '1px solid rgba(16,185,129,0.20)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{
+                fontFamily: 'DM Mono, monospace', fontSize: 10, letterSpacing: '2px', color: '#10B981',
+                background: 'rgba(16,185,129,0.10)', padding: '4px 10px', borderRadius: 20,
+              }}>
+                <span className="lp-blink" style={{ fontSize: 7 }}>●</span> AKTİF · KADEMELİ GİRİŞ
+              </div>
+            </div>
+            <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: 22, color: '#EDF2FA', marginBottom: 4 }}>NVDA</div>
+            <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA', marginBottom: 16 }}>NVIDIA Corporation · Momentum Breakout</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+              {[
+                { label: 'Direktif', value: 'KADEMELİ GİRİŞ', color: '#10B981' },
+                { label: 'Analist Giriş', value: '$887–902', color: '#EDF2FA' },
+                { label: 'Durum', value: 'Onaylandı', color: '#10B981' },
+              ].map(r => (
+                <div key={r.label} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: 8, padding: '10px 12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ ...S.label }}>{r.label}</div>
+                  <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 13, color: r.color, fontWeight: 700 }}>{r.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Waiting state */}
+          <div style={{ ...S.card, border: '1px solid rgba(245,158,11,0.15)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{
+                fontFamily: 'DM Mono, monospace', fontSize: 10, letterSpacing: '2px', color: '#F59E0B',
+                background: 'rgba(245,158,11,0.10)', padding: '4px 10px', borderRadius: 20,
+              }}>
+                <span className="lp-blink" style={{ fontSize: 7 }}>●</span> BEKLE
+              </div>
+            </div>
+            <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: 22, color: '#EDF2FA', marginBottom: 4 }}>META</div>
+            <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA' }}>Meta Platforms · Onay bekleniyor</div>
+          </div>
+        </div>
+      )}
+
+      {(p4tab === 'sectors' || p4tab === 'lists') && (
+        <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+          <div style={{ fontSize: 40, marginBottom: 16 }}>📊</div>
+          <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: 24, color: '#EDF2FA', marginBottom: 8 }}>
+            {p4tab === 'sectors' ? 'Sektörel Analizler' : 'Hazır Listeler'}
+          </div>
+          <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 14, color: '#8B97AA', marginBottom: 24 }}>
+            Pro içerik — ücretsiz hesabınızla temel özelliklere erişin.
           </div>
           <button
-            onClick={handleInstall}
-            className="text-xs px-3 py-1.5 rounded bg-white text-finma-primary font-semibold hover:bg-gray-100 transition-colors"
+            onClick={() => setShowModal(true)}
+            style={{
+              background: '#2D7EF8', border: 'none', borderRadius: 10,
+              padding: '12px 28px', cursor: 'pointer', color: '#fff',
+              fontFamily: 'Manrope, sans-serif', fontSize: 14, fontWeight: 700,
+            }}
           >
-            Ekle
+            {t.cta_free}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+
+  // ─── AUTH MODAL ───
+  const AuthModal = () => (
+    <div
+      onClick={() => setShowModal(false)}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 1000,
+        background: 'rgba(6,10,15,0.85)', backdropFilter: 'blur(8px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20,
+      }}
+    >
+      <div
+        className="lp-pop"
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: '#0C1017', border: '1px solid rgba(255,255,255,0.10)',
+          borderRadius: 18, padding: '32px 28px', width: '100%', maxWidth: 400,
+        }}
+      >
+        {/* Logo */}
+        <div style={{ textAlign: 'center', marginBottom: 24 }}>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style={{ marginBottom: 10 }}>
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#2D7EF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 20, color: '#EDF2FA', marginBottom: 6 }}>
+            Fin<span style={{ color: '#2D7EF8' }}>MA</span>
+          </div>
+          <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: 17, color: '#EDF2FA', marginBottom: 6 }}>
+            {t.modal_title}
+          </div>
+          <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 13, color: '#8B97AA' }}>
+            {t.modal_sub}
+          </div>
+        </div>
+
+        {/* Google button */}
+        <div id="landing-google-btn" style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }} />
+
+        {/* Or divider */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '12px 0' }}>
+          <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+          <span style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#4C5A6B' }}>veya</span>
+          <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+        </div>
+
+        {/* Email button (goes to login page) */}
+        <button
+          onClick={() => { setShowModal(false); router.push('/login') }}
+          style={{
+            width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
+            borderRadius: 10, padding: '12px', cursor: 'pointer', color: '#EDF2FA',
+            fontFamily: 'Manrope, sans-serif', fontSize: 14, fontWeight: 600, marginBottom: 12,
+          }}
+        >
+          ✉ E-posta ile Devam Et
+        </button>
+
+        {authError && (
+          <div style={{
+            fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#F43F5E',
+            textAlign: 'center', marginBottom: 10, padding: '8px', background: 'rgba(244,63,94,0.10)',
+            borderRadius: 8,
+          }}>
+            {authError}
+          </div>
+        )}
+
+        {/* Legal */}
+        <p style={{
+          fontFamily: 'Manrope, sans-serif', fontSize: 10, color: '#4C5A6B',
+          textAlign: 'center', lineHeight: 1.5, margin: 0,
+        }}>
+          {t.legal}
+        </p>
+
+        {/* Close */}
+        <button
+          onClick={() => setShowModal(false)}
+          style={{
+            position: 'absolute', top: 14, right: 14, background: 'none',
+            border: 'none', cursor: 'pointer', color: '#4C5A6B', fontSize: 18, lineHeight: 1,
+          }}
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  )
+
+  // ─── PWA Install Banner ───
+  const InstallBanner = () => (
+    <div style={{
+      position: 'fixed', top: 56, left: 0, right: 0, zIndex: 90,
+      background: 'rgba(45,126,248,0.90)', backdropFilter: 'blur(8px)',
+      borderBottom: '1px solid rgba(45,126,248,0.30)',
+      padding: '10px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    }}>
+      <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 13, color: '#fff', fontWeight: 500 }}>
+        📱 {t.install_cta}
+      </div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button onClick={() => setShowInstall(false)}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', fontSize: 12 }}>
+          İptal
+        </button>
+        <button onClick={handleInstall}
+          style={{
+            background: '#fff', border: 'none', borderRadius: 7, padding: '6px 14px',
+            cursor: 'pointer', color: '#2D7EF8', fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 700,
+          }}>
+          {t.install_btn}
+        </button>
+      </div>
+    </div>
+  )
+
+  // ─── RENDER ───
+  return (
+    <div className="lp-root" dir={isRtl ? 'rtl' : 'ltr'} onClick={() => langOpen && setLangOpen(false)}>
+      {/* Close lang dropdown on outside click is handled above */}
+
+      {showInstall && <InstallBanner />}
+      <Header />
+
+      <main style={{ position: 'relative', zIndex: 1 }}>
+        {page === 'p1' && <Page1 />}
+        {page === 'p2' && <Page2 />}
+        {page === 'p3' && <Page3 />}
+        {page === 'p4' && <Page4 />}
+      </main>
+
+      {/* Bottom nav (demo) — pages 3 & 4 accessible via modal flow */}
+      {page === 'p2' && (
+        <div style={{
+          position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 80,
+          background: 'rgba(6,10,15,0.9)', backdropFilter: 'blur(8px)',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          padding: '10px 20px', display: 'flex', justifyContent: 'center', gap: 12,
+        }}>
+          <button onClick={() => setShowModal(true)}
+            style={{
+              background: 'none', border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 8, padding: '7px 16px', cursor: 'pointer', color: '#8B97AA',
+              fontFamily: 'Manrope, sans-serif', fontSize: 12,
+            }}>
+            Ücretsiz Dashboard →
+          </button>
+          <button onClick={() => setShowModal(true)}
+            style={{
+              background: 'linear-gradient(135deg, #2D7EF8, #8B5CF6)',
+              border: 'none', borderRadius: 8, padding: '7px 16px', cursor: 'pointer', color: '#fff',
+              fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
+            }}>
+            Pro Dashboard →
           </button>
         </div>
       )}
 
-      {/* ─── Navbar ──────────────────────────────────────────── */}
-      <nav className="fixed top-0 w-full z-50 bg-finma-bg/80 backdrop-blur-xl border-b border-finma-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            <Activity className="w-6 h-6 sm:w-7 sm:h-7 text-finma-primary" />
-            <span className="text-lg sm:text-xl font-bold text-white">Fin</span>
-            <span className="text-lg sm:text-xl font-bold text-finma-primary">MA</span>
-            <span className="text-[8px] sm:text-[10px] text-finma-text-dim ml-1 font-mono">v5.0</span>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <LangPicker lang={lang} onChange={setLang} />
-            <span className="hidden md:block text-sm text-finma-text-dim">$29/mo</span>
-            <button onClick={() => router.push('/login')} className="text-xs sm:text-sm text-finma-text-dim hover:text-finma-text transition-colors hidden sm:block">
-              {t.member_cta}
-            </button>
-            <a href="#pricing" className="finma-btn-primary text-xs sm:text-sm px-3 sm:px-4 py-2 flex items-center gap-1.5">
-              {t.cta} <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      {/* ─── Hero ────────────────────────────────────────────── */}
-      <section className={cn("pt-32 pb-16 px-4", showInstallPrompt && "pt-40 sm:pt-32")}>
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-finma-primary/10 border border-finma-primary/30 mb-4 sm:mb-6">
-            <Brain className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-finma-primary" />
-            <span className="text-[10px] sm:text-xs text-finma-primary font-medium">{t.badge}</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
-            {t.hero1}<br />
-            <span className="text-finma-primary">{t.hero2}</span> {t.hero3}
-          </h1>
-
-          <p className="text-base sm:text-lg md:text-xl text-finma-text-muted max-w-2xl mx-auto mb-3 sm:mb-4 px-2">
-            {t.sub}
-          </p>
-
-          {/* Pipeline rozeti */}
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-finma-green/10 border border-finma-green/30 mb-6 sm:mb-8">
-            <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-finma-green" />
-            <span className="text-[10px] sm:text-xs text-finma-green font-mono font-semibold">{t.pipeline}</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-4 mb-4 px-2">
-            <div id="hero-google-btn" style={{ display: 'flex', justifyContent: 'center' }} />
-            {loading && <p className="text-xs text-finma-text-dim">Giriş yapılıyor...</p>}
-            {error   && <p className="text-xs text-finma-red bg-finma-red/10 border border-finma-red/30 rounded-md px-3 py-2">{error}</p>}
-          </div>
-          <p className="text-xs text-finma-text-dim">7 gün ücretsiz, sonra $29/ay</p>
-        </div>
-      </section>
-
-      {/* ─── Terminal Preview (finma514 tarzı tablo) ─────────── */}
-      <section className="pb-16 px-4">
-        <div className="max-w-3xl mx-auto">
-          <div className="rounded-2xl border border-finma-border/50 bg-finma-card overflow-hidden shadow-2xl shadow-finma-primary/5">
-            {/* Fake terminal bar */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-finma-border/50 bg-finma-sidebar">
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-finma-red/70" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-finma-yellow/70" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-finma-green/70" />
-                </div>
-                <span className="text-[10px] text-finma-text-dim font-mono ml-2">finmasmart.com — Daily 54 Picks</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-finma-green animate-pulse-slow" />
-                <span className="text-[10px] text-finma-green font-mono">LIVE</span>
-              </div>
-            </div>
-
-            {/* Mini tablo */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="border-b border-finma-border/40 bg-[#0f1520]">
-                    <th className="px-4 py-2.5 text-left text-finma-text-dim font-medium">Ticker</th>
-                    <th className="px-4 py-2.5 text-left text-finma-text-dim font-medium">Sektör</th>
-                    <th className="px-4 py-2.5 text-center text-finma-text-dim font-medium">Tier</th>
-                    <th className="px-4 py-2.5 text-center text-finma-text-dim font-medium">Kategori</th>
-                    <th className="px-4 py-2.5 text-right text-finma-text-dim font-medium">Değişim</th>
-                    <th className="px-4 py-2.5 text-right text-finma-text-dim font-medium">Skor</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PREVIEW_STOCKS.map((s, i) => (
-                    <tr key={s.symbol} className={cn('border-b border-finma-border/20', i % 2 === 0 ? '' : 'bg-white/[0.015]')}>
-                      <td className="px-4 py-2.5 font-bold text-finma-primary finma-number">{s.symbol}</td>
-                      <td className="px-4 py-2.5 text-finma-text-dim">{s.sector}</td>
-                      <td className="px-4 py-2.5 text-center">
-                        <span className={cn('inline-flex px-1.5 py-0.5 rounded border text-[9px] font-bold finma-number', TIER_COLORS[s.tier])}>
-                          {s.tier}
-                        </span>
-                      </td>
-                      <td className="px-4 py-2.5 text-center text-finma-text-dim">{s.tag}</td>
-                      <td className={cn('px-4 py-2.5 text-right finma-number', s.change >= 0 ? 'text-finma-green' : 'text-finma-red')}>
-                        {s.change >= 0 ? '+' : ''}{s.change}%
-                      </td>
-                      <td className="px-4 py-2.5 text-right">
-                        <div className="flex items-center justify-end gap-1.5">
-                          <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
-                            <div className={cn('h-full rounded-full', s.score >= 90 ? 'bg-finma-green' : 'bg-finma-primary')}
-                              style={{ width: `${s.score}%` }} />
-                          </div>
-                          <span className={cn('finma-number font-bold text-[10px]', s.score >= 90 ? 'text-finma-green' : 'text-finma-primary')}>
-                            {s.score}
-                          </span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Blur overlay + CTA */}
-            <div className="flex items-center justify-center py-4 bg-gradient-to-t from-finma-bg/80 to-transparent px-4">
-              <div className="flex flex-col items-center gap-2 bg-finma-bg/60 backdrop-blur-md border border-finma-border/50 rounded-xl p-4 shadow-xl text-center">
-                <div className="flex items-center gap-2 text-xs font-medium text-white">
-                  <Shield className="w-4 h-4 text-finma-primary" />
-                  {lang === 'tr' ? 'Tüm 54 hisseyi görmek için üye olun' :
-                   lang === 'en' ? 'Sign up to see all 54 stocks' :
-                   lang === 'ja' ? '全54銘柄を見るには登録してください' :
-                   'Sign up to see all 54 stocks'}
-                </div>
-                <a href="#pricing" className="finma-btn-primary px-6 py-2 text-xs flex items-center gap-1.5">
-                  {t.cta} <ArrowRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── İstatistikler ───────────────────────────────────── */}
-      <section className="pb-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {stats.map((s) => (
-              <div key={s.label} className="bg-finma-card/50 border border-finma-border/30 rounded-xl p-4">
-                <div className="text-2xl font-bold text-finma-primary mb-1 finma-number">{s.value}</div>
-                <div className="text-xs text-finma-text-dim">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Özellikler ──────────────────────────────────────── */}
-      <section className="pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-3">
-              {t.feat_title.split(' ').map((w, i, arr) =>
-                i === arr.length - 1
-                  ? <span key={i} className="text-finma-primary"> {w}</span>
-                  : <span key={i}>{w} </span>
-              )}
-            </h2>
-            <p className="text-finma-text-muted">{t.feat_sub}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FEATURE_KEYS.map(({ icon: Icon, key }) => {
-              const feat = features[key]
-              return (
-                <div key={key} className="bg-finma-card border border-finma-border/50 rounded-xl p-5 hover:border-finma-primary/30 transition-all group">
-                  <div className="w-9 h-9 rounded-lg bg-finma-primary/10 flex items-center justify-center mb-3 group-hover:bg-finma-primary/20 transition-colors">
-                    <Icon className="w-4.5 h-4.5 text-finma-primary" />
-                  </div>
-                  <h3 className="text-sm font-bold text-white mb-1.5">{feat.title}</h3>
-                  <p className="text-xs text-finma-text-dim leading-relaxed">{feat.desc}</p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Pricing ─────────────────────────────────────────── */}
-      <section id="pricing" className="pb-16 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-3">
-              {lang === 'tr' ? 'Paketler & Fiyatlandırma' :
-               lang === 'en' ? 'Plans & Pricing' :
-               lang === 'es' ? 'Planes y Precios' :
-               lang === 'pt' ? 'Planos e Preços' :
-               lang === 'ar' ? 'الخطط والتسعير' :
-               lang === 'id' ? 'Paket & Harga' :
-               '料金プラン'}
-            </h2>
-            <p className="text-finma-text-muted">{t.plan_sub}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            {/* Pro Plan */}
-            <div className="bg-finma-card border-2 border-finma-primary/50 rounded-2xl p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-finma-primary text-finma-bg text-[10px] font-bold px-4 py-1 rounded-bl-xl">
-                {lang === 'tr' ? 'EN POPÜLER' : lang === 'ja' ? '人気No.1' : 'MOST POPULAR'}
-              </div>
-              <div className="text-center mb-6">
-                <h3 className="text-base font-bold text-white mb-1">{lang === 'tr' ? 'Pro' : 'Pro'}</h3>
-                <div className="flex items-baseline justify-center gap-1 mb-2">
-                  <span className="text-4xl font-bold text-white">$29</span>
-                  <span className="text-finma-text-dim">/ay</span>
-                </div>
-                <p className="text-xs text-finma-text-dim">{lang === 'tr' ? '5 hisse takip dahil' : 'Includes 5 tracking stocks'}</p>
-              </div>
-
-              <div className="space-y-2.5 mb-8">
-                {proFeats.map((feat) => (
-                  <div key={feat} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-finma-green shrink-0 mt-0.5" />
-                    <span className="text-sm text-finma-text">{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col items-center gap-3">
-                <div id="cta-google-btn" />
-                <p className="text-[10px] text-finma-text-dim text-center">{t.plan_legal}<br />7 gün ücretsiz</p>
-              </div>
-            </div>
-
-            {/* Smart Tracking Plan */}
-            <div className="bg-finma-card border-2 border-finma-cyan/30 rounded-2xl p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-finma-cyan text-finma-bg text-[10px] font-bold px-4 py-1 rounded-bl-xl">
-                {lang === 'tr' ? 'HAFTALIK' : 'WEEKLY'}
-              </div>
-              <div className="text-center mb-6">
-                <h3 className="text-base font-bold text-white mb-1">{lang === 'tr' ? 'Akıllı Hisse Takip' : 'Smart Tracking'}</h3>
-                <div className="flex items-baseline justify-center gap-1 mb-2">
-                  <span className="text-4xl font-bold text-white">$19</span>
-                  <span className="text-finma-text-dim">/hafta</span>
-                </div>
-                <p className="text-xs text-finma-text-dim">{lang === 'tr' ? '10 hisse, akıllı alerts' : '10 stocks, smart alerts'}</p>
-              </div>
-
-              <div className="space-y-2.5 mb-8">
-                {[
-                  lang === 'tr' ? '10 hisse izleme (sınırsız)' : '10 stocks (unlimited)',
-                  lang === 'tr' ? 'Momentum değişim alerts' : 'Momentum change alerts',
-                  lang === 'tr' ? 'Volatilite spike bildirimleri' : 'Volatility spike alerts',
-                  lang === 'tr' ? 'Trend zayıflama sinyalleri' : 'Trend weakness signals',
-                  lang === 'tr' ? 'Push & email bildirimleri' : 'Push & email notifications',
-                  lang === 'tr' ? 'Gerçek-time tracking' : 'Real-time tracking',
-                ].map((feat) => (
-                  <div key={feat} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-finma-cyan shrink-0 mt-0.5" />
-                    <span className="text-sm text-finma-text">{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col items-center gap-3">
-                <button
-                  onClick={() => router.push('/login')}
-                  className="w-full py-2.5 rounded-xl border-2 border-finma-cyan bg-finma-cyan/10 text-finma-cyan font-semibold text-sm hover:bg-finma-cyan/20 transition-colors"
-                >
-                  {lang === 'tr' ? 'Başla' : 'Start'}
-                </button>
-                <p className="text-[10px] text-finma-text-dim text-center">{lang === 'tr' ? '7 gün ücretsiz' : '7 days free'}</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Footer ──────────────────────────────────────────── */}
-      <footer className="border-t border-finma-border/30 py-8 px-4">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4 text-[10px] text-finma-text-dim">
-            <div className="flex items-center gap-1">
-              <Activity className="w-5 h-5 text-finma-primary" />
-              <span className="text-sm font-bold text-white">Fin</span>
-              <span className="text-sm font-bold text-finma-primary">MA</span>
-              <span className="text-[10px] text-finma-text-dim ml-1">v5.0</span>
-            </div>
-            <span>Developed by <span className="text-finma-primary font-semibold">AFK DaSYS</span></span>
-          </div>
-          <div className="flex items-center gap-5 text-[10px] text-finma-text-dim flex-wrap justify-center">
-            <a href="/privacy"    className="hover:text-finma-primary">
-              {lang === 'tr' ? 'Gizlilik Politikası' : 'Privacy Policy'}
-            </a>
-            <a href="/terms"      className="hover:text-finma-primary">
-              {lang === 'tr' ? 'Kullanım Koşulları' : 'Terms of Use'}
-            </a>
-            <a href="/kvkk"       className="hover:text-finma-primary">KVKK</a>
-            <a href="/disclaimer" className="hover:text-finma-primary">
-              {lang === 'tr' ? 'SPK Uyarısı' : 'Disclaimer'}
-            </a>
-          </div>
-          <div className="text-[10px] text-finma-text-dim">
-            &copy; 2026 FinMA Global, New York / USA
-          </div>
-        </div>
-        <div className="max-w-6xl mx-auto mt-4 text-center">
-          <p className="text-[9px] text-finma-text-dim/60 leading-relaxed max-w-3xl mx-auto">
-            {lang === 'tr'
-              ? 'Yapay zekâ tarafından üretilen analizler hata içerebilir. Yatırım danışmanlığı kapsamında değildir. Yatırım kararlarınız tamamen kendi sorumluluğunuzdadır. Geçmiş performans gelecekteki sonuçların garantisi değildir.'
-              : 'AI-generated analyses may contain errors. This is not investment advice. Investment decisions are solely your responsibility. Past performance does not guarantee future results.'}
-          </p>
-        </div>
-      </footer>
+      {showModal && <AuthModal />}
     </div>
   )
 }

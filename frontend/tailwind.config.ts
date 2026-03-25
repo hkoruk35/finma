@@ -33,6 +33,9 @@ const config: Config = {
       fontFamily: {
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        manrope: ['Manrope', 'system-ui', 'sans-serif'],
+        serif: ['DM Serif Display', 'Georgia', 'serif'],
+        'dm-mono': ['DM Mono', 'JetBrains Mono', 'monospace'],
       },
       animation: {
         'ticker-scroll': 'ticker-scroll 30s linear infinite',
