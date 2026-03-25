@@ -773,6 +773,49 @@ export default function LandingPage() {
               </p>
             </div>
 
+            {/* Quick market links */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+              gap: 8,
+            }}>
+              {[
+                { href: '/market/stocks', label: '📈 ABD Borsaları' },
+                { href: '/market/crypto', label: '🪙 Bitcoin' },
+                { href: '/market/commodities', label: '💎 Altın' },
+                { href: '/market/tech', label: '💻 Teknoloji' },
+                { href: '/market/forex', label: '💱 EUR/USD' },
+                { href: '/world-markets', label: '🌍 Dünya' },
+              ].map(link => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    padding: '10px 12px',
+                    fontSize: 'clamp(11px, 3vw, 12px)',
+                    color: '#2D7EF8',
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    border: '1px solid rgba(45,126,248,0.25)',
+                    background: 'rgba(45,126,248,0.05)',
+                    borderRadius: 8,
+                    transition: 'all 200ms',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(45,126,248,0.15)'
+                    e.currentTarget.style.borderColor = 'rgba(45,126,248,0.50)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(45,126,248,0.05)'
+                    e.currentTarget.style.borderColor = 'rgba(45,126,248,0.25)'
+                  }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
             {/* Action Box */}
             <div style={{ ...S.card, background: '#0A1520', border: '1px solid rgba(45,126,248,0.15)' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>

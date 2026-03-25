@@ -61,9 +61,14 @@ const navGroups: NavGroup[] = [
   {
     label: 'Piyasalar',
     items: [
-      { href: '/world-markets', icon: Globe2,     label: 'Dünya Borsaları', section: 'world-markets' },
-      { href: '/movers',        icon: TrendingUp, label: 'Hareketliler',    section: 'movers' },
-      { href: '/sectors',       icon: BarChart3,  label: 'Sektörler',       section: 'sectors' },
+      { href: '/world-markets',       icon: Globe2,     label: 'Dünya Borsaları',  section: 'world-markets' },
+      { href: '/market/stocks',       icon: TrendingUp, label: 'ABD Borsaları',    section: 'stocks' },
+      { href: '/market/tech',         icon: Zap,        label: 'Teknoloji',        section: 'tech' },
+      { href: '/market/crypto',       icon: Shield,     label: 'Kripto',           section: 'crypto' },
+      { href: '/market/commodities',  icon: Flame,      label: 'Emtia',            section: 'commodities' },
+      { href: '/market/forex',        icon: BarChart3,  label: 'Forex',            section: 'forex' },
+      { href: '/movers',              icon: Crown,      label: 'Hareketliler',     section: 'movers' },
+      { href: '/sectors',             icon: BarChart3,  label: 'Sektörler',        section: 'sectors' },
     ],
   },
   // ─── Pro İçerik ──────────────────────────────────────────────────────────────
