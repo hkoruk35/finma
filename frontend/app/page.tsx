@@ -63,9 +63,9 @@ const COPY: Record<string, {
   tr: {
     p1_badge: 'ABD Borsaları · Kripto · Emtia · Forex',
     p1_tagline: 'Finansal Zeka',
-    p1_h1: 'Piyasayı oku,', p1_h2: 'önce hareket et.', p1_h3: '',
-    p1_sub: 'Sadece veri değil — karar üretir. Hisse, kripto, emtia, forex tek soru, derin AI analizi.',
-    p1_ph: 'NVDA, Bitcoin, Altın, EUR/USD veya soru sor…',
+    p1_h1: 'Finansal Zeka,', p1_h2: 'Analiz Merkezi.', p1_h3: '',
+    p1_sub: 'ABD Hisse Senetleri, kripto, emtia, forex derin AI analizi.',
+    p1_ph: 'Hisse, Bitcoin, Altın, Euro/USD',
     pill_us: 'ABD Borsaları', pill_btc: 'Bitcoin', pill_gold: 'Altın',
     pill_tech: 'Teknoloji', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
     cta_free: 'Ücretsiz Üye Ol', signin: 'Üye Girişi',
@@ -607,7 +607,6 @@ export default function LandingPage() {
             { label: `⚡ ${t.pill_us}`,   q: 'ABD Borsaları' },
             { label: `₿ ${t.pill_btc}`,   q: 'Bitcoin' },
             { label: `◆ ${t.pill_gold}`,   q: 'Altın' },
-            { label: `◈ ${t.pill_tech}`,   q: 'Teknoloji' },
             { label: `◈ ${t.pill_eth}`,    q: 'Ethereum' },
             { label: `⊕ ${t.pill_fx}`,    q: 'EUR/USD' },
           ].map(pill => (
@@ -636,23 +635,56 @@ export default function LandingPage() {
           ))}
         </div>
 
-        {/* Bottom features hint */}
-        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 40 }}>
-          {['8,000+ Hisse', '7 Dil', 'AI Analiz', 'Legal-Safe'].map(feat => (
-            <span key={feat} style={{
-              fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B',
-              letterSpacing: '1.5px', textTransform: 'uppercase',
-              display: 'flex', alignItems: 'center', gap: 6,
-            }}>
-              <span style={{ color: '#10B981', fontSize: 8 }}>✓</span> {feat}
-            </span>
-          ))}
+        {/* Popular Prompts */}
+        <div style={{ width: '100%', maxWidth: 640, marginBottom: 40 }}>
+          <div style={{
+            fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)',
+            color: '#EDF2FA', fontWeight: 600, marginBottom: 14,
+            textAlign: 'left',
+          }}>
+            🔥 En Çok Arananlar
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {[
+              { prompt: 'Bugün Nasdaq\'ta en güçlü yükseliş potansiyeli olan hisseler hangileri?', href: '/market/stocks' },
+              { prompt: 'Son 24 saatte en çok kazandıran varlıklar ve neden yükseldiler?', href: '/world-markets' },
+              { prompt: '1000$ ile 1 yılda en iyi senaryoda ne kadar büyüme mümkün?', href: '/market/stocks' },
+              { prompt: 'Şu an hangi varlıklar "erken fırsat" sinyali veriyor?', href: '/world-markets' },
+              { prompt: 'Bitcoin şu an yükseliş mi düşüş mü sinyali veriyor?', href: '/market/crypto' },
+              { prompt: 'Altın mı Bitcoin mi şu an daha avantajlı?', href: '/world-markets' },
+              { prompt: 'Şu an ne alınır?', href: '/world-markets' },
+            ].map((item, idx) => (
+              <a
+                key={idx}
+                href={item.href}
+                onClick={(e) => { e.preventDefault(); setLocalVal(item.prompt); submit(); }}
+                style={{
+                  padding: '10px 14px', background: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8,
+                  fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
+                  textDecoration: 'none', cursor: 'pointer', transition: 'all 200ms',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(45,126,248,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(45,126,248,0.25)'
+                  e.currentTarget.style.color = '#EDF2FA'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.02)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
+                  e.currentTarget.style.color = '#8B97AA'
+                }}
+              >
+                {item.prompt}
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Legal Footer */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, width: '100%', maxWidth: 640, textAlign: 'center' }}>
           <p style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: 10, color: '#2A3849',
+            fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#EDF2FA',
             lineHeight: 1.6, margin: 0,
           }}>
             {t.legal_disclaimer}
