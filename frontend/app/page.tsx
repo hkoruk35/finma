@@ -714,17 +714,17 @@ export default function LandingPage() {
             </span>
           </div>
 
-          {/* CTA */}
-          <button
-            onClick={() => setShowModal(true)}
+          {/* Kayıt linki — hafif, taciz değil */}
+          <a
+            href="#"
+            onClick={e => { e.preventDefault(); setShowModal(true) }}
             style={{
-              background: '#2D7EF8', border: 'none', borderRadius: 8,
-              padding: '7px 16px', cursor: 'pointer', color: '#fff',
-              fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
+              fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#4C5A6B',
+              textDecoration: 'none', whiteSpace: 'nowrap',
             }}
           >
-            {t.p2_cta}
-          </button>
+            Üye Girişi
+          </a>
         </div>
 
         {/* Macro strip */}
@@ -844,35 +844,33 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              {/* Paywall overlay */}
+              {/* Paywall overlay — bilgilendirici, taciz yok */}
               <div style={{
                 position: 'absolute', inset: 0,
-                background: 'linear-gradient(to bottom, transparent 0%, rgba(12,16,23,0.75) 30%, rgba(12,16,23,0.98) 55%)',
+                background: 'linear-gradient(to bottom, transparent 0%, rgba(12,16,23,0.80) 35%, rgba(12,16,23,0.97) 60%)',
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end',
-                padding: '20px 20px 24px', borderRadius: 13,
+                padding: '16px 20px 20px', borderRadius: 13,
               }}>
-                <div style={{ textAlign: 'center', marginBottom: 14 }}>
-                  <div style={{ fontSize: 28, marginBottom: 6 }}>🔒</div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 9, letterSpacing: '2px', color: '#4C5A6B', marginBottom: 6, textTransform: 'uppercase' }}>
+                    PRO İÇERİK
+                  </div>
                   <div style={{
-                    fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: 15, color: '#EDF2FA', marginBottom: 4,
+                    fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: 13, color: '#8B97AA', marginBottom: 10,
                   }}>
-                    Pro senaryo ve seviyeler kilitli
+                    Senaryo ve seviyelere erişmek için üye ol
                   </div>
-                  <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA' }}>
-                    Ücretsiz üye ol — kredi kartı gerekmez
-                  </div>
+                  <button
+                    onClick={() => setShowModal(true)}
+                    style={{
+                      background: 'rgba(45,126,248,0.12)', border: '1px solid rgba(45,126,248,0.25)',
+                      borderRadius: 8, padding: '8px 20px', cursor: 'pointer', color: '#2D7EF8',
+                      fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
+                    }}
+                  >
+                    Ücretsiz Hesap Oluştur
+                  </button>
                 </div>
-                <button
-                  onClick={() => setShowModal(true)}
-                  style={{
-                    background: '#2D7EF8', border: 'none', borderRadius: 10,
-                    padding: '12px 28px', cursor: 'pointer', color: '#fff',
-                    fontFamily: 'Manrope, sans-serif', fontSize: 14, fontWeight: 700,
-                    boxShadow: '0 4px 20px rgba(45,126,248,0.35)',
-                  }}
-                >
-                  {t.cta_free}
-                </button>
               </div>
             </div>
           </div>
@@ -927,17 +925,11 @@ export default function LandingPage() {
                   </div>
                 </div>
               ))}
-              <div style={{ marginTop: 10 }}>
-                <button
-                  onClick={() => setShowModal(true)}
-                  style={{
-                    width: '100%', background: 'rgba(45,126,248,0.10)', border: '1px solid rgba(45,126,248,0.20)',
-                    borderRadius: 8, padding: '9px', cursor: 'pointer', color: '#2D7EF8',
-                    fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
-                  }}
-                >
-                  Bildirimleri Aktif Et
-                </button>
+              <div style={{ marginTop: 10, padding: '7px 8px', background: 'rgba(45,126,248,0.05)', borderRadius: 7, border: '1px solid rgba(45,126,248,0.10)' }}>
+                <span style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#4C5A6B' }}>
+                  Pro üyeler anlık sinyal bildirimi alır.{' '}
+                  <a href="#" onClick={e => { e.preventDefault(); setShowModal(true) }} style={{ color: '#2D7EF8', textDecoration: 'none' }}>Üye ol →</a>
+                </span>
               </div>
             </div>
 
@@ -988,33 +980,25 @@ export default function LandingPage() {
           <div style={{ padding: '0 14px' }}>
             <div style={{ ...S.label, marginBottom: 10 }}>Pro İçerik</div>
             {['Günlük Top 5', 'Sektörel Analiz', 'Akıllı Takip'].map(item => (
-              <button key={item}
-                onClick={() => setShowModal(true)}
+              <div key={item}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 8, width: '100%',
                   padding: '9px 10px', borderRadius: 8, marginBottom: 3,
-                  background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
                   color: '#4C5A6B', fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 500,
                 }}
               >
-                <span>🔒</span> {item}
-              </button>
+                <span style={{ fontSize: 11 }}>🔒</span> {item}
+                <span style={{ marginLeft: 'auto', fontFamily: 'DM Mono, monospace', fontSize: 9, color: '#2D7EF8', background: 'rgba(45,126,248,0.08)', padding: '2px 6px', borderRadius: 4 }}>PRO</span>
+              </div>
             ))}
           </div>
 
-          {/* User card */}
-          <div style={{ margin: '20px 14px 0', padding: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 10, border: '1px solid rgba(255,255,255,0.06)' }}>
-            <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA', marginBottom: 8 }}>Ücretsiz Üye</div>
-            <button
-              onClick={() => setShowModal(true)}
-              style={{
-                width: '100%', background: '#2D7EF8', border: 'none', borderRadius: 7,
-                padding: '8px', cursor: 'pointer', color: '#fff',
-                fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 600,
-              }}
-            >
-              Pro'ya Geç
-            </button>
+          {/* Hesap bilgisi — sade */}
+          <div style={{ margin: '20px 14px 0', padding: '10px 12px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 11, color: '#4C5A6B' }}>
+              Pro özelliklere erişmek için{' '}
+              <a href="#" onClick={e => { e.preventDefault(); setShowModal(true) }} style={{ color: '#2D7EF8', textDecoration: 'none', fontWeight: 600 }}>üye ol</a>.
+            </div>
           </div>
         </div>
 
@@ -1084,30 +1068,22 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Upgrade banner */}
+              {/* Pro bilgi satırı — hafif */}
               <div style={{
-                background: 'linear-gradient(135deg, rgba(45,126,248,0.12) 0%, rgba(139,92,246,0.08) 100%)',
-                border: '1px solid rgba(45,126,248,0.20)', borderRadius: 13, padding: '16px 20px',
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+                background: 'rgba(45,126,248,0.05)',
+                border: '1px solid rgba(45,126,248,0.12)', borderRadius: 10, padding: '12px 16px',
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8,
               }}>
-                <div>
-                  <div style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: 14, color: '#EDF2FA', marginBottom: 3 }}>
-                    Tam erişim için Pro'ya geç
-                  </div>
-                  <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#8B97AA' }}>
-                    {t.p3_upgrade}
-                  </div>
+                <div style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#4C5A6B' }}>
+                  {t.p3_upgrade}
                 </div>
-                <button
-                  onClick={() => setShowModal(true)}
-                  style={{
-                    background: '#2D7EF8', border: 'none', borderRadius: 9,
-                    padding: '10px 20px', cursor: 'pointer', color: '#fff',
-                    fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 700,
-                  }}
+                <a
+                  href="#"
+                  onClick={e => { e.preventDefault(); setShowModal(true) }}
+                  style={{ fontFamily: 'Manrope, sans-serif', fontSize: 12, color: '#2D7EF8', textDecoration: 'none', fontWeight: 600 }}
                 >
-                  Yükselt →
-                </button>
+                  Detaylar →
+                </a>
               </div>
             </div>
           )}

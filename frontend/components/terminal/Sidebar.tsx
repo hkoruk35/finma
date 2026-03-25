@@ -23,6 +23,7 @@ import {
   Archive,
   History,
   TrendingUp,
+  Globe2,
   Star,
   Activity,
 } from 'lucide-react'
@@ -60,8 +61,9 @@ const navGroups: NavGroup[] = [
   {
     label: 'Piyasalar',
     items: [
-      { href: '/movers',     icon: TrendingUp,      label: 'Hareketliler',   section: 'movers' },
-      { href: '/sectors',    icon: BarChart3,       label: 'Sektörler',      section: 'sectors' },
+      { href: '/world-markets', icon: Globe2,     label: 'Dünya Borsaları', section: 'world-markets' },
+      { href: '/movers',        icon: TrendingUp, label: 'Hareketliler',    section: 'movers' },
+      { href: '/sectors',       icon: BarChart3,  label: 'Sektörler',       section: 'sectors' },
     ],
   },
   // ─── Pro İçerik ──────────────────────────────────────────────────────────────
