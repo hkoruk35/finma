@@ -86,7 +86,7 @@ const COPY: Record<string, {
     modal_google: 'Google ile Devam Et',
     legal: "Kayıt olarak Kullanım Koşulları ve Gizlilik Politikası'nı kabul etmiş olursunuz.",
     install_cta: 'Uygulama olarak ekle', install_btn: 'Ekle',
-    legal_disclaimer: 'FinMA yapay zeka destekli piyasa analiz platformudur. Sunulan içerikler yalnızca bilgilendirme amaçlıdır; yatırım tavsiyesi niteliği taşımaz. Nihai karar kullanıcıya aittir. © 2026 FinMA',
+    legal_disclaimer: 'FinMA yapay zeka destekli piyasa analiz platformudur. Sunulan içerikler yalnızca bilgilendirme amaçlıdır; yatırım tavsiyesi niteliği taşımaz. Nihai karar kullanıcıya aittir. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   en: {
     p1_badge: 'US Markets · Crypto · Commodities · Forex',
@@ -113,7 +113,7 @@ const COPY: Record<string, {
     modal_google: 'Continue with Google',
     legal: 'By signing up you agree to the Terms of Service and Privacy Policy.',
     install_cta: 'Add to home screen', install_btn: 'Add',
-    legal_disclaimer: 'FinMA is an AI-powered market analysis platform. Content provided is for informational purposes only and does not constitute investment advice. The final decision rests with the user. © 2026 FinMA',
+    legal_disclaimer: 'FinMA is an AI-powered market analysis platform. Content provided is for informational purposes only and does not constitute investment advice. The final decision rests with the user. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   es: {
     p1_badge: 'Mercados EE.UU. · Cripto · Materias Primas · Forex',
@@ -140,7 +140,7 @@ const COPY: Record<string, {
     modal_google: 'Continuar con Google',
     legal: 'Al registrarte aceptas los Términos de Servicio y la Política de Privacidad.',
     install_cta: 'Agregar a pantalla de inicio', install_btn: 'Agregar',
-    legal_disclaimer: 'FinMA es una plataforma de análisis de mercado con IA. El contenido es solo informativo; no constituye asesoramiento de inversión. La decisión final corresponde al usuario. © 2026 FinMA',
+    legal_disclaimer: 'FinMA es una plataforma de análisis de mercado con IA. El contenido es solo informativo; no constituye asesoramiento de inversión. La decisión final corresponde al usuario. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   pt: {
     p1_badge: 'Mercados EUA · Cripto · Commodities · Forex',
@@ -167,7 +167,7 @@ const COPY: Record<string, {
     modal_google: 'Continuar com Google',
     legal: 'Ao se cadastrar, você concorda com os Termos de Serviço e a Política de Privacidade.',
     install_cta: 'Adicionar à tela inicial', install_btn: 'Adicionar',
-    legal_disclaimer: 'FinMA é uma plataforma de análise de mercado com IA. O conteúdo é apenas informativo; não constitui conselho de investimento. A decisão final cabe ao usuário. © 2026 FinMA',
+    legal_disclaimer: 'FinMA é uma plataforma de análise de mercado com IA. O conteúdo é apenas informativo; não constitui conselho de investimento. A decisão final cabe ao usuário. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   ar: {
     p1_badge: 'الأسواق الأمريكية · كريبتو · السلع · فوركس',
@@ -194,7 +194,7 @@ const COPY: Record<string, {
     modal_google: 'الاستمرار مع Google',
     legal: 'بالتسجيل توافق على شروط الخدمة وسياسة الخصوصية.',
     install_cta: 'إضافة إلى الشاشة الرئيسية', install_btn: 'إضافة',
-    legal_disclaimer: 'FinMA منصة تحليل سوق مدعومة بالذكاء الاصطناعي. المحتوى لأغراض إعلامية فقط؛ لا يُعدّ نصيحة استثمارية. القرار النهائي يعود للمستخدم. © 2026 FinMA',
+    legal_disclaimer: 'FinMA منصة تحليل سوق مدعومة بالذكاء الاصطناعي. المحتوى لأغراض إعلامية فقط؛ لا يُعدّ نصيحة استثمارية. القرار النهائي يعود للمستخدم. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   id: {
     p1_badge: 'Pasar AS · Kripto · Komoditas · Forex',
@@ -221,7 +221,7 @@ const COPY: Record<string, {
     modal_google: 'Lanjutkan dengan Google',
     legal: 'Dengan mendaftar Anda setuju dengan Syarat Layanan dan Kebijakan Privasi.',
     install_cta: 'Tambahkan ke layar beranda', install_btn: 'Tambah',
-    legal_disclaimer: 'FinMA adalah platform analisis pasar bertenaga AI. Konten yang disediakan hanya untuk informasi; bukan merupakan saran investasi. Keputusan akhir ada pada pengguna. © 2026 FinMA',
+    legal_disclaimer: 'FinMA adalah platform analisis pasar bertenaga AI. Konten yang disediakan hanya untuk informasi; bukan merupakan saran investasi. Keputusan akhir ada pada pengguna. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   ja: {
     p1_badge: '米国市場・暗号資産・コモディティ・為替',
@@ -248,7 +248,7 @@ const COPY: Record<string, {
     modal_google: 'Googleで続ける',
     legal: '登録することで、利用規約とプライバシーポリシーに同意したことになります。',
     install_cta: 'ホーム画面に追加', install_btn: '追加',
-    legal_disclaimer: 'FinMAはAI搭載の市場分析プラットフォームです。提供コンテンツは情報提供のみを目的としており、投資アドバイスではありません。最終決定はユーザーに帰属します。© 2026 FinMA',
+    legal_disclaimer: 'FinMAはAI搭載の市場分析プラットフォームです。提供コンテンツは情報提供のみを目的としており、投資アドバイスではありません。最終決定はユーザーに帰属します。© 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
 }
 
@@ -632,7 +632,7 @@ export default function LandingPage() {
         {/* Popular Prompts */}
         <div style={{ width: '100%', maxWidth: 640, marginBottom: 40 }}>
           <div style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)',
+            fontFamily: 'Manrope, sans-serif', fontSize: '13px',
             color: '#EDF2FA', fontWeight: 600, marginBottom: 14,
             textAlign: 'left',
           }}>
@@ -655,7 +655,7 @@ export default function LandingPage() {
                 style={{
                   padding: '10px 14px', background: 'rgba(255,255,255,0.02)',
                   border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8,
-                  fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
+                  fontSize: '12px', color: '#EDF2FA',
                   textDecoration: 'none', cursor: 'pointer', transition: 'all 200ms',
                 }}
                 onMouseEnter={(e) => {
