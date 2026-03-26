@@ -149,8 +149,10 @@ export function Sidebar() {
           'fixed top-0 left-0 h-screen bg-finma-sidebar border-r border-finma-border flex flex-col transition-all duration-300',
           // Mobil: genişlik 288px, yüksek z-index, gölge
           'w-72 z-50 shadow-2xl md:shadow-none',
-          // Mobil menü aç/kapat animasyonu
-          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+          // Mobil menü aç/kapat animasyonu + kapalıyken dokunma olaylarını engelle
+          mobileMenuOpen
+            ? 'translate-x-0 pointer-events-auto'
+            : '-translate-x-full md:translate-x-0 pointer-events-none md:pointer-events-auto',
           // Masaüstü: z-index ve genişlik
           'md:z-40',
           sidebarOpen ? 'md:w-56' : 'md:w-16'

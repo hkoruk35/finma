@@ -117,8 +117,10 @@ export function TopBar() {
       {/* Hamburger — mobilde (CSS ile gizle/göster, JS hook yok) */}
       <button
         onClick={() => setMobileMenuOpen(true)}
-        className="flex md:hidden items-center justify-center w-12 h-14 text-finma-text-muted hover:text-finma-text active:text-finma-primary transition-colors shrink-0 z-50 relative"
+        className="flex md:hidden items-center justify-center w-12 h-14 text-finma-text-muted hover:text-finma-text active:text-finma-primary transition-colors shrink-0"
+        style={{ touchAction: 'manipulation' }}
         title="Menüyü aç"
+        aria-label="Menüyü aç"
       >
         <Menu className="w-5 h-5" />
       </button>
