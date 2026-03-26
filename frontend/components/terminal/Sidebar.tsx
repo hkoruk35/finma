@@ -146,10 +146,13 @@ export function Sidebar() {
 
       <aside
         className={cn(
-          'fixed top-0 h-screen bg-finma-sidebar border-r border-finma-border flex flex-col transition-all duration-300',
-          'max-md:w-72 max-md:z-50 max-md:shadow-2xl',
-          mobileMenuOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-full',
-          'md:z-40 md:left-0',
+          'fixed top-0 left-0 h-screen bg-finma-sidebar border-r border-finma-border flex flex-col transition-all duration-300',
+          // Mobil: genişlik 288px, yüksek z-index, gölge
+          'w-72 z-50 shadow-2xl md:shadow-none',
+          // Mobil menü aç/kapat animasyonu
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+          // Masaüstü: z-index ve genişlik
+          'md:z-40',
           sidebarOpen ? 'md:w-56' : 'md:w-16'
         )}
       >
