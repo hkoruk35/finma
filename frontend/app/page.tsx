@@ -17,6 +17,12 @@ const LandingChart = dynamic(
   }
 )
 
+// Sidebar component — browser-only
+const Sidebar = dynamic(
+  () => import('@/components/terminal/Sidebar').then(m => ({ default: m.Sidebar })),
+  { ssr: false }
+)
+
 // Ticker strip — browser-only
 // LandingTicker geçici deaktif - refresh issue debug
 // const LandingTicker = dynamic(
@@ -50,7 +56,8 @@ const LANGS = [
 const COPY: Record<string, {
   p1_badge: string; p1_tagline: string
   p1_h1: string; p1_h2: string; p1_h3: string; p1_sub: string; p1_ph: string
-  pill_us: string; pill_btc: string; pill_gold: string; pill_tech: string; pill_eth: string; pill_fx: string
+  pill_gainers: string; pill_nasdaq: string; pill_volume: string; pill_breakout: string; pill_vix: string
+  p1_popular_title: string; p1_prompts: string[]
   cta_free: string; signin: string
   p2_back: string; p2_cta: string; p2_ai_label: string; p2_ai_text: string
   p2_action_title: string; entry_lbl: string; target_lbl: string; risk_lbl: string; winrate_lbl: string
@@ -62,13 +69,23 @@ const COPY: Record<string, {
   legal_disclaimer: string
 }> = {
   tr: {
-    p1_badge: 'ABD Borsaları · Kripto · Emtia · Forex',
+    p1_badge: 'ABD Borsaları · SP500 · NASDAQ · Dow Jones · Russell',
     p1_tagline: 'Finansal Zeka',
-    p1_h1: 'Finansal Zeka,', p1_h2: 'Analiz Merkezi.', p1_h3: '',
-    p1_sub: 'ABD Hisse Senetleri, kripto, emtia, forex derin AI analizi.',
-    p1_ph: 'Hisse, Bitcoin, Altın, Euro/USD',
-    pill_us: 'ABD Borsaları', pill_btc: 'Bitcoin', pill_gold: 'Altın',
-    pill_tech: 'Teknoloji', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    p1_h1: 'ABD Borsasında', p1_h2: 'Fırsatları Bul.', p1_h3: '',
+    p1_sub: 'AI destekli analiz ile günün en güçlü hisselerini saniyeler içinde keşfet.',
+    p1_ph: 'Bugün ABD\'de en çok kazandıran hisseler hangileri?',
+    pill_gainers: '🔥 En Çok Yükselenler', pill_nasdaq: '📊 NASDAQ Liderleri', pill_volume: '💰 Para Girişi Olanlar',
+    pill_breakout: '⚡ Breakout Hisseler', pill_vix: '🌪️ VIX Durumu',
+    p1_popular_title: '🔥 En Çok Arananlar',
+    p1_prompts: [
+      'Bugün ABD borsasında en çok yükselenler hangileri?',
+      'NASDAQ\'ta şu an hangi teknoloji hisseleri güçlü?',
+      'Büyük yatırımcı girişi olan hisseler nelerdir?',
+      'Kırılımlar (breakout) yapan hisseler hangileri?',
+      'VIX düşükken hangi hisseler güvenli?',
+      'S&P 500\'de en güçlü sektör hangisi?',
+      'Dividend veren kaliteli ABD hisseleri hangileri?',
+    ],
     cta_free: 'Ücretsiz Üye Ol', signin: 'Üye Girişi',
     p2_back: 'Geri', p2_cta: 'Ücretsiz Üye Ol',
     p2_ai_label: '▸ AI Piyasa Özeti',
@@ -89,13 +106,23 @@ const COPY: Record<string, {
     legal_disclaimer: 'FinMA yapay zeka destekli piyasa analiz platformudur. Sunulan içerikler yalnızca bilgilendirme amaçlıdır; yatırım tavsiyesi niteliği taşımaz. Nihai karar kullanıcıya aittir. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   en: {
-    p1_badge: 'US Markets · Crypto · Commodities · Forex',
+    p1_badge: 'US Markets · S&P 500 · NASDAQ · Dow Jones · Russell',
     p1_tagline: 'Financial Intelligence',
-    p1_h1: 'Read the market,', p1_h2: 'move first.', p1_h3: '',
-    p1_sub: 'Not just data — it generates decisions. Stocks, crypto, commodities, forex: one question, deep AI analysis.',
-    p1_ph: 'NVDA, Bitcoin, Gold, EUR/USD or ask a question…',
-    pill_us: 'US Markets', pill_btc: 'Bitcoin', pill_gold: 'Gold',
-    pill_tech: 'Technology', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    p1_h1: 'Find Opportunities in', p1_h2: 'US Stock Markets.', p1_h3: '',
+    p1_sub: 'Discover the strongest stocks of the day with AI-powered analysis in seconds.',
+    p1_ph: 'What are today\'s biggest gainers in the US market?',
+    pill_gainers: '🔥 Top Gainers', pill_nasdaq: '📊 NASDAQ Leaders', pill_volume: '💰 Heavy Volume',
+    pill_breakout: '⚡ Breakout Stocks', pill_vix: '🌪️ VIX Status',
+    p1_popular_title: '🔥 Popular Searches',
+    p1_prompts: [
+      'What are today\'s biggest gainers in the US market?',
+      'Which tech stocks are leading NASDAQ right now?',
+      'Which stocks are seeing heavy institutional buying?',
+      'What stocks are making breakout moves?',
+      'Which stocks are safe when VIX is low?',
+      'What\'s the strongest sector in the S&P 500?',
+      'What are quality dividend-paying US stocks?',
+    ],
     cta_free: 'Sign Up Free', signin: 'Sign In',
     p2_back: 'Back', p2_cta: 'Sign Up Free',
     p2_ai_label: '▸ AI Market Summary',
@@ -116,13 +143,23 @@ const COPY: Record<string, {
     legal_disclaimer: 'FinMA is an AI-powered market analysis platform. Content provided is for informational purposes only and does not constitute investment advice. The final decision rests with the user. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   es: {
-    p1_badge: 'Mercados EE.UU. · Cripto · Materias Primas · Forex',
+    p1_badge: 'Mercados EE.UU. · S&P 500 · NASDAQ · Dow Jones · Russell',
     p1_tagline: 'Inteligencia Financiera',
-    p1_h1: 'Lee el mercado,', p1_h2: 'muévete primero.', p1_h3: '',
-    p1_sub: 'No solo datos — genera decisiones. Acciones, cripto, materias primas, forex: una pregunta, análisis AI profundo.',
-    p1_ph: 'NVDA, Bitcoin, Oro, EUR/USD o haz una pregunta…',
-    pill_us: 'Mercados EE.UU.', pill_btc: 'Bitcoin', pill_gold: 'Oro',
-    pill_tech: 'Tecnología', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    p1_h1: 'Encuentra Oportunidades en', p1_h2: 'Mercados de Valores EE.UU.', p1_h3: '',
+    p1_sub: 'Descubre las acciones más fuertes del día con análisis impulsado por IA en segundos.',
+    p1_ph: '¿Cuáles son los mayores ganadores del mercado estadounidense hoy?',
+    pill_gainers: '🔥 Mayores Ganancias', pill_nasdaq: '📊 Líderes NASDAQ', pill_volume: '💰 Alto Volumen',
+    pill_breakout: '⚡ Acciones en Ruptura', pill_vix: '🌪️ Estado del VIX',
+    p1_popular_title: '🔥 Búsquedas Populares',
+    p1_prompts: [
+      '¿Cuáles son los mayores ganadores del mercado estadounidense hoy?',
+      '¿Qué acciones tecnológicas están liderando NASDAQ ahora?',
+      '¿Qué acciones están experimentando compras institucionales?',
+      '¿Qué acciones están haciendo rupturas?',
+      '¿Qué acciones son seguras cuando el VIX es bajo?',
+      '¿Cuál es el sector más fuerte en el S&P 500?',
+      '¿Qué son las acciones de calidad que pagan dividendos?',
+    ],
     cta_free: 'Registro Gratis', signin: 'Iniciar Sesión',
     p2_back: 'Volver', p2_cta: 'Registro Gratis',
     p2_ai_label: '▸ Resumen AI del Mercado',
@@ -143,13 +180,23 @@ const COPY: Record<string, {
     legal_disclaimer: 'FinMA es una plataforma de análisis de mercado con IA. El contenido es solo informativo; no constituye asesoramiento de inversión. La decisión final corresponde al usuario. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   pt: {
-    p1_badge: 'Mercados EUA · Cripto · Commodities · Forex',
+    p1_badge: 'Mercados EUA · S&P 500 · NASDAQ · Dow Jones · Russell',
     p1_tagline: 'Inteligência Financeira',
-    p1_h1: 'Leia o mercado,', p1_h2: 'mova-se primeiro.', p1_h3: '',
-    p1_sub: 'Não só dados — gera decisões. Ações, cripto, commodities, forex: uma pergunta, análise AI profunda.',
-    p1_ph: 'NVDA, Bitcoin, Ouro, EUR/USD ou faça uma pergunta…',
-    pill_us: 'Mercados EUA', pill_btc: 'Bitcoin', pill_gold: 'Ouro',
-    pill_tech: 'Tecnologia', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    p1_h1: 'Encontre Oportunidades no', p1_h2: 'Mercado de Ações EUA.', p1_h3: '',
+    p1_sub: 'Descubra as ações mais fortes do dia com análise alimentada por IA em segundos.',
+    p1_ph: 'Quais são os maiores ganhos do mercado americano hoje?',
+    pill_gainers: '🔥 Maiores Ganhos', pill_nasdaq: '📊 Líderes NASDAQ', pill_volume: '💰 Alto Volume',
+    pill_breakout: '⚡ Ações em Ruptura', pill_vix: '🌪️ Status VIX',
+    p1_popular_title: '🔥 Buscas Populares',
+    p1_prompts: [
+      'Quais são os maiores ganhos do mercado americano hoje?',
+      'Quais ações de tecnologia estão liderando o NASDAQ agora?',
+      'Quais ações estão recebendo compras institucionais?',
+      'Quais ações estão fazendo breakouts?',
+      'Quais ações são seguras quando o VIX está baixo?',
+      'Qual é o setor mais forte do S&P 500?',
+      'Quais são as ações de qualidade que pagam dividendos?',
+    ],
     cta_free: 'Cadastro Grátis', signin: 'Entrar',
     p2_back: 'Voltar', p2_cta: 'Cadastro Grátis',
     p2_ai_label: '▸ Resumo AI do Mercado',
@@ -170,13 +217,23 @@ const COPY: Record<string, {
     legal_disclaimer: 'FinMA é uma plataforma de análise de mercado com IA. O conteúdo é apenas informativo; não constitui conselho de investimento. A decisão final cabe ao usuário. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   ar: {
-    p1_badge: 'الأسواق الأمريكية · كريبتو · السلع · فوركس',
+    p1_badge: 'الأسواق الأمريكية · S&P 500 · NASDAQ · Dow Jones · Russell',
     p1_tagline: 'الذكاء المالي',
-    p1_h1: 'اقرأ السوق،', p1_h2: 'تحرك أولاً.', p1_h3: '',
-    p1_sub: 'ليس مجرد بيانات — يولّد القرارات. أسهم، كريبتو، سلع، فوركس: سؤال واحد، تحليل AI عميق.',
-    p1_ph: 'NVDA أو بيتكوين أو ذهب أو اطرح سؤالاً…',
-    pill_us: 'الأسواق الأمريكية', pill_btc: 'بيتكوين', pill_gold: 'الذهب',
-    pill_tech: 'التكنولوجيا', pill_eth: 'إيثريوم', pill_fx: 'EUR/USD',
+    p1_h1: 'اعثر على الفرص في', p1_h2: 'أسواق الأسهم الأمريكية.', p1_h3: '',
+    p1_sub: 'اكتشف أقوى الأسهم في اليوم باستخدام تحليل مدعوم بالذكاء الاصطناعي في ثوانٍ.',
+    p1_ph: 'ما أكبر المكاسب في السوق الأمريكي اليوم؟',
+    pill_gainers: '🔥 أكبر المكاسب', pill_nasdaq: '📊 قادة NASDAQ', pill_volume: '💰 حجم كبير',
+    pill_breakout: '⚡ أسهم الاختراق', pill_vix: '🌪️ حالة VIX',
+    p1_popular_title: '🔥 عمليات البحث الشهيرة',
+    p1_prompts: [
+      'ما أكبر المكاسب في السوق الأمريكي اليوم؟',
+      'ما الأسهم التكنولوجية التي تقود ناسداك الآن؟',
+      'ما الأسهم التي تشهد عمليات شراء مؤسسية؟',
+      'ما الأسهم التي تحقق اختراقات؟',
+      'ما الأسهم الآمنة عندما يكون VIX منخفضاً؟',
+      'ما القطاع الأقوى في S&P 500؟',
+      'ما هي أسهم الجودة التي تدفع أرباحاً؟',
+    ],
     cta_free: 'تسجيل مجاني', signin: 'تسجيل الدخول',
     p2_back: 'رجوع', p2_cta: 'تسجيل مجاني',
     p2_ai_label: '▸ ملخص الذكاء الاصطناعي للسوق',
@@ -197,13 +254,23 @@ const COPY: Record<string, {
     legal_disclaimer: 'FinMA منصة تحليل سوق مدعومة بالذكاء الاصطناعي. المحتوى لأغراض إعلامية فقط؛ لا يُعدّ نصيحة استثمارية. القرار النهائي يعود للمستخدم. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   id: {
-    p1_badge: 'Pasar AS · Kripto · Komoditas · Forex',
+    p1_badge: 'Pasar AS · S&P 500 · NASDAQ · Dow Jones · Russell',
     p1_tagline: 'Kecerdasan Finansial',
-    p1_h1: 'Baca pasarnya,', p1_h2: 'bergerak lebih dulu.', p1_h3: '',
-    p1_sub: 'Bukan hanya data — menghasilkan keputusan. Saham, kripto, komoditas, forex: satu pertanyaan, analisis AI mendalam.',
-    p1_ph: 'NVDA, Bitcoin, Emas, EUR/USD atau ajukan pertanyaan…',
-    pill_us: 'Pasar AS', pill_btc: 'Bitcoin', pill_gold: 'Emas',
-    pill_tech: 'Teknologi', pill_eth: 'Ethereum', pill_fx: 'EUR/USD',
+    p1_h1: 'Temukan Peluang di', p1_h2: 'Pasar Saham AS.', p1_h3: '',
+    p1_sub: 'Temukan saham terkuat hari ini dengan analisis yang didukung AI dalam hitungan detik.',
+    p1_ph: 'Apa penyimpangan terbesar di pasar AS hari ini?',
+    pill_gainers: '🔥 Penambah Terbesar', pill_nasdaq: '📊 Pemimpin NASDAQ', pill_volume: '💰 Volume Tinggi',
+    pill_breakout: '⚡ Saham Breakout', pill_vix: '🌪️ Status VIX',
+    p1_popular_title: '🔥 Pencarian Populer',
+    p1_prompts: [
+      'Apa penyimpangan terbesar di pasar AS hari ini?',
+      'Saham teknologi apa yang memimpin NASDAQ sekarang?',
+      'Saham apa yang mengalami pembelian institusional?',
+      'Saham apa yang membuat terobosan?',
+      'Saham apa yang aman ketika VIX rendah?',
+      'Sektor apa yang paling kuat di S&P 500?',
+      'Apa saham berkualitas yang membayar dividen?',
+    ],
     cta_free: 'Daftar Gratis', signin: 'Masuk',
     p2_back: 'Kembali', p2_cta: 'Daftar Gratis',
     p2_ai_label: '▸ Ringkasan AI Pasar',
@@ -224,13 +291,23 @@ const COPY: Record<string, {
     legal_disclaimer: 'FinMA adalah platform analisis pasar bertenaga AI. Konten yang disediakan hanya untuk informasi; bukan merupakan saran investasi. Keputusan akhir ada pada pengguna. © 2026 FinMA NY/USA Powered by AFK DaSYS',
   },
   ja: {
-    p1_badge: '米国市場・暗号資産・コモディティ・為替',
+    p1_badge: '米国市場・S&P 500・NASDAQ・Dow Jones・Russell',
     p1_tagline: 'ファイナンシャル・インテリジェンス',
-    p1_h1: '市場を読み、', p1_h2: '先手を打て。', p1_h3: '',
-    p1_sub: 'データだけでなく — 決断を生む。株式、暗号資産、コモディティ、為替：1つの質問、深いAI分析。',
-    p1_ph: 'NVDA、ビットコイン、ゴールド、EUR/USD または質問を入力…',
-    pill_us: '米国市場', pill_btc: 'ビットコイン', pill_gold: 'ゴールド',
-    pill_tech: 'テクノロジー', pill_eth: 'イーサリアム', pill_fx: 'EUR/USD',
+    p1_h1: '米国株式市場で', p1_h2: '機会を発見します。', p1_h3: '',
+    p1_sub: 'AI搭載分析により、数秒で本日の最強銘柄を発見します。',
+    p1_ph: '今日の米国市場で最大の上昇銘柄は何ですか？',
+    pill_gainers: '🔥 最大上昇', pill_nasdaq: '📊 NASDAQ指導者', pill_volume: '💰 高ボリューム',
+    pill_breakout: '⚡ ブレイクアウト', pill_vix: '🌪️ VIXステータス',
+    p1_popular_title: '🔥 人気検索',
+    p1_prompts: [
+      '今日の米国市場で最大の上昇銘柄は何ですか？',
+      'NASDACを主導している技術銘柄は何ですか？',
+      '機関投資家の買いを受けている銘柄は何ですか？',
+      'ブレイクアウトしている銘柄は何ですか？',
+      'VIXが低いときに安全な銘柄は何ですか？',
+      'S&P 500で最も強いセクターは何ですか？',
+      '配当を支払う優良銘柄は何ですか？',
+    ],
     cta_free: '無料登録', signin: 'ログイン',
     p2_back: '戻る', p2_cta: '無料登録',
     p2_ai_label: '▸ AIマーケットサマリー',
@@ -255,33 +332,29 @@ const COPY: Record<string, {
 // ─── Asset Database ───────────────────────────────────────────────────────────
 const ASSETS: Record<string, AssetInfo> = {
   stocks: { ticker: 'SPY',      displayName: 'S&P 500 ETF',    category: 'ABD Hisseleri', meta: 'NYSE ARCA · ETF',     icon: '📈', price: '582.45', change: '+1.23%', changeDir: 'up' },
-  btc:    { ticker: 'BTC-USD',  displayName: 'Bitcoin',         category: 'Kripto',        meta: 'Global · Kripto',     icon: '₿',  price: '87,420', change: '-2.41%', changeDir: 'down' },
-  gold:   { ticker: 'GC=F',     displayName: 'Altın (XAU/USD)', category: 'Emtia',         meta: 'COMEX · Emtia',      icon: '◆',  price: '3,124',  change: '+0.87%', changeDir: 'up' },
-  tech:   { ticker: 'QQQ',      displayName: 'Nasdaq-100 ETF',  category: 'Teknoloji',     meta: 'NASDAQ · ETF',        icon: '◈',  price: '494.32', change: '+0.95%', changeDir: 'up' },
-  eth:    { ticker: 'ETH-USD',  displayName: 'Ethereum',        category: 'Kripto',        meta: 'Global · Kripto',     icon: '◈',  price: '2,084',  change: '-1.87%', changeDir: 'down' },
-  forex:  { ticker: 'EURUSD=X', displayName: 'EUR/USD',         category: 'Döviz',         meta: 'Forex · Döviz',      icon: '⊕',  price: '1.0824', change: '+0.12%', changeDir: 'up' },
+  tech:   { ticker: 'QQQ',      displayName: 'Nasdaq-100 ETF',  category: 'ABD Hisseleri', meta: 'NASDAQ · ETF',        icon: '◈',  price: '494.32', change: '+0.95%', changeDir: 'up' },
+  dow:    { ticker: 'DIA',      displayName: 'Dow Jones ETF',   category: 'ABD Hisseleri', meta: 'NYSE ARCA · ETF',     icon: '📊', price: '398.75', change: '+0.87%', changeDir: 'up' },
+  russell:{ ticker: 'IWM',      displayName: 'Russell 2000 ETF',category: 'ABD Hisseleri', meta: 'NASDAQ · ETF',        icon: '📈', price: '206.23', change: '+1.12%', changeDir: 'up' },
 }
 
 const MACRO = [
   { label: 'SPY',   value: '582.45', chg: '+1.23%', desc: 'S&P 500 ETF',   dir: 'up'   as const },
   { label: 'QQQ',   value: '494.32', chg: '+0.95%', desc: 'Nasdaq-100',    dir: 'up'   as const },
-  { label: 'DXY',   value: '104.2',  chg: '-0.31%', desc: 'Dolar Endeksi', dir: 'down' as const },
+  { label: 'DIA',   value: '398.75', chg: '+0.87%', desc: 'Dow Jones ETF',  dir: 'up'   as const },
+  { label: 'IWM',   value: '206.23', chg: '+1.12%', desc: 'Russell 2000',  dir: 'up'   as const },
   { label: 'VIX',   value: '18.4',   chg: '+2.10%', desc: 'Volatilite',    dir: 'up'   as const },
   { label: 'US10Y', value: '4.32%',  chg: '+0.04',  desc: 'ABD Bonosu',    dir: 'up'   as const },
-  { label: 'BTC',   value: '87,420', chg: '-2.41%', desc: 'Bitcoin USD',   dir: 'down' as const },
 ]
 
 function resolveAsset(q: string): AssetInfo {
   const ql = q.toLowerCase().trim()
-  if (['bitcoin', 'btc', 'btc-usd'].some(k => ql.includes(k))) return ASSETS.btc
-  if (['altin', 'altın', 'gold', 'xau', 'gc=f'].some(k => ql.includes(k))) return ASSETS.gold
-  if (['ethereum', 'eth', 'eth-usd'].some(k => ql.includes(k))) return ASSETS.eth
-  if (['eur', 'forex', 'döviz', 'doviz', 'eurusd'].some(k => ql.includes(k))) return ASSETS.forex
-  if (['teknoloji', 'tech', 'qqq', 'nasdaq'].some(k => ql.includes(k))) return ASSETS.tech
-  if (['abd', 'sp500', 'spy', 'us market', 'borsa'].some(k => ql.includes(k))) return ASSETS.stocks
+  if (['tech', 'teknoloji', 'qqq', 'nasdaq'].some(k => ql.includes(k))) return ASSETS.tech
+  if (['dow', 'dj', 'dia'].some(k => ql.includes(k))) return ASSETS.dow
+  if (['russell', 'iwm', '2000'].some(k => ql.includes(k))) return ASSETS.russell
+  if (['sp500', 'spy', 'abd', 'us market', 'borsa'].some(k => ql.includes(k))) return ASSETS.stocks
   const upper = q.trim().toUpperCase()
   if (/^[A-Z]{1,5}$/.test(upper)) {
-    return { ticker: upper, displayName: upper, category: 'Hisse', meta: 'NYSE/NASDAQ · Hisse', icon: '📊', price: '—', change: '—', changeDir: 'up' }
+    return { ticker: upper, displayName: upper, category: 'ABD Hisseleri', meta: 'NYSE/NASDAQ · Hisse', icon: '📊', price: '—', change: '—', changeDir: 'up' }
   }
   return ASSETS.stocks
 }
@@ -598,11 +671,11 @@ export default function LandingPage() {
         {/* Pill shortcuts */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 60 }}>
           {[
-            { label: `⚡ ${t.pill_us}`,   q: 'ABD Borsaları' },
-            { label: `₿ ${t.pill_btc}`,   q: 'Bitcoin' },
-            { label: `◆ ${t.pill_gold}`,   q: 'Altın' },
-            { label: `◈ ${t.pill_eth}`,    q: 'Ethereum' },
-            { label: `⊕ ${t.pill_fx}`,    q: 'EUR/USD' },
+            { label: t.pill_gainers,   q: 'En Çok Yükselenler' },
+            { label: t.pill_nasdaq,    q: 'NASDAQ Liderleri' },
+            { label: t.pill_volume,    q: 'Para Girişi' },
+            { label: t.pill_breakout,  q: 'Breakout Hisseler' },
+            { label: t.pill_vix,       q: 'VIX' },
           ].map(pill => (
             <button
               key={pill.q}
@@ -636,22 +709,14 @@ export default function LandingPage() {
             color: '#EDF2FA', fontWeight: 600, marginBottom: 14,
             textAlign: 'left',
           }}>
-            🔥 En Çok Arananlar
+            {t.p1_popular_title}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
-              { prompt: 'Bugün Nasdaq\'ta en güçlü yükseliş potansiyeli olan hisseler hangileri?', href: '/market/stocks' },
-              { prompt: 'Son 24 saatte en çok kazandıran varlıklar ve neden yükseldiler?', href: '/world-markets' },
-              { prompt: '1000$ ile 1 yılda en iyi senaryoda ne kadar büyüme mümkün?', href: '/market/stocks' },
-              { prompt: 'Şu an hangi varlıklar "erken fırsat" sinyali veriyor?', href: '/world-markets' },
-              { prompt: 'Bitcoin şu an yükseliş mi düşüş mü sinyali veriyor?', href: '/market/crypto' },
-              { prompt: 'Altın mı Bitcoin mi şu an daha avantajlı?', href: '/world-markets' },
-              { prompt: 'Şu an ne alınır?', href: '/world-markets' },
-            ].map((item, idx) => (
+            {t.p1_prompts.map((prompt, idx) => (
               <a
                 key={idx}
-                href={item.href}
-                onClick={(e) => { e.preventDefault(); setLocalVal(item.prompt); submit(); }}
+                href="/market/stocks"
+                onClick={(e) => { e.preventDefault(); setLocalVal(prompt); submit(); }}
                 style={{
                   padding: '10px 14px', background: 'rgba(255,255,255,0.02)',
                   border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8,
@@ -669,7 +734,7 @@ export default function LandingPage() {
                   e.currentTarget.style.color = '#8B97AA'
                 }}
               >
-                {item.prompt}
+                {prompt}
               </a>
             ))}
           </div>
@@ -1460,6 +1525,7 @@ export default function LandingPage() {
     <div className="lp-root" dir={isRtl ? 'rtl' : 'ltr'} onClick={() => langOpen && setLangOpen(false)}>
       {/* Close lang dropdown on outside click is handled above */}
 
+      <Sidebar />
       {showInstall && <InstallBanner />}
       <Header />
       {/* LandingTicker geçici deaktif - refresh issue debug'u için */}
