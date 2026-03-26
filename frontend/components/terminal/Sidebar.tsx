@@ -26,64 +26,62 @@ import {
   Globe2,
   Star,
   Activity,
+  Bell,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
 import { useState, useEffect } from 'react'
 
-type Tier = 'free' | 'pro' | 'admin'
+type Tier = 'free' | 'pro' | 'pro+' | 'admin'
 
 interface NavItem {
   href: string
   icon: React.ElementType
   label: string
   section: string
+  emoji?: string
   tier?: Tier
+  badge?: 'lock' | 'gem' | 'new'
+  highlight?: boolean
   children?: { href: string; icon: React.ElementType; label: string }[]
 }
 
 interface NavGroup {
-  label: string
+  category: string
+  categoryColor: string
   items: NavItem[]
 }
 
 const navGroups: NavGroup[] = [
-  // ─── Analiz ──────────────────────────────────────────────────────────────────
+  // 🟢 AI ZEKASI (FREE HOOK - Herkese Açık)
   {
-    label: 'Analiz',
+    category: '🟢 AI ZEKASI',
+    categoryColor: 'text-emerald-500/80',
     items: [
-      { href: '/dashboard',  icon: LayoutDashboard, label: 'Anasayfa',       section: 'dashboard' },
-      { href: '/finma514',   icon: Zap,             label: 'FinMA 514',      section: 'finma514' },
-      { href: '/archive',    icon: History,         label: 'Geçmişim',       section: 'archive' },
+      { emoji: '🏠', label: 'Ana Sayfa', href: '/dashboard', icon: LayoutDashboard, section: 'dashboard' },
+      { emoji: '📊', label: 'Varlık Performansı', href: '/market/stocks', icon: TrendingUp, section: 'stocks' },
+      { emoji: '⏪', label: 'Dünün Kazandıranları', href: '/winners-yesterday', icon: Star, section: 'winners', highlight: true, badge: 'new' },
     ],
   },
-  // ─── Piyasalar ───────────────────────────────────────────────────────────────
+  // 🔵 GÜNLÜK FIRSATLAR (PRO PAIN - Kilitli)
   {
-    label: 'Piyasalar',
+    category: '🔵 GÜNLÜK FIRSATLAR',
+    categoryColor: 'text-blue-500/80',
     items: [
-      { href: '/world-markets',       icon: Globe2,     label: 'Dünya Borsaları',  section: 'world-markets' },
-      { href: '/market/stocks',       icon: TrendingUp, label: 'ABD Borsaları',    section: 'stocks' },
-      { href: '/market/tech',         icon: Zap,        label: 'Teknoloji',        section: 'tech' },
-      { href: '/market/crypto',       icon: Shield,     label: 'Kripto',           section: 'crypto' },
-      { href: '/market/commodities',  icon: Flame,      label: 'Emtia',            section: 'commodities' },
-      { href: '/market/forex',        icon: BarChart3,  label: 'Forex',            section: 'forex' },
-      { href: '/movers',              icon: Crown,      label: 'Hareketliler',     section: 'movers' },
-      { href: '/sectors',             icon: BarChart3,  label: 'Sektörler',        section: 'sectors' },
+      { emoji: '🔥', label: 'Bugünün Top 5\'i', href: '/featured', icon: Zap, section: 'featured', tier: 'pro', badge: 'lock' },
+      { emoji: '🏢', label: 'Sektör Liderleri', href: '/sectors', icon: BarChart3, section: 'sectors', tier: 'pro', badge: 'lock' },
+      { emoji: '📈', label: 'Market Movers', href: '/movers', icon: Crown, section: 'movers', tier: 'pro', badge: 'lock' },
+      { emoji: '🌪️', label: 'Risk & VIX', href: '/risk-vix', icon: Activity, section: 'risk-vix', tier: 'pro', badge: 'lock' },
     ],
   },
-  // ─── Pro İçerik ──────────────────────────────────────────────────────────────
+  // 🔴 PORTFÖY VE OTOMASYON (PRO+ UPGRADE)
   {
-    label: 'Pro',
+    category: '🔴 PORTFÖY VE OTOMASYON',
+    categoryColor: 'text-red-500/80',
     items: [
-      { href: '/featured',   icon: Star,            label: 'Günlük Top 5',   section: 'featured', tier: 'pro' },
-      { href: '/tracking',   icon: Target,          label: 'Akıllı Takip',   section: 'tracking', tier: 'pro' },
-    ],
-  },
-  // ─── Hesap ───────────────────────────────────────────────────────────────────
-  {
-    label: 'Hesap',
-    items: [
-      { href: '/settings',   icon: Settings,        label: 'Ayarlar',        section: 'settings' },
+      { emoji: '⭐', label: 'Takip Listem', href: '/watchlist', icon: Star, section: 'watchlist', tier: 'pro' },
+      { emoji: '🤖', label: 'Akıllı Takip', href: '/tracking', icon: Bot, section: 'tracking', tier: 'pro+', badge: 'gem' },
+      { emoji: '🔔', label: 'Canlı Sinyaller', href: '/signals', icon: Bell, section: 'signals', tier: 'pro+', badge: 'gem' },
     ],
   },
 ]
@@ -92,29 +90,40 @@ const navGroups: NavGroup[] = [
 const tierBadge: Record<Tier, { label: string; color: string; icon: React.ElementType }> = {
   free: { label: 'Free', color: 'text-finma-text-dim bg-white/5 border-white/10', icon: Activity },
   pro: { label: 'Pro', color: 'text-finma-primary bg-finma-primary/10 border-finma-primary/30', icon: Crown },
+  'pro+': { label: 'Pro+', color: 'text-amber-500 bg-amber-500/10 border-amber-500/30', icon: Star },
   admin: { label: 'Admin', color: 'text-finma-green bg-finma-green/10 border-finma-green/30', icon: Shield },
 }
 
 const tierColors: Record<string, string> = {
   free: 'text-finma-text-dim',
   pro: 'text-finma-primary',
+  'pro+': 'text-amber-500',
   admin: 'text-finma-red',
 }
 
 export function Sidebar() {
   const pathname = usePathname()
   const { sidebarOpen, setSidebarOpen, mobileMenuOpen, setMobileMenuOpen } = useTerminalStore()
-  const { user, canAccess, logout } = useAuthStore()
-  const [expandedMenus, setExpandedMenus] = useState<string[]>(['market'])
+  const { user, logout } = useAuthStore()
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(['0', '1', '2'])
 
   const isExpanded = sidebarOpen || mobileMenuOpen
 
   const userTier = (user?.subscription_tier || 'free') as Tier
   const isAdmin = user?.role === 'admin'
 
-  const toggleMenu = (section: string) => {
-    setExpandedMenus(prev =>
-      prev.includes(section) ? prev.filter(s => s !== section) : [...prev, section]
+  // Tier access check
+  const canAccess = (tier?: Tier): boolean => {
+    if (!tier) return true // Free tier
+    if (tier === 'admin') return isAdmin
+    if (tier === 'pro') return userTier === 'pro' || userTier === 'pro+' || isAdmin
+    if (tier === 'pro+') return userTier === 'pro+' || isAdmin
+    return false
+  }
+
+  const toggleCategory = (categoryIndex: string) => {
+    setExpandedCategories(prev =>
+      prev.includes(categoryIndex) ? prev.filter(i => i !== categoryIndex) : [...prev, categoryIndex]
     )
   }
 
@@ -168,170 +177,103 @@ export function Sidebar() {
 
         {/* Navigation */}
         <nav className="flex-1 py-2 px-2 overflow-y-auto">
-          {navGroups.map((group, gi) => (
-            <div key={group.label} className={gi > 0 ? 'mt-3' : ''}>
-              {/* Group label — only when expanded */}
-              {isExpanded && (
-                <div className="px-3 mb-1">
-                  <span className="text-[9px] font-bold text-finma-text-dim/40 uppercase tracking-widest">
-                    {group.label}
-                  </span>
-                </div>
-              )}
-              {/* Divider in collapsed mode */}
-              {!isExpanded && gi > 0 && (
-                <div className="mx-3 my-1 border-t border-finma-border/20" />
-              )}
+          {navGroups.map((group, gi) => {
+            const isCategoryExpanded = expandedCategories.includes(gi.toString())
 
-              <div className="space-y-0.5">
-                {group.items.map((item) => {
-                  // Admin-only items: completely hidden for non-admins
-                  if (item.tier === 'admin' && !isAdmin) return null
+            return (
+              <div key={gi} className={gi > 0 ? 'mt-4' : ''}>
+                {/* Category Header — Collapsible */}
+                {isExpanded && (
+                  <button
+                    onClick={() => toggleCategory(gi.toString())}
+                    className="w-full flex items-center gap-2 px-3 py-2 mb-1 text-xs font-bold uppercase tracking-widest rounded-md transition-colors hover:bg-white/5"
+                  >
+                    <span className={cn('truncate', group.categoryColor)}>
+                      {group.category}
+                    </span>
+                    <ChevronDown className={cn(
+                      'w-3.5 h-3.5 shrink-0 transition-transform duration-200',
+                      isCategoryExpanded && 'rotate-180'
+                    )} />
+                  </button>
+                )}
 
-                  const isActive = pathname === item.href || (item.children && pathname.startsWith(item.href + '/'))
-                  const isMenuExpanded = expandedMenus.includes(item.section)
-                  const hasChildren = item.children && item.children.length > 0
-                  // isLocked yalnızca pro/free farkı için — admin tier items hiç görünmez zaten
-                  const isLocked = (item.tier && item.tier !== 'admin') ? !canAccess(item.tier) : false
+                {/* Category Items — Collapsible Content */}
+                {(!isExpanded || isCategoryExpanded) && (
+                  <div className="space-y-0.5">
+                    {group.items.map((item) => {
+                      const isActive = pathname === item.href
+                      const isLocked = !canAccess(item.tier)
 
-                  return (
-                    <div key={item.href + item.section}>
-                      <div className="flex items-center">
-                        <Link
-                          href={hasChildren && isExpanded ? '#' : item.href}
-                          onClick={(e) => {
-                            if (hasChildren && isExpanded) {
-                              e.preventDefault()
-                              toggleMenu(item.section)
-                            } else {
-                              setMobileMenuOpen(false)
-                            }
-                          }}
-                          className={cn(
-                            'flex-1 flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200',
-                            isLocked
-                              ? 'text-finma-text-dim/50 hover:text-finma-text-dim/70 hover:bg-white/3'
-                              : isActive
-                                ? 'bg-finma-primary/15 text-finma-primary border-l-2 border-finma-primary'
-                                : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5',
-                            !isExpanded && 'justify-center px-0'
-                          )}
-                          title={!isExpanded ? item.label : undefined}
-                        >
-                          {isLocked ? (
-                            <Lock className="w-4.5 h-4.5 shrink-0 opacity-50" />
-                          ) : (
-                            <item.icon className={cn('w-4.5 h-4.5 shrink-0', isActive && 'text-finma-primary')} />
-                          )}
-                          {isExpanded && (
-                            <>
-                              <span className={cn('flex-1 truncate', isLocked && 'opacity-50')}>{item.label}</span>
-                              {isLocked && (
-                                <span className="text-[9px] font-bold text-finma-primary/60 bg-finma-primary/10 px-1.5 py-0.5 rounded">
-                                  PRO
-                                </span>
-                              )}
-                              {hasChildren && (
-                                <ChevronDown className={cn(
-                                  'w-3.5 h-3.5 transition-transform duration-200',
-                                  isMenuExpanded && 'rotate-180'
-                                )} />
-                              )}
-                            </>
-                          )}
-                        </Link>
-                      </div>
+                      return (
+                        <div key={item.href + item.section}>
+                          <Link
+                            href={isLocked ? '#' : item.href}
+                            onClick={() => {
+                              if (!isLocked) setMobileMenuOpen(false)
+                            }}
+                            className={cn(
+                              'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200',
+                              isLocked
+                                ? 'text-finma-text-dim/50 cursor-not-allowed hover:text-finma-text-dim/70 hover:bg-white/3'
+                                : isActive
+                                  ? 'bg-finma-primary/15 text-finma-primary border-l-2 border-finma-primary'
+                                  : item.highlight
+                                    ? 'text-finma-text-muted hover:text-finma-text hover:bg-yellow-500/10 shadow-[0_0_20px_rgba(234,179,8,0.3)]'
+                                    : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5',
+                              !isExpanded && 'justify-center px-0'
+                            )}
+                            title={!isExpanded ? item.label : undefined}
+                          >
+                            {/* Icon or Badge */}
+                            {isLocked ? (
+                              item.badge === 'gem' ? (
+                                <span className="text-xl">💎</span>
+                              ) : (
+                                <Lock className="w-4.5 h-4.5 shrink-0 opacity-50" />
+                              )
+                            ) : item.emoji ? (
+                              <span className="text-base">{item.emoji}</span>
+                            ) : (
+                              <item.icon className={cn('w-4.5 h-4.5 shrink-0', isActive && 'text-finma-primary')} />
+                            )}
 
-                      {hasChildren && isExpanded && isMenuExpanded && (
-                        <div className="ml-4 mt-0.5 space-y-0.5 border-l border-finma-border/40 pl-2">
-                          {item.children!.map((child) => {
-                            const isChildActive = pathname === child.href
-                            return (
-                              <Link
-                                key={child.href}
-                                href={child.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className={cn(
-                                  'flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-all duration-150',
-                                  isChildActive
-                                    ? 'text-finma-primary bg-finma-primary/10'
-                                    : 'text-finma-text-dim hover:text-finma-text hover:bg-white/5'
+                            {/* Label & Badges */}
+                            {isExpanded && (
+                              <>
+                                <span className={cn('flex-1 truncate', isLocked && 'opacity-50')}>{item.label}</span>
+
+                                {/* Tier Badge */}
+                                {isLocked && item.tier === 'pro' && (
+                                  <span className="text-[8px] font-bold text-finma-primary/60 bg-finma-primary/10 px-1.5 py-0.5 rounded">
+                                    🔒 PRO
+                                  </span>
                                 )}
-                              >
-                                <child.icon className="w-3.5 h-3.5 shrink-0" />
-                                <span>{child.label}</span>
-                              </Link>
-                            )
-                          })}
+                                {isLocked && item.tier === 'pro+' && (
+                                  <span className="text-[8px] font-bold text-amber-500/60 bg-amber-500/10 px-1.5 py-0.5 rounded">
+                                    💎 PRO+
+                                  </span>
+                                )}
+
+                                {/* New Badge */}
+                                {!isLocked && item.badge === 'new' && (
+                                  <span className="text-[8px] font-bold text-emerald-500/60 bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                                    ⭐ YENI
+                                  </span>
+                                )}
+                              </>
+                            )}
+                          </Link>
                         </div>
-                      )}
-                    </div>
-                  )
-                })}
+                      )
+                    })}
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </nav>
         
-        {/* Admin Quick Access */}
-        {isAdmin && isExpanded && (
-          <div className="px-2 pb-2 mt-2 pt-2 border-t border-finma-border/30">
-            <div className="px-3 mb-1">
-              <span className="text-[9px] font-bold text-finma-primary/70 uppercase tracking-widest">Yönetim</span>
-            </div>
-            <Link
-              href="/admin/bots"
-              onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-all duration-200',
-                pathname.startsWith('/admin/bots')
-                  ? 'bg-finma-primary/15 text-finma-primary'
-                  : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5'
-              )}
-            >
-              <Bot className="w-4 h-4" />
-              <span>Bot Yönetimi</span>
-            </Link>
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-all duration-200 mt-0.5',
-                pathname === '/admin'
-                  ? 'bg-finma-primary/15 text-finma-primary'
-                  : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5'
-              )}
-            >
-              <Shield className="w-4 h-4" />
-              <span>Yönetim Paneli</span>
-            </Link>
-            <Link
-              href="/archive"
-              onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-all duration-200 mt-0.5',
-                pathname === '/archive'
-                  ? 'bg-finma-primary/15 text-finma-primary'
-                  : 'text-finma-text-muted hover:text-finma-text hover:bg-white/5'
-              )}
-            >
-              <Archive className="w-4 h-4" />
-              <span>Veri Arşivi</span>
-            </Link>
-          </div>
-        )}
-
-        {/* Admin Quick Access Icon-only (Collapsed) */}
-        {isAdmin && !isExpanded && (
-          <div className="py-2 border-t border-finma-border/30 flex flex-col items-center gap-2">
-             <Link href="/admin/bots" className="p-2 text-finma-primary hover:bg-white/5 rounded-md" title="Bot Yönetimi">
-               <Bot className="w-4.5 h-4.5" />
-             </Link>
-             <Link href="/archive" className="p-2 text-finma-primary hover:bg-white/5 rounded-md" title="Veri Arşivi">
-               <Archive className="w-4.5 h-4.5" />
-             </Link>
-          </div>
-        )}
 
         {/* Bottom section */}
         <div className="border-t border-finma-border p-2 space-y-1">
@@ -348,7 +290,7 @@ export function Sidebar() {
               </div>
               <div className="text-[10px] text-finma-text-dim font-mono mt-1">
                 Üyelik: <span className={tierColors[userTier] || 'text-finma-text-dim'}>
-                  {userTier === 'admin' ? 'Admin' : tierBadge[userTier]?.label || 'Free'}
+                  {tierBadge[userTier]?.label || 'Free'}
                 </span>
               </div>
             </div>
@@ -370,6 +312,33 @@ export function Sidebar() {
           >
             {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
+
+          {/* Membership Upgrade Banner */}
+          {isExpanded && (
+            <div className="px-3 pt-2 border-t border-finma-border/20">
+              {userTier === 'free' && (
+                <Link
+                  href="/pricing"
+                  className="block w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white text-xs font-semibold py-2 px-2 rounded-md text-center transition-all duration-200 hover:shadow-lg"
+                >
+                  🚀 Pro'ya Geç
+                </Link>
+              )}
+              {userTier === 'pro' && (
+                <Link
+                  href="/pricing"
+                  className="block w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-semibold py-2 px-2 rounded-md text-center transition-all duration-200 hover:shadow-lg"
+                >
+                  💎 Pro+'a Yükselt
+                </Link>
+              )}
+              {userTier === 'pro+' && (
+                <div className="text-center text-xs text-emerald-500 font-semibold">
+                  ✅ Pro+ Üye
+                </div>
+              )}
+            </div>
+          )}
 
           {isExpanded && (
             <div className="text-center pt-1 pb-1 border-t border-finma-border/20">

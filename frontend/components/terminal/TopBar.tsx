@@ -8,6 +8,22 @@ import { MarketTicker } from './MarketTicker'
 import { Bell, Search, User, Menu, LogOut, Settings, DollarSign, Download } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  return isMobile
+}
+
 interface Notification {
   id: string
   title: string
@@ -27,6 +43,7 @@ export function TopBar() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
   const [pwaInstallPrompt, setPwaInstallPrompt] = useState<any>(null)
+  const isMobile = useIsMobile()
 
   // PWA install prompt
   useEffect(() => {
@@ -115,12 +132,15 @@ export function TopBar() {
       )}
     >
       {/* Hamburger — mobilde */}
-      <button
-        onClick={() => setMobileMenuOpen(true)}
-        className="md:hidden flex items-center justify-center w-12 h-14 text-finma-text-muted hover:text-finma-text transition-colors shrink-0"
-      >
-        <Menu className="w-5 h-5" />
-      </button>
+      {isMobile && (
+        <button
+          onClick={() => setMobileMenuOpen(true)}
+          className="flex items-center justify-center w-12 h-14 text-finma-text-muted hover:text-finma-text active:text-finma-primary transition-colors shrink-0 z-50 relative"
+          title="Menüyü aç"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+      )}
 
       {/* Market Ticker */}
       <div className="flex-1 overflow-hidden h-full">
