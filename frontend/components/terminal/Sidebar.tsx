@@ -26,6 +26,15 @@ import {
   Globe2,
   Star,
   Activity,
+  Home,
+  Wind,
+  Brain,
+  DollarSign,
+  Bell,
+  Calendar,
+  FolderOpen,
+  Rocket,
+  Gem,
 } from 'lucide-react'
 import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
@@ -48,42 +57,51 @@ interface NavGroup {
 }
 
 const navGroups: NavGroup[] = [
-  // ─── Analiz ──────────────────────────────────────────────────────────────────
+  // ─── Main Navigation ─────────────────────────────────────────────────────────
   {
-    label: 'Analiz',
+    label: '',
     items: [
-      { href: '/dashboard',  icon: LayoutDashboard, label: 'Anasayfa',       section: 'dashboard' },
-      { href: '/finma514',   icon: Zap,             label: 'FinMA 514',      section: 'finma514' },
-      { href: '/archive',    icon: History,         label: 'Geçmişim',       section: 'archive' },
+      { href: '/',                              icon: Home,       label: 'Ana Sayfa',              section: 'home' },
+      { href: '/market/stocks?filter=gainers',  icon: Flame,      label: 'Bugünün Fırsatları',     section: 'gainers' },
+      { href: '/market/stocks?filter=sectors',  icon: BarChart3,  label: 'Sektör Liderleri',       section: 'sectors' },
+      { href: '/market/stocks?filter=movers',   icon: TrendingUp, label: 'Market Movers',          section: 'movers' },
+      { href: '/market/stocks?filter=vix',      icon: Wind,       label: 'Risk & VIX',             section: 'vix' },
     ],
   },
-  // ─── Piyasalar ───────────────────────────────────────────────────────────────
+  // ─── ANALİZ ──────────────────────────────────────────────────────────────────
   {
-    label: 'Piyasalar',
+    label: 'ANALİZ',
     items: [
-      { href: '/world-markets',       icon: Globe2,     label: 'Dünya Borsaları',  section: 'world-markets' },
-      { href: '/market/stocks',       icon: TrendingUp, label: 'ABD Borsaları',    section: 'stocks' },
-      { href: '/market/tech',         icon: Zap,        label: 'Teknoloji',        section: 'tech' },
-      { href: '/market/crypto',       icon: Shield,     label: 'Kripto',           section: 'crypto' },
-      { href: '/market/commodities',  icon: Flame,      label: 'Emtia',            section: 'commodities' },
-      { href: '/market/forex',        icon: BarChart3,  label: 'Forex',            section: 'forex' },
-      { href: '/movers',              icon: Crown,      label: 'Hareketliler',     section: 'movers' },
-      { href: '/sectors',             icon: BarChart3,  label: 'Sektörler',        section: 'sectors' },
+      { href: '/analysis/ai',        icon: Bot,         label: 'AI Analiz',   section: 'ai-analysis' },
+      { href: '/analysis/scenarios', icon: Brain,       label: 'Senaryolar',  section: 'scenarios' },
+      { href: '/analysis/flow',      icon: DollarSign,  label: 'Para Akışı',  section: 'flow' },
     ],
   },
-  // ─── Pro İçerik ──────────────────────────────────────────────────────────────
+  // ─── TAKİP ───────────────────────────────────────────────────────────────────
   {
-    label: 'Pro',
+    label: 'TAKİP',
     items: [
-      { href: '/featured',   icon: Star,            label: 'Günlük Top 5',   section: 'featured', tier: 'pro' },
-      { href: '/tracking',   icon: Target,          label: 'Akıllı Takip',   section: 'tracking', tier: 'pro' },
+      { href: '/watchlist',  icon: Star,  label: 'Takip Listem',    section: 'watchlist' },
+      { href: '/tracking',   icon: Bell,  label: 'Akıllı Takip',    section: 'tracking', tier: 'pro' },
+      { href: '/signals',    icon: Zap,   label: 'Sinyaller',       section: 'signals', tier: 'pro' },
     ],
   },
-  // ─── Hesap ───────────────────────────────────────────────────────────────────
+  // ─── VERİ ────────────────────────────────────────────────────────────────────
   {
-    label: 'Hesap',
+    label: 'VERİ',
     items: [
-      { href: '/settings',   icon: Settings,        label: 'Ayarlar',        section: 'settings' },
+      { href: '/data/yesterday-gainers', icon: Calendar,   label: 'Dün Kazandıranlar',  section: 'yesterday-gainers' },
+      { href: '/data/archives',          icon: FolderOpen, label: 'Geçmiş Analizler',   section: 'archives' },
+      { href: '/data/performance',       icon: BarChart3,  label: 'Performans',        section: 'performance' },
+    ],
+  },
+  // ─── ÜYELİK ──────────────────────────────────────────────────────────────────
+  {
+    label: 'ÜYELİK',
+    items: [
+      { href: '/pricing',                 icon: Activity,  label: 'Free Plan',  section: 'free-plan' },
+      { href: '/pricing?plan=pro',        icon: Rocket,    label: 'Pro\'ya Geç', section: 'go-pro' },
+      { href: '/pricing?plan=pro-plus',   icon: Gem,       label: 'Pro+',       section: 'pro-plus' },
     ],
   },
 ]
@@ -105,7 +123,7 @@ export function Sidebar() {
   const pathname = usePathname()
   const { sidebarOpen, setSidebarOpen, mobileMenuOpen, setMobileMenuOpen } = useTerminalStore()
   const { user, canAccess, logout } = useAuthStore()
-  const [expandedMenus, setExpandedMenus] = useState<string[]>(['market'])
+  const [expandedMenus, setExpandedMenus] = useState<string[]>([])
 
   const isExpanded = sidebarOpen || mobileMenuOpen
 
