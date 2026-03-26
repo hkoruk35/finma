@@ -9,7 +9,7 @@ import { Bell, Search, User, Menu, LogOut, Settings, DollarSign, Download } from
 import { cn } from '@/lib/utils'
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -21,7 +21,8 @@ function useIsMobile() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  return isMobile
+  // Return true on mobile, false on desktop. During SSR hydration, return true (safe default)
+  return isMobile ?? true
 }
 
 interface Notification {
