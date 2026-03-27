@@ -756,15 +756,6 @@ export default function LandingPage() {
           ))}
         </div>
 
-        {/* Legal Footer */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, width: '100%', maxWidth: 640, textAlign: 'center' }}>
-          <p style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#EDF2FA',
-            lineHeight: 1.6, margin: 0,
-          }}>
-            {t.legal_disclaimer}
-          </p>
-        </div>
       </div>
     )
   }
@@ -1549,8 +1540,18 @@ export default function LandingPage() {
       <main style={{ position: 'relative', zIndex: 1 }}>
         {page === 'p1' && <Page1 />}
         {page === 'p1' && (
-          <div style={{ width: '100%', padding: '0 20px 60px' }}>
+          <div style={{ width: '100%', padding: '0 20px' }}>
             <SectorHeatmap />
+          </div>
+        )}
+        {page === 'p1' && (
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
+            <p style={{
+              fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
+              lineHeight: 1.6, margin: 0,
+            }}>
+              {t.legal_disclaimer}
+            </p>
           </div>
         )}
         {page === 'p2' && <Page2 />}
