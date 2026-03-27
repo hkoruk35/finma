@@ -13,11 +13,11 @@ export interface IndexItem {
 }
 
 const SYMBOLS = [
-  { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX'   },
-  { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP'  },
-  { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI'   },
-  { symbol: 'DX-Y.NYB', label: 'DOLAR',   sublabel: 'DXY'   },
-  { symbol: '^VIX',     label: 'VIX',     sublabel: 'KORKU' },
+  { symbol: '^GSPC',    stooq: '^spx', label: 'S&P 500', sublabel: 'SPX'   },
+  { symbol: '^IXIC',    stooq: '^ndx', label: 'NASDAQ',  sublabel: 'COMP'  },
+  { symbol: '^DJI',     stooq: '^dji', label: 'DOW',     sublabel: 'DJI'   },
+  { symbol: 'DX-Y.NYB', stooq: 'dxy',  label: 'DOLAR',   sublabel: 'DXY'   },
+  { symbol: '^VIX',     stooq: '^vix', label: 'VIX',     sublabel: 'KORKU' },
 ]
 
 const FALLBACK: IndexItem[] = [
@@ -27,15 +27,6 @@ const FALLBACK: IndexItem[] = [
   { symbol: 'DX-Y.NYB', label: 'DOLAR',   sublabel: 'DXY',   pct: '-0.31%', dir: 'down', comment: 'Zayıflama devam' },
   { symbol: '^VIX',     label: 'VIX',     sublabel: 'KORKU', pct: '+4.20%', dir: 'up',   comment: 'Risk iştahı ↓'  },
 ]
-
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
-const BASE_HEADERS: HeadersInit = {
-  'User-Agent': UA,
-  'Accept': 'application/json',
-  'Accept-Language': 'en-US,en;q=0.9',
-  'Referer': 'https://finance.yahoo.com/',
-  'Origin': 'https://finance.yahoo.com',
-}
 
 function getComment(label: string, pct: number, price?: number): string {
   if (label === 'S&P 500') {
@@ -77,35 +68,81 @@ function getComment(label: string, pct: number, price?: number): string {
   return pct >= 0 ? 'Yükseliyor' : 'Geriyor'
 }
 
-function buildItem(
-  sym: typeof SYMBOLS[number],
-  raw: number,
-  price?: number,
-): IndexItem {
-  const pct = raw >= 0 ? `+${raw.toFixed(2)}%` : `${raw.toFixed(2)}%`
+function buildItem(sym: typeof SYMBOLS[number], pct: number, price?: number): IndexItem {
+  const pctStr = pct >= 0 ? `+${pct.toFixed(2)}%` : `${pct.toFixed(2)}%`
   return {
-    ...sym,
-    pct,
-    dir: raw >= 0 ? 'up' : 'down',
-    comment: getComment(sym.label, raw, price),
+    symbol: sym.symbol,
+    label: sym.label,
+    sublabel: sym.sublabel,
+    pct: pctStr,
+    dir: pct >= 0 ? 'up' : 'down',
+    comment: getComment(sym.label, pct, price),
   }
 }
 
-// ── Method 1: v8/finance/chart per symbol (no crumb needed) ─────────────────
-async function fetchChart(sym: typeof SYMBOLS[number]): Promise<IndexItem | null> {
+// ── Source 1: Stooq (no auth, cloud-IP friendly) ────────────────────────────
+// Fields: s=symbol, d2=date, c=close, p=prevclose → calc pct ourselves
+async function fetchStooq(): Promise<IndexItem[] | null> {
+  const stooqList = SYMBOLS.map(s => s.stooq).join(',')
+  const url = `https://stooq.com/q/l/?s=${encodeURIComponent(stooqList)}&f=sd2t2cp&h&e=csv`
+
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; finma/1.0)' },
+      cache: 'no-store',
+      signal: AbortSignal.timeout(9000),
+    })
+    if (!res.ok) return null
+
+    const text = await res.text()
+    const lines = text.trim().split('\n')
+    // First line is header: Symbol,Date,Time,Close,Open (or Close,Prev)
+    if (lines.length < 2) return null
+
+    // Build lookup: stooq_symbol → {close, prev}
+    const map = new Map<string, { close: number; prev: number }>()
+    for (const line of lines.slice(1)) {
+      const parts = line.split(',')
+      if (parts.length < 5) continue
+      const sym    = parts[0].trim().toLowerCase()
+      const close  = parseFloat(parts[3])
+      const prev   = parseFloat(parts[4])
+      if (!isNaN(close) && !isNaN(prev) && prev !== 0) {
+        map.set(sym, { close, prev })
+      }
+    }
+    if (map.size === 0) return null
+
+    const items: IndexItem[] = SYMBOLS.map((sym, i) => {
+      const entry = map.get(sym.stooq.toLowerCase())
+      if (!entry) return FALLBACK[i]
+      const pct = (entry.close - entry.prev) / entry.prev * 100
+      return buildItem(sym, pct, entry.close)
+    })
+
+    // Reject if all values identical to fallback (fetch succeeded but data bad)
+    const allFallback = items.every((item, i) => item.pct === FALLBACK[i].pct)
+    return allFallback ? null : items
+  } catch {
+    return null
+  }
+}
+
+// ── Source 2: Yahoo Finance chart per symbol (fallback) ──────────────────────
+async function fetchYahooChart(sym: typeof SYMBOLS[number]): Promise<IndexItem | null> {
   const encoded = encodeURIComponent(sym.symbol)
-  // Try both hosts
   const urls = [
     `https://query1.finance.yahoo.com/v8/finance/chart/${encoded}?interval=1m&range=1d&includePrePost=false`,
     `https://query2.finance.yahoo.com/v8/finance/chart/${encoded}?interval=1m&range=1d&includePrePost=false`,
   ]
+  const headers: HeadersInit = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+    'Accept': 'application/json',
+    'Referer': 'https://finance.yahoo.com/',
+  }
   for (const url of urls) {
     try {
-      const res = await fetch(url, {
-        headers: BASE_HEADERS,
-        cache: 'no-store',
-        signal: AbortSignal.timeout(7000),
-      })
+      const res = await fetch(url, { headers, cache: 'no-store', signal: AbortSignal.timeout(7000) })
       if (!res.ok) continue
       const json = await res.json()
       const meta = json?.chart?.result?.[0]?.meta
@@ -118,65 +155,21 @@ async function fetchChart(sym: typeof SYMBOLS[number]): Promise<IndexItem | null
   return null
 }
 
-// ── Method 2: batch quote API (needs crumb on newer Yahoo infra) ─────────────
-async function fetchQuoteBatch(): Promise<IndexItem[] | null> {
-  const symbolList = SYMBOLS.map(s => s.symbol).join(',')
-  const fields = 'regularMarketChangePercent,regularMarketPrice,symbol'
-  const urls = [
-    `https://query1.finance.yahoo.com/v8/finance/quote?symbols=${encodeURIComponent(symbolList)}&fields=${fields}`,
-    `https://query2.finance.yahoo.com/v8/finance/quote?symbols=${encodeURIComponent(symbolList)}&fields=${fields}`,
-    `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(symbolList)}&fields=${fields}`,
-  ]
-  for (const url of urls) {
-    try {
-      const res = await fetch(url, {
-        headers: BASE_HEADERS,
-        cache: 'no-store',
-        signal: AbortSignal.timeout(7000),
-      })
-      if (!res.ok) continue
-      const json = await res.json()
-      const quotes: any[] = json?.quoteResponse?.result ?? []
-      if (quotes.length === 0) continue
-
-      const items: IndexItem[] = SYMBOLS.map(sym => {
-        const q = quotes.find((r: any) => r.symbol === sym.symbol)
-        const raw: number | null = q?.regularMarketChangePercent ?? null
-        if (raw == null) return FALLBACK.find(f => f.symbol === sym.symbol)!
-        return buildItem(sym, raw, q?.regularMarketPrice)
-      })
-      return items
-    } catch { /* next */ }
-  }
-  return null
-}
-
+// ── Handler ──────────────────────────────────────────────────────────────────
 export async function GET() {
-  // Try chart endpoint first (parallel, no auth)
-  const chartResults = await Promise.all(SYMBOLS.map(fetchChart))
-  const allFromChart = chartResults.every(r => r !== null)
-
-  if (allFromChart) {
-    return NextResponse.json(chartResults as IndexItem[], {
+  // Try Stooq first — reliable from Vercel IPs
+  const stooqItems = await fetchStooq()
+  if (stooqItems) {
+    return NextResponse.json(stooqItems, {
       headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' },
     })
   }
 
-  // If some chart requests failed, fill gaps from batch quote
-  const batchItems = await fetchQuoteBatch()
-
-  const merged: IndexItem[] = SYMBOLS.map((sym, i) => {
-    if (chartResults[i]) return chartResults[i]!
-    if (batchItems)      return batchItems[i]
-    return FALLBACK[i]
-  })
-
-  const anyReal = merged.some((item, i) => item.pct !== FALLBACK[i].pct)
+  // Fallback: Yahoo Finance chart (parallel)
+  const yahooResults = await Promise.all(SYMBOLS.map(fetchYahooChart))
+  const merged: IndexItem[] = SYMBOLS.map((sym, i) => yahooResults[i] ?? FALLBACK[i])
 
   return NextResponse.json(merged, {
-    headers: {
-      'Cache-Control': anyReal ? 'no-store' : 'no-store',
-      'Access-Control-Allow-Origin': '*',
-    },
+    headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' },
   })
 }
