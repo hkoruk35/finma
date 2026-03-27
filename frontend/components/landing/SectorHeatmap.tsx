@@ -36,7 +36,7 @@ export function SectorHeatmap() {
       setLoading(true);
       setError('');
 
-      const response = await fetch('/api/market/sector-heatmap', {
+      const response = await fetch('/api/proxy/market/sector-heatmap', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
