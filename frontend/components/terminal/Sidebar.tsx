@@ -53,35 +53,28 @@ interface NavGroup {
 }
 
 const navGroups: NavGroup[] = [
-  // 🟢 AI ZEKASI (FREE HOOK - Herkese Açık)
+  // ▾ PİYASA & ANALİZ (Ücretsiz)
   {
-    category: '🟢 AI ZEKASI',
+    category: '▾ PİYASA & ANALİZ',
     categoryColor: 'text-emerald-500/80',
     items: [
       { emoji: '🏠', label: 'Ana Sayfa', href: '/dashboard', icon: LayoutDashboard, section: 'dashboard' },
-      { emoji: '📊', label: 'Varlık Performansı', href: '/market/stocks', icon: TrendingUp, section: 'stocks' },
-      { emoji: '⏪', label: 'Dünün Kazandıranları', href: '/winners-yesterday', icon: Star, section: 'winners', highlight: true, badge: 'new' },
+      { emoji: '⚡', label: 'Canlı Piyasa Radarı', href: '/market/radar', icon: Zap, section: 'radar' },
+      { emoji: '🧭', label: 'Makro Endeksler', href: '/macro', icon: Globe2, section: 'macro' },
+      { emoji: '🗺️', label: 'Para Akışı Haritası', href: '/market/flow', icon: Target, section: 'flow' },
+      { emoji: '🔥', label: 'Hacim Liderleri', href: '/market/volume', icon: Flame, section: 'volume' },
+      { emoji: '💸', label: 'Temettü Yıldızları', href: '/dividends', icon: Star, section: 'dividends' },
+      { emoji: '🎯', label: 'AI Başarı Karnesi', href: '/finma514', icon: Shield, section: 'finma514', highlight: true },
     ],
   },
-  // 🔵 GÜNLÜK FIRSATLAR (PRO PAIN - Kilitli)
+  // ▾ FinMA PRO (Kilitli Bölüm)
   {
-    category: '🔵 GÜNLÜK FIRSATLAR',
+    category: '▾ FinMA PRO',
     categoryColor: 'text-blue-500/80',
     items: [
-      { emoji: '🔥', label: 'Bugünün Top 5\'i', href: '/featured', icon: Zap, section: 'featured', tier: 'pro', badge: 'lock' },
+      { emoji: '👑', label: 'Bugünün AI Fırsatları', href: '/featured', icon: Crown, section: 'featured', tier: 'pro', badge: 'lock' },
       { emoji: '🏢', label: 'Sektör Liderleri', href: '/sectors', icon: BarChart3, section: 'sectors', tier: 'pro', badge: 'lock' },
-      { emoji: '📈', label: 'Market Movers', href: '/movers', icon: Crown, section: 'movers', tier: 'pro', badge: 'lock' },
-      { emoji: '🌪️', label: 'Risk & VIX', href: '/risk-vix', icon: Activity, section: 'risk-vix', tier: 'pro', badge: 'lock' },
-    ],
-  },
-  // 🔴 PORTFÖY VE OTOMASYON (PRO+ UPGRADE)
-  {
-    category: '🔴 PORTFÖY VE OTOMASYON',
-    categoryColor: 'text-red-500/80',
-    items: [
-      { emoji: '⭐', label: 'Takip Listem', href: '/watchlist', icon: Star, section: 'watchlist', tier: 'pro' },
-      { emoji: '🤖', label: 'Akıllı Takip', href: '/tracking', icon: Bot, section: 'tracking', tier: 'pro+', badge: 'gem' },
-      { emoji: '🔔', label: 'Canlı Sinyaller', href: '/signals', icon: Bell, section: 'signals', tier: 'pro+', badge: 'gem' },
+      { emoji: '🤖', label: 'Akıllı Hisse Takip', href: '/tracking', icon: Bot, section: 'tracking', tier: 'pro+', badge: 'lock' },
     ],
   },
 ]

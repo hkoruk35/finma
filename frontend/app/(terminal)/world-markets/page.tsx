@@ -773,10 +773,12 @@ function AIAskSection() {
   const [loading, setLoading] = useState(false)
 
   const quickQuestions = [
-    'Bugun piyasa neden dusuyuyor?',
-    'Hangi sektor guclu?',
-    'VIX ne diyor?',
-    'Asya piyasalarini analiz et',
+    'Bugünün Top Hisseleri',
+    'Risk Analizi',
+    'Sektör Performansı',
+    'AI Tahminleri',
+    'VIX & Volatilite',
+    'Global Trend',
   ]
 
   const handleAsk = async (q: string) => {
@@ -800,10 +802,10 @@ function AIAskSection() {
         <span className="ml-auto text-[10px] text-finma-text-dim">FinMA AI destekli</span>
       </div>
 
-      <div className="flex items-center gap-2 mb-3 flex-wrap">
+      <div className="grid grid-cols-3 gap-2 mb-3">
         {quickQuestions.map(q => (
           <button key={q} onClick={() => handleAsk(q)}
-            className="text-[11px] px-3 py-2 rounded-lg bg-finma-bg border border-finma-border text-finma-text-dim hover:text-finma-primary hover:border-finma-primary/50 transition-all">
+            className="text-[10px] px-2 py-2 rounded-lg bg-finma-bg border border-finma-border text-finma-text-dim hover:text-finma-primary hover:border-finma-primary/50 transition-all text-center">
             {q}
           </button>
         ))}
@@ -813,19 +815,13 @@ function AIAskSection() {
         <input type="text" value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleAsk(question)}
-          placeholder="Dunya piyasalari hakkinda soru sorun..."
+          placeholder="AI Başarı Sonuçları"
           className="finma-input flex-1 text-sm" />
         <button onClick={() => handleAsk(question)} disabled={loading}
           className="finma-btn-primary p-2.5">
           {loading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
         </button>
       </div>
-
-      {response && (
-        <div className="mt-3 p-4 bg-finma-bg rounded-lg border border-finma-border/50">
-          <p className="text-[12px] text-finma-text-muted leading-relaxed whitespace-pre-wrap">{response}</p>
-        </div>
-      )}
     </Card>
   )
 }

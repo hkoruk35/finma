@@ -125,8 +125,8 @@ export function TopBar() {
         <Menu className="w-5 h-5" />
       </button>
 
-      {/* Market Ticker */}
-      <div className="flex-1 overflow-hidden h-full">
+      {/* Market Ticker — kenarlardan padding ile */}
+      <div className="flex-1 overflow-hidden h-full px-2 md:px-4">
         <MarketTicker />
       </div>
 

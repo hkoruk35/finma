@@ -20,7 +20,7 @@ export default function TerminalLayout({
       <TopBar />
       <main
         className={cn(
-          'pt-14 min-h-screen transition-all duration-300 flex flex-col',
+          'pt-16 min-h-screen transition-all duration-300 flex flex-col',
           // Mobilde: sidebar overlay, padding yok
           'pl-0',
           // Masaüstünde: sidebar genişliğine göre padding
