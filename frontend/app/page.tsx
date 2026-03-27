@@ -396,6 +396,7 @@ export default function LandingPage() {
   const [lang, setLang] = useState('tr')
   const [langOpen, setLangOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [asset, setAsset] = useState<AssetInfo>(ASSETS.stocks)
   const [p3tab, setP3tab] = useState<P3Tab>('overview')
   const [p4tab, setP4tab] = useState<P4Tab>('top5')
@@ -545,9 +546,10 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Sign in */}
+        {/* Sign in — masaüstünde görünür */}
         <button
           onClick={() => router.push('/login')}
+          className="hidden md:block"
           style={{
             background: 'none', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8,
             padding: '6px 14px', cursor: 'pointer', color: '#8B97AA',
@@ -557,9 +559,10 @@ export default function LandingPage() {
           {t.signin}
         </button>
 
-        {/* Sign up */}
+        {/* Sign up — masaüstünde görünür */}
         <button
           onClick={() => setShowModal(true)}
+          className="hidden md:block"
           style={{
             background: '#2D7EF8', border: 'none', borderRadius: 8,
             padding: '7px 16px', cursor: 'pointer', color: '#fff',
@@ -568,6 +571,62 @@ export default function LandingPage() {
         >
           {t.cta_free}
         </button>
+
+        {/* Hamburger — sadece mobilde */}
+        <div className="relative md:hidden">
+          <button
+            onClick={() => setMobileMenuOpen(o => !o)}
+            style={{
+              background: 'none', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8,
+              padding: '7px 10px', cursor: 'pointer', color: '#EDF2FA',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              touchAction: 'manipulation',
+            }}
+            aria-label="Menü"
+          >
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+              <rect y="0" width="18" height="2" rx="1" fill="currentColor"/>
+              <rect y="6" width="18" height="2" rx="1" fill="currentColor"/>
+              <rect y="12" width="18" height="2" rx="1" fill="currentColor"/>
+            </svg>
+          </button>
+
+          {mobileMenuOpen && (
+            <>
+              <div
+                onClick={() => setMobileMenuOpen(false)}
+                style={{ position: 'fixed', inset: 0, zIndex: 150 }}
+              />
+              <div style={{
+                position: 'absolute', top: '110%', right: 0, zIndex: 200,
+                background: '#0C1017', border: '1px solid rgba(255,255,255,0.10)',
+                borderRadius: 10, padding: '8px', minWidth: 180,
+                display: 'flex', flexDirection: 'column', gap: 6,
+              }}>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); router.push('/login') }}
+                  style={{
+                    background: 'none', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8,
+                    padding: '10px 16px', cursor: 'pointer', color: '#8B97AA',
+                    fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 500, textAlign: 'center',
+                  }}
+                >
+                  {t.signin}
+                </button>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); setShowModal(true) }}
+                  style={{
+                    background: '#2D7EF8', border: 'none', borderRadius: 8,
+                    padding: '10px 16px', cursor: 'pointer', color: '#fff',
+                    fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 600, textAlign: 'center',
+                  }}
+                >
+                  {t.cta_free}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </header>
   )
