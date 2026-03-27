@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
+import { useTerminalStore } from '@/store/terminal'
 import { api } from '@/lib/api-client'
 import dynamic from 'next/dynamic'
 
@@ -396,7 +397,6 @@ export default function LandingPage() {
   const [lang, setLang] = useState('tr')
   const [langOpen, setLangOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [asset, setAsset] = useState<AssetInfo>(ASSETS.stocks)
   const [p3tab, setP3tab] = useState<P3Tab>('overview')
   const [p4tab, setP4tab] = useState<P4Tab>('top5')
@@ -408,6 +408,7 @@ export default function LandingPage() {
   const searchRef = useRef<HTMLInputElement>(null)
 
   const { isAuthenticated, login } = useAuthStore()
+  const { setMobileMenuOpen: openSidebar } = useTerminalStore()
   const router = useRouter()
   const t = (COPY[lang] ?? COPY.tr)
   const isRtl = lang === 'ar'
@@ -572,61 +573,24 @@ export default function LandingPage() {
           {t.cta_free}
         </button>
 
-        {/* Hamburger — sadece mobilde */}
-        <div className="relative md:hidden">
-          <button
-            onClick={() => setMobileMenuOpen(o => !o)}
-            style={{
-              background: 'none', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8,
-              padding: '7px 10px', cursor: 'pointer', color: '#EDF2FA',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              touchAction: 'manipulation',
-            }}
-            aria-label="Menü"
-          >
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-              <rect y="0" width="18" height="2" rx="1" fill="currentColor"/>
-              <rect y="6" width="18" height="2" rx="1" fill="currentColor"/>
-              <rect y="12" width="18" height="2" rx="1" fill="currentColor"/>
-            </svg>
-          </button>
-
-          {mobileMenuOpen && (
-            <>
-              <div
-                onClick={() => setMobileMenuOpen(false)}
-                style={{ position: 'fixed', inset: 0, zIndex: 150 }}
-              />
-              <div style={{
-                position: 'absolute', top: '110%', right: 0, zIndex: 200,
-                background: '#0C1017', border: '1px solid rgba(255,255,255,0.10)',
-                borderRadius: 10, padding: '8px', minWidth: 180,
-                display: 'flex', flexDirection: 'column', gap: 6,
-              }}>
-                <button
-                  onClick={() => { setMobileMenuOpen(false); router.push('/login') }}
-                  style={{
-                    background: 'none', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8,
-                    padding: '10px 16px', cursor: 'pointer', color: '#8B97AA',
-                    fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 500, textAlign: 'center',
-                  }}
-                >
-                  {t.signin}
-                </button>
-                <button
-                  onClick={() => { setMobileMenuOpen(false); setShowModal(true) }}
-                  style={{
-                    background: '#2D7EF8', border: 'none', borderRadius: 8,
-                    padding: '10px 16px', cursor: 'pointer', color: '#fff',
-                    fontFamily: 'Manrope, sans-serif', fontSize: 13, fontWeight: 600, textAlign: 'center',
-                  }}
-                >
-                  {t.cta_free}
-                </button>
-              </div>
-            </>
-          )}
-        </div>
+        {/* Hamburger — sadece mobilde, Sidebar'ı açar */}
+        <button
+          className="md:hidden"
+          onClick={() => openSidebar(true)}
+          style={{
+            background: 'none', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8,
+            padding: '7px 10px', cursor: 'pointer', color: '#EDF2FA',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            touchAction: 'manipulation',
+          }}
+          aria-label="Menüyü aç"
+        >
+          <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+            <rect y="0" width="18" height="2" rx="1" fill="currentColor"/>
+            <rect y="6" width="18" height="2" rx="1" fill="currentColor"/>
+            <rect y="12" width="18" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </button>
       </div>
     </header>
   )

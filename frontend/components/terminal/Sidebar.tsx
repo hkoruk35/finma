@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
   LayoutDashboard,
@@ -96,6 +96,7 @@ const tierColors: Record<string, string> = {
 
 export function Sidebar() {
   const pathname = usePathname()
+  const router = useRouter()
   const { sidebarOpen, setSidebarOpen, mobileMenuOpen, setMobileMenuOpen } = useTerminalStore()
   const { user, logout } = useAuthStore()
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['0', '1', '2'])
@@ -275,6 +276,24 @@ export function Sidebar() {
 
         {/* Bottom section */}
         <div className="border-t border-finma-border p-2 space-y-1">
+          {/* Auth buttons for unauthenticated users (landing page mobile) */}
+          {isExpanded && !user && (
+            <div className="px-3 py-2 space-y-2">
+              <button
+                onClick={() => { setMobileMenuOpen(false); router.push('/login') }}
+                className="flex items-center justify-center w-full px-3 py-2.5 text-xs font-medium text-finma-text-dim border border-finma-border rounded-md hover:bg-white/5 transition-colors"
+              >
+                Giriş Yap
+              </button>
+              <button
+                onClick={() => { setMobileMenuOpen(false); router.push('/login?register=true') }}
+                className="flex items-center justify-center w-full px-3 py-2.5 text-xs font-semibold text-white bg-finma-primary rounded-md hover:bg-finma-primary/90 transition-colors"
+              >
+                🚀 Ücretsiz Üye Ol
+              </button>
+            </div>
+          )}
+
           {isExpanded && user && (
             <div className="px-3 py-2">
               <div className="flex items-center gap-2 mb-1">
