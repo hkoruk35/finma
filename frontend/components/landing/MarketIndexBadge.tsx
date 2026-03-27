@@ -25,12 +25,13 @@ export function MarketIndexBadge() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch('/api/market-index', { cache: 'no-store' })
+        // timestamp busts any CDN edge cache
+        const res = await fetch(`/api/market-index?t=${Date.now()}`, { cache: 'no-store' })
         if (res.ok) {
           const data: IndexItem[] = await res.json()
           if (Array.isArray(data) && data.length > 0) setItems(data)
         }
-      } catch { /* keep fallback */ }
+      } catch { /* keep current state */ }
     }
 
     load()
@@ -41,77 +42,69 @@ export function MarketIndexBadge() {
   return (
     <>
       <style>{`
-        .mib-scroll::-webkit-scrollbar { display: none; }
-        .mib-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .mib-grid {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 6px;
+          width: 100%;
+          margin-bottom: 22px;
+        }
+        .mib-card {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 8px;
+          padding: 7px 8px;
+          min-width: 0;
+          overflow: hidden;
+        }
+        .mib-label {
+          font-family: 'DM Mono', monospace;
+          font-size: 7px;
+          font-weight: 600;
+          color: #4C5A6B;
+          letter-spacing: 0.8px;
+          text-transform: uppercase;
+          margin-bottom: 3px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+        }
+        .mib-pct {
+          font-family: 'DM Mono', monospace;
+          font-weight: 700;
+          font-size: clamp(11px, 3vw, 16px);
+          line-height: 1;
+          margin-bottom: 4px;
+          white-space: nowrap;
+        }
+        .mib-comment {
+          font-family: 'Manrope', sans-serif;
+          font-size: clamp(7px, 2vw, 9px);
+          color: #8B97AA;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+        }
       `}</style>
-      {/* Mobile: single horizontal scroll row */}
-      <div
-        className="mib-scroll"
-        style={{
-          display: 'flex',
-          gap: 8,
-          flexWrap: 'nowrap',
-          overflowX: 'auto',
-          justifyContent: 'flex-start',
-          marginBottom: 22,
-          paddingBottom: 2,
-        }}
-      >
-        {/* Desktop: center the group */}
-        <div style={{
-          display: 'flex',
-          gap: 8,
-          flexWrap: 'nowrap',
-          margin: '0 auto',
-        }}>
-          {items.map(item => (
-            <div key={item.symbol} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: 10,
-              padding: '7px 11px',
-              minWidth: 82,
-              flexShrink: 0,
-            }}>
-              {/* Label */}
-              <div style={{
-                fontFamily: 'DM Mono, monospace',
-                fontSize: 8,
-                fontWeight: 600,
-                color: '#4C5A6B',
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
-                marginBottom: 3,
-                whiteSpace: 'nowrap',
-              }}>
-                {item.sublabel} {item.label}
-              </div>
-              {/* Pct */}
-              <div style={{
-                fontFamily: 'DM Mono, monospace',
-                fontSize: 16,
-                fontWeight: 700,
-                color: item.dir === 'up' ? '#10B981' : '#F43F5E',
-                lineHeight: 1,
-                marginBottom: 4,
-              }}>
-                {item.pct}
-              </div>
-              {/* Comment */}
-              <div style={{
-                fontFamily: 'Manrope, sans-serif',
-                fontSize: 9,
-                color: '#8B97AA',
-                whiteSpace: 'nowrap',
-              }}>
-                {item.comment}
-              </div>
+
+      <div className="mib-grid">
+        {items.map(item => (
+          <div key={item.symbol} className="mib-card">
+            <div className="mib-label">{item.sublabel} {item.label}</div>
+            <div
+              className="mib-pct"
+              style={{ color: item.dir === 'up' ? '#10B981' : '#F43F5E' }}
+            >
+              {item.pct}
             </div>
-          ))}
-        </div>
+            <div className="mib-comment">{item.comment}</div>
+          </div>
+        ))}
       </div>
     </>
   )
