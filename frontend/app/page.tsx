@@ -720,7 +720,7 @@ export default function LandingPage() {
         </div>
 
         {/* Pill shortcuts — 3×2 grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', maxWidth: 640, marginBottom: 60 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', maxWidth: 640, marginBottom: 40 }}>
           {[
             { label: '⚡ Canlı Piyasa Radarı',  q: 'Canlı Piyasa Radarı' },
             { label: '🧭 Makro Endeksler',        q: 'Makro Endeksler' },
@@ -756,10 +756,6 @@ export default function LandingPage() {
           ))}
         </div>
 
-        {/* Sector Heatmap */}
-        <SectorHeatmap />
-
-        {/* Popular Prompts */}
         {/* Legal Footer */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, width: '100%', maxWidth: 640, textAlign: 'center' }}>
           <p style={{
@@ -1552,6 +1548,11 @@ export default function LandingPage() {
 
       <main style={{ position: 'relative', zIndex: 1 }}>
         {page === 'p1' && <Page1 />}
+        {page === 'p1' && (
+          <div style={{ width: '100%', padding: '0 20px 60px' }}>
+            <SectorHeatmap />
+          </div>
+        )}
         {page === 'p2' && <Page2 />}
         {page === 'p3' && <Page3 />}
         {page === 'p4' && <Page4 />}
