@@ -673,7 +673,7 @@ export default function LandingPage() {
             value={localVal}
             onChange={e => setLocalVal(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') submit() }}
-            placeholder="AI Başarı Sonuçları"
+            placeholder="AI Başarı Karnesi"
             style={{
               width: '100%', height: 60, background: '#101820',
               border: '1px solid rgba(255,255,255,0.10)', borderRadius: 14,
@@ -711,12 +711,12 @@ export default function LandingPage() {
         {/* Pill shortcuts — 3×2 grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', maxWidth: 640, marginBottom: 60 }}>
           {[
-            { label: '🔥 Bugünün Top Hisseleri', q: 'Bugünün Top Hisseleri' },
-            { label: '⚠️ Risk Analizi',           q: 'Risk Analizi' },
-            { label: '🏢 Sektör Performansı',      q: 'Sektör Performansı' },
-            { label: '🤖 AI Tahminleri',           q: 'AI Tahminleri' },
-            { label: '🌪️ VIX & Volatilite',       q: 'VIX & Volatilite' },
-            { label: '🌍 Global Trend',            q: 'Global Trend' },
+            { label: '⚡ Canlı Piyasa Radarı',  q: 'Canlı Piyasa Radarı' },
+            { label: '🧭 Makro Endeksler',        q: 'Makro Endeksler' },
+            { label: '🗺️ Para Akışı Haritası',   q: 'Para Akışı Haritası' },
+            { label: '🔥 Hacim Liderleri',        q: 'Hacim Liderleri' },
+            { label: '💸 Temettü Yıldızları',     q: 'Temettü Yıldızları' },
+            { label: '🎯 AI Başarı Karnesi',      q: 'AI Başarı Karnesi' },
           ].map(pill => (
             <button
               key={pill.q}
