@@ -99,6 +99,46 @@ async def lifespan(app: FastAPI):
     threading.Thread(target=_warmup_sectors, daemon=True, name="sectors_warmup").start()
     logger.info("🔥 Sectors warm-up başlatıldı (arka plan)")
 
+    # Sector Heatmap Scheduler — NY saat ile hafta içi 09:30+ saatte bir güncelle
+    try:
+        from app.services.sector_heatmap import is_market_hours
+        from apscheduler.schedulers.background import BackgroundScheduler
+        from apscheduler.triggers.cron import CronTrigger
+        import pytz
+
+        def update_sector_data():
+            """Sektor verilerini güncelle (background job)"""
+            if is_market_hours():
+                try:
+                    import asyncio
+                    from app.services.sector_heatmap import get_sector_heatmap
+                    result = asyncio.run(get_sector_heatmap())
+                    if result.get("success"):
+                        logger.info(f"✅ Sektor haritası güncellendi: {result.get('last_update_ny')}")
+                except Exception as e:
+                    logger.warning(f"Sektor haritası güncelleme hatası: {e}")
+
+        # APScheduler instance oluştur
+        sector_scheduler = BackgroundScheduler(timezone=pytz.timezone("America/New_York"))
+
+        # NY saat ile hafta içi 09:30 dan itibaren saatte bir (minute=30, hour=9-16, day_of_week=0-4)
+        sector_scheduler.add_job(
+            update_sector_data,
+            CronTrigger(
+                minute=30,  # :30 dakika (09:30, 10:30, 11:30, ..., 16:30)
+                hour="9-16",  # 09:00 - 16:59
+                day_of_week="mon-fri",  # Pazartesi - Cuma
+                timezone=pytz.timezone("America/New_York"),
+            ),
+            id="sector_heatmap_updater",
+            name="Sector Heatmap Updater",
+        )
+
+        sector_scheduler.start()
+        logger.info("📊 Sektor haritası scheduler başlatıldı (NY saat, hafta içi 09:30+)")
+    except Exception as e:
+        logger.warning(f"Sektor haritası scheduler başlatılamadı: {e}")
+
     # News warm-up — cold start'da news crawler çalıştırılmasını önle
     def _warmup_news():
         import time

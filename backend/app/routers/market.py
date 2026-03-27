@@ -494,3 +494,13 @@ def refresh_flow_data():
             return {"status": "error", "message": "flow_bot bulunamadı veya başlatılamadı."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Bot başlatılamadı: {e}")
+
+
+@router.get("/sector-heatmap")
+async def get_sector_heatmap():
+    """
+    ABD Borsası sektor verilerini döndür.
+    Fiyat değil değişim oranını (%) gösterir.
+    """
+    from app.services.sector_heatmap import get_sector_heatmap
+    return await get_sector_heatmap()

@@ -18,6 +18,17 @@ const LandingChart = dynamic(
   }
 )
 
+// Sector Heatmap — browser-only (fetches data)
+const SectorHeatmap = dynamic(
+  () => import('@/components/landing/SectorHeatmap').then(m => ({ default: m.SectorHeatmap })),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 300, background: '#0C1017', borderRadius: 12, marginBottom: 60 }} />
+    ),
+  }
+)
+
 // Sidebar component — browser-only
 const Sidebar = dynamic(
   () => import('@/components/terminal/Sidebar').then(m => ({ default: m.Sidebar })),
@@ -744,6 +755,9 @@ export default function LandingPage() {
             </button>
           ))}
         </div>
+
+        {/* Sector Heatmap */}
+        <SectorHeatmap />
 
         {/* Popular Prompts */}
         {/* Legal Footer */}
