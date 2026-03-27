@@ -107,10 +107,7 @@ export function SectorHeatmap() {
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 12,
-          '@media (max-width: 768px)': {
-            gridTemplateColumns: 'repeat(2, 1fr)',
-          }
-        }} className="grid grid-cols-3 md:grid-cols-3 gap-3 mb-8">
+        }} className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
           {sectors.map(item => (
             <div
               key={item.ticker}
@@ -180,7 +177,7 @@ export function SectorHeatmap() {
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: 12,
-          }} className="grid grid-cols-3 gap-3">
+          }} className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {indexes.map(item => (
               <div
                 key={item.ticker}
@@ -230,20 +227,7 @@ export function SectorHeatmap() {
           padding: '40px 0',
         }}>
           <div style={{ fontSize: 14, marginBottom: 15 }}>Sektor verileri yükleniyor...</div>
-          <div style={{
-            width: 40,
-            height: 40,
-            border: '2px solid #374151',
-            borderTop: '2px solid #10b981',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-            margin: '0 auto',
-          }} />
-          <style>{`
-            @keyframes spin {
-              to { transform: rotate(360deg); }
-            }
-          `}</style>
+          <div className="w-10 h-10 border-2 border-gray-600 border-t-emerald-500 rounded-full animate-spin mx-auto" />
         </div>
       )}
 
@@ -289,18 +273,6 @@ export function SectorHeatmap() {
           Veri bulunamadı
         </div>
       )}
-
-      {/* Mobil uyarısı */}
-      <style>{`
-        @media (max-width: 768px) {
-          [data-heatmap-grid] {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          [data-heatmap-indexes] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
