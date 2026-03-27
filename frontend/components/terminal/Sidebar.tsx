@@ -97,6 +97,7 @@ const tierColors: Record<string, string> = {
 export function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
+  const isLandingPage = pathname === '/'
   const { sidebarOpen, setSidebarOpen, mobileMenuOpen, setMobileMenuOpen } = useTerminalStore()
   const { user, logout } = useAuthStore()
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['0', '1', '2'])
@@ -146,10 +147,13 @@ export function Sidebar() {
           // Mobil menü aç/kapat animasyonu + kapalıyken dokunma olaylarını engelle
           mobileMenuOpen
             ? 'translate-x-0 pointer-events-auto'
-            : '-translate-x-full md:translate-x-0 pointer-events-none md:pointer-events-auto',
-          // Masaüstü: z-index ve genişlik
+            : cn(
+                '-translate-x-full pointer-events-none',
+                !isLandingPage && 'md:translate-x-0 md:pointer-events-auto'
+              ),
+          // Masaüstü: z-index ve genişlik (landing page'de gösterme)
           'md:z-40',
-          sidebarOpen ? 'md:w-56' : 'md:w-16'
+          !isLandingPage && (sidebarOpen ? 'md:w-56' : 'md:w-16')
         )}
       >
         {/* Logo */}

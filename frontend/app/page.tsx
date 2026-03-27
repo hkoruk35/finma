@@ -41,6 +41,12 @@ const LandingTicker = dynamic(
   { ssr: false }
 )
 
+// Market index badge — browser-only
+const MarketIndexBadge = dynamic(
+  () => import('@/components/landing/MarketIndexBadge').then(m => ({ default: m.MarketIndexBadge })),
+  { ssr: false }
+)
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface AssetInfo {
   ticker: string
@@ -542,6 +548,11 @@ export default function LandingPage() {
         </button>
       </div>
 
+      {/* Orta: Kayan ticker — sadece masaüstünde */}
+      <div className="hidden md:block" style={{ flex: 1, overflow: 'hidden', padding: '0 20px' }}>
+        <LandingTicker />
+      </div>
+
       {/* Sağ: Logo (sadece mobilde) + Lang + Auth */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         {/* Logo — sadece mobilde sağda */}
@@ -635,28 +646,14 @@ export default function LandingPage() {
 
     return (
       <div className="lp-page-enter" style={{
-        minHeight: '100vh', display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        padding: '84px 20px 40px', position: 'relative', zIndex: 1,
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'flex-start',
+        padding: '84px 20px 32px', position: 'relative', zIndex: 1,
       }}>
         {/* Hero heading */}
         <div style={{ textAlign: 'center', marginBottom: 38, maxWidth: 660 }}>
-          {/* Badge */}
-          <div style={{ marginBottom: 22 }}>
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 7,
-              fontFamily: 'DM Mono, monospace', fontSize: 10, fontWeight: 500,
-              letterSpacing: '1.5px', color: '#2D7EF8', textTransform: 'uppercase',
-              background: 'rgba(45,126,248,0.10)', border: '1px solid rgba(45,126,248,0.28)',
-              padding: '5px 14px', borderRadius: 20,
-            }}>
-              <span className="lp-blink" style={{
-                width: 6, height: 6, borderRadius: '50%', background: '#2D7EF8',
-                display: 'inline-block', flexShrink: 0,
-              }} />
-              {t.p1_badge}
-            </span>
-          </div>
+          {/* Market Index Tickers */}
+          <MarketIndexBadge />
           {/* H1 */}
           <h1 style={{
             fontFamily: 'DM Serif Display, serif', fontSize: 'clamp(40px, 6.5vw, 72px)',
@@ -720,7 +717,7 @@ export default function LandingPage() {
         </div>
 
         {/* Pill shortcuts — 3×2 grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', maxWidth: 640, marginBottom: 60 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', maxWidth: 640, marginBottom: 40 }}>
           {[
             { label: '⚡ Canlı Piyasa Radarı',  q: 'Canlı Piyasa Radarı' },
             { label: '🧭 Makro Endeksler',        q: 'Makro Endeksler' },
@@ -756,19 +753,6 @@ export default function LandingPage() {
           ))}
         </div>
 
-        {/* Sector Heatmap */}
-        <SectorHeatmap />
-
-        {/* Popular Prompts */}
-        {/* Legal Footer */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, width: '100%', maxWidth: 640, textAlign: 'center' }}>
-          <p style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#EDF2FA',
-            lineHeight: 1.6, margin: 0,
-          }}>
-            {t.legal_disclaimer}
-          </p>
-        </div>
       </div>
     )
   }
@@ -780,7 +764,7 @@ export default function LandingPage() {
     const chgColor = asset.changeDir === 'up' ? upColor : downColor
 
     return (
-      <div className="lp-page-enter" style={{ paddingTop: 84, position: 'relative', zIndex: 1, minHeight: '100vh' }}>
+      <div className="lp-page-enter" style={{ paddingTop: 84, position: 'relative', zIndex: 1 }}>
         {/* Sub-header */}
         <div style={{
           borderBottom: '1px solid rgba(255,255,255,0.06)',
@@ -1548,10 +1532,24 @@ export default function LandingPage() {
       <Sidebar />
       {showInstall && <InstallBanner />}
       <Header />
-      <LandingTicker />
 
       <main style={{ position: 'relative', zIndex: 1 }}>
         {page === 'p1' && <Page1 />}
+        {page === 'p1' && (
+          <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
+            <SectorHeatmap />
+          </div>
+        )}
+        {page === 'p1' && (
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
+            <p style={{
+              fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
+              lineHeight: 1.6, margin: 0,
+            }}>
+              {t.legal_disclaimer}
+            </p>
+          </div>
+        )}
         {page === 'p2' && <Page2 />}
         {page === 'p3' && <Page3 />}
         {page === 'p4' && <Page4 />}
