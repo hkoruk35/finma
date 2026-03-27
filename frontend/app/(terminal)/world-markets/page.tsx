@@ -802,7 +802,7 @@ function AIAskSection() {
         <span className="ml-auto text-[10px] text-finma-text-dim">FinMA AI destekli</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 mb-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
         {quickQuestions.map(q => (
           <button key={q} onClick={() => handleAsk(q)}
             className="text-[10px] px-2 py-2 rounded-lg bg-finma-bg border border-finma-border text-finma-text-dim hover:text-finma-primary hover:border-finma-primary/50 transition-all text-center">
