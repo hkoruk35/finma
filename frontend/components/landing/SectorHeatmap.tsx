@@ -36,7 +36,8 @@ export function SectorHeatmap() {
       setLoading(true);
       setError('');
 
-      const response = await fetch('/api/proxy/market/sector-heatmap', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://finma-production.up.railway.app';
+      const response = await fetch(`${apiUrl}/api/market/sector-heatmap`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
