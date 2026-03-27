@@ -59,19 +59,7 @@ export function LandingTicker() {
   const doubled = [...items, ...items]
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 56,
-        left: 0,
-        right: 0,
-        zIndex: 95,
-        height: 28,
-        overflow: 'hidden',
-        background: '#0C1017',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-      }}
-    >
+    <div style={{ width: '100%', overflow: 'hidden', height: 28 }}>
       <style>{`
         @keyframes ltkrScroll {
           0%   { transform: translateX(0); }

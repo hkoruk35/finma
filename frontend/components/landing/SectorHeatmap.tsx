@@ -151,7 +151,7 @@ export function SectorHeatmap() {
   const hasData = sectors.length > 0
 
   return (
-    <div style={{ marginTop: 20, marginBottom: 60, width: '100%' }}>
+    <div style={{ marginTop: 0, marginBottom: 60, width: '100%' }}>
       {/* Başlık */}
       <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
         <div className="flex items-center gap-3">
