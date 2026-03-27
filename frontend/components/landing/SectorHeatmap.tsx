@@ -2,12 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 
+interface StockData {
+  ticker: string;
+  change_percent: number;
+}
+
 interface HeatmapData {
   ticker: string;
   name: string;
-  price: number;
   change_percent: number;
   type: 'sector' | 'index';
+  stocks?: StockData[];
 }
 
 interface HeatmapResponse {
@@ -26,7 +31,6 @@ export function SectorHeatmap() {
 
   useEffect(() => {
     fetchHeatmapData();
-    // Her saat başında güncelle
     const timer = setInterval(fetchHeatmapData, 3600000);
     return () => clearInterval(timer);
   }, []);
@@ -60,161 +64,226 @@ export function SectorHeatmap() {
   };
 
   const getColor = (change: number) => {
-    if (change > 1.5) return '#10b981'; // Yeşil (güçlü artış)
-    if (change > 0.5) return '#6ee7b7'; // Açık yeşil (hafif artış)
-    if (change > 0) return '#d1fae5'; // Çok açık yeşil (küçük artış)
-    if (change > -0.5) return '#fee2e2'; // Çok açık kırmızı (küçük düşüş)
-    if (change > -1.5) return '#fca5a5'; // Açık kırmızı (hafif düşüş)
-    return '#dc2626'; // Kırmızı (güçlü düşüş)
+    if (change > 2) return { bg: '#064e3b', text: '#6ee7b7', border: '#10b981' };
+    if (change > 1) return { bg: '#1f3a36', text: '#86efac', border: '#22c55e' };
+    if (change > 0) return { bg: '#1e3a2f', text: '#a7f3d0', border: '#14b8a6' };
+    if (change > -1) return { bg: '#3f2f2f', text: '#fca5a5', border: '#f97316' };
+    if (change > -2) return { bg: '#4f1f1f', text: '#f87171', border: '#ef4444' };
+    return { bg: '#5f1111', text: '#fca5a5', border: '#dc2626' };
   };
 
-  const getTextColor = (change: number) => {
-    if (change > 0.5) return '#065f46'; // Koyu yeşil
-    if (change < -0.5) return '#7f1d1d'; // Koyu kırmızı
-    return '#374151'; // Gri
+  const getSmallColor = (change: number) => {
+    if (change > 1) return '#10b981';
+    if (change > 0) return '#6ee7b7';
+    if (change > -1) return '#f97316';
+    return '#ef4444';
   };
 
   const sectors = data.filter(d => d.type === 'sector');
   const indexes = data.filter(d => d.type === 'index');
 
   return (
-    <div style={{ marginTop: 60, marginBottom: 60, width: '100%' }}>
-      {/* Başlık */}
-      <div style={{ marginBottom: 20 }}>
-        <h3 style={{
-          fontSize: 18,
-          fontWeight: 600,
+    <div style={{ marginTop: 80, marginBottom: 80, width: '100%' }}>
+      {/* Header */}
+      <div style={{ marginBottom: 40 }}>
+        <div style={{
+          fontSize: 24,
+          fontWeight: 700,
           color: '#f5f5f5',
           marginBottom: 8,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
         }}>
           📊 ABD Borsası Sektor Isı Haritası
-        </h3>
+        </div>
         {lastUpdate && (
           <p style={{
-            fontSize: 12,
+            fontSize: 13,
             color: '#9ca3af',
-            marginBottom: 15,
+            marginBottom: 0,
           }}>
-            Son Güncelleme: {lastUpdate} (NY Saati)
+            Son Güncelleme: {lastUpdate} NY Saati
           </p>
         )}
       </div>
 
-      {/* Sektörler Grid (3x3) */}
+      {/* Sektörler Grid 2x3 (11 sektör) */}
       {!loading && sectors.length > 0 && (
-        <div style={{
-          marginBottom: 40,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 12,
-        }} className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
-          {sectors.map(item => (
-            <div
-              key={item.ticker}
-              style={{
-                backgroundColor: getColor(item.change_percent),
-                borderRadius: 8,
-                padding: 12,
-                textAlign: 'center',
-                cursor: 'pointer',
-                transition: 'transform 0.2s',
-                minHeight: 80,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.transform = 'scale(1)';
-              }}
-            >
-              <div style={{
-                fontSize: 13,
-                fontWeight: 600,
-                color: getTextColor(item.change_percent),
-                marginBottom: 4,
-              }}>
-                {item.ticker}
-              </div>
-              <div style={{
-                fontSize: 11,
-                color: getTextColor(item.change_percent),
-                marginBottom: 6,
-                opacity: 0.8,
-              }}>
-                {item.name}
-              </div>
-              <div style={{
-                fontSize: 16,
-                fontWeight: 700,
-                color: getTextColor(item.change_percent),
-              }}>
-                {item.change_percent > 0 ? '+' : ''}{item.change_percent.toFixed(2)}%
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* İndeksler Grid (3x1) */}
-      {!loading && indexes.length > 0 && (
-        <div style={{ marginBottom: 40 }}>
-          <h4 style={{
-            fontSize: 14,
-            fontWeight: 500,
-            color: '#9ca3af',
-            marginBottom: 10,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}>
-            Başlıca İndeksler
-          </h4>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 12,
-          }} className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {indexes.map(item => (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+          {sectors.map(sector => {
+            const colors = getColor(sector.change_percent);
+            return (
               <div
-                key={item.ticker}
+                key={sector.ticker}
                 style={{
-                  backgroundColor: getColor(item.change_percent),
-                  borderRadius: 8,
-                  padding: 12,
-                  textAlign: 'center',
+                  background: colors.bg,
+                  border: `1.5px solid ${colors.border}`,
+                  borderRadius: 12,
+                  padding: 16,
                   cursor: 'pointer',
-                  transition: 'transform 0.2s',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  backdropFilter: 'blur(10px)',
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
-                  el.style.transform = 'scale(1.05)';
+                  el.style.transform = 'translateY(-4px)';
+                  el.style.boxShadow = `0 12px 24px ${colors.border}20`;
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
-                  el.style.transform = 'scale(1)';
+                  el.style.transform = 'translateY(0)';
+                  el.style.boxShadow = 'none';
                 }}
               >
-                <div style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: getTextColor(item.change_percent),
-                  marginBottom: 4,
-                }}>
-                  {item.name}
+                {/* Sektor Header */}
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: colors.text,
+                    marginBottom: 3,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    opacity: 0.9,
+                  }}>
+                    {sector.ticker}
+                  </div>
+                  <div style={{
+                    fontSize: 12,
+                    color: '#d1d5db',
+                    marginBottom: 8,
+                  }}>
+                    {sector.name}
+                  </div>
+                  <div style={{
+                    fontSize: 18,
+                    fontWeight: 800,
+                    color: colors.text,
+                    letterSpacing: '-0.02em',
+                  }}>
+                    {sector.change_percent > 0 ? '+' : ''}{sector.change_percent.toFixed(2)}%
+                  </div>
                 </div>
-                <div style={{
-                  fontSize: 16,
-                  fontWeight: 700,
-                  color: getTextColor(item.change_percent),
-                }}>
-                  {item.change_percent > 0 ? '+' : ''}{item.change_percent.toFixed(2)}%
-                </div>
+
+                {/* Alt Hisseler */}
+                {sector.stocks && sector.stocks.length > 0 && (
+                  <div style={{
+                    paddingTop: 12,
+                    borderTop: `1px solid ${colors.border}40`,
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: 6,
+                  }}>
+                    {sector.stocks.map(stock => (
+                      <div
+                        key={stock.ticker}
+                        style={{
+                          background: 'rgba(0,0,0,0.3)',
+                          border: `1px solid ${getSmallColor(stock.change_percent)}40`,
+                          borderRadius: 6,
+                          padding: 6,
+                          textAlign: 'center',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLDivElement;
+                          el.style.background = 'rgba(0,0,0,0.5)';
+                          el.style.borderColor = getSmallColor(stock.change_percent);
+                        }}
+                        onMouseLeave={(e) => {
+                          const el = e.currentTarget as HTMLDivElement;
+                          el.style.background = 'rgba(0,0,0,0.3)';
+                          el.style.borderColor = `${getSmallColor(stock.change_percent)}40`;
+                        }}
+                      >
+                        <div style={{
+                          fontSize: 9,
+                          color: '#d1d5db',
+                          marginBottom: 2,
+                          fontWeight: 600,
+                        }}>
+                          {stock.ticker}
+                        </div>
+                        <div style={{
+                          fontSize: 10,
+                          fontWeight: 700,
+                          color: getSmallColor(stock.change_percent),
+                          letterSpacing: '-0.01em',
+                        }}>
+                          {stock.change_percent > 0 ? '+' : ''}{stock.change_percent.toFixed(2)}%
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            ))}
+            );
+          })}
+        </div>
+      )}
+
+      {/* Başlıca İndeksler */}
+      {!loading && indexes.length > 0 && (
+        <div style={{ marginBottom: 40 }}>
+          <h3 style={{
+            fontSize: 14,
+            fontWeight: 600,
+            color: '#9ca3af',
+            marginBottom: 16,
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+          }}>
+            ★ Başlıca İndeksler
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {indexes.map(item => {
+              const colors = getColor(item.change_percent);
+              return (
+                <div
+                  key={item.ticker}
+                  style={{
+                    background: colors.bg,
+                    border: `1.5px solid ${colors.border}`,
+                    borderRadius: 12,
+                    padding: 20,
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    backdropFilter: 'blur(10px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLDivElement;
+                    el.style.transform = 'translateY(-4px)';
+                    el.style.boxShadow = `0 12px 24px ${colors.border}20`;
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLDivElement;
+                    el.style.transform = 'translateY(0)';
+                    el.style.boxShadow = 'none';
+                  }}
+                >
+                  <div style={{
+                    fontSize: 13,
+                    color: '#d1d5db',
+                    marginBottom: 12,
+                  }}>
+                    {item.name}
+                  </div>
+                  <div style={{
+                    fontSize: 24,
+                    fontWeight: 800,
+                    color: colors.text,
+                    letterSpacing: '-0.02em',
+                  }}>
+                    {item.change_percent > 0 ? '+' : ''}{item.change_percent.toFixed(2)}%
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -224,37 +293,48 @@ export function SectorHeatmap() {
         <div style={{
           textAlign: 'center',
           color: '#9ca3af',
-          padding: '40px 0',
+          padding: '60px 0',
         }}>
-          <div style={{ fontSize: 14, marginBottom: 15 }}>Sektor verileri yükleniyor...</div>
-          <div className="w-10 h-10 border-2 border-gray-600 border-t-emerald-500 rounded-full animate-spin mx-auto" />
+          <div className="w-10 h-10 border-2 border-gray-700 border-t-emerald-500 rounded-full animate-spin mx-auto mb-4" />
+          <p style={{ fontSize: 14, margin: 0 }}>Sektor verileri yükleniyor...</p>
         </div>
       )}
 
       {/* Error */}
       {error && !loading && (
         <div style={{
-          backgroundColor: '#7f1d1d',
-          borderRadius: 8,
-          padding: 15,
-          color: '#fee2e2',
+          background: 'rgba(127, 29, 29, 0.3)',
+          border: '1px solid rgba(239, 68, 68, 0.4)',
+          borderRadius: 12,
+          padding: 20,
+          color: '#fca5a5',
           fontSize: 13,
           textAlign: 'center',
           marginBottom: 20,
         }}>
-          ⚠️ {error}
+          <div style={{ marginBottom: 12 }}>⚠️ {error}</div>
           <button
             onClick={fetchHeatmapData}
             style={{
-              marginTop: 10,
-              padding: '6px 12px',
+              padding: '8px 16px',
               backgroundColor: '#10b981',
               color: '#000',
               border: 'none',
-              borderRadius: 4,
+              borderRadius: 6,
               cursor: 'pointer',
               fontSize: 12,
               fontWeight: 600,
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = '#059669';
+              el.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = '#10b981';
+              el.style.transform = 'scale(1)';
             }}
           >
             Yeniden Yükle
@@ -262,7 +342,7 @@ export function SectorHeatmap() {
         </div>
       )}
 
-      {/* Boş veri */}
+      {/* Empty */}
       {!loading && data.length === 0 && !error && (
         <div style={{
           textAlign: 'center',
