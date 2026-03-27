@@ -125,8 +125,14 @@ export function SectorHeatmap() {
 
   useEffect(() => {
     fetchData(false)
-    const interval = setInterval(() => fetchData(false), 3600_000)
-    return () => clearInterval(interval)
+    const now = new Date()
+    const msUntilNextHour = (3600 - (now.getMinutes() * 60 + now.getSeconds())) * 1000
+    let interval: ReturnType<typeof setInterval>
+    const timeout = setTimeout(() => {
+      fetchData(false)
+      interval = setInterval(() => fetchData(false), 3600_000)
+    }, msUntilNextHour)
+    return () => { clearTimeout(timeout); clearInterval(interval) }
   }, [])
 
   const heatmapData = ETF_ORDER.map(etf => {
@@ -145,7 +151,7 @@ export function SectorHeatmap() {
   const hasData = sectors.length > 0
 
   return (
-    <div style={{ marginTop: 80, marginBottom: 80, width: '100%' }}>
+    <div style={{ marginTop: 20, marginBottom: 60, width: '100%' }}>
       {/* Başlık */}
       <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
         <div className="flex items-center gap-3">
