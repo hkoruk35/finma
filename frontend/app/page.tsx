@@ -632,7 +632,7 @@ export default function LandingPage() {
             value={localVal}
             onChange={e => setLocalVal(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') submit() }}
-            placeholder={t.p1_ph}
+            placeholder="AI Başarı Sonuçları"
             style={{
               width: '100%', height: 60, background: '#101820',
               border: '1px solid rgba(255,255,255,0.10)', borderRadius: 14,
@@ -667,33 +667,36 @@ export default function LandingPage() {
           </span>
         </div>
 
-        {/* Pill shortcuts */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 60 }}>
+        {/* Pill shortcuts — 3×2 grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', maxWidth: 640, marginBottom: 60 }}>
           {[
-            { label: t.pill_gainers,   q: 'En Çok Yükselenler' },
-            { label: t.pill_nasdaq,    q: 'NASDAQ Liderleri' },
-            { label: t.pill_volume,    q: 'Para Girişi' },
-            { label: t.pill_breakout,  q: 'Breakout Hisseler' },
-            { label: t.pill_vix,       q: 'VIX' },
+            { label: '🔥 Bugünün Top Hisseleri', q: 'Bugünün Top Hisseleri' },
+            { label: '⚠️ Risk Analizi',           q: 'Risk Analizi' },
+            { label: '🏢 Sektör Performansı',      q: 'Sektör Performansı' },
+            { label: '🤖 AI Tahminleri',           q: 'AI Tahminleri' },
+            { label: '🌪️ VIX & Volatilite',       q: 'VIX & Volatilite' },
+            { label: '🌍 Global Trend',            q: 'Global Trend' },
           ].map(pill => (
             <button
               key={pill.q}
               onClick={() => doSearch(pill.q)}
               style={{
                 background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.10)',
-                borderRadius: 40, padding: '8px 15px', cursor: 'pointer',
-                color: '#8B97AA', fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 500,
-                transition: 'all 0.2s',
+                borderRadius: 10, padding: '9px 10px', cursor: 'pointer',
+                color: '#8B97AA', fontFamily: 'Manrope, sans-serif', fontSize: 11, fontWeight: 500,
+                transition: 'all 0.2s', textAlign: 'center',
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget
-                el.style.borderColor = 'rgba(255,255,255,0.20)'
+                el.style.borderColor = 'rgba(45,126,248,0.40)'
                 el.style.color = '#EDF2FA'
+                el.style.background = 'rgba(45,126,248,0.06)'
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget
                 el.style.borderColor = 'rgba(255,255,255,0.10)'
                 el.style.color = '#8B97AA'
+                el.style.background = 'rgba(255,255,255,0.03)'
               }}
             >
               {pill.label}
