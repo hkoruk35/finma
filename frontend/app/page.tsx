@@ -548,8 +548,8 @@ export default function LandingPage() {
         </button>
       </div>
 
-      {/* Orta: Kayan ticker — sadece masaüstünde */}
-      <div className="hidden md:block" style={{ flex: 1, overflow: 'hidden', padding: '0 20px' }}>
+      {/* Orta: Kayan ticker — her ekranda */}
+      <div style={{ flex: 1, overflow: 'hidden', padding: '0 12px' }}>
         <LandingTicker />
       </div>
 
