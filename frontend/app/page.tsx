@@ -724,7 +724,7 @@ export default function LandingPage() {
               style={{
                 background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.10)',
                 borderRadius: 10, padding: '9px 10px', cursor: 'pointer',
-                color: '#8B97AA', fontFamily: 'Manrope, sans-serif', fontSize: 11, fontWeight: 500,
+                color: '#8B97AA', fontFamily: 'Manrope, sans-serif', fontSize: 12.5, fontWeight: 500,
                 transition: 'all 0.2s', textAlign: 'center',
               }}
               onMouseEnter={e => {
