@@ -702,43 +702,6 @@ export default function LandingPage() {
         </div>
 
         {/* Popular Prompts */}
-        <div style={{ width: '100%', maxWidth: 640, marginBottom: 40 }}>
-          <div style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: '15px',
-            color: '#EDF2FA', fontWeight: 600, marginBottom: 14,
-            textAlign: 'left',
-          }}>
-            {t.p1_popular_title}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {t.p1_prompts.map((prompt, idx) => (
-              <a
-                key={idx}
-                href="/market/stocks"
-                onClick={(e) => { e.preventDefault(); setLocalVal(prompt); submit(); }}
-                style={{
-                  padding: '10px 14px', background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8,
-                  fontSize: '14px', color: '#EDF2FA',
-                  textDecoration: 'none', cursor: 'pointer', transition: 'all 200ms',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(45,126,248,0.08)'
-                  e.currentTarget.style.borderColor = 'rgba(45,126,248,0.25)'
-                  e.currentTarget.style.color = '#EDF2FA'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.02)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
-                  e.currentTarget.style.color = '#8B97AA'
-                }}
-              >
-                {prompt}
-              </a>
-            ))}
-          </div>
-        </div>
-
         {/* Legal Footer */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, width: '100%', maxWidth: 640, textAlign: 'center' }}>
           <p style={{
