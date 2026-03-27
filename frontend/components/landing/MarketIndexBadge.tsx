@@ -12,17 +12,18 @@ interface IndexItem {
 }
 
 const FALLBACK: IndexItem[] = [
-  { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',  pct: '+0.82%', dir: 'up',   comment: 'Yükselen trend'  },
-  { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP', pct: '+1.34%', dir: 'up',   comment: 'Momentum güçlü' },
-  { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',  pct: '-0.21%', dir: 'down', comment: 'Temkinli seyir'  },
-  { symbol: 'DX-Y.NYB', label: 'DOLAR',   sublabel: 'DXY',  pct: '-0.31%', dir: 'down', comment: 'Zayıflama devam' },
+  { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',   pct: '+0.82%', dir: 'up',   comment: 'Yükselen trend'  },
+  { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP',  pct: '+1.34%', dir: 'up',   comment: 'Momentum güçlü'  },
+  { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',   pct: '-0.21%', dir: 'down', comment: 'Temkinli seyir'  },
+  { symbol: 'DX-Y.NYB', label: 'DOLAR',   sublabel: 'DXY',   pct: '-0.31%', dir: 'down', comment: 'Zayıflama devam' },
+  { symbol: '^VIX',     label: 'VIX',     sublabel: 'KORKU', pct: '+4.20%', dir: 'up',   comment: 'Risk iştahı ↓'  },
 ]
 
 export function MarketIndexBadge() {
   const [items, setItems] = useState<IndexItem[]>(FALLBACK)
 
   useEffect(() => {
-    const fetch5min = async () => {
+    const load = async () => {
       try {
         const res = await fetch('/api/market-index', { cache: 'no-store' })
         if (res.ok) {
@@ -32,63 +33,86 @@ export function MarketIndexBadge() {
       } catch { /* keep fallback */ }
     }
 
-    fetch5min()
-    const iv = setInterval(fetch5min, 5 * 60 * 1000)
+    load()
+    const iv = setInterval(load, 5 * 60 * 1000)
     return () => clearInterval(iv)
   }, [])
 
   return (
-    <div style={{
-      display: 'flex',
-      gap: 8,
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      marginBottom: 22,
-    }}>
-      {items.map(item => (
-        <div key={item.symbol} style={{
+    <>
+      <style>{`
+        .mib-scroll::-webkit-scrollbar { display: none; }
+        .mib-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+      {/* Mobile: single horizontal scroll row */}
+      <div
+        className="mib-scroll"
+        style={{
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.07)',
-          borderRadius: 10,
-          padding: '8px 14px',
-          minWidth: 90,
+          gap: 8,
+          flexWrap: 'nowrap',
+          overflowX: 'auto',
+          justifyContent: 'flex-start',
+          marginBottom: 22,
+          paddingBottom: 2,
+        }}
+      >
+        {/* Desktop: center the group */}
+        <div style={{
+          display: 'flex',
+          gap: 8,
+          flexWrap: 'nowrap',
+          margin: '0 auto',
         }}>
-          {/* Label row */}
-          <div style={{
-            fontFamily: 'DM Mono, monospace',
-            fontSize: 9,
-            fontWeight: 600,
-            color: '#4C5A6B',
-            letterSpacing: '1.2px',
-            textTransform: 'uppercase',
-            marginBottom: 4,
-          }}>
-            {item.sublabel} {item.label}
-          </div>
-          {/* Pct */}
-          <div style={{
-            fontFamily: 'DM Mono, monospace',
-            fontSize: 18,
-            fontWeight: 700,
-            color: item.dir === 'up' ? '#10B981' : '#F43F5E',
-            lineHeight: 1,
-            marginBottom: 5,
-          }}>
-            {item.pct}
-          </div>
-          {/* Comment */}
-          <div style={{
-            fontFamily: 'Manrope, sans-serif',
-            fontSize: 10,
-            color: '#8B97AA',
-          }}>
-            {item.comment}
-          </div>
+          {items.map(item => (
+            <div key={item.symbol} style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: 10,
+              padding: '7px 11px',
+              minWidth: 82,
+              flexShrink: 0,
+            }}>
+              {/* Label */}
+              <div style={{
+                fontFamily: 'DM Mono, monospace',
+                fontSize: 8,
+                fontWeight: 600,
+                color: '#4C5A6B',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                marginBottom: 3,
+                whiteSpace: 'nowrap',
+              }}>
+                {item.sublabel} {item.label}
+              </div>
+              {/* Pct */}
+              <div style={{
+                fontFamily: 'DM Mono, monospace',
+                fontSize: 16,
+                fontWeight: 700,
+                color: item.dir === 'up' ? '#10B981' : '#F43F5E',
+                lineHeight: 1,
+                marginBottom: 4,
+              }}>
+                {item.pct}
+              </div>
+              {/* Comment */}
+              <div style={{
+                fontFamily: 'Manrope, sans-serif',
+                fontSize: 9,
+                color: '#8B97AA',
+                whiteSpace: 'nowrap',
+              }}>
+                {item.comment}
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+    </>
   )
 }
