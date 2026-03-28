@@ -563,8 +563,8 @@ export default function LandingPage() {
         </button>
       </div>
 
-      {/* Orta: Kayan ticker — sadece masaüstünde */}
-      <div className="hidden md:block" style={{ flex: 1, overflow: 'hidden', padding: '0 20px' }}>
+      {/* Orta: Kayan ticker — masaüstü ve mobil */}
+      <div style={{ flex: 1, overflow: 'hidden', padding: '0 20px' }}>
         <LandingTicker />
       </div>
 
@@ -1553,6 +1553,12 @@ export default function LandingPage() {
         {page === 'p1' && (
           <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
             <SectorHeatmap />
+          </div>
+        )}
+        {/* Mobile: Inline Market Movers */}
+        {page === 'p1' && !isLargeScreen && (
+          <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
+            <MarketMoversColumn />
           </div>
         )}
         {page === 'p1' && (

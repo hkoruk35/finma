@@ -2,6 +2,22 @@
 
 import { useEffect, useState } from 'react'
 
+// Sector translation map (English → Turkish)
+const SECTOR_TR: Record<string, string> = {
+  'Technology': 'Teknoloji',
+  'Healthcare': 'Sağlık',
+  'Financial Services': 'Finans',
+  'Communication Services': 'İletişim',
+  'Consumer Cyclical': 'Tüketici',
+  'Consumer Defensive': 'Temel Tüketici',
+  'Energy': 'Enerji',
+  'Industrials': 'Sanayi',
+  'Materials': 'Malzemeler',
+  'Real Estate': 'Gayrimenkul',
+  'Utilities': 'Kamu Hizmetleri',
+  'Basic Materials': 'Temel Malzemeler',
+}
+
 interface Mover {
   symbol: string
   name: string
@@ -100,7 +116,7 @@ function MarketMoversColumn() {
             {item.name}
           </span>
           <span style={{ fontFamily: 'Manrope, sans-serif', color: '#4C5A6B', whiteSpace: 'nowrap', textAlign: 'right' }}>
-            {item.sector || '—'}
+            {SECTOR_TR[item.sector] || item.sector || '—'}
           </span>
         </div>
       </div>
