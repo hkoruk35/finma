@@ -15,7 +15,7 @@ interface Mover {
   market_cap: number
 }
 
-interface MoversData {
+interface MoversFile {
   gainers: Mover[]
   losers: Mover[]
   volume: Mover[]
@@ -56,36 +56,29 @@ const FALLBACK: MoversResponse = {
 
 export async function GET() {
   try {
-    // Try to read from backend output directory
     const backendPath = path.join(process.cwd(), '..', 'backend', 'bots', 'output', 'movers_901.json')
-    let data: MoversData | null = null
 
-    if (fs.existsSync(backendPath)) {
-      const fileContent = fs.readFileSync(backendPath, 'utf-8')
-      data = JSON.parse(fileContent)
-    }
-
-    if (!data?.gainers || !data?.losers || !data?.volume) {
+    if (!fs.existsSync(backendPath)) {
       return NextResponse.json(FALLBACK, {
-        headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' },
+        headers: { 'Cache-Control': 'no-store' },
       })
     }
 
-    // Take top 5 from each category
-    const response: MoversResponse = {
-      gainers: data.gainers.slice(0, 5),
-      losers: data.losers.slice(0, 5),
-      mostActive: data.volume.slice(0, 5),
-      updatedAt: data.updated_at,
+    const file: MoversFile = JSON.parse(fs.readFileSync(backendPath, 'utf-8'))
+
+    if (!file?.gainers || !file?.losers || !file?.volume) {
+      return NextResponse.json(FALLBACK, { headers: { 'Cache-Control': 'no-store' } })
     }
 
-    return NextResponse.json(response, {
-      headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' },
-    })
-  } catch (error) {
-    console.error('Market movers fetch error:', error)
-    return NextResponse.json(FALLBACK, {
-      headers: { 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' },
-    })
+    const response: MoversResponse = {
+      gainers: file.gainers.slice(0, 5),
+      losers: file.losers.slice(0, 5),
+      mostActive: file.volume.slice(0, 5),
+      updatedAt: file.updated_at,
+    }
+
+    return NextResponse.json(response, { headers: { 'Cache-Control': 'no-store' } })
+  } catch {
+    return NextResponse.json(FALLBACK, { headers: { 'Cache-Control': 'no-store' } })
   }
 }

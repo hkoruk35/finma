@@ -43,9 +43,8 @@ const FALLBACK_DATA: MoversData = {
   updatedAt: new Date().toISOString(),
 }
 
-export function MarketMoversColumn() {
+function MarketMoversColumn() {
   const [data, setData] = useState<MoversData>(FALLBACK_DATA)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchMovers = async () => {
@@ -56,14 +55,11 @@ export function MarketMoversColumn() {
           setData(movers)
         }
       } catch {
-        // keep fallback
-      } finally {
-        setLoading(false)
+        // fall back to static data
       }
     }
 
     fetchMovers()
-    // Refresh every 5 minutes (matches bot 901 schedule)
     const iv = setInterval(fetchMovers, 5 * 60 * 1000)
     return () => clearInterval(iv)
   }, [])
@@ -84,67 +80,23 @@ export function MarketMoversColumn() {
         onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(45,126,248,0.08)')}
         onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
       >
-        {/* Top: Symbol + Change% */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: 4,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 12,
-              fontWeight: 700,
-              color: '#EDF2FA',
-            }}
-          >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, fontWeight: 700, color: '#EDF2FA' }}>
             {item.symbol}
           </span>
-          <span
-            style={{
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 11,
-              fontWeight: 700,
-              color: changeColor,
-            }}
-          >
+          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 11, fontWeight: 700, color: changeColor }}>
             {changeStr}
           </span>
         </div>
-
-        {/* Bottom: Name + Sector */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            fontSize: 10,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'Manrope, sans-serif',
-              color: '#8B97AA',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              flex: 1,
-              marginRight: 8,
-            }}
-          >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 10 }}>
+          <span style={{
+            fontFamily: 'Manrope, sans-serif', color: '#8B97AA',
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+            flex: 1, marginRight: 8,
+          }}>
             {item.name}
           </span>
-          <span
-            style={{
-              fontFamily: 'Manrope, sans-serif',
-              color: '#4C5A6B',
-              whiteSpace: 'nowrap',
-              textAlign: 'right',
-            }}
-          >
+          <span style={{ fontFamily: 'Manrope, sans-serif', color: '#4C5A6B', whiteSpace: 'nowrap', textAlign: 'right' }}>
             {item.sector || '—'}
           </span>
         </div>
@@ -154,60 +106,38 @@ export function MarketMoversColumn() {
 
   const Section = ({ title, items }: { title: string; items: Mover[] }) => (
     <div style={{ marginBottom: 20 }}>
-      <div
-        style={{
-          fontFamily: 'Manrope, sans-serif',
-          fontSize: 12,
-          fontWeight: 700,
-          color: '#EDF2FA',
-          marginBottom: 12,
-          paddingBottom: 8,
-          borderBottom: '1px solid rgba(45,126,248,0.30)',
-        }}
-      >
+      <div style={{
+        fontFamily: 'Manrope, sans-serif', fontSize: 12, fontWeight: 700, color: '#EDF2FA',
+        marginBottom: 12, paddingBottom: 8, borderBottom: '1px solid rgba(45,126,248,0.30)',
+      }}>
         {title}
       </div>
       <div>
-        {items.map((item, i) => (
-          <MoverItem key={i} item={item} />
-        ))}
+        {items.map((item, i) => <MoverItem key={i} item={item} />)}
       </div>
     </div>
   )
 
   return (
-    <div
-      style={{
-        background: 'rgba(6,10,15,0.4)',
-        border: '1px solid rgba(255,255,255,0.06)',
-        borderRadius: 12,
-        padding: 16,
-        backdropFilter: 'blur(12px)',
-        fontSize: 13,
-        lineHeight: 1.6,
-      }}
-    >
+    <div style={{
+      background: 'rgba(6,10,15,0.4)',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: 12, padding: 16,
+      backdropFilter: 'blur(12px)',
+      fontSize: 13, lineHeight: 1.6,
+    }}>
       <Section title="🔺 Yükselenler" items={data.gainers} />
       <Section title="🔻 Düşenler" items={data.losers} />
       <Section title="⚡ İşlem Liderleri" items={data.mostActive} />
-
-      <div
-        style={{
-          fontSize: 9,
-          color: '#2A3849',
-          textAlign: 'center',
-          marginTop: 12,
-          paddingTop: 8,
-          borderTop: '1px solid rgba(255,255,255,0.04)',
-        }}
-      >
-        {new Date(data.updatedAt).toLocaleTimeString('tr-TR', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })}
+      <div style={{
+        fontSize: 9, color: '#2A3849', textAlign: 'center',
+        marginTop: 12, paddingTop: 8, borderTop: '1px solid rgba(255,255,255,0.04)',
+      }}>
+        {new Date(data.updatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
       </div>
     </div>
   )
 }
 
 export { MarketMoversColumn }
+export default MarketMoversColumn

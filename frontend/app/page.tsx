@@ -47,9 +47,9 @@ const MarketIndexBadge = dynamic(
   { ssr: false }
 )
 
-// Market movers column — right sidebar, browser-only
+// Market movers column — right sidebar, desktop only
 const MarketMoversColumn = dynamic(
-  () => import('@/components/landing/MarketMoversColumn').then(m => ({ default: m.MarketMoversColumn })),
+  () => import('@/components/landing/MarketMoversColumn'),
   { ssr: false }
 )
 
@@ -428,7 +428,7 @@ export default function LandingPage() {
   const [authLoading, setAuthLoading] = useState(false)
   const [authError, setAuthError] = useState('')
   const [searchVal, setSearchVal] = useState('')
-  const [isMounted, setIsMounted] = useState(false)
+  const [isLargeScreen, setIsLargeScreen] = useState(false)
   const searchRef = useRef<HTMLInputElement>(null)
 
   const { isAuthenticated, login } = useAuthStore()
@@ -499,9 +499,12 @@ export default function LandingPage() {
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
 
-  // Set isMounted for client-side rendering
+  // Responsive sidebar — show on screens >= 1024px
   useEffect(() => {
-    setIsMounted(true)
+    const check = () => setIsLargeScreen(window.innerWidth >= 1024)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
   }, [])
 
   const handleInstall = async () => {
@@ -560,8 +563,8 @@ export default function LandingPage() {
         </button>
       </div>
 
-      {/* Orta: Kayan ticker — her ekranda */}
-      <div style={{ flex: 1, overflow: 'hidden', padding: '0 12px' }}>
+      {/* Orta: Kayan ticker — sadece masaüstünde */}
+      <div className="hidden md:block" style={{ flex: 1, overflow: 'hidden', padding: '0 20px' }}>
         <LandingTicker />
       </div>
 
@@ -1547,14 +1550,14 @@ export default function LandingPage() {
 
       <main style={{ position: 'relative', zIndex: 1 }}>
         {page === 'p1' && (
-          <div style={{ display: 'flex', gap: 20, maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
-            {/* Left: Main content (Page1 + Heatmap) */}
+          <div style={{ display: 'flex', gap: 24, maxWidth: 1440, margin: '0 auto', padding: '0 20px', alignItems: 'flex-start' }}>
+            {/* Left: main content */}
             <div style={{ flex: 1, minWidth: 0 }}>
               <Page1 />
-              <div style={{ width: '100%', maxWidth: 640, margin: '0 auto' }}>
+              <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
                 <SectorHeatmap />
               </div>
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 0 40px', textAlign: 'center' }}>
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
                 <p style={{
                   fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
                   lineHeight: 1.6, margin: 0,
@@ -1564,13 +1567,9 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right: Market Movers Column (desktop only, lg+ breakpoint) */}
-            {isMounted && window.innerWidth >= 1024 && (
-              <div style={{
-                width: 290,
-                flexShrink: 0,
-                paddingTop: 40,
-              }}>
+            {/* Right: market movers sidebar (desktop only) */}
+            {isLargeScreen && (
+              <div style={{ width: 290, flexShrink: 0, paddingTop: 80, position: 'sticky', top: 72 }}>
                 <MarketMoversColumn />
               </div>
             )}
