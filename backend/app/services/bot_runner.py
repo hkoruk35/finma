@@ -115,6 +115,11 @@ BOT_CONFIGS = {
         "schedule": {"minute": "*/5"},
         "description": "Bot 901 — Yahoo Finance Movers Her 5 Dakika",
     },
+    "yf_movers_901_9am": {
+        "script": "yf_movers_bot_901.py",
+        "schedule": {"day_of_week": "mon-fri", "hour": "9", "minute": "0", "timezone": "America/New_York"},
+        "description": "Bot 901 — Google Finance Daily Snapshot NY 09:00 (Hafta içi)",
+    },
     "yf_history_902": {
         "script": "yf_history_bot_902.py",
         "schedule": {"minute": "*/15"},
