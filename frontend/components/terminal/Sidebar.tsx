@@ -329,9 +329,14 @@ export function Sidebar() {
 
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="hidden md:flex items-center justify-center w-full py-2 text-finma-text-dim hover:text-finma-text transition-colors rounded-md hover:bg-white/5"
+            className="hidden md:flex items-center justify-center w-full py-2.5 text-finma-primary hover:text-finma-primary transition-all rounded-md hover:bg-finma-primary/10 group"
+            title={sidebarOpen ? 'Menüyü Gizle' : 'Menüyü Aç'}
           >
-            {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            {sidebarOpen ? (
+              <ChevronLeft className="w-5 h-5 transition-transform group-hover:scale-110" />
+            ) : (
+              <ChevronRight className="w-5 h-5 transition-transform group-hover:scale-110" />
+            )}
           </button>
 
           {/* Membership Upgrade Banner */}
@@ -363,8 +368,8 @@ export function Sidebar() {
 
           {isExpanded && (
             <div className="text-center pt-1 pb-1 border-t border-finma-border/20">
-              <span className="text-[8px] text-finma-text-dim/40">
-                Developed by <span className="font-semibold text-finma-text-dim/60">AFK DaSYS</span>
+              <span className="text-[8px] text-white/60">
+                Developed by <span className="font-semibold text-white/80">AFK DaSYS</span>
               </span>
             </div>
           )}
