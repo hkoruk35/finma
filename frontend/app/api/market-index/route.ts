@@ -15,6 +15,7 @@ const SYMBOLS = [
   { symbol: '^GSPC',     label: 'S&P 500',     sublabel: 'SPX'    },
   { symbol: '^IXIC',     label: 'NASDAQ',      sublabel: 'COMP'   },
   { symbol: '^DJI',      label: 'DOW',         sublabel: 'DJI'    },
+  { symbol: '^VIX',      label: 'VIX',         sublabel: 'VIX'    },
   { symbol: '^RUT',      label: 'Russell 2000', sublabel: 'RUT'   },
 ]
 
@@ -22,6 +23,7 @@ const FALLBACK: IndexItem[] = [
   { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',  pct: '+0.82%', dir: 'up',   comment: 'Yükselen trend'    },
   { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP', pct: '+1.34%', dir: 'up',   comment: 'Momentum güçlü'   },
   { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',  pct: '-0.21%', dir: 'down', comment: 'Temkinli seyir'    },
+  { symbol: '^VIX',     label: 'VIX',     sublabel: 'VIX',  pct: '+8.32%', dir: 'up',   comment: 'Korku artıyor'     },
   { symbol: '^RUT',     label: 'Russell 2000', sublabel: 'RUT',  pct: '+0.45%', dir: 'up',   comment: 'Küçük cap güçlü' },
 ]
 
@@ -47,6 +49,14 @@ function getComment(label: string, pct: number): string {
     if (pct > 0) return 'Hafif pozitif'
     if (pct > -1) return 'Temkinli seyir'
     return 'Sanayi geriliyor'
+  }
+  if (label === 'VIX') {
+    if (pct > 20) return 'Yüksek korku'
+    if (pct > 15) return 'Korku artıyor'
+    if (pct > 10) return 'Volatilite yükseliyor'
+    if (pct > 0)  return 'Risk farkındalığı'
+    if (pct > -10) return 'Sakinlik'
+    return 'Çok sakin'
   }
   if (label === 'Russell 2000') {
     if (pct > 1.5) return 'Küçük cap rallisi'
