@@ -151,12 +151,12 @@ export function SectorHeatmap() {
   const hasData = sectors.length > 0
 
   return (
-    <div style={{ marginTop: 0, marginBottom: 60, width: '100%' }}>
+    <div style={{ marginTop: 0, marginBottom: 60, width: '100%', overflow: 'hidden' }}>
       {/* Başlık */}
       <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
         <div className="flex items-center gap-3">
-          <span style={{ fontSize: 20, fontWeight: 700, color: '#f5f5f5' }}>
-            📊 ABD Borsası Sektor Isı Haritası
+          <span style={{ fontSize: 'clamp(13px, 4vw, 20px)', fontWeight: 700, color: '#f5f5f5', whiteSpace: 'nowrap' }}>
+            📊 ABD Borsası Sektör Isı Haritası
           </span>
           {lastUpdate && (
             <span className="flex items-center gap-1 text-[11px] text-gray-500">
