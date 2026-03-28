@@ -15,7 +15,7 @@ const FALLBACK: IndexItem[] = [
   { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',  pct: '+0.82%', dir: 'up',   comment: 'Yükselen trend'  },
   { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP', pct: '+1.34%', dir: 'up',   comment: 'Momentum güçlü' },
   { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',  pct: '-0.21%', dir: 'down', comment: 'Temkinli seyir'  },
-  { symbol: 'DX-Y.NYB', label: 'DOLAR',   sublabel: 'DXY',  pct: '-0.31%', dir: 'down', comment: 'Zayıflama devam' },
+  { symbol: '^RUT',     label: 'Russell 2000', sublabel: 'RUT',  pct: '+0.45%', dir: 'up', comment: 'Küçük cap güçlü' },
 ]
 
 export function MarketIndexBadge() {
