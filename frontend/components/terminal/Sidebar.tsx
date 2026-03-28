@@ -149,11 +149,11 @@ export function Sidebar() {
             ? 'translate-x-0 pointer-events-auto'
             : cn(
                 '-translate-x-full pointer-events-none',
-                !isLandingPage && 'md:translate-x-0 md:pointer-events-auto'
+                'md:translate-x-0 md:pointer-events-auto'
               ),
-          // Masaüstü: z-index ve genişlik (landing page'de gösterme)
+          // Masaüstü: z-index ve genişlik
           'md:z-40',
-          !isLandingPage && (sidebarOpen ? 'md:w-56' : 'md:w-16')
+          sidebarOpen ? 'md:w-56' : 'md:w-16'
         )}
       >
         {/* Logo */}
