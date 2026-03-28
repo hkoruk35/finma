@@ -209,3 +209,5 @@ export function MarketMoversColumn() {
     </div>
   )
 }
+
+export { MarketMoversColumn }

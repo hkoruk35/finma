@@ -428,7 +428,7 @@ export default function LandingPage() {
   const [authLoading, setAuthLoading] = useState(false)
   const [authError, setAuthError] = useState('')
   const [searchVal, setSearchVal] = useState('')
-  const [isLarge, setIsLarge] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const searchRef = useRef<HTMLInputElement>(null)
 
   const { isAuthenticated, login } = useAuthStore()
@@ -499,12 +499,9 @@ export default function LandingPage() {
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
 
-  // Track viewport size for responsive sidebar
+  // Set isMounted for client-side rendering
   useEffect(() => {
-    const handleResize = () => setIsLarge(window.innerWidth >= 1024)
-    handleResize() // Set initial value
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    setIsMounted(true)
   }, [])
 
   const handleInstall = async () => {
@@ -1568,7 +1565,7 @@ export default function LandingPage() {
             </div>
 
             {/* Right: Market Movers Column (desktop only, lg+ breakpoint) */}
-            {isLarge && (
+            {isMounted && window.innerWidth >= 1024 && (
               <div style={{
                 width: 290,
                 flexShrink: 0,
