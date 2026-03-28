@@ -47,6 +47,12 @@ const MarketIndexBadge = dynamic(
   { ssr: false }
 )
 
+// Market movers column — right sidebar, desktop only
+const MarketMoversColumn = dynamic(
+  () => import('@/components/landing/MarketMoversColumn'),
+  { ssr: false }
+)
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface AssetInfo {
   ticker: string
@@ -422,6 +428,7 @@ export default function LandingPage() {
   const [authLoading, setAuthLoading] = useState(false)
   const [authError, setAuthError] = useState('')
   const [searchVal, setSearchVal] = useState('')
+  const [isLargeScreen, setIsLargeScreen] = useState(false)
   const searchRef = useRef<HTMLInputElement>(null)
 
   const { isAuthenticated, login } = useAuthStore()
@@ -490,6 +497,14 @@ export default function LandingPage() {
     const handler = (e: any) => { e.preventDefault(); setDeferredPrompt(e); setShowInstall(true) }
     window.addEventListener('beforeinstallprompt', handler)
     return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [])
+
+  // Responsive sidebar — show on screens >= 1024px
+  useEffect(() => {
+    const check = () => setIsLargeScreen(window.innerWidth >= 1024)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
   }, [])
 
   const handleInstall = async () => {
@@ -1534,20 +1549,30 @@ export default function LandingPage() {
       <Header />
 
       <main style={{ position: 'relative', zIndex: 1 }}>
-        {page === 'p1' && <Page1 />}
         {page === 'p1' && (
-          <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
-            <SectorHeatmap />
-          </div>
-        )}
-        {page === 'p1' && (
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
-            <p style={{
-              fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
-              lineHeight: 1.6, margin: 0,
-            }}>
-              {t.legal_disclaimer}
-            </p>
+          <div style={{ display: 'flex', gap: 24, maxWidth: 1440, margin: '0 auto', padding: '0 20px', alignItems: 'flex-start' }}>
+            {/* Left: main content */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <Page1 />
+              <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
+                <SectorHeatmap />
+              </div>
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
+                <p style={{
+                  fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
+                  lineHeight: 1.6, margin: 0,
+                }}>
+                  {t.legal_disclaimer}
+                </p>
+              </div>
+            </div>
+
+            {/* Right: market movers sidebar (desktop only) */}
+            {isLargeScreen && (
+              <div style={{ width: 290, flexShrink: 0, paddingTop: 80, position: 'sticky', top: 72 }}>
+                <MarketMoversColumn />
+              </div>
+            )}
           </div>
         )}
         {page === 'p2' && <Page2 />}
