@@ -1549,36 +1549,37 @@ export default function LandingPage() {
       <Header />
 
       <main style={{ position: 'relative', zIndex: 1 }}>
+        {page === 'p1' && <Page1 />}
         {page === 'p1' && (
-          <div style={{ display: 'flex', gap: 24, maxWidth: 1440, margin: '0 auto', padding: '0 20px', alignItems: 'flex-start' }}>
-            {/* Left: main content */}
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <Page1 />
-              <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
-                <SectorHeatmap />
-              </div>
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
-                <p style={{
-                  fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
-                  lineHeight: 1.6, margin: 0,
-                }}>
-                  {t.legal_disclaimer}
-                </p>
-              </div>
-            </div>
-
-            {/* Right: market movers sidebar (desktop only) */}
-            {isLargeScreen && (
-              <div style={{ width: 290, flexShrink: 0, paddingTop: 80, position: 'sticky', top: 72 }}>
-                <MarketMoversColumn />
-              </div>
-            )}
+          <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
+            <SectorHeatmap />
+          </div>
+        )}
+        {page === 'p1' && (
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
+            <p style={{
+              fontFamily: 'Manrope, sans-serif', fontSize: 'clamp(12px, 3vw, 13px)', color: '#8B97AA',
+              lineHeight: 1.6, margin: 0,
+            }}>
+              {t.legal_disclaimer}
+            </p>
           </div>
         )}
         {page === 'p2' && <Page2 />}
         {page === 'p3' && <Page3 />}
         {page === 'p4' && <Page4 />}
       </main>
+
+      {/* Market Movers — fixed right sidebar, desktop only */}
+      {page === 'p1' && isLargeScreen && (
+        <div style={{
+          position: 'fixed', top: 72, right: 20, width: 290,
+          maxHeight: 'calc(100vh - 92px)', overflowY: 'auto',
+          zIndex: 50,
+        }}>
+          <MarketMoversColumn />
+        </div>
+      )}
 
       {/* Bottom nav (demo) — free page accessible directly, pro shows modal */}
       {page === 'p2' && (
