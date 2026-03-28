@@ -12,11 +12,11 @@ interface IndexItem {
 }
 
 const FALLBACK: IndexItem[] = [
-  { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',  pct: '+0.98%', dir: 'up',   comment: 'Yükselen trend'    },
-  { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP', pct: '+1.67%', dir: 'up',   comment: 'Momentum güçlü'   },
-  { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',  pct: '+0.45%', dir: 'up',   comment: 'Sanayi güçlü'     },
-  { symbol: '^RUT',     label: 'Russell 2000', sublabel: 'RUT',  pct: '+0.76%', dir: 'up', comment: 'Küçük cap güçlü' },
-  { symbol: '^VIX',     label: 'VIX',     sublabel: 'VIX',  pct: '+3.82%', dir: 'up',   comment: 'Volatilite normal'  },
+  { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',  pct: '+1.24%', dir: 'up',   comment: 'Güçlü ralli'      },
+  { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP', pct: '+2.18%', dir: 'up',   comment: 'Tech rallisi'     },
+  { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',  pct: '+0.87%', dir: 'up',   comment: 'Sanayi güçlü'     },
+  { symbol: '^RUT',     label: 'Russell 2000', sublabel: 'RUT',  pct: '+1.45%', dir: 'up', comment: 'Küçük cap güçlü' },
+  { symbol: '^VIX',     label: 'VIX',     sublabel: 'VIX',  pct: '+2.15%', dir: 'up',   comment: 'Normal volatilite' },
 ]
 
 export function MarketIndexBadge() {
