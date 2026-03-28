@@ -52,7 +52,10 @@ function MarketMoversColumn() {
         const res = await fetch('/api/market-movers', { cache: 'no-store' })
         if (res.ok) {
           const movers: MoversData = await res.json()
-          setData(movers)
+          // Only replace fallback if API returned actual data
+          if (movers?.gainers?.length && movers?.losers?.length && movers?.mostActive?.length) {
+            setData(movers)
+          }
         }
       } catch {
         // fall back to static data

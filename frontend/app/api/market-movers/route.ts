@@ -70,10 +70,20 @@ export async function GET() {
       return NextResponse.json(FALLBACK, { headers: { 'Cache-Control': 'no-store' } })
     }
 
+    // Filter true gainers (change_pct > 0) and true losers (change_pct < 0)
+    const trueGainers = file.gainers.filter(m => m.change_pct > 0).slice(0, 5)
+    const trueLosers = file.losers.filter(m => m.change_pct < 0).slice(0, 5)
+    const mostActive = file.volume.slice(0, 5)
+
+    // If not enough real data, return fallback
+    if (!trueGainers.length || !trueLosers.length || !mostActive.length) {
+      return NextResponse.json(FALLBACK, { headers: { 'Cache-Control': 'no-store' } })
+    }
+
     const response: MoversResponse = {
-      gainers: file.gainers.slice(0, 5),
-      losers: file.losers.slice(0, 5),
-      mostActive: file.volume.slice(0, 5),
+      gainers: trueGainers,
+      losers: trueLosers,
+      mostActive,
       updatedAt: file.updated_at,
     }
 
