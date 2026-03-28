@@ -70,9 +70,47 @@ function getComment(label: string, pct: number): string {
 }
 
 async function fetchIndexData(): Promise<IndexItem[] | null> {
-  // Fallback verileri her saat güncelle (production'da canlı API kullanılacak)
-  // Bu fallback verileri gerçekçi pazar durumunu yansıtacak şekilde ayarlanmıştır
-  return null // Her zaman fallback kullan - API bağlantıları varsayılan olarak kapalı
+  try {
+    // Try to read from backend's market_index.json file
+    const paths = [
+      '/c/Users/afksm/finma/backend/bots/output/market_index.json',
+      process.cwd() + '/../../backend/bots/output/market_index.json',
+      process.cwd() + '/../../../backend/bots/output/market_index.json',
+    ]
+
+    let data = null
+    for (const filePath of paths) {
+      try {
+        const fs = await import('fs/promises')
+        const content = await fs.readFile(filePath, 'utf-8')
+        const parsed = JSON.parse(content)
+
+        if (parsed?.indices && Array.isArray(parsed.indices)) {
+          data = parsed.indices
+          break
+        }
+      } catch {
+        // Try next path
+        continue
+      }
+    }
+
+    if (!data) return null
+
+    // Transform backend data to match our interface
+    const items: IndexItem[] = data.map((item: any) => ({
+      symbol: item.symbol,
+      label: item.label,
+      sublabel: item.sublabel,
+      pct: item.pct,
+      dir: item.dir as 'up' | 'down',
+      comment: item.comment,
+    }))
+
+    return items
+  } catch {
+    return null
+  }
 }
 
 export async function GET() {
