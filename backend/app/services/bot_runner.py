@@ -115,6 +115,11 @@ BOT_CONFIGS = {
         "schedule": {"minute": "*/5"},
         "description": "Bot 901 — Yahoo Finance Movers Her 5 Dakika",
     },
+    "market_index_fetch": {
+        "script": "fetch_market_index.py",
+        "schedule": {"minute": "*/30"},
+        "description": "Market Index Fetcher — SPX/NASDAQ/DOW/RUT/VIX Her 30 Dakika",
+    },
     "yf_history_902": {
         "script": "yf_history_bot_902.py",
         "schedule": {"minute": "*/15"},
@@ -293,7 +298,7 @@ def start_scheduler(bots_dir: str = "bots", output_dir: str = "bots/output"):
             )
             
             # Başlangıçta hemen 1 kez çalıştırılacak botlar
-            if bot_name in ["insider_bot", "news_bot", "market_indices_904", "yf_movers_901", "detail_scanner_907", "flow_bot"]:
+            if bot_name in ["insider_bot", "news_bot", "market_indices_904", "yf_movers_901", "detail_scanner_907", "flow_bot", "market_index_fetch"]:
                 scheduler.add_job(
                     run_bot,
                     "date",
