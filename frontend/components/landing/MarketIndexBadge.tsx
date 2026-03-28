@@ -12,100 +12,83 @@ interface IndexItem {
 }
 
 const FALLBACK: IndexItem[] = [
-  { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',   pct: '+0.82%', dir: 'up',   comment: 'Yükselen trend'  },
-  { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP',  pct: '+1.34%', dir: 'up',   comment: 'Momentum güçlü'  },
-  { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',   pct: '-0.21%', dir: 'down', comment: 'Temkinli seyir'  },
-  { symbol: 'DX-Y.NYB', label: 'DOLAR',   sublabel: 'DXY',   pct: '-0.31%', dir: 'down', comment: 'Zayıflama devam' },
-  { symbol: '^VIX',     label: 'VIX',     sublabel: 'KORKU', pct: '+4.20%', dir: 'up',   comment: 'Risk iştahı ↓'  },
+  { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',  pct: '+0.82%', dir: 'up',   comment: 'Yükselen trend'  },
+  { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP', pct: '+1.34%', dir: 'up',   comment: 'Momentum güçlü' },
+  { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',  pct: '-0.21%', dir: 'down', comment: 'Temkinli seyir'  },
+  { symbol: '^RUT',     label: 'Russell 2000', sublabel: 'RUT',  pct: '+0.45%', dir: 'up', comment: 'Küçük cap güçlü' },
 ]
 
 export function MarketIndexBadge() {
   const [items, setItems] = useState<IndexItem[]>(FALLBACK)
 
   useEffect(() => {
-    const load = async () => {
+    const fetch5min = async () => {
       try {
-        // timestamp busts any CDN edge cache
-        const res = await fetch(`/api/market-index?t=${Date.now()}`, { cache: 'no-store' })
+        const res = await fetch('/api/market-index', { cache: 'no-store' })
         if (res.ok) {
           const data: IndexItem[] = await res.json()
           if (Array.isArray(data) && data.length > 0) setItems(data)
         }
-      } catch { /* keep current state */ }
+      } catch { /* keep fallback */ }
     }
 
-    load()
-    const iv = setInterval(load, 5 * 60 * 1000)
+    fetch5min()
+    const iv = setInterval(fetch5min, 5 * 60 * 1000)
     return () => clearInterval(iv)
   }, [])
 
   return (
-    <>
-      <style>{`
-        .mib-grid {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 6px;
-          width: 100%;
-          margin-bottom: 22px;
-        }
-        .mib-card {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 8px;
-          padding: 7px 8px;
-          min-width: 0;
-          overflow: hidden;
-        }
-        .mib-label {
-          font-family: 'DM Mono', monospace;
-          font-size: 7px;
-          font-weight: 600;
-          color: #4C5A6B;
-          letter-spacing: 0.8px;
-          text-transform: uppercase;
-          margin-bottom: 3px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 100%;
-        }
-        .mib-pct {
-          font-family: 'DM Mono', monospace;
-          font-weight: 700;
-          font-size: clamp(11px, 3vw, 16px);
-          line-height: 1;
-          margin-bottom: 4px;
-          white-space: nowrap;
-        }
-        .mib-comment {
-          font-family: 'Manrope', sans-serif;
-          font-size: clamp(7px, 2vw, 9px);
-          color: #8B97AA;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 100%;
-        }
-      `}</style>
-
-      <div className="mib-grid">
-        {items.map(item => (
-          <div key={item.symbol} className="mib-card">
-            <div className="mib-label">{item.sublabel} {item.label}</div>
-            <div
-              className="mib-pct"
-              style={{ color: item.dir === 'up' ? '#10B981' : '#F43F5E' }}
-            >
-              {item.pct}
-            </div>
-            <div className="mib-comment">{item.comment}</div>
+    <div style={{
+      display: 'flex',
+      gap: 8,
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      marginBottom: 22,
+    }}>
+      {items.map(item => (
+        <div key={item.symbol} style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          background: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.07)',
+          borderRadius: 10,
+          padding: '8px 14px',
+          minWidth: 90,
+        }}>
+          {/* Label row */}
+          <div style={{
+            fontFamily: 'DM Mono, monospace',
+            fontSize: 9,
+            fontWeight: 600,
+            color: '#4C5A6B',
+            letterSpacing: '1.2px',
+            textTransform: 'uppercase',
+            marginBottom: 4,
+          }}>
+            {item.sublabel} {item.label}
           </div>
-        ))}
-      </div>
-    </>
+          {/* Pct */}
+          <div style={{
+            fontFamily: 'DM Mono, monospace',
+            fontSize: 18,
+            fontWeight: 700,
+            color: item.dir === 'up' ? '#10B981' : '#F43F5E',
+            lineHeight: 1,
+            marginBottom: 5,
+          }}>
+            {item.pct}
+          </div>
+          {/* Comment */}
+          <div style={{
+            fontFamily: 'Manrope, sans-serif',
+            fontSize: 10,
+            color: '#8B97AA',
+          }}>
+            {item.comment}
+          </div>
+        </div>
+      ))}
+    </div>
   )
 }
