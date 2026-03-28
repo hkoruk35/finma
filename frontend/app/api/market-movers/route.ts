@@ -56,9 +56,22 @@ const FALLBACK: MoversResponse = {
 
 export async function GET() {
   try {
-    const backendPath = path.join(process.cwd(), '..', 'backend', 'bots', 'output', 'movers_901.json')
+    // Try multiple paths: relative to server, relative to package.json root
+    const possiblePaths = [
+      path.join(process.cwd(), '..', 'backend', 'bots', 'output', 'movers_901.json'),
+      path.join(process.cwd(), '../../backend/bots/output/movers_901.json'),
+      '/c/Users/afksm/finma/backend/bots/output/movers_901.json', // Absolute fallback
+    ]
 
-    if (!fs.existsSync(backendPath)) {
+    let backendPath: string | null = null
+    for (const p of possiblePaths) {
+      if (fs.existsSync(p)) {
+        backendPath = p
+        break
+      }
+    }
+
+    if (!backendPath) {
       return NextResponse.json(FALLBACK, {
         headers: { 'Cache-Control': 'no-store' },
       })

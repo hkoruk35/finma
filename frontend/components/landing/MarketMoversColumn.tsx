@@ -60,7 +60,8 @@ const FALLBACK_DATA: MoversData = {
 }
 
 function MarketMoversColumn() {
-  const [data, setData] = useState<MoversData>(FALLBACK_DATA)
+  const [data, setData] = useState<MoversData | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchMovers = async () => {
@@ -68,13 +69,21 @@ function MarketMoversColumn() {
         const res = await fetch('/api/market-movers', { cache: 'no-store' })
         if (res.ok) {
           const movers: MoversData = await res.json()
-          // Only replace fallback if API returned actual data
-          if (movers?.gainers?.length && movers?.losers?.length && movers?.mostActive?.length) {
+          // Use API data if it has all sections with items
+          if (movers?.gainers?.length > 0 && movers?.losers?.length > 0 && movers?.mostActive?.length > 0) {
             setData(movers)
+          } else {
+            // Fall back to fallback if API returned empty
+            setData(FALLBACK_DATA)
           }
+        } else {
+          setData(FALLBACK_DATA)
         }
       } catch {
-        // fall back to static data
+        // Network error or parse error, use fallback
+        setData(FALLBACK_DATA)
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -82,6 +91,13 @@ function MarketMoversColumn() {
     const iv = setInterval(fetchMovers, 5 * 60 * 1000)
     return () => clearInterval(iv)
   }, [])
+
+  // Show fallback while loading or if no data
+  const displayData = data || FALLBACK_DATA
+
+  if (loading && !data) {
+    return <div style={{ color: '#8B97AA', fontSize: 12, padding: 20, textAlign: 'center' }}>Yükleniyor...</div>
+  }
 
   const MoverItem = ({ item }: { item: Mover }) => {
     const isPositive = item.change_pct >= 0
@@ -100,14 +116,14 @@ function MarketMoversColumn() {
         onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, fontWeight: 700, color: '#EDF2FA' }}>
+          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 'clamp(13px, 3vw, 14px)', fontWeight: 700, color: '#EDF2FA' }}>
             {item.symbol}
           </span>
-          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 11, fontWeight: 700, color: changeColor }}>
+          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 'clamp(12px, 2.5vw, 13px)', fontWeight: 700, color: changeColor }}>
             {changeStr}
           </span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 'clamp(11px, 2.5vw, 12px)' }}>
           <span style={{
             fontFamily: 'Manrope, sans-serif', color: '#8B97AA',
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
@@ -145,14 +161,14 @@ function MarketMoversColumn() {
       backdropFilter: 'blur(12px)',
       fontSize: 13, lineHeight: 1.6,
     }}>
-      <Section title="🔺 Yükselenler" items={data.gainers} />
-      <Section title="🔻 Düşenler" items={data.losers} />
-      <Section title="⚡ İşlem Liderleri" items={data.mostActive} />
+      <Section title="🔺 Yükselenler" items={displayData.gainers} />
+      <Section title="🔻 Düşenler" items={displayData.losers} />
+      <Section title="⚡ İşlem Liderleri" items={displayData.mostActive} />
       <div style={{
         fontSize: 9, color: '#2A3849', textAlign: 'center',
         marginTop: 12, paddingTop: 8, borderTop: '1px solid rgba(255,255,255,0.04)',
       }}>
-        {new Date(data.updatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
+        {new Date(displayData.updatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
       </div>
     </div>
   )
