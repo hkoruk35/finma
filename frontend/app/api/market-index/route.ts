@@ -15,16 +15,16 @@ const SYMBOLS = [
   { symbol: '^GSPC',     label: 'S&P 500',     sublabel: 'SPX'    },
   { symbol: '^IXIC',     label: 'NASDAQ',      sublabel: 'COMP'   },
   { symbol: '^DJI',      label: 'DOW',         sublabel: 'DJI'    },
-  { symbol: '^VIX',      label: 'VIX',         sublabel: 'VIX'    },
   { symbol: '^RUT',      label: 'Russell 2000', sublabel: 'RUT'   },
+  { symbol: '^VIX',      label: 'VIX',         sublabel: 'VIX'    },
 ]
 
 const FALLBACK: IndexItem[] = [
   { symbol: '^GSPC',    label: 'S&P 500', sublabel: 'SPX',  pct: '+0.82%', dir: 'up',   comment: 'Yükselen trend'    },
   { symbol: '^IXIC',    label: 'NASDAQ',  sublabel: 'COMP', pct: '+1.34%', dir: 'up',   comment: 'Momentum güçlü'   },
   { symbol: '^DJI',     label: 'DOW',     sublabel: 'DJI',  pct: '-0.21%', dir: 'down', comment: 'Temkinli seyir'    },
-  { symbol: '^VIX',     label: 'VIX',     sublabel: 'VIX',  pct: '+8.32%', dir: 'up',   comment: 'Korku artıyor'     },
   { symbol: '^RUT',     label: 'Russell 2000', sublabel: 'RUT',  pct: '+0.45%', dir: 'up',   comment: 'Küçük cap güçlü' },
+  { symbol: '^VIX',     label: 'VIX',     sublabel: 'VIX',  pct: '+8.32%', dir: 'up',   comment: 'Korku artıyor'     },
 ]
 
 function getComment(label: string, pct: number): string {
