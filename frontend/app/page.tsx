@@ -478,6 +478,9 @@ export default function LandingPage() {
   const { isAuthenticated, login } = useAuthStore()
   const { sidebarOpen, setMobileMenuOpen: openSidebar } = useTerminalStore()
   const router = useRouter()
+
+  // Sidebar genişliği hesapla — main element buna göre daralır
+  const sidebarWidth = isLargeScreen ? (sidebarOpen ? 224 : 64) : 0
   const t = (COPY[lang] ?? COPY.tr)
   const isRtl = lang === 'ar'
 
@@ -1512,12 +1515,14 @@ export default function LandingPage() {
       <main style={{
         position: 'relative',
         zIndex: 1,
-        width: '100%',
+        width: `calc(100% - ${sidebarWidth}px)`,
+        marginLeft: sidebarWidth,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginLeft: isLargeScreen ? (sidebarOpen ? 224 : 64) : 0,
-        transition: 'margin-left 300ms ease-in-out'
+        transition: 'width 300ms ease-in-out, margin-left 300ms ease-in-out',
+        minWidth: 0,
+        overflow: 'hidden',
       }}>
         {page === 'p1' && <Page1 />}
         {page === 'p1' && (
