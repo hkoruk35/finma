@@ -47,11 +47,11 @@ const MOCK_DATA: IndexSectorItem[] = [
   },
   {
     id: 'RUT',
-    label: 'Russell 2000',
+    label: 'Russell 2K',
     type: 'index',
     price: 2087.34,
-    change_pct: -1.45,
-    analysis: 'Russell 2000 küçük cap hisse senetleri konsolidasyon aşamasında. Bölgesel bankalar faiz oranı beklentilerine duyarlı. Ekonomik büyüme sinyalleri gelecek çeyrek için önemli olacak.',
+    change_pct: 1.45,
+    analysis: 'Russell 2000 küçük cap hisse senetleri yükseliş momentumu gösteriyor. Bölgesel bankalar faiz oranı beklentilerine uyum sağlıyor. Ekonomik büyüme sinyalleri gelecek çeyrek için olumlu işaretler veriyor.',
   },
   // 11 Sectors
   {
