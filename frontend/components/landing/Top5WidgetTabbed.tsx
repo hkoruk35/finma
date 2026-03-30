@@ -4,202 +4,30 @@ import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/store/auth'
 import type { Top5Item, Top5Response } from '@/app/api/market/top5/route'
 
-const FALLBACK_TOP5: Top5Item[] = [
-  {
-    rank: 1,
-    ticker: 'NVDA',
-    company: 'NVIDIA Corporation',
-    sector: 'Technology',
-    price: 892.45,
-    change_pct: 8.32,
-    score: 96,
-    ai_reason: 'Blackwell GPU talebindeki artış kurumsal alımları tetikledi.',
-  },
-  {
-    rank: 2,
-    ticker: 'TSLA',
-    company: 'Tesla Inc.',
-    sector: 'Technology',
-    price: 187.23,
-    change_pct: 5.67,
-    score: 88,
-    ai_reason: 'Elektrikli araç satışlarındaki büyüme ivme kazanıyor.',
-  },
-  {
-    rank: 3,
-    ticker: 'MSFT',
-    company: 'Microsoft Corporation',
-    sector: 'Technology',
-    price: 432.18,
-    change_pct: 4.23,
-    score: 85,
-    ai_reason: 'OpenAI partnership yeni gelir akışları yaratıyor.',
-  },
-  {
-    rank: 4,
-    ticker: 'AAPL',
-    company: 'Apple Inc.',
-    sector: 'Technology',
-    price: 156.89,
-    change_pct: 3.45,
-    score: 78,
-    ai_reason: 'iPhone 16 pre-orders beklentileri aştı.',
-  },
-  {
-    rank: 5,
-    ticker: 'META',
-    company: 'Meta Platforms Inc.',
-    sector: 'Technology',
-    price: 312.56,
-    change_pct: 6.78,
-    score: 82,
-    ai_reason: 'AI advertising tools marketer engagement artırıyor.',
-  },
-]
-
-const FALLBACK_GAINERS: Top5Item[] = [
-  { ...FALLBACK_TOP5[0], ai_reason: 'Yapay zeka talep döngüsü hızlanıyor ve marjlar iyileşiyor.' },
-  { ...FALLBACK_TOP5[1], ai_reason: 'Enerji verimliliği yatırımları uzun vadeli alıcılar çekiyor.' },
-  { ...FALLBACK_TOP5[2], ai_reason: 'Bulut altyapısı yatırımları kupon tarafından destekleniyor.' },
-  {
-    rank: 4,
-    ticker: 'NVDA',
-    company: 'NVIDIA Corporation',
-    sector: 'Technology',
-    price: 892.45,
-    change_pct: 8.32,
-    score: 95,
-    ai_reason: 'GPU kaynak kıtlığı fiyat gücünü artırıyor.',
-  },
-  {
-    rank: 5,
-    ticker: 'GOOGL',
-    company: 'Alphabet Inc.',
-    sector: 'Technology',
-    price: 178.90,
-    change_pct: 4.56,
-    score: 87,
-    ai_reason: 'Yapay zeka araştırması yeni ürün kanalları açıyor.',
-  },
-]
-
-const FALLBACK_LOSERS: Top5Item[] = [
-  {
-    rank: 1,
-    ticker: 'GS',
-    company: 'Goldman Sachs',
-    sector: 'Finance',
-    price: 421.23,
-    change_pct: -3.45,
-    score: 45,
-    ai_reason: 'Faiz oranları harcama baskısı oluşturuyor.',
-  },
-  {
-    rank: 2,
-    ticker: 'PG',
-    company: 'Procter & Gamble',
-    sector: 'Consumer',
-    price: 168.34,
-    change_pct: -2.11,
-    score: 52,
-    ai_reason: 'Tüketici harcamaları yavaşladığını düşüren yorumlar var.',
-  },
-  {
-    rank: 3,
-    ticker: 'XOM',
-    company: 'Exxon Mobil',
-    sector: 'Energy',
-    price: 113.45,
-    change_pct: -2.67,
-    score: 48,
-    ai_reason: 'Petrol fiyatları gerileme OPEC+ beklentileri üzerine.',
-  },
-  {
-    rank: 4,
-    ticker: 'JPM',
-    company: 'JPMorgan Chase',
-    sector: 'Finance',
-    price: 195.67,
-    change_pct: -1.89,
-    score: 55,
-    ai_reason: 'Resessyon endişeleri finansal hisse senetlerini baskılıyor.',
-  },
-  {
-    rank: 5,
-    ticker: 'BAC',
-    company: 'Bank of America',
-    sector: 'Finance',
-    price: 45.23,
-    change_pct: -1.56,
-    score: 58,
-    ai_reason: 'Faiz marjı sıkışması banka karlılığını tehdit ediyor.',
-  },
-]
-
-const FALLBACK_MOSTTRADED: Top5Item[] = [
-  { ...FALLBACK_TOP5[0], ai_reason: 'Kurumsal alım hacmi rekor seviyelerde tetiklendi.' },
-  {
-    rank: 2,
-    ticker: 'SPY',
-    company: 'SPDR S&P 500',
-    sector: 'Fonds',
-    price: 589.23,
-    change_pct: 1.24,
-    score: 89,
-    ai_reason: 'ETF akışları endeks ağırlıklı hisse senetlerine yönlendirildi.',
-  },
-  {
-    rank: 3,
-    ticker: 'QQQ',
-    company: 'Invesco QQQ',
-    sector: 'Fonds',
-    price: 421.56,
-    change_pct: 2.18,
-    score: 91,
-    ai_reason: 'NASDAQ ETF hacmi teknoloji seçimi güçlendiyor.',
-  },
-  { ...FALLBACK_TOP5[1], ai_reason: 'Opsiyonlar tarafından yönlendirilen hacim pozisyon alımı gösteriyor.' },
-  { ...FALLBACK_TOP5[2], ai_reason: 'Kurumsal yeniden dengeleme MSFT tercihini artırıyor.' },
-]
-
 interface Top5WidgetTabbedProps {
   className?: string
 }
 
-type TabType = 'top5' | 'gainers' | 'losers' | 'mosttraded'
+type TabType = 'gainers' | 'losers' | 'mosttraded'
 
 function StockRow({
   item,
   rank,
-  isVisible,
-  isBlurred,
 }: {
   item: Top5Item
   rank: number
-  isVisible: boolean
-  isBlurred: boolean
 }) {
   const isPositive = item.change_pct >= 0
 
   return (
-    <div
-      className={`rounded-lg border p-4 mb-3 transition-all ${
-        isVisible
-          ? 'border-gray-700 bg-gray-900/50'
-          : 'border-gray-800 bg-gray-900/30'
-      }`}
-    >
+    <div className="rounded-lg border border-gray-700 bg-gray-900/50 p-4 mb-3 transition-all">
       {/* Header Row */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-1">
           <div className="text-lg font-bold text-blue-500 w-6">#{rank}</div>
           <div>
-            <div className={`font-semibold ${isBlurred ? 'text-gray-500' : 'text-white'}`}>
-              {isBlurred ? 'N••A' : item.ticker}
-            </div>
-            <div className="text-xs text-gray-500">
-              {isBlurred ? 'Gizli' : item.company}
-            </div>
+            <div className="font-semibold text-white">{item.ticker}</div>
+            <div className="text-xs text-gray-500">{item.company}</div>
           </div>
         </div>
 
@@ -207,89 +35,115 @@ function StockRow({
           <div className={`font-bold text-lg ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
             {isPositive ? '+' : ''}{item.change_pct.toFixed(2)}%
           </div>
-          <div className="text-xs text-gray-500">
-            {isBlurred ? '••••' : `$${item.price.toFixed(2)}`}
-          </div>
+          <div className="text-xs text-gray-500">${item.price.toFixed(2)}</div>
         </div>
       </div>
 
       {/* AI Commentary */}
       <div className="mt-3 pl-9">
-        <p className="text-xs text-gray-400 italic">
-          {isBlurred ? '••••••••••••••••' : item.ai_reason}
-        </p>
+        <p className="text-xs text-gray-400 italic">{item.ai_reason}</p>
       </div>
 
       {/* Score */}
-      {!isBlurred && (
-        <div className="mt-2 pt-2 border-t border-gray-800">
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-600">AI Skoru:</span>
-            <div className="flex-1 bg-gray-800 rounded-full h-1.5 max-w-xs">
-              <div
-                className="bg-blue-500 h-1.5 rounded-full"
-                style={{ width: `${item.score}%` }}
-              />
-            </div>
-            <span className="text-xs font-semibold text-gray-400">{item.score}</span>
+      <div className="mt-2 pt-2 border-t border-gray-800">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-600">AI Skoru:</span>
+          <div className="flex-1 bg-gray-800 rounded-full h-1.5 max-w-xs">
+            <div
+              className="bg-blue-500 h-1.5 rounded-full"
+              style={{ width: `${item.score}%` }}
+            />
           </div>
+          <span className="text-xs font-semibold text-gray-400">{item.score}</span>
         </div>
-      )}
+      </div>
     </div>
   )
 }
 
 export function Top5WidgetTabbed({ className = '' }: Top5WidgetTabbedProps) {
   const { user } = useAuthStore()
-  const [activeTab, setActiveTab] = useState<TabType>('top5')
-  const [items, setItems] = useState<Record<TabType, Top5Item[]>>({
-    top5: FALLBACK_TOP5,
-    gainers: FALLBACK_GAINERS,
-    losers: FALLBACK_LOSERS,
-    mosttraded: FALLBACK_MOSTTRADED,
+  const [activeTab, setActiveTab] = useState<'top5' | TabType>('top5')
+  const [todayData, setTodayData] = useState<Top5Item[]>([])
+  const [yesterdayData, setYesterdayData] = useState<Top5Item[]>([])
+  const [otherTabs, setOtherTabs] = useState<Record<TabType, Top5Item[]>>({
+    gainers: [],
+    losers: [],
+    mosttraded: [],
   })
   const [isLoading, setIsLoading] = useState(true)
 
-  const isProUser = !!(user && (user.subscription_tier === 'pro' || user.role === 'admin'))
+  // Determine user tier
+  const isProUser = !!(user && (user.subscription_tier === 'pro' || user.subscription_tier === 'pro+' || user.role === 'admin'))
   const isAuthenticated = !!user
+
+  // Determine which list to show based on tier
+  const showTodayList = isProUser && isAuthenticated
+  const topTabLabel = showTodayList ? "Günün Top 5 AI Hissesi" : "Dünün Top 5 AI Hissesi"
+  const currentTopData = showTodayList ? todayData : yesterdayData
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        // Fetch all tab data in parallel
-        const [top5Res] = await Promise.all([
-          fetch('/api/market/top5', { cache: 'no-store' }),
+
+        // Fetch today's and yesterday's picks
+        const [todayRes, yesterdayRes] = await Promise.all([
+          fetch('/api/market/top5?type=today', { cache: 'no-store' }),
+          fetch('/api/market/top5?type=yesterday', { cache: 'no-store' }),
         ])
 
-        if (top5Res.ok) {
-          const top5Data: Top5Response = await top5Res.json()
-          if (top5Data?.picks && Array.isArray(top5Data.picks)) {
-            setItems(prev => ({ ...prev, top5: top5Data.picks }))
+        if (todayRes.ok) {
+          const data: Top5Response = await todayRes.json()
+          if (data?.picks && Array.isArray(data.picks)) {
+            setTodayData(data.picks)
           }
         }
+
+        if (yesterdayRes.ok) {
+          const data: Top5Response = await yesterdayRes.json()
+          if (data?.picks && Array.isArray(data.picks)) {
+            setYesterdayData(data.picks)
+          }
+        }
+
+        // For other tabs, we can fetch from the same endpoints if needed
+        // or use local mock data (keeping existing tabs for now)
+        setOtherTabs({
+          gainers: todayData.slice(0, 5), // Placeholder
+          losers: todayData.slice(0, 5), // Placeholder
+          mosttraded: todayData.slice(0, 5), // Placeholder
+        })
       } catch (err) {
-        console.error('Failed to fetch tab data:', err)
+        console.error('Failed to fetch top5 data:', err)
       } finally {
         setIsLoading(false)
       }
     }
 
     fetchData()
+    // Fetch data every hour
     const interval = setInterval(fetchData, 3600 * 1000)
     return () => clearInterval(interval)
   }, [])
 
-  const currentItems = items[activeTab]
+  // Determine which data to show based on active tab
+  let currentItems: Top5Item[] = []
+  if (activeTab === 'top5') {
+    currentItems = currentTopData
+  } else {
+    currentItems = otherTabs[activeTab as TabType] || []
+  }
 
-  const tabs: { id: TabType; label: string; icon: string }[] = [
-    { id: 'top5', label: "Günün Top 5 AI Hissesi", icon: '⭐' },
+  // Build tabs - first tab changes based on user tier
+  const tabs: { id: 'top5' | TabType; label: string; icon: string }[] = [
+    { id: 'top5', label: topTabLabel, icon: '⭐' },
     { id: 'gainers', label: 'Yükselenler', icon: '📈' },
     { id: 'losers', label: 'Düşenler', icon: '📉' },
     { id: 'mosttraded', label: 'En Çok İşlem Görenler', icon: '💹' },
   ]
 
-  if (isLoading && !currentItems.length) {
+  if (isLoading && !currentTopData.length) {
     return (
       <div className={`w-full ${className}`}>
         <div className="space-y-3">
@@ -323,99 +177,78 @@ export function Top5WidgetTabbed({ className = '' }: Top5WidgetTabbedProps) {
 
       {/* Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - All 5 stocks */}
+        {/* Left Column - 5 stocks (now fully visible for all users) */}
         <div className="lg:col-span-2">
-          {currentItems.slice(0, 5).map((item, idx) => {
-            const isFirstCard = idx === 0
-            const isVisible = isFirstCard || isProUser
-            const isBlurred = !isProUser && !isFirstCard
-
-            return (
-              <StockRow
-                key={item.ticker}
-                item={item}
-                rank={idx + 1}
-                isVisible={isVisible}
-                isBlurred={isBlurred}
-              />
-            )
-          })}
-
-          {/* CTA Footer */}
-          {!isProUser && (
-            <div className="mt-6 p-4 rounded-lg border border-blue-900/40 bg-blue-900/10">
-              <p className="text-sm text-gray-300 mb-3">
-                {isAuthenticated
-                  ? 'PRO üyelik ile tüm 5 hisse detaylı analizi görebilirsiniz'
-                  : 'Tüm hisse analizi görmek için lütfen giriş yapın'}
-              </p>
-              {!isAuthenticated ? (
-                <a
-                  href="/login"
-                  className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
-                >
-                  Giriş Yap
-                </a>
-              ) : (
-                <a
-                  href="/pricing"
-                  className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
-                >
-                  PRO'ya Yükselt
-                </a>
-              )}
-            </div>
-          )}
+          {currentItems.slice(0, 5).map((item, idx) => (
+            <StockRow
+              key={item.ticker}
+              item={item}
+              rank={idx + 1}
+            />
+          ))}
         </div>
 
-        {/* Right Column - Summary & Stats */}
-        <div className="lg:col-span-1">
-          {activeTab === 'top5' && (
-            <div className="space-y-4">
-              <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-4">
-                <h4 className="text-sm font-semibold text-gray-400 mb-3">Piyasa Özeti</h4>
+        {/* Right Column - Summary */}
+        {activeTab === 'top5' && (
+          <div className="space-y-4">
+            {/* Market Summary */}
+            <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-4">
+              <h3 className="text-sm font-semibold text-white mb-4">Piyasa Özeti</h3>
 
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-xs text-gray-500">Ortalama Değişim</p>
-                    <p className="text-lg font-bold text-green-500">
-                      +{((FALLBACK_TOP5.reduce((a, b) => a + b.change_pct, 0) / 5).toFixed(2))}%
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-gray-800">
-                    <p className="text-xs text-gray-500">Sektör Dağılımı</p>
-                    <div className="mt-2 space-y-1">
-                      <div className="text-xs text-gray-400">
-                        <span>Teknoloji</span> <span className="float-right">5/5</span>
-                      </div>
-                      <div className="w-full bg-gray-800 rounded-full h-1">
-                        <div className="bg-blue-500 h-1 rounded-full" style={{ width: '100%' }} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-gray-800">
-                    <p className="text-xs text-gray-500">Ortalama Skor</p>
-                    <p className="text-lg font-bold text-blue-400">
-                      {Math.round(
-                        FALLBACK_TOP5.reduce((a, b) => a + b.score, 0) / 5
-                      )}
-                    </p>
-                  </div>
+              {/* Average Change */}
+              <div className="mb-4">
+                <div className="text-xs text-gray-600 mb-1">Ortalama Değişim</div>
+                <div className="text-lg font-bold text-green-500">
+                  {(currentItems.slice(0, 5).reduce((sum, item) => sum + item.change_pct, 0) / 5).toFixed(2)}%
                 </div>
               </div>
 
-              <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-4 text-xs text-gray-400">
-                <p className="mb-2 font-semibold">💡 İpucu</p>
-                <p>
-                  Top 5 listesi yapay zeka modelimiz tarafından saatlik olarak güncellenmektedir. Her bir hisse değerlemesi
-                  teknik ve temel analiz kombinasyonuna dayanmaktadır.
-                </p>
+              {/* Sector Distribution */}
+              <div className="mb-4">
+                <div className="text-xs text-gray-600 mb-2">Sektör Dağılımı</div>
+                {['Technology'].map((sector) => (
+                  <div key={sector} className="flex justify-between text-xs mb-1">
+                    <span className="text-gray-400">{sector}</span>
+                    <span className="text-gray-300">5/5</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Average Score */}
+              <div>
+                <div className="text-xs text-gray-600 mb-1">Ortalama Skor</div>
+                <div className="text-lg font-bold text-blue-400">
+                  {Math.round(currentItems.slice(0, 5).reduce((sum, item) => sum + item.score, 0) / 5)}
+                </div>
               </div>
             </div>
-          )}
-        </div>
+
+            {/* Info Box - Tier specific */}
+            {showTodayList && (
+              <div className="rounded-lg border border-blue-900/40 bg-blue-900/10 p-3">
+                <p className="text-xs text-gray-400">
+                  ⚡ Günün Top 5 listesi pazar açılışında (9:00 ET) oluşturulur ve saatlik olarak analiz güncellenir.
+                </p>
+              </div>
+            )}
+
+            {!showTodayList && isAuthenticated && (
+              <div className="rounded-lg border border-blue-900/40 bg-blue-900/10 p-3">
+                <p className="text-xs text-gray-400">
+                  📅 Dünün Top 5 listesi önceki pazar gününün kapanışında seçilmiş hisselerdir.
+                </p>
+              </div>
+            )}
+
+            {!isAuthenticated && (
+              <div className="rounded-lg border border-blue-900/40 bg-blue-900/10 p-3">
+                <p className="text-xs text-gray-400">
+                  🔐 PRO üyelik ile Günün Top 5 AI Hissesi'ni saatlik güncellenen analizleriyle görebilirsiniz.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
