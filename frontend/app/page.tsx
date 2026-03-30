@@ -53,6 +53,37 @@ const MarketMoversColumn = dynamic(
   { ssr: false }
 )
 
+// New F-7 components
+const TickerBand = dynamic(
+  () => import('@/components/landing/TickerBand').then(m => ({ default: m.TickerBand })),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 120, background: '#0C1017', borderRadius: 12 }} />
+    ),
+  }
+)
+
+const MarketSummaryHero = dynamic(
+  () => import('@/components/landing/MarketSummaryHero').then(m => ({ default: m.MarketSummaryHero })),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 200, background: '#0C1017', borderRadius: 12 }} />
+    ),
+  }
+)
+
+const Top5Widget = dynamic(
+  () => import('@/components/landing/Top5Widget').then(m => ({ default: m.Top5Widget })),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 250, background: '#0C1017', borderRadius: 12 }} />
+    ),
+  }
+)
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface AssetInfo {
   ticker: string
@@ -729,6 +760,21 @@ export default function LandingPage() {
           }} className="hidden sm:block">
             ENTER ↵
           </span>
+        </div>
+
+        {/* TickerBand - 16 symbols */}
+        <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
+          <TickerBand />
+        </div>
+
+        {/* MarketSummaryHero - AI Market Analysis */}
+        <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
+          <MarketSummaryHero />
+        </div>
+
+        {/* Top5Widget - Top 5 Stocks with Tier Gating */}
+        <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
+          <Top5Widget />
         </div>
 
         {/* Pill shortcuts — 3×2 grid */}

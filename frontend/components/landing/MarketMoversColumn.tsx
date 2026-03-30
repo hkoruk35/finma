@@ -25,6 +25,7 @@ interface Mover {
   price: number
   change_pct: number
   volume: number
+  ai_reason?: string // Optional AI explanation
 }
 
 interface MoversData {
@@ -36,25 +37,25 @@ interface MoversData {
 
 const FALLBACK_DATA: MoversData = {
   gainers: [
-    { symbol: 'NVDA', name: 'NVIDIA Corp.', sector: 'Teknoloji', price: 167.52, change_pct: 3.2, volume: 194056113 },
-    { symbol: 'META', name: 'Meta Platforms', sector: 'İletişim', price: 525.72, change_pct: 1.8, volume: 28975085 },
-    { symbol: 'MSFT', name: 'Microsoft Corp.', sector: 'Teknoloji', price: 356.77, change_pct: 1.5, volume: 37661564 },
-    { symbol: 'GOOGL', name: 'Alphabet Inc.', sector: 'İletişim', price: 274.34, change_pct: 1.2, volume: 35491598 },
-    { symbol: 'AMZN', name: 'Amazon.com', sector: 'Tüketici', price: 199.34, change_pct: 0.9, volume: 55772474 },
+    { symbol: 'NVDA', name: 'NVIDIA Corp.', sector: 'Teknoloji', price: 167.52, change_pct: 3.2, volume: 194056113, ai_reason: 'Blackwell GPU talebindeki artış kurumsal alımları tetikledi.' },
+    { symbol: 'META', name: 'Meta Platforms', sector: 'İletişim', price: 525.72, change_pct: 1.8, volume: 28975085, ai_reason: 'AI advertising tools marketer engagement artırıyor.' },
+    { symbol: 'MSFT', name: 'Microsoft Corp.', sector: 'Teknoloji', price: 356.77, change_pct: 1.5, volume: 37661564, ai_reason: 'OpenAI partnership yeni gelir akışları yaratıyor.' },
+    { symbol: 'GOOGL', name: 'Alphabet Inc.', sector: 'İletişim', price: 274.34, change_pct: 1.2, volume: 35491598, ai_reason: 'Search advertising recovery momentum kazanıyor.' },
+    { symbol: 'AMZN', name: 'Amazon.com', sector: 'Tüketici', price: 199.34, change_pct: 0.9, volume: 55772474, ai_reason: 'AWS cloud services bölümü büyümeyi hızlandırıyor.' },
   ],
   losers: [
-    { symbol: 'TSLA', name: 'Tesla Inc.', sector: 'Otomotiv', price: 361.83, change_pct: -3.31, volume: 60637943 },
-    { symbol: 'JPM', name: 'JPMorgan Chase', sector: 'Finans', price: 282.84, change_pct: -3.45, volume: 6995384 },
-    { symbol: 'V', name: 'Visa Inc.', sector: 'Finans', price: 295.52, change_pct: -3.42, volume: 9970427 },
-    { symbol: 'AAPL', name: 'Apple Inc.', sector: 'Teknoloji', price: 248.8, change_pct: -2.39, volume: 46525772 },
-    { symbol: 'BRK-B', name: 'Berkshire H.', sector: 'Finans', price: 468.49, change_pct: -1.61, volume: 5330301 },
+    { symbol: 'TSLA', name: 'Tesla Inc.', sector: 'Otomotiv', price: 361.83, change_pct: -3.31, volume: 60637943, ai_reason: 'EV pazar beklentileri hafifletildi. Rekabet artıyor.' },
+    { symbol: 'JPM', name: 'JPMorgan Chase', sector: 'Finans', price: 282.84, change_pct: -3.45, volume: 6995384, ai_reason: 'Faiz oranı beklentileri geriyor. Risk iştahı azalıyor.' },
+    { symbol: 'V', name: 'Visa Inc.', sector: 'Finans', price: 295.52, change_pct: -3.42, volume: 9970427, ai_reason: 'Global harcama trendi yavaşladı. Deflasyon baskısı var.' },
+    { symbol: 'AAPL', name: 'Apple Inc.', sector: 'Teknoloji', price: 248.8, change_pct: -2.39, volume: 46525772, ai_reason: 'iPhone döngüsü yavaşladı. Pazar doygunluğu görülüyor.' },
+    { symbol: 'BRK-B', name: 'Berkshire H.', sector: 'Finans', price: 468.49, change_pct: -1.61, volume: 5330301, ai_reason: 'Portföy posisyon redüksiyonu sürüyor. Likidite artıyor.' },
   ],
   mostActive: [
-    { symbol: 'NVDA', name: 'NVIDIA Corp.', sector: 'Teknoloji', price: 167.52, change_pct: 3.2, volume: 194056113 },
-    { symbol: 'TSLA', name: 'Tesla Inc.', sector: 'Otomotiv', price: 361.83, change_pct: -3.31, volume: 60637943 },
-    { symbol: 'AMZN', name: 'Amazon.com', sector: 'Tüketici', price: 199.34, change_pct: -4.18, volume: 55772474 },
-    { symbol: 'AAPL', name: 'Apple Inc.', sector: 'Teknoloji', price: 248.8, change_pct: -2.39, volume: 46525772 },
-    { symbol: 'MSFT', name: 'Microsoft Corp.', sector: 'Teknoloji', price: 356.77, change_pct: -2.76, volume: 37661564 },
+    { symbol: 'NVDA', name: 'NVIDIA Corp.', sector: 'Teknoloji', price: 167.52, change_pct: 3.2, volume: 194056113, ai_reason: 'Yüksek volatilite AI hisse senetlerinde işlem hacmini kızıştırıyor.' },
+    { symbol: 'TSLA', name: 'Tesla Inc.', sector: 'Otomotiv', price: 361.83, change_pct: -3.31, volume: 60637943, ai_reason: 'Elon Musk tweeti piyasayı 2 yönde tetikledi.' },
+    { symbol: 'AMZN', name: 'Amazon.com', sector: 'Tüketici', price: 199.34, change_pct: -4.18, volume: 55772474, ai_reason: 'Büyük fon rebalancing işlemleri gerçekleştiriliyor.' },
+    { symbol: 'AAPL', name: 'Apple Inc.', sector: 'Teknoloji', price: 248.8, change_pct: -2.39, volume: 46525772, ai_reason: 'S&P 500 düzeltmesi teknoloji ağırlıklı indeksini etkiledi.' },
+    { symbol: 'MSFT', name: 'Microsoft Corp.', sector: 'Teknoloji', price: 356.77, change_pct: -2.76, volume: 37661564, ai_reason: 'Büyük kapak hisse senetlerinde dinamik pozisyon ayarlaması.' },
   ],
   updatedAt: new Date().toISOString(),
 }
@@ -135,6 +136,18 @@ function MarketMoversColumn() {
             {SECTOR_TR[item.sector] || item.sector || '—'}
           </span>
         </div>
+        {item.ai_reason && (
+          <div style={{
+            fontFamily: 'Manrope, sans-serif',
+            fontSize: 'clamp(10px, 2vw, 11px)',
+            color: '#6B7280',
+            fontStyle: 'italic',
+            marginTop: 4,
+            lineHeight: 1.4,
+          }}>
+            {item.ai_reason}
+          </div>
+        )}
       </div>
     )
   }
