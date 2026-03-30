@@ -155,7 +155,7 @@ export function Top5Widget({ className = '' }: Top5WidgetProps) {
   const [isLoading, setIsLoading] = useState(true)
 
   // Determine user tier
-  const isProUser = user && (user.subscription_tier === 'pro' || user.role === 'admin')
+  const isProUser = !!(user && (user.subscription_tier === 'pro' || user.role === 'admin'))
   const isAuthenticated = !!user
 
   useEffect(() => {
