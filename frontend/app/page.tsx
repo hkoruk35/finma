@@ -476,7 +476,7 @@ export default function LandingPage() {
   const searchRef = useRef<HTMLInputElement>(null)
 
   const { isAuthenticated, login } = useAuthStore()
-  const { setMobileMenuOpen: openSidebar } = useTerminalStore()
+  const { sidebarOpen, setMobileMenuOpen: openSidebar } = useTerminalStore()
   const router = useRouter()
   const t = (COPY[lang] ?? COPY.tr)
   const isRtl = lang === 'ar'
@@ -1509,7 +1509,16 @@ export default function LandingPage() {
       {showInstall && <InstallBanner />}
       <Header />
 
-      <main style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <main style={{
+        position: 'relative',
+        zIndex: 1,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginLeft: isLargeScreen ? (sidebarOpen ? 224 : 64) : 0,
+        transition: 'margin-left 300ms ease-in-out'
+      }}>
         {page === 'p1' && <Page1 />}
         {page === 'p1' && (
           <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '0 20px', marginBottom: 40 }}>
