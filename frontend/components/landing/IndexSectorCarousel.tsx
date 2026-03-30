@@ -174,7 +174,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
   return (
     <div className={`w-full ${className}`}>
       {/* Main Analysis Box */}
-      <div className="mb-6 rounded-lg border border-gray-800 bg-gradient-to-br from-gray-900/80 to-gray-900/40 p-6">
+      <div className="mb-6 rounded-lg border border-gray-800 bg-gradient-to-br from-gray-900/80 to-gray-900/40 p-6 min-h-[200px] flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold text-white">
@@ -218,11 +218,11 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
       </div>
 
       {/* Scrolling Carousel */}
-      <div className="relative group w-full overflow-hidden">
+      <div className="relative group w-full overflow-hidden rounded-lg">
         {/* Left Scroll Button */}
         <button
           onClick={() => scroll('left')}
-          className="hidden md:flex absolute left-1 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
           aria-label="Scroll left"
         >
           ←
@@ -273,7 +273,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
         {/* Right Scroll Button */}
         <button
           onClick={() => scroll('right')}
-          className="hidden md:flex absolute right-1 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
           aria-label="Scroll right"
         >
           →
