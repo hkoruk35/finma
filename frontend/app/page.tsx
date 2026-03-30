@@ -84,6 +84,27 @@ const Top5Widget = dynamic(
   }
 )
 
+// New components for F-7 revision
+const IndexSectorCarousel = dynamic(
+  () => import('@/components/landing/IndexSectorCarousel').then(m => ({ default: m.IndexSectorCarousel })),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 300, background: '#0C1017', borderRadius: 12 }} />
+    ),
+  }
+)
+
+const Top5WidgetTabbed = dynamic(
+  () => import('@/components/landing/Top5WidgetTabbed').then(m => ({ default: m.Top5WidgetTabbed })),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 400, background: '#0C1017', borderRadius: 12 }} />
+    ),
+  }
+)
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface AssetInfo {
   ticker: string
@@ -697,122 +718,26 @@ export default function LandingPage() {
         padding: '84px 20px 32px', position: 'relative', zIndex: 1,
       }}>
         {/* Hero heading */}
-        <div style={{ textAlign: 'center', marginBottom: 38, maxWidth: 660 }}>
-          {/* Market Index Tickers */}
-          <MarketIndexBadge />
-          {/* H1 */}
-          <h1 style={{
-            fontFamily: 'DM Serif Display, serif', fontSize: 'clamp(40px, 6.5vw, 72px)',
-            fontWeight: 400, lineHeight: 1.05, color: '#EDF2FA',
-            margin: '0 0 12px', letterSpacing: '-1.5px',
-          }}>
-            {t.p1_h1}<br />
-            <em style={{ fontStyle: 'italic', color: '#2D7EF8' }}>{t.p1_h2}</em>
-          </h1>
-          {/* Sub */}
-          <p style={{
-            fontFamily: 'Manrope, sans-serif', fontSize: 15, fontWeight: 300,
-            color: '#8B97AA', lineHeight: 1.65, margin: 0, maxWidth: 420,
-            marginLeft: 'auto', marginRight: 'auto',
-          }}>
-            {t.p1_sub}
-          </p>
-        </div>
+        {/* Hero text removed - now using IndexSectorCarousel */}
 
-        {/* Search box */}
-        <div style={{ width: '100%', maxWidth: 640, position: 'relative', marginBottom: 20 }}>
-          <input
-            ref={inputRef}
-            type="text"
-            value={localVal}
-            onChange={e => setLocalVal(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') submit() }}
-            placeholder="AI Başarı Karnesi"
-            style={{
-              width: '100%', height: 60, background: '#101820',
-              border: '1px solid rgba(255,255,255,0.10)', borderRadius: 14,
-              padding: '0 120px 0 20px', fontSize: 16,  // 16px — iOS zoom prevention
-              color: '#EDF2FA', outline: 'none', boxSizing: 'border-box',
-              fontFamily: 'Manrope, sans-serif', transition: 'border-color 0.25s',
-            }}
-            onFocus={e => { e.target.style.borderColor = 'rgba(45,126,248,0.5)' }}
-            onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)' }}
-          />
-          <button
-            onClick={submit}
-            style={{
-              position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)',
-              background: '#2D7EF8', border: 'none', borderRadius: 9,
-              width: 40, height: 40, cursor: 'pointer', display: 'flex',
-              alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <circle cx="11" cy="11" r="8" stroke="white" strokeWidth="2"/>
-              <path d="m21 21-4.35-4.35" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </button>
-          {/* Keyboard hint (hidden on mobile) */}
-          <span style={{
-            position: 'absolute', right: 62, top: '50%', transform: 'translateY(-50%)',
-            fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#4C5A6B',
-            letterSpacing: '0.5px',
-          }} className="hidden sm:block">
-            ENTER ↵
-          </span>
-        </div>
+        {/* Search box removed - now using IndexSectorCarousel */}
 
         {/* TickerBand - 16 symbols */}
         <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
           <TickerBand />
         </div>
 
-        {/* MarketSummaryHero - AI Market Analysis */}
+        {/* IndexSectorCarousel - 5 indices + 11 sectors with hover analysis */}
         <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
-          <MarketSummaryHero />
+          <IndexSectorCarousel />
         </div>
 
-        {/* Top5Widget - Top 5 Stocks with Tier Gating */}
+        {/* Top5WidgetTabbed - 4 tabs with AI commentary */}
         <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
-          <Top5Widget />
+          <Top5WidgetTabbed />
         </div>
 
-        {/* Pill shortcuts — 3×2 grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', maxWidth: 640, marginBottom: 40 }}>
-          {[
-            { label: '⚡ Canlı Piyasa Radarı',  q: 'Canlı Piyasa Radarı' },
-            { label: '🧭 Makro Endeksler',        q: 'Makro Endeksler' },
-            { label: '🗺️ Para Akışı Haritası',   q: 'Para Akışı Haritası' },
-            { label: '🔥 Hacim Liderleri',        q: 'Hacim Liderleri' },
-            { label: '💸 Temettü Yıldızları',     q: 'Temettü Yıldızları' },
-            { label: '🎯 AI Başarı Karnesi',      q: 'AI Başarı Karnesi' },
-          ].map(pill => (
-            <button
-              key={pill.q}
-              onClick={() => doSearch(pill.q)}
-              style={{
-                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.10)',
-                borderRadius: 10, padding: '9px 10px', cursor: 'pointer',
-                color: '#8B97AA', fontFamily: 'Manrope, sans-serif', fontSize: 12.5, fontWeight: 500,
-                transition: 'all 0.2s', textAlign: 'center',
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget
-                el.style.borderColor = 'rgba(45,126,248,0.40)'
-                el.style.color = '#EDF2FA'
-                el.style.background = 'rgba(45,126,248,0.06)'
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget
-                el.style.borderColor = 'rgba(255,255,255,0.10)'
-                el.style.color = '#8B97AA'
-                el.style.background = 'rgba(255,255,255,0.03)'
-              }}
-            >
-              {pill.label}
-            </button>
-          ))}
-        </div>
+        {/* Pills removed - available in sidebar menu */}
 
       </div>
     )
