@@ -708,6 +708,7 @@ export default function LandingPage() {
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'flex-start',
         padding: '84px 20px 32px', position: 'relative', zIndex: 1,
+        width: '100%',
       }}>
         {/* Hero heading */}
         {/* Hero text removed - now using IndexSectorCarousel */}
@@ -1508,7 +1509,7 @@ export default function LandingPage() {
       {showInstall && <InstallBanner />}
       <Header />
 
-      <main style={{ position: 'relative', zIndex: 1 }}>
+      <main style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {page === 'p1' && <Page1 />}
         {page === 'p1' && (
           <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '0 20px', marginBottom: 40 }}>
