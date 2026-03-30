@@ -8,6 +8,7 @@
   html {
     background-color: #0a0a0a;
     color-scheme: dark;
+    overflow-y: scroll;
   }
 
   body {

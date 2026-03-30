@@ -181,7 +181,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
               {selectedItem?.label}
             </h2>
             <p className="text-sm text-gray-500 mt-1">
-              {selectedItem?.type === 'index' ? 'Endeks' : 'Sektor'} Analizi
+              {selectedItem?.type === 'index' ? 'Endeks' : 'Sektör'} Analizi
             </p>
           </div>
           {selectedItem && (
@@ -218,11 +218,11 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
       </div>
 
       {/* Scrolling Carousel */}
-      <div className="relative group">
+      <div className="relative group w-full overflow-hidden">
         {/* Left Scroll Button */}
         <button
           onClick={() => scroll('left')}
-          className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden lg:flex absolute left-1 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
           aria-label="Scroll left"
         >
           ←
@@ -230,9 +230,9 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
 
         <div
           ref={setScrollContainer}
-          className="overflow-x-auto scrollbar-hide"
+          className="overflow-x-auto scrollbar-hide w-full"
         >
-          <div className="flex gap-3 pb-2 px-12" style={{ minWidth: 'min-content' }}>
+          <div className="flex gap-3 pb-2 pl-16 pr-16" style={{ minWidth: 'min-content' }}>
             {MOCK_DATA.map((item) => {
               const isSelected = hoveredId === item.id
               const isPositive = item.change_pct >= 0
@@ -254,7 +254,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
                       {item.label}
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
-                      {item.type === 'index' ? 'Endeks' : 'Sektor'}
+                      {item.type === 'index' ? 'Endeks' : 'Sektör'}
                     </div>
                     <div
                       className={`text-sm font-bold mt-2 ${
@@ -273,7 +273,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
         {/* Right Scroll Button */}
         <button
           onClick={() => scroll('right')}
-          className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden lg:flex absolute right-1 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
           aria-label="Scroll right"
         >
           →
