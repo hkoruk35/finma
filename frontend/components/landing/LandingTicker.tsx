@@ -11,26 +11,23 @@ interface TickerItem {
 }
 
 const FALLBACK: TickerItem[] = [
-  { symbol: 'BTC-USD',  label: 'BTC',      category: 'Kripto',  pct: '+2.14%',  dir: 'up'   },
-  { symbol: 'ETH-USD',  label: 'ETH',      category: 'Kripto',  pct: '+1.87%',  dir: 'up'   },
-  { symbol: 'SOL-USD',  label: 'SOL',      category: 'Kripto',  pct: '+3.42%',  dir: 'up'   },
-  { symbol: 'AVAX-USD', label: 'AVAX',     category: 'Kripto',  pct: '-0.92%',  dir: 'down' },
-  { symbol: 'DOGE-USD', label: 'DOGE',     category: 'Kripto',  pct: '+5.10%',  dir: 'up'   },
-  { symbol: 'NVDA',     label: 'NVDA',     category: 'Hisse',   pct: '+4.12%',  dir: 'up'   },
-  { symbol: 'AAPL',     label: 'AAPL',     category: 'Hisse',   pct: '+0.88%',  dir: 'up'   },
-  { symbol: 'TSLA',     label: 'TSLA',     category: 'Hisse',   pct: '-1.23%',  dir: 'down' },
-  { symbol: 'META',     label: 'META',     category: 'Hisse',   pct: '+3.55%',  dir: 'up'   },
-  { symbol: 'MSFT',     label: 'MSFT',     category: 'Hisse',   pct: '+1.88%',  dir: 'up'   },
-  { symbol: 'AMD',      label: 'AMD',      category: 'Hisse',   pct: '+1.44%',  dir: 'up'   },
-  { symbol: 'GC=F',     label: 'XAU',      category: 'Emtia',   pct: '+0.87%',  dir: 'up'   },
-  { symbol: 'SI=F',     label: 'XAG',      category: 'Emtia',   pct: '+0.54%',  dir: 'up'   },
-  { symbol: 'CL=F',     label: 'WTI',      category: 'Emtia',   pct: '-1.20%',  dir: 'down' },
-  { symbol: 'NG=F',     label: 'NATGAS',   category: 'Emtia',   pct: '+0.33%',  dir: 'up'   },
-  { symbol: 'EURUSD=X', label: 'EUR/USD',  category: 'Forex',   pct: '+0.12%',  dir: 'up'   },
-  { symbol: 'USDJPY=X', label: 'USD/JPY',  category: 'Forex',   pct: '-0.31%',  dir: 'down' },
-  { symbol: 'GBPUSD=X', label: 'GBP/USD', category: 'Forex',   pct: '+0.09%',  dir: 'up'   },
-  { symbol: 'USDTRY=X', label: 'USD/TRY', category: 'Forex',   pct: '+0.44%',  dir: 'up'   },
-  { symbol: 'ZW=F',     label: 'BUĞDAY',  category: 'Emtia',   pct: '-0.68%',  dir: 'down' },
+  // 5 Main Indices
+  { symbol: 'SPX',   label: 'S&P 500',       category: 'Endeks',  pct: '+1.24%',  dir: 'up'   },
+  { symbol: 'DJI',   label: 'DOW',           category: 'Endeks',  pct: '+0.87%',  dir: 'up'   },
+  { symbol: 'IXIC',  label: 'NASDAQ',        category: 'Endeks',  pct: '+2.18%',  dir: 'up'   },
+  { symbol: 'VIX',   label: 'VIX',           category: 'Endeks',  pct: '-5.32%',  dir: 'down' },
+  { symbol: 'RUT',   label: 'Russell 2K',    category: 'Endeks',  pct: '+1.45%',  dir: 'up'   },
+  // 11 Sector ETFs
+  { symbol: 'XLC',   label: 'Communication', category: 'Sektor',  pct: '+2.15%',  dir: 'up'   },
+  { symbol: 'XLY',   label: 'Consumer Disc.', category: 'Sektor', pct: '+1.89%',  dir: 'up'   },
+  { symbol: 'XLE',   label: 'Energy',        category: 'Sektor',  pct: '-0.45%',  dir: 'down' },
+  { symbol: 'XLF',   label: 'Financials',    category: 'Sektor',  pct: '+0.92%',  dir: 'up'   },
+  { symbol: 'XLV',   label: 'Healthcare',    category: 'Sektor',  pct: '+1.23%',  dir: 'up'   },
+  { symbol: 'XLI',   label: 'Industrials',   category: 'Sektor',  pct: '+1.56%',  dir: 'up'   },
+  { symbol: 'XLRE',  label: 'Real Estate',   category: 'Sektor',  pct: '+0.78%',  dir: 'up'   },
+  { symbol: 'XLK',   label: 'Technology',    category: 'Sektor',  pct: '+2.34%',  dir: 'up'   },
+  { symbol: 'XLP',   label: 'Cons. Staples', category: 'Sektor',  pct: '+0.45%',  dir: 'up'   },
+  { symbol: 'XLU',   label: 'Utilities',     category: 'Sektor',  pct: '-0.23%',  dir: 'down' },
 ]
 
 export function LandingTicker() {
