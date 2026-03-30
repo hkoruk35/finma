@@ -574,7 +574,7 @@ export default function LandingPage() {
       display: 'flex', alignItems: 'center', padding: '0 20px',
       justifyContent: 'space-between',
     }}>
-      {/* Sol: Masaüstünde Logo, Mobilde Hamburger */}
+      {/* Sol: Sadece Mobilde Hamburger — Masaüstünde Sidebar logosu kullanılır */}
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {/* Hamburger — sadece mobilde, solda */}
         <button
@@ -593,20 +593,6 @@ export default function LandingPage() {
             <rect y="6" width="18" height="2" rx="1" fill="currentColor"/>
             <rect y="12" width="18" height="2" rx="1" fill="currentColor"/>
           </svg>
-        </button>
-        {/* Logo — sadece masaüstünde solda */}
-        <button
-          onClick={() => gotoPage('p1')}
-          className="hidden md:flex"
-          style={{ alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-        >
-          <svg width="22" height="20" viewBox="0 0 24 24" fill="none">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"
-              stroke="#2D7EF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span style={{ fontFamily: 'Manrope, sans-serif', fontWeight: 800, fontSize: 18, color: '#EDF2FA', letterSpacing: '-0.5px' }}>
-            Fin<span style={{ color: '#2D7EF8' }}>MA</span>
-          </span>
         </button>
       </div>
 
