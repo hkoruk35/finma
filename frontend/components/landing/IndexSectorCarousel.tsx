@@ -39,7 +39,7 @@ const MOCK_DATA: IndexSectorItem[] = [
   },
   {
     id: 'VIX',
-    label: 'VIX (Oynaklık)',
+    label: 'VIX (Korku)',
     type: 'index',
     price: 16.45,
     change_pct: -5.32,
@@ -136,11 +136,11 @@ const MOCK_DATA: IndexSectorItem[] = [
   },
   {
     id: 'discretionary',
-    label: 'Takdiri',
+    label: 'Tüketici Ürünleri',
     type: 'sector',
     price: 3123.45,
     change_pct: 0.89,
-    analysis: 'Takdiri hisse senetleri tüketici güveninin iyileşmesine yanıt veriyor. Lüks markalar yüksek net verth bireylere karşı dayanıklı. Perakende zincirler envanteri optimize etmeyi başarıyor.',
+    analysis: 'Tüketici ürünleri hisse senetleri tüketici güveninin iyileşmesine yanıt veriyor. Lüks markalar yüksek net değeri olan bireylere karşı dayanıklı. Perakende zincirler envanteri optimize etmeyi başarıyor.',
   },
 ]
 
@@ -151,6 +151,7 @@ interface IndexSectorCarouselProps {
 export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps) {
   const [hoveredId, setHoveredId] = useState<string>('SPX')
   const [selectedItem, setSelectedItem] = useState<IndexSectorItem | null>(null)
+  const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const item = MOCK_DATA.find(i => i.id === hoveredId)
@@ -160,6 +161,15 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
   useEffect(() => {
     setSelectedItem(MOCK_DATA.find(i => i.id === 'SPX') || null)
   }, [])
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!scrollContainer) return
+    const scrollAmount = 300
+    scrollContainer.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    })
+  }
 
   return (
     <div className={`w-full ${className}`}>
@@ -208,9 +218,21 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
       </div>
 
       {/* Scrolling Carousel */}
-      <div className="relative">
-        <div className="overflow-x-auto scrollbar-hide">
-          <div className="flex gap-3 pb-2" style={{ minWidth: 'min-content' }}>
+      <div className="relative group">
+        {/* Left Scroll Button */}
+        <button
+          onClick={() => scroll('left')}
+          className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          aria-label="Scroll left"
+        >
+          ←
+        </button>
+
+        <div
+          ref={setScrollContainer}
+          className="overflow-x-auto scrollbar-hide"
+        >
+          <div className="flex gap-3 pb-2 px-12" style={{ minWidth: 'min-content' }}>
             {MOCK_DATA.map((item) => {
               const isSelected = hoveredId === item.id
               const isPositive = item.change_pct >= 0
@@ -247,6 +269,15 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
             })}
           </div>
         </div>
+
+        {/* Right Scroll Button */}
+        <button
+          onClick={() => scroll('right')}
+          className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          aria-label="Scroll right"
+        >
+          →
+        </button>
       </div>
     </div>
   )
