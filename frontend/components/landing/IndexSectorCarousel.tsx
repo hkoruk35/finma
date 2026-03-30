@@ -202,12 +202,10 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
           )}
         </div>
 
-        {/* Analysis Text */}
-        {selectedItem && (
-          <p className="text-sm text-gray-300 leading-relaxed">
-            {selectedItem.analysis}
-          </p>
-        )}
+        {/* Analysis Text - sabit min-h ile layout shift engellenir */}
+        <p className="text-sm text-gray-300 leading-relaxed min-h-[72px]">
+          {selectedItem?.analysis ?? ''}
+        </p>
 
         {/* Timestamp */}
         <div className="mt-4 pt-4 border-t border-gray-800">
@@ -217,22 +215,24 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
         </div>
       </div>
 
-      {/* Scrolling Carousel */}
-      <div className="relative group w-full overflow-hidden rounded-lg">
-        {/* Left Scroll Button */}
+      {/* Scrolling Carousel — flex row: [btn] [scroll area] [btn] */}
+      <div className="flex items-center gap-2 w-full">
+
+        {/* Left Scroll Button — flex item, shrink-0, sadece md+ */}
         <button
           onClick={() => scroll('left')}
-          className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden md:flex flex-shrink-0 items-center justify-center w-10 h-10 rounded-lg border border-gray-700 bg-gray-900/70 hover:bg-blue-600 text-gray-400 hover:text-white transition-all"
           aria-label="Scroll left"
         >
           ←
         </button>
 
+        {/* Scroll Container — flex-1 ile kalan alanı kaplar */}
         <div
           ref={setScrollContainer}
-          className="overflow-x-auto scrollbar-hide w-full"
+          className="flex-1 overflow-x-auto scrollbar-hide min-w-0"
         >
-          <div className="flex gap-3 pb-2 pl-16 pr-16" style={{ minWidth: 'min-content' }}>
+          <div className="flex gap-3 pb-2" style={{ minWidth: 'min-content' }}>
             {MOCK_DATA.map((item) => {
               const isSelected = hoveredId === item.id
               const isPositive = item.change_pct >= 0
@@ -256,11 +256,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
                     <div className="text-xs text-gray-500 mt-1">
                       {item.type === 'index' ? 'Endeks' : 'Sektör'}
                     </div>
-                    <div
-                      className={`text-sm font-bold mt-2 ${
-                        isPositive ? 'text-green-500' : 'text-red-500'
-                      }`}
-                    >
+                    <div className={`text-sm font-bold mt-2 ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
                       {isPositive ? '+' : ''}{item.change_pct.toFixed(2)}%
                     </div>
                   </div>
@@ -270,14 +266,15 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
           </div>
         </div>
 
-        {/* Right Scroll Button */}
+        {/* Right Scroll Button — flex item, shrink-0, sadece md+ */}
         <button
           onClick={() => scroll('right')}
-          className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden md:flex flex-shrink-0 items-center justify-center w-10 h-10 rounded-lg border border-gray-700 bg-gray-900/70 hover:bg-blue-600 text-gray-400 hover:text-white transition-all"
           aria-label="Scroll right"
         >
           →
         </button>
+
       </div>
     </div>
   )
