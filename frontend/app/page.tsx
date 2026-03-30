@@ -54,15 +54,7 @@ const MarketIndexBadge = dynamic(
 // )
 
 // New F-7 components
-const TickerBand = dynamic(
-  () => import('@/components/landing/TickerBand').then(m => ({ default: m.TickerBand })),
-  {
-    ssr: false,
-    loading: () => (
-      <div style={{ height: 120, background: '#0C1017', borderRadius: 12 }} />
-    ),
-  }
-)
+// TickerBand removed - using header scrolling ticker instead
 
 const MarketSummaryHero = dynamic(
   () => import('@/components/landing/MarketSummaryHero').then(m => ({ default: m.MarketSummaryHero })),
@@ -722,10 +714,7 @@ export default function LandingPage() {
 
         {/* Search box removed - now using IndexSectorCarousel */}
 
-        {/* TickerBand - 16 symbols */}
-        <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
-          <TickerBand />
-        </div>
+        {/* TickerBand removed - using header scrolling ticker instead */}
 
         {/* IndexSectorCarousel - 5 indices + 11 sectors with hover analysis */}
         <div style={{ width: '100%', maxWidth: 1200, marginBottom: 40 }}>
@@ -1522,7 +1511,7 @@ export default function LandingPage() {
       <main style={{ position: 'relative', zIndex: 1 }}>
         {page === 'p1' && <Page1 />}
         {page === 'p1' && (
-          <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
+          <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '0 20px', marginBottom: 40 }}>
             <SectorHeatmap />
           </div>
         )}
