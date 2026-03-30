@@ -1505,7 +1505,7 @@ export default function LandingPage() {
     <div className="lp-root" dir={isRtl ? 'rtl' : 'ltr'} onClick={() => langOpen && setLangOpen(false)}>
       {/* Close lang dropdown on outside click is handled above */}
 
-      {/* Sidebar not shown on landing page */}
+      <Sidebar />
       {showInstall && <InstallBanner />}
       <Header />
 
