@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState, useEffect } from 'react'
 import { useAuthStore } from '@/store/auth'
 import { Activity } from 'lucide-react'
+import { InstallPrompt } from '@/components/pwa/InstallPrompt'
 
 function AuthInitializer({ children }: { children: React.ReactNode }) {
   const { initialize, isLoading, refreshUser } = useAuthStore()
@@ -59,6 +60,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <AuthInitializer>
         {children}
       </AuthInitializer>
+      <InstallPrompt />
     </QueryClientProvider>
   )
 }
