@@ -222,7 +222,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
         {/* Left Scroll Button */}
         <button
           onClick={() => scroll('left')}
-          className="hidden lg:flex absolute left-1 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden md:flex absolute left-1 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
           aria-label="Scroll left"
         >
           ←
@@ -273,7 +273,7 @@ export function IndexSectorCarousel({ className = '' }: IndexSectorCarouselProps
         {/* Right Scroll Button */}
         <button
           onClick={() => scroll('right')}
-          className="hidden lg:flex absolute right-1 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
+          className="hidden md:flex absolute right-1 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white transition-all group-hover:opacity-100 opacity-50"
           aria-label="Scroll right"
         >
           →
