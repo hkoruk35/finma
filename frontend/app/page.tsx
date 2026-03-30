@@ -47,11 +47,11 @@ const MarketIndexBadge = dynamic(
   { ssr: false }
 )
 
-// Market movers column — right sidebar, desktop only
-const MarketMoversColumn = dynamic(
-  () => import('@/components/landing/MarketMoversColumn'),
-  { ssr: false }
-)
+// Market movers column — REMOVED (content moved to Top5WidgetTabbed)
+// const MarketMoversColumn = dynamic(
+//   () => import('@/components/landing/MarketMoversColumn'),
+//   { ssr: false }
+// )
 
 // New F-7 components
 const TickerBand = dynamic(
@@ -1526,12 +1526,7 @@ export default function LandingPage() {
             <SectorHeatmap />
           </div>
         )}
-        {/* Mobile: Inline Market Movers */}
-        {page === 'p1' && !isLargeScreen && (
-          <div style={{ width: '100%', maxWidth: 640, margin: '0 auto', padding: '0 20px' }}>
-            <MarketMoversColumn />
-          </div>
-        )}
+        {/* Market Movers removed — content moved to Top5WidgetTabbed */}
         {page === 'p1' && (
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 20px 40px', textAlign: 'center' }}>
             <p style={{
@@ -1547,16 +1542,7 @@ export default function LandingPage() {
         {page === 'p4' && <Page4 />}
       </main>
 
-      {/* Market Movers — fixed right sidebar, desktop only */}
-      {page === 'p1' && isLargeScreen && (
-        <div style={{
-          position: 'fixed', top: 72, right: 20, width: 290,
-          maxHeight: 'calc(100vh - 92px)', overflowY: 'auto',
-          zIndex: 50,
-        }}>
-          <MarketMoversColumn />
-        </div>
-      )}
+      {/* Market Movers removed — content moved to Top5WidgetTabbed */}
 
       {/* Bottom nav (demo) — free page accessible directly, pro shows modal */}
       {page === 'p2' && (
