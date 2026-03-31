@@ -13,8 +13,15 @@ Example:
 """
 
 import logging
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Query, HTTPException
+from pydantic import BaseModel
+
+class BatchRequest(BaseModel):
+    texts: List[str]
+    target_lang: str
+    source_lang: str = "tr"
+    context: str = "general"
 
 from app.services.translation_engine import get_translation_engine
 
@@ -93,12 +100,7 @@ async def translate(
 
 
 @router.post("/batch")
-async def translate_batch(
-    texts: List[str] = Query(..., description="List of texts to translate"),
-    target_lang: str = Query(..., description="Target language code"),
-    source_lang: str = Query("tr", description="Source language code"),
-    context: str = Query("general", description="Context")
-):
+async def translate_batch(body: BatchRequest):
     """
     Batch translate multiple texts (parallel processing).
 
@@ -116,6 +118,11 @@ async def translate_batch(
           "count": 2
         }
     """
+
+    texts = body.texts
+    target_lang = body.target_lang
+    source_lang = body.source_lang
+    context = body.context
 
     # Validate
     if not texts:

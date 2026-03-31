@@ -53,6 +53,12 @@ const LanguageSelector = dynamic(
   { ssr: false }
 )
 
+// Auto translator — translates page when language changes
+const AutoTranslator = dynamic(
+  () => import('@/components/landing/AutoTranslator').then(m => ({ default: m.AutoTranslator })),
+  { ssr: false }
+)
+
 // Market movers column — REMOVED (content moved to Top5WidgetTabbed)
 // const MarketMoversColumn = dynamic(
 //   () => import('@/components/landing/MarketMoversColumn'),
@@ -625,6 +631,8 @@ export default function LandingPage() {
         </button>
         {/* Language Selector — NEW (43 languages) */}
         <LanguageSelector />
+        {/* Auto Translator — translates page content on language change */}
+        <AutoTranslator />
 
         {/* Sign in — masaüstünde görünür */}
         <button
