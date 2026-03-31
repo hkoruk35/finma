@@ -22,24 +22,45 @@ from typing import Optional, Dict, List
 
 logger = logging.getLogger(__name__)
 
-# ─── Google Translate Client ────────────────────────────────────────────
+# ─── Google Translate REST Client ──────────────────────────────────────
+
+class GoogleTranslateClient:
+    """Simple Google Translate REST API client - no heavy SDK needed"""
+
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+        self.base_url = "https://translation.googleapis.com/language/translate/v2"
+
+    def translate_text(self, text: str, target_language: str, source_language: str = None) -> dict:
+        import urllib.request
+        import urllib.parse
+        import json as json_lib
+
+        params = {
+            "q": text,
+            "target": target_language,
+            "key": self.api_key,
+            "format": "text"
+        }
+        if source_language:
+            params["source"] = source_language
+
+        url = f"{self.base_url}?{urllib.parse.urlencode(params)}"
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json_lib.loads(resp.read().decode())
+        translated = data["data"]["translations"][0]["translatedText"]
+        return {"translatedText": translated}
+
 
 def get_google_translate_client():
-    """Google Translate API client (lazy load)"""
+    """Google Translate REST client (no SDK dependency)"""
     api_key = os.getenv("GOOGLE_TRANSLATE_API_KEY")
     if not api_key:
-        logger.warning("❌ GOOGLE_TRANSLATE_API_KEY not found in .env")
+        logger.warning("❌ GOOGLE_TRANSLATE_API_KEY not found in environment")
         return None
-
-    try:
-        from google.cloud import translate_v2
-        return translate_v2.Client(api_key=api_key)
-    except ImportError:
-        logger.warning("❌ google-cloud-translate not installed. Run: pip install google-cloud-translate")
-        return None
-    except Exception as e:
-        logger.error(f"❌ Google Translate client error: {e}")
-        return None
+    logger.info("✅ Google Translate REST client initialized")
+    return GoogleTranslateClient(api_key)
 
 
 # ─── Redis Client ──────────────────────────────────────────────────────
