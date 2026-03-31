@@ -32,6 +32,8 @@ import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
 import { useState, useEffect } from 'react'
 
+import { useTranslation } from '@/hooks/useTranslation'
+
 type Tier = 'free' | 'pro' | 'pro+' | 'admin'
 
 interface NavItem {
@@ -52,34 +54,6 @@ interface NavGroup {
   items: NavItem[]
 }
 
-const navGroups: NavGroup[] = [
-  // ▾ PİYASA & ANALİZ (Ücretsiz)
-  {
-    category: '▾ PİYASA & ANALİZ',
-    categoryColor: 'text-emerald-500/80',
-    items: [
-      { emoji: '🏠', label: 'Ana Sayfa', href: '/dashboard', icon: LayoutDashboard, section: 'dashboard' },
-      { emoji: '⚡', label: 'Canlı Piyasa Radarı', href: '/market/radar', icon: Zap, section: 'radar' },
-      { emoji: '🧭', label: 'Makro Endeksler', href: '/macro', icon: Globe2, section: 'macro' },
-      { emoji: '🗺️', label: 'Para Akışı Haritası', href: '/market/flow', icon: Target, section: 'flow' },
-      { emoji: '🔥', label: 'Hacim Liderleri', href: '/market/volume', icon: Flame, section: 'volume' },
-      { emoji: '💸', label: 'Temettü Yıldızları', href: '/dividends', icon: Star, section: 'dividends' },
-      { emoji: '🎯', label: 'AI Başarı Karnesi', href: '/finma514', icon: Shield, section: 'finma514', highlight: true },
-    ],
-  },
-  // ▾ FinMA PRO (Kilitli Bölüm)
-  {
-    category: '▾ FinMA PRO',
-    categoryColor: 'text-blue-500/80',
-    items: [
-      { emoji: '👑', label: 'Bugünün AI Fırsatları', href: '/featured', icon: Crown, section: 'featured', tier: 'pro', badge: 'lock' },
-      { emoji: '🏢', label: 'Sektör Liderleri', href: '/sectors', icon: BarChart3, section: 'sectors', tier: 'pro', badge: 'lock' },
-      { emoji: '🤖', label: 'Akıllı Hisse Takip', href: '/tracking', icon: Bot, section: 'tracking', tier: 'pro+', badge: 'lock' },
-    ],
-  },
-]
-
-
 const tierBadge: Record<Tier, { label: string; color: string; icon: React.ElementType }> = {
   free: { label: 'Free', color: 'text-finma-text-dim bg-white/5 border-white/10', icon: Activity },
   pro: { label: 'Pro', color: 'text-finma-primary bg-finma-primary/10 border-finma-primary/30', icon: Crown },
@@ -95,12 +69,39 @@ const tierColors: Record<string, string> = {
 }
 
 export function Sidebar() {
+  const { t, lang } = useTranslation()
   const pathname = usePathname()
   const router = useRouter()
   const isLandingPage = pathname === '/'
   const { sidebarOpen, setSidebarOpen, mobileMenuOpen, setMobileMenuOpen } = useTerminalStore()
   const { user, logout } = useAuthStore()
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['0', '1', '2'])
+
+  // ▾ PİYASA & ANALİZ (Ücretsiz)
+  const navGroups: NavGroup[] = [
+    {
+      category: t('▾ PİYASA & ANALİZ'),
+      categoryColor: 'text-emerald-500/80',
+      items: [
+        { emoji: '🏠', label: t('Ana Sayfa'), href: '/dashboard', icon: LayoutDashboard, section: 'dashboard' },
+        { emoji: '⚡', label: t('Canlı Piyasa Radarı'), href: '/market/radar', icon: Zap, section: 'radar' },
+        { emoji: '🧭', label: t('Makro Endeksler'), href: '/macro', icon: Globe2, section: 'macro' },
+        { emoji: '🗺️', label: t('Para Akışı Haritası'), href: '/market/flow', icon: Target, section: 'flow' },
+        { emoji: '🔥', label: t('Hacim Liderleri'), href: '/market/volume', icon: Flame, section: 'volume' },
+        { emoji: '💸', label: t('Temettü Yıldızları'), href: '/dividends', icon: Star, section: 'dividends' },
+        { emoji: '🎯', label: t('AI Başarı Karnesi'), href: '/finma514', icon: Shield, section: 'finma514', highlight: true },
+      ],
+    },
+    {
+      category: t('▾ FinMA PRO'),
+      categoryColor: 'text-blue-500/80',
+      items: [
+        { emoji: '👑', label: t('Bugünün AI Fırsatları'), href: '/featured', icon: Crown, section: 'featured', tier: 'pro', badge: 'lock' },
+        { emoji: '🏢', label: t('Sektör Liderleri'), href: '/sectors', icon: BarChart3, section: 'sectors', tier: 'pro', badge: 'lock' },
+        { emoji: '🤖', label: t('Akıllı Hisse Takip'), href: '/tracking', icon: Bot, section: 'tracking', tier: 'pro+', badge: 'lock' },
+      ],
+    },
+  ]
 
   const isExpanded = sidebarOpen || mobileMenuOpen
 

@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-03-28 00:05 UTC",
-  "updated_ts": 1774656308.897666,
+  "updated_at": "2026-03-29 16:05 UTC",
+  "updated_ts": 1774800308.021666,
   "sector_flow": [
     {
       "etf": "XLE",
@@ -31,7 +31,7 @@
       "sector": "Hammadde",
       "change_pct": -0.37,
       "price": 48.91,
-      "volume_ratio": 0.72,
+      "volume_ratio": 0.73,
       "flow": "outflow"
     },
     {
@@ -63,7 +63,7 @@
       "sector": "Sağlık",
       "change_pct": -1.7,
       "price": 143.26,
-      "volume_ratio": 0.71,
+      "volume_ratio": 0.72,
       "flow": "outflow"
     },
     {
@@ -79,7 +79,7 @@
       "sector": "Finans",
       "change_pct": -2.53,
       "price": 47.81,
-      "volume_ratio": 1.16,
+      "volume_ratio": 1.18,
       "flow": "outflow"
     },
     {
@@ -96,35 +96,35 @@
       "ticker": "USO",
       "price": 124.2,
       "change_pct": 5.92,
-      "volume": 31768927,
-      "rvol": 0.86
+      "volume": 32642200,
+      "rvol": 0.87
     },
     {
       "ticker": "SLV",
       "price": 63.44,
       "change_pct": 4.39,
-      "volume": 50573080,
-      "rvol": 0.95
+      "volume": 52300700,
+      "rvol": 0.97
     },
     {
       "ticker": "GLD",
       "price": 414.7,
       "change_pct": 3.51,
-      "volume": 16046341,
-      "rvol": 1.01
+      "volume": 16556600,
+      "rvol": 1.02
     },
     {
       "ticker": "XOM",
       "price": 170.99,
       "change_pct": 3.36,
-      "volume": 26461934,
-      "rvol": 1.17
+      "volume": 30296400,
+      "rvol": 1.24
     },
     {
       "ticker": "CVX",
       "price": 211.15,
       "change_pct": 1.62,
-      "volume": 13886303,
+      "volume": 13894100,
       "rvol": 1.11
     }
   ],
@@ -133,85 +133,85 @@
       "ticker": "BBAI",
       "price": 3.14,
       "change_pct": -5.42,
-      "volume": 23566330,
-      "rvol": 0.99
+      "volume": 25152900,
+      "rvol": 1.02
     },
     {
       "ticker": "LCID",
       "price": 9.4,
       "change_pct": -5.15,
-      "volume": 5975365,
-      "rvol": 0.93
+      "volume": 6049800,
+      "rvol": 0.94
     },
     {
       "ticker": "NIO",
       "price": 5.31,
       "change_pct": -4.5,
-      "volume": 36418816,
+      "volume": 36806400,
       "rvol": 1.0
     },
     {
       "ticker": "SOFI",
       "price": 15.23,
       "change_pct": -4.03,
-      "volume": 53591592,
-      "rvol": 0.95
+      "volume": 54602300,
+      "rvol": 0.96
     },
     {
       "ticker": "META",
       "price": 525.72,
       "change_pct": -3.99,
-      "volume": 28975085,
-      "rvol": 0.89
+      "volume": 29980300,
+      "rvol": 0.91
     },
     {
       "ticker": "AMZN",
       "price": 199.34,
       "change_pct": -3.95,
-      "volume": 55772474,
+      "volume": 55855900,
       "rvol": 1.09
     },
     {
       "ticker": "UNH",
       "price": 259.02,
       "change_pct": -3.37,
-      "volume": 9449019,
-      "rvol": 1.21
+      "volume": 10720100,
+      "rvol": 1.27
     },
     {
       "ticker": "PLTR",
       "price": 143.06,
       "change_pct": -3.05,
-      "volume": 35594698,
+      "volume": 35650500,
       "rvol": 0.91
     },
     {
       "ticker": "JPM",
       "price": 282.84,
       "change_pct": -3.02,
-      "volume": 6995384,
-      "rvol": 0.89
+      "volume": 9869500,
+      "rvol": 1.06
     },
     {
       "ticker": "RIVN",
       "price": 14.77,
       "change_pct": -2.89,
-      "volume": 21924764,
-      "rvol": 1.13
+      "volume": 22239000,
+      "rvol": 1.14
     },
     {
       "ticker": "TSLA",
       "price": 361.83,
       "change_pct": -2.76,
-      "volume": 60637943,
-      "rvol": 1.04
+      "volume": 61869200,
+      "rvol": 1.05
     },
     {
       "ticker": "SOUN",
       "price": 5.9,
       "change_pct": -2.64,
-      "volume": 14822919,
-      "rvol": 0.95
+      "volume": 14917800,
+      "rvol": 0.96
     }
   ],
   "high_volume": [],
@@ -581,81 +581,81 @@
       "date": "2026-03-23 00:00:00"
     },
     {
-      "ticker": "NVDA",
-      "insider_name": "ROBERTSON DONALD F JR",
+      "ticker": "META",
+      "insider_name": "OLIVAN JAVIER",
       "title": "",
       "transaction_type": "",
       "is_buy": false,
-      "shares": 5396,
-      "value": 942944.0,
+      "shares": 1555,
+      "value": 941366.0,
       "price": 0.0,
-      "date": "2026-03-20 00:00:00"
+      "date": "2026-03-23 00:00:00"
     },
     {
-      "ticker": "NVDA",
-      "insider_name": "KRESS COLETTE M.",
+      "ticker": "META",
+      "insider_name": "OLIVAN JAVIER",
       "title": "",
       "transaction_type": "",
       "is_buy": false,
-      "shares": 62650,
-      "value": 10956706.0,
+      "shares": 1555,
+      "value": 941366.0,
       "price": 0.0,
-      "date": "2026-03-20 00:00:00"
+      "date": "2026-03-23 00:00:00"
     },
     {
-      "ticker": "NVDA",
-      "insider_name": "ROBERTSON DONALD F JR",
+      "ticker": "META",
+      "insider_name": "OLIVAN JAVIER",
       "title": "",
       "transaction_type": "",
       "is_buy": false,
-      "shares": 5396,
-      "value": 942944.0,
+      "shares": 1555,
+      "value": 941366.0,
       "price": 0.0,
-      "date": "2026-03-20 00:00:00"
+      "date": "2026-03-23 00:00:00"
     },
     {
-      "ticker": "NVDA",
-      "insider_name": "KRESS COLETTE M.",
+      "ticker": "META",
+      "insider_name": "OLIVAN JAVIER",
       "title": "",
       "transaction_type": "",
       "is_buy": false,
-      "shares": 62650,
-      "value": 10956706.0,
+      "shares": 1555,
+      "value": 941366.0,
       "price": 0.0,
-      "date": "2026-03-20 00:00:00"
+      "date": "2026-03-23 00:00:00"
     },
     {
-      "ticker": "NVDA",
-      "insider_name": "ROBERTSON DONALD F JR",
+      "ticker": "META",
+      "insider_name": "OLIVAN JAVIER",
       "title": "",
       "transaction_type": "",
       "is_buy": false,
-      "shares": 5396,
-      "value": 942944.0,
+      "shares": 1555,
+      "value": 941366.0,
       "price": 0.0,
-      "date": "2026-03-20 00:00:00"
+      "date": "2026-03-23 00:00:00"
     },
     {
-      "ticker": "NVDA",
-      "insider_name": "KRESS COLETTE M.",
+      "ticker": "META",
+      "insider_name": "OLIVAN JAVIER",
       "title": "",
       "transaction_type": "",
       "is_buy": false,
-      "shares": 62650,
-      "value": 10956706.0,
+      "shares": 1555,
+      "value": 941366.0,
       "price": 0.0,
-      "date": "2026-03-20 00:00:00"
+      "date": "2026-03-23 00:00:00"
     },
     {
-      "ticker": "NVDA",
-      "insider_name": "ROBERTSON DONALD F JR",
+      "ticker": "META",
+      "insider_name": "OLIVAN JAVIER",
       "title": "",
       "transaction_type": "",
       "is_buy": false,
-      "shares": 5396,
-      "value": 942944.0,
+      "shares": 1555,
+      "value": 941366.0,
       "price": 0.0,
-      "date": "2026-03-20 00:00:00"
+      "date": "2026-03-23 00:00:00"
     }
   ],
   "summary": {

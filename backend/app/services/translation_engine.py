@@ -24,23 +24,11 @@ logger = logging.getLogger(__name__)
 
 # ─── Google Translate Client ────────────────────────────────────────────
 
-def get_google_translate_client():
-    """Google Translate API client (lazy load)"""
-    api_key = os.getenv("GOOGLE_TRANSLATE_API_KEY")
-    if not api_key:
-        logger.warning("❌ GOOGLE_TRANSLATE_API_KEY not found in .env")
-        return None
+# ─── Google Translate Client (REMOVED) ───────────────────────────────────
 
-    try:
-        from google.cloud import translate_v2
-        return translate_v2.Client(api_key=api_key)
-    except ImportError:
-        logger.warning("❌ google-cloud-translate not installed. Run: pip install google-cloud-translate")
-        return None
-    except Exception as e:
-        logger.error(f"❌ Google Translate client error: {e}")
-        return None
+# ─── Gemini AI Client Entegrasyonu ──────────────────────────────────────
 
+from app.services.gemini_ai import call_gemini
 
 # ─── Redis Client ──────────────────────────────────────────────────────
 
@@ -74,15 +62,15 @@ def get_supabase_client():
 class TranslationEngine:
     """
     Multi-language translation engine with caching and archiving.
+    Powered by Gemini 2.0 Flash for accurate financial translations.
 
     Architecture:
       L1 Cache: Redis (24h TTL)
       L2 Cache: Supabase (persistent)
-      L3 Fetch: Google Translate API
+      L3 Fetch: Gemini AI
     """
 
     def __init__(self):
-        self.google_client = get_google_translate_client()
         self.redis = get_redis_client()
         self.db = get_supabase_client()
         self.supported_langs = {}
@@ -101,6 +89,11 @@ class TranslationEngine:
                 .eq("is_active", True)\
                 .order("priority")\
                 .execute()
+
+            if not result.data:
+                logger.warning("⚠️  language_meta table empty, using fallback")
+                self.supported_langs = self._default_languages()
+                return
 
             for row in result.data:
                 self.supported_langs[row['code']] = {
@@ -137,19 +130,19 @@ class TranslationEngine:
         context: str = 'general'
     ) -> Optional[str]:
         """
-        Translate text with caching.
+        Translate text using Gemini with caching.
 
         Args:
             text: Text to translate
-            target_lang: Target language code (e.g., 'en', 'ar')
-            source_lang: Source language code (default: 'tr')
-            context: Translation context (e.g., 'bot_output', 'ui_copy')
+            target_lang: Target language code
+            source_lang: Source language code
+            context: Translation context (bot_output, ui_copy, market_analysis)
 
         Returns:
             Translated text or original text if translation fails
         """
 
-        # 1. Same language → return as-is
+        # 1. Same language or empty → return as-is
         if source_lang == target_lang or not text or not text.strip():
             return text
 
@@ -175,11 +168,10 @@ class TranslationEngine:
                     .eq("source_lang", source_lang)\
                     .eq("target_lang", target_lang)\
                     .eq("hash", text_hash)\
-                    .single()\
                     .execute()
 
-                if result.data:
-                    translated = result.data['translated_text']
+                if result.data and len(result.data) > 0:
+                    translated = result.data[0]['translated_text']
                     # Re-cache to Redis
                     if self.redis:
                         try:
@@ -191,18 +183,28 @@ class TranslationEngine:
             except Exception as e:
                 logger.debug(f"Supabase archive miss: {e}")
 
-        # 5. Google Translate API (L3)
-        if not self.google_client:
-            logger.warning(f"⚠️  Google Translate unavailable, returning original text")
-            return text
-
+        # 5. Gemini AI Fetch (L3)
         try:
-            result = self.google_client.translate_text(
-                text,
-                target_language=target_lang,
-                source_language=source_lang
-            )
-            translated = result['translatedText']
+            # Prompt for translation (Optimized for financial UI & preservation style)
+            system_prompt = f"""Sen profesyonel bir finansal çevirmensin.
+Verilen metni '{source_lang}' dilinden '{target_lang}' diline çevir.
+
+KURALLAR:
+1. Finansal terimleri (Ticker, Market Cap, VIX, S&P 500 vb.) koru veya uygun finansal karşılığını kullan.
+2. Metin içindeki ikonları, emojileri (🏠, 🔥, 📈 vb.) ve özel karakterleri HİÇ DEĞİŞTİRME, yerlerini koru.
+3. Sadece çeviriyi döndür, başka açıklama ekleme.
+4. Profesyonel ve akıcı bir dil kullan."""
+
+            prompt = f"Çevrilecek metin: {text}"
+            
+            translated = await call_gemini(prompt, system_prompt, "gemini-2.0-flash")
+            
+            # Clean up response (some AI might add quotes)
+            translated = translated.strip().strip('"').strip("'")
+
+            if not translated or translated.startswith("⚠️"):
+                logger.warning(f"⚠️ Gemini translation failed: {translated}")
+                return text
 
             # 6. Cache to Redis (L1)
             if self.redis:
@@ -214,7 +216,7 @@ class TranslationEngine:
             # 7. Archive to Supabase (L2)
             if self.db:
                 try:
-                    expires_at = (datetime.now() + timedelta(days=7)).isoformat()
+                    expires_at = (datetime.now() + timedelta(days=30)).isoformat()
                     self.db.table("translations_archive").insert({
                         "source_text": text,
                         "source_lang": source_lang,
@@ -226,13 +228,13 @@ class TranslationEngine:
                         "usage_count": 1
                     }).execute()
                 except Exception as e:
-                    logger.debug(f"Supabase archive error: {e}")
+                    logger.debug(f"Supabase archive write error: {e}")
 
-            logger.info(f"✅ Translated to {target_lang} via Google API")
+            logger.info(f"✅ Translated to {target_lang} via Gemini AI")
             return translated
 
         except Exception as e:
-            logger.error(f"Google Translate error: {e}")
+            logger.error(f"Gemini translation crash: {e}")
             return text  # Return original on error
 
     async def translate_batch(
