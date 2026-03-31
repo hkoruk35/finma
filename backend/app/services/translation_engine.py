@@ -123,6 +123,11 @@ class TranslationEngine:
                 .order("priority")\
                 .execute()
 
+            if not result.data:
+                logger.warning("⚠️  language_meta table empty or inaccessible, using default languages")
+                self.supported_langs = self._default_languages()
+                return
+
             for row in result.data:
                 self.supported_langs[row['code']] = {
                     'name': row['name_native'],
