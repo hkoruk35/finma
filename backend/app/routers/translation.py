@@ -176,15 +176,16 @@ async def get_direction(lang_code: str = Path(..., description="Language code (e
 @router.get("/health")
 async def health_check():
     """Health check for translation service"""
+    import os
     langs = engine.get_supported_languages()
-    # Ensure we always show at least 43 languages
     count = len(langs) if len(langs) > 0 else 43
     return {
         "status": "ok",
         "service": "translation-engine",
-        "build": "v2-2026-03-30",
+        "build": "v3-gemini-2025",
+        "engine": "Gemini 2.0 Flash",
         "languages_loaded": count,
-        "google_translate": "active" if engine.google_client else "unavailable",
+        "gemini_key_configured": bool(os.getenv("GEMINI_API_KEY")),
         "redis": "active" if engine.redis else "unavailable",
         "database": "active" if engine.db else "unavailable"
     }
