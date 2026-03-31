@@ -47,6 +47,12 @@ const MarketIndexBadge = dynamic(
   { ssr: false }
 )
 
+// Language selector
+const LanguageSelector = dynamic(
+  () => import('@/components/landing/LanguageSelector').then(m => ({ default: m.LanguageSelector })),
+  { ssr: false }
+)
+
 // Market movers column — REMOVED (content moved to Top5WidgetTabbed)
 // const MarketMoversColumn = dynamic(
 //   () => import('@/components/landing/MarketMoversColumn'),
@@ -617,41 +623,8 @@ export default function LandingPage() {
             Fin<span style={{ color: '#2D7EF8' }}>MA</span>
           </span>
         </button>
-        {/* Lang picker */}
-        <div style={{ position: 'relative' }}>
-          <button
-            onClick={() => setLangOpen(o => !o)}
-            style={{
-              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
-              borderRadius: 8, padding: '5px 10px', cursor: 'pointer', color: '#8B97AA',
-              fontFamily: 'Manrope, sans-serif', fontSize: 12, display: 'flex', alignItems: 'center', gap: 5,
-            }}
-          >
-            {lang.toUpperCase()}
-            <span style={{ fontSize: 8, opacity: 0.6 }}>▼</span>
-          </button>
-          {langOpen && (
-            <div style={{
-              position: 'absolute', top: '110%', right: 0, background: '#0C1017',
-              border: '1px solid rgba(255,255,255,0.10)', borderRadius: 10, padding: '6px 0',
-              minWidth: 140, zIndex: 200,
-            }}>
-              {LANGS.map(l => (
-                <button key={l.code}
-                  onClick={() => { setLang(l.code); setLangOpen(false) }}
-                  style={{
-                    display: 'flex', width: '100%', padding: '8px 14px', gap: 8, alignItems: 'center',
-                    background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
-                    color: l.code === lang ? '#EDF2FA' : '#8B97AA',
-                    fontFamily: 'Manrope, sans-serif', fontSize: 13,
-                  }}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Language Selector — NEW (43 languages) */}
+        <LanguageSelector />
 
         {/* Sign in — masaüstünde görünür */}
         <button

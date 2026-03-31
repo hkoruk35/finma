@@ -11,7 +11,7 @@ from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.routers import auth, market, signals, portfolio, ai, telegram, invite
-from app.routers import notifications, watchlist, screener, events, chart, finma514, tracking
+from app.routers import notifications, watchlist, screener, events, chart, finma514, tracking, translation
 from app.ws.price_feed import websocket_endpoint
 
 # Configure logging
@@ -208,6 +208,7 @@ app.include_router(events.router, prefix="/api/events", tags=["Real-time Events"
 app.include_router(chart.router, tags=["Charts"])
 app.include_router(finma514.router, prefix="/api/finma514", tags=["FinMA514 Analytics"])
 app.include_router(tracking.router, prefix="/api/tracking", tags=["Smart Tracking"])
+app.include_router(translation.router, tags=["Translation"])
 
 
 # ─── Root Endpoints ───
