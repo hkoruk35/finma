@@ -14,7 +14,7 @@ Example:
 
 import logging
 from typing import List, Optional
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, Path, HTTPException
 from pydantic import BaseModel
 
 class BatchRequest(BaseModel):
@@ -158,7 +158,7 @@ async def translate_batch(body: BatchRequest):
 
 
 @router.get("/direction/{lang_code}")
-async def get_direction(lang_code: str = Query(..., description="Language code (e.g., 'ar', 'en')")):
+async def get_direction(lang_code: str = Path(..., description="Language code (e.g., 'ar', 'en')")):
     """
     Get text direction for a language (ltr or rtl).
 
