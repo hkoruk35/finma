@@ -36,11 +36,51 @@ export function LanguageSelector() {
         console.log(`✅ Loaded ${Object.keys(data).length} languages`);
       } catch (error) {
         console.error('Failed to load languages:', error);
-        // Fallback to basic languages
+        // Fallback to all 43 languages
         setLanguages({
           tr: { flag: '🇹🇷', name: 'Türkçe', direction: 'ltr' },
           en: { flag: '🇬🇧', name: 'English', direction: 'ltr' },
+          es: { flag: '🇪🇸', name: 'Español', direction: 'ltr' },
+          pt: { flag: '🇧🇷', name: 'Português', direction: 'ltr' },
           ar: { flag: '🇸🇦', name: 'العربية', direction: 'rtl' },
+          id: { flag: '🇮🇩', name: 'Bahasa Indonesia', direction: 'ltr' },
+          ja: { flag: '🇯🇵', name: '日本語', direction: 'ltr' },
+          de: { flag: '🇩🇪', name: 'Deutsch', direction: 'ltr' },
+          fr: { flag: '🇫🇷', name: 'Français', direction: 'ltr' },
+          it: { flag: '🇮🇹', name: 'Italiano', direction: 'ltr' },
+          nl: { flag: '🇳🇱', name: 'Nederlands', direction: 'ltr' },
+          pl: { flag: '🇵🇱', name: 'Polski', direction: 'ltr' },
+          ru: { flag: '🇷🇺', name: 'Русский', direction: 'ltr' },
+          ko: { flag: '🇰🇷', name: '한국어', direction: 'ltr' },
+          zh: { flag: '🇨🇳', name: '简体中文', direction: 'ltr' },
+          vi: { flag: '🇻🇳', name: 'Tiếng Việt', direction: 'ltr' },
+          th: { flag: '🇹🇭', name: 'ไทย', direction: 'ltr' },
+          hi: { flag: '🇮🇳', name: 'हिन्दी', direction: 'ltr' },
+          ur: { flag: '🇵🇰', name: 'اردو', direction: 'rtl' },
+          fa: { flag: '🇮🇷', name: 'فارسی', direction: 'rtl' },
+          he: { flag: '🇮🇱', name: 'עברית', direction: 'rtl' },
+          uk: { flag: '🇺🇦', name: 'Українська', direction: 'ltr' },
+          sv: { flag: '🇸🇪', name: 'Svenska', direction: 'ltr' },
+          no: { flag: '🇳🇴', name: 'Norsk', direction: 'ltr' },
+          da: { flag: '🇩🇰', name: 'Dansk', direction: 'ltr' },
+          fi: { flag: '🇫🇮', name: 'Suomi', direction: 'ltr' },
+          cs: { flag: '🇨🇿', name: 'Čeština', direction: 'ltr' },
+          hu: { flag: '🇭🇺', name: 'Magyar', direction: 'ltr' },
+          ro: { flag: '🇷🇴', name: 'Română', direction: 'ltr' },
+          bg: { flag: '🇧🇬', name: 'Български', direction: 'ltr' },
+          hr: { flag: '🇭🇷', name: 'Hrvatski', direction: 'ltr' },
+          sr: { flag: '🇷🇸', name: 'Српski', direction: 'ltr' },
+          sk: { flag: '🇸🇰', name: 'Slovenčina', direction: 'ltr' },
+          sl: { flag: '🇸🇮', name: 'Slovenščina', direction: 'ltr' },
+          et: { flag: '🇪🇪', name: 'Eesti', direction: 'ltr' },
+          lt: { flag: '🇱🇹', name: 'Lietuvių', direction: 'ltr' },
+          lv: { flag: '🇱🇻', name: 'Latviešu', direction: 'ltr' },
+          mk: { flag: '🇲🇰', name: 'Македонски', direction: 'ltr' },
+          sq: { flag: '🇦🇱', name: 'Shqip', direction: 'ltr' },
+          el: { flag: '🇬🇷', name: 'Ελληνικά', direction: 'ltr' },
+          is: { flag: '🇮🇸', name: 'Íslenska', direction: 'ltr' },
+          ga: { flag: '🇮🇪', name: 'Gaeilge', direction: 'ltr' },
+          cy: { flag: '🇬🇧', name: 'Cymraeg', direction: 'ltr' },
         });
       } finally {
         setLoading(false);

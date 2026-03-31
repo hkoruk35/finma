@@ -1,15 +1,15 @@
 """
-Translation Engine — Google Translate + Redis Cache + Supabase Archive
+Translation Engine — Gemini AI + Redis Cache + Supabase Archive
 ========================================================================
 
 Flow:
   1. Source text hash oluştur (SHA256)
   2. Redis cache'de bak (24 saat TTL)
   3. Cache miss → Supabase archive'de bak
-  4. Archive miss → Google Translate API çağır
+  4. Archive miss → Gemini AI (2.0 Flash) çağır
   5. Sonuç → Redis + Supabase'e kaydet
 
-Supported: 43 dil (tr, en, es, pt, ar, id, ja, de, fr, it, nl, pl, ru, ko, zh, vi, th, hi, ur, fa, he, uk, sv, no, da, fi, cs, hu, ro, bg, hr, sr, sk, sl, et, lt, lv, mk, sq, el, is, ga, cy)
+Supported: 43+ languages defined in DB (language_meta)
 """
 
 import asyncio
@@ -20,15 +20,9 @@ import os
 from datetime import datetime, timedelta
 from typing import Optional, Dict, List
 
-logger = logging.getLogger(__name__)
-
-# ─── Google Translate Client ────────────────────────────────────────────
-
-# ─── Google Translate Client (REMOVED) ───────────────────────────────────
-
-# ─── Gemini AI Client Entegrasyonu ──────────────────────────────────────
-
 from app.services.gemini_ai import call_gemini
+
+logger = logging.getLogger(__name__)
 
 # ─── Redis Client ──────────────────────────────────────────────────────
 
@@ -73,7 +67,7 @@ class TranslationEngine:
     def __init__(self):
         self.redis = get_redis_client()
         self.db = get_supabase_client()
-        self.supported_langs = {}
+        self.supported_langs = self._default_languages()
         self._load_languages()
 
     def _load_languages(self):
@@ -81,7 +75,6 @@ class TranslationEngine:
         try:
             if not self.db:
                 logger.warning("⚠️  Supabase unavailable, using default languages")
-                self.supported_langs = self._default_languages()
                 return
 
             result = self.db.table("language_meta")\
@@ -92,30 +85,68 @@ class TranslationEngine:
 
             if not result.data:
                 logger.warning("⚠️  language_meta table empty, using fallback")
-                self.supported_langs = self._default_languages()
                 return
 
+            # Clear and rebuild from DB
+            new_langs = {}
             for row in result.data:
-                self.supported_langs[row['code']] = {
+                new_langs[row['code']] = {
                     'name': row['name_native'],
                     'direction': row['direction'],
                     'flag': row['flag_emoji']
                 }
-            logger.info(f"✅ Loaded {len(self.supported_langs)} languages")
+            self.supported_langs = new_langs
+            logger.info(f"✅ Loaded {len(self.supported_langs)} languages from DB")
 
         except Exception as e:
             logger.error(f"Error loading languages: {e}")
-            self.supported_langs = self._default_languages()
 
     def _default_languages(self) -> Dict:
-        """Fallback languages"""
+        """Fallback languages — all 43 languages"""
         return {
             'tr': {'name': 'Türkçe', 'direction': 'ltr', 'flag': '🇹🇷'},
             'en': {'name': 'English', 'direction': 'ltr', 'flag': '🇬🇧'},
-            'ar': {'name': 'العربية', 'direction': 'rtl', 'flag': '🇸🇦'},
             'es': {'name': 'Español', 'direction': 'ltr', 'flag': '🇪🇸'},
             'pt': {'name': 'Português', 'direction': 'ltr', 'flag': '🇧🇷'},
+            'ar': {'name': 'العربية', 'direction': 'rtl', 'flag': '🇸🇦'},
+            'id': {'name': 'Bahasa Indonesia', 'direction': 'ltr', 'flag': '🇮🇩'},
             'ja': {'name': '日本語', 'direction': 'ltr', 'flag': '🇯🇵'},
+            'de': {'name': 'Deutsch', 'direction': 'ltr', 'flag': '🇩🇪'},
+            'fr': {'name': 'Français', 'direction': 'ltr', 'flag': '🇫🇷'},
+            'it': {'name': 'Italiano', 'direction': 'ltr', 'flag': '🇮🇹'},
+            'nl': {'name': 'Nederlands', 'direction': 'ltr', 'flag': '🇳🇱'},
+            'pl': {'name': 'Polski', 'direction': 'ltr', 'flag': '🇵🇱'},
+            'ru': {'name': 'Русский', 'direction': 'ltr', 'flag': '🇷🇺'},
+            'ko': {'name': '한국어', 'direction': 'ltr', 'flag': '🇰🇷'},
+            'zh': {'name': '简体中文', 'direction': 'ltr', 'flag': '🇨🇳'},
+            'vi': {'name': 'Tiếng Việt', 'direction': 'ltr', 'flag': '🇻🇳'},
+            'th': {'name': 'ไทย', 'direction': 'ltr', 'flag': '🇹🇭'},
+            'hi': {'name': 'हिन्दी', 'direction': 'ltr', 'flag': '🇮🇳'},
+            'ur': {'name': 'اردو', 'direction': 'rtl', 'flag': '🇵🇰'},
+            'fa': {'name': 'فارسی', 'direction': 'rtl', 'flag': '🇮🇷'},
+            'he': {'name': 'עברית', 'direction': 'rtl', 'flag': '🇮🇱'},
+            'uk': {'name': 'Українська', 'direction': 'ltr', 'flag': '🇺🇦'},
+            'sv': {'name': 'Svenska', 'direction': 'ltr', 'flag': '🇸🇪'},
+            'no': {'name': 'Norsk', 'direction': 'ltr', 'flag': '🇳🇴'},
+            'da': {'name': 'Dansk', 'direction': 'ltr', 'flag': '🇩🇰'},
+            'fi': {'name': 'Suomi', 'direction': 'ltr', 'flag': '🇫🇮'},
+            'cs': {'name': 'Čeština', 'direction': 'ltr', 'flag': '🇨🇿'},
+            'hu': {'name': 'Magyar', 'direction': 'ltr', 'flag': '🇭🇺'},
+            'ro': {'name': 'Română', 'direction': 'ltr', 'flag': '🇷🇴'},
+            'bg': {'name': 'Български', 'direction': 'ltr', 'flag': '🇧🇬'},
+            'hr': {'name': 'Hrvatski', 'direction': 'ltr', 'flag': '🇭🇷'},
+            'sr': {'name': 'Српски', 'direction': 'ltr', 'flag': '🇷🇸'},
+            'sk': {'name': 'Slovenčina', 'direction': 'ltr', 'flag': '🇸🇰'},
+            'sl': {'name': 'Slovenščina', 'direction': 'ltr', 'flag': '🇸🇮'},
+            'et': {'name': 'Eesti', 'direction': 'ltr', 'flag': '🇪🇪'},
+            'lt': {'name': 'Lietuvių', 'direction': 'ltr', 'flag': '🇱🇹'},
+            'lv': {'name': 'Latviešu', 'direction': 'ltr', 'flag': '🇱🇻'},
+            'mk': {'name': 'Македонски', 'direction': 'ltr', 'flag': '🇲🇰'},
+            'sq': {'name': 'Shqip', 'direction': 'ltr', 'flag': '🇦🇱'},
+            'el': {'name': 'Ελληνικά', 'direction': 'ltr', 'flag': '🇬🇷'},
+            'is': {'name': 'Íslenska', 'direction': 'ltr', 'flag': '🇮🇸'},
+            'ga': {'name': 'Gaeilge', 'direction': 'ltr', 'flag': '🇮🇪'},
+            'cy': {'name': 'Cymraeg', 'direction': 'ltr', 'flag': '🇬🇧'},
         }
 
     def _hash_text(self, text: str) -> str:
@@ -131,15 +162,6 @@ class TranslationEngine:
     ) -> Optional[str]:
         """
         Translate text using Gemini with caching.
-
-        Args:
-            text: Text to translate
-            target_lang: Target language code
-            source_lang: Source language code
-            context: Translation context (bot_output, ui_copy, market_analysis)
-
-        Returns:
-            Translated text or original text if translation fails
         """
 
         # 1. Same language or empty → return as-is
@@ -199,7 +221,7 @@ KURALLAR:
             
             translated = await call_gemini(prompt, system_prompt, "gemini-2.0-flash")
             
-            # Clean up response (some AI might add quotes)
+            # Clean up response
             translated = translated.strip().strip('"').strip("'")
 
             if not translated or translated.startswith("⚠️"):
@@ -235,7 +257,7 @@ KURALLAR:
 
         except Exception as e:
             logger.error(f"Gemini translation crash: {e}")
-            return text  # Return original on error
+            return text
 
     async def translate_batch(
         self,
@@ -244,18 +266,7 @@ KURALLAR:
         source_lang: str = 'tr',
         context: str = 'general'
     ) -> List[Optional[str]]:
-        """
-        Translate multiple texts in parallel.
-
-        Args:
-            texts: List of texts to translate
-            target_lang: Target language code
-            source_lang: Source language code
-            context: Translation context
-
-        Returns:
-            List of translated texts
-        """
+        """Translate multiple texts in parallel"""
         tasks = [
             self.translate(text, target_lang, source_lang, context)
             for text in texts
@@ -273,7 +284,7 @@ KURALLAR:
 
     def is_language_supported(self, lang_code: str) -> bool:
         """Check if language is supported"""
-        return lang_code in self.supported_langs
+        return lang_code in self.supported_langs or lang_code in self._default_languages()
 
 
 # ─── Singleton Instance ────────────────────────────────────────────────

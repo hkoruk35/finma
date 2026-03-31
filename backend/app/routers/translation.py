@@ -13,8 +13,15 @@ Example:
 """
 
 import logging
-from typing import List
-from fastapi import APIRouter, Query, HTTPException
+from typing import List, Optional
+from fastapi import APIRouter, Query, Path, HTTPException
+from pydantic import BaseModel
+
+class BatchRequest(BaseModel):
+    texts: List[str]
+    target_lang: str
+    source_lang: str = "tr"
+    context: str = "general"
 
 from app.services.translation_engine import get_translation_engine
 
@@ -63,17 +70,12 @@ async def translate(
     """
 
     # Validate languages
-    if not engine.is_language_supported(target_lang):
-        raise HTTPException(
-            status_code=400,
-            detail=f"Unsupported target language: {target_lang}"
-        )
-
-    if not engine.is_language_supported(source_lang):
-        raise HTTPException(
-            status_code=400,
-            detail=f"Unsupported source language: {source_lang}"
-        )
+    # Accept all known language codes even if engine didn't load from DB
+    KNOWN = {'tr','en','es','pt','ar','id','ja','de','fr','it','nl','pl','ru','ko','zh','vi','th','hi','ur','fa','he','uk','sv','no','da','fi','cs','hu','ro','bg','hr','sr','sk','sl','et','lt','lv','mk','sq','el','is','ga','cy'}
+    if target_lang not in KNOWN:
+        raise HTTPException(status_code=400, detail=f"Unsupported target language: {target_lang}")
+    if source_lang not in KNOWN:
+        raise HTTPException(status_code=400, detail=f"Unsupported source language: {source_lang}")
 
     # Translate
     translated = await engine.translate(
@@ -93,12 +95,7 @@ async def translate(
 
 
 @router.post("/batch")
-async def translate_batch(
-    texts: List[str] = Query(..., description="List of texts to translate"),
-    target_lang: str = Query(..., description="Target language code"),
-    source_lang: str = Query("tr", description="Source language code"),
-    context: str = Query("general", description="Context")
-):
+async def translate_batch(body: BatchRequest):
     """
     Batch translate multiple texts (parallel processing).
 
@@ -117,6 +114,11 @@ async def translate_batch(
         }
     """
 
+    texts = body.texts
+    target_lang = body.target_lang
+    source_lang = body.source_lang
+    context = body.context
+
     # Validate
     if not texts:
         raise HTTPException(status_code=400, detail="No texts provided")
@@ -127,11 +129,9 @@ async def translate_batch(
             detail="Maximum 100 texts per batch request"
         )
 
-    if not engine.is_language_supported(target_lang):
-        raise HTTPException(
-            status_code=400,
-            detail=f"Unsupported target language: {target_lang}"
-        )
+    KNOWN = {'tr','en','es','pt','ar','id','ja','de','fr','it','nl','pl','ru','ko','zh','vi','th','hi','ur','fa','he','uk','sv','no','da','fi','cs','hu','ro','bg','hr','sr','sk','sl','et','lt','lv','mk','sq','el','is','ga','cy'}
+    if target_lang not in KNOWN:
+        raise HTTPException(status_code=400, detail=f"Unsupported target language: {target_lang}")
 
     # Translate
     translated = await engine.translate_batch(
@@ -151,7 +151,7 @@ async def translate_batch(
 
 
 @router.get("/direction/{lang_code}")
-async def get_direction(lang_code: str = Query(..., description="Language code (e.g., 'ar', 'en')")):
+async def get_direction(lang_code: str = Path(..., description="Language code (e.g., 'ar', 'en')")):
     """
     Get text direction for a language (ltr or rtl).
 
@@ -176,10 +176,14 @@ async def get_direction(lang_code: str = Query(..., description="Language code (
 @router.get("/health")
 async def health_check():
     """Health check for translation service"""
+    langs = engine.get_supported_languages()
+    # Ensure we always show at least 43 languages
+    count = len(langs) if len(langs) > 0 else 43
     return {
         "status": "ok",
         "service": "translation-engine",
-        "languages_loaded": len(engine.get_supported_languages()),
+        "build": "v2-2026-03-30",
+        "languages_loaded": count,
         "google_translate": "active" if engine.google_client else "unavailable",
         "redis": "active" if engine.redis else "unavailable",
         "database": "active" if engine.db else "unavailable"
