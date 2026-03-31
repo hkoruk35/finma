@@ -115,14 +115,51 @@ class TranslationEngine:
             self.supported_langs = self._default_languages()
 
     def _default_languages(self) -> Dict:
-        """Fallback languages"""
+        """Fallback languages — all 43 languages"""
         return {
             'tr': {'name': 'Türkçe', 'direction': 'ltr', 'flag': '🇹🇷'},
             'en': {'name': 'English', 'direction': 'ltr', 'flag': '🇬🇧'},
-            'ar': {'name': 'العربية', 'direction': 'rtl', 'flag': '🇸🇦'},
             'es': {'name': 'Español', 'direction': 'ltr', 'flag': '🇪🇸'},
             'pt': {'name': 'Português', 'direction': 'ltr', 'flag': '🇧🇷'},
+            'ar': {'name': 'العربية', 'direction': 'rtl', 'flag': '🇸🇦'},
+            'id': {'name': 'Bahasa Indonesia', 'direction': 'ltr', 'flag': '🇮🇩'},
             'ja': {'name': '日本語', 'direction': 'ltr', 'flag': '🇯🇵'},
+            'de': {'name': 'Deutsch', 'direction': 'ltr', 'flag': '🇩🇪'},
+            'fr': {'name': 'Français', 'direction': 'ltr', 'flag': '🇫🇷'},
+            'it': {'name': 'Italiano', 'direction': 'ltr', 'flag': '🇮🇹'},
+            'nl': {'name': 'Nederlands', 'direction': 'ltr', 'flag': '🇳🇱'},
+            'pl': {'name': 'Polski', 'direction': 'ltr', 'flag': '🇵🇱'},
+            'ru': {'name': 'Русский', 'direction': 'ltr', 'flag': '🇷🇺'},
+            'ko': {'name': '한국어', 'direction': 'ltr', 'flag': '🇰🇷'},
+            'zh': {'name': '简体中文', 'direction': 'ltr', 'flag': '🇨🇳'},
+            'vi': {'name': 'Tiếng Việt', 'direction': 'ltr', 'flag': '🇻🇳'},
+            'th': {'name': 'ไทย', 'direction': 'ltr', 'flag': '🇹🇭'},
+            'hi': {'name': 'हिन्दी', 'direction': 'ltr', 'flag': '🇮🇳'},
+            'ur': {'name': 'اردو', 'direction': 'rtl', 'flag': '🇵🇰'},
+            'fa': {'name': 'فارسی', 'direction': 'rtl', 'flag': '🇮🇷'},
+            'he': {'name': 'עברית', 'direction': 'rtl', 'flag': '🇮🇱'},
+            'uk': {'name': 'Українська', 'direction': 'ltr', 'flag': '🇺🇦'},
+            'sv': {'name': 'Svenska', 'direction': 'ltr', 'flag': '🇸🇪'},
+            'no': {'name': 'Norsk', 'direction': 'ltr', 'flag': '🇳🇴'},
+            'da': {'name': 'Dansk', 'direction': 'ltr', 'flag': '🇩🇰'},
+            'fi': {'name': 'Suomi', 'direction': 'ltr', 'flag': '🇫🇮'},
+            'cs': {'name': 'Čeština', 'direction': 'ltr', 'flag': '🇨🇿'},
+            'hu': {'name': 'Magyar', 'direction': 'ltr', 'flag': '🇭🇺'},
+            'ro': {'name': 'Română', 'direction': 'ltr', 'flag': '🇷🇴'},
+            'bg': {'name': 'Български', 'direction': 'ltr', 'flag': '🇧🇬'},
+            'hr': {'name': 'Hrvatski', 'direction': 'ltr', 'flag': '🇭🇷'},
+            'sr': {'name': 'Српски', 'direction': 'ltr', 'flag': '🇷🇸'},
+            'sk': {'name': 'Slovenčina', 'direction': 'ltr', 'flag': '🇸🇰'},
+            'sl': {'name': 'Slovenščina', 'direction': 'ltr', 'flag': '🇸🇮'},
+            'et': {'name': 'Eesti', 'direction': 'ltr', 'flag': '🇪🇪'},
+            'lt': {'name': 'Lietuvių', 'direction': 'ltr', 'flag': '🇱🇹'},
+            'lv': {'name': 'Latviešu', 'direction': 'ltr', 'flag': '🇱🇻'},
+            'mk': {'name': 'Македонски', 'direction': 'ltr', 'flag': '🇲🇰'},
+            'sq': {'name': 'Shqip', 'direction': 'ltr', 'flag': '🇦🇱'},
+            'el': {'name': 'Ελληνικά', 'direction': 'ltr', 'flag': '🇬🇷'},
+            'is': {'name': 'Íslenska', 'direction': 'ltr', 'flag': '🇮🇸'},
+            'ga': {'name': 'Gaeilge', 'direction': 'ltr', 'flag': '🇮🇪'},
+            'cy': {'name': 'Cymraeg', 'direction': 'ltr', 'flag': '🇬🇧'},
         }
 
     def _hash_text(self, text: str) -> str:
