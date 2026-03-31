@@ -106,7 +106,8 @@ class TranslationEngine:
         self.google_client = get_google_translate_client()
         self.redis = get_redis_client()
         self.db = get_supabase_client()
-        self.supported_langs = {}
+        # Always start with 43 hardcoded languages — DB overrides if available
+        self.supported_langs = self._default_languages()
         self._load_languages()
 
     def _load_languages(self):
@@ -342,7 +343,11 @@ class TranslationEngine:
 
     def is_language_supported(self, lang_code: str) -> bool:
         """Check if language is supported"""
-        return lang_code in self.supported_langs
+        if lang_code in self.supported_langs:
+            return True
+        # Hardcoded fallback — never reject valid language codes
+        KNOWN_LANGS = {'tr','en','es','pt','ar','id','ja','de','fr','it','nl','pl','ru','ko','zh','vi','th','hi','ur','fa','he','uk','sv','no','da','fi','cs','hu','ro','bg','hr','sr','sk','sl','et','lt','lv','mk','sq','el','is','ga','cy'}
+        return lang_code in KNOWN_LANGS
 
 
 # ─── Singleton Instance ────────────────────────────────────────────────
