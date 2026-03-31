@@ -72,8 +72,11 @@ const INDUSTRY_TR: Record<string, string> = {
 }
 function industryTR(en: string): string { return INDUSTRY_TR[en] || en }
 
+import { useTranslation } from '@/hooks/useTranslation'
+
 // ─── AUTOCOMPLETE SEARCH ───
 function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
+  const { t } = useTranslation()
   const [input, setInput] = useState('')
   const [results, setResults] = useState<Array<{ symbol: string; name: string; exchange: string }>>([])
   const [showDropdown, setShowDropdown] = useState(false)
@@ -140,7 +143,7 @@ function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
             }
           }}
           onFocus={() => { if (results.length > 0) setShowDropdown(true) }}
-          placeholder="Hisse kodu veya şirket adı..."
+          placeholder={t('Hisse kodu veya şirket adı...')}
           className="bg-transparent text-sm text-finma-text px-3 py-2.5 w-56 outline-none placeholder:text-finma-text-dim"
         />
         {loading && <div className="w-4 h-4 mr-3 border-2 border-finma-primary/30 border-t-finma-primary rounded-full animate-spin" />}
@@ -166,10 +169,11 @@ function TickerSearch({ onSelect }: { onSelect: (ticker: string) => void }) {
 // ─── TAB COMPONENTS ───
 
 function NewsTab({ ticker, name }: { ticker: string, name: string }) {
+  const { t } = useTranslation()
   const { data, isLoading, error } = useNews(ticker)
   if (isLoading) return <TabSkeleton rows={5} />
-  if (error) return <EmptyState text="Haberler yüklenemedi, lütfen tekrar deneyin." />
-  if (!data || data.length === 0) return <EmptyState text="Bu hisse için haber bulunamadı" />
+  if (error) return <EmptyState text={t('Haberler yüklenemedi, lütfen tekrar deneyin.')} />
+  if (!data || data.length === 0) return <EmptyState text={t('Bu hisse için haber bulunamadı')} />
 
   // Alakasız haberleri filtrele — Başlıkta ticker veya şirket adı geçmeli
   const filteredData = data.filter(n => {
@@ -191,9 +195,9 @@ function NewsTab({ ticker, name }: { ticker: string, name: string }) {
     <div className="space-y-2">
       {/* Dil özeti */}
       <div className="flex items-center gap-3 mb-3 text-[11px] text-finma-text-dim">
-        <span>Toplam {displayData.length} haber</span>
-        {trCount > 0 && <span className="px-2 py-0.5 bg-finma-green/10 text-finma-green rounded-full font-medium">🇹🇷 {trCount} Türkçe</span>}
-        {enCount > 0 && <span className="px-2 py-0.5 bg-finma-text-dim/10 text-finma-text-dim rounded-full font-medium">🇺🇸 {enCount} İngilizce</span>}
+        <span>{t('Toplam')} {displayData.length} {t('haber')}</span>
+        {trCount > 0 && <span className="px-2 py-0.5 bg-finma-green/10 text-finma-green rounded-full font-medium">🇹🇷 {trCount} {t('Türkçe')}</span>}
+        {enCount > 0 && <span className="px-2 py-0.5 bg-finma-text-dim/10 text-finma-text-dim rounded-full font-medium">🇺🇸 {enCount} {t('İngilizce')}</span>}
       </div>
 
       {displayData.map((n, i) => (
@@ -225,19 +229,20 @@ function NewsTab({ ticker, name }: { ticker: string, name: string }) {
 }
 
 function InsiderTab({ ticker }: { ticker: string }) {
+  const { t } = useTranslation()
   const { data, isLoading } = useInsider(ticker)
   if (isLoading) return <TabSkeleton rows={5} />
-  if (!data || data.length === 0) return <EmptyState text="Insider işlemi bulunamadı" />
+  if (!data || data.length === 0) return <EmptyState text={t('Insider işlemi bulunamadı')} />
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="text-[11px] text-finma-text-dim uppercase border-b border-finma-border">
-            <th className="text-left py-2 px-2">Kişi</th>
-            <th className="text-left py-2 px-2">İşlem</th>
-            <th className="text-right py-2 px-2">Adet</th>
-            <th className="text-right py-2 px-2">Değer</th>
-            <th className="text-right py-2 px-2">Tarih</th>
+            <th className="text-left py-2 px-2">{t('Kişi')}</th>
+            <th className="text-left py-2 px-2">{t('İşlem')}</th>
+            <th className="text-right py-2 px-2">{t('Adet')}</th>
+            <th className="text-right py-2 px-2">{t('Değer')}</th>
+            <th className="text-right py-2 px-2">{t('Tarih')}</th>
           </tr>
         </thead>
         <tbody>
@@ -268,16 +273,17 @@ function InsiderTab({ ticker }: { ticker: string }) {
 }
 
 function EarningsTab({ ticker }: { ticker: string }) {
+  const { t } = useTranslation()
   const { data, isLoading } = useEarnings(ticker)
   if (isLoading) return <TabSkeleton rows={4} />
-  if (!data) return <EmptyState text="Bilanço verisi bulunamadı" />
+  if (!data) return <EmptyState text={t('Bilanço verisi bulunamadı')} />
   return (
     <div className="space-y-4">
       {data.next_date && (
         <div className="flex items-center gap-3 p-3 bg-finma-primary/10 border border-finma-primary/30 rounded-lg">
           <Calendar className="w-5 h-5 text-finma-primary" />
           <div>
-            <div className="text-xs text-finma-text-dim">Sonraki Bilanço Tarihi</div>
+            <div className="text-xs text-finma-text-dim">{t('Sonraki Bilanço Tarihi')}</div>
             <div className="text-base font-bold text-finma-primary">{data.next_date}</div>
           </div>
         </div>
@@ -287,10 +293,10 @@ function EarningsTab({ ticker }: { ticker: string }) {
           <table className="w-full text-sm">
             <thead>
               <tr className="text-[11px] text-finma-text-dim uppercase border-b border-finma-border">
-                <th className="text-left py-2 px-2">Tarih</th>
-                <th className="text-right py-2 px-2">HBK Tahmini</th>
-                <th className="text-right py-2 px-2">HBK Gerçek</th>
-                <th className="text-right py-2 px-2">Sürpriz %</th>
+                <th className="text-left py-2 px-2">{t('Tarih')}</th>
+                <th className="text-right py-2 px-2">{t('HBK Tahmini')}</th>
+                <th className="text-right py-2 px-2">{t('HBK Gerçek')}</th>
+                <th className="text-right py-2 px-2">{t('Sürpriz %')}</th>
               </tr>
             </thead>
             <tbody>
@@ -317,6 +323,7 @@ function EarningsTab({ ticker }: { ticker: string }) {
 }
 
 function PriceHistoryTab({ ticker }: { ticker: string }) {
+  const { t } = useTranslation()
   const { data, isLoading } = usePriceHistory(ticker)
   const [view, setView] = useState<'weekly' | 'monthly' | 'yearly'>('weekly')
   const [weeklyData, setWeeklyData] = useState<any[]>([])
@@ -351,9 +358,9 @@ function PriceHistoryTab({ ticker }: { ticker: string }) {
   const items = view === 'yearly' ? data.yearly : data.monthly
 
   const views = [
-    { key: 'weekly' as const, label: 'Haftalık' },
-    { key: 'monthly' as const, label: 'Aylık' },
-    { key: 'yearly' as const, label: 'Yıllık' },
+    { key: 'weekly' as const, label: t('Haftalık') },
+    { key: 'monthly' as const, label: t('Aylık') },
+    { key: 'yearly' as const, label: t('Yıllık') },
   ]
 
   return (
@@ -424,12 +431,12 @@ function PriceHistoryTab({ ticker }: { ticker: string }) {
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-finma-card z-10">
               <tr className="text-[11px] text-finma-text-dim uppercase border-b border-finma-border">
-                <th className="text-left py-2.5 px-3">{view === 'yearly' ? 'Yıl' : 'Ay'}</th>
-                <th className="text-right py-2.5 px-3">Açılış</th>
-                <th className="text-right py-2.5 px-3">Kapanış</th>
-                <th className="text-right py-2.5 px-3">En Yüksek</th>
-                <th className="text-right py-2.5 px-3">En Düşük</th>
-                <th className="text-right py-2.5 px-3">Değişim %</th>
+                <th className="text-left py-2.5 px-3">{view === 'yearly' ? t('Yıl') : t('Ay')}</th>
+                <th className="text-right py-2.5 px-3">{t('Açılış')}</th>
+                <th className="text-right py-2.5 px-3">{t('Kapanış')}</th>
+                <th className="text-right py-2.5 px-3">{t('En Yüksek')}</th>
+                <th className="text-right py-2.5 px-3">{t('En Düşük')}</th>
+                <th className="text-right py-2.5 px-3">{t('Değişim %')}</th>
               </tr>
             </thead>
             <tbody>
@@ -466,6 +473,7 @@ function PriceHistoryTab({ ticker }: { ticker: string }) {
 }
 
 function HoldersTab({ ticker }: { ticker: string }) {
+  const { t } = useTranslation()
   const { data, isLoading } = useHolders(ticker)
   if (isLoading) return <TabSkeleton rows={5} />
   if (!data) return <EmptyState text="Sahiplik verisi bulunamadı" />
@@ -485,7 +493,7 @@ function HoldersTab({ ticker }: { ticker: string }) {
         <div className="overflow-x-auto">
           <h4 className="text-xs font-semibold text-finma-text uppercase tracking-wider mb-2 flex items-center gap-2">
             <Building2 className="w-4 h-4 text-finma-cyan" />
-            Büyük Kurumsal Yatırımcılar
+            {t('Büyük Kurumsal Yatırımcılar')}
           </h4>
           <table className="w-full text-sm">
             <thead>
@@ -539,6 +547,7 @@ function EmptyState({ text }: { text: string }) {
 
 // ─── İÇERİDEN İŞLEM WIDGET (sağ kolon) ───
 function InsiderWidget({ ticker }: { ticker: string }) {
+  const { t } = useTranslation()
   const { data, isLoading, isFetching, dataUpdatedAt } = useInsider(ticker)
   const lastUpdate = dataUpdatedAt
     ? new Date(dataUpdatedAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
@@ -562,8 +571,8 @@ function InsiderWidget({ ticker }: { ticker: string }) {
       <div className="flex items-center justify-between px-3 py-2.5 border-b border-finma-border bg-finma-bg/40">
         <div className="flex items-center gap-2">
           <Eye className="w-3.5 h-3.5 text-finma-cyan" />
-          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">İçeriden İşlemler</span>
-          <span className="text-[9px] px-1.5 py-0.5 bg-finma-cyan/10 text-finma-cyan rounded-full border border-finma-cyan/20 leading-none">CANLI</span>
+          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">{t('İçeriden İşlemler')}</span>
+          <span className="text-[9px] px-1.5 py-0.5 bg-finma-cyan/10 text-finma-cyan rounded-full border border-finma-cyan/20 leading-none">{t('CANLI')}</span>
         </div>
         <div className="flex items-center gap-1.5">
           {isFetching && <div className="w-2.5 h-2.5 border-2 border-finma-cyan/30 border-t-finma-cyan rounded-full animate-spin" />}
@@ -632,6 +641,7 @@ function InsiderWidget({ ticker }: { ticker: string }) {
 
 // ─── OPSİYON DEĞERLENDİRMESİ WIDGET ───
 function OptionsEvaluationWidget({ ticker }: { ticker: string }) {
+  const { t } = useTranslation()
   const [data, setData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [lastUpdate, setLastUpdate] = useState<string>('')
@@ -695,7 +705,7 @@ function OptionsEvaluationWidget({ ticker }: { ticker: string }) {
             <Zap className="w-3.5 h-3.5 text-finma-yellow" />
             <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-finma-yellow rounded-full animate-ping" />
           </div>
-          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">Opsiyon Değerlendirmesi</span>
+          <span className="text-[11px] font-bold text-finma-text uppercase tracking-wider">{t('Opsiyon Değerlendirmesi')}</span>
           <span className="text-[9px] px-1.5 py-0.5 bg-finma-yellow/10 text-finma-yellow rounded-full font-medium border border-finma-yellow/20 leading-none">SMART MONEY</span>
         </div>
         {lastUpdate && <span className="text-[10px] text-finma-text-dim">🕐 {lastUpdate}</span>}
@@ -780,19 +790,20 @@ type BotStock = {
 
 type GroupKey = 'all' | 'swing113' | 'gainer' | 'loser' | 'volume'
 
-const GROUP_LABELS: Record<GroupKey, string> = {
-  all: 'Tümü',
-  swing113: 'Swing113',
-  gainer: 'Yükselenler',
-  loser: 'Düşenler',
-  volume: 'Hacim',
-}
-
-function BotStockPanel({ selectedTicker, onSelect }: { selectedTicker: string; onSelect: (t: string) => void }) {
+function BotStockPanel({ selectedTicker, onSelect }: { selectedTicker: string; onSelect: (t_val: string) => void }) {
+  const { t } = useTranslation()
   const [stocks, setStocks] = useState<BotStock[]>([])
   const [loading, setLoading] = useState(true)
   const [group, setGroup] = useState<GroupKey>('all')
   const [updatedAt, setUpdatedAt] = useState<string | null>(null)
+
+  const GROUP_LABELS: Record<GroupKey, string> = {
+    all: t('Tümü'),
+    swing113: 'Swing113',
+    gainer: t('Yükselenler'),
+    loser: t('Düşenler'),
+    volume: t('Hacim'),
+  }
 
   const load = useCallback(async () => {
     setLoading(true)
