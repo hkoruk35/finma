@@ -84,21 +84,36 @@ async def call_gemini(
     system_prompt: str = MARKET_ANALYST_PROMPT,
     model_name: str = "gemini-2.0-flash",
 ) -> str:
-    """Call Gemini AI API"""
+    """Call Gemini AI API - Runs in thread pool to avoid blocking event loop"""
     settings = get_settings()
     if not settings.gemini_api_key:
         return "⚠️ Gemini API anahtarı yapılandırılmamış. Ayarlar bölümünden ekleyin."
 
     try:
         import google.generativeai as genai
-        genai.configure(api_key=settings.gemini_api_key)
+        import asyncio
+        from concurrent.futures import TimeoutError as FuturesTimeoutError
 
-        model = genai.GenerativeModel(
-            model_name=model_name,
-            system_instruction=system_prompt,
+        def _call_gemini_sync():
+            """Synchronous Gemini API call"""
+            genai.configure(api_key=settings.gemini_api_key)
+            model = genai.GenerativeModel(
+                model_name=model_name,
+                system_instruction=system_prompt,
+            )
+            response = model.generate_content(prompt, request_options={"timeout": 60})
+            return response.text if response else ""
+
+        # Run in thread pool to not block event loop
+        loop = asyncio.get_event_loop()
+        result = await asyncio.wait_for(
+            loop.run_in_executor(None, _call_gemini_sync),
+            timeout=70  # 70 second timeout (includes Gemini's 60 second timeout)
         )
-        response = model.generate_content(prompt)
-        return response.text
+        return result
+    except asyncio.TimeoutError:
+        logger.error(f"Gemini API timeout - request exceeded 70 seconds")
+        return "⚠️ Gemini API timeout - çeviri işlemi çok uzun sürdü"
     except Exception as e:
         logger.error(f"Gemini AI hatası: {e}")
         return f"AI yanıt hatası: {str(e)}"

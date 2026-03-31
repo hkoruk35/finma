@@ -38,20 +38,28 @@ async function batchTranslate(texts: string[], targetLang: string): Promise<stri
   for (let i = 0; i < texts.length; i += BATCH_SIZE) {
     const chunk = texts.slice(i, i + BATCH_SIZE);
     try {
-      const params = new URLSearchParams({ target_lang: targetLang });
-      chunk.forEach(t => params.append('texts', t));
-      const res = await fetch(`/api/v1/translation/batch?${params.toString()}`, {
+      const res = await fetch('/api/v1/translation/batch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ texts: chunk, target_lang: targetLang })
+        body: JSON.stringify({
+          texts: chunk,
+          target_lang: targetLang,
+          source_lang: 'tr',
+          context: 'general'
+        })
       });
       if (res.ok) {
         const data = await res.json();
+        console.log(`✅ Translated ${chunk.length} texts to ${targetLang}`);
         results.push(...(data.translations ?? chunk));
       } else {
+        console.error(`❌ Translation API error (${res.status}):`, await res.text().catch(() => 'No response'));
+        // Fallback: return original text
         results.push(...chunk);
       }
-    } catch {
+    } catch (error) {
+      console.error(`❌ Translation batch error:`, error);
+      // Fallback: return original text
       results.push(...chunk);
     }
   }
@@ -63,20 +71,25 @@ const translationCache: Record<string, Record<string, string>> = {};
 
 async function translatePage(targetLang: string) {
   if (targetLang === 'tr') {
-    // Restore original texts
+    // Restore original Turkish texts
     document.querySelectorAll('[data-original-text]').forEach(el => {
       const orig = el.getAttribute('data-original-text');
       if (orig && el.firstChild?.nodeType === Node.TEXT_NODE) {
         el.firstChild.textContent = orig;
       }
     });
+    console.log(`🇹🇷 Restored Turkish text`);
     return;
   }
+
+  console.log(`🌐 Starting translation to ${targetLang}...`);
 
   if (!translationCache[targetLang]) translationCache[targetLang] = {};
 
   const root = document.querySelector('body') as HTMLElement;
   const textNodes = getTextNodes(root);
+
+  console.log(`📝 Found ${textNodes.length} text nodes on page`);
 
   // Collect unique texts needing translation
   const toTranslate: { node: Text; text: string }[] = [];
@@ -96,11 +109,17 @@ async function translatePage(targetLang: string) {
     }
   });
 
-  if (unique.size === 0) return;
+  if (unique.size === 0) {
+    console.log(`✅ All texts already translated to ${targetLang}`);
+    return;
+  }
+
+  console.log(`📤 Sending ${unique.size} unique texts to translation API...`);
 
   const uniqueTexts = Array.from(unique.keys());
   const translated = await batchTranslate(uniqueTexts, targetLang);
 
+  let translatedCount = 0;
   uniqueTexts.forEach((orig, idx) => {
     const trans = translated[idx] ?? orig;
     translationCache[targetLang][orig] = trans;
@@ -108,9 +127,12 @@ async function translatePage(targetLang: string) {
       if (node.parentElement) {
         node.parentElement.setAttribute('data-original-text', orig);
         node.textContent = trans;
+        translatedCount++;
       }
     });
   });
+
+  console.log(`✅ Translated page to ${targetLang} (${translatedCount} text nodes updated)`);
 }
 
 export function AutoTranslator() {
