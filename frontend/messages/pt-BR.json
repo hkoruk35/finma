@@ -1,0 +1,337 @@
+{
+  "locale": "pt-BR",
+  "localeName": "Português",
+  "_comment": "Placeholder translations - will be populated via backend translation API in Week 1.3. For now using English fallbacks.",
+  "metadata": {
+    "title": "FinMA — Inteligência Financeira",
+    "description": "Plataforma de análise financeira e screener movida a IA"
+  },
+  "navigation": {
+    "home": "Início",
+    "dashboard": "Painel",
+    "market": "Mercado",
+    "portfolio": "Portfólio",
+    "settings": "Configurações",
+    "logout": "Sair",
+    "login": "Entrar",
+    "signup": "Cadastro",
+    "language": "Idioma",
+    "profile": "Perfil"
+  },
+  "header": {
+    "title": "FinMA - Sistema de Decisão IA",
+    "search_placeholder": "Pesquisar ações...",
+    "signin": "Entrar",
+    "signup": "Cadastro",
+    "language": "Idioma",
+    "menu_open": "Abrir menu",
+    "free": "Conta Gratuita"
+  },
+  "dashboard": {
+    "title": "Painel",
+    "live": "Ao Vivo",
+    "connecting": "Conectando",
+    "selection": "Seleção",
+    "filter_layers": "Filtro de 3 Camadas",
+    "score_range": "Pontuação 0-100",
+    "loading_stocks": "Carregando {count} ações...",
+    "refresh": "Atualizar",
+    "go_to_finma514": "Ir para FinMA 514",
+    "no_data_title": "Sem dados ainda.",
+    "no_data_desc": "Quando o bot for executado, 54 ações serão resumidas aqui.",
+    "waiting_data_title": "Aguardando Dados",
+    "waiting_data_desc": "O bot FinMA 514 é executado automaticamente às 06:30 e 12:00 horário NY. Os dados aparecerão aqui quando carregados. A atualização automática está ativa.",
+    "sector_status": "Status do Setor",
+    "daily_avg_change": "mudança média diária",
+    "total_stocks": "Total de Ações",
+    "pipeline_desc": "8000+ → 54",
+    "avg_score": "Pontuação Média",
+    "score_unit": "/100",
+    "daily_leaders": "Líderes do Dia",
+    "category_distribution": "Distribuição de Categoria",
+    "top_5_stocks": "Top 5 Ações com Maior Pontuação",
+    "view_all": "Ver Tudo",
+    "table_stock": "Ação",
+    "table_category": "Categoria",
+    "table_tier": "Nível",
+    "table_score": "Pontuação",
+    "table_change_1d": "% 1D",
+    "table_price": "Preço",
+    "ai_context_preview": "Visualização de Contexto de IA",
+    "full_analysis_link": "Todas as análises de IA no FinMA 514",
+    "full_analysis_button": "Página de Análise Completa FinMA 514",
+    "legal_warning": "Aviso Legal:",
+    "legal_disclaimer": "Este conteúdo é apenas para fins informativos. Os dados mostrados não constituem aconselhamento de investimento, recomendação de negociação ou garantia. Todas as decisões de investimento são responsabilidade exclusiva do investidor.",
+    "sector_summary": "{sector} · Pontuação Média: {avg_score} · {stock_count} ações",
+    "strong_tier": "STRONG 90+",
+    "high_tier": "HIGH 75–89",
+    "watch_tier": "WATCH 60–74"
+  },
+  "sidebar": {
+    "market_analysis": "MERCADO E ANÁLISE",
+    "indices": "📊 Índices",
+    "sectors": "📈 Setores",
+    "currency_map": "💱 Mapa de Moedas",
+    "opportunities": "🎯 Oportunidades FinMA AI",
+    "stock_analysis": "Análise de Ações",
+    "screener": "📊 Screener",
+    "analysis_page": "📝 Análise de Ações",
+    "finma_pro": "FINMA PRO",
+    "smart_watchlist": "Observador Inteligente",
+    "tracking": "Rastreamento Inteligente",
+    "backtest": "Backtest (Admin)",
+    "market_flow": "Fluxo de Mercado",
+    "portfolio": "Meu Portfólio",
+    "settings": "Configurações",
+    "admin": "Administrador"
+  },
+  "topbar": {
+    "menu": {
+      "toggle": "Abrir menu"
+    },
+    "pwa": {
+      "install": "Adicionar à Tela de Início"
+    },
+    "notifications": {
+      "title": "Notificações",
+      "empty": "Sem notificações",
+      "markAllRead": "Marcar tudo como lido",
+      "close": "Fechar",
+      "view": "Ver"
+    },
+    "user": {
+      "settings": "Configurações",
+      "membership": "Membresía e Faturaçâo",
+      "logout": "Sair",
+      "language": "Idioma",
+      "tier": "Plano"
+    }
+  },
+  "landing": {
+    "title": "Encontre Oportunidades nos Mercados dos EUA",
+    "subtitle": "Análise de Mercado Movida a IA e Screener",
+    "cta_button": "Começar",
+    "pricing_button": "Preços"
+  },
+  "market": {
+    "vix": "Medo",
+    "index": "Índice",
+    "sector": "Setor",
+    "price": "Preço",
+    "change": "Mudança",
+    "volume": "Volume",
+    "updated": "Atualizado",
+    "tabs": {
+      "gainers": "🔺 Ganhadoras",
+      "losers": "🔻 Perdedoras",
+      "opportunities": "🎯 Oportunidades",
+      "most_traded": "💹 Mais Negociadas"
+    }
+  },
+  "top5": {
+    "yesterday": "⭐ Top 5 Ações IA de Ontem",
+    "today": "⭐ Top 5 Ações IA de Hoje",
+    "gainers": "📈 Ganhadoras",
+    "losers": "📉 Perdedoras",
+    "most_traded": "💹 Mais Negociadas"
+  },
+  "portfolio": {
+    "title": "Meu Portfólio",
+    "empty": "Sem ações ainda",
+    "add_stock": "Adicionar Ação",
+    "remove": "Remover",
+    "edit": "Editar",
+    "stock": "Ação",
+    "price": "Preço",
+    "change": "Mudança",
+    "value": "Valor",
+    "allocation": "Alocação",
+    "tabs": {
+      "open": "Aberto",
+      "all": "Todos",
+      "closed": "Fechado"
+    }
+  },
+  "stock": {
+    "title": "Análise de Ações",
+    "chart": "Gráfico",
+    "summary": "Resumo",
+    "technicals": "Técnicos",
+    "fundamentals": "Fundamentais",
+    "news": "Notícias",
+    "similar": "Ações Similares",
+    "add_watchlist": "Observar",
+    "remove_watchlist": "Deixar de Observar",
+    "openPrice": "Abertura",
+    "highPrice": "Máxima",
+    "lowPrice": "Mínima",
+    "volume": "Volume",
+    "marketCap": "Capitalização de Mercado",
+    "pe_ratio": "Índice P/E",
+    "dividend_yield": "Rendimento de Dividendos"
+  },
+  "screener": {
+    "title": "Screener",
+    "filters": "Filtros",
+    "results": "Resultados",
+    "no_results": "Sem resultados",
+    "credits": "Créditos",
+    "credits_remaining": "Créditos restantes"
+  },
+  "watchlist": {
+    "title": "Observador Inteligente",
+    "empty": "Lista de observação vazia",
+    "add_stock": "Adicionar Ação",
+    "remove": "Remover",
+    "edit": "Editar",
+    "limit": "Limite",
+    "upsell": "Atualize para Pro para mais listas"
+  },
+  "tracking": {
+    "title": "Rastreamento Inteligente",
+    "add": "Adicionar Ação",
+    "remove": "Deletar",
+    "state": "Estado",
+    "price": "Preço",
+    "target": "Alvo",
+    "stopLoss": "Stop Loss",
+    "notes": "Notas"
+  },
+  "buttons": {
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "delete": "Deletar",
+    "edit": "Editar",
+    "close": "Fechar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "confirm": "Confirmar",
+    "add": "Adicionar",
+    "remove": "Remover",
+    "search": "Pesquisar"
+  },
+  "messages": {
+    "success": "Sucesso",
+    "error": "Erro",
+    "warning": "Aviso",
+    "loading": "Carregando...",
+    "no_data": "Sem dados",
+    "try_again": "Tentar Novamente",
+    "please_wait": "Por favor aguarde...",
+    "saved": "Salvo",
+    "deleted": "Deletado",
+    "updated": "Atualizado"
+  },
+  "errors": {
+    "invalid_input": "Entrada inválida",
+    "not_found": "Não encontrado",
+    "unauthorized": "Não autorizado",
+    "forbidden": "Proibido",
+    "server_error": "Erro do servidor",
+    "network_error": "Erro de rede",
+    "please_try_again": "Por favor tente novamente"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Senha",
+    "remember_me": "Lembre-se de mim",
+    "forgot_password": "Esqueceu a senha?",
+    "sign_in": "Entrar",
+    "sign_up": "Cadastro",
+    "already_have_account": "Já tem uma conta?",
+    "dont_have_account": "Não tem uma conta?",
+    "create_account": "Criar Conta",
+    "welcome_back": "Bem-vindo de volta",
+    "create_new_account": "Criar uma nova conta"
+  },
+  "pricing": {
+    "free": "Gratuito",
+    "pro": "Pro",
+    "pro_plus": "Pro+",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "per_month": "/mês",
+    "upgrade": "Atualizar",
+    "current_plan": "Plano Atual",
+    "features": "Características"
+  },
+  "footer": {
+    "copyright": "© 2026 FinMA NY/USA",
+    "powered": "Powered by AFK DaSYS",
+    "privacy": "Privacidade",
+    "terms": "Termos",
+    "contact": "Contato",
+    "about": "Sobre"
+  },
+  "sectors": {
+    "tech": "Tecnologia",
+    "finance": "Financeiro",
+    "healthcare": "Saúde",
+    "energy": "Energia",
+    "materials": "Materiais Básicos",
+    "industrials": "Industriais",
+    "consumer_discr": "Consumo Discricionário",
+    "consumer_staples": "Consumo Essencial",
+    "telecom": "Telecomunicações",
+    "utilities": "Serviços Públicos"
+  },
+  "states": {
+    "track": "Rastrear",
+    "wait": "Esperar",
+    "scale_in": "Aumentar Posição",
+    "buy": "Comprar",
+    "hold": "Manter",
+    "cost_down": "Reduzir Custo",
+    "scale_out": "Reduzir Posição",
+    "sell": "Vender"
+  },
+  "tiers": {
+    "strong": "Forte",
+    "high": "Alto",
+    "watch": "Observar",
+    "ignore": "Ignorar"
+  },
+  "tags": {
+    "core": "Núcleo",
+    "sector": "Líder do Setor",
+    "volume": "Alto Volume",
+    "gainer": "Maior Ganho",
+    "loser": "Maior Perda"
+  },
+  "signals_table": {
+    "ticker": "Símbolo",
+    "sector": "Setor",
+    "action": "Ação",
+    "live": "Ao Vivo",
+    "entry_zone": "Zona de Entrada",
+    "stop": "Stop",
+    "target": "Alvo",
+    "potential": "Pot.%",
+    "score": "Pontuação"
+  },
+  "finma514_table": {
+    "tab_all": "Tudo (54)",
+    "tab_core": "Core",
+    "tab_sector": "Setor",
+    "tab_volume": "Volume",
+    "tab_gainers": "Valorizações",
+    "tab_oversold": "Sobrevendido",
+    "search_placeholder": "Pesquisar ticker ou empresa...",
+    "header_symbol": "Símbolo",
+    "header_company": "Empresa",
+    "header_sector": "Setor",
+    "header_tier": "Nível",
+    "header_price": "Preço",
+    "header_change_1d": "%Mudança",
+    "header_rvol": "RVOL",
+    "header_rsi": "RSI",
+    "header_score": "Pontuação",
+    "header_tracking": "Adicionar ao Rastreamento",
+    "no_results": "Nenhum resultado encontrado.",
+    "loading": "Carregando dados...",
+    "showing_stocks": "Mostrando {count} ações",
+    "filtered_by": "filtrado por",
+    "add_to_tracking": "adicionar ao rastreamento"
+  }
+}

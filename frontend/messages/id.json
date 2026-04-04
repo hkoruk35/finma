@@ -1,0 +1,337 @@
+{
+  "locale": "id",
+  "localeName": "Bahasa Indonesia",
+  "_comment": "Placeholder translations - will be populated via backend translation API. For now using English fallbacks.",
+  "metadata": {
+    "title": "FinMA — Kecerdasan Keuangan",
+    "description": "Platform analisis keuangan dan screener yang didukung AI"
+  },
+  "navigation": {
+    "home": "Beranda",
+    "dashboard": "Dasbor",
+    "market": "Pasar",
+    "portfolio": "Portofolio",
+    "settings": "Pengaturan",
+    "logout": "Keluar",
+    "login": "Masuk",
+    "signup": "Daftar",
+    "language": "Bahasa",
+    "profile": "Profil"
+  },
+  "header": {
+    "title": "FinMA - Sistem Keputusan AI",
+    "search_placeholder": "Cari saham...",
+    "signin": "Masuk",
+    "signup": "Daftar",
+    "language": "Bahasa",
+    "menu_open": "Buka menu",
+    "free": "Akun Gratis"
+  },
+  "dashboard": {
+    "title": "Dasbor",
+    "live": "Langsung",
+    "connecting": "Menghubungkan",
+    "selection": "Pilihan",
+    "filter_layers": "Filter 3 Lapisan",
+    "score_range": "Skor 0-100",
+    "loading_stocks": "Memuat {count} saham...",
+    "refresh": "Segarkan",
+    "go_to_finma514": "Ke FinMA 514",
+    "no_data_title": "Belum ada data.",
+    "no_data_desc": "Ketika bot berjalan, 54 saham akan dirangkum di sini.",
+    "waiting_data_title": "Menunggu Data",
+    "waiting_data_desc": "Bot FinMA 514 berjalan secara otomatis pada 06:30 dan 12:00 waktu NY. Data akan muncul di sini setelah dimuat. Penyegaran otomatis aktif.",
+    "sector_status": "Status Sektor",
+    "daily_avg_change": "perubahan rata-rata harian",
+    "total_stocks": "Total Saham",
+    "pipeline_desc": "8000+ → 54",
+    "avg_score": "Skor Rata-rata",
+    "score_unit": "/100",
+    "daily_leaders": "Pemimpin Harian",
+    "category_distribution": "Distribusi Kategori",
+    "top_5_stocks": "Top 5 Saham Skor Tertinggi",
+    "view_all": "Lihat Semua",
+    "table_stock": "Saham",
+    "table_category": "Kategori",
+    "table_tier": "Tingkat",
+    "table_score": "Skor",
+    "table_change_1d": "% 1H",
+    "table_price": "Harga",
+    "ai_context_preview": "Pratinjau Konteks AI",
+    "full_analysis_link": "Semua analisis AI di FinMA 514",
+    "full_analysis_button": "Halaman Analisis Lengkap FinMA 514",
+    "legal_warning": "Peringatan Hukum:",
+    "legal_disclaimer": "Konten ini hanya untuk tujuan informasi. Data yang ditampilkan bukan nasihat investasi, rekomendasi perdagangan, atau jaminan. Semua keputusan investasi adalah tanggung jawab penuh investor.",
+    "sector_summary": "{sector} · Skor Rata-rata: {avg_score} · {stock_count} saham",
+    "strong_tier": "STRONG 90+",
+    "high_tier": "HIGH 75–89",
+    "watch_tier": "WATCH 60–74"
+  },
+  "sidebar": {
+    "market_analysis": "PASAR & ANALISIS",
+    "indices": "📊 Indeks",
+    "sectors": "📈 Sektor",
+    "currency_map": "💱 Peta Mata Uang",
+    "opportunities": "🎯 Peluang FinMA AI",
+    "stock_analysis": "Analisis Saham",
+    "screener": "📊 Screener",
+    "analysis_page": "📝 Analisis Saham",
+    "finma_pro": "FINMA PRO",
+    "smart_watchlist": "Watchlist Cerdas",
+    "tracking": "Pelacakan Cerdas",
+    "backtest": "Backtest (Admin)",
+    "market_flow": "Aliran Pasar",
+    "portfolio": "Portofolio Saya",
+    "settings": "Pengaturan",
+    "admin": "Admin"
+  },
+  "topbar": {
+    "menu": {
+      "toggle": "Buka menu"
+    },
+    "pwa": {
+      "install": "Tambahkan ke Layar Utama"
+    },
+    "notifications": {
+      "title": "Notifikasi",
+      "empty": "Tidak ada notifikasi",
+      "markAllRead": "Tandai semua sebagai dibaca",
+      "close": "Tutup",
+      "view": "Lihat"
+    },
+    "user": {
+      "settings": "Pengaturan",
+      "membership": "Keanggotaan dan Tagihan",
+      "logout": "Keluar",
+      "language": "Bahasa",
+      "tier": "Paket"
+    }
+  },
+  "landing": {
+    "title": "Temukan Peluang di Pasar AS",
+    "subtitle": "Analisis Pasar dan Screener yang Didukung AI",
+    "cta_button": "Mulai",
+    "pricing_button": "Harga"
+  },
+  "market": {
+    "vix": "Ketakutan",
+    "index": "Indeks",
+    "sector": "Sektor",
+    "price": "Harga",
+    "change": "Perubahan",
+    "volume": "Volume",
+    "updated": "Diperbarui",
+    "tabs": {
+      "gainers": "🔺 Pemenang",
+      "losers": "🔻 Pecundang",
+      "opportunities": "🎯 Peluang",
+      "most_traded": "💹 Paling Diperdagangkan"
+    }
+  },
+  "top5": {
+    "yesterday": "⭐ Top 5 Saham AI Kemarin",
+    "today": "⭐ Top 5 Saham AI Hari Ini",
+    "gainers": "📈 Pemenang",
+    "losers": "📉 Pecundang",
+    "most_traded": "💹 Paling Diperdagangkan"
+  },
+  "portfolio": {
+    "title": "Portofolio Saya",
+    "empty": "Belum ada saham",
+    "add_stock": "Tambah Saham",
+    "remove": "Hapus",
+    "edit": "Edit",
+    "stock": "Saham",
+    "price": "Harga",
+    "change": "Perubahan",
+    "value": "Nilai",
+    "allocation": "Alokasi",
+    "tabs": {
+      "open": "Terbuka",
+      "all": "Semua",
+      "closed": "Tertutup"
+    }
+  },
+  "stock": {
+    "title": "Analisis Saham",
+    "chart": "Grafik",
+    "summary": "Ringkasan",
+    "technicals": "Teknis",
+    "fundamentals": "Fundamental",
+    "news": "Berita",
+    "similar": "Saham Serupa",
+    "add_watchlist": "Pantau",
+    "remove_watchlist": "Jangan Pantau",
+    "openPrice": "Buka",
+    "highPrice": "Tertinggi",
+    "lowPrice": "Terendah",
+    "volume": "Volume",
+    "marketCap": "Kapitalisasi Pasar",
+    "pe_ratio": "Rasio P/E",
+    "dividend_yield": "Hasil Dividen"
+  },
+  "screener": {
+    "title": "Screener",
+    "filters": "Filter",
+    "results": "Hasil",
+    "no_results": "Tidak ada hasil",
+    "credits": "Kredit",
+    "credits_remaining": "Kredit tersisa"
+  },
+  "watchlist": {
+    "title": "Watchlist Cerdas",
+    "empty": "Watchlist kosong",
+    "add_stock": "Tambah Saham",
+    "remove": "Hapus",
+    "edit": "Edit",
+    "limit": "Batas",
+    "upsell": "Tingkatkan ke Pro untuk lebih banyak watchlist"
+  },
+  "tracking": {
+    "title": "Pelacakan Cerdas",
+    "add": "Tambah Saham",
+    "remove": "Hapus",
+    "state": "Status",
+    "price": "Harga",
+    "target": "Target",
+    "stopLoss": "Stop Loss",
+    "notes": "Catatan"
+  },
+  "buttons": {
+    "submit": "Kirim",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "close": "Tutup",
+    "back": "Kembali",
+    "next": "Berikutnya",
+    "confirm": "Konfirmasi",
+    "add": "Tambah",
+    "remove": "Hapus",
+    "search": "Cari"
+  },
+  "messages": {
+    "success": "Berhasil",
+    "error": "Kesalahan",
+    "warning": "Peringatan",
+    "loading": "Memuat...",
+    "no_data": "Tidak ada data",
+    "try_again": "Coba Lagi",
+    "please_wait": "Silakan tunggu...",
+    "saved": "Disimpan",
+    "deleted": "Dihapus",
+    "updated": "Diperbarui"
+  },
+  "errors": {
+    "invalid_input": "Input tidak valid",
+    "not_found": "Tidak ditemukan",
+    "unauthorized": "Tidak sah",
+    "forbidden": "Dilarang",
+    "server_error": "Kesalahan server",
+    "network_error": "Kesalahan jaringan",
+    "please_try_again": "Silakan coba lagi"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Kata Sandi",
+    "remember_me": "Ingat saya",
+    "forgot_password": "Lupa kata sandi?",
+    "sign_in": "Masuk",
+    "sign_up": "Daftar",
+    "already_have_account": "Sudah punya akun?",
+    "dont_have_account": "Belum punya akun?",
+    "create_account": "Buat Akun",
+    "welcome_back": "Selamat datang kembali",
+    "create_new_account": "Buat akun baru"
+  },
+  "pricing": {
+    "free": "Gratis",
+    "pro": "Pro",
+    "pro_plus": "Pro+",
+    "monthly": "Bulanan",
+    "yearly": "Tahunan",
+    "per_month": "/bulan",
+    "upgrade": "Upgrade",
+    "current_plan": "Paket Saat Ini",
+    "features": "Fitur"
+  },
+  "footer": {
+    "copyright": "© 2026 FinMA NY/USA",
+    "powered": "Powered by AFK DaSYS",
+    "privacy": "Privasi",
+    "terms": "Syarat",
+    "contact": "Kontak",
+    "about": "Tentang"
+  },
+  "sectors": {
+    "tech": "Teknologi",
+    "finance": "Keuangan",
+    "healthcare": "Kesehatan",
+    "energy": "Energi",
+    "materials": "Bahan Dasar",
+    "industrials": "Industri",
+    "consumer_discr": "Konsumsi Konsumsi",
+    "consumer_staples": "Barang Konsumsi Pokok",
+    "telecom": "Telekomunikasi",
+    "utilities": "Utilitas"
+  },
+  "states": {
+    "track": "Lacak",
+    "wait": "Tunggu",
+    "scale_in": "Tambah Posisi",
+    "buy": "Beli",
+    "hold": "Tahan",
+    "cost_down": "Kurangi Biaya",
+    "scale_out": "Kurangi Posisi",
+    "sell": "Jual"
+  },
+  "tiers": {
+    "strong": "Kuat",
+    "high": "Tinggi",
+    "watch": "Pantau",
+    "ignore": "Abaikan"
+  },
+  "tags": {
+    "core": "Inti",
+    "sector": "Pemimpin Sektor",
+    "volume": "Volume Tinggi",
+    "gainer": "Pemberi Keuntungan Teratas",
+    "loser": "Pemberi Kerugian Teratas"
+  },
+  "signals_table": {
+    "ticker": "Simbol",
+    "sector": "Sektor",
+    "action": "Aksi",
+    "live": "Live",
+    "entry_zone": "Zona Masuk",
+    "stop": "Stop",
+    "target": "Target",
+    "potential": "Pot.%",
+    "score": "Skor"
+  },
+  "finma514_table": {
+    "tab_all": "Semua (54)",
+    "tab_core": "Core",
+    "tab_sector": "Sektor",
+    "tab_volume": "Volume",
+    "tab_gainers": "Pemenang 📈",
+    "tab_oversold": "Terjual Habis",
+    "search_placeholder": "Cari ticker atau perusahaan...",
+    "header_symbol": "Simbol",
+    "header_company": "Perusahaan",
+    "header_sector": "Sektor",
+    "header_tier": "Tingkat",
+    "header_price": "Harga",
+    "header_change_1d": "%Perubahan",
+    "header_rvol": "RVOL",
+    "header_rsi": "RSI",
+    "header_score": "Skor",
+    "header_tracking": "Tambah ke Pelacakan",
+    "no_results": "Tidak ada hasil yang ditemukan.",
+    "loading": "Memuat data...",
+    "showing_stocks": "Menampilkan {count} saham",
+    "filtered_by": "disaring oleh",
+    "add_to_tracking": "tambah ke pelacakan"
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "locale": "tr",
+  "localeName": "Türkçe",
+  "metadata": {
+    "title": "FinMA — Finansal Zeka",
+    "description": "FinMA AI destekli finansal analiz ve screener platformu"
+  },
+  "navigation": {
+    "home": "Ana Sayfa",
+    "dashboard": "Gösterge Paneli",
+    "market": "Piyasa",
+    "portfolio": "Portföy",
+    "settings": "Ayarlar",
+    "logout": "Çıkış Yap",
+    "login": "Giriş Yap",
+    "signup": "Kaydol",
+    "language": "Dil",
+    "profile": "Profil"
+  },
+  "header": {
+    "title": "FinMA - AI Karar Sistemi",
+    "search_placeholder": "Hisse arayın...",
+    "signin": "Giriş Yap",
+    "signup": "Kaydol",
+    "language": "Dil",
+    "menu_open": "Menüyü aç",
+    "free": "Ücretisiz Üye Ol"
+  },
+  "dashboard": {
+    "title": "Anasayfa",
+    "live": "Canlı",
+    "connecting": "Bağlanıyor",
+    "selection": "Seçim",
+    "filter_layers": "3 Katmanlı Filtre",
+    "score_range": "0-100 Skor",
+    "loading_stocks": "{count} hisse yükleniyor...",
+    "refresh": "Yenile",
+    "go_to_finma514": "FinMA 514'e Git",
+    "no_data_title": "Henüz veri yok.",
+    "no_data_desc": "Bot çalıştığında 54 hisse burada özetlenecek.",
+    "waiting_data_title": "Veri Bekleniyor",
+    "waiting_data_desc": "FinMA 514 botu NY 06:30 ve 12:00'de otomatik çalışır. Veriler yüklenince buraya yansıyacak. Otomatik yenileme aktif.",
+    "sector_status": "Sektörel Durum",
+    "daily_avg_change": "günlük ortalama değişim",
+    "total_stocks": "Toplam Hisse",
+    "pipeline_desc": "8000+ → 54",
+    "avg_score": "Ort. Skor",
+    "score_unit": "/100",
+    "daily_leaders": "Günlük Liderler",
+    "category_distribution": "Kategori Dağılımı",
+    "top_5_stocks": "En Yüksek Skorlu 5 Hisse",
+    "view_all": "Tümünü Gör",
+    "table_stock": "Hisse",
+    "table_category": "Kategori",
+    "table_tier": "Tier",
+    "table_score": "Skor",
+    "table_change_1d": "1G %",
+    "table_price": "Fiyat",
+    "ai_context_preview": "AI Piyasa Bağlamı Önizlemesi",
+    "full_analysis_link": "Tüm AI analizleri FinMA 514'te",
+    "full_analysis_button": "FinMA 514 Tam Analiz Sayfası",
+    "legal_warning": "Yasal Uyarı:",
+    "legal_disclaimer": "Bu içerik yalnızca bilgilendirme amaçlıdır. Gösterilen veriler yatırım tavsiyesi, alım-satım önerisi veya garanti niteliği taşımaz. Tüm yatırım kararları tamamen yatırımcının kendi sorumluluğundadır.",
+    "sector_summary": "{sector} · Ort. Skor: {avg_score} · {stock_count} hisse",
+    "strong_tier": "STRONG 90+",
+    "high_tier": "HIGH 75–89",
+    "watch_tier": "WATCH 60–74"
+  },
+  "sidebar": {
+    "auth": {
+      "signin": "Giriş Yap",
+      "signup": "🚀 Ücretsiz Üye Ol"
+    },
+    "user": {
+      "membership": "Üyelik:"
+    },
+    "logout": "Çıkış Yap",
+    "upgrade_pro": "🚀 Pro'ya Geç",
+    "upgrade_proplus": "💎 Pro+'a Yükselt",
+    "member_proplus": "✅ Pro+ Üye",
+    "badge_new": "⭐ YENI"
+  },
+  "topbar": {
+    "menu": {
+      "toggle": "Menüyü aç"
+    },
+    "pwa": {
+      "install": "Ana Ekrana Ekle"
+    },
+    "notifications": {
+      "title": "Bildirimler",
+      "empty": "Bildirim yok",
+      "markAllRead": "Hepsini Okundu",
+      "close": "Kapat",
+      "view": "Görüntüle"
+    },
+    "user": {
+      "settings": "Ayarlar",
+      "membership": "Üyelik & Ödeme",
+      "logout": "Çıkış Yap",
+      "language": "Dil",
+      "tier": "Seviye"
+    }
+  },
+  "sidebar": {
+    "market_analysis": "PİYASA & ANALİZ",
+    "indices": "📊 Endeksler",
+    "sectors": "📈 Sektörler",
+    "currency_map": "💱 Para Haritası",
+    "opportunities": "🎯 FinMA AI Fırsatları",
+    "stock_analysis": "Hisse Analiz",
+    "screener": "📊 Screener",
+    "analysis_page": "📝 Hisse Analiz Sayfası",
+    "finma_pro": "FinMA PRO",
+    "smart_watchlist": "Akıllı Takip",
+    "tracking": "Smart Tracking",
+    "backtest": "Backtest (Admin)",
+    "market_flow": "Piyasa Akışı",
+    "portfolio": "Portföyüm",
+    "settings": "Ayarlar",
+    "admin": "Yönetici"
+  },
+  "landing": {
+    "title": "ABD Borsasında Fırsatları Bul.",
+    "subtitle": "AI Destekli Piyasa Analiz ve Screener",
+    "cta_button": "Başla",
+    "pricing_button": "Fiyatlandırma"
+  },
+  "market": {
+    "vix": "Korku",
+    "index": "Endeks",
+    "sector": "Sektör",
+    "price": "Fiyat",
+    "change": "Değişim",
+    "volume": "Hacim",
+    "updated": "Güncellendi",
+    "tabs": {
+      "gainers": "🔺 Yükselenler",
+      "losers": "🔻 Düşenler",
+      "opportunities": "🎯 Fırsatlar",
+      "most_traded": "💹 En Çok İşlem"
+    }
+  },
+  "top5": {
+    "yesterday": "⭐ Dünün Top 5 AI Hissesi",
+    "today": "⭐ Günün Top 5 AI Hissesi",
+    "gainers": "📈 Yükselenler",
+    "losers": "📉 Düşenler",
+    "most_traded": "💹 En Çok İşlem Görenler"
+  },
+  "portfolio": {
+    "title": "Portföyüm",
+    "empty": "Henüz hisse eklemediniz",
+    "add_stock": "Hisse Ekle",
+    "remove": "Kaldır",
+    "edit": "Düzenle",
+    "stock": "Hisse",
+    "price": "Fiyat",
+    "change": "Değişim",
+    "value": "Değer",
+    "allocation": "Dağılım",
+    "tabs": {
+      "open": "Açık",
+      "all": "Tümü",
+      "closed": "Kapalı"
+    }
+  },
+  "stock": {
+    "title": "Hisse Analizi",
+    "chart": "Grafik",
+    "summary": "Özet",
+    "technicals": "Teknik Analiz",
+    "fundamentals": "Temel Analiz",
+    "news": "Haberler",
+    "similar": "Benzer Hisseler",
+    "add_watchlist": "Takip Et",
+    "remove_watchlist": "Takipten Çıkar",
+    "openPrice": "Açılış",
+    "highPrice": "Günün Yüksek",
+    "lowPrice": "Günün Düşük",
+    "volume": "Hacim",
+    "marketCap": "Piyasa Değeri",
+    "pe_ratio": "F/K Oranı",
+    "dividend_yield": "Temettü Getirisi"
+  },
+  "screener": {
+    "title": "Screener",
+    "filters": "Filtreler",
+    "results": "Sonuçlar",
+    "no_results": "Sonuç bulunamadı",
+    "credits": "Kredi",
+    "credits_remaining": "Kalan Kredi"
+  },
+  "watchlist": {
+    "title": "Akıllı Takip",
+    "empty": "Watchlist boş",
+    "add_stock": "Hisse Ekle",
+    "remove": "Kaldır",
+    "edit": "Düzenle",
+    "limit": "Limit",
+    "upsell": "Daha fazla watchlist için Pro sürüme yükseltin"
+  },
+  "tracking": {
+    "title": "Smart Tracking",
+    "add": "Hisse Ekle",
+    "remove": "Sil",
+    "state": "Durum",
+    "price": "Fiyat",
+    "target": "Hedef",
+    "stopLoss": "Stop Loss",
+    "notes": "Notlar"
+  },
+  "buttons": {
+    "submit": "Gönder",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "back": "Geri",
+    "next": "İleri",
+    "confirm": "Onayla",
+    "add": "Ekle",
+    "remove": "Kaldır",
+    "search": "Ara"
+  },
+  "messages": {
+    "success": "Başarılı",
+    "error": "Hata",
+    "warning": "Uyarı",
+    "loading": "Yükleniyor...",
+    "no_data": "Veri yok",
+    "try_again": "Tekrar Deneyin",
+    "please_wait": "Lütfen bekleyin...",
+    "saved": "Kaydedildi",
+    "deleted": "Silindi",
+    "updated": "Güncellendi"
+  },
+  "errors": {
+    "invalid_input": "Geçersiz giriş",
+    "not_found": "Bulunamadı",
+    "unauthorized": "Yetkisiz",
+    "forbidden": "Yasak",
+    "server_error": "Sunucu hatası",
+    "network_error": "Ağ hatası",
+    "please_try_again": "Lütfen tekrar deneyin"
+  },
+  "auth": {
+    "email": "E-posta",
+    "password": "Şifre",
+    "remember_me": "Beni Hatırla",
+    "forgot_password": "Şifremi Unuttum",
+    "sign_in": "Giriş Yap",
+    "sign_up": "Kaydol",
+    "already_have_account": "Zaten hesabınız var mı?",
+    "dont_have_account": "Hesabınız yok mu?",
+    "create_account": "Hesap Oluştur",
+    "welcome_back": "Tekrar Hoşgeldiniz",
+    "create_new_account": "Yeni Hesap Oluşturun"
+  },
+  "pricing": {
+    "free": "Ücretsiz",
+    "pro": "Pro",
+    "pro_plus": "Pro+",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "per_month": "/ay",
+    "upgrade": "Yükselt",
+    "current_plan": "Güncel Plan",
+    "features": "Özellikler"
+  },
+  "footer": {
+    "copyright": "© 2026 FinMA NY/USA",
+    "powered": "Powered by AFK DaSYS",
+    "privacy": "Gizlilik",
+    "terms": "Şartlar",
+    "contact": "İletişim",
+    "about": "Hakkında"
+  },
+  "sectors": {
+    "tech": "Teknoloji",
+    "finance": "Finans",
+    "healthcare": "Sağlık",
+    "energy": "Enerji",
+    "materials": "Temel Malzemeler",
+    "industrials": "Sanayi",
+    "consumer_discr": "Tüketici İsteği",
+    "consumer_staples": "Tüketici Zorunlu",
+    "telecom": "Telekomünikasyon",
+    "utilities": "Kamu Hizmetleri"
+  },
+  "states": {
+    "track": "Takip Et",
+    "wait": "Bekle",
+    "scale_in": "Kademeli Al",
+    "buy": "Al",
+    "hold": "Tut",
+    "cost_down": "Maliyeti Düşür",
+    "scale_out": "Kademeli Sat",
+    "sell": "Sat"
+  },
+  "tiers": {
+    "strong": "Güçlü",
+    "high": "Yüksek",
+    "watch": "İzle",
+    "ignore": "Yoksay"
+  },
+  "tags": {
+    "core": "Temel",
+    "sector": "Sektör",
+    "volume": "Hacim",
+    "gainer": "Yükselenler",
+    "loser": "Düşenler"
+  },
+  "footer": {
+    "disclaimer": "FinMA yapay zeka destekli piyasa analiz platformudur. Sunulan içerikler yalnızca bilgilendirme amaçlıdır; yatırım tavsiyesi niteliği taşımaz. Nihai karar kullanıcıya aittir.",
+    "copyright": "© 2026 FinMA NY/USA — Powered by AFK DaSYS"
+  },
+  "signals_table": {
+    "ticker": "Sembol",
+    "sector": "Sektör",
+    "action": "Aksiyon",
+    "live": "Canlı",
+    "entry_zone": "Giriş Bölgesi",
+    "stop": "Stop",
+    "target": "Hedef",
+    "potential": "Pot.%",
+    "score": "Skor"
+  },
+  "finma514_table": {
+    "tab_all": "Tümü (54)",
+    "tab_core": "Core",
+    "tab_sector": "Sektör",
+    "tab_volume": "Hacim",
+    "tab_gainers": "Yükselenler",
+    "tab_oversold": "Aşırı Satım",
+    "search_placeholder": "Ticker veya şirket ara...",
+    "header_symbol": "Sembol",
+    "header_company": "Şirket",
+    "header_sector": "Sektör",
+    "header_tier": "Tier",
+    "header_price": "Fiyat",
+    "header_change_1d": "%Gün",
+    "header_rvol": "RVOL",
+    "header_rsi": "RSI",
+    "header_score": "Skor",
+    "header_tracking": "Takibe Ekle",
+    "no_results": "Arama sonucu bulunamadı.",
+    "loading": "Veri yükleniyor...",
+    "showing_stocks": "{count} hisse gösteriliyor",
+    "filtered_by": "için filtrelendi",
+    "add_to_tracking": "takibe ekle"
+  }
+}
