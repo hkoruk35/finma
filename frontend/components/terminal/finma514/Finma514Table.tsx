@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslation } from 'next-i18next'
 import { cn } from '@/lib/utils'
 import type { Finma514Stock, FinmaLang } from '@/types/finma514'
 import { CATEGORY_LABELS, TAG_CONFIG } from '@/types/finma514'
@@ -37,7 +37,7 @@ function pctCell(val: number) {
 }
 
 export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: Finma514TableProps) {
-  const t = useTranslations('finma514_table')
+  const { t } = useTranslation('finma514')
   const [activeTab, setActiveTab] = useState<TabKey>('all')
   const [selected,  setSelected]  = useState<Finma514Stock | null>(null)
   const [sortKey,   setSortKey]   = useState<SortKey>('score')

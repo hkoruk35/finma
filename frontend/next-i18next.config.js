@@ -12,7 +12,7 @@ module.exports = {
       'lt', 'lv', 'mk', 'sq', 'el', 'is', 'ga', 'cy'
     ],
   },
-  ns: ['common', 'landing', 'market', 'auth'],
+  ns: ['common', 'landing', 'market', 'auth', 'finma514'],
   defaultNS: 'common',
   localePath: path.resolve('./public/locales'),
   detection: {
