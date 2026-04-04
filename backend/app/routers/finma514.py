@@ -37,7 +37,13 @@ _BACKEND     = os.path.dirname(os.path.dirname(_HERE))            # .../backend
 _OUTPUT_DIR  = os.path.join(_BACKEND, "bots", "output")
 _LATEST_JSON = os.path.join(_OUTPUT_DIR, "finma514_latest.json")
 
-SUPPORTED_LANGS = {"tr", "en", "es", "pt", "ar", "id", "ja"}
+SUPPORTED_LANGS = {"tr", "en", "es", "pt-BR", "de", "fr", "id", "ms"}
+# Legacy support for old 'pt' → 'pt-BR' mapping
+LANG_ALIASES = {
+    "pt": "pt-BR",  # Portuguese → Portuguese (Brazil)
+    "ar": "en",     # Arabic → English (not in target 8, fallback)
+    "ja": "en",     # Japanese → English (not in target 8, fallback)
+}
 CATEGORIES_MAP = {
     "CORE":   "core_picks",
     "SECTOR": "sector_leaders",
@@ -345,11 +351,14 @@ def _fetch_daily_stocks(market_date: str, lang: str) -> Optional[dict]:
     description="Bugünün finma514 tarama sonuçlarını döner. Redis → Supabase → JSON fallback.",
 )
 async def daily_insights(
-    lang: str = Query("tr", description="Dil kodu: tr|en|es|pt|ar|id|ja"),
+    lang: str = Query("tr", description="Dil kodu: tr|en|es|pt-BR|de|fr|id|ms"),
     target_date: Optional[str] = Query(None, alias="date",
                                        description="YYYY-MM-DD formatında tarih (default: bugün)"),
     current_user: Optional[dict] = Depends(optional_user),
 ):
+    # Support legacy language codes with aliases
+    lang = LANG_ALIASES.get(lang, lang)
+
     if lang not in SUPPORTED_LANGS:
         raise HTTPException(400, f"Desteklenmeyen dil: {lang}. Seçenekler: {sorted(SUPPORTED_LANGS)}")
 
@@ -420,13 +429,16 @@ async def daily_insights(
 )
 async def stock_detail(
     ticker: str,
-    lang: str = Query("tr", description="Dil kodu: tr|en|es|pt|ar|id|ja"),
+    lang: str = Query("tr", description="Dil kodu: tr|en|es|pt-BR|de|fr|id|ms"),
     target_date: Optional[str] = Query(None, alias="date",
                                        description="YYYY-MM-DD (default: bugün)"),
     _user: dict = Depends(check_stock_quota),
 ):
+    # Support legacy language codes
+    lang = LANG_ALIASES.get(lang, lang)
+
     if lang not in SUPPORTED_LANGS:
-        raise HTTPException(400, f"Desteklenmeyen dil: {lang}.")
+        raise HTTPException(400, f"Desteklenmeyen dil: {lang}. Seçenekler: {sorted(SUPPORTED_LANGS)}")
 
     ticker      = ticker.upper().strip()
     market_date = target_date or date.today().isoformat()
@@ -495,9 +507,15 @@ async def stock_detail(
     description="core_picks, sector_leaders, high_volume, top_gainers, oversold_losers.",
 )
 async def categories(
-    lang: str = Query("tr"),
-    target_date: Optional[str] = Query(None, alias="date"),
+    lang: str = Query("tr", description="Dil kodu: tr|en|es|pt-BR|de|fr|id|ms"),
+    target_date: Optional[str] = Query(None, alias="date", description="YYYY-MM-DD (default: bugün)"),
 ):
+    # Support legacy language codes
+    lang = LANG_ALIASES.get(lang, lang)
+
+    if lang not in SUPPORTED_LANGS:
+        raise HTTPException(400, f"Desteklenmeyen dil: {lang}. Seçenekler: {sorted(SUPPORTED_LANGS)}")
+
     market_date = target_date or date.today().isoformat()
     empty_cats  = {v: [] for v in CATEGORIES_MAP.values()}
 

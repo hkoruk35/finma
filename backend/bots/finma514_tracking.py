@@ -53,27 +53,30 @@ PROFILE_CONFIG = {
 }
 
 # ─── Direktif metinleri (Legal-Safe) ────────────────────────────────────────
+# NOTE: Keys are language-agnostic English enum values (V6+ multilingual)
+# Display text is retrieved from enum_translations table at runtime
+# These are fallback Turkish descriptions for reference only
 
 DIRECTIVE_TEXT = {
-    "TAKIP_ET":      "Yapi gozlem modunda. Su an netleshme bekleniyor.",
-    "BEKLE":         "Fiyat hareketleniyor ancak hacim teyit etmiyor.",
-    "KADEMELI_AL":   "Bazi yatirimcilar bu bolgede kademeli yaklasimi tercih edebilir.",
-    "AL":            "Kirilim yapisi guchleniyor. Momentum artisi izleniyor.",
-    "TUT":           "Mevcut yapi devam ediyor. Izleme onerilir.",
-    "MALIYET_DUS":   "Bazi yatirimcilar mevcut seviyeyi ortalama icin degerlendiriyor.",
-    "KADEMELI_SAT":  "Guc kaybi goruluyor. Bazi yatirimcilar pozisyon kuchultebilir.",
-    "SAT":           "Risk referans seviyesi test edildi. Yapi zayiflama sinyali veriyor.",
+    "track":      "Yapi gozlem modunda. Su an netleshme bekleniyor.",
+    "wait":       "Fiyat hareketleniyor ancak hacim teyit etmiyor.",
+    "scale_in":   "Bazi yatirimcilar bu bolgede kademeli yaklasimi tercih edebilir.",
+    "buy":        "Kirilim yapisi guchleniyor. Momentum artisi izleniyor.",
+    "hold":       "Mevcut yapi devam ediyor. Izleme onerilir.",
+    "cost_down":  "Bazi yatirimcilar mevcut seviyeyi ortalama icin degerlendiriyor.",
+    "scale_out":  "Guc kaybi goruluyor. Bazi yatirimcilar pozisyon kuchultebilir.",
+    "sell":       "Risk referans seviyesi test edildi. Yapi zayiflama sinyali veriyor.",
 }
 
 DIRECTIVE_COLOR = {
-    "TAKIP_ET":      "gray",
-    "BEKLE":         "yellow",
-    "KADEMELI_AL":   "cyan",
-    "AL":            "green",
-    "TUT":           "green",
-    "MALIYET_DUS":   "yellow",
-    "KADEMELI_SAT":  "orange",
-    "SAT":           "red",
+    "track":      "gray",
+    "wait":       "yellow",
+    "scale_in":   "cyan",
+    "buy":        "green",
+    "hold":       "green",
+    "cost_down":  "yellow",
+    "scale_out":  "orange",
+    "sell":       "red",
 }
 
 
@@ -186,27 +189,27 @@ def compute_directive(
     sl_broken = price < sl
 
     if sl_broken and has_position:
-        directive = "SAT"
+        directive = "sell"
     elif score < 60:
-        directive = "SAT"
+        directive = "sell"
     elif has_position and score >= 75:
-        # Pozisyon var, yapi sagla → TUT
+        # Pozisyon var, yapi sagla → hold
         if price < entry_price * 0.97:  # -%3 dusus
-            directive = "MALIYET_DUS"
+            directive = "cost_down"
         else:
-            directive = "TUT"
+            directive = "hold"
     elif score >= 80 and rvol >= 1.5 and ema20 > ema50:
-        directive = "AL"
+        directive = "buy"
     elif 75 <= score <= 79 and 40 <= rsi <= 55:
-        directive = "KADEMELI_AL"
+        directive = "scale_in"
     elif 70 <= score <= 74 and rvol < 1.2:
-        directive = "BEKLE"
+        directive = "wait"
     elif 60 <= score <= 74 and ema20 < ema50:
-        directive = "KADEMELI_SAT"
+        directive = "scale_out"
     elif 60 <= score <= 69:
-        directive = "TAKIP_ET"
+        directive = "track"
     else:
-        directive = "BEKLE"
+        directive = "wait"
 
     return {
         "directive": directive,

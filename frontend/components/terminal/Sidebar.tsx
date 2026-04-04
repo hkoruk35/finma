@@ -32,7 +32,7 @@ import { useTerminalStore } from '@/store/terminal'
 import { useAuthStore } from '@/store/auth'
 import { useState, useEffect } from 'react'
 
-import { useTranslation } from '@/hooks/useTranslation'
+import { useTranslations } from 'next-intl'
 
 type Tier = 'free' | 'pro' | 'pro+' | 'admin'
 
@@ -69,7 +69,7 @@ const tierColors: Record<string, string> = {
 }
 
 export function Sidebar() {
-  const { t, lang } = useTranslation()
+  const t = useTranslations()
   const pathname = usePathname()
   const router = useRouter()
   const isLandingPage = pathname === '/'
@@ -262,7 +262,7 @@ export function Sidebar() {
                                 {/* New Badge */}
                                 {!isLocked && item.badge === 'new' && (
                                   <span className="text-[8px] font-bold text-emerald-500/60 bg-emerald-500/10 px-1.5 py-0.5 rounded">
-                                    ⭐ YENI
+                                    {t('sidebar.badge_new')}
                                   </span>
                                 )}
                               </>
@@ -288,13 +288,13 @@ export function Sidebar() {
                 onClick={() => { setMobileMenuOpen(false); router.push('/login') }}
                 className="flex items-center justify-center w-full px-3 py-2.5 text-xs font-medium text-finma-text-dim border border-finma-border rounded-md hover:bg-white/5 transition-colors"
               >
-                Giriş Yap
+                {t('sidebar.auth.signin')}
               </button>
               <button
                 onClick={() => { setMobileMenuOpen(false); router.push('/login?register=true') }}
                 className="flex items-center justify-center w-full px-3 py-2.5 text-xs font-semibold text-white bg-finma-primary rounded-md hover:bg-finma-primary/90 transition-colors"
               >
-                🚀 Ücretsiz Üye Ol
+                {t('sidebar.auth.signup')}
               </button>
             </div>
           )}
@@ -311,7 +311,7 @@ export function Sidebar() {
                 </div>
               </div>
               <div className="text-[10px] text-finma-text-dim font-mono mt-1">
-                Üyelik: <span className={tierColors[userTier] || 'text-finma-text-dim'}>
+                {t('sidebar.user.membership')} <span className={tierColors[userTier] || 'text-finma-text-dim'}>
                   {tierBadge[userTier]?.label || 'Free'}
                 </span>
               </div>
@@ -324,7 +324,7 @@ export function Sidebar() {
               className="flex items-center gap-2 w-full px-3 py-2 text-xs text-finma-text-dim hover:text-finma-red transition-colors rounded-md hover:bg-finma-red/5"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>Çıkış Yap</span>
+              <span>{t('sidebar.logout')}</span>
             </button>
           )}
 
@@ -343,7 +343,7 @@ export function Sidebar() {
                   href="/pricing"
                   className="block w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white text-xs font-semibold py-2 px-2 rounded-md text-center transition-all duration-200 hover:shadow-lg"
                 >
-                  🚀 Pro'ya Geç
+                  {t('sidebar.upgrade_pro')}
                 </Link>
               )}
               {userTier === 'pro' && (
@@ -351,12 +351,12 @@ export function Sidebar() {
                   href="/pricing"
                   className="block w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-semibold py-2 px-2 rounded-md text-center transition-all duration-200 hover:shadow-lg"
                 >
-                  💎 Pro+'a Yükselt
+                  {t('sidebar.upgrade_proplus')}
                 </Link>
               )}
               {userTier === 'pro+' && (
                 <div className="text-center text-xs text-emerald-500 font-semibold">
-                  ✅ Pro+ Üye
+                  {t('sidebar.member_proplus')}
                 </div>
               )}
             </div>

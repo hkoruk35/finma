@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useAuthStore } from '@/store/auth'
 import { useTerminalStore } from '@/store/terminal'
 import { MarketTicker } from './MarketTicker'
@@ -20,6 +21,7 @@ interface Notification {
 
 export function TopBar() {
   const router = useRouter()
+  const t = useTranslations()
   const { sidebarOpen, setMobileMenuOpen } = useTerminalStore()
   const { user, logout } = useAuthStore()
   const [notificationDropdown, setNotificationDropdown] = useState(false)
@@ -119,8 +121,8 @@ export function TopBar() {
         onClick={() => setMobileMenuOpen(true)}
         className="flex md:hidden items-center justify-center w-12 h-14 text-finma-text-muted hover:text-finma-text active:text-finma-primary transition-colors shrink-0"
         style={{ touchAction: 'manipulation' }}
-        title="Menüyü aç"
-        aria-label="Menüyü aç"
+        title={t('topbar.menu.toggle')}
+        aria-label={t('topbar.menu.toggle')}
       >
         <Menu className="w-5 h-5" />
       </button>
@@ -160,7 +162,7 @@ export function TopBar() {
               }
             }}
             className="md:hidden p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-finma-text-dim hover:text-finma-text transition-colors"
-            title="Ana Ekrana Ekle"
+            title={t('topbar.pwa.install')}
           >
             <Download className="w-4 h-4" />
           </button>
@@ -185,13 +187,13 @@ export function TopBar() {
             <div className="absolute right-0 mt-2 w-80 bg-finma-bg border border-finma-border rounded-lg shadow-xl z-50">
               {/* Header */}
               <div className="px-4 py-3 border-b border-finma-border flex items-center justify-between">
-                <span className="text-xs font-semibold text-finma-text uppercase">Bildirimler</span>
+                <span className="text-xs font-semibold text-finma-text uppercase">{t('topbar.notifications.title')}</span>
                 {unreadCount > 0 && (
                   <button
                     onClick={handleMarkAllRead}
                     className="text-[10px] text-finma-primary hover:underline"
                   >
-                    Hepsini Okundu
+                    {t('topbar.notifications.markAllRead')}
                   </button>
                 )}
               </div>
@@ -200,7 +202,7 @@ export function TopBar() {
               <div className="max-h-96 overflow-y-auto">
                 {notifications.length === 0 ? (
                   <div className="px-4 py-6 text-center text-finma-text-dim text-xs">
-                    Bildirim yok
+                    {t('topbar.notifications.empty')}
                   </div>
                 ) : (
                   notifications.map((notif) => (
@@ -244,7 +246,7 @@ export function TopBar() {
               {/* Footer */}
               <div className="px-4 py-2 border-t border-finma-border/30 text-center">
                 <button className="text-[10px] text-finma-primary hover:underline" onClick={() => setNotificationDropdown(false)}>
-                  Kapat
+                  {t('topbar.notifications.close')}
                 </button>
               </div>
             </div>
@@ -293,7 +295,7 @@ export function TopBar() {
                   className="w-full px-4 py-2 text-xs text-finma-text hover:bg-finma-bg/50 transition-colors flex items-center gap-2"
                 >
                   <Settings className="w-3 h-3" />
-                  Ayarlar
+                  {t('topbar.user.settings')}
                 </button>
                 <button
                   onClick={() => {
@@ -303,7 +305,7 @@ export function TopBar() {
                   className="w-full px-4 py-2 text-xs text-finma-text hover:bg-finma-bg/50 transition-colors flex items-center gap-2"
                 >
                   <DollarSign className="w-3 h-3" />
-                  Üyelik & Ödeme
+                  {t('topbar.user.membership')}
                 </button>
               </div>
 
@@ -314,7 +316,7 @@ export function TopBar() {
                   className="w-full px-4 py-2 text-xs text-finma-red hover:bg-finma-red/10 transition-colors flex items-center gap-2"
                 >
                   <LogOut className="w-3 h-3" />
-                  Çıkış Yap
+                  {t('topbar.user.logout')}
                 </button>
               </div>
             </div>

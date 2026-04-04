@@ -1,104 +1,231 @@
 """
 Gemini AI Service - Ported from ai_ops.py + prompts.py
-Comprehensive Turkish financial AI analysis
+Comprehensive multilingual financial AI analysis with regional norms
+V6+ Architecture: Language-aware prompts + REGION_NORMS injection
 """
 
 import json
 import re
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Literal
 from app.config import get_settings
 
 logger = logging.getLogger(__name__)
 
-# ─── System Prompts (Turkish) ───
+# ─── Region Norms: Language-specific financial culture & tone ───
 
-MARKET_ANALYST_PROMPT = """Sen FinMA profesyonel finansal analiz asistanısın. Gemini AI ile güçlendirilmiş.
-Her zaman Türkçe yanıt ver.
+Locale = Literal['tr', 'en', 'es', 'pt-BR', 'de', 'fr', 'id', 'ms']
 
-Görevlerin:
-1. Teknik analiz (RSI, EMA, MACD, Bollinger, ADX, ATR)
-2. Temel analiz (F/K, PEG, ROE, borç oranları)
-3. Sektör analizi ve karşılaştırma
-4. Risk değerlendirmesi ve portföy yönetimi
-5. Piyasa rejimi değerlendirmesi (VIX bazlı)
+REGION_NORMS: Dict[Locale, Dict[str, str]] = {
+    'tr': {
+        'tone': 'Kazanç odaklı, akademik rigor, Türk piyasası psikolojisi',
+        'terminology': 'Hisse (stocks), Endüstri (industry), Temettü (dividend)',
+        'number_format': '1.250,50 (AB-stili)',
+        'currency_symbol': '₺',
+        'financial_culture': 'Muhafazakar, uzun vadeli servet birikimi odaklı',
+        'risk_appetite': 'Orta - dengeli analiz',
+        'language': 'Türkçe',
+    },
+    'en': {
+        'tone': 'Professional, analytical, global market standards',
+        'terminology': 'Stock, Industry, Dividend',
+        'number_format': '1,250.50 (US-style)',
+        'currency_symbol': '$',
+        'financial_culture': 'Institutional, data-driven decision making',
+        'risk_appetite': 'Medium - balanced analysis',
+        'language': 'English',
+    },
+    'es': {
+        'tone': 'Decisivo, técnico, énfasis en oportunidades',
+        'terminology': 'Acciones, Sector, Dividendo',
+        'number_format': '1.250,50 (EU-style)',
+        'currency_symbol': '€',
+        'financial_culture': 'Ágil, oportunista, énfasis en swing trading',
+        'risk_appetite': 'Alto - análisis de oportunidades',
+        'language': 'Spanish',
+    },
+    'pt-BR': {
+        'tone': 'Agresivo, consciente del FOMO, amigable con day-trading',
+        'terminology': 'Ações, Setor, Dividendo',
+        'number_format': '1.250,50',
+        'currency_symbol': 'R$',
+        'financial_culture': 'Alto riesgo, énfasis en day-trading, toma rápida de decisiones',
+        'risk_appetite': 'Alto - enfatiza oportunidades swing',
+        'language': 'Portuguese (Brazil)',
+    },
+    'de': {
+        'tone': 'Data-driven, risk-focused, precise, regulation-aware',
+        'terminology': 'Aktie, Branche, Dividende',
+        'number_format': '1.250,50 €',
+        'currency_symbol': '€',
+        'financial_culture': 'Rigorous, risk management paramount, transparency required',
+        'risk_appetite': 'Bajo - pruebas de estrés de todas las posiciones',
+        'language': 'German',
+    },
+    'fr': {
+        'tone': 'Technique, indicador-focused, analytique',
+        'terminology': 'Actions, Secteur, Dividende',
+        'number_format': '1 250,50 €',
+        'currency_symbol': '€',
+        'financial_culture': 'Técnico, énfasis en indicadores, análisis fundamental',
+        'risk_appetite': 'Medio - análisis equilibrado',
+        'language': 'French',
+    },
+    'id': {
+        'tone': 'Orientado a jóvenes, rico en emojis, FOMO-impulsado, energético',
+        'terminology': 'Saham, Sektor, Dividen',
+        'number_format': '1.250,50',
+        'currency_symbol': 'Rp',
+        'financial_culture': 'Joven, riqueza emergente, inversión social-first',
+        'risk_appetite': 'Alto - seguimiento de tendencias, lenguaje amigable',
+        'language': 'Indonesian',
+    },
+    'ms': {
+        'tone': 'Formal, corporativo, profesional',
+        'terminology': 'Saham, Sektor, Dividen',
+        'number_format': 'RM 1,250.50',
+        'currency_symbol': 'RM',
+        'financial_culture': 'Institucional, profesional, énfasis en gobernanza',
+        'risk_appetite': 'Medio - análisis corporativo equilibrado',
+        'language': 'Malay',
+    },
+}
 
-Kurallar:
-- Kısa ve öz cevaplar ver, gereksiz detaylardan kaçın
-- Her yanıtta risk uyarısı ekle
-- Objektif analiz yap, duygusal ifadelerden kaçın
-- Sayısal veriler kullan, belirsiz ifadelerden kaçın
-- Bull → Boğa, Bear → Ayı, Buy → Al, Sell → Sat, Hold → Tut terminolojisi kullan"""
+# ─── System Prompts (Parameterized) ───
+# These are templates that get filled in with REGION_NORMS at runtime
 
-STOCK_ANALYSIS_PROMPT = """Sen profesyonel bir hedge fund analisti gibi hisse senedi analizi yapıyorsun.
-Verilen teknik ve temel verilere dayanarak kapsamlı bir Türkçe analiz raporu oluştur.
+MARKET_ANALYST_PROMPT_TEMPLATE = """You are a {language} financial analysis assistant powered by FinMA AI.
+Always respond in {language}.
 
-Rapor şu bölümleri içermeli:
-1. **Genel Değerlendirme** (1-2 cümle)
-2. **Teknik Görünüm** (EMA, RSI, MACD durumu)
-3. **Trend Analizi** (Kısa, orta, uzun vade)
-4. **Destek/Direnç Seviyeleri**
-5. **Risk Faktörleri**
-6. **İşlem Önerisi** (Giriş, stop-loss, hedef seviyeleri)
-7. **Genel Skor** (1-10 arası, 10 = en güçlü al sinyali)
+Your responsibilities:
+1. Technical analysis (RSI, EMA, MACD, Bollinger, ADX, ATR)
+2. Fundamental analysis (P/E, PEG, ROE, debt ratios)
+3. Sector analysis and comparison
+4. Risk assessment and portfolio management
+5. Market regime evaluation (VIX-based)
 
-Her zaman şu uyarıyı ekle: "⚠️ Bu bir yatırım tavsiyesi değildir. Tüm analizler bilgilendirme amaçlıdır."
-"""
+**CRITICAL REGIONAL CONTEXT FOR THIS ANALYSIS:**
+- Target Audience Tone: {tone}
+- Financial Terminology: {terminology}
+- Number Format: Use {number_format} format
+- Currency Symbol: {currency_symbol}
+- Financial Culture: {financial_culture}
+- Risk Appetite Level: {risk_appetite}
 
-TRADE_PARSER_PROMPT = """Sen bir trade komut çözümleyicisisin. Türkçe veya İngilizce doğal dil girdisini
-yapılandırılmış trade verisine dönüştür.
+Rules:
+- Keep responses concise and eliminate unnecessary details
+- Include risk disclaimer with every response
+- Provide objective analysis, avoid emotional language
+- Use numerical data, avoid vague statements
+- Tailor all recommendations and language to the regional context above"""
 
-Giriş örnekleri:
+STOCK_ANALYSIS_PROMPT_TEMPLATE = """You are a professional hedge fund analyst providing comprehensive stock analysis in {language}.
+Based on technical and fundamental data, create a detailed {language} analysis report.
+
+Report must include these sections:
+1. **General Assessment** (1-2 sentences)
+2. **Technical View** (EMA, RSI, MACD status)
+3. **Trend Analysis** (Short, medium, long-term)
+4. **Support/Resistance Levels**
+5. **Risk Factors**
+6. **Trade Recommendation** (Entry, stop-loss, target levels)
+7. **Overall Score** (1-10 scale, 10 = strongest buy signal)
+
+**REGIONAL CONTEXT:**
+- Tone: {tone}
+- Terminology: {terminology}
+- Number Format: {number_format}
+
+Always include this disclaimer: "⚠️ This is not investment advice. All analysis is for informational purposes only."
+Tailor the analysis style to the regional context above."""
+
+TRADE_PARSER_PROMPT_TEMPLATE = """You are a trade command parser. Convert {language} natural language input to structured trade data.
+
+Input examples:
 - "AAPL 178'den al, stop 174, hedef 195, 10 adet"
 - "NVDA long 900, SL 865, TP 980"
 - "BTC short 42500, stop 43500, target 40000, 0.1 adet"
 
-JSON formatında yanıt ver:
-{
-  "ticker": "SEMBOL",
+Return JSON format (language-independent):
+{{
+  "ticker": "SYMBOL",
   "direction": "LONG/SHORT",
-  "entry_price": sayı,
-  "stop_loss": sayı,
-  "target_price": sayı,
-  "qty": sayı,
+  "entry_price": number,
+  "stop_loss": number,
+  "target_price": number,
+  "qty": number,
   "strategy": "SWING/DAY/SCALP/POSITION",
-  "notes": "ek notlar"
-}"""
+  "notes": "additional notes"
+}}"""
 
-RISK_AUDITOR_PROMPT = """Sen bir hedge fund baş risk yöneticisisin (CRO).
-Verilen açık pozisyonları analiz et ve risk değerlendirmesi yap.
+def get_market_analyst_prompt(lang: Locale = 'tr') -> str:
+    """Get parameterized market analyst system prompt for specific language"""
+    norms = REGION_NORMS.get(lang, REGION_NORMS['en'])
+    return MARKET_ANALYST_PROMPT_TEMPLATE.format(**norms)
 
-Analiz adımları:
-1. Her pozisyon için Gerçekleşmemiş R hesapla: R = (Mevcut Fiyat - Giriş) / (Giriş - Stop Loss)
-2. R > 1.0 ise: Stop-loss'u maliyet fiyatına çek (risk-free)
-3. R > 2.0 ise: %30-50 kâr al veya trailing stop uygula
-4. Teknik kontrol: Trend, RSI ayrışma, yaklaşan kazanç riski
+def get_stock_analysis_prompt(lang: Locale = 'tr') -> str:
+    """Get parameterized stock analysis system prompt for specific language"""
+    norms = REGION_NORMS.get(lang, REGION_NORMS['en'])
+    return STOCK_ANALYSIS_PROMPT_TEMPLATE.format(**norms)
 
-Türkçe yanıt ver. Tablo formatında özet sun."""
+def get_trade_parser_prompt(lang: Locale = 'tr') -> str:
+    """Get parameterized trade parser system prompt for specific language"""
+    norms = REGION_NORMS.get(lang, REGION_NORMS['en'])
+    return TRADE_PARSER_PROMPT_TEMPLATE.format(**norms)
+
+# Legacy aliases for backward compatibility (deprecated)
+MARKET_ANALYST_PROMPT = get_market_analyst_prompt('tr')
+STOCK_ANALYSIS_PROMPT = get_stock_analysis_prompt('tr')
+TRADE_PARSER_PROMPT = get_trade_parser_prompt('tr')
 
 
 # ─── Core Functions ───
 
 async def call_gemini(
     prompt: str,
-    system_prompt: str = MARKET_ANALYST_PROMPT,
+    system_prompt: Optional[str] = None,
     model_name: str = "gemini-2.0-flash",
+    lang: Locale = 'tr',
 ) -> str:
-    """Call Gemini AI API"""
+    """Call Gemini AI API - Runs in thread pool to avoid blocking
+
+    Args:
+        prompt: User prompt/query
+        system_prompt: Custom system prompt (optional, defaults to parameterized market analyst prompt)
+        model_name: Gemini model (default: gemini-2.0-flash)
+        lang: Language for region-specific prompts (default: tr)
+    """
     settings = get_settings()
     if not settings.gemini_api_key:
-        return "⚠️ Gemini API anahtarı yapılandırılmamış. Ayarlar bölümünden ekleyin."
+        return "⚠️ Gemini API key not configured. Please add it in settings."
+
+    # Use parameterized prompt if none provided
+    if system_prompt is None:
+        system_prompt = get_market_analyst_prompt(lang)
 
     try:
         import google.generativeai as genai
-        genai.configure(api_key=settings.gemini_api_key)
+        from concurrent.futures import ThreadPoolExecutor
+        import asyncio
 
-        model = genai.GenerativeModel(
-            model_name=model_name,
-            system_instruction=system_prompt,
-        )
-        response = model.generate_content(prompt)
-        return response.text
+        def _call_gemini_sync():
+            """Synchronous Gemini API call"""
+            genai.configure(api_key=settings.gemini_api_key)
+            model = genai.GenerativeModel(
+                model_name=model_name,
+                system_instruction=system_prompt,
+            )
+            # Use timeout of 60 seconds for batch translations
+            response = model.generate_content(prompt, request_options={"timeout": 60})
+            return response.text if response else ""
+
+        # Run in thread pool to not block event loop
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(None, _call_gemini_sync)
+        return result
+    except asyncio.TimeoutError:
+        logger.error(f"Gemini AI timeout")
+        return "⚠️ Gemini API timeout - request took too long"
     except Exception as e:
         logger.error(f"Gemini AI hatası: {e}")
         return f"AI yanıt hatası: {str(e)}"
