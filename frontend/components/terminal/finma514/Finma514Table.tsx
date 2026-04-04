@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from '@/hooks/useTranslation'
 import { cn } from '@/lib/utils'
 import type { Finma514Stock, FinmaLang } from '@/types/finma514'
 import { CATEGORY_LABELS, TAG_CONFIG } from '@/types/finma514'
@@ -37,7 +37,18 @@ function pctCell(val: number) {
 }
 
 export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: Finma514TableProps) {
-  const { t } = useTranslation('finma514')
+  const { t } = useTranslation()
+
+  // Translation map for tab labels
+  const tabLabels: Record<string, string> = {
+    tab_all: t('All (54)'),
+    tab_core: t('Core'),
+    tab_sector: t('Sector'),
+    tab_volume: t('Volume'),
+    tab_gainers: t('Gainers'),
+    tab_oversold: t('Oversold'),
+  }
+
   const [activeTab, setActiveTab] = useState<TabKey>('all')
   const [selected,  setSelected]  = useState<Finma514Stock | null>(null)
   const [sortKey,   setSortKey]   = useState<SortKey>('score')
@@ -109,7 +120,7 @@ export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: F
             )}
           >
             <span>{tab.icon}</span>
-            <span>{t(tab.labelKey)}</span>
+            <span>{tabLabels[tab.labelKey]}</span>
             <span className={cn(
               'text-[9px] px-1 rounded',
               activeTab === tab.key ? 'bg-finma-primary/20 text-finma-primary' : 'bg-white/10 text-finma-text-dim'
@@ -124,7 +135,7 @@ export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: F
       <div className="mt-2">
         <input
           type="text"
-          placeholder={t('search_placeholder')}
+          placeholder={t('Search ticker or company...')}
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="finma-input w-full text-xs py-1.5"
@@ -137,42 +148,42 @@ export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: F
           <thead>
             <tr className="bg-[#0f1520] border-b border-finma-border">
               <th className="px-3 py-2.5 text-left text-finma-text-dim font-medium w-8">#</th>
-              <th className="px-3 py-2.5 text-left text-finma-text-dim font-medium">{t('header_symbol')}</th>
-              <th className="px-3 py-2.5 text-left text-finma-text-dim font-medium hidden sm:table-cell">{t('header_company')}</th>
-              <th className="px-3 py-2.5 text-left text-finma-text-dim font-medium hidden md:table-cell">{t('header_sector')}</th>
-              <th className="px-3 py-2.5 text-center text-finma-text-dim font-medium">{t('header_tier')}</th>
+              <th className="px-3 py-2.5 text-left text-finma-text-dim font-medium">{t('Symbol')}</th>
+              <th className="px-3 py-2.5 text-left text-finma-text-dim font-medium hidden sm:table-cell">{t('Company')}</th>
+              <th className="px-3 py-2.5 text-left text-finma-text-dim font-medium hidden md:table-cell">{t('Sector')}</th>
+              <th className="px-3 py-2.5 text-center text-finma-text-dim font-medium">{t('Tier')}</th>
               <th
                 className="px-3 py-2.5 text-right text-finma-text-dim font-medium cursor-pointer hover:text-finma-text"
                 onClick={() => toggleSort('price')}
               >
-                {t('header_price')} <SortIcon k="price" />
+                {t('Price')} <SortIcon k="price" />
               </th>
               <th
                 className="px-3 py-2.5 text-right text-finma-text-dim font-medium cursor-pointer hover:text-finma-text"
                 onClick={() => toggleSort('change_1d')}
               >
-                {t('header_change_1d')} <SortIcon k="change_1d" />
+                {t('%Change')} <SortIcon k="change_1d" />
               </th>
               <th
                 className="px-3 py-2.5 text-right text-finma-text-dim font-medium cursor-pointer hover:text-finma-text"
                 onClick={() => toggleSort('rvol')}
               >
-                {t('header_rvol')} <SortIcon k="rvol" />
+                {t('RVOL')} <SortIcon k="rvol" />
               </th>
               <th
                 className="px-3 py-2.5 text-right text-finma-text-dim font-medium cursor-pointer hover:text-finma-text"
                 onClick={() => toggleSort('rsi')}
               >
-                {t('header_rsi')} <SortIcon k="rsi" />
+                {t('RSI')} <SortIcon k="rsi" />
               </th>
               <th
                 className="px-3 py-2.5 text-right text-finma-text-dim font-medium cursor-pointer hover:text-finma-text w-36"
                 onClick={() => toggleSort('score')}
               >
-                {t('header_score')} <SortIcon k="score" />
+                {t('Score')} <SortIcon k="score" />
               </th>
               {onAddToTracking && (
-                <th className="px-2 py-2.5 text-center text-finma-text-dim font-medium w-10" title={t('header_tracking')}>
+                <th className="px-2 py-2.5 text-center text-finma-text-dim font-medium w-10" title={t('Add to Tracking')}>
                   <Target className="w-3 h-3 inline" />
                 </th>
               )}
@@ -182,7 +193,7 @@ export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: F
             {filtered.length === 0 ? (
               <tr>
                 <td colSpan={onAddToTracking ? 11 : 10} className="py-12 text-center text-finma-text-dim text-xs">
-                  {search ? t('no_results') : t('loading')}
+                  {search ? t('No results found.') : t('Loading data...')}
                 </td>
               </tr>
             ) : filtered.map((stock, idx) => {
@@ -265,7 +276,7 @@ export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: F
                     <td className="px-2 py-2.5 text-center" onClick={e => e.stopPropagation()}>
                       <button
                         onClick={() => onAddToTracking(stock)}
-                        title={`${stock.ticker} ${t('add_to_tracking')}`}
+                        title={`${stock.ticker} add to tracking`}
                         className="p-1.5 rounded-lg bg-white/5 hover:bg-finma-primary/20 text-finma-text-dim hover:text-finma-primary transition-all"
                       >
                         <Target className="w-3.5 h-3.5" />
@@ -281,8 +292,8 @@ export function Finma514Table({ stocks, lang, onLangChange, onAddToTracking }: F
 
       {/* Sonuç sayısı */}
       <p className="text-[10px] text-finma-text-dim mt-1.5">
-        {t('showing_stocks', { count: filtered.length })}
-        {search && ` · ${t('filtered_by')} "${search}"`}
+        {t('Showing')} {filtered.length} {t('stocks')}
+        {search && ` · ${t('filtered by')} "${search}"`}
       </p>
 
       {/* Detail Modal */}
