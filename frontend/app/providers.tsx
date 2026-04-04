@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { useAuthStore } from '@/store/auth'
 import { Activity } from 'lucide-react'
 import { InstallPrompt } from '@/components/pwa/InstallPrompt'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 
 function AuthInitializer({ children }: { children: React.ReactNode }) {
   const { initialize, isLoading, refreshUser } = useAuthStore()
@@ -61,6 +62,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         {children}
       </AuthInitializer>
       <InstallPrompt />
+      <LanguageSwitcher />
     </QueryClientProvider>
   )
 }
