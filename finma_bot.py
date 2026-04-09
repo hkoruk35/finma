@@ -587,8 +587,8 @@ def build_signal_card(master_score: float, tech: Dict, price: Dict,
         "entry_range_high":   round(cur * 1.005, 2),
         "target_range_low":   target_low,
         "target_range_high":  target_high,
-        "stop_loss_range_low": stop_low,
-        "stop_loss_range_high": stop_high,
+        "stop_range_low":     stop_low,
+        "stop_range_high":    stop_high,
         "target_price":       round(target_mid, 2), # Keep for backref if needed
         "stop_loss":          round(stop_mid, 2),   # Keep for backref if needed
         "risk_reward_ratio":  round(3 / 2, 1),

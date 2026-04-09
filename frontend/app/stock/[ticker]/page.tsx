@@ -193,12 +193,12 @@ export default async function StockDetailPage({ params }: Props) {
                       <p className="font-mono font-bold text-[#22c55e]">Bullish</p>
                    </div>
                 </div>
-                <button className="text-[#3b82f6] text-sm font-semibold hover:underline flex items-center gap-1">
+                <Link href="#social-share-section" className="text-[#3b82f6] text-sm font-semibold hover:underline flex items-center gap-1">
                   Share Analysis
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                   </svg>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -259,13 +259,13 @@ export default async function StockDetailPage({ params }: Props) {
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                    <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Price Target</span>
                    <span className="font-mono font-black text-xl text-[#22c55e]">
-                      ${formatPrice(stock.signals.target_price)}
+                      ${formatPrice(stock.signals.target_range_low)} - ${formatPrice(stock.signals.target_range_high)}
                    </span>
                 </div>
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                    <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Stop Loss</span>
                    <span className="font-mono font-black text-xl text-[#ef4444]">
-                      ${formatPrice(stock.signals.stop_loss)}
+                      ${formatPrice(stock.signals.stop_range_low)} - ${formatPrice(stock.signals.stop_range_high)}
                    </span>
                 </div>
                 <div className="flex justify-between items-center bg-[#141924] p-3 rounded-lg border border-[#1e2a3a]">
@@ -416,14 +416,21 @@ export default async function StockDetailPage({ params }: Props) {
               </div>
            </div>
 
-           <div className="glass-card p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Social Share</h3>
-              <SocialShare 
-                ticker={stock.ticker} 
-                score={stock.scores.master_score} 
-                signal={stock.scores.signal_type}
-              />
-           </div>
+            <div id="social-share-section" className="glass-card p-8 border-t-2 border-t-[#3b82f6]">
+               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                 <div className="max-w-md">
+                   <h3 className="text-2xl font-black text-white mb-2">Share This Insight</h3>
+                   <p className="text-[#94a3b8] text-sm">Help others discover this signal. Professional analysts share high-conviction data.</p>
+                 </div>
+                 <div className="flex-1 flex justify-end">
+                   <SocialShare 
+                     ticker={stock.ticker} 
+                     score={stock.scores.master_score} 
+                     signal={stock.scores.signal_type}
+                   />
+                 </div>
+               </div>
+            </div>
         </div>
 
         {/* News Section */}

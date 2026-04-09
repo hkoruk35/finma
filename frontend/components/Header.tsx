@@ -16,13 +16,19 @@ export default function Header() {
           </div>
           <div className="flex items-center">
             <span 
-              className="text-2xl italic text-white tracking-tighter"
+              className="text-2xl text-white tracking-tighter"
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
             >
-              FinMA
+              Fin
             </span>
             <span 
-              className="hidden xs:block text-xl font-light text-[#3b82f6] ml-1 tracking-tight"
+              className="text-2xl text-[#3b82f6] tracking-tighter"
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
+            >
+              MA
+            </span>
+            <span 
+              className="hidden xs:block text-xl font-light text-[#3b82f6] ml-2 tracking-tight opacity-80"
             >
               Daily 100
             </span>

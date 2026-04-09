@@ -82,7 +82,11 @@ export interface StockDetail {
     entry_range_low: number;
     entry_range_high: number;
     target_price: number;
+    target_range_low: number;
+    target_range_high: number;
     stop_loss: number;
+    stop_range_low: number;
+    stop_range_high: number;
     risk_reward_ratio: number;
     categories: string[];
   };
