@@ -2,7 +2,7 @@
   "ticker": "GOOGL",
   "company": "Alphabet Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.528568-04:00",
+  "generated_at": "2026-04-09T03:49:36.736658-04:00",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 288.98,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.528529-04:00",
+    "generated_at": "2026-04-09T03:49:36.736633-04:00",
     "categories": []
   },
   "breakout": {

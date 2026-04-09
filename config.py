@@ -213,7 +213,7 @@ RVOL_LONG_DAYS  = 30
 # ============================================================
 
 GEMINI_BATCH_SIZE         = 10    # Process N stocks per Gemini batch
-GEMINI_BATCH_DELAY_SEC    = 45    # Wait between batches (rate limit: 15 req/min)
+GEMINI_BATCH_DELAY_SEC    = 0    # Wait between batches (rate limit: 15 req/min)
 GEMINI_MAX_TOKENS         = 300   # ~150 words output
 GEMINI_SUMMARY_WORD_LIMIT = 150
 

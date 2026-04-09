@@ -2,7 +2,7 @@
   "ticker": "RTX",
   "company": "RTX Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.735587-04:00",
+  "generated_at": "2026-04-09T03:49:36.789382-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 188.36,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.735526-04:00",
+    "generated_at": "2026-04-09T03:49:36.789370-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "RTX currently trades at $197.92, down 0.25% today, with RVOL at 0.64x. A weak SELL signal is indicated. Technically, the MACD histogram at 0.0396 and a bullish EMA stack suggest upward momentum, however ADX at 24.1 indicates a weak trend. The RSI of 50 doesn't offer directional insight, while low BB Squeeze indicates decreasing volatility. Trading 6.7% from its 52-week high, the stock is approaching overbought levels. RTX's P/E of 41.02 exceeds the sector median of 34.37, despite a revenue growth of 12.1% TTM. A key near-term catalyst is the upcoming earnings report, which could pressure the price down if guidance disappoints, given the rich valuation.",
+  "ai_summary": "RTX, currently at $197.92, signals a SELL with 51% confidence. While the MACD histogram is bullish at 0.0396 and the EMA stack confirms an upward trend, the RSI of 50 indicates neutral momentum. The ADX at 24.1 suggests a weak trend. Despite revenue growth of 12.1%, the P/E ratio of 41.02 exceeds the sector median of 34.37. The stock is near its 52-week high (6.7% proximity), but the low BB squeeze suggests limited near-term volatility. A potential catalyst is upcoming earnings data, which could highlight overvaluation concerns.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 51,

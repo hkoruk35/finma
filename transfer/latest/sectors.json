@@ -1,6 +1,6 @@
 {
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.806791-04:00",
+  "generated_at": "2026-04-09T03:49:36.805561-04:00",
   "sectors": {
     "Technology": {
       "avg_score": 36.2,
@@ -186,16 +186,16 @@
     }
   },
   "etf_performance": {
-    "XLK": NaN,
     "XLY": NaN,
-    "XLP": NaN,
-    "XLV": NaN,
     "XLB": NaN,
-    "XLU": NaN,
-    "XLE": NaN,
-    "XLF": NaN,
-    "XLC": NaN,
+    "XLI": NaN,
     "XLRE": NaN,
-    "XLI": NaN
+    "XLK": NaN,
+    "XLF": NaN,
+    "XLP": NaN,
+    "XLE": NaN,
+    "XLC": NaN,
+    "XLU": NaN,
+    "XLV": NaN
   }
 }

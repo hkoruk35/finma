@@ -2,7 +2,7 @@
   "ticker": "AMAT",
   "company": "Applied Materials, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.485515-04:00",
+  "generated_at": "2026-04-09T03:49:36.728957-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 321.95,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.485429-04:00",
+    "generated_at": "2026-04-09T03:49:36.728896-04:00",
     "categories": [
       "breakout",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AMAT exhibits a SELL signal with 45% confidence. While the EMA stack is bullish and the price is within 10.3% of its 52-week high, revenue growth is negative at -2.1% TTM, and its P/E ratio of 36.35 is above the sector median of 32.77. ADX is low at 14.0. The BB Squeeze indicates potential volatility. Near-term catalyst: Upcoming earnings report may disappoint due to sector headwinds.",
+  "ai_summary": "AMAT exhibits mixed signals. Technically, a HIGH BB Squeeze suggests potential volatility, but weak ADX at 14.0 indicates a lack of trend strength. The EMA stack is bullish and the RSI of 52.5 is neutral. At 10.3% from its 52-week high, upside remains.\n\nFundamentally, the P/E of 36.35 is above the sector median of 32.77, offset by a strong gross margin of 48.7%, though revenue growth is -2.1%. The RVOL of 0.75x indicates lower than usual trading volume.\n\nGiven the BB Squeeze and relatively high P/E ratio against negative revenue growth, a SELL signal is generated. Near-term catalyst: upcoming earnings report could trigger a significant price move. Confidence is 45%.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 45,

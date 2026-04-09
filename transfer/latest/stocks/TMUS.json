@@ -2,7 +2,7 @@
   "ticker": "TMUS",
   "company": "T-Mobile US, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.570604-04:00",
+  "generated_at": "2026-04-09T03:49:36.746181-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 189.82,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.570536-04:00",
+    "generated_at": "2026-04-09T03:49:36.746151-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "T-Mobile (TMUS) signals a STRONG_SELL with low confidence (22%) despite today's 0.97% gain to $200.54. The bearish EMA stack and relatively low RSI of 37.4 suggest further downside. While revenue growth is strong at 11.3% and gross margin is healthy at 63.2%, the P/E of 20.31 is above the sector median of 17.46. The ADX at 21.3 indicates a weak trend. With the price 21.5% below its 52-week high and a BB Squeeze showing low volatility, a catalyst is needed to break the current pattern. Near-term, upcoming earnings results could be a negative catalyst if subscriber growth slows.",
+  "ai_summary": "T-Mobile (TMUS) at $200.54 exhibits bearish signals. The EMA stack is bearish, and although today’s 0.97% gain is positive, the low RSI of 37.4 and neutral MACD histogram suggest limited upward momentum. ADX at 21.3 indicates a weak trend. While revenue growth is strong at 11.3% and gross margin healthy at 63.2%, the P/E of 20.31 exceeds the sector median of 17.46. The stock is 21.5% below its 52-week high. The STRONG_SELL signal (22% confidence) indicates potential downside. A near-term catalyst could be upcoming Q1 earnings, where disappointing subscriber growth could accelerate the decline.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 22,

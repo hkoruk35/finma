@@ -2,7 +2,7 @@
   "ticker": "PYPL",
   "company": "PayPal Holdings, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.655028-04:00",
+  "generated_at": "2026-04-09T03:49:36.765504-04:00",
   "sector": "Financials",
   "industry": "Credit Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 41.83,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.654929-04:00",
+    "generated_at": "2026-04-09T03:49:36.765482-04:00",
     "categories": [
       "breakout",
       "value"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PYPL signals SELL with 53% confidence on 2026-04-09. Bearish EMA stack and low ADX of 9.9 indicate a weak downtrend. The HIGH BB Squeeze suggests potential for increased volatility and a likely move downwards, confirming the bearish signal. With RSI at 48.1 and MACD Histogram at 0.1499 the stock has room to fall. Relative Volume at 0.6x indicates low trading interest in the stock. The P/E ratio of 8.47 is significantly lower than the sector median of 17.64, pointing to undervaluation, but not enough to offset technical weakness. Near-term catalyst: upcoming earnings report may disappoint due to modest 3.7% revenue growth.",
+  "ai_summary": "PayPal (PYPL) exhibits a sell signal with 53% confidence. Bearish EMA stack and low ADX of 9.9 indicate a weak downtrend, while a high BB squeeze suggests potential for increased volatility and a continued move downward. The RSI of 48.1 confirms the absence of oversold conditions. Revenue growth of 3.7% is underwhelming relative to its P/E ratio of 8.475, which is less than the sector median of 17.635. A near-term catalyst could be upcoming earnings, where disappointing figures may confirm the bearish technicals.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 53,

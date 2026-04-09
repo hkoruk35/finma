@@ -2,7 +2,7 @@
   "ticker": "SHW",
   "company": "The Sherwin-Williams Company",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.788180-04:00",
+  "generated_at": "2026-04-09T03:49:36.802399-04:00",
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 296.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.788121-04:00",
+    "generated_at": "2026-04-09T03:49:36.802387-04:00",
     "categories": []
   },
   "breakout": {

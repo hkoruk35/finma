@@ -2,7 +2,7 @@
   "ticker": "ABT",
   "company": "Abbott Laboratories",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.676735-04:00",
+  "generated_at": "2026-04-09T03:49:36.774559-04:00",
   "sector": "Healthcare",
   "industry": "Medical Devices",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 97.47,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.676696-04:00",
+    "generated_at": "2026-04-09T03:49:36.774507-04:00",
     "categories": [
       "reversal",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ABT exhibits a STRONG_SELL signal, albeit with low 23% confidence. At $101.83, the price shows a bearish EMA stack and a relatively low RSI of 31.4, indicating potential oversold conditions but ongoing downward momentum. ADX at 34.3 suggests a trending market. While BB Squeeze is LOW, volatility could increase. Revenue growth of 4.4% is decent, and the P/E of 27.84 is in line with the sector median. Resistance remains distant, being 25.2% away from the 52-week high. A potential catalyst for near-term downside is a negative earnings surprise in the upcoming Q1 2026 report.",
+  "ai_summary": "ABT exhibits a bearish technical outlook. Trading at $101.83, the stock shows a daily decline of -0.46% with RVOL at 0.8x. The RSI of 31.4 indicates oversold conditions but is not yet extreme. The EMA stack is bearish, while the ADX at 34.3 suggests a strong trend. BB Squeeze is low. With P/E at 27.8, comparable to sector median, and revenue growth of 4.4%, fundamentals don't strongly counter the technical weakness. The stock is 25.2% away from its 52-week high. Given the technicals, the signal is STRONG_SELL, near-term catalyst would be upcoming earnings reports and guidance revisions.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 23,

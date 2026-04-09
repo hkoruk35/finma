@@ -2,7 +2,7 @@
   "ticker": "JNJ",
   "company": "Johnson & Johnson",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.664177-04:00",
+  "generated_at": "2026-04-09T03:49:36.769208-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 230.27,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.664122-04:00",
+    "generated_at": "2026-04-09T03:49:36.769186-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "JNJ exhibits a STRONG_SELL signal with low confidence (35%). Bearish technicals dominate, including a negative MACD Histogram (-0.1678) and a bearish EMA stack. The RSI of 46.5 indicates weakening momentum. While the stock is near its 52-week high (4.1% proximity), ADX at 15.9 signals a weak trend. High BB Squeeze suggests increased volatility incoming. JNJ's P/E of 21.6 is below the sector median of 28.13, yet a recent -1.06% daily price change and RVOL of 0.81x showcase decreased investor interest. Upcoming earnings reports could act as a catalyst for increased selling pressure if guidance disappoints.",
+  "ai_summary": "JNJ exhibits a **STRONG_SELL** signal, albeit with low 35% confidence. Currently priced at $238.41, down 1.06% today, JNJ's bearish EMA stack and negative MACD histogram (-0.1678) indicate downward momentum. The RSI of 46.5 is neutral, while ADX at 15.9 indicates a weak trend. A high BB Squeeze suggests volatility is imminent. While revenue growth is solid at 9.1% and gross margin is high at 68.1%, the P/E ratio is favorable at 21.602507 vs sector median of 28.125336500000003, the technicals dominate the sell signal. JNJ is trading near its 52-week high at 4.1% away, increasing downward pressure. Upcoming earnings report could act as a near-term catalyst to confirm this direction.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 35,

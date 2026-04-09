@@ -2,7 +2,7 @@
   "ticker": "PG",
   "company": "The Procter & Gamble Company",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.702517-04:00",
+  "generated_at": "2026-04-09T03:49:36.783654-04:00",
   "sector": "Consumer Staples",
   "industry": "Household & Personal Products",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 136.16,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.702471-04:00",
+    "generated_at": "2026-04-09T03:49:36.783641-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PG exhibits a STRONG SELL signal due to bearish technicals. The RSI of 30.8 indicates oversold conditions, but the bearish EMA stack and ADX of 30.0 suggest a strengthening downtrend. RVOL is 0.72x, suggesting volume is not confirming the price move. While the P/E of 21.47 is below the sector median of 25.59, low revenue growth of 1.5% and a still-high 52-week high proximity (15.5%) weigh on the outlook. The low BB Squeeze indicates a potential for increased volatility and continued downward movement. Upcoming earnings on April 22, 2026, could be a near-term catalyst for further downside if guidance disappoints.",
+  "ai_summary": "PG exhibits a **STRONG SELL** signal driven by bearish technicals, albeit with low confidence (23%). The stock is trading with a bearish EMA stack, while a low RSI of 30.8 indicates oversold conditions, and the ADX at 30 suggests a strengthening downtrend. RVOL is below 1, showing low interest. P/E of 21.46 is below the sector median. Revenue growth is a low 1.5%. A potential near-term catalyst for further downside is upcoming earnings reports, given the weak revenue growth.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 23,

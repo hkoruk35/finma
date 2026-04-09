@@ -2,7 +2,7 @@
   "ticker": "V",
   "company": "Visa Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.634445-04:00",
+  "generated_at": "2026-04-09T03:49:36.755541-04:00",
   "sector": "Financials",
   "industry": "Credit Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 289.49,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.634393-04:00",
+    "generated_at": "2026-04-09T03:49:36.755508-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Visa Inc. (V) exhibits a SELL signal, confidence 47%. Trading at $302.55, down 0.26% with RVOL 0.87x, V shows bearish technicals. The EMA stack is bearish, and while ADX reads 28.2 indicating trend strength, RSI at 44 and a neutral MACD histogram temper conviction. A high BB squeeze suggests imminent volatility. At 18.5% from its 52-week high, upside appears limited. A P/E of 28.98 significantly exceeds the sector median of 17.64 despite strong revenue growth of 14.6% and a gross margin of 97.8%. Near-term catalyst: upcoming earnings report expected in late April may disappoint relative to high valuation.",
+  "ai_summary": "Visa Inc. (V) is exhibiting a SELL signal with 47% confidence. Bearish EMA stack and RSI of 44.0 indicate downward momentum. The ADX at 28.2 suggests a strengthening trend, while the HIGH BB squeeze implies a potential volatility breakout to the downside. The price is 18.5% away from its 52-week high. V's P/E ratio of 28.98 is notably higher than the sector median of 17.64. Although revenue growth is solid at 14.6% and gross margin is high at 97.8%, the overvalued P/E and bearish technical signals outweigh the fundamentals. Watch for potential negative revisions on analyst estimates as a near-term catalyst.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 47,

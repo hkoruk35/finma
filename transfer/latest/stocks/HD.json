@@ -2,7 +2,7 @@
   "ticker": "HD",
   "company": "The Home Depot, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.596964-04:00",
+  "generated_at": "2026-04-09T03:49:36.749817-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Home Improvement Retail",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 300.97,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.596914-04:00",
+    "generated_at": "2026-04-09T03:49:36.749799-04:00",
     "categories": [
       "reversal",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HD shows a weak technical profile. The STRONG_SELL signal is supported by a bearish EMA stack and a moderately strong ADX of 37.2 indicating a defined downtrend. RSI at 34.3 signals oversold conditions, but the price is still 23.7% away from its 52-week high, indicating continued relative weakness. Revenue growth is negative at -3.8%. The P/E ratio of 23.64 is lower than the sector median of 29.12. Near-term catalyst: upcoming housing market data could further pressure the stock if numbers are weak.",
+  "ai_summary": "HD exhibits a STRONG_SELL signal with low confidence (34%). The stock declined 2.41% to $318.77 with RVOL at 0.94x, indicating relatively normal trading volume. Key technicals reveal bearish momentum: RSI at 34.3 suggests oversold conditions, but the bearish EMA stack and ADX at 37.2 point to a strong downtrend. While MACD Histogram is neutral at 0.4082 and BB Squeeze is low, offering little insight, the price is 23.7% away from its 52-week high. Fundamentals show a concerning -3.8% revenue growth TTM, although a P/E of 23.64 is below the sector median of 29.12 and gross margin is relatively healthy at 33.3%. Near-term, upcoming housing market data could significantly impact the stock.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 34,

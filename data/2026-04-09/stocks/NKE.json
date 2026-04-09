@@ -2,7 +2,7 @@
   "ticker": "NKE",
   "company": "NIKE, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.608947-04:00",
+  "generated_at": "2026-04-09T03:49:36.751144-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Footwear & Accessories",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 38.85,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.608908-04:00",
+    "generated_at": "2026-04-09T03:49:36.751128-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NKE signals STRONG SELL with 29% confidence. Bearish EMA stack and RSI of 18.4 indicate strong oversold conditions, confirmed by a high ADX of 42.0 suggesting a strong downtrend. The current price is 45.1% away from its 52-week high, highlighting significant underperformance. While the P/E ratio of 28.38 is near the sector median, near-zero revenue growth offsets this. High RVOL of 2.53x suggests increased selling pressure. A potential near-term catalyst is the upcoming earnings report where weak guidance could exacerbate the downtrend.",
+  "ai_summary": "NKE exhibits a **STRONG_SELL** signal driven by bearish technicals. The RSI of 18.4 indicates oversold conditions but with strong downward momentum. The ADX at 42.0 confirms a strong downtrend. The EMA stack is bearish, signaling further potential decline. Revenue growth is near zero at 0.1%, and the gross margin is 40.9%. Although the P/E ratio of 28.37 is near the sector median, it doesn't offset the strong sell signal. A potential near-term catalyst for continued downside is the upcoming earnings report, if revenue is flat.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 29,

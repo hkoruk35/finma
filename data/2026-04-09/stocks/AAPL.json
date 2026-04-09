@@ -2,7 +2,7 @@
   "ticker": "AAPL",
   "company": "Apple Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.358469-04:00",
+  "generated_at": "2026-04-09T03:49:36.710785-04:00",
   "sector": "Technology",
   "industry": "Consumer Electronics",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 241.12,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.354959-04:00",
+    "generated_at": "2026-04-09T03:49:36.710485-04:00",
     "categories": [
       "breakout",
       "reversal"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AAPL signals SELL with 42% confidence, driven by a bearish EMA stack, and high BB squeeze suggesting volatility ahead. RSI at 46.9 indicates weakening momentum. ADX at 19.3 shows no clear trend. The stock trades 11.3% below its 52-week high. P/E ratio of 32.77 is in line with sector median. Revenue growth is strong at 15.7%, with a gross margin of 47.3%. The recent 2.07% daily price decrease, coupled with RVOL at 1.02x, suggests increased selling pressure. A potential catalyst is the upcoming earnings call in late April, which could exacerbate downside if guidance disappoints.",
+  "ai_summary": "AAPL exhibits a SELL signal with 42% confidence. Bearish EMA stack and a high BB Squeeze suggest potential for increased volatility to the downside. RSI at 46.9 indicates weakening momentum. While revenue growth is 15.7% and gross margin is 47.3%, valuation is rich as indicated by P/E of 32.77, in line with sector median. ADX at 19.3 signals a weak trend. Near-term catalyst: Upcoming earnings report on April 28th may amplify negative sentiment if guidance disappoints.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 42,

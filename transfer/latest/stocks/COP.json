@@ -2,7 +2,7 @@
   "ticker": "COP",
   "company": "ConocoPhillips",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.687935-04:00",
+  "generated_at": "2026-04-09T03:49:36.779676-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 124.51,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.687890-04:00",
+    "generated_at": "2026-04-09T03:49:36.779645-04:00",
     "categories": [
       "top_signals",
       "momentum",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "COP exhibits a neutral signal with moderate confidence. Technically, the bullish EMA stack and low BB squeeze suggest potential for upward momentum, although the RSI at 68.3 nears overbought territory. The ADX at 37.8 indicates a strong trend. ConocoPhillips is trading just 1.5% below its 52-week high. Fundamentally, COP's P/E of 19.72 is below the sector median of 23.32, but revenue growth is negative at -6.8%. Near-term, earnings report in late April could act as a catalyst, depending on the company guidance.",
+  "ai_summary": "ConocoPhillips (COP) shows a neutral signal with 56% confidence. At $131.77, COP is near its 52-week high, trading only 1.5% below. The bullish EMA stack and ADX of 37.8 indicate a strong uptrend, but the RSI of 68.3 suggests it is approaching overbought territory. The MACD histogram is neutral at -0.319, and RVOL is below 1 at 0.83x. While the P/E of 19.72 is lower than the sector median of 23.32, TTM revenue growth is negative at -6.8%. The low BB squeeze suggests volatility may remain muted. A near-term catalyst to watch is the upcoming earnings call in late April, where guidance will be crucial.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 56,

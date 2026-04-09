@@ -2,7 +2,7 @@
   "ticker": "AMZN",
   "company": "Amazon.com, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.584753-04:00",
+  "generated_at": "2026-04-09T03:49:36.748436-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Internet Retail",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 202.25,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.584694-04:00",
+    "generated_at": "2026-04-09T03:49:36.748414-04:00",
     "categories": [
       "breakout"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AMZN exhibits a SELL signal with 40% confidence. While revenue growth (13.6%) and gross margin (50.3%) are positive, a bearish EMA stack and high BB Squeeze suggest potential volatility and downward pressure. The ADX of 13.7 indicates a weak trend. With the P/E ratio (29.86) slightly above the sector median (29.12) and at 15.8% proximity to its 52-week high, AMZN appears overvalued. Near-term, upcoming earnings announcements could act as a catalyst for price correction if growth expectations are not met.",
+  "ai_summary": "AMZN exhibits a SELL signal with 40% confidence. Technically, the bearish EMA stack and high BB squeeze suggest potential downward price movement. The ADX of 13.7 indicates a weak trend, and RVOL at 0.86x shows declining trading interest. At $213.77, AMZN is 15.8% below its 52-week high. While revenue growth is strong at 13.6%, its P/E ratio of 29.86 is slightly above the sector median of 29.12. Near-term catalyst: Upcoming earnings report may disappoint investors due to increased competition in cloud computing.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 40,

@@ -2,7 +2,7 @@
   "ticker": "ISRG",
   "company": "Intuitive Surgical, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.681089-04:00",
+  "generated_at": "2026-04-09T03:49:36.777507-04:00",
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 429.07,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.681028-04:00",
+    "generated_at": "2026-04-09T03:49:36.777482-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ISRG exhibits a STRONG SELL signal (32% confidence). Bearish EMA stack and RSI of 33.8 indicate increasing downward momentum, further supported by a relatively strong ADX of 33.4. Although the MACD histogram is neutral at -0.9893, the low BB squeeze implies potential for increased volatility to the downside. ISRG is 23.6% away from its 52-week high. Its P/E of 58.81 is significantly higher than the sector median of 28.13, despite strong revenue growth of 18.8% and a gross margin of 66.0%. Near-term catalyst: Upcoming earnings report could disappoint given the high valuation.",
+  "ai_summary": "ISRG exhibits a STRONG_SELL signal with low confidence (32%). Bearish EMA stack and RSI of 33.8 indicate downward momentum, corroborated by ADX at 33.4 suggesting a strengthening trend. While revenue growth TTM stands at 18.8% and gross margin is strong at 66.0%, the P/E ratio of 58.81 significantly exceeds the sector median of 28.13, indicating overvaluation. The stock is 23.6% away from its 52-week high. A potential catalyst for near-term downside is upcoming competitor earnings reports, which could pressure ISRG if they showcase increased market share.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 32,

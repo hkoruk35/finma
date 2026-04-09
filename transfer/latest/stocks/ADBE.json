@@ -2,7 +2,7 @@
   "ticker": "ADBE",
   "company": "Adobe Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.409165-04:00",
+  "generated_at": "2026-04-09T03:49:36.716546-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 223.12,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.409062-04:00",
+    "generated_at": "2026-04-09T03:49:36.716528-04:00",
     "categories": [
       "value",
       "reversal"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ADBE signals SELL with 51% confidence. Bearish EMA stack and RSI at 38.4 indicate continued downward momentum. ADX at 37.5 suggests a strengthening downtrend, though RVOL is low at 0.61x. While the P/E of 13.9 is significantly lower than the sector median of 32.8 and revenue growth is at 12%, technicals point to weakness. The medium BB squeeze suggests potential for increased volatility to the downside. The stock is 42.4% away from its 52-week high. A potential catalyst for further decline is upcoming competitor earnings reports due next week.",
+  "ai_summary": "ADBE signals a SELL (Confidence: 51%) at $240.14, down 1.73% today, with low relative volume (0.61x RVOL). Technicals show bearish momentum: RSI at 38.4, bearish EMA stack, and ADX at 37.5 indicating a strong trend. While the MACD histogram is neutral at 0.7255, the stock is only 42.4% from its 52-week high. Despite a low P/E of 13.9 compared to the sector median of 32.77 and strong gross margins (89.4%), the bearish technical signals outweigh the fundamentals. A medium BB squeeze suggests potential for increased volatility. Near-term catalyst: upcoming earnings report could confirm the downward trend.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 51,

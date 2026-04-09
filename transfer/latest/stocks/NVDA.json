@@ -2,7 +2,7 @@
   "ticker": "NVDA",
   "company": "NVIDIA Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.389665-04:00",
+  "generated_at": "2026-04-09T03:49:36.713222-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 167.4,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.389574-04:00",
+    "generated_at": "2026-04-09T03:49:36.713205-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NVIDIA (NVDA) exhibits a STRONG_SELL signal, though confidence is low at 38%. At $178.1, the stock is 14.0% below its 52-week high. Technicals are mixed: RSI at 49.9 is neutral, but the EMA stack is bearish and ADX at 22.2 indicates a weak trend. The MACD histogram is neutral at 0.5928. RVOL is below 1 at 0.82x. NVDA's P/E ratio of 37.16 is higher than the sector median of 32.77, despite strong revenue growth of 73.2% and a 71.1% gross margin. A potential catalyst is upcoming competitor product releases, which could negatively impact market share.",
+  "ai_summary": "NVIDIA (NVDA) exhibits a STRONG_SELL signal with low confidence (38%). Technically, the bearish EMA stack and neutral MACD histogram (0.5928) suggest continued downward momentum. The ADX at 22.2 indicates a weak trend. While the BB Squeeze is low, suggesting potential volatility, the RVOL of 0.82x doesn't confirm increased trading interest. At $178.1, the price is 14% below its 52-week high. NVDA's P/E of 37.16 is higher than the sector median (32.77). While revenue growth is strong at 73.2% and gross margin is healthy at 71.1%, valuation concerns weigh on the outlook. A potential catalyst is the upcoming competitor product release in the following weeks.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 38,

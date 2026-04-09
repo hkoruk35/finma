@@ -2,7 +2,7 @@
   "ticker": "QCOM",
   "company": "QUALCOMM Incorporated",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.434157-04:00",
+  "generated_at": "2026-04-09T03:49:36.718989-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 116.51,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.434092-04:00",
+    "generated_at": "2026-04-09T03:49:36.718953-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "QCOM exhibits a STRONG_SELL signal with low confidence (33%). Bearish EMA stack and RSI of 29.9 indicate oversold conditions, while the high BB squeeze suggests potential for increased volatility. ADX at 34.3 implies a strengthening downtrend. The stock is 33.1% away from its 52-week high. QCOM's P/E ratio of 25.00 is below the sector median of 32.77. Revenue growth is at 5.0%, and gross margin is 55.1%. A potential near-term catalyst could be upcoming earnings revisions, given the oversold conditions.",
+  "ai_summary": "QCOM signals STRONG_SELL with low confidence, driven by bearish technicals. The RSI of 29.9 indicates oversold conditions, but the bearish EMA stack and high BB Squeeze suggest potential for further downside. ADX at 34.3 shows a strong trend. Trading 33.1% away from its 52-week high indicates weakness. QCOM's P/E of 25.0 is below the sector median of 32.8, while revenue growth is at 5.0% and gross margin is 55.1%. The RVOL of 0.8x indicates lower-than-average trading volume. A near-term catalyst to watch is the upcoming earnings report, where disappointing guidance could exacerbate the negative trend.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 33,

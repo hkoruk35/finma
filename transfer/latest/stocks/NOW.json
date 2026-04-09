@@ -2,7 +2,7 @@
   "ticker": "NOW",
   "company": "ServiceNow, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.463669-04:00",
+  "generated_at": "2026-04-09T03:49:36.722342-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 90.87,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.463611-04:00",
+    "generated_at": "2026-04-09T03:49:36.722331-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ServiceNow (NOW) exhibits a weak technical outlook. Trading at $100.55, down 1.83% today, the stock's RSI of 36.9 indicates oversold conditions, but the bearish EMA stack suggests further downside. ADX at 21.4 implies a weak trend. While the BB Squeeze is at a medium level, the stock is only 51.9% from its 52-week high, showing relative weakness.\n\nA high P/E of 58.37 compared to the sector median of 32.77 raises valuation concerns despite strong revenue growth of 20.7% and a healthy gross margin of 77.5%.\n\nA STRONG_SELL signal is given with low confidence. An upcoming industry conference could act as a near-term catalyst, potentially impacting investor sentiment.",
+  "ai_summary": "NOW exhibits a STRONG_SELL signal with low 23% confidence, driven by bearish EMA stack and proximity to 52-week high (51.9%). RSI at 36.9 indicates potential oversold conditions, while ADX at 21.4 suggests weak trend strength. The P/E ratio of 58.37 significantly exceeds the sector median of 32.77. Despite a revenue growth of 20.7% and a gross margin of 77.5%, the stock is trading rich. The upcoming earnings announcement on April 24th could act as a near-term catalyst for price movement, potentially highlighting valuation concerns.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 23,

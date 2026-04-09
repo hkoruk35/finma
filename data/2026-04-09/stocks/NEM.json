@@ -2,7 +2,7 @@
   "ticker": "NEM",
   "company": "Newmont Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.785512-04:00",
+  "generated_at": "2026-04-09T03:49:36.801800-04:00",
   "sector": "Materials",
   "industry": "Gold",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 104.49,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.785457-04:00",
+    "generated_at": "2026-04-09T03:49:36.801785-04:00",
     "categories": [
       "value"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NEM shows a sell signal based on bearish EMA stack and moderately high 52-week high proximity (12.9%), despite a 1.61% daily price increase. ADX at 25 indicates a trending market but lacks strong momentum. While revenue growth is strong at 20.6% and the P/E ratio of 18.49 is lower than the sector median of 33.47, the low BB squeeze suggests limited near-term volatility. RSI at 56.2 is neutral. Watch for upcoming earnings reports as a potential catalyst.",
+  "ai_summary": "Newmont (NEM) signals SELL with 50% confidence. Technically, the EMA stack is bearish, although RSI at 56.2 suggests limited immediate downside. ADX at 25 indicates a moderately trending market. Despite low BB Squeeze, a breakout is less likely given the bearish EMA. The stock is 12.9% below its 52-week high. Fundamentally, NEM is attractive with a P/E of 18.49, below the sector median of 33.47, coupled with 20.6% revenue growth and a 63.2% gross margin. The neutral MACD histogram offers no directional bias. RVOL is low at 0.79x. Near-term catalyst: upcoming earnings report may pressure the price if gold prices soften.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 50,

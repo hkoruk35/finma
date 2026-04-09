@@ -2,7 +2,7 @@
   "ticker": "UNP",
   "company": "Union Pacific Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.728905-04:00",
+  "generated_at": "2026-04-09T03:49:36.788246-04:00",
   "sector": "Industrials",
   "industry": "Railroads",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 236.71,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.728861-04:00",
+    "generated_at": "2026-04-09T03:49:36.788234-04:00",
     "categories": [
       "top_signals",
       "value"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "UNP currently trades at $246.11, up 0.23% today, with RVOL at 0.92x. The signal is NEUTRAL. Technicals present mixed signals: RSI is 52.3, MACD Histogram is 0.9462 (neutral), EMA stack is bearish, and ADX reads 32.2. BB Squeeze is MEDIUM, while price lingers 7.8% from its 52-week high. Fundamentals are solid, with a P/E of 20.54, lower than the sector median of 34.37, and a Gross Margin of 56.4%, but revenue growth is down -0.6% TTM. Upcoming earnings report could act as a near-term catalyst.",
+  "ai_summary": "UNP currently trades at $246.11, a slight 0.23% daily increase, with RVOL at 0.92x. Technical signals are mixed. The EMA stack is bearish, but RSI at 52.3 indicates neither overbought nor oversold conditions. ADX reads 32.2, trending. A medium BB squeeze suggests potential volatility. The price is 7.8% below its 52-week high. Fundamentals show a P/E of 20.5, below the sector median of 34.4, though TTM revenue growth is slightly negative at -0.6%. Gross margin is healthy at 56.4%. The overall signal is neutral, with 57% confidence. Near-term, upcoming Q1 earnings reports due in late April could act as a catalyst.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 57,

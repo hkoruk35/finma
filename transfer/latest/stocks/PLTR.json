@@ -2,7 +2,7 @@
   "ticker": "PLTR",
   "company": "Palantir Technologies Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.519479-04:00",
+  "generated_at": "2026-04-09T03:49:36.734307-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 136.29,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.519015-04:00",
+    "generated_at": "2026-04-09T03:49:36.734287-04:00",
     "categories": [
       "breakout"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Palantir (PLTR) signals STRONG_SELL (Confidence: 36%) despite a 1.45% daily gain to $150.07. Bearish EMA stack and a high BB Squeeze suggest potential downward volatility. ADX at 19.8 indicates a weak trend. The RSI of 51.2 and neutral MACD Histogram (-0.3839) offer no directional confirmation. With the price 27.6% away from its 52-week high, and a P/E of 223.43 far exceeding the sector median of 32.77, the stock appears overvalued despite strong revenue growth of 70% and a gross margin of 82.4%.\nA potential catalyst for a near-term price decrease is a correction to sector P/E levels.",
+  "ai_summary": "Palantir (PLTR) signals a STRONG_SELL with 36% confidence. Trading at $150.07, up 1.45% today, its RVOL is low at 0.71x. The EMA stack is bearish, and the ADX sits at 19.8 indicating a weak trend. While revenue growth is strong at 70% and gross margin is high at 82.4%, its P/E ratio is 223.43, significantly above the sector median of 32.77. A high BB Squeeze suggests potential volatility. Resistance at the 52-week high (27.6% away) may prove difficult to break. Near-term, upcoming earnings are a potential catalyst for a downside move.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 36,

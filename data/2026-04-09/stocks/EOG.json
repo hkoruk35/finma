@@ -2,7 +2,7 @@
   "ticker": "EOG",
   "company": "EOG Resources, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.694610-04:00",
+  "generated_at": "2026-04-09T03:49:36.781856-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 136.05,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.694567-04:00",
+    "generated_at": "2026-04-09T03:49:36.781842-04:00",
     "categories": [
       "top_signals",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "EOG Resources (EOG) exhibits a neutral signal, confidence 61%, on 2026-04-09. Trading at $144.23, up 0.82% on below-average RVOL (0.76x), EOG is near its 52-week high (3.8% proximity). The bullish EMA stack and ADX of 40.2 suggest a strong existing uptrend, while the RSI of 64.2 indicates building momentum. The MACD Histogram is near zero (-0.6486). A low BB squeeze suggests consolidation. EOG's P/E ratio of 15.25 is below the sector median of 23.32, but revenue growth is stagnant (0.0% TTM). Continued strength in crude oil prices would likely act as a near-term catalyst.",
+  "ai_summary": "EOG Resources (EOG) exhibits a neutral signal with 61% confidence. Technically, the bullish EMA stack and ADX of 40.2 indicate a strong uptrend, while the RSI of 64.2 suggests approaching overbought conditions. The low BB squeeze implies consolidation. Trading at $144.23, EOG is 3.8% from its 52-week high. Its P/E ratio of 15.25 is significantly lower than the sector median of 23.32, potentially indicating undervaluation. While revenue growth is flat, the strong gross margin of 62.0% is favorable. A potential catalyst is upcoming earnings announcements, which could provide further insight into future performance.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 61,

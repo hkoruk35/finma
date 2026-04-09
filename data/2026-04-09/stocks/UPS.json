@@ -2,7 +2,7 @@
   "ticker": "UPS",
   "company": "United Parcel Service, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.745517-04:00",
+  "generated_at": "2026-04-09T03:49:36.793611-04:00",
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 92.33,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.745477-04:00",
+    "generated_at": "2026-04-09T03:49:36.793581-04:00",
     "categories": [
       "top_signals",
       "value"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "UPS exhibits a neutral signal with 56% confidence. Bearish EMA stack and an RSI of 40.6 indicate continued downside pressure. ADX at 31.6 suggests a strengthening trend, while a high BB squeeze signals potential for significant price movement. Trading at $97.57, up 0.42% today, with RVOL at 0.75x. 52W high proximity is 17.6%. P/E of 15.3125 is lower than the sector median of 34.36661, but revenue growth is negative at -3.2%. Upcoming earnings report in late April could act as a catalyst.",
+  "ai_summary": "UPS currently trades at $97.57, up 0.42% with RVOL at 0.75x. The technical outlook is mixed: a HIGH BB Squeeze indicates potential for volatility, while the bearish EMA stack suggests downward pressure. RSI at 40.6 further supports this. ADX at 31.6 implies a strengthening trend. The stock is 17.6% away from its 52-week high. UPS's P/E of 15.3125 is significantly below the sector median of 34.36661, despite a TTM revenue decline of 3.2% and a 22.6% gross margin. The neutral signal reflects this uncertainty.\nNear-term catalyst: Upcoming earnings report could provide direction.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 56,

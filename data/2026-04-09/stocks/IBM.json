@@ -2,7 +2,7 @@
   "ticker": "IBM",
   "company": "International Business Machines Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.459420-04:00",
+  "generated_at": "2026-04-09T03:49:36.721761-04:00",
   "sector": "Technology",
   "industry": "Information Technology Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 230.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.459384-04:00",
+    "generated_at": "2026-04-09T03:49:36.721748-04:00",
     "categories": [
       "value",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "IBM (2026-04-09): SELL signal indicated. Trading at $245.07, down 0.68% with a RVOL of 0.63x, showing lower-than-average volume. Technicals present a mixed picture: RSI at 46.5 and a neutral MACD histogram of 1.3359. The EMA stack is bearish, although ADX at 19.4 indicates a weak trend. A medium BB Squeeze suggests potential volatility. While revenue growth is strong at 12.2% TTM and gross margin stands at 58.2%, the P/E ratio of 21.70 is below the sector median of 32.77. Despite strong fundamentals, the bearish technical signals suggest near-term downside.\nNear-term catalyst: upcoming earnings report may not meet elevated expectations.",
+  "ai_summary": "IBM (2026-04-09): SELL signal initiated (Confidence: 50%). Trading at $245.07, down 0.68% with RVOL at 0.63x. Bearish EMA stack and RSI of 46.5 signal weakening momentum. ADX at 19.4 suggests a weak trend. While BB Squeeze is medium, indicating potential volatility, the stock is 21.8% below its 52-week high. The P/E ratio of 21.70 is below the sector median of 32.77, but negative price action outweighs this. Revenue growth TTM is 12.2% and gross margin is 58.2%. Watch for upcoming earnings report impacting near-term direction.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 50,

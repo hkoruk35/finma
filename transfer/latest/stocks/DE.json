@@ -2,7 +2,7 @@
   "ticker": "DE",
   "company": "Deere & Company",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.740910-04:00",
+  "generated_at": "2026-04-09T03:49:36.790443-04:00",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 544.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.740863-04:00",
+    "generated_at": "2026-04-09T03:49:36.790431-04:00",
     "categories": [
       "breakout"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Deere & Company (DE) exhibits mixed signals. The sell signal is driven by concerning revenue decline of -11.1% TTM and proximity to 52-week highs at 12.8%. While the P/E ratio is in line with the sector median at 34.37, indicating fair valuation, the bullish EMA stack and MACD histogram of 0.2544 suggest potential upside. ADX at 21.3 indicates a weak trend. A high BB squeeze suggests volatility is building. Near-term catalyst: upcoming earnings report could provide clarity, but current fundamentals warrant caution.",
+  "ai_summary": "Deere & Company (DE) exhibits mixed signals. While the bullish MACD histogram at 0.2544 and bullish EMA stack suggest upward momentum, the SELL signal driven by relatively weak revenue growth of -11.1% and high BB Squeeze outweighs the positives. The RSI of 49.7 indicates neutral momentum, and ADX at 21.3 points to a weak trend. DE is 12.8% away from its 52-week high. RVOL at 0.9x indicates weaker trading volume. Despite a P/E ratio of 34.36661 matching the sector median, near-term performance may be impacted by broader agricultural equipment demand data expected next week.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 45,

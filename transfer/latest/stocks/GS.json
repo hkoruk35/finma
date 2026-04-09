@@ -2,7 +2,7 @@
   "ticker": "GS",
   "company": "The Goldman Sachs Group, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.647835-04:00",
+  "generated_at": "2026-04-09T03:49:36.762664-04:00",
   "sector": "Financials",
   "industry": "Capital Markets",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 810.21,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.647641-04:00",
+    "generated_at": "2026-04-09T03:49:36.762638-04:00",
     "categories": []
   },
   "breakout": {

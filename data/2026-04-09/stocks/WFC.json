@@ -2,7 +2,7 @@
   "ticker": "WFC",
   "company": "Wells Fargo & Company",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.641643-04:00",
+  "generated_at": "2026-04-09T03:49:36.759476-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 77.41,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.641606-04:00",
+    "generated_at": "2026-04-09T03:49:36.759386-04:00",
     "categories": [
       "breakout",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "WFC signals SELL with 53% confidence. Bearish EMA stack and high BB squeeze indicate potential volatility. RSI at 54.7 suggests neutral momentum, confirmed by a neutral MACD histogram of 0.8775. ADX at 20.7 implies a weak trend. Current price is 14.8% below its 52-week high. The P/E ratio of 13.52 is below the sector median of 17.64, while revenue growth TTM is 5.0%. The low RVOL of 0.66x suggests below-average trading volume. Watch for earnings reports as a near-term catalyst.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 53,

@@ -2,7 +2,7 @@
   "ticker": "MRK",
   "company": "Merck & Co., Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.669959-04:00",
+  "generated_at": "2026-04-09T03:49:36.771158-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 113.82,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.669918-04:00",
+    "generated_at": "2026-04-09T03:49:36.771130-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MRK exhibits a SELL signal with 48% confidence. Technically, the RSI at 55.1 is neutral and the EMA stack is bullish, yet the low ADX of 14.2 indicates a weak trend. The medium BB Squeeze suggests potential volatility. At $119.28, it is only 3.0% from its 52-week high. While fundamentally sound with a P/E of 16.92, below the sector median of 28.13, and a strong 77.2% gross margin, the 5.0% revenue growth TTM is moderate. The near-term concern stems from the potential for profit-taking near the 52-week high, coupled with the weak trend strength as indicated by the ADX.",
+  "ai_summary": "MRK exhibits a SELL signal with low confidence (48%). While the EMA stack is bullish and the stock is near its 52-week high (3.0% proximity), suggesting potential upside, other indicators are less optimistic. The low ADX (14.2) signals a weak trend. RVOL is below average (0.79x). P/E ratio of 16.92 is significantly lower than the sector median of 28.13, possibly indicating undervaluation, but current technicals suggest otherwise. Near-term watch for news on Keytruda's clinical trial results which could act as a catalyst.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 48,

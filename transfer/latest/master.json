@@ -1,6 +1,6 @@
 {
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.793584-04:00",
+  "generated_at": "2026-04-09T03:49:36.803536-04:00",
   "total_tickers_scanned": 100,
   "active_signals_count": 67,
   "market_regime": "Neutral",
@@ -349,20 +349,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": NaN,
-      "change_pct": NaN
+      "value": 6616.85,
+      "change_pct": 0.08
     },
     "NASDAQ": {
-      "value": NaN,
-      "change_pct": NaN
+      "value": 22017.85,
+      "change_pct": 0.1
     },
     "DOW": {
-      "value": NaN,
-      "change_pct": NaN
+      "value": 46584.46,
+      "change_pct": -0.18
     },
     "VIX": {
-      "value": 25.78,
-      "change_pct": 6.66
+      "value": 21.31,
+      "change_pct": -17.34
     },
     "RUSSELL": {
       "value": 2544.95,

@@ -2,7 +2,7 @@
   "ticker": "TXN",
   "company": "Texas Instruments Incorporated",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.442133-04:00",
+  "generated_at": "2026-04-09T03:49:36.719970-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 188.34,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.442036-04:00",
+    "generated_at": "2026-04-09T03:49:36.719955-04:00",
     "categories": [
       "breakout"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "TXN exhibits a SELL signal with low confidence. Bearish EMA stack and high BB Squeeze suggest potential volatility. ADX at 25 indicates a trending market, but RVOL at 0.78x shows muted trading interest. RSI at 53.5 is neutral. The P/E of 38.33 is above the sector median of 32.77, potentially indicating overvaluation. While revenue growth is 10.4%, proximity to the 52-week high is 11.8%, showing recent strength. Near-term catalyst: upcoming earnings report, where any earnings miss could trigger a sell-off given the valuation.",
+  "ai_summary": "TXN exhibits a SELL signal with 42% confidence. Bearish EMA stack and high BB squeeze suggest potential for downward price movement. RSI at 53.5 indicates neutral momentum. ADX at 25 shows a developing trend. The price is 11.8% away from its 52-week high. TXN's P/E of 38.33 is above the sector median of 32.77. RVOL is low at 0.78x. While revenue growth is positive at 10.4%, high valuation and bearish technical signals could drive a correction. Monitor upcoming earnings report for further direction.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 42,

@@ -2,7 +2,7 @@
   "ticker": "AVGO",
   "company": "Broadcom Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.394412-04:00",
+  "generated_at": "2026-04-09T03:49:36.714451-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 308.75,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.394365-04:00",
+    "generated_at": "2026-04-09T03:49:36.714435-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AVGO shows a STRONG_SELL signal with 37% confidence. The price increased 6.21% today to $333.97, but the EMA stack is bearish. ADX at 21.9 indicates a weak trend, and the low BB squeeze suggests consolidation. While revenue growth is strong at 29.5% TTM and gross margin at 76.7% is solid, the P/E ratio of 68.48 is significantly higher than the sector median of 32.77. RSI is at 57.9. Proximity to 52-week high is 18.8%. Watch for further weakness if upcoming earnings disappoint expectations.",
+  "ai_summary": "AVGO shows a STRONG_SELL signal, albeit with low 37% confidence. The price increased 6.21% today to $333.97, while relative volume is 0.78x. Technically, the EMA stack is bearish, and ADX at 21.9 shows a weak trend. RSI at 57.9 is neutral, while the MACD histogram reads 1.6424, also neutral. A low BB Squeeze indicates reduced volatility. With the price at 18.8% proximity to its 52-week high and a high P/E of 68.48 compared to sector median of 32.77, the stock may be overvalued despite a 29.5% TTM revenue growth and a 76.7% gross margin. The upcoming earnings announcement could be a near-term catalyst for a price correction.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 37,

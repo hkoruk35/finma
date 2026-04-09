@@ -2,7 +2,7 @@
   "ticker": "MU",
   "company": "Micron Technology, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.469791-04:00",
+  "generated_at": "2026-04-09T03:49:36.722894-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 324.8,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.469752-04:00",
+    "generated_at": "2026-04-09T03:49:36.722883-04:00",
     "categories": [
       "value"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MU displays a SELL signal with 44% confidence. The bearish EMA stack, coupled with a neutral MACD histogram of -3.15 and an RSI of 47.4, indicates weakening momentum. ADX at 20.4 confirms the absence of a strong trend. While revenue growth is impressive at 196.3% and gross margin stands at 58.4%, the P/E ratio of 17.82 is relatively low compared to the sector median of 32.77. At 18.2% from its 52-week high, MU has room to fall. Watch for upcoming earnings call on May 2 for guidance on memory chip demand affecting price.",
+  "ai_summary": "MU signals a SELL (Confidence: 44%) at $377.58. The bearish EMA stack and neutral MACD histogram (-3.1495) contribute to the negative outlook. ADX at 20.4 indicates a weak trend. Although RVOL is elevated at 1.24x, the low BB Squeeze suggests limited near-term volatility. While revenue growth is strong at 196.3% and gross margin is 58.4%, the P/E ratio of 17.82 is lower than the sector median of 32.77. Approaching 52-week highs with 18.2% proximity might induce profit-taking. A potential catalyst is upcoming earnings revisions based on current demand.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 44,

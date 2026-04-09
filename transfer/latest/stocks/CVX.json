@@ -2,7 +2,7 @@
   "ticker": "CVX",
   "company": "Chevron Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.685712-04:00",
+  "generated_at": "2026-04-09T03:49:36.778945-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 190.9,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.685667-04:00",
+    "generated_at": "2026-04-09T03:49:36.778926-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CVX exhibits mixed signals. While the bullish EMA stack and near 52-week high proximity (4.5% away) suggest upward momentum, a SELL signal is triggered with 50% confidence. The ADX at 35.5 indicates a strengthening trend, but revenue decline of -8.2% TTM and high P/E ratio (29.05 vs sector median 23.32) raise concerns. The MACD Histogram is neutral at -1.4019, and RVOL is average at 1.02x. The medium BB squeeze suggests potential volatility. A potential catalyst for downside movement could be upcoming earnings if they reflect continued revenue weakness.",
+  "ai_summary": "CVX exhibits a SELL signal despite a 1.35% daily gain, driven by an elevated P/E of 29.05 relative to the sector median of 23.32 and negative TTM revenue growth of -8.2%. While the EMA stack indicates a bullish trend and the ADX at 35.5 shows trend strength, the RSI of 56.7 suggests weakening momentum. The medium BB squeeze could precede a volatility expansion. Currently, the price is only 4.5% away from its 52-week high. A potential catalyst for near-term downside is upcoming earnings expectations, which could disappoint given the revenue decline.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 50,

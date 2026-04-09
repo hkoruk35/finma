@@ -2,7 +2,7 @@
   "ticker": "MS",
   "company": "Morgan Stanley",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.643848-04:00",
+  "generated_at": "2026-04-09T03:49:36.761542-04:00",
   "sector": "Financials",
   "industry": "Capital Markets",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 158.05,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.643810-04:00",
+    "generated_at": "2026-04-09T03:49:36.761488-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "Morgan Stanley (MS) exhibits a SELL signal with 48% confidence. The stock price increased 1.13% today to $168.43, with relative volume at 0.82x. Technically, the EMA stack is bearish, and ADX at 16.7 indicates a weak trend. RSI is neutral at 56.5. Although revenue growth is solid at 11.0%, the P/E ratio of 17.24 is slightly below the sector median of 17.64. The price is 11.4% away from its 52-week high. A potential catalyst for near-term downward movement could be upcoming earnings expectations.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 48,

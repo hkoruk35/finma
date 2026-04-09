@@ -2,7 +2,7 @@
   "ticker": "NEE",
   "company": "NextEra Energy, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.750310-04:00",
+  "generated_at": "2026-04-09T03:49:36.794337-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 89.93,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.750252-04:00",
+    "generated_at": "2026-04-09T03:49:36.794320-04:00",
     "categories": [
       "top_signals",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NEE exhibits a neutral signal. Bullish EMA stack and proximity to its 52-week high ($95.00) suggest continued upward momentum. RSI at 59.9 indicates increasing buying pressure, but ADX at 22.6 shows a weak trend. RVOL is below 1x. With a P/E of 28.54 above the sector median of 20.89, NEE is relatively overvalued despite strong revenue growth of 20.7% and a 62.3% gross margin. The medium BB squeeze suggests potential volatility. An upcoming earnings call on April 22nd could be a near-term catalyst.",
+  "ai_summary": "NEE shows a neutral signal with 57% confidence. The stock is trading near its 52-week high, only 1.4% away, supported by a bullish EMA stack. While the MACD histogram is neutral at 0.1023, the RSI of 59.9 indicates increasing buying pressure, but not overbought conditions. ADX at 22.6 suggests a developing trend. RVOL at 0.83x is below average. The P/E ratio of 28.54 is high compared to the sector median of 20.89. Revenue growth is strong at 20.7%. The medium BB Squeeze suggests potential volatility. Upcoming earnings reports may act as a near-term catalyst.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 57,

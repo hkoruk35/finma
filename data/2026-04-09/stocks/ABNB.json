@@ -2,7 +2,7 @@
   "ticker": "ABNB",
   "company": "Airbnb, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.627527-04:00",
+  "generated_at": "2026-04-09T03:49:36.754148-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Travel Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 116.27,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.627430-04:00",
+    "generated_at": "2026-04-09T03:49:36.754135-04:00",
     "categories": []
   },
   "breakout": {

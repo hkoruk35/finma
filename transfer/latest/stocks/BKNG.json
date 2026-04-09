@@ -2,7 +2,7 @@
   "ticker": "BKNG",
   "company": "Booking Holdings Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.622359-04:00",
+  "generated_at": "2026-04-09T03:49:36.752968-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Travel Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 160.31,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.622315-04:00",
+    "generated_at": "2026-04-09T03:49:36.752955-04:00",
     "categories": [
       "breakout",
       "value",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BKNG exhibits a SELL signal with 47% confidence. Bearish EMA stack and high BB squeeze suggest potential volatility. The RSI of 51.5 and neutral MACD histogram offer limited support. At $173.41, the stock is 25% below its 52-week high. RVOL is low at 0.79x. While revenue growth is strong at 16.0%, the P/E ratio of 27.34 is slightly below the sector median of 29.12. ADX at 17.7 indicates a weak trend. Near-term catalyst: upcoming earnings report could trigger a price move.",
+  "ai_summary": "BKNG signals a SELL (Confidence: 47%) at $173.41, down 1.58% today with RVOL at 0.79x. The bearish EMA stack and high BB squeeze suggest potential for further downside. ADX at 17.7 indicates a weak trend. RSI at 51.5 and a near-neutral MACD histogram of 0.7473 offer little directional conviction. Despite a strong 87.4% gross margin and 16.0% revenue growth, valuation is relatively in line with the sector at a P/E of 27.34. Trading 25% off its 52-week high adds to the bearish outlook. Upcoming earnings report due in early May could act as a short-term catalyst.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 47,

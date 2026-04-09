@@ -2,7 +2,7 @@
   "ticker": "EQIX",
   "company": "Equinix, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.767211-04:00",
+  "generated_at": "2026-04-09T03:49:36.798385-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 964.23,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.767144-04:00",
+    "generated_at": "2026-04-09T03:49:36.798371-04:00",
     "categories": [
       "breakout",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "EQIX signals a SELL with modest 51% confidence. Technically, EQIX is very close to its 52-week high, trading at $1007.29, just 0.9% below. The EMA stack is bullish, but the RSI of 68.4 suggests it's nearing overbought territory. ADX at 26.4 indicates a strengthening trend. A medium BB squeeze hints at potential volatility. However, a high P/E of 74.07 compared to the sector median of 33.94 raises concern. Revenue growth of 8.1% is decent, but the valuation seems stretched. Near-term catalyst: upcoming earnings report where high expectations could lead to a sell-off if unmet.",
+  "ai_summary": "EQIX signals a SELL (Confidence: 51%) based on technicals and valuation. While the EMA stack is bullish, ADX at 26.4 indicates strengthening trend, RSI is nearing overbought at 68.4 and the stock is near its 52-week high. RVOL is 0.74x. The BB Squeeze is MEDIUM, suggesting potential for increased volatility. A high P/E of 74.07, significantly above the sector median of 33.94, flags overvaluation despite revenue growth of 8.1% and 51.3% Gross Margin. A potential catalyst for a near-term price correction could be upcoming earnings results if they fail to meet elevated expectations.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 51,

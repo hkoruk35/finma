@@ -2,7 +2,7 @@
   "ticker": "T",
   "company": "AT&T Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.559471-04:00",
+  "generated_at": "2026-04-09T03:49:36.744221-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 26.8,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.559433-04:00",
+    "generated_at": "2026-04-09T03:49:36.744158-04:00",
     "categories": [
       "value",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AT&T (T) signals SELL with 43% confidence. Trading at $28.04, down 0.99% today with RVOL at 0.86x, T exhibits bearish technicals: EMA stack points downwards, and RSI at 48.4 isn't oversold. The MACD histogram is neutral at -0.0962, but ADX at 17.3 shows no defined trend strength. Low BB Squeeze indicates decreasing volatility. While near its 52-week high (3.6% proximity) and boasting a P/E of 8.99, far below the sector median of 17.46, investors may be wary about debt levels. A potential near-term catalyst is the upcoming earnings call; expectations will be high after its revenue growth of 3.6% TTM.",
+  "ai_summary": "AT&T (T) signals a SELL with 43% confidence. Trading at $28.04, down 0.99% today with RVOL at 0.86x, T exhibits bearish technicals. The EMA stack is bearish, and the ADX is low at 17.3 indicating a weak trend. RSI at 48.4 and a neutral MACD histogram (-0.0962) offer no bullish support. While near 52W High Proximity at 3.6% and a low BB Squeeze suggest limited upside, valuation is attractive with a P/E of 8.99, significantly lower than the sector median of 17.46. Revenue growth TTM is 3.6%. Near-term catalyst: upcoming earnings report could pressure stock.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 43,

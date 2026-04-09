@@ -2,7 +2,7 @@
   "ticker": "VZ",
   "company": "Verizon Communications Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.566393-04:00",
+  "generated_at": "2026-04-09T03:49:36.745332-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 46.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.566286-04:00",
+    "generated_at": "2026-04-09T03:49:36.745305-04:00",
     "categories": [
       "value",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "VZ exhibits a STRONG_SELL signal with low confidence (38%). The bearish EMA stack and RSI of 41.1 suggest further downside. While the low BB Squeeze indicates limited volatility currently, the ADX at 24.9 shows a developing trend. VZ is trading only 5.4% from its 52-week high. The P/E ratio of 11.83 is below the sector median (17.46), but recent price action indicates it may fall lower. Near-term catalyst: upcoming earnings report expected end of April.",
+  "ai_summary": "Verizon (VZ) exhibits a STRONG_SELL signal with low confidence (38%). Currently priced at $48.62, down 1.08% today, RVOL is 0.92x. Bearish EMA stack and RSI at 41.1 suggest further downside. ADX at 24.9 indicates a trending market, but the LOW BB Squeeze suggests reduced volatility. The P/E ratio of 11.83 is below the sector median of 17.46, and revenue growth is a modest 2.0%. While fundamentals appear stable, technicals point to weakness. Approaching earnings announcement next week could serve as a near-term catalyst for price movement.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 38,

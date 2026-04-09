@@ -2,7 +2,7 @@
   "ticker": "DHR",
   "company": "Danaher Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.678159-04:00",
+  "generated_at": "2026-04-09T03:49:36.776279-04:00",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 181.33,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.678118-04:00",
+    "generated_at": "2026-04-09T03:49:36.776211-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Danaher (DHR) signals SELL with 52% confidence. Bearish EMA stack and elevated ADX of 37.4 indicate a strengthening downtrend. RSI at 44.7 confirms negative momentum, while high BB squeeze suggests potential for increased volatility. Current price at $191.01, 20.9% below its 52-week high. While gross margin is strong at 59.2%, revenue growth is 4.6% and the P/E ratio of 38.02 is higher than the sector median of 28.13. Watch for upcoming earnings report as a near-term catalyst that could validate or invalidate the bearish signal. RVOL is 0.86x",
+  "ai_summary": "Danaher (DHR), currently at $191.01, presents a SELL signal. RVOL is 0.86x, signaling lower trading activity. The bearish EMA stack and ADX of 37.4 indicates a strengthening downtrend, further supported by a High BB Squeeze suggesting potential for a volatile move downwards. DHR is 20.9% away from its 52-week high, indicating considerable underperformance. With a P/E of 38.02, DHR is overvalued compared to the sector median of 28.13. Revenue growth is 4.6%. Monitor upcoming earnings announcements as a near-term catalyst for price movement. Confidence: 52%.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 52,

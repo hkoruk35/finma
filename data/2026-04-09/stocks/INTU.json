@@ -2,7 +2,7 @@
   "ticker": "INTU",
   "company": "Intuit Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.454554-04:00",
+  "generated_at": "2026-04-09T03:49:36.721025-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 372.32,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.454513-04:00",
+    "generated_at": "2026-04-09T03:49:36.721011-04:00",
     "categories": [
       "breakout",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "INTU exhibits a STRONG_SELL signal, albeit with low confidence (30%). Currently priced at $410.24, down 1.71% today with RVOL at 0.65x, the stock shows bearish technicals. The EMA stack is bearish and RSI at 39.3 indicates weakening momentum. While the MACD histogram is neutral at -2.117, a HIGH BB Squeeze suggests a potential for significant price movement. The price is 49.0% away from its 52-week high. INTU's P/E of 25.3 is below the sector median of 32.77, while revenue growth is strong at 17.4% and gross margin is 80.9%. Near-term catalyst: Monitor upcoming earnings call for revisions to future guidance.",
+  "ai_summary": "INTU exhibits a STRONG_SELL signal with low confidence (30%). The stock is trading at $410.24, down 1.71% with a RVOL of 0.65x. Technicals are bearish, with an RSI of 39.3 and a bearish EMA stack. The MACD histogram is neutral at -2.117, while ADX registers at 21.2, indicating a weak trend. A high BB Squeeze suggests a potential volatility breakout. Despite strong fundamentals (80.9% gross margin, 17.4% revenue growth) and a lower P/E ratio of 25.31 compared to the sector median of 32.77, the price is 49.0% away from its 52-week high. Near-term catalyst: Potential sector-wide correction may exacerbate the downward pressure.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 30,

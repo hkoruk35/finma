@@ -2,7 +2,7 @@
   "ticker": "MSFT",
   "company": "Microsoft Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.382629-04:00",
+  "generated_at": "2026-04-09T03:49:36.712350-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 355.43,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.382574-04:00",
+    "generated_at": "2026-04-09T03:49:36.712331-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MSFT signals STRONG_SELL with low confidence (31%) on 2026-04-09. Trading at $372.29, down 0.16% on the day, with RVOL at 0.82x, price is 31.0% away from its 52-week high. The EMA stack is bearish, and RSI at 38.8 suggests further downside. ADX at 33.2 indicates a trending market. Despite a low BB squeeze and a neutral MACD histogram of 0.6986, the technicals are weak. MSFT’s P/E ratio of 23.42 is below the sector median of 32.77, while revenue growth is strong at 16.7% TTM. The next earnings report could be a catalyst for further price movement.",
+  "ai_summary": "MSFT exhibits a STRONG_SELL signal with low confidence (31%). Bearish EMA stack and an RSI of 38.8 suggest further downside. The ADX at 33.2 indicates a strengthening downtrend, while a low BB Squeeze implies potential for increased volatility. Trading 31% below its 52-week high, MSFT shows significant deviation from its peak. While fundamentals are solid with a P/E of 23.42 below the sector median of 32.77 and 16.7% TTM revenue growth, technicals outweigh this. Near-term catalyst: upcoming earnings report could trigger further decline if guidance disappoints.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 31,

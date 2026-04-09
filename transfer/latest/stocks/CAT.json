@@ -2,7 +2,7 @@
   "ticker": "CAT",
   "company": "Caterpillar Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.722965-04:00",
+  "generated_at": "2026-04-09T03:49:36.787167-04:00",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 673.52,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.722918-04:00",
+    "generated_at": "2026-04-09T03:49:36.787153-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Caterpillar (CAT) shows a SELL signal with 48% confidence. At $724.44, the stock is near its 52-week high, about 6.5% away. While the EMA stack is bullish, ADX is low at 14.9, indicating a weak trend, and RVOL is below 1 at 0.76x, suggesting low trading volume. The high BB Squeeze suggests potential volatility. CAT's P/E of 40.98 is above the sector median of 34.37. Near-term catalyst: upcoming earnings report may reveal if CAT can sustain its 18.0% revenue growth with its current gross margin of 28.8%.",
+  "ai_summary": "Caterpillar (CAT) at $724.44 shows a SELL signal based on moderately confident technicals and fundamentals. While the EMA stack is bullish, ADX at 14.9 indicates a weak trend, and RVOL at 0.76x shows low buying pressure. The P/E ratio of 40.98 is above the sector median of 34.37, suggesting overvaluation despite 18.0% revenue growth. The high BB squeeze could lead to downward volatility. CAT is 6.5% away from its 52-week high, signaling limited near-term upside. Watch for earnings report on April 29th as a potential catalyst for price correction.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 48,

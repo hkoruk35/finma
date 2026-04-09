@@ -2,7 +2,7 @@
   "ticker": "CHTR",
   "company": "Charter Communications, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.573937-04:00",
+  "generated_at": "2026-04-09T03:49:36.747028-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 207.16,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.573833-04:00",
+    "generated_at": "2026-04-09T03:49:36.747005-04:00",
     "categories": [
       "top_signals",
       "breakout",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CHTR exhibits a neutral signal with moderate confidence. Today's 1.74% price increase to $223.8 is accompanied by high relative volume (1.38x). Technically, a high BB squeeze suggests potential volatility. However, the bearish EMA stack and weak ADX of 10.2 indicate a lack of strong trend. RSI at 54.6 is neutral. The P/E ratio of 6.12 is significantly lower than the sector median of 17.46, but TTM revenue growth is negative (-2.3%). Near-term catalyst: Upcoming earnings report could drive price movement if subscriber numbers show stabilization.",
+  "ai_summary": "Charter Communications (CHTR) shows a neutral signal. CHTR closed at $223.8, up 1.74% with an RVOL of 1.38x. Technically, the stock exhibits a high BB squeeze, suggesting a potential volatility breakout. RSI at 54.6 is neutral, while the bearish EMA stack and low ADX of 10.2 indicate a weak trend. With the price 46.5% away from its 52-week high, upside is possible. CHTR's P/E ratio of 6.12 is significantly below the sector median of 17.46. Revenue growth is down -2.3% TTM, but gross margin remains strong at 55.3%. A near-term catalyst would be next month's earnings call.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 60,

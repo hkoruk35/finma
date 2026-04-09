@@ -2,7 +2,7 @@
   "ticker": "TSLA",
   "company": "Tesla, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.590614-04:00",
+  "generated_at": "2026-04-09T03:49:36.749156-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Auto Manufacturers",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 316.89,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.590538-04:00",
+    "generated_at": "2026-04-09T03:49:36.749137-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "TSLA signals STRONG_SELL with low confidence. Technically bearish, the RSI at 34.7 indicates oversold conditions, though ADX at 29.3 signals strengthening downtrend. Bearish EMA stack confirms negative momentum. The stock is 29.2% from its 52-week high. Fundamentally, TSLA is trading at a P/E of 323.82, significantly above the sector median of 29.12, coupled with negative revenue growth of -3.1%. Low BB Squeeze indicates possible volatility ahead. Near-term catalyst: Upcoming Q1 earnings report, expected late April, could further pressure the stock if revenue declines persist.",
+  "ai_summary": "Tesla (TSLA) exhibits a STRONG_SELL signal due to weak technicals and fundamentals. The stock is trading at $346.65, down 1.75% today, with slightly elevated relative volume (RVOL of 1.18x). The bearish EMA stack and low RSI of 34.7 indicate negative momentum, while the ADX at 29.3 suggests a strengthening downtrend. Despite low BB Squeeze, the proximity to 52-week highs is 29.2%. Fundamentals are concerning, with a P/E of 323.8, far exceeding the sector median of 29.1, and a negative TTM revenue growth of -3.1%. The gross margin is 18.0%. A potential negative catalyst is the upcoming Q1 earnings report expected in late April.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 17,

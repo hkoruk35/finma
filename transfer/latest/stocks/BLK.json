@@ -2,7 +2,7 @@
   "ticker": "BLK",
   "company": "BlackRock, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.650303-04:00",
+  "generated_at": "2026-04-09T03:49:36.763678-04:00",
   "sector": "Financials",
   "industry": "Asset Management",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 902.6,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.650241-04:00",
+    "generated_at": "2026-04-09T03:49:36.763656-04:00",
     "categories": [
       "breakout",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BlackRock (BLK) exhibits a STRONG_SELL signal with low confidence based on technicals. The stock is trading with a bearish EMA stack, and a high BB squeeze indicates potential for increased volatility. ADX at 29.1 suggests a strengthening downtrend, corroborated by a sub-50 RSI of 43.1. BLK is trading 19.5% below its 52-week high. While revenue growth is strong at 23.4%, the P/E ratio of 28.33 significantly exceeds the sector median of 17.64. RVOL is low at 0.63x. Near-term catalyst: upcoming earnings report could pressure the stock further if growth slows.",
+  "ai_summary": "BlackRock (BLK) exhibits bearish technical signals. The EMA stack is bearish, and the RSI of 43.1 indicates weakening momentum, confirmed by a High BB Squeeze. ADX at 29.1 suggests a strengthening trend, however the trend is downward. While revenue growth is strong at 23.4%, the P/E ratio of 28.33 is significantly higher than the sector median of 17.64. With the price 19.5% away from its 52-week high, and relatively low volume (RVOL 0.63x), the stock presents limited near-term upside. The weak signal is STRONG_SELL. A potential catalyst is the upcoming earnings call in two weeks, where any earnings miss could exacerbate the downward pressure.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 35,

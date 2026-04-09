@@ -2,7 +2,7 @@
   "ticker": "NFLX",
   "company": "Netflix, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.543218-04:00",
+  "generated_at": "2026-04-09T03:49:36.738945-04:00",
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 93.02,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.543178-04:00",
+    "generated_at": "2026-04-09T03:49:36.738917-04:00",
     "categories": [
       "top_signals",
       "breakout",
@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Netflix (NFLX) exhibits a neutral signal with 55% confidence. At $98.82, NFLX shows a slight daily decline of -0.11% with RVOL at 0.75x, indicating lower-than-average trading volume. Technicals present mixed signals: RSI at 65.3 suggests increasing buying pressure, while the bearish EMA stack counters this. The MACD histogram is neutral at 0.2943. High BB Squeeze implies potential volatility ahead, supported by an ADX of 29.8 indicating a developing trend. NFLX is 26.2% away from its 52-week high. Fundamentals show a high P/E of 39.28 compared to the sector median of 17.46, but strong Revenue Growth TTM of 17.6%. A potential catalyst is the upcoming Q1 earnings report in late April, which may drive price action.",
+  "ai_summary": "Netflix (NFLX) exhibits a NEUTRAL signal with 55% confidence. At $98.82, the stock is 26.2% below its 52-week high. Bearish EMA stack and an ADX of 29.8 indicates a trending market, but with moderate strength. A high BB squeeze suggests potential for volatility. The RSI of 65.3 approaches overbought territory. RVOL is at 0.75x. A P/E ratio of 39.28 significantly exceeds the sector median of 17.46, despite a revenue growth TTM of 17.6% and a gross margin of 48.5%. Near-term catalyst: upcoming subscriber growth report could break the BB Squeeze.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 55,

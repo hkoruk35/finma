@@ -2,7 +2,7 @@
   "ticker": "EL",
   "company": "The Estée Lauder Companies Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.720553-04:00",
+  "generated_at": "2026-04-09T03:49:36.786611-04:00",
   "sector": "Consumer Staples",
   "industry": "Household & Personal Products",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 60.69,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.720512-04:00",
+    "generated_at": "2026-04-09T03:49:36.786598-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Estée Lauder (EL) signals STRONG_SELL based on today’s data. The bearish EMA stack and low RSI of 29.7 indicate oversold conditions, yet ADX at 38.3 suggests a strong downtrend. While the MACD histogram is slightly bullish at 0.0271, it's insufficient to offset the broader negative technical picture. EL's price is 42% away from its 52-week high. Although revenue growth is 5.6% and gross margin is high at 74.3%, the absence of a P/E ratio suggests profitability concerns relative to its sector median of 25.59. Upcoming earnings reports may serve as a near-term catalyst, potentially exacerbating the current downtrend if results disappoint.",
+  "ai_summary": "Estée Lauder (EL) signals STRONG_SELL with low confidence (27%). Currently at $69.17, down 2.45% with RVOL at 1.12x, the stock exhibits bearish technicals. While MACD histogram is at 0.0271 (bullish), the EMA stack is bearish and RSI at 29.7 indicates oversold conditions, potentially preceding a dead cat bounce. ADX at 38.3 suggests a strong downtrend. With the price 42.0% away from its 52-week high and negative P/E, valuation is concerning, although gross margin is strong at 74.3%. Near-term catalyst: upcoming earnings report may disappoint given sector-wide pressures.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 27,

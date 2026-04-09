@@ -2,7 +2,7 @@
   "ticker": "ORCL",
   "company": "Oracle Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.403850-04:00",
+  "generated_at": "2026-04-09T03:49:36.715486-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 130.11,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.403787-04:00",
+    "generated_at": "2026-04-09T03:49:36.715468-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ORCL exhibits a **STRONG_SELL** signal with low confidence. Priced at $143.17, the stock declined 1.63% today, with RVOL at 0.68x, indicating below-average trading volume. The EMA stack is bearish, and the RSI of 42.4 suggests weakening momentum. While the P/E ratio of 25.79 is below the sector median of 32.77, and revenue growth is strong at 21.7%, the low ADX of 12.9 indicates a weak trend. With the price being 56.2% from its 52-week high and the BB Squeeze being low, the technical outlook is weak. A potential catalyst to watch is the upcoming earnings announcement, where disappointing cloud revenue growth could further pressure the stock.",
+  "ai_summary": "ORCL exhibits a weak STRONG_SELL signal based on technical and fundamental factors. The bearish EMA stack and RSI of 42.4 suggest further downside. ADX at 12.9 indicates a weak trend, while low BB squeeze implies consolidation. The stock is 56.2% away from its 52-week high. ORCL's P/E of 25.79 is below the sector median of 32.77, while TTM revenue growth is a strong 21.7% and gross margin is at 67.1%. Upcoming earnings release on approximately June 15th could act as a near-term catalyst.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 23,

@@ -2,7 +2,7 @@
   "ticker": "OXY",
   "company": "Occidental Petroleum Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.690059-04:00",
+  "generated_at": "2026-04-09T03:49:36.780505-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 58.4,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.690017-04:00",
+    "generated_at": "2026-04-09T03:49:36.780475-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "OXY exhibits mixed signals on 2026-04-09. The SELL signal is of low confidence (48%). Technically, the EMA stack is bullish and ADX reads 39.9, indicating a strong trend. RSI at 64.9 suggests increasing buying pressure, while the low BB squeeze implies potential for volatility. The price is 5% from its 52-week high. Fundamentally, revenue growth is strong at 148.9%, and gross margin is 69.8%. However, the P/E ratio of 44.27 is high compared to the sector median of 23.32. The MACD histogram is neutral. The near-term catalyst is upcoming earnings, potentially impacting valuation concerns reflected in the high P/E.",
+  "ai_summary": "OXY exhibits mixed signals. The Sell signal, albeit with 48% confidence, is concerning. Technically, the bullish EMA stack and low BB squeeze suggest potential for continued upward momentum, supported by an ADX of 39.9 indicating a strong trend. However, RSI at 64.9 hints at overbought conditions. The stock is near its 52-week high, approximately 5.0% away. Fundamentally, OXY shows strong revenue growth of 148.9% TTM and a high gross margin of 69.8%. However, a P/E ratio of 44.27 significantly exceeds the sector median of 23.32, suggesting overvaluation. Near-term, upcoming earnings reports could act as a catalyst, potentially triggering a correction if expectations are not met.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 48,

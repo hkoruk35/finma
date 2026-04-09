@@ -2,7 +2,7 @@
   "ticker": "BAC",
   "company": "Bank of America Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.639585-04:00",
+  "generated_at": "2026-04-09T03:49:36.757142-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 47.82,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.639502-04:00",
+    "generated_at": "2026-04-09T03:49:36.757108-04:00",
     "categories": [
       "top_signals",
       "value",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BAC currently trades at $50.28, up 0.44% with below-average relative volume (0.76x RVOL). Technicals present a neutral outlook. The RSI at 58.2 is close to overbought, while the MACD histogram reads 0.4925. The EMA stack is bearish and ADX at 22.5 indicates a weak trend. A medium BB squeeze suggests potential volatility. The price is 11.7% away from its 52-week high. Fundamentally, BAC's P/E ratio of 13.20 is below the sector median of 17.64. Revenue growth (TTM) is 7.2%, but gross margin is 0.0%. Upcoming earnings announcements could act as a near-term catalyst. Overall signal is neutral, confidence 56%.",
+  "ai_summary": "BAC shows a neutral signal with 56% confidence. At $50.28, the price increased 0.44% today with an RVOL of 0.76x. Technicals are mixed: RSI at 58.2 suggests moderate bullish momentum, but the bearish EMA stack indicates potential resistance. ADX at 22.5 shows a weak trend, and the medium BB squeeze hints at potential volatility. BAC is 11.7% below its 52-week high. Fundamentally, BAC's P/E of 13.201 is lower than the sector median of 17.635, while revenue growth is 7.2%. Watch for upcoming earnings reports as a near-term catalyst.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 56,

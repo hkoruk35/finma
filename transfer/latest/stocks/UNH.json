@@ -2,7 +2,7 @@
   "ticker": "UNH",
   "company": "UnitedHealth Group Incorporated",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.661313-04:00",
+  "generated_at": "2026-04-09T03:49:36.768273-04:00",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 288.77,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.661274-04:00",
+    "generated_at": "2026-04-09T03:49:36.768252-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "UNH shows a SELL signal (45% confidence) based on today's data. The stock jumped 9.37% to $307.73 with 1.1x relative volume. Despite the surge, the EMA stack remains bearish, and ADX at 28.1 indicates a trending market. RSI at 67.5 is nearing overbought conditions while the MACD histogram is neutral. With 15.6% to its 52-week high, upside might be limited. UNH's P/E of 23.14 is below the sector median of 28.13, while revenue growth is a solid 12.3%. Near-term, upcoming healthcare policy announcements may act as a catalyst, creating volatility.",
+  "ai_summary": "UNH shows a mixed technical picture at $307.73, up 9.37% today with 1.1x relative volume. Despite the daily surge, the signal is SELL (45% confidence). The EMA stack remains bearish, and while the ADX at 28.1 indicates a defined trend, the low BB squeeze suggests potential volatility ahead. The RSI of 67.5 is approaching overbought territory. The P/E of 23.14 is below the sector median of 28.13. While revenue growth is strong at 12.3%, the 52-week high proximity of 15.6% suggests limited near-term upside. Watch for upcoming earnings reports as a potential catalyst.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 45,

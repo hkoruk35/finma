@@ -1034,12 +1034,24 @@ async def daily_run():
     market_indices = {}
     for name, sym in INDEX_TICKERS.items():
         try:
-            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="5d", interval="1d"))
-            if h is not None and len(h) >= 2:
-                val = float(h["Close"].iloc[-1])
-                chg = round((val - float(h["Close"].iloc[-2])) / float(h["Close"].iloc[-2]) * 100, 2)
-                market_indices[name] = {"value": round(val, 2), "change_pct": chg}
-        except: pass
+            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="10d"))
+            if h is not None and not h.empty:
+                # Only keep rows with price
+                h = h[h["Close"].notna()]
+                if len(h) >= 2:
+                    val = float(h["Close"].iloc[-1])
+                    prev = float(h["Close"].iloc[-2])
+                    chg = round((val - prev) / prev * 100, 2)
+                    market_indices[name] = {"value": round(val, 2), "change_pct": chg}
+                    log.info(f"  Index {name}: {val} ({chg}%)")
+                elif len(h) == 1:
+                    val = float(h["Close"].iloc[-1])
+                    market_indices[name] = {"value": round(val, 2), "change_pct": 0.0}
+            
+            if name not in market_indices:
+                log.warning(f"  Failed to fetch index {name}")
+        except Exception as e:
+            log.warning(f"  Index {name} error: {e}")
 
     # Determine market regime
     sp_chg = market_indices.get("SP500", {}).get("change_pct", 0)

@@ -2,7 +2,7 @@
   "ticker": "SMCI",
   "company": "Super Micro Computer, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.790650-04:00",
+  "generated_at": "2026-04-09T03:49:36.802945-04:00",
   "sector": "Technology",
   "industry": "Computer Hardware",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 18.95,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.790593-04:00",
+    "generated_at": "2026-04-09T03:49:36.802932-04:00",
     "categories": [
       "value"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SMCI exhibits a STRONG_SELL signal based on current technicals, albeit with low confidence (33%). Despite a 2.81% daily gain to $22.67, the bearish EMA stack and low RSI of 39.1 indicate continued downward momentum. The ADX at 26.2 suggests a defined trend, favoring the downside. While revenue growth is impressive at 123.4% and the P/E ratio of 17.06 is below the sector median of 32.77, the weak gross margin of 8.0% raises concerns. The RVOL is 0.75x. The stock is 62.7% away from its 52-week high. The near-term catalyst is upcoming earnings, which will be crucial to validating growth sustainability.",
+  "ai_summary": "SMCI exhibits a STRONG_SELL signal, albeit with low confidence (33%). Bearish EMA stack and low RSI (39.1) indicate continued downward momentum. The ADX at 26.2 suggests a defined, ongoing trend. While revenue growth is impressive at 123.4% TTM, a low gross margin of 8.0% is concerning. The P/E ratio of 17.06 is below the sector median of 32.77, but may not be enough to outweigh negative technicals. The stock is 62.7% from its 52-week high with RVOL below 1x, indicating weak interest. Watch for upcoming earnings reports as a near-term catalyst that could influence price action.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 33,

@@ -2,7 +2,7 @@
   "ticker": "LRCX",
   "company": "Lam Research Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:25:51.475445-04:00",
+  "generated_at": "2026-04-09T03:49:36.724258-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": 200.65,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T03:25:51.475378-04:00",
+    "generated_at": "2026-04-09T03:49:36.724090-04:00",
     "categories": [
       "top_signals",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "LRCX signals a SELL (54% confidence). While the MACD histogram is bullish (0.0689) and the EMA stack confirms an upward trend, the ADX at 18.6 indicates a weak trend. The stock is near its 52-week high (10.0% proximity). With an RSI of 51.6, it is approaching overbought territory. Its P/E ratio of 50.51 significantly exceeds the sector median of 32.77, suggesting overvaluation. RVOL at 0.76x shows lower-than-average trading activity. A potential near-term catalyst is upcoming earnings, where failure to meet high expectations could trigger a correction.",
+  "ai_summary": "LRCX signals SELL with 54% confidence. The bullish EMA stack and MACD histogram (0.0689) are countered by an elevated P/E of 50.51 against a sector median of 32.77, despite a revenue growth of 22.1%. ADX at 18.6 indicates a weak trend, while medium BB Squeeze suggests potential volatility. At 10.0% from its 52-week high, upside may be limited. Near-term catalyst: upcoming earnings report, where a failure to meet elevated expectations may drive price lower. RVOL is low at 0.76x.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 54,
