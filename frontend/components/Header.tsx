@@ -17,7 +17,7 @@ export default function Header() {
           <div className="flex items-center">
             <span
               className="text-2xl text-white tracking-tighter"
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 300 }}
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600 }}
             >
               FinMA Daily 100
             </span>
@@ -26,14 +26,14 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-6">
-          <Link href="/" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Home Page</Link>
-          <Link href="/category/top-signals" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Top Signals</Link>
-          <Link href="/category/breakout" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Breakout</Link>
-          <Link href="/category/undervalued" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Undervalued</Link>
-          <Link href="/category/momentum" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Momentum</Link>
-          <Link href="/category/reversal" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Reversal</Link>
-          <Link href="/category/passive-income" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Passive Income</Link>
-          <Link href="/archive" className="text-[11px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Archive</Link>
+          <Link href="/" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Home Page</Link>
+          <Link href="/category/top-signals" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Top Signals</Link>
+          <Link href="/category/breakout" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Breakout</Link>
+          <Link href="/category/undervalued" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Undervalued</Link>
+          <Link href="/category/momentum" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Momentum</Link>
+          <Link href="/category/reversal" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Reversal</Link>
+          <Link href="/category/passive-income" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Passive Income</Link>
+          <Link href="/archive" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Archive</Link>
         </nav>
 
         {/* Auth + Toggle */}
@@ -65,15 +65,15 @@ export default function Header() {
       {isOpen && (
         <div className="xl:hidden bg-[#0d1117] border-b border-[#1e2a3a] px-4 py-8 animate-in slide-in-from-top duration-300 max-h-[80vh] overflow-y-auto">
           <nav className="flex flex-col gap-6">
-            <Link href="/" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-white">Home Page</Link>
-            <Link href="/category/top-signals" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-[#94a3b8]">Top Signals</Link>
-            <Link href="/category/breakout" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-[#94a3b8]">Breakout</Link>
-            <Link href="/category/undervalued" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-[#94a3b8]">Undervalued</Link>
-            <Link href="/category/momentum" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-[#94a3b8]">Momentum</Link>
-            <Link href="/category/reversal" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-[#94a3b8]">Reversal</Link>
-            <Link href="/category/passive-income" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-[#94a3b8]">Passive Income</Link>
-            <Link href="/archive" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-widest text-[#94a3b8]">Archive</Link>
-            <Link href="/login" onClick={() => setIsOpen(false)} className="mt-4 w-full py-4 bg-[#3b82f6] text-white text-center rounded-2xl font-black uppercase tracking-[0.2em] shadow-2xl shadow-blue-500/40">Sign In</Link>
+            <Link href="/" onClick={() => setIsOpen(false)} className="text-base font-semibold text-white">Home Page</Link>
+            <Link href="/category/top-signals" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Top Signals</Link>
+            <Link href="/category/breakout" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Breakout</Link>
+            <Link href="/category/undervalued" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Undervalued</Link>
+            <Link href="/category/momentum" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Momentum</Link>
+            <Link href="/category/reversal" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Reversal</Link>
+            <Link href="/category/passive-income" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Passive Income</Link>
+            <Link href="/archive" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Archive</Link>
+            <Link href="/login" onClick={() => setIsOpen(false)} className="mt-4 w-full py-4 bg-[#3b82f6] text-white text-center rounded-2xl font-semibold shadow-2xl shadow-blue-500/40">Sign In</Link>
           </nav>
         </div>
       )}
