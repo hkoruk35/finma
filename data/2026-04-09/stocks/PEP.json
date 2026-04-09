@@ -2,7 +2,7 @@
   "ticker": "PEP",
   "company": "PepsiCo, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.748397-04:00",
+  "generated_at": "2026-04-09T03:00:00.070457-04:00",
   "sector": "Consumer Staples",
   "industry": "Beverages - Non-Alcoholic",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.748368-04:00",
+    "generated_at": "2026-04-09T03:00:00.070393-04:00",
     "categories": []
   },
   "breakout": {

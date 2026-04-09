@@ -2,7 +2,7 @@
   "ticker": "COST",
   "company": "Costco Wholesale Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.749752-04:00",
+  "generated_at": "2026-04-09T03:00:00.071930-04:00",
   "sector": "Consumer Staples",
   "industry": "Discount Stores",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.749728-04:00",
+    "generated_at": "2026-04-09T03:00:00.071892-04:00",
     "categories": []
   },
   "breakout": {

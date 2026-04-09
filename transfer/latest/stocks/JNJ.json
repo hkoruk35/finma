@@ -2,7 +2,7 @@
   "ticker": "JNJ",
   "company": "Johnson & Johnson",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.707373-04:00",
+  "generated_at": "2026-04-09T03:00:00.016271-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.707327-04:00",
+    "generated_at": "2026-04-09T03:00:00.016208-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "JNJ exhibits a STRONG_SELL signal with low confidence, driven by bearish EMA stack and high BB Squeeze, indicating potential volatility. RSI at 46.5 suggests weakening momentum, while a negative MACD histogram reinforces a neutral outlook. RVOL at 0.79x indicates lower than average trading volume. Although JNJ's P/E of 21.6 is below the sector median of 28.1 and has a strong gross margin of 68.1% and 9.1% TTM revenue growth, this is outweighed by the bearish technical signals. Keep an eye on upcoming earnings releases for a near-term catalyst to confirm or deny the bearish trend.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 30,

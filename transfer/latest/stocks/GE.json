@@ -2,7 +2,7 @@
   "ticker": "GE",
   "company": "GE Aerospace",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.758224-04:00",
+  "generated_at": "2026-04-09T03:00:00.079059-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.758185-04:00",
+    "generated_at": "2026-04-09T03:00:00.079003-04:00",
     "categories": []
   },
   "breakout": {

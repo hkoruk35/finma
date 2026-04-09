@@ -2,7 +2,7 @@
   "ticker": "MRK",
   "company": "Merck & Co., Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.713973-04:00",
+  "generated_at": "2026-04-09T03:00:00.019775-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.713914-04:00",
+    "generated_at": "2026-04-09T03:00:00.019738-04:00",
     "categories": [
       "top_signals",
       "dividend"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "MRK exhibits a SELL signal with 48% confidence. The bearish EMA stack and high BB squeeze suggest potential downside despite a seemingly neutral MACD histogram of 0.2627 and RSI of 55.1. While the P/E ratio of 16.92 is below the sector median of 28.13, the RVOL is relatively low at 0.72x. Revenue growth is 5.0% TTM and gross margin is 77.2%. A near-term catalyst to watch is upcoming clinical trial data for KEYTRUDA expected in early May, which could significantly impact investor sentiment.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 48,

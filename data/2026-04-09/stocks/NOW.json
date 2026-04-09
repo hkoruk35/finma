@@ -2,7 +2,7 @@
   "ticker": "NOW",
   "company": "ServiceNow, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.601333-04:00",
+  "generated_at": "2026-04-09T02:59:59.908677-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.601297-04:00",
+    "generated_at": "2026-04-09T02:59:59.908652-04:00",
     "categories": [
       "breakout"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "ServiceNow (NOW) exhibits a STRONG_SELL signal with low confidence (23%). The bearish EMA stack and high BB Squeeze suggest potential downside volatility. The RSI of 36.9 indicates oversold conditions, but lacks confirmation. Although revenue growth is strong at 20.7% and the gross margin is high at 77.5%, the P/E ratio of 58.37 significantly exceeds the sector median of 32.77. The RVOL of 0.84 suggests below-average trading volume. A potential near-term catalyst would be upcoming earnings reports as investors re-evaluate valuation in light of growth prospects.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 23,

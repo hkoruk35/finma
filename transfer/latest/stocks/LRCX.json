@@ -2,7 +2,7 @@
   "ticker": "LRCX",
   "company": "Lam Research Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.608273-04:00",
+  "generated_at": "2026-04-09T02:59:59.910744-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.608145-04:00",
+    "generated_at": "2026-04-09T02:59:59.910628-04:00",
     "categories": [
       "breakout",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "LRCX exhibits bearish technicals with a SELL signal (40% confidence). The EMA stack is bearish, confirmed by a high BB squeeze, suggesting potential for increased volatility to the downside. RSI at 51.6 shows lack of strong directional momentum. Overvalued relative to its sector, the P/E ratio is 50.51, significantly higher than the sector median of 32.77. While revenue growth is strong at 22.1%, the fundamentals do not outweigh the technical picture. Upcoming earnings could act as a near-term catalyst, likely driving the price downwards if guidance is not optimistic.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 40,

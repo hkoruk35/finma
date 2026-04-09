@@ -2,7 +2,7 @@
   "ticker": "SLB",
   "company": "SLB N.V.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.735970-04:00",
+  "generated_at": "2026-04-09T03:00:00.051315-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Equipment & Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.735931-04:00",
+    "generated_at": "2026-04-09T03:00:00.051247-04:00",
     "categories": [
       "top_signals"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "SLB exhibits a weak SELL signal with 47% confidence. Bearish EMA stack and high BB squeeze suggest potential volatility and a possible downward breakout. RVOL at 0.71x indicates weaker-than-average trading volume. RSI at 53.8 is neutral. While the P/E of 22.08 is slightly below the sector median of 23.32, revenue growth is 5.0% and gross margin is 18.7%. A near-term catalyst would be the upcoming earnings report, potentially disappointing given the technical headwinds.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 47,

@@ -2,7 +2,7 @@
   "ticker": "JPM",
   "company": "JPMorgan Chase & Co.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.679648-04:00",
+  "generated_at": "2026-04-09T02:59:59.960380-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.679622-04:00",
+    "generated_at": "2026-04-09T02:59:59.959946-04:00",
     "categories": []
   },
   "breakout": {

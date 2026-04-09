@@ -2,7 +2,7 @@
   "ticker": "IBM",
   "company": "International Business Machines Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.599067-04:00",
+  "generated_at": "2026-04-09T02:59:59.906896-04:00",
   "sector": "Technology",
   "industry": "Information Technology Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.598991-04:00",
+    "generated_at": "2026-04-09T02:59:59.906857-04:00",
     "categories": [
       "top_signals",
       "breakout",
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "IBM shows a SELL signal with 50% confidence. Bearish EMA stack and RVOL of 0.66x indicate weakening momentum. The BB Squeeze is HIGH, suggesting a potential volatile move downward. RSI at 46.5 confirms the absence of oversold conditions. While revenue growth is solid at 12.2% and P/E is attractive at 21.7 compared to the sector median of 32.77, technicals outweigh fundamentals. Near-term catalyst: upcoming earnings call in late April; disappointing guidance could trigger the anticipated breakdown.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 50,

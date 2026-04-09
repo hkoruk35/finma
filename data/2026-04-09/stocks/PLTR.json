@@ -2,7 +2,7 @@
   "ticker": "PLTR",
   "company": "Palantir Technologies Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.625110-04:00",
+  "generated_at": "2026-04-09T02:59:59.918015-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.625029-04:00",
+    "generated_at": "2026-04-09T02:59:59.917987-04:00",
     "categories": [
       "breakout",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "PLTR signals a STRONG SELL with low confidence (34%). Bearish EMA stack and high BB Squeeze suggest potential volatility. RSI at 51.2 offers little directional confirmation. High P/E of 223.43 compared to sector median of 32.77 signals overvaluation despite strong 70% revenue growth and 82.4% gross margin. RVOL is below 1.0, signaling low current trading volume. The next earnings report could be a significant catalyst.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 34,

@@ -2,7 +2,7 @@
   "ticker": "MCD",
   "company": "McDonald's Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.665085-04:00",
+  "generated_at": "2026-04-09T02:59:59.939818-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Restaurants",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.665049-04:00",
+    "generated_at": "2026-04-09T02:59:59.939771-04:00",
     "categories": [
       "value",
       "momentum",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "MCD exhibits a STRONG_SELL signal, albeit with low (35%) confidence. Bearish EMA stack and a high BB Squeeze suggest potential for increased volatility and downward price movement. The RSI of 35.8 indicates MCD is nearing oversold territory but doesn't confirm a reversal. While revenue growth is solid at 9.7% TTM and gross margin is 57.4%, the P/E ratio of 25.7 is slightly below the sector median. A low RVOL of 0.88x suggests currently subdued trading activity. Watch for a potential negative catalyst in upcoming earnings reports if same-store sales growth disappoints.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 35,

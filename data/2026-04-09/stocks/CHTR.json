@@ -2,7 +2,7 @@
   "ticker": "CHTR",
   "company": "Charter Communications, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.653565-04:00",
+  "generated_at": "2026-04-09T02:59:59.930884-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.653499-04:00",
+    "generated_at": "2026-04-09T02:59:59.930834-04:00",
     "categories": [
       "top_signals",
       "value"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "Charter Communications (CHTR) exhibits a SELL signal with 54% confidence. Technically, a high BB Squeeze suggests potential volatility, while a bearish EMA stack points to continued downward pressure. RSI at 54.6 indicates neutral momentum. The stock trades at a P/E of 6.12, significantly below the sector median of 17.46, but faces headwinds with a -2.3% TTM revenue growth. RVOL is 0.83x, showing less than average volume. Look for potential downside catalysts in upcoming subscriber data releases.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 54,

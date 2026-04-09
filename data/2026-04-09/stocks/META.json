@@ -2,7 +2,7 @@
   "ticker": "META",
   "company": "Meta Platforms, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.634055-04:00",
+  "generated_at": "2026-04-09T02:59:59.920812-04:00",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.634022-04:00",
+    "generated_at": "2026-04-09T02:59:59.920791-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "META exhibits a STRONG_SELL signal with low confidence (36%). While revenue growth is strong at 23.8% TTM and gross margin is high at 82.0%, the P/E ratio of 26.04 significantly exceeds the sector median of 17.46. The EMA stack is bearish, and the BB Squeeze indicates potential volatility expansion. RSI at 41.7 suggests further downside. Watch for potential negative revisions to Q2 earnings forecasts as a near-term catalyst for price decline. RVOL at 1.1x indicating increased trading volume.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 36,

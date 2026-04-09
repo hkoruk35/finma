@@ -2,7 +2,7 @@
   "ticker": "AMAT",
   "company": "Applied Materials, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.613043-04:00",
+  "generated_at": "2026-04-09T02:59:59.914597-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.612949-04:00",
+    "generated_at": "2026-04-09T02:59:59.914561-04:00",
     "categories": [
       "breakout",
       "momentum"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "AMAT exhibits a STRONG_SELL signal with low confidence (36%). Technically, the EMA stack is bearish, and the BB Squeeze indicates high volatility, although RVOL is low at 0.71x. RSI is neutral at 52.5, and the MACD histogram is also neutral at -0.3484. Fundamentals are mixed, with a P/E of 36.35 above the sector median of 32.77, coupled with negative revenue growth of -2.1% TTM despite a solid gross margin of 48.7%. Near-term, upcoming earnings announcement could act as a catalyst.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 36,

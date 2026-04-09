@@ -2,7 +2,7 @@
   "ticker": "AVGO",
   "company": "Broadcom Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.571699-04:00",
+  "generated_at": "2026-04-09T02:59:59.890854-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.571631-04:00",
+    "generated_at": "2026-04-09T02:59:59.890822-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "AVGO exhibits a STRONG_SELL signal with low confidence (38%). Bearish EMA stack and high BB squeeze suggest potential downward price action. RVOL is low at 0.79x. RSI at 57.9 indicates moderate momentum. The MACD Histogram is neutral at 1.3139. A high P/E of 68.48 significantly exceeds the sector median of 32.77, despite a strong TTM revenue growth of 29.5% and a gross margin of 76.7%. Near-term catalyst: upcoming earnings report could disappoint due to valuation concerns.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 38,

@@ -2,7 +2,7 @@
   "ticker": "SBUX",
   "company": "Starbucks Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.668716-04:00",
+  "generated_at": "2026-04-09T02:59:59.947335-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Restaurants",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.668689-04:00",
+    "generated_at": "2026-04-09T02:59:59.947279-04:00",
     "categories": []
   },
   "breakout": {

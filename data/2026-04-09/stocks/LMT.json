@@ -2,7 +2,7 @@
   "ticker": "LMT",
   "company": "Lockheed Martin Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.764335-04:00",
+  "generated_at": "2026-04-09T03:00:00.085506-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.764312-04:00",
+    "generated_at": "2026-04-09T03:00:00.085476-04:00",
     "categories": []
   },
   "breakout": {

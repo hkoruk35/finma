@@ -2,7 +2,7 @@
   "ticker": "SPOT",
   "company": "Spotify Technology S.A.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.656659-04:00",
+  "generated_at": "2026-04-09T02:59:59.932355-04:00",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.656610-04:00",
+    "generated_at": "2026-04-09T02:59:59.932306-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "SPOT shows a STRONG_SELL signal with low confidence (34%). Technically, the EMA stack is bearish, and a HIGH BB Squeeze suggests a volatile move is imminent. The RSI of 46.7 doesn't indicate oversold conditions. With an RVOL of 0.71x, trading volume is currently below average. Fundamentally, the P/E ratio of 39.83 significantly exceeds the sector median of 17.46, while TTM revenue growth is only 6.8%. A key near-term catalyst will be next week's subscriber growth data which needs to drastically outperform expectations to alter the signal.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 34,

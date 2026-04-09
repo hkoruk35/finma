@@ -2,7 +2,7 @@
   "ticker": "FANG",
   "company": "Diamondback Energy, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.741967-04:00",
+  "generated_at": "2026-04-09T03:00:00.057956-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.741922-04:00",
+    "generated_at": "2026-04-09T03:00:00.057840-04:00",
     "categories": []
   },
   "breakout": {

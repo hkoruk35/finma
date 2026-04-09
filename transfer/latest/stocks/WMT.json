@@ -2,7 +2,7 @@
   "ticker": "WMT",
   "company": "Walmart Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.743898-04:00",
+  "generated_at": "2026-04-09T03:00:00.063745-04:00",
   "sector": "Consumer Staples",
   "industry": "Discount Stores",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.743867-04:00",
+    "generated_at": "2026-04-09T03:00:00.063672-04:00",
     "categories": []
   },
   "breakout": {

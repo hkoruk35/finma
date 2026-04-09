@@ -2,7 +2,7 @@
   "ticker": "COIN",
   "company": "Coinbase Global, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.700087-04:00",
+  "generated_at": "2026-04-09T03:00:00.009636-04:00",
   "sector": "Financials",
   "industry": "Financial Data & Stock Exchanges",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.700060-04:00",
+    "generated_at": "2026-04-09T03:00:00.009594-04:00",
     "categories": []
   },
   "breakout": {

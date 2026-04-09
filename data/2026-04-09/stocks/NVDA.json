@@ -2,7 +2,7 @@
   "ticker": "NVDA",
   "company": "NVIDIA Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.566389-04:00",
+  "generated_at": "2026-04-09T02:59:59.888816-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.566338-04:00",
+    "generated_at": "2026-04-09T02:59:59.888779-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "NVIDIA (NVDA) exhibits mixed signals, leaning bearish. The STRONG_SELL signal is based on a bearish EMA stack and a P/E ratio of 37.16, above the sector median of 32.77. Revenue growth is strong at 73.2%, with a gross margin of 71.1%. The RSI is neutral at 49.9, and the MACD histogram is slightly positive at 0.4742. RVOL is low at 0.74x, with a BB Squeeze indicating potential volatility. Lack of ADX and 52-week proximity data further lowers confidence. The next earnings call could be a near-term catalyst.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 39,

@@ -2,7 +2,7 @@
   "ticker": "CVX",
   "company": "Chevron Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.730350-04:00",
+  "generated_at": "2026-04-09T03:00:00.043153-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.730312-04:00",
+    "generated_at": "2026-04-09T03:00:00.043077-04:00",
     "categories": []
   },
   "breakout": {

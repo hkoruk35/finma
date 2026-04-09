@@ -2,7 +2,7 @@
   "ticker": "AMT",
   "company": "American Tower Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.780583-04:00",
+  "generated_at": "2026-04-09T03:00:00.101532-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.780561-04:00",
+    "generated_at": "2026-04-09T03:00:00.101501-04:00",
     "categories": []
   },
   "breakout": {

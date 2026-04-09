@@ -2,7 +2,7 @@
   "ticker": "AMD",
   "company": "Advanced Micro Devices, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.583169-04:00",
+  "generated_at": "2026-04-09T02:59:59.899955-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.583134-04:00",
+    "generated_at": "2026-04-09T02:59:59.899898-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "AMD exhibits a STRONG_SELL signal with 39% confidence. The bearish EMA stack and high BB Squeeze suggest potential downward price movement. While Revenue Growth is strong at 34.1%, the significantly elevated P/E ratio of 88.48 compared to the sector median of 32.77 indicates overvaluation. RSI at 59.7 is neutral, and RVOL at 0.99x suggests average trading volume. A potential catalyst for near-term price decline could be negative revisions to forward guidance during the upcoming earnings call.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 39,

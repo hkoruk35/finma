@@ -2,7 +2,7 @@
   "ticker": "OXY",
   "company": "Occidental Petroleum Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.734377-04:00",
+  "generated_at": "2026-04-09T03:00:00.048874-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.734343-04:00",
+    "generated_at": "2026-04-09T03:00:00.048783-04:00",
     "categories": []
   },
   "breakout": {

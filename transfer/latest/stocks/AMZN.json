@@ -2,7 +2,7 @@
   "ticker": "AMZN",
   "company": "Amazon.com, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.659359-04:00",
+  "generated_at": "2026-04-09T02:59:59.933890-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Internet Retail",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.659254-04:00",
+    "generated_at": "2026-04-09T02:59:59.933847-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "AMZN exhibits a SELL signal with 40% confidence. RVOL is below average at 0.8x. The EMA stack indicates a bearish trend, confirmed by a HIGH BB squeeze. The RSI of 53.8 suggests neutral momentum, echoed by the MACD Histogram at 0.8082. AMZN trades near its 52-week high, although the exact proximity is unavailable. With a P/E of 29.86 near the sector median of 29.12, and revenue growth of 13.6%, valuation isn't compelling. Look for weakness around the next earnings release as a near-term catalyst to confirm the sell signal.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 40,

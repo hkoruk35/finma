@@ -2,7 +2,7 @@
   "ticker": "SMCI",
   "company": "Super Micro Computer, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.794515-04:00",
+  "generated_at": "2026-04-09T03:00:00.117518-04:00",
   "sector": "Technology",
   "industry": "Computer Hardware",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.794491-04:00",
+    "generated_at": "2026-04-09T03:00:00.117473-04:00",
     "categories": [
       "value"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "SMCI exhibits a STRONG_SELL signal with low confidence (38%). Technicals show a bearish EMA stack and an RSI of 39.1, indicating potential oversold conditions, though the ADX is not available. The MACD histogram is neutral at -0.0987, but a BB squeeze suggests imminent volatility. RVOL is low at 0.71x. Despite strong revenue growth of 123.4% TTM and a lower P/E of 17.06 compared to the sector median of 32.77, the low gross margin of 8.0% raises concerns. The missing 52 week high proximity and ADX data further complicates the analysis. A potential near-term catalyst is upcoming earnings announcements, which could significantly impact the stock price.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 38,

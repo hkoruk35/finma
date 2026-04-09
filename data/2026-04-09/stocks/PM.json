@@ -2,7 +2,7 @@
   "ticker": "PM",
   "company": "Philip Morris International Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.751209-04:00",
+  "generated_at": "2026-04-09T03:00:00.073273-04:00",
   "sector": "Consumer Staples",
   "industry": "Tobacco",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.751187-04:00",
+    "generated_at": "2026-04-09T03:00:00.073223-04:00",
     "categories": []
   },
   "breakout": {

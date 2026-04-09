@@ -2,7 +2,7 @@
   "ticker": "UNH",
   "company": "UnitedHealth Group Incorporated",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.703563-04:00",
+  "generated_at": "2026-04-09T03:00:00.014158-04:00",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.703500-04:00",
+    "generated_at": "2026-04-09T03:00:00.014113-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "UNH exhibits a SELL signal with 43% confidence. While revenue growth is strong at 12.3% TTM, and the P/E ratio of 23.15 is below the sector median of 28.13, technical indicators suggest caution. The EMA stack is bearish, and a high BB squeeze indicates potential volatility. The RSI of 67.5 approaches overbought territory, implying possible mean reversion. RVOL is slightly elevated at 1.08x. The upcoming earnings call on April 20th could be a near-term catalyst for price movement.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 43,

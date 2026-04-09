@@ -2,7 +2,7 @@
   "ticker": "T",
   "company": "AT&T Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.646221-04:00",
+  "generated_at": "2026-04-09T02:59:59.924987-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.646187-04:00",
+    "generated_at": "2026-04-09T02:59:59.924965-04:00",
     "categories": [
       "value",
       "momentum",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "AT&T (T) exhibits a SELL signal with 46% confidence. Trading near its 52-week high, T's current RVOL of 0.82x suggests declining investor interest. The EMA stack is bearish and the MACD histogram is neutral at -0.077. A HIGH BB Squeeze indicates potential volatility, but the low RSI of 48.4 shows that it may not be significant. The stock is relatively cheap as it has a P/E ratio of 8.99, while the sector median is 17.46. However, revenue growth is just 3.6%. The potential upcoming earnings report could be a catalyst for a price decrease.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 46,

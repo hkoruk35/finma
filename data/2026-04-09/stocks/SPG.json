@@ -2,7 +2,7 @@
   "ticker": "SPG",
   "company": "Simon Property Group, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.783116-04:00",
+  "generated_at": "2026-04-09T03:00:00.103720-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.783095-04:00",
+    "generated_at": "2026-04-09T03:00:00.103690-04:00",
     "categories": [
       "top_signals",
       "value"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "SPG exhibits a SELL signal with 52% confidence, driven by a bearish EMA stack and high BB Squeeze, suggesting potential volatility and a possible downward breakout. The RSI of 54.5 indicates neutral momentum, while the MACD histogram at 0.7118 confirms this. RVOL is 0.77x. SPG's P/E ratio of 13.7 is significantly below the sector median of 33.9, which could indicate undervaluation, however, the bearish technical signals outweigh this. Revenue growth is 13.2% and gross margin is 81.9%. Monitor upcoming earnings announcement as a potential catalyst.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 52,

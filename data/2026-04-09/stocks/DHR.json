@@ -2,7 +2,7 @@
   "ticker": "DHR",
   "company": "Danaher Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.723338-04:00",
+  "generated_at": "2026-04-09T03:00:00.034745-04:00",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.723276-04:00",
+    "generated_at": "2026-04-09T03:00:00.034682-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "DHR is a SELL (44% confidence). The stock exhibits bearish EMA stack alignment, and high BB Squeeze suggests potential volatility. RSI at 44.7 indicates weakening momentum, while MACD Histogram is neutral. The P/E ratio of 38.02 is high relative to the sector median of 28.13. Revenue growth is 4.6% and gross margin is 59.2%. RVOL of 0.73x shows low trading volume. Lacks price and 52W high proximity data, and ADX cannot be reliably calculated. A potential catalyst is upcoming earnings reports may reveal further weakness in revenue growth and impact the stock.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 44,

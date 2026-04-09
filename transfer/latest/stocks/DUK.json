@@ -2,7 +2,7 @@
   "ticker": "DUK",
   "company": "Duke Energy Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.772955-04:00",
+  "generated_at": "2026-04-09T03:00:00.093015-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.772902-04:00",
+    "generated_at": "2026-04-09T03:00:00.092983-04:00",
     "categories": []
   },
   "breakout": {

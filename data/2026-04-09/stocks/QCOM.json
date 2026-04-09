@@ -2,7 +2,7 @@
   "ticker": "QCOM",
   "company": "QUALCOMM Incorporated",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.585667-04:00",
+  "generated_at": "2026-04-09T02:59:59.900881-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.585629-04:00",
+    "generated_at": "2026-04-09T02:59:59.900858-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "QCOM exhibits a STRONG SELL signal despite a neutral MACD histogram (0.0845). A low RSI of 29.9 indicates oversold conditions, but the bearish EMA stack overrides this. The P/E ratio of 25.0 is below the sector median of 32.8, but it's outweighed by the RVOL of 0.8 and a HIGH BB Squeeze suggesting imminent volatility. Revenue growth of 5.0% and a gross margin of 55.1% are not enough to support a buy case. A potential near-term catalyst is the upcoming earnings call in three weeks.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 28,

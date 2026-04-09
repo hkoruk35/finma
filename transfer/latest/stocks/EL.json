@@ -2,7 +2,7 @@
   "ticker": "EL",
   "company": "The Estée Lauder Companies Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.752709-04:00",
+  "generated_at": "2026-04-09T03:00:00.074708-04:00",
   "sector": "Consumer Staples",
   "industry": "Household & Personal Products",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.752688-04:00",
+    "generated_at": "2026-04-09T03:00:00.074660-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "Estée Lauder (EL) exhibits a STRONG_SELL signal, albeit with low confidence (25%). Bearish EMA stack and an oversold RSI of 29.7 suggest downward momentum. While the MACD histogram is neutral at 0.0217, a HIGH BB Squeeze indicates potential for significant price movement, likely to the downside given the overall technical picture. EL's TTM revenue growth of 5.6% and gross margin of 74.3% are positive, however the absence of a P/E ratio, compared to the sector median of 25.5907065, raises concerns. RVOL at 1.05x suggests slightly elevated trading volume. A potential near-term catalyst could be upcoming earnings reports, where weak guidance could exacerbate the negative sentiment.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 25,

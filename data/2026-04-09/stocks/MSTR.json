@@ -2,7 +2,7 @@
   "ticker": "MSTR",
   "company": "Strategy Inc",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.629428-04:00",
+  "generated_at": "2026-04-09T02:59:59.918782-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.629390-04:00",
+    "generated_at": "2026-04-09T02:59:59.918761-04:00",
     "categories": []
   },
   "breakout": {

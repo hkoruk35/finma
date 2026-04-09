@@ -2,7 +2,7 @@
   "ticker": "NEM",
   "company": "Newmont Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.791951-04:00",
+  "generated_at": "2026-04-09T03:00:00.114696-04:00",
   "sector": "Materials",
   "industry": "Gold",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.791919-04:00",
+    "generated_at": "2026-04-09T03:00:00.114670-04:00",
     "categories": [
       "top_signals",
       "value"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "NEM, currently showing a SELL signal, exhibits mixed technicals. RVOL is relatively low at 0.72x. While RSI at 56.2 suggests moderate momentum, the bearish EMA stack indicates a potential downtrend. A high BB Squeeze hints at increased volatility. From a fundamental perspective, NEM’s P/E ratio of 18.49 is significantly lower than the sector median of 33.47, and revenue growth is strong at 20.6%. However, given the bearish technical signals and a 49% confidence SELL signal, a near-term catalyst would be gold prices failing to maintain recent gains, pressuring NEM's price.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 49,

@@ -2,7 +2,7 @@
   "ticker": "NFLX",
   "company": "Netflix, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.636560-04:00",
+  "generated_at": "2026-04-09T02:59:59.921537-04:00",
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.636527-04:00",
+    "generated_at": "2026-04-09T02:59:59.921521-04:00",
     "categories": [
       "top_signals",
       "value",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "Netflix (NFLX) exhibits a SELL signal with 48% confidence. RVOL is low at 0.66x, suggesting weak conviction despite today's price change. The RSI of 65.3 indicates approaching overbought conditions, while the MACD Histogram is neutral at 0.2354. The bearish EMA stack is a concern. A high BB Squeeze suggests imminent volatility. NFLX trades at a P/E of 39.28, significantly above the sector median of 17.46, despite a 17.6% revenue growth. Near-term catalyst: upcoming earnings report could disappoint given the high valuation, prompting a correction.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 48,

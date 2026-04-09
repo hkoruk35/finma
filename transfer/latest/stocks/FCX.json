@@ -2,7 +2,7 @@
   "ticker": "FCX",
   "company": "Freeport-McMoRan Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.787848-04:00",
+  "generated_at": "2026-04-09T03:00:00.109046-04:00",
   "sector": "Materials",
   "industry": "Copper",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.787783-04:00",
+    "generated_at": "2026-04-09T03:00:00.108997-04:00",
     "categories": []
   },
   "breakout": {

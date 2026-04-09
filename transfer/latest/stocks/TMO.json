@@ -2,7 +2,7 @@
   "ticker": "TMO",
   "company": "Thermo Fisher Scientific Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.716430-04:00",
+  "generated_at": "2026-04-09T03:00:00.021666-04:00",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.716387-04:00",
+    "generated_at": "2026-04-09T03:00:00.021593-04:00",
     "categories": []
   },
   "breakout": {

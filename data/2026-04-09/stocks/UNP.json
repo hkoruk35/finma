@@ -2,7 +2,7 @@
   "ticker": "UNP",
   "company": "Union Pacific Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.760152-04:00",
+  "generated_at": "2026-04-09T03:00:00.080419-04:00",
   "sector": "Industrials",
   "industry": "Railroads",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.760106-04:00",
+    "generated_at": "2026-04-09T03:00:00.080374-04:00",
     "categories": [
       "value"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "UNP signals SELL with 47% confidence. Bearish EMA stack and high BB squeeze suggest potential volatility after a period of consolidation. RSI at 52.3 indicates neutral momentum. RVOL at 0.81x shows subdued trading volume. While P/E of 20.5 is lower than the sector median of 34.4, negative revenue growth of -0.6% is concerning. Watch for upcoming earnings report revisions as a possible catalyst for downward price movement.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 47,

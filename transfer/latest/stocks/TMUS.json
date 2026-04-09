@@ -2,7 +2,7 @@
   "ticker": "TMUS",
   "company": "T-Mobile US, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.650462-04:00",
+  "generated_at": "2026-04-09T02:59:59.928395-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.650425-04:00",
+    "generated_at": "2026-04-09T02:59:59.928315-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "TMUS exhibits a weak STRONG_SELL signal based on mixed technicals and valuation concerns. The bearish EMA stack and low RSI of 37.4 suggest downward momentum, while a high BB Squeeze indicates potential volatility. Although revenue growth is strong at 11.3% TTM and Gross Margin is 63.2%, the P/E ratio of 20.31 is above the sector median of 17.46. Lacking ADX and 52W High proximity data hinders a complete picture. A potential near-term catalyst is upcoming earnings, where disappointing subscriber growth could trigger further downside.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 22,

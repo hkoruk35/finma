@@ -2,7 +2,7 @@
   "ticker": "CMCSA",
   "company": "Comcast Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.642923-04:00",
+  "generated_at": "2026-04-09T02:59:59.923306-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.642875-04:00",
+    "generated_at": "2026-04-09T02:59:59.923288-04:00",
     "categories": [
       "value"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "CMCSA exhibits a STRONG_SELL signal with low confidence (32%). Bearish EMA stack and high BB squeeze suggest potential downward price movement. RSI at 35.2 indicates oversold conditions, but may continue lower. The MACD histogram is neutral. Trading below its 52-week high, it shows relative weakness. The low P/E of 5.19 compared to the sector median of 17.46 could be attractive, but is offset by weak revenue growth of 1.2%. Monitor upcoming earnings for potential downside surprises.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 32,

@@ -2,7 +2,7 @@
   "ticker": "UPS",
   "company": "United Parcel Service, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.768611-04:00",
+  "generated_at": "2026-04-09T03:00:00.089998-04:00",
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.768587-04:00",
+    "generated_at": "2026-04-09T03:00:00.089959-04:00",
     "categories": [
       "value"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "UPS exhibits a SELL signal (44% confidence) based on its bearish EMA stack and a high BB squeeze suggesting potential volatility. The Relative Volume is low at 0.69x, indicating muted trading interest. The RSI of 40.6 shows weakening momentum, while MACD Histogram indicates a neutral signal. Trading at a P/E of 15.3125, significantly below the sector median of 34.36661, might attract value investors, but negative revenue growth of -3.2% tempers enthusiasm. Near-term catalyst: Upcoming earnings report could trigger downside if revenue continues to decline.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 44,

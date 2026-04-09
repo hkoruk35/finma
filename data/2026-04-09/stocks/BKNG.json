@@ -2,7 +2,7 @@
   "ticker": "BKNG",
   "company": "Booking Holdings Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.674019-04:00",
+  "generated_at": "2026-04-09T02:59:59.953696-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Travel Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.673978-04:00",
+    "generated_at": "2026-04-09T02:59:59.953666-04:00",
     "categories": [
       "value",
       "momentum",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "BKNG exhibits mixed signals, warranting a SELL rating (47% confidence). Revenue growth of 16% and a high gross margin of 87.4% are positive. However, the bearish EMA stack and high BB squeeze suggest potential volatility and downside risk. The P/E ratio of 27.34 is slightly below the sector median of 29.12. RVOL is low at 0.8x, indicating subdued trading interest. Lacking specific price data, a firm price target is unavailable. The upcoming earnings report could serve as a catalyst for price movement, although the signal suggests likely downwards momentum.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 47,

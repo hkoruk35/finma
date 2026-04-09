@@ -2,7 +2,7 @@
   "ticker": "CAT",
   "company": "Caterpillar Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.756188-04:00",
+  "generated_at": "2026-04-09T03:00:00.076325-04:00",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.756139-04:00",
+    "generated_at": "2026-04-09T03:00:00.076280-04:00",
     "categories": []
   },
   "breakout": {

@@ -2,7 +2,7 @@
   "ticker": "HD",
   "company": "The Home Depot, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.663484-04:00",
+  "generated_at": "2026-04-09T02:59:59.938268-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Home Improvement Retail",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.663454-04:00",
+    "generated_at": "2026-04-09T02:59:59.938193-04:00",
     "categories": [
       "reversal",
       "momentum",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "HD displays a STRONG_SELL signal with low confidence. The stock is trading near its 52-week low. Revenue growth is negative at -3.8% TTM. The P/E ratio is 23.64, lower than the sector median of 29.12. Technically, the EMA stack is bearish, RSI is 34.3, and the BB Squeeze indicates high volatility. RVOL is 0.86x. A potential catalyst for further downside is upcoming housing market data releases.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 32,

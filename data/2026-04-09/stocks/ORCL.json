@@ -2,7 +2,7 @@
   "ticker": "ORCL",
   "company": "Oracle Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.574853-04:00",
+  "generated_at": "2026-04-09T02:59:59.891708-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.574806-04:00",
+    "generated_at": "2026-04-09T02:59:59.891687-04:00",
     "categories": [
       "breakout",
       "reversal"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "ORCL exhibits a STRONG_SELL signal with low confidence (27%). Bearish EMA stack and a HIGH BB Squeeze suggest potential for downward price movement. RSI at 42.4 indicates weakening momentum, while a neutral MACD Histogram offers no directional confirmation. RVOL at 0.65x implies below-average trading volume. Despite a strong revenue growth of 21.7% TTM and a healthy gross margin of 67.1%, the P/E ratio of 25.79 is lower than the sector median of 32.77.\nA potential near-term catalyst could be upcoming earnings report in June 2024 that may negatively impact the stock.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 27,

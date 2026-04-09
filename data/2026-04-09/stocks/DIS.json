@@ -2,7 +2,7 @@
   "ticker": "DIS",
   "company": "The Walt Disney Company",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.640397-04:00",
+  "generated_at": "2026-04-09T02:59:59.922276-04:00",
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.640324-04:00",
+    "generated_at": "2026-04-09T02:59:59.922252-04:00",
     "categories": [
       "momentum"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "DIS displays a STRONG_SELL signal with 38% confidence. Bearish EMA stack and RSI at 38.1 indicate downward momentum. Despite a neutral MACD Histogram of 0.1897, the high BB Squeeze suggests potential for increased volatility to the downside. Revenue growth is 5.2% with a Gross Margin of 37.3%. A P/E of 14.61 is below the sector median of 17.46. With RVOL at 0.72x and the absence of a discernible trend strength as implied by ADX, a potential near-term catalyst might be upcoming subscriber numbers for Disney+.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 38,

@@ -2,7 +2,7 @@
   "ticker": "AAPL",
   "company": "Apple Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.545058-04:00",
+  "generated_at": "2026-04-09T02:59:59.876255-04:00",
   "sector": "Technology",
   "industry": "Consumer Electronics",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.544776-04:00",
+    "generated_at": "2026-04-09T02:59:59.875619-04:00",
     "categories": [
       "breakout",
       "reversal"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "AAPL exhibits a STRONG SELL signal with low confidence (38%). The bearish EMA stack and high BB Squeeze suggest potential for downward price movement. RSI at 46.9 indicates weakening momentum. While revenue growth is strong at 15.7% and gross margin is 47.3%, the P/E ratio of 32.772152 is at the sector median, offering no relative value advantage. A potential near-term catalyst is the upcoming earnings call in late April, where disappointing guidance could trigger a sell-off. Monitor for a break below recent lows to confirm the signal.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 38,

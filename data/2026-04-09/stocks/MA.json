@@ -2,7 +2,7 @@
   "ticker": "MA",
   "company": "Mastercard Incorporated",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.683364-04:00",
+  "generated_at": "2026-04-09T02:59:59.970583-04:00",
   "sector": "Financials",
   "industry": "Credit Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.683327-04:00",
+    "generated_at": "2026-04-09T02:59:59.970532-04:00",
     "categories": []
   },
   "breakout": {

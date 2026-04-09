@@ -2,7 +2,7 @@
   "ticker": "HON",
   "company": "Honeywell International Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.761372-04:00",
+  "generated_at": "2026-04-09T03:00:00.082145-04:00",
   "sector": "Industrials",
   "industry": "Conglomerates",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.761348-04:00",
+    "generated_at": "2026-04-09T03:00:00.082092-04:00",
     "categories": []
   },
   "breakout": {

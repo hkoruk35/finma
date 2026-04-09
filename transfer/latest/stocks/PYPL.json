@@ -2,7 +2,7 @@
   "ticker": "PYPL",
   "company": "PayPal Holdings, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.698410-04:00",
+  "generated_at": "2026-04-09T03:00:00.007639-04:00",
   "sector": "Financials",
   "industry": "Credit Services",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.698379-04:00",
+    "generated_at": "2026-04-09T03:00:00.007601-04:00",
     "categories": [
       "top_signals",
       "value"
@@ -143,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "PYPL exhibits a SELL signal with 54% confidence. Bearish EMA stack and high BB squeeze indicate potential for downward price movement. RVOL at 0.68x suggests below-average trading volume, failing to confirm a breakout. RSI at 48.1 is neutral. Despite a low P/E of 8.475, significantly below the sector median of 17.635, weak revenue growth of 3.7% adds to the bearish outlook. The next earnings call could act as a near-term catalyst if revenue guidance disappoints.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 54,

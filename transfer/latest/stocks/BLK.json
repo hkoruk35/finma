@@ -2,7 +2,7 @@
   "ticker": "BLK",
   "company": "BlackRock, Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.695516-04:00",
+  "generated_at": "2026-04-09T03:00:00.004555-04:00",
   "sector": "Financials",
   "industry": "Asset Management",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.695477-04:00",
+    "generated_at": "2026-04-09T03:00:00.004519-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "BLK signals STRONG_SELL with low confidence (37%). Bearish EMA stack and high BB Squeeze suggest potential volatility. RSI at 43.1 indicates room for downside. RVOL at 0.67 implies below-average trading volume. The P/E ratio of 28.33 is significantly higher than the sector median of 17.64, despite a revenue growth of 23.4% TTM. Near-term catalyst: upcoming earnings report could disappoint, given the stretched valuation.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 37,

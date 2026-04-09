@@ -2,7 +2,7 @@
   "ticker": "PG",
   "company": "The Procter & Gamble Company",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.745477-04:00",
+  "generated_at": "2026-04-09T03:00:00.065398-04:00",
   "sector": "Consumer Staples",
   "industry": "Household & Personal Products",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.745454-04:00",
+    "generated_at": "2026-04-09T03:00:00.065347-04:00",
     "categories": [
       "reversal"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "PG exhibits a STRONG_SELL signal with low confidence (21%). Bearish EMA stack and low RSI (30.8) suggest potential downside. High BB Squeeze indicates imminent volatility. RVOL (0.73x) shows relatively low trading volume despite the squeeze. P/E ratio (21.47) is below the sector median (25.59), potentially indicating undervaluation, although weak revenue growth of 1.5% tempers this. Watch for increased volatility after earnings release in late April.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 21,

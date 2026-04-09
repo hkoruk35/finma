@@ -2,7 +2,7 @@
   "ticker": "COP",
   "company": "ConocoPhillips",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.732160-04:00",
+  "generated_at": "2026-04-09T03:00:00.045756-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.732107-04:00",
+    "generated_at": "2026-04-09T03:00:00.045706-04:00",
     "categories": [
       "dividend"
     ]
@@ -142,7 +142,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "COP signals SELL with 42% confidence. Bearish EMA stack and high BB squeeze suggest potential downward volatility. RSI at 68.3 nears overbought territory. RVOL is 0.79x, indicating below-average trading volume. While P/E of 19.7 is below the sector median of 23.3, negative revenue growth of -6.8% TTM is a concern. Near-term catalyst: Upcoming earnings report could disappoint given revenue decline.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 42,

@@ -2,7 +2,7 @@
   "ticker": "INTU",
   "company": "Intuit Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.594180-04:00",
+  "generated_at": "2026-04-09T02:59:59.904414-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.594144-04:00",
+    "generated_at": "2026-04-09T02:59:59.904351-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "INTU exhibits a concerning technical picture. Trading with a Bearish EMA stack and a HIGH BB Squeeze suggests potential for volatility. The RSI of 39.3 indicates building oversold territory. Though MACD Histogram is neutral at -1.6936, overall momentum is weak. RVOL is below 1 at 0.73x, signaling lower-than-average trading volume. Fundamentals show strength with a P/E of 25.3, below sector median, coupled with 17.4% revenue growth and a high 80.9% gross margin. However, given the weak technicals, the signal is STRONG_SELL with low confidence. Near-term catalyst: upcoming earnings report could trigger further downside if guidance disappoints.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 28,

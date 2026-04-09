@@ -2,7 +2,7 @@
   "ticker": "ADBE",
   "company": "Adobe Inc.",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.578789-04:00",
+  "generated_at": "2026-04-09T02:59:59.893260-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.578719-04:00",
+    "generated_at": "2026-04-09T02:59:59.893190-04:00",
     "categories": [
       "breakout",
       "value",
@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "ADBE signals a SELL (Confidence: 47%) based on bearish technicals and low relative volume (0.6x). The EMA stack is bearish, and the RSI of 38.4 indicates potential for further downside. Despite a high BB Squeeze suggesting imminent volatility, the current MACD histogram is neutral. The P/E ratio of 13.9 is significantly lower than the sector median of 32.8. However, a revenue growth of 12% and gross margin of 89.4% are positive indicators. Near-term catalyst: Upcoming earnings report could be a negative catalyst.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 47,

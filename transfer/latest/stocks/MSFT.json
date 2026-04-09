@@ -2,7 +2,7 @@
   "ticker": "MSFT",
   "company": "Microsoft Corporation",
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T02:43:53.561451-04:00",
+  "generated_at": "2026-04-09T02:59:59.886604-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -95,7 +95,7 @@
     "stop_loss": NaN,
     "risk_reward_ratio": NaN,
     "ttl_hours": 120,
-    "generated_at": "2026-04-09T02:43:53.561377-04:00",
+    "generated_at": "2026-04-09T02:59:59.886549-04:00",
     "categories": [
       "breakout",
       "reversal",
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "MSFT exhibits a STRONG_SELL signal with low confidence (37%). Bearish EMA stack and BB Squeeze suggest potential downward price movement. The RSI of 38.8 indicates oversold conditions, but RVOL is only 0.75x. The P/E ratio of 23.42 is below the sector median of 32.77, but strong revenue growth (16.7%) and gross margin (68.6%) are positives. Near-term catalyst: Upcoming earnings call expected in late April. Watch for guidance updates impacting cloud services revenue, a key growth driver.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 37,
