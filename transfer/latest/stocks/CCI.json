@@ -1,0 +1,155 @@
+{
+  "ticker": "CCI",
+  "company": "Crown Castle Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.361300-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 85.52,
+    "open": 84.95,
+    "high": 86.38,
+    "low": 83.61,
+    "prev_close": 84.91,
+    "change_pct": 0.72,
+    "volume": 3162316,
+    "avg_volume_30d": 3174660
+  },
+  "scores": {
+    "master_score": 43.44,
+    "technical_score": 45.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.4,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 43.44,
+    "confidence": 0.43,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 54.3,
+    "macd": -0.4906,
+    "macd_signal": -1.128,
+    "macd_histogram": 0.6374,
+    "macd_crossover": "neutral",
+    "ema_20": 83.56,
+    "ema_50": 84.77,
+    "ema_200": 89.08,
+    "ema_stack_bullish": false,
+    "bb_upper": 90.07,
+    "bb_middle": 83.19,
+    "bb_lower": 76.31,
+    "bb_width": 0.1654,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.6,
+    "atr": 2.72,
+    "atr_pct": 0.0318,
+    "obv_trend": "UP",
+    "mfi": 43.5,
+    "cmf": -0.113,
+    "stoch_k": 83.1,
+    "stoch_d": 81.4,
+    "rvol": 1.02,
+    "volume_5d_avg": 3247823,
+    "green_days_10d": 7,
+    "52w_high": 109.95,
+    "52w_low": 76.96,
+    "52w_high_proximity_pct": 0.2222,
+    "52w_low_proximity_pct": 0.1112
+  },
+  "fundamental": {
+    "pe_ratio": 33.93651,
+    "sector_pe_median": 33.93651,
+    "pb_ratio": -22.75073,
+    "de_ratio": null,
+    "fcf_yield": 0.0368,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.043,
+    "gross_margin": 0.74085,
+    "operating_margin": 0.49206,
+    "net_margin": 0.10413,
+    "market_cap": 37318135808,
+    "enterprise_value": 66759745536,
+    "dividend_yield": 5.01,
+    "payout_ratio": 1.8859,
+    "insider_ownership_pct": 0.00135,
+    "institutional_ownership_pct": 0.99371004,
+    "short_ratio": 3.2,
+    "beta": 0.964
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 84.35,
+    "entry_range_high": 85.95,
+    "target_range_low": 91.81,
+    "target_range_high": 98.36,
+    "stop_loss_range_low": 76.08,
+    "stop_loss_range_high": 80.08,
+    "target_price": 93.68,
+    "stop_loss": 80.08,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.361283-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 106.9,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 501.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 76.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 3000,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 3.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 43,
+    "price_change_display": "+0.72%",
+    "key_metrics": {
+      "RSI": 54.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

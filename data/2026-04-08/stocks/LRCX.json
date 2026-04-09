@@ -1,0 +1,157 @@
+{
+  "ticker": "LRCX",
+  "company": "Lam Research Corporation",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.211620-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 246.49,
+    "open": 242.75,
+    "high": 249.19,
+    "low": 241.49,
+    "prev_close": 224.35,
+    "change_pct": 9.87,
+    "volume": 10992880,
+    "avg_volume_30d": 10578289
+  },
+  "scores": {
+    "master_score": 51.87,
+    "technical_score": 65.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.87,
+    "confidence": 0.52,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 61.3,
+    "macd": 0.9082,
+    "macd_signal": -0.9034,
+    "macd_histogram": 1.8116,
+    "macd_crossover": "neutral",
+    "ema_20": 223.5,
+    "ema_50": 219.38,
+    "ema_200": 172.79,
+    "ema_stack_bullish": true,
+    "bb_upper": 244.37,
+    "bb_middle": 222.38,
+    "bb_lower": 200.4,
+    "bb_width": 0.1977,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.3,
+    "atr": 12.77,
+    "atr_pct": 0.0518,
+    "obv_trend": "UP",
+    "mfi": 67.7,
+    "cmf": 0.044,
+    "stoch_k": 94.7,
+    "stoch_d": 68.8,
+    "rvol": 0.74,
+    "volume_5d_avg": 7869096,
+    "green_days_10d": 5,
+    "52w_high": 249.18,
+    "52w_low": 85.72,
+    "52w_high_proximity_pct": 0.0108,
+    "52w_low_proximity_pct": 1.8755
+  },
+  "fundamental": {
+    "pe_ratio": 50.613964,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 30.397089,
+    "de_ratio": 44.195,
+    "fcf_yield": 0.0156,
+    "eps_growth_5y": 0.37,
+    "revenue_growth_ttm": 0.221,
+    "gross_margin": 0.49800998,
+    "operating_margin": 0.33868998,
+    "net_margin": 0.3022,
+    "market_cap": 309598814208,
+    "enterprise_value": 278465085440,
+    "dividend_yield": 0.46,
+    "payout_ratio": 0.20120001,
+    "insider_ownership_pct": 0.0028799998,
+    "institutional_ownership_pct": 0.88788,
+    "short_ratio": 2.93,
+    "beta": 1.79
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 218.28,
+    "entry_range_high": 247.72,
+    "target_range_low": 279.1,
+    "target_range_high": 299.04,
+    "stop_loss_range_low": 209.9,
+    "stop_loss_range_high": 220.95,
+    "target_price": 284.8,
+    "stop_loss": 220.95,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.211588-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 308.11,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 46.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 85.72,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 4571,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 52,
+    "price_change_display": "+9.87%",
+    "key_metrics": {
+      "RSI": 61.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

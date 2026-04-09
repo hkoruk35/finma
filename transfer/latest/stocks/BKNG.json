@@ -1,0 +1,159 @@
+{
+  "ticker": "BKNG",
+  "company": "Booking Holdings Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.242122-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Travel Services",
+  "price": {
+    "current": 181.0,
+    "open": 181.07,
+    "high": 186.65,
+    "low": 180.09,
+    "prev_close": 173.41,
+    "change_pct": 4.38,
+    "volume": 8824635,
+    "avg_volume_30d": 10169764
+  },
+  "scores": {
+    "master_score": 51.5,
+    "technical_score": 55.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.5,
+    "breakout_score": 45.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 51.5,
+    "confidence": 0.52,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 58.7,
+    "macd": -0.3975,
+    "macd_signal": -1.7405,
+    "macd_histogram": 1.343,
+    "macd_crossover": "neutral",
+    "ema_20": 172.0,
+    "ema_50": 177.24,
+    "ema_200": 197.82,
+    "ema_stack_bullish": false,
+    "bb_upper": 180.13,
+    "bb_middle": 171.38,
+    "bb_lower": 162.62,
+    "bb_width": 0.1022,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 18.4,
+    "atr": 7.03,
+    "atr_pct": 0.0388,
+    "obv_trend": "UP",
+    "mfi": 38.3,
+    "cmf": -0.057,
+    "stoch_k": 77.8,
+    "stoch_d": 76.6,
+    "rvol": 0.8,
+    "volume_5d_avg": 8158587,
+    "green_days_10d": 5,
+    "52w_high": 231.27,
+    "52w_low": 154.48,
+    "52w_high_proximity_pct": 0.2174,
+    "52w_low_proximity_pct": 0.1717
+  },
+  "fundamental": {
+    "pe_ratio": 26.193922,
+    "sector_pe_median": 29.1166515,
+    "pb_ratio": -1.0349303,
+    "de_ratio": null,
+    "fcf_yield": 0.0457,
+    "eps_growth_5y": 0.384,
+    "revenue_growth_ttm": 0.16,
+    "gross_margin": 0.87357,
+    "operating_margin": 0.32446,
+    "net_margin": 0.20076999,
+    "market_cap": 143321890816,
+    "enterprise_value": 145532895232,
+    "dividend_yield": 0.91,
+    "payout_ratio": 0.2319,
+    "insider_ownership_pct": 0.0019699999,
+    "institutional_ownership_pct": 0.96705,
+    "short_ratio": 1.71,
+    "beta": 1.198
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 176.35,
+    "entry_range_high": 181.9,
+    "target_range_low": 198.05,
+    "target_range_high": 212.19,
+    "stop_loss_range_low": 158.59,
+    "stop_loss_range_high": 166.94,
+    "target_price": 202.09,
+    "stop_loss": 166.94,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.242096-04:00",
+    "categories": [
+      "breakout",
+      "value",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 226.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 91.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 154.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 669,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 0.0,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 52,
+    "price_change_display": "+4.38%",
+    "key_metrics": {
+      "RSI": 58.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

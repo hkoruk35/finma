@@ -1,0 +1,157 @@
+{
+  "ticker": "EOG",
+  "company": "EOG Resources, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.332669-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 139.05,
+    "open": 135.44,
+    "high": 139.37,
+    "low": 133.0,
+    "prev_close": 144.23,
+    "change_pct": -3.59,
+    "volume": 4954440,
+    "avg_volume_30d": 5728411
+  },
+  "scores": {
+    "master_score": 56.65,
+    "technical_score": 50.0,
+    "fundamental_score": 45.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 44.0,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 56.65,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 53.1,
+    "macd": 4.3513,
+    "macd_signal": 5.389,
+    "macd_histogram": -1.0377,
+    "macd_crossover": "neutral",
+    "ema_20": 139.68,
+    "ema_50": 130.56,
+    "ema_200": 117.62,
+    "ema_stack_bullish": false,
+    "bb_upper": 150.69,
+    "bb_middle": 140.54,
+    "bb_lower": 130.38,
+    "bb_width": 0.1445,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 37.6,
+    "atr": 4.6,
+    "atr_pct": 0.0331,
+    "obv_trend": "UP",
+    "mfi": 66.7,
+    "cmf": 0.02,
+    "stoch_k": 32.1,
+    "stoch_d": 45.8,
+    "rvol": 0.72,
+    "volume_5d_avg": 4126468,
+    "green_days_10d": 7,
+    "52w_high": 149.89,
+    "52w_low": 100.82,
+    "52w_high_proximity_pct": 0.0723,
+    "52w_low_proximity_pct": 0.3792
+  },
+  "fundamental": {
+    "pe_ratio": 15.246711,
+    "sector_pe_median": 23.31642,
+    "pb_ratio": 2.5060377,
+    "de_ratio": 30.62,
+    "fcf_yield": 0.0312,
+    "eps_growth_5y": -0.417,
+    "revenue_growth_ttm": 0.0,
+    "gross_margin": 0.6202,
+    "operating_margin": 0.1694,
+    "net_margin": 0.21982999,
+    "market_cap": 74599145472,
+    "enterprise_value": 83117170688,
+    "dividend_yield": 2.83,
+    "payout_ratio": 0.4326,
+    "insider_ownership_pct": 0.0028,
+    "institutional_ownership_pct": 0.95157,
+    "short_ratio": 2.66,
+    "beta": 0.333
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 129.91,
+    "entry_range_high": 139.75,
+    "target_range_low": 149.79,
+    "target_range_high": 160.49,
+    "stop_loss_range_low": 123.36,
+    "stop_loss_range_high": 129.85,
+    "target_price": 152.85,
+    "stop_loss": 129.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.332646-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 173.81,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 283.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 100.82,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 5698,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -1.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 57,
+    "price_change_display": "-3.59%",
+    "key_metrics": {
+      "RSI": 53.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

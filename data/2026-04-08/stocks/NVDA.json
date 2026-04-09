@@ -1,0 +1,157 @@
+{
+  "ticker": "NVDA",
+  "company": "NVIDIA Corporation",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.192072-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 182.08,
+    "open": 184.45,
+    "high": 185.26,
+    "low": 180.31,
+    "prev_close": 178.1,
+    "change_pct": 2.23,
+    "volume": 147041074,
+    "avg_volume_30d": 188288259
+  },
+  "scores": {
+    "master_score": 39.87,
+    "technical_score": 45.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 38.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 39.87,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 54.6,
+    "macd": -1.4506,
+    "macd_signal": -2.4425,
+    "macd_histogram": 0.9919,
+    "macd_crossover": "neutral",
+    "ema_20": 177.58,
+    "ema_50": 180.46,
+    "ema_200": 176.5,
+    "ema_stack_bullish": false,
+    "bb_upper": 187.56,
+    "bb_middle": 177.25,
+    "bb_lower": 166.95,
+    "bb_width": 0.1163,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.0,
+    "atr": 5.48,
+    "atr_pct": 0.0301,
+    "obv_trend": "UP",
+    "mfi": 42.0,
+    "cmf": -0.224,
+    "stoch_k": 84.8,
+    "stoch_d": 73.5,
+    "rvol": 0.74,
+    "volume_5d_avg": 139683094,
+    "green_days_10d": 7,
+    "52w_high": 207.02,
+    "52w_low": 141.69,
+    "52w_high_proximity_pct": 0.1205,
+    "52w_low_proximity_pct": 0.2851
+  },
+  "fundamental": {
+    "pe_ratio": 36.34331,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 28.133497,
+    "de_ratio": 7.255,
+    "fcf_yield": 0.0131,
+    "eps_growth_5y": 0.956,
+    "revenue_growth_ttm": 0.732,
+    "gross_margin": 0.71068,
+    "operating_margin": 0.65024,
+    "net_margin": 0.55603004,
+    "market_cap": 4425454714880,
+    "enterprise_value": 4372670971904,
+    "dividend_yield": 0.02,
+    "payout_ratio": 0.0082,
+    "insider_ownership_pct": 0.04212,
+    "institutional_ownership_pct": 0.69723,
+    "short_ratio": 1.28,
+    "beta": 2.335
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 179.56,
+    "entry_range_high": 182.99,
+    "target_range_low": 194.55,
+    "target_range_high": 208.45,
+    "stop_loss_range_low": 162.56,
+    "stop_loss_range_high": 171.12,
+    "target_price": 198.52,
+    "stop_loss": 171.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.192049-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 227.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 2.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.69,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 221682,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "+2.23%",
+    "key_metrics": {
+      "RSI": 54.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

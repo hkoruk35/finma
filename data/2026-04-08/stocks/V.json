@@ -1,0 +1,158 @@
+{
+  "ticker": "V",
+  "company": "Visa Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.246825-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 308.96,
+    "open": 307.73,
+    "high": 311.08,
+    "low": 307.7,
+    "prev_close": 302.55,
+    "change_pct": 2.12,
+    "volume": 6876536,
+    "avg_volume_30d": 7349511
+  },
+  "scores": {
+    "master_score": 51.89,
+    "technical_score": 60.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.4,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 51.89,
+    "confidence": 0.52,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 52.2,
+    "macd": -3.3131,
+    "macd_signal": -4.4832,
+    "macd_histogram": 1.1701,
+    "macd_crossover": "neutral",
+    "ema_20": 305.25,
+    "ema_50": 313.3,
+    "ema_200": 333.2,
+    "ema_stack_bullish": false,
+    "bb_upper": 311.44,
+    "bb_middle": 303.58,
+    "bb_lower": 295.72,
+    "bb_width": 0.0518,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 26.4,
+    "atr": 6.67,
+    "atr_pct": 0.0216,
+    "obv_trend": "UP",
+    "mfi": 72.2,
+    "cmf": -0.1,
+    "stoch_k": 87.7,
+    "stoch_d": 65.7,
+    "rvol": 0.79,
+    "volume_5d_avg": 5775007,
+    "green_days_10d": 7,
+    "52w_high": 371.15,
+    "52w_low": 295.52,
+    "52w_high_proximity_pct": 0.1676,
+    "52w_low_proximity_pct": 0.0455
+  },
+  "fundamental": {
+    "pe_ratio": 29.010328,
+    "sector_pe_median": 17.645626,
+    "pb_ratio": 15.4217825,
+    "de_ratio": 54.612,
+    "fcf_yield": 0.037,
+    "eps_growth_5y": 0.174,
+    "revenue_growth_ttm": 0.146,
+    "gross_margin": 0.97777003,
+    "operating_margin": 0.68296,
+    "net_margin": 0.50233,
+    "market_cap": 595687112704,
+    "enterprise_value": 582072139776,
+    "dividend_yield": 0.89,
+    "payout_ratio": 0.2291,
+    "insider_ownership_pct": 0.0058600004,
+    "institutional_ownership_pct": 0.90647006,
+    "short_ratio": 3.43,
+    "beta": 0.799
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 307.42,
+    "entry_range_high": 310.5,
+    "target_range_low": 322.39,
+    "target_range_high": 345.42,
+    "stop_loss_range_low": 280.84,
+    "stop_loss_range_high": 295.62,
+    "target_price": 328.97,
+    "stop_loss": 295.62,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.246802-04:00",
+    "categories": [
+      "breakout",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 386.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 89.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 295.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 650,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 52,
+    "price_change_display": "+2.12%",
+    "key_metrics": {
+      "RSI": 52.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

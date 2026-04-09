@@ -1,0 +1,157 @@
+{
+  "ticker": "HD",
+  "company": "The Home Depot, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.235849-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Home Improvement Retail",
+  "price": {
+    "current": 336.16,
+    "open": 333.26,
+    "high": 338.78,
+    "low": 332.25,
+    "prev_close": 318.77,
+    "change_pct": 5.46,
+    "volume": 3695770,
+    "avg_volume_30d": 4188029
+  },
+  "scores": {
+    "master_score": 42.1,
+    "technical_score": 61.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.5,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 42.1,
+    "confidence": 0.42,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 48.6,
+    "macd": -8.6029,
+    "macd_signal": -10.0561,
+    "macd_histogram": 1.4533,
+    "macd_crossover": "neutral",
+    "ema_20": 333.96,
+    "ema_50": 347.67,
+    "ema_200": 362.11,
+    "ema_stack_bullish": false,
+    "bb_upper": 346.69,
+    "bb_middle": 331.0,
+    "bb_lower": 315.3,
+    "bb_width": 0.0948,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 35.4,
+    "atr": 9.69,
+    "atr_pct": 0.0288,
+    "obv_trend": "UP",
+    "mfi": 47.0,
+    "cmf": -0.283,
+    "stoch_k": 88.8,
+    "stoch_d": 43.8,
+    "rvol": 0.86,
+    "volume_5d_avg": 3584834,
+    "green_days_10d": 6,
+    "52w_high": 417.91,
+    "52w_low": 318.77,
+    "52w_high_proximity_pct": 0.1956,
+    "52w_low_proximity_pct": 0.0546
+  },
+  "fundamental": {
+    "pe_ratio": 23.639944,
+    "sector_pe_median": 29.1166515,
+    "pb_ratio": 26.13184,
+    "de_ratio": 514.392,
+    "fcf_yield": 0.0258,
+    "eps_growth_5y": -0.142,
+    "revenue_growth_ttm": -0.038,
+    "gross_margin": 0.33316,
+    "operating_margin": 0.100760005,
+    "net_margin": 0.08596,
+    "market_cap": 334824669184,
+    "enterprise_value": 399339225088,
+    "dividend_yield": 2.92,
+    "payout_ratio": 0.6465,
+    "insider_ownership_pct": 0.00071000005,
+    "institutional_ownership_pct": 0.74428004,
+    "short_ratio": 2.63,
+    "beta": 1.085
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 334.48,
+    "entry_range_high": 337.84,
+    "target_range_low": 357.93,
+    "target_range_high": 383.49,
+    "stop_loss_range_low": 300.94,
+    "stop_loss_range_high": 316.78,
+    "target_price": 365.23,
+    "stop_loss": 316.78,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.235824-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 420.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 292.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 318.77,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 3969,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 0.0,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 42,
+    "price_change_display": "+5.46%",
+    "key_metrics": {
+      "RSI": 48.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

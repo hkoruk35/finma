@@ -1,0 +1,157 @@
+{
+  "ticker": "SPOT",
+  "company": "Spotify Technology S.A.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.231720-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 483.17,
+    "open": 494.0,
+    "high": 497.88,
+    "low": 480.01,
+    "prev_close": 483.18,
+    "change_pct": -0.0,
+    "volume": 1311135,
+    "avg_volume_30d": 1991754
+  },
+  "scores": {
+    "master_score": 26.22,
+    "technical_score": 25.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 26.22,
+    "confidence": 0.26,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 46.7,
+    "macd": -6.3217,
+    "macd_signal": -5.7847,
+    "macd_histogram": -0.537,
+    "macd_crossover": "neutral",
+    "ema_20": 489.03,
+    "ema_50": 502.15,
+    "ema_200": 584.55,
+    "ema_stack_bullish": false,
+    "bb_upper": 527.86,
+    "bb_middle": 491.69,
+    "bb_lower": 455.52,
+    "bb_width": 0.1471,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.6,
+    "atr": 19.87,
+    "atr_pct": 0.0411,
+    "obv_trend": "DOWN",
+    "mfi": 38.6,
+    "cmf": -0.184,
+    "stoch_k": 41.2,
+    "stoch_d": 33.7,
+    "rvol": 0.71,
+    "volume_5d_avg": 1406767,
+    "green_days_10d": 4,
+    "52w_high": 775.9,
+    "52w_low": 412.75,
+    "52w_high_proximity_pct": 0.3773,
+    "52w_low_proximity_pct": 0.1706
+  },
+  "fundamental": {
+    "pe_ratio": 39.997517,
+    "sector_pe_median": 17.4590915,
+    "pb_ratio": 10.317143,
+    "de_ratio": 23.484,
+    "fcf_yield": 0.0068,
+    "eps_growth_5y": 2.139,
+    "revenue_growth_ttm": 0.068,
+    "gross_margin": 0.3198,
+    "operating_margin": 0.15471,
+    "net_margin": 0.12871,
+    "market_cap": 99476168704,
+    "enterprise_value": 93692100608,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.23411,
+    "institutional_ownership_pct": 0.69209,
+    "short_ratio": 2.42,
+    "beta": 1.702
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 480.75,
+    "entry_range_high": 485.59,
+    "target_range_low": 531.92,
+    "target_range_high": 569.92,
+    "stop_loss_range_low": 421.26,
+    "stop_loss_range_high": 443.43,
+    "target_price": 542.78,
+    "stop_loss": 443.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.231692-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 603.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 412.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 4,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 5436,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 26,
+    "price_change_display": "-0.00%",
+    "key_metrics": {
+      "RSI": 46.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

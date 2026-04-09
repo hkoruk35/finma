@@ -1,0 +1,158 @@
+{
+  "ticker": "TMUS",
+  "company": "T-Mobile US, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.229099-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 197.63,
+    "open": 200.0,
+    "high": 203.31,
+    "low": 196.2,
+    "prev_close": 200.54,
+    "change_pct": -1.45,
+    "volume": 6814146,
+    "avg_volume_30d": 5554374
+  },
+  "scores": {
+    "master_score": 17.77,
+    "technical_score": 5.0,
+    "fundamental_score": 22.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 68.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 17.77,
+    "confidence": 0.18,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 34.3,
+    "macd": -2.8861,
+    "macd_signal": -1.1474,
+    "macd_histogram": -1.7388,
+    "macd_crossover": "neutral",
+    "ema_20": 207.29,
+    "ema_50": 207.9,
+    "ema_200": 215.79,
+    "ema_stack_bullish": false,
+    "bb_upper": 219.88,
+    "bb_middle": 208.76,
+    "bb_lower": 197.65,
+    "bb_width": 0.1065,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.9,
+    "atr": 5.48,
+    "atr_pct": 0.0277,
+    "obv_trend": "DOWN",
+    "mfi": 44.5,
+    "cmf": -0.123,
+    "stoch_k": 7.1,
+    "stoch_d": 9.3,
+    "rvol": 0.95,
+    "volume_5d_avg": 5299629,
+    "green_days_10d": 4,
+    "52w_high": 255.6,
+    "52w_low": 182.72,
+    "52w_high_proximity_pct": 0.2268,
+    "52w_low_proximity_pct": 0.0816
+  },
+  "fundamental": {
+    "pe_ratio": 20.311409,
+    "sector_pe_median": 17.4590915,
+    "pb_ratio": 3.6951237,
+    "de_ratio": 208.851,
+    "fcf_yield": 0.0362,
+    "eps_growth_5y": -0.266,
+    "revenue_growth_ttm": 0.113,
+    "gross_margin": 0.63165003,
+    "operating_margin": 0.18365,
+    "net_margin": 0.124469995,
+    "market_cap": 221050470400,
+    "enterprise_value": 339015565312,
+    "dividend_yield": 2.03,
+    "payout_ratio": 0.3765,
+    "insider_ownership_pct": 0.55806,
+    "institutional_ownership_pct": 0.42470002,
+    "short_ratio": 2.24,
+    "beta": 0.422
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 196.64,
+    "entry_range_high": 198.62,
+    "target_range_low": 209.79,
+    "target_range_high": 224.77,
+    "stop_loss_range_low": 177.34,
+    "stop_loss_range_high": 186.67,
+    "target_price": 214.07,
+    "stop_loss": 186.67,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.229070-04:00",
+    "categories": [
+      "reversal",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 247.04,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 203.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 182.72,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 85,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 18,
+    "price_change_display": "-1.45%",
+    "key_metrics": {
+      "RSI": 34.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

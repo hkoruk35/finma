@@ -1,0 +1,159 @@
+{
+  "ticker": "TXN",
+  "company": "Texas Instruments Incorporated",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.200470-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 208.9,
+    "open": 206.67,
+    "high": 209.65,
+    "low": 206.16,
+    "prev_close": 199.74,
+    "change_pct": 4.59,
+    "volume": 7097846,
+    "avg_volume_30d": 6334374
+  },
+  "scores": {
+    "master_score": 44.62,
+    "technical_score": 55.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.7,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 44.62,
+    "confidence": 0.45,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 62.3,
+    "macd": -0.479,
+    "macd_signal": -2.6491,
+    "macd_histogram": 2.1702,
+    "macd_crossover": "neutral",
+    "ema_20": 197.22,
+    "ema_50": 198.15,
+    "ema_200": 190.74,
+    "ema_stack_bullish": false,
+    "bb_upper": 204.25,
+    "bb_middle": 193.9,
+    "bb_lower": 183.54,
+    "bb_width": 0.1068,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 23.9,
+    "atr": 6.0,
+    "atr_pct": 0.0287,
+    "obv_trend": "UP",
+    "mfi": 70.0,
+    "cmf": -0.124,
+    "stoch_k": 97.0,
+    "stoch_d": 97.3,
+    "rvol": 0.78,
+    "volume_5d_avg": 4966509,
+    "green_days_10d": 6,
+    "52w_high": 226.56,
+    "52w_low": 152.34,
+    "52w_high_proximity_pct": 0.0779,
+    "52w_low_proximity_pct": 0.3713
+  },
+  "fundamental": {
+    "pe_ratio": 38.330276,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 11.643072,
+    "de_ratio": 90.819,
+    "fcf_yield": -0.0016,
+    "eps_growth_5y": -0.032,
+    "revenue_growth_ttm": 0.104,
+    "gross_margin": 0.57023996,
+    "operating_margin": 0.34027,
+    "net_margin": 0.28283,
+    "market_cap": 190195793920,
+    "enterprise_value": 199485358080,
+    "dividend_yield": 2.84,
+    "payout_ratio": 1.0092,
+    "insider_ownership_pct": 0.0028799998,
+    "institutional_ownership_pct": 0.91179,
+    "short_ratio": 3.25,
+    "beta": 0.994
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 197.16,
+    "entry_range_high": 209.94,
+    "target_range_low": 222.36,
+    "target_range_high": 238.25,
+    "stop_loss_range_low": 187.06,
+    "stop_loss_range_high": 196.9,
+    "target_price": 226.9,
+    "stop_loss": 196.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.200418-04:00",
+    "categories": [
+      "breakout",
+      "reversal",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 261.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 284.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 152.34,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 6843,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 45,
+    "price_change_display": "+4.59%",
+    "key_metrics": {
+      "RSI": 62.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

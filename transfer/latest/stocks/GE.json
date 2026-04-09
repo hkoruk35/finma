@@ -1,0 +1,155 @@
+{
+  "ticker": "GE",
+  "company": "GE Aerospace",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.344498-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 308.06,
+    "open": 309.92,
+    "high": 313.13,
+    "low": 305.33,
+    "prev_close": 288.6,
+    "change_pct": 6.74,
+    "volume": 5546893,
+    "avg_volume_30d": 5605193
+  },
+  "scores": {
+    "master_score": 42.97,
+    "technical_score": 55.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 64.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 42.97,
+    "confidence": 0.43,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 54.5,
+    "macd": -6.7789,
+    "macd_signal": -8.6328,
+    "macd_histogram": 1.8539,
+    "macd_crossover": "neutral",
+    "ema_20": 296.46,
+    "ema_50": 305.05,
+    "ema_200": 295.28,
+    "ema_stack_bullish": false,
+    "bb_upper": 316.88,
+    "bb_middle": 294.0,
+    "bb_lower": 271.12,
+    "bb_width": 0.1557,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 32.5,
+    "atr": 11.55,
+    "atr_pct": 0.0375,
+    "obv_trend": "UP",
+    "mfi": 46.8,
+    "cmf": -0.093,
+    "stoch_k": 88.0,
+    "stoch_d": 63.7,
+    "rvol": 0.94,
+    "volume_5d_avg": 5291118,
+    "green_days_10d": 5,
+    "52w_high": 345.24,
+    "52w_low": 234.51,
+    "52w_high_proximity_pct": 0.1077,
+    "52w_low_proximity_pct": 0.3136
+  },
+  "fundamental": {
+    "pe_ratio": 35.86263,
+    "sector_pe_median": 34.34724,
+    "pb_ratio": 17.297995,
+    "de_ratio": 114.07,
+    "fcf_yield": 0.016,
+    "eps_growth_5y": 0.374,
+    "revenue_growth_ttm": 0.176,
+    "gross_margin": 0.31499,
+    "operating_margin": 0.19549,
+    "net_margin": 0.18982,
+    "market_cap": 324945969152,
+    "enterprise_value": 332883525632,
+    "dividend_yield": 0.65,
+    "payout_ratio": 0.17889999,
+    "insider_ownership_pct": 0.00308,
+    "institutional_ownership_pct": 0.81105006,
+    "short_ratio": 2.33,
+    "beta": 1.428
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 303.52,
+    "entry_range_high": 309.6,
+    "target_range_low": 335.86,
+    "target_range_high": 359.85,
+    "stop_loss_range_low": 270.71,
+    "stop_loss_range_high": 284.96,
+    "target_price": 342.71,
+    "stop_loss": 284.96,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.344483-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 385.07,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 65.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 234.51,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 14872,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 3.66,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 43,
+    "price_change_display": "+6.74%",
+    "key_metrics": {
+      "RSI": 54.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

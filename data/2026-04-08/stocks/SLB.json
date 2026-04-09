@@ -1,0 +1,158 @@
+{
+  "ticker": "SLB",
+  "company": "SLB N.V.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.331685-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 51.88,
+    "open": 50.43,
+    "high": 52.31,
+    "low": 49.76,
+    "prev_close": 50.35,
+    "change_pct": 3.04,
+    "volume": 17709432,
+    "avg_volume_30d": 19743687
+  },
+  "scores": {
+    "master_score": 58.4,
+    "technical_score": 70.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 44.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 58.4,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 58.8,
+    "macd": 0.7139,
+    "macd_signal": 0.5684,
+    "macd_histogram": 0.1454,
+    "macd_crossover": "neutral",
+    "ema_20": 49.88,
+    "ema_50": 48.41,
+    "ema_200": 41.59,
+    "ema_stack_bullish": true,
+    "bb_upper": 54.48,
+    "bb_middle": 49.01,
+    "bb_lower": 43.53,
+    "bb_width": 0.2234,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.0,
+    "atr": 1.93,
+    "atr_pct": 0.0371,
+    "obv_trend": "UP",
+    "mfi": 72.3,
+    "cmf": 0.02,
+    "stoch_k": 71.1,
+    "stoch_d": 59.1,
+    "rvol": 0.71,
+    "volume_5d_avg": 13947866,
+    "green_days_10d": 6,
+    "52w_high": 53.5,
+    "52w_low": 31.29,
+    "52w_high_proximity_pct": 0.0303,
+    "52w_low_proximity_pct": 0.6582
+  },
+  "fundamental": {
+    "pe_ratio": 22.076597,
+    "sector_pe_median": 23.31642,
+    "pb_ratio": 2.9713633,
+    "de_ratio": 45.975,
+    "fcf_yield": 0.0314,
+    "eps_growth_5y": -0.286,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.18687999,
+    "operating_margin": 0.15988,
+    "net_margin": 0.09449001,
+    "market_cap": 77878796288,
+    "enterprise_value": 84713938944,
+    "dividend_yield": 2.34,
+    "payout_ratio": 0.48509997,
+    "insider_ownership_pct": 0.0021799998,
+    "institutional_ownership_pct": 0.87658995,
+    "short_ratio": 3.69,
+    "beta": 0.695
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 48.17,
+    "entry_range_high": 52.14,
+    "target_range_low": 56.52,
+    "target_range_high": 60.55,
+    "stop_loss_range_low": 45.62,
+    "stop_loss_range_high": 48.02,
+    "target_price": 57.67,
+    "stop_loss": 48.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.331655-04:00",
+    "categories": [
+      "top_signals",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 64.85,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 234.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.29,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 4000,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -1.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 58,
+    "price_change_display": "+3.04%",
+    "key_metrics": {
+      "RSI": 58.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

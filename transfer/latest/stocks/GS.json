@@ -1,0 +1,157 @@
+{
+  "ticker": "GS",
+  "company": "The Goldman Sachs Group, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.267431-04:00",
+  "sector": "Financials",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 905.75,
+    "open": 903.01,
+    "high": 918.0,
+    "low": 893.6,
+    "prev_close": 864.15,
+    "change_pct": 4.81,
+    "volume": 2077721,
+    "avg_volume_30d": 2368290
+  },
+  "scores": {
+    "master_score": 49.64,
+    "technical_score": 45.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.4,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.64,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 65.3,
+    "macd": 3.5263,
+    "macd_signal": -7.9317,
+    "macd_histogram": 11.4581,
+    "macd_crossover": "neutral",
+    "ema_20": 848.0,
+    "ema_50": 858.36,
+    "ema_200": 807.18,
+    "ema_stack_bullish": false,
+    "bb_upper": 890.31,
+    "bb_middle": 828.55,
+    "bb_lower": 766.78,
+    "bb_width": 0.1491,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.4,
+    "atr": 28.89,
+    "atr_pct": 0.0319,
+    "obv_trend": "UP",
+    "mfi": 62.1,
+    "cmf": -0.154,
+    "stoch_k": 90.4,
+    "stoch_d": 90.3,
+    "rvol": 0.72,
+    "volume_5d_avg": 1708384,
+    "green_days_10d": 7,
+    "52w_high": 970.75,
+    "52w_low": 604.06,
+    "52w_high_proximity_pct": 0.067,
+    "52w_low_proximity_pct": 0.4994
+  },
+  "fundamental": {
+    "pe_ratio": 17.645626,
+    "sector_pe_median": 17.645626,
+    "pb_ratio": 2.5408657,
+    "de_ratio": 596.073,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.173,
+    "revenue_growth_ttm": 0.152,
+    "gross_margin": 0.82883,
+    "operating_margin": 0.38319,
+    "net_margin": 0.28917998,
+    "market_cap": 268783960064,
+    "enterprise_value": 33010909184,
+    "dividend_yield": 2.08,
+    "payout_ratio": 0.2728,
+    "insider_ownership_pct": 0.0053100004,
+    "institutional_ownership_pct": 0.76082003,
+    "short_ratio": 2.39,
+    "beta": 1.311
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 854.07,
+    "entry_range_high": 910.28,
+    "target_range_low": 972.57,
+    "target_range_high": 1042.04,
+    "stop_loss_range_low": 805.57,
+    "stop_loss_range_high": 847.97,
+    "target_price": 992.42,
+    "stop_loss": 847.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.267399-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1132.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 208.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 604.06,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 15855,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "+4.81%",
+    "key_metrics": {
+      "RSI": 65.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

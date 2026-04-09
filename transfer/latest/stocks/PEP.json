@@ -1,0 +1,157 @@
+{
+  "ticker": "PEP",
+  "company": "PepsiCo, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.339289-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 154.8,
+    "open": 151.75,
+    "high": 154.82,
+    "low": 151.75,
+    "prev_close": 153.21,
+    "change_pct": 1.04,
+    "volume": 6698038,
+    "avg_volume_30d": 6506197
+  },
+  "scores": {
+    "master_score": 48.66,
+    "technical_score": 55.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.6,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.66,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 47.4,
+    "macd": -1.0483,
+    "macd_signal": -1.3282,
+    "macd_histogram": 0.28,
+    "macd_crossover": "neutral",
+    "ema_20": 155.52,
+    "ema_50": 155.61,
+    "ema_200": 146.68,
+    "ema_stack_bullish": false,
+    "bb_upper": 160.88,
+    "bb_middle": 154.75,
+    "bb_lower": 148.62,
+    "bb_width": 0.0792,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 18.9,
+    "atr": 3.14,
+    "atr_pct": 0.0203,
+    "obv_trend": "UP",
+    "mfi": 46.9,
+    "cmf": -0.176,
+    "stoch_k": 61.6,
+    "stoch_d": 60.9,
+    "rvol": 0.81,
+    "volume_5d_avg": 5246847,
+    "green_days_10d": 5,
+    "52w_high": 168.98,
+    "52w_low": 124.44,
+    "52w_high_proximity_pct": 0.0839,
+    "52w_low_proximity_pct": 0.244
+  },
+  "fundamental": {
+    "pe_ratio": 25.50247,
+    "sector_pe_median": 25.463406499999998,
+    "pb_ratio": 10.369775,
+    "de_ratio": 258.081,
+    "fcf_yield": 0.0389,
+    "eps_growth_5y": 0.675,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.5446,
+    "operating_margin": 0.14068,
+    "net_margin": 0.08773,
+    "market_cap": 211602456576,
+    "enterprise_value": 255196266496,
+    "dividend_yield": 3.71,
+    "payout_ratio": 0.9371,
+    "insider_ownership_pct": 0.00205,
+    "institutional_ownership_pct": 0.79783,
+    "short_ratio": 3.4,
+    "beta": 0.41
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 154.03,
+    "entry_range_high": 155.57,
+    "target_range_low": 160.94,
+    "target_range_high": 172.43,
+    "stop_loss_range_low": 141.09,
+    "stop_loss_range_high": 148.52,
+    "target_price": 164.22,
+    "stop_loss": 148.52,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.339246-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 193.5,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 371.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 124.44,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 6500,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.62,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "+1.04%",
+    "key_metrics": {
+      "RSI": 47.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

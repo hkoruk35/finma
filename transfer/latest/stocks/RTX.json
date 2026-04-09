@@ -1,0 +1,155 @@
+{
+  "ticker": "RTX",
+  "company": "RTX Corporation",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.347137-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 203.48,
+    "open": 198.6,
+    "high": 203.8,
+    "low": 198.6,
+    "prev_close": 197.92,
+    "change_pct": 2.81,
+    "volume": 3466720,
+    "avg_volume_30d": 5680414
+  },
+  "scores": {
+    "master_score": 51.47,
+    "technical_score": 65.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 64.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 51.47,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 57.5,
+    "macd": -0.9788,
+    "macd_signal": -1.575,
+    "macd_histogram": 0.5962,
+    "macd_crossover": "neutral",
+    "ema_20": 197.95,
+    "ema_50": 197.29,
+    "ema_200": 178.24,
+    "ema_stack_bullish": true,
+    "bb_upper": 209.33,
+    "bb_middle": 198.24,
+    "bb_lower": 187.15,
+    "bb_width": 0.1119,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.4,
+    "atr": 4.86,
+    "atr_pct": 0.0239,
+    "obv_trend": "UP",
+    "mfi": 36.6,
+    "cmf": -0.064,
+    "stoch_k": 98.2,
+    "stoch_d": 71.4,
+    "rvol": 0.6,
+    "volume_5d_avg": 3412044,
+    "green_days_10d": 6,
+    "52w_high": 212.16,
+    "52w_low": 136.91,
+    "52w_high_proximity_pct": 0.0409,
+    "52w_low_proximity_pct": 0.4862
+  },
+  "fundamental": {
+    "pe_ratio": 39.819958,
+    "sector_pe_median": 34.34724,
+    "pb_ratio": 4.1862283,
+    "de_ratio": 59.513,
+    "fcf_yield": 0.0236,
+    "eps_growth_5y": 0.083,
+    "revenue_growth_ttm": 0.121,
+    "gross_margin": 0.20076999,
+    "operating_margin": 0.110240005,
+    "net_margin": 0.07598,
+    "market_cap": 273878843392,
+    "enterprise_value": 307542687744,
+    "dividend_yield": 1.34,
+    "payout_ratio": 0.53830004,
+    "insider_ownership_pct": 0.00072999997,
+    "institutional_ownership_pct": 0.80959,
+    "short_ratio": 1.86,
+    "beta": 0.428
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 196.3,
+    "entry_range_high": 204.5,
+    "target_range_low": 213.7,
+    "target_range_high": 228.96,
+    "stop_loss_range_low": 184.07,
+    "stop_loss_range_high": 193.76,
+    "target_price": 218.06,
+    "stop_loss": 193.76,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.347122-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 254.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 134.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 136.91,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 12713,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 3.66,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+2.81%",
+    "key_metrics": {
+      "RSI": 57.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

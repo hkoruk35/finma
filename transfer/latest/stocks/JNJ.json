@@ -1,0 +1,157 @@
+{
+  "ticker": "JNJ",
+  "company": "Johnson & Johnson",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.297836-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 241.3,
+    "open": 236.64,
+    "high": 241.32,
+    "low": 234.14,
+    "prev_close": 238.41,
+    "change_pct": 1.21,
+    "volume": 6647942,
+    "avg_volume_30d": 7740631
+  },
+  "scores": {
+    "master_score": 42.79,
+    "technical_score": 45.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 47.9,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 42.79,
+    "confidence": 0.43,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 52.7,
+    "macd": 0.7175,
+    "macd_signal": 0.8632,
+    "macd_histogram": -0.1457,
+    "macd_crossover": "neutral",
+    "ema_20": 240.63,
+    "ema_50": 235.85,
+    "ema_200": 205.42,
+    "ema_stack_bullish": true,
+    "bb_upper": 245.9,
+    "bb_middle": 240.16,
+    "bb_lower": 234.42,
+    "bb_width": 0.0478,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.2,
+    "atr": 4.29,
+    "atr_pct": 0.0178,
+    "obv_trend": "DOWN",
+    "mfi": 52.0,
+    "cmf": -0.16,
+    "stoch_k": 60.5,
+    "stoch_d": 53.4,
+    "rvol": 0.79,
+    "volume_5d_avg": 6104948,
+    "green_days_10d": 5,
+    "52w_high": 248.56,
+    "52w_low": 146.98,
+    "52w_high_proximity_pct": 0.0292,
+    "52w_low_proximity_pct": 0.6417
+  },
+  "fundamental": {
+    "pe_ratio": 21.602507,
+    "sector_pe_median": 27.904395,
+    "pb_ratio": 7.1253505,
+    "de_ratio": 60.499,
+    "fcf_yield": 0.0286,
+    "eps_growth_5y": 0.486,
+    "revenue_growth_ttm": 0.091,
+    "gross_margin": 0.68081003,
+    "operating_margin": 0.23966,
+    "net_margin": 0.28456,
+    "market_cap": 581508661248,
+    "enterprise_value": 610739617792,
+    "dividend_yield": 2.18,
+    "payout_ratio": 0.466,
+    "insider_ownership_pct": 0.00061,
+    "institutional_ownership_pct": 0.75674003,
+    "short_ratio": 2.67,
+    "beta": 0.329
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 234.67,
+    "entry_range_high": 242.51,
+    "target_range_low": 249.09,
+    "target_range_high": 266.88,
+    "stop_loss_range_low": 221.08,
+    "stop_loss_range_high": 232.72,
+    "target_price": 254.17,
+    "stop_loss": 232.72,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.297792-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 301.62,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 218.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 146.98,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 4075,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 43,
+    "price_change_display": "+1.21%",
+    "key_metrics": {
+      "RSI": 52.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

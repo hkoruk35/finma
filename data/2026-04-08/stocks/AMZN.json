@@ -1,0 +1,155 @@
+{
+  "ticker": "AMZN",
+  "company": "Amazon.com, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.233093-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 221.25,
+    "open": 223.94,
+    "high": 226.0,
+    "low": 219.62,
+    "prev_close": 213.77,
+    "change_pct": 3.5,
+    "volume": 47177831,
+    "avg_volume_30d": 44465877
+  },
+  "scores": {
+    "master_score": 41.35,
+    "technical_score": 46.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.5,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 41.35,
+    "confidence": 0.41,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 60.7,
+    "macd": 0.1064,
+    "macd_signal": -1.5017,
+    "macd_histogram": 1.6081,
+    "macd_crossover": "neutral",
+    "ema_20": 210.87,
+    "ema_50": 214.38,
+    "ema_200": 221.05,
+    "ema_stack_bullish": false,
+    "bb_upper": 218.96,
+    "bb_middle": 209.71,
+    "bb_lower": 200.45,
+    "bb_width": 0.0882,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.2,
+    "atr": 6.22,
+    "atr_pct": 0.0281,
+    "obv_trend": "UP",
+    "mfi": 48.3,
+    "cmf": -0.129,
+    "stoch_k": 82.3,
+    "stoch_d": 85.4,
+    "rvol": 0.8,
+    "volume_5d_avg": 35625266,
+    "green_days_10d": 7,
+    "52w_high": 254.0,
+    "52w_low": 198.79,
+    "52w_high_proximity_pct": 0.1289,
+    "52w_low_proximity_pct": 0.113
+  },
+  "fundamental": {
+    "pe_ratio": 29.858301,
+    "sector_pe_median": 29.1166515,
+    "pb_ratio": 5.7758574,
+    "de_ratio": 43.435,
+    "fcf_yield": 0.01,
+    "eps_growth_5y": 0.05,
+    "revenue_growth_ttm": 0.136,
+    "gross_margin": 0.50286,
+    "operating_margin": 0.10533,
+    "net_margin": 0.108339995,
+    "market_cap": 2375101186048,
+    "enterprise_value": 2350322024448,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.09085,
+    "institutional_ownership_pct": 0.67239,
+    "short_ratio": 1.82,
+    "beta": 1.383
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 213.31,
+    "entry_range_high": 222.36,
+    "target_range_low": 235.11,
+    "target_range_high": 251.91,
+    "stop_loss_range_low": 198.37,
+    "stop_loss_range_high": 208.81,
+    "target_price": 239.91,
+    "stop_loss": 208.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.233059-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 276.56,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 198.79,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1000,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 0.0,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 41,
+    "price_change_display": "+3.50%",
+    "key_metrics": {
+      "RSI": 60.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

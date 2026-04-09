@@ -1,0 +1,159 @@
+{
+  "ticker": "QCOM",
+  "company": "QUALCOMM Incorporated",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.198943-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 127.51,
+    "open": 128.72,
+    "high": 128.88,
+    "low": 125.62,
+    "prev_close": 124.07,
+    "change_pct": 2.77,
+    "volume": 12524368,
+    "avg_volume_30d": 12037838
+  },
+  "scores": {
+    "master_score": 35.82,
+    "technical_score": 47.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.7,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.82,
+    "confidence": 0.36,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 40.5,
+    "macd": -3.4565,
+    "macd_signal": -3.7372,
+    "macd_histogram": 0.2806,
+    "macd_crossover": "neutral",
+    "ema_20": 129.7,
+    "ema_50": 137.71,
+    "ema_200": 151.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 133.55,
+    "bb_middle": 129.0,
+    "bb_lower": 124.45,
+    "bb_width": 0.0706,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 33.1,
+    "atr": 3.85,
+    "atr_pct": 0.0302,
+    "obv_trend": "DOWN",
+    "mfi": 19.9,
+    "cmf": -0.439,
+    "stoch_k": 46.1,
+    "stoch_d": 27.7,
+    "rvol": 0.8,
+    "volume_5d_avg": 9637873,
+    "green_days_10d": 4,
+    "52w_high": 185.53,
+    "52w_low": 124.07,
+    "52w_high_proximity_pct": 0.3127,
+    "52w_low_proximity_pct": 0.0277
+  },
+  "fundamental": {
+    "pe_ratio": 25.00196,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 5.935391,
+    "de_ratio": 64.218,
+    "fcf_yield": 0.0765,
+    "eps_growth_5y": -0.018,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.55101,
+    "operating_margin": 0.27473,
+    "net_margin": 0.11958,
+    "market_cap": 136186437632,
+    "enterprise_value": 139048173568,
+    "dividend_yield": 2.79,
+    "payout_ratio": 0.7097,
+    "insider_ownership_pct": 0.0013600001,
+    "institutional_ownership_pct": 0.8168,
+    "short_ratio": 4.36,
+    "beta": 1.279
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 126.87,
+    "entry_range_high": 128.15,
+    "target_range_low": 136.28,
+    "target_range_high": 146.01,
+    "stop_loss_range_low": 113.82,
+    "stop_loss_range_high": 119.81,
+    "target_price": 139.06,
+    "stop_loss": 119.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.198912-04:00",
+    "categories": [
+      "breakout",
+      "reversal",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 159.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 279.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 124.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 8,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 74449,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 36,
+    "price_change_display": "+2.77%",
+    "key_metrics": {
+      "RSI": 40.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "ticker": "SMCI",
+  "company": "Super Micro Computer, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.366194-04:00",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 23.37,
+    "open": 24.0,
+    "high": 24.18,
+    "low": 22.86,
+    "prev_close": 22.67,
+    "change_pct": 3.09,
+    "volume": 31187671,
+    "avg_volume_30d": 40797552
+  },
+  "scores": {
+    "master_score": 45.87,
+    "technical_score": 42.0,
+    "fundamental_score": 58.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 68.0,
+    "sector_score": 38.7,
+    "breakout_score": 25.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 45.87,
+    "confidence": 0.46,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 41.7,
+    "macd": -2.1956,
+    "macd_signal": -2.2221,
+    "macd_histogram": 0.0265,
+    "macd_crossover": "bullish",
+    "ema_20": 24.91,
+    "ema_50": 28.09,
+    "ema_200": 35.79,
+    "ema_stack_bullish": false,
+    "bb_upper": 33.97,
+    "bb_middle": 25.41,
+    "bb_lower": 16.85,
+    "bb_width": 0.6735,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.8,
+    "atr": 1.83,
+    "atr_pct": 0.0784,
+    "obv_trend": "UP",
+    "mfi": 33.7,
+    "cmf": -0.127,
+    "stoch_k": 32.3,
+    "stoch_d": 25.9,
+    "rvol": 0.71,
+    "volume_5d_avg": 28789554,
+    "green_days_10d": 5,
+    "52w_high": 60.71,
+    "52w_low": 20.53,
+    "52w_high_proximity_pct": 0.6151,
+    "52w_low_proximity_pct": 0.1383
+  },
+  "fundamental": {
+    "pe_ratio": 16.574469,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 2.0018847,
+    "de_ratio": 75.28,
+    "fcf_yield": 0.0074,
+    "eps_growth_5y": 0.192,
+    "revenue_growth_ttm": 1.234,
+    "gross_margin": 0.0802,
+    "operating_margin": 0.0374,
+    "net_margin": 0.03111,
+    "market_cap": 14033262592,
+    "enterprise_value": 14736691200,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.13854,
+    "institutional_ownership_pct": 0.56298,
+    "short_ratio": 3.61,
+    "beta": 1.629
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 23.25,
+    "entry_range_high": 23.49,
+    "target_range_low": 28.28,
+    "target_range_high": 30.3,
+    "stop_loss_range_low": 18.72,
+    "stop_loss_range_high": 19.71,
+    "target_price": 28.86,
+    "stop_loss": 19.71,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.366177-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 25.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 29.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 20.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 20980,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 46,
+    "price_change_display": "+3.09%",
+    "key_metrics": {
+      "RSI": 41.7,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

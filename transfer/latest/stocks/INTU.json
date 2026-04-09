@@ -1,0 +1,159 @@
+{
+  "ticker": "INTU",
+  "company": "Intuit Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.202843-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 389.51,
+    "open": 416.8,
+    "high": 417.2,
+    "low": 386.21,
+    "prev_close": 410.24,
+    "change_pct": -5.05,
+    "volume": 4706839,
+    "avg_volume_30d": 3933977
+  },
+  "scores": {
+    "master_score": 27.37,
+    "technical_score": 15.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 38.7,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 27.37,
+    "confidence": 0.27,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 33.5,
+    "macd": -10.3104,
+    "macd_signal": -6.6874,
+    "macd_histogram": -3.6229,
+    "macd_crossover": "neutral",
+    "ema_20": 427.43,
+    "ema_50": 456.64,
+    "ema_200": 586.03,
+    "ema_stack_bullish": false,
+    "bb_upper": 468.7,
+    "bb_middle": 433.85,
+    "bb_lower": 399.0,
+    "bb_width": 0.1607,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 22.3,
+    "atr": 19.82,
+    "atr_pct": 0.0509,
+    "obv_trend": "DOWN",
+    "mfi": 40.7,
+    "cmf": -0.191,
+    "stoch_k": 3.9,
+    "stoch_d": 6.8,
+    "rvol": 0.73,
+    "volume_5d_avg": 2868407,
+    "green_days_10d": 3,
+    "52w_high": 804.44,
+    "52w_low": 358.71,
+    "52w_high_proximity_pct": 0.5158,
+    "52w_low_proximity_pct": 0.0859
+  },
+  "fundamental": {
+    "pe_ratio": 25.325748,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 5.672283,
+    "de_ratio": 36.148,
+    "fcf_yield": 0.0489,
+    "eps_growth_5y": 0.485,
+    "revenue_growth_ttm": 0.174,
+    "gross_margin": 0.80896,
+    "operating_margin": 0.18383,
+    "net_margin": 0.2157,
+    "market_cap": 108390539264,
+    "enterprise_value": 117364875264,
+    "dividend_yield": 1.13,
+    "payout_ratio": 0.2915,
+    "insider_ownership_pct": 0.023540001,
+    "institutional_ownership_pct": 0.90471,
+    "short_ratio": 1.47,
+    "beta": 1.213
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 387.56,
+    "entry_range_high": 391.46,
+    "target_range_low": 439.99,
+    "target_range_high": 471.42,
+    "stop_loss_range_low": 332.38,
+    "stop_loss_range_high": 349.87,
+    "target_price": 448.97,
+    "stop_loss": 349.87,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.202811-04:00",
+    "categories": [
+      "breakout",
+      "reversal",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 486.89,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 113.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 358.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 3360,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 27,
+    "price_change_display": "-5.05%",
+    "key_metrics": {
+      "RSI": 33.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

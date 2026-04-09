@@ -1,0 +1,157 @@
+{
+  "ticker": "COP",
+  "company": "ConocoPhillips",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.327765-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 125.22,
+    "open": 122.16,
+    "high": 125.89,
+    "low": 120.7,
+    "prev_close": 131.77,
+    "change_pct": -4.97,
+    "volume": 12710388,
+    "avg_volume_30d": 11128559
+  },
+  "scores": {
+    "master_score": 41.9,
+    "technical_score": 40.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 44.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 41.9,
+    "confidence": 0.42,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 51.5,
+    "macd": 4.0963,
+    "macd_signal": 4.9126,
+    "macd_histogram": -0.8163,
+    "macd_crossover": "neutral",
+    "ema_20": 126.67,
+    "ema_50": 118.08,
+    "ema_200": 101.26,
+    "ema_stack_bullish": false,
+    "bb_upper": 136.7,
+    "bb_middle": 127.25,
+    "bb_lower": 117.79,
+    "bb_width": 0.1487,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 35.2,
+    "atr": 4.16,
+    "atr_pct": 0.0332,
+    "obv_trend": "DOWN",
+    "mfi": 54.8,
+    "cmf": 0.205,
+    "stoch_k": 29.8,
+    "stoch_d": 56.4,
+    "rvol": 0.79,
+    "volume_5d_avg": 8815677,
+    "green_days_10d": 5,
+    "52w_high": 133.8,
+    "52w_low": 84.22,
+    "52w_high_proximity_pct": 0.0641,
+    "52w_low_proximity_pct": 0.4869
+  },
+  "fundamental": {
+    "pe_ratio": 20.731789,
+    "sector_pe_median": 23.31642,
+    "pb_ratio": 2.3790255,
+    "de_ratio": 37.828,
+    "fcf_yield": 0.0489,
+    "eps_growth_5y": -0.39,
+    "revenue_growth_ttm": -0.068,
+    "gross_margin": 0.4618,
+    "operating_margin": 0.16299999,
+    "net_margin": 0.13252,
+    "market_cap": 153061310464,
+    "enterprise_value": 178480627712,
+    "dividend_yield": 2.55,
+    "payout_ratio": 0.5008,
+    "insider_ownership_pct": 0.00101,
+    "institutional_ownership_pct": 0.85125,
+    "short_ratio": 2.39,
+    "beta": 0.192
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 117.49,
+    "entry_range_high": 125.85,
+    "target_range_low": 134.95,
+    "target_range_high": 144.59,
+    "stop_loss_range_low": 111.06,
+    "stop_loss_range_high": 116.9,
+    "target_price": 137.7,
+    "stop_loss": 116.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.327674-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 156.53,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 255.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 84.22,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1903,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -1.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 42,
+    "price_change_display": "-4.97%",
+    "key_metrics": {
+      "RSI": 51.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

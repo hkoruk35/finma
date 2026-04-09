@@ -1,0 +1,155 @@
+{
+  "ticker": "ISRG",
+  "company": "Intuitive Surgical, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.311496-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 462.28,
+    "open": 469.99,
+    "high": 471.98,
+    "low": 460.24,
+    "prev_close": 452.95,
+    "change_pct": 2.06,
+    "volume": 2224246,
+    "avg_volume_30d": 1690544
+  },
+  "scores": {
+    "master_score": 35.24,
+    "technical_score": 32.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 47.9,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 35.24,
+    "confidence": 0.35,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 42.1,
+    "macd": -10.4017,
+    "macd_signal": -10.2789,
+    "macd_histogram": -0.1228,
+    "macd_crossover": "neutral",
+    "ema_20": 468.35,
+    "ema_50": 487.17,
+    "ema_200": 512.21,
+    "ema_stack_bullish": false,
+    "bb_upper": 493.45,
+    "bb_middle": 469.27,
+    "bb_lower": 445.09,
+    "bb_width": 0.1031,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.7,
+    "atr": 12.44,
+    "atr_pct": 0.0269,
+    "obv_trend": "UP",
+    "mfi": 41.4,
+    "cmf": -0.169,
+    "stoch_k": 35.2,
+    "stoch_d": 18.9,
+    "rvol": 0.98,
+    "volume_5d_avg": 1649669,
+    "green_days_10d": 6,
+    "52w_high": 592.85,
+    "52w_low": 429.59,
+    "52w_high_proximity_pct": 0.2202,
+    "52w_low_proximity_pct": 0.0761
+  },
+  "fundamental": {
+    "pe_ratio": 57.497513,
+    "sector_pe_median": 27.904395,
+    "pb_ratio": 9.209866,
+    "de_ratio": 0.953,
+    "fcf_yield": 0.0139,
+    "eps_growth_5y": 0.166,
+    "revenue_growth_ttm": 0.188,
+    "gross_margin": 0.65996003,
+    "operating_margin": 0.30155,
+    "net_margin": 0.28375998,
+    "market_cap": 164187848704,
+    "enterprise_value": 155209940992,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00556,
+    "institutional_ownership_pct": 0.89021003,
+    "short_ratio": 3.94,
+    "beta": 1.679
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 459.97,
+    "entry_range_high": 464.59,
+    "target_range_low": 489.61,
+    "target_range_high": 524.58,
+    "stop_loss_range_low": 415.53,
+    "stop_loss_range_high": 437.4,
+    "target_price": 499.6,
+    "stop_loss": 437.4,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.311457-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 577.85,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 429.59,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 105,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 35,
+    "price_change_display": "+2.06%",
+    "key_metrics": {
+      "RSI": 42.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

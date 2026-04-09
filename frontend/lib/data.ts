@@ -12,6 +12,8 @@ export interface StockQuickView {
   signal_type: string;
   price: number;
   change_pct: number;
+  entry_range_low: number;
+  entry_range_high: number;
 }
 
 export interface MasterData {
@@ -254,7 +256,9 @@ function getMockTickers(): StockQuickView[] {
       master_score: score,
       signal_type: score >= 85 ? "STRONG_BUY" : score >= 70 ? "BUY" : score >= 55 ? "NEUTRAL" : "SELL",
       price: 50 + (seed % 400),
-      change_pct: change
+      change_pct: change,
+      entry_range_low: 45 + (seed % 400),
+      entry_range_high: 55 + (seed % 400)
     };
   });
 }

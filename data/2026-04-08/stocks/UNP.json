@@ -1,0 +1,158 @@
+{
+  "ticker": "UNP",
+  "company": "Union Pacific Corporation",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.345327-04:00",
+  "sector": "Industrials",
+  "industry": "Railroads",
+  "price": {
+    "current": 249.11,
+    "open": 250.49,
+    "high": 252.62,
+    "low": 247.02,
+    "prev_close": 246.11,
+    "change_pct": 1.22,
+    "volume": 2742486,
+    "avg_volume_30d": 2914496
+  },
+  "scores": {
+    "master_score": 60.32,
+    "technical_score": 61.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 64.7,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 60.32,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 57.6,
+    "macd": -1.106,
+    "macd_signal": -2.3413,
+    "macd_histogram": 1.2353,
+    "macd_crossover": "neutral",
+    "ema_20": 244.68,
+    "ema_50": 244.85,
+    "ema_200": 234.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 250.28,
+    "bb_middle": 241.78,
+    "bb_lower": 233.28,
+    "bb_width": 0.0703,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 30.7,
+    "atr": 4.83,
+    "atr_pct": 0.0194,
+    "obv_trend": "UP",
+    "mfi": 67.2,
+    "cmf": -0.054,
+    "stoch_k": 83.2,
+    "stoch_d": 91.6,
+    "rvol": 0.81,
+    "volume_5d_avg": 2368937,
+    "green_days_10d": 8,
+    "52w_high": 266.97,
+    "52w_low": 212.55,
+    "52w_high_proximity_pct": 0.0669,
+    "52w_low_proximity_pct": 0.172
+  },
+  "fundamental": {
+    "pe_ratio": 20.536686,
+    "sector_pe_median": 34.34724,
+    "pb_ratio": 8.002506,
+    "de_ratio": 177.733,
+    "fcf_yield": 0.0265,
+    "eps_growth_5y": 0.068,
+    "revenue_growth_ttm": -0.006,
+    "gross_margin": 0.56353,
+    "operating_margin": 0.40887,
+    "net_margin": 0.29123,
+    "market_cap": 147891191808,
+    "enterprise_value": 179125747712,
+    "dividend_yield": 2.24,
+    "payout_ratio": 0.4541,
+    "insider_ownership_pct": 0.00119,
+    "institutional_ownership_pct": 0.88941,
+    "short_ratio": 8.59,
+    "beta": 0.968
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 243.63,
+    "entry_range_high": 250.36,
+    "target_range_low": 258.33,
+    "target_range_high": 276.78,
+    "stop_loss_range_low": 227.48,
+    "stop_loss_range_high": 239.45,
+    "target_price": 263.6,
+    "stop_loss": 239.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.345312-04:00",
+    "categories": [
+      "top_signals",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 311.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 224.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 212.55,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1999,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 3.66,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 60,
+    "price_change_display": "+1.22%",
+    "key_metrics": {
+      "RSI": 57.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

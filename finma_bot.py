@@ -1280,6 +1280,8 @@ async def daily_run():
                 "signal_type":  s["scores"]["signal_type"],
                 "price":        s["price"].get("current"),
                 "change_pct":   s["price"].get("change_pct"),
+                "entry_range_low": s["signals"]["entry_range_low"],
+                "entry_range_high": s["signals"]["entry_range_high"],
             }
             for s in sorted(all_stocks_data,
                             key=lambda x: x["scores"]["master_score"], reverse=True)

@@ -1,0 +1,155 @@
+{
+  "ticker": "DIS",
+  "company": "The Walt Disney Company",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.222834-04:00",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 99.18,
+    "open": 98.1,
+    "high": 99.19,
+    "low": 97.69,
+    "prev_close": 95.78,
+    "change_pct": 3.55,
+    "volume": 10750576,
+    "avg_volume_30d": 10962155
+  },
+  "scores": {
+    "master_score": 44.22,
+    "technical_score": 55.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 44.22,
+    "confidence": 0.44,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 51.0,
+    "macd": -1.7711,
+    "macd_signal": -2.2542,
+    "macd_histogram": 0.4832,
+    "macd_crossover": "neutral",
+    "ema_20": 97.91,
+    "ema_50": 101.59,
+    "ema_200": 108.26,
+    "ema_stack_bullish": false,
+    "bb_upper": 101.84,
+    "bb_middle": 97.46,
+    "bb_lower": 93.09,
+    "bb_width": 0.0898,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 32.3,
+    "atr": 2.23,
+    "atr_pct": 0.0225,
+    "obv_trend": "UP",
+    "mfi": 30.4,
+    "cmf": -0.243,
+    "stoch_k": 81.4,
+    "stoch_d": 56.1,
+    "rvol": 0.72,
+    "volume_5d_avg": 7888695,
+    "green_days_10d": 5,
+    "52w_high": 123.18,
+    "52w_low": 92.42,
+    "52w_high_proximity_pct": 0.1948,
+    "52w_low_proximity_pct": 0.0731
+  },
+  "fundamental": {
+    "pe_ratio": 14.606774,
+    "sector_pe_median": 17.4590915,
+    "pb_ratio": 1.6237987,
+    "de_ratio": 40.909,
+    "fcf_yield": 0.018,
+    "eps_growth_5y": -0.043,
+    "revenue_growth_ttm": 0.052,
+    "gross_margin": 0.37284002,
+    "operating_margin": 0.15361,
+    "net_margin": 0.128,
+    "market_cap": 175884517376,
+    "enterprise_value": 216170168320,
+    "dividend_yield": 1.57,
+    "payout_ratio": 0.1841,
+    "insider_ownership_pct": 0.00077,
+    "institutional_ownership_pct": 0.77255,
+    "short_ratio": 1.9,
+    "beta": 1.441
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 98.68,
+    "entry_range_high": 99.68,
+    "target_range_low": 103.75,
+    "target_range_high": 111.16,
+    "stop_loss_range_low": 89.98,
+    "stop_loss_range_high": 94.72,
+    "target_price": 105.87,
+    "stop_loss": 94.72,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.222790-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 123.98,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 157.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 92.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1034,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 44,
+    "price_change_display": "+3.55%",
+    "key_metrics": {
+      "RSI": 51.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

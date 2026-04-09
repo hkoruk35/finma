@@ -1,0 +1,155 @@
+{
+  "ticker": "MSTR",
+  "company": "Strategy Inc",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.218666-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 128.3,
+    "open": 133.7,
+    "high": 134.5,
+    "low": 126.13,
+    "prev_close": 123.72,
+    "change_pct": 3.7,
+    "volume": 17038311,
+    "avg_volume_30d": 19973337
+  },
+  "scores": {
+    "master_score": 20.67,
+    "technical_score": 15.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 78.0,
+    "sector_score": 38.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 20.67,
+    "confidence": 0.21,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 46.7,
+    "macd": -3.8415,
+    "macd_signal": -3.1315,
+    "macd_histogram": -0.71,
+    "macd_crossover": "neutral",
+    "ema_20": 130.6,
+    "ema_50": 139.91,
+    "ema_200": 221.92,
+    "ema_stack_bullish": false,
+    "bb_upper": 150.33,
+    "bb_middle": 133.44,
+    "bb_lower": 116.54,
+    "bb_width": 0.2533,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.0,
+    "atr": 8.17,
+    "atr_pct": 0.0637,
+    "obv_trend": "DOWN",
+    "mfi": 35.0,
+    "cmf": -0.085,
+    "stoch_k": 43.4,
+    "stoch_d": 33.0,
+    "rvol": 0.83,
+    "volume_5d_avg": 16549282,
+    "green_days_10d": 4,
+    "52w_high": 455.9,
+    "52w_low": 106.99,
+    "52w_high_proximity_pct": 0.7186,
+    "52w_low_proximity_pct": 0.1992
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 0.90739995,
+    "de_ratio": 16.158,
+    "fcf_yield": -0.0759,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.019,
+    "gross_margin": 0.68691003,
+    "operating_margin": -44.016068,
+    "net_margin": 0.0,
+    "market_cap": 44339761152,
+    "enterprise_value": 55686115328,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00162,
+    "institutional_ownership_pct": 0.56645,
+    "short_ratio": 1.72,
+    "beta": 3.56
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 127.66,
+    "entry_range_high": 128.94,
+    "target_range_low": 149.75,
+    "target_range_high": 160.45,
+    "stop_loss_range_low": 106.36,
+    "stop_loss_range_high": 111.96,
+    "target_price": 152.81,
+    "stop_loss": 111.96,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.218646-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 160.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 106.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1400,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 21,
+    "price_change_display": "+3.70%",
+    "key_metrics": {
+      "RSI": 46.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

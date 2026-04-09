@@ -1,0 +1,157 @@
+{
+  "ticker": "GOOGL",
+  "company": "Alphabet Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.219642-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 317.32,
+    "open": 320.45,
+    "high": 322.05,
+    "low": 315.02,
+    "prev_close": 305.46,
+    "change_pct": 3.88,
+    "volume": 32754861,
+    "avg_volume_30d": 30476932
+  },
+  "scores": {
+    "master_score": 42.47,
+    "technical_score": 50.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 42.47,
+    "confidence": 0.42,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 62.0,
+    "macd": -1.6268,
+    "macd_signal": -4.667,
+    "macd_histogram": 3.0402,
+    "macd_crossover": "neutral",
+    "ema_20": 299.1,
+    "ema_50": 303.94,
+    "ema_200": 273.42,
+    "ema_stack_bullish": false,
+    "bb_upper": 321.35,
+    "bb_middle": 298.13,
+    "bb_lower": 274.9,
+    "bb_width": 0.1558,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.5,
+    "atr": 8.84,
+    "atr_pct": 0.0279,
+    "obv_trend": "UP",
+    "mfi": 41.5,
+    "cmf": -0.078,
+    "stoch_k": 90.5,
+    "stoch_d": 80.7,
+    "rvol": 0.87,
+    "volume_5d_avg": 26451352,
+    "green_days_10d": 6,
+    "52w_high": 343.45,
+    "52w_low": 164.82,
+    "52w_high_proximity_pct": 0.0761,
+    "52w_low_proximity_pct": 0.9253
+  },
+  "fundamental": {
+    "pe_ratio": 28.256458,
+    "sector_pe_median": 17.4590915,
+    "pb_ratio": 9.237039,
+    "de_ratio": 16.133,
+    "fcf_yield": 0.0099,
+    "eps_growth_5y": 0.311,
+    "revenue_growth_ttm": 0.18,
+    "gross_margin": 0.59652,
+    "operating_margin": 0.31568,
+    "net_margin": 0.32810003,
+    "market_cap": 3838620205056,
+    "enterprise_value": 3635302629376,
+    "dividend_yield": 0.27,
+    "payout_ratio": 0.076799996,
+    "insider_ownership_pct": 0.0058,
+    "institutional_ownership_pct": 0.80768996,
+    "short_ratio": 2.64,
+    "beta": 1.128
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 302.42,
+    "entry_range_high": 318.91,
+    "target_range_low": 336.96,
+    "target_range_high": 361.03,
+    "stop_loss_range_low": 284.66,
+    "stop_loss_range_high": 299.64,
+    "target_price": 343.84,
+    "stop_loss": 299.64,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.219624-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 396.65,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 27.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 164.82,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 437500,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 42,
+    "price_change_display": "+3.88%",
+    "key_metrics": {
+      "RSI": 62.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

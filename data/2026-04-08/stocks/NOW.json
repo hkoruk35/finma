@@ -1,0 +1,157 @@
+{
+  "ticker": "NOW",
+  "company": "ServiceNow, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.208349-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 97.47,
+    "open": 104.76,
+    "high": 105.58,
+    "low": 96.96,
+    "prev_close": 100.55,
+    "change_pct": -3.06,
+    "volume": 19683034,
+    "avg_volume_30d": 16645757
+  },
+  "scores": {
+    "master_score": 21.22,
+    "technical_score": 11.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 38.7,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 35.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 21.22,
+    "confidence": 0.21,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 33.5,
+    "macd": -3.7411,
+    "macd_signal": -3.0388,
+    "macd_histogram": -0.7023,
+    "macd_crossover": "neutral",
+    "ema_20": 105.81,
+    "ema_50": 114.0,
+    "ema_200": 150.23,
+    "ema_stack_bullish": false,
+    "bb_upper": 119.32,
+    "bb_middle": 107.44,
+    "bb_lower": 95.57,
+    "bb_width": 0.2211,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 22.6,
+    "atr": 5.11,
+    "atr_pct": 0.0524,
+    "obv_trend": "DOWN",
+    "mfi": 27.3,
+    "cmf": -0.283,
+    "stoch_k": 2.5,
+    "stoch_d": 11.3,
+    "rvol": 0.84,
+    "volume_5d_avg": 13980426,
+    "green_days_10d": 3,
+    "52w_high": 208.94,
+    "52w_low": 97.47,
+    "52w_high_proximity_pct": 0.5335,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 58.365273,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 7.873819,
+    "de_ratio": 18.536,
+    "fcf_yield": 0.0486,
+    "eps_growth_5y": 0.034,
+    "revenue_growth_ttm": 0.207,
+    "gross_margin": 0.77533996,
+    "operating_margin": 0.16508,
+    "net_margin": 0.13165,
+    "market_cap": 101953617920,
+    "enterprise_value": 101294301184,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00202,
+    "institutional_ownership_pct": 0.90753996,
+    "short_ratio": 1.44,
+    "beta": 1.005
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 96.98,
+    "entry_range_high": 97.96,
+    "target_range_low": 110.54,
+    "target_range_high": 118.44,
+    "stop_loss_range_low": 82.89,
+    "stop_loss_range_high": 87.25,
+    "target_price": 112.8,
+    "stop_loss": 87.25,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.208314-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 121.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 97.47,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 28682,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 21,
+    "price_change_display": "-3.06%",
+    "key_metrics": {
+      "RSI": 33.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

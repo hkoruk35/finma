@@ -1,0 +1,159 @@
+{
+  "ticker": "CRM",
+  "company": "Salesforce, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.196982-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 176.37,
+    "open": 186.5,
+    "high": 186.73,
+    "low": 175.8,
+    "prev_close": 182.96,
+    "change_pct": -3.6,
+    "volume": 11729518,
+    "avg_volume_30d": 13863153
+  },
+  "scores": {
+    "master_score": 31.82,
+    "technical_score": 7.0,
+    "fundamental_score": 68.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 38.7,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 31.82,
+    "confidence": 0.32,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 35.2,
+    "macd": -4.3652,
+    "macd_signal": -3.925,
+    "macd_histogram": -0.4402,
+    "macd_crossover": "neutral",
+    "ema_20": 187.58,
+    "ema_50": 197.99,
+    "ema_200": 229.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 202.01,
+    "bb_middle": 188.96,
+    "bb_lower": 175.91,
+    "bb_width": 0.1381,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.0,
+    "atr": 7.39,
+    "atr_pct": 0.0419,
+    "obv_trend": "DOWN",
+    "mfi": 46.2,
+    "cmf": -0.082,
+    "stoch_k": 2.3,
+    "stoch_d": 16.0,
+    "rvol": 0.89,
+    "volume_5d_avg": 12355663,
+    "green_days_10d": 4,
+    "52w_high": 273.16,
+    "52w_low": 176.37,
+    "52w_high_proximity_pct": 0.3543,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 22.640564,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 2.7704124,
+    "de_ratio": 29.947,
+    "fcf_yield": 0.099,
+    "eps_growth_5y": 0.179,
+    "revenue_growth_ttm": 0.121,
+    "gross_margin": 0.77676004,
+    "operating_margin": 0.19239001,
+    "net_margin": 0.17958,
+    "market_cap": 165258690560,
+    "enterprise_value": 170935517184,
+    "dividend_yield": 0.96,
+    "payout_ratio": 0.2133,
+    "insider_ownership_pct": 0.02684,
+    "institutional_ownership_pct": 0.84961,
+    "short_ratio": 1.6,
+    "beta": 1.288
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 175.49,
+    "entry_range_high": 177.25,
+    "target_range_low": 194.57,
+    "target_range_high": 208.47,
+    "stop_loss_range_low": 153.51,
+    "stop_loss_range_high": 161.59,
+    "target_price": 198.54,
+    "stop_loss": 161.59,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.196963-04:00",
+    "categories": [
+      "value",
+      "reversal",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 220.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 96.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 176.37,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 16084,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 32,
+    "price_change_display": "-3.60%",
+    "key_metrics": {
+      "RSI": 35.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

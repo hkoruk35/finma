@@ -1,0 +1,155 @@
+{
+  "ticker": "SHW",
+  "company": "The Sherwin-Williams Company",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.365483-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 335.67,
+    "open": 331.79,
+    "high": 338.12,
+    "low": 329.51,
+    "prev_close": 313.96,
+    "change_pct": 6.91,
+    "volume": 1649022,
+    "avg_volume_30d": 1718630
+  },
+  "scores": {
+    "master_score": 48.54,
+    "technical_score": 56.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 59.4,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 48.54,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 56.7,
+    "macd": -4.5134,
+    "macd_signal": -7.0356,
+    "macd_histogram": 2.5222,
+    "macd_crossover": "neutral",
+    "ema_20": 323.25,
+    "ema_50": 332.28,
+    "ema_200": 341.44,
+    "ema_stack_bullish": false,
+    "bb_upper": 330.81,
+    "bb_middle": 318.02,
+    "bb_lower": 305.22,
+    "bb_width": 0.0805,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 28.7,
+    "atr": 9.98,
+    "atr_pct": 0.0297,
+    "obv_trend": "UP",
+    "mfi": 59.1,
+    "cmf": -0.164,
+    "stoch_k": 93.3,
+    "stoch_d": 61.8,
+    "rvol": 0.9,
+    "volume_5d_avg": 1547564,
+    "green_days_10d": 5,
+    "52w_high": 373.53,
+    "52w_low": 303.53,
+    "52w_high_proximity_pct": 0.1014,
+    "52w_low_proximity_pct": 0.1059
+  },
+  "fundamental": {
+    "pe_ratio": 32.684517,
+    "sector_pe_median": 33.4937325,
+    "pb_ratio": 17.97815,
+    "de_ratio": 306.061,
+    "fcf_yield": 0.0232,
+    "eps_growth_5y": 0.014,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.48848,
+    "operating_margin": 0.14162,
+    "net_margin": 0.108950004,
+    "market_cap": 83170557952,
+    "enterprise_value": 96557998080,
+    "dividend_yield": 0.95,
+    "payout_ratio": 0.308,
+    "insider_ownership_pct": 0.06277,
+    "institutional_ownership_pct": 0.83165,
+    "short_ratio": 2.83,
+    "beta": 1.269
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 330.62,
+    "entry_range_high": 337.35,
+    "target_range_low": 358.3,
+    "target_range_high": 383.89,
+    "stop_loss_range_low": 299.92,
+    "stop_loss_range_high": 315.71,
+    "target_price": 365.61,
+    "stop_loss": 315.71,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.365466-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 419.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 95.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 303.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 2513,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "+6.91%",
+    "key_metrics": {
+      "RSI": 56.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

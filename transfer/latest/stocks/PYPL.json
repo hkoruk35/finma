@@ -1,0 +1,159 @@
+{
+  "ticker": "PYPL",
+  "company": "PayPal Holdings, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.290340-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 45.85,
+    "open": 45.99,
+    "high": 46.34,
+    "low": 45.56,
+    "prev_close": 44.87,
+    "change_pct": 2.18,
+    "volume": 15595996,
+    "avg_volume_30d": 19212779
+  },
+  "scores": {
+    "master_score": 57.64,
+    "technical_score": 50.0,
+    "fundamental_score": 68.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 46.4,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 57.64,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 52.5,
+    "macd": -0.1764,
+    "macd_signal": -0.3694,
+    "macd_histogram": 0.1931,
+    "macd_crossover": "neutral",
+    "ema_20": 45.11,
+    "ema_50": 46.97,
+    "ema_200": 57.88,
+    "ema_stack_bullish": false,
+    "bb_upper": 46.21,
+    "bb_middle": 44.93,
+    "bb_lower": 43.65,
+    "bb_width": 0.057,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 9.7,
+    "atr": 1.52,
+    "atr_pct": 0.0332,
+    "obv_trend": "UP",
+    "mfi": 51.2,
+    "cmf": -0.138,
+    "stoch_k": 81.0,
+    "stoch_d": 63.2,
+    "rvol": 0.68,
+    "volume_5d_avg": 13017339,
+    "green_days_10d": 7,
+    "52w_high": 77.8,
+    "52w_low": 38.96,
+    "52w_high_proximity_pct": 0.4107,
+    "52w_low_proximity_pct": 0.1768
+  },
+  "fundamental": {
+    "pe_ratio": 8.475046,
+    "sector_pe_median": 17.645626,
+    "pb_ratio": 2.0824816,
+    "de_ratio": 60.703,
+    "fcf_yield": 0.0776,
+    "eps_growth_5y": 0.394,
+    "revenue_growth_ttm": 0.037,
+    "gross_margin": 0.41484,
+    "operating_margin": 0.17485,
+    "net_margin": 0.15775,
+    "market_cap": 42212466688,
+    "enterprise_value": 43184218112,
+    "dividend_yield": 1.25,
+    "payout_ratio": 0.025899999,
+    "insider_ownership_pct": 0.0013,
+    "institutional_ownership_pct": 0.82061,
+    "short_ratio": 1.65,
+    "beta": 1.411
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 45.62,
+    "entry_range_high": 46.08,
+    "target_range_low": 49.4,
+    "target_range_high": 52.93,
+    "stop_loss_range_low": 40.67,
+    "stop_loss_range_high": 42.81,
+    "target_price": 50.41,
+    "stop_loss": 42.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.290296-04:00",
+    "categories": [
+      "top_signals",
+      "breakout",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 57.31,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 125.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1210,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 58,
+    "price_change_display": "+2.18%",
+    "key_metrics": {
+      "RSI": 52.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

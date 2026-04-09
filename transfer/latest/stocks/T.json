@@ -1,0 +1,158 @@
+{
+  "ticker": "T",
+  "company": "AT&T Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.226647-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 27.35,
+    "open": 27.23,
+    "high": 27.5,
+    "low": 26.91,
+    "prev_close": 28.04,
+    "change_pct": -2.46,
+    "volume": 40433179,
+    "avg_volume_30d": 42769652
+  },
+  "scores": {
+    "master_score": 39.92,
+    "technical_score": 22.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.92,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 40.6,
+    "macd": 0.1273,
+    "macd_signal": 0.2854,
+    "macd_histogram": -0.1582,
+    "macd_crossover": "neutral",
+    "ema_20": 28.22,
+    "ema_50": 27.57,
+    "ema_200": 26.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 29.41,
+    "bb_middle": 28.19,
+    "bb_lower": 26.98,
+    "bb_width": 0.0861,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.0,
+    "atr": 0.66,
+    "atr_pct": 0.024,
+    "obv_trend": "DOWN",
+    "mfi": 58.3,
+    "cmf": 0.056,
+    "stoch_k": 17.4,
+    "stoch_d": 34.6,
+    "rvol": 0.82,
+    "volume_5d_avg": 35118215,
+    "green_days_10d": 4,
+    "52w_high": 29.1,
+    "52w_low": 23.0,
+    "52w_high_proximity_pct": 0.0601,
+    "52w_low_proximity_pct": 0.1891
+  },
+  "fundamental": {
+    "pe_ratio": 9.239865,
+    "sector_pe_median": 17.4590915,
+    "pb_ratio": 1.7413727,
+    "de_ratio": 124.179,
+    "fcf_yield": 0.0657,
+    "eps_growth_5y": -0.056,
+    "revenue_growth_ttm": 0.036,
+    "gross_margin": 0.59554,
+    "operating_margin": 0.18416001,
+    "net_margin": 0.17472,
+    "market_cap": 191465783296,
+    "enterprise_value": 350750801920,
+    "dividend_yield": 3.96,
+    "payout_ratio": 0.2738,
+    "insider_ownership_pct": 0.00086000003,
+    "institutional_ownership_pct": 0.67969,
+    "short_ratio": 2.56,
+    "beta": 0.539
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 27.21,
+    "entry_range_high": 27.49,
+    "target_range_low": 28.74,
+    "target_range_high": 30.8,
+    "stop_loss_range_low": 24.73,
+    "stop_loss_range_high": 26.03,
+    "target_price": 29.33,
+    "stop_loss": 26.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.226617-04:00",
+    "categories": [
+      "value",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 34.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 396.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 23.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1588,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "-2.46%",
+    "key_metrics": {
+      "RSI": 40.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

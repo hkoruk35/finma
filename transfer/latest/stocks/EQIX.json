@@ -1,0 +1,158 @@
+{
+  "ticker": "EQIX",
+  "company": "Equinix, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.359395-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 1017.66,
+    "open": 1018.5,
+    "high": 1023.47,
+    "low": 1002.23,
+    "prev_close": 1007.29,
+    "change_pct": 1.03,
+    "volume": 505748,
+    "avg_volume_30d": 625851
+  },
+  "scores": {
+    "master_score": 52.04,
+    "technical_score": 66.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.4,
+    "breakout_score": 50.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.04,
+    "confidence": 0.52,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 71.0,
+    "macd": 20.7115,
+    "macd_signal": 19.0527,
+    "macd_histogram": 1.6588,
+    "macd_crossover": "neutral",
+    "ema_20": 979.21,
+    "ema_50": 933.63,
+    "ema_200": 856.09,
+    "ema_stack_bullish": true,
+    "bb_upper": 1014.97,
+    "bb_middle": 979.46,
+    "bb_lower": 943.94,
+    "bb_width": 0.0725,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 26.8,
+    "atr": 21.51,
+    "atr_pct": 0.0211,
+    "obv_trend": "UP",
+    "mfi": 61.2,
+    "cmf": 0.005,
+    "stoch_k": 91.7,
+    "stoch_d": 92.3,
+    "rvol": 0.69,
+    "volume_5d_avg": 434529,
+    "green_days_10d": 7,
+    "52w_high": 1017.66,
+    "52w_low": 722.15,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.4092
+  },
+  "fundamental": {
+    "pe_ratio": 73.00287,
+    "sector_pe_median": 33.93651,
+    "pb_ratio": 7.061395,
+    "de_ratio": 160.291,
+    "fcf_yield": 0.0282,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.081,
+    "gross_margin": 0.51317,
+    "operating_margin": 0.21540001,
+    "net_margin": 0.14579001,
+    "market_cap": 100365172736,
+    "enterprise_value": 119992205312,
+    "dividend_yield": 1.91,
+    "payout_ratio": 1.3634,
+    "insider_ownership_pct": 0.00291,
+    "institutional_ownership_pct": 0.98273003,
+    "short_ratio": 2.85,
+    "beta": 0.998
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 928.96,
+    "entry_range_high": 1022.75,
+    "target_range_low": 1060.55,
+    "target_range_high": 1136.3,
+    "stop_loss_range_low": 925.91,
+    "stop_loss_range_high": 974.64,
+    "target_price": 1082.19,
+    "stop_loss": 974.64,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.359379-04:00",
+    "categories": [
+      "breakout",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 50.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1272.08,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 191.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 722.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 630,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 3.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 52,
+    "price_change_display": "+1.03%",
+    "key_metrics": {
+      "RSI": 71.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

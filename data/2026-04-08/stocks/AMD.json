@@ -1,0 +1,158 @@
+{
+  "ticker": "AMD",
+  "company": "Advanced Micro Devices, Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.198131-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 231.82,
+    "open": 232.28,
+    "high": 234.0,
+    "low": 227.09,
+    "prev_close": 221.53,
+    "change_pct": 4.64,
+    "volume": 34355712,
+    "avg_volume_30d": 34423030
+  },
+  "scores": {
+    "master_score": 49.12,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 38.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 49.12,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 64.7,
+    "macd": 4.176,
+    "macd_signal": 0.8735,
+    "macd_histogram": 3.3025,
+    "macd_crossover": "neutral",
+    "ema_20": 210.24,
+    "ema_50": 210.02,
+    "ema_200": 195.2,
+    "ema_stack_bullish": true,
+    "bb_upper": 226.84,
+    "bb_middle": 206.49,
+    "bb_lower": 186.13,
+    "bb_width": 0.1972,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.0,
+    "atr": 10.31,
+    "atr_pct": 0.0445,
+    "obv_trend": "UP",
+    "mfi": 66.6,
+    "cmf": 0.035,
+    "stoch_k": 94.7,
+    "stoch_d": 87.4,
+    "rvol": 0.99,
+    "volume_5d_avg": 34184882,
+    "green_days_10d": 7,
+    "52w_high": 264.33,
+    "52w_low": 116.16,
+    "52w_high_proximity_pct": 0.123,
+    "52w_low_proximity_pct": 0.9957
+  },
+  "fundamental": {
+    "pe_ratio": 88.81993,
+    "sector_pe_median": 32.73072,
+    "pb_ratio": 5.99793,
+    "de_ratio": 6.359,
+    "fcf_yield": 0.0121,
+    "eps_growth_5y": 2.171,
+    "revenue_growth_ttm": 0.341,
+    "gross_margin": 0.52493,
+    "operating_margin": 0.17059,
+    "net_margin": 0.12515001,
+    "market_cap": 377961873408,
+    "enterprise_value": 354638921728,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00441,
+    "institutional_ownership_pct": 0.72205,
+    "short_ratio": 0.97,
+    "beta": 1.963
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 208.97,
+    "entry_range_high": 232.98,
+    "target_range_low": 257.5,
+    "target_range_high": 275.89,
+    "stop_loss_range_low": 200.64,
+    "stop_loss_range_high": 211.2,
+    "target_price": 262.75,
+    "stop_loss": 211.2,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.198114-04:00",
+    "categories": [
+      "reversal",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 289.77,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 116.16,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 85000,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.03,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "+4.64%",
+    "key_metrics": {
+      "RSI": 64.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

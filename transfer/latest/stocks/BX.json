@@ -1,0 +1,155 @@
+{
+  "ticker": "BX",
+  "company": "Blackstone Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.287952-04:00",
+  "sector": "Financials",
+  "industry": "Asset Management",
+  "price": {
+    "current": 117.67,
+    "open": 117.48,
+    "high": 120.19,
+    "low": 115.75,
+    "prev_close": 112.73,
+    "change_pct": 4.38,
+    "volume": 8219338,
+    "avg_volume_30d": 10219547
+  },
+  "scores": {
+    "master_score": 40.74,
+    "technical_score": 51.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 46.4,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 40.74,
+    "confidence": 0.41,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 56.0,
+    "macd": -1.2515,
+    "macd_signal": -2.7621,
+    "macd_histogram": 1.5106,
+    "macd_crossover": "neutral",
+    "ema_20": 113.0,
+    "ema_50": 120.23,
+    "ema_200": 138.35,
+    "ema_stack_bullish": false,
+    "bb_upper": 117.66,
+    "bb_middle": 110.64,
+    "bb_lower": 103.61,
+    "bb_width": 0.127,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 23.9,
+    "atr": 4.82,
+    "atr_pct": 0.041,
+    "obv_trend": "UP",
+    "mfi": 30.2,
+    "cmf": -0.073,
+    "stoch_k": 83.2,
+    "stoch_d": 69.3,
+    "rvol": 0.63,
+    "volume_5d_avg": 6427187,
+    "green_days_10d": 6,
+    "52w_high": 184.87,
+    "52w_low": 102.12,
+    "52w_high_proximity_pct": 0.3635,
+    "52w_low_proximity_pct": 0.1523
+  },
+  "fundamental": {
+    "pe_ratio": 30.405685,
+    "sector_pe_median": 17.645626,
+    "pb_ratio": 10.635394,
+    "de_ratio": 66.531,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.425,
+    "revenue_growth_ttm": 0.506,
+    "gross_margin": 1.0,
+    "operating_margin": 0.52829,
+    "net_margin": 0.21243,
+    "market_cap": 143823568896,
+    "enterprise_value": 113295769600,
+    "dividend_yield": 4.2,
+    "payout_ratio": 1.2119,
+    "insider_ownership_pct": 0.01047,
+    "institutional_ownership_pct": 0.70223,
+    "short_ratio": 1.46,
+    "beta": 1.735
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 117.08,
+    "entry_range_high": 118.26,
+    "target_range_low": 129.49,
+    "target_range_high": 138.74,
+    "stop_loss_range_low": 102.63,
+    "stop_loss_range_high": 108.03,
+    "target_price": 132.13,
+    "stop_loss": 108.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.287881-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 147.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 420.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 102.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 124626,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 41,
+    "price_change_display": "+4.38%",
+    "key_metrics": {
+      "RSI": 56.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

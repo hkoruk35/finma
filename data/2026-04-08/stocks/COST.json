@@ -1,0 +1,155 @@
+{
+  "ticker": "COST",
+  "company": "Costco Wholesale Corporation",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.340769-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 1030.27,
+    "open": 1004.07,
+    "high": 1030.46,
+    "low": 1000.0,
+    "prev_close": 1013.21,
+    "change_pct": 1.68,
+    "volume": 2247919,
+    "avg_volume_30d": 1838853
+  },
+  "scores": {
+    "master_score": 51.41,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.6,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.41,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 66.8,
+    "macd": 7.9409,
+    "macd_signal": 3.6212,
+    "macd_histogram": 4.3197,
+    "macd_crossover": "neutral",
+    "ema_20": 998.49,
+    "ema_50": 983.83,
+    "ema_200": 961.87,
+    "ema_stack_bullish": true,
+    "bb_upper": 1028.38,
+    "bb_middle": 993.67,
+    "bb_lower": 958.96,
+    "bb_width": 0.0699,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.9,
+    "atr": 18.43,
+    "atr_pct": 0.0179,
+    "obv_trend": "UP",
+    "mfi": 58.6,
+    "cmf": 0.023,
+    "stoch_k": 99.7,
+    "stoch_d": 94.5,
+    "rvol": 0.95,
+    "volume_5d_avg": 1744683,
+    "green_days_10d": 8,
+    "52w_high": 1030.27,
+    "52w_low": 848.84,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.2137
+  },
+  "fundamental": {
+    "pe_ratio": 52.61849,
+    "sector_pe_median": 25.463406499999998,
+    "pb_ratio": 14.246384,
+    "de_ratio": 60.257,
+    "fcf_yield": 0.0146,
+    "eps_growth_5y": 0.455,
+    "revenue_growth_ttm": 0.215,
+    "gross_margin": 0.12926,
+    "operating_margin": 0.036730003,
+    "net_margin": 0.029860001,
+    "market_cap": 457305358336,
+    "enterprise_value": 447575687168,
+    "dividend_yield": 0.51,
+    "payout_ratio": 0.27040002,
+    "insider_ownership_pct": 0.00169,
+    "institutional_ownership_pct": 0.72482,
+    "short_ratio": 3.39,
+    "beta": 0.978
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 978.91,
+    "entry_range_high": 1035.42,
+    "target_range_low": 1063.85,
+    "target_range_high": 1139.84,
+    "stop_loss_range_low": 943.74,
+    "stop_loss_range_high": 993.41,
+    "target_price": 1085.56,
+    "stop_loss": 993.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.340747-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1287.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 51.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 848.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 700,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.62,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+1.68%",
+    "key_metrics": {
+      "RSI": 66.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

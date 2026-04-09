@@ -1,0 +1,158 @@
+{
+  "ticker": "VZ",
+  "company": "Verizon Communications Inc.",
+  "date": "2026-04-08",
+  "generated_at": "2026-04-08T21:18:47.227772-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 48.04,
+    "open": 47.88,
+    "high": 48.16,
+    "low": 47.12,
+    "prev_close": 48.62,
+    "change_pct": -1.19,
+    "volume": 28499314,
+    "avg_volume_30d": 26533837
+  },
+  "scores": {
+    "master_score": 39.67,
+    "technical_score": 27.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 0.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.67,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 37.0,
+    "macd": -0.0018,
+    "macd_signal": 0.4131,
+    "macd_histogram": -0.4149,
+    "macd_crossover": "neutral",
+    "ema_20": 49.62,
+    "ema_50": 48.16,
+    "ema_200": 43.89,
+    "ema_stack_bullish": false,
+    "bb_upper": 51.71,
+    "bb_middle": 50.06,
+    "bb_lower": 48.41,
+    "bb_width": 0.0659,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.3,
+    "atr": 0.96,
+    "atr_pct": 0.02,
+    "obv_trend": "DOWN",
+    "mfi": 35.7,
+    "cmf": -0.188,
+    "stoch_k": 20.2,
+    "stoch_d": 10.6,
+    "rvol": 0.9,
+    "volume_5d_avg": 23824922,
+    "green_days_10d": 2,
+    "52w_high": 51.38,
+    "52w_low": 37.75,
+    "52w_high_proximity_pct": 0.065,
+    "52w_low_proximity_pct": 0.2727
+  },
+  "fundamental": {
+    "pe_ratio": 11.832513,
+    "sector_pe_median": 17.4590915,
+    "pb_ratio": 1.9394429,
+    "de_ratio": 174.78,
+    "fcf_yield": 0.0851,
+    "eps_growth_5y": -0.533,
+    "revenue_growth_ttm": 0.02,
+    "gross_margin": 0.59071,
+    "operating_margin": 0.20989001,
+    "net_margin": 0.124280006,
+    "market_cap": 202617552896,
+    "enterprise_value": 372110819328,
+    "dividend_yield": 5.82,
+    "payout_ratio": 0.5037,
+    "insider_ownership_pct": 0.00052,
+    "institutional_ownership_pct": 0.69375,
+    "short_ratio": 3.68,
+    "beta": 0.27
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 47.8,
+    "entry_range_high": 48.28,
+    "target_range_low": 49.9,
+    "target_range_high": 53.47,
+    "stop_loss_range_low": 43.81,
+    "stop_loss_range_high": 46.12,
+    "target_price": 50.92,
+    "stop_loss": 46.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-08T21:18:47.227744-04:00",
+    "categories": [
+      "value",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 60.05,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 582.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 37.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 8569,
+      "date": "0"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.31,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "-1.19%",
+    "key_metrics": {
+      "RSI": 37.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -12,7 +12,21 @@ export const metadata: Metadata = {
     description: "Daily AI analysis of 100 top US stocks with signals, scores, and smart watchlist.",
     url: "https://finmasmart.com",
     siteName: "FinMA Daily 100",
+    images: [
+      {
+        url: "/finmaicon1.png",
+        width: 1200,
+        height: 630,
+        alt: "FinMA Daily 100 Logo",
+      },
+    ],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FinMA Daily 100 | AI Stock Signals",
+    description: "Daily AI analysis of 100 top US stocks.",
+    images: ["/finmaicon1.png"],
   },
 };
 
