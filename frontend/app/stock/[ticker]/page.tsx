@@ -394,7 +394,13 @@ export default async function StockDetailPage({ params }: Props) {
                  </table>
               </div>
               <p className="text-[10px] text-[#64748b] mt-4 uppercase font-bold tracking-widest">
-                 Last Transaction: {stock.insider_activity.last_transaction || "N/A"}
+                 Last Transaction: {
+                    typeof stock.insider_activity.last_transaction === "string"
+                       ? stock.insider_activity.last_transaction
+                       : stock.insider_activity.last_transaction
+                       ? `${(stock.insider_activity.last_transaction as any).type} ${(stock.insider_activity.last_transaction as any).shares} shares`
+                       : "N/A"
+                 }
               </p>
            </div>
         </div>

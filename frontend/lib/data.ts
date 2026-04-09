@@ -75,7 +75,7 @@ export interface StockDetail {
     last_90_days_buys: number;
     last_90_days_sells: number;
     net_direction: string;
-    last_transaction: string;
+    last_transaction: string | { type: string; shares: number; date: string } | null;
   };
   signals: {
     signal_type: string;
@@ -100,62 +100,22 @@ export interface StockDetail {
   };
 }
 
-// Client-side fetch URL (browser only). On server, we always read from disk.
+// Client-side fetch URL (browser only). On server, we read from disk via data-server.
 const DATA_BASE_URL = process.env.NEXT_PUBLIC_DATA_URL || "";
 
-function sanitizeNaN(raw: string): string {
-  return raw
-    .replace(/:\s*NaN/g, ": null")
-    .replace(/:\s*Infinity/g, ": null")
-    .replace(/:\s*-Infinity/g, ": null");
-}
-
-/**
- * Read a JSON file from disk (server-side only).
- * Tries multiple candidate paths so the same code works in:
- *   - Local dev (frontend/ inside the worktree) → ../../../../transfer/latest
- *   - Vercel build/runtime → <cwd>/public/data/latest (copied by deploy.yml)
- *   - Custom override → FINMA_DATA_PATH env var
- */
-function readLocalJson(relPath: string): any | null {
+// Dynamic import keeps fs/path out of the client bundle. Webpack creates a
+// server-only chunk for data-server.ts which is never loaded in the browser.
+async function readJsonServer(relPath: string): Promise<any | null> {
   if (typeof window !== "undefined") return null;
-  // Hide require() from webpack static analysis so these modules stay
-  // out of the client bundle. Without this Next.js 16 tries to bundle
-  // `fs` and the build/SSR fails with "Module not found: fs".
-  const nodeRequire: NodeRequire = eval("require");
-  const fs = nodeRequire("fs");
-  const path = nodeRequire("path");
-
-  const candidates: string[] = [];
-  if (process.env.FINMA_DATA_PATH) {
-    candidates.push(process.env.FINMA_DATA_PATH);
-  }
-  // Vercel/production: data was copied into public/data/latest during build
-  candidates.push(path.resolve(process.cwd(), "public", "data", "latest"));
-  // Local dev (worktree): frontend/ → ../../../../transfer/latest
-  candidates.push(path.resolve(process.cwd(), "..", "..", "..", "..", "transfer", "latest"));
-  // Local dev (main repo): frontend/ → ../transfer/latest
-  candidates.push(path.resolve(process.cwd(), "..", "transfer", "latest"));
-
-  for (const base of candidates) {
-    try {
-      const fullPath = path.join(base, relPath);
-      if (fs.existsSync(fullPath)) {
-        const raw = sanitizeNaN(fs.readFileSync(fullPath, "utf-8"));
-        return JSON.parse(raw);
-      }
-    } catch {
-      // try next candidate
-    }
-  }
-  return null;
+  const mod = await import("./data-server");
+  return mod.readJson(relPath);
 }
 
 export async function getMasterData(): Promise<MasterData | null> {
-  // Server-side: always read from filesystem. Relative-URL fetch doesn't work
-  // in Next.js server components on Vercel, which silently falls through to mock.
+  // Server-side: read directly from filesystem. Relative-URL fetch doesn't work
+  // in Next.js server components on Vercel, silently falling through to mock.
   if (typeof window === "undefined") {
-    const data = readLocalJson("master.json");
+    const data = await readJsonServer("master.json");
     return data ?? getMockMaster();
   }
   // Client-side: HTTP fetch
@@ -171,7 +131,7 @@ export async function getMasterData(): Promise<MasterData | null> {
 
 export async function getStockData(ticker: string): Promise<StockDetail | null> {
   if (typeof window === "undefined") {
-    const data = readLocalJson(`stocks/${ticker}.json`);
+    const data = await readJsonServer(`stocks/${ticker}.json`);
     return data ?? getMockStockDetail(ticker);
   }
   try {
@@ -186,7 +146,7 @@ export async function getStockData(ticker: string): Promise<StockDetail | null> 
 
 export async function getAllTickers(): Promise<StockQuickView[]> {
   if (typeof window === "undefined") {
-    const data = readLocalJson("all_tickers_list.json");
+    const data = await readJsonServer("all_tickers_list.json");
     return data?.tickers ?? getMockTickers();
   }
   try {
