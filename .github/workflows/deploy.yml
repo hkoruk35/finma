@@ -22,11 +22,22 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      - name: Copy bot data into public folder for Vercel
+        run: |
+          mkdir -p frontend/public/data
+          if [ -d "transfer/latest" ]; then
+            cp -r transfer/latest frontend/public/data/latest
+            echo "Bot data copied to public/data/latest"
+          else
+            echo "No transfer/latest found — using mock data fallback"
+          fi
+
       - name: Build
         working-directory: frontend
         run: npm run build
         env:
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_DATA_URL: /data/latest
 
       - name: Deploy to Vercel
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
