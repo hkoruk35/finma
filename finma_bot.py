@@ -143,6 +143,31 @@ async def load_universe() -> List[str]:
 
 
 # ============================================================
+# 0.5 MARKET OPEN/CLOSE DETECTION
+# ============================================================
+
+def is_market_open() -> bool:
+    """Check if US stock market is currently open (9:30 AM - 4:00 PM ET, Mon-Fri)."""
+    now = datetime.now(NY_TZ)
+
+    # Market is closed on weekends (Sat=5, Sun=6)
+    if now.weekday() >= 5:
+        return False
+
+    # Market is open 9:30 AM - 4:00 PM ET
+    market_open_time = now.replace(hour=9, minute=30, second=0, microsecond=0)
+    market_close_time = now.replace(hour=16, minute=0, second=0, microsecond=0)
+
+    return market_open_time <= now <= market_close_time
+
+def use_prev_close_mode() -> bool:
+    """
+    Determine if we should use previous close prices instead of live prices.
+    True if market is closed (weekends, before 9:30 AM, after 4:00 PM).
+    """
+    return not is_market_open()
+
+# ============================================================
 # 1. MARKET DATA FETCH
 # ============================================================
 
@@ -679,37 +704,47 @@ def build_gemini_prompt(stock: Dict) -> str:
     t  = sd.get("technical", {})
     f  = sd.get("fundamental", {})
     sc = sd.get("scores", {})
-    return f"""You are FinMA AI, a professional US stock market analyst.
+    news_items = sd.get("news", [])
+    news_summary = " | ".join([n.get("headline", "") for n in news_items[:3]]) if news_items else "No recent news"
 
-Analyze the following stock and write a concise, data-driven analysis in English.
-Maximum {GEMINI_SUMMARY_WORD_LIMIT} words. Be specific with numbers. Mention signal type, key technicals,
-and one near-term catalyst. Do not use disclaimers in your response.
+    # Determine if this is a performing stock relative to sector
+    sector_pe = f.get('sector_pe_median', 1)
+    stock_pe = f.get('pe_ratio') or sector_pe
+    pe_relative = "trading at a premium" if stock_pe > sector_pe else "trading at a discount" if stock_pe < sector_pe else "in line with sector"
 
-Stock: {sd['ticker']} — {sd['company']}
-Sector: {sd['sector']}
-Date: {sd['date']}
+    return f"""You are FinMA AI, a professional US stock market analyst specializing in this particular stock.
 
-PRICE DATA:
-Current Price: ${p.get('current')}
-Daily Change: {p.get('change_pct',0):+.2f}%
-RVOL: {t.get('rvol', 'N/A')}x
+Your task: Analyze {sd['ticker']} ({sd['company']}) and provide a concise, data-driven commentary.
+IMPORTANT: This analysis is ONLY about {sd['ticker']}, NOT about competing stocks or the broader sector (except for comparison context).
+Maximum {GEMINI_SUMMARY_WORD_LIMIT} words. Use specific data. Do NOT use generic tech stock language.
+Mention the signal type, key technical levels, and one specific catalyst for THIS stock.
 
-TECHNICAL SIGNALS:
-RSI(14): {t.get('rsi_14', 'N/A')}
-MACD Histogram: {t.get('macd_histogram', 'N/A')} ({t.get('macd_crossover', 'N/A')})
-EMA Stack: {'Bullish' if t.get('ema_stack_bullish') else 'Bearish'}
-ADX: {t.get('adx', 'N/A')}
-BB Squeeze: {t.get('bb_squeeze_intensity', 'N/A')}
-52W High Proximity: {(t.get('52w_high_proximity_pct') or 0)*100:.1f}%
+═══════════════════════════════════════════
+STOCK: {sd['ticker']} — {sd['company']}
+SECTOR: {sd['sector']}
+DATE: {sd['date']}
+═══════════════════════════════════════════
 
-FUNDAMENTALS:
-P/E: {f.get('pe_ratio', 'N/A')} (Sector median: {f.get('sector_pe_median', 'N/A')})
-Revenue Growth TTM: {(f.get('revenue_growth_ttm') or 0)*100:.1f}%
-Gross Margin: {(f.get('gross_margin') or 0)*100:.1f}%
+CURRENT TECHNICALS:
+Price: ${p.get('current')} ({p.get('change_pct',0):+.2f}% today)
+52-Week Proximity: {(t.get('52w_high_proximity_pct') or 0)*100:.1f}% from high
+RSI(14): {t.get('rsi_14', 'N/A')} | MACD: {t.get('macd_crossover', 'N/A')}
+EMA Alignment: {'Bullish' if t.get('ema_stack_bullish') else 'Bearish'}
+ADX Strength: {t.get('adx', 'N/A')} | Volume Relative: {t.get('rvol', 'N/A')}x
+Bollinger Bands: {t.get('bb_squeeze_intensity', 'N/A')}
 
-SIGNAL: {sc.get('signal_type', 'N/A')} (Confidence: {(sc.get('confidence') or 0)*100:.0f}%)
+BUSINESS FUNDAMENTALS (for {sd['ticker']} specifically):
+Valuation: P/E {f.get('pe_ratio', 'N/A')} ({pe_relative} vs sector median {f.get('sector_pe_median', 'N/A')})
+Growth: {(f.get('revenue_growth_ttm') or 0)*100:.1f}% TTM revenue growth
+Profitability: {(f.get('gross_margin') or 0)*100:.1f}% gross margin, {(f.get('net_margin') or 0)*100:.1f}% net margin
+Dividend Yield: {(f.get('dividend_yield') or 0)*100:.2f}%
 
-Write the analysis now:"""
+FinMA SIGNAL: {sc.get('signal_type', 'N/A')} (Confidence: {(sc.get('confidence') or 0)*100:.0f}%)
+
+RECENT CONTEXT:
+{news_summary}
+
+Your analysis of {sd['ticker']} (be specific about THIS stock):"""
 
 
 async def generate_ai_summaries(stocks: List[Dict]) -> Dict[str, str]:

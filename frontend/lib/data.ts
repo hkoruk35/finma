@@ -100,19 +100,35 @@ export interface StockDetail {
   };
 }
 
-const DATA_BASE_URL = process.env.NEXT_PUBLIC_DATA_URL || "";
+const DATA_BASE_URL = process.env.NEXT_PUBLIC_DATA_URL || "/data/latest";
 const IS_DEV = process.env.NODE_ENV === "development";
+
+/**
+ * Generate cache-busting query parameter for fresh data.
+ * Each new day will have a different date, forcing fresh fetch from backend.
+ */
+function getCacheBustParam(): string {
+  const now = new Date();
+  // Use date-hour granularity to refresh hourly in production
+  const dateHour = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}`;
+  return `?t=${dateHour}`;
+}
 
 export async function getMasterData(): Promise<MasterData | null> {
   if (IS_DEV && !DATA_BASE_URL) return getMockMaster();
   try {
-    const res = await fetch(`${DATA_BASE_URL}/master.json`, { 
-      next: { revalidate: 300 },
-      signal: AbortSignal.timeout(5000) // 5s timeout
-    });
-    if (!res.ok) return getMockMaster();
+    const url = `${DATA_BASE_URL}/master.json${getCacheBustParam()}`;
+    const res = await fetch(url, {
+      next: { revalidate: 60 }, // Revalidate every minute for freshness
+      signal: AbortSignal.timeout(5000), // 5s timeout
+    } as any); // Next.js specific options
+    if (!res.ok) {
+      console.warn(`Failed to fetch master data: ${res.status}`);
+      return getMockMaster();
+    }
     return res.json();
-  } catch {
+  } catch (e) {
+    console.warn(`Master data fetch error: ${e}`);
     return getMockMaster();
   }
 }
@@ -120,13 +136,18 @@ export async function getMasterData(): Promise<MasterData | null> {
 export async function getStockData(ticker: string): Promise<StockDetail | null> {
   if (IS_DEV && !DATA_BASE_URL) return getMockStockDetail(ticker);
   try {
-    const res = await fetch(`${DATA_BASE_URL}/stocks/${ticker}.json`, { 
-      next: { revalidate: 300 },
-      signal: AbortSignal.timeout(5000)
-    });
-    if (!res.ok) return getMockStockDetail(ticker);
+    const url = `${DATA_BASE_URL}/stocks/${ticker}.json${getCacheBustParam()}`;
+    const res = await fetch(url, {
+      next: { revalidate: 60 },
+      signal: AbortSignal.timeout(5000),
+    } as any); // Next.js specific options
+    if (!res.ok) {
+      console.warn(`Failed to fetch stock ${ticker}: ${res.status}`);
+      return getMockStockDetail(ticker);
+    }
     return res.json();
-  } catch {
+  } catch (e) {
+    console.warn(`Stock data fetch error for ${ticker}: ${e}`);
     return getMockStockDetail(ticker);
   }
 }
@@ -134,14 +155,19 @@ export async function getStockData(ticker: string): Promise<StockDetail | null> 
 export async function getAllTickers(): Promise<StockQuickView[]> {
   if (IS_DEV && !DATA_BASE_URL) return getMockTickers();
   try {
-    const res = await fetch(`${DATA_BASE_URL}/all_tickers_list.json`, { 
-      next: { revalidate: 300 },
-      signal: AbortSignal.timeout(5000)
-    });
-    if (!res.ok) return getMockTickers();
+    const url = `${DATA_BASE_URL}/all_tickers_list.json${getCacheBustParam()}`;
+    const res = await fetch(url, {
+      next: { revalidate: 60 },
+      signal: AbortSignal.timeout(5000),
+    } as any); // Next.js specific options
+    if (!res.ok) {
+      console.warn(`Failed to fetch tickers list: ${res.status}`);
+      return getMockTickers();
+    }
     const data = await res.json();
     return data.tickers || [];
-  } catch {
+  } catch (e) {
+    console.warn(`Tickers fetch error: ${e}`);
     return getMockTickers();
   }
 }
