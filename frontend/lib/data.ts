@@ -391,7 +391,11 @@ function getMockStockDetail(ticker: string): StockDetail {
       entry_range_low: 193.50,
       entry_range_high: 196.00,
       target_price: 208.50,
+      target_range_low: 205.00,
+      target_range_high: 212.00,
       stop_loss: 188.20,
+      stop_range_low: 185.00,
+      stop_range_high: 191.00,
       risk_reward_ratio: 2.1,
       categories: ["momentum", "top_signals"]
     },
