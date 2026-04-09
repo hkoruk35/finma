@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     "undervalued": "Undervalued Stocks US | Best Value Investing Picks - FinMA",
     "momentum": "Momentum Stocks Today | Strongest Relative Strength Equities - FinMA",
     "reversal": "Reversal Signals US | Best Oversold Stocks to Watch - FinMA",
-    "dividend": "Passive Income Stocks | Best High-Yield Dividend Picks - FinMA",
+    "passive-income": "Passive Income Stocks | Best High-Yield Dividend Picks - FinMA",
   };
 
   return {
@@ -37,7 +37,7 @@ const CATEGORY_MAP: Record<string, { key: string; label: string; description: st
   },
   "breakout": {
     key: "breakout",
-    label: "Breakout Potential",
+    label: "Breakout",
     description: "Stocks showing volatility squeeze patterns and high volume preparing for major price moves."
   },
   "undervalued": {
@@ -52,10 +52,10 @@ const CATEGORY_MAP: Record<string, { key: string; label: string; description: st
   },
   "reversal": {
     key: "reversal",
-    label: "Dipten Dönüş (Reversal)",
+    label: "Reversal",
     description: "Oversold candidates showing early divergence and volume reversal patterns."
   },
-  "dividend": {
+  "passive-income": {
     key: "dividend",
     label: "Passive Income",
     description: "Safe, high-yield dividend payers with consistent payout growth and strong cash flow coverage."
@@ -185,7 +185,7 @@ export default async function CategoryPage({ params }: Props) {
               <div className="mt-auto">
                 <div className="h-1.5 w-full bg-[#1e2a3a] rounded-full overflow-hidden">
                   <div
-                    className="h-full score-gradient rounded-full transition-all duration-1000 delay-300"
+                    className="h-full score-gradient-noble rounded-full transition-all duration-1000 delay-300"
                     style={{ width: `${stock!.master_score}%` }}
                   />
                 </div>
