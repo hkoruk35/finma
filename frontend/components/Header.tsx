@@ -19,18 +19,7 @@ export default function Header() {
               className="text-2xl text-white tracking-tighter"
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
             >
-              Fin
-            </span>
-            <span 
-              className="text-2xl text-[#3b82f6] tracking-tighter"
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
-            >
-              MA
-            </span>
-            <span 
-              className="hidden xs:block text-xl font-light text-[#3b82f6] ml-2 tracking-tight opacity-80"
-            >
-              Daily 100
+              FinMA Daily 100
             </span>
           </div>
         </Link>

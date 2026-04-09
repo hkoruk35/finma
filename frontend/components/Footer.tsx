@@ -63,7 +63,7 @@ export default function Footer() {
 
         <div className="border-t border-[#1e2a3a] mt-8 pt-4 text-center">
           <p className="text-xs text-[#64748b]">
-            &copy; 2026 FinMA Daily 100. Developed by AFK DaSYS New YORK /USA.
+            &copy; 2026 FinMA Daily 100. Developed by AFK DaSYS.
           </p>
         </div>
       </div>

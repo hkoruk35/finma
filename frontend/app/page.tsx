@@ -61,7 +61,7 @@ export default async function HomePage() {
           </h1>
           <p className="text-[#94a3b8] text-lg max-w-2xl mx-auto">
             Daily analysis of 100 top US equities. Breakout signals, momentum picks,
-            and AI-powered insights — updated every trading day at 9:00 AM ET.
+            and AI-powered insights — updated every day at 9:00 AM ET.
           </p>
         </section>
 

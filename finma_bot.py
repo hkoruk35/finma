@@ -1222,6 +1222,7 @@ async def daily_run():
         ticker = s["ticker"]
         signals = build_signal_card(s["scores"]["master_score"], s["_tech"],
                                      s["price"], ticker, [])
+        s["signals"] = signals # Store it for all_tickers_list.json
         stock_json = build_stock_json(
             raw=s, tech=s["_tech"], scores=s["scores"], signals=signals,
             news=s.get("_news", []), insider=insider_cache.get(ticker, {}),
