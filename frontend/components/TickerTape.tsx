@@ -5,7 +5,8 @@ import { MasterData } from "@/lib/data";
 const INDEX_LABELS: Record<string, string> = {
   SP500: "S&P 500",
   NASDAQ: "NASDAQ",
-  DOW: "DOW 30",
+  DOW: "DOW",
+  RUSSELL: "RUSSELL 2000",
   VIX: "VIX",
 };
 
