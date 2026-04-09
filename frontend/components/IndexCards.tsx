@@ -15,7 +15,7 @@ export default function IndexCards({ data }: { data: MasterData }) {
   const indices = indexOrder.map(name => [name, data.market_indices[name]]).filter(([_, val]) => val);
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+    <div className="grid grid-cols-5 gap-3">
       {indices.map(([key, idx]: any) => (
         <div 
           key={key} 
