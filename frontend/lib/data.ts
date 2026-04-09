@@ -100,13 +100,8 @@ export interface StockDetail {
   };
 }
 
-// In production, set NEXT_PUBLIC_DATA_URL to an external CDN URL.
-// Locally, server components read directly from the filesystem.
+// Client-side fetch URL (browser only). On server, we always read from disk.
 const DATA_BASE_URL = process.env.NEXT_PUBLIC_DATA_URL || "";
-
-// Path to bot's transfer/latest/ folder (relative to frontend/  = ../../../../transfer/latest)
-const LOCAL_DATA_PATH = process.env.FINMA_DATA_PATH ||
-  require("path").resolve(process.cwd(), "..", "..", "..", "..", "transfer", "latest");
 
 function sanitizeNaN(raw: string): string {
   return raw
@@ -115,32 +110,53 @@ function sanitizeNaN(raw: string): string {
     .replace(/:\s*-Infinity/g, ": null");
 }
 
-/** Read a JSON file from the bot's local data directory (server-side only). */
+/**
+ * Read a JSON file from disk (server-side only).
+ * Tries multiple candidate paths so the same code works in:
+ *   - Local dev (frontend/ inside the worktree) → ../../../../transfer/latest
+ *   - Vercel build/runtime → <cwd>/public/data/latest (copied by deploy.yml)
+ *   - Custom override → FINMA_DATA_PATH env var
+ */
 function readLocalJson(relPath: string): any | null {
-  try {
-    const fs = require("fs");
-    const path = require("path");
-    const fullPath = path.join(LOCAL_DATA_PATH, relPath);
-    if (!fs.existsSync(fullPath)) return null;
-    const raw = sanitizeNaN(fs.readFileSync(fullPath, "utf-8"));
-    return JSON.parse(raw);
-  } catch {
-    return null;
+  const fs = require("fs");
+  const path = require("path");
+
+  const candidates: string[] = [];
+  if (process.env.FINMA_DATA_PATH) {
+    candidates.push(process.env.FINMA_DATA_PATH);
   }
+  // Vercel/production: data was copied into public/data/latest during build
+  candidates.push(path.resolve(process.cwd(), "public", "data", "latest"));
+  // Local dev (worktree): frontend/ → ../../../../transfer/latest
+  candidates.push(path.resolve(process.cwd(), "..", "..", "..", "..", "transfer", "latest"));
+  // Local dev (main repo): frontend/ → ../transfer/latest
+  candidates.push(path.resolve(process.cwd(), "..", "transfer", "latest"));
+
+  for (const base of candidates) {
+    try {
+      const fullPath = path.join(base, relPath);
+      if (fs.existsSync(fullPath)) {
+        const raw = sanitizeNaN(fs.readFileSync(fullPath, "utf-8"));
+        return JSON.parse(raw);
+      }
+    } catch {
+      // try next candidate
+    }
+  }
+  return null;
 }
 
 export async function getMasterData(): Promise<MasterData | null> {
-  // Server-side: read directly from filesystem (fastest, no HTTP round-trip)
-  if (typeof window === "undefined" && !DATA_BASE_URL) {
+  // Server-side: always read from filesystem. Relative-URL fetch doesn't work
+  // in Next.js server components on Vercel, which silently falls through to mock.
+  if (typeof window === "undefined") {
     const data = readLocalJson("master.json");
     return data ?? getMockMaster();
   }
-  // Client-side or production CDN: fetch via HTTP
+  // Client-side: HTTP fetch
   try {
     const base = DATA_BASE_URL || "/api/data";
-    const res = await fetch(`${base}/master.json`, {
-      next: { revalidate: 60 },
-    } as any);
+    const res = await fetch(`${base}/master.json`);
     if (!res.ok) return getMockMaster();
     return res.json();
   } catch {
@@ -149,15 +165,13 @@ export async function getMasterData(): Promise<MasterData | null> {
 }
 
 export async function getStockData(ticker: string): Promise<StockDetail | null> {
-  if (typeof window === "undefined" && !DATA_BASE_URL) {
+  if (typeof window === "undefined") {
     const data = readLocalJson(`stocks/${ticker}.json`);
     return data ?? getMockStockDetail(ticker);
   }
   try {
     const base = DATA_BASE_URL || "/api/data";
-    const res = await fetch(`${base}/stocks/${ticker}.json`, {
-      next: { revalidate: 60 },
-    } as any);
+    const res = await fetch(`${base}/stocks/${ticker}.json`);
     if (!res.ok) return getMockStockDetail(ticker);
     return res.json();
   } catch {
@@ -166,16 +180,15 @@ export async function getStockData(ticker: string): Promise<StockDetail | null> 
 }
 
 export async function getAllTickers(): Promise<StockQuickView[]> {
-  if (typeof window === "undefined" && !DATA_BASE_URL) {
+  if (typeof window === "undefined") {
     const data = readLocalJson("all_tickers_list.json");
     return data?.tickers ?? getMockTickers();
   }
   try {
     const base = DATA_BASE_URL || "/api/data";
     const res = await fetch(`${base}/all_tickers_list.json`, {
-      next: { revalidate: 60 },
       signal: AbortSignal.timeout(5000),
-    } as any); // Next.js specific options
+    });
     if (!res.ok) {
       console.warn(`Failed to fetch tickers list: ${res.status}`);
       return getMockTickers();
