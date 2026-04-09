@@ -21,7 +21,7 @@ export default function LoginPage() {
           <div className="glass-card p-10 animate-fade-in text-center">
             <div className="mb-8">
               <div className="w-16 h-16 bg-[#3b82f6]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-[#3b82f6]/20">
-                <img src="/finmaicon1.png" alt="FinMA" className="w-10 h-10 object-contain" />
+                <img src="/finmawave.png" alt="FinMA" className="w-10 h-10 object-contain" />
               </div>
               <h1 className="text-3xl font-black text-white mb-3 tracking-tight">FinMA Member Access</h1>
               <p className="text-[#94a3b8] leading-relaxed">
