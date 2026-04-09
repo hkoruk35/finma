@@ -1,100 +1,68 @@
-import { Activity, ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-finma-bg text-white pb-20">
-      <nav className="fixed top-0 w-full z-50 bg-finma-bg/80 backdrop-blur-xl border-b border-finma-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1 group">
-            <Activity className="w-7 h-7 text-finma-primary" />
-            <div className="flex">
-              <span className="text-xl font-bold text-white">Fin</span>
-              <span className="text-xl font-bold text-finma-primary">MA</span>
-            </div>
-          </Link>
-          <Link href="/" className="text-sm text-finma-text-dim hover:text-white flex items-center gap-2 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Geri Dön
-          </Link>
-        </div>
-      </nav>
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+      <Header />
 
-      <main className="pt-32 px-4 max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-finma-primary">Gizlilik Politikası</h1>
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
+        <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Privacy Policy</h1>
         
-        <div className="space-y-8 text-finma-text-muted leading-relaxed">
+        <div className="glass-card p-8 space-y-6 text-[#94a3b8] leading-relaxed">
+          <p>Last updated: April 2026</p>
+
           <section>
+            <h2 className="text-xl font-bold text-white mb-3">1. Information We Collect</h2>
             <p>
-              FinMA olarak kullanıcılarımızın gizliliğine ve kişisel verilerinin korunmasına büyük önem veriyoruz. Bu politika, platformumuzu kullandığınızda hangi verilerin toplandığını, nasıl kullanıldığını ve nasıl korunduğunu açıklamaktadır.
+              We collect minimal personal information to provide our services. 
+              This includes your email address when you register for an account, 
+              and technical data like IP addresses and browser cookies to maintain 
+              your session and analyze site performance.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Toplanan Veriler</h2>
-            <p className="mb-4">FinMA aşağıdaki verileri toplayabilir:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Ad, soyad, e-posta adresi gibi kimlik bilgileri</li>
-              <li>IP adresi, cihaz bilgisi ve tarayıcı verileri</li>
-              <li>Kullanıcı tercihleri ve platform içi davranış verileri</li>
-              <li>Finansal analiz ve kullanım geçmişi</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Verilerin Kullanım Amaçları</h2>
-            <p className="mb-4">Toplanan veriler şu amaçlarla kullanılır:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Hizmetlerin sunulması ve geliştirilmesi</li>
-              <li>Kullanıcı deneyiminin kişiselleştirilmesi</li>
-              <li>Güvenlik ve sistem performansının sağlanması</li>
-              <li>Yasal yükümlülüklerin yerine getirilmesi</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Veri Paylaşımı</h2>
-            <p className="mb-4">Kişisel veriler:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Üçüncü taraflarla izinsiz paylaşılmaz</li>
-              <li>Yalnızca yasal zorunluluklar kapsamında ilgili otoritelerle paylaşılabilir</li>
-              <li>Hizmet sağlayıcılarla sınırlı ve güvenli şekilde işlenebilir</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Veri Güvenliği</h2>
-            <p className="mb-4">FinMA, verilerinizi korumak için:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>SSL şifreleme</li>
-              <li>Güvenli sunucu altyapısı</li>
-              <li>Yetkisiz erişim önleme sistemleri</li>
-            </ul>
-            <p className="mt-4">kullanmaktadır.</p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Çerezler (Cookies)</h2>
+            <h2 className="text-xl font-bold text-white mb-3">2. How We Use Data</h2>
             <p>
-              Platformumuz, kullanıcı deneyimini iyileştirmek için çerezler kullanır. Kullanıcılar tarayıcı ayarlarından çerezleri kontrol edebilir.
+              Your data is used to:
+            </p>
+            <ul className="list-disc pl-6 space-y-2 mt-2">
+               <li>Manage your member account and watchlist settings.</li>
+               <li>Send daily market digests or critical alerts (if opted-in).</li>
+               <li>Improve our AI scoring algorithms based on aggregate usage patterns.</li>
+               <li>Display relevant financial advertisements.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-white mb-3">3. Data Sharing</h2>
+            <p>
+              We do not sell your personal data to third parties. 
+              Aggregated, anonymized data may be shared with our advertising 
+              partners to facilitate ad delivery.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Kullanıcı Hakları</h2>
-            <p className="mb-4">Kullanıcılar:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Verilerine erişme</li>
-              <li>Düzeltme talep etme</li>
-              <li>Silinmesini isteme</li>
-            </ul>
-            <p className="mt-4">haklarına sahiptir.</p>
+            <h2 className="text-xl font-bold text-white mb-3">4. Security</h2>
+            <p>
+              We use industry-standard encryption to protect your account. 
+              However, no method of electronic storage or transmission is 100% secure.
+            </p>
           </section>
 
-          <section className="pt-8 border-t border-finma-border/50">
-            <p>İletişim: <Link href="/contact" className="text-finma-primary hover:underline">İletişim Sayfası</Link></p>
+          <section>
+            <h2 className="text-xl font-bold text-white mb-3">5. Your Rights</h2>
+            <p>
+              You can request to view, correct, or delete your personal data 
+              at any time by contacting us at contact@finmasmart.com.
+            </p>
           </section>
         </div>
       </main>
+
+      <Footer />
     </div>
-  )
+  );
 }

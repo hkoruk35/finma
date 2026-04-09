@@ -1,91 +1,58 @@
-import { Activity, ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-finma-bg text-white pb-20">
-      <nav className="fixed top-0 w-full z-50 bg-finma-bg/80 backdrop-blur-xl border-b border-finma-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1 group">
-            <Activity className="w-7 h-7 text-finma-primary" />
-            <div className="flex">
-              <span className="text-xl font-bold text-white">Fin</span>
-              <span className="text-xl font-bold text-finma-primary">MA</span>
-            </div>
-          </Link>
-          <Link href="/" className="text-sm text-finma-text-dim hover:text-white flex items-center gap-2 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Geri Dön
-          </Link>
-        </div>
-      </nav>
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+      <Header />
 
-      <main className="pt-32 px-4 max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-finma-primary">Kullanım Koşulları</h1>
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
+        <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Terms of Service</h1>
         
-        <div className="space-y-8 text-finma-text-muted leading-relaxed">
+        <div className="glass-card p-8 space-y-6 text-[#94a3b8] leading-relaxed">
           <section>
+            <h2 className="text-xl font-bold text-white mb-3">1. Acceptance of Terms</h2>
             <p>
-              FinMA platformunu kullanarak aşağıdaki şartları kabul etmiş sayılırsınız.
+              By accessing FinMA Daily 100, you agree to comply with and be bound by 
+              these Terms of Service. If you do not agree, please do not use the service.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Hizmet Tanımı</h2>
+            <h2 className="text-xl font-bold text-white mb-3">2. User Accounts</h2>
             <p>
-              FinMA, finansal veri analizi, piyasa takibi ve yapay zekâ destekli içgörüler sunan bir platformdur.
+              You are responsible for maintaining the confidentiality of your account password. 
+              Accounts are for individual use only and may not be shared.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Kullanıcı Yükümlülükleri</h2>
-            <p className="mb-4">Kullanıcılar:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Platformu yasalara uygun şekilde kullanmalıdır</li>
-              <li>Yanıltıcı veya kötüye kullanım faaliyetlerinde bulunamaz</li>
-              <li>Hesap güvenliğinden kendisi sorumludur</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Hizmet Kapsamı</h2>
-            <p className="mb-4">FinMA:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Sürekli erişim garantisi vermez</li>
-              <li>Veri doğruluğunu garanti etmez</li>
-              <li>Hizmeti önceden bildirim yapmadan değiştirebilir</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Fikri Mülkiyet</h2>
-            <p className="mb-4">Platformdaki tüm içerik:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>FinMA’ya aittir</li>
-              <li>İzinsiz kopyalanamaz, dağıtılamaz</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4 text-finma-red">Sorumluluk Reddi</h2>
-            <p className="mb-4 font-medium">FinMA:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Finansal kayıplardan sorumlu değildir</li>
-              <li>Kullanıcı kararlarının sonuçlarından sorumlu tutulamaz</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-4">Hesap Sonlandırma</h2>
+            <h2 className="text-xl font-bold text-white mb-3">3. Usage Restrictions</h2>
             <p>
-              FinMA, kuralları ihlal eden kullanıcıların erişimini askıya alabilir.
+              You agree not to scrape, automatedly harvest, or redistribute 
+              FinMA signals, scores, or AI summaries without express written permission.
             </p>
           </section>
 
-          <section className="pt-8 border-t border-finma-border/50">
-            <p>İletişim: <Link href="/contact" className="text-finma-primary hover:underline">İletişim Sayfası</Link></p>
+          <section>
+            <h2 className="text-xl font-bold text-white mb-3">4. Service Modifications</h2>
+            <p>
+              We reserve the right to modify or discontinue any part of the service 
+              at any time without prior notice.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-white mb-3">5. Termination</h2>
+            <p>
+              We may suspend or terminate your account if we suspect fraudulent 
+              activity or a violation of these terms.
+            </p>
           </section>
         </div>
       </main>
+
+      <Footer />
     </div>
-  )
+  );
 }

@@ -1,213 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  html {
-    background-color: #0a0a0a;
-    color-scheme: dark;
-    overflow-y: scroll;
-    scrollbar-gutter: stable;
-  }
-
-  body {
-    @apply bg-finma-bg text-finma-text antialiased;
-    font-family: 'Manrope', system-ui, sans-serif;
-  }
-
-  * {
-    @apply border-finma-border;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-finma-bg;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-finma-border-light rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-finma-text-dim;
-  }
+/* FinMA Daily 100 — Design System */
+@theme {
+  --color-bg-primary: #0a0e17;
+  --color-bg-secondary: #0f1420;
+  --color-bg-card: #141924;
+  --color-bg-card-hover: #1a2030;
+  --color-border: #1e2a3a;
+  --color-border-light: #2a3545;
+  --color-accent-blue: #3b82f6;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-purple: #8b5cf6;
+  --color-gain: #22c55e;
+  --color-loss: #ef4444;
+  --color-neutral: #94a3b8;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-gold: #f59e0b;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 }
 
-@layer components {
-  .finma-card {
-    @apply bg-finma-card border border-finma-border rounded-lg p-4;
-  }
-
-  .finma-card-hover {
-    @apply finma-card transition-colors duration-200 hover:bg-finma-card-hover hover:border-finma-border-light;
-  }
-
-  .finma-number {
-    font-family: 'JetBrains Mono', monospace;
-    @apply tabular-nums;
-  }
-
-  .finma-green {
-    @apply text-finma-green;
-  }
-
-  .finma-red {
-    @apply text-finma-red;
-  }
-
-  .finma-badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
-  }
-
-  .finma-input {
-    @apply bg-finma-bg border border-finma-border rounded-md px-3 py-2 text-sm text-finma-text
-           placeholder:text-finma-text-dim focus:outline-none focus:ring-1 focus:ring-finma-primary focus:border-finma-primary;
-  }
-
-  .finma-btn-primary {
-    @apply bg-finma-primary hover:bg-finma-primary-hover text-white px-4 py-2 rounded-md text-sm font-medium
-           transition-colors duration-200;
-  }
-
-  /* Yatay kaydırma çubuğunu gizle */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+/* Base styles */
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-@layer utilities {
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out;
-  }
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-border-light); }
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(20, 25, 36, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 42, 58, 0.6);
+  border-radius: 12px;
 }
 
-/* ── PWA Safe Area Insets (notch / Dynamic Island desteği) ── */
-@supports (padding: env(safe-area-inset-top)) {
-  .safe-area-top { padding-top: env(safe-area-inset-top); }
-  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+/* Score bar gradient */
+.score-gradient {
+  background: linear-gradient(90deg, #ef4444 0%, #f59e0b 35%, #22c55e 65%, #3b82f6 100%);
 }
 
-/* Mobil dokunmatik kaydırma iyileştirmesi */
-.overflow-x-auto {
-  -webkit-overflow-scrolling: touch;
-}
-
-/* ── Landing Page Design System ─────────────────────────────────────────── */
-:root {
-  --lp-bg:   #060A0F;
-  --lp-bg2:  #0C1017;
-  --lp-bg3:  #101820;
-  --lp-bg4:  #141F2B;
-  --lp-bg5:  #0A1520;
-  --lp-t1:   #EDF2FA;
-  --lp-t2:   #8B97AA;
-  --lp-t3:   #4C5A6B;
-  --lp-b1:   rgba(255,255,255,0.06);
-  --lp-b2:   rgba(255,255,255,0.10);
-  --lp-b3:   rgba(255,255,255,0.17);
-  --lp-blue: #2D7EF8;
-  --lp-blue2:rgba(45,126,248,0.13);
-  --lp-blue3:rgba(45,126,248,0.06);
-  --lp-green:#10B981;
-  --lp-green2:rgba(16,185,129,0.13);
-  --lp-red:  #F43F5E;
-  --lp-red2: rgba(244,63,94,0.13);
-  --lp-gold: #F59E0B;
-  --lp-gold2:rgba(245,158,11,0.13);
-  --lp-purple:#8B5CF6;
-}
-
-/* Landing page wrapper */
-.lp-root {
-  background: var(--lp-bg);
-  min-height: 100vh;
-  font-family: 'Manrope', system-ui, sans-serif;
-  color: var(--lp-t1);
-  position: relative;
-}
-
-/* Subtle grid background */
-.lp-root::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--lp-b1) 1px, transparent 1px),
-    linear-gradient(90deg, var(--lp-b1) 1px, transparent 1px);
-  background-size: 56px 56px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Radial gradient overlay */
-.lp-root::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 600px;
-  background: radial-gradient(ellipse at center top, rgba(45,126,248,0.07) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Blink animation */
-@keyframes lp-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
-}
-.lp-blink {
-  animation: lp-blink 2s infinite;
-}
-
-/* Ticker scroll */
-@keyframes lp-scrolltkr {
-  0%   { transform: translateX(0); }
+/* Ticker tape animation */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.lp-ticker-track {
-  animation: lp-scrolltkr 50s linear infinite;
-  display: inline-flex;
-  white-space: nowrap;
+.ticker-tape {
+  animation: ticker-scroll 45s linear infinite;
 }
 
-/* Pop animation */
-@keyframes lp-pop {
-  from { opacity: 0; transform: scale(0.94); }
-  to   { opacity: 1; transform: scale(1); }
+/* Pulse glow for live indicators */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 12px rgba(34, 197, 94, 0.8); }
 }
-.lp-pop {
-  animation: lp-pop 0.22s ease;
-}
-
-/* Paywall blur */
-.lp-blur-content {
-  filter: blur(5px);
-  pointer-events: none;
-  user-select: none;
+.live-dot {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Page fade */
-@keyframes lp-fade {
-  from { opacity: 0; transform: translateY(6px); }
+/* Signal badge styles */
+.badge-strong-buy { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+.badge-buy { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+.badge-neutral { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+.badge-sell { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-strong-sell { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+/* Fade in animation */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.lp-page-enter {
-  animation: lp-fade 0.2s ease;
+.animate-fade-in { animation: fade-in-up 0.5s ease-out forwards; }
+
+/* Utility classes */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

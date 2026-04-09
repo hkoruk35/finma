@@ -1,55 +1,70 @@
-import { Activity, ArrowLeft, AlertTriangle } from 'lucide-react'
-import Link from 'next/link'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function DisclaimerPage() {
   return (
-    <div className="min-h-screen bg-finma-bg text-white pb-20">
-      <nav className="fixed top-0 w-full z-50 bg-finma-bg/80 backdrop-blur-xl border-b border-finma-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1 group">
-            <Activity className="w-7 h-7 text-finma-primary" />
-            <div className="flex">
-              <span className="text-xl font-bold text-white">Fin</span>
-              <span className="text-xl font-bold text-finma-primary">MA</span>
-            </div>
-          </Link>
-          <Link href="/" className="text-sm text-finma-text-dim hover:text-white flex items-center gap-2 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Geri Dön
-          </Link>
-        </div>
-      </nav>
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+      <Header />
 
-      <main className="pt-32 px-4 max-w-3xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
-          <AlertTriangle className="w-10 h-10 text-finma-yellow" />
-          <h1 className="text-3xl font-bold text-finma-primary">SPK Uyarı Metni</h1>
-        </div>
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
+        <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Legal & Compliance</h1>
         
-        <div className="space-y-8 text-finma-text-muted leading-relaxed">
-          <p className="text-lg font-medium text-white">
-            FinMA platformunda yer alan tüm bilgi, yorum ve analizler genel niteliktedir.
-          </p>
-
-          <div className="bg-finma-card/50 border border-finma-border/50 rounded-2xl p-6 space-y-4">
-            <ul className="list-disc pl-5 space-y-3">
-              <li>Bu platformda sunulan içerikler yatırım danışmanlığı kapsamında değildir.</li>
-              <li>Yatırım danışmanlığı hizmeti, yalnızca SPK lisanslı kurumlar tarafından verilebilir.</li>
-              <li>Buradaki bilgiler, kişisel risk ve getiri tercihlerinize uygun olmayabilir.</li>
-              <li>Alınan yatırım kararları sonucunda oluşabilecek kazanç veya kayıplardan kullanıcı sorumludur.</li>
-            </ul>
-          </div>
-
-          <div className="p-4 bg-finma-red/10 border border-finma-red/30 rounded-xl text-center">
-            <p className="text-finma-red font-bold">
-              Önemli Not: Geçmiş performans, gelecekteki sonuçların garantisi değildir.
+        <div className="glass-card p-8 space-y-12 text-[#94a3b8] leading-relaxed">
+          {/* Section 1 */}
+          <section>
+            <h2 className="text-xl font-bold text-white mb-4">1. Not Financial Advice</h2>
+            <p>
+              FinMA Daily 100 is an automated informational service. The content provided on this platform, 
+              including but not limited to proprietary FinMA AI-generated analyses, scores, and trading signals 
+              (STRONG BUY, BUY, etc.), is for informational purposes only. It does NOT constitute financial, 
+              investment, or professional advice. We are not a registered investment advisor (RIA), broker-dealer, 
+              or financial fiduciary. Always consult with a licensed financial professional before making 
+              any investment decisions.
             </p>
-          </div>
+          </section>
 
-          <section className="pt-8 border-t border-finma-border/50">
-            <p>İletişim: <Link href="/contact" className="text-finma-primary hover:underline">İletişim Sayfası</Link></p>
+          {/* Section 2 */}
+          <section>
+            <h2 className="text-xl font-bold text-white mb-4">2. High Risk Disclosure</h2>
+            <p>
+              Trading US equities involve a high degree of risk and the potential for significant loss of capital. 
+              Our AI signals are experimental and based on historical data patterns which do not guarantee 
+              future outcomes. We provide no warranty regarding the profitability or success of any signal 
+              provided. Use the information at your own risk.
+            </p>
+          </section>
+
+          {/* Section 4 (Relabeled as 3 in flow but user wants specific sections) */}
+          <section>
+            <h2 className="text-xl font-bold text-white mb-4">3. Data Privacy (CCPA/GDPR Compliance)</h2>
+            <p>
+              We prioritize user privacy. FinMA Daily 100 only collects email addresses for account 
+              authentication purposes via secure third-party providers. We do NOT sell user data to 
+              third parties. Members have the right to request full account and data deletion at any 
+              time through our settings or contact form.
+            </p>
+          </section>
+
+          {/* Section 5 */}
+          <section>
+            <h2 className="text-xl font-bold text-white mb-4">4. Advertising & Neutrality Disclosure</h2>
+            <p>
+              Third-party advertisements may be displayed on this platform to support our free membership tier. 
+              FinMA maintains strict separation between advertising and analysis; advertisers do not have 
+              influence over the FinMA AI scoring engine, signal generation, or stock selection process.
+            </p>
+          </section>
+
+          <section className="pt-8 border-t border-[#1e2a3a]">
+            <p className="text-sm italic font-medium text-[#64748b]">
+              Last Updated: April 2026. By using the FinMA Daily 100 platform, you acknowledge 
+              that you have read, understood, and voluntarily agreed to all terms outlined above.
+            </p>
           </section>
         </div>
       </main>
+
+      <Footer />
     </div>
-  )
+  );
 }
