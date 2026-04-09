@@ -11,8 +11,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="relative h-9 group-hover:scale-110 transition-transform">
-            <img src="/finmalogo1.png" alt="FinMA" className="h-full object-contain" />
+          <div className="relative w-9 h-9 group-hover:scale-110 transition-transform">
+            <img src="/finmaicon1.png" alt="FinMA" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
+          </div>
+          <div className="flex items-center">
+            <span className="text-xl font-black text-white tracking-tighter uppercase italic">FinMA</span>
+            <span className="hidden xs:block text-xl font-light text-[#3b82f6] ml-1">Daily 100</span>
           </div>
         </Link>
 
