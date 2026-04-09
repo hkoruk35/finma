@@ -151,6 +151,7 @@ def fetch_ticker_data(ticker: str) -> Optional[Dict]:
     try:
         t = yf.Ticker(ticker)
         hist = t.history(period=f"{LOOKBACK_DAYS + 10}d", interval="1d", auto_adjust=True)
+        hist = hist.dropna(subset=["Close"])
         if hist.empty or len(hist) < 30:
             return None
 
