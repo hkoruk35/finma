@@ -118,8 +118,13 @@ function sanitizeNaN(raw: string): string {
  *   - Custom override → FINMA_DATA_PATH env var
  */
 function readLocalJson(relPath: string): any | null {
-  const fs = require("fs");
-  const path = require("path");
+  if (typeof window !== "undefined") return null;
+  // Hide require() from webpack static analysis so these modules stay
+  // out of the client bundle. Without this Next.js 16 tries to bundle
+  // `fs` and the build/SSR fails with "Module not found: fs".
+  const nodeRequire: NodeRequire = eval("require");
+  const fs = nodeRequire("fs");
+  const path = nodeRequire("path");
 
   const candidates: string[] = [];
   if (process.env.FINMA_DATA_PATH) {
