@@ -1,39 +1,39 @@
 {
   "date": "2026-04-09",
-  "generated_at": "2026-04-09T03:49:36.805561-04:00",
+  "generated_at": "2026-04-09T06:46:55.516863-04:00",
   "sectors": {
     "Technology": {
-      "avg_score": 36.2,
-      "top_ticker": "LRCX",
+      "avg_score": 37.9,
+      "top_ticker": "AMAT",
       "top_tickers": [
+        "AMAT",
         "LRCX",
+        "MU",
+        "AMD",
+        "AAPL",
+        "SMCI",
+        "TXN",
         "ADBE",
         "IBM",
-        "AMAT",
-        "MU",
-        "AAPL",
-        "TXN",
-        "AMD",
         "PANW",
         "NVDA",
         "AVGO",
-        "PLTR",
-        "CRM",
+        "MSFT",
         "QCOM",
-        "SMCI"
+        "CRM"
       ],
       "volume_change_pct": null,
       "stock_count": 21
     },
     "Communication Services": {
-      "avg_score": 38.8,
+      "avg_score": 39.8,
       "top_ticker": "CHTR",
       "top_tickers": [
         "CHTR",
         "NFLX",
-        "T",
         "DIS",
         "GOOGL",
+        "T",
         "VZ",
         "META",
         "CMCSA",
@@ -44,34 +44,34 @@
       "stock_count": 10
     },
     "Consumer Discretionary": {
-      "avg_score": 34.2,
+      "avg_score": 39.9,
       "top_ticker": "BKNG",
       "top_tickers": [
         "BKNG",
         "TJX",
-        "SBUX",
         "LOW",
-        "AMZN",
+        "SBUX",
         "HD",
-        "NKE",
         "MCD",
+        "AMZN",
         "ABNB",
+        "NKE",
         "TSLA"
       ],
       "volume_change_pct": null,
       "stock_count": 10
     },
     "Financials": {
-      "avg_score": 43.0,
+      "avg_score": 47.3,
       "top_ticker": "BAC",
       "top_tickers": [
         "BAC",
         "PYPL",
-        "WFC",
         "MS",
         "V",
         "JPM",
         "GS",
+        "WFC",
         "MA",
         "BLK",
         "BX",
@@ -81,16 +81,16 @@
       "stock_count": 11
     },
     "Healthcare": {
-      "avg_score": 39.0,
+      "avg_score": 43.8,
       "top_ticker": "DHR",
       "top_tickers": [
         "DHR",
-        "TMO",
         "MRK",
-        "UNH",
         "PFE",
-        "LLY",
+        "TMO",
+        "UNH",
         "JNJ",
+        "LLY",
         "ISRG",
         "ABBV",
         "ABT"
@@ -99,85 +99,85 @@
       "stock_count": 10
     },
     "Energy": {
-      "avg_score": 50.4,
-      "top_ticker": "EOG",
+      "avg_score": 42.8,
+      "top_ticker": "SLB",
       "top_tickers": [
+        "SLB",
         "EOG",
         "COP",
-        "SLB",
-        "CVX",
         "OXY",
-        "XOM",
-        "FANG"
+        "CVX",
+        "FANG",
+        "XOM"
       ],
       "volume_change_pct": null,
       "stock_count": 7
     },
     "Consumer Staples": {
-      "avg_score": 39.4,
-      "top_ticker": "COST",
+      "avg_score": 45.5,
+      "top_ticker": "KO",
       "top_tickers": [
-        "COST",
         "KO",
         "WMT",
-        "PM",
+        "COST",
         "PEP",
-        "EL",
-        "PG"
+        "PM",
+        "PG",
+        "EL"
       ],
       "volume_change_pct": null,
       "stock_count": 7
     },
     "Industrials": {
-      "avg_score": 46.5,
-      "top_ticker": "UNP",
+      "avg_score": 52.4,
+      "top_ticker": "LMT",
       "top_tickers": [
-        "UNP",
-        "UPS",
-        "RTX",
         "LMT",
-        "CAT",
-        "DE",
+        "UNP",
         "HON",
-        "BA",
-        "GE"
+        "UPS",
+        "DE",
+        "RTX",
+        "CAT",
+        "GE",
+        "BA"
       ],
       "volume_change_pct": null,
       "stock_count": 9
     },
     "Utilities": {
-      "avg_score": 47.0,
+      "avg_score": 46.1,
       "top_ticker": "NEE",
       "top_tickers": [
         "NEE",
         "AEP",
-        "DUK",
+        "EXC",
         "SO",
-        "EXC"
+        "DUK"
       ],
       "volume_change_pct": null,
       "stock_count": 5
     },
     "Real Estate": {
-      "avg_score": 47.8,
-      "top_ticker": "SPG",
+      "avg_score": 51.1,
+      "top_ticker": "PLD",
       "top_tickers": [
+        "PLD",
         "SPG",
         "EQIX",
-        "PLD",
-        "CCI",
-        "AMT"
+        "AMT",
+        "CCI"
       ],
       "volume_change_pct": null,
       "stock_count": 5
     },
     "Materials": {
-      "avg_score": 44.4,
-      "top_ticker": "APD",
+      "avg_score": 48.9,
+      "top_ticker": "FCX",
       "top_tickers": [
+        "FCX",
         "APD",
         "NEM",
-        "FCX",
         "SHW",
         "LIN"
       ],
@@ -186,16 +186,16 @@
     }
   },
   "etf_performance": {
-    "XLY": NaN,
-    "XLB": NaN,
-    "XLI": NaN,
-    "XLRE": NaN,
-    "XLK": NaN,
-    "XLF": NaN,
-    "XLP": NaN,
-    "XLE": NaN,
-    "XLC": NaN,
-    "XLU": NaN,
-    "XLV": NaN
+    "XLP": 1.62,
+    "XLY": 0.93,
+    "XLK": 5.03,
+    "XLE": -1.56,
+    "XLC": 2.31,
+    "XLU": 1.45,
+    "XLV": 1.31,
+    "XLI": 3.66,
+    "XLB": 2.56,
+    "XLF": 3.56,
+    "XLRE": 3.64
   }
 }
