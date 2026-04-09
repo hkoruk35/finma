@@ -18,7 +18,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="relative w-8 h-8">
-                <img src="/finmaicon1.png" alt="FinMA" className="w-full h-full object-contain rounded-lg" />
+                <img src="/finmawave.png" alt="FinMA" className="w-full h-full object-contain rounded-lg" />
               </div>
               <span className="text-base font-black text-white tracking-tighter">FinMA Daily 100</span>
             </div>

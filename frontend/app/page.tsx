@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: "High-conviction trading signals for 100 top US stocks.",
     url: "https://finmasmart.com",
     siteName: "FinMA Daily 100",
-    images: [{ url: "/finmaicon1.png" }],
+    images: [{ url: "/finmawave.png" }],
     type: "website",
   },
 };

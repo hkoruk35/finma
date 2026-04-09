@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     siteName: "FinMA Daily 100",
     images: [
       {
-        url: "/finmaicon1.png",
+        url: "/finmawave.png",
         width: 1200,
         height: 630,
         alt: "FinMA Daily 100 Logo",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "FinMA Daily 100 | AI Stock Signals",
     description: "Daily AI analysis of 100 top US stocks.",
-    images: ["/finmaicon1.png"],
+    images: ["/finmawave.png"],
   },
 };
 
@@ -44,7 +44,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/finmaicon1.png" />
+        <link rel="icon" href="/finmawave.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#3b82f6" />
       </head>

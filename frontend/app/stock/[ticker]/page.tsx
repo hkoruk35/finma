@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://finmasmart.com/stock/${ticker.toLowerCase()}`,
       images: [
         {
-          url: "/finmaicon1.png",
+          url: "/finmawave.png",
           width: 800,
           height: 600,
           alt: `${stock.ticker} Stock Analysis`,
@@ -72,7 +72,7 @@ export default async function StockDetailPage({ params }: Props) {
             "@type": "Article",
             "headline": `${stock.ticker} — ${stock.company} Stock Analysis`,
             "description": stock.ai_summary,
-            "image": "https://finmasmart.com/finmaicon1.png",
+            "image": "https://finmasmart.com/finmawave.png",
             "author": {
               "@type": "Organization",
               "name": "FinMA Daily 100"
@@ -82,7 +82,7 @@ export default async function StockDetailPage({ params }: Props) {
               "name": "FinMA",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://finmasmart.com/finmaicon1.png"
+                "url": "https://finmasmart.com/finmawave.png"
               }
             },
             "datePublished": stock.date || new Date().toISOString()
@@ -115,7 +115,7 @@ export default async function StockDetailPage({ params }: Props) {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
           <div className="flex items-center gap-4">
             <div className="relative w-16 h-16 rounded-2xl bg-[#1e2a3a] overflow-hidden border border-[#3b82f6]/20">
-              <img src="/finmaicon1.png" alt="FinMA" className="w-full h-full object-cover opacity-50 absolute inset-0" />
+              <img src="/finmawave.png" alt="FinMA" className="w-full h-full object-cover opacity-50 absolute inset-0" />
               <div className="relative z-10 w-full h-full flex items-center justify-center text-3xl font-black text-white">
                 {stock.ticker[0]}
               </div>
