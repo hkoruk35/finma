@@ -15,9 +15,9 @@ export default function Header() {
             <img src="/finmaicon1.png" alt="FinMA" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
           </div>
           <div className="flex items-center">
-            <span 
+            <span
               className="text-2xl text-white tracking-tighter"
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 300 }}
             >
               FinMA Daily 100
             </span>
