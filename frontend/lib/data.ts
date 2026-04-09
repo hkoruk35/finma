@@ -100,63 +100,79 @@ export interface StockDetail {
   };
 }
 
-const DATA_BASE_URL = process.env.NEXT_PUBLIC_DATA_URL || "/data/latest";
-const IS_DEV = process.env.NODE_ENV === "development";
+// In production, set NEXT_PUBLIC_DATA_URL to an external CDN URL.
+// Locally, server components read directly from the filesystem.
+const DATA_BASE_URL = process.env.NEXT_PUBLIC_DATA_URL || "";
 
-/**
- * Generate cache-busting query parameter for fresh data.
- * Each new day will have a different date, forcing fresh fetch from backend.
- */
-function getCacheBustParam(): string {
-  const now = new Date();
-  // Use date-hour granularity to refresh hourly in production
-  const dateHour = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}`;
-  return `?t=${dateHour}`;
+// Path to bot's transfer/latest/ folder (relative to frontend/  = ../../../../transfer/latest)
+const LOCAL_DATA_PATH = process.env.FINMA_DATA_PATH ||
+  require("path").resolve(process.cwd(), "..", "..", "..", "..", "transfer", "latest");
+
+function sanitizeNaN(raw: string): string {
+  return raw
+    .replace(/:\s*NaN/g, ": null")
+    .replace(/:\s*Infinity/g, ": null")
+    .replace(/:\s*-Infinity/g, ": null");
+}
+
+/** Read a JSON file from the bot's local data directory (server-side only). */
+function readLocalJson(relPath: string): any | null {
+  try {
+    const fs = require("fs");
+    const path = require("path");
+    const fullPath = path.join(LOCAL_DATA_PATH, relPath);
+    if (!fs.existsSync(fullPath)) return null;
+    const raw = sanitizeNaN(fs.readFileSync(fullPath, "utf-8"));
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
 }
 
 export async function getMasterData(): Promise<MasterData | null> {
-  if (IS_DEV && !DATA_BASE_URL) return getMockMaster();
+  // Server-side: read directly from filesystem (fastest, no HTTP round-trip)
+  if (typeof window === "undefined" && !DATA_BASE_URL) {
+    const data = readLocalJson("master.json");
+    return data ?? getMockMaster();
+  }
+  // Client-side or production CDN: fetch via HTTP
   try {
-    const url = `${DATA_BASE_URL}/master.json${getCacheBustParam()}`;
-    const res = await fetch(url, {
-      next: { revalidate: 60 }, // Revalidate every minute for freshness
-      signal: AbortSignal.timeout(5000), // 5s timeout
-    } as any); // Next.js specific options
-    if (!res.ok) {
-      console.warn(`Failed to fetch master data: ${res.status}`);
-      return getMockMaster();
-    }
+    const base = DATA_BASE_URL || "/api/data";
+    const res = await fetch(`${base}/master.json`, {
+      next: { revalidate: 60 },
+    } as any);
+    if (!res.ok) return getMockMaster();
     return res.json();
-  } catch (e) {
-    console.warn(`Master data fetch error: ${e}`);
+  } catch {
     return getMockMaster();
   }
 }
 
 export async function getStockData(ticker: string): Promise<StockDetail | null> {
-  if (IS_DEV && !DATA_BASE_URL) return getMockStockDetail(ticker);
+  if (typeof window === "undefined" && !DATA_BASE_URL) {
+    const data = readLocalJson(`stocks/${ticker}.json`);
+    return data ?? getMockStockDetail(ticker);
+  }
   try {
-    const url = `${DATA_BASE_URL}/stocks/${ticker}.json${getCacheBustParam()}`;
-    const res = await fetch(url, {
+    const base = DATA_BASE_URL || "/api/data";
+    const res = await fetch(`${base}/stocks/${ticker}.json`, {
       next: { revalidate: 60 },
-      signal: AbortSignal.timeout(5000),
-    } as any); // Next.js specific options
-    if (!res.ok) {
-      console.warn(`Failed to fetch stock ${ticker}: ${res.status}`);
-      return getMockStockDetail(ticker);
-    }
+    } as any);
+    if (!res.ok) return getMockStockDetail(ticker);
     return res.json();
-  } catch (e) {
-    console.warn(`Stock data fetch error for ${ticker}: ${e}`);
+  } catch {
     return getMockStockDetail(ticker);
   }
 }
 
 export async function getAllTickers(): Promise<StockQuickView[]> {
-  if (IS_DEV && !DATA_BASE_URL) return getMockTickers();
+  if (typeof window === "undefined" && !DATA_BASE_URL) {
+    const data = readLocalJson("all_tickers_list.json");
+    return data?.tickers ?? getMockTickers();
+  }
   try {
-    const url = `${DATA_BASE_URL}/all_tickers_list.json${getCacheBustParam()}`;
-    const res = await fetch(url, {
+    const base = DATA_BASE_URL || "/api/data";
+    const res = await fetch(`${base}/all_tickers_list.json`, {
       next: { revalidate: 60 },
       signal: AbortSignal.timeout(5000),
     } as any); // Next.js specific options

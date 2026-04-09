@@ -958,10 +958,23 @@ def build_stock_json(raw: Dict, tech: Dict, scores: Dict, signals: Dict,
     }
 
 
+def sanitize_for_json(obj: Any) -> Any:
+    """Recursively replace NaN/Infinity with None so JSON output is always valid."""
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return obj
+    if isinstance(obj, dict):
+        return {k: sanitize_for_json(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize_for_json(v) for v in obj]
+    return obj
+
 def save_json(path: str, data: Any):
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    clean_data = sanitize_for_json(data)
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2, default=str)
+        json.dump(clean_data, f, ensure_ascii=False, indent=2, default=str)
 
 
 # ============================================================
