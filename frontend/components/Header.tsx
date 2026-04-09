@@ -15,8 +15,17 @@ export default function Header() {
             <img src="/finmaicon1.png" alt="FinMA" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
           </div>
           <div className="flex items-center">
-            <span className="text-xl font-black text-white tracking-tighter uppercase italic">FinMA</span>
-            <span className="hidden xs:block text-xl font-light text-[#3b82f6] ml-1">Daily 100</span>
+            <span 
+              className="text-2xl italic text-white tracking-tighter"
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
+            >
+              FinMA
+            </span>
+            <span 
+              className="hidden xs:block text-xl font-light text-[#3b82f6] ml-1 tracking-tight"
+            >
+              Daily 100
+            </span>
           </div>
         </Link>
 
