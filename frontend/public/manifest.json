@@ -1,11 +1,14 @@
 {
   "name": "FinMA Daily +500",
   "short_name": "FinMA",
-  "description": "Daily AI-powered analysis of +500 top US stocks.",
+  "description": "Daily AI-powered analysis of +500 top US stocks with real-time trading signals.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#0a0e17",
   "theme_color": "#3b82f6",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/finmawave.png",
@@ -16,7 +19,22 @@
     {
       "src": "/finmawave.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/finmawave.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/finmawave.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ]
 }
