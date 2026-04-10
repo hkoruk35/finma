@@ -12,6 +12,9 @@ export interface StockQuickView {
   signal_type: string;
   price: number;
   change_pct: number;
+  change_pct_1w?: number;
+  change_pct_1m?: number;
+  change_pct_1y?: number;
   entry_range_low: number;
   entry_range_high: number;
 }
@@ -25,7 +28,13 @@ export interface MasterData {
   menus: Record<string, { count: number; tickers: string[] }>;
   sector_summary: Record<string, { avg_score: number; top_ticker: string; stock_count: number }>;
   top_3_overall: { ticker: string; score: number; signal: string }[];
-  market_indices: Record<string, { value: number; change_pct: number }>;
+  market_indices: Record<string, {
+    value: number;
+    change_pct: number;
+    change_pct_1w?: number;
+    change_pct_1m?: number;
+    change_pct_1y?: number;
+  }>;
 }
 
 export interface StockDetail {
@@ -42,6 +51,9 @@ export interface StockDetail {
     prev_close: number;
     change: number;
     change_pct: number;
+    change_pct_1w?: number;
+    change_pct_1m?: number;
+    change_pct_1y?: number;
     volume: number;
     avg_volume_30d: number;
   };

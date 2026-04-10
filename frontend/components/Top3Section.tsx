@@ -62,11 +62,29 @@ export default function Top3Section({ master, allTickers }: Props) {
                 </div>
               </div>
 
-              {/* 24H Change */}
+              {/* Time-Period Returns */}
               <div className="mb-6">
-                 <span className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1 block">24H CHANGE</span>
-                 <div className={`text-xl font-mono font-black ${getChangeColor(stock?.change_pct || 0)}`}>
-                   {stock && stock.change_pct >= 0 ? "+" : ""}{stock?.change_pct.toFixed(2)}%
+                 <span className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-2 block">PERIOD RETURNS</span>
+                 <div className="grid grid-cols-4 gap-1.5">
+                   {[
+                     { label: "24H", value: stock?.change_pct },
+                     { label: "1W", value: stock?.change_pct_1w },
+                     { label: "1M", value: stock?.change_pct_1m },
+                     { label: "1Y", value: stock?.change_pct_1y },
+                   ].map((period) => (
+                     <div key={period.label} className="text-center">
+                       <div className={`text-xs font-mono font-black ${
+                         period.value !== undefined && period.value !== null
+                           ? getChangeColor(period.value)
+                           : 'text-[#64748b]'
+                       }`}>
+                         {period.value !== undefined && period.value !== null
+                           ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
+                           : '—'}
+                       </div>
+                       <div className="text-[7px] text-[#4b5563] font-bold mt-0.5">{period.label}</div>
+                     </div>
+                   ))}
                  </div>
               </div>
 

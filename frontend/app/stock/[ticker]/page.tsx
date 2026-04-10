@@ -147,6 +147,39 @@ export default async function StockDetailPage({ params }: Props) {
           </div>
         </div>
 
+        {/* Time-Period Returns */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          {[
+            { label: "24H CHANGE", value: stock.price.change_pct },
+            { label: "1-WEEK RETURN", value: stock.price.change_pct_1w },
+            { label: "1-MONTH RETURN", value: stock.price.change_pct_1m },
+            { label: "1-YEAR RETURN", value: stock.price.change_pct_1y },
+          ].map((period) => (
+            <div
+              key={period.label}
+              className="glass-card p-4 flex flex-col items-center justify-center border-l-4"
+              style={{
+                borderLeftColor: period.value !== undefined && period.value !== null
+                  ? (period.value >= 0 ? '#22c55e' : '#ef4444')
+                  : '#1e2a3a'
+              }}
+            >
+              <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">
+                {period.label}
+              </p>
+              <p className={`text-2xl font-mono font-black ${
+                period.value !== undefined && period.value !== null
+                  ? getChangeColor(period.value)
+                  : 'text-[#64748b]'
+              }`}>
+                {period.value !== undefined && period.value !== null
+                  ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(2)}%`
+                  : '—'}
+              </p>
+            </div>
+          ))}
+        </div>
+
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Main Chart Area */}

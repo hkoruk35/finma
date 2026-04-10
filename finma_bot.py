@@ -188,8 +188,19 @@ def fetch_ticker_data(ticker: str) -> Optional[Dict]:
             pass
 
         # Price snapshot
+        current_price = float(hist["Close"].iloc[-1])
+
+        # Calculate time-period returns
+        def calc_return_pct(idx_back):
+            """Calculate return % from index_back trading days ago to today."""
+            if len(hist) > idx_back:
+                old_price = float(hist["Close"].iloc[-1 - idx_back])
+                if old_price > 0:
+                    return round((current_price - old_price) / old_price * 100, 2)
+            return None
+
         price_data = {
-            "current":      round(float(hist["Close"].iloc[-1]), 2),
+            "current":      round(current_price, 2),
             "open":         round(float(hist["Open"].iloc[-1]), 2),
             "high":         round(float(hist["High"].iloc[-1]), 2),
             "low":          round(float(hist["Low"].iloc[-1]), 2),
@@ -198,6 +209,9 @@ def fetch_ticker_data(ticker: str) -> Optional[Dict]:
             "change_pct":   round(float((hist["Close"].iloc[-1] - hist["Close"].iloc[-2]) / hist["Close"].iloc[-2] * 100), 2) if len(hist) >= 2 else 0,
             "volume":       int(hist["Volume"].iloc[-1]),
             "avg_volume_30d": int(hist["Volume"].tail(30).mean()),
+            "change_pct_1w":   calc_return_pct(5),    # 1-week (5 trading days)
+            "change_pct_1m":   calc_return_pct(21),   # 1-month (21 trading days)
+            "change_pct_1y":   calc_return_pct(252),  # 1-year (252 trading days)
         }
 
         fundamental = {
@@ -892,6 +906,9 @@ def build_stock_json(raw: Dict, tech: Dict, scores: Dict, signals: Dict,
             "low":          raw["price"].get("low"),
             "prev_close":   raw["price"].get("prev_close"),
             "change_pct":   raw["price"].get("change_pct"),
+            "change_pct_1w": raw["price"].get("change_pct_1w"),
+            "change_pct_1m": raw["price"].get("change_pct_1m"),
+            "change_pct_1y": raw["price"].get("change_pct_1y"),
             "volume":       raw["price"].get("volume"),
             "avg_volume_30d": raw["price"].get("avg_volume_30d"),
         },
@@ -1082,7 +1099,7 @@ async def daily_run():
     market_indices = {}
     for name, sym in INDEX_TICKERS.items():
         try:
-            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="10d"))
+            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="400d"))
             if h is not None and not h.empty:
                 # Only keep rows with price
                 h = h[h["Close"].notna()]
@@ -1090,12 +1107,33 @@ async def daily_run():
                     val = float(h["Close"].iloc[-1])
                     prev = float(h["Close"].iloc[-2])
                     chg = round((val - prev) / prev * 100, 2)
-                    market_indices[name] = {"value": round(val, 2), "change_pct": chg}
+
+                    # Time-period returns
+                    def calc_idx_return(idx_back):
+                        if len(h) > idx_back:
+                            old = float(h["Close"].iloc[-1 - idx_back])
+                            if old > 0:
+                                return round((val - old) / old * 100, 2)
+                        return None
+
+                    market_indices[name] = {
+                        "value": round(val, 2),
+                        "change_pct": chg,
+                        "change_pct_1w": calc_idx_return(5),
+                        "change_pct_1m": calc_idx_return(21),
+                        "change_pct_1y": calc_idx_return(252),
+                    }
                     log.info(f"  Index {name}: {val} ({chg}%)")
                 elif len(h) == 1:
                     val = float(h["Close"].iloc[-1])
-                    market_indices[name] = {"value": round(val, 2), "change_pct": 0.0}
-            
+                    market_indices[name] = {
+                        "value": round(val, 2),
+                        "change_pct": 0.0,
+                        "change_pct_1w": None,
+                        "change_pct_1m": None,
+                        "change_pct_1y": None,
+                    }
+
             if name not in market_indices:
                 log.warning(f"  Failed to fetch index {name}")
         except Exception as e:
