@@ -2,7 +2,7 @@
   "ticker": "HON",
   "company": "Honeywell International Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.450528-04:00",
+  "generated_at": "2026-04-10T05:26:07.982659-04:00",
   "sector": "Industrials",
   "industry": "Conglomerates",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3937053
   },
   "scores": {
-    "master_score": 60.58,
+    "master_score": 59.58,
     "technical_score": 76.0,
     "fundamental_score": 24.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 64.8,
+    "sector_score": 54.8,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 60.58,
-    "confidence": 0.61,
+    "signal_score": 59.58,
+    "confidence": 0.6,
     "signal_type": "NEUTRAL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 34.01441,
-    "sector_pe_median": 34.371525,
+    "sector_pe_median": 34.192967499999995,
     "pb_ratio": 10.785891,
     "de_ratio": 236.613,
     "fcf_yield": 0.0311,
@@ -98,11 +98,8 @@
     "stop_loss": 225.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.450528-04:00",
-    "categories": [
-      "top_signals",
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T05:26:07.982642-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -146,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HON shows a neutral FinMA signal despite bullish EMA alignment and proximity to its 52-week high. The current price of $236.06 reflects a 1.54% daily gain. While RSI at 58.2 suggests moderate upward momentum, ADX at 25.3 indicates weakening trend strength.\n\nValuation is slightly discounted compared to the sector, with a P/E of 33.97. However, the negative TTM revenue growth of -3.3% raises concerns. The high dividend yield of 205.00% is anomalous and should be investigated for data accuracy or potential special circumstances.\n\nWithout a clear catalyst or news, HON may consolidate around current levels. Key levels to watch are the 52-week high as resistance and recent support around $230.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "NEUTRAL",
-    "score_bar": 61,
+    "score_bar": 60,
     "price_change_display": "+1.54%",
     "key_metrics": {
       "RSI": 58.2,

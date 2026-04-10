@@ -1,0 +1,160 @@
+{
+  "ticker": "DVN",
+  "company": "Devon Energy Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.872289-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 47.88,
+    "open": 48.15,
+    "high": 49.11,
+    "low": 47.6,
+    "prev_close": 47.91,
+    "change_pct": -0.06,
+    "change_pct_1w": -1.46,
+    "change_pct_1m": 10.14,
+    "change_pct_1y": 71.69,
+    "volume": 13743000,
+    "avg_volume_30d": 17536803
+  },
+  "scores": {
+    "master_score": 46.42,
+    "technical_score": 35.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 46.42,
+    "confidence": 0.46,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 50.4,
+    "macd": 1.1525,
+    "macd_signal": 1.6142,
+    "macd_histogram": -0.4617,
+    "macd_crossover": "neutral",
+    "ema_20": 48.47,
+    "ema_50": 45.6,
+    "ema_200": 38.97,
+    "ema_stack_bullish": false,
+    "bb_upper": 52.36,
+    "bb_middle": 48.99,
+    "bb_lower": 45.62,
+    "bb_width": 0.1376,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 29.5,
+    "atr": 1.78,
+    "atr_pct": 0.0372,
+    "obv_trend": "DOWN",
+    "mfi": 39.9,
+    "cmf": 0.123,
+    "stoch_k": 36.5,
+    "stoch_d": 42.3,
+    "rvol": 0.77,
+    "volume_5d_avg": 13504180,
+    "green_days_10d": 5,
+    "52w_high": 52.07,
+    "52w_low": 26.12,
+    "52w_high_proximity_pct": 0.0805,
+    "52w_low_proximity_pct": 0.8328
+  },
+  "fundamental": {
+    "pe_ratio": 11.482015,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 1.9178851,
+    "de_ratio": 55.951,
+    "fcf_yield": 0.0713,
+    "eps_growth_5y": -0.085,
+    "revenue_growth_ttm": -0.121,
+    "gross_margin": 0.47699,
+    "operating_margin": 0.22656,
+    "net_margin": 0.16473,
+    "market_cap": 29755273216,
+    "enterprise_value": 36985860096,
+    "dividend_yield": 2.01,
+    "payout_ratio": 0.23020001,
+    "insider_ownership_pct": 0.00833,
+    "institutional_ownership_pct": 0.82595,
+    "short_ratio": 1.83,
+    "beta": 0.526
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 45.37,
+    "entry_range_high": 48.12,
+    "target_range_low": 52.16,
+    "target_range_high": 55.88,
+    "stop_range_low": 42.1,
+    "stop_range_high": 44.32,
+    "target_price": 53.22,
+    "stop_loss": 44.32,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.872273-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 59.85,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 201.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 26.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 68308,
+      "date": "2026-02-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "DVN presents a mixed picture. The FinMA signal is SELL, albeit with low 46% confidence. Technically, bearish EMA alignment and low Bollinger Bands suggest potential downside, confirmed by a relatively weak ADX of 29.5. Key level to watch is the 52-week high proximity (8.1% away) – failure to approach it may signal further weakness.\n\nDespite solid 16.5% net margins and a discounted P/E of 11.48 versus the sector median, concerning is the negative TTM revenue growth of -12.1%. The extraordinarily high dividend yield of 201.00% might be unsustainable. Without near-term catalysts to improve revenue, DVN faces headwinds.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 46,
+    "price_change_display": "-0.06%",
+    "key_metrics": {
+      "RSI": 50.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

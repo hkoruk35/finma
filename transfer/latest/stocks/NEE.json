@@ -2,7 +2,7 @@
   "ticker": "NEE",
   "company": "NextEra Energy, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.450528-04:00",
+  "generated_at": "2026-04-10T05:26:08.017226-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 10097770
   },
   "scores": {
-    "master_score": 59.02,
+    "master_score": 58.76,
     "technical_score": 71.0,
     "fundamental_score": 15.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 59.2,
+    "sector_score": 56.6,
     "breakout_score": 30.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 59.02,
+    "signal_score": 58.76,
     "confidence": 0.59,
     "signal_type": "NEUTRAL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 28.630304,
-    "sector_pe_median": 21.11111,
+    "sector_pe_median": 23.062841,
     "pb_ratio": 3.6039062,
     "de_ratio": 146.242,
     "fcf_yield": -0.0772,
@@ -98,11 +98,8 @@
     "stop_loss": 90.62,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.450528-04:00",
-    "categories": [
-      "top_signals",
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T05:26:08.017211-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -146,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NEE shows a neutral FinMA signal despite bullish EMA alignment and proximity to its 52-week high ($95.05). The current RSI of 63.1 suggests building upward momentum, but ADX at 24.7 indicates a weak trend. While NEE exhibits strong TTM revenue growth (20.7%) and impressive margins (62.3% gross, 24.9% net), its P/E of 28.63 reflects a valuation premium versus the sector. Maintaining price above $95.05 could trigger a breakout. A potential catalyst could be positive regulatory updates related to their renewable energy projects. Monitor volume relative, currently at 0.71x, for confirmation of sustained price movement.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 59,

@@ -2,7 +2,7 @@
   "ticker": "CRM",
   "company": "Salesforce, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.595399-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 13886533
   },
   "scores": {
-    "master_score": 29.22,
+    "master_score": 29.77,
     "technical_score": 0.0,
     "fundamental_score": 68.0,
     "momentum_score": 0.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 15.0,
     "value_score": 65.0,
     "reversal_score": 35.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 29.22,
-    "confidence": 0.29,
+    "signal_score": 29.77,
+    "confidence": 0.3,
     "signal_type": "STRONG_SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 21.875801,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 2.6837046,
     "de_ratio": 29.947,
     "fcf_yield": 0.1022,
@@ -98,9 +98,8 @@
     "stop_loss": 155.89,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
+    "generated_at": "2026-04-10T05:26:07.595367-04:00",
     "categories": [
-      "value",
       "reversal",
       "dividend"
     ]
@@ -147,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CRM signals STRONG_SELL, though confidence is low (29%). At $170.85, down 3.13% today, the price languishes 37.4% below its 52-week high. Bearish EMA alignment and low RSI (31.3) reinforce downward momentum. Despite a seemingly attractive P/E of 21.9 versus the sector median of 32.97, the low ADX (14.8) suggests a weak trend. A recent dividend yield of 100.00% looks suspicious and requires careful review. The next key support level is likely the lower Bollinger Band. Lacking fresh catalysts, CRM's current technicals point to continued weakness.",
+  "ai_summary": "CRM signals STRONG_SELL with low confidence based on today's data. The stock is down 3.60% to $176.37, with an RSI of 35.2 indicating oversold conditions but weak ADX of 13 suggesting a lack of strong trend. The bearish EMA stack and negative MACD histogram (-0.4402) reinforce negative momentum. While the P/E of 22.61 is below the sector median of 32.77, the low RVOL of 0.91 indicates waning investor interest. Near-term, upcoming earnings announcements could trigger further downside if revenue growth disappoints after the current TTM of 12.1%.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
-    "score_bar": 29,
+    "score_bar": 30,
     "price_change_display": "-2.89%",
     "key_metrics": {
       "RSI": 31.6,

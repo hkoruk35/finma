@@ -1,0 +1,158 @@
+{
+  "ticker": "AU",
+  "company": "AngloGold Ashanti plc",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.931204-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 108.55,
+    "open": 107.78,
+    "high": 108.87,
+    "low": 105.96,
+    "prev_close": 107.42,
+    "change_pct": 1.05,
+    "change_pct_1w": 4.86,
+    "change_pct_1m": 1.95,
+    "change_pct_1y": 240.19,
+    "volume": 2227500,
+    "avg_volume_30d": 3417803
+  },
+  "scores": {
+    "master_score": 57.47,
+    "technical_score": 65.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 57.47,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 60.6,
+    "macd": 0.5592,
+    "macd_signal": -1.878,
+    "macd_histogram": 2.4372,
+    "macd_crossover": "neutral",
+    "ema_20": 99.25,
+    "ema_50": 99.16,
+    "ema_200": 80.21,
+    "ema_stack_bullish": true,
+    "bb_upper": 110.68,
+    "bb_middle": 94.8,
+    "bb_lower": 78.91,
+    "bb_width": 0.3352,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.9,
+    "atr": 5.91,
+    "atr_pct": 0.0545,
+    "obv_trend": "UP",
+    "mfi": 66.6,
+    "cmf": 0.139,
+    "stoch_k": 85.7,
+    "stoch_d": 83.9,
+    "rvol": 0.68,
+    "volume_5d_avg": 2316520,
+    "green_days_10d": 7,
+    "52w_high": 126.14,
+    "52w_low": 31.72,
+    "52w_high_proximity_pct": 0.1395,
+    "52w_low_proximity_pct": 2.4224
+  },
+  "fundamental": {
+    "pe_ratio": 20.955599,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 6.7750597,
+    "de_ratio": 23.003,
+    "fcf_yield": 0.0474,
+    "eps_growth_5y": 0.631,
+    "revenue_growth_ttm": 0.753,
+    "gross_margin": 0.49266997,
+    "operating_margin": 0.48044,
+    "net_margin": 0.26645002,
+    "market_cap": 54819356672,
+    "enterprise_value": 56083132416,
+    "dividend_yield": 3.92,
+    "payout_ratio": 0.4875,
+    "insider_ownership_pct": 0.00204,
+    "institutional_ownership_pct": 0.8157,
+    "short_ratio": 2.65,
+    "beta": 0.68
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 98.66,
+    "entry_range_high": 109.09,
+    "target_range_low": 123.75,
+    "target_range_high": 132.59,
+    "stop_range_low": 91.89,
+    "stop_range_high": 96.73,
+    "target_price": 126.28,
+    "stop_loss": 96.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.931190-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 135.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 392.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.72,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3381830,
+      "date": "2025-11-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 57,
+    "price_change_display": "+1.05%",
+    "key_metrics": {
+      "RSI": 60.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

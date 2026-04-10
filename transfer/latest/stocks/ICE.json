@@ -1,0 +1,158 @@
+{
+  "ticker": "ICE",
+  "company": "Intercontinental Exchange, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.848755-04:00",
+  "sector": "Financials",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 161.97,
+    "open": 167.53,
+    "high": 167.75,
+    "low": 161.66,
+    "prev_close": 167.79,
+    "change_pct": -3.47,
+    "change_pct_1w": 2.46,
+    "change_pct_1m": 1.45,
+    "change_pct_1y": 5.96,
+    "volume": 3434300,
+    "avg_volume_30d": 3400410
+  },
+  "scores": {
+    "master_score": 47.97,
+    "technical_score": 51.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 48.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 47.97,
+    "confidence": 0.48,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 52.3,
+    "macd": 0.9992,
+    "macd_signal": -0.0593,
+    "macd_histogram": 1.0585,
+    "macd_crossover": "neutral",
+    "ema_20": 160.84,
+    "ema_50": 160.87,
+    "ema_200": 163.62,
+    "ema_stack_bullish": false,
+    "bb_upper": 167.1,
+    "bb_middle": 159.44,
+    "bb_lower": 151.78,
+    "bb_width": 0.0961,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 19.2,
+    "atr": 3.94,
+    "atr_pct": 0.0243,
+    "obv_trend": "UP",
+    "mfi": 60.8,
+    "cmf": 0.065,
+    "stoch_k": 60.6,
+    "stoch_d": 82.8,
+    "rvol": 0.89,
+    "volume_5d_avg": 3033900,
+    "green_days_10d": 6,
+    "52w_high": 186.76,
+    "52w_low": 144.69,
+    "52w_high_proximity_pct": 0.1327,
+    "52w_low_proximity_pct": 0.1194
+  },
+  "fundamental": {
+    "pe_ratio": 28.071058,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 3.1761315,
+    "de_ratio": 70.077,
+    "fcf_yield": 0.0379,
+    "eps_growth_5y": 0.234,
+    "revenue_growth_ttm": 0.078,
+    "gross_margin": 1.0,
+    "operating_margin": 0.49561,
+    "net_margin": 0.33380002,
+    "market_cap": 91982200832,
+    "enterprise_value": 111537201152,
+    "dividend_yield": 1.28,
+    "payout_ratio": 0.3328,
+    "insider_ownership_pct": 0.00827,
+    "institutional_ownership_pct": 0.94975996,
+    "short_ratio": 1.8,
+    "beta": 1.043
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 160.07,
+    "entry_range_high": 162.78,
+    "target_range_low": 170.31,
+    "target_range_high": 182.48,
+    "stop_range_low": 146.39,
+    "stop_range_high": 154.09,
+    "target_price": 173.79,
+    "stop_loss": 154.09,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.848739-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 202.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 128.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 144.69,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2724,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 48,
+    "price_change_display": "-3.47%",
+    "key_metrics": {
+      "RSI": 52.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

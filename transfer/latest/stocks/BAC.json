@@ -2,7 +2,7 @@
   "ticker": "BAC",
   "company": "Bank of America Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.417116-04:00",
+  "generated_at": "2026-04-10T05:26:07.806544-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 42983780
   },
   "scores": {
-    "master_score": 57.79,
+    "master_score": 58.12,
     "technical_score": 45.0,
     "fundamental_score": 52.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 45.4,
+    "sector_score": 48.7,
     "breakout_score": 15.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 57.79,
+    "signal_score": 58.12,
     "confidence": 0.58,
     "signal_type": "NEUTRAL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 13.834645,
-    "sector_pe_median": 17.637001,
+    "sector_pe_median": 16.018940999999998,
     "pb_ratio": 1.3711921,
     "de_ratio": null,
     "fcf_yield": null,
@@ -98,9 +98,8 @@
     "stop_loss": 50.15,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.417116-04:00",
+    "generated_at": "2026-04-10T05:26:07.806528-04:00",
     "categories": [
-      "top_signals",
       "momentum"
     ]
   },
@@ -146,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BAC shows a neutral FinMA signal, confidence 58%. Price at $52.71 is 7.4% below its 52-week high. Bearish EMA alignment countered by low Bollinger Bands suggests potential for upside. RSI at 68.6 indicates nearing overbought conditions, while ADX at 22.7 shows weak trend strength.\n\nBAC's P/E of 13.83 indicates undervaluation compared to the sector, despite strong 28.4% net margin and 7.2% TTM revenue growth. Key technical levels to watch are resistance near the 52-week high and support around $50. A potential catalyst is the unusually high dividend yield of 216.00%, which could attract income investors.",
+  "ai_summary": "BAC shows a neutral signal with 58% confidence. Price increased 3.18% today to $51.88, but RVOL is low at 0.71x. The stock is 8.9% away from its 52-week high. Technically, RSI is 65.5, nearing overbought territory, while the MACD Histogram is neutral at 0.5973. The EMA stack indicates a bearish trend. ADX is 22.4, suggesting a weak trend, and the BB Squeeze is low. Fundamentally, BAC's P/E of 13.6 is below the sector median of 17.64, while TTM revenue growth is 7.2%. Near-term catalyst: Upcoming earnings report could shift sentiment.",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 58,

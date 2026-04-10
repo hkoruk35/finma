@@ -1,0 +1,158 @@
+{
+  "ticker": "MDT",
+  "company": "Medtronic plc",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.755077-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 87.91,
+    "open": 87.91,
+    "high": 88.55,
+    "low": 87.3,
+    "prev_close": 88.65,
+    "change_pct": -0.83,
+    "change_pct_1w": 2.15,
+    "change_pct_1m": -1.4,
+    "change_pct_1y": 9.08,
+    "volume": 7896600,
+    "avg_volume_30d": 8176473
+  },
+  "scores": {
+    "master_score": 50.15,
+    "technical_score": 65.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 49.0,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.15,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 46.3,
+    "macd": -1.4319,
+    "macd_signal": -2.0149,
+    "macd_histogram": 0.583,
+    "macd_crossover": "neutral",
+    "ema_20": 87.89,
+    "ema_50": 91.09,
+    "ema_200": 92.43,
+    "ema_stack_bullish": false,
+    "bb_upper": 88.25,
+    "bb_middle": 86.72,
+    "bb_lower": 85.19,
+    "bb_width": 0.0353,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 36.4,
+    "atr": 1.77,
+    "atr_pct": 0.0202,
+    "obv_trend": "UP",
+    "mfi": 49.0,
+    "cmf": -0.095,
+    "stoch_k": 76.3,
+    "stoch_d": 71.3,
+    "rvol": 0.9,
+    "volume_5d_avg": 7366460,
+    "green_days_10d": 5,
+    "52w_high": 103.73,
+    "52w_low": 78.19,
+    "52w_high_proximity_pct": 0.1525,
+    "52w_low_proximity_pct": 0.1242
+  },
+  "fundamental": {
+    "pe_ratio": 24.555868,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 2.303178,
+    "de_ratio": 57.06,
+    "fcf_yield": 0.0361,
+    "eps_growth_5y": -0.118,
+    "revenue_growth_ttm": 0.087,
+    "gross_margin": 0.65159,
+    "operating_margin": 0.20007,
+    "net_margin": 0.13,
+    "market_cap": 112866328576,
+    "enterprise_value": 132765327360,
+    "dividend_yield": 3.23,
+    "payout_ratio": 0.79050004,
+    "insider_ownership_pct": 0.0032600001,
+    "institutional_ownership_pct": 0.88298,
+    "short_ratio": 1.87,
+    "beta": 0.764
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 87.47,
+    "entry_range_high": 88.35,
+    "target_range_low": 91.36,
+    "target_range_high": 97.88,
+    "stop_range_low": 80.15,
+    "stop_range_high": 84.37,
+    "target_price": 93.22,
+    "stop_loss": 84.37,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.755063-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 109.89,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 323.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 78.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 340,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "-0.83%",
+    "key_metrics": {
+      "RSI": 46.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "T",
   "company": "AT&T Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.645958-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 42878680
   },
   "scores": {
-    "master_score": 40.07,
+    "master_score": 40.55,
     "technical_score": 22.0,
     "fundamental_score": 60.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.7,
+    "sector_score": 43.5,
     "breakout_score": 15.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 40.07,
-    "confidence": 0.4,
+    "signal_score": 40.55,
+    "confidence": 0.41,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 8.828947,
-    "sector_pe_median": 17.509828499999998,
+    "sector_pe_median": 24.866439999999997,
     "pb_ratio": 1.708901,
     "de_ratio": 124.179,
     "fcf_yield": 0.067,
@@ -82,7 +82,7 @@
     "dividend_yield": 4.14,
     "payout_ratio": 0.2738,
     "insider_ownership_pct": 0.00086000003,
-    "institutional_ownership_pct": 0.6797,
+    "institutional_ownership_pct": 0.67974997,
     "short_ratio": 2.56,
     "beta": 0.539
   },
@@ -98,7 +98,7 @@
     "stop_loss": 25.54,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.645938-04:00",
     "categories": [
       "value",
       "dividend"
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "T signals a SELL, albeit with low (40%) confidence. The bearish EMA alignment and low RSI (36.0) suggest further downside despite being near its lower Bollinger Band. While fundamentals show attractive valuation (P/E of 9.0 vs. sector median of 17.5) and strong margins (Gross: 59.6%, Net: 17.5%), the high dividend yield (406.00%) is unsustainable and flags potential dividend cuts. The key support level to watch is the recent low. Without positive news or a revised dividend policy, T remains vulnerable.",
+  "ai_summary": "AT&T (T) is exhibiting a SELL signal with low confidence. At $27.35, the stock is down 2.46% today with RVOL at 0.85x. Technicals show bearish EMA stack and RSI at 40.6, while ADX indicates weak trend strength at 18. Although the stock is near its 52-week high, the MACD Histogram is neutral at -0.1582, and a BB Squeeze indicates low volatility. Fundamentals are mixed with an attractive P/E of 8.99 versus the sector median of 17.47, revenue growth of 3.6% and a strong gross margin of 59.6%. Near-term catalyst: Potential earnings revisions based on upcoming Q1 earnings reports may drive further downside.",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 40,
+    "score_bar": 41,
     "price_change_display": "-1.86%",
     "key_metrics": {
       "RSI": 36.0,

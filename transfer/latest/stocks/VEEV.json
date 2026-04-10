@@ -1,0 +1,160 @@
+{
+  "ticker": "VEEV",
+  "company": "Veeva Systems Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.607795-04:00",
+  "sector": "Technology",
+  "industry": "Health Information Services",
+  "price": {
+    "current": 157.08,
+    "open": 165.69,
+    "high": 168.21,
+    "low": 156.23,
+    "prev_close": 166.57,
+    "change_pct": -5.7,
+    "change_pct_1w": -9.07,
+    "change_pct_1m": -17.19,
+    "change_pct_1y": -26.85,
+    "volume": 4307600,
+    "avg_volume_30d": 2132013
+  },
+  "scores": {
+    "master_score": 25.77,
+    "technical_score": 5.0,
+    "fundamental_score": 49.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 50.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 25.77,
+    "confidence": 0.26,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 25.4,
+    "macd": -5.7524,
+    "macd_signal": -4.3219,
+    "macd_histogram": -1.4305,
+    "macd_crossover": "neutral",
+    "ema_20": 175.84,
+    "ema_50": 187.46,
+    "ema_200": 225.64,
+    "ema_stack_bullish": false,
+    "bb_upper": 191.58,
+    "bb_middle": 177.39,
+    "bb_lower": 163.2,
+    "bb_width": 0.16,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.0,
+    "atr": 7.37,
+    "atr_pct": 0.0469,
+    "obv_trend": "DOWN",
+    "mfi": 23.0,
+    "cmf": -0.268,
+    "stoch_k": 2.7,
+    "stoch_d": 6.1,
+    "rvol": 0.96,
+    "volume_5d_avg": 2054540,
+    "green_days_10d": 4,
+    "52w_high": 306.22,
+    "52w_low": 157.08,
+    "52w_high_proximity_pct": 0.487,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 28.928179,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 3.5657861,
+    "de_ratio": 1.329,
+    "fcf_yield": 0.0406,
+    "eps_growth_5y": 0.232,
+    "revenue_growth_ttm": 0.16,
+    "gross_margin": 0.75526,
+    "operating_margin": 0.29413,
+    "net_margin": 0.28445,
+    "market_cap": 25821102080,
+    "enterprise_value": 19191068672,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.08568,
+    "institutional_ownership_pct": 0.88974,
+    "short_ratio": 2.47,
+    "beta": 1.103
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 156.29,
+    "entry_range_high": 157.87,
+    "target_range_low": 175.61,
+    "target_range_high": 188.15,
+    "stop_range_low": 135.22,
+    "stop_range_high": 142.34,
+    "target_price": 179.19,
+    "stop_loss": 142.34,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.607739-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 196.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 157.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2043,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "VEEV signals a STRONG_SELL (26% confidence) based on today's 5.70% price drop to $157.08 and bearish EMA alignment. The RSI of 25.4 indicates oversold conditions, but low ADX (22.0) shows weak trend strength. While Veeva's P/E of 28.93 is lower than the sector median, and gross/net margins are strong (75.5%/28.4%), proximity to 52-week high is only 48.7%. A break below immediate support at $155 could trigger further downside. Without specific positive news catalysts, the current technicals outweigh the solid fundamentals.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 26,
+    "price_change_display": "-5.70%",
+    "key_metrics": {
+      "RSI": 25.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

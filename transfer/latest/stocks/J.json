@@ -1,0 +1,158 @@
+{
+  "ticker": "J",
+  "company": "Jacobs Solutions Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.004807-04:00",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 127.13,
+    "open": 130.26,
+    "high": 130.71,
+    "low": 126.37,
+    "prev_close": 131.14,
+    "change_pct": -3.06,
+    "change_pct_1w": -1.0,
+    "change_pct_1m": -3.57,
+    "change_pct_1y": 16.74,
+    "volume": 830900,
+    "avg_volume_30d": 877726
+  },
+  "scores": {
+    "master_score": 35.93,
+    "technical_score": 37.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.93,
+    "confidence": 0.36,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 43.6,
+    "macd": -1.648,
+    "macd_signal": -2.0307,
+    "macd_histogram": 0.3827,
+    "macd_crossover": "neutral",
+    "ema_20": 129.31,
+    "ema_50": 132.59,
+    "ema_200": 136.36,
+    "ema_stack_bullish": false,
+    "bb_upper": 131.22,
+    "bb_middle": 128.33,
+    "bb_lower": 125.43,
+    "bb_width": 0.0451,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 24.0,
+    "atr": 3.8,
+    "atr_pct": 0.0299,
+    "obv_trend": "DOWN",
+    "mfi": 60.0,
+    "cmf": -0.223,
+    "stoch_k": 35.5,
+    "stoch_d": 53.5,
+    "rvol": 0.68,
+    "volume_5d_avg": 600180,
+    "green_days_10d": 4,
+    "52w_high": 163.62,
+    "52w_low": 108.63,
+    "52w_high_proximity_pct": 0.223,
+    "52w_low_proximity_pct": 0.1703
+  },
+  "fundamental": {
+    "pe_ratio": 33.543537,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 4.3406854,
+    "de_ratio": 65.173,
+    "fcf_yield": 0.0725,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.123,
+    "gross_margin": 0.24445999,
+    "operating_margin": 0.07434,
+    "net_margin": 0.03495,
+    "market_cap": 15012567040,
+    "enterprise_value": 17435035648,
+    "dividend_yield": 1.13,
+    "payout_ratio": 0.3377,
+    "insider_ownership_pct": 0.00616,
+    "institutional_ownership_pct": 0.91366,
+    "short_ratio": 3.93,
+    "beta": 0.752
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 126.49,
+    "entry_range_high": 127.77,
+    "target_range_low": 135.76,
+    "target_range_high": 145.46,
+    "stop_range_low": 113.55,
+    "stop_range_high": 119.53,
+    "target_price": 138.53,
+    "stop_loss": 119.53,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.004793-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 158.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 113.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 108.63,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1440,
+      "date": "2026-03-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 36,
+    "price_change_display": "-3.06%",
+    "key_metrics": {
+      "RSI": 43.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

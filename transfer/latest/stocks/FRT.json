@@ -1,0 +1,160 @@
+{
+  "ticker": "FRT",
+  "company": "Federal Realty Investment Trust",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.067983-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 107.39,
+    "open": 107.08,
+    "high": 108.24,
+    "low": 106.83,
+    "prev_close": 107.39,
+    "change_pct": 0.0,
+    "change_pct_1w": 1.25,
+    "change_pct_1m": 1.63,
+    "change_pct_1y": 29.74,
+    "volume": 1388100,
+    "avg_volume_30d": 844440
+  },
+  "scores": {
+    "master_score": 66.7,
+    "technical_score": 71.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 56.0,
+    "breakout_score": 0.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 66.7,
+    "confidence": 0.67,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 61.1,
+    "macd": 0.6058,
+    "macd_signal": 0.1506,
+    "macd_histogram": 0.4553,
+    "macd_crossover": "neutral",
+    "ema_20": 105.37,
+    "ema_50": 104.26,
+    "ema_200": 99.54,
+    "ema_stack_bullish": true,
+    "bb_upper": 108.4,
+    "bb_middle": 104.56,
+    "bb_lower": 100.73,
+    "bb_width": 0.0733,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.3,
+    "atr": 1.87,
+    "atr_pct": 0.0174,
+    "obv_trend": "UP",
+    "mfi": 59.3,
+    "cmf": -0.164,
+    "stoch_k": 84.4,
+    "stoch_d": 87.1,
+    "rvol": 1.32,
+    "volume_5d_avg": 1113200,
+    "green_days_10d": 7,
+    "52w_high": 109.39,
+    "52w_low": 79.9,
+    "52w_high_proximity_pct": 0.0183,
+    "52w_low_proximity_pct": 0.3441
+  },
+  "fundamental": {
+    "pe_ratio": 22.946583,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 2.9991343,
+    "de_ratio": 143.64,
+    "fcf_yield": 0.05,
+    "eps_growth_5y": 0.987,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.67917,
+    "operating_margin": 0.34458,
+    "net_margin": 0.32092997,
+    "market_cap": 9334062080,
+    "enterprise_value": 14595206144,
+    "dividend_yield": 4.18,
+    "payout_ratio": 0.953,
+    "insider_ownership_pct": 0.01122,
+    "institutional_ownership_pct": 0.99658996,
+    "short_ratio": 0.01,
+    "beta": 0.992
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 103.74,
+    "entry_range_high": 107.93,
+    "target_range_low": 110.74,
+    "target_range_high": 118.65,
+    "stop_range_low": 98.47,
+    "stop_range_high": 103.65,
+    "target_price": 113.0,
+    "stop_loss": 103.65,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.067967-04:00",
+    "categories": [
+      "top_signals"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 134.24,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 418.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 79.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11712,
+      "date": "2026-02-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "FRT exhibits a neutral FinMA signal, confidence 67%. Technically, the stock is trading near its 52-week high, suggesting continued strength. The bullish EMA alignment supports this, although a relatively weak ADX (20.3) indicates a lack of strong trend momentum. RSI at 61.1 provides room for upside.\n\nFundamentally, FRT presents a mixed picture. While revenue growth is a solid 7.5% TTM, the high dividend yield of 418.00% warrants scrutiny – sustainability is key. FRT trades at a discount to its sector based on P/E.\n\nA catalyst for further price appreciation could be a confirmed expansion in its retail property portfolio driving increased rental income. Key support level is around $105, resistance near the 52-week high.",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 67,
+    "price_change_display": "+0.00%",
+    "key_metrics": {
+      "RSI": 61.1,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

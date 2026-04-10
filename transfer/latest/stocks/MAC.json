@@ -1,0 +1,158 @@
+{
+  "ticker": "MAC",
+  "company": "The Macerich Company",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.065439-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 21.09,
+    "open": 20.55,
+    "high": 21.25,
+    "low": 20.55,
+    "prev_close": 20.68,
+    "change_pct": 1.98,
+    "change_pct_1w": 8.82,
+    "change_pct_1m": 9.54,
+    "change_pct_1y": 55.71,
+    "volume": 1908100,
+    "avg_volume_30d": 1902216
+  },
+  "scores": {
+    "master_score": 57.85,
+    "technical_score": 65.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 56.0,
+    "breakout_score": 35.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 57.85,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 69.3,
+    "macd": 0.3331,
+    "macd_signal": 0.0822,
+    "macd_histogram": 0.2509,
+    "macd_crossover": "neutral",
+    "ema_20": 19.42,
+    "ema_50": 19.07,
+    "ema_200": 17.96,
+    "ema_stack_bullish": true,
+    "bb_upper": 20.57,
+    "bb_middle": 19.07,
+    "bb_lower": 17.58,
+    "bb_width": 0.1568,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.9,
+    "atr": 0.66,
+    "atr_pct": 0.0312,
+    "obv_trend": "UP",
+    "mfi": 74.8,
+    "cmf": -0.128,
+    "stoch_k": 95.1,
+    "stoch_d": 94.2,
+    "rvol": 0.97,
+    "volume_5d_avg": 1839400,
+    "green_days_10d": 9,
+    "52w_high": 21.09,
+    "52w_low": 12.75,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6547
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 2.2132437,
+    "de_ratio": 203.236,
+    "fcf_yield": 0.0742,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.174,
+    "gross_margin": 0.56044996,
+    "operating_margin": 0.2442,
+    "net_margin": -0.18937,
+    "market_cap": 5681868800,
+    "enterprise_value": 10347064320,
+    "dividend_yield": 3.22,
+    "payout_ratio": 1.8889,
+    "insider_ownership_pct": 0.00391,
+    "institutional_ownership_pct": 1.07071,
+    "short_ratio": 6.06,
+    "beta": 2.193
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 18.97,
+    "entry_range_high": 21.2,
+    "target_range_low": 22.61,
+    "target_range_high": 24.22,
+    "stop_range_low": 18.78,
+    "stop_range_high": 19.77,
+    "target_price": 23.07,
+    "stop_loss": 19.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.065422-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 26.36,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 322.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6000,
+      "date": "2025-09-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 58,
+    "price_change_display": "+1.98%",
+    "key_metrics": {
+      "RSI": 69.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

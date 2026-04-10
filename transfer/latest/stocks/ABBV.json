@@ -2,7 +2,7 @@
   "ticker": "ABBV",
   "company": "AbbVie Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.430936-04:00",
+  "generated_at": "2026-04-10T05:26:07.738620-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 7141986
   },
   "scores": {
-    "master_score": 33.14,
+    "master_score": 33.4,
     "technical_score": 35.0,
     "fundamental_score": 27.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 46.4,
+    "sector_score": 49.0,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 70.0,
-    "signal_score": 33.14,
+    "signal_score": 33.4,
     "confidence": 0.33,
     "signal_type": "STRONG_SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 89.24369,
-    "sector_pe_median": 27.927784000000003,
+    "sector_pe_median": 25.183777499999998,
     "pb_ratio": -114.81081,
     "de_ratio": null,
     "fcf_yield": 0.0488,
@@ -98,7 +98,7 @@
     "stop_loss": 200.98,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.430936-04:00",
+    "generated_at": "2026-04-10T05:26:07.738604-04:00",
     "categories": []
   },
   "breakout": {

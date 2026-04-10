@@ -2,7 +2,7 @@
   "ticker": "NOW",
   "company": "ServiceNow, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.597876-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 17529976
   },
   "scores": {
-    "master_score": 20.97,
+    "master_score": 21.52,
     "technical_score": 5.0,
     "fundamental_score": 28.0,
     "momentum_score": 0.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 15.0,
     "value_score": 25.0,
     "reversal_score": 50.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 20.97,
-    "confidence": 0.21,
+    "signal_score": 21.52,
+    "confidence": 0.22,
     "signal_type": "STRONG_SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 53.778442,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 7.2550287,
     "de_ratio": 18.536,
     "fcf_yield": 0.0527,
@@ -98,7 +98,7 @@
     "stop_loss": 79.05,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
+    "generated_at": "2026-04-10T05:26:07.597851-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NOW exhibits a Strong Sell signal, albeit with low 21% confidence, driven by today's significant 7.86% price drop to $89.81 and bearish EMA alignment. The RSI of 26.7 indicates oversold conditions, while ADX at 24.7 suggests a developing downtrend. NOW is trading near its lower Bollinger Band. Key technical levels to watch are immediate support around $88 and resistance near $95. The high P/E of 53.78x compared to the sector median raises valuation concerns despite robust 20.7% TTM revenue growth and strong profitability. The lack of recent news suggests this price action may be driven by broader market sentiment impacting high-valuation tech stocks.",
+  "ai_summary": "NOW exhibits a STRONG_SELL signal, albeit with low 21% confidence. At $97.47, the stock is down 3.06% today. Technicals are mixed. RSI is 33.5 indicating oversold conditions, but the EMA stack is bearish, and ADX at 22.6 suggests a weak trend. The stock is 53.3% away from its 52-week high with MEDIUM BB Squeeze. Fundamentals show a high P/E of 58.37 versus the sector median of 32.77, despite a solid 20.7% revenue growth and 77.5% gross margin. A potential near-term catalyst is upcoming earnings results, which may not justify the current valuation based on sector comparison.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
-    "score_bar": 21,
+    "score_bar": 22,
     "price_change_display": "-7.86%",
     "key_metrics": {
       "RSI": 26.7,

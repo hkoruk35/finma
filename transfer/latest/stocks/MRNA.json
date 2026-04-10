@@ -1,0 +1,158 @@
+{
+  "ticker": "MRNA",
+  "company": "Moderna, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.747814-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 51.28,
+    "open": 51.63,
+    "high": 52.0,
+    "low": 50.58,
+    "prev_close": 52.1,
+    "change_pct": -1.57,
+    "change_pct_1w": 2.5,
+    "change_pct_1m": -6.73,
+    "change_pct_1y": 100.0,
+    "volume": 4436100,
+    "avg_volume_30d": 7812936
+  },
+  "scores": {
+    "master_score": 33.4,
+    "technical_score": 50.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 49.0,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 0.0,
+    "signal_score": 33.4,
+    "confidence": 0.33,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 51.7,
+    "macd": 0.1065,
+    "macd_signal": 0.3949,
+    "macd_histogram": -0.2884,
+    "macd_crossover": "neutral",
+    "ema_20": 50.96,
+    "ema_50": 48.42,
+    "ema_200": 37.66,
+    "ema_stack_bullish": true,
+    "bb_upper": 54.81,
+    "bb_middle": 51.46,
+    "bb_lower": 48.11,
+    "bb_width": 0.1302,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 20.8,
+    "atr": 2.92,
+    "atr_pct": 0.0569,
+    "obv_trend": "DOWN",
+    "mfi": 45.4,
+    "cmf": -0.122,
+    "stoch_k": 54.9,
+    "stoch_d": 53.4,
+    "rvol": 0.56,
+    "volume_5d_avg": 4343600,
+    "green_days_10d": 4,
+    "52w_high": 57.8,
+    "52w_low": 22.36,
+    "52w_high_proximity_pct": 0.1128,
+    "52w_low_proximity_pct": 1.2934
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 2.335793,
+    "de_ratio": 15.087,
+    "fcf_yield": -0.0652,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.298,
+    "gross_margin": -1.05761,
+    "operating_margin": -1.26401,
+    "net_margin": -1.4516499,
+    "market_cap": 20336973824,
+    "enterprise_value": 15758493696,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.07316,
+    "institutional_ownership_pct": 0.77136004,
+    "short_ratio": 6.35,
+    "beta": 1.336
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 48.18,
+    "entry_range_high": 51.54,
+    "target_range_low": 58.84,
+    "target_range_high": 63.04,
+    "stop_range_low": 43.17,
+    "stop_range_high": 45.44,
+    "target_price": 60.04,
+    "stop_loss": 45.44,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.747797-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 64.1,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 22.36,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1453,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 33,
+    "price_change_display": "-1.57%",
+    "key_metrics": {
+      "RSI": 51.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "VZ",
   "company": "Verizon Communications Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.646780-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 26977333
   },
   "scores": {
-    "master_score": 39.82,
+    "master_score": 40.3,
     "technical_score": 27.0,
     "fundamental_score": 60.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.7,
+    "sector_score": 43.5,
     "breakout_score": 15.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 39.82,
+    "signal_score": 40.3,
     "confidence": 0.4,
     "signal_type": "SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 11.768473,
-    "sector_pe_median": 17.509828499999998,
+    "sector_pe_median": 24.866439999999997,
     "pb_ratio": 1.9289463,
     "de_ratio": 174.78,
     "fcf_yield": 0.0856,
@@ -98,7 +98,7 @@
     "stop_loss": 45.86,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.646761-04:00",
     "categories": [
       "value",
       "dividend"
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "VZ displays a SELL signal, although with low confidence (40%). Bearish EMA alignment and low Bollinger Band proximity suggest potential further downside. The RSI of 35.3 indicates weakening momentum, while ADX at 25.7 confirms trend strength.\n\nWhile VZ trades at a P/E discount (11.77) compared to the sector median (17.51), its relatively modest 2.0% TTM revenue growth may concern investors. A high dividend yield of 589.00% is misleading.\n\nKey levels to watch: support around recent lows. Without positive news specific to VZ, such as significant subscriber growth or successful 5G monetization, the stock may continue its current trajectory.",
+  "ai_summary": "VZ is exhibiting a SELL signal with 40% confidence. Bearish EMA stack and RSI of 37.0 suggest further downside. ADX at 25.3 indicates a trending market. While the BB Squeeze is low, the current price is only 6.5% away from its 52-week high, increasing potential for reversal. VZ's P/E of 11.83 is lower than the sector median of 17.47. Revenue growth of 2.0% and a gross margin of 59.1% reflect moderate financial health. Monitor upcoming earnings reports for potential catalysts.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 40,

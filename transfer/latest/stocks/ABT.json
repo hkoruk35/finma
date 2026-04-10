@@ -2,7 +2,7 @@
   "ticker": "ABT",
   "company": "Abbott Laboratories",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.433913-04:00",
+  "generated_at": "2026-04-10T05:26:07.754371-04:00",
   "sector": "Healthcare",
   "industry": "Medical Devices",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 11381223
   },
   "scores": {
-    "master_score": 31.09,
+    "master_score": 28.35,
     "technical_score": 37.0,
-    "fundamental_score": 24.0,
+    "fundamental_score": 12.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 46.4,
+    "sector_score": 49.0,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 31.09,
-    "confidence": 0.31,
+    "signal_score": 28.35,
+    "confidence": 0.28,
     "signal_type": "STRONG_SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 27.612904,
-    "sector_pe_median": 27.927784000000003,
+    "sector_pe_median": 25.183777499999998,
     "pb_ratio": 3.421947,
     "de_ratio": 26.787,
     "fcf_yield": 0.0352,
@@ -82,7 +82,7 @@
     "dividend_yield": 2.45,
     "payout_ratio": 0.6344,
     "insider_ownership_pct": 0.00541,
-    "institutional_ownership_pct": 0.81987,
+    "institutional_ownership_pct": 0.81988,
     "short_ratio": 2.35,
     "beta": 0.782
   },
@@ -98,11 +98,8 @@
     "stop_loss": 98.38,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.433913-04:00",
-    "categories": [
-      "reversal",
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.754356-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -146,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ABT exhibits a STRONG_SELL signal, albeit with low 31% confidence. The bearish EMA alignment and low Bollinger Band positioning suggest continued downward pressure. While the ADX of 34.8 indicates a strengthening trend, the recent price decline to $102.72 and proximity of 24.6% from its 52-week high raise concern.\n\nDespite a lower P/E ratio of 27.8 compared to the sector median of 28.0, suggesting a potential undervaluation, the high dividend yield of 243.00% is extremely unusual and warrants immediate investigation. This outlier suggests a potential data anomaly or a sign of underlying financial distress. A catalyst for further decline could be clarification of the source and sustainability of this dividend yield. Key levels to watch: immediate support near $102, then $100.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "STRONG SELL",
-    "score_bar": 31,
+    "score_bar": 28,
     "price_change_display": "-0.81%",
     "key_metrics": {
       "RSI": 37.2,

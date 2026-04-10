@@ -2,8 +2,8 @@
   "ticker": "AMZN",
   "company": "Amazon.com, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
-  "sector": "Consumer Discretionary",
+  "generated_at": "2026-04-10T05:26:07.556871-04:00",
+  "sector": "Technology",
   "industry": "Internet Retail",
   "price": {
     "current": 233.65,
@@ -19,19 +19,19 @@
     "avg_volume_30d": 45407036
   },
   "scores": {
-    "master_score": 45.43,
+    "master_score": 48.27,
     "technical_score": 40.0,
-    "fundamental_score": 18.0,
+    "fundamental_score": 30.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 44.3,
+    "sector_score": 42.7,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 0.0,
-    "signal_score": 45.43,
-    "confidence": 0.45,
+    "signal_score": 48.27,
+    "confidence": 0.48,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 32.587166,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 6.0995665,
     "de_ratio": 43.435,
     "fcf_yield": 0.0095,
@@ -98,7 +98,7 @@
     "stop_loss": 220.29,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.556712-04:00",
     "categories": []
   },
   "breakout": {
@@ -138,15 +138,15 @@
     }
   },
   "sector_context": {
-    "sector_etf": "XLY",
-    "sector_performance_5d": 4.24,
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
   "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 45,
+    "score_bar": 48,
     "price_change_display": "+5.60%",
     "key_metrics": {
       "RSI": 69.0,

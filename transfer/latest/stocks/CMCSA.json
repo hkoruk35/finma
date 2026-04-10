@@ -2,7 +2,7 @@
   "ticker": "CMCSA",
   "company": "Comcast Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.649581-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 34163226
   },
   "scores": {
-    "master_score": 40.07,
+    "master_score": 40.55,
     "technical_score": 22.0,
     "fundamental_score": 60.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.7,
+    "sector_score": 43.5,
     "breakout_score": 15.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 40.07,
-    "confidence": 0.4,
+    "signal_score": 40.55,
+    "confidence": 0.41,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 5.2523193,
-    "sector_pe_median": 17.509828499999998,
+    "sector_pe_median": 24.866439999999997,
     "pb_ratio": 1.0529643,
     "de_ratio": 107.863,
     "fcf_yield": 0.0542,
@@ -82,7 +82,7 @@
     "dividend_yield": 4.66,
     "payout_ratio": 0.18370001,
     "insider_ownership_pct": 0.00758,
-    "institutional_ownership_pct": 0.88677,
+    "institutional_ownership_pct": 0.88683,
     "short_ratio": 2.91,
     "beta": 0.79
   },
@@ -98,7 +98,7 @@
     "stop_loss": 26.91,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.649565-04:00",
     "categories": [
       "value"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CMCSA exhibits a \"SELL\" signal (40% confidence) based on current technicals. The bearish EMA alignment and relatively weak ADX (22.3) suggest limited upward momentum despite today's 1.25% gain to $28.31. The stock is trading 13.2% below its 52-week high, and Bollinger Bands indicate it's nearing oversold territory. While valuation is attractive (P/E 5.18 vs sector median of 17.51) and profitability is strong (16.2% net margin), weak TTM revenue growth of only 1.2% provides a key catalyst for concern. Watch for further weakness below the lower Bollinger Band as a confirmation of the sell signal. The unsustainably high dividend yield of 472.00% is likely a data error.",
+  "ai_summary": "CMCSA exhibits a FinMA SELL signal (41% confidence) based on bearish EMA alignment and low Bollinger Band positioning, despite a 1.25% price increase today to $28.31. The stock is 13.2% below its 52-week high. While the RSI (43.0) and neutral MACD offer no immediate directional bias, weak ADX strength (22.3) suggests a lack of a strong trend. CMCSA trades at a P/E of 5.25, a significant discount to its sector median, yet revenue growth is a modest 1.2% TTM. A key level to watch is a breach of recent lows, potentially accelerating the sell-off. High Dividend Yield of 466.00% might be unsustainable.",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 40,
+    "score_bar": 41,
     "price_change_display": "+1.25%",
     "key_metrics": {
       "RSI": 43.0,

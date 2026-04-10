@@ -2,7 +2,7 @@
   "ticker": "NEM",
   "company": "Newmont Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.475719-04:00",
+  "generated_at": "2026-04-10T05:26:07.923076-04:00",
   "sector": "Materials",
   "industry": "Gold",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 11293843
   },
   "scores": {
-    "master_score": 54.6,
+    "master_score": 50.72,
     "technical_score": 45.0,
-    "fundamental_score": 45.0,
+    "fundamental_score": 32.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 61.0,
+    "sector_score": 54.7,
     "breakout_score": 15.0,
-    "value_score": 50.0,
+    "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 54.6,
-    "confidence": 0.55,
-    "signal_type": "NEUTRAL"
+    "signal_score": 50.72,
+    "confidence": 0.51,
+    "signal_type": "SELL"
   },
   "technical": {
     "rsi_14": 61.2,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 18.624414,
-    "sector_pe_median": 33.581481499999995,
+    "sector_pe_median": 23.75,
     "pb_ratio": 3.8250892,
     "de_ratio": 16.738,
     "fcf_yield": 0.0734,
@@ -87,7 +87,7 @@
     "beta": 0.475
   },
   "signals": {
-    "signal_type": "NEUTRAL",
+    "signal_type": "SELL",
     "entry_range_low": 111.07,
     "entry_range_high": 119.61,
     "target_range_low": 131.45,
@@ -98,10 +98,8 @@
     "stop_loss": 108.93,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.475719-04:00",
-    "categories": [
-      "value"
-    ]
+    "generated_at": "2026-04-10T05:26:07.923056-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -113,7 +111,7 @@
     "intrinsic_value_estimate": 148.76,
     "margin_of_safety_pct": 25.0,
     "value_catalyst": "Earnings growth consistency and low debt profile.",
-    "value_score": 50.0
+    "value_score": 25.0
   },
   "dividend": {
     "next_dividend_date": null,
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NEM shows a Neutral signal with moderate confidence (57%). Technically, the EMA bearish alignment contrasts with a relatively low Bollinger Band position, indicating potential price support near current levels. The RSI of 61.2 suggests rising buying pressure, but ADX at 23.3 indicates a weak trend.\n\nFundamentally, NEM is undervalued compared to its sector with a P/E of 18.6, supported by robust 20.6% revenue growth and strong margins. The exceptionally high dividend yield of 88% might attract income-seeking investors, acting as a potential catalyst for price appreciation, though sustainability needs monitoring. Watch for dividend payout confirmations to influence price action. Key levels to monitor: potential support at the lower Bollinger Band and resistance near the 52-week high.",
+  "ai_summary": "",
   "quick_view": {
-    "signal_badge": "NEUTRAL",
-    "score_bar": 55,
+    "signal_badge": "SELL",
+    "score_bar": 51,
     "price_change_display": "+0.73%",
     "key_metrics": {
       "RSI": 61.2,

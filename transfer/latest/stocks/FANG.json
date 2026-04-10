@@ -2,7 +2,7 @@
   "ticker": "FANG",
   "company": "Diamondback Energy, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.433913-04:00",
+  "generated_at": "2026-04-10T05:26:07.873010-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3896380
   },
   "scores": {
-    "master_score": 36.31,
+    "master_score": 36.67,
     "technical_score": 35.0,
     "fundamental_score": 25.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 43.1,
+    "sector_score": 46.7,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 36.31,
-    "confidence": 0.36,
+    "signal_score": 36.67,
+    "confidence": 0.37,
     "signal_type": "STRONG_SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 32.45819,
-    "sector_pe_median": 23.140299,
+    "sector_pe_median": 18.186544,
     "pb_ratio": 1.4341357,
     "de_ratio": 33.784,
     "fcf_yield": 0.0095,
@@ -98,7 +98,7 @@
     "stop_loss": 171.77,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.433913-04:00",
+    "generated_at": "2026-04-10T05:26:07.872995-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "signal_badge": "STRONG SELL",
-    "score_bar": 36,
+    "score_bar": 37,
     "price_change_display": "-0.09%",
     "key_metrics": {
       "RSI": 48.2,

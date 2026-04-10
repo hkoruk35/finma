@@ -1,0 +1,158 @@
+{
+  "ticker": "EW",
+  "company": "Edwards Lifesciences Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.782190-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 79.15,
+    "open": 81.32,
+    "high": 81.32,
+    "low": 79.06,
+    "prev_close": 81.71,
+    "change_pct": -3.13,
+    "change_pct_1w": -2.6,
+    "change_pct_1m": -7.73,
+    "change_pct_1y": 14.71,
+    "volume": 5469100,
+    "avg_volume_30d": 4614970
+  },
+  "scores": {
+    "master_score": 22.95,
+    "technical_score": 13.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.0,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 22.95,
+    "confidence": 0.23,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 40.3,
+    "macd": -0.6353,
+    "macd_signal": -0.4651,
+    "macd_histogram": -0.1702,
+    "macd_crossover": "neutral",
+    "ema_20": 81.46,
+    "ema_50": 82.06,
+    "ema_200": 80.49,
+    "ema_stack_bullish": false,
+    "bb_upper": 84.65,
+    "bb_middle": 81.72,
+    "bb_lower": 78.79,
+    "bb_width": 0.0717,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.9,
+    "atr": 2.18,
+    "atr_pct": 0.0276,
+    "obv_trend": "DOWN",
+    "mfi": 43.6,
+    "cmf": -0.18,
+    "stoch_k": 24.9,
+    "stoch_d": 47.1,
+    "rvol": 0.86,
+    "volume_5d_avg": 3965600,
+    "green_days_10d": 5,
+    "52w_high": 87.18,
+    "52w_low": 67.07,
+    "52w_high_proximity_pct": 0.0921,
+    "52w_low_proximity_pct": 0.1801
+  },
+  "fundamental": {
+    "pe_ratio": 43.729282,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 4.44613,
+    "de_ratio": 6.824,
+    "fcf_yield": 0.0254,
+    "eps_growth_5y": -0.766,
+    "revenue_growth_ttm": 0.133,
+    "gross_margin": 0.78011,
+    "operating_margin": 0.237,
+    "net_margin": 0.17692,
+    "market_cap": 45970321408,
+    "enterprise_value": 42449420288,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00171,
+    "institutional_ownership_pct": 0.92408997,
+    "short_ratio": 2.27,
+    "beta": 0.945
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 78.75,
+    "entry_range_high": 79.55,
+    "target_range_low": 83.98,
+    "target_range_high": 89.97,
+    "stop_range_low": 71.05,
+    "stop_range_high": 74.79,
+    "target_price": 85.69,
+    "stop_loss": 74.79,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.782163-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 98.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 67.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1019,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 23,
+    "price_change_display": "-3.13%",
+    "key_metrics": {
+      "RSI": 40.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "BLK",
   "company": "BlackRock, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.417116-04:00",
+  "generated_at": "2026-04-10T05:26:07.824266-04:00",
   "sector": "Financials",
   "industry": "Asset Management",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 939546
   },
   "scores": {
-    "master_score": 43.64,
+    "master_score": 43.97,
     "technical_score": 56.0,
     "fundamental_score": 20.0,
     "momentum_score": 30.0,
     "sentiment_score": 85.0,
-    "sector_score": 45.4,
+    "sector_score": 48.7,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 43.64,
+    "signal_score": 43.97,
     "confidence": 0.44,
     "signal_type": "SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 28.326357,
-    "sector_pe_median": 17.637001,
+    "sector_pe_median": 16.018940999999998,
     "pb_ratio": 2.7791357,
     "de_ratio": 24.367,
     "fcf_yield": 0.0452,
@@ -82,7 +82,7 @@
     "dividend_yield": 2.29,
     "payout_ratio": 0.5902,
     "insider_ownership_pct": 0.019709999,
-    "institutional_ownership_pct": 0.82519996,
+    "institutional_ownership_pct": 0.82521003,
     "short_ratio": 1.65,
     "beta": 1.493
   },
@@ -98,10 +98,8 @@
     "stop_loss": 942.2,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.417116-04:00",
-    "categories": [
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.824253-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -145,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BLK exhibits a \"SELL\" signal with low confidence (44%). Technically, the bearish EMA alignment and neutral MACD suggest potential downward pressure. ADX at 25.6 indicates a developing trend, while volume is below average. BLK trades 15.8% below its 52-week high.\n\nFundamentally, BlackRock's TTM revenue growth of 23.4% is strong; however, its P/E of 28.33 is substantially higher than the sector median (17.6), suggesting overvaluation. A very high dividend yield of 229% is unusual and warrants further investigation; it's potentially unsustainable and could signal financial distress. Without any recent news catalysts to justify the premium, a correction is possible. Key level to watch: recent support around $975.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 44,

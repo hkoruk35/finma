@@ -1,0 +1,158 @@
+{
+  "ticker": "AMGN",
+  "company": "Amgen Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.742108-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 355.6,
+    "open": 347.46,
+    "high": 359.45,
+    "low": 346.42,
+    "prev_close": 349.81,
+    "change_pct": 1.66,
+    "change_pct_1w": 0.66,
+    "change_pct_1m": -5.28,
+    "change_pct_1y": 26.6,
+    "volume": 2940700,
+    "avg_volume_30d": 2693886
+  },
+  "scores": {
+    "master_score": 49.0,
+    "technical_score": 51.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 49.0,
+    "breakout_score": 40.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 49.0,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 50.4,
+    "macd": -4.3368,
+    "macd_signal": -4.3988,
+    "macd_histogram": 0.062,
+    "macd_crossover": "bullish",
+    "ema_20": 353.56,
+    "ema_50": 354.67,
+    "ema_200": 327.51,
+    "ema_stack_bullish": false,
+    "bb_upper": 367.3,
+    "bb_middle": 352.73,
+    "bb_lower": 338.17,
+    "bb_width": 0.0826,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 19.2,
+    "atr": 8.47,
+    "atr_pct": 0.0238,
+    "obv_trend": "UP",
+    "mfi": 39.4,
+    "cmf": -0.232,
+    "stoch_k": 84.2,
+    "stoch_d": 55.9,
+    "rvol": 0.93,
+    "volume_5d_avg": 2503460,
+    "green_days_10d": 5,
+    "52w_high": 388.16,
+    "52w_low": 254.3,
+    "52w_high_proximity_pct": 0.0839,
+    "52w_low_proximity_pct": 0.3983
+  },
+  "fundamental": {
+    "pe_ratio": 25.007032,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 22.129566,
+    "de_ratio": 640.275,
+    "fcf_yield": 0.0391,
+    "eps_growth_5y": 1.121,
+    "revenue_growth_ttm": 0.086,
+    "gross_margin": 0.70783997,
+    "operating_margin": 0.30549,
+    "net_margin": 0.20982,
+    "market_cap": 191692455936,
+    "enterprise_value": 237998473216,
+    "dividend_yield": 2.83,
+    "payout_ratio": 0.669,
+    "insider_ownership_pct": 0.00223,
+    "institutional_ownership_pct": 0.85206,
+    "short_ratio": 6.07,
+    "beta": 0.465
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 352.9,
+    "entry_range_high": 357.38,
+    "target_range_low": 373.39,
+    "target_range_high": 400.06,
+    "stop_range_low": 321.73,
+    "stop_range_high": 338.66,
+    "target_price": 381.01,
+    "stop_loss": 338.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.742092-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 40.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 444.5,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 283.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 254.3,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 119782,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "+1.66%",
+    "key_metrics": {
+      "RSI": 50.4,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

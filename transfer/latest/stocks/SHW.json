@@ -2,7 +2,7 @@
   "ticker": "SHW",
   "company": "The Sherwin-Williams Company",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.475719-04:00",
+  "generated_at": "2026-04-10T05:26:07.939505-04:00",
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1727806
   },
   "scores": {
-    "master_score": 48.6,
+    "master_score": 44.97,
     "technical_score": 50.0,
-    "fundamental_score": 30.0,
+    "fundamental_score": 18.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 61.0,
+    "sector_score": 54.7,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 48.6,
-    "confidence": 0.49,
+    "signal_score": 44.97,
+    "confidence": 0.45,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 32.69036,
-    "sector_pe_median": 33.581481499999995,
+    "sector_pe_median": 23.75,
     "pb_ratio": 17.981363,
     "de_ratio": 306.061,
     "fcf_yield": 0.0232,
@@ -98,7 +98,7 @@
     "stop_loss": 315.87,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.475719-04:00",
+    "generated_at": "2026-04-10T05:26:07.939489-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 49,
+    "score_bar": 45,
     "price_change_display": "+0.02%",
     "key_metrics": {
       "RSI": 56.8,

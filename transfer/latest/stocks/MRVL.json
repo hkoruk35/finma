@@ -1,0 +1,160 @@
+{
+  "ticker": "MRVL",
+  "company": "Marvell Technology, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.574806-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 119.93,
+    "open": 118.96,
+    "high": 121.97,
+    "low": 117.83,
+    "prev_close": 114.45,
+    "change_pct": 4.79,
+    "change_pct_1w": 12.39,
+    "change_pct_1m": 28.54,
+    "change_pct_1y": 135.94,
+    "volume": 32677500,
+    "avg_volume_30d": 24854453
+  },
+  "scores": {
+    "master_score": 49.77,
+    "technical_score": 55.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 49.77,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 75.6,
+    "macd": 7.6026,
+    "macd_signal": 5.3777,
+    "macd_histogram": 2.2249,
+    "macd_crossover": "neutral",
+    "ema_20": 100.1,
+    "ema_50": 91.93,
+    "ema_200": 83.98,
+    "ema_stack_bullish": true,
+    "bb_upper": 117.32,
+    "bb_middle": 97.52,
+    "bb_lower": 77.72,
+    "bb_width": 0.406,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.7,
+    "atr": 5.8,
+    "atr_pct": 0.0483,
+    "obv_trend": "UP",
+    "mfi": 84.9,
+    "cmf": 0.183,
+    "stoch_k": 94.2,
+    "stoch_d": 93.6,
+    "rvol": 1.03,
+    "volume_5d_avg": 25493240,
+    "green_days_10d": 6,
+    "52w_high": 119.93,
+    "52w_low": 49.27,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.4341
+  },
+  "fundamental": {
+    "pe_ratio": 39.065147,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 7.101913,
+    "de_ratio": 33.479,
+    "fcf_yield": 0.0138,
+    "eps_growth_5y": 1.063,
+    "revenue_growth_ttm": 0.221,
+    "gross_margin": 0.51023996,
+    "operating_margin": 0.18655,
+    "net_margin": 0.32584,
+    "market_cap": 104873779200,
+    "enterprise_value": 107006296064,
+    "dividend_yield": 0.2,
+    "payout_ratio": 0.078200005,
+    "insider_ownership_pct": 0.0034999999,
+    "institutional_ownership_pct": 0.83598,
+    "short_ratio": 1.94,
+    "beta": 1.822
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 91.47,
+    "entry_range_high": 120.53,
+    "target_range_low": 134.58,
+    "target_range_high": 144.2,
+    "stop_range_low": 102.91,
+    "stop_range_high": 108.33,
+    "target_price": 137.33,
+    "stop_loss": 108.33,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.574768-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 149.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 20.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 49.27,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6900,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "MRVL exhibits a SELL signal despite today's 4.79% price increase to $119.93, fueled by proximity to its 52-week high. RSI at 75.6 indicates overbought conditions, while ADX at 21.7 suggests a weak trend. The high dividend yield of 20.00% may be artificially inflating the price as investors chase yield, creating a potential downside risk. Key technical levels to watch are resistance around $120 (recent high) and support near the lower Bollinger Band. Given the lack of recent news, this rally may be unsustainable.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "+4.79%",
+    "key_metrics": {
+      "RSI": 75.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

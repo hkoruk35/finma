@@ -1,0 +1,158 @@
+{
+  "ticker": "ANF",
+  "company": "Abercrombie & Fitch Co.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.704916-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 103.49,
+    "open": 101.25,
+    "high": 104.81,
+    "low": 101.08,
+    "prev_close": 101.97,
+    "change_pct": 1.49,
+    "change_pct_1w": 9.79,
+    "change_pct_1m": 19.19,
+    "change_pct_1y": 42.33,
+    "volume": 864200,
+    "avg_volume_30d": 1468363
+  },
+  "scores": {
+    "master_score": 52.7,
+    "technical_score": 40.0,
+    "fundamental_score": 53.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 49.5,
+    "breakout_score": 15.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 52.7,
+    "confidence": 0.53,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 68.5,
+    "macd": 2.0336,
+    "macd_signal": 0.0331,
+    "macd_histogram": 2.0004,
+    "macd_crossover": "neutral",
+    "ema_20": 93.47,
+    "ema_50": 94.0,
+    "ema_200": 93.16,
+    "ema_stack_bullish": false,
+    "bb_upper": 101.83,
+    "bb_middle": 90.49,
+    "bb_lower": 79.14,
+    "bb_width": 0.2507,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.3,
+    "atr": 4.45,
+    "atr_pct": 0.043,
+    "obv_trend": "UP",
+    "mfi": 75.1,
+    "cmf": 0.022,
+    "stoch_k": 91.2,
+    "stoch_d": 90.7,
+    "rvol": 0.7,
+    "volume_5d_avg": 1032880,
+    "green_days_10d": 7,
+    "52w_high": 129.85,
+    "52w_low": 65.61,
+    "52w_high_proximity_pct": 0.203,
+    "52w_low_proximity_pct": 0.5774
+  },
+  "fundamental": {
+    "pe_ratio": 9.893881,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": 3.317625,
+    "de_ratio": 82.236,
+    "fcf_yield": 0.0556,
+    "eps_growth_5y": 0.03,
+    "revenue_growth_ttm": 0.054,
+    "gross_margin": 0.61474,
+    "operating_margin": 0.15227,
+    "net_margin": 0.096260004,
+    "market_cap": 4745798144,
+    "enterprise_value": 5049268736,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02437,
+    "institutional_ownership_pct": 1.04119,
+    "short_ratio": 1.95,
+    "beta": 1.127
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 93.53,
+    "entry_range_high": 104.01,
+    "target_range_low": 114.5,
+    "target_range_high": 122.68,
+    "stop_range_low": 89.86,
+    "stop_range_high": 94.59,
+    "target_price": 116.84,
+    "stop_loss": 94.59,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.704897-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 129.36,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 65.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 70522,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 53,
+    "price_change_display": "+1.49%",
+    "key_metrics": {
+      "RSI": 68.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

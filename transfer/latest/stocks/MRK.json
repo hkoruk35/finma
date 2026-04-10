@@ -2,7 +2,7 @@
   "ticker": "MRK",
   "company": "Merck & Co., Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.432944-04:00",
+  "generated_at": "2026-04-10T05:26:07.739578-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 10056053
   },
   "scores": {
-    "master_score": 46.89,
+    "master_score": 47.15,
     "technical_score": 50.0,
     "fundamental_score": 37.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 46.4,
+    "sector_score": 49.0,
     "breakout_score": 15.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 46.89,
+    "signal_score": 47.15,
     "confidence": 0.47,
     "signal_type": "SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 16.874828,
-    "sector_pe_median": 27.927784000000003,
+    "sector_pe_median": 25.183777499999998,
     "pb_ratio": 5.771004,
     "de_ratio": 95.959,
     "fcf_yield": 0.0392,
@@ -98,10 +98,8 @@
     "stop_loss": 116.84,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.432944-04:00",
-    "categories": [
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.739561-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MRK signals a SELL (47% confidence) despite bullish EMA alignment and high gross margin (77.2%). The primary concern is the unsustainably high dividend yield of 276.00%, raising questions about future payouts.\n\nTechnically, MRK is near its 52-week high, but the low ADX (13.5) indicates a weak trend. RSI at 63.1 suggests it is nearing overbought territory.\n\nKey levels to watch: Resistance at the 52-week high and support around $118. Earnings call in 3 weeks could be a negative catalyst if dividend expectations are revised downwards.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 47,

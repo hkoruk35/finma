@@ -2,7 +2,7 @@
   "ticker": "MS",
   "company": "Morgan Stanley",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.417116-04:00",
+  "generated_at": "2026-04-10T05:26:07.823374-04:00",
   "sector": "Financials",
   "industry": "Capital Markets",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 7255866
   },
   "scores": {
-    "master_score": 54.04,
+    "master_score": 51.37,
     "technical_score": 45.0,
-    "fundamental_score": 45.0,
+    "fundamental_score": 33.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 45.4,
+    "sector_score": 48.7,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 54.04,
-    "confidence": 0.54,
+    "signal_score": 51.37,
+    "confidence": 0.51,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 17.246855,
-    "sector_pe_median": 17.637001,
+    "sector_pe_median": 16.018940999999998,
     "pb_ratio": 2.767878,
     "de_ratio": 455.747,
     "fcf_yield": null,
@@ -98,10 +98,8 @@
     "stop_loss": 166.9,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.417116-04:00",
-    "categories": [
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T05:26:07.823360-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MS exhibits a contradictory profile. Despite strong profitability (24% net margin, 87.1% gross margin) and notable TTM revenue growth of 11.0%, the FinMA signal is SELL (54% confidence).\n\nTechnically, EMA alignment is bearish and ADX strength is weak at 18.4. While RSI is approaching overbought territory at 67.8, the price remains only 6.3% off its 52-week high. P/E indicates slight undervaluation vs. the sector. The extremely high dividend yield of 227.00% is unsustainable and potentially indicative of underlying financial stress or an imminent dividend cut, likely driving the sell signal. Monitor upcoming earnings reports for confirmation of this catalyst.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 54,
+    "score_bar": 51,
     "price_change_display": "+1.22%",
     "key_metrics": {
       "RSI": 67.8,

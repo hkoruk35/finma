@@ -1,0 +1,158 @@
+{
+  "ticker": "IR",
+  "company": "Ingersoll Rand Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.975905-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 87.03,
+    "open": 83.98,
+    "high": 87.62,
+    "low": 83.98,
+    "prev_close": 84.67,
+    "change_pct": 2.79,
+    "change_pct_1w": 8.79,
+    "change_pct_1m": 0.71,
+    "change_pct_1y": 28.22,
+    "volume": 2984000,
+    "avg_volume_30d": 3082456
+  },
+  "scores": {
+    "master_score": 50.48,
+    "technical_score": 65.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.48,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 57.6,
+    "macd": -1.5366,
+    "macd_signal": -2.3802,
+    "macd_histogram": 0.8436,
+    "macd_crossover": "neutral",
+    "ema_20": 82.79,
+    "ema_50": 85.09,
+    "ema_200": 83.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 86.38,
+    "bb_middle": 81.58,
+    "bb_lower": 76.78,
+    "bb_width": 0.1177,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 33.2,
+    "atr": 3.01,
+    "atr_pct": 0.0346,
+    "obv_trend": "UP",
+    "mfi": 52.8,
+    "cmf": 0.087,
+    "stoch_k": 94.9,
+    "stoch_d": 76.4,
+    "rvol": 0.94,
+    "volume_5d_avg": 2886340,
+    "green_days_10d": 5,
+    "52w_high": 98.74,
+    "52w_low": 66.69,
+    "52w_high_proximity_pct": 0.1186,
+    "52w_low_proximity_pct": 0.3051
+  },
+  "fundamental": {
+    "pe_ratio": 60.020687,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 3.373648,
+    "de_ratio": 50.699,
+    "fcf_yield": 0.0313,
+    "eps_growth_5y": 0.184,
+    "revenue_growth_ttm": 0.101,
+    "gross_margin": 0.43607,
+    "operating_margin": 0.20011999,
+    "net_margin": 0.07599,
+    "market_cap": 34386456576,
+    "enterprise_value": 38030712832,
+    "dividend_yield": 0.09,
+    "payout_ratio": 0.0552,
+    "insider_ownership_pct": 0.00232,
+    "institutional_ownership_pct": 0.96884,
+    "short_ratio": 4.24,
+    "beta": 1.333
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 84.66,
+    "entry_range_high": 87.47,
+    "target_range_low": 94.14,
+    "target_range_high": 100.86,
+    "stop_range_low": 76.96,
+    "stop_range_high": 81.01,
+    "target_price": 96.06,
+    "stop_loss": 81.01,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.975890-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 108.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 9.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 66.69,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 118044,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "+2.79%",
+    "key_metrics": {
+      "RSI": 57.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

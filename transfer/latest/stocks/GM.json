@@ -1,0 +1,158 @@
+{
+  "ticker": "GM",
+  "company": "General Motors Company",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.668078-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 76.73,
+    "open": 75.59,
+    "high": 77.31,
+    "low": 75.38,
+    "prev_close": 76.74,
+    "change_pct": -0.01,
+    "change_pct_1w": 2.25,
+    "change_pct_1m": 2.4,
+    "change_pct_1y": 78.06,
+    "volume": 6674900,
+    "avg_volume_30d": 7864133
+  },
+  "scores": {
+    "master_score": 38.55,
+    "technical_score": 41.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.5,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 38.55,
+    "confidence": 0.39,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 54.0,
+    "macd": -0.6343,
+    "macd_signal": -1.085,
+    "macd_histogram": 0.4506,
+    "macd_crossover": "neutral",
+    "ema_20": 75.01,
+    "ema_50": 76.43,
+    "ema_200": 69.43,
+    "ema_stack_bullish": false,
+    "bb_upper": 77.29,
+    "bb_middle": 74.25,
+    "bb_lower": 71.21,
+    "bb_width": 0.0819,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 19.4,
+    "atr": 2.36,
+    "atr_pct": 0.0307,
+    "obv_trend": "DOWN",
+    "mfi": 42.9,
+    "cmf": -0.114,
+    "stoch_k": 76.7,
+    "stoch_d": 57.0,
+    "rvol": 0.84,
+    "volume_5d_avg": 6615220,
+    "green_days_10d": 4,
+    "52w_high": 86.18,
+    "52w_low": 42.05,
+    "52w_high_proximity_pct": 0.1096,
+    "52w_low_proximity_pct": 0.8246
+  },
+  "fundamental": {
+    "pe_ratio": 23.464832,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": 1.1348913,
+    "de_ratio": 208.299,
+    "fcf_yield": 0.1196,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.051,
+    "gross_margin": 0.107209995,
+    "operating_margin": 0.065359995,
+    "net_margin": 0.014579999,
+    "market_cap": 71578451968,
+    "enterprise_value": 175319449600,
+    "dividend_yield": 0.94,
+    "payout_ratio": 0.1743,
+    "insider_ownership_pct": 0.0026800002,
+    "institutional_ownership_pct": 0.8798,
+    "short_ratio": 2.57,
+    "beta": 1.345
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 76.05,
+    "entry_range_high": 77.11,
+    "target_range_low": 82.13,
+    "target_range_high": 88.0,
+    "stop_range_low": 68.41,
+    "stop_range_high": 72.01,
+    "target_price": 83.81,
+    "stop_loss": 72.01,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.668062-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 95.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 94.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 42.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 480724,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 39,
+    "price_change_display": "-0.01%",
+    "key_metrics": {
+      "RSI": 54.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "NTAP",
+  "company": "NetApp, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.632852-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 95.67,
+    "open": 99.08,
+    "high": 99.15,
+    "low": 94.89,
+    "prev_close": 99.47,
+    "change_pct": -3.82,
+    "change_pct_1w": -5.76,
+    "change_pct_1m": -0.77,
+    "change_pct_1y": 26.54,
+    "volume": 2449000,
+    "avg_volume_30d": 2412590
+  },
+  "scores": {
+    "master_score": 29.97,
+    "technical_score": 12.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 29.97,
+    "confidence": 0.3,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 39.9,
+    "macd": -0.4514,
+    "macd_signal": 0.1323,
+    "macd_histogram": -0.5837,
+    "macd_crossover": "neutral",
+    "ema_20": 100.41,
+    "ema_50": 101.29,
+    "ema_200": 105.28,
+    "ema_stack_bullish": false,
+    "bb_upper": 105.65,
+    "bb_middle": 100.87,
+    "bb_lower": 96.1,
+    "bb_width": 0.0947,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.2,
+    "atr": 3.45,
+    "atr_pct": 0.036,
+    "obv_trend": "DOWN",
+    "mfi": 35.3,
+    "cmf": -0.195,
+    "stoch_k": 6.5,
+    "stoch_d": 18.9,
+    "rvol": 0.83,
+    "volume_5d_avg": 1999180,
+    "green_days_10d": 3,
+    "52w_high": 124.56,
+    "52w_low": 74.69,
+    "52w_high_proximity_pct": 0.232,
+    "52w_low_proximity_pct": 0.2808
+  },
+  "fundamental": {
+    "pe_ratio": 16.052013,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 16.359438,
+    "de_ratio": 236.097,
+    "fcf_yield": 0.0589,
+    "eps_growth_5y": 0.16,
+    "revenue_growth_ttm": 0.044,
+    "gross_margin": 0.70458,
+    "operating_margin": 0.25160998,
+    "net_margin": 0.18065001,
+    "market_cap": 18948433920,
+    "enterprise_value": 18597599232,
+    "dividend_yield": 2.17,
+    "payout_ratio": 0.349,
+    "insider_ownership_pct": 0.00509,
+    "institutional_ownership_pct": 1.02291,
+    "short_ratio": 8.39,
+    "beta": 1.292
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 95.19,
+    "entry_range_high": 96.15,
+    "target_range_low": 103.9,
+    "target_range_high": 111.32,
+    "stop_range_low": 84.33,
+    "stop_range_high": 88.77,
+    "target_price": 106.02,
+    "stop_loss": 88.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.632834-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 119.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 217.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 74.69,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1000,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "NTAP signals a STRONG_SELL, driven by bearish EMA alignment and a concerning 3.82% price drop today to $95.67. The RSI at 39.9 further supports downward momentum. Although trading at a P/E of 16.05, significantly below the sector median, this value proposition is overshadowed by weak ADX strength (18.2) suggesting a weak trend. Key technical levels to watch are the recent lows, as a breach could trigger further selling. The unusually high dividend yield of 217% may be unsustainable and could trigger a dividend cut, a potential catalyst for further price decline if declared.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 30,
+    "price_change_display": "-3.82%",
+    "key_metrics": {
+      "RSI": 39.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "BR",
+  "company": "Broadridge Financial Solutions, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.012765-04:00",
+  "sector": "Industrials",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 154.79,
+    "open": 159.56,
+    "high": 160.21,
+    "low": 154.25,
+    "prev_close": 160.97,
+    "change_pct": -3.84,
+    "change_pct_1w": -3.24,
+    "change_pct_1m": -16.6,
+    "change_pct_1y": -28.49,
+    "volume": 1672300,
+    "avg_volume_30d": 1752660
+  },
+  "scores": {
+    "master_score": 33.23,
+    "technical_score": 15.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 50.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 33.23,
+    "confidence": 0.33,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 29.9,
+    "macd": -6.4402,
+    "macd_signal": -6.1895,
+    "macd_histogram": -0.2507,
+    "macd_crossover": "neutral",
+    "ema_20": 166.2,
+    "ema_50": 178.35,
+    "ema_200": 208.61,
+    "ema_stack_bullish": false,
+    "bb_upper": 182.11,
+    "bb_middle": 166.76,
+    "bb_lower": 151.41,
+    "bb_width": 0.1841,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.5,
+    "atr": 5.57,
+    "atr_pct": 0.036,
+    "obv_trend": "DOWN",
+    "mfi": 25.4,
+    "cmf": -0.281,
+    "stoch_k": 2.4,
+    "stoch_d": 14.5,
+    "rvol": 0.86,
+    "volume_5d_avg": 1504600,
+    "green_days_10d": 4,
+    "52w_high": 263.28,
+    "52w_low": 154.79,
+    "52w_high_proximity_pct": 0.4121,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 17.122787,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 6.2739134,
+    "de_ratio": 117.175,
+    "fcf_yield": 0.0662,
+    "eps_growth_5y": 1.017,
+    "revenue_growth_ttm": 0.078,
+    "gross_margin": 0.31219998,
+    "operating_margin": 0.120249994,
+    "net_margin": 0.14864,
+    "market_cap": 18071531520,
+    "enterprise_value": 21073733632,
+    "dividend_yield": 2.52,
+    "payout_ratio": 0.4104,
+    "insider_ownership_pct": 0.005,
+    "institutional_ownership_pct": 0.94786,
+    "short_ratio": 3.07,
+    "beta": 1.015
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 154.02,
+    "entry_range_high": 155.56,
+    "target_range_low": 168.07,
+    "target_range_high": 180.08,
+    "stop_range_low": 136.47,
+    "stop_range_high": 143.65,
+    "target_price": 171.5,
+    "stop_loss": 143.65,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.012745-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 193.49,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 252.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 154.79,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2879,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BR exhibits a STRONG_SELL signal, albeit with low (33%) confidence. The current price of $154.79 reflects a 3.84% daily decline and sits 41.2% below its 52-week high. Bearish EMA alignment and an RSI of 29.9 indicate oversold conditions, further supported by breaching the lower Bollinger Band. Despite a compelling P/E of 17.12 against the sector median of 34.19, and solid 7.8% TTM revenue growth, the market is clearly concerned. The extraordinarily high dividend yield of 252.00% likely indicates a pending dividend cut, acting as a negative catalyst outweighing positive fundamentals. Key support levels to watch are previous lows in the $140-$150 range.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 33,
+    "price_change_display": "-3.84%",
+    "key_metrics": {
+      "RSI": 29.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

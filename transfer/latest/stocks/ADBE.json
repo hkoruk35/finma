@@ -2,7 +2,7 @@
   "ticker": "ADBE",
   "company": "Adobe Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.596738-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5899606
   },
   "scores": {
-    "master_score": 42.22,
+    "master_score": 42.77,
     "technical_score": 40.0,
     "fundamental_score": 60.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 45.0,
     "value_score": 65.0,
     "reversal_score": 35.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 42.22,
-    "confidence": 0.42,
+    "signal_score": 42.77,
+    "confidence": 0.43,
     "signal_type": "SELL"
   },
   "technical": {
@@ -67,8 +67,8 @@
     "52w_low_proximity_pct": 0.0
   },
   "fundamental": {
-    "pe_ratio": 13.944209,
-    "sector_pe_median": 33.01521,
+    "pe_ratio": 13.40758,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 8.165483,
     "de_ratio": 58.34,
     "fcf_yield": 0.0994,
@@ -82,7 +82,7 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.0025,
-    "institutional_ownership_pct": 0.88286,
+    "institutional_ownership_pct": 0.88291,
     "short_ratio": 2.22,
     "beta": 1.518
   },
@@ -98,10 +98,9 @@
     "stop_loss": 212.34,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
+    "generated_at": "2026-04-10T05:26:07.596710-04:00",
     "categories": [
       "breakout",
-      "value",
       "reversal"
     ]
   },
@@ -147,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ADBE signals a SELL (42% confidence) amid bearish technicals. Today's 3.92% drop to $229.94 exacerbates the bearish EMA alignment, confirmed by strong ADX (37.3). While RSI (31.7) suggests oversold conditions, low relative volume (0.69x) indicates weak buying pressure. The stock trades 44.8% below its 52-week high.\n\nDespite strong fundamentals (89.4% gross margin, 29.5% net margin) and discounted valuation (P/E 13.4 vs. sector 32.97), negative price action outweighs these factors. A catalyst for further downside is a potential analyst downgrade given the persistent negative price action and the breach of key support levels.",
+  "ai_summary": "ADBE signals SELL with 43% confidence. Bearish EMA stack and RSI at 37.8 suggest further downside. ADX at 36.9 indicates a strengthening downtrend, while a medium BB squeeze implies potential for increased volatility. ADBE trades 42.6% below its 52-week high. While revenue growth is 12.0% and gross margin is high at 89.4%, the P/E ratio of 13.95, although lower than the sector median of 32.77, is not enough to outweigh the poor technical outlook. Monitor upcoming earnings announcements as a potential near-term catalyst for price movement.",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 42,
+    "score_bar": 43,
     "price_change_display": "-3.92%",
     "key_metrics": {
       "RSI": 31.7,

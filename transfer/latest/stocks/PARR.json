@@ -1,0 +1,160 @@
+{
+  "ticker": "PARR",
+  "company": "Par Pacific Holdings, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.890379-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 59.46,
+    "open": 61.62,
+    "high": 62.8,
+    "low": 58.18,
+    "prev_close": 60.71,
+    "change_pct": -2.06,
+    "change_pct_1w": -3.58,
+    "change_pct_1m": 23.8,
+    "change_pct_1y": 330.87,
+    "volume": 1382700,
+    "avg_volume_30d": 1644583
+  },
+  "scores": {
+    "master_score": 50.67,
+    "technical_score": 50.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 50.67,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 54.8,
+    "macd": 3.8469,
+    "macd_signal": 4.5495,
+    "macd_histogram": -0.7026,
+    "macd_crossover": "neutral",
+    "ema_20": 59.25,
+    "ema_50": 52.35,
+    "ema_200": 39.75,
+    "ema_stack_bullish": true,
+    "bb_upper": 68.4,
+    "bb_middle": 60.01,
+    "bb_lower": 51.62,
+    "bb_width": 0.2797,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 39.2,
+    "atr": 3.84,
+    "atr_pct": 0.0645,
+    "obv_trend": "DOWN",
+    "mfi": 57.3,
+    "cmf": 0.131,
+    "stoch_k": 28.9,
+    "stoch_d": 49.8,
+    "rvol": 0.84,
+    "volume_5d_avg": 1380240,
+    "green_days_10d": 3,
+    "52w_high": 65.67,
+    "52w_low": 12.23,
+    "52w_high_proximity_pct": 0.0946,
+    "52w_low_proximity_pct": 3.8618
+  },
+  "fundamental": {
+    "pe_ratio": 8.304469,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 1.9545065,
+    "de_ratio": 79.198,
+    "fcf_yield": 0.0827,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.01,
+    "gross_margin": 0.1815,
+    "operating_margin": 0.05412,
+    "net_margin": 0.049489997,
+    "market_cap": 2941531648,
+    "enterprise_value": 4020166400,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.028719999,
+    "institutional_ownership_pct": 1.07974,
+    "short_ratio": 2.68,
+    "beta": 0.972
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 52.09,
+    "entry_range_high": 59.76,
+    "target_range_low": 69.56,
+    "target_range_high": 74.53,
+    "stop_range_low": 49.19,
+    "stop_range_high": 51.78,
+    "target_price": 70.98,
+    "stop_loss": 51.78,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.890363-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 74.33,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.23,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 385,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "PARR exhibits mixed signals. Technically, the bullish EMA alignment and relatively strong ADX (39.2) are countered by a negative price reaction today (-2.06%) and proximity to its 52-week high (9.5%), suggesting potential resistance. The low Bollinger Band reading hints at possible oversold conditions in the short term. Fundamentally, its P/E ratio of 8.3x suggests undervaluation compared to the sector, but weak TTM revenue growth (-1.0%) raises concerns. Without recent news catalysts and given the slightly negative price action, the FinMA SELL signal (51% confidence) hinges on the potential for profit-taking at these levels near the 52-week high. Key levels to watch: $60.00 (resistance), $55.00 (support).",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "-2.06%",
+    "key_metrics": {
+      "RSI": 54.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

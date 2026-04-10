@@ -2,7 +2,7 @@
   "ticker": "ABNB",
   "company": "Airbnb, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.417116-04:00",
+  "generated_at": "2026-04-10T05:26:07.686855-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Travel Services",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3872660
   },
   "scores": {
-    "master_score": 31.53,
+    "master_score": 32.05,
     "technical_score": 36.0,
     "fundamental_score": 12.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 40.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 31.53,
+    "signal_score": 32.05,
     "confidence": 0.32,
     "signal_type": "STRONG_SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 32.534004,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": 9.483113,
     "de_ratio": 27.698,
     "fcf_yield": 0.0458,
@@ -82,7 +82,7 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.01364,
-    "institutional_ownership_pct": 0.87074995,
+    "institutional_ownership_pct": 0.87078005,
     "short_ratio": 2.71,
     "beta": 1.16
   },
@@ -98,10 +98,8 @@
     "stop_loss": 119.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.417116-04:00",
-    "categories": [
-      "breakout"
-    ]
+    "generated_at": "2026-04-10T05:26:07.686839-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -145,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ABNB flashes a STRONG_SELL signal with low confidence (32%). While the MACD is bullish, EMA alignment is bearish, and ADX shows a weak trend (14.2). At $129.16, ABNB is relatively close to its 52-week high (9.1%). Valuation is a concern, trading at a P/E of 32.05, a premium to the sector. Despite strong gross (83%) and net (20.5%) margins, current revenue growth of 12.0% TTM may not justify the premium. Key level to watch: $125 support. A potential catalyst for further downside is a weaker-than-expected summer travel forecast, which is a key driver of ABNB's revenue.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 32,

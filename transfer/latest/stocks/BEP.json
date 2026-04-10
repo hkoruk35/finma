@@ -1,0 +1,158 @@
+{
+  "ticker": "BEP",
+  "company": "Brookfield Renewable Partners L.P.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.913803-04:00",
+  "sector": "Energy",
+  "industry": "Utilities - Renewable",
+  "price": {
+    "current": 33.98,
+    "open": 34.08,
+    "high": 34.59,
+    "low": 33.83,
+    "prev_close": 34.26,
+    "change_pct": -0.82,
+    "change_pct_1w": 2.72,
+    "change_pct_1m": 10.61,
+    "change_pct_1y": 70.35,
+    "volume": 737700,
+    "avg_volume_30d": 854196
+  },
+  "scores": {
+    "master_score": 55.67,
+    "technical_score": 65.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 46.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 55.67,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 66.0,
+    "macd": 0.8158,
+    "macd_signal": 0.604,
+    "macd_histogram": 0.2118,
+    "macd_crossover": "neutral",
+    "ema_20": 32.33,
+    "ema_50": 31.14,
+    "ema_200": 28.15,
+    "ema_stack_bullish": true,
+    "bb_upper": 34.32,
+    "bb_middle": 31.98,
+    "bb_lower": 29.64,
+    "bb_width": 0.1463,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.3,
+    "atr": 1.0,
+    "atr_pct": 0.0295,
+    "obv_trend": "UP",
+    "mfi": 62.9,
+    "cmf": 0.011,
+    "stoch_k": 86.6,
+    "stoch_d": 84.8,
+    "rvol": 0.74,
+    "volume_5d_avg": 628200,
+    "green_days_10d": 6,
+    "52w_high": 34.26,
+    "52w_low": 19.61,
+    "52w_high_proximity_pct": 0.0082,
+    "52w_low_proximity_pct": 0.7331
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 2.6186807,
+    "de_ratio": 104.498,
+    "fcf_yield": -0.2038,
+    "eps_growth_5y": 45.114,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.5469,
+    "operating_margin": 0.03119,
+    "net_margin": 0.00858,
+    "market_cap": 21942677504,
+    "enterprise_value": 82560286720,
+    "dividend_yield": 4.61,
+    "payout_ratio": 6.4902,
+    "insider_ownership_pct": 0.0017200001,
+    "institutional_ownership_pct": 0.63995,
+    "short_ratio": 1.12,
+    "beta": 0.957
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 30.98,
+    "entry_range_high": 34.15,
+    "target_range_low": 36.24,
+    "target_range_high": 38.83,
+    "stop_range_low": 30.38,
+    "stop_range_high": 31.98,
+    "target_price": 36.98,
+    "stop_loss": 31.98,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.913771-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 42.47,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 461.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 6,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 635247,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 56,
+    "price_change_display": "-0.82%",
+    "key_metrics": {
+      "RSI": 66.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

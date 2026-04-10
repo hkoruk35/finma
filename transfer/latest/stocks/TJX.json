@@ -2,7 +2,7 @@
   "ticker": "TJX",
   "company": "The TJX Companies, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.416278-04:00",
+  "generated_at": "2026-04-10T05:26:07.695746-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Apparel Retail",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 4650840
   },
   "scores": {
-    "master_score": 50.68,
+    "master_score": 51.2,
     "technical_score": 60.0,
     "fundamental_score": 15.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 50.68,
+    "signal_score": 51.2,
     "confidence": 0.51,
     "signal_type": "SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 33.880905,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": 17.926987,
     "de_ratio": 132.375,
     "fcf_yield": 0.0212,
@@ -98,10 +98,9 @@
     "stop_loss": 158.2,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.416278-04:00",
+    "generated_at": "2026-04-10T05:26:07.695725-04:00",
     "categories": [
-      "momentum",
-      "dividend"
+      "momentum"
     ]
   },
   "breakout": {
@@ -146,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "TJX signals a SELL (51% confidence) despite bullish EMA alignment and proximity to its 52-week high ($165.0). The ADX is weak (14.4), indicating a potentially unsustainable trend. While revenue grew 8.5% TTM, TJX's P/E of 33.88 suggests it's trading at a premium. A potential catalyst for a pullback is the high dividend yield of 119.00%, which is likely a data anomaly, and correction could trigger a sell-off. Key level to watch: recent high of $165, break below could confirm the sell signal. RSI at 62.4 suggests it is approaching overbought conditions.",
+  "ai_summary": "TJX shows a SELL signal with 51% confidence. Currently priced at $161.64, it's near its 52-week high, with only 0.2% upside. The EMA stack is bullish, but ADX at 13.6 suggests a weak trend. RSI is 57.3 (neutral). While revenue growth is solid at 8.5%, its P/E of 33.19 is higher than the sector median of 29.12, indicating potential overvaluation. RVOL is below 1, showing decreased investor attention. The low BB squeeze also suggests the stock is not going to become more volatile any time soon. A near-term catalyst to monitor is the upcoming earnings report; disappointing results could trigger a sell-off.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 51,

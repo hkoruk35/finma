@@ -2,7 +2,7 @@
   "ticker": "QCOM",
   "company": "QUALCOMM Incorporated",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.565942-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 12104610
   },
   "scores": {
-    "master_score": 35.67,
+    "master_score": 39.47,
     "technical_score": 47.0,
-    "fundamental_score": 32.0,
+    "fundamental_score": 45.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 45.0,
-    "value_score": 25.0,
+    "value_score": 50.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 100.0,
-    "signal_score": 35.67,
-    "confidence": 0.36,
+    "signal_score": 39.47,
+    "confidence": 0.39,
     "signal_type": "STRONG_SELL"
   },
   "technical": {
@@ -67,8 +67,8 @@
     "52w_low_proximity_pct": 0.0488
   },
   "fundamental": {
-    "pe_ratio": 25.704226,
-    "sector_pe_median": 33.01521,
+    "pe_ratio": 25.756048,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 5.9465623,
     "de_ratio": 64.218,
     "fcf_yield": 0.0764,
@@ -98,10 +98,9 @@
     "stop_loss": 120.33,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
+    "generated_at": "2026-04-10T05:26:07.565912-04:00",
     "categories": [
       "breakout",
-      "reversal",
       "dividend"
     ]
   },
@@ -115,7 +114,7 @@
     "intrinsic_value_estimate": 159.69,
     "margin_of_safety_pct": 25.0,
     "value_catalyst": "Earnings growth consistency and low debt profile.",
-    "value_score": 25.0
+    "value_score": 50.0
   },
   "dividend": {
     "next_dividend_date": null,
@@ -147,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "QCOM currently exhibits a STRONG_SELL signal, albeit with low confidence (36%). The bearish EMA alignment and relatively high position within Bollinger Bands suggest potential downside. The ADX of 31.9 indicates a strengthening, but not yet decisive, trend. While QCOM trades at a P/E discount (25.76) compared to the sector median (32.97), the exceptionally high dividend yield of 279.00% is unsustainable and likely a data anomaly, raising concerns about its financial health. Key level to watch: breach of $125 could trigger further selling. A negative catalyst could be an earnings miss due to slowing smartphone sales, given QCOM's reliance on this market.",
+  "ai_summary": "QCOM signals STRONG_SELL, though with low 36% confidence. Bearish EMA stack and high BB Squeeze suggest potential for downward price movement. ADX at 33.1 indicates strengthening trend. RSI at 40.5 shows potential for further decline before being oversold. Current price at $127.51, up 2.77% today, but RVOL is only 0.8x, suggesting weak conviction. P/E is 25.71, below sector median of 32.77. Revenue growth TTM is 5.0% and gross margin is 55.1%. Watch for upcoming earnings report as a potential catalyst for price volatility.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
-    "score_bar": 36,
+    "score_bar": 39,
     "price_change_display": "+0.19%",
     "key_metrics": {
       "RSI": 41.1,

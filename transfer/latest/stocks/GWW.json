@@ -1,0 +1,158 @@
+{
+  "ticker": "GWW",
+  "company": "W.W. Grainger, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.001642-04:00",
+  "sector": "Industrials",
+  "industry": "Industrial Distribution",
+  "price": {
+    "current": 1172.21,
+    "open": 1144.97,
+    "high": 1183.01,
+    "low": 1144.23,
+    "prev_close": 1146.72,
+    "change_pct": 2.22,
+    "change_pct_1w": 5.84,
+    "change_pct_1m": 5.95,
+    "change_pct_1y": 28.01,
+    "volume": 326100,
+    "avg_volume_30d": 250793
+  },
+  "scores": {
+    "master_score": 55.23,
+    "technical_score": 65.0,
+    "fundamental_score": 22.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 55.23,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 69.7,
+    "macd": 10.0735,
+    "macd_signal": -1.818,
+    "macd_histogram": 11.8915,
+    "macd_crossover": "neutral",
+    "ema_20": 1102.79,
+    "ema_50": 1092.6,
+    "ema_200": 1042.16,
+    "ema_stack_bullish": true,
+    "bb_upper": 1151.78,
+    "bb_middle": 1082.43,
+    "bb_lower": 1013.08,
+    "bb_width": 0.1281,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.5,
+    "atr": 31.57,
+    "atr_pct": 0.0269,
+    "obv_trend": "UP",
+    "mfi": 78.2,
+    "cmf": -0.05,
+    "stoch_k": 92.8,
+    "stoch_d": 88.4,
+    "rvol": 0.97,
+    "volume_5d_avg": 242280,
+    "green_days_10d": 6,
+    "52w_high": 1202.47,
+    "52w_low": 911.85,
+    "52w_high_proximity_pct": 0.0252,
+    "52w_low_proximity_pct": 0.2855
+  },
+  "fundamental": {
+    "pe_ratio": 33.113274,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 14.878215,
+    "de_ratio": 69.114,
+    "fcf_yield": 0.0197,
+    "eps_growth_5y": -0.02,
+    "revenue_growth_ttm": 0.045,
+    "gross_margin": 0.39064997,
+    "operating_margin": 0.14734,
+    "net_margin": 0.09508,
+    "market_cap": 55531130880,
+    "enterprise_value": 58213134336,
+    "dividend_yield": 0.77,
+    "payout_ratio": 0.2494,
+    "insider_ownership_pct": 0.06251,
+    "institutional_ownership_pct": 0.76671,
+    "short_ratio": 4.69,
+    "beta": 1.092
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 1087.14,
+    "entry_range_high": 1178.07,
+    "target_range_low": 1241.58,
+    "target_range_high": 1330.27,
+    "stop_range_low": 1053.62,
+    "stop_range_high": 1109.07,
+    "target_price": 1266.92,
+    "stop_loss": 1109.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.001625-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1465.26,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 77.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 911.85,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1488,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 55,
+    "price_change_display": "+2.22%",
+    "key_metrics": {
+      "RSI": 69.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

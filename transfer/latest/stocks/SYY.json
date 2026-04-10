@@ -1,0 +1,158 @@
+{
+  "ticker": "SYY",
+  "company": "Sysco Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.735932-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Food Distribution",
+  "price": {
+    "current": 74.99,
+    "open": 74.7,
+    "high": 75.2,
+    "low": 73.89,
+    "prev_close": 75.15,
+    "change_pct": -0.21,
+    "change_pct_1w": 4.69,
+    "change_pct_1m": -10.36,
+    "change_pct_1y": 11.07,
+    "volume": 3875300,
+    "avg_volume_30d": 4900176
+  },
+  "scores": {
+    "master_score": 33.84,
+    "technical_score": 32.0,
+    "fundamental_score": 24.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.4,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 33.84,
+    "confidence": 0.34,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 39.4,
+    "macd": -2.9663,
+    "macd_signal": -2.6731,
+    "macd_histogram": -0.2933,
+    "macd_crossover": "neutral",
+    "ema_20": 77.49,
+    "ema_50": 80.0,
+    "ema_200": 77.91,
+    "ema_stack_bullish": false,
+    "bb_upper": 88.72,
+    "bb_middle": 78.37,
+    "bb_lower": 68.02,
+    "bb_width": 0.2641,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 39.4,
+    "atr": 2.33,
+    "atr_pct": 0.031,
+    "obv_trend": "UP",
+    "mfi": 37.0,
+    "cmf": 0.042,
+    "stoch_k": 47.5,
+    "stoch_d": 43.7,
+    "rvol": 1.14,
+    "volume_5d_avg": 5581920,
+    "green_days_10d": 4,
+    "52w_high": 90.48,
+    "52w_low": 66.1,
+    "52w_high_proximity_pct": 0.1712,
+    "52w_low_proximity_pct": 0.1345
+  },
+  "fundamental": {
+    "pe_ratio": 20.212936,
+    "sector_pe_median": 24.341375,
+    "pb_ratio": 15.731067,
+    "de_ratio": 640.248,
+    "fcf_yield": 0.0488,
+    "eps_growth_5y": -0.012,
+    "revenue_growth_ttm": 0.03,
+    "gross_margin": 0.18462999,
+    "operating_margin": 0.03988,
+    "net_margin": 0.021760002,
+    "market_cap": 35915010048,
+    "enterprise_value": 49713008640,
+    "dividend_yield": 2.88,
+    "payout_ratio": 0.5741,
+    "insider_ownership_pct": 0.00207,
+    "institutional_ownership_pct": 0.89871,
+    "short_ratio": 3.5,
+    "beta": 0.693
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 74.62,
+    "entry_range_high": 75.36,
+    "target_range_low": 80.34,
+    "target_range_high": 86.08,
+    "stop_range_low": 66.81,
+    "stop_range_high": 70.33,
+    "target_price": 81.98,
+    "stop_loss": 70.33,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.735916-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 93.74,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 288.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 66.1,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 378,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.9,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 34,
+    "price_change_display": "-0.21%",
+    "key_metrics": {
+      "RSI": 39.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

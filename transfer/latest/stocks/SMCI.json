@@ -2,7 +2,7 @@
   "ticker": "SMCI",
   "company": "Super Micro Computer, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.475719-04:00",
+  "generated_at": "2026-04-10T05:26:07.583837-04:00",
   "sector": "Technology",
   "industry": "Computer Hardware",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 40694793
   },
   "scores": {
-    "master_score": 45.47,
+    "master_score": 46.02,
     "technical_score": 42.0,
     "fundamental_score": 65.0,
     "momentum_score": 20.0,
     "sentiment_score": 68.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 15.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 0.0,
-    "signal_score": 45.47,
-    "confidence": 0.45,
+    "signal_score": 46.02,
+    "confidence": 0.46,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 16.948904,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 1.9890355,
     "de_ratio": 75.28,
     "fcf_yield": 0.0074,
@@ -98,10 +98,8 @@
     "stop_loss": 19.7,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.475719-04:00",
-    "categories": [
-      "value"
-    ]
+    "generated_at": "2026-04-10T05:26:07.583803-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SMCI exhibits a SELL signal, albeit with low 45% confidence, driven by bearish EMA alignment and weak volume (0.69x relative). The price, currently at $23.22, is significantly (61.8%) below its 52-week high, indicating substantial past selling pressure. While RSI (41.3) doesn't signal oversold conditions, the ADX strength of 25.4 suggests a moderately trending market.\n\nDespite a seemingly attractive P/E ratio of 16.95 compared to the sector median, the relatively low gross (8.0%) and net (3.1%) margins raise concerns. A potential catalyst for further downside is the lack of recent positive news, coupled with the existing negative technical signals. Key level to watch: immediate support around $22.50; breach could accelerate decline.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 45,
+    "score_bar": 46,
     "price_change_display": "-0.64%",
     "key_metrics": {
       "RSI": 41.3,

@@ -1,0 +1,158 @@
+{
+  "ticker": "KMB",
+  "company": "Kimberly-Clark Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.709123-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 97.96,
+    "open": 96.18,
+    "high": 98.81,
+    "low": 95.71,
+    "prev_close": 97.0,
+    "change_pct": 0.99,
+    "change_pct_1w": 0.4,
+    "change_pct_1m": -3.69,
+    "change_pct_1y": -23.95,
+    "volume": 7140300,
+    "avg_volume_30d": 5217646
+  },
+  "scores": {
+    "master_score": 45.99,
+    "technical_score": 56.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 65.0,
+    "sector_score": 51.4,
+    "breakout_score": 40.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 45.99,
+    "confidence": 0.46,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 47.0,
+    "macd": -1.6447,
+    "macd_signal": -1.6679,
+    "macd_histogram": 0.0232,
+    "macd_crossover": "bullish",
+    "ema_20": 98.33,
+    "ema_50": 100.5,
+    "ema_200": 109.59,
+    "ema_stack_bullish": false,
+    "bb_upper": 101.27,
+    "bb_middle": 97.98,
+    "bb_lower": 94.69,
+    "bb_width": 0.0671,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 26.3,
+    "atr": 2.48,
+    "atr_pct": 0.0254,
+    "obv_trend": "UP",
+    "mfi": 59.4,
+    "cmf": -0.086,
+    "stoch_k": 66.0,
+    "stoch_d": 42.7,
+    "rvol": 1.19,
+    "volume_5d_avg": 6200140,
+    "green_days_10d": 5,
+    "52w_high": 137.72,
+    "52w_low": 93.05,
+    "52w_high_proximity_pct": 0.2887,
+    "52w_low_proximity_pct": 0.0528
+  },
+  "fundamental": {
+    "pe_ratio": 20.156378,
+    "sector_pe_median": 24.341375,
+    "pb_ratio": 21.648619,
+    "de_ratio": 464.785,
+    "fcf_yield": 0.0281,
+    "eps_growth_5y": 0.11,
+    "revenue_growth_ttm": -0.006,
+    "gross_margin": 0.37308,
+    "operating_margin": 0.13161999,
+    "net_margin": 0.122880004,
+    "market_cap": 32515446784,
+    "enterprise_value": 39445114880,
+    "dividend_yield": 5.23,
+    "payout_ratio": 1.037,
+    "insider_ownership_pct": 0.00675,
+    "institutional_ownership_pct": 0.89037,
+    "short_ratio": 8.29,
+    "beta": 0.296
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 97.47,
+    "entry_range_high": 98.45,
+    "target_range_low": 103.29,
+    "target_range_high": 110.67,
+    "stop_range_low": 88.35,
+    "stop_range_high": 93.0,
+    "target_price": 105.4,
+    "stop_loss": 93.0,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.709108-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 40.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 122.45,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 523.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 93.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 10000,
+      "date": "2026-02-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.9,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 46,
+    "price_change_display": "+0.99%",
+    "key_metrics": {
+      "RSI": 47.0,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "SNOW",
   "company": "Snowflake Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.605416-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 5833373
   },
   "scores": {
-    "master_score": 21.82,
+    "master_score": 22.37,
     "technical_score": 16.0,
     "fundamental_score": 12.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 50.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 21.82,
+    "signal_score": 22.37,
     "confidence": 0.22,
     "signal_type": "STRONG_SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": null,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 23.635391,
     "de_ratio": 142.462,
     "fcf_yield": 0.0347,
@@ -82,7 +82,7 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.03197,
-    "institutional_ownership_pct": 0.77317,
+    "institutional_ownership_pct": 0.77316004,
     "short_ratio": 2.01,
     "beta": 1.228
   },
@@ -98,7 +98,7 @@
     "stop_loss": 114.0,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
+    "generated_at": "2026-04-10T05:26:07.605398-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SNOW flashes a STRONG_SELL signal, albeit with low (22%) confidence, driven by a significant 11.83% price drop to $132.24. The bearish EMA alignment and oversold RSI of 25.2 reinforce the downward momentum. Key technical levels to watch are the recent lows, as a breach could trigger further selling. While TTM revenue growth is a robust 30.1%, negative net margins of -28.4% are concerning. The catalyst for this sharp decline is unclear given no recent news, pointing to possible internal factors or broader market sentiment impacting SNOW more severely than peers. Increased relative volume (1.22x) suggests strong selling pressure.",
+  "ai_summary": "Snowflake (SNOW) exhibits a STRONG_SELL signal (19% confidence). Bearish EMA stack and an RSI of 35.0 suggest continued downward momentum despite today's 0.50% gain to $149.99. The ADX at 23.6 indicates a weak trend, while the low BB squeeze implies potential for increased volatility. SNOW's price is 45.9% away from its 52-week high, and while revenue growth is strong at 30.1%, the lack of a P/E ratio compared to the sector median of 32.77 raises concerns. Near-term catalyst: Upcoming earnings report could trigger further downside if growth slows.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 22,

@@ -1,0 +1,158 @@
+{
+  "ticker": "HUBB",
+  "company": "Hubbell Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.979374-04:00",
+  "sector": "Industrials",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 534.67,
+    "open": 525.65,
+    "high": 536.97,
+    "low": 521.46,
+    "prev_close": 527.21,
+    "change_pct": 1.41,
+    "change_pct_1w": 6.85,
+    "change_pct_1m": 11.84,
+    "change_pct_1y": 70.82,
+    "volume": 559069,
+    "avg_volume_30d": 558145
+  },
+  "scores": {
+    "master_score": 54.73,
+    "technical_score": 60.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.73,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 65.5,
+    "macd": 6.56,
+    "macd_signal": 1.2133,
+    "macd_histogram": 5.3467,
+    "macd_crossover": "neutral",
+    "ema_20": 498.03,
+    "ema_50": 491.08,
+    "ema_200": 452.92,
+    "ema_stack_bullish": true,
+    "bb_upper": 526.44,
+    "bb_middle": 490.19,
+    "bb_lower": 453.95,
+    "bb_width": 0.1479,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.6,
+    "atr": 18.07,
+    "atr_pct": 0.0338,
+    "obv_trend": "UP",
+    "mfi": 63.2,
+    "cmf": -0.041,
+    "stoch_k": 96.6,
+    "stoch_d": 88.2,
+    "rvol": 0.79,
+    "volume_5d_avg": 438411,
+    "green_days_10d": 6,
+    "52w_high": 534.67,
+    "52w_low": 313.61,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.7049
+  },
+  "fundamental": {
+    "pe_ratio": 32.36501,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 7.3996625,
+    "de_ratio": 64.473,
+    "fcf_yield": 0.024,
+    "eps_growth_5y": 0.138,
+    "revenue_growth_ttm": 0.119,
+    "gross_margin": 0.35486,
+    "operating_margin": 0.19126,
+    "net_margin": 0.15178001,
+    "market_cap": 28423911424,
+    "enterprise_value": 30423314432,
+    "dividend_yield": 1.06,
+    "payout_ratio": 0.32529998,
+    "insider_ownership_pct": 0.00332,
+    "institutional_ownership_pct": 1.00755,
+    "short_ratio": 4.78,
+    "beta": 0.997
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 488.62,
+    "entry_range_high": 537.34,
+    "target_range_low": 577.1,
+    "target_range_high": 618.32,
+    "stop_range_low": 473.6,
+    "stop_range_high": 498.53,
+    "target_price": 588.88,
+    "stop_loss": 498.53,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.979355-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 668.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 106.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 313.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3980,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 55,
+    "price_change_display": "+1.41%",
+    "key_metrics": {
+      "RSI": 65.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "WFC",
   "company": "Wells Fargo & Company",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.417116-04:00",
+  "generated_at": "2026-04-10T05:26:07.807264-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 17821406
   },
   "scores": {
-    "master_score": 49.29,
+    "master_score": 49.62,
     "technical_score": 45.0,
     "fundamental_score": 42.0,
     "momentum_score": 50.0,
     "sentiment_score": 85.0,
-    "sector_score": 45.4,
+    "sector_score": 48.7,
     "breakout_score": 15.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 49.29,
-    "confidence": 0.49,
+    "signal_score": 49.62,
+    "confidence": 0.5,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 13.741213,
-    "sector_pe_median": 17.637001,
+    "sector_pe_median": 16.018940999999998,
     "pb_ratio": 1.6170996,
     "de_ratio": null,
     "fcf_yield": null,
@@ -98,10 +98,8 @@
     "stop_loss": 81.5,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.417116-04:00",
-    "categories": [
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T05:26:07.807250-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "WFC exhibits a \"SELL\" signal, albeit with low (49%) confidence. Despite a 1.61% gain today to $86.02, the EMA alignment is bearish, and low ADX (20.8) signals weak trend strength. While the stock trades at a P/E of 13.74, discounted versus the sector median of 17.6, the concerning factor is the unsustainable dividend yield of 213.00% which strongly suggests a dividend cut is on the horizon. Key technical level to watch is the 52-week high; a break above could negate the sell signal, however, the negative catalyst of an almost certain dividend cut outweighs the growth metrics, reinforcing the short-term bearish outlook.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 49,
+    "score_bar": 50,
     "price_change_display": "+1.61%",
     "key_metrics": {
       "RSI": 65.4,

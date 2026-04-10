@@ -2,7 +2,7 @@
   "ticker": "AMAT",
   "company": "Applied Materials, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.571671-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 6629423
   },
   "scores": {
-    "master_score": 50.97,
+    "master_score": 51.52,
     "technical_score": 60.0,
     "fundamental_score": 15.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 40.0,
-    "signal_score": 50.97,
-    "confidence": 0.51,
+    "signal_score": 51.52,
+    "confidence": 0.52,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 40.801025,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 14.537183,
     "de_ratio": 33.108,
     "fcf_yield": 0.0138,
@@ -82,7 +82,7 @@
     "dividend_yield": 0.53,
     "payout_ratio": 0.1826,
     "insider_ownership_pct": 0.0032499998,
-    "institutional_ownership_pct": 0.85357004,
+    "institutional_ownership_pct": 0.85362,
     "short_ratio": 1.93,
     "beta": 1.637
   },
@@ -98,9 +98,8 @@
     "stop_loss": 363.31,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
+    "generated_at": "2026-04-10T05:26:07.571634-04:00",
     "categories": [
-      "reversal",
       "momentum"
     ]
   },
@@ -146,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AMAT signals a SELL (51% confidence) despite today's 3.13% gain to $397.81, reaching its 52-week high. The bullish EMA alignment and neutral MACD are overshadowed by a weak ADX (15.6) and low relative volume (0.72x), suggesting limited conviction behind the upward move.\n\nWhile AMAT boasts strong profitability (27.8% net margin), its negative revenue growth (-2.1% TTM) and premium P/E of 40.76 compared to the sector median of 32.97, raise valuation concerns. The unsustainably high dividend yield of 55% may also be a false signal. Absence of news catalysts further weakens the bullish case. Resistance around $400 is expected.",
+  "ai_summary": "AMAT signals a SELL with 53% confidence, despite a strong +8.87% daily price change to $385.72. The RSI of 62.7 is nearing overbought territory. While the MACD histogram at 1.9165 and bullish EMA stack indicate positive momentum, ADX at 14.6 suggests a weak trend. Revenue growth is negative at -2.1% TTM, and the P/E ratio of 39.52 exceeds the sector median of 32.77. Although near its 52-week high, the fundamentals don't fully support the current price. Watch for earnings release expected late May as a potential catalyst for price correction.",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 51,
+    "score_bar": 52,
     "price_change_display": "+3.13%",
     "key_metrics": {
       "RSI": 65.8,

@@ -1,0 +1,158 @@
+{
+  "ticker": "WOLF",
+  "company": "Wolfspeed, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.582109-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 24.43,
+    "open": 20.96,
+    "high": 25.09,
+    "low": 20.53,
+    "prev_close": 20.56,
+    "change_pct": 18.82,
+    "change_pct_1w": 48.51,
+    "change_pct_1m": 47.35,
+    "change_pct_1y": null,
+    "volume": 4488800,
+    "avg_volume_30d": 1585283
+  },
+  "scores": {
+    "master_score": 45.62,
+    "technical_score": 46.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 45.62,
+    "confidence": 0.46,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 70.6,
+    "macd": 0.631,
+    "macd_signal": -0.116,
+    "macd_histogram": 0.747,
+    "macd_crossover": "neutral",
+    "ema_20": 18.28,
+    "ema_50": 18.23,
+    "ema_200": null,
+    "ema_stack_bullish": false,
+    "bb_upper": 21.57,
+    "bb_middle": 17.55,
+    "bb_lower": 13.54,
+    "bb_width": 0.4573,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.0,
+    "atr": 1.75,
+    "atr_pct": 0.0715,
+    "obv_trend": "UP",
+    "mfi": 73.8,
+    "cmf": 0.111,
+    "stoch_k": 93.7,
+    "stoch_d": 96.7,
+    "rvol": 1.2,
+    "volume_5d_avg": 1904660,
+    "green_days_10d": 7,
+    "52w_high": 35.42,
+    "52w_low": 14.8,
+    "52w_high_proximity_pct": 0.3103,
+    "52w_low_proximity_pct": 0.6507
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 1.0655559,
+    "de_ratio": 330.379,
+    "fcf_yield": -0.7249,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.066,
+    "gross_margin": -0.14244,
+    "operating_margin": -0.78990996,
+    "net_margin": -0.91640997,
+    "market_cap": 1180913024,
+    "enterprise_value": 1882016384,
+    "dividend_yield": null,
+    "payout_ratio": null,
+    "insider_ownership_pct": 0.0029199999,
+    "institutional_ownership_pct": 1.3137,
+    "short_ratio": 4.83,
+    "beta": null
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 18.14,
+    "entry_range_high": 24.55,
+    "target_range_low": 29.09,
+    "target_range_high": 31.16,
+    "stop_range_low": 19.88,
+    "stop_range_high": 20.93,
+    "target_price": 29.68,
+    "stop_loss": 20.93,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.582081-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 30.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 31732,
+      "date": "2025-12-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 46,
+    "price_change_display": "+18.82%",
+    "key_metrics": {
+      "RSI": 70.6,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "CVX",
   "company": "Chevron Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.433913-04:00",
+  "generated_at": "2026-04-10T05:26:07.865447-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 14546773
   },
   "scores": {
-    "master_score": 40.61,
+    "master_score": 40.97,
     "technical_score": 38.0,
     "fundamental_score": 30.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 43.1,
+    "sector_score": 46.7,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 40.61,
+    "signal_score": 40.97,
     "confidence": 0.41,
     "signal_type": "SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 28.755287,
-    "sector_pe_median": 23.140299,
+    "sector_pe_median": 18.186544,
     "pb_ratio": 2.0217726,
     "de_ratio": 24.323,
     "fcf_yield": 0.0348,
@@ -98,7 +98,7 @@
     "stop_loss": 178.4,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.433913-04:00",
+    "generated_at": "2026-04-10T05:26:07.865432-04:00",
     "categories": []
   },
   "breakout": {

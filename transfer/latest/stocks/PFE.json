@@ -2,7 +2,7 @@
   "ticker": "PFE",
   "company": "Pfizer Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.433913-04:00",
+  "generated_at": "2026-04-10T05:26:07.740444-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 40047403
   },
   "scores": {
-    "master_score": 38.64,
+    "master_score": 38.9,
     "technical_score": 25.0,
     "fundamental_score": 47.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 46.4,
+    "sector_score": 49.0,
     "breakout_score": 15.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 38.64,
+    "signal_score": 38.9,
     "confidence": 0.39,
     "signal_type": "STRONG_SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 20.014706,
-    "sector_pe_median": 27.927784000000003,
+    "sector_pe_median": 25.183777499999998,
     "pb_ratio": 1.7897297,
     "de_ratio": 77.957,
     "fcf_yield": 0.0867,
@@ -98,10 +98,8 @@
     "stop_loss": 25.98,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.433913-04:00",
-    "categories": [
-      "value"
-    ]
+    "generated_at": "2026-04-10T05:26:07.740426-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PFE signals a SELL (41% confidence) based on bearish technicals despite a relatively low P/E of 20.01 compared to the sector median of 28.04. The price, currently at $27.22, is near its 52-week high, but weak ADX (16.5) suggests a lack of trend strength. The EMA alignment is bearish, and volume is below average (0.81x). A high dividend yield of 626.00% might attract some investors, but negative TTM revenue growth (-1.2%) raises concerns. Watch for support around the lower Bollinger Band; a break below could confirm the sell signal. The next key catalyst will likely be earnings reports impacting revenue expectations.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 39,

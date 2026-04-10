@@ -1,0 +1,158 @@
+{
+  "ticker": "CMS",
+  "company": "CMS Energy Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.027445-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 79.94,
+    "open": 78.02,
+    "high": 80.36,
+    "low": 78.02,
+    "prev_close": 78.82,
+    "change_pct": 1.42,
+    "change_pct_1w": 2.59,
+    "change_pct_1m": 4.59,
+    "change_pct_1y": 16.1,
+    "volume": 3808000,
+    "avg_volume_30d": 2801520
+  },
+  "scores": {
+    "master_score": 59.91,
+    "technical_score": 60.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 56.6,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 59.91,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 69.2,
+    "macd": 0.8513,
+    "macd_signal": 0.6211,
+    "macd_histogram": 0.2303,
+    "macd_crossover": "neutral",
+    "ema_20": 77.5,
+    "ema_50": 75.94,
+    "ema_200": 72.89,
+    "ema_stack_bullish": true,
+    "bb_upper": 80.15,
+    "bb_middle": 77.27,
+    "bb_lower": 74.39,
+    "bb_width": 0.0746,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.5,
+    "atr": 1.34,
+    "atr_pct": 0.0167,
+    "obv_trend": "UP",
+    "mfi": 75.9,
+    "cmf": 0.098,
+    "stoch_k": 93.2,
+    "stoch_d": 91.1,
+    "rvol": 0.91,
+    "volume_5d_avg": 2546600,
+    "green_days_10d": 8,
+    "52w_high": 79.94,
+    "52w_low": 67.06,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.1921
+  },
+  "fundamental": {
+    "pe_ratio": 22.645893,
+    "sector_pe_median": 23.062841,
+    "pb_ratio": 2.746041,
+    "de_ratio": 194.861,
+    "fcf_yield": -0.0708,
+    "eps_growth_5y": 0.066,
+    "revenue_growth_ttm": 0.123,
+    "gross_margin": 0.41527,
+    "operating_margin": 0.21675,
+    "net_margin": 0.12542,
+    "market_cap": 24621252608,
+    "enterprise_value": 43700285440,
+    "dividend_yield": 2.85,
+    "payout_ratio": 0.6156,
+    "insider_ownership_pct": 0.0057,
+    "institutional_ownership_pct": 0.97836,
+    "short_ratio": 0.01,
+    "beta": 0.424
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 75.56,
+    "entry_range_high": 80.34,
+    "target_range_low": 82.28,
+    "target_range_high": 88.16,
+    "stop_range_low": 73.4,
+    "stop_range_high": 77.26,
+    "target_price": 83.96,
+    "stop_loss": 77.26,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.027385-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 99.92,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 285.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 67.06,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6316,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.75,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 60,
+    "price_change_display": "+1.42%",
+    "key_metrics": {
+      "RSI": 69.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "RL",
+  "company": "Ralph Lauren Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.681918-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Manufacturing",
+  "price": {
+    "current": 385.14,
+    "open": 373.83,
+    "high": 387.26,
+    "low": 372.34,
+    "prev_close": 375.4,
+    "change_pct": 2.59,
+    "change_pct_1w": 9.1,
+    "change_pct_1m": 11.56,
+    "change_pct_1y": 101.71,
+    "volume": 489800,
+    "avg_volume_30d": 638373
+  },
+  "scores": {
+    "master_score": 50.95,
+    "technical_score": 65.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.5,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 50.95,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 65.1,
+    "macd": 4.281,
+    "macd_signal": -1.2341,
+    "macd_histogram": 5.515,
+    "macd_crossover": "neutral",
+    "ema_20": 351.35,
+    "ema_50": 351.12,
+    "ema_200": 329.7,
+    "ema_stack_bullish": true,
+    "bb_upper": 373.81,
+    "bb_middle": 344.3,
+    "bb_lower": 314.8,
+    "bb_width": 0.1714,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.5,
+    "atr": 13.74,
+    "atr_pct": 0.0357,
+    "obv_trend": "UP",
+    "mfi": 56.9,
+    "cmf": -0.034,
+    "stoch_k": 96.6,
+    "stoch_d": 88.8,
+    "rvol": 0.91,
+    "volume_5d_avg": 578180,
+    "green_days_10d": 5,
+    "52w_high": 385.14,
+    "52w_low": 180.23,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.1369
+  },
+  "fundamental": {
+    "pe_ratio": 26.18219,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": 8.0804825,
+    "de_ratio": 98.972,
+    "fcf_yield": 0.0245,
+    "eps_growth_5y": 0.249,
+    "revenue_growth_ttm": 0.122,
+    "gross_margin": 0.69649005,
+    "operating_margin": 0.20091,
+    "net_margin": 0.11726,
+    "market_cap": 23355144192,
+    "enterprise_value": 23922894848,
+    "dividend_yield": 0.95,
+    "payout_ratio": 0.24229999,
+    "insider_ownership_pct": 0.03965,
+    "institutional_ownership_pct": 1.0332,
+    "short_ratio": 4.6,
+    "beta": 1.479
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 349.36,
+    "entry_range_high": 387.07,
+    "target_range_low": 417.83,
+    "target_range_high": 447.68,
+    "stop_range_low": 339.78,
+    "stop_range_high": 357.66,
+    "target_price": 426.36,
+    "stop_loss": 357.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.681901-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 481.42,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 95.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 180.23,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1120,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+2.59%",
+    "key_metrics": {
+      "RSI": 65.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

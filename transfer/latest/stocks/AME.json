@@ -1,0 +1,158 @@
+{
+  "ticker": "AME",
+  "company": "AMETEK, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.970011-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 233.49,
+    "open": 229.11,
+    "high": 234.33,
+    "low": 228.67,
+    "prev_close": 230.49,
+    "change_pct": 1.3,
+    "change_pct_1w": 6.8,
+    "change_pct_1m": 3.34,
+    "change_pct_1y": 53.27,
+    "volume": 1167600,
+    "avg_volume_30d": 1421783
+  },
+  "scores": {
+    "master_score": 52.48,
+    "technical_score": 70.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 54.8,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.48,
+    "confidence": 0.52,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 66.1,
+    "macd": 0.5014,
+    "macd_signal": -1.979,
+    "macd_histogram": 2.4804,
+    "macd_crossover": "neutral",
+    "ema_20": 219.9,
+    "ema_50": 219.73,
+    "ema_200": 204.54,
+    "ema_stack_bullish": true,
+    "bb_upper": 228.24,
+    "bb_middle": 215.94,
+    "bb_lower": 203.63,
+    "bb_width": 0.1139,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.4,
+    "atr": 5.99,
+    "atr_pct": 0.0256,
+    "obv_trend": "UP",
+    "mfi": 57.0,
+    "cmf": -0.149,
+    "stoch_k": 96.9,
+    "stoch_d": 89.0,
+    "rvol": 0.75,
+    "volume_5d_avg": 1061680,
+    "green_days_10d": 5,
+    "52w_high": 241.08,
+    "52w_low": 150.43,
+    "52w_high_proximity_pct": 0.0315,
+    "52w_low_proximity_pct": 0.5522
+  },
+  "fundamental": {
+    "pe_ratio": 36.48281,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 5.0314617,
+    "de_ratio": 24.194,
+    "fcf_yield": 0.0252,
+    "eps_growth_5y": 0.036,
+    "revenue_growth_ttm": 0.134,
+    "gross_margin": 0.36383,
+    "operating_margin": 0.27523002,
+    "net_margin": 0.19999,
+    "market_cap": 53484486656,
+    "enterprise_value": 55577444352,
+    "dividend_yield": 0.58,
+    "payout_ratio": 0.19379999,
+    "insider_ownership_pct": 0.0043,
+    "institutional_ownership_pct": 0.92348,
+    "short_ratio": 1.97,
+    "beta": 1.041
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 218.63,
+    "entry_range_high": 234.66,
+    "target_range_low": 246.43,
+    "target_range_high": 264.03,
+    "stop_range_low": 210.43,
+    "stop_range_high": 221.51,
+    "target_price": 251.46,
+    "stop_loss": 221.51,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.969995-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 291.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 58.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 150.43,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 530,
+      "date": "2026-03-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 52,
+    "price_change_display": "+1.30%",
+    "key_metrics": {
+      "RSI": 66.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

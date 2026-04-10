@@ -68,6 +68,28 @@ else:
 # UTILS
 # ============================================================
 
+async def send_telegram_notification(message: str):
+    """Send a message to Telegram if enabled."""
+    if not ENABLE_TELEGRAM_NOTIFICATIONS or not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return
+
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message,
+        "parse_mode": "HTML",
+    }
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+                if resp.status == 200:
+                    log.info("Telegram notification sent successfully")
+                else:
+                    log.warning(f"Telegram notification failed: {resp.status}")
+    except Exception as e:
+        log.error(f"Telegram error: {e}")
+
 def get_last_run_data() -> Optional[Dict]:
     """Find the most recent master.json before today."""
     try:
@@ -1089,6 +1111,41 @@ def archive_date(date_dir: str, date_str: str):
     log.info(f"Archived: {zip_path}")
 
 
+def push_to_github():
+    """Push transfer/latest to GitHub for automatic Vercel deployment."""
+    try:
+        import subprocess
+        repo_root = BASE_DIR
+
+        # Configure git (if not already)
+        subprocess.run(["git", "config", "--global", "user.email", "bot@finmasmart.com"],
+                      cwd=repo_root, capture_output=True)
+        subprocess.run(["git", "config", "--global", "user.name", "FinMA Bot"],
+                      cwd=repo_root, capture_output=True)
+
+        # Add transfer/latest changes
+        subprocess.run(["git", "add", "transfer/latest/"], cwd=repo_root, capture_output=True)
+
+        # Check if there are changes
+        result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=repo_root)
+        if result.returncode != 0:  # 0 = no changes, non-zero = changes exist
+            date_str = datetime.now(NY_TZ).strftime("%Y-%m-%d")
+            commit_msg = f"Data: Fresh {date_str} scan with all fixes applied"
+            subprocess.run(["git", "commit", "-m", commit_msg], cwd=repo_root, capture_output=True)
+
+            # Push to main
+            push_result = subprocess.run(["git", "push", "origin", "main"],
+                                        cwd=repo_root, capture_output=True, text=True)
+            if push_result.returncode == 0:
+                log.info("Successfully pushed to GitHub — Vercel deploy triggered")
+            else:
+                log.warning(f"Git push failed: {push_result.stderr}")
+        else:
+            log.info("No changes to commit")
+    except Exception as e:
+        log.error(f"GitHub push error: {e}")
+
+
 # ============================================================
 # 10. NOTIFICATION TRIGGERS
 # ============================================================
@@ -1449,6 +1506,8 @@ async def daily_run():
                 "change_pct_1y": s["price"].get("change_pct_1y"),
                 "entry_range_low": s["signals"]["entry_range_low"],
                 "entry_range_high": s["signals"]["entry_range_high"],
+                "volume":          s["price"].get("volume"),
+                "avg_volume_30d":  s["price"].get("avg_volume_30d"),
             }
             for s in sorted(all_stocks_data,
                             key=lambda x: x["scores"]["master_score"], reverse=True)
@@ -1468,6 +1527,24 @@ async def daily_run():
     log.info(f"  AI summaries     : {len(ai_summaries)}")
     log.info(f"  Market regime    : {regime}")
     log.info("=" * 60)
+
+    # Push to GitHub for Vercel deployment
+    push_to_github()
+
+    # Send Telegram notification
+    if ENABLE_TELEGRAM_NOTIFICATIONS:
+        telegram_msg = (
+            f"<b>FinMA Daily +500 — Scan Complete</b>\n\n"
+            f"📊 <b>Summary</b>\n"
+            f"• Tickers analyzed: {len(all_stocks_data)}\n"
+            f"• Active signals: {active_signals}\n"
+            f"• AI summaries: {len(ai_summaries)}\n"
+            f"• Market regime: {regime}\n"
+            f"• Duration: {elapsed}s\n\n"
+            f"✅ Data pushed to GitHub\n"
+            f"🚀 Vercel deployment triggered"
+        )
+        await send_telegram_notification(telegram_msg)
 
 
 # ============================================================

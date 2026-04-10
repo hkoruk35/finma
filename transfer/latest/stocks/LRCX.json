@@ -2,7 +2,7 @@
   "ticker": "LRCX",
   "company": "Lam Research Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.569889-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 10576246
   },
   "scores": {
-    "master_score": 51.72,
+    "master_score": 52.27,
     "technical_score": 65.0,
     "fundamental_score": 15.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 51.72,
+    "signal_score": 52.27,
     "confidence": 0.52,
     "signal_type": "SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 53.242798,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 31.910223,
     "de_ratio": 44.195,
     "fcf_yield": 0.0148,
@@ -98,9 +98,8 @@
     "stop_loss": 233.24,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
+    "generated_at": "2026-04-10T05:26:07.569864-04:00",
     "categories": [
-      "reversal",
       "momentum"
     ]
   },
@@ -146,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "LRCX signals a SELL (52% confidence) despite today's 4.98% surge to $258.76, hitting its 52-week high. EMA alignment is bullish, but ADX strength is weak at 18.6, and relative volume is below average (0.73x). While showing strong TTM revenue growth (22.1%) and excellent profitability (30.2% net margin, 49.8% gross margin), LRCX trades at a premium with a P/E of 53.02, significantly above the sector median of 32.97. The high dividend yield of 42.00% may be unsustainable long-term and potentially indicative of financial strain. Investors should watch for resistance around the $260 level.",
+  "ai_summary": "LRCX shows a \"SELL\" signal with 52% confidence. Today's 9.87% surge brings it within 1.1% of its 52-week high, yet RVOL is only 0.74x. While the EMA stack is bullish, ADX is low at 18.3. RSI at 61.3 suggests it is approaching overbought levels. The P/E ratio of 50.51 is significantly higher than the sector median of 32.77. While revenue growth is strong at 22.1%, the high valuation relative to peers suggests potential downside. Watch for earnings release on April 22nd; any miss will likely trigger a sell-off.",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 52,

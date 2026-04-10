@@ -1,0 +1,158 @@
+{
+  "ticker": "ARE",
+  "company": "Alexandria Real Estate Equities, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.085039-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Office",
+  "price": {
+    "current": 43.99,
+    "open": 44.73,
+    "high": 45.09,
+    "low": 43.7,
+    "prev_close": 44.84,
+    "change_pct": -1.9,
+    "change_pct_1w": 1.62,
+    "change_pct_1m": -12.47,
+    "change_pct_1y": -39.71,
+    "volume": 1979700,
+    "avg_volume_30d": 2614933
+  },
+  "scores": {
+    "master_score": 31.55,
+    "technical_score": 22.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.0,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 31.55,
+    "confidence": 0.32,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 37.4,
+    "macd": -1.8357,
+    "macd_signal": -1.7906,
+    "macd_histogram": -0.0451,
+    "macd_crossover": "neutral",
+    "ema_20": 46.19,
+    "ema_50": 48.96,
+    "ema_200": 59.53,
+    "ema_stack_bullish": false,
+    "bb_upper": 49.98,
+    "bb_middle": 46.2,
+    "bb_lower": 42.42,
+    "bb_width": 0.1636,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 37.8,
+    "atr": 1.8,
+    "atr_pct": 0.0408,
+    "obv_trend": "DOWN",
+    "mfi": 38.1,
+    "cmf": -0.225,
+    "stoch_k": 36.3,
+    "stoch_d": 39.5,
+    "rvol": 0.99,
+    "volume_5d_avg": 2578780,
+    "green_days_10d": 5,
+    "52w_high": 83.51,
+    "52w_low": 43.05,
+    "52w_high_proximity_pct": 0.4732,
+    "52w_low_proximity_pct": 0.0218
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 0.48493603,
+    "de_ratio": 66.615,
+    "fcf_yield": 0.1765,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.052,
+    "gross_margin": 0.69418997,
+    "operating_margin": 0.2274,
+    "net_margin": -0.47384998,
+    "market_cap": 7623483392,
+    "enterprise_value": 23521884160,
+    "dividend_yield": 9.27,
+    "payout_ratio": 6.8946996,
+    "insider_ownership_pct": 0.01417,
+    "institutional_ownership_pct": 0.98166,
+    "short_ratio": 2.67,
+    "beta": 1.343
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 43.77,
+    "entry_range_high": 44.21,
+    "target_range_low": 48.4,
+    "target_range_high": 51.86,
+    "stop_range_low": 38.37,
+    "stop_range_high": 40.39,
+    "target_price": 49.39,
+    "stop_loss": 40.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.085019-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 54.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 927.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 43.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 32314,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 32,
+    "price_change_display": "-1.90%",
+    "key_metrics": {
+      "RSI": 37.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

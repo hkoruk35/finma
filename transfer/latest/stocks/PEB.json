@@ -1,0 +1,158 @@
+{
+  "ticker": "PEB",
+  "company": "Pebblebrook Hotel Trust",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.090095-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Hotel & Motel",
+  "price": {
+    "current": 13.64,
+    "open": 13.32,
+    "high": 13.92,
+    "low": 13.29,
+    "prev_close": 13.38,
+    "change_pct": 1.94,
+    "change_pct_1w": 7.74,
+    "change_pct_1m": 7.15,
+    "change_pct_1y": 72.4,
+    "volume": 3456100,
+    "avg_volume_30d": 2596030
+  },
+  "scores": {
+    "master_score": 57.85,
+    "technical_score": 60.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 56.0,
+    "breakout_score": 35.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 57.85,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 67.5,
+    "macd": 0.2139,
+    "macd_signal": 0.1017,
+    "macd_histogram": 0.1122,
+    "macd_crossover": "neutral",
+    "ema_20": 12.7,
+    "ema_50": 12.42,
+    "ema_200": 11.62,
+    "ema_stack_bullish": true,
+    "bb_upper": 13.44,
+    "bb_middle": 12.48,
+    "bb_lower": 11.52,
+    "bb_width": 0.1543,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.9,
+    "atr": 0.47,
+    "atr_pct": 0.0342,
+    "obv_trend": "UP",
+    "mfi": 69.3,
+    "cmf": -0.092,
+    "stoch_k": 85.7,
+    "stoch_d": 88.3,
+    "rvol": 1.03,
+    "volume_5d_avg": 2667880,
+    "green_days_10d": 7,
+    "52w_high": 13.64,
+    "52w_low": 7.68,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.7754
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 0.62548727,
+    "de_ratio": 97.655,
+    "fcf_yield": 0.1442,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.034,
+    "gross_margin": 0.24167,
+    "operating_margin": 0.01497,
+    "net_margin": -0.0446,
+    "market_cap": 1551800192,
+    "enterprise_value": 3963957248,
+    "dividend_yield": 0.29,
+    "payout_ratio": 1.2637,
+    "insider_ownership_pct": 0.0232,
+    "institutional_ownership_pct": 1.2415,
+    "short_ratio": 7.11,
+    "beta": 1.432
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 12.36,
+    "entry_range_high": 13.71,
+    "target_range_low": 14.75,
+    "target_range_high": 15.8,
+    "stop_range_low": 12.07,
+    "stop_range_high": 12.7,
+    "target_price": 15.05,
+    "stop_loss": 12.7,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.090079-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 17.05,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 29.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 7.68,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3876,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 58,
+    "price_change_display": "+1.94%",
+    "key_metrics": {
+      "RSI": 67.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

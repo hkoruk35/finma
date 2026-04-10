@@ -1,0 +1,158 @@
+{
+  "ticker": "RIG",
+  "company": "Transocean Ltd.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.908160-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Drilling",
+  "price": {
+    "current": 6.56,
+    "open": 6.68,
+    "high": 6.82,
+    "low": 6.52,
+    "prev_close": 6.7,
+    "change_pct": -2.09,
+    "change_pct_1w": 0.92,
+    "change_pct_1m": 6.49,
+    "change_pct_1y": 176.79,
+    "volume": 20582900,
+    "avg_volume_30d": 36557356
+  },
+  "scores": {
+    "master_score": 58.52,
+    "technical_score": 66.0,
+    "fundamental_score": 45.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 58.52,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 53.4,
+    "macd": 0.1492,
+    "macd_signal": 0.1834,
+    "macd_histogram": -0.0342,
+    "macd_crossover": "neutral",
+    "ema_20": 6.53,
+    "ema_50": 6.08,
+    "ema_200": 4.61,
+    "ema_stack_bullish": true,
+    "bb_upper": 6.95,
+    "bb_middle": 6.55,
+    "bb_lower": 6.14,
+    "bb_width": 0.124,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 35.6,
+    "atr": 0.33,
+    "atr_pct": 0.0502,
+    "obv_trend": "UP",
+    "mfi": 57.4,
+    "cmf": -0.033,
+    "stoch_k": 43.7,
+    "stoch_d": 52.1,
+    "rvol": 0.75,
+    "volume_5d_avg": 27422640,
+    "green_days_10d": 5,
+    "52w_high": 6.93,
+    "52w_low": 2.13,
+    "52w_high_proximity_pct": 0.0534,
+    "52w_low_proximity_pct": 2.0798
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 0.89118326,
+    "de_ratio": 73.643,
+    "fcf_yield": 0.1451,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.096,
+    "gross_margin": 0.39319,
+    "operating_margin": 0.23201999,
+    "net_margin": -0.73517996,
+    "market_cap": 7260283904,
+    "enterprise_value": 12585688064,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.13065,
+    "institutional_ownership_pct": 0.74233,
+    "short_ratio": 4.0,
+    "beta": 1.375
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 6.05,
+    "entry_range_high": 6.59,
+    "target_range_low": 7.4,
+    "target_range_high": 7.93,
+    "stop_range_low": 5.6,
+    "stop_range_high": 5.9,
+    "target_price": 7.55,
+    "stop_loss": 5.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.908145-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 8.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 2.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 78370,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 59,
+    "price_change_display": "-2.09%",
+    "key_metrics": {
+      "RSI": 53.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "MCD",
   "company": "McDonald's Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.673044-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Restaurants",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 3155633
   },
   "scores": {
-    "master_score": 41.88,
+    "master_score": 39.4,
     "technical_score": 27.0,
-    "fundamental_score": 42.0,
+    "fundamental_score": 30.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 0.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 41.88,
-    "confidence": 0.42,
-    "signal_type": "SELL"
+    "signal_score": 39.4,
+    "confidence": 0.39,
+    "signal_type": "STRONG_SELL"
   },
   "technical": {
     "rsi_14": 43.8,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 25.92546,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": -122.886055,
     "de_ratio": null,
     "fcf_yield": 0.0286,
@@ -81,13 +81,13 @@
     "enterprise_value": 273959895040,
     "dividend_yield": 2.4,
     "payout_ratio": 0.6,
-    "insider_ownership_pct": 0.00252,
-    "institutional_ownership_pct": 0.75487,
+    "insider_ownership_pct": 0.00278,
+    "institutional_ownership_pct": 0.7549,
     "short_ratio": 2.83,
     "beta": 0.532
   },
   "signals": {
-    "signal_type": "SELL",
+    "signal_type": "STRONG_SELL",
     "entry_range_low": 308.0,
     "entry_range_high": 311.1,
     "target_range_low": 319.41,
@@ -98,11 +98,8 @@
     "stop_loss": 298.63,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
-    "categories": [
-      "value",
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.673028-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -146,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MCD exhibits a SELL signal with low confidence (42%). Technically, the EMA alignment is bearish, and the RSI of 43.8 indicates weakening momentum, though not yet oversold. The price sits near the lower Bollinger Band, suggesting potential downside.\n\nWhile MCD shows strong profitability (31.9% net margin) and impressive dividend yield (242.00%), its valuation discount to the sector median (P/E of 25.9 vs 30.5) coupled with bearish technicals overrides the strong revenue growth (9.7% TTM). Key level to watch: support around $300.\n\nA potential catalyst for downward pressure could be negative revisions to same-store sales expectations.",
+  "ai_summary": "",
   "quick_view": {
-    "signal_badge": "SELL",
-    "score_bar": 42,
+    "signal_badge": "STRONG SELL",
+    "score_bar": 39,
     "price_change_display": "+0.83%",
     "key_metrics": {
       "RSI": 43.8,

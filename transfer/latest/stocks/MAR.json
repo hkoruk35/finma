@@ -1,0 +1,158 @@
+{
+  "ticker": "MAR",
+  "company": "Marriott International, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.688350-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Lodging",
+  "price": {
+    "current": 352.93,
+    "open": 347.51,
+    "high": 354.0,
+    "low": 344.53,
+    "prev_close": 348.58,
+    "change_pct": 1.25,
+    "change_pct_1w": 5.84,
+    "change_pct_1m": 8.26,
+    "change_pct_1y": 66.98,
+    "volume": 1147100,
+    "avg_volume_30d": 1560803
+  },
+  "scores": {
+    "master_score": 57.45,
+    "technical_score": 65.0,
+    "fundamental_score": 33.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.5,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 57.45,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 64.5,
+    "macd": 3.3114,
+    "macd_signal": 0.0523,
+    "macd_histogram": 3.2591,
+    "macd_crossover": "neutral",
+    "ema_20": 332.44,
+    "ema_50": 328.58,
+    "ema_200": 301.93,
+    "ema_stack_bullish": true,
+    "bb_upper": 346.9,
+    "bb_middle": 327.47,
+    "bb_lower": 308.05,
+    "bb_width": 0.1186,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.2,
+    "atr": 10.19,
+    "atr_pct": 0.0289,
+    "obv_trend": "UP",
+    "mfi": 61.8,
+    "cmf": -0.112,
+    "stoch_k": 97.1,
+    "stoch_d": 83.1,
+    "rvol": 0.84,
+    "volume_5d_avg": 1315200,
+    "green_days_10d": 6,
+    "52w_high": 359.25,
+    "52w_low": 209.14,
+    "52w_high_proximity_pct": 0.0176,
+    "52w_low_proximity_pct": 0.6875
+  },
+  "fundamental": {
+    "pe_ratio": 37.189674,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": -24.882261,
+    "de_ratio": null,
+    "fcf_yield": 0.0179,
+    "eps_growth_5y": 0.016,
+    "revenue_growth_ttm": 0.063,
+    "gross_margin": 0.79074997,
+    "operating_margin": 0.43972,
+    "net_margin": 0.37252998,
+    "market_cap": 93521002496,
+    "enterprise_value": 110344994816,
+    "dividend_yield": 0.76,
+    "payout_ratio": 0.2776,
+    "insider_ownership_pct": 0.17803,
+    "institutional_ownership_pct": 0.65512,
+    "short_ratio": 4.28,
+    "beta": 1.097
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 326.94,
+    "entry_range_high": 354.69,
+    "target_range_low": 375.83,
+    "target_range_high": 402.68,
+    "stop_range_low": 315.92,
+    "stop_range_high": 332.55,
+    "target_price": 383.5,
+    "stop_loss": 332.55,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.688334-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 441.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 76.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 209.14,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 57,
+    "price_change_display": "+1.25%",
+    "key_metrics": {
+      "RSI": 64.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

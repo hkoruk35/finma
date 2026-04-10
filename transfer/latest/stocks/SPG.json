@@ -2,7 +2,7 @@
   "ticker": "SPG",
   "company": "Simon Property Group, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.467224-04:00",
+  "generated_at": "2026-04-10T05:26:08.064516-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 14.041637,
-    "sector_pe_median": 34.353176,
+    "sector_pe_median": 29.323397,
     "pb_ratio": 12.521711,
     "de_ratio": 435.463,
     "fcf_yield": 0.0309,
@@ -82,7 +82,7 @@
     "dividend_yield": 4.35,
     "payout_ratio": 0.6034,
     "insider_ownership_pct": 0.01825,
-    "institutional_ownership_pct": 0.93158996,
+    "institutional_ownership_pct": 0.93160003,
     "short_ratio": 0.0,
     "beta": 1.403
   },
@@ -98,11 +98,8 @@
     "stop_loss": 190.89,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.467224-04:00",
-    "categories": [
-      "top_signals",
-      "value"
-    ]
+    "generated_at": "2026-04-10T05:26:08.064500-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -146,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SPG exhibits a neutral FinMA signal, confidence 64%. Technically, SPG is trading near its 52-week high, with bullish EMA alignment. The RSI is approaching overbought territory at 66.1, and ADX indicates a weak trend.\n\nFundamentally, SPG's P/E of 14.05 suggests undervaluation relative to its sector, coupled with strong gross and net margins (81.9% and 72.7% respectively). The extraordinary dividend yield of 446.00% is unsustainable and likely a data error. This anomaly, and clarifying its cause and future payout implications, could act as a potential catalyst. Key level to watch: $200 resistance.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 64,

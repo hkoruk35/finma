@@ -2,7 +2,7 @@
   "ticker": "AMD",
   "company": "Advanced Micro Devices, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.562865-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 33877033
   },
   "scores": {
-    "master_score": 48.97,
+    "master_score": 49.52,
     "technical_score": 60.0,
     "fundamental_score": 15.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 0.0,
-    "signal_score": 48.97,
-    "confidence": 0.49,
+    "signal_score": 49.52,
+    "confidence": 0.5,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 91.01539,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 6.1226387,
     "de_ratio": 6.359,
     "fcf_yield": 0.0119,
@@ -98,12 +98,8 @@
     "stop_loss": 216.62,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
-    "categories": [
-      "breakout",
-      "reversal",
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T05:26:07.562807-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -147,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AMD exhibits mixed signals. While the bullish EMA alignment and strong TTM revenue growth of 34.1% are positive, valuation concerns loom large (P/E of 90.3). The FinMA Sell signal, albeit with only 49% confidence, is driven by the stretched valuation relative to sector peers. The RSI of 66.8 nearing overbought territory, compounded with low Bollinger Band positioning, hints at a potential pullback. Key level to watch is $230; failure to hold could trigger further downside. A catalyst to watch is upcoming earnings revisions as any negative change could pressure the stock.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 49,
+    "score_bar": 50,
     "price_change_display": "+2.08%",
     "key_metrics": {
       "RSI": 66.8,

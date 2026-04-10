@@ -2,7 +2,7 @@
   "ticker": "LMT",
   "company": "Lockheed Martin Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.450528-04:00",
+  "generated_at": "2026-04-10T05:26:07.958306-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1649540
   },
   "scores": {
-    "master_score": 55.73,
+    "master_score": 54.73,
     "technical_score": 60.0,
     "fundamental_score": 39.0,
     "momentum_score": 50.0,
     "sentiment_score": 85.0,
-    "sector_score": 64.8,
+    "sector_score": 54.8,
     "breakout_score": 45.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 55.73,
-    "confidence": 0.56,
+    "signal_score": 54.73,
+    "confidence": 0.55,
     "signal_type": "NEUTRAL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 29.071297,
-    "sector_pe_median": 34.371525,
+    "sector_pe_median": 34.192967499999995,
     "pb_ratio": 21.25694,
     "de_ratio": 338.804,
     "fcf_yield": 0.0367,
@@ -98,10 +98,8 @@
     "stop_loss": 590.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.450528-04:00",
-    "categories": [
-      "breakout"
-    ]
+    "generated_at": "2026-04-10T05:26:07.958289-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "HIGH",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "LMT exhibits a NEUTRAL FinMA signal, confidence 56%. While trading 7.8% from its 52-week high, bearish EMA alignment suggests potential downside. The RSI of 48.1 and neutral MACD offer no clear directional bias. The stock trades at a P/E of 29.23, a discount to the sector median of 34.86, despite 9.1% TTM revenue growth. Key technical levels to watch are resistance around the 52-week high and support near the $600 level. A potential catalyst could be renewed international contract awards, particularly given the current geopolitical landscape, though no recent news exists to drive such action currently.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "NEUTRAL",
-    "score_bar": 56,
+    "score_bar": 55,
     "price_change_display": "-0.74%",
     "key_metrics": {
       "RSI": 48.1,

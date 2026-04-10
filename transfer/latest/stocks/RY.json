@@ -1,0 +1,158 @@
+{
+  "ticker": "RY",
+  "company": "Royal Bank of Canada",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.811877-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 170.79,
+    "open": 169.24,
+    "high": 171.32,
+    "low": 168.71,
+    "prev_close": 169.47,
+    "change_pct": 0.78,
+    "change_pct_1w": 4.51,
+    "change_pct_1m": 3.25,
+    "change_pct_1y": 59.22,
+    "volume": 2002000,
+    "avg_volume_30d": 1416783
+  },
+  "scores": {
+    "master_score": 45.17,
+    "technical_score": 45.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 68.0,
+    "sector_score": 48.7,
+    "breakout_score": 0.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 45.17,
+    "confidence": 0.45,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 65.1,
+    "macd": 0.3563,
+    "macd_signal": -0.947,
+    "macd_histogram": 1.3033,
+    "macd_crossover": "neutral",
+    "ema_20": 164.37,
+    "ema_50": 164.88,
+    "ema_200": 153.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 169.08,
+    "bb_middle": 162.78,
+    "bb_lower": 156.48,
+    "bb_width": 0.0774,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.4,
+    "atr": 2.91,
+    "atr_pct": 0.017,
+    "obv_trend": "UP",
+    "mfi": 58.6,
+    "cmf": -0.097,
+    "stoch_k": 96.3,
+    "stoch_d": 96.7,
+    "rvol": 0.97,
+    "volume_5d_avg": 1378380,
+    "green_days_10d": 6,
+    "52w_high": 175.46,
+    "52w_low": 106.47,
+    "52w_high_proximity_pct": 0.0266,
+    "52w_low_proximity_pct": 0.6041
+  },
+  "fundamental": {
+    "pe_ratio": 16.188625,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 2.577921,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.138,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.0,
+    "operating_margin": 0.46194,
+    "net_margin": 0.33137,
+    "market_cap": 238447296512,
+    "enterprise_value": -56432005120,
+    "dividend_yield": 2.81,
+    "payout_ratio": 0.42580003,
+    "insider_ownership_pct": 0.0005,
+    "institutional_ownership_pct": 0.48439,
+    "short_ratio": 2.71,
+    "beta": 0.919
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 164.06,
+    "entry_range_high": 171.64,
+    "target_range_low": 175.93,
+    "target_range_high": 188.5,
+    "stop_range_low": 156.72,
+    "stop_range_high": 164.97,
+    "target_price": 179.52,
+    "stop_loss": 164.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.811857-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 213.49,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 281.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 106.47,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 11,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 462,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 45,
+    "price_change_display": "+0.78%",
+    "key_metrics": {
+      "RSI": 65.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

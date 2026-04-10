@@ -1,0 +1,158 @@
+{
+  "ticker": "CHRW",
+  "company": "C.H. Robinson Worldwide, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.995811-04:00",
+  "sector": "Industrials",
+  "industry": "Integrated Freight & Logistics",
+  "price": {
+    "current": 170.2,
+    "open": 172.42,
+    "high": 174.89,
+    "low": 168.68,
+    "prev_close": 172.42,
+    "change_pct": -1.29,
+    "change_pct_1w": 1.01,
+    "change_pct_1m": -3.22,
+    "change_pct_1y": 94.49,
+    "volume": 1467200,
+    "avg_volume_30d": 1577016
+  },
+  "scores": {
+    "master_score": 33.73,
+    "technical_score": 45.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 33.73,
+    "confidence": 0.34,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 48.3,
+    "macd": -2.4679,
+    "macd_signal": -3.2757,
+    "macd_histogram": 0.8078,
+    "macd_crossover": "neutral",
+    "ema_20": 170.31,
+    "ema_50": 172.86,
+    "ema_200": 151.08,
+    "ema_stack_bullish": false,
+    "bb_upper": 175.02,
+    "bb_middle": 168.74,
+    "bb_lower": 162.46,
+    "bb_width": 0.0744,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 23.7,
+    "atr": 5.83,
+    "atr_pct": 0.0342,
+    "obv_trend": "DOWN",
+    "mfi": 47.5,
+    "cmf": -0.26,
+    "stoch_k": 66.9,
+    "stoch_d": 60.7,
+    "rvol": 0.83,
+    "volume_5d_avg": 1302920,
+    "green_days_10d": 5,
+    "52w_high": 199.91,
+    "52w_low": 85.35,
+    "52w_high_proximity_pct": 0.1486,
+    "52w_low_proximity_pct": 0.9941
+  },
+  "fundamental": {
+    "pe_ratio": 35.238094,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 10.921458,
+    "de_ratio": 75.604,
+    "fcf_yield": 0.0368,
+    "eps_growth_5y": -0.085,
+    "revenue_growth_ttm": -0.065,
+    "gross_margin": 0.08550999,
+    "operating_margin": 0.05071,
+    "net_margin": 0.036170002,
+    "market_cap": 20189265920,
+    "enterprise_value": 21423779840,
+    "dividend_yield": 1.48,
+    "payout_ratio": 0.5155,
+    "insider_ownership_pct": 0.0039500003,
+    "institutional_ownership_pct": 1.03777,
+    "short_ratio": 3.42,
+    "beta": 0.935
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 169.35,
+    "entry_range_high": 171.05,
+    "target_range_low": 183.94,
+    "target_range_high": 197.07,
+    "stop_range_low": 150.61,
+    "stop_range_high": 158.54,
+    "target_price": 187.69,
+    "stop_loss": 158.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.995792-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 212.75,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 148.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 85.35,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1223,
+      "date": "2026-02-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 34,
+    "price_change_display": "-1.29%",
+    "key_metrics": {
+      "RSI": 48.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

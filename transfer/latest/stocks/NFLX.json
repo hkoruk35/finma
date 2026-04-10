@@ -2,7 +2,7 @@
   "ticker": "NFLX",
   "company": "Netflix, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.640673-04:00",
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 47683870
   },
   "scores": {
-    "master_score": 54.47,
+    "master_score": 54.95,
     "technical_score": 61.0,
     "fundamental_score": 35.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 38.7,
+    "sector_score": 43.5,
     "breakout_score": 30.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 30.0,
-    "signal_score": 54.47,
-    "confidence": 0.54,
-    "signal_type": "SELL"
+    "signal_score": 54.95,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL"
   },
   "technical": {
     "rsi_14": 71.2,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 40.33597,
-    "sector_pe_median": 17.509828499999998,
+    "sector_pe_median": 24.866439999999997,
     "pb_ratio": 16.188135,
     "de_ratio": 63.782,
     "fcf_yield": 0.0573,
@@ -82,12 +82,12 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.0058999998,
-    "institutional_ownership_pct": 0.83715,
+    "institutional_ownership_pct": 0.83713996,
     "short_ratio": 1.63,
     "beta": 1.669
   },
   "signals": {
-    "signal_type": "SELL",
+    "signal_type": "NEUTRAL",
     "entry_range_low": 92.65,
     "entry_range_high": 102.56,
     "target_range_low": 108.62,
@@ -98,11 +98,8 @@
     "stop_loss": 96.19,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
-    "categories": [
-      "value",
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T05:26:07.640651-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -146,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NFLX signals a SELL (54% confidence) despite today's 2.68% gain to $102.05. Bearish EMA alignment and an overbought RSI of 71.2 support the signal. Although the ADX at 32.1 suggests a defined trend, volume is weak at 0.69x relative.\n\nThe stock trades 23.8% below its 52-week high. Key technical levels to watch are resistance at $115 and support near $95. While NFLX boasts strong profitability (24.3% net margin) and 17.6% TTM revenue growth, its P/E of 39.25 represents a premium valuation. Absent fresh catalysts, the valuation may correct.",
+  "ai_summary": "",
   "quick_view": {
-    "signal_badge": "SELL",
-    "score_bar": 54,
+    "signal_badge": "NEUTRAL",
+    "score_bar": 55,
     "price_change_display": "+2.68%",
     "key_metrics": {
       "RSI": 71.2,

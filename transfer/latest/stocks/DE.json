@@ -2,7 +2,7 @@
   "ticker": "DE",
   "company": "Deere & Company",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.450528-04:00",
+  "generated_at": "2026-04-10T05:26:07.972068-04:00",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1355103
   },
   "scores": {
-    "master_score": 54.23,
+    "master_score": 53.23,
     "technical_score": 75.0,
     "fundamental_score": 0.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 64.8,
+    "sector_score": 54.8,
     "breakout_score": 65.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 54.23,
-    "confidence": 0.54,
+    "signal_score": 53.23,
+    "confidence": 0.53,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 34.371525,
-    "sector_pe_median": 34.371525,
+    "sector_pe_median": 34.192967499999995,
     "pb_ratio": 6.346989,
     "de_ratio": 376.022,
     "fcf_yield": 0.0252,
@@ -98,7 +98,7 @@
     "stop_loss": 584.46,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.450528-04:00",
+    "generated_at": "2026-04-10T05:26:07.972054-04:00",
     "categories": [
       "breakout"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Deere (DE) exhibits a mixed technical picture, trading at $618.0, just 6.4% off its 52-week high, and a neutral MACD. While EMA alignment is bullish, ADX strength at 21.1 suggests a weak trend. The RSI of 65.5 indicates nearing overbought conditions, reinforced by Bollinger Bands at HIGH.\n\nFundamentally, DE shows a high dividend yield of 106.00%, but TTM revenue growth is negative (-11.1%). A P/E of 34.86 is in line with sector median.\n\nGiven these factors, the FinMA signal is SELL (54% confidence). Lacking recent news or a major catalyst, Deere's high valuation and weak revenue growth may prompt a correction. Key levels to watch include potential resistance around the 52-week high and support near the recent consolidation range.",
+  "ai_summary": "Deere (DE) signals a SELL (53% confidence) despite today's 1.42% gain to $618.0. While the EMA alignment is bullish, the RSI at 65.5 and Bollinger Bands touching HIGH suggest overbought conditions. The ADX of 21.1 indicates a weak trend. DE trades at a premium with a P/E of 34.37 vs. the sector median of 34.19, but TTM revenue growth is negative (-11.1%). The dividend yield is 105%. Key level to watch is resistance near the 52-week high. A potential catalyst for a downturn is disappointing earnings projections given the high valuation.",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 54,
+    "score_bar": 53,
     "price_change_display": "+1.42%",
     "key_metrics": {
       "RSI": 65.5,

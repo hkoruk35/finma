@@ -1,0 +1,158 @@
+{
+  "ticker": "EGP",
+  "company": "EastGroup Properties, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.061121-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Industrial",
+  "price": {
+    "current": 192.73,
+    "open": 193.95,
+    "high": 194.63,
+    "low": 192.67,
+    "prev_close": 193.06,
+    "change_pct": -0.17,
+    "change_pct_1w": 2.87,
+    "change_pct_1m": 1.67,
+    "change_pct_1y": 30.83,
+    "volume": 247000,
+    "avg_volume_30d": 341263
+  },
+  "scores": {
+    "master_score": 60.6,
+    "technical_score": 65.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 60.6,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 63.7,
+    "macd": 0.9029,
+    "macd_signal": -0.175,
+    "macd_histogram": 1.0779,
+    "macd_crossover": "neutral",
+    "ema_20": 187.39,
+    "ema_50": 186.07,
+    "ema_200": 177.69,
+    "ema_stack_bullish": true,
+    "bb_upper": 193.17,
+    "bb_middle": 186.01,
+    "bb_lower": 178.85,
+    "bb_width": 0.077,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.3,
+    "atr": 3.92,
+    "atr_pct": 0.0203,
+    "obv_trend": "UP",
+    "mfi": 64.9,
+    "cmf": -0.293,
+    "stoch_k": 82.8,
+    "stoch_d": 86.2,
+    "rvol": 0.92,
+    "volume_5d_avg": 314120,
+    "green_days_10d": 7,
+    "52w_high": 194.65,
+    "52w_low": 140.33,
+    "52w_high_proximity_pct": 0.0099,
+    "52w_low_proximity_pct": 0.3734
+  },
+  "fundamental": {
+    "pe_ratio": 39.49385,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 2.9359434,
+    "de_ratio": 47.968,
+    "fcf_yield": 0.036,
+    "eps_growth_5y": 0.087,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.73283994,
+    "operating_margin": 0.40522,
+    "net_margin": 0.35771,
+    "market_cap": 10281914368,
+    "enterprise_value": 11927984128,
+    "dividend_yield": 3.22,
+    "payout_ratio": 1.2115,
+    "insider_ownership_pct": 0.01002,
+    "institutional_ownership_pct": 1.01856,
+    "short_ratio": 4.74,
+    "beta": 1.106
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 185.14,
+    "entry_range_high": 193.69,
+    "target_range_low": 200.4,
+    "target_range_high": 214.71,
+    "stop_range_low": 175.65,
+    "stop_range_high": 184.89,
+    "target_price": 204.49,
+    "stop_loss": 184.89,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.061091-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 240.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 322.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 140.33,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 266,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 61,
+    "price_change_display": "-0.17%",
+    "key_metrics": {
+      "RSI": 63.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

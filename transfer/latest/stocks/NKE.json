@@ -2,7 +2,7 @@
   "ticker": "NKE",
   "company": "NIKE, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.680110-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Footwear & Accessories",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 23067900
   },
   "scores": {
-    "master_score": 27.68,
+    "master_score": 25.2,
     "technical_score": 25.0,
-    "fundamental_score": 12.0,
+    "fundamental_score": 0.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 27.0,
     "value_score": 0.0,
     "reversal_score": 45.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 27.68,
-    "confidence": 0.28,
+    "signal_score": 25.2,
+    "confidence": 0.25,
     "signal_type": "STRONG_SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 28.947369,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": 4.623306,
     "de_ratio": 79.333,
     "fcf_yield": 0.0202,
@@ -98,7 +98,7 @@
     "stop_loss": 40.26,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.680091-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NKE exhibits a STRONG_SELL signal, though confidence is low at 28%. Technically, the RSI of 25 suggests oversold conditions, yet bearish EMA alignment and strong ADX at 44.9 indicate persistent downward momentum. Price is near its 52-week low (43.5% from high), reinforced by low Bollinger Bands. While valuation shows a slight P/E discount (28.95) versus the sector median (30.50), weak 0.1% TTM revenue growth offsets this. A potential catalyst for NKE would be unexpectedly strong earnings, reversing the current bearish trend; however, without such a catalyst, further downside towards key support around $40 is probable. High dividend yield is not enough to offset negative growth.",
+  "ai_summary": "Nike (NKE) exhibits a **STRONG_SELL** signal. At $43.13, near its 52-week low, NKE is struggling. A bearish EMA stack and overextended ADX at 43.5 indicate a strong downtrend. Despite LOW BB Squeeze and slightly favorable P/E of 28.38 compared to the sector median of 29.12, weak revenue growth of 0.1% and an oversold RSI of 20.6 raise concerns. RVOL is high at 2.41x. Upcoming earnings announcements could serve as a near-term catalyst, potentially exacerbating the downward trend if guidance disappoints.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
-    "score_bar": 28,
+    "score_bar": 25,
     "price_change_display": "+2.02%",
     "key_metrics": {
       "RSI": 25.0,

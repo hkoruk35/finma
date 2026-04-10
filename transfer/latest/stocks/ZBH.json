@@ -1,0 +1,158 @@
+{
+  "ticker": "ZBH",
+  "company": "Zimmer Biomet Holdings, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.783762-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 93.03,
+    "open": 92.63,
+    "high": 93.77,
+    "low": 91.4,
+    "prev_close": 93.01,
+    "change_pct": 0.02,
+    "change_pct_1w": 2.2,
+    "change_pct_1m": 1.73,
+    "change_pct_1y": -10.34,
+    "volume": 1712400,
+    "avg_volume_30d": 2041616
+  },
+  "scores": {
+    "master_score": 52.4,
+    "technical_score": 55.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.0,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 52.4,
+    "confidence": 0.52,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 57.1,
+    "macd": -0.2234,
+    "macd_signal": -0.806,
+    "macd_histogram": 0.5826,
+    "macd_crossover": "neutral",
+    "ema_20": 91.12,
+    "ema_50": 91.71,
+    "ema_200": 94.21,
+    "ema_stack_bullish": false,
+    "bb_upper": 94.51,
+    "bb_middle": 90.21,
+    "bb_lower": 85.9,
+    "bb_width": 0.0955,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 21.3,
+    "atr": 2.16,
+    "atr_pct": 0.0232,
+    "obv_trend": "UP",
+    "mfi": 69.7,
+    "cmf": -0.057,
+    "stoch_k": 90.9,
+    "stoch_d": 90.3,
+    "rvol": 0.88,
+    "volume_5d_avg": 1805300,
+    "green_days_10d": 8,
+    "52w_high": 106.87,
+    "52w_low": 85.48,
+    "52w_high_proximity_pct": 0.1295,
+    "52w_low_proximity_pct": 0.0884
+  },
+  "fundamental": {
+    "pe_ratio": 26.205633,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 1.4323326,
+    "de_ratio": 61.971,
+    "fcf_yield": 0.0743,
+    "eps_growth_5y": -0.408,
+    "revenue_growth_ttm": 0.109,
+    "gross_margin": 0.69708,
+    "operating_margin": 0.13967,
+    "net_margin": 0.08566,
+    "market_cap": 18201505792,
+    "enterprise_value": 25462605824,
+    "dividend_yield": 1.03,
+    "payout_ratio": 0.27040002,
+    "insider_ownership_pct": 0.00201,
+    "institutional_ownership_pct": 1.05387,
+    "short_ratio": 3.81,
+    "beta": 0.612
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 91.25,
+    "entry_range_high": 93.5,
+    "target_range_low": 97.52,
+    "target_range_high": 104.49,
+    "stop_range_low": 84.27,
+    "stop_range_high": 88.71,
+    "target_price": 99.51,
+    "stop_loss": 88.71,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.783742-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 116.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 103.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 85.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6626,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 52,
+    "price_change_display": "+0.02%",
+    "key_metrics": {
+      "RSI": 57.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

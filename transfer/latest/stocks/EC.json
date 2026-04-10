@@ -1,0 +1,156 @@
+{
+  "ticker": "EC",
+  "company": "Ecopetrol S.A.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.884019-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 13.91,
+    "open": 14.12,
+    "high": 14.24,
+    "low": 13.84,
+    "prev_close": 14.11,
+    "change_pct": -1.42,
+    "change_pct_1w": -4.0,
+    "change_pct_1m": 7.83,
+    "change_pct_1y": 66.61,
+    "volume": 3551000,
+    "avg_volume_30d": 3854930
+  },
+  "scores": {
+    "master_score": 45.42,
+    "technical_score": 45.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 60.0,
+    "sector_score": 46.7,
+    "breakout_score": 45.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 45.42,
+    "confidence": 0.45,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 47.7,
+    "macd": 0.3794,
+    "macd_signal": 0.5459,
+    "macd_histogram": -0.1664,
+    "macd_crossover": "neutral",
+    "ema_20": 14.31,
+    "ema_50": 13.38,
+    "ema_200": 11.1,
+    "ema_stack_bullish": false,
+    "bb_upper": 15.37,
+    "bb_middle": 14.58,
+    "bb_lower": 13.79,
+    "bb_width": 0.1079,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 28.1,
+    "atr": 0.67,
+    "atr_pct": 0.0484,
+    "obv_trend": "DOWN",
+    "mfi": 47.8,
+    "cmf": -0.007,
+    "stoch_k": 24.7,
+    "stoch_d": 35.0,
+    "rvol": 0.74,
+    "volume_5d_avg": 2857860,
+    "green_days_10d": 3,
+    "52w_high": 15.14,
+    "52w_low": 7.7,
+    "52w_high_proximity_pct": 0.0812,
+    "52w_low_proximity_pct": 0.8073
+  },
+  "fundamental": {
+    "pe_ratio": 11.6890745,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 0.007085923,
+    "de_ratio": 99.958,
+    "fcf_yield": 264.6226,
+    "eps_growth_5y": -0.608,
+    "revenue_growth_ttm": -0.172,
+    "gross_margin": 0.32759,
+    "operating_margin": 0.0,
+    "net_margin": 0.075430006,
+    "market_cap": 29841551360,
+    "enterprise_value": null,
+    "dividend_yield": 4.75,
+    "payout_ratio": 0.95589995,
+    "insider_ownership_pct": 0.0,
+    "institutional_ownership_pct": 0.01133,
+    "short_ratio": 3.91,
+    "beta": 0.018
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 13.31,
+    "entry_range_high": 13.98,
+    "target_range_low": 15.6,
+    "target_range_high": 16.72,
+    "stop_range_low": 11.94,
+    "stop_range_high": 12.57,
+    "target_price": 15.92,
+    "stop_loss": 12.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.884002-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 17.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 475.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 7.7,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "EC (Ecopetrol) presents a weak sell signal, confidence 45%. The bearish EMA alignment and proximity to the 52-week high despite today's 1.42% drop to $13.91 suggest potential further downside. ADX at 28.1 indicates a trending market, but low relative volume (0.74x) casts doubt on conviction. While EC trades at a P/E of 11.69, discounted relative to the sector, the -17.2% TTM revenue growth tempers this advantage. A break below support at $13.50 would confirm the bearish outlook.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 45,
+    "price_change_display": "-1.42%",
+    "key_metrics": {
+      "RSI": 47.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

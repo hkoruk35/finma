@@ -1,0 +1,158 @@
+{
+  "ticker": "CNQ",
+  "company": "Canadian Natural Resources Limited",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.879877-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 45.7,
+    "open": 46.92,
+    "high": 47.33,
+    "low": 45.3,
+    "prev_close": 46.43,
+    "change_pct": -1.57,
+    "change_pct_1w": -1.85,
+    "change_pct_1m": 0.86,
+    "change_pct_1y": 75.79,
+    "volume": 8592600,
+    "avg_volume_30d": 13053766
+  },
+  "scores": {
+    "master_score": 48.17,
+    "technical_score": 50.0,
+    "fundamental_score": 68.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 50.0,
+    "sector_score": 46.7,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 48.17,
+    "confidence": 0.48,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 45.6,
+    "macd": 0.8294,
+    "macd_signal": 1.4683,
+    "macd_histogram": -0.6389,
+    "macd_crossover": "neutral",
+    "ema_20": 47.38,
+    "ema_50": 44.31,
+    "ema_200": 36.59,
+    "ema_stack_bullish": false,
+    "bb_upper": 50.6,
+    "bb_middle": 48.39,
+    "bb_lower": 46.18,
+    "bb_width": 0.0914,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 37.8,
+    "atr": 1.74,
+    "atr_pct": 0.0381,
+    "obv_trend": "DOWN",
+    "mfi": 47.0,
+    "cmf": 0.073,
+    "stoch_k": 15.8,
+    "stoch_d": 35.0,
+    "rvol": 0.9,
+    "volume_5d_avg": 11767240,
+    "green_days_10d": 4,
+    "52w_high": 50.09,
+    "52w_low": 24.59,
+    "52w_high_proximity_pct": 0.0877,
+    "52w_low_proximity_pct": 0.8586
+  },
+  "fundamental": {
+    "pe_ratio": 12.252011,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 2.96823,
+    "de_ratio": 44.455,
+    "fcf_yield": 0.0672,
+    "eps_growth_5y": 3.718,
+    "revenue_growth_ttm": 0.015,
+    "gross_margin": 0.48462,
+    "operating_margin": 0.19555001,
+    "net_margin": 0.27914,
+    "market_cap": 95562416128,
+    "enterprise_value": 114378924032,
+    "dividend_yield": 3.93,
+    "payout_ratio": 0.45540002,
+    "insider_ownership_pct": 0.022769999,
+    "institutional_ownership_pct": 0.74501,
+    "short_ratio": 14.52,
+    "beta": 0.934
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 44.09,
+    "entry_range_high": 45.93,
+    "target_range_low": 49.9,
+    "target_range_high": 53.47,
+    "stop_range_low": 40.11,
+    "stop_range_high": 42.22,
+    "target_price": 50.92,
+    "stop_loss": 42.22,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.879856-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 57.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 393.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 24.59,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 34,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 295159,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 48,
+    "price_change_display": "-1.57%",
+    "key_metrics": {
+      "RSI": 45.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

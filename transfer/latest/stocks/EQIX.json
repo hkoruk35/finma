@@ -2,7 +2,7 @@
   "ticker": "EQIX",
   "company": "Equinix, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.467224-04:00",
+  "generated_at": "2026-04-10T05:26:08.056499-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 75.18731,
-    "sector_pe_median": 34.353176,
+    "sector_pe_median": 29.323397,
     "pb_ratio": 7.157914,
     "de_ratio": 160.291,
     "fcf_yield": 0.0278,
@@ -98,10 +98,8 @@
     "stop_loss": 988.45,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.467224-04:00",
-    "categories": [
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T05:26:08.056483-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "EQIX signals a SELL with modest confidence despite bullish EMA alignment and proximity to its 52-week high ($1031.57). The high RSI of 74.1 suggests overbought conditions, corroborated by low Bollinger Band positioning, despite a neutral MACD. ADX at 27.8 indicates a trending market.\n\nWhile Equinix demonstrates solid 8.1% revenue growth and strong margins (51.3% gross, 14.6% net), its high P/E of 75.08 significantly exceeds the sector median, creating valuation concerns. The unusually high dividend yield of 189% is likely an anomaly requiring further investigation and could be a catalyst for a price correction if unsustainable.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 50,

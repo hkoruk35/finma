@@ -2,7 +2,7 @@
   "ticker": "SBUX",
   "company": "Starbucks Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.673740-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Restaurants",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 8182523
   },
   "scores": {
-    "master_score": 49.18,
+    "master_score": 49.7,
     "technical_score": 70.0,
     "fundamental_score": 15.0,
     "momentum_score": 50.0,
     "sentiment_score": 65.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 40.0,
-    "signal_score": 49.18,
-    "confidence": 0.49,
+    "signal_score": 49.7,
+    "confidence": 0.5,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 80.76666,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": -13.161325,
     "de_ratio": null,
     "fcf_yield": -0.013,
@@ -98,7 +98,7 @@
     "stop_loss": 91.36,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.673726-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 49,
+    "score_bar": 50,
     "price_change_display": "-0.30%",
     "key_metrics": {
       "RSI": 56.8,

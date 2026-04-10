@@ -1,0 +1,158 @@
+{
+  "ticker": "EXP",
+  "company": "Eagle Materials Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.953343-04:00",
+  "sector": "Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 197.29,
+    "open": 194.17,
+    "high": 198.68,
+    "low": 194.05,
+    "prev_close": 195.72,
+    "change_pct": 0.8,
+    "change_pct_1w": 3.31,
+    "change_pct_1m": 1.93,
+    "change_pct_1y": -6.54,
+    "volume": 275000,
+    "avg_volume_30d": 458696
+  },
+  "scores": {
+    "master_score": 38.72,
+    "technical_score": 50.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.7,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 38.72,
+    "confidence": 0.39,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 54.1,
+    "macd": -3.5875,
+    "macd_signal": -6.3293,
+    "macd_histogram": 2.7418,
+    "macd_crossover": "neutral",
+    "ema_20": 190.85,
+    "ema_50": 200.64,
+    "ema_200": 214.35,
+    "ema_stack_bullish": false,
+    "bb_upper": 196.49,
+    "bb_middle": 185.68,
+    "bb_lower": 174.87,
+    "bb_width": 0.1165,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 27.8,
+    "atr": 7.1,
+    "atr_pct": 0.036,
+    "obv_trend": "DOWN",
+    "mfi": 57.5,
+    "cmf": -0.182,
+    "stoch_k": 94.8,
+    "stoch_d": 80.7,
+    "rvol": 1.07,
+    "volume_5d_avg": 490700,
+    "green_days_10d": 4,
+    "52w_high": 241.41,
+    "52w_low": 173.07,
+    "52w_high_proximity_pct": 0.1828,
+    "52w_low_proximity_pct": 0.1399
+  },
+  "fundamental": {
+    "pe_ratio": 14.901057,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 4.16804,
+    "de_ratio": 120.567,
+    "fcf_yield": 0.0247,
+    "eps_growth_5y": -0.096,
+    "revenue_growth_ttm": -0.004,
+    "gross_margin": 0.283,
+    "operating_margin": 0.24624,
+    "net_margin": 0.18702999,
+    "market_cap": 6325881856,
+    "enterprise_value": 7583059456,
+    "dividend_yield": 0.51,
+    "payout_ratio": 0.0756,
+    "insider_ownership_pct": 0.0115,
+    "institutional_ownership_pct": 1.04305,
+    "short_ratio": 3.95,
+    "beta": 1.392
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 196.3,
+    "entry_range_high": 198.28,
+    "target_range_low": 214.22,
+    "target_range_high": 229.52,
+    "stop_range_low": 173.94,
+    "stop_range_high": 183.09,
+    "target_price": 218.59,
+    "stop_loss": 183.09,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.953327-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 246.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 51.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 173.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 317,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 39,
+    "price_change_display": "+0.80%",
+    "key_metrics": {
+      "RSI": 54.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

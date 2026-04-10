@@ -1,0 +1,158 @@
+{
+  "ticker": "EXEL",
+  "company": "Exelixis, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.748534-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 45.41,
+    "open": 44.0,
+    "high": 45.56,
+    "low": 43.82,
+    "prev_close": 44.2,
+    "change_pct": 2.74,
+    "change_pct_1w": 3.11,
+    "change_pct_1m": 9.98,
+    "change_pct_1y": 30.34,
+    "volume": 1813100,
+    "avg_volume_30d": 2867480
+  },
+  "scores": {
+    "master_score": 65.15,
+    "technical_score": 65.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 49.0,
+    "breakout_score": 35.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 65.15,
+    "confidence": 0.65,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 67.9,
+    "macd": 0.5549,
+    "macd_signal": 0.1671,
+    "macd_histogram": 0.3878,
+    "macd_crossover": "neutral",
+    "ema_20": 43.07,
+    "ema_50": 42.83,
+    "ema_200": 41.72,
+    "ema_stack_bullish": true,
+    "bb_upper": 45.06,
+    "bb_middle": 42.46,
+    "bb_lower": 39.85,
+    "bb_width": 0.1228,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.2,
+    "atr": 1.14,
+    "atr_pct": 0.025,
+    "obv_trend": "UP",
+    "mfi": 82.3,
+    "cmf": -0.029,
+    "stoch_k": 96.8,
+    "stoch_d": 90.2,
+    "rvol": 0.71,
+    "volume_5d_avg": 2043380,
+    "green_days_10d": 7,
+    "52w_high": 46.61,
+    "52w_low": 34.13,
+    "52w_high_proximity_pct": 0.0257,
+    "52w_low_proximity_pct": 0.3305
+  },
+  "fundamental": {
+    "pe_ratio": 16.334532,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 5.514938,
+    "de_ratio": 9.296,
+    "fcf_yield": 0.0518,
+    "eps_growth_5y": 0.842,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.96392995,
+    "operating_margin": 0.39406,
+    "net_margin": 0.3373,
+    "market_cap": 12174972928,
+    "enterprise_value": 10935200768,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02204,
+    "institutional_ownership_pct": 1.0312,
+    "short_ratio": 8.75,
+    "beta": 0.418
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 42.62,
+    "entry_range_high": 45.64,
+    "target_range_low": 47.85,
+    "target_range_high": 51.27,
+    "stop_range_low": 40.97,
+    "stop_range_high": 43.13,
+    "target_price": 48.83,
+    "stop_loss": 43.13,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.748517-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 56.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 160437,
+      "date": "2026-02-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 65,
+    "price_change_display": "+2.74%",
+    "key_metrics": {
+      "RSI": 67.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

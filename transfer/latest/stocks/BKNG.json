@@ -2,7 +2,7 @@
   "ticker": "BKNG",
   "company": "Booking Holdings Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.414269-04:00",
+  "generated_at": "2026-04-10T05:26:07.686071-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Travel Services",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 9788120
   },
   "scores": {
-    "master_score": 48.53,
+    "master_score": 46.05,
     "technical_score": 46.0,
-    "fundamental_score": 54.0,
+    "fundamental_score": 42.0,
     "momentum_score": 30.0,
     "sentiment_score": 85.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 30.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 48.53,
-    "confidence": 0.49,
+    "signal_score": 46.05,
+    "confidence": 0.46,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 26.676739,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": -1.0097718,
     "de_ratio": null,
     "fcf_yield": 0.0468,
@@ -82,7 +82,7 @@
     "dividend_yield": 0.89,
     "payout_ratio": 0.2319,
     "insider_ownership_pct": 0.0019699999,
-    "institutional_ownership_pct": 0.96688,
+    "institutional_ownership_pct": 0.96686,
     "short_ratio": 1.71,
     "beta": 1.198
   },
@@ -98,11 +98,8 @@
     "stop_loss": 162.52,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.414269-04:00",
-    "categories": [
-      "value",
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.686056-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -146,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BKNG signals a SELL (49% confidence) based on bearish EMA alignment and today's 2.43% price drop to $176.6. The ADX of 17.9 indicates a weak trend. While valuation is attractive (P/E 26.68 vs sector median of 30.5), this is overshadowed by the negative technical signals. Key level to watch is the recent low near $170; a break below would confirm the downtrend. With no recent news, the negative price action suggests underlying concerns about near-term travel demand impacting BKNG's performance.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 49,
+    "score_bar": 46,
     "price_change_display": "-2.43%",
     "key_metrics": {
       "RSI": 53.7,

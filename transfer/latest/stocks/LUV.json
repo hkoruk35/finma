@@ -1,0 +1,158 @@
+{
+  "ticker": "LUV",
+  "company": "Southwest Airlines Co.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.993582-04:00",
+  "sector": "Industrials",
+  "industry": "Airlines",
+  "price": {
+    "current": 40.21,
+    "open": 39.95,
+    "high": 40.74,
+    "low": 39.32,
+    "prev_close": 40.4,
+    "change_pct": -0.47,
+    "change_pct_1w": 5.18,
+    "change_pct_1m": -5.69,
+    "change_pct_1y": 58.02,
+    "volume": 5370000,
+    "avg_volume_30d": 9496106
+  },
+  "scores": {
+    "master_score": 44.08,
+    "technical_score": 61.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 44.08,
+    "confidence": 0.44,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 48.0,
+    "macd": -1.5166,
+    "macd_signal": -1.9528,
+    "macd_histogram": 0.4362,
+    "macd_crossover": "neutral",
+    "ema_20": 39.97,
+    "ema_50": 42.01,
+    "ema_200": 38.4,
+    "ema_stack_bullish": false,
+    "bb_upper": 41.79,
+    "bb_middle": 39.14,
+    "bb_lower": 36.49,
+    "bb_width": 0.1354,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 31.4,
+    "atr": 2.08,
+    "atr_pct": 0.0517,
+    "obv_trend": "UP",
+    "mfi": 44.9,
+    "cmf": -0.162,
+    "stoch_k": 58.2,
+    "stoch_d": 51.6,
+    "rvol": 0.82,
+    "volume_5d_avg": 7787560,
+    "green_days_10d": 4,
+    "52w_high": 54.56,
+    "52w_low": 23.56,
+    "52w_high_proximity_pct": 0.2631,
+    "52w_low_proximity_pct": 0.7064
+  },
+  "fundamental": {
+    "pe_ratio": 50.89873,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 2.5975451,
+    "de_ratio": 74.94,
+    "fcf_yield": -0.0346,
+    "eps_growth_5y": 0.508,
+    "revenue_growth_ttm": 0.074,
+    "gross_margin": 0.2204,
+    "operating_margin": 0.05093,
+    "net_margin": 0.01571,
+    "market_cap": 19755894784,
+    "enterprise_value": 22505895936,
+    "dividend_yield": 1.79,
+    "payout_ratio": 0.9114,
+    "insider_ownership_pct": 0.00997,
+    "institutional_ownership_pct": 0.93431,
+    "short_ratio": 2.13,
+    "beta": 1.184
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 40.01,
+    "entry_range_high": 40.41,
+    "target_range_low": 45.52,
+    "target_range_high": 48.77,
+    "stop_range_low": 34.25,
+    "stop_range_high": 36.05,
+    "target_price": 46.45,
+    "stop_loss": 36.05,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.993541-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 50.26,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 179.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 23.56,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 118,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 44,
+    "price_change_display": "-0.47%",
+    "key_metrics": {
+      "RSI": 48.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

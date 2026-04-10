@@ -2,7 +2,7 @@
   "ticker": "UNH",
   "company": "UnitedHealth Group Incorporated",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.417116-04:00",
+  "generated_at": "2026-04-10T05:26:07.753517-04:00",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 8936403
   },
   "scores": {
-    "master_score": 45.64,
+    "master_score": 45.9,
     "technical_score": 50.0,
     "fundamental_score": 32.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 46.4,
+    "sector_score": 49.0,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 45.64,
+    "signal_score": 45.9,
     "confidence": 0.46,
     "signal_type": "SELL"
   },
@@ -67,8 +67,8 @@
     "52w_low_proximity_pct": 0.3178
   },
   "fundamental": {
-    "pe_ratio": 23.14555,
-    "sector_pe_median": 27.927784000000003,
+    "pe_ratio": 23.198036,
+    "sector_pe_median": 25.183777499999998,
     "pb_ratio": 2.9546373,
     "de_ratio": 81.618,
     "fcf_yield": 0.0498,
@@ -82,7 +82,7 @@
     "dividend_yield": 2.88,
     "payout_ratio": 0.65989995,
     "insider_ownership_pct": 0.00828,
-    "institutional_ownership_pct": 0.84247,
+    "institutional_ownership_pct": 0.84251,
     "short_ratio": 2.29,
     "beta": 0.408
   },
@@ -98,10 +98,8 @@
     "stop_loss": 288.95,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.417116-04:00",
-    "categories": [
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.753501-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "UNH presents a \"SELL\" signal, though with low confidence (46%). The bearish EMA alignment and low Bollinger Band placement suggest potential downside. Key support lies near the recent low. Despite strong 12.3% TTM revenue growth, profitability margins (2.7% net) are relatively weak compared to its valuation (P/E of 23.1). The high 52-week proximity, combined with RSI nearing overbought territory at 66.4 and a neutral MACD, indicate limited near-term upside. ADX at 29.5 shows moderate trend strength. The significantly high dividend yield of 289% is likely incorrect, suggesting a potential data anomaly needing verification, which currently clouds the stock's investment attractiveness.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
     "score_bar": 46,

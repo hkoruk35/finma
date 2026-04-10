@@ -1,0 +1,158 @@
+{
+  "ticker": "AROC",
+  "company": "Archrock, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.910829-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 35.87,
+    "open": 35.59,
+    "high": 36.59,
+    "low": 35.59,
+    "prev_close": 35.7,
+    "change_pct": 0.48,
+    "change_pct_1w": 5.1,
+    "change_pct_1m": -0.69,
+    "change_pct_1y": 71.83,
+    "volume": 1594100,
+    "avg_volume_30d": 1789863
+  },
+  "scores": {
+    "master_score": 47.27,
+    "technical_score": 61.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 47.27,
+    "confidence": 0.47,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 56.5,
+    "macd": 0.2948,
+    "macd_signal": 0.4608,
+    "macd_histogram": -0.166,
+    "macd_crossover": "neutral",
+    "ema_20": 35.28,
+    "ema_50": 33.66,
+    "ema_200": 28.56,
+    "ema_stack_bullish": true,
+    "bb_upper": 37.13,
+    "bb_middle": 35.53,
+    "bb_lower": 33.92,
+    "bb_width": 0.0902,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 27.8,
+    "atr": 1.1,
+    "atr_pct": 0.0307,
+    "obv_trend": "UP",
+    "mfi": 44.4,
+    "cmf": -0.142,
+    "stoch_k": 55.5,
+    "stoch_d": 48.2,
+    "rvol": 0.85,
+    "volume_5d_avg": 1526260,
+    "green_days_10d": 6,
+    "52w_high": 37.04,
+    "52w_low": 20.33,
+    "52w_high_proximity_pct": 0.0316,
+    "52w_low_proximity_pct": 0.7641
+  },
+  "fundamental": {
+    "pe_ratio": 19.601091,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 4.205651,
+    "de_ratio": 162.619,
+    "fcf_yield": 0.0021,
+    "eps_growth_5y": 0.954,
+    "revenue_growth_ttm": 0.155,
+    "gross_margin": 0.65806,
+    "operating_margin": 0.43232,
+    "net_margin": 0.21632999,
+    "market_cap": 6286138880,
+    "enterprise_value": 8699183104,
+    "dividend_yield": 2.31,
+    "payout_ratio": 0.4368,
+    "insider_ownership_pct": 0.029779999,
+    "institutional_ownership_pct": 0.99617994,
+    "short_ratio": 4.95,
+    "beta": 0.904
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 33.49,
+    "entry_range_high": 36.05,
+    "target_range_low": 38.39,
+    "target_range_high": 41.13,
+    "stop_range_low": 31.99,
+    "stop_range_high": 33.67,
+    "target_price": 39.17,
+    "stop_loss": 33.67,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.910770-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 44.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 231.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.33,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 169550,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 47,
+    "price_change_display": "+0.48%",
+    "key_metrics": {
+      "RSI": 56.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

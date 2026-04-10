@@ -1,0 +1,158 @@
+{
+  "ticker": "IRM",
+  "company": "Iron Mountain Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.084044-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 108.69,
+    "open": 107.0,
+    "high": 109.64,
+    "low": 106.83,
+    "prev_close": 106.97,
+    "change_pct": 1.61,
+    "change_pct_1w": 7.67,
+    "change_pct_1m": 1.68,
+    "change_pct_1y": 45.1,
+    "volume": 1185600,
+    "avg_volume_30d": 1476140
+  },
+  "scores": {
+    "master_score": 51.6,
+    "technical_score": 65.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.0,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 51.6,
+    "confidence": 0.52,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 62.5,
+    "macd": 0.5888,
+    "macd_signal": -0.0167,
+    "macd_histogram": 0.6055,
+    "macd_crossover": "neutral",
+    "ema_20": 103.79,
+    "ema_50": 101.61,
+    "ema_200": 95.66,
+    "ema_stack_bullish": true,
+    "bb_upper": 109.99,
+    "bb_middle": 103.43,
+    "bb_lower": 96.88,
+    "bb_width": 0.1267,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.1,
+    "atr": 3.21,
+    "atr_pct": 0.0295,
+    "obv_trend": "UP",
+    "mfi": 53.8,
+    "cmf": -0.249,
+    "stoch_k": 92.5,
+    "stoch_d": 83.1,
+    "rvol": 0.79,
+    "volume_5d_avg": 1160280,
+    "green_days_10d": 6,
+    "52w_high": 112.32,
+    "52w_low": 74.32,
+    "52w_high_proximity_pct": 0.0324,
+    "52w_low_proximity_pct": 0.4624
+  },
+  "fundamental": {
+    "pe_ratio": 221.81633,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": -32.767563,
+    "de_ratio": null,
+    "fcf_yield": -0.0361,
+    "eps_growth_5y": -0.142,
+    "revenue_growth_ttm": 0.166,
+    "gross_margin": 0.55381,
+    "operating_margin": 0.21956,
+    "net_margin": 0.02095,
+    "market_cap": 32332974080,
+    "enterprise_value": 51455299584,
+    "dividend_yield": 3.18,
+    "payout_ratio": 6.5694,
+    "insider_ownership_pct": 0.00907,
+    "institutional_ownership_pct": 0.88289,
+    "short_ratio": 4.69,
+    "beta": 1.152
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 101.1,
+    "entry_range_high": 109.23,
+    "target_range_low": 115.95,
+    "target_range_high": 124.24,
+    "stop_range_low": 97.16,
+    "stop_range_high": 102.27,
+    "target_price": 118.32,
+    "stop_loss": 102.27,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.084026-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 135.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 318.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 74.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6000,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 52,
+    "price_change_display": "+1.61%",
+    "key_metrics": {
+      "RSI": 62.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

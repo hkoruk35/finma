@@ -1,0 +1,160 @@
+{
+  "ticker": "LYFT",
+  "company": "Lyft, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.701087-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Software - Application",
+  "price": {
+    "current": 13.22,
+    "open": 13.45,
+    "high": 13.58,
+    "low": 13.17,
+    "prev_close": 13.46,
+    "change_pct": -1.78,
+    "change_pct_1w": -0.53,
+    "change_pct_1m": -0.23,
+    "change_pct_1y": 26.27,
+    "volume": 14044200,
+    "avg_volume_30d": 17566760
+  },
+  "scores": {
+    "master_score": 45.0,
+    "technical_score": 28.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.5,
+    "breakout_score": 30.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 45.0,
+    "confidence": 0.45,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 44.8,
+    "macd": -0.2025,
+    "macd_signal": -0.3194,
+    "macd_histogram": 0.1169,
+    "macd_crossover": "neutral",
+    "ema_20": 13.43,
+    "ema_50": 14.44,
+    "ema_200": 16.4,
+    "ema_stack_bullish": false,
+    "bb_upper": 13.94,
+    "bb_middle": 13.31,
+    "bb_lower": 12.68,
+    "bb_width": 0.0948,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.4,
+    "atr": 0.61,
+    "atr_pct": 0.0461,
+    "obv_trend": "DOWN",
+    "mfi": 64.3,
+    "cmf": -0.022,
+    "stoch_k": 39.1,
+    "stoch_d": 56.6,
+    "rvol": 0.73,
+    "volume_5d_avg": 12742540,
+    "green_days_10d": 4,
+    "52w_high": 24.57,
+    "52w_low": 9.97,
+    "52w_high_proximity_pct": 0.4619,
+    "52w_low_proximity_pct": 0.326
+  },
+  "fundamental": {
+    "pe_ratio": 1.941263,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": 1.6189076,
+    "de_ratio": 40.211,
+    "fcf_yield": 0.2254,
+    "eps_growth_5y": 45.114,
+    "revenue_growth_ttm": 0.027,
+    "gross_margin": 0.33885,
+    "operating_margin": -0.111829996,
+    "net_margin": 0.45027,
+    "market_cap": 5279452160,
+    "enterprise_value": 4742106624,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01149,
+    "institutional_ownership_pct": 1.00829,
+    "short_ratio": 3.84,
+    "beta": 1.859
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 13.15,
+    "entry_range_high": 13.29,
+    "target_range_low": 14.75,
+    "target_range_high": 15.8,
+    "stop_range_low": 11.4,
+    "stop_range_high": 12.0,
+    "target_price": 15.05,
+    "stop_loss": 12.0,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.701071-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 16.53,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 9.97,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 47789,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "LYFT signals a SELL, albeit with low 45% confidence. The bearish EMA alignment and weak ADX (15.4) suggest a lack of strong trend, while the RSI of 44.8 leans negative. Price is 46.2% off its 52-week high, indicating substantial past underperformance.\n\nDespite a low P/E of 1.94 relative to the sector, suggesting undervaluation, the modest 2.7% TTM revenue growth tempers enthusiasm. Key level to watch: breach of recent support around $12.50 could trigger further downside. Without a specific catalyst, such as sustained ridership increases demonstrating continued net margin of 45.0%, LYFT's current trajectory appears weak.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 45,
+    "price_change_display": "-1.78%",
+    "key_metrics": {
+      "RSI": 44.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

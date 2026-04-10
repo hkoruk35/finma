@@ -1,0 +1,160 @@
+{
+  "ticker": "FSM",
+  "company": "Fortuna Mining Corp.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.933526-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 10.44,
+    "open": 10.63,
+    "high": 10.78,
+    "low": 10.31,
+    "prev_close": 10.56,
+    "change_pct": -1.14,
+    "change_pct_1w": 0.1,
+    "change_pct_1m": -11.07,
+    "change_pct_1y": 94.05,
+    "volume": 5619700,
+    "avg_volume_30d": 7642653
+  },
+  "scores": {
+    "master_score": 57.47,
+    "technical_score": 45.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.7,
+    "breakout_score": 15.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 57.47,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 51.1,
+    "macd": -0.1747,
+    "macd_signal": -0.3403,
+    "macd_histogram": 0.1656,
+    "macd_crossover": "neutral",
+    "ema_20": 10.24,
+    "ema_50": 10.49,
+    "ema_200": 9.16,
+    "ema_stack_bullish": false,
+    "bb_upper": 11.14,
+    "bb_middle": 9.86,
+    "bb_lower": 8.58,
+    "bb_width": 0.2597,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.6,
+    "atr": 0.64,
+    "atr_pct": 0.0609,
+    "obv_trend": "UP",
+    "mfi": 64.8,
+    "cmf": 0.024,
+    "stoch_k": 74.3,
+    "stoch_d": 80.2,
+    "rvol": 0.95,
+    "volume_5d_avg": 7233340,
+    "green_days_10d": 5,
+    "52w_high": 13.66,
+    "52w_low": 5.19,
+    "52w_high_proximity_pct": 0.2357,
+    "52w_low_proximity_pct": 1.0116
+  },
+  "fundamental": {
+    "pe_ratio": 12.282352,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 1.9033728,
+    "de_ratio": 12.176,
+    "fcf_yield": 0.093,
+    "eps_growth_5y": 9.871,
+    "revenue_growth_ttm": 0.384,
+    "gross_margin": 0.493,
+    "operating_margin": 0.43425,
+    "net_margin": 0.30354,
+    "market_cap": 3213922560,
+    "enterprise_value": 2895749376,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0049900003,
+    "institutional_ownership_pct": 0.79304004,
+    "short_ratio": 2.54,
+    "beta": 2.117
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 10.39,
+    "entry_range_high": 10.49,
+    "target_range_low": 12.11,
+    "target_range_high": 12.98,
+    "stop_range_low": 8.7,
+    "stop_range_high": 9.16,
+    "target_price": 12.36,
+    "stop_loss": 9.16,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.933511-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 13.05,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 5.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 31600,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "FSM exhibits a NEUTRAL signal, albeit with moderate confidence (57%). The price of $10.44 reflects a 1.14% daily decline and sits 23.6% below its 52-week high. While RSI(14) at 51.1 suggests neither overbought nor oversold conditions, the bearish EMA alignment indicates potential downward pressure. ADX strength at 21.6 doesn't indicate a strong trend. FSM's valuation, with a P/E of 12.28, is notably below the sector median, contrasting its strong 38.4% TTM revenue growth and impressive profit margins. A potential catalyst could be positive production updates from their Lindero mine which would provide investors with confidence and push it past resistance at its 52 week high.",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 57,
+    "price_change_display": "-1.14%",
+    "key_metrics": {
+      "RSI": 51.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

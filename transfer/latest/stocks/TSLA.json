@@ -2,7 +2,7 @@
   "ticker": "TSLA",
   "company": "Tesla, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.666484-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Auto Manufacturers",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 63598236
   },
   "scores": {
-    "master_score": 20.68,
+    "master_score": 21.2,
     "technical_score": 17.0,
     "fundamental_score": 10.0,
     "momentum_score": 0.0,
     "sentiment_score": 78.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 0.0,
-    "signal_score": 20.68,
+    "signal_score": 21.2,
     "confidence": 0.21,
     "signal_type": "STRONG_SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 323.00934,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": 15.783897,
     "de_ratio": 17.763,
     "fcf_yield": 0.0029,
@@ -98,7 +98,7 @@
     "stop_loss": 315.0,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.666469-04:00",
     "categories": []
   },
   "breakout": {

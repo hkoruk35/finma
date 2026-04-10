@@ -1,0 +1,158 @@
+{
+  "ticker": "VRTX",
+  "company": "Vertex Pharmaceuticals Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.746193-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 446.78,
+    "open": 439.77,
+    "high": 447.0,
+    "low": 436.35,
+    "prev_close": 443.92,
+    "change_pct": 0.64,
+    "change_pct_1w": -0.11,
+    "change_pct_1m": -10.5,
+    "change_pct_1y": -5.85,
+    "volume": 1040900,
+    "avg_volume_30d": 1421823
+  },
+  "scores": {
+    "master_score": 32.9,
+    "technical_score": 25.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 32.9,
+    "confidence": 0.33,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 46.5,
+    "macd": -7.798,
+    "macd_signal": -7.5409,
+    "macd_histogram": -0.2571,
+    "macd_crossover": "neutral",
+    "ema_20": 450.0,
+    "ema_50": 457.36,
+    "ema_200": 450.46,
+    "ema_stack_bullish": false,
+    "bb_upper": 474.36,
+    "bb_middle": 450.69,
+    "bb_lower": 427.03,
+    "bb_width": 0.105,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.6,
+    "atr": 12.12,
+    "atr_pct": 0.0271,
+    "obv_trend": "UP",
+    "mfi": 55.0,
+    "cmf": -0.194,
+    "stoch_k": 55.9,
+    "stoch_d": 40.5,
+    "rvol": 0.78,
+    "volume_5d_avg": 1108620,
+    "green_days_10d": 5,
+    "52w_high": 509.5,
+    "52w_low": 366.54,
+    "52w_high_proximity_pct": 0.1231,
+    "52w_low_proximity_pct": 0.2189
+  },
+  "fundamental": {
+    "pe_ratio": 29.163185,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 6.079467,
+    "de_ratio": 10.908,
+    "fcf_yield": 0.0226,
+    "eps_growth_5y": 0.329,
+    "revenue_growth_ttm": 0.095,
+    "gross_margin": 0.53665,
+    "operating_margin": 0.39602003,
+    "net_margin": 0.32939997,
+    "market_cap": 113642840064,
+    "enterprise_value": 108925296640,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00209,
+    "institutional_ownership_pct": 0.97578,
+    "short_ratio": 2.9,
+    "beta": 0.367
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 444.55,
+    "entry_range_high": 449.01,
+    "target_range_low": 473.48,
+    "target_range_high": 507.3,
+    "stop_range_low": 401.41,
+    "stop_range_high": 422.54,
+    "target_price": 483.14,
+    "stop_loss": 422.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.746173-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 558.47,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 366.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 30,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 978,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 33,
+    "price_change_display": "+0.64%",
+    "key_metrics": {
+      "RSI": 46.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

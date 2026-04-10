@@ -1,0 +1,160 @@
+{
+  "ticker": "OMC",
+  "company": "Omnicom Group Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.661388-04:00",
+  "sector": "Communication Services",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 74.88,
+    "open": 75.92,
+    "high": 75.92,
+    "low": 73.63,
+    "prev_close": 76.87,
+    "change_pct": -2.59,
+    "change_pct_1w": -0.44,
+    "change_pct_1m": -6.61,
+    "change_pct_1y": 8.77,
+    "volume": 4946100,
+    "avg_volume_30d": 5076396
+  },
+  "scores": {
+    "master_score": 26.15,
+    "technical_score": 13.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 65.0,
+    "sector_score": 43.5,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 26.15,
+    "confidence": 0.26,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 43.6,
+    "macd": -0.7209,
+    "macd_signal": -0.7161,
+    "macd_histogram": -0.0047,
+    "macd_crossover": "bearish",
+    "ema_20": 76.27,
+    "ema_50": 76.74,
+    "ema_200": 75.78,
+    "ema_stack_bullish": false,
+    "bb_upper": 78.51,
+    "bb_middle": 75.99,
+    "bb_lower": 73.46,
+    "bb_width": 0.0664,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.6,
+    "atr": 2.43,
+    "atr_pct": 0.0324,
+    "obv_trend": "DOWN",
+    "mfi": 57.2,
+    "cmf": -0.246,
+    "stoch_k": 32.4,
+    "stoch_d": 52.2,
+    "rvol": 0.8,
+    "volume_5d_avg": 4069080,
+    "green_days_10d": 3,
+    "52w_high": 84.95,
+    "52w_low": 66.61,
+    "52w_high_proximity_pct": 0.1186,
+    "52w_low_proximity_pct": 0.1242
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.866439999999997,
+    "pb_ratio": 1.9462999,
+    "de_ratio": 86.307,
+    "fcf_yield": 0.1938,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.279,
+    "gross_margin": 0.18571,
+    "operating_margin": 0.14877,
+    "net_margin": -0.00316,
+    "market_cap": 23237984256,
+    "enterprise_value": 28635684864,
+    "dividend_yield": 4.27,
+    "payout_ratio": 0.413,
+    "insider_ownership_pct": 0.00876,
+    "institutional_ownership_pct": 1.11872,
+    "short_ratio": 6.62,
+    "beta": 0.751
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 74.51,
+    "entry_range_high": 75.25,
+    "target_range_low": 80.53,
+    "target_range_high": 86.28,
+    "stop_range_low": 66.52,
+    "stop_range_high": 70.02,
+    "target_price": 82.17,
+    "stop_loss": 70.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.661361-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 93.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 427.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 66.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 681,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.3,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "OMC exhibits a STRONG_SELL signal, albeit with low (26%) confidence. The bearish EMA alignment and MACD signal negative momentum, further substantiated by today's 2.59% price decline to $74.88. While revenue growth is strong at 27.9% TTM, a concerning -0.3% net margin raises profitability questions. The extraordinarily high dividend yield of 427.00% is unsustainable and likely indicates a fundamental issue requiring investigation. With the RSI at 43.6 and ADX strength low at 15.6, a catalyst for continued downward pressure could be further scrutiny of the dividend's viability. Key technical levels to watch are previous support areas around the $70 mark.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 26,
+    "price_change_display": "-2.59%",
+    "key_metrics": {
+      "RSI": 43.6,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

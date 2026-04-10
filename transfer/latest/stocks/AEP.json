@@ -2,7 +2,7 @@
   "ticker": "AEP",
   "company": "American Electric Power Company, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.466307-04:00",
+  "generated_at": "2026-04-10T05:26:08.019791-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3585083
   },
   "scores": {
-    "master_score": 52.67,
+    "master_score": 52.41,
     "technical_score": 55.0,
     "fundamental_score": 20.0,
     "momentum_score": 80.0,
     "sentiment_score": 65.0,
-    "sector_score": 59.2,
+    "sector_score": 56.6,
     "breakout_score": 20.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 52.67,
-    "confidence": 0.53,
+    "signal_score": 52.41,
+    "confidence": 0.52,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 20.562218,
-    "sector_pe_median": 21.11111,
+    "sector_pe_median": 23.062841,
     "pb_ratio": 2.3822758,
     "de_ratio": 154.237,
     "fcf_yield": -0.069,
@@ -98,7 +98,7 @@
     "stop_loss": 132.19,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.466307-04:00",
+    "generated_at": "2026-04-10T05:26:08.019776-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 53,
+    "score_bar": 52,
     "price_change_display": "+1.81%",
     "key_metrics": {
       "RSI": 70.4,

@@ -2,7 +2,7 @@
   "ticker": "KO",
   "company": "The Coca-Cola Company",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.447600-04:00",
+  "generated_at": "2026-04-10T05:26:07.711511-04:00",
   "sector": "Consumer Staples",
   "industry": "Beverages - Non-Alcoholic",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 16367563
   },
   "scores": {
-    "master_score": 57.46,
+    "master_score": 53.64,
     "technical_score": 70.0,
-    "fundamental_score": 30.0,
+    "fundamental_score": 18.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 59.6,
+    "sector_score": 51.4,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 57.46,
-    "confidence": 0.57,
-    "signal_type": "NEUTRAL"
+    "signal_score": 53.64,
+    "confidence": 0.54,
+    "signal_type": "SELL"
   },
   "technical": {
     "rsi_14": 59.3,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 25.717106,
-    "sector_pe_median": 25.9827205,
+    "sector_pe_median": 24.341375,
     "pb_ratio": 10.454667,
     "de_ratio": 139.793,
     "fcf_yield": -0.0043,
@@ -87,7 +87,7 @@
     "beta": 0.361
   },
   "signals": {
-    "signal_type": "NEUTRAL",
+    "signal_type": "SELL",
     "entry_range_low": 75.57,
     "entry_range_high": 78.57,
     "target_range_low": 80.67,
@@ -98,10 +98,8 @@
     "stop_loss": 75.42,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.447600-04:00",
-    "categories": [
-      "top_signals"
-    ]
+    "generated_at": "2026-04-10T05:26:07.711487-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "HIGH",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "KO shows a neutral signal, with 57% confidence, despite a bullish EMA alignment. Currently at $78.18, KO is near its 52-week high, but ADX at 14.4 indicates a weak trend. The high dividend yield of 267.00%, may be unsustainable or inaccurate, warrants further investigation before considering it a positive. While P/E suggests slight undervaluation versus the sector, modest 2.4% TTM revenue growth tempers enthusiasm. Key level to watch: resistance near the 52-week high. Without news catalysts and with volume below average (0.76x), a decisive breakout seems unlikely in the short term.",
+  "ai_summary": "",
   "quick_view": {
-    "signal_badge": "NEUTRAL",
-    "score_bar": 57,
+    "signal_badge": "SELL",
+    "score_bar": 54,
     "price_change_display": "+1.15%",
     "key_metrics": {
       "RSI": 59.3,

@@ -1,0 +1,158 @@
+{
+  "ticker": "URI",
+  "company": "United Rentals, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.008250-04:00",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 767.36,
+    "open": 758.76,
+    "high": 768.0,
+    "low": 749.52,
+    "prev_close": 760.69,
+    "change_pct": 0.88,
+    "change_pct_1w": 4.9,
+    "change_pct_1m": -1.09,
+    "change_pct_1y": 38.04,
+    "volume": 460300,
+    "avg_volume_30d": 606200
+  },
+  "scores": {
+    "master_score": 52.98,
+    "technical_score": 65.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.98,
+    "confidence": 0.53,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 51.6,
+    "macd": -16.1586,
+    "macd_signal": -24.0882,
+    "macd_histogram": 7.9296,
+    "macd_crossover": "neutral",
+    "ema_20": 752.56,
+    "ema_50": 789.12,
+    "ema_200": 812.7,
+    "ema_stack_bullish": false,
+    "bb_upper": 763.1,
+    "bb_middle": 736.06,
+    "bb_lower": 709.02,
+    "bb_width": 0.0735,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 30.7,
+    "atr": 26.19,
+    "atr_pct": 0.0341,
+    "obv_trend": "UP",
+    "mfi": 59.0,
+    "cmf": -0.056,
+    "stoch_k": 91.5,
+    "stoch_d": 75.2,
+    "rvol": 0.74,
+    "volume_5d_avg": 447460,
+    "green_days_10d": 6,
+    "52w_high": 1015.58,
+    "52w_low": 547.11,
+    "52w_high_proximity_pct": 0.2444,
+    "52w_low_proximity_pct": 0.4026
+  },
+  "fundamental": {
+    "pe_ratio": 19.879793,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 5.398887,
+    "de_ratio": 174.732,
+    "fcf_yield": 0.0399,
+    "eps_growth_5y": -0.019,
+    "revenue_growth_ttm": 0.028,
+    "gross_margin": 0.38356,
+    "operating_margin": 0.25166,
+    "net_margin": 0.15492,
+    "market_cap": 48342257664,
+    "enterprise_value": 63553257472,
+    "dividend_yield": 1.03,
+    "payout_ratio": 0.18540001,
+    "insider_ownership_pct": 0.00621,
+    "institutional_ownership_pct": 0.93407,
+    "short_ratio": 2.76,
+    "beta": 1.681
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 763.52,
+    "entry_range_high": 771.2,
+    "target_range_low": 829.01,
+    "target_range_high": 888.23,
+    "stop_range_low": 679.23,
+    "stop_range_high": 714.98,
+    "target_price": 845.93,
+    "stop_loss": 714.98,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.008233-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 959.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 103.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 547.11,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 51,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 53,
+    "price_change_display": "+0.88%",
+    "key_metrics": {
+      "RSI": 51.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

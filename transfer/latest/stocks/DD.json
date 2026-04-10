@@ -1,0 +1,158 @@
+{
+  "ticker": "DD",
+  "company": "DuPont de Nemours, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.941830-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 47.42,
+    "open": 47.47,
+    "high": 48.22,
+    "low": 47.33,
+    "prev_close": 47.85,
+    "change_pct": -0.9,
+    "change_pct_1w": 2.62,
+    "change_pct_1m": 3.15,
+    "change_pct_1y": 100.18,
+    "volume": 2932600,
+    "avg_volume_30d": 4019066
+  },
+  "scores": {
+    "master_score": 50.07,
+    "technical_score": 61.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 54.7,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.07,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 56.7,
+    "macd": 0.0556,
+    "macd_signal": -0.2782,
+    "macd_histogram": 0.3338,
+    "macd_crossover": "neutral",
+    "ema_20": 45.99,
+    "ema_50": 45.64,
+    "ema_200": 39.9,
+    "ema_stack_bullish": true,
+    "bb_upper": 47.75,
+    "bb_middle": 45.31,
+    "bb_lower": 42.88,
+    "bb_width": 0.1074,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.5,
+    "atr": 1.42,
+    "atr_pct": 0.0299,
+    "obv_trend": "DOWN",
+    "mfi": 54.1,
+    "cmf": -0.112,
+    "stoch_k": 87.1,
+    "stoch_d": 85.8,
+    "rvol": 0.72,
+    "volume_5d_avg": 2896460,
+    "green_days_10d": 4,
+    "52w_high": 51.32,
+    "52w_low": 22.6,
+    "52w_high_proximity_pct": 0.0761,
+    "52w_low_proximity_pct": 1.098
+  },
+  "fundamental": {
+    "pe_ratio": 225.80952,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 1.3940499,
+    "de_ratio": 24.484,
+    "fcf_yield": 0.6762,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": null,
+    "gross_margin": 0.34500998,
+    "operating_margin": 0.34687,
+    "net_margin": -0.11374,
+    "market_cap": 19867809792,
+    "enterprise_value": 22313168896,
+    "dividend_yield": 1.69,
+    "payout_ratio": 6.8095,
+    "insider_ownership_pct": 0.00278,
+    "institutional_ownership_pct": 0.79073995,
+    "short_ratio": 1.82,
+    "beta": 1.122
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 45.41,
+    "entry_range_high": 47.66,
+    "target_range_low": 50.65,
+    "target_range_high": 54.26,
+    "stop_range_low": 42.35,
+    "stop_range_high": 44.58,
+    "target_price": 51.68,
+    "stop_loss": 44.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.941814-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 59.28,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 169.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 22.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 999,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "-0.90%",
+    "key_metrics": {
+      "RSI": 56.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

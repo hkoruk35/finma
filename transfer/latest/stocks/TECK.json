@@ -1,0 +1,158 @@
+{
+  "ticker": "TECK",
+  "company": "Teck Resources Limited",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.917876-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 54.66,
+    "open": 56.1,
+    "high": 56.81,
+    "low": 54.6,
+    "prev_close": 55.69,
+    "change_pct": -1.85,
+    "change_pct_1w": 2.78,
+    "change_pct_1m": 4.36,
+    "change_pct_1y": 81.3,
+    "volume": 3005900,
+    "avg_volume_30d": 4600103
+  },
+  "scores": {
+    "master_score": 33.72,
+    "technical_score": 35.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 54.7,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 33.72,
+    "confidence": 0.34,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 57.5,
+    "macd": 0.1903,
+    "macd_signal": -0.6772,
+    "macd_histogram": 0.8675,
+    "macd_crossover": "neutral",
+    "ema_20": 52.04,
+    "ema_50": 52.14,
+    "ema_200": 46.64,
+    "ema_stack_bullish": false,
+    "bb_upper": 55.58,
+    "bb_middle": 50.45,
+    "bb_lower": 45.33,
+    "bb_width": 0.2031,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.6,
+    "atr": 2.51,
+    "atr_pct": 0.0459,
+    "obv_trend": "DOWN",
+    "mfi": 44.8,
+    "cmf": 0.166,
+    "stoch_k": 77.9,
+    "stoch_d": 83.2,
+    "rvol": 0.61,
+    "volume_5d_avg": 2829040,
+    "green_days_10d": 4,
+    "52w_high": 61.32,
+    "52w_low": 28.87,
+    "52w_high_proximity_pct": 0.1086,
+    "52w_low_proximity_pct": 0.8935
+  },
+  "fundamental": {
+    "pe_ratio": 26.794119,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 1.4793322,
+    "de_ratio": 36.94,
+    "fcf_yield": -0.0092,
+    "eps_growth_5y": 0.425,
+    "revenue_growth_ttm": 0.098,
+    "gross_margin": 0.24701999,
+    "operating_margin": 0.32603002,
+    "net_margin": 0.13024999,
+    "market_cap": 26758410240,
+    "enterprise_value": 32206153728,
+    "dividend_yield": 0.66,
+    "payout_ratio": 0.1767,
+    "insider_ownership_pct": 0.02789,
+    "institutional_ownership_pct": 0.75568,
+    "short_ratio": 1.56,
+    "beta": 1.562
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 51.88,
+    "entry_range_high": 54.93,
+    "target_range_low": 60.95,
+    "target_range_high": 65.3,
+    "stop_range_low": 47.16,
+    "stop_range_high": 49.64,
+    "target_price": 62.19,
+    "stop_loss": 49.64,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.917859-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 68.32,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 66.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 28.87,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11923,
+      "date": "2026-02-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 34,
+    "price_change_display": "-1.85%",
+    "key_metrics": {
+      "RSI": 57.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

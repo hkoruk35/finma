@@ -1,0 +1,158 @@
+{
+  "ticker": "APO",
+  "company": "Apollo Global Management, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.827142-04:00",
+  "sector": "Financials",
+  "industry": "Asset Management",
+  "price": {
+    "current": 106.98,
+    "open": 104.99,
+    "high": 107.82,
+    "low": 104.5,
+    "prev_close": 107.05,
+    "change_pct": -0.07,
+    "change_pct_1w": -2.97,
+    "change_pct_1m": -1.1,
+    "change_pct_1y": -3.33,
+    "volume": 3730400,
+    "avg_volume_30d": 6012013
+  },
+  "scores": {
+    "master_score": 30.17,
+    "technical_score": 38.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.7,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 30.17,
+    "confidence": 0.3,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 42.3,
+    "macd": -2.1314,
+    "macd_signal": -2.412,
+    "macd_histogram": 0.2806,
+    "macd_crossover": "neutral",
+    "ema_20": 109.05,
+    "ema_50": 115.28,
+    "ema_200": 128.15,
+    "ema_stack_bullish": false,
+    "bb_upper": 114.41,
+    "bb_middle": 108.29,
+    "bb_lower": 102.17,
+    "bb_width": 0.113,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 28.7,
+    "atr": 4.52,
+    "atr_pct": 0.0422,
+    "obv_trend": "DOWN",
+    "mfi": 48.1,
+    "cmf": 0.106,
+    "stoch_k": 26.9,
+    "stoch_d": 22.0,
+    "rvol": 0.64,
+    "volume_5d_avg": 3865340,
+    "green_days_10d": 4,
+    "52w_high": 154.24,
+    "52w_low": 100.3,
+    "52w_high_proximity_pct": 0.3064,
+    "52w_low_proximity_pct": 0.0666
+  },
+  "fundamental": {
+    "pe_ratio": 19.31047,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 2.822766,
+    "de_ratio": 99.468,
+    "fcf_yield": null,
+    "eps_growth_5y": -0.573,
+    "revenue_growth_ttm": 0.877,
+    "gross_margin": 0.37342,
+    "operating_margin": 0.18127,
+    "net_margin": 0.109840006,
+    "market_cap": 62093611008,
+    "enterprise_value": 86301900800,
+    "dividend_yield": 1.91,
+    "payout_ratio": 0.35970002,
+    "insider_ownership_pct": 0.26990998,
+    "institutional_ownership_pct": 0.68104,
+    "short_ratio": 4.39,
+    "beta": 1.56
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 106.45,
+    "entry_range_high": 107.51,
+    "target_range_low": 118.13,
+    "target_range_high": 126.57,
+    "stop_range_low": 93.04,
+    "stop_range_high": 97.94,
+    "target_price": 120.54,
+    "stop_loss": 97.94,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.827113-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 133.72,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 191.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 100.3,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2048,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 30,
+    "price_change_display": "-0.07%",
+    "key_metrics": {
+      "RSI": 42.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

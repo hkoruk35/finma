@@ -2,7 +2,7 @@
   "ticker": "SPOT",
   "company": "Spotify Technology S.A.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.642424-04:00",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1968640
   },
   "scores": {
-    "master_score": 33.62,
+    "master_score": 34.1,
     "technical_score": 40.0,
     "fundamental_score": 25.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.7,
+    "sector_score": 43.5,
     "breakout_score": 55.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 0.0,
-    "signal_score": 33.62,
+    "signal_score": 34.1,
     "confidence": 0.34,
     "signal_type": "STRONG_SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 39.854218,
-    "sector_pe_median": 17.509828499999998,
+    "sector_pe_median": 24.866439999999997,
     "pb_ratio": 10.314876,
     "de_ratio": 23.484,
     "fcf_yield": 0.0067,
@@ -82,7 +82,7 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.23411,
-    "institutional_ownership_pct": 0.69198996,
+    "institutional_ownership_pct": 0.69183,
     "short_ratio": 2.42,
     "beta": 1.702
   },
@@ -98,7 +98,7 @@
     "stop_loss": 447.64,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.642407-04:00",
     "categories": [
       "breakout"
     ]
@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SPOT exhibits a STRONG_SELL signal despite a slightly bullish MACD, driven by a low confidence of 34%. The price, currently at $486.62, is significantly below its 52-week high, and EMA alignment is bearish. Low ADX strength (13.0) suggests a weak trend. While gross (32.0%) and net (12.9%) margins are positive, the high P/E ratio of 40.117065, considerably above the sector median, indicates overvaluation. Without recent positive news to act as a catalyst, the premium valuation is unsustainable, supporting the sell signal. Key technical levels to watch include potential resistance near the 52-week high and support around recent lows.",
+  "ai_summary": "SPOT exhibits a conflicting technical picture. While the MACD shows bullish momentum, the overall EMA alignment is bearish, and the low ADX of 13 suggests a weak trend. Trading at $486.62, SPOT is 37.3% off its 52-week high.\n\nDespite solid 32% gross margins and 12.9% net margins, the P/E ratio of 39.85 indicates a valuation premium compared to the sector. TTM revenue growth is at 6.8%.\n\nThe FinMA signal is STRONG_SELL, driven by the high Bollinger Band reading and premium valuation, coupled with a weak technical trend. With no recent news catalyst to justify the price, further gains appear unsustainable. Key technical levels to watch are resistance near the 52-week high and support around $450.",
   "quick_view": {
     "signal_badge": "STRONG SELL",
     "score_bar": 34,

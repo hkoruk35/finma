@@ -1,0 +1,160 @@
+{
+  "ticker": "PRU",
+  "company": "Prudential Financial, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.834559-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Life",
+  "price": {
+    "current": 97.1,
+    "open": 96.01,
+    "high": 97.65,
+    "low": 96.01,
+    "prev_close": 96.65,
+    "change_pct": 0.47,
+    "change_pct_1w": -0.9,
+    "change_pct_1m": 1.71,
+    "change_pct_1y": 6.78,
+    "volume": 1903300,
+    "avg_volume_30d": 2357753
+  },
+  "scores": {
+    "master_score": 47.72,
+    "technical_score": 41.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.7,
+    "breakout_score": 30.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 47.72,
+    "confidence": 0.48,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 50.7,
+    "macd": -0.3657,
+    "macd_signal": -1.0057,
+    "macd_histogram": 0.64,
+    "macd_crossover": "neutral",
+    "ema_20": 96.47,
+    "ema_50": 99.0,
+    "ema_200": 102.72,
+    "ema_stack_bullish": false,
+    "bb_upper": 99.04,
+    "bb_middle": 95.01,
+    "bb_lower": 90.97,
+    "bb_width": 0.085,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 23.9,
+    "atr": 2.42,
+    "atr_pct": 0.0249,
+    "obv_trend": "DOWN",
+    "mfi": 72.3,
+    "cmf": -0.188,
+    "stoch_k": 61.6,
+    "stoch_d": 64.5,
+    "rvol": 0.86,
+    "volume_5d_avg": 2037740,
+    "green_days_10d": 6,
+    "52w_high": 117.13,
+    "52w_low": 90.31,
+    "52w_high_proximity_pct": 0.171,
+    "52w_low_proximity_pct": 0.0752
+  },
+  "fundamental": {
+    "pe_ratio": 9.71972,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 1.0415326,
+    "de_ratio": 124.482,
+    "fcf_yield": 0.3734,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.312,
+    "gross_margin": 0.29603,
+    "operating_margin": 0.1041,
+    "net_margin": 0.0584,
+    "market_cap": 33790799872,
+    "enterprise_value": 40230801408,
+    "dividend_yield": 5.61,
+    "payout_ratio": 0.5405,
+    "insider_ownership_pct": 0.00178,
+    "institutional_ownership_pct": 0.63125,
+    "short_ratio": 4.11,
+    "beta": 0.94
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 96.61,
+    "entry_range_high": 97.59,
+    "target_range_low": 102.27,
+    "target_range_high": 109.58,
+    "stop_range_low": 87.65,
+    "stop_range_high": 92.26,
+    "target_price": 104.36,
+    "stop_loss": 92.26,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.834543-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 121.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 561.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 90.31,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2717,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "PRU exhibits a FinMA SELL signal with low confidence (48%). While showing 31.2% TTM revenue growth and trading at a P/E of 9.7, a discount to the sector median of 16.02, a high dividend yield of 561.00% may be unsustainable. Technicals are mixed. The bearish EMA alignment and medium Bollinger Band width suggest potential downside. ADX at 23.9 indicates a weak trend.\n\nKey levels to watch are the recent high, approximately 17.1% above the current price of $97.1, serving as resistance. With no recent news catalysts, focus remains on profitability metrics; the relatively low 5.8% net margin warrants attention.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 48,
+    "price_change_display": "+0.47%",
+    "key_metrics": {
+      "RSI": 50.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

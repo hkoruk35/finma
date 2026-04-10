@@ -2,7 +2,7 @@
   "ticker": "LLY",
   "company": "Eli Lilly and Company",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.417116-04:00",
+  "generated_at": "2026-04-10T05:26:07.736885-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 2896383
   },
   "scores": {
-    "master_score": 37.89,
+    "master_score": 38.15,
     "technical_score": 40.0,
     "fundamental_score": 15.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 46.4,
+    "sector_score": 49.0,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 37.89,
+    "signal_score": 38.15,
     "confidence": 0.38,
     "signal_type": "STRONG_SELL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 41.49392,
-    "sector_pe_median": 27.927784000000003,
+    "sector_pe_median": 25.183777499999998,
     "pb_ratio": 32.210083,
     "de_ratio": 165.31,
     "fcf_yield": 0.0023,
@@ -82,7 +82,7 @@
     "dividend_yield": 0.65,
     "payout_ratio": 0.26139998,
     "insider_ownership_pct": 0.0017,
-    "institutional_ownership_pct": 0.84563005,
+    "institutional_ownership_pct": 0.84571,
     "short_ratio": 2.47,
     "beta": 0.504
   },
@@ -98,7 +98,7 @@
     "stop_loss": 898.19,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.417116-04:00",
+    "generated_at": "2026-04-10T05:26:07.736868-04:00",
     "categories": []
   },
   "breakout": {

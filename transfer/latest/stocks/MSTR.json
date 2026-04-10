@@ -2,7 +2,7 @@
   "ticker": "MSTR",
   "company": "Strategy Inc",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.397605-04:00",
+  "generated_at": "2026-04-10T05:26:07.621148-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 19650516
   },
   "scores": {
-    "master_score": 28.02,
+    "master_score": 28.57,
     "technical_score": 25.0,
     "fundamental_score": 15.0,
     "momentum_score": 20.0,
     "sentiment_score": 78.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 0.0,
-    "signal_score": 28.02,
-    "confidence": 0.28,
+    "signal_score": 28.57,
+    "confidence": 0.29,
     "signal_type": "STRONG_SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": null,
-    "sector_pe_median": 33.01521,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 0.9113605,
     "de_ratio": 16.158,
     "fcf_yield": -0.0753,
@@ -82,7 +82,7 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.00162,
-    "institutional_ownership_pct": 0.56646997,
+    "institutional_ownership_pct": 0.56652,
     "short_ratio": 1.72,
     "beta": 3.56
   },
@@ -98,7 +98,7 @@
     "stop_loss": 112.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.397605-04:00",
+    "generated_at": "2026-04-10T05:26:07.621074-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "signal_badge": "STRONG SELL",
-    "score_bar": 28,
+    "score_bar": 29,
     "price_change_display": "+0.44%",
     "key_metrics": {
       "RSI": 47.2,

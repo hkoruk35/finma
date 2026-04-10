@@ -1,0 +1,160 @@
+{
+  "ticker": "CAR",
+  "company": "Avis Budget Group, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.706557-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 297.08,
+    "open": 260.9,
+    "high": 297.98,
+    "low": 246.01,
+    "prev_close": 261.35,
+    "change_pct": 13.67,
+    "change_pct_1w": 74.68,
+    "change_pct_1m": 210.14,
+    "change_pct_1y": 327.95,
+    "volume": 4653300,
+    "avg_volume_30d": 1535296
+  },
+  "scores": {
+    "master_score": 63.2,
+    "technical_score": 80.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 100.0,
+    "sentiment_score": 65.0,
+    "sector_score": 49.5,
+    "breakout_score": 60.0,
+    "value_score": 20.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 63.2,
+    "confidence": 0.63,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 91.8,
+    "macd": 39.3738,
+    "macd_signal": 21.572,
+    "macd_histogram": 17.8018,
+    "macd_crossover": "neutral",
+    "ema_20": 172.08,
+    "ema_50": 140.21,
+    "ema_200": 130.16,
+    "ema_stack_bullish": true,
+    "bb_upper": 270.55,
+    "bb_middle": 150.32,
+    "bb_lower": 30.1,
+    "bb_width": 1.5996,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 51.6,
+    "atr": 20.09,
+    "atr_pct": 0.0676,
+    "obv_trend": "UP",
+    "mfi": 95.8,
+    "cmf": 0.606,
+    "stoch_k": 99.5,
+    "stoch_d": 97.4,
+    "rvol": 2.83,
+    "volume_5d_avg": 4343540,
+    "green_days_10d": 9,
+    "52w_high": 297.08,
+    "52w_low": 62.86,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 3.7261
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": -3.3230424,
+    "de_ratio": null,
+    "fcf_yield": -0.1003,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.017,
+    "gross_margin": 0.23962,
+    "operating_margin": 0.06306,
+    "net_margin": -0.0763,
+    "market_cap": 10494257152,
+    "enterprise_value": 38639640576,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01444,
+    "institutional_ownership_pct": 1.47812,
+    "short_ratio": 8.85,
+    "beta": 1.928
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 139.51,
+    "entry_range_high": 298.57,
+    "target_range_low": 350.2,
+    "target_range_high": 375.22,
+    "stop_range_low": 244.05,
+    "stop_range_high": 256.9,
+    "target_price": 357.35,
+    "stop_loss": 256.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.706540-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 60.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 371.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 62.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1731000,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CAR shows a strong upward price signal today, nearing its 52-week high. The 13.67% gain is supported by a significantly elevated relative volume of 2.83x, suggesting strong buying pressure. However, the Neutral FinMA signal (63% confidence) advises caution, corroborated by an extremely overbought RSI of 91.8. Key technical levels to watch are resistance at the 52-week high ($297.08) and support near the upper Bollinger Band. The bullish EMA alignment and strong ADX (51.6) indicate a continuing upward trend in the short term, though negative net margins of -7.6% raise concerns about long-term sustainability. Without recent news catalysts, this move might be purely technically driven.",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 63,
+    "price_change_display": "+13.67%",
+    "key_metrics": {
+      "RSI": 91.8,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "CL",
+  "company": "Colgate-Palmolive Company",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.708232-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 86.04,
+    "open": 84.72,
+    "high": 86.4,
+    "low": 84.46,
+    "prev_close": 85.55,
+    "change_pct": 0.57,
+    "change_pct_1w": 0.74,
+    "change_pct_1m": -6.97,
+    "change_pct_1y": -1.15,
+    "volume": 4699800,
+    "avg_volume_30d": 6504833
+  },
+  "scores": {
+    "master_score": 44.39,
+    "technical_score": 65.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.4,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 44.39,
+    "confidence": 0.44,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 45.5,
+    "macd": -1.6323,
+    "macd_signal": -1.7968,
+    "macd_histogram": 0.1645,
+    "macd_crossover": "neutral",
+    "ema_20": 86.53,
+    "ema_50": 87.75,
+    "ema_200": 85.52,
+    "ema_stack_bullish": false,
+    "bb_upper": 89.75,
+    "bb_middle": 85.98,
+    "bb_lower": 82.21,
+    "bb_width": 0.0877,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 30.2,
+    "atr": 1.88,
+    "atr_pct": 0.0218,
+    "obv_trend": "UP",
+    "mfi": 43.4,
+    "cmf": -0.184,
+    "stoch_k": 82.5,
+    "stoch_d": 45.5,
+    "rvol": 0.79,
+    "volume_5d_avg": 5134260,
+    "green_days_10d": 5,
+    "52w_high": 99.14,
+    "52w_low": 74.52,
+    "52w_high_proximity_pct": 0.1321,
+    "52w_low_proximity_pct": 0.1545
+  },
+  "fundamental": {
+    "pe_ratio": 32.71483,
+    "sector_pe_median": 24.341375,
+    "pb_ratio": 1284.1791,
+    "de_ratio": 2343.562,
+    "fcf_yield": 0.0446,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.058,
+    "gross_margin": 0.60107,
+    "operating_margin": 0.20382,
+    "net_margin": 0.1046,
+    "market_cap": 69030051840,
+    "enterprise_value": 76435193856,
+    "dividend_yield": 2.46,
+    "payout_ratio": 0.78330004,
+    "insider_ownership_pct": 0.00149,
+    "institutional_ownership_pct": 0.86506,
+    "short_ratio": 3.19,
+    "beta": 0.331
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 85.61,
+    "entry_range_high": 86.47,
+    "target_range_low": 89.85,
+    "target_range_high": 96.26,
+    "stop_range_low": 78.17,
+    "stop_range_high": 82.28,
+    "target_price": 91.68,
+    "stop_loss": 82.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.708217-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 107.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 246.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 74.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 266,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.9,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 44,
+    "price_change_display": "+0.57%",
+    "key_metrics": {
+      "RSI": 45.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

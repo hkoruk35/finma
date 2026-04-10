@@ -1,0 +1,160 @@
+{
+  "ticker": "PINS",
+  "company": "Pinterest, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.658088-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 17.94,
+    "open": 18.0,
+    "high": 18.1,
+    "low": 17.65,
+    "prev_close": 18.1,
+    "change_pct": -0.88,
+    "change_pct_1w": -1.91,
+    "change_pct_1m": -7.38,
+    "change_pct_1y": -29.37,
+    "volume": 13763800,
+    "avg_volume_30d": 19373783
+  },
+  "scores": {
+    "master_score": 30.05,
+    "technical_score": 32.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 43.5,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 30.05,
+    "confidence": 0.3,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 42.1,
+    "macd": -0.2943,
+    "macd_signal": -0.3301,
+    "macd_histogram": 0.0358,
+    "macd_crossover": "neutral",
+    "ema_20": 18.35,
+    "ema_50": 19.61,
+    "ema_200": 26.03,
+    "ema_stack_bullish": false,
+    "bb_upper": 18.92,
+    "bb_middle": 18.31,
+    "bb_lower": 17.7,
+    "bb_width": 0.0664,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.5,
+    "atr": 0.73,
+    "atr_pct": 0.0405,
+    "obv_trend": "DOWN",
+    "mfi": 39.8,
+    "cmf": -0.283,
+    "stoch_k": 25.5,
+    "stoch_d": 33.6,
+    "rvol": 0.68,
+    "volume_5d_avg": 13232300,
+    "green_days_10d": 3,
+    "52w_high": 39.17,
+    "52w_low": 15.42,
+    "52w_high_proximity_pct": 0.542,
+    "52w_low_proximity_pct": 0.1634
+  },
+  "fundamental": {
+    "pe_ratio": 29.409836,
+    "sector_pe_median": 24.866439999999997,
+    "pb_ratio": 2.5122533,
+    "de_ratio": 5.522,
+    "fcf_yield": 0.0884,
+    "eps_growth_5y": -0.846,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.80067,
+    "operating_margin": 0.22828,
+    "net_margin": 0.09874,
+    "market_cap": 11496311808,
+    "enterprise_value": 9727452160,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01053,
+    "institutional_ownership_pct": 1.16775,
+    "short_ratio": 3.26,
+    "beta": 0.876
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 17.85,
+    "entry_range_high": 18.03,
+    "target_range_low": 19.73,
+    "target_range_high": 21.14,
+    "stop_range_low": 15.66,
+    "stop_range_high": 16.48,
+    "target_price": 20.13,
+    "stop_loss": 16.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.658070-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 22.43,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 15.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 147885,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.3,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "PINS exhibits a STRONG_SELL signal, albeit with low 30% confidence. Technically, the stock is trading near the high end of its Bollinger Bands, suggesting potential overbought conditions despite a weak ADX of 16.5 indicating low trend strength. The bearish EMA alignment further reinforces this view.\n\nFundamentally, while PINS boasts strong 80.1% gross margins and 14.3% TTM revenue growth, its P/E of 29.4 is notably above the sector median of 24.9. Key levels to watch are resistance near the 52-week high and support around $16. Volume is weak relative to the average (0.68x), suggesting a lack of conviction. Without a positive catalyst to justify the premium valuation, PINS may face downward pressure.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 30,
+    "price_change_display": "-0.88%",
+    "key_metrics": {
+      "RSI": 42.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "DGX",
+  "company": "Quest Diagnostics Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.796728-04:00",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 197.82,
+    "open": 197.93,
+    "high": 199.41,
+    "low": 196.55,
+    "prev_close": 198.81,
+    "change_pct": -0.5,
+    "change_pct_1w": 0.5,
+    "change_pct_1m": -1.1,
+    "change_pct_1y": 22.57,
+    "volume": 718400,
+    "avg_volume_30d": 818073
+  },
+  "scores": {
+    "master_score": 49.15,
+    "technical_score": 60.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.0,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 49.15,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 50.8,
+    "macd": -0.2178,
+    "macd_signal": -0.4486,
+    "macd_histogram": 0.2307,
+    "macd_crossover": "neutral",
+    "ema_20": 197.5,
+    "ema_50": 195.88,
+    "ema_200": 185.3,
+    "ema_stack_bullish": true,
+    "bb_upper": 200.23,
+    "bb_middle": 196.61,
+    "bb_lower": 192.98,
+    "bb_width": 0.0369,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 10.0,
+    "atr": 4.27,
+    "atr_pct": 0.0216,
+    "obv_trend": "DOWN",
+    "mfi": 44.8,
+    "cmf": -0.077,
+    "stoch_k": 58.5,
+    "stoch_d": 58.4,
+    "rvol": 0.84,
+    "volume_5d_avg": 684860,
+    "green_days_10d": 6,
+    "52w_high": 210.99,
+    "52w_low": 156.97,
+    "52w_high_proximity_pct": 0.0624,
+    "52w_low_proximity_pct": 0.2602
+  },
+  "fundamental": {
+    "pe_ratio": 22.63387,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 3.034887,
+    "de_ratio": 90.379,
+    "fcf_yield": 0.0462,
+    "eps_growth_5y": 0.11,
+    "revenue_growth_ttm": 0.071,
+    "gross_margin": 0.33330002,
+    "operating_margin": 0.1397,
+    "net_margin": 0.089899994,
+    "market_cap": 21895622656,
+    "enterprise_value": 28014755840,
+    "dividend_yield": 1.74,
+    "payout_ratio": 0.36,
+    "insider_ownership_pct": 0.00418,
+    "institutional_ownership_pct": 1.00165,
+    "short_ratio": 4.73,
+    "beta": 0.654
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 194.9,
+    "entry_range_high": 198.81,
+    "target_range_low": 206.42,
+    "target_range_high": 221.16,
+    "stop_range_low": 179.82,
+    "stop_range_high": 189.28,
+    "target_price": 210.63,
+    "stop_loss": 189.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.796709-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 247.27,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 174.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 156.97,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 5,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 215,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "-0.50%",
+    "key_metrics": {
+      "RSI": 50.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

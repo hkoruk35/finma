@@ -2,7 +2,7 @@
   "ticker": "DHR",
   "company": "Danaher Corporation",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.433913-04:00",
+  "generated_at": "2026-04-10T05:26:07.791230-04:00",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3883563
   },
   "scores": {
-    "master_score": 55.14,
+    "master_score": 55.4,
     "technical_score": 65.0,
     "fundamental_score": 45.0,
     "momentum_score": 40.0,
     "sentiment_score": 85.0,
-    "sector_score": 46.4,
+    "sector_score": 49.0,
     "breakout_score": 45.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 55.14,
+    "signal_score": 55.4,
     "confidence": 0.55,
     "signal_type": "NEUTRAL"
   },
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 38.291668,
-    "sector_pe_median": 27.927784000000003,
+    "sector_pe_median": 25.183777499999998,
     "pb_ratio": 2.5968835,
     "de_ratio": 37.487,
     "fcf_yield": 0.0333,
@@ -82,7 +82,7 @@
     "dividend_yield": 0.83,
     "payout_ratio": 0.2545,
     "insider_ownership_pct": 0.10785,
-    "institutional_ownership_pct": 0.84366995,
+    "institutional_ownership_pct": 0.84360003,
     "short_ratio": 1.35,
     "beta": 0.986
   },
@@ -98,11 +98,8 @@
     "stop_loss": 182.91,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.433913-04:00",
-    "categories": [
-      "breakout",
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.791216-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "HIGH",
@@ -146,7 +143,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "DHR exhibits a neutral FinMA signal, driven by mixed technicals. Although the ADX at 33 suggests a developing trend, bearish EMA alignment and today's 1.63% price decrease to $192.99 weaken the bullish case. The stock trades at a P/E of 38.44, a premium to its sector. While profitability remains strong with a 14.7% net margin and a TTM revenue growth of 4.6%, the rich valuation could limit upside potential. Watch for a break below support at $188 to confirm bearish momentum, or a move above $200 as bullish confirmation. A potential catalyst could be any material announcement regarding its bioprocessing business, given its significant contribution to revenue.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "NEUTRAL",
     "score_bar": 55,

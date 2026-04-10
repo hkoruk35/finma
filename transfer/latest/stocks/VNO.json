@@ -1,0 +1,160 @@
+{
+  "ticker": "VNO",
+  "company": "Vornado Realty Trust",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.063706-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Office",
+  "price": {
+    "current": 26.79,
+    "open": 26.83,
+    "high": 27.17,
+    "low": 26.04,
+    "prev_close": 27.12,
+    "change_pct": -1.22,
+    "change_pct_1w": 4.77,
+    "change_pct_1m": 1.06,
+    "change_pct_1y": -16.11,
+    "volume": 1600900,
+    "avg_volume_30d": 2370740
+  },
+  "scores": {
+    "master_score": 62.7,
+    "technical_score": 61.0,
+    "fundamental_score": 85.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 56.0,
+    "breakout_score": 30.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 62.7,
+    "confidence": 0.63,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 51.4,
+    "macd": -0.4532,
+    "macd_signal": -0.7521,
+    "macd_histogram": 0.2988,
+    "macd_crossover": "neutral",
+    "ema_20": 26.28,
+    "ema_50": 27.9,
+    "ema_200": 32.96,
+    "ema_stack_bullish": false,
+    "bb_upper": 26.99,
+    "bb_middle": 25.89,
+    "bb_lower": 24.79,
+    "bb_width": 0.085,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 30.5,
+    "atr": 1.08,
+    "atr_pct": 0.0402,
+    "obv_trend": "UP",
+    "mfi": 45.9,
+    "cmf": -0.263,
+    "stoch_k": 73.8,
+    "stoch_d": 74.6,
+    "rvol": 0.84,
+    "volume_5d_avg": 1995360,
+    "green_days_10d": 5,
+    "52w_high": 42.04,
+    "52w_low": 24.71,
+    "52w_high_proximity_pct": 0.3628,
+    "52w_low_proximity_pct": 0.0842
+  },
+  "fundamental": {
+    "pe_ratio": 6.378572,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 1.0631796,
+    "de_ratio": 116.655,
+    "fcf_yield": 0.2284,
+    "eps_growth_5y": 12.635,
+    "revenue_growth_ttm": -0.081,
+    "gross_margin": 0.50661,
+    "operating_margin": 0.13587,
+    "net_margin": 0.48534,
+    "market_cap": 5555191296,
+    "enterprise_value": 14191041536,
+    "dividend_yield": 2.76,
+    "payout_ratio": 0.1762,
+    "insider_ownership_pct": 0.07315,
+    "institutional_ownership_pct": 0.95139,
+    "short_ratio": 0.01,
+    "beta": 1.512
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 26.66,
+    "entry_range_high": 26.92,
+    "target_range_low": 29.43,
+    "target_range_high": 31.53,
+    "stop_range_low": 23.4,
+    "stop_range_high": 24.63,
+    "target_price": 30.03,
+    "stop_loss": 24.63,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.063689-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 33.49,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 276.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 24.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 30000,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "VNO shows a neutral signal, confidence 63%. Price is $26.79, down 1.22% today but still 36.3% off its 52-week high. The EMA alignment is bearish, but RSI at 51.4 indicates no immediate oversold condition. ADX at 30.5 suggests a consolidating trend.\n\nVNO trades at a P/E of 6.38, a discount to the sector median. While margins are strong (50.7% gross, 48.5% net), revenue growth is negative (-8.1% TTM). The unsustainably high dividend yield of 276% suggests a potential dividend cut which could act as a negative catalyst and test support around $25.",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 63,
+    "price_change_display": "-1.22%",
+    "key_metrics": {
+      "RSI": 51.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

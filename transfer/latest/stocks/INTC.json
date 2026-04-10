@@ -1,0 +1,160 @@
+{
+  "ticker": "INTC",
+  "company": "Intel Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.635039-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 61.72,
+    "open": 58.4,
+    "high": 62.08,
+    "low": 58.39,
+    "prev_close": 58.95,
+    "change_pct": 4.7,
+    "change_pct_1w": 28.5,
+    "change_pct_1m": 31.94,
+    "change_pct_1y": 215.38,
+    "volume": 155127000,
+    "avg_volume_30d": 94320916
+  },
+  "scores": {
+    "master_score": 56.62,
+    "technical_score": 61.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 90.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.7,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 56.62,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 74.8,
+    "macd": 2.7621,
+    "macd_signal": 0.9555,
+    "macd_histogram": 1.8067,
+    "macd_crossover": "neutral",
+    "ema_20": 49.15,
+    "ema_50": 46.66,
+    "ema_200": 38.24,
+    "ema_stack_bullish": true,
+    "bb_upper": 57.63,
+    "bb_middle": 47.32,
+    "bb_lower": 37.02,
+    "bb_width": 0.4356,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.8,
+    "atr": 3.12,
+    "atr_pct": 0.0505,
+    "obv_trend": "UP",
+    "mfi": 68.1,
+    "cmf": 0.061,
+    "stoch_k": 98.3,
+    "stoch_d": 98.1,
+    "rvol": 1.41,
+    "volume_5d_avg": 133276740,
+    "green_days_10d": 7,
+    "52w_high": 61.72,
+    "52w_low": 18.13,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 2.4043
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 2.6970809,
+    "de_ratio": 37.282,
+    "fcf_yield": -0.0145,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.041,
+    "gross_margin": 0.36563998,
+    "operating_margin": 0.051409997,
+    "net_margin": -0.00505,
+    "market_cap": 309896773632,
+    "enterprise_value": 330063413248,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12966,
+    "institutional_ownership_pct": 0.61791,
+    "short_ratio": 1.59,
+    "beta": 1.349
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 46.43,
+    "entry_range_high": 62.03,
+    "target_range_low": 69.66,
+    "target_range_high": 74.63,
+    "stop_range_low": 52.71,
+    "stop_range_high": 55.48,
+    "target_price": 71.08,
+    "stop_loss": 55.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.635021-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 77.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 18.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 59878,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "INTC shows a neutral FinMA signal despite a strong 4.70% price surge to $61.72, coinciding with its 52-week high. The RSI of 74.8 indicates overbought conditions potentially signaling a near-term pullback. While EMA alignment is bullish and volume is 1.41x relative average, ADX is weak. Intel's negative net margin (-0.5%) tempers enthusiasm. The lack of a P/E ratio, coupled with negative TTM revenue growth (-4.1%), raises concerns, though 36.6% gross margin offers some resilience. Monitor $60.00 as potential support. A catalyst for a sustained breakout would require positive earnings news overcoming current valuation and profitability headwinds.",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 57,
+    "price_change_display": "+4.70%",
+    "key_metrics": {
+      "RSI": 74.8,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

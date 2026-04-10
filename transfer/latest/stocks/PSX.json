@@ -1,0 +1,158 @@
+{
+  "ticker": "PSX",
+  "company": "Phillips 66",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.889599-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 161.07,
+    "open": 168.01,
+    "high": 170.0,
+    "low": 159.9,
+    "prev_close": 168.0,
+    "change_pct": -4.12,
+    "change_pct_1w": -8.3,
+    "change_pct_1m": -0.88,
+    "change_pct_1y": 72.88,
+    "volume": 3309000,
+    "avg_volume_30d": 3803513
+  },
+  "scores": {
+    "master_score": 34.22,
+    "technical_score": 38.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.22,
+    "confidence": 0.34,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 37.7,
+    "macd": 2.022,
+    "macd_signal": 4.848,
+    "macd_histogram": -2.826,
+    "macd_crossover": "neutral",
+    "ema_20": 173.38,
+    "ema_50": 164.95,
+    "ema_200": 143.1,
+    "ema_stack_bullish": false,
+    "bb_upper": 188.98,
+    "bb_middle": 176.7,
+    "bb_lower": 164.42,
+    "bb_width": 0.139,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 37.5,
+    "atr": 6.62,
+    "atr_pct": 0.0411,
+    "obv_trend": "DOWN",
+    "mfi": 33.4,
+    "cmf": -0.077,
+    "stoch_k": 3.8,
+    "stoch_d": 13.4,
+    "rvol": 0.85,
+    "volume_5d_avg": 3220160,
+    "green_days_10d": 4,
+    "52w_high": 188.28,
+    "52w_low": 89.58,
+    "52w_high_proximity_pct": 0.1445,
+    "52w_low_proximity_pct": 0.798
+  },
+  "fundamental": {
+    "pe_ratio": 15.57737,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 2.2208588,
+    "de_ratio": 71.38,
+    "fcf_yield": 0.0195,
+    "eps_growth_5y": 2427.284,
+    "revenue_growth_ttm": 0.013,
+    "gross_margin": 0.123009995,
+    "operating_margin": 0.02747,
+    "net_margin": 0.03326,
+    "market_cap": 64586268672,
+    "enterprise_value": 86165839872,
+    "dividend_yield": 3.15,
+    "payout_ratio": 0.4402,
+    "insider_ownership_pct": 0.0023,
+    "institutional_ownership_pct": 0.78086996,
+    "short_ratio": 2.49,
+    "beta": 0.755
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 160.26,
+    "entry_range_high": 161.88,
+    "target_range_low": 177.31,
+    "target_range_high": 189.98,
+    "stop_range_low": 140.44,
+    "stop_range_high": 147.83,
+    "target_price": 180.93,
+    "stop_loss": 147.83,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.889582-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 201.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 315.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 89.58,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 15629,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 34,
+    "price_change_display": "-4.12%",
+    "key_metrics": {
+      "RSI": 37.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

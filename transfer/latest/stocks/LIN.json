@@ -2,7 +2,7 @@
   "ticker": "LIN",
   "company": "Linde plc",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.467224-04:00",
+  "generated_at": "2026-04-10T05:26:07.936894-04:00",
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2667326
   },
   "scores": {
-    "master_score": 50.1,
+    "master_score": 49.47,
     "technical_score": 70.0,
     "fundamental_score": 0.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 61.0,
+    "sector_score": 54.7,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 50.1,
-    "confidence": 0.5,
+    "signal_score": 49.47,
+    "confidence": 0.49,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 34.472603,
-    "sector_pe_median": 33.581481499999995,
+    "sector_pe_median": 23.75,
     "pb_ratio": 6.102011,
     "de_ratio": 70.63,
     "fcf_yield": 0.0205,
@@ -98,10 +98,8 @@
     "stop_loss": 482.66,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.467224-04:00",
-    "categories": [
-      "breakout"
-    ]
+    "generated_at": "2026-04-10T05:26:07.936879-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "HIGH",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "LIN exhibits a FinMA SELL signal despite bullish EMA alignment and proximity to its 52-week high ($507.88). The high Bollinger Band placement suggests potential overbought conditions. While the company boasts strong profitability (20.3% net margin), its ADX of 12.2 indicates a weak trend. The elevated P/E ratio of 34.44901, trading at a premium to the sector median of 33.569685, coupled with a lower-than-average relative volume (0.73x), signals caution. The unusually high dividend yield of 128% is likely a data error and should be investigated, which could be a catalyst for price correction if confirmed.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 50,
+    "score_bar": 49,
     "price_change_display": "+0.56%",
     "key_metrics": {
       "RSI": 59.1,

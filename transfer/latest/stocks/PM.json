@@ -2,7 +2,7 @@
   "ticker": "PM",
   "company": "Philip Morris International Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.450528-04:00",
+  "generated_at": "2026-04-10T05:26:07.721920-04:00",
   "sector": "Consumer Staples",
   "industry": "Tobacco",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5036746
   },
   "scores": {
-    "master_score": 53.76,
+    "master_score": 52.94,
     "technical_score": 53.0,
     "fundamental_score": 39.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 59.6,
+    "sector_score": 51.4,
     "breakout_score": 40.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 53.76,
-    "confidence": 0.54,
+    "signal_score": 52.94,
+    "confidence": 0.53,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 22.210743,
-    "sector_pe_median": 25.9827205,
+    "sector_pe_median": 24.341375,
     "pb_ratio": -25.116821,
     "de_ratio": null,
     "fcf_yield": 0.0356,
@@ -82,7 +82,7 @@
     "dividend_yield": 3.65,
     "payout_ratio": 0.7765,
     "insider_ownership_pct": 0.00169,
-    "institutional_ownership_pct": 0.83131,
+    "institutional_ownership_pct": 0.83128,
     "short_ratio": 3.17,
     "beta": 0.451
   },
@@ -98,10 +98,8 @@
     "stop_loss": 152.25,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.450528-04:00",
-    "categories": [
-      "breakout"
-    ]
+    "generated_at": "2026-04-10T05:26:07.721905-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PM shows a mixed signal. The FinMA signal is SELL with 54% confidence, driven by bearish EMA alignment and elevated ADX (34.8), suggesting a potentially established downtrend. Despite a bullish MACD, the RSI at 42.4 indicates further downside potential. Key technical levels to watch are resistance around the 52-week high ($188.18) and support near the current price level. While PM boasts strong profitability (67.1% gross margin, 27.9% net margin) and trades at a P/E discount (22.21) to the sector, the unsustainably high dividend yield of 365.00% is likely factoring into the negative sentiment.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 54,
+    "score_bar": 53,
     "price_change_display": "+0.19%",
     "key_metrics": {
       "RSI": 42.4,

@@ -1,0 +1,158 @@
+{
+  "ticker": "MTZ",
+  "company": "MasTec, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.006493-04:00",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 357.37,
+    "open": 350.07,
+    "high": 362.88,
+    "low": 350.07,
+    "prev_close": 348.11,
+    "change_pct": 2.66,
+    "change_pct_1w": 7.06,
+    "change_pct_1m": 19.08,
+    "change_pct_1y": 232.25,
+    "volume": 619000,
+    "avg_volume_30d": 1049820
+  },
+  "scores": {
+    "master_score": 52.73,
+    "technical_score": 50.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 52.73,
+    "confidence": 0.53,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 71.8,
+    "macd": 15.7477,
+    "macd_signal": 13.0718,
+    "macd_histogram": 2.6759,
+    "macd_crossover": "neutral",
+    "ema_20": 322.06,
+    "ema_50": 295.76,
+    "ema_200": 232.47,
+    "ema_stack_bullish": true,
+    "bb_upper": 354.35,
+    "bb_middle": 318.32,
+    "bb_lower": 282.29,
+    "bb_width": 0.2264,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.4,
+    "atr": 15.54,
+    "atr_pct": 0.0435,
+    "obv_trend": "UP",
+    "mfi": 62.5,
+    "cmf": -0.085,
+    "stoch_k": 91.6,
+    "stoch_d": 88.9,
+    "rvol": 0.6,
+    "volume_5d_avg": 633540,
+    "green_days_10d": 8,
+    "52w_high": 357.37,
+    "52w_low": 106.82,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 2.3455
+  },
+  "fundamental": {
+    "pe_ratio": 70.487175,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 8.5368595,
+    "de_ratio": 83.945,
+    "fcf_yield": 0.0034,
+    "eps_growth_5y": 0.928,
+    "revenue_growth_ttm": 0.158,
+    "gross_margin": 0.12537,
+    "operating_margin": 0.053850003,
+    "net_margin": 0.02791,
+    "market_cap": 28196825088,
+    "enterprise_value": 30301769728,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.21488,
+    "institutional_ownership_pct": 0.76793,
+    "short_ratio": 2.39,
+    "beta": 1.8
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 294.28,
+    "entry_range_high": 359.16,
+    "target_range_low": 395.91,
+    "target_range_high": 424.19,
+    "stop_range_low": 309.98,
+    "stop_range_high": 326.29,
+    "target_price": 403.99,
+    "stop_loss": 326.29,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.006476-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 446.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 106.82,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 950,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 53,
+    "price_change_display": "+2.66%",
+    "key_metrics": {
+      "RSI": 71.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "ticker": "COP",
   "company": "ConocoPhillips",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.433913-04:00",
+  "generated_at": "2026-04-10T05:26:07.869722-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 11200713
   },
   "scores": {
-    "master_score": 41.81,
+    "master_score": 39.17,
     "technical_score": 40.0,
-    "fundamental_score": 32.0,
+    "fundamental_score": 20.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 43.1,
+    "sector_score": 46.7,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 41.81,
-    "confidence": 0.42,
-    "signal_type": "SELL"
+    "signal_score": 39.17,
+    "confidence": 0.39,
+    "signal_type": "STRONG_SELL"
   },
   "technical": {
     "rsi_14": 48.1,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 19.444096,
-    "sector_pe_median": 23.140299,
+    "sector_pe_median": 18.186544,
     "pb_ratio": 2.3457775,
     "de_ratio": 37.828,
     "fcf_yield": 0.0496,
@@ -87,7 +87,7 @@
     "beta": 0.192
   },
   "signals": {
-    "signal_type": "SELL",
+    "signal_type": "STRONG_SELL",
     "entry_range_low": 117.7,
     "entry_range_high": 124.09,
     "target_range_low": 133.32,
@@ -98,10 +98,8 @@
     "stop_loss": 115.09,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.433913-04:00",
-    "categories": [
-      "dividend"
-    ]
+    "generated_at": "2026-04-10T05:26:07.869706-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -145,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "COP exhibits a FinMA \"SELL\" signal with low confidence (42%). The bearish EMA alignment and RSI of 48.1 suggest further downside potential. Trading 7.7% from its 52-week high with low Bollinger Bands indicates possible oversold conditions, yet low relative volume (0.72x) confirms weak buying pressure.\n\nWhile COP's P/E of 19.44 trades at a discount to its sector median, negative TTM revenue growth (-6.8%) raises concerns. A high dividend yield of 2.68% might attract investors, but needs to be carefully weighed against the negative revenue growth.\n\nWithout a clear catalyst, the technicals point towards continued downward pressure, with key levels around the recent low of $120 and resistance at $125.",
+  "ai_summary": "",
   "quick_view": {
-    "signal_badge": "SELL",
-    "score_bar": 42,
+    "signal_badge": "STRONG SELL",
+    "score_bar": 39,
     "price_change_display": "-1.40%",
     "key_metrics": {
       "RSI": 48.1,

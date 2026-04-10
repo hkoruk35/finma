@@ -2,7 +2,7 @@
   "ticker": "MU",
   "company": "Micron Technology, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.383919-04:00",
+  "generated_at": "2026-04-10T05:26:07.568872-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 46233233
   },
   "scores": {
-    "master_score": 54.97,
+    "master_score": 55.52,
     "technical_score": 65.0,
     "fundamental_score": 40.0,
     "momentum_score": 50.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 42.7,
     "breakout_score": 15.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 40.0,
-    "signal_score": 54.97,
-    "confidence": 0.55,
+    "signal_score": 55.52,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL"
   },
   "technical": {
@@ -67,8 +67,8 @@
     "52w_low_proximity_pct": 5.4467
   },
   "fundamental": {
-    "pe_ratio": 19.89193,
-    "sector_pe_median": 33.01521,
+    "pe_ratio": 19.882547,
+    "sector_pe_median": 39.065147,
     "pb_ratio": 6.5617948,
     "de_ratio": 14.902,
     "fcf_yield": 0.0061,
@@ -82,7 +82,7 @@
     "dividend_yield": 0.14,
     "payout_ratio": 0.0217,
     "insider_ownership_pct": 0.0027,
-    "institutional_ownership_pct": 0.82364,
+    "institutional_ownership_pct": 0.82363,
     "short_ratio": 1.0,
     "beta": 1.606
   },
@@ -98,11 +98,8 @@
     "stop_loss": 367.27,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.383919-04:00",
-    "categories": [
-      "value",
-      "reversal"
-    ]
+    "generated_at": "2026-04-10T05:26:07.568847-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -146,10 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MU exhibits a Neutral FinMA signal, yet several factors suggest upside potential. The price, at $421.51, is near its 52-week high, and bullish EMA alignment supports continued momentum. While ADX indicates weak trend strength at 18.8, strong TTM revenue growth of 196.3% and high gross (58.4%) and net (41.5%) margins underpin the valuation. MU's P/E of 19.89 is significantly lower than the sector median. The 15.00% dividend yield is also attractive. A potential catalyst could be increased demand for Micron's memory solutions in AI applications. Key levels to watch are resistance at the 52-week high and support at the lower Bollinger Band.",
+  "ai_summary": "",
   "quick_view": {
     "signal_badge": "NEUTRAL",
-    "score_bar": 55,
+    "score_bar": 56,
     "price_change_display": "+3.63%",
     "key_metrics": {
       "RSI": 57.6,

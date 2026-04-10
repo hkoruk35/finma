@@ -1,0 +1,160 @@
+{
+  "ticker": "TTD",
+  "company": "The Trade Desk, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.611823-04:00",
+  "sector": "Technology",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 20.61,
+    "open": 20.21,
+    "high": 20.69,
+    "low": 19.74,
+    "prev_close": 20.25,
+    "change_pct": 1.78,
+    "change_pct_1w": -6.23,
+    "change_pct_1m": -25.49,
+    "change_pct_1y": -55.52,
+    "volume": 19635800,
+    "avg_volume_30d": 23500270
+  },
+  "scores": {
+    "master_score": 39.77,
+    "technical_score": 20.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 35.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 39.77,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 33.2,
+    "macd": -1.5625,
+    "macd_signal": -1.4804,
+    "macd_histogram": -0.0822,
+    "macd_crossover": "neutral",
+    "ema_20": 22.8,
+    "ema_50": 26.12,
+    "ema_200": 41.14,
+    "ema_stack_bullish": false,
+    "bb_upper": 27.12,
+    "bb_middle": 23.05,
+    "bb_lower": 18.97,
+    "bb_width": 0.3537,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.3,
+    "atr": 1.47,
+    "atr_pct": 0.0713,
+    "obv_trend": "UP",
+    "mfi": 41.0,
+    "cmf": -0.236,
+    "stoch_k": 17.7,
+    "stoch_d": 9.5,
+    "rvol": 0.72,
+    "volume_5d_avg": 16821080,
+    "green_days_10d": 5,
+    "52w_high": 89.76,
+    "52w_low": 20.25,
+    "52w_high_proximity_pct": 0.7704,
+    "52w_low_proximity_pct": 0.0178
+  },
+  "fundamental": {
+    "pe_ratio": 22.900002,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 3.948276,
+    "de_ratio": 17.563,
+    "fcf_yield": 0.0613,
+    "eps_growth_5y": 0.075,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.78625,
+    "operating_margin": 0.30335,
+    "net_margin": 0.15306,
+    "market_cap": 9809887232,
+    "enterprise_value": 8943160320,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0074199997,
+    "institutional_ownership_pct": 0.82589996,
+    "short_ratio": 2.23,
+    "beta": 1.174
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 20.51,
+    "entry_range_high": 20.71,
+    "target_range_low": 24.52,
+    "target_range_high": 26.27,
+    "stop_range_low": 16.79,
+    "stop_range_high": 17.67,
+    "target_price": 25.02,
+    "stop_loss": 17.67,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.611796-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 25.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.25,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12304,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "TTD signals a \"SELL\" (40% confidence) despite today's 1.78% gain to $20.61, with bearish EMA alignment reinforcing the signal. The low RSI of 33.2 indicates potential oversold conditions, but ADX at 26.3 suggests a weakening downtrend. Technically, breaching resistance at $22 (recent high) is key to negating the sell signal.\n\nFundamentally, TTD’s P/E of 22.9 offers a relative discount to the sector. Q1 earnings release on May 9th will be a crucial catalyst; exceeding the already high expectations will likely override technical concerns.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "+1.78%",
+    "key_metrics": {
+      "RSI": 33.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

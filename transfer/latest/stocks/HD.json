@@ -2,7 +2,7 @@
   "ticker": "HD",
   "company": "The Home Depot, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T03:47:10.400704-04:00",
+  "generated_at": "2026-04-10T05:26:07.670464-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Home Improvement Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 4150673
   },
   "scores": {
-    "master_score": 44.28,
+    "master_score": 44.8,
     "technical_score": 61.0,
     "fundamental_score": 12.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.3,
+    "sector_score": 49.5,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 44.28,
-    "confidence": 0.44,
+    "signal_score": 44.8,
+    "confidence": 0.45,
     "signal_type": "SELL"
   },
   "technical": {
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 23.863668,
-    "sector_pe_median": 30.740686500000002,
+    "sector_pe_median": 25.92546,
     "pb_ratio": 26.397697,
     "de_ratio": 514.392,
     "fcf_yield": 0.0255,
@@ -98,7 +98,7 @@
     "stop_loss": 319.86,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T03:47:10.400704-04:00",
+    "generated_at": "2026-04-10T05:26:07.670447-04:00",
     "categories": [
       "dividend"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HD exhibits a **SELL** signal, albeit with low confidence (44%). The current price of $339.58 shows a modest 1.02% gain today but sits 18.7% below its 52-week high. While RSI is neutral at 50.8, the bearish EMA alignment suggests potential downward pressure. ADX at 34.2 indicates a trending market.\n\nThe stock trades at a P/E of 23.88, a relative discount versus its sector, but negative revenue growth (-3.8% TTM) is concerning. High dividend yield of 277.00% might attract income investors but could signal financial strain. A potential catalyst for a further decline could be upcoming earnings reports, failing to meet expectations due to slowing home improvement spending. Watch for a break below support at $330.",
+  "ai_summary": "HD shows a sell signal with low confidence (42%). Price surged 5.46% today to $336.16, despite bearish EMA stack. RSI at 48.6 indicates neutral momentum. ADX at 35.4 suggests a trending market. While the stock is 19.6% from its 52-week high, revenue growth is negative (-3.8% TTM) and RVOL is below 1 at 0.89x. P/E ratio of 23.64 is below the sector median of 29.12, but the negative revenue growth weighs on the valuation. Upcoming housing market data could pressure the stock if figures disappoint.",
   "quick_view": {
     "signal_badge": "SELL",
-    "score_bar": 44,
+    "score_bar": 45,
     "price_change_display": "+1.02%",
     "key_metrics": {
       "RSI": 50.8,
