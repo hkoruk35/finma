@@ -13,13 +13,13 @@ export default function StatsBar({ data }: { data: MasterData }) {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-      {/* Active Signals */}
+      {/* Active Scores */}
       <div className="glass-card p-4 text-center">
         <div className="text-3xl font-bold font-mono text-[#3b82f6]">
-          {data.active_signals_count}
+          {data.active_scores_count}
         </div>
         <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
-          Active Signals
+          Active Scores
         </div>
       </div>
 

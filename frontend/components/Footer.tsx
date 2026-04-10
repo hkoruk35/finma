@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="bg-[#141924] border-b border-[#1e2a3a] px-4 py-3">
         <p className="max-w-5xl mx-auto text-xs text-[#64748b] text-center">
           <strong className="text-[#94a3b8]">Disclaimer:</strong> FinMA is for informational purposes only.
-          Not financial advice. AI signals are experimental. Trading involves risk of loss.
+          Not financial advice. AI scores are experimental. Trading involves risk of loss.
           Past performance is not indicative of future results.
         </p>
       </div>
@@ -31,7 +31,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-[#94a3b8] mb-3">Categories</h4>
             <div className="flex flex-col gap-1.5">
-              <Link href="/category/top-signals" className="text-xs text-[#64748b] hover:text-white transition-colors">Top Signals</Link>
+              <Link href="/category/top-scores" className="text-xs text-[#64748b] hover:text-white transition-colors">Top Scores</Link>
               <Link href="/category/breakout" className="text-xs text-[#64748b] hover:text-white transition-colors">Breakout</Link>
               <Link href="/category/undervalued" className="text-xs text-[#64748b] hover:text-white transition-colors">Undervalued</Link>
               <Link href="/category/momentum" className="text-xs text-[#64748b] hover:text-white transition-colors">Momentum</Link>

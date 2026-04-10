@@ -27,7 +27,7 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-6">
           <Link href="/" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Home Page</Link>
-          <Link href="/category/top-signals" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Top Signals</Link>
+          <Link href="/category/top-scores" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Top Scores</Link>
           <Link href="/category/breakout" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Breakout</Link>
           <Link href="/category/undervalued" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Undervalued</Link>
           <Link href="/category/momentum" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Momentum</Link>
@@ -66,7 +66,7 @@ export default function Header() {
         <div className="xl:hidden bg-[#0d1117] border-b border-[#1e2a3a] px-4 py-8 animate-in slide-in-from-top duration-300 max-h-[80vh] overflow-y-auto">
           <nav className="flex flex-col gap-6">
             <Link href="/" onClick={() => setIsOpen(false)} className="text-base font-semibold text-white">Home Page</Link>
-            <Link href="/category/top-signals" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Top Signals</Link>
+            <Link href="/category/top-scores" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Top Scores</Link>
             <Link href="/category/breakout" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Breakout</Link>
             <Link href="/category/undervalued" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Undervalued</Link>
             <Link href="/category/momentum" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Momentum</Link>

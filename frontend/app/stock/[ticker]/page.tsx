@@ -1,4 +1,4 @@
-import { getStockData, getMasterData, getAllTickers, getSignalBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { getStockData, getMasterData, getAllTickers, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!stock) return { title: "Stock Not Found | FinMA" };
 
   const dateStr = new Date().toISOString().split("T")[0];
-  const title = `${stock.ticker} Stock Analysis ${dateStr} | ${stock.company} AI Score & Signals — FinMA`;
-  const description = `${stock.ticker} (${stock.company}) analysis for ${dateStr}. FinMA AI Score: ${stock.scores.master_score.toFixed(1)}. Current Signal: ${stock.scores.signal_type.replace("_", " ")} at $${formatPrice(stock.price.current)}. Discover real-time trading signals and AI-driven stock research.`;
+  const title = `${stock.ticker} Stock Analysis ${dateStr} | ${stock.company} AI Score & Ratings — FinMA`;
+  const description = `${stock.ticker} (${stock.company}) analysis for ${dateStr}. FinMA AI Score: ${stock.scores.master_score.toFixed(1)}. Current Rating: ${stock.scores.score_type.replace("_", " ")} at $${formatPrice(stock.price.current)}. Discover real-time AI scores and AI-driven stock research.`;
 
   return {
     metadataBase: new URL("https://finmasmart.com"),
@@ -126,8 +126,8 @@ export default async function StockDetailPage({ params }: Props) {
                 <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">
                   {stock.ticker} — {stock.company} Stock Analysis
                 </h1>
-                <span className={`px-4 py-1 rounded-xl text-xs font-black uppercase tracking-widest ${getSignalBadgeClass(stock.scores.signal_type)}`}>
-                  {stock.scores.signal_type.replace("_", " ")}
+                <span className={`px-4 py-1 rounded-xl text-xs font-black uppercase tracking-widest ${getScoreBadgeClass(stock.scores.score_type)}`}>
+                  {stock.scores.score_type.replace("_", " ")}
                 </span>
               </div>
               <p className="text-[#94a3b8] font-bold text-lg">{stock.company} &middot; {stock.sector}</p>
@@ -276,35 +276,35 @@ export default async function StockDetailPage({ params }: Props) {
                 </div>
               </div>
               <p className={`text-sm font-bold uppercase ${getChangeColor(1)}`}>
-                High conviction signal
+                High conviction score
               </p>
             </div>
 
-            {/* Signal Details */}
+            {/* Score Details */}
             <div className="glass-card p-6">
               <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">FinMA AI Model Projection</h3>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                    <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">Strategic Observation Zone</span>
                    <span className="font-mono font-black text-xl text-white">
-                      ${formatPrice(stock.signals.entry_range_low)} - ${formatPrice(stock.signals.entry_range_high)}
+                      ${formatPrice(stock.scores_detail.entry_range_low)} - ${formatPrice(stock.scores_detail.entry_range_high)}
                    </span>
                 </div>
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                    <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">Projected Growth Objective</span>
                    <span className="font-mono font-black text-xl text-[#22c55e]">
-                      ${formatPrice(stock.signals.target_range_low)} - ${formatPrice(stock.signals.target_range_high)}
+                      ${formatPrice(stock.scores_detail.target_range_low)} - ${formatPrice(stock.scores_detail.target_range_high)}
                    </span>
                 </div>
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                    <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">Model Invalidation Level</span>
                    <span className="font-mono font-black text-xl text-[#ef4444]">
-                      ${formatPrice(stock.signals.stop_range_low)} - ${formatPrice(stock.signals.stop_range_high)}
+                      ${formatPrice(stock.scores_detail.stop_range_low)} - ${formatPrice(stock.scores_detail.stop_range_high)}
                    </span>
                 </div>
                 <div className="flex justify-between items-center bg-[#141924] p-3 rounded-lg border border-[#1e2a3a]">
                    <span className="text-xs font-bold text-[#64748b] uppercase tracking-widest">Risk/Reward</span>
-                   <span className="font-mono font-black text-white">{stock.signals.risk_reward_ratio}:1</span>
+                   <span className="font-mono font-black text-white">{stock.scores_detail.risk_reward_ratio}:1</span>
                 </div>
               </div>
               <button className="w-full mt-6 py-3 bg-[#3b82f6] text-white rounded-xl font-bold hover:bg-[#2563eb] transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
@@ -439,12 +439,12 @@ export default async function StockDetailPage({ params }: Props) {
            </div>
         </div>
 
-        {/* Signal Categories */}
+        {/* Score Categories */}
         <div className="mb-8">
            <div className="glass-card p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Signal Categories</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Score Categories</h3>
               <div className="flex flex-wrap gap-2">
-                 {stock.signals.categories.map(cat => (
+                 {stock.scores_detail.categories.map(cat => (
                     <Link
                        key={cat}
                        href={`/category/${cat.replace('_', '-') === 'value' ? 'undervalued' : cat.replace('_', '-')}`}
@@ -462,12 +462,12 @@ export default async function StockDetailPage({ params }: Props) {
            <div className="flex flex-col gap-6">
              <div>
                <h3 className="text-2xl font-black text-white mb-2">Share This Insight</h3>
-               <p className="text-[#94a3b8] text-sm">Help others discover this signal. Professional analysts share high-conviction data.</p>
+               <p className="text-[#94a3b8] text-sm">Help others discover this score. Professional analysts share high-conviction data.</p>
              </div>
              <SocialShare
                ticker={stock.ticker}
                score={stock.scores.master_score}
-               signal={stock.scores.signal_type}
+               scoreType={stock.scores.score_type}
              />
            </div>
         </div>

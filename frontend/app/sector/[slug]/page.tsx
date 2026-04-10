@@ -1,4 +1,4 @@
-import { getMasterData, getAllTickers, getSignalBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { getMasterData, getAllTickers, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const sectorName = SECTOR_NAME_MAP[slug];
   if (!sectorName) return { title: "Sector Not Found | FinMA" };
 
-  const title = `${sectorName} Stocks Analysis & AI Signals | Daily ${SECTOR_ETF[sectorName]} Reports — FinMA`;
-  const description = `Real-time analysis of the top equities in the ${sectorName} sector. Compare ${SECTOR_ETF[sectorName]} performance, AI scores, and daily trading signals for the strongest stocks in this industry.`;
+  const title = `${sectorName} Stocks Analysis & AI Scores | Daily ${SECTOR_ETF[sectorName]} Reports — FinMA`;
+  const description = `Real-time analysis of the top equities in the ${sectorName} sector. Compare ${SECTOR_ETF[sectorName]} performance, AI scores, and daily stock scores for the strongest stocks in this industry.`;
 
   return {
     metadataBase: new URL("https://finmasmart.com"),
@@ -174,7 +174,7 @@ export default async function SectorPage({ params }: Props) {
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Ticker</th>
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Change (%)</th>
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">FinMA Score</th>
-                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Signal</th>
+                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Rating</th>
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase text-right">Action</th>
                  </tr>
               </thead>
@@ -201,8 +201,8 @@ export default async function SectorPage({ params }: Props) {
                           </div>
                        </td>
                        <td className="px-6 py-4">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${getSignalBadgeClass(stock.signal_type)}`}>
-                             {stock.signal_type.replace("_", " ")}
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${getScoreBadgeClass(stock.score_type)}`}>
+                             {stock.score_type.replace("_", " ")}
                           </span>
                        </td>
                        <td className="px-6 py-4 text-right">

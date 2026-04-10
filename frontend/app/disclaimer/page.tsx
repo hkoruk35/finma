@@ -15,10 +15,10 @@ export default function DisclaimerPage() {
             <h2 className="text-xl font-bold text-white mb-4">1. Not Financial Advice</h2>
             <p>
               FinMA Daily +500 is an automated informational service. The content provided on this platform,
-              including but not limited to proprietary FinMA AI-generated analyses, scores, and trading signals 
-              (STRONG BUY, BUY, etc.), is for informational purposes only. It does NOT constitute financial, 
-              investment, or professional advice. We are not a registered investment advisor (RIA), broker-dealer, 
-              or financial fiduciary. Always consult with a licensed financial professional before making 
+              including but not limited to proprietary FinMA AI-generated analyses, scores, and trading ratings
+              (HIGH CONVICTION, POSITIVE BIAS, etc.), is for informational purposes only. It does NOT constitute financial,
+              investment, or professional advice. We are not a registered investment advisor (RIA), broker-dealer,
+              or financial fiduciary. Always consult with a licensed financial professional before making
               any investment decisions.
             </p>
           </section>
@@ -27,9 +27,9 @@ export default function DisclaimerPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-4">2. High Risk Disclosure</h2>
             <p>
-              Trading US equities involve a high degree of risk and the potential for significant loss of capital. 
-              Our AI signals are experimental and based on historical data patterns which do not guarantee 
-              future outcomes. We provide no warranty regarding the profitability or success of any signal 
+              Trading US equities involve a high degree of risk and the potential for significant loss of capital.
+              Our AI scores are experimental and based on historical data patterns which do not guarantee
+              future outcomes. We provide no warranty regarding the profitability or success of any score
               provided. Use the information at your own risk.
             </p>
           </section>

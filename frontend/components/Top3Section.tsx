@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MasterData, StockQuickView, getSignalBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { MasterData, StockQuickView, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
 
 interface Props {
   master: MasterData;
@@ -47,7 +47,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                 </div>
               </div>
 
-              {/* Score + Signal */}
+              {/* Score + Rating */}
               <div className="flex flex-col gap-3 mb-6">
                 <div className="flex items-end gap-2">
                    <div className="text-6xl font-mono font-black text-[#3b82f6] leading-none">
@@ -56,8 +56,8 @@ export default function Top3Section({ master, allTickers }: Props) {
                    <div className="text-[9px] text-[#64748b] font-black uppercase tracking-[0.2em] mb-2">FinMA AI SCORE</div>
                 </div>
                 <div className="flex">
-                  <span className={`px-5 py-1.5 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-xl ${getSignalBadgeClass(item.signal)}`}>
-                    {item.signal.replace("_", " ")}
+                  <span className={`px-5 py-1.5 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-xl ${getScoreBadgeClass(item.score_type)}`}>
+                    {item.score_type.replace("_", " ")}
                   </span>
                 </div>
               </div>

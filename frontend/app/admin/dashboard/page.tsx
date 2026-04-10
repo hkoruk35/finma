@@ -12,7 +12,7 @@ export default function AdminDashboard() {
             { label: "Bot Status", value: "SUCCESS", sub: "Last run: Today 09:02 AM", color: "text-[#22c55e]" },
             { label: "Total Members", value: "1,284", sub: "+24 today", color: "text-white" },
             { label: "Daily Page Views", value: "42.5K", sub: "85% from US", color: "text-white" },
-            { label: "Active Signals", value: "47", sub: "12 Strong Buy", color: "text-[#3b82f6]" },
+            { label: "Active Scores", value: "47", sub: "12 High Conviction", color: "text-[#3b82f6]" },
          ].map((stat, i) => (
             <div key={i} className="glass-card p-6">
                <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">{stat.label}</p>
@@ -32,9 +32,9 @@ export default function AdminDashboard() {
             <div className="divide-y divide-[#1e2a3a]">
                {[
                   { time: "09:02:15", msg: "Bot task completed successfully.", type: "INFO" },
-                  { time: "09:01:42", msg: "Generating AI summaries for Top Signals...", type: "INFO" },
+                  { time: "09:01:42", msg: "Generating AI summaries for Top Scores...", type: "INFO" },
                   { time: "09:00:05", msg: "YFinance data fetch initiated.", type: "INFO" },
-                  { time: "08:55:00", msg: "Scheduler wake up signal received.", type: "SYSTEM" },
+                  { time: "08:55:00", msg: "Scheduler wake up score trigger received.", type: "SYSTEM" },
                ].map((log, i) => (
                   <div key={i} className="px-6 py-3 flex items-center justify-between hover:bg-[#141924] transition-colors">
                      <div className="flex items-center gap-4">

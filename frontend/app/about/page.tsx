@@ -34,7 +34,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">AI-Driven Context</h3>
               <p className="text-[#64748b] text-sm leading-relaxed">
-                 Numbers only tell half the story. We feed technical data, news sentiment, and fundamental metrics into Gemini 1.5 Flash to generate a "Human-Readable" summary of why a signal was generated.
+                 Numbers only tell half the story. We feed technical data, news sentiment, and fundamental metrics into Gemini 1.5 Flash to generate a "Human-Readable" summary of why a score was generated.
               </p>
            </div>
         </div>

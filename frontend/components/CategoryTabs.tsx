@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { StockQuickView, MasterData, getSignalBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { StockQuickView, MasterData, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
 
 const TABS = [
-  { key: "top_signals", label: "Top Signals" },
+  { key: "top_scores", label: "Top Scores" },
   { key: "breakout", label: "Breakout" },
   { key: "value", label: "Undervalued" },
   { key: "momentum", label: "Momentum" },
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function CategoryTabs({ master, allTickers }: Props) {
-  const [active, setActive] = useState("top_signals");
+  const [active, setActive] = useState("top_scores");
 
   const menu = master.menus[active] || { tickers: [] };
   const tickersInMenu = menu.tickers.slice(0, 8);
@@ -61,7 +61,7 @@ export default function CategoryTabs({ master, allTickers }: Props) {
             className="glass-card p-3 hover:bg-[#1a2030] transition-all duration-200 group cursor-pointer animate-fade-in border border-[#1e2a3a] hover:border-[#3b82f6]/30"
             style={{ animationDelay: `${idx * 60}ms` }}
           >
-            {/* Top row: ticker + signal */}
+            {/* Top row: ticker + score */}
             <div className="flex items-center justify-between mb-3">
               <div>
                 <span className="text-lg font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
@@ -71,8 +71,8 @@ export default function CategoryTabs({ master, allTickers }: Props) {
                   {stock.company}
                 </p>
               </div>
-              <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ${getSignalBadgeClass(stock.signal_type)}`}>
-                {stock.signal_type.replace("_", " ")}
+              <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ${getScoreBadgeClass(stock.score_type)}`}>
+                {stock.score_type.replace("_", " ")}
               </span>
             </div>
 

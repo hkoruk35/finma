@@ -9,7 +9,7 @@ export interface StockQuickView {
   company: string;
   sector: string;
   master_score: number;
-  signal_type: string;
+  score_type: string;
   price: number;
   change_pct: number;
   change_pct_1w?: number;
@@ -25,11 +25,11 @@ export interface MasterData {
   date: string;
   generated_at: string;
   total_tickers_scanned: number;
-  active_signals_count: number;
+  active_scores_count: number;
   market_regime: string;
   menus: Record<string, { count: number; tickers: string[] }>;
   sector_summary: Record<string, { avg_score: number; top_ticker: string; stock_count: number }>;
-  top_3_overall: { ticker: string; score: number; signal: string }[];
+  top_3_overall: { ticker: string; score: number; score_type: string }[];
   market_indices: Record<string, {
     value: number;
     change_pct: number;
@@ -71,7 +71,7 @@ export interface StockDetail {
     reversal_score: number;
     dividend_score: number;
     confidence: number;
-    signal_type: string;
+    score_type: string;
   };
   technical: Record<string, any>;
   fundamental: Record<string, any>;
@@ -91,8 +91,8 @@ export interface StockDetail {
     net_direction: string;
     last_transaction: string | { type: string; shares: number; date: string } | null;
   };
-  signals: {
-    signal_type: string;
+  scores_detail: {
+    score_type: string;
     entry_range_low: number;
     entry_range_high: number;
     target_price: number;
@@ -107,7 +107,7 @@ export interface StockDetail {
   news: { headline: string; url: string; source: string; published: string; sentiment: string }[];
   ai_summary: string;
   quick_view: {
-    signal_badge: string;
+    score_badge: string;
     score_bar: number;
     price_change_display: string;
     key_metrics: Record<string, any>;
@@ -243,10 +243,10 @@ function getMockMaster(): MasterData {
     date: new Date().toISOString().split("T")[0],
     generated_at: new Date().toISOString(),
     total_tickers_scanned: 100,
-    active_signals_count: 58,
+    active_scores_count: 58,
     market_regime: "Bull",
     menus: {
-      top_signals: { count: 12, tickers: ["NVDA","PLTR","META","SOFI","MARA","COIN","AMD","TSLA","MSTR","SMCI","SHOP","ARM"] },
+      top_scores: { count: 12, tickers: ["NVDA","PLTR","META","SOFI","MARA","COIN","AMD","TSLA","MSTR","SMCI","SHOP","ARM"] },
       breakout:    { count: 18, tickers: ["NVDA","AMD","PLTR","MARA","COIN","SQ","HOOD","SOFI","SMCI","ARM","NET","IONQ","SNOW","TSLA","AMZN","META","UBER","RBLX"] },
       value:       { count: 15, tickers: ["PFE","BAC","T","VZ","KO","PG","JNJ","MRK","GILD","WMT","UPS","CVX","NEE","BLK","JPM"] },
       reversal:    { count: 8, tickers: ["NKE","SNAP","RIVN","DIS","BA","PYPL","SBUX","ADBE"] },
@@ -268,9 +268,9 @@ function getMockMaster(): MasterData {
       "High-Growth":             { avg_score: 65.8, top_ticker: "SMCI", stock_count: 10 },
     },
     top_3_overall: [
-      { ticker: "NVDA", score: 91.2, signal: "STRONG_BUY" },
-      { ticker: "PLTR", score: 88.7, signal: "STRONG_BUY" },
-      { ticker: "META", score: 85.4, signal: "BUY" },
+      { ticker: "NVDA", score: 91.2, score_type: "HIGH_CONVICTION" },
+      { ticker: "PLTR", score: 88.7, score_type: "HIGH_CONVICTION" },
+      { ticker: "META", score: 85.4, score_type: "POSITIVE_BIAS" },
     ],
     market_indices: {
       SP500:  { value: 5420.30, change_pct: 0.87 },
@@ -286,13 +286,13 @@ function getMockTickers(): StockQuickView[] {
     const seed = ticker.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const score = 40 + (seed % 55); // Randomish but stable score 40-95
     const change = -3 + (seed % 7) + (seed % 100) / 100; // -3% to +4% change
-    
+
     return {
       ticker,
       company: TICKER_NAMES[ticker] || `${ticker} Corp.`,
       sector: TICKER_SECTORS[ticker] || "Technology",
       master_score: score,
-      signal_type: score >= 85 ? "STRONG_BUY" : score >= 70 ? "BUY" : score >= 55 ? "NEUTRAL" : "SELL",
+      score_type: score >= 85 ? "HIGH_CONVICTION" : score >= 70 ? "POSITIVE_BIAS" : score >= 55 ? "NEUTRAL_STAY" : "NEGATIVE_BIAS",
       price: 50 + (seed % 400),
       change_pct: change,
       entry_range_low: 45 + (seed % 400),
@@ -301,15 +301,15 @@ function getMockTickers(): StockQuickView[] {
   });
 }
 
-// Signal badge class helper
-export function getSignalBadgeClass(signal: string): string {
-  const s = signal.toUpperCase().replace(/ /g, "_");
-  if (s === "STRONG_BUY" || s === "STRONG BUY") return "badge-strong-buy";
-  if (s === "BUY") return "badge-buy";
-  if (s === "NEUTRAL") return "badge-neutral";
-  if (s === "SELL") return "badge-sell";
-  if (s === "STRONG_SELL" || s === "STRONG SELL") return "badge-strong-sell";
-  return "badge-neutral";
+// Score badge class helper
+export function getScoreBadgeClass(score: string): string {
+  const s = score.toUpperCase().replace(/ /g, "_");
+  if (s === "HIGH_CONVICTION") return "badge-high-conviction";
+  if (s === "POSITIVE_BIAS") return "badge-positive-bias";
+  if (s === "NEUTRAL_STAY") return "badge-neutral-stay";
+  if (s === "NEGATIVE_BIAS") return "badge-negative-bias";
+  if (s === "UNDERPERFORM") return "badge-underperform";
+  return "badge-neutral-stay";
 }
 
 export function getChangeColor(pct: number): string {
@@ -352,7 +352,7 @@ function getMockStockDetail(ticker: string): StockDetail {
       reversal_score: 22.1,
       dividend_score: 45.3,
       confidence: 0.87,
-      signal_type: "STRONG_BUY"
+      score_type: "HIGH_CONVICTION"
     },
     technical: {
       rsi_14: 58.3,
@@ -420,8 +420,8 @@ function getMockStockDetail(ticker: string): StockDetail {
       net_direction: "Buying",
       last_transaction: "April 02, 2026"
     },
-    signals: {
-      signal_type: "STRONG_BUY",
+    scores_detail: {
+      score_type: "HIGH_CONVICTION",
       entry_range_low: 193.50,
       entry_range_high: 196.00,
       target_price: 208.50,
@@ -431,7 +431,7 @@ function getMockStockDetail(ticker: string): StockDetail {
       stop_range_low: 185.00,
       stop_range_high: 191.00,
       risk_reward_ratio: 2.1,
-      categories: ["momentum", "top_signals"]
+      categories: ["momentum", "top_scores"]
     },
     news: [
       {
@@ -451,7 +451,7 @@ function getMockStockDetail(ticker: string): StockDetail {
     ],
     ai_summary: "Apple maintains a dominant position in consumer electronics and services, with AI-powered features driving iPhone upgrade cycles. The stock's RSI of 58 and positive MACD histogram suggest continued bullish momentum without entering overbought territory. Institutional ownership at 60% and declining short interest confirm smart money accumulation. The 52-week high proximity of 2.1% indicates breakout potential if the $196 resistance level is cleared on volume. Suggested entry: $193–$196 zone, target $208, stop-loss below $188.",
     quick_view: {
-      signal_badge: "STRONG BUY",
+      score_badge: "HIGH CONVICTION",
       score_bar: 87,
       price_change_display: "+0.72%",
       key_metrics: {

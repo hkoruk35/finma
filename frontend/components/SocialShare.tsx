@@ -5,17 +5,17 @@ import { useState } from "react";
 interface SocialShareProps {
   ticker?: string;
   score?: number;
-  signal?: string;
+  scoreType?: string;
   url?: string;
 }
 
-export default function SocialShare({ ticker, score, signal, url }: SocialShareProps) {
+export default function SocialShare({ ticker, score, scoreType, url }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
   const currentUrl = url || (typeof window !== "undefined" ? window.location.href : "");
-  
-  const shareText = ticker 
-    ? `$${ticker} scored ${score?.toFixed(1)}/100 on FinMA today! ${signal?.replace("_", " ")} signal. #stocks #investing`
-    : "Check out FinMA Daily +500 — AI-powered US stock analysis and signals.";
+
+  const shareText = ticker
+    ? `$${ticker} scored ${score?.toFixed(1)}/100 on FinMA today! ${scoreType?.replace("_", " ")} score. #stocks #investing`
+    : "Check out FinMA Daily +500 — AI-powered US stock analysis and scores.";
 
   const encodedText = encodeURIComponent(shareText);
   const encodedUrl = encodeURIComponent(currentUrl);
@@ -74,7 +74,7 @@ export default function SocialShare({ ticker, score, signal, url }: SocialShareP
           <h3 className="text-xl font-black text-white tracking-tight">Share This Insight</h3>
         </div>
         <p className="text-sm text-[#94a3b8] leading-relaxed">
-          Help others discover this signal. Professional analysts share high-conviction data.
+          Help others discover this score. Professional analysts share high-conviction data.
         </p>
       </div>
 

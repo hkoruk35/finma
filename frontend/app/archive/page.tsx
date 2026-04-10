@@ -28,7 +28,7 @@ export default async function ArchivePage() {
         <header className="mb-10">
            <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Daily Archive</h1>
            <p className="text-[#94a3b8] text-lg max-w-2xl leading-relaxed">
-              Historical FinMA scores and AI signals from the last 30 trading days. 
+              Historical FinMA scores from the last 30 trading days.
               Review past performance and trends.
            </p>
         </header>

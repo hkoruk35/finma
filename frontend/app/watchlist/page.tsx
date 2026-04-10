@@ -1,4 +1,4 @@
-import { getMasterData, getAllTickers, getSignalBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { getMasterData, getAllTickers, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -32,7 +32,7 @@ export default async function WatchlistPage() {
            <div>
               <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Your Smart Watchlist</h1>
               <p className="text-[#94a3b8] text-lg max-w-2xl leading-relaxed">
-                 Tracking {stocks.length} of 10 available slots. Monitor today's signals for your selected equities.
+                 Tracking {stocks.length} of 10 available slots. Monitor today's scores for your selected equities.
               </p>
            </div>
            <button className="flex items-center gap-2 px-6 py-3 bg-[#141924] border border-[#1e2a3a] rounded-xl text-sm font-bold text-white hover:bg-[#1a2030] transition-all">
@@ -81,9 +81,9 @@ export default async function WatchlistPage() {
 
                 <div className="space-y-4 mb-6 pt-6 border-t border-[#1e2a3a]">
                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-[#64748b]">Signal Type</span>
-                      <span className={`font-bold ${getSignalBadgeClass(stock!.signal_type)} px-2 py-0.5 rounded`}>
-                         {stock!.signal_type.replace("_", " ")}
+                      <span className="text-[#64748b]">Score Type</span>
+                      <span className={`font-bold ${getScoreBadgeClass(stock!.score_type)} px-2 py-0.5 rounded`}>
+                         {stock!.score_type.replace("_", " ")}
                       </span>
                    </div>
                    <div className="flex justify-between items-center text-xs">

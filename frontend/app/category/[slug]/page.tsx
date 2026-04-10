@@ -1,4 +1,4 @@
-import { getMasterData, getAllTickers, getSignalBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { getMasterData, getAllTickers, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -12,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return { title: "Category Not Found | FinMA" };
 
   const titles: Record<string, string> = {
-    "top-signals": "Top AI Stock Signals Today | High-Conviction Picks - FinMA",
+    "top-scores": "Top AI Stock Scores Today | High-Conviction Picks - FinMA",
     "breakout": "Breakout Stocks Today | Best Technical Squeeze Patterns - FinMA",
     "undervalued": "Undervalued Stocks US | Best Value Investing Picks - FinMA",
     "momentum": "Momentum Stocks Today | Strongest Relative Strength Equities - FinMA",
-    "reversal": "Reversal Signals US | Best Oversold Stocks to Watch - FinMA",
+    "reversal": "Reversal Stocks US | Best Oversold Stocks to Watch - FinMA",
     "passive-income": "Passive Income Stocks | Best High-Yield Dividend Picks - FinMA",
   };
 
@@ -31,9 +31,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const CATEGORY_MAP: Record<string, { key: string; label: string; description: string }> = {
-  "top-signals": {
-    key: "top_signals",
-    label: "Top Signals",
+  "top-scores": {
+    key: "top_scores",
+    label: "Top Scores",
     description: "Today's strongest technical and fundamental setups combined with AI conviction."
   },
   "breakout": {
@@ -161,8 +161,8 @@ export default async function CategoryPage({ params }: Props) {
                   </h3>
                   <p className="text-xs text-[#64748b] truncate max-w-[150px]">{stock!.company}</p>
                 </div>
-                <span className={`px-2 py-1 rounded text-[10px] font-bold ${getSignalBadgeClass(stock!.signal_type)}`}>
-                  {stock!.signal_type.replace("_", " ")}
+                <span className={`px-2 py-1 rounded text-[10px] font-bold ${getScoreBadgeClass(stock!.score_type)}`}>
+                  {stock!.score_type.replace("_", " ")}
                 </span>
               </div>
 
