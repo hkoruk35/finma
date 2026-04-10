@@ -194,7 +194,7 @@ export default async function StockDetailPage({ params }: Props) {
                   Live Market Chart
                 </h3>
                 <div className="flex gap-2">
-                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[9px] md:text-[10px] text-[#94a3b8]">1H</span>
+                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[9px] md:text-[10px] text-[#94a3b8]">1D</span>
                   <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[9px] md:text-[10px] text-[#94a3b8]">NY TIME</span>
                 </div>
               </div>

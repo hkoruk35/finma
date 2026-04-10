@@ -52,7 +52,7 @@ export default function TradingViewWidget({ symbol }: Props) {
         new (window as any).TradingView.widget({
           autosize: true,
           symbol: `${exchange}:${symbol}`,
-          interval: "60",
+          interval: "D",
           timezone: "America/New_York",
           theme: "dark",
           style: "1",
