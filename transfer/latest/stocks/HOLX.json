@@ -2,7 +2,7 @@
   "ticker": "HOLX",
   "company": "Hologic, Inc.",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T05:26:07.784679-04:00",
+  "generated_at": "2026-04-10T11:20:46.173803-04:00",
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 6082420
   },
   "scores": {
-    "master_score": 61.4,
+    "master_score": 61.06,
     "technical_score": 80.0,
     "fundamental_score": 12.0,
     "momentum_score": 90.0,
     "sentiment_score": 75.0,
-    "sector_score": 49.0,
+    "sector_score": 45.6,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 30.0,
-    "signal_score": 61.4,
+    "signal_score": 61.06,
     "confidence": 0.61,
-    "signal_type": "NEUTRAL"
+    "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
     "rsi_14": 68.7,
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 75.58,
     "ema_50": 75.28,
-    "ema_200": 71.72,
+    "ema_200": 71.73,
     "ema_stack_bullish": true,
     "bb_upper": 76.02,
     "bb_middle": 75.49,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 31.53942,
-    "sector_pe_median": 25.183777499999998,
+    "sector_pe_median": 25.0730915,
     "pb_ratio": 3.2325425,
     "de_ratio": 48.051,
     "fcf_yield": 0.05,
@@ -86,8 +86,8 @@
     "short_ratio": 2.78,
     "beta": 0.703
   },
-  "signals": {
-    "signal_type": "NEUTRAL",
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
     "entry_range_low": 74.9,
     "entry_range_high": 76.39,
     "target_range_low": 75.11,
@@ -98,10 +98,8 @@
     "stop_loss": 75.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T05:26:07.784659-04:00",
-    "categories": [
-      "momentum"
-    ]
+    "generated_at": "2026-04-10T11:20:46.173788-04:00",
+    "categories": []
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -141,13 +139,13 @@
   },
   "sector_context": {
     "sector_etf": "XLV",
-    "sector_performance_5d": 1.72,
+    "sector_performance_5d": 1.3,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HOLX signals neutral, with a confidence of 61%. Technically, the price is at its 52-week high ($76.01) and RSI is nearing overbought territory (68.7), suggesting potential resistance. The EMA alignment is bullish, but ADX strength is low (20.6) indicates a weak trend. Volume is significantly elevated (3.61x relative).\n\nFundamentally, HOLX trades at a P/E of 31.54, a premium over the sector median of 25.18. Revenue growth is moderate at 2.5%, but profitability is strong, with a 60.4% gross margin and 13.2% net margin. Lacking a recent news catalyst, price action will likely depend on maintaining this current momentum.",
+  "ai_summary": "",
   "quick_view": {
-    "signal_badge": "NEUTRAL",
+    "score_badge": "NEUTRAL STAY",
     "score_bar": 61,
     "price_change_display": "+0.00%",
     "key_metrics": {
