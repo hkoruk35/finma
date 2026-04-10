@@ -127,7 +127,15 @@ export default async function CategoryPage({ params }: Props) {
           </div>
           <div className="border-l border-[#1e2a3a] pl-6">
              <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-1">Last Updated</p>
-             <p className="text-2xl font-mono font-bold text-white">09:00 AM</p>
+             <p className="text-2xl font-mono font-bold text-white">
+               {new Date(master.generated_at).toLocaleString("en-US", {
+                 timeZone: "America/New_York",
+                 hour: "2-digit",
+                 minute: "2-digit",
+                 month: "short",
+                 day: "numeric",
+               })}
+             </p>
           </div>
         </div>
 
