@@ -17,6 +17,8 @@ export interface StockQuickView {
   change_pct_1y?: number;
   entry_range_low: number;
   entry_range_high: number;
+  volume?: number;
+  avg_volume_30d?: number;
 }
 
 export interface MasterData {

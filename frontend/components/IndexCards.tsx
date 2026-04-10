@@ -12,10 +12,10 @@ const INDEX_COLORS: Record<string, string> = {
 
 // Short labels that fit in narrow mobile cards (max 4 chars)
 const INDEX_SHORT_LABELS: Record<string, string> = {
-  SP500: "S&P",
-  NASDAQ: "NDQ",
+  SP500: "SP500",
+  NASDAQ: "NASDAQ",
   DOW: "DOW",
-  RUSSELL: "R2K",
+  RUSSELL: "RUSSEL",
   VIX: "VIX",
 };
 
@@ -40,8 +40,8 @@ export default function IndexCards({ data }: { data: MasterData }) {
           <div className={`absolute inset-0 bg-gradient-to-br ${INDEX_COLORS[key] || 'from-blue-500/10'}`} />
           <div className="relative z-10 w-full h-full flex flex-col justify-between">
             <div className="flex flex-col gap-0.5">
-              <span className="text-[7px] sm:text-[9px] lg:text-[10px] font-black text-[#94a3b8] uppercase tracking-[0.05em] leading-tight">{INDEX_SHORT_LABELS[key] ?? key}</span>
-              <span className={`text-[8px] sm:text-[9px] lg:text-[11px] font-mono font-black px-1 py-0.25 sm:px-1.5 sm:py-0.5 lg:px-2 rounded whitespace-nowrap ${idx.change_pct >= 0 ? 'bg-green-500/10 text-[#22c55e]' : 'bg-red-500/10 text-[#ef4444]'}`}>
+              <span className="text-[8px] sm:text-[11px] lg:text-[13px] font-black text-[#94a3b8] uppercase tracking-[0.05em] leading-tight">{INDEX_SHORT_LABELS[key] ?? key}</span>
+              <span className={`text-[10px] sm:text-[12px] lg:text-[14px] font-mono font-black px-1 py-0.25 sm:px-1.5 sm:py-0.5 lg:px-2 rounded whitespace-nowrap ${idx.change_pct >= 0 ? 'bg-green-500/10 text-[#22c55e]' : 'bg-red-500/10 text-[#ef4444]'}`}>
                 {idx.change_pct >= 0 ? '+' : ''}{idx.change_pct.toFixed(2)}%
               </span>
             </div>

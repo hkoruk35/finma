@@ -10,18 +10,19 @@ import Top3Section from "@/components/Top3Section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "US Stock AI Analysis & Daily Trading Signals | FinMA Daily 100",
+  metadataBase: new URL("https://finmasmart.com"),
+  title: "US Stock AI Analysis & Daily Trading Signals | FinMA Daily +500",
   description: "Discover the strongest US stocks with FinMA AI. Daily analysis of 100 top equities, breakout signals, and momentum picks updated daily at 9:00 AM ET.",
   keywords: ["US stock AI analysis", "daily stock signals", "stock screener today", "best stocks to buy", "FinMA AI"],
   alternates: {
     canonical: "https://finmasmart.com",
   },
   openGraph: {
-    title: "FinMA Daily 100 | AI-Powered US Stock Signals",
+    title: "FinMA Daily +500 | AI-Powered US Stock Signals",
     description: "High-conviction trading signals for 100 top US stocks.",
     url: "https://finmasmart.com",
-    siteName: "FinMA Daily 100",
-    images: [{ url: "/finmawave.png" }],
+    siteName: "FinMA Daily +500",
+    images: [{ url: "https://finmasmart.com/finmawave.png", width: 1200, height: 630, alt: "FinMA" }],
     type: "website",
   },
 };
@@ -56,13 +57,9 @@ export default async function HomePage() {
         {/* Hero */}
         <section className="text-center mb-8 animate-fade-in">
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
-            Discover the Strongest US Stocks
-            <span className="text-[#3b82f6]"> with AI</span>
+            Find the Best +500 US Stocks
+            <span className="text-[#3b82f6]"> with Finma AI</span>
           </h1>
-          <p className="text-[#94a3b8] text-lg max-w-2xl mx-auto">
-            Daily analysis of 100 top US equities. Breakout signals, momentum picks,
-            and AI-powered insights — updated every day at 9:00 AM ET.
-          </p>
         </section>
 
         {/* Top 3 of the Day */}

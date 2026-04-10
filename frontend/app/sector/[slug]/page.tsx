@@ -15,6 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = `Real-time analysis of the top equities in the ${sectorName} sector. Compare ${SECTOR_ETF[sectorName]} performance, AI scores, and daily trading signals for the strongest stocks in this industry.`;
 
   return {
+    metadataBase: new URL("https://finmasmart.com"),
     title,
     description,
     alternates: {

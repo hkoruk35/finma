@@ -10,7 +10,7 @@ export default function AboutPage() {
         <div className="text-center mb-16">
            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">Financial Intelligence, Automated.</h1>
            <p className="text-xl text-[#94a3b8] max-w-2xl mx-auto leading-relaxed">
-              FinMA Daily 100 combines technical precision with large language model analysis to give you a daily unfair advantage in the US stock market.
+              FinMA Daily +500 combines technical precision with large language model analysis to give you a daily unfair advantage in the US stock market.
            </p>
         </div>
         

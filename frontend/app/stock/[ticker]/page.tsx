@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = `${stock.ticker} (${stock.company}) analysis for ${dateStr}. FinMA AI Score: ${stock.scores.master_score.toFixed(1)}. Current Signal: ${stock.scores.signal_type.replace("_", " ")} at $${formatPrice(stock.price.current)}. Discover real-time trading signals and AI-driven stock research.`;
 
   return {
+    metadataBase: new URL("https://finmasmart.com"),
     title,
     description,
     alternates: {
@@ -35,9 +36,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://finmasmart.com/stock/${ticker.toLowerCase()}`,
       images: [
         {
-          url: "/finmawave.png",
-          width: 800,
-          height: 600,
+          url: "https://finmasmart.com/finmawave.png",
+          width: 1200,
+          height: 630,
           alt: `${stock.ticker} Stock Analysis`,
         },
       ],
@@ -75,7 +76,7 @@ export default async function StockDetailPage({ params }: Props) {
             "image": "https://finmasmart.com/finmawave.png",
             "author": {
               "@type": "Organization",
-              "name": "FinMA Daily 100"
+              "name": "FinMA Daily +500"
             },
             "publisher": {
               "@type": "Organization",
@@ -281,22 +282,22 @@ export default async function StockDetailPage({ params }: Props) {
 
             {/* Signal Details */}
             <div className="glass-card p-6">
-              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">FinMA AI Trading Plan</h3>
+              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">FinMA AI Model Projection</h3>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Entry Range</span>
+                   <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">Strategic Observation Zone</span>
                    <span className="font-mono font-black text-xl text-white">
                       ${formatPrice(stock.signals.entry_range_low)} - ${formatPrice(stock.signals.entry_range_high)}
                    </span>
                 </div>
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Price Target</span>
+                   <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">Projected Growth Objective</span>
                    <span className="font-mono font-black text-xl text-[#22c55e]">
                       ${formatPrice(stock.signals.target_range_low)} - ${formatPrice(stock.signals.target_range_high)}
                    </span>
                 </div>
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Stop Loss</span>
+                   <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">Model Invalidation Level</span>
                    <span className="font-mono font-black text-xl text-[#ef4444]">
                       ${formatPrice(stock.signals.stop_range_low)} - ${formatPrice(stock.signals.stop_range_high)}
                    </span>
