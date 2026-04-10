@@ -1,0 +1,158 @@
+{
+  "ticker": "TMO",
+  "company": "Thermo Fisher Scientific Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.790507-04:00",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 500.46,
+    "open": 498.61,
+    "high": 505.35,
+    "low": 490.25,
+    "prev_close": 503.46,
+    "change_pct": -0.6,
+    "change_pct_1w": 1.2,
+    "change_pct_1m": 0.17,
+    "change_pct_1y": 14.71,
+    "volume": 1491000,
+    "avg_volume_30d": 1997930
+  },
+  "scores": {
+    "master_score": 48.15,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 49.0,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.15,
+    "confidence": 0.48,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 52.9,
+    "macd": -3.6305,
+    "macd_signal": -8.2054,
+    "macd_histogram": 4.5749,
+    "macd_crossover": "neutral",
+    "ema_20": 492.03,
+    "ema_50": 510.8,
+    "ema_200": 521.92,
+    "ema_stack_bullish": false,
+    "bb_upper": 505.39,
+    "bb_middle": 482.62,
+    "bb_lower": 459.85,
+    "bb_width": 0.0944,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 28.9,
+    "atr": 14.52,
+    "atr_pct": 0.029,
+    "obv_trend": "UP",
+    "mfi": 63.0,
+    "cmf": -0.139,
+    "stoch_k": 82.2,
+    "stoch_d": 79.5,
+    "rvol": 0.75,
+    "volume_5d_avg": 1491280,
+    "green_days_10d": 5,
+    "52w_high": 638.82,
+    "52w_low": 389.23,
+    "52w_high_proximity_pct": 0.2166,
+    "52w_low_proximity_pct": 0.2858
+  },
+  "fundamental": {
+    "pe_ratio": 28.242664,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 3.5254586,
+    "de_ratio": 77.255,
+    "fcf_yield": 0.0236,
+    "eps_growth_5y": 0.093,
+    "revenue_growth_ttm": 0.072,
+    "gross_margin": 0.41076002,
+    "operating_margin": 0.21170999,
+    "net_margin": 0.15045999,
+    "market_cap": 185981632512,
+    "enterprise_value": 217296011264,
+    "dividend_yield": 0.35,
+    "payout_ratio": 0.096999995,
+    "insider_ownership_pct": 0.0016500001,
+    "institutional_ownership_pct": 0.95449996,
+    "short_ratio": 1.82,
+    "beta": 0.972
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 497.96,
+    "entry_range_high": 502.96,
+    "target_range_low": 533.14,
+    "target_range_high": 571.22,
+    "stop_range_low": 447.85,
+    "stop_range_high": 471.42,
+    "target_price": 544.02,
+    "stop_loss": 471.42,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.790491-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 625.57,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 35.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 389.23,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1607,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 48,
+    "price_change_display": "-0.60%",
+    "key_metrics": {
+      "RSI": 52.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

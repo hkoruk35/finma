@@ -1,0 +1,160 @@
+{
+  "ticker": "LITE",
+  "company": "Lumentum Holdings Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.591740-04:00",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 894.13,
+    "open": 912.0,
+    "high": 960.0,
+    "low": 871.73,
+    "prev_close": 896.02,
+    "change_pct": -0.21,
+    "change_pct_1w": 16.93,
+    "change_pct_1m": 33.06,
+    "change_pct_1y": 1610.93,
+    "volume": 7016900,
+    "avg_volume_30d": 7279456
+  },
+  "scores": {
+    "master_score": 48.52,
+    "technical_score": 65.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 48.52,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 64.6,
+    "macd": 58.4109,
+    "macd_signal": 45.3277,
+    "macd_histogram": 13.0832,
+    "macd_crossover": "neutral",
+    "ema_20": 753.6,
+    "ema_50": 651.65,
+    "ema_200": 386.82,
+    "ema_stack_bullish": true,
+    "bb_upper": 900.28,
+    "bb_middle": 735.96,
+    "bb_lower": 571.63,
+    "bb_width": 0.4466,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.8,
+    "atr": 73.11,
+    "atr_pct": 0.0818,
+    "obv_trend": "UP",
+    "mfi": 63.5,
+    "cmf": -0.061,
+    "stoch_k": 79.3,
+    "stoch_d": 88.8,
+    "rvol": 0.91,
+    "volume_5d_avg": 6644960,
+    "green_days_10d": 6,
+    "52w_high": 896.02,
+    "52w_low": 50.02,
+    "52w_high_proximity_pct": 0.0021,
+    "52w_low_proximity_pct": 16.8754
+  },
+  "fundamental": {
+    "pe_ratio": 256.19772,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 75.40946,
+    "de_ratio": 392.476,
+    "fcf_yield": -0.0003,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.655,
+    "gross_margin": 0.37118,
+    "operating_margin": 0.10729,
+    "net_margin": 0.11951,
+    "market_cap": 63840882688,
+    "enterprise_value": 66008281088,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00585,
+    "institutional_ownership_pct": 1.1346099,
+    "short_ratio": 2.02,
+    "beta": 1.391
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 648.39,
+    "entry_range_high": 898.6,
+    "target_range_low": 1091.19,
+    "target_range_high": 1169.13,
+    "stop_range_low": 710.51,
+    "stop_range_high": 747.91,
+    "target_price": 1113.46,
+    "stop_loss": 747.91,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.591708-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1117.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.02,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5302,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "LITE displays a weak SELL signal, driven by its premium valuation (P/E of 256.2) despite an ADX of 23.8 indicating a weak trend. While revenue growth is strong at 65.5%, profitability margins of 37.1% (gross) and 12.0% (net) don't fully justify the high P/E.\n\nTechnically, near its 52-week high ($895.90), LITE shows limited upside, further supporting the sell recommendation. The RSI of 64.6 suggests it is approaching overbought territory. Lack of recent news makes a catalyst unlikely. Watch $880 as a key support level; a break below could confirm the signal.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "-0.21%",
+    "key_metrics": {
+      "RSI": 64.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

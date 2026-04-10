@@ -1,0 +1,158 @@
+{
+  "ticker": "SRE",
+  "company": "Sempra",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.039882-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Diversified",
+  "price": {
+    "current": 99.75,
+    "open": 98.75,
+    "high": 101.04,
+    "low": 98.41,
+    "prev_close": 98.88,
+    "change_pct": 0.88,
+    "change_pct_1w": 2.4,
+    "change_pct_1m": 8.04,
+    "change_pct_1y": 60.84,
+    "volume": 2677000,
+    "avg_volume_30d": 3524446
+  },
+  "scores": {
+    "master_score": 53.91,
+    "technical_score": 65.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.6,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 53.91,
+    "confidence": 0.54,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 68.3,
+    "macd": 1.7099,
+    "macd_signal": 1.4244,
+    "macd_histogram": 0.2855,
+    "macd_crossover": "neutral",
+    "ema_20": 96.41,
+    "ema_50": 93.84,
+    "ema_200": 87.01,
+    "ema_stack_bullish": true,
+    "bb_upper": 100.25,
+    "bb_middle": 95.98,
+    "bb_lower": 91.7,
+    "bb_width": 0.0891,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.8,
+    "atr": 2.05,
+    "atr_pct": 0.0206,
+    "obv_trend": "UP",
+    "mfi": 75.6,
+    "cmf": 0.058,
+    "stoch_k": 86.9,
+    "stoch_d": 90.6,
+    "rvol": 0.82,
+    "volume_5d_avg": 2891800,
+    "green_days_10d": 9,
+    "52w_high": 99.75,
+    "52w_low": 61.89,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6117
+  },
+  "fundamental": {
+    "pe_ratio": 36.272728,
+    "sector_pe_median": 23.062841,
+    "pb_ratio": 2.0608227,
+    "de_ratio": 83.385,
+    "fcf_yield": -0.4255,
+    "eps_growth_5y": -0.482,
+    "revenue_growth_ttm": -0.002,
+    "gross_margin": 0.41184,
+    "operating_margin": 0.27741,
+    "net_margin": 0.134,
+    "market_cap": 65169920000,
+    "enterprise_value": 110562091008,
+    "dividend_yield": 2.64,
+    "payout_ratio": 0.9382,
+    "insider_ownership_pct": 0.00103,
+    "institutional_ownership_pct": 0.94492996,
+    "short_ratio": 2.47,
+    "beta": 0.677
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 93.37,
+    "entry_range_high": 100.25,
+    "target_range_low": 103.78,
+    "target_range_high": 111.2,
+    "stop_range_low": 90.87,
+    "stop_range_high": 95.65,
+    "target_price": 105.9,
+    "stop_loss": 95.65,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.039866-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 124.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 264.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.89,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 3,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1128,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.75,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 54,
+    "price_change_display": "+0.88%",
+    "key_metrics": {
+      "RSI": 68.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

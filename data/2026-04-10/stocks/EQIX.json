@@ -1,0 +1,158 @@
+{
+  "ticker": "EQIX",
+  "company": "Equinix, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.056499-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 1031.57,
+    "open": 1017.98,
+    "high": 1039.9,
+    "low": 1017.98,
+    "prev_close": 1017.66,
+    "change_pct": 1.37,
+    "change_pct_1w": 3.57,
+    "change_pct_1m": 7.9,
+    "change_pct_1y": 41.16,
+    "volume": 405800,
+    "avg_volume_30d": 618063
+  },
+  "scores": {
+    "master_score": 50.1,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.0,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.1,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 74.1,
+    "macd": 22.4245,
+    "macd_signal": 19.7271,
+    "macd_histogram": 2.6975,
+    "macd_crossover": "neutral",
+    "ema_20": 984.2,
+    "ema_50": 937.45,
+    "ema_200": 853.18,
+    "ema_stack_bullish": true,
+    "bb_upper": 1024.35,
+    "bb_middle": 982.36,
+    "bb_lower": 940.37,
+    "bb_width": 0.0855,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.8,
+    "atr": 21.56,
+    "atr_pct": 0.0209,
+    "obv_trend": "UP",
+    "mfi": 66.3,
+    "cmf": -0.006,
+    "stoch_k": 90.4,
+    "stoch_d": 89.2,
+    "rvol": 0.68,
+    "volume_5d_avg": 420340,
+    "green_days_10d": 7,
+    "52w_high": 1031.57,
+    "52w_low": 722.15,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.4285
+  },
+  "fundamental": {
+    "pe_ratio": 75.18731,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 7.157914,
+    "de_ratio": 160.291,
+    "fcf_yield": 0.0278,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.081,
+    "gross_margin": 0.51317,
+    "operating_margin": 0.21540001,
+    "net_margin": 0.14579001,
+    "market_cap": 101737029632,
+    "enterprise_value": 122377838592,
+    "dividend_yield": 1.86,
+    "payout_ratio": 1.3634,
+    "insider_ownership_pct": 0.0027700001,
+    "institutional_ownership_pct": 0.98272,
+    "short_ratio": 2.85,
+    "beta": 0.998
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 932.76,
+    "entry_range_high": 1036.73,
+    "target_range_low": 1074.33,
+    "target_range_high": 1151.06,
+    "stop_range_low": 939.03,
+    "stop_range_high": 988.45,
+    "target_price": 1096.25,
+    "stop_loss": 988.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.056483-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1289.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 186.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 722.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 33,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 630,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "+1.37%",
+    "key_metrics": {
+      "RSI": 74.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

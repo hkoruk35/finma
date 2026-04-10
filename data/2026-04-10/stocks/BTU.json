@@ -1,0 +1,158 @@
+{
+  "ticker": "BTU",
+  "company": "Peabody Energy Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.912448-04:00",
+  "sector": "Energy",
+  "industry": "Thermal Coal",
+  "price": {
+    "current": 27.71,
+    "open": 30.29,
+    "high": 30.6,
+    "low": 27.67,
+    "prev_close": 30.18,
+    "change_pct": -8.18,
+    "change_pct_1w": -15.67,
+    "change_pct_1m": -14.9,
+    "change_pct_1y": 172.54,
+    "volume": 5578300,
+    "avg_volume_30d": 3926073
+  },
+  "scores": {
+    "master_score": 16.67,
+    "technical_score": 5.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 16.67,
+    "confidence": 0.17,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 32.1,
+    "macd": -1.088,
+    "macd_signal": -0.1669,
+    "macd_histogram": -0.9211,
+    "macd_crossover": "neutral",
+    "ema_20": 33.71,
+    "ema_50": 33.95,
+    "ema_200": 28.16,
+    "ema_stack_bullish": false,
+    "bb_upper": 40.54,
+    "bb_middle": 34.91,
+    "bb_lower": 29.28,
+    "bb_width": 0.3225,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.4,
+    "atr": 2.33,
+    "atr_pct": 0.0841,
+    "obv_trend": "DOWN",
+    "mfi": 29.0,
+    "cmf": -0.245,
+    "stoch_k": 0.3,
+    "stoch_d": 3.4,
+    "rvol": 0.92,
+    "volume_5d_avg": 3610240,
+    "green_days_10d": 2,
+    "52w_high": 39.5,
+    "52w_low": 11.07,
+    "52w_high_proximity_pct": 0.2985,
+    "52w_low_proximity_pct": 1.5021
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 0.952823,
+    "de_ratio": 12.838,
+    "fcf_yield": 0.0244,
+    "eps_growth_5y": -0.626,
+    "revenue_growth_ttm": -0.09,
+    "gross_margin": 0.13637,
+    "operating_margin": 0.020539999,
+    "net_margin": -0.0137,
+    "market_cap": 3376020992,
+    "enterprise_value": 3304033536,
+    "dividend_yield": 1.08,
+    "payout_ratio": 0.2752,
+    "insider_ownership_pct": 0.00959,
+    "institutional_ownership_pct": 1.06152,
+    "short_ratio": 5.31,
+    "beta": 0.619
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 27.57,
+    "entry_range_high": 27.85,
+    "target_range_low": 34.01,
+    "target_range_high": 36.44,
+    "stop_range_low": 21.9,
+    "stop_range_high": 23.05,
+    "target_price": 34.7,
+    "stop_loss": 23.05,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.912410-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 34.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 108.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 11.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 104,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 17,
+    "price_change_display": "-8.18%",
+    "key_metrics": {
+      "RSI": 32.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

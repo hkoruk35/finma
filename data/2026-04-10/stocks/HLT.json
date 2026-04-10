@@ -1,0 +1,158 @@
+{
+  "ticker": "HLT",
+  "company": "Hilton Worldwide Holdings Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.689064-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Lodging",
+  "price": {
+    "current": 322.51,
+    "open": 315.95,
+    "high": 323.7,
+    "low": 315.2,
+    "prev_close": 317.2,
+    "change_pct": 1.67,
+    "change_pct_1w": 4.62,
+    "change_pct_1m": 8.09,
+    "change_pct_1y": 58.33,
+    "volume": 1630200,
+    "avg_volume_30d": 1830106
+  },
+  "scores": {
+    "master_score": 49.2,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.5,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.2,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 64.2,
+    "macd": 2.6086,
+    "macd_signal": 0.1082,
+    "macd_histogram": 2.5005,
+    "macd_crossover": "neutral",
+    "ema_20": 305.26,
+    "ema_50": 302.62,
+    "ema_200": 284.37,
+    "ema_stack_bullish": true,
+    "bb_upper": 316.95,
+    "bb_middle": 301.47,
+    "bb_lower": 286.0,
+    "bb_width": 0.1027,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.8,
+    "atr": 8.39,
+    "atr_pct": 0.026,
+    "obv_trend": "UP",
+    "mfi": 55.7,
+    "cmf": -0.022,
+    "stoch_k": 96.4,
+    "stoch_d": 83.9,
+    "rvol": 0.83,
+    "volume_5d_avg": 1524980,
+    "green_days_10d": 6,
+    "52w_high": 324.98,
+    "52w_low": 200.84,
+    "52w_high_proximity_pct": 0.0076,
+    "52w_low_proximity_pct": 0.6058
+  },
+  "fundamental": {
+    "pe_ratio": 52.697716,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": -13.793089,
+    "de_ratio": null,
+    "fcf_yield": 0.0234,
+    "eps_growth_5y": -0.385,
+    "revenue_growth_ttm": 0.07,
+    "gross_margin": 0.77917,
+    "operating_margin": 0.46328,
+    "net_margin": 0.29411,
+    "market_cap": 73948839936,
+    "enterprise_value": 86286835712,
+    "dividend_yield": 0.19,
+    "payout_ratio": 0.098000005,
+    "insider_ownership_pct": 0.02179,
+    "institutional_ownership_pct": 1.00754,
+    "short_ratio": 2.91,
+    "beta": 1.11
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 301.11,
+    "entry_range_high": 324.12,
+    "target_range_low": 340.73,
+    "target_range_high": 365.06,
+    "stop_range_low": 290.44,
+    "stop_range_high": 305.73,
+    "target_price": 347.68,
+    "stop_loss": 305.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.689047-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 403.14,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 19.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 200.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "+1.67%",
+    "key_metrics": {
+      "RSI": 64.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

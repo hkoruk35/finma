@@ -1,0 +1,158 @@
+{
+  "ticker": "CFG",
+  "company": "Citizens Financial Group, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.860542-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 64.97,
+    "open": 63.46,
+    "high": 65.27,
+    "low": 63.46,
+    "prev_close": 63.78,
+    "change_pct": 1.87,
+    "change_pct_1w": 7.26,
+    "change_pct_1m": 10.32,
+    "change_pct_1y": 93.3,
+    "volume": 4671000,
+    "avg_volume_30d": 5135566
+  },
+  "scores": {
+    "master_score": 59.62,
+    "technical_score": 65.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 48.7,
+    "breakout_score": 35.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 59.62,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 69.8,
+    "macd": 0.7453,
+    "macd_signal": -0.128,
+    "macd_histogram": 0.8733,
+    "macd_crossover": "neutral",
+    "ema_20": 60.44,
+    "ema_50": 60.22,
+    "ema_200": 54.98,
+    "ema_stack_bullish": true,
+    "bb_upper": 63.97,
+    "bb_middle": 59.01,
+    "bb_lower": 54.04,
+    "bb_width": 0.1683,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.7,
+    "atr": 1.71,
+    "atr_pct": 0.0264,
+    "obv_trend": "UP",
+    "mfi": 77.4,
+    "cmf": 0.056,
+    "stoch_k": 96.6,
+    "stoch_d": 96.4,
+    "rvol": 0.8,
+    "volume_5d_avg": 4129980,
+    "green_days_10d": 7,
+    "52w_high": 68.12,
+    "52w_low": 33.19,
+    "52w_high_proximity_pct": 0.0462,
+    "52w_low_proximity_pct": 0.9577
+  },
+  "fundamental": {
+    "pe_ratio": 16.831608,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 1.1521138,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.348,
+    "revenue_growth_ttm": 0.107,
+    "gross_margin": 0.0,
+    "operating_margin": 0.32228002,
+    "net_margin": 0.23969,
+    "market_cap": 27611852800,
+    "enterprise_value": 28441188352,
+    "dividend_yield": 2.83,
+    "payout_ratio": 0.4456,
+    "insider_ownership_pct": 0.0072899996,
+    "institutional_ownership_pct": 0.99721,
+    "short_ratio": 0.01,
+    "beta": 1.058
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 59.92,
+    "entry_range_high": 65.29,
+    "target_range_low": 68.7,
+    "target_range_high": 73.61,
+    "stop_range_low": 58.47,
+    "stop_range_high": 61.55,
+    "target_price": 70.1,
+    "stop_loss": 61.55,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.860514-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 81.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 283.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 33.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13258,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 60,
+    "price_change_display": "+1.87%",
+    "key_metrics": {
+      "RSI": 69.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

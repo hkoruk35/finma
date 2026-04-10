@@ -1,0 +1,160 @@
+{
+  "ticker": "APD",
+  "company": "Air Products and Chemicals, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.937752-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 297.74,
+    "open": 295.0,
+    "high": 301.25,
+    "low": 293.72,
+    "prev_close": 296.61,
+    "change_pct": 0.38,
+    "change_pct_1w": 2.87,
+    "change_pct_1m": 8.9,
+    "change_pct_1y": 18.0,
+    "volume": 1039200,
+    "avg_volume_30d": 1449190
+  },
+  "scores": {
+    "master_score": 52.97,
+    "technical_score": 75.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.7,
+    "breakout_score": 65.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 52.97,
+    "confidence": 0.53,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 66.7,
+    "macd": 4.8464,
+    "macd_signal": 4.0903,
+    "macd_histogram": 0.7561,
+    "macd_crossover": "neutral",
+    "ema_20": 288.37,
+    "ema_50": 280.4,
+    "ema_200": 272.47,
+    "ema_stack_bullish": true,
+    "bb_upper": 299.11,
+    "bb_middle": 288.08,
+    "bb_lower": 277.04,
+    "bb_width": 0.0766,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.5,
+    "atr": 7.19,
+    "atr_pct": 0.0242,
+    "obv_trend": "UP",
+    "mfi": 46.2,
+    "cmf": 0.021,
+    "stoch_k": 86.6,
+    "stoch_d": 89.2,
+    "rvol": 0.85,
+    "volume_5d_avg": 1237860,
+    "green_days_10d": 6,
+    "52w_high": 297.74,
+    "52w_low": 227.66,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.3078
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 4.301606,
+    "de_ratio": 101.991,
+    "fcf_yield": -0.0927,
+    "eps_growth_5y": 0.097,
+    "revenue_growth_ttm": 0.058,
+    "gross_margin": 0.31628,
+    "operating_margin": 0.24280001,
+    "net_margin": -0.02733,
+    "market_cap": 66293596160,
+    "enterprise_value": 85879799808,
+    "dividend_yield": 2.43,
+    "payout_ratio": 1.0099,
+    "insider_ownership_pct": 0.01889,
+    "institutional_ownership_pct": 0.93447,
+    "short_ratio": 2.72,
+    "beta": 0.808
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 279.0,
+    "entry_range_high": 299.23,
+    "target_range_low": 312.92,
+    "target_range_high": 335.28,
+    "stop_range_low": 269.19,
+    "stop_range_high": 283.36,
+    "target_price": 319.31,
+    "stop_loss": 283.36,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.937735-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 65.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 372.18,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 243.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 227.66,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1759,
+      "date": "2026-02-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "APD is a SELL with 52% confidence. The stock is trading at its 52-week high of $296.61 with a bullish EMA stack, but its RSI of 65.6 suggests it is approaching overbought territory. While revenue growth is a decent 5.8%, the missing P/E ratio is concerning, especially relative to the sector median of 33.47. ADX at 20.2 indicates a weak trend and RVOL at 0.93x shows decreasing investor interest. The medium BB Squeeze suggests potential volatility. Near-term catalyst: Upcoming earnings announcement may reveal further financial weaknesses.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 53,
+    "price_change_display": "+0.38%",
+    "key_metrics": {
+      "RSI": 66.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

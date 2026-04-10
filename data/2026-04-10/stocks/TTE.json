@@ -1,0 +1,158 @@
+{
+  "ticker": "TTE",
+  "company": "TotalEnergies SE",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.867182-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 89.93,
+    "open": 91.96,
+    "high": 92.42,
+    "low": 89.89,
+    "prev_close": 89.45,
+    "change_pct": 0.54,
+    "change_pct_1w": 0.17,
+    "change_pct_1m": 13.51,
+    "change_pct_1y": 69.13,
+    "volume": 2558800,
+    "avg_volume_30d": 2541693
+  },
+  "scores": {
+    "master_score": 51.22,
+    "technical_score": 50.0,
+    "fundamental_score": 57.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 68.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 51.22,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 64.0,
+    "macd": 3.1502,
+    "macd_signal": 3.4575,
+    "macd_histogram": -0.3073,
+    "macd_crossover": "neutral",
+    "ema_20": 87.77,
+    "ema_50": 81.72,
+    "ema_200": 69.43,
+    "ema_stack_bullish": true,
+    "bb_upper": 94.67,
+    "bb_middle": 88.07,
+    "bb_lower": 81.47,
+    "bb_width": 0.1499,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 46.4,
+    "atr": 2.26,
+    "atr_pct": 0.0252,
+    "obv_trend": "DOWN",
+    "mfi": 50.1,
+    "cmf": 0.017,
+    "stoch_k": 58.8,
+    "stoch_d": 62.7,
+    "rvol": 0.99,
+    "volume_5d_avg": 2517160,
+    "green_days_10d": 5,
+    "52w_high": 92.39,
+    "52w_low": 51.14,
+    "52w_high_proximity_pct": 0.0266,
+    "52w_low_proximity_pct": 0.7585
+  },
+  "fundamental": {
+    "pe_ratio": 15.558823,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 1.6774542,
+    "de_ratio": 52.263,
+    "fcf_yield": 0.0742,
+    "eps_growth_5y": -0.274,
+    "revenue_growth_ttm": -0.025,
+    "gross_margin": 0.35978,
+    "operating_margin": 0.08483,
+    "net_margin": 0.07199,
+    "market_cap": 191831654400,
+    "enterprise_value": 227235954688,
+    "dividend_yield": 4.07,
+    "payout_ratio": 0.6656,
+    "insider_ownership_pct": 0.09236,
+    "institutional_ownership_pct": 0.57383,
+    "short_ratio": 2.43,
+    "beta": 0.064
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 81.31,
+    "entry_range_high": 90.38,
+    "target_range_low": 94.78,
+    "target_range_high": 101.55,
+    "stop_range_low": 81.14,
+    "stop_range_high": 85.41,
+    "target_price": 96.71,
+    "stop_loss": 85.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.867166-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 112.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 407.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 51.14,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9821,
+      "date": "2025-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+0.54%",
+    "key_metrics": {
+      "RSI": 64.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

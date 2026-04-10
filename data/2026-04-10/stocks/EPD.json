@@ -1,0 +1,158 @@
+{
+  "ticker": "EPD",
+  "company": "Enterprise Products Partners L.P.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.894067-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 37.52,
+    "open": 37.99,
+    "high": 38.6,
+    "low": 37.37,
+    "prev_close": 38.03,
+    "change_pct": -1.34,
+    "change_pct_1w": 0.24,
+    "change_pct_1m": 2.18,
+    "change_pct_1y": 34.86,
+    "volume": 3529000,
+    "avg_volume_30d": 4095193
+  },
+  "scores": {
+    "master_score": 42.42,
+    "technical_score": 35.0,
+    "fundamental_score": 38.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 60.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 42.42,
+    "confidence": 0.42,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 49.9,
+    "macd": 0.3922,
+    "macd_signal": 0.564,
+    "macd_histogram": -0.1717,
+    "macd_crossover": "neutral",
+    "ema_20": 37.79,
+    "ema_50": 36.55,
+    "ema_200": 33.21,
+    "ema_stack_bullish": false,
+    "bb_upper": 39.39,
+    "bb_middle": 37.9,
+    "bb_lower": 36.42,
+    "bb_width": 0.0785,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.9,
+    "atr": 0.83,
+    "atr_pct": 0.022,
+    "obv_trend": "DOWN",
+    "mfi": 60.1,
+    "cmf": -0.117,
+    "stoch_k": 25.0,
+    "stoch_d": 40.8,
+    "rvol": 0.77,
+    "volume_5d_avg": 3163300,
+    "green_days_10d": 5,
+    "52w_high": 39.28,
+    "52w_low": 27.03,
+    "52w_high_proximity_pct": 0.0448,
+    "52w_low_proximity_pct": 0.3881
+  },
+  "fundamental": {
+    "pe_ratio": 14.105263,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 2.7273388,
+    "de_ratio": 113.941,
+    "fcf_yield": 0.0003,
+    "eps_growth_5y": 0.017,
+    "revenue_growth_ttm": -0.029,
+    "gross_margin": 0.13701001,
+    "operating_margin": 0.14145,
+    "net_margin": 0.11054,
+    "market_cap": 81109262336,
+    "enterprise_value": 115897262080,
+    "dividend_yield": 5.84,
+    "payout_ratio": 0.812,
+    "insider_ownership_pct": 0.33009997,
+    "institutional_ownership_pct": 0.25151,
+    "short_ratio": 4.03,
+    "beta": 0.529
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 36.37,
+    "entry_range_high": 37.71,
+    "target_range_low": 39.21,
+    "target_range_high": 42.01,
+    "stop_range_low": 34.07,
+    "stop_range_high": 35.86,
+    "target_price": 40.01,
+    "stop_loss": 35.86,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.894009-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 46.9,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 584.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 27.03,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 2665,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 42,
+    "price_change_display": "-1.34%",
+    "key_metrics": {
+      "RSI": 49.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

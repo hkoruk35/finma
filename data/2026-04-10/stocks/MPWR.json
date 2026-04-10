@@ -1,0 +1,158 @@
+{
+  "ticker": "MPWR",
+  "company": "Monolithic Power Systems, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.579708-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 1334.21,
+    "open": 1312.94,
+    "high": 1340.11,
+    "low": 1303.94,
+    "prev_close": 1312.94,
+    "change_pct": 1.62,
+    "change_pct_1w": 19.18,
+    "change_pct_1m": 26.62,
+    "change_pct_1y": 175.13,
+    "volume": 554800,
+    "avg_volume_30d": 573193
+  },
+  "scores": {
+    "master_score": 47.02,
+    "technical_score": 55.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 47.02,
+    "confidence": 0.47,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 72.3,
+    "macd": 39.3559,
+    "macd_signal": 9.563,
+    "macd_histogram": 29.7928,
+    "macd_crossover": "neutral",
+    "ema_20": 1143.62,
+    "ema_50": 1108.1,
+    "ema_200": 964.23,
+    "ema_stack_bullish": true,
+    "bb_upper": 1277.19,
+    "bb_middle": 1109.98,
+    "bb_lower": 942.78,
+    "bb_width": 0.3013,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.6,
+    "atr": 56.18,
+    "atr_pct": 0.0421,
+    "obv_trend": "UP",
+    "mfi": 65.2,
+    "cmf": 0.063,
+    "stoch_k": 98.3,
+    "stoch_d": 97.9,
+    "rvol": 0.99,
+    "volume_5d_avg": 570000,
+    "green_days_10d": 6,
+    "52w_high": 1334.21,
+    "52w_low": 451.76,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.9534
+  },
+  "fundamental": {
+    "pe_ratio": 104.15378,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 18.40239,
+    "de_ratio": 0.683,
+    "fcf_yield": 0.0062,
+    "eps_growth_5y": -0.862,
+    "revenue_growth_ttm": 0.208,
+    "gross_margin": 0.55179,
+    "operating_margin": 0.26617,
+    "net_margin": 0.22272,
+    "market_cap": 65533726720,
+    "enterprise_value": 64301285376,
+    "dividend_yield": 0.6,
+    "payout_ratio": 0.48520002,
+    "insider_ownership_pct": 0.03895,
+    "institutional_ownership_pct": 1.0171701,
+    "short_ratio": 4.15,
+    "beta": 1.478
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 1102.56,
+    "entry_range_high": 1340.88,
+    "target_range_low": 1472.69,
+    "target_range_high": 1577.89,
+    "stop_range_low": 1160.76,
+    "stop_range_high": 1221.85,
+    "target_price": 1502.75,
+    "stop_loss": 1221.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.579677-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1667.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 60.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 451.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 16,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7636,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 47,
+    "price_change_display": "+1.62%",
+    "key_metrics": {
+      "RSI": 72.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

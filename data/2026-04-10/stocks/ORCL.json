@@ -1,0 +1,158 @@
+{
+  "ticker": "ORCL",
+  "company": "Oracle Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.593526-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 137.86,
+    "open": 142.2,
+    "high": 142.8,
+    "low": 136.0,
+    "prev_close": 143.16,
+    "change_pct": -3.7,
+    "change_pct_1w": -4.74,
+    "change_pct_1m": -7.4,
+    "change_pct_1y": 9.9,
+    "volume": 30334600,
+    "avg_volume_30d": 26557426
+  },
+  "scores": {
+    "master_score": 27.02,
+    "technical_score": 7.0,
+    "fundamental_score": 50.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 78.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 27.02,
+    "confidence": 0.27,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 38.1,
+    "macd": -3.6046,
+    "macd_signal": -3.348,
+    "macd_histogram": -0.2566,
+    "macd_crossover": "bearish",
+    "ema_20": 146.13,
+    "ema_50": 155.76,
+    "ema_200": 188.24,
+    "ema_stack_bullish": false,
+    "bb_upper": 159.71,
+    "bb_middle": 147.54,
+    "bb_lower": 135.38,
+    "bb_width": 0.1649,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 12.0,
+    "atr": 6.69,
+    "atr_pct": 0.0485,
+    "obv_trend": "DOWN",
+    "mfi": 33.8,
+    "cmf": -0.294,
+    "stoch_k": 9.7,
+    "stoch_d": 24.8,
+    "rvol": 0.74,
+    "volume_5d_avg": 19610120,
+    "green_days_10d": 3,
+    "52w_high": 325.76,
+    "52w_low": 121.6,
+    "52w_high_proximity_pct": 0.5768,
+    "52w_low_proximity_pct": 0.1337
+  },
+  "fundamental": {
+    "pe_ratio": 24.750448,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 11.817246,
+    "de_ratio": 415.265,
+    "fcf_yield": -0.0562,
+    "eps_growth_5y": 0.245,
+    "revenue_growth_ttm": 0.217,
+    "gross_margin": 0.67084,
+    "operating_margin": 0.32676,
+    "net_margin": 0.25298,
+    "market_cap": 396491718656,
+    "enterprise_value": 525034717184,
+    "dividend_yield": 1.45,
+    "payout_ratio": 0.35909998,
+    "insider_ownership_pct": 0.40549,
+    "institutional_ownership_pct": 0.44269,
+    "short_ratio": 1.06,
+    "beta": 1.597
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 137.17,
+    "entry_range_high": 138.55,
+    "target_range_low": 154.77,
+    "target_range_high": 165.83,
+    "stop_range_low": 118.26,
+    "stop_range_high": 124.48,
+    "target_price": 157.93,
+    "stop_loss": 124.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.593477-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 172.33,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 145.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 121.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 16810,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 27,
+    "price_change_display": "-3.70%",
+    "key_metrics": {
+      "RSI": 38.1,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

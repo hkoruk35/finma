@@ -1,0 +1,158 @@
+{
+  "ticker": "SHW",
+  "company": "The Sherwin-Williams Company",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.939505-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 335.73,
+    "open": 332.05,
+    "high": 339.32,
+    "low": 330.0,
+    "prev_close": 335.67,
+    "change_pct": 0.02,
+    "change_pct_1w": 3.08,
+    "change_pct_1m": 1.63,
+    "change_pct_1y": 4.93,
+    "volume": 1506800,
+    "avg_volume_30d": 1727806
+  },
+  "scores": {
+    "master_score": 44.97,
+    "technical_score": 50.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 44.97,
+    "confidence": 0.45,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 56.8,
+    "macd": -3.0104,
+    "macd_signal": -6.2306,
+    "macd_histogram": 3.2202,
+    "macd_crossover": "neutral",
+    "ema_20": 324.43,
+    "ema_50": 332.41,
+    "ema_200": 340.57,
+    "ema_stack_bullish": false,
+    "bb_upper": 333.51,
+    "bb_middle": 318.67,
+    "bb_lower": 303.83,
+    "bb_width": 0.0931,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.6,
+    "atr": 9.93,
+    "atr_pct": 0.0296,
+    "obv_trend": "UP",
+    "mfi": 67.7,
+    "cmf": -0.116,
+    "stoch_k": 90.5,
+    "stoch_d": 75.2,
+    "rvol": 0.89,
+    "volume_5d_avg": 1541900,
+    "green_days_10d": 5,
+    "52w_high": 373.53,
+    "52w_low": 303.53,
+    "52w_high_proximity_pct": 0.1012,
+    "52w_low_proximity_pct": 0.1061
+  },
+  "fundamental": {
+    "pe_ratio": 32.69036,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 17.981363,
+    "de_ratio": 306.061,
+    "fcf_yield": 0.0232,
+    "eps_growth_5y": 0.014,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.48848,
+    "operating_margin": 0.14162,
+    "net_margin": 0.108950004,
+    "market_cap": 83185426432,
+    "enterprise_value": 96572776448,
+    "dividend_yield": 0.95,
+    "payout_ratio": 0.308,
+    "insider_ownership_pct": 0.06277,
+    "institutional_ownership_pct": 0.83166003,
+    "short_ratio": 2.83,
+    "beta": 1.269
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 330.75,
+    "entry_range_high": 337.41,
+    "target_range_low": 358.21,
+    "target_range_high": 383.8,
+    "stop_range_low": 300.08,
+    "stop_range_high": 315.87,
+    "target_price": 365.52,
+    "stop_loss": 315.87,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.939489-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 419.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 95.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 303.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2513,
+      "date": "2026-02-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 45,
+    "price_change_display": "+0.02%",
+    "key_metrics": {
+      "RSI": 56.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

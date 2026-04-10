@@ -1,0 +1,158 @@
+{
+  "ticker": "KNTK",
+  "company": "Kinetik Holdings Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.901516-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 45.76,
+    "open": 45.5,
+    "high": 47.17,
+    "low": 45.3,
+    "prev_close": 45.6,
+    "change_pct": 0.35,
+    "change_pct_1w": -0.11,
+    "change_pct_1m": 1.22,
+    "change_pct_1y": 13.24,
+    "volume": 1388800,
+    "avg_volume_30d": 1368210
+  },
+  "scores": {
+    "master_score": 54.42,
+    "technical_score": 55.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 45.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 54.42,
+    "confidence": 0.54,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 48.8,
+    "macd": 0.56,
+    "macd_signal": 0.8984,
+    "macd_histogram": -0.3384,
+    "macd_crossover": "neutral",
+    "ema_20": 46.37,
+    "ema_50": 44.38,
+    "ema_200": 41.46,
+    "ema_stack_bullish": false,
+    "bb_upper": 48.97,
+    "bb_middle": 46.5,
+    "bb_lower": 44.03,
+    "bb_width": 0.1064,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 27.6,
+    "atr": 1.76,
+    "atr_pct": 0.0385,
+    "obv_trend": "UP",
+    "mfi": 49.9,
+    "cmf": -0.06,
+    "stoch_k": 23.3,
+    "stoch_d": 29.3,
+    "rvol": 0.87,
+    "volume_5d_avg": 1187320,
+    "green_days_10d": 6,
+    "52w_high": 48.64,
+    "52w_low": 31.05,
+    "52w_high_proximity_pct": 0.0592,
+    "52w_low_proximity_pct": 0.4737
+  },
+  "fundamental": {
+    "pe_ratio": 17.399239,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": -5.1864443,
+    "de_ratio": 131.918,
+    "fcf_yield": -0.0413,
+    "eps_growth_5y": 485.801,
+    "revenue_growth_ttm": 0.116,
+    "gross_margin": 0.40367,
+    "operating_margin": 0.16188999,
+    "net_margin": 0.29808,
+    "market_cap": 3148387840,
+    "enterprise_value": 10313181184,
+    "dividend_yield": 6.88,
+    "payout_ratio": 1.1862999,
+    "insider_ownership_pct": 0.1013,
+    "institutional_ownership_pct": 1.02345,
+    "short_ratio": 4.07,
+    "beta": 0.882
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 44.16,
+    "entry_range_high": 45.99,
+    "target_range_low": 50.02,
+    "target_range_high": 53.59,
+    "stop_range_low": 40.13,
+    "stop_range_high": 42.24,
+    "target_price": 51.04,
+    "stop_loss": 42.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.901498-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 57.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 688.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2907,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 54,
+    "price_change_display": "+0.35%",
+    "key_metrics": {
+      "RSI": 48.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "LNG",
+  "company": "Cheniere Energy, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.904138-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 265.77,
+    "open": 277.53,
+    "high": 280.63,
+    "low": 262.25,
+    "prev_close": 275.21,
+    "change_pct": -3.43,
+    "change_pct_1w": -3.65,
+    "change_pct_1m": 8.14,
+    "change_pct_1y": 32.7,
+    "volume": 3386100,
+    "avg_volume_30d": 4092236
+  },
+  "scores": {
+    "master_score": 42.17,
+    "technical_score": 40.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.17,
+    "confidence": 0.42,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 48.3,
+    "macd": 8.9946,
+    "macd_signal": 12.5931,
+    "macd_histogram": -3.5985,
+    "macd_crossover": "neutral",
+    "ema_20": 273.53,
+    "ema_50": 253.32,
+    "ema_200": 229.36,
+    "ema_stack_bullish": false,
+    "bb_upper": 305.99,
+    "bb_middle": 276.8,
+    "bb_lower": 247.62,
+    "bb_width": 0.2109,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 40.7,
+    "atr": 11.54,
+    "atr_pct": 0.0434,
+    "obv_trend": "DOWN",
+    "mfi": 34.2,
+    "cmf": -0.048,
+    "stoch_k": 13.9,
+    "stoch_d": 39.8,
+    "rvol": 0.8,
+    "volume_5d_avg": 3280140,
+    "green_days_10d": 5,
+    "52w_high": 296.91,
+    "52w_low": 188.33,
+    "52w_high_proximity_pct": 0.1049,
+    "52w_low_proximity_pct": 0.4112
+  },
+  "fundamental": {
+    "pe_ratio": 11.014091,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 7.131893,
+    "de_ratio": 202.217,
+    "fcf_yield": 0.0474,
+    "eps_growth_5y": 1.464,
+    "revenue_growth_ttm": 0.123,
+    "gross_margin": 0.53220004,
+    "operating_margin": 0.75778997,
+    "net_margin": 0.27352,
+    "market_cap": 55865618432,
+    "enterprise_value": 86374621184,
+    "dividend_yield": 0.84,
+    "payout_ratio": 0.085200004,
+    "insider_ownership_pct": 0.0062,
+    "institutional_ownership_pct": 0.92877,
+    "short_ratio": 1.55,
+    "beta": 0.134
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 252.05,
+    "entry_range_high": 267.1,
+    "target_range_low": 294.38,
+    "target_range_high": 315.41,
+    "stop_range_low": 230.56,
+    "stop_range_high": 242.69,
+    "target_price": 300.39,
+    "stop_loss": 242.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.904123-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 332.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 84.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 188.33,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 29000,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 42,
+    "price_change_display": "-3.43%",
+    "key_metrics": {
+      "RSI": 48.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

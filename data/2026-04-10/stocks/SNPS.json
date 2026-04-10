@@ -1,0 +1,158 @@
+{
+  "ticker": "SNPS",
+  "company": "Synopsys, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.625006-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 404.92,
+    "open": 409.94,
+    "high": 411.0,
+    "low": 394.25,
+    "prev_close": 410.16,
+    "change_pct": -1.28,
+    "change_pct_1w": 2.06,
+    "change_pct_1m": -6.41,
+    "change_pct_1y": 6.31,
+    "volume": 1728800,
+    "avg_volume_30d": 2103076
+  },
+  "scores": {
+    "master_score": 38.52,
+    "technical_score": 45.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 38.52,
+    "confidence": 0.39,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 45.4,
+    "macd": -9.0966,
+    "macd_signal": -10.3486,
+    "macd_histogram": 1.252,
+    "macd_crossover": "neutral",
+    "ema_20": 408.85,
+    "ema_50": 426.2,
+    "ema_200": 459.62,
+    "ema_stack_bullish": false,
+    "bb_upper": 439.6,
+    "bb_middle": 409.34,
+    "bb_lower": 379.08,
+    "bb_width": 0.1478,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.7,
+    "atr": 15.27,
+    "atr_pct": 0.0377,
+    "obv_trend": "UP",
+    "mfi": 31.0,
+    "cmf": -0.284,
+    "stoch_k": 40.8,
+    "stoch_d": 39.9,
+    "rvol": 0.62,
+    "volume_5d_avg": 1297300,
+    "green_days_10d": 6,
+    "52w_high": 645.35,
+    "52w_low": 380.47,
+    "52w_high_proximity_pct": 0.3726,
+    "52w_low_proximity_pct": 0.0643
+  },
+  "fundamental": {
+    "pe_ratio": 62.104298,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 2.5376334,
+    "de_ratio": 35.579,
+    "fcf_yield": 0.0399,
+    "eps_growth_5y": -0.82,
+    "revenue_growth_ttm": 0.655,
+    "gross_margin": 0.82024,
+    "operating_margin": 0.13340001,
+    "net_margin": 0.13756,
+    "market_cap": 77567303680,
+    "enterprise_value": 86231539712,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.029509999,
+    "institutional_ownership_pct": 0.91113,
+    "short_ratio": 2.06,
+    "beta": 1.148
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 402.9,
+    "entry_range_high": 406.94,
+    "target_range_low": 441.72,
+    "target_range_high": 473.27,
+    "stop_range_low": 355.66,
+    "stop_range_high": 374.38,
+    "target_price": 450.73,
+    "stop_loss": 374.38,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.624946-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 506.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 380.47,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 793,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 39,
+    "price_change_display": "-1.28%",
+    "key_metrics": {
+      "RSI": 45.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

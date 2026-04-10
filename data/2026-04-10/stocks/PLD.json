@@ -1,0 +1,158 @@
+{
+  "ticker": "PLD",
+  "company": "Prologis, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.051414-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Industrial",
+  "price": {
+    "current": 138.02,
+    "open": 136.69,
+    "high": 140.1,
+    "low": 136.55,
+    "prev_close": 137.41,
+    "change_pct": 0.44,
+    "change_pct_1w": 3.52,
+    "change_pct_1m": 2.18,
+    "change_pct_1y": 51.09,
+    "volume": 3568200,
+    "avg_volume_30d": 3536193
+  },
+  "scores": {
+    "master_score": 58.6,
+    "technical_score": 65.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.6,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 63.1,
+    "macd": 0.3255,
+    "macd_signal": -0.5826,
+    "macd_histogram": 0.9081,
+    "macd_crossover": "neutral",
+    "ema_20": 133.3,
+    "ema_50": 132.81,
+    "ema_200": 124.27,
+    "ema_stack_bullish": true,
+    "bb_upper": 136.89,
+    "bb_middle": 131.84,
+    "bb_lower": 126.78,
+    "bb_width": 0.0767,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.2,
+    "atr": 3.11,
+    "atr_pct": 0.0226,
+    "obv_trend": "UP",
+    "mfi": 61.2,
+    "cmf": -0.103,
+    "stoch_k": 83.8,
+    "stoch_d": 85.1,
+    "rvol": 0.9,
+    "volume_5d_avg": 3172180,
+    "green_days_10d": 6,
+    "52w_high": 141.58,
+    "52w_low": 86.75,
+    "52w_high_proximity_pct": 0.0252,
+    "52w_low_proximity_pct": 0.5911
+  },
+  "fundamental": {
+    "pe_ratio": 38.769665,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 2.4137812,
+    "de_ratio": 61.78,
+    "fcf_yield": 0.0371,
+    "eps_growth_5y": 0.063,
+    "revenue_growth_ttm": 0.04,
+    "gross_margin": 0.75691,
+    "operating_margin": 0.4133,
+    "net_margin": 0.36205003,
+    "market_cap": 128666476544,
+    "enterprise_value": 167455916032,
+    "dividend_yield": 3.1,
+    "payout_ratio": 1.1348001,
+    "insider_ownership_pct": 0.0026,
+    "institutional_ownership_pct": 0.96429,
+    "short_ratio": 3.78,
+    "beta": 1.412
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 132.15,
+    "entry_range_high": 138.71,
+    "target_range_low": 144.4,
+    "target_range_high": 154.72,
+    "stop_range_low": 125.21,
+    "stop_range_high": 131.8,
+    "target_price": 147.35,
+    "stop_loss": 131.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.051399-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 172.53,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 310.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 86.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1019089,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 59,
+    "price_change_display": "+0.44%",
+    "key_metrics": {
+      "RSI": 63.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

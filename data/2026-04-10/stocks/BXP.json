@@ -1,0 +1,158 @@
+{
+  "ticker": "BXP",
+  "company": "BXP, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.062881-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Office",
+  "price": {
+    "current": 52.48,
+    "open": 52.06,
+    "high": 53.1,
+    "low": 50.9,
+    "prev_close": 52.54,
+    "change_pct": -0.11,
+    "change_pct_1w": 2.86,
+    "change_pct_1m": -0.45,
+    "change_pct_1y": -5.91,
+    "volume": 1921000,
+    "avg_volume_30d": 2919166
+  },
+  "scores": {
+    "master_score": 52.6,
+    "technical_score": 65.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.0,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.6,
+    "confidence": 0.53,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 45.7,
+    "macd": -1.1163,
+    "macd_signal": -1.5551,
+    "macd_histogram": 0.4388,
+    "macd_crossover": "neutral",
+    "ema_20": 52.56,
+    "ema_50": 55.88,
+    "ema_200": 62.88,
+    "ema_stack_bullish": false,
+    "bb_upper": 53.04,
+    "bb_middle": 51.91,
+    "bb_lower": 50.78,
+    "bb_width": 0.0434,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 39.3,
+    "atr": 1.78,
+    "atr_pct": 0.034,
+    "obv_trend": "UP",
+    "mfi": 50.2,
+    "cmf": -0.178,
+    "stoch_k": 67.9,
+    "stoch_d": 62.0,
+    "rvol": 0.68,
+    "volume_5d_avg": 1986300,
+    "green_days_10d": 6,
+    "52w_high": 76.36,
+    "52w_low": 50.74,
+    "52w_high_proximity_pct": 0.3127,
+    "52w_low_proximity_pct": 0.0344
+  },
+  "fundamental": {
+    "pe_ratio": 30.16092,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 1.6165599,
+    "de_ratio": 225.995,
+    "fcf_yield": 0.1018,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.319,
+    "gross_margin": 0.56444,
+    "operating_margin": -0.06589,
+    "net_margin": 0.087790005,
+    "market_cap": 9291950080,
+    "enterprise_value": 26751180800,
+    "dividend_yield": 5.87,
+    "payout_ratio": 1.9310001,
+    "insider_ownership_pct": 0.00415,
+    "institutional_ownership_pct": 1.16993,
+    "short_ratio": 3.32,
+    "beta": 1.047
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 52.22,
+    "entry_range_high": 52.74,
+    "target_range_low": 56.66,
+    "target_range_high": 60.71,
+    "stop_range_low": 46.47,
+    "stop_range_high": 48.92,
+    "target_price": 57.82,
+    "stop_loss": 48.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.062863-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 65.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 587.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.74,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5495,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 53,
+    "price_change_display": "-0.11%",
+    "key_metrics": {
+      "RSI": 45.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

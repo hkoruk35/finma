@@ -1,0 +1,1410 @@
+{
+  "date": "2026-04-10",
+  "alerts": [
+    {
+      "ticker": "AAPL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for AAPL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MSFT",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MSFT received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AVGO",
+      "type": "CONVICTION_SIGNAL",
+      "message": "AVGO received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "QCOM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "QCOM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "QCOM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for QCOM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MCHP",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MCHP received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SWKS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SWKS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ORCL",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ORCL received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CRM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CRM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ADBE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ADBE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NOW",
+      "type": "CONVICTION_SIGNAL",
+      "message": "NOW received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "INTU",
+      "type": "CONVICTION_SIGNAL",
+      "message": "INTU received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WDAY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "WDAY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TEAM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "TEAM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DDOG",
+      "type": "CONVICTION_SIGNAL",
+      "message": "DDOG received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MDB",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MDB received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SNOW",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SNOW received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HUBS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "HUBS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VEEV",
+      "type": "CONVICTION_SIGNAL",
+      "message": "VEEV received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BILL",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BILL received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BILL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BILL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "GTLB",
+      "type": "CONVICTION_SIGNAL",
+      "message": "GTLB received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ZS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ZS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CRWD",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CRWD received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FTNT",
+      "type": "CONVICTION_SIGNAL",
+      "message": "FTNT received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FTNT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for FTNT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "OKTA",
+      "type": "CONVICTION_SIGNAL",
+      "message": "OKTA received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "S",
+      "type": "CONVICTION_SIGNAL",
+      "message": "S received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CYBR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CYBR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PLTR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PLTR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MSTR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MSTR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CDNS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CDNS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SNPS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SNPS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NET",
+      "type": "CONVICTION_SIGNAL",
+      "message": "NET received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NET",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NET. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "AKAM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "AKAM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AKAM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for AKAM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NTAP",
+      "type": "CONVICTION_SIGNAL",
+      "message": "NTAP received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SPOT",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SPOT received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SPOT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SPOT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WBD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WBD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TMUS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "TMUS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CHTR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CHTR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RBLX",
+      "type": "CONVICTION_SIGNAL",
+      "message": "RBLX received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RBLX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for RBLX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PINS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PINS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PINS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PINS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TKO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TKO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "OMC",
+      "type": "CONVICTION_SIGNAL",
+      "message": "OMC received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BIDU",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BIDU received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "W",
+      "type": "CONVICTION_SIGNAL",
+      "message": "W received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TSLA",
+      "type": "CONVICTION_SIGNAL",
+      "message": "TSLA received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "GM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RIVN",
+      "type": "CONVICTION_SIGNAL",
+      "message": "RIVN received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RIVN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for RIVN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "LCID",
+      "type": "CONVICTION_SIGNAL",
+      "message": "LCID received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WSM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WSM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MCD",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MCD received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "YUM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for YUM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WEN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WEN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NKE",
+      "type": "CONVICTION_SIGNAL",
+      "message": "NKE received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "UAA",
+      "type": "CONVICTION_SIGNAL",
+      "message": "UAA received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "UAA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for UAA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ABNB",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ABNB received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EXPE",
+      "type": "CONVICTION_SIGNAL",
+      "message": "EXPE received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EXPE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for EXPE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RCL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for RCL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NCLH",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NCLH. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "FUN",
+      "type": "CONVICTION_SIGNAL",
+      "message": "FUN received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FIVE",
+      "type": "CONVICTION_SIGNAL",
+      "message": "FIVE received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DLTR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "DLTR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DLTR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DLTR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TSCO",
+      "type": "CONVICTION_SIGNAL",
+      "message": "TSCO received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CAVA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CAVA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PG",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PG received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CHD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CHD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "KO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for KO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PEP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PEP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "STZ",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for STZ. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "GIS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for GIS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CPB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CPB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "HRL",
+      "type": "CONVICTION_SIGNAL",
+      "message": "HRL received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CAG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CAG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SJM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SJM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HSY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "HSY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HSY",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for HSY. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BTI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BTI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SFM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SFM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "COTY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "COTY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ADM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ADM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SYY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SYY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LLY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "LLY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "JNJ",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for JNJ. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ABBV",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ABBV received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PFE",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PFE received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "REGN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for REGN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BIIB",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BIIB received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VRTX",
+      "type": "CONVICTION_SIGNAL",
+      "message": "VRTX received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ALNY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ALNY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MRNA",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MRNA received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MRNA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MRNA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NVS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NVS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BNTX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BNTX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ABT",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ABT received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MDT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MDT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BSX",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BSX received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EW",
+      "type": "CONVICTION_SIGNAL",
+      "message": "EW received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ZBH",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ZBH. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BDX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BDX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BAX",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BAX received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DXCM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "DXCM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PODD",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PODD received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "INSP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for INSP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NVCR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "NVCR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TMO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TMO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "DHR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DHR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "A",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for A. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "IQV",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for IQV. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ILMN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ILMN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "LH",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LH. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "DGX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DGX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BX",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BX received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KKR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "KKR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KKR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for KKR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "APO",
+      "type": "CONVICTION_SIGNAL",
+      "message": "APO received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ARES",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ARES received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ARES",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ARES. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "AIG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for AIG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ALL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ALL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "V",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for V. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PYPL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PYPL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "FIS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "FIS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FISV",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for FISV. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "IBKR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "IBKR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CME",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CME received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "COIN",
+      "type": "CONVICTION_SIGNAL",
+      "message": "COIN received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HOOD",
+      "type": "CONVICTION_SIGNAL",
+      "message": "HOOD received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SOFI",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SOFI received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NU",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NU. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MCO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MCO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SPGI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SPGI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MSCI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MSCI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RBA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for RBA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "XOM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "XOM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SHEL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SHEL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BP",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BP received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "COP",
+      "type": "CONVICTION_SIGNAL",
+      "message": "COP received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "OXY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "OXY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FANG",
+      "type": "CONVICTION_SIGNAL",
+      "message": "FANG received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EQT",
+      "type": "CONVICTION_SIGNAL",
+      "message": "EQT received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CNQ",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CNQ. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EC",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for EC. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "OII",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for OII. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MPC",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MPC received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MPC",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MPC. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "VLO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for VLO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PSX",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PSX received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WMB",
+      "type": "CONVICTION_SIGNAL",
+      "message": "WMB received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WMB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WMB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MPLX",
+      "type": "CONVICTION_SIGNAL",
+      "message": "MPLX received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "OKE",
+      "type": "CONVICTION_SIGNAL",
+      "message": "OKE received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TRGP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TRGP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "DTM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DTM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "KNTK",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for KNTK. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ENB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ENB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TRP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TRP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WDS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WDS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BTU",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BTU received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CCJ",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CCJ received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TPL",
+      "type": "CONVICTION_SIGNAL",
+      "message": "TPL received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TECK",
+      "type": "CONVICTION_SIGNAL",
+      "message": "TECK received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GOLD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for GOLD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RGLD",
+      "type": "CONVICTION_SIGNAL",
+      "message": "RGLD received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ALB",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ALB received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ALB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ALB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "LIN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LIN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "APD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for APD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PPG",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PPG received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LYB",
+      "type": "CONVICTION_SIGNAL",
+      "message": "LYB received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LYB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LYB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NTR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "NTR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VMC",
+      "type": "CONVICTION_SIGNAL",
+      "message": "VMC received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EXP",
+      "type": "CONVICTION_SIGNAL",
+      "message": "EXP received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EXP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for EXP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "IP",
+      "type": "CONVICTION_SIGNAL",
+      "message": "IP received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "IP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for IP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PKG",
+      "type": "CONVICTION_SIGNAL",
+      "message": "PKG received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PKG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PKG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NEXA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NEXA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BA",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BA received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LMT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LMT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NOC",
+      "type": "CONVICTION_SIGNAL",
+      "message": "NOC received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GD",
+      "type": "CONVICTION_SIGNAL",
+      "message": "GD received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for GD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "AXON",
+      "type": "CONVICTION_SIGNAL",
+      "message": "AXON received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KTOS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "KTOS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "IR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for IR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MMM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MMM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "UPS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for UPS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "FDX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for FDX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CHRW",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CHRW received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CHRW",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CHRW. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EXPD",
+      "type": "CONVICTION_SIGNAL",
+      "message": "EXPD received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EXPD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for EXPD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RSG",
+      "type": "CONVICTION_SIGNAL",
+      "message": "RSG received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CTAS",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CTAS received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ROP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ROP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ROL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ROL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "J",
+      "type": "CONVICTION_SIGNAL",
+      "message": "J received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "J",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for J. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "STRL",
+      "type": "CONVICTION_SIGNAL",
+      "message": "STRL received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "URI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for URI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WSC",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WSC. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "BR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VRSK",
+      "type": "CONVICTION_SIGNAL",
+      "message": "VRSK received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SYM",
+      "type": "CONVICTION_SIGNAL",
+      "message": "SYM received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SYM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SYM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "FTAI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for FTAI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "VST",
+      "type": "CONVICTION_SIGNAL",
+      "message": "VST received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CEG",
+      "type": "CONVICTION_SIGNAL",
+      "message": "CEG received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AES",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for AES. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "AWK",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for AWK. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WTRG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WTRG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BXP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BXP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "HR",
+      "type": "CONVICTION_SIGNAL",
+      "message": "HR received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ARE",
+      "type": "CONVICTION_SIGNAL",
+      "message": "ARE received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WY",
+      "type": "CONVICTION_SIGNAL",
+      "message": "WY received a STRONG_SELL signal today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DHI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DHI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    }
+  ],
+  "count": 234
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "BG",
+  "company": "Bunge Global SA",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.733339-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Farm Products",
+  "price": {
+    "current": 122.96,
+    "open": 127.23,
+    "high": 128.48,
+    "low": 122.17,
+    "prev_close": 127.15,
+    "change_pct": -3.3,
+    "change_pct_1w": -4.18,
+    "change_pct_1m": 2.68,
+    "change_pct_1y": 76.44,
+    "volume": 1660100,
+    "avg_volume_30d": 1937233
+  },
+  "scores": {
+    "master_score": 46.39,
+    "technical_score": 50.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.4,
+    "breakout_score": 45.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.39,
+    "confidence": 0.46,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 48.1,
+    "macd": 1.9459,
+    "macd_signal": 2.3243,
+    "macd_histogram": -0.3784,
+    "macd_crossover": "neutral",
+    "ema_20": 124.93,
+    "ema_50": 119.73,
+    "ema_200": 100.52,
+    "ema_stack_bullish": false,
+    "bb_upper": 130.84,
+    "bb_middle": 125.3,
+    "bb_lower": 119.76,
+    "bb_width": 0.0884,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 20.8,
+    "atr": 4.49,
+    "atr_pct": 0.0366,
+    "obv_trend": "UP",
+    "mfi": 49.4,
+    "cmf": -0.056,
+    "stoch_k": 41.1,
+    "stoch_d": 59.2,
+    "rvol": 0.67,
+    "volume_5d_avg": 1305880,
+    "green_days_10d": 6,
+    "52w_high": 129.42,
+    "52w_low": 67.43,
+    "52w_high_proximity_pct": 0.0499,
+    "52w_low_proximity_pct": 0.8235
+  },
+  "fundamental": {
+    "pe_ratio": 24.941177,
+    "sector_pe_median": 24.341375,
+    "pb_ratio": 1.4953179,
+    "de_ratio": 91.006,
+    "fcf_yield": -0.2987,
+    "eps_growth_5y": -0.888,
+    "revenue_growth_ttm": 0.755,
+    "gross_margin": 0.04847,
+    "operating_margin": 0.01258,
+    "net_margin": 0.0116,
+    "market_cap": 23793876992,
+    "enterprise_value": 39170875392,
+    "dividend_yield": 2.28,
+    "payout_ratio": 0.5639,
+    "insider_ownership_pct": 0.17809,
+    "institutional_ownership_pct": 0.76841,
+    "short_ratio": 3.11,
+    "beta": 0.696
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 119.13,
+    "entry_range_high": 123.57,
+    "target_range_low": 133.7,
+    "target_range_high": 143.25,
+    "stop_range_low": 108.28,
+    "stop_range_high": 113.98,
+    "target_price": 136.43,
+    "stop_loss": 113.98,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.733322-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 153.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 228.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 67.43,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 82805,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.9,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 46,
+    "price_change_display": "-3.30%",
+    "key_metrics": {
+      "RSI": 48.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

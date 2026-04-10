@@ -1,0 +1,158 @@
+{
+  "ticker": "WM",
+  "company": "Waste Management, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.997551-04:00",
+  "sector": "Industrials",
+  "industry": "Waste Management",
+  "price": {
+    "current": 233.1,
+    "open": 231.78,
+    "high": 234.4,
+    "low": 230.87,
+    "prev_close": 231.43,
+    "change_pct": 0.72,
+    "change_pct_1w": 0.91,
+    "change_pct_1m": -0.64,
+    "change_pct_1y": 7.29,
+    "volume": 1605700,
+    "avg_volume_30d": 2113916
+  },
+  "scores": {
+    "master_score": 42.33,
+    "technical_score": 56.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.33,
+    "confidence": 0.42,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 52.0,
+    "macd": -0.2323,
+    "macd_signal": -0.523,
+    "macd_histogram": 0.2907,
+    "macd_crossover": "neutral",
+    "ema_20": 232.09,
+    "ema_50": 230.64,
+    "ema_200": 224.36,
+    "ema_stack_bullish": true,
+    "bb_upper": 240.09,
+    "bb_middle": 231.74,
+    "bb_lower": 223.38,
+    "bb_width": 0.0721,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.8,
+    "atr": 4.71,
+    "atr_pct": 0.0202,
+    "obv_trend": "DOWN",
+    "mfi": 47.1,
+    "cmf": -0.14,
+    "stoch_k": 82.3,
+    "stoch_d": 76.4,
+    "rvol": 0.75,
+    "volume_5d_avg": 1576580,
+    "green_days_10d": 5,
+    "52w_high": 245.53,
+    "52w_low": 195.24,
+    "52w_high_proximity_pct": 0.0506,
+    "52w_low_proximity_pct": 0.1939
+  },
+  "fundamental": {
+    "pe_ratio": 34.84305,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 9.401848,
+    "de_ratio": 239.385,
+    "fcf_yield": 0.0184,
+    "eps_growth_5y": 0.236,
+    "revenue_growth_ttm": 0.071,
+    "gross_margin": 0.40438,
+    "operating_margin": 0.20038,
+    "net_margin": 0.10744,
+    "market_cap": 94017568768,
+    "enterprise_value": 117734572032,
+    "dividend_yield": 1.47,
+    "payout_ratio": 0.4925,
+    "insider_ownership_pct": 0.00253,
+    "institutional_ownership_pct": 0.83880997,
+    "short_ratio": 2.33,
+    "beta": 0.547
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 229.49,
+    "entry_range_high": 234.27,
+    "target_range_low": 242.29,
+    "target_range_high": 259.59,
+    "stop_range_low": 212.5,
+    "stop_range_high": 223.68,
+    "target_price": 247.23,
+    "stop_loss": 223.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.997534-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 291.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 147.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 195.24,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 28,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 47,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 42,
+    "price_change_display": "+0.72%",
+    "key_metrics": {
+      "RSI": 52.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

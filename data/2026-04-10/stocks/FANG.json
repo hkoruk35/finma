@@ -1,0 +1,158 @@
+{
+  "ticker": "FANG",
+  "company": "Diamondback Energy, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.873010-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 186.31,
+    "open": 187.97,
+    "high": 191.14,
+    "low": 185.27,
+    "prev_close": 186.47,
+    "change_pct": -0.09,
+    "change_pct_1w": -2.26,
+    "change_pct_1m": 4.45,
+    "change_pct_1y": 53.69,
+    "volume": 3384800,
+    "avg_volume_30d": 3896380
+  },
+  "scores": {
+    "master_score": 36.67,
+    "technical_score": 35.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 36.67,
+    "confidence": 0.37,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 48.2,
+    "macd": 3.8174,
+    "macd_signal": 5.6971,
+    "macd_histogram": -1.8797,
+    "macd_crossover": "neutral",
+    "ema_20": 189.96,
+    "ema_50": 180.02,
+    "ema_200": 158.95,
+    "ema_stack_bullish": false,
+    "bb_upper": 204.7,
+    "bb_middle": 191.69,
+    "bb_lower": 178.68,
+    "bb_width": 0.1358,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.4,
+    "atr": 7.27,
+    "atr_pct": 0.039,
+    "obv_trend": "DOWN",
+    "mfi": 50.5,
+    "cmf": -0.102,
+    "stoch_k": 37.5,
+    "stoch_d": 41.9,
+    "rvol": 0.81,
+    "volume_5d_avg": 3136700,
+    "green_days_10d": 4,
+    "52w_high": 202.19,
+    "52w_low": 116.08,
+    "52w_high_proximity_pct": 0.0785,
+    "52w_low_proximity_pct": 0.605
+  },
+  "fundamental": {
+    "pe_ratio": 32.45819,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 1.4341357,
+    "de_ratio": 33.784,
+    "fcf_yield": 0.0095,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.094,
+    "gross_margin": 0.7304,
+    "operating_margin": -0.86487,
+    "net_margin": 0.1164,
+    "market_cap": 52554133504,
+    "enterprise_value": 72961138688,
+    "dividend_yield": 2.25,
+    "payout_ratio": 0.6981,
+    "insider_ownership_pct": 0.30749,
+    "institutional_ownership_pct": 0.64921,
+    "short_ratio": 2.41,
+    "beta": 0.488
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 179.12,
+    "entry_range_high": 187.24,
+    "target_range_low": 203.96,
+    "target_range_high": 218.53,
+    "stop_range_low": 163.18,
+    "stop_range_high": 171.77,
+    "target_price": 208.12,
+    "stop_loss": 171.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.872995-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 232.89,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 225.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 116.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 18,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 37,
+    "price_change_display": "-0.09%",
+    "key_metrics": {
+      "RSI": 48.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

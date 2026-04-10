@@ -1,0 +1,158 @@
+{
+  "ticker": "FTAI",
+  "company": "FTAI Aviation Ltd.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.016307-04:00",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 255.18,
+    "open": 257.0,
+    "high": 262.15,
+    "low": 252.21,
+    "prev_close": 259.63,
+    "change_pct": -1.71,
+    "change_pct_1w": 2.15,
+    "change_pct_1m": -5.83,
+    "change_pct_1y": 185.56,
+    "volume": 992700,
+    "avg_volume_30d": 1813030
+  },
+  "scores": {
+    "master_score": 39.98,
+    "technical_score": 55.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 39.98,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 52.0,
+    "macd": -3.2576,
+    "macd_signal": -6.0413,
+    "macd_histogram": 2.7837,
+    "macd_crossover": "neutral",
+    "ema_20": 249.09,
+    "ema_50": 250.92,
+    "ema_200": 204.6,
+    "ema_stack_bullish": false,
+    "bb_upper": 258.23,
+    "bb_middle": 241.28,
+    "bb_lower": 224.34,
+    "bb_width": 0.1405,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 22.6,
+    "atr": 15.08,
+    "atr_pct": 0.0591,
+    "obv_trend": "UP",
+    "mfi": 47.4,
+    "cmf": -0.232,
+    "stoch_k": 58.5,
+    "stoch_d": 57.4,
+    "rvol": 0.56,
+    "volume_5d_avg": 1021820,
+    "green_days_10d": 4,
+    "52w_high": 309.52,
+    "52w_low": 86.16,
+    "52w_high_proximity_pct": 0.1756,
+    "52w_low_proximity_pct": 1.9617
+  },
+  "fundamental": {
+    "pe_ratio": 55.59477,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 78.348175,
+    "de_ratio": 1046.368,
+    "fcf_yield": -0.0295,
+    "eps_growth_5y": 0.298,
+    "revenue_growth_ttm": 0.327,
+    "gross_margin": 0.40087003,
+    "operating_margin": 0.28505,
+    "net_margin": 0.19983,
+    "market_cap": 26174648320,
+    "enterprise_value": 29370933248,
+    "dividend_yield": 0.53,
+    "payout_ratio": 0.2717,
+    "insider_ownership_pct": 0.01509,
+    "institutional_ownership_pct": 1.00235,
+    "short_ratio": 2.91,
+    "beta": 1.649
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 249.67,
+    "entry_range_high": 256.46,
+    "target_range_low": 294.41,
+    "target_range_high": 315.44,
+    "stop_range_low": 213.77,
+    "stop_range_high": 225.02,
+    "target_price": 300.42,
+    "stop_loss": 225.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.016291-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 318.98,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 53.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 86.16,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 128,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "-1.71%",
+    "key_metrics": {
+      "RSI": 52.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "OXY",
+  "company": "Occidental Petroleum Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.871434-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 58.53,
+    "open": 60.1,
+    "high": 60.73,
+    "low": 58.23,
+    "prev_close": 59.77,
+    "change_pct": -2.07,
+    "change_pct_1w": -5.95,
+    "change_pct_1m": 10.18,
+    "change_pct_1y": 54.32,
+    "volume": 15472100,
+    "avg_volume_30d": 21403236
+  },
+  "scores": {
+    "master_score": 35.97,
+    "technical_score": 40.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 78.0,
+    "sector_score": 46.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.97,
+    "confidence": 0.36,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 48.1,
+    "macd": 2.1542,
+    "macd_signal": 2.9917,
+    "macd_histogram": -0.8375,
+    "macd_crossover": "neutral",
+    "ema_20": 60.34,
+    "ema_50": 55.38,
+    "ema_200": 47.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 66.56,
+    "bb_middle": 61.18,
+    "bb_lower": 55.8,
+    "bb_width": 0.1759,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 35.6,
+    "atr": 2.58,
+    "atr_pct": 0.044,
+    "obv_trend": "DOWN",
+    "mfi": 58.0,
+    "cmf": 0.096,
+    "stoch_k": 20.4,
+    "stoch_d": 34.8,
+    "rvol": 0.83,
+    "volume_5d_avg": 17750940,
+    "green_days_10d": 4,
+    "52w_high": 66.24,
+    "52w_low": 35.34,
+    "52w_high_proximity_pct": 0.1164,
+    "52w_low_proximity_pct": 0.656
+  },
+  "fundamental": {
+    "pe_ratio": 43.355553,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 2.0799572,
+    "de_ratio": 63.804,
+    "fcf_yield": 0.0354,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 1.489,
+    "gross_margin": 0.69819,
+    "operating_margin": 0.10309,
+    "net_margin": 0.10772,
+    "market_cap": 58043916288,
+    "enterprise_value": 87960190976,
+    "dividend_yield": 1.78,
+    "payout_ratio": 0.7111,
+    "insider_ownership_pct": 0.27013,
+    "institutional_ownership_pct": 0.51485,
+    "short_ratio": 0.01,
+    "beta": 0.23
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 55.1,
+    "entry_range_high": 58.82,
+    "target_range_low": 64.94,
+    "target_range_high": 69.58,
+    "stop_range_low": 50.7,
+    "stop_range_high": 53.37,
+    "target_price": 66.27,
+    "stop_loss": 53.37,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.871418-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 73.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 178.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 35.34,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 27883,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 36,
+    "price_change_display": "-2.07%",
+    "key_metrics": {
+      "RSI": 48.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

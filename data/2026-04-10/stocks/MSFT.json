@@ -1,0 +1,158 @@
+{
+  "ticker": "MSFT",
+  "company": "Microsoft Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.550119-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 373.07,
+    "open": 372.5,
+    "high": 373.5,
+    "low": 367.05,
+    "prev_close": 374.33,
+    "change_pct": -0.34,
+    "change_pct_1w": 1.0,
+    "change_pct_1m": -8.06,
+    "change_pct_1y": 5.05,
+    "volume": 30351200,
+    "avg_volume_30d": 32852790
+  },
+  "scores": {
+    "master_score": 34.72,
+    "technical_score": 37.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.72,
+    "confidence": 0.35,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 40.0,
+    "macd": -8.7166,
+    "macd_signal": -10.1441,
+    "macd_histogram": 1.4275,
+    "macd_crossover": "neutral",
+    "ema_20": 378.66,
+    "ema_50": 399.31,
+    "ema_200": 442.57,
+    "ema_stack_bullish": false,
+    "bb_upper": 404.93,
+    "bb_middle": 378.67,
+    "bb_lower": 352.42,
+    "bb_width": 0.1387,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.8,
+    "atr": 8.69,
+    "atr_pct": 0.0233,
+    "obv_trend": "DOWN",
+    "mfi": 41.8,
+    "cmf": -0.285,
+    "stoch_k": 54.3,
+    "stoch_d": 47.5,
+    "rvol": 0.76,
+    "volume_5d_avg": 25021000,
+    "green_days_10d": 4,
+    "52w_high": 539.83,
+    "52w_low": 351.87,
+    "52w_high_proximity_pct": 0.3089,
+    "52w_low_proximity_pct": 0.0603
+  },
+  "fundamental": {
+    "pe_ratio": 23.360676,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 7.0905633,
+    "de_ratio": 31.539,
+    "fcf_yield": 0.0193,
+    "eps_growth_5y": 0.598,
+    "revenue_growth_ttm": 0.167,
+    "gross_margin": 0.68586,
+    "operating_margin": 0.47094002,
+    "net_margin": 0.39044,
+    "market_cap": 2772797227008,
+    "enterprise_value": 2804095385600,
+    "dividend_yield": 0.98,
+    "payout_ratio": 0.21280001,
+    "insider_ownership_pct": 0.0008,
+    "institutional_ownership_pct": 0.75951,
+    "short_ratio": 2.5,
+    "beta": 1.107
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 371.2,
+    "entry_range_high": 374.94,
+    "target_range_low": 391.16,
+    "target_range_high": 419.1,
+    "stop_range_low": 337.91,
+    "stop_range_high": 355.69,
+    "target_price": 399.14,
+    "stop_loss": 355.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.550068-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 466.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 98.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 351.87,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12320,
+      "date": "2026-03-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 35,
+    "price_change_display": "-0.34%",
+    "key_metrics": {
+      "RSI": 40.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

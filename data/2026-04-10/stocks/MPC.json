@@ -1,0 +1,158 @@
+{
+  "ticker": "MPC",
+  "company": "Marathon Petroleum Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.887909-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 223.52,
+    "open": 231.25,
+    "high": 234.45,
+    "low": 218.88,
+    "prev_close": 231.98,
+    "change_pct": -3.65,
+    "change_pct_1w": -6.15,
+    "change_pct_1m": 3.85,
+    "change_pct_1y": 87.67,
+    "volume": 2864800,
+    "avg_volume_30d": 3026320
+  },
+  "scores": {
+    "master_score": 36.62,
+    "technical_score": 42.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 36.62,
+    "confidence": 0.37,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 44.6,
+    "macd": 5.9446,
+    "macd_signal": 8.9895,
+    "macd_histogram": -3.0449,
+    "macd_crossover": "neutral",
+    "ema_20": 234.05,
+    "ema_50": 219.15,
+    "ema_200": 190.02,
+    "ema_stack_bullish": false,
+    "bb_upper": 252.68,
+    "bb_middle": 237.62,
+    "bb_lower": 222.57,
+    "bb_width": 0.1267,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 39.9,
+    "atr": 9.48,
+    "atr_pct": 0.0424,
+    "obv_trend": "DOWN",
+    "mfi": 30.6,
+    "cmf": -0.135,
+    "stoch_k": 12.6,
+    "stoch_d": 32.7,
+    "rvol": 0.73,
+    "volume_5d_avg": 2219540,
+    "green_days_10d": 4,
+    "52w_high": 251.91,
+    "52w_low": 116.06,
+    "52w_high_proximity_pct": 0.1127,
+    "52w_low_proximity_pct": 0.9259
+  },
+  "fundamental": {
+    "pe_ratio": 16.920515,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 3.8083556,
+    "de_ratio": 142.647,
+    "fcf_yield": 0.039,
+    "eps_growth_5y": 3.507,
+    "revenue_growth_ttm": -0.012,
+    "gross_margin": 0.10308,
+    "operating_margin": 0.06287,
+    "net_margin": 0.03039,
+    "market_cap": 65880322048,
+    "enterprise_value": 103338319872,
+    "dividend_yield": 1.71,
+    "payout_ratio": 0.2821,
+    "insider_ownership_pct": 0.00318,
+    "institutional_ownership_pct": 0.77142,
+    "short_ratio": 2.96,
+    "beta": 0.577
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 218.05,
+    "entry_range_high": 224.64,
+    "target_range_low": 246.92,
+    "target_range_high": 264.56,
+    "stop_range_low": 194.33,
+    "stop_range_high": 204.56,
+    "target_price": 251.96,
+    "stop_loss": 204.56,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.887894-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 279.4,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 171.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 116.06,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1626,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 37,
+    "price_change_display": "-3.65%",
+    "key_metrics": {
+      "RSI": 44.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

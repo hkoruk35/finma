@@ -1,0 +1,160 @@
+{
+  "ticker": "SNOW",
+  "company": "Snowflake Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.605416-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 132.24,
+    "open": 150.35,
+    "high": 150.35,
+    "low": 131.18,
+    "prev_close": 149.99,
+    "change_pct": -11.83,
+    "change_pct_1w": -13.64,
+    "change_pct_1m": -24.57,
+    "change_pct_1y": 0.92,
+    "volume": 15447300,
+    "avg_volume_30d": 5833373
+  },
+  "scores": {
+    "master_score": 22.37,
+    "technical_score": 16.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 50.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 22.37,
+    "confidence": 0.22,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 25.2,
+    "macd": -8.8772,
+    "macd_signal": -7.0239,
+    "macd_histogram": -1.8533,
+    "macd_crossover": "neutral",
+    "ema_20": 157.63,
+    "ema_50": 172.62,
+    "ema_200": 198.19,
+    "ema_stack_bullish": false,
+    "bb_upper": 186.12,
+    "bb_middle": 161.16,
+    "bb_lower": 136.2,
+    "bb_width": 0.3098,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.0,
+    "atr": 9.12,
+    "atr_pct": 0.069,
+    "obv_trend": "DOWN",
+    "mfi": 27.8,
+    "cmf": -0.348,
+    "stoch_k": 2.3,
+    "stoch_d": 10.3,
+    "rvol": 1.26,
+    "volume_5d_avg": 7349080,
+    "green_days_10d": 4,
+    "52w_high": 277.14,
+    "52w_low": 132.24,
+    "52w_high_proximity_pct": 0.5228,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 23.635391,
+    "de_ratio": 142.462,
+    "fcf_yield": 0.0347,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.301,
+    "gross_margin": 0.67169,
+    "operating_margin": -0.33236998,
+    "net_margin": -0.28429002,
+    "market_cap": 45715369984,
+    "enterprise_value": 44374032384,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.03197,
+    "institutional_ownership_pct": 0.77316004,
+    "short_ratio": 2.01,
+    "beta": 1.228
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 131.58,
+    "entry_range_high": 132.9,
+    "target_range_low": 156.41,
+    "target_range_high": 167.58,
+    "stop_range_low": 108.3,
+    "stop_range_high": 114.0,
+    "target_price": 159.6,
+    "stop_loss": 114.0,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.605398-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 165.3,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 132.24,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 18,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 50741,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "Snowflake (SNOW) exhibits a STRONG_SELL signal (19% confidence). Bearish EMA stack and an RSI of 35.0 suggest continued downward momentum despite today's 0.50% gain to $149.99. The ADX at 23.6 indicates a weak trend, while the low BB squeeze implies potential for increased volatility. SNOW's price is 45.9% away from its 52-week high, and while revenue growth is strong at 30.1%, the lack of a P/E ratio compared to the sector median of 32.77 raises concerns. Near-term catalyst: Upcoming earnings report could trigger further downside if growth slows.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 22,
+    "price_change_display": "-11.83%",
+    "key_metrics": {
+      "RSI": 25.2,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

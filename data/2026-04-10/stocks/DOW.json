@@ -1,0 +1,158 @@
+{
+  "ticker": "DOW",
+  "company": "Dow Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.942757-04:00",
+  "sector": "Materials",
+  "industry": "Chemicals",
+  "price": {
+    "current": 38.04,
+    "open": 39.6,
+    "high": 40.6,
+    "low": 37.9,
+    "prev_close": 39.28,
+    "change_pct": -3.16,
+    "change_pct_1w": -6.51,
+    "change_pct_1m": 12.25,
+    "change_pct_1y": 47.58,
+    "volume": 18497700,
+    "avg_volume_30d": 16288536
+  },
+  "scores": {
+    "master_score": 39.82,
+    "technical_score": 46.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 54.7,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 39.82,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 51.9,
+    "macd": 1.8323,
+    "macd_signal": 2.1861,
+    "macd_histogram": -0.3538,
+    "macd_crossover": "neutral",
+    "ema_20": 38.52,
+    "ema_50": 34.85,
+    "ema_200": 29.2,
+    "ema_stack_bullish": false,
+    "bb_upper": 42.82,
+    "bb_middle": 38.91,
+    "bb_lower": 34.99,
+    "bb_width": 0.2013,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 31.9,
+    "atr": 1.97,
+    "atr_pct": 0.0518,
+    "obv_trend": "DOWN",
+    "mfi": 50.2,
+    "cmf": 0.058,
+    "stoch_k": 34.6,
+    "stoch_d": 56.0,
+    "rvol": 1.06,
+    "volume_5d_avg": 17263620,
+    "green_days_10d": 4,
+    "52w_high": 41.87,
+    "52w_low": 20.03,
+    "52w_high_proximity_pct": 0.0915,
+    "52w_low_proximity_pct": 0.8987
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 1.7043774,
+    "de_ratio": 111.871,
+    "fcf_yield": -0.0287,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.091,
+    "gross_margin": 0.062319998,
+    "operating_margin": -0.031400003,
+    "net_margin": -0.065630004,
+    "market_cap": 27374321664,
+    "enterprise_value": 44140994560,
+    "dividend_yield": 4.6,
+    "payout_ratio": 7.0,
+    "insider_ownership_pct": 0.0021,
+    "institutional_ownership_pct": 0.7014,
+    "short_ratio": 1.61,
+    "beta": 0.495
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 34.68,
+    "entry_range_high": 38.23,
+    "target_range_low": 43.07,
+    "target_range_high": 46.15,
+    "stop_range_low": 32.4,
+    "stop_range_high": 34.1,
+    "target_price": 43.95,
+    "stop_loss": 34.1,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.942741-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 47.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 460.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.03,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 27120,
+      "date": "2026-02-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "-3.16%",
+    "key_metrics": {
+      "RSI": 51.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "MA",
+  "company": "Mastercard Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.841070-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 503.57,
+    "open": 504.46,
+    "high": 506.67,
+    "low": 497.76,
+    "prev_close": 506.25,
+    "change_pct": -0.53,
+    "change_pct_1w": 2.6,
+    "change_pct_1m": -2.0,
+    "change_pct_1y": 4.5,
+    "volume": 3301800,
+    "avg_volume_30d": 3528066
+  },
+  "scores": {
+    "master_score": 49.37,
+    "technical_score": 55.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 48.7,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.37,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 50.1,
+    "macd": -3.8633,
+    "macd_signal": -6.0672,
+    "macd_histogram": 2.2039,
+    "macd_crossover": "neutral",
+    "ema_20": 500.83,
+    "ema_50": 512.76,
+    "ema_200": 540.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 509.68,
+    "bb_middle": 497.32,
+    "bb_lower": 484.95,
+    "bb_width": 0.0497,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 23.0,
+    "atr": 11.57,
+    "atr_pct": 0.023,
+    "obv_trend": "UP",
+    "mfi": 72.0,
+    "cmf": -0.088,
+    "stoch_k": 76.4,
+    "stoch_d": 76.1,
+    "rvol": 0.92,
+    "volume_5d_avg": 3232380,
+    "green_days_10d": 5,
+    "52w_high": 596.25,
+    "52w_low": 476.35,
+    "52w_high_proximity_pct": 0.1554,
+    "52w_low_proximity_pct": 0.0572
+  },
+  "fundamental": {
+    "pe_ratio": 30.482445,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 58.189274,
+    "de_ratio": 256.042,
+    "fcf_yield": 0.0362,
+    "eps_growth_5y": 0.242,
+    "revenue_growth_ttm": 0.176,
+    "gross_margin": 1.0,
+    "operating_margin": 0.57733,
+    "net_margin": 0.45646998,
+    "market_cap": 449404862464,
+    "enterprise_value": 458033922048,
+    "dividend_yield": 0.69,
+    "payout_ratio": 0.184,
+    "insider_ownership_pct": 0.0054699997,
+    "institutional_ownership_pct": 0.91036004,
+    "short_ratio": 1.68,
+    "beta": 0.831
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 501.05,
+    "entry_range_high": 506.09,
+    "target_range_low": 527.51,
+    "target_range_high": 565.19,
+    "stop_range_low": 456.41,
+    "stop_range_high": 480.43,
+    "target_price": 538.28,
+    "stop_loss": 480.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.841057-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 629.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 69.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 476.35,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 923,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "-0.53%",
+    "key_metrics": {
+      "RSI": 50.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

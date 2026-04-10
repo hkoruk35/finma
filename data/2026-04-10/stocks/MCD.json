@@ -1,0 +1,158 @@
+{
+  "ticker": "MCD",
+  "company": "McDonald's Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.673044-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Restaurants",
+  "price": {
+    "current": 309.55,
+    "open": 305.19,
+    "high": 311.1,
+    "low": 303.99,
+    "prev_close": 307.01,
+    "change_pct": 0.83,
+    "change_pct_1w": 0.74,
+    "change_pct_1m": -5.61,
+    "change_pct_1y": 5.61,
+    "volume": 2483700,
+    "avg_volume_30d": 3155633
+  },
+  "scores": {
+    "master_score": 39.4,
+    "technical_score": 27.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.5,
+    "breakout_score": 0.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.4,
+    "confidence": 0.39,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 43.8,
+    "macd": -4.0977,
+    "macd_signal": -4.0501,
+    "macd_histogram": -0.0476,
+    "macd_crossover": "neutral",
+    "ema_20": 312.17,
+    "ema_50": 315.51,
+    "ema_200": 309.49,
+    "ema_stack_bullish": false,
+    "bb_upper": 326.55,
+    "bb_middle": 312.26,
+    "bb_lower": 297.97,
+    "bb_width": 0.0915,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.9,
+    "atr": 5.46,
+    "atr_pct": 0.0176,
+    "obv_trend": "UP",
+    "mfi": 38.5,
+    "cmf": -0.2,
+    "stoch_k": 59.5,
+    "stoch_d": 32.3,
+    "rvol": 0.83,
+    "volume_5d_avg": 2627520,
+    "green_days_10d": 5,
+    "52w_high": 339.17,
+    "52w_low": 280.68,
+    "52w_high_proximity_pct": 0.0873,
+    "52w_low_proximity_pct": 0.1029
+  },
+  "fundamental": {
+    "pe_ratio": 25.92546,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": -122.886055,
+    "de_ratio": null,
+    "fcf_yield": 0.0286,
+    "eps_growth_5y": 0.082,
+    "revenue_growth_ttm": 0.097,
+    "gross_margin": 0.57407004,
+    "operating_margin": 0.45071,
+    "net_margin": 0.3185,
+    "market_cap": 220036694016,
+    "enterprise_value": 273959895040,
+    "dividend_yield": 2.4,
+    "payout_ratio": 0.6,
+    "insider_ownership_pct": 0.00278,
+    "institutional_ownership_pct": 0.7549,
+    "short_ratio": 2.83,
+    "beta": 0.532
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 308.0,
+    "entry_range_high": 311.1,
+    "target_range_low": 319.41,
+    "target_range_high": 342.23,
+    "stop_range_low": 283.7,
+    "stop_range_high": 298.63,
+    "target_price": 325.93,
+    "stop_loss": 298.63,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.673028-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 386.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 240.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 280.68,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 333,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 39,
+    "price_change_display": "+0.83%",
+    "key_metrics": {
+      "RSI": 43.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

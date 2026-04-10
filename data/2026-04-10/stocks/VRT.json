@@ -1,0 +1,158 @@
+{
+  "ticker": "VRT",
+  "company": "Vertiv Holdings Co",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.639498-04:00",
+  "sector": "Technology",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 287.64,
+    "open": 280.99,
+    "high": 291.0,
+    "low": 280.97,
+    "prev_close": 281.03,
+    "change_pct": 2.35,
+    "change_pct_1w": 10.9,
+    "change_pct_1m": 6.54,
+    "change_pct_1y": 351.26,
+    "volume": 5162900,
+    "avg_volume_30d": 9568223
+  },
+  "scores": {
+    "master_score": 49.27,
+    "technical_score": 65.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.7,
+    "breakout_score": 25.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 49.27,
+    "confidence": 0.49,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 64.2,
+    "macd": 7.3382,
+    "macd_signal": 6.1606,
+    "macd_histogram": 1.1776,
+    "macd_crossover": "bullish",
+    "ema_20": 261.51,
+    "ema_50": 243.18,
+    "ema_200": 186.13,
+    "ema_stack_bullish": true,
+    "bb_upper": 285.36,
+    "bb_middle": 262.43,
+    "bb_lower": 239.5,
+    "bb_width": 0.1747,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.6,
+    "atr": 14.96,
+    "atr_pct": 0.052,
+    "obv_trend": "UP",
+    "mfi": 24.6,
+    "cmf": -0.482,
+    "stoch_k": 94.3,
+    "stoch_d": 82.2,
+    "rvol": 0.44,
+    "volume_5d_avg": 4213600,
+    "green_days_10d": 6,
+    "52w_high": 287.64,
+    "52w_low": 62.82,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 3.5786
+  },
+  "fundamental": {
+    "pe_ratio": 84.10526,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 27.918083,
+    "de_ratio": 81.899,
+    "fcf_yield": 0.013,
+    "eps_growth_5y": 1.995,
+    "revenue_growth_ttm": 0.227,
+    "gross_margin": 0.36317003,
+    "operating_margin": 0.21174,
+    "net_margin": 0.13028,
+    "market_cap": 110050631680,
+    "enterprise_value": 111427223552,
+    "dividend_yield": 0.09,
+    "payout_ratio": 0.0513,
+    "insider_ownership_pct": 0.0037,
+    "institutional_ownership_pct": 0.80167997,
+    "short_ratio": 1.27,
+    "beta": 2.048
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 241.96,
+    "entry_range_high": 289.08,
+    "target_range_low": 325.87,
+    "target_range_high": 349.15,
+    "stop_range_low": 244.83,
+    "stop_range_high": 257.72,
+    "target_price": 332.52,
+    "stop_loss": 257.72,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.639480-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 25.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 359.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 9.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 62.82,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 49,
+    "price_change_display": "+2.35%",
+    "key_metrics": {
+      "RSI": 64.2,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "FITB",
+  "company": "Fifth Third Bancorp",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.861655-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 50.22,
+    "open": 49.11,
+    "high": 50.45,
+    "low": 49.09,
+    "prev_close": 49.34,
+    "change_pct": 1.78,
+    "change_pct_1w": 7.26,
+    "change_pct_1m": 8.77,
+    "change_pct_1y": 52.69,
+    "volume": 5768100,
+    "avg_volume_30d": 10337986
+  },
+  "scores": {
+    "master_score": 54.62,
+    "technical_score": 45.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.7,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.62,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 67.5,
+    "macd": 0.2741,
+    "macd_signal": -0.513,
+    "macd_histogram": 0.7871,
+    "macd_crossover": "neutral",
+    "ema_20": 46.89,
+    "ema_50": 47.36,
+    "ema_200": 45.18,
+    "ema_stack_bullish": false,
+    "bb_upper": 49.57,
+    "bb_middle": 45.45,
+    "bb_lower": 41.33,
+    "bb_width": 0.1814,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.6,
+    "atr": 1.33,
+    "atr_pct": 0.0266,
+    "obv_trend": "UP",
+    "mfi": 77.6,
+    "cmf": 0.06,
+    "stoch_k": 96.9,
+    "stoch_d": 96.3,
+    "rvol": 0.69,
+    "volume_5d_avg": 7165560,
+    "green_days_10d": 8,
+    "52w_high": 54.59,
+    "52w_low": 32.17,
+    "52w_high_proximity_pct": 0.08,
+    "52w_low_proximity_pct": 0.5613
+  },
+  "fundamental": {
+    "pe_ratio": 14.226629,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 1.6640711,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.209,
+    "revenue_growth_ttm": 0.116,
+    "gross_margin": 0.0,
+    "operating_margin": 0.41089,
+    "net_margin": 0.30186,
+    "market_cap": 45477400576,
+    "enterprise_value": 57895350272,
+    "dividend_yield": 3.19,
+    "payout_ratio": 0.4363,
+    "insider_ownership_pct": 0.00352,
+    "institutional_ownership_pct": 0.6998,
+    "short_ratio": 4.07,
+    "beta": 0.973
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 47.12,
+    "entry_range_high": 50.47,
+    "target_range_low": 53.13,
+    "target_range_high": 56.92,
+    "stop_range_low": 45.18,
+    "stop_range_high": 47.56,
+    "target_price": 54.21,
+    "stop_loss": 47.56,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.861630-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 62.77,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 319.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 32.17,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14896,
+      "date": "2026-02-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 55,
+    "price_change_display": "+1.78%",
+    "key_metrics": {
+      "RSI": 67.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

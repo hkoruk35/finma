@@ -1,0 +1,160 @@
+{
+  "ticker": "CMCSA",
+  "company": "Comcast Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.649581-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 28.31,
+    "open": 27.82,
+    "high": 28.32,
+    "low": 27.63,
+    "prev_close": 27.96,
+    "change_pct": 1.25,
+    "change_pct_1w": 0.93,
+    "change_pct_1m": -7.82,
+    "change_pct_1y": -5.79,
+    "volume": 24208100,
+    "avg_volume_30d": 34163226
+  },
+  "scores": {
+    "master_score": 40.55,
+    "technical_score": 22.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 43.5,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 40.55,
+    "confidence": 0.41,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 43.0,
+    "macd": -0.5482,
+    "macd_signal": -0.5324,
+    "macd_histogram": -0.0158,
+    "macd_crossover": "neutral",
+    "ema_20": 28.63,
+    "ema_50": 29.03,
+    "ema_200": 28.97,
+    "ema_stack_bullish": false,
+    "bb_upper": 29.99,
+    "bb_middle": 28.6,
+    "bb_lower": 27.21,
+    "bb_width": 0.0972,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.3,
+    "atr": 0.7,
+    "atr_pct": 0.0247,
+    "obv_trend": "UP",
+    "mfi": 59.6,
+    "cmf": -0.312,
+    "stoch_k": 44.0,
+    "stoch_d": 27.6,
+    "rvol": 0.76,
+    "volume_5d_avg": 25843300,
+    "green_days_10d": 4,
+    "52w_high": 32.62,
+    "52w_low": 24.23,
+    "52w_high_proximity_pct": 0.1321,
+    "52w_low_proximity_pct": 0.1684
+  },
+  "fundamental": {
+    "pe_ratio": 5.2523193,
+    "sector_pe_median": 24.866439999999997,
+    "pb_ratio": 1.0529643,
+    "de_ratio": 107.863,
+    "fcf_yield": 0.0542,
+    "eps_growth_5y": -0.525,
+    "revenue_growth_ttm": 0.012,
+    "gross_margin": 0.71747,
+    "operating_margin": 0.107889995,
+    "net_margin": 0.16166,
+    "market_cap": 103158652928,
+    "enterprise_value": 197880020992,
+    "dividend_yield": 4.66,
+    "payout_ratio": 0.18370001,
+    "insider_ownership_pct": 0.00758,
+    "institutional_ownership_pct": 0.88683,
+    "short_ratio": 2.91,
+    "beta": 0.79
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 28.17,
+    "entry_range_high": 28.45,
+    "target_range_low": 29.8,
+    "target_range_high": 31.93,
+    "stop_range_low": 25.56,
+    "stop_range_high": 26.91,
+    "target_price": 30.41,
+    "stop_loss": 26.91,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.649565-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 35.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 466.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 24.23,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5268,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.3,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CMCSA exhibits a FinMA SELL signal (41% confidence) based on bearish EMA alignment and low Bollinger Band positioning, despite a 1.25% price increase today to $28.31. The stock is 13.2% below its 52-week high. While the RSI (43.0) and neutral MACD offer no immediate directional bias, weak ADX strength (22.3) suggests a lack of a strong trend. CMCSA trades at a P/E of 5.25, a significant discount to its sector median, yet revenue growth is a modest 1.2% TTM. A key level to watch is a breach of recent lows, potentially accelerating the sell-off. High Dividend Yield of 466.00% might be unsustainable.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 41,
+    "price_change_display": "+1.25%",
+    "key_metrics": {
+      "RSI": 43.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

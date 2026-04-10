@@ -1,0 +1,158 @@
+{
+  "ticker": "DDOG",
+  "company": "Datadog, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.603558-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 108.98,
+    "open": 118.68,
+    "high": 119.45,
+    "low": 108.51,
+    "prev_close": 116.5,
+    "change_pct": -6.45,
+    "change_pct_1w": -8.17,
+    "change_pct_1m": -11.46,
+    "change_pct_1y": 23.56,
+    "volume": 6308900,
+    "avg_volume_30d": 4573713
+  },
+  "scores": {
+    "master_score": 19.32,
+    "technical_score": 13.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.7,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 19.32,
+    "confidence": 0.19,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 36.3,
+    "macd": -2.3044,
+    "macd_signal": -1.0667,
+    "macd_histogram": -1.2376,
+    "macd_crossover": "neutral",
+    "ema_20": 119.28,
+    "ema_50": 122.98,
+    "ema_200": 131.15,
+    "ema_stack_bullish": false,
+    "bb_upper": 133.79,
+    "bb_middle": 121.93,
+    "bb_lower": 110.08,
+    "bb_width": 0.1945,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.2,
+    "atr": 6.98,
+    "atr_pct": 0.0641,
+    "obv_trend": "DOWN",
+    "mfi": 36.9,
+    "cmf": -0.294,
+    "stoch_k": 2.1,
+    "stoch_d": 15.5,
+    "rvol": 0.91,
+    "volume_5d_avg": 4156960,
+    "green_days_10d": 6,
+    "52w_high": 199.72,
+    "52w_low": 87.0,
+    "52w_high_proximity_pct": 0.4543,
+    "52w_low_proximity_pct": 0.2526
+  },
+  "fundamental": {
+    "pe_ratio": 351.5484,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 10.2937565,
+    "de_ratio": 34.269,
+    "fcf_yield": 0.0228,
+    "eps_growth_5y": -0.033,
+    "revenue_growth_ttm": 0.292,
+    "gross_margin": 0.79976,
+    "operating_margin": 0.0100300005,
+    "net_margin": 0.03144,
+    "market_cap": 38562717696,
+    "enterprise_value": 35227910144,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0072500003,
+    "institutional_ownership_pct": 0.90988,
+    "short_ratio": 1.61,
+    "beta": 1.294
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 108.44,
+    "entry_range_high": 109.52,
+    "target_range_low": 127.32,
+    "target_range_high": 136.42,
+    "stop_range_low": 90.27,
+    "stop_range_high": 95.02,
+    "target_price": 129.92,
+    "stop_loss": 95.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.603538-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 136.22,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 87.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 23,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 32300,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 19,
+    "price_change_display": "-6.45%",
+    "key_metrics": {
+      "RSI": 36.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

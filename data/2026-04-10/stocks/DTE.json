@@ -1,0 +1,158 @@
+{
+  "ticker": "DTE",
+  "company": "DTE Energy Company",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.028702-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 150.98,
+    "open": 148.7,
+    "high": 151.4,
+    "low": 148.63,
+    "prev_close": 148.78,
+    "change_pct": 1.48,
+    "change_pct_1w": 2.62,
+    "change_pct_1m": 2.98,
+    "change_pct_1y": 21.95,
+    "volume": 982000,
+    "avg_volume_30d": 1223806
+  },
+  "scores": {
+    "master_score": 56.66,
+    "technical_score": 65.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.6,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 56.66,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 68.1,
+    "macd": 1.3929,
+    "macd_signal": 1.0913,
+    "macd_histogram": 0.3016,
+    "macd_crossover": "neutral",
+    "ema_20": 146.7,
+    "ema_50": 143.56,
+    "ema_200": 136.75,
+    "ema_stack_bullish": true,
+    "bb_upper": 151.47,
+    "bb_middle": 146.51,
+    "bb_lower": 141.56,
+    "bb_width": 0.0676,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.2,
+    "atr": 2.46,
+    "atr_pct": 0.0163,
+    "obv_trend": "UP",
+    "mfi": 46.7,
+    "cmf": -0.163,
+    "stoch_k": 95.8,
+    "stoch_d": 90.8,
+    "rvol": 0.77,
+    "volume_5d_avg": 947620,
+    "green_days_10d": 9,
+    "52w_high": 150.98,
+    "52w_low": 123.26,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.2249
+  },
+  "fundamental": {
+    "pe_ratio": 21.446022,
+    "sector_pe_median": 23.062841,
+    "pb_ratio": 2.5493903,
+    "de_ratio": 213.601,
+    "fcf_yield": -0.0556,
+    "eps_growth_5y": 0.255,
+    "revenue_growth_ttm": 0.289,
+    "gross_margin": 0.30309,
+    "operating_margin": 0.15921,
+    "net_margin": 0.09245,
+    "market_cap": 31408082944,
+    "enterprise_value": 57461211136,
+    "dividend_yield": 2.99,
+    "payout_ratio": 0.6309,
+    "insider_ownership_pct": 0.00402,
+    "institutional_ownership_pct": 0.7924,
+    "short_ratio": 3.0,
+    "beta": 0.428
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 142.84,
+    "entry_range_high": 151.73,
+    "target_range_low": 155.19,
+    "target_range_high": 166.28,
+    "stop_range_low": 138.76,
+    "stop_range_high": 146.06,
+    "target_price": 158.36,
+    "stop_loss": 146.06,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.028683-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 188.72,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 299.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 123.26,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1801,
+      "date": "2026-02-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.75,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 57,
+    "price_change_display": "+1.48%",
+    "key_metrics": {
+      "RSI": 68.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

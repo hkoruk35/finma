@@ -1,0 +1,158 @@
+{
+  "ticker": "TRP",
+  "company": "TC Energy Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.903330-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 64.18,
+    "open": 64.06,
+    "high": 65.29,
+    "low": 63.93,
+    "prev_close": 63.9,
+    "change_pct": 0.44,
+    "change_pct_1w": 3.15,
+    "change_pct_1m": 1.82,
+    "change_pct_1y": 43.68,
+    "volume": 1471100,
+    "avg_volume_30d": 2751153
+  },
+  "scores": {
+    "master_score": 40.42,
+    "technical_score": 55.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 46.7,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 40.42,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 61.2,
+    "macd": 0.4399,
+    "macd_signal": 0.4555,
+    "macd_histogram": -0.0157,
+    "macd_crossover": "neutral",
+    "ema_20": 63.06,
+    "ema_50": 61.49,
+    "ema_200": 55.31,
+    "ema_stack_bullish": true,
+    "bb_upper": 64.14,
+    "bb_middle": 63.13,
+    "bb_lower": 62.13,
+    "bb_width": 0.0319,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.6,
+    "atr": 1.23,
+    "atr_pct": 0.0192,
+    "obv_trend": "UP",
+    "mfi": 26.2,
+    "cmf": 0.042,
+    "stoch_k": 69.9,
+    "stoch_d": 73.8,
+    "rvol": 0.96,
+    "volume_5d_avg": 2653260,
+    "green_days_10d": 5,
+    "52w_high": 64.44,
+    "52w_low": 43.48,
+    "52w_high_proximity_pct": 0.004,
+    "52w_low_proximity_pct": 0.4762
+  },
+  "fundamental": {
+    "pe_ratio": 25.569721,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 3.7093394,
+    "de_ratio": 165.373,
+    "fcf_yield": -0.0275,
+    "eps_growth_5y": 0.005,
+    "revenue_growth_ttm": 0.165,
+    "gross_margin": 0.69027,
+    "operating_margin": 0.45441002,
+    "net_margin": 0.23091999,
+    "market_cap": 66930233344,
+    "enterprise_value": 136478998528,
+    "dividend_yield": 3.93,
+    "payout_ratio": 0.97980005,
+    "insider_ownership_pct": 0.001,
+    "institutional_ownership_pct": 0.76939005,
+    "short_ratio": 8.08,
+    "beta": 0.973
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 61.18,
+    "entry_range_high": 64.5,
+    "target_range_low": 66.51,
+    "target_range_high": 71.26,
+    "stop_range_low": 58.63,
+    "stop_range_high": 61.72,
+    "target_price": 67.87,
+    "stop_loss": 61.72,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.903313-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 80.23,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 393.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 43.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 4,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25342,
+      "date": "2026-03-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "+0.44%",
+    "key_metrics": {
+      "RSI": 61.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

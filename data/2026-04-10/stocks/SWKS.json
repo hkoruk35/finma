@@ -1,0 +1,161 @@
+{
+  "ticker": "SWKS",
+  "company": "Skyworks Solutions, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.578312-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 56.56,
+    "open": 56.25,
+    "high": 56.96,
+    "low": 55.95,
+    "prev_close": 56.54,
+    "change_pct": 0.04,
+    "change_pct_1w": 6.28,
+    "change_pct_1m": 2.97,
+    "change_pct_1y": 10.58,
+    "volume": 3006600,
+    "avg_volume_30d": 3288856
+  },
+  "scores": {
+    "master_score": 55.02,
+    "technical_score": 55.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 42.7,
+    "breakout_score": 45.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 55.02,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 53.9,
+    "macd": -0.3516,
+    "macd_signal": -0.771,
+    "macd_histogram": 0.4194,
+    "macd_crossover": "neutral",
+    "ema_20": 55.38,
+    "ema_50": 57.0,
+    "ema_200": 62.7,
+    "ema_stack_bullish": false,
+    "bb_upper": 57.12,
+    "bb_middle": 54.76,
+    "bb_lower": 52.41,
+    "bb_width": 0.0859,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 20.9,
+    "atr": 1.92,
+    "atr_pct": 0.034,
+    "obv_trend": "UP",
+    "mfi": 81.0,
+    "cmf": -0.009,
+    "stoch_k": 81.7,
+    "stoch_d": 72.7,
+    "rvol": 1.03,
+    "volume_5d_avg": 3384940,
+    "green_days_10d": 6,
+    "52w_high": 81.06,
+    "52w_low": 47.14,
+    "52w_high_proximity_pct": 0.3023,
+    "52w_low_proximity_pct": 0.1997
+  },
+  "fundamental": {
+    "pe_ratio": 21.6705,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 1.4722266,
+    "de_ratio": 20.714,
+    "fcf_yield": 0.1293,
+    "eps_growth_5y": -0.47,
+    "revenue_growth_ttm": -0.031,
+    "gross_margin": 0.41132,
+    "operating_margin": 0.14709,
+    "net_margin": 0.097270004,
+    "market_cap": 8506961920,
+    "enterprise_value": 8139331584,
+    "dividend_yield": 5.02,
+    "payout_ratio": 1.0805,
+    "insider_ownership_pct": 0.0041,
+    "institutional_ownership_pct": 1.08099,
+    "short_ratio": 7.53,
+    "beta": 1.3
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 56.28,
+    "entry_range_high": 56.84,
+    "target_range_low": 61.07,
+    "target_range_high": 65.44,
+    "stop_range_low": 50.08,
+    "stop_range_high": 52.72,
+    "target_price": 62.32,
+    "stop_loss": 52.72,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.578268-04:00",
+    "categories": [
+      "breakout",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 70.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 502.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 47.14,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 692,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "SWKS presents a neutral signal, confidence 55%. Technically, the stock is trading near the high end of its Bollinger Bands at $56.56, with a bearish EMA alignment. The ADX of 20.9 indicates a weak trend.\n\nFundamentally, SWKS's P/E of 21.67 represents a valuation discount compared to the sector's median. However, TTM revenue growth is negative (-3.1%), despite strong gross margins (41.1%).\n\nThe unusually high dividend yield of 502.00% needs further scrutiny - it may reflect a data error or an unsustainable payout. The next earnings report will be a crucial catalyst to assess revenue trends and dividend sustainability.",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 55,
+    "price_change_display": "+0.04%",
+    "key_metrics": {
+      "RSI": 53.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

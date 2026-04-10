@@ -1,0 +1,160 @@
+{
+  "ticker": "GLW",
+  "company": "Corning Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.636737-04:00",
+  "sector": "Technology",
+  "industry": "Electronic Components",
+  "price": {
+    "current": 169.8,
+    "open": 167.88,
+    "high": 172.22,
+    "low": 166.6,
+    "prev_close": 165.1,
+    "change_pct": 2.85,
+    "change_pct_1w": 19.26,
+    "change_pct_1m": 24.65,
+    "change_pct_1y": 335.14,
+    "volume": 11943900,
+    "avg_volume_30d": 13341253
+  },
+  "scores": {
+    "master_score": 56.02,
+    "technical_score": 60.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 56.02,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 69.1,
+    "macd": 7.1366,
+    "macd_signal": 4.0596,
+    "macd_histogram": 3.077,
+    "macd_crossover": "neutral",
+    "ema_20": 143.58,
+    "ema_50": 132.09,
+    "ema_200": 98.04,
+    "ema_stack_bullish": true,
+    "bb_upper": 162.77,
+    "bb_middle": 139.23,
+    "bb_lower": 115.68,
+    "bb_width": 0.3382,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.5,
+    "atr": 9.49,
+    "atr_pct": 0.0559,
+    "obv_trend": "UP",
+    "mfi": 71.7,
+    "cmf": 0.057,
+    "stoch_k": 94.9,
+    "stoch_d": 96.0,
+    "rvol": 0.88,
+    "volume_5d_avg": 11701340,
+    "green_days_10d": 7,
+    "52w_high": 169.8,
+    "52w_low": 38.6,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 3.3992
+  },
+  "fundamental": {
+    "pe_ratio": 92.78689,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 12.324889,
+    "de_ratio": 76.192,
+    "fcf_yield": 0.0044,
+    "eps_growth_5y": 0.774,
+    "revenue_growth_ttm": 0.204,
+    "gross_margin": 0.35984,
+    "operating_margin": 0.1656,
+    "net_margin": 0.10212,
+    "market_cap": 145860722688,
+    "enterprise_value": 154030587904,
+    "dividend_yield": 0.66,
+    "payout_ratio": 0.612,
+    "insider_ownership_pct": 0.081470005,
+    "institutional_ownership_pct": 0.74759,
+    "short_ratio": 1.29,
+    "beta": 1.053
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 131.43,
+    "entry_range_high": 170.65,
+    "target_range_low": 194.3,
+    "target_range_high": 208.18,
+    "stop_range_low": 143.28,
+    "stop_range_high": 150.82,
+    "target_price": 198.27,
+    "stop_loss": 150.82,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.636720-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 212.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 66.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 631,
+      "date": "2026-02-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "GLW exhibits a Neutral FinMA signal (56% confidence) despite today's 2.85% gain to $169.8, hitting its 52-week high. Bullish EMA alignment and an RSI of 69.1 suggest continued upward momentum, though ADX at 17.5 indicates a weak trend. GLW's premium P/E of 92.79 compared to the sector median of 39.07 raises valuation concerns despite strong 20.4% TTM revenue growth and healthy margins. The unusually high 66% dividend yield warrants scrutiny and may be unsustainable. Absent recent news, the high yield is likely a key catalyst driving price despite the high P/E. A break above the 52-week high could trigger further gains, but valuation must be justified.",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 56,
+    "price_change_display": "+2.85%",
+    "key_metrics": {
+      "RSI": 69.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,458 @@
+{
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.092730-04:00",
+  "total_tickers_scanned": 539,
+  "active_signals_count": 93,
+  "market_regime": "Bull",
+  "menus": {
+    "top_signals": {
+      "count": 10,
+      "tickers": [
+        "ALL",
+        "TD",
+        "SBAC",
+        "CB",
+        "AL",
+        "DELL",
+        "HIG",
+        "GTY",
+        "FRT",
+        "OII"
+      ]
+    },
+    "breakout": {
+      "count": 20,
+      "tickers": [
+        "STZ",
+        "APD",
+        "DE",
+        "CAR",
+        "SPOT",
+        "EXPE",
+        "CHD",
+        "TXN",
+        "SNDK",
+        "AAPL",
+        "QCOM",
+        "SWKS",
+        "ADBE",
+        "BILL",
+        "FTNT",
+        "NET",
+        "AKAM",
+        "CHTR",
+        "RBLX",
+        "PINS"
+      ]
+    },
+    "value": {
+      "count": 20,
+      "tickers": [
+        "DELL",
+        "ERIC",
+        "MTCH",
+        "LYFT",
+        "SIG",
+        "ALL",
+        "FSM",
+        "VNO",
+        "SWKS",
+        "T",
+        "VZ",
+        "CHTR",
+        "CMCSA",
+        "CPB",
+        "MO",
+        "CI",
+        "PRU",
+        "DVN",
+        "EC",
+        "PARR"
+      ]
+    },
+    "reversal": {
+      "count": 20,
+      "tickers": [
+        "NOW",
+        "INTU",
+        "WDAY",
+        "TEAM",
+        "SNOW",
+        "HUBS",
+        "VEEV",
+        "ZS",
+        "SJM",
+        "BSX",
+        "PODD",
+        "AXON",
+        "BR",
+        "VRSK",
+        "NKE",
+        "CRM",
+        "ADBE",
+        "BILL",
+        "GTLB",
+        "TTD"
+      ]
+    },
+    "momentum": {
+      "count": 20,
+      "tickers": [
+        "LRCX",
+        "AMAT",
+        "MRVL",
+        "ADI",
+        "LITE",
+        "DELL",
+        "INTC",
+        "GLW",
+        "NOK",
+        "VOD",
+        "AMX",
+        "TJX",
+        "ROST",
+        "BTI",
+        "AZN",
+        "HOLX",
+        "CVS",
+        "JPM",
+        "BAC",
+        "C"
+      ]
+    },
+    "dividend": {
+      "count": 20,
+      "tickers": [
+        "QCOM",
+        "ADI",
+        "CRM",
+        "INTU",
+        "IBM",
+        "CSCO",
+        "NTAP",
+        "DELL",
+        "TSM",
+        "T",
+        "VZ",
+        "TMUS",
+        "ERIC",
+        "AMX",
+        "EA",
+        "MTCH",
+        "OMC",
+        "F",
+        "HD",
+        "LOW"
+      ]
+    }
+  },
+  "sector_summary": {
+    "Technology": {
+      "avg_score": 41.8,
+      "top_ticker": "DELL",
+      "top_tickers": [
+        "DELL",
+        "TSM",
+        "ZM",
+        "INTC",
+        "CSCO",
+        "GLW",
+        "SNDK",
+        "MU",
+        "SWKS",
+        "WDC",
+        "GRMN",
+        "LRCX",
+        "ADI",
+        "AMAT",
+        "KEYS"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 68
+    },
+    "Communication Services": {
+      "avg_score": 44.1,
+      "top_ticker": "ERIC",
+      "top_tickers": [
+        "ERIC",
+        "AMX",
+        "MTCH",
+        "CHTR",
+        "NFLX",
+        "NOK",
+        "VOD",
+        "WBD",
+        "SNAP",
+        "DIS",
+        "EA",
+        "TKO",
+        "TTWO",
+        "ROKU",
+        "T"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 23
+    },
+    "Consumer Discretionary": {
+      "avg_score": 44.2,
+      "top_ticker": "CAR",
+      "top_tickers": [
+        "CAR",
+        "PVH",
+        "MAR",
+        "YUM",
+        "SIG",
+        "LOW",
+        "ROST",
+        "CCL",
+        "ANF",
+        "QSR",
+        "EBAY",
+        "TPR",
+        "TJX",
+        "RL",
+        "LYV"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 50
+    },
+    "Consumer Staples": {
+      "avg_score": 46.4,
+      "top_ticker": "STZ",
+      "top_tickers": [
+        "STZ",
+        "MO",
+        "TSN",
+        "BTI",
+        "TGT",
+        "CPB",
+        "PEP",
+        "COST",
+        "KO",
+        "PM",
+        "WMT",
+        "CTVA",
+        "GIS",
+        "BG",
+        "KMB"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 32
+    },
+    "Healthcare": {
+      "avg_score": 45.0,
+      "top_ticker": "EXEL",
+      "top_tickers": [
+        "EXEL",
+        "HOLX",
+        "BMY",
+        "HCA",
+        "ELV",
+        "CVS",
+        "TAK",
+        "DHR",
+        "GILD",
+        "AZN",
+        "THC",
+        "NVS",
+        "CI",
+        "ZBH",
+        "INSP"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 50
+    },
+    "Financials": {
+      "avg_score": 48.3,
+      "top_ticker": "ALL",
+      "top_tickers": [
+        "ALL",
+        "TD",
+        "CB",
+        "HIG",
+        "TRV",
+        "CFG",
+        "BNS",
+        "BAC",
+        "PYPL",
+        "AIG",
+        "TFC",
+        "RF",
+        "PNC",
+        "FITB",
+        "CM"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 68
+    },
+    "Energy": {
+      "avg_score": 44.7,
+      "top_ticker": "OII",
+      "top_tickers": [
+        "OII",
+        "VAL",
+        "RIG",
+        "TDW",
+        "BEP",
+        "CVE",
+        "SHEL",
+        "KNTK",
+        "SLB",
+        "ET",
+        "PBR",
+        "ENB",
+        "GLNG",
+        "TTE",
+        "SU"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 54
+    },
+    "Materials": {
+      "avg_score": 48.6,
+      "top_ticker": "SSRM",
+      "top_tickers": [
+        "SSRM",
+        "AA",
+        "NEXA",
+        "MT",
+        "VALE",
+        "BHP",
+        "AU",
+        "FSM",
+        "NUE",
+        "RIO",
+        "FCX",
+        "GOLD",
+        "CENX",
+        "FNV",
+        "SQM"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 46
+    },
+    "Industrials": {
+      "avg_score": 47.6,
+      "top_ticker": "AL",
+      "top_tickers": [
+        "AL",
+        "CNI",
+        "FDX",
+        "UNP",
+        "HON",
+        "TDY",
+        "UPS",
+        "ALSN",
+        "PCAR",
+        "PRIM",
+        "HWM",
+        "CMI",
+        "GWW",
+        "LMT",
+        "HUBB"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 67
+    },
+    "Utilities": {
+      "avg_score": 51.3,
+      "top_ticker": "CMS",
+      "top_tickers": [
+        "CMS",
+        "PEG",
+        "AEE",
+        "PCG",
+        "NEE",
+        "OGS",
+        "NI",
+        "ES",
+        "CWT",
+        "DTE",
+        "EIX",
+        "XEL",
+        "EVRG",
+        "SRE",
+        "AES"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 36
+    },
+    "Real Estate": {
+      "avg_score": 53.5,
+      "top_ticker": "SBAC",
+      "top_tickers": [
+        "SBAC",
+        "GTY",
+        "FRT",
+        "KRG",
+        "HST",
+        "SPG",
+        "VNO",
+        "O",
+        "FR",
+        "EGP",
+        "REG",
+        "KIM",
+        "AMH",
+        "PLD",
+        "MAC"
+      ],
+      "volume_change_pct": null,
+      "stock_count": 45
+    }
+  },
+  "top_3_overall": [
+    {
+      "ticker": "ALL",
+      "score": 72.62,
+      "signal": "BUY"
+    },
+    {
+      "ticker": "TD",
+      "score": 71.67,
+      "signal": "BUY"
+    },
+    {
+      "ticker": "SBAC",
+      "score": 71.1,
+      "signal": "BUY"
+    }
+  ],
+  "market_indices": {
+    "SP500": {
+      "value": 6824.66,
+      "change_pct": 0.62,
+      "change_pct_1w": 3.79,
+      "change_pct_1m": 0.64,
+      "change_pct_1y": 34.81
+    },
+    "NASDAQ": {
+      "value": 22822.42,
+      "change_pct": 0.83,
+      "change_pct_1w": 4.49,
+      "change_pct_1m": 0.55,
+      "change_pct_1y": 46.27
+    },
+    "DOW": {
+      "value": 48185.8,
+      "change_pct": 0.58,
+      "change_pct_1w": 3.48,
+      "change_pct_1m": 1.0,
+      "change_pct_1y": 26.92
+    },
+    "VIX": {
+      "value": 19.69,
+      "change_pct": 1.03,
+      "change_pct_1w": -17.51,
+      "change_pct_1m": -18.74,
+      "change_pct_1y": -62.37
+    },
+    "RUSSELL": {
+      "value": 2636.31,
+      "change_pct": 0.6,
+      "change_pct_1w": 4.93,
+      "change_pct_1m": 3.46,
+      "change_pct_1y": 45.64
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "LOW",
+  "company": "Lowe's Companies, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.671458-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Home Improvement Retail",
+  "price": {
+    "current": 247.81,
+    "open": 241.0,
+    "high": 248.99,
+    "low": 238.18,
+    "prev_close": 243.66,
+    "change_pct": 1.7,
+    "change_pct_1w": 5.01,
+    "change_pct_1m": -1.31,
+    "change_pct_1y": 16.53,
+    "volume": 2283300,
+    "avg_volume_30d": 2695296
+  },
+  "scores": {
+    "master_score": 53.55,
+    "technical_score": 61.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.5,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 53.55,
+    "confidence": 0.54,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 55.1,
+    "macd": -4.0131,
+    "macd_signal": -6.5181,
+    "macd_histogram": 2.5051,
+    "macd_crossover": "neutral",
+    "ema_20": 239.82,
+    "ema_50": 247.98,
+    "ema_200": 246.92,
+    "ema_stack_bullish": false,
+    "bb_upper": 245.93,
+    "bb_middle": 235.48,
+    "bb_lower": 225.04,
+    "bb_width": 0.0887,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 33.2,
+    "atr": 7.32,
+    "atr_pct": 0.0295,
+    "obv_trend": "UP",
+    "mfi": 62.7,
+    "cmf": -0.142,
+    "stoch_k": 95.2,
+    "stoch_d": 77.2,
+    "rvol": 0.89,
+    "volume_5d_avg": 2411120,
+    "green_days_10d": 5,
+    "52w_high": 287.39,
+    "52w_low": 207.51,
+    "52w_high_proximity_pct": 0.1377,
+    "52w_low_proximity_pct": 0.1942
+  },
+  "fundamental": {
+    "pe_ratio": 20.912235,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": -14.018782,
+    "de_ratio": null,
+    "fcf_yield": 0.0359,
+    "eps_growth_5y": -0.11,
+    "revenue_growth_ttm": 0.109,
+    "gross_margin": 0.33476,
+    "operating_margin": 0.08555,
+    "net_margin": 0.07712,
+    "market_cap": 139009392640,
+    "enterprise_value": 182484320256,
+    "dividend_yield": 1.94,
+    "payout_ratio": 0.40080002,
+    "insider_ownership_pct": 0.00115,
+    "institutional_ownership_pct": 0.80762,
+    "short_ratio": 4.24,
+    "beta": 0.965
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 246.57,
+    "entry_range_high": 249.05,
+    "target_range_low": 264.37,
+    "target_range_high": 283.26,
+    "stop_range_low": 221.51,
+    "stop_range_high": 233.17,
+    "target_price": 269.77,
+    "stop_loss": 233.17,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.671439-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 309.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 194.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 207.51,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9535,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "LOW exhibits a \"SELL\" signal, driven primarily by bearish EMA alignment despite its seemingly attractive P/E of 20.91, which is below the sector median. The ADX of 33.2 suggests a moderately strong downtrend. Key level to watch: break below $240 could trigger further selling. Though revenue growth is solid at 10.9% TTM, high dividend yield of 194.00% suggests concern about its sustainability. A catalyst for potential reversal: substantially better-than-expected Q1 earnings release, showing improved same-store sales.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 54,
+    "price_change_display": "+1.70%",
+    "key_metrics": {
+      "RSI": 55.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

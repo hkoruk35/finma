@@ -1,0 +1,160 @@
+{
+  "ticker": "RBLX",
+  "company": "Roblox Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.656335-04:00",
+  "sector": "Communication Services",
+  "industry": "Electronic Gaming & Multimedia",
+  "price": {
+    "current": 55.17,
+    "open": 54.8,
+    "high": 55.75,
+    "low": 53.2,
+    "prev_close": 55.43,
+    "change_pct": -0.47,
+    "change_pct_1w": -4.27,
+    "change_pct_1m": -6.22,
+    "change_pct_1y": 5.03,
+    "volume": 10157500,
+    "avg_volume_30d": 8835426
+  },
+  "scores": {
+    "master_score": 23.05,
+    "technical_score": 32.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 43.5,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 23.05,
+    "confidence": 0.23,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 42.1,
+    "macd": -1.9783,
+    "macd_signal": -2.4659,
+    "macd_histogram": 0.4876,
+    "macd_crossover": "neutral",
+    "ema_20": 57.53,
+    "ema_50": 63.48,
+    "ema_200": 82.54,
+    "ema_stack_bullish": false,
+    "bb_upper": 60.43,
+    "bb_middle": 56.43,
+    "bb_lower": 52.43,
+    "bb_width": 0.1417,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.7,
+    "atr": 3.35,
+    "atr_pct": 0.0607,
+    "obv_trend": "DOWN",
+    "mfi": 45.5,
+    "cmf": -0.069,
+    "stoch_k": 41.8,
+    "stoch_d": 50.9,
+    "rvol": 1.02,
+    "volume_5d_avg": 8995840,
+    "green_days_10d": 4,
+    "52w_high": 141.56,
+    "52w_low": 51.22,
+    "52w_high_proximity_pct": 0.6103,
+    "52w_low_proximity_pct": 0.0771
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.866439999999997,
+    "pb_ratio": 99.04848,
+    "de_ratio": 480.747,
+    "fcf_yield": 0.026,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.432,
+    "gross_margin": 0.23753999,
+    "operating_margin": -0.25345,
+    "net_margin": -0.21778,
+    "market_cap": 39099310080,
+    "enterprise_value": 37827371008,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.04459,
+    "institutional_ownership_pct": 0.82551,
+    "short_ratio": 2.01,
+    "beta": 1.673
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 54.89,
+    "entry_range_high": 55.45,
+    "target_range_low": 63.92,
+    "target_range_high": 68.48,
+    "stop_range_low": 46.05,
+    "stop_range_high": 48.47,
+    "target_price": 65.22,
+    "stop_loss": 48.47,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.656307-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 68.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 51.22,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 15,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2687511,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.3,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "RBLX signals STRONG_SELL, though confidence is low at 23%. Price at $55.17 reflects 61% proximity to its 52-week high, despite bearish EMA alignment and neutral MACD. Weak ADX at 16.7 suggests a lack of strong trend. High Bollinger Band positioning hints at potential overbought conditions.\n\nWhile revenue grew 43.2% TTM, negative net margins (-21.8%) remain a concern. P/E is nonexistent. The immediate catalyst to watch is monetization of older users in newer experiences; failure to capture this could accelerate downward pressure. Key technical levels to monitor are a break below $50, potentially triggering further sell-off.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 23,
+    "price_change_display": "-0.47%",
+    "key_metrics": {
+      "RSI": 42.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

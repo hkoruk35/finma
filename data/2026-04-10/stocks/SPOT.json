@@ -1,0 +1,160 @@
+{
+  "ticker": "SPOT",
+  "company": "Spotify Technology S.A.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.642424-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 486.62,
+    "open": 489.57,
+    "high": 491.94,
+    "low": 477.33,
+    "prev_close": 483.17,
+    "change_pct": 0.71,
+    "change_pct_1w": 3.53,
+    "change_pct_1m": -8.23,
+    "change_pct_1y": -6.23,
+    "volume": 1705900,
+    "avg_volume_30d": 1968640
+  },
+  "scores": {
+    "master_score": 34.1,
+    "technical_score": 40.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 43.5,
+    "breakout_score": 55.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 34.1,
+    "confidence": 0.34,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 48.1,
+    "macd": -5.7236,
+    "macd_signal": -5.7725,
+    "macd_histogram": 0.0488,
+    "macd_crossover": "bullish",
+    "ema_20": 488.8,
+    "ema_50": 501.52,
+    "ema_200": 569.79,
+    "ema_stack_bullish": false,
+    "bb_upper": 524.99,
+    "bb_middle": 490.31,
+    "bb_lower": 455.62,
+    "bb_width": 0.1415,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.0,
+    "atr": 19.49,
+    "atr_pct": 0.0401,
+    "obv_trend": "DOWN",
+    "mfi": 40.5,
+    "cmf": -0.111,
+    "stoch_k": 68.4,
+    "stoch_d": 47.3,
+    "rvol": 0.71,
+    "volume_5d_avg": 1394580,
+    "green_days_10d": 5,
+    "52w_high": 775.9,
+    "52w_low": 412.75,
+    "52w_high_proximity_pct": 0.3728,
+    "52w_low_proximity_pct": 0.179
+  },
+  "fundamental": {
+    "pe_ratio": 39.854218,
+    "sector_pe_median": 24.866439999999997,
+    "pb_ratio": 10.314876,
+    "de_ratio": 23.484,
+    "fcf_yield": 0.0067,
+    "eps_growth_5y": 2.139,
+    "revenue_growth_ttm": 0.068,
+    "gross_margin": 0.3198,
+    "operating_margin": 0.15471,
+    "net_margin": 0.12871,
+    "market_cap": 100186464256,
+    "enterprise_value": 94402224128,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.23411,
+    "institutional_ownership_pct": 0.69183,
+    "short_ratio": 2.42,
+    "beta": 1.702
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 484.19,
+    "entry_range_high": 489.05,
+    "target_range_low": 534.19,
+    "target_range_high": 572.34,
+    "stop_range_low": 425.26,
+    "stop_range_high": 447.64,
+    "target_price": 545.09,
+    "stop_loss": 447.64,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.642407-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 55.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 608.27,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 412.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5436,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.3,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "SPOT exhibits a conflicting technical picture. While the MACD shows bullish momentum, the overall EMA alignment is bearish, and the low ADX of 13 suggests a weak trend. Trading at $486.62, SPOT is 37.3% off its 52-week high.\n\nDespite solid 32% gross margins and 12.9% net margins, the P/E ratio of 39.85 indicates a valuation premium compared to the sector. TTM revenue growth is at 6.8%.\n\nThe FinMA signal is STRONG_SELL, driven by the high Bollinger Band reading and premium valuation, coupled with a weak technical trend. With no recent news catalyst to justify the price, further gains appear unsustainable. Key technical levels to watch are resistance near the 52-week high and support around $450.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 34,
+    "price_change_display": "+0.71%",
+    "key_metrics": {
+      "RSI": 48.1,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

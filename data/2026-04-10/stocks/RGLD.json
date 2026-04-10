@@ -1,0 +1,158 @@
+{
+  "ticker": "RGLD",
+  "company": "Royal Gold, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.927568-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 265.43,
+    "open": 268.66,
+    "high": 273.0,
+    "low": 264.89,
+    "prev_close": 268.17,
+    "change_pct": -1.02,
+    "change_pct_1w": 0.59,
+    "change_pct_1m": -5.6,
+    "change_pct_1y": 70.57,
+    "volume": 679900,
+    "avg_volume_30d": 1226563
+  },
+  "scores": {
+    "master_score": 38.47,
+    "technical_score": 50.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 38.47,
+    "confidence": 0.38,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 55.7,
+    "macd": -0.4373,
+    "macd_signal": -4.765,
+    "macd_histogram": 4.3277,
+    "macd_crossover": "neutral",
+    "ema_20": 255.45,
+    "ema_50": 256.7,
+    "ema_200": 222.17,
+    "ema_stack_bullish": false,
+    "bb_upper": 280.6,
+    "bb_middle": 246.9,
+    "bb_lower": 213.2,
+    "bb_width": 0.273,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.6,
+    "atr": 11.44,
+    "atr_pct": 0.0431,
+    "obv_trend": "UP",
+    "mfi": 54.8,
+    "cmf": -0.12,
+    "stoch_k": 83.1,
+    "stoch_d": 85.7,
+    "rvol": 0.59,
+    "volume_5d_avg": 727740,
+    "green_days_10d": 6,
+    "52w_high": 303.74,
+    "52w_low": 150.48,
+    "52w_high_proximity_pct": 0.1261,
+    "52w_low_proximity_pct": 0.7638
+  },
+  "fundamental": {
+    "pe_ratio": 39.675632,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 3.1337662,
+    "de_ratio": 12.944,
+    "fcf_yield": -0.0269,
+    "eps_growth_5y": -0.289,
+    "revenue_growth_ttm": 0.861,
+    "gross_margin": 0.87188005,
+    "operating_margin": 0.60193,
+    "net_margin": 0.45630002,
+    "market_cap": 22518843392,
+    "enterprise_value": 23258288128,
+    "dividend_yield": 0.72,
+    "payout_ratio": 0.2728,
+    "insider_ownership_pct": 0.00281,
+    "institutional_ownership_pct": 0.87253,
+    "short_ratio": 2.68,
+    "beta": 0.554
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 255.42,
+    "entry_range_high": 266.76,
+    "target_range_low": 293.75,
+    "target_range_high": 314.74,
+    "stop_range_low": 230.42,
+    "stop_range_high": 242.55,
+    "target_price": 299.75,
+    "stop_loss": 242.55,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.927526-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 331.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 72.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 150.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2000,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 38,
+    "price_change_display": "-1.02%",
+    "key_metrics": {
+      "RSI": 55.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

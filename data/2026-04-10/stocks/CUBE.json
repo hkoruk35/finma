@@ -1,0 +1,158 @@
+{
+  "ticker": "CUBE",
+  "company": "CubeSmart",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.083105-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Industrial",
+  "price": {
+    "current": 38.85,
+    "open": 38.2,
+    "high": 39.03,
+    "low": 38.06,
+    "prev_close": 38.47,
+    "change_pct": 0.99,
+    "change_pct_1w": 6.35,
+    "change_pct_1m": -1.4,
+    "change_pct_1y": 9.58,
+    "volume": 1864000,
+    "avg_volume_30d": 2542810
+  },
+  "scores": {
+    "master_score": 52.85,
+    "technical_score": 45.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 56.0,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.85,
+    "confidence": 0.53,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 61.8,
+    "macd": -0.1326,
+    "macd_signal": -0.4384,
+    "macd_histogram": 0.3058,
+    "macd_crossover": "neutral",
+    "ema_20": 37.37,
+    "ema_50": 37.58,
+    "ema_200": 37.91,
+    "ema_stack_bullish": false,
+    "bb_upper": 39.23,
+    "bb_middle": 37.02,
+    "bb_lower": 34.81,
+    "bb_width": 0.1193,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.7,
+    "atr": 0.95,
+    "atr_pct": 0.0244,
+    "obv_trend": "UP",
+    "mfi": 69.2,
+    "cmf": -0.241,
+    "stoch_k": 95.3,
+    "stoch_d": 83.4,
+    "rvol": 0.93,
+    "volume_5d_avg": 2356980,
+    "green_days_10d": 8,
+    "52w_high": 41.55,
+    "52w_low": 33.97,
+    "52w_high_proximity_pct": 0.0649,
+    "52w_low_proximity_pct": 0.1435
+  },
+  "fundamental": {
+    "pe_ratio": 26.249998,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 3.2466989,
+    "de_ratio": 126.45,
+    "fcf_yield": 0.0553,
+    "eps_growth_5y": -0.217,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.71472,
+    "operating_margin": 0.39488,
+    "net_margin": 0.29654,
+    "market_cap": 8902768640,
+    "enterprise_value": 12397393920,
+    "dividend_yield": 5.46,
+    "payout_ratio": 1.4315,
+    "insider_ownership_pct": 0.0085,
+    "institutional_ownership_pct": 0.98544997,
+    "short_ratio": 2.78,
+    "beta": 1.134
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 37.39,
+    "entry_range_high": 39.04,
+    "target_range_low": 40.87,
+    "target_range_high": 43.79,
+    "stop_range_low": 35.1,
+    "stop_range_high": 36.95,
+    "target_price": 41.7,
+    "stop_loss": 36.95,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.083089-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 48.56,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 546.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 33.97,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 23148,
+      "date": "2026-03-03"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 53,
+    "price_change_display": "+0.99%",
+    "key_metrics": {
+      "RSI": 61.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

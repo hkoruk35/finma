@@ -1,0 +1,158 @@
+{
+  "ticker": "TRGP",
+  "company": "Targa Resources Corp.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.899651-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 244.75,
+    "open": 244.73,
+    "high": 250.72,
+    "low": 243.01,
+    "prev_close": 244.0,
+    "change_pct": 0.31,
+    "change_pct_1w": -0.02,
+    "change_pct_1m": 5.28,
+    "change_pct_1y": 51.56,
+    "volume": 1303900,
+    "avg_volume_30d": 1610136
+  },
+  "scores": {
+    "master_score": 46.92,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.92,
+    "confidence": 0.47,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 55.4,
+    "macd": 4.4902,
+    "macd_signal": 5.5593,
+    "macd_histogram": -1.0691,
+    "macd_crossover": "neutral",
+    "ema_20": 243.17,
+    "ema_50": 230.25,
+    "ema_200": 196.5,
+    "ema_stack_bullish": true,
+    "bb_upper": 253.38,
+    "bb_middle": 243.74,
+    "bb_lower": 234.1,
+    "bb_width": 0.0791,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 31.2,
+    "atr": 7.36,
+    "atr_pct": 0.0301,
+    "obv_trend": "DOWN",
+    "mfi": 71.1,
+    "cmf": -0.027,
+    "stoch_k": 53.6,
+    "stoch_d": 63.0,
+    "rvol": 0.79,
+    "volume_5d_avg": 1275120,
+    "green_days_10d": 5,
+    "52w_high": 250.98,
+    "52w_low": 144.61,
+    "52w_high_proximity_pct": 0.0248,
+    "52w_low_proximity_pct": 0.6924
+  },
+  "fundamental": {
+    "pe_ratio": 28.828033,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 17.124966,
+    "de_ratio": 548.63,
+    "fcf_yield": -0.005,
+    "eps_growth_5y": 0.745,
+    "revenue_growth_ttm": -0.079,
+    "gross_margin": 0.38292,
+    "operating_margin": 0.22621,
+    "net_margin": 0.11293,
+    "market_cap": 52609449984,
+    "enterprise_value": 70119956480,
+    "dividend_yield": 1.63,
+    "payout_ratio": 0.44169998,
+    "insider_ownership_pct": 0.01393,
+    "institutional_ownership_pct": 0.95709,
+    "short_ratio": 2.77,
+    "beta": 0.811
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 229.1,
+    "entry_range_high": 245.97,
+    "target_range_low": 261.49,
+    "target_range_high": 280.17,
+    "stop_range_low": 218.53,
+    "stop_range_high": 230.03,
+    "target_price": 266.83,
+    "stop_loss": 230.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.899614-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 305.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 163.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 144.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 24589,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 47,
+    "price_change_display": "+0.31%",
+    "key_metrics": {
+      "RSI": 55.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

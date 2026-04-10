@@ -1,0 +1,160 @@
+{
+  "ticker": "AXON",
+  "company": "Axon Enterprise, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.964014-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 351.33,
+    "open": 386.51,
+    "high": 387.09,
+    "low": 347.28,
+    "prev_close": 391.53,
+    "change_pct": -10.27,
+    "change_pct_1w": -17.06,
+    "change_pct_1m": -33.71,
+    "change_pct_1y": -30.09,
+    "volume": 2113800,
+    "avg_volume_30d": 1006203
+  },
+  "scores": {
+    "master_score": 25.73,
+    "technical_score": 25.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 27.0,
+    "value_score": 0.0,
+    "reversal_score": 50.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 25.73,
+    "confidence": 0.26,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 26.4,
+    "macd": -34.6059,
+    "macd_signal": -24.8467,
+    "macd_histogram": -9.7592,
+    "macd_crossover": "neutral",
+    "ema_20": 438.12,
+    "ema_50": 481.1,
+    "ema_200": 573.76,
+    "ema_stack_bullish": false,
+    "bb_upper": 546.17,
+    "bb_middle": 450.4,
+    "bb_lower": 354.63,
+    "bb_width": 0.4253,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 35.1,
+    "atr": 27.67,
+    "atr_pct": 0.0787,
+    "obv_trend": "DOWN",
+    "mfi": 28.1,
+    "cmf": -0.401,
+    "stoch_k": 2.4,
+    "stoch_d": 9.4,
+    "rvol": 1.5,
+    "volume_5d_avg": 1511420,
+    "green_days_10d": 3,
+    "52w_high": 870.97,
+    "52w_low": 351.33,
+    "52w_high_proximity_pct": 0.5966,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 232.66887,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 8.690694,
+    "de_ratio": 59.107,
+    "fcf_yield": 0.0081,
+    "eps_growth_5y": -0.98,
+    "revenue_growth_ttm": 0.385,
+    "gross_margin": 0.59823,
+    "operating_margin": -0.03063,
+    "net_margin": 0.044850003,
+    "market_cap": 28246112256,
+    "enterprise_value": 28363595776,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.04369,
+    "institutional_ownership_pct": 0.8578,
+    "short_ratio": 2.39,
+    "beta": 1.605
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 349.57,
+    "entry_range_high": 353.09,
+    "target_range_low": 425.65,
+    "target_range_high": 456.06,
+    "stop_range_low": 281.19,
+    "stop_range_high": 295.99,
+    "target_price": 434.34,
+    "stop_loss": 295.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.963998-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 27.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 439.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 351.33,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 198,
+      "date": "2026-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "AXON exhibits a STRONG_SELL signal, although confidence is low (26%). Today's sharp 10.27% price drop to $351.33 confirms bearish EMA alignment and pushes the RSI deeply into oversold territory (26.4). Elevated ADX (35.1) signals a strengthening downtrend, supported by above-average volume (1.5x relative). While AXON boasts strong 38.5% TTM revenue growth and healthy 59.8% gross margins, its high P/E of 232.67 compared to the sector's 34.19 renders it vulnerable. Without news, this price action could indicate profit-taking after recent contract expansions. Key levels to watch: immediate support around $340, then $325.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 26,
+    "price_change_display": "-10.27%",
+    "key_metrics": {
+      "RSI": 26.4,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

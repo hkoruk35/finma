@@ -1,0 +1,158 @@
+{
+  "ticker": "TDY",
+  "company": "Teledyne Technologies Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.969154-04:00",
+  "sector": "Industrials",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 654.98,
+    "open": 657.73,
+    "high": 663.95,
+    "low": 651.34,
+    "prev_close": 660.31,
+    "change_pct": -0.81,
+    "change_pct_1w": 5.99,
+    "change_pct_1m": -0.05,
+    "change_pct_1y": 49.57,
+    "volume": 266900,
+    "avg_volume_30d": 300843
+  },
+  "scores": {
+    "master_score": 57.33,
+    "technical_score": 76.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 57.33,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL"
+  },
+  "technical": {
+    "rsi_14": 58.8,
+    "macd": -0.7246,
+    "macd_signal": -5.5567,
+    "macd_histogram": 4.8321,
+    "macd_crossover": "neutral",
+    "ema_20": 632.76,
+    "ema_50": 626.74,
+    "ema_200": 574.01,
+    "ema_stack_bullish": true,
+    "bb_upper": 665.42,
+    "bb_middle": 627.58,
+    "bb_lower": 589.73,
+    "bb_width": 0.1206,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 26.2,
+    "atr": 17.95,
+    "atr_pct": 0.0274,
+    "obv_trend": "UP",
+    "mfi": 50.9,
+    "cmf": -0.153,
+    "stoch_k": 89.4,
+    "stoch_d": 90.6,
+    "rvol": 0.88,
+    "volume_5d_avg": 266100,
+    "green_days_10d": 6,
+    "52w_high": 688.59,
+    "52w_low": 435.54,
+    "52w_high_proximity_pct": 0.0488,
+    "52w_low_proximity_pct": 0.5038
+  },
+  "fundamental": {
+    "pe_ratio": 34.728523,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 2.877199,
+    "de_ratio": 25.13,
+    "fcf_yield": 0.0226,
+    "eps_growth_5y": 0.391,
+    "revenue_growth_ttm": 0.073,
+    "gross_margin": 0.42758,
+    "operating_margin": 0.20604,
+    "net_margin": 0.14632,
+    "market_cap": 30336892928,
+    "enterprise_value": 32618752000,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00851,
+    "institutional_ownership_pct": 0.97898,
+    "short_ratio": 3.66,
+    "beta": 1.008
+  },
+  "signals": {
+    "signal_type": "NEUTRAL",
+    "entry_range_low": 623.61,
+    "entry_range_high": 658.25,
+    "target_range_low": 694.65,
+    "target_range_high": 744.27,
+    "stop_range_low": 588.13,
+    "stop_range_high": 619.08,
+    "target_price": 708.83,
+    "stop_loss": 619.08,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.969139-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 818.73,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 435.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7500,
+      "date": "2026-02-03"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "NEUTRAL",
+    "score_bar": 57,
+    "price_change_display": "-0.81%",
+    "key_metrics": {
+      "RSI": 58.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

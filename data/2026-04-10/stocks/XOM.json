@@ -1,0 +1,158 @@
+{
+  "ticker": "XOM",
+  "company": "Exxon Mobil Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.864553-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 155.04,
+    "open": 156.86,
+    "high": 159.23,
+    "low": 154.31,
+    "prev_close": 156.22,
+    "change_pct": -0.76,
+    "change_pct_1w": -3.57,
+    "change_pct_1m": 4.66,
+    "change_pct_1y": 55.79,
+    "volume": 25849000,
+    "avg_volume_30d": 25265053
+  },
+  "scores": {
+    "master_score": 33.72,
+    "technical_score": 33.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.7,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 33.72,
+    "confidence": 0.34,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 44.9,
+    "macd": 2.3437,
+    "macd_signal": 3.9159,
+    "macd_histogram": -1.5722,
+    "macd_crossover": "neutral",
+    "ema_20": 160.04,
+    "ema_50": 152.37,
+    "ema_200": 129.68,
+    "ema_stack_bullish": false,
+    "bb_upper": 171.6,
+    "bb_middle": 161.42,
+    "bb_lower": 151.25,
+    "bb_width": 0.126,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 26.7,
+    "atr": 5.55,
+    "atr_pct": 0.0358,
+    "obv_trend": "DOWN",
+    "mfi": 53.5,
+    "cmf": 0.01,
+    "stoch_k": 16.0,
+    "stoch_d": 26.2,
+    "rvol": 0.98,
+    "volume_5d_avg": 24821940,
+    "green_days_10d": 5,
+    "52w_high": 171.47,
+    "52w_low": 96.61,
+    "52w_high_proximity_pct": 0.0958,
+    "52w_low_proximity_pct": 0.6048
+  },
+  "fundamental": {
+    "pe_ratio": 23.140299,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 2.4978652,
+    "de_ratio": 18.936,
+    "fcf_yield": 0.019,
+    "eps_growth_5y": -0.11,
+    "revenue_growth_ttm": -0.013,
+    "gross_margin": 0.31049,
+    "operating_margin": 0.09527001,
+    "net_margin": 0.089049995,
+    "market_cap": 644432920576,
+    "enterprise_value": 693061025792,
+    "dividend_yield": 2.66,
+    "payout_ratio": 0.597,
+    "insider_ownership_pct": 0.00095,
+    "institutional_ownership_pct": 0.67408997,
+    "short_ratio": 2.3,
+    "beta": 0.288
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 151.61,
+    "entry_range_high": 155.82,
+    "target_range_low": 168.26,
+    "target_range_high": 180.27,
+    "stop_range_low": 136.74,
+    "stop_range_high": 143.94,
+    "target_price": 171.69,
+    "stop_loss": 143.94,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.864535-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 193.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 266.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 96.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1080,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 34,
+    "price_change_display": "-0.76%",
+    "key_metrics": {
+      "RSI": 44.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

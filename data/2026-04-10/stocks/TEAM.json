@@ -1,0 +1,160 @@
+{
+  "ticker": "TEAM",
+  "company": "Atlassian Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.600871-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 58.96,
+    "open": 62.07,
+    "high": 63.23,
+    "low": 57.3,
+    "prev_close": 63.62,
+    "change_pct": -7.32,
+    "change_pct_1w": -15.01,
+    "change_pct_1m": -24.42,
+    "change_pct_1y": -68.4,
+    "volume": 11041800,
+    "avg_volume_30d": 6280790
+  },
+  "scores": {
+    "master_score": 30.37,
+    "technical_score": 36.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.7,
+    "breakout_score": 30.0,
+    "value_score": 25.0,
+    "reversal_score": 50.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 30.37,
+    "confidence": 0.3,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 27.3,
+    "macd": -5.4884,
+    "macd_signal": -5.6054,
+    "macd_histogram": 0.117,
+    "macd_crossover": "neutral",
+    "ema_20": 69.59,
+    "ema_50": 84.44,
+    "ema_200": 139.36,
+    "ema_stack_bullish": false,
+    "bb_upper": 78.72,
+    "bb_middle": 69.6,
+    "bb_lower": 60.48,
+    "bb_width": 0.2621,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 32.3,
+    "atr": 4.71,
+    "atr_pct": 0.0799,
+    "obv_trend": "DOWN",
+    "mfi": 29.0,
+    "cmf": -0.24,
+    "stoch_k": 9.1,
+    "stoch_d": 5.5,
+    "rvol": 1.0,
+    "volume_5d_avg": 6291220,
+    "green_days_10d": 4,
+    "52w_high": 229.83,
+    "52w_low": 58.96,
+    "52w_high_proximity_pct": 0.7435,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 9.839787,
+    "de_ratio": 76.379,
+    "fcf_yield": 0.098,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.233,
+    "gross_margin": 0.84059995,
+    "operating_margin": -0.0301,
+    "net_margin": -0.03285,
+    "market_cap": 15550350336,
+    "enterprise_value": 15199375360,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00538,
+    "institutional_ownership_pct": 0.94914,
+    "short_ratio": 1.4,
+    "beta": 0.994
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 58.67,
+    "entry_range_high": 59.25,
+    "target_range_low": 71.63,
+    "target_range_high": 76.74,
+    "stop_range_low": 47.06,
+    "stop_range_high": 49.54,
+    "target_price": 73.09,
+    "stop_loss": 49.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.600849-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 73.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 58.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 46,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 297030,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "TEAM signals a STRONG_SELL based on today's -7.32% price drop to $58.96, confirmed by bearish EMA alignment and RSI at 27.3. ADX at 32.3 suggests strengthening downtrend. Despite a strong 84.1% gross margin, the -3.3% net margin is concerning, given the absence of a P/E ratio. Revenue growth of 23.3% TTM fails to support the price. Breaching the near-term support at $58.00 could accelerate losses. The 52-week proximity (74.4% from high) highlights significant room for downside. Without positive news flow to reverse the trend, further price decline is expected.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 30,
+    "price_change_display": "-7.32%",
+    "key_metrics": {
+      "RSI": 27.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

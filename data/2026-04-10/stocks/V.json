@@ -1,0 +1,158 @@
+{
+  "ticker": "V",
+  "company": "Visa Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.840380-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 308.29,
+    "open": 308.0,
+    "high": 309.58,
+    "low": 303.59,
+    "prev_close": 308.96,
+    "change_pct": -0.22,
+    "change_pct_1w": 3.28,
+    "change_pct_1m": -1.95,
+    "change_pct_1y": -0.55,
+    "volume": 4810600,
+    "avg_volume_30d": 7255816
+  },
+  "scores": {
+    "master_score": 50.12,
+    "technical_score": 60.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.7,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 50.12,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 51.3,
+    "macd": -2.692,
+    "macd_signal": -4.1249,
+    "macd_histogram": 1.4329,
+    "macd_crossover": "neutral",
+    "ema_20": 305.54,
+    "ema_50": 313.1,
+    "ema_200": 330.6,
+    "ema_stack_bullish": false,
+    "bb_upper": 311.32,
+    "bb_middle": 303.55,
+    "bb_lower": 295.77,
+    "bb_width": 0.0512,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 25.4,
+    "atr": 6.62,
+    "atr_pct": 0.0215,
+    "obv_trend": "UP",
+    "mfi": 73.5,
+    "cmf": -0.045,
+    "stoch_k": 83.8,
+    "stoch_d": 76.9,
+    "rvol": 0.72,
+    "volume_5d_avg": 5196160,
+    "green_days_10d": 6,
+    "52w_high": 371.15,
+    "52w_low": 295.52,
+    "52w_high_proximity_pct": 0.1694,
+    "52w_low_proximity_pct": 0.0432
+  },
+  "fundamental": {
+    "pe_ratio": 28.974625,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 15.38834,
+    "de_ratio": 54.612,
+    "fcf_yield": 0.0371,
+    "eps_growth_5y": 0.174,
+    "revenue_growth_ttm": 0.146,
+    "gross_margin": 0.97777003,
+    "operating_margin": 0.68296,
+    "net_margin": 0.50233,
+    "market_cap": 594395332608,
+    "enterprise_value": 593014161408,
+    "dividend_yield": 0.87,
+    "payout_ratio": 0.2291,
+    "insider_ownership_pct": 0.0058600004,
+    "institutional_ownership_pct": 0.90641,
+    "short_ratio": 3.43,
+    "beta": 0.799
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 306.75,
+    "entry_range_high": 309.83,
+    "target_range_low": 321.59,
+    "target_range_high": 344.56,
+    "stop_range_low": 280.3,
+    "stop_range_high": 295.05,
+    "target_price": 328.15,
+    "stop_loss": 295.05,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.840366-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 385.36,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 87.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 295.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 650,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "-0.22%",
+    "key_metrics": {
+      "RSI": 51.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

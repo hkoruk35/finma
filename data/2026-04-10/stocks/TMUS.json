@@ -1,0 +1,160 @@
+{
+  "ticker": "TMUS",
+  "company": "T-Mobile US, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.647935-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 197.54,
+    "open": 197.88,
+    "high": 200.32,
+    "low": 196.37,
+    "prev_close": 197.63,
+    "change_pct": -0.05,
+    "change_pct_1w": -3.29,
+    "change_pct_1m": -9.71,
+    "change_pct_1y": -18.55,
+    "volume": 5867300,
+    "avg_volume_30d": 5599920
+  },
+  "scores": {
+    "master_score": 21.4,
+    "technical_score": 5.0,
+    "fundamental_score": 34.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 68.0,
+    "sector_score": 43.5,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 21.4,
+    "confidence": 0.21,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 34.2,
+    "macd": -3.2728,
+    "macd_signal": -1.5724,
+    "macd_histogram": -1.7004,
+    "macd_crossover": "neutral",
+    "ema_20": 206.36,
+    "ema_50": 207.5,
+    "ema_200": 216.88,
+    "ema_stack_bullish": false,
+    "bb_upper": 219.88,
+    "bb_middle": 207.97,
+    "bb_lower": 196.06,
+    "bb_width": 0.1145,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.5,
+    "atr": 5.37,
+    "atr_pct": 0.0272,
+    "obv_trend": "DOWN",
+    "mfi": 45.4,
+    "cmf": -0.118,
+    "stoch_k": 6.7,
+    "stoch_d": 10.6,
+    "rvol": 0.92,
+    "volume_5d_avg": 5123980,
+    "green_days_10d": 3,
+    "52w_high": 262.23,
+    "52w_low": 182.72,
+    "52w_high_proximity_pct": 0.2467,
+    "52w_low_proximity_pct": 0.0811
+  },
+  "fundamental": {
+    "pe_ratio": 20.323044,
+    "sector_pe_median": 24.866439999999997,
+    "pb_ratio": 3.693441,
+    "de_ratio": 208.851,
+    "fcf_yield": 0.0362,
+    "eps_growth_5y": -0.266,
+    "revenue_growth_ttm": 0.113,
+    "gross_margin": 0.63165003,
+    "operating_margin": 0.18365,
+    "net_margin": 0.124469995,
+    "market_cap": 220949790720,
+    "enterprise_value": 335709962240,
+    "dividend_yield": 2.07,
+    "payout_ratio": 0.3765,
+    "insider_ownership_pct": 0.55806,
+    "institutional_ownership_pct": 0.42468,
+    "short_ratio": 2.24,
+    "beta": 0.422
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 196.55,
+    "entry_range_high": 198.53,
+    "target_range_low": 209.38,
+    "target_range_high": 224.33,
+    "stop_range_low": 177.46,
+    "stop_range_high": 186.8,
+    "target_price": 213.65,
+    "stop_loss": 186.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.647915-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 246.92,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 207.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 182.72,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 85,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.3,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "T-Mobile (TMUS) exhibits a STRONG_SELL signal, albeit with low 18% confidence. At $197.63, the price declined 1.45% today, with RVOL at 0.96x. Technicals lean bearish: RSI(14) at 34.3 indicates oversold conditions. The EMA stack is bearish. The stock is 22.7% away from its 52-week high and ADX is at 21.9. Fundamentals are mixed: P/E of 20.33 is above the sector median of 17.47, while TTM revenue growth is strong at 11.3%, with a gross margin of 63.2%. A potential near-term catalyst could be upcoming subscriber growth data.",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 21,
+    "price_change_display": "-0.05%",
+    "key_metrics": {
+      "RSI": 34.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

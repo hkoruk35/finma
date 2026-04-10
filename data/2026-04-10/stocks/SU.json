@@ -1,0 +1,158 @@
+{
+  "ticker": "SU",
+  "company": "Suncor Energy Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.881597-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 63.39,
+    "open": 65.0,
+    "high": 65.64,
+    "low": 63.1,
+    "prev_close": 64.54,
+    "change_pct": -1.78,
+    "change_pct_1w": -2.39,
+    "change_pct_1m": 10.67,
+    "change_pct_1y": 95.13,
+    "volume": 4406500,
+    "avg_volume_30d": 5954633
+  },
+  "scores": {
+    "master_score": 51.02,
+    "technical_score": 46.0,
+    "fundamental_score": 55.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 46.7,
+    "breakout_score": 30.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 51.02,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 54.6,
+    "macd": 2.0887,
+    "macd_signal": 2.4822,
+    "macd_histogram": -0.3935,
+    "macd_crossover": "neutral",
+    "ema_20": 63.5,
+    "ema_50": 59.03,
+    "ema_200": 48.39,
+    "ema_stack_bullish": false,
+    "bb_upper": 68.25,
+    "bb_middle": 63.88,
+    "bb_lower": 59.52,
+    "bb_width": 0.1367,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 43.3,
+    "atr": 2.1,
+    "atr_pct": 0.0331,
+    "obv_trend": "DOWN",
+    "mfi": 54.7,
+    "cmf": 0.177,
+    "stoch_k": 31.6,
+    "stoch_d": 55.6,
+    "rvol": 0.78,
+    "volume_5d_avg": 4619660,
+    "green_days_10d": 6,
+    "52w_high": 66.79,
+    "52w_low": 30.95,
+    "52w_high_proximity_pct": 0.0509,
+    "52w_low_proximity_pct": 1.0484
+  },
+  "fundamental": {
+    "pe_ratio": 18.05983,
+    "sector_pe_median": 18.186544,
+    "pb_ratio": 2.331336,
+    "de_ratio": 32.951,
+    "fcf_yield": 0.0844,
+    "eps_growth_5y": 0.876,
+    "revenue_growth_ttm": -0.039,
+    "gross_margin": 0.59078,
+    "operating_margin": 0.15728,
+    "net_margin": 0.12100001,
+    "market_cap": 75479261184,
+    "enterprise_value": 86457286656,
+    "dividend_yield": 2.75,
+    "payout_ratio": 0.4763,
+    "insider_ownership_pct": 0.00032000002,
+    "institutional_ownership_pct": 0.72236,
+    "short_ratio": 1.16,
+    "beta": 0.598
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 58.73,
+    "entry_range_high": 63.71,
+    "target_range_low": 68.3,
+    "target_range_high": 73.17,
+    "stop_range_low": 56.23,
+    "stop_range_high": 59.19,
+    "target_price": 69.69,
+    "stop_loss": 59.19,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.881580-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 79.24,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 275.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 30.95,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 53,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 568,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -3.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "-1.78%",
+    "key_metrics": {
+      "RSI": 54.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

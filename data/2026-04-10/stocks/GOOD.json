@@ -1,0 +1,158 @@
+{
+  "ticker": "GOOD",
+  "company": "Gladstone Commercial Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.054857-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Diversified",
+  "price": {
+    "current": 12.13,
+    "open": 11.88,
+    "high": 12.2,
+    "low": 11.88,
+    "prev_close": 11.94,
+    "change_pct": 1.59,
+    "change_pct_1w": 4.93,
+    "change_pct_1m": -1.01,
+    "change_pct_1y": -0.06,
+    "volume": 260100,
+    "avg_volume_30d": 439056
+  },
+  "scores": {
+    "master_score": 46.65,
+    "technical_score": 55.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 68.0,
+    "sector_score": 56.0,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.65,
+    "confidence": 0.47,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 61.0,
+    "macd": -0.0094,
+    "macd_signal": -0.071,
+    "macd_histogram": 0.0616,
+    "macd_crossover": "neutral",
+    "ema_20": 11.73,
+    "ema_50": 11.66,
+    "ema_200": 11.8,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.34,
+    "bb_middle": 11.68,
+    "bb_lower": 11.01,
+    "bb_width": 0.1134,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.9,
+    "atr": 0.27,
+    "atr_pct": 0.0224,
+    "obv_trend": "UP",
+    "mfi": 50.2,
+    "cmf": -0.187,
+    "stoch_k": 94.3,
+    "stoch_d": 83.9,
+    "rvol": 0.74,
+    "volume_5d_avg": 324960,
+    "green_days_10d": 8,
+    "52w_high": 13.65,
+    "52w_low": 10.11,
+    "52w_high_proximity_pct": 0.1111,
+    "52w_low_proximity_pct": 0.1992
+  },
+  "fundamental": {
+    "pe_ratio": 86.64286,
+    "sector_pe_median": 29.323397,
+    "pb_ratio": 3.4188275,
+    "de_ratio": 249.107,
+    "fcf_yield": 0.1199,
+    "eps_growth_5y": -0.506,
+    "revenue_growth_ttm": 0.163,
+    "gross_margin": 0.78141,
+    "operating_margin": 0.40027002,
+    "net_margin": 0.119540006,
+    "market_cap": 592346624,
+    "enterprise_value": 1595178880,
+    "dividend_yield": 9.89,
+    "payout_ratio": 8.5714,
+    "insider_ownership_pct": 0.01273,
+    "institutional_ownership_pct": 0.52935004,
+    "short_ratio": 4.89,
+    "beta": 1.088
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 11.6,
+    "entry_range_high": 12.19,
+    "target_range_low": 12.68,
+    "target_range_high": 13.59,
+    "stop_range_low": 11.01,
+    "stop_range_high": 11.59,
+    "target_price": 12.94,
+    "stop_loss": 11.59,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.054840-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 989.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.11,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 100,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 47,
+    "price_change_display": "+1.59%",
+    "key_metrics": {
+      "RSI": 61.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

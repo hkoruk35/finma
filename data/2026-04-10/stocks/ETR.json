@@ -1,0 +1,158 @@
+{
+  "ticker": "ETR",
+  "company": "Entergy Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.026032-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 117.44,
+    "open": 114.74,
+    "high": 117.68,
+    "low": 114.74,
+    "prev_close": 114.61,
+    "change_pct": 2.47,
+    "change_pct_1w": 3.4,
+    "change_pct_1m": 12.1,
+    "change_pct_1y": 52.08,
+    "volume": 2758900,
+    "avg_volume_30d": 2845403
+  },
+  "scores": {
+    "master_score": 50.91,
+    "technical_score": 65.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 56.6,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.91,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 76.5,
+    "macd": 3.3693,
+    "macd_signal": 2.4375,
+    "macd_histogram": 0.9317,
+    "macd_crossover": "neutral",
+    "ema_20": 109.74,
+    "ema_50": 105.08,
+    "ema_200": 95.62,
+    "ema_stack_bullish": true,
+    "bb_upper": 118.79,
+    "bb_middle": 108.11,
+    "bb_lower": 97.43,
+    "bb_width": 0.1976,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.6,
+    "atr": 2.48,
+    "atr_pct": 0.0212,
+    "obv_trend": "UP",
+    "mfi": 73.4,
+    "cmf": 0.08,
+    "stoch_k": 98.7,
+    "stoch_d": 94.0,
+    "rvol": 0.9,
+    "volume_5d_avg": 2574300,
+    "green_days_10d": 8,
+    "52w_high": 117.44,
+    "52w_low": 76.9,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.5272
+  },
+  "fundamental": {
+    "pe_ratio": 29.36,
+    "sector_pe_median": 23.062841,
+    "pb_ratio": 3.1390998,
+    "de_ratio": 181.79,
+    "fcf_yield": -0.0673,
+    "eps_growth_5y": -0.208,
+    "revenue_growth_ttm": 0.079,
+    "gross_margin": 0.47717,
+    "operating_margin": 0.18986,
+    "net_margin": 0.13581,
+    "market_cap": 53763870720,
+    "enterprise_value": 82908577792,
+    "dividend_yield": 2.18,
+    "payout_ratio": 0.624,
+    "insider_ownership_pct": 0.00254,
+    "institutional_ownership_pct": 0.96291,
+    "short_ratio": 5.79,
+    "beta": 0.565
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 104.55,
+    "entry_range_high": 118.03,
+    "target_range_low": 122.38,
+    "target_range_high": 131.12,
+    "stop_range_low": 106.86,
+    "stop_range_high": 112.48,
+    "target_price": 124.88,
+    "stop_loss": 112.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.026017-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 146.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 218.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 76.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 217,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.75,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+2.47%",
+    "key_metrics": {
+      "RSI": 76.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

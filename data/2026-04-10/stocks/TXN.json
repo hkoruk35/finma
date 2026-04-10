@@ -1,0 +1,160 @@
+{
+  "ticker": "TXN",
+  "company": "Texas Instruments Incorporated",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.567548-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 214.98,
+    "open": 212.57,
+    "high": 215.93,
+    "low": 210.88,
+    "prev_close": 208.9,
+    "change_pct": 2.91,
+    "change_pct_1w": 9.52,
+    "change_pct_1m": 8.87,
+    "change_pct_1y": 44.01,
+    "volume": 5498600,
+    "avg_volume_30d": 6296310
+  },
+  "scores": {
+    "master_score": 50.62,
+    "technical_score": 71.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 50.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 50.62,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 66.8,
+    "macd": 0.9657,
+    "macd_signal": -1.9262,
+    "macd_histogram": 2.8919,
+    "macd_crossover": "neutral",
+    "ema_20": 198.92,
+    "ema_50": 198.81,
+    "ema_200": 189.7,
+    "ema_stack_bullish": true,
+    "bb_upper": 208.45,
+    "bb_middle": 194.71,
+    "bb_lower": 180.97,
+    "bb_width": 0.1412,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 23.8,
+    "atr": 6.08,
+    "atr_pct": 0.0283,
+    "obv_trend": "UP",
+    "mfi": 76.5,
+    "cmf": -0.082,
+    "stoch_k": 96.9,
+    "stoch_d": 96.3,
+    "rvol": 0.8,
+    "volume_5d_avg": 5051180,
+    "green_days_10d": 6,
+    "52w_high": 226.56,
+    "52w_low": 141.15,
+    "52w_high_proximity_pct": 0.0511,
+    "52w_low_proximity_pct": 0.523
+  },
+  "fundamental": {
+    "pe_ratio": 39.373627,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 11.981942,
+    "de_ratio": 90.819,
+    "fcf_yield": -0.0015,
+    "eps_growth_5y": -0.032,
+    "revenue_growth_ttm": 0.104,
+    "gross_margin": 0.57023996,
+    "operating_margin": 0.34027,
+    "net_margin": 0.28283,
+    "market_cap": 195731406848,
+    "enterprise_value": 205003259904,
+    "dividend_yield": 2.64,
+    "payout_ratio": 1.0092,
+    "insider_ownership_pct": 0.0028799998,
+    "institutional_ownership_pct": 0.91182,
+    "short_ratio": 3.25,
+    "beta": 0.994
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 197.82,
+    "entry_range_high": 216.05,
+    "target_range_low": 228.56,
+    "target_range_high": 244.88,
+    "stop_range_low": 192.68,
+    "stop_range_high": 202.82,
+    "target_price": 233.22,
+    "stop_loss": 202.82,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.567513-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 50.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 268.72,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 264.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6843,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "TXN shows a SELL signal, albeit with low confidence (51%), despite today's 2.91% gain to $214.98 and bullish EMA alignment. While near its 52-week high (5.1% away), the high P/E of 39.37 versus the sector median of 39.07 signals potential overvaluation. ADX at 23.8 suggests a weak trend. Key level to watch: resistance around the 52-week high. TXN's exceptionally high dividend yield of 264.00% might be unsustainable, potentially triggering a correction if management signals dividend adjustments.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+2.91%",
+    "key_metrics": {
+      "RSI": 66.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

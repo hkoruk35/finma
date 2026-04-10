@@ -1,0 +1,158 @@
+{
+  "ticker": "FE",
+  "company": "FirstEnergy Corp.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.034182-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 51.91,
+    "open": 51.3,
+    "high": 52.34,
+    "low": 51.26,
+    "prev_close": 51.4,
+    "change_pct": 0.99,
+    "change_pct_1w": 1.86,
+    "change_pct_1m": 2.47,
+    "change_pct_1y": 39.56,
+    "volume": 3379500,
+    "avg_volume_30d": 4119536
+  },
+  "scores": {
+    "master_score": 52.91,
+    "technical_score": 65.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 56.6,
+    "breakout_score": 20.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 52.91,
+    "confidence": 0.53,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 65.8,
+    "macd": 0.4676,
+    "macd_signal": 0.3597,
+    "macd_histogram": 0.1079,
+    "macd_crossover": "neutral",
+    "ema_20": 50.62,
+    "ema_50": 49.54,
+    "ema_200": 45.67,
+    "ema_stack_bullish": true,
+    "bb_upper": 52.38,
+    "bb_middle": 50.5,
+    "bb_lower": 48.63,
+    "bb_width": 0.0742,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.7,
+    "atr": 0.94,
+    "atr_pct": 0.0182,
+    "obv_trend": "UP",
+    "mfi": 60.8,
+    "cmf": -0.199,
+    "stoch_k": 89.6,
+    "stoch_d": 78.8,
+    "rvol": 0.74,
+    "volume_5d_avg": 3063240,
+    "green_days_10d": 7,
+    "52w_high": 51.91,
+    "52w_low": 36.81,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.4102
+  },
+  "fundamental": {
+    "pe_ratio": 29.494318,
+    "sector_pe_median": 23.062841,
+    "pb_ratio": 2.3978012,
+    "de_ratio": 192.755,
+    "fcf_yield": -0.0409,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.207,
+    "gross_margin": 0.66867995,
+    "operating_margin": 0.26635,
+    "net_margin": 0.06845,
+    "market_cap": 30024673280,
+    "enterprise_value": 58202497024,
+    "dividend_yield": 3.58,
+    "payout_ratio": 1.0,
+    "insider_ownership_pct": 0.00141,
+    "institutional_ownership_pct": 0.95269996,
+    "short_ratio": 5.55,
+    "beta": 0.59
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 49.29,
+    "entry_range_high": 52.17,
+    "target_range_low": 53.64,
+    "target_range_high": 57.47,
+    "stop_range_low": 47.53,
+    "stop_range_high": 50.03,
+    "target_price": 54.73,
+    "stop_loss": 50.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.034167-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 64.89,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 358.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 36.81,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 837,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.75,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 53,
+    "price_change_display": "+0.99%",
+    "key_metrics": {
+      "RSI": 65.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

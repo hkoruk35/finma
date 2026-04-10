@@ -1,0 +1,158 @@
+{
+  "ticker": "S",
+  "company": "SentinelOne, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.617329-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 12.77,
+    "open": 13.37,
+    "high": 13.37,
+    "low": 12.59,
+    "prev_close": 13.5,
+    "change_pct": -5.41,
+    "change_pct_1w": -4.06,
+    "change_pct_1m": -9.69,
+    "change_pct_1y": -24.44,
+    "volume": 9004900,
+    "avg_volume_30d": 8587596
+  },
+  "scores": {
+    "master_score": 36.22,
+    "technical_score": 27.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 36.22,
+    "confidence": 0.36,
+    "signal_type": "STRONG_SELL"
+  },
+  "technical": {
+    "rsi_14": 41.2,
+    "macd": -0.1821,
+    "macd_signal": -0.1411,
+    "macd_histogram": -0.041,
+    "macd_crossover": "neutral",
+    "ema_20": 13.43,
+    "ema_50": 13.76,
+    "ema_200": 15.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 14.91,
+    "bb_middle": 13.61,
+    "bb_lower": 12.31,
+    "bb_width": 0.1912,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.5,
+    "atr": 0.65,
+    "atr_pct": 0.0509,
+    "obv_trend": "UP",
+    "mfi": 52.0,
+    "cmf": -0.093,
+    "stoch_k": 26.3,
+    "stoch_d": 43.1,
+    "rvol": 0.75,
+    "volume_5d_avg": 6480780,
+    "green_days_10d": 7,
+    "52w_high": 20.34,
+    "52w_low": 12.37,
+    "52w_high_proximity_pct": 0.3722,
+    "52w_low_proximity_pct": 0.0323
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 3.0011752,
+    "de_ratio": 1.044,
+    "fcf_yield": 0.0653,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.202,
+    "gross_margin": 0.74114996,
+    "operating_margin": -0.28122,
+    "net_margin": -0.45016,
+    "market_cap": 4345330688,
+    "enterprise_value": 3731663872,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01131,
+    "institutional_ownership_pct": 0.82333,
+    "short_ratio": 2.82,
+    "beta": 0.756
+  },
+  "signals": {
+    "signal_type": "STRONG_SELL",
+    "entry_range_low": 12.71,
+    "entry_range_high": 12.83,
+    "target_range_low": 14.43,
+    "target_range_high": 15.46,
+    "stop_range_low": 10.9,
+    "stop_range_high": 11.47,
+    "target_price": 14.72,
+    "stop_loss": 11.47,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.617299-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.37,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 15,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 15460,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "STRONG SELL",
+    "score_bar": 36,
+    "price_change_display": "-5.41%",
+    "key_metrics": {
+      "RSI": 41.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

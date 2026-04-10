@@ -1,0 +1,160 @@
+{
+  "ticker": "SIG",
+  "company": "Signet Jewelers Limited",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.703622-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Luxury Goods",
+  "price": {
+    "current": 93.06,
+    "open": 89.81,
+    "high": 93.97,
+    "low": 89.81,
+    "prev_close": 90.46,
+    "change_pct": 2.87,
+    "change_pct_1w": 6.38,
+    "change_pct_1m": 2.48,
+    "change_pct_1y": 71.9,
+    "volume": 618600,
+    "avg_volume_30d": 1126816
+  },
+  "scores": {
+    "master_score": 54.2,
+    "technical_score": 40.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 49.5,
+    "breakout_score": 15.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.2,
+    "confidence": 0.54,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 56.8,
+    "macd": -0.3239,
+    "macd_signal": -1.2191,
+    "macd_histogram": 0.8952,
+    "macd_crossover": "neutral",
+    "ema_20": 88.22,
+    "ema_50": 89.57,
+    "ema_200": 86.25,
+    "ema_stack_bullish": false,
+    "bb_upper": 93.54,
+    "bb_middle": 86.49,
+    "bb_lower": 79.43,
+    "bb_width": 0.1631,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.2,
+    "atr": 4.56,
+    "atr_pct": 0.049,
+    "obv_trend": "UP",
+    "mfi": 69.7,
+    "cmf": -0.042,
+    "stoch_k": 93.2,
+    "stoch_d": 78.0,
+    "rvol": 0.65,
+    "volume_5d_avg": 731000,
+    "green_days_10d": 5,
+    "52w_high": 106.0,
+    "52w_low": 50.3,
+    "52w_high_proximity_pct": 0.1221,
+    "52w_low_proximity_pct": 0.85
+  },
+  "fundamental": {
+    "pe_ratio": 12.765431,
+    "sector_pe_median": 25.92546,
+    "pb_ratio": 1.9121394,
+    "de_ratio": 61.911,
+    "fcf_yield": 0.0962,
+    "eps_growth_5y": 1.659,
+    "revenue_growth_ttm": -0.003,
+    "gross_margin": 0.39547002,
+    "operating_margin": 0.15083,
+    "net_margin": 0.04321,
+    "market_cap": 3786094336,
+    "enterprise_value": 4071207168,
+    "dividend_yield": 1.5,
+    "payout_ratio": 0.1808,
+    "insider_ownership_pct": 0.03265,
+    "institutional_ownership_pct": 1.16191,
+    "short_ratio": 6.6,
+    "beta": 1.25
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 89.12,
+    "entry_range_high": 93.53,
+    "target_range_low": 104.61,
+    "target_range_high": 112.08,
+    "stop_range_low": 79.74,
+    "stop_range_high": 83.94,
+    "target_price": 106.74,
+    "stop_loss": 83.94,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.703606-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 116.33,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 150.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.3,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7000,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.24,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "SIG exhibits a SELL signal, driven by bearish EMA alignment and weak ADX (15.2), despite today's 2.87% price increase to $93.06. Low Bollinger Band positioning suggests limited further downside near term. While the P/E of 12.76 indicates undervaluation relative to its sector, this is offset by negative revenue growth (-0.3% TTM) and only moderate net margins of 4.3%. The unsustainably high dividend yield of 150% raises concerns about future payouts. Watch for a potential dividend cut announcement as a catalyst for price depreciation, targeting support near $80-$85.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 54,
+    "price_change_display": "+2.87%",
+    "key_metrics": {
+      "RSI": 56.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

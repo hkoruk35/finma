@@ -1,0 +1,158 @@
+{
+  "ticker": "MTB",
+  "company": "M&T Bank Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.862695-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 222.99,
+    "open": 217.75,
+    "high": 223.66,
+    "low": 217.46,
+    "prev_close": 219.04,
+    "change_pct": 1.8,
+    "change_pct_1w": 6.7,
+    "change_pct_1m": 9.24,
+    "change_pct_1y": 45.72,
+    "volume": 731800,
+    "avg_volume_30d": 1221363
+  },
+  "scores": {
+    "master_score": 53.62,
+    "technical_score": 45.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 48.7,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 53.62,
+    "confidence": 0.54,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 68.3,
+    "macd": 1.3244,
+    "macd_signal": -1.4702,
+    "macd_histogram": 2.7946,
+    "macd_crossover": "neutral",
+    "ema_20": 209.69,
+    "ema_50": 210.22,
+    "ema_200": 200.1,
+    "ema_stack_bullish": false,
+    "bb_upper": 219.46,
+    "bb_middle": 204.67,
+    "bb_lower": 189.88,
+    "bb_width": 0.1445,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.5,
+    "atr": 5.22,
+    "atr_pct": 0.0234,
+    "obv_trend": "UP",
+    "mfi": 79.9,
+    "cmf": 0.012,
+    "stoch_k": 97.6,
+    "stoch_d": 96.1,
+    "rvol": 0.71,
+    "volume_5d_avg": 866800,
+    "green_days_10d": 9,
+    "52w_high": 236.36,
+    "52w_low": 151.99,
+    "52w_high_proximity_pct": 0.0566,
+    "52w_low_proximity_pct": 0.4671
+  },
+  "fundamental": {
+    "pe_ratio": 13.12478,
+    "sector_pe_median": 16.018940999999998,
+    "pb_ratio": 1.2852376,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.211,
+    "revenue_growth_ttm": 0.047,
+    "gross_margin": 0.0,
+    "operating_margin": 0.41404,
+    "net_margin": 0.3104,
+    "market_cap": 33225568256,
+    "enterprise_value": 31114565632,
+    "dividend_yield": 2.69,
+    "payout_ratio": 0.3353,
+    "insider_ownership_pct": 0.00327,
+    "institutional_ownership_pct": 0.92834,
+    "short_ratio": 5.55,
+    "beta": 0.598
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 209.17,
+    "entry_range_high": 224.1,
+    "target_range_low": 233.88,
+    "target_range_high": 250.58,
+    "stop_range_low": 201.92,
+    "stop_range_high": 212.55,
+    "target_price": 238.65,
+    "stop_loss": 212.55,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.862676-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 278.74,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 269.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 151.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8236,
+      "date": "2026-02-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 3.63,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 54,
+    "price_change_display": "+1.80%",
+    "key_metrics": {
+      "RSI": 68.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

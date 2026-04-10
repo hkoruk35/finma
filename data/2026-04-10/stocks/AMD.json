@@ -1,0 +1,158 @@
+{
+  "ticker": "AMD",
+  "company": "Advanced Micro Devices, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.562865-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 236.64,
+    "open": 233.01,
+    "high": 237.1,
+    "low": 230.91,
+    "prev_close": 231.82,
+    "change_pct": 2.08,
+    "change_pct_1w": 12.57,
+    "change_pct_1m": 16.44,
+    "change_pct_1y": 182.93,
+    "volume": 27067500,
+    "avg_volume_30d": 33877033
+  },
+  "scores": {
+    "master_score": 49.52,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 49.52,
+    "confidence": 0.5,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 66.8,
+    "macd": 5.7074,
+    "macd_signal": 1.8403,
+    "macd_histogram": 3.8672,
+    "macd_crossover": "neutral",
+    "ema_20": 212.75,
+    "ema_50": 211.06,
+    "ema_200": 193.81,
+    "ema_stack_bullish": true,
+    "bb_upper": 232.28,
+    "bb_middle": 208.08,
+    "bb_lower": 183.87,
+    "bb_width": 0.2326,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.3,
+    "atr": 10.01,
+    "atr_pct": 0.0423,
+    "obv_trend": "UP",
+    "mfi": 66.6,
+    "cmf": 0.089,
+    "stoch_k": 99.0,
+    "stoch_d": 93.1,
+    "rvol": 0.93,
+    "volume_5d_avg": 31659360,
+    "green_days_10d": 7,
+    "52w_high": 264.33,
+    "52w_low": 78.21,
+    "52w_high_proximity_pct": 0.1048,
+    "52w_low_proximity_pct": 2.0257
+  },
+  "fundamental": {
+    "pe_ratio": 91.01539,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 6.1226387,
+    "de_ratio": 6.359,
+    "fcf_yield": 0.0119,
+    "eps_growth_5y": 2.171,
+    "revenue_growth_ttm": 0.341,
+    "gross_margin": 0.52493,
+    "operating_margin": 0.17059,
+    "net_margin": 0.12515001,
+    "market_cap": 385820426240,
+    "enterprise_value": 379274428416,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00441,
+    "institutional_ownership_pct": 0.72203004,
+    "short_ratio": 0.97,
+    "beta": 1.963
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 210.0,
+    "entry_range_high": 237.82,
+    "target_range_low": 261.34,
+    "target_range_high": 280.0,
+    "stop_range_low": 205.79,
+    "stop_range_high": 216.62,
+    "target_price": 266.67,
+    "stop_loss": 216.62,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.562807-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 295.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 78.21,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3293,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 50,
+    "price_change_display": "+2.08%",
+    "key_metrics": {
+      "RSI": 66.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

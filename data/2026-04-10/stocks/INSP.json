@@ -1,0 +1,158 @@
+{
+  "ticker": "INSP",
+  "company": "Inspire Medical Systems, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.788876-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 56.69,
+    "open": 53.0,
+    "high": 58.64,
+    "low": 51.53,
+    "prev_close": 53.38,
+    "change_pct": 6.2,
+    "change_pct_1w": 5.69,
+    "change_pct_1m": -4.63,
+    "change_pct_1y": -62.13,
+    "volume": 1748500,
+    "avg_volume_30d": 1170523
+  },
+  "scores": {
+    "master_score": 50.9,
+    "technical_score": 50.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.0,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 50.9,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 50.1,
+    "macd": -2.2841,
+    "macd_signal": -3.2872,
+    "macd_histogram": 1.0032,
+    "macd_crossover": "neutral",
+    "ema_20": 55.16,
+    "ema_50": 62.87,
+    "ema_200": 91.75,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.34,
+    "bb_middle": 54.06,
+    "bb_lower": 48.77,
+    "bb_width": 0.1956,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.7,
+    "atr": 3.6,
+    "atr_pct": 0.0635,
+    "obv_trend": "UP",
+    "mfi": 49.0,
+    "cmf": -0.05,
+    "stoch_k": 81.1,
+    "stoch_d": 66.4,
+    "rvol": 1.01,
+    "volume_5d_avg": 1179560,
+    "green_days_10d": 6,
+    "52w_high": 161.88,
+    "52w_low": 50.13,
+    "52w_high_proximity_pct": 0.6498,
+    "52w_low_proximity_pct": 0.1309
+  },
+  "fundamental": {
+    "pe_ratio": 11.593047,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 2.0740497,
+    "de_ratio": 4.116,
+    "fcf_yield": 0.0334,
+    "eps_growth_5y": 3.084,
+    "revenue_growth_ttm": 0.122,
+    "gross_margin": 0.85392,
+    "operating_margin": 0.17136998,
+    "net_margin": 0.15946001,
+    "market_cap": 1632519296,
+    "enterprise_value": 1344613888,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01169,
+    "institutional_ownership_pct": 1.1989399,
+    "short_ratio": 2.91,
+    "beta": 0.86
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 56.41,
+    "entry_range_high": 56.97,
+    "target_range_low": 66.14,
+    "target_range_high": 70.86,
+    "stop_range_low": 47.02,
+    "stop_range_high": 49.49,
+    "target_price": 67.49,
+    "stop_loss": 49.49,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.788860-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 70.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 18358,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+6.20%",
+    "key_metrics": {
+      "RSI": 50.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

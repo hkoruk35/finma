@@ -1,0 +1,158 @@
+{
+  "ticker": "SYK",
+  "company": "Stryker Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.781192-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 339.14,
+    "open": 338.16,
+    "high": 339.94,
+    "low": 334.22,
+    "prev_close": 340.01,
+    "change_pct": -0.26,
+    "change_pct_1w": 2.96,
+    "change_pct_1m": -5.18,
+    "change_pct_1y": -0.85,
+    "volume": 1393500,
+    "avg_volume_30d": 2067170
+  },
+  "scores": {
+    "master_score": 46.9,
+    "technical_score": 55.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 46.9,
+    "confidence": 0.47,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 47.3,
+    "macd": -6.2454,
+    "macd_signal": -8.2048,
+    "macd_histogram": 1.9594,
+    "macd_crossover": "neutral",
+    "ema_20": 338.35,
+    "ema_50": 348.57,
+    "ema_200": 362.78,
+    "ema_stack_bullish": false,
+    "bb_upper": 348.08,
+    "bb_middle": 334.51,
+    "bb_lower": 320.93,
+    "bb_width": 0.0812,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 32.3,
+    "atr": 8.45,
+    "atr_pct": 0.0249,
+    "obv_trend": "UP",
+    "mfi": 30.9,
+    "cmf": -0.127,
+    "stoch_k": 89.9,
+    "stoch_d": 70.3,
+    "rvol": 0.74,
+    "volume_5d_avg": 1520540,
+    "green_days_10d": 6,
+    "52w_high": 400.53,
+    "52w_low": 325.22,
+    "52w_high_proximity_pct": 0.1533,
+    "52w_low_proximity_pct": 0.0428
+  },
+  "fundamental": {
+    "pe_ratio": 40.325806,
+    "sector_pe_median": 25.183777499999998,
+    "pb_ratio": 5.78599,
+    "de_ratio": 72.971,
+    "fcf_yield": 0.0321,
+    "eps_growth_5y": 0.559,
+    "revenue_growth_ttm": 0.114,
+    "gross_margin": 0.65042,
+    "operating_margin": 0.27235,
+    "net_margin": 0.12923999,
+    "market_cap": 129885282304,
+    "enterprise_value": 142045036544,
+    "dividend_yield": 1.04,
+    "payout_ratio": 0.4048,
+    "insider_ownership_pct": 0.053740002,
+    "institutional_ownership_pct": 0.81751,
+    "short_ratio": 2.08,
+    "beta": 0.926
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 337.44,
+    "entry_range_high": 340.84,
+    "target_range_low": 357.2,
+    "target_range_high": 382.71,
+    "stop_range_low": 306.13,
+    "stop_range_high": 322.24,
+    "target_price": 364.49,
+    "stop_loss": 322.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.781165-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 423.92,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 104.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 325.22,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 430,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 1.72,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 47,
+    "price_change_display": "-0.26%",
+    "key_metrics": {
+      "RSI": 47.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

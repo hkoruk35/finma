@@ -1,0 +1,158 @@
+{
+  "ticker": "MOS",
+  "company": "The Mosaic Company",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.734198-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Agricultural Inputs",
+  "price": {
+    "current": 25.27,
+    "open": 26.61,
+    "high": 27.15,
+    "low": 25.2,
+    "prev_close": 26.62,
+    "change_pct": -5.07,
+    "change_pct_1w": -4.79,
+    "change_pct_1m": -4.57,
+    "change_pct_1y": 10.51,
+    "volume": 7476100,
+    "avg_volume_30d": 11442673
+  },
+  "scores": {
+    "master_score": 39.84,
+    "technical_score": 32.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.4,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 39.84,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 44.4,
+    "macd": -0.3747,
+    "macd_signal": -0.4511,
+    "macd_histogram": 0.0764,
+    "macd_crossover": "neutral",
+    "ema_20": 26.25,
+    "ema_50": 26.72,
+    "ema_200": 27.76,
+    "ema_stack_bullish": false,
+    "bb_upper": 30.03,
+    "bb_middle": 26.41,
+    "bb_lower": 22.79,
+    "bb_width": 0.2739,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 10.8,
+    "atr": 1.4,
+    "atr_pct": 0.0555,
+    "obv_trend": "UP",
+    "mfi": 51.3,
+    "cmf": -0.156,
+    "stoch_k": 54.0,
+    "stoch_d": 58.4,
+    "rvol": 0.61,
+    "volume_5d_avg": 6995760,
+    "green_days_10d": 4,
+    "52w_high": 36.9,
+    "52w_low": 22.08,
+    "52w_high_proximity_pct": 0.3152,
+    "52w_low_proximity_pct": 0.1445
+  },
+  "fundamental": {
+    "pe_ratio": 14.864706,
+    "sector_pe_median": 24.341375,
+    "pb_ratio": 0.6637075,
+    "de_ratio": 43.154,
+    "fcf_yield": -0.054,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.1578,
+    "operating_margin": 0.02791,
+    "net_margin": 0.04486,
+    "market_cap": 8023357952,
+    "enterprise_value": 13175558144,
+    "dividend_yield": 3.48,
+    "payout_ratio": 0.5176,
+    "insider_ownership_pct": 0.00452,
+    "institutional_ownership_pct": 0.95711,
+    "short_ratio": 2.2,
+    "beta": 0.962
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 25.14,
+    "entry_range_high": 25.4,
+    "target_range_low": 28.88,
+    "target_range_high": 30.94,
+    "stop_range_low": 21.35,
+    "stop_range_high": 22.47,
+    "target_price": 29.47,
+    "stop_loss": 22.47,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.734182-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 31.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 348.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 22.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 17319,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.9,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "-5.07%",
+    "key_metrics": {
+      "RSI": 44.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

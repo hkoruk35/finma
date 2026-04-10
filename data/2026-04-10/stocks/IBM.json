@@ -1,0 +1,160 @@
+{
+  "ticker": "IBM",
+  "company": "International Business Machines Corporation",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.622493-04:00",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 237.18,
+    "open": 240.88,
+    "high": 241.74,
+    "low": 233.76,
+    "prev_close": 241.74,
+    "change_pct": -1.89,
+    "change_pct_1w": -2.45,
+    "change_pct_1m": -5.2,
+    "change_pct_1y": 7.66,
+    "volume": 5077400,
+    "avg_volume_30d": 5339316
+  },
+  "scores": {
+    "master_score": 42.32,
+    "technical_score": 33.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.7,
+    "breakout_score": 30.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 42.32,
+    "confidence": 0.42,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 39.9,
+    "macd": -3.9469,
+    "macd_signal": -4.6092,
+    "macd_histogram": 0.6623,
+    "macd_crossover": "neutral",
+    "ema_20": 244.98,
+    "ema_50": 256.1,
+    "ema_200": 269.18,
+    "ema_stack_bullish": false,
+    "bb_upper": 254.82,
+    "bb_middle": 244.66,
+    "bb_lower": 234.5,
+    "bb_width": 0.0831,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 18.4,
+    "atr": 7.53,
+    "atr_pct": 0.0317,
+    "obv_trend": "DOWN",
+    "mfi": 51.0,
+    "cmf": -0.128,
+    "stoch_k": 19.5,
+    "stoch_d": 36.3,
+    "rvol": 0.71,
+    "volume_5d_avg": 3786380,
+    "green_days_10d": 5,
+    "52w_high": 313.19,
+    "52w_low": 215.67,
+    "52w_high_proximity_pct": 0.2427,
+    "52w_low_proximity_pct": 0.0997
+  },
+  "fundamental": {
+    "pe_ratio": 21.27175,
+    "sector_pe_median": 39.065147,
+    "pb_ratio": 6.806715,
+    "de_ratio": 197.328,
+    "fcf_yield": 0.0591,
+    "eps_growth_5y": 0.899,
+    "revenue_growth_ttm": 0.122,
+    "gross_margin": 0.58186,
+    "operating_margin": 0.24768999,
+    "net_margin": 0.15685001,
+    "market_cap": 222571855872,
+    "enterprise_value": 272765992960,
+    "dividend_yield": 2.83,
+    "payout_ratio": 0.6023,
+    "insider_ownership_pct": 0.00125,
+    "institutional_ownership_pct": 0.65374,
+    "short_ratio": 3.17,
+    "beta": 0.685
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 235.99,
+    "entry_range_high": 238.37,
+    "target_range_low": 254.57,
+    "target_range_high": 272.76,
+    "stop_range_low": 211.01,
+    "stop_range_high": 222.12,
+    "target_price": 259.77,
+    "stop_loss": 222.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.622470-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 296.48,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 283.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 215.67,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 50,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.47,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "IBM (2026-04-09) displays a SELL signal with 42% confidence. At $241.74, the stock is down 1.36% with RVOL at 0.66x, indicating below-average trading interest. Technicals lean bearish: RSI at 43.6, a neutral MACD histogram of 1.1097, and a bearish EMA stack. ADX at 18.4 suggests a weak trend. While the BB Squeeze is MEDIUM, the price sits 22.8% below its 52-week high. Fundamentally, IBM's P/E of 21.70 is lower than the sector median of 32.77, with revenue growth TTM at 12.2% and a gross margin of 58.2%. Upcoming earnings could act as a catalyst; however, current indicators suggest potential downside.",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 42,
+    "price_change_display": "-1.89%",
+    "key_metrics": {
+      "RSI": 39.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "CWEN",
+  "company": "Clearway Energy, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:08.049617-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Renewable",
+  "price": {
+    "current": 40.77,
+    "open": 40.56,
+    "high": 41.32,
+    "low": 40.3,
+    "prev_close": 40.57,
+    "change_pct": 0.49,
+    "change_pct_1w": 2.15,
+    "change_pct_1m": 8.55,
+    "change_pct_1y": 57.39,
+    "volume": 575600,
+    "avg_volume_30d": 878243
+  },
+  "scores": {
+    "master_score": 51.26,
+    "technical_score": 66.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 56.6,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.26,
+    "confidence": 0.51,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 63.2,
+    "macd": 0.6016,
+    "macd_signal": 0.4887,
+    "macd_histogram": 0.1128,
+    "macd_crossover": "neutral",
+    "ema_20": 39.37,
+    "ema_50": 38.19,
+    "ema_200": 33.91,
+    "ema_stack_bullish": true,
+    "bb_upper": 40.99,
+    "bb_middle": 39.3,
+    "bb_lower": 37.61,
+    "bb_width": 0.086,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.2,
+    "atr": 1.08,
+    "atr_pct": 0.0264,
+    "obv_trend": "UP",
+    "mfi": 57.5,
+    "cmf": -0.015,
+    "stoch_k": 87.0,
+    "stoch_d": 84.2,
+    "rvol": 0.86,
+    "volume_5d_avg": 753900,
+    "green_days_10d": 7,
+    "52w_high": 40.77,
+    "52w_low": 25.34,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6092
+  },
+  "fundamental": {
+    "pe_ratio": 28.51049,
+    "sector_pe_median": 23.062841,
+    "pb_ratio": 2.5313547,
+    "de_ratio": 159.672,
+    "fcf_yield": 0.0248,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.211,
+    "gross_margin": 0.62911,
+    "operating_margin": -0.02258,
+    "net_margin": 0.11826,
+    "market_cap": 8366775296,
+    "enterprise_value": 18112258048,
+    "dividend_yield": 4.41,
+    "payout_ratio": 1.2364,
+    "insider_ownership_pct": 0.007900001,
+    "institutional_ownership_pct": 0.9282,
+    "short_ratio": 5.51,
+    "beta": 0.918
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 38.0,
+    "entry_range_high": 40.97,
+    "target_range_low": 43.13,
+    "target_range_high": 46.21,
+    "stop_range_low": 36.68,
+    "stop_range_high": 38.61,
+    "target_price": 44.01,
+    "stop_loss": 38.61,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:08.049600-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 50.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 441.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 25.34,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 215000,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.75,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 51,
+    "price_change_display": "+0.49%",
+    "key_metrics": {
+      "RSI": 63.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

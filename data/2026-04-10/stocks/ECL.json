@@ -1,0 +1,158 @@
+{
+  "ticker": "ECL",
+  "company": "Ecolab Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.940318-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 272.47,
+    "open": 270.37,
+    "high": 273.09,
+    "low": 268.62,
+    "prev_close": 273.51,
+    "change_pct": -0.38,
+    "change_pct_1w": 1.09,
+    "change_pct_1m": -2.91,
+    "change_pct_1y": 19.52,
+    "volume": 923600,
+    "avg_volume_30d": 1586006
+  },
+  "scores": {
+    "master_score": 46.07,
+    "technical_score": 61.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 46.07,
+    "confidence": 0.46,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 50.5,
+    "macd": -3.724,
+    "macd_signal": -5.4116,
+    "macd_histogram": 1.6876,
+    "macd_crossover": "neutral",
+    "ema_20": 269.99,
+    "ema_50": 275.31,
+    "ema_200": 271.64,
+    "ema_stack_bullish": false,
+    "bb_upper": 277.16,
+    "bb_middle": 266.4,
+    "bb_lower": 255.63,
+    "bb_width": 0.0808,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 34.2,
+    "atr": 6.65,
+    "atr_pct": 0.0244,
+    "obv_trend": "UP",
+    "mfi": 58.0,
+    "cmf": -0.004,
+    "stoch_k": 94.3,
+    "stoch_d": 82.2,
+    "rvol": 0.67,
+    "volume_5d_avg": 1063020,
+    "green_days_10d": 5,
+    "52w_high": 307.53,
+    "52w_low": 223.33,
+    "52w_high_proximity_pct": 0.114,
+    "52w_low_proximity_pct": 0.22
+  },
+  "fundamental": {
+    "pe_ratio": 37.47868,
+    "sector_pe_median": 23.75,
+    "pb_ratio": 11.615227,
+    "de_ratio": 91.769,
+    "fcf_yield": 0.0213,
+    "eps_growth_5y": 0.202,
+    "revenue_growth_ttm": 0.048,
+    "gross_margin": 0.44512,
+    "operating_margin": 0.19048999,
+    "net_margin": 0.12907,
+    "market_cap": 76952002560,
+    "enterprise_value": 85213216768,
+    "dividend_yield": 1.01,
+    "payout_ratio": 0.36810002,
+    "insider_ownership_pct": 0.0015199999,
+    "institutional_ownership_pct": 0.94119,
+    "short_ratio": 2.14,
+    "beta": 1.024
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 271.11,
+    "entry_range_high": 273.83,
+    "target_range_low": 286.57,
+    "target_range_high": 307.04,
+    "stop_range_low": 246.21,
+    "stop_range_high": 259.17,
+    "target_price": 292.42,
+    "stop_loss": 259.17,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.940302-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 340.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 101.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 223.33,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 137,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 2.5,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 46,
+    "price_change_display": "-0.38%",
+    "key_metrics": {
+      "RSI": 50.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

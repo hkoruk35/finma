@@ -1,0 +1,158 @@
+{
+  "ticker": "ALK",
+  "company": "Alaska Air Group, Inc.",
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T05:26:07.994826-04:00",
+  "sector": "Industrials",
+  "industry": "Airlines",
+  "price": {
+    "current": 39.9,
+    "open": 39.28,
+    "high": 40.1,
+    "low": 38.21,
+    "prev_close": 39.91,
+    "change_pct": -0.03,
+    "change_pct_1w": 5.98,
+    "change_pct_1m": -5.76,
+    "change_pct_1y": -9.05,
+    "volume": 3649700,
+    "avg_volume_30d": 5146516
+  },
+  "scores": {
+    "master_score": 40.33,
+    "technical_score": 56.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 54.8,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 40.33,
+    "confidence": 0.4,
+    "signal_type": "SELL"
+  },
+  "technical": {
+    "rsi_14": 47.9,
+    "macd": -2.0157,
+    "macd_signal": -2.784,
+    "macd_histogram": 0.7683,
+    "macd_crossover": "neutral",
+    "ema_20": 39.44,
+    "ema_50": 43.48,
+    "ema_200": 49.41,
+    "ema_stack_bullish": false,
+    "bb_upper": 40.56,
+    "bb_middle": 37.95,
+    "bb_lower": 35.33,
+    "bb_width": 0.1378,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 27.1,
+    "atr": 2.62,
+    "atr_pct": 0.0658,
+    "obv_trend": "UP",
+    "mfi": 46.8,
+    "cmf": -0.166,
+    "stoch_k": 67.2,
+    "stoch_d": 62.0,
+    "rvol": 1.0,
+    "volume_5d_avg": 5159260,
+    "green_days_10d": 4,
+    "52w_high": 63.86,
+    "52w_low": 34.19,
+    "52w_high_proximity_pct": 0.3752,
+    "52w_low_proximity_pct": 0.167
+  },
+  "fundamental": {
+    "pe_ratio": 48.072292,
+    "sector_pe_median": 34.192967499999995,
+    "pb_ratio": 1.119403,
+    "de_ratio": 167.387,
+    "fcf_yield": -0.0435,
+    "eps_growth_5y": -0.683,
+    "revenue_growth_ttm": 0.028,
+    "gross_margin": 0.21511,
+    "operating_margin": 0.03194,
+    "net_margin": 0.0070200004,
+    "market_cap": 4574194176,
+    "enterprise_value": 9344193536,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00524,
+    "institutional_ownership_pct": 0.9301,
+    "short_ratio": 3.14,
+    "beta": 1.275
+  },
+  "signals": {
+    "signal_type": "SELL",
+    "entry_range_low": 39.7,
+    "entry_range_high": 40.1,
+    "target_range_low": 46.8,
+    "target_range_high": 50.15,
+    "stop_range_low": 32.93,
+    "stop_range_high": 34.66,
+    "target_price": 47.76,
+    "stop_loss": 34.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-10T05:26:07.994803-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 49.88,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 697,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 5.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "signal_badge": "SELL",
+    "score_bar": 40,
+    "price_change_display": "-0.03%",
+    "key_metrics": {
+      "RSI": 47.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}
