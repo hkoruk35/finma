@@ -439,14 +439,14 @@ export default async function StockDetailPage({ params }: Props) {
            </div>
         </div>
 
-        {/* Categories & Social */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {/* Signal Categories */}
+        <div className="mb-8">
            <div className="glass-card p-6">
               <h3 className="text-xl font-bold text-white mb-4">Signal Categories</h3>
               <div className="flex flex-wrap gap-2">
                  {stock.signals.categories.map(cat => (
-                    <Link 
-                       key={cat} 
+                    <Link
+                       key={cat}
                        href={`/category/${cat.replace('_', '-') === 'value' ? 'undervalued' : cat.replace('_', '-')}`}
                        className="px-4 py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/20 rounded-full text-xs font-bold text-[#3b82f6] hover:bg-[#3b82f6]/20 transition-all uppercase tracking-widest"
                     >
@@ -455,22 +455,21 @@ export default async function StockDetailPage({ params }: Props) {
                  ))}
               </div>
            </div>
+        </div>
 
-            <div id="social-share-section" className="glass-card p-8 border-t-2 border-t-[#3b82f6]">
-               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                 <div className="max-w-md">
-                   <h3 className="text-2xl font-black text-white mb-2">Share This Insight</h3>
-                   <p className="text-[#94a3b8] text-sm">Help others discover this signal. Professional analysts share high-conviction data.</p>
-                 </div>
-                 <div className="flex-1 flex justify-end">
-                   <SocialShare 
-                     ticker={stock.ticker} 
-                     score={stock.scores.master_score} 
-                     signal={stock.scores.signal_type}
-                   />
-                 </div>
-               </div>
-            </div>
+        {/* Social Share */}
+        <div id="social-share-section" className="glass-card p-8 border-t-2 border-t-[#3b82f6] mb-8">
+           <div className="flex flex-col gap-6">
+             <div>
+               <h3 className="text-2xl font-black text-white mb-2">Share This Insight</h3>
+               <p className="text-[#94a3b8] text-sm">Help others discover this signal. Professional analysts share high-conviction data.</p>
+             </div>
+             <SocialShare
+               ticker={stock.ticker}
+               score={stock.scores.master_score}
+               signal={stock.scores.signal_type}
+             />
+           </div>
         </div>
 
         {/* News Section */}
