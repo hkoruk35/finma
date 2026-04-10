@@ -198,7 +198,7 @@ OBV_TREND_DAYS  = 10
 MFI_PERIOD      = 14
 STOCH_K         = 14
 STOCH_D         = 3
-LOOKBACK_DAYS   = 200
+LOOKBACK_DAYS   = 270   # 252 trading days (1Y) + buffer for holidays/weekends
 
 # RSI optimal range for scoring
 RSI_BULLISH_MIN = 45

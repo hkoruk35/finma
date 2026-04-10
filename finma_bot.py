@@ -188,8 +188,19 @@ def fetch_ticker_data(ticker: str) -> Optional[Dict]:
             pass
 
         # Price snapshot
+        current_price = float(hist["Close"].iloc[-1])
+
+        # Calculate time-period returns
+        def calc_return_pct(idx_back):
+            """Calculate return % from index_back trading days ago to today."""
+            if len(hist) > idx_back:
+                old_price = float(hist["Close"].iloc[-1 - idx_back])
+                if old_price > 0:
+                    return round((current_price - old_price) / old_price * 100, 2)
+            return None
+
         price_data = {
-            "current":      round(float(hist["Close"].iloc[-1]), 2),
+            "current":      round(current_price, 2),
             "open":         round(float(hist["Open"].iloc[-1]), 2),
             "high":         round(float(hist["High"].iloc[-1]), 2),
             "low":          round(float(hist["Low"].iloc[-1]), 2),
@@ -198,6 +209,9 @@ def fetch_ticker_data(ticker: str) -> Optional[Dict]:
             "change_pct":   round(float((hist["Close"].iloc[-1] - hist["Close"].iloc[-2]) / hist["Close"].iloc[-2] * 100), 2) if len(hist) >= 2 else 0,
             "volume":       int(hist["Volume"].iloc[-1]),
             "avg_volume_30d": int(hist["Volume"].tail(30).mean()),
+            "change_pct_1w":   calc_return_pct(5),    # 1-week (5 trading days)
+            "change_pct_1m":   calc_return_pct(21),   # 1-month (21 trading days)
+            "change_pct_1y":   calc_return_pct(252),  # 1-year (252 trading days)
         }
 
         fundamental = {
@@ -673,18 +687,82 @@ def fetch_insider_activity(ticker: str) -> Dict:
         if txns is None or txns.empty:
             return {"last_90_days_buys": 0, "last_90_days_sells": 0,
                     "net_direction": "NEUTRAL", "last_transaction": None}
+
         cutoff = datetime.now() - timedelta(days=90)
-        recent = txns[txns.index >= cutoff] if hasattr(txns.index, 'tz') else txns.head(10)
-        buys  = int((recent.get("Shares", pd.Series()).fillna(0) > 0).sum())
-        sells = int((recent.get("Shares", pd.Series()).fillna(0) < 0).sum())
-        net   = "BUY" if buys > sells else "SELL" if sells > buys else "NEUTRAL"
-        last  = None
+
+        # Normalize column names (yfinance changes column names across versions)
+        txns.columns = [str(c).strip() for c in txns.columns]
+
+        # Try to find date column: check index and common column names
+        date_col = None
+        for col in ["Start Date", "Date", "startDate", "date"]:
+            if col in txns.columns:
+                date_col = col
+                break
+
+        if date_col:
+            # Parse dates in that column
+            txns["_dt"] = pd.to_datetime(txns[date_col], errors="coerce")
+            recent = txns[txns["_dt"] >= cutoff]
+            if recent.empty:
+                recent = txns.head(5)  # fallback: use most recent 5
+        elif hasattr(txns.index, "dtype") and "datetime" in str(txns.index.dtype):
+            # Index is datetime
+            idx = pd.to_datetime(txns.index, errors="coerce")
+            recent = txns[idx >= cutoff]
+            if recent.empty:
+                recent = txns.head(5)
+        else:
+            recent = txns.head(5)
+
+        # Detect buy/sell direction: look for "Text" or "Transaction" column (sale/purchase text)
+        text_col = None
+        for col in ["Text", "Transaction", "transaction", "text"]:
+            if col in txns.columns:
+                text_col = col
+                break
+
+        if text_col:
+            text_vals = recent[text_col].fillna("").str.lower()
+            buys  = int(text_vals.str.contains("purchase|buy", regex=True).sum())
+            sells = int(text_vals.str.contains("sale|sell", regex=True).sum())
+        else:
+            # Fallback: use Shares sign (negative = sale in some versions)
+            shares_col = "Shares" if "Shares" in recent.columns else None
+            if shares_col:
+                share_vals = pd.to_numeric(recent[shares_col], errors="coerce").fillna(0)
+                buys  = int((share_vals > 0).sum())
+                sells = int((share_vals < 0).sum())
+                # If all positive (common in newer yfinance), can't distinguish — return neutral
+                if sells == 0 and buys == len(recent):
+                    buys, sells = 0, 0
+            else:
+                buys, sells = 0, 0
+
+        net = "BUY" if buys > sells else "SELL" if sells > buys else "NEUTRAL"
+
+        last = None
         if not recent.empty:
             row = recent.iloc[0]
+            # Get date
+            if date_col and "_dt" in recent.columns:
+                dt = row.get("_dt")
+                date_str = str(dt)[:10] if dt is not None and str(dt) != "NaT" else ""
+            elif hasattr(row.name, 'strftime'):
+                date_str = row.name.strftime("%Y-%m-%d")
+            else:
+                date_str = ""
+            # Get transaction type
+            if text_col:
+                raw_text = str(row.get(text_col, "")).lower()
+                txn_type = "BUY" if "purchase" in raw_text or "buy" in raw_text else "SELL"
+            else:
+                shares_val = pd.to_numeric(row.get("Shares", 0), errors="coerce") or 0
+                txn_type = "BUY" if shares_val > 0 else "SELL"
             last = {
-                "type":   "BUY" if (row.get("Shares", 0) or 0) > 0 else "SELL",
-                "shares": abs(int(row.get("Shares", 0) or 0)),
-                "date":   str(row.name)[:10] if hasattr(row.name, '__str__') else "",
+                "type":   txn_type,
+                "shares": abs(int(pd.to_numeric(row.get("Shares", 0), errors="coerce") or 0)),
+                "date":   date_str,
             }
         return {"last_90_days_buys": buys, "last_90_days_sells": sells,
                 "net_direction": net, "last_transaction": last}
@@ -892,6 +970,9 @@ def build_stock_json(raw: Dict, tech: Dict, scores: Dict, signals: Dict,
             "low":          raw["price"].get("low"),
             "prev_close":   raw["price"].get("prev_close"),
             "change_pct":   raw["price"].get("change_pct"),
+            "change_pct_1w": raw["price"].get("change_pct_1w"),
+            "change_pct_1m": raw["price"].get("change_pct_1m"),
+            "change_pct_1y": raw["price"].get("change_pct_1y"),
             "volume":       raw["price"].get("volume"),
             "avg_volume_30d": raw["price"].get("avg_volume_30d"),
         },
@@ -1082,7 +1163,7 @@ async def daily_run():
     market_indices = {}
     for name, sym in INDEX_TICKERS.items():
         try:
-            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="10d"))
+            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="400d"))
             if h is not None and not h.empty:
                 # Only keep rows with price
                 h = h[h["Close"].notna()]
@@ -1090,12 +1171,33 @@ async def daily_run():
                     val = float(h["Close"].iloc[-1])
                     prev = float(h["Close"].iloc[-2])
                     chg = round((val - prev) / prev * 100, 2)
-                    market_indices[name] = {"value": round(val, 2), "change_pct": chg}
+
+                    # Time-period returns
+                    def calc_idx_return(idx_back):
+                        if len(h) > idx_back:
+                            old = float(h["Close"].iloc[-1 - idx_back])
+                            if old > 0:
+                                return round((val - old) / old * 100, 2)
+                        return None
+
+                    market_indices[name] = {
+                        "value": round(val, 2),
+                        "change_pct": chg,
+                        "change_pct_1w": calc_idx_return(5),
+                        "change_pct_1m": calc_idx_return(21),
+                        "change_pct_1y": calc_idx_return(252),
+                    }
                     log.info(f"  Index {name}: {val} ({chg}%)")
                 elif len(h) == 1:
                     val = float(h["Close"].iloc[-1])
-                    market_indices[name] = {"value": round(val, 2), "change_pct": 0.0}
-            
+                    market_indices[name] = {
+                        "value": round(val, 2),
+                        "change_pct": 0.0,
+                        "change_pct_1w": None,
+                        "change_pct_1m": None,
+                        "change_pct_1y": None,
+                    }
+
             if name not in market_indices:
                 log.warning(f"  Failed to fetch index {name}")
         except Exception as e:
@@ -1342,6 +1444,9 @@ async def daily_run():
                 "signal_type":  s["scores"]["signal_type"],
                 "price":        s["price"].get("current"),
                 "change_pct":   s["price"].get("change_pct"),
+                "change_pct_1w": s["price"].get("change_pct_1w"),
+                "change_pct_1m": s["price"].get("change_pct_1m"),
+                "change_pct_1y": s["price"].get("change_pct_1y"),
                 "entry_range_low": s["signals"]["entry_range_low"],
                 "entry_range_high": s["signals"]["entry_range_high"],
             }

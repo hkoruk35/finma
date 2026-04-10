@@ -58,46 +58,56 @@ export default function CategoryTabs({ master, allTickers }: Props) {
           <Link
             href={`/stock/${stock.ticker}`}
             key={stock.ticker}
-            className="glass-card p-4 hover:bg-[#1a2030] transition-all duration-200 group cursor-pointer animate-fade-in border border-[#1e2a3a] hover:border-[#3b82f6]/30"
+            className="glass-card p-3 hover:bg-[#1a2030] transition-all duration-200 group cursor-pointer animate-fade-in border border-[#1e2a3a] hover:border-[#3b82f6]/30"
             style={{ animationDelay: `${idx * 60}ms` }}
           >
             {/* Top row: ticker + signal */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3">
               <div>
-                <span className="text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
+                <span className="text-lg font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
                   {stock.ticker}
                 </span>
-                <p className="text-[10px] text-[#64748b] font-bold uppercase tracking-wider truncate max-w-[120px]">
+                <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-wider truncate max-w-[120px]">
                   {stock.company}
                 </p>
               </div>
-              <span className={`px-2 py-1 rounded text-[10px] font-black uppercase tracking-wider ${getSignalBadgeClass(stock.signal_type)}`}>
+              <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ${getSignalBadgeClass(stock.signal_type)}`}>
                 {stock.signal_type.replace("_", " ")}
               </span>
             </div>
 
-            {/* Score + Change */}
-            <div className="flex items-end justify-between mb-6">
-              <div>
-                <div className="text-3xl font-mono font-black text-[#3b82f6] leading-none">
-                  {stock.master_score.toFixed(1)}
-                </div>
-                <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-[0.2em] mt-1 leading-none">SCORE</div>
+            {/* Score */}
+            <div className="mb-3">
+              <div className="text-2xl font-mono font-black text-[#3b82f6] leading-none">
+                {stock.master_score.toFixed(1)}
               </div>
-              <div className="text-right">
-                <div className={`text-lg font-mono font-black ${getChangeColor(stock.change_pct)} leading-none`}>
-                  {stock.change_pct >= 0 ? "+" : ""}{stock.change_pct.toFixed(2)}%
-                </div>
-                <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-[0.2em] mt-1 leading-none">24H CHANGE</div>
-              </div>
+              <div className="text-[8px] text-[#64748b] font-bold uppercase tracking-[0.2em] mt-0.5 leading-none">SCORE</div>
             </div>
 
-            {/* Entry Range */}
-            <div className="mb-4 bg-[#0a0e17] p-2 rounded-lg border border-[#1e2a3a]">
-               <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest mb-1">ENTRY RANGE</div>
-               <div className="text-sm font-mono font-bold text-white tracking-tight">
-                  ${formatPrice(stock.entry_range_low)} - ${formatPrice(stock.entry_range_high)}
-               </div>
+            {/* Time-Period Returns */}
+            <div className="mb-4">
+              <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-[0.2em] mb-2 leading-none">RETURNS</div>
+              <div className="grid grid-cols-4 gap-1.5">
+                {[
+                  { label: "24H", value: stock.change_pct },
+                  { label: "1W", value: stock.change_pct_1w },
+                  { label: "1M", value: stock.change_pct_1m },
+                  { label: "1Y", value: stock.change_pct_1y },
+                ].map((period) => (
+                  <div key={period.label} className="text-center">
+                    <div className={`text-[11px] font-mono font-black ${
+                      period.value !== undefined && period.value !== null
+                        ? getChangeColor(period.value)
+                        : 'text-[#64748b]'
+                    }`}>
+                      {period.value !== undefined && period.value !== null
+                        ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
+                        : '—'}
+                    </div>
+                    <div className="text-[8px] text-[#4b5563] font-bold mt-0.5">{period.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="relative w-full h-2 bg-[#1e2a3a] rounded-full overflow-hidden mb-1">

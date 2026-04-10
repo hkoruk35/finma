@@ -12,13 +12,15 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 
-// Bot writes data here: transfer/latest/ under the main finma directory.
+// Bot writes data to: finma/.claude/worktrees/clever-diffie/transfer/latest/
+// In a worktree, this is at: finma/transfer/latest (after relative resolution)
 // frontend/ is at: finma/.claude/worktrees/clever-diffie/frontend/
-// data is at:      finma/transfer/latest/
-// Path from frontend up to finma root: ../../../../
+// Path from frontend directory:
+//   - Up 1: .claude/worktrees/clever-diffie/
+//   - Add transfer/latest: .claude/worktrees/clever-diffie/transfer/latest
 const DATA_ROOT = process.env.FINMA_DATA_PATH
   ? path.resolve(process.env.FINMA_DATA_PATH)
-  : path.resolve(process.cwd(), "..", "..", "..", "..", "transfer", "latest");
+  : path.resolve(process.cwd(), "..", "transfer", "latest");
 
 export async function GET(
   req: NextRequest,
