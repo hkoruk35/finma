@@ -164,22 +164,26 @@ function normalizeMasterData(data: any): MasterData {
 function normalizeStockQuickView(stock: any): StockQuickView {
   return {
     ...stock,
-    score_type: normalizeScoreType(stock.score_type || stock.signal),
+    score_type: normalizeScoreType(stock.score_type || stock.signal_type || stock.signal),
   };
 }
 
 // Normalize StockDetail to ensure score_type fields exist
 function normalizeStockDetail(data: any): StockDetail {
   if (!data) return {} as StockDetail;
+
+  // Handle old 'signals' key renamed to 'scores_detail'
+  const scoresDetail = data.scores_detail || data.signals || {};
+
   return {
     ...data,
     scores: {
       ...data.scores,
-      score_type: normalizeScoreType(data.scores?.score_type || data.scores?.signal),
+      score_type: normalizeScoreType(data.scores?.score_type || data.scores?.signal_type || data.scores?.signal),
     },
     scores_detail: {
-      ...data.scores_detail,
-      score_type: normalizeScoreType(data.scores_detail?.score_type || data.scores_detail?.signal),
+      ...scoresDetail,
+      score_type: normalizeScoreType(scoresDetail.score_type || scoresDetail.signal_type || scoresDetail.signal),
     },
   };
 }
