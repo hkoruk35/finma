@@ -46,8 +46,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" type="image/png" href="/finmawave.png" />
-        <link rel="apple-touch-icon" href="/finmawave.png" />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230a0e17' width='100' height='100'/%3E%3Ctext x='50' y='60' font-size='60' font-weight='900' fill='%233b82f6' text-anchor='middle' font-family='Arial'%3E⚡%3C/text%3E%3C/svg%3E" />
+        <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230a0e17' width='100' height='100'/%3E%3Ctext x='50' y='60' font-size='60' font-weight='900' fill='%233b82f6' text-anchor='middle' font-family='Arial'%3E⚡%3C/text%3E%3C/svg%3E" />
+        <link rel="apple-touch-icon" href="/finmawave.png" sizes="180x180" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#3b82f6" />
         <meta name="mobile-web-app-capable" content="yes" />

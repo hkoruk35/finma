@@ -9,12 +9,35 @@
   "background_color": "#0a0e17",
   "theme_color": "#3b82f6",
   "prefer_related_applications": false,
+  "categories": ["finance", "productivity"],
+  "screenshots": [
+    {
+      "src": "/finmawave.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "purpose": "any"
+    },
+    {
+      "src": "/finmawave.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "purpose": "any"
+    }
+  ],
   "icons": [
     {
       "src": "/finmawave.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/finmawave.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/finmawave.png",
@@ -24,17 +47,9 @@
     },
     {
       "src": "/finmawave.png",
-      "sizes": "180x180",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/finmawave.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
     }
   ]
 }
