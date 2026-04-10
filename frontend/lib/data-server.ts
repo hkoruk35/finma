@@ -28,12 +28,12 @@ export function readJson(relPath: string): any | null {
   if (process.env.FINMA_DATA_PATH) {
     candidates.push(process.env.FINMA_DATA_PATH);
   }
+  // Local dev (worktree): frontend/ → ../transfer/latest (priority 1)
+  candidates.push(path.resolve(process.cwd(), "..", "transfer", "latest"));
+  // Local dev (main repo): frontend/ → ../../transfer/latest
+  candidates.push(path.resolve(process.cwd(), "..", "..", "transfer", "latest"));
   // Vercel/production: data was copied into public/data/latest during build
   candidates.push(path.resolve(process.cwd(), "public", "data", "latest"));
-  // Local dev (worktree): frontend/ → ../../../../transfer/latest
-  candidates.push(path.resolve(process.cwd(), "..", "..", "..", "..", "transfer", "latest"));
-  // Local dev (main repo): frontend/ → ../transfer/latest
-  candidates.push(path.resolve(process.cwd(), "..", "transfer", "latest"));
 
   for (const base of candidates) {
     try {
