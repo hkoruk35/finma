@@ -2,7 +2,7 @@
   "ticker": "CYBR",
   "company": "CyberArk Software Ltd",
   "date": "2026-04-10",
-  "generated_at": "2026-04-10T05:26:07.618712-04:00",
+  "generated_at": "2026-04-10T11:20:46.005311-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 947088
   },
   "scores": {
-    "master_score": 30.97,
+    "master_score": 30.73,
     "technical_score": 32.0,
     "fundamental_score": 0.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.7,
+    "sector_score": 40.3,
     "breakout_score": 40.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 0.0,
-    "signal_score": 30.97,
+    "signal_score": 30.73,
     "confidence": 0.31,
-    "signal_type": "STRONG_SELL"
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 38.9,
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 420.74,
     "ema_50": 439.03,
-    "ema_200": 433.72,
+    "ema_200": 434.77,
     "ema_stack_bullish": false,
     "bb_upper": 464.65,
     "bb_middle": 423.92,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": null,
-    "sector_pe_median": 39.065147,
+    "sector_pe_median": 39.216118,
     "pb_ratio": 8.6064625,
     "de_ratio": 50.858,
     "fcf_yield": 0.0186,
@@ -86,8 +86,8 @@
     "short_ratio": 3.35,
     "beta": 0.928
   },
-  "signals": {
-    "signal_type": "STRONG_SELL",
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 406.81,
     "entry_range_high": 410.89,
     "target_range_low": 434.78,
@@ -98,7 +98,7 @@
     "stop_loss": 385.65,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-10T05:26:07.618689-04:00",
+    "generated_at": "2026-04-10T11:20:46.005294-04:00",
     "categories": []
   },
   "breakout": {
@@ -135,13 +135,13 @@
   },
   "sector_context": {
     "sector_etf": "XLK",
-    "sector_performance_5d": 4.47,
+    "sector_performance_5d": 4.53,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
   "ai_summary": "",
   "quick_view": {
-    "signal_badge": "STRONG SELL",
+    "score_badge": "UNDERPERFORM",
     "score_bar": 31,
     "price_change_display": "+0.00%",
     "key_metrics": {
