@@ -1380,6 +1380,9 @@ async def daily_run():
                 "signal_type":  s["scores"]["signal_type"],
                 "price":        s["price"].get("current"),
                 "change_pct":   s["price"].get("change_pct"),
+                "change_pct_1w": s["price"].get("change_pct_1w"),
+                "change_pct_1m": s["price"].get("change_pct_1m"),
+                "change_pct_1y": s["price"].get("change_pct_1y"),
                 "entry_range_low": s["signals"]["entry_range_low"],
                 "entry_range_high": s["signals"]["entry_range_high"],
             }
