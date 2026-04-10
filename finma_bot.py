@@ -531,11 +531,11 @@ def compute_master_score(tech_s, fund_s, mom_s, sent_s, sect_s) -> float:
 
 
 def signal_type_from_confidence(conf: float) -> str:
-    if conf >= SIGNAL_THRESHOLDS["STRONG_BUY"]: return "STRONG_BUY"
-    if conf >= SIGNAL_THRESHOLDS["BUY"]:        return "BUY"
-    if conf >= SIGNAL_THRESHOLDS["NEUTRAL"]:    return "NEUTRAL"
-    if conf >= SIGNAL_THRESHOLDS["SELL"]:       return "SELL"
-    return "STRONG_SELL"
+    if conf >= SIGNAL_THRESHOLDS["STRONG_BUY"]: return "HIGH_CONVICTION"
+    if conf >= SIGNAL_THRESHOLDS["BUY"]:        return "POSITIVE_BIAS"
+    if conf >= SIGNAL_THRESHOLDS["NEUTRAL"]:    return "NEUTRAL_STAY"
+    if conf >= SIGNAL_THRESHOLDS["SELL"]:       return "NEGATIVE_BIAS"
+    return "UNDERPERFORM"
 
 
 # ── Category Scores ───────────────────────────────────────────
@@ -817,7 +817,9 @@ def build_gemini_prompt(stock: Dict) -> str:
 Your task: Analyze {sd['ticker']} ({sd['company']}) and provide a concise, data-driven commentary.
 IMPORTANT: This analysis is ONLY about {sd['ticker']}, NOT about competing stocks or the broader sector (except for comparison context).
 Maximum {GEMINI_SUMMARY_WORD_LIMIT} words. Use specific data. Do NOT use generic tech stock language.
-Mention the signal type, key technical levels, and one specific catalyst for THIS stock.
+Mention the FinMA score rating, key technical levels, and one specific catalyst for THIS stock.
+Use ONLY these score rating terms: HIGH CONVICTION, POSITIVE BIAS, NEUTRAL STAY, NEGATIVE BIAS, UNDERPERFORM.
+Never use old terms like "BUY", "SELL", "STRONG BUY", "signals a BUY", etc. Always say "score" not "signal".
 
 ═══════════════════════════════════════════
 STOCK: {sd['ticker']} — {sd['company']}
@@ -839,7 +841,7 @@ Growth: {(f.get('revenue_growth_ttm') or 0)*100:.1f}% TTM revenue growth
 Profitability: {(f.get('gross_margin') or 0)*100:.1f}% gross margin, {(f.get('net_margin') or 0)*100:.1f}% net margin
 Dividend Yield: {(f.get('dividend_yield') or 0)*100:.2f}%
 
-FinMA SIGNAL: {sc.get('signal_type', 'N/A')} (Confidence: {(sc.get('confidence') or 0)*100:.0f}%)
+FinMA SCORE: {sc.get('signal_type', 'N/A')} (Confidence: {(sc.get('confidence') or 0)*100:.0f}%)
 
 RECENT CONTEXT:
 {news_summary}
@@ -940,7 +942,7 @@ def build_menus(all_stocks_data: List[Dict]) -> Dict:
     momentum  = top_n("momentum_cat_score",  lim["momentum"]["max"],  lim["momentum"]["min"])
     dividend  = top_n("dividend_score",  lim["dividend"]["max"],  lim["dividend"]["min"])
 
-    # Top signals: must appear in 2+ menus AND high confidence
+    # Top scores: must appear in 2+ menus AND high confidence
     all_menu_tickers: Dict[str, int] = {}
     for lst in [breakout, value, reversal, momentum, dividend]:
         for t in lst: all_menu_tickers[t] = all_menu_tickers.get(t, 0) + 1
@@ -948,15 +950,15 @@ def build_menus(all_stocks_data: List[Dict]) -> Dict:
                      if all_menu_tickers.get(s["ticker"], 0) >= 2
                      and (s.get("scores", {}).get("confidence", 0)) >= TOP_SIGNALS_MIN_CONFIDENCE]
     ts_candidates.sort(key=lambda x: x["scores"].get("master_score", 0), reverse=True)
-    top_signals = [s["ticker"] for s in ts_candidates[:lim["top_signals"]["max"]]]
-    if not top_signals:
+    top_scores = [s["ticker"] for s in ts_candidates[:lim["top_signals"]["max"]]]
+    if not top_scores:
         # fallback: top by master score
-        top_signals = [s["ticker"] for s in sorted(
+        top_scores = [s["ticker"] for s in sorted(
             all_stocks_data, key=lambda x: x.get("scores", {}).get("master_score", 0), reverse=True
         )[:10]]
 
     return {
-        "top_signals": {"count": len(top_signals),  "tickers": top_signals},
+        "top_scores": {"count": len(top_scores),  "tickers": top_scores},
         "breakout":    {"count": len(breakout),     "tickers": breakout},
         "value":       {"count": len(value),        "tickers": value},
         "reversal":    {"count": len(reversal),     "tickers": reversal},
@@ -1006,10 +1008,10 @@ def build_stock_json(raw: Dict, tech: Dict, scores: Dict, signals: Dict,
             "ema_200": tech.get("ema_200"),
         },
         "fundamental":  raw["fundamental"],
-        "signals":      {
-            **signals, 
+        "scores_detail": {
+            **signals,
             "categories": categories_in,
-            "risk_reward_ratio": round(abs(signals.get("target_price",0) - raw["price"].get("current",0)) / 
+            "risk_reward_ratio": round(abs(signals.get("target_price",0) - raw["price"].get("current",0)) /
                                        max(0.01, abs(signals.get("stop_loss",0) - raw["price"].get("current",0))), 2),
             "ttl_hours": signals.get("ttl_hours", 120),
         },
@@ -1048,7 +1050,7 @@ def build_stock_json(raw: Dict, tech: Dict, scores: Dict, signals: Dict,
         },
         "ai_summary": ai_summary,
         "quick_view": {
-            "signal_badge": scores.get("signal_type", "NEUTRAL").replace("_", " "),
+            "score_badge": scores.get("signal_type", "NEUTRAL_STAY").replace("_", " "),
             "score_bar":    round(scores.get("master_score", 0)),
             "price_change_display": f"{raw['price'].get('change_pct', 0):+.2f}%",
             "key_metrics": {
@@ -1168,12 +1170,12 @@ def compute_daily_alerts(all_stocks_data: List[Dict], last_master: Optional[Dict
         scores = s["scores"]
         tech   = s["_tech"]
         
-        # 1. STRONG_BUY or STRONG_SELL
-        if scores["signal_type"] in ["STRONG_BUY", "STRONG_SELL"]:
+        # 1. HIGH_CONVICTION or UNDERPERFORM
+        if scores["signal_type"] in ["HIGH_CONVICTION", "UNDERPERFORM"]:
             alerts.append({
                 "ticker": ticker,
-                "type": "CONVICTION_SIGNAL",
-                "message": f"{ticker} received a {scores['signal_type']} signal today.",
+                "type": "CONVICTION_SCORE",
+                "message": f"{ticker} received a {scores['signal_type']} score today.",
                 "severity": "CRITICAL"
             })
             
@@ -1375,7 +1377,7 @@ async def daily_run():
     # 8. Top 3 overall
     top3 = sorted(all_stocks_data, key=lambda x: x["scores"]["master_score"], reverse=True)[:3]
     top3_out = [{"ticker": s["ticker"], "score": s["scores"]["master_score"],
-                 "signal": s["scores"]["signal_type"]} for s in top3]
+                 "score_type": s["scores"]["signal_type"]} for s in top3]
 
     # 9. Sector summary
     sector_summary = compute_sector_summary(all_stocks_data)
@@ -1442,7 +1444,7 @@ async def daily_run():
         ticker = s["ticker"]
         signals = build_signal_card(s["scores"]["master_score"], s["_tech"],
                                      s["price"], ticker, [])
-        s["signals"] = signals # Store it for all_tickers_list.json
+        s["scores_detail"] = signals # Store it for all_tickers_list.json
         stock_json = build_stock_json(
             raw=s, tech=s["_tech"], scores=s["scores"], signals=signals,
             news=s.get("_news", []), insider=insider_cache.get(ticker, {}),
@@ -1461,7 +1463,7 @@ async def daily_run():
         "date":                  date_str,
         "generated_at":          datetime.now(NY_TZ).isoformat(),
         "total_tickers_scanned": len(all_stocks_data),
-        "active_signals_count":  active_signals,
+        "active_scores_count":   active_signals,
         "market_regime":         regime,
         "menus":                 menus,
         "sector_summary":        sector_summary,
@@ -1498,14 +1500,14 @@ async def daily_run():
                 "company":      s.get("company", s["ticker"]),
                 "sector":       s.get("sector", ""),
                 "master_score": s["scores"]["master_score"],
-                "signal_type":  s["scores"]["signal_type"],
+                "score_type":   s["scores"]["signal_type"],
                 "price":        s["price"].get("current"),
                 "change_pct":   s["price"].get("change_pct"),
                 "change_pct_1w": s["price"].get("change_pct_1w"),
                 "change_pct_1m": s["price"].get("change_pct_1m"),
                 "change_pct_1y": s["price"].get("change_pct_1y"),
-                "entry_range_low": s["signals"]["entry_range_low"],
-                "entry_range_high": s["signals"]["entry_range_high"],
+                "entry_range_low": s["scores_detail"]["entry_range_low"],
+                "entry_range_high": s["scores_detail"]["entry_range_high"],
                 "volume":          s["price"].get("volume"),
                 "avg_volume_30d":  s["price"].get("avg_volume_30d"),
             }
