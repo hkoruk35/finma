@@ -12,14 +12,14 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   metadataBase: new URL("https://finmasmart.com"),
   title: "US Stock AI Analysis & Daily Trading Signals | FinMA Daily +500",
-  description: "Discover the strongest US stocks with FinMA AI. Daily analysis of 100 top equities, breakout signals, and momentum picks updated daily at 9:00 AM ET.",
+  description: "Discover the strongest US stocks with FinMA AI. Daily analysis of +500 top equities, breakout signals, and momentum picks updated daily at 9:00 AM ET.",
   keywords: ["US stock AI analysis", "daily stock signals", "stock screener today", "best stocks to buy", "FinMA AI"],
   alternates: {
     canonical: "https://finmasmart.com",
   },
   openGraph: {
     title: "FinMA Daily +500 | AI-Powered US Stock Signals",
-    description: "High-conviction trading signals for 100 top US stocks.",
+    description: "High-conviction trading signals for +500 top US stocks.",
     url: "https://finmasmart.com",
     siteName: "FinMA Daily +500",
     images: [{ url: "https://finmasmart.com/finmawave.png", width: 1200, height: 630, alt: "FinMA" }],
