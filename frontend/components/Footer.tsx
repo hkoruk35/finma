@@ -47,7 +47,7 @@ export default function Footer() {
               <Link href="/category/undervalued" className="text-xs text-[#64748b] hover:text-white transition-colors">Undervalued</Link>
               <Link href="/category/momentum" className="text-xs text-[#64748b] hover:text-white transition-colors">Momentum</Link>
               <Link href="/category/reversal" className="text-xs text-[#64748b] hover:text-white transition-colors">Reversal</Link>
-              <Link href="/category/dividend" className="text-xs text-[#64748b] hover:text-white transition-colors">Dividend</Link>
+              <Link href="/category/passive-income" className="text-xs text-[#64748b] hover:text-white transition-colors">Passive Income</Link>
             </div>
           </div>
 
