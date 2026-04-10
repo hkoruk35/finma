@@ -139,11 +139,20 @@ function normalizeScoreType(value: string | undefined): string {
   return normalized;
 }
 
-// Normalize MasterData to ensure score_type fields exist
+// Normalize MasterData to ensure score_type fields and new menu keys exist
 function normalizeMasterData(data: any): MasterData {
   if (!data) return getMockMaster();
+
+  // Normalize menus: rename old keys (top_signals) to new keys (top_scores)
+  const menus = { ...(data.menus || {}) };
+  if (menus.top_signals && !menus.top_scores) {
+    menus.top_scores = menus.top_signals;
+    delete menus.top_signals;
+  }
+
   return {
     ...data,
+    menus,
     top_3_overall: (data.top_3_overall || []).map((item: any) => ({
       ...item,
       score_type: normalizeScoreType(item.score_type || item.signal),
