@@ -125,19 +125,70 @@ async function readJsonServer(relPath: string): Promise<any | null> {
   return mod.readJson(relPath);
 }
 
+// Compatibility: normalize old data format (signal) to new format (score_type)
+function normalizeScoreType(value: string | undefined): string {
+  if (!value) return "NEUTRAL_STAY";
+  const normalized = String(value).toUpperCase().trim();
+  // Map old field names to new ones
+  if (normalized === "STRONG_BUY") return "HIGH_CONVICTION";
+  if (normalized === "BUY") return "POSITIVE_BIAS";
+  if (normalized === "SELL") return "NEGATIVE_BIAS";
+  if (normalized === "STRONG_SELL") return "UNDERPERFORM";
+  if (normalized === "HOLD" || normalized === "NEUTRAL") return "NEUTRAL_STAY";
+  // Already new format
+  return normalized;
+}
+
+// Normalize MasterData to ensure score_type fields exist
+function normalizeMasterData(data: any): MasterData {
+  if (!data) return getMockMaster();
+  return {
+    ...data,
+    top_3_overall: (data.top_3_overall || []).map((item: any) => ({
+      ...item,
+      score_type: normalizeScoreType(item.score_type || item.signal),
+    })),
+  };
+}
+
+// Normalize StockQuickView to ensure score_type field exists
+function normalizeStockQuickView(stock: any): StockQuickView {
+  return {
+    ...stock,
+    score_type: normalizeScoreType(stock.score_type || stock.signal),
+  };
+}
+
+// Normalize StockDetail to ensure score_type fields exist
+function normalizeStockDetail(data: any): StockDetail {
+  if (!data) return {} as StockDetail;
+  return {
+    ...data,
+    scores: {
+      ...data.scores,
+      score_type: normalizeScoreType(data.scores?.score_type || data.scores?.signal),
+    },
+    scores_detail: {
+      ...data.scores_detail,
+      score_type: normalizeScoreType(data.scores_detail?.score_type || data.scores_detail?.signal),
+    },
+  };
+}
+
 export async function getMasterData(): Promise<MasterData | null> {
   // Server-side: read directly from filesystem. Relative-URL fetch doesn't work
   // in Next.js server components on Vercel, silently falling through to mock.
   if (typeof window === "undefined") {
     const data = await readJsonServer("master.json");
-    return data ?? getMockMaster();
+    return normalizeMasterData(data ?? getMockMaster());
   }
   // Client-side: HTTP fetch
   try {
     const base = DATA_BASE_URL || "/api/data";
     const res = await fetch(`${base}/master.json`);
     if (!res.ok) return getMockMaster();
-    return res.json();
+    const json = await res.json();
+    return normalizeMasterData(json);
   } catch {
     return getMockMaster();
   }
@@ -146,13 +197,14 @@ export async function getMasterData(): Promise<MasterData | null> {
 export async function getStockData(ticker: string): Promise<StockDetail | null> {
   if (typeof window === "undefined") {
     const data = await readJsonServer(`stocks/${ticker}.json`);
-    return data ?? getMockStockDetail(ticker);
+    return normalizeStockDetail(data ?? getMockStockDetail(ticker));
   }
   try {
     const base = DATA_BASE_URL || "/api/data";
     const res = await fetch(`${base}/stocks/${ticker}.json`);
     if (!res.ok) return getMockStockDetail(ticker);
-    return res.json();
+    const json = await res.json();
+    return normalizeStockDetail(json);
   } catch {
     return getMockStockDetail(ticker);
   }
@@ -161,7 +213,8 @@ export async function getStockData(ticker: string): Promise<StockDetail | null> 
 export async function getAllTickers(): Promise<StockQuickView[]> {
   if (typeof window === "undefined") {
     const data = await readJsonServer("all_tickers_list.json");
-    return data?.tickers ?? getMockTickers();
+    const tickers = data?.tickers ?? getMockTickers();
+    return tickers.map(normalizeStockQuickView);
   }
   try {
     const base = DATA_BASE_URL || "/api/data";
@@ -173,7 +226,8 @@ export async function getAllTickers(): Promise<StockQuickView[]> {
       return getMockTickers();
     }
     const data = await res.json();
-    return data.tickers || [];
+    const tickers = data.tickers || [];
+    return tickers.map(normalizeStockQuickView);
   } catch (e) {
     console.warn(`Tickers fetch error: ${e}`);
     return getMockTickers();
