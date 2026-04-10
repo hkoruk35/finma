@@ -4,23 +4,65 @@ import { useEffect } from "react";
 
 export default function PWAInstaller() {
   useEffect(() => {
+    // Register service worker for offline support and PWA installation
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(error => {
-        console.log("Service Worker registration failed:", error);
-      });
+      navigator.serviceWorker
+        .register("/sw.js", { scope: "/" })
+        .then(reg => {
+          console.log("✓ Service Worker registered:", reg.scope);
+        })
+        .catch(error => {
+          console.error("✗ Service Worker registration failed:", error);
+        });
+    } else {
+      console.warn("Service Workers not supported");
     }
 
-    // Handle install prompt
+    // Handle beforeinstallprompt event for app installation
     let deferredPrompt: any;
 
-    window.addEventListener("beforeinstallprompt", (e: any) => {
+    const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
       deferredPrompt = e;
-    });
+      console.log("✓ Install prompt available");
 
-    window.addEventListener("appinstalled", () => {
-      console.log("FinMA app installed");
-    });
+      // Show install button if in app context
+      const installBtn = document.getElementById("install-app-btn");
+      if (installBtn) {
+        installBtn.style.display = "block";
+        installBtn.addEventListener("click", () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult: any) => {
+              if (choiceResult.outcome === "accepted") {
+                console.log("✓ User accepted installation");
+              } else {
+                console.log("✗ User rejected installation");
+              }
+              deferredPrompt = null;
+            });
+          }
+        });
+      }
+    };
+
+    const handleAppInstalled = () => {
+      console.log("✓ FinMA app successfully installed!");
+      deferredPrompt = null;
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
+
+    // Check if running as standalone app
+    if ((window.navigator as any).standalone === true) {
+      console.log("✓ Running as installed PWA");
+    }
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener("appinstalled", handleAppInstalled);
+    };
   }, []);
 
   return null;
