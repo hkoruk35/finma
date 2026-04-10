@@ -16,7 +16,7 @@ const NASDAQ_TICKERS = new Set([
   "BKNG", "CHTR", "CMCSA", "COIN", "COST", "EXC", "FANG",
   "GOOGL", "INTU", "ISRG", "LRCX", "META", "MSFT", "MSTR",
   "MU", "NFLX", "NVDA", "PANW", "PEP", "PYPL", "QCOM",
-  "SBUX", "SMCI", "SPOT", "TMUS", "TSLA", "TXN",
+  "SBAC", "SBUX", "SMCI", "SPOT", "TMUS", "TSLA", "TXN",
 ]);
 
 function getExchange(ticker: string): string {
