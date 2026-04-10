@@ -1,7 +1,7 @@
 {
-  "name": "FinMA Daily 100",
+  "name": "FinMA Daily +500",
   "short_name": "FinMA",
-  "description": "Daily AI-powered analysis of 100 top US stocks.",
+  "description": "Daily AI-powered analysis of +500 top US stocks.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0e17",

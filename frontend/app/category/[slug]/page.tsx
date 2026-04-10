@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   return {
-    title: titles[slug] || `${category.label} Stocks | FinMA Daily 100`,
+    metadataBase: new URL("https://finmasmart.com"),
+    title: titles[slug] || `${category.label} Stocks | FinMA Daily +500`,
     description: category.description,
     alternates: {
       canonical: `https://finmasmart.com/category/${slug}`,

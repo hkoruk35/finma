@@ -3,10 +3,10 @@
 import { MasterData } from "@/lib/data";
 
 const INDEX_LABELS: Record<string, string> = {
-  SP500: "S&P 500",
+  SP500: "SP500",
   NASDAQ: "NASDAQ",
   DOW: "DOW",
-  RUSSELL: "RUSSELL 2000",
+  RUSSELL: "RUSSEL",
   VIX: "VIX",
 };
 
@@ -26,9 +26,9 @@ export default function TickerTape({ data }: { data: MasterData }) {
       <div className="ticker-tape flex items-center gap-8 py-2 px-4 whitespace-nowrap">
         {doubled.map((item, i) => (
           <div key={i} className="flex items-center gap-2 text-sm">
-            <span className="text-[#94a3b8] font-bold uppercase tracking-wider text-[10px]">{item.label}</span>
+            <span className="text-[#94a3b8] font-bold uppercase tracking-wider text-[12px]">{item.label}</span>
             <span
-              className={`font-mono font-black text-base ${
+              className={`font-mono font-black text-lg ${
                 item.change >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"
               }`}
             >

@@ -20,10 +20,10 @@ export default function Footer() {
               <div className="relative w-8 h-8">
                 <img src="/finmawave.png" alt="FinMA" className="w-full h-full object-contain rounded-lg" />
               </div>
-              <span className="text-base font-black text-white tracking-tighter">FinMA Daily 100</span>
+              <span className="text-base font-black text-white tracking-tighter">FinMA Daily +500</span>
             </div>
             <p className="text-xs text-[#64748b]">
-              AI-powered daily analysis of 100 top US stocks.
+              AI-powered daily analysis of +500 top US stocks.
             </p>
           </div>
 
@@ -63,7 +63,7 @@ export default function Footer() {
 
         <div className="border-t border-[#1e2a3a] mt-8 pt-4 text-center">
           <p className="text-xs text-[#64748b]">
-            &copy; 2026 FinMA Daily 100. Developed by AFK DaSYS.
+            &copy; 2026 FinMA Daily +500. Developed by AFK DaSYS.
           </p>
         </div>
       </div>

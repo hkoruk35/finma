@@ -3,30 +3,31 @@ import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 
 export const metadata: Metadata = {
-  title: "FinMA Daily 100 | AI-Powered US Stock Analysis & Signals",
+  metadataBase: new URL("https://finmasmart.com"),
+  title: "FinMA Daily +500 | AI-Powered US Stock Analysis & Signals",
   description:
-    "Daily AI analysis of 100 top US stocks. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
+    "Daily AI analysis of +500 top US stocks. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
   keywords: "US stock AI analysis, daily stock signals, stock screener, breakout stocks, momentum stocks",
   openGraph: {
-    title: "FinMA Daily 100 | AI-Powered US Stock Analysis",
-    description: "Daily AI analysis of 100 top US stocks with signals, scores, and smart watchlist.",
+    title: "FinMA Daily +500 | AI-Powered US Stock Analysis",
+    description: "Daily AI analysis of +500 top US stocks with signals, scores, and smart watchlist.",
     url: "https://finmasmart.com",
-    siteName: "FinMA Daily 100",
+    siteName: "FinMA Daily +500",
     images: [
       {
-        url: "/finmawave.png",
+        url: "https://finmasmart.com/finmawave.png",
         width: 1200,
         height: 630,
-        alt: "FinMA Daily 100 Logo",
+        alt: "FinMA Daily +500 Logo",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FinMA Daily 100 | AI Stock Signals",
-    description: "Daily AI analysis of 100 top US stocks.",
-    images: ["/finmawave.png"],
+    title: "FinMA Daily +500 | AI Stock Signals",
+    description: "Daily AI analysis of +500 top US stocks.",
+    images: ["https://finmasmart.com/finmawave.png"],
   },
 };
 
@@ -44,7 +45,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/finmawave.png" />
+        <link rel="icon" type="image/png" href="/finmawave.png" />
+        <link rel="apple-touch-icon" href="/finmawave.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#3b82f6" />
       </head>

@@ -15,7 +15,7 @@ export default function SocialShare({ ticker, score, signal, url }: SocialShareP
   
   const shareText = ticker 
     ? `$${ticker} scored ${score?.toFixed(1)}/100 on FinMA today! ${signal?.replace("_", " ")} signal. #stocks #investing`
-    : "Check out FinMA Daily 100 — AI-powered US stock analysis and signals.";
+    : "Check out FinMA Daily +500 — AI-powered US stock analysis and signals.";
 
   const encodedText = encodeURIComponent(shareText);
   const encodedUrl = encodeURIComponent(currentUrl);

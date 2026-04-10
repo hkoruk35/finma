@@ -26,7 +26,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
       {/* Tickers Scanned */}
       <div className="glass-card p-4 text-center">
         <div className="text-3xl font-bold font-mono text-[#f1f5f9]">
-          {data.total_tickers_scanned}
+          {data.total_tickers_scanned >= 500 ? `+${Math.floor(data.total_tickers_scanned / 100) * 100}` : data.total_tickers_scanned}
         </div>
         <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
           Analyzed Today

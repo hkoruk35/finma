@@ -19,7 +19,7 @@ export default function Header() {
               className="text-2xl text-white tracking-tighter"
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600 }}
             >
-              FinMA Daily 100
+              FinMA Daily +500
             </span>
           </div>
         </Link>
