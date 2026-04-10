@@ -68,11 +68,11 @@ export default function TradingViewWidget({ symbol }: Props) {
   }, [symbol]);
 
   return (
-    <div className='tradingview-widget-container' style={{ height: "500px", width: "100%" }}>
+    <div className='tradingview-widget-container' style={{ height: "calc(100vh - 250px)", minHeight: "300px", maxHeight: "550px", width: "100%" }}>
       <div id='tradingview_widget' style={{ height: "calc(100% - 32px)", width: "100%" }} />
-      <div className="tradingview-widget-copyright">
-        <a href={`https://www.tradingview.com/symbols/${exchange}-${symbol}/`} rel="noopener nofollow" target="_blank">
-          <span className="blue-text">{symbol} Chart</span>
+      <div className="tradingview-widget-copyright" style={{ fontSize: "12px", textAlign: "center", padding: "8px", color: "#64748b" }}>
+        <a href={`https://www.tradingview.com/symbols/${exchange}-${symbol}/`} rel="noopener nofollow" target="_blank" style={{ textDecoration: "none", color: "#3b82f6" }}>
+          <span>{symbol} Chart</span>
         </a> by TradingView
       </div>
     </div>

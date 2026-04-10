@@ -184,20 +184,20 @@ export default async function StockDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Main Chart Area */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            <div className="glass-card p-4 h-[550px]">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-white flex items-center gap-2">
+            <div className="glass-card p-3 md:p-4 flex flex-col">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-3">
+                <h3 className="font-bold text-white flex items-center gap-2 text-sm md:text-base">
                   <svg className="w-5 h-5 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                   </svg>
                   Live Market Chart
                 </h3>
                 <div className="flex gap-2">
-                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] text-[#94a3b8]">1H</span>
-                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] text-[#94a3b8]">NY TIME</span>
+                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[9px] md:text-[10px] text-[#94a3b8]">1H</span>
+                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[9px] md:text-[10px] text-[#94a3b8]">NY TIME</span>
                 </div>
               </div>
-              <div className="w-full h-[450px] overflow-hidden rounded-xl border border-[#1e2a3a]">
+              <div className="w-full overflow-hidden rounded-xl border border-[#1e2a3a] flex-1 min-h-[300px] md:min-h-[450px]">
                 <TradingViewWidget symbol={stock.ticker} />
               </div>
             </div>
