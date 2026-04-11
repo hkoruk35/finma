@@ -62,7 +62,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
             <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic">
               Sector Heat Map
             </h2>
-            <p className="text-[10px] text-[#64748b] font-bold tracking-widest uppercase">
+            <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase">
               Real-time Market Distribution &middot; Top 100 by Volume
             </p>
           </div>
@@ -95,13 +95,13 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                 className={`flex items-center justify-between p-3 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}
               >
                 <div className="flex flex-col">
-                   <span className="text-[11px] font-black text-white uppercase tracking-tighter leading-tight">
+                   <span className="text-sm font-black text-white uppercase tracking-tighter leading-tight">
                       {sector}
                    </span>
-                   <span className="text-[9px] font-bold text-white/60 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>
+                   <span className="text-[10px] font-bold text-white/70 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>
                 </div>
                 <div className="text-right">
-                   <span className="text-sm font-mono font-black text-white">
+                   <span className="text-base font-mono font-black text-white">
                       {avgChange >= 0 ? "+" : ""}{avgChange.toFixed(2)}%
                    </span>
                 </div>
@@ -118,10 +118,10 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                       className={`relative flex flex-col items-center justify-center py-3 rounded-sm transition-all duration-200 hover:scale-[1.05] hover:z-10 hover:shadow-xl ${s.bg} border ${s.border}`}
                       title={`${stock.ticker}: ${stock.change_pct}%`}
                     >
-                      <span className={`text-[10px] font-black tracking-tighter ${s.text}`}>
+                      <span className={`text-xs font-black tracking-tighter ${s.text}`}>
                         {stock.ticker}
                       </span>
-                      <span className={`text-[7px] font-mono font-bold opacity-80 ${s.text}`}>
+                      <span className={`text-[8px] font-mono font-bold opacity-90 ${s.text}`}>
                         {stock.change_pct >= 0 ? "+" : ""}{stock.change_pct.toFixed(1)}%
                       </span>
                       
@@ -137,7 +137,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                 href={`/sector/${slugify(sector)}`}
                 className="py-1.5 px-3 bg-[#141924]/50 hover:bg-[#141924] text-center transition-colors border-t border-[#1e2a3a]"
               >
-                 <span className="text-[8px] font-black text-[#64748b] uppercase tracking-[0.2em] group-hover:text-[#3b82f6] transition-colors">
+                 <span className="text-[9px] font-black text-[#94a3b8] uppercase tracking-[0.15em] group-hover:text-[#3b82f6] transition-colors">
                     Explore All {sectorGroups[sector].length} Tickers →
                  </span>
               </Link>
