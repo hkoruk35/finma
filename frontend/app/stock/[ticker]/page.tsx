@@ -24,19 +24,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = `${stock.ticker} (${stock.company}) analysis for ${dateStr}. BOGA AI Score: ${stock.scores.master_score.toFixed(1)}. Current Rating: ${stock.scores.score_type.replace("_", " ")} at $${formatPrice(stock.price.current)}. Discover real-time AI scores and AI-driven stock research.`;
 
   return {
-    metadataBase: new URL("https://bogarunner.com"),
+    metadataBase: new URL("https://bogastock.com"),
     title,
     description,
     alternates: {
-      canonical: `https://bogarunner.com/stock/${ticker.toLowerCase()}`,
+      canonical: `https://bogastock.com/stock/${ticker.toLowerCase()}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://bogarunner.com/stock/${ticker.toLowerCase()}`,
+      url: `https://bogastock.com/stock/${ticker.toLowerCase()}`,
       images: [
         {
-          url: "https://bogarunner.com/finmawave.png",
+          url: "https://bogastock.com/finmawave.png",
           width: 1200,
           height: 630,
           alt: `${stock.ticker} Stock Analysis`,
@@ -73,7 +73,7 @@ export default async function StockDetailPage({ params }: Props) {
             "@type": "Article",
             "headline": `${stock.ticker} — ${stock.company} Stock Analysis`,
             "description": stock.ai_summary,
-            "image": "https://bogarunner.com/finmawave.png",
+            "image": "https://bogastock.com/finmawave.png",
             "author": {
               "@type": "Organization",
               "name": "BOGA Daily +500"
@@ -83,7 +83,7 @@ export default async function StockDetailPage({ params }: Props) {
               "name": "BOGA",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://bogarunner.com/finmawave.png"
+                "url": "https://bogastock.com/finmawave.png"
               }
             },
             "datePublished": stock.date || new Date().toISOString()
@@ -101,8 +101,8 @@ export default async function StockDetailPage({ params }: Props) {
                     "@context": "https://schema.org",
                     "@type": "BreadcrumbList",
                     "itemListElement": [
-                       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bogarunner.com" },
-                       { "@type": "ListItem", "position": 2, "name": stock.ticker, "item": `https://bogarunner.com/stock/${ticker.toLowerCase()}` }
+                       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bogastock.com" },
+                       { "@type": "ListItem", "position": 2, "name": stock.ticker, "item": `https://bogastock.com/stock/${ticker.toLowerCase()}` }
                     ]
                  })
               }}

@@ -49,7 +49,7 @@ export default function ContactPage() {
             <div className="md:col-span-1 space-y-4">
                <div className="glass-card p-6">
                   <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">Email Us</p>
-                  <p className="text-sm font-bold text-white">contact@bogarunner.com</p>
+                  <p className="text-sm font-bold text-white">contact@bogastock.com</p>
                </div>
                <div className="glass-card p-6">
                   <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">Social</p>

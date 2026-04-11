@@ -45,7 +45,7 @@ export default function AdminMembers() {
                {[
                   { email: "user1@example.com", date: "2026-04-01", watchlist: 8, status: "Active" },
                   { email: "trader_joe@gmail.com", date: "2026-03-28", watchlist: 10, status: "Active" },
-                  { email: "support@bogarunner.com", date: "2026-03-25", watchlist: 0, status: "Staff" },
+                  { email: "support@bogastock.com", date: "2026-03-25", watchlist: 0, status: "Staff" },
                   { email: "spam_bot@badsite.com", date: "2026-04-05", watchlist: 1, status: "Suspended" },
                ].map((user, i) => (
                   <tr key={i} className="hover:bg-[#141924]/30 transition-colors">

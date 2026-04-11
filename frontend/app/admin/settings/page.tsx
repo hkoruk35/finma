@@ -18,7 +18,7 @@ export default function AdminSettings() {
                   </div>
                   <div>
                      <label className="block text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">Admin Email</label>
-                     <input type="email" defaultValue="contact@bogarunner.com" className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-3 text-sm" />
+                     <input type="email" defaultValue="contact@bogastock.com" className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-3 text-sm" />
                   </div>
                </div>
 

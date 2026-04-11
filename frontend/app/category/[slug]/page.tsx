@@ -21,11 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   return {
-    metadataBase: new URL("https://bogarunner.com"),
+    metadataBase: new URL("https://bogastock.com"),
     title: titles[slug] || `${category.label} Stocks | BOGA Daily +500`,
     description: category.description,
     alternates: {
-      canonical: `https://bogarunner.com/category/${slug}`,
+      canonical: `https://bogastock.com/category/${slug}`,
     },
   };
 }

@@ -4,7 +4,7 @@ import BottomNav from "@/components/BottomNav";
 import PWAInstaller from "@/components/PWAInstaller";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bogarunner.com"),
+  metadataBase: new URL("https://bogastock.com"),
   title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis & Signals",
   description:
     "Daily AI analysis of +500 top US stocks by BOGA - Blue One Global Analysis. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis",
     description: "Daily AI analysis of +500 top US stocks with signals, scores, and smart watchlist by BOGA.",
-    url: "https://bogarunner.com",
+    url: "https://bogastock.com",
     siteName: "BOGA - Blue One Global Analysis - Daily +500 stocks",
     images: [
       {
-        url: "https://bogarunner.com/finmawave.png",
+        url: "https://bogastock.com/finmawave.png",
         width: 1200,
         height: 630,
         alt: "BOGA - Blue One Global Analysis Logo",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BOGA - AI Stock Signals & Analysis",
     description: "Daily AI analysis of +500 top US stocks.",
-    images: ["https://bogarunner.com/finmawave.png"],
+    images: ["https://bogastock.com/finmawave.png"],
   },
 };
 

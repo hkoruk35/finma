@@ -3,16 +3,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bogarunner.com"),
+  metadataBase: new URL("https://bogastock.com"),
   title: "About BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Market Analysis",
   description: "BOGA - Blue One Global Analysis - Daily +500 stocks scans 7,000+ US stocks weekly, identifies the top 500 candidates, and delivers daily AI-powered financial analysis on the 100 highest-conviction opportunities in the US market.",
   alternates: {
-    canonical: "https://bogarunner.com/about",
+    canonical: "https://bogastock.com/about",
   },
   openGraph: {
     title: "About BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Market Analysis",
     description: "BOGA - Blue One Global Analysis - Daily +500 stocks scans 7,000+ US stocks weekly, identifies the top 500 candidates, and delivers daily AI-powered financial analysis on the 100 highest-conviction opportunities in the US market.",
-    url: "https://bogarunner.com/about",
+    url: "https://bogastock.com/about",
   },
 };
 

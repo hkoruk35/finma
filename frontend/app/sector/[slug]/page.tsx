@@ -15,11 +15,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = `Real-time analysis of the top equities in the ${sectorName} sector. Compare ${SECTOR_ETF[sectorName]} performance, AI scores, and daily stock scores for the strongest stocks in this industry.`;
 
   return {
-    metadataBase: new URL("https://bogarunner.com"),
+    metadataBase: new URL("https://bogastock.com"),
     title,
     description,
     alternates: {
-      canonical: `https://bogarunner.com/sector/${slug}`,
+      canonical: `https://bogastock.com/sector/${slug}`,
     },
   };
 }
