@@ -15,11 +15,13 @@ export default function PWAInstaller() {
             // Update service worker if new version available
             reg.addEventListener("updatefound", () => {
               const newWorker = reg.installing;
-              newWorker.addEventListener("statechange", () => {
-                if (newWorker.state === "activated") {
-                  console.log("✓ Service Worker updated");
-                }
-              });
+              if (newWorker) {
+                newWorker.addEventListener("statechange", () => {
+                  if (newWorker.state === "activated") {
+                    console.log("✓ Service Worker updated");
+                  }
+                });
+              }
             });
           })
           .catch(error => {
