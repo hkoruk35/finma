@@ -3,7 +3,7 @@ import { getAllTickers } from '@/lib/data';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allTickers = await getAllTickers();
-  const baseUrl = 'https://finmasmart.com';
+  const baseUrl = 'https://bogarunner.com';
   
   const staticRoutes = [
     '',

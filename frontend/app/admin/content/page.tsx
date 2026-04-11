@@ -53,7 +53,7 @@ export default function AdminContent() {
                {[
                   { label: "Homepage Hero Title", value: "Discover the Strongest US Stocks with AI" },
                   { label: "Announcement Bar", value: "Limited Time: Free archive access for early adopters!", enabled: true },
-                  { label: "Newsletter CTA", value: "Join 5,000+ traders receiving daily FinMA scores." },
+                  { label: "Newsletter CTA", value: "Join 5,000+ traders receiving daily BOGA scores." },
                ].map((item, i) => (
                   <div key={i} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                      <div className="flex items-center justify-between mb-2">

@@ -1,5 +1,5 @@
 /**
- * FinMA Data API Route
+ * BOGA Data API Route
  * Serves JSON files from the bot's transfer/latest/ directory.
  *
  * Routes:

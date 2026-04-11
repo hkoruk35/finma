@@ -10,19 +10,19 @@ import Top3Section from "@/components/Top3Section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://finmasmart.com"),
-  title: "US Stock AI Analysis & Daily Trading Scores | FinMA Daily +500",
-  description: "Discover the strongest US stocks with FinMA AI. Daily analysis of +500 top equities, breakout scores, and momentum picks updated daily at 9:00 AM ET.",
-  keywords: ["US stock AI analysis", "daily stock scores", "stock screener today", "best stocks to buy", "FinMA AI"],
+  metadataBase: new URL("https://bogarunner.com"),
+  title: "US Stock AI Analysis & Daily Trading Scores | BOGA - Blue One Global Analysis - Daily +500",
+  description: "Discover the strongest US stocks with BOGA AI. Daily analysis of +500 top equities, breakout scores, and momentum picks updated daily at 9:00 AM ET.",
+  keywords: ["US stock AI analysis", "daily stock scores", "stock screener today", "best stocks to buy", "BOGA AI"],
   alternates: {
-    canonical: "https://finmasmart.com",
+    canonical: "https://bogarunner.com",
   },
   openGraph: {
-    title: "FinMA Daily +500 | AI-Powered US Stock Scores",
+    title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Scores",
     description: "High-conviction trading scores for +500 top US stocks.",
-    url: "https://finmasmart.com",
-    siteName: "FinMA Daily +500",
-    images: [{ url: "https://finmasmart.com/finmawave.png", width: 1200, height: 630, alt: "FinMA" }],
+    url: "https://bogarunner.com",
+    siteName: "BOGA - Blue One Global Analysis - Daily +500 stocks",
+    images: [{ url: "https://bogarunner.com/finmawave.png", width: 1200, height: 630, alt: "BOGA - Blue One Global Analysis" }],
     type: "website",
   },
 };
@@ -58,7 +58,7 @@ export default async function HomePage() {
         <section className="text-center mb-8 animate-fade-in">
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
             Find the Best +500 US Stocks
-            <span className="text-[#3b82f6]"> with Finma AI</span>
+            <span className="text-[#3b82f6]"> with BOGA AI</span>
           </h1>
         </section>
 
@@ -99,7 +99,7 @@ export default async function HomePage() {
               Access Past Analysis
             </h3>
             <p className="text-sm text-[#94a3b8] mb-4">
-              View historical FinMA scores from the last 30 days.
+              View historical BOGA scores from the last 30 days.
               Sign in with Google for free access.
             </p>
             <a

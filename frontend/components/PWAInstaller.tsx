@@ -61,7 +61,7 @@ export default function PWAInstaller() {
     };
 
     const handleAppInstalled = () => {
-      console.log("✓ FinMA app successfully installed!");
+      console.log("✓ BOGA app successfully installed!");
       deferredPrompt = null;
     };
 

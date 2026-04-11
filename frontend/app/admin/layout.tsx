@@ -11,7 +11,7 @@ export default function AdminLayout({
       <aside className="w-64 border-r border-[#1e2a3a] flex flex-col pt-8">
         <div className="px-6 mb-10 flex items-center gap-2">
            <div className="w-8 h-8 rounded-lg bg-[#3b82f6] flex items-center justify-center font-black">F</div>
-           <span className="font-bold tracking-tighter">FinMA Admin</span>
+           <span className="font-bold tracking-tighter">BOGA Admin</span>
         </div>
 
         <nav className="flex-1 px-4 space-y-1">

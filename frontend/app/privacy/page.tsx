@@ -56,7 +56,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-bold text-white mb-3">5. Your Rights</h2>
             <p>
               You can request to view, correct, or delete your personal data 
-              at any time by contacting us at contact@finmasmart.com.
+              at any time by contacting us at contact@bogarunner.com.
             </p>
           </section>
         </div>

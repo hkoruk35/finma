@@ -87,7 +87,7 @@ export default async function WatchlistPage() {
                       </span>
                    </div>
                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-[#64748b]">FinMA AI Score</span>
+                      <span className="text-[#64748b]">BOGA AI Score</span>
                       <span className="font-mono font-bold text-white">{stock!.master_score.toFixed(1)}</span>
                    </div>
                 </div>

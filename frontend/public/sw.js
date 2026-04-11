@@ -1,4 +1,4 @@
-const CACHE_NAME = 'finma-v2';
+const CACHE_NAME = 'boga-v3';
 const urlsToCache = [
   '/',
   '/manifest.json',

@@ -1,5 +1,5 @@
 /**
- * FinMA Data Loader — reads JSON from transfer/latest/ or public/mock/
+ * BOGA Data Loader — reads JSON from transfer/latest/ or public/mock/
  * In production, this reads from the deployed static JSON endpoint.
  * In dev, it reads from local mock data.
  */

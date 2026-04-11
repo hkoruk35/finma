@@ -49,11 +49,11 @@ export default function ContactPage() {
             <div className="md:col-span-1 space-y-4">
                <div className="glass-card p-6">
                   <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">Email Us</p>
-                  <p className="text-sm font-bold text-white">contact@finmasmart.com</p>
+                  <p className="text-sm font-bold text-white">contact@bogarunner.com</p>
                </div>
                <div className="glass-card p-6">
                   <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">Social</p>
-                  <p className="text-sm font-bold text-white">@FinMADaily100</p>
+                  <p className="text-sm font-bold text-white">@BOGADaily100</p>
                </div>
                <div className="glass-card p-6">
                   <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">Location</p>
@@ -143,7 +143,7 @@ export default function ContactPage() {
                           <span className="text-xs font-bold text-[#94a3b8]">I am not a robot</span>
                        </div>
                        <div className="text-[8px] text-[#64748b] text-right">
-                          Protected by<br/><strong className="text-[#94a3b8]">FinMA Shield</strong>
+                          Protected by<br/><strong className="text-[#94a3b8]">BOGA Shield</strong>
                        </div>
                     </div>
 

@@ -53,7 +53,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                    <div className="text-6xl font-mono font-black text-[#3b82f6] leading-none">
                      {item.score.toFixed(1)}
                    </div>
-                   <div className="text-[9px] text-[#64748b] font-black uppercase tracking-[0.2em] mb-2">FinMA AI SCORE</div>
+                   <div className="text-[9px] text-[#64748b] font-black uppercase tracking-[0.2em] mb-2">BOGA AI SCORE</div>
                 </div>
                 <div className="flex">
                   <span className={`px-5 py-1.5 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-xl ${getScoreBadgeClass(item.score_type)}`}>

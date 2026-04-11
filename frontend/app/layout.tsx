@@ -4,31 +4,31 @@ import BottomNav from "@/components/BottomNav";
 import PWAInstaller from "@/components/PWAInstaller";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://finmasmart.com"),
-  title: "FinMA Daily +500 | AI-Powered US Stock Analysis & Signals",
+  metadataBase: new URL("https://bogarunner.com"),
+  title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis & Signals",
   description:
-    "Daily AI analysis of +500 top US stocks. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
-  keywords: "US stock AI analysis, daily stock signals, stock screener, breakout stocks, momentum stocks",
+    "Daily AI analysis of +500 top US stocks by BOGA - Blue One Global Analysis. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
+  keywords: "US stock AI analysis, daily stock signals, stock screener, breakout stocks, momentum stocks, BOGA",
   openGraph: {
-    title: "FinMA Daily +500 | AI-Powered US Stock Analysis",
-    description: "Daily AI analysis of +500 top US stocks with signals, scores, and smart watchlist.",
-    url: "https://finmasmart.com",
-    siteName: "FinMA Daily +500",
+    title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis",
+    description: "Daily AI analysis of +500 top US stocks with signals, scores, and smart watchlist by BOGA.",
+    url: "https://bogarunner.com",
+    siteName: "BOGA - Blue One Global Analysis - Daily +500 stocks",
     images: [
       {
-        url: "https://finmasmart.com/finmawave.png",
+        url: "https://bogarunner.com/finmawave.png",
         width: 1200,
         height: 630,
-        alt: "FinMA Daily +500 Logo",
+        alt: "BOGA - Blue One Global Analysis Logo",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FinMA Daily +500 | AI Stock Signals",
+    title: "BOGA - AI Stock Signals & Analysis",
     description: "Daily AI analysis of +500 top US stocks.",
-    images: ["https://finmasmart.com/finmawave.png"],
+    images: ["https://bogarunner.com/finmawave.png"],
   },
 };
 
@@ -56,7 +56,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="FinMA" />
+        <meta name="apple-mobile-web-app-title" content="BOGA" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
       </head>

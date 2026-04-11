@@ -9,17 +9,17 @@ import { Metadata } from "next";
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const sectorName = SECTOR_NAME_MAP[slug];
-  if (!sectorName) return { title: "Sector Not Found | FinMA" };
+  if (!sectorName) return { title: "Sector Not Found | BOGA" };
 
-  const title = `${sectorName} Stocks Analysis & AI Scores | Daily ${SECTOR_ETF[sectorName]} Reports — FinMA`;
+  const title = `${sectorName} Stocks Analysis & AI Scores | Daily ${SECTOR_ETF[sectorName]} Reports — BOGA`;
   const description = `Real-time analysis of the top equities in the ${sectorName} sector. Compare ${SECTOR_ETF[sectorName]} performance, AI scores, and daily stock scores for the strongest stocks in this industry.`;
 
   return {
-    metadataBase: new URL("https://finmasmart.com"),
+    metadataBase: new URL("https://bogarunner.com"),
     title,
     description,
     alternates: {
-      canonical: `https://finmasmart.com/sector/${slug}`,
+      canonical: `https://bogarunner.com/sector/${slug}`,
     },
   };
 }
@@ -173,7 +173,7 @@ export default async function SectorPage({ params }: Props) {
                  <tr className="bg-[#141924] border-b border-[#1e2a3a]">
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Ticker</th>
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Change (%)</th>
-                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">FinMA Score</th>
+                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">BOGA Score</th>
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Rating</th>
                     <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase text-right">Action</th>
                  </tr>

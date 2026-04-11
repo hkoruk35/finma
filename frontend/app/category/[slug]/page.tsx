@@ -9,23 +9,23 @@ import { Metadata } from "next";
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const category = CATEGORY_MAP[slug];
-  if (!category) return { title: "Category Not Found | FinMA" };
+  if (!category) return { title: "Category Not Found | BOGA" };
 
   const titles: Record<string, string> = {
-    "top-scores": "Top AI Stock Scores Today | High-Conviction Picks - FinMA",
-    "breakout": "Breakout Stocks Today | Best Technical Squeeze Patterns - FinMA",
-    "undervalued": "Undervalued Stocks US | Best Value Investing Picks - FinMA",
-    "momentum": "Momentum Stocks Today | Strongest Relative Strength Equities - FinMA",
-    "reversal": "Reversal Stocks US | Best Oversold Stocks to Watch - FinMA",
-    "passive-income": "Passive Income Stocks | Best High-Yield Dividend Picks - FinMA",
+    "top-scores": "Top AI Stock Scores Today | High-Conviction Picks - BOGA",
+    "breakout": "Breakout Stocks Today | Best Technical Squeeze Patterns - BOGA",
+    "undervalued": "Undervalued Stocks US | Best Value Investing Picks - BOGA",
+    "momentum": "Momentum Stocks Today | Strongest Relative Strength Equities - BOGA",
+    "reversal": "Reversal Stocks US | Best Oversold Stocks to Watch - BOGA",
+    "passive-income": "Passive Income Stocks | Best High-Yield Dividend Picks - BOGA",
   };
 
   return {
-    metadataBase: new URL("https://finmasmart.com"),
-    title: titles[slug] || `${category.label} Stocks | FinMA Daily +500`,
+    metadataBase: new URL("https://bogarunner.com"),
+    title: titles[slug] || `${category.label} Stocks | BOGA Daily +500`,
     description: category.description,
     alternates: {
-      canonical: `https://finmasmart.com/category/${slug}`,
+      canonical: `https://bogarunner.com/category/${slug}`,
     },
   };
 }
@@ -180,7 +180,7 @@ export default async function CategoryPage({ params }: Props) {
                   <div className="text-3xl font-mono font-black text-[#3b82f6]">
                     {stock!.master_score.toFixed(1)}
                   </div>
-                  <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">FinMA Score</div>
+                  <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">BOGA Score</div>
                 </div>
                 <div className="text-right">
                   <div className={`text-2xl font-mono font-black ${getChangeColor(stock!.change_pct)}`}>

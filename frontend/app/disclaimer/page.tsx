@@ -14,8 +14,8 @@ export default function DisclaimerPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-4">1. Not Financial Advice</h2>
             <p>
-              FinMA Daily +500 is an automated informational service. The content provided on this platform,
-              including but not limited to proprietary FinMA AI-generated analyses, scores, and trading ratings
+              BOGA Daily +500 is an automated informational service. The content provided on this platform,
+              including but not limited to proprietary BOGA AI-generated analyses, scores, and trading ratings
               (HIGH CONVICTION, POSITIVE BIAS, etc.), is for informational purposes only. It does NOT constitute financial,
               investment, or professional advice. We are not a registered investment advisor (RIA), broker-dealer,
               or financial fiduciary. Always consult with a licensed financial professional before making
@@ -38,7 +38,7 @@ export default function DisclaimerPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-4">3. Data Privacy (CCPA/GDPR Compliance)</h2>
             <p>
-              We prioritize user privacy. FinMA Daily +500 only collects email addresses for account
+              We prioritize user privacy. BOGA Daily +500 only collects email addresses for account
               authentication purposes via secure third-party providers. We do NOT sell user data to 
               third parties. Members have the right to request full account and data deletion at any 
               time through our settings or contact form.
@@ -50,14 +50,14 @@ export default function DisclaimerPage() {
             <h2 className="text-xl font-bold text-white mb-4">4. Advertising & Neutrality Disclosure</h2>
             <p>
               Third-party advertisements may be displayed on this platform to support our free membership tier. 
-              FinMA maintains strict separation between advertising and analysis; advertisers do not have 
-              influence over the FinMA AI scoring engine, signal generation, or stock selection process.
+              BOGA maintains strict separation between advertising and analysis; advertisers do not have 
+              influence over the BOGA AI scoring engine, signal generation, or stock selection process.
             </p>
           </section>
 
           <section className="pt-8 border-t border-[#1e2a3a]">
             <p className="text-sm italic font-medium text-[#64748b]">
-              Last Updated: April 2026. By using the FinMA Daily +500 platform, you acknowledge
+              Last Updated: April 2026. By using the BOGA Daily +500 platform, you acknowledge
               that you have read, understood, and voluntarily agreed to all terms outlined above.
             </p>
           </section>

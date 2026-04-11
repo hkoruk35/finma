@@ -12,14 +12,14 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="relative w-9 h-9 group-hover:scale-110 transition-transform">
-            <img src="/finmawave.png" alt="FinMA" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
+            <img src="/finmawave.png" alt="BOGA - Blue One Global Analysis" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
           </div>
           <div className="flex items-center">
             <span
               className="text-2xl text-white tracking-tighter"
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600 }}
             >
-              FinMA Daily +500
+              BOGA - Blue One Global Analysis
             </span>
           </div>
         </Link>

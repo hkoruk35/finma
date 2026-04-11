@@ -17,26 +17,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ticker = tickerParam.toUpperCase();
   const stock = await getStockData(ticker);
 
-  if (!stock) return { title: "Stock Not Found | FinMA" };
+  if (!stock) return { title: "Stock Not Found | BOGA" };
 
   const dateStr = new Date().toISOString().split("T")[0];
-  const title = `${stock.ticker} Stock Analysis ${dateStr} | ${stock.company} AI Score & Ratings — FinMA`;
-  const description = `${stock.ticker} (${stock.company}) analysis for ${dateStr}. FinMA AI Score: ${stock.scores.master_score.toFixed(1)}. Current Rating: ${stock.scores.score_type.replace("_", " ")} at $${formatPrice(stock.price.current)}. Discover real-time AI scores and AI-driven stock research.`;
+  const title = `${stock.ticker} Stock Analysis ${dateStr} | ${stock.company} AI Score & Ratings — BOGA`;
+  const description = `${stock.ticker} (${stock.company}) analysis for ${dateStr}. BOGA AI Score: ${stock.scores.master_score.toFixed(1)}. Current Rating: ${stock.scores.score_type.replace("_", " ")} at $${formatPrice(stock.price.current)}. Discover real-time AI scores and AI-driven stock research.`;
 
   return {
-    metadataBase: new URL("https://finmasmart.com"),
+    metadataBase: new URL("https://bogarunner.com"),
     title,
     description,
     alternates: {
-      canonical: `https://finmasmart.com/stock/${ticker.toLowerCase()}`,
+      canonical: `https://bogarunner.com/stock/${ticker.toLowerCase()}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://finmasmart.com/stock/${ticker.toLowerCase()}`,
+      url: `https://bogarunner.com/stock/${ticker.toLowerCase()}`,
       images: [
         {
-          url: "https://finmasmart.com/finmawave.png",
+          url: "https://bogarunner.com/finmawave.png",
           width: 1200,
           height: 630,
           alt: `${stock.ticker} Stock Analysis`,
@@ -73,17 +73,17 @@ export default async function StockDetailPage({ params }: Props) {
             "@type": "Article",
             "headline": `${stock.ticker} — ${stock.company} Stock Analysis`,
             "description": stock.ai_summary,
-            "image": "https://finmasmart.com/finmawave.png",
+            "image": "https://bogarunner.com/finmawave.png",
             "author": {
               "@type": "Organization",
-              "name": "FinMA Daily +500"
+              "name": "BOGA Daily +500"
             },
             "publisher": {
               "@type": "Organization",
-              "name": "FinMA",
+              "name": "BOGA",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://finmasmart.com/finmawave.png"
+                "url": "https://bogarunner.com/finmawave.png"
               }
             },
             "datePublished": stock.date || new Date().toISOString()
@@ -101,8 +101,8 @@ export default async function StockDetailPage({ params }: Props) {
                     "@context": "https://schema.org",
                     "@type": "BreadcrumbList",
                     "itemListElement": [
-                       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://finmasmart.com" },
-                       { "@type": "ListItem", "position": 2, "name": stock.ticker, "item": `https://finmasmart.com/stock/${ticker.toLowerCase()}` }
+                       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bogarunner.com" },
+                       { "@type": "ListItem", "position": 2, "name": stock.ticker, "item": `https://bogarunner.com/stock/${ticker.toLowerCase()}` }
                     ]
                  })
               }}
@@ -116,7 +116,7 @@ export default async function StockDetailPage({ params }: Props) {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
           <div className="flex items-center gap-4">
             <div className="relative w-16 h-16 rounded-2xl bg-[#1e2a3a] overflow-hidden border border-[#3b82f6]/20">
-              <img src="/finmawave.png" alt="FinMA" className="w-full h-full object-cover opacity-50 absolute inset-0" />
+              <img src="/finmawave.png" alt="BOGA" className="w-full h-full object-cover opacity-50 absolute inset-0" />
               <div className="relative z-10 w-full h-full flex items-center justify-center text-3xl font-black text-white">
                 {stock.ticker[0]}
               </div>
@@ -211,7 +211,7 @@ export default async function StockDetailPage({ params }: Props) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-white text-gradient">FinMA AI Daily Brief</h3>
+                <h3 className="text-xl font-bold text-white text-gradient">BOGA AI Daily Brief</h3>
               </div>
               <p className="text-[#94a3b8] leading-relaxed text-lg italic">
                 "{stock.ai_summary}"
@@ -239,9 +239,9 @@ export default async function StockDetailPage({ params }: Props) {
 
           {/* Sidebar Area */}
           <div className="flex flex-col gap-6">
-            {/* FinMA Score Widget */}
+            {/* BOGA Score Widget */}
             <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
-              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">FinMA Master Score</h3>
+              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">BOGA Master Score</h3>
               <div className="relative w-40 h-40 flex items-center justify-center mb-4">
                 <svg className="w-full h-full -rotate-90">
                   <circle
@@ -282,7 +282,7 @@ export default async function StockDetailPage({ params }: Props) {
 
             {/* Score Details */}
             <div className="glass-card p-6">
-              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">FinMA AI Model Projection</h3>
+              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">BOGA AI Model Projection</h3>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                    <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">Strategic Observation Zone</span>
@@ -396,7 +396,7 @@ export default async function StockDetailPage({ params }: Props) {
                  </div>
               </div>
               <p className="text-sm text-[#94a3b8] leading-relaxed">
-                 {stock.ticker} is currently ranked in the top 20% of its sector based on FinMA Master Scores. 
+                 {stock.ticker} is currently ranked in the top 20% of its sector based on BOGA Master Scores. 
                  It has outperformed {stock.sector_context.sector_etf} by 4.2% over the last 30 trading days.
               </p>
            </div>
