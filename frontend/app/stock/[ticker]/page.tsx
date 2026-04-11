@@ -112,63 +112,46 @@ export default async function StockDetailPage({ params }: Props) {
           <span className="text-[#94a3b8]">{stock.ticker}</span>
         </nav>
 
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-          <div className="flex items-center gap-4">
-            <div className="relative w-16 h-16 rounded-2xl bg-[#1e2a3a] overflow-hidden border border-[#3b82f6]/20">
-              <img src="/finmawave.png" alt="BOGA" className="w-full h-full object-cover opacity-50 absolute inset-0" />
-              <div className="relative z-10 w-full h-full flex items-center justify-center text-3xl font-black text-white">
-                {stock.ticker[0]}
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-3">
-                <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">
-                  {stock.ticker} — {stock.company} Stock Analysis
+        {/* Header Section — Compact Terminal */}
+        <div className="glass-card px-4 py-4 md:px-6 mb-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            {/* Left: Ticker + Badge + Company */}
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-3 flex-wrap">
+                <h1 className="text-2xl md:text-3xl font-black text-white tracking-tighter leading-none">
+                  {stock.ticker}
                 </h1>
-                <span className={`px-4 py-1 rounded-xl text-xs font-black uppercase tracking-widest ${getScoreBadgeClass(stock.scores.score_type)}`}>
+                <span className={`px-3 py-1 rounded-lg text-[11px] font-black uppercase tracking-widest ${getScoreBadgeClass(stock.scores.score_type)}`}>
                   {stock.scores.score_type.replace("_", " ")}
                 </span>
               </div>
-              <p className="text-[#94a3b8] font-bold text-lg">{stock.company} &middot; {stock.sector}</p>
+              <p className="text-sm text-[#64748b] font-medium">{stock.company} &middot; {stock.sector}</p>
             </div>
-          </div>
 
-          <div className="flex flex-col items-start md:items-end p-4 rounded-2xl bg-[#3b82f6]/5 border border-[#3b82f6]/10">
-            <div className="flex items-baseline gap-3">
-              <span className="text-5xl font-mono font-black text-white leading-none">
+            {/* Right: Price + Change */}
+            <div className="flex items-baseline gap-3 md:text-right">
+              <span className="text-3xl md:text-4xl font-mono font-black text-white leading-none">
                 ${formatPrice(stock.price.current)}
               </span>
-              <span className={`text-2xl font-mono font-black ${getChangeColor(stock.price.change_pct)}`}>
-                {stock.price.change_pct >= 0 ? "+" : ""}
-                {stock.price.change_pct.toFixed(2)}%
+              <span className={`text-xl font-mono font-black ${getChangeColor(stock.price.change_pct)}`}>
+                {stock.price.change_pct >= 0 ? "+" : ""}{stock.price.change_pct.toFixed(2)}%
               </span>
+              <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest self-end pb-1">LAST CLOSE</span>
             </div>
-            <p className="text-sm font-bold text-[#64748b] mt-1 uppercase tracking-widest">Last Close Price</p>
           </div>
         </div>
 
-        {/* Time-Period Returns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        {/* Time-Period Returns — Horizontal Strip */}
+        <div className="glass-card grid grid-cols-4 divide-x divide-[#1e2a3a] mb-4">
           {[
-            { label: "24H CHANGE", value: stock.price.change_pct },
-            { label: "1-WEEK RETURN", value: stock.price.change_pct_1w },
-            { label: "1-MONTH RETURN", value: stock.price.change_pct_1m },
-            { label: "1-YEAR RETURN", value: stock.price.change_pct_1y },
+            { label: "24H", value: stock.price.change_pct },
+            { label: "1W", value: stock.price.change_pct_1w },
+            { label: "1M", value: stock.price.change_pct_1m },
+            { label: "1Y", value: stock.price.change_pct_1y },
           ].map((period) => (
-            <div
-              key={period.label}
-              className="glass-card p-4 flex flex-col items-center justify-center border-l-4"
-              style={{
-                borderLeftColor: period.value !== undefined && period.value !== null
-                  ? (period.value >= 0 ? '#22c55e' : '#ef4444')
-                  : '#1e2a3a'
-              }}
-            >
-              <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">
-                {period.label}
-              </p>
-              <p className={`text-2xl font-mono font-black ${
+            <div key={period.label} className="px-3 py-3 md:px-5 flex flex-col gap-0.5">
+              <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">{period.label}</span>
+              <span className={`text-base md:text-lg font-mono font-black ${
                 period.value !== undefined && period.value !== null
                   ? getChangeColor(period.value)
                   : 'text-[#64748b]'
@@ -176,7 +159,7 @@ export default async function StockDetailPage({ params }: Props) {
                 {period.value !== undefined && period.value !== null
                   ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(2)}%`
                   : '—'}
-              </p>
+              </span>
             </div>
           ))}
         </div>
@@ -185,20 +168,20 @@ export default async function StockDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Main Chart Area */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            <div className="glass-card p-3 md:p-4 flex flex-col">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-3">
-                <h3 className="font-bold text-white flex items-center gap-2 text-sm md:text-base">
-                  <svg className="w-5 h-5 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                  </svg>
-                  Live Market Chart
-                </h3>
-                <div className="flex gap-2">
-                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[9px] md:text-[10px] text-[#94a3b8]">1D</span>
-                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[9px] md:text-[10px] text-[#94a3b8]">NY TIME</span>
+            <div className="glass-card overflow-hidden flex flex-col">
+              {/* Slim chart header */}
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1e2a3a] bg-[#0d1117]/60">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></div>
+                  <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">Live Chart · {stock.ticker}</span>
+                </div>
+                <div className="flex gap-1.5">
+                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">1D</span>
+                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">NY TIME</span>
                 </div>
               </div>
-              <div className="w-full overflow-hidden rounded-xl border border-[#1e2a3a] flex-1 min-h-[300px] md:min-h-[450px]">
+              {/* Edge-to-edge chart, no inner border */}
+              <div className="w-full flex-1 min-h-[320px] md:min-h-[460px]">
                 <TradingViewWidget symbol={stock.ticker} />
               </div>
             </div>
@@ -341,10 +324,10 @@ export default async function StockDetailPage({ params }: Props) {
                     { label: "EMA Stack", value: stock.technical.ema_stack_bullish ? "Bullish" : "Bearish", status: "STABLE" },
                     { label: "BB Squeeze", value: stock.breakout.squeeze_intensity, status: "MONITOR" }
                  ].map((item, i) => (
-                    <div key={i} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
+                    <div key={i} className="bg-[#141924] p-3 rounded-xl border border-[#1e2a3a]">
                        <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-1">{item.label}</p>
-                       <p className="text-lg font-mono font-bold text-white">{item.value}</p>
-                       <p className="text-[10px] font-bold text-[#3b82f6] mt-1">{item.status}</p>
+                       <p className="text-base font-mono font-bold text-white">{item.value}</p>
+                       <p className="text-[10px] font-bold text-[#3b82f6] mt-0.5">{item.status}</p>
                     </div>
                  ))}
               </div>
