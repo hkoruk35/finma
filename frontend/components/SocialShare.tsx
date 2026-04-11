@@ -15,7 +15,7 @@ export default function SocialShare({ ticker, score, scoreType, url }: SocialSha
 
   const shareText = ticker
     ? `$${ticker} scored ${score?.toFixed(1)}/100 on BOGA today! ${scoreType?.replace("_", " ")} score. #stocks #investing`
-    : "Check out BOGA - Blue One Global Analysis - Daily +500 stocks — AI-powered US stock analysis and scores.";
+    : "Check out BOGA - Blue One Global Analysis - Daily +100 stocks — AI-powered US stock analysis and scores.";
 
   const encodedText = encodeURIComponent(shareText);
   const encodedUrl = encodeURIComponent(currentUrl);
