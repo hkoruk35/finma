@@ -6,10 +6,11 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
+  "dir": "ltr",
+  "lang": "en-US",
   "background_color": "#0a0e17",
   "theme_color": "#3b82f6",
   "prefer_related_applications": false,
-  "categories": ["finance", "productivity"],
   "screenshots": [
     {
       "src": "/finmawave.png",

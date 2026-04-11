@@ -5,17 +5,29 @@ import { useEffect } from "react";
 export default function PWAInstaller() {
   useEffect(() => {
     // Register service worker for offline support and PWA installation
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js", { scope: "/" })
-        .then(reg => {
-          console.log("✓ Service Worker registered:", reg.scope);
-        })
-        .catch(error => {
-          console.error("✗ Service Worker registration failed:", error);
-        });
+    if ("serviceWorker" in navigator && "caches" in window) {
+      // Wait for page load before registering
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/sw.js", { scope: "/" })
+          .then(reg => {
+            console.log("✓ Service Worker registered:", reg.scope);
+            // Update service worker if new version available
+            reg.addEventListener("updatefound", () => {
+              const newWorker = reg.installing;
+              newWorker.addEventListener("statechange", () => {
+                if (newWorker.state === "activated") {
+                  console.log("✓ Service Worker updated");
+                }
+              });
+            });
+          })
+          .catch(error => {
+            console.error("✗ Service Worker registration failed:", error);
+          });
+      });
     } else {
-      console.warn("Service Workers not supported");
+      console.warn("Service Workers not supported on this device");
     }
 
     // Handle beforeinstallprompt event for app installation

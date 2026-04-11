@@ -1,7 +1,8 @@
-const CACHE_NAME = 'finma-v1';
+const CACHE_NAME = 'finma-v2';
 const urlsToCache = [
   '/',
-  '/manifest.json'
+  '/manifest.json',
+  '/favicon.png'
 ];
 
 // Install event - cache essential files
