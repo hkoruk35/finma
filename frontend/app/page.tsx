@@ -57,7 +57,7 @@ export default async function HomePage() {
         {/* Hero */}
         <section className="text-center mb-8 animate-fade-in">
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
-            Find the Best +500 US Stocks
+            Find the Best +100 US Stocks
             <span className="text-[#3b82f6]"> with BOGA AI</span>
           </h1>
         </section>

@@ -19,7 +19,7 @@ export default function Header() {
               className="text-2xl text-white tracking-tighter"
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600 }}
             >
-              BOGA AI Daily +500 Stock
+              BOGA AI Daily Analysis
             </span>
           </div>
         </Link>
