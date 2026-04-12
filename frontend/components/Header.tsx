@@ -30,10 +30,6 @@ export default function Header() {
     { name: "Passive Income", href: "/category/passive-income" },
   ];
 
-  const MemberLock = () => !user ? (
-    <span className="ml-1 text-[10px] grayscale opacity-50 block">🔒</span>
-  ) : null;
-
   const NavLink = ({ href, children, isMemberOnly = false, className = "" }: any) => (
     <Link 
       href={!user && isMemberOnly ? "/login" : href} 
@@ -41,7 +37,6 @@ export default function Header() {
       onClick={() => setIsOpen(false)}
     >
       {children}
-      {isMemberOnly && <MemberLock />}
     </Link>
   );
 
@@ -69,7 +64,7 @@ export default function Header() {
           {/* Categories Dropdown */}
           <div className="relative" onMouseEnter={() => setCatOpen(true)} onMouseLeave={() => setCatOpen(false)}>
             <button className="flex items-center gap-1 text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">
-              Categories <MemberLock />
+              Categories
               <svg className={`w-3 h-3 transition-transform ${catOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
               </svg>
