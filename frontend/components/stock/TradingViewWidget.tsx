@@ -8,19 +8,24 @@ interface Props {
   symbol: string;
 }
 
-// Tickers in our 100-stock universe that trade on NASDAQ.
-// Everything else defaults to NYSE. TradingView needs the correct
-// exchange prefix or the widget shows "Symbol not found".
+// Comprehensive exchange mapping for the BOGA 100 universe.
+// TradingView requires the correct exchange prefix for reliability.
 const NASDAQ_TICKERS = new Set([
-  "AAPL", "ABNB", "ADBE", "AMAT", "AMD", "AMZN", "AVGO",
-  "BKNG", "CHTR", "CMCSA", "COIN", "COST", "EXC", "FANG",
-  "GOOGL", "INTU", "ISRG", "LRCX", "META", "MSFT", "MSTR",
-  "MU", "NFLX", "NVDA", "PANW", "PEP", "PYPL", "QCOM",
-  "SBAC", "SBUX", "SMCI", "SPOT", "TMUS", "TSLA", "TXN",
+  "AAPL", "ABNB", "ADBE", "AMAT", "AMD", "AMZN", "ARM", "AVGO",
+  "BKNG", "CELH", "CHTR", "CMCSA", "COIN", "COST", "CSCO", "DXCM", 
+  "EXC", "FANG", "GOOGL", "HOOD", "INTU", "IONQ", "ISRG", "LRCX", 
+  "MARA", "META", "MSFT", "MSTR", "MU", "NFLX", "NVDA", "PANW", 
+  "PEP", "PYPL", "QCOM", "RIVN", "SBAC", "SBUX", "SMCI", "SNOW", 
+  "SOFI", "SPOT", "TMUS", "TSLA", "TXN", "ZS"
 ]);
 
+const AMEX_TICKERS = new Set(["BTI", "NGD", "KGC"]);
+
 function getExchange(ticker: string): string {
-  return NASDAQ_TICKERS.has(ticker.toUpperCase()) ? "NASDAQ" : "NYSE";
+  const t = ticker.toUpperCase();
+  if (NASDAQ_TICKERS.has(t)) return "NASDAQ";
+  if (AMEX_TICKERS.has(t)) return "AMEX";
+  return "NYSE";
 }
 
 export default function TradingViewWidget({ symbol }: Props) {
@@ -49,9 +54,12 @@ export default function TradingViewWidget({ symbol }: Props) {
 
     function createWidget() {
       if (document.getElementById('tradingview_widget') && 'TradingView' in window) {
+        // Sanitize symbol: TradingView uses . for class shares (e.g., BRK.B instead of BRK-B)
+        const tvSymbol = symbol.replace('-', '.');
+        
         new (window as any).TradingView.widget({
           autosize: true,
-          symbol: `${exchange}:${symbol}`,
+          symbol: `${exchange}:${tvSymbol}`,
           interval: "D",
           timezone: "America/New_York",
           theme: "dark",
@@ -71,7 +79,7 @@ export default function TradingViewWidget({ symbol }: Props) {
     <div className='tradingview-widget-container' style={{ height: "calc(100vh - 250px)", minHeight: "300px", maxHeight: "550px", width: "100%" }}>
       <div id='tradingview_widget' style={{ height: "calc(100% - 32px)", width: "100%" }} />
       <div className="tradingview-widget-copyright" style={{ fontSize: "12px", textAlign: "center", padding: "8px", color: "#64748b" }}>
-        <a href={`https://www.tradingview.com/symbols/${exchange}-${symbol}/`} rel="noopener nofollow" target="_blank" style={{ textDecoration: "none", color: "#3b82f6" }}>
+        <a href={`https://www.tradingview.com/symbols/${exchange}-${symbol.replace('-', '.')}/`} rel="noopener nofollow" target="_blank" style={{ textDecoration: "none", color: "#3b82f6" }}>
           <span>{symbol} Chart</span>
         </a> by TradingView
       </div>
