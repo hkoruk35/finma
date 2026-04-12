@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import SocialShare from "@/components/SocialShare";
 import MarketStatus from "@/components/MarketStatus";
+import AnalysisTabs from "@/components/stock/AnalysisTabs";
 
 interface Props {
   params: Promise<{ ticker: string }>;
@@ -210,7 +211,10 @@ export default async function StockDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Social Share — Moved here */}
+            {/* Analysis Tabs Section · THE CORE REDESIGN */}
+            <AnalysisTabs stock={stock} />
+
+            {/* Social Share — Moved here and cleaned */}
             <div className="glass-card p-6 border-b-2 border-b-[#3b82f6]/20">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -225,63 +229,6 @@ export default async function StockDetailPage({ params }: Props) {
                      hideHeader={true}
                    />
                 </div>
-              </div>
-            </div>
-
-            {/* AI Summary Card */}
-            <div className="glass-card p-8 border-l-4 border-l-[#3b82f6] bg-gradient-to-r from-[#3b82f6]/5 to-transparent relative overflow-hidden">
-              {/* Decorative AI light */}
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#3b82f6]/10 blur-[100px] rounded-full"></div>
-              
-              <div className="flex items-center gap-4 mb-6 relative">
-                <div className="w-12 h-12 rounded-2xl bg-[#3b82f6] flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
-                  <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                   <h3 className="text-2xl font-black text-white tracking-tight uppercase">BOGA AI SUMMARY ANALYSIS</h3>
-                   <p className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-[0.3em]">Real-time Intelligent Insights</p>
-                </div>
-              </div>
-              
-              <div className="relative">
-                <svg className="absolute -left-2 -top-2 w-8 h-8 text-[#1e2a3a]/40" fill="currentColor" viewBox="0 0 32 32">
-                  <path d="M10 8v8H6c0-4.4 3.6-8 8-8zM24 8v8h-4c0-4.4 3.6-8 8-8z" />
-                </svg>
-                <p className="text-white leading-relaxed text-xl font-medium pl-6 italic mb-4">
-                  {stock.ai_summary}
-                </p>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-[#1e2a3a]/60 flex flex-wrap items-center justify-between gap-6">
-                <div className="flex gap-8">
-                   <div className="flex flex-col">
-                      <p className="text-[10px] text-[#64748b] uppercase font-bold tracking-widest mb-1">AI Confidence Score</p>
-                      <div className="flex items-center gap-2">
-                         <div className="w-24 h-1.5 rounded-full bg-[#1e2a3a] overflow-hidden">
-                            <div 
-                              className="h-full bg-[#3b82f6]" 
-                              style={{ width: `${stock.scores.confidence * 100}%` }}
-                            ></div>
-                         </div>
-                         <p className="font-mono font-black text-white">{(stock.scores.confidence * 100).toFixed(0)}%</p>
-                      </div>
-                   </div>
-                   <div className="flex flex-col border-l border-[#1e2a3a] pl-8">
-                      <p className="text-[10px] text-[#64748b] uppercase font-bold tracking-widest mb-1">Market Sentiment</p>
-                      <p className="font-mono font-black text-[#22c55e] flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-full bg-[#22c55e]"></span>
-                        Bullish
-                      </p>
-                   </div>
-                </div>
-                <Link href="#social-share-section" className="px-5 py-2 rounded-lg bg-[#3b82f6]/10 text-[#3b82f6] text-xs font-black uppercase tracking-widest hover:bg-[#3b82f6]/20 transition-all border border-[#3b82f6]/20 flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                  </svg>
-                  Share
-                </Link>
               </div>
             </div>
           </div>
@@ -364,71 +311,10 @@ export default async function StockDetailPage({ params }: Props) {
               </button>
             </div>
 
-            {/* Ad Placeholder */}
-            <div className="glass-card flex items-center justify-center h-[250px] text-[#64748b] text-sm">
-              AD-S2 &middot; 300&times;250 Sidebar
             </div>
           </div>
         </div>
 
-        {/* Detailed Metrics Tabs/Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-           {/* Technicals */}
-           <div className="glass-card p-6 border-t-2 border-t-[#3b82f6]/20">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-black text-white flex items-center gap-2 tracking-tight">
-                   <svg className="w-5 h-5 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                   </svg>
-                   TECHNICAL INDICATORS
-                </h3>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                 {[
-                    { label: "RSI (14)", value: stock.technical.rsi_14, status: stock.technical.rsi_14 > 70 ? "OVERBOUGHT" : stock.technical.rsi_14 < 30 ? "OVERSOLD" : "NEUTRAL", color: stock.technical.rsi_14 > 70 ? "text-[#ef4444]" : stock.technical.rsi_14 < 30 ? "text-[#22c55e]" : "text-[#3b82f6]" },
-                    { label: "MACD", value: stock.technical.macd_histogram.toFixed(3), status: stock.technical.macd_crossover.toUpperCase(), color: "text-[#3b82f6]" },
-                    { label: "RVOL", value: stock.technical.rvol + "x", status: stock.technical.rvol > 1.2 ? "HIGH" : "NORMAL", color: stock.technical.rvol > 1.2 ? "text-[#22c55e]" : "text-[#94a3b8]" },
-                    { label: "Trend", value: stock.technical.obv_trend, status: "UP", color: "text-[#22c55e]" },
-                    { label: "EMA Stack", value: stock.technical.ema_stack_bullish ? "BULLISH" : "BEARISH", status: "STABLE", color: stock.technical.ema_stack_bullish ? "text-[#22c55e]" : "text-[#ef4444]" },
-                    { label: "Volatility", value: stock.breakout.squeeze_intensity, status: "MONITOR", color: "text-[#f59e0b]" }
-                 ].map((item, i) => (
-                    <div key={i} className="bg-[#0d1117] p-3 rounded-xl border border-[#1e2a3a] hover:border-[#3b82f6]/40 transition-colors">
-                       <p className="text-[10px] text-[#64748b] uppercase font-bold tracking-widest mb-1">{item.label}</p>
-                       <p className="text-base font-mono font-black text-white">{item.value}</p>
-                       <p className={`text-[10px] font-black mt-1 uppercase tracking-tighter ${item.color}`}>{item.status}</p>
-                    </div>
-                 ))}
-              </div>
-           </div>
-
-           {/* Fundamentals */}
-           <div className="glass-card p-6 border-t-2 border-t-[#8b5cf6]/20">
-              <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2 tracking-tight">
-                 <svg className="w-5 h-5 text-[#8b5cf6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                 </svg>
-                 FUNDAMENTALS & MARGINS
-              </h3>
-              <div className="space-y-1">
-                 {[
-                    { label: "Market Cap", value: `$${(stock.fundamental.market_cap / 1e12).toFixed(2)}T` },
-                    { label: "P/E Ratio", value: stock.fundamental.pe_ratio, sub: `Sector: ${stock.fundamental.sector_pe_median}` },
-                    { label: "FCF Yield", value: (stock.fundamental.fcf_yield * 100).toFixed(1) + "%" },
-                    { label: "Gross Margin", value: (stock.fundamental.gross_margin * 100).toFixed(1) + "%" },
-                    { label: "Operating Margin", value: (stock.fundamental.operating_margin * 100).toFixed(1) + "%" },
-                    { label: "Net Margin", value: (stock.fundamental.net_margin * 100).toFixed(1) + "%" }
-                 ].map((item, i) => (
-                    <div key={i} className="flex justify-between items-center py-2.5 border-b border-[#1e2a3a]/40 last:border-0 group">
-                       <div>
-                          <p className="text-xs font-bold text-[#64748b] uppercase tracking-wider group-hover:text-[#94a3b8] transition-colors">{item.label}</p>
-                          {item.sub && <p className="text-[9px] text-[#3b82f6] font-bold">{item.sub}</p>}
-                       </div>
-                       <span className="font-mono font-black text-white text-base">{item.value}</span>
-                    </div>
-                 ))}
-              </div>
-           </div>
-        </div>
 
         {/* Sector Context & Insider Activity */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
