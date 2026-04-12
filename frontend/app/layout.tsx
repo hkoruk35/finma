@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 import PWAInstaller from "@/components/PWAInstaller";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
@@ -40,6 +41,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/*
+          Choose how to set up a Google tag
+          Install manually Recommended
+          Below is the Google tag for this account. Copy and paste it in the code of every page of your website, 
+          immediately after the <head> element. Don’t add more than one Google tag to each page.
+        */}
+        {/* Google tag (gtag.js) */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-CCSWK67D93" />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-CCSWK67D93');
+          `}
+        </Script>
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
