@@ -4,11 +4,10 @@ import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import IndexCards from "@/components/IndexCards";
 import StatsBar from "@/components/StatsBar";
-import CategoryTabs from "@/components/CategoryTabs";
-import SectorHeatMap from "@/components/SectorHeatMap";
 import TopSwingPicks from "@/components/TopSwingPicks";
 import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
-import ThemeShowcase from "@/components/ThemeShowcase";
+import MarketExplorer from "@/components/MarketExplorer";
+import SectorHeatMap from "@/components/SectorHeatMap";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -81,16 +80,9 @@ export default async function HomePage() {
           <StatsBar data={master} />
         </section>
 
-        {/* Market Themes Section */}
+        {/* Market Themes & Category Tabs Explorer */}
         <section className="mb-12 animate-fade-in" style={{ animationDelay: "250ms" }}>
-           <ThemeShowcase 
-             activeTickers={Array.from(new Set(Object.values(master.menus).flatMap(m => m.tickers)))} 
-           />
-        </section>
-
-        {/* Category Tabs */}
-        <section className="mb-10 animate-fade-in" style={{ animationDelay: "300ms" }}>
-          <CategoryTabs master={master} allTickers={allTickers} />
+           <MarketExplorer master={master} allTickers={allTickers} />
         </section>
 
         {/* Sector Heat Map */}

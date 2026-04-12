@@ -16,40 +16,62 @@ const TABS = [
 interface Props {
   master: MasterData;
   allTickers: StockQuickView[];
+  customFilter?: string[];
 }
 
-export default function CategoryTabs({ master, allTickers }: Props) {
+export default function CategoryTabs({ master, allTickers, customFilter }: Props) {
   const [active, setActive] = useState("top_scores");
-
-  const menu = master.menus[active] || { tickers: [] };
-  const tickersInMenu = menu.tickers.slice(0, 8);
 
   // Map ticker strings to full data
   const tickerMap = new Map(allTickers.map((t) => [t.ticker, t]));
-  const cards = tickersInMenu
-    .map((t) => tickerMap.get(t))
-    .filter(Boolean) as StockQuickView[];
+
+  // Determine what cards to show
+  let cards: StockQuickView[] = [];
+  let isThemeFilter = false;
+
+  if (customFilter && customFilter.length > 0) {
+    cards = customFilter
+      .map((t) => tickerMap.get(t))
+      .filter(Boolean) as StockQuickView[];
+    isThemeFilter = true;
+  } else {
+    const menu = master.menus[active] || { tickers: [] };
+    const tickersInMenu = menu.tickers.slice(0, 8);
+    cards = tickersInMenu
+      .map((t) => tickerMap.get(t))
+      .filter(Boolean) as StockQuickView[];
+  }
 
   return (
     <div>
       {/* Tab buttons */}
-      <div className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
-        {TABS.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => setActive(tab.key)}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
-              active === tab.key
-                ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
-                : "bg-[#141924] text-[#94a3b8] hover:bg-[#1a2030] hover:text-white border border-[#1e2a3a]"
-            }`}
-          >
-            {tab.label}
-            <span className="ml-2 text-xs opacity-70">
-              ({master.menus[tab.key]?.count || 0})
-            </span>
-          </button>
-        ))}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          {TABS.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActive(tab.key)}
+              disabled={isThemeFilter}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
+                !isThemeFilter && active === tab.key
+                  ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
+                  : "bg-[#141924] text-[#94a3b8] hover:bg-[#1a2030] hover:text-white border border-[#1e2a3a]"
+              } ${isThemeFilter ? "opacity-30 grayscale cursor-not-allowed" : ""}`}
+            >
+              {tab.label}
+              <span className="ml-2 text-xs opacity-70">
+                ({master.menus[tab.key]?.count || 0})
+              </span>
+            </button>
+          ))}
+        </div>
+        
+        {isThemeFilter && (
+           <div className="flex items-center gap-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 px-3 py-1.5 rounded-lg animate-pulse">
+              <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full"></span>
+              <p className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest whitespace-nowrap">Theme Focus Active</p>
+           </div>
+        )}
       </div>
 
       {/* Cards grid */}
