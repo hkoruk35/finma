@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import ProfitSimulator from "./ProfitSimulator";
 
 interface Trade {
   date: string;
@@ -185,6 +186,9 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
           </div>
         </div>
       )}
+
+      {/* Dynamic Profit Simulator */}
+      <ProfitSimulator />
 
       {/* Trade History Table */}
       <div className="glass-card overflow-hidden w-full">
