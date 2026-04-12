@@ -20,6 +20,7 @@ export interface StockQuickView {
   volume?: number;
   avg_volume_30d?: number;
   ai_short_summary?: string;
+  is_mock?: boolean;
 }
 
 export interface MasterData {
@@ -38,6 +39,7 @@ export interface MasterData {
     change_pct_1m?: number;
     change_pct_1y?: number;
   }>;
+  is_mock?: boolean;
 }
 
 export interface StockDetail {
@@ -113,6 +115,8 @@ export interface StockDetail {
     price_change_display: string;
     key_metrics: Record<string, any>;
   };
+  is_mock?: boolean;
+  is_partial_mock?: boolean;
 }
 
 // Client-side fetch URL (browser only). On server, we read from disk via data-server.
