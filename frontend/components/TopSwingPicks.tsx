@@ -142,13 +142,13 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                 ];
                 
                 return (
-                  <div className="grid grid-cols-4 gap-2 text-center border-t border-white/5 pt-4">
+                  <div className="grid grid-cols-4 gap-2 text-center border-t border-white/5 pt-5">
                     {metrics.map((p, i) => (
                       <div key={i}>
-                         <div className={`text-xs font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                         <div className={`text-[15px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
                            {p.val !== undefined ? `${p.val > 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
                          </div>
-                         <div className="text-[9px] text-[#64748b] font-bold mt-1">{p.label}</div>
+                         <div className="text-[11px] text-[#64748b] font-black mt-1.5 uppercase">{p.label}</div>
                       </div>
                     ))}
                   </div>
