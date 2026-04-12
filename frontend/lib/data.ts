@@ -188,22 +188,22 @@ function normalizeStockDetail(data: any): StockDetail {
   };
 }
 
-export async function getMasterData(): Promise<MasterData | null> {
-  // Server-side: read directly from filesystem. Relative-URL fetch doesn't work
-  // in Next.js server components on Vercel, silently falling through to mock.
+export async function getMasterData(date?: string): Promise<MasterData | null> {
+  // Server-side: read directly from filesystem.
   if (typeof window === "undefined") {
-    const data = await readJsonServer("master.json");
-    return normalizeMasterData(data ?? getMockMaster());
+    const data = await readJsonServer("master.json", date);
+    return normalizeMasterData(data ?? (date ? null : getMockMaster()));
   }
   // Client-side: HTTP fetch
   try {
     const base = DATA_BASE_URL || "/api/data";
-    const res = await fetch(`${base}/master.json`);
-    if (!res.ok) return getMockMaster();
+    const folder = date ? date : "latest";
+    const res = await fetch(`${base}/${folder}/master.json`);
+    if (!res.ok) return date ? null : getMockMaster();
     const json = await res.json();
     return normalizeMasterData(json);
   } catch {
-    return getMockMaster();
+    return date ? null : getMockMaster();
   }
 }
 
@@ -223,27 +223,28 @@ export async function getStockData(ticker: string): Promise<StockDetail | null> 
   }
 }
 
-export async function getAllTickers(): Promise<StockQuickView[]> {
+export async function getAllTickers(date?: string): Promise<StockQuickView[]> {
   if (typeof window === "undefined") {
-    const data = await readJsonServer("all_tickers_list.json");
-    const tickers = data?.tickers ?? getMockTickers();
+    const data = await readJsonServer("all_tickers_list.json", date);
+    const tickers = data?.tickers ?? (date ? [] : getMockTickers());
     return tickers.map(normalizeStockQuickView);
   }
   try {
     const base = DATA_BASE_URL || "/api/data";
-    const res = await fetch(`${base}/all_tickers_list.json`, {
+    const folder = date ? date : "latest";
+    const res = await fetch(`${base}/${folder}/all_tickers_list.json`, {
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) {
-      console.warn(`Failed to fetch tickers list: ${res.status}`);
-      return getMockTickers();
+      console.warn(`Failed to fetch tickers list for ${folder}: ${res.status}`);
+      return date ? [] : getMockTickers();
     }
     const data = await res.json();
     const tickers = data.tickers || [];
     return tickers.map(normalizeStockQuickView);
   } catch (e) {
-    console.warn(`Tickers fetch error: ${e}`);
-    return getMockTickers();
+    console.warn(`Tickers fetch error for ${date}: ${e}`);
+    return date ? [] : getMockTickers();
   }
 }
 
