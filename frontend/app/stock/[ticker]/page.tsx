@@ -154,14 +154,14 @@ export default async function StockDetailPage({ params }: Props) {
         {/* Time-Period Returns — Horizontal Strip */}
         <div className="glass-card grid grid-cols-4 divide-x divide-[#1e2a3a] mb-4">
           {[
-            { label: "24H", value: stock.price.change_pct },
+            { label: "1D", value: stock.price.change_pct },
             { label: "1W", value: stock.price.change_pct_1w },
             { label: "1M", value: stock.price.change_pct_1m },
             { label: "1Y", value: stock.price.change_pct_1y },
           ].map((period) => (
-            <div key={period.label} className="px-3 py-3 md:px-5 flex flex-col gap-0.5">
-              <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">{period.label}</span>
-              <span className={`text-base md:text-lg font-mono font-black ${
+            <div key={period.label} className="px-3 py-3 md:px-5 flex flex-col gap-1">
+              <span className="text-[12px] font-bold text-[#64748b] uppercase tracking-widest">{period.label}</span>
+              <span className={`text-lg md:text-xl font-mono font-black ${
                 period.value !== undefined && period.value !== null
                   ? getChangeColor(period.value)
                   : 'text-[#64748b]'

@@ -107,17 +107,17 @@ export default function CategoryTabs({ master, allTickers, customFilter }: Props
             </div>
 
             {/* Time-Period Returns */}
-            <div className="mb-4">
-              <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-[0.2em] mb-2 leading-none">RETURNS</div>
-              <div className="grid grid-cols-4 gap-1.5">
+            <div className="mb-5">
+              <div className="text-[11px] text-[#64748b] font-bold uppercase tracking-[0.2em] mb-3 leading-none">RETURNS</div>
+              <div className="grid grid-cols-4 gap-2">
                 {[
-                  { label: "24H", value: stock.change_pct },
+                  { label: "1D", value: stock.change_pct },
                   { label: "1W", value: stock.change_pct_1w },
                   { label: "1M", value: stock.change_pct_1m },
                   { label: "1Y", value: stock.change_pct_1y },
                 ].map((period) => (
                   <div key={period.label} className="text-center">
-                    <div className={`text-[11px] font-mono font-black ${
+                    <div className={`text-[14px] font-mono font-extrabold ${
                       period.value !== undefined && period.value !== null
                         ? getChangeColor(period.value)
                         : 'text-[#64748b]'
@@ -126,7 +126,7 @@ export default function CategoryTabs({ master, allTickers, customFilter }: Props
                         ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
                         : '—'}
                     </div>
-                    <div className="text-[8px] text-[#4b5563] font-bold mt-0.5">{period.label}</div>
+                    <div className="text-[10px] text-[#94a3b8] font-black mt-1 uppercase">{period.label}</div>
                   </div>
                 ))}
               </div>
