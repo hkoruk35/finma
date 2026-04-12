@@ -50,57 +50,57 @@ const ProfitSimulator = () => {
     <div className="glass-card mb-12 border-t-4 border-t-[#3b82f6] overflow-hidden">
       <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-[#1e2a3a]">
         {/* Left column: Inputs */}
-        <div className="lg:w-1/2 p-8 lg:p-10 space-y-10">
+        <div className="lg:w-1/2 p-8 lg:p-12 space-y-12">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse"></span>
-              <p className="text-[10px] font-black text-[#3b82f6] uppercase tracking-[0.3em]">Alpha Engine Simulator</p>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
+              <p className="text-[13px] font-black text-[#3b82f6] uppercase tracking-[0.3em]">PROFIT SIMULATOR</p>
             </div>
-            <h2 className="text-3xl font-black text-white mb-3 tracking-tighter">PROFIT POTENTIAL</h2>
-            <p className="text-sm text-[#64748b] leading-relaxed">
+            <h2 className="text-4xl font-black text-white mb-4 tracking-tighter">BOGA PROFIT POTENTIAL</h2>
+            <p className="text-lg text-[#94a3b8] leading-relaxed">
               Visualize your growth potential based on BOGA's historical <span className="text-white font-bold">93.7%</span> win rate and <span className="text-white font-bold">7.4%</span> average monthly returns per pick.
             </p>
           </div>
 
-          <div className="space-y-8">
-            <div className="space-y-4">
+          <div className="space-y-10">
+            <div className="space-y-5">
               <div className="flex justify-between items-end">
-                <label className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Initial Capital</label>
+                <label className="text-[13px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Initial Capital</label>
                 <div className="flex items-baseline gap-1">
-                   <span className="text-2xl font-mono font-black text-[#3b82f6]">${capital.toLocaleString()}</span>
-                   <span className="text-[10px] text-[#64748b] uppercase font-bold">USD</span>
+                   <span className="text-3xl font-mono font-black text-[#3b82f6]">${capital.toLocaleString()}</span>
+                   <span className="text-[12px] text-[#64748b] uppercase font-bold">USD</span>
                 </div>
               </div>
               <input 
                 type="range" min="500" max="100000" step="500" 
                 value={capital} onChange={(e) => setCapital(Number(e.target.value))}
-                className="w-full h-2 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
+                className="w-full h-3 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
               />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div className="flex justify-between items-end">
-                <label className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Signals Per Month</label>
+                <label className="text-[13px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Signals Per Month</label>
                 <div className="flex items-baseline gap-1">
-                   <span className="text-2xl font-mono font-black text-[#3b82f6]">{signalCount}</span>
-                   <span className="text-[10px] text-[#64748b] uppercase font-bold">PICKS</span>
+                   <span className="text-3xl font-mono font-black text-[#3b82f6]">{signalCount}</span>
+                   <span className="text-[12px] text-[#64748b] uppercase font-bold">PICKS</span>
                 </div>
               </div>
               <input 
                 type="range" min="1" max="25" step="1" 
                 value={signalCount} onChange={(e) => setSignalCount(Number(e.target.value))}
-                className="w-full h-2 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
+                className="w-full h-3 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
               />
             </div>
 
-            <div className="space-y-4">
-              <label className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Trading Aggression</label>
-              <div className="grid grid-cols-3 gap-3">
+            <div className="space-y-5">
+              <label className="text-[13px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Trading Aggression</label>
+              <div className="grid grid-cols-3 gap-4">
                 {(['Low', 'Medium', 'Aggressive'] as const).map(profile => (
                   <button
                     key={profile}
                     onClick={() => setRiskProfile(profile)}
-                    className={`py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
+                    className={`py-4 px-6 rounded-xl text-[12px] font-black uppercase tracking-widest transition-all border ${
                       riskProfile === profile 
                         ? "bg-[#3b82f6] text-white border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
                         : "bg-[#0d1117] text-[#64748b] border-[#1e2a3a] hover:border-[#3b82f6]/40"
@@ -115,40 +115,40 @@ const ProfitSimulator = () => {
         </div>
 
         {/* Right column: Results */}
-        <div className="lg:w-1/2 bg-[#0d1117]/30 p-8 lg:p-10 flex flex-col gap-8">
-           <div className="grid grid-cols-2 gap-6">
-              <div className="flex flex-col gap-1">
-                 <p className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest">Est. Monthly Total</p>
+        <div className="lg:w-1/2 bg-[#0d1117]/30 p-8 lg:p-12 flex flex-col gap-10">
+           <div className="grid grid-cols-2 gap-8">
+              <div className="flex flex-col gap-2">
+                 <p className="text-[13px] text-[#94a3b8] font-bold uppercase tracking-widest">Est. Monthly Total</p>
                  <div className="flex items-baseline gap-2">
-                    <p className="text-3xl font-mono font-black text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
-                    <span className={`text-xs font-bold ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                    <p className="text-4xl font-mono font-black text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
+                    <span className={`text-base font-bold ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                        +{((estimatedMonthly/capital - 1)*100).toFixed(1)}%
                     </span>
                  </div>
               </div>
-              <div className="flex flex-col gap-1">
-                 <p className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest">Alpha vs Benchmarks</p>
+              <div className="flex flex-col gap-2">
+                 <p className="text-[13px] text-[#94a3b8] font-bold uppercase tracking-widest">Boga Performance</p>
                  <div className="flex items-baseline gap-2">
-                    <p className="text-3xl font-mono font-black text-[#3b82f6]">+{alphaEdge}%</p>
-                    <span className="text-[10px] text-[#64748b] font-bold uppercase">vs S&P 500</span>
+                    <p className="text-4xl font-mono font-black text-[#3b82f6]">+{alphaEdge}%</p>
+                    <span className="text-[12px] text-[#64748b] font-bold uppercase">vs S&P 500</span>
                  </div>
               </div>
            </div>
 
            {/* Visualization Card */}
-           <div className="bg-[#0a0e17] p-8 rounded-3xl border border-[#1e2a3a] flex-1 min-h-[220px] flex flex-col justify-between relative overflow-hidden group">
+           <div className="bg-[#0a0e17] p-10 rounded-3xl border border-[#1e2a3a] flex-1 min-h-[250px] flex flex-col justify-between relative overflow-hidden group">
               {/* Background Glow */}
-              <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#3b82f6]/10 blur-[60px] rounded-full group-hover:bg-[#3b82f6]/20 transition-all"></div>
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#3b82f6]/10 blur-[80px] rounded-full group-hover:bg-[#3b82f6]/20 transition-all"></div>
 
               <div>
-                <p className="text-[10px] text-[#94a3b8] font-black uppercase tracking-widest mb-1">12-Month Compounding Pathway</p>
-                <p className="text-4xl font-mono font-black text-white leading-none tracking-tighter">
+                <p className="text-[13px] text-[#94a3b8] font-black uppercase tracking-widest mb-2">12-Month Compounding Pathway</p>
+                <p className="text-5xl font-mono font-black text-white leading-none tracking-tighter">
                    ${Math.floor(finalValue).toLocaleString()}
                 </p>
               </div>
               
-              <div className="flex-1 flex items-center mt-6">
-                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-24 overflow-visible">
+              <div className="flex-1 flex items-center mt-8">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-28 overflow-visible">
                   <defs>
                     <linearGradient id="chartGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4" />
@@ -165,35 +165,34 @@ const ProfitSimulator = () => {
                     points={points}
                     fill="none"
                     stroke="#3b82f6"
-                    strokeWidth="3"
+                    strokeWidth="4"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   {/* Pulse at the end */}
-                  <circle cx="100" cy={getY(finalValue)} r="3" fill="#3b82f6" className="animate-pulse" />
+                  <circle cx="100" cy={getY(finalValue)} r="4" fill="#3b82f6" className="animate-pulse" />
                 </svg>
               </div>
 
-              <div className="flex justify-between mt-4">
-                 <span className="text-[9px] font-bold text-[#64748b] uppercase">Start</span>
-                 <span className="text-[9px] font-bold text-[#64748b] uppercase">Quarter 1</span>
-                 <span className="text-[9px] font-bold text-[#64748b] uppercase">Quarter 2</span>
-                 <span className="text-[9px] font-bold text-[#64748b] uppercase">Full Year Target</span>
+              <div className="flex justify-between mt-6">
+                 <span className="text-[10px] font-bold text-[#64748b] uppercase">Start</span>
+                 <span className="text-[10px] font-bold text-[#64748b] uppercase">Quarter 1</span>
+                 <span className="text-[10px] font-bold text-[#64748b] uppercase">Quarter 2</span>
+                 <span className="text-[10px] font-bold text-[#64748b] uppercase">Year End Target</span>
               </div>
            </div>
 
-           <div className="space-y-4">
-              <button className="w-full py-5 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(59,130,246,0.3)] hover:bg-[#2563eb] transition-all hover:-translate-y-1 active:scale-95 text-xs">
-                Unlock BOGA Alpha Signals
+           <div className="space-y-6">
+              <button className="w-full py-6 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-[0_15px_35px_rgba(59,130,246,0.3)] hover:bg-[#2563eb] transition-all hover:-translate-y-1 active:scale-95 text-sm">
+                Unlock BOGA PRO Signals
               </button>
-              <p className="text-[9px] text-[#64748b] leading-relaxed text-center italic">
+              <p className="text-[10px] text-[#64748b] leading-relaxed text-center italic">
                 * Note: Historical performance is for informational purposes only. Trading involves significant risk of loss. This simulator calculates expectancy based on verified past results.
               </p>
            </div>
-        </div>
-      </div>
     </div>
   );
 };
 
 export default ProfitSimulator;
+
