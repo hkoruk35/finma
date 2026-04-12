@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
@@ -130,7 +131,7 @@ export default function AboutPage() {
               href="/about/how-it-works"
               className="inline-flex items-center gap-2 px-6 py-3 bg-[#3b82f6]/10 text-[#3b82f6] rounded-xl font-bold border border-[#3b82f6]/20 hover:bg-[#3b82f6]/20 transition-all group"
             >
-              <span>AI Score Nasıl Hesaplanıyor? Detaylı İncele</span>
+              <span>How is the AI Score calculated? Detailed Methodology</span>
               <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
