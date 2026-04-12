@@ -120,10 +120,10 @@ const DATA_BASE_URL = process.env.NEXT_PUBLIC_DATA_URL || "";
 
 // Dynamic import keeps fs/path out of the client bundle. Webpack creates a
 // server-only chunk for data-server.ts which is never loaded in the browser.
-async function readJsonServer(relPath: string): Promise<any | null> {
+async function readJsonServer(relPath: string, date?: string): Promise<any | null> {
   if (typeof window !== "undefined") return null;
   const mod = await import("./data-server");
-  return mod.readJson(relPath);
+  return mod.readJson(relPath, date);
 }
 
 // Compatibility: normalize old data format (signal) to new format (score_type)
