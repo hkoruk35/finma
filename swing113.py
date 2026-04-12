@@ -1,5 +1,6 @@
-﻿import asyncio
+import asyncio
 import logging
+import json
 import time
 import aiohttp
 import random
@@ -4200,6 +4201,49 @@ async def scan_top_stocks():
 
     logging.info(f"✅ NY 13:00 Taraması başarıyla tamamlandı. ({scanned_count} hisse taranmış)")
     
+    # ---------------------------------------------------------
+    # 6) UI SENKRONİZASYONU (Top 3 Swing Picks)
+    # ---------------------------------------------------------
+    try:
+        logging.info("▶ UI Swing Picks senkronize ediliyor...")
+        frontend_picks = []
+        # En iyi 3 adayı al
+        for i, c in enumerate(top_candidates[:3]):
+            # TP2 profiti, TP1 ise %40'lık ilk hedef bölgesidir.
+            tp2 = c['profit_target']
+            tp1 = c['current_price'] + (tp2 - c['current_price']) * 0.40
+            
+            frontend_picks.append({
+                "rank": i + 1,
+                "ticker": c["ticker"],
+                "company": c["company"],
+                "score": round(c["score"], 1),
+                "current_price": c["current_price"],
+                "buy_zone": {
+                    "low": round(c["current_price"] * 0.985, 2),
+                    "high": round(c["current_price"] * 1.01, 2)
+                },
+                "profit_zone": {
+                    "low": round(tp1, 2),
+                    "high": round(tp2, 2)
+                },
+                "stop_zone": {
+                    "low": round(c["stop_loss"] * 0.99, 2),
+                    "high": round(c["stop_loss"], 2)
+                },
+                "holding_period": "3-10 Days",
+                "reasoning": f"Atmaca V112 Modeli: {c['signal_type']} sinyali tespit edildi. {c['score']:.1f} güven skoru ile breakout potansiyeli yüksek.",
+                "pattern": c["signal_type"],
+                "adx": round(c.get("adx", 0), 1),
+                "rsi": round(c.get("rsi_14", 0), 1)
+            })
+            
+        public_path = os.path.join(os.getcwd(), "frontend", "public", "swing_picks.json")
+        with open(public_path, "w", encoding="utf-8") as f:
+            json.dump({"picks": frontend_picks}, f, indent=2, ensure_ascii=False)
+        logging.info(f"✅ Swing picks başarıyla güncellendi: {public_path}")
+    except Exception as e:
+        logging.error(f"❌ UI senkronizasyon hatası: {str(e)}")
 from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta, timezone
 
