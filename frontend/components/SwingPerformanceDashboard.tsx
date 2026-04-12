@@ -190,49 +190,89 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
       {/* Dynamic Profit Simulator */}
       <ProfitSimulator />
 
-      {/* Trade History Table */}
-      <div className="glass-card overflow-hidden w-full">
-         <div className="p-6 border-b border-[#1e2a3a] flex flex-col md:flex-row justify-between items-center gap-4">
+      {/* Trade History - Responsive View */}
+      <div className="w-full">
+         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
             <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
             <p className="text-xs text-[#94a3b8]">Showing {filteredHistory.length} trades</p>
          </div>
-         <div className="overflow-x-auto w-full">
-            <table className="w-full text-left text-sm whitespace-nowrap min-w-max">
-               <thead>
-                  <tr className="bg-[#1a2030] border-b border-[#1e2a3a] text-[#64748b]">
-                     <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Date</th>
-                     <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Symbol</th>
-                     <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Sector</th>
-                     <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Entry Price</th>
-                     <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Max Price</th>
-                     <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-center">Days Held</th>
-                     <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Max Return</th>
-                  </tr>
-               </thead>
-               <tbody className="text-white font-mono divide-y divide-[#1e2a3a]">
-                  {filteredHistory.map((t: any, i: number) => (
-                     <tr key={i} className="hover:bg-[#1a2030]/50 transition-colors">
-                        <td className="px-6 py-4 text-[#94a3b8]">{t.date}</td>
-                        <td className="px-6 py-4">
-                          <Link href={`/stock/${t.ticker}`} className="font-bold text-[#3b82f6] hover:underline">
-                            {t.ticker}
-                          </Link>
-                        </td>
-                        <td className="px-6 py-4 text-[#94a3b8] text-[10px] uppercase">{t.sector || "Unknown"}</td>
-                        <td className="px-6 py-4 text-right">${t.entry.toFixed(2)}</td>
-                        <td className="px-6 py-4 text-right">${t.max_price.toFixed(2)}</td>
-                        <td className="px-6 py-4 text-center text-[#64748b]">{t.days}</td>
-                        <td className={`px-6 py-4 text-right font-bold ${t.return_pct >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-                           {t.return_pct >= 0 ? "+" : ""}{t.return_pct.toFixed(2)}%
-                        </td>
-                     </tr>
-                  ))}
-               </tbody>
-            </table>
-            {filteredHistory.length === 0 && (
-              <div className="p-12 text-center text-[#64748b]">No historical data found.</div>
-            )}
+
+         {/* Mobile Card View (md:hidden) */}
+         <div className="grid grid-cols-1 gap-4 md:hidden">
+            {filteredHistory.map((t: any, i: number) => (
+               <div key={i} className="glass-card p-5 border-l-4 border-l-[#3b82f6]">
+                  <div className="flex justify-between items-start mb-4">
+                     <div>
+                        <Link href={`/stock/${t.ticker}`} className="text-2xl font-black text-[#3b82f6] hover:underline">
+                           {t.ticker}
+                        </Link>
+                        <p className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest mt-1">
+                           {t.date} &middot; {t.sector || "Unknown"}
+                        </p>
+                     </div>
+                     <div className={`text-xl font-mono font-black ${t.return_pct >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                        {t.return_pct >= 0 ? "+" : ""}{t.return_pct.toFixed(2)}%
+                     </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-2 border-t border-[#1e2a3a]/40 pt-4">
+                     <div>
+                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-tighter mb-1">Entry</p>
+                        <p className="font-mono font-bold text-white text-sm">${t.entry.toFixed(2)}</p>
+                     </div>
+                     <div>
+                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-tighter mb-1">Peak</p>
+                        <p className="font-mono font-bold text-white text-sm">${t.max_price.toFixed(2)}</p>
+                     </div>
+                     <div className="text-right">
+                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-tighter mb-1">Days</p>
+                        <p className="font-mono font-bold text-white text-sm">{t.days}</p>
+                     </div>
+                  </div>
+               </div>
+            ))}
          </div>
+
+         {/* Desktop Table View (hidden md:block) */}
+         <div className="hidden md:block glass-card overflow-hidden">
+            <div className="overflow-x-auto w-full">
+               <table className="w-full text-left text-sm whitespace-nowrap">
+                  <thead>
+                     <tr className="bg-[#1a2030] border-b border-[#1e2a3a] text-[#64748b]">
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Date</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Symbol</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right text-[#3b82f6]">Max Return</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Entry Price</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Max Price</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-center">Days Held</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Sector</th>
+                     </tr>
+                  </thead>
+                  <tbody className="text-white font-mono divide-y divide-[#1e2a3a]">
+                     {filteredHistory.map((t: any, i: number) => (
+                        <tr key={i} className="hover:bg-[#1a2030]/50 transition-colors">
+                           <td className="px-6 py-4 text-[#94a3b8]">{t.date}</td>
+                           <td className="px-6 py-4">
+                              <Link href={`/stock/${t.ticker}`} className="font-bold text-[#3b82f6] hover:underline">
+                                 {t.ticker}
+                              </Link>
+                           </td>
+                           <td className={`px-6 py-4 text-right font-black text-base ${t.return_pct >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                              {t.return_pct >= 0 ? "+" : ""}{t.return_pct.toFixed(2)}%
+                           </td>
+                           <td className="px-6 py-4 text-right">${t.entry.toFixed(2)}</td>
+                           <td className="px-6 py-4 text-right">${t.max_price.toFixed(2)}</td>
+                           <td className="px-6 py-4 text-center text-[#64748b]">{t.days}</td>
+                           <td className="px-6 py-4 text-[#94a3b8] text-[10px] uppercase">{t.sector || "Unknown"}</td>
+                        </tr>
+                     ))}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         {filteredHistory.length === 0 && (
+            <div className="p-12 text-center text-[#64748b]">No historical data found.</div>
+         )}
       </div>
     </>
   );
