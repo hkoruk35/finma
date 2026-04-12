@@ -17,9 +17,10 @@ interface Props {
   master: MasterData;
   allTickers: StockQuickView[];
   customFilter?: string[];
+  onClear?: () => void;
 }
 
-export default function CategoryTabs({ master, allTickers, customFilter }: Props) {
+export default function CategoryTabs({ master, allTickers, customFilter, onClear }: Props) {
   const [active, setActive] = useState("top_scores");
 
   // Map ticker strings to full data
@@ -27,36 +28,41 @@ export default function CategoryTabs({ master, allTickers, customFilter }: Props
 
   // Determine what cards to show
   let cards: StockQuickView[] = [];
-  let isThemeFilter = false;
+  const menu = master.menus[active] || { tickers: [] };
 
   if (customFilter && customFilter.length > 0) {
-    cards = customFilter
+    // Show intersection of customFilter and active category
+    const intersection = customFilter.filter(t => menu.tickers.includes(t));
+    
+    // If we have an intersection, show it. Otherwise show all in theme but warn.
+    const displayTickers = intersection.length > 0 ? intersection : customFilter;
+    
+    cards = displayTickers
       .map((t) => tickerMap.get(t))
       .filter(Boolean) as StockQuickView[];
-    isThemeFilter = true;
   } else {
-    const menu = master.menus[active] || { tickers: [] };
     const tickersInMenu = menu.tickers.slice(0, 8);
     cards = tickersInMenu
       .map((t) => tickerMap.get(t))
       .filter(Boolean) as StockQuickView[];
   }
 
+  const isThemeFilter = !!(customFilter && customFilter.length > 0);
+
   return (
     <div>
       {/* Tab buttons */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide flex-1">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActive(tab.key)}
-              disabled={isThemeFilter}
               className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
-                !isThemeFilter && active === tab.key
+                active === tab.key
                   ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
                   : "bg-[#141924] text-[#94a3b8] hover:bg-[#1a2030] hover:text-white border border-[#1e2a3a]"
-              } ${isThemeFilter ? "opacity-30 grayscale cursor-not-allowed" : ""}`}
+              }`}
             >
               {tab.label}
               <span className="ml-2 text-xs opacity-70">
@@ -67,9 +73,15 @@ export default function CategoryTabs({ master, allTickers, customFilter }: Props
         </div>
         
         {isThemeFilter && (
-           <div className="flex items-center gap-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 px-3 py-1.5 rounded-lg animate-pulse">
-              <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full"></span>
-              <p className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest whitespace-nowrap">Theme Focus Active</p>
+           <div className="flex items-center gap-3 bg-[#3b82f6]/10 border border-[#3b82f6]/30 px-3 py-1.5 rounded-lg">
+              <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-pulse"></span>
+              <p className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest whitespace-nowrap">Theme Focus: {active.replace('_', ' ')} Applied</p>
+              <button 
+                onClick={() => onClear?.()}
+                className="text-[10px] bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 text-white px-2 py-0.5 rounded transition-colors uppercase font-black"
+              >
+                Reset
+              </button>
            </div>
         )}
       </div>

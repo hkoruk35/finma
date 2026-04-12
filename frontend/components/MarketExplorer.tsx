@@ -37,6 +37,7 @@ export default function MarketExplorer({ master, allTickers }: Props) {
         master={master} 
         allTickers={allTickers} 
         customFilter={themeFilter || undefined}
+        onClear={() => setThemeFilter(null)}
       />
     </div>
   );
