@@ -189,10 +189,11 @@ const ProfitSimulator = () => {
               <p className="text-[10px] text-[#64748b] leading-relaxed text-center italic">
                 * Note: Historical performance is for informational purposes only. Trading involves significant risk of loss. This simulator calculates expectancy based on verified past results.
               </p>
-           </div>
+            </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ProfitSimulator;
-
