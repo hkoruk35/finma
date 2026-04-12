@@ -7,6 +7,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import SocialShare from "@/components/SocialShare";
+import MarketStatus from "@/components/MarketStatus";
 
 interface Props {
   params: Promise<{ ticker: string }>;
@@ -145,10 +146,7 @@ export default async function StockDetailPage({ params }: Props) {
                    <span className="text-[10px] font-bold uppercase tracking-widest text-right">Today</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 mt-1">
-                <div className="w-2 h-2 rounded-full bg-[#22c55e] live-dot"></div>
-                <span className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em]">MARKET IS OPEN</span>
-              </div>
+              <MarketStatus />
             </div>
           </div>
         </div>
@@ -322,7 +320,7 @@ export default async function StockDetailPage({ params }: Props) {
               <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">BOGA AI MODEL ANALYSIS</h3>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">WAITING ZONE</span>
+                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">BUYING ZONE</span>
                    <span className="font-mono font-black text-xl text-white">
                       ${formatPrice(stock.scores_detail.entry_range_low)} - ${formatPrice(stock.scores_detail.entry_range_high)}
                    </span>
@@ -334,7 +332,7 @@ export default async function StockDetailPage({ params }: Props) {
                    </span>
                 </div>
                 <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">BUY ZONE (SUPPORT)</span>
+                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">STOP LOSS ZONE</span>
                    <span className="font-mono font-black text-xl text-[#ef4444]">
                       ${formatPrice(stock.scores_detail.stop_range_low)} - ${formatPrice(stock.scores_detail.stop_range_high)}
                    </span>
