@@ -68,15 +68,17 @@ export default function SocialShare({ ticker, score, scoreType, url }: SocialSha
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-7 bg-[#3b82f6] rounded-full" />
-          <h3 className="text-xl font-black text-white tracking-tight">Share This Insight</h3>
+      {!hideHeader && (
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-7 bg-[#3b82f6] rounded-full" />
+            <h3 className="text-xl font-black text-white tracking-tight">Share This Insight</h3>
+          </div>
+          <p className="text-sm text-[#94a3b8] leading-relaxed">
+            Help others discover this score. Professional analysts share high-conviction data.
+          </p>
         </div>
-        <p className="text-sm text-[#94a3b8] leading-relaxed">
-          Help others discover this score. Professional analysts share high-conviction data.
-        </p>
-      </div>
+      )}
 
       {/* Social Share Buttons Grid */}
       <div className="flex flex-wrap items-center gap-2">
