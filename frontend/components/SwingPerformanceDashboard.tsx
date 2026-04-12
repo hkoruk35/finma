@@ -76,6 +76,30 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
     };
   }, [filteredHistory]);
 
+  // Sector Map for Heatmap
+  const sectorHeatmap = useMemo(() => {
+    const map: Record<string, { total: number; wins: number; sumReturn: number; maxReturn: number }> = {};
+    
+    filteredHistory.forEach(t => {
+      if (!t.sector) return;
+      if (!map[t.sector]) {
+        map[t.sector] = { total: 0, wins: 0, sumReturn: 0, maxReturn: -999 };
+      }
+      map[t.sector].total++;
+      if (t.return_pct > 0) map[t.sector].wins++;
+      map[t.sector].sumReturn += t.return_pct;
+      if (t.return_pct > map[t.sector].maxReturn) map[t.sector].maxReturn = t.return_pct;
+    });
+
+    return Object.entries(map).map(([name, data]) => ({
+      name,
+      total: data.total,
+      winRate: (data.wins / data.total) * 100,
+      avgReturn: data.sumReturn / data.total,
+      maxReturn: data.maxReturn
+    })).sort((a, b) => b.avgReturn - a.avgReturn);
+  }, [filteredHistory]);
+
   return (
     <>
       {/* Filters */}
@@ -118,6 +142,41 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
            <p className="text-3xl font-mono font-black text-[#3b82f6]">{stats.above10Rate}%</p>
          </div>
       </div>
+
+      {/* Sector Profit Heatmap */}
+      {sectorHeatmap.length > 0 && (
+        <div className="mb-12">
+          <h3 className="text-xl font-bold text-white mb-6">Sector Profitability Heatmap</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {sectorHeatmap.map(s => {
+              // determine heat color based on avgReturn
+              let bgColor = "bg-[#141924] border-[#1e2a3a]";
+              if (s.avgReturn >= 15) bgColor = "bg-[#22c55e]/20 border-[#22c55e]/50";
+              else if (s.avgReturn >= 8) bgColor = "bg-[#22c55e]/15 border-[#22c55e]/30";
+              else if (s.avgReturn > 0) bgColor = "bg-[#22c55e]/5 border-[#22c55e]/20";
+              else if (s.avgReturn < 0) bgColor = "bg-[#ef4444]/15 border-[#ef4444]/30";
+              
+              return (
+                <div key={s.name} className={`rounded-xl border p-4 ${bgColor} flex flex-col gap-2 transition-all hover:scale-105 shadow-xl`}>
+                  <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest truncate" title={s.name}>{s.name}</p>
+                  <div className="flex items-end justify-between">
+                     <div>
+                        <p className={`text-xl font-black font-mono tracking-tighter ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                           {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
+                        </p>
+                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Avg Return</p>
+                     </div>
+                     <div className="text-right">
+                        <p className="text-lg font-bold text-white leading-none">{s.total}</p>
+                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Picks</p>
+                     </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Trade History Table */}
       <div className="glass-card overflow-hidden w-full">
