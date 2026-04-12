@@ -53,10 +53,11 @@ export default async function HomePage() {
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
-        {/* Index Quick View */}
+        {/* Index Quick View - Temporarily Hidden 
         <section className="mb-8 animate-fade-in">
           <IndexCards data={master} />
         </section>
+        */}
         {/* Swing Performance Stats */}
         <section className="animate-fade-in" style={{ animationDelay: "50ms" }}>
           <SwingPerformanceBanner stats={swingStats?.stats} />

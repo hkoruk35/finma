@@ -89,44 +89,44 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
               </div>
 
               {/* Zones */}
-              <div className="mb-6 bg-black/30 rounded-xl p-4 border border-white/5">
-                 <div className="grid grid-cols-2 gap-4 gap-y-6">
+              <div className="mb-6 bg-black/40 rounded-xl p-5 border border-white/10 shadow-inner">
+                 <div className="grid grid-cols-2 gap-6">
                    <div>
-                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1">
-                       <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]"></span>
+                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                       <span className="w-2 h-2 rounded-full bg-[#3b82f6]"></span>
                        BUY ZONE
                      </div>
-                     <div className="text-sm font-mono font-bold text-white">
+                     <div className="text-base md:text-lg font-mono font-black text-white">
                        {formatPrice(item.buy_zone.low)} - {formatPrice(item.buy_zone.high)}
                      </div>
                    </div>
                    
                    <div>
-                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1">
-                       <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                       <span className="w-2 h-2 rounded-full bg-[#10b981]"></span>
                        PROFIT ZONE
                      </div>
-                     <div className="text-sm font-mono font-bold text-[#10b981]">
+                     <div className="text-base md:text-lg font-mono font-black text-[#10b981]">
                        {formatPrice(item.profit_zone.low)} - {formatPrice(item.profit_zone.high)}
                      </div>
                    </div>
 
                    <div>
-                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1">
-                       <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></span>
+                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                       <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span>
                        STOP LOSS
                      </div>
-                     <div className="text-sm font-mono font-bold text-[#ef4444]">
+                     <div className="text-base md:text-lg font-mono font-black text-[#ef4444]">
                        {formatPrice(item.stop_zone.low)} - {formatPrice(item.stop_zone.high)}
                      </div>
                    </div>
 
                    <div>
-                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1">
-                       <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7]"></span>
+                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                       <span className="w-2 h-2 rounded-full bg-[#a855f7]"></span>
                        HOLDING
                      </div>
-                     <div className="text-sm font-mono font-bold text-[#f3e8ff]">
+                     <div className="text-base md:text-lg font-mono font-black text-[#f3e8ff]">
                        {item.holding_period}
                      </div>
                    </div>

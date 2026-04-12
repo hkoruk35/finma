@@ -76,8 +76,8 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
   };
 
   const MarqueeRow = ({ items, direction }: { items: typeof activeThemes, direction: "left" | "right" }) => (
-    <div className="relative flex overflow-hidden py-1 w-full">
-      <div className={`flex items-center gap-3 pr-3 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"} min-w-full`}>
+    <div className="relative flex overflow-x-auto md:overflow-hidden py-2 w-full active:cursor-grabbing scrollbar-hide touch-pan-x select-none">
+      <div className={`flex items-center gap-3 pr-3 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"} min-w-full md:min-w-max hover:animation-pause`}>
         {items.concat(items).map((item, i) => (
           <ThemeButton key={`${item.name}-${i}`} theme={item} />
         ))}

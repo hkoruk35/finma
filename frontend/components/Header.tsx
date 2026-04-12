@@ -48,12 +48,17 @@ export default function Header() {
           <div className="relative w-9 h-9 group-hover:scale-110 transition-transform">
             <img src="/finmawave.png" alt="BOGA - Blue One Global Analysis" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
           </div>
-          <div className="flex items-center">
+          <div className="flex flex-col md:flex-row md:items-baseline">
             <span
-              className="text-2xl text-white tracking-tighter"
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600 }}
+              className="text-xl md:text-2xl text-white tracking-tighter"
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
             >
-              BOGA AI Daily Analysis
+              BOGA AI
+            </span>
+            <span
+              className="text-[9px] md:text-xs text-[#3b82f6] md:ml-2 font-black uppercase tracking-[0.2em] -mt-1 md:mt-0"
+            >
+              Daily Analysis
             </span>
           </div>
         </Link>
