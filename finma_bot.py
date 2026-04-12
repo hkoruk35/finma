@@ -427,8 +427,10 @@ def score_technical(tech: Dict, fund: Dict) -> float:
 
     # MACD histogram positive + rising
     mh = tech.get("macd_histogram") or 0
-    if mh > 0 and tech.get("macd_crossover") != "bearish": score += 15
-    elif mh > 0: score += 8
+    mc = tech.get("macd_crossover")
+    if mh > 0 and mc == "bullish": score += 20
+    elif mh > 0: score += 10
+    elif mc == "bullish": score += 10
 
     # EMA stack
     if tech.get("ema_stack_bullish"): score += 20
@@ -595,12 +597,15 @@ def score_reversal(tech: Dict) -> float:
     if rsi < 30:   s += 30
     elif rsi < 35: s += 15
     
-    # Bullish divergence check
-    if rsi < 35 and tech.get("macd_crossover") == "bullish": s += 25
+    # Bullish divergence check (mandatory for high score)
+    mc = tech.get("macd_crossover")
+    if rsi < 35 and mc == "bullish": s += 40
     
     # Testing 200 SMA or annual low
     low_prox = tech.get("52w_low_proximity_pct")
-    if low_prox is not None and low_prox <= 0.03: s += 20
+    if low_prox is not None and low_prox <= 0.05:
+        if mc == "bullish": s += 25
+        else: s -= 10 # Falling knife penalty
     
     # Volume spike on down day (RVOL > 1.5 + Price < 0) - check via tech
     if (tech.get("rvol") or 0) > 1.5: s += 15
@@ -942,8 +947,11 @@ def compute_sector_summary(all_stocks_data: List[Dict]) -> Dict:
 def build_menus(all_stocks_data: List[Dict]) -> Dict:
     """Build 6 category menus from scored stock data."""
     def top_n(key: str, n_max: int, n_min: int, minimum_score: float = 0) -> List[str]:
+        # QUALITY FILTER: min price $5, min 30d avg volume 500k
         candidates = [s for s in all_stocks_data
-                      if s.get("scores", {}).get(key, 0) >= minimum_score]
+                      if s.get("scores", {}).get(key, 0) >= minimum_score
+                      and s["price"]["current"] >= 5.0
+                      and (s["price"]["avg_volume_30d"] or 0) >= 500000]
         candidates.sort(key=lambda x: x["scores"].get(key, 0), reverse=True)
         result = [s["ticker"] for s in candidates[:n_max]]
         return result if len(result) >= n_min else result
@@ -959,9 +967,14 @@ def build_menus(all_stocks_data: List[Dict]) -> Dict:
     all_menu_tickers: Dict[str, int] = {}
     for lst in [breakout, value, reversal, momentum, dividend]:
         for t in lst: all_menu_tickers[t] = all_menu_tickers.get(t, 0) + 1
+    
+    # Famous Big 10 (always consider for top signals if score > 65)
+    famous_10 = {"AAPL", "MSFT", "NVDA", "TSLA", "GOOGL", "AMZN", "META", "AVGO", "BRK.B", "LLY"}
+    
     ts_candidates = [s for s in all_stocks_data
-                     if all_menu_tickers.get(s["ticker"], 0) >= 2
-                     and (s.get("scores", {}).get("confidence", 0)) >= TOP_SIGNALS_MIN_CONFIDENCE]
+                     if (all_menu_tickers.get(s["ticker"], 0) >= 2 or s["ticker"] in famous_10)
+                     and s["scores"]["master_score"] >= 65.0
+                     and s["price"]["current"] >= 5.0]
     ts_candidates.sort(key=lambda x: x["scores"].get("master_score", 0), reverse=True)
     top_scores = [s["ticker"] for s in ts_candidates[:lim["top_signals"]["max"]]]
     if not top_scores:
