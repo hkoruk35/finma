@@ -1,85 +1,10 @@
 {
-  "total_picks": 528,
-  "winners": 495,
-  "losers": 32,
-  "win_rate": 93.8,
-  "avg_win_pct": 7.91,
-  "avg_loss_pct": -1.22,
-  "avg_return_pct": 7.34,
-  "best_pick": {
-    "ticker": "BATL",
-    "pct": 613.94,
-    "date": "2026-02-22"
-  },
-  "worst_pick": {
-    "ticker": "UMC",
-    "pct": -5.18,
-    "date": "2026-01-28"
-  },
-  "avg_hold_days": 6.6,
-  "total_pnl_per_1k": 38770.0,
-  "above_5pct_count": 241,
-  "above_10pct_count": 88,
-  "above_5pct_rate": 45.6,
-  "above_10pct_rate": 16.7,
-  "period_days": 90,
-  "source": "swing113",
-  "sectors": {
-    "Financial Services": {
-      "count": 46,
-      "win_rate": 91.0,
-      "avg_pct": 3.7
-    },
-    "Technology": {
-      "count": 75,
-      "win_rate": 92.0,
-      "avg_pct": 7.9
-    },
-    "Industrials": {
-      "count": 60,
-      "win_rate": 95.0,
-      "avg_pct": 7.8
-    },
-    "Healthcare": {
-      "count": 68,
-      "win_rate": 96.0,
-      "avg_pct": 5.8
-    },
-    "Energy": {
-      "count": 115,
-      "win_rate": 97.0,
-      "avg_pct": 12.5
-    },
-    "Utilities": {
-      "count": 14,
-      "win_rate": 100.0,
-      "avg_pct": 4.0
-    },
-    "Basic Materials": {
-      "count": 51,
-      "win_rate": 86.0,
-      "avg_pct": 6.8
-    },
-    "Consumer Cyclical": {
-      "count": 27,
-      "win_rate": 100.0,
-      "avg_pct": 5.1
-    },
-    "Consumer Defensive": {
-      "count": 27,
-      "win_rate": 93.0,
-      "avg_pct": 4.9
-    },
-    "Communication Services": {
-      "count": 19,
-      "win_rate": 79.0,
-      "avg_pct": 3.4
-    },
-    "Real Estate": {
-      "count": 25,
-      "win_rate": 100.0,
-      "avg_pct": 2.9
-    }
+  "stats": {
+    "win_rate": 93.8,
+    "avg_return_pct": 7.3,
+    "total_picks": 528,
+    "period_days": 90,
+    "above_10pct_rate": 16.7
   },
   "history": [
     {
@@ -90,7 +15,7 @@
       "entry": 11.91,
       "max_price": 11.91,
       "return_pct": 0.0,
-      "days": 2,
+      "days": 0,
       "result": "LOSS"
     },
     {
@@ -101,7 +26,7 @@
       "entry": 9.55,
       "max_price": 9.87,
       "return_pct": 3.35,
-      "days": 3,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -112,7 +37,7 @@
       "entry": 297.08,
       "max_price": 307.97,
       "return_pct": 3.67,
-      "days": 3,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -123,7 +48,7 @@
       "entry": 61.72,
       "max_price": 63.39,
       "return_pct": 2.71,
-      "days": 3,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -134,7 +59,7 @@
       "entry": 20.5,
       "max_price": 21.56,
       "return_pct": 5.17,
-      "days": 4,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -145,7 +70,7 @@
       "entry": 16.27,
       "max_price": 17.36,
       "return_pct": 6.7,
-      "days": 5,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -156,7 +81,7 @@
       "entry": 30.96,
       "max_price": 31.26,
       "return_pct": 0.97,
-      "days": 6,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -167,7 +92,7 @@
       "entry": 11.49,
       "max_price": 12.46,
       "return_pct": 8.44,
-      "days": 6,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -178,7 +103,7 @@
       "entry": 12.45,
       "max_price": 15.42,
       "return_pct": 23.86,
-      "days": 6,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -189,7 +114,7 @@
       "entry": 9.52,
       "max_price": 9.7,
       "return_pct": 1.89,
-      "days": 6,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -200,7 +125,7 @@
       "entry": 33.76,
       "max_price": 34.15,
       "return_pct": 1.16,
-      "days": 13,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -211,7 +136,7 @@
       "entry": 8.76,
       "max_price": 12.46,
       "return_pct": 42.24,
-      "days": 13,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -222,7 +147,7 @@
       "entry": 7.67,
       "max_price": 10.16,
       "return_pct": 32.46,
-      "days": 13,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -233,7 +158,7 @@
       "entry": 110.82,
       "max_price": 124.56,
       "return_pct": 12.4,
-      "days": 17,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -244,7 +169,7 @@
       "entry": 39.29,
       "max_price": 46.3,
       "return_pct": 17.84,
-      "days": 17,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -255,7 +180,7 @@
       "entry": 87.0,
       "max_price": 92.45,
       "return_pct": 6.26,
-      "days": 18,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -266,7 +191,7 @@
       "entry": 35.53,
       "max_price": 40.62,
       "return_pct": 14.33,
-      "days": 18,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -277,7 +202,7 @@
       "entry": 31.3,
       "max_price": 34.05,
       "return_pct": 8.79,
-      "days": 19,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -288,7 +213,7 @@
       "entry": 46.73,
       "max_price": 53.75,
       "return_pct": 15.02,
-      "days": 20,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -299,7 +224,7 @@
       "entry": 84.7,
       "max_price": 88.96,
       "return_pct": 5.03,
-      "days": 20,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -310,7 +235,7 @@
       "entry": 35.39,
       "max_price": 40.12,
       "return_pct": 13.37,
-      "days": 20,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -321,7 +246,7 @@
       "entry": 57.11,
       "max_price": 59.38,
       "return_pct": 3.97,
-      "days": 20,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -332,7 +257,7 @@
       "entry": 49.16,
       "max_price": 54.5,
       "return_pct": 10.86,
-      "days": 20,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -343,7 +268,7 @@
       "entry": 57.2,
       "max_price": 66.75,
       "return_pct": 16.7,
-      "days": 20,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -354,7 +279,7 @@
       "entry": 103.15,
       "max_price": 114.8,
       "return_pct": 11.29,
-      "days": 20,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -365,7 +290,7 @@
       "entry": 11.98,
       "max_price": 13.31,
       "return_pct": 11.1,
-      "days": 20,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -376,7 +301,7 @@
       "entry": 18.5,
       "max_price": 22.43,
       "return_pct": 21.24,
-      "days": 20,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -387,7 +312,7 @@
       "entry": 137.04,
       "max_price": 139.37,
       "return_pct": 1.7,
-      "days": 20,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -398,7 +323,7 @@
       "entry": 32.68,
       "max_price": 34.78,
       "return_pct": 6.43,
-      "days": 20,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -409,7 +334,7 @@
       "entry": 36.8,
       "max_price": 37.73,
       "return_pct": 2.53,
-      "days": 20,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -420,7 +345,7 @@
       "entry": 52.8,
       "max_price": 58.0,
       "return_pct": 9.85,
-      "days": 20,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -431,7 +356,7 @@
       "entry": 56.94,
       "max_price": 62.6,
       "return_pct": 9.94,
-      "days": 20,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -442,7 +367,7 @@
       "entry": 84.7,
       "max_price": 88.48,
       "return_pct": 4.46,
-      "days": 22,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -453,7 +378,7 @@
       "entry": 14.25,
       "max_price": 14.47,
       "return_pct": 1.54,
-      "days": 22,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -464,7 +389,7 @@
       "entry": 30.63,
       "max_price": 32.25,
       "return_pct": 5.29,
-      "days": 22,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -475,7 +400,7 @@
       "entry": 30.37,
       "max_price": 31.5,
       "return_pct": 3.72,
-      "days": 22,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -486,7 +411,7 @@
       "entry": 24.09,
       "max_price": 25.59,
       "return_pct": 6.23,
-      "days": 22,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -497,7 +422,7 @@
       "entry": 68.07,
       "max_price": 75.05,
       "return_pct": 10.25,
-      "days": 22,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -508,7 +433,7 @@
       "entry": 13.04,
       "max_price": 13.67,
       "return_pct": 4.83,
-      "days": 22,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -519,7 +444,7 @@
       "entry": 13.19,
       "max_price": 14.95,
       "return_pct": 13.34,
-      "days": 22,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -530,7 +455,7 @@
       "entry": 6.06,
       "max_price": 6.32,
       "return_pct": 4.29,
-      "days": 22,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -541,7 +466,7 @@
       "entry": 12.82,
       "max_price": 14.99,
       "return_pct": 16.93,
-      "days": 22,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -552,7 +477,7 @@
       "entry": 23.74,
       "max_price": 24.71,
       "return_pct": 4.09,
-      "days": 22,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -563,7 +488,7 @@
       "entry": 65.9,
       "max_price": 69.35,
       "return_pct": 5.24,
-      "days": 27,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -574,7 +499,7 @@
       "entry": 14.78,
       "max_price": 15.81,
       "return_pct": 6.97,
-      "days": 27,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -585,7 +510,7 @@
       "entry": 22.96,
       "max_price": 26.09,
       "return_pct": 13.63,
-      "days": 27,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -596,7 +521,7 @@
       "entry": 19.17,
       "max_price": 20.28,
       "return_pct": 5.79,
-      "days": 27,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -607,7 +532,7 @@
       "entry": 5.98,
       "max_price": 6.34,
       "return_pct": 6.02,
-      "days": 27,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -618,7 +543,7 @@
       "entry": 42.9,
       "max_price": 46.79,
       "return_pct": 9.07,
-      "days": 27,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -629,7 +554,7 @@
       "entry": 78.0,
       "max_price": 82.49,
       "return_pct": 5.76,
-      "days": 27,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -640,7 +565,7 @@
       "entry": 41.49,
       "max_price": 46.89,
       "return_pct": 13.02,
-      "days": 27,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -651,7 +576,7 @@
       "entry": 57.25,
       "max_price": 62.26,
       "return_pct": 8.75,
-      "days": 27,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -662,7 +587,7 @@
       "entry": 5.54,
       "max_price": 6.45,
       "return_pct": 16.43,
-      "days": 27,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -673,7 +598,7 @@
       "entry": 11.97,
       "max_price": 12.12,
       "return_pct": 1.25,
-      "days": 27,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -684,7 +609,7 @@
       "entry": 30.56,
       "max_price": 32.45,
       "return_pct": 6.18,
-      "days": 27,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -695,7 +620,7 @@
       "entry": 534.3,
       "max_price": 549.5,
       "return_pct": 2.84,
-      "days": 27,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -706,7 +631,7 @@
       "entry": 8.65,
       "max_price": 8.7,
       "return_pct": 0.58,
-      "days": 27,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -717,7 +642,7 @@
       "entry": 55.21,
       "max_price": 59.47,
       "return_pct": 7.72,
-      "days": 27,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -728,7 +653,7 @@
       "entry": 42.84,
       "max_price": 43.6,
       "return_pct": 1.77,
-      "days": 27,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -739,7 +664,7 @@
       "entry": 10.13,
       "max_price": 10.75,
       "return_pct": 6.12,
-      "days": 27,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -750,7 +675,7 @@
       "entry": 55.34,
       "max_price": 59.42,
       "return_pct": 7.37,
-      "days": 27,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -761,7 +686,7 @@
       "entry": 173.48,
       "max_price": 185.37,
       "return_pct": 6.85,
-      "days": 27,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -772,7 +697,7 @@
       "entry": 5.14,
       "max_price": 5.15,
       "return_pct": 0.19,
-      "days": 27,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -783,7 +708,7 @@
       "entry": 17.58,
       "max_price": 18.35,
       "return_pct": 4.38,
-      "days": 38,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -794,7 +719,7 @@
       "entry": 13.96,
       "max_price": 15.66,
       "return_pct": 12.18,
-      "days": 38,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -805,7 +730,7 @@
       "entry": 28.25,
       "max_price": 30.94,
       "return_pct": 9.52,
-      "days": 38,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -816,7 +741,7 @@
       "entry": 21.28,
       "max_price": 22.48,
       "return_pct": 5.64,
-      "days": 38,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -827,7 +752,7 @@
       "entry": 10.18,
       "max_price": 11.78,
       "return_pct": 15.72,
-      "days": 38,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -838,7 +763,7 @@
       "entry": 8.62,
       "max_price": 8.9,
       "return_pct": 3.25,
-      "days": 38,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -849,7 +774,7 @@
       "entry": 35.56,
       "max_price": 35.34,
       "return_pct": -0.62,
-      "days": 38,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -860,7 +785,7 @@
       "entry": 12.78,
       "max_price": 21.43,
       "return_pct": 67.68,
-      "days": 38,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -871,7 +796,7 @@
       "entry": 19.29,
       "max_price": 19.79,
       "return_pct": 2.59,
-      "days": 38,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -882,7 +807,7 @@
       "entry": 8.87,
       "max_price": 9.07,
       "return_pct": 2.25,
-      "days": 38,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -893,7 +818,7 @@
       "entry": 8.09,
       "max_price": 8.22,
       "return_pct": 1.61,
-      "days": 38,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -904,7 +829,7 @@
       "entry": 34.85,
       "max_price": 34.83,
       "return_pct": -0.06,
-      "days": 38,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -915,7 +840,7 @@
       "entry": 16.15,
       "max_price": 16.69,
       "return_pct": 3.34,
-      "days": 38,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -926,7 +851,7 @@
       "entry": 218.21,
       "max_price": 227.69,
       "return_pct": 4.34,
-      "days": 38,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -937,7 +862,7 @@
       "entry": 29.72,
       "max_price": 30.33,
       "return_pct": 2.05,
-      "days": 38,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -948,7 +873,7 @@
       "entry": 83.8,
       "max_price": 84.93,
       "return_pct": 1.35,
-      "days": 39,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -959,7 +884,7 @@
       "entry": 39.52,
       "max_price": 39.7,
       "return_pct": 0.46,
-      "days": 39,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -970,7 +895,7 @@
       "entry": 11.39,
       "max_price": 12.16,
       "return_pct": 6.76,
-      "days": 39,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -981,7 +906,7 @@
       "entry": 147.66,
       "max_price": 147.5,
       "return_pct": -0.11,
-      "days": 39,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -992,7 +917,7 @@
       "entry": 41.96,
       "max_price": 42.5,
       "return_pct": 1.29,
-      "days": 39,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1003,7 +928,7 @@
       "entry": 147.1,
       "max_price": 152.95,
       "return_pct": 3.98,
-      "days": 39,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -1014,7 +939,7 @@
       "entry": 32.59,
       "max_price": 32.08,
       "return_pct": -1.56,
-      "days": 39,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1025,7 +950,7 @@
       "entry": 73.93,
       "max_price": 73.76,
       "return_pct": -0.23,
-      "days": 39,
+      "days": 5,
       "result": "LOSS"
     },
     {
@@ -1036,7 +961,7 @@
       "entry": 303.87,
       "max_price": 306.29,
       "return_pct": 0.8,
-      "days": 39,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1047,7 +972,7 @@
       "entry": 53.36,
       "max_price": 59.15,
       "return_pct": 10.85,
-      "days": 39,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -1058,7 +983,7 @@
       "entry": 29.54,
       "max_price": 31.99,
       "return_pct": 8.29,
-      "days": 39,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1069,7 +994,7 @@
       "entry": 46.4,
       "max_price": 47.35,
       "return_pct": 2.05,
-      "days": 39,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -1080,7 +1005,7 @@
       "entry": 47.43,
       "max_price": 48.15,
       "return_pct": 1.52,
-      "days": 39,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1091,7 +1016,7 @@
       "entry": 68.59,
       "max_price": 73.25,
       "return_pct": 6.79,
-      "days": 39,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1102,7 +1027,7 @@
       "entry": 59.69,
       "max_price": 65.5,
       "return_pct": 9.73,
-      "days": 39,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -1113,7 +1038,7 @@
       "entry": 12.98,
       "max_price": 13.05,
       "return_pct": 0.54,
-      "days": 39,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1124,7 +1049,7 @@
       "entry": 39.34,
       "max_price": 39.71,
       "return_pct": 0.94,
-      "days": 39,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1135,7 +1060,7 @@
       "entry": 12.49,
       "max_price": 12.19,
       "return_pct": -2.4,
-      "days": 39,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1146,7 +1071,7 @@
       "entry": 31.58,
       "max_price": 35.67,
       "return_pct": 12.95,
-      "days": 39,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -1157,7 +1082,7 @@
       "entry": 6.27,
       "max_price": 6.67,
       "return_pct": 6.38,
-      "days": 39,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1168,7 +1093,7 @@
       "entry": 63.07,
       "max_price": 69.52,
       "return_pct": 10.23,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1179,7 +1104,7 @@
       "entry": 38.33,
       "max_price": 39.8,
       "return_pct": 3.84,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1190,7 +1115,7 @@
       "entry": 148.0,
       "max_price": 151.0,
       "return_pct": 2.03,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1201,7 +1126,7 @@
       "entry": 28.94,
       "max_price": 31.99,
       "return_pct": 10.54,
-      "days": 40,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -1212,7 +1137,7 @@
       "entry": 12.75,
       "max_price": 13.09,
       "return_pct": 2.67,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1223,7 +1148,7 @@
       "entry": 22.2,
       "max_price": 22.9,
       "return_pct": 3.15,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1234,7 +1159,7 @@
       "entry": 45.51,
       "max_price": 47.35,
       "return_pct": 4.04,
-      "days": 40,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1245,7 +1170,7 @@
       "entry": 72.92,
       "max_price": 75.0,
       "return_pct": 2.85,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1256,7 +1181,7 @@
       "entry": 11.13,
       "max_price": 12.16,
       "return_pct": 9.25,
-      "days": 40,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -1267,7 +1192,7 @@
       "entry": 53.5,
       "max_price": 58.32,
       "return_pct": 9.01,
-      "days": 40,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1278,7 +1203,7 @@
       "entry": 5.14,
       "max_price": 5.59,
       "return_pct": 8.75,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1289,7 +1214,7 @@
       "entry": 67.14,
       "max_price": 73.25,
       "return_pct": 9.1,
-      "days": 40,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -1300,7 +1225,7 @@
       "entry": 12.65,
       "max_price": 13.4,
       "return_pct": 5.93,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1311,7 +1236,7 @@
       "entry": 45.37,
       "max_price": 47.46,
       "return_pct": 4.61,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1322,7 +1247,7 @@
       "entry": 49.43,
       "max_price": 49.35,
       "return_pct": -0.16,
-      "days": 40,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1333,7 +1258,7 @@
       "entry": 28.68,
       "max_price": 29.16,
       "return_pct": 1.67,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1344,7 +1269,7 @@
       "entry": 38.78,
       "max_price": 39.71,
       "return_pct": 2.4,
-      "days": 40,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -1355,7 +1280,7 @@
       "entry": 219.94,
       "max_price": 220.11,
       "return_pct": 0.08,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1366,7 +1291,7 @@
       "entry": 54.56,
       "max_price": 56.49,
       "return_pct": 3.54,
-      "days": 40,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1377,7 +1302,7 @@
       "entry": 75.61,
       "max_price": 77.44,
       "return_pct": 2.42,
-      "days": 40,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1388,7 +1313,7 @@
       "entry": 132.61,
       "max_price": 143.76,
       "return_pct": 8.41,
-      "days": 41,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -1399,7 +1324,7 @@
       "entry": 67.69,
       "max_price": 69.52,
       "return_pct": 2.7,
-      "days": 41,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -1410,7 +1335,7 @@
       "entry": 63.22,
       "max_price": 62.44,
       "return_pct": -1.23,
-      "days": 41,
+      "days": 2,
       "result": "LOSS"
     },
     {
@@ -1421,7 +1346,7 @@
       "entry": 190.46,
       "max_price": 190.67,
       "return_pct": 0.11,
-      "days": 41,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -1432,7 +1357,7 @@
       "entry": 147.0,
       "max_price": 151.0,
       "return_pct": 2.72,
-      "days": 41,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -1443,7 +1368,7 @@
       "entry": 209.19,
       "max_price": 209.0,
       "return_pct": -0.09,
-      "days": 41,
+      "days": 2,
       "result": "LOSS"
     },
     {
@@ -1454,7 +1379,7 @@
       "entry": 46.92,
       "max_price": 46.71,
       "return_pct": -0.45,
-      "days": 41,
+      "days": 2,
       "result": "LOSS"
     },
     {
@@ -1465,7 +1390,7 @@
       "entry": 157.86,
       "max_price": 153.44,
       "return_pct": -2.8,
-      "days": 41,
+      "days": 2,
       "result": "LOSS"
     },
     {
@@ -1476,7 +1401,7 @@
       "entry": 75.15,
       "max_price": 74.74,
       "return_pct": -0.55,
-      "days": 41,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1487,7 +1412,7 @@
       "entry": 224.96,
       "max_price": 222.49,
       "return_pct": -1.1,
-      "days": 41,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1498,7 +1423,7 @@
       "entry": 318.84,
       "max_price": 321.47,
       "return_pct": 0.82,
-      "days": 41,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1509,7 +1434,7 @@
       "entry": 78.49,
       "max_price": 83.34,
       "return_pct": 6.18,
-      "days": 41,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -1520,7 +1445,7 @@
       "entry": 54.12,
       "max_price": 58.32,
       "return_pct": 7.76,
-      "days": 41,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -1531,7 +1456,7 @@
       "entry": 298.91,
       "max_price": 300.2,
       "return_pct": 0.43,
-      "days": 41,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -1542,7 +1467,7 @@
       "entry": 137.18,
       "max_price": 137.59,
       "return_pct": 0.3,
-      "days": 41,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -1553,7 +1478,7 @@
       "entry": 432.87,
       "max_price": 429.27,
       "return_pct": -0.83,
-      "days": 41,
+      "days": 9,
       "result": "LOSS"
     },
     {
@@ -1564,7 +1489,7 @@
       "entry": 14.31,
       "max_price": 14.12,
       "return_pct": -1.33,
-      "days": 41,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1575,7 +1500,7 @@
       "entry": 112.14,
       "max_price": 126.73,
       "return_pct": 13.01,
-      "days": 41,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -1586,7 +1511,7 @@
       "entry": 76.3,
       "max_price": 84.38,
       "return_pct": 10.59,
-      "days": 41,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -1597,7 +1522,7 @@
       "entry": 45.89,
       "max_price": 47.35,
       "return_pct": 3.18,
-      "days": 41,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -1608,7 +1533,7 @@
       "entry": 13.45,
       "max_price": 14.01,
       "return_pct": 4.16,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1619,7 +1544,7 @@
       "entry": 190.02,
       "max_price": 191.54,
       "return_pct": 0.8,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1630,7 +1555,7 @@
       "entry": 10.14,
       "max_price": 10.34,
       "return_pct": 1.97,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1641,7 +1566,7 @@
       "entry": 26.35,
       "max_price": 26.68,
       "return_pct": 1.25,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1652,7 +1577,7 @@
       "entry": 26.02,
       "max_price": 26.16,
       "return_pct": 0.54,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1663,7 +1588,7 @@
       "entry": 298.02,
       "max_price": 310.36,
       "return_pct": 4.14,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1674,7 +1599,7 @@
       "entry": 60.68,
       "max_price": 63.55,
       "return_pct": 4.73,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1685,7 +1610,7 @@
       "entry": 150.38,
       "max_price": 160.45,
       "return_pct": 6.7,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1696,7 +1621,7 @@
       "entry": 38.7,
       "max_price": 38.78,
       "return_pct": 0.21,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1707,7 +1632,7 @@
       "entry": 38.98,
       "max_price": 39.09,
       "return_pct": 0.28,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1718,7 +1643,7 @@
       "entry": 54.73,
       "max_price": 56.49,
       "return_pct": 3.22,
-      "days": 44,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -1729,7 +1654,7 @@
       "entry": 56.19,
       "max_price": 69.52,
       "return_pct": 23.72,
-      "days": 44,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -1740,7 +1665,7 @@
       "entry": 70.6,
       "max_price": 71.07,
       "return_pct": 0.67,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1751,7 +1676,7 @@
       "entry": 43.99,
       "max_price": 45.09,
       "return_pct": 2.5,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1762,7 +1687,7 @@
       "entry": 37.43,
       "max_price": 38.2,
       "return_pct": 2.06,
-      "days": 44,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -1773,7 +1698,7 @@
       "entry": 235.73,
       "max_price": 255.78,
       "return_pct": 8.51,
-      "days": 44,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -1784,7 +1709,7 @@
       "entry": 428.13,
       "max_price": 444.82,
       "return_pct": 3.9,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1795,7 +1720,7 @@
       "entry": 36.24,
       "max_price": 37.85,
       "return_pct": 4.44,
-      "days": 44,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -1806,7 +1731,7 @@
       "entry": 12.08,
       "max_price": 12.14,
       "return_pct": 0.5,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1817,7 +1742,7 @@
       "entry": 26.05,
       "max_price": 26.38,
       "return_pct": 1.27,
-      "days": 44,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -1828,7 +1753,7 @@
       "entry": 13.5,
       "max_price": 14.01,
       "return_pct": 3.78,
-      "days": 45,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -1839,7 +1764,7 @@
       "entry": 61.14,
       "max_price": 61.39,
       "return_pct": 0.41,
-      "days": 45,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1850,7 +1775,7 @@
       "entry": 59.47,
       "max_price": 63.55,
       "return_pct": 6.86,
-      "days": 45,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -1861,7 +1786,7 @@
       "entry": 71.0,
       "max_price": 71.31,
       "return_pct": 0.44,
-      "days": 45,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1872,7 +1797,7 @@
       "entry": 37.57,
       "max_price": 37.49,
       "return_pct": -0.21,
-      "days": 45,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1883,7 +1808,7 @@
       "entry": 33.17,
       "max_price": 34.9,
       "return_pct": 5.22,
-      "days": 45,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1894,7 +1819,7 @@
       "entry": 28.52,
       "max_price": 29.27,
       "return_pct": 2.63,
-      "days": 45,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1905,7 +1830,7 @@
       "entry": 43.15,
       "max_price": 43.8,
       "return_pct": 1.51,
-      "days": 45,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1916,7 +1841,7 @@
       "entry": 23.64,
       "max_price": 23.91,
       "return_pct": 1.14,
-      "days": 45,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -1927,7 +1852,7 @@
       "entry": 135.71,
       "max_price": 139.76,
       "return_pct": 2.98,
-      "days": 45,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1938,7 +1863,7 @@
       "entry": 34.52,
       "max_price": 37.85,
       "return_pct": 9.65,
-      "days": 45,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1949,7 +1874,7 @@
       "entry": 105.38,
       "max_price": 120.39,
       "return_pct": 14.24,
-      "days": 45,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -1960,7 +1885,7 @@
       "entry": 124.81,
       "max_price": 128.85,
       "return_pct": 3.24,
-      "days": 45,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -1971,7 +1896,7 @@
       "entry": 138.64,
       "max_price": 142.85,
       "return_pct": 3.04,
-      "days": 45,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -1982,7 +1907,7 @@
       "entry": 40.48,
       "max_price": 39.96,
       "return_pct": -1.28,
-      "days": 45,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -1993,7 +1918,7 @@
       "entry": 76.74,
       "max_price": 82.24,
       "return_pct": 7.17,
-      "days": 45,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -2004,7 +1929,7 @@
       "entry": 79.63,
       "max_price": 85.97,
       "return_pct": 7.96,
-      "days": 46,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2015,7 +1940,7 @@
       "entry": 61.19,
       "max_price": 62.44,
       "return_pct": 2.04,
-      "days": 46,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2026,7 +1951,7 @@
       "entry": 37.92,
       "max_price": 37.81,
       "return_pct": -0.29,
-      "days": 46,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -2037,7 +1962,7 @@
       "entry": 78.29,
       "max_price": 79.01,
       "return_pct": 0.92,
-      "days": 46,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2048,7 +1973,7 @@
       "entry": 137.28,
       "max_price": 142.85,
       "return_pct": 4.06,
-      "days": 46,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2059,7 +1984,7 @@
       "entry": 34.48,
       "max_price": 40.93,
       "return_pct": 18.71,
-      "days": 46,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2070,7 +1995,7 @@
       "entry": 122.72,
       "max_price": 128.85,
       "return_pct": 5.0,
-      "days": 46,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -2081,7 +2006,7 @@
       "entry": 50.94,
       "max_price": 56.34,
       "return_pct": 10.6,
-      "days": 46,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2092,7 +2017,7 @@
       "entry": 82.71,
       "max_price": 87.06,
       "return_pct": 5.26,
-      "days": 46,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2103,7 +2028,7 @@
       "entry": 17.32,
       "max_price": 17.85,
       "return_pct": 3.06,
-      "days": 46,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2114,7 +2039,7 @@
       "entry": 18.6,
       "max_price": 18.61,
       "return_pct": 0.05,
-      "days": 46,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2125,7 +2050,7 @@
       "entry": 22.34,
       "max_price": 22.32,
       "return_pct": -0.09,
-      "days": 46,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -2136,7 +2061,7 @@
       "entry": 53.55,
       "max_price": 54.05,
       "return_pct": 0.93,
-      "days": 46,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2147,7 +2072,7 @@
       "entry": 38.28,
       "max_price": 39.09,
       "return_pct": 2.12,
-      "days": 46,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2158,7 +2083,7 @@
       "entry": 32.75,
       "max_price": 33.53,
       "return_pct": 2.38,
-      "days": 46,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -2169,7 +2094,7 @@
       "entry": 31.25,
       "max_price": 32.21,
       "return_pct": 3.07,
-      "days": 46,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2180,7 +2105,7 @@
       "entry": 623.61,
       "max_price": 636.45,
       "return_pct": 2.06,
-      "days": 46,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2191,7 +2116,7 @@
       "entry": 74.53,
       "max_price": 82.24,
       "return_pct": 10.34,
-      "days": 46,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2202,7 +2127,7 @@
       "entry": 21.54,
       "max_price": 22.33,
       "return_pct": 3.67,
-      "days": 46,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2213,7 +2138,7 @@
       "entry": 45.05,
       "max_price": 48.0,
       "return_pct": 6.55,
-      "days": 46,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2224,7 +2149,7 @@
       "entry": 19.6,
       "max_price": 19.76,
       "return_pct": 0.82,
-      "days": 47,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2235,7 +2160,7 @@
       "entry": 33.88,
       "max_price": 35.96,
       "return_pct": 6.14,
-      "days": 47,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2246,7 +2171,7 @@
       "entry": 23.75,
       "max_price": 24.81,
       "return_pct": 4.46,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2257,7 +2182,7 @@
       "entry": 12.62,
       "max_price": 13.23,
       "return_pct": 4.83,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2268,7 +2193,7 @@
       "entry": 53.51,
       "max_price": 56.96,
       "return_pct": 6.45,
-      "days": 47,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2279,7 +2204,7 @@
       "entry": 33.27,
       "max_price": 34.73,
       "return_pct": 4.39,
-      "days": 47,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2290,7 +2215,7 @@
       "entry": 8.73,
       "max_price": 10.03,
       "return_pct": 14.89,
-      "days": 47,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -2301,7 +2226,7 @@
       "entry": 21.62,
       "max_price": 22.33,
       "return_pct": 3.28,
-      "days": 47,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2312,7 +2237,7 @@
       "entry": 27.91,
       "max_price": 28.88,
       "return_pct": 3.48,
-      "days": 47,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2323,7 +2248,7 @@
       "entry": 12.51,
       "max_price": 12.86,
       "return_pct": 2.8,
-      "days": 47,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2334,7 +2259,7 @@
       "entry": 25.06,
       "max_price": 29.38,
       "return_pct": 17.24,
-      "days": 47,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -2345,7 +2270,7 @@
       "entry": 102.82,
       "max_price": 103.59,
       "return_pct": 0.75,
-      "days": 47,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2356,7 +2281,7 @@
       "entry": 6.3,
       "max_price": 6.68,
       "return_pct": 6.03,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2367,7 +2292,7 @@
       "entry": 77.77,
       "max_price": 82.3,
       "return_pct": 5.82,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2378,7 +2303,7 @@
       "entry": 27.98,
       "max_price": 28.85,
       "return_pct": 3.11,
-      "days": 47,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2389,7 +2314,7 @@
       "entry": 17.73,
       "max_price": 18.27,
       "return_pct": 3.05,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2400,7 +2325,7 @@
       "entry": 18.44,
       "max_price": 18.92,
       "return_pct": 2.6,
-      "days": 47,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2411,7 +2336,7 @@
       "entry": 69.29,
       "max_price": 72.31,
       "return_pct": 4.36,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2422,7 +2347,7 @@
       "entry": 25.38,
       "max_price": 25.34,
       "return_pct": -0.16,
-      "days": 47,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -2433,7 +2358,7 @@
       "entry": 38.02,
       "max_price": 38.73,
       "return_pct": 1.87,
-      "days": 47,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2444,7 +2369,7 @@
       "entry": 38.82,
       "max_price": 39.0,
       "return_pct": 0.46,
-      "days": 47,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2455,7 +2380,7 @@
       "entry": 137.17,
       "max_price": 142.85,
       "return_pct": 4.14,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2466,7 +2391,7 @@
       "entry": 30.66,
       "max_price": 33.49,
       "return_pct": 9.23,
-      "days": 47,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2477,7 +2402,7 @@
       "entry": 121.99,
       "max_price": 128.85,
       "return_pct": 5.62,
-      "days": 47,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2488,7 +2413,7 @@
       "entry": 61.18,
       "max_price": 62.44,
       "return_pct": 2.06,
-      "days": 47,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2499,7 +2424,7 @@
       "entry": 64.04,
       "max_price": 66.19,
       "return_pct": 3.36,
-      "days": 47,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2510,7 +2435,7 @@
       "entry": 23.3,
       "max_price": 23.91,
       "return_pct": 2.62,
-      "days": 47,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2521,7 +2446,7 @@
       "entry": 20.17,
       "max_price": 20.93,
       "return_pct": 3.77,
-      "days": 47,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2532,7 +2457,7 @@
       "entry": 80.89,
       "max_price": 85.97,
       "return_pct": 6.28,
-      "days": 47,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -2543,7 +2468,7 @@
       "entry": 14.39,
       "max_price": 14.5,
       "return_pct": 0.76,
-      "days": 47,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2554,7 +2479,7 @@
       "entry": 28.9,
       "max_price": 29.48,
       "return_pct": 2.01,
-      "days": 47,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2565,7 +2490,7 @@
       "entry": 18.7,
       "max_price": 20.55,
       "return_pct": 9.89,
-      "days": 47,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2576,7 +2501,7 @@
       "entry": 43.45,
       "max_price": 44.88,
       "return_pct": 3.29,
-      "days": 47,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2587,7 +2512,7 @@
       "entry": 17.38,
       "max_price": 17.85,
       "return_pct": 2.7,
-      "days": 47,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2598,7 +2523,7 @@
       "entry": 17.74,
       "max_price": 19.07,
       "return_pct": 7.5,
-      "days": 49,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -2609,7 +2534,7 @@
       "entry": 28.43,
       "max_price": 47.03,
       "return_pct": 65.42,
-      "days": 49,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2620,7 +2545,7 @@
       "entry": 27.87,
       "max_price": 29.08,
       "return_pct": 4.34,
-      "days": 49,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2631,7 +2556,7 @@
       "entry": 32.04,
       "max_price": 34.86,
       "return_pct": 8.8,
-      "days": 49,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -2642,7 +2567,7 @@
       "entry": 5.8,
       "max_price": 6.25,
       "return_pct": 7.76,
-      "days": 49,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2653,7 +2578,7 @@
       "entry": 34.32,
       "max_price": 46.95,
       "return_pct": 36.8,
-      "days": 49,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2664,7 +2589,7 @@
       "entry": 26.29,
       "max_price": 28.7,
       "return_pct": 9.17,
-      "days": 49,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2675,7 +2600,7 @@
       "entry": 4.5,
       "max_price": 5.66,
       "return_pct": 25.78,
-      "days": 49,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2686,7 +2611,7 @@
       "entry": 4.16,
       "max_price": 29.7,
       "return_pct": 613.94,
-      "days": 49,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -2697,7 +2622,7 @@
       "entry": 16.6,
       "max_price": 18.04,
       "return_pct": 8.67,
-      "days": 49,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2708,7 +2633,7 @@
       "entry": 7.63,
       "max_price": 7.87,
       "return_pct": 3.15,
-      "days": 49,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2719,7 +2644,7 @@
       "entry": 12.73,
       "max_price": 14.98,
       "return_pct": 17.67,
-      "days": 49,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -2730,7 +2655,7 @@
       "entry": 6.71,
       "max_price": 7.64,
       "return_pct": 13.86,
-      "days": 49,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -2741,7 +2666,7 @@
       "entry": 32.51,
       "max_price": 35.81,
       "return_pct": 10.15,
-      "days": 49,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2752,7 +2677,7 @@
       "entry": 7.47,
       "max_price": 7.58,
       "return_pct": 1.47,
-      "days": 49,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -2763,7 +2688,7 @@
       "entry": 3.57,
       "max_price": 4.42,
       "return_pct": 23.81,
-      "days": 49,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2774,7 +2699,7 @@
       "entry": 12.45,
       "max_price": 16.88,
       "return_pct": 35.58,
-      "days": 49,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2785,7 +2710,7 @@
       "entry": 12.78,
       "max_price": 16.09,
       "return_pct": 25.9,
-      "days": 49,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -2796,7 +2721,7 @@
       "entry": 8.91,
       "max_price": 12.87,
       "return_pct": 44.44,
-      "days": 49,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -2807,7 +2732,7 @@
       "entry": 60.5,
       "max_price": 63.06,
       "return_pct": 4.23,
-      "days": 51,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -2818,7 +2743,7 @@
       "entry": 499.31,
       "max_price": 546.57,
       "return_pct": 9.47,
-      "days": 51,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2829,7 +2754,7 @@
       "entry": 162.67,
       "max_price": 165.36,
       "return_pct": 1.65,
-      "days": 51,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -2840,7 +2765,7 @@
       "entry": 428.17,
       "max_price": 436.89,
       "return_pct": 2.04,
-      "days": 51,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2851,7 +2776,7 @@
       "entry": 353.92,
       "max_price": 362.07,
       "return_pct": 2.3,
-      "days": 51,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2862,7 +2787,7 @@
       "entry": 51.84,
       "max_price": 56.34,
       "return_pct": 8.68,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2873,7 +2798,7 @@
       "entry": 134.51,
       "max_price": 133.72,
       "return_pct": -0.59,
-      "days": 51,
+      "days": 3,
       "result": "LOSS"
     },
     {
@@ -2884,7 +2809,7 @@
       "entry": 375.38,
       "max_price": 395.95,
       "return_pct": 5.48,
-      "days": 51,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2895,7 +2820,7 @@
       "entry": 7.77,
       "max_price": 8.37,
       "return_pct": 7.72,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2906,7 +2831,7 @@
       "entry": 271.09,
       "max_price": 281.37,
       "return_pct": 3.79,
-      "days": 51,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -2917,7 +2842,7 @@
       "entry": 73.74,
       "max_price": 75.5,
       "return_pct": 2.39,
-      "days": 51,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -2928,7 +2853,7 @@
       "entry": 343.22,
       "max_price": 348.48,
       "return_pct": 1.53,
-      "days": 51,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -2939,7 +2864,7 @@
       "entry": 552.66,
       "max_price": 573.97,
       "return_pct": 3.86,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2950,7 +2875,7 @@
       "entry": 22.57,
       "max_price": 23.56,
       "return_pct": 4.39,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2961,7 +2886,7 @@
       "entry": 76.82,
       "max_price": 83.22,
       "return_pct": 8.33,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2972,7 +2897,7 @@
       "entry": 227.85,
       "max_price": 255.24,
       "return_pct": 12.02,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2983,7 +2908,7 @@
       "entry": 258.1,
       "max_price": 267.31,
       "return_pct": 3.57,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -2994,7 +2919,7 @@
       "entry": 231.35,
       "max_price": 250.0,
       "return_pct": 8.06,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -3005,7 +2930,7 @@
       "entry": 248.9,
       "max_price": 255.9,
       "return_pct": 2.81,
-      "days": 51,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -3016,7 +2941,7 @@
       "entry": 65.13,
       "max_price": 65.94,
       "return_pct": 1.24,
-      "days": 51,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -3027,7 +2952,7 @@
       "entry": 486.0,
       "max_price": 546.57,
       "return_pct": 12.46,
-      "days": 52,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -3038,7 +2963,7 @@
       "entry": 86.88,
       "max_price": 89.0,
       "return_pct": 2.44,
-      "days": 52,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -3049,7 +2974,7 @@
       "entry": 111.59,
       "max_price": 122.5,
       "return_pct": 9.78,
-      "days": 52,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3060,7 +2985,7 @@
       "entry": 56.36,
       "max_price": 58.02,
       "return_pct": 2.95,
-      "days": 52,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3071,7 +2996,7 @@
       "entry": 369.83,
       "max_price": 395.95,
       "return_pct": 7.06,
-      "days": 52,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3082,7 +3007,7 @@
       "entry": 59.77,
       "max_price": 63.06,
       "return_pct": 5.5,
-      "days": 52,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3093,7 +3018,7 @@
       "entry": 150.97,
       "max_price": 159.61,
       "return_pct": 5.72,
-      "days": 52,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3104,7 +3029,7 @@
       "entry": 417.35,
       "max_price": 436.89,
       "return_pct": 4.68,
-      "days": 52,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3115,7 +3040,7 @@
       "entry": 734.52,
       "max_price": 774.0,
       "return_pct": 5.37,
-      "days": 52,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3126,7 +3051,7 @@
       "entry": 42.5,
       "max_price": 45.85,
       "return_pct": 7.88,
-      "days": 52,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3137,7 +3062,7 @@
       "entry": 174.72,
       "max_price": 183.36,
       "return_pct": 4.95,
-      "days": 52,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3148,7 +3073,7 @@
       "entry": 19.06,
       "max_price": 22.17,
       "return_pct": 16.32,
-      "days": 52,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3159,7 +3084,7 @@
       "entry": 63.92,
       "max_price": 65.94,
       "return_pct": 3.16,
-      "days": 52,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -3170,7 +3095,7 @@
       "entry": 525.13,
       "max_price": 531.76,
       "return_pct": 1.26,
-      "days": 52,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -3181,7 +3106,7 @@
       "entry": 72.66,
       "max_price": 75.5,
       "return_pct": 3.91,
-      "days": 52,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -3192,7 +3117,7 @@
       "entry": 53.64,
       "max_price": 55.02,
       "return_pct": 2.57,
-      "days": 52,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3203,7 +3128,7 @@
       "entry": 121.86,
       "max_price": 125.14,
       "return_pct": 2.69,
-      "days": 52,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3214,7 +3139,7 @@
       "entry": 375.5,
       "max_price": 391.29,
       "return_pct": 4.21,
-      "days": 52,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3225,7 +3150,7 @@
       "entry": 224.07,
       "max_price": 255.24,
       "return_pct": 13.91,
-      "days": 52,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3236,7 +3161,7 @@
       "entry": 28.85,
       "max_price": 32.58,
       "return_pct": 12.93,
-      "days": 52,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3247,7 +3172,7 @@
       "entry": 368.84,
       "max_price": 395.95,
       "return_pct": 7.35,
-      "days": 53,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3258,7 +3183,7 @@
       "entry": 287.16,
       "max_price": 323.51,
       "return_pct": 12.66,
-      "days": 53,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3269,7 +3194,7 @@
       "entry": 296.56,
       "max_price": 299.52,
       "return_pct": 1.0,
-      "days": 53,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -3280,7 +3205,7 @@
       "entry": 86.79,
       "max_price": 89.0,
       "return_pct": 2.55,
-      "days": 53,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -3291,7 +3216,7 @@
       "entry": 346.0,
       "max_price": 360.83,
       "return_pct": 4.29,
-      "days": 53,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3302,7 +3227,7 @@
       "entry": 249.35,
       "max_price": 267.31,
       "return_pct": 7.2,
-      "days": 53,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3313,7 +3238,7 @@
       "entry": 243.21,
       "max_price": 264.86,
       "return_pct": 8.9,
-      "days": 53,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3324,7 +3249,7 @@
       "entry": 144.82,
       "max_price": 165.76,
       "return_pct": 14.46,
-      "days": 53,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3335,7 +3260,7 @@
       "entry": 260.0,
       "max_price": 266.05,
       "return_pct": 2.33,
-      "days": 53,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3346,7 +3271,7 @@
       "entry": 18.72,
       "max_price": 22.17,
       "return_pct": 18.43,
-      "days": 53,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -3357,7 +3282,7 @@
       "entry": 152.02,
       "max_price": 158.23,
       "return_pct": 4.08,
-      "days": 53,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3368,7 +3293,7 @@
       "entry": 63.7,
       "max_price": 65.94,
       "return_pct": 3.52,
-      "days": 53,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3379,7 +3304,7 @@
       "entry": 420.95,
       "max_price": 436.89,
       "return_pct": 3.79,
-      "days": 53,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3390,7 +3315,7 @@
       "entry": 204.13,
       "max_price": 214.5,
       "return_pct": 5.08,
-      "days": 53,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3401,7 +3326,7 @@
       "entry": 379.73,
       "max_price": 391.29,
       "return_pct": 3.04,
-      "days": 53,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3412,7 +3337,7 @@
       "entry": 383.08,
       "max_price": 392.86,
       "return_pct": 2.55,
-      "days": 53,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -3423,7 +3348,7 @@
       "entry": 182.68,
       "max_price": 187.35,
       "return_pct": 2.56,
-      "days": 53,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3434,7 +3359,7 @@
       "entry": 115.66,
       "max_price": 126.0,
       "return_pct": 8.94,
-      "days": 53,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3445,7 +3370,7 @@
       "entry": 157.27,
       "max_price": 180.9,
       "return_pct": 15.03,
-      "days": 53,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3456,7 +3381,7 @@
       "entry": 105.83,
       "max_price": 115.24,
       "return_pct": 8.89,
-      "days": 53,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3467,7 +3392,7 @@
       "entry": 358.68,
       "max_price": 395.95,
       "return_pct": 10.39,
-      "days": 54,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3478,7 +3403,7 @@
       "entry": 22.91,
       "max_price": 23.54,
       "return_pct": 2.75,
-      "days": 54,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3489,7 +3414,7 @@
       "entry": 946.81,
       "max_price": 977.36,
       "return_pct": 3.23,
-      "days": 54,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3500,7 +3425,7 @@
       "entry": 243.53,
       "max_price": 264.86,
       "return_pct": 8.76,
-      "days": 54,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3511,7 +3436,7 @@
       "entry": 47.63,
       "max_price": 49.52,
       "return_pct": 3.97,
-      "days": 54,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3522,7 +3447,7 @@
       "entry": 108.79,
       "max_price": 115.24,
       "return_pct": 5.93,
-      "days": 54,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3533,7 +3458,7 @@
       "entry": 373.36,
       "max_price": 391.29,
       "return_pct": 4.8,
-      "days": 54,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3544,7 +3469,7 @@
       "entry": 534.78,
       "max_price": 547.05,
       "return_pct": 2.29,
-      "days": 54,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3555,7 +3480,7 @@
       "entry": 24.34,
       "max_price": 26.16,
       "return_pct": 7.48,
-      "days": 54,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3566,7 +3491,7 @@
       "entry": 179.89,
       "max_price": 180.49,
       "return_pct": 0.33,
-      "days": 54,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -3577,7 +3502,7 @@
       "entry": 146.19,
       "max_price": 159.61,
       "return_pct": 9.18,
-      "days": 54,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3588,7 +3513,7 @@
       "entry": 115.51,
       "max_price": 117.14,
       "return_pct": 1.41,
-      "days": 54,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -3599,7 +3524,7 @@
       "entry": 64.1,
       "max_price": 67.6,
       "return_pct": 5.46,
-      "days": 54,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3610,7 +3535,7 @@
       "entry": 161.92,
       "max_price": 170.28,
       "return_pct": 5.16,
-      "days": 54,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -3621,7 +3546,7 @@
       "entry": 19.25,
       "max_price": 19.52,
       "return_pct": 1.4,
-      "days": 54,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3632,7 +3557,7 @@
       "entry": 142.58,
       "max_price": 142.5,
       "return_pct": -0.06,
-      "days": 54,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -3643,7 +3568,7 @@
       "entry": 284.11,
       "max_price": 309.9,
       "return_pct": 9.08,
-      "days": 54,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -3654,7 +3579,7 @@
       "entry": 40.59,
       "max_price": 45.85,
       "return_pct": 12.96,
-      "days": 54,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3665,7 +3590,7 @@
       "entry": 177.38,
       "max_price": 187.35,
       "return_pct": 5.62,
-      "days": 54,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3676,7 +3601,7 @@
       "entry": 195.62,
       "max_price": 198.72,
       "return_pct": 1.58,
-      "days": 54,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -3687,7 +3612,7 @@
       "entry": 774.2,
       "max_price": 777.6,
       "return_pct": 0.44,
-      "days": 58,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3698,7 +3623,7 @@
       "entry": 71.46,
       "max_price": 75.5,
       "return_pct": 5.65,
-      "days": 58,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -3709,7 +3634,7 @@
       "entry": 540.29,
       "max_price": 549.45,
       "return_pct": 1.7,
-      "days": 58,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -3720,7 +3645,7 @@
       "entry": 234.53,
       "max_price": 264.86,
       "return_pct": 12.93,
-      "days": 58,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3731,7 +3656,7 @@
       "entry": 40.68,
       "max_price": 44.04,
       "return_pct": 8.26,
-      "days": 58,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3742,7 +3667,7 @@
       "entry": 48.48,
       "max_price": 49.88,
       "return_pct": 2.89,
-      "days": 58,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3753,7 +3678,7 @@
       "entry": 255.75,
       "max_price": 266.27,
       "return_pct": 4.11,
-      "days": 58,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3764,7 +3689,7 @@
       "entry": 18.16,
       "max_price": 19.09,
       "return_pct": 5.12,
-      "days": 58,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3775,7 +3700,7 @@
       "entry": 602.92,
       "max_price": 674.19,
       "return_pct": 11.82,
-      "days": 58,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3786,7 +3711,7 @@
       "entry": 951.01,
       "max_price": 975.0,
       "return_pct": 2.52,
-      "days": 58,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3797,7 +3722,7 @@
       "entry": 23.83,
       "max_price": 26.06,
       "return_pct": 9.36,
-      "days": 58,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3808,7 +3733,7 @@
       "entry": 180.97,
       "max_price": 182.55,
       "return_pct": 0.87,
-      "days": 58,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -3819,7 +3744,7 @@
       "entry": 61.37,
       "max_price": 67.6,
       "return_pct": 10.15,
-      "days": 58,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3830,7 +3755,7 @@
       "entry": 327.65,
       "max_price": 319.15,
       "return_pct": -2.59,
-      "days": 58,
+      "days": 12,
       "result": "LOSS"
     },
     {
@@ -3841,7 +3766,7 @@
       "entry": 154.98,
       "max_price": 156.01,
       "return_pct": 0.66,
-      "days": 58,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -3852,7 +3777,7 @@
       "entry": 73.38,
       "max_price": 82.34,
       "return_pct": 12.21,
-      "days": 58,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3863,7 +3788,7 @@
       "entry": 250.21,
       "max_price": 262.63,
       "return_pct": 4.96,
-      "days": 58,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3874,7 +3799,7 @@
       "entry": 678.86,
       "max_price": 702.38,
       "return_pct": 3.46,
-      "days": 58,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3885,7 +3810,7 @@
       "entry": 109.83,
       "max_price": 115.24,
       "return_pct": 4.93,
-      "days": 58,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -3896,7 +3821,7 @@
       "entry": 191.68,
       "max_price": 196.35,
       "return_pct": 2.44,
-      "days": 58,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -3907,7 +3832,7 @@
       "entry": 15.88,
       "max_price": 16.95,
       "return_pct": 6.74,
-      "days": 59,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -3918,7 +3843,7 @@
       "entry": 131.5,
       "max_price": 162.1,
       "return_pct": 23.27,
-      "days": 59,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3929,7 +3854,7 @@
       "entry": 758.29,
       "max_price": 784.0,
       "return_pct": 3.39,
-      "days": 59,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -3940,7 +3865,7 @@
       "entry": 71.13,
       "max_price": 75.59,
       "return_pct": 6.27,
-      "days": 59,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -3951,7 +3876,7 @@
       "entry": 21.33,
       "max_price": 23.39,
       "return_pct": 9.66,
-      "days": 59,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -3962,7 +3887,7 @@
       "entry": 33.61,
       "max_price": 34.91,
       "return_pct": 3.87,
-      "days": 59,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -3973,7 +3898,7 @@
       "entry": 583.46,
       "max_price": 765.0,
       "return_pct": 31.11,
-      "days": 59,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -3984,7 +3909,7 @@
       "entry": 202.41,
       "max_price": 210.52,
       "return_pct": 4.01,
-      "days": 59,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -3995,7 +3920,7 @@
       "entry": 535.22,
       "max_price": 549.45,
       "return_pct": 2.66,
-      "days": 59,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -4006,7 +3931,7 @@
       "entry": 354.4,
       "max_price": 361.05,
       "return_pct": 1.88,
-      "days": 59,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -4017,7 +3942,7 @@
       "entry": 39.99,
       "max_price": 44.04,
       "return_pct": 10.13,
-      "days": 59,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -4028,7 +3953,7 @@
       "entry": 263.66,
       "max_price": 266.05,
       "return_pct": 0.91,
-      "days": 59,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4039,7 +3964,7 @@
       "entry": 310.9,
       "max_price": 344.92,
       "return_pct": 10.94,
-      "days": 59,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4050,7 +3975,7 @@
       "entry": 816.56,
       "max_price": 894.93,
       "return_pct": 9.6,
-      "days": 59,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -4061,7 +3986,7 @@
       "entry": 598.11,
       "max_price": 674.19,
       "return_pct": 12.72,
-      "days": 59,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -4072,7 +3997,7 @@
       "entry": 116.45,
       "max_price": 118.35,
       "return_pct": 1.63,
-      "days": 59,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4083,7 +4008,7 @@
       "entry": 144.43,
       "max_price": 153.42,
       "return_pct": 6.22,
-      "days": 59,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -4094,7 +4019,7 @@
       "entry": 177.81,
       "max_price": 187.35,
       "return_pct": 5.37,
-      "days": 59,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -4105,7 +4030,7 @@
       "entry": 23.46,
       "max_price": 25.29,
       "return_pct": 7.8,
-      "days": 59,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -4116,7 +4041,7 @@
       "entry": 152.66,
       "max_price": 161.97,
       "return_pct": 6.1,
-      "days": 59,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4127,7 +4052,7 @@
       "entry": 63.09,
       "max_price": 67.15,
       "return_pct": 6.44,
-      "days": 62,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4138,7 +4063,7 @@
       "entry": 196.57,
       "max_price": 203.6,
       "return_pct": 3.58,
-      "days": 62,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4149,7 +4074,7 @@
       "entry": 144.73,
       "max_price": 147.04,
       "return_pct": 1.6,
-      "days": 62,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4160,7 +4085,7 @@
       "entry": 194.5,
       "max_price": 203.31,
       "return_pct": 4.53,
-      "days": 62,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -4171,7 +4096,7 @@
       "entry": 10.88,
       "max_price": 11.28,
       "return_pct": 3.68,
-      "days": 62,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4182,7 +4107,7 @@
       "entry": 155.8,
       "max_price": 160.46,
       "return_pct": 2.99,
-      "days": 62,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4193,7 +4118,7 @@
       "entry": 96.68,
       "max_price": 99.04,
       "return_pct": 2.44,
-      "days": 65,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -4204,7 +4129,7 @@
       "entry": 17.94,
       "max_price": 19.3,
       "return_pct": 7.58,
-      "days": 65,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -4215,7 +4140,7 @@
       "entry": 76.34,
       "max_price": 78.28,
       "return_pct": 2.54,
-      "days": 65,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -4226,7 +4151,7 @@
       "entry": 96.68,
       "max_price": 99.62,
       "return_pct": 3.04,
-      "days": 65,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4237,7 +4162,7 @@
       "entry": 170.4,
       "max_price": 176.19,
       "return_pct": 3.4,
-      "days": 65,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -4248,7 +4173,7 @@
       "entry": 21.34,
       "max_price": 24.34,
       "return_pct": 14.06,
-      "days": 66,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -4259,7 +4184,7 @@
       "entry": 189.23,
       "max_price": 200.6,
       "return_pct": 6.01,
-      "days": 66,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -4270,7 +4195,7 @@
       "entry": 75.3,
       "max_price": 78.28,
       "return_pct": 3.96,
-      "days": 66,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -4281,7 +4206,7 @@
       "entry": 40.22,
       "max_price": 43.09,
       "return_pct": 7.14,
-      "days": 66,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -4292,7 +4217,7 @@
       "entry": 17.86,
       "max_price": 19.3,
       "return_pct": 8.06,
-      "days": 66,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -4303,7 +4228,7 @@
       "entry": 86.87,
       "max_price": 90.81,
       "return_pct": 4.54,
-      "days": 66,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -4314,7 +4239,7 @@
       "entry": 94.92,
       "max_price": 99.04,
       "return_pct": 4.34,
-      "days": 66,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -4325,7 +4250,7 @@
       "entry": 94.53,
       "max_price": 98.5,
       "return_pct": 4.2,
-      "days": 66,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -4336,7 +4261,7 @@
       "entry": 171.5,
       "max_price": 181.01,
       "return_pct": 5.55,
-      "days": 66,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -4347,7 +4272,7 @@
       "entry": 168.84,
       "max_price": 176.19,
       "return_pct": 4.35,
-      "days": 66,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -4358,7 +4283,7 @@
       "entry": 194.94,
       "max_price": 209.27,
       "return_pct": 7.35,
-      "days": 67,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4369,7 +4294,7 @@
       "entry": 146.61,
       "max_price": 155.89,
       "return_pct": 6.33,
-      "days": 67,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -4380,7 +4305,7 @@
       "entry": 179.47,
       "max_price": 187.9,
       "return_pct": 4.7,
-      "days": 67,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -4391,7 +4316,7 @@
       "entry": 166.18,
       "max_price": 171.48,
       "return_pct": 3.19,
-      "days": 67,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4402,7 +4327,7 @@
       "entry": 61.63,
       "max_price": 63.03,
       "return_pct": 2.27,
-      "days": 67,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -4413,7 +4338,7 @@
       "entry": 35.2,
       "max_price": 37.31,
       "return_pct": 5.99,
-      "days": 67,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4424,7 +4349,7 @@
       "entry": 53.14,
       "max_price": 57.13,
       "return_pct": 7.51,
-      "days": 67,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -4435,7 +4360,7 @@
       "entry": 110.71,
       "max_price": 123.52,
       "return_pct": 11.57,
-      "days": 67,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -4446,7 +4371,7 @@
       "entry": 61.86,
       "max_price": 65.98,
       "return_pct": 6.66,
-      "days": 67,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4457,7 +4382,7 @@
       "entry": 65.16,
       "max_price": 68.15,
       "return_pct": 4.59,
-      "days": 67,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -4468,7 +4393,7 @@
       "entry": 154.69,
       "max_price": 163.79,
       "return_pct": 5.88,
-      "days": 67,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4479,7 +4404,7 @@
       "entry": 97.41,
       "max_price": 100.96,
       "return_pct": 3.64,
-      "days": 67,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4490,7 +4415,7 @@
       "entry": 187.45,
       "max_price": 212.71,
       "return_pct": 13.48,
-      "days": 67,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4501,7 +4426,7 @@
       "entry": 691.82,
       "max_price": 789.81,
       "return_pct": 14.16,
-      "days": 67,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4512,7 +4437,7 @@
       "entry": 118.33,
       "max_price": 123.33,
       "return_pct": 4.23,
-      "days": 67,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4523,7 +4448,7 @@
       "entry": 115.13,
       "max_price": 120.73,
       "return_pct": 4.86,
-      "days": 67,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4534,7 +4459,7 @@
       "entry": 15.14,
       "max_price": 16.03,
       "return_pct": 5.88,
-      "days": 67,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -4545,7 +4470,7 @@
       "entry": 328.65,
       "max_price": 356.39,
       "return_pct": 8.44,
-      "days": 67,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -4556,7 +4481,7 @@
       "entry": 54.09,
       "max_price": 55.44,
       "return_pct": 2.5,
-      "days": 67,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -4567,7 +4492,7 @@
       "entry": 159.57,
       "max_price": 165.32,
       "return_pct": 3.6,
-      "days": 67,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4578,7 +4503,7 @@
       "entry": 61.87,
       "max_price": 63.03,
       "return_pct": 1.87,
-      "days": 68,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -4589,7 +4514,7 @@
       "entry": 64.16,
       "max_price": 67.77,
       "return_pct": 5.63,
-      "days": 68,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -4600,7 +4525,7 @@
       "entry": 15.28,
       "max_price": 16.03,
       "return_pct": 4.91,
-      "days": 68,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4611,7 +4536,7 @@
       "entry": 36.25,
       "max_price": 36.59,
       "return_pct": 0.94,
-      "days": 68,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4622,7 +4547,7 @@
       "entry": 67.39,
       "max_price": 70.09,
       "return_pct": 4.01,
-      "days": 68,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4633,7 +4558,7 @@
       "entry": 326.29,
       "max_price": 356.39,
       "return_pct": 9.22,
-      "days": 68,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -4644,7 +4569,7 @@
       "entry": 34.63,
       "max_price": 37.31,
       "return_pct": 7.74,
-      "days": 68,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -4655,7 +4580,7 @@
       "entry": 33.5,
       "max_price": 34.03,
       "return_pct": 1.58,
-      "days": 68,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4666,7 +4591,7 @@
       "entry": 51.19,
       "max_price": 55.11,
       "return_pct": 7.66,
-      "days": 68,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4677,7 +4602,7 @@
       "entry": 41.11,
       "max_price": 45.29,
       "return_pct": 10.17,
-      "days": 68,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -4688,7 +4613,7 @@
       "entry": 691.7,
       "max_price": 688.83,
       "return_pct": -0.41,
-      "days": 68,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -4699,7 +4624,7 @@
       "entry": 142.78,
       "max_price": 155.89,
       "return_pct": 9.18,
-      "days": 68,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4710,7 +4635,7 @@
       "entry": 702.89,
       "max_price": 789.81,
       "return_pct": 12.37,
-      "days": 68,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4721,7 +4646,7 @@
       "entry": 225.21,
       "max_price": 231.32,
       "return_pct": 2.71,
-      "days": 68,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4732,7 +4657,7 @@
       "entry": 362.53,
       "max_price": 408.45,
       "return_pct": 12.67,
-      "days": 68,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4743,7 +4668,7 @@
       "entry": 111.85,
       "max_price": 122.41,
       "return_pct": 9.44,
-      "days": 68,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4754,7 +4679,7 @@
       "entry": 6.25,
       "max_price": 6.34,
       "return_pct": 1.44,
-      "days": 68,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4765,7 +4690,7 @@
       "entry": 81.97,
       "max_price": 82.95,
       "return_pct": 1.2,
-      "days": 68,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4776,7 +4701,7 @@
       "entry": 17.43,
       "max_price": 18.5,
       "return_pct": 6.14,
-      "days": 68,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -4787,7 +4712,7 @@
       "entry": 528.49,
       "max_price": 548.56,
       "return_pct": 3.8,
-      "days": 68,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4798,7 +4723,7 @@
       "entry": 706.41,
       "max_price": 717.0,
       "return_pct": 1.5,
-      "days": 69,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4809,7 +4734,7 @@
       "entry": 15.03,
       "max_price": 16.03,
       "return_pct": 6.65,
-      "days": 69,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4820,7 +4745,7 @@
       "entry": 754.97,
       "max_price": 846.0,
       "return_pct": 12.06,
-      "days": 69,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -4831,7 +4756,7 @@
       "entry": 334.05,
       "max_price": 356.39,
       "return_pct": 6.69,
-      "days": 69,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -4842,7 +4767,7 @@
       "entry": 622.3,
       "max_price": 611.92,
       "return_pct": -1.67,
-      "days": 69,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -4853,7 +4778,7 @@
       "entry": 33.3,
       "max_price": 34.03,
       "return_pct": 2.19,
-      "days": 69,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -4864,7 +4789,7 @@
       "entry": 35.52,
       "max_price": 37.35,
       "return_pct": 5.15,
-      "days": 69,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4875,7 +4800,7 @@
       "entry": 225.01,
       "max_price": 231.32,
       "return_pct": 2.8,
-      "days": 69,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4886,7 +4811,7 @@
       "entry": 60.99,
       "max_price": 63.03,
       "return_pct": 3.34,
-      "days": 69,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -4897,7 +4822,7 @@
       "entry": 110.27,
       "max_price": 122.41,
       "return_pct": 11.01,
-      "days": 69,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -4908,7 +4833,7 @@
       "entry": 6.17,
       "max_price": 6.34,
       "return_pct": 2.76,
-      "days": 69,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -4919,7 +4844,7 @@
       "entry": 18.82,
       "max_price": 19.36,
       "return_pct": 2.87,
-      "days": 69,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -4930,7 +4855,7 @@
       "entry": 17.49,
       "max_price": 18.5,
       "return_pct": 5.77,
-      "days": 69,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -4941,7 +4866,7 @@
       "entry": 530.61,
       "max_price": 548.56,
       "return_pct": 3.38,
-      "days": 69,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -4952,7 +4877,7 @@
       "entry": 14.91,
       "max_price": 15.9,
       "return_pct": 6.64,
-      "days": 69,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -4963,7 +4888,7 @@
       "entry": 51.95,
       "max_price": 55.44,
       "return_pct": 6.72,
-      "days": 69,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -4974,7 +4899,7 @@
       "entry": 367.91,
       "max_price": 380.2,
       "return_pct": 3.34,
-      "days": 69,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -4985,7 +4910,7 @@
       "entry": 49.64,
       "max_price": 55.11,
       "return_pct": 11.02,
-      "days": 69,
+      "days": 15,
       "result": "WIN"
     },
     {
@@ -4996,7 +4921,7 @@
       "entry": 138.45,
       "max_price": 146.35,
       "return_pct": 5.71,
-      "days": 69,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -5007,7 +4932,7 @@
       "entry": 30.35,
       "max_price": 31.18,
       "return_pct": 2.73,
-      "days": 69,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5018,7 +4943,7 @@
       "entry": 56.45,
       "max_price": 62.27,
       "return_pct": 10.31,
-      "days": 71,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -5029,7 +4954,7 @@
       "entry": 15.03,
       "max_price": 16.03,
       "return_pct": 6.65,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5040,7 +4965,7 @@
       "entry": 110.36,
       "max_price": 136.83,
       "return_pct": 23.99,
-      "days": 71,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -5051,7 +4976,7 @@
       "entry": 16.14,
       "max_price": 17.72,
       "return_pct": 9.79,
-      "days": 71,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -5062,7 +4987,7 @@
       "entry": 120.21,
       "max_price": 128.15,
       "return_pct": 6.61,
-      "days": 71,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -5073,7 +4998,7 @@
       "entry": 174.03,
       "max_price": 186.52,
       "return_pct": 7.18,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5084,7 +5009,7 @@
       "entry": 225.01,
       "max_price": 231.32,
       "return_pct": 2.8,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5095,7 +5020,7 @@
       "entry": 69.39,
       "max_price": 75.14,
       "return_pct": 8.29,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5106,7 +5031,7 @@
       "entry": 8.7,
       "max_price": 9.6,
       "return_pct": 10.34,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5117,7 +5042,7 @@
       "entry": 665.24,
       "max_price": 725.0,
       "return_pct": 8.98,
-      "days": 71,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -5128,7 +5053,7 @@
       "entry": 4.09,
       "max_price": 4.26,
       "return_pct": 4.16,
-      "days": 71,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -5139,7 +5064,7 @@
       "entry": 190.35,
       "max_price": 212.96,
       "return_pct": 11.88,
-      "days": 71,
+      "days": 3,
       "result": "WIN"
     },
     {
@@ -5150,7 +5075,7 @@
       "entry": 334.05,
       "max_price": 356.39,
       "return_pct": 6.69,
-      "days": 71,
+      "days": 10,
       "result": "WIN"
     },
     {
@@ -5161,7 +5086,7 @@
       "entry": 158.64,
       "max_price": 170.54,
       "return_pct": 7.5,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5172,7 +5097,7 @@
       "entry": 33.3,
       "max_price": 34.03,
       "return_pct": 2.19,
-      "days": 71,
+      "days": 4,
       "result": "WIN"
     },
     {
@@ -5183,7 +5108,7 @@
       "entry": 137.48,
       "max_price": 155.89,
       "return_pct": 13.39,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5194,7 +5119,7 @@
       "entry": 754.97,
       "max_price": 846.0,
       "return_pct": 12.06,
-      "days": 71,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -5205,7 +5130,7 @@
       "entry": 71.88,
       "max_price": 77.77,
       "return_pct": 8.19,
-      "days": 71,
+      "days": 11,
       "result": "WIN"
     },
     {
@@ -5216,7 +5141,7 @@
       "entry": 60.99,
       "max_price": 63.03,
       "return_pct": 3.34,
-      "days": 71,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -5227,7 +5152,7 @@
       "entry": 101.79,
       "max_price": 112.07,
       "return_pct": 10.1,
-      "days": 71,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5238,7 +5163,7 @@
       "entry": 15.52,
       "max_price": 16.03,
       "return_pct": 3.29,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5249,7 +5174,7 @@
       "entry": 56.73,
       "max_price": 62.08,
       "return_pct": 9.43,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5260,7 +5185,7 @@
       "entry": 205.29,
       "max_price": 212.96,
       "return_pct": 3.74,
-      "days": 73,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -5271,7 +5196,7 @@
       "entry": 52.05,
       "max_price": 49.51,
       "return_pct": -4.88,
-      "days": 73,
+      "days": 5,
       "result": "LOSS"
     },
     {
@@ -5282,7 +5207,7 @@
       "entry": 152.7,
       "max_price": 150.5,
       "return_pct": -1.44,
-      "days": 73,
+      "days": 13,
       "result": "LOSS"
     },
     {
@@ -5293,7 +5218,7 @@
       "entry": 107.02,
       "max_price": 112.3,
       "return_pct": 4.93,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5304,7 +5229,7 @@
       "entry": 4.15,
       "max_price": 4.26,
       "return_pct": 2.65,
-      "days": 73,
+      "days": 5,
       "result": "WIN"
     },
     {
@@ -5315,7 +5240,7 @@
       "entry": 60.22,
       "max_price": 63.03,
       "return_pct": 4.67,
-      "days": 73,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -5326,7 +5251,7 @@
       "entry": 102.8,
       "max_price": 111.44,
       "return_pct": 8.4,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5337,7 +5262,7 @@
       "entry": 141.4,
       "max_price": 146.35,
       "return_pct": 3.5,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5348,7 +5273,7 @@
       "entry": 103.0,
       "max_price": 134.39,
       "return_pct": 30.48,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5359,7 +5284,7 @@
       "entry": 33.56,
       "max_price": 35.65,
       "return_pct": 6.23,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5370,7 +5295,7 @@
       "entry": 181.38,
       "max_price": 204.33,
       "return_pct": 12.65,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5381,7 +5306,7 @@
       "entry": 157.51,
       "max_price": 157.4,
       "return_pct": -0.07,
-      "days": 73,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -5392,7 +5317,7 @@
       "entry": 261.77,
       "max_price": 263.49,
       "return_pct": 0.66,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5403,7 +5328,7 @@
       "entry": 36.6,
       "max_price": 35.46,
       "return_pct": -3.11,
-      "days": 73,
+      "days": 13,
       "result": "LOSS"
     },
     {
@@ -5414,7 +5339,7 @@
       "entry": 163.07,
       "max_price": 170.54,
       "return_pct": 4.58,
-      "days": 73,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5425,7 +5350,7 @@
       "entry": 33.61,
       "max_price": 34.03,
       "return_pct": 1.25,
-      "days": 73,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -5436,7 +5361,7 @@
       "entry": 63.29,
       "max_price": 61.49,
       "return_pct": -2.84,
-      "days": 73,
+      "days": 13,
       "result": "LOSS"
     },
     {
@@ -5447,7 +5372,7 @@
       "entry": 12.77,
       "max_price": 12.85,
       "return_pct": 0.63,
-      "days": 73,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5458,7 +5383,7 @@
       "entry": 214.77,
       "max_price": 231.32,
       "return_pct": 7.71,
-      "days": 74,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5469,7 +5394,7 @@
       "entry": 150.15,
       "max_price": 151.55,
       "return_pct": 0.93,
-      "days": 74,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5480,7 +5405,7 @@
       "entry": 104.28,
       "max_price": 134.39,
       "return_pct": 28.87,
-      "days": 74,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5491,7 +5416,7 @@
       "entry": 442.93,
       "max_price": 459.41,
       "return_pct": 3.72,
-      "days": 74,
+      "days": 6,
       "result": "WIN"
     },
     {
@@ -5502,7 +5427,7 @@
       "entry": 10.88,
       "max_price": 11.38,
       "return_pct": 4.6,
-      "days": 74,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5513,7 +5438,7 @@
       "entry": 11.38,
       "max_price": 10.79,
       "return_pct": -5.18,
-      "days": 74,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -5524,7 +5449,7 @@
       "entry": 96.22,
       "max_price": 96.52,
       "return_pct": 0.31,
-      "days": 74,
+      "days": 13,
       "result": "WIN"
     },
     {
@@ -5535,7 +5460,7 @@
       "entry": 95.16,
       "max_price": 99.98,
       "return_pct": 5.07,
-      "days": 74,
+      "days": 12,
       "result": "WIN"
     },
     {
@@ -5546,7 +5471,7 @@
       "entry": 15.38,
       "max_price": 16.03,
       "return_pct": 4.23,
-      "days": 74,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5557,7 +5482,7 @@
       "entry": 4.16,
       "max_price": 4.29,
       "return_pct": 3.12,
-      "days": 74,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5568,7 +5493,7 @@
       "entry": 336.75,
       "max_price": 344.6,
       "return_pct": 2.33,
-      "days": 74,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5579,7 +5504,7 @@
       "entry": 18.21,
       "max_price": 19.36,
       "return_pct": 6.32,
-      "days": 74,
+      "days": 7,
       "result": "WIN"
     },
     {
@@ -5590,7 +5515,7 @@
       "entry": 156.3,
       "max_price": 160.36,
       "return_pct": 2.6,
-      "days": 74,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5601,7 +5526,7 @@
       "entry": 115.72,
       "max_price": 114.95,
       "return_pct": -0.67,
-      "days": 74,
+      "days": 1,
       "result": "LOSS"
     },
     {
@@ -5612,7 +5537,7 @@
       "entry": 1161.78,
       "max_price": 1250.0,
       "return_pct": 7.59,
-      "days": 74,
+      "days": 9,
       "result": "WIN"
     },
     {
@@ -5623,7 +5548,7 @@
       "entry": 65.92,
       "max_price": 67.51,
       "return_pct": 2.41,
-      "days": 74,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5634,7 +5559,7 @@
       "entry": 45.79,
       "max_price": 48.88,
       "return_pct": 6.75,
-      "days": 74,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5645,7 +5570,7 @@
       "entry": 8.88,
       "max_price": 9.6,
       "return_pct": 8.11,
-      "days": 74,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5656,7 +5581,7 @@
       "entry": 56.63,
       "max_price": 62.08,
       "return_pct": 9.62,
-      "days": 74,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5667,7 +5592,7 @@
       "entry": 20.26,
       "max_price": 23.88,
       "return_pct": 17.87,
-      "days": 74,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5678,7 +5603,7 @@
       "entry": 47.41,
       "max_price": 48.01,
       "return_pct": 1.27,
-      "days": 75,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5689,7 +5614,7 @@
       "entry": 11.11,
       "max_price": 11.38,
       "return_pct": 2.43,
-      "days": 75,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5700,7 +5625,7 @@
       "entry": 616.02,
       "max_price": 659.67,
       "return_pct": 7.09,
-      "days": 75,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5711,7 +5636,7 @@
       "entry": 94.44,
       "max_price": 97.58,
       "return_pct": 3.32,
-      "days": 75,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5722,7 +5647,7 @@
       "entry": 64.31,
       "max_price": 67.51,
       "return_pct": 4.98,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5733,7 +5658,7 @@
       "entry": 8.78,
       "max_price": 9.44,
       "return_pct": 7.52,
-      "days": 75,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5744,7 +5669,7 @@
       "entry": 15.02,
       "max_price": 15.94,
       "return_pct": 6.13,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5755,7 +5680,7 @@
       "entry": 18.55,
       "max_price": 18.98,
       "return_pct": 2.32,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5766,7 +5691,7 @@
       "entry": 52.17,
       "max_price": 54.69,
       "return_pct": 4.83,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5777,7 +5702,7 @@
       "entry": 4.14,
       "max_price": 4.29,
       "return_pct": 3.62,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5788,7 +5713,7 @@
       "entry": 55.47,
       "max_price": 63.51,
       "return_pct": 14.49,
-      "days": 75,
+      "days": 14,
       "result": "WIN"
     },
     {
@@ -5799,7 +5724,7 @@
       "entry": 252.03,
       "max_price": 260.53,
       "return_pct": 3.37,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5810,7 +5735,7 @@
       "entry": 332.71,
       "max_price": 344.6,
       "return_pct": 3.57,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5821,7 +5746,7 @@
       "entry": 149.38,
       "max_price": 160.36,
       "return_pct": 7.35,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5832,7 +5757,7 @@
       "entry": 109.44,
       "max_price": 115.81,
       "return_pct": 5.82,
-      "days": 75,
+      "days": 1,
       "result": "WIN"
     },
     {
@@ -5843,7 +5768,7 @@
       "entry": 261.93,
       "max_price": 273.56,
       "return_pct": 4.44,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5854,7 +5779,7 @@
       "entry": 37.87,
       "max_price": 38.72,
       "return_pct": 2.24,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5865,7 +5790,7 @@
       "entry": 21.47,
       "max_price": 21.96,
       "return_pct": 2.28,
-      "days": 75,
+      "days": 8,
       "result": "WIN"
     },
     {
@@ -5876,7 +5801,7 @@
       "entry": 56.44,
       "max_price": 60.71,
       "return_pct": 7.57,
-      "days": 75,
+      "days": 2,
       "result": "WIN"
     },
     {
@@ -5887,8 +5812,9 @@
       "entry": 140.97,
       "max_price": 153.13,
       "return_pct": 8.63,
-      "days": 75,
+      "days": 10,
       "result": "WIN"
     }
-  ]
+  ],
+  "generated_at": "2026-04-12T13:30:00Z"
 }
