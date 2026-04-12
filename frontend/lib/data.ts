@@ -19,6 +19,7 @@ export interface StockQuickView {
   entry_range_high: number;
   volume?: number;
   avg_volume_30d?: number;
+  ai_short_summary?: string;
 }
 
 export interface MasterData {

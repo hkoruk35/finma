@@ -1510,6 +1510,7 @@ async def daily_run():
                 "entry_range_high": s["scores_detail"]["entry_range_high"],
                 "volume":          s["price"].get("volume"),
                 "avg_volume_30d":  s["price"].get("avg_volume_30d"),
+                "ai_short_summary": (ai_summaries.get(s["ticker"], "").split(".")[0] + ".") if ai_summaries.get(s["ticker"]) else ""
             }
             for s in sorted(all_stocks_data,
                             key=lambda x: x["scores"]["master_score"], reverse=True)

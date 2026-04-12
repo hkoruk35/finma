@@ -110,6 +110,13 @@ export default function CategoryTabs({ master, allTickers }: Props) {
               </div>
             </div>
 
+            {/* AI Summary One-Liner */}
+            <div className="mb-4">
+              <p className="text-[10px] text-[#94a3b8] leading-tight italic line-clamp-2 min-h-[2.5em]">
+                {stock.ai_short_summary || `Analysis for ${stock.ticker} points to a ${stock.score_type.replace(/_/g, " ").toLowerCase()} bias based on market metrics.`}
+              </p>
+            </div>
+
             <div className="relative w-full h-2 bg-[#1e2a3a] rounded-full overflow-hidden mb-1">
               <div
                 className="h-full rounded-full score-gradient-noble transition-all duration-500"

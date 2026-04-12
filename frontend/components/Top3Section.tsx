@@ -88,6 +88,13 @@ export default function Top3Section({ master, allTickers }: Props) {
                  </div>
               </div>
 
+              {/* AI Analysis Summary One-Liner */}
+              <div className="mb-6">
+                <p className="text-[#94a3b8] text-xs leading-relaxed italic line-clamp-2">
+                  {stock?.ai_short_summary || `AI analysis indicates a ${item.score_type.replace(/_/g, " ").toLowerCase()} pattern based on current market data.`}
+                </p>
+              </div>
+
               {/* Score bar */}
               <div className="relative w-full h-3 bg-[#1e2a3a] rounded-full overflow-hidden shadow-inner">
                 <div
