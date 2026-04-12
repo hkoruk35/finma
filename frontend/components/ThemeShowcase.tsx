@@ -41,7 +41,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
             <button
               key={theme.name}
               onClick={() => onThemeSelect?.(theme.currentTickers)}
-              className={`px-4 py-2 rounded-full border text-[14px] font-bold transition-all flex items-center gap-2.5 group ${
+              className={`px-3 py-1.5 rounded-full border text-[12px] font-semibold transition-all flex items-center gap-2 group ${
                 isSelected 
                   ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-lg shadow-blue-500/20" 
                   : "bg-[#141924] border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/50 hover:text-white"
