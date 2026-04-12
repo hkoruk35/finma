@@ -32,7 +32,7 @@ export default function Header() {
 
   const NavLink = ({ href, children, isMemberOnly = false, className = "" }: any) => (
     <Link 
-      href={!user && isMemberOnly ? "/login" : href} 
+      href={href} 
       className={`flex items-center gap-1 ${className}`}
       onClick={() => setIsOpen(false)}
     >
