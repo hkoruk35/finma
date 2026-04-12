@@ -46,11 +46,13 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
   const filteredHistory = useMemo(() => {
     return initialHistory.filter(t => {
       // Exclude unknown sectors completely
-      if (!t.sector || t.sector.trim() === "" || t.sector.toLowerCase() === "unknown") return false;
+      const isUnknown = !t.sector || t.sector.trim() === "" || t.sector.toLowerCase().includes("unknown") || t.sector === "—";
+      if (isUnknown) return false;
+      
       const matchSector = selectedSector === "All" || t.sector === selectedSector;
       const matchMonth = selectedMonth === "All" || (t.date && t.date.startsWith(selectedMonth));
       return matchSector && matchMonth;
-    });
+    }).sort((a, b) => b.date.localeCompare(a.date));
   }, [initialHistory, selectedSector, selectedMonth]);
 
   // Calculate stats dynamically

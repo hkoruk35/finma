@@ -67,7 +67,7 @@ export default async function HomePage() {
 
         {/* Swing Performance Stats */}
         <section className="animate-fade-in" style={{ animationDelay: "50ms" }}>
-          <SwingPerformanceBanner stats={swingStats} />
+          <SwingPerformanceBanner stats={swingStats?.stats} />
         </section>
 
         {/* Top 3 Swing of the Day */}

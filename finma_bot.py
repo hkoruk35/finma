@@ -1584,6 +1584,14 @@ async def daily_run():
     log.info(f"  Market regime    : {regime}")
     log.info("=" * 60)
 
+    # 17. Update Swing Performance Log
+    try:
+        from update_swing_performance import sync_performance
+        sync_performance()
+        log.info("Swing performance log updated successfully.")
+    except Exception as e:
+        log.warning(f"Failed to update swing performance log: {e}")
+
     # Push to GitHub for Vercel deployment
     push_to_github()
 

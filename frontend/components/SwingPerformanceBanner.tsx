@@ -9,7 +9,7 @@ interface Stats {
 }
 
 export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
-  if (!stats) return null;
+  if (!stats || typeof stats.total_picks === 'undefined') return null;
 
   return (
     <Link href="/swing-performance" className="block group w-full">
