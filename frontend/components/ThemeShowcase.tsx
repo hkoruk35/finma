@@ -12,13 +12,13 @@ interface ThemeShowcaseProps {
 export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTickers }: ThemeShowcaseProps) {
   // Find themes that have at least one active ticker from the provided list
   const activeThemes = useMemo(() => {
-    return MARKET_THEMES.filter((theme) =>
-      theme.tickers.some((ticker) => activeTickers.includes(ticker))
-    ).map((theme) => {
-      // Count how many tickers from this theme are active
-      const count = theme.tickers.filter((t) => activeTickers.includes(t)).length;
-      return { ...theme, activeCount: count };
-    }).sort((a, b) => b.activeCount - a.activeCount);
+    return MARKET_THEMES.map((theme) => {
+      // Find which tickers from this theme are actually in our active list
+      const activeFromTheme = theme.tickers.filter((t) => activeTickers.includes(t));
+      return { ...theme, currentTickers: activeFromTheme, activeCount: activeFromTheme.length };
+    })
+    .filter(theme => theme.activeCount > 0)
+    .sort((a, b) => b.activeCount - a.activeCount);
   }, [activeTickers]);
 
   if (activeThemes.length === 0) return null;
@@ -33,15 +33,15 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
         <p className="text-[10px] text-[#64748b] font-bold uppercase">Based on today's bot analysis</p>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-3">
         {activeThemes.map((theme) => {
-          const isSelected = selectedTickers && theme.tickers.every(t => selectedTickers.includes(t)) && theme.tickers.length === selectedTickers.length;
+          const isSelected = selectedTickers && theme.currentTickers.every(t => selectedTickers.includes(t)) && theme.currentTickers.length === selectedTickers.length;
           
           return (
             <button
               key={theme.name}
-              onClick={() => onThemeSelect?.(theme.tickers)}
-              className={`px-3 py-1.5 rounded-full border text-[11px] font-bold transition-all flex items-center gap-2 group ${
+              onClick={() => onThemeSelect?.(theme.currentTickers)}
+              className={`px-4 py-2 rounded-full border text-[14px] font-bold transition-all flex items-center gap-2.5 group ${
                 isSelected 
                   ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-lg shadow-blue-500/20" 
                   : "bg-[#141924] border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/50 hover:text-white"
