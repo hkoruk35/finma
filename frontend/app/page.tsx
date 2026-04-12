@@ -57,14 +57,6 @@ export default async function HomePage() {
         <section className="mb-8 animate-fade-in">
           <IndexCards data={master} />
         </section>
-        {/* Hero */}
-        <section className="text-center mb-8 animate-fade-in">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
-            Find the Best +100 US Stocks
-            <span className="text-[#3b82f6]"> with BOGA AI</span>
-          </h1>
-        </section>
-
         {/* Swing Performance Stats */}
         <section className="animate-fade-in" style={{ animationDelay: "50ms" }}>
           <SwingPerformanceBanner stats={swingStats?.stats} />
@@ -73,6 +65,14 @@ export default async function HomePage() {
         {/* Top 3 Swing of the Day */}
         <section className="mb-10 animate-fade-in" style={{ animationDelay: "100ms" }}>
           <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} />
+        </section>
+
+        {/* Hero - Repositioned */}
+        <section className="text-center mb-10 animate-fade-in">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">
+            Find the Best +100 US Stocks
+            <span className="text-[#3b82f6]"> with BOGA AI</span>
+          </h1>
         </section>
 
         {/* Stats Bar */}
