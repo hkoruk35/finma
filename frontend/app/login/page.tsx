@@ -4,12 +4,17 @@ import Link from "next/link";
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
-  const handleGoogleLogin = () => {
-    console.log("Initiating Google Login via Supabase...");
-    // Supabase Auth Logic:
-    // supabase.auth.signInWithOAuth({ provider: 'google' })
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/`,
+      }
+    });
+    if (error) console.error("Login error:", error.message);
   };
 
   return (
