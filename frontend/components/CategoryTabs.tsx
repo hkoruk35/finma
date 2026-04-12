@@ -9,7 +9,7 @@ const TABS = [
   { key: "breakout", label: "Breakout" },
   { key: "value", label: "Undervalued" },
   { key: "momentum", label: "Momentum" },
-  { key: "reversal", label: "Reversal (Dipten Dönüş)" },
+  { key: "reversal", label: "Reversal" },
   { key: "dividend", label: "Passive Income" },
 ];
 
