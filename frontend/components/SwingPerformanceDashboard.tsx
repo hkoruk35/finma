@@ -129,22 +129,22 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
       </div>
 
       {/* Stats Strip */}
-      <div className="glass-card grid grid-cols-2 md:grid-cols-4 divide-x divide-[#1e2a3a] mb-12">
-         <div className="p-6 text-center">
-           <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Total Signals</p>
-           <p className="text-3xl font-mono font-black text-white">{stats.total}</p>
+      <div className="glass-card grid grid-cols-2 lg:grid-cols-4 divide-[#1e2a3a] mb-12 overflow-hidden">
+         <div className="p-4 md:p-6 text-center border-r border-b lg:border-b-0 border-[#1e2a3a]">
+           <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Total Signals</p>
+           <p className="text-2xl md:text-3xl font-mono font-black text-white">{stats.total}</p>
          </div>
-         <div className="p-6 text-center">
-           <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Win Rate</p>
-           <p className="text-3xl font-mono font-black text-[#22c55e]">{stats.winRate}%</p>
+         <div className="p-4 md:p-6 text-center border-b lg:border-b-0 lg:border-l lg:border-l-[#1e2a3a]/30">
+           <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Win Rate</p>
+           <p className="text-2xl md:text-3xl font-mono font-black text-[#22c55e]">{stats.winRate}%</p>
          </div>
-         <div className="p-6 text-center border-t md:border-t-0 border-[#1e2a3a]">
-           <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Avg Return (Max)</p>
-           <p className="text-3xl font-mono font-black text-white">{stats.avgReturn}%</p>
+         <div className="p-4 md:p-6 text-center border-r lg:border-r-0 lg:border-l lg:border-l-[#1e2a3a]/30">
+           <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Avg Return (Max)</p>
+           <p className="text-2xl md:text-3xl font-mono font-black text-white">{stats.avgReturn}%</p>
          </div>
-         <div className="p-6 text-center border-t md:border-t-0 border-[#1e2a3a]">
-           <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Picks {'>'} 10% Return</p>
-           <p className="text-3xl font-mono font-black text-[#3b82f6]">{stats.above10Rate}%</p>
+         <div className="p-4 md:p-6 text-center lg:border-l lg:border-l-[#1e2a3a]/30">
+           <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Picks {'>'} 10% Return</p>
+           <p className="text-2xl md:text-3xl font-mono font-black text-[#3b82f6]">{stats.above10Rate}%</p>
          </div>
       </div>
 
@@ -152,14 +152,14 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
       {sectorHeatmap.length > 0 && (
         <div className="mb-12">
           <h3 className="text-xl font-bold text-white mb-6">Sector Profitability Heatmap</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {sectorHeatmap.map(s => {
               // determine heat color based on avgReturn
               let bgColor = "bg-[#141924] border-[#1e2a3a]";
-              if (s.avgReturn >= 15) bgColor = "bg-[#22c55e]/20 border-[#22c55e]/50";
-              else if (s.avgReturn >= 8) bgColor = "bg-[#22c55e]/15 border-[#22c55e]/30";
-              else if (s.avgReturn > 0) bgColor = "bg-[#22c55e]/5 border-[#22c55e]/20";
-              else if (s.avgReturn < 0) bgColor = "bg-[#ef4444]/15 border-[#ef4444]/30";
+              if (s.avgReturn >= 15) bgColor = "bg-[#22c55e]/25 border-[#22c55e]/60";
+              else if (s.avgReturn >= 8) bgColor = "bg-[#22c55e]/15 border-[#22c55e]/40";
+              else if (s.avgReturn > 0) bgColor = "bg-[#22c55e]/10 border-[#22c55e]/30";
+              else if (s.avgReturn < 0) bgColor = "bg-[#ef4444]/20 border-[#ef4444]/50";
               
               return (
                 <button 
