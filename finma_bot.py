@@ -419,10 +419,11 @@ def compute_technicals(hist: pd.DataFrame, ticker: str) -> Dict:
 def score_technical(tech: Dict, fund: Dict) -> float:
     score = 0.0
     rsi = tech.get("rsi_14") or 50
-    # RSI: 45-70 = optimal
-    if RSI_BULLISH_MIN <= rsi <= RSI_BULLISH_MAX: score += 15
-    elif 35 <= rsi < RSI_BULLISH_MIN:           score += 7
-    elif rsi > RSI_BULLISH_MAX:                  score += 5
+    # RSI: 70-80 gets reward for strong trend
+    if 45 <= rsi <= 70:   score += 12
+    elif 70 < rsi <= 80:  score += 10
+    elif 35 <= rsi < 45:  score += 8
+    elif rsi > 80:        score += 5
 
     # MACD histogram positive + rising
     mh = tech.get("macd_histogram") or 0
@@ -435,8 +436,9 @@ def score_technical(tech: Dict, fund: Dict) -> float:
 
     # ADX
     adx = tech.get("adx") or 0
-    if adx >= 30: score += 15
+    if adx >= 30:   score += 15
     elif adx >= 25: score += 10
+    elif adx >= 20: score += 8
     elif adx >= 18: score += 5
 
     # BB squeeze (breakout prep)
@@ -447,7 +449,8 @@ def score_technical(tech: Dict, fund: Dict) -> float:
     rvol = tech.get("rvol") or 1.0
     if rvol >= 2.0:   score += 15
     elif rvol >= 1.5: score += 10
-    elif rvol >= 1.2: score += 6
+    elif rvol >= 1.2: score += 8
+    elif rvol >= 1.0: score += 3
 
     # OBV trend
     if tech.get("obv_trend") == "UP": score += 10
@@ -463,8 +466,14 @@ def score_fundamental(fund: Dict) -> float:
     elif pe and sp and pe < sp:      score += 12
 
     pb = fund.get("pb_ratio")
-    if pb and pb < 2.0: score += 15
-    elif pb and pb < 3.0: score += 8
+    eps = fund.get("eps_growth_5y")
+    
+    if eps and eps > 0.20:
+        if pb and pb < 15.0: score += 15
+        elif pb and pb < 25.0: score += 8
+    else:
+        if pb and pb < 2.0: score += 15
+        elif pb and pb < 3.0: score += 8
 
     de = fund.get("de_ratio")
     if de is not None:
@@ -475,7 +484,6 @@ def score_fundamental(fund: Dict) -> float:
     if fcf and fcf > 0.05: score += 20
     elif fcf and fcf > 0.03: score += 12
 
-    eps = fund.get("eps_growth_5y")
     if eps and eps > 0.05: score += 15
     elif eps and eps > 0.01: score += 8
 
@@ -812,14 +820,19 @@ def build_gemini_prompt(stock: Dict) -> str:
     stock_pe = f.get('pe_ratio') or sector_pe
     pe_relative = "trading at a premium" if stock_pe > sector_pe else "trading at a discount" if stock_pe < sector_pe else "in line with sector"
 
-    return f"""You are FinMA AI, a professional US stock market analyst specializing in this particular stock.
+    return f"""You are BOGA AI, a professional US stock market analyst specializing in this particular stock.
 
 Your task: Analyze {sd['ticker']} ({sd['company']}) and provide a concise, data-driven commentary.
 IMPORTANT: This analysis is ONLY about {sd['ticker']}, NOT about competing stocks or the broader sector (except for comparison context).
 Maximum {GEMINI_SUMMARY_WORD_LIMIT} words. Use specific data. Do NOT use generic tech stock language.
-Mention the FinMA score rating, key technical levels, and one specific catalyst for THIS stock.
+Mention the BOGA AI score rating, key technical levels on the daily chart, and one specific catalyst for THIS stock.
 Use ONLY these score rating terms: HIGH CONVICTION, POSITIVE BIAS, NEUTRAL STAY, NEGATIVE BIAS, UNDERPERFORM.
 Never use old terms like "BUY", "SELL", "STRONG BUY", "signals a BUY", etc. Always say "score" not "signal".
+ONLY refer to the daily chart (1D). Never refer to 1-hour or intraday charts.
+Use the following zone labels instead of old terminology:
+- Describe the entry area as "BUY ZONE".
+- Describe the logic for upside potential as the "PROFIT ZONE".
+- Describe the risk management level as the "STOP LOSS ZONE".
 
 ═══════════════════════════════════════════
 STOCK: {sd['ticker']} — {sd['company']}
