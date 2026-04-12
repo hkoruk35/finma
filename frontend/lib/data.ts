@@ -230,22 +230,30 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
 
   if (data) return normalizeStockDetail(data);
 
-  // 2. If detailed JSON missing, try to find real price in global list
-  const allTickers = await getAllTickers();
-  const summary = allTickers.find(s => s.ticker === t);
+  // 2. If detailed JSON missing, try to find real info in other data sources
+  const [allTickers, swingPerf] = await Promise.all([
+    getAllTickers(),
+    getSwingPerformance()
+  ]);
   
-  // 3. Fallback to mock, but inject real price/company if found
+  const summary = allTickers.find(s => s.ticker === t);
+  const perfEntry = swingPerf?.history?.find((h: any) => h.ticker === t);
+  
+  // 3. Fallback to mock, but inject known real info from any source
   const mock = getMockStockDetail(t);
-  if (summary) {
-    mock.price.current = summary.price;
-    mock.price.change_pct = summary.change_pct;
-    mock.company = summary.company;
-    mock.sector = summary.sector;
-    mock.scores.master_score = summary.master_score;
-    mock.scores.score_type = summary.score_type;
-    (mock as any).is_partial_mock = true; // Real price, but mock detail
+  
+  if (summary || perfEntry) {
+    mock.price.current = summary?.price ?? perfEntry?.max_price ?? mock.price.current;
+    mock.price.change_pct = summary?.change_pct ?? 0;
+    mock.company = summary?.company ?? perfEntry?.company ?? mock.company;
+    mock.sector = summary?.sector ?? perfEntry?.sector ?? mock.sector;
+    if (summary) {
+      mock.scores.master_score = summary.master_score;
+      mock.scores.score_type = summary.score_type;
+    }
+    (mock as any).is_partial_mock = true;
   } else {
-    (mock as any).is_mock = true; // Fully fake
+    (mock as any).is_mock = true;
   }
   
   return normalizeStockDetail(mock);
