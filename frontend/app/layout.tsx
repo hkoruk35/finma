@@ -47,24 +47,24 @@ export default function RootLayout({
           Below is the Google tag for this account. Copy and paste it in the code of every page of your website, 
           immediately after the <head> element. Don’t add more than one Google tag to each page.
         */}
-        {/* Google tag (gtag.js) */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-CCSWK67D93" />
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-CCSWK67D93');
-          `}
-        </Script>
+        {/* Google Tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CCSWK67D93" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-CCSWK67D93');
+            `,
+          }}
+        />
 
         {/* Google AdSense */}
-        <Script 
+        <script 
           async 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1081747094060539" 
           crossOrigin="anonymous" 
-          strategy="afterInteractive"
         />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
