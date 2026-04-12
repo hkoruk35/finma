@@ -26,7 +26,12 @@
       "rsi": 62.3,
       "pattern": "Pullback D\u00f6n\u00fc\u015f",
       "market_regime": "BULLISH",
-      "holding_period": "3-10 days"
+      "holding_period": "3-10 days",
+      "reasoning": "Strong relative strength combined with an impending volatility squeeze.",
+      "change_1d": 1.2,
+      "change_1w": 4.5,
+      "change_1m": 12.4,
+      "change_1y": 34.2
     },
     {
       "rank": 2,
@@ -51,7 +56,12 @@
       "rsi": 62.3,
       "pattern": "Pullback D\u00f6n\u00fc\u015f",
       "market_regime": "BULLISH",
-      "holding_period": "3-10 days"
+      "holding_period": "3-10 days",
+      "reasoning": "Clear uptrend structure with institutional accumulation signals.",
+      "change_1d": 1.2,
+      "change_1w": 4.5,
+      "change_1m": 12.4,
+      "change_1y": 34.2
     },
     {
       "rank": 3,
@@ -76,7 +86,12 @@
       "rsi": 62.3,
       "pattern": "Pullback D\u00f6n\u00fc\u015f",
       "market_regime": "BULLISH",
-      "holding_period": "3-10 days"
+      "holding_period": "3-10 days",
+      "reasoning": "Bullish divergence indicating strong momentum accumulation prior to resistance breakout.",
+      "change_1d": 1.2,
+      "change_1w": 4.5,
+      "change_1m": 12.4,
+      "change_1y": 34.2
     }
   ]
 }

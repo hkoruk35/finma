@@ -139,24 +139,47 @@ export default async function CategoryPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Controls / Filter placeholder */}
-        <div className="flex items-center justify-between mb-8">
-           <div className="flex gap-2">
-              <button className="px-3 py-1.5 rounded-lg bg-[#1e2a3a] text-white text-xs font-semibold border border-[#3b82f6]/30">
-                 Highest Score
-              </button>
-              <button className="px-3 py-1.5 rounded-lg bg-[#141924] text-[#94a3b8] text-xs font-semibold border border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white transition-all">
-                 Biggest Gainers
-              </button>
-           </div>
-           <div className="text-xs text-[#64748b]">
-              Showing {stocks.length} equities
-           </div>
-        </div>
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Side Tabs / Category Menu */}
+          <aside className="lg:w-64 shrink-0">
+            <div className="sticky top-24 glass-card p-4 flex flex-col gap-2">
+              <h3 className="text-[10px] text-[#64748b] font-black uppercase tracking-widest pl-2 mb-2">Categories</h3>
+              {Object.values(CATEGORY_MAP).map((c) => (
+                <Link
+                  key={c.key}
+                  href={`/category/${Object.keys(CATEGORY_MAP).find(k => CATEGORY_MAP[k]?.key === c.key)}`}
+                  className={`px-4 py-3 rounded-lg text-sm font-bold transition-all uppercase tracking-widest ${
+                    c.key === category.key 
+                      ? "bg-[#3b82f6]/20 text-[#3b82f6] border border-[#3b82f6]/30" 
+                      : "text-[#94a3b8] hover:bg-[#1e2a3a] hover:text-white"
+                  }`}
+                >
+                  {c.label}
+                </Link>
+              ))}
+            </div>
+          </aside>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {stocks.map((stock, idx) => (
+          {/* Main Content */}
+          <div className="flex-1">
+            {/* Controls / Filter placeholder */}
+            <div className="flex items-center justify-between mb-8">
+               <div className="flex gap-2">
+                  <button className="px-3 py-1.5 rounded-lg bg-[#1e2a3a] text-white text-xs font-semibold border border-[#3b82f6]/30">
+                     Highest Score
+                  </button>
+                  <button className="px-3 py-1.5 rounded-lg bg-[#141924] text-[#94a3b8] text-xs font-semibold border border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white transition-all">
+                     Biggest Gainers
+                  </button>
+               </div>
+               <div className="text-xs text-[#64748b]">
+                  Showing {stocks.length} equities
+               </div>
+            </div>
+
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {stocks.map((stock, idx) => (
             <Link
               href={`/stock/${stock!.ticker}`}
               key={stock!.ticker}
@@ -212,6 +235,8 @@ export default async function CategoryPage({ params }: Props) {
         {/* Ad Slot */}
         <div className="mt-16 glass-card flex items-center justify-center h-24 text-[#64748b] text-sm">
           AD-C1 &middot; 728&times;90 Leaderboard
+        </div>
+        </div>
         </div>
       </main>
 
