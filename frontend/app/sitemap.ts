@@ -6,24 +6,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://bogastock.com';
   
   const staticRoutes = [
-    '',
-    '/login',
-    '/register',
-    '/about',
-    '/contact',
-    '/disclaimer',
-    '/privacy',
-    '/category/top-scores',
-    '/category/breakout',
-    '/category/undervalued',
-    '/category/momentum',
-    '/category/reversal',
-    '/category/dividend',
-  ].map(route => ({
-    url: `${baseUrl}${route}`,
+    { route: '', priority: 1.0, changefreq: 'hourly' },
+    { route: '/category/top-scores', priority: 0.8, changefreq: 'daily' },
+    { route: '/category/breakout', priority: 0.8, changefreq: 'daily' },
+    { route: '/category/undervalued', priority: 0.8, changefreq: 'daily' },
+    { route: '/category/momentum', priority: 0.8, changefreq: 'daily' },
+    { route: '/category/reversal', priority: 0.8, changefreq: 'daily' },
+    { route: '/category/dividend', priority: 0.8, changefreq: 'daily' },
+    { route: '/about', priority: 0.5, changefreq: 'monthly' },
+    { route: '/about/how-it-works', priority: 0.8, changefreq: 'daily' },
+    { route: '/contact', priority: 0.5, changefreq: 'monthly' },
+    { route: '/disclaimer', priority: 0.3, changefreq: 'monthly' },
+    { route: '/privacy', priority: 0.3, changefreq: 'monthly' },
+    { route: '/terms', priority: 0.3, changefreq: 'monthly' },
+    { route: '/login', priority: 0.4, changefreq: 'monthly' },
+    { route: '/register', priority: 0.4, changefreq: 'monthly' },
+  ].map(item => ({
+    url: `${baseUrl}${item.route}`,
     lastModified: new Date(),
-    changeFrequency: 'daily' as const,
-    priority: route === '' ? 1 : 0.8,
+    changeFrequency: item.changefreq as any,
+    priority: item.priority,
   }));
 
   const stockRoutes = allTickers.map(stock => ({
