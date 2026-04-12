@@ -310,8 +310,6 @@ export default async function StockDetailPage({ params }: Props) {
                 Add to Watchlist
               </button>
             </div>
-
-            </div>
           </div>
         </div>
 
