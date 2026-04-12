@@ -113,6 +113,20 @@ export default async function StockDetailPage({ params }: Props) {
           <span className="text-[#94a3b8]">{stock.ticker}</span>
         </nav>
 
+        {(stock as any).is_partial_mock && (
+          <div className="glass-card mb-6 border-l-4 border-l-yellow-500/50 bg-yellow-500/5 p-4 flex items-center gap-4 animate-pulse">
+            <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+               </svg>
+            </div>
+            <div>
+               <p className="text-sm font-bold text-yellow-500 uppercase tracking-widest">Limited Data Profile</p>
+               <p className="text-xs text-[#94a3b8]">Full AI Analysis for {ticker} is pending generation. Displaying latest real-time market price and company info.</p>
+            </div>
+          </div>
+        )}
+
         {/* Header Section — Compact Terminal */}
         <div className="glass-card px-4 py-6 md:px-8 mb-4 border-b-2 border-b-[#3b82f6]/30">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">

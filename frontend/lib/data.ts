@@ -165,6 +165,7 @@ function normalizeMasterData(data: any): MasterData {
 function normalizeStockQuickView(stock: any): StockQuickView {
   return {
     ...stock,
+    is_mock: stock.is_mock || false,
     score_type: normalizeScoreType(stock.score_type || stock.signal_type || stock.signal),
   };
 }
@@ -208,20 +209,42 @@ export async function getMasterData(date?: string): Promise<MasterData | null> {
   }
 }
 
-export async function getStockData(ticker: string): Promise<StockDetail | null> {
+export async function getStockData(ticker: string): Promise<(StockDetail & { is_mock?: boolean }) | null> {
+  const t = ticker.toUpperCase();
+  let data: any = null;
+
+  // 1. Try to read real JSON file
   if (typeof window === "undefined") {
-    const data = await readJsonServer(`stocks/${ticker}.json`);
-    return normalizeStockDetail(data ?? getMockStockDetail(ticker));
+    data = await readJsonServer(`stocks/${t}.json`);
+  } else {
+    try {
+      const base = DATA_BASE_URL || "/api/data";
+      const res = await fetch(`${base}/stocks/${t}.json`);
+      if (res.ok) data = await res.json();
+    } catch (e) { console.warn("Fetch detailed stock err", e); }
   }
-  try {
-    const base = DATA_BASE_URL || "/api/data";
-    const res = await fetch(`${base}/stocks/${ticker}.json`);
-    if (!res.ok) return getMockStockDetail(ticker);
-    const json = await res.json();
-    return normalizeStockDetail(json);
-  } catch {
-    return getMockStockDetail(ticker);
+
+  if (data) return normalizeStockDetail(data);
+
+  // 2. If detailed JSON missing, try to find real price in global list
+  const allTickers = await getAllTickers();
+  const summary = allTickers.find(s => s.ticker === t);
+  
+  // 3. Fallback to mock, but inject real price/company if found
+  const mock = getMockStockDetail(t);
+  if (summary) {
+    mock.price.current = summary.price;
+    mock.price.change_pct = summary.change_pct;
+    mock.company = summary.company;
+    mock.sector = summary.sector;
+    mock.scores.master_score = summary.master_score;
+    mock.scores.score_type = summary.score_type;
+    (mock as any).is_partial_mock = true; // Real price, but mock detail
+  } else {
+    (mock as any).is_mock = true; // Fully fake
   }
+  
+  return normalizeStockDetail(mock);
 }
 
 export async function getAllTickers(date?: string): Promise<StockQuickView[]> {
@@ -309,6 +332,7 @@ const TICKER_SECTORS: Record<string, string> = {
 
 function getMockMaster(): MasterData {
   return {
+    is_mock: true,
     date: new Date().toISOString().split("T")[0],
     generated_at: new Date().toISOString(),
     total_tickers_scanned: 100,
@@ -365,7 +389,8 @@ function getMockTickers(): StockQuickView[] {
       price: 50 + (seed % 400),
       change_pct: change,
       entry_range_low: 45 + (seed % 400),
-      entry_range_high: 55 + (seed % 400)
+      entry_range_high: 55 + (seed % 400),
+      is_mock: true
     };
   });
 }
@@ -392,142 +417,135 @@ export function formatPrice(n: number): string {
 }
 
 function getMockStockDetail(ticker: string): StockDetail {
+  const t = ticker.toUpperCase();
+  const seed = t.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  
+  // Procedural random values based on seed
+  const basePrice = 10 + (seed % 450);
+  const changePct = -2 + (seed % 5) + (seed % 10) / 10;
+  const masterScore = 45 + (seed % 50);
+  
   return {
-    ticker: ticker.toUpperCase(),
-    company: ticker.toUpperCase() === "AAPL" ? "Apple Inc." : `${ticker.toUpperCase()} Corp.`,
+    ticker: t,
+    company: TICKER_NAMES[t] || `${t} Corp.`,
     date: new Date().toISOString().split("T")[0],
-    sector: "Technology",
-    industry: "Consumer Electronics",
+    sector: TICKER_SECTORS[t] || "Technology",
+    industry: "General Industrials",
     price: {
-      current: 195.50,
-      open: 193.20,
-      high: 196.80,
-      low: 192.50,
-      prev_close: 194.10,
-      change: 1.40,
-      change_pct: 0.72,
-      volume: 62450000,
-      avg_volume_30d: 58000000
+      current: basePrice,
+      open: basePrice * 0.99,
+      high: basePrice * 1.02,
+      low: basePrice * 0.98,
+      prev_close: basePrice / (1 + changePct/100),
+      change: basePrice * (changePct / 100),
+      change_pct: changePct,
+      volume: 1000000 + (seed * 1000),
+      avg_volume_30d: 950000 + (seed * 1000)
     },
     scores: {
-      master_score: 78.4,
-      technical_score: 82.1,
-      fundamental_score: 71.3,
-      momentum_score: 79.5,
-      sentiment_score: 68.0,
-      sector_score: 74.2,
-      breakout_score: 65.2,
-      value_score: 58.7,
-      reversal_score: 22.1,
-      dividend_score: 45.3,
-      confidence: 0.87,
-      score_type: "HIGH_CONVICTION"
+      master_score: masterScore,
+      technical_score: masterScore + (seed % 10) - 5,
+      fundamental_score: masterScore + (seed % 8) - 4,
+      momentum_score: masterScore + (seed % 12) - 6,
+      sentiment_score: 50 + (seed % 30),
+      sector_score: 55 + (seed % 25),
+      breakout_score: 40 + (seed % 50),
+      value_score: 30 + (seed % 60),
+      reversal_score: 10 + (seed % 80),
+      dividend_score: seed % 5,
+      confidence: 0.6 + (seed % 40) / 100,
+      score_type: masterScore >= 85 ? "HIGH_CONVICTION" : masterScore >= 70 ? "POSITIVE_BIAS" : masterScore >= 55 ? "NEUTRAL_STAY" : "NEGATIVE_BIAS"
     },
     technical: {
-      rsi_14: 58.3,
-      macd: 1.23,
-      macd_signal: 0.98,
-      macd_histogram: 0.25,
-      macd_crossover: "bullish",
-      ema_20: 192.40,
-      ema_50: 188.70,
-      ema_200: 175.30,
+      rsi_14: 30 + (seed % 40),
+      macd: 0.5,
+      macd_signal: 0.4,
+      macd_histogram: 0.1,
+      macd_crossover: "neutral",
+      ema_20: basePrice * 0.98,
+      ema_50: basePrice * 0.95,
+      ema_200: basePrice * 0.90,
       ema_stack_bullish: true,
-      bb_upper: 198.20,
-      bb_middle: 192.40,
-      bb_lower: 186.60,
-      bb_width: 0.059,
+      bb_upper: basePrice * 1.05,
+      bb_middle: basePrice,
+      bb_lower: basePrice * 0.95,
+      bb_width: 0.1,
       bb_squeeze: false,
       bb_squeeze_intensity: "LOW",
-      adx: 28.4,
-      atr: 3.21,
-      atr_pct: 0.0164,
-      obv_trend: "UP",
-      mfi: 63.2,
-      stoch_k: 67.4,
-      stoch_d: 62.1,
-      cmf: 0.14,
-      rvol: 1.34,
-      volume_5d_avg: 58000000,
-      green_days_10d: 7,
-      "52w_high": 199.62,
-      "52w_low": 164.08,
-      "52w_high_proximity_pct": 0.021
+      adx: 20 + (seed % 15),
+      atr: basePrice * 0.02,
+      atr_pct: 0.02,
+      obv_trend: "STABLE",
+      mfi: 50,
+      stoch_k: 50,
+      stoch_d: 50,
+      cmf: 0,
+      rvol: 1.0,
+      volume_5d_avg: 1000000,
+      green_days_10d: 5,
+      "52w_high": basePrice * 1.1,
+      "52w_low": basePrice * 0.8,
+      "52w_high_proximity_pct": 0.1
     },
     fundamental: {
-      pe_ratio: 28.4,
-      sector_pe_median: 32.1,
-      pe_vs_sector: "discount",
-      pb_ratio: 42.1,
-      de_ratio: 1.76,
-      fcf_yield: 0.038,
-      eps_growth_5y: 0.142,
-      revenue_growth_ttm: 0.086,
-      gross_margin: 0.434,
-      operating_margin: 0.296,
-      net_margin: 0.253,
-      market_cap: 3020000000000,
-      enterprise_value: 3180000000000,
-      dividend_yield: 0.0054,
-      payout_ratio: 0.157,
-      insider_ownership_pct: 0.028,
-      institutional_ownership_pct: 0.601
+      pe_ratio: 15 + (seed % 30),
+      sector_pe_median: 20,
+      pe_vs_sector: "neutral",
+      pb_ratio: 2.5,
+      de_ratio: 1.0,
+      fcf_yield: 0.04,
+      eps_growth_5y: 0.1,
+      revenue_growth_ttm: 0.08,
+      gross_margin: 0.35,
+      operating_margin: 0.15,
+      net_margin: 0.12,
+      market_cap: 1000000000 * (seed % 100),
+      enterprise_value: 1100000000 * (seed % 100),
+      dividend_yield: 0.01,
+      payout_ratio: 0.3,
+      insider_ownership_pct: 0.05,
+      institutional_ownership_pct: 0.55
     },
     breakout: {
       squeeze_intensity: "LOW",
-      breakout_direction: "UPWARD",
-      breakout_score: 85,
-      previous_breakouts_2y: 2
+      breakout_direction: "NONE",
+      breakout_score: 50,
+      previous_breakouts_2y: 1
     },
     sector_context: {
-      sector_etf: "XLK",
-      sector_performance_5d: 2.45
+      sector_etf: "SPY",
+      sector_performance_5d: 0.5
     },
     insider_activity: {
-      last_90_days_buys: 12,
-      last_90_days_sells: 4,
-      net_direction: "Buying",
-      last_transaction: "April 02, 2026"
+      last_90_days_buys: seed % 5,
+      last_90_days_sells: seed % 3,
+      net_direction: "Neutral",
+      last_transaction: null
     },
     scores_detail: {
-      score_type: "HIGH_CONVICTION",
-      entry_range_low: 193.50,
-      entry_range_high: 196.00,
-      target_price: 208.50,
-      target_range_low: 205.00,
-      target_range_high: 212.00,
-      stop_loss: 188.20,
-      stop_range_low: 185.00,
-      stop_range_high: 191.00,
-      risk_reward_ratio: 2.1,
-      categories: ["momentum", "top_scores"]
+      score_type: masterScore >= 85 ? "HIGH_CONVICTION" : masterScore >= 70 ? "POSITIVE_BIAS" : masterScore >= 55 ? "NEUTRAL_STAY" : "NEGATIVE_BIAS",
+      entry_range_low: basePrice * 0.97,
+      entry_range_high: basePrice * 1.01,
+      target_price: basePrice * 1.15,
+      target_range_low: basePrice * 1.12,
+      target_range_high: basePrice * 1.18,
+      stop_loss: basePrice * 0.93,
+      stop_range_low: basePrice * 0.90,
+      stop_range_high: basePrice * 0.95,
+      risk_reward_ratio: 2.5,
+      categories: ["momentum"]
     },
-    news: [
-      {
-        headline: "Apple Reports Record Q1 Revenue",
-        url: "#",
-        source: "Reuters",
-        published: "2026-04-07T14:30:00Z",
-        sentiment: "positive"
-      },
-      {
-        headline: "New iPhone Features AI Integration",
-        url: "#",
-        source: "Bloomberg",
-        published: "2026-04-07T12:00:00Z",
-        sentiment: "positive"
-      }
-    ],
-    ai_summary: "Apple maintains a dominant position in consumer electronics and services, with AI-powered features driving iPhone upgrade cycles. The stock's RSI of 58 and positive MACD histogram suggest continued bullish momentum without entering overbought territory. Institutional ownership at 60% and declining short interest confirm smart money accumulation. The 52-week high proximity of 2.1% indicates breakout potential if the $196 resistance level is cleared on volume. Suggested entry: $193–$196 zone, target $208, stop-loss below $188.",
+    news: [],
+    ai_summary: `AI analysis for ${t} suggests a ${masterScore >= 70 ? 'bullish' : 'neutral'} outlook based on current price action and volume patterns. Institutional accumulation is appearing stable, with technical indicators aligned for potential trend continuation. High conviction remains conditional on clearing major psychological resistance levels.`,
     quick_view: {
-      score_badge: "HIGH CONVICTION",
-      score_bar: 87,
-      price_change_display: "+0.72%",
+      score_badge: masterScore >= 70 ? "HIGH CONVICTION" : "NEUTRAL",
+      score_bar: masterScore,
+      price_change_display: `${changePct >= 0 ? '+' : ''}${changePct.toFixed(2)}%`,
       key_metrics: {
-        RSI: 58.3,
-        MACD: "Bullish",
-        Volume: "Above avg",
-        Trend: "Uptrend"
+        RSI: 50,
+        MACD: "Neutral",
+        Volume: "Average",
+        Trend: "Stable"
       }
     }
   };
