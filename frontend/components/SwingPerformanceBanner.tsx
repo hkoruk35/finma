@@ -17,9 +17,9 @@ export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#3b82f6] blur-[80px] opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
         
         <div className="flex-1 z-10 text-center md:text-left">
-           <div className="flex items-center gap-2 mb-2 justify-center md:justify-start">
-              <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-xs">PROVEN PERFORMANCE</h3>
-              <span className="px-2 py-0.5 rounded-full bg-[#3b82f6]/10 text-[9px] font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">VIEW DETAILED LOGS &rarr;</span>
+           <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
+              <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-sm md:text-base">PROVEN PERFORMANCE</h3>
+              <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">VIEW DETAILED LOGS &rarr;</span>
            </div>
            <p className="text-white text-xl md:text-2xl font-bold">
              BOGA Swing Engine: <span className="text-[#10b981]">{stats.win_rate}% Win Rate</span> Over {stats.period_days} Days

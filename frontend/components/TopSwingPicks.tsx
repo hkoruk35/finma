@@ -27,9 +27,10 @@ interface SwingPick {
 
 interface Props {
   picks: SwingPick[];
+  allTickers?: any[];
 }
 
-export default function TopSwingPicks({ picks }: Props) {
+export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
   if (!picks || picks.length === 0) return null;
 
   return (
@@ -131,21 +132,28 @@ export default function TopSwingPicks({ picks }: Props) {
               </div>
 
               {/* Metrics */}
-              <div className="grid grid-cols-4 gap-2 text-center border-t border-white/5 pt-4">
-                {[
-                  { label: "1D", val: item.change_1d },
-                  { label: "1W", val: item.change_1w },
-                  { label: "1M", val: item.change_1m },
-                  { label: "1Y", val: item.change_1y }
-                ].map((p, i) => (
-                  <div key={i}>
-                     <div className={`text-xs font-mono font-black ${p.val && p.val >= 0 ? "text-[#10b981]" : p.val ? "text-[#ef4444]" : "text-[#64748b]"}`}>
-                       {p.val !== undefined ? `${p.val > 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
-                     </div>
-                     <div className="text-[9px] text-[#64748b] font-bold mt-1">{p.label}</div>
+              {(() => {
+                const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
+                const metrics = [
+                  { label: "1D", val: liveData?.change_pct ?? item.change_1d },
+                  { label: "1W", val: liveData?.change_pct_1w ?? item.change_1w },
+                  { label: "1M", val: liveData?.change_pct_1m ?? item.change_1m },
+                  { label: "1Y", val: liveData?.change_pct_1y ?? item.change_1y }
+                ];
+                
+                return (
+                  <div className="grid grid-cols-4 gap-2 text-center border-t border-white/5 pt-4">
+                    {metrics.map((p, i) => (
+                      <div key={i}>
+                         <div className={`text-xs font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                           {p.val !== undefined ? `${p.val > 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
+                         </div>
+                         <div className="text-[9px] text-[#64748b] font-bold mt-1">{p.label}</div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                );
+              })()}
             </Link>
           );
         })}

@@ -72,7 +72,7 @@ export default async function HomePage() {
 
         {/* Top 3 Swing of the Day */}
         <section className="mb-10 animate-fade-in" style={{ animationDelay: "100ms" }}>
-          <TopSwingPicks picks={swingPicks?.picks || []} />
+          <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} />
         </section>
 
         {/* Stats Bar */}

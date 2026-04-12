@@ -26,7 +26,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
   const sectors = useMemo(() => {
     const s = new Set<string>();
     initialHistory.forEach(t => {
-      if (t.sector) s.add(t.sector);
+      if (t.sector && t.sector.trim().length > 0 && t.sector.toLowerCase() !== "unknown") s.add(t.sector);
     });
     return Array.from(s).sort();
   }, [initialHistory]);
@@ -45,6 +45,8 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
   // Filter history
   const filteredHistory = useMemo(() => {
     return initialHistory.filter(t => {
+      // Exclude unknown sectors completely
+      if (!t.sector || t.sector.trim() === "" || t.sector.toLowerCase() === "unknown") return false;
       const matchSector = selectedSector === "All" || t.sector === selectedSector;
       const matchMonth = selectedMonth === "All" || (t.date && t.date.startsWith(selectedMonth));
       return matchSector && matchMonth;
@@ -157,9 +159,13 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
               else if (s.avgReturn < 0) bgColor = "bg-[#ef4444]/15 border-[#ef4444]/30";
               
               return (
-                <div key={s.name} className={`rounded-xl border p-4 ${bgColor} flex flex-col gap-2 transition-all hover:scale-105 shadow-xl`}>
-                  <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest truncate" title={s.name}>{s.name}</p>
-                  <div className="flex items-end justify-between">
+                <button 
+                  key={s.name} 
+                  onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
+                  className={`rounded-xl border p-4 ${bgColor} flex flex-col gap-2 transition-all hover:scale-105 shadow-xl text-left ${s.name === selectedSector ? "ring-2 ring-white" : ""}`}
+                >
+                  <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest truncate w-full" title={s.name}>{s.name}</p>
+                  <div className="flex items-end justify-between w-full">
                      <div>
                         <p className={`text-xl font-black font-mono tracking-tighter ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                            {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
@@ -171,7 +177,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                         <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Picks</p>
                      </div>
                   </div>
-                </div>
+                </button>
               )
             })}
           </div>
