@@ -5,7 +5,7 @@ interface Stats {
   avg_return_pct: number;
   total_picks: number;
   period_days: number;
-  above_10pct_rate: number;
+  above_5pct_rate: number;
 }
 
 export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
@@ -36,8 +36,8 @@ export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
           </div>
           <div className="w-px bg-white/10 hidden md:block"></div>
           <div className="text-center">
-             <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{stats.above_10pct_rate}%</div>
-             <div className="text-[10px] text-[#64748b] font-bold uppercase tracking-wider mt-1">+10% Gains</div>
+             <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{stats.above_5pct_rate}%</div>
+             <div className="text-[10px] text-[#64748b] font-bold uppercase tracking-wider mt-1">+5% Gains</div>
           </div>
           <div className="w-px bg-white/10 hidden md:block"></div>
           <div className="text-center">

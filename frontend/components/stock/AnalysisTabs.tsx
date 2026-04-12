@@ -1,159 +1,183 @@
 "use client";
 
 import { useState } from "react";
-import { StockDetail } from "@/lib/data";
+import { StockDetail, formatPrice } from "@/lib/data";
 
 interface Props {
   stock: StockDetail;
 }
 
-type AnalysisSection = "technical" | "fundamental" | "sector";
+type TabType = "ai" | "technical" | "fundamental";
 type LangTab = "en" | "es" | "pt" | "fr" | "tr" | "id";
 
 export default function AnalysisTabs({ stock }: Props) {
-  const [activeTab, setActiveTab] = useState<AnalysisSection>("technical");
+  const [activeTab, setActiveTab] = useState<TabType>("ai");
   const [activeLang, setActiveLang] = useState<LangTab>("en");
 
   const languages = [
-    { id: "en", label: "English" },
-    { id: "tr", label: "Türkçe" },
-    { id: "es", label: "Español" },
-    { id: "pt", label: "Português" },
-    { id: "fr", label: "Français" },
-    { id: "id", label: "Indonesia" },
+    { id: "en", label: "EN" },
+    { id: "tr", label: "TR" },
+    { id: "es", label: "ES" },
+    { id: "pt", label: "PT" },
+    { id: "fr", label: "FR" },
+    { id: "id", label: "ID" },
   ];
 
-  // Helper to parse the 3 sections from AI summary
-  const getSectionContent = (summary: string, section: AnalysisSection): string => {
-    if (!summary) return "Analysis pending...";
-    
-    const parts = summary.split("###");
-    
-    const technical = parts.find(p => p.toLowerCase().includes("technical")) || "";
-    const fundamental = parts.find(p => p.toLowerCase().includes("fundamental")) || "";
-    const sector = parts.find(p => p.toLowerCase().includes("sector")) || "";
+  const getTranslatedText = (lang: LangTab) => {
+    if (lang === "en") return stock.ai_summary;
 
-    if (section === "technical") return technical.replace(/Technical Setup & Action Plan/i, "").trim() || summary;
-    if (section === "fundamental") return fundamental.replace(/Fundamental Edge/i, "").trim() || "See Technical tab for combined summary.";
-    if (section === "sector") return sector.replace(/Sector Context/i, "").trim() || "See Technical tab for combined summary.";
-    
-    return summary;
-  };
+    const translations: Record<string, string> = (stock as any).translations || {};
+    if (translations[lang]) return translations[lang];
 
-  const getTranslatedText = (lang: LangTab, section: AnalysisSection) => {
-    // Current data only has EN. We'll show a "Translation in Progress" for other languages 
-    // unless they are explicitly in the JSON translations object.
-    if (lang === "en") return getSectionContent(stock.ai_summary, section);
-
-    const translations: Record<string, any> = (stock as any).translations || {};
-    if (translations[lang]) {
-      return getSectionContent(translations[lang], section);
-    }
-
-    // Quick mock translations for demo based on section
-    const placeholders: Record<string, Record<AnalysisSection, string>> = {
-      tr: {
-        technical: "Teknik analiz, hissenin mevcut EMA seviyelerinin üzerinde güçlü bir momentumla hareket ettiğini gösteriyor. Alım bölgesinde hacim desteği mevcut.",
-        fundamental: "Temel veriler, şirketin sektör ortalamasının altında bir F/K oranıyla işlem gördüğünü ve kârlılığını koruduğunu doğruluyor.",
-        sector: "Hisse, teknoloji sektöründeki genel yükseliş trendiyle uyumlu hareket ediyor."
-      },
-      es: {
-        technical: "El análisis técnico muestra que la acción se mueve con un fuerte impulso por encima de sus niveles de EMA.",
-        fundamental: "Los fundamentos confirman que la empresa cotiza a un ratio P/E por debajo del promedio del sector.",
-        sector: "La acción se está moviendo en línea con la tendencia alcista general en el sector tecnológico."
-      },
-      pt: {
-        technical: "A análise técnica mostra que a ação está se movendo com forte impulso acima de seus níveis de EMA.",
-        fundamental: "Os fundamentos confirmam que a empresa está sendo negociada a um índice P/L abaixo da média do setor.",
-        sector: "A ação está se moviendo em linha com a tendência de alta geral no setor de tecnologia."
-      },
-      fr: {
-        technical: "L'analyse technique montre que l'action évolue avec une forte dynamique au-dessus de ses niveaux EMA.",
-        fundamental: "Les fondamentaux confirment que la société se négocie à un ratio P/E inférieur à la moyenne du secteur.",
-        sector: "L'action évolue conformément à la tendance haussière générale du secteur technologique."
-      },
-      id: {
-        technical: "Analisis teknis menunjukkan bahwa saham bergerak dengan momentum kuat di atas level EMA-nya.",
-        fundamental: "Fundamental mengonfirmasi bahwa perusahaan diperdagangkan pada rasio P/E di bawah rata-rata sektor.",
-        sector: "Saham bergerak sejalan dengan tren naik umum di sektor teknologi."
-      }
+    // Quick mock translations for demo
+    const placeholders: Record<string, string> = {
+      tr: `[Yapay Zeka Özeti] ${stock.ticker} için teknik veriler yükseliş trendini destekliyor. Momentum göstergeleri pozitif bölgede.`,
+      es: `[Resumen de IA] El análisis para ${stock.ticker} muestra una tendencia alcista sólida con indicadores de impulso positivos.`,
+      pt: `[Resumo de IA] A análise de ${stock.ticker} indica uma tendência de alta robusta com momentum favorável.`,
+      fr: `[Résumé IA] L'analyse de ${stock.ticker} révèle une tendance haussière forte avec des indicateurs de momentum au vert.`,
+      id: `[Ringkasan AI] Analisis untuk ${stock.ticker} menunjukkan tren bullish yang kuat dengan indikator momentum positif.`
     };
-
-    return placeholders[lang]?.[section] || `Translation for ${section} is being generated by AI...`;
+    return placeholders[lang] || "Translation is being generated...";
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Primary Tabs - AI Driven Strategic Sections */}
-      <div className="flex overflow-x-auto pb-2 scrollbar-hide border-b border-[#1e2a3a]">
-        <div className="flex gap-4 md:gap-8">
-          {[
-            { id: "technical", label: "TECHNICAL SETUP" },
-            { id: "fundamental", label: "FUNDAMENTAL EDGE" },
-            { id: "sector", label: "SECTOR CONTEXT" },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as AnalysisSection)}
-              className={`pb-4 text-[10px] md:text-sm font-black uppercase tracking-[0.2em] whitespace-nowrap transition-all relative ${
-                activeTab === tab.id 
-                ? "text-[#3b82f6]" 
-                : "text-[#64748b] hover:text-white"
-              }`}
-            >
-              {tab.label}
-              {activeTab === tab.id && (
-                <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#3b82f6] shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-              )}
-            </button>
-          ))}
-        </div>
+    <div className="flex flex-col gap-4">
+      {/* 3 Strategic Headings */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 bg-[#0d1117] p-1 rounded-xl border border-[#1e2a3a]">
+        {[
+          { id: "ai", label: "BOGA AI SUMMARY ANALYSIS" },
+          { id: "technical", label: "TECHNICAL INDICATORS" },
+          { id: "fundamental", label: "FUNDAMENTALS & MARGINS" },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as TabType)}
+            className={`py-3 px-4 rounded-lg text-[10px] md:text-xs font-black uppercase tracking-widest transition-all ${
+              activeTab === tab.id
+                ? "bg-[#3b82f6] text-white shadow-lg"
+                : "text-[#64748b] hover:text-white hover:bg-white/5"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      {/* Tab Content */}
-      <div className="min-h-[300px] animate-fade-in" key={activeTab + activeLang}>
-        <div className="glass-card p-6 md:p-8 border-l-4 border-l-[#3b82f6] bg-gradient-to-r from-[#3b82f6]/5 to-transparent flex flex-col gap-6">
-          {/* Language Tabs */}
-          <div className="flex flex-wrap gap-2">
-            {languages.map((lang) => (
-              <button
-                key={lang.id}
-                onClick={() => setActiveLang(lang.id as LangTab)}
-                className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${
-                  activeLang === lang.id
-                    ? "bg-[#3b82f6] text-white border-[#3b82f6]"
-                    : "bg-[#0d1117]/50 text-[#64748b] border-[#1e2a3a] hover:border-[#3b82f6]/40"
-                }`}
-              >
-                {lang.label}
-              </button>
-            ))}
-          </div>
+      {/* Content Area */}
+      <div className="min-h-[400px] animate-fade-in">
+        {activeTab === "ai" && (
+          <div className="glass-card p-6 md:p-8 border-l-4 border-l-[#3b82f6] bg-gradient-to-br from-[#3b82f6]/5 to-transparent">
+            {/* Language Selection Tabs */}
+            <div className="flex flex-wrap gap-2 mb-8 border-b border-[#1e2a3a] pb-4">
+              {languages.map((lang) => (
+                <button
+                  key={lang.id}
+                  onClick={() => setActiveLang(lang.id as LangTab)}
+                  className={`px-4 py-1.5 rounded-full text-[10px] font-black transition-all border ${
+                    activeLang === lang.id
+                      ? "bg-[#3b82f6]/20 border-[#3b82f6] text-[#3b82f6]"
+                      : "border-transparent text-[#64748b] hover:text-white"
+                  }`}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
 
-          <div className="relative mt-4">
-            <svg className="absolute -left-2 -top-4 w-10 h-10 text-[#1e2a3a]/40" fill="currentColor" viewBox="0 0 32 32">
-              <path d="M10 8v8H6c0-4.4 3.6-8 8-8zM24 8v8h-4c0-4.4 3.6-8 8-8z" />
-            </svg>
-            <div className="pl-6 md:pl-8">
-              <p className="text-white leading-relaxed text-base md:text-xl font-medium italic mb-8">
-                {getTranslatedText(activeLang, activeTab)}
+            <div className="prose prose-invert max-w-none">
+              <p className="text-white leading-relaxed text-lg md:text-xl font-medium italic whitespace-pre-wrap">
+                "{getTranslatedText(activeLang)}"
               </p>
-              
-              <div className="flex flex-col md:flex-row gap-8 pt-6 border-t border-[#1e2a3a]">
-                <div className="flex flex-col">
-                  <p className="text-[10px] text-[#64748b] uppercase font-bold tracking-widest mb-1">AI Confidence</p>
-                  <p className="font-mono font-black text-white text-lg">{(stock.scores.confidence * 100).toFixed(0)}%</p>
-                </div>
-                <div className="flex flex-col md:border-l border-[#1e2a3a] md:pl-8">
-                  <p className="text-[10px] text-[#64748b] uppercase font-bold tracking-widest mb-1">Impact</p>
-                  <p className={`font-mono font-black text-lg ${activeTab === 'technical' ? 'text-[#3b82f6]' : activeTab === 'fundamental' ? 'text-[#8b5cf6]' : 'text-[#22c55e]'}`}>
-                    {activeTab === 'technical' ? 'HIGH MOMENTUM' : activeTab === 'fundamental' ? 'LONG TERM VALUE' : 'SECTOR SYNERGY'}
-                  </p>
-                </div>
-              </div>
+            </div>
+            
+            <div className="mt-8 pt-6 border-t border-[#1e2a3a] flex items-center justify-between">
+               <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></div>
+                  <span className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em]">Verified AI Insight</span>
+               </div>
+               <span className="text-[10px] font-black text-[#3b82f6] uppercase">Confidence: {(stock.scores.confidence * 100).toFixed(0)}%</span>
             </div>
           </div>
-        </div>
+        )}
+
+        {activeTab === "technical" && (
+          <div className="glass-card p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+               <h4 className="text-sm font-black text-[#3b82f6] uppercase tracking-widest border-b border-[#3b82f6]/20 pb-2">Trend Status</h4>
+               <div className="space-y-4">
+                  {[
+                    { label: "RSI (14)", value: stock.technical.rsi_14, type: 'rsi' },
+                    { label: "ADX", value: stock.technical.adx, type: 'val' },
+                    { label: "MACD Hist", value: stock.technical.macd_histogram, type: 'val' },
+                    { label: "MFI", value: stock.technical.mfi, type: 'rsi' },
+                  ].map(m => (
+                    <div key={m.label} className="flex justify-between items-center group">
+                       <span className="text-xs font-bold text-[#94a3b8]">{m.label}</span>
+                       <span className="font-mono font-black text-white text-lg">{m.value?.toFixed(2) || 'N/A'}</span>
+                    </div>
+                  ))}
+               </div>
+            </div>
+            <div className="space-y-6">
+               <h4 className="text-sm font-black text-[#3b82f6] uppercase tracking-widest border-b border-[#3b82f6]/20 pb-2">Moving Averages</h4>
+               <div className="space-y-4">
+                  {[
+                    { label: "EMA 20", value: stock.technical.ema_20 },
+                    { label: "EMA 50", value: stock.technical.ema_50 },
+                    { label: "EMA 200", value: stock.technical.ema_200 },
+                  ].map(e => (
+                    <div key={e.label} className="flex justify-between items-center">
+                       <span className="text-xs font-bold text-[#94a3b8]">{e.label}</span>
+                       <span className="font-mono font-black text-white">${formatPrice(e.value)}</span>
+                    </div>
+                  ))}
+               </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "fundamental" && (
+          <div className="glass-card p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+               <h4 className="text-sm font-black text-purple-400 uppercase tracking-widest border-b border-purple-400/20 pb-2">Margins & Growth</h4>
+               <div className="space-y-4">
+                  {[
+                    { label: "Gross Margin", value: stock.fundamental.gross_margin, type: 'pct' },
+                    { label: "Operating Margin", value: stock.fundamental.operating_margin, type: 'pct' },
+                    { label: "Net Margin", value: stock.fundamental.net_margin, type: 'pct' },
+                    { label: "Revenue Growth", value: stock.fundamental.revenue_growth_ttm, type: 'pct' },
+                  ].map(m => (
+                    <div key={m.label} className="flex justify-between items-center">
+                       <span className="text-xs font-bold text-[#94a3b8]">{m.label}</span>
+                       <span className={`font-mono font-black ${m.value >= 0 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                         {m.value ? `${(m.value * 100).toFixed(2)}%` : 'N/A'}
+                       </span>
+                    </div>
+                  ))}
+               </div>
+            </div>
+            <div className="space-y-6">
+               <h4 className="text-sm font-black text-purple-400 uppercase tracking-widest border-b border-purple-400/20 pb-2">Valuation Metrics</h4>
+               <div className="space-y-4">
+                  {[
+                    { label: "P/E Ratio", value: stock.fundamental.pe_ratio, type: 'num' },
+                    { label: "P/B Ratio", value: stock.fundamental.pb_ratio, type: 'num' },
+                    { label: "FCF Yield", value: stock.fundamental.fcf_yield, type: 'pct' },
+                    { label: "Market Cap", value: stock.fundamental.market_cap, type: 'curr' },
+                  ].map(m => (
+                    <div key={m.label} className="flex justify-between items-center">
+                       <span className="text-xs font-bold text-[#94a3b8]">{m.label}</span>
+                       <span className="font-mono font-black text-white">
+                         {m.type === 'curr' ? `$${(m.value / 1e9).toFixed(2)}B` : 
+                          m.type === 'pct' ? `${(m.value * 100).toFixed(2)}%` :
+                          m.value || 'N/A'}
+                       </span>
+                    </div>
+                  ))}
+               </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

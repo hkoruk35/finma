@@ -92,7 +92,7 @@ def sync_performance():
         'avg_return_pct': round(sum(x.get('return_pct', 0) for x in history) / total, 1) if total > 0 else 0,
         'total_picks': total,
         'period_days': 90,
-        'above_10pct_rate': round(sum(1 for x in history if x.get('return_pct', 0) >= 10) / total * 100, 1) if total > 0 else 0
+        'above_5pct_rate': round(sum(1 for x in history if x.get('return_pct', 0) >= 5) / total * 100, 1) if total > 0 else 0
     }
     data['generated_at'] = datetime.now().isoformat()
 

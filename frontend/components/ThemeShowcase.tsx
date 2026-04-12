@@ -33,29 +33,42 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
   const ThemeButton = ({ theme }: { theme: typeof activeThemes[0] }) => {
     const isSelected = selectedTickers && theme.currentTickers.every(t => selectedTickers.includes(t)) && theme.currentTickers.length === selectedTickers.length;
     
-    // Vary font size based on theme name length or index for visual variety
-    const fontSizes = ["text-[10px]", "text-[12px]", "text-[14px]", "text-[16px]", "text-[18px]"];
-    const fontSize = fontSizes[theme.name.length % fontSizes.length];
+    // Determine font size based on activeCount and name length for a "word cloud" effect
+    // We want a mix of small, medium, large, and extra large
+    const getFontSize = () => {
+      const base = theme.activeCount;
+      if (base > 8) return "text-xl md:text-2xl";
+      if (base > 5) return "text-lg md:text-xl";
+      if (base > 3) return "text-base md:text-lg";
+      return "text-xs md:text-sm";
+    };
+
+    const getOpacity = () => {
+      if (theme.activeCount > 8) return "opacity-100";
+      if (theme.activeCount > 5) return "opacity-90";
+      if (theme.activeCount > 3) return "opacity-80";
+      return "opacity-70";
+    };
 
     return (
       <button
         key={theme.name}
         onClick={() => onThemeSelect?.(theme.currentTickers)}
-        className={`px-4 py-2 rounded-full border font-black transition-all flex items-center gap-2 group whitespace-nowrap ${fontSize} ${
+        className={`px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border font-black transition-all flex items-center gap-2 group whitespace-nowrap shadow-xl ${getFontSize()} ${getOpacity()} ${
           isSelected 
-            ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-lg shadow-blue-500/20" 
-            : "bg-[#141924]/60 backdrop-blur-sm border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/50 hover:text-white"
+            ? "bg-[#3366ff] border-[#3366ff] text-white ring-2 ring-blue-500/50 scale-105" 
+            : "bg-[#141924]/40 backdrop-blur-md border-[#ffffff]/10 text-[#94a3b8] hover:border-[#3b82f6]/50 hover:text-white hover:scale-105 hover:bg-[#1a2030]"
         }`}
       >
-        <span className={`w-1.5 h-1.5 rounded-full ${
+        <span className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.3)] ${
           theme.sector === "Technology" ? "bg-blue-400" :
           theme.sector === "Healthcare" ? "bg-emerald-400" :
           theme.sector === "Financials" ? "bg-amber-400" :
           theme.sector === "Energy" ? "bg-orange-400" :
-          "bg-[#64748b]"
+          "bg-[#cbd5e1]"
         }`} />
-        {theme.name}
-        <span className="text-[9px] opacity-60 font-bold px-1.5 py-0.5 rounded-md bg-black/20 group-hover:bg-white/10 transition-colors">
+        <span className="tracking-tight">{theme.name}</span>
+        <span className="text-[10px] font-black opacity-40 px-1.5 py-0.5 rounded-md bg-white/5 group-hover:opacity-100 transition-opacity">
           {theme.activeCount}
         </span>
       </button>

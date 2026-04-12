@@ -1668,6 +1668,56 @@ async def daily_run():
     except Exception as e:
         log.warning(f"Failed to update swing performance log: {e}")
 
+    # 18. Generate Synchronized Swing Picks for UI
+    try:
+        log.info("Synchronizing Top 3 Swing Picks...")
+        # Get top 3 from all_stocks_data based on master_score
+        top3_picks = sorted(all_stocks_data, key=lambda x: x["scores"]["master_score"], reverse=True)[:3]
+        
+        picks_list = []
+        for idx, s in enumerate(top3_picks):
+            # Calculate zones using same logic as bot
+            # We don't have the full dataframe here easily without re-fetching, 
+            # so we use the pre-calculated ones in the stock object or calculate simple ones
+            detail = s.get("scores_detail", {})
+            
+            picks_list.append({
+                "rank": idx + 1,
+                "ticker": s["ticker"],
+                "company": s["company"],
+                "score": s["scores"]["master_score"],
+                "current_price": s["price"]["current"],
+                "buy_zone": {
+                    "low": detail.get("entry_range_low", s["price"]["current"] * 0.98),
+                    "high": detail.get("entry_range_high", s["price"]["current"] * 1.01)
+                },
+                "profit_zone": {
+                    "low": detail.get("target_range_low", s["price"]["current"] * 1.10),
+                    "high": detail.get("target_range_high", s["price"]["current"] * 1.15)
+                },
+                "stop_zone": {
+                    "low": detail.get("stop_range_low", s["price"]["current"] * 0.95),
+                    "high": detail.get("stop_range_high", s["price"]["current"] * 0.96)
+                },
+                "rvol": s["technical"].get("rvol", 1.0),
+                "adx": s["technical"].get("adx", 25.0),
+                "rsi": s["technical"].get("rsi_14", 50.0),
+                "pattern": s["scores"].get("signal_type", "NEUTRAL"),
+                "market_regime": regime,
+                "holding_period": "3-7 Days",
+                "reasoning": (s.get("ai_summary", "")[:120] + "...") if s.get("ai_summary") else "High momentum setup detected following strong technical confirmation and fundamental base.",
+                "change_1d": s["price"]["change_pct"],
+                "change_1w": s["price"]["change_pct_1w"]
+            })
+
+        swing_picks_path = os.path.join(BASE_DIR, "frontend", "public", "swing_picks.json")
+        with open(swing_picks_path, "w", encoding="utf-8") as f:
+            json.dump({"picks": picks_list}, f, indent=2)
+        log.info(f"Successfully synchronized picks to {swing_picks_path}")
+        
+    except Exception as e:
+        log.error(f"Failed to synchronize swing picks: {e}")
+
     # Push to GitHub for Vercel deployment
     push_to_github()
 

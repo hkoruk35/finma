@@ -50,24 +50,8 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {picks.map((item, idx) => {
-          // Sync with live data to ensure price/zones are accurate
           const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
-          const realPrice = liveData?.price;
           
-          // Calculate price ratio to adjust zones if the pick data is stale/miscalibrated
-          // Specifically handles cases like CAR showing $300 zones for a $77 stock
-          const priceRatio = (realPrice && item.current_price) 
-            ? realPrice / item.current_price 
-            : 1.0;
-
-          // Adjusted Zones
-          const displayBuyLow = item.buy_zone.low * priceRatio;
-          const displayBuyHigh = item.buy_zone.high * priceRatio;
-          const displayProfitLow = item.profit_zone.low * priceRatio;
-          const displayProfitHigh = item.profit_zone.high * priceRatio;
-          const displayStopLow = item.stop_zone.low * priceRatio;
-          const displayStopHigh = item.stop_zone.high * priceRatio;
-
           return (
             <Link
               key={item.ticker}
@@ -113,7 +97,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        BUY ZONE
                      </div>
                      <div className="text-sm font-mono font-bold text-white">
-                       {formatPrice(displayBuyLow)} - {formatPrice(displayBuyHigh)}
+                       {formatPrice(item.buy_zone.low)} - {formatPrice(item.buy_zone.high)}
                      </div>
                    </div>
                    
@@ -123,7 +107,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        PROFIT ZONE
                      </div>
                      <div className="text-sm font-mono font-bold text-[#10b981]">
-                       {formatPrice(displayProfitLow)} - {formatPrice(displayProfitHigh)}
+                       {formatPrice(item.profit_zone.low)} - {formatPrice(item.profit_zone.high)}
                      </div>
                    </div>
 
@@ -133,7 +117,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        STOP LOSS
                      </div>
                      <div className="text-sm font-mono font-bold text-[#ef4444]">
-                       {formatPrice(displayStopLow)} - {formatPrice(displayStopHigh)}
+                       {formatPrice(item.stop_zone.low)} - {formatPrice(item.stop_zone.high)}
                      </div>
                    </div>
 
