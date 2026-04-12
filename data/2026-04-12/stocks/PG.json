@@ -1,0 +1,158 @@
+{
+  "ticker": "PG",
+  "company": "The Procter & Gamble Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.128644-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 145.16,
+    "open": 146.89,
+    "high": 146.89,
+    "low": 144.76,
+    "prev_close": 146.66,
+    "change_pct": -1.02,
+    "change_pct_1w": 1.43,
+    "change_pct_1m": -5.32,
+    "change_pct_1y": -5.84,
+    "volume": 9789800,
+    "avg_volume_30d": 10764600
+  },
+  "scores": {
+    "master_score": 31.0,
+    "technical_score": 38.0,
+    "fundamental_score": 24.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.0,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 31.0,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 44.4,
+    "macd": -2.3576,
+    "macd_signal": -2.8689,
+    "macd_histogram": 0.5112,
+    "macd_crossover": "neutral",
+    "ema_20": 146.19,
+    "ema_50": 149.05,
+    "ema_200": 151.74,
+    "ema_stack_bullish": false,
+    "bb_upper": 151.02,
+    "bb_middle": 145.17,
+    "bb_lower": 139.32,
+    "bb_width": 0.0806,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 26.0,
+    "atr": 2.71,
+    "atr_pct": 0.0186,
+    "obv_trend": "DOWN",
+    "mfi": 38.6,
+    "cmf": -0.353,
+    "stoch_k": 71.3,
+    "stoch_d": 76.5,
+    "rvol": 0.77,
+    "volume_5d_avg": 8292980,
+    "green_days_10d": 4,
+    "52w_high": 167.2,
+    "52w_low": 137.07,
+    "52w_high_proximity_pct": 0.1318,
+    "52w_low_proximity_pct": 0.059
+  },
+  "fundamental": {
+    "pe_ratio": 21.505186,
+    "sector_pe_median": 24.292671,
+    "pb_ratio": 6.4535637,
+    "de_ratio": 68.719,
+    "fcf_yield": 0.0391,
+    "eps_growth_5y": -0.054,
+    "revenue_growth_ttm": 0.015,
+    "gross_margin": 0.51189,
+    "operating_margin": 0.26297,
+    "net_margin": 0.19299999,
+    "market_cap": 339200245760,
+    "enterprise_value": 364208947200,
+    "dividend_yield": 2.91,
+    "payout_ratio": 0.6188,
+    "insider_ownership_pct": 0.00075999997,
+    "institutional_ownership_pct": 0.70386004,
+    "short_ratio": 2.35,
+    "beta": 0.403
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 144.43,
+    "entry_range_high": 145.89,
+    "target_range_low": 150.22,
+    "target_range_high": 160.95,
+    "stop_range_low": 132.75,
+    "stop_range_high": 139.74,
+    "target_price": 153.29,
+    "stop_loss": 139.74,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.128622-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 181.45,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 291.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 137.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 193,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -0.35,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-1.02%",
+    "key_metrics": {
+      "RSI": 44.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

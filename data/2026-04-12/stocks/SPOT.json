@@ -1,0 +1,160 @@
+{
+  "ticker": "SPOT",
+  "company": "Spotify Technology S.A.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.976610-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 475.99,
+    "open": 490.22,
+    "high": 497.9,
+    "low": 468.4,
+    "prev_close": 486.62,
+    "change_pct": -2.18,
+    "change_pct_1w": -2.65,
+    "change_pct_1m": -7.46,
+    "change_pct_1y": -8.17,
+    "volume": 1577100,
+    "avg_volume_30d": 1905806
+  },
+  "scores": {
+    "master_score": 27.86,
+    "technical_score": 18.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.6,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 0.0,
+    "signal_score": 27.86,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 44.3,
+    "macd": -6.0379,
+    "macd_signal": -5.8255,
+    "macd_histogram": -0.2123,
+    "macd_crossover": "bearish",
+    "ema_20": 487.58,
+    "ema_50": 500.52,
+    "ema_200": 569.9,
+    "ema_stack_bullish": false,
+    "bb_upper": 522.66,
+    "bb_middle": 488.63,
+    "bb_lower": 454.59,
+    "bb_width": 0.1393,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 12.9,
+    "atr": 20.21,
+    "atr_pct": 0.0424,
+    "obv_trend": "DOWN",
+    "mfi": 42.7,
+    "cmf": -0.086,
+    "stoch_k": 38.6,
+    "stoch_d": 49.4,
+    "rvol": 0.73,
+    "volume_5d_avg": 1400040,
+    "green_days_10d": 4,
+    "52w_high": 775.9,
+    "52w_low": 412.75,
+    "52w_high_proximity_pct": 0.3865,
+    "52w_low_proximity_pct": 0.1532
+  },
+  "fundamental": {
+    "pe_ratio": 38.91987,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 10.089552,
+    "de_ratio": 23.484,
+    "fcf_yield": 0.0069,
+    "eps_growth_5y": 2.139,
+    "revenue_growth_ttm": 0.068,
+    "gross_margin": 0.3198,
+    "operating_margin": 0.15471,
+    "net_margin": 0.12871,
+    "market_cap": 97997930496,
+    "enterprise_value": 92214222848,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.23411,
+    "institutional_ownership_pct": 0.6918,
+    "short_ratio": 3.35,
+    "beta": 1.702
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 473.61,
+    "entry_range_high": 478.37,
+    "target_range_low": 525.89,
+    "target_range_high": 563.45,
+    "stop_range_low": 413.79,
+    "stop_range_high": 435.57,
+    "target_price": 536.62,
+    "stop_loss": 435.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.976574-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 594.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 412.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5436,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "Spotify (SPOT) exhibits a STRONG_SELL signal, albeit with low 26% confidence. Trading at $483.17, the stock is 37.7% below its 52-week high. Bearish EMA stack and high BB Squeeze suggest potential for significant price movement downwards. ADX at 13.6 indicates a weak trend. The P/E ratio of 39.83 is considerably higher than the sector median of 17.47. Revenue growth is 6.8% and gross margin is 32.0%. Near-term catalyst: upcoming earnings report may disappoint due to high valuation and increased competition in the music streaming market.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-2.18%",
+    "key_metrics": {
+      "RSI": 44.3,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

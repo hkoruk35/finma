@@ -1,0 +1,158 @@
+{
+  "ticker": "BIIB",
+  "company": "Biogen Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.201812-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 172.97,
+    "open": 177.97,
+    "high": 177.97,
+    "low": 172.32,
+    "prev_close": 177.11,
+    "change_pct": -2.34,
+    "change_pct_1w": -2.46,
+    "change_pct_1m": -9.19,
+    "change_pct_1y": 51.66,
+    "volume": 1501900,
+    "avg_volume_30d": 1125400
+  },
+  "scores": {
+    "master_score": 33.49,
+    "technical_score": 24.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 33.49,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.6,
+    "macd": -2.8221,
+    "macd_signal": -1.7926,
+    "macd_histogram": -1.0296,
+    "macd_crossover": "neutral",
+    "ema_20": 181.27,
+    "ema_50": 182.5,
+    "ema_200": 166.26,
+    "ema_stack_bullish": false,
+    "bb_upper": 191.54,
+    "bb_middle": 181.94,
+    "bb_lower": 172.35,
+    "bb_width": 0.1054,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.9,
+    "atr": 5.93,
+    "atr_pct": 0.0343,
+    "obv_trend": "DOWN",
+    "mfi": 42.7,
+    "cmf": 0.017,
+    "stoch_k": 18.3,
+    "stoch_d": 33.9,
+    "rvol": 1.37,
+    "volume_5d_avg": 1544540,
+    "green_days_10d": 4,
+    "52w_high": 201.18,
+    "52w_low": 113.38,
+    "52w_high_proximity_pct": 0.1402,
+    "52w_low_proximity_pct": 0.5256
+  },
+  "fundamental": {
+    "pe_ratio": 19.678043,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 1.3908254,
+    "de_ratio": 36.466,
+    "fcf_yield": 0.0781,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.071,
+    "gross_margin": 0.78946,
+    "operating_margin": 0.19641,
+    "net_margin": 0.13071999,
+    "market_cap": 25384822784,
+    "enterprise_value": 28226721792,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0016500001,
+    "institutional_ownership_pct": 0.98228997,
+    "short_ratio": 4.83,
+    "beta": 0.162
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 172.11,
+    "entry_range_high": 173.83,
+    "target_range_low": 186.94,
+    "target_range_high": 200.3,
+    "stop_range_low": 153.05,
+    "stop_range_high": 161.11,
+    "target_price": 190.76,
+    "stop_loss": 161.11,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.201771-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 216.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 113.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 181,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "-2.34%",
+    "key_metrics": {
+      "RSI": 39.6,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

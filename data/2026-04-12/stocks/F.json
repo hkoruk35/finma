@@ -1,0 +1,160 @@
+{
+  "ticker": "F",
+  "company": "Ford Motor Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.024907-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 12.13,
+    "open": 12.34,
+    "high": 12.42,
+    "low": 12.07,
+    "prev_close": 12.24,
+    "change_pct": -0.9,
+    "change_pct_1w": 4.57,
+    "change_pct_1m": 0.17,
+    "change_pct_1y": 46.76,
+    "volume": 28338300,
+    "avg_volume_30d": 54464893
+  },
+  "scores": {
+    "master_score": 44.31,
+    "technical_score": 48.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.6,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 44.31,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.4,
+    "macd": -0.19,
+    "macd_signal": -0.3311,
+    "macd_histogram": 0.1411,
+    "macd_crossover": "neutral",
+    "ema_20": 11.93,
+    "ema_50": 12.41,
+    "ema_200": 12.14,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.21,
+    "bb_middle": 11.71,
+    "bb_lower": 11.21,
+    "bb_width": 0.086,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 26.5,
+    "atr": 0.35,
+    "atr_pct": 0.0288,
+    "obv_trend": "UP",
+    "mfi": 52.1,
+    "cmf": -0.01,
+    "stoch_k": 77.9,
+    "stoch_d": 90.0,
+    "rvol": 0.68,
+    "volume_5d_avg": 37084140,
+    "green_days_10d": 5,
+    "52w_high": 14.43,
+    "52w_low": 8.69,
+    "52w_high_proximity_pct": 0.1594,
+    "52w_low_proximity_pct": 0.3953
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 1.3458339,
+    "de_ratio": 460.639,
+    "fcf_yield": 0.0361,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.048,
+    "gross_margin": 0.0581,
+    "operating_margin": -0.0669,
+    "net_margin": -0.04369,
+    "market_cap": 48654426112,
+    "enterprise_value": 185725337600,
+    "dividend_yield": 4.95,
+    "payout_ratio": 0.641,
+    "insider_ownership_pct": 0.00281,
+    "institutional_ownership_pct": 0.68,
+    "short_ratio": 0.0,
+    "beta": 1.71
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 12.07,
+    "entry_range_high": 12.19,
+    "target_range_low": 12.92,
+    "target_range_high": 13.84,
+    "stop_range_low": 10.86,
+    "stop_range_high": 11.43,
+    "target_price": 13.18,
+    "stop_loss": 11.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.024881-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 495.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 8.69,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 282192,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "Ford (F) exhibits a NEGATIVE_BIAS (FinMA score). At $12.16, the stock is 15.7% off its 52-week high. The bearish EMA alignment and weak revenue growth (-4.8% TTM) contribute to this outlook. The extremely high dividend yield of 490.00% is unsustainable and signals underlying financial strain. Key levels to watch are resistance near the 52-week high and support around $11.00. ADX at 26.5 indicates a trending market. A potential catalyst to watch is any news regarding cost-cutting measures and restructuring efforts to improve profitability.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "-0.90%",
+    "key_metrics": {
+      "RSI": 51.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

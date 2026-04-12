@@ -1,0 +1,158 @@
+{
+  "ticker": "MUR",
+  "company": "Murphy Oil Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.438821-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 38.79,
+    "open": 37.52,
+    "high": 38.95,
+    "low": 37.05,
+    "prev_close": 37.81,
+    "change_pct": 2.59,
+    "change_pct_1w": -5.57,
+    "change_pct_1m": 14.09,
+    "change_pct_1y": 107.83,
+    "volume": 1842400,
+    "avg_volume_30d": 3043566
+  },
+  "scores": {
+    "master_score": 42.53,
+    "technical_score": 32.0,
+    "fundamental_score": 45.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.8,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.53,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.8,
+    "macd": 1.3231,
+    "macd_signal": 1.7436,
+    "macd_histogram": -0.4205,
+    "macd_crossover": "neutral",
+    "ema_20": 38.97,
+    "ema_50": 36.38,
+    "ema_200": 30.84,
+    "ema_stack_bullish": false,
+    "bb_upper": 43.37,
+    "bb_middle": 39.42,
+    "bb_lower": 35.46,
+    "bb_width": 0.2008,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.4,
+    "atr": 1.99,
+    "atr_pct": 0.0513,
+    "obv_trend": "DOWN",
+    "mfi": 56.0,
+    "cmf": 0.202,
+    "stoch_k": 27.7,
+    "stoch_d": 23.3,
+    "rvol": 0.83,
+    "volume_5d_avg": 2530860,
+    "green_days_10d": 5,
+    "52w_high": 42.74,
+    "52w_low": 19.0,
+    "52w_high_proximity_pct": 0.0924,
+    "52w_low_proximity_pct": 1.0419
+  },
+  "fundamental": {
+    "pe_ratio": 53.875,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 1.082099,
+    "de_ratio": 42.043,
+    "fcf_yield": 0.0524,
+    "eps_growth_5y": -0.762,
+    "revenue_growth_ttm": -0.084,
+    "gross_margin": 0.75711,
+    "operating_margin": -0.103999995,
+    "net_margin": 0.03875,
+    "market_cap": 5560497152,
+    "enterprise_value": 7483197440,
+    "dividend_yield": 3.48,
+    "payout_ratio": 1.8055999,
+    "insider_ownership_pct": 0.05672,
+    "institutional_ownership_pct": 0.92496,
+    "short_ratio": 3.44,
+    "beta": 0.585
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 36.2,
+    "entry_range_high": 38.98,
+    "target_range_low": 43.86,
+    "target_range_high": 47.0,
+    "stop_range_low": 33.07,
+    "stop_range_high": 34.81,
+    "target_price": 44.76,
+    "stop_loss": 34.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.438792-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 48.49,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 348.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 47320,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "+2.59%",
+    "key_metrics": {
+      "RSI": 51.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

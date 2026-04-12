@@ -1,0 +1,158 @@
+{
+  "ticker": "CF",
+  "company": "CF Industries Holdings, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.600162-04:00",
+  "sector": "Materials",
+  "industry": "Agricultural Inputs",
+  "price": {
+    "current": 121.32,
+    "open": 118.8,
+    "high": 121.71,
+    "low": 117.81,
+    "prev_close": 119.38,
+    "change_pct": 1.63,
+    "change_pct_1w": -6.66,
+    "change_pct_1m": 0.99,
+    "change_pct_1y": 81.31,
+    "volume": 3706900,
+    "avg_volume_30d": 6522893
+  },
+  "scores": {
+    "master_score": 49.66,
+    "technical_score": 38.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 51.1,
+    "breakout_score": 30.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 49.66,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 49.0,
+    "macd": 3.9263,
+    "macd_signal": 6.1366,
+    "macd_histogram": -2.2103,
+    "macd_crossover": "neutral",
+    "ema_20": 124.8,
+    "ema_50": 114.05,
+    "ema_200": 95.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 137.58,
+    "bb_middle": 127.68,
+    "bb_lower": 117.78,
+    "bb_width": 0.1551,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 29.9,
+    "atr": 7.9,
+    "atr_pct": 0.0651,
+    "obv_trend": "DOWN",
+    "mfi": 57.1,
+    "cmf": -0.041,
+    "stoch_k": 34.5,
+    "stoch_d": 37.5,
+    "rvol": 0.73,
+    "volume_5d_avg": 4763920,
+    "green_days_10d": 6,
+    "52w_high": 137.6,
+    "52w_low": 68.38,
+    "52w_high_proximity_pct": 0.1183,
+    "52w_low_proximity_pct": 0.7742
+  },
+  "fundamental": {
+    "pe_ratio": 13.525084,
+    "sector_pe_median": 23.880953,
+    "pb_ratio": 3.8505728,
+    "de_ratio": 46.765,
+    "fcf_yield": 0.0702,
+    "eps_growth_5y": 0.371,
+    "revenue_growth_ttm": 0.228,
+    "gross_margin": 0.38452998,
+    "operating_margin": 0.3531,
+    "net_margin": 0.20538999,
+    "market_cap": 18643101696,
+    "enterprise_value": 23234101248,
+    "dividend_yield": 1.65,
+    "payout_ratio": 0.22299999,
+    "insider_ownership_pct": 0.00433,
+    "institutional_ownership_pct": 1.06712,
+    "short_ratio": 1.0,
+    "beta": 0.516
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 113.48,
+    "entry_range_high": 121.93,
+    "target_range_low": 142.12,
+    "target_range_high": 152.27,
+    "stop_range_low": 100.24,
+    "stop_range_high": 105.52,
+    "target_price": 145.02,
+    "stop_loss": 105.52,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.600112-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 151.65,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 165.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 68.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 25,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 17654,
+      "date": "2026-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 3.46,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "+1.63%",
+    "key_metrics": {
+      "RSI": 49.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

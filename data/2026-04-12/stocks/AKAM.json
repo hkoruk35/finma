@@ -1,0 +1,158 @@
+{
+  "ticker": "AKAM",
+  "company": "Akamai Technologies, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.951854-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 91.35,
+    "open": 109.64,
+    "high": 109.79,
+    "low": 90.56,
+    "prev_close": 109.61,
+    "change_pct": -16.66,
+    "change_pct_1w": -22.58,
+    "change_pct_1m": -14.2,
+    "change_pct_1y": 33.92,
+    "volume": 14265800,
+    "avg_volume_30d": 4917826
+  },
+  "scores": {
+    "master_score": 31.02,
+    "technical_score": 28.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 31.02,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 31.9,
+    "macd": 0.8885,
+    "macd_signal": 2.9837,
+    "macd_histogram": -2.0953,
+    "macd_crossover": "neutral",
+    "ema_20": 109.86,
+    "ema_50": 105.22,
+    "ema_200": 91.6,
+    "ema_stack_bullish": false,
+    "bb_upper": 123.7,
+    "bb_middle": 111.62,
+    "bb_lower": 99.54,
+    "bb_width": 0.2165,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.9,
+    "atr": 6.16,
+    "atr_pct": 0.0674,
+    "obv_trend": "DOWN",
+    "mfi": 41.2,
+    "cmf": -0.028,
+    "stoch_k": 2.6,
+    "stoch_d": 29.2,
+    "rvol": 1.34,
+    "volume_5d_avg": 6583340,
+    "green_days_10d": 4,
+    "52w_high": 119.15,
+    "52w_low": 70.53,
+    "52w_high_proximity_pct": 0.2333,
+    "52w_low_proximity_pct": 0.2952
+  },
+  "fundamental": {
+    "pe_ratio": 29.755701,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 2.6559093,
+    "de_ratio": 114.024,
+    "fcf_yield": 0.043,
+    "eps_growth_5y": -0.374,
+    "revenue_growth_ttm": 0.074,
+    "gross_margin": 0.58949,
+    "operating_margin": 0.13822,
+    "net_margin": 0.10742,
+    "market_cap": 13448824832,
+    "enterprise_value": 17724383232,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02081,
+    "institutional_ownership_pct": 1.00506,
+    "short_ratio": 3.07,
+    "beta": 0.594
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 90.89,
+    "entry_range_high": 91.81,
+    "target_range_low": 107.63,
+    "target_range_high": 115.32,
+    "stop_range_low": 75.08,
+    "stop_range_high": 79.03,
+    "target_price": 109.83,
+    "stop_loss": 79.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.951820-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 114.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 70.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 16,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-16.66%",
+    "key_metrics": {
+      "RSI": 31.9,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

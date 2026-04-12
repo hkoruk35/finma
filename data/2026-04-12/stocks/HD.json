@@ -1,0 +1,160 @@
+{
+  "ticker": "HD",
+  "company": "The Home Depot, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.035294-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Home Improvement Retail",
+  "price": {
+    "current": 337.34,
+    "open": 341.04,
+    "high": 341.23,
+    "low": 335.81,
+    "prev_close": 339.58,
+    "change_pct": -0.66,
+    "change_pct_1w": 4.88,
+    "change_pct_1m": -3.21,
+    "change_pct_1y": 3.17,
+    "volume": 3208300,
+    "avg_volume_30d": 4161323
+  },
+  "scores": {
+    "master_score": 43.31,
+    "technical_score": 53.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.6,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 43.31,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 49.3,
+    "macd": -6.071,
+    "macd_signal": -8.7907,
+    "macd_histogram": 2.7197,
+    "macd_crossover": "neutral",
+    "ema_20": 334.77,
+    "ema_50": 346.96,
+    "ema_200": 362.76,
+    "ema_stack_bullish": false,
+    "bb_upper": 344.4,
+    "bb_middle": 330.47,
+    "bb_lower": 316.54,
+    "bb_width": 0.0843,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 32.9,
+    "atr": 9.55,
+    "atr_pct": 0.0283,
+    "obv_trend": "UP",
+    "mfi": 64.7,
+    "cmf": -0.203,
+    "stoch_k": 85.0,
+    "stoch_d": 90.0,
+    "rvol": 0.86,
+    "volume_5d_avg": 3586160,
+    "green_days_10d": 6,
+    "52w_high": 417.91,
+    "52w_low": 318.77,
+    "52w_high_proximity_pct": 0.1928,
+    "52w_low_proximity_pct": 0.0583
+  },
+  "fundamental": {
+    "pe_ratio": 23.689608,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 26.223568,
+    "de_ratio": 514.392,
+    "fcf_yield": 0.0257,
+    "eps_growth_5y": -0.142,
+    "revenue_growth_ttm": -0.038,
+    "gross_margin": 0.33316,
+    "operating_margin": 0.100760005,
+    "net_margin": 0.08596,
+    "market_cap": 335999959040,
+    "enterprise_value": 400514514944,
+    "dividend_yield": 2.76,
+    "payout_ratio": 0.6465,
+    "insider_ownership_pct": 0.00072999997,
+    "institutional_ownership_pct": 0.74435997,
+    "short_ratio": 2.79,
+    "beta": 1.085
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 335.65,
+    "entry_range_high": 339.03,
+    "target_range_low": 358.67,
+    "target_range_high": 384.29,
+    "stop_range_low": 302.33,
+    "stop_range_high": 318.24,
+    "target_price": 365.99,
+    "stop_loss": 318.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.035244-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 421.67,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 276.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 318.77,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4691,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "HD shows a sell signal with low confidence (42%). Price surged 5.46% today to $336.16, despite bearish EMA stack. RSI at 48.6 indicates neutral momentum. ADX at 35.4 suggests a trending market. While the stock is 19.6% from its 52-week high, revenue growth is negative (-3.8% TTM) and RVOL is below 1 at 0.89x. P/E ratio of 23.64 is below the sector median of 29.12, but the negative revenue growth weighs on the valuation. Upcoming housing market data could pressure the stock if figures disappoint.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-0.66%",
+    "key_metrics": {
+      "RSI": 49.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

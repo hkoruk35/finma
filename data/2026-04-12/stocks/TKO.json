@@ -1,0 +1,160 @@
+{
+  "ticker": "TKO",
+  "company": "TKO Group Holdings, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.011911-04:00",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 197.37,
+    "open": 197.35,
+    "high": 199.67,
+    "low": 196.62,
+    "prev_close": 197.07,
+    "change_pct": 0.15,
+    "change_pct_1w": -3.14,
+    "change_pct_1m": -1.91,
+    "change_pct_1y": 44.01,
+    "volume": 648500,
+    "avg_volume_30d": 1475420
+  },
+  "scores": {
+    "master_score": 40.76,
+    "technical_score": 42.0,
+    "fundamental_score": 22.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 40.6,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 40.76,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 47.9,
+    "macd": -1.7996,
+    "macd_signal": -2.3275,
+    "macd_histogram": 0.5279,
+    "macd_crossover": "neutral",
+    "ema_20": 198.23,
+    "ema_50": 200.85,
+    "ema_200": 191.33,
+    "ema_stack_bullish": false,
+    "bb_upper": 204.43,
+    "bb_middle": 196.38,
+    "bb_lower": 188.33,
+    "bb_width": 0.082,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 15.7,
+    "atr": 7.05,
+    "atr_pct": 0.0357,
+    "obv_trend": "UP",
+    "mfi": 67.9,
+    "cmf": -0.091,
+    "stoch_k": 54.8,
+    "stoch_d": 54.0,
+    "rvol": 0.91,
+    "volume_5d_avg": 1339700,
+    "green_days_10d": 6,
+    "52w_high": 224.06,
+    "52w_low": 141.12,
+    "52w_high_proximity_pct": 0.1191,
+    "52w_low_proximity_pct": 0.3986
+  },
+  "fundamental": {
+    "pe_ratio": 86.947136,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 4.1068273,
+    "de_ratio": 43.924,
+    "fcf_yield": 0.0488,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.119,
+    "gross_margin": 0.59808,
+    "operating_margin": 0.09766,
+    "net_margin": 0.04127,
+    "market_cap": 15576905728,
+    "enterprise_value": 24132849664,
+    "dividend_yield": 1.58,
+    "payout_ratio": 1.0177,
+    "insider_ownership_pct": 0.17046,
+    "institutional_ownership_pct": 0.99878,
+    "short_ratio": 6.03,
+    "beta": 0.406
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 196.38,
+    "entry_range_high": 198.36,
+    "target_range_low": 214.15,
+    "target_range_high": 229.45,
+    "stop_range_low": 174.11,
+    "stop_range_high": 183.27,
+    "target_price": 218.52,
+    "stop_loss": 183.27,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.011887-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 246.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 158.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 16,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9518,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "TKO currently exhibits NEGATIVE_BIAS with a FinMA score of 44%. While the stock is near its 52-week high, a high P/E ratio of 87.64 raises valuation concerns compared to the sector median. The EMA alignment is bearish, and the weak ADX of 15.7 suggests a lack of strong trend. Despite 11.9% TTM revenue growth and a robust 59.8% gross margin, the 4.1% net margin is a potential drag. Technically, support is around $185, resistance near $202. A catalyst for TKO could be confirmation of sustained profitability growth to justify the high valuation.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "+0.15%",
+    "key_metrics": {
+      "RSI": 47.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

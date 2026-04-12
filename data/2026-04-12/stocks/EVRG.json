@@ -1,0 +1,158 @@
+{
+  "ticker": "EVRG",
+  "company": "Evergy, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.872003-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 83.58,
+    "open": 84.25,
+    "high": 84.67,
+    "low": 83.4,
+    "prev_close": 84.41,
+    "change_pct": -0.98,
+    "change_pct_1w": 0.89,
+    "change_pct_1m": 3.16,
+    "change_pct_1y": 34.45,
+    "volume": 1364700,
+    "avg_volume_30d": 1942756
+  },
+  "scores": {
+    "master_score": 51.57,
+    "technical_score": 52.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 51.2,
+    "breakout_score": 0.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.57,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 61.0,
+    "macd": 0.7834,
+    "macd_signal": 0.5618,
+    "macd_histogram": 0.2216,
+    "macd_crossover": "neutral",
+    "ema_20": 82.15,
+    "ema_50": 80.53,
+    "ema_200": 75.18,
+    "ema_stack_bullish": true,
+    "bb_upper": 84.81,
+    "bb_middle": 81.8,
+    "bb_lower": 78.8,
+    "bb_width": 0.0735,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.6,
+    "atr": 1.39,
+    "atr_pct": 0.0166,
+    "obv_trend": "UP",
+    "mfi": 87.3,
+    "cmf": -0.172,
+    "stoch_k": 73.5,
+    "stoch_d": 86.8,
+    "rvol": 0.66,
+    "volume_5d_avg": 1289680,
+    "green_days_10d": 8,
+    "52w_high": 84.41,
+    "52w_low": 61.73,
+    "52w_high_proximity_pct": 0.0098,
+    "52w_low_proximity_pct": 0.354
+  },
+  "fundamental": {
+    "pe_ratio": 22.836065,
+    "sector_pe_median": 22.836065,
+    "pb_ratio": 1.8828566,
+    "de_ratio": 149.917,
+    "fcf_yield": -0.0448,
+    "eps_growth_5y": 0.047,
+    "revenue_growth_ttm": 0.066,
+    "gross_margin": 0.52266,
+    "operating_margin": 0.17736,
+    "net_margin": 0.14352,
+    "market_cap": 19247149056,
+    "enterprise_value": 34666835968,
+    "dividend_yield": 3.33,
+    "payout_ratio": 0.737,
+    "insider_ownership_pct": 0.00184,
+    "institutional_ownership_pct": 0.94049,
+    "short_ratio": 5.83,
+    "beta": 0.599
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 80.13,
+    "entry_range_high": 84.0,
+    "target_range_low": 86.0,
+    "target_range_high": 92.14,
+    "stop_range_low": 76.76,
+    "stop_range_high": 80.8,
+    "target_price": 87.75,
+    "stop_loss": 80.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.871969-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 104.47,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 333.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.73,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2440,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "-0.98%",
+    "key_metrics": {
+      "RSI": 61.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

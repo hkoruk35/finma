@@ -1,0 +1,158 @@
+{
+  "ticker": "GOOGL",
+  "company": "Alphabet Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.793774-04:00",
+  "sector": "Technology",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 317.24,
+    "open": 320.02,
+    "high": 321.83,
+    "low": 316.32,
+    "prev_close": 318.49,
+    "change_pct": -0.39,
+    "change_pct_1w": 7.26,
+    "change_pct_1m": 2.77,
+    "change_pct_1y": 120.0,
+    "volume": 19127000,
+    "avg_volume_30d": 29719053
+  },
+  "scores": {
+    "master_score": 45.72,
+    "technical_score": 40.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 45.72,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 61.5,
+    "macd": 1.3036,
+    "macd_signal": -2.7145,
+    "macd_histogram": 4.0181,
+    "macd_crossover": "neutral",
+    "ema_20": 302.5,
+    "ema_50": 305.0,
+    "ema_200": 273.4,
+    "ema_stack_bullish": false,
+    "bb_upper": 325.02,
+    "bb_middle": 299.3,
+    "bb_lower": 273.58,
+    "bb_width": 0.1719,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.8,
+    "atr": 8.58,
+    "atr_pct": 0.027,
+    "obv_trend": "UP",
+    "mfi": 49.0,
+    "cmf": -0.056,
+    "stoch_k": 90.3,
+    "stoch_d": 91.2,
+    "rvol": 0.78,
+    "volume_5d_avg": 23312840,
+    "green_days_10d": 6,
+    "52w_high": 343.45,
+    "52w_low": 147.16,
+    "52w_high_proximity_pct": 0.0763,
+    "52w_low_proximity_pct": 1.1558
+  },
+  "fundamental": {
+    "pe_ratio": 29.319778,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 9.23471,
+    "de_ratio": 16.133,
+    "fcf_yield": 0.0099,
+    "eps_growth_5y": 0.311,
+    "revenue_growth_ttm": 0.18,
+    "gross_margin": 0.59652,
+    "operating_margin": 0.31568,
+    "net_margin": 0.32810003,
+    "market_cap": 3837652369408,
+    "enterprise_value": 3777805156352,
+    "dividend_yield": 0.26,
+    "payout_ratio": 0.076799996,
+    "insider_ownership_pct": 0.0058,
+    "institutional_ownership_pct": 0.80774003,
+    "short_ratio": 2.64,
+    "beta": 1.128
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 303.48,
+    "entry_range_high": 318.83,
+    "target_range_low": 336.12,
+    "target_range_high": 360.13,
+    "stop_range_low": 285.08,
+    "stop_range_high": 300.08,
+    "target_price": 342.98,
+    "stop_loss": 300.08,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.793733-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 396.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 26.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 147.16,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 437500,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "-0.39%",
+    "key_metrics": {
+      "RSI": 61.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

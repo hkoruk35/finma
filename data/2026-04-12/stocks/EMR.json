@@ -1,0 +1,158 @@
+{
+  "ticker": "EMR",
+  "company": "Emerson Electric Co.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.704536-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 143.77,
+    "open": 145.64,
+    "high": 145.77,
+    "low": 143.67,
+    "prev_close": 144.67,
+    "change_pct": -0.62,
+    "change_pct_1w": 9.16,
+    "change_pct_1m": 3.01,
+    "change_pct_1y": 55.24,
+    "volume": 2029400,
+    "avg_volume_30d": 3035056
+  },
+  "scores": {
+    "master_score": 43.13,
+    "technical_score": 45.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 43.13,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 61.5,
+    "macd": 0.016,
+    "macd_signal": -2.4032,
+    "macd_histogram": 2.4193,
+    "macd_crossover": "neutral",
+    "ema_20": 135.79,
+    "ema_50": 138.26,
+    "ema_200": 135.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 143.27,
+    "bb_middle": 132.25,
+    "bb_lower": 121.24,
+    "bb_width": 0.1665,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.8,
+    "atr": 4.5,
+    "atr_pct": 0.0313,
+    "obv_trend": "UP",
+    "mfi": 68.9,
+    "cmf": 0.017,
+    "stoch_k": 91.4,
+    "stoch_d": 92.5,
+    "rvol": 1.0,
+    "volume_5d_avg": 3034340,
+    "green_days_10d": 6,
+    "52w_high": 161.07,
+    "52w_low": 94.84,
+    "52w_high_proximity_pct": 0.1074,
+    "52w_low_proximity_pct": 0.5159
+  },
+  "fundamental": {
+    "pe_ratio": 35.237747,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 3.984756,
+    "de_ratio": 69.283,
+    "fcf_yield": 0.0356,
+    "eps_growth_5y": 0.049,
+    "revenue_growth_ttm": 0.041,
+    "gross_margin": 0.52757,
+    "operating_margin": 0.24597,
+    "net_margin": 0.12718001,
+    "market_cap": 80842170368,
+    "enterprise_value": 93124739072,
+    "dividend_yield": 1.54,
+    "payout_ratio": 0.5239,
+    "insider_ownership_pct": 0.00226,
+    "institutional_ownership_pct": 0.84469,
+    "short_ratio": 4.12,
+    "beta": 1.278
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 137.57,
+    "entry_range_high": 144.49,
+    "target_range_low": 154.12,
+    "target_range_high": 165.13,
+    "stop_range_low": 128.03,
+    "stop_range_high": 134.77,
+    "target_price": 157.27,
+    "stop_loss": 134.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.704501-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 179.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 154.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 94.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5700,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-0.62%",
+    "key_metrics": {
+      "RSI": 61.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

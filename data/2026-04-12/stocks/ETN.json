@@ -1,0 +1,158 @@
+{
+  "ticker": "ETN",
+  "company": "Eaton Corporation plc",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.706384-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 403.0,
+    "open": 404.22,
+    "high": 407.01,
+    "low": 401.1,
+    "prev_close": 400.44,
+    "change_pct": 0.64,
+    "change_pct_1w": 11.6,
+    "change_pct_1m": 13.27,
+    "change_pct_1y": 61.77,
+    "volume": 2218200,
+    "avg_volume_30d": 2551903
+  },
+  "scores": {
+    "master_score": 50.33,
+    "technical_score": 52.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.33,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.2,
+    "macd": 7.2461,
+    "macd_signal": 2.5308,
+    "macd_histogram": 4.7153,
+    "macd_crossover": "neutral",
+    "ema_20": 370.71,
+    "ema_50": 363.29,
+    "ema_200": 348.95,
+    "ema_stack_bullish": true,
+    "bb_upper": 395.43,
+    "bb_middle": 366.54,
+    "bb_lower": 337.66,
+    "bb_width": 0.1576,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.0,
+    "atr": 13.16,
+    "atr_pct": 0.0326,
+    "obv_trend": "UP",
+    "mfi": 72.4,
+    "cmf": -0.077,
+    "stoch_k": 93.8,
+    "stoch_d": 93.9,
+    "rvol": 0.8,
+    "volume_5d_avg": 2030720,
+    "green_days_10d": 8,
+    "52w_high": 403.0,
+    "52w_low": 257.02,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.568
+  },
+  "fundamental": {
+    "pe_ratio": 38.601536,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 8.047606,
+    "de_ratio": 54.877,
+    "fcf_yield": 0.0166,
+    "eps_growth_5y": 0.189,
+    "revenue_growth_ttm": 0.131,
+    "gross_margin": 0.37772998,
+    "operating_margin": 0.19972,
+    "net_margin": 0.1489,
+    "market_cap": 156525199360,
+    "enterprise_value": 166248693760,
+    "dividend_yield": 1.09,
+    "payout_ratio": 0.39810002,
+    "insider_ownership_pct": 0.00065,
+    "institutional_ownership_pct": 0.85412,
+    "short_ratio": 3.21,
+    "beta": 1.164
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 361.47,
+    "entry_range_high": 405.01,
+    "target_range_low": 433.63,
+    "target_range_high": 464.6,
+    "stop_range_low": 357.85,
+    "stop_range_high": 376.68,
+    "target_price": 442.48,
+    "stop_loss": 376.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.706353-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 503.75,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 109.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 257.02,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3494,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "+0.64%",
+    "key_metrics": {
+      "RSI": 68.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

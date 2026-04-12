@@ -1,0 +1,158 @@
+{
+  "ticker": "CM",
+  "company": "Canadian Imperial Bank of Commerce",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.304598-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 103.16,
+    "open": 103.12,
+    "high": 103.8,
+    "low": 102.68,
+    "prev_close": 102.48,
+    "change_pct": 0.66,
+    "change_pct_1w": 7.19,
+    "change_pct_1m": 4.99,
+    "change_pct_1y": 92.44,
+    "volume": 683200,
+    "avg_volume_30d": 1594603
+  },
+  "scores": {
+    "master_score": 54.44,
+    "technical_score": 57.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 58.0,
+    "sector_score": 41.9,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.44,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.4,
+    "macd": 1.167,
+    "macd_signal": 0.2245,
+    "macd_histogram": 0.9425,
+    "macd_crossover": "neutral",
+    "ema_20": 97.61,
+    "ema_50": 96.05,
+    "ema_200": 85.86,
+    "ema_stack_bullish": true,
+    "bb_upper": 102.2,
+    "bb_middle": 96.39,
+    "bb_lower": 90.57,
+    "bb_width": 0.1207,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.0,
+    "atr": 2.08,
+    "atr_pct": 0.0201,
+    "obv_trend": "UP",
+    "mfi": 54.5,
+    "cmf": -0.022,
+    "stoch_k": 94.9,
+    "stoch_d": 96.3,
+    "rvol": 0.82,
+    "volume_5d_avg": 1311560,
+    "green_days_10d": 8,
+    "52w_high": 103.16,
+    "52w_low": 55.38,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.8626
+  },
+  "fundamental": {
+    "pe_ratio": 14.907515,
+    "sector_pe_median": 15.958722000000002,
+    "pb_ratio": 2.0661554,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.466,
+    "revenue_growth_ttm": 0.167,
+    "gross_margin": 0.0,
+    "operating_margin": 0.44713002,
+    "net_margin": 0.33528998,
+    "market_cap": 94943313920,
+    "enterprise_value": 90668310528,
+    "dividend_yield": 2.99,
+    "payout_ratio": 0.415,
+    "insider_ownership_pct": 0.0005,
+    "institutional_ownership_pct": 0.53061,
+    "short_ratio": 7.49,
+    "beta": 1.269
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 95.57,
+    "entry_range_high": 103.68,
+    "target_range_low": 107.21,
+    "target_range_high": 114.87,
+    "stop_range_low": 94.05,
+    "stop_range_high": 99.0,
+    "target_price": 109.4,
+    "stop_loss": 99.0,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.304566-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 128.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 299.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 55.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 54,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 95000,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.78,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+0.66%",
+    "key_metrics": {
+      "RSI": 67.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

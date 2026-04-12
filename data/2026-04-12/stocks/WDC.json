@@ -1,0 +1,158 @@
+{
+  "ticker": "WDC",
+  "company": "Western Digital Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.868724-04:00",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 343.43,
+    "open": 343.95,
+    "high": 349.75,
+    "low": 330.0,
+    "prev_close": 337.88,
+    "change_pct": 1.64,
+    "change_pct_1w": 16.43,
+    "change_pct_1m": 27.76,
+    "change_pct_1y": 993.22,
+    "volume": 6116400,
+    "avg_volume_30d": 8715890
+  },
+  "scores": {
+    "master_score": 54.92,
+    "technical_score": 57.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.92,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 66.0,
+    "macd": 14.7764,
+    "macd_signal": 9.1446,
+    "macd_histogram": 5.6318,
+    "macd_crossover": "neutral",
+    "ema_20": 300.88,
+    "ema_50": 277.33,
+    "ema_200": 188.91,
+    "ema_stack_bullish": true,
+    "bb_upper": 346.0,
+    "bb_middle": 298.95,
+    "bb_lower": 251.9,
+    "bb_width": 0.3148,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.4,
+    "atr": 22.2,
+    "atr_pct": 0.0646,
+    "obv_trend": "UP",
+    "mfi": 46.0,
+    "cmf": 0.119,
+    "stoch_k": 93.7,
+    "stoch_d": 91.4,
+    "rvol": 0.83,
+    "volume_5d_avg": 7219100,
+    "green_days_10d": 7,
+    "52w_high": 343.43,
+    "52w_low": 34.25,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 9.0265
+  },
+  "fundamental": {
+    "pe_ratio": 32.4603,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 16.42027,
+    "de_ratio": 65.436,
+    "fcf_yield": 0.0332,
+    "eps_growth_5y": 1.896,
+    "revenue_growth_ttm": 0.252,
+    "gross_margin": 0.42723998,
+    "operating_margin": 0.31919,
+    "net_margin": 0.35644,
+    "market_cap": 117418475520,
+    "enterprise_value": 117424791552,
+    "dividend_yield": 0.15,
+    "payout_ratio": 0.0307,
+    "insider_ownership_pct": 0.00526,
+    "institutional_ownership_pct": 1.0338501,
+    "short_ratio": 3.39,
+    "beta": 1.829
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 275.94,
+    "entry_range_high": 345.15,
+    "target_range_low": 401.83,
+    "target_range_high": 430.53,
+    "stop_range_low": 284.08,
+    "stop_range_high": 299.03,
+    "target_price": 410.03,
+    "stop_loss": 299.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.868663-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 429.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 15.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.25,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+1.64%",
+    "key_metrics": {
+      "RSI": 66.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

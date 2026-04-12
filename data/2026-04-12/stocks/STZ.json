@@ -1,0 +1,160 @@
+{
+  "ticker": "STZ",
+  "company": "Constellation Brands, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.140075-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Beverages - Brewers",
+  "price": {
+    "current": 166.15,
+    "open": 162.82,
+    "high": 168.48,
+    "low": 162.0,
+    "prev_close": 163.07,
+    "change_pct": 1.89,
+    "change_pct_1w": 9.89,
+    "change_pct_1m": 10.8,
+    "change_pct_1y": -0.29,
+    "volume": 3768800,
+    "avg_volume_30d": 2104403
+  },
+  "scores": {
+    "master_score": 57.9,
+    "technical_score": 62.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.0,
+    "breakout_score": 47.0,
+    "value_score": 25.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 57.9,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.6,
+    "macd": 1.5732,
+    "macd_signal": 0.0237,
+    "macd_histogram": 1.5495,
+    "macd_crossover": "neutral",
+    "ema_20": 154.24,
+    "ema_50": 152.94,
+    "ema_200": 152.58,
+    "ema_stack_bullish": true,
+    "bb_upper": 161.16,
+    "bb_middle": 152.84,
+    "bb_lower": 144.52,
+    "bb_width": 0.1089,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 12.8,
+    "atr": 4.83,
+    "atr_pct": 0.0291,
+    "obv_trend": "UP",
+    "mfi": 62.2,
+    "cmf": -0.043,
+    "stoch_k": 88.5,
+    "stoch_d": 71.2,
+    "rvol": 1.57,
+    "volume_5d_avg": 3307380,
+    "green_days_10d": 6,
+    "52w_high": 191.72,
+    "52w_low": 126.82,
+    "52w_high_proximity_pct": 0.1334,
+    "52w_low_proximity_pct": 0.3101
+  },
+  "fundamental": {
+    "pe_ratio": 17.307291,
+    "sector_pe_median": 24.292671,
+    "pb_ratio": 3.7360585,
+    "de_ratio": 126.012,
+    "fcf_yield": 0.0745,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.113,
+    "gross_margin": 0.51651,
+    "operating_margin": 0.26971,
+    "net_margin": 0.18456,
+    "market_cap": 28925696000,
+    "enterprise_value": 39591809024,
+    "dividend_yield": 2.48,
+    "payout_ratio": 0.4246,
+    "insider_ownership_pct": 0.19861001,
+    "institutional_ownership_pct": 0.7892,
+    "short_ratio": 3.86,
+    "beta": 0.432
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 152.18,
+    "entry_range_high": 166.98,
+    "target_range_low": 177.03,
+    "target_range_high": 189.67,
+    "stop_range_low": 148.67,
+    "stop_range_high": 156.49,
+    "target_price": 180.64,
+    "stop_loss": 156.49,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.140052-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 47.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 207.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 248.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 126.82,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 555,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -0.35,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "STZ (Constellation Brands) exhibits mixed signals. The BOGA AI score is NEUTRAL STAY (58% confidence).\n\nTechnically, the daily chart shows bullish EMA alignment, but a weak ADX (12.8) indicates a lack of trend strength. RSI is approaching overbought (68.6). Volume is elevated at 1.57x.\n\nA BUY ZONE exists near $162.00 (recent support), with a PROFIT ZONE targeting $175.00 (recent resistance). A STOP LOSS ZONE should be considered near $158.00.\n\nA key catalyst for STZ is its discounted P/E ratio of 17.3 compared to the sector median of 24.3, potentially attracting value investors. However, negative TTM revenue growth (-11.3%) warrants caution.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+1.89%",
+    "key_metrics": {
+      "RSI": 68.6,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

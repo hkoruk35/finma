@@ -1,0 +1,158 @@
+{
+  "ticker": "AME",
+  "company": "AMETEK, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.696788-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 234.91,
+    "open": 233.66,
+    "high": 236.18,
+    "low": 232.25,
+    "prev_close": 233.49,
+    "change_pct": 0.61,
+    "change_pct_1w": 7.61,
+    "change_pct_1m": 4.9,
+    "change_pct_1y": 56.16,
+    "volume": 966400,
+    "avg_volume_30d": 1417160
+  },
+  "scores": {
+    "master_score": 50.08,
+    "technical_score": 62.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.08,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.3,
+    "macd": 1.6057,
+    "macd_signal": -1.262,
+    "macd_histogram": 2.8678,
+    "macd_crossover": "neutral",
+    "ema_20": 221.33,
+    "ema_50": 220.33,
+    "ema_200": 204.96,
+    "ema_stack_bullish": true,
+    "bb_upper": 231.73,
+    "bb_middle": 216.92,
+    "bb_lower": 202.11,
+    "bb_width": 0.1366,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.0,
+    "atr": 5.84,
+    "atr_pct": 0.0249,
+    "obv_trend": "UP",
+    "mfi": 68.0,
+    "cmf": -0.075,
+    "stoch_k": 95.6,
+    "stoch_d": 95.6,
+    "rvol": 0.78,
+    "volume_5d_avg": 1099680,
+    "green_days_10d": 6,
+    "52w_high": 241.08,
+    "52w_low": 154.24,
+    "52w_high_proximity_pct": 0.0256,
+    "52w_low_proximity_pct": 0.523
+  },
+  "fundamental": {
+    "pe_ratio": 36.76213,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 5.0620613,
+    "de_ratio": 24.194,
+    "fcf_yield": 0.0251,
+    "eps_growth_5y": 0.036,
+    "revenue_growth_ttm": 0.134,
+    "gross_margin": 0.36383,
+    "operating_margin": 0.27523002,
+    "net_margin": 0.19999,
+    "market_cap": 53809758208,
+    "enterprise_value": 55902593024,
+    "dividend_yield": 0.58,
+    "payout_ratio": 0.19379999,
+    "insider_ownership_pct": 0.0043,
+    "institutional_ownership_pct": 0.9236,
+    "short_ratio": 2.14,
+    "beta": 1.041
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 219.23,
+    "entry_range_high": 236.08,
+    "target_range_low": 247.38,
+    "target_range_high": 265.05,
+    "stop_range_low": 212.07,
+    "stop_range_high": 223.23,
+    "target_price": 252.43,
+    "stop_loss": 223.23,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.696752-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 293.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 58.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 154.24,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 530,
+      "date": "2026-03-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "+0.61%",
+    "key_metrics": {
+      "RSI": 67.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

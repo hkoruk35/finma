@@ -1,0 +1,158 @@
+{
+  "ticker": "FUN",
+  "company": "Six Flags Entertainment Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.096321-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Leisure",
+  "price": {
+    "current": 19.94,
+    "open": 19.7,
+    "high": 20.26,
+    "low": 19.52,
+    "prev_close": 19.73,
+    "change_pct": 1.06,
+    "change_pct_1w": 18.9,
+    "change_pct_1m": 29.15,
+    "change_pct_1y": -29.52,
+    "volume": 1313500,
+    "avg_volume_30d": 1786160
+  },
+  "scores": {
+    "master_score": 33.96,
+    "technical_score": 42.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 50.0,
+    "sector_score": 42.6,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 33.96,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 65.5,
+    "macd": 0.5567,
+    "macd_signal": 0.2683,
+    "macd_histogram": 0.2883,
+    "macd_crossover": "neutral",
+    "ema_20": 17.71,
+    "ema_50": 17.26,
+    "ema_200": 21.3,
+    "ema_stack_bullish": false,
+    "bb_upper": 19.4,
+    "bb_middle": 17.46,
+    "bb_lower": 15.52,
+    "bb_width": 0.2225,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 12.9,
+    "atr": 1.03,
+    "atr_pct": 0.0518,
+    "obv_trend": "UP",
+    "mfi": 85.1,
+    "cmf": -0.005,
+    "stoch_k": 91.7,
+    "stoch_d": 87.8,
+    "rvol": 0.89,
+    "volume_5d_avg": 1590520,
+    "green_days_10d": 6,
+    "52w_high": 38.13,
+    "52w_low": 12.83,
+    "52w_high_proximity_pct": 0.4771,
+    "52w_low_proximity_pct": 0.5542
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 3.6884942,
+    "de_ratio": 691.552,
+    "fcf_yield": -0.0591,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.054,
+    "gross_margin": 0.35814,
+    "operating_margin": -0.04611,
+    "net_margin": -0.51579,
+    "market_cap": 2033631744,
+    "enterprise_value": 7602332672,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01899,
+    "institutional_ownership_pct": 1.08744,
+    "short_ratio": 11.35,
+    "beta": 0.309
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 17.17,
+    "entry_range_high": 20.04,
+    "target_range_low": 22.57,
+    "target_range_high": 24.18,
+    "stop_range_low": 16.99,
+    "stop_range_high": 17.88,
+    "target_price": 23.03,
+    "stop_loss": 17.88,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.096286-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 24.93,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.83,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13038,
+      "date": "2026-01-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "+1.06%",
+    "key_metrics": {
+      "RSI": 65.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

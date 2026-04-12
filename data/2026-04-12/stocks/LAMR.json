@@ -1,0 +1,158 @@
+{
+  "ticker": "LAMR",
+  "company": "Lamar Advertising Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:22.061569-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 133.43,
+    "open": 133.04,
+    "high": 133.99,
+    "low": 132.65,
+    "prev_close": 132.87,
+    "change_pct": 0.42,
+    "change_pct_1w": 4.54,
+    "change_pct_1m": 0.27,
+    "change_pct_1y": 37.29,
+    "volume": 218800,
+    "avg_volume_30d": 591163
+  },
+  "scores": {
+    "master_score": 47.61,
+    "technical_score": 40.0,
+    "fundamental_score": 24.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 51.1,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 47.61,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 60.9,
+    "macd": -0.012,
+    "macd_signal": -0.8682,
+    "macd_histogram": 0.8563,
+    "macd_crossover": "neutral",
+    "ema_20": 129.59,
+    "ema_50": 129.62,
+    "ema_200": 124.59,
+    "ema_stack_bullish": false,
+    "bb_upper": 135.28,
+    "bb_middle": 128.68,
+    "bb_lower": 122.08,
+    "bb_width": 0.1026,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.4,
+    "atr": 3.06,
+    "atr_pct": 0.0229,
+    "obv_trend": "UP",
+    "mfi": 63.3,
+    "cmf": -0.087,
+    "stoch_k": 95.2,
+    "stoch_d": 94.6,
+    "rvol": 0.67,
+    "volume_5d_avg": 398620,
+    "green_days_10d": 7,
+    "52w_high": 137.52,
+    "52w_low": 101.63,
+    "52w_high_proximity_pct": 0.0297,
+    "52w_low_proximity_pct": 0.3129
+  },
+  "fundamental": {
+    "pe_ratio": 23.164928,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 13.365722,
+    "de_ratio": 479.979,
+    "fcf_yield": 0.0397,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.023,
+    "gross_margin": 0.67047,
+    "operating_margin": 0.32929,
+    "net_margin": 0.25907,
+    "market_cap": 13535344640,
+    "enterprise_value": 18387652608,
+    "dividend_yield": 4.8,
+    "payout_ratio": 1.0745,
+    "insider_ownership_pct": 0.022030002,
+    "institutional_ownership_pct": 0.99087995,
+    "short_ratio": 7.95,
+    "beta": 1.232
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 128.97,
+    "entry_range_high": 134.1,
+    "target_range_low": 139.76,
+    "target_range_high": 149.74,
+    "stop_range_low": 120.94,
+    "stop_range_high": 127.31,
+    "target_price": 142.61,
+    "stop_loss": 127.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:22.061512-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 166.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 480.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 101.63,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5969,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "+0.42%",
+    "key_metrics": {
+      "RSI": 60.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

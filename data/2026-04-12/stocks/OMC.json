@@ -1,0 +1,161 @@
+{
+  "ticker": "OMC",
+  "company": "Omnicom Group Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.013647-04:00",
+  "sector": "Communication Services",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 74.77,
+    "open": 75.33,
+    "high": 75.92,
+    "low": 74.35,
+    "prev_close": 74.88,
+    "change_pct": -0.15,
+    "change_pct_1w": -0.05,
+    "change_pct_1m": -6.61,
+    "change_pct_1y": 10.43,
+    "volume": 3195900,
+    "avg_volume_30d": 4988340
+  },
+  "scores": {
+    "master_score": 29.61,
+    "technical_score": 18.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 65.0,
+    "sector_score": 40.6,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 29.61,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 43.3,
+    "macd": -0.7489,
+    "macd_signal": -0.7227,
+    "macd_histogram": -0.0262,
+    "macd_crossover": "neutral",
+    "ema_20": 76.13,
+    "ema_50": 76.66,
+    "ema_200": 75.82,
+    "ema_stack_bullish": false,
+    "bb_upper": 78.24,
+    "bb_middle": 75.83,
+    "bb_lower": 73.42,
+    "bb_width": 0.0636,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.0,
+    "atr": 2.36,
+    "atr_pct": 0.0316,
+    "obv_trend": "DOWN",
+    "mfi": 67.2,
+    "cmf": -0.229,
+    "stoch_k": 29.7,
+    "stoch_d": 47.1,
+    "rvol": 0.8,
+    "volume_5d_avg": 3973340,
+    "green_days_10d": 3,
+    "52w_high": 84.95,
+    "52w_low": 66.61,
+    "52w_high_proximity_pct": 0.1199,
+    "52w_low_proximity_pct": 0.1226
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 1.9434408,
+    "de_ratio": 86.307,
+    "fcf_yield": 0.1941,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.279,
+    "gross_margin": 0.18571,
+    "operating_margin": 0.14877,
+    "net_margin": -0.00316,
+    "market_cap": 23203848192,
+    "enterprise_value": 28601548800,
+    "dividend_yield": 4.28,
+    "payout_ratio": 0.413,
+    "insider_ownership_pct": 0.00876,
+    "institutional_ownership_pct": 1.11871,
+    "short_ratio": 6.5,
+    "beta": 0.751
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 74.4,
+    "entry_range_high": 75.14,
+    "target_range_low": 80.21,
+    "target_range_high": 85.94,
+    "stop_range_low": 66.55,
+    "stop_range_high": 70.05,
+    "target_price": 81.85,
+    "stop_loss": 70.05,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.013623-04:00",
+    "categories": [
+      "breakout",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 93.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 428.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 66.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 680,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "OMC displays mixed signals, leading to a FinMA score of UNDERPERFORM. Current price at $75.14, 11.5% off its 52-week high, shows some resilience. However, the bearish EMA alignment and weak ADX (16.0) are concerning. High TTM revenue growth of 27.9% is overshadowed by a negative net margin of -0.3%. The unusually high dividend yield of 427.00% warrants further scrutiny regarding its sustainability. The neutral MACD and RSI of 44.7 offer little directional clarity. Without any immediately obvious catalysts, OMC requires monitoring for improved profitability and dividend sustainability.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-0.15%",
+    "key_metrics": {
+      "RSI": 43.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

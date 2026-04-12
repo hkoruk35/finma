@@ -1,0 +1,161 @@
+{
+  "ticker": "BILL",
+  "company": "BILL Holdings, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.913155-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 34.71,
+    "open": 36.12,
+    "high": 36.46,
+    "low": 34.48,
+    "prev_close": 36.18,
+    "change_pct": -4.06,
+    "change_pct_1w": -10.15,
+    "change_pct_1m": -15.77,
+    "change_pct_1y": -8.2,
+    "volume": 1846400,
+    "avg_volume_30d": 2005883
+  },
+  "scores": {
+    "master_score": 25.77,
+    "technical_score": 18.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.2,
+    "breakout_score": 45.0,
+    "value_score": 20.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 25.77,
+    "confidence": 0.26,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 28.7,
+    "macd": -1.6721,
+    "macd_signal": -1.5732,
+    "macd_histogram": -0.0989,
+    "macd_crossover": "bearish",
+    "ema_20": 38.71,
+    "ema_50": 41.74,
+    "ema_200": 46.54,
+    "ema_stack_bullish": false,
+    "bb_upper": 41.68,
+    "bb_middle": 38.6,
+    "bb_lower": 35.51,
+    "bb_width": 0.1597,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.9,
+    "atr": 2.11,
+    "atr_pct": 0.0607,
+    "obv_trend": "DOWN",
+    "mfi": 37.3,
+    "cmf": -0.114,
+    "stoch_k": 3.2,
+    "stoch_d": 19.0,
+    "rvol": 1.02,
+    "volume_5d_avg": 2050920,
+    "green_days_10d": 4,
+    "52w_high": 56.31,
+    "52w_low": 34.71,
+    "52w_high_proximity_pct": 0.3836,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 0.9114781,
+    "de_ratio": 49.571,
+    "fcf_yield": 0.0353,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.144,
+    "gross_margin": 0.83559,
+    "operating_margin": -0.042600002,
+    "net_margin": -0.0156,
+    "market_cap": 3476438272,
+    "enterprise_value": 3080506880,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12362,
+    "institutional_ownership_pct": 1.11898,
+    "short_ratio": 6.42,
+    "beta": 1.325
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 34.54,
+    "entry_range_high": 34.88,
+    "target_range_low": 40.22,
+    "target_range_high": 43.09,
+    "stop_range_low": 28.97,
+    "stop_range_high": 30.49,
+    "target_price": 41.04,
+    "stop_loss": 30.49,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.913097-04:00",
+    "categories": [
+      "breakout",
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 43.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 34.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25667,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BILL currently trades at $35.22, down 2.65% today, positioning it 37.5% below its 52-week high. Technicals are weak: RSI is 30.0, MACD bearish, and EMA alignment bearish. ADX strength is low at 19.7, while Bollinger Bands suggest high volatility.\n\nDespite a solid 83.6% gross margin, a negative net margin of -1.6% weighs on the valuation with no P/E. Revenue growth is 14.4% TTM.\n\nThe FinMA score is UNDERPERFORM due to weak technicals and profitability concerns. A catalyst for a potential rebound would be a definitive move towards profitability. Key levels to watch are resistance at $40 and support near $32.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 26,
+    "price_change_display": "-4.06%",
+    "key_metrics": {
+      "RSI": 28.7,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

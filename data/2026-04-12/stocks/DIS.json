@@ -1,0 +1,158 @@
+{
+  "ticker": "DIS",
+  "company": "The Walt Disney Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.974802-04:00",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 99.17,
+    "open": 99.84,
+    "high": 100.16,
+    "low": 98.82,
+    "prev_close": 99.79,
+    "change_pct": -0.62,
+    "change_pct_1w": 2.65,
+    "change_pct_1m": -1.7,
+    "change_pct_1y": 22.7,
+    "volume": 6356900,
+    "avg_volume_30d": 10869176
+  },
+  "scores": {
+    "master_score": 43.26,
+    "technical_score": 42.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 40.6,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 43.26,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.7,
+    "macd": -1.1691,
+    "macd_signal": -1.9029,
+    "macd_histogram": 0.7338,
+    "macd_crossover": "neutral",
+    "ema_20": 98.19,
+    "ema_50": 101.43,
+    "ema_200": 107.3,
+    "ema_stack_bullish": false,
+    "bb_upper": 101.6,
+    "bb_middle": 97.4,
+    "bb_lower": 93.19,
+    "bb_width": 0.0863,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.0,
+    "atr": 2.19,
+    "atr_pct": 0.0221,
+    "obv_trend": "UP",
+    "mfi": 49.5,
+    "cmf": -0.175,
+    "stoch_k": 83.0,
+    "stoch_d": 84.9,
+    "rvol": 0.73,
+    "volume_5d_avg": 7978280,
+    "green_days_10d": 6,
+    "52w_high": 123.18,
+    "52w_low": 81.86,
+    "52w_high_proximity_pct": 0.1949,
+    "52w_low_proximity_pct": 0.2114
+  },
+  "fundamental": {
+    "pe_ratio": 14.605302,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 1.6236349,
+    "de_ratio": 40.909,
+    "fcf_yield": 0.0181,
+    "eps_growth_5y": -0.043,
+    "revenue_growth_ttm": 0.052,
+    "gross_margin": 0.37284002,
+    "operating_margin": 0.15361,
+    "net_margin": 0.128,
+    "market_cap": 175866789888,
+    "enterprise_value": 222175625216,
+    "dividend_yield": 1.51,
+    "payout_ratio": 0.1841,
+    "insider_ownership_pct": 0.00077,
+    "institutional_ownership_pct": 0.77261,
+    "short_ratio": 1.77,
+    "beta": 1.441
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 98.67,
+    "entry_range_high": 99.67,
+    "target_range_low": 103.63,
+    "target_range_high": 111.03,
+    "stop_range_low": 90.05,
+    "stop_range_high": 94.79,
+    "target_price": 105.74,
+    "stop_loss": 94.79,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.974773-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 123.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 151.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 81.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1034,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-0.62%",
+    "key_metrics": {
+      "RSI": 50.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

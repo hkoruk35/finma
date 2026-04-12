@@ -1,0 +1,160 @@
+{
+  "ticker": "WSM",
+  "company": "Williams-Sonoma, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.039534-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Specialty Retail",
+  "price": {
+    "current": 189.13,
+    "open": 194.0,
+    "high": 194.0,
+    "low": 188.43,
+    "prev_close": 191.31,
+    "change_pct": -1.14,
+    "change_pct_1w": 4.97,
+    "change_pct_1m": 1.81,
+    "change_pct_1y": 37.96,
+    "volume": 794400,
+    "avg_volume_30d": 1395106
+  },
+  "scores": {
+    "master_score": 41.26,
+    "technical_score": 50.0,
+    "fundamental_score": 24.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.6,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 41.26,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.0,
+    "macd": -1.9738,
+    "macd_signal": -4.0078,
+    "macd_histogram": 2.034,
+    "macd_crossover": "neutral",
+    "ema_20": 185.18,
+    "ema_50": 190.43,
+    "ema_200": 189.9,
+    "ema_stack_bullish": false,
+    "bb_upper": 189.58,
+    "bb_middle": 182.12,
+    "bb_lower": 174.67,
+    "bb_width": 0.0819,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 20.5,
+    "atr": 7.72,
+    "atr_pct": 0.0408,
+    "obv_trend": "UP",
+    "mfi": 48.9,
+    "cmf": -0.232,
+    "stoch_k": 72.1,
+    "stoch_d": 73.0,
+    "rvol": 0.74,
+    "volume_5d_avg": 1032240,
+    "green_days_10d": 5,
+    "52w_high": 220.67,
+    "52w_low": 135.52,
+    "52w_high_proximity_pct": 0.1429,
+    "52w_low_proximity_pct": 0.3956
+  },
+  "fundamental": {
+    "pe_ratio": 21.419027,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 10.786472,
+    "de_ratio": 69.957,
+    "fcf_yield": 0.0385,
+    "eps_growth_5y": -0.073,
+    "revenue_growth_ttm": -0.043,
+    "gross_margin": 0.46153,
+    "operating_margin": 0.20326,
+    "net_margin": 0.13942,
+    "market_cap": 22509506560,
+    "enterprise_value": 22946609152,
+    "dividend_yield": 1.61,
+    "payout_ratio": 0.29860002,
+    "insider_ownership_pct": 0.01201,
+    "institutional_ownership_pct": 0.97846,
+    "short_ratio": 4.47,
+    "beta": 1.578
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 188.18,
+    "entry_range_high": 190.08,
+    "target_range_low": 208.04,
+    "target_range_high": 222.9,
+    "stop_range_low": 165.01,
+    "stop_range_high": 173.69,
+    "target_price": 212.29,
+    "stop_loss": 173.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.039503-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 236.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 161.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 135.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12602,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "WSM exhibits a NEGATIVE BIAS (FinMA score), despite its attractive dividend yield of 1.59%. The stock trades at $190.09, 13.9% below its 52-week high. While the P/E of 21.5 suggests a valuation discount compared to the sector median of 25.6, negative TTM revenue growth of -4.3% is concerning. Bearish EMA alignment and a neutral MACD reinforce the cautious outlook. ADX strength is weak at 20.3. Monitor price action relative to Bollinger Bands. A positive catalyst would be a successful turnaround in revenue growth, but currently, technicals and fundamentals point downward.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "-1.14%",
+    "key_metrics": {
+      "RSI": 53.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

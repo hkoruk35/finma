@@ -1,0 +1,158 @@
+{
+  "ticker": "ETSY",
+  "company": "Etsy, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.019394-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 52.69,
+    "open": 53.56,
+    "high": 54.05,
+    "low": 52.65,
+    "prev_close": 53.42,
+    "change_pct": -1.37,
+    "change_pct_1w": 2.03,
+    "change_pct_1m": 0.0,
+    "change_pct_1y": 29.14,
+    "volume": 1881500,
+    "avg_volume_30d": 2745823
+  },
+  "scores": {
+    "master_score": 38.81,
+    "technical_score": 38.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 42.6,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 38.81,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.4,
+    "macd": -0.0276,
+    "macd_signal": -0.4783,
+    "macd_histogram": 0.4507,
+    "macd_crossover": "neutral",
+    "ema_20": 52.15,
+    "ema_50": 53.09,
+    "ema_200": 55.61,
+    "ema_stack_bullish": false,
+    "bb_upper": 56.69,
+    "bb_middle": 51.77,
+    "bb_lower": 46.85,
+    "bb_width": 0.1902,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.0,
+    "atr": 2.42,
+    "atr_pct": 0.0459,
+    "obv_trend": "UP",
+    "mfi": 45.8,
+    "cmf": -0.102,
+    "stoch_k": 63.6,
+    "stoch_d": 71.0,
+    "rvol": 0.94,
+    "volume_5d_avg": 2582760,
+    "green_days_10d": 5,
+    "52w_high": 75.56,
+    "52w_low": 42.51,
+    "52w_high_proximity_pct": 0.3027,
+    "52w_low_proximity_pct": 0.2395
+  },
+  "fundamental": {
+    "pe_ratio": 37.906475,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": -4.655827,
+    "de_ratio": null,
+    "fcf_yield": 0.0995,
+    "eps_growth_5y": -0.071,
+    "revenue_growth_ttm": 0.035,
+    "gross_margin": 0.71639,
+    "operating_margin": 0.14677,
+    "net_margin": 0.05652,
+    "market_cap": 5200819200,
+    "enterprise_value": 6566473728,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01308,
+    "institutional_ownership_pct": 1.2114,
+    "short_ratio": 5.54,
+    "beta": 1.768
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 52.43,
+    "entry_range_high": 52.95,
+    "target_range_low": 58.75,
+    "target_range_high": 62.95,
+    "stop_range_low": 45.46,
+    "stop_range_high": 47.85,
+    "target_price": 59.95,
+    "stop_loss": 47.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.019371-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 65.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 42.51,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1993,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-1.37%",
+    "key_metrics": {
+      "RSI": 51.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

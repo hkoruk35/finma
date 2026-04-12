@@ -1,0 +1,156 @@
+{
+  "ticker": "PBR",
+  "company": "Petróleo Brasileiro S.A. - Petrobras",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.450184-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 21.51,
+    "open": 20.81,
+    "high": 21.54,
+    "low": 20.81,
+    "prev_close": 20.69,
+    "change_pct": 3.96,
+    "change_pct_1w": 4.62,
+    "change_pct_1m": 13.27,
+    "change_pct_1y": 101.54,
+    "volume": 27484600,
+    "avg_volume_30d": 37138603
+  },
+  "scores": {
+    "master_score": 58.88,
+    "technical_score": 63.0,
+    "fundamental_score": 45.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 70.0,
+    "sector_score": 45.8,
+    "breakout_score": 50.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 58.88,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.5,
+    "macd": 0.9267,
+    "macd_signal": 0.9915,
+    "macd_histogram": -0.0649,
+    "macd_crossover": "neutral",
+    "ema_20": 19.93,
+    "ema_50": 18.06,
+    "ema_200": 14.59,
+    "ema_stack_bullish": true,
+    "bb_upper": 21.58,
+    "bb_middle": 20.07,
+    "bb_lower": 18.57,
+    "bb_width": 0.1496,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 42.2,
+    "atr": 0.77,
+    "atr_pct": 0.0359,
+    "obv_trend": "UP",
+    "mfi": 68.0,
+    "cmf": 0.035,
+    "stoch_k": 99.0,
+    "stoch_d": 74.9,
+    "rvol": 0.75,
+    "volume_5d_avg": 27980060,
+    "green_days_10d": 6,
+    "52w_high": 21.51,
+    "52w_low": 10.45,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.0585
+  },
+  "fundamental": {
+    "pe_ratio": 7.075658,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 3.464406,
+    "de_ratio": 91.963,
+    "fcf_yield": 0.6132,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.47632998,
+    "operating_margin": 0.26850998,
+    "net_margin": 0.22134,
+    "market_cap": 138618322944,
+    "enterprise_value": 612454629376,
+    "dividend_yield": 6.76,
+    "payout_ratio": 0.5571,
+    "insider_ownership_pct": 0.00013,
+    "institutional_ownership_pct": 0.23111999,
+    "short_ratio": 1.25,
+    "beta": -0.071
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 17.97,
+    "entry_range_high": 21.62,
+    "target_range_low": 23.34,
+    "target_range_high": 25.01,
+    "stop_range_low": 18.97,
+    "stop_range_high": 19.97,
+    "target_price": 23.82,
+    "stop_loss": 19.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.450146-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 50.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 26.89,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 676.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.45,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "PBR currently trades at $20.98, near its 52-week high. FinMA gives PBR a NEGATIVE_BIAS rating (54% confidence). While technicals show bullish EMA alignment and strong ADX strength (41.9), indicating a potential continuation, the high Bollinger Band suggests possible overbought conditions.\n\nPBR's valuation (P/E of 6.9) is attractive compared to the sector median (18.2), and margins are robust (47.6% gross, 22.1% net). The unusually high 703% dividend yield could be unsustainable. Key level to watch: $20. The primary catalyst impacting PBR is the Brazilian government's influence on Petrobras' pricing policies, creating uncertainty despite strong fundamentals.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 59,
+    "price_change_display": "+3.96%",
+    "key_metrics": {
+      "RSI": 68.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

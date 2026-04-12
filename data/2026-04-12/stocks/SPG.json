@@ -1,0 +1,160 @@
+{
+  "ticker": "SPG",
+  "company": "Simon Property Group, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:22.001860-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 200.57,
+    "open": 199.39,
+    "high": 200.63,
+    "low": 198.33,
+    "prev_close": 198.97,
+    "change_pct": 0.8,
+    "change_pct_1w": 6.31,
+    "change_pct_1m": 5.81,
+    "change_pct_1y": 50.0,
+    "volume": 1107600,
+    "avg_volume_30d": 1745513
+  },
+  "scores": {
+    "master_score": 67.36,
+    "technical_score": 60.0,
+    "fundamental_score": 67.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 51.1,
+    "breakout_score": 20.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 67.36,
+    "confidence": 0.67,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 67.8,
+    "macd": 1.2826,
+    "macd_signal": -0.7191,
+    "macd_histogram": 2.0017,
+    "macd_crossover": "neutral",
+    "ema_20": 190.41,
+    "ema_50": 189.55,
+    "ema_200": 180.62,
+    "ema_stack_bullish": true,
+    "bb_upper": 199.4,
+    "bb_middle": 187.79,
+    "bb_lower": 176.18,
+    "bb_width": 0.1237,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.2,
+    "atr": 3.92,
+    "atr_pct": 0.0195,
+    "obv_trend": "UP",
+    "mfi": 69.1,
+    "cmf": -0.161,
+    "stoch_k": 99.7,
+    "stoch_d": 96.6,
+    "rvol": 0.66,
+    "volume_5d_avg": 1159420,
+    "green_days_10d": 9,
+    "52w_high": 201.52,
+    "52w_low": 140.22,
+    "52w_high_proximity_pct": 0.0047,
+    "52w_low_proximity_pct": 0.4304
+  },
+  "fundamental": {
+    "pe_ratio": 14.164549,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 12.622404,
+    "de_ratio": 435.463,
+    "fcf_yield": 0.0306,
+    "eps_growth_5y": 3.581,
+    "revenue_growth_ttm": 0.132,
+    "gross_margin": 0.81899,
+    "operating_margin": 0.49717,
+    "net_margin": 0.7271,
+    "market_cap": 76345565184,
+    "enterprise_value": 95089819648,
+    "dividend_yield": 4.31,
+    "payout_ratio": 0.6034,
+    "insider_ownership_pct": 0.01825,
+    "institutional_ownership_pct": 0.93158996,
+    "short_ratio": 0.0,
+    "beta": 1.403
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 188.6,
+    "entry_range_high": 201.57,
+    "target_range_low": 208.08,
+    "target_range_high": 222.95,
+    "stop_range_low": 183.09,
+    "stop_range_high": 192.73,
+    "target_price": 212.33,
+    "stop_loss": 192.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:22.001821-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 250.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 431.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 140.22,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 10,
+    "last_90_days_sells": 1,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1361,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "SPG exhibits a POSITIVE BIAS, with a FinMA confidence score of 67%. The daily chart shows price at $200.57, near its 52-week high. Technicals are constructive, with bullish EMA alignment, though ADX at 23.2 indicates a moderate trend.\n\nA BUY ZONE could be considered near the $195 level, with a STOP LOSS ZONE around $188. The PROFIT ZONE lies initially near $210, targeting recent highs.\n\nA key catalyst for SPG is its attractive valuation, with a P/E of 14.16 trading at a discount vs. its sector. Combined with strong profitability (72.7% net margin), this makes SPG compelling despite no recent news catalysts.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 67,
+    "price_change_display": "+0.80%",
+    "key_metrics": {
+      "RSI": 67.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

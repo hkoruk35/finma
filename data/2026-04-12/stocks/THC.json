@@ -1,0 +1,158 @@
+{
+  "ticker": "THC",
+  "company": "Tenet Healthcare Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.266172-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Care Facilities",
+  "price": {
+    "current": 195.24,
+    "open": 201.67,
+    "high": 203.8,
+    "low": 193.4,
+    "prev_close": 201.87,
+    "change_pct": -3.28,
+    "change_pct_1w": 3.76,
+    "change_pct_1m": -16.77,
+    "change_pct_1y": 63.37,
+    "volume": 1460900,
+    "avg_volume_30d": 1042083
+  },
+  "scores": {
+    "master_score": 57.94,
+    "technical_score": 51.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 57.94,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 41.1,
+    "macd": -6.4993,
+    "macd_signal": -7.2042,
+    "macd_histogram": 0.7049,
+    "macd_crossover": "neutral",
+    "ema_20": 201.26,
+    "ema_50": 207.42,
+    "ema_200": 193.91,
+    "ema_stack_bullish": false,
+    "bb_upper": 220.01,
+    "bb_middle": 199.71,
+    "bb_lower": 179.4,
+    "bb_width": 0.2033,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 37.8,
+    "atr": 8.33,
+    "atr_pct": 0.0427,
+    "obv_trend": "UP",
+    "mfi": 52.0,
+    "cmf": -0.17,
+    "stoch_k": 52.5,
+    "stoch_d": 66.7,
+    "rvol": 1.21,
+    "volume_5d_avg": 1256780,
+    "green_days_10d": 6,
+    "52w_high": 244.8,
+    "52w_low": 110.41,
+    "52w_high_proximity_pct": 0.2025,
+    "52w_low_proximity_pct": 0.7683
+  },
+  "fundamental": {
+    "pe_ratio": 12.612404,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 4.02283,
+    "de_ratio": 160.793,
+    "fcf_yield": 0.0978,
+    "eps_growth_5y": 0.276,
+    "revenue_growth_ttm": 0.089,
+    "gross_margin": 0.41375,
+    "operating_margin": 0.17459999,
+    "net_margin": 0.06603,
+    "market_cap": 17158668288,
+    "enterprise_value": 33276655616,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.010829999,
+    "institutional_ownership_pct": 0.98917,
+    "short_ratio": 2.2,
+    "beta": 1.495
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 194.26,
+    "entry_range_high": 196.22,
+    "target_range_low": 215.83,
+    "target_range_high": 231.24,
+    "stop_range_low": 169.65,
+    "stop_range_high": 178.58,
+    "target_price": 220.23,
+    "stop_loss": 178.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.266136-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 244.05,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 110.41,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6500,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "-3.28%",
+    "key_metrics": {
+      "RSI": 41.1,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

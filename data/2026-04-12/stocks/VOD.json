@@ -1,0 +1,156 @@
+{
+  "ticker": "VOD",
+  "company": "Vodafone Group Public Limited Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.996985-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 15.69,
+    "open": 15.8,
+    "high": 15.9,
+    "low": 15.63,
+    "prev_close": 15.85,
+    "change_pct": -1.01,
+    "change_pct_1w": 3.16,
+    "change_pct_1m": 8.96,
+    "change_pct_1y": 100.7,
+    "volume": 6338400,
+    "avg_volume_30d": 3807140
+  },
+  "scores": {
+    "master_score": 51.01,
+    "technical_score": 57.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 60.0,
+    "sector_score": 40.6,
+    "breakout_score": 20.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.01,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 65.5,
+    "macd": 0.2332,
+    "macd_signal": 0.1022,
+    "macd_histogram": 0.131,
+    "macd_crossover": "neutral",
+    "ema_20": 15.09,
+    "ema_50": 14.76,
+    "ema_200": 12.85,
+    "ema_stack_bullish": true,
+    "bb_upper": 15.82,
+    "bb_middle": 14.88,
+    "bb_lower": 13.95,
+    "bb_width": 0.1261,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.5,
+    "atr": 0.29,
+    "atr_pct": 0.0187,
+    "obv_trend": "UP",
+    "mfi": 69.7,
+    "cmf": -0.182,
+    "stoch_k": 84.0,
+    "stoch_d": 92.7,
+    "rvol": 0.98,
+    "volume_5d_avg": 3735280,
+    "green_days_10d": 7,
+    "52w_high": 15.86,
+    "52w_low": 8.07,
+    "52w_high_proximity_pct": 0.0107,
+    "52w_low_proximity_pct": 0.9453
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 6.290928,
+    "de_ratio": 95.225,
+    "fcf_yield": 0.3531,
+    "eps_growth_5y": -0.154,
+    "revenue_growth_ttm": 0.073,
+    "gross_margin": 0.32867,
+    "operating_margin": 0.10097,
+    "net_margin": -0.11356,
+    "market_cap": 36213211136,
+    "enterprise_value": 428716195840,
+    "dividend_yield": 3.39,
+    "payout_ratio": 1.0144,
+    "insider_ownership_pct": 0.0,
+    "institutional_ownership_pct": 0.08757,
+    "short_ratio": 2.25,
+    "beta": 0.313
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 14.69,
+    "entry_range_high": 15.77,
+    "target_range_low": 16.23,
+    "target_range_high": 17.39,
+    "stop_range_low": 14.35,
+    "stop_range_high": 15.11,
+    "target_price": 16.56,
+    "stop_loss": 15.11,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.996960-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 19.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 339.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 8.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "VOD currently trades at $15.85, near its 52-week high. Despite a bullish EMA alignment, the FinMA score is NEGATIVE_BIAS due to weak profitability (-11.4% net margin) and concerns surrounding the sustainability of its exceptionally high dividend yield of 335.00%. The RSI of 70.3 indicates overbought conditions, while ADX strength is weak at 20.2. Key support lies near $14.50, with resistance at $16.00. Volume is below average (0.72x relative volume). Revenue growth of 7.3% TTM provides some support. A potential catalyst would be successful execution of cost-cutting measures to improve net margins.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-1.01%",
+    "key_metrics": {
+      "RSI": 65.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

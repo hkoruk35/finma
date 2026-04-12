@@ -1,0 +1,160 @@
+{
+  "ticker": "BSX",
+  "company": "Boston Scientific Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.224579-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 61.79,
+    "open": 61.52,
+    "high": 61.79,
+    "low": 60.84,
+    "prev_close": 61.28,
+    "change_pct": 0.83,
+    "change_pct_1w": -1.64,
+    "change_pct_1m": -11.26,
+    "change_pct_1y": -31.83,
+    "volume": 14773000,
+    "avg_volume_30d": 15122096
+  },
+  "scores": {
+    "master_score": 24.34,
+    "technical_score": 15.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 24.34,
+    "confidence": 0.24,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 29.7,
+    "macd": -3.3884,
+    "macd_signal": -3.2705,
+    "macd_histogram": -0.1179,
+    "macd_crossover": "neutral",
+    "ema_20": 65.85,
+    "ema_50": 72.59,
+    "ema_200": 88.42,
+    "ema_stack_bullish": false,
+    "bb_upper": 74.01,
+    "bb_middle": 66.41,
+    "bb_lower": 58.81,
+    "bb_width": 0.2288,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 45.8,
+    "atr": 2.05,
+    "atr_pct": 0.0333,
+    "obv_trend": "DOWN",
+    "mfi": 34.6,
+    "cmf": -0.115,
+    "stoch_k": 11.3,
+    "stoch_d": 11.0,
+    "rvol": 0.95,
+    "volume_5d_avg": 14392480,
+    "green_days_10d": 3,
+    "52w_high": 108.14,
+    "52w_low": 61.28,
+    "52w_high_proximity_pct": 0.4286,
+    "52w_low_proximity_pct": 0.0083
+  },
+  "fundamental": {
+    "pe_ratio": 31.850515,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 3.7812865,
+    "de_ratio": 48.921,
+    "fcf_yield": 0.0353,
+    "eps_growth_5y": 0.185,
+    "revenue_growth_ttm": 0.159,
+    "gross_margin": 0.68781,
+    "operating_margin": 0.19694,
+    "net_margin": 0.14437,
+    "market_cap": 91830763520,
+    "enterprise_value": 101935284224,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00206,
+    "institutional_ownership_pct": 0.94983,
+    "short_ratio": 1.59,
+    "beta": 0.782
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 61.48,
+    "entry_range_high": 62.1,
+    "target_range_low": 66.58,
+    "target_range_high": 71.34,
+    "stop_range_low": 54.81,
+    "stop_range_high": 57.69,
+    "target_price": 67.94,
+    "stop_loss": 57.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.224557-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 77.24,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 61.28,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 24,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BSX exhibits bearish technicals with an RSI of 27.0 indicating oversold conditions, yet EMA alignment confirms the downtrend. ADX strength at 45.8 suggests a strong trend.\nValuation metrics show a P/E of 31.5, trading at a premium compared to its peers, despite a solid 15.9% TTM revenue growth and healthy profit margins.\nThe FinMA score is UNDERPERFORM due to the current technical weakness outweighing positive fundamentals.\nWatch for a potential rebound near the lower Bollinger Band; a catalyst for a price increase could be positive clinical trial results for their Amulet IDE study, addressing left atrial appendage closure, expected this year.\nKey levels to monitor are resistance at the 52-week high and support near recent lows.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 24,
+    "price_change_display": "+0.83%",
+    "key_metrics": {
+      "RSI": 29.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

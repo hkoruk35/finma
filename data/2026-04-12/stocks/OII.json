@@ -1,0 +1,158 @@
+{
+  "ticker": "OII",
+  "company": "Oceaneering International, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.463149-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 36.2,
+    "open": 36.13,
+    "high": 36.71,
+    "low": 35.7,
+    "prev_close": 36.45,
+    "change_pct": -0.69,
+    "change_pct_1w": 1.8,
+    "change_pct_1m": 2.43,
+    "change_pct_1y": 126.96,
+    "volume": 551400,
+    "avg_volume_30d": 1209950
+  },
+  "scores": {
+    "master_score": 61.03,
+    "technical_score": 52.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.8,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 61.03,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 53.5,
+    "macd": 0.5599,
+    "macd_signal": 0.5758,
+    "macd_histogram": -0.0159,
+    "macd_crossover": "bearish",
+    "ema_20": 35.74,
+    "ema_50": 34.06,
+    "ema_200": 28.11,
+    "ema_stack_bullish": true,
+    "bb_upper": 37.88,
+    "bb_middle": 35.54,
+    "bb_lower": 33.2,
+    "bb_width": 0.1318,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 14.5,
+    "atr": 1.65,
+    "atr_pct": 0.0455,
+    "obv_trend": "UP",
+    "mfi": 52.1,
+    "cmf": 0.066,
+    "stoch_k": 62.0,
+    "stoch_d": 66.1,
+    "rvol": 0.85,
+    "volume_5d_avg": 1029060,
+    "green_days_10d": 5,
+    "52w_high": 38.82,
+    "52w_low": 16.32,
+    "52w_high_proximity_pct": 0.0675,
+    "52w_low_proximity_pct": 1.2181
+  },
+  "fundamental": {
+    "pe_ratio": 10.372493,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 3.359629,
+    "de_ratio": 81.097,
+    "fcf_yield": 0.0604,
+    "eps_growth_5y": 2.196,
+    "revenue_growth_ttm": -0.063,
+    "gross_margin": 0.20417,
+    "operating_margin": 0.09779,
+    "net_margin": 0.12706,
+    "market_cap": 3610755840,
+    "enterprise_value": 3781381376,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.015800001,
+    "institutional_ownership_pct": 1.0334201,
+    "short_ratio": 3.74,
+    "beta": 1.19
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 33.89,
+    "entry_range_high": 36.38,
+    "target_range_low": 40.33,
+    "target_range_high": 43.21,
+    "stop_range_low": 31.26,
+    "stop_range_high": 32.9,
+    "target_price": 41.15,
+    "stop_loss": 32.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.463098-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 45.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 16.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25678,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "-0.69%",
+    "key_metrics": {
+      "RSI": 53.5,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "SU",
+  "company": "Suncor Energy Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.444424-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 64.43,
+    "open": 63.39,
+    "high": 64.55,
+    "low": 63.3,
+    "prev_close": 63.39,
+    "change_pct": 1.64,
+    "change_pct_1w": -2.23,
+    "change_pct_1m": 10.57,
+    "change_pct_1y": 108.2,
+    "volume": 3842000,
+    "avg_volume_30d": 5982066
+  },
+  "scores": {
+    "master_score": 59.63,
+    "technical_score": 63.0,
+    "fundamental_score": 50.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 45.8,
+    "breakout_score": 30.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 59.63,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.5,
+    "macd": 1.9175,
+    "macd_signal": 2.3693,
+    "macd_histogram": -0.4518,
+    "macd_crossover": "neutral",
+    "ema_20": 63.59,
+    "ema_50": 59.24,
+    "ema_200": 48.55,
+    "ema_stack_bullish": true,
+    "bb_upper": 68.05,
+    "bb_middle": 64.12,
+    "bb_lower": 60.18,
+    "bb_width": 0.1227,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 40.7,
+    "atr": 2.04,
+    "atr_pct": 0.0317,
+    "obv_trend": "UP",
+    "mfi": 51.0,
+    "cmf": 0.177,
+    "stoch_k": 47.9,
+    "stoch_d": 43.0,
+    "rvol": 0.75,
+    "volume_5d_avg": 4488420,
+    "green_days_10d": 6,
+    "52w_high": 66.79,
+    "52w_low": 31.6,
+    "52w_high_proximity_pct": 0.0353,
+    "52w_low_proximity_pct": 1.0387
+  },
+  "fundamental": {
+    "pe_ratio": 18.408571,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 2.3695848,
+    "de_ratio": 32.951,
+    "fcf_yield": 0.083,
+    "eps_growth_5y": 0.876,
+    "revenue_growth_ttm": -0.039,
+    "gross_margin": 0.59078,
+    "operating_margin": 0.15728,
+    "net_margin": 0.12100001,
+    "market_cap": 76717604864,
+    "enterprise_value": 87691673600,
+    "dividend_yield": 2.71,
+    "payout_ratio": 0.4763,
+    "insider_ownership_pct": 0.00032000002,
+    "institutional_ownership_pct": 0.72236,
+    "short_ratio": 1.17,
+    "beta": 0.598
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 58.94,
+    "entry_range_high": 64.75,
+    "target_range_low": 69.14,
+    "target_range_high": 74.08,
+    "stop_range_low": 57.33,
+    "stop_range_high": 60.35,
+    "target_price": 70.55,
+    "stop_loss": 60.35,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.444401-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 80.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 271.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 52,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 568,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 60,
+    "price_change_display": "+1.64%",
+    "key_metrics": {
+      "RSI": 58.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

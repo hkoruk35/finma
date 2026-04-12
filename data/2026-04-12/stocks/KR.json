@@ -1,0 +1,158 @@
+{
+  "ticker": "KR",
+  "company": "The Kroger Co.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.163720-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Grocery Stores",
+  "price": {
+    "current": 67.99,
+    "open": 69.47,
+    "high": 70.09,
+    "low": 67.81,
+    "prev_close": 70.35,
+    "change_pct": -3.35,
+    "change_pct_1w": -6.03,
+    "change_pct_1m": -5.82,
+    "change_pct_1y": 4.53,
+    "volume": 5195100,
+    "avg_volume_30d": 6976770
+  },
+  "scores": {
+    "master_score": 34.75,
+    "technical_score": 23.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.0,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.75,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.3,
+    "macd": -0.0055,
+    "macd_signal": 0.616,
+    "macd_histogram": -0.6214,
+    "macd_crossover": "neutral",
+    "ema_20": 71.5,
+    "ema_50": 70.03,
+    "ema_200": 67.22,
+    "ema_stack_bullish": false,
+    "bb_upper": 75.82,
+    "bb_middle": 72.42,
+    "bb_lower": 69.02,
+    "bb_width": 0.0939,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.9,
+    "atr": 2.15,
+    "atr_pct": 0.0317,
+    "obv_trend": "DOWN",
+    "mfi": 34.9,
+    "cmf": -0.194,
+    "stoch_k": 9.4,
+    "stoch_d": 32.9,
+    "rvol": 0.7,
+    "volume_5d_avg": 4853780,
+    "green_days_10d": 4,
+    "52w_high": 75.6,
+    "52w_low": 58.98,
+    "52w_high_proximity_pct": 0.1007,
+    "52w_low_proximity_pct": 0.1527
+  },
+  "fundamental": {
+    "pe_ratio": 44.14935,
+    "sector_pe_median": 24.292671,
+    "pb_ratio": 5.5106173,
+    "de_ratio": 415.97,
+    "fcf_yield": 0.079,
+    "eps_growth_5y": 0.509,
+    "revenue_growth_ttm": 0.012,
+    "gross_margin": 0.241,
+    "operating_margin": 0.034360003,
+    "net_margin": 0.0068800002,
+    "market_cap": 43027410944,
+    "enterprise_value": 75583496192,
+    "dividend_yield": 2.06,
+    "payout_ratio": 0.8701,
+    "insider_ownership_pct": 0.09116,
+    "institutional_ownership_pct": 0.81911004,
+    "short_ratio": 3.34,
+    "beta": 0.546
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 67.65,
+    "entry_range_high": 68.33,
+    "target_range_low": 72.95,
+    "target_range_high": 78.16,
+    "stop_range_low": 60.51,
+    "stop_range_high": 63.69,
+    "target_price": 74.44,
+    "stop_loss": 63.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.163688-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 84.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 206.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 58.98,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3194,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -0.35,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "-3.35%",
+    "key_metrics": {
+      "RSI": 39.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

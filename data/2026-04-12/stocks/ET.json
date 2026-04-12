@@ -1,0 +1,158 @@
+{
+  "ticker": "ET",
+  "company": "Energy Transfer LP",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.478845-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 19.19,
+    "open": 19.05,
+    "high": 19.37,
+    "low": 19.04,
+    "prev_close": 19.09,
+    "change_pct": 0.52,
+    "change_pct_1w": 1.37,
+    "change_pct_1m": 2.35,
+    "change_pct_1y": 32.37,
+    "volume": 8276700,
+    "avg_volume_30d": 16872413
+  },
+  "scores": {
+    "master_score": 55.48,
+    "technical_score": 64.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 60.0,
+    "sector_score": 45.8,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 55.48,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 56.4,
+    "macd": 0.1372,
+    "macd_signal": 0.1793,
+    "macd_histogram": -0.0421,
+    "macd_crossover": "neutral",
+    "ema_20": 19.05,
+    "ema_50": 18.61,
+    "ema_200": 17.5,
+    "ema_stack_bullish": true,
+    "bb_upper": 19.61,
+    "bb_middle": 19.09,
+    "bb_lower": 18.56,
+    "bb_width": 0.0548,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.4,
+    "atr": 0.4,
+    "atr_pct": 0.0208,
+    "obv_trend": "UP",
+    "mfi": 47.2,
+    "cmf": -0.103,
+    "stoch_k": 46.8,
+    "stoch_d": 41.3,
+    "rvol": 1.48,
+    "volume_5d_avg": 25014620,
+    "green_days_10d": 5,
+    "52w_high": 19.67,
+    "52w_low": 14.65,
+    "52w_high_proximity_pct": 0.0244,
+    "52w_low_proximity_pct": 0.3103
+  },
+  "fundamental": {
+    "pe_ratio": 15.859504,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 2.1286745,
+    "de_ratio": 142.294,
+    "fcf_yield": 0.0335,
+    "eps_growth_5y": -0.152,
+    "revenue_growth_ttm": 0.296,
+    "gross_margin": 0.19181,
+    "operating_margin": 0.092930004,
+    "net_margin": 0.05178,
+    "market_cap": 66019639296,
+    "enterprise_value": 153089638400,
+    "dividend_yield": 6.9,
+    "payout_ratio": 1.0868,
+    "insider_ownership_pct": 0.1026,
+    "institutional_ownership_pct": 0.30191,
+    "short_ratio": 2.01,
+    "beta": 0.623
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 18.52,
+    "entry_range_high": 19.29,
+    "target_range_low": 19.98,
+    "target_range_high": 21.41,
+    "stop_range_low": 17.47,
+    "stop_range_high": 18.39,
+    "target_price": 20.39,
+    "stop_loss": 18.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.478824-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 23.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 690.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7423,
+      "date": "2026-01-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+0.52%",
+    "key_metrics": {
+      "RSI": 56.4,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

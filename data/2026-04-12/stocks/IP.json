@@ -1,0 +1,158 @@
+{
+  "ticker": "IP",
+  "company": "International Paper Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.630177-04:00",
+  "sector": "Materials",
+  "industry": "Packaging & Containers",
+  "price": {
+    "current": 36.5,
+    "open": 36.98,
+    "high": 37.34,
+    "low": 36.43,
+    "prev_close": 36.78,
+    "change_pct": -0.76,
+    "change_pct_1w": 4.92,
+    "change_pct_1m": -5.59,
+    "change_pct_1y": -14.81,
+    "volume": 4255800,
+    "avg_volume_30d": 6674550
+  },
+  "scores": {
+    "master_score": 36.86,
+    "technical_score": 50.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 65.0,
+    "sector_score": 51.1,
+    "breakout_score": 45.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 36.86,
+    "confidence": 0.37,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.4,
+    "macd": -1.0907,
+    "macd_signal": -1.507,
+    "macd_histogram": 0.4163,
+    "macd_crossover": "neutral",
+    "ema_20": 36.6,
+    "ema_50": 38.67,
+    "ema_200": 42.4,
+    "ema_stack_bullish": false,
+    "bb_upper": 37.97,
+    "bb_middle": 35.83,
+    "bb_lower": 33.68,
+    "bb_width": 0.1198,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 30.3,
+    "atr": 1.46,
+    "atr_pct": 0.0399,
+    "obv_trend": "DOWN",
+    "mfi": 63.2,
+    "cmf": -0.094,
+    "stoch_k": 75.7,
+    "stoch_d": 87.9,
+    "rvol": 1.02,
+    "volume_5d_avg": 6811600,
+    "green_days_10d": 3,
+    "52w_high": 53.93,
+    "52w_low": 33.76,
+    "52w_high_proximity_pct": 0.3232,
+    "52w_low_proximity_pct": 0.0812
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 23.880953,
+    "pb_ratio": 1.2999039,
+    "de_ratio": 71.073,
+    "fcf_yield": 0.0286,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.531,
+    "gross_margin": 0.29737,
+    "operating_margin": 0.064770006,
+    "net_margin": -0.14877,
+    "market_cap": 19326246912,
+    "enterprise_value": 28718635008,
+    "dividend_yield": 5.07,
+    "payout_ratio": 1.5812,
+    "insider_ownership_pct": 0.0019400001,
+    "institutional_ownership_pct": 1.0271701,
+    "short_ratio": 6.88,
+    "beta": 1.099
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 36.32,
+    "entry_range_high": 36.68,
+    "target_range_low": 40.06,
+    "target_range_high": 42.92,
+    "stop_range_low": 31.9,
+    "stop_range_high": 33.58,
+    "target_price": 40.88,
+    "stop_loss": 33.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.630132-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 45.62,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 507.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 33.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 26092,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 3.46,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 37,
+    "price_change_display": "-0.76%",
+    "key_metrics": {
+      "RSI": 46.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

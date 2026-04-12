@@ -1,0 +1,158 @@
+{
+  "ticker": "CVX",
+  "company": "Chevron Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.408299-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 188.55,
+    "open": 189.71,
+    "high": 190.96,
+    "low": 186.47,
+    "prev_close": 190.36,
+    "change_pct": -0.95,
+    "change_pct_1w": -5.24,
+    "change_pct_1m": -1.69,
+    "change_pct_1y": 43.89,
+    "volume": 11146900,
+    "avg_volume_30d": 14680783
+  },
+  "scores": {
+    "master_score": 36.23,
+    "technical_score": 39.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 45.8,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 36.23,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.4,
+    "macd": 1.0547,
+    "macd_signal": 3.7425,
+    "macd_histogram": -2.6878,
+    "macd_crossover": "neutral",
+    "ema_20": 197.4,
+    "ema_50": 189.65,
+    "ema_200": 167.01,
+    "ema_stack_bullish": false,
+    "bb_upper": 213.05,
+    "bb_middle": 200.78,
+    "bb_lower": 188.52,
+    "bb_width": 0.1222,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 30.7,
+    "atr": 5.87,
+    "atr_pct": 0.0311,
+    "obv_trend": "DOWN",
+    "mfi": 55.2,
+    "cmf": -0.115,
+    "stoch_k": 7.4,
+    "stoch_d": 10.2,
+    "rvol": 0.82,
+    "volume_5d_avg": 11978920,
+    "green_days_10d": 3,
+    "52w_high": 211.15,
+    "52w_low": 127.97,
+    "52w_high_proximity_pct": 0.107,
+    "52w_low_proximity_pct": 0.4734
+  },
+  "fundamental": {
+    "pe_ratio": 28.396086,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 2.002549,
+    "de_ratio": 24.323,
+    "fcf_yield": 0.0351,
+    "eps_growth_5y": -0.238,
+    "revenue_growth_ttm": -0.082,
+    "gross_margin": 0.41896,
+    "operating_margin": 0.09462,
+    "net_margin": 0.06661,
+    "market_cap": 375572529152,
+    "enterprise_value": 422401933312,
+    "dividend_yield": 3.78,
+    "payout_ratio": 1.0317,
+    "insider_ownership_pct": 0.070250005,
+    "institutional_ownership_pct": 0.67990994,
+    "short_ratio": 1.39,
+    "beta": 0.587
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 187.61,
+    "entry_range_high": 189.49,
+    "target_range_low": 202.04,
+    "target_range_high": 216.47,
+    "stop_range_low": 167.97,
+    "stop_range_high": 176.81,
+    "target_price": 206.16,
+    "stop_loss": 176.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.408278-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 235.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 378.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 127.97,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 21,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 40200,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "-0.95%",
+    "key_metrics": {
+      "RSI": 39.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

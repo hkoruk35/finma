@@ -1,0 +1,160 @@
+{
+  "ticker": "NOW",
+  "company": "ServiceNow, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.887612-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 83.0,
+    "open": 88.91,
+    "high": 88.91,
+    "low": 81.24,
+    "prev_close": 89.81,
+    "change_pct": -7.58,
+    "change_pct_1w": -18.63,
+    "change_pct_1m": -28.22,
+    "change_pct_1y": -42.96,
+    "volume": 58626700,
+    "avg_volume_30d": 18606220
+  },
+  "scores": {
+    "master_score": 30.22,
+    "technical_score": 20.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 37.2,
+    "breakout_score": 27.0,
+    "value_score": 25.0,
+    "reversal_score": 35.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 30.22,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 22.4,
+    "macd": -5.6889,
+    "macd_signal": -3.8118,
+    "macd_histogram": -1.8771,
+    "macd_crossover": "neutral",
+    "ema_20": 102.26,
+    "ema_50": 111.87,
+    "ema_200": 146.34,
+    "ema_stack_bullish": false,
+    "bb_upper": 121.15,
+    "bb_middle": 104.65,
+    "bb_lower": 88.16,
+    "bb_width": 0.3152,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.3,
+    "atr": 5.6,
+    "atr_pct": 0.0675,
+    "obv_trend": "DOWN",
+    "mfi": 21.9,
+    "cmf": -0.355,
+    "stoch_k": 5.5,
+    "stoch_d": 4.2,
+    "rvol": 1.52,
+    "volume_5d_avg": 28340920,
+    "green_days_10d": 2,
+    "52w_high": 208.94,
+    "52w_low": 83.0,
+    "52w_high_proximity_pct": 0.6028,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 49.7006,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 6.7049036,
+    "de_ratio": 18.536,
+    "fcf_yield": 0.057,
+    "eps_growth_5y": 0.034,
+    "revenue_growth_ttm": 0.207,
+    "gross_margin": 0.77533996,
+    "operating_margin": 0.16508,
+    "net_margin": 0.13165,
+    "market_cap": 86817996800,
+    "enterprise_value": 82937004032,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.002,
+    "institutional_ownership_pct": 0.90781,
+    "short_ratio": 1.79,
+    "beta": 1.005
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 82.58,
+    "entry_range_high": 83.41,
+    "target_range_low": 97.8,
+    "target_range_high": 104.79,
+    "stop_range_low": 68.21,
+    "stop_range_high": 71.8,
+    "target_price": 99.8,
+    "stop_loss": 71.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.887566-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 27.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 103.75,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 83.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 28682,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "ServiceNow (NOW) exhibits UNDERPERFORM based on a FinMA score with low confidence (27%). Today's significant price drop of -7.83% to $82.78, coupled with bearish EMA alignment and an RSI of 22.3, suggests strong downward momentum. Key technical levels to watch are previous support around $80.00. While ServiceNow's 20.7% TTM revenue growth and strong margins are positive, the high P/E ratio of 49.57, exceeding the sector median, makes it vulnerable in the current environment. Lacking any specific positive news catalyst, downward pressure is likely to persist.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-7.58%",
+    "key_metrics": {
+      "RSI": 22.4,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

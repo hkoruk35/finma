@@ -1,0 +1,158 @@
+{
+  "ticker": "SLB",
+  "company": "SLB N.V.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.454874-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 51.92,
+    "open": 52.56,
+    "high": 53.75,
+    "low": 51.68,
+    "prev_close": 52.54,
+    "change_pct": -1.18,
+    "change_pct_1w": 5.02,
+    "change_pct_1m": 7.78,
+    "change_pct_1y": 67.47,
+    "volume": 13218700,
+    "avg_volume_30d": 20045763
+  },
+  "scores": {
+    "master_score": 52.78,
+    "technical_score": 62.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.8,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 52.78,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.0,
+    "macd": 0.8733,
+    "macd_signal": 0.6723,
+    "macd_histogram": 0.201,
+    "macd_crossover": "neutral",
+    "ema_20": 50.31,
+    "ema_50": 48.71,
+    "ema_200": 42.36,
+    "ema_stack_bullish": true,
+    "bb_upper": 54.95,
+    "bb_middle": 49.59,
+    "bb_lower": 44.24,
+    "bb_width": 0.216,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.5,
+    "atr": 1.92,
+    "atr_pct": 0.037,
+    "obv_trend": "UP",
+    "mfi": 66.5,
+    "cmf": 0.07,
+    "stoch_k": 62.7,
+    "stoch_d": 69.0,
+    "rvol": 0.68,
+    "volume_5d_avg": 13558780,
+    "green_days_10d": 5,
+    "52w_high": 53.5,
+    "52w_low": 31.29,
+    "52w_high_proximity_pct": 0.0295,
+    "52w_low_proximity_pct": 0.6595
+  },
+  "fundamental": {
+    "pe_ratio": 22.093616,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 2.973654,
+    "de_ratio": 45.975,
+    "fcf_yield": 0.0314,
+    "eps_growth_5y": -0.286,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.18687999,
+    "operating_margin": 0.15988,
+    "net_margin": 0.09449001,
+    "market_cap": 77938835456,
+    "enterprise_value": 87061610496,
+    "dividend_yield": 2.27,
+    "payout_ratio": 0.48509997,
+    "insider_ownership_pct": 0.0021799998,
+    "institutional_ownership_pct": 0.87649,
+    "short_ratio": 3.2,
+    "beta": 0.695
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 48.47,
+    "entry_range_high": 52.18,
+    "target_range_low": 56.53,
+    "target_range_high": 60.56,
+    "stop_range_low": 45.68,
+    "stop_range_high": 48.08,
+    "target_price": 57.68,
+    "stop_loss": 48.08,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.454848-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 64.9,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 227.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.29,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4000,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "-1.18%",
+    "key_metrics": {
+      "RSI": 58.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

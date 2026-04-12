@@ -1,0 +1,158 @@
+{
+  "ticker": "SO",
+  "company": "The Southern Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.839256-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 97.15,
+    "open": 97.33,
+    "high": 98.2,
+    "low": 96.84,
+    "prev_close": 97.59,
+    "change_pct": -0.45,
+    "change_pct_1w": -0.31,
+    "change_pct_1m": 0.92,
+    "change_pct_1y": 15.52,
+    "volume": 3475100,
+    "avg_volume_30d": 5311763
+  },
+  "scores": {
+    "master_score": 42.82,
+    "technical_score": 52.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.2,
+    "breakout_score": 0.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.82,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 56.5,
+    "macd": 0.6445,
+    "macd_signal": 0.6442,
+    "macd_histogram": 0.0003,
+    "macd_crossover": "neutral",
+    "ema_20": 96.44,
+    "ema_50": 94.69,
+    "ema_200": 91.36,
+    "ema_stack_bullish": true,
+    "bb_upper": 99.42,
+    "bb_middle": 96.42,
+    "bb_lower": 93.42,
+    "bb_width": 0.0622,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.2,
+    "atr": 1.58,
+    "atr_pct": 0.0163,
+    "obv_trend": "UP",
+    "mfi": 56.5,
+    "cmf": -0.17,
+    "stoch_k": 74.2,
+    "stoch_d": 80.3,
+    "rvol": 0.78,
+    "volume_5d_avg": 4156900,
+    "green_days_10d": 6,
+    "52w_high": 99.11,
+    "52w_low": 82.21,
+    "52w_high_proximity_pct": 0.0198,
+    "52w_low_proximity_pct": 0.1817
+  },
+  "fundamental": {
+    "pe_ratio": 24.783163,
+    "sector_pe_median": 22.836065,
+    "pb_ratio": 3.0190496,
+    "de_ratio": 190.586,
+    "fcf_yield": -0.0316,
+    "eps_growth_5y": -0.221,
+    "revenue_growth_ttm": 0.101,
+    "gross_margin": 0.48469,
+    "operating_margin": 0.12735,
+    "net_margin": 0.14689,
+    "market_cap": 109517594624,
+    "enterprise_value": 184035868672,
+    "dividend_yield": 3.05,
+    "payout_ratio": 0.75,
+    "insider_ownership_pct": 0.00097000005,
+    "institutional_ownership_pct": 0.72071,
+    "short_ratio": 4.94,
+    "beta": 0.405
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 94.22,
+    "entry_range_high": 97.64,
+    "target_range_low": 99.85,
+    "target_range_high": 106.98,
+    "stop_range_low": 89.29,
+    "stop_range_high": 93.99,
+    "target_price": 101.89,
+    "stop_loss": 93.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.839216-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 121.44,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 305.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 82.21,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 82,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-0.45%",
+    "key_metrics": {
+      "RSI": 56.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

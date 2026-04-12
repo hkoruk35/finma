@@ -1,0 +1,158 @@
+{
+  "ticker": "ALK",
+  "company": "Alaska Air Group, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.771879-04:00",
+  "sector": "Industrials",
+  "industry": "Airlines",
+  "price": {
+    "current": 39.5,
+    "open": 40.12,
+    "high": 40.29,
+    "low": 39.19,
+    "prev_close": 39.9,
+    "change_pct": -1.0,
+    "change_pct_1w": 5.81,
+    "change_pct_1m": -4.4,
+    "change_pct_1y": -3.68,
+    "volume": 2441400,
+    "avg_volume_30d": 5144316
+  },
+  "scores": {
+    "master_score": 38.93,
+    "technical_score": 48.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 38.93,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 46.7,
+    "macd": -1.7799,
+    "macd_signal": -2.5832,
+    "macd_histogram": 0.8033,
+    "macd_crossover": "neutral",
+    "ema_20": 39.44,
+    "ema_50": 43.32,
+    "ema_200": 49.39,
+    "ema_stack_bullish": false,
+    "bb_upper": 40.68,
+    "bb_middle": 37.99,
+    "bb_lower": 35.3,
+    "bb_width": 0.1414,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 25.2,
+    "atr": 2.52,
+    "atr_pct": 0.0637,
+    "obv_trend": "UP",
+    "mfi": 52.0,
+    "cmf": -0.125,
+    "stoch_k": 63.3,
+    "stoch_d": 65.9,
+    "rvol": 0.94,
+    "volume_5d_avg": 4831680,
+    "green_days_10d": 4,
+    "52w_high": 63.86,
+    "52w_low": 34.19,
+    "52w_high_proximity_pct": 0.3815,
+    "52w_low_proximity_pct": 0.1553
+  },
+  "fundamental": {
+    "pe_ratio": 47.590363,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 1.1081809,
+    "de_ratio": 167.387,
+    "fcf_yield": -0.0439,
+    "eps_growth_5y": -0.683,
+    "revenue_growth_ttm": 0.028,
+    "gross_margin": 0.21511,
+    "operating_margin": 0.03194,
+    "net_margin": 0.0070200004,
+    "market_cap": 4528337408,
+    "enterprise_value": 9298336768,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00524,
+    "institutional_ownership_pct": 0.93014,
+    "short_ratio": 2.83,
+    "beta": 1.275
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 39.3,
+    "entry_range_high": 39.7,
+    "target_range_low": 46.12,
+    "target_range_high": 49.41,
+    "stop_range_low": 32.74,
+    "stop_range_high": 34.46,
+    "target_price": 47.06,
+    "stop_loss": 34.46,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.771854-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 49.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 697,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-1.00%",
+    "key_metrics": {
+      "RSI": 46.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

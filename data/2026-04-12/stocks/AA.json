@@ -1,0 +1,158 @@
+{
+  "ticker": "AA",
+  "company": "Alcoa Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.612415-04:00",
+  "sector": "Materials",
+  "industry": "Aluminum",
+  "price": {
+    "current": 73.03,
+    "open": 74.22,
+    "high": 75.19,
+    "low": 72.86,
+    "prev_close": 73.27,
+    "change_pct": -0.33,
+    "change_pct_1w": 2.1,
+    "change_pct_1m": 10.05,
+    "change_pct_1y": 227.2,
+    "volume": 3185100,
+    "avg_volume_30d": 6702813
+  },
+  "scores": {
+    "master_score": 63.61,
+    "technical_score": 60.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 51.1,
+    "breakout_score": 35.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 63.61,
+    "confidence": 0.64,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 65.8,
+    "macd": 3.147,
+    "macd_signal": 1.9695,
+    "macd_histogram": 1.1775,
+    "macd_crossover": "neutral",
+    "ema_20": 66.76,
+    "ema_50": 62.78,
+    "ema_200": 49.14,
+    "ema_stack_bullish": true,
+    "bb_upper": 77.37,
+    "bb_middle": 64.88,
+    "bb_lower": 52.38,
+    "bb_width": 0.3852,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.5,
+    "atr": 3.73,
+    "atr_pct": 0.051,
+    "obv_trend": "UP",
+    "mfi": 66.2,
+    "cmf": 0.014,
+    "stoch_k": 87.1,
+    "stoch_d": 88.8,
+    "rvol": 0.74,
+    "volume_5d_avg": 4981720,
+    "green_days_10d": 6,
+    "52w_high": 73.27,
+    "52w_low": 23.04,
+    "52w_high_proximity_pct": 0.0033,
+    "52w_low_proximity_pct": 2.1695
+  },
+  "fundamental": {
+    "pe_ratio": 16.71167,
+    "sector_pe_median": 23.880953,
+    "pb_ratio": 3.1406698,
+    "de_ratio": 44.495,
+    "fcf_yield": 0.0616,
+    "eps_growth_5y": 0.064,
+    "revenue_growth_ttm": -0.011,
+    "gross_margin": 0.17863001,
+    "operating_margin": 0.13627,
+    "net_margin": 0.09017,
+    "market_cap": 19269883904,
+    "enterprise_value": 20503216128,
+    "dividend_yield": 0.55,
+    "payout_ratio": 0.0915,
+    "insider_ownership_pct": 0.00472,
+    "institutional_ownership_pct": 0.84176004,
+    "short_ratio": 0.98,
+    "beta": 1.697
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 62.47,
+    "entry_range_high": 73.4,
+    "target_range_low": 82.54,
+    "target_range_high": 88.43,
+    "stop_range_low": 62.29,
+    "stop_range_high": 65.57,
+    "target_price": 84.22,
+    "stop_loss": 65.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.612377-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 91.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 55.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 23.04,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8740,
+      "date": "2026-02-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 3.46,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 64,
+    "price_change_display": "-0.33%",
+    "key_metrics": {
+      "RSI": 65.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

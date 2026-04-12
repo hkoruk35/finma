@@ -1,0 +1,158 @@
+{
+  "ticker": "SCCO",
+  "company": "Southern Copper Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.524308-04:00",
+  "sector": "Materials",
+  "industry": "Copper",
+  "price": {
+    "current": 192.56,
+    "open": 192.0,
+    "high": 196.38,
+    "low": 190.51,
+    "prev_close": 188.05,
+    "change_pct": 2.4,
+    "change_pct_1w": 8.28,
+    "change_pct_1m": 0.28,
+    "change_pct_1y": 170.95,
+    "volume": 1548200,
+    "avg_volume_30d": 1817560
+  },
+  "scores": {
+    "master_score": 44.11,
+    "technical_score": 40.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 50.0,
+    "sector_score": 51.1,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 44.11,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 60.0,
+    "macd": 0.0849,
+    "macd_signal": -3.718,
+    "macd_histogram": 3.8029,
+    "macd_crossover": "neutral",
+    "ema_20": 178.07,
+    "ema_50": 178.61,
+    "ema_200": 147.42,
+    "ema_stack_bullish": false,
+    "bb_upper": 192.39,
+    "bb_middle": 170.81,
+    "bb_lower": 149.23,
+    "bb_width": 0.2527,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.5,
+    "atr": 9.51,
+    "atr_pct": 0.0494,
+    "obv_trend": "UP",
+    "mfi": 65.6,
+    "cmf": 0.081,
+    "stoch_k": 91.2,
+    "stoch_d": 92.9,
+    "rvol": 0.69,
+    "volume_5d_avg": 1248660,
+    "green_days_10d": 6,
+    "52w_high": 218.85,
+    "52w_low": 76.9,
+    "52w_high_proximity_pct": 0.1201,
+    "52w_low_proximity_pct": 1.5039
+  },
+  "fundamental": {
+    "pe_ratio": 37.03077,
+    "sector_pe_median": 23.880953,
+    "pb_ratio": 14.4110155,
+    "de_ratio": 66.759,
+    "fcf_yield": 0.021,
+    "eps_growth_5y": 0.604,
+    "revenue_growth_ttm": 0.39,
+    "gross_margin": 0.60905,
+    "operating_margin": 0.54538,
+    "net_margin": 0.32301998,
+    "market_cap": 159067160576,
+    "enterprise_value": 161638268928,
+    "dividend_yield": 2.08,
+    "payout_ratio": 0.5841,
+    "insider_ownership_pct": 0.89744,
+    "institutional_ownership_pct": 0.0935,
+    "short_ratio": 6.1,
+    "beta": 1.166
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 177.72,
+    "entry_range_high": 193.52,
+    "target_range_low": 216.67,
+    "target_range_high": 232.14,
+    "stop_range_low": 164.86,
+    "stop_range_high": 173.54,
+    "target_price": 221.09,
+    "stop_loss": 173.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.524277-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 240.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 208.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 76.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 193,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 3.46,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "+2.40%",
+    "key_metrics": {
+      "RSI": 60.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

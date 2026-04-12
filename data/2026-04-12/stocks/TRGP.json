@@ -1,0 +1,158 @@
+{
+  "ticker": "TRGP",
+  "company": "Targa Resources Corp.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.488817-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 243.09,
+    "open": 242.78,
+    "high": 244.57,
+    "low": 238.39,
+    "prev_close": 244.75,
+    "change_pct": -0.68,
+    "change_pct_1w": -0.53,
+    "change_pct_1m": 2.78,
+    "change_pct_1y": 54.95,
+    "volume": 1215700,
+    "avg_volume_30d": 1612813
+  },
+  "scores": {
+    "master_score": 40.53,
+    "technical_score": 42.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.8,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 40.53,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.1,
+    "macd": 3.9741,
+    "macd_signal": 5.2423,
+    "macd_histogram": -1.2682,
+    "macd_crossover": "neutral",
+    "ema_20": 243.16,
+    "ema_50": 230.76,
+    "ema_200": 197.33,
+    "ema_stack_bullish": false,
+    "bb_upper": 253.29,
+    "bb_middle": 243.98,
+    "bb_lower": 234.68,
+    "bb_width": 0.0763,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 29.1,
+    "atr": 7.29,
+    "atr_pct": 0.03,
+    "obv_trend": "DOWN",
+    "mfi": 63.1,
+    "cmf": -0.001,
+    "stoch_k": 45.1,
+    "stoch_d": 49.5,
+    "rvol": 0.79,
+    "volume_5d_avg": 1273560,
+    "green_days_10d": 4,
+    "52w_high": 250.98,
+    "52w_low": 144.61,
+    "52w_high_proximity_pct": 0.0314,
+    "52w_low_proximity_pct": 0.681
+  },
+  "fundamental": {
+    "pe_ratio": 28.666275,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 17.008816,
+    "de_ratio": 548.63,
+    "fcf_yield": -0.0051,
+    "eps_growth_5y": 0.745,
+    "revenue_growth_ttm": -0.079,
+    "gross_margin": 0.38292,
+    "operating_margin": 0.22621,
+    "net_margin": 0.11293,
+    "market_cap": 52252631040,
+    "enterprise_value": 69763129344,
+    "dividend_yield": 1.65,
+    "payout_ratio": 0.44169998,
+    "insider_ownership_pct": 0.01393,
+    "institutional_ownership_pct": 0.95716006,
+    "short_ratio": 2.78,
+    "beta": 0.811
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 229.61,
+    "entry_range_high": 244.31,
+    "target_range_low": 259.66,
+    "target_range_high": 278.21,
+    "stop_range_low": 217.08,
+    "stop_range_high": 228.51,
+    "target_price": 264.96,
+    "stop_loss": 228.51,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.488794-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 303.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 165.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 144.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 24589,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "-0.68%",
+    "key_metrics": {
+      "RSI": 53.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

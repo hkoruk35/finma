@@ -1,0 +1,158 @@
+{
+  "ticker": "REGN",
+  "company": "Regeneron Pharmaceuticals, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.195454-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 748.87,
+    "open": 771.48,
+    "high": 771.48,
+    "low": 739.09,
+    "prev_close": 767.85,
+    "change_pct": -2.47,
+    "change_pct_1w": -1.7,
+    "change_pct_1m": -3.33,
+    "change_pct_1y": 35.23,
+    "volume": 751300,
+    "avg_volume_30d": 621463
+  },
+  "scores": {
+    "master_score": 42.04,
+    "technical_score": 42.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.04,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 46.0,
+    "macd": -0.0764,
+    "macd_signal": -1.5185,
+    "macd_histogram": 1.4421,
+    "macd_crossover": "neutral",
+    "ema_20": 759.72,
+    "ema_50": 758.82,
+    "ema_200": 702.09,
+    "ema_stack_bullish": false,
+    "bb_upper": 779.99,
+    "bb_middle": 753.74,
+    "bb_lower": 727.5,
+    "bb_width": 0.0696,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.3,
+    "atr": 20.29,
+    "atr_pct": 0.0271,
+    "obv_trend": "DOWN",
+    "mfi": 53.4,
+    "cmf": 0.01,
+    "stoch_k": 39.3,
+    "stoch_d": 67.8,
+    "rvol": 0.97,
+    "volume_5d_avg": 601940,
+    "green_days_10d": 5,
+    "52w_high": 811.29,
+    "52w_low": 481.15,
+    "52w_high_proximity_pct": 0.0769,
+    "52w_low_proximity_pct": 0.5564
+  },
+  "fundamental": {
+    "pe_ratio": 18.049408,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 2.4581482,
+    "de_ratio": 9.511,
+    "fcf_yield": 0.0412,
+    "eps_growth_5y": -0.026,
+    "revenue_growth_ttm": 0.025,
+    "gross_margin": 0.44566002,
+    "operating_margin": 0.23134,
+    "net_margin": 0.31409,
+    "market_cap": 79170396160,
+    "enterprise_value": 71216390144,
+    "dividend_yield": 0.5,
+    "payout_ratio": 0.0849,
+    "insider_ownership_pct": 0.01984,
+    "institutional_ownership_pct": 0.90833,
+    "short_ratio": 4.04,
+    "beta": 0.397
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 745.13,
+    "entry_range_high": 752.61,
+    "target_range_low": 793.55,
+    "target_range_high": 850.23,
+    "stop_range_low": 672.88,
+    "stop_range_high": 708.29,
+    "target_price": 809.74,
+    "stop_loss": 708.29,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.195427-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 936.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 50.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 481.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 100,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "-2.47%",
+    "key_metrics": {
+      "RSI": 46.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

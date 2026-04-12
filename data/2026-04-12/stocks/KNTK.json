@@ -1,0 +1,158 @@
+{
+  "ticker": "KNTK",
+  "company": "Kinetik Holdings Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.491711-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 47.29,
+    "open": 45.66,
+    "high": 47.54,
+    "low": 45.54,
+    "prev_close": 45.76,
+    "change_pct": 3.34,
+    "change_pct_1w": 1.35,
+    "change_pct_1m": 2.49,
+    "change_pct_1y": 21.37,
+    "volume": 1492900,
+    "avg_volume_30d": 1293893
+  },
+  "scores": {
+    "master_score": 57.78,
+    "technical_score": 62.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 65.0,
+    "sector_score": 45.8,
+    "breakout_score": 45.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 57.78,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 56.2,
+    "macd": 0.5739,
+    "macd_signal": 0.8335,
+    "macd_histogram": -0.2596,
+    "macd_crossover": "neutral",
+    "ema_20": 46.46,
+    "ema_50": 44.49,
+    "ema_200": 41.65,
+    "ema_stack_bullish": true,
+    "bb_upper": 49.02,
+    "bb_middle": 46.61,
+    "bb_lower": 44.19,
+    "bb_width": 0.1036,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 26.5,
+    "atr": 1.78,
+    "atr_pct": 0.0376,
+    "obv_trend": "UP",
+    "mfi": 59.8,
+    "cmf": 0.021,
+    "stoch_k": 54.3,
+    "stoch_d": 32.5,
+    "rvol": 0.93,
+    "volume_5d_avg": 1208880,
+    "green_days_10d": 6,
+    "52w_high": 48.64,
+    "52w_low": 31.05,
+    "52w_high_proximity_pct": 0.0278,
+    "52w_low_proximity_pct": 0.523
+  },
+  "fundamental": {
+    "pe_ratio": 17.980988,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": -5.359855,
+    "de_ratio": 131.918,
+    "fcf_yield": -0.04,
+    "eps_growth_5y": 485.801,
+    "revenue_growth_ttm": 0.116,
+    "gross_margin": 0.40367,
+    "operating_margin": 0.16188999,
+    "net_margin": 0.29808,
+    "market_cap": 3253655296,
+    "enterprise_value": 10412005376,
+    "dividend_yield": 6.66,
+    "payout_ratio": 1.1862999,
+    "insider_ownership_pct": 0.1013,
+    "institutional_ownership_pct": 1.02345,
+    "short_ratio": 5.2,
+    "beta": 0.882
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 44.27,
+    "entry_range_high": 47.53,
+    "target_range_low": 51.58,
+    "target_range_high": 55.26,
+    "stop_range_low": 41.54,
+    "stop_range_high": 43.73,
+    "target_price": 52.63,
+    "stop_loss": 43.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.491687-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 59.11,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 666.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1500000,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+3.34%",
+    "key_metrics": {
+      "RSI": 56.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "ABT",
+  "company": "Abbott Laboratories",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.219611-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 100.3,
+    "open": 102.71,
+    "high": 102.77,
+    "low": 99.34,
+    "prev_close": 102.72,
+    "change_pct": -2.36,
+    "change_pct_1w": -2.5,
+    "change_pct_1m": -9.02,
+    "change_pct_1y": -17.56,
+    "volume": 11944300,
+    "avg_volume_30d": 11517513
+  },
+  "scores": {
+    "master_score": 20.59,
+    "technical_score": 15.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 5.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 20.59,
+    "confidence": 0.21,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 31.5,
+    "macd": -2.4433,
+    "macd_signal": -2.4318,
+    "macd_histogram": -0.0115,
+    "macd_crossover": "bearish",
+    "ema_20": 104.57,
+    "ema_50": 108.98,
+    "ema_200": 119.93,
+    "ema_stack_bullish": false,
+    "bb_upper": 110.22,
+    "bb_middle": 104.63,
+    "bb_lower": 99.04,
+    "bb_width": 0.1068,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 36.0,
+    "atr": 2.26,
+    "atr_pct": 0.0225,
+    "obv_trend": "DOWN",
+    "mfi": 18.3,
+    "cmf": -0.451,
+    "stoch_k": 12.3,
+    "stoch_d": 23.0,
+    "rvol": 0.83,
+    "volume_5d_avg": 9591820,
+    "green_days_10d": 3,
+    "52w_high": 136.16,
+    "52w_low": 100.3,
+    "52w_high_proximity_pct": 0.2634,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 26.962366,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 3.3413286,
+    "de_ratio": 26.787,
+    "fcf_yield": 0.0361,
+    "eps_growth_5y": -0.809,
+    "revenue_growth_ttm": 0.044,
+    "gross_margin": 0.56664,
+    "operating_margin": 0.21616,
+    "net_margin": 0.14718,
+    "market_cap": 174289600512,
+    "enterprise_value": 180127596544,
+    "dividend_yield": 2.51,
+    "payout_ratio": 0.6344,
+    "insider_ownership_pct": 0.00541,
+    "institutional_ownership_pct": 0.81991,
+    "short_ratio": 1.93,
+    "beta": 0.782
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 99.8,
+    "entry_range_high": 100.8,
+    "target_range_low": 104.94,
+    "target_range_high": 112.43,
+    "stop_range_low": 90.99,
+    "stop_range_high": 95.78,
+    "target_price": 107.08,
+    "stop_loss": 95.78,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.219590-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 125.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 251.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 100.3,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13255,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 21,
+    "price_change_display": "-2.36%",
+    "key_metrics": {
+      "RSI": 31.5,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "AAPL",
+  "company": "Apple Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.775900-04:00",
+  "sector": "Technology",
+  "industry": "Consumer Electronics",
+  "price": {
+    "current": 260.48,
+    "open": 259.98,
+    "high": 262.19,
+    "low": 259.02,
+    "prev_close": 260.49,
+    "change_pct": -0.0,
+    "change_pct_1w": 1.78,
+    "change_pct_1m": -0.13,
+    "change_pct_1y": 51.73,
+    "volume": 31259500,
+    "avg_volume_30d": 41188093
+  },
+  "scores": {
+    "master_score": 44.67,
+    "technical_score": 42.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 44.67,
+    "confidence": 0.45,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.6,
+    "macd": -0.1615,
+    "macd_signal": -1.63,
+    "macd_histogram": 1.4686,
+    "macd_crossover": "neutral",
+    "ema_20": 256.09,
+    "ema_50": 258.53,
+    "ema_200": 252.36,
+    "ema_stack_bullish": false,
+    "bb_upper": 261.27,
+    "bb_middle": 253.28,
+    "bb_lower": 245.3,
+    "bb_width": 0.0631,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.2,
+    "atr": 5.9,
+    "atr_pct": 0.0226,
+    "obv_trend": "UP",
+    "mfi": 59.8,
+    "cmf": 0.022,
+    "stoch_k": 89.7,
+    "stoch_d": 86.7,
+    "rvol": 0.93,
+    "volume_5d_avg": 38378360,
+    "green_days_10d": 6,
+    "52w_high": 285.92,
+    "52w_low": 189.59,
+    "52w_high_proximity_pct": 0.089,
+    "52w_low_proximity_pct": 0.3739
+  },
+  "fundamental": {
+    "pe_ratio": 33.013943,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 43.42781,
+    "de_ratio": 102.63,
+    "fcf_yield": 0.0278,
+    "eps_growth_5y": 0.183,
+    "revenue_growth_ttm": 0.157,
+    "gross_margin": 0.47325,
+    "operating_margin": 0.35374,
+    "net_margin": 0.27037,
+    "market_cap": 3828515864576,
+    "enterprise_value": 3847745437696,
+    "dividend_yield": 0.4,
+    "payout_ratio": 0.1304,
+    "insider_ownership_pct": 0.01641,
+    "institutional_ownership_pct": 0.65293,
+    "short_ratio": 3.17,
+    "beta": 1.109
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 257.24,
+    "entry_range_high": 261.78,
+    "target_range_low": 272.62,
+    "target_range_high": 292.09,
+    "stop_range_low": 236.25,
+    "stop_range_high": 248.68,
+    "target_price": 278.18,
+    "stop_loss": 248.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.775854-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 325.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 40.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 189.59,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 30002,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "AAPL currently trades at $260.48, with BOGA AI assigning a NEGATIVE BIAS score. The daily chart EMA alignment is bearish, despite a relatively high dividend yield of 40.00%. The RSI at 55.6 suggests neutral momentum. Watch for overhead resistance near the 52-week high.\n\nBUY ZONE: $250-255\nPROFIT ZONE: $270-275\nSTOP LOSS ZONE: $240-245\n\nA key catalyst to monitor is the company's ability to sustain its 15.7% TTM revenue growth, especially given the HIGH Bollinger Band reading indicating potential volatility. The discounted P/E relative to the sector is a positive offset.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 45,
+    "price_change_display": "-0.00%",
+    "key_metrics": {
+      "RSI": 55.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

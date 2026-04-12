@@ -1,0 +1,158 @@
+{
+  "ticker": "DHI",
+  "company": "D.R. Horton, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:22.075118-04:00",
+  "sector": "Real Estate",
+  "industry": "Residential Construction",
+  "price": {
+    "current": 142.64,
+    "open": 143.7,
+    "high": 144.1,
+    "low": 139.51,
+    "prev_close": 143.74,
+    "change_pct": -0.77,
+    "change_pct_1w": 2.11,
+    "change_pct_1m": -0.02,
+    "change_pct_1y": 25.39,
+    "volume": 3886000,
+    "avg_volume_30d": 2811193
+  },
+  "scores": {
+    "master_score": 51.11,
+    "technical_score": 60.0,
+    "fundamental_score": 50.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 51.1,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 51.11,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 50.5,
+    "macd": -1.8512,
+    "macd_signal": -3.2619,
+    "macd_histogram": 1.4106,
+    "macd_crossover": "neutral",
+    "ema_20": 141.07,
+    "ema_50": 145.6,
+    "ema_200": 147.09,
+    "ema_stack_bullish": false,
+    "bb_upper": 144.99,
+    "bb_middle": 138.68,
+    "bb_lower": 132.37,
+    "bb_width": 0.091,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 32.6,
+    "atr": 5.03,
+    "atr_pct": 0.0352,
+    "obv_trend": "UP",
+    "mfi": 39.2,
+    "cmf": -0.084,
+    "stoch_k": 71.5,
+    "stoch_d": 74.8,
+    "rvol": 1.12,
+    "volume_5d_avg": 3139640,
+    "green_days_10d": 6,
+    "52w_high": 182.95,
+    "52w_low": 115.9,
+    "52w_high_proximity_pct": 0.2203,
+    "52w_low_proximity_pct": 0.2308
+  },
+  "fundamental": {
+    "pe_ratio": 12.990893,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 1.7268556,
+    "de_ratio": 22.872,
+    "fcf_yield": -0.0132,
+    "eps_growth_5y": -0.222,
+    "revenue_growth_ttm": -0.095,
+    "gross_margin": 0.22068001,
+    "operating_margin": 0.110240005,
+    "net_margin": 0.09948,
+    "market_cap": 41522438144,
+    "enterprise_value": 44993093632,
+    "dividend_yield": 1.26,
+    "payout_ratio": 0.15010001,
+    "insider_ownership_pct": 0.11318,
+    "institutional_ownership_pct": 0.8807,
+    "short_ratio": 5.85,
+    "beta": 1.445
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 141.93,
+    "entry_range_high": 143.35,
+    "target_range_low": 154.58,
+    "target_range_high": 165.62,
+    "stop_range_low": 125.95,
+    "stop_range_high": 132.58,
+    "target_price": 157.73,
+    "stop_loss": 132.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:22.075077-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 178.3,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 126.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 115.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 887,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-0.77%",
+    "key_metrics": {
+      "RSI": 50.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

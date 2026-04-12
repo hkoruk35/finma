@@ -1,0 +1,160 @@
+{
+  "ticker": "FRT",
+  "company": "Federal Realty Investment Trust",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:22.011759-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 109.05,
+    "open": 107.43,
+    "high": 109.06,
+    "low": 107.18,
+    "prev_close": 107.39,
+    "change_pct": 1.55,
+    "change_pct_1w": 2.12,
+    "change_pct_1m": 3.01,
+    "change_pct_1y": 36.49,
+    "volume": 2051700,
+    "avg_volume_30d": 887766
+  },
+  "scores": {
+    "master_score": 68.91,
+    "technical_score": 68.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 90.0,
+    "sentiment_score": 85.0,
+    "sector_score": 51.1,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 68.91,
+    "confidence": 0.69,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 66.7,
+    "macd": 0.8213,
+    "macd_signal": 0.2847,
+    "macd_histogram": 0.5366,
+    "macd_crossover": "neutral",
+    "ema_20": 105.72,
+    "ema_50": 104.45,
+    "ema_200": 99.72,
+    "ema_stack_bullish": true,
+    "bb_upper": 109.1,
+    "bb_middle": 104.81,
+    "bb_lower": 100.51,
+    "bb_width": 0.082,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.4,
+    "atr": 1.87,
+    "atr_pct": 0.0172,
+    "obv_trend": "UP",
+    "mfi": 70.9,
+    "cmf": -0.012,
+    "stoch_k": 99.9,
+    "stoch_d": 89.6,
+    "rvol": 1.48,
+    "volume_5d_avg": 1310800,
+    "green_days_10d": 7,
+    "52w_high": 109.39,
+    "52w_low": 85.06,
+    "52w_high_proximity_pct": 0.0031,
+    "52w_low_proximity_pct": 0.282
+  },
+  "fundamental": {
+    "pe_ratio": 23.301283,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 3.045494,
+    "de_ratio": 143.64,
+    "fcf_yield": 0.0492,
+    "eps_growth_5y": 0.987,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.67917,
+    "operating_margin": 0.34458,
+    "net_margin": 0.32092997,
+    "market_cap": 9478345728,
+    "enterprise_value": 14738424832,
+    "dividend_yield": 4.12,
+    "payout_ratio": 0.953,
+    "insider_ownership_pct": 0.01122,
+    "institutional_ownership_pct": 0.99671,
+    "short_ratio": 0.02,
+    "beta": 0.992
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 103.93,
+    "entry_range_high": 109.6,
+    "target_range_low": 112.37,
+    "target_range_high": 120.39,
+    "stop_range_low": 100.04,
+    "stop_range_high": 105.31,
+    "target_price": 114.66,
+    "stop_loss": 105.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:22.011695-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 136.31,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 412.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 85.06,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11712,
+      "date": "2026-02-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "FRT exhibits a POSITIVE BIAS (FinMA score confidence 69%). At $109.05, FRT trades near its 52-week high, supported by bullish EMA alignment on the 1D chart. A BUY ZONE forms between $107.50 and $109.05, targeting a PROFIT ZONE near $112.00. Manage risk with a STOP LOSS ZONE near $106.00. While ADX strength (20.4) is not trending, above-average relative volume (1.48x) suggests buying interest. FRT's P/E of 23.30 offers a relative valuation discount compared to the sector median of 29.49. A catalyst for FRT is its strong dividend yield of 4.12%, which may attract income-seeking investors.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 69,
+    "price_change_display": "+1.55%",
+    "key_metrics": {
+      "RSI": 66.7,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

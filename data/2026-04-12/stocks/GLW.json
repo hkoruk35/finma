@@ -1,0 +1,160 @@
+{
+  "ticker": "GLW",
+  "company": "Corning Incorporated",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.964326-04:00",
+  "sector": "Technology",
+  "industry": "Electronic Components",
+  "price": {
+    "current": 171.24,
+    "open": 172.61,
+    "high": 176.75,
+    "low": 167.97,
+    "prev_close": 169.8,
+    "change_pct": 0.85,
+    "change_pct_1w": 15.77,
+    "change_pct_1m": 29.96,
+    "change_pct_1y": 343.65,
+    "volume": 9880500,
+    "avg_volume_30d": 13084693
+  },
+  "scores": {
+    "master_score": 58.17,
+    "technical_score": 57.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 37.2,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.17,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.7,
+    "macd": 8.4439,
+    "macd_signal": 4.9365,
+    "macd_histogram": 3.5075,
+    "macd_crossover": "neutral",
+    "ema_20": 146.22,
+    "ema_50": 133.62,
+    "ema_200": 98.86,
+    "ema_stack_bullish": true,
+    "bb_upper": 168.21,
+    "bb_middle": 141.3,
+    "bb_lower": 114.39,
+    "bb_width": 0.3809,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.2,
+    "atr": 9.44,
+    "atr_pct": 0.0551,
+    "obv_trend": "UP",
+    "mfi": 81.7,
+    "cmf": 0.041,
+    "stoch_k": 89.0,
+    "stoch_d": 94.5,
+    "rvol": 0.87,
+    "volume_5d_avg": 11368100,
+    "green_days_10d": 8,
+    "52w_high": 171.24,
+    "52w_low": 40.1,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 3.2708
+  },
+  "fundamental": {
+    "pe_ratio": 93.57377,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 12.429411,
+    "de_ratio": 76.192,
+    "fcf_yield": 0.0043,
+    "eps_growth_5y": 0.774,
+    "revenue_growth_ttm": 0.204,
+    "gross_margin": 0.35984,
+    "operating_margin": 0.1656,
+    "net_margin": 0.10212,
+    "market_cap": 147097714688,
+    "enterprise_value": 155266039808,
+    "dividend_yield": 0.65,
+    "payout_ratio": 0.612,
+    "insider_ownership_pct": 0.081470005,
+    "institutional_ownership_pct": 0.74759,
+    "short_ratio": 1.13,
+    "beta": 1.053
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 132.95,
+    "entry_range_high": 172.1,
+    "target_range_low": 195.57,
+    "target_range_high": 209.54,
+    "stop_range_low": 144.74,
+    "stop_range_high": 152.36,
+    "target_price": 199.56,
+    "stop_loss": 152.36,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.964290-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 214.05,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 65.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 40.1,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 631,
+      "date": "2026-02-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "GLW exhibits mixed signals warranting a NEUTRAL_STAY rating from FinMA, confidence level 58%. While bullish EMA alignment and proximity to 52-week highs ($171.43) suggest upward momentum, a high P/E of 93.67 indicates valuation concerns relative to the sector. The RSI of 69.8 approaches overbought territory, and weak ADX strength of 19.2 implies a potentially weakening trend. Despite solid 20.4% revenue growth and strong margins, the unusually high dividend yield of 66% warrants caution and requires further investigation to ensure its sustainability. A potential catalyst would be a confirmation of this high dividend rate in the next report.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+0.85%",
+    "key_metrics": {
+      "RSI": 69.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

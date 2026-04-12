@@ -1,0 +1,158 @@
+{
+  "ticker": "LHX",
+  "company": "L3Harris Technologies, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.681065-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 353.59,
+    "open": 356.08,
+    "high": 357.66,
+    "low": 344.9,
+    "prev_close": 357.97,
+    "change_pct": -1.22,
+    "change_pct_1w": -0.68,
+    "change_pct_1m": -2.93,
+    "change_pct_1y": 79.15,
+    "volume": 1250100,
+    "avg_volume_30d": 1423346
+  },
+  "scores": {
+    "master_score": 31.68,
+    "technical_score": 38.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 31.68,
+    "confidence": 0.32,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 49.3,
+    "macd": 0.2538,
+    "macd_signal": -0.0421,
+    "macd_histogram": 0.2959,
+    "macd_crossover": "neutral",
+    "ema_20": 354.9,
+    "ema_50": 349.48,
+    "ema_200": 306.54,
+    "ema_stack_bullish": false,
+    "bb_upper": 371.08,
+    "bb_middle": 355.07,
+    "bb_lower": 339.06,
+    "bb_width": 0.0902,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.9,
+    "atr": 9.58,
+    "atr_pct": 0.0271,
+    "obv_trend": "DOWN",
+    "mfi": 49.3,
+    "cmf": -0.107,
+    "stoch_k": 60.8,
+    "stoch_d": 72.1,
+    "rvol": 0.78,
+    "volume_5d_avg": 1106680,
+    "green_days_10d": 5,
+    "52w_high": 377.17,
+    "52w_low": 209.91,
+    "52w_high_proximity_pct": 0.0625,
+    "52w_low_proximity_pct": 0.6845
+  },
+  "fundamental": {
+    "pe_ratio": 41.50117,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 3.364704,
+    "de_ratio": 34.574,
+    "fcf_yield": null,
+    "eps_growth_5y": -0.061,
+    "revenue_growth_ttm": 1.9,
+    "gross_margin": 0.30414,
+    "operating_margin": 0.097270004,
+    "net_margin": 0.103690006,
+    "market_cap": 66045620224,
+    "enterprise_value": 85243248640,
+    "dividend_yield": 1.41,
+    "payout_ratio": 0.56270003,
+    "insider_ownership_pct": 0.00338,
+    "institutional_ownership_pct": 0.89444,
+    "short_ratio": 2.03,
+    "beta": 0.746
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 347.73,
+    "entry_range_high": 355.36,
+    "target_range_low": 374.68,
+    "target_range_high": 401.45,
+    "stop_range_low": 317.71,
+    "stop_range_high": 334.43,
+    "target_price": 382.33,
+    "stop_loss": 334.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.681024-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 441.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 141.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 209.91,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 105,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "-1.22%",
+    "key_metrics": {
+      "RSI": 49.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

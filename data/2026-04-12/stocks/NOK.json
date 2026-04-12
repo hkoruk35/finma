@@ -1,0 +1,156 @@
+{
+  "ticker": "NOK",
+  "company": "Nokia Oyj",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.993458-04:00",
+  "sector": "Communication Services",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 9.46,
+    "open": 9.73,
+    "high": 9.87,
+    "low": 9.36,
+    "prev_close": 9.55,
+    "change_pct": -0.94,
+    "change_pct_1w": 7.26,
+    "change_pct_1m": 19.75,
+    "change_pct_1y": 107.6,
+    "volume": 80987400,
+    "avg_volume_30d": 65579713
+  },
+  "scores": {
+    "master_score": 54.61,
+    "technical_score": 73.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 70.0,
+    "sector_score": 40.6,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 54.61,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 71.2,
+    "macd": 0.403,
+    "macd_signal": 0.2943,
+    "macd_histogram": 0.1087,
+    "macd_crossover": "neutral",
+    "ema_20": 8.59,
+    "ema_50": 7.98,
+    "ema_200": 6.55,
+    "ema_stack_bullish": true,
+    "bb_upper": 9.5,
+    "bb_middle": 8.52,
+    "bb_lower": 7.53,
+    "bb_width": 0.2311,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.2,
+    "atr": 0.4,
+    "atr_pct": 0.0425,
+    "obv_trend": "UP",
+    "mfi": 71.9,
+    "cmf": 0.015,
+    "stoch_k": 80.3,
+    "stoch_d": 89.6,
+    "rvol": 1.35,
+    "volume_5d_avg": 88600420,
+    "green_days_10d": 6,
+    "52w_high": 9.55,
+    "52w_low": 4.05,
+    "52w_high_proximity_pct": 0.0094,
+    "52w_low_proximity_pct": 1.3358
+  },
+  "fundamental": {
+    "pe_ratio": 72.76923,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 2.176229,
+    "de_ratio": 20.971,
+    "fcf_yield": 0.0095,
+    "eps_growth_5y": -0.408,
+    "revenue_growth_ttm": 0.024,
+    "gross_margin": 0.44647998,
+    "operating_margin": 0.13029,
+    "net_margin": 0.03273,
+    "market_cap": 52810772480,
+    "enterprise_value": 50872774656,
+    "dividend_yield": 1.7,
+    "payout_ratio": 1.2697,
+    "insider_ownership_pct": 0.02981,
+    "institutional_ownership_pct": 0.15449001,
+    "short_ratio": 0.91,
+    "beta": 0.513
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 7.94,
+    "entry_range_high": 9.51,
+    "target_range_low": 10.45,
+    "target_range_high": 11.19,
+    "stop_range_low": 8.23,
+    "stop_range_high": 8.66,
+    "target_price": 10.66,
+    "stop_loss": 8.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.993416-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 11.83,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 170.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 4.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "NOK currently trades at $9.48, near its 52-week high. The FinMA score is NEGATIVE_BIAS, with 54% confidence. While EMA alignment is bullish, the overbought RSI of 71.9 suggests caution. A high P/E of 72.96 indicates a valuation premium versus the sector. Although volume is elevated at 1.25x relative, modest 2.4% TTM revenue growth does not strongly justify the premium. Critically, the unusually high 169% dividend yield may be unsustainable and could signal financial strain, a concerning catalyst for potential downside. Key technical levels to watch include resistance at the 52-week high and support around $9.00.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "-0.94%",
+    "key_metrics": {
+      "RSI": 71.2,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

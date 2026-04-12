@@ -1,0 +1,160 @@
+{
+  "ticker": "EA",
+  "company": "Electronic Arts Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.002300-04:00",
+  "sector": "Communication Services",
+  "industry": "Electronic Gaming & Multimedia",
+  "price": {
+    "current": 202.74,
+    "open": 202.35,
+    "high": 202.92,
+    "low": 202.05,
+    "prev_close": 202.2,
+    "change_pct": 0.27,
+    "change_pct_1w": -0.42,
+    "change_pct_1m": 1.41,
+    "change_pct_1y": 53.63,
+    "volume": 1542200,
+    "avg_volume_30d": 2309513
+  },
+  "scores": {
+    "master_score": 51.56,
+    "technical_score": 60.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.6,
+    "breakout_score": 0.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 51.56,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 54.0,
+    "macd": 0.6819,
+    "macd_signal": 0.6147,
+    "macd_histogram": 0.0672,
+    "macd_crossover": "neutral",
+    "ema_20": 202.38,
+    "ema_50": 201.7,
+    "ema_200": 188.52,
+    "ema_stack_bullish": true,
+    "bb_upper": 204.99,
+    "bb_middle": 202.05,
+    "bb_lower": 199.12,
+    "bb_width": 0.029,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.7,
+    "atr": 1.08,
+    "atr_pct": 0.0053,
+    "obv_trend": "UP",
+    "mfi": 68.5,
+    "cmf": 0.211,
+    "stoch_k": 58.8,
+    "stoch_d": 67.6,
+    "rvol": 0.72,
+    "volume_5d_avg": 1652600,
+    "green_days_10d": 7,
+    "52w_high": 204.6,
+    "52w_low": 136.0,
+    "52w_high_proximity_pct": 0.0091,
+    "52w_low_proximity_pct": 0.4908
+  },
+  "fundamental": {
+    "pe_ratio": 75.649254,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 8.24381,
+    "de_ratio": 36.443,
+    "fcf_yield": 0.0436,
+    "eps_growth_5y": -0.685,
+    "revenue_growth_ttm": 0.01,
+    "gross_margin": 0.78264,
+    "operating_margin": 0.08574,
+    "net_margin": 0.09307,
+    "market_cap": 50736439296,
+    "enterprise_value": 50079436800,
+    "dividend_yield": 0.37,
+    "payout_ratio": 0.2846,
+    "insider_ownership_pct": 0.00207,
+    "institutional_ownership_pct": 0.95321,
+    "short_ratio": 4.88,
+    "beta": 0.725
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 200.69,
+    "entry_range_high": 203.75,
+    "target_range_low": 201.86,
+    "target_range_high": 216.28,
+    "stop_range_low": 190.55,
+    "stop_range_high": 200.58,
+    "target_price": 205.98,
+    "stop_loss": 200.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.002275-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 253.43,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 37.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 136.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "EA shows NEGATIVE_BIAS, with 50% confidence. The high P/E ratio of 75.75 contrasts sharply with modest 1.0% TTM revenue growth. Technically, bearish EMA alignment and low ADX strength suggest limited immediate upward momentum. Despite a healthy 78.3% gross margin, the rich valuation and high dividend yield (38%) raise concerns about sustainability. Price sits just 1.1% from its 52-week high, offering limited upside. Key level to watch: Support around $195. Potential catalyst: Upcoming earnings release NEEDS to show substantial revenue growth to justify the valuation, otherwise, expect a correction.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+0.27%",
+    "key_metrics": {
+      "RSI": 54.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -239,11 +239,12 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
   const summary = allTickers.find(s => s.ticker === t);
   const perfEntry = swingPerf?.history?.find((h: any) => h.ticker === t);
   
+  const realPrice = summary?.price ?? perfEntry?.max_price;
+  
   // 3. Fallback to mock, but inject known real info from any source
-  const mock = getMockStockDetail(t);
+  const mock = getMockStockDetail(t, realPrice);
   
   if (summary || perfEntry) {
-    mock.price.current = summary?.price ?? perfEntry?.max_price ?? mock.price.current;
     mock.price.change_pct = summary?.change_pct ?? 0;
     mock.company = summary?.company ?? perfEntry?.company ?? mock.company;
     mock.sector = summary?.sector ?? perfEntry?.sector ?? mock.sector;
@@ -428,12 +429,12 @@ export function formatPrice(n: number): string {
   return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function getMockStockDetail(ticker: string): StockDetail {
+function getMockStockDetail(ticker: string, overridePrice?: number): StockDetail {
   const t = ticker.toUpperCase();
   const seed = t.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   
   // Procedural random values based on seed
-  const basePrice = 10 + (seed % 450);
+  const basePrice = overridePrice ?? (10 + (seed % 450));
   const changePct = -2 + (seed % 5) + (seed % 10) / 10;
   const masterScore = 45 + (seed % 50);
   

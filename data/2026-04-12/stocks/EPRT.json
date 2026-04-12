@@ -1,0 +1,158 @@
+{
+  "ticker": "EPRT",
+  "company": "Essential Properties Realty Trust, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.970306-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 32.54,
+    "open": 32.49,
+    "high": 32.62,
+    "low": 32.22,
+    "prev_close": 32.44,
+    "change_pct": 0.31,
+    "change_pct_1w": 5.48,
+    "change_pct_1m": -0.51,
+    "change_pct_1y": 19.06,
+    "volume": 1157500,
+    "avg_volume_30d": 2253573
+  },
+  "scores": {
+    "master_score": 61.86,
+    "technical_score": 65.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 51.1,
+    "breakout_score": 0.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 61.86,
+    "confidence": 0.62,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 61.5,
+    "macd": -0.0931,
+    "macd_signal": -0.2881,
+    "macd_histogram": 0.195,
+    "macd_crossover": "neutral",
+    "ema_20": 31.61,
+    "ema_50": 31.58,
+    "ema_200": 30.8,
+    "ema_stack_bullish": true,
+    "bb_upper": 33.23,
+    "bb_middle": 31.42,
+    "bb_lower": 29.6,
+    "bb_width": 0.1155,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.8,
+    "atr": 0.63,
+    "atr_pct": 0.0192,
+    "obv_trend": "UP",
+    "mfi": 58.1,
+    "cmf": -0.246,
+    "stoch_k": 96.9,
+    "stoch_d": 84.0,
+    "rvol": 1.03,
+    "volume_5d_avg": 2316040,
+    "green_days_10d": 8,
+    "52w_high": 34.24,
+    "52w_low": 28.52,
+    "52w_high_proximity_pct": 0.0497,
+    "52w_low_proximity_pct": 0.1409
+  },
+  "fundamental": {
+    "pe_ratio": 25.421877,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 1.6247255,
+    "de_ratio": 60.524,
+    "fcf_yield": 0.0438,
+    "eps_growth_5y": 0.111,
+    "revenue_growth_ttm": 0.252,
+    "gross_margin": 0.98630995,
+    "operating_margin": 0.65649,
+    "net_margin": 0.45083,
+    "market_cap": 6862076416,
+    "enterprise_value": 9323979776,
+    "dividend_yield": 3.81,
+    "payout_ratio": 0.9414,
+    "insider_ownership_pct": 0.00649,
+    "institutional_ownership_pct": 1.15187,
+    "short_ratio": 7.38,
+    "beta": 1.017
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 31.42,
+    "entry_range_high": 32.7,
+    "target_range_low": 33.74,
+    "target_range_high": 36.15,
+    "stop_range_low": 29.72,
+    "stop_range_high": 31.28,
+    "target_price": 34.43,
+    "stop_loss": 31.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.970247-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 40.67,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 381.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 28.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 30098,
+      "date": "2026-03-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 62,
+    "price_change_display": "+0.31%",
+    "key_metrics": {
+      "RSI": 61.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

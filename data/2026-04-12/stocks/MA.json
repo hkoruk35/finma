@@ -1,0 +1,158 @@
+{
+  "ticker": "MA",
+  "company": "Mastercard Incorporated",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.358918-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 498.66,
+    "open": 502.01,
+    "high": 504.39,
+    "low": 495.67,
+    "prev_close": 503.57,
+    "change_pct": -0.98,
+    "change_pct_1w": 1.23,
+    "change_pct_1m": -0.89,
+    "change_pct_1y": 4.68,
+    "volume": 2842200,
+    "avg_volume_30d": 3461353
+  },
+  "scores": {
+    "master_score": 39.44,
+    "technical_score": 40.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.9,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 39.44,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 47.1,
+    "macd": -3.6166,
+    "macd_signal": -5.577,
+    "macd_histogram": 1.9604,
+    "macd_crossover": "neutral",
+    "ema_20": 500.63,
+    "ema_50": 512.21,
+    "ema_200": 540.57,
+    "ema_stack_bullish": false,
+    "bb_upper": 509.8,
+    "bb_middle": 497.43,
+    "bb_lower": 485.05,
+    "bb_width": 0.0497,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 22.8,
+    "atr": 11.37,
+    "atr_pct": 0.0228,
+    "obv_trend": "DOWN",
+    "mfi": 64.2,
+    "cmf": -0.07,
+    "stoch_k": 60.7,
+    "stoch_d": 74.0,
+    "rvol": 0.93,
+    "volume_5d_avg": 3215620,
+    "green_days_10d": 5,
+    "52w_high": 596.25,
+    "52w_low": 483.41,
+    "52w_high_proximity_pct": 0.1637,
+    "52w_low_proximity_pct": 0.0315
+  },
+  "fundamental": {
+    "pe_ratio": 30.203512,
+    "sector_pe_median": 15.958722000000002,
+    "pb_ratio": 57.621906,
+    "de_ratio": 256.042,
+    "fcf_yield": 0.0366,
+    "eps_growth_5y": 0.242,
+    "revenue_growth_ttm": 0.176,
+    "gross_margin": 1.0,
+    "operating_margin": 0.57733,
+    "net_margin": 0.45646998,
+    "market_cap": 445022994432,
+    "enterprise_value": 453655134208,
+    "dividend_yield": 0.7,
+    "payout_ratio": 0.184,
+    "insider_ownership_pct": 0.0054699997,
+    "institutional_ownership_pct": 0.91049004,
+    "short_ratio": 1.83,
+    "beta": 0.831
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 496.17,
+    "entry_range_high": 501.15,
+    "target_range_low": 522.11,
+    "target_range_high": 559.41,
+    "stop_range_low": 452.12,
+    "stop_range_high": 475.92,
+    "target_price": 532.77,
+    "stop_loss": 475.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.358893-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 623.33,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 70.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 483.41,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 923,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.78,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-0.98%",
+    "key_metrics": {
+      "RSI": 47.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

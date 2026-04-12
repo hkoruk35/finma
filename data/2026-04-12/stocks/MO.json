@@ -1,0 +1,160 @@
+{
+  "ticker": "MO",
+  "company": "Altria Group, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.155076-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Tobacco",
+  "price": {
+    "current": 67.38,
+    "open": 67.47,
+    "high": 67.93,
+    "low": 66.9,
+    "prev_close": 67.46,
+    "change_pct": -0.12,
+    "change_pct_1w": 2.46,
+    "change_pct_1m": 3.27,
+    "change_pct_1y": 29.81,
+    "volume": 7115600,
+    "avg_volume_30d": 10037840
+  },
+  "scores": {
+    "master_score": 61.0,
+    "technical_score": 58.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.0,
+    "breakout_score": 30.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 61.0,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 60.5,
+    "macd": 0.506,
+    "macd_signal": 0.293,
+    "macd_histogram": 0.2131,
+    "macd_crossover": "neutral",
+    "ema_20": 65.99,
+    "ema_50": 64.78,
+    "ema_200": 60.77,
+    "ema_stack_bullish": true,
+    "bb_upper": 68.33,
+    "bb_middle": 65.53,
+    "bb_lower": 62.74,
+    "bb_width": 0.0853,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 13.8,
+    "atr": 1.47,
+    "atr_pct": 0.0218,
+    "obv_trend": "UP",
+    "mfi": 60.4,
+    "cmf": -0.188,
+    "stoch_k": 89.1,
+    "stoch_d": 88.8,
+    "rvol": 0.82,
+    "volume_5d_avg": 8221860,
+    "green_days_10d": 6,
+    "52w_high": 68.55,
+    "52w_low": 52.63,
+    "52w_high_proximity_pct": 0.0171,
+    "52w_low_proximity_pct": 0.2803
+  },
+  "fundamental": {
+    "pe_ratio": 16.354368,
+    "sector_pe_median": 24.292671,
+    "pb_ratio": -32.208412,
+    "de_ratio": null,
+    "fcf_yield": 0.0819,
+    "eps_growth_5y": -0.629,
+    "revenue_growth_ttm": -0.005,
+    "gross_margin": 0.87343,
+    "operating_margin": 1.16696,
+    "net_margin": 0.34495,
+    "market_cap": 112652492800,
+    "enterprise_value": 133937496064,
+    "dividend_yield": 6.29,
+    "payout_ratio": 1.0097001,
+    "insider_ownership_pct": 0.0013600001,
+    "institutional_ownership_pct": 0.63515997,
+    "short_ratio": 4.3,
+    "beta": 0.447
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 64.46,
+    "entry_range_high": 67.72,
+    "target_range_low": 70.35,
+    "target_range_high": 75.38,
+    "stop_range_low": 61.22,
+    "stop_range_high": 64.44,
+    "target_price": 71.79,
+    "stop_loss": 64.44,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.155053-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 84.22,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 629.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 52.63,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 27908,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -0.35,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "MO exhibits mixed signals, resulting in a FinMA score of NEUTRAL STAY. The high dividend yield of 6.29% is attractive in the current environment, and the P/E of 16.26 suggests undervaluation compared to the sector median. However, negative revenue growth of -0.5% TTM tempers enthusiasm. Technically, MO is near its 52-week high, suggesting potential resistance around $68.50. The ADX of 13.8 indicates a weak trend. A key catalyst to monitor is future guidance on reduced-risk product performance, which could sway investor sentiment.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "-0.12%",
+    "key_metrics": {
+      "RSI": 60.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

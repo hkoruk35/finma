@@ -1,0 +1,158 @@
+{
+  "ticker": "MTZ",
+  "company": "MasTec, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.807982-04:00",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 361.22,
+    "open": 357.83,
+    "high": 365.49,
+    "low": 354.54,
+    "prev_close": 357.37,
+    "change_pct": 1.08,
+    "change_pct_1w": 7.43,
+    "change_pct_1m": 18.93,
+    "change_pct_1y": 238.16,
+    "volume": 759000,
+    "avg_volume_30d": 1017226
+  },
+  "scores": {
+    "master_score": 55.88,
+    "technical_score": 50.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 55.88,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 72.9,
+    "macd": 16.937,
+    "macd_signal": 13.8449,
+    "macd_histogram": 3.0922,
+    "macd_crossover": "neutral",
+    "ema_20": 325.79,
+    "ema_50": 298.33,
+    "ema_200": 233.98,
+    "ema_stack_bullish": true,
+    "bb_upper": 360.69,
+    "bb_middle": 321.53,
+    "bb_lower": 282.37,
+    "bb_width": 0.2436,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.8,
+    "atr": 15.21,
+    "atr_pct": 0.0421,
+    "obv_trend": "UP",
+    "mfi": 74.8,
+    "cmf": -0.069,
+    "stoch_k": 93.5,
+    "stoch_d": 89.0,
+    "rvol": 0.67,
+    "volume_5d_avg": 679420,
+    "green_days_10d": 9,
+    "52w_high": 361.22,
+    "52w_low": 111.12,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 2.2507
+  },
+  "fundamental": {
+    "pe_ratio": 71.38735,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 8.628828,
+    "de_ratio": 83.945,
+    "fcf_yield": 0.0034,
+    "eps_growth_5y": 0.928,
+    "revenue_growth_ttm": 0.158,
+    "gross_margin": 0.12537,
+    "operating_margin": 0.053850003,
+    "net_margin": 0.02791,
+    "market_cap": 28498391040,
+    "enterprise_value": 30601517056,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.21507,
+    "institutional_ownership_pct": 0.76794,
+    "short_ratio": 2.64,
+    "beta": 1.8
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 296.84,
+    "entry_range_high": 363.03,
+    "target_range_low": 398.71,
+    "target_range_high": 427.19,
+    "stop_range_low": 314.26,
+    "stop_range_high": 330.8,
+    "target_price": 406.85,
+    "stop_loss": 330.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.807945-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 451.53,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 111.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 950,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "+1.08%",
+    "key_metrics": {
+      "RSI": 72.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "BR",
+  "company": "Broadridge Financial Solutions, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.822804-04:00",
+  "sector": "Industrials",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 151.12,
+    "open": 153.73,
+    "high": 154.32,
+    "low": 150.1,
+    "prev_close": 154.79,
+    "change_pct": -2.37,
+    "change_pct_1w": -6.1,
+    "change_pct_1m": -17.02,
+    "change_pct_1y": -29.22,
+    "volume": 1223100,
+    "avg_volume_30d": 1753403
+  },
+  "scores": {
+    "master_score": 36.38,
+    "technical_score": 15.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 36.38,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 27.1,
+    "macd": -6.8621,
+    "macd_signal": -6.324,
+    "macd_histogram": -0.538,
+    "macd_crossover": "neutral",
+    "ema_20": 164.77,
+    "ema_50": 177.29,
+    "ema_200": 208.26,
+    "ema_stack_bullish": false,
+    "bb_upper": 181.61,
+    "bb_middle": 165.5,
+    "bb_lower": 149.39,
+    "bb_width": 0.1947,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.4,
+    "atr": 5.51,
+    "atr_pct": 0.0364,
+    "obv_trend": "DOWN",
+    "mfi": 31.0,
+    "cmf": -0.261,
+    "stoch_k": 3.9,
+    "stoch_d": 9.7,
+    "rvol": 0.78,
+    "volume_5d_avg": 1363040,
+    "green_days_10d": 4,
+    "52w_high": 263.28,
+    "52w_low": 151.12,
+    "52w_high_proximity_pct": 0.426,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 16.716814,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 6.1251616,
+    "de_ratio": 117.175,
+    "fcf_yield": 0.0678,
+    "eps_growth_5y": 1.017,
+    "revenue_growth_ttm": 0.078,
+    "gross_margin": 0.31219998,
+    "operating_margin": 0.120249994,
+    "net_margin": 0.14864,
+    "market_cap": 17643065344,
+    "enterprise_value": 20645265408,
+    "dividend_yield": 2.58,
+    "payout_ratio": 0.4104,
+    "insider_ownership_pct": 0.00501,
+    "institutional_ownership_pct": 0.94792,
+    "short_ratio": 2.3,
+    "beta": 1.015
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 150.36,
+    "entry_range_high": 151.88,
+    "target_range_low": 164.3,
+    "target_range_high": 176.03,
+    "stop_range_low": 133.09,
+    "stop_range_high": 140.1,
+    "target_price": 167.65,
+    "stop_loss": 140.1,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.822770-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 188.9,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 258.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 151.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 177,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "-2.37%",
+    "key_metrics": {
+      "RSI": 27.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

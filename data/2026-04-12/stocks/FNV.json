@@ -1,0 +1,158 @@
+{
+  "ticker": "FNV",
+  "company": "Franco-Nevada Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.557487-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 261.55,
+    "open": 261.84,
+    "high": 264.63,
+    "low": 259.33,
+    "prev_close": 260.17,
+    "change_pct": 0.53,
+    "change_pct_1w": 1.48,
+    "change_pct_1m": -1.41,
+    "change_pct_1y": 83.58,
+    "volume": 480300,
+    "avg_volume_30d": 945000
+  },
+  "scores": {
+    "master_score": 56.06,
+    "technical_score": 57.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.1,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 56.06,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.2,
+    "macd": 2.6792,
+    "macd_signal": -0.366,
+    "macd_histogram": 3.0452,
+    "macd_crossover": "neutral",
+    "ema_20": 251.69,
+    "ema_50": 247.75,
+    "ema_200": 216.4,
+    "ema_stack_bullish": true,
+    "bb_upper": 272.72,
+    "bb_middle": 245.47,
+    "bb_lower": 218.21,
+    "bb_width": 0.2221,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.0,
+    "atr": 10.37,
+    "atr_pct": 0.0396,
+    "obv_trend": "UP",
+    "mfi": 75.5,
+    "cmf": -0.06,
+    "stoch_k": 77.4,
+    "stoch_d": 79.7,
+    "rvol": 0.66,
+    "volume_5d_avg": 619840,
+    "green_days_10d": 7,
+    "52w_high": 280.36,
+    "52w_low": 149.63,
+    "52w_high_proximity_pct": 0.0671,
+    "52w_low_proximity_pct": 0.748
+  },
+  "fundamental": {
+    "pe_ratio": 45.486954,
+    "sector_pe_median": 23.880953,
+    "pb_ratio": 6.604464,
+    "de_ratio": null,
+    "fcf_yield": -0.0211,
+    "eps_growth_5y": 1.088,
+    "revenue_growth_ttm": 0.858,
+    "gross_margin": 0.90893,
+    "operating_margin": 0.76092005,
+    "net_margin": 0.61643004,
+    "market_cap": 50470518784,
+    "enterprise_value": 49755598848,
+    "dividend_yield": 0.67,
+    "payout_ratio": 0.26389998,
+    "insider_ownership_pct": 0.00694,
+    "institutional_ownership_pct": 0.85377,
+    "short_ratio": 2.86,
+    "beta": 0.945
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 246.51,
+    "entry_range_high": 262.86,
+    "target_range_low": 286.81,
+    "target_range_high": 307.29,
+    "stop_range_low": 228.77,
+    "stop_range_high": 240.81,
+    "target_price": 292.66,
+    "stop_loss": 240.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.557456-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 326.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 67.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 149.63,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1636,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 3.46,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "+0.53%",
+    "key_metrics": {
+      "RSI": 58.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

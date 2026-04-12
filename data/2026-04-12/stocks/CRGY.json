@@ -1,0 +1,158 @@
+{
+  "ticker": "CRGY",
+  "company": "Crescent Energy Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.435305-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 12.74,
+    "open": 12.58,
+    "high": 12.82,
+    "low": 12.56,
+    "prev_close": 12.65,
+    "change_pct": 0.71,
+    "change_pct_1w": -5.21,
+    "change_pct_1m": 6.61,
+    "change_pct_1y": 83.57,
+    "volume": 5220600,
+    "avg_volume_30d": 10643560
+  },
+  "scores": {
+    "master_score": 38.93,
+    "technical_score": 36.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.8,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 38.93,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 52.8,
+    "macd": 0.4504,
+    "macd_signal": 0.6077,
+    "macd_histogram": -0.1574,
+    "macd_crossover": "neutral",
+    "ema_20": 12.78,
+    "ema_50": 11.71,
+    "ema_200": 10.06,
+    "ema_stack_bullish": false,
+    "bb_upper": 14.12,
+    "bb_middle": 12.92,
+    "bb_lower": 11.72,
+    "bb_width": 0.1858,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.1,
+    "atr": 0.62,
+    "atr_pct": 0.0485,
+    "obv_trend": "DOWN",
+    "mfi": 51.6,
+    "cmf": 0.037,
+    "stoch_k": 41.6,
+    "stoch_d": 40.7,
+    "rvol": 0.77,
+    "volume_5d_avg": 8158640,
+    "green_days_10d": 5,
+    "52w_high": 13.7,
+    "52w_low": 7.07,
+    "52w_high_proximity_pct": 0.0701,
+    "52w_low_proximity_pct": 0.8011
+  },
+  "fundamental": {
+    "pe_ratio": 23.59259,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 0.8099174,
+    "de_ratio": 107.101,
+    "fcf_yield": -0.1774,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.012,
+    "gross_margin": 0.5565,
+    "operating_margin": 0.05461,
+    "net_margin": 0.037130002,
+    "market_cap": 4177449472,
+    "enterprise_value": 9707036672,
+    "dividend_yield": 3.77,
+    "payout_ratio": 0.8889,
+    "insider_ownership_pct": 0.14659001,
+    "institutional_ownership_pct": 0.88517,
+    "short_ratio": 3.33,
+    "beta": 1.05
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 11.65,
+    "entry_range_high": 12.8,
+    "target_range_low": 14.31,
+    "target_range_high": 15.33,
+    "stop_range_low": 10.92,
+    "stop_range_high": 11.5,
+    "target_price": 14.6,
+    "stop_loss": 11.5,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.435212-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.93,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 377.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 7.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 17411,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+0.71%",
+    "key_metrics": {
+      "RSI": 52.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

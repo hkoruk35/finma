@@ -1,0 +1,158 @@
+{
+  "ticker": "FAST",
+  "company": "Fastenal Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.791581-04:00",
+  "sector": "Industrials",
+  "industry": "Industrial Distribution",
+  "price": {
+    "current": 49.17,
+    "open": 49.27,
+    "high": 49.67,
+    "low": 49.09,
+    "prev_close": 49.1,
+    "change_pct": 0.14,
+    "change_pct_1w": 6.2,
+    "change_pct_1m": 5.54,
+    "change_pct_1y": 41.02,
+    "volume": 7285400,
+    "avg_volume_30d": 8031453
+  },
+  "scores": {
+    "master_score": 48.33,
+    "technical_score": 52.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 48.33,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 68.6,
+    "macd": 0.6916,
+    "macd_signal": 0.2754,
+    "macd_histogram": 0.4162,
+    "macd_crossover": "neutral",
+    "ema_20": 46.46,
+    "ema_50": 45.59,
+    "ema_200": 43.66,
+    "ema_stack_bullish": true,
+    "bb_upper": 48.71,
+    "bb_middle": 45.88,
+    "bb_lower": 43.05,
+    "bb_width": 0.1235,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.9,
+    "atr": 1.15,
+    "atr_pct": 0.0234,
+    "obv_trend": "UP",
+    "mfi": 66.3,
+    "cmf": -0.062,
+    "stoch_k": 91.7,
+    "stoch_d": 95.2,
+    "rvol": 0.91,
+    "volume_5d_avg": 7304680,
+    "green_days_10d": 6,
+    "52w_high": 49.85,
+    "52w_low": 37.12,
+    "52w_high_proximity_pct": 0.0137,
+    "52w_low_proximity_pct": 0.3248
+  },
+  "fundamental": {
+    "pe_ratio": 45.11009,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 14.31441,
+    "de_ratio": 11.205,
+    "fcf_yield": 0.0143,
+    "eps_growth_5y": 0.093,
+    "revenue_growth_ttm": 0.111,
+    "gross_margin": 0.45012,
+    "operating_margin": 0.18955,
+    "net_margin": 0.15345,
+    "market_cap": 56463314944,
+    "enterprise_value": 56621072384,
+    "dividend_yield": 1.83,
+    "payout_ratio": 0.8028,
+    "insider_ownership_pct": 0.00174,
+    "institutional_ownership_pct": 0.88114,
+    "short_ratio": 4.36,
+    "beta": 0.837
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 45.36,
+    "entry_range_high": 49.42,
+    "target_range_low": 51.57,
+    "target_range_high": 55.25,
+    "stop_range_low": 44.53,
+    "stop_range_high": 46.87,
+    "target_price": 52.62,
+    "stop_loss": 46.87,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.791535-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 61.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 183.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 37.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 36920,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "+0.14%",
+    "key_metrics": {
+      "RSI": 68.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

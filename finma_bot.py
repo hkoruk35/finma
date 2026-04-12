@@ -1,6 +1,6 @@
 """
-FinMA Daily 100 — Main Bot
-finma_bot.py v1.0 | April 2026
+BOGA AI Daily Scan — Main Bot
+bogaai_bot.py v2.0 | April 2026
 Runs daily at 09:00 NY time on weekdays.
 """
 import asyncio
@@ -41,7 +41,7 @@ from config import *
 # ── Logging ──────────────────────────────────────────────────
 os.makedirs(LOG_DIR, exist_ok=True)
 today_str = datetime.now(ZoneInfo(NY_TIMEZONE)).strftime("%Y-%m-%d")
-log_file  = os.path.join(LOG_DIR, f"finma_{today_str}.log")
+log_file  = os.path.join(LOG_DIR, f"bogaai_{today_str}.log")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -52,7 +52,7 @@ logging.basicConfig(
     ]
 )
 logging.getLogger("yfinance").setLevel(logging.CRITICAL)
-log = logging.getLogger("finma_bot")
+log = logging.getLogger("bogaai_bot")
 
 NY_TZ = ZoneInfo(NY_TIMEZONE)
 
@@ -133,6 +133,17 @@ def archive_date(date_dir: str, date_str: str):
     # Since we create dated folders in DATA_DIR, it's already an archive.
     # We could optionally zip it here to save space.
     log.info(f"Archive entry verified: {date_str}")
+
+def push_to_github():
+    """Commit and push generated data to GitHub."""
+    import subprocess
+    try:
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", f"Data: Daily Update {datetime.now().strftime('%Y-%m-%d')}"], check=True)
+        subprocess.run(["git", "push", "origin", "main"], check=True)
+        log.info("Successfully pushed data to GitHub.")
+    except Exception as e:
+        log.error(f"Failed to push data to GitHub: {e}")
 
 
 # ============================================================
@@ -820,51 +831,103 @@ def build_gemini_prompt(stock: Dict) -> str:
     news_items = sd.get("news", [])
     news_summary = " | ".join([n.get("headline", "") for n in news_items[:3]]) if news_items else "No recent news"
 
-    # Determine if this is a performing stock relative to sector
-    sector_pe = f.get('sector_pe_median', 1)
-    stock_pe = f.get('pe_ratio') or sector_pe
-    pe_relative = "trading at a premium" if stock_pe > sector_pe else "trading at a discount" if stock_pe < sector_pe else "in line with sector"
+    # PE comparison — safe division
+    sector_pe = f.get('sector_pe_median') or 0
+    stock_pe  = f.get('pe_ratio')
+    pe_relative = "N/A"
+    if stock_pe and sector_pe:
+        pe_relative = (
+            "trading at a premium to its sector"
+            if stock_pe > sector_pe
+            else "trading at a discount to its sector"
+            if stock_pe < sector_pe
+            else "in line with its sector"
+        )
 
-    return f"""You are BOGA AI, a professional US stock market analyst specializing in this particular stock.
+    # Safe dividend display — yfinance occasionally returns absurd values (e.g. 200%)
+    div_yield = f.get('dividend_yield') or 0
+    div_display = f"{div_yield * 100:.2f}%" if 0 < div_yield < 0.30 else ("None" if div_yield == 0 else "N/A (data anomaly)")
 
-Your task: Analyze {sd['ticker']} ({sd['company']}) and provide a concise, data-driven commentary.
-IMPORTANT: This analysis is ONLY about {sd['ticker']}, NOT about competing stocks or the broader sector (except for comparison context).
-Maximum {GEMINI_SUMMARY_WORD_LIMIT} words. Use specific data. Do NOT use generic tech stock language.
-Mention the BOGA AI score rating, key technical levels on the daily chart, and one specific catalyst for THIS stock.
-Use ONLY these score rating terms: HIGH CONVICTION, POSITIVE BIAS, NEUTRAL STAY, NEGATIVE BIAS, UNDERPERFORM.
-Never use old terms like "BUY", "SELL", "STRONG BUY", "signals a BUY", etc. Always say "score" not "signal".
-ONLY refer to the daily chart (1D). Never refer to 1-hour or intraday charts.
-Use the following zone labels instead of old terminology:
-- Describe the entry area as "BUY ZONE".
-- Describe the logic for upside potential as the "PROFIT ZONE".
-- Describe the risk management level as the "STOP LOSS ZONE".
+    # Safe margin displays
+    gross_margin_pct  = (f.get('gross_margin')  or 0) * 100
+    net_margin_pct    = (f.get('net_margin')    or 0) * 100
+    rev_growth_pct    = (f.get('revenue_growth_ttm') or 0) * 100
 
-═══════════════════════════════════════════
-STOCK: {sd['ticker']} — {sd['company']}
-SECTOR: {sd['sector']}
-DATE: {sd['date']}
-═══════════════════════════════════════════
+    # Key price levels for support/resistance context
+    ema20  = t.get('ema_20')
+    ema50  = t.get('ema_50')
+    ema200 = t.get('ema_200')
+    bb_lower  = t.get('bb_lower')
+    bb_upper  = t.get('bb_upper')
+    w52_high  = t.get('52w_high')
+    w52_low   = t.get('52w_low')
+    cur_price = p.get('current', 0)
 
-CURRENT TECHNICALS:
-Price: ${p.get('current')} ({p.get('change_pct',0):+.2f}% today)
-52-Week Proximity: {(t.get('52w_high_proximity_pct') or 0)*100:.1f}% from high
-RSI(14): {t.get('rsi_14', 'N/A')} | MACD: {t.get('macd_crossover', 'N/A')}
-EMA Alignment: {'Bullish' if t.get('ema_stack_bullish') else 'Bearish'}
-ADX Strength: {t.get('adx', 'N/A')} | Volume Relative: {t.get('rvol', 'N/A')}x
-Bollinger Bands: {t.get('bb_squeeze_intensity', 'N/A')}
+    # Build a clean price-level string for AI to reason about support/resistance
+    levels_lines = []
+    if ema20:  levels_lines.append(f"  EMA20 = ${ema20:.2f}")
+    if ema50:  levels_lines.append(f"  EMA50 = ${ema50:.2f}")
+    if ema200: levels_lines.append(f"  EMA200 = ${ema200:.2f}")
+    if bb_lower and bb_upper:
+        levels_lines.append(f"  BB Lower = ${bb_lower:.2f} | BB Upper = ${bb_upper:.2f}")
+    if w52_low and w52_high:
+        levels_lines.append(f"  52W Range = ${w52_low:.2f} — ${w52_high:.2f}")
+    levels_str = "\n".join(levels_lines) if levels_lines else "  (levels unavailable)"
 
-BUSINESS FUNDAMENTALS (for {sd['ticker']} specifically):
-Valuation: P/E {f.get('pe_ratio', 'N/A')} ({pe_relative} vs sector median {f.get('sector_pe_median', 'N/A')})
-Growth: {(f.get('revenue_growth_ttm') or 0)*100:.1f}% TTM revenue growth
-Profitability: {(f.get('gross_margin') or 0)*100:.1f}% gross margin, {(f.get('net_margin') or 0)*100:.1f}% net margin
-Dividend Yield: {(f.get('dividend_yield') or 0)*100:.2f}%
+    return f"""You are BOGA AI, an elite quantitative swing trader and market analyst.
 
-FinMA SCORE: {sc.get('signal_type', 'N/A')} (Confidence: {(sc.get('confidence') or 0)*100:.0f}%)
+Your mission: Provide a sharp, trader-focused analysis of {sd['ticker']} ({sd['company']}).
+Today's date: {sd['date']}
 
-RECENT CONTEXT:
-{news_summary}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CRITICAL RULES — READ BEFORE WRITING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. DATA VALIDATION: If any metric looks logically impossible (P/E = 0, dividend > 30%, margins > 100%), silently ignore it — never mention it.
+2. TONE: Write like a professional swing trader briefing a client. No robotic jargon. No generic phrases like "the stock faces headwinds." Be direct, specific, and actionable.
+3. STOCK FOCUS: This analysis is 100% about {sd['ticker']}. Do NOT generalize to the sector or market unless asked in the Sector Context section.
+4. SCORE TERMS: Use ONLY these exact terms: HIGH CONVICTION, POSITIVE BIAS, NEUTRAL STAY, NEGATIVE BIAS, UNDERPERFORM. Never say "BUY", "SELL", or "signal." Always say "BOGA AI score."
+5. ZONE LABELS: Use "BUY ZONE", "PROFIT ZONE", and "STOP LOSS ZONE" — not "entry," "target," or "stop."
+6. CHART TIMEFRAME: Daily (1D) chart only. Never mention intraday or 1-hour charts.
+7. SUPPORT & RESISTANCE: Always derive specific price levels from the EMA/BB data provided. State them as dollar values (e.g. "$142.50 support").
+8. ENTRY LOGIC: Explain WHY a trader would enter here — not just where. Connect price action to the fundamental catalyst.
+9. STRUCTURE: You MUST use EXACTLY the 3 Markdown headers below. No extra headers, no bullet points outside the structure.
 
-Your analysis of {sd['ticker']} (be specific about THIS stock):"""
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BOGA AI MASTER SCORE: {sc.get('signal_type', 'N/A').replace('_', ' ')} | Confidence: {(sc.get('confidence') or 0)*100:.0f}%
+STOCK: {sd['ticker']} — {sd['company']} | SECTOR: {sd['sector']}
+Current Price: ${cur_price} ({p.get('change_pct', 0):+.2f}% today)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KEY PRICE LEVELS (use these to identify support/resistance):
+{levels_str}
+
+MOMENTUM SNAPSHOT:
+  Trend Direction: {'Bullish — price above EMA20 > EMA50 > EMA200' if t.get('ema_stack_bullish') else 'Mixed/Bearish — EMA stack not aligned'}
+  RSI(14): {t.get('rsi_14', 'N/A')} | MACD Crossover: {t.get('macd_crossover', 'N/A')}
+  Relative Volume: {t.get('rvol', 'N/A')}x | Volatility Squeeze: {t.get('bb_squeeze_intensity', 'N/A')}
+  52W Position: {(t.get('52w_high_proximity_pct') or 0)*100:.1f}% below 52W high
+
+FUNDAMENTALS (validate before using):
+  P/E: {stock_pe} ({pe_relative}) | Revenue Growth TTM: {rev_growth_pct:.1f}%
+  Gross Margin: {gross_margin_pct:.1f}% | Net Margin: {net_margin_pct:.1f}%
+  Dividend Yield: {div_display}
+
+RECENT CATALYST:
+  {news_summary}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOW WRITE YOUR ANALYSIS USING EXACTLY THESE 3 HEADERS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+### Technical Setup & Action Plan
+(3–4 sentences. State the BOGA AI score and confidence. Identify the key support and resistance levels in dollar values from the data above. Define the BUY ZONE, PROFIT ZONE, and STOP LOSS ZONE with specific prices. Explain the logical reason a trader would enter NOW — what is the price action setup?)
+
+### Fundamental Edge
+(2–3 sentences. Translate the fundamentals into trader logic — is this stock cheap, growing, or cash-generating? Identify one specific fundamental catalyst that justifies the current setup. Skip any metric that appears anomalous.)
+
+### Sector Context
+(EXACTLY 1 sentence. Place {sd['ticker']} within its current sector momentum and broader market regime. Be specific about whether the sector is supporting or working against this trade.)
+"""
 
 
 async def generate_ai_summaries(stocks: List[Dict]) -> Dict[str, str]:
@@ -1148,7 +1211,7 @@ def push_to_github():
         # Configure git (if not already)
         subprocess.run(["git", "config", "--global", "user.email", "bot@bogastock.com"],
                       cwd=repo_root, capture_output=True)
-        subprocess.run(["git", "config", "--global", "user.name", "FinMA Bot"],
+        subprocess.run(["git", "config", "--global", "user.name", "BOGA AI Bot"],
                       cwd=repo_root, capture_output=True)
 
         # Add transfer/latest changes
@@ -1201,7 +1264,7 @@ def compute_daily_alerts(all_stocks_data: List[Dict], last_master: Optional[Dict
             alerts.append({
                 "ticker": ticker,
                 "type": "CONVICTION_SCORE",
-                "message": f"{ticker} received a {scores['signal_type']} score today.",
+                "message": f"{ticker} received a {scores['signal_type']} BOGA AI score today.",
                 "severity": "CRITICAL"
             })
             
@@ -1232,7 +1295,7 @@ async def daily_run():
     os.makedirs(stocks_dir, exist_ok=True)
 
     log.info("=" * 60)
-    log.info(f"FinMA Daily 100 — Run started: {date_str}")
+    log.info(f"BOGA AI Daily Scan — Run started: {date_str}")
     log.info("=" * 60)
 
     # 0. Load universe
@@ -1611,7 +1674,7 @@ async def daily_run():
     # Send Telegram notification
     if ENABLE_TELEGRAM_NOTIFICATIONS:
         telegram_msg = (
-            f"<b>FinMA Daily +500 — Scan Complete</b>\n\n"
+            f"<b>BOGA AI Daily Scan — Complete</b>\n\n"
             f"📊 <b>Summary</b>\n"
             f"• Tickers analyzed: {len(all_stocks_data)}\n"
             f"• Active signals: {active_signals}\n"
@@ -1636,7 +1699,7 @@ def is_time_to_run() -> bool:
 
 
 async def scheduler_loop():
-    log.info("FinMA Bot scheduler started. Waiting for 09:00 NY...")
+    log.info("BOGA AI Bot scheduler started. Waiting for 09:00 NY...")
     while True:
         if is_time_to_run():
             try:

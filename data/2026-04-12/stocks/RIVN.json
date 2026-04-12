@@ -1,0 +1,160 @@
+{
+  "ticker": "RIVN",
+  "company": "Rivian Automotive, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.028122-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 15.43,
+    "open": 15.37,
+    "high": 15.87,
+    "low": 15.3,
+    "prev_close": 15.24,
+    "change_pct": 1.25,
+    "change_pct_1w": 0.19,
+    "change_pct_1m": -7.33,
+    "change_pct_1y": 42.87,
+    "volume": 19280500,
+    "avg_volume_30d": 28024770
+  },
+  "scores": {
+    "master_score": 41.76,
+    "technical_score": 52.0,
+    "fundamental_score": 10.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 68.0,
+    "sector_score": 42.6,
+    "breakout_score": 55.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 41.76,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.9,
+    "macd": -0.1125,
+    "macd_signal": -0.1347,
+    "macd_histogram": 0.0222,
+    "macd_crossover": "bullish",
+    "ema_20": 15.27,
+    "ema_50": 15.57,
+    "ema_200": 15.17,
+    "ema_stack_bullish": false,
+    "bb_upper": 16.16,
+    "bb_middle": 15.29,
+    "bb_lower": 14.41,
+    "bb_width": 0.1151,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 10.7,
+    "atr": 0.85,
+    "atr_pct": 0.0552,
+    "obv_trend": "UP",
+    "mfi": 62.2,
+    "cmf": -0.238,
+    "stoch_k": 52.2,
+    "stoch_d": 42.4,
+    "rvol": 0.84,
+    "volume_5d_avg": 23671200,
+    "green_days_10d": 5,
+    "52w_high": 22.45,
+    "52w_low": 11.15,
+    "52w_high_proximity_pct": 0.3127,
+    "52w_low_proximity_pct": 0.3839
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 4.1906576,
+    "de_ratio": 113.082,
+    "fcf_yield": -0.0415,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.258,
+    "gross_margin": 0.026730001,
+    "operating_margin": -0.64774,
+    "net_margin": -0.67681,
+    "market_cap": 19148474368,
+    "enterprise_value": 18289471488,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.33731997,
+    "institutional_ownership_pct": 0.46174,
+    "short_ratio": 4.41,
+    "beta": 1.691
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 15.35,
+    "entry_range_high": 15.51,
+    "target_range_low": 17.62,
+    "target_range_high": 18.88,
+    "stop_range_low": 13.04,
+    "stop_range_high": 13.73,
+    "target_price": 17.98,
+    "stop_loss": 13.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.028093-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 55.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 19.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 11.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 20264,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "RIVN currently holds a NEGATIVE_BIAS FinMA score, with 42% confidence. The stock shows mixed technicals, with bullish MACD and RSI at 52.3, but bearish EMA alignment. Price is $15.6, 30.5% from its 52-week high. Low ADX (10.7) indicates a weak trend. Revenue growth is -25.8% TTM. Gross margin is a thin 2.7%, while net margin sits at -67.7%. A potential catalyst would be a substantial improvement in production efficiency to boost those margins. Key technical level to watch: resistance near the 52-week high proximity.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "+1.25%",
+    "key_metrics": {
+      "RSI": 50.9,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

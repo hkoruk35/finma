@@ -1,0 +1,158 @@
+{
+  "ticker": "DASH",
+  "company": "DoorDash, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.113922-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 152.58,
+    "open": 154.55,
+    "high": 155.41,
+    "low": 147.71,
+    "prev_close": 154.55,
+    "change_pct": -1.27,
+    "change_pct_1w": -2.47,
+    "change_pct_1m": -9.97,
+    "change_pct_1y": -7.95,
+    "volume": 3176700,
+    "avg_volume_30d": 4029510
+  },
+  "scores": {
+    "master_score": 45.96,
+    "technical_score": 42.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 42.6,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 45.96,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 40.7,
+    "macd": -5.0015,
+    "macd_signal": -6.2139,
+    "macd_histogram": 1.2124,
+    "macd_crossover": "neutral",
+    "ema_20": 157.92,
+    "ema_50": 171.04,
+    "ema_200": 203.02,
+    "ema_stack_bullish": false,
+    "bb_upper": 168.68,
+    "bb_middle": 156.5,
+    "bb_lower": 144.31,
+    "bb_width": 0.1557,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.0,
+    "atr": 7.57,
+    "atr_pct": 0.0496,
+    "obv_trend": "UP",
+    "mfi": 53.3,
+    "cmf": -0.124,
+    "stoch_k": 37.6,
+    "stoch_d": 51.2,
+    "rvol": 0.86,
+    "volume_5d_avg": 3477680,
+    "green_days_10d": 6,
+    "52w_high": 281.74,
+    "52w_low": 146.6,
+    "52w_high_proximity_pct": 0.4584,
+    "52w_low_proximity_pct": 0.0408
+  },
+  "fundamental": {
+    "pe_ratio": 71.299065,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 6.604051,
+    "de_ratio": 32.749,
+    "fcf_yield": 0.0358,
+    "eps_growth_5y": 0.477,
+    "revenue_growth_ttm": 0.377,
+    "gross_margin": 0.51826,
+    "operating_margin": 0.052589998,
+    "net_margin": 0.06816,
+    "market_cap": 66284777472,
+    "enterprise_value": 64081772544,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0057599996,
+    "institutional_ownership_pct": 0.98982,
+    "short_ratio": 1.87,
+    "beta": 1.925
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 151.82,
+    "entry_range_high": 153.34,
+    "target_range_low": 171.78,
+    "target_range_high": 184.05,
+    "stop_range_low": 130.57,
+    "stop_range_high": 137.44,
+    "target_price": 175.29,
+    "stop_loss": 137.44,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.113897-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 190.73,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 146.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 23,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 23125,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "-1.27%",
+    "key_metrics": {
+      "RSI": 40.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

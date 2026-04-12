@@ -1,0 +1,158 @@
+{
+  "ticker": "BDX",
+  "company": "Becton, Dickinson and Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.232553-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 154.22,
+    "open": 155.4,
+    "high": 155.92,
+    "low": 153.05,
+    "prev_close": 155.46,
+    "change_pct": -0.8,
+    "change_pct_1w": -0.19,
+    "change_pct_1m": -5.49,
+    "change_pct_1y": -0.03,
+    "volume": 2051900,
+    "avg_volume_30d": 2491350
+  },
+  "scores": {
+    "master_score": 39.14,
+    "technical_score": 38.0,
+    "fundamental_score": 50.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 45.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.14,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 38.6,
+    "macd": -2.7109,
+    "macd_signal": -2.9789,
+    "macd_histogram": 0.268,
+    "macd_crossover": "neutral",
+    "ema_20": 157.74,
+    "ema_50": 160.56,
+    "ema_200": 156.41,
+    "ema_stack_bullish": false,
+    "bb_upper": 160.69,
+    "bb_middle": 156.61,
+    "bb_lower": 152.53,
+    "bb_width": 0.0521,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 27.5,
+    "atr": 3.56,
+    "atr_pct": 0.0231,
+    "obv_trend": "DOWN",
+    "mfi": 50.7,
+    "cmf": -0.293,
+    "stoch_k": 17.1,
+    "stoch_d": 36.1,
+    "rvol": 0.89,
+    "volume_5d_avg": 2214780,
+    "green_days_10d": 4,
+    "52w_high": 184.21,
+    "52w_low": 126.85,
+    "52w_high_proximity_pct": 0.1628,
+    "52w_low_proximity_pct": 0.2157
+  },
+  "fundamental": {
+    "pe_ratio": 25.199347,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 1.7369269,
+    "de_ratio": 77.284,
+    "fcf_yield": 0.0556,
+    "eps_growth_5y": 0.286,
+    "revenue_growth_ttm": 0.016,
+    "gross_margin": 0.46784002,
+    "operating_margin": 0.13347,
+    "net_margin": 0.08014,
+    "market_cap": 55873150976,
+    "enterprise_value": 62700879872,
+    "dividend_yield": 2.72,
+    "payout_ratio": 0.6814,
+    "insider_ownership_pct": 0.00398,
+    "institutional_ownership_pct": 0.96317,
+    "short_ratio": 3.92,
+    "beta": 0.352
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 153.45,
+    "entry_range_high": 154.99,
+    "target_range_low": 161.6,
+    "target_range_high": 173.15,
+    "stop_range_low": 139.74,
+    "stop_range_high": 147.1,
+    "target_price": 164.9,
+    "stop_loss": 147.1,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.232489-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 192.78,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 272.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 126.85,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 75,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-0.80%",
+    "key_metrics": {
+      "RSI": 38.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

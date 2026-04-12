@@ -1,0 +1,158 @@
+{
+  "ticker": "GTY",
+  "company": "Getty Realty Corp.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.975412-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 33.86,
+    "open": 33.92,
+    "high": 34.02,
+    "low": 33.68,
+    "prev_close": 33.88,
+    "change_pct": -0.06,
+    "change_pct_1w": 4.22,
+    "change_pct_1m": 3.61,
+    "change_pct_1y": 31.5,
+    "volume": 272100,
+    "avg_volume_30d": 501440
+  },
+  "scores": {
+    "master_score": 64.41,
+    "technical_score": 58.0,
+    "fundamental_score": 72.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 50.0,
+    "sector_score": 51.1,
+    "breakout_score": 20.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 64.41,
+    "confidence": 0.64,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 70.3,
+    "macd": 0.3967,
+    "macd_signal": 0.2467,
+    "macd_histogram": 0.15,
+    "macd_crossover": "neutral",
+    "ema_20": 32.6,
+    "ema_50": 31.72,
+    "ema_200": 29.19,
+    "ema_stack_bullish": true,
+    "bb_upper": 33.94,
+    "bb_middle": 32.5,
+    "bb_lower": 31.06,
+    "bb_width": 0.0888,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.6,
+    "atr": 0.59,
+    "atr_pct": 0.0175,
+    "obv_trend": "UP",
+    "mfi": 75.8,
+    "cmf": -0.176,
+    "stoch_k": 93.8,
+    "stoch_d": 94.9,
+    "rvol": 0.88,
+    "volume_5d_avg": 439440,
+    "green_days_10d": 7,
+    "52w_high": 33.88,
+    "52w_low": 24.79,
+    "52w_high_proximity_pct": 0.0006,
+    "52w_low_proximity_pct": 0.3659
+  },
+  "fundamental": {
+    "pe_ratio": 25.081482,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 1.8890873,
+    "de_ratio": 81.057,
+    "fcf_yield": 0.0607,
+    "eps_growth_5y": 0.333,
+    "revenue_growth_ttm": 0.054,
+    "gross_margin": 0.96056,
+    "operating_margin": 0.47073,
+    "net_margin": 0.35716,
+    "market_cap": 2025387776,
+    "enterprise_value": 2545182720,
+    "dividend_yield": 5.73,
+    "payout_ratio": 1.4037,
+    "insider_ownership_pct": 0.06285,
+    "institutional_ownership_pct": 0.84282994,
+    "short_ratio": 13.83,
+    "beta": 0.839
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 31.56,
+    "entry_range_high": 34.03,
+    "target_range_low": 34.92,
+    "target_range_high": 37.41,
+    "stop_range_low": 31.05,
+    "stop_range_high": 32.68,
+    "target_price": 35.63,
+    "stop_loss": 32.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.975371-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 42.33,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 573.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 24.79,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 20,
+      "date": "2026-03-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 64,
+    "price_change_display": "-0.06%",
+    "key_metrics": {
+      "RSI": 70.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

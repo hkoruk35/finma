@@ -1,0 +1,158 @@
+{
+  "ticker": "O",
+  "company": "Realty Income Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.963590-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 63.75,
+    "open": 63.29,
+    "high": 63.76,
+    "low": 63.05,
+    "prev_close": 63.2,
+    "change_pct": 0.87,
+    "change_pct_1w": 2.48,
+    "change_pct_1m": -1.05,
+    "change_pct_1y": 28.87,
+    "volume": 5575000,
+    "avg_volume_30d": 6384903
+  },
+  "scores": {
+    "master_score": 62.21,
+    "technical_score": 66.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.1,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 62.21,
+    "confidence": 0.62,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 59.6,
+    "macd": -0.1328,
+    "macd_signal": -0.4456,
+    "macd_histogram": 0.3128,
+    "macd_crossover": "neutral",
+    "ema_20": 62.42,
+    "ema_50": 62.23,
+    "ema_200": 58.98,
+    "ema_stack_bullish": true,
+    "bb_upper": 64.83,
+    "bb_middle": 61.97,
+    "bb_lower": 59.1,
+    "bb_width": 0.0925,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.9,
+    "atr": 1.01,
+    "atr_pct": 0.0158,
+    "obv_trend": "UP",
+    "mfi": 72.5,
+    "cmf": -0.213,
+    "stoch_k": 99.8,
+    "stoch_d": 94.6,
+    "rvol": 0.84,
+    "volume_5d_avg": 5341940,
+    "green_days_10d": 9,
+    "52w_high": 67.26,
+    "52w_low": 51.09,
+    "52w_high_proximity_pct": 0.0522,
+    "52w_low_proximity_pct": 0.2478
+  },
+  "fundamental": {
+    "pe_ratio": 54.487183,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 1.5096976,
+    "de_ratio": 73.505,
+    "fcf_yield": 0.045,
+    "eps_growth_5y": 0.412,
+    "revenue_growth_ttm": 0.11,
+    "gross_margin": 0.92559,
+    "operating_margin": 0.46975,
+    "net_margin": 0.18370001,
+    "market_cap": 59443728384,
+    "enterprise_value": 89181339648,
+    "dividend_yield": 5.07,
+    "payout_ratio": 2.7547,
+    "insider_ownership_pct": 0.00124,
+    "institutional_ownership_pct": 0.79969,
+    "short_ratio": 4.51,
+    "beta": 0.796
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 61.92,
+    "entry_range_high": 64.07,
+    "target_range_low": 65.44,
+    "target_range_high": 70.12,
+    "stop_range_low": 58.64,
+    "stop_range_high": 61.73,
+    "target_price": 66.78,
+    "stop_loss": 61.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.963542-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 79.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 507.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 51.09,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7400,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 62,
+    "price_change_display": "+0.87%",
+    "key_metrics": {
+      "RSI": 59.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "CTAS",
+  "company": "Cintas Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.784611-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Business Services",
+  "price": {
+    "current": 174.93,
+    "open": 173.99,
+    "high": 175.65,
+    "low": 173.17,
+    "prev_close": 174.15,
+    "change_pct": 0.45,
+    "change_pct_1w": 0.34,
+    "change_pct_1m": -11.8,
+    "change_pct_1y": -7.19,
+    "volume": 2351500,
+    "avg_volume_30d": 2602540
+  },
+  "scores": {
+    "master_score": 38.18,
+    "technical_score": 33.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 38.18,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 41.5,
+    "macd": -5.2631,
+    "macd_signal": -5.848,
+    "macd_histogram": 0.5849,
+    "macd_crossover": "neutral",
+    "ema_20": 177.77,
+    "ema_50": 184.76,
+    "ema_200": 194.01,
+    "ema_stack_bullish": false,
+    "bb_upper": 193.86,
+    "bb_middle": 177.35,
+    "bb_lower": 160.85,
+    "bb_width": 0.1861,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.2,
+    "atr": 4.9,
+    "atr_pct": 0.028,
+    "obv_trend": "UP",
+    "mfi": 52.4,
+    "cmf": -0.182,
+    "stoch_k": 45.6,
+    "stoch_d": 43.5,
+    "rvol": 0.83,
+    "volume_5d_avg": 2160580,
+    "green_days_10d": 6,
+    "52w_high": 226.13,
+    "52w_low": 165.71,
+    "52w_high_proximity_pct": 0.2264,
+    "52w_low_proximity_pct": 0.0556
+  },
+  "fundamental": {
+    "pe_ratio": 36.905064,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 14.612814,
+    "de_ratio": 60.943,
+    "fcf_yield": 0.0215,
+    "eps_growth_5y": 0.097,
+    "revenue_growth_ttm": 0.089,
+    "gross_margin": 0.50361997,
+    "operating_margin": 0.23224,
+    "net_margin": 0.17568001,
+    "market_cap": 69987237888,
+    "enterprise_value": 72722219008,
+    "dividend_yield": 1.03,
+    "payout_ratio": 0.3671,
+    "insider_ownership_pct": 0.14971,
+    "institutional_ownership_pct": 0.67624,
+    "short_ratio": 4.68,
+    "beta": 1.006
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 174.06,
+    "entry_range_high": 175.8,
+    "target_range_low": 185.84,
+    "target_range_high": 199.11,
+    "stop_range_low": 156.87,
+    "stop_range_high": 165.13,
+    "target_price": 189.63,
+    "stop_loss": 165.13,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.784542-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 218.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 103.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 165.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5200,
+      "date": "2026-01-28"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "+0.45%",
+    "key_metrics": {
+      "RSI": 41.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

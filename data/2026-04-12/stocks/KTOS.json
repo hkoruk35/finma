@@ -1,0 +1,158 @@
+{
+  "ticker": "KTOS",
+  "company": "Kratos Defense & Security Solutions, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.685375-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 70.34,
+    "open": 68.02,
+    "high": 70.53,
+    "low": 67.43,
+    "prev_close": 68.33,
+    "change_pct": 2.94,
+    "change_pct_1w": 4.5,
+    "change_pct_1m": -20.9,
+    "change_pct_1y": 143.22,
+    "volume": 2884300,
+    "avg_volume_30d": 4820393
+  },
+  "scores": {
+    "master_score": 30.23,
+    "technical_score": 26.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 48.8,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 30.23,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 40.9,
+    "macd": -5.471,
+    "macd_signal": -5.3712,
+    "macd_histogram": -0.0998,
+    "macd_crossover": "neutral",
+    "ema_20": 76.5,
+    "ema_50": 83.73,
+    "ema_200": 76.92,
+    "ema_stack_bullish": false,
+    "bb_upper": 96.77,
+    "bb_middle": 78.09,
+    "bb_lower": 59.41,
+    "bb_width": 0.4784,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.3,
+    "atr": 5.98,
+    "atr_pct": 0.085,
+    "obv_trend": "UP",
+    "mfi": 40.0,
+    "cmf": -0.146,
+    "stoch_k": 28.9,
+    "stoch_d": 26.5,
+    "rvol": 0.72,
+    "volume_5d_avg": 3478260,
+    "green_days_10d": 4,
+    "52w_high": 130.72,
+    "52w_low": 31.71,
+    "52w_high_proximity_pct": 0.4619,
+    "52w_low_proximity_pct": 1.2182
+  },
+  "fundamental": {
+    "pe_ratio": 541.0769,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 5.950427,
+    "de_ratio": 7.304,
+    "fcf_yield": -0.0096,
+    "eps_growth_5y": 0.186,
+    "revenue_growth_ttm": 0.219,
+    "gross_margin": 0.22862,
+    "operating_margin": 0.02927,
+    "net_margin": 0.016339999,
+    "market_cap": 13177047040,
+    "enterprise_value": 11566152704,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01421,
+    "institutional_ownership_pct": 0.85788,
+    "short_ratio": 1.88,
+    "beta": 1.219
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 69.99,
+    "entry_range_high": 70.69,
+    "target_range_low": 86.51,
+    "target_range_high": 92.69,
+    "stop_range_low": 55.46,
+    "stop_range_high": 58.38,
+    "target_price": 88.28,
+    "stop_loss": 58.38,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.685336-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 87.93,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 27,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+2.94%",
+    "key_metrics": {
+      "RSI": 40.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

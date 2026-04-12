@@ -1,0 +1,158 @@
+{
+  "ticker": "HCA",
+  "company": "HCA Healthcare, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.263151-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Care Facilities",
+  "price": {
+    "current": 495.47,
+    "open": 505.6,
+    "high": 508.6,
+    "low": 493.05,
+    "prev_close": 507.19,
+    "change_pct": -2.31,
+    "change_pct_1w": 5.01,
+    "change_pct_1m": -7.64,
+    "change_pct_1y": 50.16,
+    "volume": 733800,
+    "avg_volume_30d": 1059910
+  },
+  "scores": {
+    "master_score": 53.34,
+    "technical_score": 40.0,
+    "fundamental_score": 72.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 53.34,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 48.5,
+    "macd": -5.6963,
+    "macd_signal": -8.4646,
+    "macd_histogram": 2.7683,
+    "macd_crossover": "neutral",
+    "ema_20": 495.28,
+    "ema_50": 499.81,
+    "ema_200": 455.61,
+    "ema_stack_bullish": false,
+    "bb_upper": 526.79,
+    "bb_middle": 492.37,
+    "bb_lower": 457.96,
+    "bb_width": 0.1398,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.5,
+    "atr": 13.59,
+    "atr_pct": 0.0274,
+    "obv_trend": "UP",
+    "mfi": 43.8,
+    "cmf": -0.17,
+    "stoch_k": 68.5,
+    "stoch_d": 85.4,
+    "rvol": 0.8,
+    "volume_5d_avg": 851160,
+    "green_days_10d": 6,
+    "52w_high": 544.32,
+    "52w_low": 315.49,
+    "52w_high_proximity_pct": 0.0897,
+    "52w_low_proximity_pct": 0.5705
+  },
+  "fundamental": {
+    "pe_ratio": 17.483063,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": -18.464262,
+    "de_ratio": null,
+    "fcf_yield": 0.0526,
+    "eps_growth_5y": 0.445,
+    "revenue_growth_ttm": 0.067,
+    "gross_margin": 0.415,
+    "operating_margin": 0.16287,
+    "net_margin": 0.08974,
+    "market_cap": 110798094336,
+    "enterprise_value": 161608089600,
+    "dividend_yield": 0.63,
+    "payout_ratio": 0.1017,
+    "insider_ownership_pct": 0.16158001,
+    "institutional_ownership_pct": 0.78477997,
+    "short_ratio": 3.37,
+    "beta": 1.366
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 492.99,
+    "entry_range_high": 497.95,
+    "target_range_low": 525.52,
+    "target_range_high": 563.05,
+    "stop_range_low": 444.88,
+    "stop_range_high": 468.29,
+    "target_price": 536.24,
+    "stop_loss": 468.29,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.263117-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 619.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 63.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 315.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1694,
+      "date": "2026-02-18"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "-2.31%",
+    "key_metrics": {
+      "RSI": 48.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

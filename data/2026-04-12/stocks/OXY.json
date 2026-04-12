@@ -1,0 +1,158 @@
+{
+  "ticker": "OXY",
+  "company": "Occidental Petroleum Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.420889-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 57.97,
+    "open": 58.04,
+    "high": 58.82,
+    "low": 57.63,
+    "prev_close": 58.53,
+    "change_pct": -0.96,
+    "change_pct_1w": -7.94,
+    "change_pct_1m": 4.3,
+    "change_pct_1y": 64.01,
+    "volume": 10466100,
+    "avg_volume_30d": 21375113
+  },
+  "scores": {
+    "master_score": 34.83,
+    "technical_score": 37.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 78.0,
+    "sector_score": 45.8,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 34.83,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.4,
+    "macd": 1.7192,
+    "macd_signal": 2.7372,
+    "macd_histogram": -1.018,
+    "macd_crossover": "neutral",
+    "ema_20": 60.11,
+    "ema_50": 55.48,
+    "ema_200": 47.78,
+    "ema_stack_bullish": false,
+    "bb_upper": 66.59,
+    "bb_middle": 61.16,
+    "bb_lower": 55.73,
+    "bb_width": 0.1775,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 33.7,
+    "atr": 2.48,
+    "atr_pct": 0.0428,
+    "obv_trend": "DOWN",
+    "mfi": 52.2,
+    "cmf": 0.045,
+    "stoch_k": 15.4,
+    "stoch_d": 22.4,
+    "rvol": 0.72,
+    "volume_5d_avg": 15377720,
+    "green_days_10d": 3,
+    "52w_high": 66.24,
+    "52w_low": 35.7,
+    "52w_high_proximity_pct": 0.1248,
+    "52w_low_proximity_pct": 0.624
+  },
+  "fundamental": {
+    "pe_ratio": 42.940742,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 2.060057,
+    "de_ratio": 63.804,
+    "fcf_yield": 0.0357,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 1.489,
+    "gross_margin": 0.69819,
+    "operating_margin": 0.10309,
+    "net_margin": 0.10772,
+    "market_cap": 57488568320,
+    "enterprise_value": 87407878144,
+    "dividend_yield": 1.79,
+    "payout_ratio": 0.7111,
+    "insider_ownership_pct": 0.27013,
+    "institutional_ownership_pct": 0.5149,
+    "short_ratio": 0.01,
+    "beta": 0.23
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 55.2,
+    "entry_range_high": 58.26,
+    "target_range_low": 64.1,
+    "target_range_high": 68.68,
+    "stop_range_low": 50.36,
+    "stop_range_high": 53.01,
+    "target_price": 65.41,
+    "stop_loss": 53.01,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.420863-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 72.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 179.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 35.7,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13565,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "-0.96%",
+    "key_metrics": {
+      "RSI": 46.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

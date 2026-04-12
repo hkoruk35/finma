@@ -1,0 +1,158 @@
+{
+  "ticker": "KEY",
+  "company": "KeyCorp",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.405554-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 21.46,
+    "open": 21.62,
+    "high": 21.66,
+    "low": 21.44,
+    "prev_close": 21.65,
+    "change_pct": -0.88,
+    "change_pct_1w": 4.84,
+    "change_pct_1m": 9.21,
+    "change_pct_1y": 69.63,
+    "volume": 9399800,
+    "avg_volume_30d": 15962716
+  },
+  "scores": {
+    "master_score": 53.39,
+    "technical_score": 57.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.9,
+    "breakout_score": 35.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 53.39,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 65.4,
+    "macd": 0.2496,
+    "macd_signal": -0.0176,
+    "macd_histogram": 0.2673,
+    "macd_crossover": "neutral",
+    "ema_20": 20.43,
+    "ema_50": 20.4,
+    "ema_200": 19.15,
+    "ema_stack_bullish": true,
+    "bb_upper": 21.61,
+    "bb_middle": 19.97,
+    "bb_lower": 18.34,
+    "bb_width": 0.1635,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.5,
+    "atr": 0.53,
+    "atr_pct": 0.0245,
+    "obv_trend": "UP",
+    "mfi": 69.2,
+    "cmf": -0.008,
+    "stoch_k": 90.0,
+    "stoch_d": 93.6,
+    "rvol": 0.78,
+    "volume_5d_avg": 12403800,
+    "green_days_10d": 6,
+    "52w_high": 22.98,
+    "52w_low": 13.13,
+    "52w_high_proximity_pct": 0.0662,
+    "52w_low_proximity_pct": 0.6345
+  },
+  "fundamental": {
+    "pe_ratio": 14.118421,
+    "sector_pe_median": 15.958722000000002,
+    "pb_ratio": 1.323058,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 1.315,
+    "gross_margin": 0.0,
+    "operating_margin": 0.33616,
+    "net_margin": 0.26102,
+    "market_cap": 23383834624,
+    "enterprise_value": 35498831872,
+    "dividend_yield": 3.82,
+    "payout_ratio": 0.5395,
+    "insider_ownership_pct": 0.00291,
+    "institutional_ownership_pct": 0.91212,
+    "short_ratio": 0.0,
+    "beta": 1.071
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 20.3,
+    "entry_range_high": 21.57,
+    "target_range_low": 22.59,
+    "target_range_high": 24.2,
+    "stop_range_low": 19.38,
+    "stop_range_high": 20.4,
+    "target_price": 23.05,
+    "stop_loss": 20.4,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.405532-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 26.83,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 382.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 13.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2917,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.78,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "-0.88%",
+    "key_metrics": {
+      "RSI": 65.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

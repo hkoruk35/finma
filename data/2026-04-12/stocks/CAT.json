@@ -1,0 +1,158 @@
+{
+  "ticker": "CAT",
+  "company": "Caterpillar Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.700157-04:00",
+  "sector": "Industrials",
+  "industry": "Farm & Heavy Construction Machinery",
+  "price": {
+    "current": 790.66,
+    "open": 790.67,
+    "high": 797.85,
+    "low": 786.24,
+    "prev_close": 787.07,
+    "change_pct": 0.46,
+    "change_pct_1w": 10.24,
+    "change_pct_1m": 11.74,
+    "change_pct_1y": 192.6,
+    "volume": 1871500,
+    "avg_volume_30d": 2594550
+  },
+  "scores": {
+    "master_score": 46.58,
+    "technical_score": 52.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.58,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 67.2,
+    "macd": 15.2175,
+    "macd_signal": 5.1027,
+    "macd_histogram": 10.1148,
+    "macd_crossover": "neutral",
+    "ema_20": 729.27,
+    "ema_50": 706.82,
+    "ema_200": 582.82,
+    "ema_stack_bullish": true,
+    "bb_upper": 779.95,
+    "bb_middle": 715.67,
+    "bb_lower": 651.38,
+    "bb_width": 0.1796,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.8,
+    "atr": 25.88,
+    "atr_pct": 0.0327,
+    "obv_trend": "UP",
+    "mfi": 68.9,
+    "cmf": 0.016,
+    "stoch_k": 94.6,
+    "stoch_d": 95.2,
+    "rvol": 0.81,
+    "volume_5d_avg": 2096600,
+    "green_days_10d": 7,
+    "52w_high": 790.66,
+    "52w_low": 282.23,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.8015
+  },
+  "fundamental": {
+    "pe_ratio": 42.01169,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 17.256912,
+    "de_ratio": 206.67,
+    "fcf_yield": 0.0158,
+    "eps_growth_5y": -0.114,
+    "revenue_growth_ttm": 0.18,
+    "gross_margin": 0.28795,
+    "operating_margin": 0.16025,
+    "net_margin": 0.13144,
+    "market_cap": 370012717056,
+    "enterprise_value": 402609078272,
+    "dividend_yield": 0.76,
+    "payout_ratio": 0.3105,
+    "insider_ownership_pct": 0.00225,
+    "institutional_ownership_pct": 0.72584,
+    "short_ratio": 2.94,
+    "beta": 1.519
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 703.29,
+    "entry_range_high": 794.61,
+    "target_range_low": 850.93,
+    "target_range_high": 911.72,
+    "stop_range_low": 701.95,
+    "stop_range_high": 738.9,
+    "target_price": 868.3,
+    "stop_loss": 738.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.700113-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 988.32,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 76.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 282.23,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 13,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2500,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "+0.46%",
+    "key_metrics": {
+      "RSI": 67.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

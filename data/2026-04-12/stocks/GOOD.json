@@ -1,0 +1,158 @@
+{
+  "ticker": "GOOD",
+  "company": "Gladstone Commercial Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.972545-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Diversified",
+  "price": {
+    "current": 12.2,
+    "open": 12.15,
+    "high": 12.24,
+    "low": 12.11,
+    "prev_close": 12.13,
+    "change_pct": 0.58,
+    "change_pct_1w": 4.27,
+    "change_pct_1m": 0.37,
+    "change_pct_1y": 2.12,
+    "volume": 325200,
+    "avg_volume_30d": 427326
+  },
+  "scores": {
+    "master_score": 46.41,
+    "technical_score": 50.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 68.0,
+    "sector_score": 51.1,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.41,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.4,
+    "macd": 0.0295,
+    "macd_signal": -0.0509,
+    "macd_histogram": 0.0804,
+    "macd_crossover": "neutral",
+    "ema_20": 11.77,
+    "ema_50": 11.68,
+    "ema_200": 11.8,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.37,
+    "bb_middle": 11.68,
+    "bb_lower": 11.0,
+    "bb_width": 0.117,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.1,
+    "atr": 0.26,
+    "atr_pct": 0.0215,
+    "obv_trend": "UP",
+    "mfi": 61.9,
+    "cmf": -0.156,
+    "stoch_k": 96.9,
+    "stoch_d": 94.9,
+    "rvol": 0.74,
+    "volume_5d_avg": 316740,
+    "green_days_10d": 8,
+    "52w_high": 13.65,
+    "52w_low": 10.11,
+    "52w_high_proximity_pct": 0.1059,
+    "52w_low_proximity_pct": 0.2062
+  },
+  "fundamental": {
+    "pe_ratio": 87.14285,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 3.4385567,
+    "de_ratio": 249.107,
+    "fcf_yield": 0.1192,
+    "eps_growth_5y": -0.506,
+    "revenue_growth_ttm": 0.163,
+    "gross_margin": 0.78141,
+    "operating_margin": 0.40027002,
+    "net_margin": 0.119540006,
+    "market_cap": 595764928,
+    "enterprise_value": 1598567296,
+    "dividend_yield": 9.84,
+    "payout_ratio": 8.5714,
+    "insider_ownership_pct": 0.01273,
+    "institutional_ownership_pct": 0.52935004,
+    "short_ratio": 4.89,
+    "beta": 1.088
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 11.62,
+    "entry_range_high": 12.26,
+    "target_range_low": 12.72,
+    "target_range_high": 13.63,
+    "stop_range_low": 11.1,
+    "stop_range_high": 11.68,
+    "target_price": 12.98,
+    "stop_loss": 11.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.972500-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 984.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.11,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 100,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "+0.58%",
+    "key_metrics": {
+      "RSI": 62.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

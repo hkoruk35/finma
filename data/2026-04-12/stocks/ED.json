@@ -1,0 +1,158 @@
+{
+  "ticker": "ED",
+  "company": "Consolidated Edison, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.854695-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 113.56,
+    "open": 113.93,
+    "high": 115.29,
+    "low": 113.23,
+    "prev_close": 114.98,
+    "change_pct": -1.24,
+    "change_pct_1w": -1.62,
+    "change_pct_1m": 1.63,
+    "change_pct_1y": 10.66,
+    "volume": 1123400,
+    "avg_volume_30d": 2161903
+  },
+  "scores": {
+    "master_score": 42.07,
+    "technical_score": 42.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.2,
+    "breakout_score": 0.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.07,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 54.1,
+    "macd": 0.967,
+    "macd_signal": 0.925,
+    "macd_histogram": 0.042,
+    "macd_crossover": "neutral",
+    "ema_20": 113.02,
+    "ema_50": 110.55,
+    "ema_200": 104.01,
+    "ema_stack_bullish": true,
+    "bb_upper": 117.0,
+    "bb_middle": 112.96,
+    "bb_lower": 108.92,
+    "bb_width": 0.0715,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.3,
+    "atr": 2.13,
+    "atr_pct": 0.0187,
+    "obv_trend": "DOWN",
+    "mfi": 58.6,
+    "cmf": 0.036,
+    "stoch_k": 68.8,
+    "stoch_d": 75.3,
+    "rvol": 0.74,
+    "volume_5d_avg": 1608600,
+    "green_days_10d": 5,
+    "52w_high": 115.46,
+    "52w_low": 94.04,
+    "52w_high_proximity_pct": 0.0165,
+    "52w_low_proximity_pct": 0.2075
+  },
+  "fundamental": {
+    "pe_ratio": 20.134752,
+    "sector_pe_median": 22.836065,
+    "pb_ratio": 1.6952796,
+    "de_ratio": 117.317,
+    "fcf_yield": -0.0035,
+    "eps_growth_5y": -0.083,
+    "revenue_growth_ttm": 0.089,
+    "gross_margin": 0.53251,
+    "operating_margin": 0.17802,
+    "net_margin": 0.11958,
+    "market_cap": 41837916160,
+    "enterprise_value": 67773259776,
+    "dividend_yield": 3.03,
+    "payout_ratio": 0.6028,
+    "insider_ownership_pct": 0.00179,
+    "institutional_ownership_pct": 0.72727996,
+    "short_ratio": 4.01,
+    "beta": 0.335
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 110.0,
+    "entry_range_high": 114.13,
+    "target_range_low": 117.55,
+    "target_range_high": 125.95,
+    "stop_range_low": 103.83,
+    "stop_range_high": 109.3,
+    "target_price": 119.95,
+    "stop_loss": 109.3,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.854657-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 141.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 303.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 94.04,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 430,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "-1.24%",
+    "key_metrics": {
+      "RSI": 54.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

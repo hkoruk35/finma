@@ -1,0 +1,161 @@
+{
+  "ticker": "ALL",
+  "company": "The Allstate Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.348959-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Property & Casualty",
+  "price": {
+    "current": 210.99,
+    "open": 214.03,
+    "high": 214.32,
+    "low": 208.3,
+    "prev_close": 214.52,
+    "change_pct": -1.65,
+    "change_pct_1w": 1.91,
+    "change_pct_1m": 2.63,
+    "change_pct_1y": 17.26,
+    "volume": 1017300,
+    "avg_volume_30d": 1389090
+  },
+  "scores": {
+    "master_score": 69.14,
+    "technical_score": 62.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.9,
+    "breakout_score": 45.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 69.14,
+    "confidence": 0.69,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.2,
+    "macd": 1.2146,
+    "macd_signal": 0.5071,
+    "macd_histogram": 0.7075,
+    "macd_crossover": "neutral",
+    "ema_20": 208.42,
+    "ema_50": 206.87,
+    "ema_200": 202.99,
+    "ema_stack_bullish": true,
+    "bb_upper": 213.04,
+    "bb_middle": 207.36,
+    "bb_lower": 201.67,
+    "bb_width": 0.0548,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 12.8,
+    "atr": 4.55,
+    "atr_pct": 0.0215,
+    "obv_trend": "UP",
+    "mfi": 68.8,
+    "cmf": -0.099,
+    "stoch_k": 64.5,
+    "stoch_d": 83.6,
+    "rvol": 0.78,
+    "volume_5d_avg": 1082300,
+    "green_days_10d": 7,
+    "52w_high": 214.52,
+    "52w_low": 183.34,
+    "52w_high_proximity_pct": 0.0165,
+    "52w_low_proximity_pct": 0.1508
+  },
+  "fundamental": {
+    "pe_ratio": 5.5436153,
+    "sector_pe_median": 15.958722000000002,
+    "pb_ratio": 1.9174808,
+    "de_ratio": 25.091,
+    "fcf_yield": 0.163,
+    "eps_growth_5y": 1.032,
+    "revenue_growth_ttm": 0.051,
+    "gross_margin": 0.31301,
+    "operating_margin": 0.29017,
+    "net_margin": 0.15191,
+    "market_cap": 54759469056,
+    "enterprise_value": 58849468416,
+    "dividend_yield": 2.05,
+    "payout_ratio": 0.105100006,
+    "insider_ownership_pct": 0.00563,
+    "institutional_ownership_pct": 0.82685,
+    "short_ratio": 0.04,
+    "beta": 0.224
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 205.84,
+    "entry_range_high": 212.04,
+    "target_range_low": 220.15,
+    "target_range_high": 235.87,
+    "stop_range_low": 191.8,
+    "stop_range_high": 201.89,
+    "target_price": 224.64,
+    "stop_loss": 201.89,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.348907-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 263.74,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 205.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 183.34,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 165,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.78,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "ALL exhibits a POSITIVE BIAS, FinMA confidence 73%. Trading at $210.6, near its 52-week high, Allstate's attractive P/E of 5.53 contrasts favorably against the sector median. The high dividend yield of 201.00% is a major catalyst, significantly exceeding sector averages. Revenue growth of 5.1% and solid margins support a bullish outlook. Technically, RSI is neutral at 54.5, while EMA alignment is bullish, though ADX shows weak trend strength at 12.8. The Bollinger Bands are high, suggesting potential volatility. Key technical levels to watch are the recent highs around $215 for potential breakout and $200 as support.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 69,
+    "price_change_display": "-1.65%",
+    "key_metrics": {
+      "RSI": 55.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

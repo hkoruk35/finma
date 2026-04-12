@@ -1,0 +1,158 @@
+{
+  "ticker": "COTY",
+  "company": "Coty Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.172593-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 2.17,
+    "open": 2.1,
+    "high": 2.18,
+    "low": 2.09,
+    "prev_close": 2.09,
+    "change_pct": 3.83,
+    "change_pct_1w": 5.85,
+    "change_pct_1m": -7.26,
+    "change_pct_1y": -53.73,
+    "volume": 6825300,
+    "avg_volume_30d": 8008723
+  },
+  "scores": {
+    "master_score": 46.05,
+    "technical_score": 56.0,
+    "fundamental_score": 45.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 50.0,
+    "sector_score": 42.0,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 46.05,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 46.6,
+    "macd": -0.0894,
+    "macd_signal": -0.1236,
+    "macd_histogram": 0.0343,
+    "macd_crossover": "neutral",
+    "ema_20": 2.15,
+    "ema_50": 2.41,
+    "ema_200": 3.43,
+    "ema_stack_bullish": false,
+    "bb_upper": 2.23,
+    "bb_middle": 2.1,
+    "bb_lower": 1.97,
+    "bb_width": 0.1247,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 31.8,
+    "atr": 0.1,
+    "atr_pct": 0.0454,
+    "obv_trend": "UP",
+    "mfi": 48.0,
+    "cmf": -0.203,
+    "stoch_k": 78.6,
+    "stoch_d": 59.5,
+    "rvol": 1.03,
+    "volume_5d_avg": 8241020,
+    "green_days_10d": 5,
+    "52w_high": 5.36,
+    "52w_low": 2.0,
+    "52w_high_proximity_pct": 0.5951,
+    "52w_low_proximity_pct": 0.085
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.292671,
+    "pb_ratio": 0.5399353,
+    "de_ratio": 82.739,
+    "fcf_yield": 0.1996,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.005,
+    "gross_margin": 0.63682,
+    "operating_margin": 0.09681,
+    "net_margin": -0.0913,
+    "market_cap": 1909613824,
+    "enterprise_value": 5154513920,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.59928,
+    "institutional_ownership_pct": 0.34581003,
+    "short_ratio": 5.0,
+    "beta": 0.972
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 2.16,
+    "entry_range_high": 2.18,
+    "target_range_low": 2.42,
+    "target_range_high": 2.59,
+    "stop_range_low": 1.87,
+    "stop_range_high": 1.97,
+    "target_price": 2.47,
+    "stop_loss": 1.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.172566-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 2.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 2.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 83000,
+      "date": "2026-03-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -0.35,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "+3.83%",
+    "key_metrics": {
+      "RSI": 46.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

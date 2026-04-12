@@ -1,0 +1,160 @@
+{
+  "ticker": "PINS",
+  "company": "Pinterest, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.007836-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 17.62,
+    "open": 18.0,
+    "high": 18.07,
+    "low": 17.44,
+    "prev_close": 17.94,
+    "change_pct": -1.78,
+    "change_pct_1w": -3.08,
+    "change_pct_1m": -9.08,
+    "change_pct_1y": -28.61,
+    "volume": 14630500,
+    "avg_volume_30d": 19277220
+  },
+  "scores": {
+    "master_score": 28.36,
+    "technical_score": 28.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.6,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 28.36,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.8,
+    "macd": -0.32,
+    "macd_signal": -0.3281,
+    "macd_histogram": 0.0081,
+    "macd_crossover": "neutral",
+    "ema_20": 18.28,
+    "ema_50": 19.53,
+    "ema_200": 26.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 18.96,
+    "bb_middle": 18.29,
+    "bb_lower": 17.62,
+    "bb_width": 0.0736,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.5,
+    "atr": 0.72,
+    "atr_pct": 0.0408,
+    "obv_trend": "DOWN",
+    "mfi": 42.2,
+    "cmf": -0.229,
+    "stoch_k": 10.1,
+    "stoch_d": 23.5,
+    "rvol": 0.69,
+    "volume_5d_avg": 13254880,
+    "green_days_10d": 3,
+    "52w_high": 39.17,
+    "52w_low": 15.42,
+    "52w_high_proximity_pct": 0.5502,
+    "52w_low_proximity_pct": 0.1427
+  },
+  "fundamental": {
+    "pe_ratio": 28.885246,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 2.4674418,
+    "de_ratio": 5.522,
+    "fcf_yield": 0.09,
+    "eps_growth_5y": -0.846,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.80067,
+    "operating_margin": 0.22828,
+    "net_margin": 0.09874,
+    "market_cap": 11291249664,
+    "enterprise_value": 9514607616,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01053,
+    "institutional_ownership_pct": 1.16887,
+    "short_ratio": 4.25,
+    "beta": 0.876
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 17.53,
+    "entry_range_high": 17.71,
+    "target_range_low": 19.38,
+    "target_range_high": 20.77,
+    "stop_range_low": 15.37,
+    "stop_range_high": 16.18,
+    "target_price": 19.78,
+    "stop_loss": 16.18,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.007813-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 22.03,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 15.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 147885,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "PINS exhibits an UNDERPERFORM FinMA score due to bearish technicals and premium valuation (P/E 29.0241). Price at $17.7 is 54.8% from its 52-week high with a bearish EMA alignment, and weak ADX strength (16.1) indicating a lack of trend. Key level to watch is the recent low of $16. Revenue growth is solid at 14.3% TTM, but the high Bollinger Band reading suggests potential near-term downside. A catalyst to watch is user engagement metrics, needing substantial growth to justify the current valuation.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-1.78%",
+    "key_metrics": {
+      "RSI": 38.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

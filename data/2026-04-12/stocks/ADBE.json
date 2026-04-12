@@ -1,0 +1,161 @@
+{
+  "ticker": "ADBE",
+  "company": "Adobe Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.885189-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 225.35,
+    "open": 229.9,
+    "high": 231.04,
+    "low": 224.13,
+    "prev_close": 229.94,
+    "change_pct": -2.0,
+    "change_pct_1w": -7.23,
+    "change_pct_1m": -17.67,
+    "change_pct_1y": -33.72,
+    "volume": 5883000,
+    "avg_volume_30d": 5888943
+  },
+  "scores": {
+    "master_score": 34.97,
+    "technical_score": 25.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.2,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 34.97,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 29.2,
+    "macd": -8.4963,
+    "macd_signal": -8.0826,
+    "macd_histogram": -0.4136,
+    "macd_crossover": "bearish",
+    "ema_20": 243.67,
+    "ema_50": 261.34,
+    "ema_200": 316.93,
+    "ema_stack_bullish": false,
+    "bb_upper": 255.75,
+    "bb_middle": 242.13,
+    "bb_lower": 228.51,
+    "bb_width": 0.1125,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 37.9,
+    "atr": 8.66,
+    "atr_pct": 0.0384,
+    "obv_trend": "DOWN",
+    "mfi": 44.7,
+    "cmf": -0.168,
+    "stoch_k": 4.5,
+    "stoch_d": 16.2,
+    "rvol": 0.77,
+    "volume_5d_avg": 4562840,
+    "green_days_10d": 4,
+    "52w_high": 420.68,
+    "52w_low": 225.35,
+    "52w_high_proximity_pct": 0.4643,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 13.139942,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 8.002486,
+    "de_ratio": 58.34,
+    "fcf_yield": 0.1015,
+    "eps_growth_5y": 0.111,
+    "revenue_growth_ttm": 0.12,
+    "gross_margin": 0.89396006,
+    "operating_margin": 0.38762,
+    "net_margin": 0.29477,
+    "market_cap": 91860983808,
+    "enterprise_value": 90857472000,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0025,
+    "institutional_ownership_pct": 0.88281,
+    "short_ratio": 2.22,
+    "beta": 1.518
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 224.22,
+    "entry_range_high": 226.48,
+    "target_range_low": 246.3,
+    "target_range_high": 263.9,
+    "stop_range_low": 197.63,
+    "stop_range_high": 208.03,
+    "target_price": 251.33,
+    "stop_loss": 208.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.885143-04:00",
+    "categories": [
+      "breakout",
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 281.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 225.35,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 460,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "ADBE exhibits a FinMA score of UNDERPERFORM, with low confidence (35%). Bearish technicals prevail: RSI at 29.1 suggests oversold conditions, yet the bearish MACD and EMA alignment indicate continued downward momentum. The ADX strength of 37.9 confirms a strong trend, potentially downward.\n\nDespite strong business fundamentals - a P/E of 13.1 trading at a sector discount, plus high margins - current technicals outweigh positives. The stock is 46.5% off its 52-week high. A potential catalyst for a shift could be positive surprises in upcoming subscription revenue reports.\nKey level to watch: $220 support.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "-2.00%",
+    "key_metrics": {
+      "RSI": 29.2,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

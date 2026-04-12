@@ -1,0 +1,158 @@
+{
+  "ticker": "ROL",
+  "company": "Rollins, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.794877-04:00",
+  "sector": "Industrials",
+  "industry": "Personal Services",
+  "price": {
+    "current": 54.23,
+    "open": 55.63,
+    "high": 55.97,
+    "low": 54.05,
+    "prev_close": 55.79,
+    "change_pct": -2.8,
+    "change_pct_1w": 0.56,
+    "change_pct_1m": -3.3,
+    "change_pct_1y": 8.35,
+    "volume": 2726600,
+    "avg_volume_30d": 2934963
+  },
+  "scores": {
+    "master_score": 48.48,
+    "technical_score": 53.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 68.0,
+    "sector_score": 48.8,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 48.48,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 44.2,
+    "macd": -0.878,
+    "macd_signal": -1.3074,
+    "macd_histogram": 0.4294,
+    "macd_crossover": "neutral",
+    "ema_20": 54.67,
+    "ema_50": 56.68,
+    "ema_200": 57.49,
+    "ema_stack_bullish": false,
+    "bb_upper": 55.77,
+    "bb_middle": 53.95,
+    "bb_lower": 52.12,
+    "bb_width": 0.0678,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 33.5,
+    "atr": 1.31,
+    "atr_pct": 0.0241,
+    "obv_trend": "UP",
+    "mfi": 66.6,
+    "cmf": -0.181,
+    "stoch_k": 52.0,
+    "stoch_d": 79.4,
+    "rvol": 0.82,
+    "volume_5d_avg": 2395740,
+    "green_days_10d": 7,
+    "52w_high": 65.4,
+    "52w_low": 52.46,
+    "52w_high_proximity_pct": 0.1708,
+    "52w_low_proximity_pct": 0.0337
+  },
+  "fundamental": {
+    "pe_ratio": 49.752293,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 18.988096,
+    "de_ratio": 75.529,
+    "fcf_yield": 0.0212,
+    "eps_growth_5y": 0.099,
+    "revenue_growth_ttm": 0.097,
+    "gross_margin": 0.52752,
+    "operating_margin": 0.17643,
+    "net_margin": 0.14004,
+    "market_cap": 26138253312,
+    "enterprise_value": 27027632128,
+    "dividend_yield": 1.35,
+    "payout_ratio": 0.6228,
+    "insider_ownership_pct": 0.38371,
+    "institutional_ownership_pct": 0.59339,
+    "short_ratio": 3.97,
+    "beta": 0.84
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 53.96,
+    "entry_range_high": 54.5,
+    "target_range_low": 57.0,
+    "target_range_high": 61.07,
+    "stop_range_low": 49.03,
+    "stop_range_high": 51.61,
+    "target_price": 58.16,
+    "stop_loss": 51.61,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.794853-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 67.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 135.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 52.46,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14201,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-2.80%",
+    "key_metrics": {
+      "RSI": 44.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

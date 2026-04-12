@@ -1,0 +1,158 @@
+{
+  "ticker": "WOLF",
+  "company": "Wolfspeed, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.852565-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 23.22,
+    "open": 24.94,
+    "high": 25.9,
+    "low": 22.2,
+    "prev_close": 24.43,
+    "change_pct": -4.95,
+    "change_pct_1w": 32.91,
+    "change_pct_1m": 27.58,
+    "change_pct_1y": null,
+    "volume": 3246900,
+    "avg_volume_30d": 1647406
+  },
+  "scores": {
+    "master_score": 47.22,
+    "technical_score": 55.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 47.22,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 65.4,
+    "macd": 0.9376,
+    "macd_signal": 0.0947,
+    "macd_histogram": 0.8428,
+    "macd_crossover": "neutral",
+    "ema_20": 18.75,
+    "ema_50": 18.42,
+    "ema_200": null,
+    "ema_stack_bullish": false,
+    "bb_upper": 22.57,
+    "bb_middle": 17.87,
+    "bb_lower": 13.17,
+    "bb_width": 0.5258,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.7,
+    "atr": 1.89,
+    "atr_pct": 0.0813,
+    "obv_trend": "UP",
+    "mfi": 87.9,
+    "cmf": 0.085,
+    "stoch_k": 76.3,
+    "stoch_d": 88.8,
+    "rvol": 1.44,
+    "volume_5d_avg": 2375500,
+    "green_days_10d": 7,
+    "52w_high": 35.42,
+    "52w_low": 14.8,
+    "52w_high_proximity_pct": 0.3444,
+    "52w_low_proximity_pct": 0.5689
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 1.0127797,
+    "de_ratio": 330.379,
+    "fcf_yield": -0.7627,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.066,
+    "gross_margin": -0.14244,
+    "operating_margin": -0.78990996,
+    "net_margin": -0.91640997,
+    "market_cap": 1122423168,
+    "enterprise_value": 1827459072,
+    "dividend_yield": null,
+    "payout_ratio": null,
+    "insider_ownership_pct": 0.0029199999,
+    "institutional_ownership_pct": 1.34701,
+    "short_ratio": 7.34,
+    "beta": null
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 18.33,
+    "entry_range_high": 23.34,
+    "target_range_low": 28.31,
+    "target_range_high": 30.33,
+    "stop_range_low": 18.47,
+    "stop_range_high": 19.44,
+    "target_price": 28.89,
+    "stop_loss": 19.44,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.852518-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 29.02,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 31732,
+      "date": "2025-12-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "-4.95%",
+    "key_metrics": {
+      "RSI": 65.4,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

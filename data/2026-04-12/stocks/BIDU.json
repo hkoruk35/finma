@@ -1,0 +1,156 @@
+{
+  "ticker": "BIDU",
+  "company": "Baidu, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.016382-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 108.41,
+    "open": 110.7,
+    "high": 111.36,
+    "low": 108.12,
+    "prev_close": 108.23,
+    "change_pct": 0.17,
+    "change_pct_1w": -2.3,
+    "change_pct_1m": -13.38,
+    "change_pct_1y": 41.05,
+    "volume": 2584900,
+    "avg_volume_30d": 2036413
+  },
+  "scores": {
+    "master_score": 43.36,
+    "technical_score": 53.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 60.0,
+    "sector_score": 40.6,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 43.36,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 35.7,
+    "macd": -4.5741,
+    "macd_signal": -5.0335,
+    "macd_histogram": 0.4594,
+    "macd_crossover": "neutral",
+    "ema_20": 114.03,
+    "ema_50": 122.01,
+    "ema_200": 118.91,
+    "ema_stack_bullish": false,
+    "bb_upper": 123.85,
+    "bb_middle": 113.77,
+    "bb_lower": 103.69,
+    "bb_width": 0.1772,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 30.0,
+    "atr": 3.98,
+    "atr_pct": 0.0367,
+    "obv_trend": "UP",
+    "mfi": 43.5,
+    "cmf": -0.451,
+    "stoch_k": 24.6,
+    "stoch_d": 32.8,
+    "rvol": 0.94,
+    "volume_5d_avg": 1921420,
+    "green_days_10d": 5,
+    "52w_high": 162.52,
+    "52w_low": 78.47,
+    "52w_high_proximity_pct": 0.3329,
+    "52w_low_proximity_pct": 0.3815
+  },
+  "fundamental": {
+    "pe_ratio": 63.02907,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 0.9462706,
+    "de_ratio": 33.506,
+    "fcf_yield": 0.4552,
+    "eps_growth_5y": -0.81,
+    "revenue_growth_ttm": -0.041,
+    "gross_margin": 0.43882,
+    "operating_margin": 0.045300003,
+    "net_margin": 0.0433,
+    "market_cap": 36886794240,
+    "enterprise_value": 300300337152,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0323,
+    "institutional_ownership_pct": 0.19490999,
+    "short_ratio": 3.14,
+    "beta": 0.431
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 107.87,
+    "entry_range_high": 108.95,
+    "target_range_low": 117.94,
+    "target_range_high": 126.37,
+    "stop_range_low": 95.43,
+    "stop_range_high": 100.45,
+    "target_price": 120.35,
+    "stop_loss": 100.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.016342-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 135.51,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 78.47,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BOGA AI rating for BIDU is NEGATIVE BIAS. Confidence is low. The daily chart shows BIDU at $108.41, with bearish EMA alignment. ADX at 30 indicates a potentially strengthening downtrend.\n\nThe BUY ZONE is above $112, targeting the PROFIT ZONE near the 52-week high. The STOP LOSS ZONE is below $105.\n\nBaidu's -4.1% TTM revenue growth and premium valuation (P/E 63.03) contribute to the negative outlook. A potential catalyst to monitor is government regulation surrounding AI development in China, which could negatively impact sentiment around BIDU.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "+0.17%",
+    "key_metrics": {
+      "RSI": 35.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

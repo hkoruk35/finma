@@ -1,0 +1,158 @@
+{
+  "ticker": "MSTR",
+  "company": "Strategy Inc",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.938251-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 128.64,
+    "open": 130.05,
+    "high": 132.28,
+    "low": 127.4,
+    "prev_close": 128.86,
+    "change_pct": -0.17,
+    "change_pct_1w": 7.35,
+    "change_pct_1m": -7.0,
+    "change_pct_1y": -45.94,
+    "volume": 13056400,
+    "avg_volume_30d": 19486730
+  },
+  "scores": {
+    "master_score": 26.97,
+    "technical_score": 22.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 78.0,
+    "sector_score": 37.2,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 26.97,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 47.0,
+    "macd": -3.2188,
+    "macd_signal": -3.2087,
+    "macd_histogram": -0.0101,
+    "macd_crossover": "neutral",
+    "ema_20": 130.26,
+    "ema_50": 139.05,
+    "ema_200": 211.08,
+    "ema_stack_bullish": false,
+    "bb_upper": 149.36,
+    "bb_middle": 132.53,
+    "bb_lower": 115.7,
+    "bb_width": 0.254,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 12.5,
+    "atr": 7.82,
+    "atr_pct": 0.0608,
+    "obv_trend": "UP",
+    "mfi": 43.7,
+    "cmf": -0.117,
+    "stoch_k": 44.6,
+    "stoch_d": 44.4,
+    "rvol": 0.79,
+    "volume_5d_avg": 15484620,
+    "green_days_10d": 4,
+    "52w_high": 455.9,
+    "52w_low": 106.99,
+    "52w_high_proximity_pct": 0.7178,
+    "52w_low_proximity_pct": 0.2024
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 0.9098045,
+    "de_ratio": 16.158,
+    "fcf_yield": -0.0754,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.019,
+    "gross_margin": 0.68691003,
+    "operating_margin": -44.016068,
+    "net_margin": 0.0,
+    "market_cap": 44608524288,
+    "enterprise_value": 55799590912,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00162,
+    "institutional_ownership_pct": 0.56655,
+    "short_ratio": 1.72,
+    "beta": 3.56
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 128.0,
+    "entry_range_high": 129.28,
+    "target_range_low": 149.06,
+    "target_range_high": 159.71,
+    "stop_range_low": 107.35,
+    "stop_range_high": 113.0,
+    "target_price": 152.1,
+    "stop_loss": 113.0,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.938210-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 160.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 106.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2100,
+      "date": "2026-04-08"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
+    "price_change_display": "-0.17%",
+    "key_metrics": {
+      "RSI": 47.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

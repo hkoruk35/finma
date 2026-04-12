@@ -1,0 +1,158 @@
+{
+  "ticker": "EQIX",
+  "company": "Equinix, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.978199-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 1030.24,
+    "open": 1031.47,
+    "high": 1034.26,
+    "low": 1024.04,
+    "prev_close": 1031.57,
+    "change_pct": -0.13,
+    "change_pct_1w": 2.99,
+    "change_pct_1m": 5.84,
+    "change_pct_1y": 42.44,
+    "volume": 342800,
+    "avg_volume_30d": 609080
+  },
+  "scores": {
+    "master_score": 49.61,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.1,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.61,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 73.3,
+    "macd": 23.405,
+    "macd_signal": 20.4627,
+    "macd_histogram": 2.9424,
+    "macd_crossover": "neutral",
+    "ema_20": 988.58,
+    "ema_50": 941.09,
+    "ema_200": 854.6,
+    "ema_stack_bullish": true,
+    "bb_upper": 1031.81,
+    "bb_middle": 985.3,
+    "bb_lower": 938.79,
+    "bb_width": 0.0944,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.8,
+    "atr": 20.75,
+    "atr_pct": 0.0201,
+    "obv_trend": "UP",
+    "mfi": 80.4,
+    "cmf": -0.015,
+    "stoch_k": 88.9,
+    "stoch_d": 90.3,
+    "rvol": 0.65,
+    "volume_5d_avg": 396040,
+    "green_days_10d": 7,
+    "52w_high": 1031.57,
+    "52w_low": 722.15,
+    "52w_high_proximity_pct": 0.0013,
+    "52w_low_proximity_pct": 0.4266
+  },
+  "fundamental": {
+    "pe_ratio": 74.60101,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 7.148686,
+    "de_ratio": 160.291,
+    "fcf_yield": 0.0279,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.081,
+    "gross_margin": 0.51317,
+    "operating_margin": 0.21540001,
+    "net_margin": 0.14579001,
+    "market_cap": 101605859328,
+    "enterprise_value": 122247159808,
+    "dividend_yield": 1.87,
+    "payout_ratio": 1.3634,
+    "insider_ownership_pct": 0.0027599998,
+    "institutional_ownership_pct": 0.98289,
+    "short_ratio": 2.85,
+    "beta": 0.998
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 936.38,
+    "entry_range_high": 1035.39,
+    "target_range_low": 1070.64,
+    "target_range_high": 1147.11,
+    "stop_range_low": 939.3,
+    "stop_range_high": 988.74,
+    "target_price": 1092.49,
+    "stop_loss": 988.74,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.978157-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1287.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 187.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 722.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 34,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 424,
+      "date": "2026-04-08"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "-0.13%",
+    "key_metrics": {
+      "RSI": 73.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

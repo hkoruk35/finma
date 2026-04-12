@@ -1,0 +1,158 @@
+{
+  "ticker": "TSCO",
+  "company": "Tractor Supply Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.117248-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Specialty Retail",
+  "price": {
+    "current": 45.03,
+    "open": 45.6,
+    "high": 45.77,
+    "low": 44.87,
+    "prev_close": 45.64,
+    "change_pct": -1.34,
+    "change_pct_1w": 2.76,
+    "change_pct_1m": -8.98,
+    "change_pct_1y": -4.61,
+    "volume": 4689800,
+    "avg_volume_30d": 5913023
+  },
+  "scores": {
+    "master_score": 27.66,
+    "technical_score": 34.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 65.0,
+    "sector_score": 42.6,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 27.66,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 41.8,
+    "macd": -1.347,
+    "macd_signal": -1.5524,
+    "macd_histogram": 0.2055,
+    "macd_crossover": "neutral",
+    "ema_20": 46.07,
+    "ema_50": 48.44,
+    "ema_200": 52.03,
+    "ema_stack_bullish": false,
+    "bb_upper": 47.97,
+    "bb_middle": 45.67,
+    "bb_lower": 43.37,
+    "bb_width": 0.1008,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 29.0,
+    "atr": 1.44,
+    "atr_pct": 0.0321,
+    "obv_trend": "DOWN",
+    "mfi": 52.4,
+    "cmf": -0.227,
+    "stoch_k": 52.6,
+    "stoch_d": 61.0,
+    "rvol": 0.85,
+    "volume_5d_avg": 5019240,
+    "green_days_10d": 4,
+    "52w_high": 62.1,
+    "52w_low": 43.64,
+    "52w_high_proximity_pct": 0.2749,
+    "52w_low_proximity_pct": 0.0319
+  },
+  "fundamental": {
+    "pe_ratio": 21.859222,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 9.193548,
+    "de_ratio": 230.228,
+    "fcf_yield": 0.0217,
+    "eps_growth_5y": -0.022,
+    "revenue_growth_ttm": 0.033,
+    "gross_margin": 0.36424,
+    "operating_margin": 0.07637,
+    "net_margin": 0.07061,
+    "market_cap": 23701598208,
+    "enterprise_value": 29450358784,
+    "dividend_yield": 2.13,
+    "payout_ratio": 0.4466,
+    "insider_ownership_pct": 0.00245,
+    "institutional_ownership_pct": 0.99581003,
+    "short_ratio": 5.38,
+    "beta": 0.747
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 44.8,
+    "entry_range_high": 45.26,
+    "target_range_low": 48.36,
+    "target_range_high": 51.82,
+    "stop_range_low": 40.04,
+    "stop_range_high": 42.15,
+    "target_price": 49.35,
+    "stop_loss": 42.15,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.117203-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 56.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 213.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 43.64,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 579,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-1.34%",
+    "key_metrics": {
+      "RSI": 41.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

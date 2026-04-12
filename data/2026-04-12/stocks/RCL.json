@@ -1,0 +1,158 @@
+{
+  "ticker": "RCL",
+  "company": "Royal Caribbean Cruises Ltd.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.088398-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Travel Services",
+  "price": {
+    "current": 276.94,
+    "open": 276.29,
+    "high": 281.32,
+    "low": 273.31,
+    "prev_close": 275.89,
+    "change_pct": 0.38,
+    "change_pct_1w": 1.22,
+    "change_pct_1m": -3.34,
+    "change_pct_1y": 55.95,
+    "volume": 1827600,
+    "avg_volume_30d": 2659976
+  },
+  "scores": {
+    "master_score": 49.96,
+    "technical_score": 47.0,
+    "fundamental_score": 55.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.6,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.96,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 48.5,
+    "macd": -4.2032,
+    "macd_signal": -6.0366,
+    "macd_histogram": 1.8334,
+    "macd_crossover": "neutral",
+    "ema_20": 277.06,
+    "ema_50": 285.14,
+    "ema_200": 286.17,
+    "ema_stack_bullish": false,
+    "bb_upper": 285.38,
+    "bb_middle": 273.56,
+    "bb_lower": 261.75,
+    "bb_width": 0.0864,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.6,
+    "atr": 13.84,
+    "atr_pct": 0.05,
+    "obv_trend": "UP",
+    "mfi": 55.7,
+    "cmf": -0.232,
+    "stoch_k": 37.1,
+    "stoch_d": 38.1,
+    "rvol": 0.9,
+    "volume_5d_avg": 2382040,
+    "green_days_10d": 5,
+    "52w_high": 361.56,
+    "52w_low": 186.76,
+    "52w_high_proximity_pct": 0.234,
+    "52w_low_proximity_pct": 0.4828
+  },
+  "fundamental": {
+    "pe_ratio": 17.729834,
+    "sector_pe_median": 25.579916,
+    "pb_ratio": 7.461472,
+    "de_ratio": 215.09,
+    "fcf_yield": -0.0026,
+    "eps_growth_5y": 0.371,
+    "revenue_growth_ttm": 0.133,
+    "gross_margin": 0.50616,
+    "operating_margin": 0.21977,
+    "net_margin": 0.23797001,
+    "market_cap": 75525128192,
+    "enterprise_value": 96338108416,
+    "dividend_yield": 1.53,
+    "payout_ratio": 0.2242,
+    "insider_ownership_pct": 0.00324,
+    "institutional_ownership_pct": 0.9089,
+    "short_ratio": 4.5,
+    "beta": 1.941
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 275.56,
+    "entry_range_high": 278.32,
+    "target_range_low": 312.09,
+    "target_range_high": 334.38,
+    "stop_range_low": 236.8,
+    "stop_range_high": 249.26,
+    "target_price": 318.46,
+    "stop_loss": 249.26,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.088365-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 346.18,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 153.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 186.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 771607,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 3.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "+0.38%",
+    "key_metrics": {
+      "RSI": 48.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

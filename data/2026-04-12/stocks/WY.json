@@ -1,0 +1,158 @@
+{
+  "ticker": "WY",
+  "company": "Weyerhaeuser Company",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:22.072808-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 24.64,
+    "open": 24.71,
+    "high": 25.07,
+    "low": 24.53,
+    "prev_close": 24.82,
+    "change_pct": -0.73,
+    "change_pct_1w": 0.86,
+    "change_pct_1m": 6.07,
+    "change_pct_1y": 2.74,
+    "volume": 3719000,
+    "avg_volume_30d": 5564110
+  },
+  "scores": {
+    "master_score": 36.86,
+    "technical_score": 30.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.1,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 36.86,
+    "confidence": 0.37,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 55.2,
+    "macd": 0.0721,
+    "macd_signal": -0.1013,
+    "macd_histogram": 0.1734,
+    "macd_crossover": "neutral",
+    "ema_20": 24.21,
+    "ema_50": 24.35,
+    "ema_200": 24.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 25.12,
+    "bb_middle": 23.89,
+    "bb_lower": 22.67,
+    "bb_width": 0.1027,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.0,
+    "atr": 0.6,
+    "atr_pct": 0.0244,
+    "obv_trend": "DOWN",
+    "mfi": 71.7,
+    "cmf": -0.037,
+    "stoch_k": 81.5,
+    "stoch_d": 88.6,
+    "rvol": 0.63,
+    "volume_5d_avg": 3517520,
+    "green_days_10d": 5,
+    "52w_high": 26.87,
+    "52w_low": 20.97,
+    "52w_high_proximity_pct": 0.0829,
+    "52w_low_proximity_pct": 0.1752
+  },
+  "fundamental": {
+    "pe_ratio": 54.755554,
+    "sector_pe_median": 29.494282499999997,
+    "pb_ratio": 1.883504,
+    "de_ratio": 60.694,
+    "fcf_yield": -0.0082,
+    "eps_growth_5y": -0.091,
+    "revenue_growth_ttm": -0.098,
+    "gross_margin": 0.14844,
+    "operating_margin": -0.114209995,
+    "net_margin": 0.046919998,
+    "market_cap": 17766490112,
+    "enterprise_value": 23014184960,
+    "dividend_yield": 3.41,
+    "payout_ratio": 1.8666999,
+    "insider_ownership_pct": 0.00356,
+    "institutional_ownership_pct": 0.91869,
+    "short_ratio": 3.36,
+    "beta": 0.998
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 24.23,
+    "entry_range_high": 24.76,
+    "target_range_low": 25.91,
+    "target_range_high": 27.76,
+    "stop_range_low": 22.27,
+    "stop_range_high": 23.44,
+    "target_price": 26.44,
+    "stop_loss": 23.44,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:22.072756-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 30.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 341.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.97,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 1,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 4000,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 37,
+    "price_change_display": "-0.73%",
+    "key_metrics": {
+      "RSI": 55.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

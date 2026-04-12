@@ -1,0 +1,161 @@
+{
+  "ticker": "T",
+  "company": "AT&T Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.983723-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 26.46,
+    "open": 26.52,
+    "high": 26.7,
+    "low": 26.29,
+    "prev_close": 26.56,
+    "change_pct": -0.38,
+    "change_pct_1w": -5.62,
+    "change_pct_1m": -1.56,
+    "change_pct_1y": 5.75,
+    "volume": 31985700,
+    "avg_volume_30d": 42817200
+  },
+  "scores": {
+    "master_score": 38.61,
+    "technical_score": 23.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.6,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 38.61,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 35.1,
+    "macd": -0.097,
+    "macd_signal": 0.1623,
+    "macd_histogram": -0.2593,
+    "macd_crossover": "neutral",
+    "ema_20": 27.67,
+    "ema_50": 27.23,
+    "ema_200": 26.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 29.22,
+    "bb_middle": 27.85,
+    "bb_lower": 26.49,
+    "bb_width": 0.0983,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.9,
+    "atr": 0.63,
+    "atr_pct": 0.0238,
+    "obv_trend": "DOWN",
+    "mfi": 35.3,
+    "cmf": -0.003,
+    "stoch_k": 6.0,
+    "stoch_d": 8.8,
+    "rvol": 0.83,
+    "volume_5d_avg": 35663260,
+    "green_days_10d": 3,
+    "52w_high": 28.8,
+    "52w_low": 22.76,
+    "52w_high_proximity_pct": 0.0812,
+    "52w_low_proximity_pct": 0.1625
+  },
+  "fundamental": {
+    "pe_ratio": 8.703947,
+    "sector_pe_median": 24.499664,
+    "pb_ratio": 1.6847063,
+    "de_ratio": 124.179,
+    "fcf_yield": 0.0679,
+    "eps_growth_5y": -0.056,
+    "revenue_growth_ttm": 0.036,
+    "gross_margin": 0.59554,
+    "operating_margin": 0.18416001,
+    "net_margin": 0.17472,
+    "market_cap": 185235259392,
+    "enterprise_value": 344520261632,
+    "dividend_yield": 4.2,
+    "payout_ratio": 0.2738,
+    "insider_ownership_pct": 0.00086000003,
+    "institutional_ownership_pct": 0.67984,
+    "short_ratio": 2.71,
+    "beta": 0.539
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 26.33,
+    "entry_range_high": 26.59,
+    "target_range_low": 27.78,
+    "target_range_high": 29.77,
+    "stop_range_low": 23.94,
+    "stop_range_high": 25.2,
+    "target_price": 28.35,
+    "stop_loss": 25.2,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.983678-04:00",
+    "categories": [
+      "value",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 33.08,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 420.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 22.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1588,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "AT&T (T) is exhibiting a SELL signal with low confidence. At $27.35, the stock is down 2.46% today with RVOL at 0.85x. Technicals show bearish EMA stack and RSI at 40.6, while ADX indicates weak trend strength at 18. Although the stock is near its 52-week high, the MACD Histogram is neutral at -0.1582, and a BB Squeeze indicates low volatility. Fundamentals are mixed with an attractive P/E of 8.99 versus the sector median of 17.47, revenue growth of 3.6% and a strong gross margin of 59.6%. Near-term catalyst: Potential earnings revisions based on upcoming Q1 earnings reports may drive further downside.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-0.38%",
+    "key_metrics": {
+      "RSI": 35.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "BE",
+  "company": "Bloom Energy Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.956948-04:00",
+  "sector": "Utilities",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 166.7,
+    "open": 161.88,
+    "high": 170.88,
+    "low": 160.35,
+    "prev_close": 160.13,
+    "change_pct": 4.1,
+    "change_pct_1w": 22.91,
+    "change_pct_1m": 4.7,
+    "change_pct_1y": 879.44,
+    "volume": 9092900,
+    "avg_volume_30d": 10043730
+  },
+  "scores": {
+    "master_score": 47.07,
+    "technical_score": 57.0,
+    "fundamental_score": 10.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 51.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 47.07,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 60.0,
+    "macd": -0.1673,
+    "macd_signal": -2.9081,
+    "macd_histogram": 2.7408,
+    "macd_crossover": "neutral",
+    "ema_20": 146.38,
+    "ema_50": 144.57,
+    "ema_200": 107.02,
+    "ema_stack_bullish": true,
+    "bb_upper": 170.96,
+    "bb_middle": 145.67,
+    "bb_lower": 120.39,
+    "bb_width": 0.3472,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.4,
+    "atr": 14.28,
+    "atr_pct": 0.0857,
+    "obv_trend": "UP",
+    "mfi": 50.7,
+    "cmf": -0.18,
+    "stoch_k": 92.3,
+    "stoch_d": 77.6,
+    "rvol": 0.81,
+    "volume_5d_avg": 8174400,
+    "green_days_10d": 6,
+    "52w_high": 174.77,
+    "52w_low": 16.32,
+    "52w_high_proximity_pct": 0.0462,
+    "52w_low_proximity_pct": 9.2145
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 22.836065,
+    "pb_ratio": 60.7286,
+    "de_ratio": 377.798,
+    "fcf_yield": 0.004,
+    "eps_growth_5y": -0.988,
+    "revenue_growth_ttm": 0.359,
+    "gross_margin": 0.29648,
+    "operating_margin": 0.13270001,
+    "net_margin": -0.04369,
+    "market_cap": 47376261120,
+    "enterprise_value": 47333400576,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.05844,
+    "institutional_ownership_pct": 0.85676,
+    "short_ratio": 2.34,
+    "beta": 3.185
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 143.85,
+    "entry_range_high": 167.53,
+    "target_range_low": 205.35,
+    "target_range_high": 220.02,
+    "stop_range_low": 131.23,
+    "stop_range_high": 138.14,
+    "target_price": 209.54,
+    "stop_loss": 138.14,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.956890-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 208.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 16.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 13,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 10000,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 1.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "+4.10%",
+    "key_metrics": {
+      "RSI": 60.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

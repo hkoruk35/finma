@@ -1,0 +1,160 @@
+{
+  "ticker": "BTI",
+  "company": "British American Tobacco p.l.c.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.156300-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Tobacco",
+  "price": {
+    "current": 58.81,
+    "open": 59.12,
+    "high": 59.13,
+    "low": 58.51,
+    "prev_close": 58.85,
+    "change_pct": -0.07,
+    "change_pct_1w": 0.91,
+    "change_pct_1m": 0.85,
+    "change_pct_1y": 57.54,
+    "volume": 3599500,
+    "avg_volume_30d": 5196090
+  },
+  "scores": {
+    "master_score": 54.15,
+    "technical_score": 62.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 60.0,
+    "sector_score": 42.0,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.15,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 51.6,
+    "macd": 0.0362,
+    "macd_signal": -0.1462,
+    "macd_histogram": 0.1824,
+    "macd_crossover": "neutral",
+    "ema_20": 58.55,
+    "ema_50": 58.36,
+    "ema_200": 53.81,
+    "ema_stack_bullish": true,
+    "bb_upper": 60.2,
+    "bb_middle": 58.27,
+    "bb_lower": 56.34,
+    "bb_width": 0.0663,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 12.1,
+    "atr": 1.27,
+    "atr_pct": 0.0215,
+    "obv_trend": "UP",
+    "mfi": 67.7,
+    "cmf": -0.019,
+    "stoch_k": 69.8,
+    "stoch_d": 79.8,
+    "rvol": 0.81,
+    "volume_5d_avg": 4197520,
+    "green_days_10d": 7,
+    "52w_high": 62.13,
+    "52w_low": 37.95,
+    "52w_high_proximity_pct": 0.0534,
+    "52w_low_proximity_pct": 0.5495
+  },
+  "fundamental": {
+    "pe_ratio": 12.56624,
+    "sector_pe_median": 24.292671,
+    "pb_ratio": 10.3661995,
+    "de_ratio": 72.842,
+    "fcf_yield": 0.0235,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.001,
+    "gross_margin": 0.82651,
+    "operating_margin": 0.34576,
+    "net_margin": 0.30316,
+    "market_cap": 127378104320,
+    "enterprise_value": 159259770880,
+    "dividend_yield": 5.68,
+    "payout_ratio": 0.6873,
+    "insider_ownership_pct": 0.00098,
+    "institutional_ownership_pct": 0.13983,
+    "short_ratio": 2.49,
+    "beta": 0.124
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 58.07,
+    "entry_range_high": 59.1,
+    "target_range_low": 61.37,
+    "target_range_high": 65.75,
+    "stop_range_low": 53.46,
+    "stop_range_high": 56.27,
+    "target_price": 62.62,
+    "stop_loss": 56.27,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.156277-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 73.51,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 568.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 37.95,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 0,
+      "date": "2026-02-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -0.35,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BOGA AI maintains a NEUTRAL STAY score on BTI (Confidence: 54%).\n\nBTI currently trades at $58.81, near its 52-week high. The daily chart shows bullish EMA alignment, but weak ADX (12.1) suggests a lack of trend strength. RSI at 51.6 and neutral MACD confirm indecision.\n\nGiven its high dividend yield of 568.00% and discounted P/E ratio (12.57 vs. sector median of 24.29), a BUY ZONE would be around the $55 level, with a STOP LOSS ZONE near $52. The PROFIT ZONE target is $62, based on previous resistance.\n\nA potential catalyst for BTI is further positive developments in its reduced-risk product (RRP) portfolio.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "-0.07%",
+    "key_metrics": {
+      "RSI": 51.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "URI",
+  "company": "United Rentals, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.812851-04:00",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 771.93,
+    "open": 768.32,
+    "high": 776.31,
+    "low": 760.49,
+    "prev_close": 767.36,
+    "change_pct": 0.6,
+    "change_pct_1w": 5.44,
+    "change_pct_1m": -1.11,
+    "change_pct_1y": 41.09,
+    "volume": 357700,
+    "avg_volume_30d": 603543
+  },
+  "scores": {
+    "master_score": 51.83,
+    "technical_score": 52.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 48.8,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.83,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 52.9,
+    "macd": -12.796,
+    "macd_signal": -21.8298,
+    "macd_histogram": 9.0338,
+    "macd_crossover": "neutral",
+    "ema_20": 754.4,
+    "ema_50": 788.45,
+    "ema_200": 812.85,
+    "ema_stack_bullish": false,
+    "bb_upper": 769.16,
+    "bb_middle": 737.97,
+    "bb_lower": 706.78,
+    "bb_width": 0.0845,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 29.0,
+    "atr": 25.45,
+    "atr_pct": 0.033,
+    "obv_trend": "UP",
+    "mfi": 66.9,
+    "cmf": 0.037,
+    "stoch_k": 93.4,
+    "stoch_d": 89.1,
+    "rvol": 0.7,
+    "volume_5d_avg": 420380,
+    "green_days_10d": 7,
+    "52w_high": 1015.58,
+    "52w_low": 565.61,
+    "52w_high_proximity_pct": 0.2399,
+    "52w_low_proximity_pct": 0.3648
+  },
+  "fundamental": {
+    "pe_ratio": 19.998188,
+    "sector_pe_median": 33.917696,
+    "pb_ratio": 5.4310403,
+    "de_ratio": 174.732,
+    "fcf_yield": 0.0397,
+    "eps_growth_5y": -0.019,
+    "revenue_growth_ttm": 0.028,
+    "gross_margin": 0.38356,
+    "operating_margin": 0.25166,
+    "net_margin": 0.15492,
+    "market_cap": 48630161408,
+    "enterprise_value": 63841161216,
+    "dividend_yield": 1.02,
+    "payout_ratio": 0.18540001,
+    "insider_ownership_pct": 0.00621,
+    "institutional_ownership_pct": 0.93389,
+    "short_ratio": 2.97,
+    "beta": 1.681
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 768.07,
+    "entry_range_high": 775.79,
+    "target_range_low": 831.31,
+    "target_range_high": 890.69,
+    "stop_range_low": 684.98,
+    "stop_range_high": 721.03,
+    "target_price": 848.28,
+    "stop_loss": 721.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.812820-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 964.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 102.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 565.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 51,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+0.60%",
+    "key_metrics": {
+      "RSI": 52.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

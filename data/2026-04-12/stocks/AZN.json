@@ -1,0 +1,160 @@
+{
+  "ticker": "AZN",
+  "company": "AstraZeneca PLC",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.208721-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 204.03,
+    "open": 207.3,
+    "high": 207.3,
+    "low": 203.82,
+    "prev_close": 204.99,
+    "change_pct": -0.47,
+    "change_pct_1w": 0.27,
+    "change_pct_1m": 5.55,
+    "change_pct_1y": 59.93,
+    "volume": 1565700,
+    "avg_volume_30d": 1929656
+  },
+  "scores": {
+    "master_score": 55.09,
+    "technical_score": 57.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 78.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 55.09,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 62.1,
+    "macd": 2.7328,
+    "macd_signal": 1.0258,
+    "macd_histogram": 1.707,
+    "macd_crossover": "neutral",
+    "ema_20": 197.39,
+    "ema_50": 194.13,
+    "ema_200": 176.73,
+    "ema_stack_bullish": true,
+    "bb_upper": 208.9,
+    "bb_middle": 193.76,
+    "bb_lower": 178.62,
+    "bb_width": 0.1562,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.9,
+    "atr": 4.53,
+    "atr_pct": 0.0222,
+    "obv_trend": "UP",
+    "mfi": 67.9,
+    "cmf": -0.11,
+    "stoch_k": 86.9,
+    "stoch_d": 89.9,
+    "rvol": 0.94,
+    "volume_5d_avg": 1818660,
+    "green_days_10d": 7,
+    "52w_high": 208.62,
+    "52w_low": 127.51,
+    "52w_high_proximity_pct": 0.022,
+    "52w_low_proximity_pct": 0.6001
+  },
+  "fundamental": {
+    "pe_ratio": 31.149618,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 6.501912,
+    "de_ratio": 60.968,
+    "fcf_yield": 0.0249,
+    "eps_growth_5y": 0.539,
+    "revenue_growth_ttm": 0.041,
+    "gross_margin": 0.81706,
+    "operating_margin": 0.21589,
+    "net_margin": 0.17408001,
+    "market_cap": 316304359424,
+    "enterprise_value": 340467744768,
+    "dividend_yield": 1.55,
+    "payout_ratio": 0.4791,
+    "insider_ownership_pct": 0.00042,
+    "institutional_ownership_pct": 0.57147,
+    "short_ratio": 0.83,
+    "beta": 0.275
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 193.16,
+    "entry_range_high": 205.05,
+    "target_range_low": 213.27,
+    "target_range_high": 228.5,
+    "stop_range_low": 185.22,
+    "stop_range_high": 194.97,
+    "target_price": 217.62,
+    "stop_loss": 194.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.208700-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 255.04,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 155.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 127.51,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 101495,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BOGA AI rating is NEUTRAL STAY for AZN, confidence 55%.\n\nCurrently at $204.03, AZN is near its 52-week high. The daily chart shows EMA alignment is bullish. RSI is 62.1, suggesting increasing momentum. However, ADX is weak at 18.9.\n\nConsider $199-$202 as the BUY ZONE. The PROFIT ZONE lies between $208-$212 based on recent resistance levels. Implement a STOP LOSS ZONE near $195 to manage risk.\n\nDespite solid profitability (81.7% gross margin), AZN's valuation (P/E 31.15) is a premium. The high dividend yield is a positive catalyst.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "-0.47%",
+    "key_metrics": {
+      "RSI": 62.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

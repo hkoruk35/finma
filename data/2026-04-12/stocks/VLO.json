@@ -1,0 +1,158 @@
+{
+  "ticker": "VLO",
+  "company": "Valero Energy Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.468458-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 238.82,
+    "open": 233.83,
+    "high": 239.07,
+    "low": 230.2,
+    "prev_close": 235.1,
+    "change_pct": 1.58,
+    "change_pct_1w": -2.16,
+    "change_pct_1m": 3.36,
+    "change_pct_1y": 133.73,
+    "volume": 2891900,
+    "avg_volume_30d": 4602586
+  },
+  "scores": {
+    "master_score": 52.53,
+    "technical_score": 57.0,
+    "fundamental_score": 50.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.8,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 52.53,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 53.2,
+    "macd": 6.2453,
+    "macd_signal": 8.5881,
+    "macd_histogram": -2.3428,
+    "macd_crossover": "neutral",
+    "ema_20": 238.42,
+    "ema_50": 222.56,
+    "ema_200": 182.3,
+    "ema_stack_bullish": true,
+    "bb_upper": 254.09,
+    "bb_middle": 241.46,
+    "bb_lower": 228.82,
+    "bb_width": 0.1047,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 39.0,
+    "atr": 9.89,
+    "atr_pct": 0.0414,
+    "obv_trend": "DOWN",
+    "mfi": 50.5,
+    "cmf": -0.104,
+    "stoch_k": 30.5,
+    "stoch_d": 25.3,
+    "rvol": 0.75,
+    "volume_5d_avg": 3441960,
+    "green_days_10d": 5,
+    "52w_high": 254.32,
+    "52w_low": 104.07,
+    "52w_high_proximity_pct": 0.0609,
+    "52w_low_proximity_pct": 1.2948
+  },
+  "fundamental": {
+    "pe_ratio": 31.548218,
+    "sector_pe_median": 18.408571,
+    "pb_ratio": 3.0091732,
+    "de_ratio": 43.988,
+    "fcf_yield": 0.0521,
+    "eps_growth_5y": 3.179,
+    "revenue_growth_ttm": -0.021,
+    "gross_margin": 0.13194,
+    "operating_margin": 0.059299998,
+    "net_margin": 0.02025,
+    "market_cap": 71413448704,
+    "enterprise_value": 81308442624,
+    "dividend_yield": 2.01,
+    "payout_ratio": 0.5971,
+    "insider_ownership_pct": 0.00577,
+    "institutional_ownership_pct": 0.87831,
+    "short_ratio": 2.07,
+    "beta": 0.612
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 221.45,
+    "entry_range_high": 240.01,
+    "target_range_low": 263.12,
+    "target_range_high": 281.91,
+    "stop_range_low": 208.09,
+    "stop_range_high": 219.04,
+    "target_price": 268.49,
+    "stop_loss": 219.04,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.468409-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 298.52,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 201.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 104.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8711,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.59,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "+1.58%",
+    "key_metrics": {
+      "RSI": 53.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

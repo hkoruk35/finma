@@ -1,0 +1,158 @@
+{
+  "ticker": "BAX",
+  "company": "Baxter International Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.235387-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 17.15,
+    "open": 17.42,
+    "high": 17.55,
+    "low": 17.12,
+    "prev_close": 17.3,
+    "change_pct": -0.87,
+    "change_pct_1w": 2.82,
+    "change_pct_1m": -4.99,
+    "change_pct_1y": -37.85,
+    "volume": 3536400,
+    "avg_volume_30d": 9790520
+  },
+  "scores": {
+    "master_score": 34.09,
+    "technical_score": 40.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.09,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 47.1,
+    "macd": -0.442,
+    "macd_signal": -0.6436,
+    "macd_histogram": 0.2016,
+    "macd_crossover": "neutral",
+    "ema_20": 17.15,
+    "ema_50": 18.13,
+    "ema_200": 21.68,
+    "ema_stack_bullish": false,
+    "bb_upper": 17.71,
+    "bb_middle": 16.81,
+    "bb_lower": 15.9,
+    "bb_width": 0.1081,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 22.9,
+    "atr": 0.73,
+    "atr_pct": 0.0424,
+    "obv_trend": "DOWN",
+    "mfi": 45.4,
+    "cmf": -0.285,
+    "stoch_k": 69.3,
+    "stoch_d": 73.2,
+    "rvol": 0.54,
+    "volume_5d_avg": 5299160,
+    "green_days_10d": 3,
+    "52w_high": 31.47,
+    "52w_low": 15.8,
+    "52w_high_proximity_pct": 0.455,
+    "52w_low_proximity_pct": 0.0854
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 1.4389998,
+    "de_ratio": 160.275,
+    "fcf_yield": 0.2748,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.08,
+    "gross_margin": 0.35735,
+    "operating_margin": 0.07364,
+    "net_margin": -0.085109994,
+    "market_cap": 8853730304,
+    "enterprise_value": 16610504704,
+    "dividend_yield": 2.1,
+    "payout_ratio": 3.0769,
+    "insider_ownership_pct": 0.0032,
+    "institutional_ownership_pct": 1.10414,
+    "short_ratio": 4.11,
+    "beta": 0.617
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 17.06,
+    "entry_range_high": 17.24,
+    "target_range_low": 18.95,
+    "target_range_high": 20.31,
+    "stop_range_low": 14.91,
+    "stop_range_high": 15.69,
+    "target_price": 19.34,
+    "stop_loss": 15.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.235355-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 21.44,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 210.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 15.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 26709,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "-0.87%",
+    "key_metrics": {
+      "RSI": 47.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

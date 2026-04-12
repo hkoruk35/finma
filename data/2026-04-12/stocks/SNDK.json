@@ -1,0 +1,158 @@
+{
+  "ticker": "SNDK",
+  "company": "Sandisk Corporation",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:20.870836-04:00",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 851.77,
+    "open": 873.95,
+    "high": 873.95,
+    "low": 835.28,
+    "prev_close": 851.57,
+    "change_pct": 0.02,
+    "change_pct_1w": 21.41,
+    "change_pct_1m": 29.96,
+    "change_pct_1y": 2532.98,
+    "volume": 13277400,
+    "avg_volume_30d": 18120713
+  },
+  "scores": {
+    "master_score": 57.22,
+    "technical_score": 60.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 37.2,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 57.22,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.3,
+    "macd": 46.3861,
+    "macd_signal": 29.9536,
+    "macd_histogram": 16.4325,
+    "macd_crossover": "neutral",
+    "ema_20": 709.15,
+    "ema_50": 627.36,
+    "ema_200": 362.32,
+    "ema_stack_bullish": true,
+    "bb_upper": 848.48,
+    "bb_middle": 707.23,
+    "bb_lower": 565.98,
+    "bb_width": 0.3994,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.5,
+    "atr": 59.21,
+    "atr_pct": 0.0695,
+    "obv_trend": "UP",
+    "mfi": 51.0,
+    "cmf": 0.198,
+    "stoch_k": 93.0,
+    "stoch_d": 93.6,
+    "rvol": 0.82,
+    "volume_5d_avg": 14918020,
+    "green_days_10d": 8,
+    "52w_high": 851.77,
+    "52w_low": 29.62,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 27.7566
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.4,
+    "pb_ratio": 12.34324,
+    "de_ratio": 7.96,
+    "fcf_yield": 0.01,
+    "eps_growth_5y": 6.18,
+    "revenue_growth_ttm": 0.612,
+    "gross_margin": 0.34807998,
+    "operating_margin": 0.35504,
+    "net_margin": -0.11659,
+    "market_cap": 125722083328,
+    "enterprise_value": 124967354368,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.054759998,
+    "institutional_ownership_pct": 0.8255,
+    "short_ratio": 0.42,
+    "beta": null
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 624.22,
+    "entry_range_high": 856.03,
+    "target_range_low": 1008.81,
+    "target_range_high": 1080.87,
+    "stop_range_low": 696.68,
+    "stop_range_high": 733.35,
+    "target_price": 1029.4,
+    "stop_loss": 733.35,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:20.870763-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1064.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 29.62,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14500,
+      "date": "2026-03-03"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.27,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "+0.02%",
+    "key_metrics": {
+      "RSI": 68.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

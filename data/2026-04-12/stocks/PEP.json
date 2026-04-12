@@ -1,0 +1,158 @@
+{
+  "ticker": "PEP",
+  "company": "PepsiCo, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.137358-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 157.06,
+    "open": 157.16,
+    "high": 157.79,
+    "low": 156.33,
+    "prev_close": 157.49,
+    "change_pct": -0.27,
+    "change_pct_1w": 0.03,
+    "change_pct_1m": -1.93,
+    "change_pct_1y": 16.43,
+    "volume": 4411300,
+    "avg_volume_30d": 6335503
+  },
+  "scores": {
+    "master_score": 50.4,
+    "technical_score": 52.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 42.0,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.4,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 52.1,
+    "macd": -0.5616,
+    "macd_signal": -1.0841,
+    "macd_histogram": 0.5226,
+    "macd_crossover": "neutral",
+    "ema_20": 155.84,
+    "ema_50": 155.74,
+    "ema_200": 148.54,
+    "ema_stack_bullish": true,
+    "bb_upper": 160.07,
+    "bb_middle": 154.53,
+    "bb_lower": 148.99,
+    "bb_width": 0.0717,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.5,
+    "atr": 3.13,
+    "atr_pct": 0.0199,
+    "obv_trend": "DOWN",
+    "mfi": 63.5,
+    "cmf": -0.123,
+    "stoch_k": 85.8,
+    "stoch_d": 79.3,
+    "rvol": 0.77,
+    "volume_5d_avg": 4868560,
+    "green_days_10d": 5,
+    "52w_high": 168.98,
+    "52w_low": 123.5,
+    "52w_high_proximity_pct": 0.0705,
+    "52w_low_proximity_pct": 0.2717
+  },
+  "fundamental": {
+    "pe_ratio": 26.176666,
+    "sector_pe_median": 24.292671,
+    "pb_ratio": 10.521168,
+    "de_ratio": 258.081,
+    "fcf_yield": 0.0383,
+    "eps_growth_5y": 0.675,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.5446,
+    "operating_margin": 0.14068,
+    "net_margin": 0.08773,
+    "market_cap": 214691741696,
+    "enterprise_value": 258284896256,
+    "dividend_yield": 3.62,
+    "payout_ratio": 0.9371,
+    "insider_ownership_pct": 0.00205,
+    "institutional_ownership_pct": 0.79783,
+    "short_ratio": 3.4,
+    "beta": 0.41
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 154.96,
+    "entry_range_high": 157.85,
+    "target_range_low": 163.12,
+    "target_range_high": 174.77,
+    "stop_range_low": 143.26,
+    "stop_range_high": 150.8,
+    "target_price": 166.45,
+    "stop_loss": 150.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.137330-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 196.32,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 362.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 123.5,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6500,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -0.35,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "-0.27%",
+    "key_metrics": {
+      "RSI": 52.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "ILMN",
+  "company": "Illumina, Inc.",
+  "date": "2026-04-12",
+  "generated_at": "2026-04-12T15:06:21.251465-04:00",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 120.93,
+    "open": 125.07,
+    "high": 125.93,
+    "low": 118.3,
+    "prev_close": 123.67,
+    "change_pct": -2.22,
+    "change_pct_1w": -5.06,
+    "change_pct_1m": -0.47,
+    "change_pct_1y": 72.02,
+    "volume": 1805500,
+    "avg_volume_30d": 1581590
+  },
+  "scores": {
+    "master_score": 38.64,
+    "technical_score": 28.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 38.64,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 43.9,
+    "macd": -0.2095,
+    "macd_signal": -0.3551,
+    "macd_histogram": 0.1456,
+    "macd_crossover": "neutral",
+    "ema_20": 124.45,
+    "ema_50": 125.92,
+    "ema_200": 117.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 129.93,
+    "bb_middle": 123.79,
+    "bb_lower": 117.65,
+    "bb_width": 0.0992,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.3,
+    "atr": 5.26,
+    "atr_pct": 0.0435,
+    "obv_trend": "DOWN",
+    "mfi": 54.6,
+    "cmf": -0.132,
+    "stoch_k": 26.1,
+    "stoch_d": 46.5,
+    "rvol": 0.96,
+    "volume_5d_avg": 1523720,
+    "green_days_10d": 6,
+    "52w_high": 153.95,
+    "52w_low": 71.2,
+    "52w_high_proximity_pct": 0.2145,
+    "52w_low_proximity_pct": 0.6985
+  },
+  "fundamental": {
+    "pe_ratio": 22.188992,
+    "sector_pe_median": 24.8152275,
+    "pb_ratio": 6.7949653,
+    "de_ratio": 93.757,
+    "fcf_yield": 0.0425,
+    "eps_growth_5y": 0.864,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.68248004,
+    "operating_margin": 0.19672,
+    "net_margin": 0.19572,
+    "market_cap": 18490198016,
+    "enterprise_value": 19410196480,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0021600001,
+    "institutional_ownership_pct": 1.07559,
+    "short_ratio": 3.62,
+    "beta": 1.493
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 120.33,
+    "entry_range_high": 121.53,
+    "target_range_low": 133.98,
+    "target_range_high": 143.55,
+    "stop_range_low": 104.89,
+    "stop_range_high": 110.41,
+    "target_price": 136.71,
+    "stop_loss": 110.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-12T15:06:21.251425-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 151.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 71.2,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 190,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.7,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-2.22%",
+    "key_metrics": {
+      "RSI": 43.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}
