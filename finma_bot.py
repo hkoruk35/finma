@@ -1120,7 +1120,7 @@ def push_to_github():
         repo_root = BASE_DIR
 
         # Configure git (if not already)
-        subprocess.run(["git", "config", "--global", "user.email", "bot@finmasmart.com"],
+        subprocess.run(["git", "config", "--global", "user.email", "bot@bogastock.com"],
                       cwd=repo_root, capture_output=True)
         subprocess.run(["git", "config", "--global", "user.name", "FinMA Bot"],
                       cwd=repo_root, capture_output=True)
