@@ -7,9 +7,10 @@ interface SocialShareProps {
   score?: number;
   scoreType?: string;
   url?: string;
+  hideHeader?: boolean;
 }
 
-export default function SocialShare({ ticker, score, scoreType, url }: SocialShareProps) {
+export default function SocialShare({ ticker, score, scoreType, url, hideHeader = false }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
   const currentUrl = url || (typeof window !== "undefined" ? window.location.href : "");
 
