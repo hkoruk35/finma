@@ -53,3 +53,13 @@ export function readJson(relPath: string, date?: string): any | null {
   }
   return null;
 }
+
+export function readPublicJson(filename: string): any | null {
+  try {
+    const fullPath = path.join(process.cwd(), "public", filename);
+    if (fs.existsSync(fullPath)) {
+      return JSON.parse(sanitizeNaN(fs.readFileSync(fullPath, "utf-8")));
+    }
+  } catch {}
+  return null;
+}

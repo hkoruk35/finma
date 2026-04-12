@@ -1,4 +1,4 @@
-import { getMasterData, getAllTickers } from "@/lib/data";
+import { getMasterData, getAllTickers, getSwingPicks, getSwingPerformance } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -6,7 +6,8 @@ import IndexCards from "@/components/IndexCards";
 import StatsBar from "@/components/StatsBar";
 import CategoryTabs from "@/components/CategoryTabs";
 import SectorHeatMap from "@/components/SectorHeatMap";
-import Top3Section from "@/components/Top3Section";
+import TopSwingPicks from "@/components/TopSwingPicks";
+import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -28,9 +29,11 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [master, allTickers] = await Promise.all([
+  const [master, allTickers, swingPicks, swingStats] = await Promise.all([
     getMasterData(),
     getAllTickers(),
+    getSwingPicks(),
+    getSwingPerformance()
   ]);
 
   if (!master) {
@@ -62,9 +65,14 @@ export default async function HomePage() {
           </h1>
         </section>
 
-        {/* Top 3 of the Day */}
+        {/* Swing Performance Stats */}
+        <section className="animate-fade-in" style={{ animationDelay: "50ms" }}>
+          <SwingPerformanceBanner stats={swingStats} />
+        </section>
+
+        {/* Top 3 Swing of the Day */}
         <section className="mb-10 animate-fade-in" style={{ animationDelay: "100ms" }}>
-          <Top3Section master={master} allTickers={allTickers} />
+          <TopSwingPicks picks={swingPicks?.picks || []} />
         </section>
 
         {/* Stats Bar */}

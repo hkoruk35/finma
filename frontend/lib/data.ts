@@ -532,3 +532,27 @@ function getMockStockDetail(ticker: string): StockDetail {
     }
   };
 }
+
+export async function getSwingPicks(): Promise<any | null> {
+  if (typeof window === "undefined") {
+    const mod = await import("./data-server");
+    return mod.readPublicJson("swing_picks.json");
+  }
+  try {
+    const res = await fetch("/swing_picks.json");
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
+
+export async function getSwingPerformance(): Promise<any | null> {
+  if (typeof window === "undefined") {
+    const mod = await import("./data-server");
+    return mod.readPublicJson("swing_performance.json");
+  }
+  try {
+    const res = await fetch("/swing_performance.json");
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}

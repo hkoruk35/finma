@@ -412,11 +412,11 @@ SCORE_WEIGHTS = {
 # ============================================================
 
 SIGNAL_THRESHOLDS = {
-    "STRONG_BUY":  0.85,
-    "BUY":         0.70,
-    "NEUTRAL":     0.55,
-    "SELL":        0.40,
-    # Below 0.40 → STRONG_SELL
+    "STRONG_BUY":  0.78,
+    "BUY":         0.63,
+    "NEUTRAL":     0.50,
+    "SELL":        0.38,
+    # Below 0.38 → STRONG_SELL
 }
 
 # ============================================================

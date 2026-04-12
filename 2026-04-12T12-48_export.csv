@@ -1,0 +1,529 @@
+﻿List Date,Symbol,Company,Sector,Entry Price,Max Price,Wait,Profit %,PnL ($1k),Live Price,Days Passed
+2026-04-10,SSSS,SuRo Capital Corp.,Financial Services,11.91,11.91,0,0,0,11.91,2
+2026-04-09,NOK,Nokia Corporation Sponsored,Technology,9.55,9.87,1,3.35,33.51,9.46,3
+2026-04-09,CAR,"Avis Budget Group, Inc.",Industrials,297.08,307.97,1,3.67,36.66,299.94,3
+2026-04-09,INTC,Intel Corporation,Technology,61.72,63.39,1,2.71,27.06,62.38,3
+2026-04-08,SPIR,"Spire Global, Inc.",Industrials,20.5,21.56,2,5.17,51.71,21.56,4
+2026-04-07,AMLX,"Amylyx Pharmaceuticals, Inc.",Healthcare,16.27,17.36,3,6.7,66.99,16.36,5
+2026-04-06,CTA,Simplify Managed Futures Strate,Unknown,30.96,31.26,1,0.97,9.69,29.23,6
+2026-04-06,KODK,Eastman Kodak Company,Industrials,11.49,12.46,4,8.44,84.42,12.09,6
+2026-04-06,RLAY,"Relay Therapeutics, Inc.",Healthcare,12.45,15.42,4,23.86,238.55,14.94,6
+2026-04-06,MGTX,MeiraGTx Holdings plc,Healthcare,9.52,9.7,2,1.89,18.91,8.97,6
+2026-03-30,SOBO,South Bow Corporation,Energy,33.76,34.15,10,1.16,11.55,33.25,13
+2026-03-30,KODK,Eastman Kodak Company,Industrials,8.76,12.46,11,42.24,422.37,12.09,13
+2026-03-30,CODI,D/B/A Compass Diversified Holdi,Industrials,7.67,10.16,11,32.46,324.64,9.79,13
+2026-03-26,AIR,AAR Corp.,Industrials,110.82,124.56,14,12.4,123.98,120.83,17
+2026-03-26,ELVN,"Enliven Therapeutics, Inc.",Healthcare,39.29,46.3,15,17.84,178.42,45.32,17
+2026-03-25,DOCN,"DigitalOcean Holdings, Inc.",Technology,87,92.45,12,6.26,62.64,85.82,18
+2026-03-25,ELVN,"Enliven Therapeutics, Inc.",Healthcare,35.53,40.62,1,14.33,143.26,40.19,18
+2026-03-24,BEP,Brookfield Renewable Partners L,Utilities,31.3,34.05,9,8.79,87.86,33.43,19
+2026-03-23,SEDG,"SolarEdge Technologies, Inc.",Technology,46.73,53.75,9,15.02,150.22,45.43,20
+2026-03-23,KNF,Knife Riv Holding Co.,Basic Materials,84.7,88.96,3,5.03,50.3,75.28,20
+2026-03-23,BTU,Peabody Energy Corporation,Energy,35.39,40.12,4,13.37,133.65,32.19,20
+2026-03-23,TS,Tenaris S.A.,Energy,57.11,59.38,8,3.97,39.75,57.98,20
+2026-03-23,VSAT,"ViaSat, Inc.",Technology,49.16,54.5,14,10.86,108.62,52.24,20
+2026-03-23,PARR,"Par Pacific Holdings, Inc. Comm",Energy,57.2,66.75,4,16.7,166.96,64.45,20
+2026-03-23,CNR,"Core Natural Resources, Inc.",Energy,103.15,114.8,7,11.29,112.94,102.38,20
+2026-03-23,ECVT,Ecovyst Inc.,Basic Materials,11.98,13.31,10,11.1,111.02,12.92,20
+2026-03-23,CC,Chemours Company (The),Basic Materials,18.5,22.43,8,21.24,212.43,21.4,20
+2026-03-23,DTM,"DT Midstream, Inc.",Energy,137.04,139.37,1,1.7,17,133.57,20
+2026-03-23,DAN,Dana Incorporated,Consumer Cyclical,32.68,34.78,9,6.43,64.26,33.39,20
+2026-03-23,AROC,"Archrock, Inc.",Energy,36.8,37.73,1,2.53,25.27,34.9,20
+2026-03-23,E,ENI S.p.A.,Energy,52.8,58,14,9.85,98.48,57.15,20
+2026-03-23,OVV,Ovintiv Inc. (DE),Energy,56.94,62.6,4,9.94,99.4,59.21,20
+2026-03-21,KNF,Knife Riv Holding Co.,Basic Materials,84.7,88.48,5,4.46,44.63,88.48,22
+2026-03-21,GAIN,Gladstone Investment Corporatio,Financial Services,14.25,14.47,5,1.54,15.44,14.46,22
+2026-03-21,BEP,Brookfield Renewable Partners L,Utilities,30.63,32.25,4,5.29,52.89,31.57,22
+2026-03-21,FLNG,FLEX LNG Ltd.,Energy,30.37,31.5,3,3.72,37.21,30.59,22
+2026-03-21,SNDX,"Syndax Pharmaceuticals, Inc.",Healthcare,24.09,25.59,4,6.23,62.27,24.53,22
+2026-03-21,DIOD,Diodes Incorporated,Technology,68.07,75.05,4,10.25,102.54,73.32,22
+2026-03-21,VET,Vermilion Energy Inc.,Energy,13.04,13.67,3,4.83,48.31,13.39,22
+2026-03-21,AGRO,Adecoagro S.A.,Consumer Defensive,13.19,14.95,5,13.34,133.43,14.5,22
+2026-03-21,EGY,"VAALCO Energy, Inc.",Energy,6.06,6.32,5,4.29,42.9,6.25,22
+2026-03-21,SPIR,"Spire Global, Inc.",Industrials,12.82,14.99,4,16.93,169.27,13.78,22
+2026-03-21,WDS,Woodside Energy Group Limited,Energy,23.74,24.71,3,4.09,40.86,24.02,22
+2026-03-16,CGON,"CG Oncology, Inc.",Healthcare,65.9,69.35,1,5.24,52.35,65.75,27
+2026-03-16,LXU,"LSB Industries, Inc.",Basic Materials,14.78,15.81,9,6.97,69.69,,27
+2026-03-16,ADEA,Adeia Inc.,Technology,22.96,26.09,9,13.63,136.32,25.31,27
+2026-03-16,PBR,Petroleo Brasileiro S.A. Petrob,Energy,19.17,20.28,3,5.79,57.9,,27
+2026-03-16,STGW,Stagwell Inc.,Communication Services,5.98,6.34,7,6.02,60.2,6.21,27
+2026-03-16,BP,BP p.l.c.,Energy,42.9,46.79,3,9.07,90.68,45.79,27
+2026-03-16,DNTH,"Dianthus Therapeutics, Inc.",Healthcare,78,82.49,4,5.76,57.56,80.61,27
+2026-03-16,UNFI,"United Natural Foods, Inc.",Consumer Defensive,41.49,46.89,10,13.02,130.15,46.86,27
+2026-03-16,OXY,Occidental Petroleum Corporatio,Energy,57.25,62.26,9,8.75,87.51,,27
+2026-03-16,EGY,"VAALCO Energy, Inc.",Energy,5.54,6.45,4,16.43,164.26,6.25,27
+2026-03-16,ERIC,Ericsson,Technology,11.97,12.12,1,1.25,12.53,11.6,27
+2026-03-16,CAPR,"Capricor Therapeutics, Inc.",Healthcare,30.56,32.45,4,6.18,61.85,29.91,27
+2026-03-16,UTHR,United Therapeutics Corporation,Healthcare,534.3,549.5,9,2.84,28.45,536.26,27
+2026-03-16,NOK,Nokia Corporation Sponsored,Technology,8.65,8.7,1,0.58,5.78,8.48,27
+2026-03-16,DAR,Darling Ingredients Inc.,Consumer Defensive,55.21,59.47,10,7.72,77.16,59.26,27
+2026-03-16,NSSC,"NAPCO Security Technologies, In",Industrials,42.84,43.6,1,1.77,17.74,40.83,27
+2026-03-16,RLAY,"Relay Therapeutics, Inc.",Healthcare,10.13,10.75,4,6.12,61.2,9.56,27
+2026-03-16,APEI,"American Public Education, Inc.",Consumer Defensive,55.34,59.42,10,7.37,73.73,58.79,27
+2026-03-16,PSX,Phillips 66,Energy,173.48,185.37,8,6.85,68.54,182.84,27
+2026-03-16,TALK,"Talkspace, Inc.",Healthcare,5.14,5.15,1,0.19,1.95,5.14,27
+2026-03-05,AVTX,"Avalo Therapeutics, Inc.",Healthcare,17.58,18.35,1,4.38,43.8,15.8,38
+2026-03-05,LXU,"LSB Industries, Inc.",Basic Materials,13.96,15.66,7,12.18,121.78,14.92,38
+2026-03-05,ISSC,Innovative Solutions and Suppor,Industrials,28.25,30.94,5,9.52,95.22,27.71,38
+2026-03-05,WDS,Woodside Energy Group Limited,Energy,21.28,22.48,7,5.64,56.39,22.19,38
+2026-03-05,RYAM,Rayonier Advanced Materials Inc,Basic Materials,10.18,11.78,8,15.72,157.17,11.3,38
+2026-03-05,OBE,Obsidian Energy Ltd.,Energy,8.62,8.9,4,3.25,32.48,8.52,38
+2026-03-05,LPG,Dorian LPG Ltd.,Energy,35.56,35.34,1,-0.62,-6.19,29.15,38
+2026-03-05,DAWN,"Day One Biopharmaceuticals, Inc",Healthcare,12.78,21.43,5,67.68,676.84,21.31,38
+2026-03-05,CRTO,Criteo S.A.,Communication Services,19.29,19.79,1,2.59,25.92,17.72,38
+2026-03-05,PUBM,"PubMatic, Inc.",Technology,8.87,9.07,1,2.25,22.55,8.03,38
+2026-03-05,IHS,IHS Holding Limited,Real Estate,8.09,8.22,5,1.61,16.07,8.2,38
+2026-03-05,SNN,"Smith & Nephew SNATS, Inc.",Healthcare,34.85,34.83,1,-0.06,-0.57,32.96,38
+2026-03-05,BAND,Bandwidth Inc.,Technology,16.15,16.69,4,3.34,33.44,15.23,38
+2026-03-05,DAVE,Dave Inc.,Technology,218.21,227.69,5,4.34,43.44,212.02,38
+2026-03-05,ROIV,Roivant Sciences Ltd.,Healthcare,29.72,30.33,6,2.05,20.52,28.06,38
+2026-03-04,TDW,Tidewater Inc.,Energy,83.8,84.93,1,1.35,13.48,76.76,39
+2026-03-04,TRS,TriMas Corporation,Consumer Cyclical,39.52,39.7,1,0.46,4.55,35.04,39
+2026-03-04,CRGY,Crescent Energy Company,Energy,11.39,12.16,8,6.76,67.6,11.99,39
+2026-03-04,TMDX,"TransMedics Group, Inc.",Healthcare,147.66,147.5,1,-0.11,-1.08,123.48,39
+2026-03-04,BTSG,"BrightSpring Health Services, I",Healthcare,41.96,42.5,6,1.29,12.87,38.31,39
+2026-03-04,DELL,Dell Technologies Inc.,Technology,147.1,152.95,9,3.98,39.77,151.62,39
+2026-03-04,VIAV,Viavi Solutions Inc.,Technology,32.59,32.08,1,-1.56,-15.65,29.97,39
+2026-03-04,VVX,"V2X, Inc.",Industrials,73.93,73.76,5,-0.23,-2.3,66.9,39
+2026-03-04,MTZ,"MasTec, Inc.",Industrials,303.87,306.29,6,0.8,7.96,290,39
+2026-03-04,OXY,Occidental Petroleum Corporatio,Energy,53.36,59.15,8,10.85,108.51,57.88,39
+2026-03-04,CLDX,"Celldex Therapeutics, Inc.",Healthcare,29.54,31.99,6,8.29,82.94,29.51,39
+2026-03-04,GLNG,Golar LNG Limited,Energy,46.4,47.35,5,2.05,20.47,42.94,39
+2026-03-04,SRRK,Scholar Rock Holding Corporatio,Healthcare,47.43,48.15,1,1.52,15.18,40.01,39
+2026-03-04,VAC,Marriott Vacations Worldwide Co,Consumer Cyclical,68.59,73.25,1,6.79,67.94,64.98,39
+2026-03-04,VIST,Vista Energy S.A.B. de C.V.,Energy,59.69,65.5,9,9.73,97.34,64.74,39
+2026-03-04,PEB,Pebblebrook Hotel Trust,Real Estate,12.98,13.05,1,0.54,5.39,11.57,39
+2026-03-04,BVN,Buenaventura Mining Company Inc,Basic Materials,39.34,39.71,6,0.94,9.41,35.26,39
+2026-03-04,NEXA,Nexa Resources S.A.,Basic Materials,12.49,12.19,1,-2.4,-24.02,10.95,39
+2026-03-04,EQNR,Equinor ASA,Energy,31.58,35.67,9,12.95,129.51,35.25,39
+2026-03-04,TDAY,"USA TODAY Co., Inc.",Communication Services,6.27,6.67,6,6.38,63.8,6.36,39
+2026-03-03,LASR,"nLIGHT, Inc.",Technology,63.07,69.52,1,10.23,102.27,62.6,40
+2026-03-03,TRS,TriMas Corporation,Consumer Cyclical,38.33,39.8,1,3.84,38.35,35.04,40
+2026-03-03,TMDX,"TransMedics Group, Inc.",Healthcare,148,151,1,2.03,20.27,123.48,40
+2026-03-03,CLDX,"Celldex Therapeutics, Inc.",Healthcare,28.94,31.99,7,10.54,105.39,29.51,40
+2026-03-03,PEB,Pebblebrook Hotel Trust,Real Estate,12.75,13.09,1,2.67,26.67,11.57,40
+2026-03-03,EFXT,Enerflex Ltd,Energy,22.2,22.9,1,3.15,31.53,20.93,40
+2026-03-03,GLNG,Golar LNG Limited,Energy,45.51,47.35,6,4.04,40.43,42.94,40
+2026-03-03,VVX,"V2X, Inc.",Industrials,72.92,75,1,2.85,28.52,66.9,40
+2026-03-03,CRGY,Crescent Energy Company,Energy,11.13,12.16,9,9.25,92.54,11.99,40
+2026-03-03,MTDR,Matador Resources Company,Energy,53.5,58.32,6,9.01,90.09,57.13,40
+2026-03-03,GTN,"Gray Media, Inc.",Communication Services,5.14,5.59,1,8.75,87.55,4.63,40
+2026-03-03,VAC,Marriott Vacations Worldwide Co,Consumer Cyclical,67.14,73.25,2,9.1,91,64.98,40
+2026-03-03,NEXA,Nexa Resources S.A.,Basic Materials,12.65,13.4,1,5.93,59.29,10.95,40
+2026-03-03,KNSA,Kiniksa Pharmaceuticals Interna,Healthcare,45.37,47.46,1,4.61,46.07,45.78,40
+2026-03-03,CNA,CNA Financial Corporation,Financial Services,49.43,49.35,1,-0.16,-1.62,46.59,40
+2026-03-03,CNK,Cinemark Holdings Inc Cinemark ,Communication Services,28.68,29.16,1,1.67,16.74,25.78,40
+2026-03-03,BVN,Buenaventura Mining Company Inc,Basic Materials,38.78,39.71,7,2.4,23.98,35.26,40
+2026-03-03,TKO,"TKO Group Holdings, Inc.",Communication Services,219.94,220.11,1,0.08,0.77,194.57,40
+2026-03-03,SUPN,"Supernus Pharmaceuticals, Inc.",Healthcare,54.56,56.49,1,3.54,35.37,49.91,40
+2026-03-03,INSW,"International Seaways, Inc.",Energy,75.61,77.44,6,2.42,24.2,65.91,40
+2026-03-02,PVLA,"Palvella Therapeutics, Inc.",Healthcare,132.61,143.76,8,8.41,84.08,122.06,41
+2026-03-02,LASR,"nLIGHT, Inc.",Technology,67.69,69.52,2,2.7,27.04,62.6,41
+2026-03-02,UCTT,"Ultra Clean Holdings, Inc.",Technology,63.22,62.44,2,-1.23,-12.34,54.97,41
+2026-03-02,JAZZ,Jazz Pharmaceuticals plc,Healthcare,190.46,190.67,2,0.11,1.1,178.55,41
+2026-03-02,TMDX,"TransMedics Group, Inc.",Healthcare,147,151,2,2.72,27.21,123.48,41
+2026-03-02,VICR,Vicor Corporation,Technology,209.19,209,2,-0.09,-0.91,172.57,41
+2026-03-02,KNTK,Kinetik Holdings Inc.,Energy,46.92,46.71,2,-0.45,-4.48,44.84,41
+2026-03-02,GLW,Corning Incorporated,Technology,157.86,153.44,2,-2.8,-28,129.12,41
+2026-03-02,TIGO,Millicom International Cellular,Communication Services,75.15,74.74,1,-0.55,-5.46,72.19,41
+2026-03-02,TKO,"TKO Group Holdings, Inc.",Communication Services,224.96,222.49,1,-1.1,-10.98,194.57,41
+2026-03-02,CME,CME Group Inc.,Financial Services,318.84,321.47,1,0.82,8.25,311.4,41
+2026-03-02,CAVA,"CAVA Group, Inc.",Consumer Cyclical,78.49,83.34,11,6.18,61.79,82,41
+2026-03-02,MTDR,Matador Resources Company,Energy,54.12,58.32,7,7.76,77.61,57.13,41
+2026-03-02,COHR,Coherent Corp.,Technology,298.91,300.2,2,0.43,4.32,242.76,41
+2026-03-02,SUI,"Sun Communities, Inc.",Real Estate,137.18,137.59,11,0.3,2.99,134.44,41
+2026-03-02,STRL,"Sterling Infrastructure, Inc.",Industrials,432.87,429.27,9,-0.83,-8.32,398.12,41
+2026-03-02,XRAY,DENTSPLY SIRONA Inc.,Healthcare,14.31,14.12,1,-1.33,-13.28,11.54,41
+2026-03-02,CHRD,Chord Energy Corporation,Energy,112.14,126.73,10,13.01,130.11,123.45,41
+2026-03-02,LNTH,"Lantheus Holdings, Inc.",Healthcare,76.3,84.38,9,10.59,105.9,79.49,41
+2026-03-02,GLNG,Golar LNG Limited,Energy,45.89,47.35,7,3.18,31.82,42.94,41
+2026-02-27,ORIC,"Oric Pharmaceuticals, Inc.",Healthcare,13.45,14.01,3,4.16,41.64,13.41,44
+2026-02-27,JAZZ,Jazz Pharmaceuticals plc,Healthcare,190.02,191.54,3,0.8,8,187.38,44
+2026-02-27,NVAX,"Novavax, Inc.",Healthcare,10.14,10.34,3,1.97,19.72,9.71,44
+2026-02-27,INVX,"Innovex International, Inc.",Energy,26.35,26.68,3,1.25,12.52,26.43,44
+2026-02-27,AMX,"America Movil, S.A.B. de C.V.",Communication Services,26.02,26.16,3,0.54,5.38,24.49,44
+2026-02-27,MTZ,"MasTec, Inc.",Industrials,298.02,310.36,3,4.14,41.41,296.2,44
+2026-02-27,UCTT,"Ultra Clean Holdings, Inc.",Technology,60.68,63.55,3,4.73,47.3,58.37,44
+2026-02-27,GLW,Corning Incorporated,Technology,150.38,160.45,3,6.7,66.96,144.84,44
+2026-02-27,REZI,"Resideo Technologies, Inc.",Industrials,38.7,38.78,3,0.21,2.07,37.26,44
+2026-02-27,PPL,PPL Corporation,Utilities,38.98,39.09,3,0.28,2.82,37.76,44
+2026-02-27,SUPN,"Supernus Pharmaceuticals, Inc.",Healthcare,54.73,56.49,5,3.22,32.16,53.95,44
+2026-02-27,LASR,"nLIGHT, Inc.",Technology,56.19,69.52,5,23.72,237.23,67.02,44
+2026-02-27,LIVN,LivaNova PLC,Healthcare,70.6,71.07,3,0.67,6.66,63.81,44
+2026-02-27,PBA,Pembina Pipeline Corp.,Energy,43.99,45.09,3,2.5,25.01,44.19,44
+2026-02-27,PLAB,"Photronics, Inc.",Technology,37.43,38.2,5,2.06,20.57,36.02,44
+2026-02-27,LNG,"Cheniere Energy, Inc.",Energy,235.73,255.78,4,8.51,85.05,250.77,44
+2026-02-27,STRL,"Sterling Infrastructure, Inc.",Industrials,428.13,444.82,3,3.9,38.98,409.42,44
+2026-02-27,LINC,Lincoln Educational Services Co,Consumer Defensive,36.24,37.85,5,4.44,44.43,35,44
+2026-02-27,AXIA,AXIA Energia,Utilities,12.08,12.14,3,0.5,4.97,11.37,44
+2026-02-27,KRG,Kite Realty Group Trust,Real Estate,26.05,26.38,3,1.27,12.67,25.71,44
+2026-02-26,ORIC,"Oric Pharmaceuticals, Inc.",Healthcare,13.5,14.01,4,3.78,37.78,13.41,45
+2026-02-26,ASO,"Academy Sports and Outdoors, In",Consumer Cyclical,61.14,61.39,6,0.41,4.09,60.24,45
+2026-02-26,UCTT,"Ultra Clean Holdings, Inc.",Technology,59.47,63.55,4,6.86,68.61,58.37,45
+2026-02-26,LIVN,LivaNova PLC,Healthcare,71,71.31,1,0.44,4.37,64.01,45
+2026-02-26,OII,"Oceaneering International, Inc.",Energy,37.57,37.49,1,-0.21,-2.13,34.9,45
+2026-02-26,PRDO,Perdoceo Education Corporation,Consumer Defensive,33.17,34.9,6,5.22,52.16,34.07,45
+2026-02-26,OUT,OUTFRONT Media Inc.,Real Estate,28.52,29.27,1,2.63,26.3,28.73,45
+2026-02-26,SYRE,"Spyre Therapeutics, Inc.",Healthcare,43.15,43.8,1,1.51,15.06,40.72,45
+2026-02-26,KIM,Kimco Realty Corporation (HC),Real Estate,23.64,23.91,1,1.14,11.42,23.4,45
+2026-02-26,LAMR,Lamar Advertising Company,Real Estate,135.71,139.76,6,2.98,29.84,138.96,45
+2026-02-26,LINC,Lincoln Educational Services Co,Consumer Defensive,34.52,37.85,6,9.65,96.47,35,45
+2026-02-26,CHRD,Chord Energy Corporation,Energy,105.38,120.39,7,14.24,142.44,120.39,45
+2026-02-26,ALSN,"Allison Transmission Holdings, ",Consumer Cyclical,124.81,128.85,6,3.24,32.37,126.94,45
+2026-02-26,DTM,"DT Midstream, Inc.",Energy,138.64,142.85,4,3.04,30.37,141.91,45
+2026-02-26,REZI,"Resideo Technologies, Inc.",Industrials,40.48,39.96,1,-1.28,-12.85,37.26,45
+2026-02-26,TNK,Teekay Tankers Ltd.,Energy,76.74,82.24,4,7.17,71.67,73.93,45
+2026-02-25,FRPT,"Freshpet, Inc.",Consumer Defensive,79.63,85.97,8,7.96,79.62,84.16,46
+2026-02-25,ASO,"Academy Sports and Outdoors, In",Consumer Cyclical,61.19,62.44,1,2.04,20.43,60.24,46
+2026-02-25,OII,"Oceaneering International, Inc.",Energy,37.92,37.81,1,-0.29,-2.9,34.9,46
+2026-02-25,ESTA,Establishment Labs Holdings Inc,Healthcare,78.29,79.01,2,0.92,9.2,69.6,46
+2026-02-25,DTM,"DT Midstream, Inc.",Energy,137.28,142.85,5,4.06,40.57,142,46
+2026-02-25,RNG,"Ringcentral, Inc.",Technology,34.48,40.93,8,18.71,187.06,40.32,46
+2026-02-25,ALSN,"Allison Transmission Holdings, ",Consumer Cyclical,122.72,128.85,7,5,49.95,125.09,46
+2026-02-25,OXY,Occidental Petroleum Corporatio,Energy,50.94,56.34,5,10.6,106.01,53.61,46
+2026-02-25,OMC,Omnicom Group Inc.,Communication Services,82.71,87.06,8,5.26,52.59,86.83,46
+2026-02-25,MAMA,"Mama's Creations, Inc.",Consumer Defensive,17.32,17.85,1,3.06,30.6,15.99,46
+2026-02-25,BLCO,Bausch + Lomb Corporation,Healthcare,18.6,18.61,1,0.05,0.54,17.76,46
+2026-02-25,XP,XP Inc.,Financial Services,22.34,22.32,1,-0.09,-0.9,20.16,46
+2026-02-25,FLR,Fluor Corporation,Industrials,53.55,54.05,1,0.93,9.34,46.64,46
+2026-02-25,PPL,PPL Corporation,Utilities,38.28,39.09,5,2.12,21.16,37.79,46
+2026-02-25,GTY,Getty Realty Corporation,Real Estate,32.75,33.53,7,2.38,23.82,33.16,46
+2026-02-25,HG,"Hamilton Insurance Group, Ltd.",Financial Services,31.25,32.21,2,3.07,30.72,30.47,46
+2026-02-25,DE,Deere & Company,Industrials,623.61,636.45,5,2.06,20.59,601.9,46
+2026-02-25,TNK,Teekay Tankers Ltd.,Energy,74.53,82.24,5,10.34,103.45,73.93,46
+2026-02-25,UPBD,"Upbound Group, Inc.",Technology,21.54,22.33,1,3.67,36.68,20.6,46
+2026-02-25,VNOM,"Viper Energy, Inc.",Energy,45.05,48,5,6.55,65.48,44.65,46
+2026-02-24,HLF,Herbalife Ltd.,Consumer Defensive,19.6,19.76,3,0.82,8.16,16.55,47
+2026-02-24,TYRA,"Tyra Biosciences, Inc.",Healthcare,33.88,35.96,8,6.14,61.39,34.13,47
+2026-02-24,GNK,Genco Shipping & Trading Limite,Industrials,23.75,24.81,6,4.46,44.63,23.31,47
+2026-02-24,FPI,Farmland Partners Inc.,Real Estate,12.62,13.23,6,4.83,48.34,12.9,47
+2026-02-24,CENX,Century Aluminum Company,Basic Materials,53.51,56.96,8,6.45,64.47,54.16,47
+2026-02-24,EPRT,Essential Properties Realty Tru,Real Estate,33.27,34.73,8,4.39,43.88,34.34,47
+2026-02-24,ABX,"Abacus Global Management, Inc.",Financial Services,8.73,10.03,9,14.89,148.91,9.9,47
+2026-02-24,UPBD,"Upbound Group, Inc.",Technology,21.62,22.33,2,3.28,32.84,20.76,47
+2026-02-24,CAPR,"Capricor Therapeutics, Inc.",Healthcare,27.91,28.88,1,3.48,34.75,25.24,47
+2026-02-24,GOOD,Gladstone Commercial Corporatio,Real Estate,12.51,12.86,2,2.8,27.98,12.4,47
+2026-02-24,ISSC,Innovative Solutions and Suppor,Industrials,25.06,29.38,9,17.24,172.39,28.81,47
+2026-02-24,RHP,"Ryman Hospitality Properties, I",Real Estate,102.82,103.59,2,0.75,7.49,97.93,47
+2026-02-24,SB,"Safe Bulkers, Inc",Industrials,6.3,6.68,6,6.03,60.32,6.33,47
+2026-02-24,NBR,Nabors Industries Ltd.,Energy,77.77,82.3,6,5.82,58.25,78.91,47
+2026-02-24,KOD,Kodiak Sciences Inc,Healthcare,27.98,28.85,1,3.11,31.09,25.76,47
+2026-02-24,XPRO,Expro Group Holdings N.V.,Energy,17.73,18.27,6,3.05,30.46,16.58,47
+2026-02-24,BLCO,Bausch + Lomb Corporation,Healthcare,18.44,18.92,1,2.6,26.03,17.76,47
+2026-02-24,DIOD,Diodes Incorporated,Technology,69.29,72.31,6,4.36,43.58,66,47
+2026-02-24,SFD,"Smithfield Foods, Inc.",Consumer Defensive,25.38,25.34,1,-0.16,-1.58,24.29,47
+2026-02-24,ATEX,Anterix Inc.,Communication Services,38.02,38.73,8,1.87,18.67,37.17,47
+2026-02-24,OII,"Oceaneering International, Inc.",Energy,38.82,39,1,0.46,4.64,34.9,47
+2026-02-24,DTM,"DT Midstream, Inc.",Energy,137.17,142.85,6,4.14,41.41,142,47
+2026-02-24,SSRM,SSR Mining Inc.,Basic Materials,30.66,33.49,8,9.23,92.3,31.23,47
+2026-02-24,ALSN,"Allison Transmission Holdings, ",Consumer Cyclical,121.99,128.85,8,5.62,56.23,125.09,47
+2026-02-24,ASO,"Academy Sports and Outdoors, In",Consumer Cyclical,61.18,62.44,2,2.06,20.59,60.24,47
+2026-02-24,CAKE,The Cheesecake Factory Incorpor,Consumer Cyclical,64.04,66.19,2,3.36,33.57,63.85,47
+2026-02-24,KIM,Kimco Realty Corporation (HC),Real Estate,23.3,23.91,3,2.62,26.18,23.56,47
+2026-02-24,MAC,Macerich Company (The),Real Estate,20.17,20.93,3,3.77,37.68,19.77,47
+2026-02-24,FRPT,"Freshpet, Inc.",Consumer Defensive,80.89,85.97,9,6.28,62.8,84.16,47
+2026-02-24,OIS,"Oil States International, Inc.",Energy,14.39,14.5,1,0.76,7.64,12.27,47
+2026-02-24,INVX,"Innovex International, Inc.",Energy,28.9,29.48,1,2.01,20.07,26.45,47
+2026-02-24,DHT,"DHT Holdings, Inc.",Energy,18.7,20.55,6,9.89,98.93,18.42,47
+2026-02-24,SYRE,"Spyre Therapeutics, Inc.",Healthcare,43.45,44.88,1,3.29,32.91,40.72,47
+2026-02-24,MAMA,"Mama's Creations, Inc.",Consumer Defensive,17.38,17.85,2,2.7,27.04,15.99,47
+2026-02-22,FIVN,"Five9, Inc.",Technology,17.74,19.07,2,7.5,74.97,18.62,49
+2026-02-22,AXTI,AXT Inc,Technology,28.43,47.03,8,65.42,654.24,39.48,49
+2026-02-22,CAPR,"Capricor Therapeutics, Inc.",Healthcare,27.87,29.08,1,4.34,43.42,25.24,49
+2026-02-22,CBRL,Cracker Barrel Old Country Stor,Consumer Cyclical,32.04,34.86,11,8.8,88.01,31.11,49
+2026-02-22,BORR,Borr Drilling Limited,Energy,5.8,6.25,8,7.76,77.59,5.95,49
+2026-02-22,AEHR,Aehr Test Systems,Technology,34.32,46.95,10,36.8,368.01,42.66,49
+2026-02-22,MUX,McEwen Inc.,Basic Materials,26.29,28.7,5,9.17,91.67,24.48,49
+2026-02-22,SLS,"SELLAS Life Sciences Group, Inc",Healthcare,4.5,5.66,10,25.78,257.78,5.28,49
+2026-02-22,BATL,Battalion Oil Corporation,Energy,4.16,29.7,9,613.94,6139.42,18.57,49
+2026-02-22,FUN,Six Flags Entertainment Corpora,Consumer Cyclical,16.6,18.04,1,8.67,86.75,17.4,49
+2026-02-22,WEN,Wendy's Company (The),Consumer Cyclical,7.63,7.87,1,3.15,31.45,7.35,49
+2026-02-22,TNGX,"Tango Therapeutics, Inc.",Healthcare,12.73,14.98,11,17.67,176.75,14.81,49
+2026-02-22,PDYN,Palladyne AI Corp.,Technology,6.71,7.64,8,13.86,138.6,7.43,49
+2026-02-22,AMSC,American Superconductor Corpora,Industrials,32.51,35.81,3,10.15,101.51,31.2,49
+2026-02-22,ORC,"Orchid Island Capital, Inc.",Real Estate,7.47,7.58,1,1.47,14.73,7.44,49
+2026-02-22,NAMM,Namib Minerals,Basic Materials,3.57,4.42,3,23.81,238.1,3.23,49
+2026-02-22,SGML,Sigma Lithium Corporation,Basic Materials,12.45,16.88,3,35.58,355.82,12.96,49
+2026-02-22,RCAT,"Red Cat Holdings, Inc.",Industrials,12.78,16.09,9,25.9,259,14.73,49
+2026-02-22,SOC,Sable Offshore Corp.,Energy,8.91,12.87,11,44.44,444.44,12.75,49
+2026-02-20,EQT,EQT Corporation,Energy,60.5,63.06,11,4.23,42.31,62.18,51
+2026-02-20,TPL,Texas Pacific Land Corporation,Energy,499.31,546.57,3,9.47,94.65,538.88,51
+2026-02-20,LYV,"Live Nation Entertainment, Inc.",Communication Services,162.67,165.36,3,1.65,16.54,158.77,51
+2026-02-20,MU,"Micron Technology, Inc.",Technology,428.17,436.89,5,2.04,20.37,400.77,51
+2026-02-20,ADI,"Analog Devices, Inc.",Technology,353.92,362.07,5,2.3,23.03,339.3,51
+2026-02-20,OXY,Occidental Petroleum Corporatio,Energy,51.84,56.34,10,8.68,86.81,53.61,51
+2026-02-20,DLTR,"Dollar Tree, Inc.",Consumer Defensive,134.51,133.72,3,-0.59,-5.87,115.42,51
+2026-02-20,AMAT,"Applied Materials, Inc.",Technology,375.38,395.95,5,5.48,54.8,357.76,51
+2026-02-20,NOK,Nokia Corporation Sponsored,Technology,7.77,8.37,10,7.72,77.22,7.85,51
+2026-02-20,JBL,Jabil Inc.,Technology,271.09,281.37,6,3.79,37.92,255.43,51
+2026-02-20,EIX,Edison International,Utilities,73.74,75.5,4,2.39,23.87,73.89,51
+2026-02-20,GE,GE Aerospace,Industrials,343.22,348.48,5,1.53,15.33,339.81,51
+2026-02-20,PWR,"Quanta Services, Inc.",Industrials,552.66,573.97,10,3.86,38.56,559.22,51
+2026-02-20,CVE,Cenovus Energy Inc,Energy,22.57,23.56,10,4.39,43.86,22.81,51
+2026-02-20,BHP,BHP Group Limited,Basic Materials,76.82,83.22,10,8.33,83.31,78.13,51
+2026-02-20,AEM,Agnico Eagle Mines Limited,Basic Materials,227.85,255.24,10,12.02,120.21,232.73,51
+2026-02-20,HWM,Howmet Aerospace Inc.,Industrials,258.1,267.31,10,3.57,35.68,260.09,51
+2026-02-20,TRGP,"Targa Resources, Inc.",Energy,231.35,250,10,8.06,80.61,243.05,51
+2026-02-20,GRMN,Garmin Ltd.,Technology,248.9,255.9,10,2.81,28.12,247.21,51
+2026-02-20,AMRZ,Amrize Ltd,Basic Materials,65.13,65.94,4,1.24,12.44,61.76,51
+2026-02-19,TPL,Texas Pacific Land Corporation,Energy,486,546.57,4,12.46,124.63,538.99,52
+2026-02-19,OKE,"ONEOK, Inc.",Energy,86.88,89,4,2.44,24.4,86.37,52
+2026-02-19,COP,ConocoPhillips,Energy,111.59,122.5,12,9.78,97.77,117.28,52
+2026-02-19,SU,Suncor Energy  Inc.,Energy,56.36,58.02,12,2.95,29.45,57.59,52
+2026-02-19,AMAT,"Applied Materials, Inc.",Technology,369.83,395.95,6,7.06,70.63,352.06,52
+2026-02-19,EQT,EQT Corporation,Energy,59.77,63.06,12,5.5,55.04,61.31,52
+2026-02-19,XOM,Exxon Mobil Corporation,Energy,150.97,159.61,11,5.72,57.23,149.82,52
+2026-02-19,MU,"Micron Technology, Inc.",Technology,417.35,436.89,6,4.68,46.82,400.77,52
+2026-02-19,NOC,Northrop Grumman Corporation,Industrials,734.52,774,12,5.37,53.75,744.55,52
+2026-02-19,CNQ,Canadian Natural Resources Limi,Energy,42.5,45.85,11,7.88,78.82,44.18,52
+2026-02-19,FANG,"Diamondback Energy, Inc.",Energy,174.72,183.36,11,4.95,49.45,178.48,52
+2026-02-19,WDS,Woodside Energy Group Limited,Energy,19.06,22.17,14,16.32,163.17,22.03,52
+2026-02-19,AMRZ,Amrize Ltd,Basic Materials,63.92,65.94,5,3.16,31.6,62.73,52
+2026-02-19,HUBB,Hubbell Inc,Industrials,525.13,531.76,1,1.26,12.63,486.91,52
+2026-02-19,EIX,Edison International,Utilities,72.66,75.5,5,3.91,39.09,73.89,52
+2026-02-19,TS,Tenaris S.A.,Energy,53.64,55.02,11,2.57,25.73,52.9,52
+2026-02-19,MRK,"Merck & Company, Inc.",Healthcare,121.86,125.14,6,2.69,26.92,116.5,52
+2026-02-19,AMGN,Amgen Inc.,Healthcare,375.5,391.29,11,4.21,42.05,372.16,52
+2026-02-19,AEM,Agnico Eagle Mines Limited,Basic Materials,224.07,255.24,11,13.91,139.11,223.83,52
+2026-02-19,EQNR,Equinor ASA,Energy,28.85,32.58,11,12.93,129.29,31.58,52
+2026-02-18,AMAT,"Applied Materials, Inc.",Technology,368.84,395.95,7,7.35,73.5,357.76,53
+2026-02-18,FTAI,FTAI Aviation Ltd.,Industrials,287.16,323.51,8,12.66,126.58,277.58,53
+2026-02-18,WDC,Western Digital Corporation,Technology,296.56,299.52,1,1,9.98,265.84,53
+2026-02-18,OKE,"ONEOK, Inc.",Energy,86.79,89,5,2.55,25.46,86.33,53
+2026-02-18,BAP,Credicorp Ltd.,Financial Services,346,360.83,7,4.29,42.86,331.15,53
+2026-02-18,HWM,Howmet Aerospace Inc.,Industrials,249.35,267.31,12,7.2,72.03,257.99,53
+2026-02-18,VRT,"Vertiv Holdings, LLC",Industrials,243.21,264.86,7,8.9,89.02,254.2,53
+2026-02-18,WPM,Wheaton Precious Metals Corp,Basic Materials,144.82,165.76,12,14.46,144.59,149,53
+2026-02-18,FERG,Ferguson Enterprises Inc.,Industrials,260,266.05,8,2.33,23.27,244.22,53
+2026-02-18,WDS,Woodside Energy Group Limited,Energy,18.72,22.17,15,18.43,184.29,22.03,53
+2026-02-18,DG,Dollar General Corporation,Consumer Defensive,152.02,158.23,8,4.08,40.85,146.03,53
+2026-02-18,AMRZ,Amrize Ltd,Basic Materials,63.7,65.94,6,3.52,35.16,62.73,53
+2026-02-18,MU,"Micron Technology, Inc.",Technology,420.95,436.89,7,3.79,37.87,400.77,53
+2026-02-18,RTX,RTX Corporation,Industrials,204.13,214.5,13,5.08,50.8,205.37,53
+2026-02-18,AMGN,Amgen Inc.,Healthcare,379.73,391.29,12,3.04,30.44,371.81,53
+2026-02-18,FDX,FedEx Corporation,Industrials,383.08,392.86,9,2.55,25.53,381.15,53
+2026-02-18,BDX,"Becton, Dickinson and Company",Healthcare,182.68,187.35,6,2.56,25.56,168.82,53
+2026-02-18,TGT,Target Corporation,Consumer Defensive,115.66,126,14,8.94,89.4,119.75,53
+2026-02-18,BE,Bloom Energy Corporation,Industrials,157.27,180.9,7,15.03,150.25,164.78,53
+2026-02-18,IRM,Iron Mountain Incorporated (Del,Real Estate,105.83,115.24,7,8.89,88.92,106.4,53
+2026-02-17,AMAT,"Applied Materials, Inc.",Technology,358.68,395.95,8,10.39,103.91,351.32,54
+2026-02-17,SMFG,Sumitomo Mitsui Financial Group,Financial Services,22.91,23.54,6,2.75,27.5,20.69,54
+2026-02-17,EQIX,"Equinix, Inc.",Real Estate,946.81,977.36,14,3.23,32.27,972.01,54
+2026-02-17,VRT,"Vertiv Holdings, LLC",Industrials,243.53,264.86,8,8.76,87.59,244.44,54
+2026-02-17,EXC,Exelon Corporation,Utilities,47.63,49.52,13,3.97,39.68,48.96,54
+2026-02-17,IRM,Iron Mountain Incorporated (Del,Real Estate,108.79,115.24,8,5.93,59.29,107.78,54
+2026-02-17,AMGN,Amgen Inc.,Healthcare,373.36,391.29,13,4.8,48.02,377,54
+2026-02-17,HCA,"HCA Healthcare, Inc.",Healthcare,534.78,547.05,6,2.29,22.94,541.8,54
+2026-02-17,AMX,"America Movil, S.A.B. de C.V.",Communication Services,24.34,26.16,13,7.48,74.77,24.53,54
+2026-02-17,DLR,"Digital Realty Trust, Inc.",Real Estate,179.89,180.49,9,0.33,3.34,178.13,54
+2026-02-17,XOM,Exxon Mobil Corporation,Energy,146.19,159.61,13,9.18,91.8,151.83,54
+2026-02-17,UPS,"United Parcel Service, Inc.",Industrials,115.51,117.14,3,1.41,14.11,113.23,54
+2026-02-17,MT,Arcelor Mittal NY Registry Shar,Basic Materials,64.1,67.6,8,5.46,54.6,60.07,54
+2026-02-17,PEP,"Pepsico, Inc.",Consumer Defensive,161.92,170.28,10,5.16,51.63,164.91,54
+2026-02-17,MUFG,"Mitsubishi UFJ Financial Group,",Financial Services,19.25,19.52,6,1.4,14.03,17.51,54
+2026-02-17,ANET,"Arista Networks, Inc.",Technology,142.58,142.5,1,-0.06,-0.56,124.6,54
+2026-02-17,WDC,Western Digital Corporation,Technology,284.11,309.9,1,9.08,90.77,250.61,54
+2026-02-17,CNQ,Canadian Natural Resources Limi,Energy,40.59,45.85,13,12.96,129.59,44.13,54
+2026-02-17,BDX,"Becton, Dickinson and Company",Healthcare,177.38,187.35,7,5.62,56.21,174.21,54
+2026-02-17,BIIB,Biogen Inc.,Healthcare,195.62,198.72,7,1.58,15.85,184.02,54
+2026-02-13,CAT,"Caterpillar, Inc.",Industrials,774.2,777.6,12,0.44,4.39,742.83,58
+2026-02-13,EIX,Edison International,Utilities,71.46,75.5,11,5.65,56.54,74.74,58
+2026-02-13,HCA,"HCA Healthcare, Inc.",Healthcare,540.29,549.45,4,1.7,16.95,529.7,58
+2026-02-13,VRT,"Vertiv Holdings, LLC",Industrials,234.53,264.86,12,12.93,129.32,254.89,58
+2026-02-13,CNQ,Canadian Natural Resources Limi,Energy,40.68,44.04,14,8.26,82.6,43.77,58
+2026-02-13,EXC,Exelon Corporation,Utilities,48.48,49.88,14,2.89,28.88,49.47,58
+2026-02-13,WAB,Westinghouse Air Brake Technolo,Industrials,255.75,266.27,12,4.11,41.13,263.95,58
+2026-02-13,PCG,Pacific Gas & Electric Co.,Utilities,18.16,19.09,14,5.12,51.21,19,58
+2026-02-13,DE,Deere & Company,Industrials,602.92,674.19,6,11.82,118.21,629.71,58
+2026-02-13,EQIX,"Equinix, Inc.",Real Estate,951.01,975,14,2.52,25.23,974.26,58
+2026-02-13,AMX,"America Movil, S.A.B. de C.V.",Communication Services,23.83,26.06,14,9.36,93.58,26.02,58
+2026-02-13,DLR,"Digital Realty Trust, Inc.",Real Estate,180.97,182.55,4,0.87,8.73,177.2,58
+2026-02-13,MT,Arcelor Mittal NY Registry Shar,Basic Materials,61.37,67.6,12,10.15,101.52,65.16,58
+2026-02-13,VMC,Vulcan Materials Company (Holdi,Basic Materials,327.65,319.15,12,-2.59,-25.94,310,58
+2026-02-13,GILD,"Gilead Sciences, Inc.",Healthcare,154.98,156.01,5,0.66,6.65,148.95,58
+2026-02-13,BHP,BHP Group Limited,Basic Materials,73.38,82.34,12,12.21,122.1,81.57,58
+2026-02-13,HWM,Howmet Aerospace Inc.,Industrials,250.21,262.63,14,4.96,49.64,262.53,58
+2026-02-13,MLM,"Martin Marietta Materials, Inc.",Basic Materials,678.86,702.38,12,3.46,34.65,676.57,58
+2026-02-13,IRM,Iron Mountain Incorporated (Del,Real Estate,109.83,115.24,12,4.93,49.26,108.33,58
+2026-02-13,STLD,"Steel Dynamics, Inc.",Basic Materials,191.68,196.35,10,2.44,24.36,193.13,58
+2026-02-12,VIV,Telefonica Brasil S.A.,Communication Services,15.88,16.95,15,6.74,67.38,16.91,59
+2026-02-12,GLW,Corning Incorporated,Technology,131.5,162.1,13,23.27,232.7,150.38,59
+2026-02-12,CAT,"Caterpillar, Inc.",Industrials,758.29,784,1,3.39,33.91,742.83,59
+2026-02-12,WMB,"Williams Companies, Inc. (The)",Energy,71.13,75.59,15,6.27,62.7,74.72,59
+2026-02-12,CVE,Cenovus Energy Inc,Energy,21.33,23.39,8,9.66,96.58,22.31,59
+2026-02-12,STM,STMicroelectronics N.V.,Technology,33.61,34.91,14,3.87,38.68,33.61,59
+2026-02-12,LITE,Lumentum Holdings Inc.,Technology,583.46,765,13,31.11,311.14,700.91,59
+2026-02-12,AZN,AstraZeneca PLC,Healthcare,202.41,210.52,6,4.01,40.07,208.45,59
+2026-02-12,HCA,"HCA Healthcare, Inc.",Healthcare,535.22,549.45,5,2.66,26.59,529.7,59
+2026-02-12,MAR,Marriott International,Consumer Cyclical,354.4,361.05,5,1.88,18.76,341.73,59
+2026-02-12,CNQ,Canadian Natural Resources Limi,Energy,39.99,44.04,15,10.13,101.28,43.77,59
+2026-02-12,FERG,Ferguson Enterprises Inc.,Industrials,263.66,266.05,14,0.91,9.06,260.76,59
+2026-02-12,TER,"Teradyne, Inc.",Technology,310.9,344.92,14,10.94,109.42,320.03,59
+2026-02-12,GEV,GE Vernova Inc.,Industrials,816.56,894.93,13,9.6,95.98,873.6,59
+2026-02-12,DE,Deere & Company,Industrials,598.11,674.19,7,12.72,127.2,629.71,59
+2026-02-12,UPS,"United Parcel Service, Inc.",Industrials,116.45,118.35,1,1.63,16.32,115.96,59
+2026-02-12,EMR,Emerson Electric Company,Industrials,144.43,153.42,6,6.22,62.24,150.75,59
+2026-02-12,BDX,"Becton, Dickinson and Company",Healthcare,177.81,187.35,12,5.37,53.65,176.48,59
+2026-02-12,ASX,"ASE Technology Holding Co., Ltd",Technology,23.46,25.29,13,7.8,78.01,24.29,59
+2026-02-12,TPR,"Tapestry, Inc.",Consumer Cyclical,152.66,161.97,14,6.1,60.99,155.47,59
+2026-02-09,O,Realty Income Corporation,Real Estate,63.09,67.15,14,6.44,64.35,66.52,62
+2026-02-09,SPG,"Simon Property Group, Inc.",Real Estate,196.57,203.6,14,3.58,35.76,199.38,62
+2026-02-09,BMO,Bank Of Montreal,Financial Services,144.73,147.04,14,1.6,15.96,142.3,62
+2026-02-09,ROST,"Ross Stores, Inc.",Consumer Cyclical,194.5,203.31,11,4.53,45.3,200.55,62
+2026-02-09,HLN,Haleon plc,Healthcare,10.88,11.28,9,3.68,36.76,11.08,62
+2026-02-09,TJX,"TJX Companies, Inc. (The)",Consumer Cyclical,155.8,160.46,14,2.99,29.91,157.66,62
+2026-02-06,TD,Toronto Dominion Bank (The),Financial Services,96.68,99.04,5,2.44,24.41,96.99,65
+2026-02-06,ET,Energy Transfer LP,Energy,17.94,19.3,12,7.58,75.81,18.98,65
+2026-02-06,BNS,Bank Nova Scotia Halifax Pfd 3,Financial Services,76.34,78.28,5,2.54,25.41,77.29,65
+2026-02-06,CM,Canadian Imperial Bank of Comme,Financial Services,96.68,99.62,14,3.04,30.41,99.55,65
+2026-02-06,RY,Royal Bank Of Canada,Financial Services,170.4,176.19,4,3.4,33.98,172.47,65
+2026-02-05,SMFG,Sumitomo Mitsui Financial Group,Financial Services,21.34,24.34,7,14.06,140.58,23.4,66
+2026-02-05,ROST,"Ross Stores, Inc.",Consumer Cyclical,189.23,200.6,13,6.01,60.09,200.38,66
+2026-02-05,BNS,Bank Nova Scotia Halifax Pfd 3,Financial Services,75.3,78.28,6,3.96,39.58,76.2,66
+2026-02-05,CNP,"CenterPoint Energy, Inc (Holdin",Utilities,40.22,43.09,12,7.14,71.36,42.64,66
+2026-02-05,ET,Energy Transfer LP,Energy,17.86,19.3,13,8.06,80.63,18.9,66
+2026-02-05,HSBC,"HSBC Holdings, plc.",Financial Services,86.87,90.81,4,4.54,45.36,86.84,66
+2026-02-05,TD,Toronto Dominion Bank (The),Financial Services,94.92,99.04,6,4.34,43.4,95.81,66
+2026-02-05,CM,Canadian Imperial Bank of Comme,Financial Services,94.53,98.5,6,4.2,42,98.11,66
+2026-02-05,ATO,Atmos Energy Corporation,Utilities,171.5,181.01,12,5.55,55.45,178.97,66
+2026-02-05,RY,Royal Bank Of Canada,Financial Services,168.84,176.19,5,4.35,43.53,170.7,66
+2026-02-04,MPC,Marathon Petroleum Corporation,Energy,194.94,209.27,8,7.35,73.51,196.47,67
+2026-02-04,XOM,Exxon Mobil Corporation,Energy,146.61,155.89,7,6.33,63.3,150.97,67
+2026-02-04,CVX,Chevron Corporation,Energy,179.47,187.9,15,4.7,46.97,184.78,67
+2026-02-04,PEP,"Pepsico, Inc.",Consumer Defensive,166.18,171.48,8,3.19,31.89,164.59,67
+2026-02-04,BTI,British American Tobacco  Indus,Consumer Defensive,61.63,63.03,2,2.27,22.72,60.99,67
+2026-02-04,EPD,Enterprise Products Partners L.,Energy,35.2,37.31,9,5.99,59.94,36.18,67
+2026-02-04,SU,Suncor Energy  Inc.,Energy,53.14,57.13,15,7.51,75.08,56.8,67
+2026-02-04,IMO,Imperial Oil Limited,Energy,110.71,123.52,15,11.57,115.71,122.55,67
+2026-02-04,FCX,"Freeport-McMoRan, Inc.",Basic Materials,61.86,65.98,8,6.66,66.6,62.57,67
+2026-02-04,MO,"Altria Group, Inc.",Consumer Defensive,65.16,68.15,15,4.59,45.89,67.99,67
+2026-02-04,PSX,Phillips 66,Energy,154.69,163.79,8,5.88,58.83,155.41,67
+2026-02-04,IR,Ingersoll Rand Inc.,Industrials,97.41,100.96,9,3.64,36.44,96.2,67
+2026-02-04,AZN,ASTRAZENECA PLC,Healthcare,187.45,212.71,14,13.48,134.76,208.62,67
+2026-02-04,CAT,"Caterpillar, Inc.",Industrials,691.82,789.81,8,14.16,141.64,760.53,67
+2026-02-04,MRK,"Merck & Company, Inc.",Healthcare,118.33,123.33,9,4.23,42.25,121.86,67
+2026-02-04,UPS,"United Parcel Service, Inc.",Industrials,115.13,120.73,8,4.86,48.64,115.54,67
+2026-02-04,PBR,Petroleo Brasileiro S.A. Petrob,Energy,15.14,16.03,7,5.88,58.78,15.76,67
+2026-02-04,RCL,Royal Caribbean Cruises Ltd.,Consumer Cyclical,328.65,356.39,6,8.44,84.41,310.35,67
+2026-02-04,FITB,Fifth Third Bancorp,Financial Services,54.09,55.44,7,2.5,24.96,52.9,67
+2026-02-04,YUM,"Yum! Brands, Inc.",Consumer Cyclical,159.57,165.32,9,3.6,36.03,163.48,67
+2026-02-03,BTI,British American Tobacco  Indus,Consumer Defensive,61.87,63.03,3,1.87,18.75,58.99,68
+2026-02-03,MO,"Altria Group, Inc.",Consumer Defensive,64.16,67.77,10,5.63,56.27,66.58,68
+2026-02-03,PBR,Petroleo Brasileiro S.A. Petrob,Energy,15.28,16.03,8,4.91,49.08,14.98,68
+2026-02-03,TEVA,Teva Pharmaceutical Industries ,Healthcare,36.25,36.59,1,0.94,9.38,34.37,68
+2026-02-03,ADM,Archer-Daniels-Midland Company,Consumer Defensive,67.39,70.09,9,4.01,40.07,67.94,68
+2026-02-03,RCL,Royal Caribbean Cruises Ltd.,Consumer Cyclical,326.29,356.39,7,9.22,92.25,324.74,68
+2026-02-03,EPD,Enterprise Products Partners L.,Energy,34.63,37.31,10,7.74,77.39,36.78,68
+2026-02-03,PUK,Prudential Public Limited Compa,Financial Services,33.5,34.03,1,1.58,15.82,30.27,68
+2026-02-03,LUV,Southwest Airlines Company,Industrials,51.19,55.11,14,7.66,76.58,54.65,68
+2026-02-03,DVN,Devon Energy Corporation,Energy,41.11,45.29,14,10.17,101.68,43.94,68
+2026-02-03,META,"Meta Platforms, Inc.",Communication Services,691.7,688.83,1,-0.41,-4.15,640.85,68
+2026-02-03,XOM,Exxon Mobil Corporation,Energy,142.78,155.89,8,9.18,91.82,148.45,68
+2026-02-03,CAT,"Caterpillar, Inc.",Industrials,702.89,789.81,9,12.37,123.66,763.41,68
+2026-02-03,TXN,Texas Instruments Incorporated,Technology,225.21,231.32,8,2.71,27.13,226.74,68
+2026-02-03,ETN,"Eaton Corporation, PLC",Industrials,362.53,408.45,9,12.67,126.67,390.62,68
+2026-02-03,UPS,"United Parcel Service, Inc.",Industrials,111.85,122.41,9,9.44,94.41,116,68
+2026-02-03,LYG,Lloyds Banking Group Plc,Financial Services,6.25,6.34,1,1.44,14.4,5.7,68
+2026-02-03,MNST,Monster Beverage Corporation,Consumer Defensive,81.97,82.95,1,1.2,11.96,82.18,68
+2026-02-03,TAK,Takeda Pharmaceutical Company L,Healthcare,17.43,18.5,10,6.14,61.39,18.26,68
+2026-02-03,AMP,"Ameriprise Financial, Inc.",Financial Services,528.49,548.56,1,3.8,37.98,470.83,68
+2026-02-02,META,"Meta Platforms, Inc.",Communication Services,706.41,717,1,1.5,14.99,639.77,69
+2026-02-02,PBR,Petroleo Brasileiro S.A. Petrob,Energy,15.03,16.03,9,6.65,66.53,14.98,69
+2026-02-02,GEV,GE Vernova Inc.,Industrials,754.97,846,10,12.06,120.57,819.89,69
+2026-02-02,RCL,Royal Caribbean Cruises Ltd.,Consumer Cyclical,334.05,356.39,8,6.69,66.88,324.71,69
+2026-02-02,MSCI,MSCI Inc.,Financial Services,622.3,611.92,1,-1.67,-16.68,520.5,69
+2026-02-02,PUK,Prudential Public Limited Compa,Financial Services,33.3,34.03,2,2.19,21.92,30.27,69
+2026-02-02,TEVA,Teva Pharmaceutical Industries ,Healthcare,35.52,37.35,1,5.15,51.52,34.36,69
+2026-02-02,TXN,Texas Instruments Incorporated,Technology,225.01,231.32,9,2.8,28.04,226.66,69
+2026-02-02,BTI,British American Tobacco  Indus,Consumer Defensive,60.99,63.03,4,3.34,33.45,58.99,69
+2026-02-02,UPS,"United Parcel Service, Inc.",Industrials,110.27,122.41,10,11.01,110.09,115.99,69
+2026-02-02,LYG,Lloyds Banking Group Plc,Financial Services,6.17,6.34,2,2.76,27.55,5.7,69
+2026-02-02,NWG,NatWest Group plc,Financial Services,18.82,19.36,2,2.87,28.69,16.8,69
+2026-02-02,TAK,Takeda Pharmaceutical Company L,Healthcare,17.49,18.5,11,5.77,57.75,18.26,69
+2026-02-02,AMP,"Ameriprise Financial, Inc.",Financial Services,530.61,548.56,2,3.38,33.83,470.85,69
+2026-02-02,VOD,Vodafone Group Plc,Communication Services,14.91,15.9,2,6.64,66.4,15.67,69
+2026-02-02,FITB,Fifth Third Bancorp,Financial Services,51.95,55.44,9,6.72,67.18,52.87,69
+2026-02-02,BAP,Credicorp Ltd.,Financial Services,367.91,380.2,1,3.34,33.4,334.87,69
+2026-02-02,LUV,Southwest Airlines Company,Industrials,49.64,55.11,15,11.02,110.19,54.63,69
+2026-02-02,BMO,Bank Of Montreal,Financial Services,138.45,146.35,9,5.71,57.06,141.47,69
+2026-02-02,ING,"ING Group, N.V.",Financial Services,30.35,31.18,2,2.73,27.35,28.99,69
+2026-01-31,BKR,Baker Hughes Company,Energy,56.45,62.27,12,10.31,103.1,61.2,71
+2026-01-31,PBR,Petroleo Brasileiro S.A. Petrob,Energy,15.03,16.03,11,6.65,66.53,15.19,71
+2026-01-31,GLW,Corning Incorporated,Technology,110.36,136.83,12,23.99,239.85,133.46,71
+2026-01-31,VALE,VALE S.A.,Basic Materials,16.14,17.72,12,9.79,97.89,16.65,71
+2026-01-31,CCJ,Cameco Corporation,Energy,120.21,128.15,3,6.61,66.05,112.9,71
+2026-01-31,CVX,Chevron Corporation,Energy,174.03,186.52,11,7.18,71.77,183.74,71
+2026-01-31,TXN,Texas Instruments Incorporated,Technology,225.01,231.32,11,2.8,28.04,226.16,71
+2026-01-31,BHP,BHP Group Limited,Basic Materials,69.39,75.14,11,8.29,82.86,73.38,71
+2026-01-31,ITUB,Itau Unibanco Banco Holding SA,Financial Services,8.7,9.6,11,10.34,103.45,9.16,71
+2026-01-31,SNDK,Sandisk Corporation,Technology,665.24,725,3,8.98,89.83,626.56,71
+2026-01-31,BBD,Banco Bradesco Sa,Financial Services,4.09,4.26,3,4.16,41.56,3.98,71
+2026-01-31,SCCO,Southern Copper Corporation,Basic Materials,190.35,212.96,3,11.88,118.78,198,71
+2026-01-31,RCL,Royal Caribbean Cruises Ltd.,Consumer Cyclical,334.05,356.39,10,6.69,66.88,319.61,71
+2026-01-31,FANG,"Diamondback Energy, Inc.",Energy,158.64,170.54,11,7.5,75.01,169.14,71
+2026-01-31,PUK,Prudential Public Limited Compa,Financial Services,33.3,34.03,4,2.19,21.92,29.53,71
+2026-01-31,XOM,Exxon Mobil Corporation,Energy,137.48,155.89,11,13.39,133.91,148.45,71
+2026-01-31,GEV,GE Vernova Inc.,Industrials,754.97,846,12,12.06,120.57,802.13,71
+2026-01-31,TTE,TotalEnergies SE,Energy,71.88,77.77,11,8.19,81.94,76.79,71
+2026-01-31,BTI,British American Tobacco  Indus,Consumer Defensive,60.99,63.03,6,3.34,33.45,59.5,71
+2026-01-31,COP,ConocoPhillips,Energy,101.79,112.07,13,10.1,100.99,111.43,71
+2026-01-29,PBR,Petroleo Brasileiro S.A. Petrob,Energy,15.52,16.03,13,3.29,32.86,15.83,73
+2026-01-29,BKR,Baker Hughes Company,Energy,56.73,62.08,13,9.43,94.31,61.25,73
+2026-01-29,SCCO,Southern Copper Corporation,Basic Materials,205.29,212.96,5,3.74,37.36,206.52,73
+2026-01-29,B,Barrick Mining Corporation,Basic Materials,52.05,49.51,5,-4.88,-48.8,47.64,73
+2026-01-29,WPM,Wheaton Precious Metals Corp,Basic Materials,152.7,150.5,13,-1.44,-14.41,149.11,73
+2026-01-29,AU,AngloGold Ashanti PLC,Basic Materials,107.02,112.3,13,4.93,49.34,112.27,73
+2026-01-29,BBD,Banco Bradesco Sa,Financial Services,4.15,4.26,5,2.65,26.51,4.16,73
+2026-01-29,BTI,British American Tobacco  Indus,Consumer Defensive,60.22,63.03,8,4.67,46.66,60.33,73
+2026-01-29,COP,ConocoPhillips,Energy,102.8,111.44,13,8.4,84.05,111.21,73
+2026-01-29,BMO,Bank Of Montreal,Financial Services,141.4,146.35,13,3.5,35.01,143.65,73
+2026-01-29,GLW,Corning Incorporated,Technology,103,134.39,13,30.48,304.76,132.9,73
+2026-01-29,EPD,Enterprise Products Partners L.,Energy,33.56,35.65,13,6.23,62.28,35.45,73
+2026-01-29,VLO,Valero Energy Corporation,Energy,181.38,204.33,13,12.65,126.53,203.92,73
+2026-01-29,BIDU,"Baidu, Inc.",Communication Services,157.51,157.4,1,-0.07,-0.7,145.12,73
+2026-01-29,FNV,Franco-Nevada Corporation,Basic Materials,261.77,263.49,13,0.66,6.57,257.7,73
+2026-01-29,KGC,Kinross Gold Corporation,Basic Materials,36.6,35.46,13,-3.11,-31.15,34.82,73
+2026-01-29,FANG,"Diamondback Energy, Inc.",Energy,163.07,170.54,13,4.58,45.81,169.01,73
+2026-01-29,PUK,Prudential Public Limited Compa,Financial Services,33.61,34.03,6,1.25,12.5,32.08,73
+2026-01-29,PAAS,Pan American Silver Corp.,Basic Materials,63.29,61.49,13,-2.84,-28.44,59.88,73
+2026-01-29,EC,Ecopetrol S.A.,Energy,12.77,12.85,1,0.63,6.26,12.22,73
+2026-01-28,TXN,Texas Instruments Incorporated,Technology,214.77,231.32,14,7.71,77.06,226.56,74
+2026-01-28,ANET,"Arista Networks, Inc.",Technology,150.15,151.55,1,0.93,9.32,140.66,74
+2026-01-28,GLW,Corning Incorporated,Technology,104.28,134.39,14,28.87,288.74,132.9,74
+2026-01-28,STX,Seagate Technology Holdings PLC,Technology,442.93,459.41,6,3.72,37.21,407.25,74
+2026-01-28,ERIC,Ericsson,Technology,10.88,11.38,13,4.6,45.96,11.14,74
+2026-01-28,UMC,United Microelectronics Corpora,Technology,11.38,10.79,1,-5.18,-51.85,10.3,74
+2026-01-28,ZM,"Zoom Communications, Inc.",Technology,96.22,96.52,13,0.31,3.12,92.15,74
+2026-01-28,SBUX,Starbucks Corporation,Consumer Cyclical,95.16,99.98,12,5.07,50.65,99.12,74
+2026-01-28,PBR,Petroleo Brasileiro S.A. Petrob,Energy,15.38,16.03,14,4.23,42.26,15.83,74
+2026-01-28,BBD,Banco Bradesco Sa,Financial Services,4.16,4.29,1,3.12,31.25,4.16,74
+2026-01-28,AMAT,"Applied Materials, Inc.",Technology,336.75,344.6,1,2.33,23.31,339.88,74
+2026-01-28,NWG,NatWest Group plc,Financial Services,18.21,19.36,7,6.32,63.15,16.75,74
+2026-01-28,WPM,Wheaton Precious Metals Corp,Basic Materials,156.3,160.36,1,2.6,25.98,149.11,74
+2026-01-28,AU,AngloGold Ashanti PLC,Basic Materials,115.72,114.95,1,-0.67,-6.65,112.27,74
+2026-01-28,MPWR,"Monolithic Power Systems, Inc.",Technology,1161.78,1250,9,7.59,75.94,1196.73,74
+2026-01-28,PAAS,Pan American Silver Corp.,Basic Materials,65.92,67.51,1,2.41,24.12,59.88,74
+2026-01-28,GFS,GlobalFoundries Inc.,Technology,45.79,48.88,14,6.75,67.48,48.74,74
+2026-01-28,ITUB,Itau Unibanco Banco Holding SA,Financial Services,8.88,9.6,14,8.11,81.08,9.57,74
+2026-01-28,BKR,Baker Hughes Company,Energy,56.63,62.08,14,9.62,96.24,61.25,74
+2026-01-28,ASX,"ASE Technology Holding Co., Ltd",Technology,20.26,23.88,14,17.87,178.68,23.74,74
+2026-01-27,GFS,GlobalFoundries Inc.,Technology,47.41,48.01,1,1.27,12.66,43.1,75
+2026-01-27,ERIC,Ericsson,Technology,11.11,11.38,14,2.43,24.3,11.35,75
+2026-01-27,TDY,Teledyne Technologies Incorpora,Technology,616.02,659.67,14,7.09,70.86,654.01,75
+2026-01-27,ZM,"Zoom Communications, Inc.",Technology,94.44,97.58,1,3.32,33.25,95.31,75
+2026-01-27,PAAS,Pan American Silver Corp.,Basic Materials,64.31,67.51,2,4.98,49.76,59.09,75
+2026-01-27,ITUB,Itau Unibanco Banco Holding SA,Financial Services,8.78,9.44,14,7.52,75.17,9.42,75
+2026-01-27,PBR,Petroleo Brasileiro S.A. Petrob,Energy,15.02,15.94,2,6.13,61.25,15.27,75
+2026-01-27,NU,Nu Holdings Ltd.,Financial Services,18.55,18.98,2,2.32,23.18,17.66,75
+2026-01-27,B,Barrick Mining Corporation,Basic Materials,52.17,54.69,2,4.83,48.3,46.69,75
+2026-01-27,BBD,Banco Bradesco Sa,Financial Services,4.14,4.29,2,3.62,36.23,4.05,75
+2026-01-27,MT,Arcelor Mittal NY Registry Shar,Basic Materials,55.47,63.51,14,14.49,144.94,62.99,75
+2026-01-27,AMD,"Advanced Micro Devices, Inc.",Technology,252.03,260.53,2,3.37,33.73,215.84,75
+2026-01-27,AMAT,"Applied Materials, Inc.",Technology,332.71,344.6,2,3.57,35.74,328.94,75
+2026-01-27,WPM,Wheaton Precious Metals Corp,Basic Materials,149.38,160.36,2,7.35,73.5,144.72,75
+2026-01-27,AU,AngloGold Ashanti PLC,Basic Materials,109.44,115.81,1,5.82,58.21,106.46,75
+2026-01-27,FNV,Franco-Nevada Corporation,Basic Materials,261.93,273.56,2,4.44,44.4,250.26,75
+2026-01-27,KGC,Kinross Gold Corporation,Basic Materials,37.87,38.72,2,2.24,22.45,33.9,75
+2026-01-27,KEP,Korea Electric Power Corporatio,Utilities,21.47,21.96,8,2.28,22.82,20.79,75
+2026-01-27,TECK,Teck Resources Ltd,Basic Materials,56.44,60.71,2,7.57,75.66,58.26,75
+2026-01-27,GILD,"Gilead Sciences, Inc.",Healthcare,140.97,153.13,10,8.63,86.26,149.96,75

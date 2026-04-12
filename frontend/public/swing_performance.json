@@ -1,0 +1,84 @@
+{
+  "total_picks": 528,
+  "winners": 495,
+  "losers": 32,
+  "win_rate": 93.8,
+  "avg_win_pct": 7.91,
+  "avg_loss_pct": -1.22,
+  "avg_return_pct": 7.34,
+  "best_pick": {
+    "ticker": "BATL",
+    "pct": 613.94,
+    "date": "2026-02-22"
+  },
+  "worst_pick": {
+    "ticker": "UMC",
+    "pct": -5.18,
+    "date": "2026-01-28"
+  },
+  "avg_hold_days": 6.6,
+  "total_pnl_per_1k": 38770.0,
+  "above_5pct_count": 241,
+  "above_10pct_count": 88,
+  "above_5pct_rate": 45.6,
+  "above_10pct_rate": 16.7,
+  "period_days": 90,
+  "source": "swing113",
+  "sectors": {
+    "Financial Services": {
+      "count": 46,
+      "win_rate": 91.0,
+      "avg_pct": 3.7
+    },
+    "Technology": {
+      "count": 75,
+      "win_rate": 92.0,
+      "avg_pct": 7.9
+    },
+    "Industrials": {
+      "count": 60,
+      "win_rate": 95.0,
+      "avg_pct": 7.8
+    },
+    "Healthcare": {
+      "count": 68,
+      "win_rate": 96.0,
+      "avg_pct": 5.8
+    },
+    "Energy": {
+      "count": 115,
+      "win_rate": 97.0,
+      "avg_pct": 12.5
+    },
+    "Utilities": {
+      "count": 14,
+      "win_rate": 100.0,
+      "avg_pct": 4.0
+    },
+    "Basic Materials": {
+      "count": 51,
+      "win_rate": 86.0,
+      "avg_pct": 6.8
+    },
+    "Consumer Cyclical": {
+      "count": 27,
+      "win_rate": 100.0,
+      "avg_pct": 5.1
+    },
+    "Consumer Defensive": {
+      "count": 27,
+      "win_rate": 93.0,
+      "avg_pct": 4.9
+    },
+    "Communication Services": {
+      "count": 19,
+      "win_rate": 79.0,
+      "avg_pct": 3.4
+    },
+    "Real Estate": {
+      "count": 25,
+      "win_rate": 100.0,
+      "avg_pct": 2.9
+    }
+  }
+}

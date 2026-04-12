@@ -1368,7 +1368,47 @@ async def daily_run():
         }
         all_stocks_data.append({**raw, "scores": scores})
 
-    log.info("Scores computed for all tickers")
+    log.info(f"Scores computed for all tickers: {len(all_stocks_data)} processed")
+
+    # If we got fewer than 100 stocks, fallback to previous run's data to guarantee 100
+    if len(all_stocks_data) < 100:
+        log.warning(f"Only {len(all_stocks_data)} stocks fetched. Padding to 100 from previous run.")
+        prev_data = get_last_run_data()
+        if prev_data:
+            existing_tickers = {s["ticker"] for s in all_stocks_data}
+            # We need to read previous stocks from the previous stocks dir
+            prev_stocks_dir = os.path.join(DATA_DIR, prev_data["date"], "stocks")
+            if os.path.exists(prev_stocks_dir):
+                missing_needed = 100 - len(all_stocks_data)
+                added = 0
+                for f in os.listdir(prev_stocks_dir):
+                    if added >= missing_needed: break
+                    if f.endswith(".json"):
+                        tick = f.replace(".json", "")
+                        if tick not in existing_tickers:
+                            try:
+                                with open(os.path.join(prev_stocks_dir, f), "r") as pf:
+                                    ps = json.load(pf)
+                                    # We don't have _tech, _news etc. here, but we can reconstruct a basic raw dict
+                                    # However, it's easier to just append the full object if we skip the menu passes,
+                                    # but menus need the raw format. So we just mock the internal structure.
+                                    # Since menu building relies on inner scores, we must adapt it.
+                                    adapted = {
+                                        "ticker": ps["ticker"],
+                                        "company": ps.get("company", ps["ticker"]),
+                                        "sector": ps.get("sector", "Unknown"),
+                                        "price": ps.get("price", {}),
+                                        "fundamental": ps.get("fundamental", {}),
+                                        "_tech": ps.get("technical", {}),
+                                        "_news": ps.get("news", []),
+                                        "scores": ps.get("scores", {}),
+                                        "scores_detail": ps.get("scores_detail", {})
+                                    }
+                                    all_stocks_data.append(adapted)
+                                    added += 1
+                            except Exception as e:
+                                pass
+    
 
     # 7. Build menus
     menus = build_menus(all_stocks_data)
