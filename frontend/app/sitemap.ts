@@ -21,6 +21,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/terms', priority: 0.3, changefreq: 'monthly' },
     { route: '/login', priority: 0.4, changefreq: 'monthly' },
     { route: '/register', priority: 0.4, changefreq: 'monthly' },
+    { route: '/academy', priority: 0.9, changefreq: 'weekly' },
+    { route: '/academy/how-to-start-investing', priority: 0.8, changefreq: 'monthly' },
+    { route: '/academy/rsi-indicator', priority: 0.8, changefreq: 'monthly' },
+    { route: '/academy/momentum-trading', priority: 0.8, changefreq: 'monthly' },
+    { route: '/academy/ai-stock-picking', priority: 0.8, changefreq: 'monthly' },
   ].map(item => ({
     url: `${baseUrl}${item.route}`,
     lastModified: new Date(),

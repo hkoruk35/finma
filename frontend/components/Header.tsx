@@ -34,6 +34,9 @@ export default function Header() {
           <Link href="/category/reversal" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Reversal</Link>
           <Link href="/category/passive-income" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Passive Income</Link>
           <Link href="/archive" className="text-sm font-semibold text-[#94a3b8] hover:text-white transition-colors border-b-2 border-transparent hover:border-[#3b82f6] pb-1">Archive</Link>
+          <Link href="/academy" className="text-sm font-black text-[#3b82f6] hover:text-white transition-colors border-b-2 border-[#3b82f6] pb-1 flex items-center gap-1">
+            <span>🎓</span> Academy
+          </Link>
         </nav>
 
         {/* Auth + Toggle */}
@@ -73,6 +76,7 @@ export default function Header() {
             <Link href="/category/reversal" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Reversal</Link>
             <Link href="/category/passive-income" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Passive Income</Link>
             <Link href="/archive" onClick={() => setIsOpen(false)} className="text-base font-semibold text-[#94a3b8]">Archive</Link>
+            <Link href="/academy" onClick={() => setIsOpen(false)} className="text-base font-black text-[#3b82f6] flex items-center gap-2">🎓 Academy</Link>
             <Link href="/login" onClick={() => setIsOpen(false)} className="mt-4 w-full py-4 bg-[#3b82f6] text-white text-center rounded-2xl font-semibold shadow-2xl shadow-blue-500/40">Sign In</Link>
           </nav>
         </div>
