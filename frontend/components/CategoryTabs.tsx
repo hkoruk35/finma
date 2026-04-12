@@ -98,29 +98,29 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             {/* Top row: ticker + score */}
             <div className="flex items-center justify-between mb-3">
               <div>
-                <span className="text-lg font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
+                <span className="text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
                   {stock.ticker}
                 </span>
-                <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-wider truncate max-w-[120px]">
+                <p className="text-[11px] text-[#64748b] font-bold uppercase tracking-wider truncate max-w-[140px]">
                   {stock.company}
                 </p>
               </div>
-              <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ${getScoreBadgeClass(stock.score_type)}`}>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider ${getScoreBadgeClass(stock.score_type)}`}>
                 {stock.score_type.replace("_", " ")}
               </span>
             </div>
 
             {/* Score */}
             <div className="mb-3">
-              <div className="text-2xl font-mono font-black text-[#3b82f6] leading-none">
+              <div className="text-3xl font-mono font-black text-[#3b82f6] leading-none">
                 {stock.master_score.toFixed(1)}
               </div>
-              <div className="text-[8px] text-[#64748b] font-bold uppercase tracking-[0.2em] mt-0.5 leading-none">SCORE</div>
+              <div className="text-[10px] text-[#64748b] font-bold uppercase tracking-[0.2em] mt-1 leading-none">SCORE</div>
             </div>
 
             {/* Time-Period Returns */}
             <div className="mb-5">
-              <div className="text-[11px] text-[#64748b] font-bold uppercase tracking-[0.2em] mb-3 leading-none">RETURNS</div>
+              <div className="text-[12px] text-[#64748b] font-bold uppercase tracking-[0.2em] mb-3 leading-none">RETURNS</div>
               <div className="grid grid-cols-4 gap-2">
                 {[
                   { label: "1D", value: stock.change_pct },
@@ -129,7 +129,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
                   { label: "1Y", value: stock.change_pct_1y },
                 ].map((period) => (
                   <div key={period.label} className="text-center">
-                    <div className={`text-[14px] font-mono font-extrabold ${
+                    <div className={`text-[17px] md:text-[18px] font-mono font-black ${
                       period.value !== undefined && period.value !== null
                         ? getChangeColor(period.value)
                         : 'text-[#64748b]'
@@ -138,7 +138,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
                         ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
                         : '—'}
                     </div>
-                    <div className="text-[10px] text-[#94a3b8] font-black mt-1 uppercase">{period.label}</div>
+                    <div className="text-[11px] text-[#94a3b8] font-black mt-1 uppercase">{period.label}</div>
                   </div>
                 ))}
               </div>
@@ -146,7 +146,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
 
             {/* AI Summary One-Liner */}
             <div className="mb-4">
-              <p className="text-[10px] text-[#94a3b8] leading-tight italic line-clamp-2 min-h-[2.5em]">
+              <p className="text-[12px] text-[#f1f5f9] leading-[1.3] italic line-clamp-2 min-h-[2.6em]">
                 {stock.ai_short_summary || `Analysis for ${stock.ticker} points to a ${stock.score_type.replace(/_/g, " ").toLowerCase()} bias based on market metrics.`}
               </p>
             </div>
