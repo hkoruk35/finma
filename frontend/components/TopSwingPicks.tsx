@@ -50,6 +50,24 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {picks.map((item, idx) => {
+          // Sync with live data to ensure price/zones are accurate
+          const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
+          const realPrice = liveData?.price;
+          
+          // Calculate price ratio to adjust zones if the pick data is stale/miscalibrated
+          // Specifically handles cases like CAR showing $300 zones for a $77 stock
+          const priceRatio = (realPrice && item.current_price) 
+            ? realPrice / item.current_price 
+            : 1.0;
+
+          // Adjusted Zones
+          const displayBuyLow = item.buy_zone.low * priceRatio;
+          const displayBuyHigh = item.buy_zone.high * priceRatio;
+          const displayProfitLow = item.profit_zone.low * priceRatio;
+          const displayProfitHigh = item.profit_zone.high * priceRatio;
+          const displayStopLow = item.stop_zone.low * priceRatio;
+          const displayStopHigh = item.stop_zone.high * priceRatio;
+
           return (
             <Link
               key={item.ticker}
@@ -80,8 +98,8 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                    <div className="text-[9px] text-[#3b82f6] font-black uppercase tracking-[0.2em] mb-1">SWING SCORE</div>
                 </div>
                 <div className="flex">
-                  <span className={`px-4 py-1.5 rounded-2xl text-[10px] font-black uppercase tracking-wider shadow-xl bg-[#3b82f6]/20 text-[#bfdbfe] border border-[#3b82f6]/40`}>
-                    {item.reasoning || item.pattern || "Bullish Setup Detected"}
+                  <span className={`px-4 py-1.5 rounded-2xl text-[10px] font-black uppercase tracking-wider shadow-xl bg-[#3b82f6]/20 text-[#bfdbfe] border border-[#3b82f6]/40 text-center`}>
+                    {item.reasoning.substring(0, 80)}...
                   </span>
                 </div>
               </div>
@@ -95,7 +113,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        BUY ZONE
                      </div>
                      <div className="text-sm font-mono font-bold text-white">
-                       {formatPrice(item.buy_zone.low)} - {formatPrice(item.buy_zone.high)}
+                       {formatPrice(displayBuyLow)} - {formatPrice(displayBuyHigh)}
                      </div>
                    </div>
                    
@@ -105,7 +123,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        PROFIT ZONE
                      </div>
                      <div className="text-sm font-mono font-bold text-[#10b981]">
-                       {formatPrice(item.profit_zone.low)} - {formatPrice(item.profit_zone.high)}
+                       {formatPrice(displayProfitLow)} - {formatPrice(displayProfitHigh)}
                      </div>
                    </div>
 
@@ -115,7 +133,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        STOP LOSS
                      </div>
                      <div className="text-sm font-mono font-bold text-[#ef4444]">
-                       {formatPrice(item.stop_zone.low)} - {formatPrice(item.stop_zone.high)}
+                       {formatPrice(displayStopLow)} - {formatPrice(displayStopHigh)}
                      </div>
                    </div>
 
@@ -133,7 +151,6 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
               {/* Metrics */}
               {(() => {
-                const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
                 const metrics = [
                   { label: "1D", val: liveData?.change_pct ?? item.change_1d },
                   { label: "1W", val: liveData?.change_pct_1w ?? item.change_1w },
@@ -146,7 +163,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                     {metrics.map((p, i) => (
                       <div key={i}>
                          <div className={`text-[15px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
-                           {p.val !== undefined ? `${p.val > 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
+                           {p.val !== undefined ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
                          </div>
                          <div className="text-[11px] text-[#64748b] font-black mt-1.5 uppercase">{p.label}</div>
                       </div>

@@ -228,7 +228,28 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
     } catch (e) { console.warn("Fetch detailed stock err", e); }
   }
 
-  if (data) return normalizeStockDetail(data);
+  if (data) {
+    const all = await getAllTickers();
+    const live = all.find(s => s.ticker === t);
+    if (live?.price && data.price?.current) {
+      const ratio = live.price / data.price.current;
+      const drift = Math.abs(1 - ratio);
+      if (drift > 0.02) {
+        data.price.current = live.price;
+        if (data.scores_detail) {
+          data.scores_detail.entry_range_low *= ratio;
+          data.scores_detail.entry_range_high *= ratio;
+          data.scores_detail.target_price *= ratio;
+          data.scores_detail.target_range_low *= ratio;
+          data.scores_detail.target_range_high *= ratio;
+          data.scores_detail.stop_loss *= ratio;
+          data.scores_detail.stop_range_low *= ratio;
+          data.scores_detail.stop_range_high *= ratio;
+        }
+      }
+    }
+    return normalizeStockDetail(data);
+  }
 
   // 2. If detailed JSON missing, try to find real info in other data sources
   const [allTickers, swingPerf] = await Promise.all([
