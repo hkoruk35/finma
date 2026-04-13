@@ -74,6 +74,11 @@ export default function Header() {
     </Link>
   );
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    window.location.reload();
+  };
+
   return (
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/80 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -106,7 +111,7 @@ export default function Header() {
         </nav>
 
         {/* Auth + Toggle */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {!user ? (
             <div className="flex items-center gap-1 md:gap-3">
               <Link
@@ -123,12 +128,20 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <Link href="/watchlist" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#8b5cf6] flex items-center justify-center text-[10px] font-black text-white shadow-lg">
-                {user.email?.[0].toUpperCase()}
-              </div>
-              <span className="hidden md:block text-[10px] font-black text-[#94a3b8] group-hover:text-white uppercase tracking-widest">Watchlist</span>
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/watchlist" className="flex items-center gap-2 group">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#8b5cf6] flex items-center justify-center text-[10px] font-black text-white shadow-lg">
+                  {user.email?.[0].toUpperCase()}
+                </div>
+                <span className="hidden md:block text-[10px] font-black text-[#94a3b8] group-hover:text-white uppercase tracking-widest">Watchlist</span>
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className="text-[10px] font-black uppercase tracking-widest text-[#ef4444] hover:text-red-400 transition-colors border border-red-500/20 px-3 py-1.5 rounded-lg"
+              >
+                Sign Out
+              </button>
+            </div>
           )}
 
           <button 
