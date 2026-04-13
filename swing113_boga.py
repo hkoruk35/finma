@@ -114,9 +114,6 @@ RSI_MAX_SWING = 78
 
 ATMACA_MAX_SHORT_FLOAT = 0.25
 
-ATMACA_MIN_BETA = 0.4
-ATMACA_MAX_BETA = 2.8
-
 # 🔹 ALPHA VANTAGE API
 ENABLE_ALPHA_VALIDATION = False
 ALPHA_VALIDATION_THRESHOLD = 6.0
@@ -132,12 +129,38 @@ PRICE_MAX = 1000.0                     # Katman 1: Max $1000
 ATMACA_MIN_BETA = 0.6                 # Katman 1: Beta min (güncellendi)
 ATMACA_MAX_BETA = 3.0                 # Katman 1: Beta max (güncellendi)
 
-MAX_TICKERS_FINAL = 200  # Analiz edilecek en kaliteli hisse sayısı
+MAX_TICKERS_FINAL = 500  # V112 PRO: Evren 500'e çıkarıldı
 
 WATCHLIST_DIR = r"C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists"
+
+# --- PERSISTENT CACHE MOTORU ---
+INFO_CACHE_FILE = os.path.join(WATCHLIST_DIR, "persistent_info_cache.json")
+persistent_info_cache = {}
+
+def load_info_cache():
+    global persistent_info_cache
+    try:
+        if os.path.exists(INFO_CACHE_FILE):
+            with open(INFO_CACHE_FILE, "r", encoding="utf-8") as f:
+                persistent_info_cache = json.load(f)
+            logging.info(f"📦 Persistent Cache Yüklendi: {len(persistent_info_cache)} hisse verisi.")
+    except Exception as e:
+        logging.warning(f"⚠️ Cache yükleme hatası: {e}")
+
+def save_info_cache():
+    try:
+        os.makedirs(WATCHLIST_DIR, exist_ok=True)
+        with open(INFO_CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(persistent_info_cache, f, indent=2)
+    except Exception as e:
+        logging.warning(f"⚠️ Cache kaydetme hatası: {e}")
+
+load_info_cache()  # Bot başlarken belleğe al
+# -------------------------------
+
 WATCHLIST_ROLLING_FILE = os.path.join(WATCHLIST_DIR, "watchlist_rolling.txt")
-WATCHLIST_KEEP_DAYS = 30
-WATCHLIST_MAX_ROLLING = 600
+WATCHLIST_KEEP_DAYS = 180
+WATCHLIST_MAX_ROLLING = 6000
 
 # ======================================================
 #  ULTIMATE US UNIVERSE BUILDER (NASDAQ, NYSE, AMEX)
@@ -195,9 +218,9 @@ async def fetch_all_us_tickers() -> List[str]:
                         if s.strip()
                     ]
 
-                    # Ana hisseleri filtrele: sadece 1–4 harfli alfabetik ticker’lar
+                    # Ana hisseleri filtrele: 1–5 harfli alfabetik ticker’lar (GOOGL gibi hisseler için)
                     for sym in symbols:
-                        if sym.isalpha() and 1 <= len(sym) <= 4:
+                        if sym.isalpha() and 1 <= len(sym) <= 5:
                             all_tickers.add(sym)
 
             except Exception as e:
@@ -398,12 +421,12 @@ def compute_multi_factor_score(c: dict) -> float:
     """
     🥉 KATMAN 3 — ATMACA RANKING MOTORU V112
     
-    Final Score =
-      RVOL_zscore       * 0.35
+Final Score =
+      RVOL_zscore       * 0.40
     + Trend Strength    * 0.25
-    + 5g Return Accel   * 0.15
-    + ADX               * 0.10
-    + Dollar Volume     * 0.10
+    + 5g Return Accel   * 0.20
+    + ADX               * 0.05
+    + Dollar Volume     * 0.05
     + Volatility Expand * 0.05
     
     En iyi 200 hisse bu formülle sıralanır.
@@ -1514,6 +1537,7 @@ def get_stock_info(ticker: str) -> dict:
             "avg_volume": avg_volume,
             "beta": float(beta),
             "short_float": float(short_float)
+            "sector": info.get("sector", "Unknown"),  # ← bu satır eksik
         }
 
         stock_info_cache[t] = data
@@ -1594,12 +1618,9 @@ def calculate_profit_target(
         profit_target = profit_target_raw
 
     # ---------------------------------------------------
-    # 4) Exhausted hisse: TP'yi %40 daralt (final kontrol)
-    # Tavan uygulandıktan sonra ayrıca daral
+    # 4) Exhausted hisse kontrolü iptal
+    # (tp_atr_mult = 1.8 satırında zaten daraltma yapıldığı için burası silindi)
     # ---------------------------------------------------
-    if is_exhausted:
-        capped = entry_price + (profit_target - entry_price) * 0.60
-        profit_target = capped
 
     # ---------------------------------------------------
     # 5) Minimum R/R kontrolü (1.5x) — SADECE tavan/exhaust
@@ -2126,38 +2147,38 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
         # VERİ TOPLAMA (Paralel I/O - Katman 2 Hafifleştirildi)
         # ========================================
         stock = yf.Ticker(ticker)
-        # YF BAN KORUMASI: 200 hisse için ağır olan info() çağrısını siliyoruz.
-        # Temel veriler Katman 3'te (Sadece en iyi 40 hisse için) çekilecek.
-        info = {}
-
-        # 🔥 3. EARNINGS TIMESTAMP DOUBLE-CHECK
-        import time
-        current_ts = time.time()
-        earnings_ts = info.get("earningsTimestamp", None)
-        earnings_start = info.get("earningsTimestampStart", None)
-        check_ts = earnings_ts if earnings_ts else earnings_start
+        # YF BAN KORUMASI: Info çağrısını sadece cache üzerinden yapıyoruz.
+        # Earnings double-check bloğu silindi (Zaten Adım 1'de güvenli fonksiyonla taranıyor)
         
-        if check_ts:
-            seconds_to_earnings = check_ts - current_ts
-            if 0 < seconds_to_earnings < 864000:  # 7 gün
-                logging.info(f"🚫 {ticker}: Yaklaşan Bilanço ({seconds_to_earnings/3600:.1f}h) -> ELEME")
-                return None
-
         # ========================================
-        # TEMEL VERİLER
+        # TEMEL VERİLER (KALICI ÖNBELLEK DESTEKLİ)
         # ========================================
-        # fast_info rate limitlere karşı daha dayanıklıdır
-        try:
-            fast_info = await asyncio.to_thread(lambda: stock.fast_info)
-            market_cap = fast_info.get("marketCap", info.get("marketCap", 0))
-        except:
-            market_cap = info.get("marketCap", 0) or 0
+        global persistent_info_cache
+        current_time = time.time()
+        
+        # Sadece Market Cap bilgisini cache'liyoruz (15 günde bir güncellense yeterli - 1296000 saniye)
+        if ticker in persistent_info_cache and (current_time - persistent_info_cache[ticker].get("ts", 0) < 1296000):
+            market_cap = persistent_info_cache[ticker].get("market_cap", 0)
+        else:
+            try:
+                fast_info = await asyncio.to_thread(lambda: stock.fast_info)
+                market_cap = fast_info.get("marketCap", 0)
+                # Cache'e ekle
+                persistent_info_cache[ticker] = {
+                    "ts": current_time,
+                    "market_cap": market_cap
+                }
+            except:
+                market_cap = 0
 
-        avg_volume_10d = info.get("averageVolume10days", 0) or 0
-        beta = info.get("beta", 0.0) or 0.0
-        short_float = info.get("shortPercentOfFloat", 0.0) or 0.0
-        sector_name = info.get("sector", "Unknown")
-
+        # Hacmi grafikten çekeceğiz. Sektör bilgisini ise Katman 2'deki bonus puanlama için
+        # YF'ye gitmeden kendi stock_info fonksiyonumuzla alıyoruz (Cache'li çalışır, ban yedirtmez).
+        cached_info = get_stock_info(ticker)
+        avg_volume_10d = 0
+        beta = cached_info.get("beta", 0.0)
+        short_float = 0.0
+        sector_name = cached_info.get("sector", "Unknown")
+        
         # ========================================
         # FİYAT VERİSİ (Ardışık Fetch - YF Ban Koruması)
         # ========================================
@@ -3904,16 +3925,10 @@ def _build_rolling_list() -> list[str]:
 
 
 # ============================================================
-# ATMACA SWING MASTER – HEDGE FUND TARAYICI (v103 Optimized)
-# NY 13:00, Hafta içi çalışma, 168h Universe Cache, Faster I/O
+# ATMACA SWING MASTER – HEDGE FUND TARAYICI (v112 Optimized)
+# NY 13:00, Hafta içi çalışma, Persistent Cache, Faster I/O
 # ============================================================
-
-UNIVERSE_CACHE = {"ts": 0, "data": []}
-UNIVERSE_TTL = 24 * 3600        # 24 saat (1 Gün) - Her gün güncellenir
-
-# ============================================================
-# ATMACA SWING MASTER – HEDGE FUND TARAYICI (v103 Optimized)
-# ============================================================
+# (UNIVERSE_CACHE tanımı yukarıda yapıldığı için buradan silindi)
 
 async def scan_top_stocks():
     """
@@ -4197,7 +4212,95 @@ async def scan_top_stocks():
                 await send_telegram_photo(chart_file)
                 await asyncio.sleep(0.5)
 
+    save_info_cache()  # Taramada keşfedilen yeni hisseleri diske yazdır
     logging.info(f"✅ NY 13:00 Taraması başarıyla tamamlandı. ({scanned_count} hisse taranmış)")
+
+    # ---------------------------------------------------------
+    # 6) UI SENKRONİZASYONU (Top 3 + Tüm 20 Swing Picks)
+    # ---------------------------------------------------------
+    try:
+        logging.info("▶ UI Swing Picks senkronize ediliyor...")
+        
+        def build_pick_entry(i: int, c: dict) -> dict:
+            tp2 = c['profit_target']
+            tp1 = c['current_price'] + (tp2 - c['current_price']) * 0.40
+            return {
+                "rank": i + 1,
+                "ticker": c["ticker"],
+                "company": c.get("company", c["ticker"]),
+                "sector": c.get("sector", "Unknown"),
+                "score": round(c["score"], 1),
+                "current_price": c["current_price"],
+                "buy_zone": {
+                    "low": round(c["current_price"] * 0.985, 2),
+                    "high": round(c["current_price"] * 1.01, 2)
+                },
+                "profit_zone": {
+                    "low": round(tp1, 2),
+                    "high": round(tp2, 2)
+                },
+                "stop_zone": {
+                    "low": round(c["stop_loss"] * 0.99, 2),
+                    "high": round(c["stop_loss"], 2)
+                },
+                "holding_period": "3-10 Days",
+                "reasoning": f"Atmaca V112 Modeli: {c.get('signal_type','SWING')} sinyali tespit edildi. {c['score']:.1f} güven skoru ile breakout potansiyeli yüksek.",
+                "pattern": c.get("signal_type", "SWING"),
+                "market_regime": MARKET_STATUS.get("regime", "Bull"),
+                "adx": round(c.get("adx", 0), 1),
+                "rsi": round(c.get("rsi_14", 0), 1),
+                "rvol": round(c.get("rvol_5_30", 1.0), 2),
+                "change_1d": round(c.get("ret_1d_pct", 0), 2),
+                "change_1w": round(c.get("ret_5g_pct", 0), 2),
+            }
+
+        # Build all 20 picks list
+        all_picks = [build_pick_entry(i, c) for i, c in enumerate(top_candidates)]
+        top3_picks = all_picks[:3]
+
+        generated_at = datetime.now(ZoneInfo("America/New_York")).isoformat()
+
+        # Determine output directories
+        cwd = os.getcwd()
+        public_dir = os.path.join(cwd, "frontend", "public")
+        os.makedirs(public_dir, exist_ok=True)
+
+        # --- swing_picks.json: Top 3 for homepage ---
+        picks_payload = {
+            "generated_at": generated_at,
+            "picks": top3_picks
+        }
+        public_path = os.path.join(public_dir, "swing_picks.json")
+        with open(public_path, "w", encoding="utf-8") as f:
+            import json as _json
+            _json.dump(picks_payload, f, indent=2, ensure_ascii=False)
+        logging.info(f"✅ swing_picks.json (Top 3) güncellendi: {public_path}")
+
+        # --- swing_all_picks.json: Full Top 20 for daily list page ---
+        all_picks_payload = {
+            "generated_at": generated_at,
+            "date": datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d"),
+            "total": len(all_picks),
+            "picks": all_picks
+        }
+        all_picks_path = os.path.join(public_dir, "swing_all_picks.json")
+        with open(all_picks_path, "w", encoding="utf-8") as f:
+            _json.dump(all_picks_payload, f, indent=2, ensure_ascii=False)
+        logging.info(f"✅ swing_all_picks.json (Top 20) güncellendi: {all_picks_path}")
+
+        # --- Update swing_performance.json ---
+        try:
+            import sys as _sys
+            sys_path_backup = _sys.path[:]
+            _sys.path.insert(0, cwd)
+            from update_swing_performance import sync_performance
+            sync_performance()
+            logging.info("✅ swing_performance.json güncellendi.")
+        except Exception as perf_e:
+            logging.warning(f"swing_performance güncelleme hatası: {perf_e}")
+
+    except Exception as e:
+        logging.error(f"❌ UI senkronizasyon hatası: {str(e)}")
     
 from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta, timezone

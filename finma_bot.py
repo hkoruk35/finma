@@ -427,7 +427,7 @@ def compute_technicals(hist: pd.DataFrame, ticker: str) -> Dict:
 # 3. SCORING ENGINE
 # ============================================================
 
-def score_technical(tech: Dict, fund: Dict) -> float:
+def score_technical(tech: Dict, fund: Dict, price: Dict = None) -> float:
     score = 0.0
     rsi = tech.get("rsi_14") or 50
     # RSI: 70-80 gets reward for strong trend
@@ -467,6 +467,12 @@ def score_technical(tech: Dict, fund: Dict) -> float:
 
     # OBV trend
     if tech.get("obv_trend") == "UP": score += 10
+
+    # KRİTİK TREND FİLTRESİ: Fiyat EMA 200'ün altındaysa (Düşüş Trendi) skoru %70 azalt.
+    # Bu, "düşen bıçak" hisselerin ilk 100'e girmesini engeller.
+    if price and tech.get("ema_200"):
+        if price.get("current", 0) < tech["ema_200"]:
+            score = score * 0.3
 
     return min(score, 100.0)
 
@@ -1026,25 +1032,24 @@ def build_menus(all_stocks_data: List[Dict]) -> Dict:
     momentum  = top_n("momentum_cat_score",  lim["momentum"]["max"],  lim["momentum"]["min"])
     dividend  = top_n("dividend_score",  lim["dividend"]["max"],  lim["dividend"]["min"])
 
-    # Top scores: must appear in 2+ menus AND high confidence
-    all_menu_tickers: Dict[str, int] = {}
-    for lst in [breakout, value, reversal, momentum, dividend]:
-        for t in lst: all_menu_tickers[t] = all_menu_tickers.get(t, 0) + 1
-    
-    # Famous Big 10 (always consider for top signals if score > 65)
-    famous_10 = {"AAPL", "MSFT", "NVDA", "TSLA", "GOOGL", "AMZN", "META", "AVGO", "BRK.B", "LLY"}
-    
+    # Sadece yükseliş trendinde olan ve en yüksek puana sahip tam 100 hisseyi seç.
+    # "2 menüde olma" şartı kaldırıldı, ana kriter "Trend + Master Score".
     ts_candidates = [s for s in all_stocks_data
-                     if (all_menu_tickers.get(s["ticker"], 0) >= 2 or s["ticker"] in famous_10)
-                     and s["scores"]["master_score"] >= 65.0
-                     and s["price"]["current"] >= 5.0]
-    ts_candidates.sort(key=lambda x: x["scores"].get("master_score", 0), reverse=True)
-    top_scores = [s["ticker"] for s in ts_candidates[:lim["top_signals"]["max"]]]
-    if not top_scores:
-        # fallback: top by master score
-        top_scores = [s["ticker"] for s in sorted(
-            all_stocks_data, key=lambda x: x.get("scores", {}).get("master_score", 0), reverse=True
-        )[:10]]
+                     if s["price"]["current"] > (s["_tech"].get("ema_200") or 0)
+                     and s["price"]["current"] >= 5.0
+                     and (s["price"]["avg_volume_30d"] or 0) >= 500000]
+    
+    ts_candidates.sort(key=lambda x: x["scores"]["master_score"], reverse=True)
+    
+    # Her zaman tam 100 hisse al (Eğer aday azsa trend şartını esneterek 100'e tamamla)
+    top_scores = [s["ticker"] for s in ts_candidates[:100]]
+    
+    if len(top_scores) < 100:
+        existing = set(top_scores)
+        remaining = [s["ticker"] for s in sorted(all_stocks_data, 
+                     key=lambda x: x["scores"]["master_score"], reverse=True) 
+                     if s["ticker"] not in existing]
+        top_scores.extend(remaining[:(100 - len(top_scores))])
 
     return {
         "top_scores": {"count": len(top_scores),  "tickers": top_scores},
@@ -1398,7 +1403,8 @@ async def daily_run():
     for raw in all_raw:
         tech = raw["_tech"]
         fund = raw["fundamental"]
-        ts = score_technical(tech, fund)
+        # YENİ EKLENEN: Fiyat bilgisini (raw["price"]) fonksiyona gönderiyoruz
+        ts = score_technical(tech, fund, raw["price"])
         fs = score_fundamental(fund)
         ms = score_momentum(tech)
         ss = score_sentiment(fund)
@@ -1415,6 +1421,7 @@ async def daily_run():
         sec_scores = [v["technical_score"] for t, v in all_scores_first.items()
                       if TICKER_SECTOR_MAP.get(t) == sec]
         sector_avgs[sec] = {"avg_score": round(sum(sec_scores)/len(sec_scores), 1) if sec_scores else 50.0}
+        
 
     # 6. Final score pass with sector score
     all_stocks_data: List[Dict] = []
@@ -1621,6 +1628,13 @@ async def daily_run():
     save_json(os.path.join(date_dir, "sectors.json"), sectors_json)
 
     # 15. all_tickers_list.json
+    # Sadece "top_scores" listesine girmeyi başaran ilk 100 hisseyi al
+    top_100_tickers = menus.get("top_scores", {}).get("tickers", [])
+    top_100_data = [s for s in all_stocks_data if s["ticker"] in top_100_tickers]
+    
+    # Bu 100 hisseyi kendi içinde master_score'a göre yüksekten düşüğe sırala
+    top_100_data.sort(key=lambda x: x["scores"]["master_score"], reverse=True)
+
     tickers_list = {
         "date": date_str,
         "tickers": [
@@ -1641,12 +1655,11 @@ async def daily_run():
                 "avg_volume_30d":  s["price"].get("avg_volume_30d"),
                 "ai_short_summary": (ai_summaries.get(s["ticker"], "").split(".")[0] + ".") if ai_summaries.get(s["ticker"]) else ""
             }
-            for s in sorted(all_stocks_data,
-                            key=lambda x: x["scores"]["master_score"], reverse=True)
+            for s in top_100_data
         ],
     }
     save_json(os.path.join(date_dir, "all_tickers_list.json"), tickers_list)
-
+    
     # 16. Transfer
     transfer_to_latest(date_dir)
     archive_date(date_dir, date_str)

@@ -608,3 +608,16 @@ export async function getSwingPerformance(): Promise<any | null> {
     return await res.json();
   } catch { return null; }
 }
+
+export async function getSwingAllPicks(): Promise<any | null> {
+  if (typeof window === "undefined") {
+    const mod = await import("./data-server");
+    return mod.readPublicJson("swing_all_picks.json");
+  }
+  try {
+    const res = await fetch("/swing_all_picks.json");
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
+

@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""
+run_all_bots.py — BOGA AI Tam Otomasyon
+Manual çalıştırma: python run_all_bots.py
+Zamanlayıcı: Windows Task Scheduler ile 09:00 NY (Pzt-Cuma)
+
+Sıra:
+1. finma_bot.py  → --run-now (günlük 100 hisse puanlaması + transfer)
+2. swing113_boga.py → scan_top_stocks() (swing tarayıcı + JSON export)
+3. update_swing_performance.py → sync_performance()
+"""
+
+import asyncio
+import logging
+import os
+import subprocess
+import sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+NY_TZ = ZoneInfo("America/New_York")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(
+            os.path.join(os.path.dirname(__file__), "logs", "run_all_bots.log"),
+            encoding="utf-8"
+        ),
+    ]
+)
+log = logging.getLogger("run_all_bots")
+
+FINMA_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Python executable in the venv
+VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")
+if not os.path.exists(VENV_PYTHON):
+    VENV_PYTHON = sys.executable
+
+
+def run_bot_subprocess(script_name: str, extra_args: list = None) -> bool:
+    """Run a bot script as a subprocess and return success status."""
+    script_path = os.path.join(FINMA_DIR, script_name)
+    cmd = [VENV_PYTHON, script_path] + (extra_args or [])
+    log.info(f"▶ Çalıştırılıyor: {' '.join(cmd)}")
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=FINMA_DIR,
+            timeout=7200,   # 2 saat max
+            capture_output=False,
+        )
+        if result.returncode == 0:
+            log.info(f"✅ {script_name} başarıyla tamamlandı.")
+            return True
+        else:
+            log.error(f"❌ {script_name} hata kodu {result.returncode} ile çıktı.")
+            return False
+    except subprocess.TimeoutExpired:
+        log.error(f"⏱️ {script_name} zaman aşımına uğradı (2 saat).")
+        return False
+    except Exception as e:
+        log.error(f"❌ {script_name} çalıştırma hatası: {e}")
+        return False
+
+
+def main():
+    now_ny = datetime.now(NY_TZ)
+    log.info("=" * 60)
+    log.info(f"🚀 BOGA AI Tam Otomasyon Başlatıldı — {now_ny.strftime('%Y-%m-%d %H:%M %Z')}")
+    log.info("=" * 60)
+
+    os.makedirs(os.path.join(FINMA_DIR, "logs"), exist_ok=True)
+
+    # ── ADIM 1: finma_bot.py (Günlük 100 Hisse Puanlama + Transfer) ──
+    log.info("ADIM 1: finma_bot.py çalıştırılıyor...")
+    step1_ok = run_bot_subprocess("finma_bot.py", ["--run-now"])
+    if not step1_ok:
+        log.warning("⚠️ finma_bot.py başarısız. Devam ediliyor...")
+
+    # ── ADIM 2: swing113_boga.py (Swing Tarayıcı + JSON + Telegram) ──
+    log.info("ADIM 2: swing113_boga.py (tek tarama) çalıştırılıyor...")
+    step2_ok = run_bot_subprocess("swing113_boga_oneshot.py")
+    if not step2_ok:
+        log.warning("⚠️ swing113_boga (oneshot) başarısız. Devam ediliyor...")
+
+    # ── ADIM 3: swing_performance güncelle ──
+    log.info("ADIM 3: swing_performance.json güncelleniyor...")
+    run_bot_subprocess("update_swing_performance.py")
+
+    log.info("=" * 60)
+    log.info("✅ Tüm botlar tamamlandı.")
+    log.info("=" * 60)
+
+
+if __name__ == "__main__":
+    main()
