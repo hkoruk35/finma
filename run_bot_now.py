@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quick run script to execute FinMA bot immediately without waiting for scheduler.
+Quick run script to execute BOGA AI bot immediately without waiting for scheduler.
 """
 import asyncio
 import sys
@@ -13,4 +13,5 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from finma_bot import daily_run
 
 if __name__ == "__main__":
+    print("🚀 BOGA AI Manual Trigger: Starting daily run...")
     asyncio.run(daily_run())

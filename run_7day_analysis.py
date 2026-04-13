@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-FinMA 7-Day Daily Analysis Runner
+BOGA AI 7-Day Daily Analysis Runner
 run_7day_analysis.py v1.0 | April 2026
 
 Runs finma_bot.py daily for 7 consecutive days at 09:00 AM New York time.
@@ -72,7 +72,7 @@ async def run_finma_bot() -> bool:
     """
     try:
         cmd = [sys.executable, "finma_bot.py", "--run-now"]
-        log.info(f"Starting finma_bot: {' '.join(cmd)}")
+        log.info(f"Starting BOGA AI bot: {' '.join(cmd)}")
 
         result = subprocess.run(
             cmd,
@@ -105,7 +105,7 @@ async def run_7day_cycle(days: int = 7):
     Runs finma_bot.py at 09:00 NY time each day for `days` consecutive days.
     """
     log.info("=" * 70)
-    log.info(f"FinMA 7-Day Analysis Runner Started")
+    log.info(f"BOGA AI 7-Day Analysis Runner Started")
     log.info(f"Running {days} consecutive days at {DAILY_RUN_HOUR:02d}:{DAILY_RUN_MINUTE:02d} NY time")
     log.info("=" * 70)
 
@@ -159,7 +159,7 @@ async def run_7day_cycle(days: int = 7):
 
     # Summary
     log.info("=" * 70)
-    log.info("7-DAY ANALYSIS COMPLETE")
+    log.info("BOGA AI ANALYSIS COMPLETE")
     log.info(f"Days run: {run_count}/{days}")
     log.info(f"Successful runs: {success_count}/{run_count}")
     log.info(f"Market open days: {market_open_count}")
@@ -193,7 +193,7 @@ def main():
                 sys.exit(1)
         elif sys.argv[1] in ["--help", "-h"]:
             print("Usage: python run_7day_analysis.py [--days N]")
-            print("  Runs finma_bot.py daily for N consecutive days (default 7)")
+            print("  Runs BOGA AI bot daily for N consecutive days (default 7)")
             sys.exit(0)
         else:
             log.error(f"Unknown argument: {sys.argv[1]}")

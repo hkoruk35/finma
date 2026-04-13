@@ -1,5 +1,5 @@
 # ============================================================
-# FinMA Daily — Bot Configuration
+# BOGA AI Daily — Bot Configuration
 # config.py v2.0 | April 2026
 # ============================================================
 # This file is the single source of truth for the bot.
@@ -26,7 +26,7 @@ SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY", "")  # Service role key
 ADMIN_PASSWORD       = os.getenv("ADMIN_PASSWORD", "changeme")
 JWT_SECRET           = os.getenv("JWT_SECRET", "changeme-jwt-secret")
 
-CONTACT_EMAIL        = os.getenv("CONTACT_EMAIL", "contact@finmasmart.com")
+CONTACT_EMAIL        = os.getenv("CONTACT_EMAIL", "contact@bogastock.com")
 
 # Telegram — enabled for daily notifications
 ENABLE_TELEGRAM                  = True
