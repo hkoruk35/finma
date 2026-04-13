@@ -2,7 +2,7 @@
   "ticker": "HOLX",
   "company": "Hologic, Inc.",
   "date": "2026-04-13",
-  "generated_at": "2026-04-13T08:00:59.017482-04:00",
+  "generated_at": "2026-04-13T13:27:57.311636-04:00",
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 6082420
   },
   "scores": {
-    "master_score": 57.14,
+    "master_score": 56.89,
     "technical_score": 75.0,
     "fundamental_score": 12.0,
     "momentum_score": 90.0,
     "sentiment_score": 75.0,
-    "sector_score": 23.9,
+    "sector_score": 21.4,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 30.0,
-    "signal_score": 57.14,
+    "signal_score": 56.89,
     "confidence": 0.57,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 75.58,
     "ema_50": 75.28,
-    "ema_200": 71.73,
+    "ema_200": 71.72,
     "ema_stack_bullish": true,
     "bb_upper": 76.02,
     "bb_middle": 75.49,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 31.53942,
-    "sector_pe_median": 24.8152275,
+    "sector_pe_median": 24.7599545,
     "pb_ratio": 3.2325425,
     "de_ratio": 48.051,
     "fcf_yield": 0.05,
@@ -98,9 +98,10 @@
     "stop_loss": 75.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-13T08:00:59.017435-04:00",
+    "generated_at": "2026-04-13T13:27:57.311617-04:00",
     "categories": [
-      "top_scores"
+      "top_scores",
+      "momentum"
     ]
   },
   "breakout": {
@@ -141,11 +142,11 @@
   },
   "sector_context": {
     "sector_etf": "XLV",
-    "sector_performance_5d": 0.7,
+    "sector_performance_5d": 0.25,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 57%. HOLX is currently testing its 52-week high of $76.01, which aligns with the upper Bollinger Band, indicating immediate resistance. A breakout above $76.02 could signal further upside, making the BUY ZONE between $76.05 and $76.50. Profit targets could be set within the $77.00-$77.50 range. A STOP LOSS ZONE should be considered between $75.20 and $75.50, just below the 20 and 50-day EMAs, to protect against a failed breakout.\n\n### Fundamental Edge\nHOLX exhibits solid profitability, evidenced by its robust gross and net margins, suggesting efficient operations and healthy cash flow. While revenue growth is modest, the company's established market position justifies a valuation within its current range. A potential catalyst could be the sustained demand for its diagnostics and surgical solutions, supporting continued earnings.\n\n### Sector Context\nHOLX operates within the healthcare sector, which currently shows mixed performance as investors weigh long-term growth prospects against near-term regulatory uncertainties, creating a neutral backdrop for the trade.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 57%. HOLX is testing its 52-week high ($76.01) and BB Upper ($76.02), acting as immediate resistance. Support lies at the EMA20 ($75.58) and then the BB Lower ($74.97). A trader might look for a breakout above $76.02 to signal further upside, placing a BUY ZONE between $76.05 and $76.50, with a PROFIT ZONE near $78.00 and a STOP LOSS ZONE just below the EMA20 at $75.50, protecting against a failed breakout.\n\n### Fundamental Edge\nHOLX trades at a premium (P/E of 31.54) but maintains a healthy net margin of 13.2% and revenue growth of 2.5%. This suggests continued profitability and expansion, supporting a potential breakout and higher valuations.\n\n### Sector Context\nThe healthcare sector is exhibiting mixed performance, providing neither a tailwind nor a significant headwind for this HOLX setup.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 57,

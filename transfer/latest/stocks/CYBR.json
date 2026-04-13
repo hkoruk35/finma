@@ -2,7 +2,7 @@
   "ticker": "CYBR",
   "company": "CyberArk Software Ltd",
   "date": "2026-04-13",
-  "generated_at": "2026-04-13T08:00:58.497406-04:00",
+  "generated_at": "2026-04-13T13:27:56.954869-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 947088
   },
   "scores": {
-    "master_score": 21.84,
+    "master_score": 22.07,
     "technical_score": 9.9,
     "fundamental_score": 0.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 28.8,
+    "sector_score": 31.1,
     "breakout_score": 40.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 0.0,
-    "signal_score": 21.84,
+    "signal_score": 22.07,
     "confidence": 0.22,
     "signal_type": "UNDERPERFORM"
   },
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 420.74,
     "ema_50": 439.03,
-    "ema_200": 434.77,
+    "ema_200": 433.84,
     "ema_stack_bullish": false,
     "bb_upper": 464.65,
     "bb_middle": 423.92,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": null,
-    "sector_pe_median": 39.4,
+    "sector_pe_median": 39.480736,
     "pb_ratio": 8.6064625,
     "de_ratio": 50.858,
     "fcf_yield": 0.0186,
@@ -98,8 +98,10 @@
     "stop_loss": 385.65,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-13T08:00:58.497368-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T13:27:56.954849-04:00",
+    "categories": [
+      "reversal"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -135,11 +137,11 @@
   },
   "sector_context": {
     "sector_etf": "XLK",
-    "sector_performance_5d": 4.27,
+    "sector_performance_5d": 5.22,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEGATIVE BIAS | Confidence: 22%. CYBR is currently trading below its 20, 50, and 200-day EMAs, signaling bearish momentum. Key resistance is around $420.74 (EMA20) and $439.03 (EMA50). A trader might consider a short position in the BUY ZONE of $415 - $421, targeting a PROFIT ZONE near $385, with a STOP LOSS ZONE above $440 to protect against a failed breakdown.\n\n### Fundamental Edge\n\nDespite solid revenue growth of 18.5% and a strong gross margin of 76.4%, CyberArk's negative net margin suggests some financial instability and prevents a compelling long thesis at this time. The lack of immediate catalysts further reinforces a cautious approach.\n\n### Sector Context\n\nThe technology sector's overall performance is currently mixed, providing no clear tailwind to offset CYBR's specific technical weaknesses.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 22,
