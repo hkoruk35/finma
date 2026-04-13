@@ -106,7 +106,7 @@ PRICE_INCREASE_DAYS = 10
 # --- v112 SWING TRADE ODAKLI AYARLAR ---
 MIN_RR_RATIO = 1.2
 MIN_RR_RATIO_RELAXED = 1.3
-MIN_ATMACA_SCORE = 2
+MIN_ATMACA_SCORE = 8
 
 # RSI LİMİTLERİ (Geniş bant - yükselmeye başlayanları da yakala)
 RSI_MIN_SWING = 38
@@ -116,7 +116,7 @@ ATMACA_MAX_SHORT_FLOAT = 0.25
 
 # 🔹 ALPHA VANTAGE API
 ENABLE_ALPHA_VALIDATION = False
-ALPHA_VALIDATION_THRESHOLD = 6.0
+ALPHA_VALIDATION_THRESHOLD = 24.0
 ALPHA_VANTAGE_API_KEY = "8S8ZRE3EPTKH0EPJ"
 
 
@@ -438,75 +438,75 @@ Final Score =
     details = c.get("details", [])
 
     # ------------------------------------------------
-    # FAKTÖR 1: RVOL Z-Score (0–3.5) [%35 ağırlık]
+    # FAKTÖR 1: RVOL Z-Score (0–14) [%35 ağırlık]
     # Katman 2'den geçen RVOL değeri zaten 1.2+ garantili
     # ------------------------------------------------
     rvol_raw = c.get("rvol_5_30", 1.0)  # apply_atmaca_filters'dan alınacak
     if rvol_raw <= 0:
         rvol_raw = 1.0
-    # Z-score benzeri normalize: (rvol - 1.0) / 0.5, 0-3.5 arasına kapat
-    rvol_zscore = min(max((rvol_raw - 1.0) / 0.5, 0.0), 3.5)
+    # Z-score benzeri normalize: (rvol - 1.0) / 0.5, 0-14 arasına kapat
+    rvol_zscore = min(max((rvol_raw - 1.0) / 0.5 * 4, 0.0), 14.0)
 
     # ------------------------------------------------
-    # FAKTÖR 2: Trend Gücü (0–3) [%25 ağırlık]
+    # FAKTÖR 2: Trend Gücü (0–12) [%25 ağırlık]
     # ------------------------------------------------
     trend_score = 0.0
     if d1.get("EMA20 Eğimi") == "Pozitif":
-        trend_score += 1.0
+        trend_score += 4.0
     adx_val = float(d1.get("ADX", 0) or 0)
     if adx_val >= 30:
-        trend_score += 2.0
+        trend_score += 8.0
     elif adx_val >= 25:
-        trend_score += 1.5
+        trend_score += 6.0
     elif adx_val >= 18:
-        trend_score += 1.0
+        trend_score += 4.0
     # Trend yapısı bonusu
     trend_durumu = str(d1.get("Trend Durumu", ""))
     if "Makro" in trend_durumu:
-        trend_score = min(trend_score + 1.0, 3.0)
+        trend_score = min(trend_score + 4.0, 12.0)
     elif "Yükseliş" in trend_durumu:
-        trend_score = min(trend_score + 0.5, 3.0)
+        trend_score = min(trend_score + 2.0, 12.0)
 
     # ------------------------------------------------
-    # FAKTÖR 3: 5 Günlük Getiri İvmesi (0–3) [%15 ağırlık]
+    # FAKTÖR 3: 5 Günlük Getiri İvmesi (0–12) [%15 ağırlık]
     # ------------------------------------------------
     ret_5g = c.get("ret_5g_pct", 0.0)  # apply_atmaca_filters'dan alınacak
     if ret_5g >= 8.0:
-        ret_accel = 3.0
+        ret_accel = 12.0
     elif ret_5g >= 5.0:
-        ret_accel = 2.0
+        ret_accel = 8.0
     elif ret_5g >= 3.0:
-        ret_accel = 1.5
+        ret_accel = 6.0
     elif ret_5g >= 1.5:
-        ret_accel = 1.0
+        ret_accel = 4.0
     elif ret_5g > 0:
-        ret_accel = 0.5
+        ret_accel = 2.0
     else:
         ret_accel = 0.0
 
     # ------------------------------------------------
-    # FAKTÖR 4: ADX Normalize (0–3) [%10 ağırlık]
+    # FAKTÖR 4: ADX Normalize (0–12) [%10 ağırlık]
     # ------------------------------------------------
-    adx_norm = min(adx_val / 40.0 * 3.0, 3.0)
+    adx_norm = min(adx_val / 40.0 * 12.0, 12.0)
 
     # ------------------------------------------------
-    # FAKTÖR 5: Dollar Volume Normalize (0–3) [%10 ağırlık]
-    # 5M = 1.0, 20M = 2.0, 50M+ = 3.0
+    # FAKTÖR 5: Dollar Volume Normalize (0–12) [%10 ağırlık]
+    # 5M = 4.0, 20M = 8.0, 50M+ = 12.0
     # ------------------------------------------------
     dollar_vol = c.get("dollar_volume", 0.0) or 0.0
     if dollar_vol >= 50_000_000:
-        dv_norm = 3.0
+        dv_norm = 12.0
     elif dollar_vol >= 20_000_000:
-        dv_norm = 2.0
+        dv_norm = 8.0
     elif dollar_vol >= 10_000_000:
-        dv_norm = 1.5
+        dv_norm = 6.0
     elif dollar_vol >= 5_000_000:
-        dv_norm = 1.0
+        dv_norm = 4.0
     else:
-        dv_norm = 0.5
+        dv_norm = 2.0
 
     # ------------------------------------------------
-    # FAKTÖR 6: Volatility Expansion (0–3) [%5 ağırlık]
+    # FAKTÖR 6: Volatility Expansion (0–12) [%5 ağırlık]
     # ATR% genişlemesi: ideal swing bölgesi 4-8%
     # ------------------------------------------------
     atr_str = str(d1.get("ATR%", "3%")).replace("%", "")
@@ -515,13 +515,13 @@ Final Score =
     except:
         atr_pct = 3.0
     if 4.0 <= atr_pct <= 8.0:
-        vol_expand = 3.0
+        vol_expand = 12.0
     elif 3.0 <= atr_pct < 4.0 or 8.0 < atr_pct <= 10.0:
-        vol_expand = 2.0
+        vol_expand = 8.0
     elif 2.5 <= atr_pct < 3.0 or 10.0 < atr_pct <= 12.0:
-        vol_expand = 1.0
+        vol_expand = 4.0
     else:
-        vol_expand = 0.5
+        vol_expand = 2.0
 
 # ------------------------------------------------
     # 🎯 KATMAN 3 FİNAL COMPOSITE FORMÜL VE HARMANLAMA
@@ -537,7 +537,7 @@ Final Score =
 
     # KRİTİK DÜZELTME: apply_atmaca_filters'dan gelen devasa analizi (base_score)
     # Katman 3 Momentum Skoru ile birleştiriyoruz. 
-    # Katman 3 skoru (~0-3 arası) burada 2.5 çarpanı ile ana skoru besleyecek.
+    # Katman 3 skoru (~0-12 arası) burada 2.5 çarpanı ile ana skoru besleyecek.
     final_score = base_score + (layer3_composite * 2.5)
 
     # Exhausted hisselere ceza (Cezayı tüm toplam skora uyguluyoruz)
@@ -600,7 +600,7 @@ ENABLE_TELEGRAM_NOTIFICATIONS = True
 # 🔹 ALPHA VANTAGE API (Cross-Validation)
 # Not: Üstte zaten tanımlı, burada override edilebilir
 ENABLE_ALPHA_VALIDATION = False
-ALPHA_VALIDATION_THRESHOLD = 6.0
+ALPHA_VALIDATION_THRESHOLD = 24.0
 
 # 🔹 Basit info cache (Değişmedi)
 stock_info_cache: dict[str, dict] = {}
@@ -908,25 +908,25 @@ def detect_insider_activity(ticker: str, info: dict) -> dict:
         
         # Net alıcı mı?
         if buy_count > sell_count:
-            score += 1.0
+            score += 4.0
             details.append(f"🏦 Insider Net Alıcı ({buy_count} alım / {sell_count} satım)")
         
         # Executive (C-Suite) alımı çok güçlü sinyal
         if executive_buys >= 2:
-            score += 1.5
+            score += 6.0
             details.append(f"👔 C-Suite Güçlü Alım ({executive_buys} yönetici)")
         elif executive_buys >= 1:
-            score += 0.8
+            score += 3.2
             details.append(f"👔 C-Suite Alım Sinyali")
         
         # Cluster Buying (Birden fazla insider aynı anda alıyorsa)
         if buy_count >= 3:
-            score += 0.8
+            score += 3.2
             details.append(f"🎯 Insider Cluster Buying ({buy_count} kişi)")
         
         return {
             'has_insider': score > 0,
-            'score': min(score, 3.0),
+            'score': min(score, 12.0),
             'details': details,
             'buy_count': buy_count,
             'sell_count': sell_count,
@@ -971,13 +971,13 @@ def analyze_smart_money_flow(df_1d: pd.DataFrame, ticker: str, info: dict) -> di
         cmf_val = float(cmf_20.iloc[-1]) if not pd.isna(cmf_20.iloc[-1]) else 0.0
         
         if cmf_val > 0.15:
-            score += 1.5
+            score += 6.0
             details.append(f"💰 Smart Money: Güçlü Kurumsal Akümülasyon (CMF: {cmf_val:.2f})")
         elif cmf_val > 0.05:
-            score += 0.8
+            score += 3.2
             details.append(f"📈 Smart Money: Pozitif Para Akışı (CMF: {cmf_val:.2f})")
         elif cmf_val < -0.10:
-            score -= 0.8
+            score -= 3.2
             details.append(f"⚠️ Smart Money: Kurumsal Dağıtım (CMF: {cmf_val:.2f})")
         
         # 2) MONEY FLOW INDEX (MFI) — RSI'nin hacim ağırlıklı versiyonu
@@ -996,22 +996,22 @@ def analyze_smart_money_flow(df_1d: pd.DataFrame, ticker: str, info: dict) -> di
         mfi_val = float(mfi.iloc[-1]) if not pd.isna(mfi.iloc[-1]) else 50.0
         
         if 40 <= mfi_val <= 60:
-            score += 0.5
+            score += 2.0
             details.append(f"📊 MFI: Nötr Bölge ({mfi_val:.0f})")
         elif mfi_val > 60:
-            score += 1.0
+            score += 4.0
             details.append(f"💪 MFI: Güçlü Para Girişi ({mfi_val:.0f})")
         elif mfi_val < 30:
-            score += 0.3  # Oversold MFI dönüş sinyali olabilir
+            score += 1.2  # Oversold MFI dönüş sinyali olabilir
             details.append(f"🔄 MFI: Aşırı Satım Dönüş Potansiyeli ({mfi_val:.0f})")
         
         # 3) KURUMSAL SAHİPLİK DEĞİŞİMİ
         inst_pct = info.get('heldPercentInstitutions', 0) or 0
         if inst_pct > 0.80:
-            score += 1.0
+            score += 4.0
             details.append(f"🏛️ Kurumsal Sahiplik: %{inst_pct*100:.0f} (Çok Yüksek)")
         elif inst_pct > 0.60:
-            score += 0.5
+            score += 2.0
             details.append(f"🏦 Kurumsal Sahiplik: %{inst_pct*100:.0f}")
         
         # 4) ON-UP VOLUME vs ON-DOWN VOLUME (Son 10 gün)
@@ -1025,13 +1025,13 @@ def analyze_smart_money_flow(df_1d: pd.DataFrame, ticker: str, info: dict) -> di
         vol_ratio = up_vol / down_vol if down_vol > 0 else 2.0
         
         if vol_ratio > 2.0:
-            score += 1.2
+            score += 4.8
             details.append(f"🐋 Hacim Asimetri: Alıcı Baskın ({vol_ratio:.1f}x)")
         elif vol_ratio > 1.3:
-            score += 0.5
+            score += 2.0
             details.append(f"📊 Hacim Asimetri: Hafif Alıcı ({vol_ratio:.1f}x)")
         elif vol_ratio < 0.5:
-            score -= 0.6
+            score -= 2.4
             details.append(f"⚠️ Hacim Asimetri: Satıcı Baskın ({vol_ratio:.1f}x)")
 
         # 5) EFFORT VS RESULT (VSA - Kurumsal Gizli Toplama)
@@ -1051,13 +1051,13 @@ def analyze_smart_money_flow(df_1d: pd.DataFrame, ticker: str, info: dict) -> di
             
             # Kurumsal Toplama Kriteri: Hacim %50+ artmış, fiyat aralığı %3'ten dar, kapanış tepede (%70 üstü)
             if rel_vol > 1.5 and spread_pct < 0.03 and close_pos > 0.7:
-                score += 1.5
+                score += 6.0
                 details.append(f"🐋 Smart Money: Gizli Akümülasyon (VSA Onayı)")
                 break  # Son 3 günde 1 kez olması geçerli sayılması için yeterlidir
 
         return {
             'has_smart_flow': score > 0,
-            'score': min(score, 5.0), # VSA eklendiği için maksimum tavan 4'ten 5'e çıkarıldı
+            'score': min(score, 20.0), # VSA eklendiği için maksimum tavan 4'ten 5'e çıkarıldı
             'details': details,
             'cmf': round(cmf_val, 3),
             'mfi': round(mfi_val, 1),
@@ -1104,18 +1104,18 @@ async def analyze_options_sentiment(ticker: str) -> dict:
         
         # PCR 0.7 altındaysa Calls (Alım) tarafında büyük yığılma var demektir.
         if pcr < 0.5:
-            score += 2.0
+            score += 8.0
             details.append(f"🔮 Opsiyon Sinyali: Aşırı Call Yığılması (PCR: {pcr:.2f})")
         elif pcr < 0.7:
-            score += 1.0
+            score += 4.0
             details.append(f"📈 Opsiyon Sinyali: Pozitif Beklenti (PCR: {pcr:.2f})")
         elif pcr > 1.2:
-            score -= 1.0
+            score -= 4.0
             details.append(f"⚠️ Opsiyon Sinyali: Put Baskısı (PCR: {pcr:.2f})")
             
         return {
             'bullish': score > 0,
-            'score': min(score, 3.0),
+            'score': min(score, 12.0),
             'details': details,
             'pcr': round(pcr, 2)
         }
@@ -1139,29 +1139,29 @@ def analyze_financial_health(ticker: str, info: dict) -> dict:
         # 1) GELİR BÜYÜME MODELİ (Üst satır büyümesi)
         rev_growth = info.get('revenueGrowth', 0) or 0
         if rev_growth > 0.20:
-            score += 1.5
+            score += 6.0
             details.append(f"🚀 Gelir Büyümesi: %{rev_growth*100:.0f} (Hypergrowth)")
         elif rev_growth > 0.10:
-            score += 1.0
+            score += 4.0
             details.append(f"📈 Gelir Büyümesi: %{rev_growth*100:.0f} (Güçlü)")
         elif rev_growth > 0.05:
-            score += 0.5
+            score += 2.0
             details.append(f"📊 Gelir Büyümesi: %{rev_growth*100:.0f} (Stabil)")
         elif rev_growth < -0.05:
-            score -= 0.8
+            score -= 3.2
             details.append(f"⚠️ Gelir Daralması: %{rev_growth*100:.0f}")
         
         # 2) KÂRLILIK (EPS büyümesi + marj)
         earnings_growth = info.get('earningsGrowth', 0) or 0
         if earnings_growth > 0.25:
-            score += 1.0
+            score += 4.0
             details.append(f"💰 EPS Büyüme: %{earnings_growth*100:.0f}")
         elif earnings_growth > 0.10:
-            score += 0.5
+            score += 2.0
         
         profit_margin = info.get('profitMargins', 0) or 0
         if profit_margin > 0.20:
-            score += 0.5
+            score += 2.0
             details.append(f"💎 Kâr Marjı: %{profit_margin*100:.0f}")
         
         # 3) NAKİT AKIŞI (Free Cash Flow) — Gerçek kâr göstergesi
@@ -1170,31 +1170,31 @@ def analyze_financial_health(ticker: str, info: dict) -> dict:
         fcf_yield = fcf / mcap if mcap > 0 else 0
         
         if fcf > 0 and fcf_yield > 0.05:
-            score += 1.0
+            score += 4.0
             details.append(f"💵 Pozitif FCF Yield: %{fcf_yield*100:.1f}")
         elif fcf > 0:
-            score += 0.3
+            score += 1.2
             details.append("✅ Pozitif FCF")
         elif fcf < 0:
-            score -= 0.5
+            score -= 2.0
             details.append("⚠️ Negatif FCF")
         
         # 4) BİLANÇO SAĞLIĞI (Borç/Özkaynak)
         debt_equity = info.get('debtToEquity', 0) or 0
         if 0 < debt_equity < 50:
-            score += 0.5
+            score += 2.0
             details.append(f"🏦 Güçlü Bilanço (D/E: {debt_equity:.0f}%)")
         elif debt_equity > 200:
-            score -= 0.5
+            score -= 2.0
             details.append(f"⚠️ Yüksek Borç (D/E: {debt_equity:.0f}%)")
         
         # 5) ROE (Return on Equity) — Yönetim kalitesi
         roe = info.get('returnOnEquity', 0) or 0
         if roe > 0.20:
-            score += 0.8
+            score += 3.2
             details.append(f"👑 ROE: %{roe*100:.0f} (Üst Düzey)")
         elif roe > 0.10:
-            score += 0.3
+            score += 1.2
             details.append(f"✅ ROE: %{roe*100:.0f}")
         
         # 6) DEĞERLEME (P/E Forward vs Trailing)
@@ -1202,7 +1202,7 @@ def analyze_financial_health(ticker: str, info: dict) -> dict:
         pe_forward = info.get('forwardPE', 0) or 0
         
         if pe_forward > 0 and pe_trailing > 0 and pe_forward < pe_trailing * 0.85:
-            score += 0.5
+            score += 2.0
             details.append(f"📉 Forward P/E düşüyor ({pe_forward:.0f} vs {pe_trailing:.0f})")
         
         # 7) ANALIST KONSENSÜSi
@@ -1211,17 +1211,17 @@ def analyze_financial_health(ticker: str, info: dict) -> dict:
         current_price = info.get('currentPrice', 0) or info.get('regularMarketPrice', 0) or 0
         
         if rec in ['strong_buy', 'buy']:
-            score += 0.5
+            score += 2.0
             details.append(f"📈 Analist: {rec.replace('_', ' ').title()}")
         
         if target_price > 0 and current_price > 0:
             upside = ((target_price - current_price) / current_price) * 100
             if upside > 20:
-                score += 0.5
+                score += 2.0
                 details.append(f"🎯 Hedef Fiyat Upside: %{upside:.0f}")
         
         return {
-            'health_score': min(score, 5.0),
+            'health_score': min(score, 20.0),
             'details': details,
             'rev_growth': rev_growth,
             'fcf_yield': round(fcf_yield * 100, 1) if fcf_yield else 0,
@@ -1262,7 +1262,7 @@ def detect_rising_stock(df_1d: pd.DataFrame) -> dict:
         
         # 1) PULLBACK DÖNÜŞ: 20 günde pozitif, son 5 günde güçlü
         if pct_20d > 0 and pct_5d > 0.02:
-            score += 1.5
+            score += 6.0
             pattern = "Pullback Dönüş"
             details.append(f"🔄 Pullback Dönüş (5G: +%{pct_5d*100:.1f})")
         
@@ -1271,7 +1271,7 @@ def detect_rising_stock(df_1d: pd.DataFrame) -> dict:
         pct_2d = (close.iloc[-1] - close.iloc[-2]) / close.iloc[-2] if close.iloc[-2] > 0 else 0
         
         if range_10d < 0.06 and pct_2d > 0.015:
-            score += 1.8
+            score += 7.2
             pattern = "Baz Kırılımı"
             details.append(f"💥 Baz Kırılımı (Dar Bant → Çıkış)")
         
@@ -1282,7 +1282,7 @@ def detect_rising_stock(df_1d: pd.DataFrame) -> dict:
             chg3 = (close.iloc[-3] - close.iloc[-4]) / close.iloc[-4]
             
             if chg1 > chg2 > chg3 > 0:
-                score += 1.2
+                score += 4.8
                 pattern = "İvme Kazanıyor"
                 details.append("🚀 Artan Momentum (Her gün daha güçlü)")
         
@@ -1907,7 +1907,7 @@ def check_silent_catalysts(ticker: str, info: dict) -> dict:
         catalysts.append(f"💎 PEG: {peg:.1f} (Ucuz Büyüme)")
         score += 0.5
 
-    return {'has_catalyst': len(catalysts) > 0, 'score': min(score, 3.5), 'reasons': catalysts}
+    return {'has_catalyst': len(catalysts) > 0, 'score': min(score, 14.0), 'reasons': catalysts}
 
 # 3. GELİŞMİŞ SEKTÖR ANALİZİ
 async def analyze_sector_momentum_advanced():
@@ -2229,7 +2229,7 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
 
         # ✅ Likidite/Yapısal Koşullar Tamam
         details.append("✅ EVREN: Likidite/Yapısal Koşullar Tamam")
-        score += 1.0
+        score += 4.0
 
         # ========================================
         # SEKTÖR ROTASYON ANALİZİ
@@ -2237,16 +2237,16 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
         sec_perf = globals().get("SECTOR_PERFORMANCE", {}).get(sector_name, 0.0)
 
         if sec_perf > 2.0:
-            score += 1.5
+            score += 6.0
             details.append(f"🔥 Sektör: {sector_name} HOT (Son 5G: +{sec_perf:.1f}%)")
         elif sec_perf > 0:
-            score += 0.3
+            score += 1.2
             details.append(f"📊 Sektör: {sector_name} Pozitif (+{sec_perf:.1f}%)")
         elif sec_perf < -2.0:
-            score -= 0.8
+            score -= 3.2
             details.append(f"🥶 Sektör: {sector_name} SOĞUK ({sec_perf:.1f}%)")
         else:
-            score -= 0.2
+            score -= 0.8
             details.append(f"➖ Sektör: {sector_name} Nötr ({sec_perf:.1f}%)")
 
         # ========================================
@@ -2269,19 +2269,19 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
                     rs_slope = 0.0
 
                 if rs_slope > 0.0005:
-                    score += 1.2
+                    score += 4.8
                     rs_label = "Güçlü Outperform"
                     details.append(f"💪 RS: {INDEX_BENCHMARK} üstünde (Güçlü)")
                 elif rs_slope > 0:
-                    score += 0.5
+                    score += 2.0
                     rs_label = "Hafif Outperform"
                     details.append(f"📈 RS: {INDEX_BENCHMARK} üstünde (Hafif)")
                 elif rs_slope > -0.0005:
-                    score -= 0.3
+                    score -= 1.2
                     rs_label = "Nötr"
                     details.append(f"➖ RS: {INDEX_BENCHMARK} ile paralel")
                 else:
-                    score -= 0.8
+                    score -= 3.2
                     rs_label = "Underperform"
                     details.append(f"⚠️ RS: {INDEX_BENCHMARK} altında (Zayıf)")
 
@@ -2300,7 +2300,7 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
 
         # 🏆 MAKRO TREND (En Güçlü)
         if current_price > last_ema50 and last_ema50 > last_ema200:
-            score += 3.5
+            score += 14.0
             details.append("🏆 1D TREND: Makro Bullish (P > EMA50 > EMA200)")
             trend_durumu_1d = "Makro Bullish"
             
@@ -2308,32 +2308,32 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             try:
                 ema_spread = (last_ema50 - last_ema200) / last_ema200 if last_ema200 > 0 else 0.0
                 if ema_spread > 0.03:
-                    score += 0.4
+                    score += 1.6
                     details.append("🔥 EMA50-200 Spread Geniş (Sağlam Trend)")
             except:
                 pass
 
         # 📈 YÜKSELİŞ SIRASI (İyi)
         elif current_price > last_ema20 and last_ema20 > last_ema50 and last_ema50 > last_ema200:
-            score += 2.2
+            score += 8.8
             details.append("📈 1D TREND: Yükseliş Sırası (EMA20>50>200)")
             trend_durumu_1d = "Yükseliş"
 
         # 🟢 EMA200 ÜSTÜ (Kabul Edilebilir)
         elif current_price > last_ema200:
-            score += 0.8
+            score += 3.2
             details.append("🟢 1D TREND: EMA200 Üstü (Uzun Vadeli Pozitif)")
             trend_durumu_1d = "EMA200 Üstü"
 
         # 🟡 EMA50 ÜSTÜ (Marjinal)
         elif current_price > last_ema50:
-            score += 0.3
+            score += 1.2
             details.append("🟡 1D TREND: EMA50 Üstü (Marjinal Pozitif)")
             trend_durumu_1d = "EMA50 Üstü"
 
         # 🔴 DOWNTREND (Ceza)
         else:
-            score -= 1.5
+            score -= 6.0
             details.append("🔴 1D TREND: Downtrend (Tüm EMA'lar altında)")
             trend_durumu_1d = "Downtrend"
 
@@ -2343,10 +2343,10 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
         cond_ema20_slope_positive = calculate_ema_slope(ema20_1d, periods=10)
         
         if cond_ema20_slope_positive:
-            score += 1.0
+            score += 4.0
             details.append("📈 EMA20: Pozitif eğim (Trend yukarı)")
         else:
-            score -= 0.4
+            score -= 1.6
             details.append("📉 EMA20: Negatif/Yatay eğim")
 
         # ========================================
@@ -2360,29 +2360,29 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             adx_1d = 0.0
 
         if adx_1d >= 30:
-            score += 1.5
+            score += 6.0
             details.append(f"🔥 ADX: Çok Güçlü Trend ({adx_1d:.1f})")
         elif adx_1d >= 25:
-            score += 1.0
+            score += 4.0
             details.append(f"💪 ADX: Güçlü Trend ({adx_1d:.1f})")
         elif adx_1d >= 20:
-            score += 0.5
+            score += 2.0
             details.append(f"📊 ADX: Orta Güç ({adx_1d:.1f})")
         elif adx_1d >= 15:
-            score += 0.1
+            score += 0.4
             details.append(f"🟡 ADX: Zayıf Trend ({adx_1d:.1f})")
         else:
-            score -= 0.5
+            score -= 2.0
             details.append(f"⚠️ ADX: Çok Zayıf ({adx_1d:.1f})")
 
         # ADX Momentum (Eğim)
         try:
             adx_slope = adx_series_1d.diff().tail(5).mean()
             if adx_slope > 0.5:
-                score += 0.4
+                score += 1.6
                 details.append("🚀 ADX Momentum: Hızlanıyor")
             elif adx_slope < -0.5:
-                score -= 0.3
+                score -= 1.2
                 details.append("🐌 ADX Momentum: Yavaşlıyor")
         except:
             pass
@@ -2472,12 +2472,12 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             return None
 
         # Katman 2 geçti — bonus puan ekle
-        score += 1.5
+        score += 6.0
         details.append(f"✅ KATMAN 2: Akış & Momentum Onaylı (Micro-RVOL:{rvol_micro:.2f}x | Yeşil:{green_candles}/10 | CMF:{cmf_val:.3f})")
         
         # 2 günlük ani patlamalarda agresif hacim sınırı 1.60 olarak güncellendi
         if rvol_micro >= 1.60:
-            score += 0.5
+            score += 2.0
             details.append(f"🔥 Micro-RVOL(2g/20g) Agresif: {rvol_micro:.2f}x")
 
         # ========================================
@@ -2512,19 +2512,19 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
 
         # Volatilite Rejim Puanlama
         if atr_pct_1d < 0.020 and bb_width_1d < 0.045:
-            score += 0.8
+            score += 3.2
             details.append("🟦 VOL Rejim: LOW-VOL Sıkışma (Breakout Adayı)")
         elif 0.020 <= atr_pct_1d < 0.040:
-            score += 1.0
+            score += 4.0
             details.append("🟩 VOL Rejim: Erken Swing / Normal")
         elif 0.040 <= atr_pct_1d <= 0.080:
-            score += 1.5
+            score += 6.0
             details.append("⚡ VOL Rejim: Swing İdeal Bölgesi")
         elif 0.080 < atr_pct_1d <= 0.10:
-            score += 0.3
+            score += 1.2
             details.append("🟨 VOL Rejim: Yüksek (Dikkatli)")
         else:
-            score -= 0.5
+            score -= 2.0
             details.append("🟥 VOL Rejim: Extreme (News/Fake Riski)")
 
         # ========================================
@@ -2537,22 +2537,22 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             rsi_1d_val = 50.0
 
         if 40 <= rsi_1d_val <= 55:
-            score += 1.5
+            score += 6.0
             details.append(f"🌀 RSI: Momentum Başlangıcı ({rsi_1d_val:.1f})")
         elif 55 < rsi_1d_val <= 70:
-            score += 0.8
+            score += 3.2
             details.append(f"📈 RSI: Momentum Devamı ({rsi_1d_val:.1f})")
         elif 70 < rsi_1d_val <= 82:
-            score += 0.3
+            score += 1.2
             details.append(f"⚠️ RSI: Aşırıya Yakın ({rsi_1d_val:.1f})")
         elif rsi_1d_val < 35:
-            score -= 0.8
+            score -= 3.2
             details.append(f"❄️ RSI: Zayıf Momentum ({rsi_1d_val:.1f})")
         elif rsi_1d_val > 82:
-            score -= 0.5
+            score -= 2.0
             details.append(f"🔴 RSI: Aşırı Alım ({rsi_1d_val:.1f})")
         else:
-            score += 0.1
+            score += 0.4
             details.append(f"➖ RSI: Nötr ({rsi_1d_val:.1f})")
 
         # RSI Divergence (Negatif Sinyal)
@@ -2561,7 +2561,7 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
                 p_chg = close_1d.iloc[-1] > close_1d.iloc[-5]
                 r_chg = rsi_1d_series.iloc[-1] < rsi_1d_series.iloc[-5]
                 if p_chg and r_chg:
-                    score -= 1.0
+                    score -= 4.0
                     details.append("⚠️ RSI Divergence: Negatif (Fiyat↑ RSI↓)")
         except:
             pass
@@ -2591,12 +2591,12 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
                     reasons.append(f"3G ROC: +%{roc_3d:.1f}")
                 if exhaustion_by_rsi:
                     reasons.append(f"RSI: {rsi_1d_val:.1f}")
-                score -= 2.0  # Puan düşürme (listeye girse de alt sıralara)
+                score -= 8.0  # Puan düşürme (listeye girse de alt sıralara)
                 details.append(f"🔴 EXHAUSTED (Yorgun Hisse): {', '.join(reasons)} → TP Daraltılacak")
                 logging.info(f"⚠️ {ticker}: Exhausted ({', '.join(reasons)})")
             elif 45 <= rsi_1d_val <= 55:
                 # Erken Uyanış Bonusu: En tatlı giriş bölgesi
-                score += 1.0
+                score += 4.0
                 details.append(f"🌅 Erken Uyanış: RSI {rsi_1d_val:.1f} (Optimal Giriş Bölgesi)")
 
         except Exception:
@@ -2668,16 +2668,16 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
 
             # 1H ADX Puanlama
             if adx_1h >= 30:
-                score += 2.5
+                score += 10.0
                 details.append(f"🔥 1H ADX: Çok Güçlü ({adx_1h:.1f})")
             elif adx_1h >= 20:
-                score += 1.5
+                score += 6.0
                 details.append(f"💪 1H ADX: Güçlü Momentum ({adx_1h:.1f})")
             elif adx_1h >= 14:
-                score += 0.6
+                score += 2.4
                 details.append(f"🟡 1H ADX: Erken Kırılım ({adx_1h:.1f})")
             else:
-                score -= 0.8
+                score -= 3.2
                 details.append(f"⚠️ 1H ADX: Zayıf ({adx_1h:.1f})")
 
             # 1H EMA Yapı ve Lastik Bant (Rubber Band) Kontrolü
@@ -2689,47 +2689,47 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             ema20_distance = (close_now_1h - ema20_now_1h) / ema20_now_1h if ema20_now_1h > 0 else 0.0
 
             if ema20_distance > 0.05:
-                score -= 2.0
+                score -= 8.0
                 details.append(f"🔴 1H YAPI: EMA20'den Çok Uzaklaştı (+%{ema20_distance*100:.1f} FOMO Riski)")
             elif close_now_1h > ema50_now_1h:
-                score += 1.2
+                score += 4.8
                 details.append("🏗️ 1H Yapı: EMA50 Üstü (Güçlü)")
             elif close_now_1h > ema20_now_1h:
-                score += 0.5
+                score += 2.0
                 details.append("🟡 1H Yapı: EMA20 Üstü (Erken)")
             else:
-                score -= 0.6
+                score -= 2.4
                 details.append("⚠️ 1H Yapı: EMA Altı (Zayıf)")
                 
             # 1H EMA Slope
             cond_ema20_slope_1h = calculate_ema_slope(ema20_1h, periods=5)
             if cond_ema20_slope_1h:
-                score += 0.5
+                score += 2.0
                 details.append("📈 1H EMA20: Pozitif Eğim")
 
             # 1H RSI (Geliştirilmiş FOMO & Aşırı Alım Koruması)
             if 45 <= rsi_1h <= 72:
-                score += 0.6
+                score += 2.4
                 details.append(f"🌀 1H RSI: Optimal Momentum ({rsi_1h:.1f})")
             elif 72 < rsi_1h <= 82:
-                score -= 1.0
+                score -= 4.0
                 details.append(f"⚠️ 1H RSI: Aşırı Alım / Düzeltme Riski ({rsi_1h:.1f})")
             elif rsi_1h > 82:
-                score -= 2.5
+                score -= 10.0
                 details.append(f"🔴 1H RSI: FOMO Zirvesi / Tavan Yapmış ({rsi_1h:.1f})")
             elif rsi_1h < 35:
-                score -= 0.5
+                score -= 2.0
                 details.append(f"❄️ 1H RSI: Zayıf Momentum ({rsi_1h:.1f})")
 
             # 1H RVOL Puanlama (Agresiften alınan)
             if rvol_1h >= 2.5:
-                score += 1.8
+                score += 7.2
                 details.append(f"🐳 1H RVOL: Para Girişi ({rvol_1h:.1f}x)")
             elif rvol_1h >= 1.5:
-                score += 0.8
+                score += 3.2
                 details.append(f"📊 1H RVOL: Yüksek ({rvol_1h:.1f}x)")
             elif rvol_1h < 0.7:
-                score -= 0.4
+                score -= 1.6
                 details.append(f"❄️ 1H RVOL: Hacimsiz ({rvol_1h:.1f}x)")
 
             # Pivot Higher-Low (1H)
@@ -2740,11 +2740,11 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
                     pivots.append(lows.iloc[i])
             
             if len(pivots) >= 2 and pivots[-1] > pivots[-2]:
-                score += 0.6
+                score += 2.4
                 details.append("🔰 1H Yapı: Pivot Higher-Low")
 
             if ATR_MIN_PCT_1H <= atr_pct_1h <= ATR_MAX_PCT_1H:
-                score += 0.5
+                score += 2.0
 
             h1_summary = {
                 "Durum": "Analiz Edildi",
@@ -2805,16 +2805,16 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             obv_slope = 0.0
 
         if obv_slope > 1000:
-            score += 1.5
+            score += 6.0
             details.append("✅ OBV: Güçlü Akümülasyon")
         elif obv_slope > 0:
-            score += 0.6
+            score += 2.4
             details.append("📈 OBV: Pozitif Trend")
         elif obv_slope < -1000:
-            score -= 0.8
+            score -= 3.2
             details.append("⚠️ OBV: Dağıtım Riski")
         else:
-            score -= 0.2
+            score -= 0.8
             details.append("➖ OBV: Nötr/Zayıf")
 
         # ========================================
@@ -2855,19 +2855,19 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
 
         # RVOL Rejim Puanlama
         if 1.2 <= rvol_today <= 1.8 and abs(close_change_pct) < 0.006:
-            score += 1.6
+            score += 6.4
             details.append(f"🐋 RVOL Rejim: Sessiz Birikim ({rvol_today:.2f}x)")
         elif rvol_today > 2.0 and close_change_pct > 0.008:
-            score += 2.0
+            score += 8.0
             details.append(f"🚀 RVOL Rejim: Swing Uyanışı ({rvol_today:.2f}x)")
         elif rvol_today > 1.5:
-            score += 0.8
+            score += 3.2
             details.append(f"📊 RVOL Rejim: Aktif ({rvol_today:.2f}x)")
         elif rvol_today < 0.6 and rvol_5d_avg < 0.7:
-            score -= 0.8
+            score -= 3.2
             details.append(f"🐢 RVOL Rejim: Kronik Hacimsiz ({rvol_today:.2f}x)")
         else:
-            score += 0.2
+            score += 0.8
             details.append(f"➖ RVOL Rejim: Normal ({rvol_today:.2f}x)")
 
         # ========================================
@@ -2882,16 +2882,16 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
         vol_5d = vol_avg5
 
         if vol_increase_ratio > 1.4:
-            score += 1.8
+            score += 7.2
             details.append(f"🔥 Hacim Trendi: Sürekli Artış ({vol_increase_ratio:.2f}x)")
         elif vol_increase_ratio > 1.1:
-            score += 1.0
+            score += 4.0
             details.append(f"📈 Hacim Trendi: Erken Artış ({vol_increase_ratio:.2f}x)")
         elif vol_increase_ratio < 0.8:
-            score -= 0.6
+            score -= 2.4
             details.append(f"📉 Hacim Trendi: Zayıf ({vol_increase_ratio:.2f}x)")
         else:
-            score += 0.2
+            score += 0.8
             details.append(f"➖ Hacim Trendi: Stabil ({vol_increase_ratio:.2f}x)")
 
         # ========================================
@@ -2912,36 +2912,36 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
 
         # EMA50 + Hacim Senkronizasyon Bonusu
         if ema50_slope_check > 0 and vol_5d_trend > 1.1:
-            score += 0.8
+            score += 3.2
             details.append("🟢 Trend-Hacim Senkron")
 
         # Market Regime Filtresi (Puanlama)
         if market_regime == "STRONG":
             if ema50_slope_check > 0:
-                score += 0.8
+                score += 3.2
                 details.append(f"💎 STRONG Market Uyumu (EMA50↑)")
             else:
-                score -= 0.5
+                score -= 2.0
                 details.append(f"⚠️ STRONG Market ama EMA50 zayıf")
                 
             if vol_5d_trend < 0.85:
-                score -= 0.6
+                score -= 2.4
                 details.append(f"⚠️ STRONG Market ama Hacim zayıf ({vol_5d_trend:.2f}x)")
 
         elif market_regime == "BULLISH":
             if vol_5d_trend >= 0.80:
-                score += 0.4
+                score += 1.6
                 details.append(f"✅ Bullish Market Uyumu (Vol {vol_5d_trend:.2f}x)")
             else:
-                score -= 0.6
+                score -= 2.4
                 details.append(f"⚠️ Bullish ama Hacim zayıf ({vol_5d_trend:.2f}x)")
 
         elif market_regime == "CHOPPY":
             if vol_5d_trend >= 0.75 and ema50_slope_check > 0:
-                score += 0.8
+                score += 3.2
                 details.append(f"✅ Choppy'de Sağlam Sinyal")
             else:
-                score -= 0.8
+                score -= 3.2
                 details.append(f"⚠️ Choppy Market'te Zayıf Yapı")
 
         # ========================================
@@ -3022,28 +3022,28 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
 
         # Entry Tetikleyici Puanlama (Genişletilmiş)
         if bb_squeeze and ema_stack and rvol_today > 1.3:
-            score += 2.5
+            score += 10.0
             entry_trigger = "BB Sıkışma + EMA Stack + Hacim"
             details.append("💥 ENTRY: Sıkışma → Breakout (Güçlü)")
         elif ema_cross and 1.2 <= rvol_today <= 1.8:
-            score += 2.0
+            score += 8.0
             entry_trigger = "EMA9/20 Kesişim + Mikro Hacim"
             details.append("🎯 ENTRY: EMA9/20 Cross + Mikro Hacim")
         elif ema9_slope > 0.003 and bb_squeeze and micro_volume:
-            score += 1.6
+            score += 6.4
             entry_trigger = "EMA9 Eğim + Sıkışma + Mikro Hacim"
             details.append("⚡ ENTRY: EMA9 Dinamik Başlangıç")
         elif ema20_now > ema50_now and close_change_pct > 0.006:
-            score += 1.2
+            score += 4.8
             entry_trigger = "Trend Devam Swing"
             details.append("↗️ ENTRY: Trend Devamı")
         # v112 YENİ: Rising stock tetikleyicisi
         elif rising.get('is_rising') and rising.get('pattern') in ['Pullback Dönüş', 'Baz Kırılımı', 'İvme Kazanıyor']:
-            score += 1.0
+            score += 4.0
             entry_trigger = f"Rising: {rising['pattern']}"
             details.append(f"📈 ENTRY: {rising['pattern']}")
         else:
-            score -= 0.3
+            score -= 1.2
             details.append("⏳ ENTRY: Henüz tetik yok (izleme)")
 
         # ========================================
@@ -3055,7 +3055,7 @@ async def apply_atmaca_filters(ticker: str) -> dict | None:
             required_rr = MIN_RR_RATIO
 
         if rr_ratio_calc < required_rr:
-            score -= 1.0
+            score -= 4.0
             details.append(f"⚠️ R/R Yetersiz ({rr_ratio_calc:.2f} < {required_rr})")
 
         # ========================================
@@ -3949,10 +3949,10 @@ async def scan_top_stocks():
     
     # Piyasa Rejimine Göre Global Baraj Puanını Güncelle
     global MIN_ATMACA_SCORE 
-    base_threshold = 2.0  # Standart baraj (Boğa Piyasası için)
+    base_threshold = 8.0  # Standart baraj (Boğa Piyasası için)
     
     # Eğer Ayı piyasasıysa baraja +2.0 ekler, Boğaysa +0.0
-    MIN_ATMACA_SCORE = base_threshold + MARKET_STATUS["min_score_modifier"]
+    MIN_ATMACA_SCORE = base_threshold + (MARKET_STATUS["min_score_modifier"] * 4)
     
     logging.info(f"⚙️ Tarama Modu: {MARKET_STATUS['regime']} | Yeni Puan Barajı: {MIN_ATMACA_SCORE}")
     
@@ -4070,7 +4070,7 @@ async def scan_top_stocks():
                 
             # ⚖️ YASAL RİSK TARAMASI (Katman 3'e Entegre Edildi)
             # Yalnızca ön skoru belli bir seviyenin üstünde olanlara (örneğin 5.0) bakarak zaman kazanıyoruz
-            if c.get('score', 0) > 5.0:
+            if c.get('score', 0) > 20.0:
                 risk_res = await check_legal_risk_live(ticker)
                 if risk_res['has_risk']:
                     c['score'] -= risk_res['penalty']
@@ -4159,7 +4159,7 @@ async def scan_top_stocks():
     rows = []
     for i, c in enumerate(top_candidates):
         score = c.get("score", 0.0)
-        tag = "🚀" if score >= 10 else ("🔥" if score >= 8.5 else "🔍")
+        tag = "🚀" if score >= 40 else ("🔥" if score >= 34 else "🔍")
         exhaust_mark = "[E]" if c.get("is_exhausted") else "   "
         
         # TP2 profiti, TP1 ise %40'lık ilk hedef bölgesidir.
