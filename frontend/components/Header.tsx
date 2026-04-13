@@ -74,12 +74,20 @@ export default function Header() {
         {/* Auth + Toggle */}
         <div className="flex items-center gap-4">
           {!user ? (
-            <Link
-              href="/login"
-              className="px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl bg-white text-black hover:bg-[#3b82f6] hover:text-white transition-all shadow-xl"
-            >
-              Sign In
-            </Link>
+            <div className="flex items-center gap-1 md:gap-3">
+              <Link
+                href="/login"
+                className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-all"
+              >
+                Login
+              </Link>
+              <Link
+                href="/login"
+                className="px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl bg-white text-black hover:bg-[#3b82f6] hover:text-white transition-all shadow-xl"
+              >
+                Sign Up
+              </Link>
+            </div>
           ) : (
             <Link href="/watchlist" className="flex items-center gap-2 group">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#8b5cf6] flex items-center justify-center text-[10px] font-black text-white shadow-lg">
