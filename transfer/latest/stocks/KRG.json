@@ -1,8 +1,8 @@
 {
   "ticker": "KRG",
   "company": "Kite Realty Group Trust",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.013859-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.009525-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1688590
   },
   "scores": {
-    "master_score": 64.06,
+    "master_score": 63.07,
     "technical_score": 62.0,
     "fundamental_score": 67.0,
     "momentum_score": 70.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 0.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 64.06,
-    "confidence": 0.64,
+    "signal_score": 63.07,
+    "confidence": 0.63,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 24.58,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.013825-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:01:00.009433-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score is POSITIVE BIAS with 63% confidence. KRG is currently testing its upper Bollinger Band resistance at $25.56 and holding above all key EMAs, signaling bullish momentum. A break above $25.56 could trigger further upside. BUY ZONE: $24.71 - $25.00 (EMA20 area), PROFIT ZONE: $25.94 (52-week high) initially, with room to run towards $27 if the breakout is sustained, STOP LOSS ZONE: $24.50 (just below EMA50). A trader would enter here anticipating a breakout driven by the established uptrend and testing of 52-week highs.\n\n### Fundamental Edge\nKRG's attractive gross and net margins of 73.9% and 35.4%, respectively, indicate a well-managed portfolio and efficient operations. Given KRG's recent revenue struggles, a potential catalyst would be the successful redevelopment or acquisition of new properties boosting its revenue stream.\n\n### Sector Context\nThe real estate sector, while sensitive to interest rate movements, is currently showing signs of stabilization, potentially providing a supportive backdrop for KRG's upward momentum.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 64,
+    "score_bar": 63,
     "price_change_display": "+1.07%",
     "key_metrics": {
       "RSI": 63.9,

@@ -1,8 +1,8 @@
 {
   "ticker": "ATO",
   "company": "Atmos Energy Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.878762-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.883572-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Gas",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1141533
   },
   "scores": {
-    "master_score": 55.37,
+    "master_score": 55.25,
     "technical_score": 60.0,
     "fundamental_score": 23.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 0.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 55.37,
+    "signal_score": 55.25,
     "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 184.46,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.878737-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.883506-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. ATO is trading just below its 52-week high of $192.29 and within its Bollinger Band range, indicating consolidation. Support lies at the EMA20 of $186.38, and a more substantial level near the BB Lower at $179.29. A trader might consider a BUY ZONE between $186.00 and $188.00, anticipating a breakout above $192.47 (BB Upper) toward a PROFIT ZONE near $195.00, with a STOP LOSS ZONE placed just below the EMA50 around $181.50 to protect against a breakdown.\n\n### Fundamental Edge\nATO's revenue growth of 14.2% coupled with a robust net margin of 25.7% suggests the company is efficiently converting revenue into profit. This growth, against a backdrop of consistent earnings, makes ATO attractive if it can maintain its momentum, potentially driving future price appreciation.\n\n### Sector Context\nThe utilities sector is currently experiencing mixed sentiment, potentially providing neither a strong tailwind nor a significant headwind for ATO's individual performance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 55,

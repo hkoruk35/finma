@@ -1,8 +1,8 @@
 {
   "ticker": "BXP",
   "company": "BXP, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.995533-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.985127-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Office",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2911710
   },
   "scores": {
-    "master_score": 50.31,
-    "technical_score": 57.0,
+    "master_score": 35.35,
+    "technical_score": 17.1,
     "fundamental_score": 35.0,
     "momentum_score": 50.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 45.0,
     "value_score": 45.0,
     "reversal_score": -10.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 50.31,
-    "confidence": 0.5,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 35.35,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 48.6,
@@ -87,7 +87,7 @@
     "beta": 1.047
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 52.73,
     "entry_range_high": 53.26,
     "target_range_low": 57.03,
@@ -98,7 +98,7 @@
     "stop_loss": 49.54,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.995481-04:00",
+    "generated_at": "2026-04-13T08:00:59.985066-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 50,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
     "price_change_display": "+0.99%",
     "key_metrics": {
       "RSI": 48.6,

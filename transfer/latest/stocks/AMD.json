@@ -1,8 +1,8 @@
 {
   "ticker": "AMD",
   "company": "Advanced Micro Devices, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.814261-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.341710-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 33924926
   },
   "scores": {
-    "master_score": 53.22,
+    "master_score": 52.38,
     "technical_score": 50.0,
     "fundamental_score": 30.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 0.0,
-    "signal_score": 53.22,
-    "confidence": 0.53,
+    "signal_score": 52.38,
+    "confidence": 0.52,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 224.6,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.814191-04:00",
+    "generated_at": "2026-04-13T08:00:58.341630-04:00",
     "categories": [
       "momentum"
     ]
@@ -148,7 +148,7 @@
   "ai_summary": "AMD shows a SELL signal, with low confidence. The stock is up 4.64% today, trading at $231.82. While revenue growth is strong at 34.1% and gross margin is 52.5%, the P/E ratio of 88.48 significantly exceeds the sector median of 32.77. The EMA stack is bullish but ADX is weak at 14.0 and the RSI is 64.7, close to overbought. The stock is 12.3% away from its 52-week high, showing limited near-term upside. Watch for upcoming earnings reports; disappointing numbers could trigger a correction.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 53,
+    "score_bar": 52,
     "price_change_display": "+3.55%",
     "key_metrics": {
       "RSI": 70.1,

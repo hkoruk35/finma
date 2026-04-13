@@ -1,8 +1,8 @@
 {
   "ticker": "VICI",
   "company": "VICI Properties Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.967513-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.955874-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Diversified",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 9138560
   },
   "scores": {
-    "master_score": 54.06,
-    "technical_score": 47.0,
+    "master_score": 41.55,
+    "technical_score": 14.1,
     "fundamental_score": 52.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 0.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 54.06,
-    "confidence": 0.54,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 41.55,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 53.7,
@@ -87,7 +87,7 @@
     "beta": 0.728
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 27.93,
     "entry_range_high": 28.25,
     "target_range_low": 29.11,
@@ -98,7 +98,7 @@
     "stop_loss": 27.05,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.967462-04:00",
+    "generated_at": "2026-04-13T08:00:59.955599-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 54,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
     "price_change_display": "+0.18%",
     "key_metrics": {
       "RSI": 53.7,

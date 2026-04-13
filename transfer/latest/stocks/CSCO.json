@@ -1,8 +1,8 @@
 {
   "ticker": "CSCO",
   "company": "Cisco Systems, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.946649-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.516881-04:00",
   "sector": "Technology",
   "industry": "Communication Equipment",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 22748566
   },
   "scores": {
-    "master_score": 56.92,
+    "master_score": 56.08,
     "technical_score": 52.0,
     "fundamental_score": 54.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 56.92,
-    "confidence": 0.57,
+    "signal_score": 56.08,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,9 @@
     "stop_loss": 77.82,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.946599-04:00",
+    "generated_at": "2026-04-13T08:00:58.516831-04:00",
     "categories": [
+      "top_scores",
       "dividend"
     ]
   },
@@ -145,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CSCO currently trades at $82.26, down 1.09% today, with the price near its 52-week high. The BOGA AI score is NEUTRAL STAY.\n\nTechnicals show bullish EMA alignment, but weak ADX strength at 13.9 and low relative volume (0.65x) suggest limited momentum.\n\nFundamentally, CSCO's P/E of 29.59 shows undervaluation compared to the sector's 39.22 median. It indicates strong profitability with a 64.8% gross margin and 18.8% net margin. Revenue growth sits at 9.7% TTM.\n\nCatalyst Watch: Monitor if the extraordinary 202.00% dividend yield is sustainable, which could significantly impact investor sentiment. Key support is around $78, resistance at $84.",
+  "ai_summary": "CSCO currently trades at $82.26, down 1.09% today, with the price near its 52-week high. The FinMA score is NEUTRAL STAY.\n\nTechnicals show bullish EMA alignment, but weak ADX strength at 13.9 and low relative volume (0.65x) suggest limited momentum.\n\nFundamentally, CSCO's P/E of 29.59 shows undervaluation compared to the sector's 39.22 median. It indicates strong profitability with a 64.8% gross margin and 18.8% net margin. Revenue growth sits at 9.7% TTM.\n\nCatalyst Watch: Monitor if the extraordinary 202.00% dividend yield is sustainable, which could significantly impact investor sentiment. Key support is around $78, resistance at $84.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 57,
+    "score_bar": 56,
     "price_change_display": "-1.14%",
     "key_metrics": {
       "RSI": 58.3,

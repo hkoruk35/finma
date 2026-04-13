@@ -1,8 +1,8 @@
 {
   "ticker": "CI",
   "company": "The Cigna Group",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.258407-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.066030-04:00",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 1709156
   },
   "scores": {
-    "master_score": 50.34,
-    "technical_score": 40.0,
+    "master_score": 39.09,
+    "technical_score": 12.0,
     "fundamental_score": 60.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.4,
+    "sector_score": 23.9,
     "breakout_score": 15.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 50.34,
-    "confidence": 0.5,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 39.09,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 49.9,
@@ -87,7 +87,7 @@
     "beta": 0.272
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 269.89,
     "entry_range_high": 272.61,
     "target_range_low": 285.38,
@@ -98,7 +98,7 @@
     "stop_loss": 257.95,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.258377-04:00",
+    "generated_at": "2026-04-13T08:00:59.065956-04:00",
     "categories": [
       "value"
     ]
@@ -135,7 +135,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 1719,
+      "shares": 2307,
       "date": "2026-03-02"
     }
   },
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CI (The Cigna Group) currently exhibits a NEGATIVE_BIAS, BOGA AI score driven by bearish EMA alignment despite valuation discount. Key technical levels to watch include resistance at the 52-week high ($333.00) and support near the current price level. ADX of 22.8 indicates a weak trend. Low relative volume (0.56x) suggests tepid investor interest. While P/E (12.4) is attractive versus the sector, weaker profitability metrics (2.2% net margin) temper enthusiasm. The exceptionally high dividend yield is likely a data anomaly and not a genuine catalyst.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 39%. CI is currently trading near its EMA20 ($271.03) and EMA50 ($272.89), indicating potential resistance around the $273 level. A break below the BB Lower band at $257.24 could signal further downside. Traders might consider a short position if CI breaks below $270, targeting a PROFIT ZONE near $260, with a STOP LOSS ZONE placed above $274 to protect against false breakouts.\n\n### Fundamental Edge\nCI's P/E of 12.22 suggests it's undervalued compared to its sector, coupled with a solid revenue growth of 10.4%. This potentially makes it attractive to value-oriented investors, but the muted reaction in price action despite these metrics may be a cause for concern.\n\n### Sector Context\nThe healthcare sector is currently showing mixed performance, providing neither a tailwind nor a strong headwind for CI's individual price action.",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 50,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
     "price_change_display": "-2.59%",
     "key_metrics": {
       "RSI": 49.9,

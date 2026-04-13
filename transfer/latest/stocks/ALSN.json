@@ -1,8 +1,8 @@
 {
   "ticker": "ALSN",
   "company": "Allison Transmission Holdings, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.733308-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.719642-04:00",
   "sector": "Industrials",
   "industry": "Auto Parts",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 833250
   },
   "scores": {
-    "master_score": 55.58,
+    "master_score": 54.92,
     "technical_score": 57.0,
     "fundamental_score": 37.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 35.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 55.58,
-    "confidence": 0.56,
+    "signal_score": 54.92,
+    "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 120.99,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.733245-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.719581-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. ALSN is currently testing its 52-week high of $128.51, which also aligns closely with the BB Upper of $126.62, suggesting this acts as near-term resistance. A breakout above $128.51 could signal further upside. Traders might consider a BUY ZONE above $129, targeting a PROFIT ZONE near $135, with a STOP LOSS ZONE placed near $124, just below the BB Upper for downside protection.\n\n### Fundamental Edge\nALSN's high net margin of 20.7% showcases its ability to convert revenue into profit, a positive signal for investors seeking fundamentally sound companies. The relatively low P/E of 17.53, compared to its sector peers, suggests the stock could be undervalued, attracting buyers looking for a bargain.\n\n### Sector Context\nThe Industrials sector exhibits mixed momentum, neither strongly supporting nor hindering ALSN’s individual performance, making stock-specific factors key.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 56,
+    "score_bar": 55,
     "price_change_display": "+0.81%",
     "key_metrics": {
       "RSI": 68.9,

@@ -1,8 +1,8 @@
 {
   "ticker": "LNG",
   "company": "Cheniere Energy, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.495790-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.473265-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Midstream",
   "price": {
@@ -98,7 +98,7 @@
     "stop_loss": 243.36,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.495765-04:00",
+    "generated_at": "2026-04-13T08:00:59.473211-04:00",
     "categories": []
   },
   "breakout": {

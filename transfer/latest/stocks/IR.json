@@ -1,8 +1,8 @@
 {
   "ticker": "IR",
   "company": "Ingersoll Rand Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.714217-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.702173-04:00",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3090540
   },
   "scores": {
-    "master_score": 44.68,
+    "master_score": 44.02,
     "technical_score": 53.0,
     "fundamental_score": 27.0,
     "momentum_score": 40.0,
     "sentiment_score": 65.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 30.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 44.68,
-    "confidence": 0.45,
+    "signal_score": 44.02,
+    "confidence": 0.44,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 79.48,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.714174-04:00",
+    "generated_at": "2026-04-13T08:00:59.702053-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 45,
+    "score_bar": 44,
     "price_change_display": "-1.90%",
     "key_metrics": {
       "RSI": 53.6,

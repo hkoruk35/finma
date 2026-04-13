@@ -1,8 +1,8 @@
 {
   "ticker": "CBRE",
   "company": "CBRE Group, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.056262-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.083737-04:00",
   "sector": "Real Estate",
   "industry": "Real Estate Services",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2153113
   },
   "scores": {
-    "master_score": 38.31,
-    "technical_score": 42.0,
+    "master_score": 27.03,
+    "technical_score": 12.6,
     "fundamental_score": 0.0,
     "momentum_score": 50.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 0.0,
-    "signal_score": 38.31,
-    "confidence": 0.38,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 27.03,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 54.6,
@@ -87,7 +87,7 @@
     "beta": 1.348
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 140.51,
     "entry_range_high": 141.93,
     "target_range_low": 151.68,
@@ -98,7 +98,7 @@
     "stop_loss": 132.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.056225-04:00",
+    "generated_at": "2026-04-13T08:01:00.083691-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 38,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
     "price_change_display": "-0.87%",
     "key_metrics": {
       "RSI": 54.6,

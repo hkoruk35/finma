@@ -1,8 +1,8 @@
 {
   "ticker": "CAT",
   "company": "Caterpillar Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.700157-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.686169-04:00",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2594550
   },
   "scores": {
-    "master_score": 46.58,
+    "master_score": 45.92,
     "technical_score": 52.0,
     "fundamental_score": 0.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 35.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 46.58,
-    "confidence": 0.47,
+    "signal_score": 45.92,
+    "confidence": 0.46,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 738.9,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.700113-04:00",
+    "generated_at": "2026-04-13T08:00:59.686084-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 47,
+    "score_bar": 46,
     "price_change_display": "+0.46%",
     "key_metrics": {
       "RSI": 67.2,

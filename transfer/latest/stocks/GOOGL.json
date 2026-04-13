@@ -1,8 +1,8 @@
 {
   "ticker": "GOOGL",
   "company": "Alphabet Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.793774-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.316606-04:00",
   "sector": "Technology",
   "industry": "Internet Content & Information",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 29719053
   },
   "scores": {
-    "master_score": 45.72,
+    "master_score": 44.88,
     "technical_score": 40.0,
     "fundamental_score": 42.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 40.0,
-    "signal_score": 45.72,
-    "confidence": 0.46,
+    "signal_score": 44.88,
+    "confidence": 0.45,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 300.08,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.793733-04:00",
+    "generated_at": "2026-04-13T08:00:58.316520-04:00",
     "categories": []
   },
   "breakout": {
@@ -129,7 +129,7 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 2,
+    "last_90_days_sells": 1,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 46,
+    "score_bar": 45,
     "price_change_display": "-0.39%",
     "key_metrics": {
       "RSI": 61.5,

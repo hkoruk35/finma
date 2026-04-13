@@ -1,8 +1,8 @@
 {
   "ticker": "AKAM",
   "company": "Akamai Technologies, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.951854-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.525389-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 4917826
   },
   "scores": {
-    "master_score": 31.02,
-    "technical_score": 28.0,
+    "master_score": 23.32,
+    "technical_score": 8.4,
     "fundamental_score": 32.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 30.0,
-    "signal_score": 31.02,
-    "confidence": 0.31,
+    "signal_score": 23.32,
+    "confidence": 0.23,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 79.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.951820-04:00",
+    "generated_at": "2026-04-13T08:00:58.525342-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 31,
+    "score_bar": 23,
     "price_change_display": "-16.66%",
     "key_metrics": {
       "RSI": 31.9,

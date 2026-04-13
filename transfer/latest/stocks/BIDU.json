@@ -1,8 +1,8 @@
 {
   "ticker": "BIDU",
   "company": "Baidu, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.016382-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.629142-04:00",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2036413
   },
   "scores": {
-    "master_score": 43.36,
-    "technical_score": 53.0,
+    "master_score": 29.14,
+    "technical_score": 15.9,
     "fundamental_score": 35.0,
     "momentum_score": 30.0,
     "sentiment_score": 60.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 45.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 43.36,
-    "confidence": 0.43,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 29.14,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 35.7,
@@ -87,7 +87,7 @@
     "beta": 0.431
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 107.87,
     "entry_range_high": 108.95,
     "target_range_low": 117.94,
@@ -98,7 +98,7 @@
     "stop_loss": 100.45,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.016342-04:00",
+    "generated_at": "2026-04-13T08:00:58.629086-04:00",
     "categories": [
       "breakout"
     ]
@@ -141,10 +141,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BOGA AI rating for BIDU is NEGATIVE BIAS. Confidence is low. The daily chart shows BIDU at $108.41, with bearish EMA alignment. ADX at 30 indicates a potentially strengthening downtrend.\n\nThe BUY ZONE is above $112, targeting the PROFIT ZONE near the 52-week high. The STOP LOSS ZONE is below $105.\n\nBaidu's -4.1% TTM revenue growth and premium valuation (P/E 63.03) contribute to the negative outlook. A potential catalyst to monitor is government regulation surrounding AI development in China, which could negatively impact sentiment around BIDU.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 29%. BIDU is currently trading in a precarious position, struggling below its EMA20, EMA50, and EMA200, indicating bearish momentum. Resistance sits near $114.03 (EMA20), while support could form near $103.69 (BB Lower). A potential short opportunity exists if BIDU fails to hold $103.69; traders might consider entering near $107.00 with a STOP LOSS ZONE above $114.50 (EMA20 + buffer), targeting a PROFIT ZONE near $97.50.\n\n### Fundamental Edge\nBIDU's negative revenue growth of -4.1% and high P/E of 63.02907 despite a relatively low net margin of 4.3% raises concerns about valuation. A potential short thesis could be built upon the expectation that earnings will struggle to justify the current premium.\n\n### Sector Context\nThe Communication Services sector is showing mixed performance, offering neither a strong tailwind nor a clear headwind to BIDU's individual struggles.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 43,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
     "price_change_display": "+0.17%",
     "key_metrics": {
       "RSI": 35.7,

@@ -1,8 +1,8 @@
 {
   "ticker": "NVS",
   "company": "Novartis AG",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.210210-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.978102-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2250163
   },
   "scores": {
-    "master_score": 42.04,
+    "master_score": 40.59,
     "technical_score": 52.0,
     "fundamental_score": 24.0,
     "momentum_score": 40.0,
     "sentiment_score": 60.0,
-    "sector_score": 38.4,
+    "sector_score": 23.9,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 42.04,
-    "confidence": 0.42,
+    "signal_score": 40.59,
+    "confidence": 0.41,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 148.29,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.210188-04:00",
+    "generated_at": "2026-04-13T08:00:58.978026-04:00",
     "categories": []
   },
   "breakout": {
@@ -142,7 +142,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 42,
+    "score_bar": 41,
     "price_change_display": "-0.65%",
     "key_metrics": {
       "RSI": 52.8,

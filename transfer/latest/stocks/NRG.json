@@ -1,8 +1,8 @@
 {
   "ticker": "NRG",
   "company": "NRG Energy, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.900105-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.907353-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Independent Power Producers",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3053320
   },
   "scores": {
-    "master_score": 42.62,
+    "master_score": 42.5,
     "technical_score": 40.0,
     "fundamental_score": 12.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 42.62,
-    "confidence": 0.43,
+    "signal_score": 42.5,
+    "confidence": 0.42,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 150.71,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.900023-04:00",
+    "generated_at": "2026-04-13T08:00:59.907299-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 43,
+    "score_bar": 42,
     "price_change_display": "+1.42%",
     "key_metrics": {
       "RSI": 59.0,

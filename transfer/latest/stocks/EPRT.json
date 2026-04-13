@@ -1,8 +1,8 @@
 {
   "ticker": "EPRT",
   "company": "Essential Properties Realty Trust, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.970306-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.958893-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2253573
   },
   "scores": {
-    "master_score": 61.86,
+    "master_score": 60.87,
     "technical_score": 65.0,
     "fundamental_score": 54.0,
     "momentum_score": 70.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 0.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 61.86,
-    "confidence": 0.62,
+    "signal_score": 60.87,
+    "confidence": 0.61,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 31.28,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.970247-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.958843-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 61%. EPRT shows bullish price action, trading above its EMA20 ($31.61), EMA50 ($31.58), and EMA200 ($30.80). A potential BUY ZONE exists near the EMA20 ($31.61), anticipating a bounce. The PROFIT ZONE is near the BB Upper ($33.23) and the 52-week high ($34.24), while the STOP LOSS ZONE should be placed just below the EMA50 ($31.58) to protect against a trend reversal. Traders might enter here expecting the bullish trend to continue, pushing the price toward the upper Bollinger Band.\n\n### Fundamental Edge\nEPRT presents a compelling valuation, trading at a P/E of 25.42, potentially a discount to its sector. The robust Revenue Growth TTM of 25.2% and Net Margin of 45.1% indicates a financially strong and growing company, bolstering the bullish technical setup.\n\n### Sector Context\nThe real estate sector is currently exhibiting mixed momentum, offering neither strong tailwinds nor significant headwinds for EPRT's individual performance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 62,
+    "score_bar": 61,
     "price_change_display": "+0.31%",
     "key_metrics": {
       "RSI": 61.5,

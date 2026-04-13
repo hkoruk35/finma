@@ -1,8 +1,8 @@
 {
   "ticker": "NOC",
   "company": "Northrop Grumman Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.662336-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.649684-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 824890
   },
   "scores": {
-    "master_score": 36.58,
+    "master_score": 35.92,
     "technical_score": 32.0,
     "fundamental_score": 52.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 30.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 36.58,
-    "confidence": 0.37,
+    "signal_score": 35.92,
+    "confidence": 0.36,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 638.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.662283-04:00",
+    "generated_at": "2026-04-13T08:00:59.649620-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 37,
+    "score_bar": 36,
     "price_change_display": "-2.44%",
     "key_metrics": {
       "RSI": 39.2,

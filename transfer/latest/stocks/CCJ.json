@@ -1,8 +1,8 @@
 {
   "ticker": "CCJ",
   "company": "Cameco Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.517417-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.497940-04:00",
   "sector": "Energy",
   "industry": "Uranium",
   "price": {
@@ -69,7 +69,7 @@
   "fundamental": {
     "pe_ratio": 119.62886,
     "sector_pe_median": 18.408571,
-    "pb_ratio": 10.184142,
+    "pb_ratio": 10.13493,
     "de_ratio": 14.673,
     "fcf_yield": 0.0095,
     "eps_growth_5y": 0.453,
@@ -98,7 +98,7 @@
     "stop_loss": 104.7,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.517371-04:00",
+    "generated_at": "2026-04-13T08:00:59.497889-04:00",
     "categories": []
   },
   "breakout": {

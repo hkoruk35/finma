@@ -1,8 +1,8 @@
 {
   "ticker": "HST",
   "company": "Host Hotels & Resorts, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.059117-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.086447-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Hotel & Motel",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 9517266
   },
   "scores": {
-    "master_score": 66.61,
+    "master_score": 65.62,
     "technical_score": 55.0,
     "fundamental_score": 75.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 15.0,
     "value_score": 65.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 66.61,
-    "confidence": 0.67,
+    "signal_score": 65.62,
+    "confidence": 0.66,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 19.1,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.059074-04:00",
+    "generated_at": "2026-04-13T08:01:00.086397-04:00",
     "categories": [
       "top_scores"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HST currently trades at $20.15, near its 52-week high, with a BOGA AI score of NEUTRAL STAY (67% confidence). Technically, RSI is at 64.1 and MACD is neutral. EMA alignment is bullish but ADX shows a weak trend strength (14.1). HST's valuation, with a P/E of 18.3, is below the sector median. The company boasts 12.8% TTM revenue growth and solid margins (28.8% gross, 12.5% net), plus a high dividend yield of 4.02%. With no recent news to act as a catalyst, HST's price movement is likely influenced by broader market trends rather than company-specific events. Key technical levels to watch will be resistance at recent 52 week highs.",
+  "ai_summary": "HST currently trades at $20.15, near its 52-week high, with a FinMA score of NEUTRAL STAY (67% confidence). Technically, RSI is at 64.1 and MACD is neutral. EMA alignment is bullish but ADX shows a weak trend strength (14.1). HST's valuation, with a P/E of 18.3, is below the sector median. The company boasts 12.8% TTM revenue growth and solid margins (28.8% gross, 12.5% net), plus a high dividend yield of 4.02%. With no recent news to act as a catalyst, HST's price movement is likely influenced by broader market trends rather than company-specific events. Key technical levels to watch will be resistance at recent 52 week highs.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 67,
+    "score_bar": 66,
     "price_change_display": "+1.16%",
     "key_metrics": {
       "RSI": 64.0,

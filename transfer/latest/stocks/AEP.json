@@ -1,8 +1,8 @@
 {
   "ticker": "AEP",
   "company": "American Electric Power Company, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.842187-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.844263-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3524110
   },
   "scores": {
-    "master_score": 53.62,
+    "master_score": 53.5,
     "technical_score": 60.0,
     "fundamental_score": 20.0,
     "momentum_score": 80.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 20.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 53.62,
+    "signal_score": 53.5,
     "confidence": 0.54,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 131.5,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.842138-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.844229-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. AEP is currently trading near its 52-week high and just below the upper Bollinger Band at $137.32, suggesting immediate resistance. Support lies at the EMA20 ($132.18) and EMA50 ($128.85). A trader might consider a BUY ZONE between $128.85 and $132.18, placing a STOP LOSS ZONE below $128.85, aiming for a PROFIT ZONE near the 52-week high of $137.15, anticipating a breakout driven by continued revenue growth and margin strength.\n\n### Fundamental Edge\nAEP is trading at a reasonable P/E relative to its sector while exhibiting solid revenue growth and strong margins, hinting at potential undervaluation. The company's impressive 13.2% revenue growth TTM could justify a push towards new highs if it signals sustained demand and profitability within the utilities sector.\n\n### Sector Context\nThe utilities sector, while generally stable, can be sensitive to interest rate changes, adding an element of macro risk that could either support or hinder AEP's individual performance regardless of its fundamentals.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 54,

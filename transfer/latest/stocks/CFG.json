@@ -1,8 +1,8 @@
 {
   "ticker": "CFG",
   "company": "Citizens Financial Group, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.400539-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.322760-04:00",
   "sector": "Financials",
   "industry": "Banks - Regional",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5070973
   },
   "scores": {
-    "master_score": 57.19,
+    "master_score": 56.19,
     "technical_score": 60.0,
     "fundamental_score": 30.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 35.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 57.19,
-    "confidence": 0.57,
+    "signal_score": 56.19,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 60.87,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.400494-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.322690-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. CFG is currently trading near its upper Bollinger Band at $64.72, indicating possible resistance. A BUY ZONE could be considered between the 20-day EMA at $60.80 and the 50-day EMA at $60.38, betting on a pullback to these levels followed by a continuation of the current bullish trend. A STOP LOSS ZONE should be placed below the 200-day EMA at $55.11 to protect against a trend reversal.\n\n### Fundamental Edge\nCFG's revenue growth of 10.7% coupled with a solid net margin of 24.0% suggests the company is effectively converting revenue into profit. The relatively high P/E ratio of 16.62 may indicate investor optimism based on future growth prospects, justifying holding the stock as long as the technical setup remains intact.\n\n### Sector Context\nThe Financials sector is currently showing mixed performance, neither strongly supporting nor hindering individual stock movements like CFG, making stock-specific analysis crucial.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 57,
+    "score_bar": 56,
     "price_change_display": "-1.23%",
     "key_metrics": {
       "RSI": 65.3,

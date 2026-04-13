@@ -1,8 +1,8 @@
 {
   "ticker": "INTU",
   "company": "Intuit Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.889276-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.439400-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 3940100
   },
   "scores": {
-    "master_score": 41.37,
-    "technical_score": 24.0,
+    "master_score": 34.65,
+    "technical_score": 7.2,
     "fundamental_score": 75.0,
     "momentum_score": 10.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 30.0,
     "value_score": 65.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 41.37,
-    "confidence": 0.41,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 34.65,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 25.9,
@@ -87,7 +87,7 @@
     "beta": 1.213
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 349.19,
     "entry_range_high": 352.69,
     "target_range_low": 404.69,
@@ -98,7 +98,7 @@
     "stop_loss": 309.6,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.889239-04:00",
+    "generated_at": "2026-04-13T08:00:58.439336-04:00",
     "categories": [
       "reversal",
       "dividend"
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "INTU receives a NEGATIVE BIAS rating from BOGA AI. At $350.94, the daily chart shows bearish EMA alignment and an RSI of 25.9 indicating oversold conditions. The ADX at 26.2 suggests a trending market.\n\nKey technical levels: BUY ZONE is $340-$350, PROFIT ZONE is $360-$370, STOP LOSS ZONE is $330.\n\nDespite strong fundamentals (80.9% gross margin, 21.6% net margin, and P/E discount), the high dividend yield of 132.00% raises concerns about sustainability and is acting as a potential catalyst for price volatility. Watch for a reaction to oversold conditions.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 35%. INTU is currently trading near its 52-week low, finding initial support around $367.27 (BB Lower). Resistance is significant at $413.40 (EMA20). A potential BUY ZONE exists between $350 and $367, appealing to mean reversion traders expecting a bounce off the lower Bollinger Band. The STOP LOSS ZONE sits below the 52-week low at $340, while the PROFIT ZONE is conservatively set between $400 and $413, targeting the EMA20 as an initial exit.\n\n### Fundamental Edge\nINTU's solid gross and net margins (80.9% and 21.6% respectively) suggest a fundamentally sound business capable of weathering market volatility. Despite the recent price drop, a P/E of 22.8 indicates the stock isn't excessively valued, especially considering its 17.4% revenue growth. This makes INTU attractive to value-oriented swing traders looking for quality names on sale.\n\n### Sector Context\nThe technology sector is currently experiencing mixed momentum, providing neither a tailwind nor significant headwind to INTU's individual performance.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 41,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
     "price_change_display": "-2.97%",
     "key_metrics": {
       "RSI": 25.9,

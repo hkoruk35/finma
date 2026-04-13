@@ -1,8 +1,8 @@
 {
   "ticker": "HUBS",
   "company": "HubSpot, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.907924-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.460358-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1443193
   },
   "scores": {
-    "master_score": 34.02,
-    "technical_score": 18.0,
+    "master_score": 28.77,
+    "technical_score": 5.4,
     "fundamental_score": 50.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 27.0,
     "value_score": 40.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 34.02,
-    "confidence": 0.34,
+    "signal_score": 28.77,
+    "confidence": 0.29,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 159.22,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.907868-04:00",
+    "generated_at": "2026-04-13T08:00:58.460311-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HUBS receives an UNDERPERFORM BOGA AI score. The daily chart shows a concerning 6.23% drop to $192.26. Bearish EMA alignment and LOW Bollinger Bands suggest further downside. RSI at 26.1 indicates oversold conditions, but ADX at 23.5 implies weak trend strength, limiting potential for a quick reversal.\n\nA potential BUY ZONE exists if price action consolidates near $190. The PROFIT ZONE is cautiously projected toward $205, prior resistance. Risk management dictates a STOP LOSS ZONE near $185.\n\nWhile revenue growth remains strong at 20.4%, a P/E of 220.99 is a valuation concern, and net margin is only 1.5%. Without any news catalyst, the stock may struggle to find sustained upward momentum.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 29%. HUBS is currently testing its 52-week low of $192.26, with immediate resistance around the BB Lower band at $202.73. A short-term bounce to the BUY ZONE between $192.26 and $202.73 could provide a potential entry for a short position. The PROFIT ZONE would target a break of the 52-week low down to $175, while the STOP LOSS ZONE is placed above the BB Lower band at $205 to protect against a failed breakdown.\n\n### Fundamental Edge\nHubSpot's high P/E ratio of 220.9885 suggests it is currently overvalued compared to its peers, despite revenue growth of 20.4%. The high P/E indicates the market may be pricing in future growth expectations that may not materialize, providing a fundamental justification for a potential short position if growth slows.\n\n### Sector Context\nThe technology sector is currently showing mixed performance as investors rotate out of high-growth names, potentially adding pressure to HUBS and supporting a negative outlook.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 34,
+    "score_bar": 29,
     "price_change_display": "-6.23%",
     "key_metrics": {
       "RSI": 26.1,

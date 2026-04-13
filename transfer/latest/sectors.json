@@ -1,12 +1,11 @@
 {
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.091216-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.116992-04:00",
   "sectors": {
     "Technology": {
-      "avg_score": 41.3,
-      "top_ticker": "ZM",
+      "avg_score": 37.5,
+      "top_ticker": "TSM",
       "top_tickers": [
-        "ZM",
         "TSM",
         "GLW",
         "INTC",
@@ -20,36 +19,37 @@
         "WDC",
         "AMAT",
         "COHR",
-        "ADI"
+        "ADI",
+        "AVGO"
       ],
       "volume_change_pct": null,
       "stock_count": 68
     },
     "Communication Services": {
-      "avg_score": 43.1,
+      "avg_score": 37.6,
       "top_ticker": "AMX",
       "top_tickers": [
         "AMX",
         "ERIC",
-        "MTCH",
-        "CHTR",
         "NOK",
         "NFLX",
         "EA",
         "VOD",
-        "SNAP",
+        "MTCH",
         "ROKU",
-        "BIDU",
-        "DIS",
-        "CMCSA",
+        "CHTR",
         "TKO",
-        "T"
+        "SNAP",
+        "T",
+        "WBD",
+        "VZ",
+        "CMCSA"
       ],
       "volume_change_pct": null,
       "stock_count": 23
     },
     "Consumer Discretionary": {
-      "avg_score": 41.7,
+      "avg_score": 35.8,
       "top_ticker": "CAR",
       "top_tickers": [
         "CAR",
@@ -61,18 +61,18 @@
         "RL",
         "CCL",
         "ROST",
-        "LOW",
-        "RCL",
-        "LYFT",
         "TJX",
         "QSR",
-        "EBAY"
+        "EBAY",
+        "TPR",
+        "SBUX",
+        "LYV"
       ],
       "volume_change_pct": null,
       "stock_count": 50
     },
     "Consumer Staples": {
-      "avg_score": 42.1,
+      "avg_score": 37.0,
       "top_ticker": "MO",
       "top_tickers": [
         "MO",
@@ -80,22 +80,22 @@
         "TGT",
         "TSN",
         "BTI",
-        "CPB",
         "KO",
-        "PM",
         "PEP",
         "WMT",
         "MNST",
         "BG",
         "COST",
-        "COTY",
-        "CTVA"
+        "CTVA",
+        "CHD",
+        "CPB",
+        "PM"
       ],
       "volume_change_pct": null,
       "stock_count": 32
     },
     "Healthcare": {
-      "avg_score": 40.5,
+      "avg_score": 33.9,
       "top_ticker": "EXEL",
       "top_tickers": [
         "EXEL",
@@ -104,21 +104,21 @@
         "AZN",
         "CVS",
         "HCA",
-        "ELV",
-        "INSP",
         "BMY",
-        "CI",
         "GILD",
-        "UNH",
         "AMGN",
-        "ZBH",
-        "SYK"
+        "MRK",
+        "REGN",
+        "NVS",
+        "ELV",
+        "JNJ",
+        "INSP"
       ],
       "volume_change_pct": null,
       "stock_count": 50
     },
     "Financials": {
-      "avg_score": 45.5,
+      "avg_score": 41.0,
       "top_ticker": "ALL",
       "top_tickers": [
         "ALL",
@@ -132,10 +132,10 @@
         "BNS",
         "BAC",
         "CM",
-        "PYPL",
         "NTRS",
         "KEY",
-        "HSBC"
+        "HSBC",
+        "BMO"
       ],
       "volume_change_pct": null,
       "stock_count": 68
@@ -164,7 +164,7 @@
       "stock_count": 54
     },
     "Materials": {
-      "avg_score": 50.3,
+      "avg_score": 49.1,
       "top_ticker": "SSRM",
       "top_tickers": [
         "SSRM",
@@ -187,7 +187,7 @@
       "stock_count": 46
     },
     "Industrials": {
-      "avg_score": 46.0,
+      "avg_score": 43.0,
       "top_ticker": "AL",
       "top_tickers": [
         "AL",
@@ -210,7 +210,7 @@
       "stock_count": 67
     },
     "Utilities": {
-      "avg_score": 49.5,
+      "avg_score": 48.9,
       "top_ticker": "NEE",
       "top_tickers": [
         "NEE",
@@ -233,7 +233,7 @@
       "stock_count": 36
     },
     "Real Estate": {
-      "avg_score": 52.4,
+      "avg_score": 48.0,
       "top_ticker": "FRT",
       "top_tickers": [
         "FRT",
@@ -246,11 +246,11 @@
         "REG",
         "EPRT",
         "KIM",
-        "VNO",
         "EGP",
         "MAC",
         "PEB",
-        "FR"
+        "FR",
+        "PLD"
       ],
       "volume_change_pct": null,
       "stock_count": 45
@@ -258,15 +258,15 @@
   },
   "etf_performance": {
     "XLK": 4.27,
-    "XLC": 1.96,
-    "XLU": 1.71,
-    "XLY": 3.53,
-    "XLB": 3.46,
-    "XLF": 1.78,
-    "XLE": -4.59,
     "XLP": -0.35,
     "XLI": 4.2,
+    "XLRE": 2.54,
+    "XLU": 1.71,
+    "XLF": 1.78,
+    "XLB": 3.46,
     "XLV": 0.7,
-    "XLRE": 2.54
+    "XLY": 3.53,
+    "XLC": 1.96,
+    "XLE": -4.59
   }
 }

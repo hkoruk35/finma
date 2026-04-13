@@ -1,8 +1,8 @@
 {
   "ticker": "INSP",
   "company": "Inspire Medical Systems, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.239966-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.033059-04:00",
   "sector": "Healthcare",
   "industry": "Medical Devices",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 1049060
   },
   "scores": {
-    "master_score": 52.19,
-    "technical_score": 46.0,
+    "master_score": 39.47,
+    "technical_score": 13.8,
     "fundamental_score": 67.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.4,
+    "sector_score": 23.9,
     "breakout_score": 45.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 52.19,
-    "confidence": 0.52,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 39.47,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 43.6,
@@ -87,7 +87,7 @@
     "beta": 0.86
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 53.75,
     "entry_range_high": 54.29,
     "target_range_low": 63.64,
@@ -98,7 +98,7 @@
     "stop_loss": 46.74,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.239946-04:00",
+    "generated_at": "2026-04-13T08:00:59.033003-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 52,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
     "price_change_display": "-4.71%",
     "key_metrics": {
       "RSI": 43.6,

@@ -1,8 +1,8 @@
 {
   "ticker": "KNTK",
   "company": "Kinetik Holdings Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.491711-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.465991-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Midstream",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 43.73,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.491687-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.465944-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "HIGH",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 58%. KNTK is currently trading at $47.29, just below its 52-week high of $48.64. Support is established around the EMA20 at $46.46 and the lower Bollinger Band at $44.19. A trader might consider establishing a long position within the $46.46–$47.75 BUY ZONE, targeting a PROFIT ZONE near the upper Bollinger Band at $49.02, with a STOP LOSS ZONE just below the EMA50 at $44.49 to protect against downside risk if momentum stalls.\n\n### Fundamental Edge\nKNTK offers a compelling valuation trading at a P/E of 17.98, suggesting it is undervalued compared to its sector peers, coupled with solid revenue growth of 11.6% and impressive gross and net margins of 40.4% and 29.8% respectively. These strong financials, in conjunction with the recent price action showing resilience near 52-week highs, could attract further investor interest and potentially drive the stock higher.\n\n### Sector Context\nKNTK's performance will be tied to the overall energy sector sentiment, where positive trends in oil and gas prices can provide tailwinds, but a sector downturn could rapidly negate any stock-specific positive catalysts.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 58,

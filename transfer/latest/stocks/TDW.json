@@ -1,8 +1,8 @@
 {
   "ticker": "TDW",
   "company": "Tidewater Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.506805-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.486444-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Equipment & Services",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 78.74,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.506780-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.486397-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. TDW is currently trading near its 52-week high, with immediate resistance around the BB Upper at $90.25. A potential BUY ZONE exists between the EMA20 ($82.06) and EMA50 ($76.05), offering a pullback entry point. A trader might enter if price tests the EMA20, anticipating a bounce back toward the recent high, with a STOP LOSS ZONE just below the BB Lower at $70.65 to manage downside risk, and a PROFIT ZONE targeting a breakout above $90.25.\n\n### Fundamental Edge\nTDW exhibits solid profitability, evidenced by a healthy 24.7% Net Margin, and the P/E of 12.966867 suggests undervaluation relative to peers. This suggests that if the price were to pull back to the EMA20 a buying opportunity would exist based on solid fundamentals.\n\n### Sector Context\nThe energy sector's overall performance will heavily influence TDW's trajectory; any significant downturn in oil prices could negate the bullish technical setup.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 56,

@@ -1,8 +1,8 @@
 {
   "ticker": "MT",
   "company": "ArcelorMittal S.A.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.536692-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.521924-04:00",
   "sector": "Materials",
   "industry": "Steel",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 2067250
   },
   "scores": {
-    "master_score": 57.81,
+    "master_score": 57.52,
     "technical_score": 62.0,
     "fundamental_score": 40.0,
     "momentum_score": 70.0,
     "sentiment_score": 70.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 40.0,
-    "signal_score": 57.81,
+    "signal_score": 57.52,
     "confidence": 0.58,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 55.66,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.536629-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.521860-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -139,7 +141,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 58%. MT is currently trading near its upper Bollinger Band at $59.78, suggesting possible resistance. A break above the 52-week high of $67.12 could signal further upside. A trader might enter a BUY ZONE between $59.78 and $60.64, targeting a PROFIT ZONE near $67.00, with a STOP LOSS ZONE placed near the EMA20 at $55.06 to protect against a pullback.\n\n### Fundamental Edge\nMT's P/E of 14.75 suggests it is trading at a relative discount. The company's revenue growth of 1.7% indicates some degree of expansion, but the margins are thin, signaling potential for improvement.\n\n### Sector Context\nThe Materials sector is showing mixed performance, providing neither a strong tailwind nor a significant headwind for MT at this time.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 58,

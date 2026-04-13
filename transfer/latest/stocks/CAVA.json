@@ -1,8 +1,8 @@
 {
   "ticker": "CAVA",
   "company": "CAVA Group, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.125775-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.795137-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Restaurants",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2988086
   },
   "scores": {
-    "master_score": 36.96,
+    "master_score": 35.65,
     "technical_score": 62.0,
     "fundamental_score": 10.0,
     "momentum_score": 10.0,
     "sentiment_score": 65.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 55.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 0.0,
-    "signal_score": 36.96,
-    "confidence": 0.37,
+    "signal_score": 35.65,
+    "confidence": 0.36,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 76.0,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.125744-04:00",
+    "generated_at": "2026-04-13T08:00:58.795072-04:00",
     "categories": [
       "breakout"
     ]
@@ -148,7 +148,7 @@
   "ai_summary": "CAVA (CAVA Group, Inc.) currently trades at $84.94, showing bullish EMA alignment and MACD on the 1D chart, but with high Bollinger Bands indicating potential volatility. The BOGA AI score is UNDERPERFORM.\n\nThe daily chart shows possible BUY ZONE around $78, with a PROFIT ZONE aiming towards the 52-week high near $97.50. The STOP LOSS ZONE should be considered near $72.\n\nCAVA's high P/E ratio of 157.3 indicates premium valuation despite strong revenue growth of 20.9%. A key catalyst to watch is the upcoming Q1 earnings release, where surpassing growth expectations could drive positive price action.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 37,
+    "score_bar": 36,
     "price_change_display": "-1.40%",
     "key_metrics": {
       "RSI": 57.2,

@@ -1,8 +1,8 @@
 {
   "ticker": "KKR",
   "company": "KKR & Co. Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.332978-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.182263-04:00",
   "sector": "Financials",
   "industry": "Asset Management",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 7719810
   },
   "scores": {
-    "master_score": 31.89,
-    "technical_score": 42.0,
+    "master_score": 20.6,
+    "technical_score": 12.6,
     "fundamental_score": 18.0,
     "momentum_score": 0.0,
     "sentiment_score": 85.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 31.89,
-    "confidence": 0.32,
+    "signal_score": 20.6,
+    "confidence": 0.21,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 83.64,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.332934-04:00",
+    "generated_at": "2026-04-13T08:00:59.182217-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 32,
+    "score_bar": 21,
     "price_change_display": "-1.73%",
     "key_metrics": {
       "RSI": 46.9,

@@ -1,8 +1,8 @@
 {
   "ticker": "MAC",
   "company": "The Macerich Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.004259-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.995527-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1976183
   },
   "scores": {
-    "master_score": 55.96,
+    "master_score": 54.97,
     "technical_score": 61.0,
     "fundamental_score": 28.0,
     "momentum_score": 80.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 35.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 55.96,
-    "confidence": 0.56,
+    "signal_score": 54.97,
+    "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 20.14,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.004205-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.995464-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. MAC is currently testing its 52-week high of $21.42, acting as immediate resistance defined by the upper Bollinger Band at $21.00. A break above this level could signal further upside. A trader might enter here anticipating a breakout driven by continued bullish momentum, setting a BUY ZONE above $21.42, a PROFIT ZONE near $23.00 (projected based on prior price action), and a STOP LOSS ZONE just below the EMA20 at $19.50 to protect against a failed breakout.\n\n### Fundamental Edge\nMacerich boasts a solid gross margin of 56.0%, suggesting operational efficiency despite negative net income. This profitability at the operational level hints at potential for future earnings growth if revenue stabilizes.\n\n### Sector Context\nThe real estate sector is currently showing mixed performance, providing neither a strong tailwind nor a major headwind for MAC's individual performance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 56,
+    "score_bar": 55,
     "price_change_display": "+1.56%",
     "key_metrics": {
       "RSI": 71.4,

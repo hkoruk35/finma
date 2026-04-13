@@ -1,8 +1,8 @@
 {
   "ticker": "FR",
   "company": "First Industrial Realty Trust, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.993007-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.983368-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Industrial",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 987226
   },
   "scores": {
-    "master_score": 55.56,
+    "master_score": 54.57,
     "technical_score": 52.0,
     "fundamental_score": 35.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 15.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 55.56,
-    "confidence": 0.56,
+    "signal_score": 54.57,
+    "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 58.06,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.992967-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.983330-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. FR is currently trading in a bullish trend, above its key EMAs, with immediate resistance at the BB Upper of $61.28. A potential BUY ZONE would be a pullback to the EMA20 ($59.09) or EMA50 ($58.94), anticipating a bounce. The PROFIT ZONE is $62.00 - $62.95 (52-week high), and the STOP LOSS ZONE should be placed below the BB Lower at $55.96 to protect against a breakdown.\n\n### Fundamental Edge\nFR exhibits solid fundamentals, characterized by a P/E of 32.4492 and consistent revenue growth of 7.7% TTM. The robust 73.6% gross margin and 34.0% net margin underscore the company's operational efficiency. This earnings strength provides a fundamental anchor for the technical setup.\n\n### Sector Context\nThe real estate sector currently faces mixed sentiment amidst rising interest rates, offering neither a strong tailwind nor a significant headwind for this trade.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 56,
+    "score_bar": 55,
     "price_change_display": "+0.35%",
     "key_metrics": {
       "RSI": 60.4,

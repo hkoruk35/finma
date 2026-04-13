@@ -1,8 +1,8 @@
 {
   "ticker": "PINS",
   "company": "Pinterest, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.007836-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.616709-04:00",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 19277220
   },
   "scores": {
-    "master_score": 28.36,
-    "technical_score": 28.0,
+    "master_score": 20.27,
+    "technical_score": 8.4,
     "fundamental_score": 28.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 45.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 30.0,
-    "signal_score": 28.36,
-    "confidence": 0.28,
+    "signal_score": 20.27,
+    "confidence": 0.2,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 16.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.007813-04:00",
+    "generated_at": "2026-04-13T08:00:58.616637-04:00",
     "categories": [
       "breakout"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PINS exhibits an UNDERPERFORM BOGA AI score due to bearish technicals and premium valuation (P/E 29.0241). Price at $17.7 is 54.8% from its 52-week high with a bearish EMA alignment, and weak ADX strength (16.1) indicating a lack of trend. Key level to watch is the recent low of $16. Revenue growth is solid at 14.3% TTM, but the high Bollinger Band reading suggests potential near-term downside. A catalyst to watch is user engagement metrics, needing substantial growth to justify the current valuation.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 20%. PINS is currently bouncing off the lower Bollinger Band at $17.62, which acts as immediate support, but faces resistance at the 20-day EMA of $18.28. A potential short setup exists for traders anticipating a continued downtrend; the BUY ZONE would be a short entry near $18.28, the PROFIT ZONE targets a retest of the 52-week low around $15.50, and the STOP LOSS ZONE sits above the upper Bollinger Band near $19.00.\n\n### Fundamental Edge\nPINS' revenue growth of 14.3% coupled with its healthy gross margin suggests underlying business strength, yet a premium P/E ratio of 28.9 means the market has priced in further growth, making it vulnerable to disappointment if growth slows.\n\n### Sector Context\nThe Communication Services sector is showing mixed performance, offering limited tailwinds for a high-growth, sentiment-driven stock like PINS.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 28,
+    "score_bar": 20,
     "price_change_display": "-1.78%",
     "key_metrics": {
       "RSI": 38.8,

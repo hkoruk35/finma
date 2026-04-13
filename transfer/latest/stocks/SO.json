@@ -1,8 +1,8 @@
 {
   "ticker": "SO",
   "company": "The Southern Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.839256-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.841965-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 5311763
   },
   "scores": {
-    "master_score": 42.82,
+    "master_score": 42.7,
     "technical_score": 52.0,
     "fundamental_score": 0.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 0.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 42.82,
+    "signal_score": 42.7,
     "confidence": 0.43,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 93.99,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.839216-04:00",
+    "generated_at": "2026-04-13T08:00:59.841920-04:00",
     "categories": []
   },
   "breakout": {

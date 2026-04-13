@@ -1,8 +1,8 @@
 {
   "ticker": "COHR",
   "company": "Coherent Corp.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.875200-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.417816-04:00",
   "sector": "Technology",
   "industry": "Scientific & Technical Instruments",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 9066940
   },
   "scores": {
-    "master_score": 53.92,
+    "master_score": 53.08,
     "technical_score": 52.0,
     "fundamental_score": 30.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 0.0,
-    "signal_score": 53.92,
-    "confidence": 0.54,
+    "signal_score": 53.08,
+    "confidence": 0.53,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 260.9,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.875148-04:00",
+    "generated_at": "2026-04-13T08:00:58.417779-04:00",
     "categories": [
       "momentum"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "COHR displays a NEGATIVE_BIAS BOGA AI score, with 53% confidence. Technically, COHR trades near its 52-week high ($301.72), but ADX at 13.1 indicates a weak trend. While EMA alignment is bullish, the RSI of 64.7 suggests approaching overbought territory. COHRâ€™s P/E of 296.23 is substantially higher than the sector median, despite solid 17.5% revenue growth and reasonable gross margin (36.4%).\n\nThe high valuation might be supported if the company raises guidance in the next earnings call. Breaching the $305 resistance could shift sentiment; failure to do so may see a pullback towards $290 support.",
+  "ai_summary": "COHR displays a NEGATIVE_BIAS FinMA score, with 53% confidence. Technically, COHR trades near its 52-week high ($301.72), but ADX at 13.1 indicates a weak trend. While EMA alignment is bullish, the RSI of 64.7 suggests approaching overbought territory. COHRÃ¢â‚¬â„¢s P/E of 296.23 is substantially higher than the sector median, despite solid 17.5% revenue growth and reasonable gross margin (36.4%).\n\nThe high valuation might be supported if the company raises guidance in the next earnings call. Breaching the $305 resistance could shift sentiment; failure to do so may see a pullback towards $290 support.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 54,
+    "score_bar": 53,
     "price_change_display": "+8.21%",
     "key_metrics": {
       "RSI": 65.9,

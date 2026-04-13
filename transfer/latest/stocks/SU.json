@@ -1,8 +1,8 @@
 {
   "ticker": "SU",
   "company": "Suncor Energy Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.444424-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.401178-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 60.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.444401-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.401144-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -128,7 +130,7 @@
   },
   "news": [],
   "insider_activity": {
-    "last_90_days_buys": 52,
+    "last_90_days_buys": 51,
     "last_90_days_sells": 0,
     "net_direction": "BUY",
     "last_transaction": {
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 60%. SU is showing bullish momentum, trading above its EMA20, EMA50, and EMA200. Resistance is forming near the upper Bollinger Band at $68.05, while support holds around the lower Bollinger Band at $60.18. A trader might consider the BUY ZONE between $60.18 and $63.59, anticipating a bounce off the lower band or a test of the EMA20, with a PROFIT ZONE near $66.79 (52-week high) and a STOP LOSS ZONE just below $59.24 (EMA50).\n\n### Fundamental Edge\n\nSuncor is generating healthy cash flow with a solid gross margin of 59.1% and a net margin of 12.1%, indicating operational efficiency. The current P/E ratio of 18.41 suggests fair valuation within the sector, potentially attracting value-oriented investors looking for stable returns in the energy space.\n\n### Sector Context\n\nThe energy sector currently presents a mixed picture, with recent volatility potentially hindering SU's upward momentum despite its solid technical setup.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 60,

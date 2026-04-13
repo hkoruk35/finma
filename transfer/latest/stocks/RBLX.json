@@ -1,8 +1,8 @@
 {
   "ticker": "RBLX",
   "company": "Roblox Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.005089-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.610022-04:00",
   "sector": "Communication Services",
   "industry": "Electronic Gaming & Multimedia",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 8774446
   },
   "scores": {
-    "master_score": 23.36,
-    "technical_score": 28.0,
+    "master_score": 15.27,
+    "technical_score": 8.4,
     "fundamental_score": 0.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 23.36,
-    "confidence": 0.23,
+    "signal_score": 15.27,
+    "confidence": 0.15,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 48.93,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.005066-04:00",
+    "generated_at": "2026-04-13T08:00:58.609976-04:00",
     "categories": [
       "breakout"
     ]
@@ -131,7 +131,7 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 15,
+    "last_90_days_sells": 14,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "RBLX exhibits UNDERPERFORM, with low conviction (23%), based on weak profitability (-21.8% net margin) despite robust growth (43.2% TTM revenue). Technically, bearish EMA alignment and weak ADX (15.6) support this view, although the RSI of 39.5 suggests limited near-term downside. Price at $53.7 is 62.1% from its 52-week high, indicating significant underperformance. A potential catalyst could be a surprise shift towards profitability in the next earnings report, given its current negative net margin. Monitor upcoming user engagement metrics for signs of improvement.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 15%. RBLX is currently trading below both its 20-day EMA ($57.35) and 50-day EMA ($63.17), signaling bearish momentum. The BUY ZONE is between $51.91 and $52.38 (52-week low and BB Lower band) for a potential bounce play. The PROFIT ZONE would be near the 20-day EMA at $57.35, with a STOP LOSS ZONE just below the 52-week low at $51.00. A trader might enter here betting on mean reversion, given the oversold RSI and proximity to the lower Bollinger Band, despite the overall downtrend.\n\n### Fundamental Edge\nRoblox’s revenue growth of 43.2% demonstrates strong user engagement and monetization potential, offering a glimpse of future profitability despite current negative net margins. A trader might look past the lack of current earnings and focus on the growth story, anticipating future margin expansion driven by user growth.\n\n### Sector Context\nThe Communication Services sector shows mixed performance, providing neither strong tailwinds nor significant headwinds for RBLX, making this a company-specific play rather than a sector-driven trade.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 23,
+    "score_bar": 15,
     "price_change_display": "+0.76%",
     "key_metrics": {
       "RSI": 43.2,

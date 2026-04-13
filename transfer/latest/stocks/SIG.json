@@ -1,8 +1,8 @@
 {
   "ticker": "SIG",
   "company": "Signet Jewelers Limited",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.119911-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.787460-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Luxury Goods",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1126250
   },
   "scores": {
-    "master_score": 51.71,
+    "master_score": 50.4,
     "technical_score": 32.0,
     "fundamental_score": 75.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 15.0,
     "value_score": 85.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 51.71,
-    "confidence": 0.52,
+    "signal_score": 50.4,
+    "confidence": 0.5,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 84.81,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.119873-04:00",
+    "generated_at": "2026-04-13T08:00:58.787360-04:00",
     "categories": [
       "value"
     ]
@@ -148,7 +148,7 @@
   "ai_summary": "Signet Jewelers (SIG) exhibits a NEGATIVE BIAS, with 52% confidence. The bearish EMA alignment and weak ADX (14.6) overshadow the current price of $93.26, which sits 12% below its 52-week high. While SIG's P/E of 13.17 trades below the sector median, and the gross margin is strong at 39.5%, the -0.3% TTM revenue growth is concerning. Volume is weak (0.51x). The very high dividend yield of 150% is unsustainable. A catalyst for upside revision would be a demonstrable turnaround in revenue growth during the next earnings call.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 52,
+    "score_bar": 50,
     "price_change_display": "+0.61%",
     "key_metrics": {
       "RSI": 57.5,

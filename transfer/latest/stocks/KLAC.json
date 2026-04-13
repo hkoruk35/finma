@@ -1,8 +1,8 @@
 {
   "ticker": "KLAC",
   "company": "KLA Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.837550-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.375860-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 974373
   },
   "scores": {
-    "master_score": 48.47,
+    "master_score": 47.63,
     "technical_score": 50.0,
     "fundamental_score": 15.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 48.47,
+    "signal_score": 47.63,
     "confidence": 0.48,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 1599.6,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.837502-04:00",
+    "generated_at": "2026-04-13T08:00:58.375775-04:00",
     "categories": []
   },
   "breakout": {

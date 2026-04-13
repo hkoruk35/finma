@@ -1,8 +1,8 @@
 {
   "ticker": "SRPT",
   "company": "Sarepta Therapeutics, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.269528-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.082309-04:00",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 3147910
   },
   "scores": {
-    "master_score": 46.04,
-    "technical_score": 57.0,
+    "master_score": 30.62,
+    "technical_score": 17.1,
     "fundamental_score": 37.0,
     "momentum_score": 40.0,
     "sentiment_score": 50.0,
-    "sector_score": 38.4,
+    "sector_score": 23.9,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 46.04,
-    "confidence": 0.46,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 30.62,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 54.3,
@@ -87,7 +87,7 @@
     "beta": 0.283
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 19.66,
     "entry_range_high": 21.29,
     "target_range_low": 24.7,
@@ -98,7 +98,7 @@
     "stop_loss": 18.5,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.269500-04:00",
+    "generated_at": "2026-04-13T08:00:59.082251-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 46,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
     "price_change_display": "-4.72%",
     "key_metrics": {
       "RSI": 54.3,

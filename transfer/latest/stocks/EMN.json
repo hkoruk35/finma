@@ -1,8 +1,8 @@
 {
   "ticker": "EMN",
   "company": "Eastman Chemical Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.596566-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.599068-04:00",
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1706223
   },
   "scores": {
-    "master_score": 45.06,
+    "master_score": 44.77,
     "technical_score": 42.0,
     "fundamental_score": 39.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 45.06,
+    "signal_score": 44.77,
     "confidence": 0.45,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 68.87,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.596519-04:00",
+    "generated_at": "2026-04-13T08:00:59.599023-04:00",
     "categories": []
   },
   "breakout": {

@@ -1,8 +1,8 @@
 {
   "ticker": "NI",
   "company": "NiSource Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.920892-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.919242-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Gas",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3393936
   },
   "scores": {
-    "master_score": 54.32,
+    "master_score": 54.2,
     "technical_score": 57.0,
     "fundamental_score": 23.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 0.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 54.32,
+    "signal_score": 54.2,
     "confidence": 0.54,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 46.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.920799-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.919134-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -133,7 +135,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 61811,
+      "shares": 275962,
       "date": "2026-02-27"
     }
   },
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. NI is currently trading near its 52-week high ($48.47) with immediate resistance at the Bollinger Band upper level of $48.71. A breakout above this level could trigger a move towards the PROFIT ZONE at $50.00, while the BUY ZONE lies between the EMA20 ($47.00) and EMA50 ($46.03), offering support. Traders might consider a long position on a confirmed break above $48.71, placing a STOP LOSS ZONE just below the EMA20 at $46.50.\n\n### Fundamental Edge\nNI's revenue growth of 19.8% TTM, coupled with a healthy net margin of 14.0%, suggests the company is effectively converting sales into profit, supporting the current premium P/E of 24.64. This fundamental strength can justify further upside if the company can maintain this growth trajectory.\n\n### Sector Context\nThe Utilities sector is currently exhibiting mixed momentum, providing neither a strong tailwind nor a significant headwind for NI's individual performance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 54,

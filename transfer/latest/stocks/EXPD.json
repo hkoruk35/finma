@@ -1,8 +1,8 @@
 {
   "ticker": "EXPD",
   "company": "Expeditors International of Washington, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.776110-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.774987-04:00",
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1263606
   },
   "scores": {
-    "master_score": 34.38,
+    "master_score": 33.72,
     "technical_score": 40.0,
     "fundamental_score": 24.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 100.0,
-    "signal_score": 34.38,
+    "signal_score": 33.72,
     "confidence": 0.34,
     "signal_type": "UNDERPERFORM"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 135.64,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.776069-04:00",
+    "generated_at": "2026-04-13T08:00:59.774936-04:00",
     "categories": []
   },
   "breakout": {

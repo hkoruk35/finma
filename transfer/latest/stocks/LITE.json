@@ -1,8 +1,8 @@
 {
   "ticker": "LITE",
   "company": "Lumentum Holdings Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.877842-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.422812-04:00",
   "sector": "Technology",
   "industry": "Communication Equipment",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 7335183
   },
   "scores": {
-    "master_score": 48.92,
+    "master_score": 48.08,
     "technical_score": 62.0,
     "fundamental_score": 0.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 0.0,
-    "signal_score": 48.92,
-    "confidence": 0.49,
+    "signal_score": 48.08,
+    "confidence": 0.48,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 751.7,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.877777-04:00",
+    "generated_at": "2026-04-13T08:00:58.422720-04:00",
     "categories": [
       "momentum"
     ]
@@ -135,7 +135,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 611,
+      "shares": 5302,
       "date": "2026-02-27"
     }
   },
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "LITE exhibits a NEGATIVE_BIAS BOGA AI score due to its premium valuation (P/E of 264.4x) relative to the sector, despite strong TTM revenue growth (65.5%) and healthy margins (37.1% gross, 12.0% net). Trading at its 52-week high ($922.77), LITEâ€™s RSI of 66.3 suggests it is approaching overbought territory, while ADX indicates moderate trend strength (25.2). The EMA alignment is bullish. Key technical levels to watch are support around $880 (previous resistance) and resistance at the current high. A potential catalyst for continued upward momentum would be a significant new contract in the telecom sector, given its fiber optic components business.",
+  "ai_summary": "LITE exhibits a NEGATIVE_BIAS FinMA score due to its premium valuation (P/E of 264.4x) relative to the sector, despite strong TTM revenue growth (65.5%) and healthy margins (37.1% gross, 12.0% net). Trading at its 52-week high ($922.77), LITEÃ¢â‚¬â„¢s RSI of 66.3 suggests it is approaching overbought territory, while ADX indicates moderate trend strength (25.2). The EMA alignment is bullish. Key technical levels to watch are support around $880 (previous resistance) and resistance at the current high. A potential catalyst for continued upward momentum would be a significant new contract in the telecom sector, given its fiber optic components business.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 49,
+    "score_bar": 48,
     "price_change_display": "+0.35%",
     "key_metrics": {
       "RSI": 64.8,

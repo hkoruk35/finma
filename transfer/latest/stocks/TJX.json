@@ -1,8 +1,8 @@
 {
   "ticker": "TJX",
   "company": "The TJX Companies, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.099343-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.757433-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Apparel Retail",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 4569896
   },
   "scores": {
-    "master_score": 49.71,
+    "master_score": 48.4,
     "technical_score": 52.0,
     "fundamental_score": 23.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 49.71,
-    "confidence": 0.5,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 48.4,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 55.2,
@@ -87,7 +87,7 @@
     "beta": 0.727
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 156.48,
     "entry_range_high": 162.41,
     "target_range_low": 168.6,
@@ -98,7 +98,7 @@
     "stop_loss": 154.64,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.099274-04:00",
+    "generated_at": "2026-04-13T08:00:58.757322-04:00",
     "categories": [
       "momentum"
     ]
@@ -147,8 +147,8 @@
   },
   "ai_summary": "TJX shows a SELL signal with 51% confidence. Currently priced at $161.64, it's near its 52-week high, with only 0.2% upside. The EMA stack is bullish, but ADX at 13.6 suggests a weak trend. RSI is 57.3 (neutral). While revenue growth is solid at 8.5%, its P/E of 33.19 is higher than the sector median of 29.12, indicating potential overvaluation. RVOL is below 1, showing decreased investor attention. The low BB squeeze also suggests the stock is not going to become more volatile any time soon. A near-term catalyst to monitor is the upcoming earnings report; disappointing results could trigger a sell-off.",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 50,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
     "price_change_display": "-2.06%",
     "key_metrics": {
       "RSI": 55.2,

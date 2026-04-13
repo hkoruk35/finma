@@ -1,8 +1,8 @@
 {
   "ticker": "CAR",
   "company": "Avis Budget Group, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.127338-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.798347-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Rental & Leasing Services",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1653506
   },
   "scores": {
-    "master_score": 60.76,
+    "master_score": 59.45,
     "technical_score": 75.0,
     "fundamental_score": 15.0,
     "momentum_score": 100.0,
     "sentiment_score": 65.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 60.0,
     "value_score": 20.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 0.0,
-    "signal_score": 60.76,
-    "confidence": 0.61,
+    "signal_score": 59.45,
+    "confidence": 0.59,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,9 @@
     "stop_loss": 255.2,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.127306-04:00",
+    "generated_at": "2026-04-13T08:00:58.798301-04:00",
     "categories": [
+      "top_scores",
       "breakout"
     ]
   },
@@ -145,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Avis Budget Group (CAR) currently trades at $278.36, down 6.30% today, with BOGA AI assigning a NEUTRAL_STAY score (63% confidence). The stock is near its 52-week high, despite negative TTM revenue growth of -1.7%. While EMA alignment is bullish and ADX shows strong trend strength (54.4), the negative net margin of -7.6% raises concerns. The Relative Volume is high at 2.71x. The RSI of 82.5 suggests overbought conditions. Key support lies near the recent low, while resistance is at the 52-week high. A potential catalyst for CAR is a sustained rebound in travel demand translating to improved profitability.",
+  "ai_summary": "Avis Budget Group (CAR) currently trades at $278.36, down 6.30% today, with FinMA assigning a NEUTRAL_STAY score (63% confidence). The stock is near its 52-week high, despite negative TTM revenue growth of -1.7%. While EMA alignment is bullish and ADX shows strong trend strength (54.4), the negative net margin of -7.6% raises concerns. The Relative Volume is high at 2.71x. The RSI of 82.5 suggests overbought conditions. Key support lies near the recent low, while resistance is at the 52-week high. A potential catalyst for CAR is a sustained rebound in travel demand translating to improved profitability.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 61,
+    "score_bar": 59,
     "price_change_display": "+0.96%",
     "key_metrics": {
       "RSI": 92.0,

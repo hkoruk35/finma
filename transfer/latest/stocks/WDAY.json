@@ -1,8 +1,8 @@
 {
   "ticker": "WDAY",
   "company": "Workday, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.890871-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.442815-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5218480
   },
   "scores": {
-    "master_score": 32.12,
-    "technical_score": 24.0,
+    "master_score": 25.4,
+    "technical_score": 7.2,
     "fundamental_score": 50.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 30.0,
     "value_score": 40.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 32.12,
-    "confidence": 0.32,
+    "signal_score": 25.4,
+    "confidence": 0.25,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 99.68,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.890830-04:00",
+    "generated_at": "2026-04-13T08:00:58.442749-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "WDAY exhibits a BOGA AI score of UNDERPERFORM, reflecting low confidence (28%). Technically, the bearish EMA alignment and oversold RSI of 27.5 suggest continued downward pressure. The stock is 59.2% off its 52-week high. While revenue growth remains positive at 14.5% TTM, the P/E of 43.32 positions it at a premium compared to the sector. The ADX reading of 38.7 implies a strong trend. A key catalyst to monitor is Workday's ability to demonstrate further margin expansion beyond the current 7.3% net margin, which could shift sentiment.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 25%. WDAY currently trades near its 52-week low, with immediate resistance at the Bollinger Band upper of $141.83 and the EMA50 at $143.82. A short-term trader might consider the PROFIT ZONE between $135 and $140, entering only if the stock breaks above $115.28 (Bollinger Band lower) and placing a STOP LOSS ZONE below $112.50, anticipating a bounce from this deeply oversold level.\n\n### Fundamental Edge\nWDAY demonstrates solid gross margins of 75.7% and a net margin of 7.3%, indicating a healthy underlying business. However, a P/E of 43.44 suggests the stock is richly valued relative to its growth and sector, offering limited near-term upside based on fundamentals.\n\n### Sector Context\nThe technology sector is currently exhibiting mixed performance, with some segments showing strength while others are under pressure due to interest rates and inflation concerns.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 32,
+    "score_bar": 25,
     "price_change_display": "-0.50%",
     "key_metrics": {
       "RSI": 27.6,

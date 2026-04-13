@@ -1,8 +1,8 @@
 {
   "ticker": "TMUS",
   "company": "T-Mobile US, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.987605-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.580069-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5512276
   },
   "scores": {
-    "master_score": 22.16,
-    "technical_score": 8.0,
+    "master_score": 18.97,
+    "technical_score": 2.4,
     "fundamental_score": 34.0,
     "momentum_score": 0.0,
     "sentiment_score": 68.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 22.16,
-    "confidence": 0.22,
+    "signal_score": 18.97,
+    "confidence": 0.19,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 185.11,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.987576-04:00",
+    "generated_at": "2026-04-13T08:00:58.579996-04:00",
     "categories": [
       "dividend"
     ]
@@ -148,7 +148,7 @@
   "ai_summary": "T-Mobile (TMUS) exhibits a STRONG_SELL signal, albeit with low 18% confidence. At $197.63, the price declined 1.45% today, with RVOL at 0.96x. Technicals lean bearish: RSI(14) at 34.3 indicates oversold conditions. The EMA stack is bearish. The stock is 22.7% away from its 52-week high and ADX is at 21.9. Fundamentals are mixed: P/E of 20.33 is above the sector median of 17.47, while TTM revenue growth is strong at 11.3%, with a gross margin of 63.2%. A potential near-term catalyst could be upcoming subscriber growth data.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 22,
+    "score_bar": 19,
     "price_change_display": "-0.93%",
     "key_metrics": {
       "RSI": 32.3,

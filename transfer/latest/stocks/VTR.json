@@ -1,8 +1,8 @@
 {
   "ticker": "VTR",
   "company": "Ventas, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.037978-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.061516-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Healthcare Facilities",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3208740
   },
   "scores": {
-    "master_score": 53.36,
+    "master_score": 52.37,
     "technical_score": 60.0,
     "fundamental_score": 27.0,
     "momentum_score": 70.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 0.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 53.36,
-    "confidence": 0.53,
+    "signal_score": 52.37,
+    "confidence": 0.52,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 81.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.037938-04:00",
+    "generated_at": "2026-04-13T08:01:00.061467-04:00",
     "categories": []
   },
   "breakout": {
@@ -133,7 +133,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 457,
+      "shares": 624,
       "date": "2026-04-01"
     }
   },
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 53,
+    "score_bar": 52,
     "price_change_display": "+0.01%",
     "key_metrics": {
       "RSI": 58.8,

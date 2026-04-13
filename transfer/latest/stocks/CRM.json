@@ -1,8 +1,8 @@
 {
   "ticker": "CRM",
   "company": "Salesforce, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.882584-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.429034-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 13600443
   },
   "scores": {
-    "master_score": 28.27,
-    "technical_score": 3.0,
+    "master_score": 26.7,
+    "technical_score": 0.9,
     "fundamental_score": 68.0,
     "momentum_score": 0.0,
     "sentiment_score": 65.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 65.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 100.0,
-    "signal_score": 28.27,
-    "confidence": 0.28,
+    "signal_score": 26.7,
+    "confidence": 0.27,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 149.96,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.882491-04:00",
+    "generated_at": "2026-04-13T08:00:58.428967-04:00",
     "categories": [
       "reversal",
       "dividend"
@@ -149,7 +149,7 @@
   "ai_summary": "CRM signals STRONG_SELL with low confidence based on today's data. The stock is down 3.60% to $176.37, with an RSI of 35.2 indicating oversold conditions but weak ADX of 13 suggesting a lack of strong trend. The bearish EMA stack and negative MACD histogram (-0.4402) reinforce negative momentum. While the P/E of 22.61 is below the sector median of 32.77, the low RVOL of 0.91 indicates waning investor interest. Near-term, upcoming earnings announcements could trigger further downside if revenue growth disappoints after the current TTM of 12.1%.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 28,
+    "score_bar": 27,
     "price_change_display": "-3.45%",
     "key_metrics": {
       "RSI": 28.0,

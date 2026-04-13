@@ -1,8 +1,8 @@
 {
   "ticker": "MO",
   "company": "Altria Group, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.155076-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.871822-04:00",
   "sector": "Consumer Staples",
   "industry": "Tobacco",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 10037840
   },
   "scores": {
-    "master_score": 61.0,
+    "master_score": 59.86,
     "technical_score": 58.0,
     "fundamental_score": 60.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 30.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 61.0,
-    "confidence": 0.61,
+    "signal_score": 59.86,
+    "confidence": 0.6,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,9 @@
     "stop_loss": 64.44,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.155053-04:00",
+    "generated_at": "2026-04-13T08:00:58.871757-04:00",
     "categories": [
+      "top_scores",
       "value"
     ]
   },
@@ -145,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MO exhibits mixed signals, resulting in a BOGA AI score of NEUTRAL STAY. The high dividend yield of 6.29% is attractive in the current environment, and the P/E of 16.26 suggests undervaluation compared to the sector median. However, negative revenue growth of -0.5% TTM tempers enthusiasm. Technically, MO is near its 52-week high, suggesting potential resistance around $68.50. The ADX of 13.8 indicates a weak trend. A key catalyst to monitor is future guidance on reduced-risk product performance, which could sway investor sentiment.",
+  "ai_summary": "MO exhibits mixed signals, resulting in a FinMA score of NEUTRAL STAY. The high dividend yield of 6.29% is attractive in the current environment, and the P/E of 16.26 suggests undervaluation compared to the sector median. However, negative revenue growth of -0.5% TTM tempers enthusiasm. Technically, MO is near its 52-week high, suggesting potential resistance around $68.50. The ADX of 13.8 indicates a weak trend. A key catalyst to monitor is future guidance on reduced-risk product performance, which could sway investor sentiment.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 61,
+    "score_bar": 60,
     "price_change_display": "-0.12%",
     "key_metrics": {
       "RSI": 60.5,

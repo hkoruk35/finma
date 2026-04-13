@@ -1,8 +1,8 @@
 {
   "ticker": "A",
   "company": "Agilent Technologies, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.246125-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.044683-04:00",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2180306
   },
   "scores": {
-    "master_score": 34.79,
-    "technical_score": 47.0,
+    "master_score": 21.82,
+    "technical_score": 14.1,
     "fundamental_score": 0.0,
     "momentum_score": 30.0,
     "sentiment_score": 85.0,
-    "sector_score": 38.4,
+    "sector_score": 23.9,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 34.79,
-    "confidence": 0.35,
+    "signal_score": 21.82,
+    "confidence": 0.22,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 108.76,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.246099-04:00",
+    "generated_at": "2026-04-13T08:00:59.044646-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 35,
+    "score_bar": 22,
     "price_change_display": "-0.29%",
     "key_metrics": {
       "RSI": 48.1,

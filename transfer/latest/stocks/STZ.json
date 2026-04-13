@@ -1,8 +1,8 @@
 {
   "ticker": "STZ",
   "company": "Constellation Brands, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.140075-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.825886-04:00",
   "sector": "Consumer Staples",
   "industry": "Beverages - Brewers",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2104403
   },
   "scores": {
-    "master_score": 57.9,
+    "master_score": 56.76,
     "technical_score": 62.0,
     "fundamental_score": 42.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 47.0,
     "value_score": 25.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 57.9,
-    "confidence": 0.58,
+    "signal_score": 56.76,
+    "confidence": 0.57,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,9 @@
     "stop_loss": 156.49,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.140052-04:00",
+    "generated_at": "2026-04-13T08:00:58.825838-04:00",
     "categories": [
+      "top_scores",
       "breakout"
     ]
   },
@@ -148,7 +149,7 @@
   "ai_summary": "STZ (Constellation Brands) exhibits mixed signals. The BOGA AI score is NEUTRAL STAY (58% confidence).\n\nTechnically, the daily chart shows bullish EMA alignment, but a weak ADX (12.8) indicates a lack of trend strength. RSI is approaching overbought (68.6). Volume is elevated at 1.57x.\n\nA BUY ZONE exists near $162.00 (recent support), with a PROFIT ZONE targeting $175.00 (recent resistance). A STOP LOSS ZONE should be considered near $158.00.\n\nA key catalyst for STZ is its discounted P/E ratio of 17.3 compared to the sector median of 24.3, potentially attracting value investors. However, negative TTM revenue growth (-11.3%) warrants caution.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 58,
+    "score_bar": 57,
     "price_change_display": "+1.89%",
     "key_metrics": {
       "RSI": 68.6,

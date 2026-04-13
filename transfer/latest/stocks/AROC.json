@@ -1,8 +1,8 @@
 {
   "ticker": "AROC",
   "company": "Archrock, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.508591-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.491268-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Equipment & Services",
   "price": {
@@ -98,7 +98,7 @@
     "stop_loss": 33.77,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.508560-04:00",
+    "generated_at": "2026-04-13T08:00:59.491202-04:00",
     "categories": []
   },
   "breakout": {

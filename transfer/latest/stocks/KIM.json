@@ -1,8 +1,8 @@
 {
   "ticker": "KIM",
   "company": "Kimco Realty Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.006393-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.998553-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5758950
   },
   "scores": {
-    "master_score": 61.36,
+    "master_score": 60.37,
     "technical_score": 60.0,
     "fundamental_score": 47.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 0.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 61.36,
-    "confidence": 0.61,
+    "signal_score": 60.37,
+    "confidence": 0.6,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 22.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.006352-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.998501-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 60%. KIM is currently trading near its 52-week high, testing resistance around $23.33 (BB Upper). Support lies at $22.70 (EMA20), $22.35 (EMA50), and the lower Bollinger Band around $22.04. A trader might consider entering a long position on a breakout above $23.38 (52-week high) to capitalize on further upward momentum, targeting a PROFIT ZONE near $24.00 with a STOP LOSS ZONE just below the EMA20 at $22.65.\n\n### Fundamental Edge\nKIM's reasonable P/E of 28.26, coupled with a strong gross margin of 69.1% and a net margin of 27.3%, suggests a fundamentally sound business. The recent price action reflects the market's appreciation of Kimco's ability to generate consistent profits.\n\n### Sector Context\nThe real estate sector is currently showing mixed performance, with some REITs benefitting from stable occupancy rates, but KIM’s proximity to its 52-week high suggests relative strength within the sector.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 61,
+    "score_bar": 60,
     "price_change_display": "+0.43%",
     "key_metrics": {
       "RSI": 61.6,

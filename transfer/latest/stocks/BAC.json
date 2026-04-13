@@ -1,8 +1,8 @@
 {
   "ticker": "BAC",
   "company": "Bank of America Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.277901-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.095792-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 42077586
   },
   "scores": {
-    "master_score": 55.69,
+    "master_score": 54.69,
     "technical_score": 40.0,
     "fundamental_score": 52.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 15.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 55.69,
-    "confidence": 0.56,
+    "signal_score": 54.69,
+    "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 50.06,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.277861-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.095727-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. BAC is currently trading at $52.54, testing the upper Bollinger Band at $52.44 as resistance. A breakout above this level could signal further upside, but the mixed/bearish EMA stack suggests caution. A trader might consider a BUY ZONE between $50.24 (EMA50) and $52.44 (BB Upper), setting a PROFIT ZONE near the 52-week high of $56.93 and a STOP LOSS ZONE just below $49.75 (EMA20).\n\n### Fundamental Edge\nBAC's P/E of 13.79 suggests it's trading at a discount, offering potential value. The revenue growth of 7.2% and a strong net margin of 28.4% provide a solid fundamental base. The undervaluation relative to peers might attract buyers looking for a stable financial institution.\n\n### Sector Context\nThe Financials sector shows mixed momentum, so BAC's performance will largely depend on company-specific factors rather than broad sector tailwinds.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 56,
+    "score_bar": 55,
     "price_change_display": "-0.32%",
     "key_metrics": {
       "RSI": 67.2,

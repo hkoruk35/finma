@@ -1,8 +1,8 @@
 {
   "ticker": "MTZ",
   "company": "MasTec, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.807982-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.804177-04:00",
   "sector": "Industrials",
   "industry": "Engineering & Construction",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1017226
   },
   "scores": {
-    "master_score": 55.88,
+    "master_score": 55.22,
     "technical_score": 50.0,
     "fundamental_score": 40.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 0.0,
-    "signal_score": 55.88,
-    "confidence": 0.56,
+    "signal_score": 55.22,
+    "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 330.8,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.807945-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.803947-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. MTZ is currently testing its 52-week high and the upper Bollinger Band at $360.69, indicating potential resistance. The BUY ZONE would be a pullback towards the EMA20 around $325.79, offering a lower-risk entry. A PROFIT ZONE targets a breakout above the 52-week high, while a STOP LOSS ZONE should be placed below the EMA50 around $298.33 to protect against a deeper correction. Traders might consider entering on a pullback, anticipating continued bullish momentum after consolidation.\n\n### Fundamental Edge\nMTZ's revenue growth of 15.8% suggests solid business expansion, despite the high P/E ratio of 71.38735. This growth justifies the current price action and supports further upside potential if the company can maintain its revenue trajectory.\n\n### Sector Context\nThe Industrials sector's strength may provide a tailwind for MTZ if infrastructure spending continues to be a driver of growth.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 56,
+    "score_bar": 55,
     "price_change_display": "+1.08%",
     "key_metrics": {
       "RSI": 72.9,

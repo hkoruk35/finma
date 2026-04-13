@@ -1,8 +1,8 @@
 {
   "ticker": "CE",
   "company": "Celanese Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.583704-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.580170-04:00",
   "sector": "Materials",
   "industry": "Chemicals",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 2714436
   },
   "scores": {
-    "master_score": 54.96,
+    "master_score": 54.67,
     "technical_score": 56.0,
     "fundamental_score": 35.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 30.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 54.96,
+    "signal_score": 54.67,
     "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 56.87,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.583669-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.580113-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. CE is currently trading at $63.13, nearing its 52-week high of $65.77. A breakout above the Bollinger Band Upper level of $67.13 could signal further upside. The BUY ZONE would be a pullback to the EMA20 at $61.15, offering support. A STOP LOSS ZONE can be set below the BB Lower at $55.86, while the PROFIT ZONE targets a retest of the 52-week high, followed by a measured move toward $70.00, assuming a successful breakout.\n\n### Fundamental Edge\nWhile revenue growth is negative, the high dividend yield of 19.00% could attract income-focused investors. A trader might see the current price as a reasonable entry point given the potential for dividend income while awaiting a turnaround in revenue.\n\n### Sector Context\nThe Materials sector is showing mixed performance, neither strongly supporting nor significantly hindering CE's current price action.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 55,

@@ -1,8 +1,8 @@
 {
   "ticker": "VEEV",
   "company": "Veeva Systems Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.910351-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.464240-04:00",
   "sector": "Technology",
   "industry": "Health Information Services",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2195913
   },
   "scores": {
-    "master_score": 31.07,
-    "technical_score": 11.0,
+    "master_score": 27.54,
+    "technical_score": 3.3,
     "fundamental_score": 64.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 31.07,
-    "confidence": 0.31,
+    "signal_score": 27.54,
+    "confidence": 0.28,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 136.45,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.910305-04:00",
+    "generated_at": "2026-04-13T08:00:58.464184-04:00",
     "categories": [
       "reversal"
     ]
@@ -131,7 +131,7 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 2,
+    "last_90_days_sells": 1,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
@@ -148,7 +148,7 @@
   "ai_summary": "VEEV receives an UNDERPERFORM score from BOGA AI. The daily chart reveals bearish EMA alignment and an RSI of 22.4, indicating oversold conditions but lacking immediate reversal confirmation.\n\nKey levels to watch: BUY ZONE near $145 (previous support), PROFIT ZONE around $165 (resistance), and STOP LOSS ZONE at $140.\n\nDespite strong fundamentals (75.5% gross margin and a discounted P/E of 27.84), the lack of recent positive catalysts and overall technical weakness weigh on the score. A potential catalyst could be a surprise announcement of significant new contract wins.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 31,
+    "score_bar": 28,
     "price_change_display": "-3.60%",
     "key_metrics": {
       "RSI": 22.4,

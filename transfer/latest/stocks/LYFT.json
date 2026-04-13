@@ -1,8 +1,8 @@
 {
   "ticker": "LYFT",
   "company": "Lyft, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.112371-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.777125-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Software - Application",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 17352560
   },
   "scores": {
-    "master_score": 49.81,
-    "technical_score": 38.0,
+    "master_score": 39.19,
+    "technical_score": 11.4,
     "fundamental_score": 75.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 45.0,
     "value_score": 85.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 49.81,
-    "confidence": 0.5,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 39.19,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 44.9,
@@ -87,7 +87,7 @@
     "beta": 1.859
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 13.16,
     "entry_range_high": 13.3,
     "target_range_low": 14.73,
@@ -98,7 +98,7 @@
     "stop_loss": 12.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.112345-04:00",
+    "generated_at": "2026-04-13T08:00:58.777052-04:00",
     "categories": [
       "value"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Lyft (LYFT) exhibits a NEGATIVE BIAS, per the BOGA AI score, with 47% confidence.\n\nAt $13.35, the price is 45.6% below its 52-week high. Technically, the RSI of 46.8 and a neutral MACD offer little directional conviction. The EMA alignment is bearish and the ADX reading of 14.4 indicates a weak trend. Volume is below average (0.66x).\n\nFundamentally, LYFT's P/E of 1.96 suggests undervaluation relative to the sector. It has reasonable gross and net margins of 33.9% and 45.0% respectively, and revenue growth of 2.7%.\n\nA potential catalyst to watch is improved ridership numbers in the next quarterly report.\n\nKey technical levels to monitor: $12.50 support, $14.00 resistance.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 39%. LYFT is currently trading below its EMA20 ($13.41) and EMA50 ($14.39), indicating potential resistance ahead. A trader might consider a short position if the price fails to break the $13.41 resistance, targeting a PROFIT ZONE near the BB Lower at $12.72. A STOP LOSS ZONE would be placed above the EMA20 at $13.50 to protect against upward price movement; the BUY ZONE is not currently relevant given the negative bias.\n\n### Fundamental Edge\nLYFT's reported P/E of 1.94 suggests it's trading at a valuation discount. This low valuation could attract value-seeking investors if the company can maintain its profitability, providing a potential floor for the stock.\n\n### Sector Context\nThe Consumer Discretionary sector faces mixed signals, potentially adding uncertainty to LYFT's performance despite its individual technical setup.",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 50,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
     "price_change_display": "+0.08%",
     "key_metrics": {
       "RSI": 44.9,

@@ -1,8 +1,8 @@
 {
   "ticker": "AU",
   "company": "AngloGold Ashanti plc",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.562887-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.554912-04:00",
   "sector": "Materials",
   "industry": "Gold",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3402013
   },
   "scores": {
-    "master_score": 60.11,
+    "master_score": 59.82,
     "technical_score": 60.0,
     "fundamental_score": 54.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 60.11,
+    "signal_score": 59.82,
     "confidence": 0.6,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 97.93,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.562854-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.554819-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 60%. AU shows bullish momentum but is approaching overbought territory. Immediate resistance is near the BB Upper at $111.85. A pullback to the BUY ZONE around the EMA20 at $100.20 and EMA50 at $99.56 would present a lower-risk entry point, targeting a PROFIT ZONE near the 52-week high of $126.14. Set a STOP LOSS ZONE just below the EMA50, around $98.00.\n\n### Fundamental Edge\n\nAU's strong revenue growth of 75.3% TTM and healthy net margins of 26.6% suggest operational efficiency and increasing investor confidence. The relatively low P/E of 21.090734 further supports a potential price appreciation as earnings are efficiently translated into stock value.\n\n### Sector Context\n\nThe materials sector is showing moderate strength, neither strongly supporting nor significantly detracting from AU's individual performance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 60,

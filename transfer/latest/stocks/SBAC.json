@@ -1,8 +1,8 @@
 {
   "ticker": "SBAC",
   "company": "SBA Communications Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.988605-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.977902-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1448540
   },
   "scores": {
-    "master_score": 68.86,
+    "master_score": 67.87,
     "technical_score": 65.0,
     "fundamental_score": 54.0,
     "momentum_score": 100.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 27.0,
     "value_score": 35.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 68.86,
-    "confidence": 0.69,
+    "signal_score": 67.87,
+    "confidence": 0.68,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 207.81,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.988565-04:00",
+    "generated_at": "2026-04-13T08:00:59.977846-04:00",
     "categories": [
       "top_scores"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SBAC exhibits mixed signals, resulting in a BOGA AI score of NEUTRAL STAY. The stock trades at $219.57, a 7.8% proximity to its 52-week high. While profitability is strong (74.5% gross margin, 37.4% net margin) and valuation is discounted at P/E 22.38, bearish EMA alignment raises concern. RSI is at 71.5, nearing overbought conditions. Increased volume relative of 1.56x indicates higher trading activity. A potential catalyst is SBAC's high dividend yield of 229.00%, which could attract income-focused investors if sustained. Key technical levels to watch are resistance near the 52-week high and support around the Bollinger Bands' lower boundary.",
+  "ai_summary": "SBAC exhibits mixed signals, resulting in a FinMA score of NEUTRAL STAY. The stock trades at $219.57, a 7.8% proximity to its 52-week high. While profitability is strong (74.5% gross margin, 37.4% net margin) and valuation is discounted at P/E 22.38, bearish EMA alignment raises concern. RSI is at 71.5, nearing overbought conditions. Increased volume relative of 1.56x indicates higher trading activity. A potential catalyst is SBAC's high dividend yield of 229.00%, which could attract income-focused investors if sustained. Key technical levels to watch are resistance near the 52-week high and support around the Bollinger Bands' lower boundary.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 69,
+    "score_bar": 68,
     "price_change_display": "+2.42%",
     "key_metrics": {
       "RSI": 73.1,

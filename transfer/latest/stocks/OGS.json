@@ -1,8 +1,8 @@
 {
   "ticker": "OGS",
   "company": "ONE Gas, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.925278-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.923389-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Gas",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 512906
   },
   "scores": {
-    "master_score": 58.12,
+    "master_score": 58.0,
     "technical_score": 60.0,
     "fundamental_score": 42.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 20.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 58.12,
+    "signal_score": 58.0,
     "confidence": 0.58,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 86.86,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.925206-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.923264-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 58%. OGS is currently trading near its 52-week high, with immediate resistance around the upper Bollinger Band at $90.76. A break above this level could signal further upside. BUY ZONE: $87.53 - $88.50 (around the 20-day EMA). PROFIT ZONE: $93.00 - $95.00 (projected based on recent volatility). STOP LOSS ZONE: $85.00 (just below the 50-day EMA at $85.34) to protect against a breakdown. A trader might enter within the BUY ZONE if they anticipate a continuation of the bullish trend after a minor pullback, capitalizing on support at the 20-day EMA.\n\n### Fundamental Edge\nOGS has a positive revenue growth of 9.3% TTM and demonstrates good profitability with a net margin of 10.9%. The stock's P/E of 20.59, suggests it's reasonably valued relative to its earnings, potentially offering a value proposition. This setup is justified by continued earnings and revenue growth.\n\n### Sector Context\nThe utilities sector is generally seen as stable, but interest rate risks could undermine OGS.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 58,

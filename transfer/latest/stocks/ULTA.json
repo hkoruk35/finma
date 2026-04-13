@@ -1,8 +1,8 @@
 {
   "ticker": "ULTA",
   "company": "Ulta Beauty, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.171033-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.897499-04:00",
   "sector": "Consumer Staples",
   "industry": "Specialty Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 835290
   },
   "scores": {
-    "master_score": 31.95,
-    "technical_score": 35.0,
+    "master_score": 22.23,
+    "technical_score": 10.5,
     "fundamental_score": 24.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 31.95,
-    "confidence": 0.32,
+    "signal_score": 22.23,
+    "confidence": 0.22,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 481.52,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.171005-04:00",
+    "generated_at": "2026-04-13T08:00:58.897447-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 32,
+    "score_bar": 22,
     "price_change_display": "-2.33%",
     "key_metrics": {
       "RSI": 34.3,

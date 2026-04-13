@@ -1,8 +1,8 @@
 {
   "ticker": "CRH",
   "company": "CRH plc",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.625009-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.623598-04:00",
   "sector": "Materials",
   "industry": "Building Materials",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 5827796
   },
   "scores": {
-    "master_score": 53.11,
+    "master_score": 52.82,
     "technical_score": 40.0,
     "fundamental_score": 42.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 53.11,
+    "signal_score": 52.82,
     "confidence": 0.53,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 110.25,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.624960-04:00",
+    "generated_at": "2026-04-13T08:00:59.623544-04:00",
     "categories": []
   },
   "breakout": {

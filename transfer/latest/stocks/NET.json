@@ -1,8 +1,8 @@
 {
   "ticker": "NET",
   "company": "Cloudflare, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.950115-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.522105-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 4125006
   },
   "scores": {
-    "master_score": 23.97,
-    "technical_score": 25.0,
+    "master_score": 17.0,
+    "technical_score": 7.5,
     "fundamental_score": 0.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 27.0,
     "value_score": 0.0,
     "reversal_score": 30.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 0.0,
-    "signal_score": 23.97,
-    "confidence": 0.24,
+    "signal_score": 17.0,
+    "confidence": 0.17,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 139.11,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.950066-04:00",
+    "generated_at": "2026-04-13T08:00:58.521991-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NET receives an UNDERPERFORM score from BOGA AI, confidence 24%. The daily chart shows a sharp -13.50% drop to $166.99, with bearish EMA alignment. BUY ZONE is not technically defined. The RSI of 33.0 suggests oversold conditions, but weak ADX at 19.9 indicates trend indecision, and relative volume is 1.7x. PROFIT ZONE is not defined due to UNDERPERFORM score. STOP LOSS ZONE is undefined. A specific catalyst to watch is increased enterprise adoption of Cloudflare's Zero Trust services.",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: UNDERPERFORM | Confidence: 17%. NET is showing significant weakness, down 13.5% today, breaching multiple support levels. Key resistance now sits near the EMA20 at $202.58. A short-term bounce to the $184.00-$192.31 range (BB Lower to EMA200) might present a shorting opportunity; place a STOP LOSS ZONE above the EMA20 at $203.00 to avoid being caught in a short squeeze. The lack of immediate catalysts after today's plunge suggests further downside momentum.\n\n### Fundamental Edge\n\nDespite robust revenue growth (33.6%), the negative net margin (-4.7%) raises concerns about long-term profitability. This suggests that growth is not translating to bottom-line improvements, which can make the stock vulnerable in risk-off environments.\n\n### Sector Context\n\nThe technology sector, while still showing pockets of strength, is facing increased scrutiny on growth stocks with questionable profitability, which creates a challenging environment for NET.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 24,
+    "score_bar": 17,
     "price_change_display": "-13.50%",
     "key_metrics": {
       "RSI": 33.0,

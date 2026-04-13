@@ -1,8 +1,8 @@
 {
   "ticker": "CNI",
   "company": "Canadian National Railway Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.747605-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.741792-04:00",
   "sector": "Industrials",
   "industry": "Railroads",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1737623
   },
   "scores": {
-    "master_score": 63.38,
+    "master_score": 62.72,
     "technical_score": 60.0,
     "fundamental_score": 52.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 35.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 63.38,
+    "signal_score": 62.72,
     "confidence": 0.63,
     "signal_type": "POSITIVE_BIAS"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 105.41,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.747579-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.741741-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -128,7 +130,7 @@
   },
   "news": [],
   "insider_activity": {
-    "last_90_days_buys": 55,
+    "last_90_days_buys": 54,
     "last_90_days_sells": 0,
     "net_direction": "BUY",
     "last_transaction": {
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: POSITIVE BIAS | Confidence: 63%. CNI is trading near its 52-week high, with immediate resistance around $109.90 (BB Upper). Support lies at $105.07 (EMA20) and $103.87 (EMA50). A BUY ZONE starts above the $109.90 breakout, targeting a PROFIT ZONE around $112.30 (52-week high). A STOP LOSS ZONE should be set below $103.87 (EMA50) to protect against trend reversal. Traders would enter here on a confirmed break of the upper Bollinger Band, anticipating a continued run towards its 52-week high, driven by overall bullish trend indicated by price being above key EMAs.\n\n### Fundamental Edge\nCNI's P/E of 20.16 suggests a relative value compared to its sector, coupled with strong gross and net margins of 56.7% and 27.3% respectively, indicating a healthy and profitable business. The positive revenue growth of 2.4% further supports a bullish outlook, suggesting continued earnings potential.\n\n### Sector Context\nThe industrials sector currently demonstrates mixed momentum, meaning CNI's individual strength will be more critical than sector tailwinds for this trade.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
     "score_bar": 63,

@@ -1,8 +1,8 @@
 {
   "ticker": "HIG",
   "company": "The Hartford Insurance Group, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.354132-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.229727-04:00",
   "sector": "Financials",
   "industry": "Insurance - Diversified",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1549166
   },
   "scores": {
-    "master_score": 65.74,
+    "master_score": 64.74,
     "technical_score": 58.0,
     "fundamental_score": 75.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 15.0,
     "value_score": 65.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 65.74,
-    "confidence": 0.66,
+    "signal_score": 64.74,
+    "confidence": 0.65,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 131.85,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.354109-04:00",
+    "generated_at": "2026-04-13T08:00:59.229683-04:00",
     "categories": [
       "top_scores"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HIG exhibits a NEUTRAL STAY BOGA AI score due to conflicting signals. While trading near its 52-week high and displaying bullish EMA alignment, the weak ADX (16.9) suggests a lack of strong trend. The attractive P/E of 10.37, below the sector median of 15.99, and solid 13.5% net margin are positives. However, today's -1.64% price action and below-average relative volume (0.67x) temper enthusiasm. The excessively high dividend yield is likely erroneous and requires verification. Absent a clear catalyst, such as a significant earnings beat or confirmed dividend policy adjustment, HIG lacks immediate directional conviction. Monitor support around $130 and resistance at $140.",
+  "ai_summary": "HIG exhibits a NEUTRAL STAY FinMA score due to conflicting signals. While trading near its 52-week high and displaying bullish EMA alignment, the weak ADX (16.9) suggests a lack of strong trend. The attractive P/E of 10.37, below the sector median of 15.99, and solid 13.5% net margin are positives. However, today's -1.64% price action and below-average relative volume (0.67x) temper enthusiasm. The excessively high dividend yield is likely erroneous and requires verification. Absent a clear catalyst, such as a significant earnings beat or confirmed dividend policy adjustment, HIG lacks immediate directional conviction. Monitor support around $130 and resistance at $140.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 66,
+    "score_bar": 65,
     "price_change_display": "-2.26%",
     "key_metrics": {
       "RSI": 52.3,

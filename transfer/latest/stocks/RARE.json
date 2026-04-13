@@ -1,8 +1,8 @@
 {
   "ticker": "RARE",
   "company": "Ultragenyx Pharmaceutical Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.271329-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.086156-04:00",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2116486
   },
   "scores": {
-    "master_score": 39.09,
-    "technical_score": 40.0,
+    "master_score": 27.84,
+    "technical_score": 12.0,
     "fundamental_score": 15.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.4,
+    "sector_score": 23.9,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 0.0,
-    "signal_score": 39.09,
-    "confidence": 0.39,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 27.84,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 58.9,
@@ -87,7 +87,7 @@
     "beta": 0.247
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 22.56,
     "entry_range_high": 23.42,
     "target_range_low": 26.01,
@@ -98,7 +98,7 @@
     "stop_loss": 21.14,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.271300-04:00",
+    "generated_at": "2026-04-13T08:00:59.086040-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 39,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
     "price_change_display": "-2.55%",
     "key_metrics": {
       "RSI": 58.9,

@@ -1,8 +1,8 @@
 {
   "ticker": "NOW",
   "company": "ServiceNow, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.887612-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.435073-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 18606220
   },
   "scores": {
-    "master_score": 30.22,
-    "technical_score": 20.0,
+    "master_score": 24.48,
+    "technical_score": 6.0,
     "fundamental_score": 28.0,
     "momentum_score": 20.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 27.0,
     "value_score": 25.0,
     "reversal_score": 35.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 30.22,
-    "confidence": 0.3,
+    "signal_score": 24.48,
+    "confidence": 0.24,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 71.8,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.887566-04:00",
+    "generated_at": "2026-04-13T08:00:58.435010-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ServiceNow (NOW) exhibits UNDERPERFORM based on a BOGA AI score with low confidence (27%). Today's significant price drop of -7.83% to $82.78, coupled with bearish EMA alignment and an RSI of 22.3, suggests strong downward momentum. Key technical levels to watch are previous support around $80.00. While ServiceNow's 20.7% TTM revenue growth and strong margins are positive, the high P/E ratio of 49.57, exceeding the sector median, makes it vulnerable in the current environment. Lacking any specific positive news catalyst, downward pressure is likely to persist.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 24%. NOW's daily chart shows a decisive break below the Bollinger Band lower level, indicating significant bearish momentum. A short-term swing trade opportunity may exist for a bounce back towards the BUY ZONE of $88.16 (BB Lower). The PROFIT ZONE is $102.26 (EMA20), and a STOP LOSS ZONE at $83.00 (today's low) is recommended to protect capital in case the downtrend continues.\n\n### Fundamental Edge\nDespite a robust Gross Margin of 77.5% and a Net Margin of 13.2%, the P/E of 49.7006 suggests the stock is trading at a premium. The catalyst for a short-term bounce would be a re-evaluation of the stock's revenue growth potential (20.7% TTM) after the recent price decline.\n\n### Sector Context\nThe Technology sector is currently experiencing mixed sentiment, meaning NOW's individual weakness is not necessarily being amplified by overall sector momentum.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 30,
+    "score_bar": 24,
     "price_change_display": "-7.58%",
     "key_metrics": {
       "RSI": 22.4,

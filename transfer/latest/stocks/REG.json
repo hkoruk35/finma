@@ -1,8 +1,8 @@
 {
   "ticker": "REG",
   "company": "Regency Centers Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.008819-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.001022-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1393866
   },
   "scores": {
-    "master_score": 62.11,
+    "master_score": 61.12,
     "technical_score": 60.0,
     "fundamental_score": 54.0,
     "momentum_score": 80.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 20.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 62.11,
-    "confidence": 0.62,
+    "signal_score": 61.12,
+    "confidence": 0.61,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 75.8,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.008776-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:01:00.000977-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 61%. REG is currently trading at $78.4, just below its 52-week high of $78.99, and within its Bollinger Band range of $73.49 to $78.89. A trader might consider entering near the current price for a breakout play above $78.99, targeting a PROFIT ZONE near $81, placing a STOP LOSS ZONE just below the EMA20 at $76.50, defining the BUY ZONE as $78 - $78.99.\n\n### Fundamental Edge\n\nREG's P/E of 27.8 indicates a potentially undervalued position relative to its sector, coupled with solid revenue growth of 8.9% and a strong gross margin of 71.6%. This suggests underlying strength. The recent pullback provides a potential entry point based on sound financial metrics.\n\n### Sector Context\n\nThe Real Estate sector is currently showing mixed signals, neither strongly supporting nor detracting from a potential breakout trade in REG.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 62,
+    "score_bar": 61,
     "price_change_display": "+0.06%",
     "key_metrics": {
       "RSI": 65.9,

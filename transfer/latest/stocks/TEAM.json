@@ -1,8 +1,8 @@
 {
   "ticker": "TEAM",
   "company": "Atlassian Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.893334-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.445232-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 6177590
   },
   "scores": {
-    "master_score": 23.52,
-    "technical_score": 18.0,
+    "master_score": 18.27,
+    "technical_score": 5.4,
     "fundamental_score": 20.0,
     "momentum_score": 0.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 25.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 23.52,
-    "confidence": 0.24,
+    "signal_score": 18.27,
+    "confidence": 0.18,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 47.93,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.893293-04:00",
+    "generated_at": "2026-04-13T08:00:58.445175-04:00",
     "categories": [
       "reversal"
     ]
@@ -131,7 +131,7 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 44,
+    "last_90_days_sells": 42,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Atlassian (TEAM) receives an UNDERPERFORM BOGA AI score due to its bearish technical outlook and negative net margin (-3.3%). Trading at $57.5, TEAM is 75% off its 52-week high. The RSI of 26 indicates oversold conditions, but bearish MACD and EMA alignment suggest continued downward momentum, confirmed by ADX at 33.9. The lack of P/E ratio due to negative earnings, although in line with sector trends, is a concern. A potential catalyst for TEAM would be a return to profitability, but without recent news or positive signals, caution is warranted. Key technical levels to watch are prior lows near $50.",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: UNDERPERFORM | Confidence: 18%. TEAM has just touched its 52-week low of $57.15 and is trading below the lower Bollinger Band at $58.36, indicating potential oversold conditions but confirming bearish momentum. A short-term bounce could occur, offering a potential shorting opportunity near the upper BB resistance at $79.22 or the 20-day EMA at $68.41. BUY ZONE: Never. PROFIT ZONE: $50.00 (break of 52-week low). STOP LOSS ZONE: $69.00 (above EMA20).\n\n### Fundamental Edge\n\nWhile TEAM's revenue growth of 23.3% and high gross margins of 84.1% are positive, the negative net margin of -3.3% suggests a lack of profitability, which could be weighing on investor sentiment. Without a clear path to profitability, TEAM's valuation may be difficult to justify in the current environment.\n\n### Sector Context\n\nTechnology stocks are exhibiting mixed performance, with growth names like TEAM facing increased scrutiny due to valuation concerns, making a short position potentially attractive if broader market sentiment turns more risk-averse.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 24,
+    "score_bar": 18,
     "price_change_display": "-3.07%",
     "key_metrics": {
       "RSI": 25.7,

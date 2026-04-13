@@ -1,8 +1,8 @@
 {
   "ticker": "NEXA",
   "company": "Nexa Resources S.A.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.637584-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.635804-04:00",
   "sector": "Materials",
   "industry": "Other Industrial Metals & Mining",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 627626
   },
   "scores": {
-    "master_score": 61.91,
+    "master_score": 61.62,
     "technical_score": 58.0,
     "fundamental_score": 70.0,
     "momentum_score": 60.0,
     "sentiment_score": 70.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 30.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 61.91,
+    "signal_score": 61.62,
     "confidence": 0.62,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 10.47,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.637528-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.635704-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 62%. NEXA is showing bullish signals trading within its Bollinger Bands, but just below the upper band at $12.02, suggesting potential resistance. A BUY ZONE would be established on a pullback to the EMA20/EMA50 around $10.93-$10.94, offering a confluence of support. The PROFIT ZONE sits near the 52-week high around $14.60, while a STOP LOSS ZONE should be considered below the BB Lower band at $8.99.\n\n### Fundamental Edge\nNEXA appears undervalued with a P/E of 11.85 and has demonstrated solid revenue growth of 21.9% TTM, suggesting strong top-line performance. This fundamental strength could attract investors looking for value in the materials sector, potentially driving the price toward the profit zone.\n\n### Sector Context\nThe materials sector is showing mixed momentum, meaning NEXA's success will depend more on company-specific catalysts than broad sector tailwinds.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 62,

@@ -1,8 +1,8 @@
 {
   "ticker": "ET",
   "company": "Energy Transfer LP",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.478845-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.447870-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Midstream",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 18.39,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.478824-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.447779-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. ET is trading near its 52-week high, with immediate resistance around $19.61 (BB Upper). Support lies at $19.05 (EMA20) and $18.61 (EMA50). A BUY ZONE would be a pullback to the $18.56-$18.61 range (BB Lower/EMA50), anticipating a bounce. The PROFIT ZONE is $19.61-$19.67 (BB Upper/52W High), and the STOP LOSS ZONE is $18.50, just below key support.\n\n### Fundamental Edge\nET's relatively low P/E of 15.86 suggests it's trading at a discount, despite strong revenue growth of 29.6% TTM. This undervalued status, combined with positive price momentum, could attract further investment if revenue remains strong.\n\n### Sector Context\nET benefits from ongoing strength in the energy sector as demand remains strong, providing a tailwind for the current bullish trend.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 55,

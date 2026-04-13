@@ -1,8 +1,8 @@
 {
   "ticker": "NOK",
   "company": "Nokia Oyj",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.993458-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.590680-04:00",
   "sector": "Communication Services",
   "industry": "Communication Equipment",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 65579713
   },
   "scores": {
-    "master_score": 54.61,
+    "master_score": 53.38,
     "technical_score": 73.0,
     "fundamental_score": 8.0,
     "momentum_score": 80.0,
     "sentiment_score": 70.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 35.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 40.0,
-    "signal_score": 54.61,
-    "confidence": 0.55,
+    "signal_score": 53.38,
+    "confidence": 0.53,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 8.66,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.993416-04:00",
+    "generated_at": "2026-04-13T08:00:58.590616-04:00",
     "categories": [
       "momentum"
     ]
@@ -141,10 +141,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NOK currently trades at $9.48, near its 52-week high. The BOGA AI score is NEGATIVE_BIAS, with 54% confidence. While EMA alignment is bullish, the overbought RSI of 71.9 suggests caution. A high P/E of 72.96 indicates a valuation premium versus the sector. Although volume is elevated at 1.25x relative, modest 2.4% TTM revenue growth does not strongly justify the premium. Critically, the unusually high 169% dividend yield may be unsustainable and could signal financial strain, a concerning catalyst for potential downside. Key technical levels to watch include resistance at the 52-week high and support around $9.00.",
+  "ai_summary": "NOK currently trades at $9.48, near its 52-week high. The FinMA score is NEGATIVE_BIAS, with 54% confidence. While EMA alignment is bullish, the overbought RSI of 71.9 suggests caution. A high P/E of 72.96 indicates a valuation premium versus the sector. Although volume is elevated at 1.25x relative, modest 2.4% TTM revenue growth does not strongly justify the premium. Critically, the unusually high 169% dividend yield may be unsustainable and could signal financial strain, a concerning catalyst for potential downside. Key technical levels to watch include resistance at the 52-week high and support around $9.00.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 55,
+    "score_bar": 53,
     "price_change_display": "-0.94%",
     "key_metrics": {
       "RSI": 71.2,

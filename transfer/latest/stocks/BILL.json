@@ -1,8 +1,8 @@
 {
   "ticker": "BILL",
   "company": "BILL Holdings, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.913155-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.467739-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2005883
   },
   "scores": {
-    "master_score": 25.77,
-    "technical_score": 18.0,
+    "master_score": 20.52,
+    "technical_score": 5.4,
     "fundamental_score": 37.0,
     "momentum_score": 0.0,
     "sentiment_score": 65.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 45.0,
     "value_score": 20.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 30.0,
-    "signal_score": 25.77,
-    "confidence": 0.26,
+    "signal_score": 20.52,
+    "confidence": 0.21,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 30.49,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.913097-04:00",
+    "generated_at": "2026-04-13T08:00:58.467676-04:00",
     "categories": [
       "breakout",
       "reversal"
@@ -136,7 +136,7 @@
     "net_direction": "NEUTRAL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 25667,
+      "shares": 18935,
       "date": "2026-02-27"
     }
   },
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BILL currently trades at $35.22, down 2.65% today, positioning it 37.5% below its 52-week high. Technicals are weak: RSI is 30.0, MACD bearish, and EMA alignment bearish. ADX strength is low at 19.7, while Bollinger Bands suggest high volatility.\n\nDespite a solid 83.6% gross margin, a negative net margin of -1.6% weighs on the valuation with no P/E. Revenue growth is 14.4% TTM.\n\nThe BOGA AI score is UNDERPERFORM due to weak technicals and profitability concerns. A catalyst for a potential rebound would be a definitive move towards profitability. Key levels to watch are resistance at $40 and support near $32.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 21%. BILL is currently trading at its 52-week low of $34.71. Key resistance is at the BB Upper of $41.68, with further resistance at the EMA50 ($41.74). A swing trader might consider shorting near the $41.68 resistance within the PROFIT ZONE of $30.00 - $32.00, placing a STOP LOSS ZONE above the EMA50 around $42.50, anticipating a continuation of the current downtrend. The BUY ZONE does not exist.\n\n### Fundamental Edge\nBILL's revenue growth of 14.4% is respectable, and its high gross margin suggests pricing power. However, the negative net margin is concerning, raising questions about profitability sustainability, and could trigger a short position if the company fails to achieve profitability soon.\n\n### Sector Context\nThe Technology sector's recent choppiness may not provide additional support for BILL, leaving it vulnerable to broader market corrections.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 26,
+    "score_bar": 21,
     "price_change_display": "-4.06%",
     "key_metrics": {
       "RSI": 28.7,

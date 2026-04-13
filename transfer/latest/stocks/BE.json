@@ -1,8 +1,8 @@
 {
   "ticker": "BE",
   "company": "Bloom Energy Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.956948-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.946122-04:00",
   "sector": "Utilities",
   "industry": "Electrical Equipment & Parts",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 10043730
   },
   "scores": {
-    "master_score": 47.07,
+    "master_score": 46.95,
     "technical_score": 57.0,
     "fundamental_score": 10.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 0.0,
-    "signal_score": 47.07,
+    "signal_score": 46.95,
     "confidence": 0.47,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 138.14,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.956890-04:00",
+    "generated_at": "2026-04-13T08:00:59.946059-04:00",
     "categories": []
   },
   "breakout": {

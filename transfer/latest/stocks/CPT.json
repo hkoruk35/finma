@@ -1,8 +1,8 @@
 {
   "ticker": "CPT",
   "company": "Camden Property Trust",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.027072-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.046906-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Residential",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 1150633
   },
   "scores": {
-    "master_score": 54.86,
-    "technical_score": 45.0,
+    "master_score": 42.84,
+    "technical_score": 13.5,
     "fundamental_score": 62.0,
     "momentum_score": 60.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 0.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 54.86,
-    "confidence": 0.55,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 42.84,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 54.5,
@@ -87,7 +87,7 @@
     "beta": 0.848
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 101.44,
     "entry_range_high": 102.46,
     "target_range_low": 105.79,
@@ -98,7 +98,7 @@
     "stop_loss": 97.95,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.027031-04:00",
+    "generated_at": "2026-04-13T08:01:00.046833-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 55,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
     "price_change_display": "+1.10%",
     "key_metrics": {
       "RSI": 54.5,

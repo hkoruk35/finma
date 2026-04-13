@@ -1,8 +1,8 @@
 {
   "ticker": "NFLX",
   "company": "Netflix, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.973113-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.555461-04:00",
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 45687483
   },
   "scores": {
-    "master_score": 54.56,
+    "master_score": 53.33,
     "technical_score": 55.0,
     "fundamental_score": 43.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 15.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 30.0,
-    "signal_score": 54.56,
-    "confidence": 0.55,
+    "signal_score": 53.33,
+    "confidence": 0.53,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 97.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.973086-04:00",
+    "generated_at": "2026-04-13T08:00:58.555378-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 55,
+    "score_bar": 53,
     "price_change_display": "+0.94%",
     "key_metrics": {
       "RSI": 72.7,

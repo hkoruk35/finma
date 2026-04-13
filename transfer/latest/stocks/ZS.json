@@ -1,8 +1,8 @@
 {
   "ticker": "ZS",
   "company": "Zscaler, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.921544-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.478911-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3115430
   },
   "scores": {
-    "master_score": 30.07,
-    "technical_score": 23.0,
+    "master_score": 23.59,
+    "technical_score": 6.9,
     "fundamental_score": 30.0,
     "momentum_score": 20.0,
     "sentiment_score": 68.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 25.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 30.07,
-    "confidence": 0.3,
+    "signal_score": 23.59,
+    "confidence": 0.24,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 100.67,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.921508-04:00",
+    "generated_at": "2026-04-13T08:00:58.478864-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ZS is currently rated UNDERPERFORM by BOGA AI with low confidence (26%). The bearish EMA alignment and low RSI of 26.0 suggest continued downward momentum. Price sits 65.4% off its 52-week high. While revenue grew 25.9% TTM and gross margin is strong at 76.6%, negative net margins persist. A catalyst for a potential reversal would be achieving profitability. Key support levels to watch are previous lows around $110. P/E is non-existent.",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: UNDERPERFORM | Confidence: 24%. ZS is currently trading near its 52-week low of $118.05, with immediate resistance around the BB Upper at $163.07 and further resistance at the EMA50 of $160.64. A short position could be considered if the price fails to break above the BB Lower of $121.34. STOP LOSS ZONE: $140.66 (EMA20), BUY ZONE: $118.05 (52-week low), PROFIT ZONE: $100.00 (round number target).\n\n### Fundamental Edge\n\nWhile ZS demonstrates strong revenue growth (25.9%) and high gross margins (76.6%), its negative net margin suggests a lack of profitability that could limit upside potential. A sustained move towards positive net income would be a key catalyst to revisit this setup.\n\n### Sector Context\n\nThe technology sector is currently displaying mixed signals, providing neither a strong tailwind nor a clear headwind for ZS at this time.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 30,
+    "score_bar": 24,
     "price_change_display": "-3.42%",
     "key_metrics": {
       "RSI": 26.7,

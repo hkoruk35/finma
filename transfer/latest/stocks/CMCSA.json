@@ -1,8 +1,8 @@
 {
   "ticker": "CMCSA",
   "company": "Comcast Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.991341-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.586683-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 33918956
   },
   "scores": {
-    "master_score": 41.76,
-    "technical_score": 32.0,
+    "master_score": 32.69,
+    "technical_score": 9.6,
     "fundamental_score": 60.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 30.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 41.76,
-    "confidence": 0.42,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 32.69,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 39.2,
@@ -87,7 +87,7 @@
     "beta": 0.79
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 27.79,
     "entry_range_high": 28.07,
     "target_range_low": 29.43,
@@ -98,7 +98,7 @@
     "stop_loss": 26.53,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.991314-04:00",
+    "generated_at": "2026-04-13T08:00:58.586628-04:00",
     "categories": [
       "value"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CMCSA exhibits a NEGATIVE BIAS BOGA AI score, driven by bearish EMA alignment and weak ADX strength (21.4). Trading at $28.2, the stock is 13.5% off its 52-week high, with RSI at 41.9 suggesting room for further downside. Despite a discounted P/E of 5.23 relative to the sector, and strong margins (71.7% gross, 16.2% net), low TTM revenue growth of 1.2% hampers sentiment. The current dividend yield of 4.66% presents some appeal. A catalyst for a potential turnaround could be significant growth in broadband subscribers.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 33%. CMCSA's inability to hold the EMA20 ($28.57), which it breached today, signals potential further downside. Resistance lies at the EMA50 and EMA200 at $28.99. A short setup could be considered if CMCSA breaks below the BB Lower at $27.20; BUY ZONE: Entry at $27.19, PROFIT ZONE: $25.50, STOP LOSS ZONE: $28.00.\n\n### Fundamental Edge\nCMCSA trades at a low P/E of 5.18, suggesting undervaluation, and maintains strong gross and net margins of 71.7% and 16.2% respectively. However, tepid revenue growth of 1.2% offers limited near-term upside catalyst to change the current direction.\n\n### Sector Context\nThe Communication Services sector is showing mixed performance, failing to provide clear directional support for CMCSA at this time.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 42,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
     "price_change_display": "-1.34%",
     "key_metrics": {
       "RSI": 39.2,

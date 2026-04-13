@@ -1,8 +1,8 @@
 {
   "ticker": "TECK",
   "company": "Teck Resources Limited",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.526047-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.510066-04:00",
   "sector": "Materials",
   "industry": "Other Industrial Metals & Mining",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 4546203
   },
   "scores": {
-    "master_score": 54.11,
+    "master_score": 53.82,
     "technical_score": 60.0,
     "fundamental_score": 30.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 40.0,
-    "signal_score": 54.11,
+    "signal_score": 53.82,
     "confidence": 0.54,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 51.51,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.526018-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.510017-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. TECK is currently testing resistance at the upper Bollinger Band near $56.44. A break above this level could signal further upside, with the PROFIT ZONE extending towards the 52-week high around $61.32. Traders might consider entering a long position within the BUY ZONE between the EMA20 ($52.47) and EMA50 ($52.31), placing a STOP LOSS ZONE just below the lower Bollinger Band at $44.94 to manage risk if the breakout fails.\n\n### Fundamental Edge\nTECK’s revenue growth of 9.8% TTM, coupled with a solid net margin of 13.0%, suggests the company is effectively translating sales into profit. This performance could justify a long position if traders believe that management can maintain or improve these metrics, potentially driving the stock higher.\n\n### Sector Context\nThe materials sector is currently showing mixed performance, meaning TECK's individual stock strength will be crucial for any potential upside.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 54,

@@ -1,8 +1,8 @@
 {
   "ticker": "PRIM",
   "company": "Primoris Services Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.805920-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.800913-04:00",
   "sector": "Industrials",
   "industry": "Engineering & Construction",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 780323
   },
   "scores": {
-    "master_score": 53.38,
+    "master_score": 52.72,
     "technical_score": 60.0,
     "fundamental_score": 24.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 53.38,
+    "signal_score": 52.72,
     "confidence": 0.53,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 145.14,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.805884-04:00",
+    "generated_at": "2026-04-13T08:00:59.800881-04:00",
     "categories": []
   },
   "breakout": {
@@ -133,7 +133,7 @@
     "net_direction": "BUY",
     "last_transaction": {
       "type": "SELL",
-      "shares": 147,
+      "shares": 21774,
       "date": "2026-04-01"
     }
   },

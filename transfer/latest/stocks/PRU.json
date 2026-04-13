@@ -1,8 +1,8 @@
 {
   "ticker": "PRU",
   "company": "Prudential Financial, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.345695-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.211486-04:00",
   "sector": "Financials",
   "industry": "Insurance - Life",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2363413
   },
   "scores": {
-    "master_score": 45.29,
-    "technical_score": 36.0,
+    "master_score": 35.47,
+    "technical_score": 10.8,
     "fundamental_score": 60.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 30.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 45.29,
-    "confidence": 0.45,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 35.47,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 49.9,
@@ -87,7 +87,7 @@
     "beta": 0.94
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 96.42,
     "entry_range_high": 97.38,
     "target_range_low": 101.87,
@@ -98,7 +98,7 @@
     "stop_loss": 92.2,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.345672-04:00",
+    "generated_at": "2026-04-13T08:00:59.211413-04:00",
     "categories": [
       "value"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PRU exhibits mixed signals. BOGA AI score: NEGATIVE BIAS. Technically, the price is $97.01, 17.2% below its 52-week high. RSI is neutral at 50.4, but EMA alignment is bearish, requiring monitoring. Valuation is attractive, with a P/E of 9.71 versus the sector median of 15.99, alongside substantial TTM revenue growth of 31.2%. However, despite the high dividend yield of 561.00%, the bearish EMA alignment and muted volume (0.77x) offset the positives. Key level to watch: break below $95 could signal further downside. A positive catalyst would be significant news concerning substantial increases in sales of products with higher net income.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 35%. PRU is currently trading below its 50-day EMA of $98.91 and 200-day EMA of $102.80, indicating bearish momentum. A short trade could be considered if the price fails to hold the 20-day EMA at $96.51. STOP LOSS ZONE: $99.20 (just above the BB Upper). PROFIT ZONE: $92.00 (near the 52-week low), with BUY ZONE above $97 to capture potential upside after breaking through 20-day EMA, but wait for confirmation before entering.\n\n### Fundamental Edge\nPRU boasts solid revenue growth of 31.2% TTM and a P/E of 9.7, suggesting potential undervaluation relative to its sector. However, the muted net margin of 5.8% doesn't provide strong bullish conviction without positive news to drive price action.\n\n### Sector Context\nThe Financials sector is currently exhibiting mixed performance, offering neither strong tailwinds nor significant headwinds for a PRU trade at this time.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 45,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
     "price_change_display": "-0.21%",
     "key_metrics": {
       "RSI": 49.9,

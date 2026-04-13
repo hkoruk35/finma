@@ -1,8 +1,8 @@
 {
   "ticker": "URI",
   "company": "United Rentals, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.812851-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.808934-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 603543
   },
   "scores": {
-    "master_score": 51.83,
-    "technical_score": 52.0,
+    "master_score": 38.43,
+    "technical_score": 15.6,
     "fundamental_score": 37.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 45.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 51.83,
-    "confidence": 0.52,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 38.43,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 52.9,
@@ -87,7 +87,7 @@
     "beta": 1.681
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 768.07,
     "entry_range_high": 775.79,
     "target_range_low": 831.31,
@@ -98,7 +98,7 @@
     "stop_loss": 721.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.812820-04:00",
+    "generated_at": "2026-04-13T08:00:59.808896-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 52,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
     "price_change_display": "+0.60%",
     "key_metrics": {
       "RSI": 52.9,

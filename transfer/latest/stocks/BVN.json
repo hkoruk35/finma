@@ -1,8 +1,8 @@
 {
   "ticker": "BVN",
   "company": "Compañía de Minas Buenaventura S.A.A.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.641183-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.639523-04:00",
   "sector": "Materials",
   "industry": "Other Precious Metals & Mining",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1688273
   },
   "scores": {
-    "master_score": 53.86,
+    "master_score": 53.57,
     "technical_score": 52.0,
     "fundamental_score": 55.0,
     "momentum_score": 50.0,
     "sentiment_score": 68.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 40.0,
-    "signal_score": 53.86,
+    "signal_score": 53.57,
     "confidence": 0.54,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 33.73,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.641128-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.639421-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -139,7 +141,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. BVN is currently trading within its Bollinger Bands, with resistance near the upper band at $39.48 and support established by the EMA20 at $36.09. A BUY ZONE could be considered between the EMA20 ($36.09) and EMA50 ($35.58) if a trader anticipates a bounce. A STOP LOSS ZONE should be placed just below the EMA50 around $35.00, while the PROFIT ZONE targets the recent high near $43.50.\n\n### Fundamental Edge\nBVN presents a compelling case with a P/E of 11.45, indicating it might be undervalued compared to its sector. The substantial Revenue Growth TTM of 108.1% showcases strong operational performance, potentially driving further stock appreciation.\n\n### Sector Context\nThe materials sector is currently exhibiting mixed performance, which could introduce volatility and uncertainty into BVN's price action, offsetting some of its individual positive signals.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 54,

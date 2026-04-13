@@ -1,8 +1,8 @@
 {
   "ticker": "STLD",
   "company": "Steel Dynamics, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.609699-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.608314-04:00",
   "sector": "Materials",
   "industry": "Steel",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1166413
   },
   "scores": {
-    "master_score": 59.61,
+    "master_score": 59.32,
     "technical_score": 60.0,
     "fundamental_score": 40.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 59.61,
-    "confidence": 0.6,
+    "signal_score": 59.32,
+    "confidence": 0.59,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 178.31,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.609656-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.608275-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 59%. STLD is currently bumping against resistance at $190.50 (BB Upper). A breakout above this level could trigger momentum buying. The BUY ZONE is $190.50 to $192.00, targeting a PROFIT ZONE of $200 to $205 (just below the 52-week high). A STOP LOSS ZONE should be set between $179.73 and $180.08, just below the EMA50 and EMA20, to protect against a failed breakout.\n\n### Fundamental Edge\nSTLD's revenue growth of 14.0% suggests increasing demand for its steel products, which could translate to higher prices and sustained profitability. The P/E ratio of 23.88 appears to be within a reasonable range for the sector, indicating that STLD isn't overly expensive relative to its earnings.\n\n### Sector Context\nThe materials sector currently exhibits mixed momentum, suggesting that STLD's performance will be largely driven by company-specific factors rather than a strong sector tailwind.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 60,
+    "score_bar": 59,
     "price_change_display": "+0.30%",
     "key_metrics": {
       "RSI": 61.8,

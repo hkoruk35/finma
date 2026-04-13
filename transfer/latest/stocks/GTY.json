@@ -1,8 +1,8 @@
 {
   "ticker": "GTY",
   "company": "Getty Realty Corp.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.975412-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.963724-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 501440
   },
   "scores": {
-    "master_score": 64.41,
+    "master_score": 63.42,
     "technical_score": 58.0,
     "fundamental_score": 72.0,
     "momentum_score": 80.0,
     "sentiment_score": 50.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 20.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 64.41,
-    "confidence": 0.64,
+    "signal_score": 63.42,
+    "confidence": 0.63,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 32.68,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.975371-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.963688-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: POSITIVE BIAS | Confidence: 63%. GTY is exhibiting bullish momentum, trading just below its 52-week high, with price action supported by the EMA20 at $32.60. Traders should consider a BUY ZONE between $33.00 and $33.94, anticipating a breakout above the upper Bollinger Band. The PROFIT ZONE is $34.50 - $35.50, targeting a new 52-week high, while the STOP LOSS ZONE should be placed at $31.60, just below the EMA50, to protect against a trend reversal.\n\n### Fundamental Edge\n\nGTY presents a compelling case with a P/E of 25.08, suggesting it's undervalued compared to its sector. The company's robust revenue growth of 5.4% coupled with high margins signals financial stability and growth potential. This justifies the technical setup, as continued revenue growth could drive further price appreciation.\n\n### Sector Context\n\nThe real estate sector currently exhibits mixed momentum, suggesting GTY's potential upside relies more on company-specific factors than broad sector tailwinds.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 64,
+    "score_bar": 63,
     "price_change_display": "-0.06%",
     "key_metrics": {
       "RSI": 70.3,

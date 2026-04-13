@@ -1,8 +1,8 @@
 {
   "ticker": "SHEL",
   "company": "Shell plc",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.409487-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.346514-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 88.19,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.409465-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.346459-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "HIGH",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: POSITIVE BIAS | Confidence: 65%. SHEL is trading near its 52-week high, exhibiting bullish momentum above its key EMAs, with immediate resistance around the upper Bollinger Band at $94.19. A breakout above this level, fueled by continued energy demand, provides an entry point. BUY ZONE: $92.20 - $94.20 (breakout confirmation). PROFIT ZONE: $96.00 - $98.00 (targeting new 52-week highs). STOP LOSS ZONE: $89.50 - $90.50 (below the lower Bollinger Band and EMA20).\n\n### Fundamental Edge\nSHEL trades at a P/E of 15.4, suggesting it is undervalued compared to its peers, offering a margin of safety. The gross margin of 25.4% and net margin of 6.7% indicate a profitable operation even with slight revenue headwinds. The market anticipates a rebound in energy prices driving earnings growth over the next year.\n\n### Sector Context\nThe energy sector is currently exhibiting mixed performance amid fluctuating global demand, presenting a neutral backdrop for SHEL, requiring careful monitoring of price action.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
     "score_bar": 65,

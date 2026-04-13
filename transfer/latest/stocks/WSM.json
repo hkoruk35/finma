@@ -1,8 +1,8 @@
 {
   "ticker": "WSM",
   "company": "Williams-Sonoma, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.039534-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.668262-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Specialty Retail",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 1395106
   },
   "scores": {
-    "master_score": 41.26,
-    "technical_score": 50.0,
+    "master_score": 27.7,
+    "technical_score": 15.0,
     "fundamental_score": 24.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 41.26,
-    "confidence": 0.41,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 27.7,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 53.0,
@@ -87,7 +87,7 @@
     "beta": 1.578
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 188.18,
     "entry_range_high": 190.08,
     "target_range_low": 208.04,
@@ -98,7 +98,7 @@
     "stop_loss": 173.69,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.039503-04:00",
+    "generated_at": "2026-04-13T08:00:58.668206-04:00",
     "categories": [
       "breakout"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "WSM exhibits a NEGATIVE BIAS (BOGA AI score), despite its attractive dividend yield of 1.59%. The stock trades at $190.09, 13.9% below its 52-week high. While the P/E of 21.5 suggests a valuation discount compared to the sector median of 25.6, negative TTM revenue growth of -4.3% is concerning. Bearish EMA alignment and a neutral MACD reinforce the cautious outlook. ADX strength is weak at 20.3. Monitor price action relative to Bollinger Bands. A positive catalyst would be a successful turnaround in revenue growth, but currently, technicals and fundamentals point downward.",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: UNDERPERFORM | Confidence: 28%. WSM is currently trading near its 200-day EMA at $189.90, acting as immediate resistance. The Bollinger Bands are indicating a volatility squeeze, which often precedes a sharp move. A short entry could be considered near the $189.58 BB Upper, targeting a PROFIT ZONE near the $174.67 BB Lower, with a STOP LOSS ZONE just above the 50-day EMA at $190.43. The BUY ZONE is not applicable at this time, but a break below EMA20 could be considered at $185.18 with the expectation of a continued downtrend.\n\n### Fundamental Edge\n\nWSM's negative revenue growth of -4.3% is a concern, despite a healthy net margin of 13.9%. Although its P/E ratio of 21.42 suggests it's trading at a discount, the lack of a compelling growth catalyst makes it difficult to justify a long position currently.\n\n### Sector Context\n\nThe Consumer Discretionary sector is showing mixed signals, with some segments outperforming while others lag, meaning WSM's performance will likely be driven by company-specific factors rather than broad sector tailwinds.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 41,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
     "price_change_display": "-1.14%",
     "key_metrics": {
       "RSI": 53.0,

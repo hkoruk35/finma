@@ -1,8 +1,8 @@
 {
   "ticker": "QCOM",
   "company": "QUALCOMM Incorporated",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.824302-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.350448-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 12097453
   },
   "scores": {
-    "master_score": 45.02,
-    "technical_score": 53.0,
+    "master_score": 31.19,
+    "technical_score": 15.9,
     "fundamental_score": 45.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 45.0,
     "value_score": 50.0,
     "reversal_score": -10.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 45.02,
-    "confidence": 0.45,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 31.19,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 42.0,
@@ -87,7 +87,7 @@
     "beta": 1.279
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 127.42,
     "entry_range_high": 128.7,
     "target_range_low": 136.2,
@@ -98,7 +98,7 @@
     "stop_loss": 120.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.824240-04:00",
+    "generated_at": "2026-04-13T08:00:58.350398-04:00",
     "categories": [
       "breakout",
       "dividend"
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "QCOM currently holds a BOGA AI score of NEGATIVE_BIAS. While showing a slight increase today (+1.44% to $129.59), the bearish EMA alignment raises concerns. The stock is 30.1% off its 52-week high, and relative volume at 0.68x suggests waning investor interest.\n\nDespite a relatively attractive P/E of 26.12 compared to the sector median of 39.22, and solid gross margins (55.1%), the high dividend yield of 279% could signal financial strain.\n\nKey technical levels to watch are resistance near the 52-week high and support around $120.\nA potential catalyst would be a surprise announcement of a new major 5G infrastructure deal which may reverse the current sentiment.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 31%. QCOM is currently range-bound between the Bollinger Bands, with immediate resistance at the BB Upper of $132.29 and support around the BB Lower at $124.76. A trader might consider a short position near the $132.29 level, anticipating a rejection at resistance and a move back towards the $124.76 support. STOP LOSS ZONE: $133.00. PROFIT ZONE: $125.00 - $124.76.\n\n### Fundamental Edge\nQCOM trades at a P/E of 25.8, suggesting a relative discount compared to its sector. Although revenue is growing at 5.0% TTM, this growth needs to accelerate to justify a sustained breakout above the 200-day EMA.\n\n### Sector Context\nThe technology sector exhibits mixed momentum, with some sub-sectors outperforming while others lag, creating an uncertain backdrop for QCOM.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 45,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
     "price_change_display": "+0.24%",
     "key_metrics": {
       "RSI": 42.0,

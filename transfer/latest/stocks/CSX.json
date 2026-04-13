@@ -1,8 +1,8 @@
 {
   "ticker": "CSX",
   "company": "CSX Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.742126-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.732863-04:00",
   "sector": "Industrials",
   "industry": "Railroads",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 13389566
   },
   "scores": {
-    "master_score": 52.38,
+    "master_score": 51.72,
     "technical_score": 60.0,
     "fundamental_score": 12.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 52.38,
+    "signal_score": 51.72,
     "confidence": 0.52,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 40.5,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.742097-04:00",
+    "generated_at": "2026-04-13T08:00:59.732805-04:00",
     "categories": []
   },
   "breakout": {

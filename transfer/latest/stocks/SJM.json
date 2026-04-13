@@ -1,8 +1,8 @@
 {
   "ticker": "SJM",
   "company": "The J. M. Smucker Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.147880-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.854479-04:00",
   "sector": "Consumer Staples",
   "industry": "Packaged Foods",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2309310
   },
   "scores": {
-    "master_score": 25.7,
-    "technical_score": 15.0,
+    "master_score": 20.88,
+    "technical_score": 4.5,
     "fundamental_score": 35.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 15.0,
     "value_score": 45.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 70.0,
-    "signal_score": 25.7,
-    "confidence": 0.26,
+    "signal_score": 20.88,
+    "confidence": 0.21,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 85.89,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.147827-04:00",
+    "generated_at": "2026-04-13T08:00:58.854408-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SJM currently exhibits a BOGA AI score of UNDERPERFORM, with low confidence (26%). The stock trades at $91.71, 20.9% below its 52-week high. While revenue growth is a positive 7.0% TTM, concerningly the net margin is -14.1%. A major point is the alarming 476% dividend yield that looks unsustainable without new debt and may lead to a possible dividend reduction. Bearish EMA alignment and an RSI of 22.9 indicate continued negative momentum. ADX strength at 35.5 supports a defined trend. Key technical levels to watch include resistance near the 52-week high and support around the current price level. The P/E ratio is not available, in line with sector.",
+  "ai_summary": "SJM currently exhibits a FinMA score of UNDERPERFORM, with low confidence (26%). The stock trades at $91.71, 20.9% below its 52-week high. While revenue growth is a positive 7.0% TTM, concerningly the net margin is -14.1%. A major point is the alarming 476% dividend yield that looks unsustainable without new debt and may lead to a possible dividend reduction. Bearish EMA alignment and an RSI of 22.9 indicate continued negative momentum. ADX strength at 35.5 supports a defined trend. Key technical levels to watch include resistance near the 52-week high and support around the current price level. The P/E ratio is not available, in line with sector.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 26,
+    "score_bar": 21,
     "price_change_display": "-1.69%",
     "key_metrics": {
       "RSI": 21.6,

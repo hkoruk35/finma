@@ -1,8 +1,8 @@
 {
   "ticker": "MRVL",
   "company": "Marvell Technology, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.840048-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.379820-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 25816153
   },
   "scores": {
-    "master_score": 57.07,
+    "master_score": 56.23,
     "technical_score": 61.0,
     "fundamental_score": 30.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 40.0,
-    "signal_score": 57.07,
-    "confidence": 0.57,
+    "signal_score": 56.23,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,9 @@
     "stop_loss": 116.31,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.839981-04:00",
+    "generated_at": "2026-04-13T08:00:58.379752-04:00",
     "categories": [
+      "top_scores",
       "momentum"
     ]
   },
@@ -148,7 +149,7 @@
   "ai_summary": "MRVL exhibits a NEUTRAL STAY score, confidence 57%. The daily chart shows MRVL near its 52-week high at $128.49 after a 7.19% jump. The overbought RSI of 79.5 warrants caution. Key levels to watch: potential BUY ZONE if it pulls back toward $120, PROFIT ZONE at $135 resistance, with a STOP LOSS ZONE near $115. Despite bullish EMA alignment, ADX at 24.2 suggests weakening trend strength. A key catalyst is MRVL's high 19.00% dividend yield which could attract income-focused investors, but its premium P/E of 41.85 may limit upside potential relative to peers.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 57,
+    "score_bar": 56,
     "price_change_display": "+7.19%",
     "key_metrics": {
       "RSI": 79.5,

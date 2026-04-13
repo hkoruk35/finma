@@ -1,8 +1,8 @@
 {
   "ticker": "EA",
   "company": "Electronic Arts Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.002300-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.603014-04:00",
   "sector": "Communication Services",
   "industry": "Electronic Gaming & Multimedia",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2309513
   },
   "scores": {
-    "master_score": 51.56,
+    "master_score": 50.33,
     "technical_score": 60.0,
     "fundamental_score": 12.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 0.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 51.56,
-    "confidence": 0.52,
+    "signal_score": 50.33,
+    "confidence": 0.5,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 200.58,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.002275-04:00",
+    "generated_at": "2026-04-13T08:00:58.602858-04:00",
     "categories": [
       "dividend"
     ]
@@ -148,7 +148,7 @@
   "ai_summary": "EA shows NEGATIVE_BIAS, with 50% confidence. The high P/E ratio of 75.75 contrasts sharply with modest 1.0% TTM revenue growth. Technically, bearish EMA alignment and low ADX strength suggest limited immediate upward momentum. Despite a healthy 78.3% gross margin, the rich valuation and high dividend yield (38%) raise concerns about sustainability. Price sits just 1.1% from its 52-week high, offering limited upside. Key level to watch: Support around $195. Potential catalyst: Upcoming earnings release NEEDS to show substantial revenue growth to justify the valuation, otherwise, expect a correction.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 52,
+    "score_bar": 50,
     "price_change_display": "+0.27%",
     "key_metrics": {
       "RSI": 54.0,

@@ -1,8 +1,8 @@
 {
   "ticker": "GFI",
   "company": "Gold Fields Limited",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.560560-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.551275-04:00",
   "sector": "Materials",
   "industry": "Gold",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3752413
   },
   "scores": {
-    "master_score": 54.86,
+    "master_score": 54.57,
     "technical_score": 40.0,
     "fundamental_score": 75.0,
     "momentum_score": 50.0,
     "sentiment_score": 70.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 65.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 54.86,
+    "signal_score": 54.57,
     "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 43.88,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.560534-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.551220-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -139,7 +141,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. GFI is currently trading near the upper Bollinger Band at $51.03, acting as immediate resistance. Support lies at the 50-day EMA of $47.24, with a stronger floor around the 200-day EMA at $40.55. A BUY ZONE would be a pullback to the $47.24-$46.52 range (50/20-day EMA), anticipating a bounce. A PROFIT ZONE is $51.03 to $53.00, while a STOP LOSS ZONE should be placed below $46.00 to protect against further downside.\n\n### Fundamental Edge\n\nGFI is trading at a P/E of 12.52, which suggests it's undervalued compared to its peers, coupled with strong revenue growth of 71.4%. The high gross and net margins further bolster the attractiveness, signaling efficient operations and profitability, potentially leading to increased investor confidence if confirmed in upcoming earnings.\n\n### Sector Context\n\nThe materials sector faces mixed momentum, and while gold is considered a safe haven, broader economic conditions may introduce volatility, making GFI susceptible to both upward and downward pressure independent of company performance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 55,

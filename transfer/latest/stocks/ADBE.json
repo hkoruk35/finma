@@ -1,8 +1,8 @@
 {
   "ticker": "ADBE",
   "company": "Adobe Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.885189-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.431966-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5888943
   },
   "scores": {
-    "master_score": 34.97,
-    "technical_score": 25.0,
+    "master_score": 28.0,
+    "technical_score": 7.5,
     "fundamental_score": 60.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 45.0,
     "value_score": 65.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 34.97,
-    "confidence": 0.35,
+    "signal_score": 28.0,
+    "confidence": 0.28,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 208.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.885143-04:00",
+    "generated_at": "2026-04-13T08:00:58.431897-04:00",
     "categories": [
       "breakout",
       "reversal"
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ADBE exhibits a BOGA AI score of UNDERPERFORM, with low confidence (35%). Bearish technicals prevail: RSI at 29.1 suggests oversold conditions, yet the bearish MACD and EMA alignment indicate continued downward momentum. The ADX strength of 37.9 confirms a strong trend, potentially downward.\n\nDespite strong business fundamentals - a P/E of 13.1 trading at a sector discount, plus high margins - current technicals outweigh positives. The stock is 46.5% off its 52-week high. A potential catalyst for a shift could be positive surprises in upcoming subscription revenue reports.\nKey level to watch: $220 support.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 28%. ADBE is currently testing its 52-week low, presenting a high-risk bounce play scenario. Resistance is established at the Bollinger Band upper of $255.75 and then at the EMA20 of $243.67. A trader might enter a small position here at $225.35, looking for a mean reversion trade off the oversold RSI, with a BUY ZONE of $220-$226, a PROFIT ZONE between $243 and $255, and a STOP LOSS ZONE below $220.\n\n### Fundamental Edge\nAdobe's impressive gross and net margins of 89.4% and 29.5%, respectively, highlight its strong profitability despite recent price weakness. The low P/E ratio of 13.14, relative to its sector, suggests potential undervaluation. This undervalued characteristic, combined with solid revenue growth, might attract value-oriented traders, providing a fundamental base for a possible rebound.\n\n### Sector Context\nThe Technology sector is currently showing mixed performance, with some areas demonstrating strength, creating uncertainty for ADBE's short-term price action.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 35,
+    "score_bar": 28,
     "price_change_display": "-2.00%",
     "key_metrics": {
       "RSI": 29.2,

@@ -1,8 +1,8 @@
 {
   "ticker": "SWKS",
   "company": "Skyworks Solutions, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.844485-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.386747-04:00",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 3256166
   },
   "scores": {
-    "master_score": 51.67,
-    "technical_score": 47.0,
+    "master_score": 39.32,
+    "technical_score": 14.1,
     "fundamental_score": 60.0,
     "momentum_score": 50.0,
     "sentiment_score": 65.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 45.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 51.67,
-    "confidence": 0.52,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 39.32,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 53.0,
@@ -87,7 +87,7 @@
     "beta": 1.3
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 56.08,
     "entry_range_high": 56.64,
     "target_range_low": 60.73,
@@ -98,7 +98,7 @@
     "stop_loss": 52.62,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.844406-04:00",
+    "generated_at": "2026-04-13T08:00:58.386653-04:00",
     "categories": [
       "breakout",
       "value"
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SWKS currently holds a BOGA AI score of NEUTRAL STAY (Confidence: 55%). While the P/E ratio of 21.69 suggests a valuation discount compared to the sector median of 39.22, the negative TTM revenue growth of -3.1% tempers enthusiasm. The stock's 52-week proximity at 30.1% from its high, combined with a neutral MACD and bearish EMA alignment, indicates mixed momentum. Key technical levels to watch are resistance near the 52-week high and support around $50. The exceptionally high dividend yield of 502.00% is an outlier, and may not be sustainable in the long term. A potential catalyst for SWKS would be a significant design win for 5G infrastructure or a major contract for IoT applications.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 39%. SWKS is currently trading between the EMA20 ($55.47) and EMA50 ($56.98), indicating indecision. Resistance is seen at the BB Upper ($57.27) and then the EMA200 ($62.79). A trader might consider a short position here if SWKS fails to hold the EMA50, targeting a PROFIT ZONE near the BB Lower ($52.37), with a STOP LOSS ZONE above the BB Upper ($57.27). A BUY ZONE does not exist with the current Negative Bias.\n\n### Fundamental Edge\nSWKS has a P/E of 21.59387, suggesting it's trading at a discount to its sector, but revenue growth is negative. The 9.7% net margin shows some profitability despite revenue headwinds.\n\n### Sector Context\nThe technology sector's performance is mixed, creating a choppy environment that adds additional pressure to SWKS's already weak technical setup.",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 52,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
     "price_change_display": "-0.35%",
     "key_metrics": {
       "RSI": 53.0,

@@ -1,8 +1,8 @@
 {
   "ticker": "NKE",
   "company": "NIKE, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.059505-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.692973-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Footwear & Accessories",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 23592593
   },
   "scores": {
-    "master_score": 21.81,
-    "technical_score": 23.0,
+    "master_score": 14.86,
+    "technical_score": 6.9,
     "fundamental_score": 0.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 21.81,
-    "confidence": 0.22,
+    "signal_score": 14.86,
+    "confidence": 0.15,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 38.92,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.059468-04:00",
+    "generated_at": "2026-04-13T08:00:58.692921-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NKE exhibits weak momentum, reflected in its UNDERPERFORM BOGA AI score, driven by unimpressive growth and concerning technicals. The stock price of $43.22 is significantly off its 52-week high. A bearish EMA alignment and oversold RSI of 23.7 underscore negative price action. ADX at 46.3 indicates a strong downtrend. While dividend yield is high at 373.00%, the low revenue growth of 0.1% raises concerns. Key support level to watch is the lower Bollinger Band which has been breached today. The stock's premium valuation (P/E 28.43) isn't justified by its current performance. A positive catalyst would need to be a significant increase in revenue.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 15%. NKE is currently testing its 52-week low of $42.62, finding some support at the lower Bollinger Band of $40.52, but facing immediate resistance at the EMA20 of $49.00. A short-term trader might consider a short position here, anticipating a further breakdown below the 52-week low. STOP LOSS ZONE: $49.00 (above EMA20), BUY ZONE: $42.62, PROFIT ZONE: $40.52 (BB Lower).\n\n### Fundamental Edge\nNike's revenue growth is stagnant (0.1% TTM) and it is trading at a premium to its sector with a P/E of 28.04. This overvaluation, combined with weak growth and no recent positive catalysts, does not justify a long position.\n\n### Sector Context\nThe Consumer Discretionary sector is showing mixed signals, providing little momentum to counter NKE's individual weakness.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 22,
+    "score_bar": 15,
     "price_change_display": "-3.14%",
     "key_metrics": {
       "RSI": 22.8,

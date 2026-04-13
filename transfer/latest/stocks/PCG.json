@@ -1,8 +1,8 @@
 {
   "ticker": "PCG",
   "company": "PG&E Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.915789-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.915729-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 22558363
   },
   "scores": {
-    "master_score": 56.62,
+    "master_score": 56.5,
     "technical_score": 60.0,
     "fundamental_score": 40.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 15.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 40.0,
-    "signal_score": 56.62,
-    "confidence": 0.57,
+    "signal_score": 56.5,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 17.72,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.915646-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.915673-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. PCG is trading in a defined range, capped by resistance at the BB Upper of $18.74 and supported by the EMA20 at $17.90. A potential BUY ZONE exists near the EMA20 ($17.90) with a STOP LOSS ZONE below the EMA50 at $17.52. The PROFIT ZONE is near the 52-week high of $19.06, offering a defined risk/reward ratio. Traders might consider an entry near the EMA20, betting on a breakout above the $19.06 level.\n\n### Fundamental Edge\nPCG's P/E of 15.71 suggests it's trading at a discount relative to peers, potentially making it attractive to value-oriented traders. The solid gross margin of 39.6% and a net margin of 10.4% indicate a healthy business model.\n\n### Sector Context\nThe Utilities sector is currently exhibiting mixed performance, neither strongly supporting nor hindering PCG's individual price action.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 57,
+    "score_bar": 56,
     "price_change_display": "-0.48%",
     "key_metrics": {
       "RSI": 63.7,

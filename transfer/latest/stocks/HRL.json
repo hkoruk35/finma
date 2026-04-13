@@ -1,8 +1,8 @@
 {
   "ticker": "HRL",
   "company": "Hormel Foods Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.144991-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.840028-04:00",
   "sector": "Consumer Staples",
   "industry": "Packaged Foods",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 4522813
   },
   "scores": {
-    "master_score": 26.75,
-    "technical_score": 18.0,
+    "master_score": 21.2,
+    "technical_score": 5.4,
     "fundamental_score": 39.0,
     "momentum_score": 0.0,
     "sentiment_score": 65.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 70.0,
-    "signal_score": 26.75,
-    "confidence": 0.27,
+    "signal_score": 21.2,
+    "confidence": 0.21,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 19.81,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.144969-04:00",
+    "generated_at": "2026-04-13T08:00:58.839946-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HRL exhibits bearish technicals with an RSI of 29.5 suggesting oversold conditions, but ADX at 33.3 confirms a strong downtrend. EMA alignment is bearish. The BOGA AI score is UNDERPERFORM with 27% confidence.\n\nTrading 31% below its 52-week high at $21.02, HRL's valuation shows a slight discount to the sector with a P/E of 23.6. However, negative revenue growth of -2.9% and relatively low net margin of 4.0% are concerning. The 5.54% dividend yield might offer some support.\n\nA potential catalyst for a reversal would be a significant earnings surprise demonstrating a turnaround in revenue growth. Key level to watch: a break above the recent resistance to negate the bearish EMA alignment.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 21%. HRL is trading near its 52-week low ($20.87) and just below the lower Bollinger Band ($21.05), suggesting potential short-term oversold conditions, but the overall trend remains bearish. A swing trader might consider a short position near the EMA20 ($22.31) with a STOP LOSS ZONE above the upper Bollinger Band ($23.57), targeting a PROFIT ZONE near the 52-week low ($20.87) and lower. This is based on the expectation of continued downward pressure due to the weak EMA stack (EMA20 < EMA50 < EMA200).\n\n### Fundamental Edge\nWhile HRL's P/E of 23.45 suggests a relative valuation discount, the negative revenue growth (-2.9% TTM) raises concerns about future earnings potential. The lack of a dividend yield does not provide any fundamental support, weakening the investment case.\n\n### Sector Context\nThe consumer staples sector is generally considered defensive, but negative revenue growth combined with a bearish technical setup suggests HRL is underperforming its sector.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 27,
+    "score_bar": 21,
     "price_change_display": "-1.23%",
     "key_metrics": {
       "RSI": 28.4,

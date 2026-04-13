@@ -1,8 +1,8 @@
 {
   "ticker": "ANET",
   "company": "Arista Networks, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.954376-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.527751-04:00",
   "sector": "Technology",
   "industry": "Computer Hardware",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 6651583
   },
   "scores": {
-    "master_score": 56.47,
+    "master_score": 55.63,
     "technical_score": 60.0,
     "fundamental_score": 33.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 0.0,
-    "signal_score": 56.47,
+    "signal_score": 55.63,
     "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 134.67,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.954343-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:58.527712-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. ANET is currently trading near its Bollinger Band upper resistance at $148.38, while showing strong support near the EMA20 and EMA50 around $133.70 and $133.46, respectively. A potential BUY ZONE lies between $133.46 and $135.00, capitalizing on a possible pullback to the EMAs. Traders might consider entering here if they believe the current consolidation will resolve bullishly, targeting a PROFIT ZONE near the 52-week high of $162.03, with a STOP LOSS ZONE placed below the EMA50 at $132.00.\n\n### Fundamental Edge\nANET presents a strong growth profile, indicated by its solid revenue growth of 28.9% TTM and impressive net margin of 39.0%. This high profitability suggests the company is efficiently converting sales into earnings, supporting the premium valuation. A trader would consider a long position based on the expectation that the company will continue to capitalize on its revenue growth and margin expansion.\n\n### Sector Context\nThe technology sector is currently exhibiting mixed performance, requiring careful stock selection to navigate potential volatility.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 56,

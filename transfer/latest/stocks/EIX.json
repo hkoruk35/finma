@@ -1,8 +1,8 @@
 {
   "ticker": "EIX",
   "company": "Edison International",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.880459-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.886400-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3502900
   },
   "scores": {
-    "master_score": 57.87,
+    "master_score": 57.75,
     "technical_score": 50.0,
     "fundamental_score": 55.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 35.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 57.87,
+    "signal_score": 57.75,
     "confidence": 0.58,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 72.56,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.880434-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.886216-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 58%. EIX is currently testing its 52-week high, with immediate resistance around $75.53 (BB Upper). A breakout above this level could signal further upside. BUY ZONE: $72.32–$73.00 (EMA20 provides initial support). PROFIT ZONE: $78.00–$80.00 (projected based on recent momentum). STOP LOSS ZONE: $69.54–$70.00 (below EMA50). Traders might enter if EIX consolidates above $75.53, anticipating a continuation of the bullish trend.\n\n### Fundamental Edge\nEIX appears undervalued with a P/E of 6.56, especially considering its strong revenue growth of 30.8% TTM and healthy margins. This suggests potential for price appreciation as the market recognizes its intrinsic value.\n\n### Sector Context\nThe Utilities sector is currently demonstrating mixed performance, offering neither strong tailwinds nor significant headwinds for a potential EIX trade.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 58,

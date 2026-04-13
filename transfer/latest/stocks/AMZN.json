@@ -1,8 +1,8 @@
 {
   "ticker": "AMZN",
   "company": "Amazon.com, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.803664-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.330777-04:00",
   "sector": "Technology",
   "industry": "Internet Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 45719813
   },
   "scores": {
-    "master_score": 46.22,
+    "master_score": 45.38,
     "technical_score": 30.0,
     "fundamental_score": 30.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 0.0,
-    "signal_score": 46.22,
-    "confidence": 0.46,
+    "signal_score": 45.38,
+    "confidence": 0.45,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 225.0,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.803621-04:00",
+    "generated_at": "2026-04-13T08:00:58.330714-04:00",
     "categories": [
       "momentum"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AMZN currently trades at $239.12, up 2.34% today but showing a NEGATIVE BIAS (BOGA AI Score: 47%) due to bearish EMA alignment and weak ADX (17.2). While valuation appears discounted with a P/E of 33.3 compared to the sector median of 39.2, the RSI of 71.8 suggests overbought conditions. Key support levels to watch are around the recent lows near $224.\n\nA potential catalyst to shift sentiment would be a significant outperformance in AWS revenue growth, demonstrating continued dominance in the cloud computing market despite increasing competition. Current volume at 0.86x relative suggests waning interest.",
+  "ai_summary": "AMZN currently trades at $239.12, up 2.34% today but showing a NEGATIVE BIAS (FinMA Score: 47%) due to bearish EMA alignment and weak ADX (17.2). While valuation appears discounted with a P/E of 33.3 compared to the sector median of 39.2, the RSI of 71.8 suggests overbought conditions. Key support levels to watch are around the recent lows near $224.\n\nA potential catalyst to shift sentiment would be a significant outperformance in AWS revenue growth, demonstrating continued dominance in the cloud computing market despite increasing competition. Current volume at 0.86x relative suggests waning interest.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 46,
+    "score_bar": 45,
     "price_change_display": "+2.02%",
     "key_metrics": {
       "RSI": 71.5,

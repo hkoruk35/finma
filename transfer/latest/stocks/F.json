@@ -1,8 +1,8 @@
 {
   "ticker": "F",
   "company": "Ford Motor Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.024907-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.649096-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Auto Manufacturers",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 54464893
   },
   "scores": {
-    "master_score": 44.31,
-    "technical_score": 48.0,
+    "master_score": 31.24,
+    "technical_score": 14.4,
     "fundamental_score": 27.0,
     "momentum_score": 40.0,
     "sentiment_score": 85.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 30.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 44.31,
-    "confidence": 0.44,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 31.24,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 51.4,
@@ -87,7 +87,7 @@
     "beta": 1.71
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 12.07,
     "entry_range_high": 12.19,
     "target_range_low": 12.92,
@@ -98,7 +98,7 @@
     "stop_loss": 11.43,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.024881-04:00",
+    "generated_at": "2026-04-13T08:00:58.649049-04:00",
     "categories": [
       "dividend"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Ford (F) exhibits a NEGATIVE_BIAS (BOGA AI score). At $12.16, the stock is 15.7% off its 52-week high. The bearish EMA alignment and weak revenue growth (-4.8% TTM) contribute to this outlook. The extremely high dividend yield of 490.00% is unsustainable and signals underlying financial strain. Key levels to watch are resistance near the 52-week high and support around $11.00. ADX at 26.5 indicates a trending market. A potential catalyst to watch is any news regarding cost-cutting measures and restructuring efforts to improve profitability.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 31%. Ford is trading in a choppy range, currently capped by the EMA50 resistance at $12.41. A short position could be considered near the upper Bollinger Band at $12.21, anticipating a continued move lower. STOP LOSS ZONE would be a tight level just above the EMA50 at $12.50 to minimize risk, with the PROFIT ZONE targeting the lower Bollinger Band near $11.21. The BUY ZONE is not in play as the trend is bearish.\n\n### Fundamental Edge\nThe negative revenue growth of -4.8% coupled with negative net margins of -4.4% suggests fundamental headwinds. This weakens any bullish case for Ford, despite any potential value play.\n\n### Sector Context\nThe Consumer Discretionary sector shows mixed performance, providing no clear tailwind to counteract Ford's specific challenges.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 44,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
     "price_change_display": "-0.90%",
     "key_metrics": {
       "RSI": 51.4,

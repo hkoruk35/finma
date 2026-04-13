@@ -1,8 +1,8 @@
 {
   "ticker": "XOM",
   "company": "Exxon Mobil Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.407108-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.339200-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -98,7 +98,7 @@
     "stop_loss": 141.75,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.407086-04:00",
+    "generated_at": "2026-04-13T08:00:59.339117-04:00",
     "categories": []
   },
   "breakout": {

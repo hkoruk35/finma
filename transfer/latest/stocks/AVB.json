@@ -1,8 +1,8 @@
 {
   "ticker": "AVB",
   "company": "AvalonBay Communities, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.017402-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.020363-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Residential",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 1055783
   },
   "scores": {
-    "master_score": 51.06,
-    "technical_score": 47.0,
+    "master_score": 38.55,
+    "technical_score": 14.1,
     "fundamental_score": 40.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 0.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 51.06,
-    "confidence": 0.51,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 38.55,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 56.9,
@@ -87,7 +87,7 @@
     "beta": 0.763
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 168.7,
     "entry_range_high": 170.63,
     "target_range_low": 175.79,
@@ -98,7 +98,7 @@
     "stop_loss": 163.38,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.017365-04:00",
+    "generated_at": "2026-04-13T08:01:00.020247-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 51,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
     "price_change_display": "+0.75%",
     "key_metrics": {
       "RSI": 56.9,

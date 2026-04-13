@@ -1,8 +1,8 @@
 {
   "ticker": "BNS",
   "company": "The Bank of Nova Scotia",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.302481-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.125169-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2784533
   },
   "scores": {
-    "master_score": 56.69,
+    "master_score": 55.69,
     "technical_score": 52.0,
     "fundamental_score": 42.0,
     "momentum_score": 90.0,
     "sentiment_score": 58.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 12.0,
     "value_score": 35.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 56.69,
-    "confidence": 0.57,
+    "signal_score": 55.69,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 70.27,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.302432-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.125082-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -128,7 +130,7 @@
   },
   "news": [],
   "insider_activity": {
-    "last_90_days_buys": 53,
+    "last_90_days_buys": 52,
     "last_90_days_sells": 0,
     "net_direction": "BUY",
     "last_transaction": {
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. BNS is currently trading near its upper Bollinger Band resistance at $72.38, while support lies near the EMA50 at $71.58 and further down at the EMA20 of $70.67. A BUY ZONE exists between $70.67 and $71.58, capitalizing on a potential pullback to the EMAs. The PROFIT ZONE is set at $72.38 to $73.00, targeting a breakout above the upper Bollinger Band, while a STOP LOSS ZONE should be placed just below the EMA20 at $70.00 to limit downside risk if the support fails to hold.\n\n### Fundamental Edge\nBNS appears relatively undervalued with a P/E of 15.002058 and possesses a strong net margin of 26.9%, suggesting efficient profitability. The attractive revenue growth of 23.5% TTM may support a move higher if it can maintain this upward trajectory.\n\n### Sector Context\nThe financials sector is currently exhibiting mixed momentum, neither strongly supporting nor directly hindering BNS’s potential breakout.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 57,
+    "score_bar": 56,
     "price_change_display": "+1.01%",
     "key_metrics": {
       "RSI": 59.6,

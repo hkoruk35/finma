@@ -1,8 +1,8 @@
 {
   "ticker": "XYL",
   "company": "Xylem Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.718028-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.706339-04:00",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2097356
   },
   "scores": {
-    "master_score": 48.88,
-    "technical_score": 50.0,
+    "master_score": 35.97,
+    "technical_score": 15.0,
     "fundamental_score": 28.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 48.88,
-    "confidence": 0.49,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 35.97,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 60.6,
@@ -87,7 +87,7 @@
     "beta": 1.174
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 126.05,
     "entry_range_high": 129.36,
     "target_range_low": 135.47,
@@ -98,7 +98,7 @@
     "stop_loss": 122.38,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.717974-04:00",
+    "generated_at": "2026-04-13T08:00:59.706255-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 49,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
     "price_change_display": "-0.53%",
     "key_metrics": {
       "RSI": 60.6,

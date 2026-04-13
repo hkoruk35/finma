@@ -1,8 +1,8 @@
 {
   "ticker": "O",
   "company": "Realty Income Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.963590-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.951640-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 6384903
   },
   "scores": {
-    "master_score": 62.21,
+    "master_score": 61.22,
     "technical_score": 66.0,
     "fundamental_score": 42.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 15.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 62.21,
-    "confidence": 0.62,
+    "signal_score": 61.22,
+    "confidence": 0.61,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 61.73,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.963542-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.951593-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 61%. O is currently trading near the upper Bollinger Band ($64.83) suggesting a potential ceiling. A BUY ZONE would be between the EMA20 ($62.42) and EMA50 ($62.23), offering a pullback entry. A PROFIT ZONE targets a retest of the 52-week high at $67.26, while a STOP LOSS ZONE should be placed below the BB Lower ($59.10) to manage downside risk given the medium volatility squeeze.\n\n### Fundamental Edge\nRealty Income's solid 11.0% revenue growth and high gross margin of 92.6% demonstrate a strong and efficient business model that supports its price. While the P/E of 54.49 suggests a premium valuation, the consistent profitability as reflected in the 18.4% net margin provides a rationale for the current valuation.\n\n### Sector Context\nThe real estate sector currently presents a mixed picture; while stable, it is highly sensitive to interest rate fluctuations, potentially tempering the bullish sentiment around O.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 62,
+    "score_bar": 61,
     "price_change_display": "+0.87%",
     "key_metrics": {
       "RSI": 59.6,

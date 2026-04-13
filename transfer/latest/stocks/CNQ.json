@@ -1,8 +1,8 @@
 {
   "ticker": "CNQ",
   "company": "Canadian Natural Resources Limited",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.441033-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.395815-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 43.01,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.441006-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.395770-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "HIGH",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. CNQ is currently range-bound, with immediate resistance at the EMA20 around $47.28 and support around the BB Lower band at $45.92. A potential BUY ZONE exists on a pullback to the EMA50 around $44.39, anticipating a bounce. The PROFIT ZONE targets the BB Upper band at $50.69, near the 52-week high. A STOP LOSS ZONE should be placed below $43.50 to protect against further downside. Traders might consider entry at the EMA50 support, betting on mean reversion amidst the volatility squeeze.\n\n### Fundamental Edge\nCNQ trades at a P/E of 12.43, suggesting it's undervalued relative to peers, while generating healthy cash flow, indicated by its solid gross and net margins of 48.5% and 27.9% respectively. The solid margins offer potential for continued profitability even with modest revenue growth. The fundamental catalyst supporting this setup is the company's ability to generate high margins in the current energy price environment.\n\n### Sector Context\nThe energy sector is exhibiting mixed performance currently, creating headwinds for CNQ despite its individual strengths.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 54,

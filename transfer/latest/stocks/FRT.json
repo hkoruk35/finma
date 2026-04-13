@@ -1,8 +1,8 @@
 {
   "ticker": "FRT",
   "company": "Federal Realty Investment Trust",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.011759-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.004090-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 887766
   },
   "scores": {
-    "master_score": 68.91,
+    "master_score": 67.92,
     "technical_score": 68.0,
     "fundamental_score": 54.0,
     "momentum_score": 90.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 20.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 68.91,
-    "confidence": 0.69,
+    "signal_score": 67.92,
+    "confidence": 0.68,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 105.31,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.011695-04:00",
+    "generated_at": "2026-04-13T08:01:00.004014-04:00",
     "categories": [
       "top_scores"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "FRT exhibits a POSITIVE BIAS (BOGA AI score confidence 69%). At $109.05, FRT trades near its 52-week high, supported by bullish EMA alignment on the 1D chart. A BUY ZONE forms between $107.50 and $109.05, targeting a PROFIT ZONE near $112.00. Manage risk with a STOP LOSS ZONE near $106.00. While ADX strength (20.4) is not trending, above-average relative volume (1.48x) suggests buying interest. FRT's P/E of 23.30 offers a relative valuation discount compared to the sector median of 29.49. A catalyst for FRT is its strong dividend yield of 4.12%, which may attract income-seeking investors.",
+  "ai_summary": "FRT exhibits a POSITIVE BIAS (FinMA score confidence 69%). At $109.05, FRT trades near its 52-week high, supported by bullish EMA alignment on the 1D chart. A BUY ZONE forms between $107.50 and $109.05, targeting a PROFIT ZONE near $112.00. Manage risk with a STOP LOSS ZONE near $106.00. While ADX strength (20.4) is not trending, above-average relative volume (1.48x) suggests buying interest. FRT's P/E of 23.30 offers a relative valuation discount compared to the sector median of 29.49. A catalyst for FRT is its strong dividend yield of 4.12%, which may attract income-seeking investors.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 69,
+    "score_bar": 68,
     "price_change_display": "+1.55%",
     "key_metrics": {
       "RSI": 66.7,

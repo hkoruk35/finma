@@ -1,23 +1,113 @@
 {
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.078653-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.106679-04:00",
   "total_tickers_scanned": 539,
-  "active_scores_count": 92,
+  "active_scores_count": 166,
   "market_regime": "Neutral",
   "menus": {
     "top_scores": {
-      "count": 10,
+      "count": 100,
       "tickers": [
         "ALL",
         "FRT",
         "SBAC",
+        "AL",
         "CB",
         "SPG",
-        "AL",
         "HST",
-        "EXEL",
         "HIG",
-        "TD"
+        "EXEL",
+        "SHEL",
+        "TD",
+        "SSRM",
+        "TRV",
+        "GTY",
+        "AA",
+        "AMX",
+        "KRG",
+        "CNI",
+        "NEXA",
+        "O",
+        "REG",
+        "OII",
+        "EPRT",
+        "UNP",
+        "KIM",
+        "FDX",
+        "MO",
+        "AU",
+        "SU",
+        "CAR",
+        "STLD",
+        "CMI",
+        "TTE",
+        "PBR",
+        "ERIC",
+        "NEE",
+        "TSM",
+        "NUE",
+        "NEM",
+        "BHP",
+        "MTB",
+        "OGS",
+        "CVE",
+        "FCX",
+        "KNTK",
+        "EIX",
+        "BEP",
+        "MT",
+        "PVH",
+        "GLW",
+        "FSM",
+        "HOLX",
+        "INTC",
+        "DTE",
+        "GRMN",
+        "STZ",
+        "PCG",
+        "THC",
+        "CMS",
+        "SNDK",
+        "MRVL",
+        "BK",
+        "CFG",
+        "CSCO",
+        "RIO",
+        "KEYS",
+        "TDW",
+        "AEM",
+        "FNV",
+        "MAR",
+        "BNS",
+        "ANET",
+        "ET",
+        "PEG",
+        "ATO",
+        "MTZ",
+        "UPS",
+        "MU",
+        "MAC",
+        "PPL",
+        "ALSN",
+        "HON",
+        "TGT",
+        "VALE",
+        "BAC",
+        "CE",
+        "PEB",
+        "GFI",
+        "FR",
+        "AEE",
+        "HUBB",
+        "PLD",
+        "CNQ",
+        "YUM",
+        "NI",
+        "WDC",
+        "TECK",
+        "AZN",
+        "BVN",
+        "AEP"
       ]
     },
     "breakout": {
@@ -148,10 +238,9 @@
   },
   "sector_summary": {
     "Technology": {
-      "avg_score": 41.3,
-      "top_ticker": "ZM",
+      "avg_score": 37.5,
+      "top_ticker": "TSM",
       "top_tickers": [
-        "ZM",
         "TSM",
         "GLW",
         "INTC",
@@ -165,36 +254,37 @@
         "WDC",
         "AMAT",
         "COHR",
-        "ADI"
+        "ADI",
+        "AVGO"
       ],
       "volume_change_pct": null,
       "stock_count": 68
     },
     "Communication Services": {
-      "avg_score": 43.1,
+      "avg_score": 37.6,
       "top_ticker": "AMX",
       "top_tickers": [
         "AMX",
         "ERIC",
-        "MTCH",
-        "CHTR",
         "NOK",
         "NFLX",
         "EA",
         "VOD",
-        "SNAP",
+        "MTCH",
         "ROKU",
-        "BIDU",
-        "DIS",
-        "CMCSA",
+        "CHTR",
         "TKO",
-        "T"
+        "SNAP",
+        "T",
+        "WBD",
+        "VZ",
+        "CMCSA"
       ],
       "volume_change_pct": null,
       "stock_count": 23
     },
     "Consumer Discretionary": {
-      "avg_score": 41.7,
+      "avg_score": 35.8,
       "top_ticker": "CAR",
       "top_tickers": [
         "CAR",
@@ -206,18 +296,18 @@
         "RL",
         "CCL",
         "ROST",
-        "LOW",
-        "RCL",
-        "LYFT",
         "TJX",
         "QSR",
-        "EBAY"
+        "EBAY",
+        "TPR",
+        "SBUX",
+        "LYV"
       ],
       "volume_change_pct": null,
       "stock_count": 50
     },
     "Consumer Staples": {
-      "avg_score": 42.1,
+      "avg_score": 37.0,
       "top_ticker": "MO",
       "top_tickers": [
         "MO",
@@ -225,22 +315,22 @@
         "TGT",
         "TSN",
         "BTI",
-        "CPB",
         "KO",
-        "PM",
         "PEP",
         "WMT",
         "MNST",
         "BG",
         "COST",
-        "COTY",
-        "CTVA"
+        "CTVA",
+        "CHD",
+        "CPB",
+        "PM"
       ],
       "volume_change_pct": null,
       "stock_count": 32
     },
     "Healthcare": {
-      "avg_score": 40.5,
+      "avg_score": 33.9,
       "top_ticker": "EXEL",
       "top_tickers": [
         "EXEL",
@@ -249,21 +339,21 @@
         "AZN",
         "CVS",
         "HCA",
-        "ELV",
-        "INSP",
         "BMY",
-        "CI",
         "GILD",
-        "UNH",
         "AMGN",
-        "ZBH",
-        "SYK"
+        "MRK",
+        "REGN",
+        "NVS",
+        "ELV",
+        "JNJ",
+        "INSP"
       ],
       "volume_change_pct": null,
       "stock_count": 50
     },
     "Financials": {
-      "avg_score": 45.5,
+      "avg_score": 41.0,
       "top_ticker": "ALL",
       "top_tickers": [
         "ALL",
@@ -277,10 +367,10 @@
         "BNS",
         "BAC",
         "CM",
-        "PYPL",
         "NTRS",
         "KEY",
-        "HSBC"
+        "HSBC",
+        "BMO"
       ],
       "volume_change_pct": null,
       "stock_count": 68
@@ -309,7 +399,7 @@
       "stock_count": 54
     },
     "Materials": {
-      "avg_score": 50.3,
+      "avg_score": 49.1,
       "top_ticker": "SSRM",
       "top_tickers": [
         "SSRM",
@@ -332,7 +422,7 @@
       "stock_count": 46
     },
     "Industrials": {
-      "avg_score": 46.0,
+      "avg_score": 43.0,
       "top_ticker": "AL",
       "top_tickers": [
         "AL",
@@ -355,7 +445,7 @@
       "stock_count": 67
     },
     "Utilities": {
-      "avg_score": 49.5,
+      "avg_score": 48.9,
       "top_ticker": "NEE",
       "top_tickers": [
         "NEE",
@@ -378,7 +468,7 @@
       "stock_count": 36
     },
     "Real Estate": {
-      "avg_score": 52.4,
+      "avg_score": 48.0,
       "top_ticker": "FRT",
       "top_tickers": [
         "FRT",
@@ -391,11 +481,11 @@
         "REG",
         "EPRT",
         "KIM",
-        "VNO",
         "EGP",
         "MAC",
         "PEB",
-        "FR"
+        "FR",
+        "PLD"
       ],
       "volume_change_pct": null,
       "stock_count": 45
@@ -404,17 +494,17 @@
   "top_3_overall": [
     {
       "ticker": "ALL",
-      "score": 69.14,
+      "score": 68.14,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "FRT",
-      "score": 68.91,
+      "score": 67.92,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "SBAC",
-      "score": 68.86,
+      "score": 67.87,
       "score_type": "POSITIVE_BIAS"
     }
   ],
@@ -441,11 +531,11 @@
       "change_pct_1y": 27.28
     },
     "VIX": {
-      "value": 19.23,
-      "change_pct": -1.33,
-      "change_pct_1w": -19.44,
-      "change_pct_1m": -20.64,
-      "change_pct_1y": -63.25
+      "value": 21.11,
+      "change_pct": 9.78,
+      "change_pct_1w": -12.66,
+      "change_pct_1m": -22.65,
+      "change_pct_1y": -37.21
     },
     "RUSSELL": {
       "value": 2630.59,

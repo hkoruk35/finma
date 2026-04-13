@@ -1,8 +1,8 @@
 {
   "ticker": "DD",
   "company": "DuPont de Nemours, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.589337-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.592311-04:00",
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3997156
   },
   "scores": {
-    "master_score": 47.91,
+    "master_score": 47.62,
     "technical_score": 53.0,
     "fundamental_score": 35.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 30.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 47.91,
+    "signal_score": 47.62,
     "confidence": 0.48,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 44.51,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.589312-04:00",
+    "generated_at": "2026-04-13T08:00:59.592276-04:00",
     "categories": []
   },
   "breakout": {

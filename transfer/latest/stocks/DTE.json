@@ -1,8 +1,8 @@
 {
   "ticker": "DTE",
   "company": "DTE Energy Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.869817-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.873589-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1206426
   },
   "scores": {
-    "master_score": 57.07,
+    "master_score": 56.95,
     "technical_score": 57.0,
     "fundamental_score": 42.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 0.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 57.07,
+    "signal_score": 56.95,
     "confidence": 0.57,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 144.9,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.869776-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.873517-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -133,7 +135,7 @@
     "net_direction": "NEUTRAL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 5850,
+      "shares": 1801,
       "date": "2026-02-04"
     }
   },
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 57%. DTE is currently trading just below its 52-week high, with immediate resistance around $151.82 (BB Upper). A breakout above this level could signal further upside. Traders might consider a BUY ZONE between $146.98 (EMA20) and $143.80 (EMA50), targeting a PROFIT ZONE near $151.82 (BB Upper). A STOP LOSS ZONE could be placed below $141.53 (BB Lower) to protect against downside risk.\n\n### Fundamental Edge\nDTE's P/E of 21.29 suggests it is trading at a relative discount. The revenue growth of 28.9% provides a fundamental tailwind, supporting further potential price appreciation.\n\n### Sector Context\nThe utilities sector currently provides a mixed backdrop, neither strongly supporting nor hindering DTE's individual stock performance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 57,

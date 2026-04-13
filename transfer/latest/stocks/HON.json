@@ -1,8 +1,8 @@
 {
   "ticker": "HON",
   "company": "Honeywell International Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.736005-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.722989-04:00",
   "sector": "Industrials",
   "industry": "Conglomerates",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3899283
   },
   "scores": {
-    "master_score": 55.48,
+    "master_score": 54.82,
     "technical_score": 66.0,
     "fundamental_score": 24.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 55.48,
+    "signal_score": 54.82,
     "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 224.56,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.735967-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.722921-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. HON is currently trading within its Bollinger Bands, suggesting consolidation. Key support lies at $230.10 (EMA20), and resistance is near the upper BB at $237.33. A swing trader might look for a breakout above $237.33 (BB Upper) to enter a BUY ZONE, targeting a PROFIT ZONE near the 52-week high of $248.04, with a STOP LOSS ZONE placed just below the EMA20 at $229.50 to protect against a failed breakout.\n\n### Fundamental Edge\n\nHON exhibits healthy profitability with a Gross Margin of 36.9% and a Net Margin of 12.6%, but top-line revenue growth is a concern. Given the current valuation at a slight discount to its sector (P/E of 33.9), traders might be looking for a turnaround in revenue growth.\n\n### Sector Context\n\nThe Industrials sector is showing mixed momentum, with some sub-sectors outperforming while others lag, creating a somewhat neutral backdrop for HON.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 55,

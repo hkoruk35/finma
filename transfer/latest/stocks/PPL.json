@@ -1,8 +1,8 @@
 {
   "ticker": "PPL",
   "company": "PPL Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.885887-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.893544-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 7232400
   },
   "scores": {
-    "master_score": 55.07,
+    "master_score": 54.95,
     "technical_score": 57.0,
     "fundamental_score": 30.0,
     "momentum_score": 80.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 20.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 55.07,
+    "signal_score": 54.95,
     "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 38.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.885851-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.893509-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -133,7 +135,7 @@
     "net_direction": "NEUTRAL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 68775,
+      "shares": 3374,
       "date": "2026-02-20"
     }
   },
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. PPL is trading near its 52-week high with immediate resistance at the upper Bollinger Band of $39.91. Support lies at the EMA20 of $38.39. A potential BUY ZONE exists on a pullback to the EMA20 ($38.39), targeting a breakout through the upper Bollinger Band ($39.91) for a PROFIT ZONE near $41.00. A STOP LOSS ZONE should be placed below the EMA50 at $37.50 to protect against downside risk. A trader might enter on the EMA20 pullback expecting continued bullish momentum following the recent price consolidation.\n\n### Fundamental Edge\nPPL shows a stable net margin of 13.1% and modest revenue growth of 2.8%. The company is trading at a premium with a P/E of 24.94, suggesting investors expect continued performance. This premium valuation, paired with consistent profitability, could support further upside if the company maintains its growth trajectory, despite lacking specific recent news.\n\n### Sector Context\nThe Utilities sector currently faces mixed sentiment, so PPL’s performance is more dependent on company-specific factors than overall sector tailwinds.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 55,

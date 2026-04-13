@@ -1,8 +1,8 @@
 {
   "ticker": "AXP",
   "company": "American Express Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.361042-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.247022-04:00",
   "sector": "Financials",
   "industry": "Credit Services",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 3864293
   },
   "scores": {
-    "master_score": 39.94,
-    "technical_score": 40.0,
+    "master_score": 29.14,
+    "technical_score": 12.0,
     "fundamental_score": 25.0,
     "momentum_score": 40.0,
     "sentiment_score": 75.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 39.94,
-    "confidence": 0.4,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 29.14,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 55.0,
@@ -87,7 +87,7 @@
     "beta": 1.133
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 311.93,
     "entry_range_high": 315.07,
     "target_range_low": 331.6,
@@ -98,7 +98,7 @@
     "stop_loss": 296.92,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.361013-04:00",
+    "generated_at": "2026-04-13T08:00:59.246967-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 40,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
     "price_change_display": "-1.34%",
     "key_metrics": {
       "RSI": 55.0,

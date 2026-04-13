@@ -1,8 +1,8 @@
 {
   "ticker": "AA",
   "company": "Alcoa Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.612415-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.610907-04:00",
   "sector": "Materials",
   "industry": "Aluminum",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 6702813
   },
   "scores": {
-    "master_score": 63.61,
+    "master_score": 63.32,
     "technical_score": 60.0,
     "fundamental_score": 60.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 35.0,
     "value_score": 65.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 63.61,
-    "confidence": 0.64,
+    "signal_score": 63.32,
+    "confidence": 0.63,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 65.57,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.612377-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.610871-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: POSITIVE BIAS | Confidence: 63%. AA is currently trading just below its 52-week high, presenting a potential breakout opportunity. Support is established at the EMA20 ($66.76), with stronger support at the EMA50 ($62.78). The BUY ZONE is $72.50-$73.30, targeting a move towards the BB Upper at $77.37 for the PROFIT ZONE. A STOP LOSS ZONE should be placed below the EMA20 at $66.50 to protect against a failed breakout.\n\n### Fundamental Edge\nAA's P/E of 16.71 suggests it is undervalued compared to its sector, offering potential for price appreciation. While revenue growth is slightly negative, the solid net margin of 9.0% indicates efficient operations and profitability, providing a fundamental underpinning for a bullish swing trade.\n\n### Sector Context\nThe materials sector is showing moderate strength, potentially providing a tailwind for AA's price appreciation.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 64,
+    "score_bar": 63,
     "price_change_display": "-0.33%",
     "key_metrics": {
       "RSI": 65.8,

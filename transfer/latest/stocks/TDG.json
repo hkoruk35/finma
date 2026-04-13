@@ -1,8 +1,8 @@
 {
   "ticker": "TDG",
   "company": "TransDigm Group Incorporated",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.675137-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.659683-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 387560
   },
   "scores": {
-    "master_score": 38.93,
-    "technical_score": 48.0,
+    "master_score": 26.51,
+    "technical_score": 14.4,
     "fundamental_score": 15.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 30.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 0.0,
-    "signal_score": 38.93,
-    "confidence": 0.39,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 26.51,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 49.1,
@@ -87,7 +87,7 @@
     "beta": 0.955
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 1201.14,
     "entry_range_high": 1213.22,
     "target_range_low": 1283.38,
@@ -98,7 +98,7 @@
     "stop_loss": 1138.92,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.675091-04:00",
+    "generated_at": "2026-04-13T08:00:59.659642-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 39,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
     "price_change_display": "-1.50%",
     "key_metrics": {
       "RSI": 49.1,

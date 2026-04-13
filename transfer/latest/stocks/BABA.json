@@ -1,8 +1,8 @@
 {
   "ticker": "BABA",
   "company": "Alibaba Group Holding Limited",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.022255-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.642341-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Internet Retail",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 11854246
   },
   "scores": {
-    "master_score": 42.96,
-    "technical_score": 57.0,
+    "master_score": 27.68,
+    "technical_score": 17.1,
     "fundamental_score": 27.0,
     "momentum_score": 30.0,
     "sentiment_score": 60.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 45.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 40.0,
-    "signal_score": 42.96,
-    "confidence": 0.43,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 27.68,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 45.3,
@@ -87,7 +87,7 @@
     "beta": 0.489
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 126.69,
     "entry_range_high": 127.97,
     "target_range_low": 137.75,
@@ -98,7 +98,7 @@
     "stop_loss": 118.51,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.022232-04:00",
+    "generated_at": "2026-04-13T08:00:58.642284-04:00",
     "categories": [
       "breakout"
     ]
@@ -141,10 +141,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BABA's BOGA AI score is NEGATIVE BIAS. Technicals on the 1D chart are mixed. Current price $127.33 is 32.8% off its 52-week high. The BUY ZONE is around $125-$126, coinciding with a previous support level. The PROFIT ZONE is near $135, targeting the 50-day moving average. Place a STOP LOSS ZONE near $120. Valuation at P/E 22.45679 is below the sector median. A potential catalyst is the anticipated release of Q4 earnings reports expected next month, which could drive price action.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 28%. BABA is currently trading below its 20-day EMA of $127.84, signaling near-term weakness, and well below the 50-day EMA of $137.50 and 200-day EMA of $144.45, indicating a longer-term bearish trend. A break above the $136.83 (BB Upper) might present a BUY ZONE, targeting a PROFIT ZONE near the 50-day EMA at $137.50. A STOP LOSS ZONE should be placed near $116.70 (BB Lower) to protect against further downside. Traders might consider a speculative long position on a confirmed break above the upper Bollinger Band, anticipating mean reversion in a volatile market.\n\n### Fundamental Edge\nBABA’s P/E of 22.46 suggests it's relatively undervalued compared to its sector peers, and the solid gross margin of 40.8% points to strong underlying business economics. With revenue growth of 1.7% TTM, the company demonstrates resilience, however, it is not spectacular. The fundamental catalyst for a potential trade lies in the belief that its valuation will catch up to its earnings potential, particularly if growth catalysts emerge in the coming quarters.\n\n### Sector Context\nThe Consumer Discretionary sector is exhibiting mixed performance, potentially creating headwinds for BABA's attempts to outperform.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 43,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
     "price_change_display": "-0.27%",
     "key_metrics": {
       "RSI": 45.3,

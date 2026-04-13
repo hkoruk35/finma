@@ -1,8 +1,8 @@
 {
   "ticker": "SSRM",
   "company": "SSR Mining Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.566438-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.558717-04:00",
   "sector": "Materials",
   "industry": "Gold",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 4588746
   },
   "scores": {
-    "master_score": 64.16,
+    "master_score": 63.87,
     "technical_score": 63.0,
     "fundamental_score": 54.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 30.0,
-    "signal_score": 64.16,
+    "signal_score": 63.87,
     "confidence": 0.64,
     "signal_type": "POSITIVE_BIAS"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 28.75,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.566400-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.558678-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: POSITIVE BIAS | Confidence: 64%. SSRM is in a bullish trend, holding above its EMA20 ($30.01), EMA50 ($28.26), and EMA200 ($22.68). A potential BUY ZONE exists between the EMA20 ($30.01) and EMA50 ($28.26), offering a pullback entry. The PROFIT ZONE is near the BB Upper band at $35.60, while a STOP LOSS ZONE should be placed below the EMA50, around $27.50, to protect against trend reversal. Traders might enter here anticipating a continuation of the upward trend, with the stock poised to retest its 52-week high.\n\n### Fundamental Edge\nSSRM's attractive P/E of 17.908108, combined with impressive revenue growth of 61.4% TTM and healthy margins, suggests it's undervalued relative to its growth potential. This makes the dip-buying opportunity technically identified even more compelling.\n\n### Sector Context\nThe materials sector is showing relative strength, providing a tailwind for SSRM's positive price action.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
     "score_bar": 64,

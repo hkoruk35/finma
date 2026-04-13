@@ -1,8 +1,8 @@
 {
   "ticker": "BK",
   "company": "The Bank of New York Mellon Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.341515-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.201383-04:00",
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3532033
   },
   "scores": {
-    "master_score": 57.19,
+    "master_score": 56.19,
     "technical_score": 60.0,
     "fundamental_score": 30.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 57.19,
-    "confidence": 0.57,
+    "signal_score": 56.19,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 122.02,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.341493-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.201327-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -131,11 +133,7 @@
     "last_90_days_buys": 0,
     "last_90_days_sells": 0,
     "net_direction": "NEUTRAL",
-    "last_transaction": {
-      "type": "SELL",
-      "shares": 743,
-      "date": "2026-04-01"
-    }
+    "last_transaction": null
   },
   "sector_context": {
     "sector_etf": "XLF",
@@ -143,10 +141,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. BK is currently trading at $127.56, just below its 52-week high of $128.58 and the Bollinger Band Upper of $128.63, forming strong resistance. The BUY ZONE is defined between the EMA20 ($121.18) and EMA50 ($119.15), offering a potential entry on a pullback. The PROFIT ZONE lies above the $128.63 resistance, targeting a breakout to new highs, while the STOP LOSS ZONE is set just below the EMA50 at $118.50 to protect against downside risk. A trader might enter on a pullback to the BUY ZONE anticipating continued bullish trend continuation, given price's position above its EMAs.\n\n### Fundamental Edge\nBK's revenue growth of 7.8% combined with a strong net margin of 27.7% suggests efficient operations and profitability, supporting potential price appreciation. While the P/E of 17.24 may indicate a slight premium, the strong financials could justify the valuation if BK continues to deliver solid earnings.\n\n### Sector Context\nThe Financial sector's performance is crucial for BK, and current sector stability or moderate growth would likely support BK's upward momentum.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 57,
+    "score_bar": 56,
     "price_change_display": "-0.79%",
     "key_metrics": {
       "RSI": 69.7,

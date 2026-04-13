@@ -1,8 +1,8 @@
 {
   "ticker": "SNOW",
   "company": "Snowflake Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.905589-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.457472-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 6056340
   },
   "scores": {
-    "master_score": 25.22,
-    "technical_score": 20.0,
+    "master_score": 19.48,
+    "technical_score": 6.0,
     "fundamental_score": 12.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 27.0,
     "value_score": 0.0,
     "reversal_score": 35.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 25.22,
-    "confidence": 0.25,
+    "signal_score": 19.48,
+    "confidence": 0.19,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 102.07,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.905540-04:00",
+    "generated_at": "2026-04-13T08:00:58.457406-04:00",
     "categories": [
       "reversal"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "Snowflake (SNOW) exhibits a STRONG_SELL signal (19% confidence). Bearish EMA stack and an RSI of 35.0 suggest continued downward momentum despite today's 0.50% gain to $149.99. The ADX at 23.6 indicates a weak trend, while the low BB squeeze implies potential for increased volatility. SNOW's price is 45.9% away from its 52-week high, and while revenue growth is strong at 30.1%, the lack of a P/E ratio compared to the sector median of 32.77 raises concerns. Near-term catalyst: Upcoming earnings report could trigger further downside if growth slows.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 19%. SNOW has cratered today, hitting its 52-week low of $121.11. A short-term bounce towards the BB Lower of $129.02 is possible, creating a potential shorting opportunity. STOP LOSS ZONE would be a break above $130.00, while the PROFIT ZONE targets retesting the 52-week low and potentially lower if bearish momentum continues. Traders might enter a short position here anticipating that the stock will continue trending down as the EMA stack is not aligned in bullish order.\n\n### Fundamental Edge\nWhile SNOW exhibits strong revenue growth at 30.1% and a healthy gross margin of 67.2%, the significant negative net margin indicates the company is currently not profitable. This lack of profitability, especially in a risk-off market environment, could pressure the stock further.\n\n### Sector Context\nThe technology sector is facing increased scrutiny due to rising interest rates and inflationary pressures, working against SNOW's valuation and growth prospects.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 25,
+    "score_bar": 19,
     "price_change_display": "-8.42%",
     "key_metrics": {
       "RSI": 21.2,

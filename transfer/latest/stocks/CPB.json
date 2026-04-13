@@ -1,8 +1,8 @@
 {
   "ticker": "CPB",
   "company": "The Campbell's Company",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.143812-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.835257-04:00",
   "sector": "Consumer Staples",
   "industry": "Packaged Foods",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 10581110
   },
   "scores": {
-    "master_score": 53.55,
-    "technical_score": 41.0,
+    "master_score": 42.37,
+    "technical_score": 12.3,
     "fundamental_score": 70.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 30.0,
     "value_score": 70.0,
     "reversal_score": 5.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 53.55,
-    "confidence": 0.54,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 42.37,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 30.4,
@@ -87,7 +87,7 @@
     "beta": 0.025
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 20.33,
     "entry_range_high": 20.53,
     "target_range_low": 21.99,
@@ -98,7 +98,7 @@
     "stop_loss": 19.09,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.143790-04:00",
+    "generated_at": "2026-04-13T08:00:58.835157-04:00",
     "categories": [
       "value"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CPB exhibits a NEUTRAL STAY BOGA AI score due to mixed signals. Technically, the stock trades at $20.91, with bearish EMA alignment but an ADX of 44.3 suggesting a potentially strong trend forming. Key levels to watch include resistance near the 52-week high and support around recent lows.\n\nFundamentally, CPB presents a low P/E of 11.36 compared to the sector, offset by negative revenue growth (-4.5% TTM). The unusually high dividend yield of 750.00% suggests caution is needed, potentially implying unsustainable payout ratios, and may be revised downward affecting investor sentiment.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 42%. CPB is testing its 52-week low, with immediate resistance at the BB Upper of $22.22. The BUY ZONE is defined between $19.97 (BB Lower) and $20.43 (current price), appealing to counter-trend traders anticipating a bounce from oversold conditions. The STOP LOSS ZONE is below $19.97, while the PROFIT ZONE lies between $21.67 (EMA20) and $22.22 (BB Upper) for a potential short-term gain.\n\n### Fundamental Edge\nCPB's relatively low P/E of 11.103261 suggests it's undervalued compared to its peers, potentially attracting value investors seeking exposure to the consumer staples sector. Although recent revenue growth is negative, a turnaround could be the catalyst to drive the stock higher if they can reduce costs.\n\n### Sector Context\nThe consumer staples sector is currently exhibiting mixed performance, offering limited support for a CPB rebound as investors favor higher-growth sectors in the current market regime.",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 54,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
     "price_change_display": "-1.73%",
     "key_metrics": {
       "RSI": 30.4,

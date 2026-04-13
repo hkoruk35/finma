@@ -1,8 +1,8 @@
 {
   "ticker": "KMI",
   "company": "Kinder Morgan, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.475684-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.437313-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Midstream",
   "price": {
@@ -98,7 +98,7 @@
     "stop_loss": 31.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.475655-04:00",
+    "generated_at": "2026-04-13T08:00:59.437199-04:00",
     "categories": []
   },
   "breakout": {

@@ -1,8 +1,8 @@
 {
   "ticker": "ALL",
   "company": "The Allstate Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.348959-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.217861-04:00",
   "sector": "Financials",
   "industry": "Insurance - Property & Casualty",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1389090
   },
   "scores": {
-    "master_score": 69.14,
+    "master_score": 68.14,
     "technical_score": 62.0,
     "fundamental_score": 75.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 41.9,
+    "sector_score": 31.9,
     "breakout_score": 45.0,
     "value_score": 85.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 69.14,
-    "confidence": 0.69,
+    "signal_score": 68.14,
+    "confidence": 0.68,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 201.89,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.348907-04:00",
+    "generated_at": "2026-04-13T08:00:59.217797-04:00",
     "categories": [
       "top_scores",
       "value"
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ALL exhibits a POSITIVE BIAS, BOGA AI confidence 73%. Trading at $210.6, near its 52-week high, Allstate's attractive P/E of 5.53 contrasts favorably against the sector median. The high dividend yield of 201.00% is a major catalyst, significantly exceeding sector averages. Revenue growth of 5.1% and solid margins support a bullish outlook. Technically, RSI is neutral at 54.5, while EMA alignment is bullish, though ADX shows weak trend strength at 12.8. The Bollinger Bands are high, suggesting potential volatility. Key technical levels to watch are the recent highs around $215 for potential breakout and $200 as support.",
+  "ai_summary": "ALL exhibits a POSITIVE BIAS, FinMA confidence 73%. Trading at $210.6, near its 52-week high, Allstate's attractive P/E of 5.53 contrasts favorably against the sector median. The high dividend yield of 201.00% is a major catalyst, significantly exceeding sector averages. Revenue growth of 5.1% and solid margins support a bullish outlook. Technically, RSI is neutral at 54.5, while EMA alignment is bullish, though ADX shows weak trend strength at 12.8. The Bollinger Bands are high, suggesting potential volatility. Key technical levels to watch are the recent highs around $215 for potential breakout and $200 as support.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 69,
+    "score_bar": 68,
     "price_change_display": "-1.65%",
     "key_metrics": {
       "RSI": 55.2,

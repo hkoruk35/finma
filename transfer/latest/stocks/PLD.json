@@ -1,8 +1,8 @@
 {
   "ticker": "PLD",
   "company": "Prologis, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.960303-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.948968-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Industrial",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 3561540
   },
   "scores": {
-    "master_score": 55.31,
+    "master_score": 54.32,
     "technical_score": 57.0,
     "fundamental_score": 35.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 55.31,
-    "confidence": 0.55,
+    "signal_score": 54.32,
+    "confidence": 0.54,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 131.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.960248-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.948909-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. PLD is trading near its upper Bollinger Band resistance at $137.69, after bouncing off support near the EMA50 at $132.98. A trader might consider a BUY ZONE between $132.98 and $133.67 (EMA50 and EMA20) on a pullback, anticipating a continuation of the bullish trend. Set a PROFIT ZONE near $141.58 (52-week high), and a STOP LOSS ZONE just below the lower Bollinger Band at $126.62 to protect capital.\n\n### Fundamental Edge\n\nPLD's robust gross and net margins (75.7% and 36.2% respectively) suggest strong operational efficiency and profitability within the industrial REIT space, reinforcing the bullish technical setup. The moderate revenue growth of 4.0% TTM supports a valuation slightly above its peers, as investors expect continued demand for warehouse and logistics space.\n\n### Sector Context\n\nThe real estate sector shows mixed performance, meaning PLD's bullish setup relies more on company-specific strength than broad sector tailwinds.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 55,
+    "score_bar": 54,
     "price_change_display": "-0.60%",
     "key_metrics": {
       "RSI": 60.3,

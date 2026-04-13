@@ -1,8 +1,8 @@
 {
   "ticker": "PEB",
   "company": "Pebblebrook Hotel Trust",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:22.069266-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:01:00.098204-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Hotel & Motel",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2512763
   },
   "scores": {
-    "master_score": 55.61,
+    "master_score": 54.62,
     "technical_score": 55.0,
     "fundamental_score": 35.0,
     "momentum_score": 80.0,
     "sentiment_score": 65.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 35.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 55.61,
-    "confidence": 0.56,
+    "signal_score": 54.62,
+    "confidence": 0.55,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 12.7,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:22.069231-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:01:00.098156-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. PEB is currently testing resistance at its 52-week high of $13.64, which also aligns with the BB Upper at $13.60. A potential BUY ZONE exists above this resistance, targeting a breakout above $13.64. A PROFIT ZONE could then be established near $14.50 based on prior price action, while a STOP LOSS ZONE should be set below the EMA20 at $12.79 to protect against downside risk if the breakout fails. A trader might enter here anticipating a continued bullish trend, with the price already holding above the EMA20, EMA50, and EMA200.\n\n### Fundamental Edge\nPebblebrook's moderate revenue growth of 3.4% could support continued bullish sentiment if the company demonstrates further margin improvement, moving toward profitability. The high dividend yield of 29.00% may attract income-focused investors, potentially stabilizing the stock price even if growth is limited.\n\n### Sector Context\nThe Real Estate sector's overall performance is currently mixed, offering neither strong tailwinds nor significant headwinds for PEB as it attempts to break through resistance.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 56,
+    "score_bar": 55,
     "price_change_display": "-0.15%",
     "key_metrics": {
       "RSI": 67.0,

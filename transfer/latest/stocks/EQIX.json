@@ -1,8 +1,8 @@
 {
   "ticker": "EQIX",
   "company": "Equinix, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.978199-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.966990-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 609080
   },
   "scores": {
-    "master_score": 49.61,
+    "master_score": 48.62,
     "technical_score": 60.0,
     "fundamental_score": 0.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 51.1,
+    "sector_score": 41.2,
     "breakout_score": 35.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 49.61,
-    "confidence": 0.5,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 48.62,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 73.3,
@@ -87,7 +87,7 @@
     "beta": 0.998
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 936.38,
     "entry_range_high": 1035.39,
     "target_range_low": 1070.64,
@@ -98,7 +98,7 @@
     "stop_loss": 988.74,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.978157-04:00",
+    "generated_at": "2026-04-13T08:00:59.966899-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 50,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
     "price_change_display": "-0.13%",
     "key_metrics": {
       "RSI": 73.3,

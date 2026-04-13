@@ -1,8 +1,8 @@
 {
   "ticker": "CVE",
   "company": "Cenovus Energy Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.443058-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.398694-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 23.91,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.443033-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.398630-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "MEDIUM",
@@ -128,7 +130,7 @@
   },
   "news": [],
   "insider_activity": {
-    "last_90_days_buys": 41,
+    "last_90_days_buys": 40,
     "last_90_days_sells": 0,
     "net_direction": "BUY",
     "last_transaction": {
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 58%. CVE is currently in a bullish trend, holding above its 20, 50, and 200-day EMAs. Resistance sits near the upper Bollinger Band at $27.86, while support is found at the 20-day EMA of $25.43 and the lower Bollinger Band at $23.13. A trader might consider a BUY ZONE between $25.43-$25.87 if the stock pulls back to the 20-day EMA, targeting a PROFIT ZONE near $27.19 (52-week high). The STOP LOSS ZONE should be placed just below the 50-day EMA around $23.45 to protect against a trend reversal.\n\n### Fundamental Edge\n\nCVE's P/E of 16.69 suggests it is trading at a relative discount. With oil prices firming and a medium volatility squeeze indicating potential for price expansion, this could be a catalyst for the stock to retest its 52-week high.\n\n### Sector Context\n\nThe energy sector shows mixed momentum, neither strongly supporting nor hindering CVE's individual technical setup.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 58,

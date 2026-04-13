@@ -1,8 +1,8 @@
 {
   "ticker": "TTE",
   "company": "TotalEnergies SE",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.410952-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.350261-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -98,8 +98,10 @@
     "stop_loss": 88.05,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.410930-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.350170-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 59%. TTE is currently bumping against its 52-week high of $92.65 and flirting with the upper Bollinger Band at $94.59, indicating strong upward momentum. A BUY ZONE would be a pullback toward the EMA20 at $88.23, anticipating a continuation of the uptrend. The PROFIT ZONE is the range above the current 52-week high, targeting $95-$98. The STOP LOSS ZONE is below the EMA50 at $82.15, protecting against a trend reversal.\n\n### Fundamental Edge\nTTE appears attractively valued with a P/E of 16.03, suggesting a potential discount relative to its peers. Although revenue growth is slightly negative, a gross margin of 36% indicates strong underlying profitability. This, coupled with today's price momentum, could signal that TotalEnergies is outperforming expectations.\n\n### Sector Context\nThe energy sector's overall strength is providing tailwinds for TTE, supporting its push towards new highs.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 59,

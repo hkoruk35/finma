@@ -1,8 +1,8 @@
 {
   "ticker": "THC",
   "company": "Tenet Healthcare Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.266172-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.075872-04:00",
   "sector": "Healthcare",
   "industry": "Medical Care Facilities",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1042083
   },
   "scores": {
-    "master_score": 57.94,
+    "master_score": 56.49,
     "technical_score": 51.0,
     "fundamental_score": 75.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 38.4,
+    "sector_score": 23.9,
     "breakout_score": 15.0,
     "value_score": 65.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 30.0,
-    "signal_score": 57.94,
-    "confidence": 0.58,
+    "signal_score": 56.49,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 178.58,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.266136-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.075832-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. THC is currently trading at $195.24, finding support around its 200-day EMA at $193.91. Resistance sits at the 20-day EMA of $201.26. A swing trader might look to establish a BUY ZONE between $193.91 and $185, anticipating a bounce off the 200-day EMA, with a STOP LOSS ZONE just below at $178. Profit-taking could be considered in the $210-$215 PROFIT ZONE, should momentum shift.\n\n### Fundamental Edge\nTHC presents a potentially undervalued opportunity with a P/E of 12.61, indicating a discount relative to the sector, coupled with an 8.9% revenue growth over the trailing twelve months. With steady profitability (6.6% Net Margin), a trader could see this level as an opportunity for the market to appreciate the company's value, and buy ahead of a breakout.\n\n### Sector Context\nDespite THC's potential, the broader Healthcare sector is showing mixed signals, offering little momentum to either support or hinder a potential swing trade in THC.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 58,
+    "score_bar": 56,
     "price_change_display": "-3.28%",
     "key_metrics": {
       "RSI": 41.1,

@@ -1,8 +1,8 @@
 {
   "ticker": "ROST",
   "company": "Ross Stores, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.101837-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.760017-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Apparel Retail",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2969710
   },
   "scores": {
-    "master_score": 50.51,
+    "master_score": 49.2,
     "technical_score": 60.0,
     "fundamental_score": 15.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 50.51,
-    "confidence": 0.51,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 49.2,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 60.4,
@@ -87,7 +87,7 @@
     "beta": 0.927
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 205.81,
     "entry_range_high": 222.27,
     "target_range_low": 231.11,
@@ -98,7 +98,7 @@
     "stop_loss": 211.38,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.101796-04:00",
+    "generated_at": "2026-04-13T08:00:58.759970-04:00",
     "categories": [
       "momentum"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ROST exhibits a NEGATIVE BIAS with a BOGA AI score rating of 53%. Trading near its 52-week high ($225), ROST shows bullish EMA alignment, but a weakening ADX at 20.2 suggests diminishing trend strength. Volume is below average at 0.69x.\n\nDespite solid 12.2% revenue growth, ROST's high P/E of 33.7 relative to the sector median of 25.6 raises valuation concerns. While margins are healthy, the premium valuation leaves little room for error. A potential catalyst for downward price action is any indication of slowing consumer spending impacting discount retailers. Key support levels to watch are around $215.",
+  "ai_summary": "ROST exhibits a NEGATIVE BIAS with a FinMA score rating of 53%. Trading near its 52-week high ($225), ROST shows bullish EMA alignment, but a weakening ADX at 20.2 suggests diminishing trend strength. Volume is below average at 0.69x.\n\nDespite solid 12.2% revenue growth, ROST's high P/E of 33.7 relative to the sector median of 25.6 raises valuation concerns. While margins are healthy, the premium valuation leaves little room for error. A potential catalyst for downward price action is any indication of slowing consumer spending impacting discount retailers. Key support levels to watch are around $215.",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 51,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
     "price_change_display": "-1.67%",
     "key_metrics": {
       "RSI": 60.4,

@@ -1,8 +1,8 @@
 {
   "ticker": "GRMN",
   "company": "Garmin Ltd.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.967534-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.544952-04:00",
   "sector": "Technology",
   "industry": "Scientific & Technical Instruments",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 825320
   },
   "scores": {
-    "master_score": 57.72,
+    "master_score": 56.88,
     "technical_score": 52.0,
     "fundamental_score": 52.0,
     "momentum_score": 80.0,
     "sentiment_score": 68.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 57.72,
-    "confidence": 0.58,
+    "signal_score": 56.88,
+    "confidence": 0.57,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 242.43,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.967489-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:58.544882-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 57%. GRMN is currently trading near its 52-week high, with immediate resistance around $257.67 (52W high) and support at $255.33 (BB Upper). A breakout above $257.67 could signal further upside. BUY ZONE: $241.53 - $245.00 (around EMA20). PROFIT ZONE: $265.00 - $270.00 (potential upside target). STOP LOSS ZONE: $233.00 - $235.00 (below EMA50).\n\n### Fundamental Edge\nGarmin presents a compelling growth story with a TTM revenue growth of 16.6% and strong net margins of 23.0%, indicating efficient operations and profitability. While trading at a P/E of 29.94, which is seemingly a discount to its sector, this may justify a position if the company continues to demonstrate similar revenue growth.\n\n### Sector Context\nThe technology sector remains robust, providing a generally supportive environment for GRMN as it leverages its innovation across multiple product lines.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 58,
+    "score_bar": 57,
     "price_change_display": "+0.14%",
     "key_metrics": {
       "RSI": 66.8,

@@ -1,8 +1,8 @@
 {
   "ticker": "CMS",
   "company": "CMS Energy Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.866975-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.867210-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2755570
   },
   "scores": {
-    "master_score": 56.57,
+    "master_score": 56.45,
     "technical_score": 52.0,
     "fundamental_score": 35.0,
     "momentum_score": 80.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.2,
+    "sector_score": 50.0,
     "breakout_score": 0.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 56.57,
-    "confidence": 0.57,
+    "signal_score": 56.45,
+    "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 76.76,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.866926-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.867142-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -133,7 +135,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 2021,
+      "shares": 6316,
       "date": "2026-03-26"
     }
   },
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score is NEUTRAL STAY with 56% confidence. CMS is currently trading near its 52-week high, with immediate resistance around the Bollinger Band Upper at $80.41. A break above this level could signal further upside. The BUY ZONE is $77.68 - $78.50 (EMA20 and a slight buffer), offering a potential entry on a pullback. The PROFIT ZONE is $82.00 - $83.00, while the STOP LOSS ZONE is $75.50 - $76.00, just below the EMA50 support at $76.07.\n\n### Fundamental Edge\nCMS boasts strong revenue growth (12.3% TTM) and solid margins (Gross 41.5%, Net 12.5%), indicating healthy operational efficiency. Given a P/E of 22.55x, which is relatively attractive for the sector, investors are likely banking on continued stable earnings and dividend payouts (though the provided yield data needs validation). This supports price stability at the current level.\n\n### Sector Context\nThe utilities sector is currently exhibiting defensive characteristics amidst broader market uncertainty, providing a somewhat supportive backdrop for CMS.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 57,
+    "score_bar": 56,
     "price_change_display": "-0.70%",
     "key_metrics": {
       "RSI": 64.3,

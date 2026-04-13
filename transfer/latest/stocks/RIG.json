@@ -1,8 +1,8 @@
 {
   "ticker": "RIG",
   "company": "Transocean Ltd.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.505450-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.484338-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas Drilling",
   "price": {
@@ -98,7 +98,7 @@
     "stop_loss": 5.88,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.505423-04:00",
+    "generated_at": "2026-04-13T08:00:59.484303-04:00",
     "categories": []
   },
   "breakout": {

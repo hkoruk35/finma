@@ -1,8 +1,8 @@
 {
   "ticker": "ALB",
   "company": "Albemarle Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.572986-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.565928-04:00",
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 1923030
   },
   "scores": {
-    "master_score": 43.81,
+    "master_score": 43.52,
     "technical_score": 52.0,
     "fundamental_score": 8.0,
     "momentum_score": 50.0,
     "sentiment_score": 85.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 43.81,
+    "signal_score": 43.52,
     "confidence": 0.44,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -98,7 +98,7 @@
     "stop_loss": 155.68,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.572959-04:00",
+    "generated_at": "2026-04-13T08:00:59.565874-04:00",
     "categories": []
   },
   "breakout": {

@@ -1,8 +1,8 @@
 {
   "ticker": "CHTR",
   "company": "Charter Communications, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.989324-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.583498-04:00",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 1616056
   },
   "scores": {
-    "master_score": 54.76,
-    "technical_score": 52.0,
+    "master_score": 40.79,
+    "technical_score": 15.6,
     "fundamental_score": 78.0,
     "momentum_score": 40.0,
     "sentiment_score": 50.0,
-    "sector_score": 40.6,
+    "sector_score": 28.3,
     "breakout_score": 45.0,
     "value_score": 70.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 54.76,
-    "confidence": 0.55,
-    "signal_type": "NEUTRAL_STAY"
+    "signal_score": 40.79,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
     "rsi_14": 48.2,
@@ -87,7 +87,7 @@
     "beta": 1.026
   },
   "scores_detail": {
-    "signal_type": "NEUTRAL_STAY",
+    "signal_type": "NEGATIVE_BIAS",
     "entry_range_low": 217.73,
     "entry_range_high": 219.91,
     "target_range_low": 238.46,
@@ -98,7 +98,7 @@
     "stop_loss": 202.48,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.989297-04:00",
+    "generated_at": "2026-04-13T08:00:58.583444-04:00",
     "categories": [
       "breakout",
       "value"
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CHTR exhibits a NEUTRAL STAY BOGA AI score, confidence 55%. Technically, the daily chart shows bearish EMA alignment despite neutral RSI and MACD. ADX at 8.7 indicates a weak trend. Price near $218.82.\n\nPotential BUY ZONE exists near the recent low of $200. If price rallies, the PROFIT ZONE lies near the 52-week high around $450. The STOP LOSS ZONE should be considered below $190.\n\nCHTR's P/E of 6.04 suggests undervaluation relative to the sector median. A catalyst for upside could be a return to revenue growth after the current -2.3% TTM figure.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 41%. CHTR is currently trading between the EMA20 ($220.13) and EMA50 ($219.98), acting as immediate resistance. The 52-week low of $182.81 presents a longer-term support level. A short setup could be considered if price breaks below $219.98 (EMA50), with a PROFIT ZONE near the BB Lower of $210.82 and a STOP LOSS ZONE just above EMA20 ($220.13); the BUY ZONE isn't recommended given the current bearish signals.\n\n### Fundamental Edge\nCHTR's low P/E of 6.043082 suggests potential value, but negative revenue growth of -2.3% TTM could be a deterrent for investors. The lack of a recent positive catalyst is adding downward pressure on the stock.\n\n### Sector Context\nThe Communication Services sector is currently mixed, providing neither significant tailwinds nor strong headwinds for CHTR's performance.",
   "quick_view": {
-    "score_badge": "NEUTRAL STAY",
-    "score_bar": 55,
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
     "price_change_display": "-1.98%",
     "key_metrics": {
       "RSI": 48.2,

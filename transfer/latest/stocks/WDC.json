@@ -1,8 +1,8 @@
 {
   "ticker": "WDC",
   "company": "Western Digital Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:20.868724-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.413063-04:00",
   "sector": "Technology",
   "industry": "Computer Hardware",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 8715890
   },
   "scores": {
-    "master_score": 54.92,
+    "master_score": 54.08,
     "technical_score": 57.0,
     "fundamental_score": 47.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 37.2,
+    "sector_score": 28.8,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 54.92,
-    "confidence": 0.55,
+    "signal_score": 54.08,
+    "confidence": 0.54,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,8 +98,10 @@
     "stop_loss": 299.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:20.868663-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:58.413016-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. WDC is currently testing its 52-week high, which aligns with the upper Bollinger Band at $346.00. A BUY ZONE would be established on a confirmed break above $346.00, targeting a PROFIT ZONE in blue-sky territory, with a STOP LOSS ZONE placed near the EMA20 at $300.88. Traders might enter a long position here anticipating continued momentum given the bullish trend (price above key EMAs) and testing of all-time highs.\n\n### Fundamental Edge\nWDC's strong revenue growth of 25.2% coupled with a solid gross margin of 42.7% suggest the company is efficiently converting sales into profit. These factors, along with a P/E suggesting relative value, could fuel investor confidence and drive further price appreciation as the company scales.\n\n### Sector Context\nThe technology sector is showing mixed performance, creating some uncertainty regarding whether sector tailwinds will support WDC's individual momentum.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 55,
+    "score_bar": 54,
     "price_change_display": "+1.64%",
     "key_metrics": {
       "RSI": 66.0,

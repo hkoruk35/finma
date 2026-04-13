@@ -1,8 +1,8 @@
 {
   "ticker": "HLT",
   "company": "Hilton Worldwide Holdings Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.084470-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.728007-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Lodging",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 1833760
   },
   "scores": {
-    "master_score": 51.46,
+    "master_score": 50.15,
     "technical_score": 57.0,
     "fundamental_score": 15.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 51.46,
-    "confidence": 0.51,
+    "signal_score": 50.15,
+    "confidence": 0.5,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 307.37,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.084432-04:00",
+    "generated_at": "2026-04-13T08:00:58.727927-04:00",
     "categories": []
   },
   "breakout": {
@@ -146,7 +146,7 @@
   "ai_summary": "",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 51,
+    "score_bar": 50,
     "price_change_display": "+0.29%",
     "key_metrics": {
       "RSI": 64.8,

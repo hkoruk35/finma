@@ -1,8 +1,8 @@
 {
   "ticker": "BTI",
   "company": "British American Tobacco p.l.c.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.156300-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.875330-04:00",
   "sector": "Consumer Staples",
   "industry": "Tobacco",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 5196090
   },
   "scores": {
-    "master_score": 54.15,
+    "master_score": 53.01,
     "technical_score": 62.0,
     "fundamental_score": 25.0,
     "momentum_score": 80.0,
     "sentiment_score": 60.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 45.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 54.15,
-    "confidence": 0.54,
+    "signal_score": 53.01,
+    "confidence": 0.53,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 56.27,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.156277-04:00",
+    "generated_at": "2026-04-13T08:00:58.875216-04:00",
     "categories": [
       "momentum"
     ]
@@ -148,7 +148,7 @@
   "ai_summary": "BOGA AI maintains a NEUTRAL STAY score on BTI (Confidence: 54%).\n\nBTI currently trades at $58.81, near its 52-week high. The daily chart shows bullish EMA alignment, but weak ADX (12.1) suggests a lack of trend strength. RSI at 51.6 and neutral MACD confirm indecision.\n\nGiven its high dividend yield of 568.00% and discounted P/E ratio (12.57 vs. sector median of 24.29), a BUY ZONE would be around the $55 level, with a STOP LOSS ZONE near $52. The PROFIT ZONE target is $62, based on previous resistance.\n\nA potential catalyst for BTI is further positive developments in its reduced-risk product (RRP) portfolio.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 54,
+    "score_bar": 53,
     "price_change_display": "-0.07%",
     "key_metrics": {
       "RSI": 51.6,

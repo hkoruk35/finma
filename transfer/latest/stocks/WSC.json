@@ -1,8 +1,8 @@
 {
   "ticker": "WSC",
   "company": "WillScot Holdings Corporation",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.820012-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.817308-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 2079603
   },
   "scores": {
-    "master_score": 37.58,
-    "technical_score": 42.0,
+    "master_score": 26.63,
+    "technical_score": 12.6,
     "fundamental_score": 20.0,
     "momentum_score": 40.0,
     "sentiment_score": 50.0,
-    "sector_score": 48.8,
+    "sector_score": 42.2,
     "breakout_score": 45.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 37.58,
-    "confidence": 0.38,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 26.63,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 50.5,
@@ -87,7 +87,7 @@
     "beta": 1.164
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 18.57,
     "entry_range_high": 18.75,
     "target_range_low": 21.02,
@@ -98,7 +98,7 @@
     "stop_loss": 16.8,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.819981-04:00",
+    "generated_at": "2026-04-13T08:00:59.817254-04:00",
     "categories": []
   },
   "breakout": {
@@ -145,8 +145,8 @@
   },
   "ai_summary": "",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 38,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
     "price_change_display": "-0.05%",
     "key_metrics": {
       "RSI": 50.5,

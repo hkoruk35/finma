@@ -1,8 +1,8 @@
 {
   "ticker": "HD",
   "company": "The Home Depot, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.035294-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.662325-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Home Improvement Retail",
   "price": {
@@ -19,20 +19,20 @@
     "avg_volume_30d": 4161323
   },
   "scores": {
-    "master_score": 43.31,
-    "technical_score": 53.0,
+    "master_score": 29.01,
+    "technical_score": 15.9,
     "fundamental_score": 12.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.6,
+    "sector_score": 29.5,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 100.0,
-    "signal_score": 43.31,
-    "confidence": 0.43,
-    "signal_type": "NEGATIVE_BIAS"
+    "signal_score": 29.01,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
   },
   "technical": {
     "rsi_14": 49.3,
@@ -87,7 +87,7 @@
     "beta": 1.085
   },
   "scores_detail": {
-    "signal_type": "NEGATIVE_BIAS",
+    "signal_type": "UNDERPERFORM",
     "entry_range_low": 335.65,
     "entry_range_high": 339.03,
     "target_range_low": 358.67,
@@ -98,7 +98,7 @@
     "stop_loss": 318.24,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.035244-04:00",
+    "generated_at": "2026-04-13T08:00:58.662259-04:00",
     "categories": [
       "dividend"
     ]
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HD shows a sell signal with low confidence (42%). Price surged 5.46% today to $336.16, despite bearish EMA stack. RSI at 48.6 indicates neutral momentum. ADX at 35.4 suggests a trending market. While the stock is 19.6% from its 52-week high, revenue growth is negative (-3.8% TTM) and RVOL is below 1 at 0.89x. P/E ratio of 23.64 is below the sector median of 29.12, but the negative revenue growth weighs on the valuation. Upcoming housing market data could pressure the stock if figures disappoint.",
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEGATIVE BIAS | Confidence: 29%. HD is currently trading below its 50-day EMA ($346.96) and 200-day EMA ($362.76), signaling potential weakness. A break below the 20-day EMA ($334.77) could trigger further downside. A swing trader might consider a short position in the $334.77-$337.34 area, targeting a PROFIT ZONE near $316.54 (lower Bollinger Band), with a STOP LOSS ZONE above $346.96 (50-day EMA).\n\n### Fundamental Edge\n\nHD's revenue growth is currently negative (-3.8% TTM), which could be a concern for investors looking for growth stocks. However, the company’s P/E of 23.69 suggests that HD is trading at a fair discount to its sector, possibly because it is experiencing slower growth at the moment.\n\n### Sector Context\n\nThe Consumer Discretionary sector is showing mixed performance, so the current setup for HD isn't receiving strong sector tailwinds.",
   "quick_view": {
-    "score_badge": "NEGATIVE BIAS",
-    "score_bar": 43,
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
     "price_change_display": "-0.66%",
     "key_metrics": {
       "RSI": 49.3,

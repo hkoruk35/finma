@@ -1,8 +1,8 @@
 {
   "ticker": "RIO",
   "company": "Rio Tinto Group",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.527771-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:59.512866-04:00",
   "sector": "Materials",
   "industry": "Other Industrial Metals & Mining",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 3236813
   },
   "scores": {
-    "master_score": 56.36,
+    "master_score": 56.07,
     "technical_score": 60.0,
     "fundamental_score": 33.0,
     "momentum_score": 80.0,
     "sentiment_score": 60.0,
-    "sector_score": 51.1,
+    "sector_score": 48.2,
     "breakout_score": 15.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 100.0,
-    "signal_score": 56.36,
+    "signal_score": 56.07,
     "confidence": 0.56,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -98,8 +98,10 @@
     "stop_loss": 92.8,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.527739-04:00",
-    "categories": []
+    "generated_at": "2026-04-13T08:00:59.512815-04:00",
+    "categories": [
+      "top_scores"
+    ]
   },
   "breakout": {
     "squeeze_intensity": "LOW",
@@ -143,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. RIO is trading near its 52-week high, with immediate resistance around $99.65 (BB Upper). A breakout above this level could signal further upside. A potential BUY ZONE lies between $92.72 (EMA20) and $95.00, with a PROFIT ZONE targeting $105.00 and a STOP LOSS ZONE placed just below $90.26 (EMA50). Traders might consider an entry on a confirmed breakout above the upper Bollinger Band, anticipating momentum continuation.\n\n### Fundamental Edge\nRIO's revenue growth of 14.6% coupled with a net margin of 17.3% paints a picture of a profitable, expanding company. The P/E of 16.16 suggests that the stock is reasonably valued relative to its earnings, which could attract value-oriented investors and provide a fundamental underpin to any technical breakout.\n\n### Sector Context\nThe materials sector currently exhibits mixed momentum; RIO's performance will likely depend on global demand for iron ore and other commodities, which may or may not align with the broader sector trend.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 56,

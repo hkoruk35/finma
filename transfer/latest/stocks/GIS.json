@@ -1,8 +1,8 @@
 {
   "ticker": "GIS",
   "company": "General Mills, Inc.",
-  "date": "2026-04-12",
-  "generated_at": "2026-04-12T15:06:21.142533-04:00",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T08:00:58.831906-04:00",
   "sector": "Consumer Staples",
   "industry": "Packaged Foods",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 9924540
   },
   "scores": {
-    "master_score": 37.2,
-    "technical_score": 35.0,
+    "master_score": 27.48,
+    "technical_score": 10.5,
     "fundamental_score": 45.0,
     "momentum_score": 10.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.0,
+    "sector_score": 30.6,
     "breakout_score": 45.0,
     "value_score": 50.0,
     "reversal_score": 20.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 100.0,
-    "signal_score": 37.2,
-    "confidence": 0.37,
+    "signal_score": 27.48,
+    "confidence": 0.27,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -98,7 +98,7 @@
     "stop_loss": 33.69,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-12T15:06:21.142510-04:00",
+    "generated_at": "2026-04-13T08:00:58.831855-04:00",
     "categories": [
       "reversal"
     ]
@@ -135,7 +135,7 @@
     "net_direction": "NEUTRAL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 744,
+      "shares": 578,
       "date": "2026-02-20"
     }
   },
@@ -145,10 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "GIS receives an UNDERPERFORM BOGA AI score due to bearish EMA alignment on the daily chart. Price is $35.59 with RSI at 28.9, nearing oversold. Strong ADX at 52 indicates a defined downtrend.\n\nKey levels to watch: Potential BUY ZONE if price reverses near $34.00. PROFIT ZONE targets $37.00-$38.00 upon any positive momentum. STOP LOSS ZONE should be considered below $33.00 to manage risk.\n\nDespite attractive valuation (P/E 8.7 vs. sector median 24.3) and high dividend yield, the downtrend prevails. A catalyst for potential upside is earnings report on July 1st.",
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 27%. GIS is currently trading near its 52-week low, bouncing just above the lower Bollinger Band at $34.89, suggesting potential short-term support, but the EMAs are stacked negatively, with the 20 ($37.29), 50 ($39.98), and 200-day ($45.14) EMAs acting as resistance. A swing trader might consider this for a mean reversion play but should be cautious. BUY ZONE: $34.89-$35.50 (very bottom of range to catch a bounce), PROFIT ZONE: $37.00-$38.00 (targeting the 20-day EMA and upper Bollinger Band), STOP LOSS ZONE: $34.50 (below the 52-week low).\n\n### Fundamental Edge\nGIS is trading at a low P/E of 8.7, signaling potential value compared to peers, coupled with a healthy net margin of 12.1%. The relatively stable revenue growth of 2.2% provides a foundation for a turnaround if market sentiment shifts.\n\n### Sector Context\nConsumer staples are generally considered defensive plays in uncertain markets, but GIS is underperforming within its sector despite potential defensive tailwinds.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 37,
+    "score_bar": 27,
     "price_change_display": "-1.52%",
     "key_metrics": {
       "RSI": 28.9,
