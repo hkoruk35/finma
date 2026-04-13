@@ -1,0 +1,158 @@
+{
+  "ticker": "MCD",
+  "company": "McDonald's Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.021896-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Restaurants",
+  "price": {
+    "current": 303.61,
+    "open": 304.22,
+    "high": 304.9,
+    "low": 302.14,
+    "prev_close": 305.68,
+    "change_pct": -0.68,
+    "change_pct_1w": -1.98,
+    "change_pct_1m": -6.27,
+    "change_pct_1y": 2.2,
+    "volume": 1160033,
+    "avg_volume_30d": 3061407
+  },
+  "scores": {
+    "master_score": 21.79,
+    "technical_score": 5.4,
+    "fundamental_score": 30.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 0.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 21.79,
+    "confidence": 0.22,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 37.1,
+    "macd": -4.223,
+    "macd_signal": -4.093,
+    "macd_histogram": -0.13,
+    "macd_crossover": "neutral",
+    "ema_20": 310.79,
+    "ema_50": 314.67,
+    "ema_200": 309.16,
+    "ema_stack_bullish": false,
+    "bb_upper": 322.19,
+    "bb_middle": 310.21,
+    "bb_lower": 298.23,
+    "bb_width": 0.0772,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.3,
+    "atr": 5.31,
+    "atr_pct": 0.0175,
+    "obv_trend": "DOWN",
+    "mfi": 36.4,
+    "cmf": -0.229,
+    "stoch_k": 13.7,
+    "stoch_d": 32.4,
+    "rvol": 0.82,
+    "volume_5d_avg": 2508146,
+    "green_days_10d": 5,
+    "52w_high": 339.17,
+    "52w_low": 280.68,
+    "52w_high_proximity_pct": 0.1048,
+    "52w_low_proximity_pct": 0.0817
+  },
+  "fundamental": {
+    "pe_ratio": 25.407112,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": -120.52997,
+    "de_ratio": null,
+    "fcf_yield": 0.0292,
+    "eps_growth_5y": 0.082,
+    "revenue_growth_ttm": 0.097,
+    "gross_margin": 0.57407004,
+    "operating_margin": 0.45071,
+    "net_margin": 0.3185,
+    "market_cap": 215817928704,
+    "enterprise_value": 271210659840,
+    "dividend_yield": 2.43,
+    "payout_ratio": 0.6,
+    "insider_ownership_pct": 0.00278,
+    "institutional_ownership_pct": 0.75496,
+    "short_ratio": 2.86,
+    "beta": 0.532
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 302.09,
+    "entry_range_high": 305.13,
+    "target_range_low": 313.15,
+    "target_range_high": 335.52,
+    "stop_range_low": 278.34,
+    "stop_range_high": 292.99,
+    "target_price": 319.54,
+    "stop_loss": 292.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.021864-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 379.51,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 243.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 280.68,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 333,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 22,
+    "price_change_display": "-0.68%",
+    "key_metrics": {
+      "RSI": 37.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "NTAP",
+  "company": "NetApp, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.967092-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 98.34,
+    "open": 95.83,
+    "high": 98.57,
+    "low": 95.06,
+    "prev_close": 95.93,
+    "change_pct": 2.51,
+    "change_pct_1w": -2.54,
+    "change_pct_1m": 1.97,
+    "change_pct_1y": 16.43,
+    "volume": 592484,
+    "avg_volume_30d": 2202559
+  },
+  "scores": {
+    "master_score": 33.45,
+    "technical_score": 8.1,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 31.1,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 33.45,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.3,
+    "macd": -0.779,
+    "macd_signal": -0.1908,
+    "macd_histogram": -0.5882,
+    "macd_crossover": "neutral",
+    "ema_20": 99.82,
+    "ema_50": 100.98,
+    "ema_200": 103.8,
+    "ema_stack_bullish": false,
+    "bb_upper": 105.71,
+    "bb_middle": 100.86,
+    "bb_lower": 96.0,
+    "bb_width": 0.0962,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.4,
+    "atr": 3.32,
+    "atr_pct": 0.0337,
+    "obv_trend": "UP",
+    "mfi": 39.1,
+    "cmf": -0.154,
+    "stoch_k": 28.8,
+    "stoch_d": 14.7,
+    "rvol": 0.9,
+    "volume_5d_avg": 1975296,
+    "green_days_10d": 5,
+    "52w_high": 124.56,
+    "52w_low": 79.81,
+    "52w_high_proximity_pct": 0.2105,
+    "52w_low_proximity_pct": 0.2322
+  },
+  "fundamental": {
+    "pe_ratio": 16.5,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 16.816004,
+    "de_ratio": 236.097,
+    "fcf_yield": 0.0573,
+    "eps_growth_5y": 0.16,
+    "revenue_growth_ttm": 0.044,
+    "gross_margin": 0.70458,
+    "operating_margin": 0.25160998,
+    "net_margin": 0.18065001,
+    "market_cap": 19477254144,
+    "enterprise_value": 18648905728,
+    "dividend_yield": 2.17,
+    "payout_ratio": 0.349,
+    "insider_ownership_pct": 0.00509,
+    "institutional_ownership_pct": 1.02296,
+    "short_ratio": 8.39,
+    "beta": 1.292
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 97.85,
+    "entry_range_high": 98.83,
+    "target_range_low": 106.13,
+    "target_range_high": 113.72,
+    "stop_range_low": 87.11,
+    "stop_range_high": 91.7,
+    "target_price": 108.3,
+    "stop_loss": 91.7,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.967074-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 122.93,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 217.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 79.81,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1000,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "NTAP currently exhibits UNDERPERFORM on the FinMA Score, confidence level 30%. While boasting strong profitability (70.5% gross margin, 18.1% net margin) and a seemingly high dividend yield (217.00%), this requires verification due to its unusual magnitude. Revenue growth is moderate at 4.4% TTM.\n\nTechnically, NTAP shows bearish EMA alignment, weak ADX (18.7), and low Bollinger Band proximity, indicating limited near-term upside. The stock is 22.8% off its 52-week high with an RSI of 41.2. A P/E of 16.142616 presents a valuation discount. Without positive news catalysts, NTAP faces headwinds.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "+2.51%",
+    "key_metrics": {
+      "RSI": 46.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

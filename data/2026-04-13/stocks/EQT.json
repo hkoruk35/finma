@@ -1,0 +1,158 @@
+{
+  "ticker": "EQT",
+  "company": "EQT Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.459529-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 57.74,
+    "open": 58.78,
+    "high": 58.97,
+    "low": 57.64,
+    "prev_close": 58.68,
+    "change_pct": -1.6,
+    "change_pct_1w": -4.4,
+    "change_pct_1m": -10.67,
+    "change_pct_1y": 16.45,
+    "volume": 2456438,
+    "avg_volume_30d": 8514194
+  },
+  "scores": {
+    "master_score": 34.72,
+    "technical_score": 20.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 47.2,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.72,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 34.1,
+    "macd": -0.7491,
+    "macd_signal": 0.1867,
+    "macd_histogram": -0.9359,
+    "macd_crossover": "neutral",
+    "ema_20": 61.56,
+    "ema_50": 60.68,
+    "ema_200": 56.54,
+    "ema_stack_bullish": false,
+    "bb_upper": 68.96,
+    "bb_middle": 63.03,
+    "bb_lower": 57.1,
+    "bb_width": 0.1882,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.3,
+    "atr": 2.09,
+    "atr_pct": 0.0363,
+    "obv_trend": "DOWN",
+    "mfi": 40.8,
+    "cmf": -0.29,
+    "stoch_k": 0.9,
+    "stoch_d": 6.8,
+    "rvol": 0.7,
+    "volume_5d_avg": 5992567,
+    "green_days_10d": 2,
+    "52w_high": 67.93,
+    "52w_low": 47.12,
+    "52w_high_proximity_pct": 0.15,
+    "52w_low_proximity_pct": 0.2254
+  },
+  "fundamental": {
+    "pe_ratio": 17.444109,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 1.5170385,
+    "de_ratio": 28.932,
+    "fcf_yield": 0.0507,
+    "eps_growth_5y": 0.546,
+    "revenue_growth_ttm": 0.269,
+    "gross_margin": 0.78629,
+    "operating_margin": 0.5499,
+    "net_margin": 0.24927,
+    "market_cap": 36045582336,
+    "enterprise_value": 48044867584,
+    "dividend_yield": 1.12,
+    "payout_ratio": 0.1926,
+    "insider_ownership_pct": 0.00819,
+    "institutional_ownership_pct": 0.94517,
+    "short_ratio": 2.04,
+    "beta": 0.693
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 57.45,
+    "entry_range_high": 58.03,
+    "target_range_low": 62.73,
+    "target_range_high": 67.21,
+    "stop_range_low": 50.88,
+    "stop_range_high": 53.56,
+    "target_price": 64.01,
+    "stop_loss": 53.56,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.459507-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 72.17,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 112.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 47.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4876,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "-1.60%",
+    "key_metrics": {
+      "RSI": 34.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

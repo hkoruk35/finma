@@ -1,0 +1,160 @@
+{
+  "ticker": "MU",
+  "company": "Micron Technology, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.887651-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 415.38,
+    "open": 416.47,
+    "high": 421.03,
+    "low": 408.5,
+    "prev_close": 420.59,
+    "change_pct": -1.24,
+    "change_pct_1w": 9.96,
+    "change_pct_1m": 2.52,
+    "change_pct_1y": 434.7,
+    "volume": 20916694,
+    "avg_volume_30d": 46012399
+  },
+  "scores": {
+    "master_score": 53.56,
+    "technical_score": 52.0,
+    "fundamental_score": 55.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 31.1,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 53.56,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 55.8,
+    "macd": 0.8367,
+    "macd_signal": -4.6531,
+    "macd_histogram": 5.4898,
+    "macd_crossover": "neutral",
+    "ema_20": 394.74,
+    "ema_50": 386.51,
+    "ema_200": 281.2,
+    "ema_stack_bullish": true,
+    "bb_upper": 474.51,
+    "bb_middle": 396.93,
+    "bb_lower": 319.35,
+    "bb_width": 0.3909,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.6,
+    "atr": 25.2,
+    "atr_pct": 0.0607,
+    "obv_trend": "UP",
+    "mfi": 42.9,
+    "cmf": 0.046,
+    "stoch_k": 92.4,
+    "stoch_d": 84.9,
+    "rvol": 0.82,
+    "volume_5d_avg": 37948818,
+    "green_days_10d": 5,
+    "52w_high": 461.54,
+    "52w_low": 66.58,
+    "52w_high_proximity_pct": 0.1,
+    "52w_low_proximity_pct": 5.2388
+  },
+  "fundamental": {
+    "pe_ratio": 19.593872,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 6.466524,
+    "de_ratio": 14.902,
+    "fcf_yield": 0.0062,
+    "eps_growth_5y": 7.56,
+    "revenue_growth_ttm": 1.963,
+    "gross_margin": 0.58437,
+    "operating_margin": 0.67624,
+    "net_margin": 0.41486,
+    "market_cap": 468449558528,
+    "enterprise_value": 470522658816,
+    "dividend_yield": 0.14,
+    "payout_ratio": 0.0217,
+    "insider_ownership_pct": 0.0027,
+    "institutional_ownership_pct": 0.82366997,
+    "short_ratio": 1.0,
+    "beta": 1.606
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 384.58,
+    "entry_range_high": 417.46,
+    "target_range_low": 481.16,
+    "target_range_high": 515.53,
+    "stop_range_low": 346.73,
+    "stop_range_high": 364.98,
+    "target_price": 490.98,
+    "stop_loss": 364.98,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.887587-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 519.23,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 14.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 66.58,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 40000,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. MU remains in a bullish trend above all key EMAs. Resistance lies at the BB Upper of $474.51, with support at the EMA20 of $394.74. BUY ZONE would be a pullback to the EMA50 around $386.51, anticipating a bounce. PROFIT ZONE is $460 - $470, just below the 52-week high and BB Upper. STOP LOSS ZONE should be placed at $375, just below the EMA50, to protect against trend reversal.\n\n### Fundamental Edge\n\nMU presents a compelling growth story, evidenced by its substantial revenue growth of 196.3% TTM and a robust gross margin of 58.4%. The relatively low P/E of 19.59 suggests potential undervaluation compared to its peers. This valuation, coupled with the impressive growth, supports a potential upside breakout.\n\n### Sector Context\n\nThe technology sector maintains a positive, albeit volatile, momentum, providing a moderately supportive environment for MU's continued upside.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "-1.24%",
+    "key_metrics": {
+      "RSI": 55.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

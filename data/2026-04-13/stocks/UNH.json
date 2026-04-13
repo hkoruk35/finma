@@ -1,0 +1,158 @@
+{
+  "ticker": "UNH",
+  "company": "UnitedHealth Group Incorporated",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.302635-04:00",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 311.52,
+    "open": 303.25,
+    "high": 311.55,
+    "low": 302.92,
+    "prev_close": 304.33,
+    "change_pct": 2.36,
+    "change_pct_1w": 10.72,
+    "change_pct_1m": 12.44,
+    "change_pct_1y": -44.63,
+    "volume": 3666739,
+    "avg_volume_30d": 8567861
+  },
+  "scores": {
+    "master_score": 34.89,
+    "technical_score": 15.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 21.4,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 34.89,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 67.5,
+    "macd": 5.6327,
+    "macd_signal": 0.5815,
+    "macd_histogram": 5.0511,
+    "macd_crossover": "neutral",
+    "ema_20": 288.47,
+    "ema_50": 290.27,
+    "ema_200": 319.98,
+    "ema_stack_bullish": false,
+    "bb_upper": 314.46,
+    "bb_middle": 282.72,
+    "bb_lower": 250.97,
+    "bb_width": 0.2246,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.8,
+    "atr": 8.77,
+    "atr_pct": 0.0282,
+    "obv_trend": "UP",
+    "mfi": 64.5,
+    "cmf": -0.189,
+    "stoch_k": 97.4,
+    "stoch_d": 90.6,
+    "rvol": 1.08,
+    "volume_5d_avg": 9272027,
+    "green_days_10d": 8,
+    "52w_high": 583.03,
+    "52w_low": 232.89,
+    "52w_high_proximity_pct": 0.4657,
+    "52w_low_proximity_pct": 0.3376
+  },
+  "fundamental": {
+    "pe_ratio": 23.530966,
+    "sector_pe_median": 24.7599545,
+    "pb_ratio": 2.9993067,
+    "de_ratio": 81.618,
+    "fcf_yield": 0.049,
+    "eps_growth_5y": -0.999,
+    "revenue_growth_ttm": 0.123,
+    "gross_margin": 0.18526,
+    "operating_margin": 0.00336,
+    "net_margin": 0.02694,
+    "market_cap": 282786398208,
+    "enterprise_value": 338703974400,
+    "dividend_yield": 2.9,
+    "payout_ratio": 0.65989995,
+    "insider_ownership_pct": 0.00828,
+    "institutional_ownership_pct": 0.84252,
+    "short_ratio": 2.04,
+    "beta": 0.408
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 288.82,
+    "entry_range_high": 313.08,
+    "target_range_low": 331.07,
+    "target_range_high": 354.72,
+    "stop_range_low": 279.28,
+    "stop_range_high": 293.98,
+    "target_price": 337.83,
+    "stop_loss": 293.98,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.302614-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 389.4,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 290.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 232.89,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 206,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.25,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+2.36%",
+    "key_metrics": {
+      "RSI": 67.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

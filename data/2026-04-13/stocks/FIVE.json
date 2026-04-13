@@ -1,0 +1,158 @@
+{
+  "ticker": "FIVE",
+  "company": "Five Below, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.227604-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Specialty Retail",
+  "price": {
+    "current": 222.13,
+    "open": 215.73,
+    "high": 222.56,
+    "low": 215.73,
+    "prev_close": 217.37,
+    "change_pct": 2.19,
+    "change_pct_1w": -4.96,
+    "change_pct_1m": 2.35,
+    "change_pct_1y": 254.5,
+    "volume": 555233,
+    "avg_volume_30d": 1206704
+  },
+  "scores": {
+    "master_score": 32.6,
+    "technical_score": 22.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 32.6,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 49.0,
+    "macd": 1.9993,
+    "macd_signal": 3.5469,
+    "macd_histogram": -1.5476,
+    "macd_crossover": "neutral",
+    "ema_20": 224.75,
+    "ema_50": 216.64,
+    "ema_200": 176.25,
+    "ema_stack_bullish": false,
+    "bb_upper": 240.7,
+    "bb_middle": 225.81,
+    "bb_lower": 210.92,
+    "bb_width": 0.1319,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.1,
+    "atr": 9.53,
+    "atr_pct": 0.0429,
+    "obv_trend": "DOWN",
+    "mfi": 39.1,
+    "cmf": 0.07,
+    "stoch_k": 35.5,
+    "stoch_d": 29.8,
+    "rvol": 0.89,
+    "volume_5d_avg": 1079786,
+    "green_days_10d": 5,
+    "52w_high": 235.39,
+    "52w_low": 60.47,
+    "52w_high_proximity_pct": 0.0563,
+    "52w_low_proximity_pct": 2.6734
+  },
+  "fundamental": {
+    "pe_ratio": 34.27923,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 5.593367,
+    "de_ratio": 92.655,
+    "fcf_yield": 0.0283,
+    "eps_growth_5y": 0.263,
+    "revenue_growth_ttm": 0.243,
+    "gross_margin": 0.35991,
+    "operating_margin": 0.17986,
+    "net_margin": 0.075279996,
+    "market_cap": 12270078976,
+    "enterprise_value": 13107160064,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02,
+    "institutional_ownership_pct": 1.05922,
+    "short_ratio": 1.8,
+    "beta": 1.066
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 215.56,
+    "entry_range_high": 223.24,
+    "target_range_low": 245.71,
+    "target_range_high": 263.26,
+    "stop_range_low": 192.92,
+    "stop_range_high": 203.07,
+    "target_price": 250.72,
+    "stop_loss": 203.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.227583-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 277.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 60.47,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3000,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "+2.19%",
+    "key_metrics": {
+      "RSI": 49.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

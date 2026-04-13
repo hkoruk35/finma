@@ -1,0 +1,161 @@
+{
+  "ticker": "OMC",
+  "company": "Omnicom Group Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.998169-04:00",
+  "sector": "Communication Services",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 76.29,
+    "open": 74.35,
+    "high": 76.33,
+    "low": 74.27,
+    "prev_close": 74.77,
+    "change_pct": 2.03,
+    "change_pct_1w": 0.43,
+    "change_pct_1m": -2.08,
+    "change_pct_1y": 3.62,
+    "volume": 1058419,
+    "avg_volume_30d": 4821143
+  },
+  "scores": {
+    "master_score": 36.97,
+    "technical_score": 42.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 65.0,
+    "sector_score": 30.2,
+    "breakout_score": 55.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 36.97,
+    "confidence": 0.37,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 49.5,
+    "macd": -0.6411,
+    "macd_signal": -0.7064,
+    "macd_histogram": 0.0653,
+    "macd_crossover": "bullish",
+    "ema_20": 76.15,
+    "ema_50": 76.65,
+    "ema_200": 75.71,
+    "ema_stack_bullish": false,
+    "bb_upper": 78.0,
+    "bb_middle": 75.75,
+    "bb_lower": 73.5,
+    "bb_width": 0.0594,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.0,
+    "atr": 2.34,
+    "atr_pct": 0.0307,
+    "obv_trend": "DOWN",
+    "mfi": 65.2,
+    "cmf": -0.186,
+    "stoch_k": 66.9,
+    "stoch_d": 43.0,
+    "rvol": 0.74,
+    "volume_5d_avg": 3552383,
+    "green_days_10d": 4,
+    "52w_high": 84.95,
+    "52w_low": 66.61,
+    "52w_high_proximity_pct": 0.102,
+    "52w_low_proximity_pct": 0.1454
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.6733575,
+    "pb_ratio": 1.9829491,
+    "de_ratio": 86.307,
+    "fcf_yield": 0.1903,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.279,
+    "gross_margin": 0.18571,
+    "operating_margin": 0.14877,
+    "net_margin": -0.00316,
+    "market_cap": 23675559936,
+    "enterprise_value": 28601548800,
+    "dividend_yield": 4.28,
+    "payout_ratio": 0.413,
+    "insider_ownership_pct": 0.00876,
+    "institutional_ownership_pct": 1.11871,
+    "short_ratio": 6.5,
+    "beta": 0.751
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 75.91,
+    "entry_range_high": 76.67,
+    "target_range_low": 81.64,
+    "target_range_high": 87.48,
+    "stop_range_low": 68.03,
+    "stop_range_high": 71.61,
+    "target_price": 83.31,
+    "stop_loss": 71.61,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.998150-04:00",
+    "categories": [
+      "breakout",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 55.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 95.36,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 428.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 66.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 681,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 37%. OMC is showing mixed signals on the daily chart. Resistance is established near the EMA50 at $76.65 and the upper Bollinger Band at $78.00. A short-term bullish MACD crossover might entice some buyers, but a more cautious trader might consider the BUY ZONE between $75.71 (EMA200) and $76.15 (EMA20), aiming for a PROFIT ZONE near $73.50 (lower Bollinger Band), with a STOP LOSS ZONE just above $78.00.\n\n### Fundamental Edge\nOMC's revenue growth is strong, but negative net margins raise concerns about profitability and sustainability. In the absence of recent catalysts, the high revenue growth is not enough to justify a long position.\n\n### Sector Context\nThe Communication Services sector is currently showing mixed performance, offering neither a strong tailwind nor a strong headwind for OMC's current technical setup.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 37,
+    "price_change_display": "+2.03%",
+    "key_metrics": {
+      "RSI": 49.5,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

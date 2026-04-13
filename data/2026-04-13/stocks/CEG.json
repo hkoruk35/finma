@@ -1,0 +1,158 @@
+{
+  "ticker": "CEG",
+  "company": "Constellation Energy Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.742431-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 290.39,
+    "open": 283.04,
+    "high": 292.7,
+    "low": 281.5,
+    "prev_close": 286.5,
+    "change_pct": 1.36,
+    "change_pct_1w": 5.54,
+    "change_pct_1m": -3.7,
+    "change_pct_1y": 35.47,
+    "volume": 1264764,
+    "avg_volume_30d": 2996538
+  },
+  "scores": {
+    "master_score": 25.75,
+    "technical_score": 16.8,
+    "fundamental_score": 0.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 43.7,
+    "breakout_score": 40.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 25.75,
+    "confidence": 0.26,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 48.7,
+    "macd": -6.0261,
+    "macd_signal": -6.0289,
+    "macd_histogram": 0.0029,
+    "macd_crossover": "bullish",
+    "ema_20": 290.02,
+    "ema_50": 299.53,
+    "ema_200": 309.78,
+    "ema_stack_bullish": false,
+    "bb_upper": 318.58,
+    "bb_middle": 291.64,
+    "bb_lower": 264.71,
+    "bb_width": 0.1847,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.1,
+    "atr": 13.68,
+    "atr_pct": 0.0471,
+    "obv_trend": "UP",
+    "mfi": 56.4,
+    "cmf": -0.072,
+    "stoch_k": 56.7,
+    "stoch_d": 44.9,
+    "rvol": 0.83,
+    "volume_5d_avg": 2474212,
+    "green_days_10d": 5,
+    "52w_high": 402.95,
+    "52w_low": 191.64,
+    "52w_high_proximity_pct": 0.2793,
+    "52w_low_proximity_pct": 0.5153
+  },
+  "fundamental": {
+    "pe_ratio": 39.29567,
+    "sector_pe_median": 22.23729,
+    "pb_ratio": 6.248278,
+    "de_ratio": 63.94,
+    "fcf_yield": 0.012,
+    "eps_growth_5y": -0.489,
+    "revenue_growth_ttm": 0.129,
+    "gross_margin": 0.1838,
+    "operating_margin": 0.095979996,
+    "net_margin": 0.09082,
+    "market_cap": 105208553472,
+    "enterprise_value": 109902233600,
+    "dividend_yield": 0.6,
+    "payout_ratio": 0.20959999,
+    "insider_ownership_pct": 0.0034999999,
+    "institutional_ownership_pct": 0.78822,
+    "short_ratio": 2.66,
+    "beta": 1.188
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 288.94,
+    "entry_range_high": 291.84,
+    "target_range_low": 324.8,
+    "target_range_high": 348.0,
+    "stop_range_low": 249.88,
+    "stop_range_high": 263.03,
+    "target_price": 331.43,
+    "stop_loss": 263.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.742405-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 40.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 362.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 60.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 191.64,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 44055,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 0.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 26,
+    "price_change_display": "+1.36%",
+    "key_metrics": {
+      "RSI": 48.7,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

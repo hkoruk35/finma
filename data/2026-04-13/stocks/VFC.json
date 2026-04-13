@@ -1,0 +1,158 @@
+{
+  "ticker": "VFC",
+  "company": "V.F. Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.175796-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Manufacturing",
+  "price": {
+    "current": 18.23,
+    "open": 18.02,
+    "high": 18.25,
+    "low": 17.72,
+    "prev_close": 18.23,
+    "change_pct": 0.0,
+    "change_pct_1w": 6.86,
+    "change_pct_1m": 15.97,
+    "change_pct_1y": 50.2,
+    "volume": 1996635,
+    "avg_volume_30d": 5783727
+  },
+  "scores": {
+    "master_score": 44.9,
+    "technical_score": 40.0,
+    "fundamental_score": 50.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 44.9,
+    "confidence": 0.45,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 58.6,
+    "macd": 0.0197,
+    "macd_signal": -0.2721,
+    "macd_histogram": 0.2919,
+    "macd_crossover": "neutral",
+    "ema_20": 17.42,
+    "ema_50": 17.8,
+    "ema_200": 17.21,
+    "ema_stack_bullish": false,
+    "bb_upper": 18.36,
+    "bb_middle": 16.99,
+    "bb_lower": 15.62,
+    "bb_width": 0.1616,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.4,
+    "atr": 0.73,
+    "atr_pct": 0.0403,
+    "obv_trend": "UP",
+    "mfi": 64.3,
+    "cmf": -0.001,
+    "stoch_k": 87.4,
+    "stoch_d": 89.2,
+    "rvol": 0.77,
+    "volume_5d_avg": 4452047,
+    "green_days_10d": 4,
+    "52w_high": 21.12,
+    "52w_low": 10.08,
+    "52w_high_proximity_pct": 0.1368,
+    "52w_low_proximity_pct": 0.8094
+  },
+  "fundamental": {
+    "pe_ratio": 31.982456,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 1.9282842,
+    "de_ratio": 299.18,
+    "fcf_yield": 0.1096,
+    "eps_growth_5y": 0.781,
+    "revenue_growth_ttm": 0.015,
+    "gross_margin": 0.50798,
+    "operating_margin": 0.10953,
+    "net_margin": 0.05546,
+    "market_cap": 7132730368,
+    "enterprise_value": 11057859584,
+    "dividend_yield": 1.97,
+    "payout_ratio": 0.6316,
+    "insider_ownership_pct": 0.0092400005,
+    "institutional_ownership_pct": 0.90596,
+    "short_ratio": 3.93,
+    "beta": 0.974
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 17.71,
+    "entry_range_high": 18.32,
+    "target_range_low": 20.01,
+    "target_range_high": 21.44,
+    "stop_range_low": 15.93,
+    "stop_range_high": 16.77,
+    "target_price": 20.42,
+    "stop_loss": 16.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.175772-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 22.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 197.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6678,
+      "date": "2026-02-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 45,
+    "price_change_display": "+0.00%",
+    "key_metrics": {
+      "RSI": 58.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

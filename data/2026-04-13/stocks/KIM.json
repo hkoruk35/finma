@@ -1,0 +1,160 @@
+{
+  "ticker": "KIM",
+  "company": "Kimco Realty Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.781361-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 23.01,
+    "open": 23.09,
+    "high": 23.15,
+    "low": 22.97,
+    "prev_close": 23.17,
+    "change_pct": -0.67,
+    "change_pct_1w": 2.47,
+    "change_pct_1m": 0.28,
+    "change_pct_1y": 19.67,
+    "volume": 1352312,
+    "avg_volume_30d": 5344353
+  },
+  "scores": {
+    "master_score": 58.44,
+    "technical_score": 60.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.9,
+    "breakout_score": 0.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.44,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 57.6,
+    "macd": 0.087,
+    "macd_signal": 0.0429,
+    "macd_histogram": 0.0441,
+    "macd_crossover": "neutral",
+    "ema_20": 22.73,
+    "ema_50": 22.38,
+    "ema_200": 21.32,
+    "ema_stack_bullish": true,
+    "bb_upper": 23.34,
+    "bb_middle": 22.69,
+    "bb_lower": 22.03,
+    "bb_width": 0.0576,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.5,
+    "atr": 0.4,
+    "atr_pct": 0.0173,
+    "obv_trend": "UP",
+    "mfi": 55.7,
+    "cmf": -0.256,
+    "stoch_k": 78.7,
+    "stoch_d": 85.8,
+    "rvol": 0.78,
+    "volume_5d_avg": 4151522,
+    "green_days_10d": 7,
+    "52w_high": 23.38,
+    "52w_low": 18.86,
+    "52w_high_proximity_pct": 0.0156,
+    "52w_low_proximity_pct": 0.2203
+  },
+  "fundamental": {
+    "pe_ratio": 28.067072,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 1.4929293,
+    "de_ratio": 78.678,
+    "fcf_yield": 0.0543,
+    "eps_growth_5y": -0.068,
+    "revenue_growth_ttm": 0.032,
+    "gross_margin": 0.69051003,
+    "operating_margin": 0.33007,
+    "net_margin": 0.27323,
+    "market_cap": 15521389568,
+    "enterprise_value": 23897120768,
+    "dividend_yield": 4.49,
+    "payout_ratio": 1.2317,
+    "insider_ownership_pct": 0.021960001,
+    "institutional_ownership_pct": 0.97893,
+    "short_ratio": 4.4,
+    "beta": 1.051
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 22.27,
+    "entry_range_high": 23.13,
+    "target_range_low": 23.73,
+    "target_range_high": 25.42,
+    "stop_range_low": 21.1,
+    "stop_range_high": 22.21,
+    "target_price": 24.21,
+    "stop_loss": 22.21,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.781326-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 28.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 449.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 18.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7720,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 58%. KIM is currently trading at $23.01, consolidating near its 52-week high of $23.38. Immediate support lies at the EMA20 ($22.73), followed by the lower Bollinger Band at $22.03. A potential BUY ZONE exists between $22.73 and $22.38 (EMA20 and EMA50), capitalizing on a possible pullback within the established uptrend. Set a PROFIT ZONE near $23.34-$23.38, targeting the upper Bollinger Band and the 52-week high. A STOP LOSS ZONE should be placed just below the BB Lower at $21.95, protecting against a breakdown.\n\n### Fundamental Edge\nKIM presents a compelling fundamental profile with a gross margin of 69.1% and a net margin of 27.3%, showcasing efficient operations. Its P/E of 28.07 suggests a potentially undervalued position compared to its sector, hinting at further upside. The 3.2% revenue growth further strengthens the case for a continued uptrend.\n\n### Sector Context\nThe real estate sector, currently in a neutral regime, presents a moderate tailwind for KIM, neither strongly supporting nor significantly hindering its potential breakout.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "-0.67%",
+    "key_metrics": {
+      "RSI": 57.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

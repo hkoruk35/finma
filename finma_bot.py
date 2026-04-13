@@ -1681,8 +1681,7 @@ async def daily_run():
     except Exception as e:
         log.warning(f"Failed to update swing performance log: {e}")
 
-    # Push to GitHub for Vercel deployment
-    push_to_github()
+    # Git push logic moved to run_all_bots.py to ensure it pushes swing picks too
 
     # Send Telegram notification
     if ENABLE_TELEGRAM_NOTIFICATIONS:

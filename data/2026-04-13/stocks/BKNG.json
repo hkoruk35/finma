@@ -1,0 +1,158 @@
+{
+  "ticker": "BKNG",
+  "company": "Booking Holdings Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.178597-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Travel Services",
+  "price": {
+    "current": 176.67,
+    "open": 170.59,
+    "high": 177.12,
+    "low": 170.59,
+    "prev_close": 173.46,
+    "change_pct": 1.85,
+    "change_pct_1w": 0.27,
+    "change_pct_1m": 4.72,
+    "change_pct_1y": -3.59,
+    "volume": 2410703,
+    "avg_volume_30d": 8642946
+  },
+  "scores": {
+    "master_score": 26.84,
+    "technical_score": 8.4,
+    "fundamental_score": 42.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 29.0,
+    "breakout_score": 30.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 26.84,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 53.6,
+    "macd": 0.3304,
+    "macd_signal": -0.8212,
+    "macd_histogram": 1.1516,
+    "macd_crossover": "neutral",
+    "ema_20": 172.93,
+    "ema_50": 177.05,
+    "ema_200": 193.93,
+    "ema_stack_bullish": false,
+    "bb_upper": 181.3,
+    "bb_middle": 172.15,
+    "bb_lower": 163.01,
+    "bb_width": 0.1063,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 16.2,
+    "atr": 7.06,
+    "atr_pct": 0.04,
+    "obv_trend": "DOWN",
+    "mfi": 34.4,
+    "cmf": 0.016,
+    "stoch_k": 60.8,
+    "stoch_d": 56.5,
+    "rvol": 0.76,
+    "volume_5d_avg": 6550580,
+    "green_days_10d": 6,
+    "52w_high": 231.27,
+    "52w_low": 154.48,
+    "52w_high_proximity_pct": 0.2361,
+    "52w_low_proximity_pct": 0.1436
+  },
+  "fundamental": {
+    "pe_ratio": 26.647058,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": -1.010172,
+    "de_ratio": null,
+    "fcf_yield": 0.0468,
+    "eps_growth_5y": 0.384,
+    "revenue_growth_ttm": 0.16,
+    "gross_margin": 0.87357,
+    "operating_margin": 0.32446,
+    "net_margin": 0.20076999,
+    "market_cap": 139893243904,
+    "enterprise_value": 139562467328,
+    "dividend_yield": 0.91,
+    "payout_ratio": 0.2319,
+    "insider_ownership_pct": 0.0019699999,
+    "institutional_ownership_pct": 0.96690005,
+    "short_ratio": 1.71,
+    "beta": 1.198
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 175.79,
+    "entry_range_high": 177.55,
+    "target_range_low": 193.89,
+    "target_range_high": 207.74,
+    "stop_range_low": 154.42,
+    "stop_range_high": 162.55,
+    "target_price": 197.85,
+    "stop_loss": 162.55,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.178573-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 220.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 91.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 154.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 669,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
+    "price_change_display": "+1.85%",
+    "key_metrics": {
+      "RSI": 53.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

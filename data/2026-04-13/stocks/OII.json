@@ -1,0 +1,161 @@
+{
+  "ticker": "OII",
+  "company": "Oceaneering International, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.470573-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 37.42,
+    "open": 36.45,
+    "high": 37.5,
+    "low": 36.08,
+    "prev_close": 36.2,
+    "change_pct": 3.37,
+    "change_pct_1w": 2.27,
+    "change_pct_1m": 5.59,
+    "change_pct_1y": 106.97,
+    "volume": 272036,
+    "avg_volume_30d": 1160867
+  },
+  "scores": {
+    "master_score": 66.17,
+    "technical_score": 72.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 47.2,
+    "breakout_score": 55.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 66.17,
+    "confidence": 0.66,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 58.1,
+    "macd": 0.6287,
+    "macd_signal": 0.5864,
+    "macd_histogram": 0.0423,
+    "macd_crossover": "bullish",
+    "ema_20": 35.9,
+    "ema_50": 34.19,
+    "ema_200": 28.12,
+    "ema_stack_bullish": true,
+    "bb_upper": 37.98,
+    "bb_middle": 35.75,
+    "bb_lower": 33.51,
+    "bb_width": 0.1251,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.6,
+    "atr": 1.63,
+    "atr_pct": 0.0436,
+    "obv_trend": "UP",
+    "mfi": 48.7,
+    "cmf": 0.126,
+    "stoch_k": 91.5,
+    "stoch_d": 73.8,
+    "rvol": 0.79,
+    "volume_5d_avg": 914307,
+    "green_days_10d": 6,
+    "52w_high": 38.82,
+    "52w_low": 16.32,
+    "52w_high_proximity_pct": 0.0361,
+    "52w_low_proximity_pct": 1.2929
+  },
+  "fundamental": {
+    "pe_ratio": 10.722062,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 3.472854,
+    "de_ratio": 81.097,
+    "fcf_yield": 0.0584,
+    "eps_growth_5y": 2.196,
+    "revenue_growth_ttm": -0.063,
+    "gross_margin": 0.20417,
+    "operating_margin": 0.09779,
+    "net_margin": 0.12706,
+    "market_cap": 3732443904,
+    "enterprise_value": 3781381376,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.015800001,
+    "institutional_ownership_pct": 1.0334201,
+    "short_ratio": 3.74,
+    "beta": 1.19
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 34.02,
+    "entry_range_high": 37.61,
+    "target_range_low": 41.46,
+    "target_range_high": 44.43,
+    "stop_range_low": 32.45,
+    "stop_range_high": 34.16,
+    "target_price": 42.31,
+    "stop_loss": 34.16,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.470555-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 55.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 46.78,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 16.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25678,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: POSITIVE BIAS | Confidence: 66%. OII is exhibiting a bullish trend, trading above its EMA20 ($35.90), EMA50 ($34.19), and EMA200 ($28.12). A volatility squeeze suggests a potential breakout. A trader might enter now, anticipating a move toward the upper Bollinger Band at $37.98 and potentially a breach of the 52-week high. BUY ZONE: $37.00 - $37.42, PROFIT ZONE: $38.00 - $38.82, STOP LOSS ZONE: $35.80.\n\n### Fundamental Edge\nOII appears undervalued with a P/E of 10.72, suggesting it's trading at a discount compared to its peers. The strong net margin of 12.7% indicates efficient operations and profitability.\n\n### Sector Context\nThe energy sector is currently exhibiting moderate strength, providing a slight tailwind to OII's upward momentum.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 66,
+    "price_change_display": "+3.37%",
+    "key_metrics": {
+      "RSI": 58.1,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

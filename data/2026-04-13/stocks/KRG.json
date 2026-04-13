@@ -1,0 +1,160 @@
+{
+  "ticker": "KRG",
+  "company": "Kite Realty Group Trust",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.784144-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 25.29,
+    "open": 25.45,
+    "high": 25.6,
+    "low": 25.24,
+    "prev_close": 25.5,
+    "change_pct": -0.82,
+    "change_pct_1w": 4.05,
+    "change_pct_1m": 0.97,
+    "change_pct_1y": 29.5,
+    "volume": 558780,
+    "avg_volume_30d": 1613636
+  },
+  "scores": {
+    "master_score": 65.14,
+    "technical_score": 62.0,
+    "fundamental_score": 67.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 41.9,
+    "breakout_score": 0.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 65.14,
+    "confidence": 0.65,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 59.5,
+    "macd": 0.0656,
+    "macd_signal": -0.0669,
+    "macd_histogram": 0.1324,
+    "macd_crossover": "neutral",
+    "ema_20": 24.76,
+    "ema_50": 24.55,
+    "ema_200": 23.09,
+    "ema_stack_bullish": true,
+    "bb_upper": 25.62,
+    "bb_middle": 24.6,
+    "bb_lower": 23.58,
+    "bb_width": 0.0833,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.7,
+    "atr": 0.45,
+    "atr_pct": 0.0179,
+    "obv_trend": "UP",
+    "mfi": 63.8,
+    "cmf": -0.183,
+    "stoch_k": 82.7,
+    "stoch_d": 89.0,
+    "rvol": 0.89,
+    "volume_5d_avg": 1434336,
+    "green_days_10d": 7,
+    "52w_high": 25.94,
+    "52w_low": 19.21,
+    "52w_high_proximity_pct": 0.025,
+    "52w_low_proximity_pct": 0.3167
+  },
+  "fundamental": {
+    "pe_ratio": 18.459854,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 1.7194724,
+    "de_ratio": 96.837,
+    "fcf_yield": 0.0409,
+    "eps_growth_5y": 7.475,
+    "revenue_growth_ttm": -0.038,
+    "gross_margin": 0.73869,
+    "operating_margin": 0.23225,
+    "net_margin": 0.35371,
+    "market_cap": 5352424960,
+    "enterprise_value": 8443926528,
+    "dividend_yield": 4.55,
+    "payout_ratio": 0.78830004,
+    "insider_ownership_pct": 0.00756,
+    "institutional_ownership_pct": 1.0868801,
+    "short_ratio": 8.12,
+    "beta": 0.877
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 24.43,
+    "entry_range_high": 25.42,
+    "target_range_low": 26.11,
+    "target_range_high": 27.97,
+    "stop_range_low": 23.17,
+    "stop_range_high": 24.39,
+    "target_price": 26.64,
+    "stop_loss": 24.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.784127-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 31.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 455.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.21,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13371,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: POSITIVE BIAS | Confidence: 65%. KRG is currently trading just below its upper Bollinger Band at $25.62, acting as immediate resistance, while the EMA20 at $24.76 provides the first level of support. A breakout above $25.62 could signal continued upward momentum. BUY ZONE: $24.76 - $25.29 (current price), PROFIT ZONE: $25.95+, STOP LOSS ZONE: $24.50. Traders might consider an entry anticipating a breakout driven by overall bullish trend and solid margin.\n\n### Fundamental Edge\n\nKRG's attractive gross and net margins of 73.9% and 35.4% indicate a strong ability to generate profit from its revenue. With a P/E of 18.46, the stock appears relatively undervalued compared to its sector, suggesting a potential buying opportunity based on earnings.\n\n### Sector Context\n\nThe real estate sector currently presents a mixed landscape, where KRG's individual strengths may allow it to outperform regardless of overall sector momentum.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 65,
+    "price_change_display": "-0.82%",
+    "key_metrics": {
+      "RSI": 59.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

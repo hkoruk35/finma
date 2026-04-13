@@ -1,0 +1,160 @@
+{
+  "ticker": "FDX",
+  "company": "FedEx Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.646478-04:00",
+  "sector": "Industrials",
+  "industry": "Integrated Freight & Logistics",
+  "price": {
+    "current": 372.42,
+    "open": 370.27,
+    "high": 373.95,
+    "low": 368.38,
+    "prev_close": 374.08,
+    "change_pct": -0.45,
+    "change_pct_1w": 3.78,
+    "change_pct_1m": 5.46,
+    "change_pct_1y": 74.68,
+    "volume": 479610,
+    "avg_volume_30d": 1911277
+  },
+  "scores": {
+    "master_score": 60.27,
+    "technical_score": 66.0,
+    "fundamental_score": 58.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.7,
+    "breakout_score": 30.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 60.27,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 59.1,
+    "macd": 3.3787,
+    "macd_signal": 1.0226,
+    "macd_histogram": 2.3562,
+    "macd_crossover": "neutral",
+    "ema_20": 362.69,
+    "ema_50": 353.33,
+    "ema_200": 299.06,
+    "ema_stack_bullish": true,
+    "bb_upper": 377.14,
+    "bb_middle": 358.51,
+    "bb_lower": 339.87,
+    "bb_width": 0.104,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.2,
+    "atr": 9.44,
+    "atr_pct": 0.0254,
+    "obv_trend": "UP",
+    "mfi": 45.1,
+    "cmf": -0.104,
+    "stoch_k": 80.1,
+    "stoch_d": 83.3,
+    "rvol": 0.64,
+    "volume_5d_avg": 1230782,
+    "green_days_10d": 5,
+    "52w_high": 386.91,
+    "52w_low": 199.13,
+    "52w_high_proximity_pct": 0.0375,
+    "52w_low_proximity_pct": 0.8702
+  },
+  "fundamental": {
+    "pe_ratio": 19.872732,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 2.9864156,
+    "de_ratio": 140.994,
+    "fcf_yield": 0.0101,
+    "eps_growth_5y": 0.173,
+    "revenue_growth_ttm": 0.083,
+    "gross_margin": 0.27552,
+    "operating_margin": 0.06942,
+    "net_margin": 0.04877,
+    "market_cap": 88860737536,
+    "enterprise_value": 123061018624,
+    "dividend_yield": 1.55,
+    "payout_ratio": 0.3059,
+    "insider_ownership_pct": 0.074489996,
+    "institutional_ownership_pct": 0.8031,
+    "short_ratio": 1.25,
+    "beta": 1.286
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 351.56,
+    "entry_range_high": 374.28,
+    "target_range_low": 392.73,
+    "target_range_high": 420.78,
+    "stop_range_low": 335.86,
+    "stop_range_high": 353.54,
+    "target_price": 400.74,
+    "stop_loss": 353.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.646458-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 465.53,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 155.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 199.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4153,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 60%. FDX is currently trading in a bullish trend, sitting just below its Bollinger Band upper resistance at $377.14. A break above this level could signal further upside towards the 52-week high. The BUY ZONE would be a pullback towards the EMA20 at $362.69, offering a lower-risk entry. Place a STOP LOSS ZONE below the EMA50 at $353.33, and target a PROFIT ZONE near the 52-week high of $386.91, anticipating continued momentum.\n\n### Fundamental Edge\nFDX's P/E of 19.87 suggests it's trading at a relative discount compared to its sector, while still demonstrating solid revenue growth of 8.3%. This combination of value and growth makes it an attractive long-term holding. A potential catalyst could be the company's continued focus on streamlining operations to improve margins, which would drive further earnings growth.\n\n### Sector Context\nThe industrials sector has shown mixed performance recently, offering neither a strong tailwind nor a significant headwind for FDX.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 60,
+    "price_change_display": "-0.45%",
+    "key_metrics": {
+      "RSI": 59.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

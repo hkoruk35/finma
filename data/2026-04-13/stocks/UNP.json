@@ -1,0 +1,160 @@
+{
+  "ticker": "UNP",
+  "company": "Union Pacific Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.640003-04:00",
+  "sector": "Industrials",
+  "industry": "Railroads",
+  "price": {
+    "current": 250.1,
+    "open": 251.0,
+    "high": 251.98,
+    "low": 248.67,
+    "prev_close": 250.51,
+    "change_pct": -0.16,
+    "change_pct_1w": 1.86,
+    "change_pct_1m": 2.46,
+    "change_pct_1y": 14.53,
+    "volume": 551270,
+    "avg_volume_30d": 2759665
+  },
+  "scores": {
+    "master_score": 60.47,
+    "technical_score": 68.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 41.7,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 60.47,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.3,
+    "macd": 0.3233,
+    "macd_signal": -1.1938,
+    "macd_histogram": 1.5171,
+    "macd_crossover": "neutral",
+    "ema_20": 246.2,
+    "ema_50": 245.5,
+    "ema_200": 235.77,
+    "ema_stack_bullish": true,
+    "bb_upper": 252.41,
+    "bb_middle": 242.49,
+    "bb_lower": 232.57,
+    "bb_width": 0.0818,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 26.6,
+    "atr": 4.55,
+    "atr_pct": 0.0182,
+    "obv_trend": "UP",
+    "mfi": 71.5,
+    "cmf": -0.02,
+    "stoch_k": 85.3,
+    "stoch_d": 88.5,
+    "rvol": 0.88,
+    "volume_5d_avg": 2431634,
+    "green_days_10d": 8,
+    "52w_high": 266.97,
+    "52w_low": 207.71,
+    "52w_high_proximity_pct": 0.0632,
+    "52w_low_proximity_pct": 0.2041
+  },
+  "fundamental": {
+    "pe_ratio": 20.894068,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 8.034373,
+    "de_ratio": 177.733,
+    "fcf_yield": 0.0264,
+    "eps_growth_5y": 0.068,
+    "revenue_growth_ttm": -0.006,
+    "gross_margin": 0.56353,
+    "operating_margin": 0.40887,
+    "net_margin": 0.29123,
+    "market_cap": 148480131072,
+    "enterprise_value": 179956498432,
+    "dividend_yield": 2.2,
+    "payout_ratio": 0.4541,
+    "insider_ownership_pct": 0.00119,
+    "institutional_ownership_pct": 0.88968,
+    "short_ratio": 9.66,
+    "beta": 0.968
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 244.27,
+    "entry_range_high": 251.35,
+    "target_range_low": 258.48,
+    "target_range_high": 276.94,
+    "stop_range_low": 228.95,
+    "stop_range_high": 241.0,
+    "target_price": 263.75,
+    "stop_loss": 241.0,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.639965-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 312.62,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 220.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 207.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1999,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 60%. UNP shows bullish trend alignment with price above its key EMAs. A trader might consider a BUY ZONE between $245.50 (EMA50 support) and $246.20 (EMA20), anticipating a bounce. The PROFIT ZONE lies near the upper Bollinger Band at $252.41, while a STOP LOSS ZONE should be set below the lower Bollinger Band at $232.57 to manage downside risk if the trend reverses.\n\n### Fundamental Edge\nUNP's solid 29.1% net margin signals strong profitability and efficiency, potentially attracting investors seeking stable, cash-generating companies. The P/E ratio of 20.89 suggests a valuation discount relative to its sector, making it an appealing value play for fundamental investors looking for undervalued assets.\n\n### Sector Context\nThe Industrials sector is currently exhibiting mixed momentum, creating a somewhat neutral backdrop for UNP's individual performance.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 60,
+    "price_change_display": "-0.16%",
+    "key_metrics": {
+      "RSI": 58.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

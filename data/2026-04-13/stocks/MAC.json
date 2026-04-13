@@ -1,0 +1,160 @@
+{
+  "ticker": "MAC",
+  "company": "The Macerich Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.780427-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 21.18,
+    "open": 21.3,
+    "high": 21.32,
+    "low": 20.97,
+    "prev_close": 21.42,
+    "change_pct": -1.1,
+    "change_pct_1w": 8.2,
+    "change_pct_1m": 14.57,
+    "change_pct_1y": 47.3,
+    "volume": 596509,
+    "avg_volume_30d": 1902076
+  },
+  "scores": {
+    "master_score": 55.74,
+    "technical_score": 63.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 41.9,
+    "breakout_score": 35.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 55.74,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.9,
+    "macd": 0.5156,
+    "macd_signal": 0.2276,
+    "macd_histogram": 0.2881,
+    "macd_crossover": "neutral",
+    "ema_20": 19.76,
+    "ema_50": 19.24,
+    "ema_200": 18.03,
+    "ema_stack_bullish": true,
+    "bb_upper": 21.3,
+    "bb_middle": 19.35,
+    "bb_lower": 17.4,
+    "bb_width": 0.2015,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.6,
+    "atr": 0.63,
+    "atr_pct": 0.0296,
+    "obv_trend": "UP",
+    "mfi": 82.1,
+    "cmf": 0.018,
+    "stoch_k": 92.6,
+    "stoch_d": 95.8,
+    "rvol": 1.08,
+    "volume_5d_avg": 2063681,
+    "green_days_10d": 9,
+    "52w_high": 21.42,
+    "52w_low": 13.4,
+    "52w_high_proximity_pct": 0.011,
+    "52w_low_proximity_pct": 0.581
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 2.2232132,
+    "de_ratio": 203.236,
+    "fcf_yield": 0.0739,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.174,
+    "gross_margin": 0.56044996,
+    "operating_margin": 0.2442,
+    "net_margin": -0.18937,
+    "market_cap": 5707462656,
+    "enterprise_value": 10431765504,
+    "dividend_yield": 3.17,
+    "payout_ratio": 1.8889,
+    "insider_ownership_pct": 0.00391,
+    "institutional_ownership_pct": 1.07071,
+    "short_ratio": 7.15,
+    "beta": 2.193
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 19.14,
+    "entry_range_high": 21.29,
+    "target_range_low": 22.61,
+    "target_range_high": 24.22,
+    "stop_range_low": 18.92,
+    "stop_range_high": 19.92,
+    "target_price": 23.07,
+    "stop_loss": 19.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.780408-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 26.48,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 317.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 13.4,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6000,
+      "date": "2025-09-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. MAC is currently trading at $21.18, just below its 52-week high and Bollinger Band upper level of $21.30. A trader might consider establishing a small position within the BUY ZONE of $19.76 (EMA20) to $21.30 (BB Upper) on a pullback, anticipating a breakout above its 52-week high. Set a PROFIT ZONE near $22.50, and a STOP LOSS ZONE at $19.24 (EMA50).\n\n### Fundamental Edge\nWhile revenue growth is negative, MAC's gross margin of 56% shows underlying business strength if they can turn around revenues. The key catalyst for this setup would be a recovery in retail spending, leading to improved occupancy rates and higher revenue.\n\n### Sector Context\nThe Real Estate sector has shown mixed performance lately, creating some uncertainty for MAC, as it will have to outperform its peers to deliver alpha.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "-1.10%",
+    "key_metrics": {
+      "RSI": 67.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

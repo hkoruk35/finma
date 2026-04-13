@@ -1,0 +1,158 @@
+{
+  "ticker": "VICI",
+  "company": "VICI Properties Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.764337-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Diversified",
+  "price": {
+    "current": 28.17,
+    "open": 28.03,
+    "high": 28.2,
+    "low": 27.89,
+    "prev_close": 28.11,
+    "change_pct": 0.21,
+    "change_pct_1w": 1.84,
+    "change_pct_1m": -0.18,
+    "change_pct_1y": -2.9,
+    "volume": 2308887,
+    "avg_volume_30d": 8726136
+  },
+  "scores": {
+    "master_score": 41.62,
+    "technical_score": 14.1,
+    "fundamental_score": 52.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.9,
+    "breakout_score": 0.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 41.62,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 54.6,
+    "macd": -0.0975,
+    "macd_signal": -0.2437,
+    "macd_histogram": 0.1462,
+    "macd_crossover": "neutral",
+    "ema_20": 27.82,
+    "ema_50": 28.07,
+    "ema_200": 28.98,
+    "ema_stack_bullish": false,
+    "bb_upper": 28.49,
+    "bb_middle": 27.55,
+    "bb_lower": 26.62,
+    "bb_width": 0.068,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 32.7,
+    "atr": 0.51,
+    "atr_pct": 0.0183,
+    "obv_trend": "UP",
+    "mfi": 81.6,
+    "cmf": -0.267,
+    "stoch_k": 93.1,
+    "stoch_d": 89.8,
+    "rvol": 0.7,
+    "volume_5d_avg": 6148757,
+    "green_days_10d": 8,
+    "52w_high": 32.4,
+    "52w_low": 26.61,
+    "52w_high_proximity_pct": 0.1306,
+    "52w_low_proximity_pct": 0.0586
+  },
+  "fundamental": {
+    "pe_ratio": 10.793104,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 1.0831283,
+    "de_ratio": 62.679,
+    "fcf_yield": 0.0487,
+    "eps_growth_5y": -0.034,
+    "revenue_growth_ttm": 0.038,
+    "gross_margin": 0.9914,
+    "operating_margin": 0.8031,
+    "net_margin": 0.69281,
+    "market_cap": 30113419264,
+    "enterprise_value": 47593414656,
+    "dividend_yield": 6.34,
+    "payout_ratio": 0.67620003,
+    "insider_ownership_pct": 0.0028900001,
+    "institutional_ownership_pct": 0.9959,
+    "short_ratio": 2.58,
+    "beta": 0.728
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 27.93,
+    "entry_range_high": 28.31,
+    "target_range_low": 29.11,
+    "target_range_high": 31.19,
+    "stop_range_low": 25.79,
+    "stop_range_high": 27.15,
+    "target_price": 29.7,
+    "stop_loss": 27.15,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.764320-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 35.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 634.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 26.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 320,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "+0.21%",
+    "key_metrics": {
+      "RSI": 54.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

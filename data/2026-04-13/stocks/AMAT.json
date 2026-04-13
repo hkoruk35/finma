@@ -1,0 +1,158 @@
+{
+  "ticker": "AMAT",
+  "company": "Applied Materials, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.891949-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 392.22,
+    "open": 397.85,
+    "high": 400.5,
+    "low": 389.59,
+    "prev_close": 399.49,
+    "change_pct": -1.82,
+    "change_pct_1w": 11.23,
+    "change_pct_1m": 16.29,
+    "change_pct_1y": 164.29,
+    "volume": 2149508,
+    "avg_volume_30d": 6355770
+  },
+  "scores": {
+    "master_score": 51.31,
+    "technical_score": 52.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 31.1,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 51.31,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 62.6,
+    "macd": 10.4701,
+    "macd_signal": 5.235,
+    "macd_histogram": 5.235,
+    "macd_crossover": "neutral",
+    "ema_20": 364.32,
+    "ema_50": 347.32,
+    "ema_200": 273.23,
+    "ema_stack_bullish": true,
+    "bb_upper": 400.32,
+    "bb_middle": 359.63,
+    "bb_lower": 318.94,
+    "bb_width": 0.2263,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.3,
+    "atr": 16.28,
+    "atr_pct": 0.0415,
+    "obv_trend": "UP",
+    "mfi": 59.8,
+    "cmf": 0.066,
+    "stoch_k": 82.6,
+    "stoch_d": 90.8,
+    "rvol": 0.8,
+    "volume_5d_avg": 5114761,
+    "green_days_10d": 7,
+    "52w_high": 399.49,
+    "52w_low": 134.36,
+    "52w_high_proximity_pct": 0.0182,
+    "52w_low_proximity_pct": 1.9192
+  },
+  "fundamental": {
+    "pe_ratio": 40.22769,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 14.332907,
+    "de_ratio": 33.108,
+    "fcf_yield": 0.0139,
+    "eps_growth_5y": 0.752,
+    "revenue_growth_ttm": -0.021,
+    "gross_margin": 0.48724,
+    "operating_margin": 0.29892,
+    "net_margin": 0.27784002,
+    "market_cap": 311269654528,
+    "enterprise_value": 315718205440,
+    "dividend_yield": 0.53,
+    "payout_ratio": 0.1826,
+    "insider_ownership_pct": 0.0032499998,
+    "institutional_ownership_pct": 0.85399,
+    "short_ratio": 1.93,
+    "beta": 1.637
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 345.58,
+    "entry_range_high": 394.18,
+    "target_range_low": 432.24,
+    "target_range_high": 463.11,
+    "stop_range_low": 341.68,
+    "stop_range_high": 359.66,
+    "target_price": 441.06,
+    "stop_loss": 359.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.891924-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 490.28,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 53.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 134.36,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 741,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-1.82%",
+    "key_metrics": {
+      "RSI": 62.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

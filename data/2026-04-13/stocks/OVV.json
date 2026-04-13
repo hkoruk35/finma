@@ -1,0 +1,158 @@
+{
+  "ticker": "OVV",
+  "company": "Ovintiv Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.465010-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 56.24,
+    "open": 57.03,
+    "high": 57.14,
+    "low": 55.98,
+    "prev_close": 56.09,
+    "change_pct": 0.26,
+    "change_pct_1w": -5.36,
+    "change_pct_1m": 2.94,
+    "change_pct_1y": 60.71,
+    "volume": 1347171,
+    "avg_volume_30d": 4829272
+  },
+  "scores": {
+    "master_score": 45.67,
+    "technical_score": 47.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 47.2,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 45.67,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.0,
+    "macd": 1.2589,
+    "macd_signal": 2.0696,
+    "macd_histogram": -0.8108,
+    "macd_crossover": "neutral",
+    "ema_20": 57.11,
+    "ema_50": 53.14,
+    "ema_200": 44.56,
+    "ema_stack_bullish": false,
+    "bb_upper": 62.28,
+    "bb_middle": 58.08,
+    "bb_lower": 53.89,
+    "bb_width": 0.1445,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 31.4,
+    "atr": 2.06,
+    "atr_pct": 0.0366,
+    "obv_trend": "DOWN",
+    "mfi": 54.2,
+    "cmf": -0.042,
+    "stoch_k": 11.5,
+    "stoch_d": 10.5,
+    "rvol": 0.75,
+    "volume_5d_avg": 3625134,
+    "green_days_10d": 4,
+    "52w_high": 62.08,
+    "52w_low": 30.86,
+    "52w_high_proximity_pct": 0.0942,
+    "52w_low_proximity_pct": 0.8224
+  },
+  "fundamental": {
+    "pe_ratio": 11.764644,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 1.2723715,
+    "de_ratio": 57.383,
+    "fcf_yield": -0.0882,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.06,
+    "gross_margin": 0.51922,
+    "operating_margin": 0.23807,
+    "net_margin": 0.14337,
+    "market_cap": 15933369344,
+    "enterprise_value": 21996285952,
+    "dividend_yield": 2.14,
+    "payout_ratio": 0.25100002,
+    "insider_ownership_pct": 0.0044400003,
+    "institutional_ownership_pct": 0.8539,
+    "short_ratio": 1.63,
+    "beta": 0.599
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 52.87,
+    "entry_range_high": 56.52,
+    "target_range_low": 61.17,
+    "target_range_high": 65.54,
+    "stop_range_low": 49.51,
+    "stop_range_high": 52.12,
+    "target_price": 62.42,
+    "stop_loss": 52.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.464963-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 70.3,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 214.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 30.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11582,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "+0.26%",
+    "key_metrics": {
+      "RSI": 50.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

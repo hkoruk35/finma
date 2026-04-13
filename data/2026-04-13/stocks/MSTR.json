@@ -1,0 +1,158 @@
+{
+  "ticker": "MSTR",
+  "company": "Strategy Inc",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.957361-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 130.59,
+    "open": 126.65,
+    "high": 131.62,
+    "low": 125.04,
+    "prev_close": 128.64,
+    "change_pct": 1.52,
+    "change_pct_1w": 2.27,
+    "change_pct_1m": -4.91,
+    "change_pct_1y": -56.01,
+    "volume": 7721240,
+    "avg_volume_30d": 19276514
+  },
+  "scores": {
+    "master_score": 25.07,
+    "technical_score": 12.6,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 78.0,
+    "sector_score": 31.1,
+    "breakout_score": 25.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 25.07,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 48.9,
+    "macd": -2.8024,
+    "macd_signal": -3.1274,
+    "macd_histogram": 0.325,
+    "macd_crossover": "bullish",
+    "ema_20": 130.29,
+    "ema_50": 138.72,
+    "ema_200": 210.01,
+    "ema_stack_bullish": false,
+    "bb_upper": 148.59,
+    "bb_middle": 132.07,
+    "bb_lower": 115.55,
+    "bb_width": 0.2502,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 12.2,
+    "atr": 7.73,
+    "atr_pct": 0.0592,
+    "obv_trend": "UP",
+    "mfi": 36.5,
+    "cmf": -0.061,
+    "stoch_k": 51.7,
+    "stoch_d": 47.2,
+    "rvol": 0.69,
+    "volume_5d_avg": 13341688,
+    "green_days_10d": 5,
+    "52w_high": 455.9,
+    "52w_low": 106.99,
+    "52w_high_proximity_pct": 0.7136,
+    "52w_low_proximity_pct": 0.2206
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 0.92359585,
+    "de_ratio": 16.158,
+    "fcf_yield": -0.0743,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.019,
+    "gross_margin": 0.68691003,
+    "operating_margin": -44.016068,
+    "net_margin": 0.0,
+    "market_cap": 45284724736,
+    "enterprise_value": 55799590912,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00162,
+    "institutional_ownership_pct": 0.56655,
+    "short_ratio": 1.72,
+    "beta": 3.56
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 129.94,
+    "entry_range_high": 131.24,
+    "target_range_low": 150.7,
+    "target_range_high": 161.47,
+    "stop_range_low": 109.37,
+    "stop_range_high": 115.13,
+    "target_price": 153.78,
+    "stop_loss": 115.13,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.957336-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 25.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 163.24,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 106.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2100,
+      "date": "2026-04-08"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "+1.52%",
+    "key_metrics": {
+      "RSI": 48.9,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

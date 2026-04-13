@@ -1,0 +1,158 @@
+{
+  "ticker": "FE",
+  "company": "FirstEnergy Corp.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.709532-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 50.97,
+    "open": 51.51,
+    "high": 51.51,
+    "low": 50.72,
+    "prev_close": 51.43,
+    "change_pct": -0.89,
+    "change_pct_1w": -0.1,
+    "change_pct_1m": 0.3,
+    "change_pct_1y": 34.7,
+    "volume": 843245,
+    "avg_volume_30d": 4023481
+  },
+  "scores": {
+    "master_score": 47.87,
+    "technical_score": 60.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 43.7,
+    "breakout_score": 0.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 47.87,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 54.8,
+    "macd": 0.4411,
+    "macd_signal": 0.3946,
+    "macd_histogram": 0.0464,
+    "macd_crossover": "neutral",
+    "ema_20": 50.72,
+    "ema_50": 49.66,
+    "ema_200": 45.84,
+    "ema_stack_bullish": true,
+    "bb_upper": 52.43,
+    "bb_middle": 50.52,
+    "bb_lower": 48.62,
+    "bb_width": 0.0753,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.4,
+    "atr": 0.91,
+    "atr_pct": 0.0179,
+    "obv_trend": "UP",
+    "mfi": 63.0,
+    "cmf": -0.194,
+    "stoch_k": 64.7,
+    "stoch_d": 77.0,
+    "rvol": 0.69,
+    "volume_5d_avg": 2796009,
+    "green_days_10d": 6,
+    "52w_high": 51.91,
+    "52w_low": 38.52,
+    "52w_high_proximity_pct": 0.0181,
+    "52w_low_proximity_pct": 0.3232
+  },
+  "fundamental": {
+    "pe_ratio": 28.960228,
+    "sector_pe_median": 22.23729,
+    "pb_ratio": 2.3543813,
+    "de_ratio": 192.755,
+    "fcf_yield": -0.0416,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.207,
+    "gross_margin": 0.66867995,
+    "operating_margin": 0.26635,
+    "net_margin": 0.06845,
+    "market_cap": 29480980480,
+    "enterprise_value": 57925087232,
+    "dividend_yield": 3.62,
+    "payout_ratio": 1.0,
+    "insider_ownership_pct": 0.00141,
+    "institutional_ownership_pct": 0.9525,
+    "short_ratio": 5.96,
+    "beta": 0.59
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 49.41,
+    "entry_range_high": 51.22,
+    "target_range_low": 52.63,
+    "target_range_high": 56.38,
+    "stop_range_low": 46.69,
+    "stop_range_high": 49.15,
+    "target_price": 53.7,
+    "stop_loss": 49.15,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.709491-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 63.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 362.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 837,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 0.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-0.89%",
+    "key_metrics": {
+      "RSI": 54.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

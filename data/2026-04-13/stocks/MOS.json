@@ -1,0 +1,158 @@
+{
+  "ticker": "MOS",
+  "company": "The Mosaic Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.274186-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Agricultural Inputs",
+  "price": {
+    "current": 25.42,
+    "open": 25.13,
+    "high": 25.43,
+    "low": 24.9,
+    "prev_close": 24.76,
+    "change_pct": 2.69,
+    "change_pct_1w": -4.09,
+    "change_pct_1m": -18.93,
+    "change_pct_1y": 6.19,
+    "volume": 3524639,
+    "avg_volume_30d": 11281044
+  },
+  "scores": {
+    "master_score": 29.56,
+    "technical_score": 6.6,
+    "fundamental_score": 40.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 27.5,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 29.56,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 45.9,
+    "macd": -0.4486,
+    "macd_signal": -0.4502,
+    "macd_histogram": 0.0016,
+    "macd_crossover": "neutral",
+    "ema_20": 26.05,
+    "ema_50": 26.6,
+    "ema_200": 27.61,
+    "ema_stack_bullish": false,
+    "bb_upper": 28.36,
+    "bb_middle": 25.89,
+    "bb_lower": 23.41,
+    "bb_width": 0.1913,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 9.9,
+    "atr": 1.33,
+    "atr_pct": 0.0524,
+    "obv_trend": "DOWN",
+    "mfi": 63.8,
+    "cmf": -0.124,
+    "stoch_k": 41.9,
+    "stoch_d": 45.8,
+    "rvol": 0.59,
+    "volume_5d_avg": 6634267,
+    "green_days_10d": 5,
+    "52w_high": 36.9,
+    "52w_low": 23.19,
+    "52w_high_proximity_pct": 0.311,
+    "52w_low_proximity_pct": 0.0964
+  },
+  "fundamental": {
+    "pe_ratio": 14.955881,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": 0.6677785,
+    "de_ratio": 43.154,
+    "fcf_yield": -0.0536,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.1578,
+    "operating_margin": 0.02791,
+    "net_margin": 0.04486,
+    "market_cap": 8072570880,
+    "enterprise_value": 13013629952,
+    "dividend_yield": 3.55,
+    "payout_ratio": 0.5176,
+    "insider_ownership_pct": 0.00452,
+    "institutional_ownership_pct": 0.95723,
+    "short_ratio": 1.63,
+    "beta": 0.962
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 25.29,
+    "entry_range_high": 25.55,
+    "target_range_low": 28.82,
+    "target_range_high": 30.88,
+    "stop_range_low": 21.62,
+    "stop_range_high": 22.76,
+    "target_price": 29.41,
+    "stop_loss": 22.76,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.274167-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 31.78,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 355.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 23.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 17319,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+2.69%",
+    "key_metrics": {
+      "RSI": 45.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

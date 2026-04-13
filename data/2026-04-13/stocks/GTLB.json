@@ -1,0 +1,158 @@
+{
+  "ticker": "GTLB",
+  "company": "GitLab Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.944839-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 20.11,
+    "open": 19.71,
+    "high": 20.23,
+    "low": 19.5,
+    "prev_close": 19.42,
+    "change_pct": 3.58,
+    "change_pct_1w": -11.62,
+    "change_pct_1m": -11.85,
+    "change_pct_1y": -56.56,
+    "volume": 2776291,
+    "avg_volume_30d": 7063933
+  },
+  "scores": {
+    "master_score": 25.02,
+    "technical_score": 12.6,
+    "fundamental_score": 20.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 31.1,
+    "breakout_score": 30.0,
+    "value_score": 25.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 25.02,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 36.1,
+    "macd": -1.3702,
+    "macd_signal": -1.47,
+    "macd_histogram": 0.0998,
+    "macd_crossover": "neutral",
+    "ema_20": 21.9,
+    "ema_50": 25.44,
+    "ema_200": 36.52,
+    "ema_stack_bullish": false,
+    "bb_upper": 23.87,
+    "bb_middle": 21.59,
+    "bb_lower": 19.32,
+    "bb_width": 0.2105,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 30.9,
+    "atr": 1.33,
+    "atr_pct": 0.0661,
+    "obv_trend": "DOWN",
+    "mfi": 44.5,
+    "cmf": -0.175,
+    "stoch_k": 25.3,
+    "stoch_d": 13.8,
+    "rvol": 1.13,
+    "volume_5d_avg": 7980858,
+    "green_days_10d": 7,
+    "52w_high": 53.43,
+    "52w_low": 19.42,
+    "52w_high_proximity_pct": 0.6235,
+    "52w_low_proximity_pct": 0.0358
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 3.453219,
+    "de_ratio": null,
+    "fcf_yield": 0.0827,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.232,
+    "gross_margin": 0.87376,
+    "operating_margin": -0.01005,
+    "net_margin": -0.058579996,
+    "market_cap": 3422205184,
+    "enterprise_value": 2089019008,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.03438,
+    "institutional_ownership_pct": 0.90433997,
+    "short_ratio": 1.97,
+    "beta": 0.857
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 20.01,
+    "entry_range_high": 20.21,
+    "target_range_low": 23.62,
+    "target_range_high": 25.31,
+    "stop_range_low": 16.58,
+    "stop_range_high": 17.45,
+    "target_price": 24.1,
+    "stop_loss": 17.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.944817-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 25.14,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 6010,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "+3.58%",
+    "key_metrics": {
+      "RSI": 36.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "HUBB",
+  "company": "Hubbell Incorporated",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.631932-04:00",
+  "sector": "Industrials",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 537.68,
+    "open": 535.24,
+    "high": 539.93,
+    "low": 531.34,
+    "prev_close": 536.01,
+    "change_pct": 0.31,
+    "change_pct_1w": 7.71,
+    "change_pct_1m": 14.79,
+    "change_pct_1y": 54.67,
+    "volume": 104992,
+    "avg_volume_30d": 538674
+  },
+  "scores": {
+    "master_score": 54.37,
+    "technical_score": 57.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.37,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 66.3,
+    "macd": 10.4322,
+    "macd_signal": 4.2569,
+    "macd_histogram": 6.1754,
+    "macd_crossover": "neutral",
+    "ema_20": 505.08,
+    "ema_50": 494.6,
+    "ema_200": 453.8,
+    "ema_stack_bullish": true,
+    "bb_upper": 539.46,
+    "bb_middle": 497.09,
+    "bb_lower": 454.72,
+    "bb_width": 0.1705,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.4,
+    "atr": 16.79,
+    "atr_pct": 0.0312,
+    "obv_trend": "UP",
+    "mfi": 72.1,
+    "cmf": -0.06,
+    "stoch_k": 92.0,
+    "stoch_d": 92.8,
+    "rvol": 0.8,
+    "volume_5d_avg": 429837,
+    "green_days_10d": 8,
+    "52w_high": 537.68,
+    "52w_low": 325.19,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6535
+  },
+  "fundamental": {
+    "pe_ratio": 32.4686,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 7.44132,
+    "de_ratio": 64.473,
+    "fcf_yield": 0.0238,
+    "eps_growth_5y": 0.138,
+    "revenue_growth_ttm": 0.119,
+    "gross_margin": 0.35486,
+    "operating_margin": 0.19126,
+    "net_margin": 0.15178001,
+    "market_cap": 28583927808,
+    "enterprise_value": 30494550016,
+    "dividend_yield": 1.06,
+    "payout_ratio": 0.32529998,
+    "insider_ownership_pct": 0.00332,
+    "institutional_ownership_pct": 1.00725,
+    "short_ratio": 4.4,
+    "beta": 0.997
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 492.13,
+    "entry_range_high": 540.37,
+    "target_range_low": 576.29,
+    "target_range_high": 617.45,
+    "stop_range_low": 478.89,
+    "stop_range_high": 504.1,
+    "target_price": 588.05,
+    "stop_loss": 504.1,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.631884-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 672.1,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 106.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 325.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3980,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. HUBB is currently testing its 52-week high and the upper Bollinger Band at $537.68 and $539.46, respectively, acting as immediate resistance. A potential BUY ZONE exists between the EMA20 at $505.08 and the EMA50 at $494.60, offering a pullback entry. The PROFIT ZONE would target a breakout above $540, while a STOP LOSS ZONE below $494.60 protects against trend reversal.\n\n### Fundamental Edge\nHUBB is trading at a P/E of 32.47 which suggests potential value relative to the sector. Coupled with robust revenue growth of 11.9% TTM and solid net margins, the company exhibits strong financials that could drive further upside.\n\n### Sector Context\nThe Industrials sector is currently in a consolidation phase, offering mixed signals, which neither strongly supports nor detracts from a bullish case for HUBB.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+0.31%",
+    "key_metrics": {
+      "RSI": 66.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

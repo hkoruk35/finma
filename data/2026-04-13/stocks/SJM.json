@@ -1,0 +1,160 @@
+{
+  "ticker": "SJM",
+  "company": "The J. M. Smucker Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.257732-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 88.89,
+    "open": 91.0,
+    "high": 91.25,
+    "low": 88.29,
+    "prev_close": 90.91,
+    "change_pct": -2.22,
+    "change_pct_1w": -6.64,
+    "change_pct_1m": -16.14,
+    "change_pct_1y": -19.64,
+    "volume": 708535,
+    "avg_volume_30d": 1925311
+  },
+  "scores": {
+    "master_score": 20.57,
+    "technical_score": 4.5,
+    "fundamental_score": 35.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 27.5,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 20.57,
+    "confidence": 0.21,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 18.9,
+    "macd": -3.7784,
+    "macd_signal": -3.351,
+    "macd_histogram": -0.4274,
+    "macd_crossover": "neutral",
+    "ema_20": 96.49,
+    "ema_50": 100.66,
+    "ema_200": 103.35,
+    "ema_stack_bullish": false,
+    "bb_upper": 103.99,
+    "bb_middle": 96.39,
+    "bb_lower": 88.78,
+    "bb_width": 0.1578,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 37.7,
+    "atr": 2.54,
+    "atr_pct": 0.0286,
+    "obv_trend": "DOWN",
+    "mfi": 21.3,
+    "cmf": -0.278,
+    "stoch_k": 5.3,
+    "stoch_d": 6.4,
+    "rvol": 0.86,
+    "volume_5d_avg": 1648167,
+    "green_days_10d": 1,
+    "52w_high": 116.0,
+    "52w_low": 88.89,
+    "52w_high_proximity_pct": 0.2337,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": 1.811346,
+    "de_ratio": 143.204,
+    "fcf_yield": 0.0933,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.07,
+    "gross_margin": 0.3421,
+    "operating_margin": 0.18778,
+    "net_margin": -0.14068,
+    "market_cap": 9484058624,
+    "enterprise_value": 17140898816,
+    "dividend_yield": 4.84,
+    "payout_ratio": 0.8606,
+    "insider_ownership_pct": 0.02232,
+    "institutional_ownership_pct": 0.9456,
+    "short_ratio": 3.23,
+    "beta": 0.259
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 88.45,
+    "entry_range_high": 89.33,
+    "target_range_low": 94.58,
+    "target_range_high": 101.34,
+    "stop_range_low": 79.62,
+    "stop_range_high": 83.81,
+    "target_price": 96.51,
+    "stop_loss": 83.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.257703-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 111.11,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 484.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 88.89,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 613,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 21%. SJM is trading right at the lower Bollinger Band support of $88.78 after today's drop, and substantially below its 20-day EMA of $96.49, the 50-day EMA of $100.66 and 200-day EMA of $103.35. A short entry could be considered at $88.70 with a stop loss at $90.50, targeting a profit zone of $86.00 if the breakdown of the 52-week low is confirmed. This is a contrarian play predicated on continued negative momentum and breakdown of the support level.\n\n### Fundamental Edge\nSJM's recent revenue growth of 7.0% is a positive sign; however, negative net margins are concerning and could pressure the stock further. The absence of a P/E ratio signals potential issues with profitability.\n\n### Sector Context\nConsumer staples are generally defensive, but SJM's weakness suggests it is underperforming its peers in the current risk-off market environment.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 21,
+    "price_change_display": "-2.22%",
+    "key_metrics": {
+      "RSI": 18.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

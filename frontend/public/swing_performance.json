@@ -4,7 +4,7 @@
     "avg_return_pct": 7.3,
     "total_picks": 528,
     "period_days": 90,
-    "above_10pct_rate": 16.7
+    "above_5pct_rate": 45.6
   },
   "history": [
     {
@@ -5816,5 +5816,5 @@
       "result": "WIN"
     }
   ],
-  "generated_at": "2026-04-12T15:06:33.773368"
+  "generated_at": "2026-04-13T13:28:23.927142"
 }

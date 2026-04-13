@@ -1,0 +1,158 @@
+{
+  "ticker": "RHP",
+  "company": "Ryman Hospitality Properties, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.806387-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Hotel & Motel",
+  "price": {
+    "current": 100.67,
+    "open": 100.76,
+    "high": 100.98,
+    "low": 99.53,
+    "prev_close": 101.03,
+    "change_pct": -0.36,
+    "change_pct_1w": 7.22,
+    "change_pct_1m": 10.88,
+    "change_pct_1y": 21.26,
+    "volume": 93858,
+    "avg_volume_30d": 461591
+  },
+  "scores": {
+    "master_score": 56.74,
+    "technical_score": 63.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 41.9,
+    "breakout_score": 35.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 56.74,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.4,
+    "macd": 1.2108,
+    "macd_signal": -0.1216,
+    "macd_histogram": 1.3324,
+    "macd_crossover": "neutral",
+    "ema_20": 94.76,
+    "ema_50": 94.44,
+    "ema_200": 93.14,
+    "ema_stack_bullish": true,
+    "bb_upper": 99.94,
+    "bb_middle": 92.76,
+    "bb_lower": 85.58,
+    "bb_width": 0.1549,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.4,
+    "atr": 2.59,
+    "atr_pct": 0.0257,
+    "obv_trend": "UP",
+    "mfi": 85.1,
+    "cmf": 0.001,
+    "stoch_k": 95.1,
+    "stoch_d": 94.3,
+    "rvol": 1.02,
+    "volume_5d_avg": 473011,
+    "green_days_10d": 8,
+    "52w_high": 103.47,
+    "52w_low": 79.42,
+    "52w_high_proximity_pct": 0.0271,
+    "52w_low_proximity_pct": 0.2675
+  },
+  "fundamental": {
+    "pe_ratio": 26.702917,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 8.357131,
+    "de_ratio": 341.295,
+    "fcf_yield": 0.0895,
+    "eps_growth_5y": -0.017,
+    "revenue_growth_ttm": 0.124,
+    "gross_margin": 0.34302,
+    "operating_margin": 0.18259001,
+    "net_margin": 0.09483,
+    "market_cap": 6353210368,
+    "enterprise_value": 10416965632,
+    "dividend_yield": 4.65,
+    "payout_ratio": 1.2334,
+    "insider_ownership_pct": 0.031519998,
+    "institutional_ownership_pct": 1.08647,
+    "short_ratio": 5.72,
+    "beta": 1.191
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 93.97,
+    "entry_range_high": 101.17,
+    "target_range_low": 106.27,
+    "target_range_high": 113.86,
+    "stop_range_low": 90.72,
+    "stop_range_high": 95.49,
+    "target_price": 108.44,
+    "stop_loss": 95.49,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.806369-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 125.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 465.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 79.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8834,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "-0.36%",
+    "key_metrics": {
+      "RSI": 67.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

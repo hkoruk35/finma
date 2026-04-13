@@ -1,0 +1,158 @@
+{
+  "ticker": "PH",
+  "company": "Parker-Hannifin Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.624502-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 983.19,
+    "open": 982.56,
+    "high": 986.21,
+    "low": 972.59,
+    "prev_close": 984.23,
+    "change_pct": -0.11,
+    "change_pct_1w": 7.79,
+    "change_pct_1m": 8.98,
+    "change_pct_1y": 66.46,
+    "volume": 166537,
+    "avg_volume_30d": 778167
+  },
+  "scores": {
+    "master_score": 47.67,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 47.67,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.4,
+    "macd": 7.127,
+    "macd_signal": -5.2236,
+    "macd_histogram": 12.3506,
+    "macd_crossover": "neutral",
+    "ema_20": 936.4,
+    "ema_50": 934.01,
+    "ema_200": 847.82,
+    "ema_stack_bullish": true,
+    "bb_upper": 985.22,
+    "bb_middle": 918.2,
+    "bb_lower": 851.18,
+    "bb_width": 0.146,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.7,
+    "atr": 27.27,
+    "atr_pct": 0.0277,
+    "obv_trend": "UP",
+    "mfi": 58.3,
+    "cmf": -0.002,
+    "stoch_k": 93.7,
+    "stoch_d": 93.9,
+    "rvol": 0.6,
+    "volume_5d_avg": 463867,
+    "green_days_10d": 7,
+    "52w_high": 1023.02,
+    "52w_low": 542.28,
+    "52w_high_proximity_pct": 0.0389,
+    "52w_low_proximity_pct": 0.8131
+  },
+  "fundamental": {
+    "pe_ratio": 35.935307,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 8.671252,
+    "de_ratio": 68.925,
+    "fcf_yield": 0.0199,
+    "eps_growth_5y": -0.09,
+    "revenue_growth_ttm": 0.091,
+    "gross_margin": 0.37427,
+    "operating_margin": 0.21724,
+    "net_margin": 0.17287001,
+    "market_cap": 124094824448,
+    "enterprise_value": 133678096384,
+    "dividend_yield": 0.73,
+    "payout_ratio": 0.2565,
+    "insider_ownership_pct": 0.0016300001,
+    "institutional_ownership_pct": 0.90428,
+    "short_ratio": 1.69,
+    "beta": 1.25
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 929.34,
+    "entry_range_high": 988.11,
+    "target_range_low": 1043.7,
+    "target_range_high": 1118.25,
+    "stop_range_low": 882.22,
+    "stop_range_high": 928.65,
+    "target_price": 1065.0,
+    "stop_loss": 928.65,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.624474-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1228.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 73.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 542.28,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 13,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1127,
+      "date": "2026-02-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-0.11%",
+    "key_metrics": {
+      "RSI": 62.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

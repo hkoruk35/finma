@@ -1,0 +1,158 @@
+{
+  "ticker": "DHR",
+  "company": "Danaher Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.322217-04:00",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 193.38,
+    "open": 188.67,
+    "high": 193.93,
+    "low": 188.06,
+    "prev_close": 189.61,
+    "change_pct": 1.99,
+    "change_pct_1w": 0.66,
+    "change_pct_1m": 4.04,
+    "change_pct_1y": 1.47,
+    "volume": 2334607,
+    "avg_volume_30d": 3798266
+  },
+  "scores": {
+    "master_score": 35.88,
+    "technical_score": 17.1,
+    "fundamental_score": 45.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 21.4,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.88,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 49.2,
+    "macd": -2.274,
+    "macd_signal": -3.7356,
+    "macd_histogram": 1.4616,
+    "macd_crossover": "neutral",
+    "ema_20": 192.25,
+    "ema_50": 200.03,
+    "ema_200": 207.79,
+    "ema_stack_bullish": false,
+    "bb_upper": 196.68,
+    "bb_middle": 190.07,
+    "bb_lower": 183.47,
+    "bb_width": 0.0695,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 30.7,
+    "atr": 5.05,
+    "atr_pct": 0.0261,
+    "obv_trend": "UP",
+    "mfi": 45.0,
+    "cmf": -0.002,
+    "stoch_k": 70.5,
+    "stoch_d": 62.6,
+    "rvol": 0.74,
+    "volume_5d_avg": 2793881,
+    "green_days_10d": 7,
+    "52w_high": 241.54,
+    "52w_low": 179.52,
+    "52w_high_proximity_pct": 0.1994,
+    "52w_low_proximity_pct": 0.0772
+  },
+  "fundamental": {
+    "pe_ratio": 38.52191,
+    "sector_pe_median": 24.7599545,
+    "pb_ratio": 2.6021314,
+    "de_ratio": 37.487,
+    "fcf_yield": 0.0333,
+    "eps_growth_5y": 0.125,
+    "revenue_growth_ttm": 0.046,
+    "gross_margin": 0.59231997,
+    "operating_margin": 0.2217,
+    "net_margin": 0.1471,
+    "market_cap": 136854913024,
+    "enterprise_value": 149168701440,
+    "dividend_yield": 0.84,
+    "payout_ratio": 0.2545,
+    "insider_ownership_pct": 0.10785,
+    "institutional_ownership_pct": 0.84365,
+    "short_ratio": 1.68,
+    "beta": 0.986
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 192.41,
+    "entry_range_high": 194.35,
+    "target_range_low": 204.36,
+    "target_range_high": 218.96,
+    "stop_range_low": 174.12,
+    "stop_range_high": 183.28,
+    "target_price": 208.53,
+    "stop_loss": 183.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.322195-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 241.72,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 84.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 179.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 71648,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.25,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "+1.99%",
+    "key_metrics": {
+      "RSI": 49.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

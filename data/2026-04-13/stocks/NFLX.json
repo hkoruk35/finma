@@ -1,0 +1,160 @@
+{
+  "ticker": "NFLX",
+  "company": "Netflix, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.976064-04:00",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 103.47,
+    "open": 103.03,
+    "high": 103.6,
+    "low": 102.06,
+    "prev_close": 103.01,
+    "change_pct": 0.45,
+    "change_pct_1w": 4.59,
+    "change_pct_1m": 9.72,
+    "change_pct_1y": 9.44,
+    "volume": 12138377,
+    "avg_volume_30d": 39399862
+  },
+  "scores": {
+    "master_score": 53.52,
+    "technical_score": 55.0,
+    "fundamental_score": 43.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 30.2,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 53.52,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 73.4,
+    "macd": 2.9688,
+    "macd_signal": 2.2868,
+    "macd_histogram": 0.682,
+    "macd_crossover": "neutral",
+    "ema_20": 97.07,
+    "ema_50": 93.9,
+    "ema_200": 100.14,
+    "ema_stack_bullish": false,
+    "bb_upper": 103.58,
+    "bb_middle": 96.01,
+    "bb_lower": 88.43,
+    "bb_width": 0.1578,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 34.9,
+    "atr": 2.74,
+    "atr_pct": 0.0265,
+    "obv_trend": "UP",
+    "mfi": 82.5,
+    "cmf": 0.161,
+    "stoch_k": 99.0,
+    "stoch_d": 97.7,
+    "rvol": 0.65,
+    "volume_5d_avg": 25775875,
+    "green_days_10d": 7,
+    "52w_high": 133.91,
+    "52w_low": 75.86,
+    "52w_high_proximity_pct": 0.2273,
+    "52w_low_proximity_pct": 0.364
+  },
+  "fundamental": {
+    "pe_ratio": 40.899208,
+    "sector_pe_median": 24.6733575,
+    "pb_ratio": 16.41418,
+    "de_ratio": 63.782,
+    "fcf_yield": 0.0565,
+    "eps_growth_5y": 0.327,
+    "revenue_growth_ttm": 0.176,
+    "gross_margin": 0.48487,
+    "operating_margin": 0.24535,
+    "net_margin": 0.24304001,
+    "market_cap": 438929522688,
+    "enterprise_value": 442838417408,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0058999998,
+    "institutional_ownership_pct": 0.83730006,
+    "short_ratio": 1.63,
+    "beta": 1.669
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 93.43,
+    "entry_range_high": 103.99,
+    "target_range_low": 109.46,
+    "target_range_high": 117.27,
+    "stop_range_low": 93.09,
+    "stop_range_high": 97.99,
+    "target_price": 111.69,
+    "stop_loss": 97.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.976035-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 129.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 75.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 13,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 28630,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. NFLX is currently bumping against its BB Upper resistance at $103.58, while support lies at the EMA200 near $100.14. A breakout above $103.58 could trigger a swing trade with a BUY ZONE between $103.60 and $105.00, targeting a PROFIT ZONE between $115.00 and $120.00. The STOP LOSS ZONE should be placed between $98.00 and $96.00, just below the EMA20, to protect against a failed breakout.\n\n### Fundamental Edge\nNFLX's revenue growth of 17.6% coupled with a healthy net margin of 24.3% indicates a fundamentally sound company capable of sustaining its growth trajectory. Traders might see the current consolidation as a temporary pause before the stock continues to capitalize on its successful content strategy and expanding subscriber base, justifying a breakout play.\n\n### Sector Context\nWhile the Communication Services sector has shown mixed performance lately, NFLX's unique positioning within streaming entertainment allows it to potentially outperform its peers, provided it can maintain subscriber growth and content leadership.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+0.45%",
+    "key_metrics": {
+      "RSI": 73.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

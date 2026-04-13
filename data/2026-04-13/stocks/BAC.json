@@ -1,0 +1,161 @@
+{
+  "ticker": "BAC",
+  "company": "Bank of America Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.339730-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 52.88,
+    "open": 52.18,
+    "high": 52.99,
+    "low": 51.85,
+    "prev_close": 52.54,
+    "change_pct": 0.64,
+    "change_pct_1w": 5.62,
+    "change_pct_1m": 12.19,
+    "change_pct_1y": 45.53,
+    "volume": 10867859,
+    "avg_volume_30d": 39848891
+  },
+  "scores": {
+    "master_score": 54.83,
+    "technical_score": 40.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.3,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.83,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.5,
+    "macd": 0.7122,
+    "macd_signal": 0.0145,
+    "macd_histogram": 0.6977,
+    "macd_crossover": "neutral",
+    "ema_20": 50.04,
+    "ema_50": 50.34,
+    "ema_200": 49.91,
+    "ema_stack_bullish": false,
+    "bb_upper": 53.05,
+    "bb_middle": 49.0,
+    "bb_lower": 44.94,
+    "bb_width": 0.1656,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.8,
+    "atr": 1.23,
+    "atr_pct": 0.0232,
+    "obv_trend": "UP",
+    "mfi": 70.0,
+    "cmf": 0.044,
+    "stoch_k": 98.1,
+    "stoch_d": 97.0,
+    "rvol": 0.67,
+    "volume_5d_avg": 26609291,
+    "green_days_10d": 9,
+    "52w_high": 56.93,
+    "52w_low": 35.06,
+    "52w_high_proximity_pct": 0.0712,
+    "52w_low_proximity_pct": 0.5081
+  },
+  "fundamental": {
+    "pe_ratio": 13.877953,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 1.3754845,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.212,
+    "revenue_growth_ttm": 0.072,
+    "gross_margin": 0.0,
+    "operating_margin": 0.41627997,
+    "net_margin": 0.28401,
+    "market_cap": 379467071488,
+    "enterprise_value": 399963881472,
+    "dividend_yield": 2.13,
+    "payout_ratio": 0.28350002,
+    "insider_ownership_pct": 0.07359,
+    "institutional_ownership_pct": 0.71556,
+    "short_ratio": 0.0,
+    "beta": 1.237
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 50.09,
+    "entry_range_high": 53.14,
+    "target_range_low": 55.44,
+    "target_range_high": 59.4,
+    "stop_range_low": 47.9,
+    "stop_range_high": 50.42,
+    "target_price": 56.57,
+    "stop_loss": 50.42,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.339711-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 66.1,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 213.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 35.06,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 18082,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. BAC is currently trading at $52.88, bumping against the upper Bollinger Band resistance at $53.05. A breakout above this level could signal a short-term buying opportunity, with a BUY ZONE between $53.10 and $54.00, targeting the PROFIT ZONE near the 52-week high of $56.90. Conversely, the STOP LOSS ZONE is positioned below the EMA20 at $49.90, to mitigate downside risk if the breakout fails.\n\n### Fundamental Edge\nBAC's P/E of 13.88 suggests it's undervalued compared to its sector, and its net margin of 28.4% indicates strong profitability. This setup could appeal to value-oriented traders seeking exposure to a stable financial institution with a proven track record of generating earnings, especially if revenue growth remains consistent.\n\n### Sector Context\nThe Financials sector is currently exhibiting mixed momentum, meaning BAC's performance is more dependent on company-specific factors than broad sector tailwinds.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+0.64%",
+    "key_metrics": {
+      "RSI": 68.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

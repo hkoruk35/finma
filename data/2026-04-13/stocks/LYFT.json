@@ -1,0 +1,160 @@
+{
+  "ticker": "LYFT",
+  "company": "Lyft, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.233168-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Software - Application",
+  "price": {
+    "current": 13.47,
+    "open": 13.15,
+    "high": 13.49,
+    "low": 12.91,
+    "prev_close": 13.23,
+    "change_pct": 1.81,
+    "change_pct_1w": -1.68,
+    "change_pct_1m": 4.02,
+    "change_pct_1y": 18.78,
+    "volume": 6094878,
+    "avg_volume_30d": 17036609
+  },
+  "scores": {
+    "master_score": 39.56,
+    "technical_score": 12.6,
+    "fundamental_score": 75.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 45.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 39.56,
+    "confidence": 0.4,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 48.7,
+    "macd": -0.1728,
+    "macd_signal": -0.2707,
+    "macd_histogram": 0.0978,
+    "macd_crossover": "neutral",
+    "ema_20": 13.41,
+    "ema_50": 14.36,
+    "ema_200": 16.32,
+    "ema_stack_bullish": false,
+    "bb_upper": 13.95,
+    "bb_middle": 13.35,
+    "bb_lower": 12.75,
+    "bb_width": 0.0901,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.8,
+    "atr": 0.6,
+    "atr_pct": 0.0444,
+    "obv_trend": "UP",
+    "mfi": 37.4,
+    "cmf": 0.02,
+    "stoch_k": 52.0,
+    "stoch_d": 43.6,
+    "rvol": 0.71,
+    "volume_5d_avg": 12061675,
+    "green_days_10d": 6,
+    "52w_high": 24.57,
+    "52w_low": 10.84,
+    "52w_high_proximity_pct": 0.4518,
+    "52w_low_proximity_pct": 0.2426
+  },
+  "fundamental": {
+    "pe_ratio": 1.9778267,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 1.6493999,
+    "de_ratio": 40.211,
+    "fcf_yield": 0.2212,
+    "eps_growth_5y": 45.114,
+    "revenue_growth_ttm": 0.027,
+    "gross_margin": 0.33885,
+    "operating_margin": -0.111829996,
+    "net_margin": 0.45027,
+    "market_cap": 5378890752,
+    "enterprise_value": 4746087424,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01149,
+    "institutional_ownership_pct": 1.00827,
+    "short_ratio": 3.84,
+    "beta": 1.859
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 13.4,
+    "entry_range_high": 13.54,
+    "target_range_low": 14.96,
+    "target_range_high": 16.03,
+    "stop_range_low": 11.66,
+    "stop_range_high": 12.27,
+    "target_price": 15.27,
+    "stop_loss": 12.27,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.233146-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 16.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 47789,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEGATIVE BIAS | Confidence: 40%. LYFT is currently trading near its 20-day EMA of $13.41, acting as immediate resistance at $13.95 (BB Upper). A trader might consider a short position here if they anticipate a rejection at this level. STOP LOSS ZONE would be above the BB Upper at $14.40 (a buffer above the EMA50), with a PROFIT ZONE targeting the BB Lower at $12.75 and further down to recent lows near $12.00. The BUY ZONE isn't applicable for the bearish setup; potential dip buyers should wait for confirmation of support.\n\n### Fundamental Edge\n\nLYFT's low P/E of 1.98 suggests it's undervalued relative to its sector. However, its modest revenue growth of 2.7% doesn't provide a strong bullish counterweight. The low growth despite high margins doesn't provide fundamental support for a sustained rally.\n\n### Sector Context\n\nThe Consumer Discretionary sector's current mixed performance provides little directional tailwind or headwind for a LYFT-specific trade.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 40,
+    "price_change_display": "+1.81%",
+    "key_metrics": {
+      "RSI": 48.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

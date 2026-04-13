@@ -1,0 +1,158 @@
+{
+  "ticker": "INSP",
+  "company": "Inspire Medical Systems, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.318198-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 54.14,
+    "open": 53.77,
+    "high": 54.9,
+    "low": 53.34,
+    "prev_close": 54.02,
+    "change_pct": 0.22,
+    "change_pct_1w": 0.0,
+    "change_pct_1m": -7.06,
+    "change_pct_1y": -64.8,
+    "volume": 194208,
+    "avg_volume_30d": 1000796
+  },
+  "scores": {
+    "master_score": 41.22,
+    "technical_score": 13.8,
+    "fundamental_score": 67.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 21.4,
+    "breakout_score": 45.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 41.22,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 44.0,
+    "macd": -1.9668,
+    "macd_signal": -2.8372,
+    "macd_histogram": 0.8704,
+    "macd_crossover": "neutral",
+    "ema_20": 54.97,
+    "ema_50": 62.19,
+    "ema_200": 90.91,
+    "ema_stack_bullish": false,
+    "bb_upper": 58.04,
+    "bb_middle": 53.62,
+    "bb_lower": 49.2,
+    "bb_width": 0.1648,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 18.0,
+    "atr": 3.49,
+    "atr_pct": 0.0645,
+    "obv_trend": "UP",
+    "mfi": 51.0,
+    "cmf": -0.065,
+    "stoch_k": 56.5,
+    "stoch_d": 64.3,
+    "rvol": 1.08,
+    "volume_5d_avg": 1085321,
+    "green_days_10d": 7,
+    "52w_high": 161.88,
+    "52w_low": 50.13,
+    "52w_high_proximity_pct": 0.6656,
+    "52w_low_proximity_pct": 0.08
+  },
+  "fundamental": {
+    "pe_ratio": 11.071575,
+    "sector_pe_median": 24.7599545,
+    "pb_ratio": 1.9807558,
+    "de_ratio": 4.116,
+    "fcf_yield": 0.035,
+    "eps_growth_5y": 3.084,
+    "revenue_growth_ttm": 0.122,
+    "gross_margin": 0.85392,
+    "operating_margin": 0.17136998,
+    "net_margin": 0.15946001,
+    "market_cap": 1559086208,
+    "enterprise_value": 1268280448,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01169,
+    "institutional_ownership_pct": 1.1989399,
+    "short_ratio": 3.37,
+    "beta": 0.86
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 53.87,
+    "entry_range_high": 54.41,
+    "target_range_low": 63.32,
+    "target_range_high": 67.84,
+    "stop_range_low": 44.8,
+    "stop_range_high": 47.16,
+    "target_price": 64.61,
+    "stop_loss": 47.16,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.318178-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 67.67,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 15958,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.25,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "+0.22%",
+    "key_metrics": {
+      "RSI": 44.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

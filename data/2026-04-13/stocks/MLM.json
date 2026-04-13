@@ -1,0 +1,158 @@
+{
+  "ticker": "MLM",
+  "company": "Martin Marietta Materials, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.556022-04:00",
+  "sector": "Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 628.64,
+    "open": 627.08,
+    "high": 628.9,
+    "low": 614.43,
+    "prev_close": 631.53,
+    "change_pct": -0.46,
+    "change_pct_1w": 5.04,
+    "change_pct_1m": 7.03,
+    "change_pct_1y": 31.22,
+    "volume": 160265,
+    "avg_volume_30d": 526162
+  },
+  "scores": {
+    "master_score": 39.19,
+    "technical_score": 42.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.9,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 39.19,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 59.5,
+    "macd": 0.6201,
+    "macd_signal": -7.82,
+    "macd_histogram": 8.4401,
+    "macd_crossover": "neutral",
+    "ema_20": 606.16,
+    "ema_50": 617.23,
+    "ema_200": 605.31,
+    "ema_stack_bullish": false,
+    "bb_upper": 633.1,
+    "bb_middle": 590.97,
+    "bb_lower": 548.84,
+    "bb_width": 0.1426,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.6,
+    "atr": 17.17,
+    "atr_pct": 0.0273,
+    "obv_trend": "UP",
+    "mfi": 70.9,
+    "cmf": -0.121,
+    "stoch_k": 94.0,
+    "stoch_d": 95.1,
+    "rvol": 0.6,
+    "volume_5d_avg": 316173,
+    "green_days_10d": 7,
+    "52w_high": 707.24,
+    "52w_low": 472.73,
+    "52w_high_proximity_pct": 0.1111,
+    "52w_low_proximity_pct": 0.3298
+  },
+  "fundamental": {
+    "pe_ratio": 38.425426,
+    "sector_pe_median": 24.066355,
+    "pb_ratio": 3.7792246,
+    "de_ratio": 59.866,
+    "fcf_yield": -0.0189,
+    "eps_growth_5y": -0.041,
+    "revenue_growth_ttm": 0.086,
+    "gross_margin": 0.30797002,
+    "operating_margin": 0.23091999,
+    "net_margin": 0.18488,
+    "market_cap": 37914566656,
+    "enterprise_value": 44030865408,
+    "dividend_yield": 0.53,
+    "payout_ratio": 0.1983,
+    "insider_ownership_pct": 0.00799,
+    "institutional_ownership_pct": 1.00984,
+    "short_ratio": 3.14,
+    "beta": 1.188
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 614.14,
+    "entry_range_high": 631.78,
+    "target_range_low": 666.55,
+    "target_range_high": 714.16,
+    "stop_range_low": 564.58,
+    "stop_range_high": 594.3,
+    "target_price": 680.15,
+    "stop_loss": 594.3,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.556003-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 785.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 53.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 472.73,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2960,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-0.46%",
+    "key_metrics": {
+      "RSI": 59.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

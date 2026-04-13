@@ -1,0 +1,158 @@
+{
+  "ticker": "EMN",
+  "company": "Eastman Chemical Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.527581-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 74.35,
+    "open": 74.23,
+    "high": 74.77,
+    "low": 72.82,
+    "prev_close": 74.25,
+    "change_pct": 0.13,
+    "change_pct_1w": 1.45,
+    "change_pct_1m": 6.59,
+    "change_pct_1y": -4.27,
+    "volume": 267864,
+    "avg_volume_30d": 1674115
+  },
+  "scores": {
+    "master_score": 46.94,
+    "technical_score": 42.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.9,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.94,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.0,
+    "macd": 0.7722,
+    "macd_signal": 0.4989,
+    "macd_histogram": 0.2733,
+    "macd_crossover": "neutral",
+    "ema_20": 72.91,
+    "ema_50": 71.74,
+    "ema_200": 70.03,
+    "ema_stack_bullish": true,
+    "bb_upper": 77.65,
+    "bb_middle": 72.0,
+    "bb_lower": 66.35,
+    "bb_width": 0.157,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.9,
+    "atr": 2.64,
+    "atr_pct": 0.0355,
+    "obv_trend": "DOWN",
+    "mfi": 70.7,
+    "cmf": -0.12,
+    "stoch_k": 67.9,
+    "stoch_d": 65.9,
+    "rvol": 0.68,
+    "volume_5d_avg": 1145292,
+    "green_days_10d": 5,
+    "52w_high": 80.39,
+    "52w_low": 54.98,
+    "52w_high_proximity_pct": 0.0752,
+    "52w_low_proximity_pct": 0.3523
+  },
+  "fundamental": {
+    "pe_ratio": 18.134146,
+    "sector_pe_median": 24.066355,
+    "pb_ratio": 1.4224764,
+    "de_ratio": 84.413,
+    "fcf_yield": 0.0469,
+    "eps_growth_5y": -0.675,
+    "revenue_growth_ttm": -0.121,
+    "gross_margin": 0.21091999,
+    "operating_margin": 0.07197,
+    "net_margin": 0.05416,
+    "market_cap": 8501915648,
+    "enterprise_value": 13073953792,
+    "dividend_yield": 4.5,
+    "payout_ratio": 0.8122,
+    "insider_ownership_pct": 0.00923,
+    "institutional_ownership_pct": 0.91710997,
+    "short_ratio": 2.9,
+    "beta": 1.174
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 71.38,
+    "entry_range_high": 74.72,
+    "target_range_low": 80.62,
+    "target_range_high": 86.38,
+    "stop_range_low": 65.62,
+    "stop_range_high": 69.07,
+    "target_price": 82.27,
+    "stop_loss": 69.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.527560-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 92.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 450.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 54.98,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 64192,
+      "date": "2026-02-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "+0.13%",
+    "key_metrics": {
+      "RSI": 55.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

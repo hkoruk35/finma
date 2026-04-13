@@ -1,0 +1,158 @@
+{
+  "ticker": "TTD",
+  "company": "The Trade Desk, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.946171-04:00",
+  "sector": "Technology",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 21.15,
+    "open": 20.15,
+    "high": 21.16,
+    "low": 20.12,
+    "prev_close": 20.09,
+    "change_pct": 5.28,
+    "change_pct_1w": -4.77,
+    "change_pct_1m": -20.26,
+    "change_pct_1y": -60.92,
+    "volume": 6489480,
+    "avg_volume_30d": 21579782
+  },
+  "scores": {
+    "master_score": 29.5,
+    "technical_score": 5.4,
+    "fundamental_score": 60.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.1,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 29.5,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.8,
+    "macd": -1.5093,
+    "macd_signal": -1.5037,
+    "macd_histogram": -0.0056,
+    "macd_crossover": "neutral",
+    "ema_20": 22.41,
+    "ema_50": 25.7,
+    "ema_200": 40.47,
+    "ema_stack_bullish": false,
+    "bb_upper": 25.79,
+    "bb_middle": 22.42,
+    "bb_lower": 19.04,
+    "bb_width": 0.3012,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.7,
+    "atr": 1.41,
+    "atr_pct": 0.0668,
+    "obv_trend": "DOWN",
+    "mfi": 35.4,
+    "cmf": -0.243,
+    "stoch_k": 34.1,
+    "stoch_d": 19.6,
+    "rvol": 0.77,
+    "volume_5d_avg": 16521096,
+    "green_days_10d": 6,
+    "52w_high": 89.76,
+    "52w_low": 20.09,
+    "52w_high_proximity_pct": 0.7644,
+    "52w_low_proximity_pct": 0.0528
+  },
+  "fundamental": {
+    "pe_ratio": 23.5,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 4.0517244,
+    "de_ratio": 17.563,
+    "fcf_yield": 0.0598,
+    "eps_growth_5y": 0.075,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.78625,
+    "operating_margin": 0.30335,
+    "net_margin": 0.15306,
+    "market_cap": 10066914304,
+    "enterprise_value": 8695652352,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02262,
+    "institutional_ownership_pct": 0.83746004,
+    "short_ratio": 2.23,
+    "beta": 1.174
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 21.04,
+    "entry_range_high": 21.26,
+    "target_range_low": 24.87,
+    "target_range_high": 26.65,
+    "stop_range_low": 17.41,
+    "stop_range_high": 18.33,
+    "target_price": 25.38,
+    "stop_loss": 18.33,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.946142-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 26.44,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.09,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12304,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+5.28%",
+    "key_metrics": {
+      "RSI": 38.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

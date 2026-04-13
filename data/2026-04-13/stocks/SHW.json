@@ -1,0 +1,158 @@
+{
+  "ticker": "SHW",
+  "company": "The Sherwin-Williams Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.522044-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 331.61,
+    "open": 334.18,
+    "high": 335.87,
+    "low": 327.11,
+    "prev_close": 336.11,
+    "change_pct": -1.34,
+    "change_pct_1w": 4.81,
+    "change_pct_1m": 4.38,
+    "change_pct_1y": -0.5,
+    "volume": 700553,
+    "avg_volume_30d": 1693431
+  },
+  "scores": {
+    "master_score": 31.4,
+    "technical_score": 12.6,
+    "fundamental_score": 18.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.9,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 31.4,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 53.2,
+    "macd": -1.1334,
+    "macd_signal": -4.4971,
+    "macd_histogram": 3.3638,
+    "macd_crossover": "neutral",
+    "ema_20": 326.12,
+    "ema_50": 332.52,
+    "ema_200": 340.55,
+    "ema_stack_bullish": false,
+    "bb_upper": 337.65,
+    "bb_middle": 320.18,
+    "bb_lower": 302.71,
+    "bb_width": 0.1091,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.0,
+    "atr": 9.57,
+    "atr_pct": 0.0289,
+    "obv_trend": "UP",
+    "mfi": 72.6,
+    "cmf": -0.017,
+    "stoch_k": 74.6,
+    "stoch_d": 85.1,
+    "rvol": 0.82,
+    "volume_5d_avg": 1382750,
+    "green_days_10d": 6,
+    "52w_high": 373.53,
+    "52w_low": 303.53,
+    "52w_high_proximity_pct": 0.1122,
+    "52w_low_proximity_pct": 0.0925
+  },
+  "fundamental": {
+    "pe_ratio": 32.35268,
+    "sector_pe_median": 24.066355,
+    "pb_ratio": 17.760965,
+    "de_ratio": 306.061,
+    "fcf_yield": 0.0235,
+    "eps_growth_5y": 0.014,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.48848,
+    "operating_margin": 0.14162,
+    "net_margin": 0.108950004,
+    "market_cap": 82165825536,
+    "enterprise_value": 96666386432,
+    "dividend_yield": 0.95,
+    "payout_ratio": 0.308,
+    "insider_ownership_pct": 0.06277,
+    "institutional_ownership_pct": 0.83199,
+    "short_ratio": 2.93,
+    "beta": 1.269
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 329.95,
+    "entry_range_high": 333.27,
+    "target_range_low": 353.11,
+    "target_range_high": 378.34,
+    "stop_range_low": 296.85,
+    "stop_range_high": 312.47,
+    "target_price": 360.32,
+    "stop_loss": 312.47,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.522024-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 414.51,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 95.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 303.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 106,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-1.34%",
+    "key_metrics": {
+      "RSI": 53.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

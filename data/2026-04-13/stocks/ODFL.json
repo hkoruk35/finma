@@ -1,0 +1,158 @@
+{
+  "ticker": "ODFL",
+  "company": "Old Dominion Freight Line, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.647875-04:00",
+  "sector": "Industrials",
+  "industry": "Trucking",
+  "price": {
+    "current": 207.01,
+    "open": 208.01,
+    "high": 208.12,
+    "low": 203.51,
+    "prev_close": 208.35,
+    "change_pct": -0.64,
+    "change_pct_1w": 2.39,
+    "change_pct_1m": 17.46,
+    "change_pct_1y": 25.97,
+    "volume": 473850,
+    "avg_volume_30d": 2219855
+  },
+  "scores": {
+    "master_score": 48.17,
+    "technical_score": 60.0,
+    "fundamental_score": 10.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 41.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.17,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.2,
+    "macd": 4.5986,
+    "macd_signal": 2.6283,
+    "macd_histogram": 1.9703,
+    "macd_crossover": "neutral",
+    "ema_20": 197.86,
+    "ema_50": 190.9,
+    "ema_200": 170.78,
+    "ema_stack_bullish": true,
+    "bb_upper": 212.26,
+    "bb_middle": 193.5,
+    "bb_lower": 174.75,
+    "bb_width": 0.1939,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.3,
+    "atr": 6.98,
+    "atr_pct": 0.0337,
+    "obv_trend": "UP",
+    "mfi": 71.5,
+    "cmf": 0.102,
+    "stoch_k": 82.3,
+    "stoch_d": 87.5,
+    "rvol": 0.74,
+    "volume_5d_avg": 1633950,
+    "green_days_10d": 6,
+    "52w_high": 216.19,
+    "52w_low": 125.86,
+    "52w_high_proximity_pct": 0.0424,
+    "52w_low_proximity_pct": 0.6447
+  },
+  "fundamental": {
+    "pe_ratio": 42.86025,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 10.014755,
+    "de_ratio": 3.28,
+    "fcf_yield": 0.0183,
+    "eps_growth_5y": -0.105,
+    "revenue_growth_ttm": -0.057,
+    "gross_margin": 0.38955003,
+    "operating_margin": 0.23273,
+    "net_margin": 0.18625,
+    "market_cap": 43286511616,
+    "enterprise_value": 43446779904,
+    "dividend_yield": 0.56,
+    "payout_ratio": 0.2314,
+    "insider_ownership_pct": 0.08611,
+    "institutional_ownership_pct": 0.83678,
+    "short_ratio": 6.11,
+    "beta": 1.205
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 189.95,
+    "entry_range_high": 208.05,
+    "target_range_low": 223.39,
+    "target_range_high": 239.35,
+    "stop_range_low": 183.4,
+    "stop_range_high": 193.05,
+    "target_price": 227.95,
+    "stop_loss": 193.05,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.647851-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 258.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 56.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 125.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5792,
+      "date": "2026-02-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-0.64%",
+    "key_metrics": {
+      "RSI": 62.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

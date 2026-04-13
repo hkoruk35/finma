@@ -1,0 +1,158 @@
+{
+  "ticker": "BTI",
+  "company": "British American Tobacco p.l.c.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.263313-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Tobacco",
+  "price": {
+    "current": 58.66,
+    "open": 59.21,
+    "high": 59.49,
+    "low": 58.42,
+    "prev_close": 58.81,
+    "change_pct": -0.26,
+    "change_pct_1w": -0.09,
+    "change_pct_1m": -0.63,
+    "change_pct_1y": 54.56,
+    "volume": 2340387,
+    "avg_volume_30d": 5012566
+  },
+  "scores": {
+    "master_score": 43.2,
+    "technical_score": 52.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 60.0,
+    "sector_score": 27.5,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 43.2,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.6,
+    "macd": 0.0384,
+    "macd_signal": -0.1093,
+    "macd_histogram": 0.1477,
+    "macd_crossover": "neutral",
+    "ema_20": 58.56,
+    "ema_50": 58.38,
+    "ema_200": 53.9,
+    "ema_stack_bullish": true,
+    "bb_upper": 60.15,
+    "bb_middle": 58.25,
+    "bb_lower": 56.34,
+    "bb_width": 0.0655,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 11.7,
+    "atr": 1.25,
+    "atr_pct": 0.0214,
+    "obv_trend": "DOWN",
+    "mfi": 74.2,
+    "cmf": -0.002,
+    "stoch_k": 66.0,
+    "stoch_d": 68.9,
+    "rvol": 0.76,
+    "volume_5d_avg": 3813477,
+    "green_days_10d": 6,
+    "52w_high": 62.13,
+    "52w_low": 38.27,
+    "52w_high_proximity_pct": 0.0558,
+    "52w_low_proximity_pct": 0.5326
+  },
+  "fundamental": {
+    "pe_ratio": 12.534188,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": 10.33976,
+    "de_ratio": 72.842,
+    "fcf_yield": 0.0236,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.001,
+    "gross_margin": 0.82651,
+    "operating_margin": 0.34576,
+    "net_margin": 0.30316,
+    "market_cap": 127053209600,
+    "enterprise_value": 159259770880,
+    "dividend_yield": 5.68,
+    "payout_ratio": 0.6873,
+    "insider_ownership_pct": 0.00098,
+    "institutional_ownership_pct": 0.13983,
+    "short_ratio": 2.49,
+    "beta": 0.124
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 58.09,
+    "entry_range_high": 58.95,
+    "target_range_low": 61.16,
+    "target_range_high": 65.53,
+    "stop_range_low": 53.35,
+    "stop_range_high": 56.16,
+    "target_price": 62.41,
+    "stop_loss": 56.16,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.263291-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 73.32,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 568.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.27,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 0,
+      "date": "2026-02-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-0.26%",
+    "key_metrics": {
+      "RSI": 50.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

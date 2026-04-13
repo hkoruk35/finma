@@ -1,0 +1,160 @@
+{
+  "ticker": "TECK",
+  "company": "Teck Resources Limited",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.500965-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 57.4,
+    "open": 56.01,
+    "high": 57.42,
+    "low": 55.98,
+    "prev_close": 56.51,
+    "change_pct": 1.58,
+    "change_pct_1w": 8.6,
+    "change_pct_1m": 10.87,
+    "change_pct_1y": 72.96,
+    "volume": 1355495,
+    "avg_volume_30d": 4446059
+  },
+  "scores": {
+    "master_score": 53.99,
+    "technical_score": 60.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 49.9,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 53.99,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 63.6,
+    "macd": 0.8262,
+    "macd_signal": -0.1866,
+    "macd_histogram": 1.0128,
+    "macd_crossover": "neutral",
+    "ema_20": 52.94,
+    "ema_50": 52.51,
+    "ema_200": 46.8,
+    "ema_stack_bullish": true,
+    "bb_upper": 57.5,
+    "bb_middle": 51.08,
+    "bb_lower": 44.67,
+    "bb_width": 0.2512,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.5,
+    "atr": 2.43,
+    "atr_pct": 0.0423,
+    "obv_trend": "UP",
+    "mfi": 53.0,
+    "cmf": 0.214,
+    "stoch_k": 99.9,
+    "stoch_d": 89.8,
+    "rvol": 0.62,
+    "volume_5d_avg": 2770259,
+    "green_days_10d": 6,
+    "52w_high": 61.32,
+    "52w_low": 31.15,
+    "52w_high_proximity_pct": 0.0639,
+    "52w_low_proximity_pct": 0.843
+  },
+  "fundamental": {
+    "pe_ratio": 28.00244,
+    "sector_pe_median": 24.066355,
+    "pb_ratio": 1.547084,
+    "de_ratio": 36.94,
+    "fcf_yield": -0.0088,
+    "eps_growth_5y": 0.425,
+    "revenue_growth_ttm": 0.098,
+    "gross_margin": 0.24701999,
+    "operating_margin": 0.32603002,
+    "net_margin": 0.13024999,
+    "market_cap": 28102205440,
+    "enterprise_value": 33109835776,
+    "dividend_yield": 0.64,
+    "payout_ratio": 0.1767,
+    "insider_ownership_pct": 0.02789,
+    "institutional_ownership_pct": 0.75569,
+    "short_ratio": 1.58,
+    "beta": 1.562
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 52.25,
+    "entry_range_high": 57.69,
+    "target_range_low": 63.4,
+    "target_range_high": 67.92,
+    "stop_range_low": 49.91,
+    "stop_range_high": 52.54,
+    "target_price": 64.69,
+    "stop_loss": 52.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.500944-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 71.75,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 64.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11923,
+      "date": "2026-02-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. TECK is currently testing resistance at $57.50 (BB Upper), while key support lies at $52.94 (EMA20) and $52.51 (EMA50). A breakout above $57.50 could signal a BUY ZONE between $57.50 and $59.00, targeting a PROFIT ZONE near the 52-week high of $61.00. The STOP LOSS ZONE should be placed near $52.50 to protect against a breakdown below the EMAs. Traders might enter here expecting the bullish trend to continue, capitalizing on the price's momentum above key moving averages.\n\n### Fundamental Edge\nTECK's revenue growth of 9.8% and a solid net margin of 13.0% indicate a healthy financial position, potentially justifying the current price level. These solid financials, combined with the bullish trend, make the stock attractive to investors.\n\n### Sector Context\nThe materials sector currently exhibits mixed momentum, potentially creating some headwinds for TECK despite its positive technical setup.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+1.58%",
+    "key_metrics": {
+      "RSI": 63.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

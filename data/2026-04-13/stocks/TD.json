@@ -1,0 +1,160 @@
+{
+  "ticker": "TD",
+  "company": "The Toronto-Dominion Bank",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.348384-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 101.53,
+    "open": 100.17,
+    "high": 101.62,
+    "low": 99.67,
+    "prev_close": 100.71,
+    "change_pct": 0.81,
+    "change_pct_1w": 6.72,
+    "change_pct_1m": 8.83,
+    "change_pct_1y": 82.03,
+    "volume": 511246,
+    "avg_volume_30d": 2660794
+  },
+  "scores": {
+    "master_score": 63.43,
+    "technical_score": 68.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 100.0,
+    "sentiment_score": 58.0,
+    "sector_score": 33.3,
+    "breakout_score": 32.0,
+    "value_score": 35.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 63.43,
+    "confidence": 0.63,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 71.1,
+    "macd": 1.4162,
+    "macd_signal": 0.3739,
+    "macd_histogram": 1.0423,
+    "macd_crossover": "neutral",
+    "ema_20": 95.97,
+    "ema_50": 94.6,
+    "ema_200": 85.18,
+    "ema_stack_bullish": true,
+    "bb_upper": 100.91,
+    "bb_middle": 94.66,
+    "bb_lower": 88.42,
+    "bb_width": 0.1319,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.9,
+    "atr": 1.77,
+    "atr_pct": 0.0174,
+    "obv_trend": "UP",
+    "mfi": 82.2,
+    "cmf": 0.256,
+    "stoch_k": 99.2,
+    "stoch_d": 98.6,
+    "rvol": 1.56,
+    "volume_5d_avg": 4152769,
+    "green_days_10d": 10,
+    "52w_high": 101.53,
+    "52w_low": 55.61,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.8256
+  },
+  "fundamental": {
+    "pe_ratio": 11.3950615,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 1.9268516,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.513,
+    "revenue_growth_ttm": 0.211,
+    "gross_margin": 0.0,
+    "operating_margin": 0.35887,
+    "net_margin": 0.33021998,
+    "market_cap": 170236444672,
+    "enterprise_value": 45383278592,
+    "dividend_yield": 3.1,
+    "payout_ratio": 0.3425,
+    "insider_ownership_pct": 0.00075999997,
+    "institutional_ownership_pct": 0.55304,
+    "short_ratio": 5.03,
+    "beta": 0.839
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 94.13,
+    "entry_range_high": 102.04,
+    "target_range_low": 104.7,
+    "target_range_high": 112.18,
+    "stop_range_low": 93.09,
+    "stop_range_high": 97.99,
+    "target_price": 106.84,
+    "stop_loss": 97.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.348346-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 32.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 126.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 310.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 55.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 103,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25324,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "TD currently trades at $100.71, near its 52-week high. BOGA AI score: POSITIVE BIAS. The daily chart shows bullish EMA alignment, although ADX strength is weak at 20.1. Volume is 1.6x relative. The valuation at P/E 11.30303 suggests undervaluation compared to the sector median.\n\nBUY ZONE: around the $98-100 area.\nPROFIT ZONE: targeting the $105-108 range based on recent price action.\nSTOP LOSS ZONE: protect capital below $96.\n\nCatalyst: TD's high dividend yield of 3.10% could attract income-seeking investors, potentially driving price appreciation.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 63,
+    "price_change_display": "+0.81%",
+    "key_metrics": {
+      "RSI": 71.1,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

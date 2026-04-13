@@ -1,0 +1,160 @@
+{
+  "ticker": "CBOE",
+  "company": "Cboe Global Markets, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.393423-04:00",
+  "sector": "Financials",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 298.88,
+    "open": 295.65,
+    "high": 299.84,
+    "low": 295.22,
+    "prev_close": 295.95,
+    "change_pct": 0.99,
+    "change_pct_1w": 0.95,
+    "change_pct_1m": 2.97,
+    "change_pct_1y": 45.98,
+    "volume": 236303,
+    "avg_volume_30d": 860433
+  },
+  "scores": {
+    "master_score": 53.28,
+    "technical_score": 57.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.3,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 53.28,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 61.5,
+    "macd": 2.9896,
+    "macd_signal": 1.4607,
+    "macd_histogram": 1.5289,
+    "macd_crossover": "neutral",
+    "ema_20": 289.79,
+    "ema_50": 283.98,
+    "ema_200": 259.87,
+    "ema_stack_bullish": true,
+    "bb_upper": 302.27,
+    "bb_middle": 287.27,
+    "bb_lower": 272.28,
+    "bb_width": 0.1044,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.3,
+    "atr": 7.17,
+    "atr_pct": 0.024,
+    "obv_trend": "UP",
+    "mfi": 51.9,
+    "cmf": -0.103,
+    "stoch_k": 89.1,
+    "stoch_d": 81.3,
+    "rvol": 0.75,
+    "volume_5d_avg": 647540,
+    "green_days_10d": 6,
+    "52w_high": 304.43,
+    "52w_low": 208.92,
+    "52w_high_proximity_pct": 0.0182,
+    "52w_low_proximity_pct": 0.4306
+  },
+  "fundamental": {
+    "pe_ratio": 28.683302,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 6.0870447,
+    "de_ratio": 30.958,
+    "fcf_yield": 0.0404,
+    "eps_growth_5y": 0.605,
+    "revenue_growth_ttm": 0.087,
+    "gross_margin": 0.51527,
+    "operating_margin": 0.36196,
+    "net_margin": 0.23334,
+    "market_cap": 31305371648,
+    "enterprise_value": 30350305280,
+    "dividend_yield": 0.94,
+    "payout_ratio": 0.2591,
+    "insider_ownership_pct": 0.00254,
+    "institutional_ownership_pct": 0.89271003,
+    "short_ratio": 2.87,
+    "beta": 0.369
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 282.56,
+    "entry_range_high": 300.37,
+    "target_range_low": 313.98,
+    "target_range_high": 336.41,
+    "stop_range_low": 270.31,
+    "stop_range_high": 284.54,
+    "target_price": 320.39,
+    "stop_loss": 284.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.393404-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 373.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 94.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 208.92,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 248,
+      "date": "2026-02-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 53%. CBOE is currently trading just below its 52-week high, with immediate resistance at $302.27 (BB Upper). A breakout above this level could signal further upside. A potential BUY ZONE exists between $289.79 (EMA20) and $295, offering a pullback entry. Traders might enter on a confirmed breakout above $302.27, targeting a PROFIT ZONE near $304.43 (52W high), with a STOP LOSS ZONE placed below $289.79 (EMA20).\n\n### Fundamental Edge\nCBOE's revenue growth of 8.7% and a solid net margin of 23.3% indicate a healthy business. The premium valuation (P/E 28.68) suggests investors are willing to pay for this profitability and growth. This premium is justified if revenue growth continues to be strong, as it reflects potential future earnings.\n\n### Sector Context\nThe financials sector is currently exhibiting mixed performance, offering neither strong tailwinds nor significant headwinds for CBOE.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "+0.99%",
+    "key_metrics": {
+      "RSI": 61.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

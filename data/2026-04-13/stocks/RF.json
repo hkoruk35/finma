@@ -1,0 +1,158 @@
+{
+  "ticker": "RF",
+  "company": "Regions Financial Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.424973-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 27.67,
+    "open": 27.14,
+    "high": 27.73,
+    "low": 27.17,
+    "prev_close": 27.5,
+    "change_pct": 0.6,
+    "change_pct_1w": 3.46,
+    "change_pct_1m": 9.26,
+    "change_pct_1y": 44.18,
+    "volume": 3759441,
+    "avg_volume_30d": 14219174
+  },
+  "scores": {
+    "master_score": 50.03,
+    "technical_score": 42.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.3,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.03,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 59.6,
+    "macd": 0.1406,
+    "macd_signal": -0.1962,
+    "macd_histogram": 0.3368,
+    "macd_crossover": "neutral",
+    "ema_20": 26.72,
+    "ema_50": 26.96,
+    "ema_200": 25.87,
+    "ema_stack_bullish": false,
+    "bb_upper": 27.97,
+    "bb_middle": 26.12,
+    "bb_lower": 24.26,
+    "bb_width": 0.1421,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.2,
+    "atr": 0.72,
+    "atr_pct": 0.026,
+    "obv_trend": "UP",
+    "mfi": 56.9,
+    "cmf": 0.085,
+    "stoch_k": 82.9,
+    "stoch_d": 86.2,
+    "rvol": 0.7,
+    "volume_5d_avg": 9963468,
+    "green_days_10d": 8,
+    "52w_high": 30.66,
+    "52w_low": 18.2,
+    "52w_high_proximity_pct": 0.0975,
+    "52w_low_proximity_pct": 0.5201
+  },
+  "fundamental": {
+    "pe_ratio": 12.028261,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 1.3571254,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.052,
+    "revenue_growth_ttm": 0.065,
+    "gross_margin": 0.0,
+    "operating_margin": 0.39203,
+    "net_margin": 0.30556,
+    "market_cap": 23888912384,
+    "enterprise_value": 19801434112,
+    "dividend_yield": 3.8,
+    "payout_ratio": 0.44779998,
+    "insider_ownership_pct": 0.0025,
+    "institutional_ownership_pct": 0.90650004,
+    "short_ratio": 3.55,
+    "beta": 1.045
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 26.83,
+    "entry_range_high": 27.81,
+    "target_range_low": 29.23,
+    "target_range_high": 31.32,
+    "stop_range_low": 24.92,
+    "stop_range_high": 26.23,
+    "target_price": 29.83,
+    "stop_loss": 26.23,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.424935-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 34.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 380.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 18.2,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 63393,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "+0.60%",
+    "key_metrics": {
+      "RSI": 59.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

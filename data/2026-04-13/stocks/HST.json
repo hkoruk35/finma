@@ -1,0 +1,160 @@
+{
+  "ticker": "HST",
+  "company": "Host Hotels & Resorts, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.803681-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Hotel & Motel",
+  "price": {
+    "current": 20.07,
+    "open": 20.09,
+    "high": 20.14,
+    "low": 19.77,
+    "prev_close": 20.14,
+    "change_pct": -0.37,
+    "change_pct_1w": 4.34,
+    "change_pct_1m": 8.44,
+    "change_pct_1y": 48.97,
+    "volume": 2215469,
+    "avg_volume_30d": 9213108
+  },
+  "scores": {
+    "master_score": 65.69,
+    "technical_score": 55.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.9,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 65.69,
+    "confidence": 0.66,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.6,
+    "macd": 0.2217,
+    "macd_signal": 0.0812,
+    "macd_histogram": 0.1405,
+    "macd_crossover": "neutral",
+    "ema_20": 19.34,
+    "ema_50": 19.05,
+    "ema_200": 17.52,
+    "ema_stack_bullish": true,
+    "bb_upper": 20.09,
+    "bb_middle": 19.12,
+    "bb_lower": 18.15,
+    "bb_width": 0.1017,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.6,
+    "atr": 0.51,
+    "atr_pct": 0.0254,
+    "obv_trend": "UP",
+    "mfi": 79.8,
+    "cmf": -0.165,
+    "stoch_k": 89.5,
+    "stoch_d": 89.8,
+    "rvol": 1.0,
+    "volume_5d_avg": 9242533,
+    "green_days_10d": 7,
+    "52w_high": 20.18,
+    "52w_low": 12.7,
+    "52w_high_proximity_pct": 0.0059,
+    "52w_low_proximity_pct": 0.5797
+  },
+  "fundamental": {
+    "pe_ratio": 18.24091,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 2.1043525,
+    "de_ratio": 83.779,
+    "fcf_yield": 0.0846,
+    "eps_growth_5y": 0.271,
+    "revenue_growth_ttm": 0.128,
+    "gross_margin": 0.28832,
+    "operating_margin": 0.12087,
+    "net_margin": 0.12476,
+    "market_cap": 13976806400,
+    "enterprise_value": 18898335744,
+    "dividend_yield": 3.97,
+    "payout_ratio": 0.72730005,
+    "insider_ownership_pct": 0.01491,
+    "institutional_ownership_pct": 1.05679,
+    "short_ratio": 3.26,
+    "beta": 1.131
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 18.95,
+    "entry_range_high": 20.17,
+    "target_range_low": 21.17,
+    "target_range_high": 22.68,
+    "stop_range_low": 18.1,
+    "stop_range_high": 19.05,
+    "target_price": 21.6,
+    "stop_loss": 19.05,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.803664-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 25.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 397.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.7,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12673,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "HST currently trades at $20.15, near its 52-week high, with a FinMA score of NEUTRAL STAY (67% confidence). Technically, RSI is at 64.1 and MACD is neutral. EMA alignment is bullish but ADX shows a weak trend strength (14.1). HST's valuation, with a P/E of 18.3, is below the sector median. The company boasts 12.8% TTM revenue growth and solid margins (28.8% gross, 12.5% net), plus a high dividend yield of 4.02%. With no recent news to act as a catalyst, HST's price movement is likely influenced by broader market trends rather than company-specific events. Key technical levels to watch will be resistance at recent 52 week highs.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 66,
+    "price_change_display": "-0.37%",
+    "key_metrics": {
+      "RSI": 62.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

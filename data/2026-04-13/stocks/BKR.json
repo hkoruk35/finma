@@ -1,0 +1,158 @@
+{
+  "ticker": "BKR",
+  "company": "Baker Hughes Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.469747-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 62.71,
+    "open": 62.69,
+    "high": 63.56,
+    "low": 62.58,
+    "prev_close": 62.83,
+    "change_pct": -0.19,
+    "change_pct_1w": 3.31,
+    "change_pct_1m": 12.18,
+    "change_pct_1y": 65.11,
+    "volume": 2868214,
+    "avg_volume_30d": 10094467
+  },
+  "scores": {
+    "master_score": 48.72,
+    "technical_score": 70.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 47.2,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.72,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 57.3,
+    "macd": 0.7957,
+    "macd_signal": 0.654,
+    "macd_histogram": 0.1417,
+    "macd_crossover": "neutral",
+    "ema_20": 61.45,
+    "ema_50": 59.5,
+    "ema_200": 51.64,
+    "ema_stack_bullish": true,
+    "bb_upper": 65.51,
+    "bb_middle": 61.07,
+    "bb_lower": 56.64,
+    "bb_width": 0.1452,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 21.4,
+    "atr": 1.9,
+    "atr_pct": 0.0302,
+    "obv_trend": "UP",
+    "mfi": 51.1,
+    "cmf": 0.12,
+    "stoch_k": 61.5,
+    "stoch_d": 66.3,
+    "rvol": 0.62,
+    "volume_5d_avg": 6213062,
+    "green_days_10d": 6,
+    "52w_high": 65.26,
+    "52w_low": 34.7,
+    "52w_high_proximity_pct": 0.0391,
+    "52w_low_proximity_pct": 0.8074
+  },
+  "fundamental": {
+    "pe_ratio": 24.119232,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 3.2856543,
+    "de_ratio": 35.255,
+    "fcf_yield": 0.0181,
+    "eps_growth_5y": -0.256,
+    "revenue_growth_ttm": 0.003,
+    "gross_margin": 0.23676,
+    "operating_margin": 0.1251,
+    "net_margin": 0.09332,
+    "market_cap": 62193102848,
+    "enterprise_value": 65253900288,
+    "dividend_yield": 1.46,
+    "payout_ratio": 0.3538,
+    "insider_ownership_pct": 0.0015199999,
+    "institutional_ownership_pct": 1.01675,
+    "short_ratio": 2.27,
+    "beta": 0.898
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 59.2,
+    "entry_range_high": 63.02,
+    "target_range_low": 67.04,
+    "target_range_high": 71.83,
+    "stop_range_low": 55.96,
+    "stop_range_high": 58.91,
+    "target_price": 68.41,
+    "stop_loss": 58.91,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.469729-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 78.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 146.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.7,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 60626,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-0.19%",
+    "key_metrics": {
+      "RSI": 57.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

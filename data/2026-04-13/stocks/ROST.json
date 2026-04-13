@@ -1,0 +1,160 @@
+{
+  "ticker": "ROST",
+  "company": "Ross Stores, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.225708-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 220.68,
+    "open": 220.55,
+    "high": 221.81,
+    "low": 219.91,
+    "prev_close": 221.16,
+    "change_pct": -0.22,
+    "change_pct_1w": -0.24,
+    "change_pct_1m": 5.39,
+    "change_pct_1y": 62.69,
+    "volume": 747145,
+    "avg_volume_30d": 2847191
+  },
+  "scores": {
+    "master_score": 48.1,
+    "technical_score": 57.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 48.1,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 59.6,
+    "macd": 4.5238,
+    "macd_signal": 4.3862,
+    "macd_histogram": 0.1376,
+    "macd_crossover": "neutral",
+    "ema_20": 216.29,
+    "ema_50": 207.38,
+    "ema_200": 178.18,
+    "ema_stack_bullish": true,
+    "bb_upper": 226.3,
+    "bb_middle": 215.56,
+    "bb_lower": 204.82,
+    "bb_width": 0.0996,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.4,
+    "atr": 4.68,
+    "atr_pct": 0.0212,
+    "obv_trend": "UP",
+    "mfi": 60.5,
+    "cmf": 0.094,
+    "stoch_k": 68.9,
+    "stoch_d": 77.1,
+    "rvol": 0.78,
+    "volume_5d_avg": 2218589,
+    "green_days_10d": 6,
+    "52w_high": 224.91,
+    "52w_low": 125.73,
+    "52w_high_proximity_pct": 0.0188,
+    "52w_low_proximity_pct": 0.7552
+  },
+  "fundamental": {
+    "pe_ratio": 33.385777,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 11.496145,
+    "de_ratio": 84.241,
+    "fcf_yield": 0.0229,
+    "eps_growth_5y": 0.118,
+    "revenue_growth_ttm": 0.122,
+    "gross_margin": 0.32562,
+    "operating_margin": 0.12269,
+    "net_margin": 0.094289996,
+    "market_cap": 71377821696,
+    "enterprise_value": 71910375424,
+    "dividend_yield": 0.8,
+    "payout_ratio": 0.2451,
+    "insider_ownership_pct": 0.021370001,
+    "institutional_ownership_pct": 0.93801004,
+    "short_ratio": 2.33,
+    "beta": 0.927
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 206.34,
+    "entry_range_high": 221.78,
+    "target_range_low": 230.03,
+    "target_range_high": 246.46,
+    "stop_range_low": 200.75,
+    "stop_range_high": 211.32,
+    "target_price": 234.72,
+    "stop_loss": 211.32,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.225688-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 275.85,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 80.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 125.73,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 565,
+      "date": "2026-03-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "ROST exhibits a NEGATIVE BIAS with a FinMA score rating of 53%. Trading near its 52-week high ($225), ROST shows bullish EMA alignment, but a weakening ADX at 20.2 suggests diminishing trend strength. Volume is below average at 0.69x.\n\nDespite solid 12.2% revenue growth, ROST's high P/E of 33.7 relative to the sector median of 25.6 raises valuation concerns. While margins are healthy, the premium valuation leaves little room for error. A potential catalyst for downward price action is any indication of slowing consumer spending impacting discount retailers. Key support levels to watch are around $215.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-0.22%",
+    "key_metrics": {
+      "RSI": 59.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

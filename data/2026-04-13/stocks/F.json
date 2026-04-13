@@ -1,0 +1,160 @@
+{
+  "ticker": "F",
+  "company": "Ford Motor Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.015139-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 12.07,
+    "open": 12.03,
+    "high": 12.12,
+    "low": 11.92,
+    "prev_close": 12.13,
+    "change_pct": -0.45,
+    "change_pct_1w": 4.01,
+    "change_pct_1m": 0.29,
+    "change_pct_1y": 33.63,
+    "volume": 15683251,
+    "avg_volume_30d": 52549101
+  },
+  "scores": {
+    "master_score": 28.35,
+    "technical_score": 12.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 28.35,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 50.2,
+    "macd": -0.1583,
+    "macd_signal": -0.2966,
+    "macd_histogram": 0.1383,
+    "macd_crossover": "neutral",
+    "ema_20": 11.95,
+    "ema_50": 12.4,
+    "ema_200": 12.13,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.26,
+    "bb_middle": 11.73,
+    "bb_lower": 11.2,
+    "bb_width": 0.0899,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.9,
+    "atr": 0.34,
+    "atr_pct": 0.0281,
+    "obv_trend": "UP",
+    "mfi": 45.9,
+    "cmf": 0.05,
+    "stoch_k": 73.7,
+    "stoch_d": 83.0,
+    "rvol": 0.67,
+    "volume_5d_avg": 35345870,
+    "green_days_10d": 5,
+    "52w_high": 14.43,
+    "52w_low": 8.69,
+    "52w_high_proximity_pct": 0.1632,
+    "52w_low_proximity_pct": 0.389
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 1.3397316,
+    "de_ratio": 460.639,
+    "fcf_yield": 0.0363,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.048,
+    "gross_margin": 0.0581,
+    "operating_margin": -0.0669,
+    "net_margin": -0.04369,
+    "market_cap": 48433815552,
+    "enterprise_value": 185725337600,
+    "dividend_yield": 4.95,
+    "payout_ratio": 0.641,
+    "insider_ownership_pct": 0.00281,
+    "institutional_ownership_pct": 0.68,
+    "short_ratio": 0.0,
+    "beta": 1.71
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 12.01,
+    "entry_range_high": 12.13,
+    "target_range_low": 12.83,
+    "target_range_high": 13.74,
+    "stop_range_low": 10.82,
+    "stop_range_high": 11.39,
+    "target_price": 13.09,
+    "stop_loss": 11.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.015111-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 495.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 8.69,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 282192,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 28%. Ford is currently trading at $12.07, finding some support around the EMA20 ($11.95) and EMA200 ($12.13) but capped by the EMA50 ($12.40). A short-term trader might consider a short position if the price fails to hold the EMA200 and breaks below the BB Lower ($11.20) expecting a move toward the $10.00 level. STOP LOSS ZONE: $12.45; BUY ZONE: $11.00–$11.20; PROFIT ZONE: $10.00–$10.20.\n\n### Fundamental Edge\nFord's negative revenue growth (-4.8% TTM) and negative net margin (-4.4%) offer little fundamental support for a long position. Without any recent positive catalyst, there is no immediate reason to believe Ford will outperform, making a short position a speculative play on continued weakness.\n\n### Sector Context\nThe Consumer Discretionary sector's mixed performance provides little directional guidance, leaving Ford vulnerable to its own specific challenges.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-0.45%",
+    "key_metrics": {
+      "RSI": 50.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

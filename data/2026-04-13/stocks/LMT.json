@@ -1,0 +1,158 @@
+{
+  "ticker": "LMT",
+  "company": "Lockheed Martin Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.567677-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 617.7,
+    "open": 617.87,
+    "high": 622.51,
+    "low": 615.16,
+    "prev_close": 613.72,
+    "change_pct": 0.65,
+    "change_pct_1w": -3.17,
+    "change_pct_1m": -5.38,
+    "change_pct_1y": 37.28,
+    "volume": 275169,
+    "avg_volume_30d": 1558852
+  },
+  "scores": {
+    "master_score": 49.12,
+    "technical_score": 42.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.7,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 49.12,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 46.0,
+    "macd": -3.8947,
+    "macd_signal": -3.4615,
+    "macd_histogram": -0.4332,
+    "macd_crossover": "neutral",
+    "ema_20": 625.41,
+    "ema_50": 617.26,
+    "ema_200": 539.49,
+    "ema_stack_bullish": false,
+    "bb_upper": 647.86,
+    "bb_middle": 623.77,
+    "bb_lower": 599.67,
+    "bb_width": 0.0773,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.2,
+    "atr": 16.09,
+    "atr_pct": 0.026,
+    "obv_trend": "UP",
+    "mfi": 46.5,
+    "cmf": -0.052,
+    "stoch_k": 54.1,
+    "stoch_d": 55.4,
+    "rvol": 0.52,
+    "volume_5d_avg": 814833,
+    "green_days_10d": 6,
+    "52w_high": 676.7,
+    "52w_low": 402.57,
+    "52w_high_proximity_pct": 0.0872,
+    "52w_low_proximity_pct": 0.5344
+  },
+  "fundamental": {
+    "pe_ratio": 28.756985,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 21.046713,
+    "de_ratio": 338.804,
+    "fcf_yield": 0.0371,
+    "eps_growth_5y": 1.61,
+    "revenue_growth_ttm": 0.091,
+    "gross_margin": 0.1024,
+    "operating_margin": 0.090100005,
+    "net_margin": 0.06685,
+    "market_cap": 142356447232,
+    "enterprise_value": 159854837760,
+    "dividend_yield": 2.2,
+    "payout_ratio": 0.62119997,
+    "insider_ownership_pct": 0.00091,
+    "institutional_ownership_pct": 0.74971,
+    "short_ratio": 1.33,
+    "beta": 0.24
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 614.17,
+    "entry_range_high": 620.79,
+    "target_range_low": 652.65,
+    "target_range_high": 699.27,
+    "stop_range_low": 556.24,
+    "stop_range_high": 585.52,
+    "target_price": 665.97,
+    "stop_loss": 585.52,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.567653-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 772.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 220.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 402.57,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 415,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "+0.65%",
+    "key_metrics": {
+      "RSI": 46.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

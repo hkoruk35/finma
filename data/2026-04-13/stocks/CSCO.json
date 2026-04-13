@@ -1,0 +1,161 @@
+{
+  "ticker": "CSCO",
+  "company": "Cisco Systems, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.962818-04:00",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 81.78,
+    "open": 82.04,
+    "high": 82.18,
+    "low": 81.25,
+    "prev_close": 82.22,
+    "change_pct": -0.54,
+    "change_pct_1w": 1.67,
+    "change_pct_1m": 5.77,
+    "change_pct_1y": 43.92,
+    "volume": 8093985,
+    "avg_volume_30d": 22101766
+  },
+  "scores": {
+    "master_score": 56.31,
+    "technical_score": 52.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.1,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 56.31,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 56.7,
+    "macd": 0.9769,
+    "macd_signal": 0.5905,
+    "macd_histogram": 0.3864,
+    "macd_crossover": "neutral",
+    "ema_20": 80.14,
+    "ema_50": 78.96,
+    "ema_200": 73.57,
+    "ema_stack_bullish": true,
+    "bb_upper": 83.87,
+    "bb_middle": 79.68,
+    "bb_lower": 75.49,
+    "bb_width": 0.1052,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.8,
+    "atr": 2.12,
+    "atr_pct": 0.0259,
+    "obv_trend": "UP",
+    "mfi": 65.0,
+    "cmf": -0.03,
+    "stoch_k": 66.3,
+    "stoch_d": 73.2,
+    "rvol": 0.69,
+    "volume_5d_avg": 15264877,
+    "green_days_10d": 6,
+    "52w_high": 86.31,
+    "52w_low": 53.15,
+    "52w_high_proximity_pct": 0.0525,
+    "52w_low_proximity_pct": 0.5388
+  },
+  "fundamental": {
+    "pe_ratio": 29.417267,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 6.7670665,
+    "de_ratio": 66.509,
+    "fcf_yield": 0.0313,
+    "eps_growth_5y": 0.312,
+    "revenue_growth_ttm": 0.097,
+    "gross_margin": 0.64814,
+    "operating_margin": 0.24868,
+    "net_margin": 0.18756,
+    "market_cap": 323120496640,
+    "enterprise_value": 340723204096,
+    "dividend_yield": 2.04,
+    "payout_ratio": 0.5899,
+    "insider_ownership_pct": 0.00064000004,
+    "institutional_ownership_pct": 0.82066,
+    "short_ratio": 3.04,
+    "beta": 0.819
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 78.57,
+    "entry_range_high": 82.19,
+    "target_range_low": 86.38,
+    "target_range_high": 92.55,
+    "stop_range_low": 73.66,
+    "stop_range_high": 77.54,
+    "target_price": 88.14,
+    "stop_loss": 77.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.962800-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 102.22,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 204.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 53.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2333,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CSCO currently trades at $82.26, down 1.09% today, with the price near its 52-week high. The FinMA score is NEUTRAL STAY.\n\nTechnicals show bullish EMA alignment, but weak ADX strength at 13.9 and low relative volume (0.65x) suggest limited momentum.\n\nFundamentally, CSCO's P/E of 29.59 shows undervaluation compared to the sector's 39.22 median. It indicates strong profitability with a 64.8% gross margin and 18.8% net margin. Revenue growth sits at 9.7% TTM.\n\nCatalyst Watch: Monitor if the extraordinary 202.00% dividend yield is sustainable, which could significantly impact investor sentiment. Key support is around $78, resistance at $84.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "-0.54%",
+    "key_metrics": {
+      "RSI": 56.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

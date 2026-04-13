@@ -1,0 +1,160 @@
+{
+  "ticker": "RY",
+  "company": "Royal Bank of Canada",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.347133-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 172.52,
+    "open": 171.11,
+    "high": 172.55,
+    "low": 170.13,
+    "prev_close": 171.91,
+    "change_pct": 0.35,
+    "change_pct_1w": 4.91,
+    "change_pct_1m": 5.86,
+    "change_pct_1y": 54.38,
+    "volume": 222496,
+    "avg_volume_30d": 1341543
+  },
+  "scores": {
+    "master_score": 53.93,
+    "technical_score": 63.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 68.0,
+    "sector_score": 33.3,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 53.93,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.8,
+    "macd": 1.3527,
+    "macd_signal": -0.1926,
+    "macd_histogram": 1.5453,
+    "macd_crossover": "neutral",
+    "ema_20": 165.8,
+    "ema_50": 165.44,
+    "ema_200": 153.76,
+    "ema_stack_bullish": true,
+    "bb_upper": 172.2,
+    "bb_middle": 163.79,
+    "bb_lower": 155.38,
+    "bb_width": 0.1027,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.4,
+    "atr": 2.79,
+    "atr_pct": 0.0162,
+    "obv_trend": "UP",
+    "mfi": 62.6,
+    "cmf": -0.038,
+    "stoch_k": 99.8,
+    "stoch_d": 97.4,
+    "rvol": 1.08,
+    "volume_5d_avg": 1443759,
+    "green_days_10d": 8,
+    "52w_high": 175.46,
+    "52w_low": 108.04,
+    "52w_high_proximity_pct": 0.0168,
+    "52w_low_proximity_pct": 0.5969
+  },
+  "fundamental": {
+    "pe_ratio": 16.430477,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 2.604034,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.138,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.0,
+    "operating_margin": 0.46194,
+    "net_margin": 0.33137,
+    "market_cap": 240862642176,
+    "enterprise_value": -54867804160,
+    "dividend_yield": 2.79,
+    "payout_ratio": 0.42580003,
+    "insider_ownership_pct": 0.0005,
+    "institutional_ownership_pct": 0.48441002,
+    "short_ratio": 3.92,
+    "beta": 0.919
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 164.61,
+    "entry_range_high": 173.38,
+    "target_range_low": 177.27,
+    "target_range_high": 189.93,
+    "stop_range_low": 158.59,
+    "stop_range_high": 166.94,
+    "target_price": 180.89,
+    "stop_loss": 166.94,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.347094-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 215.65,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 279.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 108.04,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 33,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 250000,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. RY is currently testing resistance near its 52-week high, with price bumping against the upper Bollinger Band at $172.20. A trader might consider a small pullback entry near the EMA20 ($165.80) to capitalize on the established bullish trend and the potential for a breakout. The BUY ZONE sits between $165.44 (EMA50) and $166.50, PROFIT ZONE starts at $174, targeting a move towards $176, and the STOP LOSS ZONE is placed below $163.50 to protect against a trend reversal.\n\n### Fundamental Edge\nRY's strong net margin of 33.1% suggests efficient operations and profitability, which combined with a revenue growth of 7.5%, indicates the bank is expanding its income stream. Given its P/E of 16.43, slightly above sector averages, traders are betting on continued growth, supported by its historical stability and perceived safety as a major Canadian bank.\n\n### Sector Context\nThe financial sector currently demonstrates moderate strength, neither strongly aiding nor hindering RY's individual performance.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+0.35%",
+    "key_metrics": {
+      "RSI": 67.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

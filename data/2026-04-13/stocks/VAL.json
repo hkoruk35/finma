@@ -1,0 +1,160 @@
+{
+  "ticker": "VAL",
+  "company": "Valaris Limited",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.490799-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 100.01,
+    "open": 98.17,
+    "high": 100.79,
+    "low": 98.64,
+    "prev_close": 97.59,
+    "change_pct": 2.48,
+    "change_pct_1w": 2.64,
+    "change_pct_1m": 7.77,
+    "change_pct_1y": 200.51,
+    "volume": 256109,
+    "avg_volume_30d": 1002846
+  },
+  "scores": {
+    "master_score": 53.42,
+    "technical_score": 57.0,
+    "fundamental_score": 65.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 47.2,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 53.42,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.8,
+    "macd": 2.6586,
+    "macd_signal": 3.2493,
+    "macd_histogram": -0.5907,
+    "macd_crossover": "neutral",
+    "ema_20": 97.02,
+    "ema_50": 88.89,
+    "ema_200": 65.54,
+    "ema_stack_bullish": true,
+    "bb_upper": 103.26,
+    "bb_middle": 97.55,
+    "bb_lower": 91.84,
+    "bb_width": 0.117,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 38.6,
+    "atr": 4.56,
+    "atr_pct": 0.0456,
+    "obv_trend": "DOWN",
+    "mfi": 56.1,
+    "cmf": -0.029,
+    "stoch_k": 54.7,
+    "stoch_d": 48.3,
+    "rvol": 0.8,
+    "volume_5d_avg": 797841,
+    "green_days_10d": 4,
+    "52w_high": 102.24,
+    "52w_low": 30.04,
+    "52w_high_proximity_pct": 0.0218,
+    "52w_low_proximity_pct": 2.3292
+  },
+  "fundamental": {
+    "pe_ratio": 7.215729,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 2.1834815,
+    "de_ratio": 36.539,
+    "fcf_yield": 0.0238,
+    "eps_growth_5y": 4.466,
+    "revenue_growth_ttm": -0.08,
+    "gross_margin": 0.31207,
+    "operating_margin": 0.10458,
+    "net_margin": 0.41486,
+    "market_cap": 6923785216,
+    "enterprise_value": 7317846016,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12082,
+    "institutional_ownership_pct": 0.88494,
+    "short_ratio": 7.33,
+    "beta": 1.044
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 88.45,
+    "entry_range_high": 100.51,
+    "target_range_low": 111.42,
+    "target_range_high": 119.37,
+    "stop_range_low": 86.35,
+    "stop_range_high": 90.89,
+    "target_price": 113.69,
+    "stop_loss": 90.89,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.490776-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 125.01,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 30.04,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1067,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 53%. VAL is currently trading near its 52-week high, with immediate resistance at the upper Bollinger Band of $103.26. Support lies at the EMA20 of $97.02 and the lower Bollinger Band of $91.84. A trader might consider establishing a position within a BUY ZONE between $97.02 and $91.84, anticipating a breakout above the $103.26 resistance, setting a PROFIT ZONE above $103.26, and placing a STOP LOSS ZONE below $91.84 to manage downside risk should the price fail to hold the lower band.\n\n### Fundamental Edge\nVAL presents a compelling valuation with a P/E of 7.22, potentially indicating undervaluation relative to its peers, despite a recent revenue growth decline. The strong net margin of 41.5% suggests efficient operations and profitability, offering a fundamental anchor should price action continue upward.\n\n### Sector Context\nThe energy sector exhibits mixed momentum, potentially creating both tailwinds and headwinds for VAL as it attempts to sustain its upward trajectory.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "+2.48%",
+    "key_metrics": {
+      "RSI": 58.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

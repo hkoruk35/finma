@@ -1,0 +1,158 @@
+{
+  "ticker": "RTX",
+  "company": "RTX Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.568643-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 200.9,
+    "open": 201.75,
+    "high": 202.99,
+    "low": 200.16,
+    "prev_close": 201.56,
+    "change_pct": -0.33,
+    "change_pct_1w": 1.25,
+    "change_pct_1m": -1.06,
+    "change_pct_1y": 59.06,
+    "volume": 1104289,
+    "avg_volume_30d": 5226819
+  },
+  "scores": {
+    "master_score": 39.87,
+    "technical_score": 47.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.87,
+    "confidence": 0.4,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.1,
+    "macd": 0.0434,
+    "macd_signal": -0.8761,
+    "macd_histogram": 0.9194,
+    "macd_crossover": "neutral",
+    "ema_20": 198.95,
+    "ema_50": 197.81,
+    "ema_200": 178.06,
+    "ema_stack_bullish": true,
+    "bb_upper": 207.87,
+    "bb_middle": 197.78,
+    "bb_lower": 187.69,
+    "bb_width": 0.102,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.5,
+    "atr": 4.62,
+    "atr_pct": 0.023,
+    "obv_trend": "DOWN",
+    "mfi": 53.4,
+    "cmf": -0.043,
+    "stoch_k": 77.4,
+    "stoch_d": 82.4,
+    "rvol": 0.56,
+    "volume_5d_avg": 2906537,
+    "green_days_10d": 5,
+    "52w_high": 212.16,
+    "52w_low": 111.86,
+    "52w_high_proximity_pct": 0.0531,
+    "52w_low_proximity_pct": 0.7959
+  },
+  "fundamental": {
+    "pe_ratio": 40.503025,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 4.133047,
+    "de_ratio": 59.513,
+    "fcf_yield": 0.0239,
+    "eps_growth_5y": 0.083,
+    "revenue_growth_ttm": 0.121,
+    "gross_margin": 0.20076999,
+    "operating_margin": 0.110240005,
+    "net_margin": 0.07598,
+    "market_cap": 270399504384,
+    "enterprise_value": 304965517312,
+    "dividend_yield": 1.35,
+    "payout_ratio": 0.53830004,
+    "insider_ownership_pct": 0.00072999997,
+    "institutional_ownership_pct": 0.80957,
+    "short_ratio": 2.3,
+    "beta": 0.428
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 196.82,
+    "entry_range_high": 201.9,
+    "target_range_low": 210.46,
+    "target_range_high": 225.5,
+    "stop_range_low": 182.08,
+    "stop_range_high": 191.66,
+    "target_price": 214.76,
+    "stop_loss": 191.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.568623-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 251.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 135.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 111.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12713,
+      "date": "2026-02-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 40,
+    "price_change_display": "-0.33%",
+    "key_metrics": {
+      "RSI": 53.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

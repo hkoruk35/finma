@@ -1,0 +1,158 @@
+{
+  "ticker": "AROC",
+  "company": "Archrock, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.493655-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 36.53,
+    "open": 36.26,
+    "high": 36.78,
+    "low": 36.22,
+    "prev_close": 35.95,
+    "change_pct": 1.61,
+    "change_pct_1w": 4.67,
+    "change_pct_1m": 4.16,
+    "change_pct_1y": 60.61,
+    "volume": 424743,
+    "avg_volume_30d": 1670704
+  },
+  "scores": {
+    "master_score": 52.02,
+    "technical_score": 58.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 47.2,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.02,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 60.7,
+    "macd": 0.3823,
+    "macd_signal": 0.4226,
+    "macd_histogram": -0.0403,
+    "macd_crossover": "neutral",
+    "ema_20": 35.46,
+    "ema_50": 33.86,
+    "ema_200": 28.67,
+    "ema_stack_bullish": true,
+    "bb_upper": 37.25,
+    "bb_middle": 35.67,
+    "bb_lower": 34.08,
+    "bb_width": 0.089,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 25.6,
+    "atr": 1.07,
+    "atr_pct": 0.0292,
+    "obv_trend": "UP",
+    "mfi": 45.2,
+    "cmf": -0.06,
+    "stoch_k": 71.3,
+    "stoch_d": 61.4,
+    "rvol": 0.79,
+    "volume_5d_avg": 1313308,
+    "green_days_10d": 8,
+    "52w_high": 37.04,
+    "52w_low": 21.6,
+    "52w_high_proximity_pct": 0.0138,
+    "52w_low_proximity_pct": 0.6911
+  },
+  "fundamental": {
+    "pe_ratio": 19.961748,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 4.283034,
+    "de_ratio": 162.619,
+    "fcf_yield": 0.0021,
+    "eps_growth_5y": 0.954,
+    "revenue_growth_ttm": 0.155,
+    "gross_margin": 0.65806,
+    "operating_margin": 0.43232,
+    "net_margin": 0.21632999,
+    "market_cap": 6401802240,
+    "enterprise_value": 8713178112,
+    "dividend_yield": 2.31,
+    "payout_ratio": 0.4368,
+    "insider_ownership_pct": 0.029779999,
+    "institutional_ownership_pct": 0.99622,
+    "short_ratio": 4.16,
+    "beta": 0.904
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 33.69,
+    "entry_range_high": 36.71,
+    "target_range_low": 38.95,
+    "target_range_high": 41.73,
+    "stop_range_low": 32.67,
+    "stop_range_high": 34.39,
+    "target_price": 39.74,
+    "stop_loss": 34.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.493636-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 45.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 231.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 21.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 169550,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+1.61%",
+    "key_metrics": {
+      "RSI": 60.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

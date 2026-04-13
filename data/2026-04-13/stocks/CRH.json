@@ -1,0 +1,158 @@
+{
+  "ticker": "CRH",
+  "company": "CRH plc",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.560181-04:00",
+  "sector": "Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 116.44,
+    "open": 115.64,
+    "high": 116.61,
+    "low": 114.39,
+    "prev_close": 117.89,
+    "change_pct": -1.23,
+    "change_pct_1w": 9.51,
+    "change_pct_1m": 16.76,
+    "change_pct_1y": 31.76,
+    "volume": 2725670,
+    "avg_volume_30d": 5676139
+  },
+  "scores": {
+    "master_score": 48.99,
+    "technical_score": 40.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.9,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 48.99,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.4,
+    "macd": 0.8778,
+    "macd_signal": -1.3078,
+    "macd_histogram": 2.1856,
+    "macd_crossover": "neutral",
+    "ema_20": 109.31,
+    "ema_50": 111.9,
+    "ema_200": 112.11,
+    "ema_stack_bullish": false,
+    "bb_upper": 116.64,
+    "bb_middle": 106.35,
+    "bb_lower": 96.06,
+    "bb_width": 0.1936,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.3,
+    "atr": 3.8,
+    "atr_pct": 0.0326,
+    "obv_trend": "UP",
+    "mfi": 66.8,
+    "cmf": 0.105,
+    "stoch_k": 82.3,
+    "stoch_d": 89.2,
+    "rvol": 0.9,
+    "volume_5d_avg": 5101334,
+    "green_days_10d": 7,
+    "52w_high": 130.92,
+    "52w_low": 82.1,
+    "52w_high_proximity_pct": 0.1106,
+    "52w_low_proximity_pct": 0.4183
+  },
+  "fundamental": {
+    "pe_ratio": 21.132486,
+    "sector_pe_median": 24.066355,
+    "pb_ratio": 3.2435446,
+    "de_ratio": 77.341,
+    "fcf_yield": 0.0236,
+    "eps_growth_5y": 0.484,
+    "revenue_growth_ttm": 0.062,
+    "gross_margin": 0.36126,
+    "operating_margin": 0.15059,
+    "net_margin": 0.10022,
+    "market_cap": 77805338624,
+    "enterprise_value": 95864086528,
+    "dividend_yield": 1.27,
+    "payout_ratio": 0.26860002,
+    "insider_ownership_pct": 0.00139,
+    "institutional_ownership_pct": 0.90125,
+    "short_ratio": 2.09,
+    "beta": 1.241
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 111.34,
+    "entry_range_high": 117.02,
+    "target_range_low": 125.28,
+    "target_range_high": 134.23,
+    "stop_range_low": 103.4,
+    "stop_range_high": 108.84,
+    "target_price": 127.84,
+    "stop_loss": 108.84,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.560156-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 145.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 127.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 82.1,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 2000,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-1.23%",
+    "key_metrics": {
+      "RSI": 62.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "AXP",
+  "company": "American Express Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.384743-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 318.86,
+    "open": 311.18,
+    "high": 319.59,
+    "low": 310.0,
+    "prev_close": 313.5,
+    "change_pct": 1.71,
+    "change_pct_1w": 4.29,
+    "change_pct_1m": 5.96,
+    "change_pct_1y": 22.81,
+    "volume": 1062045,
+    "avg_volume_30d": 3572451
+  },
+  "scores": {
+    "master_score": 31.28,
+    "technical_score": 12.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.3,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 31.28,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 59.4,
+    "macd": -0.1006,
+    "macd_signal": -3.8729,
+    "macd_histogram": 3.7724,
+    "macd_crossover": "neutral",
+    "ema_20": 307.78,
+    "ema_50": 317.83,
+    "ema_200": 327.07,
+    "ema_stack_bullish": false,
+    "bb_upper": 318.51,
+    "bb_middle": 302.39,
+    "bb_lower": 286.26,
+    "bb_width": 0.1066,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.3,
+    "atr": 8.38,
+    "atr_pct": 0.0263,
+    "obv_trend": "UP",
+    "mfi": 52.5,
+    "cmf": 0.01,
+    "stoch_k": 88.6,
+    "stoch_d": 81.9,
+    "rvol": 0.61,
+    "volume_5d_avg": 2193849,
+    "green_days_10d": 7,
+    "52w_high": 382.83,
+    "52w_low": 239.99,
+    "52w_high_proximity_pct": 0.1671,
+    "52w_low_proximity_pct": 0.3286
+  },
+  "fundamental": {
+    "pe_ratio": 20.718647,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 6.5345516,
+    "de_ratio": 190.921,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.166,
+    "revenue_growth_ttm": 0.106,
+    "gross_margin": 0.63469005,
+    "operating_margin": 0.17459999,
+    "net_margin": 0.16174999,
+    "market_cap": 218933739520,
+    "enterprise_value": 231517487104,
+    "dividend_yield": 1.21,
+    "payout_ratio": 0.2133,
+    "insider_ownership_pct": 0.22225,
+    "institutional_ownership_pct": 0.64982,
+    "short_ratio": 3.11,
+    "beta": 1.133
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 316.24,
+    "entry_range_high": 320.45,
+    "target_range_low": 337.12,
+    "target_range_high": 361.2,
+    "stop_range_low": 287.0,
+    "stop_range_high": 302.1,
+    "target_price": 344.0,
+    "stop_loss": 302.1,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.384723-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 398.58,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 121.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 239.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 40,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "+1.71%",
+    "key_metrics": {
+      "RSI": 59.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

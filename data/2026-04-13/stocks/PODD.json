@@ -1,0 +1,160 @@
+{
+  "ticker": "PODD",
+  "company": "Insulet Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.316582-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 198.43,
+    "open": 196.23,
+    "high": 198.47,
+    "low": 194.61,
+    "prev_close": 196.93,
+    "change_pct": 0.76,
+    "change_pct_1w": -2.49,
+    "change_pct_1m": -15.95,
+    "change_pct_1y": -25.04,
+    "volume": 223362,
+    "avg_volume_30d": 939495
+  },
+  "scores": {
+    "master_score": 13.21,
+    "technical_score": 4.5,
+    "fundamental_score": 8.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 21.4,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 13.21,
+    "confidence": 0.13,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 25.9,
+    "macd": -10.8278,
+    "macd_signal": -10.3713,
+    "macd_histogram": -0.4565,
+    "macd_crossover": "neutral",
+    "ema_20": 212.25,
+    "ema_50": 231.93,
+    "ema_200": 272.24,
+    "ema_stack_bullish": false,
+    "bb_upper": 236.64,
+    "bb_middle": 213.48,
+    "bb_lower": 190.31,
+    "bb_width": 0.2171,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 43.7,
+    "atr": 7.2,
+    "atr_pct": 0.0363,
+    "obv_trend": "DOWN",
+    "mfi": 12.2,
+    "cmf": -0.195,
+    "stoch_k": 11.4,
+    "stoch_d": 7.2,
+    "rvol": 0.72,
+    "volume_5d_avg": 680072,
+    "green_days_10d": 3,
+    "52w_high": 352.82,
+    "52w_low": 196.93,
+    "52w_high_proximity_pct": 0.4376,
+    "52w_low_proximity_pct": 0.0076
+  },
+  "fundamental": {
+    "pe_ratio": 56.8553,
+    "sector_pe_median": 24.7599545,
+    "pb_ratio": 9.217923,
+    "de_ratio": 66.176,
+    "fcf_yield": 0.0111,
+    "eps_growth_5y": 0.039,
+    "revenue_growth_ttm": 0.312,
+    "gross_margin": 0.71633005,
+    "operating_margin": 0.18665001,
+    "net_margin": 0.091239996,
+    "market_cap": 13968295936,
+    "enterprise_value": 14149654528,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0031299999,
+    "institutional_ownership_pct": 1.05107,
+    "short_ratio": 2.17,
+    "beta": 1.47
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 197.44,
+    "entry_range_high": 199.42,
+    "target_range_low": 215.63,
+    "target_range_high": 231.03,
+    "stop_range_low": 174.83,
+    "stop_range_high": 184.03,
+    "target_price": 220.03,
+    "stop_loss": 184.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.316558-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 248.04,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 196.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2777,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.25,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 13%. PODD is currently trading near its 52-week low, with immediate resistance at $212.25 (EMA20). A short-term swing trade could be considered if the price breaks below the lower Bollinger Band at $190.31, potentially targeting a BUY ZONE between $185 and $190, expecting a bounce. The PROFIT ZONE would be $205-210. STOP LOSS ZONE should be set tightly at $180.\n\n### Fundamental Edge\nPODD exhibits strong revenue growth of 31.2% and solid gross margins (71.6%), signaling a company expanding its market presence and maintaining efficient operations. However, the high P/E ratio of 56.86 suggests it's trading at a premium, requiring sustained growth to justify its valuation; there is no recent news catalyst for justification.\n\n### Sector Context\nThe healthcare sector's current mixed performance provides no clear tailwind or headwind for PODD's individual performance, making this a company-specific play.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 13,
+    "price_change_display": "+0.76%",
+    "key_metrics": {
+      "RSI": 25.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

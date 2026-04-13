@@ -1,0 +1,158 @@
+{
+  "ticker": "UDR",
+  "company": "UDR, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.789175-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 34.67,
+    "open": 35.01,
+    "high": 35.07,
+    "low": 34.51,
+    "prev_close": 35.11,
+    "change_pct": -1.27,
+    "change_pct_1w": -0.33,
+    "change_pct_1m": -3.82,
+    "change_pct_1y": -11.73,
+    "volume": 967249,
+    "avg_volume_30d": 3275921
+  },
+  "scores": {
+    "master_score": 33.2,
+    "technical_score": 12.9,
+    "fundamental_score": 20.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.9,
+    "breakout_score": 0.0,
+    "value_score": 25.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 33.2,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 43.7,
+    "macd": -0.4034,
+    "macd_signal": -0.5845,
+    "macd_histogram": 0.1811,
+    "macd_crossover": "neutral",
+    "ema_20": 34.92,
+    "ema_50": 35.66,
+    "ema_200": 37.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 35.85,
+    "bb_middle": 34.58,
+    "bb_lower": 33.31,
+    "bb_width": 0.0735,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 36.0,
+    "atr": 0.69,
+    "atr_pct": 0.0199,
+    "obv_trend": "UP",
+    "mfi": 69.9,
+    "cmf": -0.361,
+    "stoch_k": 60.2,
+    "stoch_d": 73.0,
+    "rvol": 0.76,
+    "volume_5d_avg": 2485089,
+    "green_days_10d": 7,
+    "52w_high": 42.33,
+    "52w_low": 33.17,
+    "52w_high_proximity_pct": 0.1811,
+    "52w_low_proximity_pct": 0.0451
+  },
+  "fundamental": {
+    "pe_ratio": 30.676992,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 3.506474,
+    "de_ratio": 144.726,
+    "fcf_yield": 0.0684,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.015,
+    "gross_margin": 0.66621,
+    "operating_margin": 0.22202,
+    "net_margin": 0.21597,
+    "market_cap": 13050993664,
+    "enterprise_value": 18442493952,
+    "dividend_yield": 4.96,
+    "payout_ratio": 1.5177001,
+    "insider_ownership_pct": 0.00438,
+    "institutional_ownership_pct": 1.0805,
+    "short_ratio": 4.21,
+    "beta": 0.72
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 34.5,
+    "entry_range_high": 34.84,
+    "target_range_low": 36.01,
+    "target_range_high": 38.58,
+    "stop_range_low": 31.63,
+    "stop_range_high": 33.29,
+    "target_price": 36.74,
+    "stop_loss": 33.29,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.789157-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 43.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 496.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 33.17,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 92646,
+      "date": "2026-02-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "-1.27%",
+    "key_metrics": {
+      "RSI": 43.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

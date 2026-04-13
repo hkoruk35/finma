@@ -1,0 +1,158 @@
+{
+  "ticker": "BX",
+  "company": "Blackstone Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.365423-04:00",
+  "sector": "Financials",
+  "industry": "Asset Management",
+  "price": {
+    "current": 120.77,
+    "open": 115.54,
+    "high": 121.0,
+    "low": 115.2,
+    "prev_close": 114.83,
+    "change_pct": 5.17,
+    "change_pct_1w": 7.6,
+    "change_pct_1m": 18.26,
+    "change_pct_1y": -9.08,
+    "volume": 2853818,
+    "avg_volume_30d": 9741683
+  },
+  "scores": {
+    "master_score": 27.11,
+    "technical_score": 10.8,
+    "fundamental_score": 30.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.3,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 27.11,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 59.5,
+    "macd": -0.0391,
+    "macd_signal": -1.6334,
+    "macd_histogram": 1.5943,
+    "macd_crossover": "neutral",
+    "ema_20": 114.2,
+    "ema_50": 119.93,
+    "ema_200": 138.61,
+    "ema_stack_bullish": false,
+    "bb_upper": 119.4,
+    "bb_middle": 112.45,
+    "bb_lower": 105.51,
+    "bb_width": 0.1236,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.0,
+    "atr": 4.8,
+    "atr_pct": 0.0398,
+    "obv_trend": "DOWN",
+    "mfi": 51.1,
+    "cmf": 0.002,
+    "stoch_k": 98.5,
+    "stoch_d": 80.3,
+    "rvol": 0.52,
+    "volume_5d_avg": 5106023,
+    "green_days_10d": 5,
+    "52w_high": 184.87,
+    "52w_low": 102.12,
+    "52w_high_proximity_pct": 0.3467,
+    "52w_low_proximity_pct": 0.1826
+  },
+  "fundamental": {
+    "pe_ratio": 31.206718,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 10.915582,
+    "de_ratio": 66.531,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.425,
+    "revenue_growth_ttm": 0.506,
+    "gross_margin": 1.0,
+    "operating_margin": 0.52829,
+    "net_margin": 0.21243,
+    "market_cap": 147612581888,
+    "enterprise_value": 114940461056,
+    "dividend_yield": 4.13,
+    "payout_ratio": 1.2119,
+    "insider_ownership_pct": 0.010880001,
+    "institutional_ownership_pct": 0.70254,
+    "short_ratio": 1.92,
+    "beta": 1.735
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 119.33,
+    "entry_range_high": 121.37,
+    "target_range_low": 132.47,
+    "target_range_high": 141.93,
+    "stop_range_low": 105.61,
+    "stop_range_high": 111.17,
+    "target_price": 135.17,
+    "stop_loss": 111.17,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.365404-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 150.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 413.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 102.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1961,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
+    "price_change_display": "+5.17%",
+    "key_metrics": {
+      "RSI": 59.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

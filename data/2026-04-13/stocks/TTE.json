@@ -1,0 +1,161 @@
+{
+  "ticker": "TTE",
+  "company": "TotalEnergies SE",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.440062-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 92.76,
+    "open": 93.1,
+    "high": 93.36,
+    "low": 92.61,
+    "prev_close": 92.65,
+    "change_pct": 0.12,
+    "change_pct_1w": 0.55,
+    "change_pct_1m": 15.15,
+    "change_pct_1y": 70.46,
+    "volume": 885027,
+    "avg_volume_30d": 2625600
+  },
+  "scores": {
+    "master_score": 63.17,
+    "technical_score": 64.0,
+    "fundamental_score": 57.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 78.0,
+    "sector_score": 47.2,
+    "breakout_score": 50.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 63.17,
+    "confidence": 0.63,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 70.3,
+    "macd": 3.1475,
+    "macd_signal": 3.3485,
+    "macd_histogram": -0.201,
+    "macd_crossover": "neutral",
+    "ema_20": 88.66,
+    "ema_50": 82.57,
+    "ema_200": 69.88,
+    "ema_stack_bullish": true,
+    "bb_upper": 94.5,
+    "bb_middle": 89.22,
+    "bb_lower": 83.93,
+    "bb_width": 0.1185,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 44.2,
+    "atr": 2.19,
+    "atr_pct": 0.0236,
+    "obv_trend": "UP",
+    "mfi": 65.8,
+    "cmf": 0.039,
+    "stoch_k": 90.3,
+    "stoch_d": 80.4,
+    "rvol": 1.01,
+    "volume_5d_avg": 2659185,
+    "green_days_10d": 6,
+    "52w_high": 92.76,
+    "52w_low": 52.43,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.7691
+  },
+  "fundamental": {
+    "pe_ratio": 16.048443,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 1.730242,
+    "de_ratio": 52.263,
+    "fcf_yield": 0.0719,
+    "eps_growth_5y": -0.274,
+    "revenue_growth_ttm": -0.025,
+    "gross_margin": 0.35978,
+    "operating_margin": 0.08483,
+    "net_margin": 0.07199,
+    "market_cap": 197868388352,
+    "enterprise_value": 233054896128,
+    "dividend_yield": 3.95,
+    "payout_ratio": 0.6656,
+    "insider_ownership_pct": 0.09236,
+    "institutional_ownership_pct": 0.57407004,
+    "short_ratio": 1.61,
+    "beta": 0.064
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 82.16,
+    "entry_range_high": 93.22,
+    "target_range_low": 97.34,
+    "target_range_high": 104.3,
+    "stop_range_low": 83.96,
+    "stop_range_high": 88.38,
+    "target_price": 99.33,
+    "stop_loss": 88.38,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.440041-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 50.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 115.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 395.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 52.43,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9821,
+      "date": "2025-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: POSITIVE BIAS | Confidence: 63%. TTE is currently testing its 52-week high, with immediate resistance at the BB Upper of $94.50. A breakout above this level could signal further upside. Traders could consider a BUY ZONE between $92.76 and $90.50, anticipating continued momentum; the PROFIT ZONE would be $94.50 and beyond, targeting new 52-week highs. A STOP LOSS ZONE should be set below the EMA20 support at $88.66 to protect capital.\n\n### Fundamental Edge\nTTE presents a compelling case with a P/E of 16.05, suggesting it's undervalued relative to its peers. The healthy gross margin of 36.0% indicates strong profitability on its core operations. This combination of value and profitability, if sustained, provides a fundamental anchor for potential price appreciation.\n\n### Sector Context\nThe energy sector has shown relative strength lately, providing a tailwind for TTE's current bullish momentum.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 63,
+    "price_change_display": "+0.12%",
+    "key_metrics": {
+      "RSI": 70.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

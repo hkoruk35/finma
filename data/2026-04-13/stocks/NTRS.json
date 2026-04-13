@@ -1,0 +1,160 @@
+{
+  "ticker": "NTRS",
+  "company": "Northern Trust Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.372078-04:00",
+  "sector": "Financials",
+  "industry": "Asset Management",
+  "price": {
+    "current": 152.32,
+    "open": 150.7,
+    "high": 153.29,
+    "low": 150.7,
+    "prev_close": 152.23,
+    "change_pct": 0.06,
+    "change_pct_1w": 6.28,
+    "change_pct_1m": 10.94,
+    "change_pct_1y": 67.43,
+    "volume": 188024,
+    "avg_volume_30d": 1014434
+  },
+  "scores": {
+    "master_score": 52.53,
+    "technical_score": 57.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.3,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.53,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.3,
+    "macd": 2.781,
+    "macd_signal": 0.9271,
+    "macd_histogram": 1.8539,
+    "macd_crossover": "neutral",
+    "ema_20": 144.17,
+    "ema_50": 142.39,
+    "ema_200": 132.78,
+    "ema_stack_bullish": true,
+    "bb_upper": 153.59,
+    "bb_middle": 141.36,
+    "bb_lower": 129.13,
+    "bb_width": 0.1731,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.6,
+    "atr": 3.8,
+    "atr_pct": 0.0249,
+    "obv_trend": "UP",
+    "mfi": 83.4,
+    "cmf": 0.064,
+    "stoch_k": 95.1,
+    "stoch_d": 96.4,
+    "rvol": 0.82,
+    "volume_5d_avg": 835604,
+    "green_days_10d": 9,
+    "52w_high": 153.94,
+    "52w_low": 84.65,
+    "52w_high_proximity_pct": 0.0105,
+    "52w_low_proximity_pct": 0.7995
+  },
+  "fundamental": {
+    "pe_ratio": 17.427929,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 2.3509452,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.076,
+    "revenue_growth_ttm": 0.082,
+    "gross_margin": 0.0,
+    "operating_margin": 0.28994,
+    "net_margin": 0.21459,
+    "market_cap": 28806377472,
+    "enterprise_value": 36443066368,
+    "dividend_yield": 2.07,
+    "payout_ratio": 0.3547,
+    "insider_ownership_pct": 0.00856,
+    "institutional_ownership_pct": 0.85752,
+    "short_ratio": 2.04,
+    "beta": 1.242
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 141.68,
+    "entry_range_high": 153.08,
+    "target_range_low": 160.45,
+    "target_range_high": 171.91,
+    "stop_range_low": 137.48,
+    "stop_range_high": 144.72,
+    "target_price": 163.72,
+    "stop_loss": 144.72,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.372059-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 190.4,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 207.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 84.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 65,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 53%. NTRS is trading near its 52-week high of $153.94, with immediate resistance at the Bollinger Band Upper of $153.59. A breakout above this level could signal further upside. The BUY ZONE is $144.17 - $142.39, based on the 20 and 50-day EMAs, which act as support. The PROFIT ZONE would be $153.60 and higher, targeting a new 52-week high. The STOP LOSS ZONE is placed below the EMA50 at $142.00 to protect against downside risk. Traders might consider an entry if the price consolidates above the upper Bollinger Band, confirming bullish momentum.\n\n### Fundamental Edge\nNTRS's revenue growth of 8.2% coupled with a net margin of 21.5% suggests a healthy and profitable business, justifying its current price level. This profitability provides a solid foundation for potential future growth.\n\n### Sector Context\nThe Financials sector is currently exhibiting mixed momentum, providing neither a strong tailwind nor a significant headwind for this trade.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "+0.06%",
+    "key_metrics": {
+      "RSI": 69.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

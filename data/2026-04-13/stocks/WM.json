@@ -1,0 +1,158 @@
+{
+  "ticker": "WM",
+  "company": "Waste Management, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.656493-04:00",
+  "sector": "Industrials",
+  "industry": "Waste Management",
+  "price": {
+    "current": 230.05,
+    "open": 230.23,
+    "high": 230.49,
+    "low": 228.18,
+    "prev_close": 229.45,
+    "change_pct": 0.26,
+    "change_pct_1w": -1.6,
+    "change_pct_1m": -3.2,
+    "change_pct_1y": 4.06,
+    "volume": 793342,
+    "avg_volume_30d": 2017274
+  },
+  "scores": {
+    "master_score": 41.87,
+    "technical_score": 42.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 41.87,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 46.6,
+    "macd": -0.495,
+    "macd_signal": -0.4992,
+    "macd_histogram": 0.0042,
+    "macd_crossover": "neutral",
+    "ema_20": 231.67,
+    "ema_50": 230.57,
+    "ema_200": 224.71,
+    "ema_stack_bullish": false,
+    "bb_upper": 238.14,
+    "bb_middle": 230.9,
+    "bb_lower": 223.67,
+    "bb_width": 0.0627,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 15.5,
+    "atr": 4.57,
+    "atr_pct": 0.0199,
+    "obv_trend": "DOWN",
+    "mfi": 52.2,
+    "cmf": -0.141,
+    "stoch_k": 64.3,
+    "stoch_d": 69.1,
+    "rvol": 0.76,
+    "volume_5d_avg": 1529948,
+    "green_days_10d": 5,
+    "52w_high": 245.53,
+    "52w_low": 195.24,
+    "52w_high_proximity_pct": 0.0631,
+    "52w_low_proximity_pct": 0.1783
+  },
+  "fundamental": {
+    "pe_ratio": 34.335823,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 9.27883,
+    "de_ratio": 239.385,
+    "fcf_yield": 0.0187,
+    "eps_growth_5y": 0.236,
+    "revenue_growth_ttm": 0.071,
+    "gross_margin": 0.40438,
+    "operating_margin": 0.20038,
+    "net_margin": 0.10744,
+    "market_cap": 92787392512,
+    "enterprise_value": 116262395904,
+    "dividend_yield": 1.49,
+    "payout_ratio": 0.4925,
+    "insider_ownership_pct": 0.00253,
+    "institutional_ownership_pct": 0.83891,
+    "short_ratio": 2.66,
+    "beta": 0.547
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 228.9,
+    "entry_range_high": 231.2,
+    "target_range_low": 238.88,
+    "target_range_high": 255.95,
+    "stop_range_low": 209.86,
+    "stop_range_high": 220.91,
+    "target_price": 243.76,
+    "stop_loss": 220.91,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.656474-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 287.56,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 149.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 195.24,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 28,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4211,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "+0.26%",
+    "key_metrics": {
+      "RSI": 46.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

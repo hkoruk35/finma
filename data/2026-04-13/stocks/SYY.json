@@ -1,0 +1,158 @@
+{
+  "ticker": "SYY",
+  "company": "Sysco Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.276270-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Food Distribution",
+  "price": {
+    "current": 73.28,
+    "open": 73.02,
+    "high": 73.73,
+    "low": 72.63,
+    "prev_close": 72.82,
+    "change_pct": 0.63,
+    "change_pct_1w": 0.05,
+    "change_pct_1m": -13.05,
+    "change_pct_1y": 6.07,
+    "volume": 2288264,
+    "avg_volume_30d": 5080858
+  },
+  "scores": {
+    "master_score": 26.03,
+    "technical_score": 10.8,
+    "fundamental_score": 24.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 27.5,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 26.03,
+    "confidence": 0.26,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 36.6,
+    "macd": -2.8929,
+    "macd_signal": -2.7637,
+    "macd_histogram": -0.1292,
+    "macd_crossover": "neutral",
+    "ema_20": 76.69,
+    "ema_50": 79.46,
+    "ema_200": 77.87,
+    "ema_stack_bullish": false,
+    "bb_upper": 87.11,
+    "bb_middle": 77.22,
+    "bb_lower": 67.33,
+    "bb_width": 0.2561,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 39.8,
+    "atr": 2.33,
+    "atr_pct": 0.0318,
+    "obv_trend": "UP",
+    "mfi": 32.3,
+    "cmf": 0.005,
+    "stoch_k": 36.4,
+    "stoch_d": 39.1,
+    "rvol": 1.06,
+    "volume_5d_avg": 5389392,
+    "green_days_10d": 5,
+    "52w_high": 90.48,
+    "52w_low": 67.73,
+    "52w_high_proximity_pct": 0.1901,
+    "52w_low_proximity_pct": 0.0819
+  },
+  "fundamental": {
+    "pe_ratio": 19.752022,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": 15.372351,
+    "de_ratio": 640.248,
+    "fcf_yield": 0.0499,
+    "eps_growth_5y": -0.012,
+    "revenue_growth_ttm": 0.03,
+    "gross_margin": 0.18462999,
+    "operating_margin": 0.03988,
+    "net_margin": 0.021760002,
+    "market_cap": 35096039424,
+    "enterprise_value": 48673730560,
+    "dividend_yield": 2.97,
+    "payout_ratio": 0.5741,
+    "insider_ownership_pct": 0.00207,
+    "institutional_ownership_pct": 0.89928,
+    "short_ratio": 2.12,
+    "beta": 0.693
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 72.91,
+    "entry_range_high": 73.65,
+    "target_range_low": 78.66,
+    "target_range_high": 84.28,
+    "stop_range_low": 65.19,
+    "stop_range_high": 68.62,
+    "target_price": 80.27,
+    "stop_loss": 68.62,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.276249-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 91.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 297.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 67.73,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 378,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 26,
+    "price_change_display": "+0.63%",
+    "key_metrics": {
+      "RSI": 36.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "GEV",
+  "company": "GE Vernova Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.607238-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 991.85,
+    "open": 998.0,
+    "high": 1007.38,
+    "low": 987.16,
+    "prev_close": 991.32,
+    "change_pct": 0.05,
+    "change_pct_1w": 10.53,
+    "change_pct_1m": 19.27,
+    "change_pct_1y": 204.39,
+    "volume": 765798,
+    "avg_volume_30d": 2471579
+  },
+  "scores": {
+    "master_score": 51.62,
+    "technical_score": 52.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 51.62,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.4,
+    "macd": 36.9956,
+    "macd_signal": 26.9007,
+    "macd_histogram": 10.0949,
+    "macd_crossover": "neutral",
+    "ema_20": 903.73,
+    "ema_50": 843.83,
+    "ema_200": 678.65,
+    "ema_stack_bullish": true,
+    "bb_upper": 990.55,
+    "bb_middle": 893.94,
+    "bb_lower": 797.34,
+    "bb_width": 0.2161,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.9,
+    "atr": 39.43,
+    "atr_pct": 0.0397,
+    "obv_trend": "UP",
+    "mfi": 69.2,
+    "cmf": -0.019,
+    "stoch_k": 92.2,
+    "stoch_d": 93.8,
+    "rvol": 0.71,
+    "volume_5d_avg": 1744879,
+    "green_days_10d": 8,
+    "52w_high": 991.85,
+    "52w_low": 309.04,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 2.2095
+  },
+  "fundamental": {
+    "pe_ratio": 56.19547,
+    "sector_pe_median": 33.8064085,
+    "pb_ratio": 23.916136,
+    "de_ratio": 9.727,
+    "fcf_yield": 0.0197,
+    "eps_growth_5y": 6.717,
+    "revenue_growth_ttm": 0.038,
+    "gross_margin": 0.20082001,
+    "operating_margin": 0.07384,
+    "net_margin": 0.1283,
+    "market_cap": 267332796416,
+    "enterprise_value": 260568940544,
+    "dividend_yield": 0.15,
+    "payout_ratio": 0.070700005,
+    "insider_ownership_pct": 0.00099,
+    "institutional_ownership_pct": 0.78946996,
+    "short_ratio": 2.69,
+    "beta": 1.196
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 839.61,
+    "entry_range_high": 996.81,
+    "target_range_low": 1087.94,
+    "target_range_high": 1165.65,
+    "stop_range_low": 867.34,
+    "stop_range_high": 912.99,
+    "target_price": 1110.14,
+    "stop_loss": 912.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.607213-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1239.81,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 15.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 309.04,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8505,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 4.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+0.05%",
+    "key_metrics": {
+      "RSI": 69.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

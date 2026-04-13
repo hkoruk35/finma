@@ -1,0 +1,160 @@
+{
+  "ticker": "HRL",
+  "company": "Hormel Foods Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.255064-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 20.51,
+    "open": 20.54,
+    "high": 20.57,
+    "low": 20.32,
+    "prev_close": 20.87,
+    "change_pct": -1.7,
+    "change_pct_1w": -6.15,
+    "change_pct_1m": -9.63,
+    "change_pct_1y": -27.83,
+    "volume": 2052827,
+    "avg_volume_30d": 4384324
+  },
+  "scores": {
+    "master_score": 20.89,
+    "technical_score": 5.4,
+    "fundamental_score": 39.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 27.5,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 20.89,
+    "confidence": 0.21,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 26.1,
+    "macd": -0.7067,
+    "macd_signal": -0.5584,
+    "macd_histogram": -0.1482,
+    "macd_crossover": "neutral",
+    "ema_20": 22.14,
+    "ema_50": 22.97,
+    "ema_200": 24.47,
+    "ema_stack_bullish": false,
+    "bb_upper": 23.68,
+    "bb_middle": 22.21,
+    "bb_lower": 20.73,
+    "bb_width": 0.1328,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 35.6,
+    "atr": 0.53,
+    "atr_pct": 0.0261,
+    "obv_trend": "DOWN",
+    "mfi": 34.0,
+    "cmf": -0.095,
+    "stoch_k": 6.8,
+    "stoch_d": 11.9,
+    "rvol": 1.12,
+    "volume_5d_avg": 4898185,
+    "green_days_10d": 2,
+    "52w_high": 30.47,
+    "52w_low": 20.51,
+    "52w_high_proximity_pct": 0.3266,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 23.050562,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": 1.4218879,
+    "de_ratio": 4.244,
+    "fcf_yield": 0.0338,
+    "eps_growth_5y": -0.051,
+    "revenue_growth_ttm": -0.029,
+    "gross_margin": 0.15609999,
+    "operating_margin": 0.11057,
+    "net_margin": 0.0403,
+    "market_cap": 11289080832,
+    "enterprise_value": 11160168448,
+    "dividend_yield": 5.61,
+    "payout_ratio": 1.3061999,
+    "insider_ownership_pct": 0.00465,
+    "institutional_ownership_pct": 0.92033,
+    "short_ratio": 5.43,
+    "beta": 0.358
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 20.41,
+    "entry_range_high": 20.61,
+    "target_range_low": 21.66,
+    "target_range_high": 23.21,
+    "stop_range_low": 18.48,
+    "stop_range_high": 19.45,
+    "target_price": 22.1,
+    "stop_loss": 19.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.255032-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 25.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 561.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 20.51,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2665,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 21%. HRL is currently testing its 52-week low around $20.51 and trading below the lower Bollinger Band at $20.73, indicating potential oversold conditions but also significant weakness. A short-term bounce might occur, but the overhead resistance at the 20-day EMA ($22.14) makes a sustained rally unlikely. BUY ZONE: $20.00-$20.73 (scalp only), PROFIT ZONE: $21.50-$22.14, STOP LOSS ZONE: $19.50.\n\n### Fundamental Edge\nHRL's revenue is contracting, but its P/E ratio suggests it may be trading at a discount relative to its sector peers. A potential catalyst would be a successful turnaround in revenue growth, but current trends do not support this.\n\n### Sector Context\nThe Consumer Staples sector is showing mixed performance, which is neither strongly supporting nor detracting from a potential short-term trade in HRL.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 21,
+    "price_change_display": "-1.70%",
+    "key_metrics": {
+      "RSI": 26.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

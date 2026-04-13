@@ -1,0 +1,158 @@
+{
+  "ticker": "SPGI",
+  "company": "S&P Global Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.399754-04:00",
+  "sector": "Financials",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 427.71,
+    "open": 416.8,
+    "high": 427.83,
+    "low": 416.01,
+    "prev_close": 415.42,
+    "change_pct": 2.96,
+    "change_pct_1w": -1.47,
+    "change_pct_1m": 1.91,
+    "change_pct_1y": -9.05,
+    "volume": 910719,
+    "avg_volume_30d": 2029420
+  },
+  "scores": {
+    "master_score": 28.11,
+    "technical_score": 10.8,
+    "fundamental_score": 42.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.3,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 28.11,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 49.6,
+    "macd": -2.7835,
+    "macd_signal": -4.3671,
+    "macd_histogram": 1.5836,
+    "macd_crossover": "neutral",
+    "ema_20": 426.23,
+    "ema_50": 439.97,
+    "ema_200": 480.23,
+    "ema_stack_bullish": false,
+    "bb_upper": 440.69,
+    "bb_middle": 423.59,
+    "bb_lower": 406.49,
+    "bb_width": 0.0807,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 24.4,
+    "atr": 12.36,
+    "atr_pct": 0.0289,
+    "obv_trend": "DOWN",
+    "mfi": 42.0,
+    "cmf": -0.009,
+    "stoch_k": 63.0,
+    "stoch_d": 49.5,
+    "rvol": 0.77,
+    "volume_5d_avg": 1564823,
+    "green_days_10d": 6,
+    "52w_high": 560.76,
+    "52w_low": 389.85,
+    "52w_high_proximity_pct": 0.2373,
+    "52w_low_proximity_pct": 0.0971
+  },
+  "fundamental": {
+    "pe_ratio": 29.175648,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 4.1058145,
+    "de_ratio": 37.912,
+    "fcf_yield": 0.0382,
+    "eps_growth_5y": 0.32,
+    "revenue_growth_ttm": 0.09,
+    "gross_margin": 0.70246005,
+    "operating_margin": 0.38252997,
+    "net_margin": 0.29154,
+    "market_cap": 127801237504,
+    "enterprise_value": 141057490944,
+    "dividend_yield": 0.93,
+    "payout_ratio": 0.2619,
+    "insider_ownership_pct": 0.00332,
+    "institutional_ownership_pct": 0.89742994,
+    "short_ratio": 1.64,
+    "beta": 1.204
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 425.57,
+    "entry_range_high": 429.85,
+    "target_range_low": 455.49,
+    "target_range_high": 488.03,
+    "stop_range_low": 382.84,
+    "stop_range_high": 402.99,
+    "target_price": 464.79,
+    "stop_loss": 402.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.399732-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 534.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 93.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 389.85,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1480,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "+2.96%",
+    "key_metrics": {
+      "RSI": 49.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

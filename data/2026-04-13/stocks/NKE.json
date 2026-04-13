@@ -1,0 +1,160 @@
+{
+  "ticker": "NKE",
+  "company": "NIKE, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.151949-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Footwear & Accessories",
+  "price": {
+    "current": 42.78,
+    "open": 42.23,
+    "high": 42.84,
+    "low": 42.09,
+    "prev_close": 42.62,
+    "change_pct": 0.39,
+    "change_pct_1w": -2.83,
+    "change_pct_1m": -20.96,
+    "change_pct_1y": -26.06,
+    "volume": 11642776,
+    "avg_volume_30d": 23380105
+  },
+  "scores": {
+    "master_score": 12.29,
+    "technical_score": 5.4,
+    "fundamental_score": 0.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 12.29,
+    "confidence": 0.12,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 23.7,
+    "macd": -4.0328,
+    "macd_signal": -3.5857,
+    "macd_histogram": -0.4471,
+    "macd_crossover": "neutral",
+    "ema_20": 48.41,
+    "ema_50": 54.05,
+    "ema_200": 62.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 58.7,
+    "bb_middle": 49.2,
+    "bb_lower": 39.7,
+    "bb_width": 0.3862,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 47.7,
+    "atr": 1.77,
+    "atr_pct": 0.0415,
+    "obv_trend": "DOWN",
+    "mfi": 29.9,
+    "cmf": -0.233,
+    "stoch_k": 5.7,
+    "stoch_d": 7.2,
+    "rvol": 1.11,
+    "volume_5d_avg": 25904195,
+    "green_days_10d": 4,
+    "52w_high": 77.81,
+    "52w_low": 42.62,
+    "52w_high_proximity_pct": 0.4502,
+    "52w_low_proximity_pct": 0.0039
+  },
+  "fundamental": {
+    "pe_ratio": 28.148027,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 4.4956393,
+    "de_ratio": 79.333,
+    "fcf_yield": 0.0207,
+    "eps_growth_5y": -0.348,
+    "revenue_growth_ttm": 0.001,
+    "gross_margin": 0.40919998,
+    "operating_margin": 0.06942,
+    "net_margin": 0.04836,
+    "market_cap": 63359750144,
+    "enterprise_value": 66236403712,
+    "dividend_yield": 3.85,
+    "payout_ratio": 1.0658001,
+    "insider_ownership_pct": 0.014520001,
+    "institutional_ownership_pct": 0.82895,
+    "short_ratio": 2.75,
+    "beta": 1.319
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 42.57,
+    "entry_range_high": 42.99,
+    "target_range_low": 47.13,
+    "target_range_high": 50.49,
+    "stop_range_low": 37.28,
+    "stop_range_high": 39.24,
+    "target_price": 48.09,
+    "stop_loss": 39.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.151881-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 53.48,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 385.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 42.62,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 1,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 4000,
+      "date": "2026-04-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 12%. The daily chart shows NKE hugging its 52-week low of $42.62, currently below all key EMAs. Resistance sits at the 20-day EMA of $48.41, with stronger resistance at the 50-day EMA of $54.05. A short-biased trader might consider this level near the 52 week low, as a break below could trigger further downside. Set the BUY ZONE at $60.00, PROFIT ZONE at $54.05 and STOP LOSS ZONE at $44.00.\n\n### Fundamental Edge\nNKE's P/E of 28.15 indicates it's trading at a premium, while revenue growth is nearly stagnant at 0.1%. The company's gross margin of 40.9% and net margin of 4.8% suggest profitability is present but not at an exciting level. There is currently no fundamental reason to justify the current price action, which creates an opening for swing traders to consider selling at this current point.\n\n### Sector Context\nThe Consumer Discretionary sector currently shows mixed signals, potentially amplifying NKE's individual struggles rather than offering a supportive tailwind.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 12,
+    "price_change_display": "+0.39%",
+    "key_metrics": {
+      "RSI": 23.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

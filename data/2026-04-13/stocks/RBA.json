@@ -1,0 +1,158 @@
+{
+  "ticker": "RBA",
+  "company": "RB Global, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.401803-04:00",
+  "sector": "Financials",
+  "industry": "Specialty Business Services",
+  "price": {
+    "current": 104.21,
+    "open": 103.18,
+    "high": 104.35,
+    "low": 102.19,
+    "prev_close": 103.3,
+    "change_pct": 0.89,
+    "change_pct_1w": 6.47,
+    "change_pct_1m": 6.44,
+    "change_pct_1y": 8.74,
+    "volume": 453319,
+    "avg_volume_30d": 1167823
+  },
+  "scores": {
+    "master_score": 29.24,
+    "technical_score": 12.6,
+    "fundamental_score": 12.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 65.0,
+    "sector_score": 33.3,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 29.24,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 61.3,
+    "macd": -0.1224,
+    "macd_signal": -1.2871,
+    "macd_histogram": 1.1647,
+    "macd_crossover": "neutral",
+    "ema_20": 99.48,
+    "ema_50": 101.54,
+    "ema_200": 104.36,
+    "ema_stack_bullish": false,
+    "bb_upper": 103.0,
+    "bb_middle": 97.95,
+    "bb_lower": 92.9,
+    "bb_width": 0.1031,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 14.7,
+    "atr": 2.81,
+    "atr_pct": 0.027,
+    "obv_trend": "UP",
+    "mfi": 66.2,
+    "cmf": -0.051,
+    "stoch_k": 98.7,
+    "stoch_d": 92.5,
+    "rvol": 0.88,
+    "volume_5d_avg": 1033463,
+    "green_days_10d": 7,
+    "52w_high": 119.14,
+    "52w_low": 94.42,
+    "52w_high_proximity_pct": 0.1253,
+    "52w_low_proximity_pct": 0.1037
+  },
+  "fundamental": {
+    "pe_ratio": 51.085785,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 3.4773107,
+    "de_ratio": 72.868,
+    "fcf_yield": 0.0406,
+    "eps_growth_5y": -0.103,
+    "revenue_growth_ttm": 0.054,
+    "gross_margin": 0.46581,
+    "operating_margin": 0.16395001,
+    "net_margin": 0.09332,
+    "market_cap": 19376164864,
+    "enterprise_value": 23589670912,
+    "dividend_yield": 1.18,
+    "payout_ratio": 0.5882,
+    "insider_ownership_pct": 0.00235,
+    "institutional_ownership_pct": 0.99724,
+    "short_ratio": 8.58,
+    "beta": 0.569
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 101.03,
+    "entry_range_high": 104.73,
+    "target_range_low": 110.39,
+    "target_range_high": 118.27,
+    "stop_range_low": 93.66,
+    "stop_range_high": 98.59,
+    "target_price": 112.64,
+    "stop_loss": 98.59,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.401783-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 130.26,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 118.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 94.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 400,
+      "date": "2026-03-18"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
+    "price_change_display": "+0.89%",
+    "key_metrics": {
+      "RSI": 61.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

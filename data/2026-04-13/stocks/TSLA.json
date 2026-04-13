@@ -1,0 +1,158 @@
+{
+  "ticker": "TSLA",
+  "company": "Tesla, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.004839-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 353.13,
+    "open": 350.17,
+    "high": 356.35,
+    "low": 348.57,
+    "prev_close": 348.95,
+    "change_pct": 1.2,
+    "change_pct_1w": 0.09,
+    "change_pct_1m": -10.6,
+    "change_pct_1y": 29.73,
+    "volume": 32896427,
+    "avg_volume_30d": 62718150
+  },
+  "scores": {
+    "master_score": 17.09,
+    "technical_score": 5.4,
+    "fundamental_score": 10.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 78.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 17.09,
+    "confidence": 0.17,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.6,
+    "macd": -13.8961,
+    "macd_signal": -12.9822,
+    "macd_histogram": -0.9139,
+    "macd_crossover": "neutral",
+    "ema_20": 366.79,
+    "ema_50": 388.52,
+    "ema_200": 389.71,
+    "ema_stack_bullish": false,
+    "bb_upper": 403.71,
+    "bb_middle": 368.95,
+    "bb_lower": 334.18,
+    "bb_width": 0.1885,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.7,
+    "atr": 14.26,
+    "atr_pct": 0.0404,
+    "obv_trend": "DOWN",
+    "mfi": 46.7,
+    "cmf": -0.17,
+    "stoch_k": 26.9,
+    "stoch_d": 20.3,
+    "rvol": 0.95,
+    "volume_5d_avg": 59892005,
+    "green_days_10d": 5,
+    "52w_high": 489.88,
+    "52w_low": 227.5,
+    "52w_high_proximity_pct": 0.2791,
+    "52w_low_proximity_pct": 0.5522
+  },
+  "fundamental": {
+    "pe_ratio": 326.97223,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 16.126867,
+    "de_ratio": 17.763,
+    "fcf_yield": 0.0028,
+    "eps_growth_5y": -0.606,
+    "revenue_growth_ttm": -0.031,
+    "gross_margin": 0.18027,
+    "operating_margin": 0.047030002,
+    "net_margin": 0.040009998,
+    "market_cap": 1325096239104,
+    "enterprise_value": 1259410292736,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.111499995,
+    "institutional_ownership_pct": 0.44667998,
+    "short_ratio": 1.05,
+    "beta": 1.915
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 351.36,
+    "entry_range_high": 354.9,
+    "target_range_low": 387.99,
+    "target_range_high": 415.71,
+    "stop_range_low": 308.38,
+    "stop_range_high": 324.61,
+    "target_price": 395.91,
+    "stop_loss": 324.61,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.004810-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 441.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 227.5,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 20000,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 17,
+    "price_change_display": "+1.20%",
+    "key_metrics": {
+      "RSI": 39.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

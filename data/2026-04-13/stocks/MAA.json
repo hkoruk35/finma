@@ -1,0 +1,158 @@
+{
+  "ticker": "MAA",
+  "company": "Mid-America Apartment Communities, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.788448-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 125.25,
+    "open": 126.0,
+    "high": 125.69,
+    "low": 124.45,
+    "prev_close": 126.39,
+    "change_pct": -0.9,
+    "change_pct_1w": 0.35,
+    "change_pct_1m": -1.95,
+    "change_pct_1y": -17.22,
+    "volume": 169508,
+    "avg_volume_30d": 898690
+  },
+  "scores": {
+    "master_score": 31.1,
+    "technical_score": 12.6,
+    "fundamental_score": 28.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.9,
+    "breakout_score": 0.0,
+    "value_score": 25.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 31.1,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 47.1,
+    "macd": -1.1093,
+    "macd_signal": -1.8459,
+    "macd_histogram": 0.7365,
+    "macd_crossover": "neutral",
+    "ema_20": 125.29,
+    "ema_50": 128.09,
+    "ema_200": 135.54,
+    "ema_stack_bullish": false,
+    "bb_upper": 128.07,
+    "bb_middle": 123.94,
+    "bb_lower": 119.81,
+    "bb_width": 0.0666,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.7,
+    "atr": 2.2,
+    "atr_pct": 0.0175,
+    "obv_trend": "UP",
+    "mfi": 50.7,
+    "cmf": -0.322,
+    "stoch_k": 70.6,
+    "stoch_d": 80.8,
+    "rvol": 0.8,
+    "volume_5d_avg": 721281,
+    "green_days_10d": 6,
+    "52w_high": 162.36,
+    "52w_low": 120.57,
+    "52w_high_proximity_pct": 0.2286,
+    "52w_low_proximity_pct": 0.0389
+  },
+  "fundamental": {
+    "pe_ratio": 33.136242,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 2.585189,
+    "de_ratio": 93.305,
+    "fcf_yield": 0.0618,
+    "eps_growth_5y": -0.658,
+    "revenue_growth_ttm": 0.01,
+    "gross_margin": 0.5869,
+    "operating_margin": 0.28384,
+    "net_margin": 0.2023,
+    "market_cap": 15010916352,
+    "enterprise_value": 20300914688,
+    "dividend_yield": 4.84,
+    "payout_ratio": 1.6032001,
+    "insider_ownership_pct": 0.0066500003,
+    "institutional_ownership_pct": 0.98512,
+    "short_ratio": 3.54,
+    "beta": 0.789
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 124.62,
+    "entry_range_high": 125.88,
+    "target_range_low": 129.21,
+    "target_range_high": 138.44,
+    "stop_range_low": 114.81,
+    "stop_range_high": 120.85,
+    "target_price": 131.85,
+    "stop_loss": 120.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.788428-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 156.56,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 484.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 120.57,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 731,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-0.90%",
+    "key_metrics": {
+      "RSI": 47.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "LITE",
+  "company": "Lumentum Holdings Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.919495-04:00",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 856.44,
+    "open": 887.8,
+    "high": 905.9,
+    "low": 841.05,
+    "prev_close": 897.3,
+    "change_pct": -4.55,
+    "change_pct_1w": 10.9,
+    "change_pct_1m": 39.01,
+    "change_pct_1y": 1331.93,
+    "volume": 4131258,
+    "avg_volume_30d": 7175818
+  },
+  "scores": {
+    "master_score": 46.31,
+    "technical_score": 62.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.1,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 46.31,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 60.2,
+    "macd": 62.0566,
+    "macd_signal": 51.4504,
+    "macd_histogram": 10.6062,
+    "macd_crossover": "neutral",
+    "ema_20": 775.78,
+    "ema_50": 668.93,
+    "ema_200": 396.29,
+    "ema_stack_bullish": true,
+    "bb_upper": 926.06,
+    "bb_middle": 761.72,
+    "bb_lower": 597.37,
+    "bb_width": 0.4315,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.0,
+    "atr": 72.23,
+    "atr_pct": 0.0843,
+    "obv_trend": "UP",
+    "mfi": 66.7,
+    "cmf": -0.036,
+    "stoch_k": 67.4,
+    "stoch_d": 75.6,
+    "rvol": 0.86,
+    "volume_5d_avg": 6159991,
+    "green_days_10d": 6,
+    "52w_high": 897.3,
+    "52w_low": 50.07,
+    "52w_high_proximity_pct": 0.0455,
+    "52w_low_proximity_pct": 16.1049
+  },
+  "fundamental": {
+    "pe_ratio": 251.15248,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 72.229904,
+    "de_ratio": 392.476,
+    "fcf_yield": -0.0003,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.655,
+    "gross_margin": 0.37118,
+    "operating_margin": 0.10729,
+    "net_margin": 0.11951,
+    "market_cap": 61149102080,
+    "enterprise_value": 66234621952,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00585,
+    "institutional_ownership_pct": 1.13487,
+    "short_ratio": 2.02,
+    "beta": 1.391
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 665.59,
+    "entry_range_high": 860.72,
+    "target_range_low": 1051.67,
+    "target_range_high": 1126.79,
+    "stop_range_low": 676.38,
+    "stop_range_high": 711.98,
+    "target_price": 1073.13,
+    "stop_loss": 711.98,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.919453-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1070.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 611,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "LITE exhibits a NEGATIVE_BIAS FinMA score due to its premium valuation (P/E of 264.4x) relative to the sector, despite strong TTM revenue growth (65.5%) and healthy margins (37.1% gross, 12.0% net). Trading at its 52-week high ($922.77), LITEÃ¢â‚¬â„¢s RSI of 66.3 suggests it is approaching overbought territory, while ADX indicates moderate trend strength (25.2). The EMA alignment is bullish. Key technical levels to watch are support around $880 (previous resistance) and resistance at the current high. A potential catalyst for continued upward momentum would be a significant new contract in the telecom sector, given its fiber optic components business.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "-4.55%",
+    "key_metrics": {
+      "RSI": 60.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

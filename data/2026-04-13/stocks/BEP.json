@@ -1,0 +1,160 @@
+{
+  "ticker": "BEP",
+  "company": "Brookfield Renewable Partners L.P.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.495125-04:00",
+  "sector": "Energy",
+  "industry": "Utilities - Renewable",
+  "price": {
+    "current": 34.86,
+    "open": 34.6,
+    "high": 35.11,
+    "low": 34.41,
+    "prev_close": 34.66,
+    "change_pct": 0.58,
+    "change_pct_1w": 4.31,
+    "change_pct_1m": 13.11,
+    "change_pct_1y": 64.5,
+    "volume": 345322,
+    "avg_volume_30d": 857650
+  },
+  "scores": {
+    "master_score": 57.02,
+    "technical_score": 58.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 47.2,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 57.02,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 70.3,
+    "macd": 0.9714,
+    "macd_signal": 0.7248,
+    "macd_histogram": 0.2465,
+    "macd_crossover": "neutral",
+    "ema_20": 32.77,
+    "ema_50": 31.41,
+    "ema_200": 28.23,
+    "ema_stack_bullish": true,
+    "bb_upper": 35.04,
+    "bb_middle": 32.41,
+    "bb_lower": 29.78,
+    "bb_width": 0.1623,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.1,
+    "atr": 0.97,
+    "atr_pct": 0.0278,
+    "obv_trend": "UP",
+    "mfi": 88.6,
+    "cmf": 0.083,
+    "stoch_k": 94.4,
+    "stoch_d": 92.8,
+    "rvol": 0.77,
+    "volume_5d_avg": 656724,
+    "green_days_10d": 7,
+    "52w_high": 34.86,
+    "52w_low": 20.44,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.7052
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 2.6864982,
+    "de_ratio": 104.498,
+    "fcf_yield": -0.1986,
+    "eps_growth_5y": 45.114,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.5469,
+    "operating_margin": 0.03119,
+    "net_margin": 0.00858,
+    "market_cap": 22510940160,
+    "enterprise_value": 83025444864,
+    "dividend_yield": 4.52,
+    "payout_ratio": 6.4902,
+    "insider_ownership_pct": 0.0017200001,
+    "institutional_ownership_pct": 0.63995,
+    "short_ratio": 0.7,
+    "beta": 0.957
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 31.25,
+    "entry_range_high": 35.03,
+    "target_range_low": 37.01,
+    "target_range_high": 39.66,
+    "stop_range_low": 31.27,
+    "stop_range_high": 32.92,
+    "target_price": 37.77,
+    "stop_loss": 32.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.495106-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 43.58,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 452.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.44,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 19,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2141549,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 57%. BEP is currently testing its 52-week high at $34.86, with immediate resistance indicated by the Bollinger Band Upper at $35.04. Support lies at the EMA20 ($32.77) and EMA50 ($31.41). A trader might consider a BUY ZONE between $32.77 and $33.50, looking for a pullback to the EMA20. The PROFIT ZONE would be $35.04 to $36.00, targeting a break above the 52-week high. The STOP LOSS ZONE would be below $31.41, protecting against a breakdown below the EMA50.\n\n### Fundamental Edge\n\nThe company's revenue growth of 7.5% TTM suggests a healthy expansion trajectory, even though net margins are slim. This revenue growth justifies the current test of the 52-week high as market participants anticipate further earnings.\n\n### Sector Context\n\nThe energy sector is showing mixed performance, providing a neutral backdrop for BEP's individual stock movement, so trade selection is paramount.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "+0.58%",
+    "key_metrics": {
+      "RSI": 70.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

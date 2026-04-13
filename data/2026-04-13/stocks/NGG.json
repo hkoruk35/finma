@@ -1,0 +1,158 @@
+{
+  "ticker": "NGG",
+  "company": "National Grid plc",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.713092-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 88.93,
+    "open": 89.49,
+    "high": 89.49,
+    "low": 88.22,
+    "prev_close": 90.29,
+    "change_pct": -1.5,
+    "change_pct_1w": 2.15,
+    "change_pct_1m": -2.06,
+    "change_pct_1y": 42.36,
+    "volume": 614681,
+    "avg_volume_30d": 1199152
+  },
+  "scores": {
+    "master_score": 51.37,
+    "technical_score": 60.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 70.0,
+    "sector_score": 43.7,
+    "breakout_score": 0.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 51.37,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 55.1,
+    "macd": 0.366,
+    "macd_signal": -0.2992,
+    "macd_histogram": 0.6652,
+    "macd_crossover": "neutral",
+    "ema_20": 87.57,
+    "ema_50": 86.74,
+    "ema_200": 78.84,
+    "ema_stack_bullish": true,
+    "bb_upper": 92.61,
+    "bb_middle": 86.32,
+    "bb_lower": 80.03,
+    "bb_width": 0.1458,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.6,
+    "atr": 1.7,
+    "atr_pct": 0.0192,
+    "obv_trend": "UP",
+    "mfi": 67.0,
+    "cmf": -0.147,
+    "stoch_k": 76.7,
+    "stoch_d": 87.1,
+    "rvol": 0.63,
+    "volume_5d_avg": 750476,
+    "green_days_10d": 7,
+    "52w_high": 93.93,
+    "52w_low": 62.84,
+    "52w_high_proximity_pct": 0.0532,
+    "52w_low_proximity_pct": 0.4153
+  },
+  "fundamental": {
+    "pe_ratio": 22.23375,
+    "sector_pe_median": 22.23729,
+    "pb_ratio": 8.894933,
+    "de_ratio": 123.365,
+    "fcf_yield": -0.0405,
+    "eps_growth_5y": -0.124,
+    "revenue_growth_ttm": -0.113,
+    "gross_margin": 1.0,
+    "operating_margin": 0.24147,
+    "net_margin": 0.16428,
+    "market_cap": 88462344192,
+    "enterprise_value": 486651527168,
+    "dividend_yield": 3.46,
+    "payout_ratio": 0.77959996,
+    "insider_ownership_pct": 0.00075,
+    "institutional_ownership_pct": 0.058720004,
+    "short_ratio": 0.74,
+    "beta": 0.638
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 86.31,
+    "entry_range_high": 89.37,
+    "target_range_low": 92.15,
+    "target_range_high": 98.73,
+    "stop_range_low": 81.25,
+    "stop_range_high": 85.53,
+    "target_price": 94.03,
+    "stop_loss": 85.53,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.713065-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 111.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 346.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 62.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 123,
+      "date": "2026-01-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 0.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-1.50%",
+    "key_metrics": {
+      "RSI": 55.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

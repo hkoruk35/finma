@@ -1,0 +1,158 @@
+{
+  "ticker": "IQV",
+  "company": "IQVIA Holdings Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.324968-04:00",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 172.13,
+    "open": 166.7,
+    "high": 172.73,
+    "low": 166.26,
+    "prev_close": 167.34,
+    "change_pct": 2.86,
+    "change_pct_1w": 0.83,
+    "change_pct_1m": 5.65,
+    "change_pct_1y": 9.62,
+    "volume": 445129,
+    "avg_volume_30d": 1505700
+  },
+  "scores": {
+    "master_score": 32.5,
+    "technical_score": 9.6,
+    "fundamental_score": 62.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 21.4,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 32.5,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 50.6,
+    "macd": -1.5364,
+    "macd_signal": -2.6496,
+    "macd_histogram": 1.1132,
+    "macd_crossover": "neutral",
+    "ema_20": 170.25,
+    "ema_50": 179.13,
+    "ema_200": 191.68,
+    "ema_stack_bullish": false,
+    "bb_upper": 173.99,
+    "bb_middle": 168.48,
+    "bb_lower": 162.96,
+    "bb_width": 0.0655,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.6,
+    "atr": 6.65,
+    "atr_pct": 0.0386,
+    "obv_trend": "DOWN",
+    "mfi": 58.2,
+    "cmf": -0.048,
+    "stoch_k": 60.3,
+    "stoch_d": 43.9,
+    "rvol": 0.92,
+    "volume_5d_avg": 1381005,
+    "green_days_10d": 6,
+    "52w_high": 244.29,
+    "52w_low": 137.0,
+    "52w_high_proximity_pct": 0.2954,
+    "52w_low_proximity_pct": 0.2564
+  },
+  "fundamental": {
+    "pe_ratio": 21.92739,
+    "sector_pe_median": 24.7599545,
+    "pb_ratio": 4.489216,
+    "de_ratio": 245.928,
+    "fcf_yield": 0.0759,
+    "eps_growth_5y": 0.236,
+    "revenue_growth_ttm": 0.103,
+    "gross_margin": 0.33291999,
+    "operating_margin": 0.1517,
+    "net_margin": 0.083380006,
+    "market_cap": 29210462208,
+    "enterprise_value": 42688598016,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01091,
+    "institutional_ownership_pct": 1.03596,
+    "short_ratio": 2.81,
+    "beta": 1.391
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 171.27,
+    "entry_range_high": 172.99,
+    "target_range_low": 188.24,
+    "target_range_high": 201.68,
+    "stop_range_low": 150.89,
+    "stop_range_high": 158.83,
+    "target_price": 192.08,
+    "stop_loss": 158.83,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.324948-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 215.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 137.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 57177,
+      "date": "2026-02-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.25,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "+2.86%",
+    "key_metrics": {
+      "RSI": 50.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

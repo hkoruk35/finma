@@ -1,0 +1,158 @@
+{
+  "ticker": "MSEX",
+  "company": "Middlesex Water Company",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.757465-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Water",
+  "price": {
+    "current": 52.48,
+    "open": 55.55,
+    "high": 55.55,
+    "low": 52.31,
+    "prev_close": 55.85,
+    "change_pct": -6.03,
+    "change_pct_1w": -0.61,
+    "change_pct_1m": 1.04,
+    "change_pct_1y": -10.91,
+    "volume": 142481,
+    "avg_volume_30d": 147232
+  },
+  "scores": {
+    "master_score": 31.55,
+    "technical_score": 14.1,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 65.0,
+    "sector_score": 43.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 31.55,
+    "confidence": 0.32,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 48.1,
+    "macd": 0.4138,
+    "macd_signal": 0.1362,
+    "macd_histogram": 0.2777,
+    "macd_crossover": "neutral",
+    "ema_20": 53.04,
+    "ema_50": 52.77,
+    "ema_200": 53.36,
+    "ema_stack_bullish": false,
+    "bb_upper": 55.3,
+    "bb_middle": 52.32,
+    "bb_lower": 49.35,
+    "bb_width": 0.1138,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.3,
+    "atr": 1.67,
+    "atr_pct": 0.0318,
+    "obv_trend": "UP",
+    "mfi": 66.9,
+    "cmf": -0.208,
+    "stoch_k": 40.7,
+    "stoch_d": 75.6,
+    "rvol": 0.84,
+    "volume_5d_avg": 123216,
+    "green_days_10d": 7,
+    "52w_high": 61.64,
+    "52w_low": 48.27,
+    "52w_high_proximity_pct": 0.1485,
+    "52w_low_proximity_pct": 0.0871
+  },
+  "fundamental": {
+    "pe_ratio": 22.23729,
+    "sector_pe_median": 22.23729,
+    "pb_ratio": 1.967459,
+    "de_ratio": 84.262,
+    "fcf_yield": -0.0307,
+    "eps_growth_5y": -0.047,
+    "revenue_growth_ttm": -0.003,
+    "gross_margin": 0.53111,
+    "operating_margin": 0.26333,
+    "net_margin": 0.21995,
+    "market_cap": 975157760,
+    "enterprise_value": 1450404992,
+    "dividend_yield": 2.51,
+    "payout_ratio": 0.5847,
+    "insider_ownership_pct": 0.025290001,
+    "institutional_ownership_pct": 0.87837,
+    "short_ratio": 7.29,
+    "beta": 0.855
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 52.22,
+    "entry_range_high": 52.74,
+    "target_range_low": 56.34,
+    "target_range_high": 60.36,
+    "stop_range_low": 46.68,
+    "stop_range_high": 49.14,
+    "target_price": 57.49,
+    "stop_loss": 49.14,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.757432-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 65.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 251.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 48.27,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 865,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": 0.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "-6.03%",
+    "key_metrics": {
+      "RSI": 48.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

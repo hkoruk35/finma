@@ -1,0 +1,158 @@
+{
+  "ticker": "KLAC",
+  "company": "KLA Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.893592-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 1751.46,
+    "open": 1731.7,
+    "high": 1753.1,
+    "low": 1720.27,
+    "prev_close": 1737.28,
+    "change_pct": 0.82,
+    "change_pct_1w": 13.73,
+    "change_pct_1m": 24.26,
+    "change_pct_1y": 150.92,
+    "volume": 308237,
+    "avg_volume_30d": 947751
+  },
+  "scores": {
+    "master_score": 47.86,
+    "technical_score": 50.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.1,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 47.86,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 70.9,
+    "macd": 62.7131,
+    "macd_signal": 33.2516,
+    "macd_histogram": 29.4615,
+    "macd_crossover": "neutral",
+    "ema_20": 1567.65,
+    "ema_50": 1495.73,
+    "ema_200": 1239.72,
+    "ema_stack_bullish": true,
+    "bb_upper": 1742.33,
+    "bb_middle": 1539.84,
+    "bb_lower": 1337.35,
+    "bb_width": 0.263,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.3,
+    "atr": 66.27,
+    "atr_pct": 0.0378,
+    "obv_trend": "UP",
+    "mfi": 66.3,
+    "cmf": 0.098,
+    "stoch_k": 97.8,
+    "stoch_d": 96.6,
+    "rvol": 0.73,
+    "volume_5d_avg": 696307,
+    "green_days_10d": 8,
+    "52w_high": 1751.46,
+    "52w_low": 616.13,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.8427
+  },
+  "fundamental": {
+    "pe_ratio": 50.914604,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 42.02367,
+    "de_ratio": 111.778,
+    "fcf_yield": 0.014,
+    "eps_growth_5y": 0.409,
+    "revenue_growth_ttm": 0.072,
+    "gross_margin": 0.61574,
+    "operating_margin": 0.41313,
+    "net_margin": 0.35764,
+    "market_cap": 230128746496,
+    "enterprise_value": 228618780672,
+    "dividend_yield": 0.44,
+    "payout_ratio": 0.21540001,
+    "insider_ownership_pct": 0.00102,
+    "institutional_ownership_pct": 0.93938005,
+    "short_ratio": 3.42,
+    "beta": 1.435
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 1488.25,
+    "entry_range_high": 1760.22,
+    "target_range_low": 1911.26,
+    "target_range_high": 2047.78,
+    "stop_range_low": 1537.97,
+    "stop_range_high": 1618.92,
+    "target_price": 1950.27,
+    "stop_loss": 1618.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.893570-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 2189.32,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 44.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 616.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-02-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "+0.82%",
+    "key_metrics": {
+      "RSI": 70.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

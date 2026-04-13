@@ -1,0 +1,161 @@
+{
+  "ticker": "ADI",
+  "company": "Analog Devices, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.907654-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 347.01,
+    "open": 348.69,
+    "high": 349.48,
+    "low": 344.0,
+    "prev_close": 350.14,
+    "change_pct": -0.89,
+    "change_pct_1w": 6.0,
+    "change_pct_1m": 12.93,
+    "change_pct_1y": 79.17,
+    "volume": 878277,
+    "avg_volume_30d": 3596495
+  },
+  "scores": {
+    "master_score": 53.11,
+    "technical_score": 60.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.1,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 53.11,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 64.2,
+    "macd": 6.1532,
+    "macd_signal": 1.7044,
+    "macd_histogram": 4.4488,
+    "macd_crossover": "neutral",
+    "ema_20": 328.97,
+    "ema_50": 321.01,
+    "ema_200": 280.12,
+    "ema_stack_bullish": true,
+    "bb_upper": 351.5,
+    "bb_middle": 321.98,
+    "bb_lower": 292.46,
+    "bb_width": 0.1834,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.8,
+    "atr": 9.85,
+    "atr_pct": 0.0284,
+    "obv_trend": "UP",
+    "mfi": 67.2,
+    "cmf": -0.013,
+    "stoch_k": 86.5,
+    "stoch_d": 92.0,
+    "rvol": 0.73,
+    "volume_5d_avg": 2635295,
+    "green_days_10d": 6,
+    "52w_high": 359.67,
+    "52w_low": 172.36,
+    "52w_high_proximity_pct": 0.0352,
+    "52w_low_proximity_pct": 1.0133
+  },
+  "fundamental": {
+    "pe_ratio": 63.554947,
+    "sector_pe_median": 39.480736,
+    "pb_ratio": 5.014088,
+    "de_ratio": 25.753,
+    "fcf_yield": 0.0244,
+    "eps_growth_5y": 1.167,
+    "revenue_growth_ttm": 0.304,
+    "gross_margin": 0.62842,
+    "operating_margin": 0.33067,
+    "net_margin": 0.23024,
+    "market_cap": 169411723264,
+    "enterprise_value": 175592030208,
+    "dividend_yield": 1.16,
+    "payout_ratio": 0.7239,
+    "insider_ownership_pct": 0.00252,
+    "institutional_ownership_pct": 0.93338996,
+    "short_ratio": 2.2,
+    "beta": 1.053
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 319.4,
+    "entry_range_high": 348.75,
+    "target_range_low": 369.03,
+    "target_range_high": 395.39,
+    "stop_range_low": 310.94,
+    "stop_range_high": 327.31,
+    "target_price": 376.56,
+    "stop_loss": 327.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.907632-04:00",
+    "categories": [
+      "momentum",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 433.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 116.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 172.36,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5807,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 5.22,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "ADI exhibits mixed signals. FinMA score is NEGATIVE BIAS, confidence 52%. The high P/E ratio of 63.84 suggests ADI is richly valued compared to the sector median of 39.22, despite strong revenue growth of 30.4% and robust margins (62.8% gross, 23.0% net). Technically, ADI is near its 52-week high, RSI at 66.7 indicates it is approaching overbought conditions, and ADX at 24.5 implies a weak trend. Key support is near $330 and resistance around the 52-week high. Volume is lackluster at 0.69x relative volume. High dividend yield may not continue in the long term. A negative catalyst would be a general slow down in the semiconductor industry.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "-0.89%",
+    "key_metrics": {
+      "RSI": 64.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

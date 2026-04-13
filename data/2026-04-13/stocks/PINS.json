@@ -1,0 +1,160 @@
+{
+  "ticker": "PINS",
+  "company": "Pinterest, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:56.995331-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 18.02,
+    "open": 17.57,
+    "high": 18.04,
+    "low": 17.33,
+    "prev_close": 17.62,
+    "change_pct": 2.3,
+    "change_pct_1w": -1.23,
+    "change_pct_1m": -0.36,
+    "change_pct_1y": -35.95,
+    "volume": 3848974,
+    "avg_volume_30d": 18777539
+  },
+  "scores": {
+    "master_score": 20.46,
+    "technical_score": 8.4,
+    "fundamental_score": 28.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 30.2,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 20.46,
+    "confidence": 0.2,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 44.7,
+    "macd": -0.3042,
+    "macd_signal": -0.3233,
+    "macd_histogram": 0.0191,
+    "macd_crossover": "neutral",
+    "ema_20": 18.26,
+    "ema_50": 19.47,
+    "ema_200": 25.83,
+    "ema_stack_bullish": false,
+    "bb_upper": 18.96,
+    "bb_middle": 18.28,
+    "bb_lower": 17.6,
+    "bb_width": 0.0745,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.6,
+    "atr": 0.72,
+    "atr_pct": 0.0399,
+    "obv_trend": "DOWN",
+    "mfi": 38.8,
+    "cmf": -0.214,
+    "stoch_k": 42.0,
+    "stoch_d": 25.9,
+    "rvol": 0.6,
+    "volume_5d_avg": 11248154,
+    "green_days_10d": 4,
+    "52w_high": 39.17,
+    "52w_low": 15.42,
+    "52w_high_proximity_pct": 0.5398,
+    "52w_low_proximity_pct": 0.1689
+  },
+  "fundamental": {
+    "pe_ratio": 29.54918,
+    "sector_pe_median": 24.6733575,
+    "pb_ratio": 2.5241563,
+    "de_ratio": 5.522,
+    "fcf_yield": 0.088,
+    "eps_growth_5y": -0.846,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.80067,
+    "operating_margin": 0.22828,
+    "net_margin": 0.09874,
+    "market_cap": 11550780416,
+    "enterprise_value": 9514607616,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01053,
+    "institutional_ownership_pct": 1.16887,
+    "short_ratio": 4.25,
+    "beta": 0.876
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 17.93,
+    "entry_range_high": 18.11,
+    "target_range_low": 19.78,
+    "target_range_high": 21.19,
+    "stop_range_low": 15.75,
+    "stop_range_high": 16.58,
+    "target_price": 20.18,
+    "stop_loss": 16.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:56.995304-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 22.52,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 15.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 147885,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 2.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 20%. PINS is currently trading below its 200-day EMA ($25.83), signaling significant resistance overhead. A short-term swing trade could be considered if PINS breaks above the upper Bollinger Band at $18.96; this would establish a BUY ZONE between $18.96 and $19.47 (the 50-day EMA). The PROFIT ZONE would then be $20.50–$21.00, and the STOP LOSS ZONE should be placed tightly at $18.00 to protect against a failed breakout.\n\n### Fundamental Edge\nPinterest's revenue growth of 14.3% coupled with strong gross margins of 80.1% suggests the business model is sound, yet a high P/E of 29.55 indicates the stock is already priced for growth. If Pinterest can maintain a growth rate above 14%, especially with its relatively high margins, this could justify a longer-term bullish outlook eventually.\n\n### Sector Context\nWithin the communication services sector, PINS struggles to gain traction as investor interest shifts toward more mature or high-growth tech names.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 20,
+    "price_change_display": "+2.30%",
+    "key_metrics": {
+      "RSI": 44.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

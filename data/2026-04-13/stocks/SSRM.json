@@ -1,0 +1,160 @@
+{
+  "ticker": "SSRM",
+  "company": "SSR Mining Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.513366-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 32.33,
+    "open": 32.52,
+    "high": 32.74,
+    "low": 31.71,
+    "prev_close": 33.13,
+    "change_pct": -2.41,
+    "change_pct_1w": 1.44,
+    "change_pct_1m": 9.7,
+    "change_pct_1y": 222.33,
+    "volume": 1275916,
+    "avg_volume_30d": 4537193
+  },
+  "scores": {
+    "master_score": 60.99,
+    "technical_score": 60.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 49.9,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 30.0,
+    "signal_score": 60.99,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.6,
+    "macd": 1.4767,
+    "macd_signal": 0.864,
+    "macd_histogram": 0.6127,
+    "macd_crossover": "neutral",
+    "ema_20": 30.23,
+    "ema_50": 28.42,
+    "ema_200": 22.75,
+    "ema_stack_bullish": true,
+    "bb_upper": 36.01,
+    "bb_middle": 28.63,
+    "bb_lower": 21.25,
+    "bb_width": 0.5155,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.8,
+    "atr": 2.14,
+    "atr_pct": 0.0662,
+    "obv_trend": "UP",
+    "mfi": 66.9,
+    "cmf": 0.072,
+    "stoch_k": 67.7,
+    "stoch_d": 73.3,
+    "rvol": 0.96,
+    "volume_5d_avg": 4333883,
+    "green_days_10d": 6,
+    "52w_high": 35.08,
+    "52w_low": 10.03,
+    "52w_high_proximity_pct": 0.0784,
+    "52w_low_proximity_pct": 2.2233
+  },
+  "fundamental": {
+    "pe_ratio": 17.475676,
+    "sector_pe_median": 24.066355,
+    "pb_ratio": 1.8709491,
+    "de_ratio": 9.161,
+    "fcf_yield": 0.0488,
+    "eps_growth_5y": 29.672,
+    "revenue_growth_ttm": 0.614,
+    "gross_margin": 0.50763,
+    "operating_margin": 0.43105,
+    "net_margin": 0.24285,
+    "market_cap": 6620619264,
+    "enterprise_value": 7362297856,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0064600003,
+    "institutional_ownership_pct": 0.68236,
+    "short_ratio": 2.13,
+    "beta": 0.898
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 28.28,
+    "entry_range_high": 32.49,
+    "target_range_low": 37.98,
+    "target_range_high": 40.69,
+    "stop_range_low": 26.65,
+    "stop_range_high": 28.05,
+    "target_price": 38.75,
+    "stop_loss": 28.05,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.513348-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 40.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.03,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 73129,
+      "date": "2025-12-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score is NEUTRAL STAY with 61% confidence. SSRM is currently trading within striking distance of its upper Bollinger Band at $36.01, which will act as near-term resistance. Support lies at the EMA20 ($30.23) and then the EMA50 ($28.42). A trader might enter a long position near the EMA20 ($30.23) in the BUY ZONE, anticipating a bounce back toward the $36.01 PROFIT ZONE. Place a STOP LOSS ZONE below the EMA50 at $27.90 to protect against downside risk.\n\n### Fundamental Edge\nSSRM demonstrates strong financial health with a gross margin of 50.8% and a net margin of 24.3%, indicating efficient operations and profitability. Coupled with a P/E of 17.48, which suggests it's potentially undervalued relative to its sector, the stock offers fundamental support for a bullish swing trade if it breaks resistance.\n\n### Sector Context\nThe materials sector is currently mixed, providing neither strong tailwinds nor significant headwinds for SSRM's potential breakout.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "-2.41%",
+    "key_metrics": {
+      "RSI": 58.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

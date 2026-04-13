@@ -1,0 +1,160 @@
+{
+  "ticker": "SHEL",
+  "company": "Shell plc",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.438571-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 92.67,
+    "open": 93.03,
+    "high": 93.39,
+    "low": 92.5,
+    "prev_close": 92.21,
+    "change_pct": 0.49,
+    "change_pct_1w": -1.04,
+    "change_pct_1m": 4.87,
+    "change_pct_1y": 50.86,
+    "volume": 3554187,
+    "avg_volume_30d": 8275915
+  },
+  "scores": {
+    "master_score": 64.92,
+    "technical_score": 62.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 70.0,
+    "sector_score": 47.2,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 64.92,
+    "confidence": 0.65,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 61.9,
+    "macd": 2.0361,
+    "macd_signal": 2.5352,
+    "macd_histogram": -0.499,
+    "macd_crossover": "neutral",
+    "ema_20": 91.09,
+    "ema_50": 86.36,
+    "ema_200": 76.61,
+    "ema_stack_bullish": true,
+    "bb_upper": 94.06,
+    "bb_middle": 92.08,
+    "bb_lower": 90.09,
+    "bb_width": 0.0432,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 29.3,
+    "atr": 1.95,
+    "atr_pct": 0.0211,
+    "obv_trend": "UP",
+    "mfi": 62.3,
+    "cmf": -0.109,
+    "stoch_k": 57.2,
+    "stoch_d": 52.7,
+    "rvol": 0.78,
+    "volume_5d_avg": 6475997,
+    "green_days_10d": 7,
+    "52w_high": 94.15,
+    "52w_low": 57.47,
+    "52w_high_proximity_pct": 0.0158,
+    "52w_low_proximity_pct": 0.6123
+  },
+  "fundamental": {
+    "pe_ratio": 15.444167,
+    "sector_pe_median": 18.619999,
+    "pb_ratio": 3.0386949,
+    "de_ratio": 43.172,
+    "fcf_yield": 0.0864,
+    "eps_growth_5y": 3.762,
+    "revenue_growth_ttm": -0.033,
+    "gross_margin": 0.25402,
+    "operating_margin": 0.08442,
+    "net_margin": 0.06683,
+    "market_cap": 263062831104,
+    "enterprise_value": 568442421248,
+    "dividend_yield": 3.23,
+    "payout_ratio": 0.4773,
+    "insider_ownership_pct": 1.0000001e-05,
+    "institutional_ownership_pct": 0.13179,
+    "short_ratio": 1.43,
+    "beta": -0.208
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 85.93,
+    "entry_range_high": 93.13,
+    "target_range_low": 96.55,
+    "target_range_high": 103.45,
+    "stop_range_low": 84.33,
+    "stop_range_high": 88.77,
+    "target_price": 98.52,
+    "stop_loss": 88.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.438552-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 115.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 323.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 57.47,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 0,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -5.18,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: POSITIVE BIAS | Confidence: 65%. SHEL is exhibiting bullish momentum, trading above its EMA20, EMA50, and EMA200. A potential BUY ZONE exists between the EMA20 support at $91.09 and the BB Lower band at $90.09. A trader might enter here, anticipating a breakout above the BB Upper resistance at $94.06, targeting a PROFIT ZONE near the 52-week high of $94.15, with a STOP LOSS ZONE just below the EMA50 support at $86.36.\n\n### Fundamental Edge\nSHEL's P/E ratio of 15.4 suggests it is undervalued relative to its sector, offering a margin of safety. Given the solid gross margin of 25.4%, SHEL's ability to generate profits provides a solid foundation for continued growth, despite recent revenue contraction.\n\n### Sector Context\nWhile SHEL is showing individual strength, the broader energy sector's performance will need to remain stable or improve to fully support this bullish setup.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 65,
+    "price_change_display": "+0.49%",
+    "key_metrics": {
+      "RSI": 61.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "CHD",
+  "company": "Church & Dwight Co., Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.245430-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 94.35,
+    "open": 95.6,
+    "high": 95.93,
+    "low": 93.65,
+    "prev_close": 95.42,
+    "change_pct": -1.13,
+    "change_pct_1w": 1.3,
+    "change_pct_1m": -4.86,
+    "change_pct_1y": -6.22,
+    "volume": 355702,
+    "avg_volume_30d": 2029780
+  },
+  "scores": {
+    "master_score": 38.05,
+    "technical_score": 48.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 27.5,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 38.05,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 44.9,
+    "macd": -1.0122,
+    "macd_signal": -1.27,
+    "macd_histogram": 0.2577,
+    "macd_crossover": "neutral",
+    "ema_20": 95.13,
+    "ema_50": 95.58,
+    "ema_200": 94.1,
+    "ema_stack_bullish": false,
+    "bb_upper": 97.4,
+    "bb_middle": 94.5,
+    "bb_lower": 91.61,
+    "bb_width": 0.0613,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 26.7,
+    "atr": 2.06,
+    "atr_pct": 0.0218,
+    "obv_trend": "UP",
+    "mfi": 53.6,
+    "cmf": -0.066,
+    "stoch_k": 54.7,
+    "stoch_d": 72.2,
+    "rvol": 0.83,
+    "volume_5d_avg": 1677420,
+    "green_days_10d": 3,
+    "52w_high": 105.26,
+    "52w_low": 81.26,
+    "52w_high_proximity_pct": 0.1037,
+    "52w_low_proximity_pct": 0.161
+  },
+  "fundamental": {
+    "pe_ratio": 31.240067,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": 5.576275,
+    "de_ratio": 59.517,
+    "fcf_yield": 0.0508,
+    "eps_growth_5y": -0.208,
+    "revenue_growth_ttm": 0.039,
+    "gross_margin": 0.45134997,
+    "operating_margin": 0.18556,
+    "net_margin": 0.11878,
+    "market_cap": 22347980800,
+    "enterprise_value": 24558364672,
+    "dividend_yield": 1.29,
+    "payout_ratio": 0.39069998,
+    "insider_ownership_pct": 0.002,
+    "institutional_ownership_pct": 0.93677,
+    "short_ratio": 3.92,
+    "beta": 0.473
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 93.88,
+    "entry_range_high": 94.82,
+    "target_range_low": 98.52,
+    "target_range_high": 105.56,
+    "stop_range_low": 85.72,
+    "stop_range_high": 90.23,
+    "target_price": 100.53,
+    "stop_loss": 90.23,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.245409-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 117.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 129.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 81.26,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7000,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "-1.13%",
+    "key_metrics": {
+      "RSI": 44.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

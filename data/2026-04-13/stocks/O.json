@@ -1,0 +1,160 @@
+{
+  "ticker": "O",
+  "company": "Realty Income Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.763318-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 62.97,
+    "open": 63.37,
+    "high": 63.56,
+    "low": 62.81,
+    "prev_close": 63.75,
+    "change_pct": -1.23,
+    "change_pct_1w": 1.84,
+    "change_pct_1m": -2.74,
+    "change_pct_1y": 23.25,
+    "volume": 1382378,
+    "avg_volume_30d": 5986775
+  },
+  "scores": {
+    "master_score": 61.29,
+    "technical_score": 66.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.9,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 61.29,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 53.2,
+    "macd": -0.075,
+    "macd_signal": -0.3715,
+    "macd_histogram": 0.2965,
+    "macd_crossover": "neutral",
+    "ema_20": 62.47,
+    "ema_50": 62.26,
+    "ema_200": 59.06,
+    "ema_stack_bullish": true,
+    "bb_upper": 64.64,
+    "bb_middle": 61.91,
+    "bb_lower": 59.18,
+    "bb_width": 0.0882,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.4,
+    "atr": 1.0,
+    "atr_pct": 0.0159,
+    "obv_trend": "UP",
+    "mfi": 78.3,
+    "cmf": -0.184,
+    "stoch_k": 81.0,
+    "stoch_d": 89.9,
+    "rvol": 0.81,
+    "volume_5d_avg": 4876015,
+    "green_days_10d": 8,
+    "52w_high": 67.26,
+    "52w_low": 51.25,
+    "52w_high_proximity_pct": 0.0639,
+    "52w_low_proximity_pct": 0.2286
+  },
+  "fundamental": {
+    "pe_ratio": 53.816242,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 1.4911076,
+    "de_ratio": 73.505,
+    "fcf_yield": 0.0456,
+    "eps_growth_5y": 0.412,
+    "revenue_growth_ttm": 0.11,
+    "gross_margin": 0.92559,
+    "operating_margin": 0.46975,
+    "net_margin": 0.18370001,
+    "market_cap": 58711752704,
+    "enterprise_value": 89181339648,
+    "dividend_yield": 5.07,
+    "payout_ratio": 2.7547,
+    "insider_ownership_pct": 0.00124,
+    "institutional_ownership_pct": 0.79969,
+    "short_ratio": 4.51,
+    "beta": 0.796
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 61.95,
+    "entry_range_high": 63.28,
+    "target_range_low": 64.65,
+    "target_range_high": 69.27,
+    "stop_range_low": 57.92,
+    "stop_range_high": 60.97,
+    "target_price": 65.97,
+    "stop_loss": 60.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.763300-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 78.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 507.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 51.25,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7400,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 61%. Realty Income shows bullish trend alignment on the daily chart with the price hovering above the EMA20 ($62.47), EMA50 ($62.26) and EMA200 ($59.06). Resistance lies at the Bollinger Band Upper level of $64.64. A BUY ZONE could be considered near the EMA20 ($62.47) anticipating a continuation of the uptrend. The PROFIT ZONE would target a retest of the 52-week high at $67.26, while a STOP LOSS ZONE should be placed below the EMA50 at $62.26 to protect against trend reversal.\n\n### Fundamental Edge\n\nRealty Income's revenue growth of 11.0% TTM suggests a healthy expansion, and the positive net margin of 18.4% indicates efficient operations. This growth, coupled with the stock's bullish technical setup, could tempt traders anticipating sustained performance and potential capital appreciation.\n\n### Sector Context\n\nThe real estate sector currently presents a mixed landscape, neither strongly supporting nor directly hindering Realty Income's individual performance, making stock-specific analysis crucial.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "-1.23%",
+    "key_metrics": {
+      "RSI": 53.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

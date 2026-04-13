@@ -1,0 +1,160 @@
+{
+  "ticker": "EPRT",
+  "company": "Essential Properties Realty Trust, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.765546-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 32.1,
+    "open": 32.49,
+    "high": 32.49,
+    "low": 32.01,
+    "prev_close": 32.54,
+    "change_pct": -1.35,
+    "change_pct_1w": 3.55,
+    "change_pct_1m": -1.8,
+    "change_pct_1y": 9.05,
+    "volume": 795851,
+    "avg_volume_30d": 2178558
+  },
+  "scores": {
+    "master_score": 61.89,
+    "technical_score": 62.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 41.9,
+    "breakout_score": 0.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 61.89,
+    "confidence": 0.62,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 55.2,
+    "macd": -0.0431,
+    "macd_signal": -0.2391,
+    "macd_histogram": 0.196,
+    "macd_crossover": "neutral",
+    "ema_20": 31.65,
+    "ema_50": 31.6,
+    "ema_200": 30.82,
+    "ema_stack_bullish": true,
+    "bb_upper": 33.15,
+    "bb_middle": 31.39,
+    "bb_lower": 29.63,
+    "bb_width": 0.1122,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.7,
+    "atr": 0.62,
+    "atr_pct": 0.0193,
+    "obv_trend": "UP",
+    "mfi": 61.1,
+    "cmf": -0.237,
+    "stoch_k": 80.1,
+    "stoch_d": 90.1,
+    "rvol": 0.92,
+    "volume_5d_avg": 2006330,
+    "green_days_10d": 8,
+    "52w_high": 34.24,
+    "52w_low": 28.52,
+    "52w_high_proximity_pct": 0.0625,
+    "52w_low_proximity_pct": 0.1254
+  },
+  "fundamental": {
+    "pe_ratio": 25.078125,
+    "sector_pe_median": 29.182541999999998,
+    "pb_ratio": 1.602756,
+    "de_ratio": 60.524,
+    "fcf_yield": 0.0444,
+    "eps_growth_5y": 0.111,
+    "revenue_growth_ttm": 0.252,
+    "gross_margin": 0.98630995,
+    "operating_margin": 0.65649,
+    "net_margin": 0.45083,
+    "market_cap": 6769288192,
+    "enterprise_value": 9323979776,
+    "dividend_yield": 3.81,
+    "payout_ratio": 0.9414,
+    "insider_ownership_pct": 0.00649,
+    "institutional_ownership_pct": 1.15187,
+    "short_ratio": 7.38,
+    "beta": 1.017
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 31.44,
+    "entry_range_high": 32.26,
+    "target_range_low": 33.28,
+    "target_range_high": 35.66,
+    "stop_range_low": 29.32,
+    "stop_range_high": 30.86,
+    "target_price": 33.96,
+    "stop_loss": 30.86,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.765498-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 40.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 381.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 28.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 30098,
+      "date": "2026-03-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 62%. EPRT is currently trading within its Bollinger Bands, with key support clustered around the EMA50 and EMA20 near $31.60 and $31.65, and resistance at the upper Bollinger Band of $33.15. A BUY ZONE would be a retest of the EMA50 at $31.60, anticipating a bounce towards the PROFIT ZONE near the 52-week high of $34.24. A STOP LOSS ZONE should be placed just below the EMA200 at $30.75 to protect against a breakdown. Traders might consider an entry on a successful hold above $31.60, betting on continued bullish trend and momentum.\n\n### Fundamental Edge\nEPRT's P/E ratio of 25.08 suggests it is trading at a relative discount, while its substantial revenue growth of 25.2% TTM indicates strong business momentum. The solid gross and net margins of 98.6% and 45.1%, respectively, underscore efficient operations, making this an attractive option for traders seeking growth and stability.\n\n### Sector Context\nThe real estate sector currently exhibits mixed signals, adding uncertainty to EPRT's individual bullish technical setup, demanding a cautious approach.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 62,
+    "price_change_display": "-1.35%",
+    "key_metrics": {
+      "RSI": 55.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "MO",
+  "company": "Altria Group, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.262324-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Tobacco",
+  "price": {
+    "current": 66.47,
+    "open": 67.49,
+    "high": 67.57,
+    "low": 66.4,
+    "prev_close": 67.38,
+    "change_pct": -1.35,
+    "change_pct_1w": -0.12,
+    "change_pct_1m": -0.2,
+    "change_pct_1y": 26.24,
+    "volume": 2753550,
+    "avg_volume_30d": 9720528
+  },
+  "scores": {
+    "master_score": 52.05,
+    "technical_score": 48.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 27.5,
+    "breakout_score": 30.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.05,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 54.1,
+    "macd": 0.4817,
+    "macd_signal": 0.3307,
+    "macd_histogram": 0.151,
+    "macd_crossover": "neutral",
+    "ema_20": 66.04,
+    "ema_50": 64.85,
+    "ema_200": 60.91,
+    "ema_stack_bullish": true,
+    "bb_upper": 68.29,
+    "bb_middle": 65.52,
+    "bb_lower": 62.75,
+    "bb_width": 0.0846,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 13.2,
+    "atr": 1.45,
+    "atr_pct": 0.0218,
+    "obv_trend": "DOWN",
+    "mfi": 63.8,
+    "cmf": -0.188,
+    "stoch_k": 71.1,
+    "stoch_d": 84.8,
+    "rvol": 0.79,
+    "volume_5d_avg": 7718930,
+    "green_days_10d": 5,
+    "52w_high": 68.55,
+    "52w_low": 52.63,
+    "52w_high_proximity_pct": 0.0304,
+    "52w_low_proximity_pct": 0.263
+  },
+  "fundamental": {
+    "pe_ratio": 16.133495,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": -31.773422,
+    "de_ratio": null,
+    "fcf_yield": 0.083,
+    "eps_growth_5y": -0.629,
+    "revenue_growth_ttm": -0.005,
+    "gross_margin": 0.87343,
+    "operating_margin": 1.16696,
+    "net_margin": 0.34495,
+    "market_cap": 111131066368,
+    "enterprise_value": 133937496064,
+    "dividend_yield": 6.29,
+    "payout_ratio": 1.0097001,
+    "insider_ownership_pct": 0.0013600001,
+    "institutional_ownership_pct": 0.63515997,
+    "short_ratio": 4.3,
+    "beta": 0.447
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 64.53,
+    "entry_range_high": 66.8,
+    "target_range_low": 69.4,
+    "target_range_high": 74.36,
+    "stop_range_low": 60.39,
+    "stop_range_high": 63.57,
+    "target_price": 70.82,
+    "stop_loss": 63.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.262299-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 83.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 629.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 52.63,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 27908,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 52%. MO is currently trading within its Bollinger Bands, slightly above the 20-day EMA at $66.04. A trader anticipating continued bullish momentum could consider a BUY ZONE between $65.50 and $66.50, aiming for a PROFIT ZONE between $68.00 and $68.50 near the upper Bollinger Band. A STOP LOSS ZONE should be placed between $64.50 and $65.00, just below the 50-day EMA at $64.85 to protect against a breakdown.\n\n### Fundamental Edge\nMO maintains strong profitability with a high gross margin of 87.3% and net margin of 34.5%, indicating efficiency in its operations despite a slight revenue decline. A P/E of 16.13 suggests the stock is reasonably valued compared to its earnings, which could attract value-seeking investors and support the stock's price if the company can stabilize revenue.\n\n### Sector Context\nThe consumer staples sector is currently exhibiting mixed performance, offering neither strong tailwinds nor significant headwinds to MO's individual stock performance.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "-1.35%",
+    "key_metrics": {
+      "RSI": 54.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

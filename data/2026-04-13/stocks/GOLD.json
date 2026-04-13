@@ -1,0 +1,158 @@
+{
+  "ticker": "GOLD",
+  "company": "Gold.com, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.506446-04:00",
+  "sector": "Materials",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 43.69,
+    "open": 43.22,
+    "high": 43.97,
+    "low": 43.02,
+    "prev_close": 43.98,
+    "change_pct": -0.66,
+    "change_pct_1w": 2.61,
+    "change_pct_1m": -10.73,
+    "change_pct_1y": 96.56,
+    "volume": 239887,
+    "avg_volume_30d": 614732
+  },
+  "scores": {
+    "master_score": 50.99,
+    "technical_score": 52.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 68.0,
+    "sector_score": 49.9,
+    "breakout_score": 45.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.99,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 45.6,
+    "macd": -1.6035,
+    "macd_signal": -2.2429,
+    "macd_histogram": 0.6394,
+    "macd_crossover": "neutral",
+    "ema_20": 44.31,
+    "ema_50": 45.83,
+    "ema_200": 37.07,
+    "ema_stack_bullish": false,
+    "bb_upper": 48.01,
+    "bb_middle": 43.06,
+    "bb_lower": 38.1,
+    "bb_width": 0.2302,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 25.4,
+    "atr": 2.42,
+    "atr_pct": 0.0555,
+    "obv_trend": "UP",
+    "mfi": 39.7,
+    "cmf": -0.208,
+    "stoch_k": 58.4,
+    "stoch_d": 60.8,
+    "rvol": 0.83,
+    "volume_5d_avg": 510777,
+    "green_days_10d": 5,
+    "52w_high": 63.92,
+    "52w_low": 19.34,
+    "52w_high_proximity_pct": 0.3165,
+    "52w_low_proximity_pct": 1.2594
+  },
+  "fundamental": {
+    "pe_ratio": 91.020836,
+    "sector_pe_median": 24.066355,
+    "pb_ratio": 1.6636838,
+    "de_ratio": 129.618,
+    "fcf_yield": 0.0736,
+    "eps_growth_5y": 0.704,
+    "revenue_growth_ttm": 1.362,
+    "gross_margin": 0.01843,
+    "operating_margin": 0.00402,
+    "net_margin": 0.0008,
+    "market_cap": 1229324672,
+    "enterprise_value": 1934289664,
+    "dividend_yield": 1.82,
+    "payout_ratio": 1.6667,
+    "insider_ownership_pct": 0.30915,
+    "institutional_ownership_pct": 0.58981,
+    "short_ratio": 3.78,
+    "beta": 0.567
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 43.47,
+    "entry_range_high": 43.91,
+    "target_range_low": 49.93,
+    "target_range_high": 53.5,
+    "stop_range_low": 36.91,
+    "stop_range_high": 38.85,
+    "target_price": 50.95,
+    "stop_loss": 38.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.506428-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 54.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 182.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.34,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 17,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 20000,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-0.66%",
+    "key_metrics": {
+      "RSI": 45.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

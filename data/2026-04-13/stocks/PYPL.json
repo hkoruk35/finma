@@ -1,0 +1,158 @@
+{
+  "ticker": "PYPL",
+  "company": "PayPal Holdings, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.385758-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 47.26,
+    "open": 45.1,
+    "high": 47.28,
+    "low": 45.06,
+    "prev_close": 45.24,
+    "change_pct": 4.45,
+    "change_pct_1w": 3.9,
+    "change_pct_1m": 6.53,
+    "change_pct_1y": -25.71,
+    "volume": 6168902,
+    "avg_volume_30d": 16462996
+  },
+  "scores": {
+    "master_score": 44.99,
+    "technical_score": 12.6,
+    "fundamental_score": 75.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.3,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 44.99,
+    "confidence": 0.45,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 57.9,
+    "macd": 0.0833,
+    "macd_signal": -0.1979,
+    "macd_histogram": 0.2811,
+    "macd_crossover": "neutral",
+    "ema_20": 45.39,
+    "ema_50": 46.88,
+    "ema_200": 56.99,
+    "ema_stack_bullish": false,
+    "bb_upper": 46.75,
+    "bb_middle": 45.11,
+    "bb_lower": 43.47,
+    "bb_width": 0.0726,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 8.8,
+    "atr": 1.53,
+    "atr_pct": 0.0323,
+    "obv_trend": "UP",
+    "mfi": 54.6,
+    "cmf": -0.09,
+    "stoch_k": 99.3,
+    "stoch_d": 81.0,
+    "rvol": 0.71,
+    "volume_5d_avg": 11609180,
+    "green_days_10d": 7,
+    "52w_high": 77.8,
+    "52w_low": 38.96,
+    "52w_high_proximity_pct": 0.3926,
+    "52w_low_proximity_pct": 0.2128
+  },
+  "fundamental": {
+    "pe_ratio": 8.734751,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 2.146296,
+    "de_ratio": 60.703,
+    "fcf_yield": 0.0753,
+    "eps_growth_5y": 0.394,
+    "revenue_growth_ttm": 0.037,
+    "gross_margin": 0.41484,
+    "operating_margin": 0.17485,
+    "net_margin": 0.15775,
+    "market_cap": 43506003968,
+    "enterprise_value": 43524861952,
+    "dividend_yield": 1.24,
+    "payout_ratio": 0.025899999,
+    "insider_ownership_pct": 0.00661,
+    "institutional_ownership_pct": 0.83936,
+    "short_ratio": 1.65,
+    "beta": 1.411
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 46.65,
+    "entry_range_high": 47.5,
+    "target_range_low": 50.81,
+    "target_range_high": 54.44,
+    "stop_range_low": 41.99,
+    "stop_range_high": 44.2,
+    "target_price": 51.85,
+    "stop_loss": 44.2,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.385740-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 59.07,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 124.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1210,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 45,
+    "price_change_display": "+4.45%",
+    "key_metrics": {
+      "RSI": 57.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

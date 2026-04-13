@@ -1,0 +1,158 @@
+{
+  "ticker": "LULU",
+  "company": "lululemon athletica inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.154315-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 163.64,
+    "open": 162.2,
+    "high": 163.9,
+    "low": 156.55,
+    "prev_close": 163.86,
+    "change_pct": -0.13,
+    "change_pct_1w": 4.78,
+    "change_pct_1m": 3.45,
+    "change_pct_1y": -40.24,
+    "volume": 1043865,
+    "avg_volume_30d": 2813715
+  },
+  "scores": {
+    "master_score": 29.53,
+    "technical_score": 11.1,
+    "fundamental_score": 37.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 29.53,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 51.6,
+    "macd": -2.2816,
+    "macd_signal": -4.2487,
+    "macd_histogram": 1.9671,
+    "macd_crossover": "neutral",
+    "ema_20": 160.58,
+    "ema_50": 168.08,
+    "ema_200": 198.22,
+    "ema_stack_bullish": false,
+    "bb_upper": 170.48,
+    "bb_middle": 158.52,
+    "bb_lower": 146.56,
+    "bb_width": 0.1509,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.9,
+    "atr": 6.75,
+    "atr_pct": 0.0412,
+    "obv_trend": "UP",
+    "mfi": 36.1,
+    "cmf": -0.124,
+    "stoch_k": 82.0,
+    "stoch_d": 86.9,
+    "rvol": 0.54,
+    "volume_5d_avg": 1533113,
+    "green_days_10d": 5,
+    "52w_high": 335.19,
+    "52w_low": 145.83,
+    "52w_high_proximity_pct": 0.5118,
+    "52w_low_proximity_pct": 0.1221
+  },
+  "fundamental": {
+    "pe_ratio": 12.340875,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 3.8420362,
+    "de_ratio": 36.245,
+    "fcf_yield": 0.0429,
+    "eps_growth_5y": -0.185,
+    "revenue_growth_ttm": 0.008,
+    "gross_margin": 0.56601,
+    "operating_margin": 0.22311,
+    "net_margin": 0.14224,
+    "market_cap": 19196790784,
+    "enterprise_value": 18933231616,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.047220003,
+    "institutional_ownership_pct": 0.83454,
+    "short_ratio": 2.1,
+    "beta": 1.07
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 162.82,
+    "entry_range_high": 164.46,
+    "target_range_low": 180.21,
+    "target_range_high": 193.08,
+    "stop_range_low": 142.63,
+    "stop_range_high": 150.14,
+    "target_price": 183.89,
+    "stop_loss": 150.14,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.154263-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 204.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 145.83,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 1,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 622,
+      "date": "2026-04-08"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-0.13%",
+    "key_metrics": {
+      "RSI": 51.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

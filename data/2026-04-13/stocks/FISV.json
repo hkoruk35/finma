@@ -1,0 +1,158 @@
+{
+  "ticker": "FISV",
+  "company": "Fiserv, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.387706-04:00",
+  "sector": "Financials",
+  "industry": "",
+  "price": {
+    "current": 58.7,
+    "open": 55.9,
+    "high": 58.74,
+    "low": 55.7,
+    "prev_close": 56.09,
+    "change_pct": 4.65,
+    "change_pct_1w": 4.23,
+    "change_pct_1m": 4.69,
+    "change_pct_1y": -69.99,
+    "volume": 2718039,
+    "avg_volume_30d": 6229404
+  },
+  "scores": {
+    "master_score": 30.32,
+    "technical_score": 11.4,
+    "fundamental_score": 40.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 50.0,
+    "sector_score": 33.3,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 30.32,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.9,
+    "macd": -0.7998,
+    "macd_signal": -1.2359,
+    "macd_histogram": 0.4362,
+    "macd_crossover": "neutral",
+    "ema_20": 56.96,
+    "ema_50": 59.82,
+    "ema_200": 96.18,
+    "ema_stack_bullish": false,
+    "bb_upper": 58.71,
+    "bb_middle": 56.42,
+    "bb_lower": 54.14,
+    "bb_width": 0.081,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 13.4,
+    "atr": 2.06,
+    "atr_pct": 0.0352,
+    "obv_trend": "UP",
+    "mfi": 57.9,
+    "cmf": -0.007,
+    "stoch_k": 99.3,
+    "stoch_d": 72.9,
+    "rvol": 0.86,
+    "volume_5d_avg": 5370807,
+    "green_days_10d": 6,
+    "52w_high": 217.1,
+    "52w_low": 53.9,
+    "52w_high_proximity_pct": 0.7296,
+    "52w_low_proximity_pct": 0.0891
+  },
+  "fundamental": {
+    "pe_ratio": 9.258675,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 1.215321,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": null,
+    "gross_margin": null,
+    "operating_margin": null,
+    "net_margin": null,
+    "market_cap": 31391440896,
+    "enterprise_value": null,
+    "dividend_yield": null,
+    "payout_ratio": null,
+    "insider_ownership_pct": null,
+    "institutional_ownership_pct": null,
+    "short_ratio": null,
+    "beta": null
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 58.41,
+    "entry_range_high": 58.99,
+    "target_range_low": 63.58,
+    "target_range_high": 68.12,
+    "stop_range_low": 51.85,
+    "stop_range_high": 54.58,
+    "target_price": 64.88,
+    "stop_loss": 54.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.387688-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 73.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 53.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 101572,
+      "date": "2026-02-18"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+4.65%",
+    "key_metrics": {
+      "RSI": 54.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

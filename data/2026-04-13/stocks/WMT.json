@@ -1,0 +1,158 @@
+{
+  "ticker": "WMT",
+  "company": "Walmart Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.264414-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 124.62,
+    "open": 126.23,
+    "high": 126.3,
+    "low": 124.33,
+    "prev_close": 126.77,
+    "change_pct": -1.7,
+    "change_pct_1w": -1.71,
+    "change_pct_1m": -0.36,
+    "change_pct_1y": 40.32,
+    "volume": 4976725,
+    "avg_volume_30d": 18952957
+  },
+  "scores": {
+    "master_score": 44.05,
+    "technical_score": 48.0,
+    "fundamental_score": 10.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 60.0,
+    "sector_score": 27.5,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 44.05,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.0,
+    "macd": 0.6458,
+    "macd_signal": 0.3139,
+    "macd_histogram": 0.3318,
+    "macd_crossover": "neutral",
+    "ema_20": 124.85,
+    "ema_50": 123.34,
+    "ema_200": 112.71,
+    "ema_stack_bullish": false,
+    "bb_upper": 128.87,
+    "bb_middle": 123.92,
+    "bb_lower": 118.97,
+    "bb_width": 0.0799,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 10.6,
+    "atr": 2.91,
+    "atr_pct": 0.0234,
+    "obv_trend": "UP",
+    "mfi": 76.4,
+    "cmf": -0.053,
+    "stoch_k": 44.9,
+    "stoch_d": 70.9,
+    "rvol": 0.73,
+    "volume_5d_avg": 13796945,
+    "green_days_10d": 7,
+    "52w_high": 133.62,
+    "52w_low": 89.81,
+    "52w_high_proximity_pct": 0.0673,
+    "52w_low_proximity_pct": 0.3875
+  },
+  "fundamental": {
+    "pe_ratio": 45.648354,
+    "sector_pe_median": 24.024459,
+    "pb_ratio": 9.968802,
+    "de_ratio": 64.443,
+    "fcf_yield": 0.0106,
+    "eps_growth_5y": -0.19,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.24927,
+    "operating_margin": 0.04567,
+    "net_margin": 0.0307,
+    "market_cap": 993520844800,
+    "enterprise_value": 1074923438080,
+    "dividend_yield": 0.78,
+    "payout_ratio": 0.3443,
+    "insider_ownership_pct": 0.44935,
+    "institutional_ownership_pct": 0.38740003,
+    "short_ratio": 3.23,
+    "beta": 0.661
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 122.72,
+    "entry_range_high": 125.24,
+    "target_range_low": 130.68,
+    "target_range_high": 140.02,
+    "stop_range_low": 112.86,
+    "stop_range_high": 118.8,
+    "target_price": 133.35,
+    "stop_loss": 118.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.264393-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 155.78,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 78.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 89.81,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 21,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 231,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "-1.70%",
+    "key_metrics": {
+      "RSI": 50.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

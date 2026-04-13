@@ -1,0 +1,160 @@
+{
+  "ticker": "CM",
+  "company": "Canadian Imperial Bank of Commerce",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.350692-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 104.22,
+    "open": 102.89,
+    "high": 104.28,
+    "low": 102.32,
+    "prev_close": 103.16,
+    "change_pct": 1.03,
+    "change_pct_1w": 7.26,
+    "change_pct_1m": 8.45,
+    "change_pct_1y": 85.54,
+    "volume": 372634,
+    "avg_volume_30d": 1564817
+  },
+  "scores": {
+    "master_score": 53.58,
+    "technical_score": 57.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 58.0,
+    "sector_score": 33.3,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 53.58,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.3,
+    "macd": 1.541,
+    "macd_signal": 0.4878,
+    "macd_histogram": 1.0532,
+    "macd_crossover": "neutral",
+    "ema_20": 98.24,
+    "ema_50": 96.37,
+    "ema_200": 85.99,
+    "ema_stack_bullish": true,
+    "bb_upper": 103.54,
+    "bb_middle": 96.87,
+    "bb_lower": 90.21,
+    "bb_width": 0.1376,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.4,
+    "atr": 2.07,
+    "atr_pct": 0.0198,
+    "obv_trend": "UP",
+    "mfi": 52.3,
+    "cmf": 0.016,
+    "stoch_k": 99.5,
+    "stoch_d": 97.6,
+    "rvol": 0.64,
+    "volume_5d_avg": 1004986,
+    "green_days_10d": 9,
+    "52w_high": 104.22,
+    "52w_low": 55.38,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.8818
+  },
+  "fundamental": {
+    "pe_ratio": 15.060694,
+    "sector_pe_median": 16.082986,
+    "pb_ratio": 2.0873857,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.466,
+    "revenue_growth_ttm": 0.167,
+    "gross_margin": 0.0,
+    "operating_margin": 0.44713002,
+    "net_margin": 0.33528998,
+    "market_cap": 95918882816,
+    "enterprise_value": 90668310528,
+    "dividend_yield": 2.99,
+    "payout_ratio": 0.415,
+    "insider_ownership_pct": 0.0005,
+    "institutional_ownership_pct": 0.53061,
+    "short_ratio": 7.49,
+    "beta": 1.269
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 95.89,
+    "entry_range_high": 104.74,
+    "target_range_low": 108.22,
+    "target_range_high": 115.95,
+    "stop_range_low": 95.08,
+    "stop_range_high": 100.08,
+    "target_price": 110.43,
+    "stop_loss": 100.08,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.350632-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 130.28,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 299.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 55.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 53,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 95000,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. CM is testing its 52-week high, also aligning with the upper Bollinger Band at $103.54, suggesting potential resistance. The BUY ZONE would be a pullback towards the EMA20 at $98.24, offering support for a potential bounce. Set a STOP LOSS ZONE just below the EMA50 at $96.37. Profit target would be a move towards $108, anticipating breakout momentum.\n\n### Fundamental Edge\n\nCM boasts a solid net margin of 33.5% and trades at a P/E of 15.06, suggesting it might be undervalued compared to its peers, making it attractive to value-oriented investors. The recent revenue growth of 16.7% TTM could be a catalyst for continued upward price action if the bank maintains its growth trajectory.\n\n### Sector Context\n\nThe financials sector is currently mixed, neither strongly supporting nor hindering CM's individual performance.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+1.03%",
+    "key_metrics": {
+      "RSI": 69.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

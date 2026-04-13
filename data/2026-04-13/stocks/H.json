@@ -1,0 +1,158 @@
+{
+  "ticker": "H",
+  "company": "Hyatt Hotels Corporation",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.215744-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Lodging",
+  "price": {
+    "current": 157.62,
+    "open": 153.63,
+    "high": 157.9,
+    "low": 153.35,
+    "prev_close": 155.25,
+    "change_pct": 1.53,
+    "change_pct_1w": 7.97,
+    "change_pct_1m": 9.81,
+    "change_pct_1y": 32.82,
+    "volume": 207299,
+    "avg_volume_30d": 769913
+  },
+  "scores": {
+    "master_score": 35.4,
+    "technical_score": 40.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 65.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 35.4,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 60.1,
+    "macd": -0.0804,
+    "macd_signal": -2.2831,
+    "macd_histogram": 2.2027,
+    "macd_crossover": "neutral",
+    "ema_20": 149.58,
+    "ema_50": 152.75,
+    "ema_200": 150.66,
+    "ema_stack_bullish": false,
+    "bb_upper": 156.03,
+    "bb_middle": 146.5,
+    "bb_lower": 136.97,
+    "bb_width": 0.1301,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.3,
+    "atr": 6.23,
+    "atr_pct": 0.0395,
+    "obv_trend": "UP",
+    "mfi": 56.5,
+    "cmf": -0.084,
+    "stoch_k": 89.4,
+    "stoch_d": 83.0,
+    "rvol": 0.82,
+    "volume_5d_avg": 633979,
+    "green_days_10d": 6,
+    "52w_high": 171.68,
+    "52w_low": 103.8,
+    "52w_high_proximity_pct": 0.0819,
+    "52w_low_proximity_pct": 0.5186
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.407112,
+    "pb_ratio": 4.472504,
+    "de_ratio": 124.515,
+    "fcf_yield": 0.0265,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.175,
+    "gross_margin": 0.41877997,
+    "operating_margin": 0.14765,
+    "net_margin": -0.01498,
+    "market_cap": 14890009600,
+    "enterprise_value": 18734120960,
+    "dividend_yield": 0.39,
+    "payout_ratio": 0.1364,
+    "insider_ownership_pct": 0.033210002,
+    "institutional_ownership_pct": 1.27334,
+    "short_ratio": 7.05,
+    "beta": 1.281
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 151.99,
+    "entry_range_high": 158.41,
+    "target_range_low": 172.78,
+    "target_range_high": 185.13,
+    "stop_range_low": 137.9,
+    "stop_range_high": 145.16,
+    "target_price": 176.31,
+    "stop_loss": 145.16,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.215719-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 197.03,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 39.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 103.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 527,
+      "date": "2026-03-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 5.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+1.53%",
+    "key_metrics": {
+      "RSI": 60.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -92,9 +92,21 @@ def main():
     run_bot_subprocess("update_swing_performance.py")
 
     log.info("=" * 60)
+    log.info("ADIM 4: Veriler GitHub'a yükleniyor (Git Push)...")
+    try:
+        subprocess.run(["git", "add", "."], cwd=FINMA_DIR, check=True)
+        # Using a reliable date tag
+        commit_msg = f"Data: Daily Master Update {now_ny.strftime('%Y-%m-%d %H:%M')}"
+        # We don't check=True on commit because it fails if there are no changes
+        subprocess.run(["git", "commit", "-m", commit_msg], cwd=FINMA_DIR)
+        subprocess.run(["git", "push", "origin", "main"], cwd=FINMA_DIR, check=True)
+        log.info("✅ Tüm veriler GitHub'a iletildi (Vercel deploy tetiklendi).")
+    except Exception as e:
+        log.error(f"❌ Git Push sırasında hata oluştu: {e}")
+
+    log.info("=" * 60)
     log.info("✅ Tüm botlar tamamlandı.")
     log.info("=" * 60)
-
 
 if __name__ == "__main__":
     main()

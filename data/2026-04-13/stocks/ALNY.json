@@ -1,0 +1,158 @@
+{
+  "ticker": "ALNY",
+  "company": "Alnylam Pharmaceuticals, Inc.",
+  "date": "2026-04-13",
+  "generated_at": "2026-04-13T13:27:57.291813-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 326.54,
+    "open": 320.66,
+    "high": 328.0,
+    "low": 318.99,
+    "prev_close": 322.11,
+    "change_pct": 1.37,
+    "change_pct_1w": -1.15,
+    "change_pct_1m": 2.93,
+    "change_pct_1y": 34.23,
+    "volume": 354951,
+    "avg_volume_30d": 1110491
+  },
+  "scores": {
+    "master_score": 21.63,
+    "technical_score": 11.4,
+    "fundamental_score": 0.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 21.4,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 21.63,
+    "confidence": 0.22,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 51.7,
+    "macd": -0.4887,
+    "macd_signal": -1.7219,
+    "macd_histogram": 1.2333,
+    "macd_crossover": "neutral",
+    "ema_20": 322.82,
+    "ema_50": 332.89,
+    "ema_200": 359.38,
+    "ema_stack_bullish": false,
+    "bb_upper": 334.92,
+    "bb_middle": 320.4,
+    "bb_lower": 305.87,
+    "bb_width": 0.0907,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 12.8,
+    "atr": 11.48,
+    "atr_pct": 0.0352,
+    "obv_trend": "UP",
+    "mfi": 53.6,
+    "cmf": -0.106,
+    "stoch_k": 74.8,
+    "stoch_d": 65.9,
+    "rvol": 0.81,
+    "volume_5d_avg": 900510,
+    "green_days_10d": 5,
+    "52w_high": 491.22,
+    "52w_low": 226.28,
+    "52w_high_proximity_pct": 0.3353,
+    "52w_low_proximity_pct": 0.4431
+  },
+  "fundamental": {
+    "pe_ratio": 140.74785,
+    "sector_pe_median": 24.7599545,
+    "pb_ratio": 54.769375,
+    "de_ratio": 376.19,
+    "fcf_yield": 0.003,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.849,
+    "gross_margin": 0.8164,
+    "operating_margin": 0.12007,
+    "net_margin": 0.08448,
+    "market_cap": 43568885760,
+    "enterprise_value": 42779553792,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00193,
+    "institutional_ownership_pct": 1.01114,
+    "short_ratio": 4.2,
+    "beta": 0.383
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 324.91,
+    "entry_range_high": 328.17,
+    "target_range_low": 353.76,
+    "target_range_high": 379.03,
+    "stop_range_low": 288.4,
+    "stop_range_high": 303.58,
+    "target_price": 360.98,
+    "stop_loss": 303.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-13T13:27:57.291792-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 408.18,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 226.28,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 17,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3910,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.25,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 22,
+    "price_change_display": "+1.37%",
+    "key_metrics": {
+      "RSI": 51.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}
