@@ -11,19 +11,19 @@ def scrub_code(directory):
                     
                     changed = False
                     
-                    # 1. Replace FinMA (case insensitive-ish for common patterns)
-                    if "FinMA" in content:
-                        content = content.replace("FinMA", "BOGA AI")
+                    # 1. Replace BOGA AI (case insensitive-ish for common patterns)
+                    if "BOGA AI" in content:
+                        content = content.replace("BOGA AI", "BOGA AI")
                         changed = True
                     if "finma" in content and "finmawave.png" not in content and "finma_universe" not in content and "finmaicon" not in content:
                         # Avoid replacing filenames or database tables
                         content = content.replace("finma", "boga_ai")
                         changed = True
                     
-                    # 2. Replace standalone BOGA with BOGA AI
-                    # We look for "BOGA" not followed by " AI"
+                    # 2. Replace standalone BOGA AI with BOGA AI
+                    # We look for "BOGA AI" not followed by " AI"
                     import re
-                    # Match BOGA but not BOGA AI. Avoid BOGASTOCK urls.
+                    # Match BOGA AI but not BOGA AI. Avoid BOGASTOCK urls.
                     new_content = re.sub(r'\bBOGA\b(?!\s+AI)', 'BOGA AI', content)
                     if new_content != content:
                         content = new_content

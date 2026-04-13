@@ -10,9 +10,9 @@ def scrub_branding(directory):
                     with open(path, 'r', encoding='utf-8') as f:
                         content = f.read()
                     
-                    if "FinMA" in content:
+                    if "BOGA AI" in content:
                         print(f"Scrubbing {path}...")
-                        new_content = content.replace("FinMA", "BOGA AI")
+                        new_content = content.replace("BOGA AI", "BOGA AI")
                         with open(path, 'w', encoding='utf-8') as f:
                             f.write(new_content)
                 except Exception as e:

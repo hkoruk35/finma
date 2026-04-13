@@ -56,84 +56,89 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
             <Link
               key={item.ticker}
               href={`/stock/${item.ticker}`}
-              className="glass-card p-6 hover:bg-[#1a2030] transition-all duration-300 group relative overflow-hidden border-2 border-transparent hover:border-[#3b82f6]/20"
+              className="glass-card p-6 hover:bg-[#1a2030] transition-all duration-300 group relative overflow-hidden border-2 border-transparent hover:border-[#3b82f6]/20 flex flex-col"
             >
               {/* Rank badge */}
-              <div className={`absolute top-0 right-0 w-14 h-14 rounded-bl-3xl flex items-center justify-center text-lg font-black text-white shadow-2xl bg-gradient-to-br from-[#3b82f6] to-[#1e3a8a]`}>
+              <div className={`absolute top-0 right-0 w-14 h-14 rounded-bl-3xl flex items-center justify-center text-lg font-black text-white shadow-2xl bg-gradient-to-br from-[#3b82f6] to-[#1e3a8a] z-20`}>
                 #{idx + 1}
               </div>
 
-              {/* Ticker & Company */}
-              <div className="mb-4">
+              {/* Ticker & Company - Fixed Height for Alignment */}
+              <div className="mb-4 min-h-[70px]">
                 <div className="text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase">
                   {item.ticker}
                 </div>
-                <div className="text-sm font-bold text-[#64748b] tracking-wider mt-1 line-clamp-1">
+                <div className="text-sm font-bold text-[#64748b] tracking-wider mt-1 line-clamp-2">
                    {item.company}
                 </div>
               </div>
 
-              {/* Score + Pattern */}
-              <div className="flex flex-col gap-3 mb-6">
-                <div className="flex items-end gap-2">
-                   <div className="text-5xl font-mono font-black text-white leading-none">
+              {/* Score + Pattern - Fixed Height for Alignment */}
+              <div className="flex flex-col gap-3 mb-6 min-h-[140px]">
+                <div className="flex items-end gap-3">
+                   <div className="text-5xl md:text-6xl font-mono font-black text-white leading-none">
                      {item.score.toFixed(1)}
                    </div>
-                   <div className="text-[9px] text-[#3b82f6] font-black uppercase tracking-[0.2em] mb-1">SWING SCORE</div>
+                   <div className="text-[11px] md:text-[12px] text-[#3b82f6] font-black uppercase tracking-[0.2em] mb-2">
+                     SWING SCORE
+                   </div>
                 </div>
-                <div className="flex">
-                  <span className={`px-4 py-1.5 rounded-2xl text-[10px] font-black uppercase tracking-wider shadow-xl bg-[#3b82f6]/20 text-[#bfdbfe] border border-[#3b82f6]/40 text-center`}>
-                    {item.reasoning.substring(0, 80)}...
-                  </span>
+                {/* Reasoning Box - More Readable Format */}
+                <div className="bg-[#1e293b]/50 rounded-xl p-4 border border-[#3b82f6]/20 flex-1">
+                  <p className="text-xs md:text-[13px] text-[#d1d5db] leading-relaxed font-medium">
+                    {item.reasoning.length > 120 
+                      ? item.reasoning.substring(0, 117) + "..." 
+                      : item.reasoning}
+                  </p>
                 </div>
               </div>
 
-              {/* Zones */}
-              <div className="mb-6 bg-black/40 rounded-xl p-5 border border-white/10 shadow-inner">
-                 <div className="grid grid-cols-2 gap-6">
+              {/* Zones - Uniform Height via flex-col structure */}
+              <div className="mb-6 bg-black/40 rounded-xl p-5 border border-white/10 shadow-inner flex-1">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-2">
                    <div>
-                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                       <span className="w-2 h-2 rounded-full bg-[#3b82f6]"></span>
+                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                       <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]"></span>
                        BUY ZONE
                      </div>
-                     <div className="text-sm md:text-base font-mono font-black text-white">
+                     <div className="text-[13px] lg:text-[15px] font-mono font-bold text-white whitespace-nowrap">
                        {formatPrice(item.buy_zone.low)} - {formatPrice(item.buy_zone.high)}
                      </div>
                    </div>
                    
                    <div>
-                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                       <span className="w-2 h-2 rounded-full bg-[#10b981]"></span>
+                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                       <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
                        PROFIT ZONE
                      </div>
-                     <div className="text-sm md:text-base font-mono font-black text-[#10b981]">
+                     <div className="text-[13px] lg:text-[15px] font-mono font-bold text-[#10b981] whitespace-nowrap">
                        {formatPrice(item.profit_zone.low)} - {formatPrice(item.profit_zone.high)}
                      </div>
                    </div>
 
                    <div>
-                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                       <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                       <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></span>
                        STOP LOSS
                      </div>
-                     <div className="text-sm md:text-base font-mono font-black text-[#ef4444]">
+                     <div className="text-[13px] lg:text-[15px] font-mono font-bold text-[#ef4444] whitespace-nowrap">
                        {formatPrice(item.stop_zone.low)} - {formatPrice(item.stop_zone.high)}
                      </div>
                    </div>
 
                    <div>
-                     <div className="text-xs text-[#64748b] font-black uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                       <span className="w-2 h-2 rounded-full bg-[#a855f7]"></span>
+                     <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                       <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7]"></span>
                        HOLDING
                      </div>
-                     <div className="text-sm md:text-base font-mono font-black text-[#f3e8ff]">
+                     <div className="text-[13px] lg:text-[15px] font-mono font-bold text-[#f3e8ff] whitespace-nowrap">
                        {item.holding_period}
                      </div>
                    </div>
                  </div>
               </div>
 
-              {/* Metrics */}
+              {/* Metrics - Enlarged for Visibility */}
               {(() => {
                 const metrics = [
                   { label: "1D", val: liveData?.change_pct ?? item.change_1d },
@@ -146,7 +151,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                   <div className="grid grid-cols-4 gap-2 text-center border-t border-white/5 pt-5">
                     {metrics.map((p, i) => (
                       <div key={i}>
-                         <div className={`text-[14px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                         <div className={`text-[17px] md:text-[19px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
                            {p.val !== undefined ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
                          </div>
                          <div className="text-[11px] text-[#64748b] font-black mt-1.5 uppercase">{p.label}</div>
