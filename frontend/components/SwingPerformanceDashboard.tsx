@@ -105,6 +105,21 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
     })).sort((a, b) => b.avgReturn - a.avgReturn);
   }, [filteredHistory]);
 
+  // Helper to check if a trade is within the last 3 days
+  const isRestricted = (dateStr: string) => {
+    try {
+      const pickDate = new Date(dateStr);
+      const now = new Date();
+      // Midnight comparison
+      const pickTime = new Date(pickDate.getFullYear(), pickDate.getMonth(), pickDate.getDate()).getTime();
+      const nowTime = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const diffDays = (nowTime - pickTime) / (1000 * 3600 * 24);
+      return diffDays < 3; // 0, 1, 2 days back are restricted
+    } catch (e) {
+      return false;
+    }
+  };
+
   return (
     <>
       {/* Filters */}
@@ -194,18 +209,34 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
       <div className="w-full">
          <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
             <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
-            <p className="text-xs text-[#94a3b8]">Showing {filteredHistory.length} trades</p>
+            <div className="flex flex-col items-end gap-1">
+               <p className="text-xs text-[#94a3b8]">Showing {filteredHistory.length} trades</p>
+               <p className="text-[10px] text-[#3b82f6] font-bold uppercase tracking-wider bg-[#3b82f6]/10 px-2 py-0.5 rounded">
+                 ⚠️ 3-Day Delay Applied for Free Users
+               </p>
+            </div>
          </div>
 
          {/* Mobile Card View (md:hidden) */}
          <div className="grid grid-cols-1 gap-4 md:hidden">
-            {filteredHistory.map((t: any, i: number) => (
-               <div key={i} className="glass-card p-5 border-l-4 border-l-[#3b82f6]">
+            {filteredHistory.map((t: any, i: number) => {
+               const restricted = isRestricted(t.date);
+               return (
+               <div key={i} className={`glass-card p-5 border-l-4 border-l-[#3b82f6] ${restricted ? 'opacity-80' : ''}`}>
                   <div className="flex justify-between items-start mb-4">
                      <div>
-                        <Link href={`/stock/${t.ticker}`} className="text-2xl font-black text-[#3b82f6] hover:underline">
-                           {t.ticker}
-                        </Link>
+                        {restricted ? (
+                          <div className="flex flex-col gap-1">
+                             <span className="text-2xl font-black text-[#3b82f6] filter blur-sm cursor-not-allowed">
+                               XXXX
+                             </span>
+                             <span className="text-[9px] text-[#3b82f6] font-black uppercase">PRO ACCESS ONLY</span>
+                          </div>
+                        ) : (
+                          <Link href={`/stock/${t.ticker}`} className="text-2xl font-black text-[#3b82f6] hover:underline">
+                             {t.ticker}
+                          </Link>
+                        )}
                         <p className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest mt-1">
                            {t.date} &middot; {t.sector || "Unknown"}
                         </p>
@@ -230,7 +261,8 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                      </div>
                   </div>
                </div>
-            ))}
+               );
+            })}
          </div>
 
          {/* Desktop Table View (hidden md:block) */}
@@ -249,13 +281,22 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                      </tr>
                   </thead>
                   <tbody className="text-white font-mono divide-y divide-[#1e2a3a]">
-                     {filteredHistory.map((t: any, i: number) => (
+                     {filteredHistory.map((t: any, i: number) => {
+                        const restricted = isRestricted(t.date);
+                        return (
                         <tr key={i} className="hover:bg-[#1a2030]/50 transition-colors">
                            <td className="px-6 py-4 text-[#94a3b8]">{t.date}</td>
                            <td className="px-6 py-4">
-                              <Link href={`/stock/${t.ticker}`} className="font-bold text-[#3b82f6] hover:underline">
-                                 {t.ticker}
-                              </Link>
+                              {restricted ? (
+                                 <div className="flex items-center gap-2">
+                                    <span className="font-bold text-[#3b82f6] filter blur-sm cursor-not-allowed select-none">XXXXX</span>
+                                    <span className="text-[9px] bg-[#3b82f6]/10 text-[#3b82f6] px-1.5 py-0.5 rounded font-black">LOCKED</span>
+                                 </div>
+                              ) : (
+                                 <Link href={`/stock/${t.ticker}`} className="font-bold text-[#3b82f6] hover:underline">
+                                    {t.ticker}
+                                 </Link>
+                              )}
                            </td>
                            <td className={`px-6 py-4 text-right font-black text-base ${t.return_pct >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                               {t.return_pct >= 0 ? "+" : ""}{t.return_pct.toFixed(2)}%
@@ -265,7 +306,8 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                            <td className="px-6 py-4 text-center text-[#64748b]">{t.days}</td>
                            <td className="px-6 py-4 text-[#94a3b8] text-[10px] uppercase">{t.sector || "Unknown"}</td>
                         </tr>
-                     ))}
+                        );
+                     })}
                   </tbody>
                </table>
             </div>
