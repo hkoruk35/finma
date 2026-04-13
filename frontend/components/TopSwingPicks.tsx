@@ -51,11 +51,13 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {picks.map((item, idx) => {
           const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
+          const isProRequired = idx > 0;
+          const redirectUrl = idx === 0 ? "/login" : "/login?redirect=pro";
           
           return (
             <Link
               key={item.ticker}
-              href={`/stock/${item.ticker}`}
+              href={redirectUrl}
               className="glass-card p-6 hover:bg-[#1a2030] transition-all duration-300 group relative overflow-hidden border-2 border-transparent hover:border-[#3b82f6]/20 flex flex-col"
             >
               {/* Rank badge */}
@@ -65,16 +67,21 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
               {/* Ticker & Company - Fixed Height for Alignment */}
               <div className="mb-4 min-h-[70px]">
-                <div className="text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase">
-                  {item.ticker}
+                <div className={`text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase ${isProRequired ? 'blur-[8px] select-none opacity-50' : ''}`}>
+                  {isProRequired ? 'XXXX' : item.ticker}
                 </div>
-                <div className="text-sm font-bold text-[#64748b] tracking-wider mt-1 line-clamp-2">
-                   {item.company}
+                <div className={`text-sm font-bold text-[#64748b] tracking-wider mt-1 line-clamp-2 ${isProRequired ? 'blur-[4px] select-none opacity-40' : ''}`}>
+                   {isProRequired ? 'PRO MEMBERS ONLY CONTENT' : item.company}
                 </div>
+                {isProRequired && (
+                   <div className="absolute top-12 left-6 bg-[#3b82f6] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest z-10 shadow-lg">
+                     PRO REQUIRED
+                   </div>
+                )}
               </div>
 
               {/* Score + Pattern - Fixed Height for Alignment */}
-              <div className="flex flex-col gap-3 mb-6 min-h-[140px]">
+              <div className={`flex flex-col gap-3 mb-6 min-h-[140px] ${isProRequired ? 'blur-[10px] select-none pointer-events-none' : ''}`}>
                 <div className="flex items-end gap-3">
                    <div className="text-5xl md:text-6xl font-mono font-black text-white leading-none">
                      {item.score.toFixed(1)}
