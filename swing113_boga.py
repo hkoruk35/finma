@@ -1536,7 +1536,7 @@ def get_stock_info(ticker: str) -> dict:
             "market_cap": market_cap,
             "avg_volume": avg_volume,
             "beta": float(beta),
-            "short_float": float(short_float)
+            "short_float": float(short_float),
             "sector": info.get("sector", "Unknown"),  # ← bu satır eksik
         }
 
@@ -4147,10 +4147,10 @@ async def scan_top_stocks():
     layer3_count = len(layer3_candidates) if 'layer3_candidates' in locals() else 0
 
     header = (
-        f"🦅 <b>ATMACA SWING MASTER V112 – TOP 20 PROJEKSİYON</b>\n"
+        f"🦅 <b>ATMACA SWING MASTER V112 – TOP 10 PROJEKSİYON</b>\n"
         f"🕒 <i>Zaman (NY): {now_str}</i>\n"
         f"⏱ <i>Tarama Süresi: {duration:.1f} sn</i>\n"
-        f"📊 <i>Katman 3: {layer3_count} aday → Top 20 raporlanıyor</i>\n"
+        f"📊 <i>Top 10 aday raporlanıyor</i>\n"
         "<pre>"
         f"#  SEMBOL   PUAN    GİRİŞ      SL        TP1       TP2\n"
         f"---------------------------------------------------------\n"
@@ -4173,44 +4173,24 @@ async def scan_top_stocks():
         )
 
     toplist_msg = (
-        header + "\n".join(rows) +
+        header + "\n".join(rows[:10]) +
         "\n---------------------------------------------------------\n"
         "</pre><i>💡 Stop: 2xATR | Hedef: 1.8–2.5xATR | Max Kâr: %10–12 | [E]=Exhausted</i>\n\n"
         "<b>Aşağıda İlk 10 Adayın Derin Analiz Raporu Mevcuttur:</b>\n\n"
     )
 
-    # İlk 10 detay raporu ve grafikleri
+    # Sadece ilk 10 detay raporu ve grafikleri gönderiliyor (User isteği)
     first_batch = top_candidates[:10]
     report1_details = "".join([build_candidate_block(i + 1, c) for i, c in enumerate(first_batch)])
     
     await send_telegram_message(toplist_msg + report1_details)
     
-    # Grafik gönderimleri
+    # Grafik gönderimleri (Top 10)
     for c in first_batch:
-        # 🔥 ÖNEMLİ GÜNCELLEME: candidate_data=c parametresi eklendi
         chart_file = generate_stock_chart(c['ticker'], c['df_1d'], c['df_1h'], candidate_data=c)
-        
         if chart_file:
             await send_telegram_photo(chart_file)
-            await asyncio.sleep(0.5) # Spam önleme
-
-    # ---------------------------------------------------------
-    # 5) TELEGRAM RAPORLAMA (Mesaj 2: Son 10 Detay)
-    # ---------------------------------------------------------
-    second_batch = top_candidates[10:20]
-    if second_batch:
-        report2_header = "🦅 <b>ATMACA SWING MASTER V112 – SON 10 DETAY RAPORU</b>\n"
-        report2_details = "".join([build_candidate_block(i + 11, c) for i, c in enumerate(second_batch)])
-        
-        await send_telegram_message(report2_header + report2_details)
-        
-        for c in second_batch:
-            # 🔥 ÖNEMLİ GÜNCELLEME: candidate_data=c parametresi eklendi
-            chart_file = generate_stock_chart(c['ticker'], c['df_1d'], c['df_1h'], candidate_data=c)
-            
-            if chart_file:
-                await send_telegram_photo(chart_file)
-                await asyncio.sleep(0.5)
+            await asyncio.sleep(0.5) 
 
     save_info_cache()  # Taramada keşfedilen yeni hisseleri diske yazdır
     logging.info(f"✅ NY 13:00 Taraması başarıyla tamamlandı. ({scanned_count} hisse taranmış)")
