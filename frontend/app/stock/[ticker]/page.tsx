@@ -19,10 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ticker = tickerParam.toUpperCase();
   const stock = await getStockData(ticker);
 
-  if (!stock) return { title: "Stock Not Found | BOGA" };
+  if (!stock) return { title: "Stock Not Found | BOGA AI" };
 
   const dateStr = new Date().toISOString().split("T")[0];
-  const title = `${stock.ticker} Stock Analysis ${dateStr} | ${stock.company} AI Score & Ratings — BOGA`;
+  const title = `${stock.ticker} Stock Analysis ${dateStr} | ${stock.company} AI Score & Ratings — BOGA AI`;
   const description = `${stock.ticker} (${stock.company}) analysis for ${dateStr}. BOGA AI Score: ${stock.scores.master_score.toFixed(1)}. Current Rating: ${stock.scores.score_type.replace("_", " ")} at $${formatPrice(stock.price.current)}. Discover real-time AI scores and AI-driven stock research.`;
 
   return {
@@ -78,11 +78,11 @@ export default async function StockDetailPage({ params }: Props) {
             "image": "https://bogastock.com/finmawave.png",
             "author": {
               "@type": "Organization",
-              "name": "BOGA Daily +500"
+              "name": "BOGA AI - Blue One Global Analysis"
             },
             "publisher": {
               "@type": "Organization",
-              "name": "BOGA",
+              "name": "BOGA AI",
               "logo": {
                 "@type": "ImageObject",
                 "url": "https://bogastock.com/finmawave.png"
