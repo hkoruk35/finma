@@ -1,97 +1,97 @@
 {
-  "generated_at": "2026-04-12T13:00:00",
-  "date": "2026-04-12",
+  "generated_at": "2026-04-13T13:10:00",
+  "date": "2026-04-13",
   "source": "BOGA Swing Engine",
   "picks": [
     {
       "rank": 1,
-      "ticker": "SSSS",
-      "company": "SuRo Capital Corp.",
-      "score": 75.5,
-      "current_price": 11.91,
+      "ticker": "FORM",
+      "company": "FormFactor",
+      "score": 20.5,
+      "current_price": 132.08,
       "buy_zone": {
-        "low": 11.6718,
-        "high": 12.148200000000001
+        "low": 129.43,
+        "high": 134.72
       },
       "profit_zone": {
-        "low": 13.101,
-        "high": 13.696499999999999
+        "low": 135.18,
+        "high": 139.83
       },
       "stop_zone": {
-        "low": 10.719000000000001,
-        "high": 11.076300000000002
+        "low": 115.36,
+        "high": 117.72
       },
-      "rvol": 1.8,
-      "adx": 28.5,
-      "rsi": 62.3,
-      "pattern": "Pullback D\u00f6n\u00fc\u015f",
+      "rvol": 1.61,
+      "adx": 73.9,
+      "rsi": 76.4,
+      "pattern": "Trend Devam Swing",
       "market_regime": "BULLISH",
-      "holding_period": "3-10 days",
-      "reasoning": "Strong relative strength combined with an impending volatility squeeze.",
-      "change_1d": 1.2,
-      "change_1w": 4.5,
-      "change_1m": 12.4,
-      "change_1y": 34.2
+      "holding_period": "6 days",
+      "reasoning": "Makro Bullish trend, pozitif EMA eğimi. Aktif hacim (1.61x RVOL) ve yüksek ivme (TSI: 3.0, MSI: 3.0).",
+      "change_1d": 0.0,
+      "change_1w": 0.0,
+      "change_1m": 0.0,
+      "change_1y": 0.0
     },
     {
       "rank": 2,
       "ticker": "NOK",
-      "company": "Nokia Corporation Sponsored",
-      "score": 73.5,
-      "current_price": 9.55,
+      "company": "Nokia",
+      "score": 18.8,
+      "current_price": 10.42,
       "buy_zone": {
-        "low": 9.359,
-        "high": 9.741000000000001
+        "low": 10.21,
+        "high": 10.62
       },
       "profit_zone": {
-        "low": 10.505,
-        "high": 10.9825
+        "low": 10.61,
+        "high": 10.90
       },
       "stop_zone": {
-        "low": 8.595,
-        "high": 8.8815
+        "low": 9.34,
+        "high": 9.53
       },
-      "rvol": 1.8,
-      "adx": 28.5,
-      "rsi": 62.3,
-      "pattern": "Pullback D\u00f6n\u00fc\u015f",
+      "rvol": 1.67,
+      "adx": 57.2,
+      "rsi": 83.4,
+      "pattern": "Trend Devam Swing",
       "market_regime": "BULLISH",
-      "holding_period": "3-10 days",
-      "reasoning": "Clear uptrend structure with institutional accumulation signals.",
-      "change_1d": 0.8,
-      "change_1w": 3.1,
-      "change_1m": 8.9,
-      "change_1y": 22.5
+      "holding_period": "6 days",
+      "reasoning": "Güçlü HL swing yapısı, yüksek hacim aktivitesi (1.67x RVOL) ile birleşen sağlam momentum.",
+      "change_1d": 0.0,
+      "change_1w": 0.0,
+      "change_1m": 0.0,
+      "change_1y": 0.0
     },
     {
       "rank": 3,
       "ticker": "CAR",
-      "company": "Avis Budget Group, Inc.",
-      "score": 71.5,
-      "current_price": 297.08,
+      "company": "Avis Budget Group",
+      "score": 18.8,
+      "current_price": 336.00,
       "buy_zone": {
-        "low": 291.1384,
-        "high": 303.0216
+        "low": 329.28,
+        "high": 342.72
       },
       "profit_zone": {
-        "low": 326.788,
-        "high": 341.64199999999994
+        "low": 344.06,
+        "high": 356.16
       },
       "stop_zone": {
-        "low": 267.372,
-        "high": 276.2844
+        "low": 281.38,
+        "high": 287.13
       },
-      "rvol": 1.8,
-      "adx": 28.5,
-      "rsi": 62.3,
-      "pattern": "Pullback D\u00f6n\u00fc\u015f",
+      "rvol": 0.98,
+      "adx": 64.3,
+      "rsi": 76.1,
+      "pattern": "Pivot HL",
       "market_regime": "BULLISH",
-      "holding_period": "3-10 days",
-      "reasoning": "Bullish divergence indicating strong momentum accumulation prior to resistance breakout.",
-      "change_1d": 2.4,
-      "change_1w": 6.7,
-      "change_1m": 15.2,
-      "change_1y": 48.0
+      "holding_period": "4 days",
+      "reasoning": "Pivot HL yapısından güçlü sekme ihtimali. Sağlıklı volatilite ve yüksek opsiyon (PCR 1.46) aktivitesi.",
+      "change_1d": 0.0,
+      "change_1w": 0.0,
+      "change_1m": 0.0,
+      "change_1y": 0.0
     }
   ]
 }

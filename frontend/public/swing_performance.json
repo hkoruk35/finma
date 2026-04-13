@@ -8,6 +8,50 @@
   },
   "history": [
     {
+      "date": "2026-04-13",
+      "ticker": "FORM",
+      "company": "FormFactor",
+      "sector": "Technology",
+      "entry": 132.08,
+      "max_price": 132.08,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-13",
+      "ticker": "NOK",
+      "company": "Nokia",
+      "sector": "Technology",
+      "entry": 10.42,
+      "max_price": 10.42,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-13",
+      "ticker": "CAR",
+      "company": "Avis Budget Group",
+      "sector": "Industrials",
+      "entry": 336.0,
+      "max_price": 336.0,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-13",
+      "ticker": "CLS",
+      "company": "Celestica",
+      "sector": "Technology",
+      "entry": 363.25,
+      "max_price": 363.25,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
       "date": "2026-04-10",
       "ticker": "SSSS",
       "company": "SuRo Capital Corp.",
