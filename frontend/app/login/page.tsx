@@ -7,24 +7,10 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
-  const notifyMembership = async (plan: string) => {
-    try {
-      await fetch('/api/membership/notify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          event: plan === 'pro' ? 'pro_join' : 'free_join',
-          details: { email: "User started login flow" } 
-        }),
-      });
-    } catch (e) {
-      console.error("Notification error:", e);
-    }
-  };
 
   const handleGoogleLogin = async (plan: string) => {
-    // Notify telegram about the attempt/join
-    await notifyMembership(plan);
+    // Set a flag to notify on successful return
+    localStorage.setItem('pending_membership_notify', plan);
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',

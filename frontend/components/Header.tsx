@@ -12,11 +12,45 @@ export default function Header() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      
+      // Process pending membership notification
+      if (currentUser) {
+        const pendingPlan = localStorage.getItem('pending_membership_notify');
+        if (pendingPlan) {
+          fetch('/api/membership/notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              event: pendingPlan === 'pro' ? 'pro_join' : 'free_join',
+              details: { email: currentUser.email || "Unknown User" } 
+            }),
+          }).catch(console.error);
+          localStorage.removeItem('pending_membership_notify');
+        }
+      }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+
+      // Handle login events specifically
+      if (event === 'SIGNED_IN' && currentUser) {
+        const pendingPlan = localStorage.getItem('pending_membership_notify');
+        if (pendingPlan) {
+          fetch('/api/membership/notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              event: pendingPlan === 'pro' ? 'pro_join' : 'free_join',
+              details: { email: currentUser.email || "Unknown User" } 
+            }),
+          }).catch(console.error);
+          localStorage.removeItem('pending_membership_notify');
+        }
+      }
     });
 
     return () => subscription.unsubscribe();
