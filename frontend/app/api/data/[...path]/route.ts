@@ -1,5 +1,5 @@
 /**
- * BOGA Data API Route
+ * BOGA AI Data API Route
  * Serves JSON files from the bot's transfer/latest/ directory.
  *
  * Routes:
@@ -12,9 +12,9 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 
-// Bot writes data to: finma/.claude/worktrees/clever-diffie/transfer/latest/
-// In a worktree, this is at: finma/transfer/latest (after relative resolution)
-// frontend/ is at: finma/.claude/worktrees/clever-diffie/frontend/
+// Bot writes data to: boga_ai/.claude/worktrees/clever-diffie/transfer/latest/
+// In a worktree, this is at: boga_ai/transfer/latest (after relative resolution)
+// frontend/ is at: boga_ai/.claude/worktrees/clever-diffie/frontend/
 // Path from frontend directory:
 //   - Up 1: .claude/worktrees/clever-diffie/
 //   - Add transfer/latest: .claude/worktrees/clever-diffie/transfer/latest
@@ -60,7 +60,7 @@ export async function GET(
     return NextResponse.json(json, {
       headers: {
         "Cache-Control": "public, max-age=60, stale-while-revalidate=300",
-        "X-Data-Source": "finma-bot",
+        "X-Data-Source": "boga_ai-bot",
       },
     });
   } catch (e) {

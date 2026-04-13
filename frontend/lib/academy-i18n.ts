@@ -49,32 +49,32 @@ export const academyIndex = {
     en: [
       { level: "Level 1", badge: "Beginner", color: "#22c55e", desc: "Master the fundamentals of stock market investing" },
       { level: "Level 2", badge: "Intermediate", color: "#f59e0b", desc: "Learn the technical tools that pros use every day" },
-      { level: "Level 3", badge: "BOGA Edge", color: "#3b82f6", desc: "Understand how AI finds winning stocks before humans do" },
+      { level: "Level 3", badge: "BOGA AI Edge", color: "#3b82f6", desc: "Understand how AI finds winning stocks before humans do" },
     ],
     es: [
       { level: "Nivel 1", badge: "Principiante", color: "#22c55e", desc: "Domina los fundamentos de la inversión en bolsa" },
       { level: "Nivel 2", badge: "Intermedio", color: "#f59e0b", desc: "Aprende las herramientas técnicas que los profesionales usan cada día" },
-      { level: "Nivel 3", badge: "Ventaja BOGA", color: "#3b82f6", desc: "Entiende cómo la IA encuentra acciones ganadoras antes que los humanos" },
+      { level: "Nivel 3", badge: "Ventaja BOGA AI", color: "#3b82f6", desc: "Entiende cómo la IA encuentra acciones ganadoras antes que los humanos" },
     ],
     pt: [
       { level: "Nível 1", badge: "Iniciante", color: "#22c55e", desc: "Domine os fundamentos do investimento em ações" },
       { level: "Nível 2", badge: "Intermediário", color: "#f59e0b", desc: "Aprenda as ferramentas técnicas que os profissionais usam todo dia" },
-      { level: "Nível 3", badge: "Vantagem BOGA", color: "#3b82f6", desc: "Entenda como a IA encontra ações vencedoras antes dos humanos" },
+      { level: "Nível 3", badge: "Vantagem BOGA AI", color: "#3b82f6", desc: "Entenda como a IA encontra ações vencedoras antes dos humanos" },
     ],
     fr: [
       { level: "Niveau 1", badge: "Débutant", color: "#22c55e", desc: "Maîtrisez les fondamentaux de l'investissement en bourse" },
       { level: "Niveau 2", badge: "Intermédiaire", color: "#f59e0b", desc: "Apprenez les outils techniques qu'utilisent les professionnels chaque jour" },
-      { level: "Niveau 3", badge: "Avantage BOGA", color: "#3b82f6", desc: "Comprenez comment l'IA trouve des actions gagnantes avant les humains" },
+      { level: "Niveau 3", badge: "Avantage BOGA AI", color: "#3b82f6", desc: "Comprenez comment l'IA trouve des actions gagnantes avant les humains" },
     ],
     tr: [
       { level: "Seviye 1", badge: "Başlangıç", color: "#22c55e", desc: "Borsa yatırımının temellerinde ustalaş" },
       { level: "Seviye 2", badge: "Orta Düzey", color: "#f59e0b", desc: "Profesyonellerin her gün kullandığı teknik araçları öğren" },
-      { level: "Seviye 3", badge: "BOGA Avantajı", color: "#3b82f6", desc: "Yapay zekanın insanlardan önce nasıl kazanan hisseler bulduğunu anla" },
+      { level: "Seviye 3", badge: "BOGA AI Avantajı", color: "#3b82f6", desc: "Yapay zekanın insanlardan önce nasıl kazanan hisseler bulduğunu anla" },
     ],
     id: [
       { level: "Tingkat 1", badge: "Pemula", color: "#22c55e", desc: "Kuasai dasar-dasar investasi pasar saham" },
       { level: "Tingkat 2", badge: "Menengah", color: "#f59e0b", desc: "Pelajari alat teknis yang digunakan para profesional setiap hari" },
-      { level: "Tingkat 3", badge: "Keunggulan BOGA", color: "#3b82f6", desc: "Pahami bagaimana AI menemukan saham pemenang sebelum manusia" },
+      { level: "Tingkat 3", badge: "Keunggulan BOGA AI", color: "#3b82f6", desc: "Pahami bagaimana AI menemukan saham pemenang sebelum manusia" },
     ],
   },
 };
@@ -421,14 +421,14 @@ export const articleAI = {
   meta: {
     en: {
       title: "AI Stock Picking Explained: How Algorithms Find Winning Stocks",
-      description: "Understand how AI stock analysis works, what an AI score means, why 70+ matters, and how BOGA scans 560 stocks daily to find the best opportunities.",
+      description: "Understand how AI stock analysis works, what an AI score means, why 70+ matters, and how BOGA AI scans 560 stocks daily to find the best opportunities.",
       keywords: ["AI stock picking", "AI stock analysis", "algorithmic trading", "AI stock score"],
     },
-    es: { title: "Selección de Acciones con IA Explicada: Cómo los Algoritmos Encuentran Acciones Ganadoras", description: "Entiende cómo funciona el análisis de acciones con IA, qué significa una puntuación de IA y cómo BOGA escanea 560 acciones diariamente.", keywords: ["selección de acciones IA", "análisis de acciones con IA"] },
-    pt: { title: "Seleção de Ações por IA Explicada: Como Algoritmos Encontram Ações Vencedoras", description: "Entenda como funciona a análise de ações por IA, o que significa uma pontuação de IA e como o BOGA escaneia 560 ações diariamente.", keywords: ["seleção de ações IA", "análise de ações IA"] },
-    fr: { title: "La Sélection d'Actions par IA Expliquée : Comment les Algorithmes Trouvent les Actions Gagnantes", description: "Comprenez comment fonctionne l'analyse d'actions par IA, ce que signifie un score IA et comment BOGA scanne 560 actions chaque jour.", keywords: ["sélection actions IA", "analyse actions IA"] },
-    tr: { title: "Yapay Zeka Hisse Seçimi Açıklandı: Algoritmalar Kazanan Hisseleri Nasıl Bulur?", description: "Yapay zeka hisse analizinin nasıl çalıştığını, bir yapay zeka puanının ne anlama geldiğini ve BOGA'nın günlük olarak 560 hisseyi nasıl taradığını anlayın.", keywords: ["yapay zeka hisse seçimi", "AI hisse analizi"] },
-    id: { title: "Pemilihan Saham AI Dijelaskan: Bagaimana Algoritma Menemukan Saham Pemenang", description: "Pahami cara kerja analisis saham AI, apa arti skor AI, dan bagaimana BOGA memindai 560 saham setiap hari.", keywords: ["pemilihan saham AI", "analisis saham AI"] },
+    es: { title: "Selección de Acciones con IA Explicada: Cómo los Algoritmos Encuentran Acciones Ganadoras", description: "Entiende cómo funciona el análisis de acciones con IA, qué significa una puntuación de IA y cómo BOGA AI escanea 560 acciones diariamente.", keywords: ["selección de acciones IA", "análisis de acciones con IA"] },
+    pt: { title: "Seleção de Ações por IA Explicada: Como Algoritmos Encontram Ações Vencedoras", description: "Entenda como funciona a análise de ações por IA, o que significa uma pontuação de IA e como o BOGA AI escaneia 560 ações diariamente.", keywords: ["seleção de ações IA", "análise de ações IA"] },
+    fr: { title: "La Sélection d'Actions par IA Expliquée : Comment les Algorithmes Trouvent les Actions Gagnantes", description: "Comprenez comment fonctionne l'analyse d'actions par IA, ce que signifie un score IA et comment BOGA AI scanne 560 actions chaque jour.", keywords: ["sélection actions IA", "analyse actions IA"] },
+    tr: { title: "Yapay Zeka Hisse Seçimi Açıklandı: Algoritmalar Kazanan Hisseleri Nasıl Bulur?", description: "Yapay zeka hisse analizinin nasıl çalıştığını, bir yapay zeka puanının ne anlama geldiğini ve BOGA AI'nın günlük olarak 560 hisseyi nasıl taradığını anlayın.", keywords: ["yapay zeka hisse seçimi", "AI hisse analizi"] },
+    id: { title: "Pemilihan Saham AI Dijelaskan: Bagaimana Algoritma Menemukan Saham Pemenang", description: "Pahami cara kerja analisis saham AI, apa arti skor AI, dan bagaimana BOGA AI memindai 560 saham setiap hari.", keywords: ["pemilihan saham AI", "analisis saham AI"] },
   },
   content: {
     en: {
@@ -438,7 +438,7 @@ export const articleAI = {
         { h2: "Traditional vs AI Investing: A Side-by-Side Comparison", body: "Traditional investing:\n• Manual analysis of each stock\n• Hours to research one position\n• Subject to emotional bias\n• Limited to ~10–20 stocks\n\nAI investing:\n• Hundreds of data points per stock\n• Seconds to analyze the full market\n• Completely emotion-free\n• Scalable to 500+ stocks simultaneously" },
         { h2: "How AI Stock Scoring Works", body: "AI systems evaluate multiple data categories and generate a combined master score:\n\n• Technical Score – RSI, MACD, EMA alignment, volume\n• Fundamental Score – P/E ratio, revenue growth, margins\n• Momentum Score – price trend, relative strength\n• Sentiment Score – news analysis, insider activity\n\nThese inputs are weighted and combined into a single 0–100 master score.\n\n• 70+ → High-conviction opportunity\n• 50–70 → Neutral (monitor)\n• Below 50 → Weak signal (avoid or short)" },
         { h2: "Why AI Is More Effective Than Human Analysis", body: "Three core advantages:\n\n1. Speed – AI processes 560 stocks in minutes. A human analyst needs weeks.\n2. Consistency – AI applies the same criteria to every stock, every time. Humans are inconsistent.\n3. Emotion-free – AI never panics, never chases, never holds a losing stock out of hope.\n\nStudies show that algorithmic systems consistently outperform human stock pickers over 5+ year periods.", link: { label: "Related: Manual vs Algorithmic Trading", href: "/academy/algorithmic-vs-manual" } },
-        { h2: "Real BOGA AI Workflow: How We Analyze 560 Stocks Daily", body: "Every morning at 9:00 AM ET:\n\n1. Universe scan – all 560 US stocks are pulled\n2. Technical computation – 15+ indicators per stock\n3. Fundamental update – earnings, margins, valuation\n4. Scoring – each stock receives a 0–100 BOGA score\n5. Ranking – top 100 are selected\n6. Category assignment – Breakout, Momentum, Reversal, Value, Dividend\n7. AI summary – 1 sentence analysis per stock for context", link: { label: "Related: How to Start Investing", href: "/academy/how-to-start-investing" } },
+        { h2: "Real BOGA AI Workflow: How We Analyze 560 Stocks Daily", body: "Every morning at 9:00 AM ET:\n\n1. Universe scan – all 560 US stocks are pulled\n2. Technical computation – 15+ indicators per stock\n3. Fundamental update – earnings, margins, valuation\n4. Scoring – each stock receives a 0–100 BOGA AI score\n5. Ranking – top 100 are selected\n6. Category assignment – Breakout, Momentum, Reversal, Value, Dividend\n7. AI summary – 1 sentence analysis per stock for context", link: { label: "Related: How to Start Investing", href: "/academy/how-to-start-investing" } },
         { h2: "Why AI Beats Human Emotion — Always", body: "The biggest enemy of the retail investor is their own psychology. Fear causes premature selling. Greed causes holding too long. Hope causes ignoring stop-losses.\n\nAI removes all of this. It doesn't care if a stock fell 20% — it scores based on data, not feelings. This structural advantage compounds over time into significantly better returns.", link: { label: "Related: RSI Indicator Guide", href: "/academy/rsi-indicator" }, cta: true },
       ],
       cta_text: "Let AI pick and score stocks for you — no manual research required.",

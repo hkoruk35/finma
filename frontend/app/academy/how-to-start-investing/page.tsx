@@ -6,7 +6,7 @@ import { articleInvesting } from "@/lib/academy-i18n";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "How to Start Investing in US Stocks – Beginner Guide 2026 | BOGA Academy",
+  title: "How to Start Investing in US Stocks – Beginner Guide 2026 | BOGA AI Academy",
   description:
     "Complete beginner guide to investing in US stocks. Step-by-step strategy, risk management, choosing exchanges, and how AI stock analysis can help you invest better.",
   keywords: articleInvesting.meta.en.keywords,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const RELATED = [
   { title: "RSI Indicator Explained", href: "/academy/rsi-indicator", tag: "Intermediate" },
   { title: "Momentum Trading Explained", href: "/academy/momentum-trading", tag: "Intermediate" },
-  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA Edge" },
+  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA AI Edge" },
 ];
 
 export default function HowToStartInvestingPage() {
@@ -38,7 +38,7 @@ export default function HowToStartInvestingPage() {
             headline: "How to Start Investing in US Stocks (Beginner Guide 2026)",
             description: "Complete step-by-step guide to US stock investing for beginners.",
             author: { "@type": "Organization", name: "BOGA AI" },
-            publisher: { "@type": "Organization", name: "BOGA – Blue One Global Analysis", url: "https://bogastock.com" },
+            publisher: { "@type": "Organization", name: "BOGA AI – Blue One Global Analysis", url: "https://bogastock.com" },
             mainEntityOfPage: "https://bogastock.com/academy/how-to-start-investing",
             datePublished: "2026-04-01",
             dateModified: new Date().toISOString().split("T")[0],

@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CI (The Cigna Group) currently exhibits a NEGATIVE_BIAS, FinMA score driven by bearish EMA alignment despite valuation discount. Key technical levels to watch include resistance at the 52-week high ($333.00) and support near the current price level. ADX of 22.8 indicates a weak trend. Low relative volume (0.56x) suggests tepid investor interest. While P/E (12.4) is attractive versus the sector, weaker profitability metrics (2.2% net margin) temper enthusiasm. The exceptionally high dividend yield is likely a data anomaly and not a genuine catalyst.",
+  "ai_summary": "CI (The Cigna Group) currently exhibits a NEGATIVE_BIAS, BOGA AI score driven by bearish EMA alignment despite valuation discount. Key technical levels to watch include resistance at the 52-week high ($333.00) and support near the current price level. ADX of 22.8 indicates a weak trend. Low relative volume (0.56x) suggests tepid investor interest. While P/E (12.4) is attractive versus the sector, weaker profitability metrics (2.2% net margin) temper enthusiasm. The exceptionally high dividend yield is likely a data anomaly and not a genuine catalyst.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 50,

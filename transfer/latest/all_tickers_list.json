@@ -16,7 +16,7 @@
       "entry_range_high": 212.04,
       "volume": 1017300,
       "avg_volume_30d": 1389090,
-      "ai_short_summary": "ALL exhibits a POSITIVE BIAS, FinMA confidence 73%."
+      "ai_short_summary": "ALL exhibits a POSITIVE BIAS, BOGA AI confidence 73%."
     },
     {
       "ticker": "FRT",
@@ -33,7 +33,7 @@
       "entry_range_high": 109.6,
       "volume": 2051700,
       "avg_volume_30d": 887766,
-      "ai_short_summary": "FRT exhibits a POSITIVE BIAS (FinMA score confidence 69%)."
+      "ai_short_summary": "FRT exhibits a POSITIVE BIAS (BOGA AI score confidence 69%)."
     },
     {
       "ticker": "SBAC",
@@ -50,7 +50,7 @@
       "entry_range_high": 224.87,
       "volume": 1556400,
       "avg_volume_30d": 1448540,
-      "ai_short_summary": "SBAC exhibits mixed signals, resulting in a FinMA score of NEUTRAL STAY."
+      "ai_short_summary": "SBAC exhibits mixed signals, resulting in a BOGA AI score of NEUTRAL STAY."
     },
     {
       "ticker": "CB",
@@ -67,7 +67,7 @@
       "entry_range_high": 329.55,
       "volume": 1258600,
       "avg_volume_30d": 1699203,
-      "ai_short_summary": "CB (Chubb Limited) exhibits a POSITIVE_BIAS FinMA score, confidence 71%."
+      "ai_short_summary": "CB (Chubb Limited) exhibits a POSITIVE_BIAS BOGA AI score, confidence 71%."
     },
     {
       "ticker": "SPG",
@@ -84,7 +84,7 @@
       "entry_range_high": 201.57,
       "volume": 1107600,
       "avg_volume_30d": 1745513,
-      "ai_short_summary": "SPG exhibits a POSITIVE BIAS, with a FinMA confidence score of 67%."
+      "ai_short_summary": "SPG exhibits a POSITIVE BIAS, with a BOGA AI confidence score of 67%."
     },
     {
       "ticker": "AL",
@@ -101,7 +101,7 @@
       "entry_range_high": 65.32,
       "volume": 2291300,
       "avg_volume_30d": 2651936,
-      "ai_short_summary": "AL (Air Lease Corporation) exhibits a POSITIVE_BIAS, according to the FinMA score, with 70% confidence."
+      "ai_short_summary": "AL (Air Lease Corporation) exhibits a POSITIVE_BIAS, according to the BOGA AI score, with 70% confidence."
     },
     {
       "ticker": "HST",
@@ -152,7 +152,7 @@
       "entry_range_high": 137.92,
       "volume": 1236600,
       "avg_volume_30d": 1549166,
-      "ai_short_summary": "HIG exhibits a NEUTRAL STAY FinMA score due to conflicting signals."
+      "ai_short_summary": "HIG exhibits a NEUTRAL STAY BOGA AI score due to conflicting signals."
     },
     {
       "ticker": "TD",
@@ -203,7 +203,7 @@
       "entry_range_high": 298.75,
       "volume": 1408400,
       "avg_volume_30d": 1426073,
-      "ai_short_summary": "TRV exhibits a NEUTRAL_STAY FinMA score, confidence 68%."
+      "ai_short_summary": "TRV exhibits a NEUTRAL_STAY BOGA AI score, confidence 68%."
     },
     {
       "ticker": "GTY",
@@ -237,7 +237,7 @@
       "entry_range_high": 27.33,
       "volume": 1710500,
       "avg_volume_30d": 1839903,
-      "ai_short_summary": "AMX currently exhibits a NEUTRAL_STAY FinMA score, confidence 61%."
+      "ai_short_summary": "AMX currently exhibits a NEUTRAL_STAY BOGA AI score, confidence 61%."
     },
     {
       "ticker": "SSRM",
@@ -441,7 +441,7 @@
       "entry_range_high": 67.72,
       "volume": 7115600,
       "avg_volume_30d": 10037840,
-      "ai_short_summary": "MO exhibits mixed signals, resulting in a FinMA score of NEUTRAL STAY."
+      "ai_short_summary": "MO exhibits mixed signals, resulting in a BOGA AI score of NEUTRAL STAY."
     },
     {
       "ticker": "FDX",
@@ -781,7 +781,7 @@
       "entry_range_high": 172.1,
       "volume": 9880500,
       "avg_volume_30d": 13084693,
-      "ai_short_summary": "GLW exhibits mixed signals warranting a NEUTRAL_STAY rating from FinMA, confidence level 58%."
+      "ai_short_summary": "GLW exhibits mixed signals warranting a NEUTRAL_STAY rating from BOGA AI, confidence level 58%."
     },
     {
       "ticker": "OGS",
@@ -900,7 +900,7 @@
       "entry_range_high": 62.69,
       "volume": 98439700,
       "avg_volume_30d": 95236420,
-      "ai_short_summary": "INTC currently holds a FinMA score of NEUTRAL STAY due to mixed signals, with a confidence level of 56%."
+      "ai_short_summary": "INTC currently holds a BOGA AI score of NEUTRAL STAY due to mixed signals, with a confidence level of 56%."
     },
     {
       "ticker": "MT",
@@ -985,7 +985,7 @@
       "entry_range_high": 10.53,
       "volume": 3967000,
       "avg_volume_30d": 7603853,
-      "ai_short_summary": "FSM exhibits mixed signals, resulting in a FinMA score of NEUTRAL STAY."
+      "ai_short_summary": "FSM exhibits mixed signals, resulting in a BOGA AI score of NEUTRAL STAY."
     },
     {
       "ticker": "EGP",
@@ -1138,7 +1138,7 @@
       "entry_range_high": 325.8,
       "volume": 1178400,
       "avg_volume_30d": 1505530,
-      "ai_short_summary": "KEYS exhibits bullish technicals, near its 52-week high, yet the FinMA score is NEUTRAL STAY due to valuation concerns (P/E of 56."
+      "ai_short_summary": "KEYS exhibits bullish technicals, near its 52-week high, yet the BOGA AI score is NEUTRAL STAY due to valuation concerns (P/E of 56."
     },
     {
       "ticker": "BNS",
@@ -1631,7 +1631,7 @@
       "entry_range_high": 31.86,
       "volume": 2482900,
       "avg_volume_30d": 6431253,
-      "ai_short_summary": "MTCH shows a NEUTRAL_STAY FinMA score, confidence 58%."
+      "ai_short_summary": "MTCH shows a NEUTRAL_STAY BOGA AI score, confidence 58%."
     },
     {
       "ticker": "TDY",
@@ -1971,7 +1971,7 @@
       "entry_range_high": 309.04,
       "volume": 7961300,
       "avg_volume_30d": 9066940,
-      "ai_short_summary": "COHR displays a NEGATIVE_BIAS FinMA score, with 53% confidence."
+      "ai_short_summary": "COHR displays a NEGATIVE_BIAS BOGA AI score, with 53% confidence."
     },
     {
       "ticker": "BVN",
@@ -2039,7 +2039,7 @@
       "entry_range_high": 20.53,
       "volume": 7097000,
       "avg_volume_30d": 10581110,
-      "ai_short_summary": "CPB exhibits a NEUTRAL STAY FinMA score due to mixed signals."
+      "ai_short_summary": "CPB exhibits a NEUTRAL STAY BOGA AI score due to mixed signals."
     },
     {
       "ticker": "PWR",
@@ -2770,7 +2770,7 @@
       "entry_range_high": 56.64,
       "volume": 2163800,
       "avg_volume_30d": 3256166,
-      "ai_short_summary": "SWKS currently holds a FinMA score of NEUTRAL STAY (Confidence: 55%)."
+      "ai_short_summary": "SWKS currently holds a BOGA AI score of NEUTRAL STAY (Confidence: 55%)."
     },
     {
       "ticker": "SRE",
@@ -3399,7 +3399,7 @@
       "entry_range_high": 222.27,
       "volume": 2972800,
       "avg_volume_30d": 2969710,
-      "ai_short_summary": "ROST exhibits a NEGATIVE BIAS with a FinMA score rating of 53%."
+      "ai_short_summary": "ROST exhibits a NEGATIVE BIAS with a BOGA AI score rating of 53%."
     },
     {
       "ticker": "ON",
@@ -3484,7 +3484,7 @@
       "entry_range_high": 272.61,
       "volume": 906700,
       "avg_volume_30d": 1709156,
-      "ai_short_summary": "CI (The Cigna Group) currently exhibits a NEGATIVE_BIAS, FinMA score driven by bearish EMA alignment despite valuation discount."
+      "ai_short_summary": "CI (The Cigna Group) currently exhibits a NEGATIVE_BIAS, BOGA AI score driven by bearish EMA alignment despite valuation discount."
     },
     {
       "ticker": "ETN",
@@ -3569,7 +3569,7 @@
       "entry_range_high": 245.44,
       "volume": 1840200,
       "avg_volume_30d": 2642363,
-      "ai_short_summary": "LOW shows a NEGATIVE BIAS per the FinMA score, with 53% confidence."
+      "ai_short_summary": "LOW shows a NEGATIVE BIAS per the BOGA AI score, with 53% confidence."
     },
     {
       "ticker": "RCL",
@@ -3637,7 +3637,7 @@
       "entry_range_high": 13.3,
       "volume": 9888100,
       "avg_volume_30d": 17352560,
-      "ai_short_summary": "Lyft (LYFT) exhibits a NEGATIVE BIAS, per the FinMA score, with 47% confidence."
+      "ai_short_summary": "Lyft (LYFT) exhibits a NEGATIVE BIAS, per the BOGA AI score, with 47% confidence."
     },
     {
       "ticker": "TJX",
@@ -3841,7 +3841,7 @@
       "entry_range_high": 901.79,
       "volume": 7122100,
       "avg_volume_30d": 7335183,
-      "ai_short_summary": "LITE exhibits a NEGATIVE_BIAS FinMA score due to its premium valuation (P/E of 264."
+      "ai_short_summary": "LITE exhibits a NEGATIVE_BIAS BOGA AI score due to its premium valuation (P/E of 264."
     },
     {
       "ticker": "RF",
@@ -4997,7 +4997,7 @@
       "entry_range_high": 128.7,
       "volume": 8424700,
       "avg_volume_30d": 12097453,
-      "ai_short_summary": "QCOM currently holds a FinMA score of NEGATIVE_BIAS."
+      "ai_short_summary": "QCOM currently holds a BOGA AI score of NEGATIVE_BIAS."
     },
     {
       "ticker": "CHD",
@@ -5167,7 +5167,7 @@
       "entry_range_high": 12.19,
       "volume": 28338300,
       "avg_volume_30d": 54464893,
-      "ai_short_summary": "Ford (F) exhibits a NEGATIVE_BIAS (FinMA score)."
+      "ai_short_summary": "Ford (F) exhibits a NEGATIVE_BIAS (BOGA AI score)."
     },
     {
       "ticker": "SQM",
@@ -5541,7 +5541,7 @@
       "entry_range_high": 127.97,
       "volume": 9321800,
       "avg_volume_30d": 11854246,
-      "ai_short_summary": "BABA's FinMA score is NEGATIVE BIAS."
+      "ai_short_summary": "BABA's BOGA AI score is NEGATIVE BIAS."
     },
     {
       "ticker": "SCHW",
@@ -5864,7 +5864,7 @@
       "entry_range_high": 28.07,
       "volume": 18148900,
       "avg_volume_30d": 33918956,
-      "ai_short_summary": "CMCSA exhibits a NEGATIVE BIAS FinMA score, driven by bearish EMA alignment and weak ADX strength (21."
+      "ai_short_summary": "CMCSA exhibits a NEGATIVE BIAS BOGA AI score, driven by bearish EMA alignment and weak ADX strength (21."
     },
     {
       "ticker": "RIVN",
@@ -5881,7 +5881,7 @@
       "entry_range_high": 15.51,
       "volume": 19280500,
       "avg_volume_30d": 28024770,
-      "ai_short_summary": "RIVN currently holds a NEGATIVE_BIAS FinMA score, with 42% confidence."
+      "ai_short_summary": "RIVN currently holds a NEGATIVE_BIAS BOGA AI score, with 42% confidence."
     },
     {
       "ticker": "MUFG",
@@ -5932,7 +5932,7 @@
       "entry_range_high": 190.08,
       "volume": 794400,
       "avg_volume_30d": 1395106,
-      "ai_short_summary": "WSM exhibits a NEGATIVE BIAS (FinMA score), despite its attractive dividend yield of 1."
+      "ai_short_summary": "WSM exhibits a NEGATIVE BIAS (BOGA AI score), despite its attractive dividend yield of 1."
     },
     {
       "ticker": "ZTS",
@@ -6000,7 +6000,7 @@
       "entry_range_high": 198.36,
       "volume": 648500,
       "avg_volume_30d": 1475420,
-      "ai_short_summary": "TKO currently exhibits NEGATIVE_BIAS with a FinMA score of 44%."
+      "ai_short_summary": "TKO currently exhibits NEGATIVE_BIAS with a BOGA AI score of 44%."
     },
     {
       "ticker": "DHR",
@@ -7428,7 +7428,7 @@
       "entry_range_high": 226.48,
       "volume": 5883000,
       "avg_volume_30d": 5888943,
-      "ai_short_summary": "ADBE exhibits a FinMA score of UNDERPERFORM, with low confidence (35%)."
+      "ai_short_summary": "ADBE exhibits a BOGA AI score of UNDERPERFORM, with low confidence (35%)."
     },
     {
       "ticker": "FANG",
@@ -7921,7 +7921,7 @@
       "entry_range_high": 113.06,
       "volume": 6943100,
       "avg_volume_30d": 5218480,
-      "ai_short_summary": "WDAY exhibits a FinMA score of UNDERPERFORM, reflecting low confidence (28%)."
+      "ai_short_summary": "WDAY exhibits a BOGA AI score of UNDERPERFORM, reflecting low confidence (28%)."
     },
     {
       "ticker": "GPN",
@@ -8278,7 +8278,7 @@
       "entry_range_high": 83.41,
       "volume": 58626700,
       "avg_volume_30d": 18606220,
-      "ai_short_summary": "ServiceNow (NOW) exhibits UNDERPERFORM based on a FinMA score with low confidence (27%)."
+      "ai_short_summary": "ServiceNow (NOW) exhibits UNDERPERFORM based on a BOGA AI score with low confidence (27%)."
     },
     {
       "ticker": "ZS",
@@ -8295,7 +8295,7 @@
       "entry_range_high": 118.64,
       "volume": 5471200,
       "avg_volume_30d": 3115430,
-      "ai_short_summary": "ZS is currently rated UNDERPERFORM by FinMA with low confidence (26%)."
+      "ai_short_summary": "ZS is currently rated UNDERPERFORM by BOGA AI with low confidence (26%)."
     },
     {
       "ticker": "CL",
@@ -8346,7 +8346,7 @@
       "entry_range_high": 96.41,
       "volume": 2037500,
       "avg_volume_30d": 2353266,
-      "ai_short_summary": "NTAP currently exhibits UNDERPERFORM on the FinMA Score, confidence level 30%."
+      "ai_short_summary": "NTAP currently exhibits UNDERPERFORM on the BOGA AI Score, confidence level 30%."
     },
     {
       "ticker": "OMC",
@@ -8363,7 +8363,7 @@
       "entry_range_high": 75.14,
       "volume": 3195900,
       "avg_volume_30d": 4988340,
-      "ai_short_summary": "OMC displays mixed signals, leading to a FinMA score of UNDERPERFORM."
+      "ai_short_summary": "OMC displays mixed signals, leading to a BOGA AI score of UNDERPERFORM."
     },
     {
       "ticker": "UBER",
@@ -8482,7 +8482,7 @@
       "entry_range_high": 17.71,
       "volume": 14630500,
       "avg_volume_30d": 19277220,
-      "ai_short_summary": "PINS exhibits an UNDERPERFORM FinMA score due to bearish technicals and premium valuation (P/E 29."
+      "ai_short_summary": "PINS exhibits an UNDERPERFORM BOGA AI score due to bearish technicals and premium valuation (P/E 29."
     },
     {
       "ticker": "CRM",
@@ -8771,7 +8771,7 @@
       "entry_range_high": 91.36,
       "volume": 2091300,
       "avg_volume_30d": 2309310,
-      "ai_short_summary": "SJM currently exhibits a FinMA score of UNDERPERFORM, with low confidence (26%)."
+      "ai_short_summary": "SJM currently exhibits a BOGA AI score of UNDERPERFORM, with low confidence (26%)."
     },
     {
       "ticker": "SNOW",
@@ -8805,7 +8805,7 @@
       "entry_range_high": 347.67,
       "volume": 1695600,
       "avg_volume_30d": 993200,
-      "ai_short_summary": "AXON exhibits concerning technicals, reflected in its FinMA score of UNDERPERFORM."
+      "ai_short_summary": "AXON exhibits concerning technicals, reflected in its BOGA AI score of UNDERPERFORM."
     },
     {
       "ticker": "MDB",
@@ -8924,7 +8924,7 @@
       "entry_range_high": 57.44,
       "volume": 7523800,
       "avg_volume_30d": 6177590,
-      "ai_short_summary": "Atlassian (TEAM) receives an UNDERPERFORM FinMA score due to its bearish technical outlook and negative net margin (-3."
+      "ai_short_summary": "Atlassian (TEAM) receives an UNDERPERFORM BOGA AI score due to its bearish technical outlook and negative net margin (-3."
     },
     {
       "ticker": "RBLX",
@@ -9009,7 +9009,7 @@
       "entry_range_high": 42.83,
       "volume": 26014900,
       "avg_volume_30d": 23592593,
-      "ai_short_summary": "NKE exhibits weak momentum, reflected in its UNDERPERFORM FinMA score, driven by unimpressive growth and concerning technicals."
+      "ai_short_summary": "NKE exhibits weak momentum, reflected in its UNDERPERFORM BOGA AI score, driven by unimpressive growth and concerning technicals."
     },
     {
       "ticker": "ALNY",

@@ -14,7 +14,7 @@ export default function AdminSettings() {
                <div className="grid grid-cols-2 gap-4">
                   <div>
                      <label className="block text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">Site Title</label>
-                     <input type="text" defaultValue="BOGA Daily +500" className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-3 text-sm" />
+                     <input type="text" defaultValue="BOGA AI Daily +500" className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-3 text-sm" />
                   </div>
                   <div>
                      <label className="block text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">Admin Email</label>

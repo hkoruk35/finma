@@ -6,15 +6,15 @@ import { articleAI } from "@/lib/academy-i18n";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "AI Stock Picking Explained: How Algorithms Find Winning Stocks | BOGA Academy",
+  title: "AI Stock Picking Explained: How Algorithms Find Winning Stocks | BOGA AI Academy",
   description:
-    "Learn how AI stock analysis works, what an AI score of 70+ means, how BOGA scans 560 US stocks daily, and why algorithms consistently outperform human investors.",
+    "Learn how AI stock analysis works, what an AI score of 70+ means, how BOGA AI scans 560 US stocks daily, and why algorithms consistently outperform human investors.",
   keywords: articleAI.meta.en.keywords,
   alternates: { canonical: "https://bogastock.com/academy/ai-stock-picking" },
   openGraph: {
     title: "AI Stock Picking Explained: Algorithms vs. Human Investors",
     description:
-      "Understand how AI master scores work, the BOGA daily workflow, and why emotional-free analysis consistently wins over time.",
+      "Understand how AI master scores work, the BOGA AI daily workflow, and why emotional-free analysis consistently wins over time.",
     url: "https://bogastock.com/academy/ai-stock-picking",
     type: "article",
   },
@@ -36,9 +36,9 @@ export default function AIStockPickingPage() {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: "AI Stock Picking Explained: How Algorithms Find Winning Stocks",
-            description: "How AI stock scoring works, why 70+ matters, and the BOGA daily analysis workflow across 560 US stocks.",
+            description: "How AI stock scoring works, why 70+ matters, and the BOGA AI daily analysis workflow across 560 US stocks.",
             author: { "@type": "Organization", name: "BOGA AI" },
-            publisher: { "@type": "Organization", name: "BOGA – Blue One Global Analysis", url: "https://bogastock.com" },
+            publisher: { "@type": "Organization", name: "BOGA AI – Blue One Global Analysis", url: "https://bogastock.com" },
             mainEntityOfPage: "https://bogastock.com/academy/ai-stock-picking",
             datePublished: "2026-04-01",
             dateModified: new Date().toISOString().split("T")[0],

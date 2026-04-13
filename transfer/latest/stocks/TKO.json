@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "TKO currently exhibits NEGATIVE_BIAS with a FinMA score of 44%. While the stock is near its 52-week high, a high P/E ratio of 87.64 raises valuation concerns compared to the sector median. The EMA alignment is bearish, and the weak ADX of 15.7 suggests a lack of strong trend. Despite 11.9% TTM revenue growth and a robust 59.8% gross margin, the 4.1% net margin is a potential drag. Technically, support is around $185, resistance near $202. A catalyst for TKO could be confirmation of sustained profitability growth to justify the high valuation.",
+  "ai_summary": "TKO currently exhibits NEGATIVE_BIAS with a BOGA AI score of 44%. While the stock is near its 52-week high, a high P/E ratio of 87.64 raises valuation concerns compared to the sector median. The EMA alignment is bearish, and the weak ADX of 15.7 suggests a lack of strong trend. Despite 11.9% TTM revenue growth and a robust 59.8% gross margin, the 4.1% net margin is a potential drag. Technically, support is around $185, resistance near $202. A catalyst for TKO could be confirmation of sustained profitability growth to justify the high valuation.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 41,

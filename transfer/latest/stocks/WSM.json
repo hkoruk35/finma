@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "WSM exhibits a NEGATIVE BIAS (FinMA score), despite its attractive dividend yield of 1.59%. The stock trades at $190.09, 13.9% below its 52-week high. While the P/E of 21.5 suggests a valuation discount compared to the sector median of 25.6, negative TTM revenue growth of -4.3% is concerning. Bearish EMA alignment and a neutral MACD reinforce the cautious outlook. ADX strength is weak at 20.3. Monitor price action relative to Bollinger Bands. A positive catalyst would be a successful turnaround in revenue growth, but currently, technicals and fundamentals point downward.",
+  "ai_summary": "WSM exhibits a NEGATIVE BIAS (BOGA AI score), despite its attractive dividend yield of 1.59%. The stock trades at $190.09, 13.9% below its 52-week high. While the P/E of 21.5 suggests a valuation discount compared to the sector median of 25.6, negative TTM revenue growth of -4.3% is concerning. Bearish EMA alignment and a neutral MACD reinforce the cautious outlook. ADX strength is weak at 20.3. Monitor price action relative to Bollinger Bands. A positive catalyst would be a successful turnaround in revenue growth, but currently, technicals and fundamentals point downward.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 41,

@@ -235,9 +235,9 @@ export default async function StockDetailPage({ params }: Props) {
 
           {/* Sidebar Area */}
           <div className="flex flex-col gap-6">
-            {/* BOGA Score Widget */}
+            {/* BOGA AI Score Widget */}
             <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
-              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">BOGA Master Score</h3>
+              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">BOGA AI Master Score</h3>
               <div className="relative w-40 h-40 flex items-center justify-center mb-4">
                 <svg className="w-full h-full -rotate-90">
                   <circle
@@ -331,7 +331,7 @@ export default async function StockDetailPage({ params }: Props) {
                  </div>
               </div>
               <p className="text-sm text-[#94a3b8] leading-relaxed">
-                 {stock.ticker} is currently ranked in the top 20% of its sector based on BOGA Master Scores. 
+                 {stock.ticker} is currently ranked in the top 20% of its sector based on BOGA AI Master Scores. 
                  It has outperformed {stock.sector_context.sector_etf} by 4.2% over the last 30 trading days.
               </p>
            </div>

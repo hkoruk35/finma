@@ -145,7 +145,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AMZN currently trades at $239.12, up 2.34% today but showing a NEGATIVE BIAS (FinMA Score: 47%) due to bearish EMA alignment and weak ADX (17.2). While valuation appears discounted with a P/E of 33.3 compared to the sector median of 39.2, the RSI of 71.8 suggests overbought conditions. Key support levels to watch are around the recent lows near $224.\n\nA potential catalyst to shift sentiment would be a significant outperformance in AWS revenue growth, demonstrating continued dominance in the cloud computing market despite increasing competition. Current volume at 0.86x relative suggests waning interest.",
+  "ai_summary": "AMZN currently trades at $239.12, up 2.34% today but showing a NEGATIVE BIAS (BOGA AI Score: 47%) due to bearish EMA alignment and weak ADX (17.2). While valuation appears discounted with a P/E of 33.3 compared to the sector median of 39.2, the RSI of 71.8 suggests overbought conditions. Key support levels to watch are around the recent lows near $224.\n\nA potential catalyst to shift sentiment would be a significant outperformance in AWS revenue growth, demonstrating continued dominance in the cloud computing market despite increasing competition. Current volume at 0.86x relative suggests waning interest.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 46,

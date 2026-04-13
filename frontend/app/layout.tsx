@@ -6,28 +6,28 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis & Signals",
+  title: "BOGA AI - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis & Signals",
   description:
-    "Daily AI analysis of +500 top US stocks by BOGA - Blue One Global Analysis. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
-  keywords: "US stock AI analysis, daily stock signals, stock screener, breakout stocks, momentum stocks, BOGA",
+    "Daily AI analysis of +500 top US stocks by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
+  keywords: "US stock AI analysis, daily stock signals, stock screener, breakout stocks, momentum stocks, BOGA AI",
   openGraph: {
-    title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis",
-    description: "Daily AI analysis of +500 top US stocks with signals, scores, and smart watchlist by BOGA.",
+    title: "BOGA AI - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Analysis",
+    description: "Daily AI analysis of +500 top US stocks with signals, scores, and smart watchlist by BOGA AI.",
     url: "https://bogastock.com",
-    siteName: "BOGA - Blue One Global Analysis - Daily +500 stocks",
+    siteName: "BOGA AI - Blue One Global Analysis - Daily +500 stocks",
     images: [
       {
         url: "https://bogastock.com/finmawave.png",
         width: 1200,
         height: 630,
-        alt: "BOGA - Blue One Global Analysis Logo",
+        alt: "BOGA AI - Blue One Global Analysis Logo",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BOGA - AI Stock Signals & Analysis",
+    title: "BOGA AI - AI Stock Signals & Analysis",
     description: "Daily AI analysis of +500 top US stocks.",
     images: ["https://bogastock.com/finmawave.png"],
   },
@@ -83,7 +83,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="BOGA" />
+        <meta name="apple-mobile-web-app-title" content="BOGA AI" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
       </head>

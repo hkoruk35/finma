@@ -46,7 +46,7 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="relative w-9 h-9 group-hover:scale-110 transition-transform">
-            <img src="/finmawave.png" alt="BOGA - Blue One Global Analysis" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
+            <img src="/finmawave.png" alt="BOGA AI - Blue One Global Analysis" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
           </div>
           <div className="flex flex-col md:flex-row md:items-baseline">
             <span

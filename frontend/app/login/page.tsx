@@ -26,9 +26,9 @@ export default function LoginPage() {
           <div className="glass-card p-10 animate-fade-in text-center">
             <div className="mb-8">
               <div className="w-16 h-16 bg-[#3b82f6]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-[#3b82f6]/20">
-                <img src="/finmawave.png" alt="BOGA" className="w-10 h-10 object-contain" />
+                <img src="/finmawave.png" alt="BOGA AI" className="w-10 h-10 object-contain" />
               </div>
-              <h1 className="text-3xl font-black text-white mb-3 tracking-tight">BOGA Member Access</h1>
+              <h1 className="text-3xl font-black text-white mb-3 tracking-tight">BOGA AI Member Access</h1>
               <p className="text-[#94a3b8] leading-relaxed">
                 Connect with Google to unlock your personalized watchlist and the 30-day signal archive.
               </p>
@@ -85,7 +85,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-[10px] text-[#4b5563] mt-8 leading-relaxed max-w-xs mx-auto">
-            By continuing, you agree to the BOGA <Link href="/terms" className="underline hover:text-white">Terms of Use</Link> and <Link href="/privacy" className="underline hover:text-white">Privacy Policy</Link>. 
+            By continuing, you agree to the BOGA AI <Link href="/terms" className="underline hover:text-white">Terms of Use</Link> and <Link href="/privacy" className="underline hover:text-white">Privacy Policy</Link>. 
             Analysis is based on AI algorithms and financial data.
           </p>
         </div>

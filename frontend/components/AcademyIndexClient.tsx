@@ -45,7 +45,7 @@ const ARTICLES = [
   {
     href: "/academy/ai-stock-picking",
     icon: "🤖",
-    level: "BOGA Edge",
+    level: "BOGA AI Edge",
     color: "#3b82f6",
     en: { title: "AI Stock Picking Explained", desc: "How algorithms find winning stocks faster, better, and without human emotion." },
     es: { title: "Selección de Acciones con IA Explicada", desc: "Cómo los algoritmos encuentran acciones ganadoras más rápido y sin emoción humana." },
@@ -59,7 +59,7 @@ const ARTICLES = [
 const LEVELS_CONFIG = [
   { key: "Beginner", icon: "🌱", labelMap: { en: "Level 1 – Beginner", es: "Nivel 1 – Principiante", pt: "Nível 1 – Iniciante", fr: "Niveau 1 – Débutant", tr: "Seviye 1 – Başlangıç", id: "Tingkat 1 – Pemula" }, color: "#22c55e" },
   { key: "Intermediate", icon: "📊", labelMap: { en: "Level 2 – Intermediate", es: "Nivel 2 – Intermedio", pt: "Nível 2 – Intermediário", fr: "Niveau 2 – Intermédiaire", tr: "Seviye 2 – Orta Düzey", id: "Tingkat 2 – Menengah" }, color: "#f59e0b" },
-  { key: "BOGA Edge", icon: "🤖", labelMap: { en: "Level 3 – BOGA Edge", es: "Nivel 3 – Ventaja BOGA", pt: "Nível 3 – Vantagem BOGA", fr: "Niveau 3 – Avantage BOGA", tr: "Seviye 3 – BOGA Avantajı", id: "Tingkat 3 – Keunggulan BOGA" }, color: "#3b82f6" },
+  { key: "BOGA AI Edge", icon: "🤖", labelMap: { en: "Level 3 – BOGA AI Edge", es: "Nivel 3 – Ventaja BOGA AI", pt: "Nível 3 – Vantagem BOGA AI", fr: "Niveau 3 – Avantage BOGA AI", tr: "Seviye 3 – BOGA AI Avantajı", id: "Tingkat 3 – Keunggulan BOGA AI" }, color: "#3b82f6" },
 ];
 
 const UI_STRINGS = {
@@ -105,7 +105,7 @@ export default function AcademyIndexClient() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[11px] font-black text-[#3b82f6] uppercase tracking-[0.25em] mb-8">
               <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
-              BOGA Academy
+              BOGA AI Academy
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6">
               {hero.h1}

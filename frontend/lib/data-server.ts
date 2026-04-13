@@ -1,5 +1,5 @@
 /**
- * Server-only JSON loader for BOGA bot data.
+ * Server-only JSON loader for BOGA AI bot data.
  *
  * This file is imported dynamically from lib/data.ts so that `fs` and
  * `path` never end up in the client bundle. Do NOT import this file

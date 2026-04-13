@@ -4,7 +4,7 @@ export default function AdminMembers() {
       <div className="mb-8 flex items-center justify-between">
          <div>
             <h1 className="text-2xl font-black text-white mb-2">Member Management</h1>
-            <p className="text-sm text-[#64748b]">View, filter, and manage registered BOGA members.</p>
+            <p className="text-sm text-[#64748b]">View, filter, and manage registered BOGA AI members.</p>
          </div>
          <button className="px-6 py-3 bg-[#141924] border border-[#1e2a3a] text-white rounded-xl text-sm font-bold hover:bg-[#1a2030] transition-all flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -9,20 +9,20 @@ import { Metadata } from "next";
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const category = CATEGORY_MAP[slug];
-  if (!category) return { title: "Category Not Found | BOGA" };
+  if (!category) return { title: "Category Not Found | BOGA AI" };
 
   const titles: Record<string, string> = {
-    "top-scores": "Top AI Stock Scores Today | High-Conviction Picks - BOGA",
-    "breakout": "Breakout Stocks Today | Best Technical Squeeze Patterns - BOGA",
-    "undervalued": "Undervalued Stocks US | Best Value Investing Picks - BOGA",
-    "momentum": "Momentum Stocks Today | Strongest Relative Strength Equities - BOGA",
-    "reversal": "Reversal Stocks US | Best Oversold Stocks to Watch - BOGA",
-    "passive-income": "Passive Income Stocks | Best High-Yield Dividend Picks - BOGA",
+    "top-scores": "Top AI Stock Scores Today | High-Conviction Picks - BOGA AI",
+    "breakout": "Breakout Stocks Today | Best Technical Squeeze Patterns - BOGA AI",
+    "undervalued": "Undervalued Stocks US | Best Value Investing Picks - BOGA AI",
+    "momentum": "Momentum Stocks Today | Strongest Relative Strength Equities - BOGA AI",
+    "reversal": "Reversal Stocks US | Best Oversold Stocks to Watch - BOGA AI",
+    "passive-income": "Passive Income Stocks | Best High-Yield Dividend Picks - BOGA AI",
   };
 
   return {
     metadataBase: new URL("https://bogastock.com"),
-    title: titles[slug] || `${category.label} Stocks | BOGA Daily +500`,
+    title: titles[slug] || `${category.label} Stocks | BOGA AI Daily +500`,
     description: category.description,
     alternates: {
       canonical: `https://bogastock.com/category/${slug}`,
@@ -203,7 +203,7 @@ export default async function CategoryPage({ params }: Props) {
                   <div className="text-3xl font-mono font-black text-[#3b82f6]">
                     {stock!.master_score.toFixed(1)}
                   </div>
-                  <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">BOGA Score</div>
+                  <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">BOGA AI Score</div>
                 </div>
                 <div className="text-right">
                   <div className={`text-2xl font-mono font-black ${getChangeColor(stock!.change_pct)}`}>

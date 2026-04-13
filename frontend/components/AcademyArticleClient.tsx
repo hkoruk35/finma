@@ -80,7 +80,7 @@ export default function AcademyArticleClient({
         <header className="mb-12">
           <div className="flex items-center gap-2 mb-6">
             <div className="px-3 py-1 rounded-full bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[10px] font-black text-[#3b82f6] uppercase tracking-[0.2em]">
-              BOGA Academy
+              BOGA AI Academy
             </div>
             <div className="px-3 py-1 rounded-full bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.2em]">
               Free Guide

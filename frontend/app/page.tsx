@@ -108,7 +108,7 @@ export default async function HomePage() {
               Access Past Analysis
             </h3>
             <p className="text-sm text-[#94a3b8] mb-4">
-              View historical BOGA scores from the last 30 days.
+              View historical BOGA AI scores from the last 30 days.
               Sign in with Google for free access.
             </p>
             <a

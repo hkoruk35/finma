@@ -6,7 +6,7 @@ import { articleRsi } from "@/lib/academy-i18n";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "RSI Indicator Explained: Overbought & Oversold Stocks | BOGA Academy",
+  title: "RSI Indicator Explained: Overbought & Oversold Stocks | BOGA AI Academy",
   description:
     "Learn what the RSI (Relative Strength Index) is, how to read overbought and oversold signals, RSI divergence, and how AI monitors RSI across 560 stocks automatically.",
   keywords: articleRsi.meta.en.keywords,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const RELATED = [
   { title: "How to Start Investing in US Stocks", href: "/academy/how-to-start-investing", tag: "Beginner" },
   { title: "Momentum Trading Explained", href: "/academy/momentum-trading", tag: "Intermediate" },
-  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA Edge" },
+  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA AI Edge" },
 ];
 
 export default function RsiIndicatorPage() {
@@ -38,7 +38,7 @@ export default function RsiIndicatorPage() {
             headline: "RSI Indicator Explained: How to Spot Overbought and Oversold Stocks",
             description: "Master RSI: spot overbought & oversold levels and time better entries.",
             author: { "@type": "Organization", name: "BOGA AI" },
-            publisher: { "@type": "Organization", name: "BOGA – Blue One Global Analysis", url: "https://bogastock.com" },
+            publisher: { "@type": "Organization", name: "BOGA AI – Blue One Global Analysis", url: "https://bogastock.com" },
             mainEntityOfPage: "https://bogastock.com/academy/rsi-indicator",
             datePublished: "2026-04-01",
             dateModified: new Date().toISOString().split("T")[0],

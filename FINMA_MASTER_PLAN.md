@@ -1,4 +1,4 @@
-# FinMA Daily 100 — AI-Powered US Stock Analysis Platform
+# BOGA AI Daily 100 — AI-Powered US Stock Analysis Platform
 ## Master Architecture & Implementation Plan v1.0
 **Prepared:** April 2026 | **Status:** Pre-Development | **Author:** AFK DaSYS
 
@@ -8,12 +8,12 @@
 
 1. [Executive Summary](#1-executive-summary)
 2. [Fixed 100-Stock Universe](#2-fixed-100-stock-universe)
-3. [Bot Architecture (finma_bot.py)](#3-bot-architecture)
+3. [Bot Architecture (boga_ai_bot.py)](#3-bot-architecture)
 4. [Scoring System](#4-scoring-system)
 5. [Menu Categories & Algorithms](#5-menu-categories--algorithms)
 6. [JSON Data Architecture](#6-json-data-architecture)
 7. [File & Folder Structure](#7-file--folder-structure)
-8. [Website Architecture (finmasmart.com)](#8-website-architecture)
+8. [Website Architecture (boga_aismart.com)](#8-website-architecture)
 9. [Page-by-Page Design Spec](#9-page-by-page-design-spec)
 10. [SEO Strategy](#10-seo-strategy)
 11. [Ad Banner Placements](#11-ad-banner-placements)
@@ -33,7 +33,7 @@
 
 ## 1. EXECUTIVE SUMMARY
 
-**FinMA Daily 100** is an AI-powered US stock analysis platform that analyzes a fixed universe of 100 carefully selected, high-volume US equities every business day at 9:00 AM New York time.
+**BOGA AI Daily 100** is an AI-powered US stock analysis platform that analyzes a fixed universe of 100 carefully selected, high-volume US equities every business day at 9:00 AM New York time.
 
 ### Core Value Proposition
 - **Daily fresh analysis** of the same 100 stocks — consistency allows trend tracking
@@ -207,7 +207,7 @@ The 100 stocks are permanent. They are not swapped daily. The bot always scans e
 
 ## 3. BOT ARCHITECTURE
 
-### File: `finma_bot.py` — Main Daily Runner
+### File: `boga_ai_bot.py` — Main Daily Runner
 
 **Trigger:** Every weekday at 09:00 AM New York time (ET/EST)
 
@@ -281,7 +281,7 @@ STEP 12 — TRANSFER
   └── Create /transfer/archive/YYYY-MM-DD.zip
 
 STEP 13 — LOG & REPORT
-  └── Write logs/finma_YYYY-MM-DD.log
+  └── Write logs/boga_ai_YYYY-MM-DD.log
   └── Print summary: X stocks analyzed, Y signals generated
 ```
 
@@ -720,9 +720,9 @@ Output: Full signal card with entry_range, target, stop_loss, TTL
 ## 7. FILE & FOLDER STRUCTURE
 
 ```
-finma/
+boga_ai/
 │
-├── finma_bot.py              ← Main bot (single file)
+├── boga_ai_bot.py              ← Main bot (single file)
 ├── config.py                 ← 100 tickers + all settings
 ├── requirements.txt          ← Python dependencies
 │
@@ -748,7 +748,7 @@ finma/
 │       └── ...
 │
 └── logs/
-    ├── finma_2026-04-08.log
+    ├── boga_ai_2026-04-08.log
     └── ...
 ```
 
@@ -759,7 +759,7 @@ finma/
 ### 8.1 Site Map
 
 ```
-finmasmart.com/
+boga_aismart.com/
 │
 ├── /                         ← Homepage (Dashboard)
 ├── /stock/[TICKER]           ← Stock detail page (100 pages)
@@ -775,7 +775,7 @@ finmasmart.com/
 ├── /login                    ← Authentication
 ├── /register                 ← Free registration
 ├── /contact                  ← Contact form
-├── /about                    ← About FinMA
+├── /about                    ← About BOGA AI
 ├── /disclaimer               ← Legal disclaimer (full page)
 ├── /privacy                  ← Privacy policy
 ├── /sitemap.xml              ← SEO sitemap
@@ -791,7 +791,7 @@ finmasmart.com/
 ### 8.2 Data Flow: Bot → Website
 
 ```
-[finma_bot.py runs at 09:00 NY]
+[boga_ai_bot.py runs at 09:00 NY]
          ↓
 [Generates JSON files]
          ↓
@@ -810,13 +810,13 @@ finmasmart.com/
 
 ### 9.1 Homepage
 
-**Title:** `FinMA Daily 100 | AI-Powered US Stock Analysis & Signals`
+**Title:** `BOGA AI Daily 100 | AI-Powered US Stock Analysis & Signals`
 **Meta description:** `Daily AI analysis of 100 top US stocks. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.`
 
 **Sections (top to bottom):**
 1. **Ticker Tape** — scrolling real-time sector performance bar
 2. **Index Cards** — S&P500, Dow, NASDAQ, VIX, Russell 2K, Sector ETFs
-3. **Hero Header** — "Discover the Strongest US Stocks with FinMA AI"
+3. **Hero Header** — "Discover the Strongest US Stocks with BOGA AI AI"
 4. **Stats Bar** — Active Signals count | Analyzed Today | Last Updated timestamp
 5. **Category Tabs** — Top Signals | Breakout | Undervalued | Momentum | Reversal | Dividend
 6. **Signal Cards** — Top 5 cards per active tab (ticker, score bar, change%, AI summary snippet)
@@ -829,12 +829,12 @@ finmasmart.com/
 
 ### 9.2 Stock Detail Page (`/stock/AAPL`)
 
-**Title:** `AAPL Stock Analysis Today | Apple Inc. AI Score & Signals — FinMA`
-**URL:** `finmasmart.com/stock/AAPL`
+**Title:** `AAPL Stock Analysis Today | Apple Inc. AI Score & Signals — BOGA AI`
+**URL:** `boga_aismart.com/stock/AAPL`
 
 **Sections:**
 1. **Header Bar** — Ticker | Company name | Sector | Current price | % change | Signal badge
-2. **Quick View Panel** — FinMA AI Score bar, signal type, entry/target/stop-loss
+2. **Quick View Panel** — BOGA AI AI Score bar, signal type, entry/target/stop-loss
 3. **TradingView Chart** — 1H timeframe, embedded widget, full-width
 4. **AI Summary** — 150-word Gemini-generated analysis card
 5. **Advanced Technicals** — RSI gauge, MACD chart, EMA levels table, BB chart
@@ -880,7 +880,7 @@ finmasmart.com/
 ### 10.1 On-Page SEO
 
 **For each stock detail page:**
-- Unique `<title>` tag: `[TICKER] Stock Analysis [DATE] | [Company] AI Signal — FinMA`
+- Unique `<title>` tag: `[TICKER] Stock Analysis [DATE] | [Company] AI Signal — BOGA AI`
 - Unique meta description mentioning score, signal type, price
 - H1: `[TICKER] — [Company] Stock Analysis`
 - H2 sections: "Today's AI Score", "Technical Analysis", "Fundamentals"
@@ -948,7 +948,7 @@ finmasmart.com/
 
 ## 12. ADMIN PANEL
 
-**URL:** `finmasmart.com/admin/` (IP-restricted + password protected)
+**URL:** `boga_aismart.com/admin/` (IP-restricted + password protected)
 
 ### 12.1 Admin Dashboard (`/admin/dashboard`)
 - Today's bot run status (success/fail + timestamp)
@@ -1080,7 +1080,7 @@ Features:
 - Default: 1H timeframe
 - User can switch timeframe (15m, 1H, 4H, 1D) via buttons above chart
 - Dark theme matching site design
-- FinMA AI entry/stop/target levels overlaid as horizontal lines (future feature)
+- BOGA AI AI entry/stop/target levels overlaid as horizontal lines (future feature)
 
 ---
 
@@ -1099,7 +1099,7 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 
 ```python
 def build_gemini_prompt(stock_data: dict) -> str:
-    return f"""You are FinMA AI, a professional US stock market analyst.
+    return f"""You are BOGA AI AI, a professional US stock market analyst.
     
 Analyze the following stock and write a concise, data-driven analysis in English.
 Maximum 150 words. Be specific with numbers. Mention signal type, key technicals, 
@@ -1147,18 +1147,18 @@ Write the analysis now:"""
 
 Shown at bottom of every page (sticky banner):
 
-> **FinMA is for informational purposes only.** Not financial advice. AI signals are experimental. Trading involves risk of loss. Past performance is not indicative of future results.
+> **BOGA AI is for informational purposes only.** Not financial advice. AI signals are experimental. Trading involves risk of loss. Past performance is not indicative of future results.
 
 ### 17.2 Full Disclaimer Page (`/disclaimer`)
 
 **Section 1 — Not Financial Advice**
-FinMA Daily 100 is an information service only. We are not a registered investment advisor (RIA) or broker-dealer registered with the SEC or FINRA. Information provided on this platform does not constitute investment, financial, trading, or any other type of professional advice. Always consult a licensed financial advisor before making investment decisions.
+BOGA AI Daily 100 is an information service only. We are not a registered investment advisor (RIA) or broker-dealer registered with the SEC or FINRA. Information provided on this platform does not constitute investment, financial, trading, or any other type of professional advice. Always consult a licensed financial advisor before making investment decisions.
 
 **Section 2 — Risk Disclosure**
 Trading stocks and financial instruments involves significant risk of loss, including the possible loss of all invested capital. Past performance is not indicative of future results. AI-driven signals are experimental and should be used as one input among many in your own independent decision-making process.
 
 **Section 3 — AI & Data Accuracy**
-FinMA uses artificial intelligence models (Google Gemini) to generate stock analyses. These analyses are automated and may contain errors, omissions, or outdated information. Market data is sourced from Yahoo Finance via yfinance and may be delayed. We do not guarantee accuracy, completeness, or timeliness of any data.
+BOGA AI uses artificial intelligence models (Google Gemini) to generate stock analyses. These analyses are automated and may contain errors, omissions, or outdated information. Market data is sourced from Yahoo Finance via yfinance and may be delayed. We do not guarantee accuracy, completeness, or timeliness of any data.
 
 **Section 4 — Data Privacy (CCPA Compliant)**
 We comply with US data protection standards including CCPA guidelines. We collect only email addresses for registered members. We do not sell personal data to third parties. Members can request data deletion at any time by contacting us.
@@ -1194,8 +1194,8 @@ This site may display third-party advertisements. Advertisers do not influence e
 `manifest.json`:
 ```json
 {
-  "name": "FinMA Daily 100",
-  "short_name": "FinMA",
+  "name": "BOGA AI Daily 100",
+  "short_name": "BOGA AI",
   "description": "AI-powered US stock analysis",
   "start_url": "/",
   "display": "standalone",
@@ -1213,7 +1213,7 @@ This site may display third-party advertisements. Advertisers do not influence e
 ## 19. SOCIAL SHARING
 
 ### Every page has share buttons:
-- **Twitter/X** — Pre-filled tweet: `$AAPL scored 87/100 on FinMA today! STRONG BUY signal. #stocks #investing finmasmart.com/stock/AAPL`
+- **Twitter/X** — Pre-filled tweet: `$AAPL scored 87/100 on BOGA AI today! STRONG BUY signal. #stocks #investing boga_aismart.com/stock/AAPL`
 - **LinkedIn** — Article share
 - **WhatsApp** — Mobile-friendly share link
 - **Reddit** — Share to r/stocks, r/investing
@@ -1222,10 +1222,10 @@ This site may display third-party advertisements. Advertisers do not influence e
 
 ### Open Graph tags (per stock page):
 ```html
-<meta property="og:title" content="AAPL — Strong Buy Signal | FinMA AI Score: 87">
+<meta property="og:title" content="AAPL — Strong Buy Signal | BOGA AI AI Score: 87">
 <meta property="og:description" content="Apple scored 87/100 today. RSI 58, MACD bullish. Entry: $193-$196, Target: $208.">
-<meta property="og:image" content="https://finmasmart.com/og/AAPL.png">
-<meta property="og:url" content="https://finmasmart.com/stock/AAPL">
+<meta property="og:image" content="https://boga_aismart.com/og/AAPL.png">
+<meta property="og:url" content="https://boga_aismart.com/stock/AAPL">
 ```
 
 ---
@@ -1250,7 +1250,7 @@ Fields:
 
 ### 20.3 Footer Contact Info
 
-- Email: contact@finmasmart.com
+- Email: contact@boga_aismart.com
 - Location: New York, USA
 - No phone number (spam prevention)
 
@@ -1373,11 +1373,11 @@ GEMINI_API_KEY=AIzaSyA6cu1eE5xyh2-1eEFEdZcMXY7MSzqIPnM
 ADMIN_PASSWORD=your_secure_admin_password
 JWT_SECRET=your_jwt_secret_key
 SENDGRID_API_KEY=your_sendgrid_key
-CONTACT_EMAIL=contact@finmasmart.com
-DATA_DIR=/var/www/finma/data
-TRANSFER_DIR=/var/www/finma/transfer
+CONTACT_EMAIL=contact@boga_aismart.com
+DATA_DIR=/var/www/boga_ai/data
+TRANSFER_DIR=/var/www/boga_ai/transfer
 ```
 
 ---
 
-*Document Version: 1.0 | Last Updated: April 2026 | FinMA / AFK DaSYS*
+*Document Version: 1.0 | Last Updated: April 2026 | BOGA AI / AFK DaSYS*

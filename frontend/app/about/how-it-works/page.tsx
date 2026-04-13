@@ -105,7 +105,7 @@ export default function HowItWorksPage() {
           <h2 className="text-2xl font-bold text-white mb-6">Weighted Scoring Model</h2>
           <div className="space-y-8">
             <p className="text-[#94a3b8] leading-relaxed">
-              The BOGA Master Score is not built on a single data point. We use a dynamic weighting model to ensure signal accuracy:
+              The BOGA AI Master Score is not built on a single data point. We use a dynamic weighting model to ensure signal accuracy:
             </p>
             
             <div className="space-y-4">
@@ -157,7 +157,7 @@ export default function HowItWorksPage() {
           <h2 className="text-2xl font-bold text-white mb-6">How AI Commentary is Generated</h2>
           <div className="prose prose-invert max-w-none text-[#94a3b8] leading-relaxed space-y-4">
             <p>
-              Calculated scores and data points are passed to BOGA's proprietary financial language models (Gemini AI). The AI doesn't just look at numbers; it analyzes what those numbers mean in the current market context.
+              Calculated scores and data points are passed to BOGA AI's proprietary financial language models (Gemini AI). The AI doesn't just look at numbers; it analyzes what those numbers mean in the current market context.
             </p>
             <p>
               For example, an RSI of 70 isn't always "overbought." If there is a major sector rally confirmed by relative volume, the AI interprets this as a "strong trend" rather than a signal to sell. This contextual understanding is what sets BOGA AI apart from generic scanners.

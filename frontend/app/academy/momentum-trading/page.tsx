@@ -6,7 +6,7 @@ import { articleMomentum } from "@/lib/academy-i18n";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "Momentum Trading Explained: How Stocks Start Moving Fast | BOGA Academy",
+  title: "Momentum Trading Explained: How Stocks Start Moving Fast | BOGA AI Academy",
   description:
     "Master momentum trading strategy. Learn how to identify fast-moving stocks, why momentum works academically, key entry signals, and how AI detects momentum before it peaks.",
   keywords: articleMomentum.meta.en.keywords,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const RELATED = [
   { title: "RSI Indicator Explained", href: "/academy/rsi-indicator", tag: "Intermediate" },
   { title: "How to Start Investing in US Stocks", href: "/academy/how-to-start-investing", tag: "Beginner" },
-  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA Edge" },
+  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA AI Edge" },
 ];
 
 export default function MomentumTradingPage() {
@@ -38,7 +38,7 @@ export default function MomentumTradingPage() {
             headline: "Momentum Trading Explained: How Stocks Start Moving Fast",
             description: "Master the momentum trading strategy with data-driven entry signals and AI-powered early detection.",
             author: { "@type": "Organization", name: "BOGA AI" },
-            publisher: { "@type": "Organization", name: "BOGA – Blue One Global Analysis", url: "https://bogastock.com" },
+            publisher: { "@type": "Organization", name: "BOGA AI – Blue One Global Analysis", url: "https://bogastock.com" },
             mainEntityOfPage: "https://bogastock.com/academy/momentum-trading",
             datePublished: "2026-04-01",
             dateModified: new Date().toISOString().split("T")[0],

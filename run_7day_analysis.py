@@ -3,7 +3,7 @@
 BOGA AI 7-Day Daily Analysis Runner
 run_7day_analysis.py v1.0 | April 2026
 
-Runs finma_bot.py daily for 7 consecutive days at 09:00 AM New York time.
+Runs boga_ai_bot.py daily for 7 consecutive days at 09:00 AM New York time.
 If market is closed, uses previous close prices instead of live prices.
 """
 
@@ -16,14 +16,14 @@ import json
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-# Add parent directory to path to import finma_bot modules
+# Add parent directory to path to import boga_ai_bot modules
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from config import (
     NY_TIMEZONE, DAILY_RUN_HOUR, DAILY_RUN_MINUTE,
     DATA_DIR, LOG_DIR
 )
-from finma_bot import is_market_open, use_prev_close_mode
+from boga_ai_bot import is_market_open, use_prev_close_mode
 
 # ──────────────────────────────────────────────────────────────
 # Logging
@@ -65,13 +65,13 @@ async def wait_until_next_run(target_hour: int, target_minute: int) -> timedelta
     return wait_seconds
 
 
-async def run_finma_bot() -> bool:
+async def run_boga_ai_bot() -> bool:
     """
-    Execute finma_bot.py with --run-now flag for manual trigger.
+    Execute boga_ai_bot.py with --run-now flag for manual trigger.
     Returns True if successful, False if failed.
     """
     try:
-        cmd = [sys.executable, "finma_bot.py", "--run-now"]
+        cmd = [sys.executable, "boga_ai_bot.py", "--run-now"]
         log.info(f"Starting BOGA AI bot: {' '.join(cmd)}")
 
         result = subprocess.run(
@@ -83,26 +83,26 @@ async def run_finma_bot() -> bool:
         )
 
         if result.returncode == 0:
-            log.info("✓ finma_bot completed successfully")
+            log.info("✓ boga_ai_bot completed successfully")
             return True
         else:
-            log.error(f"✗ finma_bot failed with code {result.returncode}")
+            log.error(f"✗ boga_ai_bot failed with code {result.returncode}")
             log.error(f"STDOUT: {result.stdout}")
             log.error(f"STDERR: {result.stderr}")
             return False
 
     except subprocess.TimeoutExpired:
-        log.error("✗ finma_bot timed out (exceeded 10 minutes)")
+        log.error("✗ boga_ai_bot timed out (exceeded 10 minutes)")
         return False
     except Exception as e:
-        log.error(f"✗ Error running finma_bot: {e}")
+        log.error(f"✗ Error running boga_ai_bot: {e}")
         return False
 
 
 async def run_7day_cycle(days: int = 7):
     """
     Main 7-day cycle runner.
-    Runs finma_bot.py at 09:00 NY time each day for `days` consecutive days.
+    Runs boga_ai_bot.py at 09:00 NY time each day for `days` consecutive days.
     """
     log.info("=" * 70)
     log.info(f"BOGA AI 7-Day Analysis Runner Started")
@@ -144,7 +144,7 @@ async def run_7day_cycle(days: int = 7):
 
         # Run the bot
         run_count += 1
-        success = await run_finma_bot()
+        success = await run_boga_ai_bot()
         if success:
             success_count += 1
             log.info(f"✓ Day {day_num} completed successfully")

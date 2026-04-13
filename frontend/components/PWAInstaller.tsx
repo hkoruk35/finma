@@ -61,7 +61,7 @@ export default function PWAInstaller() {
     };
 
     const handleAppInstalled = () => {
-      console.log("✓ BOGA app successfully installed!");
+      console.log("✓ BOGA AI app successfully installed!");
       deferredPrompt = null;
     };
 

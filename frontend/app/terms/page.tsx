@@ -13,7 +13,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-3">1. Acceptance of Terms</h2>
             <p>
-              By accessing BOGA Daily +500, you agree to comply with and be bound by
+              By accessing BOGA AI Daily +500, you agree to comply with and be bound by
               these Terms of Service. If you do not agree, please do not use the service.
             </p>
           </section>
@@ -30,7 +30,7 @@ export default function TermsPage() {
             <h2 className="text-xl font-bold text-white mb-3">3. Usage Restrictions</h2>
             <p>
               You agree not to scrape, automatedly harvest, or redistribute 
-              BOGA signals, scores, or AI summaries without express written permission.
+              BOGA AI signals, scores, or AI summaries without express written permission.
             </p>
           </section>
 

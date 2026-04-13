@@ -56,9 +56,9 @@ const ProfitSimulator = () => {
               <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
               <p className="text-[11px] md:text-[13px] font-black text-[#3b82f6] uppercase tracking-[0.3em]">PROFIT SIMULATOR</p>
             </div>
-            <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tighter">BOGA PROFIT POTENTIAL</h2>
+            <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tighter">BOGA AI PROFIT POTENTIAL</h2>
             <p className="text-base md:text-lg text-[#94a3b8] leading-relaxed">
-              Visualize your growth potential based on BOGA's historical <span className="text-white font-bold">93.7%</span> win rate and <span className="text-white font-bold">7.4%</span> average monthly returns per pick.
+              Visualize your growth potential based on BOGA AI's historical <span className="text-white font-bold">93.7%</span> win rate and <span className="text-white font-bold">7.4%</span> average monthly returns per pick.
             </p>
           </div>
 
@@ -184,7 +184,7 @@ const ProfitSimulator = () => {
 
            <div className="space-y-6">
               <button className="w-full py-6 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-[0_15px_35px_rgba(59,130,246,0.3)] hover:bg-[#2563eb] transition-all hover:-translate-y-1 active:scale-95 text-sm">
-                Unlock BOGA PRO Signals
+                Unlock BOGA AI PRO Signals
               </button>
               <p className="text-[10px] text-[#64748b] leading-relaxed text-center italic">
                 * Note: Historical performance is for informational purposes only. Trading involves significant risk of loss. This simulator calculates expectancy based on verified past results.

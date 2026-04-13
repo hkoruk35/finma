@@ -143,7 +143,7 @@ export default function ContactPage() {
                           <span className="text-xs font-bold text-[#94a3b8]">I am not a robot</span>
                        </div>
                        <div className="text-[8px] text-[#64748b] text-right">
-                          Protected by<br/><strong className="text-[#94a3b8]">BOGA Shield</strong>
+                          Protected by<br/><strong className="text-[#94a3b8]">BOGA AI Shield</strong>
                        </div>
                     </div>
 

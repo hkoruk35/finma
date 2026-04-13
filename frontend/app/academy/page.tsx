@@ -5,7 +5,7 @@ import AcademyIndexClient from "@/components/AcademyIndexClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "Stock Market Academy | Learn AI Stock Analysis & Investing Strategies – BOGA",
+  title: "Stock Market Academy | Learn AI Stock Analysis & Investing Strategies – BOGA AI",
   description:
     "Free stock market education: beginner guides, technical indicators (RSI, momentum), and AI stock analysis tutorials. Learn how to pick winning stocks with data.",
   keywords: [
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://bogastock.com/academy" },
   openGraph: {
-    title: "BOGA Stock Market Academy – Free AI Investing Guides",
+    title: "BOGA AI Stock Market Academy – Free AI Investing Guides",
     description:
       "From beginner basics to advanced AI-powered stock picking. Free guides trusted by thousands of US equity investors.",
     url: "https://bogastock.com/academy",
-    siteName: "BOGA – Blue One Global Analysis",
+    siteName: "BOGA AI – Blue One Global Analysis",
     type: "website",
   },
 };
@@ -38,7 +38,7 @@ export default function AcademyPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "EducationalOrganization",
-            name: "BOGA Stock Market Academy",
+            name: "BOGA AI Stock Market Academy",
             url: "https://bogastock.com/academy",
             description:
               "Free stock market education platform — beginner to advanced AI investing strategies.",
