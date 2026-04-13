@@ -3650,16 +3650,16 @@ def build_candidate_block(rank: int, c: dict) -> str:
 
     eight_factor_block = (
         "📌 <b>Kurumsal Faktör Skorları</b>\n"
-        f"• 🔵 TSI: {tsi:.1f} — {'📈 Güçlü trend' if tsi >= 2.0 else '⚠️ Trend zayıf/orta'}\n"
-        f"• 🟣 MSI: {msi:.1f} — {'🚀 Momentum stabil' if msi >= 1.5 else '⚠️ Momentum kırılgan'}\n"
-        f"• 🟢 VRS: {vrs:.1f} — {'💚 Sağlıklı volatilite' if vrs >= 1.5 else '🟡 Volatilite riskli'}\n"
-        f"• 🟡 VPS: {vps:.1f} — {'📊 Kurumsal hacim akışı' if vps >= 1.5 else '⚠️ Hacim zayıf/dağınık'}\n"
-        f"• 🧊 NFI: {nfi:.1f} — {'🔇 Temiz fiyat yapısı' if nfi >= 1.5 else '🔊 Gürültü/fake-out riski'}\n"
-        f"• 🔶 SSS: {sss:.1f} — {'📈 HL güçlü swing' if sss >= 2.0 else '⚠️ Swing yapısı zayıf'}\n"
-        f"• 🔴 RCS: {rcs:.1f} — {'🟢 RR iyi' if rcs >= 1.5 else '⚠️ RR düşük/limitli'}\n"
-        f"• 💰 PFI: {pfi:.1f} — {'🟢 Yüksek kar potansiyeli' if pfi >= 1.5 else '⚠️ Kar profili sınırlı'}\n"
-        f"• 🏦 IFI: {ifi:.1f} — {'🏛️ Kurumsal/Insider Akış' if ifi >= 1.0 else '➖ Kurumsal sinyal yok'}\n"
-        f"• 📊 FFI: {ffi:.1f} — {'💎 Güçlü finansal sağlık' if ffi >= 1.0 else '➖ Finansal sinyal yok'}\n"
+        f"• 🔵 TSI: {tsi:.1f} — {'📈 Güçlü trend' if tsi >= 8.0 else '⚠️ Trend zayıf/orta'}\n"
+        f"• 🟣 MSI: {msi:.1f} — {'🚀 Momentum stabil' if msi >= 6.0 else '⚠️ Momentum kırılgan'}\n"
+        f"• 🟢 VRS: {vrs:.1f} — {'💚 Sağlıklı volatilite' if vrs >= 6.0 else '🟡 Volatilite riskli'}\n"
+        f"• 🟡 VPS: {vps:.1f} — {'📊 Kurumsal hacim akışı' if vps >= 6.0 else '⚠️ Hacim zayıf/dağınık'}\n"
+        f"• 🧊 NFI: {nfi:.1f} — {'🔇 Temiz fiyat yapısı' if nfi >= 6.0 else '🔊 Gürültü/fake-out riski'}\n"
+        f"• 🔶 SSS: {sss:.1f} — {'📈 HL güçlü swing' if sss >= 8.0 else '⚠️ Swing yapısı zayıf'}\n"
+        f"• 🔴 RCS: {rcs:.1f} — {'🟢 RR iyi' if rcs >= 6.0 else '⚠️ RR düşük/limitli'}\n"
+        f"• 💰 PFI: {pfi:.1f} — {'🟢 Katalizör/Haber' if pfi >= 4.0 else '➖ Belirgin haber yok'}\n"
+        f"• 🏦 IFI: {ifi:.1f} — {'🏛️ Kurumsal/Insider Akış' if ifi >= 4.0 else '➖ Kurumsal sinyal yok'}\n"
+        f"• 📊 FFI: {ffi:.1f} — {'💎 Güçlü finansal sağlık' if ffi >= 4.0 else '➖ Finansal sinyal yok'}\n"
         f"🎯 <b>Composite:</b> {comp:.2f}\n"
     )
 
@@ -4053,6 +4053,7 @@ async def scan_top_stocks():
                 c["score"] += insider['score']
                 c["details"].extend(insider['details'])
                 c["insider_data"] = insider
+                c["ifi"] = insider['score']
             
             # 📊 FİNANSAL SAĞLIK ANALİZİ
             fin_health = await asyncio.to_thread(analyze_financial_health, ticker, info)
@@ -4060,6 +4061,7 @@ async def scan_top_stocks():
                 c["score"] += fin_health['health_score'] * 0.4
                 c["details"].extend(fin_health['details'])
                 c["financial_health"] = fin_health
+                c["ffi"] = fin_health['health_score']
             
             # 🎯 KATALİZÖR TESPİTİ
             catalyst_result = await asyncio.to_thread(check_silent_catalysts, ticker, info)
@@ -4067,6 +4069,7 @@ async def scan_top_stocks():
                 c["score"] += catalyst_result['score']
                 c["details"].extend(catalyst_result['reasons'])
                 c["catalyst_data"] = catalyst_result
+                c["pfi"] = catalyst_result['score']
                 
             # ⚖️ YASAL RİSK TARAMASI (Katman 3'e Entegre Edildi)
             # Yalnızca ön skoru belli bir seviyenin üstünde olanlara (örneğin 5.0) bakarak zaman kazanıyoruz
