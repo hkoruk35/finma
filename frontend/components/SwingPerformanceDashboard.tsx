@@ -107,17 +107,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
 
   // Helper to check if a trade is within the last 3 days
   const isRestricted = (dateStr: string) => {
-    try {
-      const pickDate = new Date(dateStr);
-      const now = new Date();
-      // Midnight comparison
-      const pickTime = new Date(pickDate.getFullYear(), pickDate.getMonth(), pickDate.getDate()).getTime();
-      const nowTime = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-      const diffDays = (nowTime - pickTime) / (1000 * 3600 * 24);
-      return diffDays < 5; // 0, 1, 2, 3, 4 days back are restricted
-    } catch (e) {
-      return false;
-    }
+    return false; // TEMPORARILY DISABLED
   };
 
   return (

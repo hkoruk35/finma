@@ -74,13 +74,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
           // ACCESS LOGIC
           // Pick 1 (#0): Open for all members
           // Pick 2 & 3 (#1, #2): Open for PRO members only
-          const isProPick = idx > 0;
-          const isUserLogged = !!user;
-          const isProUser = user?.user_metadata?.role === 'pro'; // Placeholder check
-          
-          const isLocked = isProPick 
-            ? !isProUser 
-            : !isUserLogged;
+          const isLocked = false;
 
           const redirectUrl = isProPick ? "/login?redirect=pro" : "/login";
           
