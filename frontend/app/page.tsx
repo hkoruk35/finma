@@ -12,18 +12,18 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "US Stock AI Analysis & Daily Trading Scores | BOGA - Blue One Global Analysis - Daily +500",
+  title: "US Stock AI Analysis & Daily Trading Scores | BOGA AI - Blue One Global Analysis - Daily +500",
   description: "Discover the strongest US stocks with BOGA AI. Daily analysis of +500 top equities, breakout scores, and momentum picks updated daily at 9:00 AM ET.",
   keywords: ["US stock AI analysis", "daily stock scores", "stock screener today", "best stocks to buy", "BOGA AI"],
   alternates: {
     canonical: "https://bogastock.com",
   },
   openGraph: {
-    title: "BOGA - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Scores",
+    title: "BOGA AI - Blue One Global Analysis - Daily +500 | AI-Powered US Stock Scores",
     description: "High-conviction trading scores for +500 top US stocks.",
     url: "https://bogastock.com",
-    siteName: "BOGA - Blue One Global Analysis - Daily +500 stocks",
-    images: [{ url: "https://bogastock.com/finmawave.png", width: 1200, height: 630, alt: "BOGA - Blue One Global Analysis" }],
+    siteName: "BOGA AI - Blue One Global Analysis - Daily +500 stocks",
+    images: [{ url: "https://bogastock.com/finmawave.png", width: 1200, height: 630, alt: "BOGA AI - Blue One Global Analysis" }],
     type: "website",
   },
 };

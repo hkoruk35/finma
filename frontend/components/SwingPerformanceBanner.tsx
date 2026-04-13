@@ -22,7 +22,7 @@ export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
               <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">VIEW DETAILED LOGS &rarr;</span>
            </div>
            <p className="text-white text-xl md:text-2xl font-bold">
-             BOGA Swing Engine: <span className="text-[#10b981]">{stats.win_rate}% Win Rate</span> Over {stats.period_days} Days
+             BOGA AI Swing Engine: <span className="text-[#10b981]">{stats.win_rate}% Win Rate</span> Over {stats.period_days} Days
            </p>
            <p className="text-[#94a3b8] text-sm mt-2">
              Based on {stats.total_picks} high-conviction trades generated exclusively by algorithmic criteria.
