@@ -114,7 +114,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
       const pickTime = new Date(pickDate.getFullYear(), pickDate.getMonth(), pickDate.getDate()).getTime();
       const nowTime = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
       const diffDays = (nowTime - pickTime) / (1000 * 3600 * 24);
-      return diffDays < 3; // 0, 1, 2 days back are restricted
+      return diffDays < 5; // 0, 1, 2, 3, 4 days back are restricted
     } catch (e) {
       return false;
     }
@@ -212,7 +212,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
             <div className="flex flex-col items-end gap-1">
                <p className="text-xs text-[#94a3b8]">Showing {filteredHistory.length} trades</p>
                <p className="text-[10px] text-[#3b82f6] font-bold uppercase tracking-wider bg-[#3b82f6]/10 px-2 py-0.5 rounded">
-                 ⚠️ 3-Day Delay Applied for Free Users
+                 ⚠️ 5-Day Delay Applied for Free Users
                </p>
             </div>
          </div>
