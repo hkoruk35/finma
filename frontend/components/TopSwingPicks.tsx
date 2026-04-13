@@ -65,23 +65,33 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                 #{idx + 1}
               </div>
 
-              {/* Ticker & Company - Fixed Height for Alignment */}
-              <div className="mb-4 min-h-[70px]">
-                <div className={`text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase ${isProRequired ? 'blur-[8px] select-none opacity-50' : ''}`}>
-                  {isProRequired ? 'XXXX' : item.ticker}
+              {/* Status Overlay - Modern & Centered */}
+              {idx === 0 ? (
+                <div className="absolute top-1/4 left-0 w-full flex justify-center z-30 pointer-events-none">
+                  <div className="bg-white text-[#0a0e17] text-[11px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-[0_0_20px_rgba(255,255,255,0.4)] animate-pulse">
+                     Free Member Access Required
+                  </div>
                 </div>
-                <div className={`text-sm font-bold text-[#64748b] tracking-wider mt-1 line-clamp-2 ${isProRequired ? 'blur-[4px] select-none opacity-40' : ''}`}>
-                   {isProRequired ? 'PRO MEMBERS ONLY CONTENT' : item.company}
-                </div>
-                {isProRequired && (
-                   <div className="absolute top-12 left-6 bg-[#3b82f6] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest z-10 shadow-lg">
+              ) : (
+                <div className="absolute top-1/4 left-0 w-full flex justify-center z-30 pointer-events-none">
+                  <div className="bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white text-[13px] font-black px-6 py-2.5 rounded-full uppercase tracking-widest shadow-[0_0_30px_rgba(59,130,246,0.5)] border border-white/20">
                      PRO REQUIRED
-                   </div>
-                )}
+                  </div>
+                </div>
+              )}
+
+              {/* Ticker & Company - All blurred now */}
+              <div className="mb-4 min-h-[70px]">
+                <div className={`text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase blur-[12px] select-none opacity-40`}>
+                  XXXX
+                </div>
+                <div className={`text-sm font-bold text-[#64748b] tracking-wider mt-1 line-clamp-2 blur-[6px] select-none opacity-30`}>
+                   {isProRequired ? 'PRO MEMBERS ONLY CONTENT' : 'MEMBERSHIP REQUIRED TO VIEW'}
+                </div>
               </div>
 
-              {/* Score + Pattern - Fixed Height for Alignment */}
-              <div className={`flex flex-col gap-3 mb-6 min-h-[140px] ${isProRequired ? 'blur-[10px] select-none pointer-events-none' : ''}`}>
+              {/* Score + Pattern - Blurred for all guest views */}
+              <div className={`flex flex-col gap-3 mb-6 min-h-[140px] blur-[10px] select-none pointer-events-none opacity-50`}>
                 <div className="flex items-end gap-3">
                    <div className="text-5xl md:text-6xl font-mono font-black text-white leading-none">
                      {item.score.toFixed(1)}
@@ -101,7 +111,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
               </div>
 
               {/* Zones - Uniform Height via flex-col structure */}
-              <div className="mb-6 bg-black/40 rounded-xl p-5 border border-white/10 shadow-inner flex-1">
+              <div className="mb-6 bg-black/40 rounded-xl p-5 border border-white/10 shadow-inner flex-1 opacity-40 blur-[4px]">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-2">
                    <div>
                      <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
