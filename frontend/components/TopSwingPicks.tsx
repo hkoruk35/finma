@@ -96,7 +96,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        <span className="w-2 h-2 rounded-full bg-[#3b82f6]"></span>
                        BUY ZONE
                      </div>
-                     <div className="text-base md:text-lg font-mono font-black text-white">
+                     <div className="text-sm md:text-base font-mono font-black text-white">
                        {formatPrice(item.buy_zone.low)} - {formatPrice(item.buy_zone.high)}
                      </div>
                    </div>
@@ -106,7 +106,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        <span className="w-2 h-2 rounded-full bg-[#10b981]"></span>
                        PROFIT ZONE
                      </div>
-                     <div className="text-base md:text-lg font-mono font-black text-[#10b981]">
+                     <div className="text-sm md:text-base font-mono font-black text-[#10b981]">
                        {formatPrice(item.profit_zone.low)} - {formatPrice(item.profit_zone.high)}
                      </div>
                    </div>
@@ -116,7 +116,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span>
                        STOP LOSS
                      </div>
-                     <div className="text-base md:text-lg font-mono font-black text-[#ef4444]">
+                     <div className="text-sm md:text-base font-mono font-black text-[#ef4444]">
                        {formatPrice(item.stop_zone.low)} - {formatPrice(item.stop_zone.high)}
                      </div>
                    </div>
@@ -126,7 +126,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                        <span className="w-2 h-2 rounded-full bg-[#a855f7]"></span>
                        HOLDING
                      </div>
-                     <div className="text-base md:text-lg font-mono font-black text-[#f3e8ff]">
+                     <div className="text-sm md:text-base font-mono font-black text-[#f3e8ff]">
                        {item.holding_period}
                      </div>
                    </div>
@@ -146,7 +146,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                   <div className="grid grid-cols-4 gap-2 text-center border-t border-white/5 pt-5">
                     {metrics.map((p, i) => (
                       <div key={i}>
-                         <div className={`text-[15px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                         <div className={`text-[14px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
                            {p.val !== undefined ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
                          </div>
                          <div className="text-[11px] text-[#64748b] font-black mt-1.5 uppercase">{p.label}</div>
