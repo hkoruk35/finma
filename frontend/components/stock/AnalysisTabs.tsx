@@ -23,14 +23,16 @@ export default function AnalysisTabs({ stock }: Props) {
     { id: "id", label: "🇮🇩 ID", name: "Bahasa" },
   ];
 
-  const getSummary = (lang: LangTab) => {
+  const getAIContent = (type: "detail" | "tech_ins" | "quant_ins", lang: LangTab) => {
     const ai = (stock as any).ai_summary;
-    if (ai && ai.detail_summary && ai.detail_summary[lang]) {
-      return ai.detail_summary[lang];
+    if (ai && ai[type] && ai[type][lang]) {
+      return ai[type][lang];
     }
-    // Fallback logic
-    if (lang === "en") return stock.ai_summary || "Detail analysis is being processed...";
-    return `[${lang.toUpperCase()}] Analysis content is synchronizing...`;
+    // Backward compatibility/Fallback
+    if (type === "detail" && ai && ai.detail_summary && ai.detail_summary[lang]) return ai.detail_summary[lang];
+    
+    if (lang === "en") return "AI is analyzing this sector data...";
+    return `[${lang.toUpperCase()}] Analiz verileri hazırlanıyor...`;
   };
 
   return (
@@ -89,7 +91,7 @@ export default function AnalysisTabs({ stock }: Props) {
 
               <div className="prose prose-invert max-w-none">
                 <div className="text-[#cbd5e1] leading-[1.8] text-lg md:text-xl font-medium whitespace-pre-wrap drop-shadow-sm selection:bg-[#3b82f6]/30">
-                  {getSummary(activeLang)}
+                  {getAIContent("detail", activeLang)}
                 </div>
               </div>
             </div>
@@ -97,93 +99,114 @@ export default function AnalysisTabs({ stock }: Props) {
         )}
 
         {activeTab === "technical" && (
-          <div className="glass-card p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-6">
-               <h4 className="flex items-center gap-2 text-sm font-black text-[#3b82f6] uppercase tracking-[0.2em] border-b border-[#3b82f6]/20 pb-3">
-                 <span>📈</span> Momentum Signals
-               </h4>
-               <div className="grid grid-cols-1 gap-4">
-                  {[
-                    { label: "RSI Momentum", value: stock.technical.rsi_14 },
-                    { label: "Trend Strength (ADX)", value: stock.technical.adx },
-                    { label: "Price Flow (MACD Hist)", value: stock.technical.macd_histogram },
-                    { label: "Money Flow Index (MFI)", value: stock.technical.mfi },
-                  ].map(m => (
-                    <div key={m.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
-                       <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{m.label}</span>
-                       <span className="font-mono font-black text-white text-xl">{m.value?.toFixed(2) || 'N/A'}</span>
-                    </div>
-                  ))}
-               </div>
+          <div className="flex flex-col gap-6">
+            <div className="glass-card p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="space-y-6">
+                <h4 className="flex items-center gap-2 text-sm font-black text-[#3b82f6] uppercase tracking-[0.2em] border-b border-[#3b82f6]/20 pb-3">
+                  <span>📈</span> Momentum Signals
+                </h4>
+                <div className="grid grid-cols-1 gap-4">
+                    {[
+                      { label: "RSI Momentum", value: stock.technical.rsi_14 },
+                      { label: "Trend Strength (ADX)", value: stock.technical.adx },
+                      { label: "Price Flow (MACD Hist)", value: stock.technical.macd_histogram },
+                      { label: "Money Flow Index (MFI)", value: stock.technical.mfi },
+                    ].map(m => (
+                      <div key={m.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
+                        <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{m.label}</span>
+                        <span className="font-mono font-black text-white text-xl">{m.value?.toFixed(2) || 'N/A'}</span>
+                      </div>
+                    ))}
+                </div>
+              </div>
+              <div className="space-y-6">
+                <h4 className="flex items-center gap-2 text-sm font-black text-[#8b5cf6] uppercase tracking-[0.2em] border-b border-[#8b5cf6]/20 pb-3">
+                  <span>🏎️</span> Exponential Averages
+                </h4>
+                <div className="grid grid-cols-1 gap-4">
+                    {[
+                      { label: "Short Term (EMA 20)", value: stock.technical.ema_20, color: "text-[#3b82f6]" },
+                      { label: "Medium Term (EMA 50)", value: stock.technical.ema_50, color: "text-[#8b5cf6]" },
+                      { label: "Long Term (EMA 200)", value: stock.technical.ema_200, color: "text-[#cbd5e1]" },
+                    ].map(e => (
+                      <div key={e.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
+                        <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{e.label}</span>
+                        <span className={`font-mono font-black text-xl ${e.color}`}>${formatPrice(e.value)}</span>
+                      </div>
+                    ))}
+                </div>
+              </div>
             </div>
-            <div className="space-y-6">
-               <h4 className="flex items-center gap-2 text-sm font-black text-[#8b5cf6] uppercase tracking-[0.2em] border-b border-[#8b5cf6]/20 pb-3">
-                 <span>🏎️</span> Exponential Averages
-               </h4>
-               <div className="grid grid-cols-1 gap-4">
-                  {[
-                    { label: "Short Term (EMA 20)", value: stock.technical.ema_20, color: "text-[#3b82f6]" },
-                    { label: "Medium Term (EMA 50)", value: stock.technical.ema_50, color: "text-[#8b5cf6]" },
-                    { label: "Long Term (EMA 200)", value: stock.technical.ema_200, color: "text-[#cbd5e1]" },
-                  ].map(e => (
-                    <div key={e.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
-                       <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{e.label}</span>
-                       <span className={`font-mono font-black text-xl ${e.color}`}>${formatPrice(e.value)}</span>
-                    </div>
-                  ))}
-               </div>
-               <div className="bg-blue-500/5 p-4 rounded-xl border border-blue-500/20">
-                 <p className="text-[10px] text-blue-400 font-bold uppercase tracking-widest leading-relaxed">
-                   *EMA values are used to determine trend orientation. Price above EMA200 indicates a macro bullish bias.
-                 </p>
-               </div>
+            
+            {/* AI Technical Insight Box */}
+            <div className="bg-[#3b82f6]/5 border border-[#3b82f6]/20 p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6">
+                <div className="flex flex-col items-center gap-2 px-6 border-r border-[#3b82f6]/20">
+                  <span className="text-3xl">🔭</span>
+                  <span className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest whitespace-nowrap">AI Tech Insight</span>
+                </div>
+                <p className="text-[#cbd5e1] italic font-medium leading-relaxed">
+                  "{getAIContent("tech_ins", activeLang)}"
+                </p>
             </div>
           </div>
         )}
 
         {activeTab === "fundamental" && (
-          <div className="glass-card p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-6">
-               <h4 className="flex items-center gap-2 text-sm font-black text-[#10b981] uppercase tracking-[0.2em] border-b border-[#10b981]/20 pb-3">
-                 <span>🪙</span> Profitability & Margins
-               </h4>
-               <div className="grid grid-cols-1 gap-4">
-                  {[
-                    { label: "Gross Profit Margin", value: stock.fundamental.gross_margin },
-                    { label: "Operational Margin", value: stock.fundamental.operating_margin },
-                    { label: "Net Profit Margin", value: stock.fundamental.net_margin },
-                    { label: "Annual Revenue Growth", value: stock.fundamental.revenue_growth_ttm },
-                  ].map(m => (
-                    <div key={m.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
-                       <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{m.label}</span>
-                       <span className={`font-mono font-black text-xl ${m.value >= 0 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
-                         {m.value ? `${(m.value * 100).toFixed(2)}%` : 'N/A'}
-                       </span>
-                    </div>
-                  ))}
-               </div>
+          <div className="flex flex-col gap-6">
+            <div className="glass-card p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="space-y-6">
+                <h4 className="flex items-center gap-2 text-sm font-black text-[#10b981] uppercase tracking-[0.2em] border-b border-[#10b981]/20 pb-3">
+                  <span>🪙</span> Profitability & Margins
+                </h4>
+                <div className="grid grid-cols-1 gap-4">
+                    {[
+                      { label: "Gross Profit Margin", value: stock.fundamental.gross_margin },
+                      { label: "Operational Margin", value: stock.fundamental.operating_margin },
+                      { label: "Net Profit Margin", value: stock.fundamental.net_margin },
+                      { label: "Annual Revenue Growth", value: stock.fundamental.revenue_growth_ttm },
+                    ].map(m => (
+                      <div key={m.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
+                        <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{m.label}</span>
+                        <span className={`font-mono font-black text-xl ${m.value >= 0 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                          {m.value ? `${(m.value * 100).toFixed(2)}%` : 'N/A'}
+                        </span>
+                      </div>
+                    ))}
+                </div>
+              </div>
+              <div className="space-y-6">
+                <h4 className="flex items-center gap-2 text-sm font-black text-[#f59e0b] uppercase tracking-[0.2em] border-b border-[#f59e0b]/20 pb-3">
+                  <span>🧬</span> Valuation Matrix
+                </h4>
+                <div className="grid grid-cols-1 gap-4">
+                    {[
+                      { label: "Price/Earnings (P/E)", value: stock.fundamental.pe_ratio, format: 'val' },
+                      { label: "Price/Book (P/B)", value: stock.fundamental.pb_ratio, format: 'val' },
+                      { label: "Free Cash Flow Yield", value: stock.fundamental.fcf_yield, format: 'pct' },
+                      { label: "Market Capitalization", value: stock.fundamental.market_cap, format: 'curr' },
+                    ].map(m => (
+                      <div key={m.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
+                        <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{m.label}</span>
+                        <span className="font-mono font-black text-white text-xl">
+                          {m.format === 'curr' ? `$${(m.value / 1e9).toFixed(2)}B` : 
+                            m.format === 'pct' ? `${(m.value * 100).toFixed(2)}%` :
+                            m.value || 'N/A'}
+                        </span>
+                      </div>
+                    ))}
+                </div>
+              </div>
             </div>
-            <div className="space-y-6">
-               <h4 className="flex items-center gap-2 text-sm font-black text-[#f59e0b] uppercase tracking-[0.2em] border-b border-[#f59e0b]/20 pb-3">
-                 <span>🧬</span> Valuation Matrix
-               </h4>
-               <div className="grid grid-cols-1 gap-4">
-                  {[
-                    { label: "Price/Earnings (P/E)", value: stock.fundamental.pe_ratio, format: 'val' },
-                    { label: "Price/Book (P/B)", value: stock.fundamental.pb_ratio, format: 'val' },
-                    { label: "Free Cash Flow Yield", value: stock.fundamental.fcf_yield, format: 'pct' },
-                    { label: "Market Capitalization", value: stock.fundamental.market_cap, format: 'curr' },
-                  ].map(m => (
-                    <div key={m.label} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] flex justify-between items-center">
-                       <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">{m.label}</span>
-                       <span className="font-mono font-black text-white text-xl">
-                         {m.format === 'curr' ? `$${(m.value / 1e9).toFixed(2)}B` : 
-                          m.format === 'pct' ? `${(m.value * 100).toFixed(2)}%` :
-                          m.value || 'N/A'}
-                       </span>
-                    </div>
-                  ))}
-               </div>
+
+            {/* AI Fundamental Insight Box */}
+            <div className="bg-[#10b981]/5 border border-[#10b981]/20 p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6">
+                <div className="flex flex-col items-center gap-2 px-6 border-r border-[#10b981]/20">
+                  <span className="text-3xl">📊</span>
+                  <span className="text-[10px] font-black text-[#10b981] uppercase tracking-widest whitespace-nowrap">AI Quant Insight</span>
+                </div>
+                <p className="text-[#cbd5e1] italic font-medium leading-relaxed">
+                  "{getAIContent("quant_ins", activeLang)}"
+                </p>
             </div>
           </div>
         )}
