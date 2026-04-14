@@ -107,7 +107,6 @@ export default function Header() {
           <NavLink href="/" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top 3 Swing Picks</NavLink>
           <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">⚡ Performance</NavLink>
           <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">🎓 Academy</NavLink>
-          <NavLink href="/archive" isMemberOnly className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Archive</NavLink>
         </nav>
 
         {/* Auth + Toggle */}
@@ -168,7 +167,6 @@ export default function Header() {
             <NavLink href="/" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top 3 Swing Picks</NavLink>
             <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">⚡ Performance</NavLink>
             <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">🎓 Academy</NavLink>
-            <NavLink href="/archive" isMemberOnly className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Archive</NavLink>
             
             {!user && (
               <Link href="/login" onClick={() => setIsOpen(false)} className="mt-4 w-full py-4 bg-[#3b82f6] text-white text-center rounded-2xl font-black uppercase tracking-widest shadow-2xl shadow-blue-500/40">
