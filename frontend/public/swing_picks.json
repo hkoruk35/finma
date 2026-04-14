@@ -1,10 +1,234 @@
 {
-  "generated_at": "2026-04-14T15:13:26.552189",
+  "generated_at": "2026-04-14T15:22:30",
   "date": "2026-04-14",
   "model": "BOGA AI V114",
   "market_regime": "BULLISH",
   "total_picks": 10,
   "picks": [
+    {
+      "ticker": "CGON",
+      "company": "CGON",
+      "sector": "Energy",
+      "score": 35.1,
+      "current_price": 68.64,
+      "buy_zone": {
+        "low": 64.0,
+        "high": 65.0
+      },
+      "profit_zone": {
+        "low": 72.0,
+        "high": 75.0
+      },
+      "stop_zone": {
+        "low": 60.0,
+        "high": 61.0
+      },
+      "change_1d": 5.89,
+      "rank": 0,
+      "boga_score": 35.1,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
+    {
+      "ticker": "LXU",
+      "company": "LXU",
+      "sector": "Basic Materials",
+      "score": 33.5,
+      "current_price": 14.77,
+      "buy_zone": {
+        "low": 14.0,
+        "high": 14.8
+      },
+      "profit_zone": {
+        "low": 16.5,
+        "high": 17.0
+      },
+      "stop_zone": {
+        "low": 13.5,
+        "high": 13.8
+      },
+      "change_1d": 0.14,
+      "rank": 0,
+      "boga_score": 33.5,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
+    {
+      "ticker": "ADEA",
+      "company": "ADEA",
+      "sector": "Technology",
+      "score": 32.5,
+      "current_price": 23.46,
+      "buy_zone": {
+        "low": 22.5,
+        "high": 23.2
+      },
+      "profit_zone": {
+        "low": 26.0,
+        "high": 27.0
+      },
+      "stop_zone": {
+        "low": 21.5,
+        "high": 22.0
+      },
+      "change_1d": 1.56,
+      "rank": 0,
+      "boga_score": 32.5,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
+    {
+      "ticker": "PBR",
+      "company": "PBR",
+      "sector": "Energy",
+      "score": 30.4,
+      "current_price": 19.51,
+      "buy_zone": {
+        "low": 18.0,
+        "high": 18.8
+      },
+      "profit_zone": {
+        "low": 21.5,
+        "high": 22.5
+      },
+      "stop_zone": {
+        "low": 17.0,
+        "high": 17.5
+      },
+      "change_1d": 5.06,
+      "rank": 0,
+      "boga_score": 30.4,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
+    {
+      "ticker": "STGW",
+      "company": "STGW",
+      "sector": "Technology",
+      "score": 30.0,
+      "current_price": 6.07,
+      "buy_zone": {
+        "low": 5.8,
+        "high": 6.0
+      },
+      "profit_zone": {
+        "low": 6.8,
+        "high": 7.2
+      },
+      "stop_zone": {
+        "low": 5.4,
+        "high": 5.6
+      },
+      "change_1d": 2.02,
+      "rank": 0,
+      "boga_score": 30.0,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
+    {
+      "ticker": "BP",
+      "company": "BP",
+      "sector": "Energy",
+      "score": 29.6,
+      "current_price": 43.85,
+      "buy_zone": {
+        "low": 42.0,
+        "high": 42.8
+      },
+      "profit_zone": {
+        "low": 47.0,
+        "high": 48.5
+      },
+      "stop_zone": {
+        "low": 40.0,
+        "high": 41.0
+      },
+      "change_1d": 2.77,
+      "rank": 0,
+      "boga_score": 29.6,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
+    {
+      "ticker": "DNTH",
+      "company": "DNTH",
+      "sector": "Healthcare",
+      "score": 29.3,
+      "current_price": 78.9,
+      "buy_zone": {
+        "low": 77.5,
+        "high": 79.0
+      },
+      "profit_zone": {
+        "low": 85.0,
+        "high": 88.0
+      },
+      "stop_zone": {
+        "low": 75.0,
+        "high": 76.0
+      },
+      "change_1d": 0.01,
+      "rank": 0,
+      "boga_score": 29.3,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
+    {
+      "ticker": "UNFI",
+      "company": "UNFI",
+      "sector": "Consumer Defensive",
+      "score": 27.8,
+      "current_price": 40.17,
+      "buy_zone": {
+        "low": 41.0,
+        "high": 42.0
+      },
+      "profit_zone": {
+        "low": 45.0,
+        "high": 47.0
+      },
+      "stop_zone": {
+        "low": 39.0,
+        "high": 40.0
+      },
+      "change_1d": -3.65,
+      "rank": 0,
+      "boga_score": 27.8,
+      "ai_summary": {
+        "homepage_summary": {
+          "en": "Manual sync",
+          "tr": "Manuel senkronize"
+        }
+      }
+    },
     {
       "rank": 1,
       "ticker": "GSAT",
