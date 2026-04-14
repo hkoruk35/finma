@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Today's Top 20 Swing Picks | BOGA AI",
-  description: "Full list of today's algorithmic top 20 swing trade picks from the ATMACA V112 engine — entries, targets, and stop levels.",
+  title: "Daily Swing Trade Candidates | BOGA AI",
+  description: "Full algorithmic candidate list from the BOGA AI V114 engine — high-conviction swing trade setups with entries, targets, and stop levels.",
   alternates: { canonical: "https://bogastock.com/swing-picks" },
 };
 
@@ -70,7 +70,7 @@ export default async function SwingPicksPage() {
                 <span className="ml-3 text-[#3b82f6]">— {dateStr}</span>
               </h1>
               <p className="text-[#94a3b8] text-base">
-                Full Top {picks.length > 0 ? picks.length : 20} list from Atmaca V112 Engine •{" "}
+                Full algorithmic candidate list from the BOGA AI V114 Engine •{" "}
                 {generatedAt && (
                   <span className="text-[#64748b]">Updated {formatTime(generatedAt)}</span>
                 )}
@@ -106,10 +106,11 @@ export default async function SwingPicksPage() {
                     <th className="px-4 py-4 text-right">Buy Zone</th>
                     <th className="px-4 py-4 text-right">Target</th>
                     <th className="px-4 py-4 text-right">Stop</th>
-                    <th className="px-4 py-4 text-right">ADX</th>
-                    <th className="px-4 py-4 text-right">RSI</th>
-                    <th className="px-4 py-4 text-right">RVOL</th>
+                    <th className="px-4 py-4 text-right">1D</th>
                     <th className="px-4 py-4 text-right">1W</th>
+                    <th className="px-4 py-4 text-right">1M</th>
+                    <th className="px-4 py-4 text-right">1Y</th>
+                    <th className="px-4 py-4 text-right">5Y</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,43 +141,30 @@ export default async function SwingPicksPage() {
                       <td className="px-4 py-3.5 text-right">
                         <span className="text-white font-mono font-semibold">${formatPrice(pick.current_price)}</span>
                       </td>
-                      <td className="px-4 py-3.5 text-right">
-                        <span className="text-[#94a3b8] font-mono text-xs">
-                          ${formatPrice(pick.buy_zone.low)}–${formatPrice(pick.buy_zone.high)}
-                        </span>
+                      <td className="px-4 py-3.5 text-right text-[#94a3b8] font-mono text-xs">
+                        ${formatPrice(pick.buy_zone.low)}–${formatPrice(pick.buy_zone.high)}
                       </td>
-                      <td className="px-4 py-3.5 text-right">
-                        <span className="text-[#10b981] font-mono font-semibold text-xs">
-                          ${formatPrice(pick.profit_zone.low)}–${formatPrice(pick.profit_zone.high)}
-                        </span>
+                      <td className="px-4 py-3.5 text-right text-[#10b981] font-mono font-semibold text-xs">
+                        ${formatPrice(pick.profit_zone.low)}–${formatPrice(pick.profit_zone.high)}
                       </td>
-                      <td className="px-4 py-3.5 text-right">
-                        <span className="text-[#ef4444] font-mono text-xs">
-                          ${formatPrice(pick.stop_zone.low)}
-                        </span>
+                      <td className="px-4 py-3.5 text-right text-[#ef4444] font-mono text-xs">
+                        ${formatPrice(pick.stop_zone.low)}–${formatPrice(pick.stop_zone.high)}
                       </td>
-                      <td className="px-4 py-3.5 text-right">
-                        <span className={`font-mono text-xs ${(pick.adx || 0) >= 25 ? "text-[#3b82f6]" : "text-[#64748b]"}`}>
-                          {pick.adx || "—"}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3.5 text-right">
-                        <span className={`font-mono text-xs ${(pick.rsi || 50) >= 55 ? "text-[#10b981]" : "text-[#64748b]"}`}>
-                          {pick.rsi || "—"}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3.5 text-right">
-                        <span className={`font-mono text-xs font-bold ${(pick.rvol || 1) >= 1.5 ? "text-[#f59e0b]" : "text-[#64748b]"}`}>
-                          {pick.rvol ? pick.rvol.toFixed(2) + "x" : "—"}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3.5 text-right">
-                        {pick.change_1w !== undefined ? (
-                          <span className={`font-mono text-xs font-bold ${pick.change_1w >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                            {pick.change_1w >= 0 ? "+" : ""}{pick.change_1w.toFixed(1)}%
-                          </span>
-                        ) : <span className="text-[#64748b] text-xs">—</span>}
-                      </td>
+                      {[
+                        { field: "change_1d", label: "1D" },
+                        { field: "change_1w", label: "1W" },
+                        { field: "change_1m", label: "1M" },
+                        { field: "change_1y", label: "1Y" },
+                        { field: "change_5y", label: "5Y" },
+                      ].map((perf) => (
+                        <td key={perf.field} className="px-4 py-3.5 text-right">
+                          {pick[perf.field] !== undefined ? (
+                            <span className={`font-mono text-xs font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
+                              {pick[perf.field] >= 0 ? "+" : ""}{pick[perf.field].toFixed(1)}%
+                            </span>
+                          ) : <span className="text-[#64748b] text-xs">—</span>}
+                        </td>
+                      ))}
                     </tr>
                   ))}
                 </tbody>
@@ -201,8 +189,8 @@ export default async function SwingPicksPage() {
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-center">
                     <div>
-                      <div className="text-[10px] text-[#64748b] uppercase mb-1">Price</div>
-                      <div className="text-white font-mono text-sm font-bold">${formatPrice(pick.current_price)}</div>
+                      <div className="text-[10px] text-[#64748b] uppercase mb-1">Buy</div>
+                      <div className="text-[#94a3b8] font-mono text-xs">${formatPrice(pick.buy_zone.low)}</div>
                     </div>
                     <div>
                       <div className="text-[10px] text-[#10b981] uppercase mb-1">Target</div>
@@ -213,15 +201,17 @@ export default async function SwingPicksPage() {
                       <div className="text-[#ef4444] font-mono text-xs">${formatPrice(pick.stop_zone.low)}</div>
                     </div>
                   </div>
-                  <div className="mt-3 flex items-center gap-3 text-[11px] text-[#64748b]">
-                    <span>ADX: <b className="text-[#94a3b8]">{pick.adx || "—"}</b></span>
-                    <span>RSI: <b className="text-[#94a3b8]">{pick.rsi || "—"}</b></span>
-                    <span>RVOL: <b className={pick.rvol >= 1.5 ? "text-[#f59e0b]" : "text-[#94a3b8]"}>{pick.rvol ? pick.rvol.toFixed(2) + "x" : "—"}</b></span>
-                    {pick.change_1w !== undefined && (
-                      <span className={`ml-auto font-bold ${pick.change_1w >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                        1W: {pick.change_1w >= 0 ? "+" : ""}{pick.change_1w.toFixed(1)}%
+                  <div className="mt-3 flex items-center gap-3 text-[11px] text-[#64748b] overflow-x-auto whitespace-nowrap">
+                    {[
+                      { label: "1D", val: pick.change_1d },
+                      { label: "1W", val: pick.change_1w },
+                      { label: "1M", val: pick.change_1m },
+                      { label: "1Y", val: pick.change_1y },
+                    ].map(p => (
+                      <span key={p.label} className={p.val !== undefined ? (p.val >= 0 ? "text-[#10b981]" : "text-[#ef4444]") : ""}>
+                        {p.label}: <b>{p.val !== undefined ? (p.val >= 0 ? "+" : "") + p.val.toFixed(1) + "%" : "—"}</b>
                       </span>
-                    )}
+                    ))}
                   </div>
                 </Link>
               ))}
@@ -229,10 +219,9 @@ export default async function SwingPicksPage() {
 
             {/* Legend */}
             <div className="glass-card p-4 flex flex-wrap gap-6 text-[11px] text-[#64748b]">
-              <span>🔵 <b className="text-[#94a3b8]">ADX &gt; 25</b> = Strong trend</span>
-              <span>🟡 <b className="text-[#94a3b8]">RVOL &gt; 1.5x</b> = Volume surge</span>
-              <span>🎯 <b className="text-[#94a3b8]">Score</b> = Composite 8-factor rank</span>
-              <span>⚡ <b className="text-[#94a3b8]">Top 3</b> highlighted on homepage</span>
+              <span>📈 <b className="text-[#94a3b8]">Zones</b> = BOGA AI defined price ranges</span>
+              <span>🎯 <b className="text-[#94a3b8]">Hold</b> = Estimated swing duration</span>
+              <span>⚡ <b className="text-[#94a3b8]">Top 3</b> candidates highlighted</span>
               <span className="ml-auto">
                 <Link href="/" className="text-[#3b82f6] hover:underline">← Back to Dashboard</Link>
               </span>
