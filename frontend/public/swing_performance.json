@@ -1,10 +1,10 @@
 {
   "stats": {
-    "win_rate": 93.8,
-    "avg_return_pct": 7.3,
-    "total_picks": 528,
+    "win_rate": 91.5,
+    "avg_return_pct": 7.2,
+    "total_picks": 541,
     "period_days": 90,
-    "above_5pct_rate": 45.6
+    "above_5pct_rate": 44.5
   },
   "history": [
     {
@@ -5858,7 +5858,106 @@
       "return_pct": 8.63,
       "days": 10,
       "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "BBIO",
+      "company": "BBIO",
+      "sector": "Unknown",
+      "entry": 77.87000274658203,
+      "max_price": 77.87000274658203,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "CRH",
+      "company": "CRH",
+      "sector": "Unknown",
+      "entry": 117.2699966430664,
+      "max_price": 117.2699966430664,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "ORKA",
+      "company": "ORKA",
+      "sector": "Unknown",
+      "entry": 61.380001068115234,
+      "max_price": 61.380001068115234,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "RY",
+      "company": "RY",
+      "sector": "Unknown",
+      "entry": 173.6699981689453,
+      "max_price": 173.6699981689453,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "LEVI",
+      "company": "LEVI",
+      "sector": "Unknown",
+      "entry": 22.329999923706055,
+      "max_price": 22.329999923706055,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "CRUS",
+      "company": "CRUS",
+      "sector": "Unknown",
+      "entry": 161.10000610351562,
+      "max_price": 161.10000610351562,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "MOD",
+      "company": "MOD",
+      "sector": "Unknown",
+      "entry": 256.989990234375,
+      "max_price": 256.989990234375,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "CROX",
+      "company": "CROX",
+      "sector": "Unknown",
+      "entry": 100.22000122070312,
+      "max_price": 100.22000122070312,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "SQM",
+      "company": "SQM",
+      "sector": "Unknown",
+      "entry": 87.62999725341797,
+      "max_price": 87.62999725341797,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "WIN"
     }
   ],
-  "generated_at": "2026-04-13T13:28:23.927142"
+  "generated_at": "2026-04-14T05:33:24.103365"
 }
