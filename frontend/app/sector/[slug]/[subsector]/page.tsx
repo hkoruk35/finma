@@ -79,10 +79,11 @@ async function loadSectorData(): Promise<SectorAnalysis | null> {
 }
 
 export async function generateMetadata({
-  params: { slug, subsector },
+  params,
 }: {
-  params: { slug: string; subsector: string };
+  params: Promise<{ slug: string; subsector: string }>;
 }): Promise<Metadata> {
+  const { slug, subsector } = await params;
   const decodedSector = decodeURIComponent(slug).replace(/-/g, " ");
   const decodedSubsector = decodeURIComponent(subsector).replace(/-/g, " ");
 
@@ -93,10 +94,11 @@ export async function generateMetadata({
 }
 
 export default async function SubsectorPage({
-  params: { slug, subsector },
+  params,
 }: {
-  params: { slug: string; subsector: string };
+  params: Promise<{ slug: string; subsector: string }>;
 }) {
+  const { slug, subsector } = await params;
   const sectorData = await loadSectorData();
 
   // Decode URL params
