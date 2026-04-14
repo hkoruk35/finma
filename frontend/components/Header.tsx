@@ -105,8 +105,9 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-8">
           <NavLink href="/" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top 3 Swing Picks</NavLink>
-          <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">⚡ Performance</NavLink>
-          <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">🎓 Academy</NavLink>
+          <NavLink href="/category/top-scores" isMemberOnly className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top Scores</NavLink>
+          <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
+          <NavLink href="/archive" isMemberOnly className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Archive</NavLink>
         </nav>
 
         {/* Auth + Toggle */}
@@ -165,8 +166,9 @@ export default function Header() {
         <div className="xl:hidden bg-[#0d1117] border-b border-[#1e2a3a] px-4 py-8 animate-in slide-in-from-top duration-300 max-h-[80vh] overflow-y-auto">
           <nav className="flex flex-col gap-6">
             <NavLink href="/" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top 3 Swing Picks</NavLink>
-            <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">⚡ Performance</NavLink>
-            <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">🎓 Academy</NavLink>
+            <NavLink href="/category/top-scores" isMemberOnly className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top Scores</NavLink>
+            <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
+            <NavLink href="/archive" isMemberOnly className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Archive</NavLink>
             
             {!user && (
               <Link href="/login" onClick={() => setIsOpen(false)} className="mt-4 w-full py-4 bg-[#3b82f6] text-white text-center rounded-2xl font-black uppercase tracking-widest shadow-2xl shadow-blue-500/40">

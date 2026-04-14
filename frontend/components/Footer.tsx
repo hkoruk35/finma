@@ -38,6 +38,18 @@ export default function Footer() {
             </p>
           </div>
 
+          {/* Categories */}
+          <div>
+            <h4 className="text-sm font-semibold text-[#94a3b8] mb-3">Categories</h4>
+            <div className="flex flex-col gap-1.5">
+              <Link href="/category/top-scores" className="text-xs text-[#64748b] hover:text-white transition-colors">Top Scores</Link>
+              <Link href="/category/breakout" className="text-xs text-[#64748b] hover:text-white transition-colors">Breakout</Link>
+              <Link href="/category/undervalued" className="text-xs text-[#64748b] hover:text-white transition-colors">Undervalued</Link>
+              <Link href="/category/momentum" className="text-xs text-[#64748b] hover:text-white transition-colors">Momentum</Link>
+              <Link href="/category/reversal" className="text-xs text-[#64748b] hover:text-white transition-colors">Reversal</Link>
+              <Link href="/category/passive-income" className="text-xs text-[#64748b] hover:text-white transition-colors">Passive Income</Link>
+            </div>
+          </div>
 
           {/* Resources */}
           <div>
