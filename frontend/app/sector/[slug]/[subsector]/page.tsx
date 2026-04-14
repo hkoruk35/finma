@@ -124,16 +124,42 @@ export default async function SubsectorPage({
     );
   }
 
-  // Find matching subsector with fuzzy matching (normalize spaces/special chars)
-  const normalizeForMatching = (str: string) =>
-    str.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+  // Handle "all" subsector case
+  let subsectorData: TickerData[] = [];
+  let displaySubsectorName = decodedSubsector;
+  let matchingSubsector: string | undefined;
 
-  const matchingSubsector = Object.keys(sectorData.analysis_by_sector[matchingSector]?.subsectors || {}).find(
-    (s) => normalizeForMatching(s) === normalizeForMatching(decodedSubsector)
-  );
+  if (subsector === "all") {
+    // Combine all stocks from all subsectors in this sector
+    const allSubsectorObjects = sectorData.analysis_by_sector[matchingSector]?.subsectors || {};
+    subsectorData = Object.values(allSubsectorObjects).flat();
+    displaySubsectorName = `All ${matchingSector}`;
+  } else {
+    // Find matching subsector with fuzzy matching (normalize spaces/special chars)
+    const normalizeForMatching = (str: string) => {
+      // Remove special chars and normalize spaces
+      let normalized = str.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+      // Also try removing the word "and" since it might be replacing an ampersand
+      const withoutAnd = normalized.replace(/\s+and\s+/g, ' ').trim();
+      return { normalized, withoutAnd };
+    };
 
-  const subsectorData =
-    sectorData.analysis_by_sector[matchingSector]?.subsectors[matchingSubsector || ""] || [];
+    const decodedNorms = normalizeForMatching(decodedSubsector);
+
+    matchingSubsector = Object.keys(sectorData.analysis_by_sector[matchingSector]?.subsectors || {}).find(
+      (s) => {
+        const dataNorms = normalizeForMatching(s);
+        // Try exact match or match without the word "and"
+        return decodedNorms.normalized === dataNorms.normalized ||
+               decodedNorms.normalized === dataNorms.withoutAnd ||
+               decodedNorms.withoutAnd === dataNorms.normalized ||
+               decodedNorms.withoutAnd === dataNorms.withoutAnd;
+      }
+    );
+
+    subsectorData =
+      sectorData.analysis_by_sector[matchingSector]?.subsectors[matchingSubsector || ""] || [];
+  }
 
   if (subsectorData.length === 0) {
     return (
@@ -164,7 +190,7 @@ export default async function SubsectorPage({
             {decodedSector}
           </Link>
           <span>/</span>
-          <span className="text-white font-semibold">{decodedSubsector}</span>
+          <span className="text-white font-semibold">{displaySubsectorName}</span>
         </div>
 
         {/* Header */}
@@ -173,7 +199,7 @@ export default async function SubsectorPage({
             <div className="w-1.5 h-10 bg-[#3b82f6] rounded-full shadow-[0_0_12px_#3b82f6]"></div>
             <div>
               <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
-                {decodedSubsector}
+                {displaySubsectorName}
               </h1>
               <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase mt-1">
                 {decodedSector} · {subsectorData.length} Stocks
