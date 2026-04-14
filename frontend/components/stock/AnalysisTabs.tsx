@@ -58,55 +58,38 @@ export default function AnalysisTabs({ stock }: Props) {
       </div>
 
       {/* Content Canvas */}
-      <div className="min-h-[450px] animate-fade-in transition-all duration-500">
+      <div className="min-h-[400px] animate-fade-in transition-all duration-500">
         {activeTab === "ai" && (
-          <div className="glass-card p-6 md:p-10 border-l-4 border-l-[#3b82f6] relative overflow-hidden group">
-            {/* Background Branding Accent */}
-            <div className="absolute top-0 right-0 p-8 opacity-5 font-black text-8xl pointer-events-none select-none italic">BOGA AI</div>
-            
+          <div className="glass-card p-4 md:p-8 border-t-2 border-t-[#3b82f6] relative overflow-hidden group">
             <div className="relative z-10">
-              <div className="flex items-center justify-between mb-8 border-b border-[#1e2a3a] pb-6">
-                <h3 className="text-xl md:text-2xl font-black text-white italic tracking-tight">
-                  <span className="text-[#3b82f6]">Alpha Commander</span> v5.5 Tactical Report
-                </h3>
-                {/* Lang Select */}
-                <div className="flex flex-wrap gap-1.5">
+              {/* Refined Language Control Center */}
+              <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b border-[#1e2a3a] pb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-6 bg-[#3b82f6] rounded-full"></div>
+                  <span className="text-sm font-black text-white uppercase tracking-widest">BOGA AI Analysis Engine</span>
+                </div>
+                
+                <div className="flex flex-wrap justify-center gap-2 p-1 bg-[#141924] rounded-xl border border-[#1e2a3a]">
                   {languages.map((l) => (
                     <button
                       key={l.id}
                       onClick={() => setActiveLang(l.id)}
-                      className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all border ${
+                      className={`px-4 py-2 rounded-lg text-[11px] font-black transition-all flex items-center gap-2 ${
                         activeLang === l.id
-                          ? "bg-[#3b82f6]/20 border-[#3b82f6] text-[#3b82f6]"
-                          : "border-[#1e2a3a] text-[#64748b] hover:border-[#64748b]"
+                          ? "bg-[#3b82f6] text-white shadow-lg shadow-[#3b82f6]/20"
+                          : "text-[#64748b] hover:text-white hover:bg-white/5"
                       }`}
                     >
-                      {l.label}
+                      <span className="text-sm">{l.label.split(' ')[0]}</span>
+                      <span className="hidden sm:inline">{l.name}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="prose prose-invert max-w-none">
-                <p className="text-[#cbd5e1] leading-[1.8] text-lg md:text-xl font-medium whitespace-pre-wrap drop-shadow-sm">
+                <div className="text-[#cbd5e1] leading-[1.8] text-lg md:text-xl font-medium whitespace-pre-wrap drop-shadow-sm selection:bg-[#3b82f6]/30">
                   {getSummary(activeLang)}
-                </p>
-              </div>
-              
-              <div className="mt-10 pt-8 border-t border-[#1e2a3a] grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 bg-[#1e293b]/30 p-4 rounded-xl border border-[#1e2a3a]">
-                  <div className="w-10 h-10 rounded-full bg-[#10b981]/10 flex items-center justify-center text-[#10b981]">✅</div>
-                  <div>
-                    <p className="text-[10px] font-black text-[#64748b] uppercase tracking-widest">Protocol Status</p>
-                    <p className="text-sm font-bold text-[#10b981]">Deep Analysis Verified</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 bg-[#1e293b]/30 p-4 rounded-xl border border-[#1e2a3a]">
-                   <div className="w-10 h-10 rounded-full bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6]">🤖</div>
-                   <div>
-                    <p className="text-[10px] font-black text-[#64748b] uppercase tracking-widest">AI Confidence Level</p>
-                    <p className="text-sm font-bold text-white">{(stock.scores.confidence * 100).toFixed(0)}% Reliable</p>
-                  </div>
                 </div>
               </div>
             </div>

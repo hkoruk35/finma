@@ -13,7 +13,7 @@
 5. [Menu Categories & Algorithms](#5-menu-categories--algorithms)
 6. [JSON Data Architecture](#6-json-data-architecture)
 7. [File & Folder Structure](#7-file--folder-structure)
-8. [Website Architecture (boga_aismart.com)](#8-website-architecture)
+8. [Website Architecture (bogastock.com)](#8-website-architecture)
 9. [Page-by-Page Design Spec](#9-page-by-page-design-spec)
 10. [SEO Strategy](#10-seo-strategy)
 11. [Ad Banner Placements](#11-ad-banner-placements)
@@ -1250,7 +1250,7 @@ Fields:
 
 ### 20.3 Footer Contact Info
 
-- Email: contact@boga_aismart.com
+- Email: contact@bogastock.com
 - Location: New York, USA
 - No phone number (spam prevention)
 
@@ -1373,7 +1373,7 @@ GEMINI_API_KEY=AIzaSyA6cu1eE5xyh2-1eEFEdZcMXY7MSzqIPnM
 ADMIN_PASSWORD=your_secure_admin_password
 JWT_SECRET=your_jwt_secret_key
 SENDGRID_API_KEY=your_sendgrid_key
-CONTACT_EMAIL=contact@boga_aismart.com
+CONTACT_EMAIL=contact@bogastock.com
 DATA_DIR=/var/www/boga_ai/data
 TRANSFER_DIR=/var/www/boga_ai/transfer
 ```
