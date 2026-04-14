@@ -326,7 +326,6 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       
       // Inject reasoning
       mock.ai_summary = swingPick.detail_reasoning || swingPick.reasoning;
-    }
     } else if (summary) {
       mock.scores.master_score = summary.master_score;
       mock.scores.score_type = summary.score_type;
