@@ -81,14 +81,18 @@ def main():
     if not step1_ok:
         log.warning("⚠️ finma_bot.py başarısız. Devam ediliyor...")
 
-    # ── ADIM 2: swing113_boga.py (Swing Tarayıcı + JSON + Telegram) ──
-    log.info("ADIM 2: swing113_boga.py (tek tarama) çalıştırılıyor...")
+    # ── ADIM 2: swing113_boga_oneshot.py (Core Scanner) ──
+    log.info("ADIM 2: swing113_boga_oneshot.py çalıştırılıyor...")
     step2_ok = run_bot_subprocess("swing113_boga_oneshot.py")
     if not step2_ok:
-        log.warning("⚠️ swing113_boga (oneshot) başarısız. Devam ediliyor...")
+        log.warning("⚠️ swing113_boga_oneshot.py başarısız. Devam ediliyor...")
 
-    # ── ADIM 3: swing_performance güncelle ──
-    log.info("ADIM 3: swing_performance.json güncelleniyor...")
+    # ── ADIM 3: Veri Tazeleme & Sektör/Zone Düzeltme ──
+    log.info("ADIM 3: refresh_swing_data.py (Sektör ve Zone Düzeltme) çalıştırılıyor...")
+    run_bot_subprocess("refresh_swing_data.py")
+
+    # ── ADIM 4: swing_performance (Geçmiş Performans) güncelle ──
+    log.info("ADIM 4: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
 
     log.info("=" * 60)
