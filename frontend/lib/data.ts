@@ -300,38 +300,40 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
     mock.sector = swingPick?.sector ?? summary?.sector ?? mock.sector;
     mock.price.current = realPrice ?? mock.price.current;
     
+    const target = mock as any;
+
     if (swingPick) {
-      mock.scores.master_score = swingPick.score;
-      mock.scores.score_type = swingPick.score >= 80 ? "HIGH_CONVICTION" : "POSITIVE_BIAS";
+      target.scores.master_score = swingPick.score;
+      target.scores.score_type = swingPick.score >= 80 ? "HIGH_CONVICTION" : "POSITIVE_BIAS";
       
-      // Inject real zones from swing analytics
-      mock.scores_detail.entry_range_low = swingPick.buy_zone.low;
-      mock.scores_detail.entry_range_high = swingPick.buy_zone.high;
-      mock.scores_detail.target_range_low = swingPick.profit_zone.low;
-      mock.scores_detail.target_range_high = swingPick.profit_zone.high;
-      mock.scores_detail.stop_range_low = swingPick.stop_zone.low;
-      mock.scores_detail.stop_range_high = swingPick.stop_zone.high;
-      mock.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
+      if (target.scores_detail) {
+        target.scores_detail.entry_range_low = swingPick.buy_zone.low;
+        target.scores_detail.entry_range_high = swingPick.buy_zone.high;
+        target.scores_detail.target_range_low = swingPick.profit_zone.low;
+        target.scores_detail.target_range_high = swingPick.profit_zone.high;
+        target.scores_detail.stop_range_low = swingPick.stop_zone.low;
+        target.scores_detail.stop_range_high = swingPick.stop_zone.high;
+        target.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
+      }
       
-      // Inject real technicals
-      mock.technical.rsi_14 = swingPick.rsi;
-      mock.technical.adx = swingPick.adx;
-      mock.technical.rvol = swingPick.rvol;
+      if (target.technical) {
+        target.technical.rsi_14 = swingPick.rsi;
+        target.technical.adx = swingPick.adx;
+        target.technical.rvol = swingPick.rvol;
+      }
       
-      // Inject real changes
-      mock.price.change_pct = swingPick.change_1d ?? 0;
-      mock.price.change_pct_1w = swingPick.change_1w;
-      mock.price.change_pct_1m = swingPick.change_1m;
-      mock.price.change_pct_1y = swingPick.change_1y;
-      
-      // Inject reasoning
-      mock.ai_summary = swingPick.detail_reasoning || swingPick.reasoning;
+      target.price.change_pct = swingPick.change_1d ?? 0;
+      target.price.change_pct_1w = swingPick.change_1w;
+      target.price.change_pct_1m = swingPick.change_1m;
+      target.price.change_pct_1y = swingPick.change_1y;
+      target.ai_summary = swingPick.detail_reasoning || swingPick.reasoning;
+
     } else if (summary) {
-      mock.scores.master_score = summary.master_score;
-      mock.scores.score_type = summary.score_type;
-      mock.price.change_pct = summary.change_pct;
+      target.scores.master_score = summary.master_score;
+      target.scores.score_type = summary.score_type;
+      target.price.change_pct = summary.change_pct;
     }
-    (mock as any).is_partial_mock = true;
+    target.is_partial_mock = true;
   } else {
     (mock as any).is_mock = true;
   }
