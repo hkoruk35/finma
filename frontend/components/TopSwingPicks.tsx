@@ -22,6 +22,10 @@ interface SwingPick {
   market_regime: string;
   holding_period: string;
   reasoning: string;
+  ai_summary?: {
+    homepage_summary?: Record<string, string>;
+    detail_summary?: Record<string, string>;
+  };
   change_1d?: number;
   change_1w?: number;
   change_1m?: number;
@@ -128,8 +132,8 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                   </div>
                 </div>
 
-                {/* Score + Pattern */}
-                <div className={`flex flex-col gap-3 mb-6 min-h-[140px] transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
+                {/* Score + AI Summary */}
+                <div className={`flex flex-col gap-3 mb-5 transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
                   <div className="flex items-end gap-3">
                     <div className="text-5xl md:text-6xl font-mono font-black text-white leading-none">
                       {item.score.toFixed(1)}
@@ -138,62 +142,38 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                       SWING SCORE
                     </div>
                   </div>
-                  {/* Reasoning Box */}
+                  {/* AI Summary Box — always English */}
                   <div className="bg-[#1e293b]/50 rounded-xl p-4 border border-[#3b82f6]/20 flex-1">
                     <p className="text-xs md:text-[13px] text-[#d1d5db] leading-relaxed font-medium">
-                      {item.reasoning.length > 120 
-                        ? item.reasoning.substring(0, 117) + "..." 
-                        : item.reasoning}
+                      {(() => {
+                        const enText = item.ai_summary?.homepage_summary?.en || item.reasoning;
+                        return enText.length > 130 ? enText.substring(0, 127) + "..." : enText;
+                      })()}
                     </p>
                   </div>
                 </div>
 
-                {/* Zones */}
-                <div className={`mb-6 bg-black/40 rounded-xl p-5 border border-white/10 shadow-inner flex-1 transition-all duration-500 ${isLocked ? 'blur-[5px] opacity-20' : ''}`}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-2">
-                    <div>
-                      <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]"></span>
-                        BUY ZONE
+                {/* Zones — full rows on mobile for readability */}
+                <div className={`mb-5 bg-black/40 rounded-xl border border-white/10 shadow-inner overflow-hidden flex-1 transition-all duration-500 ${isLocked ? 'blur-[5px] opacity-20' : ''}`}>
+                  {[
+                    { label: "BUY ZONE",    dot: "bg-[#3b82f6]", val: `$${formatPrice(item.buy_zone.low)} – $${formatPrice(item.buy_zone.high)}`,    color: "text-white" },
+                    { label: "PROFIT ZONE", dot: "bg-[#10b981]", val: `$${formatPrice(item.profit_zone.low)} – $${formatPrice(item.profit_zone.high)}`, color: "text-[#10b981]" },
+                    { label: "STOP LOSS",   dot: "bg-[#ef4444]", val: `$${formatPrice(item.stop_zone.low)} – $${formatPrice(item.stop_zone.high)}`,    color: "text-[#ef4444]" },
+                    { label: "HOLDING",     dot: "bg-[#a855f7]", val: item.holding_period,                                                               color: "text-[#f3e8ff]" },
+                  ].map((row, i, arr) => (
+                    <div key={row.label} className={`flex items-center justify-between px-4 py-3 ${i < arr.length - 1 ? 'border-b border-white/5' : ''}`}>
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${row.dot}`} />
+                        <span className="text-[10px] text-[#64748b] font-black uppercase tracking-wider">{row.label}</span>
                       </div>
-                      <div className="text-[13px] lg:text-[15px] font-mono font-bold text-white whitespace-nowrap">
-                        {formatPrice(item.buy_zone.low)} - {formatPrice(item.buy_zone.high)}
-                      </div>
+                      <span className={`text-sm md:text-[15px] font-mono font-bold ${row.color}`}>
+                        {row.val}
+                      </span>
                     </div>
-                    
-                    <div>
-                      <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
-                        PROFIT ZONE
-                      </div>
-                      <div className="text-[13px] lg:text-[15px] font-mono font-bold text-[#10b981] whitespace-nowrap">
-                        {formatPrice(item.profit_zone.low)} - {formatPrice(item.profit_zone.high)}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></span>
-                        STOP LOSS
-                      </div>
-                      <div className="text-[13px] lg:text-[15px] font-mono font-bold text-[#ef4444] whitespace-nowrap">
-                        {formatPrice(item.stop_zone.low)} - {formatPrice(item.stop_zone.high)}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="text-[10px] text-[#64748b] font-black uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7]"></span>
-                        HOLDING
-                      </div>
-                      <div className="text-[13px] lg:text-[15px] font-mono font-bold text-[#f3e8ff] whitespace-nowrap">
-                        {item.holding_period}
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Metrics */}
+                {/* Performance strip — bordered pill container */}
                 {(() => {
                   const metrics = [
                     { label: "1D", val: liveData?.change_pct ?? item.change_1d },
@@ -201,15 +181,14 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                     { label: "1M", val: liveData?.change_pct_1m ?? item.change_1m },
                     { label: "1Y", val: liveData?.change_pct_1y ?? item.change_1y }
                   ];
-                  
                   return (
-                    <div className="grid grid-cols-4 gap-2 text-center border-t border-white/5 pt-5">
+                    <div className="grid grid-cols-4 divide-x divide-[#1e2a3a] border border-[#1e2a3a] rounded-xl overflow-hidden">
                       {metrics.map((p, i) => (
-                        <div key={i}>
-                          <div className={`text-[17px] md:text-[19px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                        <div key={i} className="flex flex-col items-center py-3 px-1">
+                          <span className={`text-[15px] md:text-[17px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
                             {p.val !== undefined ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
-                          </div>
-                          <div className="text-[11px] text-[#64748b] font-black mt-1.5 uppercase">{p.label}</div>
+                          </span>
+                          <span className="text-[10px] text-[#64748b] font-black mt-1 uppercase">{p.label}</span>
                         </div>
                       ))}
                     </div>
