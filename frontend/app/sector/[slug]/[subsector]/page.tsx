@@ -66,7 +66,7 @@ function getTrendBadge(trend?: string) {
 async function loadSectorData(): Promise<SectorAnalysis | null> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-    const response = await fetch(`${baseUrl}/api/data/latest/sector_analysis.json`, {
+    const response = await fetch(`${baseUrl}/data/sector_analysis.json`, {
       cache: "no-store",
     });
 
