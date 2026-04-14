@@ -124,12 +124,16 @@ export default async function SubsectorPage({
     );
   }
 
+  // Find matching subsector with fuzzy matching (normalize spaces/special chars)
+  const normalizeForMatching = (str: string) =>
+    str.toLowerCase().replace(/\s+/g, ' ').replace(/[^a-z0-9\s]/g, '').trim();
+
+  const matchingSubsector = Object.keys(sectorData.analysis_by_sector[matchingSector]?.subsectors || {}).find(
+    (s) => normalizeForMatching(s) === normalizeForMatching(decodedSubsector)
+  );
+
   const subsectorData =
-    sectorData.analysis_by_sector[matchingSector]?.subsectors[
-      Object.keys(sectorData.analysis_by_sector[matchingSector]?.subsectors || {}).find(
-        (s) => s.toLowerCase() === decodedSubsector.toLowerCase()
-      ) || ""
-    ] || [];
+    sectorData.analysis_by_sector[matchingSector]?.subsectors[matchingSubsector || ""] || [];
 
   if (subsectorData.length === 0) {
     return (
@@ -137,7 +141,7 @@ export default async function SubsectorPage({
         <div className="text-center">
           <h1 className="text-3xl font-bold text-white mb-4">Subsector Not Found</h1>
           <p className="text-[#94a3b8] mb-8">
-            No stocks found for "{decodedSubsector}" in {decodedSector}.
+            No stocks found for "{matchingSubsector || decodedSubsector}" in {decodedSector}.
           </p>
           <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
             ← Back to Home
