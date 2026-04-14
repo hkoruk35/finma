@@ -6,8 +6,6 @@ import IndexCards from "@/components/IndexCards";
 import StatsBar from "@/components/StatsBar";
 import TopSwingPicks from "@/components/TopSwingPicks";
 import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
-import MarketExplorer from "@/components/MarketExplorer";
-import SectorHeatMap from "@/components/SectorHeatMap";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -81,47 +79,6 @@ export default async function HomePage() {
           <StatsBar data={master} />
         </section>
 
-        {/* Market Themes & Category Tabs Explorer */}
-        <section className="mb-12 animate-fade-in" style={{ animationDelay: "250ms" }}>
-           <MarketExplorer master={master} allTickers={allTickers} />
-        </section>
-
-        {/* Sector Heat Map */}
-        <section className="mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
-          <SectorHeatMap data={master} allTickers={allTickers} />
-        </section>
-
-        {/* Ad Slot Placeholder */}
-        <section className="mb-8">
-          <div className="glass-card flex items-center justify-center h-24 text-[#64748b] text-sm hidden md:flex">
-            AD-H1 &middot; 728&times;90 Leaderboard
-          </div>
-          <div className="glass-card flex items-center justify-center h-16 text-[#64748b] text-[10px] md:hidden">
-            AD-M1 &middot; 320&times;50 Mobile Banner
-          </div>
-        </section>
-
-        {/* Archive Preview */}
-        <section className="mb-8">
-          <div className="glass-card p-6 text-center">
-            <h3 className="text-lg font-bold text-white mb-2">
-              Access Past Analysis
-            </h3>
-            <p className="text-sm text-[#94a3b8] mb-4">
-              View historical BOGA AI scores from the last 30 days.
-              Sign in with Google for free access.
-            </p>
-            <a
-              href="/login"
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#3b82f6] rounded-lg text-sm font-semibold text-white hover:bg-[#2563eb] transition-colors"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
-              </svg>
-              Sign in with Google
-            </a>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
