@@ -37,6 +37,20 @@ interface Props {
   allTickers?: any[];
 }
 
+const TR_TO_EN: Record<string, string> = {
+  "Makro Bullish": "Macro Bullish",
+  "Yükseliş": "Uptrend",
+  "EMA200 Üstü": "Above EMA200",
+  "EMA50 Üstü": "Above EMA50",
+};
+
+function sanitizeEn(text: string): string {
+  return Object.entries(TR_TO_EN).reduce(
+    (t, [tr, en]) => t.replaceAll(tr, en),
+    text
+  );
+}
+
 export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -146,7 +160,8 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                   <div className="bg-[#1e293b]/50 rounded-xl p-4 border border-[#3b82f6]/20 flex-1">
                     <p className="text-xs md:text-[13px] text-[#d1d5db] leading-relaxed font-medium">
                       {(() => {
-                        const enText = item.ai_summary?.homepage_summary?.en || item.reasoning;
+                        const raw = item.ai_summary?.homepage_summary?.en || item.reasoning;
+                        const enText = sanitizeEn(raw);
                         return enText.length > 130 ? enText.substring(0, 127) + "..." : enText;
                       })()}
                     </p>
