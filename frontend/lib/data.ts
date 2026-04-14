@@ -273,20 +273,39 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
         data.scores_detail.stop_range_high = swingPick.stop_zone.high;
         data.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
       }
-      
+
       // Update Technical Indicators
       if (data.technical) {
         data.technical.rsi_14 = swingPick.rsi;
         data.technical.adx = swingPick.adx;
         data.technical.rvol = swingPick.rvol;
       }
-      
+
       // Update Change % from Swing Pick
       if (swingPick.change_1d !== undefined) data.price.change_pct = swingPick.change_1d;
       if (swingPick.change_1w !== undefined) data.price.change_pct_1w = swingPick.change_1w;
       if (swingPick.change_1m !== undefined) data.price.change_pct_1m = swingPick.change_1m;
       if (swingPick.change_1y !== undefined) data.price.change_pct_1y = swingPick.change_1y;
       if (swingPick.change_5y !== undefined) data.price.change_pct_5y = swingPick.change_5y;
+
+      // 🌍 Propagate multilingual AI summary from swing pick (overrides string from bot)
+      if (swingPick.ai_summary && typeof swingPick.ai_summary === "object") {
+        data.ai_summary = swingPick.ai_summary;
+      }
+
+      // Attach rich swing pick data for the detail page
+      data._swing = {
+        rank: swingPick.rank,
+        holding_period: swingPick.holding_period,
+        trend_status: swingPick.trend_status,
+        moving_averages: swingPick.moving_averages,
+        factor_scores: swingPick.factor_scores,
+        fundamentals: swingPick.fundamentals,
+        hourly_analysis: swingPick.hourly_analysis,
+        performance: swingPick.performance,
+        boga_zones: swingPick.boga_zones,
+        market_regime: swingPick.market_regime,
+      };
     }
 
     return normalizeStockDetail(data);
@@ -328,7 +347,24 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       target.price.change_pct_1m = swingPick.change_1m;
       target.price.change_pct_1y = swingPick.change_1y;
       target.price.change_pct_5y = swingPick.change_5y;
-      target.ai_summary = swingPick.detail_reasoning || swingPick.reasoning;
+      // Use multilingual ai_summary object if available, else fall back to string
+      target.ai_summary = (swingPick.ai_summary && typeof swingPick.ai_summary === "object")
+        ? swingPick.ai_summary
+        : (swingPick.detail_reasoning || swingPick.reasoning);
+
+      // Attach rich swing data for the detail page
+      target._swing = {
+        rank: swingPick.rank,
+        holding_period: swingPick.holding_period,
+        trend_status: swingPick.trend_status,
+        moving_averages: swingPick.moving_averages,
+        factor_scores: swingPick.factor_scores,
+        fundamentals: swingPick.fundamentals,
+        hourly_analysis: swingPick.hourly_analysis,
+        performance: swingPick.performance,
+        boga_zones: swingPick.boga_zones,
+        market_regime: swingPick.market_regime,
+      };
 
     } else if (summary) {
       target.scores.master_score = summary.master_score;
