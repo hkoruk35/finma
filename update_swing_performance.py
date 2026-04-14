@@ -1,109 +1,135 @@
 import json
 import os
-from datetime import datetime
+import yfinance as yf
+import pandas as pd
+from datetime import datetime, timedelta
+import logging
 
-def sync_performance():
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
+
+def update_performance_live():
     performance_file = 'frontend/public/swing_performance.json'
     picks_file = 'frontend/public/swing_picks.json'
-    master_file = 'frontend/public/master.json'
-
+    
     # 1. Load history
     if os.path.exists(performance_file):
         with open(performance_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            history = data.get('history', [])
+            perf_data = json.load(f)
+            history = perf_data.get('history', [])
     else:
         history = []
-        data = {}
-
-    # 2. Load latest prices and metadata
-    metadata_map = {}
-    if os.path.exists(master_file):
-        with open(master_file, 'r', encoding='utf-8') as f:
-            master = json.load(f)
-            for s in master.get('stocks', []):
-                if s and 'ticker' in s:
-                    metadata_map[s['ticker']] = {
-                        'price': s.get('price', {}).get('current', 0),
-                        'company': s.get('company', ''),
-                        'sector': s.get('sector', 'Unknown')
-                    }
+        perf_data = {}
 
     today_str = datetime.now().strftime('%Y-%m-%d')
     today_date = datetime.strptime(today_str, '%Y-%m-%d')
 
-    # 3. Update Existing Records (Evaluate Max Price up to 30 days)
+    # 2. Identify tickers that need updates (active in last 30 days)
+    # We also include today's new picks
+    tickers_to_update = set()
     for record in history:
         try:
             entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-            days_passed = (today_date - entry_date).days
-            
-            # We only evaluate actively for ~30 days
-            if days_passed <= 30:
-                ticker = record['ticker']
-                meta = metadata_map.get(ticker, {})
-                current_price = meta.get('price', 0)
-                
-                if current_price > record.get('max_price', 0):
-                    record['max_price'] = current_price
-                    if record.get('entry', 0) > 0:
-                        record['return_pct'] = round(((current_price - record['entry']) / record['entry']) * 100, 2)
-                    record['days'] = days_passed
-        except Exception as e:
-            pass
+            if (today_date - entry_date).days <= 32:
+                tickers_to_update.add(record['ticker'])
+        except: pass
 
-    # 4. Process Today's Picks
+    # 3. Load today's picks and add to tickers
+    today_picks_list = []
     if os.path.exists(picks_file):
         with open(picks_file, 'r', encoding='utf-8') as f:
-            picks_data = json.load(f)
-            today_picks = picks_data.get('picks', [])
+            today_picks_list = json.load(f).get('picks', [])
+            for p in today_picks_list:
+                tickers_to_update.add(p['ticker'])
 
-        for p in today_picks:
-            ticker = p.get('ticker')
-            meta = metadata_map.get(ticker, {})
+    # 4. Fetch live prices via yfinance
+    live_prices = {}
+    if tickers_to_update:
+        logging.info(f"Fetching live prices for {len(tickers_to_update)} tickers...")
+        # Download in bulk
+        try:
+            data = yf.download(list(tickers_to_update), period="5d", interval="1d", group_by='ticker', auto_adjust=True, progress=False)
+            for ticker in tickers_to_update:
+                try:
+                    if len(tickers_to_update) == 1:
+                        price = data['Close'].iloc[-1]
+                    else:
+                        price = data[ticker]['Close'].iloc[-1]
+                    if not pd.isna(price):
+                        live_prices[ticker] = float(price)
+                except:
+                    pass
+        except Exception as e:
+            logging.error(f"Error fetching live prices: {e}")
+
+    # 5. Update history records
+    for record in history:
+        ticker = record['ticker']
+        if ticker in live_prices:
+            current_price = live_prices[ticker]
+            # Update max price achieved
+            if current_price > record.get('max_price', 0):
+                record['max_price'] = current_price
             
-            # Check 5-day rule
+            # Update current return based on max price (as used in this specific UI)
+            # Or based on current price? The UI seems to show "MAX RETURN"
+            if record.get('entry', 0) > 0:
+                record['return_pct'] = round(((record['max_price'] - record['entry']) / record['entry']) * 100, 2)
+            
+            try:
+                entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
+                record['days'] = (today_date - entry_date).days
+            except: pass
+
+    # 6. Add today's new picks if not already there today
+    existing_today_tickers = [r['ticker'] for r in history if r['date'] == today_str]
+    for p in today_picks_list:
+        ticker = p['ticker']
+        if ticker not in existing_today_tickers:
+            # Check 5-day rule (optional, but keep for consistency)
             skip = False
-            for record in reversed(history):
-                if record['ticker'] == ticker:
+            for r in reversed(history):
+                if r['ticker'] == ticker:
                     try:
-                        record_date = datetime.strptime(record['date'], '%Y-%m-%d')
-                        if (today_date - record_date).days < 5:
+                        r_date = datetime.strptime(r['date'], '%Y-%m-%d')
+                        if (today_date - r_date).days < 5:
                             skip = True
                             break
                     except: pass
             
             if not skip:
-                entry_p = p.get('current_price', meta.get('price', 0))
-                if entry_p > 0:
+                price = live_prices.get(ticker, p.get('current_price', 0))
+                if price > 0:
                     history.append({
                         'date': today_str,
                         'ticker': ticker,
-                        'company': p.get('company') or meta.get('company', ''),
-                        'sector': p.get('sector') or meta.get('sector', 'Unknown'),
-                        'entry': entry_p,
-                        'max_price': entry_p,
+                        'company': p.get('company', ticker),
+                        'sector': p.get('sector', 'Unknown'),
+                        'entry': price,
+                        'max_price': price,
                         'return_pct': 0.0,
                         'days': 0,
-                        'result': 'WIN'
+                        'result': 'PENDING'
                     })
 
-    # Auto generate stats structure even though UI calculates it
+    # 7. Finalize and Save
+    history.sort(key=lambda x: x['date'], reverse=True)
+    perf_data['history'] = history
+    
+    # Recalculate stats
     total = len(history)
     wins = sum(1 for x in history if x.get('return_pct', 0) > 0)
-    
-    data['history'] = history
-    data['stats'] = {
+    perf_data['stats'] = {
+        'total_picks': total,
         'win_rate': round((wins / total * 100), 1) if total > 0 else 0,
         'avg_return_pct': round(sum(x.get('return_pct', 0) for x in history) / total, 1) if total > 0 else 0,
-        'total_picks': total,
         'period_days': 90,
         'above_5pct_rate': round(sum(1 for x in history if x.get('return_pct', 0) >= 5) / total * 100, 1) if total > 0 else 0
     }
-    data['generated_at'] = datetime.now().isoformat()
+    perf_data['generated_at'] = datetime.now().isoformat()
 
     with open(performance_file, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2)
+        json.dump(perf_data, f, indent=2, ensure_ascii=False)
+    logging.info(f"Performance updated. Total records: {len(history)}")
 
 if __name__ == "__main__":
-    sync_performance()
+    update_performance_live()
