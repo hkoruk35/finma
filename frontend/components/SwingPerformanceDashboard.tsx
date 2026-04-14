@@ -157,7 +157,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
       {sectorHeatmap.length > 0 && (
         <div className="mb-12">
           <h3 className="text-xl font-bold text-white mb-6">Sector Profitability Heatmap</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="flex overflow-x-auto pb-4 md:pb-0 md:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 no-scrollbar">
             {sectorHeatmap.map(s => {
               // determine heat color based on avgReturn
               let bgColor = "bg-[#141924] border-[#1e2a3a]";
@@ -170,7 +170,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                 <button 
                   key={s.name} 
                   onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
-                  className={`rounded-xl border p-4 ${bgColor} flex flex-col gap-2 transition-all hover:scale-105 shadow-xl text-left ${s.name === selectedSector ? "ring-2 ring-white" : ""}`}
+                  className={`rounded-xl border p-4 ${bgColor} flex flex-col gap-2 transition-all hover:scale-105 shadow-xl text-left ${s.name === selectedSector ? "ring-2 ring-white" : ""} min-w-[160px] md:min-w-0`}
                 >
                   <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest truncate w-full" title={s.name}>{s.name}</p>
                   <div className="flex items-end justify-between w-full">
