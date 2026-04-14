@@ -58,8 +58,8 @@
       "company": "Oruka Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 61.380001068115234,
-      "max_price": 66.84500122070312,
-      "return_pct": 8.9,
+      "max_price": 66.8949966430664,
+      "return_pct": 8.99,
       "days": 0,
       "result": "WIN"
     },
@@ -212,8 +212,8 @@
       "company": "Avis Budget Group",
       "sector": "Industrials",
       "entry": 336.0,
-      "max_price": 383.7699890136719,
-      "return_pct": 14.22,
+      "max_price": 383.9800109863281,
+      "return_pct": 14.28,
       "days": 1,
       "result": "PENDING"
     },
@@ -256,8 +256,8 @@
       "company": "Avis Budget Group, Inc.",
       "sector": "Industrials",
       "entry": 297.08,
-      "max_price": 383.7699890136719,
-      "return_pct": 29.18,
+      "max_price": 383.9800109863281,
+      "return_pct": 29.25,
       "days": 5,
       "result": "WIN"
     },
@@ -630,8 +630,8 @@
       "company": "Gladstone Investment Corporatio",
       "sector": "Financial Services",
       "entry": 14.25,
-      "max_price": 15.089900016784668,
-      "return_pct": 5.89,
+      "max_price": 15.100000381469727,
+      "return_pct": 5.96,
       "days": 24,
       "result": "WIN"
     },
@@ -6026,5 +6026,5 @@
       "result": "WIN"
     }
   ],
-  "generated_at": "2026-04-14T15:12:53.771376"
+  "generated_at": "2026-04-14T15:13:37.878376"
 }
