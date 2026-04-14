@@ -47,8 +47,8 @@
       "company": "Royal Bank of Canada",
       "sector": "Financial Services",
       "entry": 173.6699981689453,
-      "max_price": 174.58999633789062,
-      "return_pct": 0.53,
+      "max_price": 174.61000061035156,
+      "return_pct": 0.54,
       "days": 0,
       "result": "WIN"
     },
@@ -58,8 +58,8 @@
       "company": "Oruka Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 61.380001068115234,
-      "max_price": 66.68000030517578,
-      "return_pct": 8.63,
+      "max_price": 66.84500122070312,
+      "return_pct": 8.9,
       "days": 0,
       "result": "WIN"
     },
@@ -91,8 +91,8 @@
       "company": "Intel Corporation",
       "sector": "Technology",
       "entry": 62.790000915527344,
-      "max_price": 63.334999084472656,
-      "return_pct": 0.87,
+      "max_price": 63.38999938964844,
+      "return_pct": 0.96,
       "days": 0,
       "result": "PENDING"
     },
@@ -212,8 +212,8 @@
       "company": "Avis Budget Group",
       "sector": "Industrials",
       "entry": 336.0,
-      "max_price": 383.5,
-      "return_pct": 14.14,
+      "max_price": 383.7699890136719,
+      "return_pct": 14.22,
       "days": 1,
       "result": "PENDING"
     },
@@ -223,8 +223,8 @@
       "company": "SuRo Capital Corp.",
       "sector": "Financial Services",
       "entry": 11.91,
-      "max_price": 13.0600004196167,
-      "return_pct": 9.66,
+      "max_price": 13.065500259399414,
+      "return_pct": 9.7,
       "days": 4,
       "result": "LOSS"
     },
@@ -256,8 +256,8 @@
       "company": "Avis Budget Group, Inc.",
       "sector": "Industrials",
       "entry": 297.08,
-      "max_price": 383.5,
-      "return_pct": 29.09,
+      "max_price": 383.7699890136719,
+      "return_pct": 29.18,
       "days": 5,
       "result": "WIN"
     },
@@ -300,8 +300,8 @@
       "company": "MeiraGTx Holdings plc",
       "sector": "Healthcare",
       "entry": 9.52,
-      "max_price": 11.350000381469727,
-      "return_pct": 19.22,
+      "max_price": 11.444999694824219,
+      "return_pct": 20.22,
       "days": 8,
       "result": "WIN"
     },
@@ -520,8 +520,8 @@
       "company": "Dana Incorporated",
       "sector": "Consumer Cyclical",
       "entry": 32.68,
-      "max_price": 36.77000045776367,
-      "return_pct": 12.52,
+      "max_price": 36.81999969482422,
+      "return_pct": 12.67,
       "days": 22,
       "result": "WIN"
     },
@@ -729,8 +729,8 @@
       "company": "Stagwell Inc.",
       "sector": "Communication Services",
       "entry": 5.98,
-      "max_price": 6.505000114440918,
-      "return_pct": 8.78,
+      "max_price": 6.510000228881836,
+      "return_pct": 8.86,
       "days": 29,
       "result": "WIN"
     },
@@ -6026,5 +6026,5 @@
       "result": "WIN"
     }
   ],
-  "generated_at": "2026-04-14T15:07:01.590913"
+  "generated_at": "2026-04-14T15:12:53.771376"
 }
