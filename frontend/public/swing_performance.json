@@ -1,13 +1,35 @@
 {
   "stats": {
-    "total_picks": 547,
-    "win_rate": 93.1,
-    "avg_return_pct": 8.6,
+    "total_picks": 555,
+    "win_rate": 93.0,
+    "avg_return_pct": 8.5,
     "period_days": 180,
-    "above_5pct_rate": 47.9,
-    "above_10pct_rate": 21.4
+    "above_5pct_rate": 47.6,
+    "above_10pct_rate": 21.1
   },
   "history": [
+    {
+      "date": "2026-04-14",
+      "ticker": "UNFI",
+      "company": "United Natural Foods",
+      "sector": "Consumer Defensive",
+      "entry": 41.69,
+      "max_price": 41.69,
+      "return_pct": -3.65,
+      "days": 0,
+      "result": "LOSS"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "STGW",
+      "company": "Stagwell Inc.",
+      "sector": "Technology",
+      "entry": 5.95,
+      "max_price": 6.07,
+      "return_pct": 2.02,
+      "days": 0,
+      "result": "WIN"
+    },
     {
       "date": "2026-04-14",
       "ticker": "SQM",
@@ -54,6 +76,17 @@
     },
     {
       "date": "2026-04-14",
+      "ticker": "PBR",
+      "company": "Petroleo Brasileiro S.A.",
+      "sector": "Energy",
+      "entry": 18.57,
+      "max_price": 19.51,
+      "return_pct": 5.06,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
       "ticker": "ORKA",
       "company": "Oruka Therapeutics, Inc.",
       "sector": "Healthcare",
@@ -73,6 +106,17 @@
       "return_pct": 0.0,
       "days": 0,
       "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "LXU",
+      "company": "LXU",
+      "sector": "Basic Materials",
+      "entry": 14.75,
+      "max_price": 14.77,
+      "return_pct": 0.14,
+      "days": 0,
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
@@ -120,6 +164,17 @@
     },
     {
       "date": "2026-04-14",
+      "ticker": "DNTH",
+      "company": "Dianthus Therapeutics",
+      "sector": "Healthcare",
+      "entry": 78.89,
+      "max_price": 78.9,
+      "return_pct": 0.01,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-14",
       "ticker": "CRUS",
       "company": "Cirrus Logic, Inc.",
       "sector": "Technology",
@@ -153,6 +208,28 @@
     },
     {
       "date": "2026-04-14",
+      "ticker": "CGON",
+      "company": "CGON",
+      "sector": "Energy",
+      "entry": 64.82,
+      "max_price": 68.64,
+      "return_pct": 5.89,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "BP",
+      "company": "BP p.l.c.",
+      "sector": "Energy",
+      "entry": 42.67,
+      "max_price": 43.85,
+      "return_pct": 2.77,
+      "days": 0,
+      "result": "WIN"
+    },
+    {
+      "date": "2026-04-14",
       "ticker": "BBIO",
       "company": "BridgeBio Pharma, Inc.",
       "sector": "Healthcare",
@@ -172,6 +249,17 @@
       "return_pct": 0.0,
       "days": 0,
       "result": "PENDING"
+    },
+    {
+      "date": "2026-04-14",
+      "ticker": "ADEA",
+      "company": "ADEA",
+      "sector": "Technology",
+      "entry": 23.1,
+      "max_price": 23.46,
+      "return_pct": 1.56,
+      "days": 0,
+      "result": "WIN"
     },
     {
       "date": "2026-04-13",
@@ -6026,5 +6114,5 @@
       "result": "WIN"
     }
   ],
-  "generated_at": "2026-04-14T15:13:37.878376"
+  "generated_at": "2026-04-14T15:22:30"
 }
