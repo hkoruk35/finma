@@ -38,7 +38,7 @@ export default async function SwingPerformancePage() {
 
         {/* Header Section */}
         <header className="mb-10 lg:w-2/3">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
+          <h1 className="text-2xl md:text-5xl font-extrabold text-white mb-4 whitespace-nowrap">
             Swing Engine Performance
           </h1>
           <p className="text-[#94a3b8] text-lg leading-relaxed">

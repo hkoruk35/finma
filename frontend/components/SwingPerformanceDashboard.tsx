@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import ProfitSimulator from "./ProfitSimulator";
+// import ProfitSimulator from "./ProfitSimulator";
 
 interface Trade {
   date: string;
@@ -192,8 +192,8 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
         </div>
       )}
 
-      {/* Dynamic Profit Simulator */}
-      <ProfitSimulator />
+      {/* Dynamic Profit Simulator REMOVED TEMPORARILY */}
+      {/* <ProfitSimulator /> */}
 
       {/* Trade History - Responsive View */}
       <div className="w-full">

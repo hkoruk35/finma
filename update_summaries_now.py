@@ -8,17 +8,27 @@ from datetime import datetime
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
+GEMINI_API_KEY = ""
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+
 try:
-    from config import GEMINI_API_KEY, GEMINI_MODEL
-except:
+    # Try importing directly from config.py values
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("config", os.path.join(os.path.dirname(__file__), "config.py"))
+    cfg = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cfg)
+    GEMINI_API_KEY = getattr(cfg, "GEMINI_API_KEY", "") or os.getenv("GEMINI_API_KEY", "")
+    GEMINI_MODEL = getattr(cfg, "GEMINI_MODEL", GEMINI_MODEL) or GEMINI_MODEL
+except Exception as e:
+    logging.warning(f"Could not load config.py: {e}")
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
 if not GEMINI_API_KEY:
-    logging.warning("⚠️  GEMINI_API_KEY not found. Set environment variable or add to config.py")
+    logging.error("GEMINI_API_KEY not found — set it in config.py or as env var")
+else:
+    logging.info(f"Gemini API key loaded (model: {GEMINI_MODEL})")
 
 GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
-logging.info(f"Using Gemini Model: {GEMINI_MODEL}")
 
 async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dict:
     """

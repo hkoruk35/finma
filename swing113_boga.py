@@ -1924,7 +1924,15 @@ async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dic
     price         = c.get("current_price", 0.0)
     score_100     = c.get("boga_score_100", 0.0)
     entry_trigger = c.get("entry_trigger", "")
-    trend_status  = c.get("trend_durumu_1d", "")
+    _trend_raw    = c.get("trend_durumu_1d", "")
+    _trend_map    = {
+        "Makro Bullish": "Macro Bullish (P>EMA50>EMA200)",
+        "Yükseliş":      "Uptrend (EMA20>50>200)",
+        "EMA200 Üstü":   "Above EMA200",
+        "EMA50 Üstü":    "Above EMA50",
+        "Downtrend":     "Downtrend",
+    }
+    trend_status  = _trend_map.get(_trend_raw, _trend_raw)
 
     # ── Teknik İndikatörler ──────────────────────────────────────────────────
     rsi       = c.get("rsi_14", 50.0)
