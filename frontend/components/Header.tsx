@@ -106,6 +106,7 @@ export default function Header() {
         <nav className="hidden xl:flex items-center gap-8">
           <NavLink href="/" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top 3 Swing Picks</NavLink>
           <NavLink href="/category/top-scores" isMemberOnly className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top Scores</NavLink>
+          <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Performance</NavLink>
           <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
           <NavLink href="/archive" isMemberOnly className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Archive</NavLink>
         </nav>
@@ -167,6 +168,7 @@ export default function Header() {
           <nav className="flex flex-col gap-6">
             <NavLink href="/" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top 3 Swing Picks</NavLink>
             <NavLink href="/category/top-scores" isMemberOnly className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top Scores</NavLink>
+            <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Performance</NavLink>
             <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
             <NavLink href="/archive" isMemberOnly className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Archive</NavLink>
             
