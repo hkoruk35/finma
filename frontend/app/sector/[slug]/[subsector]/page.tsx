@@ -126,7 +126,7 @@ export default async function SubsectorPage({
 
   // Find matching subsector with fuzzy matching (normalize spaces/special chars)
   const normalizeForMatching = (str: string) =>
-    str.toLowerCase().replace(/\s+/g, ' ').replace(/[^a-z0-9\s]/g, '').trim();
+    str.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
 
   const matchingSubsector = Object.keys(sectorData.analysis_by_sector[matchingSector]?.subsectors || {}).find(
     (s) => normalizeForMatching(s) === normalizeForMatching(decodedSubsector)
