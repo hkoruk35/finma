@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-14T15:22:30",
+  "generated_at": "2026-04-14T15:36:00",
   "date": "2026-04-14",
   "model": "BOGA AI V114",
   "market_regime": "BULLISH",
@@ -8,180 +8,290 @@
     {
       "ticker": "GSAT",
       "rank": 1,
+      "company": "GSAT",
       "sector": "Communication Services",
+      "score": 81.3,
+      "boga_score": 81.3,
       "current_price": 77.49,
       "buy_zone": {
-        "low": 75.94019999999999,
-        "high": 79.0398
+        "low": 77.28999999999999,
+        "high": 77.69
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 88.49000000000001,
+        "high": 88.59
+      },
+      "stop_zone": {
+        "low": 73.05,
+        "high": 73.14999999999999
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "SGI",
       "rank": 2,
+      "company": "SGI",
       "sector": "Consumer Cyclical",
+      "score": 73.5,
+      "boga_score": 73.5,
       "current_price": 81.71,
       "buy_zone": {
-        "low": 80.07579999999999,
-        "high": 83.3442
+        "low": 81.50999999999999,
+        "high": 81.91
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 89.08000000000001,
+        "high": 89.18
+      },
+      "stop_zone": {
+        "low": 78.72,
+        "high": 78.82
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "BBIO",
       "rank": 3,
+      "company": "BBIO",
       "sector": "Healthcare",
+      "score": 63.5,
+      "boga_score": 63.5,
       "current_price": 77.63,
       "buy_zone": {
-        "low": 76.0774,
-        "high": 79.1826
+        "low": 77.42999999999999,
+        "high": 77.83
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 78.42,
+        "high": 78.52
+      },
+      "stop_zone": {
+        "low": 77.34,
+        "high": 77.44
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "SNDK",
       "rank": 4,
+      "company": "SNDK",
       "sector": "Technology",
+      "score": 53.4,
+      "boga_score": 53.4,
       "current_price": 907.58,
       "buy_zone": {
-        "low": 889.4284,
-        "high": 925.7316000000001
+        "low": 907.38,
+        "high": 907.7800000000001
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 955.25,
+        "high": 955.35
+      },
+      "stop_zone": {
+        "low": 895.77,
+        "high": 895.87
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "CROX",
       "rank": 5,
+      "company": "CROX",
       "sector": "Consumer Cyclical",
+      "score": 52.6,
+      "boga_score": 52.6,
       "current_price": 100.01,
       "buy_zone": {
-        "low": 98.0098,
-        "high": 102.01020000000001
+        "low": 99.81,
+        "high": 100.21000000000001
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 104.87,
+        "high": 104.97
+      },
+      "stop_zone": {
+        "low": 99.61,
+        "high": 99.71
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "SQM",
       "rank": 6,
+      "company": "SQM",
       "sector": "Basic Materials",
+      "score": 51.5,
+      "boga_score": 51.5,
       "current_price": 88.02,
       "buy_zone": {
-        "low": 86.25959999999999,
-        "high": 89.7804
+        "low": 87.82,
+        "high": 88.22
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 92.87,
+        "high": 92.97
+      },
+      "stop_zone": {
+        "low": 87.06,
+        "high": 87.16
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "AVT",
       "rank": 7,
+      "company": "AVT",
       "sector": "Technology",
+      "score": 50.5,
+      "boga_score": 50.5,
       "current_price": 72.49,
       "buy_zone": {
-        "low": 71.0402,
-        "high": 73.93979999999999
+        "low": 72.28999999999999,
+        "high": 72.69
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 73.09,
+        "high": 73.19
+      },
+      "stop_zone": {
+        "low": 72.28,
+        "high": 72.38
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "MOD",
       "rank": 8,
+      "company": "MOD",
       "sector": "Consumer Cyclical",
+      "score": 46.6,
+      "boga_score": 46.6,
       "current_price": 246.19,
       "buy_zone": {
-        "low": 241.2662,
-        "high": 251.1138
+        "low": 245.99,
+        "high": 246.39
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 254.88,
+        "high": 254.98
+      },
+      "stop_zone": {
+        "low": 240.47,
+        "high": 240.57
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "FUTU",
       "rank": 9,
+      "company": "FUTU",
       "sector": "Financial Services",
+      "score": 43.8,
+      "boga_score": 43.8,
       "current_price": 159.33,
       "buy_zone": {
-        "low": 156.1434,
-        "high": 162.5166
+        "low": 159.13000000000002,
+        "high": 159.53
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 162.31,
+        "high": 162.41
+      },
+      "stop_zone": {
+        "low": 155.02,
+        "high": 155.12
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     },
     {
       "ticker": "INTC",
       "rank": 10,
+      "company": "INTC",
       "sector": "Technology",
+      "score": 40.8,
+      "boga_score": 40.8,
       "current_price": 62.22,
       "buy_zone": {
-        "low": 60.9756,
-        "high": 63.4644
+        "low": 62.019999999999996,
+        "high": 62.42
       },
-      "score": 0,
-      "boga_score": 0,
+      "profit_zone": {
+        "low": 62.51,
+        "high": 62.61
+      },
+      "stop_zone": {
+        "low": 61.91,
+        "high": 62.01
+      },
+      "holding_period": "5-10 Days",
+      "reasoning": "Official BOGA AI Afternoon Setup.",
       "ai_summary": {
         "homepage_summary": {
-          "en": "Active swing pick",
-          "tr": "Aktif swing fırsatı"
+          "en": "Active high-conviction swing pick.",
+          "tr": "Aktif yüksek güvenli swing fırsatı."
         }
       }
     }
