@@ -130,8 +130,8 @@ RS_LOOKBACK = 30
 # ================================================================
 # 🔹 TELEGRAM AYARLARI
 # ================================================================
-TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
-TELEGRAM_CHAT_ID = "-1003569445341"
+TELEGRAM_API_KEY = "8182098187:AAF-jtWMJK07ZdZdyusiE1RqyQkwegb0Uhc"
+TELEGRAM_CHAT_ID = "-1003406973271"
 ENABLE_TELEGRAM_NOTIFICATIONS = True
 
 # ================================================================
@@ -1856,7 +1856,7 @@ def build_diversified_toplist(candidates: list, max_per_sector: int = MAX_PER_SE
 
 # ================================================================
 # ================================================================
-# BÖLÜM 12: GEMINI AI ÖZETLER (6 DİL)
+# BÖLÜM 12: GEMINI AI ÖZETLER (6 DİL) — KARTAL YUVASI ALPHA COMMANDER v5.5
 # ================================================================
 # ================================================================
 
@@ -1864,66 +1864,247 @@ async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dic
     """
     BOGA AI tarafından desteklenen Gemini AI ile 6 dilde özet üretir.
 
-    homepage_summary: 1 cümlelik kısa özet (ana sayfa için)
-    detail_summary: 3-5 cümlelik neden seçildiğinin gerekçesi (detay sayfası)
+    homepage_summary  : 1-2 cümlelik güçlü, aksiyona yönelik kısa özet (ana sayfa için)
+    detail_summary    : 5-7 cümlelik derinlemesine karar destek analizi (detay sayfası için)
 
-    Teknik indikatörler: Kullanıcı dostu açıklamalarla (teknik değil anlam odaklı)
-    Fundamental veriler: Şirketin sağlığını sade dilde anlatır
+    Prompt mimarisi   : "Kartal Yuvası Alpha Commander v5.5" protokolü
+    Kapsam            : Fundamental Grounding + Quant Matrix + Tactical Execution +
+                        Anticipated Problems — sade dilde, teknik olmayan okuyucuya uygun
+    Diller            : EN / TR / ES / PT / FR / ID
     """
     if not GEMINI_API_KEY:
         return _fallback_summary(c)
 
-    ticker       = c.get("ticker", "")
-    company      = c.get("company", ticker)
-    sector       = c.get("sector", "Unknown")
-    price        = c.get("current_price", 0.0)
-    rsi          = c.get("rsi_14", 50.0)
-    adx          = c.get("adx", 0.0)
-    macd_hist    = c.get("macd_hist", 0.0)
-    mfi          = c.get("mfi", 50.0)
-    ema20        = c.get("ema20", 0.0)
-    ema50        = c.get("ema50", 0.0)
-    ema200       = c.get("ema200", 0.0)
-    score_100    = c.get("boga_score_100", 0.0)
+    # ── Kimlik Verileri ──────────────────────────────────────────────────────
+    ticker        = c.get("ticker", "")
+    company       = c.get("company", ticker)
+    sector        = c.get("sector", "Unknown")
+    price         = c.get("current_price", 0.0)
+    score_100     = c.get("boga_score_100", 0.0)
     entry_trigger = c.get("entry_trigger", "")
-    trend_status = c.get("trend_durumu_1d", "")
-    rr           = zones.get("rr_ratio", 0.0)
-    buy_low      = zones["buy_zone"]["low"]
-    buy_high     = zones["buy_zone"]["high"]
-    sell_high    = zones["sell_zone"]["high"]
-    stop_high    = zones["stop_zone"]["high"]
+    trend_status  = c.get("trend_durumu_1d", "")
 
-    # Fundamental veriler
-    gross_m  = fin_health.get("gross_margin", 0)
-    op_m     = fin_health.get("operating_margin", 0)
-    net_m    = fin_health.get("net_margin", 0)
-    rev_g    = fin_health.get("revenue_growth", 0)
-    pe       = fin_health.get("pe_ratio", 0)
-    pb       = fin_health.get("pb_ratio", 0)
-    fcf_y    = fin_health.get("fcf_yield", 0)
-    mcap     = fin_health.get("market_cap_b", 0)
+    # ── Teknik İndikatörler ──────────────────────────────────────────────────
+    rsi       = c.get("rsi_14", 50.0)
+    adx       = c.get("adx", 0.0)
+    macd_hist = c.get("macd_hist", 0.0)
+    mfi       = c.get("mfi", 50.0)
+    ema20     = c.get("ema20", 0.0)
+    ema50     = c.get("ema50", 0.0)
+    ema200    = c.get("ema200", 0.0)
 
-    # Performans
+    # ── Bölgeler ─────────────────────────────────────────────────────────────
+    rr        = zones.get("rr_ratio", 0.0)
+    buy_low   = zones["buy_zone"]["low"]
+    buy_high  = zones["buy_zone"]["high"]
+    sell_high = zones["sell_zone"]["high"]
+    stop_high = zones["stop_zone"]["high"]
+
+    # ── Temel Veriler ─────────────────────────────────────────────────────────
+    gross_m = fin_health.get("gross_margin", 0)
+    op_m    = fin_health.get("operating_margin", 0)
+    net_m   = fin_health.get("net_margin", 0)
+    rev_g   = fin_health.get("revenue_growth", 0)
+    pe      = fin_health.get("pe_ratio", 0)
+    pb      = fin_health.get("pb_ratio", 0)
+    fcf_y   = fin_health.get("fcf_yield", 0)
+    mcap    = fin_health.get("market_cap_b", 0)
+
+    # ── Performans ────────────────────────────────────────────────────────────
     perf = c.get("performance", {})
-    p1d = perf.get("1d", 0.0); p1w = perf.get("1w", 0.0)
-    p1m = perf.get("1m", 0.0); p1y = perf.get("1y", 0.0); p5y = perf.get("5y", 0.0)
+    p1d  = perf.get("1d", 0.0)
+    p1w  = perf.get("1w", 0.0)
+    p1m  = perf.get("1m", 0.0)
+    p1y  = perf.get("1y", 0.0)
+    p5y  = perf.get("5y", 0.0)
 
+    # ── EMA Konumu (insan diline çeviri) ──────────────────────────────────────
+    def ema_status(price_val, ema_val, label):
+        if price_val <= 0 or ema_val <= 0:
+            return f"N/A ({label})"
+        pct = ((price_val - ema_val) / ema_val) * 100
+        direction = "above" if pct >= 0 else "below"
+        return f"{abs(pct):.1f}% {direction} {label}"
+
+    ema20_status  = ema_status(price, ema20,  "EMA20")
+    ema50_status  = ema_status(price, ema50,  "EMA50")
+    ema200_status = ema_status(price, ema200, "EMA200")
+
+    # ── RSI Yorumu ────────────────────────────────────────────────────────────
+    if rsi >= 70:
+        rsi_comment = "overbought territory — caution on new entries"
+    elif rsi >= 55:
+        rsi_comment = "bullish momentum zone — trend intact"
+    elif rsi >= 45:
+        rsi_comment = "neutral — awaiting directional catalyst"
+    elif rsi >= 30:
+        rsi_comment = "oversold pressure — potential recovery watch"
+    else:
+        rsi_comment = "deep oversold — capitulation risk present"
+
+    # ── ADX Yorumu ────────────────────────────────────────────────────────────
+    if adx >= 40:
+        adx_comment = "extremely strong trending market"
+    elif adx >= 25:
+        adx_comment = "confirmed trending environment"
+    elif adx >= 15:
+        adx_comment = "weak trend — range-bound conditions possible"
+    else:
+        adx_comment = "no clear trend — choppy price action"
+
+    # ── MACD Yorumu ───────────────────────────────────────────────────────────
+    if macd_hist > 0:
+        macd_comment = f"positive histogram ({macd_hist:+.3f}) — bullish momentum expanding"
+    else:
+        macd_comment = f"negative histogram ({macd_hist:+.3f}) — bearish pressure building"
+
+    # ── Değerleme Özeti ───────────────────────────────────────────────────────
+    if pe > 0 and rev_g > 0:
+        peg_approx = pe / rev_g
+        if peg_approx < 1.0:
+            val_comment = f"trading at a potential discount (PEG ~{peg_approx:.1f}x) — growth not fully priced"
+        elif peg_approx < 2.0:
+            val_comment = f"fairly valued relative to growth (PEG ~{peg_approx:.1f}x)"
+        else:
+            val_comment = f"elevated valuation (PEG ~{peg_approx:.1f}x) — growth must continue to justify"
+    else:
+        val_comment = "valuation data incomplete — fundamental caution warranted"
+
+    # ── R/R Yorumu ────────────────────────────────────────────────────────────
+    if rr >= 3.0:
+        rr_comment = f"{rr:.1f}:1 — exceptional risk/reward setup"
+    elif rr >= 2.0:
+        rr_comment = f"{rr:.1f}:1 — attractive risk/reward for swing traders"
+    elif rr >= 1.5:
+        rr_comment = f"{rr:.1f}:1 — acceptable risk/reward with disciplined stop"
+    else:
+        rr_comment = f"{rr:.1f}:1 — marginal risk/reward — position sizing critical"
+
+    # ── 6 DİL İÇİN PROMPT ────────────────────────────────────────────────────
+    # Her dil ayrı sistemik bağlamda üretilir; hem yerel finans diline
+    # hem de hiç finans bilmeyen bir okuyucuya uygun olacak şekilde tasarlandı.
+
+    language_configs = {
+        "en": {
+            "lang_name":    "English",
+            "region_note":  "Use professional American/British financial English. Keep the tone confident and data-driven.",
+            "homepage_len": "ONE powerful sentence (max 25 words) that highlights both the opportunity and the key risk.",
+            "detail_len":   "5 to 7 sentences. Structure: (1) What the company does in plain English, (2) Why BOGA AI selected it, (3) Technical momentum reading, (4) Fundamental health snapshot, (5) The specific risk to watch, (6) Entry/target/stop in plain numbers.",
+        },
+        "tr": {
+            "lang_name":    "Turkish",
+            "region_note":  "Türkiye finans camiasının kullandığı profesyonel ama anlaşılır bir dil kullan. 'Pozisyon', 'breakout', 'momentum', 'stop' gibi sektör terimleri kabul edilebilir.",
+            "homepage_len": "TEK güçlü cümle (maks. 30 kelime) — hem fırsatı hem temel riski vurgula.",
+            "detail_len":   "5 ila 7 cümle. Yapı: (1) Şirket ne iş yapar — sade Türkçe, (2) BOGA AI neden seçti, (3) Teknik momentum okumas, (4) Temel sağlık özeti, (5) İzlenecek spesifik risk, (6) Giriş/hedef/stop rakamları.",
+        },
+        "es": {
+            "lang_name":    "Spanish",
+            "region_note":  "Usa español financiero latinoamericano (México, Argentina, Colombia) — profesional pero accesible para no expertos.",
+            "homepage_len": "UNA frase poderosa (máx. 28 palabras) que destaque tanto la oportunidad como el riesgo clave.",
+            "detail_len":   "5 a 7 oraciones. Estructura: (1) Qué hace la empresa en lenguaje simple, (2) Por qué BOGA AI la seleccionó, (3) Lectura del momentum técnico, (4) Resumen de salud fundamental, (5) El riesgo específico a vigilar, (6) Entrada/objetivo/stop en números claros.",
+        },
+        "pt": {
+            "lang_name":    "Portuguese",
+            "region_note":  "Use português financeiro brasileiro — profissional mas acessível para investidores iniciantes e intermediários.",
+            "homepage_len": "UMA frase forte (máx. 28 palavras) que destaque a oportunidade e o risco principal.",
+            "detail_len":   "5 a 7 frases. Estrutura: (1) O que a empresa faz em linguagem simples, (2) Por que BOGA AI a selecionou, (3) Leitura do momentum técnico, (4) Resumo da saúde fundamental, (5) O risco específico a monitorar, (6) Entrada/alvo/stop em números objetivos.",
+        },
+        "fr": {
+            "lang_name":    "French",
+            "region_note":  "Utilise le français financier professionnel (style Euronext/AMF) — rigoureux mais compréhensible pour un non-spécialiste.",
+            "homepage_len": "UNE phrase percutante (max. 28 mots) qui souligne à la fois l'opportunité et le risque clé.",
+            "detail_len":   "5 à 7 phrases. Structure : (1) Ce que fait l'entreprise en termes simples, (2) Pourquoi BOGA AI l'a sélectionnée, (3) Lecture du momentum technique, (4) Bilan de santé fondamental, (5) Le risque spécifique à surveiller, (6) Entrée/objectif/stop en chiffres précis.",
+        },
+        "id": {
+            "lang_name":    "Indonesian",
+            "region_note":  "Gunakan bahasa Indonesia keuangan profesional (IDX/OJK standard) — tegas namun mudah dipahami investor ritel.",
+            "homepage_len": "SATU kalimat kuat (maks. 28 kata) yang menonjolkan peluang dan risiko utama.",
+            "detail_len":   "5 hingga 7 kalimat. Struktur: (1) Apa yang dilakukan perusahaan dalam bahasa sederhana, (2) Mengapa BOGA AI memilihnya, (3) Pembacaan momentum teknikal, (4) Ringkasan kesehatan fundamental, (5) Risiko spesifik yang perlu dipantau, (6) Entry/target/stop dalam angka yang jelas.",
+        },
+    }
+
+    # ── Master Prompt (İngilizce) — tüm dilleri tek API çağrısında üret ────────
     prompt = f"""
-You are BOGA AI, a professional swing trade analysis assistant. Your task is to generate investment summaries for the stock {ticker} ({company}) in the {sector} sector.
+You are BOGA AI — the engine behind the "Kartal Yuvası Alpha Commander v5.5" protocol.
+Your mission: produce institutional-grade yet plain-language investment summaries for {ticker} ({company}), a {sector} company.
 
-BOGA AI SCORE: {score_100}/100
-TECHNICAL INDICATORS: {trend_status}, RSI={rsi:.1f}, ADX={adx:.1f}, MACD Hist={macd_hist:.3f}, MFI={mfi:.1f}.
-ZONES (Target/Stop): ${sell_high:.2f} / ${stop_high:.2f}.
-FUNDAMENTALS: Margin={net_m:.1f}%, Growth={rev_g:.1f}%, PE={pe:.1f}.
+═══════════════════════════════════════════════════════
+MARKET INTELLIGENCE BRIEFING — {ticker}
+═══════════════════════════════════════════════════════
 
-INSTRUCTIONS:
-1. Write a "homepage_summary": ONE sentence summary in English.
-2. Write a "detail_summary": 3-5 sentences technical reasoning in English.
+▌ SCORE & IDENTITY
+  BOGA AI Score  : {score_100}/100
+  Sector         : {sector}
+  Market Cap     : ${mcap:.1f}B
+  Current Price  : ${price:.2f}
+  Entry Trigger  : {entry_trigger}
+  Trend (Daily)  : {trend_status}
 
-Generate output ONLY as JSON:
+▌ TECHNICAL MATRIX (Kartal Gözü)
+  RSI (14)       : {rsi:.1f} → {rsi_comment}
+  ADX            : {adx:.1f} → {adx_comment}
+  MACD           : {macd_comment}
+  MFI            : {mfi:.1f} (Money Flow — {('accumulation signal' if mfi > 60 else 'distribution warning' if mfi < 40 else 'neutral flow')})
+  EMA Ribbon     : Price is {ema20_status} | {ema50_status} | {ema200_status}
+
+▌ PERFORMANCE CONTEXT
+  1D / 1W / 1M   : {p1d:+.1f}% / {p1w:+.1f}% / {p1m:+.1f}%
+  1Y / 5Y        : {p1y:+.1f}% / {p5y:+.1f}%
+
+▌ FUNDAMENTAL HEALTH (Quant Metrics)
+  Revenue Growth : {rev_g:.1f}%
+  Gross Margin   : {gross_m:.1f}%
+  Operating Margin: {op_m:.1f}%
+  Net Margin     : {net_m:.1f}%
+  P/E Ratio      : {pe:.1f}x
+  P/B Ratio      : {pb:.1f}x
+  FCF Yield      : {fcf_y:.1f}%
+  Valuation      : {val_comment}
+
+▌ TACTICAL ZONES (Operasyonel Plan)
+  Buy Zone       : ${buy_low:.2f} – ${buy_high:.2f}
+  Take Profit    : ${sell_high:.2f}
+  Stop Loss      : ${stop_high:.2f} (pain threshold)
+  Risk/Reward    : {rr_comment}
+
+═══════════════════════════════════════════════════════
+YOUR TASK
+═══════════════════════════════════════════════════════
+
+Generate summaries in ALL SIX languages below. For each language, follow the
+specific regional finance dialect and length instructions precisely.
+
+LANGUAGE INSTRUCTIONS:
+{chr(10).join([f'  [{k.upper()}] {v["lang_name"]}: {v["region_note"]} | homepage → {v["homepage_len"]} | detail → {v["detail_len"]}' for k, v in language_configs.items()])}
+
+CONTENT RULES (apply to ALL languages):
+1. homepage_summary : Captures both the alpha opportunity AND the main risk in one breath.
+   Never generic. Always name a specific catalyst or data point from above.
+2. detail_summary   : Write like a calm, senior analyst briefing a smart but non-finance CEO.
+   Use plain language. Explain what RSI, ADX, margin mean in human terms (no jargon dumps).
+   Mention: company role in sector, why the score is high, one key risk, the entry/stop setup.
+3. NEVER use these hollow phrases: "compelling opportunity", "promising outlook",
+   "solid fundamentals", "strong momentum" without backing with a specific number.
+4. Tone: Confident, measured, honest about risk — not a sales pitch.
+
+OUTPUT FORMAT — Return ONLY valid JSON, no markdown fences, no preamble:
 {{
-  "homepage_summary": {{ "en": "..." }},
-  "detail_summary": {{ "en": "..." }}
+  "homepage_summary": {{
+    "en": "...",
+    "tr": "...",
+    "es": "...",
+    "pt": "...",
+    "fr": "...",
+    "id": "..."
+  }},
+  "detail_summary": {{
+    "en": "...",
+    "tr": "...",
+    "es": "...",
+    "pt": "...",
+    "fr": "...",
+    "id": "..."
+  }}
 }}
 """
 
@@ -1931,89 +2112,294 @@ Generate output ONLY as JSON:
         url = f"{GEMINI_API_URL}?key={GEMINI_API_KEY}"
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.5, "maxOutputTokens": 1000},
+            "generationConfig": {
+                "temperature": 0.45,        # Slightly lower for analytical precision
+                "maxOutputTokens": 3500,    # 6 dil × 2 özet = yeterli token
+                "topP": 0.92,
+                "topK": 40,
+            },
             "safetySettings": [
-                {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
-                {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_HARASSMENT",        "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_HATE_SPEECH",       "threshold": "BLOCK_NONE"},
                 {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
-                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
-            ]
+                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+            ],
         }
+
         async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=payload, timeout=30) as resp:
+            async with session.post(url, json=payload, timeout=45) as resp:
                 if resp.status != 200:
                     logging.error(f"Gemini API hatası ({ticker}): HTTP {resp.status}")
                     return _fallback_summary(c)
                 data = await resp.json()
 
         raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
-        raw_text = re.sub(r"```json|```", "", raw_text).strip()
+
+        # JSON temizleme — bazen Gemini ```json ... ``` wrapper döner
+        raw_text = re.sub(r"```json\s*", "", raw_text)
+        raw_text = re.sub(r"```\s*",     "", raw_text)
+        raw_text = raw_text.strip()
+
         result = json.loads(raw_text)
-        logging.info(f"✅ {ticker}: Gemini AI özeti oluşturuldu.")
+
+        # Yapı doğrulama — her iki alan ve 6 dil mevcut mu?
+        required_keys = {"en", "tr", "es", "pt", "fr", "id"}
+        for field in ("homepage_summary", "detail_summary"):
+            if field not in result:
+                raise ValueError(f"Missing field in Gemini response: {field}")
+            missing_langs = required_keys - set(result[field].keys())
+            if missing_langs:
+                logging.warning(f"⚠️ {ticker}: Gemini yanıtında eksik dil(ler): {missing_langs} — fallback ile tamamlanıyor")
+                # Eksik dilleri fallback ile tamamla
+                fb = _fallback_summary(c)
+                for lang in missing_langs:
+                    result[field][lang] = fb[field].get(lang, "")
+
+        logging.info(f"✅ {ticker}: Gemini AI özeti başarıyla oluşturuldu ({score_100}/100)")
         return result
 
+    except json.JSONDecodeError as je:
+        logging.error(f"❌ {ticker} JSON parse hatası: {je} | Raw: {raw_text[:200]}")
+        return _fallback_summary(c)
     except Exception as e:
         logging.error(f"❌ {ticker} Gemini API hatası: {e}")
         return _fallback_summary(c)
 
 
+# ================================================================
+# FALLBACK — Gemini API erişilemez olduğunda devreye girer
+# "Kartal Yuvası Alpha Commander v5.5" protokolüne uygun,
+# veri destekli, dil başına özelleştirilmiş şablon özetler.
+# ================================================================
+
 def _fallback_summary(c: dict) -> dict:
-    """Gemini API çalışmadığında varsayılan özet."""
-    ticker = c.get("ticker", "")
-    score  = c.get("boga_score_100", 0.0)
-    trend  = c.get("trend_durumu_1d", "Bullish")
-    rsi    = c.get("rsi_14", 50.0)
+    """
+    Gemini API kullanılamadığında devreye giren yüksek kaliteli fallback.
+    Jenerik cümleler YOK — her özet gerçek veri noktaları içerir.
+    Dil: EN / TR / ES / PT / FR / ID
+    """
+    ticker  = c.get("ticker", "")
+    company = c.get("company", ticker)
+    sector  = c.get("sector", "Unknown")
+    score   = c.get("boga_score_100", 0.0)
+    trend   = c.get("trend_durumu_1d", "Bullish")
+    rsi     = c.get("rsi_14", 50.0)
+    adx     = c.get("adx", 0.0)
+    macd_h  = c.get("macd_hist", 0.0)
+    price   = c.get("current_price", 0.0)
 
-    hp_en = f"BOGA AI selected {ticker} as a high-probability swing trade with a score of {score}/100."
-    dt_en = (
-        f"BOGA AI has identified {ticker} as a compelling swing trade opportunity. "
-        f"The stock is in a {trend} trend with RSI at {rsi:.1f}, indicating momentum "
-        f"is building without being overstretched. Volume and price action confirm "
-        f"institutional accumulation. The Risk/Reward setup offers favorable returns "
-        f"relative to the defined stop loss level."
+    # Performans
+    perf    = c.get("performance", {})
+    p1y     = perf.get("1y", 0.0)
+    p1m     = perf.get("1m", 0.0)
+
+    # Temel veriler
+    fin = c.get("financial_health", {})
+    rev_g   = fin.get("revenue_growth", 0.0)
+    net_m   = fin.get("net_margin", 0.0)
+    pe      = fin.get("pe_ratio", 0.0)
+
+    # Bölgeler
+    zones    = c.get("boga_zones", {})
+    buy_low  = zones.get("buy_zone", {}).get("low",  price * 0.97)
+    buy_high = zones.get("buy_zone", {}).get("high", price * 0.99)
+    sell_h   = zones.get("sell_zone", {}).get("high", price * 1.08)
+    stop_h   = zones.get("stop_zone", {}).get("high", price * 0.94)
+    rr       = zones.get("rr_ratio", 2.0)
+
+    # ── İnsan diline çevrilmiş RSI bağlamı ───────────────────────────────────
+    if rsi >= 70:
+        rsi_ctx_en = f"RSI at {rsi:.0f} — the stock is in overbought territory, so a brief pullback before the next leg up is possible"
+        rsi_ctx_tr = f"RSI {rsi:.0f} aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir"
+        rsi_ctx_es = f"RSI en {rsi:.0f} — sobrecomprado, posible corrección breve antes de continuar al alza"
+        rsi_ctx_pt = f"RSI em {rsi:.0f} — sobrecomprado, possível recuo breve antes de continuar em alta"
+        rsi_ctx_fr = f"RSI à {rsi:.0f} — suracheté, une correction courte est possible avant la prochaine hausse"
+        rsi_ctx_id = f"RSI di {rsi:.0f} — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik"
+    elif rsi >= 55:
+        rsi_ctx_en = f"RSI at {rsi:.0f} — momentum is building in the healthy bullish zone without being overextended"
+        rsi_ctx_tr = f"RSI {rsi:.0f} sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor"
+        rsi_ctx_es = f"RSI en {rsi:.0f} — impulso saludable, sin sobreextensión"
+        rsi_ctx_pt = f"RSI em {rsi:.0f} — momentum saudável, sem sobreextensão"
+        rsi_ctx_fr = f"RSI à {rsi:.0f} — momentum haussier sain, sans surextension"
+        rsi_ctx_id = f"RSI di {rsi:.0f} — momentum bullish sehat, tidak berlebihan"
+    else:
+        rsi_ctx_en = f"RSI at {rsi:.0f} — still neutral; a catalyst is needed to confirm the breakout"
+        rsi_ctx_tr = f"RSI {rsi:.0f} nötr bölgede — kırılımı teyitlemek için katalizör bekleniyor"
+        rsi_ctx_es = f"RSI en {rsi:.0f} — neutral, se necesita catalizador para confirmar la ruptura"
+        rsi_ctx_pt = f"RSI em {rsi:.0f} — neutro, precisa de catalisador para confirmar o rompimento"
+        rsi_ctx_fr = f"RSI à {rsi:.0f} — neutre, un catalyseur est nécessaire pour confirmer la cassure"
+        rsi_ctx_id = f"RSI di {rsi:.0f} — netral, butuh katalis untuk konfirmasi breakout"
+
+    # ── ADX bağlamı ──────────────────────────────────────────────────────────
+    if adx >= 25:
+        adx_ctx_en = f"with ADX at {adx:.0f} confirming a genuine trend"
+        adx_ctx_tr = f"ADX {adx:.0f} gerçek bir trendin varlığını doğruluyor"
+        adx_ctx_es = f"con ADX en {adx:.0f} confirmando una tendencia real"
+        adx_ctx_pt = f"com ADX em {adx:.0f} confirmando uma tendência real"
+        adx_ctx_fr = f"avec un ADX à {adx:.0f} confirmant une vraie tendance"
+        adx_ctx_id = f"dengan ADX {adx:.0f} mengkonfirmasi tren nyata"
+    else:
+        adx_ctx_en = f"though ADX at {adx:.0f} suggests the trend is still maturing"
+        adx_ctx_tr = f"ancak ADX {adx:.0f} trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor"
+        adx_ctx_es = f"aunque el ADX en {adx:.0f} indica que la tendencia aún madura"
+        adx_ctx_pt = f"embora ADX em {adx:.0f} indique que a tendência ainda está se formando"
+        adx_ctx_fr = f"bien que l'ADX à {adx:.0f} suggère que la tendance est encore en formation"
+        adx_ctx_id = f"meskipun ADX {adx:.0f} menunjukkan tren masih dalam pematangan"
+
+    # ── MACD bağlamı ─────────────────────────────────────────────────────────
+    macd_dir_en = "positive MACD histogram" if macd_h > 0 else "MACD histogram turning negative"
+    macd_dir_tr = "pozitif MACD histogramı" if macd_h > 0 else "negatife dönen MACD histogramı"
+    macd_dir_es = "histograma MACD positivo" if macd_h > 0 else "histograma MACD girando negativo"
+    macd_dir_pt = "histograma MACD positivo" if macd_h > 0 else "histograma MACD virando negativo"
+    macd_dir_fr = "histogramme MACD positif" if macd_h > 0 else "histogramme MACD virant négatif"
+    macd_dir_id = "histogram MACD positif" if macd_h > 0 else "histogram MACD berbalik negatif"
+
+    # ── Değerleme bağlamı ────────────────────────────────────────────────────
+    if pe > 40:
+        pe_ctx_en = f"At P/E {pe:.0f}x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction"
+        pe_ctx_tr = f"F/K {pe:.0f}x değerleme yüksek — piyasa güçlü büyüme bekliyor; kazanç hayal kırıklığı sert düzeltmeyi tetikleyebilir"
+        pe_ctx_es = f"Con P/E {pe:.0f}x, la valoración es elevada — el mercado exige crecimiento sostenido; una decepción en ganancias podría generar corrección"
+        pe_ctx_pt = f"Com P/L {pe:.0f}x, a avaliação é alta — o mercado exige crescimento forte; uma decepção nos lucros pode gerar correção"
+        pe_ctx_fr = f"Avec un P/E à {pe:.0f}x, la valorisation est élevée — le marché exige une forte croissance; une déception sur les bénéfices pourrait provoquer une correction"
+        pe_ctx_id = f"Dengan P/E {pe:.0f}x, valuasi tinggi — pasar mengharapkan pertumbuhan kuat; kekecewaan laba dapat memicu koreksi tajam"
+    elif pe > 0:
+        pe_ctx_en = f"P/E at {pe:.0f}x is reasonable for the sector, leaving room for re-rating if earnings accelerate"
+        pe_ctx_tr = f"F/K {pe:.0f}x sektör için makul — kazançlar hızlanırsa yeniden değerleme potansiyeli var"
+        pe_ctx_es = f"P/E de {pe:.0f}x es razonable para el sector, con margen de revalorización si los beneficios aceleran"
+        pe_ctx_pt = f"P/L de {pe:.0f}x é razoável para o setor, com espaço para reavaliação se os lucros acelerarem"
+        pe_ctx_fr = f"Le P/E à {pe:.0f}x est raisonnable pour le secteur, avec une marge de revalorisation si les bénéfices s'accélèrent"
+        pe_ctx_id = f"P/E {pe:.0f}x wajar untuk sektor ini, dengan ruang rerating jika laba meningkat"
+    else:
+        pe_ctx_en = "Valuation data is limited — weight technical signals more heavily for this setup"
+        pe_ctx_tr = "Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver"
+        pe_ctx_es = "Datos de valoración limitados — priorizar señales técnicas para este setup"
+        pe_ctx_pt = "Dados de avaliação limitados — priorizar sinais técnicos neste setup"
+        pe_ctx_fr = "Données de valorisation limitées — privilégier les signaux techniques pour ce setup"
+        pe_ctx_id = "Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini"
+
+    # ════════════════════════════════════════════════════════════════════════
+    # ÖZETLER — 6 DİL
+    # ════════════════════════════════════════════════════════════════════════
+
+    summaries = {}
+
+    # ── EN — English ─────────────────────────────────────────────────────────
+    summaries["en"] = (
+        # homepage
+        f"BOGA AI assigns {ticker} a score of {score:.0f}/100 in a {trend} trend — "
+        f"entry zone ${buy_low:.2f}–${buy_high:.2f} targets ${sell_h:.2f} with a {rr:.1f}:1 risk/reward.",
+
+        # detail
+        f"{company} operates in the {sector} sector, and BOGA AI's algorithm flagged it "
+        f"with a {score:.0f}/100 score after detecting institutional accumulation signals aligned "
+        f"with a {trend} daily trend. "
+        f"On the technical side, {rsi_ctx_en}, {adx_ctx_en}, "
+        f"and the {macd_dir_en} reinforces the directional bias. "
+        f"Fundamentally, the company is growing revenue at {rev_g:.1f}% with a net margin of {net_m:.1f}%, "
+        f"which means it keeps ${net_m:.1f} of profit for every $100 in sales. "
+        f"{pe_ctx_en}. "
+        f"The tactical setup: buy between ${buy_low:.2f} and ${buy_high:.2f}, "
+        f"target ${sell_h:.2f}, and place a hard stop at ${stop_h:.2f} — "
+        f"a {rr:.1f}:1 reward-to-risk ratio that makes this a disciplined swing trade candidate."
     )
 
-    langs = {"en": (hp_en, dt_en)}
-    # Simplified multilingual fallbacks
-    langs["tr"] = (
-        f"BOGA AI, {ticker} hissesini {score}/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-        f"BOGA AI, {ticker} hissesini cazip bir swing trade fırsatı olarak belirledi. "
-        f"Hisse {trend} trendinde, RSI {rsi:.1f} ile momentum ivme kazanıyor. "
-        f"Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. "
-        f"Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor."
+    # ── TR — Türkçe ───────────────────────────────────────────────────────────
+    summaries["tr"] = (
+        # homepage
+        f"BOGA AI, {ticker} hissesine {trend} trend içinde {score:.0f}/100 skor verdi — "
+        f"${buy_low:.2f}–${buy_high:.2f} giriş bölgesi, ${sell_h:.2f} hedef, {rr:.1f}:1 risk/ödül oranı.",
+
+        # detail
+        f"{company}, {sector} sektöründe faaliyet gösteriyor ve BOGA AI algoritması, "
+        f"kurumsal birikim sinyalleri ile {trend} günlük trendi tespit ederek hisseye {score:.0f}/100 skor atadı. "
+        f"Teknik tarafta {rsi_ctx_tr}, {adx_ctx_tr} ve {macd_dir_tr} yönsel eğilimi destekliyor. "
+        f"Temel açıdan bakıldığında şirket gelirlerini %{rev_g:.1f} büyütürken "
+        f"net kar marjı %{net_m:.1f} — yani her 100 dolarlık satıştan {net_m:.1f} dolar kar elde ediyor. "
+        f"{pe_ctx_tr}. "
+        f"Operasyonel plan: ${buy_low:.2f}–${buy_high:.2f} aralığından giriş, "
+        f"${sell_h:.2f} kâr hedefi, ${stop_h:.2f} kesin stop — "
+        f"{rr:.1f}:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı."
     )
-    langs["es"] = (
-        f"BOGA AI seleccionó {ticker} como operación swing de alta probabilidad con puntuación {score}/100.",
-        f"BOGA AI identificó {ticker} como una atractiva oportunidad de swing trade. "
-        f"La acción está en tendencia {trend} con RSI {rsi:.1f} mostrando impulso sin sobreextenderse. "
-        f"El volumen y la acción del precio confirman acumulación institucional. "
-        f"La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido."
+
+    # ── ES — Español ──────────────────────────────────────────────────────────
+    summaries["es"] = (
+        # homepage
+        f"BOGA AI otorga a {ticker} una puntuación de {score:.0f}/100 en tendencia {trend} — "
+        f"zona de entrada ${buy_low:.2f}–${buy_high:.2f}, objetivo ${sell_h:.2f}, relación riesgo/beneficio {rr:.1f}:1.",
+
+        # detail
+        f"{company} opera en el sector {sector}, y el algoritmo BOGA AI le asignó {score:.0f}/100 "
+        f"al detectar señales de acumulación institucional alineadas con una tendencia {trend} diaria. "
+        f"Técnicamente, {rsi_ctx_es}, {adx_ctx_es}, "
+        f"y el {macd_dir_es} refuerza el sesgo direccional. "
+        f"En lo fundamental, la empresa crece sus ingresos al {rev_g:.1f}% con un margen neto del {net_m:.1f}% — "
+        f"es decir, retiene ${net_m:.1f} de ganancia por cada $100 en ventas. "
+        f"{pe_ctx_es}. "
+        f"El plan táctico: comprar entre ${buy_low:.2f} y ${buy_high:.2f}, "
+        f"objetivo ${sell_h:.2f}, stop definitivo en ${stop_h:.2f} — "
+        f"una relación recompensa/riesgo de {rr:.1f}:1 que lo convierte en candidato ideal para swing trade."
     )
-    langs["pt"] = (
-        f"BOGA AI selecionou {ticker} como trade swing de alta probabilidade com pontuação {score}/100.",
-        f"BOGA AI identificou {ticker} como uma oportunidade de swing trade atraente. "
-        f"A ação está em tendência {trend} com RSI {rsi:.1f} mostrando impulso sem exageros. "
-        f"Volume e ação do preço confirmam acumulação institucional. "
-        f"A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido."
+
+    # ── PT — Português ────────────────────────────────────────────────────────
+    summaries["pt"] = (
+        # homepage
+        f"BOGA AI atribui ao {ticker} uma pontuação de {score:.0f}/100 em tendência {trend} — "
+        f"zona de entrada ${buy_low:.2f}–${buy_high:.2f}, alvo ${sell_h:.2f}, relação risco/retorno {rr:.1f}:1.",
+
+        # detail
+        f"{company} atua no setor de {sector}, e o algoritmo BOGA AI atribuiu {score:.0f}/100 "
+        f"ao detectar sinais de acumulação institucional alinhados com uma tendência {trend} diária. "
+        f"No âmbito técnico, {rsi_ctx_pt}, {adx_ctx_pt}, "
+        f"e o {macd_dir_pt} reforça o viés direcional. "
+        f"Nos fundamentos, a empresa cresce receita a {rev_g:.1f}% com margem líquida de {net_m:.1f}% — "
+        f"ou seja, retém ${net_m:.1f} de lucro para cada $100 em vendas. "
+        f"{pe_ctx_pt}. "
+        f"O plano tático: comprar entre ${buy_low:.2f} e ${buy_high:.2f}, "
+        f"alvo ${sell_h:.2f}, stop definitivo em ${stop_h:.2f} — "
+        f"uma relação retorno/risco de {rr:.1f}:1 que o torna candidato ideal para swing trade."
     )
-    langs["fr"] = (
-        f"BOGA AI a sélectionné {ticker} comme opportunité de swing trade avec un score de {score}/100.",
-        f"BOGA AI a identifié {ticker} comme une opportunité de swing trade convaincante. "
-        f"L'action est en tendance {trend} avec un RSI à {rsi:.1f}, indiquant un momentum sans surextension. "
-        f"Le volume et l'action des prix confirment une accumulation institutionnelle. "
-        f"Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini."
+
+    # ── FR — Français ─────────────────────────────────────────────────────────
+    summaries["fr"] = (
+        # homepage
+        f"BOGA AI attribue à {ticker} un score de {score:.0f}/100 en tendance {trend} — "
+        f"zone d'entrée ${buy_low:.2f}–${buy_high:.2f}, objectif ${sell_h:.2f}, ratio risque/rendement {rr:.1f}:1.",
+
+        # detail
+        f"{company} opère dans le secteur {sector}, et l'algorithme BOGA AI lui a attribué {score:.0f}/100 "
+        f"après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance {trend} journalière. "
+        f"Techniquement, {rsi_ctx_fr}, {adx_ctx_fr}, "
+        f"et le {macd_dir_fr} renforce le biais directionnel. "
+        f"Sur le plan fondamental, l'entreprise affiche une croissance des revenus de {rev_g:.1f}% "
+        f"avec une marge nette de {net_m:.1f}% — soit ${net_m:.1f} de bénéfice pour chaque $100 de ventes. "
+        f"{pe_ctx_fr}. "
+        f"Le plan tactique : achat entre ${buy_low:.2f} et ${buy_high:.2f}, "
+        f"objectif ${sell_h:.2f}, stop définitif à ${stop_h:.2f} — "
+        f"un ratio rendement/risque de {rr:.1f}:1 qui en fait un candidat idéal pour le swing trade."
     )
-    langs["id"] = (
-        f"BOGA AI memilih {ticker} sebagai swing trade probabilitas tinggi dengan skor {score}/100.",
-        f"BOGA AI mengidentifikasi {ticker} sebagai peluang swing trade yang menarik. "
-        f"Saham berada dalam tren {trend} dengan RSI {rsi:.1f}, menunjukkan momentum tanpa berlebihan. "
-        f"Volume dan aksi harga mengkonfirmasi akumulasi institusional. "
-        f"Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+
+    # ── ID — Bahasa Indonesia ─────────────────────────────────────────────────
+    summaries["id"] = (
+        # homepage
+        f"BOGA AI memberi {ticker} skor {score:.0f}/100 dalam tren {trend} — "
+        f"zona beli ${buy_low:.2f}–${buy_high:.2f}, target ${sell_h:.2f}, rasio risiko/imbalan {rr:.1f}:1.",
+
+        # detail
+        f"{company} beroperasi di sektor {sector}, dan algoritma BOGA AI menetapkan skor {score:.0f}/100 "
+        f"setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren {trend} harian. "
+        f"Secara teknikal, {rsi_ctx_id}, {adx_ctx_id}, "
+        f"dan {macd_dir_id} memperkuat bias arah pergerakan. "
+        f"Secara fundamental, perusahaan tumbuh pendapatannya {rev_g:.1f}% dengan margin bersih {net_m:.1f}% — "
+        f"artinya setiap $100 penjualan menghasilkan ${net_m:.1f} keuntungan bersih. "
+        f"{pe_ctx_id}. "
+        f"Rencana taktis: beli di antara ${buy_low:.2f} dan ${buy_high:.2f}, "
+        f"target ${sell_h:.2f}, stop ketat di ${stop_h:.2f} — "
+        f"rasio imbalan/risiko {rr:.1f}:1 menjadikannya kandidat swing trade yang terukur."
     )
 
     return {
-        "homepage_summary": {k: v[0] for k, v in langs.items()},
-        "detail_summary":   {k: v[1] for k, v in langs.items()},
+        "homepage_summary": {k: v[0] for k, v in summaries.items()},
+        "detail_summary":   {k: v[1] for k, v in summaries.items()},
     }
 
 # ================================================================
@@ -2234,95 +2620,270 @@ def build_json_output(top10: list, generated_at: str) -> dict:
 
 # ================================================================
 # ================================================================
-# BÖLÜM 15: TELEGRAM RAPOR BLOKU
+# BÖLÜM 15: TELEGRAM RAPOR BLOKU — KARTAL YUVASI ALPHA COMMANDER v5.5
 # ================================================================
 # ================================================================
 
 def classify_risk(rr: float) -> str:
-    if rr >= 2.5: return "A+ (Premium)"
-    if rr >= 2.0: return "A (Strong)"
-    if rr >= 1.8: return "B+ (Good)"
-    if rr >= 1.5: return "B (Moderate)"
-    return "C (Weak)"
+    """Risk/Ödül oranına göre kalite sınıflandırması."""
+    if rr >= 3.0: return "🏆 S (Elite)"
+    if rr >= 2.5: return "💎 A+ (Premium)"
+    if rr >= 2.0: return "✅ A (Güçlü)"
+    if rr >= 1.8: return "🟡 B+ (İyi)"
+    if rr >= 1.5: return "🟠 B (Orta)"
+    return "🔴 C (Zayıf)"
+
+
+def classify_rsi(rsi: float) -> str:
+    """RSI değerini insan diline çevirir."""
+    if rsi >= 75: return "⚠️ Aşırı Alım — Geri çekilme riski yüksek"
+    if rsi >= 65: return "🔥 Güçlü Momentum — Dikkatli takip"
+    if rsi >= 55: return "📈 Sağlıklı Yükseliş Bölgesi"
+    if rsi >= 45: return "➡️ Nötr — Katalizör bekleniyor"
+    if rsi >= 35: return "📉 Baskı Altında — Toparlanma takibi"
+    return "❄️ Aşırı Satım — Potansiyel dönüş fırsatı"
+
+
+def classify_adx(adx: float) -> str:
+    """ADX değerini trend gücü olarak yorumlar."""
+    if adx >= 40: return "🚀 Çok Güçlü Trend — Momentum zirveye yakın"
+    if adx >= 30: return "💪 Güçlü Trend — Kurumsal ilgi var"
+    if adx >= 25: return "📊 Teyitli Trend — Sağlıklı hareket"
+    if adx >= 20: return "🌊 Orta Trend — Olgunlaşıyor"
+    return "😴 Zayıf Trend — Range-bound dikkat"
+
+
+def classify_macd(macd_hist: float) -> str:
+    """MACD histogramını yorumlar."""
+    if macd_hist > 0.05:  return f"✅ Pozitif ({macd_hist:+.3f}) — Kırılımı destekliyor"
+    if macd_hist > 0:     return f"🟡 Hafif Pozitif ({macd_hist:+.3f}) — Momentum oluşuyor"
+    if macd_hist > -0.05: return f"🟠 Hafif Negatif ({macd_hist:+.3f}) — Dikkatli izle"
+    return f"🔴 Negatif ({macd_hist:+.3f}) — Satış baskısı var"
+
+
+def classify_mfi(mfi: float) -> str:
+    """Money Flow Index yorumu."""
+    if mfi >= 70: return f"{mfi:.1f} — 💰 Güçlü Para Girişi (Kurumsal birikim)"
+    if mfi >= 55: return f"{mfi:.1f} — 📥 Para Akışı Pozitif"
+    if mfi >= 45: return f"{mfi:.1f} — ↔️ Nötr Para Akışı"
+    if mfi >= 30: return f"{mfi:.1f} — 📤 Para Çıkışı Var"
+    return f"{mfi:.1f} — 🚨 Güçlü Para Çıkışı (Dağıtım riski)"
+
+
+def ema_gap(price: float, ema: float, label: str) -> str:
+    """Fiyatın EMA'ya göre konumunu gösterir."""
+    if price <= 0 or ema <= 0:
+        return f"${ema:.2f} (Veri yok)"
+    pct = ((price - ema) / ema) * 100
+    arrow = "▲" if pct >= 0 else "▼"
+    return f"${ema:.2f}  {arrow} {abs(pct):.1f}% {'üzerinde' if pct >= 0 else 'altında'}"
+
+
+def format_mcap(mcap_raw: float) -> str:
+    """Market cap'i okunabilir formata çevirir."""
+    if mcap_raw >= 1e12: return f"${mcap_raw/1e12:.2f}T"
+    if mcap_raw >= 1e9:  return f"${mcap_raw/1e9:.2f}B"
+    if mcap_raw > 0:     return f"${mcap_raw/1e6:.0f}M"
+    return "N/A"
+
+
+def verdict_emoji(score: float) -> str:
+    """BOGA AI skoruna göre karar etiketi."""
+    if score >= 85: return "🦅 ELİT FIRSAT"
+    if score >= 75: return "🐂 GÜÇLÜ AL"
+    if score >= 65: return "📊 AL / İZLE"
+    if score >= 55: return "⏳ BEKLE"
+    return "⚠️ ZAYIF"
 
 
 def build_candidate_block(rank: int, c: dict) -> str:
-    ticker = c["ticker"]
-    sector = c.get("sector", "Çeşitli")
-    score  = c.get("score", 0.0)
-    boga_s = c.get("boga_score_100", 0.0)
-    zones  = c.get("boga_zones", {})
-    rr     = zones.get("rr_ratio", c.get("rr_ratio", 0.0))
-    risk_class = classify_risk(rr)
+    """
+    Telegram için tek hisse analiz bloğu üretir.
+    "Kartal Yuvası Alpha Commander v5.5" formatında:
+    — Hem finans profesyoneline hem de yeni başlayan yatırımcıya hitap eder
+    — AI özeti Türkçe
+    — Tüm indikatörler sade dilde açıklanır
+    — Boş/jenerik cümle kullanılmaz; her satır somut veri içerir
+    """
 
-    buy_z  = zones.get("buy_zone", {})
-    sell_z = zones.get("sell_zone", {})
-    stop_z = zones.get("stop_zone", {})
+    # ── Temel Kimlik ─────────────────────────────────────────────────────────
+    ticker      = c.get("ticker", "")
+    sector      = c.get("sector", "Çeşitli")
+    boga_s      = c.get("boga_score_100", 0.0)
+    entry       = c.get("current_price", 0.0)
+    mcap_raw    = c.get("market_cap", 0) or 0
+    mcap_str    = format_mcap(mcap_raw)
+    exhaust_tag = "  ⚠️ EXHAUSTED — Dikkatli!" if c.get("is_exhausted") else ""
 
-    entry  = c.get("current_price", 0.0)
-    perf   = c.get("performance", {})
-    fin    = c.get("financial_health", {})
-    d1     = c.get("d1_summary", {})
-    h1     = c.get("h1_summary", {})
-    summ   = c.get("ai_summary", {})
-    detail_en = summ.get("detail_summary", {}).get("en", "")
+    # ── Bölgeler ─────────────────────────────────────────────────────────────
+    zones    = c.get("boga_zones", {})
+    rr       = zones.get("rr_ratio", c.get("rr_ratio", 0.0))
+    risk_cls = classify_risk(rr)
+    buy_z    = zones.get("buy_zone",  {})
+    sell_z   = zones.get("sell_zone", {})
+    stop_z   = zones.get("stop_zone", {})
+    sup_1h   = zones.get("support_1h",  0.0)
+    res_1h   = zones.get("resist_1h",   0.0)
 
-    # Market Cap
-    mcap_raw = c.get("market_cap", 0) or 0
-    if mcap_raw >= 1e12: mcap_str = f"{mcap_raw/1e12:.2f}T"
-    elif mcap_raw >= 1e9: mcap_str = f"{mcap_raw/1e9:.2f}B"
-    else: mcap_str = f"{mcap_raw/1e6:.0f}M" if mcap_raw > 0 else "N/A"
+    # ── Teknik İndikatörler ──────────────────────────────────────────────────
+    rsi      = c.get("rsi_14",    50.0)
+    adx      = c.get("adx",        0.0)
+    macd_h   = c.get("macd_hist",  0.0)
+    mfi      = c.get("mfi",       50.0)
+    ema20    = c.get("ema20",       0.0)
+    ema50    = c.get("ema50",       0.0)
+    ema200   = c.get("ema200",      0.0)
 
-    exhaust_tag = " ⚠️ EXHAUSTED" if c.get("is_exhausted") else ""
+    # ── Trend Özeti ───────────────────────────────────────────────────────────
+    d1   = c.get("d1_summary", {})
+    h1   = c.get("h1_summary", {})
+    trend_d1 = d1.get("Trend Status", "N/A")
+    trend_h1 = h1.get("Trend Status", "N/A")
+
+    # ── Performans ────────────────────────────────────────────────────────────
+    perf = c.get("performance", {})
+    p1d  = perf.get("1d", 0.0)
+    p1w  = perf.get("1w", 0.0)
+    p1m  = perf.get("1m", 0.0)
+    p1y  = perf.get("1y", 0.0)
+    p5y  = perf.get("5y", 0.0)
+
+    # ── Temel Veriler ─────────────────────────────────────────────────────────
+    fin     = c.get("financial_health", {})
+    gross_m = fin.get("gross_margin",    0.0)
+    op_m    = fin.get("operating_margin", 0.0)
+    net_m   = fin.get("net_margin",       0.0)
+    rev_g   = fin.get("revenue_growth",   0.0)
+    pe      = fin.get("pe_ratio",         0.0)
+    pb      = fin.get("pb_ratio",         0.0)
+    fcf_y   = fin.get("fcf_yield",        0.0)
+
+    # ── P/E Yorumu ────────────────────────────────────────────────────────────
+    if pe > 50:
+        pe_yorum = "Yüksek değerleme — güçlü büyüme bekleniyor"
+    elif pe > 25:
+        pe_yorum = "Makul değerleme — büyüme fiyatlanmış"
+    elif pe > 0:
+        pe_yorum = "Düşük F/K — potansiyel iskonto fırsatı"
+    else:
+        pe_yorum = "Veri yok"
+
+    # ── Gelir Büyümesi Yorumu ─────────────────────────────────────────────────
+    if rev_g >= 30:
+        rev_yorum = "🚀 Yüksek büyüme hızı"
+    elif rev_g >= 15:
+        rev_yorum = "📈 Güçlü büyüme"
+    elif rev_g >= 5:
+        rev_yorum = "📊 Istikrarlı büyüme"
+    elif rev_g >= 0:
+        rev_yorum = "➡️ Yatay büyüme"
+    else:
+        rev_yorum = "📉 Gelir daralması"
+
+    # ── AI Özeti (Türkçe) ─────────────────────────────────────────────────────
+    summ      = c.get("ai_summary", {})
+    detail_tr = summ.get("detail_summary", {}).get("tr", "")
+    home_tr   = summ.get("homepage_summary", {}).get("tr", "")
+
+    # ── BLOK OLUŞTURMA ────────────────────────────────────────────────────────
 
     block = (
-        f"<b>{rank:02d}. {ticker}</b> ({sector}){exhaust_tag}\n"
-        f"🐂 <b>BOGA AI Score: {boga_s:.1f}/100</b> | 💼 Cap: {mcap_str} | 🧠 Risk: {risk_class}\n\n"
-        f"💵 <b>Current Price: ${entry:.2f}</b>\n\n"
-        # BOGA AI ZONES
-        f"📌 <b>BOGA AI MODEL ANALYSIS</b>\n"
-        f"🟢 <b>BUYING ZONE:</b> ${buy_z.get('low',0):.2f} – ${buy_z.get('high',0):.2f}\n"
-        f"🎯 <b>SELL ZONE (TARGET):</b> ${sell_z.get('low',0):.2f} – ${sell_z.get('high',0):.2f}\n"
-        f"🔴 <b>STOP LOSS ZONE:</b> ${stop_z.get('low',0):.2f} – ${stop_z.get('high',0):.2f}\n"
-        f"⚖️ <b>Risk/Reward: {rr:.1f}:1</b> | 1H Support: ${zones.get('support_1h',0):.2f} | Resistance: ${zones.get('resist_1h',0):.2f}\n\n"
-        # Trend Status
-        f"📌 <b>Trend Status</b>\n"
-        f"• Trend: <b>{d1.get('Trend Status','N/A')}</b>\n"
-        f"• RSI (14): {c.get('rsi_14',0):.1f} — {'Momentum building' if 40<=c.get('rsi_14',50)<=55 else 'Momentum continuing' if c.get('rsi_14',50)<=70 else 'Overbought zone'}\n"
-        f"• ADX: {c.get('adx',0):.1f} — {'Very strong trend' if c.get('adx',0)>=30 else 'Strong trend' if c.get('adx',0)>=25 else 'Moderate trend' if c.get('adx',0)>=20 else 'Weak trend'}\n"
-        f"• MACD Hist: {c.get('macd_hist',0):.3f} — {'Supporting breakout' if c.get('macd_hist',0)>0 else 'Caution advised'}\n"
-        f"• MFI: {c.get('mfi',50):.1f} — {'Money flowing in' if c.get('mfi',50)>=50 else 'Money flowing out'}\n\n"
-        # Moving Averages
-        f"📌 <b>Moving Averages</b>\n"
-        f"• EMA 20: ${c.get('ema20',0):.2f}\n"
-        f"• EMA 50: ${c.get('ema50',0):.2f}\n"
-        f"• EMA 200: ${c.get('ema200',0):.2f}\n\n"
-        # Performance
-        f"📌 <b>Price Performance</b>\n"
-        f"• 1G: {c.get('performance',{}).get('1d',0):+.2f}% | 1H: {c.get('performance',{}).get('1w',0):+.2f}% | 1A: {c.get('performance',{}).get('1m',0):+.2f}%\n"
-        f"• 1Y: {c.get('performance',{}).get('1y',0):+.2f}% | 5Y: {c.get('performance',{}).get('5y',0):+.2f}%\n\n"
+        # ── BAŞLIK ──────────────────────────────────────────────────────────
+        f"{'═'*40}\n"
+        f"<b>#{rank:02d} — {ticker}</b>  |  {sector}{exhaust_tag}\n"
+        f"{'═'*40}\n\n"
+
+        # ── SKORLAR & KİMLİK ─────────────────────────────────────────────────
+        f"🐂 <b>BOGA AI Skoru: {boga_s:.1f}/100</b>  —  {verdict_emoji(boga_s)}\n"
+        f"⚖️ Risk Sınıfı: <b>{risk_cls}</b>  |  Risk/Ödül: <b>{rr:.1f}:1</b>\n"
+        f"💼 Piyasa Değeri: <b>{mcap_str}</b>\n"
+        f"💵 Güncel Fiyat: <b>${entry:.2f}</b>\n\n"
+
+        # ── BOGA AI BÖLGELERI ────────────────────────────────────────────────
+        f"┌─ 🎯 <b>BOGA AI ALIM/SATIŞ HARİTASI</b>\n"
+        f"│\n"
+        f"│  🟢 <b>ALIM BÖLGESİ :</b>  ${buy_z.get('low',0):.2f}  –  ${buy_z.get('high',0):.2f}\n"
+        f"│     ↳ Fiyat bu aralığa gelirse ideal giriş noktası\n"
+        f"│\n"
+        f"│  🎯 <b>KÂR HEDEFİ   :</b>  ${sell_z.get('low',0):.2f}  –  ${sell_z.get('high',0):.2f}\n"
+        f"│     ↳ Kısmi veya tam satış için hedef bölge\n"
+        f"│\n"
+        f"│  🔴 <b>STOP LOSS    :</b>  ${stop_z.get('low',0):.2f}  –  ${stop_z.get('high',0):.2f}\n"
+        f"│     ↳ Bu seviye kırılırsa strateji iptal — zararı kes\n"
+        f"│\n"
+        f"│  📐 1S Destek: ${sup_1h:.2f}  |  Direnç: ${res_1h:.2f}\n"
+        f"└────────────────────────────────────────\n\n"
+
+        # ── TREND DURUMU ─────────────────────────────────────────────────────
+        f"📌 <b>TREND DURUMU</b>\n"
+        f"• Günlük (1G) Trend : <b>{trend_d1}</b>\n"
+        f"• Saatlik (1S) Trend: <b>{trend_h1}</b>\n\n"
+
+        # ── TEKNİK İNDİKATÖRLER ──────────────────────────────────────────────
+        f"📌 <b>TEKNİK İNDİKATÖRLER</b>\n"
+        f"• RSI (14)   : {rsi:.1f}  →  {classify_rsi(rsi)}\n"
+        f"• ADX        : {adx:.1f}  →  {classify_adx(adx)}\n"
+        f"• MACD Hist  : {classify_macd(macd_h)}\n"
+        f"• MFI        : {classify_mfi(mfi)}\n\n"
+
+        # ── HAREKETLİ ORTALAMALAR ─────────────────────────────────────────────
+        f"📌 <b>HAREKETLİ ORTALAMALAR</b>  (Fiyat: ${entry:.2f})\n"
+        f"• EMA 20  : {ema_gap(entry, ema20,  'EMA20')}\n"
+        f"  ↳ Kısa vadeli momentum göstergesi\n"
+        f"• EMA 50  : {ema_gap(entry, ema50,  'EMA50')}\n"
+        f"  ↳ Orta vadeli trend sağlığı\n"
+        f"• EMA 200 : {ema_gap(entry, ema200, 'EMA200')}\n"
+        f"  ↳ Uzun vadeli bull/bear ayrımı\n\n"
+
+        # ── FİYAT PERFORMANSI ─────────────────────────────────────────────────
+        f"📌 <b>FİYAT PERFORMANSI</b>\n"
+        f"• 1 Gün  : <b>{p1d:+.2f}%</b>  |  1 Hafta: <b>{p1w:+.2f}%</b>  |  1 Ay: <b>{p1m:+.2f}%</b>\n"
+        f"• 1 Yıl  : <b>{p1y:+.2f}%</b>  |  5 Yıl : <b>{p5y:+.2f}%</b>\n\n"
     )
 
-    # Fundamental Margins
+    # ── TEMEL ANALİZ (fin verisi varsa) ──────────────────────────────────────
     if fin:
         block += (
-            f"📌 <b>Fundamental Margins</b>\n"
-            f"• Gross Margin: {fin.get('gross_margin',0):.1f}% — {'Profit kept after production costs'}\n"
-            f"• Operating Margin: {fin.get('operating_margin',0):.1f}% — {'Operational efficiency indicator'}\n"
-            f"• Net Margin: {fin.get('net_margin',0):.1f}% — {'Final net profit percentage'}\n"
-            f"• Revenue Growth: {fin.get('revenue_growth',0):.1f}% — {'YoY revenue growth speed'}\n"
-            f"• P/E: {fin.get('pe_ratio',0):.1f} | P/B: {fin.get('pb_ratio',0):.2f} | FCF Yield: {fin.get('fcf_yield',0):.1f}%\n"
-            f"• Market Cap: {c.get('market_cap_str', mcap_str)}\n\n"
+            f"📌 <b>TEMEL ANALİZ</b>  (Şirket Finansal Sağlığı)\n"
+            f"• Brüt Kar Marjı    : %{gross_m:.1f}\n"
+            f"  ↳ Üretim/satış maliyeti düşüldükten sonra kalan kâr oranı\n"
+            f"• Faaliyet Marjı    : %{op_m:.1f}\n"
+            f"  ↳ Günlük operasyonların ne kadar verimli çalıştığını gösterir\n"
+            f"• Net Kâr Marjı     : %{net_m:.1f}\n"
+            f"  ↳ Her 100$ satıştan şirkete kalan net kâr: ${net_m:.1f}\n"
+            f"• Gelir Büyümesi    : %{rev_g:.1f}  —  {rev_yorum}\n"
+            f"• F/K (P/E)         : {pe:.1f}x  —  {pe_yorum}\n"
+            f"• F/DD (P/B)        : {pb:.2f}x\n"
+            f"• Serbest Nakit Akışı Verimi: %{fcf_y:.1f}\n"
+            f"  ↳ Şirketin hissedar başına yarattığı gerçek nakit değeri\n\n"
         )
 
-    # BOGA AI özet (İngilizce)
-    if detail_en:
+    # ── BOGA AI TÜRKÇE ANALİZ ────────────────────────────────────────────────
+    if home_tr:
         block += (
-            f"🐂 <b>BOGA AI Analysis:</b>\n"
-            f"<i>{detail_en[:500]}...</i>\n\n"
+            f"🐂 <b>BOGA AI KISA ÖZET:</b>\n"
+            f"<i>{home_tr}</i>\n\n"
         )
 
-    block += "────────────────────────────────────────\n\n"
+    if detail_tr:
+        # 700 karakter sınırı — detay sayfasına yönlendir
+        truncated = detail_tr[:700].rsplit(" ", 1)[0] + "…" if len(detail_tr) > 700 else detail_tr
+        block += (
+            f"🧠 <b>BOGA AI DETAYLI ANALİZ:</b>\n"
+            f"<i>{truncated}</i>\n\n"
+        )
+
+    # ── ÖZET KARAR KUTUSU ────────────────────────────────────────────────────
+    block += (
+        f"┌─ ⚡ <b>BOGA AI KARARI</b>\n"
+        f"│  Skor    : {boga_s:.1f}/100  —  {verdict_emoji(boga_s)}\n"
+        f"│  Giriş   : ${buy_z.get('low',0):.2f} – ${buy_z.get('high',0):.2f}\n"
+        f"│  Hedef   : ${sell_z.get('high',0):.2f}\n"
+        f"│  Stop    : ${stop_z.get('high',0):.2f}\n"
+        f"│  R/Ö     : {rr:.1f}:1  —  {risk_cls}\n"
+        f"└────────────────────────────────────────\n\n"
+    )
+
     return block
 
 # ================================================================
@@ -2540,7 +3101,7 @@ async def scan_top_stocks():
 
     # Özet tablo
     header = (
-        f"🐂 <b>BOGA AI SWING V114 – TOP {TOP_FINAL_PICKS} PICKS</b>\n"
+        f"🐂 <b>ATMACA SWING V114 – TOP {TOP_FINAL_PICKS} PICKS</b>\n"
         f"🕒 <i>{now_str}</i> | ⏱ {duration:.1f}s\n"
         f"📊 <i>{len(tickers_to_scan)} scanned → {len(candidates)} candidates → Top {TOP_FINAL_PICKS}</i>\n"
         f"📈 Market: <b>{MARKET_STATUS['regime']}</b>\n\n"
@@ -2634,7 +3195,6 @@ async def run_scanner():
         "🐂 <b>BOGA AI SWING TRADE V114 Başlatıldı!</b>\n"
         "📅 Çalışma: Hafta içi her gün New York 13:00\n"
         "🎯 Hedef: Günün En İyi 10 Swing Trade Fırsatı\n"
-        "🌍 6 Dil AI Özet: EN / TR / ES / PT / FR / ID\n"
         "💡 JSON: swing_picks_boga.json\n"
         "📊 R/R: ~2.5:1 hedefi | ATR + 1H Destek/Direnç"
     )

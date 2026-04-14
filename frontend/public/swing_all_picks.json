@@ -27,8 +27,8 @@
         "low": 73.42,
         "high": 74.64
       },
-      "reasoning": "BOGA AI selected BBIO as a high-probability swing trade with a score of 58.9/100.",
-      "detail_reasoning": "BOGA AI has identified BBIO as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 63.1, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "BBIO's 141% YoY gain and bullish RSI signal a potential swing trade, but incomplete valuation data demands caution despite an attractive 2.5:1 risk/reward ratio.",
+      "detail_reasoning": "BridgeBio Pharma focuses on developing therapies for genetic diseases. BOGA AI selected BBIO due to its recent price momentum, indicated by a bullish RSI of 63.1. Technically, while RSI signals strength, the ADX suggests the trend is weak, and MACD hints at bearish pressure. Fundamentally, the lack of complete valuation data is a significant concern. Watch for further valuation updates. Consider an entry between $76.34 and $78.48, targeting $80.59, with a stop loss at $74.64.",
       "adx": 20.8,
       "rsi": 63.1,
       "rvol": 1.62,
@@ -53,7 +53,11 @@
         "atr_1d": 3.06,
         "atr_pct": 3.93,
         "risk_usd": 1.7,
-        "reward_usd": 4.25
+        "reward_usd": 4.25,
+        "buy_zone": {
+          "low": 76.34,
+          "high": 78.48
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -113,20 +117,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected BBIO as a high-probability swing trade with a score of 58.9/100.",
-          "tr": "BOGA AI, BBIO hissesini 58.9/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó BBIO como operación swing de alta probabilidad con puntuación 58.9/100.",
-          "pt": "BOGA AI selecionou BBIO como trade swing de alta probabilidade com pontuação 58.9/100.",
-          "fr": "BOGA AI a sélectionné BBIO comme opportunité de swing trade avec un score de 58.9/100.",
-          "id": "BOGA AI memilih BBIO sebagai swing trade probabilitas tinggi dengan skor 58.9/100."
+          "en": "BBIO's 141% YoY gain and bullish RSI signal a potential swing trade, but incomplete valuation data demands caution despite an attractive 2.5:1 risk/reward ratio.",
+          "tr": "BBIO'nun yıllık %141'lik kazancı ve yükseliş RSI sinyali potansiyel bir swing trade fırsatı sunuyor, ancak eksik değerleme verileri 2.5:1'lik cazip risk/ödül oranına rağmen dikkatli olmayı gerektiriyor.",
+          "es": "La ganancia interanual del 141% de BBIO y la señal alcista del RSI señalan una posible operación de swing, pero los datos de valoración incompletos exigen precaución a pesar de una atractiva relación riesgo/recompensa de 2.5:1.",
+          "pt": "O ganho anual de 141% da BBIO e o sinal de RSI de alta indicam uma potencial operação de swing trade, mas os dados de avaliação incompletos exigem cautela, apesar de uma atraente relação risco/recompensa de 2,5:1.",
+          "fr": "Le gain annuel de 141 % de BBIO et le signal haussier du RSI indiquent une opportunité de swing trading potentielle, mais les données d'évaluation incomplètes exigent la prudence malgré un ratio risque/rendement attractif de 2,5:1.",
+          "id": "Kenaikan YoY BBIO sebesar 141% dan sinyal RSI bullish menandakan potensi swing trade, tetapi data valuasi yang tidak lengkap menuntut kehati-hatian meskipun rasio risiko/imbalan 2.5:1 yang menarik."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified BBIO as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 63.1, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, BBIO hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 63.1 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó BBIO como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 63.1 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou BBIO como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 63.1 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié BBIO comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 63.1, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi BBIO sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 63.1, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "BridgeBio Pharma focuses on developing therapies for genetic diseases. BOGA AI selected BBIO due to its recent price momentum, indicated by a bullish RSI of 63.1. Technically, while RSI signals strength, the ADX suggests the trend is weak, and MACD hints at bearish pressure. Fundamentally, the lack of complete valuation data is a significant concern. Watch for further valuation updates. Consider an entry between $76.34 and $78.48, targeting $80.59, with a stop loss at $74.64.",
+          "tr": "BridgeBio Pharma, genetik hastalıklar için tedaviler geliştirmeye odaklanıyor. BOGA AI, BBIO'yu 63.1'lik yükseliş RSI'ı ile belirtilen son fiyat momentumu nedeniyle seçti. Teknik olarak, RSI gücü işaret ederken, ADX trendin zayıf olduğunu ve MACD düşüş baskısına işaret ediyor. Temel olarak, eksik değerleme verileri önemli bir endişe kaynağı. Değerleme güncellemelerini izleyin. 76.34 ile 78.48 dolar arasında bir giriş, 80.59 dolar hedef ve 74.64 dolarda stop loss düşünebilirsiniz.",
+          "es": "BridgeBio Pharma se centra en el desarrollo de terapias para enfermedades genéticas. BOGA AI seleccionó BBIO debido a su reciente impulso de precios, indicado por un RSI alcista de 63.1. Técnicamente, si bien el RSI señala fortaleza, el ADX sugiere que la tendencia es débil y el MACD insinúa una presión bajista. Fundamentalmente, la falta de datos de valoración completos es una preocupación importante. Esté atento a las actualizaciones de valoración. Considere una entrada entre $76.34 y $78.48, apuntando a $80.59, con un stop loss en $74.64.",
+          "pt": "BridgeBio Pharma se concentra no desenvolvimento de terapias para doenças genéticas. A BOGA AI selecionou a BBIO devido ao seu recente momentum de preço, indicado por um RSI de alta de 63,1. Tecnicamente, embora o RSI sinalize força, o ADX sugere que a tendência é fraca e o MACD indica pressão de baixa. Fundamentalmente, a falta de dados de avaliação completos é uma preocupação significativa. Fique atento às atualizações de avaliação. Considere uma entrada entre US$ 76,34 e US$ 78,48, com meta de US$ 80,59 e stop loss em US$ 74,64.",
+          "fr": "BridgeBio Pharma se concentre sur le développement de thérapies pour les maladies génétiques. BOGA AI a sélectionné BBIO en raison de sa dynamique de prix récente, indiquée par un RSI haussier de 63,1. Techniquement, bien que le RSI signale une force, l'ADX suggère que la tendance est faible et le MACD laisse entrevoir une pression baissière. Fondamentalement, le manque de données d'évaluation complètes est une préoccupation importante. Surveillez les mises à jour de l'évaluation. Envisagez une entrée entre 76,34 $ et 78,48 $, en visant 80,59 $, avec un stop loss à 74,64 $.",
+          "id": "BridgeBio Pharma berfokus pada pengembangan terapi untuk penyakit genetik. BOGA AI memilih BBIO karena momentum harga baru-baru ini, yang ditunjukkan oleh RSI bullish sebesar 63.1. Secara teknis, meskipun RSI menandakan kekuatan, ADX menunjukkan tren lemah, dan MACD mengisyaratkan tekanan bearish. Secara fundamental, kurangnya data valuasi lengkap merupakan perhatian signifikan. Pantau pembaruan valuasi lebih lanjut. Pertimbangkan entry antara $76.34 dan $78.48, menargetkan $80.59, dengan stop loss di $74.64."
         }
       },
       "change_1m": 14.55,
@@ -154,8 +158,8 @@
         "low": 114.39,
         "high": 115.91
       },
-      "reasoning": "BOGA AI selected CRH as a high-probability swing trade with a score of 58.0/100.",
-      "detail_reasoning": "BOGA AI has identified CRH as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 64.2, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "CRH's recent 17.6% monthly surge presents short-term upside, but incomplete valuation data signals fundamental risks requiring careful monitoring.",
+      "detail_reasoning": "CRH PLC operates within the Basic Materials sector. BOGA AI's selection is driven by the recent bullish momentum, reflected in a 10.3% weekly gain, despite a potentially weakening trend signaled by the ADX at 23.3. Technically, the RSI at 64.2 indicates continued buying pressure, but the negative MACD histogram suggests caution. Fundamentally, incomplete valuation data is a key risk. Consider an entry around $117.16, targeting $118.59, with a stop-loss at $115.91.",
       "adx": 23.3,
       "rsi": 64.2,
       "rvol": 1.15,
@@ -180,7 +184,11 @@
         "atr_1d": 3.8,
         "atr_pct": 3.24,
         "risk_usd": 0.38,
-        "reward_usd": 2.3
+        "reward_usd": 2.3,
+        "buy_zone": {
+          "low": 116.29,
+          "high": 118.03
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -240,20 +248,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected CRH as a high-probability swing trade with a score of 58.0/100.",
-          "tr": "BOGA AI, CRH hissesini 58.0/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó CRH como operación swing de alta probabilidad con puntuación 58.0/100.",
-          "pt": "BOGA AI selecionou CRH como trade swing de alta probabilidade com pontuação 58.0/100.",
-          "fr": "BOGA AI a sélectionné CRH comme opportunité de swing trade avec un score de 58.0/100.",
-          "id": "BOGA AI memilih CRH sebagai swing trade probabilitas tinggi dengan skor 58.0/100."
+          "en": "CRH's recent 17.6% monthly surge presents short-term upside, but incomplete valuation data signals fundamental risks requiring careful monitoring.",
+          "tr": "CRH'nin son bir ayda %17,6'lık yükselişi kısa vadeli fırsatlar sunuyor, ancak eksik değerleme verileri temel risklerin dikkatle izlenmesini gerektiriyor.",
+          "es": "El reciente aumento mensual del 17.6% de CRH presenta oportunidades a corto plazo, pero los datos de valoración incompletos señalan riesgos fundamentales que requieren una cuidadosa supervisión.",
+          "pt": "O recente aumento mensal de 17,6% da CRH apresenta oportunidades de curto prazo, mas dados de avaliação incompletos sinalizam riscos fundamentais que exigem monitoramento cuidadoso.",
+          "fr": "La récente hausse mensuelle de 17,6 % de CRH offre un potentiel à court terme, mais des données d'évaluation incomplètes signalent des risques fondamentaux nécessitant une surveillance attentive.",
+          "id": "Kenaikan bulanan CRH sebesar 17.6% baru-baru ini menghadirkan potensi keuntungan jangka pendek, tetapi data valuasi yang tidak lengkap menandakan risiko fundamental yang memerlukan pemantauan cermat."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified CRH as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 64.2, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, CRH hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 64.2 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó CRH como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 64.2 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou CRH como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 64.2 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié CRH comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 64.2, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi CRH sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 64.2, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "CRH PLC operates within the Basic Materials sector. BOGA AI's selection is driven by the recent bullish momentum, reflected in a 10.3% weekly gain, despite a potentially weakening trend signaled by the ADX at 23.3. Technically, the RSI at 64.2 indicates continued buying pressure, but the negative MACD histogram suggests caution. Fundamentally, incomplete valuation data is a key risk. Consider an entry around $117.16, targeting $118.59, with a stop-loss at $115.91.",
+          "tr": "CRH PLC, Temel Malzemeler sektöründe faaliyet göstermektedir. BOGA AI'nın seçimi, ADX'in 23,3'te zayıflayan bir trend sinyali vermesine rağmen, %10,3'lük haftalık kazançla yansıyan son yükseliş momentumundan kaynaklanmaktadır. Teknik olarak, 64,2'deki RSI sürekli alım baskısını gösteriyor, ancak negatif MACD histogramı dikkatli olunması gerektiğini gösteriyor. Temel olarak, eksik değerleme verileri önemli bir risktir. 117,16 dolar civarında bir giriş, 118,59 dolar hedef ve 115,91 dolarda bir stop-loss düşünün.",
+          "es": "CRH PLC opera en el sector de Materiales Básicos. La selección de BOGA AI se basa en el reciente impulso alcista, reflejado en una ganancia semanal del 10.3%, a pesar de una tendencia potencialmente debilitante señalada por el ADX en 23.3. Técnicamente, el RSI en 64.2 indica una presión de compra continua, pero el histograma MACD negativo sugiere precaución. Fundamentalmente, los datos de valoración incompletos son un riesgo clave. Considere una entrada alrededor de $117.16, apuntando a $118.59, con un stop-loss en $115.91.",
+          "pt": "A CRH PLC opera no setor de Materiais Básicos. A seleção da BOGA AI é impulsionada pelo recente momentum de alta, refletido em um ganho semanal de 10,3%, apesar de uma tendência potencialmente enfraquecida sinalizada pelo ADX em 23,3. Tecnicamente, o RSI em 64,2 indica pressão de compra contínua, mas o histograma MACD negativo sugere cautela. Fundamentalmente, dados de avaliação incompletos são um risco chave. Considere uma entrada em torno de US$ 117,16, visando US$ 118,59, com um stop-loss em US$ 115,91.",
+          "fr": "CRH PLC opère dans le secteur des matériaux de base. La sélection de BOGA AI est motivée par la récente dynamique haussière, reflétée par un gain hebdomadaire de 10,3 %, malgré une tendance potentiellement affaiblie signalée par l'ADX à 23,3. Techniquement, le RSI à 64,2 indique une pression d'achat continue, mais l'histogramme MACD négatif suggère la prudence. Fondamentalement, des données d'évaluation incomplètes constituent un risque majeur. Envisager une entrée autour de 117,16 $, en visant 118,59 $, avec un stop-loss à 115,91 $.",
+          "id": "CRH PLC beroperasi di sektor Material Dasar. Pemilihan BOGA AI didorong oleh momentum bullish baru-baru ini, yang tercermin dalam kenaikan mingguan sebesar 10.3%, meskipun ada tren yang berpotensi melemah yang ditandai oleh ADX di 23.3. Secara teknis, RSI di 64.2 menunjukkan tekanan beli yang berkelanjutan, tetapi histogram MACD negatif menunjukkan kehati-hatian. Secara fundamental, data valuasi yang tidak lengkap merupakan risiko utama. Pertimbangkan entri di sekitar $117.16, menargetkan $118.59, dengan stop-loss di $115.91."
         }
       },
       "change_1m": 17.59,
@@ -281,8 +289,8 @@
         "low": 118.05,
         "high": 120.92
       },
-      "reasoning": "BOGA AI selected FORM as a high-probability swing trade with a score of 57.3/100.",
-      "detail_reasoning": "BOGA AI has identified FORM as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 74.7, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "FormFactor's impressive 1-year surge (+388.8%) clashes with overbought RSI (74.7) and incomplete valuation data, demanding caution despite bullish macro trends.",
+      "detail_reasoning": "FormFactor provides critical testing and measurement solutions for the semiconductor industry. BOGA AI highlights its recent performance, despite overbought RSI levels, suggesting a potential pullback. Technically, the RSI indicates the stock may be due for a correction, while the ADX shows a weak trend. Fundamentally, the missing valuation data raises concerns. The key risk is a correction from overbought conditions. Consider entry around $124.63 – $129.66, targeting $133.90, with a stop loss at $120.92.",
       "adx": 20.7,
       "rsi": 74.7,
       "rvol": 2.66,
@@ -307,7 +315,11 @@
         "atr_1d": 7.18,
         "atr_pct": 5.6,
         "risk_usd": 3.71,
-        "reward_usd": 9.27
+        "reward_usd": 9.27,
+        "buy_zone": {
+          "low": 124.63,
+          "high": 129.66
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -367,20 +379,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected FORM as a high-probability swing trade with a score of 57.3/100.",
-          "tr": "BOGA AI, FORM hissesini 57.3/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó FORM como operación swing de alta probabilidad con puntuación 57.3/100.",
-          "pt": "BOGA AI selecionou FORM como trade swing de alta probabilidade com pontuação 57.3/100.",
-          "fr": "BOGA AI a sélectionné FORM comme opportunité de swing trade avec un score de 57.3/100.",
-          "id": "BOGA AI memilih FORM sebagai swing trade probabilitas tinggi dengan skor 57.3/100."
+          "en": "FormFactor's impressive 1-year surge (+388.8%) clashes with overbought RSI (74.7) and incomplete valuation data, demanding caution despite bullish macro trends.",
+          "tr": "FormFactor'un 1 yıldaki %388.8'lik yükselişi, aşırı alım bölgesindeki RSI (74.7) ve eksik değerleme verileriyle çelişiyor; boğa piyasası trendine rağmen dikkatli olunmalı.",
+          "es": "El impresionante aumento de FormFactor en 1 año (+388.8%) choca con el RSI sobrecomprado (74.7) y datos de valoración incompletos, exigiendo precaución a pesar de las tendencias macro alcistas.",
+          "pt": "O impressionante aumento de 1 ano da FormFactor (+388.8%) entra em conflito com o RSI de sobrecompra (74.7) e dados de avaliação incompletos, exigindo cautela apesar das tendências macro de alta.",
+          "fr": "La progression impressionnante de FormFactor sur 1 an (+388.8%) se heurte à un RSI en zone de surachat (74.7) et à des données de valorisation incomplètes, appelant à la prudence malgré des tendances macro haussières.",
+          "id": "Lonjakan 1 tahun FormFactor yang mengesankan (+388.8%) berbenturan dengan RSI overbought (74.7) dan data valuasi yang tidak lengkap, menuntut kehati-hatian meskipun tren makro bullish."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified FORM as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 74.7, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, FORM hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 74.7 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó FORM como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 74.7 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou FORM como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 74.7 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié FORM comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 74.7, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi FORM sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 74.7, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "FormFactor provides critical testing and measurement solutions for the semiconductor industry. BOGA AI highlights its recent performance, despite overbought RSI levels, suggesting a potential pullback. Technically, the RSI indicates the stock may be due for a correction, while the ADX shows a weak trend. Fundamentally, the missing valuation data raises concerns. The key risk is a correction from overbought conditions. Consider entry around $124.63 – $129.66, targeting $133.90, with a stop loss at $120.92.",
+          "tr": "FormFactor, yarı iletken endüstrisi için kritik test ve ölçüm çözümleri sunar. BOGA AI, aşırı alım seviyelerindeki RSI'ya rağmen son performansını vurguluyor ve potansiyel bir geri çekilme olduğunu gösteriyor. Teknik olarak, RSI hissenin bir düzeltmeye ihtiyaç duyabileceğini gösterirken, ADX zayıf bir trend gösteriyor. Temel olarak, eksik değerleme verileri endişeleri artırıyor. Temel risk, aşırı alım koşullarından kaynaklanan bir düzeltmedir. $124.63 – $129.66 civarında giriş yapmayı, $133.90'ı hedeflemeyi ve $120.92'de stop loss koymayı düşünebilirsiniz.",
+          "es": "FormFactor ofrece soluciones críticas de prueba y medición para la industria de semiconductores. BOGA AI destaca su reciente desempeño, a pesar de los niveles de RSI sobrecomprado, lo que sugiere un posible retroceso. Técnicamente, el RSI indica que la acción puede estar lista para una corrección, mientras que el ADX muestra una tendencia débil. Fundamentalmente, la falta de datos de valoración genera preocupaciones. El riesgo clave es una corrección por condiciones de sobrecompra. Considere la entrada alrededor de $124.63 – $129.66, apuntando a $133.90, con un stop loss en $120.92.",
+          "pt": "A FormFactor fornece soluções críticas de teste e medição para a indústria de semicondutores. A BOGA AI destaca seu desempenho recente, apesar dos níveis de RSI de sobrecompra, sugerindo um possível recuo. Tecnicamente, o RSI indica que a ação pode estar sujeita a uma correção, enquanto o ADX mostra uma tendência fraca. Fundamentalmente, a falta de dados de avaliação levanta preocupações. O principal risco é uma correção das condições de sobrecompra. Considere a entrada em torno de $124.63 – $129.66, visando $133.90, com um stop loss em $120.92.",
+          "fr": "FormFactor fournit des solutions de test et de mesure essentielles pour l'industrie des semi-conducteurs. BOGA AI souligne sa performance récente, malgré des niveaux de RSI en zone de surachat, suggérant un repli potentiel. Techniquement, le RSI indique que l'action pourrait subir une correction, tandis que l'ADX montre une faible tendance. Fondamentalement, le manque de données de valorisation suscite des inquiétudes. Le risque principal est une correction due à des conditions de surachat. Envisagez une entrée autour de 124,63 $ – 129,66 $, en visant 133,90 $, avec un stop loss à 120,92 $.",
+          "id": "FormFactor menyediakan solusi pengujian dan pengukuran penting untuk industri semikonduktor. BOGA AI menyoroti kinerja terbarunya, meskipun level RSI overbought, menunjukkan potensi pullback. Secara teknis, RSI menunjukkan bahwa saham mungkin akan mengalami koreksi, sementara ADX menunjukkan tren yang lemah. Secara fundamental, kurangnya data valuasi menimbulkan kekhawatiran. Risiko utamanya adalah koreksi dari kondisi overbought. Pertimbangkan entry di sekitar $124.63 – $129.66, menargetkan $133.90, dengan stop loss di $120.92."
         }
       },
       "change_1m": 45.05,
@@ -408,8 +420,8 @@
         "low": 59.29,
         "high": 60.69
       },
-      "reasoning": "BOGA AI selected ORKA as a high-probability swing trade with a score of 55.8/100.",
-      "detail_reasoning": "BOGA AI has identified ORKA as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 75.0, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "ORKA's impressive 91.9% monthly surge presents short-term upside, but incomplete valuation data necessitates caution before entry despite the favorable 4.1:1 risk/reward.",
+      "detail_reasoning": "Oruka Therapeutics (ORKA) operates within the healthcare sector, though its specific activities require further clarification. BOGA AI identifies a short-term opportunity based on recent price momentum, indicated by a strong ADX of 48.2, signaling a powerful trend. However, the RSI at 75 suggests the stock is overbought, potentially leading to a pullback. Fundamental data is incomplete, raising valuation concerns. Investors should be aware of the risk stemming from the lack of fundamental clarity. Consider an entry between $61.04 and $62.08, targeting $62.48, with a stop loss at $60.69.",
       "adx": 48.2,
       "rsi": 75.0,
       "rvol": 1.38,
@@ -434,7 +446,11 @@
         "atr_1d": 3.51,
         "atr_pct": 5.71,
         "risk_usd": 0.35,
-        "reward_usd": 1.44
+        "reward_usd": 1.44,
+        "buy_zone": {
+          "low": 61.04,
+          "high": 62.08
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -494,20 +510,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected ORKA as a high-probability swing trade with a score of 55.8/100.",
-          "tr": "BOGA AI, ORKA hissesini 55.8/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó ORKA como operación swing de alta probabilidad con puntuación 55.8/100.",
-          "pt": "BOGA AI selecionou ORKA como trade swing de alta probabilidade com pontuação 55.8/100.",
-          "fr": "BOGA AI a sélectionné ORKA comme opportunité de swing trade avec un score de 55.8/100.",
-          "id": "BOGA AI memilih ORKA sebagai swing trade probabilitas tinggi dengan skor 55.8/100."
+          "en": "ORKA's impressive 91.9% monthly surge presents short-term upside, but incomplete valuation data necessitates caution before entry despite the favorable 4.1:1 risk/reward.",
+          "tr": "ORKA'nın %91,9'luk aylık yükselişi kısa vadeli bir fırsat sunuyor, ancak eksik değerleme verileri, 4.1:1'lik cazip risk/ödül oranına rağmen girişte temkinli olmayı gerektiriyor.",
+          "es": "El impresionante aumento mensual del 91.9% de ORKA presenta una oportunidad a corto plazo, pero la información de valoración incompleta exige cautela antes de entrar a pesar de la favorable relación riesgo/recompensa de 4.1:1.",
+          "pt": "O impressionante aumento mensal de 91,9% da ORKA apresenta um potencial de alta a curto prazo, mas dados de avaliação incompletos exigem cautela antes da entrada, apesar da relação risco/recompensa favorável de 4,1:1.",
+          "fr": "La hausse mensuelle impressionnante de 91,9 % d'ORKA offre un potentiel à court terme, mais des données d'évaluation incomplètes nécessitent de la prudence avant d'entrer, malgré un rapport risque/rendement favorable de 4,1:1.",
+          "id": "Lonjakan bulanan ORKA sebesar 91.9% menawarkan potensi kenaikan jangka pendek, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian sebelum masuk meskipun rasio risiko/imbalan 4.1:1 yang menguntungkan."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified ORKA as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 75.0, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, ORKA hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 75.0 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó ORKA como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 75.0 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou ORKA como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 75.0 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié ORKA comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 75.0, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi ORKA sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 75.0, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "Oruka Therapeutics (ORKA) operates within the healthcare sector, though its specific activities require further clarification. BOGA AI identifies a short-term opportunity based on recent price momentum, indicated by a strong ADX of 48.2, signaling a powerful trend. However, the RSI at 75 suggests the stock is overbought, potentially leading to a pullback. Fundamental data is incomplete, raising valuation concerns. Investors should be aware of the risk stemming from the lack of fundamental clarity. Consider an entry between $61.04 and $62.08, targeting $62.48, with a stop loss at $60.69.",
+          "tr": "Oruka Therapeutics (ORKA) sağlık sektöründe faaliyet gösteriyor, ancak spesifik faaliyetleri net değil. BOGA AI, 48.2'lik güçlü ADX'in işaret ettiği son fiyat momentumuna dayanarak kısa vadeli bir fırsat görüyor. Ancak, 75'teki RSI, hissenin aşırı alım bölgesinde olduğunu ve potansiyel bir geri çekilmeye yol açabileceğini gösteriyor. Temel veriler eksik ve değerleme endişelerini artırıyor. Yatırımcılar, temel netlik eksikliğinden kaynaklanan riskin farkında olmalıdır. 61,04 ila 62,08 dolar arasında bir giriş, 62,48 dolar hedef ve 60,69 dolarda bir stop loss düşünün.",
+          "es": "Oruka Therapeutics (ORKA) opera en el sector de la salud, aunque sus actividades específicas requieren mayor aclaración. BOGA AI identifica una oportunidad a corto plazo basada en el reciente impulso del precio, indicado por un ADX fuerte de 48.2, lo que señala una tendencia poderosa. Sin embargo, el RSI en 75 sugiere que la acción está sobrecomprada, lo que podría provocar un retroceso. Los datos fundamentales están incompletos, lo que genera preocupaciones sobre la valoración. Los inversores deben ser conscientes del riesgo derivado de la falta de claridad fundamental. Considere una entrada entre $61.04 y $62.08, apuntando a $62.48, con un stop loss en $60.69.",
+          "pt": "Oruka Therapeutics (ORKA) opera no setor de saúde, embora suas atividades específicas exijam mais esclarecimentos. A BOGA AI identifica uma oportunidade de curto prazo com base no recente impulso do preço, indicado por um ADX forte de 48,2, sinalizando uma tendência poderosa. No entanto, o RSI em 75 sugere que a ação está sobrecomprada, o que pode levar a uma retração. Os dados fundamentais estão incompletos, levantando preocupações sobre a avaliação. Os investidores devem estar cientes do risco decorrente da falta de clareza fundamental. Considere uma entrada entre US$ 61,04 e US$ 62,08, visando US$ 62,48, com um stop loss em US$ 60,69.",
+          "fr": "Oruka Therapeutics (ORKA) opère dans le secteur de la santé, bien que ses activités spécifiques nécessitent des éclaircissements supplémentaires. BOGA AI identifie une opportunité à court terme basée sur la dynamique récente des prix, indiquée par un ADX fort de 48,2, signalant une tendance puissante. Cependant, le RSI à 75 suggère que l'action est surachetée, ce qui pourrait entraîner un repli. Les données fondamentales sont incomplètes, ce qui soulève des inquiétudes quant à l'évaluation. Les investisseurs doivent être conscients du risque découlant du manque de clarté fondamentale. Envisagez une entrée entre 61,04 $ et 62,08 $, en visant 62,48 $, avec un stop loss à 60,69 $.",
+          "id": "Oruka Therapeutics (ORKA) beroperasi di sektor perawatan kesehatan, meskipun aktivitas spesifiknya memerlukan klarifikasi lebih lanjut. BOGA AI mengidentifikasi peluang jangka pendek berdasarkan momentum harga baru-baru ini, yang ditunjukkan oleh ADX kuat sebesar 48.2, menandakan tren yang kuat. Namun, RSI di 75 menunjukkan bahwa saham tersebut overbought, berpotensi menyebabkan pullback. Data fundamental tidak lengkap, menimbulkan kekhawatiran tentang valuasi. Investor harus menyadari risiko yang timbul dari kurangnya kejelasan fundamental. Pertimbangkan entry antara $61.04 dan $62.08, menargetkan $62.48, dengan stop loss di $60.69."
         }
       },
       "change_1m": 91.87,
@@ -535,8 +551,8 @@
         "low": 169.65,
         "high": 170.8
       },
-      "reasoning": "BOGA AI selected RY as a high-probability swing trade with a score of 55.6/100.",
-      "detail_reasoning": "BOGA AI has identified RY as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 69.5, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "Royal Bank of Canada's bullish RSI suggests short-term gains, but incomplete valuation data signals fundamental caution despite recent price appreciation.",
+      "detail_reasoning": "Royal Bank of Canada (RY) is a major player in the financial services sector. BOGA AI selected RY due to its recent price momentum, reflected in a bullish RSI reading of 69.5, indicating strong buying pressure. However, fundamental data is incomplete, particularly regarding valuation metrics, warranting caution. The ADX at 21.1 suggests the current trend might be weak. Consider an entry between $172.23 and $174.24, targeting $175.82, with a stop loss at $170.80.",
       "adx": 21.1,
       "rsi": 69.5,
       "rvol": 1.53,
@@ -561,7 +577,11 @@
         "atr_1d": 2.87,
         "atr_pct": 1.65,
         "risk_usd": 1.43,
-        "reward_usd": 3.59
+        "reward_usd": 3.59,
+        "buy_zone": {
+          "low": 172.23,
+          "high": 174.24
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -621,20 +641,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected RY as a high-probability swing trade with a score of 55.6/100.",
-          "tr": "BOGA AI, RY hissesini 55.6/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó RY como operación swing de alta probabilidad con puntuación 55.6/100.",
-          "pt": "BOGA AI selecionou RY como trade swing de alta probabilidade com pontuação 55.6/100.",
-          "fr": "BOGA AI a sélectionné RY comme opportunité de swing trade avec un score de 55.6/100.",
-          "id": "BOGA AI memilih RY sebagai swing trade probabilitas tinggi dengan skor 55.6/100."
+          "en": "Royal Bank of Canada's bullish RSI suggests short-term gains, but incomplete valuation data signals fundamental caution despite recent price appreciation.",
+          "tr": "Royal Bank of Canada'nın yükseliş RSI'ı kısa vadeli kazançları işaret ediyor, ancak eksik değerleme verileri son fiyat artışına rağmen temel ihtiyatı gerektiriyor.",
+          "es": "El RSI alcista del Royal Bank of Canada sugiere ganancias a corto plazo, pero la información de valoración incompleta indica cautela fundamental a pesar de la reciente apreciación del precio.",
+          "pt": "O RSI de alta do Royal Bank of Canada sugere ganhos de curto prazo, mas dados de avaliação incompletos sinalizam cautela fundamental, apesar da recente valorização do preço.",
+          "fr": "Le RSI haussier de la Banque Royale du Canada suggère des gains à court terme, mais des données d'évaluation incomplètes signalent une prudence fondamentale malgré la récente appréciation du prix.",
+          "id": "RSI bullish Royal Bank of Canada menunjukkan potensi keuntungan jangka pendek, tetapi data valuasi yang tidak lengkap menandakan kehati-hatian fundamental meskipun harga baru-baru ini meningkat."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified RY as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 69.5, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, RY hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 69.5 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó RY como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 69.5 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou RY como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 69.5 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié RY comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 69.5, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi RY sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 69.5, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "Royal Bank of Canada (RY) is a major player in the financial services sector. BOGA AI selected RY due to its recent price momentum, reflected in a bullish RSI reading of 69.5, indicating strong buying pressure. However, fundamental data is incomplete, particularly regarding valuation metrics, warranting caution. The ADX at 21.1 suggests the current trend might be weak. Consider an entry between $172.23 and $174.24, targeting $175.82, with a stop loss at $170.80.",
+          "tr": "Royal Bank of Canada (RY), finans sektöründe büyük bir oyuncu. BOGA AI, 69.5'lik yükseliş RSI değeriyle yansıyan son fiyat momentumu nedeniyle RY'yi seçti ve bu da güçlü alım baskısını gösteriyor. Ancak, özellikle değerleme metrikleri ile ilgili temel veriler eksik, bu da ihtiyatı gerektiriyor. 21.1'deki ADX, mevcut trendin zayıf olabileceğini gösteriyor. 172.23 ile 174.24 dolar arasında bir giriş, 175.82 dolar hedef ve 170.80 dolarda bir stop loss düşünün.",
+          "es": "Royal Bank of Canada (RY) es un actor importante en el sector de servicios financieros. BOGA AI seleccionó a RY debido a su reciente impulso de precios, reflejado en una lectura alcista del RSI de 69.5, lo que indica una fuerte presión de compra. Sin embargo, los datos fundamentales están incompletos, particularmente con respecto a las métricas de valoración, lo que justifica la precaución. El ADX en 21.1 sugiere que la tendencia actual podría ser débil. Considere una entrada entre $172.23 y $174.24, apuntando a $175.82, con un stop loss en $170.80.",
+          "pt": "Royal Bank of Canada (RY) é um importante player no setor de serviços financeiros. A BOGA AI selecionou a RY devido ao seu recente momentum de preço, refletido em uma leitura de RSI de alta de 69.5, indicando forte pressão de compra. No entanto, os dados fundamentais estão incompletos, particularmente em relação às métricas de avaliação, o que justifica cautela. O ADX em 21.1 sugere que a tendência atual pode ser fraca. Considere uma entrada entre US$ 172,23 e US$ 174,24, com meta de US$ 175,82 e stop loss em US$ 170,80.",
+          "fr": "La Banque Royale du Canada (RY) est un acteur majeur du secteur des services financiers. BOGA AI a sélectionné RY en raison de sa dynamique de prix récente, reflétée par un RSI haussier de 69,5, indiquant une forte pression à l'achat. Cependant, les données fondamentales sont incomplètes, en particulier en ce qui concerne les mesures d'évaluation, ce qui justifie la prudence. L'ADX à 21,1 suggère que la tendance actuelle pourrait être faible. Envisagez une entrée entre 172,23 $ et 174,24 $, en visant 175,82 $, avec un stop loss à 170,80 $.",
+          "id": "Royal Bank of Canada (RY) adalah pemain utama di sektor jasa keuangan. BOGA AI memilih RY karena momentum harga baru-baru ini, tercermin dalam pembacaan RSI bullish sebesar 69.5, yang mengindikasikan tekanan beli yang kuat. Namun, data fundamental tidak lengkap, terutama mengenai metrik valuasi, yang memerlukan kehati-hatian. ADX pada 21.1 menunjukkan bahwa tren saat ini mungkin lemah. Pertimbangkan entri antara $172.23 dan $174.24, menargetkan $175.82, dengan stop loss pada $170.80."
         }
       },
       "change_1m": 6.57,
@@ -662,8 +682,8 @@
         "low": 21.31,
         "high": 21.68
       },
-      "reasoning": "BOGA AI selected LEVI as a high-probability swing trade with a score of 53.9/100.",
-      "detail_reasoning": "BOGA AI has identified LEVI as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 69.8, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "Levi Strauss & Co. presents a short-term bullish opportunity given its 1-week surge of 13.6%, but incomplete valuation data warrants fundamental caution.",
+      "detail_reasoning": "Levi Strauss & Co. is a global apparel company, best known for its denim jeans. BOGA AI selected LEVI due to its recent bullish trend, indicated by a 13.6% increase in one week and a bullish RSI of 69.8. This suggests strong buying momentum. However, fundamental data is incomplete, particularly regarding valuation metrics, posing a significant risk. Consider entering the buy zone between $21.87 and $22.51, targeting $23.01, and setting a stop loss at $21.68.",
       "adx": 29.1,
       "rsi": 69.8,
       "rvol": 0.95,
@@ -688,7 +708,11 @@
         "atr_1d": 0.91,
         "atr_pct": 4.08,
         "risk_usd": 0.19,
-        "reward_usd": 1.14
+        "reward_usd": 1.14,
+        "buy_zone": {
+          "low": 21.87,
+          "high": 22.51
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -748,20 +772,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected LEVI as a high-probability swing trade with a score of 53.9/100.",
-          "tr": "BOGA AI, LEVI hissesini 53.9/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó LEVI como operación swing de alta probabilidad con puntuación 53.9/100.",
-          "pt": "BOGA AI selecionou LEVI como trade swing de alta probabilidade com pontuação 53.9/100.",
-          "fr": "BOGA AI a sélectionné LEVI comme opportunité de swing trade avec un score de 53.9/100.",
-          "id": "BOGA AI memilih LEVI sebagai swing trade probabilitas tinggi dengan skor 53.9/100."
+          "en": "Levi Strauss & Co. presents a short-term bullish opportunity given its 1-week surge of 13.6%, but incomplete valuation data warrants fundamental caution.",
+          "tr": "Levi Strauss & Co., %13.6'lık 1 haftalık yükselişiyle kısa vadeli bir alım fırsatı sunuyor, ancak eksik değerleme verileri temel riskleri beraberinde getiriyor.",
+          "es": "Levi Strauss & Co. presenta una oportunidad alcista a corto plazo dado su aumento del 13.6% en una semana, pero los datos de valoración incompletos justifican precaución fundamental.",
+          "pt": "Levi Strauss & Co. apresenta uma oportunidade de alta no curto prazo, dado o seu aumento de 13.6% em 1 semana, mas dados de avaliação incompletos justificam cautela fundamental.",
+          "fr": "Levi Strauss & Co. présente une opportunité haussière à court terme compte tenu de sa hausse de 13,6 % sur une semaine, mais des données d'évaluation incomplètes justifient une prudence fondamentale.",
+          "id": "Levi Strauss & Co. menghadirkan peluang bullish jangka pendek mengingat lonjakan 13.6% dalam 1 minggu, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian fundamental."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified LEVI as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 69.8, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, LEVI hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 69.8 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó LEVI como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 69.8 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou LEVI como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 69.8 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié LEVI comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 69.8, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi LEVI sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 69.8, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "Levi Strauss & Co. is a global apparel company, best known for its denim jeans. BOGA AI selected LEVI due to its recent bullish trend, indicated by a 13.6% increase in one week and a bullish RSI of 69.8. This suggests strong buying momentum. However, fundamental data is incomplete, particularly regarding valuation metrics, posing a significant risk. Consider entering the buy zone between $21.87 and $22.51, targeting $23.01, and setting a stop loss at $21.68.",
+          "tr": "Levi Strauss & Co., denim jeanleriyle tanınan küresel bir giyim şirketidir. BOGA AI, LEVI'yi %13.6'lık bir haftalık artış ve 69.8'lik yükseliş RSI'ı ile gösterilen son yükseliş trendi nedeniyle seçti. Bu, güçlü bir alım momentumu olduğunu gösteriyor. Ancak, temel veriler, özellikle değerleme metrikleri ile ilgili olarak eksik ve bu da önemli bir risk oluşturuyor. 21.87 ile 22.51 dolar arasındaki alım bölgesine girmeyi, 23.01 doları hedeflemeyi ve 21.68 dolardan bir stop loss belirlemeyi düşünün.",
+          "es": "Levi Strauss & Co. es una empresa global de ropa, mejor conocida por sus jeans de mezclilla. BOGA AI seleccionó a LEVI debido a su reciente tendencia alcista, indicada por un aumento del 13.6% en una semana y un RSI alcista de 69.8. Esto sugiere un fuerte impulso de compra. Sin embargo, los datos fundamentales están incompletos, particularmente con respecto a las métricas de valoración, lo que plantea un riesgo significativo. Considere ingresar a la zona de compra entre $21.87 y $22.51, apuntando a $23.01, y estableciendo un stop loss en $21.68.",
+          "pt": "Levi Strauss & Co. é uma empresa global de vestuário, mais conhecida por seus jeans. A BOGA AI selecionou a LEVI devido à sua recente tendência de alta, indicada por um aumento de 13.6% em uma semana e um RSI de alta de 69.8. Isso sugere um forte impulso de compra. No entanto, os dados fundamentais estão incompletos, particularmente em relação às métricas de avaliação, o que representa um risco significativo. Considere entrar na zona de compra entre $21.87 e $22.51, visando $23.01 e definindo um stop loss em $21.68.",
+          "fr": "Levi Strauss & Co. est une entreprise mondiale de vêtements, surtout connue pour ses jeans en denim. BOGA AI a sélectionné LEVI en raison de sa récente tendance haussière, indiquée par une augmentation de 13,6 % en une semaine et un RSI haussier de 69,8. Cela suggère une forte dynamique d'achat. Cependant, les données fondamentales sont incomplètes, en particulier en ce qui concerne les mesures d'évaluation, ce qui pose un risque important. Envisagez d'entrer dans la zone d'achat entre 21,87 $ et 22,51 $, en visant 23,01 $ et en fixant un stop loss à 21,68 $.",
+          "id": "Levi Strauss & Co. adalah perusahaan pakaian global, yang terkenal dengan celana jeans denimnya. BOGA AI memilih LEVI karena tren bullish baru-baru ini, yang ditunjukkan oleh peningkatan 13.6% dalam satu minggu dan RSI bullish sebesar 69.8. Ini menunjukkan momentum pembelian yang kuat. Namun, data fundamental tidak lengkap, terutama mengenai metrik valuasi, yang menimbulkan risiko signifikan. Pertimbangkan untuk memasuki zona beli antara $21.87 dan $22.51, menargetkan $23.01, dan menetapkan stop loss pada $21.68."
         }
       },
       "change_1m": 23.23,
@@ -789,8 +813,8 @@
         "low": 156.7,
         "high": 158.92
       },
-      "reasoning": "BOGA AI selected CRUS as a high-probability swing trade with a score of 53.2/100.",
-      "detail_reasoning": "BOGA AI has identified CRUS as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 71.7, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "Cirrus Logic's bullish trend, fueled by recent gains (+21.5% monthly), faces overbought RSI conditions, demanding careful entry despite an attractive 2.5:1 risk/reward ratio.",
+      "detail_reasoning": "Cirrus Logic specializes in high-precision analog and mixed-signal integrated circuits, essential for audio and energy applications. BOGA AI flags it due to its strong recent price performance, although the RSI indicates it's currently overbought. Technically, the ADX confirms a trending market, but the negative MACD histogram suggests potential bearish pressure. Fundamentally, incomplete valuation data warrants caution. The key risk is a potential pullback from overbought levels. Consider an entry between $159.48 and $162.21, targeting $160.88, with a stop loss at $158.92.",
       "adx": 26.4,
       "rsi": 71.7,
       "rvol": 0.84,
@@ -815,7 +839,11 @@
         "atr_1d": 5.56,
         "atr_pct": 3.45,
         "risk_usd": 0.56,
-        "reward_usd": 1.4
+        "reward_usd": 1.4,
+        "buy_zone": {
+          "low": 159.48,
+          "high": 162.21
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -875,20 +903,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected CRUS as a high-probability swing trade with a score of 53.2/100.",
-          "tr": "BOGA AI, CRUS hissesini 53.2/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó CRUS como operación swing de alta probabilidad con puntuación 53.2/100.",
-          "pt": "BOGA AI selecionou CRUS como trade swing de alta probabilidade com pontuação 53.2/100.",
-          "fr": "BOGA AI a sélectionné CRUS comme opportunité de swing trade avec un score de 53.2/100.",
-          "id": "BOGA AI memilih CRUS sebagai swing trade probabilitas tinggi dengan skor 53.2/100."
+          "en": "Cirrus Logic's bullish trend, fueled by recent gains (+21.5% monthly), faces overbought RSI conditions, demanding careful entry despite an attractive 2.5:1 risk/reward ratio.",
+          "tr": "Cirrus Logic'teki son kazançlarla (+%21.5 aylık) desteklenen yükseliş trendi, aşırı alım bölgesindeki RSI nedeniyle dikkatli giriş gerektiriyor; ancak 2.5:1 risk/ödül oranı cazip.",
+          "es": "La tendencia alcista de Cirrus Logic, impulsada por ganancias recientes (+21.5% mensual), enfrenta condiciones de RSI sobrecomprado, exigiendo una entrada cautelosa a pesar de una atractiva relación riesgo/recompensa de 2.5:1.",
+          "pt": "A tendência de alta da Cirrus Logic, impulsionada por ganhos recentes (+21,5% mensal), enfrenta condições de RSI sobrecomprado, exigindo entrada cautelosa, apesar de uma atraente relação risco/recompensa de 2,5:1.",
+          "fr": "La tendance haussière de Cirrus Logic, alimentée par des gains récents (+21,5% mensuel), se heurte à des conditions de RSI de surachat, exigeant une entrée prudente malgré un ratio risque/rendement attractif de 2,5:1.",
+          "id": "Tren bullish Cirrus Logic, didorong oleh kenaikan baru-baru ini (+21.5% bulanan), menghadapi kondisi RSI overbought, menuntut entri hati-hati meskipun rasio risiko/imbalan 2.5:1 yang menarik."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified CRUS as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 71.7, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, CRUS hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 71.7 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó CRUS como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 71.7 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou CRUS como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 71.7 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié CRUS comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 71.7, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi CRUS sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 71.7, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "Cirrus Logic specializes in high-precision analog and mixed-signal integrated circuits, essential for audio and energy applications. BOGA AI flags it due to its strong recent price performance, although the RSI indicates it's currently overbought. Technically, the ADX confirms a trending market, but the negative MACD histogram suggests potential bearish pressure. Fundamentally, incomplete valuation data warrants caution. The key risk is a potential pullback from overbought levels. Consider an entry between $159.48 and $162.21, targeting $160.88, with a stop loss at $158.92.",
+          "tr": "Cirrus Logic, ses ve enerji uygulamaları için gerekli olan yüksek hassasiyetli analog ve karışık sinyal entegre devreleri konusunda uzmanlaşmıştır. BOGA AI, son dönemdeki güçlü fiyat performansı nedeniyle şirketi işaret ediyor, ancak RSI aşırı alım bölgesinde olduğunu gösteriyor. Teknik olarak, ADX trend olan bir piyasayı doğruluyor, ancak negatif MACD histogramı potansiyel düşüş baskısı olduğunu gösteriyor. Temel olarak, eksik değerleme verileri dikkatli olmayı gerektiriyor. Temel risk, aşırı alım seviyelerinden potansiyel bir geri çekilme. 159.48 - 162.21 dolar aralığında bir giriş, 160.88 dolar hedef ve 158.92 dolarda stop loss düşünülebilir.",
+          "es": "Cirrus Logic se especializa en circuitos integrados analógicos y de señal mixta de alta precisión, esenciales para aplicaciones de audio y energía. BOGA AI la destaca debido a su sólido rendimiento de precios reciente, aunque el RSI indica que actualmente está sobrecomprada. Técnicamente, el ADX confirma un mercado en tendencia, pero el histograma MACD negativo sugiere una posible presión bajista. Fundamentalmente, los datos de valoración incompletos justifican la cautela. El riesgo clave es un posible retroceso desde niveles de sobrecompra. Considere una entrada entre $159.48 y $162.21, apuntando a $160.88, con un stop loss en $158.92.",
+          "pt": "A Cirrus Logic é especializada em circuitos integrados analógicos e de sinal misto de alta precisão, essenciais para aplicações de áudio e energia. A BOGA AI a destaca devido ao seu forte desempenho recente de preços, embora o RSI indique que está atualmente sobrecomprada. Tecnicamente, o ADX confirma um mercado em tendência, mas o histograma MACD negativo sugere uma possível pressão de baixa. Fundamentalmente, os dados de avaliação incompletos justificam cautela. O principal risco é um possível recuo dos níveis de sobrecompra. Considere uma entrada entre US$ 159,48 e US$ 162,21, visando US$ 160,88, com um stop loss em US$ 158,92.",
+          "fr": "Cirrus Logic est spécialisée dans les circuits intégrés analogiques et mixtes de haute précision, essentiels pour les applications audio et énergétiques. BOGA AI la signale en raison de sa forte performance de prix récente, bien que le RSI indique qu'elle est actuellement en situation de surachat. Techniquement, l'ADX confirme un marché en tendance, mais l'histogramme MACD négatif suggère une pression baissière potentielle. Fondamentalement, les données d'évaluation incomplètes justifient la prudence. Le risque clé est un repli potentiel des niveaux de surachat. Envisager une entrée entre 159,48 $ et 162,21 $, en visant 160,88 $, avec un stop loss à 158,92 $.",
+          "id": "Cirrus Logic mengkhususkan diri dalam sirkuit terpadu analog dan sinyal campuran presisi tinggi, penting untuk aplikasi audio dan energi. BOGA AI menandainya karena kinerja harga baru-baru ini yang kuat, meskipun RSI menunjukkan bahwa saat ini overbought. Secara teknis, ADX mengkonfirmasi pasar yang sedang tren, tetapi histogram MACD negatif menunjukkan potensi tekanan bearish. Secara fundamental, data valuasi yang tidak lengkap memerlukan kehati-hatian. Risiko utamanya adalah potensi pullback dari level overbought. Pertimbangkan entri antara $159.48 dan $162.21, menargetkan $160.88, dengan stop loss di $158.92."
         }
       },
       "change_1m": 21.5,
@@ -916,8 +944,8 @@
         "low": 232.64,
         "high": 238.66
       },
-      "reasoning": "BOGA AI selected MOD as a high-probability swing trade with a score of 52.8/100.",
-      "detail_reasoning": "BOGA AI has identified MOD as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 68.8, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "Modine Manufacturing's bullish 1-month surge of +33.9% presents a swing trade opportunity, but incomplete valuation data demands caution despite positive technical indicators.",
+      "detail_reasoning": "Modine Manufacturing operates within the Consumer Cyclical sector. BOGA AI selected MOD based on its recent price surge, indicating strong short-term momentum. The RSI of 68.8 confirms bullish momentum, though the weak ADX suggests potential range-bound trading. However, fundamental data is incomplete, especially regarding valuation metrics, posing a significant risk. Consider an entry around $249.46-$260.00, targeting $276.46, with a stop loss at $238.66.",
       "adx": 17.8,
       "rsi": 68.8,
       "rvol": 1.66,
@@ -942,7 +970,11 @@
         "atr_1d": 15.07,
         "atr_pct": 5.86,
         "risk_usd": 10.8,
-        "reward_usd": 27.0
+        "reward_usd": 27.0,
+        "buy_zone": {
+          "low": 249.46,
+          "high": 260.0
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -1002,20 +1034,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected MOD as a high-probability swing trade with a score of 52.8/100.",
-          "tr": "BOGA AI, MOD hissesini 52.8/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó MOD como operación swing de alta probabilidad con puntuación 52.8/100.",
-          "pt": "BOGA AI selecionou MOD como trade swing de alta probabilidade com pontuação 52.8/100.",
-          "fr": "BOGA AI a sélectionné MOD comme opportunité de swing trade avec un score de 52.8/100.",
-          "id": "BOGA AI memilih MOD sebagai swing trade probabilitas tinggi dengan skor 52.8/100."
+          "en": "Modine Manufacturing's bullish 1-month surge of +33.9% presents a swing trade opportunity, but incomplete valuation data demands caution despite positive technical indicators.",
+          "tr": "Modine Manufacturing'in 1 aylık %33.9'luk yükselişi swing trade fırsatı sunuyor, ancak eksik değerleme verileri pozitif teknik göstergelere rağmen dikkatli olmayı gerektiriyor.",
+          "es": "El aumento alcista de Modine Manufacturing del +33.9% en 1 mes presenta una oportunidad de swing trading, pero los datos de valoración incompletos exigen cautela a pesar de los indicadores técnicos positivos.",
+          "pt": "O aumento de +33.9% em 1 mês da Modine Manufacturing apresenta uma oportunidade de swing trade, mas os dados de avaliação incompletos exigem cautela, apesar dos indicadores técnicos positivos.",
+          "fr": "La hausse haussière de +33,9 % sur 1 mois de Modine Manufacturing offre une opportunité de swing trading, mais des données d'évaluation incomplètes exigent la prudence malgré des indicateurs techniques positifs.",
+          "id": "Lonjakan bullish 1 bulan sebesar +33.9% pada Modine Manufacturing menghadirkan peluang swing trade, tetapi data valuasi yang tidak lengkap menuntut kehati-hatian meskipun indikator teknikal positif."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified MOD as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 68.8, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, MOD hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 68.8 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó MOD como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 68.8 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou MOD como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 68.8 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié MOD comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 68.8, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi MOD sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 68.8, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "Modine Manufacturing operates within the Consumer Cyclical sector. BOGA AI selected MOD based on its recent price surge, indicating strong short-term momentum. The RSI of 68.8 confirms bullish momentum, though the weak ADX suggests potential range-bound trading. However, fundamental data is incomplete, especially regarding valuation metrics, posing a significant risk. Consider an entry around $249.46-$260.00, targeting $276.46, with a stop loss at $238.66.",
+          "tr": "Modine Manufacturing, Tüketici Döngüsel sektöründe faaliyet gösteriyor. BOGA AI, MOD'u son fiyat artışı nedeniyle seçti, bu da güçlü kısa vadeli momentumu gösteriyor. 68.8 RSI değeri yükseliş momentumunu doğruluyor, ancak zayıf ADX, aralık içi işlem olasılığını gösteriyor. Ancak, temel veriler eksik, özellikle değerleme metrikleri, bu da önemli bir risk oluşturuyor. 249.46-260.00$ civarında bir giriş, 276.46$'ı hedefleyerek ve 238.66$'da bir stop loss düşünebilirsiniz.",
+          "es": "Modine Manufacturing opera dentro del sector de Consumo Cíclico. BOGA AI seleccionó MOD basándose en su reciente aumento de precio, lo que indica un fuerte impulso a corto plazo. El RSI de 68.8 confirma el impulso alcista, aunque el ADX débil sugiere posibles operaciones dentro de un rango. Sin embargo, los datos fundamentales están incompletos, especialmente con respecto a las métricas de valoración, lo que plantea un riesgo significativo. Considere una entrada alrededor de $249.46-$260.00, apuntando a $276.46, con un stop loss en $238.66.",
+          "pt": "A Modine Manufacturing opera no setor de Consumo Cíclico. A BOGA AI selecionou a MOD com base em seu recente aumento de preço, indicando um forte momentum de curto prazo. O RSI de 68.8 confirma o momentum de alta, embora o ADX fraco sugira possíveis negociações dentro de uma faixa. No entanto, os dados fundamentais estão incompletos, especialmente em relação às métricas de avaliação, o que representa um risco significativo. Considere uma entrada em torno de $249.46-$260.00, visando $276.46, com um stop loss em $238.66.",
+          "fr": "Modine Manufacturing opère dans le secteur de la consommation cyclique. BOGA AI a sélectionné MOD en raison de sa récente flambée des prix, indiquant une forte dynamique à court terme. Le RSI de 68,8 confirme la dynamique haussière, bien que le faible ADX suggère des transactions potentielles dans une fourchette. Cependant, les données fondamentales sont incomplètes, en particulier en ce qui concerne les mesures d'évaluation, ce qui pose un risque important. Envisager une entrée autour de 249,46 $ à 260,00 $, en visant 276,46 $, avec un stop loss à 238,66 $.",
+          "id": "Modine Manufacturing beroperasi di sektor Consumer Cyclical. BOGA AI memilih MOD berdasarkan lonjakan harga baru-baru ini, yang mengindikasikan momentum jangka pendek yang kuat. RSI sebesar 68.8 mengonfirmasi momentum bullish, meskipun ADX yang lemah menunjukkan potensi perdagangan dalam kisaran tertentu. Namun, data fundamental tidak lengkap, terutama mengenai metrik valuasi, yang menimbulkan risiko signifikan. Pertimbangkan entri di sekitar $249.46-$260.00, menargetkan $276.46, dengan stop loss di $238.66."
         }
       },
       "change_1m": 33.9,
@@ -1043,8 +1075,8 @@
         "low": 95.29,
         "high": 96.86
       },
-      "reasoning": "BOGA AI selected CROX as a high-probability swing trade with a score of 41.5/100.",
-      "detail_reasoning": "BOGA AI has identified CROX as a compelling swing trade opportunity. The stock is in a EMA200 Üstü trend with RSI at 73.1, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "Crocs, Inc. presents a short-term bullish opportunity given its 25.9% monthly gain, but incomplete valuation data warrants caution before initiating a position.",
+      "detail_reasoning": "Crocs, Inc. operates in the Consumer Cyclical sector, known for footwear and accessories. BOGA AI's selection is driven by its recent price surge, positioning it above the EMA200. Technically, while the price shows strong upward momentum, the RSI at 73.1 suggests it's overbought, signaling a potential pullback. Fundamentally, incomplete valuation data raises concerns about its intrinsic value. The key risk lies in the valuation uncertainty, which could lead to a correction. Consider an entry around $98.25 – $101.01, targeting $100.25, with a stop loss at $96.86.",
       "adx": 28.6,
       "rsi": 73.1,
       "rvol": 1.41,
@@ -1069,7 +1101,11 @@
         "atr_1d": 3.93,
         "atr_pct": 3.92,
         "risk_usd": 1.39,
-        "reward_usd": 2.0
+        "reward_usd": 2.0,
+        "buy_zone": {
+          "low": 98.25,
+          "high": 101.01
+        }
       },
       "trend_status": {
         "trend": "EMA200 Üstü",
@@ -1129,20 +1165,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected CROX as a high-probability swing trade with a score of 41.5/100.",
-          "tr": "BOGA AI, CROX hissesini 41.5/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó CROX como operación swing de alta probabilidad con puntuación 41.5/100.",
-          "pt": "BOGA AI selecionou CROX como trade swing de alta probabilidade com pontuação 41.5/100.",
-          "fr": "BOGA AI a sélectionné CROX comme opportunité de swing trade avec un score de 41.5/100.",
-          "id": "BOGA AI memilih CROX sebagai swing trade probabilitas tinggi dengan skor 41.5/100."
+          "en": "Crocs, Inc. presents a short-term bullish opportunity given its 25.9% monthly gain, but incomplete valuation data warrants caution before initiating a position.",
+          "tr": "Crocs, Inc., aylık %25,9'luk kazancıyla kısa vadeli bir yükseliş fırsatı sunuyor, ancak eksik değerleme verileri pozisyon açmadan önce dikkatli olunmasını gerektiriyor.",
+          "es": "Crocs, Inc. presenta una oportunidad alcista a corto plazo dado su ganancia mensual del 25.9%, pero la información de valoración incompleta justifica la precaución antes de iniciar una posición.",
+          "pt": "Crocs, Inc. apresenta uma oportunidade de alta de curto prazo, dado o seu ganho mensal de 25,9%, mas dados de avaliação incompletos justificam cautela antes de iniciar uma posição.",
+          "fr": "Crocs, Inc. présente une opportunité haussière à court terme compte tenu de son gain mensuel de 25,9 %, mais des données d'évaluation incomplètes justifient la prudence avant d'initier une position.",
+          "id": "Crocs, Inc. menghadirkan peluang bullish jangka pendek mengingat kenaikan bulanan sebesar 25,9%, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian sebelum memulai posisi."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified CROX as a compelling swing trade opportunity. The stock is in a EMA200 Üstü trend with RSI at 73.1, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, CROX hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse EMA200 Üstü trendinde, RSI 73.1 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó CROX como una atractiva oportunidad de swing trade. La acción está en tendencia EMA200 Üstü con RSI 73.1 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou CROX como uma oportunidade de swing trade atraente. A ação está em tendência EMA200 Üstü com RSI 73.1 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié CROX comme une opportunité de swing trade convaincante. L'action est en tendance EMA200 Üstü avec un RSI à 73.1, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi CROX sebagai peluang swing trade yang menarik. Saham berada dalam tren EMA200 Üstü dengan RSI 73.1, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "Crocs, Inc. operates in the Consumer Cyclical sector, known for footwear and accessories. BOGA AI's selection is driven by its recent price surge, positioning it above the EMA200. Technically, while the price shows strong upward momentum, the RSI at 73.1 suggests it's overbought, signaling a potential pullback. Fundamentally, incomplete valuation data raises concerns about its intrinsic value. The key risk lies in the valuation uncertainty, which could lead to a correction. Consider an entry around $98.25 – $101.01, targeting $100.25, with a stop loss at $96.86.",
+          "tr": "Crocs, Inc., ayakkabı ve aksesuarlarıyla bilinen Tüketici Döngüsel sektöründe faaliyet göstermektedir. BOGA AI'nın seçimi, hissenin EMA200'ün üzerinde konumlanmasını sağlayan son fiyat artışından kaynaklanmaktadır. Teknik olarak, fiyat güçlü bir yükseliş momentumu gösterirken, 73.1'deki RSI aşırı alım bölgesinde olduğunu ve potansiyel bir geri çekilmeye işaret ediyor. Temel olarak, eksik değerleme verileri şirketin gerçek değeri hakkında endişeleri artırıyor. Temel risk, değerleme belirsizliğinde yatıyor ve bu da bir düzeltmeye yol açabilir. 98,25 – 101,01 dolar civarında bir giriş, 100,25 dolar hedef ve 96,86 dolarda bir stop loss düşünün.",
+          "es": "Crocs, Inc. opera en el sector de Consumo Cíclico, conocido por su calzado y accesorios. La selección de BOGA AI se basa en su reciente aumento de precio, posicionándose por encima de la EMA200. Técnicamente, si bien el precio muestra un fuerte impulso alcista, el RSI en 73.1 sugiere que está sobrecomprado, lo que indica un posible retroceso. Fundamentalmente, los datos de valoración incompletos generan preocupación sobre su valor intrínseco. El riesgo clave radica en la incertidumbre de la valoración, lo que podría conducir a una corrección. Considere una entrada alrededor de $98.25 – $101.01, apuntando a $100.25, con un stop loss en $96.86.",
+          "pt": "Crocs, Inc. opera no setor de Consumo Cíclico, conhecido por calçados e acessórios. A seleção da BOGA AI é impulsionada pelo seu recente aumento de preço, posicionando-o acima da EMA200. Tecnicamente, embora o preço mostre um forte impulso de alta, o RSI em 73,1 sugere que está sobrecomprado, sinalizando uma possível retração. Fundamentalmente, dados de avaliação incompletos levantam preocupações sobre seu valor intrínseco. O principal risco reside na incerteza da avaliação, o que pode levar a uma correção. Considere uma entrada em torno de US$ 98,25 – US$ 101,01, visando US$ 100,25, com um stop loss em US$ 96,86.",
+          "fr": "Crocs, Inc. opère dans le secteur de la consommation cyclique, connu pour ses chaussures et accessoires. La sélection de BOGA AI est motivée par sa récente flambée des prix, le positionnant au-dessus de l'EMA200. Techniquement, bien que le prix affiche une forte dynamique haussière, le RSI à 73,1 suggère qu'il est suracheté, signalant un repli potentiel. Fondamentalement, des données d'évaluation incomplètes soulèvent des inquiétudes quant à sa valeur intrinsèque. Le risque clé réside dans l'incertitude de l'évaluation, ce qui pourrait entraîner une correction. Envisagez une entrée autour de 98,25 $ – 101,01 $, en visant 100,25 $, avec un stop loss à 96,86 $.",
+          "id": "Crocs, Inc. beroperasi di sektor Consumer Cyclical, yang dikenal dengan alas kaki dan aksesoris. Pemilihan BOGA AI didorong oleh lonjakan harga baru-baru ini, memposisikannya di atas EMA200. Secara teknis, meskipun harga menunjukkan momentum naik yang kuat, RSI di 73,1 menunjukkan bahwa itu overbought, menandakan potensi pullback. Secara fundamental, data valuasi yang tidak lengkap menimbulkan kekhawatiran tentang nilai intrinsiknya. Risiko utama terletak pada ketidakpastian valuasi, yang dapat menyebabkan koreksi. Pertimbangkan entri di sekitar $98,25 – $101,01, menargetkan $100,25, dengan stop loss di $96,86."
         }
       },
       "change_1m": 25.86,
@@ -1170,8 +1206,8 @@
         "low": 80.11,
         "high": 81.72
       },
-      "reasoning": "BOGA AI selected SQM as a high-probability swing trade with a score of 35.4/100.",
-      "detail_reasoning": "BOGA AI has identified SQM as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 65.1, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
+      "reasoning": "SQM's recent 1-month surge of +15.8% presents a short-term bullish opportunity, but incomplete valuation data demands caution before establishing a long-term position.",
+      "detail_reasoning": "Sociedad Quimica y Minera (SQM) operates in the Basic Materials sector, producing lithium and other specialty chemicals. BOGA AI's selection is driven by its recent bullish momentum, indicated by a +15.8% increase in the past month. Technically, the RSI at 65.1 suggests continued buying pressure, although the weak ADX signals potential range-bound movement. Fundamentally, incomplete valuation data raises concerns about its true value. The key risk lies in the uncertainty surrounding its financial health due to missing fundamental data. Consider an entry around $87.00, targeting $87.99, with a stop loss at $81.72.",
       "adx": 17.2,
       "rsi": 65.1,
       "rvol": 1.82,
@@ -1196,7 +1232,11 @@
         "atr_1d": 4.02,
         "atr_pct": 4.59,
         "risk_usd": 3.9,
-        "reward_usd": 2.37
+        "reward_usd": 2.37,
+        "buy_zone": {
+          "low": 85.62,
+          "high": 88.43
+        }
       },
       "trend_status": {
         "trend": "Makro Bullish",
@@ -1256,20 +1296,20 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI selected SQM as a high-probability swing trade with a score of 35.4/100.",
-          "tr": "BOGA AI, SQM hissesini 35.4/100 skorla yüksek olasılıklı swing işlemi olarak seçti.",
-          "es": "BOGA AI seleccionó SQM como operación swing de alta probabilidad con puntuación 35.4/100.",
-          "pt": "BOGA AI selecionou SQM como trade swing de alta probabilidade com pontuação 35.4/100.",
-          "fr": "BOGA AI a sélectionné SQM comme opportunité de swing trade avec un score de 35.4/100.",
-          "id": "BOGA AI memilih SQM sebagai swing trade probabilitas tinggi dengan skor 35.4/100."
+          "en": "SQM's recent 1-month surge of +15.8% presents a short-term bullish opportunity, but incomplete valuation data demands caution before establishing a long-term position.",
+          "tr": "SQM'in son 1 ayda %15.8'lik yükselişi kısa vadeli bir boğa fırsatı sunuyor, ancak eksik değerleme verileri uzun vadeli bir pozisyon oluşturmadan önce dikkatli olmayı gerektiriyor.",
+          "es": "El reciente aumento de +15.8% en 1 mes de SQM presenta una oportunidad alcista a corto plazo, pero los datos de valoración incompletos exigen precaución antes de establecer una posición a largo plazo.",
+          "pt": "O recente aumento de +15.8% em 1 mês da SQM apresenta uma oportunidade de alta de curto prazo, mas os dados de avaliação incompletos exigem cautela antes de estabelecer uma posição de longo prazo.",
+          "fr": "La récente poussée de +15,8 % sur 1 mois de SQM présente une opportunité haussière à court terme, mais des données de valorisation incomplètes exigent de la prudence avant d'établir une position à long terme.",
+          "id": "Kenaikan SQM sebesar +15.8% dalam 1 bulan terakhir menghadirkan peluang bullish jangka pendek, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian sebelum membangun posisi jangka panjang."
         },
         "detail_summary": {
-          "en": "BOGA AI has identified SQM as a compelling swing trade opportunity. The stock is in a Makro Bullish trend with RSI at 65.1, indicating momentum is building without being overstretched. Volume and price action confirm institutional accumulation. The Risk/Reward setup offers favorable returns relative to the defined stop loss level.",
-          "tr": "BOGA AI, SQM hissesini cazip bir swing trade fırsatı olarak belirledi. Hisse Makro Bullish trendinde, RSI 65.1 ile momentum ivme kazanıyor. Hacim ve fiyat hareketleri kurumsal birikim yapıldığını teyit ediyor. Risk/Ödül oranı tanımlanmış stop loss seviyesine göre avantajlı getiri sunuyor.",
-          "es": "BOGA AI identificó SQM como una atractiva oportunidad de swing trade. La acción está en tendencia Makro Bullish con RSI 65.1 mostrando impulso sin sobreextenderse. El volumen y la acción del precio confirman acumulación institucional. La relación riesgo/recompensa ofrece retornos favorables respecto al stop loss definido.",
-          "pt": "BOGA AI identificou SQM como uma oportunidade de swing trade atraente. A ação está em tendência Makro Bullish com RSI 65.1 mostrando impulso sem exageros. Volume e ação do preço confirmam acumulação institucional. A relação risco/retorno oferece ganhos favoráveis em relação ao stop loss definido.",
-          "fr": "BOGA AI a identifié SQM comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 65.1, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
-          "id": "BOGA AI mengidentifikasi SQM sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 65.1, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
+          "en": "Sociedad Quimica y Minera (SQM) operates in the Basic Materials sector, producing lithium and other specialty chemicals. BOGA AI's selection is driven by its recent bullish momentum, indicated by a +15.8% increase in the past month. Technically, the RSI at 65.1 suggests continued buying pressure, although the weak ADX signals potential range-bound movement. Fundamentally, incomplete valuation data raises concerns about its true value. The key risk lies in the uncertainty surrounding its financial health due to missing fundamental data. Consider an entry around $87.00, targeting $87.99, with a stop loss at $81.72.",
+          "tr": "Sociedad Quimica y Minera (SQM), lityum ve diğer özel kimyasallar üreten Temel Malzemeler sektöründe faaliyet göstermektedir. BOGA AI'nın seçimi, son bir aydaki %15.8'lik artışla belirtilen son yükseliş momentumundan kaynaklanmaktadır. Teknik olarak, 65.1'deki RSI, devam eden alım baskısını gösterirken, zayıf ADX potansiyel aralık sınırlı hareket sinyali veriyor. Temel olarak, eksik değerleme verileri gerçek değeri hakkında endişeler yaratıyor. Temel risk, eksik temel veriler nedeniyle finansal sağlığıyla ilgili belirsizlikte yatmaktadır. Yaklaşık 87.00 dolardan giriş yapmayı, 87.99 doları hedeflemeyi ve 81.72 dolarda bir stop loss düşünün.",
+          "es": "Sociedad Quimica y Minera (SQM) opera en el sector de Materiales Básicos, produciendo litio y otros productos químicos especializados. La selección de BOGA AI se basa en su reciente impulso alcista, indicado por un aumento del +15.8% en el último mes. Técnicamente, el RSI en 65.1 sugiere una presión de compra continua, aunque el ADX débil señala un posible movimiento de rango limitado. Fundamentalmente, los datos de valoración incompletos generan preocupación sobre su verdadero valor. El riesgo clave radica en la incertidumbre en torno a su salud financiera debido a la falta de datos fundamentales. Considere una entrada alrededor de $87.00, apuntando a $87.99, con un stop loss en $81.72.",
+          "pt": "Sociedad Quimica y Minera (SQM) atua no setor de Materiais Básicos, produzindo lítio e outros produtos químicos especializados. A seleção da BOGA AI é impulsionada pelo seu recente impulso de alta, indicado por um aumento de +15.8% no último mês. Tecnicamente, o RSI em 65.1 sugere uma pressão de compra contínua, embora o ADX fraco sinalize um possível movimento limitado por intervalo. Fundamentalmente, os dados de avaliação incompletos levantam preocupações sobre o seu verdadeiro valor. O principal risco reside na incerteza em torno da sua saúde financeira devido à falta de dados fundamentais. Considere uma entrada em torno de $87.00, com meta em $87.99 e um stop loss em $81.72.",
+          "fr": "Sociedad Quimica y Minera (SQM) opère dans le secteur des matériaux de base, produisant du lithium et d'autres produits chimiques spécialisés. La sélection de BOGA AI est motivée par sa récente dynamique haussière, indiquée par une augmentation de +15,8 % au cours du dernier mois. Techniquement, le RSI à 65,1 suggère une pression d'achat continue, bien que le faible ADX signale un mouvement potentiel limité. Fondamentalement, des données de valorisation incomplètes suscitent des inquiétudes quant à sa véritable valeur. Le risque clé réside dans l'incertitude entourant sa santé financière en raison du manque de données fondamentales. Envisagez une entrée autour de 87,00 $, en visant 87,99 $, avec un stop loss à 81,72 $.",
+          "id": "Sociedad Quimica y Minera (SQM) beroperasi di sektor Bahan Baku, memproduksi lithium dan bahan kimia khusus lainnya. Pemilihan BOGA AI didorong oleh momentum bullish baru-baru ini, yang ditunjukkan oleh peningkatan +15.8% dalam sebulan terakhir. Secara teknis, RSI di 65.1 menunjukkan tekanan beli yang berkelanjutan, meskipun ADX yang lemah menandakan potensi pergerakan terbatas. Secara fundamental, data valuasi yang tidak lengkap menimbulkan kekhawatiran tentang nilai sebenarnya. Risiko utama terletak pada ketidakpastian seputar kesehatan keuangannya karena kurangnya data fundamental. Pertimbangkan untuk masuk di sekitar $87.00, menargetkan $87.99, dengan stop loss di $81.72."
         }
       },
       "change_1m": 15.81,
