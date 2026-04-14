@@ -56,6 +56,7 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-[#94a3b8] mb-3">Resources</h4>
             <div className="flex flex-col gap-1.5">
               <Link href="/about" className="text-xs text-[#64748b] hover:text-white transition-colors">About BOGA AI</Link>
+              <Link href="/swing-performance" className="text-xs text-[#64748b] hover:text-white transition-colors">Performance</Link>
               <Link href="/archive" className="text-xs text-[#64748b] hover:text-white transition-colors">Archive</Link>
               <Link href="/contact" className="text-xs text-[#64748b] hover:text-white transition-colors">Contact</Link>
             </div>
