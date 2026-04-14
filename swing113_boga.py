@@ -417,14 +417,56 @@ def get_stock_data(ticker: str, interval: Literal["1d", "1h"] = "1d") -> Optiona
 
 
 def get_stock_info(ticker: str) -> dict:
-    """Persistent cache'den hisse bilgisi döner."""
+    """Persistent cache'den hisse bilgisi döner, yoksa yfinance'den çeker."""
     t = ticker.strip().upper()
+    
+    # 1) Cache kontrolü
     if t in persistent_info_cache:
-        return persistent_info_cache[t]
-    return {
-        "market_cap": 0, "avg_volume": 0, "beta": 1.0,
-        "short_float": 0.0, "sector": "Unknown", "heldPercentInstitutions": 0
-    }
+        info = persistent_info_cache[t]
+        # Eğer kritik veriler eksikse tazelemeyi tetikle
+        if info.get("market_cap", 0) > 0 and info.get("sector") != "Unknown":
+            return info
+
+    # 2) Live Fetch (Cache'de yoksa veya veriler 0 ise)
+    try:
+        logging.info(f"🌐 {t} info fetching live...")
+        stock = yf.Ticker(t)
+        inf = stock.info
+        
+        # Kritik verileri ayıkla
+        processed = {
+            "market_cap": inf.get("marketCap", 0),
+            "avg_volume": inf.get("averageVolume", 0),
+            "beta": inf.get("beta", 1.0),
+            "short_float": inf.get("shortPercentOfFloat", 0.0),
+            "sector": inf.get("sector", "Unknown"),
+            "heldPercentInstitutions": inf.get("heldPercentInstitutions", 0),
+            "grossMargins": inf.get("grossMargins", 0),
+            "operatingMargins": inf.get("operatingMargins", 0),
+            "profitMargins": inf.get("profitMargins", 0),
+            "revenueGrowth": inf.get("revenueGrowth", 0),
+            "trailingPE": inf.get("trailingPE", 0),
+            "priceToBook": inf.get("priceToBook", 0),
+            "freeCashflow": inf.get("freeCashflow", 0),
+            "recommendationKey": inf.get("recommendationKey", "N/A"),
+            "pegRatio": inf.get("pegRatio", 0),
+            "companyName": inf.get("longName", t)
+        }
+        
+        # Cache güncelle ve kaydet
+        persistent_info_cache[t] = processed
+        # Opsiyonel: Her fetch sonrası kaydetmek disk I/O bindirir, 
+        # ama crash olursa veri kaybını önler.
+        save_info_cache() 
+        
+        return processed
+        
+    except Exception as e:
+        logging.error(f"⚠️ {t} info fetch hatası: {e}")
+        return {
+            "market_cap": 0, "avg_volume": 0, "beta": 1.0,
+            "short_float": 0.0, "sector": "Unknown", "heldPercentInstitutions": 0
+        }
 
 
 def get_index_close_series(symbol: str = INDEX_BENCHMARK) -> Optional[pd.Series]:

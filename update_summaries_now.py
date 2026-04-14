@@ -4,6 +4,7 @@ import asyncio
 import aiohttp
 import re
 import logging
+import yfinance as yf
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
@@ -56,84 +57,96 @@ async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dic
     if not fin_health and "fundamentals" in c:
         fin_health = c["fundamentals"]
 
-    # ── Temel Veriler ─────────────────────────────────────────────────────────
-    gross_m = fin_health.get("gross_margin", fin_health.get("gross_margin_pct", 0))
-    op_m    = fin_health.get("operating_margin", fin_health.get("operating_margin_pct", 0))
-    net_m   = fin_health.get("net_margin", fin_health.get("net_margin_pct", 0))
-    rev_g   = fin_health.get("revenue_growth", fin_health.get("revenue_growth_pct", 0))
+    # ── DATA REPAIR: If financials are missing (zero), fetch them now ──
+    # We fetch live if core margins/growth are zero.
+    if fin_health.get("gross_margin", 0) == 0 and fin_health.get("revenue_growth", 0) == 0:
+        try:
+            logging.info(f"🔍 {ticker} fundamentals are zero. Attempting live repair...")
+            stock = yf.Ticker(ticker)
+            inf = stock.info
+            
+            # Update fin_health with real numbers
+            gm = inf.get("grossMargins", 0) or 0
+            om = inf.get("operatingMargins", 0) or 0
+            nm = inf.get("profitMargins", 0) or 0
+            rg = inf.get("revenueGrowth", 0) or 0
+            pe = inf.get("trailingPE", 0) or 0
+            pb = inf.get("priceToBook", 0) or 0
+            fcf = inf.get("freeCashflow", 0) or 0
+            mcap_raw = inf.get("marketCap", 1) or 1
+            fcf_y_calc = (fcf / mcap_raw * 100) if mcap_raw > 1 else 0
+            
+            fin_health.update({
+                "gross_margin": gm * 100,
+                "operating_margin": om * 100,
+                "net_margin": nm * 100,
+                "revenue_growth": rg * 100,
+                "pe_ratio": pe,
+                "pb_ratio": pb,
+                "fcf_yield": fcf_y_calc,
+                "market_cap_usd": mcap_raw
+            })
+            c["market_cap_usd"] = mcap_raw
+        except Exception as e:
+            logging.warning(f"⚠️ {ticker} repair failed: {e}")
+
+    # Final variable mapping for the prompt
+    mcap_b  = c.get("market_cap_usd", 0) / 1e9 if c.get("market_cap_usd") else 0
+    rev_g   = fin_health.get("revenue_growth", 0)
+    gross_m = fin_health.get("gross_margin", 0)
+    op_m    = fin_health.get("operating_margin", 0)
+    net_m   = fin_health.get("net_margin", 0)
     pe      = fin_health.get("pe_ratio", 0)
     pb      = fin_health.get("pb_ratio", 0)
-    fcf_y   = fin_health.get("fcf_yield", fin_health.get("fcf_yield_pct", 0))
-    mcap    = fin_health.get("market_cap_b", fin_health.get("market_cap_usd", 0) / 1e9 if fin_health.get("market_cap_usd") else 0)
+    fcf_y   = fin_health.get("fcf_yield", 0)
 
-    # ── Performans ────────────────────────────────────────────────────────────
+    # Valuation context based on P/E and PEG
+    if pe > 0 and rev_g > 0:
+        peg = pe / rev_g
+        if peg < 1.0: val_comment = f"Undervalued (PEG: {peg:.1f}x)"
+        elif peg < 2.0: val_comment = f"Fair Value (PEG: {peg:.1f}x)"
+        else: val_comment = f"Premium (PEG: {peg:.1f}x)"
+    elif pe > 0:
+        val_comment = f"Market Standard (P/E: {pe:.1f}x)"
+    else:
+        val_comment = "Valuation Data Incomplete"
+
+    # ── Performans & EMA ──────────────────────────────────────────────────────
     p1d = c.get("change_1d", 0.0)
     p1w = c.get("change_1w", 0.0)
     p1m = c.get("change_1m", 0.0)
     p1y = c.get("change_1y", 0.0)
     p5y = c.get("change_5y", 0.0)
 
-    # ── EMA Konumu (insan diline çeviri) ──────────────────────────────────────
-    def ema_status(price_val, ema_val, label):
-        if price_val <= 0 or ema_val <= 0:
-            return f"N/A ({label})"
+    def ema_status_str(price_val, ema_val, label):
+        if price_val <= 0 or ema_val <= 0: return f"N/A ({label})"
         pct = ((price_val - ema_val) / ema_val) * 100
-        direction = "above" if pct >= 0 else "below"
-        return f"{abs(pct):.1f}% {direction} {label}"
+        return f"{abs(pct):.1f}% {'above' if pct >= 0 else 'below'} {label}"
 
-    ema20_status  = ema_status(price, ema20,  "EMA20")
-    ema50_status  = ema_status(price, ema50,  "EMA50")
-    ema200_status = ema_status(price, ema200, "EMA200")
+    ema20_status  = ema_status_str(price, ema20,  "EMA20")
+    ema50_status  = ema_status_str(price, ema50,  "EMA50")
+    ema200_status = ema_status_str(price, ema200, "EMA200")
 
-    # ── RSI Yorumu ────────────────────────────────────────────────────────────
-    if rsi >= 70:
-        rsi_comment = "overbought territory — caution on new entries"
-    elif rsi >= 55:
-        rsi_comment = "bullish momentum zone — trend intact"
-    elif rsi >= 45:
-        rsi_comment = "neutral — awaiting directional catalyst"
-    elif rsi >= 30:
-        rsi_comment = "oversold pressure — potential recovery watch"
-    else:
-        rsi_comment = "deep oversold — capitulation risk present"
-
-    # ── ADX Yorumu ────────────────────────────────────────────────────────────
-    if adx >= 40:
-        adx_comment = "extremely strong trending market"
-    elif adx >= 25:
-        adx_comment = "confirmed trending environment"
-    elif adx >= 15:
-        adx_comment = "weak trend — range-bound conditions possible"
-    else:
-        adx_comment = "no clear trend — choppy price action"
-
-    # ── MACD Yorumu ───────────────────────────────────────────────────────────
-    if macd_hist > 0:
-        macd_comment = f"positive histogram ({macd_hist:+.3f}) — bullish momentum expanding"
-    else:
-        macd_comment = f"negative histogram ({macd_hist:+.3f}) — bearish pressure building"
-
-    # ── Değerleme Özeti ───────────────────────────────────────────────────────
-    if pe > 0 and rev_g > 0:
-        peg_approx = pe / rev_g
-        if peg_approx < 1.0:
-            val_comment = f"trading at a potential discount (PEG ~{peg_approx:.1f}x) — growth not fully priced"
-        elif peg_approx < 2.0:
-            val_comment = f"fairly valued relative to growth (PEG ~{peg_approx:.1f}x)"
-        else:
-            val_comment = f"elevated valuation (PEG ~{peg_approx:.1f}x) — growth must continue to justify"
-    else:
-        val_comment = "valuation data incomplete — fundamental caution warranted"
-
-    # ── R/R Yorumu ────────────────────────────────────────────────────────────
-    if rr >= 3.0:
-        rr_comment = f"{rr:.1f}:1 — exceptional risk/reward setup"
-    elif rr >= 2.0:
-        rr_comment = f"{rr:.1f}:1 — attractive risk/reward for swing traders"
-    elif rr >= 1.5:
-        rr_comment = f"{rr:.1f}:1 — acceptable risk/reward with disciplined stop"
-    else:
-        rr_comment = f"{rr:.1f}:1 — marginal risk/reward — position sizing critical"
+    # ── Sinyal Yorumları ───────────────────────────────────────────────────────
+    rsi_comment = (
+        "overbought - exhaustion risk" if rsi >= 70 else 
+        "strong bullish momentum" if rsi >= 55 else 
+        "neutral" if rsi >= 45 else "weak/oversold"
+    )
+    adx_comment = (
+        "very strong trend" if adx >= 35 else 
+        "stable trend" if adx >= 25 else 
+        "weak trend / consolidation"
+    )
+    macd_comment = (
+        f"bullish expansion ({macd_hist:+.3f})" if macd_hist > 0 else 
+        f"bearish pressure ({macd_hist:+.3f})"
+    )
+    rr_comment = (
+        f"{rr:.1f}:1 - Excellent" if rr >= 2.5 else 
+        f"{rr:.1f}:1 - Good" if rr >= 2.0 else 
+        f"{rr:.1f}:1 - Moderate"
+    )
 
     language_configs = {
         "en": {
@@ -175,86 +188,58 @@ async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dic
     }
 
     prompt = f"""
-You are BOGA AI — the engine behind the "Kartal Yuvası Alpha Commander v5.5" protocol.
-Your mission: produce institutional-grade yet plain-language investment summaries for {ticker} ({company}), a {sector} company.
+You are BOGA AI — the elite intelligence core of the "Kartal Yuvası Alpha Commander v5.5" protocol.
+Your mission: produce institutional-grade, high-conviction investment briefings for {ticker} ({company}), a {sector} leader.
 
 ═══════════════════════════════════════════════════════
-MARKET INTELLIGENCE BRIEFING — {ticker}
+STRATEGIC INTELLIGENCE DEPLOYMENT — {ticker}
 ═══════════════════════════════════════════════════════
 
-▌ SCORE & IDENTITY
-  BOGA AI Score  : {score_100}/100
-  Sector         : {sector}
-  Market Cap     : ${mcap:.1f}B
-  Current Price  : ${price:.2f}
-  Entry Trigger  : {entry_trigger}
-  Trend (Daily)  : {trend_status}
+▌ ANALYSIS CONTEXT (The Raw Data)
+  • BOGA AI Master Score : {score_100}/100 (Alpha Grade)
+  • Market Cap / Price   : ${mcap_b:.1f}B | ${price:.2f}
+  • Sector / Trend       : {sector} | {trend_status}
+  • Entry Catalyst       : {entry_trigger}
+  
+▌ QUANT MATRIX (Technical Interpretation)
+  • RSI (Relative Strength) : {rsi:.1f} ({rsi_comment})
+  • ADX (Trend Power)      : {adx:.1f} ({adx_comment})
+  • MACD (Momentum)        : {macd_comment}
+  • MFI (Money Flow)       : {mfi:.1f} (Capital flows indicate {'accumulation' if mfi > 60 else 'distribution' if mfi < 40 else 'neutral setup'})
+  • EMA Ribbon Geometry    : {ema20_status} | {ema50_status} | {ema200_status}
 
-▌ TECHNICAL MATRIX (Kartal Gözü)
-  RSI (14)       : {rsi:.1f} → {rsi_comment}
-  ADX            : {adx:.1f} → {adx_comment}
-  MACD           : {macd_comment}
-  MFI            : {mfi:.1f} (Money Flow — {('accumulation signal' if mfi > 60 else 'distribution warning' if mfi < 40 else 'neutral flow')})
-  EMA Ribbon     : Price is {ema20_status} | {ema50_status} | {ema200_status}
+▌ FUNDAMENTAL DISCIPLINE (Quant Margins)
+  • Top-Line Growth        : {rev_g:.1f}% (Revenue)
+  • Margins (G/O/N)        : {gross_m:.1f}% / {op_m:.1f}% / {net_m:.1f}%
+  • Valuation Matrix       : {val_comment}
+  • FCF Yield / P/E        : {fcf_y:.1f}% | {pe:.1f}x P/E
 
-▌ PERFORMANCE CONTEXT
-  1D / 1W / 1M   : {p1d:+.1f}% / {p1w:+.1f}% / {p1m:+.1f}%
-  1Y / 5Y        : {p1y:+.1f}% / {p5y:+.1f}%
-
-▌ FUNDAMENTAL HEALTH (Quant Metrics)
-  Revenue Growth : {rev_g:.1f}%
-  Gross Margin   : {gross_m:.1f}%
-  Operating Margin: {op_m:.1f}%
-  Net Margin     : {net_m:.1f}%
-  P/E Ratio      : {pe:.1f}x
-  P/B Ratio      : {pb:.1f}x
-  FCF Yield      : {fcf_y:.1f}%
-  Valuation      : {val_comment}
-
-▌ TACTICAL ZONES (Operasyonel Plan)
-  Buy Zone       : ${buy_low:.2f} – ${buy_high:.2f}
-  Take Profit    : ${sell_high:.2f}
-  Stop Loss      : ${stop_high:.2f} (pain threshold)
-  Risk/Reward    : {rr_comment}
+▌ DEPLOYMENT PARAMETERS (Tactical Zones)
+  • Optimal Buy Zone       : ${buy_low:.2f} – ${buy_high:.2f}
+  • Tactical Target        : ${sell_high:.2f}
+  • Pain Threshold (Stop)  : ${stop_high:.2f}
+  • R/R Ratio              : {rr_comment}
 
 ═══════════════════════════════════════════════════════
-YOUR TASK
+OPERATIONAL INSTRUCTIONS — ALPHA COMMANDER PROTOCOL
 ═══════════════════════════════════════════════════════
 
-Generate summaries in ALL SIX languages below. For each language, follow the
-specific regional finance dialect and length instructions precisely.
+Your task is to synthesize the data above into a "Decision Support Briefing" in ALL SIX languages listed below. 
 
-LANGUAGE INSTRUCTIONS:
-{chr(10).join([f'  [{k.upper()}] {v["lang_name"]}: {v["region_note"]} | homepage → {v["homepage_len"]} | detail → {v["detail_len"]}' for k, v in language_configs.items()])}
+CRITICAL CONTENT RULES:
+1. **NO HOLLOW ADJECTIVES**: Never call an opportunity "exciting", "compelling", or "great". Use the math to prove the point. 
+2. **THE "WHY" FACTOR**: Link technicals to fundamentals. (Example: "Strong free cash flow yield of {fcf_y}% provides a safety net during this RSI {rsi} consolidation phase.")
+3. **RISK MITIGATION**: Every detail summary MUST highlight the specific risk factor identified in the "ADX" or "Valuation" data.
+4. **HOMEPAGE SUMMARY**: Must be one lethal, action-oriented sentence that captures the core 'Alpha' and the 'Risk' in a single professional breath.
+5. **DETAIL SUMMARY**: Structure as a high-level briefing for a CEO: (1) Business essence, (2) The Quant Matrix reasoning for the score, (3) Support/Resistance logic based on EMA/ATR, (4) Financial health verdict, (5) The "Pain Point" risk, (6) Numbers-only execution plan.
 
-CONTENT RULES (apply to ALL languages):
-1. homepage_summary : Captures both the alpha opportunity AND the main risk in one breath.
-   Never generic. Always name a specific catalyst or data point from above.
-2. detail_summary   : Write like a calm, senior analyst briefing a smart but non-finance CEO.
-   Use plain language. Explain what RSI, ADX, margin mean in human terms (no jargon dumps).
-   Mention: company role in sector, why the score is high, one key risk, the entry/stop setup.
-3. NEVER use these hollow phrases: "compelling opportunity", "promising outlook",
-   "solid fundamentals", "strong momentum" without backing with a specific number.
-4. Tone: Confident, measured, honest about risk — not a sales pitch.
+LANGUAGE DIALECTS:
+{chr(10).join([f'  [{k.upper()}] {v["lang_name"]}: {v["region_note"]}' for k, v in language_configs.items()])}
 
-OUTPUT FORMAT — Return ONLY valid JSON, no markdown fences, no preamble:
+OUTPUT FORMAT: Return ONLY valid JSON:
 {{
-  "homepage_summary": {{
-    "en": "...",
-    "tr": "...",
-    "es": "...",
-    "pt": "...",
-    "fr": "...",
-    "id": "..."
-  }},
-  "detail_summary": {{
-    "en": "...",
-    "tr": "...",
-    "es": "...",
-    "pt": "...",
-    "fr": "...",
-    "id": "..."
-  }}
+  "homepage_summary": {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
+  "detail_summary":   {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }}
 }}
 """
 

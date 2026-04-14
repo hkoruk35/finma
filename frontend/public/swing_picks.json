@@ -27,8 +27,8 @@
         "low": 73.42,
         "high": 74.64
       },
-      "reasoning": "BBIO's 141% YoY gain and bullish RSI signal a potential swing trade, but incomplete valuation data demands caution despite an attractive 2.5:1 risk/reward ratio.",
-      "detail_reasoning": "BridgeBio Pharma focuses on developing therapies for genetic diseases. BOGA AI selected BBIO due to its recent price momentum, indicated by a bullish RSI of 63.1. Technically, while RSI signals strength, the ADX suggests the trend is weak, and MACD hints at bearish pressure. Fundamentally, the lack of complete valuation data is a significant concern. Watch for further valuation updates. Consider an entry between $76.34 and $78.48, targeting $80.59, with a stop loss at $74.64.",
+      "reasoning": "Initiate a tactical long position in BBIO within the $76.34-$78.48 range, targeting $80.59, with a stop at $74.64 to capitalize on bullish momentum while acknowledging valuation uncertainties.",
+      "detail_reasoning": "BridgeBio Pharma (BBIO) is a biopharmaceutical company focused on developing therapies for genetic diseases. The BOGA AI Master Score of 58.9 reflects strong bullish momentum (RSI 63.1) despite a weak trend (ADX 20.8). EMA ribbon geometry is currently unavailable, requiring reliance on price action for support/resistance. The company exhibits exceptional top-line growth (2521.2%) and a robust gross margin (95.8%), but negative operating and net margins (-83.3%/-144.4%) raise concerns. The primary risk lies in incomplete valuation data, hindering a comprehensive assessment. Execute a buy order between $76.34 and $78.48, set a target price of $80.59, and implement a stop-loss at $74.64 for risk management.",
       "adx": 20.8,
       "rsi": 63.1,
       "rvol": 1.62,
@@ -92,10 +92,15 @@
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
         "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pb_ratio": -7.3256793,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 15214358528,
+        "gross_margin": 95.825,
+        "operating_margin": -83.3,
+        "net_margin": -144.387,
+        "revenue_growth": 2521.2,
+        "fcf_yield": -2.1380502069893117
       },
       "performance": {
         "1d_pct": 4.4,
@@ -117,24 +122,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BBIO's 141% YoY gain and bullish RSI signal a potential swing trade, but incomplete valuation data demands caution despite an attractive 2.5:1 risk/reward ratio.",
-          "tr": "BBIO'nun yıllık %141'lik kazancı ve yükseliş RSI sinyali potansiyel bir swing trade fırsatı sunuyor, ancak eksik değerleme verileri 2.5:1'lik cazip risk/ödül oranına rağmen dikkatli olmayı gerektiriyor.",
-          "es": "La ganancia interanual del 141% de BBIO y la señal alcista del RSI señalan una posible operación de swing, pero los datos de valoración incompletos exigen precaución a pesar de una atractiva relación riesgo/recompensa de 2.5:1.",
-          "pt": "O ganho anual de 141% da BBIO e o sinal de RSI de alta indicam uma potencial operação de swing trade, mas os dados de avaliação incompletos exigem cautela, apesar de uma atraente relação risco/recompensa de 2,5:1.",
-          "fr": "Le gain annuel de 141 % de BBIO et le signal haussier du RSI indiquent une opportunité de swing trading potentielle, mais les données d'évaluation incomplètes exigent la prudence malgré un ratio risque/rendement attractif de 2,5:1.",
-          "id": "Kenaikan YoY BBIO sebesar 141% dan sinyal RSI bullish menandakan potensi swing trade, tetapi data valuasi yang tidak lengkap menuntut kehati-hatian meskipun rasio risiko/imbalan 2.5:1 yang menarik."
+          "en": "Initiate a tactical long position in BBIO within the $76.34-$78.48 range, targeting $80.59, with a stop at $74.64 to capitalize on bullish momentum while acknowledging valuation uncertainties.",
+          "tr": "BBIO'da 76.34-78.48$ aralığında taktiksel uzun pozisyon başlatın, 80.59$'ı hedefleyin ve değerleme belirsizliklerini göz önünde bulundurarak 74.64$'da stop koyarak yükseliş momentumundan yararlanın.",
+          "es": "Inicie una posición larga táctica en BBIO dentro del rango de $76.34-$78.48, apuntando a $80.59, con un stop en $74.64 para capitalizar el impulso alcista, reconociendo las incertidumbres de valoración.",
+          "pt": "Inicie uma posição comprada tática em BBIO na faixa de $76,34-$78,48, com meta em $80,59, e stop em $74,64 para capitalizar o momentum de alta, reconhecendo as incertezas de avaliação.",
+          "fr": "Initier une position longue tactique sur BBIO dans la fourchette de 76,34 $ à 78,48 $, avec un objectif de 80,59 $ et un stop à 74,64 $ pour capitaliser sur la dynamique haussière tout en reconnaissant les incertitudes de valorisation.",
+          "id": "Inisiasi posisi long taktis pada BBIO dalam rentang $76.34-$78.48, target $80.59, dengan stop di $74.64 untuk memanfaatkan momentum bullish, sambil mengakui ketidakpastian valuasi."
         },
         "detail_summary": {
-          "en": "BridgeBio Pharma focuses on developing therapies for genetic diseases. BOGA AI selected BBIO due to its recent price momentum, indicated by a bullish RSI of 63.1. Technically, while RSI signals strength, the ADX suggests the trend is weak, and MACD hints at bearish pressure. Fundamentally, the lack of complete valuation data is a significant concern. Watch for further valuation updates. Consider an entry between $76.34 and $78.48, targeting $80.59, with a stop loss at $74.64.",
-          "tr": "BridgeBio Pharma, genetik hastalıklar için tedaviler geliştirmeye odaklanıyor. BOGA AI, BBIO'yu 63.1'lik yükseliş RSI'ı ile belirtilen son fiyat momentumu nedeniyle seçti. Teknik olarak, RSI gücü işaret ederken, ADX trendin zayıf olduğunu ve MACD düşüş baskısına işaret ediyor. Temel olarak, eksik değerleme verileri önemli bir endişe kaynağı. Değerleme güncellemelerini izleyin. 76.34 ile 78.48 dolar arasında bir giriş, 80.59 dolar hedef ve 74.64 dolarda stop loss düşünebilirsiniz.",
-          "es": "BridgeBio Pharma se centra en el desarrollo de terapias para enfermedades genéticas. BOGA AI seleccionó BBIO debido a su reciente impulso de precios, indicado por un RSI alcista de 63.1. Técnicamente, si bien el RSI señala fortaleza, el ADX sugiere que la tendencia es débil y el MACD insinúa una presión bajista. Fundamentalmente, la falta de datos de valoración completos es una preocupación importante. Esté atento a las actualizaciones de valoración. Considere una entrada entre $76.34 y $78.48, apuntando a $80.59, con un stop loss en $74.64.",
-          "pt": "BridgeBio Pharma se concentra no desenvolvimento de terapias para doenças genéticas. A BOGA AI selecionou a BBIO devido ao seu recente momentum de preço, indicado por um RSI de alta de 63,1. Tecnicamente, embora o RSI sinalize força, o ADX sugere que a tendência é fraca e o MACD indica pressão de baixa. Fundamentalmente, a falta de dados de avaliação completos é uma preocupação significativa. Fique atento às atualizações de avaliação. Considere uma entrada entre US$ 76,34 e US$ 78,48, com meta de US$ 80,59 e stop loss em US$ 74,64.",
-          "fr": "BridgeBio Pharma se concentre sur le développement de thérapies pour les maladies génétiques. BOGA AI a sélectionné BBIO en raison de sa dynamique de prix récente, indiquée par un RSI haussier de 63,1. Techniquement, bien que le RSI signale une force, l'ADX suggère que la tendance est faible et le MACD laisse entrevoir une pression baissière. Fondamentalement, le manque de données d'évaluation complètes est une préoccupation importante. Surveillez les mises à jour de l'évaluation. Envisagez une entrée entre 76,34 $ et 78,48 $, en visant 80,59 $, avec un stop loss à 74,64 $.",
-          "id": "BridgeBio Pharma berfokus pada pengembangan terapi untuk penyakit genetik. BOGA AI memilih BBIO karena momentum harga baru-baru ini, yang ditunjukkan oleh RSI bullish sebesar 63.1. Secara teknis, meskipun RSI menandakan kekuatan, ADX menunjukkan tren lemah, dan MACD mengisyaratkan tekanan bearish. Secara fundamental, kurangnya data valuasi lengkap merupakan perhatian signifikan. Pantau pembaruan valuasi lebih lanjut. Pertimbangkan entry antara $76.34 dan $78.48, menargetkan $80.59, dengan stop loss di $74.64."
+          "en": "BridgeBio Pharma (BBIO) is a biopharmaceutical company focused on developing therapies for genetic diseases. The BOGA AI Master Score of 58.9 reflects strong bullish momentum (RSI 63.1) despite a weak trend (ADX 20.8). EMA ribbon geometry is currently unavailable, requiring reliance on price action for support/resistance. The company exhibits exceptional top-line growth (2521.2%) and a robust gross margin (95.8%), but negative operating and net margins (-83.3%/-144.4%) raise concerns. The primary risk lies in incomplete valuation data, hindering a comprehensive assessment. Execute a buy order between $76.34 and $78.48, set a target price of $80.59, and implement a stop-loss at $74.64 for risk management.",
+          "tr": "BridgeBio Pharma (BBIO), genetik hastalıklar için tedaviler geliştirmeye odaklanan bir biyofarmasötik şirketidir. 58.9'luk BOGA AI Master Skoru, zayıf bir trende (ADX 20.8) rağmen güçlü bir yükseliş momentumunu (RSI 63.1) yansıtmaktadır. EMA ribbon geometrisi şu anda mevcut değil, bu nedenle destek/direnç için fiyat hareketine güvenmek gerekiyor. Şirket, olağanüstü bir gelir artışı (%2521.2) ve güçlü bir brüt kar marjı (%95.8) sergilemektedir, ancak negatif işletme ve net kar marjları (-%83.3/-%144.4) endişe yaratmaktadır. Birincil risk, eksik değerleme verilerinde yatmaktadır ve kapsamlı bir değerlendirmeyi engellemektedir. 76.34$ ile 78.48$ arasında bir alış emri verin, 80.59$ hedef fiyat belirleyin ve risk yönetimi için 74.64$'da bir stop-loss uygulayın.",
+          "es": "BridgeBio Pharma (BBIO) es una compañía biofarmacéutica enfocada en el desarrollo de terapias para enfermedades genéticas. El puntaje maestro BOGA AI de 58.9 refleja un fuerte impulso alcista (RSI 63.1) a pesar de una tendencia débil (ADX 20.8). La geometría de la cinta EMA no está disponible actualmente, lo que requiere depender de la acción del precio para el soporte/resistencia. La compañía exhibe un crecimiento excepcional en los ingresos (2521.2%) y un margen bruto robusto (95.8%), pero los márgenes operativos y netos negativos (-83.3%/-144.4%) generan preocupación. El principal riesgo radica en los datos de valoración incompletos, lo que dificulta una evaluación integral. Ejecute una orden de compra entre $76.34 y $78.48, establezca un precio objetivo de $80.59 e implemente un stop-loss en $74.64 para la gestión de riesgos.",
+          "pt": "BridgeBio Pharma (BBIO) é uma empresa biofarmacêutica focada no desenvolvimento de terapias para doenças genéticas. O BOGA AI Master Score de 58,9 reflete um forte momentum de alta (RSI 63,1), apesar de uma tendência fraca (ADX 20,8). A geometria da faixa EMA está atualmente indisponível, exigindo confiança na ação do preço para suporte/resistência. A empresa exibe um crescimento excepcional na receita (2521,2%) e uma margem bruta robusta (95,8%), mas as margens operacionais e líquidas negativas (-83,3%/-144,4%) levantam preocupações. O principal risco reside nos dados de avaliação incompletos, dificultando uma avaliação abrangente. Execute uma ordem de compra entre $76,34 e $78,48, defina um preço-alvo de $80,59 e implemente um stop-loss em $74,64 para gerenciamento de risco.",
+          "fr": "BridgeBio Pharma (BBIO) est une société biopharmaceutique axée sur le développement de thérapies pour les maladies génétiques. Le score principal BOGA AI de 58,9 reflète une forte dynamique haussière (RSI 63,1) malgré une faible tendance (ADX 20,8). La géométrie du ruban EMA n'est pas disponible actuellement, ce qui nécessite de s'appuyer sur l'action des prix pour le support/résistance. La société affiche une croissance exceptionnelle du chiffre d'affaires (2521,2 %) et une marge brute robuste (95,8 %), mais les marges d'exploitation et nettes négatives (-83,3 %/-144,4 %) suscitent des inquiétudes. Le principal risque réside dans les données d'évaluation incomplètes, ce qui entrave une évaluation complète. Exécuter un ordre d'achat entre 76,34 $ et 78,48 $, fixer un prix cible de 80,59 $ et mettre en œuvre un stop-loss à 74,64 $ pour la gestion des risques.",
+          "id": "BridgeBio Pharma (BBIO) adalah perusahaan biofarmasi yang berfokus pada pengembangan terapi untuk penyakit genetik. Skor Master BOGA AI sebesar 58.9 mencerminkan momentum bullish yang kuat (RSI 63.1) meskipun tren lemah (ADX 20.8). Geometri pita EMA saat ini tidak tersedia, yang mengharuskan mengandalkan aksi harga untuk support/resistance. Perusahaan menunjukkan pertumbuhan pendapatan yang luar biasa (2521.2%) dan margin kotor yang kuat (95.8%), tetapi margin operasi dan bersih yang negatif (-83.3%/-144.4%) menimbulkan kekhawatiran. Risiko utama terletak pada data valuasi yang tidak lengkap, yang menghambat penilaian komprehensif. Eksekusi order beli antara $76.34 dan $78.48, tetapkan target harga $80.59, dan terapkan stop-loss pada $74.64 untuk manajemen risiko."
         }
       },
       "change_1m": 14.55,
-      "change_1y": 141.01
+      "change_1y": 141.01,
+      "market_cap_usd": 15214358528
     },
     {
       "rank": 2,
@@ -158,8 +164,8 @@
         "low": 114.39,
         "high": 115.91
       },
-      "reasoning": "CRH's recent 17.6% monthly surge presents short-term upside, but incomplete valuation data signals fundamental risks requiring careful monitoring.",
-      "detail_reasoning": "CRH PLC operates within the Basic Materials sector. BOGA AI's selection is driven by the recent bullish momentum, reflected in a 10.3% weekly gain, despite a potentially weakening trend signaled by the ADX at 23.3. Technically, the RSI at 64.2 indicates continued buying pressure, but the negative MACD histogram suggests caution. Fundamentally, incomplete valuation data is a key risk. Consider an entry around $117.16, targeting $118.59, with a stop-loss at $115.91.",
+      "reasoning": "Initiate a tactical long position in CRH within the $116.29-$118.03 range, capitalizing on bullish RSI momentum while acknowledging the premium valuation risk indicated by a PEG ratio of 3.5x.",
+      "detail_reasoning": "CRH PLC, a leading basic materials company, presents a tactical buying opportunity. The BOGA AI Master Score of 58.0 reflects a nuanced outlook. The RSI of 64.2 indicates strong bullish momentum, though the ADX at 23.3 suggests a period of consolidation. With no clear EMA geometry, support is loosely defined around the $116.29 level, with resistance near $118.59. CRH exhibits solid financial health with a 6.2% revenue growth and healthy gross margins of 36.1%. However, the premium valuation, indicated by a PEG ratio of 3.5x, represents a key risk. Execution plan: Buy Zone: $116.29-$118.03, Target: $118.59, Stop: $115.91.",
       "adx": 23.3,
       "rsi": 64.2,
       "rvol": 1.15,
@@ -222,11 +228,16 @@
         "operating_margin_pct": 0,
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
-        "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pe_ratio": 21.445734,
+        "pb_ratio": 3.2916238,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 78958624768,
+        "gross_margin": 36.126000000000005,
+        "operating_margin": 15.059000000000001,
+        "net_margin": 10.022,
+        "revenue_growth": 6.2,
+        "fcf_yield": 2.326218266081541
       },
       "performance": {
         "1d_pct": -0.53,
@@ -248,24 +259,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "CRH's recent 17.6% monthly surge presents short-term upside, but incomplete valuation data signals fundamental risks requiring careful monitoring.",
-          "tr": "CRH'nin son bir ayda %17,6'lık yükselişi kısa vadeli fırsatlar sunuyor, ancak eksik değerleme verileri temel risklerin dikkatle izlenmesini gerektiriyor.",
-          "es": "El reciente aumento mensual del 17.6% de CRH presenta oportunidades a corto plazo, pero los datos de valoración incompletos señalan riesgos fundamentales que requieren una cuidadosa supervisión.",
-          "pt": "O recente aumento mensal de 17,6% da CRH apresenta oportunidades de curto prazo, mas dados de avaliação incompletos sinalizam riscos fundamentais que exigem monitoramento cuidadoso.",
-          "fr": "La récente hausse mensuelle de 17,6 % de CRH offre un potentiel à court terme, mais des données d'évaluation incomplètes signalent des risques fondamentaux nécessitant une surveillance attentive.",
-          "id": "Kenaikan bulanan CRH sebesar 17.6% baru-baru ini menghadirkan potensi keuntungan jangka pendek, tetapi data valuasi yang tidak lengkap menandakan risiko fundamental yang memerlukan pemantauan cermat."
+          "en": "Initiate a tactical long position in CRH within the $116.29-$118.03 range, capitalizing on bullish RSI momentum while acknowledging the premium valuation risk indicated by a PEG ratio of 3.5x.",
+          "tr": "CRH'de 116.29-118.03$ aralığında taktiksel uzun pozisyon başlatın, yükseliş RSI momentumundan yararlanın ancak 3.5x PEG oranıyla belirtilen primli değerleme riskini göz önünde bulundurun.",
+          "es": "Inicie una posición larga táctica en CRH dentro del rango de $116.29-$118.03, capitalizando el impulso alcista del RSI, pero reconociendo el riesgo de valoración premium indicado por una relación PEG de 3.5x.",
+          "pt": "Inicie uma posição comprada tática em CRH na faixa de $116,29 a $118,03, capitalizando o momentum de alta do RSI, mas reconhecendo o risco de avaliação premium indicado por um índice PEG de 3,5x.",
+          "fr": "Initier une position longue tactique sur CRH dans la fourchette de 116,29 $ à 118,03 $, en capitalisant sur la dynamique haussière du RSI, tout en reconnaissant le risque de valorisation élevée indiqué par un ratio PEG de 3,5x.",
+          "id": "Inisiasi posisi long taktis di CRH dalam rentang $116.29-$118.03, memanfaatkan momentum RSI bullish sambil mengakui risiko valuasi premium yang ditunjukkan oleh rasio PEG 3.5x."
         },
         "detail_summary": {
-          "en": "CRH PLC operates within the Basic Materials sector. BOGA AI's selection is driven by the recent bullish momentum, reflected in a 10.3% weekly gain, despite a potentially weakening trend signaled by the ADX at 23.3. Technically, the RSI at 64.2 indicates continued buying pressure, but the negative MACD histogram suggests caution. Fundamentally, incomplete valuation data is a key risk. Consider an entry around $117.16, targeting $118.59, with a stop-loss at $115.91.",
-          "tr": "CRH PLC, Temel Malzemeler sektöründe faaliyet göstermektedir. BOGA AI'nın seçimi, ADX'in 23,3'te zayıflayan bir trend sinyali vermesine rağmen, %10,3'lük haftalık kazançla yansıyan son yükseliş momentumundan kaynaklanmaktadır. Teknik olarak, 64,2'deki RSI sürekli alım baskısını gösteriyor, ancak negatif MACD histogramı dikkatli olunması gerektiğini gösteriyor. Temel olarak, eksik değerleme verileri önemli bir risktir. 117,16 dolar civarında bir giriş, 118,59 dolar hedef ve 115,91 dolarda bir stop-loss düşünün.",
-          "es": "CRH PLC opera en el sector de Materiales Básicos. La selección de BOGA AI se basa en el reciente impulso alcista, reflejado en una ganancia semanal del 10.3%, a pesar de una tendencia potencialmente debilitante señalada por el ADX en 23.3. Técnicamente, el RSI en 64.2 indica una presión de compra continua, pero el histograma MACD negativo sugiere precaución. Fundamentalmente, los datos de valoración incompletos son un riesgo clave. Considere una entrada alrededor de $117.16, apuntando a $118.59, con un stop-loss en $115.91.",
-          "pt": "A CRH PLC opera no setor de Materiais Básicos. A seleção da BOGA AI é impulsionada pelo recente momentum de alta, refletido em um ganho semanal de 10,3%, apesar de uma tendência potencialmente enfraquecida sinalizada pelo ADX em 23,3. Tecnicamente, o RSI em 64,2 indica pressão de compra contínua, mas o histograma MACD negativo sugere cautela. Fundamentalmente, dados de avaliação incompletos são um risco chave. Considere uma entrada em torno de US$ 117,16, visando US$ 118,59, com um stop-loss em US$ 115,91.",
-          "fr": "CRH PLC opère dans le secteur des matériaux de base. La sélection de BOGA AI est motivée par la récente dynamique haussière, reflétée par un gain hebdomadaire de 10,3 %, malgré une tendance potentiellement affaiblie signalée par l'ADX à 23,3. Techniquement, le RSI à 64,2 indique une pression d'achat continue, mais l'histogramme MACD négatif suggère la prudence. Fondamentalement, des données d'évaluation incomplètes constituent un risque majeur. Envisager une entrée autour de 117,16 $, en visant 118,59 $, avec un stop-loss à 115,91 $.",
-          "id": "CRH PLC beroperasi di sektor Material Dasar. Pemilihan BOGA AI didorong oleh momentum bullish baru-baru ini, yang tercermin dalam kenaikan mingguan sebesar 10.3%, meskipun ada tren yang berpotensi melemah yang ditandai oleh ADX di 23.3. Secara teknis, RSI di 64.2 menunjukkan tekanan beli yang berkelanjutan, tetapi histogram MACD negatif menunjukkan kehati-hatian. Secara fundamental, data valuasi yang tidak lengkap merupakan risiko utama. Pertimbangkan entri di sekitar $117.16, menargetkan $118.59, dengan stop-loss di $115.91."
+          "en": "CRH PLC, a leading basic materials company, presents a tactical buying opportunity. The BOGA AI Master Score of 58.0 reflects a nuanced outlook. The RSI of 64.2 indicates strong bullish momentum, though the ADX at 23.3 suggests a period of consolidation. With no clear EMA geometry, support is loosely defined around the $116.29 level, with resistance near $118.59. CRH exhibits solid financial health with a 6.2% revenue growth and healthy gross margins of 36.1%. However, the premium valuation, indicated by a PEG ratio of 3.5x, represents a key risk. Execution plan: Buy Zone: $116.29-$118.03, Target: $118.59, Stop: $115.91.",
+          "tr": "Önde gelen bir temel malzeme şirketi olan CRH PLC, taktiksel bir satın alma fırsatı sunuyor. 58.0'lık BOGA AI Master Skoru, nüanslı bir görünümü yansıtıyor. 64.2'lik RSI güçlü bir yükseliş momentumu gösterirken, 23.3'teki ADX bir konsolidasyon dönemine işaret ediyor. Net bir EMA geometrisi olmadığından, destek kabaca 116.29$ seviyesi civarında tanımlanırken, direnç 118.59$'a yakın. CRH, %6.2'lik gelir büyümesi ve %36.1'lik sağlıklı brüt marjlarla sağlam bir finansal sağlık sergiliyor. Bununla birlikte, 3.5x PEG oranıyla belirtilen primli değerleme önemli bir riski temsil ediyor. Uygulama planı: Alım Bölgesi: 116.29-118.03$, Hedef: 118.59$, Stop: 115.91$.",
+          "es": "CRH PLC, una empresa líder en materiales básicos, presenta una oportunidad de compra táctica. El BOGA AI Master Score de 58.0 refleja una perspectiva matizada. El RSI de 64.2 indica un fuerte impulso alcista, aunque el ADX en 23.3 sugiere un período de consolidación. Sin una geometría EMA clara, el soporte se define vagamente alrededor del nivel de $116.29, con resistencia cerca de $118.59. CRH exhibe una sólida salud financiera con un crecimiento de ingresos del 6.2% y márgenes brutos saludables del 36.1%. Sin embargo, la valoración premium, indicada por una relación PEG de 3.5x, representa un riesgo clave. Plan de ejecución: Zona de compra: $116.29-$118.03, Objetivo: $118.59, Stop: $115.91.",
+          "pt": "CRH PLC, uma empresa líder em materiais básicos, apresenta uma oportunidade de compra tática. O BOGA AI Master Score de 58,0 reflete uma perspectiva matizada. O RSI de 64,2 indica um forte momentum de alta, embora o ADX em 23,3 sugira um período de consolidação. Sem uma geometria EMA clara, o suporte é vagamente definido em torno do nível de $116,29, com resistência perto de $118,59. A CRH exibe uma sólida saúde financeira com um crescimento de receita de 6,2% e margens brutas saudáveis de 36,1%. No entanto, a avaliação premium, indicada por um índice PEG de 3,5x, representa um risco fundamental. Plano de execução: Zona de compra: $116,29-$118,03, Alvo: $118,59, Stop: $115,91.",
+          "fr": "CRH PLC, une entreprise leader dans le secteur des matériaux de base, présente une opportunité d'achat tactique. Le score principal BOGA AI de 58,0 reflète une perspective nuancée. Le RSI de 64,2 indique une forte dynamique haussière, bien que l'ADX à 23,3 suggère une période de consolidation. Sans géométrie EMA claire, le support est vaguement défini autour du niveau de 116,29 $, avec une résistance proche de 118,59 $. CRH affiche une solide santé financière avec une croissance des revenus de 6,2 % et des marges brutes saines de 36,1 %. Cependant, la valorisation élevée, indiquée par un ratio PEG de 3,5x, représente un risque majeur. Plan d'exécution : Zone d'achat : 116,29 $ à 118,03 $, Objectif : 118,59 $, Stop : 115,91 $.",
+          "id": "CRH PLC, perusahaan material dasar terkemuka, menghadirkan peluang pembelian taktis. Skor Master BOGA AI sebesar 58.0 mencerminkan prospek yang bernuansa. RSI sebesar 64.2 menunjukkan momentum bullish yang kuat, meskipun ADX pada 23.3 menunjukkan periode konsolidasi. Tanpa geometri EMA yang jelas, support secara longgar didefinisikan di sekitar level $116.29, dengan resistance dekat $118.59. CRH menunjukkan kesehatan keuangan yang solid dengan pertumbuhan pendapatan 6.2% dan margin kotor yang sehat sebesar 36.1%. Namun, valuasi premium, yang ditunjukkan oleh rasio PEG 3.5x, merupakan risiko utama. Rencana eksekusi: Zona Beli: $116.29-$118.03, Target: $118.59, Stop: $115.91."
         }
       },
       "change_1m": 17.59,
-      "change_1y": 41.9
+      "change_1y": 41.9,
+      "market_cap_usd": 78958624768
     },
     {
       "rank": 3,
@@ -289,8 +301,8 @@
         "low": 118.05,
         "high": 120.92
       },
-      "reasoning": "FormFactor's impressive 1-year surge (+388.8%) clashes with overbought RSI (74.7) and incomplete valuation data, demanding caution despite bullish macro trends.",
-      "detail_reasoning": "FormFactor provides critical testing and measurement solutions for the semiconductor industry. BOGA AI highlights its recent performance, despite overbought RSI levels, suggesting a potential pullback. Technically, the RSI indicates the stock may be due for a correction, while the ADX shows a weak trend. Fundamentally, the missing valuation data raises concerns. The key risk is a correction from overbought conditions. Consider entry around $124.63 – $129.66, targeting $133.90, with a stop loss at $120.92.",
+      "reasoning": "Initiate a tactical long position in FORM within the $124.63-$129.66 range, targeting $133.90, while acknowledging the overbought RSI and rich valuation reflected in a 187.4x P/E ratio.",
+      "detail_reasoning": "FormFactor, Inc. is a leading provider of probe cards and metrology systems used in the semiconductor industry. The Alpha Grade of 57.3/100 is supported by a 13.6% revenue growth, but tempered by an overbought RSI of 74.7 and a bearish MACD crossover. EMA geometry is currently unavailable, but support is estimated in the $124.63-$129.66 range, with a target of $133.90. While gross margins are healthy at 39.2%, the negative free cash flow yield of -0.3% and a sky-high P/E of 187.4x present a significant valuation risk. Execution: Buy Zone: $124.63-$129.66, Target: $133.90, Stop: $120.92.",
       "adx": 20.7,
       "rsi": 74.7,
       "rvol": 2.66,
@@ -353,11 +365,16 @@
         "operating_margin_pct": 0,
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
-        "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pe_ratio": 187.36232,
+        "pb_ratio": 9.694788,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 10077949952,
+        "gross_margin": 39.183997999999995,
+        "operating_margin": 13.552,
+        "net_margin": 6.925000000000001,
+        "revenue_growth": 13.600000000000001,
+        "fcf_yield": -0.316789388239264
       },
       "performance": {
         "1d_pct": 3.57,
@@ -379,24 +396,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "FormFactor's impressive 1-year surge (+388.8%) clashes with overbought RSI (74.7) and incomplete valuation data, demanding caution despite bullish macro trends.",
-          "tr": "FormFactor'un 1 yıldaki %388.8'lik yükselişi, aşırı alım bölgesindeki RSI (74.7) ve eksik değerleme verileriyle çelişiyor; boğa piyasası trendine rağmen dikkatli olunmalı.",
-          "es": "El impresionante aumento de FormFactor en 1 año (+388.8%) choca con el RSI sobrecomprado (74.7) y datos de valoración incompletos, exigiendo precaución a pesar de las tendencias macro alcistas.",
-          "pt": "O impressionante aumento de 1 ano da FormFactor (+388.8%) entra em conflito com o RSI de sobrecompra (74.7) e dados de avaliação incompletos, exigindo cautela apesar das tendências macro de alta.",
-          "fr": "La progression impressionnante de FormFactor sur 1 an (+388.8%) se heurte à un RSI en zone de surachat (74.7) et à des données de valorisation incomplètes, appelant à la prudence malgré des tendances macro haussières.",
-          "id": "Lonjakan 1 tahun FormFactor yang mengesankan (+388.8%) berbenturan dengan RSI overbought (74.7) dan data valuasi yang tidak lengkap, menuntut kehati-hatian meskipun tren makro bullish."
+          "en": "Initiate a tactical long position in FORM within the $124.63-$129.66 range, targeting $133.90, while acknowledging the overbought RSI and rich valuation reflected in a 187.4x P/E ratio.",
+          "tr": "FORM'da 124.63-129.66$ aralığında taktiksel uzun pozisyon başlatın, hedef 133.90$, aşırı alım bölgesindeki RSI ve 187.4x F/K oranıyla yansıyan yüksek değerlemeyi göz önünde bulundurun.",
+          "es": "Inicie una posición larga táctica en FORM dentro del rango de $124.63-$129.66, apuntando a $133.90, reconociendo el RSI sobrecomprado y la alta valoración reflejada en un P/E de 187.4x.",
+          "pt": "Inicie uma posição comprada tática em FORM na faixa de $124.63-$129.66, visando $133.90, reconhecendo o RSI sobrecomprado e a alta avaliação refletida em um P/L de 187.4x.",
+          "fr": "Initier une position longue tactique sur FORM dans la fourchette de 124,63 $ à 129,66 $, avec un objectif de 133,90 $, tout en tenant compte du RSI en zone de surachat et de la valorisation élevée reflétée par un PER de 187,4x.",
+          "id": "Inisiasi posisi long taktis di FORM dalam rentang $124.63-$129.66, menargetkan $133.90, sambil mengakui RSI yang overbought dan valuasi tinggi yang tercermin dalam rasio P/E 187.4x."
         },
         "detail_summary": {
-          "en": "FormFactor provides critical testing and measurement solutions for the semiconductor industry. BOGA AI highlights its recent performance, despite overbought RSI levels, suggesting a potential pullback. Technically, the RSI indicates the stock may be due for a correction, while the ADX shows a weak trend. Fundamentally, the missing valuation data raises concerns. The key risk is a correction from overbought conditions. Consider entry around $124.63 – $129.66, targeting $133.90, with a stop loss at $120.92.",
-          "tr": "FormFactor, yarı iletken endüstrisi için kritik test ve ölçüm çözümleri sunar. BOGA AI, aşırı alım seviyelerindeki RSI'ya rağmen son performansını vurguluyor ve potansiyel bir geri çekilme olduğunu gösteriyor. Teknik olarak, RSI hissenin bir düzeltmeye ihtiyaç duyabileceğini gösterirken, ADX zayıf bir trend gösteriyor. Temel olarak, eksik değerleme verileri endişeleri artırıyor. Temel risk, aşırı alım koşullarından kaynaklanan bir düzeltmedir. $124.63 – $129.66 civarında giriş yapmayı, $133.90'ı hedeflemeyi ve $120.92'de stop loss koymayı düşünebilirsiniz.",
-          "es": "FormFactor ofrece soluciones críticas de prueba y medición para la industria de semiconductores. BOGA AI destaca su reciente desempeño, a pesar de los niveles de RSI sobrecomprado, lo que sugiere un posible retroceso. Técnicamente, el RSI indica que la acción puede estar lista para una corrección, mientras que el ADX muestra una tendencia débil. Fundamentalmente, la falta de datos de valoración genera preocupaciones. El riesgo clave es una corrección por condiciones de sobrecompra. Considere la entrada alrededor de $124.63 – $129.66, apuntando a $133.90, con un stop loss en $120.92.",
-          "pt": "A FormFactor fornece soluções críticas de teste e medição para a indústria de semicondutores. A BOGA AI destaca seu desempenho recente, apesar dos níveis de RSI de sobrecompra, sugerindo um possível recuo. Tecnicamente, o RSI indica que a ação pode estar sujeita a uma correção, enquanto o ADX mostra uma tendência fraca. Fundamentalmente, a falta de dados de avaliação levanta preocupações. O principal risco é uma correção das condições de sobrecompra. Considere a entrada em torno de $124.63 – $129.66, visando $133.90, com um stop loss em $120.92.",
-          "fr": "FormFactor fournit des solutions de test et de mesure essentielles pour l'industrie des semi-conducteurs. BOGA AI souligne sa performance récente, malgré des niveaux de RSI en zone de surachat, suggérant un repli potentiel. Techniquement, le RSI indique que l'action pourrait subir une correction, tandis que l'ADX montre une faible tendance. Fondamentalement, le manque de données de valorisation suscite des inquiétudes. Le risque principal est une correction due à des conditions de surachat. Envisagez une entrée autour de 124,63 $ – 129,66 $, en visant 133,90 $, avec un stop loss à 120,92 $.",
-          "id": "FormFactor menyediakan solusi pengujian dan pengukuran penting untuk industri semikonduktor. BOGA AI menyoroti kinerja terbarunya, meskipun level RSI overbought, menunjukkan potensi pullback. Secara teknis, RSI menunjukkan bahwa saham mungkin akan mengalami koreksi, sementara ADX menunjukkan tren yang lemah. Secara fundamental, kurangnya data valuasi menimbulkan kekhawatiran. Risiko utamanya adalah koreksi dari kondisi overbought. Pertimbangkan entry di sekitar $124.63 – $129.66, menargetkan $133.90, dengan stop loss di $120.92."
+          "en": "FormFactor, Inc. is a leading provider of probe cards and metrology systems used in the semiconductor industry. The Alpha Grade of 57.3/100 is supported by a 13.6% revenue growth, but tempered by an overbought RSI of 74.7 and a bearish MACD crossover. EMA geometry is currently unavailable, but support is estimated in the $124.63-$129.66 range, with a target of $133.90. While gross margins are healthy at 39.2%, the negative free cash flow yield of -0.3% and a sky-high P/E of 187.4x present a significant valuation risk. Execution: Buy Zone: $124.63-$129.66, Target: $133.90, Stop: $120.92.",
+          "tr": "FormFactor, Inc., yarı iletken endüstrisinde kullanılan prob kartları ve metroloji sistemlerinin önde gelen sağlayıcısıdır. 57.3/100'lük Alfa Notu, %13.6'lık gelir büyümesiyle destekleniyor, ancak 74.7'lik aşırı alım bölgesindeki RSI ve düşüş eğilimli MACD kesişimiyle dengeleniyor. EMA geometrisi şu anda kullanılamıyor, ancak destek 124.63-129.66$ aralığında tahmin ediliyor, hedef 133.90$. Brüt marjlar %39.2 ile sağlıklı olsa da, -%0.3'lük negatif serbest nakit akışı getirisi ve 187.4x'lik yüksek F/K oranı önemli bir değerleme riski oluşturuyor. Uygulama: Alım Bölgesi: 124.63-129.66$, Hedef: 133.90$, Stop: 120.92$.",
+          "es": "FormFactor, Inc. es un proveedor líder de tarjetas de sonda y sistemas de metrología utilizados en la industria de semiconductores. El Alpha Grade de 57.3/100 está respaldado por un crecimiento de ingresos del 13.6%, pero atenuado por un RSI sobrecomprado de 74.7 y un cruce MACD bajista. La geometría EMA no está disponible actualmente, pero el soporte se estima en el rango de $124.63-$129.66, con un objetivo de $133.90. Si bien los márgenes brutos son saludables en 39.2%, el rendimiento negativo del flujo de caja libre de -0.3% y un P/E altísimo de 187.4x presentan un riesgo de valoración significativo. Ejecución: Zona de compra: $124.63-$129.66, Objetivo: $133.90, Stop: $120.92.",
+          "pt": "FormFactor, Inc. é um fornecedor líder de placas de sonda e sistemas de metrologia utilizados na indústria de semicondutores. O Alpha Grade de 57.3/100 é suportado por um crescimento de receita de 13.6%, mas atenuado por um RSI sobrecomprado de 74.7 e um cruzamento MACD de baixa. A geometria EMA não está disponível atualmente, mas o suporte é estimado na faixa de $124.63-$129.66, com um alvo de $133.90. Embora as margens brutas sejam saudáveis em 39.2%, o rendimento negativo do fluxo de caixa livre de -0.3% e um P/L altíssimo de 187.4x apresentam um risco de avaliação significativo. Execução: Zona de compra: $124.63-$129.66, Alvo: $133.90, Stop: $120.92.",
+          "fr": "FormFactor, Inc. est un fournisseur majeur de cartes de sondes et de systèmes de métrologie utilisés dans l'industrie des semi-conducteurs. Le score Alpha de 57,3/100 est soutenu par une croissance du chiffre d'affaires de 13,6 %, mais tempéré par un RSI en zone de surachat de 74,7 et un croisement MACD baissier. La géométrie des EMA n'est pas disponible actuellement, mais le support est estimé dans la fourchette de 124,63 $ à 129,66 $, avec un objectif de 133,90 $. Bien que les marges brutes soient saines à 39,2 %, le rendement négatif du flux de trésorerie disponible de -0,3 % et un PER exorbitant de 187,4x présentent un risque de valorisation important. Exécution : Zone d'achat : 124,63 $ à 129,66 $, Objectif : 133,90 $, Stop : 120,92 $.",
+          "id": "FormFactor, Inc. adalah penyedia terkemuka kartu probe dan sistem metrologi yang digunakan dalam industri semikonduktor. Alpha Grade sebesar 57.3/100 didukung oleh pertumbuhan pendapatan 13.6%, tetapi diredam oleh RSI overbought sebesar 74.7 dan persilangan MACD bearish. Geometri EMA saat ini tidak tersedia, tetapi support diperkirakan berada di kisaran $124.63-$129.66, dengan target $133.90. Sementara margin kotor sehat di 39.2%, hasil arus kas bebas negatif sebesar -0.3% dan P/E yang sangat tinggi sebesar 187.4x menghadirkan risiko valuasi yang signifikan. Eksekusi: Zona Beli: $124.63-$129.66, Target: $133.90, Stop: $120.92."
         }
       },
       "change_1m": 45.05,
-      "change_1y": 388.83
+      "change_1y": 388.83,
+      "market_cap_usd": 10077949952
     },
     {
       "rank": 4,
@@ -420,8 +438,8 @@
         "low": 59.29,
         "high": 60.69
       },
-      "reasoning": "ORKA's impressive 91.9% monthly surge presents short-term upside, but incomplete valuation data necessitates caution before entry despite the favorable 4.1:1 risk/reward.",
-      "detail_reasoning": "Oruka Therapeutics (ORKA) operates within the healthcare sector, though its specific activities require further clarification. BOGA AI identifies a short-term opportunity based on recent price momentum, indicated by a strong ADX of 48.2, signaling a powerful trend. However, the RSI at 75 suggests the stock is overbought, potentially leading to a pullback. Fundamental data is incomplete, raising valuation concerns. Investors should be aware of the risk stemming from the lack of fundamental clarity. Consider an entry between $61.04 and $62.08, targeting $62.48, with a stop loss at $60.69.",
+      "reasoning": "Initiate a tactical long position in ORKA within the $61.04-$62.08 range, targeting $62.48, acknowledging overbought RSI conditions and incomplete valuation data that necessitates a tight $60.69 stop-loss.",
+      "detail_reasoning": "ORKA is a healthcare company currently trading at $61.38. The Alpha Grade of 55.8/100 is driven by a very strong ADX trend of 48.2, offset by an overbought RSI of 75.0 and bearish MACD pressure. Support is projected near $61.04, with resistance around $62.48. Financial health is concerning due to 0.0% top-line growth and negative FCF yield of -1.7%. The primary risk lies in the incomplete valuation data, potentially leading to mispriced expectations. Execution: Buy Zone: $61.04-$62.08, Target: $62.48, Stop: $60.69.",
       "adx": 48.2,
       "rsi": 75.0,
       "rvol": 1.38,
@@ -485,10 +503,15 @@
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
         "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pb_ratio": 6.8122787,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 3248761856,
+        "gross_margin": 0,
+        "operating_margin": 0,
+        "net_margin": 0,
+        "revenue_growth": 0,
+        "fcf_yield": -1.7186509345669934
       },
       "performance": {
         "1d_pct": 3.02,
@@ -510,24 +533,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "ORKA's impressive 91.9% monthly surge presents short-term upside, but incomplete valuation data necessitates caution before entry despite the favorable 4.1:1 risk/reward.",
-          "tr": "ORKA'nın %91,9'luk aylık yükselişi kısa vadeli bir fırsat sunuyor, ancak eksik değerleme verileri, 4.1:1'lik cazip risk/ödül oranına rağmen girişte temkinli olmayı gerektiriyor.",
-          "es": "El impresionante aumento mensual del 91.9% de ORKA presenta una oportunidad a corto plazo, pero la información de valoración incompleta exige cautela antes de entrar a pesar de la favorable relación riesgo/recompensa de 4.1:1.",
-          "pt": "O impressionante aumento mensal de 91,9% da ORKA apresenta um potencial de alta a curto prazo, mas dados de avaliação incompletos exigem cautela antes da entrada, apesar da relação risco/recompensa favorável de 4,1:1.",
-          "fr": "La hausse mensuelle impressionnante de 91,9 % d'ORKA offre un potentiel à court terme, mais des données d'évaluation incomplètes nécessitent de la prudence avant d'entrer, malgré un rapport risque/rendement favorable de 4,1:1.",
-          "id": "Lonjakan bulanan ORKA sebesar 91.9% menawarkan potensi kenaikan jangka pendek, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian sebelum masuk meskipun rasio risiko/imbalan 4.1:1 yang menguntungkan."
+          "en": "Initiate a tactical long position in ORKA within the $61.04-$62.08 range, targeting $62.48, acknowledging overbought RSI conditions and incomplete valuation data that necessitates a tight $60.69 stop-loss.",
+          "tr": "ORKA'da 61.04-62.08$ aralığında taktiksel uzun pozisyon başlatın, 62.48$'ı hedefleyin, aşırı alım RSI koşullarını ve eksik değerleme verilerini dikkate alarak 60.69$'da sıkı bir stop-loss kullanın.",
+          "es": "Inicie una posición larga táctica en ORKA dentro del rango de $61.04-$62.08, apuntando a $62.48, reconociendo las condiciones de RSI de sobrecompra y los datos de valoración incompletos que requieren un stop-loss ajustado de $60.69.",
+          "pt": "Inicie uma posição comprada tática em ORKA na faixa de $61,04 a $62,08, visando $62,48, reconhecendo as condições de RSI de sobrecompra e os dados de avaliação incompletos que exigem um stop-loss apertado de $60,69.",
+          "fr": "Initier une position longue tactique sur ORKA dans la fourchette de 61,04 $ à 62,08 $, en visant 62,48 $, tout en reconnaissant les conditions de surachat du RSI et les données d'évaluation incomplètes qui nécessitent un stop-loss serré à 60,69 $.",
+          "id": "Inisiasi posisi long taktis di ORKA dalam rentang $61.04-$62.08, menargetkan $62.48, mengakui kondisi RSI overbought dan data valuasi yang tidak lengkap yang memerlukan stop-loss ketat di $60.69."
         },
         "detail_summary": {
-          "en": "Oruka Therapeutics (ORKA) operates within the healthcare sector, though its specific activities require further clarification. BOGA AI identifies a short-term opportunity based on recent price momentum, indicated by a strong ADX of 48.2, signaling a powerful trend. However, the RSI at 75 suggests the stock is overbought, potentially leading to a pullback. Fundamental data is incomplete, raising valuation concerns. Investors should be aware of the risk stemming from the lack of fundamental clarity. Consider an entry between $61.04 and $62.08, targeting $62.48, with a stop loss at $60.69.",
-          "tr": "Oruka Therapeutics (ORKA) sağlık sektöründe faaliyet gösteriyor, ancak spesifik faaliyetleri net değil. BOGA AI, 48.2'lik güçlü ADX'in işaret ettiği son fiyat momentumuna dayanarak kısa vadeli bir fırsat görüyor. Ancak, 75'teki RSI, hissenin aşırı alım bölgesinde olduğunu ve potansiyel bir geri çekilmeye yol açabileceğini gösteriyor. Temel veriler eksik ve değerleme endişelerini artırıyor. Yatırımcılar, temel netlik eksikliğinden kaynaklanan riskin farkında olmalıdır. 61,04 ila 62,08 dolar arasında bir giriş, 62,48 dolar hedef ve 60,69 dolarda bir stop loss düşünün.",
-          "es": "Oruka Therapeutics (ORKA) opera en el sector de la salud, aunque sus actividades específicas requieren mayor aclaración. BOGA AI identifica una oportunidad a corto plazo basada en el reciente impulso del precio, indicado por un ADX fuerte de 48.2, lo que señala una tendencia poderosa. Sin embargo, el RSI en 75 sugiere que la acción está sobrecomprada, lo que podría provocar un retroceso. Los datos fundamentales están incompletos, lo que genera preocupaciones sobre la valoración. Los inversores deben ser conscientes del riesgo derivado de la falta de claridad fundamental. Considere una entrada entre $61.04 y $62.08, apuntando a $62.48, con un stop loss en $60.69.",
-          "pt": "Oruka Therapeutics (ORKA) opera no setor de saúde, embora suas atividades específicas exijam mais esclarecimentos. A BOGA AI identifica uma oportunidade de curto prazo com base no recente impulso do preço, indicado por um ADX forte de 48,2, sinalizando uma tendência poderosa. No entanto, o RSI em 75 sugere que a ação está sobrecomprada, o que pode levar a uma retração. Os dados fundamentais estão incompletos, levantando preocupações sobre a avaliação. Os investidores devem estar cientes do risco decorrente da falta de clareza fundamental. Considere uma entrada entre US$ 61,04 e US$ 62,08, visando US$ 62,48, com um stop loss em US$ 60,69.",
-          "fr": "Oruka Therapeutics (ORKA) opère dans le secteur de la santé, bien que ses activités spécifiques nécessitent des éclaircissements supplémentaires. BOGA AI identifie une opportunité à court terme basée sur la dynamique récente des prix, indiquée par un ADX fort de 48,2, signalant une tendance puissante. Cependant, le RSI à 75 suggère que l'action est surachetée, ce qui pourrait entraîner un repli. Les données fondamentales sont incomplètes, ce qui soulève des inquiétudes quant à l'évaluation. Les investisseurs doivent être conscients du risque découlant du manque de clarté fondamentale. Envisagez une entrée entre 61,04 $ et 62,08 $, en visant 62,48 $, avec un stop loss à 60,69 $.",
-          "id": "Oruka Therapeutics (ORKA) beroperasi di sektor perawatan kesehatan, meskipun aktivitas spesifiknya memerlukan klarifikasi lebih lanjut. BOGA AI mengidentifikasi peluang jangka pendek berdasarkan momentum harga baru-baru ini, yang ditunjukkan oleh ADX kuat sebesar 48.2, menandakan tren yang kuat. Namun, RSI di 75 menunjukkan bahwa saham tersebut overbought, berpotensi menyebabkan pullback. Data fundamental tidak lengkap, menimbulkan kekhawatiran tentang valuasi. Investor harus menyadari risiko yang timbul dari kurangnya kejelasan fundamental. Pertimbangkan entry antara $61.04 dan $62.08, menargetkan $62.48, dengan stop loss di $60.69."
+          "en": "ORKA is a healthcare company currently trading at $61.38. The Alpha Grade of 55.8/100 is driven by a very strong ADX trend of 48.2, offset by an overbought RSI of 75.0 and bearish MACD pressure. Support is projected near $61.04, with resistance around $62.48. Financial health is concerning due to 0.0% top-line growth and negative FCF yield of -1.7%. The primary risk lies in the incomplete valuation data, potentially leading to mispriced expectations. Execution: Buy Zone: $61.04-$62.08, Target: $62.48, Stop: $60.69.",
+          "tr": "ORKA, şu anda 61.38$'dan işlem gören bir sağlık şirketidir. 55.8/100'lük Alfa Derecesi, 48.2'lik çok güçlü bir ADX trendi ile desteklenirken, 75.0'lık aşırı alım RSI'ı ve düşüş MACD baskısı ile dengelenmektedir. Destek yaklaşık 61.04$'da, direnç ise 62.48$ civarında öngörülmektedir. %0.0'lık gelir büyümesi ve -%1.7'lik negatif FCF getirisi nedeniyle finansal sağlık endişe vericidir. Temel risk, eksik değerleme verilerinde yatmaktadır ve bu da yanlış fiyatlandırılmış beklentilere yol açabilir. Uygulama: Alım Bölgesi: 61.04-62.08$, Hedef: 62.48$, Stop: 60.69$.",
+          "es": "ORKA es una compañía de atención médica que actualmente cotiza a $61.38. El Grado Alfa de 55.8/100 está impulsado por una tendencia ADX muy fuerte de 48.2, compensada por un RSI de sobrecompra de 75.0 y una presión MACD bajista. El soporte se proyecta cerca de $61.04, con una resistencia alrededor de $62.48. La salud financiera es preocupante debido al crecimiento de los ingresos del 0.0% y al rendimiento negativo del FCF de -1.7%. El principal riesgo radica en los datos de valoración incompletos, lo que podría conducir a expectativas con precios incorrectos. Ejecución: Zona de compra: $61.04-$62.08, Objetivo: $62.48, Stop: $60.69.",
+          "pt": "ORKA é uma empresa de saúde atualmente negociada a $61,38. O Alpha Grade de 55,8/100 é impulsionado por uma tendência ADX muito forte de 48,2, compensada por um RSI de sobrecompra de 75,0 e uma pressão MACD de baixa. O suporte é projetado perto de $61,04, com resistência em torno de $62,48. A saúde financeira é preocupante devido ao crescimento da receita de 0,0% e ao rendimento negativo do FCF de -1,7%. O principal risco reside nos dados de avaliação incompletos, o que pode levar a expectativas com preços incorretos. Execução: Zona de compra: $61,04-$62,08, Alvo: $62,48, Stop: $60,69.",
+          "fr": "ORKA est une société de soins de santé actuellement négociée à 61,38 $. Le score Alpha de 55,8/100 est tiré par une très forte tendance ADX de 48,2, compensée par un RSI de surachat de 75,0 et une pression MACD baissière. Le support est projeté près de 61,04 $, avec une résistance autour de 62,48 $. La santé financière est préoccupante en raison d'une croissance du chiffre d'affaires de 0,0 % et d'un rendement FCF négatif de -1,7 %. Le principal risque réside dans les données d'évaluation incomplètes, ce qui pourrait entraîner des attentes mal évaluées. Exécution : Zone d'achat : 61,04 $ - 62,08 $, Objectif : 62,48 $, Stop : 60,69 $.",
+          "id": "ORKA adalah perusahaan perawatan kesehatan yang saat ini diperdagangkan pada $61.38. Alpha Grade sebesar 55.8/100 didorong oleh tren ADX yang sangat kuat sebesar 48.2, diimbangi oleh RSI overbought sebesar 75.0 dan tekanan MACD bearish. Support diproyeksikan dekat $61.04, dengan resistance di sekitar $62.48. Kesehatan keuangan mengkhawatirkan karena pertumbuhan pendapatan 0.0% dan hasil FCF negatif sebesar -1.7%. Risiko utama terletak pada data valuasi yang tidak lengkap, yang berpotensi menyebabkan ekspektasi harga yang salah. Eksekusi: Zona Beli: $61.04-$62.08, Target: $62.48, Stop: $60.69."
         }
       },
       "change_1m": 91.87,
-      "change_1y": 732.84
+      "change_1y": 732.84,
+      "market_cap_usd": 3248761856
     },
     {
       "rank": 5,
@@ -551,8 +575,8 @@
         "low": 169.65,
         "high": 170.8
       },
-      "reasoning": "Royal Bank of Canada's bullish RSI suggests short-term gains, but incomplete valuation data signals fundamental caution despite recent price appreciation.",
-      "detail_reasoning": "Royal Bank of Canada (RY) is a major player in the financial services sector. BOGA AI selected RY due to its recent price momentum, reflected in a bullish RSI reading of 69.5, indicating strong buying pressure. However, fundamental data is incomplete, particularly regarding valuation metrics, warranting caution. The ADX at 21.1 suggests the current trend might be weak. Consider an entry between $172.23 and $174.24, targeting $175.82, with a stop loss at $170.80.",
+      "reasoning": "Initiate a tactical long position in RY within the $172.23-$174.24 range, targeting $175.82, with a stop at $170.80 to capitalize on bullish momentum while acknowledging premium valuation risks reflected in a PEG ratio of 2.2x.",
+      "detail_reasoning": "Royal Bank of Canada (RY) is a leading financial services provider. Our Quant Matrix, driven by an RSI of 69.5 indicating strong bullish momentum, supports a tactical long entry. The EMA ribbon geometry is currently unavailable, suggesting a lack of established trend support. The company demonstrates solid financial health with a gross margin of 0.0%, operating margin of 46.2%, and net margin of 33.1%. However, the primary risk lies in its premium valuation, reflected in a PEG ratio of 2.2x. Execution Plan: Buy Zone: $172.23 – $174.24, Target: $175.82, Stop: $170.80.",
       "adx": 21.1,
       "rsi": 69.5,
       "rvol": 1.53,
@@ -615,11 +639,16 @@
         "operating_margin_pct": 0,
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
-        "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pe_ratio": 16.523312,
+        "pb_ratio": 2.621241,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 242454233088,
+        "gross_margin": 0,
+        "operating_margin": 46.194,
+        "net_margin": 33.137,
+        "revenue_growth": 7.5,
+        "fcf_yield": 0.0
       },
       "performance": {
         "1d_pct": 1.02,
@@ -641,24 +670,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "Royal Bank of Canada's bullish RSI suggests short-term gains, but incomplete valuation data signals fundamental caution despite recent price appreciation.",
-          "tr": "Royal Bank of Canada'nın yükseliş RSI'ı kısa vadeli kazançları işaret ediyor, ancak eksik değerleme verileri son fiyat artışına rağmen temel ihtiyatı gerektiriyor.",
-          "es": "El RSI alcista del Royal Bank of Canada sugiere ganancias a corto plazo, pero la información de valoración incompleta indica cautela fundamental a pesar de la reciente apreciación del precio.",
-          "pt": "O RSI de alta do Royal Bank of Canada sugere ganhos de curto prazo, mas dados de avaliação incompletos sinalizam cautela fundamental, apesar da recente valorização do preço.",
-          "fr": "Le RSI haussier de la Banque Royale du Canada suggère des gains à court terme, mais des données d'évaluation incomplètes signalent une prudence fondamentale malgré la récente appréciation du prix.",
-          "id": "RSI bullish Royal Bank of Canada menunjukkan potensi keuntungan jangka pendek, tetapi data valuasi yang tidak lengkap menandakan kehati-hatian fundamental meskipun harga baru-baru ini meningkat."
+          "en": "Initiate a tactical long position in RY within the $172.23-$174.24 range, targeting $175.82, with a stop at $170.80 to capitalize on bullish momentum while acknowledging premium valuation risks reflected in a PEG ratio of 2.2x.",
+          "tr": "RY'de 172.23-174.24$ aralığında taktiksel uzun pozisyon başlatın, 175.82$'ı hedefleyin ve 170.80$'da stop loss uygulayarak yükseliş momentumundan yararlanın, ancak 2.2x PEG oranı ile ifade edilen yüksek değerleme riskini göz önünde bulundurun.",
+          "es": "Inicie una posición larga táctica en RY dentro del rango de $172.23-$174.24, apuntando a $175.82, con un stop en $170.80 para capitalizar el impulso alcista, reconociendo los riesgos de valoración premium reflejados en una relación PEG de 2.2x.",
+          "pt": "Inicie uma posição comprada tática em RY dentro da faixa de $172,23-$174,24, visando $175,82, com um stop em $170,80 para capitalizar o momentum de alta, reconhecendo os riscos de avaliação premium refletidos em um índice PEG de 2,2x.",
+          "fr": "Initier une position longue tactique sur RY dans la fourchette de 172,23 $ à 174,24 $, en visant 175,82 $, avec un stop à 170,80 $ pour capitaliser sur la dynamique haussière, tout en reconnaissant les risques liés à une valorisation élevée reflétée par un ratio PEG de 2,2x.",
+          "id": "Inisiasi posisi beli taktis di RY pada rentang $172.23-$174.24, target $175.82, dengan stop loss di $170.80 untuk memanfaatkan momentum bullish, sambil mengakui risiko valuasi premium yang tercermin dalam rasio PEG 2.2x."
         },
         "detail_summary": {
-          "en": "Royal Bank of Canada (RY) is a major player in the financial services sector. BOGA AI selected RY due to its recent price momentum, reflected in a bullish RSI reading of 69.5, indicating strong buying pressure. However, fundamental data is incomplete, particularly regarding valuation metrics, warranting caution. The ADX at 21.1 suggests the current trend might be weak. Consider an entry between $172.23 and $174.24, targeting $175.82, with a stop loss at $170.80.",
-          "tr": "Royal Bank of Canada (RY), finans sektöründe büyük bir oyuncu. BOGA AI, 69.5'lik yükseliş RSI değeriyle yansıyan son fiyat momentumu nedeniyle RY'yi seçti ve bu da güçlü alım baskısını gösteriyor. Ancak, özellikle değerleme metrikleri ile ilgili temel veriler eksik, bu da ihtiyatı gerektiriyor. 21.1'deki ADX, mevcut trendin zayıf olabileceğini gösteriyor. 172.23 ile 174.24 dolar arasında bir giriş, 175.82 dolar hedef ve 170.80 dolarda bir stop loss düşünün.",
-          "es": "Royal Bank of Canada (RY) es un actor importante en el sector de servicios financieros. BOGA AI seleccionó a RY debido a su reciente impulso de precios, reflejado en una lectura alcista del RSI de 69.5, lo que indica una fuerte presión de compra. Sin embargo, los datos fundamentales están incompletos, particularmente con respecto a las métricas de valoración, lo que justifica la precaución. El ADX en 21.1 sugiere que la tendencia actual podría ser débil. Considere una entrada entre $172.23 y $174.24, apuntando a $175.82, con un stop loss en $170.80.",
-          "pt": "Royal Bank of Canada (RY) é um importante player no setor de serviços financeiros. A BOGA AI selecionou a RY devido ao seu recente momentum de preço, refletido em uma leitura de RSI de alta de 69.5, indicando forte pressão de compra. No entanto, os dados fundamentais estão incompletos, particularmente em relação às métricas de avaliação, o que justifica cautela. O ADX em 21.1 sugere que a tendência atual pode ser fraca. Considere uma entrada entre US$ 172,23 e US$ 174,24, com meta de US$ 175,82 e stop loss em US$ 170,80.",
-          "fr": "La Banque Royale du Canada (RY) est un acteur majeur du secteur des services financiers. BOGA AI a sélectionné RY en raison de sa dynamique de prix récente, reflétée par un RSI haussier de 69,5, indiquant une forte pression à l'achat. Cependant, les données fondamentales sont incomplètes, en particulier en ce qui concerne les mesures d'évaluation, ce qui justifie la prudence. L'ADX à 21,1 suggère que la tendance actuelle pourrait être faible. Envisagez une entrée entre 172,23 $ et 174,24 $, en visant 175,82 $, avec un stop loss à 170,80 $.",
-          "id": "Royal Bank of Canada (RY) adalah pemain utama di sektor jasa keuangan. BOGA AI memilih RY karena momentum harga baru-baru ini, tercermin dalam pembacaan RSI bullish sebesar 69.5, yang mengindikasikan tekanan beli yang kuat. Namun, data fundamental tidak lengkap, terutama mengenai metrik valuasi, yang memerlukan kehati-hatian. ADX pada 21.1 menunjukkan bahwa tren saat ini mungkin lemah. Pertimbangkan entri antara $172.23 dan $174.24, menargetkan $175.82, dengan stop loss pada $170.80."
+          "en": "Royal Bank of Canada (RY) is a leading financial services provider. Our Quant Matrix, driven by an RSI of 69.5 indicating strong bullish momentum, supports a tactical long entry. The EMA ribbon geometry is currently unavailable, suggesting a lack of established trend support. The company demonstrates solid financial health with a gross margin of 0.0%, operating margin of 46.2%, and net margin of 33.1%. However, the primary risk lies in its premium valuation, reflected in a PEG ratio of 2.2x. Execution Plan: Buy Zone: $172.23 – $174.24, Target: $175.82, Stop: $170.80.",
+          "tr": "Royal Bank of Canada (RY), önde gelen bir finansal hizmetler sağlayıcısıdır. 69.5 RSI değeriyle güçlü yükseliş momentumunu gösteren Kantitatif Matrisimiz, taktiksel uzun pozisyon girişini destekliyor. EMA Ribbon geometrisi şu anda mevcut değil, bu da yerleşik bir trend desteğinin olmadığını gösteriyor. Şirket, %0.0 brüt kar marjı, %46.2 faaliyet kar marjı ve %33.1 net kar marjı ile sağlam bir finansal sağlık sergiliyor. Ancak, temel risk 2.2x PEG oranı ile ifade edilen yüksek değerlemesinde yatmaktadır. Uygulama Planı: Alım Bölgesi: 172.23 – 174.24$, Hedef: 175.82$, Stop: 170.80$.",
+          "es": "Royal Bank of Canada (RY) es un proveedor líder de servicios financieros. Nuestra Matriz Cuantitativa, impulsada por un RSI de 69.5 que indica un fuerte impulso alcista, respalda una entrada larga táctica. La geometría de la cinta EMA no está disponible actualmente, lo que sugiere una falta de soporte de tendencia establecido. La compañía demuestra una sólida salud financiera con un margen bruto de 0.0%, un margen operativo de 46.2% y un margen neto de 33.1%. Sin embargo, el principal riesgo radica en su valoración premium, reflejada en una relación PEG de 2.2x. Plan de Ejecución: Zona de Compra: $172.23 – $174.24, Objetivo: $175.82, Stop: $170.80.",
+          "pt": "Royal Bank of Canada (RY) é um provedor líder de serviços financeiros. Nossa Matriz Quantitativa, impulsionada por um RSI de 69,5, indicando forte momentum de alta, suporta uma entrada comprada tática. A geometria da fita EMA está atualmente indisponível, sugerindo uma falta de suporte de tendência estabelecido. A empresa demonstra uma sólida saúde financeira com uma margem bruta de 0,0%, uma margem operacional de 46,2% e uma margem líquida de 33,1%. No entanto, o principal risco reside em sua avaliação premium, refletida em um índice PEG de 2,2x. Plano de Execução: Zona de Compra: $172,23 – $174,24, Alvo: $175,82, Stop: $170,80.",
+          "fr": "Royal Bank of Canada (RY) est un fournisseur de services financiers de premier plan. Notre matrice quantitative, alimentée par un RSI de 69,5 indiquant une forte dynamique haussière, soutient une entrée longue tactique. La géométrie du ruban EMA n'est actuellement pas disponible, ce qui suggère un manque de support de tendance établi. La société affiche une solide santé financière avec une marge brute de 0,0 %, une marge d'exploitation de 46,2 % et une marge nette de 33,1 %. Cependant, le principal risque réside dans sa valorisation élevée, reflétée par un ratio PEG de 2,2x. Plan d'exécution : Zone d'achat : 172,23 $ – 174,24 $, Objectif : 175,82 $, Stop : 170,80 $.",
+          "id": "Royal Bank of Canada (RY) adalah penyedia layanan keuangan terkemuka. Matriks Kuantitatif kami, didorong oleh RSI 69.5 yang mengindikasikan momentum bullish yang kuat, mendukung entri long taktis. Geometri pita EMA saat ini tidak tersedia, menunjukkan kurangnya dukungan tren yang mapan. Perusahaan menunjukkan kesehatan keuangan yang solid dengan margin kotor 0.0%, margin operasi 46.2%, dan margin bersih 33.1%. Namun, risiko utama terletak pada valuasi premiumnya, yang tercermin dalam rasio PEG 2.2x. Rencana Eksekusi: Zona Beli: $172.23 – $174.24, Target: $175.82, Stop: $170.80."
         }
       },
       "change_1m": 6.57,
-      "change_1y": 60.75
+      "change_1y": 60.75,
+      "market_cap_usd": 242454233088
     },
     {
       "rank": 6,
@@ -682,8 +712,8 @@
         "low": 21.31,
         "high": 21.68
       },
-      "reasoning": "Levi Strauss & Co. presents a short-term bullish opportunity given its 1-week surge of 13.6%, but incomplete valuation data warrants fundamental caution.",
-      "detail_reasoning": "Levi Strauss & Co. is a global apparel company, best known for its denim jeans. BOGA AI selected LEVI due to its recent bullish trend, indicated by a 13.6% increase in one week and a bullish RSI of 69.8. This suggests strong buying momentum. However, fundamental data is incomplete, particularly regarding valuation metrics, posing a significant risk. Consider entering the buy zone between $21.87 and $22.51, targeting $23.01, and setting a stop loss at $21.68.",
+      "reasoning": "Initiate a tactical long position in LEVI within the $21.87-$22.51 range, targeting $23.01, acknowledging the fair valuation (PEG 1.2x) requires vigilant monitoring of growth assumptions.",
+      "detail_reasoning": "Levi Strauss & Co. is a global leader in apparel, primarily known for its denim jeans. The BOGA AI Master Score of 53.9 is driven by strong top-line growth (14.1%) and bullish RSI (69.8), offset by neutral money flow (MFI 50.0) and bearish MACD. EMA ribbon geometry is currently undefined. The company demonstrates solid financial health with a 6.2% free cash flow yield and margins of 61.7% (Gross), 12.5% (Operating), and 9.5% (Net). The primary risk lies in its fair valuation (PEG of 1.2x), making it sensitive to earnings disappointments. Action: Buy Zone $21.87-$22.51, Target $23.01, Stop $21.68.",
       "adx": 29.1,
       "rsi": 69.8,
       "rvol": 0.95,
@@ -746,11 +776,16 @@
         "operating_margin_pct": 0,
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
-        "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pe_ratio": 16.772058,
+        "pb_ratio": 3.9078293,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 8772640768,
+        "gross_margin": 61.69100400000001,
+        "operating_margin": 12.498999399999999,
+        "net_margin": 9.524999600000001,
+        "revenue_growth": 14.099999999999998,
+        "fcf_yield": 6.223468057548986
       },
       "performance": {
         "1d_pct": -1.85,
@@ -772,24 +807,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "Levi Strauss & Co. presents a short-term bullish opportunity given its 1-week surge of 13.6%, but incomplete valuation data warrants fundamental caution.",
-          "tr": "Levi Strauss & Co., %13.6'lık 1 haftalık yükselişiyle kısa vadeli bir alım fırsatı sunuyor, ancak eksik değerleme verileri temel riskleri beraberinde getiriyor.",
-          "es": "Levi Strauss & Co. presenta una oportunidad alcista a corto plazo dado su aumento del 13.6% en una semana, pero los datos de valoración incompletos justifican precaución fundamental.",
-          "pt": "Levi Strauss & Co. apresenta uma oportunidade de alta no curto prazo, dado o seu aumento de 13.6% em 1 semana, mas dados de avaliação incompletos justificam cautela fundamental.",
-          "fr": "Levi Strauss & Co. présente une opportunité haussière à court terme compte tenu de sa hausse de 13,6 % sur une semaine, mais des données d'évaluation incomplètes justifient une prudence fondamentale.",
-          "id": "Levi Strauss & Co. menghadirkan peluang bullish jangka pendek mengingat lonjakan 13.6% dalam 1 minggu, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian fundamental."
+          "en": "Initiate a tactical long position in LEVI within the $21.87-$22.51 range, targeting $23.01, acknowledging the fair valuation (PEG 1.2x) requires vigilant monitoring of growth assumptions.",
+          "tr": "LEVI'de 21.87-22.51$ aralığında taktiksel uzun pozisyon başlatın, hedef 23.01$, ancak adil değerleme (PEG 1.2x) büyüme varsayımlarının dikkatle izlenmesini gerektirir.",
+          "es": "Inicie una posición larga táctica en LEVI dentro del rango de $21.87-$22.51, apuntando a $23.01, reconociendo que la valoración justa (PEG 1.2x) requiere un monitoreo vigilante de las suposiciones de crecimiento.",
+          "pt": "Inicie uma posição comprada tática em LEVI na faixa de $21,87 a $22,51, visando $23,01, reconhecendo que a avaliação justa (PEG 1,2x) requer um monitoramento vigilante das premissas de crescimento.",
+          "fr": "Initier une position longue tactique sur LEVI dans la fourchette de 21,87 $ à 22,51 $, avec un objectif de 23,01 $, tout en reconnaissant que la juste valeur (PEG 1,2x) nécessite une surveillance vigilante des hypothèses de croissance.",
+          "id": "Inisiasi posisi long taktis di LEVI dalam rentang $21.87-$22.51, menargetkan $23.01, mengakui bahwa valuasi wajar (PEG 1.2x) memerlukan pemantauan ketat terhadap asumsi pertumbuhan."
         },
         "detail_summary": {
-          "en": "Levi Strauss & Co. is a global apparel company, best known for its denim jeans. BOGA AI selected LEVI due to its recent bullish trend, indicated by a 13.6% increase in one week and a bullish RSI of 69.8. This suggests strong buying momentum. However, fundamental data is incomplete, particularly regarding valuation metrics, posing a significant risk. Consider entering the buy zone between $21.87 and $22.51, targeting $23.01, and setting a stop loss at $21.68.",
-          "tr": "Levi Strauss & Co., denim jeanleriyle tanınan küresel bir giyim şirketidir. BOGA AI, LEVI'yi %13.6'lık bir haftalık artış ve 69.8'lik yükseliş RSI'ı ile gösterilen son yükseliş trendi nedeniyle seçti. Bu, güçlü bir alım momentumu olduğunu gösteriyor. Ancak, temel veriler, özellikle değerleme metrikleri ile ilgili olarak eksik ve bu da önemli bir risk oluşturuyor. 21.87 ile 22.51 dolar arasındaki alım bölgesine girmeyi, 23.01 doları hedeflemeyi ve 21.68 dolardan bir stop loss belirlemeyi düşünün.",
-          "es": "Levi Strauss & Co. es una empresa global de ropa, mejor conocida por sus jeans de mezclilla. BOGA AI seleccionó a LEVI debido a su reciente tendencia alcista, indicada por un aumento del 13.6% en una semana y un RSI alcista de 69.8. Esto sugiere un fuerte impulso de compra. Sin embargo, los datos fundamentales están incompletos, particularmente con respecto a las métricas de valoración, lo que plantea un riesgo significativo. Considere ingresar a la zona de compra entre $21.87 y $22.51, apuntando a $23.01, y estableciendo un stop loss en $21.68.",
-          "pt": "Levi Strauss & Co. é uma empresa global de vestuário, mais conhecida por seus jeans. A BOGA AI selecionou a LEVI devido à sua recente tendência de alta, indicada por um aumento de 13.6% em uma semana e um RSI de alta de 69.8. Isso sugere um forte impulso de compra. No entanto, os dados fundamentais estão incompletos, particularmente em relação às métricas de avaliação, o que representa um risco significativo. Considere entrar na zona de compra entre $21.87 e $22.51, visando $23.01 e definindo um stop loss em $21.68.",
-          "fr": "Levi Strauss & Co. est une entreprise mondiale de vêtements, surtout connue pour ses jeans en denim. BOGA AI a sélectionné LEVI en raison de sa récente tendance haussière, indiquée par une augmentation de 13,6 % en une semaine et un RSI haussier de 69,8. Cela suggère une forte dynamique d'achat. Cependant, les données fondamentales sont incomplètes, en particulier en ce qui concerne les mesures d'évaluation, ce qui pose un risque important. Envisagez d'entrer dans la zone d'achat entre 21,87 $ et 22,51 $, en visant 23,01 $ et en fixant un stop loss à 21,68 $.",
-          "id": "Levi Strauss & Co. adalah perusahaan pakaian global, yang terkenal dengan celana jeans denimnya. BOGA AI memilih LEVI karena tren bullish baru-baru ini, yang ditunjukkan oleh peningkatan 13.6% dalam satu minggu dan RSI bullish sebesar 69.8. Ini menunjukkan momentum pembelian yang kuat. Namun, data fundamental tidak lengkap, terutama mengenai metrik valuasi, yang menimbulkan risiko signifikan. Pertimbangkan untuk memasuki zona beli antara $21.87 dan $22.51, menargetkan $23.01, dan menetapkan stop loss pada $21.68."
+          "en": "Levi Strauss & Co. is a global leader in apparel, primarily known for its denim jeans. The BOGA AI Master Score of 53.9 is driven by strong top-line growth (14.1%) and bullish RSI (69.8), offset by neutral money flow (MFI 50.0) and bearish MACD. EMA ribbon geometry is currently undefined. The company demonstrates solid financial health with a 6.2% free cash flow yield and margins of 61.7% (Gross), 12.5% (Operating), and 9.5% (Net). The primary risk lies in its fair valuation (PEG of 1.2x), making it sensitive to earnings disappointments. Action: Buy Zone $21.87-$22.51, Target $23.01, Stop $21.68.",
+          "tr": "Levi Strauss & Co., öncelikle denim jean'leriyle tanınan küresel bir giyim lideridir. 53.9'luk BOGA AI Master Skoru, güçlü gelir büyümesi (%14.1) ve yükseliş RSI'ı (69.8) tarafından desteklenirken, nötr para akışı (MFI 50.0) ve düşüş MACD'si tarafından dengelenmektedir. EMA şerit geometrisi şu anda tanımlı değil. Şirket, %6.2 serbest nakit akışı getirisi ve %61.7 (Brüt), %12.5 (Faaliyet) ve %9.5 (Net) marjlarla sağlam bir finansal sağlık sergilemektedir. Temel risk, adil değerlemesinde (PEG 1.2x) yatmaktadır ve bu da onu kazanç hayal kırıklıklarına karşı hassas hale getirmektedir. Eylem: Alım Bölgesi 21.87-22.51$, Hedef 23.01$, Stop 21.68$.",
+          "es": "Levi Strauss & Co. es un líder mundial en indumentaria, conocido principalmente por sus jeans de mezclilla. El puntaje maestro BOGA AI de 53.9 es impulsado por un fuerte crecimiento de los ingresos (14.1%) y un RSI alcista (69.8), compensado por un flujo de dinero neutral (MFI 50.0) y un MACD bajista. La geometría de la cinta EMA no está definida actualmente. La compañía demuestra una sólida salud financiera con un rendimiento de flujo de caja libre del 6.2% y márgenes del 61.7% (Bruto), 12.5% (Operativo) y 9.5% (Neto). El principal riesgo radica en su valoración justa (PEG de 1.2x), lo que la hace sensible a las decepciones en las ganancias. Acción: Zona de compra $21.87-$22.51, Objetivo $23.01, Stop $21.68.",
+          "pt": "Levi Strauss & Co. é uma líder global em vestuário, conhecida principalmente por seus jeans. O BOGA AI Master Score de 53,9 é impulsionado por um forte crescimento da receita (14,1%) e um RSI de alta (69,8), compensado por um fluxo de dinheiro neutro (MFI 50,0) e um MACD de baixa. A geometria da faixa EMA não está definida atualmente. A empresa demonstra uma sólida saúde financeira com um rendimento de fluxo de caixa livre de 6,2% e margens de 61,7% (Bruto), 12,5% (Operacional) e 9,5% (Líquido). O principal risco reside em sua avaliação justa (PEG de 1,2x), o que a torna sensível a decepções nos lucros. Ação: Zona de compra $21,87-$22,51, Alvo $23,01, Stop $21,68.",
+          "fr": "Levi Strauss & Co. est un leader mondial de l'habillement, principalement connu pour ses jeans en denim. Le score principal BOGA AI de 53,9 est tiré par une forte croissance du chiffre d'affaires (14,1 %) et un RSI haussier (69,8), compensés par un flux monétaire neutre (MFI 50,0) et un MACD baissier. La géométrie du ruban EMA n'est pas définie actuellement. L'entreprise affiche une solide santé financière avec un rendement du flux de trésorerie disponible de 6,2 % et des marges de 61,7 % (brut), 12,5 % (exploitation) et 9,5 % (net). Le principal risque réside dans sa juste valeur (PEG de 1,2x), ce qui la rend sensible aux déceptions en matière de bénéfices. Action : Zone d'achat 21,87 $-22,51 $, Objectif 23,01 $, Stop 21,68 $.",
+          "id": "Levi Strauss & Co. adalah pemimpin global dalam pakaian, terutama dikenal karena jeans denimnya. Skor Master BOGA AI sebesar 53.9 didorong oleh pertumbuhan pendapatan yang kuat (14.1%) dan RSI bullish (69.8), diimbangi oleh aliran uang netral (MFI 50.0) dan MACD bearish. Geometri pita EMA saat ini tidak terdefinisi. Perusahaan menunjukkan kesehatan keuangan yang solid dengan hasil arus kas bebas 6.2% dan margin 61.7% (Bruto), 12.5% (Operasi), dan 9.5% (Bersih). Risiko utama terletak pada valuasinya yang wajar (PEG 1.2x), yang membuatnya sensitif terhadap kekecewaan pendapatan. Tindakan: Zona Beli $21.87-$22.51, Target $23.01, Stop $21.68."
         }
       },
       "change_1m": 23.23,
-      "change_1y": 58.2
+      "change_1y": 58.2,
+      "market_cap_usd": 8772640768
     },
     {
       "rank": 7,
@@ -813,8 +849,8 @@
         "low": 156.7,
         "high": 158.92
       },
-      "reasoning": "Cirrus Logic's bullish trend, fueled by recent gains (+21.5% monthly), faces overbought RSI conditions, demanding careful entry despite an attractive 2.5:1 risk/reward ratio.",
-      "detail_reasoning": "Cirrus Logic specializes in high-precision analog and mixed-signal integrated circuits, essential for audio and energy applications. BOGA AI flags it due to its strong recent price performance, although the RSI indicates it's currently overbought. Technically, the ADX confirms a trending market, but the negative MACD histogram suggests potential bearish pressure. Fundamentally, incomplete valuation data warrants caution. The key risk is a potential pullback from overbought levels. Consider an entry between $159.48 and $162.21, targeting $160.88, with a stop loss at $158.92.",
+      "reasoning": "Initiate a tactical long position in CRUS within the $159.48-$162.21 range, capitalizing on stable trend strength and a solid free cash flow yield, while closely monitoring the overbought RSI and premium valuation, with a stop-loss at $158.92 to mitigate downside risk.",
+      "detail_reasoning": "Cirrus Logic (CRUS) is a leading provider of low-power, high-precision mixed-signal processing solutions. The BOGA AI Master Score of 53.2 is driven by a stable trend (ADX 26.4) and a strong free cash flow yield of 5.8%, offset by an overbought RSI of 71.7 and bearish MACD pressure. While EMA geometry is unavailable, the optimal buy zone is $159.48-$162.21, with a tactical target of $160.88. The company exhibits solid financial health with gross margins of 52.9% and a P/E ratio of 21.2x. The primary risk lies in its premium valuation (PEG 4.7x), potentially limiting upside. Execution: Buy Zone: $159.48-$162.21, Target: $160.88, Stop: $158.92.",
       "adx": 26.4,
       "rsi": 71.7,
       "rvol": 0.84,
@@ -877,11 +913,16 @@
         "operating_margin_pct": 0,
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
-        "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pe_ratio": 21.15415,
+        "pb_ratio": 3.8934019,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 8193438720,
+        "gross_margin": 52.869,
+        "operating_margin": 26.338,
+        "net_margin": 20.467,
+        "revenue_growth": 4.5,
+        "fcf_yield": 5.752213986168679
       },
       "performance": {
         "1d_pct": 0.69,
@@ -903,24 +944,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "Cirrus Logic's bullish trend, fueled by recent gains (+21.5% monthly), faces overbought RSI conditions, demanding careful entry despite an attractive 2.5:1 risk/reward ratio.",
-          "tr": "Cirrus Logic'teki son kazançlarla (+%21.5 aylık) desteklenen yükseliş trendi, aşırı alım bölgesindeki RSI nedeniyle dikkatli giriş gerektiriyor; ancak 2.5:1 risk/ödül oranı cazip.",
-          "es": "La tendencia alcista de Cirrus Logic, impulsada por ganancias recientes (+21.5% mensual), enfrenta condiciones de RSI sobrecomprado, exigiendo una entrada cautelosa a pesar de una atractiva relación riesgo/recompensa de 2.5:1.",
-          "pt": "A tendência de alta da Cirrus Logic, impulsionada por ganhos recentes (+21,5% mensal), enfrenta condições de RSI sobrecomprado, exigindo entrada cautelosa, apesar de uma atraente relação risco/recompensa de 2,5:1.",
-          "fr": "La tendance haussière de Cirrus Logic, alimentée par des gains récents (+21,5% mensuel), se heurte à des conditions de RSI de surachat, exigeant une entrée prudente malgré un ratio risque/rendement attractif de 2,5:1.",
-          "id": "Tren bullish Cirrus Logic, didorong oleh kenaikan baru-baru ini (+21.5% bulanan), menghadapi kondisi RSI overbought, menuntut entri hati-hati meskipun rasio risiko/imbalan 2.5:1 yang menarik."
+          "en": "Initiate a tactical long position in CRUS within the $159.48-$162.21 range, capitalizing on stable trend strength and a solid free cash flow yield, while closely monitoring the overbought RSI and premium valuation, with a stop-loss at $158.92 to mitigate downside risk.",
+          "tr": "CRUS'ta 159.48-162.21$ aralığında taktiksel uzun pozisyon başlatın, istikrarlı trend gücünden ve sağlam serbest nakit akışı veriminden yararlanın, aşırı alım RSI'ını ve primli değerlemeyi yakından izleyin ve aşağı yönlü riski azaltmak için 158.92$'da stop-loss kullanın.",
+          "es": "Inicie una posición larga táctica en CRUS dentro del rango de $159.48-$162.21, capitalizando la fortaleza estable de la tendencia y un sólido rendimiento de flujo de caja libre, mientras monitorea de cerca el RSI de sobrecompra y la valoración premium, con un stop-loss en $158.92 para mitigar el riesgo a la baja.",
+          "pt": "Inicie uma posição comprada tática em CRUS dentro da faixa de $159,48-$162,21, capitalizando a força estável da tendência e um sólido rendimento de fluxo de caixa livre, monitorando de perto o RSI de sobrecompra e a avaliação premium, com um stop-loss em $158,92 para mitigar o risco de queda.",
+          "fr": "Initier une position longue tactique sur CRUS dans la fourchette de 159,48 $ à 162,21 $, en capitalisant sur la force stable de la tendance et un rendement solide du flux de trésorerie disponible, tout en surveillant de près le RSI de surachat et la valorisation élevée, avec un stop-loss à 158,92 $ pour atténuer le risque de baisse.",
+          "id": "Inisiasi posisi long taktis di CRUS dalam rentang $159.48-$162.21, memanfaatkan kekuatan tren yang stabil dan imbal hasil arus kas bebas yang solid, sambil memantau dengan cermat RSI overbought dan valuasi premium, dengan stop-loss di $158.92 untuk memitigasi risiko penurunan."
         },
         "detail_summary": {
-          "en": "Cirrus Logic specializes in high-precision analog and mixed-signal integrated circuits, essential for audio and energy applications. BOGA AI flags it due to its strong recent price performance, although the RSI indicates it's currently overbought. Technically, the ADX confirms a trending market, but the negative MACD histogram suggests potential bearish pressure. Fundamentally, incomplete valuation data warrants caution. The key risk is a potential pullback from overbought levels. Consider an entry between $159.48 and $162.21, targeting $160.88, with a stop loss at $158.92.",
-          "tr": "Cirrus Logic, ses ve enerji uygulamaları için gerekli olan yüksek hassasiyetli analog ve karışık sinyal entegre devreleri konusunda uzmanlaşmıştır. BOGA AI, son dönemdeki güçlü fiyat performansı nedeniyle şirketi işaret ediyor, ancak RSI aşırı alım bölgesinde olduğunu gösteriyor. Teknik olarak, ADX trend olan bir piyasayı doğruluyor, ancak negatif MACD histogramı potansiyel düşüş baskısı olduğunu gösteriyor. Temel olarak, eksik değerleme verileri dikkatli olmayı gerektiriyor. Temel risk, aşırı alım seviyelerinden potansiyel bir geri çekilme. 159.48 - 162.21 dolar aralığında bir giriş, 160.88 dolar hedef ve 158.92 dolarda stop loss düşünülebilir.",
-          "es": "Cirrus Logic se especializa en circuitos integrados analógicos y de señal mixta de alta precisión, esenciales para aplicaciones de audio y energía. BOGA AI la destaca debido a su sólido rendimiento de precios reciente, aunque el RSI indica que actualmente está sobrecomprada. Técnicamente, el ADX confirma un mercado en tendencia, pero el histograma MACD negativo sugiere una posible presión bajista. Fundamentalmente, los datos de valoración incompletos justifican la cautela. El riesgo clave es un posible retroceso desde niveles de sobrecompra. Considere una entrada entre $159.48 y $162.21, apuntando a $160.88, con un stop loss en $158.92.",
-          "pt": "A Cirrus Logic é especializada em circuitos integrados analógicos e de sinal misto de alta precisão, essenciais para aplicações de áudio e energia. A BOGA AI a destaca devido ao seu forte desempenho recente de preços, embora o RSI indique que está atualmente sobrecomprada. Tecnicamente, o ADX confirma um mercado em tendência, mas o histograma MACD negativo sugere uma possível pressão de baixa. Fundamentalmente, os dados de avaliação incompletos justificam cautela. O principal risco é um possível recuo dos níveis de sobrecompra. Considere uma entrada entre US$ 159,48 e US$ 162,21, visando US$ 160,88, com um stop loss em US$ 158,92.",
-          "fr": "Cirrus Logic est spécialisée dans les circuits intégrés analogiques et mixtes de haute précision, essentiels pour les applications audio et énergétiques. BOGA AI la signale en raison de sa forte performance de prix récente, bien que le RSI indique qu'elle est actuellement en situation de surachat. Techniquement, l'ADX confirme un marché en tendance, mais l'histogramme MACD négatif suggère une pression baissière potentielle. Fondamentalement, les données d'évaluation incomplètes justifient la prudence. Le risque clé est un repli potentiel des niveaux de surachat. Envisager une entrée entre 159,48 $ et 162,21 $, en visant 160,88 $, avec un stop loss à 158,92 $.",
-          "id": "Cirrus Logic mengkhususkan diri dalam sirkuit terpadu analog dan sinyal campuran presisi tinggi, penting untuk aplikasi audio dan energi. BOGA AI menandainya karena kinerja harga baru-baru ini yang kuat, meskipun RSI menunjukkan bahwa saat ini overbought. Secara teknis, ADX mengkonfirmasi pasar yang sedang tren, tetapi histogram MACD negatif menunjukkan potensi tekanan bearish. Secara fundamental, data valuasi yang tidak lengkap memerlukan kehati-hatian. Risiko utamanya adalah potensi pullback dari level overbought. Pertimbangkan entri antara $159.48 dan $162.21, menargetkan $160.88, dengan stop loss di $158.92."
+          "en": "Cirrus Logic (CRUS) is a leading provider of low-power, high-precision mixed-signal processing solutions. The BOGA AI Master Score of 53.2 is driven by a stable trend (ADX 26.4) and a strong free cash flow yield of 5.8%, offset by an overbought RSI of 71.7 and bearish MACD pressure. While EMA geometry is unavailable, the optimal buy zone is $159.48-$162.21, with a tactical target of $160.88. The company exhibits solid financial health with gross margins of 52.9% and a P/E ratio of 21.2x. The primary risk lies in its premium valuation (PEG 4.7x), potentially limiting upside. Execution: Buy Zone: $159.48-$162.21, Target: $160.88, Stop: $158.92.",
+          "tr": "Cirrus Logic (CRUS), düşük güçlü, yüksek hassasiyetli karma sinyal işleme çözümlerinde lider bir sağlayıcıdır. 53.2'lik BOGA AI Master Skoru, istikrarlı bir trend (ADX 26.4) ve %5.8'lik güçlü bir serbest nakit akışı verimi ile desteklenirken, 71.7'lik aşırı alım RSI'ı ve düşüş MACD baskısı ile dengelenmektedir. EMA geometrisi mevcut olmasa da, optimal alım bölgesi 159.48-162.21$ olup, taktiksel hedef 160.88$'dır. Şirket, %52.9'luk brüt marjlar ve 21.2x F/K oranı ile sağlam bir finansal sağlık sergilemektedir. Temel risk, yukarı yönlü potansiyeli sınırlayabilecek primli değerlemesinde (PEG 4.7x) yatmaktadır. Uygulama: Alım Bölgesi: 159.48-162.21$, Hedef: 160.88$, Stop: 158.92$.",
+          "es": "Cirrus Logic (CRUS) es un proveedor líder de soluciones de procesamiento de señal mixta de baja potencia y alta precisión. El puntaje maestro BOGA AI de 53.2 está impulsado por una tendencia estable (ADX 26.4) y un sólido rendimiento de flujo de caja libre del 5.8%, compensado por un RSI de sobrecompra de 71.7 y una presión MACD bajista. Si bien la geometría EMA no está disponible, la zona de compra óptima es de $159.48-$162.21, con un objetivo táctico de $160.88. La compañía exhibe una sólida salud financiera con márgenes brutos del 52.9% y una relación P/E de 21.2x. El principal riesgo radica en su valoración premium (PEG 4.7x), lo que podría limitar el potencial alcista. Ejecución: Zona de compra: $159.48-$162.21, Objetivo: $160.88, Stop: $158.92.",
+          "pt": "Cirrus Logic (CRUS) é um fornecedor líder de soluções de processamento de sinal misto de baixa potência e alta precisão. O BOGA AI Master Score de 53,2 é impulsionado por uma tendência estável (ADX 26,4) e um forte rendimento de fluxo de caixa livre de 5,8%, compensado por um RSI de sobrecompra de 71,7 e uma pressão MACD de baixa. Embora a geometria EMA não esteja disponível, a zona de compra ideal é de $159,48-$162,21, com uma meta tática de $160,88. A empresa exibe uma sólida saúde financeira com margens brutas de 52,9% e uma relação P/L de 21,2x. O principal risco reside em sua avaliação premium (PEG 4,7x), o que pode limitar o potencial de alta. Execução: Zona de compra: $159,48-$162,21, Meta: $160,88, Stop: $158,92.",
+          "fr": "Cirrus Logic (CRUS) est un fournisseur leader de solutions de traitement du signal mixte basse consommation et haute précision. Le score principal BOGA AI de 53,2 est tiré par une tendance stable (ADX 26,4) et un rendement solide du flux de trésorerie disponible de 5,8 %, compensé par un RSI de surachat de 71,7 et une pression MACD baissière. Bien que la géométrie EMA ne soit pas disponible, la zone d'achat optimale se situe entre 159,48 $ et 162,21 $, avec un objectif tactique de 160,88 $. La société affiche une solide santé financière avec des marges brutes de 52,9 % et un ratio P/E de 21,2x. Le principal risque réside dans sa valorisation élevée (PEG 4,7x), ce qui pourrait limiter le potentiel de hausse. Exécution : Zone d'achat : 159,48 $ à 162,21 $, Objectif : 160,88 $, Stop : 158,92 $.",
+          "id": "Cirrus Logic (CRUS) adalah penyedia solusi pemrosesan sinyal campuran berdaya rendah dan presisi tinggi terkemuka. Skor Master BOGA AI sebesar 53.2 didorong oleh tren yang stabil (ADX 26.4) dan imbal hasil arus kas bebas yang kuat sebesar 5.8%, diimbangi oleh RSI overbought sebesar 71.7 dan tekanan MACD bearish. Meskipun geometri EMA tidak tersedia, zona beli optimal adalah $159.48-$162.21, dengan target taktis $160.88. Perusahaan menunjukkan kesehatan keuangan yang solid dengan margin kotor 52.9% dan rasio P/E 21.2x. Risiko utama terletak pada valuasi premiumnya (PEG 4.7x), yang berpotensi membatasi potensi kenaikan. Eksekusi: Zona Beli: $159.48-$162.21, Target: $160.88, Stop: $158.92."
         }
       },
       "change_1m": 21.5,
-      "change_1y": 89.86
+      "change_1y": 89.86,
+      "market_cap_usd": 8193438720
     },
     {
       "rank": 8,
@@ -944,8 +986,8 @@
         "low": 232.64,
         "high": 238.66
       },
-      "reasoning": "Modine Manufacturing's bullish 1-month surge of +33.9% presents a swing trade opportunity, but incomplete valuation data demands caution despite positive technical indicators.",
-      "detail_reasoning": "Modine Manufacturing operates within the Consumer Cyclical sector. BOGA AI selected MOD based on its recent price surge, indicating strong short-term momentum. The RSI of 68.8 confirms bullish momentum, though the weak ADX suggests potential range-bound trading. However, fundamental data is incomplete, especially regarding valuation metrics, posing a significant risk. Consider an entry around $249.46-$260.00, targeting $276.46, with a stop loss at $238.66.",
+      "reasoning": "Initiate a tactical long position in MOD within the $249.46-$260.00 range, targeting $276.46, but be mindful of the weak trend indicated by the low ADX, necessitating a $238.66 stop-loss to mitigate valuation risk.",
+      "detail_reasoning": "Modine Manufacturing Company (MOD) is a leader in the consumer cyclical sector. Our Quant Matrix assigns a score of 52.8/100, driven by a bullish RSI of 68.8, offset by a weak ADX of 17.8 and a bearish MACD. Lacking EMA data, support is estimated around $249.46, with resistance near $276.46. The company exhibits strong top-line growth (30.5%) and healthy gross (23.8%) and operating (11.9%) margins, but a high P/E of 138.8x, reflected in a PEG ratio of 4.6x, flags a premium valuation. The primary risk stems from the weak trend, which could amplify downside volatility. Action: Buy MOD between $249.46 and $260.00. Target: $276.46. Stop-loss: $238.66.",
       "adx": 17.8,
       "rsi": 68.8,
       "rvol": 1.66,
@@ -1008,11 +1050,16 @@
         "operating_margin_pct": 0,
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
-        "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pe_ratio": 138.81868,
+        "pb_ratio": 11.89165,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 13322535936,
+        "gross_margin": 23.846,
+        "operating_margin": 11.913,
+        "net_margin": 3.4029999999999996,
+        "revenue_growth": 30.5,
+        "fcf_yield": -0.8224785470753186
       },
       "performance": {
         "1d_pct": 6.43,
@@ -1034,24 +1081,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "Modine Manufacturing's bullish 1-month surge of +33.9% presents a swing trade opportunity, but incomplete valuation data demands caution despite positive technical indicators.",
-          "tr": "Modine Manufacturing'in 1 aylık %33.9'luk yükselişi swing trade fırsatı sunuyor, ancak eksik değerleme verileri pozitif teknik göstergelere rağmen dikkatli olmayı gerektiriyor.",
-          "es": "El aumento alcista de Modine Manufacturing del +33.9% en 1 mes presenta una oportunidad de swing trading, pero los datos de valoración incompletos exigen cautela a pesar de los indicadores técnicos positivos.",
-          "pt": "O aumento de +33.9% em 1 mês da Modine Manufacturing apresenta uma oportunidade de swing trade, mas os dados de avaliação incompletos exigem cautela, apesar dos indicadores técnicos positivos.",
-          "fr": "La hausse haussière de +33,9 % sur 1 mois de Modine Manufacturing offre une opportunité de swing trading, mais des données d'évaluation incomplètes exigent la prudence malgré des indicateurs techniques positifs.",
-          "id": "Lonjakan bullish 1 bulan sebesar +33.9% pada Modine Manufacturing menghadirkan peluang swing trade, tetapi data valuasi yang tidak lengkap menuntut kehati-hatian meskipun indikator teknikal positif."
+          "en": "Initiate a tactical long position in MOD within the $249.46-$260.00 range, targeting $276.46, but be mindful of the weak trend indicated by the low ADX, necessitating a $238.66 stop-loss to mitigate valuation risk.",
+          "tr": "MOD'da 249.46-260.00$ aralığında taktiksel uzun pozisyon başlatın, hedef 276.46$, ancak düşük ADX'in gösterdiği zayıf trende dikkat edin ve değerleme riskini azaltmak için 238.66$'lık bir stop-loss kullanın.",
+          "es": "Inicie una posición larga táctica en MOD dentro del rango de $249.46-$260.00, apuntando a $276.46, pero tenga en cuenta la débil tendencia indicada por el bajo ADX, lo que requiere un stop-loss de $238.66 para mitigar el riesgo de valoración.",
+          "pt": "Inicie uma posição comprada tática em MOD dentro da faixa de $249.46-$260.00, visando $276.46, mas esteja atento à fraca tendência indicada pelo baixo ADX, necessitando de um stop-loss de $238.66 para mitigar o risco de avaliação.",
+          "fr": "Initier une position longue tactique sur MOD dans la fourchette de 249,46 $-260,00 $, en visant 276,46 $, mais tenir compte de la faible tendance indiquée par le faible ADX, nécessitant un stop-loss de 238,66 $ pour atténuer le risque d'évaluation.",
+          "id": "Inisiasi posisi long taktis di MOD dalam rentang $249.46-$260.00, menargetkan $276.46, tetapi perhatikan tren lemah yang ditunjukkan oleh ADX rendah, yang memerlukan stop-loss $238.66 untuk mengurangi risiko valuasi."
         },
         "detail_summary": {
-          "en": "Modine Manufacturing operates within the Consumer Cyclical sector. BOGA AI selected MOD based on its recent price surge, indicating strong short-term momentum. The RSI of 68.8 confirms bullish momentum, though the weak ADX suggests potential range-bound trading. However, fundamental data is incomplete, especially regarding valuation metrics, posing a significant risk. Consider an entry around $249.46-$260.00, targeting $276.46, with a stop loss at $238.66.",
-          "tr": "Modine Manufacturing, Tüketici Döngüsel sektöründe faaliyet gösteriyor. BOGA AI, MOD'u son fiyat artışı nedeniyle seçti, bu da güçlü kısa vadeli momentumu gösteriyor. 68.8 RSI değeri yükseliş momentumunu doğruluyor, ancak zayıf ADX, aralık içi işlem olasılığını gösteriyor. Ancak, temel veriler eksik, özellikle değerleme metrikleri, bu da önemli bir risk oluşturuyor. 249.46-260.00$ civarında bir giriş, 276.46$'ı hedefleyerek ve 238.66$'da bir stop loss düşünebilirsiniz.",
-          "es": "Modine Manufacturing opera dentro del sector de Consumo Cíclico. BOGA AI seleccionó MOD basándose en su reciente aumento de precio, lo que indica un fuerte impulso a corto plazo. El RSI de 68.8 confirma el impulso alcista, aunque el ADX débil sugiere posibles operaciones dentro de un rango. Sin embargo, los datos fundamentales están incompletos, especialmente con respecto a las métricas de valoración, lo que plantea un riesgo significativo. Considere una entrada alrededor de $249.46-$260.00, apuntando a $276.46, con un stop loss en $238.66.",
-          "pt": "A Modine Manufacturing opera no setor de Consumo Cíclico. A BOGA AI selecionou a MOD com base em seu recente aumento de preço, indicando um forte momentum de curto prazo. O RSI de 68.8 confirma o momentum de alta, embora o ADX fraco sugira possíveis negociações dentro de uma faixa. No entanto, os dados fundamentais estão incompletos, especialmente em relação às métricas de avaliação, o que representa um risco significativo. Considere uma entrada em torno de $249.46-$260.00, visando $276.46, com um stop loss em $238.66.",
-          "fr": "Modine Manufacturing opère dans le secteur de la consommation cyclique. BOGA AI a sélectionné MOD en raison de sa récente flambée des prix, indiquant une forte dynamique à court terme. Le RSI de 68,8 confirme la dynamique haussière, bien que le faible ADX suggère des transactions potentielles dans une fourchette. Cependant, les données fondamentales sont incomplètes, en particulier en ce qui concerne les mesures d'évaluation, ce qui pose un risque important. Envisager une entrée autour de 249,46 $ à 260,00 $, en visant 276,46 $, avec un stop loss à 238,66 $.",
-          "id": "Modine Manufacturing beroperasi di sektor Consumer Cyclical. BOGA AI memilih MOD berdasarkan lonjakan harga baru-baru ini, yang mengindikasikan momentum jangka pendek yang kuat. RSI sebesar 68.8 mengonfirmasi momentum bullish, meskipun ADX yang lemah menunjukkan potensi perdagangan dalam kisaran tertentu. Namun, data fundamental tidak lengkap, terutama mengenai metrik valuasi, yang menimbulkan risiko signifikan. Pertimbangkan entri di sekitar $249.46-$260.00, menargetkan $276.46, dengan stop loss di $238.66."
+          "en": "Modine Manufacturing Company (MOD) is a leader in the consumer cyclical sector. Our Quant Matrix assigns a score of 52.8/100, driven by a bullish RSI of 68.8, offset by a weak ADX of 17.8 and a bearish MACD. Lacking EMA data, support is estimated around $249.46, with resistance near $276.46. The company exhibits strong top-line growth (30.5%) and healthy gross (23.8%) and operating (11.9%) margins, but a high P/E of 138.8x, reflected in a PEG ratio of 4.6x, flags a premium valuation. The primary risk stems from the weak trend, which could amplify downside volatility. Action: Buy MOD between $249.46 and $260.00. Target: $276.46. Stop-loss: $238.66.",
+          "tr": "Modine Manufacturing Company (MOD), tüketici döngüsel sektöründe liderdir. Kantitatif Matrisimiz, 68.8'lik yükseliş RSI'si ile desteklenen ancak 17.8'lik zayıf ADX ve düşüş MACD'si ile dengelenen 52.8/100 puan veriyor. EMA verisi olmadığı için destek yaklaşık 249.46$, direnç ise 276.46$ civarında tahmin edilmektedir. Şirket, güçlü bir üst düzey büyüme (%30.5) ve sağlıklı brüt (%23.8) ve faaliyet (%11.9) marjları sergilemektedir, ancak 4.6x PEG oranıyla yansıtılan 138.8x'lik yüksek F/K oranı, primli bir değerlemeye işaret etmektedir. Birincil risk, düşüş yönlü oynaklığı artırabilecek zayıf trendden kaynaklanmaktadır. Eylem: MOD'u 249.46$ ile 260.00$ arasında satın alın. Hedef: 276.46$. Stop-loss: 238.66$.",
+          "es": "Modine Manufacturing Company (MOD) es un líder en el sector cíclico del consumidor. Nuestra Matriz Cuantitativa asigna una puntuación de 52.8/100, impulsada por un RSI alcista de 68.8, compensado por un ADX débil de 17.8 y un MACD bajista. Al carecer de datos EMA, el soporte se estima en alrededor de $249.46, con una resistencia cerca de $276.46. La empresa exhibe un fuerte crecimiento de los ingresos (30.5%) y márgenes brutos (23.8%) y operativos (11.9%) saludables, pero un alto P/E de 138.8x, reflejado en una relación PEG de 4.6x, señala una valoración premium. El riesgo principal proviene de la débil tendencia, que podría amplificar la volatilidad a la baja. Acción: Comprar MOD entre $249.46 y $260.00. Objetivo: $276.46. Stop-loss: $238.66.",
+          "pt": "Modine Manufacturing Company (MOD) é líder no setor cíclico de consumo. Nossa Matriz Quantitativa atribui uma pontuação de 52,8/100, impulsionada por um RSI de alta de 68,8, compensado por um ADX fraco de 17,8 e um MACD de baixa. Sem dados EMA, o suporte é estimado em torno de $249,46, com resistência perto de $276,46. A empresa exibe forte crescimento de receita (30,5%) e margens brutas (23,8%) e operacionais (11,9%) saudáveis, mas um alto P/L de 138,8x, refletido em uma relação PEG de 4,6x, sinaliza uma avaliação premium. O principal risco decorre da fraca tendência, que pode amplificar a volatilidade de queda. Ação: Compre MOD entre $249,46 e $260,00. Alvo: $276,46. Stop-loss: $238,66.",
+          "fr": "Modine Manufacturing Company (MOD) est un leader du secteur cyclique de la consommation. Notre matrice quantitative attribue un score de 52,8/100, tiré par un RSI haussier de 68,8, compensé par un ADX faible de 17,8 et un MACD baissier. En l'absence de données EMA, le support est estimé à environ 249,46 $, avec une résistance proche de 276,46 $. L'entreprise affiche une forte croissance du chiffre d'affaires (30,5 %) et des marges brutes (23,8 %) et d'exploitation (11,9 %) saines, mais un P/E élevé de 138,8x, reflété dans un ratio PEG de 4,6x, signale une valorisation élevée. Le risque principal découle de la faible tendance, qui pourrait amplifier la volatilité à la baisse. Action : Acheter MOD entre 249,46 $ et 260,00 $. Objectif : 276,46 $. Stop-loss : 238,66 $.",
+          "id": "Modine Manufacturing Company (MOD) adalah pemimpin di sektor siklikal konsumen. Matriks Kuantitatif kami memberikan skor 52.8/100, didorong oleh RSI bullish 68.8, diimbangi oleh ADX lemah 17.8 dan MACD bearish. Karena tidak ada data EMA, support diperkirakan sekitar $249.46, dengan resistance dekat $276.46. Perusahaan menunjukkan pertumbuhan pendapatan yang kuat (30.5%) dan margin kotor (23.8%) dan operasional (11.9%) yang sehat, tetapi P/E tinggi 138.8x, yang tercermin dalam rasio PEG 4.6x, menandakan valuasi premium. Risiko utama berasal dari tren yang lemah, yang dapat memperkuat volatilitas penurunan. Tindakan: Beli MOD antara $249.46 dan $260.00. Target: $276.46. Stop-loss: $238.66."
         }
       },
       "change_1m": 33.9,
-      "change_1y": 232.16
+      "change_1y": 232.16,
+      "market_cap_usd": 13322535936
     },
     {
       "rank": 9,
@@ -1075,8 +1123,8 @@
         "low": 95.29,
         "high": 96.86
       },
-      "reasoning": "Crocs, Inc. presents a short-term bullish opportunity given its 25.9% monthly gain, but incomplete valuation data warrants caution before initiating a position.",
-      "detail_reasoning": "Crocs, Inc. operates in the Consumer Cyclical sector, known for footwear and accessories. BOGA AI's selection is driven by its recent price surge, positioning it above the EMA200. Technically, while the price shows strong upward momentum, the RSI at 73.1 suggests it's overbought, signaling a potential pullback. Fundamentally, incomplete valuation data raises concerns about its intrinsic value. The key risk lies in the valuation uncertainty, which could lead to a correction. Consider an entry around $98.25 – $101.01, targeting $100.25, with a stop loss at $96.86.",
+      "reasoning": "Initiate a cautious CROX position within $98.25-$101.01, capitalizing on free cash flow strength while tightly managing overbought RSI risk with a $96.86 stop-loss.",
+      "detail_reasoning": "Crocs, Inc. is a global leader in innovative casual footwear. Our Alpha Grade score of 41.5 is driven by a strong free cash flow yield of 8.4% offsetting top-line growth concerns. The RSI of 73.1 indicates overbought conditions, suggesting potential consolidation. Support is anticipated in the $98.25-$101.01 range, with a tactical target of $100.25. Despite healthy gross margins of 58.3%, negative net income poses a risk. The ADX of 28.6 suggests a stable trend, but valuation data is incomplete, requiring caution. Execution Plan: Buy Zone: $98.25-$101.01, Target: $100.25, Stop: $96.86.",
       "adx": 28.6,
       "rsi": 73.1,
       "rvol": 1.41,
@@ -1140,10 +1188,15 @@
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
         "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pb_ratio": 3.9365873,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 5262949376,
+        "gross_margin": 58.333999999999996,
+        "operating_margin": 15.402001000000002,
+        "net_margin": -2.01,
+        "revenue_growth": -3.2,
+        "fcf_yield": 8.43602779127321
       },
       "performance": {
         "1d_pct": 0.46,
@@ -1165,24 +1218,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "Crocs, Inc. presents a short-term bullish opportunity given its 25.9% monthly gain, but incomplete valuation data warrants caution before initiating a position.",
-          "tr": "Crocs, Inc., aylık %25,9'luk kazancıyla kısa vadeli bir yükseliş fırsatı sunuyor, ancak eksik değerleme verileri pozisyon açmadan önce dikkatli olunmasını gerektiriyor.",
-          "es": "Crocs, Inc. presenta una oportunidad alcista a corto plazo dado su ganancia mensual del 25.9%, pero la información de valoración incompleta justifica la precaución antes de iniciar una posición.",
-          "pt": "Crocs, Inc. apresenta uma oportunidade de alta de curto prazo, dado o seu ganho mensal de 25,9%, mas dados de avaliação incompletos justificam cautela antes de iniciar uma posição.",
-          "fr": "Crocs, Inc. présente une opportunité haussière à court terme compte tenu de son gain mensuel de 25,9 %, mais des données d'évaluation incomplètes justifient la prudence avant d'initier une position.",
-          "id": "Crocs, Inc. menghadirkan peluang bullish jangka pendek mengingat kenaikan bulanan sebesar 25,9%, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian sebelum memulai posisi."
+          "en": "Initiate a cautious CROX position within $98.25-$101.01, capitalizing on free cash flow strength while tightly managing overbought RSI risk with a $96.86 stop-loss.",
+          "tr": "CROX'ta 98.25-101.01$ aralığında temkinli bir pozisyon başlatın, serbest nakit akışı gücünden yararlanın, aşırı alım RSI riskini 96.86$'lık stop-loss ile sıkı bir şekilde yönetin.",
+          "es": "Inicie una posición cautelosa en CROX entre $98.25 y $101.01, capitalizando la fortaleza del flujo de caja libre, gestionando el riesgo de RSI sobrecomprado con un stop-loss estricto de $96.86.",
+          "pt": "Inicie uma posição cautelosa em CROX entre US$ 98,25 e US$ 101,01, capitalizando a força do fluxo de caixa livre, gerenciando o risco de RSI sobrecomprado com um stop-loss rigoroso de US$ 96,86.",
+          "fr": "Initier une position prudente sur CROX entre 98,25 $ et 101,01 $, en capitalisant sur la solidité des flux de trésorerie disponibles, tout en gérant étroitement le risque de RSI de surachat avec un stop-loss à 96,86 $.",
+          "id": "Inisiasi posisi CROX secara hati-hati di antara $98.25-$101.01, memanfaatkan kekuatan arus kas bebas sambil mengelola risiko RSI overbought dengan stop-loss ketat di $96.86."
         },
         "detail_summary": {
-          "en": "Crocs, Inc. operates in the Consumer Cyclical sector, known for footwear and accessories. BOGA AI's selection is driven by its recent price surge, positioning it above the EMA200. Technically, while the price shows strong upward momentum, the RSI at 73.1 suggests it's overbought, signaling a potential pullback. Fundamentally, incomplete valuation data raises concerns about its intrinsic value. The key risk lies in the valuation uncertainty, which could lead to a correction. Consider an entry around $98.25 – $101.01, targeting $100.25, with a stop loss at $96.86.",
-          "tr": "Crocs, Inc., ayakkabı ve aksesuarlarıyla bilinen Tüketici Döngüsel sektöründe faaliyet göstermektedir. BOGA AI'nın seçimi, hissenin EMA200'ün üzerinde konumlanmasını sağlayan son fiyat artışından kaynaklanmaktadır. Teknik olarak, fiyat güçlü bir yükseliş momentumu gösterirken, 73.1'deki RSI aşırı alım bölgesinde olduğunu ve potansiyel bir geri çekilmeye işaret ediyor. Temel olarak, eksik değerleme verileri şirketin gerçek değeri hakkında endişeleri artırıyor. Temel risk, değerleme belirsizliğinde yatıyor ve bu da bir düzeltmeye yol açabilir. 98,25 – 101,01 dolar civarında bir giriş, 100,25 dolar hedef ve 96,86 dolarda bir stop loss düşünün.",
-          "es": "Crocs, Inc. opera en el sector de Consumo Cíclico, conocido por su calzado y accesorios. La selección de BOGA AI se basa en su reciente aumento de precio, posicionándose por encima de la EMA200. Técnicamente, si bien el precio muestra un fuerte impulso alcista, el RSI en 73.1 sugiere que está sobrecomprado, lo que indica un posible retroceso. Fundamentalmente, los datos de valoración incompletos generan preocupación sobre su valor intrínseco. El riesgo clave radica en la incertidumbre de la valoración, lo que podría conducir a una corrección. Considere una entrada alrededor de $98.25 – $101.01, apuntando a $100.25, con un stop loss en $96.86.",
-          "pt": "Crocs, Inc. opera no setor de Consumo Cíclico, conhecido por calçados e acessórios. A seleção da BOGA AI é impulsionada pelo seu recente aumento de preço, posicionando-o acima da EMA200. Tecnicamente, embora o preço mostre um forte impulso de alta, o RSI em 73,1 sugere que está sobrecomprado, sinalizando uma possível retração. Fundamentalmente, dados de avaliação incompletos levantam preocupações sobre seu valor intrínseco. O principal risco reside na incerteza da avaliação, o que pode levar a uma correção. Considere uma entrada em torno de US$ 98,25 – US$ 101,01, visando US$ 100,25, com um stop loss em US$ 96,86.",
-          "fr": "Crocs, Inc. opère dans le secteur de la consommation cyclique, connu pour ses chaussures et accessoires. La sélection de BOGA AI est motivée par sa récente flambée des prix, le positionnant au-dessus de l'EMA200. Techniquement, bien que le prix affiche une forte dynamique haussière, le RSI à 73,1 suggère qu'il est suracheté, signalant un repli potentiel. Fondamentalement, des données d'évaluation incomplètes soulèvent des inquiétudes quant à sa valeur intrinsèque. Le risque clé réside dans l'incertitude de l'évaluation, ce qui pourrait entraîner une correction. Envisagez une entrée autour de 98,25 $ – 101,01 $, en visant 100,25 $, avec un stop loss à 96,86 $.",
-          "id": "Crocs, Inc. beroperasi di sektor Consumer Cyclical, yang dikenal dengan alas kaki dan aksesoris. Pemilihan BOGA AI didorong oleh lonjakan harga baru-baru ini, memposisikannya di atas EMA200. Secara teknis, meskipun harga menunjukkan momentum naik yang kuat, RSI di 73,1 menunjukkan bahwa itu overbought, menandakan potensi pullback. Secara fundamental, data valuasi yang tidak lengkap menimbulkan kekhawatiran tentang nilai intrinsiknya. Risiko utama terletak pada ketidakpastian valuasi, yang dapat menyebabkan koreksi. Pertimbangkan entri di sekitar $98,25 – $101,01, menargetkan $100,25, dengan stop loss di $96,86."
+          "en": "Crocs, Inc. is a global leader in innovative casual footwear. Our Alpha Grade score of 41.5 is driven by a strong free cash flow yield of 8.4% offsetting top-line growth concerns. The RSI of 73.1 indicates overbought conditions, suggesting potential consolidation. Support is anticipated in the $98.25-$101.01 range, with a tactical target of $100.25. Despite healthy gross margins of 58.3%, negative net income poses a risk. The ADX of 28.6 suggests a stable trend, but valuation data is incomplete, requiring caution. Execution Plan: Buy Zone: $98.25-$101.01, Target: $100.25, Stop: $96.86.",
+          "tr": "Crocs, Inc., yenilikçi gündelik ayakkabılarda küresel bir liderdir. 41.5'lik Alpha Grade puanımız, gelir büyümesi endişelerini dengeleyen %8.4'lük güçlü bir serbest nakit akışı getirisi ile desteklenmektedir. 73.1'lik RSI aşırı alım koşullarını gösteriyor ve potansiyel konsolidasyona işaret ediyor. 98.25-101.01$ aralığında destek bekleniyor, taktiksel hedef 100.25$. %58.3'lük sağlıklı brüt marjlara rağmen, negatif net gelir bir risk oluşturuyor. 28.6'lık ADX istikrarlı bir trende işaret ediyor, ancak değerleme verileri eksik, bu da dikkat gerektiriyor. Uygulama Planı: Alım Bölgesi: 98.25-101.01$, Hedef: 100.25$, Stop: 96.86$.",
+          "es": "Crocs, Inc. es un líder mundial en calzado casual innovador. Nuestra calificación Alpha de 41.5 se debe a un sólido rendimiento de flujo de caja libre del 8.4%, que compensa las preocupaciones sobre el crecimiento de los ingresos. El RSI de 73.1 indica condiciones de sobrecompra, lo que sugiere una posible consolidación. Se anticipa soporte en el rango de $98.25-$101.01, con un objetivo táctico de $100.25. A pesar de los saludables márgenes brutos del 58.3%, los ingresos netos negativos representan un riesgo. El ADX de 28.6 sugiere una tendencia estable, pero los datos de valoración están incompletos, lo que requiere precaución. Plan de Ejecución: Zona de Compra: $98.25-$101.01, Objetivo: $100.25, Stop: $96.86.",
+          "pt": "Crocs, Inc. é líder global em calçados casuais inovadores. Nossa pontuação Alpha Grade de 41,5 é impulsionada por um forte rendimento de fluxo de caixa livre de 8,4%, compensando as preocupações com o crescimento da receita. O RSI de 73,1 indica condições de sobrecompra, sugerindo uma possível consolidação. O suporte é antecipado na faixa de US$ 98,25 a US$ 101,01, com uma meta tática de US$ 100,25. Apesar das margens brutas saudáveis de 58,3%, o lucro líquido negativo representa um risco. O ADX de 28,6 sugere uma tendência estável, mas os dados de avaliação estão incompletos, exigindo cautela. Plano de Execução: Zona de Compra: US$ 98,25 a US$ 101,01, Meta: US$ 100,25, Stop: US$ 96,86.",
+          "fr": "Crocs, Inc. est un leader mondial des chaussures décontractées innovantes. Notre score Alpha Grade de 41,5 est tiré par un rendement de flux de trésorerie disponible solide de 8,4 %, compensant les préoccupations concernant la croissance du chiffre d'affaires. Le RSI de 73,1 indique des conditions de surachat, ce qui suggère une consolidation potentielle. Un support est anticipé dans la fourchette de 98,25 $ à 101,01 $, avec un objectif tactique de 100,25 $. Malgré des marges brutes saines de 58,3 %, un résultat net négatif présente un risque. L'ADX de 28,6 suggère une tendance stable, mais les données d'évaluation sont incomplètes, ce qui exige de la prudence. Plan d'exécution : Zone d'achat : 98,25 $ à 101,01 $, Objectif : 100,25 $, Stop : 96,86 $.",
+          "id": "Crocs, Inc. adalah pemimpin global dalam alas kaki kasual inovatif. Skor Alpha Grade kami sebesar 41.5 didorong oleh hasil arus kas bebas yang kuat sebesar 8.4% yang mengimbangi kekhawatiran pertumbuhan pendapatan. RSI sebesar 73.1 menunjukkan kondisi overbought, yang menunjukkan potensi konsolidasi. Dukungan diantisipasi dalam kisaran $98.25-$101.01, dengan target taktis $100.25. Terlepas dari margin kotor yang sehat sebesar 58.3%, laba bersih negatif menimbulkan risiko. ADX sebesar 28.6 menunjukkan tren yang stabil, tetapi data valuasi tidak lengkap, yang memerlukan kehati-hatian. Rencana Eksekusi: Zona Beli: $98.25-$101.01, Target: $100.25, Stop: $96.86."
         }
       },
       "change_1m": 25.86,
-      "change_1y": 4.94
+      "change_1y": 4.94,
+      "market_cap_usd": 5262949376
     },
     {
       "rank": 10,
@@ -1206,8 +1260,8 @@
         "low": 80.11,
         "high": 81.72
       },
-      "reasoning": "SQM's recent 1-month surge of +15.8% presents a short-term bullish opportunity, but incomplete valuation data demands caution before establishing a long-term position.",
-      "detail_reasoning": "Sociedad Quimica y Minera (SQM) operates in the Basic Materials sector, producing lithium and other specialty chemicals. BOGA AI's selection is driven by its recent bullish momentum, indicated by a +15.8% increase in the past month. Technically, the RSI at 65.1 suggests continued buying pressure, although the weak ADX signals potential range-bound movement. Fundamentally, incomplete valuation data raises concerns about its true value. The key risk lies in the uncertainty surrounding its financial health due to missing fundamental data. Consider an entry around $87.00, targeting $87.99, with a stop loss at $81.72.",
+      "reasoning": "Initiate a tactical long position in SQM within the $85.62-$88.43 range, capitalizing on bullish RSI momentum, but be mindful of the weak trend indicated by the ADX and rich valuation, setting a stop-loss at $81.72.",
+      "detail_reasoning": "SQM, a leading Basic Materials company, presents a tactical buying opportunity. The RSI of 65.1 suggests strong bullish momentum, although the ADX at 17.2 indicates a weak trend and potential consolidation. Lacking EMA ribbon geometry data, traditional support/resistance levels are less reliable. The company exhibits solid top-line growth (23.3%) and healthy margins (G/O/N: 29.6%/28.3%/12.9%), but a high P/E ratio of 43.7x and PEG of 1.9x signals fair valuation, a key risk. Execution plan: Buy Zone: $85.62 – $88.43, Target: $87.99, Stop: $81.72.",
       "adx": 17.2,
       "rsi": 65.1,
       "rvol": 1.82,
@@ -1270,11 +1324,16 @@
         "operating_margin_pct": 0,
         "net_margin_pct": 0,
         "revenue_growth_pct": 0,
-        "pe_ratio": 0,
-        "pb_ratio": 0,
+        "pe_ratio": 43.68937,
+        "pb_ratio": 4.5169435,
         "fcf_yield_pct": 0,
         "market_cap": "0",
-        "market_cap_usd": 0
+        "market_cap_usd": 25707431936,
+        "gross_margin": 29.557,
+        "operating_margin": 28.327999999999996,
+        "net_margin": 12.852,
+        "revenue_growth": 23.3,
+        "fcf_yield": 1.6712122823842375
       },
       "performance": {
         "1d_pct": 6.71,
@@ -1296,24 +1355,25 @@
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "SQM's recent 1-month surge of +15.8% presents a short-term bullish opportunity, but incomplete valuation data demands caution before establishing a long-term position.",
-          "tr": "SQM'in son 1 ayda %15.8'lik yükselişi kısa vadeli bir boğa fırsatı sunuyor, ancak eksik değerleme verileri uzun vadeli bir pozisyon oluşturmadan önce dikkatli olmayı gerektiriyor.",
-          "es": "El reciente aumento de +15.8% en 1 mes de SQM presenta una oportunidad alcista a corto plazo, pero los datos de valoración incompletos exigen precaución antes de establecer una posición a largo plazo.",
-          "pt": "O recente aumento de +15.8% em 1 mês da SQM apresenta uma oportunidade de alta de curto prazo, mas os dados de avaliação incompletos exigem cautela antes de estabelecer uma posição de longo prazo.",
-          "fr": "La récente poussée de +15,8 % sur 1 mois de SQM présente une opportunité haussière à court terme, mais des données de valorisation incomplètes exigent de la prudence avant d'établir une position à long terme.",
-          "id": "Kenaikan SQM sebesar +15.8% dalam 1 bulan terakhir menghadirkan peluang bullish jangka pendek, tetapi data valuasi yang tidak lengkap memerlukan kehati-hatian sebelum membangun posisi jangka panjang."
+          "en": "Initiate a tactical long position in SQM within the $85.62-$88.43 range, capitalizing on bullish RSI momentum, but be mindful of the weak trend indicated by the ADX and rich valuation, setting a stop-loss at $81.72.",
+          "tr": "SQM'de 85.62-88.43$ aralığında taktiksel uzun pozisyon başlatın, yükseliş RSI momentumundan yararlanın, ancak ADX tarafından belirtilen zayıf trende ve yüksek değerlemeye dikkat ederek, zararı durdur seviyesini 81.72$'a ayarlayın.",
+          "es": "Inicie una posición larga táctica en SQM dentro del rango de $85.62-$88.43, capitalizando el impulso alcista del RSI, pero tenga en cuenta la debilidad de la tendencia indicada por el ADX y la valoración elevada, estableciendo un stop-loss en $81.72.",
+          "pt": "Inicie uma posição comprada tática em SQM na faixa de $85,62 a $88,43, capitalizando o impulso de alta do RSI, mas esteja atento à fraca tendência indicada pelo ADX e à avaliação rica, definindo um stop-loss em $81,72.",
+          "fr": "Initier une position longue tactique sur SQM dans la fourchette de 85,62 $ à 88,43 $, en capitalisant sur la dynamique haussière du RSI, mais en tenant compte de la faible tendance indiquée par l'ADX et de la valorisation élevée, en fixant un stop-loss à 81,72 $.",
+          "id": "Inisiasi posisi beli taktis di SQM dalam rentang $85.62-$88.43, memanfaatkan momentum RSI bullish, tetapi waspadai tren lemah yang ditunjukkan oleh ADX dan valuasi yang mahal, dengan menetapkan stop-loss pada $81.72."
         },
         "detail_summary": {
-          "en": "Sociedad Quimica y Minera (SQM) operates in the Basic Materials sector, producing lithium and other specialty chemicals. BOGA AI's selection is driven by its recent bullish momentum, indicated by a +15.8% increase in the past month. Technically, the RSI at 65.1 suggests continued buying pressure, although the weak ADX signals potential range-bound movement. Fundamentally, incomplete valuation data raises concerns about its true value. The key risk lies in the uncertainty surrounding its financial health due to missing fundamental data. Consider an entry around $87.00, targeting $87.99, with a stop loss at $81.72.",
-          "tr": "Sociedad Quimica y Minera (SQM), lityum ve diğer özel kimyasallar üreten Temel Malzemeler sektöründe faaliyet göstermektedir. BOGA AI'nın seçimi, son bir aydaki %15.8'lik artışla belirtilen son yükseliş momentumundan kaynaklanmaktadır. Teknik olarak, 65.1'deki RSI, devam eden alım baskısını gösterirken, zayıf ADX potansiyel aralık sınırlı hareket sinyali veriyor. Temel olarak, eksik değerleme verileri gerçek değeri hakkında endişeler yaratıyor. Temel risk, eksik temel veriler nedeniyle finansal sağlığıyla ilgili belirsizlikte yatmaktadır. Yaklaşık 87.00 dolardan giriş yapmayı, 87.99 doları hedeflemeyi ve 81.72 dolarda bir stop loss düşünün.",
-          "es": "Sociedad Quimica y Minera (SQM) opera en el sector de Materiales Básicos, produciendo litio y otros productos químicos especializados. La selección de BOGA AI se basa en su reciente impulso alcista, indicado por un aumento del +15.8% en el último mes. Técnicamente, el RSI en 65.1 sugiere una presión de compra continua, aunque el ADX débil señala un posible movimiento de rango limitado. Fundamentalmente, los datos de valoración incompletos generan preocupación sobre su verdadero valor. El riesgo clave radica en la incertidumbre en torno a su salud financiera debido a la falta de datos fundamentales. Considere una entrada alrededor de $87.00, apuntando a $87.99, con un stop loss en $81.72.",
-          "pt": "Sociedad Quimica y Minera (SQM) atua no setor de Materiais Básicos, produzindo lítio e outros produtos químicos especializados. A seleção da BOGA AI é impulsionada pelo seu recente impulso de alta, indicado por um aumento de +15.8% no último mês. Tecnicamente, o RSI em 65.1 sugere uma pressão de compra contínua, embora o ADX fraco sinalize um possível movimento limitado por intervalo. Fundamentalmente, os dados de avaliação incompletos levantam preocupações sobre o seu verdadeiro valor. O principal risco reside na incerteza em torno da sua saúde financeira devido à falta de dados fundamentais. Considere uma entrada em torno de $87.00, com meta em $87.99 e um stop loss em $81.72.",
-          "fr": "Sociedad Quimica y Minera (SQM) opère dans le secteur des matériaux de base, produisant du lithium et d'autres produits chimiques spécialisés. La sélection de BOGA AI est motivée par sa récente dynamique haussière, indiquée par une augmentation de +15,8 % au cours du dernier mois. Techniquement, le RSI à 65,1 suggère une pression d'achat continue, bien que le faible ADX signale un mouvement potentiel limité. Fondamentalement, des données de valorisation incomplètes suscitent des inquiétudes quant à sa véritable valeur. Le risque clé réside dans l'incertitude entourant sa santé financière en raison du manque de données fondamentales. Envisagez une entrée autour de 87,00 $, en visant 87,99 $, avec un stop loss à 81,72 $.",
-          "id": "Sociedad Quimica y Minera (SQM) beroperasi di sektor Bahan Baku, memproduksi lithium dan bahan kimia khusus lainnya. Pemilihan BOGA AI didorong oleh momentum bullish baru-baru ini, yang ditunjukkan oleh peningkatan +15.8% dalam sebulan terakhir. Secara teknis, RSI di 65.1 menunjukkan tekanan beli yang berkelanjutan, meskipun ADX yang lemah menandakan potensi pergerakan terbatas. Secara fundamental, data valuasi yang tidak lengkap menimbulkan kekhawatiran tentang nilai sebenarnya. Risiko utama terletak pada ketidakpastian seputar kesehatan keuangannya karena kurangnya data fundamental. Pertimbangkan untuk masuk di sekitar $87.00, menargetkan $87.99, dengan stop loss di $81.72."
+          "en": "SQM, a leading Basic Materials company, presents a tactical buying opportunity. The RSI of 65.1 suggests strong bullish momentum, although the ADX at 17.2 indicates a weak trend and potential consolidation. Lacking EMA ribbon geometry data, traditional support/resistance levels are less reliable. The company exhibits solid top-line growth (23.3%) and healthy margins (G/O/N: 29.6%/28.3%/12.9%), but a high P/E ratio of 43.7x and PEG of 1.9x signals fair valuation, a key risk. Execution plan: Buy Zone: $85.62 – $88.43, Target: $87.99, Stop: $81.72.",
+          "tr": "Önde gelen bir Temel Malzemeler şirketi olan SQM, taktiksel bir alım fırsatı sunuyor. 65.1'lik RSI güçlü bir yükseliş momentumu gösterirken, 17.2'deki ADX zayıf bir trend ve potansiyel konsolidasyona işaret ediyor. EMA ribbon geometri verilerinin eksikliği nedeniyle, geleneksel destek/direnç seviyeleri daha az güvenilirdir. Şirket, sağlam bir gelir büyümesi (%23.3) ve sağlıklı marjlar (G/O/N: %29.6/%28.3/%12.9) sergilemektedir, ancak 43.7x'lik yüksek F/K oranı ve 1.9x PEG, adil bir değerlemeye işaret ediyor, bu da önemli bir risktir. Uygulama planı: Alım Bölgesi: 85.62 – 88.43$, Hedef: 87.99$, Stop: 81.72$.",
+          "es": "SQM, una empresa líder en Materiales Básicos, presenta una oportunidad de compra táctica. El RSI de 65.1 sugiere un fuerte impulso alcista, aunque el ADX en 17.2 indica una tendencia débil y una posible consolidación. La falta de datos de geometría de la cinta EMA hace que los niveles tradicionales de soporte/resistencia sean menos confiables. La compañía exhibe un sólido crecimiento de los ingresos (23.3%) y márgenes saludables (G/O/N: 29.6%/28.3%/12.9%), pero una alta relación P/E de 43.7x y un PEG de 1.9x señalan una valoración justa, un riesgo clave. Plan de ejecución: Zona de compra: $85.62 – $88.43, Objetivo: $87.99, Stop: $81.72.",
+          "pt": "SQM, uma empresa líder em Materiais Básicos, apresenta uma oportunidade de compra tática. O RSI de 65,1 sugere um forte impulso de alta, embora o ADX em 17,2 indique uma tendência fraca e uma potencial consolidação. A falta de dados de geometria da fita EMA torna os níveis tradicionais de suporte/resistência menos confiáveis. A empresa exibe um sólido crescimento da receita (23,3%) e margens saudáveis (G/O/N: 29,6%/28,3%/12,9%), mas um alto índice P/L de 43,7x e um PEG de 1,9x sinalizam uma avaliação justa, um risco chave. Plano de execução: Zona de compra: $85,62 – $88,43, Alvo: $87,99, Stop: $81,72.",
+          "fr": "SQM, une entreprise leader dans le secteur des matériaux de base, présente une opportunité d'achat tactique. Le RSI de 65,1 suggère une forte dynamique haussière, bien que l'ADX à 17,2 indique une faible tendance et une consolidation potentielle. L'absence de données sur la géométrie du ruban EMA rend les niveaux de support/résistance traditionnels moins fiables. L'entreprise affiche une solide croissance du chiffre d'affaires (23,3 %) et des marges saines (G/O/N : 29,6 %/28,3 %/12,9 %), mais un ratio P/E élevé de 43,7x et un PEG de 1,9x signalent une valorisation équitable, un risque majeur. Plan d'exécution : Zone d'achat : 85,62 $ – 88,43 $, Objectif : 87,99 $, Stop : 81,72 $.",
+          "id": "SQM, perusahaan terkemuka di sektor Bahan Baku, menawarkan peluang beli taktis. RSI sebesar 65.1 menunjukkan momentum bullish yang kuat, meskipun ADX pada 17.2 mengindikasikan tren yang lemah dan potensi konsolidasi. Kurangnya data geometri pita EMA membuat level support/resistance tradisional kurang dapat diandalkan. Perusahaan menunjukkan pertumbuhan pendapatan yang solid (23.3%) dan margin yang sehat (G/O/N: 29.6%/28.3%/12.9%), tetapi rasio P/E yang tinggi sebesar 43.7x dan PEG 1.9x menandakan valuasi yang wajar, yang merupakan risiko utama. Rencana eksekusi: Zona Beli: $85.62 – $88.43, Target: $87.99, Stop: $81.72."
         }
       },
       "change_1m": 15.81,
-      "change_1y": 163.0
+      "change_1y": 163.0,
+      "market_cap_usd": 25707431936
     }
   ]
 }
