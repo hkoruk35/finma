@@ -2,7 +2,7 @@
   "ticker": "AL",
   "company": "Air Lease Corporation",
   "date": "2026-04-14",
-  "generated_at": "2026-04-14T09:19:14.510056-04:00",
+  "generated_at": "2026-04-14T13:24:56.047997-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 2651936
   },
   "scores": {
-    "master_score": 70.33,
-    "technical_score": 75.0,
+    "master_score": 66.25,
+    "technical_score": 67.0,
     "fundamental_score": 65.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 53.3,
+    "sector_score": 40.5,
     "breakout_score": 20.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 70.33,
-    "confidence": 0.7,
+    "signal_score": 66.25,
+    "confidence": 0.66,
     "signal_type": "POSITIVE_BIAS"
   },
   "technical": {
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 64.79,
     "ema_50": 64.56,
-    "ema_200": 61.32,
+    "ema_200": 61.27,
     "ema_stack_bullish": true,
     "bb_upper": 65.03,
     "bb_middle": 64.74,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 6.996771,
-    "sector_pe_median": 33.8390585,
+    "sector_pe_median": 33.605255,
     "pb_ratio": 0.8594928,
     "de_ratio": 232.866,
     "fcf_yield": 0.0223,
@@ -98,7 +98,7 @@
     "stop_loss": 64.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-14T09:19:14.510021-04:00",
+    "generated_at": "2026-04-14T13:24:56.047984-04:00",
     "categories": [
       "top_scores"
     ]
@@ -141,14 +141,14 @@
   },
   "sector_context": {
     "sector_etf": "XLI",
-    "sector_performance_5d": 5.14,
+    "sector_performance_5d": 1.64,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
   "ai_summary": "AL (Air Lease Corporation) exhibits a POSITIVE_BIAS, according to the FinMA score, with 70% confidence. Trading at $65.0, AL sits at its 52-week high. Technically, the RSI of 67.7 suggests approaching overbought conditions, while the MACD remains neutral. ADX strength is moderate at 31.7, indicating a defined trend.\n\nFundamentally, AL's compelling valuation (P/E of 6.996771) is significantly lower than the sector median (34.1074905), alongside strong profitability with a 36.1% net margin. The recent surge is supported by a high dividend yield of 135.00%. Continued strong performance in aircraft leasing demand, a sector specific catalyst, could push AL higher.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
-    "score_bar": 70,
+    "score_bar": 66,
     "price_change_display": "+0.03%",
     "key_metrics": {
       "RSI": 67.7,
