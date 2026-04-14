@@ -145,7 +145,24 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 39%. AAPL is currently range-bound between the upper Bollinger Band at $262.72 and the 50-day EMA at $258.61. A trader might consider a short position if AAPL fails to hold the $258.61 level, targeting the 200-day EMA around $252.14 as the PROFIT ZONE. The BUY ZONE is between $245.45 and $252.14, while the STOP LOSS ZONE is above $262.72.\n\n### Fundamental Edge\nApple's robust gross margin of 47.3% and net margin of 27.0% indicate strong profitability, yet the high P/E ratio of 32.84 suggests the market may be overvaluing the stock relative to its earnings. If growth slows, expect downward price correction.\n\n### Sector Context\nThe technology sector's current mixed performance is not providing a clear tailwind for AAPL, making it more reliant on company-specific news and execution.",
+  "ai_summary": {
+    "homepage": {
+      "en": "Test homepage",
+      "tr": "Test tr"
+    },
+    "detail": {
+      "en": "Test detail",
+      "tr": "Test detay"
+    },
+    "tech_ins": {
+      "en": "Test tech",
+      "tr": "Test tek"
+    },
+    "quant_ins": {
+      "en": "Test quant",
+      "tr": "Test kuan"
+    }
+  },
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 39,
