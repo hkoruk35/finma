@@ -335,7 +335,7 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       target.scores.score_type = summary.score_type;
       target.price.change_pct = summary.change_pct;
     }
-    target.is_partial_mock = true;
+    target.is_partial_mock = swingPick ? false : true;
   } else {
     (mock as any).is_mock = true;
   }
