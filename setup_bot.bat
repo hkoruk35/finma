@@ -11,7 +11,7 @@ if %errorLevel% == 0 (
 
 echo.
 echo BOGA AI Otomasyon Gorevi Kuruluyor...
-schtasks /Create /TN "BOGA_AI_DailyBot" /TR "C:\Users\afksm\finma\venv313\Scripts\python.exe C:\Users\afksm\finma\run_all_bots.py" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 13:05 /F /RL HIGHEST
+schtasks /Create /TN "BOGA_AI_DailyBot" /TR "C:\Users\afksm\finma\venv313\Scripts\python.exe C:\Users\afksm\finma\run_all_bots.py" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 13:00 /F /RL HIGHEST
 
 echo.
 echo Gorev basariyla olusturuldu! Bu pencereyi kapatabilirsiniz.

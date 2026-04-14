@@ -6,1506 +6,182 @@
   "total_picks": 10,
   "picks": [
     {
-      "ticker": "CGON",
-      "company": "CGON",
-      "sector": "Energy",
-      "score": 35.1,
-      "current_price": 68.64,
-      "buy_zone": {
-        "low": 64.0,
-        "high": 65.0
-      },
-      "profit_zone": {
-        "low": 72.0,
-        "high": 75.0
-      },
-      "stop_zone": {
-        "low": 60.0,
-        "high": 61.0
-      },
-      "change_1d": 5.89,
-      "rank": 0,
-      "boga_score": 35.1,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "ticker": "LXU",
-      "company": "LXU",
-      "sector": "Basic Materials",
-      "score": 33.5,
-      "current_price": 14.77,
-      "buy_zone": {
-        "low": 14.0,
-        "high": 14.8
-      },
-      "profit_zone": {
-        "low": 16.5,
-        "high": 17.0
-      },
-      "stop_zone": {
-        "low": 13.5,
-        "high": 13.8
-      },
-      "change_1d": 0.14,
-      "rank": 0,
-      "boga_score": 33.5,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "ticker": "ADEA",
-      "company": "ADEA",
-      "sector": "Technology",
-      "score": 32.5,
-      "current_price": 23.46,
-      "buy_zone": {
-        "low": 22.5,
-        "high": 23.2
-      },
-      "profit_zone": {
-        "low": 26.0,
-        "high": 27.0
-      },
-      "stop_zone": {
-        "low": 21.5,
-        "high": 22.0
-      },
-      "change_1d": 1.56,
-      "rank": 0,
-      "boga_score": 32.5,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "ticker": "PBR",
-      "company": "PBR",
-      "sector": "Energy",
-      "score": 30.4,
-      "current_price": 19.51,
-      "buy_zone": {
-        "low": 18.0,
-        "high": 18.8
-      },
-      "profit_zone": {
-        "low": 21.5,
-        "high": 22.5
-      },
-      "stop_zone": {
-        "low": 17.0,
-        "high": 17.5
-      },
-      "change_1d": 5.06,
-      "rank": 0,
-      "boga_score": 30.4,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "ticker": "STGW",
-      "company": "STGW",
-      "sector": "Technology",
-      "score": 30.0,
-      "current_price": 6.07,
-      "buy_zone": {
-        "low": 5.8,
-        "high": 6.0
-      },
-      "profit_zone": {
-        "low": 6.8,
-        "high": 7.2
-      },
-      "stop_zone": {
-        "low": 5.4,
-        "high": 5.6
-      },
-      "change_1d": 2.02,
-      "rank": 0,
-      "boga_score": 30.0,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "ticker": "BP",
-      "company": "BP",
-      "sector": "Energy",
-      "score": 29.6,
-      "current_price": 43.85,
-      "buy_zone": {
-        "low": 42.0,
-        "high": 42.8
-      },
-      "profit_zone": {
-        "low": 47.0,
-        "high": 48.5
-      },
-      "stop_zone": {
-        "low": 40.0,
-        "high": 41.0
-      },
-      "change_1d": 2.77,
-      "rank": 0,
-      "boga_score": 29.6,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "ticker": "DNTH",
-      "company": "DNTH",
-      "sector": "Healthcare",
-      "score": 29.3,
-      "current_price": 78.9,
-      "buy_zone": {
-        "low": 77.5,
-        "high": 79.0
-      },
-      "profit_zone": {
-        "low": 85.0,
-        "high": 88.0
-      },
-      "stop_zone": {
-        "low": 75.0,
-        "high": 76.0
-      },
-      "change_1d": 0.01,
-      "rank": 0,
-      "boga_score": 29.3,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "ticker": "UNFI",
-      "company": "UNFI",
-      "sector": "Consumer Defensive",
-      "score": 27.8,
-      "current_price": 40.17,
-      "buy_zone": {
-        "low": 41.0,
-        "high": 42.0
-      },
-      "profit_zone": {
-        "low": 45.0,
-        "high": 47.0
-      },
-      "stop_zone": {
-        "low": 39.0,
-        "high": 40.0
-      },
-      "change_1d": -3.65,
-      "rank": 0,
-      "boga_score": 27.8,
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "Manual sync",
-          "tr": "Manuel senkronize"
-        }
-      }
-    },
-    {
-      "rank": 1,
       "ticker": "GSAT",
-      "company": "GSAT",
+      "rank": 1,
       "sector": "Communication Services",
-      "score": 81.3,
-      "boga_score": 81.3,
-      "market_regime": "BULLISH",
-      "current_price": 79.9,
-      "holding_period": "5-10 Days",
+      "current_price": 77.49,
       "buy_zone": {
-        "low": 77.49,
-        "high": 81.0
+        "low": 75.94019999999999,
+        "high": 79.0398
       },
-      "profit_zone": {
-        "low": 86.37,
-        "high": 88.59
-      },
-      "stop_zone": {
-        "low": 71.04,
-        "high": 73.05
-      },
-      "reasoning": "BOGA AI assigns GSAT a score of 81/100 in a Makro Bullish trend — entry zone $77.49–$81.00 targets $88.59 with a 2.5:1 risk/reward.",
-      "detail_reasoning": "GSAT operates in the Communication Services sector, and BOGA AI's algorithm flagged it with a 81/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 67 — momentum is building in the healthy bullish zone without being overextended, with ADX at 34 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 17.6% with a net margin of -3.2%, which means it keeps $-3.2 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $77.49 and $81.00, target $88.59, and place a hard stop at $73.05 — a 2.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 34.5,
-      "rsi": 67.1,
-      "rvol": 5.71,
-      "change_1d": 9.62,
-      "change_1w": 8.19,
-      "change_1m": 36.16,
-      "change_1y": 308.49,
-      "change_5y": 233.33,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 77.49,
-          "high": 81.0
-        },
-        "sell_zone": {
-          "low": 86.37,
-          "high": 88.59
-        },
-        "stop_loss_zone": {
-          "low": 71.04,
-          "high": 73.05
-        },
-        "risk_reward": 2.5,
-        "support_1h": 73.55,
-        "resistance_1h": 80.78,
-        "atr_1d": 5.02,
-        "atr_pct": 6.27,
-        "risk_usd": 4.44,
-        "reward_usd": 11.1
-      },
-      "trend_status": {
-        "trend": "Makro Bullish",
-        "rsi_14": 67.1,
-        "adx": 34.5,
-        "macd_hist": 1.017,
-        "mfi": 82.7,
-        "cmf": 0.0308,
-        "rvol_today": 5.71,
-        "entry_trigger": "Trend Continuation Swing",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 69.15,
-        "ema_50": 64.72,
-        "ema_200": 51.49,
-        "price_vs_ema20": 10.85,
-        "price_vs_ema50": 15.28,
-        "price_vs_ema200": 28.51,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 67.1,
-        "adx_1h": 22.4,
-        "rvol_1h": "0.1x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 63.81,
-        "operating_margin_pct": -5.83,
-        "net_margin_pct": -3.17,
-        "revenue_growth_pct": 17.6,
-        "pe_ratio": 0,
-        "pb_ratio": 28.79,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "10.29B",
-        "market_cap_usd": 10286004224
-      },
-      "performance": {
-        "1d_pct": 9.75,
-        "1w_pct": 8.33,
-        "1m_pct": 36.33,
-        "1y_pct": 309.42,
-        "5y_pct": 233.33
-      },
-      "factor_scores": {
-        "trend_score": 8.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 14.0,
-        "financial_score": 5.0,
-        "catalyst_score": 0.0,
-        "insider_score": 0.0,
-        "composite": 11.72,
-        "raw_score": 126.89
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns GSAT a score of 81/100 in a Makro Bullish trend — entry zone $77.49–$81.00 targets $88.59 with a 2.5:1 risk/reward.",
-          "tr": "BOGA AI, GSAT hissesine Makro Bullish trend içinde 81/100 skor verdi — $77.49–$81.00 giriş bölgesi, $88.59 hedef, 2.5:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a GSAT una puntuación de 81/100 en tendencia Makro Bullish — zona de entrada $77.49–$81.00, objetivo $88.59, relación riesgo/beneficio 2.5:1.",
-          "pt": "BOGA AI atribui ao GSAT uma pontuação de 81/100 em tendência Makro Bullish — zona de entrada $77.49–$81.00, alvo $88.59, relação risco/retorno 2.5:1.",
-          "fr": "BOGA AI attribue à GSAT un score de 81/100 en tendance Makro Bullish — zone d'entrée $77.49–$81.00, objectif $88.59, ratio risque/rendement 2.5:1.",
-          "id": "BOGA AI memberi GSAT skor 81/100 dalam tren Makro Bullish — zona beli $77.49–$81.00, target $88.59, rasio risiko/imbalan 2.5:1."
-        },
-        "detail_summary": {
-          "en": "GSAT operates in the Communication Services sector, and BOGA AI's algorithm flagged it with a 81/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 67 — momentum is building in the healthy bullish zone without being overextended, with ADX at 34 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 17.6% with a net margin of -3.2%, which means it keeps $-3.2 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $77.49 and $81.00, target $88.59, and place a hard stop at $73.05 — a 2.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "GSAT, Communication Services sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 81/100 skor atadı. Teknik tarafta RSI 67 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ADX 34 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %17.6 büyütürken net kar marjı %-3.2 — yani her 100 dolarlık satıştan -3.2 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $77.49–$81.00 aralığından giriş, $88.59 kâr hedefi, $73.05 kesin stop — 2.5:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "GSAT opera en el sector Communication Services, y el algoritmo BOGA AI le asignó 81/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 67 — impulso saludable, sin sobreextensión, con ADX en 34 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 17.6% con un margen neto del -3.2% — es decir, retiene $-3.2 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $77.49 y $81.00, objetivo $88.59, stop definitivo en $73.05 — una relación recompensa/riesgo de 2.5:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "GSAT atua no setor de Communication Services, e o algoritmo BOGA AI atribuiu 81/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 67 — momentum saudável, sem sobreextensão, com ADX em 34 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 17.6% com margem líquida de -3.2% — ou seja, retém $-3.2 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $77.49 e $81.00, alvo $88.59, stop definitivo em $73.05 — uma relação retorno/risco de 2.5:1 que o torna candidato ideal para swing trade.",
-          "fr": "GSAT opère dans le secteur Communication Services, et l'algorithme BOGA AI lui a attribué 81/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 67 — momentum haussier sain, sans surextension, avec un ADX à 34 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 17.6% avec une marge nette de -3.2% — soit $-3.2 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $77.49 et $81.00, objectif $88.59, stop définitif à $73.05 — un ratio rendement/risque de 2.5:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "GSAT beroperasi di sektor Communication Services, dan algoritma BOGA AI menetapkan skor 81/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 67 — momentum bullish sehat, tidak berlebihan, dengan ADX 34 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 17.6% dengan margin bersih -3.2% — artinya setiap $100 penjualan menghasilkan $-3.2 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $77.49 dan $81.00, target $88.59, stop ketat di $73.05 — rasio imbalan/risiko 2.5:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 2,
       "ticker": "SGI",
-      "company": "SGI",
+      "rank": 2,
       "sector": "Consumer Cyclical",
-      "score": 73.5,
-      "boga_score": 73.5,
-      "market_regime": "BULLISH",
-      "current_price": 81.84,
-      "holding_period": "9-14 Days",
+      "current_price": 81.71,
       "buy_zone": {
-        "low": 81.71,
-        "high": 84.33
+        "low": 80.07579999999999,
+        "high": 83.3442
       },
-      "profit_zone": {
-        "low": 87.69,
-        "high": 89.18
-      },
-      "stop_zone": {
-        "low": 77.22,
-        "high": 78.72
-      },
-      "reasoning": "BOGA AI assigns SGI a score of 74/100 in a EMA200 Üstü trend — entry zone $81.71–$84.33 targets $89.18 with a 2.5:1 risk/reward.",
-      "detail_reasoning": "SGI operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 74/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 61 — momentum is building in the healthy bullish zone without being overextended, with ADX at 32 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 54.7% with a net margin of 5.1%, which means it keeps $5.1 of profit for every $100 in sales. At P/E 45x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $81.71 and $84.33, target $89.18, and place a hard stop at $78.72 — a 2.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 31.5,
-      "rsi": 61.3,
-      "rvol": 1.01,
-      "change_1d": 2.45,
-      "change_1w": 13.64,
-      "change_1m": 6.37,
-      "change_1y": 38.95,
-      "change_5y": 127.6,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 81.71,
-          "high": 84.33
-        },
-        "sell_zone": {
-          "low": 87.69,
-          "high": 89.18
-        },
-        "stop_loss_zone": {
-          "low": 77.22,
-          "high": 78.72
-        },
-        "risk_reward": 2.5,
-        "support_1h": 79.09,
-        "resistance_1h": 84.31,
-        "atr_1d": 3.74,
-        "atr_pct": 4.48,
-        "risk_usd": 2.99,
-        "reward_usd": 7.47
-      },
-      "trend_status": {
-        "trend": "EMA200 Üstü",
-        "rsi_14": 61.3,
-        "adx": 31.5,
-        "macd_hist": 1.585,
-        "mfi": 54.6,
-        "cmf": -0.0241,
-        "rvol_today": 1.01,
-        "entry_trigger": "Rising: Gaining Momentum",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 77.19,
-        "ema_50": 80.75,
-        "ema_200": 81.05,
-        "price_vs_ema20": 6.39,
-        "price_vs_ema50": 2.83,
-        "price_vs_ema200": 2.53,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 72.5,
-        "adx_1h": 46.8,
-        "rvol_1h": "0.0x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Normal"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 44.35,
-        "operating_margin_pct": 22.55,
-        "net_margin_pct": 5.14,
-        "revenue_growth_pct": 54.7,
-        "pe_ratio": 45.3,
-        "pb_ratio": 5.63,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "17.52B",
-        "market_cap_usd": 17519269888
-      },
-      "performance": {
-        "1d_pct": 4.63,
-        "1w_pct": 16.05,
-        "1m_pct": 8.63,
-        "1y_pct": 42.52,
-        "5y_pct": 127.6
-      },
-      "factor_scores": {
-        "trend_score": 8.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 3.28,
-        "financial_score": 7.0,
-        "catalyst_score": 0.8,
-        "insider_score": 0.0,
-        "composite": 7.38,
-        "raw_score": 89.16
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns SGI a score of 74/100 in a EMA200 Üstü trend — entry zone $81.71–$84.33 targets $89.18 with a 2.5:1 risk/reward.",
-          "tr": "BOGA AI, SGI hissesine EMA200 Üstü trend içinde 74/100 skor verdi — $81.71–$84.33 giriş bölgesi, $89.18 hedef, 2.5:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a SGI una puntuación de 74/100 en tendencia EMA200 Üstü — zona de entrada $81.71–$84.33, objetivo $89.18, relación riesgo/beneficio 2.5:1.",
-          "pt": "BOGA AI atribui ao SGI uma pontuação de 74/100 em tendência EMA200 Üstü — zona de entrada $81.71–$84.33, alvo $89.18, relação risco/retorno 2.5:1.",
-          "fr": "BOGA AI attribue à SGI un score de 74/100 en tendance EMA200 Üstü — zone d'entrée $81.71–$84.33, objectif $89.18, ratio risque/rendement 2.5:1.",
-          "id": "BOGA AI memberi SGI skor 74/100 dalam tren EMA200 Üstü — zona beli $81.71–$84.33, target $89.18, rasio risiko/imbalan 2.5:1."
-        },
-        "detail_summary": {
-          "en": "SGI operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 74/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 61 — momentum is building in the healthy bullish zone without being overextended, with ADX at 32 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 54.7% with a net margin of 5.1%, which means it keeps $5.1 of profit for every $100 in sales. At P/E 45x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $81.71 and $84.33, target $89.18, and place a hard stop at $78.72 — a 2.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "SGI, Consumer Cyclical sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile EMA200 Üstü günlük trendi tespit ederek hisseye 74/100 skor atadı. Teknik tarafta RSI 61 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ADX 32 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %54.7 büyütürken net kar marjı %5.1 — yani her 100 dolarlık satıştan 5.1 dolar kar elde ediyor. F/K 45x değerleme yüksek — piyasa güçlü büyüme bekliyor; kazanç hayal kırıklığı sert düzeltmeyi tetikleyebilir. Operasyonel plan: $81.71–$84.33 aralığından giriş, $89.18 kâr hedefi, $78.72 kesin stop — 2.5:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "SGI opera en el sector Consumer Cyclical, y el algoritmo BOGA AI le asignó 74/100 al detectar señales de acumulación institucional alineadas con una tendencia EMA200 Üstü diaria. Técnicamente, RSI en 61 — impulso saludable, sin sobreextensión, con ADX en 32 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 54.7% con un margen neto del 5.1% — es decir, retiene $5.1 de ganancia por cada $100 en ventas. Con P/E 45x, la valoración es elevada — el mercado exige crecimiento sostenido; una decepción en ganancias podría generar corrección. El plan táctico: comprar entre $81.71 y $84.33, objetivo $89.18, stop definitivo en $78.72 — una relación recompensa/riesgo de 2.5:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "SGI atua no setor de Consumer Cyclical, e o algoritmo BOGA AI atribuiu 74/100 ao detectar sinais de acumulação institucional alinhados com uma tendência EMA200 Üstü diária. No âmbito técnico, RSI em 61 — momentum saudável, sem sobreextensão, com ADX em 32 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 54.7% com margem líquida de 5.1% — ou seja, retém $5.1 de lucro para cada $100 em vendas. Com P/L 45x, a avaliação é alta — o mercado exige crescimento forte; uma decepção nos lucros pode gerar correção. O plano tático: comprar entre $81.71 e $84.33, alvo $89.18, stop definitivo em $78.72 — uma relação retorno/risco de 2.5:1 que o torna candidato ideal para swing trade.",
-          "fr": "SGI opère dans le secteur Consumer Cyclical, et l'algorithme BOGA AI lui a attribué 74/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance EMA200 Üstü journalière. Techniquement, RSI à 61 — momentum haussier sain, sans surextension, avec un ADX à 32 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 54.7% avec une marge nette de 5.1% — soit $5.1 de bénéfice pour chaque $100 de ventes. Avec un P/E à 45x, la valorisation est élevée — le marché exige une forte croissance; une déception sur les bénéfices pourrait provoquer une correction. Le plan tactique : achat entre $81.71 et $84.33, objectif $89.18, stop définitif à $78.72 — un ratio rendement/risque de 2.5:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "SGI beroperasi di sektor Consumer Cyclical, dan algoritma BOGA AI menetapkan skor 74/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren EMA200 Üstü harian. Secara teknikal, RSI di 61 — momentum bullish sehat, tidak berlebihan, dengan ADX 32 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 54.7% dengan margin bersih 5.1% — artinya setiap $100 penjualan menghasilkan $5.1 keuntungan bersih. Dengan P/E 45x, valuasi tinggi — pasar mengharapkan pertumbuhan kuat; kekecewaan laba dapat memicu koreksi tajam. Rencana taktis: beli di antara $81.71 dan $84.33, target $89.18, stop ketat di $78.72 — rasio imbalan/risiko 2.5:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 3,
       "ticker": "BBIO",
-      "company": "BBIO",
+      "rank": 3,
       "sector": "Healthcare",
-      "score": 63.5,
-      "boga_score": 63.5,
-      "market_regime": "BULLISH",
-      "current_price": 78.04,
-      "holding_period": "10-15 Days",
+      "current_price": 77.63,
       "buy_zone": {
-        "low": 77.63,
-        "high": 78.47
+        "low": 76.0774,
+        "high": 79.1826
       },
-      "profit_zone": {
-        "low": 77.03,
-        "high": 78.52
-      },
-      "stop_zone": {
-        "low": 76.15,
-        "high": 77.34
-      },
-      "reasoning": "BOGA AI assigns BBIO a score of 64/100 in a Makro Bullish trend — entry zone $77.63–$78.47 targets $78.52 with a 3.1:1 risk/reward.",
-      "detail_reasoning": "BBIO operates in the Healthcare sector, and BOGA AI's algorithm flagged it with a 64/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 63 — momentum is building in the healthy bullish zone without being overextended, though ADX at 22 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 2521.2% with a net margin of -144.4%, which means it keeps $-144.4 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $77.63 and $78.47, target $78.52, and place a hard stop at $77.34 — a 3.1:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 22.3,
-      "rsi": 63.1,
-      "rvol": 0.78,
-      "change_1d": 0.21,
-      "change_1w": 8.49,
-      "change_1m": 12.43,
-      "change_1y": 130.12,
-      "change_5y": 31.48,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 77.63,
-          "high": 78.47
-        },
-        "sell_zone": {
-          "low": 77.03,
-          "high": 78.52
-        },
-        "stop_loss_zone": {
-          "low": 76.15,
-          "high": 77.34
-        },
-        "risk_reward": 3.07,
-        "support_1h": 77.63,
-        "resistance_1h": 79.31,
-        "atr_1d": 2.97,
-        "atr_pct": 3.82,
-        "risk_usd": 0.29,
-        "reward_usd": 0.89
-      },
-      "trend_status": {
-        "trend": "Makro Bullish",
-        "rsi_14": 63.1,
-        "adx": 22.3,
-        "macd_hist": 0.69,
-        "mfi": 69.4,
-        "cmf": 0.02,
-        "rvol_today": 0.78,
-        "entry_trigger": "Rising: Pullback Reversal",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 73.13,
-        "ema_50": 71.95,
-        "ema_200": 63.19,
-        "price_vs_ema20": 4.75,
-        "price_vs_ema50": 5.93,
-        "price_vs_ema200": 14.69,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 64.3,
-        "adx_1h": 32.9,
-        "rvol_1h": "0.1x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 95.83,
-        "operating_margin_pct": -83.3,
-        "net_margin_pct": -144.39,
-        "revenue_growth_pct": 2521.2,
-        "pe_ratio": 0,
-        "pb_ratio": -7.26,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "15.08B",
-        "market_cap_usd": 15076714496
-      },
-      "performance": {
-        "1d_pct": 0.01,
-        "1w_pct": 8.27,
-        "1m_pct": 12.2,
-        "1y_pct": 123.34,
-        "5y_pct": 31.48
-      },
-      "factor_scores": {
-        "trend_score": 4.0,
-        "momentum_score": 12.0,
-        "volatility_score": 8.0,
-        "volume_score": 1.67,
-        "financial_score": 5.0,
-        "catalyst_score": 1.6,
-        "insider_score": 0.0,
-        "composite": 5.4,
-        "raw_score": 102.80999999999999
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns BBIO a score of 64/100 in a Makro Bullish trend — entry zone $77.63–$78.47 targets $78.52 with a 3.1:1 risk/reward.",
-          "tr": "BOGA AI, BBIO hissesine Makro Bullish trend içinde 64/100 skor verdi — $77.63–$78.47 giriş bölgesi, $78.52 hedef, 3.1:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a BBIO una puntuación de 64/100 en tendencia Makro Bullish — zona de entrada $77.63–$78.47, objetivo $78.52, relación riesgo/beneficio 3.1:1.",
-          "pt": "BOGA AI atribui ao BBIO uma pontuação de 64/100 em tendência Makro Bullish — zona de entrada $77.63–$78.47, alvo $78.52, relação risco/retorno 3.1:1.",
-          "fr": "BOGA AI attribue à BBIO un score de 64/100 en tendance Makro Bullish — zone d'entrée $77.63–$78.47, objectif $78.52, ratio risque/rendement 3.1:1.",
-          "id": "BOGA AI memberi BBIO skor 64/100 dalam tren Makro Bullish — zona beli $77.63–$78.47, target $78.52, rasio risiko/imbalan 3.1:1."
-        },
-        "detail_summary": {
-          "en": "BBIO operates in the Healthcare sector, and BOGA AI's algorithm flagged it with a 64/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 63 — momentum is building in the healthy bullish zone without being overextended, though ADX at 22 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 2521.2% with a net margin of -144.4%, which means it keeps $-144.4 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $77.63 and $78.47, target $78.52, and place a hard stop at $77.34 — a 3.1:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "BBIO, Healthcare sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 64/100 skor atadı. Teknik tarafta RSI 63 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ancak ADX 22 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %2521.2 büyütürken net kar marjı %-144.4 — yani her 100 dolarlık satıştan -144.4 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $77.63–$78.47 aralığından giriş, $78.52 kâr hedefi, $77.34 kesin stop — 3.1:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "BBIO opera en el sector Healthcare, y el algoritmo BOGA AI le asignó 64/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 63 — impulso saludable, sin sobreextensión, aunque el ADX en 22 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 2521.2% con un margen neto del -144.4% — es decir, retiene $-144.4 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $77.63 y $78.47, objetivo $78.52, stop definitivo en $77.34 — una relación recompensa/riesgo de 3.1:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "BBIO atua no setor de Healthcare, e o algoritmo BOGA AI atribuiu 64/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 63 — momentum saudável, sem sobreextensão, embora ADX em 22 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 2521.2% com margem líquida de -144.4% — ou seja, retém $-144.4 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $77.63 e $78.47, alvo $78.52, stop definitivo em $77.34 — uma relação retorno/risco de 3.1:1 que o torna candidato ideal para swing trade.",
-          "fr": "BBIO opère dans le secteur Healthcare, et l'algorithme BOGA AI lui a attribué 64/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 63 — momentum haussier sain, sans surextension, bien que l'ADX à 22 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 2521.2% avec une marge nette de -144.4% — soit $-144.4 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $77.63 et $78.47, objectif $78.52, stop définitif à $77.34 — un ratio rendement/risque de 3.1:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "BBIO beroperasi di sektor Healthcare, dan algoritma BOGA AI menetapkan skor 64/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 63 — momentum bullish sehat, tidak berlebihan, meskipun ADX 22 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 2521.2% dengan margin bersih -144.4% — artinya setiap $100 penjualan menghasilkan $-144.4 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $77.63 dan $78.47, target $78.52, stop ketat di $77.34 — rasio imbalan/risiko 3.1:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 4,
       "ticker": "SNDK",
-      "company": "SNDK",
+      "rank": 4,
       "sector": "Technology",
-      "score": 53.4,
-      "boga_score": 53.4,
-      "market_regime": "BULLISH",
-      "current_price": 941.5,
-      "holding_period": "5-10 Days",
+      "current_price": 907.58,
       "buy_zone": {
-        "low": 907.58,
-        "high": 951.18
+        "low": 889.4284,
+        "high": 925.7316000000001
       },
-      "profit_zone": {
-        "low": 924.2,
-        "high": 955.35
-      },
-      "stop_zone": {
-        "low": 870.85,
-        "high": 895.77
-      },
-      "reasoning": "BOGA AI assigns SNDK a score of 53/100 in a Makro Bullish trend — entry zone $907.58–$951.18 targets $955.35 with a 4.0:1 risk/reward.",
-      "detail_reasoning": "SNDK operates in the Technology sector, and BOGA AI's algorithm flagged it with a 53/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 72 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 24 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 61.2% with a net margin of -11.7%, which means it keeps $-11.7 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $907.58 and $951.18, target $955.35, and place a hard stop at $895.77 — a 4.0:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 24.2,
-      "rsi": 72.2,
-      "rvol": 0.82,
-      "change_1d": -1.15,
-      "change_1w": 32.46,
-      "change_1m": 42.3,
-      "change_1y": 2844.95,
-      "change_5y": 1871.79,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 907.58,
-          "high": 951.18
-        },
-        "sell_zone": {
-          "low": 924.2,
-          "high": 955.35
-        },
-        "stop_loss_zone": {
-          "low": 870.85,
-          "high": 895.77
-        },
-        "risk_reward": 4.04,
-        "support_1h": 902.0,
-        "resistance_1h": 965.0,
-        "atr_1d": 62.29,
-        "atr_pct": 6.64,
-        "risk_usd": 11.81,
-        "reward_usd": 47.77
-      },
-      "trend_status": {
-        "trend": "Makro Bullish",
-        "rsi_14": 72.2,
-        "adx": 24.2,
-        "macd_hist": 26.356,
-        "mfi": 67.3,
-        "cmf": 0.2295,
-        "rvol_today": 0.82,
-        "entry_trigger": "Rising: Gaining Momentum",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 751.98,
-        "ema_50": 651.82,
-        "ema_200": 372.66,
-        "price_vs_ema20": 186.74,
-        "price_vs_ema50": 286.9,
-        "price_vs_ema200": 566.06,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 72.8,
-        "adx_1h": 48.2,
-        "rvol_1h": "0.5x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 34.81,
-        "operating_margin_pct": 35.5,
-        "net_margin_pct": -11.66,
-        "revenue_growth_pct": 61.2,
-        "pe_ratio": 0,
-        "pb_ratio": 13.61,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "138.65B",
-        "market_cap_usd": 138646765568
-      },
-      "performance": {
-        "1d_pct": -1.45,
-        "1w_pct": 32.07,
-        "1m_pct": 41.88,
-        "1y_pct": 2698.12,
-        "5y_pct": 1871.79
-      },
-      "factor_scores": {
-        "trend_score": 4.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 0.0,
-        "financial_score": 5.0,
-        "catalyst_score": 1.2000000000000002,
-        "insider_score": 0.0,
-        "composite": 4.96,
-        "raw_score": 88.51
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns SNDK a score of 53/100 in a Makro Bullish trend — entry zone $907.58–$951.18 targets $955.35 with a 4.0:1 risk/reward.",
-          "tr": "BOGA AI, SNDK hissesine Makro Bullish trend içinde 53/100 skor verdi — $907.58–$951.18 giriş bölgesi, $955.35 hedef, 4.0:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a SNDK una puntuación de 53/100 en tendencia Makro Bullish — zona de entrada $907.58–$951.18, objetivo $955.35, relación riesgo/beneficio 4.0:1.",
-          "pt": "BOGA AI atribui ao SNDK uma pontuação de 53/100 em tendência Makro Bullish — zona de entrada $907.58–$951.18, alvo $955.35, relação risco/retorno 4.0:1.",
-          "fr": "BOGA AI attribue à SNDK un score de 53/100 en tendance Makro Bullish — zone d'entrée $907.58–$951.18, objectif $955.35, ratio risque/rendement 4.0:1.",
-          "id": "BOGA AI memberi SNDK skor 53/100 dalam tren Makro Bullish — zona beli $907.58–$951.18, target $955.35, rasio risiko/imbalan 4.0:1."
-        },
-        "detail_summary": {
-          "en": "SNDK operates in the Technology sector, and BOGA AI's algorithm flagged it with a 53/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 72 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 24 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 61.2% with a net margin of -11.7%, which means it keeps $-11.7 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $907.58 and $951.18, target $955.35, and place a hard stop at $895.77 — a 4.0:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "SNDK, Technology sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 53/100 skor atadı. Teknik tarafta RSI 72 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ancak ADX 24 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %61.2 büyütürken net kar marjı %-11.7 — yani her 100 dolarlık satıştan -11.7 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $907.58–$951.18 aralığından giriş, $955.35 kâr hedefi, $895.77 kesin stop — 4.0:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "SNDK opera en el sector Technology, y el algoritmo BOGA AI le asignó 53/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 72 — sobrecomprado, posible corrección breve antes de continuar al alza, aunque el ADX en 24 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 61.2% con un margen neto del -11.7% — es decir, retiene $-11.7 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $907.58 y $951.18, objetivo $955.35, stop definitivo en $895.77 — una relación recompensa/riesgo de 4.0:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "SNDK atua no setor de Technology, e o algoritmo BOGA AI atribuiu 53/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 72 — sobrecomprado, possível recuo breve antes de continuar em alta, embora ADX em 24 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 61.2% com margem líquida de -11.7% — ou seja, retém $-11.7 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $907.58 e $951.18, alvo $955.35, stop definitivo em $895.77 — uma relação retorno/risco de 4.0:1 que o torna candidato ideal para swing trade.",
-          "fr": "SNDK opère dans le secteur Technology, et l'algorithme BOGA AI lui a attribué 53/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 72 — suracheté, une correction courte est possible avant la prochaine hausse, bien que l'ADX à 24 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 61.2% avec une marge nette de -11.7% — soit $-11.7 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $907.58 et $951.18, objectif $955.35, stop définitif à $895.77 — un ratio rendement/risque de 4.0:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "SNDK beroperasi di sektor Technology, dan algoritma BOGA AI menetapkan skor 53/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 72 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, meskipun ADX 24 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 61.2% dengan margin bersih -11.7% — artinya setiap $100 penjualan menghasilkan $-11.7 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $907.58 dan $951.18, target $955.35, stop ketat di $895.77 — rasio imbalan/risiko 4.0:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 5,
       "ticker": "CROX",
-      "company": "CROX",
+      "rank": 5,
       "sector": "Consumer Cyclical",
-      "score": 52.6,
-      "boga_score": 52.6,
-      "market_regime": "BULLISH",
-      "current_price": 101.0,
-      "holding_period": "10-15 Days",
+      "current_price": 100.01,
       "buy_zone": {
-        "low": 100.01,
-        "high": 102.3
+        "low": 98.0098,
+        "high": 102.01020000000001
       },
-      "profit_zone": {
-        "low": 103.98,
-        "high": 104.97
-      },
-      "stop_zone": {
-        "low": 98.02,
-        "high": 99.61
-      },
-      "reasoning": "BOGA AI assigns CROX a score of 53/100 in a EMA200 Üstü trend — entry zone $100.01–$102.30 targets $104.97 with a 12.4:1 risk/reward.",
-      "detail_reasoning": "CROX operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 53/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 74 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 30 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at -3.2% with a net margin of -2.0%, which means it keeps $-2.0 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $100.01 and $102.30, target $104.97, and place a hard stop at $99.61 — a 12.4:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 30.3,
-      "rsi": 74.3,
-      "rvol": 0.53,
-      "change_1d": 0.78,
-      "change_1w": 11.64,
-      "change_1m": 29.57,
-      "change_1y": 9.12,
-      "change_5y": 0.27,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 100.01,
-          "high": 102.3
-        },
-        "sell_zone": {
-          "low": 103.98,
-          "high": 104.97
-        },
-        "stop_loss_zone": {
-          "low": 98.02,
-          "high": 99.61
-        },
-        "risk_reward": 12.4,
-        "support_1h": 100.01,
-        "resistance_1h": 101.94,
-        "atr_1d": 3.97,
-        "atr_pct": 3.91,
-        "risk_usd": 0.4,
-        "reward_usd": 4.96
-      },
-      "trend_status": {
-        "trend": "EMA200 Üstü",
-        "rsi_14": 74.3,
-        "adx": 30.3,
-        "macd_hist": 2.476,
-        "mfi": 78.5,
-        "cmf": 0.0417,
-        "rvol_today": 0.53,
-        "entry_trigger": "Trend Continuation Swing",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 90.03,
-        "ema_50": 87.38,
-        "ema_200": 87.91,
-        "price_vs_ema20": 11.48,
-        "price_vs_ema50": 14.13,
-        "price_vs_ema200": 13.6,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 63.0,
-        "adx_1h": 57.5,
-        "rvol_1h": "0.0x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 58.33,
-        "operating_margin_pct": 15.4,
-        "net_margin_pct": -2.01,
-        "revenue_growth_pct": -3.2,
-        "pe_ratio": 0,
-        "pb_ratio": 3.94,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "5.27B",
-        "market_cap_usd": 5268919808
-      },
-      "performance": {
-        "1d_pct": 1.29,
-        "1w_pct": 12.2,
-        "1m_pct": 30.22,
-        "1y_pct": 11.8,
-        "5y_pct": 0.27
-      },
-      "factor_scores": {
-        "trend_score": 8.0,
-        "momentum_score": 12.0,
-        "volatility_score": 8.0,
-        "volume_score": 0.0,
-        "financial_score": 4.0,
-        "catalyst_score": 0.8,
-        "insider_score": 3.2,
-        "composite": 5.85,
-        "raw_score": 96.03999999999999
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns CROX a score of 53/100 in a EMA200 Üstü trend — entry zone $100.01–$102.30 targets $104.97 with a 12.4:1 risk/reward.",
-          "tr": "BOGA AI, CROX hissesine EMA200 Üstü trend içinde 53/100 skor verdi — $100.01–$102.30 giriş bölgesi, $104.97 hedef, 12.4:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a CROX una puntuación de 53/100 en tendencia EMA200 Üstü — zona de entrada $100.01–$102.30, objetivo $104.97, relación riesgo/beneficio 12.4:1.",
-          "pt": "BOGA AI atribui ao CROX uma pontuação de 53/100 em tendência EMA200 Üstü — zona de entrada $100.01–$102.30, alvo $104.97, relação risco/retorno 12.4:1.",
-          "fr": "BOGA AI attribue à CROX un score de 53/100 en tendance EMA200 Üstü — zone d'entrée $100.01–$102.30, objectif $104.97, ratio risque/rendement 12.4:1.",
-          "id": "BOGA AI memberi CROX skor 53/100 dalam tren EMA200 Üstü — zona beli $100.01–$102.30, target $104.97, rasio risiko/imbalan 12.4:1."
-        },
-        "detail_summary": {
-          "en": "CROX operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 53/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 74 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 30 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at -3.2% with a net margin of -2.0%, which means it keeps $-2.0 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $100.01 and $102.30, target $104.97, and place a hard stop at $99.61 — a 12.4:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "CROX, Consumer Cyclical sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile EMA200 Üstü günlük trendi tespit ederek hisseye 53/100 skor atadı. Teknik tarafta RSI 74 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ADX 30 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %-3.2 büyütürken net kar marjı %-2.0 — yani her 100 dolarlık satıştan -2.0 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $100.01–$102.30 aralığından giriş, $104.97 kâr hedefi, $99.61 kesin stop — 12.4:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "CROX opera en el sector Consumer Cyclical, y el algoritmo BOGA AI le asignó 53/100 al detectar señales de acumulación institucional alineadas con una tendencia EMA200 Üstü diaria. Técnicamente, RSI en 74 — sobrecomprado, posible corrección breve antes de continuar al alza, con ADX en 30 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al -3.2% con un margen neto del -2.0% — es decir, retiene $-2.0 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $100.01 y $102.30, objetivo $104.97, stop definitivo en $99.61 — una relación recompensa/riesgo de 12.4:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "CROX atua no setor de Consumer Cyclical, e o algoritmo BOGA AI atribuiu 53/100 ao detectar sinais de acumulação institucional alinhados com uma tendência EMA200 Üstü diária. No âmbito técnico, RSI em 74 — sobrecomprado, possível recuo breve antes de continuar em alta, com ADX em 30 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a -3.2% com margem líquida de -2.0% — ou seja, retém $-2.0 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $100.01 e $102.30, alvo $104.97, stop definitivo em $99.61 — uma relação retorno/risco de 12.4:1 que o torna candidato ideal para swing trade.",
-          "fr": "CROX opère dans le secteur Consumer Cyclical, et l'algorithme BOGA AI lui a attribué 53/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance EMA200 Üstü journalière. Techniquement, RSI à 74 — suracheté, une correction courte est possible avant la prochaine hausse, avec un ADX à 30 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de -3.2% avec une marge nette de -2.0% — soit $-2.0 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $100.01 et $102.30, objectif $104.97, stop définitif à $99.61 — un ratio rendement/risque de 12.4:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "CROX beroperasi di sektor Consumer Cyclical, dan algoritma BOGA AI menetapkan skor 53/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren EMA200 Üstü harian. Secara teknikal, RSI di 74 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, dengan ADX 30 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya -3.2% dengan margin bersih -2.0% — artinya setiap $100 penjualan menghasilkan $-2.0 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $100.01 dan $102.30, target $104.97, stop ketat di $99.61 — rasio imbalan/risiko 12.4:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 6,
       "ticker": "SQM",
-      "company": "SQM",
+      "rank": 6,
       "sector": "Basic Materials",
-      "score": 51.5,
-      "boga_score": 51.5,
-      "market_regime": "BULLISH",
-      "current_price": 89.28,
-      "holding_period": "9-14 Days",
+      "current_price": 88.02,
       "buy_zone": {
-        "low": 88.02,
-        "high": 90.79
+        "low": 86.25959999999999,
+        "high": 89.7804
       },
-      "profit_zone": {
-        "low": 91.98,
-        "high": 92.97
-      },
-      "stop_zone": {
-        "low": 85.48,
-        "high": 87.06
-      },
-      "reasoning": "BOGA AI assigns SQM a score of 52/100 in a Makro Bullish trend — entry zone $88.02–$90.79 targets $92.97 with a 5.2:1 risk/reward.",
-      "detail_reasoning": "SQM operates in the Basic Materials sector, and BOGA AI's algorithm flagged it with a 52/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 68 — momentum is building in the healthy bullish zone without being overextended, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 23.3% with a net margin of 12.8%, which means it keeps $12.8 of profit for every $100 in sales. At P/E 44x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $88.02 and $90.79, target $92.97, and place a hard stop at $87.06 — a 5.2:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 18.8,
-      "rsi": 67.8,
-      "rvol": 0.78,
-      "change_1d": 1.88,
-      "change_1w": 13.7,
-      "change_1m": 19.91,
-      "change_1y": 156.39,
-      "change_5y": 153.99,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 88.02,
-          "high": 90.79
-        },
-        "sell_zone": {
-          "low": 91.98,
-          "high": 92.97
-        },
-        "stop_loss_zone": {
-          "low": 85.48,
-          "high": 87.06
-        },
-        "risk_reward": 5.16,
-        "support_1h": 87.46,
-        "resistance_1h": 90.5,
-        "atr_1d": 3.96,
-        "atr_pct": 4.4,
-        "risk_usd": 0.96,
-        "reward_usd": 4.95
-      },
-      "trend_status": {
-        "trend": "Makro Bullish",
-        "rsi_14": 67.8,
-        "adx": 18.8,
-        "macd_hist": 0.834,
-        "mfi": 78.2,
-        "cmf": 0.1506,
-        "rvol_today": 0.78,
-        "entry_trigger": "Trend Continuation Swing",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 81.04,
-        "ema_50": 77.36,
-        "ema_200": 62.22,
-        "price_vs_ema20": 8.96,
-        "price_vs_ema50": 12.64,
-        "price_vs_ema200": 27.78,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 74.2,
-        "adx_1h": 34.7,
-        "rvol_1h": "0.0x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Normal"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 29.56,
-        "operating_margin_pct": 28.33,
-        "net_margin_pct": 12.85,
-        "revenue_growth_pct": 23.3,
-        "pe_ratio": 43.8,
-        "pb_ratio": 4.52,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "25.74B",
-        "market_cap_usd": 25744535552
-      },
-      "performance": {
-        "1d_pct": 2.7,
-        "1w_pct": 14.62,
-        "1m_pct": 20.89,
-        "1y_pct": 150.94,
-        "5y_pct": 153.99
-      },
-      "factor_scores": {
-        "trend_score": 4.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 2.31,
-        "financial_score": 7.0,
-        "catalyst_score": 0.4,
-        "insider_score": 0.0,
-        "composite": 5.81,
-        "raw_score": 98.62
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns SQM a score of 52/100 in a Makro Bullish trend — entry zone $88.02–$90.79 targets $92.97 with a 5.2:1 risk/reward.",
-          "tr": "BOGA AI, SQM hissesine Makro Bullish trend içinde 52/100 skor verdi — $88.02–$90.79 giriş bölgesi, $92.97 hedef, 5.2:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a SQM una puntuación de 52/100 en tendencia Makro Bullish — zona de entrada $88.02–$90.79, objetivo $92.97, relación riesgo/beneficio 5.2:1.",
-          "pt": "BOGA AI atribui ao SQM uma pontuação de 52/100 em tendência Makro Bullish — zona de entrada $88.02–$90.79, alvo $92.97, relação risco/retorno 5.2:1.",
-          "fr": "BOGA AI attribue à SQM un score de 52/100 en tendance Makro Bullish — zone d'entrée $88.02–$90.79, objectif $92.97, ratio risque/rendement 5.2:1.",
-          "id": "BOGA AI memberi SQM skor 52/100 dalam tren Makro Bullish — zona beli $88.02–$90.79, target $92.97, rasio risiko/imbalan 5.2:1."
-        },
-        "detail_summary": {
-          "en": "SQM operates in the Basic Materials sector, and BOGA AI's algorithm flagged it with a 52/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 68 — momentum is building in the healthy bullish zone without being overextended, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 23.3% with a net margin of 12.8%, which means it keeps $12.8 of profit for every $100 in sales. At P/E 44x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $88.02 and $90.79, target $92.97, and place a hard stop at $87.06 — a 5.2:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "SQM, Basic Materials sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 52/100 skor atadı. Teknik tarafta RSI 68 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ancak ADX 19 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %23.3 büyütürken net kar marjı %12.8 — yani her 100 dolarlık satıştan 12.8 dolar kar elde ediyor. F/K 44x değerleme yüksek — piyasa güçlü büyüme bekliyor; kazanç hayal kırıklığı sert düzeltmeyi tetikleyebilir. Operasyonel plan: $88.02–$90.79 aralığından giriş, $92.97 kâr hedefi, $87.06 kesin stop — 5.2:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "SQM opera en el sector Basic Materials, y el algoritmo BOGA AI le asignó 52/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 68 — impulso saludable, sin sobreextensión, aunque el ADX en 19 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 23.3% con un margen neto del 12.8% — es decir, retiene $12.8 de ganancia por cada $100 en ventas. Con P/E 44x, la valoración es elevada — el mercado exige crecimiento sostenido; una decepción en ganancias podría generar corrección. El plan táctico: comprar entre $88.02 y $90.79, objetivo $92.97, stop definitivo en $87.06 — una relación recompensa/riesgo de 5.2:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "SQM atua no setor de Basic Materials, e o algoritmo BOGA AI atribuiu 52/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 68 — momentum saudável, sem sobreextensão, embora ADX em 19 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 23.3% com margem líquida de 12.8% — ou seja, retém $12.8 de lucro para cada $100 em vendas. Com P/L 44x, a avaliação é alta — o mercado exige crescimento forte; uma decepção nos lucros pode gerar correção. O plano tático: comprar entre $88.02 e $90.79, alvo $92.97, stop definitivo em $87.06 — uma relação retorno/risco de 5.2:1 que o torna candidato ideal para swing trade.",
-          "fr": "SQM opère dans le secteur Basic Materials, et l'algorithme BOGA AI lui a attribué 52/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 68 — momentum haussier sain, sans surextension, bien que l'ADX à 19 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 23.3% avec une marge nette de 12.8% — soit $12.8 de bénéfice pour chaque $100 de ventes. Avec un P/E à 44x, la valorisation est élevée — le marché exige une forte croissance; une déception sur les bénéfices pourrait provoquer une correction. Le plan tactique : achat entre $88.02 et $90.79, objectif $92.97, stop définitif à $87.06 — un ratio rendement/risque de 5.2:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "SQM beroperasi di sektor Basic Materials, dan algoritma BOGA AI menetapkan skor 52/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 68 — momentum bullish sehat, tidak berlebihan, meskipun ADX 19 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 23.3% dengan margin bersih 12.8% — artinya setiap $100 penjualan menghasilkan $12.8 keuntungan bersih. Dengan P/E 44x, valuasi tinggi — pasar mengharapkan pertumbuhan kuat; kekecewaan laba dapat memicu koreksi tajam. Rencana taktis: beli di antara $88.02 dan $90.79, target $92.97, stop ketat di $87.06 — rasio imbalan/risiko 5.2:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 7,
       "ticker": "AVT",
-      "company": "AVT",
+      "rank": 7,
       "sector": "Technology",
-      "score": 50.5,
-      "boga_score": 50.5,
-      "market_regime": "BULLISH",
-      "current_price": 72.19,
-      "holding_period": "10-15 Days",
+      "current_price": 72.49,
       "buy_zone": {
-        "low": 72.49,
-        "high": 73.23
+        "low": 71.0402,
+        "high": 73.93979999999999
       },
-      "profit_zone": {
-        "low": 72.15,
-        "high": 73.19
-      },
-      "stop_zone": {
-        "low": 71.45,
-        "high": 72.28
-      },
-      "reasoning": "BOGA AI assigns AVT a score of 50/100 in a Makro Bullish trend — entry zone $72.49–$73.23 targets $73.19 with a 3.3:1 risk/reward.",
-      "detail_reasoning": "AVT operates in the Technology sector, and BOGA AI's algorithm flagged it with a 50/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 75 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 27 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 11.6% with a net margin of 0.9%, which means it keeps $0.9 of profit for every $100 in sales. P/E at 30x is reasonable for the sector, leaving room for re-rating if earnings accelerate. The tactical setup: buy between $72.49 and $73.23, target $73.19, and place a hard stop at $72.28 — a 3.3:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 26.8,
-      "rsi": 74.6,
-      "rvol": 0.64,
-      "change_1d": -1.76,
-      "change_1w": 15.45,
-      "change_1m": 20.86,
-      "change_1y": 62.24,
-      "change_5y": 87.84,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 72.49,
-          "high": 73.23
-        },
-        "sell_zone": {
-          "low": 72.15,
-          "high": 73.19
-        },
-        "stop_loss_zone": {
-          "low": 71.45,
-          "high": 72.28
-        },
-        "risk_reward": 3.33,
-        "support_1h": 72.49,
-        "resistance_1h": 73.93,
-        "atr_1d": 2.08,
-        "atr_pct": 2.86,
-        "risk_usd": 0.21,
-        "reward_usd": 0.7
-      },
-      "trend_status": {
-        "trend": "Makro Bullish",
-        "rsi_14": 74.6,
-        "adx": 26.8,
-        "macd_hist": 1.322,
-        "mfi": 73.6,
-        "cmf": 0.1978,
-        "rvol_today": 0.64,
-        "entry_trigger": "Rising: Gaining Momentum",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 64.65,
-        "ema_50": 61.89,
-        "ema_200": 55.03,
-        "price_vs_ema20": 8.17,
-        "price_vs_ema50": 10.93,
-        "price_vs_ema200": 17.79,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 82.5,
-        "adx_1h": 74.7,
-        "rvol_1h": "0.1x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 10.62,
-        "operating_margin_pct": 2.74,
-        "net_margin_pct": 0.9,
-        "revenue_growth_pct": 11.6,
-        "pe_ratio": 29.7,
-        "pb_ratio": 1.2,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "5.97B",
-        "market_cap_usd": 5971903488
-      },
-      "performance": {
-        "1d_pct": -0.91,
-        "1w_pct": 16.45,
-        "1m_pct": 21.91,
-        "1y_pct": 61.86,
-        "5y_pct": 87.84
-      },
-      "factor_scores": {
-        "trend_score": 6.0,
-        "momentum_score": 12.0,
-        "volatility_score": 4.0,
-        "volume_score": 3.75,
-        "financial_score": 3.0,
-        "catalyst_score": 0.8,
-        "insider_score": 0.0,
-        "composite": 6.6,
-        "raw_score": 105.81
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns AVT a score of 50/100 in a Makro Bullish trend — entry zone $72.49–$73.23 targets $73.19 with a 3.3:1 risk/reward.",
-          "tr": "BOGA AI, AVT hissesine Makro Bullish trend içinde 50/100 skor verdi — $72.49–$73.23 giriş bölgesi, $73.19 hedef, 3.3:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a AVT una puntuación de 50/100 en tendencia Makro Bullish — zona de entrada $72.49–$73.23, objetivo $73.19, relación riesgo/beneficio 3.3:1.",
-          "pt": "BOGA AI atribui ao AVT uma pontuação de 50/100 em tendência Makro Bullish — zona de entrada $72.49–$73.23, alvo $73.19, relação risco/retorno 3.3:1.",
-          "fr": "BOGA AI attribue à AVT un score de 50/100 en tendance Makro Bullish — zone d'entrée $72.49–$73.23, objectif $73.19, ratio risque/rendement 3.3:1.",
-          "id": "BOGA AI memberi AVT skor 50/100 dalam tren Makro Bullish — zona beli $72.49–$73.23, target $73.19, rasio risiko/imbalan 3.3:1."
-        },
-        "detail_summary": {
-          "en": "AVT operates in the Technology sector, and BOGA AI's algorithm flagged it with a 50/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 75 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 27 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 11.6% with a net margin of 0.9%, which means it keeps $0.9 of profit for every $100 in sales. P/E at 30x is reasonable for the sector, leaving room for re-rating if earnings accelerate. The tactical setup: buy between $72.49 and $73.23, target $73.19, and place a hard stop at $72.28 — a 3.3:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "AVT, Technology sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 50/100 skor atadı. Teknik tarafta RSI 75 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ADX 27 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %11.6 büyütürken net kar marjı %0.9 — yani her 100 dolarlık satıştan 0.9 dolar kar elde ediyor. F/K 30x sektör için makul — kazançlar hızlanırsa yeniden değerleme potansiyeli var. Operasyonel plan: $72.49–$73.23 aralığından giriş, $73.19 kâr hedefi, $72.28 kesin stop — 3.3:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "AVT opera en el sector Technology, y el algoritmo BOGA AI le asignó 50/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 75 — sobrecomprado, posible corrección breve antes de continuar al alza, con ADX en 27 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 11.6% con un margen neto del 0.9% — es decir, retiene $0.9 de ganancia por cada $100 en ventas. P/E de 30x es razonable para el sector, con margen de revalorización si los beneficios aceleran. El plan táctico: comprar entre $72.49 y $73.23, objetivo $73.19, stop definitivo en $72.28 — una relación recompensa/riesgo de 3.3:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "AVT atua no setor de Technology, e o algoritmo BOGA AI atribuiu 50/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 75 — sobrecomprado, possível recuo breve antes de continuar em alta, com ADX em 27 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 11.6% com margem líquida de 0.9% — ou seja, retém $0.9 de lucro para cada $100 em vendas. P/L de 30x é razoável para o setor, com espaço para reavaliação se os lucros acelerarem. O plano tático: comprar entre $72.49 e $73.23, alvo $73.19, stop definitivo em $72.28 — uma relação retorno/risco de 3.3:1 que o torna candidato ideal para swing trade.",
-          "fr": "AVT opère dans le secteur Technology, et l'algorithme BOGA AI lui a attribué 50/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 75 — suracheté, une correction courte est possible avant la prochaine hausse, avec un ADX à 27 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 11.6% avec une marge nette de 0.9% — soit $0.9 de bénéfice pour chaque $100 de ventes. Le P/E à 30x est raisonnable pour le secteur, avec une marge de revalorisation si les bénéfices s'accélèrent. Le plan tactique : achat entre $72.49 et $73.23, objectif $73.19, stop définitif à $72.28 — un ratio rendement/risque de 3.3:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "AVT beroperasi di sektor Technology, dan algoritma BOGA AI menetapkan skor 50/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 75 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, dengan ADX 27 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 11.6% dengan margin bersih 0.9% — artinya setiap $100 penjualan menghasilkan $0.9 keuntungan bersih. P/E 30x wajar untuk sektor ini, dengan ruang rerating jika laba meningkat. Rencana taktis: beli di antara $72.49 dan $73.23, target $73.19, stop ketat di $72.28 — rasio imbalan/risiko 3.3:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 8,
       "ticker": "MOD",
-      "company": "MOD",
+      "rank": 8,
       "sector": "Consumer Cyclical",
-      "score": 46.6,
-      "boga_score": 46.6,
-      "market_regime": "BULLISH",
-      "current_price": 254.51,
-      "holding_period": "7-12 Days",
+      "current_price": 246.19,
       "buy_zone": {
-        "low": 246.19,
-        "high": 256.89
+        "low": 241.2662,
+        "high": 251.1138
       },
-      "profit_zone": {
-        "low": 247.34,
-        "high": 254.98
-      },
-      "stop_zone": {
-        "low": 234.36,
-        "high": 240.47
-      },
-      "reasoning": "BOGA AI assigns MOD a score of 47/100 in a Makro Bullish trend — entry zone $246.19–$256.89 targets $254.98 with a 1.5:1 risk/reward.",
-      "detail_reasoning": "MOD operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 47/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 67 — momentum is building in the healthy bullish zone without being overextended, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 30.5% with a net margin of 3.4%, which means it keeps $3.4 of profit for every $100 in sales. At P/E 139x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $246.19 and $256.89, target $254.98, and place a hard stop at $240.47 — a 1.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 19.0,
-      "rsi": 66.7,
-      "rvol": 0.52,
-      "change_1d": -0.97,
-      "change_1w": 18.93,
-      "change_1m": 34.99,
-      "change_1y": 232.04,
-      "change_5y": 1335.76,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 246.19,
-          "high": 256.89
-        },
-        "sell_zone": {
-          "low": 247.34,
-          "high": 254.98
-        },
-        "stop_loss_zone": {
-          "low": 234.36,
-          "high": 240.47
-        },
-        "risk_reward": 1.54,
-        "support_1h": 242.0,
-        "resistance_1h": 257.55,
-        "atr_1d": 15.28,
-        "atr_pct": 6.02,
-        "risk_usd": 5.72,
-        "reward_usd": 8.79
-      },
-      "trend_status": {
-        "trend": "Makro Bullish",
-        "rsi_14": 66.7,
-        "adx": 19.0,
-        "macd_hist": 3.979,
-        "mfi": 53.2,
-        "cmf": 0.1649,
-        "rvol_today": 0.52,
-        "entry_trigger": "Rising: Gaining Momentum",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 225.7,
-        "ema_50": 208.99,
-        "ema_200": 163.01,
-        "price_vs_ema20": 28.13,
-        "price_vs_ema50": 44.84,
-        "price_vs_ema200": 90.82,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 66.4,
-        "adx_1h": 28.0,
-        "rvol_1h": "0.0x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 23.85,
-        "operating_margin_pct": 11.91,
-        "net_margin_pct": 3.4,
-        "revenue_growth_pct": 30.5,
-        "pe_ratio": 139.2,
-        "pb_ratio": 11.92,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "13.36B",
-        "market_cap_usd": 13358920704
-      },
-      "performance": {
-        "1d_pct": -1.23,
-        "1w_pct": 18.61,
-        "1m_pct": 34.63,
-        "1y_pct": 226.25,
-        "5y_pct": 1335.76
-      },
-      "factor_scores": {
-        "trend_score": 4.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 0.87,
-        "financial_score": 3.0,
-        "catalyst_score": 1.6,
-        "insider_score": 0.0,
-        "composite": 5.23,
-        "raw_score": 98.38
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns MOD a score of 47/100 in a Makro Bullish trend — entry zone $246.19–$256.89 targets $254.98 with a 1.5:1 risk/reward.",
-          "tr": "BOGA AI, MOD hissesine Makro Bullish trend içinde 47/100 skor verdi — $246.19–$256.89 giriş bölgesi, $254.98 hedef, 1.5:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a MOD una puntuación de 47/100 en tendencia Makro Bullish — zona de entrada $246.19–$256.89, objetivo $254.98, relación riesgo/beneficio 1.5:1.",
-          "pt": "BOGA AI atribui ao MOD uma pontuação de 47/100 em tendência Makro Bullish — zona de entrada $246.19–$256.89, alvo $254.98, relação risco/retorno 1.5:1.",
-          "fr": "BOGA AI attribue à MOD un score de 47/100 en tendance Makro Bullish — zone d'entrée $246.19–$256.89, objectif $254.98, ratio risque/rendement 1.5:1.",
-          "id": "BOGA AI memberi MOD skor 47/100 dalam tren Makro Bullish — zona beli $246.19–$256.89, target $254.98, rasio risiko/imbalan 1.5:1."
-        },
-        "detail_summary": {
-          "en": "MOD operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 47/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 67 — momentum is building in the healthy bullish zone without being overextended, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 30.5% with a net margin of 3.4%, which means it keeps $3.4 of profit for every $100 in sales. At P/E 139x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $246.19 and $256.89, target $254.98, and place a hard stop at $240.47 — a 1.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "MOD, Consumer Cyclical sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 47/100 skor atadı. Teknik tarafta RSI 67 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ancak ADX 19 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %30.5 büyütürken net kar marjı %3.4 — yani her 100 dolarlık satıştan 3.4 dolar kar elde ediyor. F/K 139x değerleme yüksek — piyasa güçlü büyüme bekliyor; kazanç hayal kırıklığı sert düzeltmeyi tetikleyebilir. Operasyonel plan: $246.19–$256.89 aralığından giriş, $254.98 kâr hedefi, $240.47 kesin stop — 1.5:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "MOD opera en el sector Consumer Cyclical, y el algoritmo BOGA AI le asignó 47/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 67 — impulso saludable, sin sobreextensión, aunque el ADX en 19 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 30.5% con un margen neto del 3.4% — es decir, retiene $3.4 de ganancia por cada $100 en ventas. Con P/E 139x, la valoración es elevada — el mercado exige crecimiento sostenido; una decepción en ganancias podría generar corrección. El plan táctico: comprar entre $246.19 y $256.89, objetivo $254.98, stop definitivo en $240.47 — una relación recompensa/riesgo de 1.5:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "MOD atua no setor de Consumer Cyclical, e o algoritmo BOGA AI atribuiu 47/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 67 — momentum saudável, sem sobreextensão, embora ADX em 19 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 30.5% com margem líquida de 3.4% — ou seja, retém $3.4 de lucro para cada $100 em vendas. Com P/L 139x, a avaliação é alta — o mercado exige crescimento forte; uma decepção nos lucros pode gerar correção. O plano tático: comprar entre $246.19 e $256.89, alvo $254.98, stop definitivo em $240.47 — uma relação retorno/risco de 1.5:1 que o torna candidato ideal para swing trade.",
-          "fr": "MOD opère dans le secteur Consumer Cyclical, et l'algorithme BOGA AI lui a attribué 47/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 67 — momentum haussier sain, sans surextension, bien que l'ADX à 19 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 30.5% avec une marge nette de 3.4% — soit $3.4 de bénéfice pour chaque $100 de ventes. Avec un P/E à 139x, la valorisation est élevée — le marché exige une forte croissance; une déception sur les bénéfices pourrait provoquer une correction. Le plan tactique : achat entre $246.19 et $256.89, objectif $254.98, stop définitif à $240.47 — un ratio rendement/risque de 1.5:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "MOD beroperasi di sektor Consumer Cyclical, dan algoritma BOGA AI menetapkan skor 47/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 67 — momentum bullish sehat, tidak berlebihan, meskipun ADX 19 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 30.5% dengan margin bersih 3.4% — artinya setiap $100 penjualan menghasilkan $3.4 keuntungan bersih. Dengan P/E 139x, valuasi tinggi — pasar mengharapkan pertumbuhan kuat; kekecewaan laba dapat memicu koreksi tajam. Rencana taktis: beli di antara $246.19 dan $256.89, target $254.98, stop ketat di $240.47 — rasio imbalan/risiko 1.5:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 9,
       "ticker": "FUTU",
-      "company": "FUTU",
+      "rank": 9,
       "sector": "Financial Services",
-      "score": 43.8,
-      "boga_score": 43.8,
-      "market_regime": "BULLISH",
-      "current_price": 161.48,
-      "holding_period": "10-15 Days",
+      "current_price": 159.33,
       "buy_zone": {
-        "low": 159.33,
-        "high": 163.71
+        "low": 156.1434,
+        "high": 162.5166
       },
-      "profit_zone": {
-        "low": 159.28,
-        "high": 162.41
-      },
-      "stop_zone": {
-        "low": 152.52,
-        "high": 155.02
-      },
-      "reasoning": "BOGA AI assigns FUTU a score of 44/100 in a EMA200 Üstü trend — entry zone $159.33–$163.71 targets $162.41 with a 0.7:1 risk/reward.",
-      "detail_reasoning": "FUTU operates in the Financial Services sector, and BOGA AI's algorithm flagged it with a 44/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 66 — momentum is building in the healthy bullish zone without being overextended, though ADX at 22 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 53.1% with a net margin of 53.8%, which means it keeps $53.8 of profit for every $100 in sales. P/E at 16x is reasonable for the sector, leaving room for re-rating if earnings accelerate. The tactical setup: buy between $159.33 and $163.71, target $162.41, and place a hard stop at $155.02 — a 0.7:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 22.0,
-      "rsi": 66.5,
-      "rvol": 0.61,
-      "change_1d": 3.24,
-      "change_1w": 14.55,
-      "change_1m": 14.41,
-      "change_1y": 100.87,
-      "change_5y": 16.74,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 159.33,
-          "high": 163.71
-        },
-        "sell_zone": {
-          "low": 159.28,
-          "high": 162.41
-        },
-        "stop_loss_zone": {
-          "low": 152.52,
-          "high": 155.02
-        },
-        "risk_reward": 0.71,
-        "support_1h": 155.65,
-        "resistance_1h": 164.05,
-        "atr_1d": 6.26,
-        "atr_pct": 3.85,
-        "risk_usd": 4.31,
-        "reward_usd": 3.08
-      },
-      "trend_status": {
-        "trend": "EMA200 Üstü",
-        "rsi_14": 66.5,
-        "adx": 22.0,
-        "macd_hist": 3.04,
-        "mfi": 61.3,
-        "cmf": 0.1541,
-        "rvol_today": 0.61,
-        "entry_trigger": "Rising: Gaining Momentum",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 147.55,
-        "ema_50": 149.73,
-        "ema_200": 150.5,
-        "price_vs_ema20": 14.91,
-        "price_vs_ema50": 12.73,
-        "price_vs_ema200": 11.96,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 78.4,
-        "adx_1h": 33.5,
-        "rvol_1h": "0.1x (❄️ Hacimsiz)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Normal"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 94.38,
-        "operating_margin_pct": 69.1,
-        "net_margin_pct": 53.76,
-        "revenue_growth_pct": 53.1,
-        "pe_ratio": 15.9,
-        "pb_ratio": 4.44,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "22.63B",
-        "market_cap_usd": 22630037504
-      },
-      "performance": {
-        "1d_pct": 3.86,
-        "1w_pct": 15.24,
-        "1m_pct": 15.1,
-        "1y_pct": 90.31,
-        "5y_pct": 16.74
-      },
-      "factor_scores": {
-        "trend_score": 4.0,
-        "momentum_score": 12.0,
-        "volatility_score": 8.0,
-        "volume_score": 0.0,
-        "financial_score": 9.0,
-        "catalyst_score": 0.8,
-        "insider_score": 0.0,
-        "composite": 4.73,
-        "raw_score": 87.72999999999999
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns FUTU a score of 44/100 in a EMA200 Üstü trend — entry zone $159.33–$163.71 targets $162.41 with a 0.7:1 risk/reward.",
-          "tr": "BOGA AI, FUTU hissesine EMA200 Üstü trend içinde 44/100 skor verdi — $159.33–$163.71 giriş bölgesi, $162.41 hedef, 0.7:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a FUTU una puntuación de 44/100 en tendencia EMA200 Üstü — zona de entrada $159.33–$163.71, objetivo $162.41, relación riesgo/beneficio 0.7:1.",
-          "pt": "BOGA AI atribui ao FUTU uma pontuação de 44/100 em tendência EMA200 Üstü — zona de entrada $159.33–$163.71, alvo $162.41, relação risco/retorno 0.7:1.",
-          "fr": "BOGA AI attribue à FUTU un score de 44/100 en tendance EMA200 Üstü — zone d'entrée $159.33–$163.71, objectif $162.41, ratio risque/rendement 0.7:1.",
-          "id": "BOGA AI memberi FUTU skor 44/100 dalam tren EMA200 Üstü — zona beli $159.33–$163.71, target $162.41, rasio risiko/imbalan 0.7:1."
-        },
-        "detail_summary": {
-          "en": "FUTU operates in the Financial Services sector, and BOGA AI's algorithm flagged it with a 44/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 66 — momentum is building in the healthy bullish zone without being overextended, though ADX at 22 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 53.1% with a net margin of 53.8%, which means it keeps $53.8 of profit for every $100 in sales. P/E at 16x is reasonable for the sector, leaving room for re-rating if earnings accelerate. The tactical setup: buy between $159.33 and $163.71, target $162.41, and place a hard stop at $155.02 — a 0.7:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "FUTU, Financial Services sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile EMA200 Üstü günlük trendi tespit ederek hisseye 44/100 skor atadı. Teknik tarafta RSI 66 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ancak ADX 22 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %53.1 büyütürken net kar marjı %53.8 — yani her 100 dolarlık satıştan 53.8 dolar kar elde ediyor. F/K 16x sektör için makul — kazançlar hızlanırsa yeniden değerleme potansiyeli var. Operasyonel plan: $159.33–$163.71 aralığından giriş, $162.41 kâr hedefi, $155.02 kesin stop — 0.7:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "FUTU opera en el sector Financial Services, y el algoritmo BOGA AI le asignó 44/100 al detectar señales de acumulación institucional alineadas con una tendencia EMA200 Üstü diaria. Técnicamente, RSI en 66 — impulso saludable, sin sobreextensión, aunque el ADX en 22 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 53.1% con un margen neto del 53.8% — es decir, retiene $53.8 de ganancia por cada $100 en ventas. P/E de 16x es razonable para el sector, con margen de revalorización si los beneficios aceleran. El plan táctico: comprar entre $159.33 y $163.71, objetivo $162.41, stop definitivo en $155.02 — una relación recompensa/riesgo de 0.7:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "FUTU atua no setor de Financial Services, e o algoritmo BOGA AI atribuiu 44/100 ao detectar sinais de acumulação institucional alinhados com uma tendência EMA200 Üstü diária. No âmbito técnico, RSI em 66 — momentum saudável, sem sobreextensão, embora ADX em 22 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 53.1% com margem líquida de 53.8% — ou seja, retém $53.8 de lucro para cada $100 em vendas. P/L de 16x é razoável para o setor, com espaço para reavaliação se os lucros acelerarem. O plano tático: comprar entre $159.33 e $163.71, alvo $162.41, stop definitivo em $155.02 — uma relação retorno/risco de 0.7:1 que o torna candidato ideal para swing trade.",
-          "fr": "FUTU opère dans le secteur Financial Services, et l'algorithme BOGA AI lui a attribué 44/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance EMA200 Üstü journalière. Techniquement, RSI à 66 — momentum haussier sain, sans surextension, bien que l'ADX à 22 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 53.1% avec une marge nette de 53.8% — soit $53.8 de bénéfice pour chaque $100 de ventes. Le P/E à 16x est raisonnable pour le secteur, avec une marge de revalorisation si les bénéfices s'accélèrent. Le plan tactique : achat entre $159.33 et $163.71, objectif $162.41, stop définitif à $155.02 — un ratio rendement/risque de 0.7:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "FUTU beroperasi di sektor Financial Services, dan algoritma BOGA AI menetapkan skor 44/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren EMA200 Üstü harian. Secara teknikal, RSI di 66 — momentum bullish sehat, tidak berlebihan, meskipun ADX 22 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 53.1% dengan margin bersih 53.8% — artinya setiap $100 penjualan menghasilkan $53.8 keuntungan bersih. P/E 16x wajar untuk sektor ini, dengan ruang rerating jika laba meningkat. Rencana taktis: beli di antara $159.33 dan $163.71, target $162.41, stop ketat di $155.02 — rasio imbalan/risiko 0.7:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     },
     {
-      "rank": 10,
       "ticker": "INTC",
-      "company": "INTC",
+      "rank": 10,
       "sector": "Technology",
-      "score": 40.8,
-      "boga_score": 40.8,
-      "market_regime": "BULLISH",
-      "current_price": 63.33,
-      "holding_period": "8-13 Days",
+      "current_price": 62.22,
       "buy_zone": {
-        "low": 62.22,
-        "high": 63.2
+        "low": 60.9756,
+        "high": 63.4644
       },
-      "profit_zone": {
-        "low": 61.06,
-        "high": 62.61
-      },
-      "stop_zone": {
-        "low": 60.66,
-        "high": 61.91
-      },
-      "reasoning": "BOGA AI assigns INTC a score of 41/100 in a Makro Bullish trend — entry zone $62.22–$63.20 targets $62.61 with a 1.3:1 risk/reward.",
-      "detail_reasoning": "INTC operates in the Technology sector, and BOGA AI's algorithm flagged it with a 41/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 71 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 28 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at -4.1% with a net margin of -0.5%, which means it keeps $-0.5 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $62.22 and $63.20, target $62.61, and place a hard stop at $61.91 — a 1.3:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-      "adx": 28.0,
-      "rsi": 70.9,
-      "rvol": 0.73,
-      "change_1d": -2.84,
-      "change_1w": 19.69,
-      "change_1m": 38.37,
-      "change_1y": 220.82,
-      "change_5y": 20.89,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 62.22,
-          "high": 63.2
-        },
-        "sell_zone": {
-          "low": 61.06,
-          "high": 62.61
-        },
-        "stop_loss_zone": {
-          "low": 60.66,
-          "high": 61.91
-        },
-        "risk_reward": 1.26,
-        "support_1h": 62.22,
-        "resistance_1h": 63.24,
-        "atr_1d": 3.11,
-        "atr_pct": 4.97,
-        "risk_usd": 0.31,
-        "reward_usd": 0.39
-      },
-      "trend_status": {
-        "trend": "Makro Bullish",
-        "rsi_14": 70.9,
-        "adx": 28.0,
-        "macd_hist": 1.995,
-        "mfi": 81.2,
-        "cmf": 0.191,
-        "rvol_today": 0.73,
-        "entry_trigger": "Rising: Gaining Momentum",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 52.84,
-        "ema_50": 48.55,
-        "ema_200": 38.73,
-        "price_vs_ema20": 9.74,
-        "price_vs_ema50": 14.03,
-        "price_vs_ema200": 23.85,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 55.7,
-        "adx_1h": 57.7,
-        "rvol_1h": "0.7x (Normal)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Normal"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 36.56,
-        "operating_margin_pct": 5.14,
-        "net_margin_pct": -0.51,
-        "revenue_growth_pct": -4.1,
-        "pe_ratio": 0,
-        "pb_ratio": 2.74,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "314.29B",
-        "market_cap_usd": 314290143232
-      },
-      "performance": {
-        "1d_pct": -3.99,
-        "1w_pct": 18.28,
-        "1m_pct": 36.73,
-        "1y_pct": 209.13,
-        "5y_pct": 20.89
-      },
-      "factor_scores": {
-        "trend_score": 6.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 0.0,
-        "financial_score": 2.0,
-        "catalyst_score": 0.3,
-        "insider_score": 0.0,
-        "composite": 5.52,
-        "raw_score": 100.69999999999999
-      },
+      "score": 0,
+      "boga_score": 0,
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI assigns INTC a score of 41/100 in a Makro Bullish trend — entry zone $62.22–$63.20 targets $62.61 with a 1.3:1 risk/reward.",
-          "tr": "BOGA AI, INTC hissesine Makro Bullish trend içinde 41/100 skor verdi — $62.22–$63.20 giriş bölgesi, $62.61 hedef, 1.3:1 risk/ödül oranı.",
-          "es": "BOGA AI otorga a INTC una puntuación de 41/100 en tendencia Makro Bullish — zona de entrada $62.22–$63.20, objetivo $62.61, relación riesgo/beneficio 1.3:1.",
-          "pt": "BOGA AI atribui ao INTC uma pontuação de 41/100 em tendência Makro Bullish — zona de entrada $62.22–$63.20, alvo $62.61, relação risco/retorno 1.3:1.",
-          "fr": "BOGA AI attribue à INTC un score de 41/100 en tendance Makro Bullish — zone d'entrée $62.22–$63.20, objectif $62.61, ratio risque/rendement 1.3:1.",
-          "id": "BOGA AI memberi INTC skor 41/100 dalam tren Makro Bullish — zona beli $62.22–$63.20, target $62.61, rasio risiko/imbalan 1.3:1."
-        },
-        "detail_summary": {
-          "en": "INTC operates in the Technology sector, and BOGA AI's algorithm flagged it with a 41/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 71 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 28 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at -4.1% with a net margin of -0.5%, which means it keeps $-0.5 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $62.22 and $63.20, target $62.61, and place a hard stop at $61.91 — a 1.3:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
-          "tr": "INTC, Technology sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 41/100 skor atadı. Teknik tarafta RSI 71 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ADX 28 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %-4.1 büyütürken net kar marjı %-0.5 — yani her 100 dolarlık satıştan -0.5 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $62.22–$63.20 aralığından giriş, $62.61 kâr hedefi, $61.91 kesin stop — 1.3:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
-          "es": "INTC opera en el sector Technology, y el algoritmo BOGA AI le asignó 41/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 71 — sobrecomprado, posible corrección breve antes de continuar al alza, con ADX en 28 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al -4.1% con un margen neto del -0.5% — es decir, retiene $-0.5 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $62.22 y $63.20, objetivo $62.61, stop definitivo en $61.91 — una relación recompensa/riesgo de 1.3:1 que lo convierte en candidato ideal para swing trade.",
-          "pt": "INTC atua no setor de Technology, e o algoritmo BOGA AI atribuiu 41/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 71 — sobrecomprado, possível recuo breve antes de continuar em alta, com ADX em 28 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a -4.1% com margem líquida de -0.5% — ou seja, retém $-0.5 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $62.22 e $63.20, alvo $62.61, stop definitivo em $61.91 — uma relação retorno/risco de 1.3:1 que o torna candidato ideal para swing trade.",
-          "fr": "INTC opère dans le secteur Technology, et l'algorithme BOGA AI lui a attribué 41/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 71 — suracheté, une correction courte est possible avant la prochaine hausse, avec un ADX à 28 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de -4.1% avec une marge nette de -0.5% — soit $-0.5 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $62.22 et $63.20, objectif $62.61, stop définitif à $61.91 — un ratio rendement/risque de 1.3:1 qui en fait un candidat idéal pour le swing trade.",
-          "id": "INTC beroperasi di sektor Technology, dan algoritma BOGA AI menetapkan skor 41/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 71 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, dengan ADX 28 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya -4.1% dengan margin bersih -0.5% — artinya setiap $100 penjualan menghasilkan $-0.5 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $62.22 dan $63.20, target $62.61, stop ketat di $61.91 — rasio imbalan/risiko 1.3:1 menjadikannya kandidat swing trade yang terukur."
+          "en": "Active swing pick",
+          "tr": "Aktif swing fırsatı"
         }
       }
     }

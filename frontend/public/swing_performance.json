@@ -1,54 +1,32 @@
 {
   "stats": {
-    "total_picks": 555,
-    "win_rate": 93.0,
-    "avg_return_pct": 8.5,
+    "total_picks": 548,
+    "win_rate": 93.6,
+    "avg_return_pct": 8.6,
     "period_days": 180,
-    "above_5pct_rate": 47.6,
-    "above_10pct_rate": 21.1
+    "above_5pct_rate": 47.8,
+    "above_10pct_rate": 21.4
   },
   "history": [
-    {
-      "date": "2026-04-14",
-      "ticker": "UNFI",
-      "company": "United Natural Foods",
-      "sector": "Consumer Defensive",
-      "entry": 41.69,
-      "max_price": 41.69,
-      "return_pct": -3.65,
-      "days": 0,
-      "result": "LOSS"
-    },
-    {
-      "date": "2026-04-14",
-      "ticker": "STGW",
-      "company": "Stagwell Inc.",
-      "sector": "Technology",
-      "entry": 5.95,
-      "max_price": 6.07,
-      "return_pct": 2.02,
-      "days": 0,
-      "result": "WIN"
-    },
     {
       "date": "2026-04-14",
       "ticker": "SQM",
       "company": "Sociedad Química y Minera de Chile S.A.",
       "sector": "Basic Materials",
-      "entry": 87.62999725341797,
-      "max_price": 89.80999755859375,
-      "return_pct": 2.49,
+      "entry": 88.02,
+      "max_price": 89.0199966430664,
+      "return_pct": 1.14,
       "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "SNDK",
       "company": "Sandisk Corporation",
       "sector": "Technology",
-      "entry": 938.9550170898438,
-      "max_price": 941.5,
-      "return_pct": 0.27,
+      "entry": 907.58,
+      "max_price": 942.3150024414062,
+      "return_pct": 3.83,
       "days": 0,
       "result": "PENDING"
     },
@@ -57,8 +35,8 @@
       "ticker": "SGI",
       "company": "Somnigroup International Inc.",
       "sector": "Consumer Cyclical",
-      "entry": 83.26000213623047,
-      "max_price": 83.26000213623047,
+      "entry": 81.71,
+      "max_price": 81.71,
       "return_pct": 0.0,
       "days": 0,
       "result": "PENDING"
@@ -68,53 +46,31 @@
       "ticker": "RY",
       "company": "Royal Bank of Canada",
       "sector": "Financial Services",
-      "entry": 173.6699981689453,
-      "max_price": 174.61000061035156,
-      "return_pct": 0.54,
+      "entry": 172.23,
+      "max_price": 174.82000732421875,
+      "return_pct": 1.5,
       "days": 0,
-      "result": "WIN"
-    },
-    {
-      "date": "2026-04-14",
-      "ticker": "PBR",
-      "company": "Petroleo Brasileiro S.A.",
-      "sector": "Energy",
-      "entry": 18.57,
-      "max_price": 19.51,
-      "return_pct": 5.06,
-      "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "ORKA",
       "company": "Oruka Therapeutics, Inc.",
       "sector": "Healthcare",
-      "entry": 61.380001068115234,
-      "max_price": 66.8949966430664,
-      "return_pct": 8.99,
+      "entry": 61.04,
+      "max_price": 66.91609954833984,
+      "return_pct": 9.63,
       "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "MOD",
       "company": "Modine Manufacturing Company",
       "sector": "Consumer Cyclical",
-      "entry": 256.989990234375,
-      "max_price": 256.989990234375,
-      "return_pct": 0.0,
-      "days": 0,
-      "result": "WIN"
-    },
-    {
-      "date": "2026-04-14",
-      "ticker": "LXU",
-      "company": "LXU",
-      "sector": "Basic Materials",
-      "entry": 14.75,
-      "max_price": 14.77,
-      "return_pct": 0.14,
+      "entry": 246.19,
+      "max_price": 254.0,
+      "return_pct": 3.17,
       "days": 0,
       "result": "PENDING"
     },
@@ -123,20 +79,20 @@
       "ticker": "LEVI",
       "company": "Levi Strauss & Co.",
       "sector": "Consumer Cyclical",
-      "entry": 22.329999923706055,
-      "max_price": 22.7450008392334,
-      "return_pct": 1.86,
+      "entry": 21.87,
+      "max_price": 22.43000030517578,
+      "return_pct": 2.56,
       "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "INTC",
       "company": "Intel Corporation",
       "sector": "Technology",
-      "entry": 62.790000915527344,
-      "max_price": 63.38999938964844,
-      "return_pct": 0.96,
+      "entry": 62.22,
+      "max_price": 63.470001220703125,
+      "return_pct": 2.01,
       "days": 0,
       "result": "PENDING"
     },
@@ -145,9 +101,9 @@
       "ticker": "GSAT",
       "company": "Globalstar, Inc.",
       "sector": "Communication Services",
-      "entry": 80.00499725341797,
-      "max_price": 80.00499725341797,
-      "return_pct": 0.0,
+      "entry": 77.49,
+      "max_price": 79.5999984741211,
+      "return_pct": 2.72,
       "days": 0,
       "result": "PENDING"
     },
@@ -156,20 +112,20 @@
       "ticker": "FUTU",
       "company": "Futu Holdings Limited",
       "sector": "Financial Services",
-      "entry": 162.2100067138672,
-      "max_price": 162.2100067138672,
-      "return_pct": 0.0,
+      "entry": 159.33,
+      "max_price": 162.13999938964844,
+      "return_pct": 1.76,
       "days": 0,
       "result": "PENDING"
     },
     {
       "date": "2026-04-14",
-      "ticker": "DNTH",
-      "company": "Dianthus Therapeutics",
-      "sector": "Healthcare",
-      "entry": 78.89,
-      "max_price": 78.9,
-      "return_pct": 0.01,
+      "ticker": "FORM",
+      "company": "FormFactor, Inc.",
+      "sector": "Technology",
+      "entry": 124.63,
+      "max_price": 129.3000030517578,
+      "return_pct": 3.75,
       "days": 0,
       "result": "PENDING"
     },
@@ -178,88 +134,55 @@
       "ticker": "CRUS",
       "company": "Cirrus Logic, Inc.",
       "sector": "Technology",
-      "entry": 161.10000610351562,
-      "max_price": 161.25999450683594,
-      "return_pct": 0.1,
+      "entry": 159.48,
+      "max_price": 161.41000366210938,
+      "return_pct": 1.21,
       "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "CROX",
       "company": "Crocs, Inc.",
       "sector": "Consumer Cyclical",
-      "entry": 100.22000122070312,
-      "max_price": 101.45999908447266,
-      "return_pct": 1.24,
+      "entry": 100.01,
+      "max_price": 100.86000061035156,
+      "return_pct": 0.85,
       "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "CRH",
       "company": "CRH plc",
       "sector": "Basic Materials",
-      "entry": 117.2699966430664,
-      "max_price": 118.05999755859375,
-      "return_pct": 0.67,
+      "entry": 116.29,
+      "max_price": 117.91000366210938,
+      "return_pct": 1.39,
       "days": 0,
-      "result": "WIN"
-    },
-    {
-      "date": "2026-04-14",
-      "ticker": "CGON",
-      "company": "CGON",
-      "sector": "Energy",
-      "entry": 64.82,
-      "max_price": 68.64,
-      "return_pct": 5.89,
-      "days": 0,
-      "result": "WIN"
-    },
-    {
-      "date": "2026-04-14",
-      "ticker": "BP",
-      "company": "BP p.l.c.",
-      "sector": "Energy",
-      "entry": 42.67,
-      "max_price": 43.85,
-      "return_pct": 2.77,
-      "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "BBIO",
       "company": "BridgeBio Pharma, Inc.",
       "sector": "Healthcare",
-      "entry": 77.87000274658203,
-      "max_price": 78.19999694824219,
-      "return_pct": 0.42,
+      "entry": 77.63,
+      "max_price": 78.43000030517578,
+      "return_pct": 1.03,
       "days": 0,
-      "result": "WIN"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-14",
       "ticker": "AVT",
       "company": "Avnet, Inc.",
       "sector": "Technology",
-      "entry": 72.94000244140625,
-      "max_price": 72.94000244140625,
+      "entry": 72.49,
+      "max_price": 72.49,
       "return_pct": 0.0,
       "days": 0,
       "result": "PENDING"
-    },
-    {
-      "date": "2026-04-14",
-      "ticker": "ADEA",
-      "company": "ADEA",
-      "sector": "Technology",
-      "entry": 23.1,
-      "max_price": 23.46,
-      "return_pct": 1.56,
-      "days": 0,
-      "result": "WIN"
     },
     {
       "date": "2026-04-13",
@@ -300,8 +223,8 @@
       "company": "Avis Budget Group",
       "sector": "Industrials",
       "entry": 336.0,
-      "max_price": 383.9800109863281,
-      "return_pct": 14.28,
+      "max_price": 402.77069091796875,
+      "return_pct": 19.87,
       "days": 1,
       "result": "PENDING"
     },
@@ -344,8 +267,8 @@
       "company": "Avis Budget Group, Inc.",
       "sector": "Industrials",
       "entry": 297.08,
-      "max_price": 383.9800109863281,
-      "return_pct": 29.25,
+      "max_price": 402.77069091796875,
+      "return_pct": 35.58,
       "days": 5,
       "result": "WIN"
     },
@@ -608,8 +531,8 @@
       "company": "Dana Incorporated",
       "sector": "Consumer Cyclical",
       "entry": 32.68,
-      "max_price": 36.81999969482422,
-      "return_pct": 12.67,
+      "max_price": 36.83000183105469,
+      "return_pct": 12.7,
       "days": 22,
       "result": "WIN"
     },
@@ -718,8 +641,8 @@
       "company": "Gladstone Investment Corporatio",
       "sector": "Financial Services",
       "entry": 14.25,
-      "max_price": 15.100000381469727,
-      "return_pct": 5.96,
+      "max_price": 15.170000076293945,
+      "return_pct": 6.46,
       "days": 24,
       "result": "WIN"
     },
@@ -784,8 +707,8 @@
       "company": "United Therapeutics Corporation",
       "sector": "Healthcare",
       "entry": 534.3,
-      "max_price": 580.9000244140625,
-      "return_pct": 8.72,
+      "max_price": 581.7999877929688,
+      "return_pct": 8.89,
       "days": 29,
       "result": "WIN"
     },
@@ -817,8 +740,8 @@
       "company": "Stagwell Inc.",
       "sector": "Communication Services",
       "entry": 5.98,
-      "max_price": 6.510000228881836,
-      "return_pct": 8.86,
+      "max_price": 6.534999847412109,
+      "return_pct": 9.28,
       "days": 29,
       "result": "WIN"
     },
@@ -927,8 +850,8 @@
       "company": "Dianthus Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 78.0,
-      "max_price": 95.05000305175781,
-      "return_pct": 21.86,
+      "max_price": 95.37999725341797,
+      "return_pct": 22.28,
       "days": 29,
       "result": "WIN"
     },
@@ -960,8 +883,8 @@
       "company": "Capricor Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 30.56,
-      "max_price": 34.540000915527344,
-      "return_pct": 13.02,
+      "max_price": 34.619998931884766,
+      "return_pct": 13.29,
       "days": 29,
       "result": "WIN"
     },
@@ -993,8 +916,8 @@
       "company": "Adeia Inc.",
       "sector": "Technology",
       "entry": 22.96,
-      "max_price": 27.229999542236328,
-      "return_pct": 18.6,
+      "max_price": 27.475000381469727,
+      "return_pct": 19.66,
       "days": 29,
       "result": "WIN"
     },
@@ -6114,5 +6037,5 @@
       "result": "WIN"
     }
   ],
-  "generated_at": "2026-04-14T15:22:30"
+  "generated_at": "2026-04-14T15:37:24.540829"
 }
