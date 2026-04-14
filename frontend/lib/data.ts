@@ -263,8 +263,7 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
     if (swingPick) {
       data.scores.master_score = swingPick.score;
       data.scores.score_type = swingPick.score >= 80 ? "HIGH_CONVICTION" : "POSITIVE_BIAS";
-      
-      // Sync zones with Swing Pick zones
+        // Sync zones with Swing Pick zones
       if (data.scores_detail) {
         data.scores_detail.entry_range_low = swingPick.buy_zone.low;
         data.scores_detail.entry_range_high = swingPick.buy_zone.high;
@@ -273,6 +272,13 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
         data.scores_detail.stop_range_low = swingPick.stop_zone.low;
         data.scores_detail.stop_range_high = swingPick.stop_zone.high;
         data.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
+      }
+      
+      // Update Technical Indicators
+      if (data.technical) {
+        data.technical.rsi_14 = swingPick.rsi;
+        data.technical.adx = swingPick.adx;
+        data.technical.rvol = swingPick.rvol;
       }
       
       // Update Change % from Swing Pick
@@ -307,6 +313,11 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       mock.scores_detail.stop_range_high = swingPick.stop_zone.high;
       mock.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
       
+      // Inject real technicals
+      mock.technical.rsi_14 = swingPick.rsi;
+      mock.technical.adx = swingPick.adx;
+      mock.technical.rvol = swingPick.rvol;
+      
       // Inject real changes
       mock.price.change_pct = swingPick.change_1d ?? 0;
       mock.price.change_pct_1w = swingPick.change_1w;
@@ -315,6 +326,7 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       
       // Inject reasoning
       mock.ai_summary = swingPick.detail_reasoning || swingPick.reasoning;
+    }
     } else if (summary) {
       mock.scores.master_score = summary.master_score;
       mock.scores.score_type = summary.score_type;
