@@ -34,7 +34,7 @@ export default function SectorScreener() {
   useEffect(() => {
     const loadSectorData = async () => {
       try {
-        const response = await fetch("/api/data/latest/sector_analysis.json");
+        const response = await fetch("/data/sector_analysis.json", { cache: "no-store" });
         if (!response.ok) throw new Error("Failed to load sector analysis");
 
         const data = await response.json();
@@ -90,6 +90,29 @@ export default function SectorScreener() {
     );
   }
 
+  // Show error if no sectors loaded
+  if (sectors.length === 0) {
+    return (
+      <div className="glass-card p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-1.5 h-8 bg-[#3b82f6] rounded-full shadow-[0_0_12px_#3b82f6]"></div>
+          <div>
+            <h3 className="text-xl font-black text-white tracking-tighter uppercase">
+              Smart Sector Screener
+            </h3>
+            <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase mt-0.5">
+              Filter by Sector & Subsector
+            </p>
+          </div>
+        </div>
+        <div className="text-center py-8">
+          <p className="text-[#94a3b8] mb-2">No sector data available</p>
+          <p className="text-sm text-[#64748b]">Please check back soon</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="glass-card p-6 space-y-5">
       {/* Header */}
@@ -110,13 +133,14 @@ export default function SectorScreener() {
         {/* Sector Selector */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">
-            Sector
+            Sector ({sectors.length})
           </label>
           <select
             value={selectedSector}
             onChange={(e) => setSelectedSector(e.target.value)}
             className="w-full px-4 py-3 bg-[#0a0e17] border border-[#1e2a3a] rounded-lg text-white focus:outline-none focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all"
           >
+            <option value="">Select a sector</option>
             {sectors.map((sector) => (
               <option key={sector} value={sector}>
                 {sector}
@@ -128,7 +152,7 @@ export default function SectorScreener() {
         {/* Subsector Selector */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">
-            Subsector
+            Subsector ({subsectors.length})
           </label>
           <select
             value={selectedSubsector}
@@ -136,15 +160,12 @@ export default function SectorScreener() {
             className="w-full px-4 py-3 bg-[#0a0e17] border border-[#1e2a3a] rounded-lg text-white focus:outline-none focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all"
             disabled={subsectors.length === 0}
           >
-            {subsectors.length === 0 ? (
-              <option>No subsectors available</option>
-            ) : (
-              subsectors.map((subsector) => (
-                <option key={subsector} value={subsector}>
-                  {subsector}
-                </option>
-              ))
-            )}
+            <option value="">Select a subsector</option>
+            {subsectors.map((subsector) => (
+              <option key={subsector} value={subsector}>
+                {subsector}
+              </option>
+            ))}
           </select>
         </div>
       </div>
