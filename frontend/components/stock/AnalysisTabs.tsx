@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { StockDetail, formatPrice } from "@/lib/data";
 
