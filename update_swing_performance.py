@@ -16,14 +16,18 @@ def sync_performance():
         history = []
         data = {}
 
-    # 2. Load latest prices
-    prices_map = {}
+    # 2. Load latest prices and metadata
+    metadata_map = {}
     if os.path.exists(master_file):
         with open(master_file, 'r', encoding='utf-8') as f:
             master = json.load(f)
             for s in master.get('stocks', []):
-                if s and 'ticker' in s and 'price' in s:
-                    prices_map[s['ticker']] = s['price'].get('current', 0)
+                if s and 'ticker' in s:
+                    metadata_map[s['ticker']] = {
+                        'price': s.get('price', {}).get('current', 0),
+                        'company': s.get('company', ''),
+                        'sector': s.get('sector', 'Unknown')
+                    }
 
     today_str = datetime.now().strftime('%Y-%m-%d')
     today_date = datetime.strptime(today_str, '%Y-%m-%d')
@@ -37,7 +41,8 @@ def sync_performance():
             # We only evaluate actively for ~30 days
             if days_passed <= 30:
                 ticker = record['ticker']
-                current_price = prices_map.get(ticker, 0)
+                meta = metadata_map.get(ticker, {})
+                current_price = meta.get('price', 0)
                 
                 if current_price > record.get('max_price', 0):
                     record['max_price'] = current_price
@@ -55,26 +60,27 @@ def sync_performance():
 
         for p in today_picks:
             ticker = p.get('ticker')
+            meta = metadata_map.get(ticker, {})
+            
             # Check 5-day rule
             skip = False
             for record in reversed(history):
-                # If we find this ticker in history
                 if record['ticker'] == ticker:
                     try:
                         record_date = datetime.strptime(record['date'], '%Y-%m-%d')
                         if (today_date - record_date).days < 5:
-                            skip = True  # Discard if within 5 days
+                            skip = True
                             break
                     except: pass
             
             if not skip:
-                entry_p = p.get('current_price', prices_map.get(ticker, 0))
+                entry_p = p.get('current_price', meta.get('price', 0))
                 if entry_p > 0:
                     history.append({
                         'date': today_str,
                         'ticker': ticker,
-                        'company': p.get('company', ''),
-                        'sector': p.get('sector', ''), # Bot might need to pass sector in picks
+                        'company': p.get('company') or meta.get('company', ''),
+                        'sector': p.get('sector') or meta.get('sector', 'Unknown'),
                         'entry': entry_p,
                         'max_price': entry_p,
                         'return_pct': 0.0,

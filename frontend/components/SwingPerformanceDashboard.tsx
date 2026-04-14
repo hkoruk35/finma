@@ -48,7 +48,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
     return initialHistory.filter(t => {
       // Exclude unknown sectors completely
       const isUnknown = !t.sector || t.sector.trim() === "" || t.sector.toLowerCase().includes("unknown") || t.sector === "—";
-      if (isUnknown) return false;
+      // if (isUnknown) return false; // Show even unknown sectors
       
       const matchSector = selectedSector === "All" || t.sector === selectedSector;
       const matchMonth = selectedMonth === "All" || (t.date && t.date.startsWith(selectedMonth));
