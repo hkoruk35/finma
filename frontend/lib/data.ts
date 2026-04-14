@@ -217,7 +217,7 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
   const t = ticker.toUpperCase();
   let data: any = null;
 
-  // 1. Try to read real JSON file
+  // 1. Try to read real JSON file (Deep Analysis)
   if (typeof window === "undefined") {
     data = await readJsonServer(`stocks/${t}.json`);
   } else {
@@ -228,14 +228,24 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
     } catch (e) { console.warn("Fetch detailed stock err", e); }
   }
 
+  // 2. Load other sources for synchronization (Summary list, Swing picks)
+  const [allTickers, swingPicksData] = await Promise.all([
+    getAllTickers(),
+    getSwingAllPicks()
+  ]);
+
+  const summary = allTickers.find(s => s.ticker === t);
+  const swingPick = (swingPicksData?.picks || []).find((p: any) => p.ticker === t);
+
+  // 3. Process if we have Deep Analysis data
   if (data) {
-    const all = await getAllTickers();
-    const live = all.find(s => s.ticker === t);
-    if (live?.price && data.price?.current) {
-      const ratio = live.price / data.price.current;
+    const livePrice = swingPick?.current_price ?? summary?.price;
+    if (livePrice && data.price?.current) {
+      const ratio = livePrice / data.price.current;
       const drift = Math.abs(1 - ratio);
+      // Sync prices across the app if they drift more than 2%
       if (drift > 0.02) {
-        data.price.current = live.price;
+        data.price.current = livePrice;
         if (data.scores_detail) {
           data.scores_detail.entry_range_low *= ratio;
           data.scores_detail.entry_range_high *= ratio;
@@ -248,30 +258,67 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
         }
       }
     }
+    
+    // 🔥 UNIFICATION: Use BOGA AI Swing Score as the Master Score if it's a swing pick
+    if (swingPick) {
+      data.scores.master_score = swingPick.score;
+      data.scores.score_type = swingPick.score >= 80 ? "HIGH_CONVICTION" : "POSITIVE_BIAS";
+      
+      // Sync zones with Swing Pick zones
+      if (data.scores_detail) {
+        data.scores_detail.entry_range_low = swingPick.buy_zone.low;
+        data.scores_detail.entry_range_high = swingPick.buy_zone.high;
+        data.scores_detail.target_range_low = swingPick.profit_zone.low;
+        data.scores_detail.target_range_high = swingPick.profit_zone.high;
+        data.scores_detail.stop_range_low = swingPick.stop_zone.low;
+        data.scores_detail.stop_range_high = swingPick.stop_zone.high;
+        data.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
+      }
+      
+      // Update Change % from Swing Pick
+      if (swingPick.change_1d !== undefined) data.price.change_pct = swingPick.change_1d;
+      if (swingPick.change_1w !== undefined) data.price.change_pct_1w = swingPick.change_1w;
+      if (swingPick.change_1m !== undefined) data.price.change_pct_1m = swingPick.change_1m;
+      if (swingPick.change_1y !== undefined) data.price.change_pct_1y = swingPick.change_1y;
+    }
+
     return normalizeStockDetail(data);
   }
 
-  // 2. If detailed JSON missing, try to find real info in other data sources
-  const [allTickers, swingPerf] = await Promise.all([
-    getAllTickers(),
-    getSwingPerformance()
-  ]);
-  
-  const summary = allTickers.find(s => s.ticker === t);
-  const perfEntry = swingPerf?.history?.find((h: any) => h.ticker === t);
-  
-  const realPrice = summary?.price ?? perfEntry?.max_price;
-  
-  // 3. Fallback to mock, but inject known real info from any source
+  // 4. Fallback: If deep analysis JSON missing, build a partial profile using data from summary/swing
+  const realPrice = swingPick?.current_price ?? summary?.price;
   const mock = getMockStockDetail(t, realPrice);
   
-  if (summary || perfEntry) {
-    mock.price.change_pct = summary?.change_pct ?? 0;
-    mock.company = summary?.company ?? perfEntry?.company ?? mock.company;
-    mock.sector = summary?.sector ?? perfEntry?.sector ?? mock.sector;
-    if (summary) {
+  if (swingPick || summary) {
+    mock.company = swingPick?.company ?? summary?.company ?? mock.company;
+    mock.sector = swingPick?.sector ?? summary?.sector ?? mock.sector;
+    mock.price.current = realPrice ?? mock.price.current;
+    
+    if (swingPick) {
+      mock.scores.master_score = swingPick.score;
+      mock.scores.score_type = swingPick.score >= 80 ? "HIGH_CONVICTION" : "POSITIVE_BIAS";
+      
+      // Inject real zones from swing analytics
+      mock.scores_detail.entry_range_low = swingPick.buy_zone.low;
+      mock.scores_detail.entry_range_high = swingPick.buy_zone.high;
+      mock.scores_detail.target_range_low = swingPick.profit_zone.low;
+      mock.scores_detail.target_range_high = swingPick.profit_zone.high;
+      mock.scores_detail.stop_range_low = swingPick.stop_zone.low;
+      mock.scores_detail.stop_range_high = swingPick.stop_zone.high;
+      mock.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
+      
+      // Inject real changes
+      mock.price.change_pct = swingPick.change_1d ?? 0;
+      mock.price.change_pct_1w = swingPick.change_1w;
+      mock.price.change_pct_1m = swingPick.change_1m;
+      mock.price.change_pct_1y = swingPick.change_1y;
+      
+      // Inject reasoning
+      mock.ai_summary = swingPick.detail_reasoning || swingPick.reasoning;
+    } else if (summary) {
       mock.scores.master_score = summary.master_score;
       mock.scores.score_type = summary.score_type;
+      mock.price.change_pct = summary.change_pct;
     }
     (mock as any).is_partial_mock = true;
   } else {

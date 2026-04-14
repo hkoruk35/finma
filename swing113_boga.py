@@ -1912,51 +1912,19 @@ async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dic
 You are BOGA AI, a professional swing trade analysis assistant. Your task is to generate investment summaries for the stock {ticker} ({company}) in the {sector} sector.
 
 BOGA AI SCORE: {score_100}/100
-
-TECHNICAL INDICATORS (explain what they MEAN for the investor, not just numbers):
-- Trend Status: {trend_status} — Price vs EMA20 (${ema20:.2f}), EMA50 (${ema50:.2f}), EMA200 (${ema200:.2f})
-- RSI (14): {rsi:.1f} — (40-55 = momentum building, 55-70 = strong momentum, >70 = overbought risk)
-- ADX: {adx:.1f} — (>25 = strong trend, >30 = very strong, <20 = weak)
-- MACD Histogram: {macd_hist:.3f} — (positive and rising = bullish acceleration)
-- MFI: {mfi:.1f} — (Money Flow Index, >50 = money entering, <30 = money leaving)
-- Entry Signal: {entry_trigger}
-
-ZONES (ATR + 1H Support/Resistance Based):
-- Buy Zone: ${buy_low:.2f} – ${buy_high:.2f}
-- Target Zone: ${sell_high:.2f}
-- Stop Loss Zone: ${stop_high:.2f}
-- Risk/Reward: {rr:.1f}:1
-
-FUNDAMENTALS:
-- Gross Margin: {gross_m:.1f}% (% of revenue kept after production costs)
-- Operating Margin: {op_m:.1f}% (% of revenue kept after operations)
-- Net Margin: {net_m:.1f}% (final profit %)
-- Revenue Growth: {rev_g:.1f}%
-- P/E Ratio: {pe:.1f} (how much investors pay per $1 of earnings)
-- P/B Ratio: {pb:.2f} (price vs book value)
-- FCF Yield: {fcf_y:.1f}% (free cash flow relative to market cap)
-- Market Cap: ${mcap:.2f}B
-
-PRICE PERFORMANCE:
-- 1 Day: {p1d:+.2f}% | 1 Week: {p1w:+.2f}% | 1 Month: {p1m:+.2f}% | 1 Year: {p1y:+.2f}% | 5 Year: {p5y:+.2f}%
+TECHNICAL INDICATORS: {trend_status}, RSI={rsi:.1f}, ADX={adx:.1f}, MACD Hist={macd_hist:.3f}, MFI={mfi:.1f}.
+ZONES (Target/Stop): ${sell_high:.2f} / ${stop_high:.2f}.
+FUNDAMENTALS: Margin={net_m:.1f}%, Growth={rev_g:.1f}%, PE={pe:.1f}.
 
 INSTRUCTIONS:
-1. Write a "homepage_summary": ONE sentence (max 20 words) that captures why this stock is a good swing trade NOW. Simple language. No jargon.
-2. Write a "detail_summary": 3-5 sentences explaining WHY BOGA AI selected this stock. Include: what the technical signals MEAN (not just numbers), what the fundamentals say about company health, what the risk/reward offers, and what the price action signals. Write as if explaining to a smart non-expert investor. Be specific and actionable.
-3. For BOTH summaries, focus on DECISION SUPPORT — help the user understand the significance, not just report numbers.
+1. Write a "homepage_summary": ONE sentence summary in English.
+2. Write a "detail_summary": 3-5 sentences technical reasoning in English.
 
-Generate the output ONLY as a JSON object with this exact structure:
+Generate output ONLY as JSON:
 {{
-  "homepage_summary": {{
-    "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..."
-  }},
-  "detail_summary": {{
-    "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..."
-  }}
+  "homepage_summary": {{ "en": "..." }},
+  "detail_summary": {{ "en": "..." }}
 }}
-
-Languages: en=English, tr=Turkish, es=Spanish, pt=Portuguese, fr=French, id=Indonesian.
-Output ONLY the JSON, no markdown, no extra text.
 """
 
     try:
@@ -2374,10 +2342,10 @@ async def scan_top_stocks():
     scanned_count = 0
 
     await send_telegram_message(
-        "🐂 <b>BOGA AI SWING TRADE V114 Tarayıcı Başlatıldı!</b>\n"
-        "⏱ Çalışma: Hafta içi her gün NY 13:00\n"
-        "🎯 Hedef: Günün En İyi 10 Swing Trade Fırsatı\n"
-        "🌍 6 Dil: EN / TR / ES / PT / FR / ID"
+        "🐂 <b>BOGA AI SWING TRADE V114 Scanner Started!</b>\n"
+        "⏱ Schedule: Weekdays NY 13:00\n"
+        "🎯 Goal: Daily Top 10 Swing Trade Opportunities\n"
+        "📈 Primary Language: English"
     )
 
     # ── ADIM 1: PİYASA ANALİZİ ──────────────────────────────────────
