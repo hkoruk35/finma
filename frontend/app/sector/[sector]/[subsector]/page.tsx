@@ -1,0 +1,298 @@
+import Link from "next/link";
+import { Metadata } from "next";
+
+interface TickerData {
+  ticker: string;
+  price: number;
+  change_1d: number;
+  technical: {
+    rsi?: number;
+    momentum?: number;
+    trend?: string;
+    sma_20?: number;
+  };
+  ai_summary: {
+    homepage_summary: {
+      en: string;
+    };
+  };
+}
+
+interface SectorAnalysis {
+  generated_at: string;
+  total_tickers: number;
+  analysis_by_sector: {
+    [sector: string]: {
+      subsectors: {
+        [subsector: string]: TickerData[];
+      };
+      tickers: string[];
+    };
+  };
+}
+
+function formatPrice(price: number): string {
+  if (price === 0 || !price) return "N/A";
+  if (price >= 1000000000) return `$${(price / 1000000000).toFixed(1)}B`;
+  if (price >= 1000000) return `$${(price / 1000000).toFixed(1)}M`;
+  if (price >= 1000) return `$${(price / 1000).toFixed(1)}K`;
+  return `$${price.toFixed(2)}`;
+}
+
+function getChangeColor(change: number | null | undefined) {
+  if (!change && change !== 0) return "text-[#94a3b8]";
+  if (change >= 2) return "text-green-400 font-bold";
+  if (change >= 0) return "text-green-300";
+  if (change >= -2) return "text-red-300";
+  return "text-red-400 font-bold";
+}
+
+function getTrendBadge(trend?: string) {
+  const colors: Record<string, string> = {
+    bullish: "bg-green-900/40 text-green-200 border-green-700/50",
+    bearish: "bg-red-900/40 text-red-200 border-red-700/50",
+    overbought: "bg-red-900/60 text-red-100 border-red-700/70 font-bold",
+    oversold: "bg-green-900/60 text-green-100 border-green-700/70 font-bold",
+    neutral: "bg-slate-900/40 text-slate-200 border-slate-700/50",
+  };
+
+  return (
+    <span className={`text-[10px] px-2 py-1 rounded border inline-block ${colors[trend || "neutral"]}`}>
+      {trend?.toUpperCase()}
+    </span>
+  );
+}
+
+async function loadSectorData(): Promise<SectorAnalysis | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/data/latest/sector_analysis.json`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) throw new Error("Failed to load sector data");
+    return await response.json();
+  } catch (error) {
+    console.error("Error loading sector data:", error);
+    return null;
+  }
+}
+
+export async function generateMetadata({
+  params: { sector, subsector },
+}: {
+  params: { sector: string; subsector: string };
+}): Promise<Metadata> {
+  const decodedSector = decodeURIComponent(sector).replace(/-/g, " ");
+  const decodedSubsector = decodeURIComponent(subsector).replace(/-/g, " ");
+
+  return {
+    title: `${decodedSubsector} - ${decodedSector} Stocks | BOGA AI`,
+    description: `Detailed stock analysis for ${decodedSubsector} in the ${decodedSector} sector. View price changes, technical indicators, and market cap.`,
+  };
+}
+
+export default async function SubsectorPage({
+  params: { sector, subsector },
+}: {
+  params: { sector: string; subsector: string };
+}) {
+  const sectorData = await loadSectorData();
+
+  // Decode URL params
+  const decodedSector = decodeURIComponent(sector).split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+  const decodedSubsector = decodeURIComponent(subsector).split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+
+  // Find matching sector (case-insensitive)
+  const matchingSector = Object.keys(sectorData?.analysis_by_sector || {}).find(
+    (s) => s.toLowerCase() === decodedSector.toLowerCase()
+  );
+
+  if (!sectorData || !matchingSector) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-white mb-4">Sector Not Found</h1>
+          <p className="text-[#94a3b8] mb-8">The sector "{decodedSector}" could not be found.</p>
+          <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
+            ← Back to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const subsectorData =
+    sectorData.analysis_by_sector[matchingSector]?.subsectors[
+      Object.keys(sectorData.analysis_by_sector[matchingSector]?.subsectors || {}).find(
+        (s) => s.toLowerCase() === decodedSubsector.toLowerCase()
+      ) || ""
+    ] || [];
+
+  if (subsectorData.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-white mb-4">Subsector Not Found</h1>
+          <p className="text-[#94a3b8] mb-8">
+            No stocks found for "{decodedSubsector}" in {decodedSector}.
+          </p>
+          <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
+            ← Back to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
+        {/* Breadcrumb */}
+        <div className="mb-8 flex items-center gap-2 text-sm text-[#94a3b8]">
+          <Link href="/" className="hover:text-white transition-colors">
+            Home
+          </Link>
+          <span>/</span>
+          <Link href={`/sector/${sector}`} className="hover:text-white transition-colors">
+            {decodedSector}
+          </Link>
+          <span>/</span>
+          <span className="text-white font-semibold">{decodedSubsector}</span>
+        </div>
+
+        {/* Header */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-1.5 h-10 bg-[#3b82f6] rounded-full shadow-[0_0_12px_#3b82f6]"></div>
+            <div>
+              <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
+                {decodedSubsector}
+              </h1>
+              <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase mt-1">
+                {decodedSector} · {subsectorData.length} Stocks
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Stock Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-[#1e2a3a]">
+                <th className="text-left px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                  Ticker
+                </th>
+                <th className="text-left px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                  Price
+                </th>
+                <th className="text-right px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                  1D %
+                </th>
+                <th className="text-center px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                  RSI
+                </th>
+                <th className="text-center px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                  Momentum
+                </th>
+                <th className="text-center px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                  Trend
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {subsectorData.map((stock, idx) => (
+                <tr
+                  key={stock.ticker}
+                  className={`border-b border-[#1e2a3a] hover:bg-[#141924]/50 transition-colors ${
+                    idx % 2 === 0 ? "bg-[#0a0e17]/30" : ""
+                  }`}
+                >
+                  <td className="px-4 py-3">
+                    <Link
+                      href={`/stock/${stock.ticker}`}
+                      className="text-[#3b82f6] hover:text-white font-bold uppercase tracking-wide transition-colors"
+                    >
+                      {stock.ticker}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3 text-white font-semibold">
+                    ${stock.price?.toFixed(2) || "N/A"}
+                  </td>
+                  <td className={`px-4 py-3 text-right font-bold ${getChangeColor(stock.change_1d)}`}>
+                    {stock.change_1d !== undefined && stock.change_1d !== null
+                      ? `${stock.change_1d > 0 ? "+" : ""}${stock.change_1d.toFixed(2)}%`
+                      : "N/A"}
+                  </td>
+                  <td className="px-4 py-3 text-center text-[#94a3b8]">
+                    {stock.technical?.rsi?.toFixed(1) || "N/A"}
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    {stock.technical?.momentum ? (
+                      <span
+                        className={
+                          stock.technical.momentum > 0 ? "text-green-400 font-bold" : "text-red-400 font-bold"
+                        }
+                      >
+                        {stock.technical.momentum > 0 ? "+" : ""}
+                        {stock.technical.momentum.toFixed(1)}%
+                      </span>
+                    ) : (
+                      <span className="text-[#94a3b8]">N/A</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    {getTrendBadge(stock.technical?.trend)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile Card View */}
+        <div className="md:hidden space-y-3 mt-8">
+          {subsectorData.map((stock) => (
+            <div key={stock.ticker} className="glass-card p-4">
+              <div className="flex justify-between items-start mb-2">
+                <Link
+                  href={`/stock/${stock.ticker}`}
+                  className="text-[#3b82f6] hover:text-white font-bold text-lg uppercase transition-colors"
+                >
+                  {stock.ticker}
+                </Link>
+                <span className={`font-bold ${getChangeColor(stock.change_1d)}`}>
+                  {stock.change_1d !== undefined && stock.change_1d !== null
+                    ? `${stock.change_1d > 0 ? "+" : ""}${stock.change_1d.toFixed(2)}%`
+                    : "N/A"}
+                </span>
+              </div>
+              <p className="text-white font-semibold mb-2">
+                ${stock.price?.toFixed(2) || "N/A"}
+              </p>
+              <div className="grid grid-cols-3 gap-2 text-[10px] text-[#94a3b8]">
+                <div>
+                  <p className="uppercase font-bold">RSI</p>
+                  <p className="text-white">{stock.technical?.rsi?.toFixed(1) || "N/A"}</p>
+                </div>
+                <div>
+                  <p className="uppercase font-bold">Momentum</p>
+                  <p className={stock.technical?.momentum && stock.technical.momentum > 0 ? "text-green-400 font-bold" : "text-red-400 font-bold"}>
+                    {stock.technical?.momentum
+                      ? `${stock.technical.momentum > 0 ? "+" : ""}${stock.technical.momentum.toFixed(1)}%`
+                      : "N/A"}
+                  </p>
+                </div>
+                <div>
+                  <p className="uppercase font-bold">Trend</p>
+                  <p className="text-white">{stock.technical?.trend?.toUpperCase() || "N/A"}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+    </div>
+  );
+}

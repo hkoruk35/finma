@@ -6,6 +6,7 @@ import IndexCards from "@/components/IndexCards";
 import StatsBar from "@/components/StatsBar";
 import TopSwingPicks from "@/components/TopSwingPicks";
 import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
+import SectorScreener from "@/components/SectorScreener";
 import MarketExplorer from "@/components/MarketExplorer";
 import SectorHeatMap from "@/components/SectorHeatMap";
 import { Metadata } from "next";
@@ -79,6 +80,11 @@ export default async function HomePage() {
         {/* Stats Bar */}
         <section className="mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
           <StatsBar data={master} />
+        </section>
+
+        {/* Smart Sector Screener */}
+        <section className="mb-12 animate-fade-in" style={{ animationDelay: "225ms" }}>
+          <SectorScreener />
         </section>
 
         {/* Market Themes & Category Tabs Explorer */}
