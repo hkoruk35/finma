@@ -189,207 +189,104 @@ export default async function StockDetailPage({ params }: Props) {
           ))}
         </div>
 
-        {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Main Chart Area */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
-            <div className="glass-card overflow-hidden flex flex-col">
-              {/* Slim chart header */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1e2a3a] bg-[#0d1117]/60">
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></div>
-                  <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">Live Chart · {stock.ticker}</span>
-                </div>
-                <div className="flex gap-1.5">
-                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">1D</span>
-                  <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">NY TIME</span>
-                </div>
+        {/* Redesigned Layout: Chart + AI Analysis Focus */}
+        <div className="flex flex-col gap-6 mb-8">
+          {/* Chart Section — Compact with Expand */}
+          <div className="glass-card overflow-hidden flex flex-col group">
+            {/* Slim chart header */}
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1e2a3a] bg-[#0d1117]/60">
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></div>
+                <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">Live Chart · {stock.ticker}</span>
               </div>
-              {/* Edge-to-edge chart, no inner border */}
-              <div className="w-full flex-1 min-h-[320px] md:min-h-[460px]">
-                <TradingViewWidget symbol={stock.ticker} />
+              <div className="flex gap-1.5">
+                <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">1D</span>
+                <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">NY TIME</span>
               </div>
             </div>
+            {/* Compact chart height */}
+            <div className="w-full min-h-[240px] md:min-h-[280px]">
+              <TradingViewWidget symbol={stock.ticker} />
+            </div>
+          </div>
 
-            {/* Analysis Tabs Section · THE CORE REDESIGN */}
-            <AnalysisTabs stock={stock} />
+          {/* AI Analysis Tabs — THE CORE FOCUS */}
+          <AnalysisTabs stock={stock} />
 
-            {/* Social Share — Moved here and cleaned */}
-            <div className="glass-card p-6 border-b-2 border-b-[#3b82f6]/20">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                  <h3 className="text-xl font-black text-white uppercase tracking-tight">Share This Insight</h3>
-                  <p className="text-xs text-[#64748b]">Help others discover this AI score.</p>
-                </div>
-                <div className="flex-1 max-w-md">
-                   <SocialShare
-                     ticker={stock.ticker}
-                     score={stock.scores.master_score}
-                     scoreType={stock.scores.score_type}
-                     hideHeader={true}
-                   />
-                </div>
+          {/* Trading Parameters Card */}
+          <div className="glass-card p-6">
+            <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-6 flex items-center gap-2">
+              <span className="text-lg">📊</span> TRADING PARAMETERS
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
+                <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Entry Zone</span>
+                <span className="font-mono font-black text-lg text-white">
+                  ${formatPrice(stock.scores_detail.entry_range_low)} - ${formatPrice(stock.scores_detail.entry_range_high)}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#22c55e]">
+                <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Target</span>
+                <span className="font-mono font-black text-lg text-[#22c55e]">
+                  ${formatPrice(stock.scores_detail.target_range_low)} - ${formatPrice(stock.scores_detail.target_range_high)}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
+                <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Stop Loss</span>
+                <span className="font-mono font-black text-lg text-[#ef4444]">
+                  ${formatPrice(stock.scores_detail.stop_range_low)} - ${formatPrice(stock.scores_detail.stop_range_high)}
+                </span>
+              </div>
+              <div className="flex flex-col justify-center bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#8b5cf6]">
+                <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">Risk/Reward</span>
+                <span className="font-mono font-black text-2xl text-[#8b5cf6]">{stock.scores_detail.risk_reward_ratio}:1</span>
+              </div>
+            </div>
+            <button className="w-full mt-6 py-3 bg-[#3b82f6] text-white rounded-xl font-bold hover:bg-[#2563eb] transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              Add to Watchlist
+            </button>
+          </div>
+
+          {/* Sector Context */}
+          <div className="glass-card p-6">
+            <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4 flex items-center gap-2">
+              <span className="text-lg">🌍</span> SECTOR CONTEXT
+            </h3>
+            <div className="flex items-center justify-between p-4 bg-[#141924] rounded-xl border border-[#1e2a3a]">
+              <div>
+                <p className="text-xs text-[#64748b] uppercase font-bold tracking-widest mb-1">Benchmarked vs</p>
+                <p className="text-lg font-black text-white">{stock.sector_context.sector_etf}</p>
+              </div>
+              <div className="h-12 border-r border-[#1e2a3a]"></div>
+              <div className="text-right">
+                <p className="text-xs text-[#64748b] uppercase font-bold tracking-widest mb-1">5D Perf</p>
+                <p className={`text-lg font-black ${stock.sector_context.sector_performance_5d >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                  {stock.sector_context.sector_performance_5d >= 0 ? '+' : ''}{stock.sector_context.sector_performance_5d}%
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Sidebar Area */}
-          <div className="flex flex-col gap-6">
-            {/* BOGA AI Score Widget */}
-            <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
-              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">BOGA AI Master Score</h3>
-              <div className="relative w-40 h-40 flex items-center justify-center mb-4">
-                <svg className="w-full h-full -rotate-90">
-                  <circle
-                    cx="80"
-                    cy="80"
-                    r="70"
-                    fill="transparent"
-                    stroke="#1e2a3a"
-                    strokeWidth="12"
-                  />
-                  <circle
-                    cx="80"
-                    cy="80"
-                    r="70"
-                    fill="transparent"
-                    stroke="url(#scoreGradient)"
-                    strokeWidth="12"
-                    strokeDasharray={440}
-                    strokeDashoffset={440 - (440 * stock.scores.master_score) / 100}
-                    strokeLinecap="round"
-                    className="transition-all duration-1000 ease-out"
-                  />
-                  <defs>
-                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#3b82f6" />
-                      <stop offset="100%" stopColor="#8b5cf6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute flex flex-col">
-                  <span className="text-5xl font-mono font-black text-white">{stock.scores.master_score.toFixed(1)}</span>
-                </div>
+          {/* Social Share */}
+          <div className="glass-card p-6 border-b-2 border-b-[#3b82f6]/20">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase tracking-tight">Share This Analysis</h3>
+                <p className="text-xs text-[#64748b]">Help others discover this AI insight.</p>
               </div>
-              <p className={`text-sm font-bold uppercase ${getScoreBadgeClass(stock.scores.score_type)}`}>
-                {stock.scores.score_type.replace("_", " ")}
-              </p>
-            </div>
-
-            {/* Score Details */}
-            <div className="glass-card p-6">
-              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-4">BOGA AI MODEL ANALYSIS</h3>
-              <div className="space-y-4">
-                <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">BUYING ZONE</span>
-                   <span className="font-mono font-black text-xl text-white">
-                      ${formatPrice(stock.scores_detail.entry_range_low)} - ${formatPrice(stock.scores_detail.entry_range_high)}
-                   </span>
-                </div>
-                <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#22c55e]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">SELL ZONE (TARGET)</span>
-                   <span className="font-mono font-black text-xl text-[#22c55e]">
-                      ${formatPrice(stock.scores_detail.target_range_low)} - ${formatPrice(stock.scores_detail.target_range_high)}
-                   </span>
-                </div>
-                <div className="flex flex-col gap-1 bg-[#141924] p-4 rounded-xl border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
-                   <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">STOP LOSS ZONE</span>
-                   <span className="font-mono font-black text-xl text-[#ef4444]">
-                      ${formatPrice(stock.scores_detail.stop_range_low)} - ${formatPrice(stock.scores_detail.stop_range_high)}
-                   </span>
-                </div>
-                <div className="flex justify-between items-center bg-[#141924] p-3 rounded-lg border border-[#1e2a3a]">
-                   <span className="text-xs font-bold text-[#64748b] uppercase tracking-widest">Risk/Reward</span>
-                   <span className="font-mono font-black text-white">{stock.scores_detail.risk_reward_ratio}:1</span>
-                </div>
+              <div className="flex-1 max-w-md">
+                <SocialShare
+                  ticker={stock.ticker}
+                  score={stock.scores.master_score}
+                  scoreType={stock.scores.score_type}
+                  hideHeader={true}
+                />
               </div>
-              <button className="w-full mt-6 py-3 bg-[#3b82f6] text-white rounded-xl font-bold hover:bg-[#2563eb] transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg>
-                Add to Watchlist
-              </button>
             </div>
           </div>
-        </div>
-
-
-        {/* Sector Context & Insider Activity */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-           <div className="glass-card p-6">
-              <h3 className="text-xl font-bold text-white mb-6">Sector Context</h3>
-              <div className="flex items-center justify-between p-4 bg-[#141924] rounded-xl mb-4 border border-[#1e2a3a]">
-                 <div>
-                    <p className="text-xs text-[#64748b] uppercase font-bold tracking-widest mb-1">Benchmarked against</p>
-                    <p className="text-xl font-black text-white">{stock.sector_context.sector_etf}</p>
-                 </div>
-                 <div className="text-right">
-                    <p className="text-xs text-[#64748b] uppercase font-bold tracking-widest mb-1">5D Performance</p>
-                    <p className={`text-xl font-black ${stock.sector_context.sector_performance_5d >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-                       {stock.sector_context.sector_performance_5d >= 0 ? '+' : ''}{stock.sector_context.sector_performance_5d}%
-                    </p>
-                 </div>
-              </div>
-              <p className="text-sm text-[#94a3b8] leading-relaxed">
-                 {stock.ticker} is currently ranked in the top 20% of its sector based on BOGA AI Master Scores. 
-                 It has outperformed {stock.sector_context.sector_etf} by 4.2% over the last 30 trading days.
-              </p>
-           </div>
-
-           <div className="glass-card p-6">
-              <h3 className="text-xl font-bold text-white mb-6">Insider Activity (90D)</h3>
-              <div className="overflow-x-auto">
-                 <table className="w-full text-left text-sm">
-                    <thead>
-                       <tr className="border-b border-[#1e2a3a] text-[#64748b]">
-                          <th className="pb-3 font-bold uppercase tracking-wider text-[10px]">Transaction</th>
-                          <th className="pb-3 font-bold uppercase tracking-wider text-[10px] text-right">Shares</th>
-                          <th className="pb-3 font-bold uppercase tracking-wider text-[10px] text-right">Net Direction</th>
-                       </tr>
-                    </thead>
-                    <tbody className="text-white font-mono">
-                       <tr className="border-b border-[#1e2a3a]/50">
-                          <td className="py-3">Buys</td>
-                          <td className="py-3 text-right">{stock.insider_activity.last_90_days_buys || 0}</td>
-                          <td rowSpan={2} className="py-3 text-right align-middle text-[#22c55e] font-bold">
-                             {stock.insider_activity.net_direction}
-                          </td>
-                       </tr>
-                       <tr>
-                          <td className="py-3">Sells</td>
-                          <td className="py-3 text-right">{stock.insider_activity.last_90_days_sells || 0}</td>
-                       </tr>
-                    </tbody>
-                 </table>
-              </div>
-              <p className="text-[10px] text-[#64748b] mt-4 uppercase font-bold tracking-widest">
-                 Last Transaction: {
-                    typeof stock.insider_activity.last_transaction === "string"
-                       ? stock.insider_activity.last_transaction
-                       : stock.insider_activity.last_transaction
-                       ? `${(stock.insider_activity.last_transaction as any).type} ${(stock.insider_activity.last_transaction as any).shares} shares`
-                       : "N/A"
-                 }
-              </p>
-           </div>
-        </div>
-
-        {/* Score Categories */}
-        <div className="mb-8">
-           <div className="glass-card p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Score Categories</h3>
-              <div className="flex flex-wrap gap-2">
-                 {stock.scores_detail.categories.map(cat => (
-                    <Link
-                       key={cat}
-                       href={`/category/${cat.replace('_', '-') === 'value' ? 'undervalued' : cat.replace('_', '-')}`}
-                       className="px-4 py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/20 rounded-full text-xs font-bold text-[#3b82f6] hover:bg-[#3b82f6]/20 transition-all uppercase tracking-widest"
-                    >
-                       {cat.replace('_', ' ')}
-                    </Link>
-                 ))}
-              </div>
-           </div>
         </div>
 
         {/* Removed redundant Social Share section from here */}
