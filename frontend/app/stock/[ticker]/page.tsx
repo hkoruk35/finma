@@ -271,8 +271,8 @@ export default async function StockDetailPage({ params }: Props) {
                   <span className="text-5xl font-mono font-black text-white">{stock.scores.master_score.toFixed(1)}</span>
                 </div>
               </div>
-              <p className={`text-sm font-bold uppercase ${getChangeColor(1)}`}>
-                High conviction score
+              <p className={`text-sm font-bold uppercase ${getScoreBadgeClass(stock.scores.score_type)}`}>
+                {stock.scores.score_type.replace("_", " ")}
               </p>
             </div>
 

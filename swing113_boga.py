@@ -145,7 +145,7 @@ ALPHA_VANTAGE_API_KEY = "8S8ZRE3EPTKH0EPJ"
 # 🔹 GEMINI AI
 # ================================================================
 GEMINI_API_KEY = "AIzaSyA6cu1eE5xyh2-1eEFEdZcMXY7MSzqIPnM"
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 # ================================================================
 # 🔹 SEKTÖR ETF HARİTASI
@@ -1931,7 +1931,13 @@ Generate output ONLY as JSON:
         url = f"{GEMINI_API_URL}?key={GEMINI_API_KEY}"
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.7, "maxOutputTokens": 2000}
+            "generationConfig": {"temperature": 0.5, "maxOutputTokens": 1000},
+            "safetySettings": [
+                {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
+            ]
         }
         async with aiohttp.ClientSession() as session:
             async with session.post(url, json=payload, timeout=30) as resp:
@@ -2121,8 +2127,11 @@ def build_json_output(top10: list, generated_at: str) -> dict:
             "adx": c.get("adx", 0.0),
             "rsi": c.get("rsi_14", 50.0),
             "rvol": c.get("rvol_today", 1.0),
-            "change_1w": perf.get("1w", 0.0),
             "change_1d": perf.get("1d", 0.0),
+            "change_1w": perf.get("1w", 0.0),
+            "change_1m": perf.get("1m", 0.0),
+            "change_1y": perf.get("1y", 0.0),
+            "change_5y": perf.get("5y", 0.0),
 
             # ── BOGA AI MODEL ANALYSIS ─────────────────────────────
             "boga_zones": {

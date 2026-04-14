@@ -286,6 +286,7 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       if (swingPick.change_1w !== undefined) data.price.change_pct_1w = swingPick.change_1w;
       if (swingPick.change_1m !== undefined) data.price.change_pct_1m = swingPick.change_1m;
       if (swingPick.change_1y !== undefined) data.price.change_pct_1y = swingPick.change_1y;
+      if (swingPick.change_5y !== undefined) data.price.change_pct_5y = swingPick.change_5y;
     }
 
     return normalizeStockDetail(data);
@@ -326,6 +327,7 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       target.price.change_pct_1w = swingPick.change_1w;
       target.price.change_pct_1m = swingPick.change_1m;
       target.price.change_pct_1y = swingPick.change_1y;
+      target.price.change_pct_5y = swingPick.change_5y;
       target.ai_summary = swingPick.detail_reasoning || swingPick.reasoning;
 
     } else if (summary) {
