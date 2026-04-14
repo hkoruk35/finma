@@ -75,11 +75,9 @@ def main():
 
     os.makedirs(os.path.join(FINMA_DIR, "logs"), exist_ok=True)
 
-    # ── ADIM 1: finma_bot.py (Günlük 100 Hisse Puanlama + Transfer) ──
-    log.info("ADIM 1: finma_bot.py çalıştırılıyor...")
-    step1_ok = run_bot_subprocess("finma_bot.py", ["--run-now"])
-    if not step1_ok:
-        log.warning("⚠️ finma_bot.py başarısız. Devam ediliyor...")
+    # ── ADIM 1: finma_bot.py — DEVRE DIŞI (sistem sadece swing sinyallerine odaklanıyor) ──
+    log.info("ADIM 1: finma_bot.py atlanıyor (pasif).")
+    step1_ok = True
 
     # ── ADIM 2: swing113_boga_oneshot.py (Core Scanner) ──
     log.info("ADIM 2: swing113_boga_oneshot.py çalıştırılıyor...")
