@@ -6,8 +6,10 @@ Zamanlayıcı: Windows Task Scheduler ile 09:00 NY (Pzt-Cuma)
 
 Sıra:
 1. finma_bot.py  → --run-now (günlük 100 hisse puanlaması + transfer)
-2. swing113_boga.py → scan_top_stocks() (swing tarayıcı + JSON export)
-3. update_swing_performance.py → sync_performance()
+2. swing113_boga_oneshot.py → scan_top_stocks() (swing tarayıcı + JSON export)
+3. daily_comprehensive_analysis.py → analyze_all_tickers() (sektör/altsektör analiz + JSON)
+4. refresh_swing_data.py → (sektör ve zone düzeltme)
+5. update_swing_performance.py → sync_performance()
 """
 
 import asyncio
@@ -87,16 +89,22 @@ def main():
     if not step2_ok:
         log.warning("⚠️ swing113_boga_oneshot.py başarısız. Devam ediliyor...")
 
-    # ── ADIM 3: Veri Tazeleme & Sektör/Zone Düzeltme ──
-    log.info("ADIM 3: refresh_swing_data.py (Sektör ve Zone Düzeltme) çalıştırılıyor...")
+    # ── ADIM 3: daily_comprehensive_analysis.py (Sektör/Altsektör Analiz) ──
+    log.info("ADIM 3: daily_comprehensive_analysis.py çalıştırılıyor...")
+    step3_ok = run_bot_subprocess("daily_comprehensive_analysis.py")
+    if not step3_ok:
+        log.warning("⚠️ daily_comprehensive_analysis.py başarısız. Devam ediliyor...")
+
+    # ── ADIM 4: Veri Tazeleme & Sektör/Zone Düzeltme ──
+    log.info("ADIM 4: refresh_swing_data.py (Sektör ve Zone Düzeltme) çalıştırılıyor...")
     run_bot_subprocess("refresh_swing_data.py")
 
-    # ── ADIM 4: swing_performance (Geçmiş Performans) güncelle ──
-    log.info("ADIM 4: update_swing_performance.py güncelleniyor...")
+    # ── ADIM 5: swing_performance (Geçmiş Performans) güncelle ──
+    log.info("ADIM 5: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
 
     log.info("=" * 60)
-    log.info("ADIM 4: Veriler GitHub'a yükleniyor (Git Push)...")
+    log.info("ADIM 6: Veriler GitHub'a yükleniyor (Git Push)...")
     try:
         subprocess.run(["git", "add", "."], cwd=FINMA_DIR, check=True)
         # Using a reliable date tag
