@@ -76,8 +76,8 @@ export default function SectorScreener() {
 
   const handleViewStocks = () => {
     if (selectedSector && selectedSubsector) {
-      const sectorSlug = selectedSector.toLowerCase().replace(/\s+/g, "-");
-      const subsectorSlug = selectedSubsector.toLowerCase().replace(/\s+/g, "-");
+      const sectorSlug = selectedSector.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and");
+      const subsectorSlug = selectedSubsector.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and");
       router.push(`/sector/${sectorSlug}/${subsectorSlug}`);
     }
   };

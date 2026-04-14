@@ -79,11 +79,11 @@ async function loadSectorData(): Promise<SectorAnalysis | null> {
 }
 
 export async function generateMetadata({
-  params: { sector, subsector },
+  params: { slug, subsector },
 }: {
-  params: { sector: string; subsector: string };
+  params: { slug: string; subsector: string };
 }): Promise<Metadata> {
-  const decodedSector = decodeURIComponent(sector).replace(/-/g, " ");
+  const decodedSector = decodeURIComponent(slug).replace(/-/g, " ");
   const decodedSubsector = decodeURIComponent(subsector).replace(/-/g, " ");
 
   return {
@@ -93,14 +93,14 @@ export async function generateMetadata({
 }
 
 export default async function SubsectorPage({
-  params: { sector, subsector },
+  params: { slug, subsector },
 }: {
-  params: { sector: string; subsector: string };
+  params: { slug: string; subsector: string };
 }) {
   const sectorData = await loadSectorData();
 
   // Decode URL params
-  const decodedSector = decodeURIComponent(sector).split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+  const decodedSector = decodeURIComponent(slug).split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
   const decodedSubsector = decodeURIComponent(subsector).split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
   // Find matching sector (case-insensitive)
@@ -154,7 +154,7 @@ export default async function SubsectorPage({
             Home
           </Link>
           <span>/</span>
-          <Link href={`/sector/${sector}`} className="hover:text-white transition-colors">
+          <Link href={`/sector/${slug}`} className="hover:text-white transition-colors">
             {decodedSector}
           </Link>
           <span>/</span>
