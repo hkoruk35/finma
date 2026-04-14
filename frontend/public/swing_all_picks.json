@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-14T05:29:39.013800-04:00",
+  "generated_at": "2026-04-14T05:58:43.602250",
   "date": "2026-04-14",
   "model": "BOGA AI V114",
   "market_regime": "BULLISH",
@@ -13,7 +13,7 @@
       "score": 58.9,
       "boga_score": 58.9,
       "market_regime": "BULLISH",
-      "current_price": 77.87000274658203,
+      "current_price": 77.87,
       "holding_period": "10-15 Days",
       "buy_zone": {
         "low": 76.34,
@@ -97,8 +97,8 @@
         "1d_pct": 4.4,
         "1w_pct": 7.73,
         "1m_pct": 14.55,
-        "1y_pct": 123.44,
-        "5y_pct": 31.54
+        "1y_pct": 141.01,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 4.0,
@@ -128,7 +128,9 @@
           "fr": "BOGA AI a identifié BBIO comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 63.1, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi BBIO sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 63.1, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 14.55,
+      "change_1y": 141.01
     },
     {
       "rank": 2,
@@ -138,7 +140,7 @@
       "score": 58.0,
       "boga_score": 58.0,
       "market_regime": "BULLISH",
-      "current_price": 117.2699966430664,
+      "current_price": 117.27,
       "holding_period": "10-15 Days",
       "buy_zone": {
         "low": 116.29,
@@ -222,8 +224,8 @@
         "1d_pct": -0.53,
         "1w_pct": 10.29,
         "1m_pct": 17.59,
-        "1y_pct": 37.73,
-        "5y_pct": 155.83
+        "1y_pct": 41.9,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 4.0,
@@ -253,7 +255,9 @@
           "fr": "BOGA AI a identifié CRH comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 64.2, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi CRH sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 64.2, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 17.59,
+      "change_1y": 41.9
     },
     {
       "rank": 3,
@@ -263,7 +267,7 @@
       "score": 57.3,
       "boga_score": 57.3,
       "market_regime": "BULLISH",
-      "current_price": 128.22000122070312,
+      "current_price": 128.22,
       "holding_period": "6-11 Days",
       "buy_zone": {
         "low": 124.63,
@@ -347,8 +351,8 @@
         "1d_pct": 3.57,
         "1w_pct": 22.73,
         "1m_pct": 45.05,
-        "1y_pct": 372.44,
-        "5y_pct": 263.74
+        "1y_pct": 388.83,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 4.0,
@@ -378,7 +382,9 @@
           "fr": "BOGA AI a identifié FORM comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 74.7, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi FORM sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 74.7, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 45.05,
+      "change_1y": 388.83
     },
     {
       "rank": 4,
@@ -388,7 +394,7 @@
       "score": 55.8,
       "boga_score": 55.8,
       "market_regime": "BULLISH",
-      "current_price": 61.380001068115234,
+      "current_price": 61.38,
       "holding_period": "6-11 Days",
       "buy_zone": {
         "low": 61.04,
@@ -472,8 +478,8 @@
         "1d_pct": 3.02,
         "1w_pct": 8.89,
         "1m_pct": 91.87,
-        "1y_pct": 654.05,
-        "5y_pct": 172.51
+        "1y_pct": 732.84,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 8.0,
@@ -503,7 +509,9 @@
           "fr": "BOGA AI a identifié ORKA comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 75.0, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi ORKA sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 75.0, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 91.87,
+      "change_1y": 732.84
     },
     {
       "rank": 5,
@@ -513,7 +521,7 @@
       "score": 55.6,
       "boga_score": 55.6,
       "market_regime": "BULLISH",
-      "current_price": 173.6699981689453,
+      "current_price": 173.67,
       "holding_period": "10-15 Days",
       "buy_zone": {
         "low": 172.23,
@@ -597,8 +605,8 @@
         "1d_pct": 1.02,
         "1w_pct": 5.61,
         "1m_pct": 6.57,
-        "1y_pct": 53.19,
-        "5y_pct": 96.18
+        "1y_pct": 60.75,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 4.0,
@@ -628,7 +636,9 @@
           "fr": "BOGA AI a identifié RY comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 69.5, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi RY sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 69.5, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 6.57,
+      "change_1y": 60.75
     },
     {
       "rank": 6,
@@ -638,7 +648,7 @@
       "score": 53.9,
       "boga_score": 53.9,
       "market_regime": "BULLISH",
-      "current_price": 22.329999923706055,
+      "current_price": 22.33,
       "holding_period": "9-14 Days",
       "buy_zone": {
         "low": 21.87,
@@ -722,8 +732,8 @@
         "1d_pct": -1.85,
         "1w_pct": 13.64,
         "1m_pct": 23.23,
-        "1y_pct": 53.55,
-        "5y_pct": -5.26
+        "1y_pct": 58.2,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 6.0,
@@ -753,7 +763,9 @@
           "fr": "BOGA AI a identifié LEVI comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 69.8, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi LEVI sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 69.8, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 23.23,
+      "change_1y": 58.2
     },
     {
       "rank": 7,
@@ -763,7 +775,7 @@
       "score": 53.2,
       "boga_score": 53.2,
       "market_regime": "BULLISH",
-      "current_price": 161.10000610351562,
+      "current_price": 161.1,
       "holding_period": "10-15 Days",
       "buy_zone": {
         "low": 159.48,
@@ -847,8 +859,8 @@
         "1d_pct": 0.69,
         "1w_pct": 8.28,
         "1m_pct": 21.5,
-        "1y_pct": 84.3,
-        "5y_pct": 106.35
+        "1y_pct": 89.86,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 6.0,
@@ -878,7 +890,9 @@
           "fr": "BOGA AI a identifié CRUS comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 71.7, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi CRUS sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 71.7, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 21.5,
+      "change_1y": 89.86
     },
     {
       "rank": 8,
@@ -888,7 +902,7 @@
       "score": 52.8,
       "boga_score": 52.8,
       "market_regime": "BULLISH",
-      "current_price": 256.989990234375,
+      "current_price": 256.99,
       "holding_period": "6-11 Days",
       "buy_zone": {
         "low": 249.46,
@@ -972,8 +986,8 @@
         "1d_pct": 6.43,
         "1w_pct": 19.6,
         "1m_pct": 33.9,
-        "1y_pct": 231.99,
-        "5y_pct": 1361.0
+        "1y_pct": 232.16,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 0.0,
@@ -1003,7 +1017,9 @@
           "fr": "BOGA AI a identifié MOD comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 68.8, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi MOD sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 68.8, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 33.9,
+      "change_1y": 232.16
     },
     {
       "rank": 9,
@@ -1013,7 +1029,7 @@
       "score": 41.5,
       "boga_score": 41.5,
       "market_regime": "BULLISH",
-      "current_price": 100.22000122070312,
+      "current_price": 100.22,
       "holding_period": "10-15 Days",
       "buy_zone": {
         "low": 98.25,
@@ -1097,8 +1113,8 @@
         "1d_pct": 0.46,
         "1w_pct": 12.59,
         "1m_pct": 25.86,
-        "1y_pct": 10.37,
-        "5y_pct": -1.01
+        "1y_pct": 4.94,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 6.0,
@@ -1128,7 +1144,9 @@
           "fr": "BOGA AI a identifié CROX comme une opportunité de swing trade convaincante. L'action est en tendance EMA200 Üstü avec un RSI à 73.1, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi CROX sebagai peluang swing trade yang menarik. Saham berada dalam tren EMA200 Üstü dengan RSI 73.1, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 25.86,
+      "change_1y": 4.94
     },
     {
       "rank": 10,
@@ -1138,7 +1156,7 @@
       "score": 35.4,
       "boga_score": 35.4,
       "market_regime": "BULLISH",
-      "current_price": 87.62999725341797,
+      "current_price": 87.63,
       "holding_period": "8-13 Days",
       "buy_zone": {
         "low": 85.62,
@@ -1222,8 +1240,8 @@
         "1d_pct": 6.71,
         "1w_pct": 8.92,
         "1m_pct": 15.81,
-        "1y_pct": 144.84,
-        "5y_pct": 147.82
+        "1y_pct": 163.0,
+        "5y_pct": 0
       },
       "factor_scores": {
         "trend_score": 0.0,
@@ -1253,7 +1271,9 @@
           "fr": "BOGA AI a identifié SQM comme une opportunité de swing trade convaincante. L'action est en tendance Makro Bullish avec un RSI à 65.1, indiquant un momentum sans surextension. Le volume et l'action des prix confirment une accumulation institutionnelle. Le rapport risque/récompense offre des rendements favorables par rapport au stop loss défini.",
           "id": "BOGA AI mengidentifikasi SQM sebagai peluang swing trade yang menarik. Saham berada dalam tren Makro Bullish dengan RSI 65.1, menunjukkan momentum tanpa berlebihan. Volume dan aksi harga mengkonfirmasi akumulasi institusional. Rasio risiko/imbalan menawarkan keuntungan yang menguntungkan relatif terhadap stop loss."
         }
-      }
+      },
+      "change_1m": 15.81,
+      "change_1y": 163.0
     }
   ]
 }
