@@ -75,13 +75,13 @@ def update_performance_live():
             for p in today_picks_list:
                 tickers_to_update.add(p['ticker'])
 
-    # 5. Fetch live prices via yfinance
+    # 5. Fetch live prices + peak within 30-day window via yfinance
     live_prices = {}
+    peak_data   = {}   # ticker -> {price, date, days_to_peak}
+
     if tickers_to_update:
         logging.info(f"Fetching live prices for {len(tickers_to_update)} tickers...")
-        # Download in bulk
         try:
-            # Using 5d to ensure we get at least one close
             data = yf.download(list(tickers_to_update), period="5d", interval="1d", group_by='ticker', auto_adjust=True, progress=False)
             for ticker in tickers_to_update:
                 try:
@@ -96,27 +96,79 @@ def update_performance_live():
         except Exception as e:
             logging.error(f"Error fetching live prices: {e}")
 
-    # 6. Update history records
+        # Per-ticker: fetch 30-day window High to find peak date
+        for ticker in tickers_to_update:
+            # Find earliest entry for this ticker in the active window
+            relevant = [r for r in history
+                        if r['ticker'] == ticker
+                        and (today_date - datetime.strptime(r['date'], '%Y-%m-%d')).days <= 30]
+            if not relevant:
+                continue
+            earliest_entry = min(datetime.strptime(r['date'], '%Y-%m-%d') for r in relevant)
+            window_end = min(earliest_entry + timedelta(days=30), today_date)
+            try:
+                hist = yf.Ticker(ticker).history(
+                    start=earliest_entry.strftime('%Y-%m-%d'),
+                    end=(window_end + timedelta(days=1)).strftime('%Y-%m-%d')
+                )
+                if not hist.empty:
+                    hist.index = hist.index.tz_localize(None) if hist.index.tzinfo else hist.index
+                    peak_data[ticker] = {
+                        'hist': hist,
+                        'earliest_entry': earliest_entry,
+                    }
+            except Exception as e:
+                logging.warning(f"Peak data fetch error for {ticker}: {e}")
+
+    # 6. Update history records — days = days to peak (not days since entry)
     for record in history:
         ticker = record['ticker']
         try:
             entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-            # STRICT REQUIREMENT: Only update records <= 30 days old
-            if (today_date - entry_date).days > 30:
+            days_since_entry = (today_date - entry_date).days
+
+            # STRICT: Only update records <= 30 days old
+            if days_since_entry > 30:
                 continue
 
+            # Re-calculate peak within 30-day window from actual historical data
+            if ticker in peak_data:
+                hist = peak_data[ticker]['hist']
+                mask = hist.index.normalize() >= pd.Timestamp(entry_date)
+                window = hist[mask]
+
+                if not window.empty:
+                    peak_idx   = window['High'].idxmax()
+                    peak_price = float(window['High'].max())
+                    peak_date  = peak_idx.normalize()
+                    days_to_peak = int((peak_date - pd.Timestamp(entry_date)).days)
+                    days_to_peak = max(0, days_to_peak)
+
+                    entry_price = record.get('entry', 0)
+                    if entry_price > 0:
+                        return_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
+                    else:
+                        return_pct = 0.0
+
+                    record['max_price']  = round(peak_price, 2)
+                    record['peak_date']  = peak_date.strftime('%Y-%m-%d')
+                    record['days']       = days_to_peak
+                    record['return_pct'] = return_pct
+                    continue   # skip legacy fallback below
+
+            # Fallback: use live close price if no peak data
             if ticker in live_prices:
                 current_price = live_prices[ticker]
-                # Update max price achieved
                 if current_price > record.get('max_price', 0):
-                    record['max_price'] = current_price
-                
-                # Update current return based on max price
-                if record.get('entry', 0) > 0:
-                    record['return_pct'] = round(((record['max_price'] - record['entry']) / record['entry']) * 100, 2)
-                
-                record['days'] = (today_date - entry_date).days
-        except: pass
+                    record['max_price'] = round(current_price, 2)
+                entry_price = record.get('entry', 0)
+                if entry_price > 0:
+                    record['return_pct'] = round(((record['max_price'] - entry_price) / entry_price) * 100, 2)
+                # Keep days as 0 (same day) rather than days_since_entry
+                if not record.get('days'):
+                    record['days'] = 0
+        except Exception as e:
+            logging.warning(f"Update error for {record.get('ticker')}: {e}")
 
     # 7. Add today's new picks if not already there today
     existing_today_tickers = [r['ticker'] for r in history if r['date'] == today_str]

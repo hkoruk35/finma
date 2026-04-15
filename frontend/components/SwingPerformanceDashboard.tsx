@@ -12,7 +12,9 @@ interface Trade {
   entry: number;
   max_price: number;
   return_pct: number;
-  days: number;
+  days: number;          // days from entry to peak (bekleme süresi)
+  peak_date?: string;    // date of the peak price
+  result?: string;
 }
 
 interface Props {
@@ -242,12 +244,13 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                         <p className="font-mono font-bold text-white text-sm">${t.entry.toFixed(2)}</p>
                      </div>
                      <div>
-                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-tighter mb-1">Peak</p>
+                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-tighter mb-1">Peak Price</p>
                         <p className="font-mono font-bold text-white text-sm">${t.max_price.toFixed(2)}</p>
+                        {t.peak_date && <p className="text-[9px] text-[#64748b] mt-0.5">{t.peak_date}</p>}
                      </div>
                      <div className="text-right">
-                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-tighter mb-1">Days</p>
-                        <p className="font-mono font-bold text-white text-sm">{t.days}</p>
+                        <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-tighter mb-1">Days to Peak</p>
+                        <p className="font-mono font-bold text-white text-sm">{t.result === 'PENDING' ? '—' : t.days}d</p>
                      </div>
                   </div>
                </div>
@@ -265,8 +268,8 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                         <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Symbol</th>
                         <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right text-[#3b82f6]">Max Return</th>
                         <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Entry Price</th>
-                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Max Price</th>
-                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-center">Days Held</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-right">Peak Price</th>
+                        <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px] text-center">Days to Peak</th>
                         <th className="px-6 py-4 font-bold uppercase tracking-wider text-[10px]">Sector</th>
                      </tr>
                   </thead>
@@ -292,8 +295,13 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                               {t.return_pct >= 0 ? "+" : ""}{t.return_pct.toFixed(2)}%
                            </td>
                            <td className="px-6 py-4 text-right">${t.entry.toFixed(2)}</td>
-                           <td className="px-6 py-4 text-right">${t.max_price.toFixed(2)}</td>
-                           <td className="px-6 py-4 text-center text-[#64748b]">{t.days}</td>
+                           <td className="px-6 py-4 text-right">
+                             <span>${t.max_price.toFixed(2)}</span>
+                             {t.peak_date && <span className="block text-[10px] text-[#64748b] mt-0.5">{t.peak_date}</span>}
+                           </td>
+                           <td className="px-6 py-4 text-center text-[#64748b]">
+                             {t.result === 'PENDING' ? <span className="text-[#3b82f6] text-[10px] font-bold">PENDING</span> : `${t.days}d`}
+                           </td>
                            <td className="px-6 py-4 text-[#94a3b8] text-[10px] uppercase">{t.sector || "Unknown"}</td>
                         </tr>
                         );
