@@ -54,6 +54,7 @@ function sanitizeEn(text: string): string {
 export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [quoteData, setQuoteData] = useState<Record<string, { change_1d: number | null; change_1w: number | null; change_1m: number | null; change_1y: number | null }>>({});
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -67,6 +68,23 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // Tickers için change verisi eksikse Yahoo Finance'dan çek
+  useEffect(() => {
+    if (!picks || picks.length === 0) return;
+    const missing = picks
+      .slice(0, 3)
+      .filter((p) => {
+        const live = allTickers?.find((t: any) => t.ticker === p.ticker);
+        return !live && p.change_1d === undefined;
+      })
+      .map((p) => p.ticker);
+    if (missing.length === 0) return;
+    fetch(`/api/quote?tickers=${missing.join(",")}`)
+      .then((r) => r.ok ? r.json() : {})
+      .then((data) => setQuoteData(data))
+      .catch(() => {});
+  }, [picks, allTickers]);
 
   if (!picks || picks.length === 0) return null;
 
@@ -190,18 +208,19 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
                 {/* Performance strip — bordered pill container */}
                 {(() => {
+                  const q = quoteData[item.ticker];
                   const metrics = [
-                    { label: "1D", val: liveData?.change_pct ?? item.change_1d },
-                    { label: "1W", val: liveData?.change_pct_1w ?? item.change_1w },
-                    { label: "1M", val: liveData?.change_pct_1m ?? item.change_1m },
-                    { label: "1Y", val: liveData?.change_pct_1y ?? item.change_1y }
+                    { label: "1D", val: liveData?.change_pct ?? item.change_1d ?? q?.change_1d },
+                    { label: "1W", val: liveData?.change_pct_1w ?? item.change_1w ?? q?.change_1w },
+                    { label: "1M", val: liveData?.change_pct_1m ?? item.change_1m ?? q?.change_1m },
+                    { label: "1Y", val: liveData?.change_pct_1y ?? item.change_1y ?? q?.change_1y }
                   ];
                   return (
                     <div className="grid grid-cols-4 divide-x divide-[#1e2a3a] border border-[#1e2a3a] rounded-xl overflow-hidden">
                       {metrics.map((p, i) => (
                         <div key={i} className="flex flex-col items-center py-3 px-1">
-                          <span className={`text-[15px] md:text-[17px] font-mono font-black ${p.val !== undefined && p.val >= 0 ? "text-[#10b981]" : p.val !== undefined ? "text-[#ef4444]" : "text-[#64748b]"}`}>
-                            {p.val !== undefined ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
+                          <span className={`text-[15px] md:text-[17px] font-mono font-black ${p.val != null && p.val >= 0 ? "text-[#10b981]" : p.val != null ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                            {p.val != null ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
                           </span>
                           <span className="text-[10px] text-[#64748b] font-black mt-1 uppercase">{p.label}</span>
                         </div>

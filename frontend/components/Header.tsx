@@ -104,7 +104,7 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-8">
-          <NavLink href="/swing-picks" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top 3 Swing Picks</NavLink>
+          <NavLink href="/swing-picks" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top Swing Picks</NavLink>
           <NavLink href="/category/top-scores" isMemberOnly className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Top Scores</NavLink>
           <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-colors">Performance</NavLink>
           <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
@@ -166,7 +166,7 @@ export default function Header() {
       {isOpen && (
         <div className="xl:hidden bg-[#0d1117] border-b border-[#1e2a3a] px-4 py-8 animate-in slide-in-from-top duration-300 max-h-[80vh] overflow-y-auto">
           <nav className="flex flex-col gap-6">
-            <NavLink href="/swing-picks" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top 3 Swing Picks</NavLink>
+            <NavLink href="/swing-picks" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top Swing Picks</NavLink>
             <NavLink href="/category/top-scores" isMemberOnly className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Top Scores</NavLink>
             <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-[#94a3b8]">Performance</NavLink>
             <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
