@@ -65,12 +65,8 @@ export default function SectorScreener() {
       const subsectorList = Object.keys(sectorData[selectedSector]?.subsectors || {}).sort();
       setSubsectors(subsectorList);
 
-      // Reset subsector selection when sector changes
-      if (subsectorList.length > 0) {
-        setSelectedSubsector(subsectorList[0]);
-      } else {
-        setSelectedSubsector("");
-      }
+      // Auto-select "All Subsectors" when sector changes
+      setSelectedSubsector("all");
     }
   }, [selectedSector, sectorData]);
 
@@ -152,7 +148,7 @@ export default function SectorScreener() {
         {/* Subsector Selector */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">
-            Subsector ({subsectors.length})
+            Subsector / Category
           </label>
           <select
             value={selectedSubsector}
@@ -160,7 +156,7 @@ export default function SectorScreener() {
             className="w-full px-4 py-3 bg-[#0a0e17] border border-[#1e2a3a] rounded-lg text-white focus:outline-none focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all"
             disabled={subsectors.length === 0}
           >
-            <option value="">Select a subsector</option>
+            <option value="all">All Subsectors</option>
             {subsectors.map((subsector) => (
               <option key={subsector} value={subsector}>
                 {subsector}
@@ -171,10 +167,23 @@ export default function SectorScreener() {
       </div>
 
       {/* Info Text */}
-      {selectedSector && selectedSubsector && sectorData && (
+      {selectedSector && sectorData && (
         <div className="text-xs text-[#64748b] bg-[#0a0e17] px-3 py-2 rounded border border-[#1e2a3a]">
-          📊 {sectorData[selectedSector]?.subsectors[selectedSubsector]?.length || 0} stocks in{" "}
-          <span className="text-[#94a3b8] font-semibold">{selectedSubsector}</span>
+          📊{" "}
+          {selectedSubsector === "all" ? (
+            <>
+              {Object.values(sectorData[selectedSector]?.subsectors || {}).reduce(
+                (total, arr) => total + arr.length,
+                0
+              )}{" "}
+              stocks in <span className="text-[#94a3b8] font-semibold">All {selectedSector}</span>
+            </>
+          ) : (
+            <>
+              {sectorData[selectedSector]?.subsectors[selectedSubsector]?.length || 0} stocks in{" "}
+              <span className="text-[#94a3b8] font-semibold">{selectedSubsector}</span>
+            </>
+          )}
         </div>
       )}
 
