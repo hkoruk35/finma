@@ -1,11 +1,11 @@
 {
   "stats": {
     "total_picks": 548,
-    "win_rate": 98.5,
-    "avg_return_pct": 11.2,
-    "period_days": 180,
-    "above_5pct_rate": 59.3,
-    "above_10pct_rate": 33.9
+    "win_rate": 93.8,
+    "avg_return_pct": 8.6,
+    "period_days": 90,
+    "above_5pct_rate": 47.8,
+    "above_10pct_rate": 21.4
   },
   "history": [
     {
@@ -190,11 +190,10 @@
       "company": "Nokia",
       "sector": "Technology",
       "entry": 10.42,
-      "max_price": 10.56,
-      "return_pct": 1.34,
+      "max_price": 10.42,
+      "return_pct": 0.0,
       "days": 1,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-13",
@@ -202,11 +201,10 @@
       "company": "FormFactor",
       "sector": "Technology",
       "entry": 132.08,
-      "max_price": 136.0,
-      "return_pct": 2.97,
-      "days": 0,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 132.14999389648438,
+      "return_pct": 0.05,
+      "days": 1,
+      "result": "PENDING"
     },
     {
       "date": "2026-04-13",
@@ -214,11 +212,10 @@
       "company": "Celestica",
       "sector": "Technology",
       "entry": 363.25,
-      "max_price": 392.04,
-      "return_pct": 7.92,
+      "max_price": 390.3999938964844,
+      "return_pct": 7.47,
       "days": 1,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-13",
@@ -226,11 +223,10 @@
       "company": "Avis Budget Group",
       "sector": "Industrials",
       "entry": 336.0,
-      "max_price": 415.26,
-      "return_pct": 23.59,
+      "max_price": 411.55999755859375,
+      "return_pct": 22.49,
       "days": 1,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "PENDING"
     },
     {
       "date": "2026-04-10",
@@ -238,11 +234,10 @@
       "company": "SuRo Capital Corp.",
       "sector": "Financial Services",
       "entry": 11.91,
-      "max_price": 13.12,
-      "return_pct": 10.16,
+      "max_price": 13.065500259399414,
+      "return_pct": 9.7,
       "days": 4,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "LOSS"
     },
     {
       "date": "2026-04-09",
@@ -250,11 +245,10 @@
       "company": "Nokia Corporation Sponsored",
       "sector": "Technology",
       "entry": 9.55,
-      "max_price": 10.56,
-      "return_pct": 10.58,
+      "max_price": 10.414999961853027,
+      "return_pct": 9.06,
       "days": 5,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-04-09",
@@ -262,11 +256,10 @@
       "company": "Intel Corporation",
       "sector": "Technology",
       "entry": 61.72,
-      "max_price": 65.65,
-      "return_pct": 6.37,
-      "days": 4,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 65.18000030517578,
+      "return_pct": 5.61,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-04-09",
@@ -274,11 +267,10 @@
       "company": "Avis Budget Group, Inc.",
       "sector": "Industrials",
       "entry": 297.08,
-      "max_price": 415.26,
-      "return_pct": 39.78,
+      "max_price": 411.55999755859375,
+      "return_pct": 38.54,
       "days": 5,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-04-08",
@@ -286,11 +278,10 @@
       "company": "Spire Global, Inc.",
       "sector": "Industrials",
       "entry": 20.5,
-      "max_price": 23.59,
-      "return_pct": 15.07,
-      "days": 5,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 23.139999389648438,
+      "return_pct": 12.88,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-04-07",
@@ -300,9 +291,8 @@
       "entry": 16.27,
       "max_price": 17.36,
       "return_pct": 6.7,
-      "days": 3,
-      "result": "PENDING",
-      "peak_date": "2026-04-10"
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-04-06",
@@ -310,11 +300,10 @@
       "company": "Relay Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 12.45,
-      "max_price": 15.89,
-      "return_pct": 27.63,
+      "max_price": 15.42,
+      "return_pct": 23.86,
       "days": 8,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-04-06",
@@ -322,11 +311,10 @@
       "company": "MeiraGTx Holdings plc",
       "sector": "Healthcare",
       "entry": 9.52,
-      "max_price": 11.59,
-      "return_pct": 21.74,
+      "max_price": 11.444999694824219,
+      "return_pct": 20.22,
       "days": 8,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-04-06",
@@ -334,11 +322,10 @@
       "company": "Eastman Kodak Company",
       "sector": "Industrials",
       "entry": 11.49,
-      "max_price": 12.73,
-      "return_pct": 10.79,
+      "max_price": 12.46,
+      "return_pct": 8.44,
       "days": 8,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-04-06",
@@ -346,11 +333,10 @@
       "company": "Simplify Managed Futures Strate",
       "sector": "Unknown",
       "entry": 30.96,
-      "max_price": 31.28,
-      "return_pct": 1.03,
-      "days": 0,
-      "result": "PENDING",
-      "peak_date": "2026-04-06"
+      "max_price": 31.26,
+      "return_pct": 0.97,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-03-30",
@@ -358,11 +344,10 @@
       "company": "South Bow Corporation",
       "sector": "Energy",
       "entry": 33.76,
-      "max_price": 34.39,
-      "return_pct": 1.87,
-      "days": 0,
-      "result": "PENDING",
-      "peak_date": "2026-03-30"
+      "max_price": 34.15,
+      "return_pct": 1.16,
+      "days": 15,
+      "result": "WIN"
     },
     {
       "date": "2026-03-30",
@@ -370,11 +355,10 @@
       "company": "Eastman Kodak Company",
       "sector": "Industrials",
       "entry": 8.76,
-      "max_price": 12.73,
-      "return_pct": 45.32,
+      "max_price": 12.46,
+      "return_pct": 42.24,
       "days": 15,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-30",
@@ -382,11 +366,10 @@
       "company": "D/B/A Compass Diversified Holdi",
       "sector": "Industrials",
       "entry": 7.67,
-      "max_price": 10.42,
+      "max_price": 10.420000076293945,
       "return_pct": 35.85,
       "days": 15,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-26",
@@ -394,11 +377,10 @@
       "company": "Enliven Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 39.29,
-      "max_price": 46.31,
-      "return_pct": 17.87,
-      "days": 15,
-      "result": "PENDING",
-      "peak_date": "2026-04-10"
+      "max_price": 46.3,
+      "return_pct": 17.84,
+      "days": 19,
+      "result": "WIN"
     },
     {
       "date": "2026-03-26",
@@ -406,11 +388,10 @@
       "company": "AAR Corp.",
       "sector": "Industrials",
       "entry": 110.82,
-      "max_price": 127.21,
-      "return_pct": 14.79,
+      "max_price": 126.63999938964844,
+      "return_pct": 14.28,
       "days": 19,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-25",
@@ -418,11 +399,10 @@
       "company": "Enliven Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 35.53,
-      "max_price": 46.31,
-      "return_pct": 30.34,
-      "days": 16,
-      "result": "PENDING",
-      "peak_date": "2026-04-10"
+      "max_price": 45.0099983215332,
+      "return_pct": 26.68,
+      "days": 20,
+      "result": "WIN"
     },
     {
       "date": "2026-03-25",
@@ -430,11 +410,10 @@
       "company": "DigitalOcean Holdings, Inc.",
       "sector": "Technology",
       "entry": 87.0,
-      "max_price": 94.66,
-      "return_pct": 8.8,
-      "days": 14,
-      "result": "PENDING",
-      "peak_date": "2026-04-08"
+      "max_price": 92.45,
+      "return_pct": 6.26,
+      "days": 20,
+      "result": "WIN"
     },
     {
       "date": "2026-03-24",
@@ -442,11 +421,10 @@
       "company": "Brookfield Renewable Partners L",
       "sector": "Utilities",
       "entry": 31.3,
-      "max_price": 35.12,
-      "return_pct": 12.2,
-      "days": 20,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 34.939998626708984,
+      "return_pct": 11.63,
+      "days": 21,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -454,11 +432,10 @@
       "company": "ViaSat, Inc.",
       "sector": "Technology",
       "entry": 49.16,
-      "max_price": 59.19,
-      "return_pct": 20.4,
-      "days": 16,
-      "result": "PENDING",
-      "peak_date": "2026-04-08"
+      "max_price": 57.33000183105469,
+      "return_pct": 16.62,
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -466,11 +443,10 @@
       "company": "Tenaris S.A.",
       "sector": "Energy",
       "entry": 57.11,
-      "max_price": 60.64,
-      "return_pct": 6.18,
-      "days": 21,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 60.349998474121094,
+      "return_pct": 5.67,
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -480,9 +456,8 @@
       "entry": 46.73,
       "max_price": 53.75,
       "return_pct": 15.02,
-      "days": 9,
-      "result": "PENDING",
-      "peak_date": "2026-04-01"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -490,11 +465,10 @@
       "company": "Par Pacific Holdings, Inc. Comm",
       "sector": "Energy",
       "entry": 57.2,
-      "max_price": 67.39,
-      "return_pct": 17.81,
-      "days": 15,
-      "result": "PENDING",
-      "peak_date": "2026-04-07"
+      "max_price": 66.75,
+      "return_pct": 16.7,
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -504,9 +478,8 @@
       "entry": 56.94,
       "max_price": 62.6,
       "return_pct": 9.94,
-      "days": 4,
-      "result": "PENDING",
-      "peak_date": "2026-03-27"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -516,9 +489,8 @@
       "entry": 84.7,
       "max_price": 88.96,
       "return_pct": 5.03,
-      "days": 3,
-      "result": "PENDING",
-      "peak_date": "2026-03-26"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -526,11 +498,10 @@
       "company": "Ecovyst Inc.",
       "sector": "Basic Materials",
       "entry": 11.98,
-      "max_price": 14.43,
-      "return_pct": 20.49,
+      "max_price": 14.420000076293945,
+      "return_pct": 20.37,
       "days": 22,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -540,9 +511,8 @@
       "entry": 52.8,
       "max_price": 58.0,
       "return_pct": 9.85,
-      "days": 14,
-      "result": "PENDING",
-      "peak_date": "2026-04-06"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -552,9 +522,8 @@
       "entry": 137.04,
       "max_price": 139.37,
       "return_pct": 1.7,
-      "days": 1,
-      "result": "PENDING",
-      "peak_date": "2026-03-24"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -562,11 +531,10 @@
       "company": "Dana Incorporated",
       "sector": "Consumer Cyclical",
       "entry": 32.68,
-      "max_price": 36.95,
-      "return_pct": 13.05,
+      "max_price": 36.83000183105469,
+      "return_pct": 12.7,
       "days": 22,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -576,9 +544,8 @@
       "entry": 103.15,
       "max_price": 114.8,
       "return_pct": 11.29,
-      "days": 7,
-      "result": "PENDING",
-      "peak_date": "2026-03-30"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -586,11 +553,10 @@
       "company": "Chemours Company (The)",
       "sector": "Basic Materials",
       "entry": 18.5,
-      "max_price": 23.2,
-      "return_pct": 25.41,
-      "days": 21,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 23.049999237060547,
+      "return_pct": 24.59,
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -600,9 +566,8 @@
       "entry": 35.39,
       "max_price": 40.12,
       "return_pct": 13.37,
-      "days": 4,
-      "result": "PENDING",
-      "peak_date": "2026-03-27"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-23",
@@ -612,9 +577,8 @@
       "entry": 36.8,
       "max_price": 37.73,
       "return_pct": 2.53,
-      "days": 1,
-      "result": "PENDING",
-      "peak_date": "2026-03-24"
+      "days": 22,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -622,11 +586,10 @@
       "company": "Woodside Energy Group Limited",
       "sector": "Energy",
       "entry": 23.74,
-      "max_price": 24.91,
-      "return_pct": 4.93,
-      "days": 17,
-      "result": "PENDING",
-      "peak_date": "2026-04-07"
+      "max_price": 24.71,
+      "return_pct": 4.09,
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -634,11 +597,10 @@
       "company": "Vermilion Energy Inc.",
       "sector": "Energy",
       "entry": 13.04,
-      "max_price": 14.28,
-      "return_pct": 9.51,
-      "days": 10,
-      "result": "PENDING",
-      "peak_date": "2026-03-31"
+      "max_price": 13.67,
+      "return_pct": 4.83,
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -646,11 +608,10 @@
       "company": "Spire Global, Inc.",
       "sector": "Industrials",
       "entry": 12.82,
-      "max_price": 23.59,
-      "return_pct": 84.01,
-      "days": 23,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 23.139999389648438,
+      "return_pct": 80.5,
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -660,9 +621,8 @@
       "entry": 24.09,
       "max_price": 25.59,
       "return_pct": 6.23,
-      "days": 4,
-      "result": "PENDING",
-      "peak_date": "2026-03-25"
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -670,11 +630,10 @@
       "company": "Knife Riv Holding Co.",
       "sector": "Basic Materials",
       "entry": 84.7,
-      "max_price": 88.96,
-      "return_pct": 5.03,
-      "days": 5,
-      "result": "PENDING",
-      "peak_date": "2026-03-26"
+      "max_price": 88.63999938964844,
+      "return_pct": 4.65,
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -682,11 +641,10 @@
       "company": "Gladstone Investment Corporatio",
       "sector": "Financial Services",
       "entry": 14.25,
-      "max_price": 15.19,
-      "return_pct": 6.6,
+      "max_price": 15.170000076293945,
+      "return_pct": 6.46,
       "days": 24,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -696,9 +654,8 @@
       "entry": 30.37,
       "max_price": 31.5,
       "return_pct": 3.72,
-      "days": 3,
-      "result": "PENDING",
-      "peak_date": "2026-03-24"
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -706,11 +663,10 @@
       "company": "VAALCO Energy, Inc.",
       "sector": "Energy",
       "entry": 6.06,
-      "max_price": 6.72,
-      "return_pct": 10.89,
-      "days": 9,
-      "result": "PENDING",
-      "peak_date": "2026-03-30"
+      "max_price": 6.32,
+      "return_pct": 4.29,
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -718,11 +674,10 @@
       "company": "Diodes Incorporated",
       "sector": "Technology",
       "entry": 68.07,
-      "max_price": 89.14,
-      "return_pct": 30.95,
+      "max_price": 88.26000213623047,
+      "return_pct": 29.66,
       "days": 24,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -730,11 +685,10 @@
       "company": "Brookfield Renewable Partners L",
       "sector": "Utilities",
       "entry": 30.63,
-      "max_price": 35.12,
-      "return_pct": 14.66,
-      "days": 23,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 34.939998626708984,
+      "return_pct": 14.07,
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-21",
@@ -742,11 +696,10 @@
       "company": "Adecoagro S.A.",
       "sector": "Consumer Defensive",
       "entry": 13.19,
-      "max_price": 15.89,
-      "return_pct": 20.47,
-      "days": 10,
-      "result": "PENDING",
-      "peak_date": "2026-03-31"
+      "max_price": 14.95,
+      "return_pct": 13.34,
+      "days": 24,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -754,11 +707,10 @@
       "company": "United Therapeutics Corporation",
       "sector": "Healthcare",
       "entry": 534.3,
-      "max_price": 607.89,
-      "return_pct": 13.77,
-      "days": 14,
-      "result": "PENDING",
-      "peak_date": "2026-03-30"
+      "max_price": 581.7999877929688,
+      "return_pct": 8.89,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -766,11 +718,10 @@
       "company": "United Natural Foods, Inc.",
       "sector": "Consumer Defensive",
       "entry": 41.49,
-      "max_price": 48.13,
-      "return_pct": 16.0,
+      "max_price": 48.029998779296875,
+      "return_pct": 15.76,
       "days": 29,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -778,11 +729,10 @@
       "company": "Talkspace, Inc.",
       "sector": "Healthcare",
       "entry": 5.14,
-      "max_price": 5.2,
-      "return_pct": 1.17,
-      "days": 21,
-      "result": "PENDING",
-      "peak_date": "2026-04-06"
+      "max_price": 5.179999828338623,
+      "return_pct": 0.78,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -790,11 +740,10 @@
       "company": "Stagwell Inc.",
       "sector": "Communication Services",
       "entry": 5.98,
-      "max_price": 6.57,
-      "return_pct": 9.87,
+      "max_price": 6.559999942779541,
+      "return_pct": 9.7,
       "days": 29,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -802,11 +751,10 @@
       "company": "Relay Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 10.13,
-      "max_price": 15.89,
-      "return_pct": 56.86,
+      "max_price": 15.40999984741211,
+      "return_pct": 52.12,
       "days": 29,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -814,11 +762,10 @@
       "company": "Phillips 66",
       "sector": "Energy",
       "entry": 173.48,
-      "max_price": 190.61,
-      "return_pct": 9.87,
-      "days": 14,
-      "result": "PENDING",
-      "peak_date": "2026-03-30"
+      "max_price": 185.37,
+      "return_pct": 6.85,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -826,11 +773,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 19.17,
-      "max_price": 22.05,
-      "return_pct": 15.02,
-      "days": 28,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 21.969999313354492,
+      "return_pct": 14.61,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -838,11 +784,10 @@
       "company": "Occidental Petroleum Corporatio",
       "sector": "Energy",
       "entry": 57.25,
-      "max_price": 67.45,
-      "return_pct": 17.82,
-      "days": 15,
-      "result": "PENDING",
-      "peak_date": "2026-03-31"
+      "max_price": 62.26,
+      "return_pct": 8.75,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -850,11 +795,10 @@
       "company": "NAPCO Security Technologies, In",
       "sector": "Industrials",
       "entry": 42.84,
-      "max_price": 45.08,
-      "return_pct": 5.23,
+      "max_price": 44.16999816894531,
+      "return_pct": 3.1,
       "days": 29,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -862,11 +806,10 @@
       "company": "Nokia Corporation Sponsored",
       "sector": "Technology",
       "entry": 8.65,
-      "max_price": 10.56,
-      "return_pct": 22.08,
+      "max_price": 10.414999961853027,
+      "return_pct": 20.4,
       "days": 29,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -874,11 +817,10 @@
       "company": "LSB Industries, Inc.",
       "sector": "Basic Materials",
       "entry": 14.78,
-      "max_price": 17.22,
-      "return_pct": 16.51,
-      "days": 10,
-      "result": "PENDING",
-      "peak_date": "2026-03-26"
+      "max_price": 15.81,
+      "return_pct": 6.97,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -886,11 +828,10 @@
       "company": "Ericsson",
       "sector": "Technology",
       "entry": 11.97,
-      "max_price": 12.07,
-      "return_pct": 0.84,
-      "days": 25,
-      "result": "PENDING",
-      "peak_date": "2026-04-10"
+      "max_price": 12.12,
+      "return_pct": 1.25,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -898,11 +839,10 @@
       "company": "VAALCO Energy, Inc.",
       "sector": "Energy",
       "entry": 5.54,
-      "max_price": 6.72,
-      "return_pct": 21.3,
-      "days": 14,
-      "result": "PENDING",
-      "peak_date": "2026-03-30"
+      "max_price": 6.45,
+      "return_pct": 16.43,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -910,11 +850,10 @@
       "company": "Dianthus Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 78.0,
-      "max_price": 96.05,
-      "return_pct": 23.13,
+      "max_price": 95.37999725341797,
+      "return_pct": 22.28,
       "days": 29,
-      "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -922,11 +861,10 @@
       "company": "Darling Ingredients Inc.",
       "sector": "Consumer Defensive",
       "entry": 55.21,
-      "max_price": 64.9,
-      "return_pct": 17.55,
-      "days": 22,
-      "result": "PENDING",
-      "peak_date": "2026-04-07"
+      "max_price": 61.40999984741211,
+      "return_pct": 11.23,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -934,11 +872,10 @@
       "company": "CG Oncology, Inc.",
       "sector": "Healthcare",
       "entry": 65.9,
-      "max_price": 71.9,
-      "return_pct": 9.1,
-      "days": 23,
-      "result": "PENDING",
-      "peak_date": "2026-04-08"
+      "max_price": 69.35,
+      "return_pct": 5.24,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -946,11 +883,10 @@
       "company": "Capricor Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 30.56,
-      "max_price": 35.99,
-      "return_pct": 17.77,
-      "days": 28,
-      "result": "PENDING",
-      "peak_date": "2026-04-13"
+      "max_price": 34.720001220703125,
+      "return_pct": 13.61,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -958,11 +894,10 @@
       "company": "BP p.l.c.",
       "sector": "Energy",
       "entry": 42.9,
-      "max_price": 48.27,
-      "return_pct": 12.52,
-      "days": 15,
-      "result": "PENDING",
-      "peak_date": "2026-03-31"
+      "max_price": 46.79,
+      "return_pct": 9.07,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -972,9 +907,8 @@
       "entry": 55.34,
       "max_price": 59.42,
       "return_pct": 7.37,
-      "days": 10,
-      "result": "PENDING",
-      "peak_date": "2026-03-26"
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-16",
@@ -982,11 +916,10 @@
       "company": "Adeia Inc.",
       "sector": "Technology",
       "entry": 22.96,
-      "max_price": 27.59,
-      "return_pct": 20.17,
-      "days": 25,
-      "result": "PENDING",
-      "peak_date": "2026-04-10"
+      "max_price": 27.475000381469727,
+      "return_pct": 19.66,
+      "days": 29,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -994,11 +927,10 @@
       "company": "Woodside Energy Group Limited",
       "sector": "Energy",
       "entry": 21.28,
-      "max_price": 25.19,
-      "return_pct": 18.37,
-      "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 23.940000534057617,
+      "return_pct": 12.5,
+      "days": 40,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1006,11 +938,10 @@
       "company": "Smith & Nephew SNATS, Inc.",
       "sector": "Healthcare",
       "entry": 34.85,
-      "max_price": 34.65,
-      "return_pct": -0.56,
-      "days": 0,
-      "result": "FLAT",
-      "peak_date": "2026-03-05"
+      "max_price": 34.83,
+      "return_pct": -0.06,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-05",
@@ -1018,11 +949,10 @@
       "company": "Rayonier Advanced Materials Inc",
       "sector": "Basic Materials",
       "entry": 10.18,
-      "max_price": 11.85,
-      "return_pct": 16.4,
-      "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-03-17"
+      "max_price": 11.78,
+      "return_pct": 15.72,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1033,8 +963,7 @@
       "max_price": 30.33,
       "return_pct": 2.05,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-11"
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1042,11 +971,10 @@
       "company": "PubMatic, Inc.",
       "sector": "Technology",
       "entry": 8.87,
-      "max_price": 9.18,
-      "return_pct": 3.44,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 9.07,
+      "return_pct": 2.25,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1054,11 +982,10 @@
       "company": "Obsidian Energy Ltd.",
       "sector": "Energy",
       "entry": 8.62,
-      "max_price": 9.81,
-      "return_pct": 13.81,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-31"
+      "max_price": 8.9,
+      "return_pct": 3.25,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1066,11 +993,10 @@
       "company": "LSB Industries, Inc.",
       "sector": "Basic Materials",
       "entry": 13.96,
-      "max_price": 17.22,
-      "return_pct": 23.35,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 15.66,
+      "return_pct": 12.18,
+      "days": 40,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1078,11 +1004,10 @@
       "company": "Dorian LPG Ltd.",
       "sector": "Energy",
       "entry": 35.56,
-      "max_price": 37.0,
-      "return_pct": 4.05,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 35.34,
+      "return_pct": -0.62,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-05",
@@ -1093,8 +1018,7 @@
       "max_price": 30.94,
       "return_pct": 9.52,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-03-10"
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1102,11 +1026,10 @@
       "company": "IHS Holding Limited",
       "sector": "Real Estate",
       "entry": 8.09,
-      "max_price": 8.34,
-      "return_pct": 3.03,
-      "days": 19,
-      "result": "WIN",
-      "peak_date": "2026-03-24"
+      "max_price": 8.22,
+      "return_pct": 1.61,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1114,11 +1037,10 @@
       "company": "Day One Biopharmaceuticals, Inc",
       "sector": "Healthcare",
       "entry": 12.78,
-      "max_price": 21.47,
-      "return_pct": 68.0,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-04-02"
+      "max_price": 21.43,
+      "return_pct": 67.68,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1129,8 +1051,7 @@
       "max_price": 227.69,
       "return_pct": 4.34,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-03-10"
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1138,11 +1059,10 @@
       "company": "Criteo S.A.",
       "sector": "Communication Services",
       "entry": 19.29,
-      "max_price": 19.86,
-      "return_pct": 2.95,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 19.79,
+      "return_pct": 2.59,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1150,11 +1070,10 @@
       "company": "Bandwidth Inc.",
       "sector": "Technology",
       "entry": 16.15,
-      "max_price": 18.51,
-      "return_pct": 14.61,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-04-01"
+      "max_price": 16.69,
+      "return_pct": 3.34,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-03-05",
@@ -1162,11 +1081,10 @@
       "company": "Avalo Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 17.58,
-      "max_price": 18.52,
-      "return_pct": 5.35,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 18.35,
+      "return_pct": 4.38,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1174,11 +1092,10 @@
       "company": "V2X, Inc.",
       "sector": "Industrials",
       "entry": 73.93,
-      "max_price": 75.0,
-      "return_pct": 1.45,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 73.76,
+      "return_pct": -0.23,
+      "days": 5,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-04",
@@ -1186,11 +1103,10 @@
       "company": "Vista Energy S.A.B. de C.V.",
       "sector": "Energy",
       "entry": 59.69,
-      "max_price": 79.2,
-      "return_pct": 32.69,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-30"
+      "max_price": 65.5,
+      "return_pct": 9.73,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1198,11 +1114,10 @@
       "company": "Viavi Solutions Inc.",
       "sector": "Technology",
       "entry": 32.59,
-      "max_price": 38.08,
-      "return_pct": 16.85,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 32.08,
+      "return_pct": -1.56,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-04",
@@ -1213,8 +1128,7 @@
       "max_price": 73.25,
       "return_pct": 6.79,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1222,11 +1136,10 @@
       "company": "TriMas Corporation",
       "sector": "Consumer Cyclical",
       "entry": 39.52,
-      "max_price": 39.8,
-      "return_pct": 0.71,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 39.7,
+      "return_pct": 0.46,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1234,11 +1147,10 @@
       "company": "TransMedics Group, Inc.",
       "sector": "Healthcare",
       "entry": 147.66,
-      "max_price": 151.0,
-      "return_pct": 2.26,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 147.5,
+      "return_pct": -0.11,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-04",
@@ -1246,11 +1158,10 @@
       "company": "Tidewater Inc.",
       "sector": "Energy",
       "entry": 83.8,
-      "max_price": 88.14,
-      "return_pct": 5.18,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 84.93,
+      "return_pct": 1.35,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1258,11 +1169,10 @@
       "company": "USA TODAY Co., Inc.",
       "sector": "Communication Services",
       "entry": 6.27,
-      "max_price": 7.32,
-      "return_pct": 16.75,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-04-01"
+      "max_price": 6.67,
+      "return_pct": 6.38,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1270,11 +1180,10 @@
       "company": "Scholar Rock Holding Corporatio",
       "sector": "Healthcare",
       "entry": 47.43,
-      "max_price": 50.5,
-      "return_pct": 6.47,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-31"
+      "max_price": 48.15,
+      "return_pct": 1.52,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1282,11 +1191,10 @@
       "company": "Pebblebrook Hotel Trust",
       "sector": "Real Estate",
       "entry": 12.98,
-      "max_price": 13.08,
-      "return_pct": 0.77,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 13.05,
+      "return_pct": 0.54,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1294,11 +1202,10 @@
       "company": "Occidental Petroleum Corporatio",
       "sector": "Energy",
       "entry": 53.36,
-      "max_price": 67.45,
-      "return_pct": 26.41,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-31"
+      "max_price": 59.15,
+      "return_pct": 10.85,
+      "days": 41,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1306,11 +1213,10 @@
       "company": "Nexa Resources S.A.",
       "sector": "Basic Materials",
       "entry": 12.49,
-      "max_price": 13.4,
-      "return_pct": 7.29,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 12.19,
+      "return_pct": -2.4,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-04",
@@ -1318,11 +1224,10 @@
       "company": "MasTec, Inc.",
       "sector": "Industrials",
       "entry": 303.87,
-      "max_price": 341.4,
-      "return_pct": 12.35,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-04-01"
+      "max_price": 306.29,
+      "return_pct": 0.8,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1330,11 +1235,10 @@
       "company": "Golar LNG Limited",
       "sector": "Energy",
       "entry": 46.4,
-      "max_price": 56.21,
-      "return_pct": 21.14,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-04-02"
+      "max_price": 47.35,
+      "return_pct": 2.05,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1342,11 +1246,10 @@
       "company": "Equinor ASA",
       "sector": "Energy",
       "entry": 31.58,
-      "max_price": 43.46,
-      "return_pct": 37.62,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-31"
+      "max_price": 35.67,
+      "return_pct": 12.95,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1354,11 +1257,10 @@
       "company": "Dell Technologies Inc.",
       "sector": "Technology",
       "entry": 147.1,
-      "max_price": 186.39,
-      "return_pct": 26.71,
-      "days": 22,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 152.95,
+      "return_pct": 3.98,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1366,11 +1268,10 @@
       "company": "Crescent Energy Company",
       "sector": "Energy",
       "entry": 11.39,
-      "max_price": 14.02,
-      "return_pct": 23.09,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-03-27"
+      "max_price": 12.16,
+      "return_pct": 6.76,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1378,11 +1279,10 @@
       "company": "Celldex Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 29.54,
-      "max_price": 34.52,
-      "return_pct": 16.86,
-      "days": 19,
-      "result": "WIN",
-      "peak_date": "2026-03-23"
+      "max_price": 31.99,
+      "return_pct": 8.29,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1393,8 +1293,7 @@
       "max_price": 39.71,
       "return_pct": 0.94,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-10"
+      "result": "WIN"
     },
     {
       "date": "2026-03-04",
@@ -1402,11 +1301,10 @@
       "company": "BrightSpring Health Services, I",
       "sector": "Healthcare",
       "entry": 41.96,
-      "max_price": 45.59,
-      "return_pct": 8.65,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 42.5,
+      "return_pct": 1.29,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1417,8 +1315,7 @@
       "max_price": 75.0,
       "return_pct": 2.85,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1429,8 +1326,7 @@
       "max_price": 73.25,
       "return_pct": 9.1,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1441,8 +1337,7 @@
       "max_price": 39.8,
       "return_pct": 3.84,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1453,8 +1348,7 @@
       "max_price": 151.0,
       "return_pct": 2.03,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1462,11 +1356,10 @@
       "company": "TKO Group Holdings, Inc.",
       "sector": "Communication Services",
       "entry": 219.94,
-      "max_price": 221.6,
-      "return_pct": 0.75,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "max_price": 220.11,
+      "return_pct": 0.08,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1477,8 +1370,7 @@
       "max_price": 56.49,
       "return_pct": 3.54,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1486,11 +1378,10 @@
       "company": "Pebblebrook Hotel Trust",
       "sector": "Real Estate",
       "entry": 12.75,
-      "max_price": 13.08,
-      "return_pct": 2.58,
+      "max_price": 13.09,
+      "return_pct": 2.67,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1498,11 +1389,10 @@
       "company": "Nexa Resources S.A.",
       "sector": "Basic Materials",
       "entry": 12.65,
-      "max_price": 13.62,
-      "return_pct": 7.67,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "max_price": 13.4,
+      "return_pct": 5.93,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1510,11 +1400,10 @@
       "company": "Matador Resources Company",
       "sector": "Energy",
       "entry": 53.5,
-      "max_price": 66.84,
-      "return_pct": 24.93,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-30"
+      "max_price": 58.32,
+      "return_pct": 9.01,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1522,11 +1411,10 @@
       "company": "nLIGHT, Inc.",
       "sector": "Technology",
       "entry": 63.07,
-      "max_price": 74.1,
-      "return_pct": 17.49,
-      "days": 22,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 69.52,
+      "return_pct": 10.23,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1534,11 +1422,10 @@
       "company": "Kiniksa Pharmaceuticals Interna",
       "sector": "Healthcare",
       "entry": 45.37,
-      "max_price": 49.33,
-      "return_pct": 8.73,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-04-01"
+      "max_price": 47.46,
+      "return_pct": 4.61,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1546,11 +1433,10 @@
       "company": "International Seaways, Inc.",
       "sector": "Energy",
       "entry": 75.61,
-      "max_price": 75.72,
-      "return_pct": 0.15,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-04-02"
+      "max_price": 77.44,
+      "return_pct": 2.42,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1559,10 +1445,9 @@
       "sector": "Communication Services",
       "entry": 5.14,
       "max_price": 5.59,
-      "return_pct": 8.68,
+      "return_pct": 8.75,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1570,11 +1455,10 @@
       "company": "Golar LNG Limited",
       "sector": "Energy",
       "entry": 45.51,
-      "max_price": 56.21,
-      "return_pct": 23.51,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-04-02"
+      "max_price": 47.35,
+      "return_pct": 4.04,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1582,11 +1466,10 @@
       "company": "Enerflex Ltd",
       "sector": "Energy",
       "entry": 22.2,
-      "max_price": 23.3,
-      "return_pct": 4.94,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "max_price": 22.9,
+      "return_pct": 3.15,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1594,11 +1477,10 @@
       "company": "Crescent Energy Company",
       "sector": "Energy",
       "entry": 11.13,
-      "max_price": 14.02,
-      "return_pct": 25.97,
-      "days": 24,
-      "result": "WIN",
-      "peak_date": "2026-03-27"
+      "max_price": 12.16,
+      "return_pct": 9.25,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1606,11 +1488,10 @@
       "company": "Cinemark Holdings Inc Cinemark ",
       "sector": "Communication Services",
       "entry": 28.68,
-      "max_price": 29.44,
-      "return_pct": 2.65,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-04-02"
+      "max_price": 29.16,
+      "return_pct": 1.67,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1618,11 +1499,10 @@
       "company": "CNA Financial Corporation",
       "sector": "Financial Services",
       "entry": 49.43,
-      "max_price": 49.64,
-      "return_pct": 0.42,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "max_price": 49.35,
+      "return_pct": -0.16,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-03",
@@ -1630,11 +1510,10 @@
       "company": "Celldex Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 28.94,
-      "max_price": 34.52,
-      "return_pct": 19.28,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-03-23"
+      "max_price": 31.99,
+      "return_pct": 10.54,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-03-03",
@@ -1642,11 +1521,10 @@
       "company": "Buenaventura Mining Company Inc",
       "sector": "Basic Materials",
       "entry": 38.78,
-      "max_price": 39.9,
-      "return_pct": 2.89,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "max_price": 39.71,
+      "return_pct": 2.4,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1654,11 +1532,10 @@
       "company": "DENTSPLY SIRONA Inc.",
       "sector": "Healthcare",
       "entry": 14.31,
-      "max_price": 14.49,
-      "return_pct": 1.26,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 14.12,
+      "return_pct": -1.33,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1666,11 +1543,10 @@
       "company": "Vicor Corporation",
       "sector": "Technology",
       "entry": 209.19,
-      "max_price": 209.53,
-      "return_pct": 0.16,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 209.0,
+      "return_pct": -0.09,
+      "days": 2,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1678,11 +1554,10 @@
       "company": "Ultra Clean Holdings, Inc.",
       "sector": "Technology",
       "entry": 63.22,
-      "max_price": 67.28,
-      "return_pct": 6.42,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 62.44,
+      "return_pct": -1.23,
+      "days": 2,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1693,8 +1568,7 @@
       "max_price": 151.0,
       "return_pct": 2.72,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1702,11 +1576,10 @@
       "company": "TKO Group Holdings, Inc.",
       "sector": "Communication Services",
       "entry": 224.96,
-      "max_price": 225.43,
-      "return_pct": 0.21,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 222.49,
+      "return_pct": -1.1,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1714,11 +1587,10 @@
       "company": "Millicom International Cellular",
       "sector": "Communication Services",
       "entry": 75.15,
-      "max_price": 75.67,
-      "return_pct": 0.69,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-04-01"
+      "max_price": 74.74,
+      "return_pct": -0.55,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1726,11 +1598,10 @@
       "company": "Sun Communities, Inc.",
       "sector": "Real Estate",
       "entry": 137.18,
-      "max_price": 136.63,
-      "return_pct": -0.4,
-      "days": 0,
-      "result": "FLAT",
-      "peak_date": "2026-03-02"
+      "max_price": 137.59,
+      "return_pct": 0.3,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1738,11 +1609,10 @@
       "company": "Sterling Infrastructure, Inc.",
       "sector": "Industrials",
       "entry": 432.87,
-      "max_price": 460.64,
-      "return_pct": 6.42,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 429.27,
+      "return_pct": -0.83,
+      "days": 9,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1753,8 +1623,7 @@
       "max_price": 143.76,
       "return_pct": 8.41,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-10"
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1762,11 +1631,10 @@
       "company": "Matador Resources Company",
       "sector": "Energy",
       "entry": 54.12,
-      "max_price": 66.84,
-      "return_pct": 23.5,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-30"
+      "max_price": 58.32,
+      "return_pct": 7.76,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1777,8 +1645,7 @@
       "max_price": 84.38,
       "return_pct": 10.59,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-03-11"
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1786,11 +1653,10 @@
       "company": "nLIGHT, Inc.",
       "sector": "Technology",
       "entry": 67.69,
-      "max_price": 74.1,
-      "return_pct": 9.47,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 69.52,
+      "return_pct": 2.7,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1798,11 +1664,10 @@
       "company": "Kinetik Holdings Inc.",
       "sector": "Energy",
       "entry": 46.92,
-      "max_price": 49.55,
-      "return_pct": 5.61,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-30"
+      "max_price": 46.71,
+      "return_pct": -0.45,
+      "days": 2,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1810,11 +1675,10 @@
       "company": "Jazz Pharmaceuticals plc",
       "sector": "Healthcare",
       "entry": 190.46,
-      "max_price": 192.0,
-      "return_pct": 0.81,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-04-01"
+      "max_price": 190.67,
+      "return_pct": 0.11,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1822,11 +1686,10 @@
       "company": "Corning Incorporated",
       "sector": "Technology",
       "entry": 157.86,
-      "max_price": 160.45,
-      "return_pct": 1.64,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 153.44,
+      "return_pct": -2.8,
+      "days": 2,
+      "result": "LOSS"
     },
     {
       "date": "2026-03-02",
@@ -1834,11 +1697,10 @@
       "company": "Golar LNG Limited",
       "sector": "Energy",
       "entry": 45.89,
-      "max_price": 55.8,
-      "return_pct": 21.6,
-      "days": 24,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 47.35,
+      "return_pct": 3.18,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1849,8 +1711,7 @@
       "max_price": 300.2,
       "return_pct": 0.43,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1859,10 +1720,9 @@
       "sector": "Financial Services",
       "entry": 318.84,
       "max_price": 321.47,
-      "return_pct": 0.83,
+      "return_pct": 0.82,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1870,11 +1730,10 @@
       "company": "Chord Energy Corporation",
       "sector": "Energy",
       "entry": 112.14,
-      "max_price": 148.42,
-      "return_pct": 32.35,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-31"
+      "max_price": 126.73,
+      "return_pct": 13.01,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-03-02",
@@ -1882,11 +1741,10 @@
       "company": "CAVA Group, Inc.",
       "sector": "Consumer Cyclical",
       "entry": 78.49,
-      "max_price": 91.83,
-      "return_pct": 17.0,
-      "days": 16,
-      "result": "WIN",
-      "peak_date": "2026-03-18"
+      "max_price": 83.34,
+      "return_pct": 6.18,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1894,11 +1752,10 @@
       "company": "Ultra Clean Holdings, Inc.",
       "sector": "Technology",
       "entry": 60.68,
-      "max_price": 67.28,
-      "return_pct": 10.88,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 63.55,
+      "return_pct": 4.73,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1906,11 +1763,10 @@
       "company": "Supernus Pharmaceuticals, Inc.",
       "sector": "Healthcare",
       "entry": 54.73,
-      "max_price": 56.59,
-      "return_pct": 3.4,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 56.49,
+      "return_pct": 3.22,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1918,11 +1774,10 @@
       "company": "Sterling Infrastructure, Inc.",
       "sector": "Industrials",
       "entry": 428.13,
-      "max_price": 460.64,
-      "return_pct": 7.59,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 444.82,
+      "return_pct": 3.9,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1930,11 +1785,10 @@
       "company": "Resideo Technologies, Inc.",
       "sector": "Industrials",
       "entry": 38.7,
-      "max_price": 39.96,
-      "return_pct": 3.26,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 38.78,
+      "return_pct": 0.21,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1942,11 +1796,10 @@
       "company": "PPL Corporation",
       "sector": "Utilities",
       "entry": 38.98,
-      "max_price": 39.0,
-      "return_pct": 0.05,
-      "days": 18,
-      "result": "WIN",
-      "peak_date": "2026-03-17"
+      "max_price": 39.09,
+      "return_pct": 0.28,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1954,11 +1807,10 @@
       "company": "Photronics, Inc.",
       "sector": "Technology",
       "entry": 37.43,
-      "max_price": 43.63,
-      "return_pct": 16.56,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 38.2,
+      "return_pct": 2.06,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1966,11 +1818,10 @@
       "company": "Pembina Pipeline Corp.",
       "sector": "Energy",
       "entry": 43.99,
-      "max_price": 46.2,
-      "return_pct": 5.02,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-27"
+      "max_price": 45.09,
+      "return_pct": 2.5,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1978,11 +1829,10 @@
       "company": "Oric Pharmaceuticals, Inc.",
       "sector": "Healthcare",
       "entry": 13.45,
-      "max_price": 14.04,
-      "return_pct": 4.42,
-      "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 14.01,
+      "return_pct": 4.16,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -1990,11 +1840,10 @@
       "company": "Novavax, Inc.",
       "sector": "Healthcare",
       "entry": 10.14,
-      "max_price": 11.15,
-      "return_pct": 9.96,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 10.34,
+      "return_pct": 1.97,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2002,11 +1851,10 @@
       "company": "MasTec, Inc.",
       "sector": "Industrials",
       "entry": 298.02,
-      "max_price": 328.69,
-      "return_pct": 10.29,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 310.36,
+      "return_pct": 4.14,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2014,11 +1862,10 @@
       "company": "Cheniere Energy, Inc.",
       "sector": "Energy",
       "entry": 235.73,
-      "max_price": 299.49,
-      "return_pct": 27.05,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 255.78,
+      "return_pct": 8.51,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2026,11 +1873,10 @@
       "company": "LivaNova PLC",
       "sector": "Healthcare",
       "entry": 70.6,
-      "max_price": 71.31,
-      "return_pct": 1.01,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 71.07,
+      "return_pct": 0.67,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2038,11 +1884,10 @@
       "company": "Lincoln Educational Services Co",
       "sector": "Consumer Defensive",
       "entry": 36.24,
-      "max_price": 42.42,
-      "return_pct": 17.05,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 37.85,
+      "return_pct": 4.44,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2050,11 +1895,10 @@
       "company": "nLIGHT, Inc.",
       "sector": "Technology",
       "entry": 56.19,
-      "max_price": 74.1,
-      "return_pct": 31.87,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 69.52,
+      "return_pct": 23.72,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2062,11 +1906,10 @@
       "company": "Kite Realty Group Trust",
       "sector": "Real Estate",
       "entry": 26.05,
-      "max_price": 26.08,
-      "return_pct": 0.1,
+      "max_price": 26.38,
+      "return_pct": 1.27,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2074,11 +1917,10 @@
       "company": "Jazz Pharmaceuticals plc",
       "sector": "Healthcare",
       "entry": 190.02,
-      "max_price": 192.7,
-      "return_pct": 1.41,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 191.54,
+      "return_pct": 0.8,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2086,11 +1928,10 @@
       "company": "Innovex International, Inc.",
       "sector": "Energy",
       "entry": 26.35,
-      "max_price": 27.95,
-      "return_pct": 6.07,
-      "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-03-09"
+      "max_price": 26.68,
+      "return_pct": 1.25,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2101,8 +1942,7 @@
       "max_price": 160.45,
       "return_pct": 6.7,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2113,8 +1953,7 @@
       "max_price": 12.14,
       "return_pct": 0.5,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-27",
@@ -2125,8 +1964,7 @@
       "max_price": 26.16,
       "return_pct": 0.54,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2134,11 +1972,10 @@
       "company": "Ultra Clean Holdings, Inc.",
       "sector": "Technology",
       "entry": 59.47,
-      "max_price": 67.28,
-      "return_pct": 13.13,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 63.55,
+      "return_pct": 6.86,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2149,8 +1986,7 @@
       "max_price": 82.24,
       "return_pct": 7.17,
       "days": 4,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2158,11 +1994,10 @@
       "company": "Spyre Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 43.15,
-      "max_price": 49.3,
-      "return_pct": 14.26,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 43.8,
+      "return_pct": 1.51,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2170,11 +2005,10 @@
       "company": "Resideo Technologies, Inc.",
       "sector": "Industrials",
       "entry": 40.48,
-      "max_price": 40.79,
-      "return_pct": 0.77,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 39.96,
+      "return_pct": -1.28,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-26",
@@ -2182,11 +2016,10 @@
       "company": "Perdoceo Education Corporation",
       "sector": "Consumer Defensive",
       "entry": 33.17,
-      "max_price": 38.5,
-      "return_pct": 16.07,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 34.9,
+      "return_pct": 5.22,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2194,11 +2027,10 @@
       "company": "OUTFRONT Media Inc.",
       "sector": "Real Estate",
       "entry": 28.52,
-      "max_price": 29.0,
-      "return_pct": 1.68,
-      "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 29.27,
+      "return_pct": 2.63,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2206,11 +2038,10 @@
       "company": "Oric Pharmaceuticals, Inc.",
       "sector": "Healthcare",
       "entry": 13.5,
-      "max_price": 14.04,
-      "return_pct": 4.04,
-      "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 14.01,
+      "return_pct": 3.78,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2218,11 +2049,10 @@
       "company": "Oceaneering International, Inc.",
       "sector": "Energy",
       "entry": 37.57,
-      "max_price": 37.81,
-      "return_pct": 0.64,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 37.49,
+      "return_pct": -0.21,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-26",
@@ -2230,11 +2060,10 @@
       "company": "LivaNova PLC",
       "sector": "Healthcare",
       "entry": 71.0,
-      "max_price": 71.92,
-      "return_pct": 1.3,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 71.31,
+      "return_pct": 0.44,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2242,11 +2071,10 @@
       "company": "Lincoln Educational Services Co",
       "sector": "Consumer Defensive",
       "entry": 34.52,
-      "max_price": 42.42,
-      "return_pct": 22.89,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 37.85,
+      "return_pct": 9.65,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2254,11 +2082,10 @@
       "company": "Lamar Advertising Company",
       "sector": "Real Estate",
       "entry": 135.71,
-      "max_price": 138.09,
-      "return_pct": 1.76,
+      "max_price": 139.76,
+      "return_pct": 2.98,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2266,11 +2093,10 @@
       "company": "Kimco Realty Corporation (HC)",
       "sector": "Real Estate",
       "entry": 23.64,
-      "max_price": 23.65,
-      "return_pct": 0.02,
+      "max_price": 23.91,
+      "return_pct": 1.14,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2278,11 +2104,10 @@
       "company": "DT Midstream, Inc.",
       "sector": "Energy",
       "entry": 138.64,
-      "max_price": 142.75,
-      "return_pct": 2.97,
-      "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-03-09"
+      "max_price": 142.85,
+      "return_pct": 3.04,
+      "days": 47,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2290,11 +2115,10 @@
       "company": "Chord Energy Corporation",
       "sector": "Energy",
       "entry": 105.38,
-      "max_price": 146.93,
-      "return_pct": 39.43,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-27"
+      "max_price": 120.39,
+      "return_pct": 14.24,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2302,11 +2126,10 @@
       "company": "Academy Sports and Outdoors, In",
       "sector": "Consumer Cyclical",
       "entry": 61.14,
-      "max_price": 62.27,
-      "return_pct": 1.85,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 61.39,
+      "return_pct": 0.41,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-26",
@@ -2314,11 +2137,10 @@
       "company": "Allison Transmission Holdings, ",
       "sector": "Consumer Cyclical",
       "entry": 124.81,
-      "max_price": 128.53,
-      "return_pct": 2.98,
+      "max_price": 128.85,
+      "return_pct": 3.24,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2326,11 +2148,10 @@
       "company": "XP Inc.",
       "sector": "Financial Services",
       "entry": 22.34,
-      "max_price": 22.88,
-      "return_pct": 2.42,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 22.32,
+      "return_pct": -0.09,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-25",
@@ -2338,11 +2159,10 @@
       "company": "Viper Energy, Inc.",
       "sector": "Energy",
       "entry": 45.05,
-      "max_price": 49.08,
-      "return_pct": 8.95,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 48.0,
+      "return_pct": 6.55,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2350,11 +2170,10 @@
       "company": "Upbound Group, Inc.",
       "sector": "Technology",
       "entry": 21.54,
-      "max_price": 21.85,
-      "return_pct": 1.45,
+      "max_price": 22.33,
+      "return_pct": 3.67,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2365,8 +2184,7 @@
       "max_price": 82.24,
       "return_pct": 10.34,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2374,11 +2192,10 @@
       "company": "Ringcentral, Inc.",
       "sector": "Technology",
       "entry": 34.48,
-      "max_price": 42.34,
-      "return_pct": 22.81,
-      "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 40.93,
+      "return_pct": 18.71,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2386,11 +2203,10 @@
       "company": "PPL Corporation",
       "sector": "Utilities",
       "entry": 38.28,
-      "max_price": 39.0,
-      "return_pct": 1.88,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-03-17"
+      "max_price": 39.09,
+      "return_pct": 2.12,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2398,11 +2214,10 @@
       "company": "Occidental Petroleum Corporatio",
       "sector": "Energy",
       "entry": 50.94,
-      "max_price": 66.0,
-      "return_pct": 29.56,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-27"
+      "max_price": 58.060001373291016,
+      "return_pct": 13.98,
+      "days": 48,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2410,11 +2225,10 @@
       "company": "Omnicom Group Inc.",
       "sector": "Communication Services",
       "entry": 82.71,
-      "max_price": 86.31,
-      "return_pct": 4.35,
+      "max_price": 87.06,
+      "return_pct": 5.26,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2422,11 +2236,10 @@
       "company": "Oceaneering International, Inc.",
       "sector": "Energy",
       "entry": 37.92,
-      "max_price": 39.0,
-      "return_pct": 2.85,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 37.81,
+      "return_pct": -0.29,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-25",
@@ -2437,8 +2250,7 @@
       "max_price": 17.85,
       "return_pct": 3.06,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2446,11 +2258,10 @@
       "company": "Hamilton Insurance Group, Ltd.",
       "sector": "Financial Services",
       "entry": 31.25,
-      "max_price": 30.1,
-      "return_pct": -3.68,
+      "max_price": 32.21,
+      "return_pct": 3.07,
       "days": 2,
-      "result": "FLAT",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2458,11 +2269,10 @@
       "company": "Getty Realty Corporation",
       "sector": "Real Estate",
       "entry": 32.75,
-      "max_price": 33.63,
-      "return_pct": 2.67,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-03-17"
+      "max_price": 33.53,
+      "return_pct": 2.38,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2470,11 +2280,10 @@
       "company": "Freshpet, Inc.",
       "sector": "Consumer Defensive",
       "entry": 79.63,
-      "max_price": 86.0,
-      "return_pct": 8.0,
+      "max_price": 85.97,
+      "return_pct": 7.96,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2485,8 +2294,7 @@
       "max_price": 54.05,
       "return_pct": 0.93,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2494,11 +2302,10 @@
       "company": "Establishment Labs Holdings Inc",
       "sector": "Healthcare",
       "entry": 78.29,
-      "max_price": 83.31,
-      "return_pct": 6.41,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 79.01,
+      "return_pct": 0.92,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2506,11 +2313,10 @@
       "company": "DT Midstream, Inc.",
       "sector": "Energy",
       "entry": 137.28,
-      "max_price": 142.75,
-      "return_pct": 3.99,
-      "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-03-09"
+      "max_price": 142.85,
+      "return_pct": 4.06,
+      "days": 48,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2518,11 +2324,10 @@
       "company": "Deere & Company",
       "sector": "Industrials",
       "entry": 623.61,
-      "max_price": 645.04,
-      "return_pct": 3.44,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 636.45,
+      "return_pct": 2.06,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2530,11 +2335,10 @@
       "company": "Bausch + Lomb Corporation",
       "sector": "Healthcare",
       "entry": 18.6,
-      "max_price": 18.91,
-      "return_pct": 1.69,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 18.61,
+      "return_pct": 0.05,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2542,11 +2346,10 @@
       "company": "Academy Sports and Outdoors, In",
       "sector": "Consumer Cyclical",
       "entry": 61.19,
-      "max_price": 62.27,
-      "return_pct": 1.76,
+      "max_price": 62.44,
+      "return_pct": 2.04,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-25",
@@ -2554,11 +2357,10 @@
       "company": "Allison Transmission Holdings, ",
       "sector": "Consumer Cyclical",
       "entry": 122.72,
-      "max_price": 128.53,
-      "return_pct": 4.73,
+      "max_price": 128.85,
+      "return_pct": 5.0,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2566,11 +2368,10 @@
       "company": "Expro Group Holdings N.V.",
       "sector": "Energy",
       "entry": 17.73,
-      "max_price": 18.47,
-      "return_pct": 4.17,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-24"
+      "max_price": 18.27,
+      "return_pct": 3.05,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2578,11 +2379,10 @@
       "company": "Upbound Group, Inc.",
       "sector": "Technology",
       "entry": 21.62,
-      "max_price": 21.85,
-      "return_pct": 1.07,
+      "max_price": 22.33,
+      "return_pct": 3.28,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2590,11 +2390,10 @@
       "company": "Tyra Biosciences, Inc.",
       "sector": "Healthcare",
       "entry": 33.88,
-      "max_price": 39.15,
-      "return_pct": 15.55,
-      "days": 24,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 35.96,
+      "return_pct": 6.14,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2602,11 +2401,10 @@
       "company": "Spyre Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 43.45,
-      "max_price": 49.3,
-      "return_pct": 13.48,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 44.88,
+      "return_pct": 3.29,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2617,8 +2415,7 @@
       "max_price": 33.49,
       "return_pct": 9.23,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2626,11 +2423,10 @@
       "company": "Smithfield Foods, Inc.",
       "sector": "Consumer Defensive",
       "entry": 25.38,
-      "max_price": 25.82,
-      "return_pct": 1.72,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 25.34,
+      "return_pct": -0.16,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-24",
@@ -2641,8 +2437,7 @@
       "max_price": 6.68,
       "return_pct": 6.03,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2650,11 +2445,10 @@
       "company": "Ryman Hospitality Properties, I",
       "sector": "Real Estate",
       "entry": 102.82,
-      "max_price": 104.36,
-      "return_pct": 1.5,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "max_price": 103.59,
+      "return_pct": 0.75,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2665,8 +2459,7 @@
       "max_price": 14.5,
       "return_pct": 0.76,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2677,8 +2470,7 @@
       "max_price": 39.0,
       "return_pct": 0.46,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2686,11 +2478,10 @@
       "company": "Nabors Industries Ltd.",
       "sector": "Energy",
       "entry": 77.77,
-      "max_price": 89.67,
-      "return_pct": 15.3,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 82.3,
+      "return_pct": 5.82,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2701,8 +2492,7 @@
       "max_price": 17.85,
       "return_pct": 2.7,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2710,11 +2500,10 @@
       "company": "Macerich Company (The)",
       "sector": "Real Estate",
       "entry": 20.17,
-      "max_price": 20.74,
-      "return_pct": 2.83,
+      "max_price": 20.93,
+      "return_pct": 3.77,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2722,11 +2511,10 @@
       "company": "Kodiak Sciences Inc",
       "sector": "Healthcare",
       "entry": 27.98,
-      "max_price": 40.46,
-      "return_pct": 44.6,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 28.85,
+      "return_pct": 3.11,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2734,11 +2522,10 @@
       "company": "Kimco Realty Corporation (HC)",
       "sector": "Real Estate",
       "entry": 23.3,
-      "max_price": 23.65,
-      "return_pct": 1.48,
+      "max_price": 23.91,
+      "return_pct": 2.62,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2746,11 +2533,10 @@
       "company": "Innovative Solutions and Suppor",
       "sector": "Industrials",
       "entry": 25.06,
-      "max_price": 30.94,
-      "return_pct": 23.46,
-      "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-03-10"
+      "max_price": 29.38,
+      "return_pct": 17.24,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2761,8 +2547,7 @@
       "max_price": 29.48,
       "return_pct": 2.01,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2770,11 +2555,10 @@
       "company": "Herbalife Ltd.",
       "sector": "Consumer Defensive",
       "entry": 19.6,
-      "max_price": 20.1,
-      "return_pct": 2.55,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "max_price": 19.76,
+      "return_pct": 0.82,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2782,11 +2566,10 @@
       "company": "Gladstone Commercial Corporatio",
       "sector": "Real Estate",
       "entry": 12.51,
-      "max_price": 12.75,
-      "return_pct": 1.92,
+      "max_price": 12.86,
+      "return_pct": 2.8,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2794,11 +2577,10 @@
       "company": "Genco Shipping & Trading Limite",
       "sector": "Industrials",
       "entry": 23.75,
-      "max_price": 24.25,
-      "return_pct": 2.11,
+      "max_price": 24.81,
+      "return_pct": 4.46,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2806,11 +2588,10 @@
       "company": "Freshpet, Inc.",
       "sector": "Consumer Defensive",
       "entry": 80.89,
-      "max_price": 86.0,
-      "return_pct": 6.32,
+      "max_price": 85.97,
+      "return_pct": 6.28,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2818,11 +2599,10 @@
       "company": "Farmland Partners Inc.",
       "sector": "Real Estate",
       "entry": 12.62,
-      "max_price": 13.12,
-      "return_pct": 3.95,
+      "max_price": 13.23,
+      "return_pct": 4.83,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2830,11 +2610,10 @@
       "company": "Essential Properties Realty Tru",
       "sector": "Real Estate",
       "entry": 33.27,
-      "max_price": 34.38,
-      "return_pct": 3.34,
+      "max_price": 34.73,
+      "return_pct": 4.39,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2842,11 +2621,10 @@
       "company": "DT Midstream, Inc.",
       "sector": "Energy",
       "entry": 137.17,
-      "max_price": 142.75,
-      "return_pct": 4.07,
-      "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-03-09"
+      "max_price": 142.85,
+      "return_pct": 4.14,
+      "days": 49,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2854,11 +2632,10 @@
       "company": "Diodes Incorporated",
       "sector": "Technology",
       "entry": 69.29,
-      "max_price": 75.05,
-      "return_pct": 8.31,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-25"
+      "max_price": 88.26000213623047,
+      "return_pct": 27.38,
+      "days": 49,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2869,8 +2646,7 @@
       "max_price": 20.55,
       "return_pct": 9.89,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2878,11 +2654,10 @@
       "company": "Century Aluminum Company",
       "sector": "Basic Materials",
       "entry": 53.51,
-      "max_price": 59.12,
-      "return_pct": 10.48,
-      "days": 16,
-      "result": "WIN",
-      "peak_date": "2026-03-12"
+      "max_price": 56.96,
+      "return_pct": 6.45,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2890,11 +2665,10 @@
       "company": "Capricor Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 27.91,
-      "max_price": 36.49,
-      "return_pct": 30.74,
-      "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-03-10"
+      "max_price": 34.540000915527344,
+      "return_pct": 23.75,
+      "days": 49,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2903,10 +2677,9 @@
       "sector": "Consumer Cyclical",
       "entry": 64.04,
       "max_price": 66.19,
-      "return_pct": 3.35,
+      "return_pct": 3.36,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2914,11 +2687,10 @@
       "company": "Bausch + Lomb Corporation",
       "sector": "Healthcare",
       "entry": 18.44,
-      "max_price": 18.91,
-      "return_pct": 2.58,
+      "max_price": 18.92,
+      "return_pct": 2.6,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2926,11 +2698,10 @@
       "company": "Anterix Inc.",
       "sector": "Communication Services",
       "entry": 38.02,
-      "max_price": 41.0,
-      "return_pct": 7.84,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-26"
+      "max_price": 38.73,
+      "return_pct": 1.87,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2938,11 +2709,10 @@
       "company": "Academy Sports and Outdoors, In",
       "sector": "Consumer Cyclical",
       "entry": 61.18,
-      "max_price": 62.27,
-      "return_pct": 1.78,
+      "max_price": 62.44,
+      "return_pct": 2.06,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2950,11 +2720,10 @@
       "company": "Allison Transmission Holdings, ",
       "sector": "Consumer Cyclical",
       "entry": 121.99,
-      "max_price": 128.53,
-      "return_pct": 5.36,
+      "max_price": 128.85,
+      "return_pct": 5.62,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-24",
@@ -2962,11 +2731,10 @@
       "company": "Abacus Global Management, Inc.",
       "sector": "Financial Services",
       "entry": 8.73,
-      "max_price": 10.54,
-      "return_pct": 20.68,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-03-16"
+      "max_price": 10.03,
+      "return_pct": 14.89,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -2975,10 +2743,9 @@
       "sector": "Consumer Cyclical",
       "entry": 7.63,
       "max_price": 7.87,
-      "return_pct": 3.19,
+      "return_pct": 3.15,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -2986,11 +2753,10 @@
       "company": "Tango Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 12.73,
-      "max_price": 19.91,
-      "return_pct": 56.36,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-23"
+      "max_price": 14.98,
+      "return_pct": 17.67,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -2998,11 +2764,10 @@
       "company": "Sable Offshore Corp.",
       "sector": "Energy",
       "entry": 8.91,
-      "max_price": 19.25,
-      "return_pct": 116.05,
-      "days": 17,
-      "result": "WIN",
-      "peak_date": "2026-03-11"
+      "max_price": 12.87,
+      "return_pct": 44.44,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3010,11 +2775,10 @@
       "company": "SELLAS Life Sciences Group, Inc",
       "sector": "Healthcare",
       "entry": 4.5,
-      "max_price": 6.14,
-      "return_pct": 36.44,
-      "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-03-09"
+      "max_price": 5.66,
+      "return_pct": 25.78,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3025,8 +2789,7 @@
       "max_price": 16.88,
       "return_pct": 35.58,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3034,11 +2797,10 @@
       "company": "Red Cat Holdings, Inc.",
       "sector": "Industrials",
       "entry": 12.78,
-      "max_price": 18.78,
-      "return_pct": 46.95,
-      "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 16.09,
+      "return_pct": 25.9,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3046,11 +2808,10 @@
       "company": "Palladyne AI Corp.",
       "sector": "Technology",
       "entry": 6.71,
-      "max_price": 10.0,
-      "return_pct": 49.03,
-      "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 7.64,
+      "return_pct": 13.86,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3058,11 +2819,10 @@
       "company": "Orchid Island Capital, Inc.",
       "sector": "Real Estate",
       "entry": 7.47,
-      "max_price": 7.45,
-      "return_pct": -0.31,
+      "max_price": 7.58,
+      "return_pct": 1.47,
       "days": 1,
-      "result": "FLAT",
-      "peak_date": "2026-02-23"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3073,8 +2833,7 @@
       "max_price": 4.42,
       "return_pct": 23.81,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3085,8 +2844,7 @@
       "max_price": 28.7,
       "return_pct": 9.17,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3097,8 +2855,7 @@
       "max_price": 18.04,
       "return_pct": 8.67,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3109,8 +2866,7 @@
       "max_price": 19.07,
       "return_pct": 7.5,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3118,11 +2874,10 @@
       "company": "Cracker Barrel Old Country Stor",
       "sector": "Consumer Cyclical",
       "entry": 32.04,
-      "max_price": 34.57,
-      "return_pct": 7.89,
+      "max_price": 34.86,
+      "return_pct": 8.8,
       "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3130,11 +2885,10 @@
       "company": "Capricor Therapeutics, Inc.",
       "sector": "Healthcare",
       "entry": 27.87,
-      "max_price": 36.49,
-      "return_pct": 30.93,
-      "days": 16,
-      "result": "WIN",
-      "peak_date": "2026-03-10"
+      "max_price": 34.540000915527344,
+      "return_pct": 23.93,
+      "days": 51,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3145,8 +2899,7 @@
       "max_price": 6.25,
       "return_pct": 7.76,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3157,8 +2910,7 @@
       "max_price": 29.7,
       "return_pct": 613.94,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3166,11 +2918,10 @@
       "company": "AXT Inc",
       "sector": "Technology",
       "entry": 28.43,
-      "max_price": 70.69,
-      "return_pct": 148.65,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-24"
+      "max_price": 47.03,
+      "return_pct": 65.42,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3181,8 +2932,7 @@
       "max_price": 35.81,
       "return_pct": 10.15,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-22",
@@ -3193,8 +2943,7 @@
       "max_price": 46.95,
       "return_pct": 36.8,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3205,8 +2954,7 @@
       "max_price": 250.0,
       "return_pct": 8.06,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3217,8 +2965,7 @@
       "max_price": 546.57,
       "return_pct": 9.47,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3226,11 +2973,10 @@
       "company": "Quanta Services, Inc.",
       "sector": "Industrials",
       "entry": 552.66,
-      "max_price": 583.62,
-      "return_pct": 5.6,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-18"
+      "max_price": 573.97,
+      "return_pct": 3.86,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3238,11 +2984,10 @@
       "company": "Occidental Petroleum Corporatio",
       "sector": "Energy",
       "entry": 51.84,
-      "max_price": 61.37,
-      "return_pct": 18.38,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 58.060001373291016,
+      "return_pct": 12.0,
+      "days": 53,
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3250,11 +2995,10 @@
       "company": "Nokia Corporation Sponsored",
       "sector": "Technology",
       "entry": 7.77,
-      "max_price": 8.82,
-      "return_pct": 13.51,
-      "days": 24,
-      "result": "WIN",
-      "peak_date": "2026-03-16"
+      "max_price": 10.39799976348877,
+      "return_pct": 33.82,
+      "days": 53,
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3262,11 +3006,10 @@
       "company": "Micron Technology, Inc.",
       "sector": "Technology",
       "entry": 428.17,
-      "max_price": 471.14,
-      "return_pct": 10.04,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-18"
+      "max_price": 436.89,
+      "return_pct": 2.04,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3274,11 +3017,10 @@
       "company": "Live Nation Entertainment, Inc.",
       "sector": "Communication Services",
       "entry": 162.67,
-      "max_price": 168.54,
-      "return_pct": 3.61,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-20"
+      "max_price": 165.36,
+      "return_pct": 1.65,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3289,8 +3031,7 @@
       "max_price": 281.37,
       "return_pct": 3.79,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3301,8 +3042,7 @@
       "max_price": 267.31,
       "return_pct": 3.57,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3310,11 +3050,10 @@
       "company": "Garmin Ltd.",
       "sector": "Technology",
       "entry": 248.9,
-      "max_price": 254.92,
-      "return_pct": 2.42,
+      "max_price": 255.9,
+      "return_pct": 2.81,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3322,11 +3061,10 @@
       "company": "GE Aerospace",
       "sector": "Industrials",
       "entry": 343.22,
-      "max_price": 347.97,
-      "return_pct": 1.38,
+      "max_price": 348.48,
+      "return_pct": 1.53,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3334,11 +3072,10 @@
       "company": "EQT Corporation",
       "sector": "Energy",
       "entry": 60.5,
-      "max_price": 67.15,
-      "return_pct": 10.99,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 63.06,
+      "return_pct": 4.23,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3346,11 +3083,10 @@
       "company": "Edison International",
       "sector": "Utilities",
       "entry": 73.74,
-      "max_price": 74.6,
-      "return_pct": 1.17,
+      "max_price": 75.5,
+      "return_pct": 2.39,
       "days": 4,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3358,11 +3094,10 @@
       "company": "Dollar Tree, Inc.",
       "sector": "Consumer Defensive",
       "entry": 134.51,
-      "max_price": 138.91,
-      "return_pct": 3.27,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-20"
+      "max_price": 133.72,
+      "return_pct": -0.59,
+      "days": 3,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-20",
@@ -3370,11 +3105,10 @@
       "company": "Cenovus Energy Inc",
       "sector": "Energy",
       "entry": 22.57,
-      "max_price": 25.39,
-      "return_pct": 12.49,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 23.56,
+      "return_pct": 4.39,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3382,11 +3116,10 @@
       "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "entry": 76.82,
-      "max_price": 81.61,
-      "return_pct": 6.24,
+      "max_price": 83.22,
+      "return_pct": 8.33,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3397,8 +3130,7 @@
       "max_price": 65.94,
       "return_pct": 1.24,
       "days": 4,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3409,8 +3141,7 @@
       "max_price": 395.95,
       "return_pct": 5.48,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3421,8 +3152,7 @@
       "max_price": 255.24,
       "return_pct": 12.02,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-20",
@@ -3433,8 +3163,7 @@
       "max_price": 362.07,
       "return_pct": 2.3,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3442,11 +3171,10 @@
       "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "entry": 150.97,
-      "max_price": 162.44,
-      "return_pct": 7.6,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 159.61,
+      "return_pct": 5.72,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3454,11 +3182,10 @@
       "company": "Woodside Energy Group Limited",
       "sector": "Energy",
       "entry": 19.06,
-      "max_price": 25.19,
-      "return_pct": 32.16,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 23.940000534057617,
+      "return_pct": 25.6,
+      "days": 54,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3466,11 +3193,10 @@
       "company": "Tenaris S.A.",
       "sector": "Energy",
       "entry": 53.64,
-      "max_price": 56.69,
-      "return_pct": 5.69,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 60.349998474121094,
+      "return_pct": 12.51,
+      "days": 54,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3481,8 +3207,7 @@
       "max_price": 546.57,
       "return_pct": 12.46,
       "days": 4,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3490,11 +3215,10 @@
       "company": "Suncor Energy  Inc.",
       "sector": "Energy",
       "entry": 56.36,
-      "max_price": 64.63,
-      "return_pct": 14.67,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 58.02,
+      "return_pct": 2.95,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3502,11 +3226,10 @@
       "company": "ONEOK, Inc.",
       "sector": "Energy",
       "entry": 86.88,
-      "max_price": 92.14,
-      "return_pct": 6.05,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 89.0,
+      "return_pct": 2.44,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3517,8 +3240,7 @@
       "max_price": 774.0,
       "return_pct": 5.37,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3526,11 +3248,10 @@
       "company": "Micron Technology, Inc.",
       "sector": "Technology",
       "entry": 417.35,
-      "max_price": 471.14,
-      "return_pct": 12.89,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-18"
+      "max_price": 436.89,
+      "return_pct": 4.68,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3538,11 +3259,10 @@
       "company": "Merck & Company, Inc.",
       "sector": "Healthcare",
       "entry": 121.86,
-      "max_price": 124.22,
-      "return_pct": 1.94,
+      "max_price": 125.14,
+      "return_pct": 2.69,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3553,8 +3273,7 @@
       "max_price": 531.76,
       "return_pct": 1.26,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-20"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3562,11 +3281,10 @@
       "company": "Diamondback Energy, Inc.",
       "sector": "Energy",
       "entry": 174.72,
-      "max_price": 194.68,
-      "return_pct": 11.42,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 183.36,
+      "return_pct": 4.95,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3574,11 +3292,10 @@
       "company": "EQT Corporation",
       "sector": "Energy",
       "entry": 59.77,
-      "max_price": 67.15,
-      "return_pct": 12.35,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 63.06,
+      "return_pct": 5.5,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3586,11 +3303,10 @@
       "company": "Equinor ASA",
       "sector": "Energy",
       "entry": 28.85,
-      "max_price": 42.06,
-      "return_pct": 45.79,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 32.58,
+      "return_pct": 12.93,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3598,11 +3314,10 @@
       "company": "Edison International",
       "sector": "Utilities",
       "entry": 72.66,
-      "max_price": 74.6,
-      "return_pct": 2.67,
+      "max_price": 75.5,
+      "return_pct": 3.91,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3610,11 +3325,10 @@
       "company": "ConocoPhillips",
       "sector": "Energy",
       "entry": 111.59,
-      "max_price": 128.13,
-      "return_pct": 14.82,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 122.5,
+      "return_pct": 9.78,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3622,11 +3336,10 @@
       "company": "Canadian Natural Resources Limi",
       "sector": "Energy",
       "entry": 42.5,
-      "max_price": 50.88,
-      "return_pct": 19.71,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 45.85,
+      "return_pct": 7.88,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3637,8 +3350,7 @@
       "max_price": 65.94,
       "return_pct": 3.16,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3649,8 +3361,7 @@
       "max_price": 391.29,
       "return_pct": 4.21,
       "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3661,8 +3372,7 @@
       "max_price": 395.95,
       "return_pct": 7.06,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-19",
@@ -3673,8 +3383,7 @@
       "max_price": 255.24,
       "return_pct": 13.91,
       "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3682,11 +3391,10 @@
       "company": "Wheaton Precious Metals Corp",
       "sector": "Basic Materials",
       "entry": 144.82,
-      "max_price": 165.5,
-      "return_pct": 14.28,
+      "max_price": 165.76,
+      "return_pct": 14.46,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3694,11 +3402,10 @@
       "company": "Woodside Energy Group Limited",
       "sector": "Energy",
       "entry": 18.72,
-      "max_price": 25.19,
-      "return_pct": 34.56,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 23.940000534057617,
+      "return_pct": 27.88,
+      "days": 55,
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3706,11 +3413,10 @@
       "company": "Western Digital Corporation",
       "sector": "Technology",
       "entry": 296.56,
-      "max_price": 319.62,
-      "return_pct": 7.78,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-18"
+      "max_price": 299.52,
+      "return_pct": 1.0,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3718,11 +3424,10 @@
       "company": "Vertiv Holdings, LLC",
       "sector": "Industrials",
       "entry": 243.21,
-      "max_price": 276.71,
-      "return_pct": 13.78,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-03-11"
+      "max_price": 264.86,
+      "return_pct": 8.9,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3733,8 +3438,7 @@
       "max_price": 126.0,
       "return_pct": 8.94,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3745,8 +3449,7 @@
       "max_price": 214.5,
       "return_pct": 5.08,
       "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-03-03"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3754,11 +3457,10 @@
       "company": "ONEOK, Inc.",
       "sector": "Energy",
       "entry": 86.79,
-      "max_price": 92.14,
-      "return_pct": 6.16,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-20"
+      "max_price": 89.0,
+      "return_pct": 2.55,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3766,11 +3468,10 @@
       "company": "Micron Technology, Inc.",
       "sector": "Technology",
       "entry": 420.95,
-      "max_price": 471.14,
-      "return_pct": 11.92,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-18"
+      "max_price": 436.89,
+      "return_pct": 3.79,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3778,11 +3479,10 @@
       "company": "Iron Mountain Incorporated (Del",
       "sector": "Real Estate",
       "entry": 105.83,
-      "max_price": 114.31,
-      "return_pct": 8.01,
+      "max_price": 115.24,
+      "return_pct": 8.89,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3793,8 +3493,7 @@
       "max_price": 267.31,
       "return_pct": 7.2,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3802,11 +3501,10 @@
       "company": "FTAI Aviation Ltd.",
       "sector": "Industrials",
       "entry": 287.16,
-      "max_price": 322.96,
-      "return_pct": 12.47,
+      "max_price": 323.51,
+      "return_pct": 12.66,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3814,11 +3512,10 @@
       "company": "Ferguson Enterprises Inc.",
       "sector": "Industrials",
       "entry": 260.0,
-      "max_price": 265.06,
-      "return_pct": 1.95,
+      "max_price": 266.05,
+      "return_pct": 2.33,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3826,11 +3523,10 @@
       "company": "FedEx Corporation",
       "sector": "Industrials",
       "entry": 383.08,
-      "max_price": 391.27,
-      "return_pct": 2.14,
+      "max_price": 392.86,
+      "return_pct": 2.55,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3838,11 +3534,10 @@
       "company": "Dollar General Corporation",
       "sector": "Consumer Defensive",
       "entry": 152.02,
-      "max_price": 157.48,
-      "return_pct": 3.59,
+      "max_price": 158.23,
+      "return_pct": 4.08,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3853,8 +3548,7 @@
       "max_price": 180.9,
       "return_pct": 15.03,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3862,11 +3556,10 @@
       "company": "Becton, Dickinson and Company",
       "sector": "Healthcare",
       "entry": 182.68,
-      "max_price": 186.16,
-      "return_pct": 1.91,
+      "max_price": 187.35,
+      "return_pct": 2.56,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3877,8 +3570,7 @@
       "max_price": 360.83,
       "return_pct": 4.29,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3889,8 +3581,7 @@
       "max_price": 65.94,
       "return_pct": 3.52,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3901,8 +3592,7 @@
       "max_price": 391.29,
       "return_pct": 3.04,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-18",
@@ -3913,8 +3603,7 @@
       "max_price": 395.95,
       "return_pct": 7.35,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -3922,11 +3611,10 @@
       "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "entry": 146.19,
-      "max_price": 160.45,
-      "return_pct": 9.75,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-17"
+      "max_price": 159.61,
+      "return_pct": 9.18,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -3934,11 +3622,10 @@
       "company": "Western Digital Corporation",
       "sector": "Technology",
       "entry": 284.11,
-      "max_price": 319.62,
-      "return_pct": 12.5,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-18"
+      "max_price": 309.9,
+      "return_pct": 9.08,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -3946,11 +3633,10 @@
       "company": "Vertiv Holdings, LLC",
       "sector": "Industrials",
       "entry": 243.53,
-      "max_price": 276.71,
-      "return_pct": 13.63,
-      "days": 22,
-      "result": "WIN",
-      "peak_date": "2026-03-11"
+      "max_price": 264.86,
+      "return_pct": 8.76,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -3958,11 +3644,10 @@
       "company": "United Parcel Service, Inc.",
       "sector": "Industrials",
       "entry": 115.51,
-      "max_price": 118.2,
-      "return_pct": 2.33,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-17"
+      "max_price": 117.14,
+      "return_pct": 1.41,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -3973,8 +3658,7 @@
       "max_price": 23.54,
       "return_pct": 2.75,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -3982,11 +3666,10 @@
       "company": "Pepsico, Inc.",
       "sector": "Consumer Defensive",
       "entry": 161.92,
-      "max_price": 168.77,
-      "return_pct": 4.23,
+      "max_price": 170.28,
+      "return_pct": 5.16,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -3997,8 +3680,7 @@
       "max_price": 19.52,
       "return_pct": 1.4,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4009,8 +3691,7 @@
       "max_price": 67.6,
       "return_pct": 5.46,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4018,11 +3699,10 @@
       "company": "Iron Mountain Incorporated (Del",
       "sector": "Real Estate",
       "entry": 108.79,
-      "max_price": 114.31,
-      "return_pct": 5.07,
+      "max_price": 115.24,
+      "return_pct": 5.93,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4030,11 +3710,10 @@
       "company": "HCA Healthcare, Inc.",
       "sector": "Healthcare",
       "entry": 534.78,
-      "max_price": 555.69,
-      "return_pct": 3.91,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-03-12"
+      "max_price": 547.05,
+      "return_pct": 2.29,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4042,11 +3721,10 @@
       "company": "Exelon Corporation",
       "sector": "Utilities",
       "entry": 47.63,
-      "max_price": 50.65,
-      "return_pct": 6.34,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-17"
+      "max_price": 49.52,
+      "return_pct": 3.97,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4054,11 +3732,10 @@
       "company": "Equinix, Inc.",
       "sector": "Real Estate",
       "entry": 946.81,
-      "max_price": 990.98,
-      "return_pct": 4.67,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-16"
+      "max_price": 977.36,
+      "return_pct": 3.23,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4066,11 +3743,10 @@
       "company": "Digital Realty Trust, Inc.",
       "sector": "Real Estate",
       "entry": 179.89,
-      "max_price": 182.95,
-      "return_pct": 1.7,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-16"
+      "max_price": 180.49,
+      "return_pct": 0.33,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4078,11 +3754,10 @@
       "company": "Canadian Natural Resources Limi",
       "sector": "Energy",
       "entry": 40.59,
-      "max_price": 50.88,
-      "return_pct": 25.35,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-19"
+      "max_price": 45.85,
+      "return_pct": 12.96,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4090,11 +3765,10 @@
       "company": "Biogen Inc.",
       "sector": "Healthcare",
       "entry": 195.62,
-      "max_price": 200.29,
-      "return_pct": 2.39,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-17"
+      "max_price": 198.72,
+      "return_pct": 1.58,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4102,11 +3776,10 @@
       "company": "Becton, Dickinson and Company",
       "sector": "Healthcare",
       "entry": 177.38,
-      "max_price": 186.16,
-      "return_pct": 4.95,
+      "max_price": 187.35,
+      "return_pct": 5.62,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4114,11 +3787,10 @@
       "company": "Arista Networks, Inc.",
       "sector": "Technology",
       "entry": 142.58,
-      "max_price": 145.0,
-      "return_pct": 1.7,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-17"
+      "max_price": 142.5,
+      "return_pct": -0.06,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-17",
@@ -4129,8 +3801,7 @@
       "max_price": 26.16,
       "return_pct": 7.48,
       "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4141,8 +3812,7 @@
       "max_price": 391.29,
       "return_pct": 4.8,
       "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "result": "WIN"
     },
     {
       "date": "2026-02-17",
@@ -4153,8 +3823,7 @@
       "max_price": 395.95,
       "return_pct": 10.39,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4165,8 +3834,7 @@
       "max_price": 266.27,
       "return_pct": 4.11,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4174,11 +3842,10 @@
       "company": "Vertiv Holdings, LLC",
       "sector": "Industrials",
       "entry": 234.53,
-      "max_price": 276.71,
-      "return_pct": 17.99,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-11"
+      "max_price": 264.86,
+      "return_pct": 12.93,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4186,11 +3853,10 @@
       "company": "Vulcan Materials Company (Holdi",
       "sector": "Basic Materials",
       "entry": 327.65,
-      "max_price": 328.17,
-      "return_pct": 0.16,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-13"
+      "max_price": 319.15,
+      "return_pct": -2.59,
+      "days": 12,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-13",
@@ -4198,11 +3864,10 @@
       "company": "Steel Dynamics, Inc.",
       "sector": "Basic Materials",
       "entry": 191.68,
-      "max_price": 201.14,
-      "return_pct": 4.93,
-      "days": 17,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 196.35,
+      "return_pct": 2.44,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4210,11 +3875,10 @@
       "company": "Pacific Gas & Electric Co.",
       "sector": "Utilities",
       "entry": 18.16,
-      "max_price": 19.11,
-      "return_pct": 5.2,
-      "days": 17,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 19.09,
+      "return_pct": 5.12,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4225,8 +3889,7 @@
       "max_price": 67.6,
       "return_pct": 10.15,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4234,11 +3897,10 @@
       "company": "Martin Marietta Materials, Inc.",
       "sector": "Basic Materials",
       "entry": 678.86,
-      "max_price": 701.52,
-      "return_pct": 3.34,
+      "max_price": 702.38,
+      "return_pct": 3.46,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4246,11 +3908,10 @@
       "company": "Iron Mountain Incorporated (Del",
       "sector": "Real Estate",
       "entry": 109.83,
-      "max_price": 114.31,
-      "return_pct": 4.08,
+      "max_price": 115.24,
+      "return_pct": 4.93,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4258,11 +3919,10 @@
       "company": "Howmet Aerospace Inc.",
       "sector": "Industrials",
       "entry": 250.21,
-      "max_price": 267.31,
-      "return_pct": 6.83,
-      "days": 17,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 262.63,
+      "return_pct": 4.96,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4270,11 +3930,10 @@
       "company": "HCA Healthcare, Inc.",
       "sector": "Healthcare",
       "entry": 540.29,
-      "max_price": 555.69,
-      "return_pct": 2.85,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-12"
+      "max_price": 549.45,
+      "return_pct": 1.7,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4282,11 +3941,10 @@
       "company": "Gilead Sciences, Inc.",
       "sector": "Healthcare",
       "entry": 154.98,
-      "max_price": 156.06,
-      "return_pct": 0.7,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-13"
+      "max_price": 156.01,
+      "return_pct": 0.66,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4294,11 +3952,10 @@
       "company": "Exelon Corporation",
       "sector": "Utilities",
       "entry": 48.48,
-      "max_price": 50.38,
-      "return_pct": 3.92,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-13"
+      "max_price": 49.88,
+      "return_pct": 2.89,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4306,11 +3963,10 @@
       "company": "Equinix, Inc.",
       "sector": "Real Estate",
       "entry": 951.01,
-      "max_price": 983.38,
-      "return_pct": 3.4,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-13"
+      "max_price": 975.0,
+      "return_pct": 2.52,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4318,11 +3974,10 @@
       "company": "Edison International",
       "sector": "Utilities",
       "entry": 71.46,
-      "max_price": 74.6,
-      "return_pct": 4.39,
+      "max_price": 75.5,
+      "return_pct": 5.65,
       "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4330,11 +3985,10 @@
       "company": "Digital Realty Trust, Inc.",
       "sector": "Real Estate",
       "entry": 180.97,
-      "max_price": 182.28,
-      "return_pct": 0.72,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-11"
+      "max_price": 182.55,
+      "return_pct": 0.87,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4342,11 +3996,10 @@
       "company": "Deere & Company",
       "sector": "Industrials",
       "entry": 602.92,
-      "max_price": 672.22,
-      "return_pct": 11.49,
+      "max_price": 674.19,
+      "return_pct": 11.82,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-19"
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4354,11 +4007,10 @@
       "company": "Canadian Natural Resources Limi",
       "sector": "Energy",
       "entry": 40.68,
-      "max_price": 48.43,
-      "return_pct": 19.05,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-13"
+      "max_price": 44.04,
+      "return_pct": 8.26,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4366,11 +4018,10 @@
       "company": "Caterpillar, Inc.",
       "sector": "Industrials",
       "entry": 774.2,
-      "max_price": 784.0,
-      "return_pct": 1.27,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-13"
+      "max_price": 777.6,
+      "return_pct": 0.44,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4378,11 +4029,10 @@
       "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "entry": 73.38,
-      "max_price": 81.61,
-      "return_pct": 11.22,
-      "days": 17,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 82.34,
+      "return_pct": 12.21,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-13",
@@ -4390,11 +4040,10 @@
       "company": "America Movil, S.A.B. de C.V.",
       "sector": "Communication Services",
       "entry": 23.83,
-      "max_price": 26.16,
-      "return_pct": 9.78,
-      "days": 17,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 26.06,
+      "return_pct": 9.36,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4402,11 +4051,10 @@
       "company": "Williams Companies, Inc. (The)",
       "sector": "Energy",
       "entry": 71.13,
-      "max_price": 76.32,
-      "return_pct": 7.3,
-      "days": 18,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 75.59,
+      "return_pct": 6.27,
+      "days": 15,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4414,11 +4062,10 @@
       "company": "Telefonica Brasil S.A.",
       "sector": "Communication Services",
       "entry": 15.88,
-      "max_price": 16.92,
-      "return_pct": 6.58,
+      "max_price": 16.95,
+      "return_pct": 6.74,
       "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4426,11 +4073,10 @@
       "company": "United Parcel Service, Inc.",
       "sector": "Industrials",
       "entry": 116.45,
-      "max_price": 120.73,
-      "return_pct": 3.67,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 118.35,
+      "return_pct": 1.63,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4438,11 +4084,10 @@
       "company": "Tapestry, Inc.",
       "sector": "Consumer Cyclical",
       "entry": 152.66,
-      "max_price": 161.54,
-      "return_pct": 5.81,
+      "max_price": 161.97,
+      "return_pct": 6.1,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4453,8 +4098,7 @@
       "max_price": 344.92,
       "return_pct": 10.94,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4462,11 +4106,10 @@
       "company": "STMicroelectronics N.V.",
       "sector": "Technology",
       "entry": 33.61,
-      "max_price": 34.81,
-      "return_pct": 3.57,
+      "max_price": 34.91,
+      "return_pct": 3.87,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4474,11 +4117,10 @@
       "company": "Marriott International",
       "sector": "Consumer Cyclical",
       "entry": 354.4,
-      "max_price": 369.29,
-      "return_pct": 4.2,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 361.05,
+      "return_pct": 1.88,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4486,11 +4128,10 @@
       "company": "Lumentum Holdings Inc.",
       "sector": "Technology",
       "entry": 583.46,
-      "max_price": 783.8,
-      "return_pct": 34.34,
-      "days": 18,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 765.0,
+      "return_pct": 31.11,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4498,11 +4139,10 @@
       "company": "HCA Healthcare, Inc.",
       "sector": "Healthcare",
       "entry": 535.22,
-      "max_price": 555.69,
-      "return_pct": 3.83,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-12"
+      "max_price": 549.45,
+      "return_pct": 2.66,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4510,11 +4150,10 @@
       "company": "Corning Incorporated",
       "sector": "Technology",
       "entry": 131.5,
-      "max_price": 161.8,
-      "return_pct": 23.04,
+      "max_price": 162.1,
+      "return_pct": 23.27,
       "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4522,11 +4161,10 @@
       "company": "GE Vernova Inc.",
       "sector": "Industrials",
       "entry": 816.56,
-      "max_price": 894.39,
-      "return_pct": 9.53,
+      "max_price": 894.93,
+      "return_pct": 9.6,
       "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4534,11 +4172,10 @@
       "company": "Ferguson Enterprises Inc.",
       "sector": "Industrials",
       "entry": 263.66,
-      "max_price": 270.63,
-      "return_pct": 2.64,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 266.05,
+      "return_pct": 0.91,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4546,11 +4183,10 @@
       "company": "Emerson Electric Company",
       "sector": "Industrials",
       "entry": 144.43,
-      "max_price": 157.43,
-      "return_pct": 9.0,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 153.42,
+      "return_pct": 6.22,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4558,11 +4194,10 @@
       "company": "Deere & Company",
       "sector": "Industrials",
       "entry": 598.11,
-      "max_price": 672.22,
-      "return_pct": 12.39,
+      "max_price": 674.19,
+      "return_pct": 12.72,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-19"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4570,11 +4205,10 @@
       "company": "Cenovus Energy Inc",
       "sector": "Energy",
       "entry": 21.33,
-      "max_price": 23.91,
-      "return_pct": 12.1,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-12"
+      "max_price": 23.39,
+      "return_pct": 9.66,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4582,11 +4216,10 @@
       "company": "Canadian Natural Resources Limi",
       "sector": "Energy",
       "entry": 39.99,
-      "max_price": 48.43,
-      "return_pct": 21.11,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-13"
+      "max_price": 44.04,
+      "return_pct": 10.13,
+      "days": 15,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4594,11 +4227,10 @@
       "company": "Caterpillar, Inc.",
       "sector": "Industrials",
       "entry": 758.29,
-      "max_price": 789.81,
-      "return_pct": 4.16,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 784.0,
+      "return_pct": 3.39,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4606,11 +4238,10 @@
       "company": "Becton, Dickinson and Company",
       "sector": "Healthcare",
       "entry": 177.81,
-      "max_price": 186.16,
-      "return_pct": 4.7,
+      "max_price": 187.35,
+      "return_pct": 5.37,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4619,10 +4250,9 @@
       "sector": "Healthcare",
       "entry": 202.41,
       "max_price": 210.52,
-      "return_pct": 4.0,
+      "return_pct": 4.01,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-18"
+      "result": "WIN"
     },
     {
       "date": "2026-02-12",
@@ -4633,8 +4263,7 @@
       "max_price": 25.29,
       "return_pct": 7.8,
       "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "result": "WIN"
     },
     {
       "date": "2026-02-09",
@@ -4642,11 +4271,10 @@
       "company": "TJX Companies, Inc. (The)",
       "sector": "Consumer Cyclical",
       "entry": 155.8,
-      "max_price": 162.68,
-      "return_pct": 4.42,
-      "days": 16,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 160.46,
+      "return_pct": 2.99,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-09",
@@ -4654,11 +4282,10 @@
       "company": "Simon Property Group, Inc.",
       "sector": "Real Estate",
       "entry": 196.57,
-      "max_price": 202.78,
-      "return_pct": 3.16,
-      "days": 18,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 203.6,
+      "return_pct": 3.58,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-09",
@@ -4666,11 +4293,10 @@
       "company": "Ross Stores, Inc.",
       "sector": "Consumer Cyclical",
       "entry": 194.5,
-      "max_price": 216.34,
-      "return_pct": 11.23,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 203.31,
+      "return_pct": 4.53,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-09",
@@ -4678,11 +4304,10 @@
       "company": "Realty Income Corporation",
       "sector": "Real Estate",
       "entry": 63.09,
-      "max_price": 67.64,
-      "return_pct": 7.21,
-      "days": 18,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 67.15,
+      "return_pct": 6.44,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-09",
@@ -4690,11 +4315,10 @@
       "company": "Haleon plc",
       "sector": "Healthcare",
       "entry": 10.88,
-      "max_price": 11.13,
-      "return_pct": 2.32,
+      "max_price": 11.28,
+      "return_pct": 3.68,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-18"
+      "result": "WIN"
     },
     {
       "date": "2026-02-09",
@@ -4702,11 +4326,10 @@
       "company": "Bank Of Montreal",
       "sector": "Financial Services",
       "entry": 144.73,
-      "max_price": 149.01,
-      "return_pct": 2.96,
-      "days": 16,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 147.04,
+      "return_pct": 1.6,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-06",
@@ -4714,11 +4337,10 @@
       "company": "Toronto Dominion Bank (The)",
       "sector": "Financial Services",
       "entry": 96.68,
-      "max_price": 99.06,
-      "return_pct": 2.46,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 99.04,
+      "return_pct": 2.44,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-02-06",
@@ -4728,9 +4350,8 @@
       "entry": 170.4,
       "max_price": 176.19,
       "return_pct": 3.4,
-      "days": 4,
-      "result": "WIN",
-      "peak_date": "2026-02-10"
+      "days": 67,
+      "result": "WIN"
     },
     {
       "date": "2026-02-06",
@@ -4741,8 +4362,7 @@
       "max_price": 19.3,
       "return_pct": 7.58,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-02-18"
+      "result": "WIN"
     },
     {
       "date": "2026-02-06",
@@ -4750,11 +4370,10 @@
       "company": "Canadian Imperial Bank of Comme",
       "sector": "Financial Services",
       "entry": 96.68,
-      "max_price": 104.14,
-      "return_pct": 7.72,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 99.62,
+      "return_pct": 3.04,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-06",
@@ -4765,8 +4384,7 @@
       "max_price": 78.28,
       "return_pct": 2.54,
       "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4774,11 +4392,10 @@
       "company": "Toronto Dominion Bank (The)",
       "sector": "Financial Services",
       "entry": 94.92,
-      "max_price": 99.06,
-      "return_pct": 4.36,
-      "days": 22,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 99.04,
+      "return_pct": 4.34,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4789,8 +4406,7 @@
       "max_price": 24.34,
       "return_pct": 14.06,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4800,9 +4416,8 @@
       "entry": 168.84,
       "max_price": 176.19,
       "return_pct": 4.35,
-      "days": 5,
-      "result": "WIN",
-      "peak_date": "2026-02-10"
+      "days": 68,
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4810,11 +4425,10 @@
       "company": "Ross Stores, Inc.",
       "sector": "Consumer Cyclical",
       "entry": 189.23,
-      "max_price": 216.34,
-      "return_pct": 14.33,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 200.6,
+      "return_pct": 6.01,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4822,11 +4436,10 @@
       "company": "HSBC Holdings, plc.",
       "sector": "Financial Services",
       "entry": 86.87,
-      "max_price": 92.2,
-      "return_pct": 6.14,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 90.81,
+      "return_pct": 4.54,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4837,8 +4450,7 @@
       "max_price": 19.3,
       "return_pct": 8.06,
       "days": 13,
-      "result": "WIN",
-      "peak_date": "2026-02-18"
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4846,11 +4458,10 @@
       "company": "CenterPoint Energy, Inc (Holdin",
       "sector": "Utilities",
       "entry": 40.22,
-      "max_price": 44.04,
-      "return_pct": 9.5,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-04"
+      "max_price": 43.09,
+      "return_pct": 7.14,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4858,11 +4469,10 @@
       "company": "Canadian Imperial Bank of Comme",
       "sector": "Financial Services",
       "entry": 94.53,
-      "max_price": 104.14,
-      "return_pct": 10.17,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 98.5,
+      "return_pct": 4.2,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4873,8 +4483,7 @@
       "max_price": 78.28,
       "return_pct": 3.96,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-02-05",
@@ -4882,11 +4491,10 @@
       "company": "Atmos Energy Corporation",
       "sector": "Utilities",
       "entry": 171.5,
-      "max_price": 187.98,
-      "return_pct": 9.61,
-      "days": 25,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 181.01,
+      "return_pct": 5.55,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4894,11 +4502,10 @@
       "company": "Yum! Brands, Inc.",
       "sector": "Consumer Cyclical",
       "entry": 159.57,
-      "max_price": 169.39,
-      "return_pct": 6.15,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-02-24"
+      "max_price": 165.32,
+      "return_pct": 3.6,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4906,11 +4513,10 @@
       "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "entry": 146.61,
-      "max_price": 159.61,
-      "return_pct": 8.87,
-      "days": 26,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 155.89,
+      "return_pct": 6.33,
+      "days": 7,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4921,8 +4527,7 @@
       "max_price": 120.73,
       "return_pct": 4.86,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4930,11 +4535,10 @@
       "company": "Suncor Energy  Inc.",
       "sector": "Energy",
       "entry": 53.14,
-      "max_price": 58.63,
-      "return_pct": 10.33,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 57.13,
+      "return_pct": 7.51,
+      "days": 15,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4942,11 +4546,10 @@
       "company": "Royal Caribbean Cruises Ltd.",
       "sector": "Consumer Cyclical",
       "entry": 328.65,
-      "max_price": 354.5,
-      "return_pct": 7.87,
+      "max_price": 356.39,
+      "return_pct": 8.44,
       "days": 6,
-      "result": "WIN",
-      "peak_date": "2026-02-10"
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4954,11 +4557,10 @@
       "company": "Phillips 66",
       "sector": "Energy",
       "entry": 154.69,
-      "max_price": 169.62,
-      "return_pct": 9.65,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 163.79,
+      "return_pct": 5.88,
+      "days": 69,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4966,11 +4568,10 @@
       "company": "Pepsico, Inc.",
       "sector": "Consumer Defensive",
       "entry": 166.18,
-      "max_price": 169.96,
-      "return_pct": 2.28,
+      "max_price": 171.48,
+      "return_pct": 3.19,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4978,11 +4579,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 15.14,
-      "max_price": 17.83,
-      "return_pct": 17.77,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 21.969999313354492,
+      "return_pct": 45.11,
+      "days": 69,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -4990,11 +4590,10 @@
       "company": "Merck & Company, Inc.",
       "sector": "Healthcare",
       "entry": 118.33,
-      "max_price": 124.22,
-      "return_pct": 4.98,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 123.33,
+      "return_pct": 4.23,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5002,11 +4601,10 @@
       "company": "Marathon Petroleum Corporation",
       "sector": "Energy",
       "entry": 194.94,
-      "max_price": 228.55,
-      "return_pct": 17.24,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 209.27,
+      "return_pct": 7.35,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5014,11 +4612,10 @@
       "company": "Altria Group, Inc.",
       "sector": "Consumer Defensive",
       "entry": 65.16,
-      "max_price": 69.35,
-      "return_pct": 6.43,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 68.15,
+      "return_pct": 4.59,
+      "days": 15,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5026,11 +4623,10 @@
       "company": "Ingersoll Rand Inc.",
       "sector": "Industrials",
       "entry": 97.41,
-      "max_price": 100.94,
-      "return_pct": 3.62,
+      "max_price": 100.96,
+      "return_pct": 3.64,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-13"
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5038,11 +4634,10 @@
       "company": "Imperial Oil Limited",
       "sector": "Energy",
       "entry": 110.71,
-      "max_price": 122.86,
-      "return_pct": 10.98,
+      "max_price": 123.52,
+      "return_pct": 11.57,
       "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-19"
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5050,11 +4645,10 @@
       "company": "Fifth Third Bancorp",
       "sector": "Financial Services",
       "entry": 54.09,
-      "max_price": 54.94,
-      "return_pct": 1.58,
+      "max_price": 55.44,
+      "return_pct": 2.5,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5062,11 +4656,10 @@
       "company": "Freeport-McMoRan, Inc.",
       "sector": "Basic Materials",
       "entry": 61.86,
-      "max_price": 69.75,
-      "return_pct": 12.75,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 65.98,
+      "return_pct": 6.66,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5074,11 +4667,10 @@
       "company": "Enterprise Products Partners L.",
       "sector": "Energy",
       "entry": 35.2,
-      "max_price": 37.77,
-      "return_pct": 7.3,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 37.31,
+      "return_pct": 5.99,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5086,11 +4678,10 @@
       "company": "Chevron Corporation",
       "sector": "Energy",
       "entry": 179.47,
-      "max_price": 192.41,
-      "return_pct": 7.21,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-06"
+      "max_price": 187.9,
+      "return_pct": 4.7,
+      "days": 15,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5101,8 +4692,7 @@
       "max_price": 789.81,
       "return_pct": 14.16,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5110,11 +4700,10 @@
       "company": "British American Tobacco  Indus",
       "sector": "Consumer Defensive",
       "entry": 61.63,
-      "max_price": 62.31,
-      "return_pct": 1.11,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 63.03,
+      "return_pct": 2.27,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-02-04",
@@ -5122,11 +4711,10 @@
       "company": "ASTRAZENECA PLC",
       "sector": "Healthcare",
       "entry": 187.45,
-      "max_price": 210.52,
-      "return_pct": 12.3,
+      "max_price": 212.71,
+      "return_pct": 13.48,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-18"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5134,11 +4722,10 @@
       "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "entry": 142.78,
-      "max_price": 159.61,
-      "return_pct": 11.79,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 155.89,
+      "return_pct": 9.18,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5146,11 +4733,10 @@
       "company": "United Parcel Service, Inc.",
       "sector": "Industrials",
       "entry": 111.85,
-      "max_price": 120.73,
-      "return_pct": 7.94,
+      "max_price": 122.41,
+      "return_pct": 9.44,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5161,8 +4747,7 @@
       "max_price": 231.32,
       "return_pct": 2.71,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5170,11 +4755,10 @@
       "company": "Teva Pharmaceutical Industries ",
       "sector": "Healthcare",
       "entry": 36.25,
-      "max_price": 37.35,
-      "return_pct": 3.03,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-03"
+      "max_price": 36.59,
+      "return_pct": 0.94,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5182,11 +4766,10 @@
       "company": "Takeda Pharmaceutical Company L",
       "sector": "Healthcare",
       "entry": 17.43,
-      "max_price": 18.82,
-      "return_pct": 7.97,
-      "days": 20,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "max_price": 18.5,
+      "return_pct": 6.14,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5194,11 +4777,10 @@
       "company": "Royal Caribbean Cruises Ltd.",
       "sector": "Consumer Cyclical",
       "entry": 326.29,
-      "max_price": 354.5,
-      "return_pct": 8.65,
+      "max_price": 356.39,
+      "return_pct": 9.22,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-10"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5206,11 +4788,10 @@
       "company": "Prudential Public Limited Compa",
       "sector": "Financial Services",
       "entry": 33.5,
-      "max_price": 33.59,
-      "return_pct": 0.25,
+      "max_price": 34.03,
+      "return_pct": 1.58,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5218,11 +4799,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 15.28,
-      "max_price": 17.34,
-      "return_pct": 13.48,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 21.969999313354492,
+      "return_pct": 43.78,
+      "days": 70,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5230,11 +4810,10 @@
       "company": "Altria Group, Inc.",
       "sector": "Consumer Defensive",
       "entry": 64.16,
-      "max_price": 69.35,
-      "return_pct": 8.09,
-      "days": 24,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 67.77,
+      "return_pct": 5.63,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5242,11 +4821,10 @@
       "company": "Monster Beverage Corporation",
       "sector": "Consumer Defensive",
       "entry": 81.97,
-      "max_price": 87.38,
-      "return_pct": 6.6,
-      "days": 24,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 82.95,
+      "return_pct": 1.2,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5254,11 +4832,10 @@
       "company": "Meta Platforms, Inc.",
       "sector": "Communication Services",
       "entry": 691.7,
-      "max_price": 716.39,
-      "return_pct": 3.57,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-03"
+      "max_price": 688.83,
+      "return_pct": -0.41,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-03",
@@ -5266,11 +4843,10 @@
       "company": "Lloyds Banking Group Plc",
       "sector": "Financial Services",
       "entry": 6.25,
-      "max_price": 6.19,
-      "return_pct": -0.99,
+      "max_price": 6.34,
+      "return_pct": 1.44,
       "days": 1,
-      "result": "FLAT",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5278,11 +4854,10 @@
       "company": "Southwest Airlines Company",
       "sector": "Industrials",
       "entry": 51.19,
-      "max_price": 54.87,
-      "return_pct": 7.19,
+      "max_price": 55.11,
+      "return_pct": 7.66,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-17"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5290,11 +4865,10 @@
       "company": "Eaton Corporation, PLC",
       "sector": "Industrials",
       "entry": 362.53,
-      "max_price": 407.18,
-      "return_pct": 12.32,
+      "max_price": 408.45,
+      "return_pct": 12.67,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5302,11 +4876,10 @@
       "company": "Enterprise Products Partners L.",
       "sector": "Energy",
       "entry": 34.63,
-      "max_price": 37.74,
-      "return_pct": 8.98,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-05"
+      "max_price": 37.31,
+      "return_pct": 7.74,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5314,11 +4887,10 @@
       "company": "Devon Energy Corporation",
       "sector": "Energy",
       "entry": 41.11,
-      "max_price": 45.91,
-      "return_pct": 11.68,
-      "days": 16,
-      "result": "WIN",
-      "peak_date": "2026-02-19"
+      "max_price": 45.29,
+      "return_pct": 10.17,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5329,8 +4901,7 @@
       "max_price": 789.81,
       "return_pct": 12.37,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5338,11 +4909,10 @@
       "company": "British American Tobacco  Indus",
       "sector": "Consumer Defensive",
       "entry": 61.87,
-      "max_price": 62.31,
-      "return_pct": 0.72,
-      "days": 22,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 63.03,
+      "return_pct": 1.87,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5353,8 +4923,7 @@
       "max_price": 548.56,
       "return_pct": 3.8,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-03",
@@ -5362,11 +4931,10 @@
       "company": "Archer-Daniels-Midland Company",
       "sector": "Consumer Defensive",
       "entry": 67.39,
-      "max_price": 70.48,
-      "return_pct": 4.59,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 70.09,
+      "return_pct": 4.01,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5374,11 +4942,10 @@
       "company": "Vodafone Group Plc",
       "sector": "Communication Services",
       "entry": 14.91,
-      "max_price": 15.91,
-      "return_pct": 6.71,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 15.9,
+      "return_pct": 6.64,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5386,11 +4953,10 @@
       "company": "United Parcel Service, Inc.",
       "sector": "Industrials",
       "entry": 110.27,
-      "max_price": 120.73,
-      "return_pct": 9.48,
+      "max_price": 122.41,
+      "return_pct": 11.01,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5401,8 +4967,7 @@
       "max_price": 231.32,
       "return_pct": 2.8,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5413,8 +4978,7 @@
       "max_price": 37.35,
       "return_pct": 5.15,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-03"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5422,11 +4986,10 @@
       "company": "Takeda Pharmaceutical Company L",
       "sector": "Healthcare",
       "entry": 17.49,
-      "max_price": 18.82,
-      "return_pct": 7.6,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "max_price": 18.5,
+      "return_pct": 5.77,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5434,11 +4997,10 @@
       "company": "Royal Caribbean Cruises Ltd.",
       "sector": "Consumer Cyclical",
       "entry": 334.05,
-      "max_price": 354.5,
-      "return_pct": 6.12,
+      "max_price": 356.39,
+      "return_pct": 6.69,
       "days": 8,
-      "result": "WIN",
-      "peak_date": "2026-02-10"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5446,11 +5008,10 @@
       "company": "Prudential Public Limited Compa",
       "sector": "Financial Services",
       "entry": 33.3,
-      "max_price": 33.59,
-      "return_pct": 0.86,
+      "max_price": 34.03,
+      "return_pct": 2.19,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5458,11 +5019,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 15.03,
-      "max_price": 17.34,
-      "return_pct": 15.37,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 21.969999313354492,
+      "return_pct": 46.17,
+      "days": 71,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5470,11 +5030,10 @@
       "company": "NatWest Group plc",
       "sector": "Financial Services",
       "entry": 18.82,
-      "max_price": 18.56,
-      "return_pct": -1.37,
+      "max_price": 19.36,
+      "return_pct": 2.87,
       "days": 2,
-      "result": "FLAT",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5482,11 +5041,10 @@
       "company": "MSCI Inc.",
       "sector": "Financial Services",
       "entry": 622.3,
-      "max_price": 623.82,
-      "return_pct": 0.24,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-02"
+      "max_price": 611.92,
+      "return_pct": -1.67,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-02-02",
@@ -5494,11 +5052,10 @@
       "company": "Meta Platforms, Inc.",
       "sector": "Communication Services",
       "entry": 706.41,
-      "max_price": 720.68,
-      "return_pct": 2.02,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-02-02"
+      "max_price": 717.0,
+      "return_pct": 1.5,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5506,11 +5063,10 @@
       "company": "Lloyds Banking Group Plc",
       "sector": "Financial Services",
       "entry": 6.17,
-      "max_price": 6.19,
-      "return_pct": 0.3,
+      "max_price": 6.34,
+      "return_pct": 2.76,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5518,11 +5074,10 @@
       "company": "Southwest Airlines Company",
       "sector": "Industrials",
       "entry": 49.64,
-      "max_price": 54.87,
-      "return_pct": 10.54,
+      "max_price": 55.11,
+      "return_pct": 11.02,
       "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-17"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5533,8 +5088,7 @@
       "max_price": 31.18,
       "return_pct": 2.73,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5542,11 +5096,10 @@
       "company": "GE Vernova Inc.",
       "sector": "Industrials",
       "entry": 754.97,
-      "max_price": 894.39,
-      "return_pct": 18.47,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 846.0,
+      "return_pct": 12.06,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5554,11 +5107,10 @@
       "company": "Fifth Third Bancorp",
       "sector": "Financial Services",
       "entry": 51.95,
-      "max_price": 54.94,
-      "return_pct": 5.76,
+      "max_price": 55.44,
+      "return_pct": 6.72,
       "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5566,11 +5118,10 @@
       "company": "British American Tobacco  Indus",
       "sector": "Consumer Defensive",
       "entry": 60.99,
-      "max_price": 62.31,
-      "return_pct": 2.17,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 63.03,
+      "return_pct": 3.34,
+      "days": 4,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5578,11 +5129,10 @@
       "company": "Bank Of Montreal",
       "sector": "Financial Services",
       "entry": 138.45,
-      "max_price": 149.01,
-      "return_pct": 7.63,
-      "days": 23,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 146.35,
+      "return_pct": 5.71,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5593,8 +5143,7 @@
       "max_price": 380.2,
       "return_pct": 3.34,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-02-03"
+      "result": "WIN"
     },
     {
       "date": "2026-02-02",
@@ -5605,8 +5154,7 @@
       "max_price": 548.56,
       "return_pct": 3.38,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5614,11 +5162,10 @@
       "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "entry": 137.48,
-      "max_price": 159.61,
-      "return_pct": 16.1,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 155.89,
+      "return_pct": 13.39,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5629,8 +5176,7 @@
       "max_price": 17.72,
       "return_pct": 9.79,
       "days": 12,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5641,8 +5187,7 @@
       "max_price": 231.32,
       "return_pct": 2.8,
       "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5650,11 +5195,10 @@
       "company": "TotalEnergies SE",
       "sector": "Energy",
       "entry": 71.88,
-      "max_price": 81.34,
-      "return_pct": 13.15,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 77.77,
+      "return_pct": 8.19,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5662,11 +5206,10 @@
       "company": "Sandisk Corporation",
       "sector": "Technology",
       "entry": 665.24,
-      "max_price": 725.0,
-      "return_pct": 8.98,
-      "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-03"
+      "max_price": 938.9550170898438,
+      "return_pct": 41.15,
+      "days": 73,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5674,11 +5217,10 @@
       "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
       "entry": 190.35,
-      "max_price": 223.89,
-      "return_pct": 17.62,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 212.96,
+      "return_pct": 11.88,
+      "days": 3,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5686,11 +5228,10 @@
       "company": "Royal Caribbean Cruises Ltd.",
       "sector": "Consumer Cyclical",
       "entry": 334.05,
-      "max_price": 354.5,
-      "return_pct": 6.12,
+      "max_price": 356.39,
+      "return_pct": 6.69,
       "days": 10,
-      "result": "WIN",
-      "peak_date": "2026-02-10"
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5698,11 +5239,10 @@
       "company": "Prudential Public Limited Compa",
       "sector": "Financial Services",
       "entry": 33.3,
-      "max_price": 33.59,
-      "return_pct": 0.86,
+      "max_price": 34.03,
+      "return_pct": 2.19,
       "days": 4,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5710,11 +5250,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 15.03,
-      "max_price": 17.34,
-      "return_pct": 15.37,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 21.969999313354492,
+      "return_pct": 46.17,
+      "days": 73,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5722,11 +5261,10 @@
       "company": "Itau Unibanco Banco Holding SA",
       "sector": "Financial Services",
       "entry": 8.7,
-      "max_price": 9.51,
-      "return_pct": 9.31,
+      "max_price": 9.6,
+      "return_pct": 10.34,
       "days": 11,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5734,11 +5272,10 @@
       "company": "Corning Incorporated",
       "sector": "Technology",
       "entry": 110.36,
-      "max_price": 161.8,
-      "return_pct": 46.61,
-      "days": 25,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 136.83,
+      "return_pct": 23.99,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5746,11 +5283,10 @@
       "company": "GE Vernova Inc.",
       "sector": "Industrials",
       "entry": 754.97,
-      "max_price": 894.39,
-      "return_pct": 18.47,
-      "days": 25,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 846.0,
+      "return_pct": 12.06,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5758,11 +5294,10 @@
       "company": "Diamondback Energy, Inc.",
       "sector": "Energy",
       "entry": 158.64,
-      "max_price": 182.27,
-      "return_pct": 14.9,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 170.54,
+      "return_pct": 7.5,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5770,11 +5305,10 @@
       "company": "Chevron Corporation",
       "sector": "Energy",
       "entry": 174.03,
-      "max_price": 191.44,
-      "return_pct": 10.0,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 186.52,
+      "return_pct": 7.18,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5782,11 +5316,10 @@
       "company": "ConocoPhillips",
       "sector": "Energy",
       "entry": 101.79,
-      "max_price": 119.3,
-      "return_pct": 17.2,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 112.07,
+      "return_pct": 10.1,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5797,8 +5330,7 @@
       "max_price": 128.15,
       "return_pct": 6.61,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-03"
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5806,11 +5338,10 @@
       "company": "British American Tobacco  Indus",
       "sector": "Consumer Defensive",
       "entry": 60.99,
-      "max_price": 62.31,
-      "return_pct": 2.17,
-      "days": 25,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 63.03,
+      "return_pct": 3.34,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5818,11 +5349,10 @@
       "company": "Baker Hughes Company",
       "sector": "Energy",
       "entry": 56.45,
-      "max_price": 67.0,
-      "return_pct": 18.69,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 62.27,
+      "return_pct": 10.31,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5830,11 +5360,10 @@
       "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "entry": 69.39,
-      "max_price": 81.61,
-      "return_pct": 17.61,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-02"
+      "max_price": 75.14,
+      "return_pct": 8.29,
+      "days": 11,
+      "result": "WIN"
     },
     {
       "date": "2026-01-31",
@@ -5842,11 +5371,10 @@
       "company": "Banco Bradesco Sa",
       "sector": "Financial Services",
       "entry": 4.09,
-      "max_price": 4.18,
-      "return_pct": 2.24,
+      "max_price": 4.26,
+      "return_pct": 4.16,
       "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-02-03"
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5854,11 +5382,10 @@
       "company": "Wheaton Precious Metals Corp",
       "sector": "Basic Materials",
       "entry": 152.7,
-      "max_price": 164.13,
-      "return_pct": 7.49,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 150.5,
+      "return_pct": -1.44,
+      "days": 13,
+      "result": "LOSS"
     },
     {
       "date": "2026-01-29",
@@ -5866,11 +5393,10 @@
       "company": "Valero Energy Corporation",
       "sector": "Energy",
       "entry": 181.38,
-      "max_price": 206.77,
-      "return_pct": 14.0,
-      "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 204.33,
+      "return_pct": 12.65,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5878,11 +5404,10 @@
       "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
       "entry": 205.29,
-      "max_price": 223.89,
-      "return_pct": 9.06,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 212.96,
+      "return_pct": 3.74,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5890,11 +5415,10 @@
       "company": "Prudential Public Limited Compa",
       "sector": "Financial Services",
       "entry": 33.61,
-      "max_price": 33.59,
-      "return_pct": -0.07,
+      "max_price": 34.03,
+      "return_pct": 1.25,
       "days": 6,
-      "result": "FLAT",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5902,11 +5426,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 15.52,
-      "max_price": 16.92,
-      "return_pct": 9.02,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 21.969999313354492,
+      "return_pct": 41.56,
+      "days": 75,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5914,11 +5437,10 @@
       "company": "Pan American Silver Corp.",
       "sector": "Basic Materials",
       "entry": 63.29,
-      "max_price": 68.73,
-      "return_pct": 8.59,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 61.49,
+      "return_pct": -2.84,
+      "days": 13,
+      "result": "LOSS"
     },
     {
       "date": "2026-01-29",
@@ -5926,11 +5448,10 @@
       "company": "Kinross Gold Corporation",
       "sector": "Basic Materials",
       "entry": 36.6,
-      "max_price": 38.67,
-      "return_pct": 5.66,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "max_price": 35.46,
+      "return_pct": -3.11,
+      "days": 13,
+      "result": "LOSS"
     },
     {
       "date": "2026-01-29",
@@ -5938,11 +5459,10 @@
       "company": "Corning Incorporated",
       "sector": "Technology",
       "entry": 103.0,
-      "max_price": 161.8,
-      "return_pct": 57.09,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 134.39,
+      "return_pct": 30.48,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5950,11 +5470,10 @@
       "company": "Franco-Nevada Corporation",
       "sector": "Basic Materials",
       "entry": 261.77,
-      "max_price": 284.03,
-      "return_pct": 8.5,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 263.49,
+      "return_pct": 0.66,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5962,11 +5481,10 @@
       "company": "Diamondback Energy, Inc.",
       "sector": "Energy",
       "entry": 163.07,
-      "max_price": 176.2,
-      "return_pct": 8.05,
-      "days": 25,
-      "result": "WIN",
-      "peak_date": "2026-02-23"
+      "max_price": 170.54,
+      "return_pct": 4.58,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5974,11 +5492,10 @@
       "company": "Enterprise Products Partners L.",
       "sector": "Energy",
       "entry": 33.56,
-      "max_price": 37.31,
-      "return_pct": 11.17,
-      "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-13"
+      "max_price": 35.65,
+      "return_pct": 6.23,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5986,11 +5503,10 @@
       "company": "Ecopetrol S.A.",
       "sector": "Energy",
       "entry": 12.77,
-      "max_price": 13.25,
-      "return_pct": 3.76,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "max_price": 12.85,
+      "return_pct": 0.63,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -5998,11 +5514,10 @@
       "company": "ConocoPhillips",
       "sector": "Energy",
       "entry": 102.8,
-      "max_price": 113.8,
-      "return_pct": 10.7,
-      "days": 21,
-      "result": "WIN",
-      "peak_date": "2026-02-19"
+      "max_price": 111.44,
+      "return_pct": 8.4,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -6010,11 +5525,10 @@
       "company": "British American Tobacco  Indus",
       "sector": "Consumer Defensive",
       "entry": 60.22,
-      "max_price": 62.31,
-      "return_pct": 3.48,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 63.03,
+      "return_pct": 4.67,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -6022,11 +5536,10 @@
       "company": "Bank Of Montreal",
       "sector": "Financial Services",
       "entry": 141.4,
-      "max_price": 149.01,
-      "return_pct": 5.38,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 146.35,
+      "return_pct": 3.5,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -6034,11 +5547,10 @@
       "company": "Baker Hughes Company",
       "sector": "Energy",
       "entry": 56.73,
-      "max_price": 65.78,
-      "return_pct": 15.95,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 62.08,
+      "return_pct": 9.43,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -6046,11 +5558,10 @@
       "company": "Baidu, Inc.",
       "sector": "Communication Services",
       "entry": 157.51,
-      "max_price": 161.93,
-      "return_pct": 2.81,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "max_price": 157.4,
+      "return_pct": -0.07,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-01-29",
@@ -6058,11 +5569,10 @@
       "company": "Banco Bradesco Sa",
       "sector": "Financial Services",
       "entry": 4.15,
-      "max_price": 4.21,
-      "return_pct": 1.47,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "max_price": 4.26,
+      "return_pct": 2.65,
+      "days": 5,
+      "result": "WIN"
     },
     {
       "date": "2026-01-29",
@@ -6070,11 +5580,10 @@
       "company": "Barrick Mining Corporation",
       "sector": "Basic Materials",
       "entry": 52.05,
-      "max_price": 54.23,
-      "return_pct": 4.2,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "max_price": 49.51,
+      "return_pct": -4.88,
+      "days": 5,
+      "result": "LOSS"
     },
     {
       "date": "2026-01-29",
@@ -6082,11 +5591,10 @@
       "company": "AngloGold Ashanti PLC",
       "sector": "Basic Materials",
       "entry": 107.02,
-      "max_price": 126.42,
-      "return_pct": 18.12,
-      "days": 27,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 112.3,
+      "return_pct": 4.93,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6094,11 +5602,10 @@
       "company": "Zoom Communications, Inc.",
       "sector": "Technology",
       "entry": 96.22,
-      "max_price": 97.58,
-      "return_pct": 1.41,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-28"
+      "max_price": 96.52,
+      "return_pct": 0.31,
+      "days": 13,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6106,11 +5613,10 @@
       "company": "Wheaton Precious Metals Corp",
       "sector": "Basic Materials",
       "entry": 156.3,
-      "max_price": 164.13,
-      "return_pct": 5.01,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 160.36,
+      "return_pct": 2.6,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6118,11 +5624,10 @@
       "company": "United Microelectronics Corpora",
       "sector": "Technology",
       "entry": 11.38,
-      "max_price": 11.86,
-      "return_pct": 4.22,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-28"
+      "max_price": 10.79,
+      "return_pct": -5.18,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-01-28",
@@ -6133,8 +5638,7 @@
       "max_price": 231.32,
       "return_pct": 7.71,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6142,11 +5646,10 @@
       "company": "Seagate Technology Holdings PLC",
       "sector": "Technology",
       "entry": 442.93,
-      "max_price": 459.04,
-      "return_pct": 3.64,
-      "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 459.41,
+      "return_pct": 3.72,
+      "days": 6,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6154,11 +5657,10 @@
       "company": "Starbucks Corporation",
       "sector": "Consumer Cyclical",
       "entry": 95.16,
-      "max_price": 104.15,
-      "return_pct": 9.45,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-28"
+      "max_price": 99.98,
+      "return_pct": 5.07,
+      "days": 12,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6166,11 +5668,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 15.38,
-      "max_price": 16.92,
-      "return_pct": 10.01,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 21.969999313354492,
+      "return_pct": 42.85,
+      "days": 76,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6178,11 +5679,10 @@
       "company": "Pan American Silver Corp.",
       "sector": "Basic Materials",
       "entry": 65.92,
-      "max_price": 68.73,
-      "return_pct": 4.26,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 67.51,
+      "return_pct": 2.41,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6190,11 +5690,10 @@
       "company": "NatWest Group plc",
       "sector": "Financial Services",
       "entry": 18.21,
-      "max_price": 18.56,
-      "return_pct": 1.94,
+      "max_price": 19.36,
+      "return_pct": 6.32,
       "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-02-04"
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6202,11 +5701,10 @@
       "company": "Monolithic Power Systems, Inc.",
       "sector": "Technology",
       "entry": 1161.78,
-      "max_price": 1253.71,
-      "return_pct": 7.91,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 1250.0,
+      "return_pct": 7.59,
+      "days": 9,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6214,11 +5712,10 @@
       "company": "Itau Unibanco Banco Holding SA",
       "sector": "Financial Services",
       "entry": 8.88,
-      "max_price": 9.51,
-      "return_pct": 7.1,
+      "max_price": 9.6,
+      "return_pct": 8.11,
       "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6226,11 +5723,10 @@
       "company": "Corning Incorporated",
       "sector": "Technology",
       "entry": 104.28,
-      "max_price": 161.8,
-      "return_pct": 55.16,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 134.39,
+      "return_pct": 28.87,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6238,11 +5734,10 @@
       "company": "GlobalFoundries Inc.",
       "sector": "Technology",
       "entry": 45.79,
-      "max_price": 50.98,
-      "return_pct": 11.33,
-      "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 48.88,
+      "return_pct": 6.75,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6250,11 +5745,10 @@
       "company": "Ericsson",
       "sector": "Technology",
       "entry": 10.88,
-      "max_price": 11.47,
-      "return_pct": 5.43,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 12.029999732971191,
+      "return_pct": 10.57,
+      "days": 76,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6262,11 +5756,10 @@
       "company": "Baker Hughes Company",
       "sector": "Energy",
       "entry": 56.63,
-      "max_price": 65.78,
-      "return_pct": 16.16,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-27"
+      "max_price": 62.08,
+      "return_pct": 9.62,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6274,11 +5767,10 @@
       "company": "Banco Bradesco Sa",
       "sector": "Financial Services",
       "entry": 4.16,
-      "max_price": 4.21,
-      "return_pct": 1.23,
+      "max_price": 4.29,
+      "return_pct": 3.12,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6286,11 +5778,10 @@
       "company": "AngloGold Ashanti PLC",
       "sector": "Basic Materials",
       "entry": 115.72,
-      "max_price": 126.42,
-      "return_pct": 9.24,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 114.95,
+      "return_pct": -0.67,
+      "days": 1,
+      "result": "LOSS"
     },
     {
       "date": "2026-01-28",
@@ -6298,11 +5789,10 @@
       "company": "ASE Technology Holding Co., Ltd",
       "sector": "Technology",
       "entry": 20.26,
-      "max_price": 25.29,
-      "return_pct": 24.83,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 23.88,
+      "return_pct": 17.87,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6310,11 +5800,10 @@
       "company": "Arista Networks, Inc.",
       "sector": "Technology",
       "entry": 150.15,
-      "max_price": 151.8,
-      "return_pct": 1.1,
-      "days": 0,
-      "result": "WIN",
-      "peak_date": "2026-01-28"
+      "max_price": 151.55,
+      "return_pct": 0.93,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-01-28",
@@ -6322,11 +5811,10 @@
       "company": "Applied Materials, Inc.",
       "sector": "Technology",
       "entry": 336.75,
-      "max_price": 395.95,
-      "return_pct": 17.58,
-      "days": 28,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 344.6,
+      "return_pct": 2.33,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6337,8 +5825,7 @@
       "max_price": 97.58,
       "return_pct": 3.32,
       "days": 1,
-      "result": "WIN",
-      "peak_date": "2026-01-28"
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6346,11 +5833,10 @@
       "company": "Wheaton Precious Metals Corp",
       "sector": "Basic Materials",
       "entry": 149.38,
-      "max_price": 161.25,
-      "return_pct": 7.94,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 160.36,
+      "return_pct": 7.35,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6358,11 +5844,10 @@
       "company": "Teck Resources Ltd",
       "sector": "Basic Materials",
       "entry": 56.44,
-      "max_price": 62.3,
-      "return_pct": 10.38,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 60.71,
+      "return_pct": 7.57,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6370,11 +5855,10 @@
       "company": "Teledyne Technologies Incorpora",
       "sector": "Technology",
       "entry": 616.02,
-      "max_price": 691.87,
-      "return_pct": 12.31,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 659.67,
+      "return_pct": 7.09,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6382,11 +5866,10 @@
       "company": "Petroleo Brasileiro S.A. Petrob",
       "sector": "Energy",
       "entry": 15.02,
-      "max_price": 16.73,
-      "return_pct": 11.38,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 21.969999313354492,
+      "return_pct": 46.27,
+      "days": 77,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6394,11 +5877,10 @@
       "company": "Pan American Silver Corp.",
       "sector": "Basic Materials",
       "entry": 64.31,
-      "max_price": 67.37,
-      "return_pct": 4.76,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 67.51,
+      "return_pct": 4.98,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6409,8 +5891,7 @@
       "max_price": 18.98,
       "return_pct": 2.32,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6418,11 +5899,10 @@
       "company": "Arcelor Mittal NY Registry Shar",
       "sector": "Basic Materials",
       "entry": 55.47,
-      "max_price": 67.6,
-      "return_pct": 21.87,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 63.51,
+      "return_pct": 14.49,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6430,11 +5910,10 @@
       "company": "Kinross Gold Corporation",
       "sector": "Basic Materials",
       "entry": 37.87,
-      "max_price": 38.67,
-      "return_pct": 2.12,
+      "max_price": 38.72,
+      "return_pct": 2.24,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6442,11 +5921,10 @@
       "company": "Korea Electric Power Corporatio",
       "sector": "Utilities",
       "entry": 21.47,
-      "max_price": 23.09,
-      "return_pct": 7.55,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 21.96,
+      "return_pct": 2.28,
+      "days": 8,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6454,11 +5932,10 @@
       "company": "Itau Unibanco Banco Holding SA",
       "sector": "Financial Services",
       "entry": 8.78,
-      "max_price": 9.51,
-      "return_pct": 8.32,
-      "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "max_price": 9.44,
+      "return_pct": 7.52,
+      "days": 14,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6466,11 +5943,10 @@
       "company": "Gilead Sciences, Inc.",
       "sector": "Healthcare",
       "entry": 140.97,
-      "max_price": 156.4,
-      "return_pct": 10.95,
-      "days": 15,
-      "result": "WIN",
-      "peak_date": "2026-02-11"
+      "max_price": 153.13,
+      "return_pct": 8.63,
+      "days": 10,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6478,11 +5954,10 @@
       "company": "GlobalFoundries Inc.",
       "sector": "Technology",
       "entry": 47.41,
-      "max_price": 50.98,
-      "return_pct": 7.53,
-      "days": 16,
-      "result": "WIN",
-      "peak_date": "2026-02-12"
+      "max_price": 48.01,
+      "return_pct": 1.27,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6490,11 +5965,10 @@
       "company": "Franco-Nevada Corporation",
       "sector": "Basic Materials",
       "entry": 261.93,
-      "max_price": 280.79,
-      "return_pct": 7.2,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-02-26"
+      "max_price": 273.56,
+      "return_pct": 4.44,
+      "days": 2,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6502,11 +5976,10 @@
       "company": "Ericsson",
       "sector": "Technology",
       "entry": 11.11,
-      "max_price": 11.21,
-      "return_pct": 0.95,
-      "days": 24,
-      "result": "WIN",
-      "peak_date": "2026-02-20"
+      "max_price": 12.029999732971191,
+      "return_pct": 8.28,
+      "days": 77,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6514,11 +5987,10 @@
       "company": "Banco Bradesco Sa",
       "sector": "Financial Services",
       "entry": 4.14,
-      "max_price": 4.21,
-      "return_pct": 1.71,
+      "max_price": 4.29,
+      "return_pct": 3.62,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6526,11 +5998,10 @@
       "company": "Barrick Mining Corporation",
       "sector": "Basic Materials",
       "entry": 52.17,
-      "max_price": 54.23,
-      "return_pct": 3.96,
+      "max_price": 54.69,
+      "return_pct": 4.83,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6538,11 +6009,10 @@
       "company": "AngloGold Ashanti PLC",
       "sector": "Basic Materials",
       "entry": 109.44,
-      "max_price": 126.42,
-      "return_pct": 15.51,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 115.81,
+      "return_pct": 5.82,
+      "days": 1,
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6553,8 +6023,7 @@
       "max_price": 260.53,
       "return_pct": 3.37,
       "days": 2,
-      "result": "WIN",
-      "peak_date": "2026-01-29"
+      "result": "WIN"
     },
     {
       "date": "2026-01-27",
@@ -6562,12 +6031,11 @@
       "company": "Applied Materials, Inc.",
       "sector": "Technology",
       "entry": 332.71,
-      "max_price": 395.95,
-      "return_pct": 19.01,
-      "days": 29,
-      "result": "WIN",
-      "peak_date": "2026-02-25"
+      "max_price": 344.6,
+      "return_pct": 3.57,
+      "days": 2,
+      "result": "WIN"
     }
   ],
-  "generated_at": "2026-04-14T22:53:09.975308"
+  "generated_at": "2026-04-14T18:13:40.164035"
 }

@@ -24,6 +24,8 @@ interface Props {
 export default function SwingPerformanceDashboard({ initialHistory }: Props) {
   const [selectedSector, setSelectedSector] = useState<string>("All");
   const [selectedMonth, setSelectedMonth] = useState<string>("All");
+  const [selectedStartDate, setSelectedStartDate] = useState<string>("");
+  const [selectedEndDate, setSelectedEndDate] = useState<string>("");
 
   // Extract unique sectors and months for dropdowns
   const sectors = useMemo(() => {
@@ -45,18 +47,32 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
     return Array.from(m).sort((a,b) => b.localeCompare(a));
   }, [initialHistory]);
 
+  // Compute min and max dates from history
+  const { minDate, maxDate } = useMemo(() => {
+    if (initialHistory.length === 0) return { minDate: "", maxDate: "" };
+    const dates = initialHistory.map(t => t.date).sort();
+    return { minDate: dates[0], maxDate: dates[dates.length - 1] };
+  }, [initialHistory]);
+
+  // Initialize date filters on first load
+  useMemo(() => {
+    if (selectedStartDate === "" && minDate) setSelectedStartDate(minDate);
+    if (selectedEndDate === "" && maxDate) setSelectedEndDate(maxDate);
+  }, [minDate, maxDate, selectedStartDate, selectedEndDate]);
+
   // Filter history
   const filteredHistory = useMemo(() => {
     return initialHistory.filter(t => {
       // Exclude unknown sectors completely
       const isUnknown = !t.sector || t.sector.trim() === "" || t.sector.toLowerCase().includes("unknown") || t.sector === "—";
       // if (isUnknown) return false; // Show even unknown sectors
-      
+
       const matchSector = selectedSector === "All" || t.sector === selectedSector;
       const matchMonth = selectedMonth === "All" || (t.date && t.date.startsWith(selectedMonth));
-      return matchSector && matchMonth;
+      const matchDateRange = t.date >= selectedStartDate && t.date <= selectedEndDate;
+      return matchSector && matchMonth && matchDateRange;
     }).sort((a, b) => b.date.localeCompare(a.date));
-  }, [initialHistory, selectedSector, selectedMonth]);
+  }, [initialHistory, selectedSector, selectedMonth, selectedStartDate, selectedEndDate]);
 
   // Calculate stats dynamically
   const stats = useMemo(() => {
@@ -116,7 +132,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
     <>
       {/* Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <select 
+        <select
           value={selectedSector}
           onChange={(e) => setSelectedSector(e.target.value)}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-[#3b82f6]"
@@ -125,7 +141,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
           {sectors.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
 
-        <select 
+        <select
           value={selectedMonth}
           onChange={(e) => setSelectedMonth(e.target.value)}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-[#3b82f6]"
@@ -133,6 +149,26 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
           <option value="All">All Months</option>
           {months.map(m => <option key={m} value={m}>{m}</option>)}
         </select>
+
+        <input
+          type="date"
+          value={selectedStartDate}
+          onChange={(e) => setSelectedStartDate(e.target.value)}
+          min={minDate}
+          max={maxDate}
+          className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-[#3b82f6]"
+          title="Start Date"
+        />
+
+        <input
+          type="date"
+          value={selectedEndDate}
+          onChange={(e) => setSelectedEndDate(e.target.value)}
+          min={minDate}
+          max={maxDate}
+          className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-[#3b82f6]"
+          title="End Date"
+        />
       </div>
 
       {/* Stats Strip */}
