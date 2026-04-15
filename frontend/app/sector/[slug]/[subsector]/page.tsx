@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
 interface TickerData {
   ticker: string;
@@ -65,13 +67,9 @@ function getTrendBadge(trend?: string) {
 
 async function loadSectorData(): Promise<SectorAnalysis | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-    const response = await fetch(`${baseUrl}/data/sector_analysis.json`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) throw new Error("Failed to load sector data");
-    return await response.json();
+    const filePath = join(process.cwd(), "public", "data", "sector_analysis.json");
+    const fileContent = await readFile(filePath, "utf-8");
+    return JSON.parse(fileContent);
   } catch (error) {
     console.error("Error loading sector data:", error);
     return null;
