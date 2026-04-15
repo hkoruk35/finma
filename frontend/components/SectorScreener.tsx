@@ -44,9 +44,10 @@ export default function SectorScreener() {
         const sectorList = Object.keys(analysisData).sort();
         setSectors(sectorList);
 
-        // Auto-select first sector
-        if (sectorList.length > 0) {
-          setSelectedSector(sectorList[0]);
+        // Auto-select Technology sector
+        const defaultSector = sectorList.includes("Technology") ? "Technology" : sectorList[0];
+        if (defaultSector) {
+          setSelectedSector(defaultSector);
         }
 
         setLoading(false);
