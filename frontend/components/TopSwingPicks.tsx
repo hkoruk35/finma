@@ -98,7 +98,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {picks.map((item, idx) => {
+        {picks.slice(0, 3).map((item, idx) => {
           const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
           
           // ACCESS LOGIC
