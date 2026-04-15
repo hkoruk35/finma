@@ -300,7 +300,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                              {t.peak_date && <span className="block text-[10px] text-[#64748b] mt-0.5">{t.peak_date}</span>}
                            </td>
                            <td className="px-6 py-4 text-center text-[#64748b]">
-                             {t.result === 'PENDING' ? <span className="text-[#3b82f6] text-[10px] font-bold">PENDING</span> : `${t.days}d`}
+                             {t.result === 'PENDING' ? <span className="text-[#3b82f6] text-[10px] font-bold">PENDING</span> : <span>{t.days}d</span>}
                            </td>
                            <td className="px-6 py-4 text-[#94a3b8] text-[10px] uppercase">{t.sector || "Unknown"}</td>
                         </tr>
