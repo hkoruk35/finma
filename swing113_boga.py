@@ -2909,19 +2909,19 @@ def build_candidate_block(rank: int, c: dict) -> str:
         )
 
     # ── BOGA AI TÜRKÇE ANALİZ ────────────────────────────────────────────────
-    if home_tr:
-        block += (
-            f"🐂 <b>BOGA AI KISA ÖZET:</b>\n"
-            f"<i>{home_tr}</i>\n\n"
-        )
-
-    if detail_tr:
-        # 700 karakter sınırı — detay sayfasına yönlendir
-        truncated = detail_tr[:700].rsplit(" ", 1)[0] + "…" if len(detail_tr) > 700 else detail_tr
-        block += (
-            f"🧠 <b>BOGA AI DETAYLI ANALİZ:</b>\n"
-            f"<i>{truncated}</i>\n\n"
-        )
+    #if home_tr:
+    #    block += (
+    #        f"🐂 <b>BOGA AI KISA ÖZET:</b>\n"
+    #        f"<i>{home_tr}</i>\n\n"
+    #    )
+    #
+    #if detail_tr:
+    #    # 700 karakter sınırı — detay sayfasına yönlendir
+    #    truncated = detail_tr[:700].rsplit(" ", 1)[0] + "…" if len(detail_tr) > 700 else detail_tr
+    #    block += (
+    #        f"🧠 <b>BOGA AI DETAYLI ANALİZ:</b>\n"
+    #        f"<i>{truncated}</i>\n\n"
+    #    )
 
     # ── ÖZET KARAR KUTUSU ────────────────────────────────────────────────────
     block += (
@@ -3141,7 +3141,27 @@ async def scan_top_stocks():
         with open(os.path.join(public_dir, "swing_all_picks.json"), "w", encoding="utf-8") as f:
             json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
 
-        logging.info(f"🚀 JSON dosyaları frontend/public klasörüne yerleştirildi.")
+        # 3. Özel Tablo Formatı (Tarih, Sembol, Giriş, Stop, TP1, TP2)
+        turkish_months = ["", "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+        tarih_str = f"{now_ny.day} {turkish_months[now_ny.month]}"
+        
+        table_data = []
+        for c in top_candidates:
+            z = c.get("boga_zones", {})
+            table_data.append({
+                "Tarih": tarih_str,
+                "Sembol": c.get("ticker", ""),
+                "Giriş (Buy_L)": z.get("buy_zone", {}).get("low", 0.0),
+                "Stop (SL)": z.get("stop_zone", {}).get("high", 0.0),
+                "Hedef 1 (TP1)": z.get("sell_zone", {}).get("low", 0.0),
+                "Hedef 2 (TP2)": z.get("sell_zone", {}).get("high", 0.0)
+            })
+        
+        with open(os.path.join(public_dir, "swing_table.json"), "w", encoding="utf-8") as f:
+            json.dump(table_data, f, indent=2, ensure_ascii=False)
+
+        logging.info(f"🚀 JSON dosyaları (ve swing_table.json) frontend/public klasörüne yerleştirildi.")
+        
     except Exception as e:
         logging.error(f"❌ JSON kayıt hatası: {e}")
 

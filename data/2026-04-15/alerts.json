@@ -1,0 +1,1980 @@
+{
+  "date": "2026-04-15",
+  "alerts": [
+    {
+      "ticker": "AAPL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for AAPL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "QCOM",
+      "type": "CONVICTION_SCORE",
+      "message": "QCOM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "QCOM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for QCOM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SMCI",
+      "type": "CONVICTION_SCORE",
+      "message": "SMCI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LITE",
+      "type": "CONVICTION_SCORE",
+      "message": "LITE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CRM",
+      "type": "CONVICTION_SCORE",
+      "message": "CRM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ADBE",
+      "type": "CONVICTION_SCORE",
+      "message": "ADBE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ADBE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ADBE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NOW",
+      "type": "CONVICTION_SCORE",
+      "message": "NOW received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "INTU",
+      "type": "CONVICTION_SCORE",
+      "message": "INTU received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WDAY",
+      "type": "CONVICTION_SCORE",
+      "message": "WDAY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TEAM",
+      "type": "CONVICTION_SCORE",
+      "message": "TEAM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DDOG",
+      "type": "CONVICTION_SCORE",
+      "message": "DDOG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MDB",
+      "type": "CONVICTION_SCORE",
+      "message": "MDB received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SNOW",
+      "type": "CONVICTION_SCORE",
+      "message": "SNOW received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HUBS",
+      "type": "CONVICTION_SCORE",
+      "message": "HUBS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VEEV",
+      "type": "CONVICTION_SCORE",
+      "message": "VEEV received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BILL",
+      "type": "CONVICTION_SCORE",
+      "message": "BILL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BILL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BILL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "GTLB",
+      "type": "CONVICTION_SCORE",
+      "message": "GTLB received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TTD",
+      "type": "CONVICTION_SCORE",
+      "message": "TTD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TTD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TTD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ZS",
+      "type": "CONVICTION_SCORE",
+      "message": "ZS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PANW",
+      "type": "CONVICTION_SCORE",
+      "message": "PANW received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CRWD",
+      "type": "CONVICTION_SCORE",
+      "message": "CRWD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FTNT",
+      "type": "CONVICTION_SCORE",
+      "message": "FTNT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "OKTA",
+      "type": "CONVICTION_SCORE",
+      "message": "OKTA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "S",
+      "type": "CONVICTION_SCORE",
+      "message": "S received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CYBR",
+      "type": "CONVICTION_SCORE",
+      "message": "CYBR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PLTR",
+      "type": "CONVICTION_SCORE",
+      "message": "PLTR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MSTR",
+      "type": "CONVICTION_SCORE",
+      "message": "MSTR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CDNS",
+      "type": "CONVICTION_SCORE",
+      "message": "CDNS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SNPS",
+      "type": "CONVICTION_SCORE",
+      "message": "SNPS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NET",
+      "type": "CONVICTION_SCORE",
+      "message": "NET received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AKAM",
+      "type": "CONVICTION_SCORE",
+      "message": "AKAM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NTAP",
+      "type": "CONVICTION_SCORE",
+      "message": "NTAP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SPOT",
+      "type": "CONVICTION_SCORE",
+      "message": "SPOT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SPOT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SPOT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WBD",
+      "type": "CONVICTION_SCORE",
+      "message": "WBD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WBD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WBD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "T",
+      "type": "CONVICTION_SCORE",
+      "message": "T received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VZ",
+      "type": "CONVICTION_SCORE",
+      "message": "VZ received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TMUS",
+      "type": "CONVICTION_SCORE",
+      "message": "TMUS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CHTR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CHTR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CMCSA",
+      "type": "CONVICTION_SCORE",
+      "message": "CMCSA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CMCSA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CMCSA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TTWO",
+      "type": "CONVICTION_SCORE",
+      "message": "TTWO received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RBLX",
+      "type": "CONVICTION_SCORE",
+      "message": "RBLX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RBLX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for RBLX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PINS",
+      "type": "CONVICTION_SCORE",
+      "message": "PINS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TKO",
+      "type": "CONVICTION_SCORE",
+      "message": "TKO received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TKO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TKO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "OMC",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for OMC. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BIDU",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BIDU. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "W",
+      "type": "CONVICTION_SCORE",
+      "message": "W received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "W",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for W. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BABA",
+      "type": "CONVICTION_SCORE",
+      "message": "BABA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BABA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BABA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TSLA",
+      "type": "CONVICTION_SCORE",
+      "message": "TSLA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RIVN",
+      "type": "CONVICTION_SCORE",
+      "message": "RIVN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RIVN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for RIVN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "LCID",
+      "type": "CONVICTION_SCORE",
+      "message": "LCID received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HD",
+      "type": "CONVICTION_SCORE",
+      "message": "HD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LOW",
+      "type": "CONVICTION_SCORE",
+      "message": "LOW received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MCD",
+      "type": "CONVICTION_SCORE",
+      "message": "MCD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MCD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MCD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CMG",
+      "type": "CONVICTION_SCORE",
+      "message": "CMG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "YUM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for YUM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WEN",
+      "type": "CONVICTION_SCORE",
+      "message": "WEN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NKE",
+      "type": "CONVICTION_SCORE",
+      "message": "NKE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LULU",
+      "type": "CONVICTION_SCORE",
+      "message": "LULU received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TPR",
+      "type": "CONVICTION_SCORE",
+      "message": "TPR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "UAA",
+      "type": "CONVICTION_SCORE",
+      "message": "UAA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "UAA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for UAA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BKNG",
+      "type": "CONVICTION_SCORE",
+      "message": "BKNG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RCL",
+      "type": "CONVICTION_SCORE",
+      "message": "RCL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RCL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for RCL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NCLH",
+      "type": "CONVICTION_SCORE",
+      "message": "NCLH received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FUN",
+      "type": "CONVICTION_SCORE",
+      "message": "FUN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FIVE",
+      "type": "CONVICTION_SCORE",
+      "message": "FIVE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DLTR",
+      "type": "CONVICTION_SCORE",
+      "message": "DLTR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DLTR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DLTR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "UBER",
+      "type": "CONVICTION_SCORE",
+      "message": "UBER received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TSCO",
+      "type": "CONVICTION_SCORE",
+      "message": "TSCO received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TSCO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TSCO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CAVA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CAVA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PG",
+      "type": "CONVICTION_SCORE",
+      "message": "PG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CL",
+      "type": "CONVICTION_SCORE",
+      "message": "CL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "KMB",
+      "type": "CONVICTION_SCORE",
+      "message": "KMB received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KMB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for KMB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CHD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CHD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "KO",
+      "type": "CONVICTION_SCORE",
+      "message": "KO received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for KO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PEP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PEP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MNST",
+      "type": "CONVICTION_SCORE",
+      "message": "MNST received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MDLZ",
+      "type": "CONVICTION_SCORE",
+      "message": "MDLZ received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MDLZ",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MDLZ. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "GIS",
+      "type": "CONVICTION_SCORE",
+      "message": "GIS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GIS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for GIS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CPB",
+      "type": "CONVICTION_SCORE",
+      "message": "CPB received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HRL",
+      "type": "CONVICTION_SCORE",
+      "message": "HRL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CAG",
+      "type": "CONVICTION_SCORE",
+      "message": "CAG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SJM",
+      "type": "CONVICTION_SCORE",
+      "message": "SJM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HSY",
+      "type": "CONVICTION_SCORE",
+      "message": "HSY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PM",
+      "type": "CONVICTION_SCORE",
+      "message": "PM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BTI",
+      "type": "CONVICTION_SCORE",
+      "message": "BTI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BTI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BTI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "COST",
+      "type": "CONVICTION_SCORE",
+      "message": "COST received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KR",
+      "type": "CONVICTION_SCORE",
+      "message": "KR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SFM",
+      "type": "CONVICTION_SCORE",
+      "message": "SFM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SFM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SFM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EL",
+      "type": "CONVICTION_SCORE",
+      "message": "EL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ULTA",
+      "type": "CONVICTION_SCORE",
+      "message": "ULTA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ULTA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ULTA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "COTY",
+      "type": "CONVICTION_SCORE",
+      "message": "COTY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ADM",
+      "type": "CONVICTION_SCORE",
+      "message": "ADM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BG",
+      "type": "CONVICTION_SCORE",
+      "message": "BG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MOS",
+      "type": "CONVICTION_SCORE",
+      "message": "MOS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CTVA",
+      "type": "CONVICTION_SCORE",
+      "message": "CTVA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SYY",
+      "type": "CONVICTION_SCORE",
+      "message": "SYY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LLY",
+      "type": "CONVICTION_SCORE",
+      "message": "LLY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "JNJ",
+      "type": "CONVICTION_SCORE",
+      "message": "JNJ received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "JNJ",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for JNJ. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ABBV",
+      "type": "CONVICTION_SCORE",
+      "message": "ABBV received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ABBV",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ABBV. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MRK",
+      "type": "CONVICTION_SCORE",
+      "message": "MRK received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PFE",
+      "type": "CONVICTION_SCORE",
+      "message": "PFE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AMGN",
+      "type": "CONVICTION_SCORE",
+      "message": "AMGN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AMGN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for AMGN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "REGN",
+      "type": "CONVICTION_SCORE",
+      "message": "REGN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GILD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for GILD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "VRTX",
+      "type": "CONVICTION_SCORE",
+      "message": "VRTX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VRTX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for VRTX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ALNY",
+      "type": "CONVICTION_SCORE",
+      "message": "ALNY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MRNA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MRNA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NVS",
+      "type": "CONVICTION_SCORE",
+      "message": "NVS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NVS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NVS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TEVA",
+      "type": "CONVICTION_SCORE",
+      "message": "TEVA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BNTX",
+      "type": "CONVICTION_SCORE",
+      "message": "BNTX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "UNH",
+      "type": "CONVICTION_SCORE",
+      "message": "UNH received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ABT",
+      "type": "CONVICTION_SCORE",
+      "message": "ABT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ABT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ABT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MDT",
+      "type": "CONVICTION_SCORE",
+      "message": "MDT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MDT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MDT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ISRG",
+      "type": "CONVICTION_SCORE",
+      "message": "ISRG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BSX",
+      "type": "CONVICTION_SCORE",
+      "message": "BSX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EW",
+      "type": "CONVICTION_SCORE",
+      "message": "EW received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BDX",
+      "type": "CONVICTION_SCORE",
+      "message": "BDX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BDX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BDX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BAX",
+      "type": "CONVICTION_SCORE",
+      "message": "BAX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DXCM",
+      "type": "CONVICTION_SCORE",
+      "message": "DXCM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PODD",
+      "type": "CONVICTION_SCORE",
+      "message": "PODD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "INSP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for INSP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "NVCR",
+      "type": "CONVICTION_SCORE",
+      "message": "NVCR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NVCR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NVCR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "A",
+      "type": "CONVICTION_SCORE",
+      "message": "A received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "A",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for A. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "IQV",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for IQV. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ILMN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ILMN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "LH",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LH. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "DGX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DGX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CI",
+      "type": "CONVICTION_SCORE",
+      "message": "CI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ELV",
+      "type": "CONVICTION_SCORE",
+      "message": "ELV received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ZTS",
+      "type": "CONVICTION_SCORE",
+      "message": "ZTS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SRPT",
+      "type": "CONVICTION_SCORE",
+      "message": "SRPT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "RARE",
+      "type": "CONVICTION_SCORE",
+      "message": "RARE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ACAD",
+      "type": "CONVICTION_SCORE",
+      "message": "ACAD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WFC",
+      "type": "CONVICTION_SCORE",
+      "message": "WFC received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BX",
+      "type": "CONVICTION_SCORE",
+      "message": "BX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KKR",
+      "type": "CONVICTION_SCORE",
+      "message": "KKR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "APO",
+      "type": "CONVICTION_SCORE",
+      "message": "APO received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ARES",
+      "type": "CONVICTION_SCORE",
+      "message": "ARES received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CG",
+      "type": "CONVICTION_SCORE",
+      "message": "CG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "AMP",
+      "type": "CONVICTION_SCORE",
+      "message": "AMP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TRV",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TRV. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "V",
+      "type": "CONVICTION_SCORE",
+      "message": "V received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MA",
+      "type": "CONVICTION_SCORE",
+      "message": "MA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MA",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MA. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "FIS",
+      "type": "CONVICTION_SCORE",
+      "message": "FIS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FISV",
+      "type": "CONVICTION_SCORE",
+      "message": "FISV received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GPN",
+      "type": "CONVICTION_SCORE",
+      "message": "GPN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ICE",
+      "type": "CONVICTION_SCORE",
+      "message": "ICE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CME",
+      "type": "CONVICTION_SCORE",
+      "message": "CME received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CME",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CME. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "COIN",
+      "type": "CONVICTION_SCORE",
+      "message": "COIN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HOOD",
+      "type": "CONVICTION_SCORE",
+      "message": "HOOD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SOFI",
+      "type": "CONVICTION_SCORE",
+      "message": "SOFI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MCO",
+      "type": "CONVICTION_SCORE",
+      "message": "MCO received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MCO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MCO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SPGI",
+      "type": "CONVICTION_SCORE",
+      "message": "SPGI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MSCI",
+      "type": "CONVICTION_SCORE",
+      "message": "MSCI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MSCI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MSCI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RBA",
+      "type": "CONVICTION_SCORE",
+      "message": "RBA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "XOM",
+      "type": "CONVICTION_SCORE",
+      "message": "XOM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CVX",
+      "type": "CONVICTION_SCORE",
+      "message": "CVX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SHEL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SHEL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TTE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TTE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EQNR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for EQNR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "COP",
+      "type": "CONVICTION_SCORE",
+      "message": "COP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EOG",
+      "type": "CONVICTION_SCORE",
+      "message": "EOG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "OXY",
+      "type": "CONVICTION_SCORE",
+      "message": "OXY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DVN",
+      "type": "CONVICTION_SCORE",
+      "message": "DVN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FANG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for FANG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CHRD",
+      "type": "CONVICTION_SCORE",
+      "message": "CHRD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CRGY",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CRGY. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EQT",
+      "type": "CONVICTION_SCORE",
+      "message": "EQT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MUR",
+      "type": "CONVICTION_SCORE",
+      "message": "MUR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CNQ",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CNQ. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CVE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CVE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SU",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SU. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "OVV",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for OVV. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PBR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PBR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EC",
+      "type": "CONVICTION_SCORE",
+      "message": "EC received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HAL",
+      "type": "CONVICTION_SCORE",
+      "message": "HAL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BKR",
+      "type": "CONVICTION_SCORE",
+      "message": "BKR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BKR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for BKR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "OII",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for OII. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "VLO",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for VLO. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PSX",
+      "type": "CONVICTION_SCORE",
+      "message": "PSX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "KMI",
+      "type": "CONVICTION_SCORE",
+      "message": "KMI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WMB",
+      "type": "CONVICTION_SCORE",
+      "message": "WMB received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ET",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ET. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MPLX",
+      "type": "CONVICTION_SCORE",
+      "message": "MPLX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "OKE",
+      "type": "CONVICTION_SCORE",
+      "message": "OKE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TRGP",
+      "type": "CONVICTION_SCORE",
+      "message": "TRGP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TRGP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for TRGP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "DTM",
+      "type": "CONVICTION_SCORE",
+      "message": "DTM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DTM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DTM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "KNTK",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for KNTK. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ENB",
+      "type": "CONVICTION_SCORE",
+      "message": "ENB received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "TRP",
+      "type": "CONVICTION_SCORE",
+      "message": "TRP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WDS",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WDS. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BTU",
+      "type": "CONVICTION_SCORE",
+      "message": "BTU received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GOLD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for GOLD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "ALB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ALB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "LIN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LIN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "CE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SHW",
+      "type": "CONVICTION_SCORE",
+      "message": "SHW received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ECL",
+      "type": "CONVICTION_SCORE",
+      "message": "ECL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ECL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ECL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PPG",
+      "type": "CONVICTION_SCORE",
+      "message": "PPG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DD",
+      "type": "CONVICTION_SCORE",
+      "message": "DD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DOW",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DOW. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "LYB",
+      "type": "CONVICTION_SCORE",
+      "message": "LYB received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LYB",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LYB. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EMN",
+      "type": "CONVICTION_SCORE",
+      "message": "EMN received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NTR",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NTR. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MLM",
+      "type": "CONVICTION_SCORE",
+      "message": "MLM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VMC",
+      "type": "CONVICTION_SCORE",
+      "message": "VMC received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EXP",
+      "type": "CONVICTION_SCORE",
+      "message": "EXP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "IP",
+      "type": "CONVICTION_SCORE",
+      "message": "IP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "IP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for IP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "PKG",
+      "type": "CONVICTION_SCORE",
+      "message": "PKG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PKG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for PKG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "BA",
+      "type": "CONVICTION_SCORE",
+      "message": "BA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LMT",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LMT. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RTX",
+      "type": "CONVICTION_SCORE",
+      "message": "RTX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NOC",
+      "type": "CONVICTION_SCORE",
+      "message": "NOC received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NOC",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for NOC. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "GD",
+      "type": "CONVICTION_SCORE",
+      "message": "GD received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "GD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for GD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "HII",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for HII. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "TDG",
+      "type": "CONVICTION_SCORE",
+      "message": "TDG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AXON",
+      "type": "CONVICTION_SCORE",
+      "message": "AXON received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "LHX",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for LHX. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "KTOS",
+      "type": "CONVICTION_SCORE",
+      "message": "KTOS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DE",
+      "type": "CONVICTION_SCORE",
+      "message": "DE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DE",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DE. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "IR",
+      "type": "CONVICTION_SCORE",
+      "message": "IR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "XYL",
+      "type": "CONVICTION_SCORE",
+      "message": "XYL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "HON",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for HON. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "MMM",
+      "type": "CONVICTION_SCORE",
+      "message": "MMM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MMM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for MMM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "UAL",
+      "type": "CONVICTION_SCORE",
+      "message": "UAL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AAL",
+      "type": "CONVICTION_SCORE",
+      "message": "AAL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ALK",
+      "type": "CONVICTION_SCORE",
+      "message": "ALK received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CHRW",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CHRW. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "EXPD",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for EXPD. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WM",
+      "type": "CONVICTION_SCORE",
+      "message": "WM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WM",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for WM. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "RSG",
+      "type": "CONVICTION_SCORE",
+      "message": "RSG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CTAS",
+      "type": "CONVICTION_SCORE",
+      "message": "CTAS received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ROP",
+      "type": "CONVICTION_SCORE",
+      "message": "ROP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ROP",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ROP. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "FAST",
+      "type": "CONVICTION_SCORE",
+      "message": "FAST received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ROL",
+      "type": "CONVICTION_SCORE",
+      "message": "ROL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ROL",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for ROL. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "J",
+      "type": "CONVICTION_SCORE",
+      "message": "J received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "J",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for J. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "URI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for URI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WSC",
+      "type": "CONVICTION_SCORE",
+      "message": "WSC received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VRSK",
+      "type": "CONVICTION_SCORE",
+      "message": "VRSK received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SYM",
+      "type": "CONVICTION_SCORE",
+      "message": "SYM received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "NEE",
+      "type": "CONVICTION_SCORE",
+      "message": "NEE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DUK",
+      "type": "CONVICTION_SCORE",
+      "message": "DUK received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DUK",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DUK. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SO",
+      "type": "CONVICTION_SCORE",
+      "message": "SO received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "XEL",
+      "type": "CONVICTION_SCORE",
+      "message": "XEL received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ED",
+      "type": "CONVICTION_SCORE",
+      "message": "ED received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WEC",
+      "type": "CONVICTION_SCORE",
+      "message": "WEC received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EVRG",
+      "type": "CONVICTION_SCORE",
+      "message": "EVRG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "FE",
+      "type": "CONVICTION_SCORE",
+      "message": "FE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "VST",
+      "type": "CONVICTION_SCORE",
+      "message": "VST received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CEG",
+      "type": "CONVICTION_SCORE",
+      "message": "CEG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CEG",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CEG. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "SRE",
+      "type": "CONVICTION_SCORE",
+      "message": "SRE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "PCG",
+      "type": "CONVICTION_SCORE",
+      "message": "PCG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "AWK",
+      "type": "CONVICTION_SCORE",
+      "message": "AWK received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "WTRG",
+      "type": "CONVICTION_SCORE",
+      "message": "WTRG received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CWT",
+      "type": "CONVICTION_SCORE",
+      "message": "CWT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MSEX",
+      "type": "CONVICTION_SCORE",
+      "message": "MSEX received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CWEN",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for CWEN. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "AMT",
+      "type": "CONVICTION_SCORE",
+      "message": "AMT received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CCI",
+      "type": "CONVICTION_SCORE",
+      "message": "CCI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "BXP",
+      "type": "CONVICTION_SCORE",
+      "message": "BXP received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "EQR",
+      "type": "CONVICTION_SCORE",
+      "message": "EQR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "MAA",
+      "type": "CONVICTION_SCORE",
+      "message": "MAA received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "UDR",
+      "type": "CONVICTION_SCORE",
+      "message": "UDR received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "ARE",
+      "type": "CONVICTION_SCORE",
+      "message": "ARE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "CBRE",
+      "type": "CONVICTION_SCORE",
+      "message": "CBRE received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "SUI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for SUI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    },
+    {
+      "ticker": "WY",
+      "type": "CONVICTION_SCORE",
+      "message": "WY received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DHI",
+      "type": "CONVICTION_SCORE",
+      "message": "DHI received a UNDERPERFORM BOGA AI score today.",
+      "severity": "CRITICAL"
+    },
+    {
+      "ticker": "DHI",
+      "type": "BREAKOUT_IMMINENT",
+      "message": "BB Squeeze detected for DHI. Volatility breakout imminent.",
+      "severity": "HIGH"
+    }
+  ],
+  "count": 329
+}
