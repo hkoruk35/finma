@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { readFile } from "fs/promises";
 import { join } from "path";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 interface TickerData {
   ticker: string;
@@ -110,14 +112,18 @@ export default async function SubsectorPage({
 
   if (!sectorData || !matchingSector) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-4">Sector Not Found</h1>
-          <p className="text-[#94a3b8] mb-8">The sector "{decodedSector}" could not be found.</p>
-          <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
-            ← Back to Home
-          </Link>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-white mb-4">Sector Not Found</h1>
+            <p className="text-[#94a3b8] mb-8">The sector "{decodedSector}" could not be found.</p>
+            <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
+              ← Back to Home
+            </Link>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -161,22 +167,27 @@ export default async function SubsectorPage({
 
   if (subsectorData.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-4">Subsector Not Found</h1>
-          <p className="text-[#94a3b8] mb-8">
-            No stocks found for "{matchingSubsector || decodedSubsector}" in {decodedSector}.
-          </p>
-          <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
-            ← Back to Home
-          </Link>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-white mb-4">Subsector Not Found</h1>
+            <p className="text-[#94a3b8] mb-8">
+              No stocks found for "{matchingSubsector || decodedSubsector}" in {decodedSector}.
+            </p>
+            <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
+              ← Back to Home
+            </Link>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Header />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-8 flex items-center gap-2 text-sm text-[#94a3b8]">
@@ -323,6 +334,7 @@ export default async function SubsectorPage({
           ))}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
