@@ -21,7 +21,8 @@ export default async function SwingPerformancePage() {
     return <div className="min-h-screen bg-[#0d1117] text-white p-8">Loading or No Data Available</div>;
   }
 
-  const { stats, history = [] } = performanceData;
+  const history: any[] = performanceData.history ?? [];
+  const lastUpdated = performanceData.stats?.last_updated;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
@@ -42,12 +43,12 @@ export default async function SwingPerformancePage() {
             Swing Engine Performance
           </h1>
           <p className="text-[#94a3b8] text-lg leading-relaxed">
-            Transparent and verifiable historical records of our algorithmic high-conviction swing setups. This log displays every signal the model has generated over the last {stats?.period_days || 90} days, emphasizing our commitment to real performance.
+            Transparent and verifiable historical records of our algorithmic high-conviction swing setups. This log displays every signal the model has generated, emphasizing our commitment to real performance.
           </p>
         </header>
 
         {/* Dashboard Client Component */}
-        <SwingPerformanceDashboard initialHistory={history} />
+        <SwingPerformanceDashboard initialHistory={history} lastUpdated={lastUpdated} />
       </main>
 
       <Footer />
