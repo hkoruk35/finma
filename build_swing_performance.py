@@ -409,6 +409,18 @@ def load_table():
     return records
 
 # ── Fetch price histories ────────────────────────────────────────────────────
+def _flatten_df(df: pd.DataFrame, ticker: str | None = None) -> pd.DataFrame:
+    """Normalize yfinance DataFrame to flat columns (High, Low, Close, Open, Volume)."""
+    if isinstance(df.columns, pd.MultiIndex):
+        # Single-ticker download returns (Price, Ticker) MultiIndex — drop ticker level
+        if ticker and ticker in df.columns.get_level_values(1):
+            df = df.xs(ticker, level=1, axis=1)
+        elif ticker and ticker in df.columns.get_level_values(0):
+            df = df[ticker]
+        else:
+            df.columns = df.columns.droplevel(1)
+    return df
+
 def fetch_histories(ticker_earliest: dict[str, str]) -> dict[str, pd.DataFrame]:
     result: dict[str, pd.DataFrame] = {}
     today_str = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
@@ -421,12 +433,13 @@ def fetch_histories(ticker_earliest: dict[str, str]) -> dict[str, pd.DataFrame]:
         log.info(f"Fetching {len(tickers)} tickers from {start_iso} to {today_str}")
         try:
             if len(tickers) == 1:
+                ticker = tickers[0]
                 df = yf.download(
-                    tickers[0], start=start_iso, end=today_str,
+                    ticker, start=start_iso, end=today_str,
                     interval="1d", auto_adjust=True, progress=False
                 )
                 if not df.empty:
-                    result[tickers[0]] = df
+                    result[ticker] = _flatten_df(df, ticker)
             else:
                 data = yf.download(
                     tickers, start=start_iso, end=today_str,
@@ -437,11 +450,29 @@ def fetch_histories(ticker_earliest: dict[str, str]) -> dict[str, pd.DataFrame]:
                     try:
                         df = data[t].dropna(how="all")
                         if not df.empty:
-                            result[t] = df
+                            result[t] = df  # already flat from group_by
                     except (KeyError, TypeError):
                         pass
         except Exception as e:
             log.error(f"Download error for {tickers}: {e}")
+
+    # Retry any missing tickers individually
+    missing = [t for t in ticker_earliest if t not in result]
+    if missing:
+        log.info(f"Retrying {len(missing)} missing tickers individually...")
+        for ticker in missing:
+            try:
+                df = yf.download(
+                    ticker, start=ticker_earliest[ticker], end=today_str,
+                    interval="1d", auto_adjust=True, progress=False
+                )
+                if not df.empty:
+                    result[ticker] = _flatten_df(df, ticker)
+                    log.info(f"Retry OK: {ticker} ({len(result[ticker])} rows)")
+                else:
+                    log.warning(f"No data for {ticker}")
+            except Exception as e:
+                log.error(f"Retry failed for {ticker}: {e}")
 
     return result
 
