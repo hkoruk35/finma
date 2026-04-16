@@ -1,0 +1,158 @@
+{
+  "ticker": "GD",
+  "company": "General Dynamics Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.392694-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 338.76,
+    "open": 340.54,
+    "high": 341.89,
+    "low": 337.09,
+    "prev_close": 339.88,
+    "change_pct": -0.33,
+    "change_pct_1w": -2.77,
+    "change_pct_1m": -3.96,
+    "change_pct_1y": 24.7,
+    "volume": 323249,
+    "avg_volume_30d": 1286451
+  },
+  "scores": {
+    "master_score": 35.47,
+    "technical_score": 28.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.2,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.47,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 42.3,
+    "macd": -3.0684,
+    "macd_signal": -2.3466,
+    "macd_histogram": -0.7218,
+    "macd_crossover": "neutral",
+    "ema_20": 344.98,
+    "ema_50": 347.7,
+    "ema_200": 331.23,
+    "ema_stack_bullish": false,
+    "bb_upper": 354.7,
+    "bb_middle": 345.15,
+    "bb_lower": 335.61,
+    "bb_width": 0.0553,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 26.6,
+    "atr": 7.27,
+    "atr_pct": 0.0214,
+    "obv_trend": "DOWN",
+    "mfi": 44.8,
+    "cmf": -0.052,
+    "stoch_k": 27.3,
+    "stoch_d": 32.0,
+    "rvol": 0.96,
+    "volume_5d_avg": 1238989,
+    "green_days_10d": 4,
+    "52w_high": 365.68,
+    "52w_low": 260.93,
+    "52w_high_proximity_pct": 0.0736,
+    "52w_low_proximity_pct": 0.2983
+  },
+  "fundamental": {
+    "pe_ratio": 21.912296,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 3.5696201,
+    "de_ratio": 38.205,
+    "fcf_yield": 0.0366,
+    "eps_growth_5y": 0.004,
+    "revenue_growth_ttm": 0.078,
+    "gross_margin": 0.1513,
+    "operating_margin": 0.1014,
+    "net_margin": 0.08011,
+    "market_cap": 91752849408,
+    "enterprise_value": 99217743872,
+    "dividend_yield": 1.79,
+    "payout_ratio": 0.38830003,
+    "insider_ownership_pct": 0.00524,
+    "institutional_ownership_pct": 0.87028,
+    "short_ratio": 1.81,
+    "beta": 0.387
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 337.07,
+    "entry_range_high": 340.45,
+    "target_range_low": 353.36,
+    "target_range_high": 378.6,
+    "stop_range_low": 308.01,
+    "stop_range_high": 324.22,
+    "target_price": 360.57,
+    "stop_loss": 324.22,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.392676-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 423.45,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 179.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 260.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 52,
+      "date": "2026-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "-0.33%",
+    "key_metrics": {
+      "RSI": 42.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "MTDR",
+  "company": "Matador Resources Company",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.301114-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 57.68,
+    "open": 57.07,
+    "high": 57.74,
+    "low": 56.35,
+    "prev_close": 57.33,
+    "change_pct": 0.61,
+    "change_pct_1w": -4.41,
+    "change_pct_1m": 2.34,
+    "change_pct_1y": 50.98,
+    "volume": 384675,
+    "avg_volume_30d": 1911839
+  },
+  "scores": {
+    "master_score": 42.65,
+    "technical_score": 36.0,
+    "fundamental_score": 50.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.5,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.65,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 46.4,
+    "macd": 1.0825,
+    "macd_signal": 2.0962,
+    "macd_histogram": -1.0137,
+    "macd_crossover": "neutral",
+    "ema_20": 59.7,
+    "ema_50": 55.78,
+    "ema_200": 48.43,
+    "ema_stack_bullish": false,
+    "bb_upper": 66.19,
+    "bb_middle": 60.93,
+    "bb_lower": 55.67,
+    "bb_width": 0.1726,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 24.8,
+    "atr": 2.55,
+    "atr_pct": 0.0442,
+    "obv_trend": "DOWN",
+    "mfi": 60.2,
+    "cmf": 0.076,
+    "stoch_k": 12.7,
+    "stoch_d": 17.9,
+    "rvol": 0.67,
+    "volume_5d_avg": 1277695,
+    "green_days_10d": 6,
+    "52w_high": 65.45,
+    "52w_low": 36.56,
+    "52w_high_proximity_pct": 0.1187,
+    "52w_low_proximity_pct": 0.5778
+  },
+  "fundamental": {
+    "pe_ratio": 9.471264,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 1.2667457,
+    "de_ratio": 59.178,
+    "fcf_yield": -0.0238,
+    "eps_growth_5y": -0.096,
+    "revenue_growth_ttm": -0.125,
+    "gross_margin": 0.79728997,
+    "operating_margin": 0.24063998,
+    "net_margin": 0.20763999,
+    "market_cap": 7167932416,
+    "enterprise_value": 10995117056,
+    "dividend_yield": 2.62,
+    "payout_ratio": 0.2155,
+    "insider_ownership_pct": 0.07147,
+    "institutional_ownership_pct": 0.92897004,
+    "short_ratio": 4.54,
+    "beta": 0.906
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 55.5,
+    "entry_range_high": 57.97,
+    "target_range_low": 64.02,
+    "target_range_high": 68.6,
+    "stop_range_low": 49.95,
+    "stop_range_high": 52.58,
+    "target_price": 65.33,
+    "stop_loss": 52.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.301072-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 72.1,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 262.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 36.56,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 267,
+      "date": "2026-03-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "+0.61%",
+    "key_metrics": {
+      "RSI": 46.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "ticker": "HCA",
+  "company": "HCA Healthcare, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.083811-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Care Facilities",
+  "price": {
+    "current": 491.46,
+    "open": 496.04,
+    "high": 501.93,
+    "low": 487.56,
+    "prev_close": 498.66,
+    "change_pct": -1.44,
+    "change_pct_1w": -2.7,
+    "change_pct_1m": -6.28,
+    "change_pct_1y": 48.41,
+    "volume": 364427,
+    "avg_volume_30d": 987907
+  },
+  "scores": {
+    "master_score": 58.36,
+    "technical_score": 43.0,
+    "fundamental_score": 85.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.6,
+    "breakout_score": 30.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.36,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 46.1,
+    "macd": -3.8986,
+    "macd_signal": -6.3758,
+    "macd_histogram": 2.4772,
+    "macd_crossover": "neutral",
+    "ema_20": 495.38,
+    "ema_50": 499.36,
+    "ema_200": 457.6,
+    "ema_stack_bullish": false,
+    "bb_upper": 511.92,
+    "bb_middle": 488.43,
+    "bb_lower": 464.93,
+    "bb_width": 0.0962,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 19.7,
+    "atr": 13.41,
+    "atr_pct": 0.0273,
+    "obv_trend": "UP",
+    "mfi": 46.2,
+    "cmf": -0.043,
+    "stoch_k": 60.9,
+    "stoch_d": 69.2,
+    "rvol": 0.64,
+    "volume_5d_avg": 629485,
+    "green_days_10d": 7,
+    "52w_high": 544.32,
+    "52w_low": 315.49,
+    "52w_high_proximity_pct": 0.0971,
+    "52w_low_proximity_pct": 0.5578
+  },
+  "fundamental": {
+    "pe_ratio": 17.353813,
+    "sector_pe_median": 24.8743815,
+    "pb_ratio": -18.314825,
+    "de_ratio": null,
+    "fcf_yield": 0.053,
+    "eps_growth_5y": 0.445,
+    "revenue_growth_ttm": 0.067,
+    "gross_margin": 0.415,
+    "operating_margin": 0.16287,
+    "net_margin": 0.08974,
+    "market_cap": 109901365248,
+    "enterprise_value": 162321448960,
+    "dividend_yield": 0.63,
+    "payout_ratio": 0.1017,
+    "insider_ownership_pct": 0.16158001,
+    "institutional_ownership_pct": 0.78494,
+    "short_ratio": 3.37,
+    "beta": 1.366
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 489.0,
+    "entry_range_high": 493.92,
+    "target_range_low": 521.06,
+    "target_range_high": 558.27,
+    "stop_range_low": 441.41,
+    "stop_range_high": 464.64,
+    "target_price": 531.69,
+    "stop_loss": 464.64,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.083789-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 614.32,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 63.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 315.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1694,
+      "date": "2026-02-18"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. HCA is currently trading between the EMA20 ($495.79) and EMA50 ($499.68), indicating indecision. A trader might consider entering if the price breaks and holds above the BB Upper at $514.63, signaling a potential move towards the 52-week high. The BUY ZONE is $514.63 - $520.00, PROFIT ZONE is $535.00 - $544.00 (near the 52-week high), and the STOP LOSS ZONE is $489.00 - $494.00 (below EMA20).\n\n### Fundamental Edge\nHCA's P/E of 17.59118 suggests it's trading at a relative discount, making it attractive to value-conscious investors. The healthy 6.7% revenue growth further supports a positive outlook, indicating the company is expanding its market presence.\n\n### Sector Context\nThe Healthcare sector is showing mixed performance, which could present both opportunities and challenges for HCA as it navigates the current market regime.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "-1.44%",
+    "key_metrics": {
+      "RSI": 46.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "OKTA",
+  "company": "Okta, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.768359-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 66.91,
+    "open": 65.84,
+    "high": 67.34,
+    "low": 65.29,
+    "prev_close": 64.09,
+    "change_pct": 4.4,
+    "change_pct_1w": -12.01,
+    "change_pct_1m": -13.28,
+    "change_pct_1y": -34.29,
+    "volume": 2162707,
+    "avg_volume_30d": 4000833
+  },
+  "scores": {
+    "master_score": 28.29,
+    "technical_score": 5.7,
+    "fundamental_score": 50.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 28.29,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.5,
+    "macd": -3.4206,
+    "macd_signal": -2.0582,
+    "macd_histogram": -1.3623,
+    "macd_crossover": "neutral",
+    "ema_20": 73.31,
+    "ema_50": 77.57,
+    "ema_200": 87.64,
+    "ema_stack_bullish": false,
+    "bb_upper": 87.07,
+    "bb_middle": 75.14,
+    "bb_lower": 63.21,
+    "bb_width": 0.3174,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.8,
+    "atr": 4.07,
+    "atr_pct": 0.0608,
+    "obv_trend": "DOWN",
+    "mfi": 48.6,
+    "cmf": -0.22,
+    "stoch_k": 21.9,
+    "stoch_d": 14.6,
+    "rvol": 1.19,
+    "volume_5d_avg": 4766481,
+    "green_days_10d": 5,
+    "52w_high": 127.3,
+    "52w_low": 62.93,
+    "52w_high_proximity_pct": 0.4744,
+    "52w_low_proximity_pct": 0.0632
+  },
+  "fundamental": {
+    "pe_ratio": 51.07634,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 1.6955123,
+    "de_ratio": 6.444,
+    "fcf_yield": 0.0705,
+    "eps_growth_5y": 1.708,
+    "revenue_growth_ttm": 0.116,
+    "gross_margin": 0.77355003,
+    "operating_margin": 0.0657,
+    "net_margin": 0.08051,
+    "market_cap": 11858475008,
+    "enterprise_value": 9234747392,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00627,
+    "institutional_ownership_pct": 0.92377996,
+    "short_ratio": 1.66,
+    "beta": 0.762
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 66.58,
+    "entry_range_high": 67.24,
+    "target_range_low": 77.54,
+    "target_range_high": 83.08,
+    "stop_range_low": 55.83,
+    "stop_range_high": 58.77,
+    "target_price": 79.12,
+    "stop_loss": 58.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.768333-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 83.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 62.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6377,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "+4.40%",
+    "key_metrics": {
+      "RSI": 38.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "EXEL",
+  "company": "Exelixis, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.052717-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 44.34,
+    "open": 45.98,
+    "high": 46.1,
+    "low": 44.16,
+    "prev_close": 45.86,
+    "change_pct": -3.31,
+    "change_pct_1w": 0.32,
+    "change_pct_1m": 7.96,
+    "change_pct_1y": 25.57,
+    "volume": 667493,
+    "avg_volume_30d": 2518086
+  },
+  "scores": {
+    "master_score": 64.81,
+    "technical_score": 60.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 25.6,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 64.81,
+    "confidence": 0.65,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.2,
+    "macd": 0.7162,
+    "macd_signal": 0.4735,
+    "macd_histogram": 0.2427,
+    "macd_crossover": "neutral",
+    "ema_20": 43.66,
+    "ema_50": 43.13,
+    "ema_200": 41.9,
+    "ema_stack_bullish": true,
+    "bb_upper": 46.1,
+    "bb_middle": 43.16,
+    "bb_lower": 40.22,
+    "bb_width": 0.1364,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.6,
+    "atr": 1.22,
+    "atr_pct": 0.0275,
+    "obv_trend": "UP",
+    "mfi": 74.9,
+    "cmf": 0.002,
+    "stoch_k": 61.8,
+    "stoch_d": 81.8,
+    "rvol": 0.81,
+    "volume_5d_avg": 2036658,
+    "green_days_10d": 7,
+    "52w_high": 46.61,
+    "52w_low": 34.54,
+    "52w_high_proximity_pct": 0.0487,
+    "52w_low_proximity_pct": 0.2837
+  },
+  "fundamental": {
+    "pe_ratio": 15.94964,
+    "sector_pe_median": 24.8743815,
+    "pb_ratio": 5.384989,
+    "de_ratio": 9.296,
+    "fcf_yield": 0.0531,
+    "eps_growth_5y": 0.842,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.96392995,
+    "operating_margin": 0.39406,
+    "net_margin": 0.3373,
+    "market_cap": 11888093184,
+    "enterprise_value": 11052069888,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02204,
+    "institutional_ownership_pct": 1.03127,
+    "short_ratio": 8.75,
+    "beta": 0.418
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 42.91,
+    "entry_range_high": 44.56,
+    "target_range_low": 47.04,
+    "target_range_high": 50.4,
+    "stop_range_low": 39.81,
+    "stop_range_high": 41.9,
+    "target_price": 48.0,
+    "stop_loss": 41.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.052697-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 55.43,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 160437,
+      "date": "2026-02-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "EXEL exhibits a POSITIVE BIAS according to the BOGA AI score, confidence 66%. The daily chart shows the price at $44.27, near its 52-week high, yet Bollinger Bands indicate low volatility. Current EMA alignment is bullish, though ADX at 21.6 suggests a weak trend.\n\nKey levels: BUY ZONE is around $42.50 (recent support), PROFIT ZONE targets $48.00 (52-week high breakout), and STOP LOSS ZONE should be placed near $40.00.\n\nCatalyst: Positive clinical trial results for Cabometyx in combination therapies for advanced renal cell carcinoma (RCC) could drive further upside. The relatively low P/E of 15.92 versus the sector median also provides a valuation-based argument.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 65,
+    "price_change_display": "-3.31%",
+    "key_metrics": {
+      "RSI": 55.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

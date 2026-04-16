@@ -1,0 +1,158 @@
+{
+  "ticker": "PPG",
+  "company": "PPG Industries, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.372986-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 107.18,
+    "open": 109.93,
+    "high": 110.13,
+    "low": 106.8,
+    "prev_close": 110.54,
+    "change_pct": -3.04,
+    "change_pct_1w": -2.97,
+    "change_pct_1m": 3.61,
+    "change_pct_1y": 9.21,
+    "volume": 680158,
+    "avg_volume_30d": 2201708
+  },
+  "scores": {
+    "master_score": 21.46,
+    "technical_score": 9.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.6,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 21.46,
+    "confidence": 0.21,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 48.7,
+    "macd": -0.2114,
+    "macd_signal": -1.2497,
+    "macd_histogram": 1.0383,
+    "macd_crossover": "neutral",
+    "ema_20": 107.41,
+    "ema_50": 109.07,
+    "ema_200": 108.16,
+    "ema_stack_bullish": false,
+    "bb_upper": 112.87,
+    "bb_middle": 105.13,
+    "bb_lower": 97.39,
+    "bb_width": 0.1472,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.0,
+    "atr": 3.44,
+    "atr_pct": 0.0321,
+    "obv_trend": "DOWN",
+    "mfi": 46.2,
+    "cmf": 0.104,
+    "stoch_k": 59.9,
+    "stoch_d": 78.3,
+    "rvol": 0.67,
+    "volume_5d_avg": 1471291,
+    "green_days_10d": 4,
+    "52w_high": 130.81,
+    "52w_low": 93.68,
+    "52w_high_proximity_pct": 0.1806,
+    "52w_low_proximity_pct": 0.1441
+  },
+  "fundamental": {
+    "pe_ratio": 15.4891615,
+    "sector_pe_median": 23.866705,
+    "pb_ratio": 3.0157278,
+    "de_ratio": 97.592,
+    "fcf_yield": 0.0225,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.41625,
+    "operating_margin": 0.111140005,
+    "net_margin": 0.09928001,
+    "market_cap": 23987857408,
+    "enterprise_value": 30544105472,
+    "dividend_yield": 2.57,
+    "payout_ratio": 0.4017,
+    "insider_ownership_pct": 0.0014200001,
+    "institutional_ownership_pct": 0.91464996,
+    "short_ratio": 3.01,
+    "beta": 1.155
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 106.64,
+    "entry_range_high": 107.72,
+    "target_range_low": 115.15,
+    "target_range_high": 123.38,
+    "stop_range_low": 95.29,
+    "stop_range_high": 100.3,
+    "target_price": 117.5,
+    "stop_loss": 100.3,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.372969-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 133.98,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 257.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 93.68,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3594,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": -0.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 21,
+    "price_change_display": "-3.04%",
+    "key_metrics": {
+      "RSI": 48.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

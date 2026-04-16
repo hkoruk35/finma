@@ -1,0 +1,158 @@
+{
+  "ticker": "VST",
+  "company": "Vistra Corp.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.466871-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 162.73,
+    "open": 165.5,
+    "high": 166.52,
+    "low": 162.15,
+    "prev_close": 163.97,
+    "change_pct": -0.76,
+    "change_pct_1w": 4.39,
+    "change_pct_1m": 0.59,
+    "change_pct_1y": 46.42,
+    "volume": 1710957,
+    "avg_volume_30d": 4151501
+  },
+  "scores": {
+    "master_score": 24.1,
+    "technical_score": 11.4,
+    "fundamental_score": 0.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 36.1,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 24.1,
+    "confidence": 0.24,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 55.9,
+    "macd": -0.3292,
+    "macd_signal": -1.8706,
+    "macd_histogram": 1.5414,
+    "macd_crossover": "neutral",
+    "ema_20": 156.95,
+    "ema_50": 159.62,
+    "ema_200": 166.2,
+    "ema_stack_bullish": false,
+    "bb_upper": 167.4,
+    "bb_middle": 155.15,
+    "bb_lower": 142.89,
+    "bb_width": 0.158,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.6,
+    "atr": 7.24,
+    "atr_pct": 0.0445,
+    "obv_trend": "UP",
+    "mfi": 49.0,
+    "cmf": -0.173,
+    "stoch_k": 84.3,
+    "stoch_d": 85.7,
+    "rvol": 0.82,
+    "volume_5d_avg": 3384031,
+    "green_days_10d": 7,
+    "52w_high": 217.32,
+    "52w_low": 105.98,
+    "52w_high_proximity_pct": 0.2512,
+    "52w_low_proximity_pct": 0.5355
+  },
+  "fundamental": {
+    "pe_ratio": 74.64678,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 20.989294,
+    "de_ratio": 399.55,
+    "fcf_yield": -0.0083,
+    "eps_growth_5y": -0.523,
+    "revenue_growth_ttm": 0.136,
+    "gross_margin": 0.33238998,
+    "operating_margin": 0.1322,
+    "net_margin": 0.05322,
+    "market_cap": 55092121600,
+    "enterprise_value": 77361389568,
+    "dividend_yield": 0.56,
+    "payout_ratio": 0.41349998,
+    "insider_ownership_pct": 0.00799,
+    "institutional_ownership_pct": 0.92599,
+    "short_ratio": 1.99,
+    "beta": 1.498
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 158.82,
+    "entry_range_high": 163.54,
+    "target_range_low": 180.76,
+    "target_range_high": 193.67,
+    "stop_range_low": 140.84,
+    "stop_range_high": 148.25,
+    "target_price": 184.45,
+    "stop_loss": 148.25,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.466850-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 203.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 56.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 105.98,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 10000,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 24,
+    "price_change_display": "-0.76%",
+    "key_metrics": {
+      "RSI": 55.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

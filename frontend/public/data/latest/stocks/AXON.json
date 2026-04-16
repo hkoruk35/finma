@@ -1,0 +1,158 @@
+{
+  "ticker": "AXON",
+  "company": "Axon Enterprise, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.394999-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 397.67,
+    "open": 390.58,
+    "high": 401.5,
+    "low": 383.34,
+    "prev_close": 380.86,
+    "change_pct": 4.41,
+    "change_pct_1w": 1.57,
+    "change_pct_1m": -18.78,
+    "change_pct_1y": -29.99,
+    "volume": 590437,
+    "avg_volume_30d": 976017
+  },
+  "scores": {
+    "master_score": 25.94,
+    "technical_score": 12.9,
+    "fundamental_score": 0.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 27.0,
+    "value_score": 0.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 25.94,
+    "confidence": 0.26,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 41.9,
+    "macd": -33.927,
+    "macd_signal": -31.6194,
+    "macd_histogram": -2.3075,
+    "macd_crossover": "neutral",
+    "ema_20": 416.71,
+    "ema_50": 464.95,
+    "ema_200": 566.39,
+    "ema_stack_bullish": false,
+    "bb_upper": 525.56,
+    "bb_middle": 425.02,
+    "bb_lower": 324.47,
+    "bb_width": 0.4731,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 39.2,
+    "atr": 26.25,
+    "atr_pct": 0.066,
+    "obv_trend": "UP",
+    "mfi": 43.5,
+    "cmf": -0.269,
+    "stoch_k": 45.5,
+    "stoch_d": 29.8,
+    "rvol": 1.53,
+    "volume_5d_avg": 1495427,
+    "green_days_10d": 5,
+    "52w_high": 870.97,
+    "52w_low": 345.94,
+    "52w_high_proximity_pct": 0.5434,
+    "52w_low_proximity_pct": 0.1495
+  },
+  "fundamental": {
+    "pe_ratio": 261.625,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 9.836987,
+    "de_ratio": 59.107,
+    "fcf_yield": 0.0072,
+    "eps_growth_5y": -0.98,
+    "revenue_growth_ttm": 0.385,
+    "gross_margin": 0.59823,
+    "operating_margin": -0.03063,
+    "net_margin": 0.044850003,
+    "market_cap": 31971743744,
+    "enterprise_value": 30732242944,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.04369,
+    "institutional_ownership_pct": 0.85647005,
+    "short_ratio": 2.39,
+    "beta": 1.605
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 395.68,
+    "entry_range_high": 399.66,
+    "target_range_low": 466.89,
+    "target_range_high": 500.24,
+    "stop_range_low": 327.91,
+    "stop_range_high": 345.17,
+    "target_price": 476.42,
+    "stop_loss": 345.17,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.394983-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 27.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 497.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 345.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 198,
+      "date": "2026-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 26,
+    "price_change_display": "+4.41%",
+    "key_metrics": {
+      "RSI": 41.9,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

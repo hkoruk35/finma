@@ -1,0 +1,158 @@
+{
+  "ticker": "NDAQ",
+  "company": "Nasdaq, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.253467-04:00",
+  "sector": "Financials",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 88.86,
+    "open": 87.25,
+    "high": 88.86,
+    "low": 87.05,
+    "prev_close": 86.71,
+    "change_pct": 2.48,
+    "change_pct_1w": 0.87,
+    "change_pct_1m": 3.51,
+    "change_pct_1y": 25.74,
+    "volume": 1315607,
+    "avg_volume_30d": 3121713
+  },
+  "scores": {
+    "master_score": 50.7,
+    "technical_score": 38.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.0,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 50.7,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 57.6,
+    "macd": 0.1821,
+    "macd_signal": -0.1799,
+    "macd_histogram": 0.362,
+    "macd_crossover": "neutral",
+    "ema_20": 85.9,
+    "ema_50": 86.76,
+    "ema_200": 87.66,
+    "ema_stack_bullish": false,
+    "bb_upper": 89.08,
+    "bb_middle": 85.47,
+    "bb_lower": 81.86,
+    "bb_width": 0.0845,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.8,
+    "atr": 2.32,
+    "atr_pct": 0.0261,
+    "obv_trend": "UP",
+    "mfi": 63.2,
+    "cmf": 0.009,
+    "stoch_k": 98.4,
+    "stoch_d": 78.1,
+    "rvol": 0.99,
+    "volume_5d_avg": 3084461,
+    "green_days_10d": 7,
+    "52w_high": 100.66,
+    "52w_low": 69.81,
+    "52w_high_proximity_pct": 0.1172,
+    "52w_low_proximity_pct": 0.2729
+  },
+  "fundamental": {
+    "pe_ratio": 28.757282,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 4.141692,
+    "de_ratio": 77.878,
+    "fcf_yield": 0.0329,
+    "eps_growth_5y": 0.476,
+    "revenue_growth_ttm": 0.134,
+    "gross_margin": 1.0,
+    "operating_margin": 0.47557,
+    "net_margin": 0.34063998,
+    "market_cap": 50738655232,
+    "enterprise_value": 58206765056,
+    "dividend_yield": 1.25,
+    "payout_ratio": 0.3398,
+    "insider_ownership_pct": 0.1086,
+    "institutional_ownership_pct": 0.8688,
+    "short_ratio": 1.7,
+    "beta": 1.024
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 86.33,
+    "entry_range_high": 89.3,
+    "target_range_low": 93.9,
+    "target_range_high": 100.61,
+    "stop_range_low": 80.01,
+    "stop_range_high": 84.22,
+    "target_price": 95.82,
+    "stop_loss": 84.22,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.253394-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 111.08,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 125.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 69.81,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7633,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "+2.48%",
+    "key_metrics": {
+      "RSI": 57.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

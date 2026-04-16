@@ -1,0 +1,158 @@
+{
+  "ticker": "CWT",
+  "company": "California Water Service Group",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.476691-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Water",
+  "price": {
+    "current": 44.59,
+    "open": 44.8,
+    "high": 45.04,
+    "low": 44.27,
+    "prev_close": 45.13,
+    "change_pct": -1.2,
+    "change_pct_1w": -2.58,
+    "change_pct_1m": -0.98,
+    "change_pct_1y": -9.03,
+    "volume": 133041,
+    "avg_volume_30d": 440084
+  },
+  "scores": {
+    "master_score": 27.22,
+    "technical_score": 9.6,
+    "fundamental_score": 27.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.1,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 27.22,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 45.2,
+    "macd": 0.1484,
+    "macd_signal": 0.2058,
+    "macd_histogram": -0.0575,
+    "macd_crossover": "bearish",
+    "ema_20": 45.4,
+    "ema_50": 45.14,
+    "ema_200": 45.13,
+    "ema_stack_bullish": false,
+    "bb_upper": 47.12,
+    "bb_middle": 45.17,
+    "bb_lower": 43.21,
+    "bb_width": 0.0864,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.3,
+    "atr": 1.13,
+    "atr_pct": 0.0254,
+    "obv_trend": "UP",
+    "mfi": 48.1,
+    "cmf": -0.063,
+    "stoch_k": 13.2,
+    "stoch_d": 32.2,
+    "rvol": 0.94,
+    "volume_5d_avg": 415428,
+    "green_days_10d": 6,
+    "52w_high": 50.01,
+    "52w_low": 41.99,
+    "52w_high_proximity_pct": 0.1084,
+    "52w_low_proximity_pct": 0.0619
+  },
+  "fundamental": {
+    "pe_ratio": 20.739534,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 1.574061,
+    "de_ratio": 95.551,
+    "fcf_yield": -0.108,
+    "eps_growth_5y": -0.422,
+    "revenue_growth_ttm": -0.01,
+    "gross_margin": 0.53595,
+    "operating_margin": 0.10216,
+    "net_margin": 0.12819,
+    "market_cap": 2668455424,
+    "enterprise_value": 4259137536,
+    "dividend_yield": 2.74,
+    "payout_ratio": 0.5581,
+    "insider_ownership_pct": 0.00681,
+    "institutional_ownership_pct": 0.91484,
+    "short_ratio": 2.66,
+    "beta": 0.607
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 44.37,
+    "entry_range_high": 44.81,
+    "target_range_low": 47.02,
+    "target_range_high": 50.38,
+    "stop_range_low": 40.21,
+    "stop_range_high": 42.33,
+    "target_price": 47.98,
+    "stop_loss": 42.33,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.476670-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 55.74,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 274.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 41.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 739,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
+    "price_change_display": "-1.20%",
+    "key_metrics": {
+      "RSI": 45.2,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

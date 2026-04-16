@@ -1,0 +1,160 @@
+{
+  "ticker": "BILL",
+  "company": "BILL Holdings, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.751648-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 38.94,
+    "open": 37.59,
+    "high": 39.25,
+    "low": 37.63,
+    "prev_close": 37.0,
+    "change_pct": 5.26,
+    "change_pct_1w": 2.27,
+    "change_pct_1m": -1.63,
+    "change_pct_1y": -6.34,
+    "volume": 645636,
+    "avg_volume_30d": 1982677
+  },
+  "scores": {
+    "master_score": 24.41,
+    "technical_score": 9.6,
+    "fundamental_score": 37.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 65.0,
+    "sector_score": 33.0,
+    "breakout_score": 45.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 24.41,
+    "confidence": 0.24,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 49.3,
+    "macd": -1.3197,
+    "macd_signal": -1.5256,
+    "macd_histogram": 0.2059,
+    "macd_crossover": "neutral",
+    "ema_20": 38.43,
+    "ema_50": 41.27,
+    "ema_200": 45.93,
+    "ema_stack_bullish": false,
+    "bb_upper": 41.08,
+    "bb_middle": 38.2,
+    "bb_lower": 35.33,
+    "bb_width": 0.1507,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.8,
+    "atr": 2.1,
+    "atr_pct": 0.054,
+    "obv_trend": "DOWN",
+    "mfi": 47.6,
+    "cmf": -0.095,
+    "stoch_k": 71.6,
+    "stoch_d": 49.7,
+    "rvol": 0.9,
+    "volume_5d_avg": 1786547,
+    "green_days_10d": 5,
+    "52w_high": 56.31,
+    "52w_low": 34.71,
+    "52w_high_proximity_pct": 0.3084,
+    "52w_low_proximity_pct": 0.122
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 1.0226884,
+    "de_ratio": 49.571,
+    "fcf_yield": 0.0314,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.144,
+    "gross_margin": 0.83559,
+    "operating_margin": -0.042600002,
+    "net_margin": -0.0156,
+    "market_cap": 3900601856,
+    "enterprise_value": 3307126272,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12362,
+    "institutional_ownership_pct": 1.11893,
+    "short_ratio": 6.42,
+    "beta": 1.325
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 38.75,
+    "entry_range_high": 39.13,
+    "target_range_low": 44.34,
+    "target_range_high": 47.5,
+    "stop_range_low": 33.0,
+    "stop_range_high": 34.74,
+    "target_price": 45.24,
+    "stop_loss": 34.74,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.751596-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 48.67,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 31288,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BILL currently trades at $35.22, down 2.65% today, positioning it 37.5% below its 52-week high. Technicals are weak: RSI is 30.0, MACD bearish, and EMA alignment bearish. ADX strength is low at 19.7, while Bollinger Bands suggest high volatility.\n\nDespite a solid 83.6% gross margin, a negative net margin of -1.6% weighs on the valuation with no P/E. Revenue growth is 14.4% TTM.\n\nThe BOGA AI score is UNDERPERFORM due to weak technicals and profitability concerns. A catalyst for a potential rebound would be a definitive move towards profitability. Key levels to watch are resistance at $40 and support near $32.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 24,
+    "price_change_display": "+5.26%",
+    "key_metrics": {
+      "RSI": 49.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

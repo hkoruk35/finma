@@ -1,0 +1,158 @@
+{
+  "ticker": "ORCL",
+  "company": "Oracle Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.703611-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 168.22,
+    "open": 166.89,
+    "high": 172.56,
+    "low": 166.21,
+    "prev_close": 163.0,
+    "change_pct": 3.2,
+    "change_pct_1w": 17.5,
+    "change_pct_1m": 8.23,
+    "change_pct_1y": 28.38,
+    "volume": 28960796,
+    "avg_volume_30d": 28731099
+  },
+  "scores": {
+    "master_score": 40.3,
+    "technical_score": 12.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 78.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 40.3,
+    "confidence": 0.4,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 65.8,
+    "macd": 0.7763,
+    "macd_signal": -2.0784,
+    "macd_histogram": 2.8547,
+    "macd_crossover": "neutral",
+    "ema_20": 149.86,
+    "ema_50": 155.9,
+    "ema_200": 186.8,
+    "ema_stack_bullish": false,
+    "bb_upper": 163.67,
+    "bb_middle": 147.65,
+    "bb_lower": 131.63,
+    "bb_width": 0.217,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.0,
+    "atr": 7.99,
+    "atr_pct": 0.0475,
+    "obv_trend": "UP",
+    "mfi": 62.9,
+    "cmf": -0.108,
+    "stoch_k": 88.6,
+    "stoch_d": 89.6,
+    "rvol": 1.36,
+    "volume_5d_avg": 39032359,
+    "green_days_10d": 6,
+    "52w_high": 325.76,
+    "52w_low": 121.6,
+    "52w_high_proximity_pct": 0.4836,
+    "52w_low_proximity_pct": 0.3834
+  },
+  "fundamental": {
+    "pe_ratio": 30.201077,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 14.419681,
+    "de_ratio": 415.265,
+    "fcf_yield": -0.0461,
+    "eps_growth_5y": 0.245,
+    "revenue_growth_ttm": 0.217,
+    "gross_margin": 0.67084,
+    "operating_margin": 0.32676,
+    "net_margin": 0.25298,
+    "market_cap": 483808477184,
+    "enterprise_value": 597338488832,
+    "dividend_yield": 1.23,
+    "payout_ratio": 0.35909998,
+    "insider_ownership_pct": 0.40549,
+    "institutional_ownership_pct": 0.44236,
+    "short_ratio": 1.0,
+    "beta": 1.597
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 155.12,
+    "entry_range_high": 169.06,
+    "target_range_low": 188.35,
+    "target_range_high": 201.8,
+    "stop_range_low": 144.63,
+    "stop_range_high": 152.24,
+    "target_price": 192.19,
+    "stop_loss": 152.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.703542-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 210.28,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 123.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 121.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 16810,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 40,
+    "price_change_display": "+3.20%",
+    "key_metrics": {
+      "RSI": 65.8,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

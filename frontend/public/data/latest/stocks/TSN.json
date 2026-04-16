@@ -1,0 +1,158 @@
+{
+  "ticker": "TSN",
+  "company": "Tyson Foods, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.012567-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Farm Products",
+  "price": {
+    "current": 64.43,
+    "open": 64.81,
+    "high": 64.81,
+    "low": 63.55,
+    "prev_close": 64.96,
+    "change_pct": -0.82,
+    "change_pct_1w": -0.34,
+    "change_pct_1m": 4.21,
+    "change_pct_1y": 10.19,
+    "volume": 677006,
+    "avg_volume_30d": 2783326
+  },
+  "scores": {
+    "master_score": 50.75,
+    "technical_score": 52.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 23.0,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.75,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 55.8,
+    "macd": 0.8249,
+    "macd_signal": 0.6929,
+    "macd_histogram": 0.1321,
+    "macd_crossover": "neutral",
+    "ema_20": 63.74,
+    "ema_50": 62.56,
+    "ema_200": 58.86,
+    "ema_stack_bullish": true,
+    "bb_upper": 67.44,
+    "bb_middle": 63.12,
+    "bb_lower": 58.81,
+    "bb_width": 0.1367,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.1,
+    "atr": 1.32,
+    "atr_pct": 0.0205,
+    "obv_trend": "UP",
+    "mfi": 84.1,
+    "cmf": 0.18,
+    "stoch_k": 72.4,
+    "stoch_d": 80.2,
+    "rvol": 0.66,
+    "volume_5d_avg": 1844061,
+    "green_days_10d": 6,
+    "52w_high": 65.64,
+    "52w_low": 49.87,
+    "52w_high_proximity_pct": 0.0184,
+    "52w_low_proximity_pct": 0.2919
+  },
+  "fundamental": {
+    "pe_ratio": 115.05357,
+    "sector_pe_median": 23.7782275,
+    "pb_ratio": 1.2586443,
+    "de_ratio": 46.039,
+    "fcf_yield": 0.0508,
+    "eps_growth_5y": -0.762,
+    "revenue_growth_ttm": 0.051,
+    "gross_margin": 0.06151,
+    "operating_margin": 0.02913,
+    "net_margin": 0.0036300002,
+    "market_cap": 22684448768,
+    "enterprise_value": 30095048704,
+    "dividend_yield": 3.14,
+    "payout_ratio": 3.5893,
+    "insider_ownership_pct": 0.02615,
+    "institutional_ownership_pct": 0.92127,
+    "short_ratio": 3.0,
+    "beta": 0.434
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 62.25,
+    "entry_range_high": 64.75,
+    "target_range_low": 67.02,
+    "target_range_high": 71.81,
+    "stop_range_low": 58.7,
+    "stop_range_high": 61.79,
+    "target_price": 68.39,
+    "stop_loss": 61.79,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.012547-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 80.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 314.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 49.87,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2911,
+      "date": "2026-02-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -2.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-0.82%",
+    "key_metrics": {
+      "RSI": 55.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

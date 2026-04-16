@@ -1,0 +1,158 @@
+{
+  "ticker": "MSTR",
+  "company": "Strategy Inc",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.777147-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 138.0,
+    "open": 139.77,
+    "high": 140.22,
+    "low": 137.04,
+    "prev_close": 137.41,
+    "change_pct": 0.43,
+    "change_pct_1w": 7.56,
+    "change_pct_1m": -6.45,
+    "change_pct_1y": -54.0,
+    "volume": 6635082,
+    "avg_volume_30d": 18858952
+  },
+  "scores": {
+    "master_score": 24.21,
+    "technical_score": 9.6,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 78.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 24.21,
+    "confidence": 0.24,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 55.4,
+    "macd": -1.042,
+    "macd_signal": -2.4785,
+    "macd_histogram": 1.4364,
+    "macd_crossover": "neutral",
+    "ema_20": 131.78,
+    "ema_50": 138.7,
+    "ema_200": 212.08,
+    "ema_stack_bullish": false,
+    "bb_upper": 143.96,
+    "bb_middle": 131.04,
+    "bb_lower": 118.12,
+    "bb_width": 0.1972,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 12.3,
+    "atr": 7.7,
+    "atr_pct": 0.0558,
+    "obv_trend": "UP",
+    "mfi": 44.2,
+    "cmf": -0.16,
+    "stoch_k": 79.1,
+    "stoch_d": 71.3,
+    "rvol": 0.72,
+    "volume_5d_avg": 13522036,
+    "green_days_10d": 6,
+    "52w_high": 455.9,
+    "52w_low": 106.99,
+    "52w_high_proximity_pct": 0.6973,
+    "52w_low_proximity_pct": 0.2898
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 0.976003,
+    "de_ratio": 16.158,
+    "fcf_yield": -0.0703,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.019,
+    "gross_margin": 0.68691003,
+    "operating_margin": -44.016068,
+    "net_margin": 0.0,
+    "market_cap": 47854292992,
+    "enterprise_value": 58726600704,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00162,
+    "institutional_ownership_pct": 0.56611997,
+    "short_ratio": 1.72,
+    "beta": 3.56
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 137.31,
+    "entry_range_high": 138.69,
+    "target_range_low": 157.88,
+    "target_range_high": 169.16,
+    "stop_range_low": 116.47,
+    "stop_range_high": 122.6,
+    "target_price": 161.1,
+    "stop_loss": 122.6,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.777109-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 172.5,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 106.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1900,
+      "date": "2026-04-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 24,
+    "price_change_display": "+0.43%",
+    "key_metrics": {
+      "RSI": 55.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

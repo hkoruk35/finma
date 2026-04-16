@@ -1,0 +1,158 @@
+{
+  "ticker": "DUK",
+  "company": "Duke Energy Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.449108-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 129.15,
+    "open": 129.25,
+    "high": 129.23,
+    "low": 128.17,
+    "prev_close": 129.78,
+    "change_pct": -0.48,
+    "change_pct_1w": -1.86,
+    "change_pct_1m": -3.23,
+    "change_pct_1y": 12.43,
+    "volume": 925811,
+    "avg_volume_30d": 4288930
+  },
+  "scores": {
+    "master_score": 33.06,
+    "technical_score": 32.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.1,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 33.06,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.0,
+    "macd": 0.5042,
+    "macd_signal": 0.8384,
+    "macd_histogram": -0.3341,
+    "macd_crossover": "neutral",
+    "ema_20": 130.5,
+    "ema_50": 128.34,
+    "ema_200": 122.24,
+    "ema_stack_bullish": false,
+    "bb_upper": 133.62,
+    "bb_middle": 130.21,
+    "bb_lower": 126.8,
+    "bb_width": 0.0524,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 15.0,
+    "atr": 2.15,
+    "atr_pct": 0.0167,
+    "obv_trend": "DOWN",
+    "mfi": 45.1,
+    "cmf": -0.206,
+    "stoch_k": 20.1,
+    "stoch_d": 35.4,
+    "rvol": 0.6,
+    "volume_5d_avg": 2577902,
+    "green_days_10d": 3,
+    "52w_high": 133.46,
+    "52w_low": 108.61,
+    "52w_high_proximity_pct": 0.0323,
+    "52w_low_proximity_pct": 0.1891
+  },
+  "fundamental": {
+    "pe_ratio": 20.468304,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 1.9753302,
+    "de_ratio": 171.838,
+    "fcf_yield": -0.0199,
+    "eps_growth_5y": -0.022,
+    "revenue_growth_ttm": 0.08,
+    "gross_margin": 0.51897,
+    "operating_margin": 0.28087,
+    "net_margin": 0.15628,
+    "market_cap": 100510580736,
+    "enterprise_value": 193938128896,
+    "dividend_yield": 3.28,
+    "payout_ratio": 0.6688,
+    "insider_ownership_pct": 0.00119,
+    "institutional_ownership_pct": 0.70383,
+    "short_ratio": 3.12,
+    "beta": 0.454
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 127.7,
+    "entry_range_high": 129.8,
+    "target_range_low": 132.89,
+    "target_range_high": 142.38,
+    "stop_range_low": 118.61,
+    "stop_range_high": 124.85,
+    "target_price": 135.6,
+    "stop_loss": 124.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.449086-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 161.44,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 328.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 108.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 18246,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "-0.48%",
+    "key_metrics": {
+      "RSI": 46.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

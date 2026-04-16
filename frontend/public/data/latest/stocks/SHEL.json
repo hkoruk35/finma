@@ -1,0 +1,158 @@
+{
+  "ticker": "SHEL",
+  "company": "Shell plc",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.284328-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 90.82,
+    "open": 91.3,
+    "high": 91.49,
+    "low": 90.51,
+    "prev_close": 91.36,
+    "change_pct": -0.59,
+    "change_pct_1w": -1.29,
+    "change_pct_1m": 0.38,
+    "change_pct_1y": 52.14,
+    "volume": 3001954,
+    "avg_volume_30d": 7962092
+  },
+  "scores": {
+    "master_score": 49.25,
+    "technical_score": 42.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 70.0,
+    "sector_score": 40.5,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 49.25,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.2,
+    "macd": 1.5899,
+    "macd_signal": 2.2309,
+    "macd_histogram": -0.6411,
+    "macd_crossover": "neutral",
+    "ema_20": 91.08,
+    "ema_50": 86.72,
+    "ema_200": 76.87,
+    "ema_stack_bullish": false,
+    "bb_upper": 94.02,
+    "bb_middle": 92.06,
+    "bb_lower": 90.1,
+    "bb_width": 0.0426,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 25.4,
+    "atr": 1.88,
+    "atr_pct": 0.0207,
+    "obv_trend": "DOWN",
+    "mfi": 53.6,
+    "cmf": -0.105,
+    "stoch_k": 21.8,
+    "stoch_d": 36.7,
+    "rvol": 0.66,
+    "volume_5d_avg": 5253115,
+    "green_days_10d": 5,
+    "52w_high": 94.15,
+    "52w_low": 60.13,
+    "52w_high_proximity_pct": 0.0354,
+    "52w_low_proximity_pct": 0.5105
+  },
+  "fundamental": {
+    "pe_ratio": 15.136666,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 2.978193,
+    "de_ratio": 43.172,
+    "fcf_yield": 0.0891,
+    "eps_growth_5y": 3.762,
+    "revenue_growth_ttm": -0.033,
+    "gross_margin": 0.25402,
+    "operating_margin": 0.08442,
+    "net_margin": 0.06683,
+    "market_cap": 255181651968,
+    "enterprise_value": 563630178304,
+    "dividend_yield": 3.26,
+    "payout_ratio": 0.4773,
+    "insider_ownership_pct": 1.0000001e-05,
+    "institutional_ownership_pct": 0.13187,
+    "short_ratio": 1.43,
+    "beta": -0.208
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 86.29,
+    "entry_range_high": 91.27,
+    "target_range_low": 94.53,
+    "target_range_high": 101.28,
+    "stop_range_low": 82.71,
+    "stop_range_high": 87.06,
+    "target_price": 96.46,
+    "stop_loss": 87.06,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.284275-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 113.52,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 326.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 60.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 0,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-0.59%",
+    "key_metrics": {
+      "RSI": 53.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "DLR",
+  "company": "Digital Realty Trust, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.488468-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 194.35,
+    "open": 195.24,
+    "high": 195.38,
+    "low": 193.02,
+    "prev_close": 195.79,
+    "change_pct": -0.73,
+    "change_pct_1w": 4.7,
+    "change_pct_1m": 7.23,
+    "change_pct_1y": 37.86,
+    "volume": 605947,
+    "avg_volume_30d": 1941341
+  },
+  "scores": {
+    "master_score": 49.82,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 43.2,
+    "breakout_score": 20.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.82,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 73.8,
+    "macd": 4.4872,
+    "macd_signal": 2.9876,
+    "macd_histogram": 1.4996,
+    "macd_crossover": "neutral",
+    "ema_20": 184.25,
+    "ema_50": 177.93,
+    "ema_200": 167.72,
+    "ema_stack_bullish": true,
+    "bb_upper": 195.16,
+    "bb_middle": 181.82,
+    "bb_lower": 168.48,
+    "bb_width": 0.1468,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.5,
+    "atr": 3.85,
+    "atr_pct": 0.0198,
+    "obv_trend": "UP",
+    "mfi": 83.4,
+    "cmf": 0.071,
+    "stoch_k": 91.0,
+    "stoch_d": 96.0,
+    "rvol": 0.82,
+    "volume_5d_avg": 1599589,
+    "green_days_10d": 9,
+    "52w_high": 195.79,
+    "52w_low": 142.09,
+    "52w_high_proximity_pct": 0.0073,
+    "52w_low_proximity_pct": 0.3679
+  },
+  "fundamental": {
+    "pe_ratio": 54.289104,
+    "sector_pe_median": 29.5436075,
+    "pb_ratio": 3.0085914,
+    "de_ratio": 81.655,
+    "fcf_yield": 0.0288,
+    "eps_growth_5y": -0.534,
+    "revenue_growth_ttm": 0.171,
+    "gross_margin": 0.55158,
+    "operating_margin": 0.14147,
+    "net_margin": 0.2152,
+    "market_cap": 67986243584,
+    "enterprise_value": 86728835072,
+    "dividend_yield": 2.49,
+    "payout_ratio": 1.3630999,
+    "insider_ownership_pct": 0.0002,
+    "institutional_ownership_pct": 1.0290899,
+    "short_ratio": 0.01,
+    "beta": 1.091
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 177.04,
+    "entry_range_high": 195.32,
+    "target_range_low": 201.78,
+    "target_range_high": 216.2,
+    "stop_range_low": 177.32,
+    "stop_range_high": 186.65,
+    "target_price": 205.9,
+    "stop_loss": 186.65,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.488450-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 242.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 249.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 142.09,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 626,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.43,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "-0.73%",
+    "key_metrics": {
+      "RSI": 73.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

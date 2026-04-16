@@ -1,0 +1,158 @@
+{
+  "ticker": "PYPL",
+  "company": "PayPal Holdings, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.212588-04:00",
+  "sector": "Financials",
+  "industry": "Credit Services",
+  "price": {
+    "current": 49.37,
+    "open": 48.51,
+    "high": 49.46,
+    "low": 47.9,
+    "prev_close": 47.97,
+    "change_pct": 2.91,
+    "change_pct_1w": 7.67,
+    "change_pct_1m": 8.69,
+    "change_pct_1y": -20.71,
+    "volume": 5468000,
+    "avg_volume_30d": 15988180
+  },
+  "scores": {
+    "master_score": 46.51,
+    "technical_score": 9.6,
+    "fundamental_score": 75.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.0,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.51,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 64.9,
+    "macd": 0.5379,
+    "macd_signal": 0.0294,
+    "macd_histogram": 0.5085,
+    "macd_crossover": "neutral",
+    "ema_20": 46.01,
+    "ema_50": 47.02,
+    "ema_200": 56.81,
+    "ema_stack_bullish": false,
+    "bb_upper": 48.17,
+    "bb_middle": 45.41,
+    "bb_lower": 42.66,
+    "bb_width": 0.1212,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 11.5,
+    "atr": 1.52,
+    "atr_pct": 0.0308,
+    "obv_trend": "UP",
+    "mfi": 63.2,
+    "cmf": -0.024,
+    "stoch_k": 98.4,
+    "stoch_d": 94.1,
+    "rvol": 0.72,
+    "volume_5d_avg": 11505560,
+    "green_days_10d": 7,
+    "52w_high": 77.8,
+    "52w_low": 38.96,
+    "52w_high_proximity_pct": 0.3655,
+    "52w_low_proximity_pct": 0.267
+  },
+  "fundamental": {
+    "pe_ratio": 9.124769,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 2.2421312,
+    "de_ratio": 60.703,
+    "fcf_yield": 0.072,
+    "eps_growth_5y": 0.394,
+    "revenue_growth_ttm": 0.037,
+    "gross_margin": 0.41484,
+    "operating_margin": 0.17485,
+    "net_margin": 0.15775,
+    "market_cap": 45448605696,
+    "enterprise_value": 46038278144,
+    "dividend_yield": 1.17,
+    "payout_ratio": 0.025899999,
+    "insider_ownership_pct": 0.00661,
+    "institutional_ownership_pct": 0.83940005,
+    "short_ratio": 1.65,
+    "beta": 1.411
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 46.78,
+    "entry_range_high": 49.62,
+    "target_range_low": 52.85,
+    "target_range_high": 56.63,
+    "stop_range_low": 44.01,
+    "stop_range_high": 46.33,
+    "target_price": 53.93,
+    "stop_loss": 46.33,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.212547-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 61.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 117.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1210,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "+2.91%",
+    "key_metrics": {
+      "RSI": 64.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

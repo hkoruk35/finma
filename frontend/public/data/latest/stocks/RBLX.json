@@ -1,0 +1,160 @@
+{
+  "ticker": "RBLX",
+  "company": "Roblox Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.854245-04:00",
+  "sector": "Communication Services",
+  "industry": "Electronic Gaming & Multimedia",
+  "price": {
+    "current": 59.74,
+    "open": 59.0,
+    "high": 61.2,
+    "low": 58.88,
+    "prev_close": 58.3,
+    "change_pct": 2.47,
+    "change_pct_1w": 7.78,
+    "change_pct_1m": 0.96,
+    "change_pct_1y": 4.33,
+    "volume": 3440559,
+    "avg_volume_30d": 8562865
+  },
+  "scores": {
+    "master_score": 25.09,
+    "technical_score": 12.6,
+    "fundamental_score": 0.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.8,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 25.09,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 53.0,
+    "macd": -1.0709,
+    "macd_signal": -1.8575,
+    "macd_histogram": 0.7867,
+    "macd_crossover": "neutral",
+    "ema_20": 57.68,
+    "ema_50": 62.66,
+    "ema_200": 81.74,
+    "ema_stack_bullish": false,
+    "bb_upper": 60.68,
+    "bb_middle": 56.51,
+    "bb_lower": 52.34,
+    "bb_width": 0.1477,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.0,
+    "atr": 3.24,
+    "atr_pct": 0.0543,
+    "obv_trend": "UP",
+    "mfi": 53.6,
+    "cmf": 0.063,
+    "stoch_k": 85.4,
+    "stoch_d": 76.2,
+    "rvol": 0.92,
+    "volume_5d_avg": 7853031,
+    "green_days_10d": 7,
+    "52w_high": 141.56,
+    "52w_low": 51.91,
+    "52w_high_proximity_pct": 0.578,
+    "52w_low_proximity_pct": 0.1508
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 26.190125000000002,
+    "pb_ratio": 107.25315,
+    "de_ratio": 480.747,
+    "fcf_yield": 0.024,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.432,
+    "gross_margin": 0.23753999,
+    "operating_margin": -0.25345,
+    "net_margin": -0.21778,
+    "market_cap": 42338099200,
+    "enterprise_value": 40045621248,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.04459,
+    "institutional_ownership_pct": 0.82568,
+    "short_ratio": 2.17,
+    "beta": 1.673
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 59.44,
+    "entry_range_high": 60.04,
+    "target_range_low": 68.07,
+    "target_range_high": 72.93,
+    "stop_range_low": 50.6,
+    "stop_range_high": 53.26,
+    "target_price": 69.46,
+    "stop_loss": 53.26,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.854219-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 74.67,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 51.91,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 14,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2687511,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 3.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "RBLX exhibits UNDERPERFORM, with low conviction (23%), based on weak profitability (-21.8% net margin) despite robust growth (43.2% TTM revenue). Technically, bearish EMA alignment and weak ADX (15.6) support this view, although the RSI of 39.5 suggests limited near-term downside. Price at $53.7 is 62.1% from its 52-week high, indicating significant underperformance. A potential catalyst could be a surprise shift towards profitability in the next earnings report, given its current negative net margin. Monitor upcoming user engagement metrics for signs of improvement.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "+2.47%",
+    "key_metrics": {
+      "RSI": 53.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "AZN",
+  "company": "AstraZeneca PLC",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.053663-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 200.12,
+    "open": 204.2,
+    "high": 204.38,
+    "low": 199.49,
+    "prev_close": 204.38,
+    "change_pct": -2.08,
+    "change_pct_1w": -2.03,
+    "change_pct_1m": 4.22,
+    "change_pct_1y": 53.58,
+    "volume": 1002608,
+    "avg_volume_30d": 1880863
+  },
+  "scores": {
+    "master_score": 42.56,
+    "technical_score": 42.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 78.0,
+    "sector_score": 25.6,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 42.56,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.9,
+    "macd": 2.6726,
+    "macd_signal": 1.8802,
+    "macd_histogram": 0.7924,
+    "macd_crossover": "neutral",
+    "ema_20": 198.63,
+    "ema_50": 195.05,
+    "ema_200": 177.69,
+    "ema_stack_bullish": true,
+    "bb_upper": 211.5,
+    "bb_middle": 195.44,
+    "bb_lower": 179.37,
+    "bb_width": 0.1644,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.7,
+    "atr": 4.36,
+    "atr_pct": 0.0218,
+    "obv_trend": "DOWN",
+    "mfi": 70.4,
+    "cmf": -0.039,
+    "stoch_k": 70.7,
+    "stoch_d": 79.5,
+    "rvol": 0.83,
+    "volume_5d_avg": 1557861,
+    "green_days_10d": 5,
+    "52w_high": 208.62,
+    "52w_low": 130.19,
+    "52w_high_proximity_pct": 0.0407,
+    "52w_low_proximity_pct": 0.5372
+  },
+  "fundamental": {
+    "pe_ratio": 30.599388,
+    "sector_pe_median": 24.8743815,
+    "pb_ratio": 6.3773103,
+    "de_ratio": 60.968,
+    "fcf_yield": 0.0254,
+    "eps_growth_5y": 0.539,
+    "revenue_growth_ttm": 0.041,
+    "gross_margin": 0.81706,
+    "operating_margin": 0.21589,
+    "net_margin": 0.17408001,
+    "market_cap": 310242738176,
+    "enterprise_value": 341010546688,
+    "dividend_yield": 1.55,
+    "payout_ratio": 0.4791,
+    "insider_ownership_pct": 0.00042,
+    "institutional_ownership_pct": 0.57251,
+    "short_ratio": 0.83,
+    "beta": 0.275
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 194.07,
+    "entry_range_high": 201.12,
+    "target_range_low": 208.94,
+    "target_range_high": 223.86,
+    "stop_range_low": 181.83,
+    "stop_range_high": 191.4,
+    "target_price": 213.2,
+    "stop_loss": 191.4,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.053642-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 250.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 155.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 130.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 101495,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-2.08%",
+    "key_metrics": {
+      "RSI": 53.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

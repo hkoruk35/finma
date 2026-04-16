@@ -1,0 +1,158 @@
+{
+  "ticker": "GE",
+  "company": "GE Aerospace",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.398819-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 313.29,
+    "open": 316.44,
+    "high": 318.58,
+    "low": 311.42,
+    "prev_close": 318.0,
+    "change_pct": -1.48,
+    "change_pct_1w": 1.7,
+    "change_pct_1m": 3.06,
+    "change_pct_1y": 73.36,
+    "volume": 1866788,
+    "avg_volume_30d": 5357466
+  },
+  "scores": {
+    "master_score": 43.17,
+    "technical_score": 40.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 43.17,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.7,
+    "macd": 0.5642,
+    "macd_signal": -3.7257,
+    "macd_histogram": 4.2899,
+    "macd_crossover": "neutral",
+    "ema_20": 303.02,
+    "ema_50": 306.48,
+    "ema_200": 290.41,
+    "ema_stack_bullish": false,
+    "bb_upper": 320.2,
+    "bb_middle": 295.35,
+    "bb_lower": 270.49,
+    "bb_width": 0.1683,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.4,
+    "atr": 10.43,
+    "atr_pct": 0.0333,
+    "obv_trend": "UP",
+    "mfi": 59.9,
+    "cmf": -0.002,
+    "stoch_k": 87.9,
+    "stoch_d": 92.8,
+    "rvol": 0.69,
+    "volume_5d_avg": 3672537,
+    "green_days_10d": 6,
+    "52w_high": 345.24,
+    "52w_low": 177.41,
+    "52w_high_proximity_pct": 0.0925,
+    "52w_low_proximity_pct": 0.7659
+  },
+  "fundamental": {
+    "pe_ratio": 38.91801,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 17.591667,
+    "de_ratio": 114.07,
+    "fcf_yield": 0.0158,
+    "eps_growth_5y": 0.374,
+    "revenue_growth_ttm": 0.176,
+    "gross_margin": 0.31499,
+    "operating_margin": 0.19549,
+    "net_margin": 0.18982,
+    "market_cap": 330462658560,
+    "enterprise_value": 343308730368,
+    "dividend_yield": 0.59,
+    "payout_ratio": 0.17889999,
+    "insider_ownership_pct": 0.00308,
+    "institutional_ownership_pct": 0.81134003,
+    "short_ratio": 2.16,
+    "beta": 1.428
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 304.95,
+    "entry_range_high": 314.86,
+    "target_range_low": 337.69,
+    "target_range_high": 361.81,
+    "stop_range_low": 277.81,
+    "stop_range_high": 292.43,
+    "target_price": 344.58,
+    "stop_loss": 292.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.398795-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 391.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 59.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 177.41,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14872,
+      "date": "2026-03-03"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-1.48%",
+    "key_metrics": {
+      "RSI": 55.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "ticker": "UAA",
+  "company": "Under Armour, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.943601-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Manufacturing",
+  "price": {
+    "current": 6.34,
+    "open": 6.37,
+    "high": 6.47,
+    "low": 6.33,
+    "prev_close": 6.31,
+    "change_pct": 0.55,
+    "change_pct_1w": 5.93,
+    "change_pct_1m": -0.08,
+    "change_pct_1y": 22.25,
+    "volume": 1846609,
+    "avg_volume_30d": 9115773
+  },
+  "scores": {
+    "master_score": 37.22,
+    "technical_score": 42.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 32.7,
+    "breakout_score": 45.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 37.22,
+    "confidence": 0.37,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.1,
+    "macd": -0.0747,
+    "macd_signal": -0.1609,
+    "macd_histogram": 0.0862,
+    "macd_crossover": "neutral",
+    "ema_20": 6.14,
+    "ema_50": 6.23,
+    "ema_200": 5.94,
+    "ema_stack_bullish": false,
+    "bb_upper": 6.4,
+    "bb_middle": 5.99,
+    "bb_lower": 5.58,
+    "bb_width": 0.1359,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.6,
+    "atr": 0.29,
+    "atr_pct": 0.0453,
+    "obv_trend": "UP",
+    "mfi": 50.8,
+    "cmf": -0.143,
+    "stoch_k": 88.5,
+    "stoch_d": 85.9,
+    "rvol": 0.55,
+    "volume_5d_avg": 4984941,
+    "green_days_10d": 6,
+    "52w_high": 8.14,
+    "52w_low": 4.17,
+    "52w_high_proximity_pct": 0.2205,
+    "52w_low_proximity_pct": 0.5216
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.634937,
+    "pb_ratio": 1.8827894,
+    "de_ratio": 117.662,
+    "fcf_yield": -0.1428,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.052,
+    "gross_margin": 0.46578,
+    "operating_margin": -0.05429,
+    "net_margin": -0.104449995,
+    "market_cap": 2702272000,
+    "enterprise_value": 3911237888,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0027200002,
+    "institutional_ownership_pct": 1.05594,
+    "short_ratio": 3.99,
+    "beta": 1.815
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 6.2,
+    "entry_range_high": 6.37,
+    "target_range_low": 7.07,
+    "target_range_high": 7.57,
+    "stop_range_low": 5.47,
+    "stop_range_high": 5.76,
+    "target_price": 7.21,
+    "stop_loss": 5.76,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.943570-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 7.92,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 4.17,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 776291,
+      "date": "2026-01-28"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 37%. UAA is currently trading near the upper Bollinger Band at $6.40, a key resistance level. Support sits at the 20-day EMA around $6.14. A short-term swing trader might consider a short position in the BUY ZONE between $6.35-$6.40, anticipating a reversion to the mean following a potential rejection at this resistance; place a STOP LOSS ZONE above $6.50 to protect against unexpected breakouts and target a PROFIT ZONE near the 200-day EMA around $5.94.\n\n### Fundamental Edge\nWhile Under Armour's gross margin of 46.6% is respectable, the negative revenue growth (-5.2% TTM) and net margin (-10.4%) do not inspire confidence. A trader considering a short position might be betting that the company will continue to struggle to regain market share in a competitive athletic apparel market, leading to further revenue declines.\n\n### Sector Context\nThe Consumer Discretionary sector is currently showing mixed signals, offering neither strong tailwinds nor significant headwinds for this particular trade on UAA.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 37,
+    "price_change_display": "+0.55%",
+    "key_metrics": {
+      "RSI": 54.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

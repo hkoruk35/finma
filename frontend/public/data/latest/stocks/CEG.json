@@ -1,0 +1,158 @@
+{
+  "ticker": "CEG",
+  "company": "Constellation Energy Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.467631-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 294.14,
+    "open": 298.63,
+    "high": 299.86,
+    "low": 292.64,
+    "prev_close": 296.61,
+    "change_pct": -0.83,
+    "change_pct_1w": 3.47,
+    "change_pct_1m": -3.74,
+    "change_pct_1y": 41.96,
+    "volume": 866345,
+    "avg_volume_30d": 2889301
+  },
+  "scores": {
+    "master_score": 24.04,
+    "technical_score": 14.1,
+    "fundamental_score": 0.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.1,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 24.04,
+    "confidence": 0.24,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 50.7,
+    "macd": -3.8349,
+    "macd_signal": -5.3592,
+    "macd_histogram": 1.5243,
+    "macd_crossover": "neutral",
+    "ema_20": 291.08,
+    "ema_50": 299.26,
+    "ema_200": 309.33,
+    "ema_stack_bullish": false,
+    "bb_upper": 315.81,
+    "bb_middle": 290.58,
+    "bb_lower": 265.35,
+    "bb_width": 0.1736,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 18.2,
+    "atr": 12.8,
+    "atr_pct": 0.0435,
+    "obv_trend": "UP",
+    "mfi": 56.0,
+    "cmf": -0.031,
+    "stoch_k": 65.0,
+    "stoch_d": 65.0,
+    "rvol": 0.8,
+    "volume_5d_avg": 2307889,
+    "green_days_10d": 6,
+    "52w_high": 402.95,
+    "52w_low": 191.64,
+    "52w_high_proximity_pct": 0.27,
+    "52w_low_proximity_pct": 0.5349
+  },
+  "fundamental": {
+    "pe_ratio": 39.730717,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 6.3174534,
+    "de_ratio": 63.94,
+    "fcf_yield": 0.0118,
+    "eps_growth_5y": -0.489,
+    "revenue_growth_ttm": 0.129,
+    "gross_margin": 0.1838,
+    "operating_margin": 0.095979996,
+    "net_margin": 0.09082,
+    "market_cap": 106373324800,
+    "enterprise_value": 113561952256,
+    "dividend_yield": 0.58,
+    "payout_ratio": 0.20959999,
+    "insider_ownership_pct": 0.0034999999,
+    "institutional_ownership_pct": 0.78849,
+    "short_ratio": 2.66,
+    "beta": 1.188
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 292.67,
+    "entry_range_high": 295.61,
+    "target_range_low": 325.89,
+    "target_range_high": 349.17,
+    "stop_range_low": 255.11,
+    "stop_range_high": 268.54,
+    "target_price": 332.54,
+    "stop_loss": 268.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.467611-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 367.67,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 58.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 191.64,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 44055,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 24,
+    "price_change_display": "-0.83%",
+    "key_metrics": {
+      "RSI": 50.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

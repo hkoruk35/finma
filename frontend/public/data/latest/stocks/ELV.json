@@ -1,0 +1,158 @@
+{
+  "ticker": "ELV",
+  "company": "Elevance Health, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.082671-04:00",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 310.26,
+    "open": 313.58,
+    "high": 314.92,
+    "low": 306.3,
+    "prev_close": 313.35,
+    "change_pct": -0.99,
+    "change_pct_1w": -2.5,
+    "change_pct_1m": 6.23,
+    "change_pct_1y": -27.95,
+    "volume": 466327,
+    "avg_volume_30d": 1846250
+  },
+  "scores": {
+    "master_score": 35.59,
+    "technical_score": 10.8,
+    "fundamental_score": 67.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 25.6,
+    "breakout_score": 30.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.59,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.2,
+    "macd": 2.5687,
+    "macd_signal": -0.2808,
+    "macd_histogram": 2.8495,
+    "macd_crossover": "neutral",
+    "ema_20": 305.28,
+    "ema_50": 310.73,
+    "ema_200": 331.38,
+    "ema_stack_bullish": false,
+    "bb_upper": 322.19,
+    "bb_middle": 300.57,
+    "bb_lower": 278.95,
+    "bb_width": 0.1439,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 22.3,
+    "atr": 9.12,
+    "atr_pct": 0.0294,
+    "obv_trend": "DOWN",
+    "mfi": 59.1,
+    "cmf": 0.028,
+    "stoch_k": 68.9,
+    "stoch_d": 78.5,
+    "rvol": 0.65,
+    "volume_5d_avg": 1205585,
+    "green_days_10d": 6,
+    "52w_high": 431.95,
+    "52w_low": 270.1,
+    "52w_high_proximity_pct": 0.2817,
+    "52w_low_proximity_pct": 0.1487
+  },
+  "fundamental": {
+    "pe_ratio": 12.302142,
+    "sector_pe_median": 24.8743815,
+    "pb_ratio": 1.5605934,
+    "de_ratio": 74.388,
+    "fcf_yield": 0.0496,
+    "eps_growth_5y": 0.363,
+    "revenue_growth_ttm": 0.095,
+    "gross_margin": 0.25563,
+    "operating_margin": 0.0154,
+    "net_margin": 0.02843,
+    "market_cap": 68475834368,
+    "enterprise_value": 65936805888,
+    "dividend_yield": 2.2,
+    "payout_ratio": 0.2713,
+    "insider_ownership_pct": 0.0019200001,
+    "institutional_ownership_pct": 0.94099,
+    "short_ratio": 1.73,
+    "beta": 0.498
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 308.71,
+    "entry_range_high": 311.81,
+    "target_range_low": 330.87,
+    "target_range_high": 354.5,
+    "stop_range_low": 277.42,
+    "stop_range_high": 292.02,
+    "target_price": 337.62,
+    "stop_loss": 292.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.082651-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 387.82,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 220.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 270.1,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 26,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "-0.99%",
+    "key_metrics": {
+      "RSI": 54.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

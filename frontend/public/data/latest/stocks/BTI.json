@@ -1,0 +1,158 @@
+{
+  "ticker": "BTI",
+  "company": "British American Tobacco p.l.c.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.019364-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Tobacco",
+  "price": {
+    "current": 57.17,
+    "open": 57.21,
+    "high": 57.37,
+    "low": 56.9,
+    "prev_close": 57.51,
+    "change_pct": -0.6,
+    "change_pct_1w": -4.65,
+    "change_pct_1m": -4.83,
+    "change_pct_1y": 45.69,
+    "volume": 1472927,
+    "avg_volume_30d": 4815834
+  },
+  "scores": {
+    "master_score": 32.35,
+    "technical_score": 28.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 60.0,
+    "sector_score": 23.0,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 32.35,
+    "confidence": 0.32,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 42.0,
+    "macd": -0.1485,
+    "macd_signal": -0.1074,
+    "macd_histogram": -0.0411,
+    "macd_crossover": "bearish",
+    "ema_20": 58.34,
+    "ema_50": 58.3,
+    "ema_200": 53.97,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.63,
+    "bb_middle": 58.0,
+    "bb_lower": 56.37,
+    "bb_width": 0.0562,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.2,
+    "atr": 1.22,
+    "atr_pct": 0.0213,
+    "obv_trend": "DOWN",
+    "mfi": 64.7,
+    "cmf": 0.061,
+    "stoch_k": 28.0,
+    "stoch_d": 43.9,
+    "rvol": 0.78,
+    "volume_5d_avg": 3743565,
+    "green_days_10d": 4,
+    "52w_high": 62.13,
+    "52w_low": 38.27,
+    "52w_high_proximity_pct": 0.0799,
+    "52w_low_proximity_pct": 0.4936
+  },
+  "fundamental": {
+    "pe_ratio": 12.214745,
+    "sector_pe_median": 23.7782275,
+    "pb_ratio": 10.076242,
+    "de_ratio": 72.842,
+    "fcf_yield": 0.0242,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.001,
+    "gross_margin": 0.82651,
+    "operating_margin": 0.34576,
+    "net_margin": 0.30316,
+    "market_cap": 123788083200,
+    "enterprise_value": 156434432000,
+    "dividend_yield": 5.81,
+    "payout_ratio": 0.6873,
+    "insider_ownership_pct": 0.00098,
+    "institutional_ownership_pct": 0.13984,
+    "short_ratio": 2.49,
+    "beta": 0.124
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 56.88,
+    "entry_range_high": 57.46,
+    "target_range_low": 59.61,
+    "target_range_high": 63.87,
+    "stop_range_low": 51.99,
+    "stop_range_high": 54.73,
+    "target_price": 60.83,
+    "stop_loss": 54.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.019342-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 71.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 581.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.27,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 0,
+      "date": "2026-02-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -2.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "-0.60%",
+    "key_metrics": {
+      "RSI": 42.0,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

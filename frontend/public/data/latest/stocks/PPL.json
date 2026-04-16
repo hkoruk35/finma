@@ -1,0 +1,160 @@
+{
+  "ticker": "PPL",
+  "company": "PPL Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.465275-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 39.37,
+    "open": 39.45,
+    "high": 39.62,
+    "low": 39.1,
+    "prev_close": 39.61,
+    "change_pct": -0.61,
+    "change_pct_1w": 0.56,
+    "change_pct_1m": 1.63,
+    "change_pct_1y": 16.93,
+    "volume": 3014223,
+    "avg_volume_30d": 6849547
+  },
+  "scores": {
+    "master_score": 54.61,
+    "technical_score": 60.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 36.1,
+    "breakout_score": 0.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.61,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 62.7,
+    "macd": 0.5579,
+    "macd_signal": 0.4513,
+    "macd_histogram": 0.1066,
+    "macd_crossover": "neutral",
+    "ema_20": 38.68,
+    "ema_50": 37.8,
+    "ema_200": 36.09,
+    "ema_stack_bullish": true,
+    "bb_upper": 40.28,
+    "bb_middle": 38.32,
+    "bb_lower": 36.37,
+    "bb_width": 0.1022,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.8,
+    "atr": 0.65,
+    "atr_pct": 0.0164,
+    "obv_trend": "UP",
+    "mfi": 71.7,
+    "cmf": 0.005,
+    "stoch_k": 76.1,
+    "stoch_d": 80.7,
+    "rvol": 0.89,
+    "volume_5d_avg": 6096524,
+    "green_days_10d": 7,
+    "52w_high": 39.81,
+    "52w_low": 32.49,
+    "52w_high_proximity_pct": 0.0111,
+    "52w_low_proximity_pct": 0.2119
+  },
+  "fundamental": {
+    "pe_ratio": 24.761005,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 1.9869789,
+    "de_ratio": 131.147,
+    "fcf_yield": -0.0451,
+    "eps_growth_5y": 0.499,
+    "revenue_growth_ttm": 0.028,
+    "gross_margin": 0.43475,
+    "operating_margin": 0.18865,
+    "net_margin": 0.13061,
+    "market_cap": 29612740608,
+    "enterprise_value": 48204263424,
+    "dividend_yield": 2.88,
+    "payout_ratio": 0.6855,
+    "insider_ownership_pct": 0.00149,
+    "institutional_ownership_pct": 0.87637,
+    "short_ratio": 5.23,
+    "beta": 0.68
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 37.61,
+    "entry_range_high": 39.57,
+    "target_range_low": 40.49,
+    "target_range_high": 43.39,
+    "stop_range_low": 36.17,
+    "stop_range_high": 38.07,
+    "target_price": 41.32,
+    "stop_loss": 38.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.465251-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 49.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 288.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 32.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 33000,
+      "date": "2026-04-08"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. PPL is currently trading near its 52-week high, facing resistance around $40.06 at the upper Bollinger Band. A potential BUY ZONE exists between the EMA20 at $38.50 and EMA50 at $37.66, where a pullback might offer an entry. The PROFIT ZONE targets a breakout above $40.06, aiming for a retest of the 52-week high and potentially higher. A STOP LOSS ZONE should be placed below the EMA50 at $37.66 to protect against a trend reversal.\n\n### Fundamental Edge\nPPL demonstrates moderate profitability with a gross margin of 43.5% and a net margin of 13.1%, supporting its stability. The P/E of 24.89 suggests the stock is trading at a premium relative to the sector, which could be justified by consistent revenue growth of 2.8% TTM, indicating a slow but steady expansion. This steady growth provides a foundation for the current price action.\n\n### Sector Context\nThe Utilities sector is exhibiting mixed performance, providing neither a strong tailwind nor a significant headwind for PPL's individual momentum.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "-0.61%",
+    "key_metrics": {
+      "RSI": 62.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

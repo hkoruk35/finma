@@ -1,0 +1,160 @@
+{
+  "ticker": "CFG",
+  "company": "Citizens Financial Group, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.274928-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 65.36,
+    "open": 65.02,
+    "high": 65.43,
+    "low": 64.34,
+    "prev_close": 64.87,
+    "change_pct": 0.76,
+    "change_pct_1w": 2.49,
+    "change_pct_1m": 15.98,
+    "change_pct_1y": 94.59,
+    "volume": 1753148,
+    "avg_volume_30d": 4637418
+  },
+  "scores": {
+    "master_score": 56.9,
+    "technical_score": 60.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.0,
+    "breakout_score": 35.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 56.9,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.8,
+    "macd": 1.3999,
+    "macd_signal": 0.6692,
+    "macd_histogram": 0.7306,
+    "macd_crossover": "neutral",
+    "ema_20": 61.89,
+    "ema_50": 60.9,
+    "ema_200": 55.26,
+    "ema_stack_bullish": true,
+    "bb_upper": 66.61,
+    "bb_middle": 60.66,
+    "bb_lower": 54.72,
+    "bb_width": 0.1959,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.5,
+    "atr": 1.57,
+    "atr_pct": 0.024,
+    "obv_trend": "UP",
+    "mfi": 61.5,
+    "cmf": 0.195,
+    "stoch_k": 99.2,
+    "stoch_d": 96.0,
+    "rvol": 0.8,
+    "volume_5d_avg": 3692729,
+    "green_days_10d": 9,
+    "52w_high": 68.12,
+    "52w_low": 33.27,
+    "52w_high_proximity_pct": 0.0404,
+    "52w_low_proximity_pct": 0.9645
+  },
+  "fundamental": {
+    "pe_ratio": 16.933937,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.1591183,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.348,
+    "revenue_growth_ttm": 0.107,
+    "gross_margin": 0.0,
+    "operating_margin": 0.32228002,
+    "net_margin": 0.23969,
+    "market_cap": 27779725312,
+    "enterprise_value": 28398690304,
+    "dividend_yield": 2.84,
+    "payout_ratio": 0.4456,
+    "insider_ownership_pct": 0.0072899996,
+    "institutional_ownership_pct": 0.99601,
+    "short_ratio": 0.01,
+    "beta": 1.058
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 60.6,
+    "entry_range_high": 65.69,
+    "target_range_low": 68.67,
+    "target_range_high": 73.57,
+    "stop_range_low": 59.11,
+    "stop_range_high": 62.22,
+    "target_price": 70.07,
+    "stop_loss": 62.22,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.274871-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 81.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 284.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 33.27,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13258,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. CFG is trading within its Bollinger Bands, with immediate resistance at the upper band of $65.24 and support around the EMA20 at $61.12. A potential BUY ZONE exists between $61.12 and $60.53 (EMA20 and EMA50), predicated on a pullback and subsequent bounce from these levels. The PROFIT ZONE is $65.24 to $68.12 (52-week high), with a STOP LOSS ZONE just below the EMA50 at $60.00 to protect against downside.\n\n### Fundamental Edge\nCFG's revenue growth of 10.7% coupled with a strong net margin of 24.0% suggests a fundamentally sound company that is executing well. A trader would consider this setup because the positive revenue growth justifies a potential run toward the 52-week high.\n\n### Sector Context\nThe Financials sector is currently exhibiting mixed performance, providing neither a strong tailwind nor a significant headwind for CFG.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "+0.76%",
+    "key_metrics": {
+      "RSI": 68.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

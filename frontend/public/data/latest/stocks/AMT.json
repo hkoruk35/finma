@@ -1,0 +1,158 @@
+{
+  "ticker": "AMT",
+  "company": "American Tower Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.487679-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 178.14,
+    "open": 177.77,
+    "high": 178.7,
+    "low": 176.22,
+    "prev_close": 176.41,
+    "change_pct": 0.98,
+    "change_pct_1w": 2.12,
+    "change_pct_1m": -2.59,
+    "change_pct_1y": -13.37,
+    "volume": 878410,
+    "avg_volume_30d": 3216063
+  },
+  "scores": {
+    "master_score": 30.18,
+    "technical_score": 9.6,
+    "fundamental_score": 20.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 43.2,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 30.18,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 53.3,
+    "macd": -0.4567,
+    "macd_signal": -1.545,
+    "macd_histogram": 1.0883,
+    "macd_crossover": "neutral",
+    "ema_20": 175.75,
+    "ema_50": 177.18,
+    "ema_200": 184.14,
+    "ema_stack_bullish": false,
+    "bb_upper": 182.44,
+    "bb_middle": 173.52,
+    "bb_lower": 164.61,
+    "bb_width": 0.1028,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.1,
+    "atr": 4.55,
+    "atr_pct": 0.0255,
+    "obv_trend": "UP",
+    "mfi": 72.5,
+    "cmf": -0.04,
+    "stoch_k": 85.3,
+    "stoch_d": 84.3,
+    "rvol": 0.8,
+    "volume_5d_avg": 2563362,
+    "green_days_10d": 6,
+    "52w_high": 225.84,
+    "52w_low": 165.62,
+    "52w_high_proximity_pct": 0.2112,
+    "52w_low_proximity_pct": 0.0756
+  },
+  "fundamental": {
+    "pe_ratio": 32.988888,
+    "sector_pe_median": 29.5436075,
+    "pb_ratio": 22.742243,
+    "de_ratio": 434.211,
+    "fcf_yield": 0.0543,
+    "eps_growth_5y": -0.332,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.74183,
+    "operating_margin": 0.44942,
+    "net_margin": 0.23763001,
+    "market_cap": 83079168000,
+    "enterprise_value": 132413923328,
+    "dividend_yield": 3.91,
+    "payout_ratio": 1.2593,
+    "insider_ownership_pct": 0.00087,
+    "institutional_ownership_pct": 0.95981,
+    "short_ratio": 2.15,
+    "beta": 0.93
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 176.29,
+    "entry_range_high": 179.03,
+    "target_range_low": 187.95,
+    "target_range_high": 201.38,
+    "stop_range_low": 160.59,
+    "stop_range_high": 169.04,
+    "target_price": 191.79,
+    "stop_loss": 169.04,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.487662-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 222.67,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 391.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 165.62,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 10531,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.43,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+0.98%",
+    "key_metrics": {
+      "RSI": 53.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

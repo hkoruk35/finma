@@ -1,0 +1,158 @@
+{
+  "ticker": "DLTR",
+  "company": "Dollar Tree, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.976253-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 101.36,
+    "open": 100.75,
+    "high": 102.0,
+    "low": 100.37,
+    "prev_close": 100.67,
+    "change_pct": 0.69,
+    "change_pct_1w": -4.03,
+    "change_pct_1m": -11.36,
+    "change_pct_1y": 40.57,
+    "volume": 948951,
+    "avg_volume_30d": 3136651
+  },
+  "scores": {
+    "master_score": 25.8,
+    "technical_score": 10.8,
+    "fundamental_score": 45.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 32.7,
+    "breakout_score": 45.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 25.8,
+    "confidence": 0.26,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 37.0,
+    "macd": -3.7847,
+    "macd_signal": -3.6474,
+    "macd_histogram": -0.1373,
+    "macd_crossover": "neutral",
+    "ema_20": 106.44,
+    "ema_50": 112.36,
+    "ema_200": 108.93,
+    "ema_stack_bullish": false,
+    "bb_upper": 111.73,
+    "bb_middle": 105.76,
+    "bb_lower": 99.79,
+    "bb_width": 0.1128,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 30.3,
+    "atr": 4.01,
+    "atr_pct": 0.0395,
+    "obv_trend": "DOWN",
+    "mfi": 36.0,
+    "cmf": -0.055,
+    "stoch_k": 23.7,
+    "stoch_d": 23.9,
+    "rvol": 1.04,
+    "volume_5d_avg": 3263310,
+    "green_days_10d": 3,
+    "52w_high": 141.21,
+    "52w_low": 71.8,
+    "52w_high_proximity_pct": 0.2822,
+    "52w_low_proximity_pct": 0.4118
+  },
+  "fundamental": {
+    "pe_ratio": 17.064814,
+    "sector_pe_median": 25.634937,
+    "pb_ratio": 5.3586907,
+    "de_ratio": 187.904,
+    "fcf_yield": 0.0637,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.09,
+    "gross_margin": 0.36693,
+    "operating_margin": 0.13514,
+    "net_margin": 0.06607,
+    "market_cap": 20156751872,
+    "enterprise_value": 26199812096,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00199,
+    "institutional_ownership_pct": 1.10319,
+    "short_ratio": 4.52,
+    "beta": 0.744
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 100.85,
+    "entry_range_high": 101.87,
+    "target_range_low": 111.12,
+    "target_range_high": 119.06,
+    "stop_range_low": 88.67,
+    "stop_range_high": 93.34,
+    "target_price": 113.39,
+    "stop_loss": 93.34,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.976232-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 126.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 71.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1955,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 26,
+    "price_change_display": "+0.69%",
+    "key_metrics": {
+      "RSI": 37.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

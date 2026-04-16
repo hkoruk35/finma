@@ -1,0 +1,160 @@
+{
+  "ticker": "SIG",
+  "company": "Signet Jewelers Limited",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.986934-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Luxury Goods",
+  "price": {
+    "current": 92.22,
+    "open": 93.18,
+    "high": 93.99,
+    "low": 91.92,
+    "prev_close": 93.38,
+    "change_pct": -1.24,
+    "change_pct_1w": 1.95,
+    "change_pct_1m": 10.02,
+    "change_pct_1y": 59.65,
+    "volume": 158422,
+    "avg_volume_30d": 1066900
+  },
+  "scores": {
+    "master_score": 48.72,
+    "technical_score": 32.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 32.7,
+    "breakout_score": 15.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.72,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 54.7,
+    "macd": 0.8102,
+    "macd_signal": -0.1558,
+    "macd_histogram": 0.966,
+    "macd_crossover": "neutral",
+    "ema_20": 89.79,
+    "ema_50": 90.08,
+    "ema_200": 86.5,
+    "ema_stack_bullish": false,
+    "bb_upper": 96.29,
+    "bb_middle": 88.37,
+    "bb_lower": 80.46,
+    "bb_width": 0.179,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.2,
+    "atr": 3.93,
+    "atr_pct": 0.0426,
+    "obv_trend": "UP",
+    "mfi": 57.0,
+    "cmf": 0.044,
+    "stoch_k": 83.8,
+    "stoch_d": 88.2,
+    "rvol": 0.5,
+    "volume_5d_avg": 531744,
+    "green_days_10d": 6,
+    "52w_high": 106.0,
+    "52w_low": 51.93,
+    "52w_high_proximity_pct": 0.13,
+    "52w_low_proximity_pct": 0.776
+  },
+  "fundamental": {
+    "pe_ratio": 13.025424,
+    "sector_pe_median": 25.634937,
+    "pb_ratio": 1.8948797,
+    "de_ratio": 61.911,
+    "fcf_yield": 0.0971,
+    "eps_growth_5y": 1.659,
+    "revenue_growth_ttm": -0.003,
+    "gross_margin": 0.39547002,
+    "operating_margin": 0.15083,
+    "net_margin": 0.04321,
+    "market_cap": 3751919360,
+    "enterprise_value": 4084028672,
+    "dividend_yield": 1.5,
+    "payout_ratio": 0.1808,
+    "insider_ownership_pct": 0.03265,
+    "institutional_ownership_pct": 1.1622,
+    "short_ratio": 4.1,
+    "beta": 1.25
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 89.63,
+    "entry_range_high": 92.68,
+    "target_range_low": 101.93,
+    "target_range_high": 109.21,
+    "stop_range_low": 80.14,
+    "stop_range_high": 84.36,
+    "target_price": 104.01,
+    "stop_loss": 84.36,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.986912-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 115.28,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 150.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 51.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7000,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "Signet Jewelers (SIG) exhibits a NEGATIVE BIAS, with 52% confidence. The bearish EMA alignment and weak ADX (14.6) overshadow the current price of $93.26, which sits 12% below its 52-week high. While SIG's P/E of 13.17 trades below the sector median, and the gross margin is strong at 39.5%, the -0.3% TTM revenue growth is concerning. Volume is weak (0.51x). The very high dividend yield of 150% is unsustainable. A catalyst for upside revision would be a demonstrable turnaround in revenue growth during the next earnings call.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-1.24%",
+    "key_metrics": {
+      "RSI": 54.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

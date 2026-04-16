@@ -1,0 +1,158 @@
+{
+  "ticker": "FIS",
+  "company": "Fidelity National Information Services, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.215156-04:00",
+  "sector": "Financials",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 49.01,
+    "open": 47.39,
+    "high": 49.1,
+    "low": 47.15,
+    "prev_close": 46.98,
+    "change_pct": 4.31,
+    "change_pct_1w": 4.24,
+    "change_pct_1m": -2.84,
+    "change_pct_1y": -30.52,
+    "volume": 2015915,
+    "avg_volume_30d": 6446030
+  },
+  "scores": {
+    "master_score": 34.62,
+    "technical_score": 13.5,
+    "fundamental_score": 50.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.0,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.62,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.2,
+    "macd": -0.8994,
+    "macd_signal": -1.1709,
+    "macd_histogram": 0.2715,
+    "macd_crossover": "neutral",
+    "ema_20": 47.32,
+    "ema_50": 49.98,
+    "ema_200": 59.71,
+    "ema_stack_bullish": false,
+    "bb_upper": 50.58,
+    "bb_middle": 47.29,
+    "bb_lower": 44.0,
+    "bb_width": 0.1391,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.7,
+    "atr": 1.75,
+    "atr_pct": 0.0357,
+    "obv_trend": "UP",
+    "mfi": 46.0,
+    "cmf": 0.002,
+    "stoch_k": 98.4,
+    "stoch_d": 65.4,
+    "rvol": 1.08,
+    "volume_5d_avg": 6939403,
+    "green_days_10d": 6,
+    "52w_high": 80.68,
+    "52w_low": 43.37,
+    "52w_high_proximity_pct": 0.3926,
+    "52w_low_proximity_pct": 0.1299
+  },
+  "fundamental": {
+    "pe_ratio": 67.130135,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.8122481,
+    "de_ratio": 95.893,
+    "fcf_yield": 0.0743,
+    "eps_growth_5y": 0.881,
+    "revenue_growth_ttm": 0.082,
+    "gross_margin": 0.36863998,
+    "operating_margin": 0.24644,
+    "net_margin": 0.03578,
+    "market_cap": 25377275904,
+    "enterprise_value": 36901687296,
+    "dividend_yield": 3.49,
+    "payout_ratio": 2.1917999,
+    "insider_ownership_pct": 0.0014,
+    "institutional_ownership_pct": 0.99097997,
+    "short_ratio": 2.28,
+    "beta": 0.914
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 48.76,
+    "entry_range_high": 49.26,
+    "target_range_low": 53.17,
+    "target_range_high": 56.97,
+    "stop_range_low": 43.23,
+    "stop_range_high": 45.51,
+    "target_price": 54.26,
+    "stop_loss": 45.51,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.214925-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 61.26,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 349.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 43.37,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 19846,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+4.31%",
+    "key_metrics": {
+      "RSI": 54.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

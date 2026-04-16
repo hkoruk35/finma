@@ -1,0 +1,158 @@
+{
+  "ticker": "EGP",
+  "company": "EastGroup Properties, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.490817-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Industrial",
+  "price": {
+    "current": 194.8,
+    "open": 194.5,
+    "high": 194.9,
+    "low": 193.83,
+    "prev_close": 195.1,
+    "change_pct": -0.15,
+    "change_pct_1w": 0.9,
+    "change_pct_1m": 3.42,
+    "change_pct_1y": 30.06,
+    "volume": 75994,
+    "avg_volume_30d": 314506
+  },
+  "scores": {
+    "master_score": 54.57,
+    "technical_score": 60.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 43.2,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.57,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 65.4,
+    "macd": 2.0592,
+    "macd_signal": 0.9637,
+    "macd_histogram": 1.0955,
+    "macd_crossover": "neutral",
+    "ema_20": 189.65,
+    "ema_50": 187.28,
+    "ema_200": 178.77,
+    "ema_stack_bullish": true,
+    "bb_upper": 197.06,
+    "bb_middle": 187.32,
+    "bb_lower": 177.57,
+    "bb_width": 0.104,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.2,
+    "atr": 3.63,
+    "atr_pct": 0.0187,
+    "obv_trend": "UP",
+    "mfi": 74.4,
+    "cmf": -0.144,
+    "stoch_k": 93.7,
+    "stoch_d": 91.0,
+    "rvol": 0.68,
+    "volume_5d_avg": 214958,
+    "green_days_10d": 6,
+    "52w_high": 195.1,
+    "52w_low": 150.6,
+    "52w_high_proximity_pct": 0.0015,
+    "52w_low_proximity_pct": 0.2935
+  },
+  "fundamental": {
+    "pe_ratio": 39.918034,
+    "sector_pe_median": 29.5436075,
+    "pb_ratio": 2.9674768,
+    "de_ratio": 47.968,
+    "fcf_yield": 0.0354,
+    "eps_growth_5y": 0.087,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.73283994,
+    "operating_margin": 0.40522,
+    "net_margin": 0.35771,
+    "market_cap": 10471504896,
+    "enterprise_value": 12054174720,
+    "dividend_yield": 3.18,
+    "payout_ratio": 1.2115,
+    "insider_ownership_pct": 0.00994,
+    "institutional_ownership_pct": 1.01045,
+    "short_ratio": 5.56,
+    "beta": 1.106
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 186.34,
+    "entry_range_high": 195.77,
+    "target_range_low": 201.58,
+    "target_range_high": 215.97,
+    "stop_range_low": 178.16,
+    "stop_range_high": 187.54,
+    "target_price": 205.69,
+    "stop_loss": 187.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.490791-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 243.5,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 318.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 150.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 266,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.43,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "-0.15%",
+    "key_metrics": {
+      "RSI": 65.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

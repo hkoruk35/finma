@@ -1,0 +1,158 @@
+{
+  "ticker": "TPR",
+  "company": "Tapestry, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.938884-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Luxury Goods",
+  "price": {
+    "current": 150.68,
+    "open": 149.78,
+    "high": 152.42,
+    "low": 149.77,
+    "prev_close": 150.87,
+    "change_pct": -0.13,
+    "change_pct_1w": 0.07,
+    "change_pct_1m": 6.28,
+    "change_pct_1y": 141.11,
+    "volume": 545026,
+    "avg_volume_30d": 1806390
+  },
+  "scores": {
+    "master_score": 37.22,
+    "technical_score": 42.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 32.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 37.22,
+    "confidence": 0.37,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 56.8,
+    "macd": 1.4959,
+    "macd_signal": 0.4221,
+    "macd_histogram": 1.0738,
+    "macd_crossover": "neutral",
+    "ema_20": 146.54,
+    "ema_50": 143.63,
+    "ema_200": 122.85,
+    "ema_stack_bullish": true,
+    "bb_upper": 153.76,
+    "bb_middle": 144.57,
+    "bb_lower": 135.38,
+    "bb_width": 0.1272,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.3,
+    "atr": 5.13,
+    "atr_pct": 0.0341,
+    "obv_trend": "DOWN",
+    "mfi": 47.0,
+    "cmf": -0.036,
+    "stoch_k": 78.9,
+    "stoch_d": 78.0,
+    "rvol": 0.69,
+    "volume_5d_avg": 1239645,
+    "green_days_10d": 5,
+    "52w_high": 160.06,
+    "52w_low": 61.97,
+    "52w_high_proximity_pct": 0.0586,
+    "52w_low_proximity_pct": 1.4314
+  },
+  "fundamental": {
+    "pe_ratio": 58.40314,
+    "sector_pe_median": 25.634937,
+    "pb_ratio": 55.41747,
+    "de_ratio": 715.475,
+    "fcf_yield": 0.046,
+    "eps_growth_5y": 0.942,
+    "revenue_growth_ttm": 0.14,
+    "gross_margin": 0.75981003,
+    "operating_margin": 0.28764,
+    "net_margin": 0.0695,
+    "market_cap": 30836645888,
+    "enterprise_value": 33411776512,
+    "dividend_yield": 1.06,
+    "payout_ratio": 0.5814,
+    "insider_ownership_pct": 0.00341,
+    "institutional_ownership_pct": 0.98183995,
+    "short_ratio": 5.9,
+    "beta": 1.61
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 142.91,
+    "entry_range_high": 151.43,
+    "target_range_low": 162.75,
+    "target_range_high": 174.37,
+    "stop_range_low": 133.4,
+    "stop_range_high": 140.42,
+    "target_price": 166.07,
+    "stop_loss": 140.42,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.938861-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 188.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 106.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.97,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1392,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 37,
+    "price_change_display": "-0.13%",
+    "key_metrics": {
+      "RSI": 56.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

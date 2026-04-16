@@ -1,0 +1,158 @@
+{
+  "ticker": "IR",
+  "company": "Ingersoll Rand Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.407589-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 83.67,
+    "open": 87.7,
+    "high": 88.07,
+    "low": 83.02,
+    "prev_close": 88.32,
+    "change_pct": -5.27,
+    "change_pct_1w": -1.19,
+    "change_pct_1m": -0.17,
+    "change_pct_1y": 14.72,
+    "volume": 2561768,
+    "avg_volume_30d": 3109568
+  },
+  "scores": {
+    "master_score": 29.58,
+    "technical_score": 12.6,
+    "fundamental_score": 27.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 65.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 29.58,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 48.7,
+    "macd": -0.2255,
+    "macd_signal": -1.2551,
+    "macd_histogram": 1.0296,
+    "macd_crossover": "neutral",
+    "ema_20": 83.92,
+    "ema_50": 85.26,
+    "ema_200": 83.86,
+    "ema_stack_bullish": false,
+    "bb_upper": 88.53,
+    "bb_middle": 82.27,
+    "bb_lower": 76.02,
+    "bb_width": 0.152,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.5,
+    "atr": 3.13,
+    "atr_pct": 0.0374,
+    "obv_trend": "UP",
+    "mfi": 57.5,
+    "cmf": -0.006,
+    "stoch_k": 58.5,
+    "stoch_d": 82.8,
+    "rvol": 0.99,
+    "volume_5d_avg": 3070473,
+    "green_days_10d": 6,
+    "52w_high": 98.74,
+    "52w_low": 69.65,
+    "52w_high_proximity_pct": 0.1527,
+    "52w_low_proximity_pct": 0.2012
+  },
+  "fundamental": {
+    "pe_ratio": 57.304794,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 3.2432065,
+    "de_ratio": 50.699,
+    "fcf_yield": 0.0325,
+    "eps_growth_5y": 0.184,
+    "revenue_growth_ttm": 0.101,
+    "gross_margin": 0.43607,
+    "operating_margin": 0.20011999,
+    "net_margin": 0.07599,
+    "market_cap": 33056911360,
+    "enterprise_value": 38535901184,
+    "dividend_yield": 0.09,
+    "payout_ratio": 0.0552,
+    "insider_ownership_pct": 0.00232,
+    "institutional_ownership_pct": 0.96889,
+    "short_ratio": 5.33,
+    "beta": 1.333
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 83.25,
+    "entry_range_high": 84.09,
+    "target_range_low": 91.2,
+    "target_range_high": 97.71,
+    "stop_range_low": 73.54,
+    "stop_range_high": 77.41,
+    "target_price": 93.06,
+    "stop_loss": 77.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.407573-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 104.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 9.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 69.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 118044,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-5.27%",
+    "key_metrics": {
+      "RSI": 48.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

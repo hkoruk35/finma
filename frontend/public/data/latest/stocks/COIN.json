@@ -1,0 +1,158 @@
+{
+  "ticker": "COIN",
+  "company": "Coinbase Global, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.254921-04:00",
+  "sector": "Financials",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 189.62,
+    "open": 185.65,
+    "high": 193.63,
+    "low": 183.52,
+    "prev_close": 184.41,
+    "change_pct": 2.83,
+    "change_pct_1w": 8.3,
+    "change_pct_1m": -6.74,
+    "change_pct_1y": 8.05,
+    "volume": 7042806,
+    "avg_volume_30d": 11421656
+  },
+  "scores": {
+    "master_score": 22.39,
+    "technical_score": 11.4,
+    "fundamental_score": 0.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.0,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 22.39,
+    "confidence": 0.22,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 55.9,
+    "macd": -2.6584,
+    "macd_signal": -4.1926,
+    "macd_histogram": 1.5342,
+    "macd_crossover": "neutral",
+    "ema_20": 179.51,
+    "ema_50": 189.24,
+    "ema_200": 236.59,
+    "ema_stack_bullish": false,
+    "bb_upper": 204.64,
+    "bb_middle": 179.52,
+    "bb_lower": 154.4,
+    "bb_width": 0.2799,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 16.9,
+    "atr": 11.21,
+    "atr_pct": 0.0591,
+    "obv_trend": "UP",
+    "mfi": 49.5,
+    "cmf": -0.159,
+    "stoch_k": 88.6,
+    "stoch_d": 68.7,
+    "rvol": 0.77,
+    "volume_5d_avg": 8807121,
+    "green_days_10d": 5,
+    "52w_high": 419.78,
+    "52w_low": 141.09,
+    "52w_high_proximity_pct": 0.5483,
+    "52w_low_proximity_pct": 0.344
+  },
+  "fundamental": {
+    "pe_ratio": 42.688084,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 3.4316175,
+    "de_ratio": 53.119,
+    "fcf_yield": 0.0254,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.222,
+    "gross_margin": 0.85178,
+    "operating_margin": 0.11299,
+    "net_margin": 0.1831,
+    "market_cap": 51109580800,
+    "enterprise_value": 44960874496,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01344,
+    "institutional_ownership_pct": 0.69092005,
+    "short_ratio": 1.59,
+    "beta": 3.606
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 188.29,
+    "entry_range_high": 190.57,
+    "target_range_low": 218.78,
+    "target_range_high": 234.41,
+    "stop_range_low": 158.84,
+    "stop_range_high": 167.2,
+    "target_price": 223.25,
+    "stop_loss": 167.2,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.254890-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 237.03,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.09,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9950,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 22,
+    "price_change_display": "+2.83%",
+    "key_metrics": {
+      "RSI": 55.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

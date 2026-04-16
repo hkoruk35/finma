@@ -1,0 +1,158 @@
+{
+  "ticker": "HII",
+  "company": "Huntington Ingalls Industries, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.393448-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 399.46,
+    "open": 392.31,
+    "high": 400.81,
+    "low": 391.98,
+    "prev_close": 398.07,
+    "change_pct": 0.35,
+    "change_pct_1w": -2.89,
+    "change_pct_1m": -4.11,
+    "change_pct_1y": 88.62,
+    "volume": 146712,
+    "avg_volume_30d": 454810
+  },
+  "scores": {
+    "master_score": 52.42,
+    "technical_score": 50.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 52.42,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 47.9,
+    "macd": -4.0038,
+    "macd_signal": -5.0239,
+    "macd_histogram": 1.0202,
+    "macd_crossover": "neutral",
+    "ema_20": 401.3,
+    "ema_50": 402.11,
+    "ema_200": 341.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 424.76,
+    "bb_middle": 398.61,
+    "bb_lower": 372.46,
+    "bb_width": 0.1312,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 23.2,
+    "atr": 13.09,
+    "atr_pct": 0.0328,
+    "obv_trend": "UP",
+    "mfi": 55.7,
+    "cmf": -0.123,
+    "stoch_k": 69.4,
+    "stoch_d": 64.9,
+    "rvol": 0.7,
+    "volume_5d_avg": 316342,
+    "green_days_10d": 7,
+    "52w_high": 453.73,
+    "52w_low": 211.65,
+    "52w_high_proximity_pct": 0.1196,
+    "52w_low_proximity_pct": 0.8874
+  },
+  "fundamental": {
+    "pe_ratio": 25.922453,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 3.0900166,
+    "de_ratio": 58.762,
+    "fcf_yield": 0.0436,
+    "eps_growth_5y": 0.281,
+    "revenue_growth_ttm": 0.157,
+    "gross_margin": 0.12696,
+    "operating_margin": 0.05926,
+    "net_margin": 0.048460003,
+    "market_cap": 15729802240,
+    "enterprise_value": 17828337664,
+    "dividend_yield": 1.39,
+    "payout_ratio": 0.35279998,
+    "insider_ownership_pct": 0.0053399997,
+    "institutional_ownership_pct": 0.96263003,
+    "short_ratio": 2.1,
+    "beta": 0.356
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 397.46,
+    "entry_range_high": 401.46,
+    "target_range_low": 429.96,
+    "target_range_high": 460.67,
+    "stop_range_low": 354.62,
+    "stop_range_high": 373.28,
+    "target_price": 438.73,
+    "stop_loss": 373.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.393428-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 499.32,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 139.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 211.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 123,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+0.35%",
+    "key_metrics": {
+      "RSI": 47.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

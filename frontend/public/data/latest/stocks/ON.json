@@ -1,0 +1,158 @@
+{
+  "ticker": "ON",
+  "company": "ON Semiconductor Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.649469-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 71.32,
+    "open": 71.53,
+    "high": 72.51,
+    "low": 71.09,
+    "prev_close": 72.05,
+    "change_pct": -1.01,
+    "change_pct_1w": 4.3,
+    "change_pct_1m": 19.1,
+    "change_pct_1y": 103.31,
+    "volume": 2208620,
+    "avg_volume_30d": 7197060
+  },
+  "scores": {
+    "master_score": 51.75,
+    "technical_score": 57.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 35.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 51.75,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.4,
+    "macd": 2.3192,
+    "macd_signal": 1.0536,
+    "macd_histogram": 1.2656,
+    "macd_crossover": "neutral",
+    "ema_20": 65.45,
+    "ema_50": 63.37,
+    "ema_200": 56.88,
+    "ema_stack_bullish": true,
+    "bb_upper": 72.87,
+    "bb_middle": 63.64,
+    "bb_lower": 54.41,
+    "bb_width": 0.2901,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.3,
+    "atr": 2.6,
+    "atr_pct": 0.0364,
+    "obv_trend": "UP",
+    "mfi": 64.1,
+    "cmf": 0.022,
+    "stoch_k": 93.1,
+    "stoch_d": 96.2,
+    "rvol": 0.82,
+    "volume_5d_avg": 5874464,
+    "green_days_10d": 8,
+    "52w_high": 72.21,
+    "52w_low": 34.25,
+    "52w_high_proximity_pct": 0.0123,
+    "52w_low_proximity_pct": 1.0823
+  },
+  "fundamental": {
+    "pe_ratio": 245.93105,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 3.6875033,
+    "de_ratio": 42.294,
+    "fcf_yield": 0.0555,
+    "eps_growth_5y": -0.487,
+    "revenue_growth_ttm": -0.112,
+    "gross_margin": 0.38321,
+    "operating_margin": 0.19136,
+    "net_margin": 0.020179998,
+    "market_cap": 28101545984,
+    "enterprise_value": 29113378816,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0035299999,
+    "institutional_ownership_pct": 1.10892,
+    "short_ratio": 4.03,
+    "beta": 1.524
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 63.05,
+    "entry_range_high": 71.68,
+    "target_range_low": 77.54,
+    "target_range_high": 83.08,
+    "stop_range_low": 62.81,
+    "stop_range_high": 66.12,
+    "target_price": 79.12,
+    "stop_loss": 66.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.649386-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 89.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.25,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 168,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "-1.01%",
+    "key_metrics": {
+      "RSI": 67.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

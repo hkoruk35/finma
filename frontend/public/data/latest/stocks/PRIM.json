@@ -1,0 +1,158 @@
+{
+  "ticker": "PRIM",
+  "company": "Primoris Services Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.437054-04:00",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 161.87,
+    "open": 162.6,
+    "high": 165.23,
+    "low": 160.62,
+    "prev_close": 166.23,
+    "change_pct": -2.63,
+    "change_pct_1w": 3.37,
+    "change_pct_1m": 14.58,
+    "change_pct_1y": 183.63,
+    "volume": 198125,
+    "avg_volume_30d": 760064
+  },
+  "scores": {
+    "master_score": 51.37,
+    "technical_score": 57.0,
+    "fundamental_score": 24.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.37,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 59.9,
+    "macd": 4.9629,
+    "macd_signal": 2.6424,
+    "macd_histogram": 2.3205,
+    "macd_crossover": "neutral",
+    "ema_20": 152.61,
+    "ema_50": 148.14,
+    "ema_200": 128.27,
+    "ema_stack_bullish": true,
+    "bb_upper": 168.2,
+    "bb_middle": 149.38,
+    "bb_lower": 130.56,
+    "bb_width": 0.252,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.6,
+    "atr": 7.4,
+    "atr_pct": 0.0457,
+    "obv_trend": "UP",
+    "mfi": 70.3,
+    "cmf": 0.007,
+    "stoch_k": 86.7,
+    "stoch_d": 94.0,
+    "rvol": 0.73,
+    "volume_5d_avg": 558085,
+    "green_days_10d": 6,
+    "52w_high": 169.26,
+    "52w_low": 53.78,
+    "52w_high_proximity_pct": 0.0437,
+    "52w_low_proximity_pct": 2.0099
+  },
+  "fundamental": {
+    "pe_ratio": 32.244026,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 5.2039933,
+    "de_ratio": 56.568,
+    "fcf_yield": 0.0332,
+    "eps_growth_5y": -0.029,
+    "revenue_growth_ttm": 0.067,
+    "gross_margin": 0.10734,
+    "operating_margin": 0.041739997,
+    "net_margin": 0.03629,
+    "market_cap": 8778186752,
+    "enterprise_value": 9401211904,
+    "dividend_yield": 0.19,
+    "payout_ratio": 0.0637,
+    "insider_ownership_pct": 0.0116799995,
+    "institutional_ownership_pct": 1.06525,
+    "short_ratio": 3.76,
+    "beta": 1.39
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 147.4,
+    "entry_range_high": 162.68,
+    "target_range_low": 180.39,
+    "target_range_high": 193.27,
+    "stop_range_low": 139.72,
+    "stop_range_high": 147.07,
+    "target_price": 184.07,
+    "stop_loss": 147.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.437036-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 202.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 19.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 53.78,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 147,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-2.63%",
+    "key_metrics": {
+      "RSI": 59.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

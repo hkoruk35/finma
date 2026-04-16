@@ -1,0 +1,158 @@
+{
+  "ticker": "NU",
+  "company": "Nu Holdings Ltd.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.261962-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 15.37,
+    "open": 15.46,
+    "high": 15.56,
+    "low": 15.3,
+    "prev_close": 15.35,
+    "change_pct": 0.12,
+    "change_pct_1w": 5.92,
+    "change_pct_1m": 7.7,
+    "change_pct_1y": 45.68,
+    "volume": 17975370,
+    "avg_volume_30d": 52494442
+  },
+  "scores": {
+    "master_score": 44.45,
+    "technical_score": 43.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.0,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 44.45,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 59.0,
+    "macd": 0.0094,
+    "macd_signal": -0.2137,
+    "macd_histogram": 0.2231,
+    "macd_crossover": "neutral",
+    "ema_20": 14.68,
+    "ema_50": 15.16,
+    "ema_200": 15.06,
+    "ema_stack_bullish": false,
+    "bb_upper": 15.39,
+    "bb_middle": 14.39,
+    "bb_lower": 13.39,
+    "bb_width": 0.1389,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 19.7,
+    "atr": 0.54,
+    "atr_pct": 0.0352,
+    "obv_trend": "UP",
+    "mfi": 48.0,
+    "cmf": -0.056,
+    "stoch_k": 91.1,
+    "stoch_d": 87.6,
+    "rvol": 0.67,
+    "volume_5d_avg": 35403634,
+    "green_days_10d": 7,
+    "52w_high": 18.76,
+    "52w_low": 10.65,
+    "52w_high_proximity_pct": 0.1808,
+    "52w_low_proximity_pct": 0.4431
+  },
+  "fundamental": {
+    "pe_ratio": 26.498104,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 6.6102796,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.609,
+    "revenue_growth_ttm": 0.439,
+    "gross_margin": 0.0,
+    "operating_margin": 0.52145,
+    "net_margin": 0.41035998,
+    "market_cap": 74702069760,
+    "enterprise_value": 63510425600,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0561,
+    "institutional_ownership_pct": 0.85341,
+    "short_ratio": 2.26,
+    "beta": 1.109
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 15.08,
+    "entry_range_high": 15.45,
+    "target_range_low": 16.65,
+    "target_range_high": 17.84,
+    "stop_range_low": 13.58,
+    "stop_range_high": 14.29,
+    "target_price": 16.99,
+    "stop_loss": 14.29,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.261930-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 19.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2361450,
+      "date": "2026-04-08"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "+0.12%",
+    "key_metrics": {
+      "RSI": 59.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "TXN",
+  "company": "Texas Instruments Incorporated",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.627057-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 212.69,
+    "open": 217.25,
+    "high": 218.3,
+    "low": 211.7,
+    "prev_close": 218.87,
+    "change_pct": -2.82,
+    "change_pct_1w": 1.81,
+    "change_pct_1m": 9.56,
+    "change_pct_1y": 48.65,
+    "volume": 1568179,
+    "avg_volume_30d": 5873802
+  },
+  "scores": {
+    "master_score": 50.8,
+    "technical_score": 60.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 50.8,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 60.5,
+    "macd": 4.1632,
+    "macd_signal": 1.2845,
+    "macd_histogram": 2.8787,
+    "macd_crossover": "neutral",
+    "ema_20": 204.45,
+    "ema_50": 201.31,
+    "ema_200": 190.97,
+    "ema_stack_bullish": true,
+    "bb_upper": 220.65,
+    "bb_middle": 199.39,
+    "bb_lower": 178.13,
+    "bb_width": 0.2133,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.9,
+    "atr": 5.88,
+    "atr_pct": 0.0277,
+    "obv_trend": "UP",
+    "mfi": 69.3,
+    "cmf": 0.054,
+    "stoch_k": 80.3,
+    "stoch_d": 92.2,
+    "rvol": 0.73,
+    "volume_5d_avg": 4289555,
+    "green_days_10d": 7,
+    "52w_high": 226.56,
+    "52w_low": 141.15,
+    "52w_high_proximity_pct": 0.0612,
+    "52w_low_proximity_pct": 0.5068
+  },
+  "fundamental": {
+    "pe_ratio": 39.02569,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 11.854309,
+    "de_ratio": 90.819,
+    "fcf_yield": -0.0016,
+    "eps_growth_5y": -0.032,
+    "revenue_growth_ttm": 0.104,
+    "gross_margin": 0.57023996,
+    "operating_margin": 0.34027,
+    "net_margin": 0.28283,
+    "market_cap": 193646460928,
+    "enterprise_value": 208533635072,
+    "dividend_yield": 2.6,
+    "payout_ratio": 1.0092,
+    "insider_ownership_pct": 0.0028799998,
+    "institutional_ownership_pct": 0.91217005,
+    "short_ratio": 3.25,
+    "beta": 0.994
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 200.3,
+    "entry_range_high": 213.75,
+    "target_range_low": 225.72,
+    "target_range_high": 241.85,
+    "stop_range_low": 190.88,
+    "stop_range_high": 200.93,
+    "target_price": 230.33,
+    "stop_loss": 200.93,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.627029-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 265.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 260.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6843,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-2.82%",
+    "key_metrics": {
+      "RSI": 60.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

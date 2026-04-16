@@ -1,0 +1,158 @@
+{
+  "ticker": "HBAN",
+  "company": "Huntington Bancshares Incorporated",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.273794-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 16.75,
+    "open": 16.62,
+    "high": 16.78,
+    "low": 16.49,
+    "prev_close": 16.59,
+    "change_pct": 0.99,
+    "change_pct_1w": 2.48,
+    "change_pct_1m": 10.77,
+    "change_pct_1y": 34.98,
+    "volume": 12518824,
+    "avg_volume_30d": 26876507
+  },
+  "scores": {
+    "master_score": 41.1,
+    "technical_score": 37.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.0,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 41.1,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.0,
+    "macd": 0.1271,
+    "macd_signal": -0.0623,
+    "macd_histogram": 0.1894,
+    "macd_crossover": "neutral",
+    "ema_20": 16.1,
+    "ema_50": 16.3,
+    "ema_200": 16.3,
+    "ema_stack_bullish": false,
+    "bb_upper": 16.93,
+    "bb_middle": 15.78,
+    "bb_lower": 14.63,
+    "bb_width": 0.1455,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.7,
+    "atr": 0.41,
+    "atr_pct": 0.0246,
+    "obv_trend": "UP",
+    "mfi": 61.5,
+    "cmf": 0.042,
+    "stoch_k": 98.6,
+    "stoch_d": 96.1,
+    "rvol": 0.72,
+    "volume_5d_avg": 19419664,
+    "green_days_10d": 6,
+    "52w_high": 19.08,
+    "52w_low": 12.66,
+    "52w_high_proximity_pct": 0.1217,
+    "52w_low_proximity_pct": 0.3232
+  },
+  "fundamental": {
+    "pe_ratio": 12.053956,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.2154515,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": -0.109,
+    "revenue_growth_ttm": 0.103,
+    "gross_margin": 0.0,
+    "operating_margin": 0.39784,
+    "net_margin": 0.28744,
+    "market_cap": 34131937280,
+    "enterprise_value": 41340256256,
+    "dividend_yield": 3.74,
+    "payout_ratio": 0.44599998,
+    "insider_ownership_pct": 0.00798,
+    "institutional_ownership_pct": 0.72556996,
+    "short_ratio": 2.87,
+    "beta": 0.974
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 16.22,
+    "entry_range_high": 16.83,
+    "target_range_low": 17.62,
+    "target_range_high": 18.88,
+    "stop_range_low": 15.13,
+    "stop_range_high": 15.93,
+    "target_price": 17.98,
+    "stop_loss": 15.93,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.273761-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 20.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 374.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.66,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 648,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "+0.99%",
+    "key_metrics": {
+      "RSI": 62.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

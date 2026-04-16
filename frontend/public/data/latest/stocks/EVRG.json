@@ -1,0 +1,158 @@
+{
+  "ticker": "EVRG",
+  "company": "Evergy, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.459521-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 81.86,
+    "open": 81.64,
+    "high": 81.87,
+    "low": 81.03,
+    "prev_close": 81.92,
+    "change_pct": -0.07,
+    "change_pct_1w": -1.89,
+    "change_pct_1m": -1.66,
+    "change_pct_1y": 27.71,
+    "volume": 427337,
+    "avg_volume_30d": 1809561
+  },
+  "scores": {
+    "master_score": 33.56,
+    "technical_score": 22.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 36.1,
+    "breakout_score": 0.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 33.56,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 50.1,
+    "macd": 0.5095,
+    "macd_signal": 0.5774,
+    "macd_histogram": -0.0679,
+    "macd_crossover": "bearish",
+    "ema_20": 82.13,
+    "ema_50": 80.71,
+    "ema_200": 75.27,
+    "ema_stack_bullish": false,
+    "bb_upper": 84.57,
+    "bb_middle": 81.68,
+    "bb_lower": 78.8,
+    "bb_width": 0.0706,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.9,
+    "atr": 1.36,
+    "atr_pct": 0.0166,
+    "obv_trend": "DOWN",
+    "mfi": 66.0,
+    "cmf": -0.12,
+    "stoch_k": 37.9,
+    "stoch_d": 43.7,
+    "rvol": 0.76,
+    "volume_5d_avg": 1372327,
+    "green_days_10d": 5,
+    "52w_high": 84.41,
+    "52w_low": 61.73,
+    "52w_high_proximity_pct": 0.0302,
+    "52w_low_proximity_pct": 0.3261
+  },
+  "fundamental": {
+    "pe_ratio": 22.36612,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 1.844109,
+    "de_ratio": 149.917,
+    "fcf_yield": -0.0457,
+    "eps_growth_5y": 0.047,
+    "revenue_growth_ttm": 0.066,
+    "gross_margin": 0.52266,
+    "operating_margin": 0.17736,
+    "net_margin": 0.14352,
+    "market_cap": 18851059712,
+    "enterprise_value": 34284566528,
+    "dividend_yield": 3.39,
+    "payout_ratio": 0.737,
+    "insider_ownership_pct": 0.00184,
+    "institutional_ownership_pct": 0.94041,
+    "short_ratio": 5.83,
+    "beta": 0.599
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 80.31,
+    "entry_range_high": 82.27,
+    "target_range_low": 84.22,
+    "target_range_high": 90.24,
+    "stop_range_low": 75.18,
+    "stop_range_high": 79.14,
+    "target_price": 85.94,
+    "stop_loss": 79.14,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.459500-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 102.33,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 339.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.73,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2440,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "-0.07%",
+    "key_metrics": {
+      "RSI": 50.1,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

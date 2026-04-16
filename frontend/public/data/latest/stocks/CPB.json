@@ -1,0 +1,160 @@
+{
+  "ticker": "CPB",
+  "company": "The Campbell's Company",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.006182-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 20.36,
+    "open": 20.07,
+    "high": 20.4,
+    "low": 19.76,
+    "prev_close": 20.0,
+    "change_pct": 1.82,
+    "change_pct_1w": -1.57,
+    "change_pct_1m": -3.1,
+    "change_pct_1y": -43.47,
+    "volume": 3504732,
+    "avg_volume_30d": 10596184
+  },
+  "scores": {
+    "master_score": 34.55,
+    "technical_score": 9.3,
+    "fundamental_score": 70.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 23.0,
+    "breakout_score": 30.0,
+    "value_score": 70.0,
+    "reversal_score": 5.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.55,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 33.4,
+    "macd": -0.8765,
+    "macd_signal": -0.938,
+    "macd_histogram": 0.0616,
+    "macd_crossover": "neutral",
+    "ema_20": 21.29,
+    "ema_50": 23.11,
+    "ema_200": 27.56,
+    "ema_stack_bullish": false,
+    "bb_upper": 22.24,
+    "bb_middle": 20.95,
+    "bb_lower": 19.65,
+    "bb_width": 0.124,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 45.2,
+    "atr": 0.65,
+    "atr_pct": 0.0319,
+    "obv_trend": "DOWN",
+    "mfi": 56.0,
+    "cmf": -0.02,
+    "stoch_k": 24.7,
+    "stoch_d": 16.6,
+    "rvol": 0.8,
+    "volume_5d_avg": 8487826,
+    "green_days_10d": 5,
+    "52w_high": 36.73,
+    "52w_low": 20.0,
+    "52w_high_proximity_pct": 0.4456,
+    "52w_low_proximity_pct": 0.0182
+  },
+  "fundamental": {
+    "pe_ratio": 11.067934,
+    "sector_pe_median": 23.7782275,
+    "pb_ratio": 1.515253,
+    "de_ratio": 185.001,
+    "fcf_yield": 0.1421,
+    "eps_growth_5y": -0.172,
+    "revenue_growth_ttm": -0.045,
+    "gross_margin": 0.29610002,
+    "operating_margin": 0.116610005,
+    "net_margin": 0.0548,
+    "market_cap": 6071753216,
+    "enterprise_value": 12816929792,
+    "dividend_yield": 7.8,
+    "payout_ratio": 0.8478,
+    "insider_ownership_pct": 0.33629,
+    "institutional_ownership_pct": 0.62431,
+    "short_ratio": 4.34,
+    "beta": 0.025
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 20.26,
+    "entry_range_high": 20.46,
+    "target_range_low": 21.86,
+    "target_range_high": 23.43,
+    "stop_range_low": 18.11,
+    "stop_range_high": 19.06,
+    "target_price": 22.31,
+    "stop_loss": 19.06,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.006157-04:00",
+    "categories": [
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 25.45,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 780.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3224,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -2.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 35%. CPB is trading near its 52-week low ($20.08), with immediate resistance at the Bollinger Band Upper of $22.24. A potential BUY ZONE exists between $19.83 (Bollinger Band Lower) and $20.08, but traders should be cautious. The STOP LOSS ZONE is set below the 52-week low, around $19.50, to protect against further downside. A short entry is logical here if the price continues to show weakness and fails to hold the BB Lower band, capitalizing on the bearish trend and potential for a breakdown to new lows. The PROFIT ZONE lies between $18.00 and $19.00.\n\n### Fundamental Edge\nCPB's relatively low P/E of 10.9 suggests it might be undervalued compared to peers, but revenue decline of 4.5% signals fundamental concerns. The catalyst would be a change in investor sentiment regarding the company's ability to improve revenue growth, potentially triggered by restructuring or new product lines.\n\n### Sector Context\nThe Consumer Staples sector is currently exhibiting mixed performance, offering little tailwind to counteract CPB's individual weaknesses.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+1.82%",
+    "key_metrics": {
+      "RSI": 33.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

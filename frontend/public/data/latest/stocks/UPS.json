@@ -1,0 +1,158 @@
+{
+  "ticker": "UPS",
+  "company": "United Parcel Service, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.418785-04:00",
+  "sector": "Industrials",
+  "industry": "Integrated Freight & Logistics",
+  "price": {
+    "current": 102.83,
+    "open": 102.95,
+    "high": 103.1,
+    "low": 102.04,
+    "prev_close": 103.22,
+    "change_pct": -0.38,
+    "change_pct_1w": 2.37,
+    "change_pct_1m": 5.57,
+    "change_pct_1y": 13.16,
+    "volume": 1978458,
+    "avg_volume_30d": 6626098
+  },
+  "scores": {
+    "master_score": 50.77,
+    "technical_score": 46.0,
+    "fundamental_score": 53.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 30.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.77,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 56.5,
+    "macd": -0.3379,
+    "macd_signal": -1.4588,
+    "macd_histogram": 1.1209,
+    "macd_crossover": "neutral",
+    "ema_20": 100.51,
+    "ema_50": 102.21,
+    "ema_200": 99.4,
+    "ema_stack_bullish": false,
+    "bb_upper": 103.54,
+    "bb_middle": 98.6,
+    "bb_lower": 93.67,
+    "bb_width": 0.1001,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.3,
+    "atr": 2.42,
+    "atr_pct": 0.0236,
+    "obv_trend": "UP",
+    "mfi": 59.6,
+    "cmf": -0.033,
+    "stoch_k": 93.2,
+    "stoch_d": 95.3,
+    "rvol": 0.58,
+    "volume_5d_avg": 3865851,
+    "green_days_10d": 7,
+    "52w_high": 118.35,
+    "52w_low": 80.05,
+    "52w_high_proximity_pct": 0.1311,
+    "52w_low_proximity_pct": 0.2845
+  },
+  "fundamental": {
+    "pe_ratio": 15.67529,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 5.3801026,
+    "de_ratio": 175.884,
+    "fcf_yield": 0.0594,
+    "eps_growth_5y": 0.046,
+    "revenue_growth_ttm": -0.032,
+    "gross_margin": 0.22601,
+    "operating_margin": 0.107480004,
+    "net_margin": 0.06285,
+    "market_cap": 87371784192,
+    "enterprise_value": 110375280640,
+    "dividend_yield": 6.36,
+    "payout_ratio": 1.0,
+    "insider_ownership_pct": 0.00023,
+    "institutional_ownership_pct": 0.69777,
+    "short_ratio": 2.34,
+    "beta": 1.098
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 101.7,
+    "entry_range_high": 103.34,
+    "target_range_low": 107.89,
+    "target_range_high": 115.59,
+    "stop_range_low": 93.09,
+    "stop_range_high": 97.99,
+    "target_price": 110.09,
+    "stop_loss": 97.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.418765-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 128.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 636.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 80.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25014,
+      "date": "2026-01-28"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-0.38%",
+    "key_metrics": {
+      "RSI": 56.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

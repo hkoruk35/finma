@@ -1,0 +1,160 @@
+{
+  "ticker": "CVE",
+  "company": "Cenovus Energy Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.310907-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 25.62,
+    "open": 25.68,
+    "high": 25.83,
+    "low": 25.39,
+    "prev_close": 25.72,
+    "change_pct": -0.39,
+    "change_pct_1w": -1.39,
+    "change_pct_1m": 9.72,
+    "change_pct_1y": 128.47,
+    "volume": 2502764,
+    "avg_volume_30d": 14954422
+  },
+  "scores": {
+    "master_score": 56.8,
+    "technical_score": 57.0,
+    "fundamental_score": 72.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 68.0,
+    "sector_score": 40.5,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 56.8,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 54.5,
+    "macd": 0.7325,
+    "macd_signal": 0.9653,
+    "macd_histogram": -0.2329,
+    "macd_crossover": "neutral",
+    "ema_20": 25.54,
+    "ema_50": 23.72,
+    "ema_200": 19.12,
+    "ema_stack_bullish": true,
+    "bb_upper": 27.44,
+    "bb_middle": 25.88,
+    "bb_lower": 24.32,
+    "bb_width": 0.1205,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 31.4,
+    "atr": 0.91,
+    "atr_pct": 0.0354,
+    "obv_trend": "DOWN",
+    "mfi": 59.0,
+    "cmf": 0.108,
+    "stoch_k": 31.4,
+    "stoch_d": 40.3,
+    "rvol": 0.48,
+    "volume_5d_avg": 7127312,
+    "green_days_10d": 5,
+    "52w_high": 27.19,
+    "52w_low": 11.14,
+    "52w_high_proximity_pct": 0.0577,
+    "52w_low_proximity_pct": 1.2989
+  },
+  "fundamental": {
+    "pe_ratio": 16.529034,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 2.1144104,
+    "de_ratio": 44.905,
+    "fcf_yield": 0.0565,
+    "eps_growth_5y": 5.966,
+    "revenue_growth_ttm": -0.151,
+    "gross_margin": 0.21475,
+    "operating_margin": 0.095010005,
+    "net_margin": 0.07908,
+    "market_cap": 48156217344,
+    "enterprise_value": 59901812736,
+    "dividend_yield": 2.23,
+    "payout_ratio": 0.3628,
+    "insider_ownership_pct": 0.29311,
+    "institutional_ownership_pct": 0.56098,
+    "short_ratio": 2.28,
+    "beta": 0.515
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 23.6,
+    "entry_range_high": 25.75,
+    "target_range_low": 27.78,
+    "target_range_high": 29.77,
+    "stop_range_low": 22.61,
+    "stop_range_high": 23.8,
+    "target_price": 28.35,
+    "stop_loss": 23.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.310882-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 32.02,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 223.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 11.14,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 49,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3800,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 57%. CVE is currently trading at $25.62, testing its EMA20 ($25.54) as support. A potential BUY ZONE exists between $25.54 and $24.32 (lower Bollinger Band). Traders might enter here anticipating a bounce off the EMA20, targeting the upper Bollinger Band at $27.44 (PROFIT ZONE), with a STOP LOSS ZONE just below the lower Bollinger Band, around $24.00.\n\n### Fundamental Edge\nCVE's P/E of 16.53 suggests it's trading at a discount, potentially offering value compared to its peers; the current setup is justified if revenue stabilizes and the company can improve margins.\n\n### Sector Context\nThe energy sector is currently showing mixed signals, which could provide a volatile backdrop for CVE's price action.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "-0.39%",
+    "key_metrics": {
+      "RSI": 54.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

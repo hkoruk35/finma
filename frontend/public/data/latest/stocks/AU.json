@@ -1,0 +1,160 @@
+{
+  "ticker": "AU",
+  "company": "AngloGold Ashanti plc",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.362625-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 105.7,
+    "open": 108.32,
+    "high": 109.09,
+    "low": 105.11,
+    "prev_close": 109.8,
+    "change_pct": -3.73,
+    "change_pct_1w": -1.6,
+    "change_pct_1m": 9.28,
+    "change_pct_1y": 158.26,
+    "volume": 1085923,
+    "avg_volume_30d": 3232500
+  },
+  "scores": {
+    "master_score": 57.56,
+    "technical_score": 60.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 45.6,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 57.56,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 55.4,
+    "macd": 2.2119,
+    "macd_signal": 0.3839,
+    "macd_histogram": 1.828,
+    "macd_crossover": "neutral",
+    "ema_20": 102.25,
+    "ema_50": 100.53,
+    "ema_200": 81.43,
+    "ema_stack_bullish": true,
+    "bb_upper": 116.21,
+    "bb_middle": 96.95,
+    "bb_lower": 77.69,
+    "bb_width": 0.3973,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.9,
+    "atr": 5.2,
+    "atr_pct": 0.0492,
+    "obv_trend": "UP",
+    "mfi": 66.8,
+    "cmf": 0.172,
+    "stoch_k": 73.0,
+    "stoch_d": 82.3,
+    "rvol": 0.61,
+    "volume_5d_avg": 1966504,
+    "green_days_10d": 6,
+    "52w_high": 126.14,
+    "52w_low": 37.88,
+    "52w_high_proximity_pct": 0.162,
+    "52w_low_proximity_pct": 1.7906
+  },
+  "fundamental": {
+    "pe_ratio": 20.405405,
+    "sector_pe_median": 23.866705,
+    "pb_ratio": 6.597179,
+    "de_ratio": 23.003,
+    "fcf_yield": 0.0487,
+    "eps_growth_5y": 0.631,
+    "revenue_growth_ttm": 0.753,
+    "gross_margin": 0.49266997,
+    "operating_margin": 0.48044,
+    "net_margin": 0.26645002,
+    "market_cap": 53380059136,
+    "enterprise_value": 56715124736,
+    "dividend_yield": 3.88,
+    "payout_ratio": 0.4875,
+    "insider_ownership_pct": 0.00204,
+    "institutional_ownership_pct": 0.8153,
+    "short_ratio": 0.99,
+    "beta": 0.68
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 100.03,
+    "entry_range_high": 106.23,
+    "target_range_low": 118.87,
+    "target_range_high": 127.37,
+    "stop_range_low": 90.53,
+    "stop_range_high": 95.3,
+    "target_price": 121.3,
+    "stop_loss": 95.3,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.362611-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 132.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 388.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 37.88,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3381830,
+      "date": "2025-11-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": -0.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 60%. AU is trading within its Bollinger Bands after pulling back from the upper band, with resistance at $113.59. Support is around the EMA20 at $101.02. A trader might consider a BUY ZONE near the EMA20 ($101.02), aiming for a PROFIT ZONE near the BB Upper ($113.59), with a STOP LOSS ZONE just below the EMA50 at $99.92, capitalizing on a potential bounce off support within the established uptrend.\n\n### Fundamental Edge\nAU's P/E of 21.01 suggests a potential valuation discount, amplified by a strong revenue growth of 75.3% TTM and healthy net margins of 26.6%. This growth justifies the current price level and sets the stage for further appreciation as revenue expansion translates to increased profitability.\n\n### Sector Context\nThe Materials sector is currently displaying mixed momentum, neither strongly supporting nor significantly hindering a trade in AU.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "-3.73%",
+    "key_metrics": {
+      "RSI": 55.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

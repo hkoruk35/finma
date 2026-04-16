@@ -1,0 +1,160 @@
+{
+  "ticker": "CB",
+  "company": "Chubb Limited",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.172036-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Property & Casualty",
+  "price": {
+    "current": 329.52,
+    "open": 325.26,
+    "high": 329.98,
+    "low": 324.68,
+    "prev_close": 325.74,
+    "change_pct": 1.16,
+    "change_pct_1w": -0.94,
+    "change_pct_1m": -0.18,
+    "change_pct_1y": 17.02,
+    "volume": 654416,
+    "avg_volume_30d": 1602900
+  },
+  "scores": {
+    "master_score": 67.1,
+    "technical_score": 62.0,
+    "fundamental_score": 72.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.0,
+    "breakout_score": 30.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 67.1,
+    "confidence": 0.67,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.0,
+    "macd": 0.7853,
+    "macd_signal": 0.6243,
+    "macd_histogram": 0.161,
+    "macd_crossover": "neutral",
+    "ema_20": 327.79,
+    "ema_50": 324.5,
+    "ema_200": 305.12,
+    "ema_stack_bullish": true,
+    "bb_upper": 333.05,
+    "bb_middle": 326.63,
+    "bb_lower": 320.21,
+    "bb_width": 0.0393,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 11.9,
+    "atr": 5.86,
+    "atr_pct": 0.0178,
+    "obv_trend": "UP",
+    "mfi": 69.8,
+    "cmf": -0.129,
+    "stoch_k": 62.9,
+    "stoch_d": 56.7,
+    "rvol": 0.76,
+    "volume_5d_avg": 1220503,
+    "green_days_10d": 7,
+    "52w_high": 341.75,
+    "52w_low": 265.21,
+    "52w_high_proximity_pct": 0.0358,
+    "52w_low_proximity_pct": 0.2425
+  },
+  "fundamental": {
+    "pe_ratio": 12.836774,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.747301,
+    "de_ratio": 30.944,
+    "fcf_yield": 0.0942,
+    "eps_growth_5y": 0.279,
+    "revenue_growth_ttm": 0.055,
+    "gross_margin": 0.29548,
+    "operating_margin": 0.24243,
+    "net_margin": 0.17291,
+    "market_cap": 128875667456,
+    "enterprise_value": 150686597120,
+    "dividend_yield": 1.19,
+    "payout_ratio": 0.1488,
+    "insider_ownership_pct": 0.09448,
+    "institutional_ownership_pct": 0.84405,
+    "short_ratio": 2.17,
+    "beta": 0.503
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 322.88,
+    "entry_range_high": 331.17,
+    "target_range_low": 340.16,
+    "target_range_high": 364.45,
+    "stop_range_low": 301.91,
+    "stop_range_high": 317.8,
+    "target_price": 347.1,
+    "stop_loss": 317.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.171984-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 411.9,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 119.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 265.21,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2000,
+      "date": "2026-03-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CB (Chubb Limited) exhibits a POSITIVE_BIAS BOGA AI score, confidence 71%. While down 1.49% today at $327.99, it remains near its 52-week high. Technicals are mixed; RSI at 51.3 and a neutral MACD, although EMA alignment is bullish. Valuation appears attractive, with a P/E of 12.78, discounted compared to the sector median of 15.99. Strong profitability metrics, including a 29.5% gross margin and 17.3% net margin support the positive bias. The very high dividend yield of 117% could be a strong catalyst for price appreciation if it remains sustainable, although it warrants investigation into its composition.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 67,
+    "price_change_display": "+1.16%",
+    "key_metrics": {
+      "RSI": 53.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

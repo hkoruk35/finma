@@ -1,0 +1,161 @@
+{
+  "ticker": "AMZN",
+  "company": "Amazon.com, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.613980-04:00",
+  "sector": "Technology",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 248.0,
+    "open": 249.2,
+    "high": 250.44,
+    "low": 247.2,
+    "prev_close": 249.02,
+    "change_pct": -0.41,
+    "change_pct_1w": 12.09,
+    "change_pct_1m": 17.12,
+    "change_pct_1y": 34.15,
+    "volume": 21653733,
+    "avg_volume_30d": 45379201
+  },
+  "scores": {
+    "master_score": 53.15,
+    "technical_score": 51.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 53.15,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 75.0,
+    "macd": 8.1227,
+    "macd_signal": 3.4049,
+    "macd_histogram": 4.7179,
+    "macd_crossover": "neutral",
+    "ema_20": 223.35,
+    "ema_50": 219.4,
+    "ema_200": 220.68,
+    "ema_stack_bullish": false,
+    "bb_upper": 247.45,
+    "bb_middle": 217.31,
+    "bb_lower": 187.17,
+    "bb_width": 0.2774,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.3,
+    "atr": 6.66,
+    "atr_pct": 0.0269,
+    "obv_trend": "UP",
+    "mfi": 74.2,
+    "cmf": 0.006,
+    "stoch_k": 92.1,
+    "stoch_d": 95.0,
+    "rvol": 1.14,
+    "volume_5d_avg": 51839346,
+    "green_days_10d": 8,
+    "52w_high": 254.0,
+    "52w_low": 167.32,
+    "52w_high_proximity_pct": 0.0236,
+    "52w_low_proximity_pct": 0.4822
+  },
+  "fundamental": {
+    "pe_ratio": 34.588562,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 6.4741817,
+    "de_ratio": 43.435,
+    "fcf_yield": 0.0089,
+    "eps_growth_5y": 0.05,
+    "revenue_growth_ttm": 0.136,
+    "gross_margin": 0.50286,
+    "operating_margin": 0.10533,
+    "net_margin": 0.108339995,
+    "market_cap": 2667054366720,
+    "enterprise_value": 2728727937024,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.089490004,
+    "institutional_ownership_pct": 0.67116,
+    "short_ratio": 1.82,
+    "beta": 1.383
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 218.3,
+    "entry_range_high": 249.24,
+    "target_range_low": 262.62,
+    "target_range_high": 281.38,
+    "stop_range_low": 222.95,
+    "stop_range_high": 234.68,
+    "target_price": 267.98,
+    "stop_loss": 234.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.613941-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 310.0,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 167.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1000,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 52%. AMZN is currently trading at $238.39, testing the upper Bollinger Band resistance at $235.22, suggesting a potential pullback. A trader might consider a short position in the BUY ZONE between $235.22 and $238.39, anticipating a reversion to the mean, with a PROFIT ZONE around the EMA20 at $217.64 and a STOP LOSS ZONE above the 52-week high at $254.00 to manage risk if the breakout is genuine.\n\n### Fundamental Edge\nAMZN's revenue growth of 13.6% and healthy net margins of 10.8% indicate strong underlying business performance, but the current valuation, indicated by the P/E ratio of 33.20, is more favorable than the sector average and may tempt investors to view AMZN as a stable compounder. This could lead to increased investor confidence and help the stock to continue to break resistance levels.\n\n### Sector Context\nTechnology sector strength is currently providing a slight tailwind for AMZN, but overall market volatility could dampen gains.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "-0.41%",
+    "key_metrics": {
+      "RSI": 75.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

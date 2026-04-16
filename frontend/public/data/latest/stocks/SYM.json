@@ -1,0 +1,158 @@
+{
+  "ticker": "SYM",
+  "company": "Symbotic Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.445742-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 59.95,
+    "open": 61.3,
+    "high": 61.98,
+    "low": 58.71,
+    "prev_close": 56.56,
+    "change_pct": 5.99,
+    "change_pct_1w": 9.9,
+    "change_pct_1m": 17.62,
+    "change_pct_1y": 190.6,
+    "volume": 1753204,
+    "avg_volume_30d": 1253653
+  },
+  "scores": {
+    "master_score": 32.12,
+    "technical_score": 32.0,
+    "fundamental_score": 10.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 65.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 32.12,
+    "confidence": 0.32,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 63.9,
+    "macd": 0.8676,
+    "macd_signal": 0.0064,
+    "macd_histogram": 0.8613,
+    "macd_crossover": "neutral",
+    "ema_20": 53.87,
+    "ema_50": 54.68,
+    "ema_200": 53.23,
+    "ema_stack_bullish": false,
+    "bb_upper": 58.13,
+    "bb_middle": 52.92,
+    "bb_lower": 47.72,
+    "bb_width": 0.1967,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.0,
+    "atr": 3.18,
+    "atr_pct": 0.053,
+    "obv_trend": "UP",
+    "mfi": 55.7,
+    "cmf": -0.175,
+    "stoch_k": 86.3,
+    "stoch_d": 83.4,
+    "rvol": 0.79,
+    "volume_5d_avg": 986020,
+    "green_days_10d": 6,
+    "52w_high": 87.3,
+    "52w_low": 19.62,
+    "52w_high_proximity_pct": 0.3133,
+    "52w_low_proximity_pct": 2.0556
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 11.128643,
+    "de_ratio": 3.126,
+    "fcf_yield": 0.0177,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.294,
+    "gross_margin": 0.19845,
+    "operating_margin": 0.01856,
+    "net_margin": -0.00467,
+    "market_cap": 36106432512,
+    "enterprise_value": 5619966464,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.13922,
+    "institutional_ownership_pct": 0.99525,
+    "short_ratio": 9.97,
+    "beta": 2.111
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 54.41,
+    "entry_range_high": 60.25,
+    "target_range_low": 68.1,
+    "target_range_high": 72.96,
+    "stop_range_low": 50.91,
+    "stop_range_high": 53.59,
+    "target_price": 69.49,
+    "stop_loss": 53.59,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.445724-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 74.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.62,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2000,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "+5.99%",
+    "key_metrics": {
+      "RSI": 63.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

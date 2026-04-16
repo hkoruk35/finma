@@ -1,0 +1,156 @@
+{
+  "ticker": "VALE",
+  "company": "Vale S.A.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.354796-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 17.59,
+    "open": 17.8,
+    "high": 17.83,
+    "low": 17.56,
+    "prev_close": 17.68,
+    "change_pct": -0.48,
+    "change_pct_1w": 5.11,
+    "change_pct_1m": 16.91,
+    "change_pct_1y": 107.87,
+    "volume": 14701740,
+    "avg_volume_30d": 30600951
+  },
+  "scores": {
+    "master_score": 54.86,
+    "technical_score": 58.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 70.0,
+    "sector_score": 45.6,
+    "breakout_score": 35.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.86,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 70.2,
+    "macd": 0.5071,
+    "macd_signal": 0.2523,
+    "macd_histogram": 0.2548,
+    "macd_crossover": "neutral",
+    "ema_20": 16.32,
+    "ema_50": 15.77,
+    "ema_200": 13.16,
+    "ema_stack_bullish": true,
+    "bb_upper": 17.97,
+    "bb_middle": 15.84,
+    "bb_lower": 13.71,
+    "bb_width": 0.2689,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.7,
+    "atr": 0.47,
+    "atr_pct": 0.0269,
+    "obv_trend": "UP",
+    "mfi": 77.0,
+    "cmf": 0.017,
+    "stoch_k": 92.0,
+    "stoch_d": 96.1,
+    "rvol": 0.98,
+    "volume_5d_avg": 30114648,
+    "green_days_10d": 7,
+    "52w_high": 17.68,
+    "52w_low": 8.26,
+    "52w_high_proximity_pct": 0.0048,
+    "52w_low_proximity_pct": 1.1295
+  },
+  "fundamental": {
+    "pe_ratio": 31.990908,
+    "sector_pe_median": 23.866705,
+    "pb_ratio": 2.117482,
+    "de_ratio": 61.326,
+    "fcf_yield": 0.2011,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.005,
+    "gross_margin": 0.34976003,
+    "operating_margin": 0.27639,
+    "net_margin": 0.06467,
+    "market_cap": 76804210688,
+    "enterprise_value": 154330038272,
+    "dividend_yield": 7.12,
+    "payout_ratio": 2.1235,
+    "insider_ownership_pct": 6.0000002e-05,
+    "institutional_ownership_pct": 0.23167999,
+    "short_ratio": 1.82,
+    "beta": 0.889
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 15.69,
+    "entry_range_high": 17.68,
+    "target_range_low": 18.62,
+    "target_range_high": 19.95,
+    "stop_range_low": 15.82,
+    "stop_range_high": 16.65,
+    "target_price": 19.0,
+    "stop_loss": 16.65,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.354779-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 21.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 712.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 8.26,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": -0.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 56%. VALE is currently testing its 52-week high around $17.53, with immediate support found at the BB Upper band of $17.35 and stronger support near the EMA20 at $16.02. A breakout above $17.53 could attract momentum traders. BUY ZONE: $16.02-$16.50 (a pullback to the EMA20). PROFIT ZONE: $18.50 - $19.00 (targeting a new 52-week high). STOP LOSS ZONE: $15.50 - $15.00 (below the EMA50).\n\n### Fundamental Edge\nVALE's gross margin of 35.0% indicates solid operational efficiency, although the relatively low net margin of 6.5% suggests room for improvement in cost management. The primary fundamental justification for the current setup is the anticipation of increased demand for iron ore due to ongoing global infrastructure projects.\n\n### Sector Context\nThe materials sector is showing mixed momentum, and it is not clearly helping or hindering VALE's specific technical setup.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "-0.48%",
+    "key_metrics": {
+      "RSI": 70.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "HLT",
+  "company": "Hilton Worldwide Holdings Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.955309-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Lodging",
+  "price": {
+    "current": 329.95,
+    "open": 330.71,
+    "high": 331.67,
+    "low": 325.81,
+    "prev_close": 331.38,
+    "change_pct": -0.43,
+    "change_pct_1w": 4.02,
+    "change_pct_1m": 11.47,
+    "change_pct_1y": 55.67,
+    "volume": 471989,
+    "avg_volume_30d": 1734416
+  },
+  "scores": {
+    "master_score": 51.52,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 32.7,
+    "breakout_score": 35.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.52,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.4,
+    "macd": 6.6959,
+    "macd_signal": 3.3363,
+    "macd_histogram": 3.3595,
+    "macd_crossover": "neutral",
+    "ema_20": 312.86,
+    "ema_50": 306.39,
+    "ema_200": 286.1,
+    "ema_stack_bullish": true,
+    "bb_upper": 332.57,
+    "bb_middle": 307.92,
+    "bb_lower": 283.27,
+    "bb_width": 0.1601,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.4,
+    "atr": 7.67,
+    "atr_pct": 0.0232,
+    "obv_trend": "UP",
+    "mfi": 69.4,
+    "cmf": 0.132,
+    "stoch_k": 95.6,
+    "stoch_d": 98.3,
+    "rvol": 0.75,
+    "volume_5d_avg": 1297277,
+    "green_days_10d": 7,
+    "52w_high": 331.38,
+    "52w_low": 204.14,
+    "52w_high_proximity_pct": 0.0043,
+    "52w_low_proximity_pct": 0.6163
+  },
+  "fundamental": {
+    "pe_ratio": 53.824635,
+    "sector_pe_median": 25.634937,
+    "pb_ratio": -14.111069,
+    "de_ratio": null,
+    "fcf_yield": 0.0229,
+    "eps_growth_5y": -0.385,
+    "revenue_growth_ttm": 0.07,
+    "gross_margin": 0.77917,
+    "operating_margin": 0.46328,
+    "net_margin": 0.29411,
+    "market_cap": 75653627904,
+    "enterprise_value": 88320655360,
+    "dividend_yield": 0.18,
+    "payout_ratio": 0.098000005,
+    "insider_ownership_pct": 0.02179,
+    "institutional_ownership_pct": 1.0097799,
+    "short_ratio": 3.09,
+    "beta": 1.11
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 304.86,
+    "entry_range_high": 331.6,
+    "target_range_low": 345.9,
+    "target_range_high": 370.61,
+    "stop_range_low": 298.88,
+    "stop_range_high": 314.61,
+    "target_price": 352.96,
+    "stop_loss": 314.61,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.955277-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 412.44,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 18.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 204.14,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 4.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "-0.43%",
+    "key_metrics": {
+      "RSI": 67.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

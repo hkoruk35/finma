@@ -1,0 +1,160 @@
+{
+  "ticker": "BMO",
+  "company": "Bank of Montreal",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.100438-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 148.94,
+    "open": 148.5,
+    "high": 149.59,
+    "low": 148.64,
+    "prev_close": 148.39,
+    "change_pct": 0.37,
+    "change_pct_1w": 5.63,
+    "change_pct_1m": 6.55,
+    "change_pct_1y": 67.15,
+    "volume": 152115,
+    "avg_volume_30d": 759847
+  },
+  "scores": {
+    "master_score": 54.2,
+    "technical_score": 60.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 58.0,
+    "sector_score": 39.0,
+    "breakout_score": 20.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.2,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.3,
+    "macd": 1.9265,
+    "macd_signal": 0.2798,
+    "macd_histogram": 1.6467,
+    "macd_crossover": "neutral",
+    "ema_20": 141.06,
+    "ema_50": 139.42,
+    "ema_200": 128.55,
+    "ema_stack_bullish": true,
+    "bb_upper": 148.61,
+    "bb_middle": 138.53,
+    "bb_lower": 128.45,
+    "bb_width": 0.1456,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.6,
+    "atr": 2.83,
+    "atr_pct": 0.019,
+    "obv_trend": "UP",
+    "mfi": 62.9,
+    "cmf": 0.066,
+    "stoch_k": 96.7,
+    "stoch_d": 98.5,
+    "rvol": 0.87,
+    "volume_5d_avg": 661603,
+    "green_days_10d": 9,
+    "52w_high": 148.94,
+    "52w_low": 90.14,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6523
+  },
+  "fundamental": {
+    "pe_ratio": 17.218498,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.7305329,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.198,
+    "revenue_growth_ttm": 0.1,
+    "gross_margin": 0.0,
+    "operating_margin": 0.39866,
+    "net_margin": 0.27076,
+    "market_cap": 105574727680,
+    "enterprise_value": -12242612224,
+    "dividend_yield": 3.29,
+    "payout_ratio": 0.54330003,
+    "insider_ownership_pct": 0.00075999997,
+    "institutional_ownership_pct": 0.53013,
+    "short_ratio": 5.11,
+    "beta": 1.149
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 138.72,
+    "entry_range_high": 149.68,
+    "target_range_low": 154.28,
+    "target_range_high": 165.3,
+    "stop_range_low": 136.12,
+    "stop_range_high": 143.28,
+    "target_price": 157.43,
+    "stop_loss": 143.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.100414-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 186.18,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 329.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 90.14,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 32,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 243000,
+      "date": "2026-03-18"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 54%. BMO is currently testing its 52-week high, acting as immediate resistance around $148.94, aligning closely with the BB Upper of $148.61. A breakout above this level could signal further upside, with a BUY ZONE established above $149.00. The PROFIT ZONE targets are undefined pending breakout confirmation. A STOP LOSS ZONE should be placed near $141.00, just below the EMA20 support at $141.06, to protect against a failed breakout. Traders might enter here anticipating a breakout driven by continued bullish momentum, capitalizing on the stock's strong recent performance.\n\n### Fundamental Edge\nBMO's relatively high P/E of 17.22 suggests the market anticipates future earnings growth, supported by a solid revenue growth of 10.0% TTM, further bolstered by a healthy 27.1% Net Margin. This profitability, combined with revenue expansion, makes BMO attractive to investors looking for reliable growth potential.\n\n### Sector Context\nThe Financial sector is currently exhibiting mixed performance, which could present both opportunities and headwinds for BMO, requiring careful monitoring of sector-specific news and trends.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+0.37%",
+    "key_metrics": {
+      "RSI": 68.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

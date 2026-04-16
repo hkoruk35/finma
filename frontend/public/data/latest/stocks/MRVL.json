@@ -1,0 +1,161 @@
+{
+  "ticker": "MRVL",
+  "company": "Marvell Technology, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.639451-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 132.68,
+    "open": 132.39,
+    "high": 138.18,
+    "low": 132.29,
+    "prev_close": 133.83,
+    "change_pct": -0.86,
+    "change_pct_1w": 15.99,
+    "change_pct_1m": 44.95,
+    "change_pct_1y": 149.18,
+    "volume": 13328429,
+    "avg_volume_30d": 26707240
+  },
+  "scores": {
+    "master_score": 59.1,
+    "technical_score": 68.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.0,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 59.1,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 79.7,
+    "macd": 11.5896,
+    "macd_signal": 8.4835,
+    "macd_histogram": 3.1061,
+    "macd_crossover": "neutral",
+    "ema_20": 110.51,
+    "ema_50": 97.77,
+    "ema_200": 85.96,
+    "ema_stack_bullish": true,
+    "bb_upper": 137.32,
+    "bb_middle": 105.9,
+    "bb_lower": 74.49,
+    "bb_width": 0.5933,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.9,
+    "atr": 5.99,
+    "atr_pct": 0.0452,
+    "obv_trend": "UP",
+    "mfi": 87.8,
+    "cmf": 0.23,
+    "stoch_k": 89.3,
+    "stoch_d": 93.1,
+    "rvol": 1.14,
+    "volume_5d_avg": 30379265,
+    "green_days_10d": 8,
+    "52w_high": 133.83,
+    "52w_low": 49.25,
+    "52w_high_proximity_pct": 0.0086,
+    "52w_low_proximity_pct": 1.6942
+  },
+  "fundamental": {
+    "pe_ratio": 43.359474,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 7.856931,
+    "de_ratio": 33.479,
+    "fcf_yield": 0.0124,
+    "eps_growth_5y": 1.063,
+    "revenue_growth_ttm": 0.221,
+    "gross_margin": 0.51023996,
+    "operating_margin": 0.18655,
+    "net_margin": 0.32584,
+    "market_cap": 116023115776,
+    "enterprise_value": 119159070720,
+    "dividend_yield": 0.18,
+    "payout_ratio": 0.078200005,
+    "insider_ownership_pct": 0.0034999999,
+    "institutional_ownership_pct": 0.83635,
+    "short_ratio": 1.94,
+    "beta": 1.822
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 97.28,
+    "entry_range_high": 133.34,
+    "target_range_low": 147.64,
+    "target_range_high": 158.18,
+    "stop_range_low": 114.66,
+    "stop_range_high": 120.7,
+    "target_price": 150.65,
+    "stop_loss": 120.7,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.639433-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 165.85,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 18.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 49.25,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6900,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "MRVL exhibits a NEUTRAL STAY score, confidence 57%. The daily chart shows MRVL near its 52-week high at $128.49 after a 7.19% jump. The overbought RSI of 79.5 warrants caution. Key levels to watch: potential BUY ZONE if it pulls back toward $120, PROFIT ZONE at $135 resistance, with a STOP LOSS ZONE near $115. Despite bullish EMA alignment, ADX at 24.2 suggests weakening trend strength. A key catalyst is MRVL's high 19.00% dividend yield which could attract income-focused investors, but its premium P/E of 41.85 may limit upside potential relative to peers.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 59,
+    "price_change_display": "-0.86%",
+    "key_metrics": {
+      "RSI": 79.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

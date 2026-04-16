@@ -1,0 +1,156 @@
+{
+  "ticker": "ING",
+  "company": "ING Groep N.V.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.101859-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 29.45,
+    "open": 29.62,
+    "high": 29.66,
+    "low": 29.42,
+    "prev_close": 29.37,
+    "change_pct": 0.27,
+    "change_pct_1w": 4.03,
+    "change_pct_1m": 13.53,
+    "change_pct_1y": 68.5,
+    "volume": 1342912,
+    "avg_volume_30d": 3318310
+  },
+  "scores": {
+    "master_score": 58.4,
+    "technical_score": 60.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 70.0,
+    "sector_score": 39.0,
+    "breakout_score": 35.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.4,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.8,
+    "macd": 0.5685,
+    "macd_signal": 0.085,
+    "macd_histogram": 0.4835,
+    "macd_crossover": "neutral",
+    "ema_20": 27.54,
+    "ema_50": 27.46,
+    "ema_200": 25.88,
+    "ema_stack_bullish": true,
+    "bb_upper": 29.9,
+    "bb_middle": 26.74,
+    "bb_lower": 23.59,
+    "bb_width": 0.2359,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.9,
+    "atr": 0.74,
+    "atr_pct": 0.0252,
+    "obv_trend": "UP",
+    "mfi": 63.8,
+    "cmf": -0.041,
+    "stoch_k": 95.8,
+    "stoch_d": 97.4,
+    "rvol": 0.64,
+    "volume_5d_avg": 2121902,
+    "green_days_10d": 9,
+    "52w_high": 30.91,
+    "52w_low": 17.54,
+    "52w_high_proximity_pct": 0.0472,
+    "52w_low_proximity_pct": 0.6795
+  },
+  "fundamental": {
+    "pe_ratio": 11.875,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.3655834,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 39.777,
+    "revenue_growth_ttm": 1.182,
+    "gross_margin": 0.0,
+    "operating_margin": 0.62816,
+    "net_margin": 0.34032002,
+    "market_cap": 84815945728,
+    "enterprise_value": 190255595520,
+    "dividend_yield": 4.37,
+    "payout_ratio": 0.49560001,
+    "insider_ownership_pct": 0.0,
+    "institutional_ownership_pct": 0.05856,
+    "short_ratio": 0.44,
+    "beta": 0.873
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 27.32,
+    "entry_range_high": 29.6,
+    "target_range_low": 31.04,
+    "target_range_high": 33.25,
+    "stop_range_low": 26.57,
+    "stop_range_high": 27.97,
+    "target_price": 31.67,
+    "stop_loss": 27.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.101844-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 36.81,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 437.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 17.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 58%. ING is currently trading at $29.45, near its upper Bollinger Band resistance of $29.90. A break above this level, fueled by positive earnings revisions (if any), could signal a potential swing trade. The BUY ZONE would be a confirmed break above $29.90 with a target PROFIT ZONE near the 52-week high of $30.91, while a STOP LOSS ZONE should be set below the EMA20 at $27.54 to protect against downside risk.\n\n### Fundamental Edge\nING presents a potentially undervalued opportunity with a P/E of 11.875, suggesting it's trading at a discount relative to its sector peers, combined with significant revenue growth. This discounted valuation provides a fundamental tailwind, especially if the company can maintain or improve its current net margin of 34.0%.\n\n### Sector Context\nThe Financials sector's current risk-on sentiment is moderately supportive of ING's potential breakout, though broader market volatility could still impact the trade.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+0.27%",
+    "key_metrics": {
+      "RSI": 67.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

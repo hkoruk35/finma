@@ -1,0 +1,158 @@
+{
+  "ticker": "AWK",
+  "company": "American Water Works Company, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.474196-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Water",
+  "price": {
+    "current": 130.15,
+    "open": 132.1,
+    "high": 132.27,
+    "low": 128.79,
+    "prev_close": 133.39,
+    "change_pct": -2.43,
+    "change_pct_1w": -4.55,
+    "change_pct_1m": -6.45,
+    "change_pct_1y": -8.67,
+    "volume": 961008,
+    "avg_volume_30d": 1868030
+  },
+  "scores": {
+    "master_score": 14.0,
+    "technical_score": 5.4,
+    "fundamental_score": 8.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 36.1,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 14.0,
+    "confidence": 0.14,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.5,
+    "macd": -0.2166,
+    "macd_signal": 0.5875,
+    "macd_histogram": -0.804,
+    "macd_crossover": "neutral",
+    "ema_20": 135.57,
+    "ema_50": 134.45,
+    "ema_200": 134.05,
+    "ema_stack_bullish": false,
+    "bb_upper": 140.23,
+    "bb_middle": 136.09,
+    "bb_lower": 131.95,
+    "bb_width": 0.0608,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.9,
+    "atr": 3.39,
+    "atr_pct": 0.026,
+    "obv_trend": "DOWN",
+    "mfi": 35.6,
+    "cmf": -0.012,
+    "stoch_k": 12.5,
+    "stoch_d": 27.3,
+    "rvol": 0.98,
+    "volume_5d_avg": 1825181,
+    "green_days_10d": 4,
+    "52w_high": 145.6,
+    "52w_low": 122.12,
+    "52w_high_proximity_pct": 0.1061,
+    "52w_low_proximity_pct": 0.0657
+  },
+  "fundamental": {
+    "pe_ratio": 22.833334,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 2.3440313,
+    "de_ratio": 146.987,
+    "fcf_yield": -0.0921,
+    "eps_growth_5y": 0.0,
+    "revenue_growth_ttm": 0.058,
+    "gross_margin": 0.6072,
+    "operating_margin": 0.32179,
+    "net_margin": 0.21615,
+    "market_cap": 25415704576,
+    "enterprise_value": 41814884352,
+    "dividend_yield": 2.48,
+    "payout_ratio": 0.5707,
+    "insider_ownership_pct": 0.00228,
+    "institutional_ownership_pct": 0.99491996,
+    "short_ratio": 5.36,
+    "beta": 0.734
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 129.5,
+    "entry_range_high": 130.8,
+    "target_range_low": 137.51,
+    "target_range_high": 147.34,
+    "stop_range_low": 117.2,
+    "stop_range_high": 123.37,
+    "target_price": 140.32,
+    "stop_loss": 123.37,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.474176-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 162.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 248.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 122.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1672,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 14,
+    "price_change_display": "-2.43%",
+    "key_metrics": {
+      "RSI": 38.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

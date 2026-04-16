@@ -1,0 +1,158 @@
+{
+  "ticker": "CPT",
+  "company": "Camden Property Trust",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.504293-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 101.44,
+    "open": 101.68,
+    "high": 101.91,
+    "low": 100.48,
+    "prev_close": 101.78,
+    "change_pct": -0.33,
+    "change_pct_1w": -0.81,
+    "change_pct_1m": 1.76,
+    "change_pct_1y": -2.16,
+    "volume": 245057,
+    "avg_volume_30d": 1109068
+  },
+  "scores": {
+    "master_score": 40.52,
+    "technical_score": 12.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 43.2,
+    "breakout_score": 0.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 40.52,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 52.2,
+    "macd": -0.2007,
+    "macd_signal": -0.8375,
+    "macd_histogram": 0.6367,
+    "macd_crossover": "neutral",
+    "ema_20": 100.58,
+    "ema_50": 102.07,
+    "ema_200": 105.21,
+    "ema_stack_bullish": false,
+    "bb_upper": 103.46,
+    "bb_middle": 99.07,
+    "bb_lower": 94.68,
+    "bb_width": 0.0885,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.2,
+    "atr": 1.98,
+    "atr_pct": 0.0195,
+    "obv_trend": "UP",
+    "mfi": 69.0,
+    "cmf": -0.188,
+    "stoch_k": 82.5,
+    "stoch_d": 81.2,
+    "rvol": 0.78,
+    "volume_5d_avg": 868891,
+    "green_days_10d": 6,
+    "52w_high": 116.12,
+    "52w_low": 95.56,
+    "52w_high_proximity_pct": 0.1264,
+    "52w_low_proximity_pct": 0.0616
+  },
+  "fundamental": {
+    "pe_ratio": 28.65678,
+    "sector_pe_median": 29.5436075,
+    "pb_ratio": 2.4733634,
+    "de_ratio": 88.402,
+    "fcf_yield": 0.0723,
+    "eps_growth_5y": 2.876,
+    "revenue_growth_ttm": 0.022,
+    "gross_margin": 0.61731,
+    "operating_margin": 0.19797,
+    "net_margin": 0.24229,
+    "market_cap": 10623980544,
+    "enterprise_value": 14799797248,
+    "dividend_yield": 4.17,
+    "payout_ratio": 1.1863999,
+    "insider_ownership_pct": 0.01418,
+    "institutional_ownership_pct": 1.0466,
+    "short_ratio": 5.29,
+    "beta": 0.848
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 100.93,
+    "entry_range_high": 101.95,
+    "target_range_low": 105.23,
+    "target_range_high": 112.75,
+    "stop_range_low": 92.61,
+    "stop_range_high": 97.48,
+    "target_price": 107.38,
+    "stop_loss": 97.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.504273-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 126.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 417.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 95.56,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13502,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.43,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "-0.33%",
+    "key_metrics": {
+      "RSI": 52.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

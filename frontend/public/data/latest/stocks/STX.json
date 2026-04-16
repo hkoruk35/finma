@@ -1,0 +1,158 @@
+{
+  "ticker": "STX",
+  "company": "Seagate Technology Holdings plc",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.663122-04:00",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 507.69,
+    "open": 520.68,
+    "high": 526.0,
+    "low": 503.11,
+    "prev_close": 533.44,
+    "change_pct": -4.83,
+    "change_pct_1w": 2.29,
+    "change_pct_1m": 27.53,
+    "change_pct_1y": 633.05,
+    "volume": 1932182,
+    "avg_volume_30d": 3566726
+  },
+  "scores": {
+    "master_score": 51.55,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.55,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 64.9,
+    "macd": 32.4553,
+    "macd_signal": 22.2863,
+    "macd_histogram": 10.1689,
+    "macd_crossover": "neutral",
+    "ema_20": 455.8,
+    "ema_50": 415.54,
+    "ema_200": 300.58,
+    "ema_stack_bullish": true,
+    "bb_upper": 542.59,
+    "bb_middle": 441.67,
+    "bb_lower": 340.74,
+    "bb_width": 0.457,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.2,
+    "atr": 28.56,
+    "atr_pct": 0.0563,
+    "obv_trend": "UP",
+    "mfi": 77.7,
+    "cmf": 0.026,
+    "stoch_k": 85.5,
+    "stoch_d": 94.2,
+    "rvol": 0.84,
+    "volume_5d_avg": 2980836,
+    "green_days_10d": 9,
+    "52w_high": 533.44,
+    "52w_low": 71.08,
+    "52w_high_proximity_pct": 0.0483,
+    "52w_low_proximity_pct": 6.1421
+  },
+  "fundamental": {
+    "pe_ratio": 57.301357,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 241.29752,
+    "de_ratio": 1046.623,
+    "fcf_yield": 0.0096,
+    "eps_growth_5y": 0.677,
+    "revenue_growth_ttm": 0.215,
+    "gross_margin": 0.38775003,
+    "operating_margin": 0.29947,
+    "net_margin": 0.19586,
+    "market_cap": 113735442432,
+    "enterprise_value": 120086896640,
+    "dividend_yield": 0.55,
+    "payout_ratio": 0.32770002,
+    "insider_ownership_pct": 0.00259,
+    "institutional_ownership_pct": 0.89459,
+    "short_ratio": 3.25,
+    "beta": 1.634
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 413.46,
+    "entry_range_high": 510.23,
+    "target_range_low": 581.5,
+    "target_range_high": 623.04,
+    "stop_range_low": 428.04,
+    "stop_range_high": 450.57,
+    "target_price": 593.37,
+    "stop_loss": 450.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.663093-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 634.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 55.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 71.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 20000,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "-4.83%",
+    "key_metrics": {
+      "RSI": 64.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

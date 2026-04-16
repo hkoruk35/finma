@@ -1,0 +1,158 @@
+{
+  "ticker": "LNG",
+  "company": "Cheniere Energy, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.339442-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 260.53,
+    "open": 258.19,
+    "high": 261.15,
+    "low": 258.05,
+    "prev_close": 259.68,
+    "change_pct": 0.33,
+    "change_pct_1w": -5.33,
+    "change_pct_1m": 3.68,
+    "change_pct_1y": 19.39,
+    "volume": 879047,
+    "avg_volume_30d": 3805594
+  },
+  "scores": {
+    "master_score": 42.25,
+    "technical_score": 37.0,
+    "fundamental_score": 67.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 40.5,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.25,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 45.0,
+    "macd": 2.8876,
+    "macd_signal": 7.86,
+    "macd_histogram": -4.9724,
+    "macd_crossover": "neutral",
+    "ema_20": 269.61,
+    "ema_50": 254.57,
+    "ema_200": 230.48,
+    "ema_stack_bullish": false,
+    "bb_upper": 301.88,
+    "bb_middle": 278.73,
+    "bb_lower": 255.57,
+    "bb_width": 0.1661,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 32.0,
+    "atr": 10.3,
+    "atr_pct": 0.0396,
+    "obv_trend": "DOWN",
+    "mfi": 36.0,
+    "cmf": -0.01,
+    "stoch_k": 10.5,
+    "stoch_d": 8.7,
+    "rvol": 0.6,
+    "volume_5d_avg": 2284829,
+    "green_days_10d": 4,
+    "52w_high": 296.91,
+    "52w_low": 188.33,
+    "52w_high_proximity_pct": 0.1225,
+    "52w_low_proximity_pct": 0.3834
+  },
+  "fundamental": {
+    "pe_ratio": 10.801409,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 6.9912786,
+    "de_ratio": 202.217,
+    "fcf_yield": 0.0484,
+    "eps_growth_5y": 1.464,
+    "revenue_growth_ttm": 0.123,
+    "gross_margin": 0.53220004,
+    "operating_margin": 0.75778997,
+    "net_margin": 0.27352,
+    "market_cap": 54764154880,
+    "enterprise_value": 85094481920,
+    "dividend_yield": 0.85,
+    "payout_ratio": 0.085200004,
+    "insider_ownership_pct": 0.0062,
+    "institutional_ownership_pct": 0.92919,
+    "short_ratio": 1.02,
+    "beta": 0.134
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 253.3,
+    "entry_range_high": 261.83,
+    "target_range_low": 285.6,
+    "target_range_high": 306.0,
+    "stop_range_low": 227.93,
+    "stop_range_high": 239.93,
+    "target_price": 291.43,
+    "stop_loss": 239.93,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.339424-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 325.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 85.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 188.33,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 29000,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "+0.33%",
+    "key_metrics": {
+      "RSI": 45.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

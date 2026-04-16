@@ -1,0 +1,158 @@
+{
+  "ticker": "HWM",
+  "company": "Howmet Aerospace Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.410599-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 253.8,
+    "open": 257.12,
+    "high": 257.86,
+    "low": 252.41,
+    "prev_close": 258.03,
+    "change_pct": -1.64,
+    "change_pct_1w": 1.52,
+    "change_pct_1m": 5.43,
+    "change_pct_1y": 102.46,
+    "volume": 712076,
+    "avg_volume_30d": 2196735
+  },
+  "scores": {
+    "master_score": 52.17,
+    "technical_score": 60.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 52.17,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.7,
+    "macd": 3.6391,
+    "macd_signal": 1.1013,
+    "macd_histogram": 2.5378,
+    "macd_crossover": "neutral",
+    "ema_20": 244.93,
+    "ema_50": 239.11,
+    "ema_200": 208.69,
+    "ema_stack_bullish": true,
+    "bb_upper": 260.61,
+    "bb_middle": 240.21,
+    "bb_lower": 219.8,
+    "bb_width": 0.1699,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.5,
+    "atr": 7.68,
+    "atr_pct": 0.0303,
+    "obv_trend": "UP",
+    "mfi": 64.7,
+    "cmf": 0.052,
+    "stoch_k": 84.7,
+    "stoch_d": 92.3,
+    "rvol": 0.67,
+    "volume_5d_avg": 1479195,
+    "green_days_10d": 6,
+    "52w_high": 265.11,
+    "52w_low": 119.18,
+    "52w_high_proximity_pct": 0.0426,
+    "52w_low_proximity_pct": 1.1296
+  },
+  "fundamental": {
+    "pe_ratio": 68.22715,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 19.041563,
+    "de_ratio": 60.022,
+    "fcf_yield": 0.009,
+    "eps_growth_5y": 0.203,
+    "revenue_growth_ttm": 0.146,
+    "gross_margin": 0.34174,
+    "operating_margin": 0.26338,
+    "net_margin": 0.18274,
+    "market_cap": 101760589824,
+    "enterprise_value": 105925566464,
+    "dividend_yield": 0.18,
+    "payout_ratio": 0.118599996,
+    "insider_ownership_pct": 0.00885,
+    "institutional_ownership_pct": 0.9438,
+    "short_ratio": 4.22,
+    "beta": 1.235
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 237.91,
+    "entry_range_high": 255.07,
+    "target_range_low": 271.3,
+    "target_range_high": 290.68,
+    "stop_range_low": 226.52,
+    "stop_range_high": 238.44,
+    "target_price": 276.84,
+    "stop_loss": 238.44,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.410579-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 317.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 18.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 119.18,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 155,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "-1.64%",
+    "key_metrics": {
+      "RSI": 58.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

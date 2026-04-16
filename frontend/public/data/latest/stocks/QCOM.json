@@ -1,0 +1,161 @@
+{
+  "ticker": "QCOM",
+  "company": "QUALCOMM Incorporated",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.624836-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 133.23,
+    "open": 133.44,
+    "high": 134.34,
+    "low": 132.72,
+    "prev_close": 132.84,
+    "change_pct": 0.29,
+    "change_pct_1w": 4.49,
+    "change_pct_1m": 2.97,
+    "change_pct_1y": -2.08,
+    "volume": 3499434,
+    "avg_volume_30d": 11694674
+  },
+  "scores": {
+    "master_score": 35.51,
+    "technical_score": 15.6,
+    "fundamental_score": 45.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 45.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.51,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.9,
+    "macd": -1.4452,
+    "macd_signal": -2.7002,
+    "macd_histogram": 1.255,
+    "macd_crossover": "neutral",
+    "ema_20": 130.19,
+    "ema_50": 136.45,
+    "ema_200": 150.58,
+    "ema_stack_bullish": false,
+    "bb_upper": 133.43,
+    "bb_middle": 128.85,
+    "bb_lower": 124.27,
+    "bb_width": 0.0711,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 25.3,
+    "atr": 3.46,
+    "atr_pct": 0.026,
+    "obv_trend": "UP",
+    "mfi": 55.9,
+    "cmf": -0.29,
+    "stoch_k": 91.0,
+    "stoch_d": 93.2,
+    "rvol": 0.64,
+    "volume_5d_avg": 7494046,
+    "green_days_10d": 6,
+    "52w_high": 185.53,
+    "52w_low": 124.07,
+    "52w_high_proximity_pct": 0.2819,
+    "52w_low_proximity_pct": 0.0738
+  },
+  "fundamental": {
+    "pe_ratio": 26.915152,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 6.2016478,
+    "de_ratio": 64.218,
+    "fcf_yield": 0.0733,
+    "eps_growth_5y": -0.018,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.55101,
+    "operating_margin": 0.27473,
+    "net_margin": 0.11958,
+    "market_cap": 142295646208,
+    "enterprise_value": 144735272960,
+    "dividend_yield": 2.68,
+    "payout_ratio": 0.7097,
+    "insider_ownership_pct": 0.0013600001,
+    "institutional_ownership_pct": 0.81705004,
+    "short_ratio": 4.36,
+    "beta": 1.279
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 132.56,
+    "entry_range_high": 133.9,
+    "target_range_low": 140.74,
+    "target_range_high": 150.79,
+    "stop_range_low": 119.99,
+    "stop_range_high": 126.31,
+    "target_price": 143.61,
+    "stop_loss": 126.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.624790-04:00",
+    "categories": [
+      "breakout",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 166.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 268.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 124.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2500,
+      "date": "2026-04-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 33%. QCOM is currently trading just above its 20-day EMA at $129.38, which is acting as immediate support. Resistance lies at the Bollinger Band Upper of $132.25, with stronger resistance at the 50-day EMA of $136.66. A potential short entry could be considered within the $132.25 - $136.66 range (BUY ZONE), targeting a move back down towards the $124.77 Bollinger Band Lower (PROFIT ZONE), with a stop loss placed above the 50-day EMA at $137.00 (STOP LOSS ZONE). Traders might consider this setup based on the mixed trend signals and the stock's failure to convincingly break above short-term resistance levels amidst a volatility squeeze.\n\n### Fundamental Edge\nQCOM's P/E of 26.1 suggests a reasonable valuation compared to its sector. The company's modest revenue growth of 5.0% and healthy gross margin of 55.1% points to a stable, albeit not rapidly expanding, business. The recent lack of news provides no additional fuel for a rally and puts fundamental focus on continued execution.\n\n### Sector Context\nThe technology sector's mixed performance is providing little directional tailwind for QCOM, leaving the stock to trade more on its own merits.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "+0.29%",
+    "key_metrics": {
+      "RSI": 54.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

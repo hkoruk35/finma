@@ -1,0 +1,160 @@
+{
+  "ticker": "CRM",
+  "company": "Salesforce, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.707266-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 177.28,
+    "open": 174.22,
+    "high": 177.84,
+    "low": 172.88,
+    "prev_close": 171.31,
+    "change_pct": 3.49,
+    "change_pct_1w": 0.77,
+    "change_pct_1m": -10.39,
+    "change_pct_1y": -29.96,
+    "volume": 5557382,
+    "avg_volume_30d": 13320072
+  },
+  "scores": {
+    "master_score": 30.48,
+    "technical_score": 4.8,
+    "fundamental_score": 68.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 65.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 30.48,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 43.7,
+    "macd": -5.9311,
+    "macd_signal": -5.3399,
+    "macd_histogram": -0.5912,
+    "macd_crossover": "neutral",
+    "ema_20": 181.1,
+    "ema_50": 192.8,
+    "ema_200": 227.12,
+    "ema_stack_bullish": false,
+    "bb_upper": 199.09,
+    "bb_middle": 182.48,
+    "bb_lower": 165.86,
+    "bb_width": 0.1821,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.7,
+    "atr": 7.45,
+    "atr_pct": 0.042,
+    "obv_trend": "DOWN",
+    "mfi": 51.7,
+    "cmf": -0.069,
+    "stoch_k": 55.1,
+    "stoch_d": 39.8,
+    "rvol": 1.05,
+    "volume_5d_avg": 14001736,
+    "green_days_10d": 3,
+    "52w_high": 288.99,
+    "52w_low": 164.96,
+    "52w_high_proximity_pct": 0.3865,
+    "52w_low_proximity_pct": 0.0747
+  },
+  "fundamental": {
+    "pe_ratio": 22.757843,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 2.7847633,
+    "de_ratio": 29.947,
+    "fcf_yield": 0.0985,
+    "eps_growth_5y": 0.179,
+    "revenue_growth_ttm": 0.121,
+    "gross_margin": 0.77676004,
+    "operating_margin": 0.19239001,
+    "net_margin": 0.17958,
+    "market_cap": 166114738176,
+    "enterprise_value": 166265126912,
+    "dividend_yield": 1.03,
+    "payout_ratio": 0.2133,
+    "insider_ownership_pct": 0.02684,
+    "institutional_ownership_pct": 0.84985,
+    "short_ratio": 5.94,
+    "beta": 1.288
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 176.39,
+    "entry_range_high": 178.17,
+    "target_range_low": 195.64,
+    "target_range_high": 209.61,
+    "stop_range_low": 154.26,
+    "stop_range_high": 162.38,
+    "target_price": 199.63,
+    "stop_loss": 162.38,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.707194-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 221.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 103.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 164.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 45474,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CRM signals STRONG_SELL with low confidence based on today's data. The stock is down 3.60% to $176.37, with an RSI of 35.2 indicating oversold conditions but weak ADX of 13 suggesting a lack of strong trend. The bearish EMA stack and negative MACD histogram (-0.4402) reinforce negative momentum. While the P/E of 22.61 is below the sector median of 32.77, the low RVOL of 0.91 indicates waning investor interest. Near-term, upcoming earnings announcements could trigger further downside if revenue growth disappoints after the current TTM of 12.1%.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+3.49%",
+    "key_metrics": {
+      "RSI": 43.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

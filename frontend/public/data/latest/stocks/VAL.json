@@ -1,0 +1,158 @@
+{
+  "ticker": "VAL",
+  "company": "Valaris Limited",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.342846-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 93.63,
+    "open": 91.82,
+    "high": 93.63,
+    "low": 91.14,
+    "prev_close": 92.01,
+    "change_pct": 1.76,
+    "change_pct_1w": -6.34,
+    "change_pct_1m": 2.28,
+    "change_pct_1y": 196.11,
+    "volume": 532978,
+    "avg_volume_30d": 988062
+  },
+  "scores": {
+    "master_score": 47.85,
+    "technical_score": 43.0,
+    "fundamental_score": 65.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 40.5,
+    "breakout_score": 30.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 47.85,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 47.7,
+    "macd": 1.4755,
+    "macd_signal": 2.6694,
+    "macd_histogram": -1.1938,
+    "macd_crossover": "neutral",
+    "ema_20": 96.19,
+    "ema_50": 89.16,
+    "ema_200": 66.14,
+    "ema_stack_bullish": false,
+    "bb_upper": 103.14,
+    "bb_middle": 97.35,
+    "bb_lower": 91.55,
+    "bb_width": 0.1191,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 33.6,
+    "atr": 4.61,
+    "atr_pct": 0.0492,
+    "obv_trend": "DOWN",
+    "mfi": 42.2,
+    "cmf": -0.117,
+    "stoch_k": 17.5,
+    "stoch_d": 22.3,
+    "rvol": 0.85,
+    "volume_5d_avg": 838275,
+    "green_days_10d": 5,
+    "52w_high": 102.24,
+    "52w_low": 30.1,
+    "52w_high_proximity_pct": 0.0842,
+    "52w_low_proximity_pct": 2.1106
+  },
+  "fundamental": {
+    "pe_ratio": 6.755411,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 2.0441892,
+    "de_ratio": 36.539,
+    "fcf_yield": 0.0255,
+    "eps_growth_5y": 4.466,
+    "revenue_growth_ttm": -0.08,
+    "gross_margin": 0.31207,
+    "operating_margin": 0.10458,
+    "net_margin": 0.41486,
+    "market_cap": 6482091520,
+    "enterprise_value": 6931537408,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12082,
+    "institutional_ownership_pct": 0.88528,
+    "short_ratio": 7.33,
+    "beta": 1.044
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 88.71,
+    "entry_range_high": 94.1,
+    "target_range_low": 105.31,
+    "target_range_high": 112.83,
+    "stop_range_low": 80.19,
+    "stop_range_high": 84.41,
+    "target_price": 107.46,
+    "stop_loss": 84.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.342828-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 117.04,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 30.1,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1067,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "+1.76%",
+    "key_metrics": {
+      "RSI": 47.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

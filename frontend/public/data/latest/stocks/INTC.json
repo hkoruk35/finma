@@ -1,0 +1,161 @@
+{
+  "ticker": "INTC",
+  "company": "Intel Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.804514-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 64.1,
+    "open": 63.8,
+    "high": 65.84,
+    "low": 62.88,
+    "prev_close": 63.81,
+    "change_pct": 0.45,
+    "change_pct_1w": 8.74,
+    "change_pct_1m": 40.08,
+    "change_pct_1y": 224.72,
+    "volume": 62570789,
+    "avg_volume_30d": 97347099
+  },
+  "scores": {
+    "master_score": 56.1,
+    "technical_score": 68.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.0,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 56.1,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 74.3,
+    "macd": 4.8858,
+    "macd_signal": 2.9921,
+    "macd_histogram": 1.8938,
+    "macd_crossover": "neutral",
+    "ema_20": 54.02,
+    "ema_50": 49.21,
+    "ema_200": 39.1,
+    "ema_stack_bullish": true,
+    "bb_upper": 67.37,
+    "bb_middle": 51.06,
+    "bb_lower": 34.74,
+    "bb_width": 0.6393,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.5,
+    "atr": 3.1,
+    "atr_pct": 0.0483,
+    "obv_trend": "UP",
+    "mfi": 78.6,
+    "cmf": 0.253,
+    "stoch_k": 93.1,
+    "stoch_d": 94.6,
+    "rvol": 1.11,
+    "volume_5d_avg": 108274657,
+    "green_days_10d": 9,
+    "52w_high": 65.18,
+    "52w_low": 18.84,
+    "52w_high_proximity_pct": 0.0166,
+    "52w_low_proximity_pct": 2.4023
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 2.8010793,
+    "de_ratio": 37.282,
+    "fcf_yield": -0.014,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.041,
+    "gross_margin": 0.36563998,
+    "operating_margin": 0.051409997,
+    "net_margin": -0.00505,
+    "market_cap": 321846247424,
+    "enterprise_value": 340502937600,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12966,
+    "institutional_ownership_pct": 0.61842996,
+    "short_ratio": 1.59,
+    "beta": 1.349
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 48.96,
+    "entry_range_high": 64.42,
+    "target_range_low": 71.93,
+    "target_range_high": 77.07,
+    "stop_range_low": 55.0,
+    "stop_range_high": 57.9,
+    "target_price": 73.4,
+    "stop_loss": 57.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.804482-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 80.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 18.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 59878,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "INTC currently holds a BOGA AI score of NEUTRAL STAY due to mixed signals, with a confidence level of 56%. The stock is trading at $62.9, near its 52-week high, but negative net margins (-0.5%) and negative TTM revenue growth (-4.1%) temper enthusiasm. While EMA alignment is bullish, ADX strength is weak at 22.6, indicating a potentially unsustainable trend. RSI at 75.9 suggests overbought conditions. Key technical levels to watch are the 52-week high as resistance and recent support around $60. A positive catalyst for INTC would be a confirmed ramp-up in Gaudi AI accelerator chip production to challenge Nvidia.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "+0.45%",
+    "key_metrics": {
+      "RSI": 74.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

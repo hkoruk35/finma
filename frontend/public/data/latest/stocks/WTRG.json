@@ -1,0 +1,158 @@
+{
+  "ticker": "WTRG",
+  "company": "Essential Utilities, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.475900-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Water",
+  "price": {
+    "current": 38.62,
+    "open": 39.18,
+    "high": 39.26,
+    "low": 38.37,
+    "prev_close": 39.47,
+    "change_pct": -2.15,
+    "change_pct_1w": -4.22,
+    "change_pct_1m": -5.9,
+    "change_pct_1y": 1.6,
+    "volume": 1047649,
+    "avg_volume_30d": 1883734
+  },
+  "scores": {
+    "master_score": 24.7,
+    "technical_score": 8.1,
+    "fundamental_score": 27.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.1,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 24.7,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.4,
+    "macd": -0.078,
+    "macd_signal": 0.1564,
+    "macd_histogram": -0.2344,
+    "macd_crossover": "neutral",
+    "ema_20": 40.15,
+    "ema_50": 39.84,
+    "ema_200": 38.79,
+    "ema_stack_bullish": false,
+    "bb_upper": 41.53,
+    "bb_middle": 40.28,
+    "bb_lower": 39.03,
+    "bb_width": 0.062,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.0,
+    "atr": 0.94,
+    "atr_pct": 0.0244,
+    "obv_trend": "DOWN",
+    "mfi": 36.6,
+    "cmf": -0.018,
+    "stoch_k": 8.7,
+    "stoch_d": 20.9,
+    "rvol": 1.04,
+    "volume_5d_avg": 1951609,
+    "green_days_10d": 3,
+    "52w_high": 41.65,
+    "52w_low": 35.76,
+    "52w_high_proximity_pct": 0.0727,
+    "52w_low_proximity_pct": 0.08
+  },
+  "fundamental": {
+    "pe_ratio": 17.554544,
+    "sector_pe_median": 22.205967,
+    "pb_ratio": 1.5942866,
+    "de_ratio": 121.56,
+    "fcf_yield": -0.0697,
+    "eps_growth_5y": -0.3,
+    "revenue_growth_ttm": 0.157,
+    "gross_margin": 0.57609004,
+    "operating_margin": 0.32428002,
+    "net_margin": 0.24908,
+    "market_cap": 10941189120,
+    "enterprise_value": 19475775488,
+    "dividend_yield": 3.47,
+    "payout_ratio": 0.6074,
+    "insider_ownership_pct": 0.00224,
+    "institutional_ownership_pct": 0.83239,
+    "short_ratio": 2.56,
+    "beta": 0.767
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 38.43,
+    "entry_range_high": 38.81,
+    "target_range_low": 40.61,
+    "target_range_high": 43.51,
+    "stop_range_low": 34.9,
+    "stop_range_high": 36.74,
+    "target_price": 41.44,
+    "stop_loss": 36.74,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.475880-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 48.27,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 347.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 35.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2747,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -2.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "-2.15%",
+    "key_metrics": {
+      "RSI": 38.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

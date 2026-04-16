@@ -1,0 +1,158 @@
+{
+  "ticker": "VEEV",
+  "company": "Veeva Systems Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.748914-04:00",
+  "sector": "Technology",
+  "industry": "Health Information Services",
+  "price": {
+    "current": 166.36,
+    "open": 162.37,
+    "high": 166.75,
+    "low": 160.0,
+    "prev_close": 159.09,
+    "change_pct": 4.57,
+    "change_pct_1w": -0.13,
+    "change_pct_1m": -10.21,
+    "change_pct_1y": -23.69,
+    "volume": 1431123,
+    "avg_volume_30d": 2170690
+  },
+  "scores": {
+    "master_score": 33.32,
+    "technical_score": 7.2,
+    "fundamental_score": 64.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 33.32,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 42.8,
+    "macd": -6.8759,
+    "macd_signal": -5.9891,
+    "macd_histogram": -0.8869,
+    "macd_crossover": "neutral",
+    "ema_20": 170.41,
+    "ema_50": 183.26,
+    "ema_200": 222.96,
+    "ema_stack_bullish": false,
+    "bb_upper": 191.91,
+    "bb_middle": 172.57,
+    "bb_lower": 153.24,
+    "bb_width": 0.2241,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.0,
+    "atr": 7.5,
+    "atr_pct": 0.0451,
+    "obv_trend": "DOWN",
+    "mfi": 39.1,
+    "cmf": -0.128,
+    "stoch_k": 52.1,
+    "stoch_d": 37.3,
+    "rvol": 1.35,
+    "volume_5d_avg": 2935904,
+    "green_days_10d": 5,
+    "52w_high": 306.22,
+    "52w_low": 151.43,
+    "52w_high_proximity_pct": 0.4567,
+    "52w_low_proximity_pct": 0.0986
+  },
+  "fundamental": {
+    "pe_ratio": 30.580883,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 3.776446,
+    "de_ratio": 1.329,
+    "fcf_yield": 0.0383,
+    "eps_growth_5y": 0.232,
+    "revenue_growth_ttm": 0.16,
+    "gross_margin": 0.75526,
+    "operating_margin": 0.29413,
+    "net_margin": 0.28445,
+    "market_cap": 27346565120,
+    "enterprise_value": 19519363072,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.08568,
+    "institutional_ownership_pct": 0.88997,
+    "short_ratio": 2.39,
+    "beta": 1.103
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 165.53,
+    "entry_range_high": 167.19,
+    "target_range_low": 185.08,
+    "target_range_high": 198.3,
+    "stop_range_low": 143.79,
+    "stop_range_high": 151.36,
+    "target_price": 188.86,
+    "stop_loss": 151.36,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.748848-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 207.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 151.43,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 750,
+      "date": "2026-04-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "+4.57%",
+    "key_metrics": {
+      "RSI": 42.8,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

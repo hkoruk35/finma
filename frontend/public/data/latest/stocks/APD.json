@@ -1,0 +1,158 @@
+{
+  "ticker": "APD",
+  "company": "Air Products and Chemicals, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.370039-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 295.68,
+    "open": 296.21,
+    "high": 296.98,
+    "low": 293.31,
+    "prev_close": 296.63,
+    "change_pct": -0.32,
+    "change_pct_1w": -0.31,
+    "change_pct_1m": 2.9,
+    "change_pct_1y": 12.86,
+    "volume": 517524,
+    "avg_volume_30d": 1341880
+  },
+  "scores": {
+    "master_score": 38.51,
+    "technical_score": 42.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.6,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 38.51,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 61.4,
+    "macd": 4.8244,
+    "macd_signal": 4.6336,
+    "macd_histogram": 0.1908,
+    "macd_crossover": "neutral",
+    "ema_20": 291.31,
+    "ema_50": 282.9,
+    "ema_200": 273.4,
+    "ema_stack_bullish": true,
+    "bb_upper": 303.3,
+    "bb_middle": 290.23,
+    "bb_lower": 277.17,
+    "bb_width": 0.09,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.0,
+    "atr": 6.49,
+    "atr_pct": 0.022,
+    "obv_trend": "DOWN",
+    "mfi": 52.2,
+    "cmf": 0.044,
+    "stoch_k": 72.1,
+    "stoch_d": 79.7,
+    "rvol": 0.66,
+    "volume_5d_avg": 882424,
+    "green_days_10d": 6,
+    "52w_high": 298.71,
+    "52w_low": 227.66,
+    "52w_high_proximity_pct": 0.0101,
+    "52w_low_proximity_pct": 0.2988
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 23.866705,
+    "pb_ratio": 4.2718444,
+    "de_ratio": 101.991,
+    "fcf_yield": -0.0934,
+    "eps_growth_5y": 0.097,
+    "revenue_growth_ttm": 0.058,
+    "gross_margin": 0.31628,
+    "operating_margin": 0.24280001,
+    "net_margin": -0.02733,
+    "market_cap": 65834926080,
+    "enterprise_value": 85632655360,
+    "dividend_yield": 2.44,
+    "payout_ratio": 1.0099,
+    "insider_ownership_pct": 0.01889,
+    "institutional_ownership_pct": 0.93499,
+    "short_ratio": 3.04,
+    "beta": 0.808
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 281.49,
+    "entry_range_high": 297.16,
+    "target_range_low": 308.85,
+    "target_range_high": 330.91,
+    "stop_range_low": 268.56,
+    "stop_range_high": 282.7,
+    "target_price": 315.15,
+    "stop_loss": 282.7,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.370020-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 369.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 244.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 227.66,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1759,
+      "date": "2026-02-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": -0.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-0.32%",
+    "key_metrics": {
+      "RSI": 61.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

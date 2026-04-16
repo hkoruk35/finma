@@ -1,0 +1,158 @@
+{
+  "ticker": "PEP",
+  "company": "PepsiCo, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.999970-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 155.32,
+    "open": 155.0,
+    "high": 155.76,
+    "low": 153.34,
+    "prev_close": 155.72,
+    "change_pct": -0.26,
+    "change_pct_1w": 0.34,
+    "change_pct_1m": -1.52,
+    "change_pct_1y": 11.85,
+    "volume": 2806159,
+    "avg_volume_30d": 5992931
+  },
+  "scores": {
+    "master_score": 41.0,
+    "technical_score": 42.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 23.0,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 41.0,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 48.1,
+    "macd": -0.4369,
+    "macd_signal": -0.777,
+    "macd_histogram": 0.3401,
+    "macd_crossover": "neutral",
+    "ema_20": 155.78,
+    "ema_50": 155.73,
+    "ema_200": 148.77,
+    "ema_stack_bullish": false,
+    "bb_upper": 158.9,
+    "bb_middle": 154.17,
+    "bb_lower": 149.44,
+    "bb_width": 0.0614,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 15.0,
+    "atr": 2.97,
+    "atr_pct": 0.0191,
+    "obv_trend": "DOWN",
+    "mfi": 50.4,
+    "cmf": -0.016,
+    "stoch_k": 61.2,
+    "stoch_d": 68.6,
+    "rvol": 0.77,
+    "volume_5d_avg": 4608171,
+    "green_days_10d": 3,
+    "52w_high": 168.98,
+    "52w_low": 123.5,
+    "52w_high_proximity_pct": 0.0808,
+    "52w_low_proximity_pct": 0.2576
+  },
+  "fundamental": {
+    "pe_ratio": 25.886667,
+    "sector_pe_median": 23.7782275,
+    "pb_ratio": 10.404609,
+    "de_ratio": 258.081,
+    "fcf_yield": 0.0388,
+    "eps_growth_5y": 0.675,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.5446,
+    "operating_margin": 0.14068,
+    "net_margin": 0.08773,
+    "market_cap": 212313276416,
+    "enterprise_value": 256453591040,
+    "dividend_yield": 3.65,
+    "payout_ratio": 0.9371,
+    "insider_ownership_pct": 0.00205,
+    "institutional_ownership_pct": 0.79801005,
+    "short_ratio": 3.4,
+    "beta": 0.41
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 154.54,
+    "entry_range_high": 156.1,
+    "target_range_low": 160.95,
+    "target_range_high": 172.44,
+    "stop_range_low": 141.91,
+    "stop_range_high": 149.38,
+    "target_price": 164.23,
+    "stop_loss": 149.38,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.999939-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 194.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 365.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 123.5,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6500,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -2.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "-0.26%",
+    "key_metrics": {
+      "RSI": 48.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

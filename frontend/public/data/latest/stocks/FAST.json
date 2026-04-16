@@ -1,0 +1,158 @@
+{
+  "ticker": "FAST",
+  "company": "Fastenal Company",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.432339-04:00",
+  "sector": "Industrials",
+  "industry": "Industrial Distribution",
+  "price": {
+    "current": 44.15,
+    "open": 44.49,
+    "high": 44.5,
+    "low": 43.52,
+    "prev_close": 44.62,
+    "change_pct": -1.05,
+    "change_pct_1w": -8.36,
+    "change_pct_1m": -3.35,
+    "change_pct_1y": 11.8,
+    "volume": 3896955,
+    "avg_volume_30d": 8255688
+  },
+  "scores": {
+    "master_score": 22.52,
+    "technical_score": 21.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 40.0,
+    "signal_score": 22.52,
+    "confidence": 0.23,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 41.5,
+    "macd": 0.1309,
+    "macd_signal": 0.2916,
+    "macd_histogram": -0.1607,
+    "macd_crossover": "bearish",
+    "ema_20": 46.03,
+    "ema_50": 45.5,
+    "ema_200": 43.66,
+    "ema_stack_bullish": false,
+    "bb_upper": 48.73,
+    "bb_middle": 45.75,
+    "bb_lower": 42.78,
+    "bb_width": 0.13,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.3,
+    "atr": 1.35,
+    "atr_pct": 0.0306,
+    "obv_trend": "DOWN",
+    "mfi": 47.0,
+    "cmf": -0.183,
+    "stoch_k": 10.2,
+    "stoch_d": 18.2,
+    "rvol": 1.12,
+    "volume_5d_avg": 9221291,
+    "green_days_10d": 4,
+    "52w_high": 49.85,
+    "52w_low": 38.65,
+    "52w_high_proximity_pct": 0.1144,
+    "52w_low_proximity_pct": 0.1423
+  },
+  "fundamental": {
+    "pe_ratio": 39.070797,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 12.852984,
+    "de_ratio": 11.167,
+    "fcf_yield": 0.0178,
+    "eps_growth_5y": 0.138,
+    "revenue_growth_ttm": 0.124,
+    "gross_margin": 0.44893003,
+    "operating_margin": 0.2033,
+    "net_margin": 0.15392,
+    "market_cap": 50698706944,
+    "enterprise_value": 51360702464,
+    "dividend_yield": 2.06,
+    "payout_ratio": 0.7965,
+    "insider_ownership_pct": 0.0017499999,
+    "institutional_ownership_pct": 0.88198996,
+    "short_ratio": 4.36,
+    "beta": 0.837
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 43.93,
+    "entry_range_high": 44.37,
+    "target_range_low": 47.24,
+    "target_range_high": 50.61,
+    "stop_range_low": 39.38,
+    "stop_range_high": 41.45,
+    "target_price": 48.2,
+    "stop_loss": 41.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.432316-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 55.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 206.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 36920,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 23,
+    "price_change_display": "-1.05%",
+    "key_metrics": {
+      "RSI": 41.5,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

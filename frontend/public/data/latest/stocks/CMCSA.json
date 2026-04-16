@@ -1,0 +1,161 @@
+{
+  "ticker": "CMCSA",
+  "company": "Comcast Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.835860-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 28.44,
+    "open": 28.15,
+    "high": 28.45,
+    "low": 28.0,
+    "prev_close": 28.14,
+    "change_pct": 1.08,
+    "change_pct_1w": 1.73,
+    "change_pct_1m": -5.16,
+    "change_pct_1y": -6.05,
+    "volume": 7345691,
+    "avg_volume_30d": 32607296
+  },
+  "scores": {
+    "master_score": 36.62,
+    "technical_score": 14.1,
+    "fundamental_score": 60.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.8,
+    "breakout_score": 45.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 36.62,
+    "confidence": 0.37,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.8,
+    "macd": -0.4215,
+    "macd_signal": -0.4988,
+    "macd_histogram": 0.0774,
+    "macd_crossover": "neutral",
+    "ema_20": 28.48,
+    "ema_50": 28.9,
+    "ema_200": 28.95,
+    "ema_stack_bullish": false,
+    "bb_upper": 28.91,
+    "bb_middle": 28.26,
+    "bb_lower": 27.6,
+    "bb_width": 0.0462,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.3,
+    "atr": 0.66,
+    "atr_pct": 0.0233,
+    "obv_trend": "UP",
+    "mfi": 31.9,
+    "cmf": -0.247,
+    "stoch_k": 65.5,
+    "stoch_d": 45.6,
+    "rvol": 0.54,
+    "volume_5d_avg": 17516318,
+    "green_days_10d": 6,
+    "52w_high": 32.62,
+    "52w_low": 24.23,
+    "52w_high_proximity_pct": 0.128,
+    "52w_low_proximity_pct": 0.174
+  },
+  "fundamental": {
+    "pe_ratio": 5.2773657,
+    "sector_pe_median": 26.190125000000002,
+    "pb_ratio": 1.0579855,
+    "de_ratio": 107.863,
+    "fcf_yield": 0.054,
+    "eps_growth_5y": -0.525,
+    "revenue_growth_ttm": 0.012,
+    "gross_margin": 0.71747,
+    "operating_margin": 0.107889995,
+    "net_margin": 0.16166,
+    "market_cap": 103650582528,
+    "enterprise_value": 197268389888,
+    "dividend_yield": 4.69,
+    "payout_ratio": 0.18370001,
+    "insider_ownership_pct": 0.00758,
+    "institutional_ownership_pct": 0.88716006,
+    "short_ratio": 2.91,
+    "beta": 0.79
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 28.3,
+    "entry_range_high": 28.58,
+    "target_range_low": 29.81,
+    "target_range_high": 31.94,
+    "stop_range_low": 25.76,
+    "stop_range_high": 27.12,
+    "target_price": 30.42,
+    "stop_loss": 27.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.835819-04:00",
+    "categories": [
+      "breakout",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 35.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 469.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 24.23,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5268,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 3.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 35%. CMCSA is currently trading below its key EMAs, indicating bearish pressure. A potential short setup exists if price fails to convincingly break above $28.49 (EMA20). STOP LOSS ZONE: $29.00 (just above EMA50/200), BUY ZONE: $27.20 - $27.80 (Bollinger Band Lower), PROFIT ZONE: $26.00 (previous support level). Traders might consider shorting if CMCSA shows weakness around the EMA20, capitalizing on the overall downward trend and resistance at that level.\n\n### Fundamental Edge\nCMCSA's low P/E of 5.15 suggests undervaluation, but tepid 1.2% revenue growth tempers the enthusiasm. Decent gross and net margins indicate profitability, yet there isn't a clear fundamental catalyst strong enough to outweigh the technical weakness and justify a long position.\n\n### Sector Context\nThe Communication Services sector is showing mixed performance, offering neither a strong tailwind nor a significant headwind for a CMCSA trade at this time.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 37,
+    "price_change_display": "+1.08%",
+    "key_metrics": {
+      "RSI": 46.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

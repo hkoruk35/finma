@@ -1,0 +1,160 @@
+{
+  "ticker": "LRCX",
+  "company": "Lam Research Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.633804-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 256.41,
+    "open": 267.0,
+    "high": 267.99,
+    "low": 255.48,
+    "prev_close": 272.41,
+    "change_pct": -5.87,
+    "change_pct_1w": 4.02,
+    "change_pct_1m": 16.87,
+    "change_pct_1y": 282.76,
+    "volume": 5684231,
+    "avg_volume_30d": 10098077
+  },
+  "scores": {
+    "master_score": 51.55,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.55,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 59.8,
+    "macd": 10.3664,
+    "macd_signal": 5.3728,
+    "macd_histogram": 4.9936,
+    "macd_crossover": "neutral",
+    "ema_20": 239.35,
+    "ema_50": 227.42,
+    "ema_200": 176.2,
+    "ema_stack_bullish": true,
+    "bb_upper": 274.29,
+    "bb_middle": 233.99,
+    "bb_lower": 193.69,
+    "bb_width": 0.3445,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.2,
+    "atr": 12.22,
+    "atr_pct": 0.0476,
+    "obv_trend": "UP",
+    "mfi": 65.8,
+    "cmf": 0.13,
+    "stoch_k": 77.2,
+    "stoch_d": 91.5,
+    "rvol": 0.83,
+    "volume_5d_avg": 8364886,
+    "green_days_10d": 8,
+    "52w_high": 272.41,
+    "52w_low": 61.94,
+    "52w_high_proximity_pct": 0.0587,
+    "52w_low_proximity_pct": 3.1399
+  },
+  "fundamental": {
+    "pe_ratio": 52.543034,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 31.62042,
+    "de_ratio": 44.195,
+    "fcf_yield": 0.015,
+    "eps_growth_5y": 0.37,
+    "revenue_growth_ttm": 0.221,
+    "gross_margin": 0.49800998,
+    "operating_margin": 0.33868998,
+    "net_margin": 0.3022,
+    "market_cap": 322058649600,
+    "enterprise_value": 338481020928,
+    "dividend_yield": 0.38,
+    "payout_ratio": 0.20120001,
+    "insider_ownership_pct": 0.0028799998,
+    "institutional_ownership_pct": 0.8883,
+    "short_ratio": 2.93,
+    "beta": 1.79
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 226.28,
+    "entry_range_high": 257.69,
+    "target_range_low": 287.21,
+    "target_range_high": 307.72,
+    "stop_range_low": 220.37,
+    "stop_range_high": 231.97,
+    "target_price": 293.07,
+    "stop_loss": 231.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.633771-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 320.51,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 38.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4571,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 52%. LRCX is currently trading near its 52-week high, encountering resistance at the upper Bollinger Band of $271.00. A potential BUY ZONE lies between the EMA20 at $237.34 and the EMA50 at $226.15, offering a pullback entry. The PROFIT ZONE is a break above $271.00 targeting new all-time highs. A STOP LOSS ZONE should be placed below the EMA50 at $226.00 to protect against a trend reversal. Traders might consider an entry on a pullback to the BUY ZONE, anticipating continued revenue growth driving the price higher.\n\n### Fundamental Edge\nLRCX's revenue growth of 22.1% TTM and high net margin of 30.2% signal strong profitability and expansion. This suggests the company can sustain its current valuation, even with a P/E of 55.48, as the growth justifies the premium. Continued strong revenue growth in the upcoming earnings report could be the catalyst for a breakout above resistance.\n\n### Sector Context\nThe technology sector's overall positive momentum provides a tailwind for LRCX, potentially amplifying its growth and supporting a breakout.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "-5.87%",
+    "key_metrics": {
+      "RSI": 59.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

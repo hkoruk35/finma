@@ -1,0 +1,158 @@
+{
+  "ticker": "CHRD",
+  "company": "Chord Energy Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.302522-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 131.54,
+    "open": 129.1,
+    "high": 131.71,
+    "low": 127.45,
+    "prev_close": 129.15,
+    "change_pct": 1.85,
+    "change_pct_1w": -2.51,
+    "change_pct_1m": 4.09,
+    "change_pct_1y": 54.98,
+    "volume": 263445,
+    "avg_volume_30d": 1252564
+  },
+  "scores": {
+    "master_score": 35.5,
+    "technical_score": 32.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.5,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 35.5,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 50.5,
+    "macd": 3.4459,
+    "macd_signal": 5.8159,
+    "macd_histogram": -2.37,
+    "macd_crossover": "neutral",
+    "ema_20": 133.53,
+    "ema_50": 123.19,
+    "ema_200": 105.35,
+    "ema_stack_bullish": false,
+    "bb_upper": 148.25,
+    "bb_middle": 137.03,
+    "bb_lower": 125.81,
+    "bb_width": 0.1637,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.8,
+    "atr": 5.49,
+    "atr_pct": 0.0417,
+    "obv_trend": "DOWN",
+    "mfi": 52.7,
+    "cmf": 0.268,
+    "stoch_k": 19.5,
+    "stoch_d": 17.2,
+    "rvol": 0.53,
+    "volume_5d_avg": 658109,
+    "green_days_10d": 6,
+    "52w_high": 146.24,
+    "52w_low": 82.92,
+    "52w_high_proximity_pct": 0.1005,
+    "52w_low_proximity_pct": 0.5864
+  },
+  "fundamental": {
+    "pe_ratio": 177.7554,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 0.92407286,
+    "de_ratio": 18.693,
+    "fcf_yield": 0.0833,
+    "eps_growth_5y": -0.569,
+    "revenue_growth_ttm": -0.194,
+    "gross_margin": 0.50958997,
+    "operating_margin": 0.12948,
+    "net_margin": 0.0097,
+    "market_cap": 7477009920,
+    "enterprise_value": 8662102016,
+    "dividend_yield": 4.03,
+    "payout_ratio": 7.027,
+    "insider_ownership_pct": 0.00774,
+    "institutional_ownership_pct": 0.96739995,
+    "short_ratio": 3.36,
+    "beta": 0.532
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 122.57,
+    "entry_range_high": 132.2,
+    "target_range_low": 145.05,
+    "target_range_high": 155.41,
+    "stop_range_low": 114.53,
+    "stop_range_high": 120.56,
+    "target_price": 148.01,
+    "stop_loss": 120.56,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.302486-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 164.42,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 403.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 82.92,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "+1.85%",
+    "key_metrics": {
+      "RSI": 50.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

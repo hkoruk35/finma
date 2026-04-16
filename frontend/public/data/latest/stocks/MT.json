@@ -1,0 +1,156 @@
+{
+  "ticker": "MT",
+  "company": "ArcelorMittal S.A.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.355526-04:00",
+  "sector": "Materials",
+  "industry": "Steel",
+  "price": {
+    "current": 61.47,
+    "open": 61.8,
+    "high": 61.83,
+    "low": 61.03,
+    "prev_close": 62.05,
+    "change_pct": -0.93,
+    "change_pct_1w": 2.38,
+    "change_pct_1m": 19.27,
+    "change_pct_1y": 133.01,
+    "volume": 596471,
+    "avg_volume_30d": 1891799
+  },
+  "scores": {
+    "master_score": 56.56,
+    "technical_score": 60.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 70.0,
+    "sector_score": 45.6,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 56.56,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 63.5,
+    "macd": 1.527,
+    "macd_signal": 0.2036,
+    "macd_histogram": 1.3233,
+    "macd_crossover": "neutral",
+    "ema_20": 56.75,
+    "ema_50": 55.48,
+    "ema_200": 46.47,
+    "ema_stack_bullish": true,
+    "bb_upper": 63.51,
+    "bb_middle": 54.33,
+    "bb_lower": 45.15,
+    "bb_width": 0.338,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.4,
+    "atr": 2.25,
+    "atr_pct": 0.0366,
+    "obv_trend": "UP",
+    "mfi": 56.8,
+    "cmf": 0.02,
+    "stoch_k": 92.8,
+    "stoch_d": 96.3,
+    "rvol": 0.66,
+    "volume_5d_avg": 1252874,
+    "green_days_10d": 7,
+    "52w_high": 67.12,
+    "52w_low": 26.08,
+    "52w_high_proximity_pct": 0.0842,
+    "52w_low_proximity_pct": 1.3573
+  },
+  "fundamental": {
+    "pe_ratio": 14.956204,
+    "sector_pe_median": 23.866705,
+    "pb_ratio": 0.8589995,
+    "de_ratio": 23.719,
+    "fcf_yield": -0.0463,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.017,
+    "gross_margin": 0.074650005,
+    "operating_margin": -0.050970003,
+    "net_margin": 0.05138,
+    "market_cap": 47108919296,
+    "enterprise_value": 57315856384,
+    "dividend_yield": 0.97,
+    "payout_ratio": 0.1338,
+    "insider_ownership_pct": 0.0,
+    "institutional_ownership_pct": 0.04397,
+    "short_ratio": 1.39,
+    "beta": 1.709
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 55.2,
+    "entry_range_high": 61.78,
+    "target_range_low": 66.86,
+    "target_range_high": 71.63,
+    "stop_range_low": 54.12,
+    "stop_range_high": 56.97,
+    "target_price": 68.22,
+    "stop_loss": 56.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.355509-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 76.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 97.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 26.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": -0.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 60%. MT is currently trading near its upper Bollinger Band at $61.05, a key resistance level. A breakout above this level could signal further upside. A BUY ZONE could be considered between the EMA20 ($55.61) and EMA50 ($54.94), with a STOP LOSS ZONE just below the EMA50 at $54.50. Profit-taking should be considered in the $65-67 range, given the 52W high of $67.12. Traders might consider an entry on a confirmed break above $61.05, anticipating continued bullish momentum and a push towards the 52-week high.\n\n### Fundamental Edge\nMT's P/E of 14.82 suggests it's trading at a reasonable valuation, especially given the overall market. The modest revenue growth of 1.7% indicates stability rather than explosive growth. A potential catalyst lies in infrastructure spending worldwide, which could boost demand for steel and subsequently improve ArcelorMittal's financials.\n\n### Sector Context\nThe materials sector currently shows mixed momentum, neither strongly supporting nor hindering MT's individual prospects, meaning stock-specific factors will likely drive price action.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "-0.93%",
+    "key_metrics": {
+      "RSI": 63.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

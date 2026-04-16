@@ -1,0 +1,158 @@
+{
+  "ticker": "SAN",
+  "company": "Banco Santander, S.A.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.104080-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 12.46,
+    "open": 12.53,
+    "high": 12.56,
+    "low": 12.44,
+    "prev_close": 12.56,
+    "change_pct": -0.77,
+    "change_pct_1w": 2.16,
+    "change_pct_1m": 14.23,
+    "change_pct_1y": 97.13,
+    "volume": 5726314,
+    "avg_volume_30d": 13786420
+  },
+  "scores": {
+    "master_score": 48.6,
+    "technical_score": 52.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 60.0,
+    "sector_score": 39.0,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.6,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.5,
+    "macd": 0.2419,
+    "macd_signal": 0.059,
+    "macd_histogram": 0.1829,
+    "macd_crossover": "neutral",
+    "ema_20": 11.75,
+    "ema_50": 11.68,
+    "ema_200": 10.64,
+    "ema_stack_bullish": true,
+    "bb_upper": 12.72,
+    "bb_middle": 11.45,
+    "bb_lower": 10.18,
+    "bb_width": 0.2224,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.5,
+    "atr": 0.39,
+    "atr_pct": 0.0311,
+    "obv_trend": "UP",
+    "mfi": 46.5,
+    "cmf": 0.095,
+    "stoch_k": 94.0,
+    "stoch_d": 96.0,
+    "rvol": 0.64,
+    "volume_5d_avg": 8760502,
+    "green_days_10d": 6,
+    "52w_high": 13.21,
+    "52w_low": 6.43,
+    "52w_high_proximity_pct": 0.0565,
+    "52w_low_proximity_pct": 0.9381
+  },
+  "fundamental": {
+    "pe_ratio": 12.717347,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.5320328,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.253,
+    "revenue_growth_ttm": -0.064,
+    "gross_margin": 0.0,
+    "operating_margin": 0.4369,
+    "net_margin": 0.30107,
+    "market_cap": 179620986880,
+    "enterprise_value": 162955722752,
+    "dividend_yield": 2.23,
+    "payout_ratio": 0.26709998,
+    "insider_ownership_pct": 3.0000001e-05,
+    "institutional_ownership_pct": 0.03112,
+    "short_ratio": 4.84,
+    "beta": 0.962
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 11.62,
+    "entry_range_high": 12.52,
+    "target_range_low": 13.36,
+    "target_range_high": 14.31,
+    "stop_range_low": 11.1,
+    "stop_range_high": 11.68,
+    "target_price": 13.63,
+    "stop_loss": 11.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.104060-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.58,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 223.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 6.43,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 100000,
+      "date": "2025-11-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-0.77%",
+    "key_metrics": {
+      "RSI": 62.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

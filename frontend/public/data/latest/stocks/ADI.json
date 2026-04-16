@@ -1,0 +1,160 @@
+{
+  "ticker": "ADI",
+  "company": "Analog Devices, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.658599-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 342.41,
+    "open": 347.35,
+    "high": 349.05,
+    "low": 341.32,
+    "prev_close": 348.6,
+    "change_pct": -1.78,
+    "change_pct_1w": -1.1,
+    "change_pct_1m": 10.13,
+    "change_pct_1y": 94.04,
+    "volume": 1035186,
+    "avg_volume_30d": 3473689
+  },
+  "scores": {
+    "master_score": 45.8,
+    "technical_score": 50.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 45.8,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 59.7,
+    "macd": 7.061,
+    "macd_signal": 3.668,
+    "macd_histogram": 3.3931,
+    "macd_crossover": "neutral",
+    "ema_20": 332.17,
+    "ema_50": 322.99,
+    "ema_200": 281.56,
+    "ema_stack_bullish": true,
+    "bb_upper": 357.73,
+    "bb_middle": 325.45,
+    "bb_lower": 293.17,
+    "bb_width": 0.1984,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.3,
+    "atr": 9.42,
+    "atr_pct": 0.0275,
+    "obv_trend": "DOWN",
+    "mfi": 60.1,
+    "cmf": -0.005,
+    "stoch_k": 77.9,
+    "stoch_d": 86.4,
+    "rvol": 0.65,
+    "volume_5d_avg": 2252817,
+    "green_days_10d": 5,
+    "52w_high": 359.67,
+    "52w_low": 172.36,
+    "52w_high_proximity_pct": 0.048,
+    "52w_low_proximity_pct": 0.9866
+  },
+  "fundamental": {
+    "pe_ratio": 62.59781,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 4.947621,
+    "de_ratio": 25.753,
+    "fcf_yield": 0.0248,
+    "eps_growth_5y": 1.167,
+    "revenue_growth_ttm": 0.304,
+    "gross_margin": 0.62842,
+    "operating_margin": 0.33067,
+    "net_margin": 0.23024,
+    "market_cap": 167165984768,
+    "enterprise_value": 174840201216,
+    "dividend_yield": 1.17,
+    "payout_ratio": 0.7239,
+    "insider_ownership_pct": 0.00252,
+    "institutional_ownership_pct": 0.93394995,
+    "short_ratio": 2.2,
+    "beta": 1.053
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 321.38,
+    "entry_range_high": 344.12,
+    "target_range_low": 363.26,
+    "target_range_high": 389.2,
+    "stop_range_low": 307.39,
+    "stop_range_high": 323.57,
+    "target_price": 370.67,
+    "stop_loss": 323.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.658556-04:00",
+    "categories": [
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 428.01,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 117.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 172.36,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5807,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEGATIVE BIAS | Confidence: 46%. ADI, while technically in a bullish trend above its EMAs, is showing signs of weakness after failing to break its 52-week high. A trader might consider shorting ADI if it breaks below its EMA20 ($332.17), targeting a move down towards the EMA50 ($322.99). Set the BUY ZONE between $323.00 and $328.00. Place a STOP LOSS ZONE above the recent high at $360.00, and set a PROFIT ZONE between $300.00 and $310.00.\n\n### Fundamental Edge\nADI's impressive revenue growth of 30.4% and a robust net margin of 23.0% suggest a company effectively scaling its operations. However, its elevated P/E of 62.6 suggests limited further upside for investors at this valuation.\n\n### Sector Context\nDespite ADI's individual fundamentals, the broader technology sector shows mixed performance, presenting a choppy environment which may hinder any sustained upward momentum for ADI.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "-1.78%",
+    "key_metrics": {
+      "RSI": 59.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

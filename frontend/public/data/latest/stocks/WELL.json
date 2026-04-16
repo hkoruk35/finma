@@ -1,0 +1,158 @@
+{
+  "ticker": "WELL",
+  "company": "Welltower Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.506525-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Healthcare Facilities",
+  "price": {
+    "current": 210.93,
+    "open": 210.32,
+    "high": 211.16,
+    "low": 208.45,
+    "prev_close": 210.99,
+    "change_pct": -0.03,
+    "change_pct_1w": 3.04,
+    "change_pct_1m": 0.36,
+    "change_pct_1y": 50.3,
+    "volume": 621971,
+    "avg_volume_30d": 2918542
+  },
+  "scores": {
+    "master_score": 47.82,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 43.2,
+    "breakout_score": 20.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 47.82,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 65.1,
+    "macd": 1.7208,
+    "macd_signal": 0.4032,
+    "macd_histogram": 1.3176,
+    "macd_crossover": "neutral",
+    "ema_20": 204.24,
+    "ema_50": 201.54,
+    "ema_200": 185.53,
+    "ema_stack_bullish": true,
+    "bb_upper": 212.78,
+    "bb_middle": 201.75,
+    "bb_lower": 190.73,
+    "bb_width": 0.1093,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.1,
+    "atr": 4.21,
+    "atr_pct": 0.02,
+    "obv_trend": "UP",
+    "mfi": 80.3,
+    "cmf": -0.146,
+    "stoch_k": 98.6,
+    "stoch_d": 92.4,
+    "rvol": 0.7,
+    "volume_5d_avg": 2057174,
+    "green_days_10d": 7,
+    "52w_high": 214.72,
+    "52w_low": 141.3,
+    "52w_high_proximity_pct": 0.0176,
+    "52w_low_proximity_pct": 0.4928
+  },
+  "fundamental": {
+    "pe_ratio": 149.59575,
+    "sector_pe_median": 29.5436075,
+    "pb_ratio": 3.4871955,
+    "de_ratio": 49.488,
+    "fcf_yield": 0.0154,
+    "eps_growth_5y": -0.263,
+    "revenue_growth_ttm": 0.413,
+    "gross_margin": 0.40223,
+    "operating_margin": -0.28201,
+    "net_margin": 0.08644,
+    "market_cap": 148606615552,
+    "enterprise_value": 164638867456,
+    "dividend_yield": 1.4,
+    "payout_ratio": 1.9858999,
+    "insider_ownership_pct": 0.00068000006,
+    "institutional_ownership_pct": 0.98678,
+    "short_ratio": 5.29,
+    "beta": 0.821
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 200.53,
+    "entry_range_high": 211.98,
+    "target_range_low": 219.09,
+    "target_range_high": 234.74,
+    "stop_range_low": 192.38,
+    "stop_range_high": 202.51,
+    "target_price": 223.56,
+    "stop_loss": 202.51,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.506507-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 263.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 140.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.3,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1056,
+      "date": "2026-02-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.43,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-0.03%",
+    "key_metrics": {
+      "RSI": 65.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

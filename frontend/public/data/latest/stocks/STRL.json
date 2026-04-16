@@ -1,0 +1,158 @@
+{
+  "ticker": "STRL",
+  "company": "Sterling Infrastructure, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.438747-04:00",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 454.07,
+    "open": 462.8,
+    "high": 465.14,
+    "low": 449.0,
+    "prev_close": 464.54,
+    "change_pct": -2.25,
+    "change_pct_1w": 7.26,
+    "change_pct_1m": 8.69,
+    "change_pct_1y": 231.22,
+    "volume": 181248,
+    "avg_volume_30d": 473271
+  },
+  "scores": {
+    "master_score": 41.62,
+    "technical_score": 52.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 41.62,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 57.5,
+    "macd": 9.9088,
+    "macd_signal": 4.93,
+    "macd_histogram": 4.9788,
+    "macd_crossover": "neutral",
+    "ema_20": 428.48,
+    "ema_50": 411.91,
+    "ema_200": 340.43,
+    "ema_stack_bullish": true,
+    "bb_upper": 472.05,
+    "bb_middle": 424.94,
+    "bb_lower": 377.83,
+    "bb_width": 0.2217,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.4,
+    "atr": 26.54,
+    "atr_pct": 0.0584,
+    "obv_trend": "UP",
+    "mfi": 54.3,
+    "cmf": -0.036,
+    "stoch_k": 83.1,
+    "stoch_d": 91.1,
+    "rvol": 0.83,
+    "volume_5d_avg": 393009,
+    "green_days_10d": 6,
+    "52w_high": 464.54,
+    "52w_low": 131.57,
+    "52w_high_proximity_pct": 0.0225,
+    "52w_low_proximity_pct": 2.4512
+  },
+  "fundamental": {
+    "pe_ratio": 48.408318,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 12.56802,
+    "de_ratio": 31.625,
+    "fcf_yield": 0.02,
+    "eps_growth_5y": -0.226,
+    "revenue_growth_ttm": 0.515,
+    "gross_margin": 0.22984,
+    "operating_margin": 0.15287,
+    "net_margin": 0.11653,
+    "market_cap": 13931201536,
+    "enterprise_value": 14192526336,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02405,
+    "institutional_ownership_pct": 0.95275,
+    "short_ratio": 3.62,
+    "beta": 1.511
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 409.85,
+    "entry_range_high": 456.34,
+    "target_range_low": 523.02,
+    "target_range_high": 560.37,
+    "stop_range_low": 380.94,
+    "stop_range_high": 400.99,
+    "target_price": 533.69,
+    "stop_loss": 400.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.438730-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 567.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 131.57,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 50000,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "-2.25%",
+    "key_metrics": {
+      "RSI": 57.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

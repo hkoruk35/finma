@@ -1,0 +1,158 @@
+{
+  "ticker": "VRSK",
+  "company": "Verisk Analytics, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.444338-04:00",
+  "sector": "Industrials",
+  "industry": "Consulting Services",
+  "price": {
+    "current": 178.3,
+    "open": 171.57,
+    "high": 178.58,
+    "low": 170.84,
+    "prev_close": 170.63,
+    "change_pct": 4.5,
+    "change_pct_1w": 1.64,
+    "change_pct_1m": -12.91,
+    "change_pct_1y": -38.44,
+    "volume": 739056,
+    "avg_volume_30d": 1791008
+  },
+  "scores": {
+    "master_score": 20.15,
+    "technical_score": 7.8,
+    "fundamental_score": 24.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 20.15,
+    "confidence": 0.2,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 43.2,
+    "macd": -7.3412,
+    "macd_signal": -6.2835,
+    "macd_histogram": -1.0577,
+    "macd_crossover": "neutral",
+    "ema_20": 182.32,
+    "ema_50": 192.3,
+    "ema_200": 225.51,
+    "ema_stack_bullish": false,
+    "bb_upper": 207.51,
+    "bb_middle": 184.66,
+    "bb_lower": 161.82,
+    "bb_width": 0.2474,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.5,
+    "atr": 6.57,
+    "atr_pct": 0.0369,
+    "obv_trend": "DOWN",
+    "mfi": 34.8,
+    "cmf": -0.235,
+    "stoch_k": 54.0,
+    "stoch_d": 31.6,
+    "rvol": 1.15,
+    "volume_5d_avg": 2068551,
+    "green_days_10d": 4,
+    "52w_high": 318.85,
+    "52w_low": 164.28,
+    "52w_high_proximity_pct": 0.4408,
+    "52w_low_proximity_pct": 0.0853
+  },
+  "fundamental": {
+    "pe_ratio": 27.515432,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 79.84774,
+    "de_ratio": 1581.795,
+    "fcf_yield": 0.0412,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": null,
+    "gross_margin": 0.69879997,
+    "operating_margin": 0.43978,
+    "net_margin": 0.2956,
+    "market_cap": 24595038208,
+    "enterprise_value": 26259324928,
+    "dividend_yield": 1.17,
+    "payout_ratio": 0.2778,
+    "insider_ownership_pct": 0.0028900001,
+    "institutional_ownership_pct": 1.03088,
+    "short_ratio": 2.12,
+    "beta": 0.819
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 177.41,
+    "entry_range_high": 179.19,
+    "target_range_low": 194.05,
+    "target_range_high": 207.91,
+    "stop_range_low": 156.9,
+    "stop_range_high": 165.16,
+    "target_price": 198.01,
+    "stop_loss": 165.16,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.444314-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 222.88,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 117.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 164.28,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 1,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 158,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 20,
+    "price_change_display": "+4.50%",
+    "key_metrics": {
+      "RSI": 43.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

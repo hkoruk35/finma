@@ -1,0 +1,161 @@
+{
+  "ticker": "KEYS",
+  "company": "Keysight Technologies, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.813343-04:00",
+  "sector": "Technology",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 321.12,
+    "open": 327.16,
+    "high": 328.11,
+    "low": 320.04,
+    "prev_close": 330.46,
+    "change_pct": -2.83,
+    "change_pct_1w": 0.88,
+    "change_pct_1m": 12.3,
+    "change_pct_1y": 140.38,
+    "volume": 302425,
+    "avg_volume_30d": 1361074
+  },
+  "scores": {
+    "master_score": 56.3,
+    "technical_score": 60.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 56.3,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 64.0,
+    "macd": 13.6455,
+    "macd_signal": 10.8068,
+    "macd_histogram": 2.8388,
+    "macd_crossover": "neutral",
+    "ema_20": 303.28,
+    "ema_50": 279.7,
+    "ema_200": 220.95,
+    "ema_stack_bullish": true,
+    "bb_upper": 335.86,
+    "bb_middle": 298.36,
+    "bb_lower": 260.85,
+    "bb_width": 0.2514,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.0,
+    "atr": 11.59,
+    "atr_pct": 0.0361,
+    "obv_trend": "UP",
+    "mfi": 68.8,
+    "cmf": -0.013,
+    "stoch_k": 79.8,
+    "stoch_d": 91.0,
+    "rvol": 0.64,
+    "volume_5d_avg": 872585,
+    "green_days_10d": 8,
+    "52w_high": 331.11,
+    "52w_low": 131.88,
+    "52w_high_proximity_pct": 0.0302,
+    "52w_low_proximity_pct": 1.4349
+  },
+  "fundamental": {
+    "pe_ratio": 56.535213,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 8.875377,
+    "de_ratio": 44.674,
+    "fcf_yield": 0.0196,
+    "eps_growth_5y": 0.68,
+    "revenue_growth_ttm": 0.233,
+    "gross_margin": 0.61864,
+    "operating_margin": 0.16313,
+    "net_margin": 0.16946,
+    "market_cap": 55077781504,
+    "enterprise_value": 57268715520,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0059100003,
+    "institutional_ownership_pct": 0.9383,
+    "short_ratio": 1.17,
+    "beta": 1.152
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 278.3,
+    "entry_range_high": 322.73,
+    "target_range_low": 348.77,
+    "target_range_high": 373.68,
+    "stop_range_low": 283.04,
+    "stop_range_high": 297.94,
+    "target_price": 355.89,
+    "stop_loss": 297.94,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.813275-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 401.4,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 131.88,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 870,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "KEYS exhibits bullish technicals, near its 52-week high, yet the BOGA AI score is NEUTRAL STAY due to valuation concerns (P/E of 56.64). While revenue growth (23.3% TTM) and strong margins (61.9% gross, 16.9% net) are positive, the current price may reflect overvaluation. ADX of 20.6 indicates a weak trend. Key support is near $300, resistance at the 52-week high. A significant catalyst would be exceeding earnings expectations next quarter to justify the high P/E ratio. Current neutral MACD adds to the uncertainty.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "-2.83%",
+    "key_metrics": {
+      "RSI": 64.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "ticker": "EOG",
+  "company": "EOG Resources, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.292820-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 133.68,
+    "open": 132.84,
+    "high": 133.87,
+    "low": 131.88,
+    "prev_close": 133.59,
+    "change_pct": 0.07,
+    "change_pct_1w": -3.86,
+    "change_pct_1m": -0.62,
+    "change_pct_1y": 27.73,
+    "volume": 1056867,
+    "avg_volume_30d": 5070618
+  },
+  "scores": {
+    "master_score": 35.45,
+    "technical_score": 34.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.5,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.45,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 44.0,
+    "macd": 1.2123,
+    "macd_signal": 3.1974,
+    "macd_histogram": -1.985,
+    "macd_crossover": "neutral",
+    "ema_20": 137.93,
+    "ema_50": 131.42,
+    "ema_200": 118.9,
+    "ema_stack_bullish": false,
+    "bb_upper": 150.16,
+    "bb_middle": 140.92,
+    "bb_lower": 131.68,
+    "bb_width": 0.1312,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 26.9,
+    "atr": 4.31,
+    "atr_pct": 0.0323,
+    "obv_trend": "DOWN",
+    "mfi": 52.4,
+    "cmf": -0.03,
+    "stoch_k": 9.0,
+    "stoch_d": 11.5,
+    "rvol": 0.63,
+    "volume_5d_avg": 3200573,
+    "green_days_10d": 5,
+    "52w_high": 149.89,
+    "52w_low": 100.82,
+    "52w_high_proximity_pct": 0.1081,
+    "52w_low_proximity_pct": 0.3259
+  },
+  "fundamental": {
+    "pe_ratio": 14.657894,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 2.4092562,
+    "de_ratio": 30.62,
+    "fcf_yield": 0.0324,
+    "eps_growth_5y": -0.417,
+    "revenue_growth_ttm": 0.0,
+    "gross_margin": 0.6202,
+    "operating_margin": 0.1694,
+    "net_margin": 0.21982999,
+    "market_cap": 71718174720,
+    "enterprise_value": 77408894976,
+    "dividend_yield": 3.05,
+    "payout_ratio": 0.4326,
+    "insider_ownership_pct": 0.0028,
+    "institutional_ownership_pct": 0.95123,
+    "short_ratio": 2.76,
+    "beta": 0.333
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 130.76,
+    "entry_range_high": 134.35,
+    "target_range_low": 143.68,
+    "target_range_high": 153.94,
+    "stop_range_low": 118.81,
+    "stop_range_high": 125.06,
+    "target_price": 146.61,
+    "stop_loss": 125.06,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.292784-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 167.1,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 305.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 100.82,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5698,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+0.07%",
+    "key_metrics": {
+      "RSI": 44.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

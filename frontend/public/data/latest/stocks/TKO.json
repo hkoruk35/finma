@@ -1,0 +1,160 @@
+{
+  "ticker": "TKO",
+  "company": "TKO Group Holdings, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.861045-04:00",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 194.98,
+    "open": 195.14,
+    "high": 197.47,
+    "low": 193.14,
+    "prev_close": 195.37,
+    "change_pct": -0.2,
+    "change_pct_1w": -1.05,
+    "change_pct_1m": -2.4,
+    "change_pct_1y": 36.95,
+    "volume": 382675,
+    "avg_volume_30d": 1472399
+  },
+  "scores": {
+    "master_score": 30.38,
+    "technical_score": 32.0,
+    "fundamental_score": 22.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 65.0,
+    "sector_score": 31.8,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 30.38,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 45.3,
+    "macd": -1.8109,
+    "macd_signal": -2.0741,
+    "macd_histogram": 0.2632,
+    "macd_crossover": "neutral",
+    "ema_20": 197.46,
+    "ema_50": 200.21,
+    "ema_200": 191.55,
+    "ema_stack_bullish": false,
+    "bb_upper": 203.59,
+    "bb_middle": 195.97,
+    "bb_lower": 188.35,
+    "bb_width": 0.0778,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 15.5,
+    "atr": 6.54,
+    "atr_pct": 0.0335,
+    "obv_trend": "DOWN",
+    "mfi": 67.0,
+    "cmf": -0.123,
+    "stoch_k": 45.2,
+    "stoch_d": 46.4,
+    "rvol": 0.61,
+    "volume_5d_avg": 894615,
+    "green_days_10d": 4,
+    "52w_high": 224.06,
+    "52w_low": 141.12,
+    "52w_high_proximity_pct": 0.1298,
+    "52w_low_proximity_pct": 0.3816
+  },
+  "fundamental": {
+    "pe_ratio": 85.892075,
+    "sector_pe_median": 26.190125000000002,
+    "pb_ratio": 4.0569925,
+    "de_ratio": 43.924,
+    "fcf_yield": 0.0494,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.119,
+    "gross_margin": 0.59808,
+    "operating_margin": 0.09766,
+    "net_margin": 0.04127,
+    "market_cap": 15387887616,
+    "enterprise_value": 23976916992,
+    "dividend_yield": 1.6,
+    "payout_ratio": 1.0177,
+    "insider_ownership_pct": 0.17046,
+    "institutional_ownership_pct": 0.98517,
+    "short_ratio": 6.03,
+    "beta": 0.406
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 194.01,
+    "entry_range_high": 195.95,
+    "target_range_low": 210.31,
+    "target_range_high": 225.33,
+    "stop_range_low": 172.8,
+    "stop_range_high": 181.9,
+    "target_price": 214.6,
+    "stop_loss": 181.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.860987-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 243.72,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 160.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 16,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9518,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 3.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: UNDERPERFORM | Confidence: 30%. TKO is currently trading in a choppy range, exhibiting high volatility but lacking a clear directional bias on the daily chart. Resistance is found at the 20-day EMA around $197.46, while support is around the 200-day EMA at $191.55, with additional support from the Bollinger Band lower at $188.35. A short setup could be considered if the price rejects the $197.46 level, setting a PROFIT ZONE near $188.50, STOP LOSS ZONE at $200.50, and no BUY ZONE.\n\n### Fundamental Edge\nTKO is trading at a P/E of 85.89, suggesting it is richly valued relative to its earnings, despite a reasonable revenue growth of 11.9% TTM. The thin 4.1% net margin creates a weak earnings outlook that struggles to validate the high P/E ratio, suggesting limited fundamental catalysts for sustained upward momentum.\n\n### Sector Context\nWhile the broader Communication Services sector has shown pockets of strength, TKO's internal fundamentals appear insufficient to fully capitalize on any sector tailwinds.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-0.20%",
+    "key_metrics": {
+      "RSI": 45.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

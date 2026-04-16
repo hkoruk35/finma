@@ -1,0 +1,162 @@
+{
+  "ticker": "VZ",
+  "company": "Verizon Communications Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.829990-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 45.29,
+    "open": 45.33,
+    "high": 45.34,
+    "low": 44.93,
+    "prev_close": 45.48,
+    "change_pct": -0.42,
+    "change_pct_1w": -4.31,
+    "change_pct_1m": -9.81,
+    "change_pct_1y": 10.55,
+    "volume": 9982891,
+    "avg_volume_30d": 26500203
+  },
+  "scores": {
+    "master_score": 34.43,
+    "technical_score": 25.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 31.8,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 30.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 34.43,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 26.4,
+    "macd": -0.7667,
+    "macd_signal": -0.2333,
+    "macd_histogram": -0.5334,
+    "macd_crossover": "neutral",
+    "ema_20": 47.66,
+    "ema_50": 47.15,
+    "ema_200": 43.25,
+    "ema_stack_bullish": false,
+    "bb_upper": 51.41,
+    "bb_middle": 48.26,
+    "bb_lower": 45.12,
+    "bb_width": 0.1305,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.4,
+    "atr": 0.95,
+    "atr_pct": 0.021,
+    "obv_trend": "DOWN",
+    "mfi": 9.8,
+    "cmf": -0.157,
+    "stoch_k": 15.9,
+    "stoch_d": 13.7,
+    "rvol": 0.97,
+    "volume_5d_avg": 25741758,
+    "green_days_10d": 2,
+    "52w_high": 50.62,
+    "52w_low": 37.19,
+    "52w_high_proximity_pct": 0.1053,
+    "52w_low_proximity_pct": 0.2179
+  },
+  "fundamental": {
+    "pe_ratio": 11.155172,
+    "sector_pe_median": 26.190125000000002,
+    "pb_ratio": 1.8284215,
+    "de_ratio": 174.78,
+    "fcf_yield": 0.0903,
+    "eps_growth_5y": -0.533,
+    "revenue_growth_ttm": 0.02,
+    "gross_margin": 0.59071,
+    "operating_margin": 0.20989001,
+    "net_margin": 0.124280006,
+    "market_cap": 191018926080,
+    "enterprise_value": 358867271680,
+    "dividend_yield": 6.22,
+    "payout_ratio": 0.5037,
+    "insider_ownership_pct": 0.00052,
+    "institutional_ownership_pct": 0.69428,
+    "short_ratio": 3.27,
+    "beta": 0.27
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 45.06,
+    "entry_range_high": 45.52,
+    "target_range_low": 47.18,
+    "target_range_high": 50.55,
+    "stop_range_low": 41.22,
+    "stop_range_high": 43.39,
+    "target_price": 48.14,
+    "stop_loss": 43.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.829948-04:00",
+    "categories": [
+      "value",
+      "reversal",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 56.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 622.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 37.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8569,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 3.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "VZ is exhibiting a SELL signal with 40% confidence. Bearish EMA stack and RSI of 37.0 suggest further downside. ADX at 25.3 indicates a trending market. While the BB Squeeze is low, the current price is only 6.5% away from its 52-week high, increasing potential for reversal. VZ's P/E of 11.83 is lower than the sector median of 17.47. Revenue growth of 2.0% and a gross margin of 59.1% reflect moderate financial health. Monitor upcoming earnings reports for potential catalysts.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "-0.42%",
+    "key_metrics": {
+      "RSI": 26.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

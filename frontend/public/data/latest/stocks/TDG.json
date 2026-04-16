@@ -1,0 +1,158 @@
+{
+  "ticker": "TDG",
+  "company": "TransDigm Group Incorporated",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.394201-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 1280.55,
+    "open": 1297.08,
+    "high": 1301.38,
+    "low": 1275.0,
+    "prev_close": 1296.58,
+    "change_pct": -1.24,
+    "change_pct_1w": 4.97,
+    "change_pct_1m": 2.62,
+    "change_pct_1y": 4.23,
+    "volume": 104033,
+    "avg_volume_30d": 376057
+  },
+  "scores": {
+    "master_score": 29.58,
+    "technical_score": 12.6,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 29.58,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 60.7,
+    "macd": 1.3017,
+    "macd_signal": -17.1791,
+    "macd_histogram": 18.4808,
+    "macd_crossover": "neutral",
+    "ema_20": 1218.33,
+    "ema_50": 1247.75,
+    "ema_200": 1300.21,
+    "ema_stack_bullish": false,
+    "bb_upper": 1275.12,
+    "bb_middle": 1189.38,
+    "bb_lower": 1103.65,
+    "bb_width": 0.1442,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 29.7,
+    "atr": 35.97,
+    "atr_pct": 0.0281,
+    "obv_trend": "UP",
+    "mfi": 61.2,
+    "cmf": 0.022,
+    "stoch_k": 87.5,
+    "stoch_d": 93.9,
+    "rvol": 0.7,
+    "volume_5d_avg": 261606,
+    "green_days_10d": 6,
+    "52w_high": 1516.55,
+    "52w_low": 1132.88,
+    "52w_high_proximity_pct": 0.1556,
+    "52w_low_proximity_pct": 0.1303
+  },
+  "fundamental": {
+    "pe_ratio": 41.148617,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": -7.790767,
+    "de_ratio": null,
+    "fcf_yield": 0.0183,
+    "eps_growth_5y": -0.129,
+    "revenue_growth_ttm": 0.139,
+    "gross_margin": 0.59693,
+    "operating_margin": 0.45602,
+    "net_margin": 0.22239,
+    "market_cap": 72316944384,
+    "enterprise_value": 100745494528,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00397,
+    "institutional_ownership_pct": 0.9725,
+    "short_ratio": 2.55,
+    "beta": 0.955
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 1241.51,
+    "entry_range_high": 1286.95,
+    "target_range_low": 1360.69,
+    "target_range_high": 1457.88,
+    "stop_range_low": 1148.18,
+    "stop_range_high": 1208.61,
+    "target_price": 1388.46,
+    "stop_loss": 1208.61,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.394182-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1600.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 1132.88,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 113,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-1.24%",
+    "key_metrics": {
+      "RSI": 60.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

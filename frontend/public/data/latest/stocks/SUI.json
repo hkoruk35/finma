@@ -1,0 +1,158 @@
+{
+  "ticker": "SUI",
+  "company": "Sun Communities, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.519736-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 129.59,
+    "open": 129.37,
+    "high": 129.87,
+    "low": 128.25,
+    "prev_close": 130.05,
+    "change_pct": -0.35,
+    "change_pct_1w": 0.75,
+    "change_pct_1m": -3.11,
+    "change_pct_1y": 14.8,
+    "volume": 305980,
+    "avg_volume_30d": 746559
+  },
+  "scores": {
+    "master_score": 51.27,
+    "technical_score": 67.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 43.2,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.27,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 52.0,
+    "macd": -0.2526,
+    "macd_signal": -0.5823,
+    "macd_histogram": 0.3297,
+    "macd_crossover": "neutral",
+    "ema_20": 128.99,
+    "ema_50": 128.83,
+    "ema_200": 125.68,
+    "ema_stack_bullish": true,
+    "bb_upper": 131.51,
+    "bb_middle": 128.08,
+    "bb_lower": 124.66,
+    "bb_width": 0.0535,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.0,
+    "atr": 2.42,
+    "atr_pct": 0.0187,
+    "obv_trend": "UP",
+    "mfi": 58.2,
+    "cmf": -0.232,
+    "stoch_k": 86.3,
+    "stoch_d": 89.2,
+    "rvol": 0.66,
+    "volume_5d_avg": 493076,
+    "green_days_10d": 7,
+    "52w_high": 135.96,
+    "52w_low": 113.38,
+    "52w_high_proximity_pct": 0.0469,
+    "52w_low_proximity_pct": 0.143
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 29.5436075,
+    "pb_ratio": 2.3005095,
+    "de_ratio": 60.914,
+    "fcf_yield": 0.0267,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.034,
+    "gross_margin": 0.53152,
+    "operating_margin": 0.15542,
+    "net_margin": 0.59221,
+    "market_cap": 16569239552,
+    "enterprise_value": 19875561472,
+    "dividend_yield": 3.26,
+    "payout_ratio": 4.5282,
+    "insider_ownership_pct": 0.01186,
+    "institutional_ownership_pct": 1.01676,
+    "short_ratio": 3.09,
+    "beta": 0.894
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 128.19,
+    "entry_range_high": 130.24,
+    "target_range_low": 134.11,
+    "target_range_high": 143.69,
+    "stop_range_low": 118.51,
+    "stop_range_high": 124.75,
+    "target_price": 136.85,
+    "stop_loss": 124.75,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.519711-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 161.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 326.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 113.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2389,
+      "date": "2026-03-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.43,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-0.35%",
+    "key_metrics": {
+      "RSI": 52.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

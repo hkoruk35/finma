@@ -1,0 +1,158 @@
+{
+  "ticker": "MCHP",
+  "company": "Microchip Technology Incorporated",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.641340-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 73.28,
+    "open": 74.13,
+    "high": 74.86,
+    "low": 72.9,
+    "prev_close": 74.5,
+    "change_pct": -1.64,
+    "change_pct_1w": 3.61,
+    "change_pct_1m": 14.8,
+    "change_pct_1y": 94.97,
+    "volume": 2976590,
+    "avg_volume_30d": 8601486
+  },
+  "scores": {
+    "master_score": 47.8,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 47.8,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 63.5,
+    "macd": 1.3228,
+    "macd_signal": -0.0165,
+    "macd_histogram": 1.3393,
+    "macd_crossover": "neutral",
+    "ema_20": 68.9,
+    "ema_50": 68.89,
+    "ema_200": 65.97,
+    "ema_stack_bullish": true,
+    "bb_upper": 75.0,
+    "bb_middle": 66.88,
+    "bb_lower": 58.75,
+    "bb_width": 0.243,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.5,
+    "atr": 2.68,
+    "atr_pct": 0.0366,
+    "obv_trend": "UP",
+    "mfi": 61.3,
+    "cmf": -0.021,
+    "stoch_k": 89.7,
+    "stoch_d": 95.4,
+    "rvol": 0.78,
+    "volume_5d_avg": 6733098,
+    "green_days_10d": 9,
+    "52w_high": 80.28,
+    "52w_low": 36.85,
+    "52w_high_proximity_pct": 0.0872,
+    "52w_low_proximity_pct": 0.9887
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 6.045533,
+    "de_ratio": 82.382,
+    "fcf_yield": 0.0251,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.156,
+    "gross_margin": 0.55407,
+    "operating_margin": 0.13196,
+    "net_margin": -0.01574,
+    "market_cap": 39659819008,
+    "enterprise_value": 45468491776,
+    "dividend_yield": 2.44,
+    "payout_ratio": 3.1772,
+    "insider_ownership_pct": 0.02088,
+    "institutional_ownership_pct": 0.99792,
+    "short_ratio": 3.32,
+    "beta": 1.474
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 68.55,
+    "entry_range_high": 73.65,
+    "target_range_low": 79.69,
+    "target_range_high": 85.39,
+    "stop_range_low": 64.52,
+    "stop_range_high": 67.92,
+    "target_price": 81.32,
+    "stop_loss": 67.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.641283-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 91.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 244.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 36.85,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 580,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-1.64%",
+    "key_metrics": {
+      "RSI": 63.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

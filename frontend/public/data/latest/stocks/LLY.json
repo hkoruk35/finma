@@ -1,0 +1,158 @@
+{
+  "ticker": "LLY",
+  "company": "Eli Lilly and Company",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.038805-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 900.13,
+    "open": 923.5,
+    "high": 930.0,
+    "low": 888.03,
+    "prev_close": 922.5,
+    "change_pct": -2.42,
+    "change_pct_1w": -5.58,
+    "change_pct_1m": -9.0,
+    "change_pct_1y": 23.81,
+    "volume": 1685843,
+    "avg_volume_30d": 2735044
+  },
+  "scores": {
+    "master_score": 15.7,
+    "technical_score": 5.4,
+    "fundamental_score": 15.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.6,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 15.7,
+    "confidence": 0.16,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.1,
+    "macd": -13.8135,
+    "macd_signal": -16.6505,
+    "macd_histogram": 2.837,
+    "macd_crossover": "neutral",
+    "ema_20": 934.71,
+    "ema_50": 963.92,
+    "ema_200": 935.54,
+    "ema_stack_bullish": false,
+    "bb_upper": 962.04,
+    "bb_middle": 920.11,
+    "bb_lower": 878.18,
+    "bb_width": 0.0911,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.2,
+    "atr": 28.61,
+    "atr_pct": 0.0318,
+    "obv_trend": "DOWN",
+    "mfi": 46.0,
+    "cmf": -0.148,
+    "stoch_k": 23.1,
+    "stoch_d": 40.5,
+    "rvol": 0.71,
+    "volume_5d_avg": 1952908,
+    "green_days_10d": 4,
+    "52w_high": 1108.09,
+    "52w_low": 622.32,
+    "52w_high_proximity_pct": 0.1877,
+    "52w_low_proximity_pct": 0.4464
+  },
+  "fundamental": {
+    "pe_ratio": 39.187202,
+    "sector_pe_median": 24.8743815,
+    "pb_ratio": 30.353397,
+    "de_ratio": 165.31,
+    "fcf_yield": 0.0024,
+    "eps_growth_5y": 0.514,
+    "revenue_growth_ttm": 0.426,
+    "gross_margin": 0.83044,
+    "operating_margin": 0.44896,
+    "net_margin": 0.31667,
+    "market_cap": 805633261568,
+    "enterprise_value": 860776693760,
+    "dividend_yield": 0.68,
+    "payout_ratio": 0.26139998,
+    "insider_ownership_pct": 0.0017,
+    "institutional_ownership_pct": 0.84596,
+    "short_ratio": 2.73,
+    "beta": 0.504
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 895.63,
+    "entry_range_high": 904.63,
+    "target_range_low": 966.24,
+    "target_range_high": 1035.26,
+    "stop_range_low": 800.76,
+    "stop_range_high": 842.91,
+    "target_price": 985.96,
+    "stop_loss": 842.91,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.038786-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1125.16,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 68.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 622.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 16,
+    "price_change_display": "-2.42%",
+    "key_metrics": {
+      "RSI": 39.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

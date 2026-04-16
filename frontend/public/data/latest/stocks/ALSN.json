@@ -1,0 +1,160 @@
+{
+  "ticker": "ALSN",
+  "company": "Allison Transmission Holdings, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.412809-04:00",
+  "sector": "Industrials",
+  "industry": "Auto Parts",
+  "price": {
+    "current": 125.91,
+    "open": 128.28,
+    "high": 128.34,
+    "low": 125.18,
+    "prev_close": 128.26,
+    "change_pct": -1.83,
+    "change_pct_1w": 0.73,
+    "change_pct_1m": 11.04,
+    "change_pct_1y": 43.39,
+    "volume": 450497,
+    "avg_volume_30d": 797743
+  },
+  "scores": {
+    "master_score": 55.67,
+    "technical_score": 60.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 55.67,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 61.1,
+    "macd": 3.1297,
+    "macd_signal": 1.9564,
+    "macd_histogram": 1.1733,
+    "macd_crossover": "neutral",
+    "ema_20": 121.36,
+    "ema_50": 116.86,
+    "ema_200": 103.42,
+    "ema_stack_bullish": true,
+    "bb_upper": 130.95,
+    "bb_middle": 119.18,
+    "bb_lower": 107.4,
+    "bb_width": 0.1976,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.8,
+    "atr": 3.61,
+    "atr_pct": 0.0286,
+    "obv_trend": "UP",
+    "mfi": 67.2,
+    "cmf": -0.042,
+    "stoch_k": 73.7,
+    "stoch_d": 85.5,
+    "rvol": 0.94,
+    "volume_5d_avg": 751119,
+    "green_days_10d": 6,
+    "52w_high": 129.6,
+    "52w_low": 78.81,
+    "52w_high_proximity_pct": 0.0285,
+    "52w_low_proximity_pct": 0.5976
+  },
+  "fundamental": {
+    "pe_ratio": 17.200819,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 5.586069,
+    "de_ratio": 155.758,
+    "fcf_yield": 0.0446,
+    "eps_growth_5y": -0.411,
+    "revenue_growth_ttm": -0.074,
+    "gross_margin": 0.48605,
+    "operating_margin": 0.21845,
+    "net_margin": 0.20698,
+    "market_cap": 10466825216,
+    "enterprise_value": 12033645568,
+    "dividend_yield": 0.9,
+    "payout_ratio": 0.14729999,
+    "insider_ownership_pct": 0.00719,
+    "institutional_ownership_pct": 1.03738,
+    "short_ratio": 2.82,
+    "beta": 0.965
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 116.28,
+    "entry_range_high": 126.54,
+    "target_range_low": 134.01,
+    "target_range_high": 143.58,
+    "stop_range_low": 112.76,
+    "stop_range_high": 118.69,
+    "target_price": 136.74,
+    "stop_loss": 118.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.412693-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 157.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 90.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 78.81,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1313,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 57%. ALSN is testing its 52-week high, coinciding with the upper Bollinger Band at $128.49, indicating potential resistance. A breakout above this level could signal further upside. BUY ZONE: $120.02-$122.00 (EMA20 area, offering a cushion). PROFIT ZONE: $135.00-$140.00 (targeting a defined move post-breakout). STOP LOSS ZONE: $115.00-$116.00 (below EMA50, invalidating the bullish trend). Traders might enter here anticipating a breakout driven by sustained positive momentum and confirmation above the BB Upper.\n\n### Fundamental Edge\nALSN trades at a P/E of 17.57, potentially offering value relative to its sector. The strong net margin of 20.7% suggests efficient operations and profitability. These factors provide a fundamental underpinning for the potential breakout setup.\n\n### Sector Context\nThe Industrials sector is currently exhibiting mixed momentum, neither strongly supporting nor hindering ALSN's individual stock performance.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "-1.83%",
+    "key_metrics": {
+      "RSI": 61.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

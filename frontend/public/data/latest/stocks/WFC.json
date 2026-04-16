@@ -1,0 +1,158 @@
+{
+  "ticker": "WFC",
+  "company": "Wells Fargo & Company",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.091027-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 80.67,
+    "open": 80.92,
+    "high": 81.68,
+    "low": 80.15,
+    "prev_close": 81.7,
+    "change_pct": -1.26,
+    "change_pct_1w": -4.71,
+    "change_pct_1m": 6.5,
+    "change_pct_1y": 31.85,
+    "volume": 12691444,
+    "avg_volume_30d": 17128264
+  },
+  "scores": {
+    "master_score": 27.73,
+    "technical_score": 8.1,
+    "fundamental_score": 42.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.0,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 27.73,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 47.2,
+    "macd": 0.5853,
+    "macd_signal": 0.0738,
+    "macd_histogram": 0.5115,
+    "macd_crossover": "neutral",
+    "ema_20": 81.69,
+    "ema_50": 82.77,
+    "ema_200": 82.77,
+    "ema_stack_bullish": false,
+    "bb_upper": 86.73,
+    "bb_middle": 80.54,
+    "bb_lower": 74.35,
+    "bb_width": 0.1537,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.9,
+    "atr": 2.43,
+    "atr_pct": 0.0301,
+    "obv_trend": "DOWN",
+    "mfi": 46.5,
+    "cmf": 0.137,
+    "stoch_k": 40.9,
+    "stoch_d": 63.8,
+    "rvol": 0.92,
+    "volume_5d_avg": 15693628,
+    "green_days_10d": 6,
+    "52w_high": 95.92,
+    "52w_low": 61.76,
+    "52w_high_proximity_pct": 0.159,
+    "52w_low_proximity_pct": 0.3062
+  },
+  "fundamental": {
+    "pe_ratio": 12.468315,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.5165244,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.151,
+    "revenue_growth_ttm": 0.057,
+    "gross_margin": 0.0,
+    "operating_margin": 0.29447,
+    "net_margin": 0.26742,
+    "market_cap": 248056594432,
+    "enterprise_value": 303629008896,
+    "dividend_yield": 2.2,
+    "payout_ratio": 0.2705,
+    "insider_ownership_pct": 0.00102,
+    "institutional_ownership_pct": 0.79586,
+    "short_ratio": 0.0,
+    "beta": null
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 80.27,
+    "entry_range_high": 81.07,
+    "target_range_low": 86.2,
+    "target_range_high": 92.36,
+    "stop_range_low": 72.02,
+    "stop_range_high": 75.81,
+    "target_price": 87.96,
+    "stop_loss": 75.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.090994-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 100.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 220.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 60914,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-1.26%",
+    "key_metrics": {
+      "RSI": 47.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

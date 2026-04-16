@@ -1,0 +1,158 @@
+{
+  "ticker": "AMP",
+  "company": "Ameriprise Financial, Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.151699-04:00",
+  "sector": "Financials",
+  "industry": "Asset Management",
+  "price": {
+    "current": 467.06,
+    "open": 465.69,
+    "high": 471.4,
+    "low": 462.88,
+    "prev_close": 461.99,
+    "change_pct": 1.1,
+    "change_pct_1w": 3.08,
+    "change_pct_1m": 6.39,
+    "change_pct_1y": 0.93,
+    "volume": 169489,
+    "avg_volume_30d": 677009
+  },
+  "scores": {
+    "master_score": 32.44,
+    "technical_score": 14.4,
+    "fundamental_score": 32.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.0,
+    "breakout_score": 30.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 32.44,
+    "confidence": 0.32,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 59.5,
+    "macd": -0.6526,
+    "macd_signal": -5.1652,
+    "macd_histogram": 4.5126,
+    "macd_crossover": "neutral",
+    "ema_20": 449.93,
+    "ema_50": 459.8,
+    "ema_200": 479.44,
+    "ema_stack_bullish": false,
+    "bb_upper": 464.6,
+    "bb_middle": 444.29,
+    "bb_lower": 423.98,
+    "bb_width": 0.0914,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 25.5,
+    "atr": 12.77,
+    "atr_pct": 0.0273,
+    "obv_trend": "UP",
+    "mfi": 57.4,
+    "cmf": 0.182,
+    "stoch_k": 91.1,
+    "stoch_d": 93.1,
+    "rvol": 0.84,
+    "volume_5d_avg": 570617,
+    "green_days_10d": 5,
+    "52w_high": 543.89,
+    "52w_low": 430.4,
+    "52w_high_proximity_pct": 0.1413,
+    "52w_low_proximity_pct": 0.0852
+  },
+  "fundamental": {
+    "pe_ratio": 12.877309,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 6.5087304,
+    "de_ratio": 57.597,
+    "fcf_yield": 0.0822,
+    "eps_growth_5y": -0.011,
+    "revenue_growth_ttm": 0.086,
+    "gross_margin": 0.56184,
+    "operating_margin": 0.35347998,
+    "net_margin": 0.18841,
+    "market_cap": 43392540672,
+    "enterprise_value": 35799785472,
+    "dividend_yield": 1.39,
+    "payout_ratio": 0.1731,
+    "insider_ownership_pct": 0.0016699999,
+    "institutional_ownership_pct": 0.90435,
+    "short_ratio": 3.97,
+    "beta": 1.266
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 457.5,
+    "entry_range_high": 469.4,
+    "target_range_low": 495.26,
+    "target_range_high": 530.64,
+    "stop_range_low": 419.44,
+    "stop_range_high": 441.52,
+    "target_price": 505.37,
+    "stop_loss": 441.52,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.151652-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 583.83,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 139.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 430.4,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-02-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "+1.10%",
+    "key_metrics": {
+      "RSI": 59.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

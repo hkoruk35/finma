@@ -1,0 +1,160 @@
+{
+  "ticker": "MPLX",
+  "company": "MPLX LP",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.333125-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 54.95,
+    "open": 54.9,
+    "high": 55.27,
+    "low": 54.79,
+    "prev_close": 55.01,
+    "change_pct": -0.11,
+    "change_pct_1w": -1.68,
+    "change_pct_1m": -5.42,
+    "change_pct_1y": 23.37,
+    "volume": 400527,
+    "avg_volume_30d": 1701674
+  },
+  "scores": {
+    "master_score": 34.1,
+    "technical_score": 13.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 60.0,
+    "sector_score": 40.5,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 34.1,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 34.3,
+    "macd": -0.6348,
+    "macd_signal": -0.3876,
+    "macd_histogram": -0.2472,
+    "macd_crossover": "neutral",
+    "ema_20": 56.56,
+    "ema_50": 56.56,
+    "ema_200": 53.13,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.72,
+    "bb_middle": 56.97,
+    "bb_lower": 54.21,
+    "bb_width": 0.0967,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 29.4,
+    "atr": 1.11,
+    "atr_pct": 0.0203,
+    "obv_trend": "DOWN",
+    "mfi": 17.6,
+    "cmf": -0.198,
+    "stoch_k": 14.9,
+    "stoch_d": 21.4,
+    "rvol": 1.12,
+    "volume_5d_avg": 1907765,
+    "green_days_10d": 2,
+    "52w_high": 59.17,
+    "52w_low": 45.49,
+    "52w_high_proximity_pct": 0.0713,
+    "52w_low_proximity_pct": 0.2078
+  },
+  "fundamental": {
+    "pe_ratio": 11.400414,
+    "sector_pe_median": 18.18,
+    "pb_ratio": 3.902699,
+    "de_ratio": 180.08,
+    "fcf_yield": 0.0358,
+    "eps_growth_5y": 0.091,
+    "revenue_growth_ttm": 0.071,
+    "gross_margin": 0.56664,
+    "operating_margin": 0.42880002,
+    "net_margin": 0.41567,
+    "market_cap": 55887732736,
+    "enterprise_value": 80098394112,
+    "dividend_yield": 7.83,
+    "payout_ratio": 0.8187,
+    "insider_ownership_pct": 0.63939,
+    "institutional_ownership_pct": 0.17789,
+    "short_ratio": 4.99,
+    "beta": 0.544
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 54.68,
+    "entry_range_high": 55.22,
+    "target_range_low": 57.11,
+    "target_range_high": 61.19,
+    "stop_range_low": 50.09,
+    "stop_range_high": 52.73,
+    "target_price": 58.28,
+    "stop_loss": 52.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.333092-04:00",
+    "categories": [
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 68.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 783.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 45.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4930,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -2.26,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\n\nBOGA AI score: UNDERPERFORM | Confidence: 34%. MPLX is currently trading below its EMA20 ($56.56) and EMA50 ($56.56), indicating potential weakness, but the EMA200 ($53.13) could act as support. A short setup could be considered if the price breaks below the BB Lower band at $54.21. BUY ZONE: None. PROFIT ZONE: $53.13. STOP LOSS ZONE: $56.56. A trader might consider this setup due to the price rejection at the EMAs and overall bearish EMA stack.\n\n### Fundamental Edge\n\nMPLX shows solid profitability with a gross margin of 56.7% and a net margin of 41.6%, suggesting efficient operations. The P/E ratio of 11.40 indicates that the stock might be undervalued compared to its sector, providing a potential cushion against downside risk. However, the missing dividend information is concerning, and revenue growth is not sufficient to counteract the short setup signal from the technicals.\n\n### Sector Context\n\nThe energy sector is currently in a state of flux due to fluctuating oil prices, which creates a challenging environment for MPLX despite its operational strengths.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "-0.11%",
+    "key_metrics": {
+      "RSI": 34.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

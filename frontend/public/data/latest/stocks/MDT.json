@@ -1,0 +1,158 @@
+{
+  "ticker": "MDT",
+  "company": "Medtronic plc",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.060180-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 86.6,
+    "open": 87.86,
+    "high": 87.9,
+    "low": 86.47,
+    "prev_close": 88.12,
+    "change_pct": -1.72,
+    "change_pct_1w": -2.31,
+    "change_pct_1m": -1.06,
+    "change_pct_1y": 7.78,
+    "volume": 3192179,
+    "avg_volume_30d": 8045352
+  },
+  "scores": {
+    "master_score": 29.62,
+    "technical_score": 15.9,
+    "fundamental_score": 32.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.6,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 29.62,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 41.7,
+    "macd": -1.0037,
+    "macd_signal": -1.4722,
+    "macd_histogram": 0.4685,
+    "macd_crossover": "neutral",
+    "ema_20": 87.74,
+    "ema_50": 90.56,
+    "ema_200": 92.43,
+    "ema_stack_bullish": false,
+    "bb_upper": 88.46,
+    "bb_middle": 86.8,
+    "bb_lower": 85.15,
+    "bb_width": 0.0381,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 32.1,
+    "atr": 1.7,
+    "atr_pct": 0.0196,
+    "obv_trend": "UP",
+    "mfi": 42.9,
+    "cmf": -0.01,
+    "stoch_k": 42.9,
+    "stoch_d": 67.7,
+    "rvol": 0.83,
+    "volume_5d_avg": 6657135,
+    "green_days_10d": 5,
+    "52w_high": 103.73,
+    "52w_low": 78.19,
+    "52w_high_proximity_pct": 0.1652,
+    "52w_low_proximity_pct": 0.1075
+  },
+  "fundamental": {
+    "pe_ratio": 24.189943,
+    "sector_pe_median": 24.8743815,
+    "pb_ratio": 2.268857,
+    "de_ratio": 57.06,
+    "fcf_yield": 0.0366,
+    "eps_growth_5y": -0.118,
+    "revenue_growth_ttm": 0.087,
+    "gross_margin": 0.65159,
+    "operating_margin": 0.20007,
+    "net_margin": 0.13,
+    "market_cap": 111184429056,
+    "enterprise_value": 133034942464,
+    "dividend_yield": 3.22,
+    "payout_ratio": 0.79050004,
+    "insider_ownership_pct": 0.0032600001,
+    "institutional_ownership_pct": 0.88311994,
+    "short_ratio": 2.03,
+    "beta": 0.764
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 86.17,
+    "entry_range_high": 87.03,
+    "target_range_low": 89.87,
+    "target_range_high": 96.28,
+    "stop_range_low": 79.04,
+    "stop_range_high": 83.2,
+    "target_price": 91.7,
+    "stop_loss": 83.2,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.060162-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 108.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 322.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 78.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 340,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-1.72%",
+    "key_metrics": {
+      "RSI": 41.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

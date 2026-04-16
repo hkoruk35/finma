@@ -1,0 +1,160 @@
+{
+  "ticker": "TGT",
+  "company": "Target Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.024087-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 122.83,
+    "open": 119.73,
+    "high": 122.93,
+    "low": 118.79,
+    "prev_close": 119.53,
+    "change_pct": 2.76,
+    "change_pct_1w": -0.24,
+    "change_pct_1m": 4.94,
+    "change_pct_1y": 38.45,
+    "volume": 2323134,
+    "avg_volume_30d": 5608261
+  },
+  "scores": {
+    "master_score": 50.55,
+    "technical_score": 50.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 23.0,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 50.55,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.1,
+    "macd": 1.5174,
+    "macd_signal": 1.5556,
+    "macd_histogram": -0.0381,
+    "macd_crossover": "neutral",
+    "ema_20": 119.67,
+    "ema_50": 115.9,
+    "ema_200": 105.02,
+    "ema_stack_bullish": true,
+    "bb_upper": 125.15,
+    "bb_middle": 118.94,
+    "bb_lower": 112.72,
+    "bb_width": 0.1045,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.4,
+    "atr": 3.3,
+    "atr_pct": 0.0268,
+    "obv_trend": "UP",
+    "mfi": 62.2,
+    "cmf": -0.035,
+    "stoch_k": 81.4,
+    "stoch_d": 57.8,
+    "rvol": 0.75,
+    "volume_5d_avg": 4220886,
+    "green_days_10d": 5,
+    "52w_high": 124.03,
+    "52w_low": 82.84,
+    "52w_high_proximity_pct": 0.0097,
+    "52w_low_proximity_pct": 0.4828
+  },
+  "fundamental": {
+    "pe_ratio": 15.108241,
+    "sector_pe_median": 23.7782275,
+    "pb_ratio": 3.4409056,
+    "de_ratio": 125.518,
+    "fcf_yield": 0.0466,
+    "eps_growth_5y": -0.05,
+    "revenue_growth_ttm": -0.015,
+    "gross_margin": 0.27934,
+    "operating_margin": 0.049089998,
+    "net_margin": 0.03536,
+    "market_cap": 55624253440,
+    "enterprise_value": 68931829760,
+    "dividend_yield": 3.81,
+    "payout_ratio": 0.556,
+    "insider_ownership_pct": 0.00306,
+    "institutional_ownership_pct": 0.86336,
+    "short_ratio": 2.81,
+    "beta": 1.032
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 115.32,
+    "entry_range_high": 123.44,
+    "target_range_low": 130.08,
+    "target_range_high": 139.37,
+    "stop_range_low": 110.42,
+    "stop_range_high": 116.23,
+    "target_price": 132.73,
+    "stop_loss": 116.23,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.024063-04:00",
+    "categories": [
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 153.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 381.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 82.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7259,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -2.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 51%. TGT is currently trading near its 52-week high, with immediate resistance around the BB Upper band at $125.15. Support lies at the EMA20 of $119.67. A trader might consider entering a long position if TGT consolidates near the $122.83 level, anticipating a breakout above $125.15, driven by continued bullish momentum. BUY ZONE: $121.00 - $123.50, PROFIT ZONE: $126.00 - $128.00, STOP LOSS ZONE: $118.50.\n\n### Fundamental Edge\nTGT's P/E of 15.108241 suggests it's trading at a relative discount compared to its sector, offering potential value. With a decent gross margin of 27.9% and a net margin of 3.5%, TGT maintains profitability. This undervaluation may attract investors looking for stable, cash-generating companies in a defensive sector.\n\n### Sector Context\nThe Consumer Staples sector is currently offering mixed signals, neither strongly supporting nor hindering TGT's individual prospects, requiring a focus on company-specific factors.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "+2.76%",
+    "key_metrics": {
+      "RSI": 58.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

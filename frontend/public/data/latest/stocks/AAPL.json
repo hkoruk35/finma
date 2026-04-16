@@ -1,0 +1,177 @@
+{
+  "ticker": "AAPL",
+  "company": "Apple Inc.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:43.582802-04:00",
+  "sector": "Technology",
+  "industry": "Consumer Electronics",
+  "price": {
+    "current": 265.36,
+    "open": 258.1,
+    "high": 265.5,
+    "low": 257.82,
+    "prev_close": 258.83,
+    "change_pct": 2.52,
+    "change_pct_1w": 2.49,
+    "change_pct_1m": 4.96,
+    "change_pct_1y": 34.5,
+    "volume": 23990608,
+    "avg_volume_30d": 39711713
+  },
+  "scores": {
+    "master_score": 38.75,
+    "technical_score": 32.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.0,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 38.75,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 61.2,
+    "macd": 0.8788,
+    "macd_signal": -0.6108,
+    "macd_histogram": 1.4896,
+    "macd_crossover": "neutral",
+    "ema_20": 257.45,
+    "ema_50": 258.84,
+    "ema_200": 252.26,
+    "ema_stack_bullish": false,
+    "bb_upper": 264.44,
+    "bb_middle": 254.6,
+    "bb_lower": 244.75,
+    "bb_width": 0.0774,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 15.1,
+    "atr": 5.82,
+    "atr_pct": 0.0219,
+    "obv_trend": "DOWN",
+    "mfi": 61.0,
+    "cmf": 0.055,
+    "stoch_k": 99.3,
+    "stoch_d": 87.1,
+    "rvol": 0.85,
+    "volume_5d_avg": 33570601,
+    "green_days_10d": 6,
+    "52w_high": 285.92,
+    "52w_low": 192.32,
+    "52w_high_proximity_pct": 0.0719,
+    "52w_low_proximity_pct": 0.3797
+  },
+  "fundamental": {
+    "pe_ratio": 33.631813,
+    "sector_pe_median": 39.217884,
+    "pb_ratio": 44.24058,
+    "de_ratio": 102.63,
+    "fcf_yield": 0.0273,
+    "eps_growth_5y": 0.183,
+    "revenue_growth_ttm": 0.157,
+    "gross_margin": 0.47325,
+    "operating_margin": 0.35374,
+    "net_margin": 0.27037,
+    "market_cap": 3900168208384,
+    "enterprise_value": 3823521497088,
+    "dividend_yield": 0.4,
+    "payout_ratio": 0.1304,
+    "insider_ownership_pct": 0.01641,
+    "institutional_ownership_pct": 0.65312,
+    "short_ratio": 3.17,
+    "beta": 1.109
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 257.55,
+    "entry_range_high": 266.69,
+    "target_range_low": 277.16,
+    "target_range_high": 296.96,
+    "stop_range_low": 241.03,
+    "stop_range_high": 253.72,
+    "target_price": 282.82,
+    "stop_loss": 253.72,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:43.579119-04:00",
+    "categories": [
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 331.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 40.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 192.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 30002,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {
+      "en": "Test homepage",
+      "tr": "Test tr"
+    },
+    "detail": {
+      "en": "Test detail",
+      "tr": "Test detay"
+    },
+    "tech_ins": {
+      "en": "Test tech",
+      "tr": "Test tek"
+    },
+    "quant_ins": {
+      "en": "Test quant",
+      "tr": "Test kuan"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+2.52%",
+    "key_metrics": {
+      "RSI": 61.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

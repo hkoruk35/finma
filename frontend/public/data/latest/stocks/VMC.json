@@ -1,0 +1,158 @@
+{
+  "ticker": "VMC",
+  "company": "Vulcan Materials Company",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.383686-04:00",
+  "sector": "Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 291.84,
+    "open": 296.0,
+    "high": 296.29,
+    "low": 290.59,
+    "prev_close": 296.86,
+    "change_pct": -1.69,
+    "change_pct_1w": -0.25,
+    "change_pct_1m": 9.73,
+    "change_pct_1y": 21.3,
+    "volume": 345888,
+    "avg_volume_30d": 1393339
+  },
+  "scores": {
+    "master_score": 36.06,
+    "technical_score": 40.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.6,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 36.06,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 58.4,
+    "macd": 3.5646,
+    "macd_signal": -0.055,
+    "macd_histogram": 3.6196,
+    "macd_crossover": "neutral",
+    "ema_20": 283.68,
+    "ema_50": 285.84,
+    "ema_200": 284.34,
+    "ema_stack_bullish": false,
+    "bb_upper": 303.97,
+    "bb_middle": 276.35,
+    "bb_lower": 248.72,
+    "bb_width": 0.1999,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.6,
+    "atr": 7.55,
+    "atr_pct": 0.0259,
+    "obv_trend": "UP",
+    "mfi": 70.4,
+    "cmf": 0.241,
+    "stoch_k": 80.2,
+    "stoch_d": 90.8,
+    "rvol": 0.45,
+    "volume_5d_avg": 628937,
+    "green_days_10d": 6,
+    "52w_high": 329.75,
+    "52w_low": 232.52,
+    "52w_high_proximity_pct": 0.115,
+    "52w_low_proximity_pct": 0.2551
+  },
+  "fundamental": {
+    "pe_ratio": 35.764706,
+    "sector_pe_median": 23.866705,
+    "pb_ratio": 4.470862,
+    "de_ratio": 57.785,
+    "fcf_yield": 0.0107,
+    "eps_growth_5y": -0.138,
+    "revenue_growth_ttm": 0.032,
+    "gross_margin": 0.27384,
+    "operating_margin": 0.17536,
+    "net_margin": 0.13559,
+    "market_cap": 38108577792,
+    "enterprise_value": 43544592384,
+    "dividend_yield": 0.7,
+    "payout_ratio": 0.24049999,
+    "insider_ownership_pct": 0.00296,
+    "institutional_ownership_pct": 0.97678,
+    "short_ratio": 3.3,
+    "beta": 1.095
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 284.41,
+    "entry_range_high": 293.3,
+    "target_range_low": 308.2,
+    "target_range_high": 330.21,
+    "stop_range_low": 262.9,
+    "stop_range_high": 276.74,
+    "target_price": 314.49,
+    "stop_loss": 276.74,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.383668-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 364.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 70.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 232.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1980,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": -0.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "-1.69%",
+    "key_metrics": {
+      "RSI": 58.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

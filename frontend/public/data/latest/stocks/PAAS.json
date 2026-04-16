@@ -1,0 +1,160 @@
+{
+  "ticker": "PAAS",
+  "company": "Pan American Silver Corp.",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.364843-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 57.1,
+    "open": 57.75,
+    "high": 58.72,
+    "low": 56.78,
+    "prev_close": 58.12,
+    "change_pct": -1.75,
+    "change_pct_1w": -0.47,
+    "change_pct_1m": 1.22,
+    "change_pct_1y": 122.17,
+    "volume": 2245213,
+    "avg_volume_30d": 7185867
+  },
+  "scores": {
+    "master_score": 58.86,
+    "technical_score": 58.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 45.6,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.86,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 53.3,
+    "macd": 0.2425,
+    "macd_signal": -0.457,
+    "macd_histogram": 0.6995,
+    "macd_crossover": "neutral",
+    "ema_20": 55.95,
+    "ema_50": 55.93,
+    "ema_200": 46.52,
+    "ema_stack_bullish": true,
+    "bb_upper": 60.71,
+    "bb_middle": 53.61,
+    "bb_lower": 46.51,
+    "bb_width": 0.2648,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 13.4,
+    "atr": 2.73,
+    "atr_pct": 0.0479,
+    "obv_trend": "UP",
+    "mfi": 60.1,
+    "cmf": 0.012,
+    "stoch_k": 74.6,
+    "stoch_d": 79.0,
+    "rvol": 0.45,
+    "volume_5d_avg": 3220342,
+    "green_days_10d": 7,
+    "52w_high": 68.52,
+    "52w_low": 22.45,
+    "52w_high_proximity_pct": 0.1667,
+    "52w_low_proximity_pct": 1.543
+  },
+  "fundamental": {
+    "pe_ratio": 22.304688,
+    "sector_pe_median": 23.866705,
+    "pb_ratio": 3.4424548,
+    "de_ratio": 12.47,
+    "fcf_yield": 0.0423,
+    "eps_growth_5y": 2.586,
+    "revenue_growth_ttm": 0.447,
+    "gross_margin": 0.51865,
+    "operating_margin": 0.36556,
+    "net_margin": 0.27024,
+    "market_cap": 24089556992,
+    "enterprise_value": 24077897728,
+    "dividend_yield": 0.93,
+    "payout_ratio": 0.17969999,
+    "insider_ownership_pct": 0.00068999996,
+    "institutional_ownership_pct": 0.64398,
+    "short_ratio": 0.38,
+    "beta": 1.528
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 55.65,
+    "entry_range_high": 57.39,
+    "target_range_low": 63.98,
+    "target_range_high": 68.55,
+    "stop_range_low": 49.06,
+    "stop_range_high": 51.64,
+    "target_price": 65.29,
+    "stop_loss": 51.64,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.364812-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 71.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 93.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 22.45,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 4,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 382400,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": -0.71,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 59%. PAAS is currently trading within a defined range, with immediate resistance near the upper Bollinger Band at $60.71 and support clustered around the EMA20 and EMA50 at $55.95 and $55.93, respectively. BUY ZONE: $55.93-$55.95, targeting a move back towards $60.71 (PROFIT ZONE). STOP LOSS ZONE: $55.00. Traders might consider an entry near the EMA20/50 confluence, anticipating a bounce based on the prevailing bullish trend established by the EMA alignment.\n\n### Fundamental Edge\nPAAS appears fundamentally sound with a P/E of 22.3, suggesting potential undervaluation relative to its sector, coupled with impressive revenue growth of 44.7% and healthy margins. This combination of growth and profitability could attract investors looking for exposure to precious metals, especially as silver demand increases.\n\n### Sector Context\nThe materials sector is exhibiting mixed performance, presenting a neutral backdrop for PAAS; therefore, individual stock selection is paramount.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 59,
+    "price_change_display": "-1.75%",
+    "key_metrics": {
+      "RSI": 53.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

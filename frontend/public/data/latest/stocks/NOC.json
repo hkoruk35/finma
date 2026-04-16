@@ -1,0 +1,158 @@
+{
+  "ticker": "NOC",
+  "company": "Northrop Grumman Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.391980-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 678.67,
+    "open": 680.66,
+    "high": 682.88,
+    "low": 676.21,
+    "prev_close": 680.13,
+    "change_pct": -0.21,
+    "change_pct_1w": -1.28,
+    "change_pct_1m": -7.78,
+    "change_pct_1y": 29.14,
+    "volume": 168434,
+    "avg_volume_30d": 743017
+  },
+  "scores": {
+    "master_score": 33.77,
+    "technical_score": 36.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.2,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 33.77,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 41.9,
+    "macd": -8.1181,
+    "macd_signal": -6.9002,
+    "macd_histogram": -1.2178,
+    "macd_crossover": "neutral",
+    "ema_20": 692.14,
+    "ema_50": 690.76,
+    "ema_200": 620.57,
+    "ema_stack_bullish": false,
+    "bb_upper": 716.86,
+    "bb_middle": 690.09,
+    "bb_lower": 663.32,
+    "bb_width": 0.0776,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 24.9,
+    "atr": 15.87,
+    "atr_pct": 0.0234,
+    "obv_trend": "DOWN",
+    "mfi": 41.7,
+    "cmf": -0.063,
+    "stoch_k": 33.0,
+    "stoch_d": 36.1,
+    "rvol": 0.67,
+    "volume_5d_avg": 499286,
+    "green_days_10d": 4,
+    "52w_high": 768.02,
+    "52w_low": 449.08,
+    "52w_high_proximity_pct": 0.1163,
+    "52w_low_proximity_pct": 0.5112
+  },
+  "fundamental": {
+    "pe_ratio": 23.31398,
+    "sector_pe_median": 33.2737235,
+    "pb_ratio": 5.7796035,
+    "de_ratio": 107.257,
+    "fcf_yield": 0.0301,
+    "eps_growth_5y": 0.152,
+    "revenue_growth_ttm": 0.096,
+    "gross_margin": 0.19815001,
+    "operating_margin": 0.16530001,
+    "net_margin": 0.09968001,
+    "market_cap": 96393633792,
+    "enterprise_value": 110006149120,
+    "dividend_yield": 1.36,
+    "payout_ratio": 0.3091,
+    "insider_ownership_pct": 0.00215,
+    "institutional_ownership_pct": 0.83338,
+    "short_ratio": 2.26,
+    "beta": 0.046
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 675.28,
+    "entry_range_high": 682.06,
+    "target_range_low": 711.75,
+    "target_range_high": 762.59,
+    "stop_range_low": 614.58,
+    "stop_range_high": 646.93,
+    "target_price": 726.28,
+    "stop_loss": 646.93,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.391960-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 848.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 136.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 449.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 68,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": -1.09,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "-0.21%",
+    "key_metrics": {
+      "RSI": 41.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

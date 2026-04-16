@@ -1,0 +1,160 @@
+{
+  "ticker": "KEY",
+  "company": "KeyCorp",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.278968-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 21.75,
+    "open": 21.66,
+    "high": 21.81,
+    "low": 21.46,
+    "prev_close": 21.63,
+    "change_pct": 0.58,
+    "change_pct_1w": 2.18,
+    "change_pct_1m": 14.74,
+    "change_pct_1y": 65.7,
+    "volume": 10158719,
+    "avg_volume_30d": 15459900
+  },
+  "scores": {
+    "master_score": 55.1,
+    "technical_score": 57.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.0,
+    "breakout_score": 35.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 55.1,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.3,
+    "macd": 0.3977,
+    "macd_signal": 0.1685,
+    "macd_histogram": 0.2292,
+    "macd_crossover": "neutral",
+    "ema_20": 20.76,
+    "ema_50": 20.54,
+    "ema_200": 19.17,
+    "ema_stack_bullish": true,
+    "bb_upper": 22.17,
+    "bb_middle": 20.38,
+    "bb_lower": 18.59,
+    "bb_width": 0.1758,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.9,
+    "atr": 0.5,
+    "atr_pct": 0.0231,
+    "obv_trend": "UP",
+    "mfi": 70.4,
+    "cmf": 0.239,
+    "stoch_k": 98.0,
+    "stoch_d": 97.0,
+    "rvol": 0.76,
+    "volume_5d_avg": 11811463,
+    "green_days_10d": 7,
+    "52w_high": 22.98,
+    "52w_low": 13.19,
+    "52w_high_proximity_pct": 0.0534,
+    "52w_low_proximity_pct": 0.6498
+  },
+  "fundamental": {
+    "pe_ratio": 14.3125,
+    "sector_pe_median": 16.357060500000003,
+    "pb_ratio": 1.3412454,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 1.315,
+    "gross_margin": 0.0,
+    "operating_margin": 0.33616,
+    "net_margin": 0.26102,
+    "market_cap": 23705280512,
+    "enterprise_value": 35684073472,
+    "dividend_yield": 3.79,
+    "payout_ratio": 0.5395,
+    "insider_ownership_pct": 0.00291,
+    "institutional_ownership_pct": 0.91293997,
+    "short_ratio": 0.0,
+    "beta": 1.071
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 20.44,
+    "entry_range_high": 21.86,
+    "target_range_low": 22.79,
+    "target_range_high": 24.41,
+    "stop_range_low": 19.71,
+    "stop_range_high": 20.75,
+    "target_price": 23.25,
+    "stop_loss": 20.75,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.278938-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 27.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 379.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 13.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2917,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.69,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "### Technical Setup & Action Plan\nBOGA AI score: NEUTRAL STAY | Confidence: 55%. KEY is currently trading near its Bollinger Band Upper level of $21.78, suggesting short-term resistance. A swing trader might consider an entry in the BUY ZONE between the EMA20 ($20.53) and EMA50 ($20.44) if the price retraces, anticipating a bounce off these support levels and a continuation of the bullish trend. The PROFIT ZONE would target a retest of the 52-week high at $22.98, with a STOP LOSS ZONE placed just below the EMA200 at $19.15 to protect against a trend reversal.\n\n### Fundamental Edge\nKEY's attractive P/E of 14.13 suggests it's undervalued relative to its sector, while the significant revenue growth of 131.5% TTM signals strong business momentum. This fundamental strength coupled with a healthy net margin of 26.1% could provide the underlying support for continued price appreciation.\n\n### Sector Context\nThe financials sector is currently exhibiting mixed performance, providing neither a strong tailwind nor a significant headwind for KEY's individual price action.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+0.58%",
+    "key_metrics": {
+      "RSI": 67.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

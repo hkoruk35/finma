@@ -1,0 +1,158 @@
+{
+  "ticker": "HRL",
+  "company": "Hormel Foods Corporation",
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T13:17:44.007335-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 20.75,
+    "open": 20.72,
+    "high": 20.78,
+    "low": 20.42,
+    "prev_close": 20.76,
+    "change_pct": -0.07,
+    "change_pct_1w": -2.77,
+    "change_pct_1m": -7.27,
+    "change_pct_1y": -27.44,
+    "volume": 1791456,
+    "avg_volume_30d": 4486448
+  },
+  "scores": {
+    "master_score": 20.44,
+    "technical_score": 5.4,
+    "fundamental_score": 39.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 23.0,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 5.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 20.44,
+    "confidence": 0.2,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 32.7,
+    "macd": -0.6746,
+    "macd_signal": -0.5934,
+    "macd_histogram": -0.0812,
+    "macd_crossover": "neutral",
+    "ema_20": 21.65,
+    "ema_50": 22.51,
+    "ema_200": 24.03,
+    "ema_stack_bullish": false,
+    "bb_upper": 23.23,
+    "bb_middle": 21.73,
+    "bb_lower": 20.24,
+    "bb_width": 0.1374,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 36.9,
+    "atr": 0.51,
+    "atr_pct": 0.0244,
+    "obv_trend": "DOWN",
+    "mfi": 28.2,
+    "cmf": -0.066,
+    "stoch_k": 16.3,
+    "stoch_d": 13.1,
+    "rvol": 1.13,
+    "volume_5d_avg": 5082571,
+    "green_days_10d": 3,
+    "52w_high": 30.04,
+    "52w_low": 20.48,
+    "52w_high_proximity_pct": 0.3094,
+    "52w_low_proximity_pct": 0.0129
+  },
+  "fundamental": {
+    "pe_ratio": 23.30899,
+    "sector_pe_median": 23.7782275,
+    "pb_ratio": 1.4378293,
+    "de_ratio": 4.244,
+    "fcf_yield": 0.0334,
+    "eps_growth_5y": -0.051,
+    "revenue_growth_ttm": -0.029,
+    "gross_margin": 0.15609999,
+    "operating_margin": 0.11057,
+    "net_margin": 0.0403,
+    "market_cap": 11415646208,
+    "enterprise_value": 11099636736,
+    "dividend_yield": 5.64,
+    "payout_ratio": 1.3061999,
+    "insider_ownership_pct": 0.00465,
+    "institutional_ownership_pct": 0.91956,
+    "short_ratio": 5.43,
+    "beta": 0.358
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 20.65,
+    "entry_range_high": 20.85,
+    "target_range_low": 21.83,
+    "target_range_high": 23.39,
+    "stop_range_low": 18.74,
+    "stop_range_high": 19.73,
+    "target_price": 22.28,
+    "stop_loss": 19.73,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-15T13:17:44.007314-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 25.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 564.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2665,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": -2.64,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 20,
+    "price_change_display": "-0.07%",
+    "key_metrics": {
+      "RSI": 32.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}
