@@ -416,9 +416,26 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       )[0];
       mock.company = latest.company || mock.company;
       mock.sector = latest.sector || mock.sector;
-      // Use the most recent known price as a reference (entry price of the latest pick)
+      // Use the most recent known price; rescale all mock zones proportionally
       const latestPrice = latest.entry ?? null;
-      if (latestPrice && latestPrice > 0) mock.price.current = latestPrice;
+      if (latestPrice && latestPrice > 0) {
+        const ratio = latestPrice / mock.price.current;
+        mock.price.current = latestPrice;
+        mock.price.open = latestPrice * 0.99;
+        mock.price.high = latestPrice * 1.02;
+        mock.price.low = latestPrice * 0.98;
+        mock.price.prev_close = latestPrice / (1 + mock.price.change_pct / 100);
+        if (mock.scores_detail) {
+          mock.scores_detail.entry_range_low  *= ratio;
+          mock.scores_detail.entry_range_high *= ratio;
+          mock.scores_detail.target_price     *= ratio;
+          mock.scores_detail.target_range_low  *= ratio;
+          mock.scores_detail.target_range_high *= ratio;
+          mock.scores_detail.stop_loss         *= ratio;
+          mock.scores_detail.stop_range_low    *= ratio;
+          mock.scores_detail.stop_range_high   *= ratio;
+        }
+      }
       (mock as any).is_mock = true;
       (mock as any)._from_perf_history = true;
     } else {
