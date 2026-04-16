@@ -1,12 +1,12 @@
 {
   "stats": {
     "total_picks": 1054,
-    "win_rate": 98.0,
-    "avg_return_pct": 10.5,
+    "win_rate": 98.6,
+    "avg_return_pct": 10.6,
     "period_days": 180,
-    "above_5pct_rate": 66.7,
-    "above_10pct_rate": 40.1,
-    "generated_at": "2026-04-16T00:11:44.620741"
+    "above_5pct_rate": 67.3,
+    "above_10pct_rate": 40.5,
+    "generated_at": "2026-04-16T00:29:38.595686"
   },
   "history": [
     {
@@ -302,11 +302,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Rental & Leasing Services",
       "entry": 336.0,
-      "max_price": null,
-      "return_pct": null,
-      "days": null,
-      "result": "NO_DATA",
-      "peak_date": null
+      "max_price": 415.26,
+      "return_pct": 23.59,
+      "days": 1,
+      "result": "PENDING",
+      "peak_date": "2026-04-14"
     },
     {
       "date": "2026-04-13",
@@ -328,11 +328,11 @@
       "sector": "Financial Services",
       "subsector": "Asset Management",
       "entry": 11.98,
-      "max_price": null,
-      "return_pct": null,
-      "days": null,
-      "result": "NO_DATA",
-      "peak_date": null
+      "max_price": 13.12,
+      "return_pct": 9.52,
+      "days": 4,
+      "result": "PENDING",
+      "peak_date": "2026-04-14"
     },
     {
       "date": "2026-04-09",
@@ -354,11 +354,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Rental & Leasing Services",
       "entry": 260.85,
-      "max_price": null,
-      "return_pct": null,
-      "days": null,
-      "result": "NO_DATA",
-      "peak_date": null
+      "max_price": 415.26,
+      "return_pct": 59.19,
+      "days": 5,
+      "result": "PENDING",
+      "peak_date": "2026-04-14"
     },
     {
       "date": "2026-04-09",
@@ -419,11 +419,11 @@
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 16.13,
-      "max_price": null,
-      "return_pct": null,
-      "days": null,
-      "result": "NO_DATA",
-      "peak_date": null
+      "max_price": 17.36,
+      "return_pct": 7.63,
+      "days": 3,
+      "result": "PENDING",
+      "peak_date": "2026-04-10"
     },
     {
       "date": "2026-04-06",
@@ -523,11 +523,11 @@
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 111.08,
-      "max_price": null,
-      "return_pct": null,
-      "days": null,
-      "result": "NO_DATA",
-      "peak_date": null
+      "max_price": 127.21,
+      "return_pct": 14.52,
+      "days": 19,
+      "result": "PENDING",
+      "peak_date": "2026-04-14"
     },
     {
       "date": "2026-03-26",
@@ -3214,11 +3214,11 @@
       "sector": "Consumer Defensive",
       "subsector": "Beverages - Non-Alcoholic",
       "entry": 55.01,
-      "max_price": null,
-      "return_pct": null,
-      "days": null,
-      "result": "NO_DATA",
-      "peak_date": null
+      "max_price": 61.39,
+      "return_pct": 11.6,
+      "days": 19,
+      "result": "WIN",
+      "peak_date": "2026-03-16"
     },
     {
       "date": "2026-02-25",
