@@ -259,9 +259,19 @@ export default async function StockDetailPage({ params }: Props) {
               </span>
             </div>
           )}
-          <div className="w-full min-h-[260px] md:min-h-[300px]">
-            <TradingViewWidget symbol={stock.ticker} exchange={(stock as any)._exchange ?? undefined} />
-          </div>
+          {(stock as any).is_mock ? (
+            <div className="w-full min-h-[260px] md:min-h-[300px] flex flex-col items-center justify-center gap-3 bg-[#0d1117]/40 px-6 text-center">
+              <div className="w-10 h-10 rounded-full bg-[#1e2a3a] flex items-center justify-center text-xl">📊</div>
+              <p className="text-sm font-semibold text-[#94a3b8]">Chart Unavailable</p>
+              <p className="text-xs text-[#475569] max-w-xs">
+                {stock.ticker} is not in the current BOGA universe. Live chart data cannot be confirmed for this ticker.
+              </p>
+            </div>
+          ) : (
+            <div className="w-full min-h-[260px] md:min-h-[300px]">
+              <TradingViewWidget symbol={stock.ticker} exchange={(stock as any)._exchange ?? undefined} />
+            </div>
+          )}
         </div>
 
         {/* ── AI Analysis Tabs ── */}
