@@ -11,6 +11,7 @@ interface Trade {
   sector: string;
   subsector: string;
   entry: number;
+  current_price: number | null;
   max_price: number | null;
   return_pct: number | null;
   days: number | null;
@@ -20,6 +21,7 @@ interface Trade {
 
 interface Props {
   initialHistory: Trade[];
+  lastUpdated?: string;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -46,12 +48,25 @@ function pnlFromReturn(ret: number | null): number | null {
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
-export default function SwingPerformanceDashboard({ initialHistory }: Props) {
+export default function SwingPerformanceDashboard({ initialHistory, lastUpdated }: Props) {
   const [selectedSector,    setSelectedSector]    = useState("All");
   const [selectedSubsector, setSelectedSubsector] = useState("All");
   const [selectedYear,      setSelectedYear]      = useState("All");
   const [selectedMonth,     setSelectedMonth]     = useState("All");
   const [selectedDate,      setSelectedDate]      = useState("");
+
+  // Format last updated time
+  const formatLastUpdated = (isoString?: string) => {
+    if (!isoString) return "—";
+    try {
+      const date = new Date(isoString);
+      return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) +
+        " " +
+        date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+    } catch {
+      return "—";
+    }
+  };
 
   // ── Derived filter options ─────────────────────────────────────────────────
   const sectors = useMemo(() => {
@@ -167,6 +182,14 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
 
   return (
     <>
+      {/* ── Last Updated ────────────────────────────────────────────────── */}
+      {lastUpdated && (
+        <div className="mb-6 p-4 rounded-xl bg-[#1a2030] border border-[#1e2a3a]">
+          <p className="text-xs text-[#64748b] uppercase tracking-wider mb-1">Prices Last Updated</p>
+          <p className="text-sm font-mono text-white">{formatLastUpdated(lastUpdated)}</p>
+        </div>
+      )}
+
       {/* ── Filters ─────────────────────────────────────────────────────── */}
       <div className="flex flex-wrap gap-3 mb-8 items-center">
         <select
@@ -317,15 +340,12 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                     <p className="font-mono font-bold text-white">${fmt(t.entry)}</p>
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Peak Price</p>
-                    <p className="font-mono text-white">{t.max_price != null ? `$${fmt(t.max_price)}` : "—"}</p>
-                    {t.peak_date && <p className="text-[9px] text-[#475569]">{t.peak_date}</p>}
+                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Current</p>
+                    <p className="font-mono font-bold text-[#3b82f6]">${fmt(t.current_price)}</p>
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Max Return</p>
-                    <p className={`font-mono font-black ${retColor(t.return_pct)}`}>
-                      {t.return_pct != null ? `${t.return_pct >= 0 ? "+" : ""}${fmt(t.return_pct, 1)}%` : "—"}
-                    </p>
+                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Peak</p>
+                    <p className="font-mono text-white">{t.max_price != null ? `$${fmt(t.max_price)}` : "—"}</p>
                   </div>
                   <div>
                     <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Days to Peak</p>
@@ -353,6 +373,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                   <th className="px-4 py-3 font-bold uppercase tracking-wider">Symbol</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e]">Max Return</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Entry Price</th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Current Price</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Peak Price</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-center">Days to Peak</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6]">PnL/$1000</th>
@@ -382,6 +403,7 @@ export default function SwingPerformanceDashboard({ initialHistory }: Props) {
                           : "—"}
                       </td>
                       <td className="px-4 py-3 text-right">${fmt(t.entry)}</td>
+                      <td className="px-4 py-3 text-right font-bold text-[#3b82f6]">${fmt(t.current_price)}</td>
                       <td className="px-4 py-3 text-right">
                         {t.max_price != null ? (
                           <span>
