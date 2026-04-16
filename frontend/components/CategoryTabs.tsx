@@ -96,26 +96,29 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             style={{ animationDelay: `${idx * 60}ms` }}
           >
             {/* Top row: ticker + score */}
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2">
               <div>
                 <span className="text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
                   {stock.ticker}
                 </span>
-                <p className="text-[11px] text-[#64748b] font-bold uppercase tracking-wider truncate max-w-[140px]">
+                <p className="text-[11px] text-[#64748b] font-bold uppercase tracking-wider truncate max-w-[120px]">
                   {stock.company}
                 </p>
               </div>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider ${getScoreBadgeClass(stock.score_type)}`}>
-                {stock.score_type.replace("_", " ")}
-              </span>
+              {/* Score — compact, secondary */}
+              <div className="text-right">
+                <div className="text-lg font-mono font-black text-[#3b82f6] leading-none">
+                  {stock.master_score.toFixed(0)}
+                </div>
+                <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">PTS</div>
+              </div>
             </div>
 
-            {/* Score */}
+            {/* Status badge — prominent, primary */}
             <div className="mb-3">
-              <div className="text-3xl font-mono font-black text-[#3b82f6] leading-none">
-                {stock.master_score.toFixed(1)}
-              </div>
-              <div className="text-[10px] text-[#64748b] font-bold uppercase tracking-[0.2em] mt-1 leading-none">SCORE</div>
+              <span className={`inline-block px-3 py-1 rounded-md text-sm font-black uppercase tracking-wide ${getScoreBadgeClass(stock.score_type)}`}>
+                {stock.score_type.replace(/_/g, " ")}
+              </span>
             </div>
 
             {/* Time-Period Returns */}

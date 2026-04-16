@@ -13,8 +13,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "US Stock AI Analysis & Daily Trading Scores | BOGA - Blue One Global Analysis - Daily +500",
-  description: "Discover the strongest US stocks with BOGA AI. Daily analysis of +500 top equities, breakout scores, and momentum picks updated daily at 9:00 AM ET.",
+  title: "US Stock AI Analysis & Daily Trading Scores | BOGA - Blue One Global Analysis - Daily +500 Stocks",
+  description: "Discover the strongest US stocks with BOGA AI. Daily 1D scan of +500 equities — breakout, momentum, reversal, and passive income picks updated every morning.",
   keywords: ["US stock AI analysis", "daily stock scores", "stock screener today", "best stocks to buy", "BOGA AI"],
   alternates: {
     canonical: "https://bogastock.com",
@@ -72,7 +72,7 @@ export default async function HomePage() {
         {/* Hero - Repositioned */}
         <section className="text-center mb-10 animate-fade-in">
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">
-            Find the Best +100 US Stocks
+            Find the Best US Stocks
             <span className="text-[#3b82f6]"> with BOGA AI</span>
           </h1>
         </section>

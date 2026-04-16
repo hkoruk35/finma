@@ -936,30 +936,63 @@ NOW WRITE YOUR ANALYSIS USING EXACTLY THESE 3 HEADERS:
 """
 
 
+def generate_rule_based_summary(stock: Dict) -> str:
+    """Generate a 1-sentence BOGA AI summary based on RSI, MACD, volume — no Gemini needed."""
+    tech   = stock.get("_tech", {})
+    price  = stock.get("price", {})
+    scores = stock.get("scores", {})
+    ticker = stock.get("ticker", "")
+
+    rsi       = tech.get("rsi_14") or 50.0
+    macd_hist = tech.get("macd_histogram") or 0.0
+    rvol      = tech.get("rvol_today") or price.get("rvol_today") or 1.0
+    adx       = tech.get("adx") or 0.0
+    ema_bull  = tech.get("ema_stack_bullish", False)
+    change_1d = price.get("change_pct") or 0.0
+    score_type = scores.get("signal_type", "").replace("_", " ").title()
+
+    # Determine trend direction
+    rsi_up   = rsi >= 50
+    macd_up  = macd_hist > 0
+    vol_up   = rvol >= 1.3
+    trend_up = ema_bull or change_1d > 0
+
+    # Count bullish signals
+    bull_count = sum([rsi_up, macd_up, vol_up, trend_up])
+
+    if rsi >= 70 and macd_up:
+        return f"{ticker} is in overbought territory with RSI at {rsi:.0f}, but strong MACD momentum suggests the trend may continue higher with elevated volume."
+    elif rsi <= 30 and not macd_up:
+        return f"{ticker} is deeply oversold (RSI {rsi:.0f}) with bearish MACD, signaling potential capitulation — watch for a reversal setup near current levels."
+    elif rsi <= 35:
+        return f"{ticker} shows oversold RSI ({rsi:.0f}) with weakening momentum; a bounce setup is forming if volume supports the move."
+    elif bull_count == 4:
+        return f"{ticker} shows full bullish alignment — RSI {rsi:.0f}, rising MACD, {rvol:.1f}x relative volume, and price above key EMAs confirm strong momentum."
+    elif bull_count == 3 and macd_up and vol_up:
+        return f"{ticker} is building momentum with RSI at {rsi:.0f}, positive MACD histogram, and {rvol:.1f}x above-average volume supporting the upside move."
+    elif bull_count == 3 and rsi_up:
+        return f"{ticker} maintains a bullish bias — RSI {rsi:.0f}, {('rising' if macd_up else 'neutral')} MACD, and {'elevated' if vol_up else 'normal'} volume keep the trend intact."
+    elif bull_count == 2 and macd_up:
+        return f"{ticker} shows mixed signals with RSI at {rsi:.0f} and positive MACD momentum, but volume confirmation is needed for a decisive breakout."
+    elif bull_count == 2 and not macd_up:
+        return f"{ticker} is range-bound — RSI {rsi:.0f} with flat MACD and {'above-average' if vol_up else 'below-average'} volume; trend direction remains unclear."
+    elif bull_count <= 1 and not macd_up:
+        return f"{ticker} is under selling pressure — RSI at {rsi:.0f}, negative MACD, and {rvol:.1f}x volume indicate continued bearish momentum."
+    else:
+        return f"{ticker} trades near equilibrium with RSI {rsi:.0f} and {'positive' if macd_up else 'neutral'} MACD; watch for a catalyst to establish directional bias."
+
+
 async def generate_ai_summaries(stocks: List[Dict]) -> Dict[str, str]:
-    """Generate Gemini AI summaries for qualifying stocks."""
-    if not gemini_client:
-        return {}
+    """Generate rule-based 1-sentence AI summaries for all stocks (no Gemini)."""
     summaries = {}
-    batches = [stocks[i:i+GEMINI_BATCH_SIZE] for i in range(0, len(stocks), GEMINI_BATCH_SIZE)]
-    for batch_idx, batch in enumerate(batches):
-        if batch_idx > 0:
-            log.info(f"Gemini rate limit delay: {GEMINI_BATCH_DELAY_SEC}s...")
-            await asyncio.sleep(GEMINI_BATCH_DELAY_SEC)
-        for stock in batch:
-            ticker = stock["ticker"]
-            try:
-                prompt   = build_gemini_prompt(stock)
-                response = await asyncio.to_thread(
-                    gemini_client.models.generate_content,
-                    model=GEMINI_MODEL,
-                    contents=prompt
-                )
-                summaries[ticker] = response.text.strip()
-                log.info(f"AI summary generated: {ticker}")
-            except Exception as e:
-                log.warning(f"Gemini failed for {ticker}: {e}")
-                summaries[ticker] = ""
+    for stock in stocks:
+        ticker = stock["ticker"]
+        try:
+            summaries[ticker] = generate_rule_based_summary(stock)
+        except Exception as e:
+            log.warning(f"Summary generation failed for {ticker}: {e}")
+            summaries[ticker] = ""
+    log.info(f"Rule-based summaries generated for {len(summaries)} stocks.")
     return summaries
 
 
@@ -1518,53 +1551,25 @@ async def daily_run():
     # 9. Sector summary
     sector_summary = compute_sector_summary(all_stocks_data)
 
-    # 10. AI summaries (only for tickers in any menu)
-    menu_tickers = set()
-    for m in menus.values(): menu_tickers.update(m["tickers"])
-    
-    last_master = get_last_run_data()
-    ai_summaries = {}
-    stocks_to_generate = []
+    # 10. AI summaries — rule-based 1-sentence for ALL scanned stocks (no Gemini)
+    log.info(f"Generating rule-based summaries for {len(all_stocks_data)} stocks...")
+    ai_summaries = await generate_ai_summaries(all_stocks_data)
 
-    # Caching check
-    for s in all_stocks_data:
-        ticker = s["ticker"]
-        if ticker not in menu_tickers:
-            continue
-            
-        today_score = s["scores"]["master_score"]
-        cached_summary = None
-        
-        # Check if we can reuse yesterday's summary
-        if last_master:
-            # We need to load individual stock JSON since master doesn't store summaries
-            prev_stock_path = os.path.join(DATA_DIR, last_master["date"], "stocks", f"{ticker}.json")
-            if os.path.exists(prev_stock_path):
-                try:
-                   with open(prev_stock_path, "r") as f:
-                       prev_data = json.load(f)
-                       prev_score = prev_data.get("scores", {}).get("master_score", 0)
-                       if abs(today_score - prev_score) <= 5.0:
-                           cached_summary = prev_data.get("ai_summary")
-                except: pass
-
-        if cached_summary:
-            ai_summaries[ticker] = cached_summary
-            log.info(f"Using cached AI summary for {ticker} (Score Δ <= 5)")
-        else:
+    if False:  # Legacy Gemini block — kept for reference only
+        menu_tickers = set()
+        for m in menus.values(): menu_tickers.update(m["tickers"])
+        last_master = get_last_run_data()
+        stocks_to_generate = []
+        for s in all_stocks_data:
+            ticker = s["ticker"]
+            if ticker not in menu_tickers:
+                continue
             stocks_to_generate.append({
                 "ticker": ticker, "company": s.get("company", s["ticker"]),
                 "sector": s.get("sector", ""), "date": date_str,
                 "price": s["price"], "technical": s["_tech"],
                 "fundamental": s["fundamental"], "scores": s["scores"],
             })
-
-    if stocks_to_generate:
-        log.info(f"Generating new AI summaries for {len(stocks_to_generate)} stocks...")
-        new_summaries = await generate_ai_summaries(stocks_to_generate)
-        ai_summaries.update(new_summaries)
-    else:
-        log.info("All AI summaries retrieved from cache.")
 
     # 11. Insider activity
     log.info("Fetching insider activity...")
@@ -1627,13 +1632,8 @@ async def daily_run():
     }
     save_json(os.path.join(date_dir, "sectors.json"), sectors_json)
 
-    # 15. all_tickers_list.json
-    # Sadece "top_scores" listesine girmeyi başaran ilk 100 hisseyi al
-    top_100_tickers = menus.get("top_scores", {}).get("tickers", [])
-    top_100_data = [s for s in all_stocks_data if s["ticker"] in top_100_tickers]
-    
-    # Bu 100 hisseyi kendi içinde master_score'a göre yüksekten düşüğe sırala
-    top_100_data.sort(key=lambda x: x["scores"]["master_score"], reverse=True)
+    # 15. all_tickers_list.json — tüm taranan hisseleri dahil et
+    all_stocks_sorted = sorted(all_stocks_data, key=lambda x: x["scores"]["master_score"], reverse=True)
 
     tickers_list = {
         "date": date_str,
@@ -1653,9 +1653,9 @@ async def daily_run():
                 "entry_range_high": s["scores_detail"]["entry_range_high"],
                 "volume":          s["price"].get("volume"),
                 "avg_volume_30d":  s["price"].get("avg_volume_30d"),
-                "ai_short_summary": (ai_summaries.get(s["ticker"], "").split(".")[0] + ".") if ai_summaries.get(s["ticker"]) else ""
+                "ai_short_summary": ai_summaries.get(s["ticker"], "")
             }
-            for s in top_100_data
+            for s in all_stocks_sorted
         ],
     }
     save_json(os.path.join(date_dir, "all_tickers_list.json"), tickers_list)

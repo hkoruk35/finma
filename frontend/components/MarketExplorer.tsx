@@ -13,8 +13,8 @@ interface Props {
 export default function MarketExplorer({ master, allTickers }: Props) {
   const [themeFilter, setThemeFilter] = useState<string[] | null>(null);
 
-  // Calculate active tickers from all menus for ThemeShowcase
-  const activeTickers = Array.from(new Set(Object.values(master.menus).flatMap(m => m.tickers)));
+  // Use ALL scanned tickers for Active Market Themes
+  const activeTickers = allTickers.map(t => t.ticker);
 
   const handleThemeSelect = (tickers: string[]) => {
     // If clicking same theme, clear filter. Else set it.

@@ -38,14 +38,14 @@ interface Props {
 }
 
 export default function SectorHeatMap({ data, allTickers }: Props) {
-  // Filter to top 100 by daily volume (fallback: master_score) for heatmap display
-  const top100 = [...allTickers]
-    .sort((a, b) => (b.volume ?? b.avg_volume_30d ?? b.master_score) - (a.volume ?? a.avg_volume_30d ?? a.master_score))
-    .slice(0, 100);
+  // Use ALL tickers, sorted by volume for display order within each sector
+  const sorted = [...allTickers].sort(
+    (a, b) => (b.volume ?? b.avg_volume_30d ?? b.master_score) - (a.volume ?? a.avg_volume_30d ?? a.master_score)
+  );
 
-  // Grouping
+  // Grouping — all sectors, all tickers
   const sectorGroups: Record<string, StockQuickView[]> = {};
-  top100.forEach(t => {
+  sorted.forEach(t => {
     const s = t.sector || "Other";
     if (!sectorGroups[s]) sectorGroups[s] = [];
     sectorGroups[s].push(t);
@@ -63,7 +63,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
               Sector Heat Map
             </h2>
             <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase">
-              Real-time Market Distribution &middot; Top 100 by Volume
+              Real-time Market Distribution &middot; All {allTickers.length} Stocks
             </p>
           </div>
         </div>
