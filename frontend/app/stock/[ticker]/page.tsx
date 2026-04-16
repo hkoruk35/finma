@@ -248,8 +248,19 @@ export default async function StockDetailPage({ params }: Props) {
               <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">NY TIME</span>
             </div>
           </div>
+          {(stock as any)._company_mismatch && (
+            <div className="px-4 py-2 bg-[#f59e0b]/10 border-b border-[#f59e0b]/30 flex items-center gap-2">
+              <span className="text-[#f59e0b] text-xs">⚠</span>
+              <span className="text-xs text-[#f59e0b]">
+                Chart may show a different company. BOGA tracks{" "}
+                <strong>{(stock as any)._company_mismatch.local}</strong>{" "}
+                — TradingView may default to{" "}
+                <strong>{(stock as any)._company_mismatch.yfinance}</strong>.
+              </span>
+            </div>
+          )}
           <div className="w-full min-h-[260px] md:min-h-[300px]">
-            <TradingViewWidget symbol={stock.ticker} />
+            <TradingViewWidget symbol={stock.ticker} exchange={(stock as any)._exchange ?? undefined} />
           </div>
         </div>
 

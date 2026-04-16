@@ -213,6 +213,33 @@ export async function getMasterData(date?: string): Promise<MasterData | null> {
   }
 }
 
+// Exchange map cache (server-side only, loaded once per request lifecycle)
+let _exchangeMapCache: { exchanges: Record<string, string>; company_mismatches: Record<string, any> } | null = null;
+
+async function getExchangeMap(): Promise<{ exchanges: Record<string, string>; company_mismatches: Record<string, any> }> {
+  if (_exchangeMapCache) return _exchangeMapCache;
+  if (typeof window === "undefined") {
+    try {
+      const mod = await import("./data-server");
+      const data = mod.readPublicJson("exchange_map.json");
+      if (data) {
+        _exchangeMapCache = { exchanges: data.exchanges || {}, company_mismatches: data.company_mismatches || {} };
+        return _exchangeMapCache;
+      }
+    } catch {}
+  } else {
+    try {
+      const res = await fetch("/exchange_map.json", { signal: AbortSignal.timeout(3000) });
+      if (res.ok) {
+        const data = await res.json();
+        _exchangeMapCache = { exchanges: data.exchanges || {}, company_mismatches: data.company_mismatches || {} };
+        return _exchangeMapCache;
+      }
+    } catch {}
+  }
+  return { exchanges: {}, company_mismatches: {} };
+}
+
 export async function getStockData(ticker: string): Promise<(StockDetail & { is_mock?: boolean }) | null> {
   const t = ticker.toUpperCase();
   let data: any = null;
@@ -228,10 +255,11 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
     } catch (e) { console.warn("Fetch detailed stock err", e); }
   }
 
-  // 2. Load other sources for synchronization (Summary list, Swing picks)
-  const [allTickers, swingPicksData] = await Promise.all([
+  // 2. Load other sources for synchronization (Summary list, Swing picks, Exchange map)
+  const [allTickers, swingPicksData, exchangeMap] = await Promise.all([
     getAllTickers(),
-    getSwingAllPicks()
+    getSwingAllPicks(),
+    getExchangeMap(),
   ]);
 
   const summary = allTickers.find(s => s.ticker === t);
@@ -308,6 +336,10 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       };
     }
 
+    // Attach exchange and company mismatch info for TradingView
+    data._exchange = exchangeMap.exchanges[t] || null;
+    data._company_mismatch = exchangeMap.company_mismatches[t] || null;
+
     return normalizeStockDetail(data);
   }
 
@@ -375,7 +407,11 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
   } else {
     (mock as any).is_mock = true;
   }
-  
+
+  // Attach exchange and company mismatch info for TradingView
+  (mock as any)._exchange = exchangeMap.exchanges[t] || null;
+  (mock as any)._company_mismatch = exchangeMap.company_mismatches[t] || null;
+
   return normalizeStockDetail(mock);
 }
 
