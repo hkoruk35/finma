@@ -13,23 +13,25 @@ export default function StatsBar({ data }: { data: MasterData }) {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-      {/* Active Scores */}
+      {/* Stocks Analyzed */}
       <div className="glass-card p-4 text-center">
         <div className="text-3xl font-bold font-mono text-[#3b82f6]">
-          {data.active_scores_count}
+          {data.total_tickers_scanned >= 500
+            ? `+${Math.floor(data.total_tickers_scanned / 100) * 100}`
+            : data.total_tickers_scanned}
         </div>
         <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
-          Active Scores
+          Stocks Analyzed
         </div>
       </div>
 
-      {/* Tickers Scanned */}
+      {/* Top Picks */}
       <div className="glass-card p-4 text-center">
         <div className="text-3xl font-bold font-mono text-[#f1f5f9]">
-          {data.total_tickers_scanned >= 500 ? `+${Math.floor(data.total_tickers_scanned / 100) * 100}` : data.total_tickers_scanned}
+          {data.menus?.top_scores?.count ?? data.total_tickers_scanned}
         </div>
         <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
-          Analyzed Today
+          Top Picks Today
         </div>
       </div>
 

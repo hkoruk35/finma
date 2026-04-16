@@ -1595,16 +1595,11 @@ async def daily_run():
         save_json(os.path.join(stocks_dir, f"{ticker}.json"), stock_json)
 
     # 13. master.json
-    unique_active_tickers = set()
-    for m in menus.values(): 
-        unique_active_tickers.update(m.get("tickers", []))
-    active_signals = len(unique_active_tickers)
-
     master_json = {
         "date":                  date_str,
         "generated_at":          datetime.now(NY_TZ).isoformat(),
         "total_tickers_scanned": len(all_stocks_data),
-        "active_scores_count":   active_signals,
+        "active_scores_count":   len(all_stocks_data),
         "market_regime":         regime,
         "menus":                 menus,
         "sector_summary":        sector_summary,
