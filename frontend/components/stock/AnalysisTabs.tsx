@@ -158,26 +158,26 @@ export default function AnalysisTabs({ stock }: Props) {
       {activeTab === "ai" && (
         <div className="glass-card overflow-hidden border-t-2 border-t-[#3b82f6]">
           {/* Language selector */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a] bg-[#0d1117]/60">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 py-4 border-b border-[#1e2a3a] bg-[#0d1117]/60">
+            <div className="flex items-center gap-2.5 shrink-0">
               <div className="w-1.5 h-5 bg-[#3b82f6] rounded-full" />
-              <span className="text-[11px] font-black text-white uppercase tracking-widest">
+              <span className="text-xs font-black text-white uppercase tracking-widest">
                 BOGA AI Analysis Engine
               </span>
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {LANG_LABELS.map((l) => (
                 <button
                   key={l.id}
                   onClick={() => setActiveLang(l.id)}
-                  className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-1 ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 border ${
                     activeLang === l.id
-                      ? "bg-[#3b82f6] text-white"
-                      : "text-[#64748b] hover:text-white hover:bg-white/5"
+                      ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-md shadow-[#3b82f6]/20"
+                      : "border-[#1e2a3a] text-[#94a3b8] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5"
                   }`}
                 >
-                  <span>{l.flag}</span>
-                  <span className="hidden sm:inline">{l.name}</span>
+                  <span className="text-sm leading-none">{l.flag}</span>
+                  <span>{l.name}</span>
                 </button>
               ))}
             </div>
