@@ -24,13 +24,14 @@ jobs:
 
       - name: Copy bot data into public folder for Vercel
         run: |
-          mkdir -p frontend/public/data
+          mkdir -p frontend/public/data/latest
           if [ -d "transfer/latest" ]; then
-            cp -r transfer/latest frontend/public/data/latest
-            echo "Bot data copied to public/data/latest"
+            cp -r transfer/latest/. frontend/public/data/latest/
+            echo "Bot data copied from transfer/latest to public/data/latest"
           else
-            echo "No transfer/latest found — using mock data fallback"
+            echo "No transfer/latest found — committed public/data/latest will be used"
           fi
+          echo "Files in public/data/latest: $(ls frontend/public/data/latest | wc -l)"
 
       - name: Build
         working-directory: frontend

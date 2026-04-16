@@ -25,19 +25,26 @@ function sanitizeNaN(raw: string): string {
  */
 export function readJson(relPath: string, date?: string): any | null {
   const candidates: string[] = [];
-  
-  // If date is provided, target the archive folder for that date
+
   const folder = date ? date : "latest";
 
   if (process.env.FINMA_DATA_PATH) {
     candidates.push(process.env.FINMA_DATA_PATH);
   }
-  
-  // Local dev paths
+
+  // Vercel/production: public/data/latest is committed to the repo and copied at build time
+  // __dirname resolves reliably regardless of where Next.js sets process.cwd()
+  const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
+  candidates.push(path.join(dirBase, "public", "data", folder));
+  candidates.push(path.join(dirBase, "..", "public", "data", folder));
+
+  // process.cwd() based (works in most Next.js setups)
+  candidates.push(path.resolve(process.cwd(), "public", "data", folder));
+  candidates.push(path.resolve(process.cwd(), ".next", "server", "..", "..", "public", "data", folder));
+
+  // Local dev paths (worktree)
   candidates.push(path.resolve(process.cwd(), "..", "transfer", folder));
   candidates.push(path.resolve(process.cwd(), "..", "..", "transfer", folder));
-  // Vercel/production paths (archives are also in data/YYYY-MM-DD)
-  candidates.push(path.resolve(process.cwd(), "public", "data", folder));
   candidates.push(path.resolve(process.cwd(), "..", "data", folder));
 
   for (const base of candidates) {
