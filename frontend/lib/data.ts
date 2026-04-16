@@ -256,10 +256,11 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
   }
 
   // 2. Load other sources for synchronization (Summary list, Swing picks, Exchange map)
-  const [allTickers, swingPicksData, exchangeMap] = await Promise.all([
+  const [allTickers, swingPicksData, exchangeMap, perfData] = await Promise.all([
     getAllTickers(),
     getSwingAllPicks(),
     getExchangeMap(),
+    getSwingPerformance(),
   ]);
 
   const summary = allTickers.find(s => s.ticker === t);
@@ -405,7 +406,24 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
     }
     target.is_partial_mock = swingPick ? false : true;
   } else {
-    (mock as any).is_mock = true;
+    // Last resort: pull company/price info from swing_performance history
+    const perfHistory: any[] = perfData?.history || [];
+    const perfEntries = perfHistory.filter((e: any) => e.ticker === t);
+    if (perfEntries.length > 0) {
+      // Use most recent entry for company name; use last known market price (max_price or entry)
+      const latest = perfEntries.sort((a: any, b: any) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      )[0];
+      mock.company = latest.company || mock.company;
+      mock.sector = latest.sector || mock.sector;
+      // Use the most recent known price as a reference (entry price of the latest pick)
+      const latestPrice = latest.entry ?? null;
+      if (latestPrice && latestPrice > 0) mock.price.current = latestPrice;
+      (mock as any).is_mock = true;
+      (mock as any)._from_perf_history = true;
+    } else {
+      (mock as any).is_mock = true;
+    }
   }
 
   // Attach exchange and company mismatch info for TradingView
