@@ -1,0 +1,39 @@
+name: Daily Swing Price Update
+
+on:
+  schedule:
+    # Run at 9 AM UTC every day
+    - cron: '0 9 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    name: Update Swing Performance Prices
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yfinance pandas
+
+      - name: Run price update
+        run: python3 update_swing_prices.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "BOGA AI Bot"
+          git config user.email "bot@bogastock.com"
+          git add frontend/public/swing_performance.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update swing performance prices [bot]"
+            git push
+          fi

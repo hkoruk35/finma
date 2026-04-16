@@ -124,14 +124,14 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             {/* Time-Period Returns */}
             <div className="mb-5">
               <div className="text-[12px] text-[#64748b] font-bold uppercase tracking-[0.2em] mb-3 leading-none">RETURNS</div>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="flex items-stretch divide-x divide-[#1e2a3a]">
                 {[
                   { label: "1D", value: stock.change_pct },
                   { label: "1W", value: stock.change_pct_1w },
                   { label: "1M", value: stock.change_pct_1m },
                   { label: "1Y", value: stock.change_pct_1y },
                 ].map((period) => (
-                  <div key={period.label} className="text-center">
+                  <div key={period.label} className="flex-1 text-center px-1">
                     <div className={`text-[17px] md:text-[18px] font-mono font-black ${
                       period.value !== undefined && period.value !== null
                         ? getChangeColor(period.value)

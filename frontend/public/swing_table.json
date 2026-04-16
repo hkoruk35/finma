@@ -1,82 +1,82 @@
 [
   {
-    "Tarih": "15 Nisan",
+    "Tarih": "16 Nisan",
     "Sembol": "GSAT",
-    "Giriş (Buy_L)": 79.42,
-    "Stop (SL)": 78.95,
-    "Hedef 1 (TP1)": 84.14,
-    "Hedef 2 (TP2)": 85.32
+    "Giriş (Buy_L)": 79.76,
+    "Stop (SL)": 79.31,
+    "Hedef 1 (TP1)": 84.25,
+    "Hedef 2 (TP2)": 85.38
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "SGI",
-    "Giriş (Buy_L)": 81.06,
-    "Stop (SL)": 80.7,
-    "Hedef 1 (TP1)": 84.68,
-    "Hedef 2 (TP2)": 85.59
+    "Tarih": "16 Nisan",
+    "Sembol": "JAZZ",
+    "Giriş (Buy_L)": 197.91,
+    "Stop (SL)": 197.41,
+    "Hedef 1 (TP1)": 202.86,
+    "Hedef 2 (TP2)": 204.1
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "CVNA",
-    "Giriş (Buy_L)": 372.0,
-    "Stop (SL)": 369.89,
-    "Hedef 1 (TP1)": 369.18,
-    "Hedef 2 (TP2)": 379.73
+    "Tarih": "16 Nisan",
+    "Sembol": "LEG",
+    "Giriş (Buy_L)": 11.38,
+    "Stop (SL)": 11.34,
+    "Hedef 1 (TP1)": 11.82,
+    "Hedef 2 (TP2)": 11.93
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "ARW",
-    "Giriş (Buy_L)": 168.0,
-    "Stop (SL)": 167.43,
-    "Hedef 1 (TP1)": 173.71,
-    "Hedef 2 (TP2)": 175.14
+    "Tarih": "16 Nisan",
+    "Sembol": "OGN",
+    "Giriş (Buy_L)": 9.15,
+    "Stop (SL)": 9.09,
+    "Hedef 1 (TP1)": 9.39,
+    "Hedef 2 (TP2)": 9.67
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "AVT",
-    "Giriş (Buy_L)": 70.07,
-    "Stop (SL)": 69.86,
-    "Hedef 1 (TP1)": 72.23,
-    "Hedef 2 (TP2)": 72.77
+    "Tarih": "16 Nisan",
+    "Sembol": "JBHT",
+    "Giriş (Buy_L)": 238.85,
+    "Stop (SL)": 227.48,
+    "Hedef 1 (TP1)": 261.59,
+    "Hedef 2 (TP2)": 267.27
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "NBIS",
-    "Giriş (Buy_L)": 156.5,
-    "Stop (SL)": 155.48,
-    "Hedef 1 (TP1)": 157.18,
-    "Hedef 2 (TP2)": 162.29
+    "Tarih": "16 Nisan",
+    "Sembol": "ZM",
+    "Giriş (Buy_L)": 84.95,
+    "Stop (SL)": 83.07,
+    "Hedef 1 (TP1)": 88.71,
+    "Hedef 2 (TP2)": 89.65
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "NOK",
-    "Giriş (Buy_L)": 9.79,
-    "Stop (SL)": 9.44,
-    "Hedef 1 (TP1)": 10.11,
-    "Hedef 2 (TP2)": 10.33
+    "Tarih": "16 Nisan",
+    "Sembol": "CRWV",
+    "Giriş (Buy_L)": 114.8,
+    "Stop (SL)": 114.04,
+    "Hedef 1 (TP1)": 113.68,
+    "Hedef 2 (TP2)": 117.5
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "QXO",
-    "Giriş (Buy_L)": 22.96,
-    "Stop (SL)": 22.85,
-    "Hedef 1 (TP1)": 22.51,
-    "Hedef 2 (TP2)": 23.08
+    "Tarih": "16 Nisan",
+    "Sembol": "AMKR",
+    "Giriş (Buy_L)": 61.1,
+    "Stop (SL)": 60.36,
+    "Hedef 1 (TP1)": 64.48,
+    "Hedef 2 (TP2)": 65.33
   },
   {
-    "Tarih": "15 Nisan",
-    "Sembol": "FORM",
-    "Giriş (Buy_L)": 127.11,
-    "Stop (SL)": 126.4,
-    "Hedef 1 (TP1)": 126.52,
-    "Hedef 2 (TP2)": 130.08
+    "Tarih": "16 Nisan",
+    "Sembol": "LUMN",
+    "Giriş (Buy_L)": 8.41,
+    "Stop (SL)": 8.35,
+    "Hedef 1 (TP1)": 8.88,
+    "Hedef 2 (TP2)": 8.99
   },
   {
-    "Tarih": "15 Nisan",
+    "Tarih": "16 Nisan",
     "Sembol": "CLS",
-    "Giriş (Buy_L)": 367.02,
-    "Stop (SL)": 345.7,
-    "Hedef 1 (TP1)": 378.21,
-    "Hedef 2 (TP2)": 388.2
+    "Giriş (Buy_L)": 375.0,
+    "Stop (SL)": 373.02,
+    "Hedef 1 (TP1)": 374.17,
+    "Hedef 2 (TP2)": 384.07
   }
 ]
