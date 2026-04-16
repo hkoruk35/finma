@@ -1065,24 +1065,13 @@ def build_menus(all_stocks_data: List[Dict]) -> Dict:
     momentum  = top_n("momentum_cat_score",  lim["momentum"]["max"],  lim["momentum"]["min"])
     dividend  = top_n("dividend_score",  lim["dividend"]["max"],  lim["dividend"]["min"])
 
-    # Sadece yükseliş trendinde olan ve en yüksek puana sahip tam 100 hisseyi seç.
-    # "2 menüde olma" şartı kaldırıldı, ana kriter "Trend + Master Score".
+    # 1D skor sıralaması — tüm qualifying hisseler master_score'a göre sıralı.
+    # Limit yok; ana sayfa zaten ilk 8'i gösterir, kategori sayfası tamamını.
     ts_candidates = [s for s in all_stocks_data
-                     if s["price"]["current"] > (s["_tech"].get("ema_200") or 0)
-                     and s["price"]["current"] >= 5.0
+                     if s["price"]["current"] >= 5.0
                      and (s["price"]["avg_volume_30d"] or 0) >= 500000]
-    
     ts_candidates.sort(key=lambda x: x["scores"]["master_score"], reverse=True)
-    
-    # Her zaman tam 100 hisse al (Eğer aday azsa trend şartını esneterek 100'e tamamla)
-    top_scores = [s["ticker"] for s in ts_candidates[:100]]
-    
-    if len(top_scores) < 100:
-        existing = set(top_scores)
-        remaining = [s["ticker"] for s in sorted(all_stocks_data, 
-                     key=lambda x: x["scores"]["master_score"], reverse=True) 
-                     if s["ticker"] not in existing]
-        top_scores.extend(remaining[:(100 - len(top_scores))])
+    top_scores = [s["ticker"] for s in ts_candidates]
 
     return {
         "top_scores": {"count": len(top_scores),  "tickers": top_scores},

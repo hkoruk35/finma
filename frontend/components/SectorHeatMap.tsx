@@ -63,7 +63,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
               Sector Heat Map
             </h2>
             <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase">
-              Real-time Market Distribution &middot; All {allTickers.length} Stocks
+              Real-time Market Distribution &middot; {activeSectors.length} Sectors · Top 12 per Sector
             </p>
           </div>
         </div>
