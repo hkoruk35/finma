@@ -150,7 +150,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             {/* AI Summary One-Liner */}
             <div className="mb-4">
               <p className="text-[12px] text-[#f1f5f9] leading-[1.3] italic line-clamp-2 min-h-[2.6em]">
-                {stock.ai_short_summary || `Analysis for ${stock.ticker} points to a ${stock.score_type.replace(/_/g, " ").toLowerCase()} bias based on market metrics.`}
+                {stock.ai_short_summary || `${stock.ticker} shows a ${stock.score_type.replace(/_/g, " ").toLowerCase()} setup based on current 1D technicals.`}
               </p>
             </div>
 
