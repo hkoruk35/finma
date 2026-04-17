@@ -1,0 +1,128 @@
+{
+  "rank": 3,
+  "ticker": "LEG",
+  "company": "LEG",
+  "sector": "Consumer Cyclical",
+  "score": 56.4,
+  "boga_score": 56.4,
+  "market_regime": "BULLISH",
+  "current_price": 11.36,
+  "holding_period": "8-13 Days",
+  "buy_zone": {
+    "low": 11.38,
+    "high": 11.48
+  },
+  "profit_zone": {
+    "low": 11.82,
+    "high": 11.93
+  },
+  "stop_zone": {
+    "low": 11.16,
+    "high": 11.34
+  },
+  "reasoning": "BOGA AI assigns LEG a score of 56/100 in a Makro Bullish trend — entry zone $11.38–$11.48 targets $11.93 with a 13.8:1 risk/reward.",
+  "detail_reasoning": "LEG operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 56/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 64 — momentum is building in the healthy bullish zone without being overextended, with ADX at 30 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 0.0% with a net margin of 0.0%, which means it keeps $0.0 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $11.38 and $11.48, target $11.93, and place a hard stop at $11.34 — a 13.8:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+  "adx": 29.9,
+  "rsi": 64.5,
+  "rvol": 0.56,
+  "change_1d": 0.09,
+  "change_1w": 12.81,
+  "change_1m": 11.26,
+  "change_1y": 73.7,
+  "change_5y": -74.69,
+  "boga_zones": {
+    "buying_zone": {
+      "low": 11.38,
+      "high": 11.48
+    },
+    "sell_zone": {
+      "low": 11.82,
+      "high": 11.93
+    },
+    "stop_loss_zone": {
+      "low": 11.16,
+      "high": 11.34
+    },
+    "risk_reward": 13.75,
+    "support_1h": 11.38,
+    "resistance_1h": 11.45,
+    "atr_1d": 0.44,
+    "atr_pct": 3.85,
+    "risk_usd": 0.04,
+    "reward_usd": 0.55
+  },
+  "trend_status": {
+    "trend": "Makro Bullish",
+    "rsi_14": 64.5,
+    "adx": 29.9,
+    "macd_hist": 0.258,
+    "mfi": 81.3,
+    "cmf": 0.1092,
+    "rvol_today": 0.56,
+    "entry_trigger": "Rising: Gaining Momentum",
+    "is_exhausted": false
+  },
+  "moving_averages": {
+    "ema_20": 10.48,
+    "ema_50": 10.66,
+    "ema_200": 10.11,
+    "price_vs_ema20": 0.92,
+    "price_vs_ema50": 0.74,
+    "price_vs_ema200": 1.29,
+    "ema20_slope": "Positive"
+  },
+  "hourly_analysis": {
+    "rsi_1h": 57.3,
+    "adx_1h": 34.9,
+    "rvol_1h": "1.0x (Normal)",
+    "ema_structure": "Below EMA50",
+    "pivot_structure": "Normal"
+  },
+  "fundamentals": {
+    "gross_margin_pct": 0,
+    "operating_margin_pct": 0,
+    "net_margin_pct": 0,
+    "revenue_growth_pct": 0,
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "fcf_yield_pct": 0,
+    "market_cap": "1.60B",
+    "market_cap_usd": 1597959424
+  },
+  "performance": {
+    "1d_pct": 0.4,
+    "1w_pct": 13.16,
+    "1m_pct": 11.61,
+    "1y_pct": 76.84,
+    "5y_pct": -74.69
+  },
+  "factor_scores": {
+    "trend_score": 6.0,
+    "momentum_score": 12.0,
+    "volatility_score": 8.0,
+    "volume_score": 0.0,
+    "financial_score": 0.0,
+    "catalyst_score": 0.8,
+    "insider_score": 0.0,
+    "composite": 5.35,
+    "raw_score": 107.33
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns LEG a score of 56/100 in a Makro Bullish trend — entry zone $11.38–$11.48 targets $11.93 with a 13.8:1 risk/reward.",
+      "tr": "BOGA AI, LEG hissesine Makro Bullish trend içinde 56/100 skor verdi — $11.38–$11.48 giriş bölgesi, $11.93 hedef, 13.8:1 risk/ödül oranı.",
+      "es": "BOGA AI otorga a LEG una puntuación de 56/100 en tendencia Makro Bullish — zona de entrada $11.38–$11.48, objetivo $11.93, relación riesgo/beneficio 13.8:1.",
+      "pt": "BOGA AI atribui ao LEG uma pontuação de 56/100 em tendência Makro Bullish — zona de entrada $11.38–$11.48, alvo $11.93, relação risco/retorno 13.8:1.",
+      "fr": "BOGA AI attribue à LEG un score de 56/100 en tendance Makro Bullish — zone d'entrée $11.38–$11.48, objectif $11.93, ratio risque/rendement 13.8:1.",
+      "id": "BOGA AI memberi LEG skor 56/100 dalam tren Makro Bullish — zona beli $11.38–$11.48, target $11.93, rasio risiko/imbalan 13.8:1."
+    },
+    "detail_summary": {
+      "en": "LEG operates in the Consumer Cyclical sector, and BOGA AI's algorithm flagged it with a 56/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 64 — momentum is building in the healthy bullish zone without being overextended, with ADX at 30 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 0.0% with a net margin of 0.0%, which means it keeps $0.0 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $11.38 and $11.48, target $11.93, and place a hard stop at $11.34 — a 13.8:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+      "tr": "LEG, Consumer Cyclical sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 56/100 skor atadı. Teknik tarafta RSI 64 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ADX 30 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %0.0 büyütürken net kar marjı %0.0 — yani her 100 dolarlık satıştan 0.0 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $11.38–$11.48 aralığından giriş, $11.93 kâr hedefi, $11.34 kesin stop — 13.8:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
+      "es": "LEG opera en el sector Consumer Cyclical, y el algoritmo BOGA AI le asignó 56/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 64 — impulso saludable, sin sobreextensión, con ADX en 30 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 0.0% con un margen neto del 0.0% — es decir, retiene $0.0 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $11.38 y $11.48, objetivo $11.93, stop definitivo en $11.34 — una relación recompensa/riesgo de 13.8:1 que lo convierte en candidato ideal para swing trade.",
+      "pt": "LEG atua no setor de Consumer Cyclical, e o algoritmo BOGA AI atribuiu 56/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 64 — momentum saudável, sem sobreextensão, com ADX em 30 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 0.0% com margem líquida de 0.0% — ou seja, retém $0.0 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $11.38 e $11.48, alvo $11.93, stop definitivo em $11.34 — uma relação retorno/risco de 13.8:1 que o torna candidato ideal para swing trade.",
+      "fr": "LEG opère dans le secteur Consumer Cyclical, et l'algorithme BOGA AI lui a attribué 56/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 64 — momentum haussier sain, sans surextension, avec un ADX à 30 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 0.0% avec une marge nette de 0.0% — soit $0.0 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $11.38 et $11.48, objectif $11.93, stop définitif à $11.34 — un ratio rendement/risque de 13.8:1 qui en fait un candidat idéal pour le swing trade.",
+      "id": "LEG beroperasi di sektor Consumer Cyclical, dan algoritma BOGA AI menetapkan skor 56/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 64 — momentum bullish sehat, tidak berlebihan, dengan ADX 30 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 0.0% dengan margin bersih 0.0% — artinya setiap $100 penjualan menghasilkan $0.0 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $11.38 dan $11.48, target $11.93, stop ketat di $11.34 — rasio imbalan/risiko 13.8:1 menjadikannya kandidat swing trade yang terukur."
+    }
+  }
+}

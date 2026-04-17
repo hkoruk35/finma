@@ -1,0 +1,128 @@
+{
+  "rank": 2,
+  "ticker": "JAZZ",
+  "company": "JAZZ",
+  "sector": "Healthcare",
+  "score": 62.1,
+  "boga_score": 62.1,
+  "market_regime": "BULLISH",
+  "current_price": 197.97,
+  "holding_period": "10-15 Days",
+  "buy_zone": {
+    "low": 197.91,
+    "high": 199.27
+  },
+  "profit_zone": {
+    "low": 202.86,
+    "high": 204.1
+  },
+  "stop_zone": {
+    "low": 195.43,
+    "high": 197.41
+  },
+  "reasoning": "BOGA AI assigns JAZZ a score of 62/100 in a Makro Bullish trend — entry zone $197.91–$199.27 targets $204.10 with a 12.4:1 risk/reward.",
+  "detail_reasoning": "JAZZ operates in the Healthcare sector, and BOGA AI's algorithm flagged it with a 62/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 63 — momentum is building in the healthy bullish zone without being overextended, with ADX at 30 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 10.1% with a net margin of -8.3%, which means it keeps $-8.3 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $197.91 and $199.27, target $204.10, and place a hard stop at $197.41 — a 12.4:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+  "adx": 30.5,
+  "rsi": 63.3,
+  "rvol": 1.14,
+  "change_1d": -0.68,
+  "change_1w": -0.09,
+  "change_1m": 9.15,
+  "change_1y": 92.37,
+  "change_5y": 10.86,
+  "boga_zones": {
+    "buying_zone": {
+      "low": 197.91,
+      "high": 199.27
+    },
+    "sell_zone": {
+      "low": 202.86,
+      "high": 204.1
+    },
+    "stop_loss_zone": {
+      "low": 195.43,
+      "high": 197.41
+    },
+    "risk_reward": 12.38,
+    "support_1h": 197.91,
+    "resistance_1h": 198.83,
+    "atr_1d": 4.95,
+    "atr_pct": 2.5,
+    "risk_usd": 0.5,
+    "reward_usd": 6.19
+  },
+  "trend_status": {
+    "trend": "Makro Bullish",
+    "rsi_14": 63.3,
+    "adx": 30.5,
+    "macd_hist": 0.786,
+    "mfi": 50.1,
+    "cmf": 0.1717,
+    "rvol_today": 1.14,
+    "entry_trigger": "Rising: Base Breakout",
+    "is_exhausted": false
+  },
+  "moving_averages": {
+    "ema_20": 191.4,
+    "ema_50": 183.82,
+    "ema_200": 157.05,
+    "price_vs_ema20": 6.88,
+    "price_vs_ema50": 14.46,
+    "price_vs_ema200": 41.23,
+    "ema20_slope": "Positive"
+  },
+  "hourly_analysis": {
+    "rsi_1h": 49.1,
+    "adx_1h": 34.7,
+    "rvol_1h": "2.0x (✅ Yüksek)",
+    "ema_structure": "Below EMA50",
+    "pivot_structure": "Normal"
+  },
+  "fundamentals": {
+    "gross_margin_pct": 91.67,
+    "operating_margin_pct": 27.06,
+    "net_margin_pct": -8.35,
+    "revenue_growth_pct": 10.1,
+    "pe_ratio": 0,
+    "pb_ratio": 2.84,
+    "fcf_yield_pct": 0.0,
+    "market_cap": "12.28B",
+    "market_cap_usd": 12282828800
+  },
+  "performance": {
+    "1d_pct": -0.53,
+    "1w_pct": 0.07,
+    "1m_pct": 9.32,
+    "1y_pct": 94.47,
+    "5y_pct": 10.86
+  },
+  "factor_scores": {
+    "trend_score": 8.0,
+    "momentum_score": 2.0,
+    "volatility_score": 4.0,
+    "volume_score": 0.0,
+    "financial_score": 7.0,
+    "catalyst_score": 1.2000000000000002,
+    "insider_score": 0.0,
+    "composite": 3.66,
+    "raw_score": 93.74
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns JAZZ a score of 62/100 in a Makro Bullish trend — entry zone $197.91–$199.27 targets $204.10 with a 12.4:1 risk/reward.",
+      "tr": "BOGA AI, JAZZ hissesine Makro Bullish trend içinde 62/100 skor verdi — $197.91–$199.27 giriş bölgesi, $204.10 hedef, 12.4:1 risk/ödül oranı.",
+      "es": "BOGA AI otorga a JAZZ una puntuación de 62/100 en tendencia Makro Bullish — zona de entrada $197.91–$199.27, objetivo $204.10, relación riesgo/beneficio 12.4:1.",
+      "pt": "BOGA AI atribui ao JAZZ uma pontuação de 62/100 em tendência Makro Bullish — zona de entrada $197.91–$199.27, alvo $204.10, relação risco/retorno 12.4:1.",
+      "fr": "BOGA AI attribue à JAZZ un score de 62/100 en tendance Makro Bullish — zone d'entrée $197.91–$199.27, objectif $204.10, ratio risque/rendement 12.4:1.",
+      "id": "BOGA AI memberi JAZZ skor 62/100 dalam tren Makro Bullish — zona beli $197.91–$199.27, target $204.10, rasio risiko/imbalan 12.4:1."
+    },
+    "detail_summary": {
+      "en": "JAZZ operates in the Healthcare sector, and BOGA AI's algorithm flagged it with a 62/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 63 — momentum is building in the healthy bullish zone without being overextended, with ADX at 30 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 10.1% with a net margin of -8.3%, which means it keeps $-8.3 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $197.91 and $199.27, target $204.10, and place a hard stop at $197.41 — a 12.4:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+      "tr": "JAZZ, Healthcare sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 62/100 skor atadı. Teknik tarafta RSI 63 sağlıklı yükseliş bölgesinde — momentum aşırıya kaçmadan güçleniyor, ADX 30 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %10.1 büyütürken net kar marjı %-8.3 — yani her 100 dolarlık satıştan -8.3 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $197.91–$199.27 aralığından giriş, $204.10 kâr hedefi, $197.41 kesin stop — 12.4:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
+      "es": "JAZZ opera en el sector Healthcare, y el algoritmo BOGA AI le asignó 62/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 63 — impulso saludable, sin sobreextensión, con ADX en 30 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 10.1% con un margen neto del -8.3% — es decir, retiene $-8.3 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $197.91 y $199.27, objetivo $204.10, stop definitivo en $197.41 — una relación recompensa/riesgo de 12.4:1 que lo convierte en candidato ideal para swing trade.",
+      "pt": "JAZZ atua no setor de Healthcare, e o algoritmo BOGA AI atribuiu 62/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 63 — momentum saudável, sem sobreextensão, com ADX em 30 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 10.1% com margem líquida de -8.3% — ou seja, retém $-8.3 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $197.91 e $199.27, alvo $204.10, stop definitivo em $197.41 — uma relação retorno/risco de 12.4:1 que o torna candidato ideal para swing trade.",
+      "fr": "JAZZ opère dans le secteur Healthcare, et l'algorithme BOGA AI lui a attribué 62/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 63 — momentum haussier sain, sans surextension, avec un ADX à 30 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 10.1% avec une marge nette de -8.3% — soit $-8.3 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $197.91 et $199.27, objectif $204.10, stop définitif à $197.41 — un ratio rendement/risque de 12.4:1 qui en fait un candidat idéal pour le swing trade.",
+      "id": "JAZZ beroperasi di sektor Healthcare, dan algoritma BOGA AI menetapkan skor 62/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 63 — momentum bullish sehat, tidak berlebihan, dengan ADX 30 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 10.1% dengan margin bersih -8.3% — artinya setiap $100 penjualan menghasilkan $-8.3 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $197.91 dan $199.27, target $204.10, stop ketat di $197.41 — rasio imbalan/risiko 12.4:1 menjadikannya kandidat swing trade yang terukur."
+    }
+  }
+}

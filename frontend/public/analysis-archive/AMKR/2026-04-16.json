@@ -1,0 +1,128 @@
+{
+  "rank": 8,
+  "ticker": "AMKR",
+  "company": "AMKR",
+  "sector": "Technology",
+  "score": 46.8,
+  "boga_score": 46.8,
+  "market_regime": "BULLISH",
+  "current_price": 62.83,
+  "holding_period": "9-14 Days",
+  "buy_zone": {
+    "low": 61.1,
+    "high": 63.47
+  },
+  "profit_zone": {
+    "low": 64.48,
+    "high": 65.33
+  },
+  "stop_zone": {
+    "low": 59.01,
+    "high": 60.36
+  },
+  "reasoning": "BOGA AI assigns AMKR a score of 47/100 in a Makro Bullish trend — entry zone $61.10–$63.47 targets $65.33 with a 5.7:1 risk/reward.",
+  "detail_reasoning": "AMKR operates in the Technology sector, and BOGA AI's algorithm flagged it with a 47/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 72 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 15.9% with a net margin of 5.6%, which means it keeps $5.6 of profit for every $100 in sales. At P/E 41x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $61.10 and $63.47, target $65.33, and place a hard stop at $60.36 — a 5.7:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+  "adx": 19.3,
+  "rsi": 72.0,
+  "rvol": 1.1,
+  "change_1d": 5.22,
+  "change_1w": 13.96,
+  "change_1m": 35.6,
+  "change_1y": 272.26,
+  "change_5y": 219.15,
+  "boga_zones": {
+    "buying_zone": {
+      "low": 61.1,
+      "high": 63.47
+    },
+    "sell_zone": {
+      "low": 64.48,
+      "high": 65.33
+    },
+    "stop_loss_zone": {
+      "low": 59.01,
+      "high": 60.36
+    },
+    "risk_reward": 5.72,
+    "support_1h": 60.7,
+    "resistance_1h": 62.79,
+    "atr_1d": 3.38,
+    "atr_pct": 5.39,
+    "risk_usd": 0.74,
+    "reward_usd": 4.23
+  },
+  "trend_status": {
+    "trend": "Makro Bullish",
+    "rsi_14": 72.0,
+    "adx": 19.3,
+    "macd_hist": 1.684,
+    "mfi": 71.4,
+    "cmf": 0.0763,
+    "rvol_today": 1.1,
+    "entry_trigger": "Trend Continuation Swing",
+    "is_exhausted": false
+  },
+  "moving_averages": {
+    "ema_20": 52.7,
+    "ema_50": 49.12,
+    "ema_200": 38.8,
+    "price_vs_ema20": 10.09,
+    "price_vs_ema50": 13.67,
+    "price_vs_ema200": 23.99,
+    "ema20_slope": "Positive"
+  },
+  "hourly_analysis": {
+    "rsi_1h": 62.4,
+    "adx_1h": 42.2,
+    "rvol_1h": "0.5x (❄️ Hacimsiz)",
+    "ema_structure": "Below EMA50",
+    "pivot_structure": "Pivot HL"
+  },
+  "fundamentals": {
+    "gross_margin_pct": 13.99,
+    "operating_margin_pct": 9.77,
+    "net_margin_pct": 5.57,
+    "revenue_growth_pct": 15.9,
+    "pe_ratio": 41.1,
+    "pb_ratio": 3.41,
+    "fcf_yield_pct": 0.0,
+    "market_cap": "15.29B",
+    "market_cap_usd": 15294909440
+  },
+  "performance": {
+    "1d_pct": 5.15,
+    "1w_pct": 13.88,
+    "1m_pct": 35.51,
+    "1y_pct": 294.14,
+    "5y_pct": 219.15
+  },
+  "factor_scores": {
+    "trend_score": 4.0,
+    "momentum_score": 12.0,
+    "volatility_score": 12.0,
+    "volume_score": 0.61,
+    "financial_score": 3.0,
+    "catalyst_score": 0.4,
+    "insider_score": 0.0,
+    "composite": 5.13,
+    "raw_score": 100.69000000000001
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns AMKR a score of 47/100 in a Makro Bullish trend — entry zone $61.10–$63.47 targets $65.33 with a 5.7:1 risk/reward.",
+      "tr": "BOGA AI, AMKR hissesine Makro Bullish trend içinde 47/100 skor verdi — $61.10–$63.47 giriş bölgesi, $65.33 hedef, 5.7:1 risk/ödül oranı.",
+      "es": "BOGA AI otorga a AMKR una puntuación de 47/100 en tendencia Makro Bullish — zona de entrada $61.10–$63.47, objetivo $65.33, relación riesgo/beneficio 5.7:1.",
+      "pt": "BOGA AI atribui ao AMKR uma pontuação de 47/100 em tendência Makro Bullish — zona de entrada $61.10–$63.47, alvo $65.33, relação risco/retorno 5.7:1.",
+      "fr": "BOGA AI attribue à AMKR un score de 47/100 en tendance Makro Bullish — zone d'entrée $61.10–$63.47, objectif $65.33, ratio risque/rendement 5.7:1.",
+      "id": "BOGA AI memberi AMKR skor 47/100 dalam tren Makro Bullish — zona beli $61.10–$63.47, target $65.33, rasio risiko/imbalan 5.7:1."
+    },
+    "detail_summary": {
+      "en": "AMKR operates in the Technology sector, and BOGA AI's algorithm flagged it with a 47/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 72 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 15.9% with a net margin of 5.6%, which means it keeps $5.6 of profit for every $100 in sales. At P/E 41x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction. The tactical setup: buy between $61.10 and $63.47, target $65.33, and place a hard stop at $60.36 — a 5.7:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+      "tr": "AMKR, Technology sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 47/100 skor atadı. Teknik tarafta RSI 72 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ancak ADX 19 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %15.9 büyütürken net kar marjı %5.6 — yani her 100 dolarlık satıştan 5.6 dolar kar elde ediyor. F/K 41x değerleme yüksek — piyasa güçlü büyüme bekliyor; kazanç hayal kırıklığı sert düzeltmeyi tetikleyebilir. Operasyonel plan: $61.10–$63.47 aralığından giriş, $65.33 kâr hedefi, $60.36 kesin stop — 5.7:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
+      "es": "AMKR opera en el sector Technology, y el algoritmo BOGA AI le asignó 47/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 72 — sobrecomprado, posible corrección breve antes de continuar al alza, aunque el ADX en 19 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 15.9% con un margen neto del 5.6% — es decir, retiene $5.6 de ganancia por cada $100 en ventas. Con P/E 41x, la valoración es elevada — el mercado exige crecimiento sostenido; una decepción en ganancias podría generar corrección. El plan táctico: comprar entre $61.10 y $63.47, objetivo $65.33, stop definitivo en $60.36 — una relación recompensa/riesgo de 5.7:1 que lo convierte en candidato ideal para swing trade.",
+      "pt": "AMKR atua no setor de Technology, e o algoritmo BOGA AI atribuiu 47/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 72 — sobrecomprado, possível recuo breve antes de continuar em alta, embora ADX em 19 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 15.9% com margem líquida de 5.6% — ou seja, retém $5.6 de lucro para cada $100 em vendas. Com P/L 41x, a avaliação é alta — o mercado exige crescimento forte; uma decepção nos lucros pode gerar correção. O plano tático: comprar entre $61.10 e $63.47, alvo $65.33, stop definitivo em $60.36 — uma relação retorno/risco de 5.7:1 que o torna candidato ideal para swing trade.",
+      "fr": "AMKR opère dans le secteur Technology, et l'algorithme BOGA AI lui a attribué 47/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 72 — suracheté, une correction courte est possible avant la prochaine hausse, bien que l'ADX à 19 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 15.9% avec une marge nette de 5.6% — soit $5.6 de bénéfice pour chaque $100 de ventes. Avec un P/E à 41x, la valorisation est élevée — le marché exige une forte croissance; une déception sur les bénéfices pourrait provoquer une correction. Le plan tactique : achat entre $61.10 et $63.47, objectif $65.33, stop définitif à $60.36 — un ratio rendement/risque de 5.7:1 qui en fait un candidat idéal pour le swing trade.",
+      "id": "AMKR beroperasi di sektor Technology, dan algoritma BOGA AI menetapkan skor 47/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 72 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, meskipun ADX 19 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 15.9% dengan margin bersih 5.6% — artinya setiap $100 penjualan menghasilkan $5.6 keuntungan bersih. Dengan P/E 41x, valuasi tinggi — pasar mengharapkan pertumbuhan kuat; kekecewaan laba dapat memicu koreksi tajam. Rencana taktis: beli di antara $61.10 dan $63.47, target $65.33, stop ketat di $60.36 — rasio imbalan/risiko 5.7:1 menjadikannya kandidat swing trade yang terukur."
+    }
+  }
+}

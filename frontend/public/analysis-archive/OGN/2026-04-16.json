@@ -1,0 +1,128 @@
+{
+  "rank": 4,
+  "ticker": "OGN",
+  "company": "OGN",
+  "sector": "Healthcare",
+  "score": 54.5,
+  "boga_score": 54.5,
+  "market_regime": "BULLISH",
+  "current_price": 9.29,
+  "holding_period": "5-10 Days",
+  "buy_zone": {
+    "low": 9.15,
+    "high": 9.37
+  },
+  "profit_zone": {
+    "low": 9.39,
+    "high": 9.67
+  },
+  "stop_zone": {
+    "low": 8.87,
+    "high": 9.09
+  },
+  "reasoning": "BOGA AI assigns OGN a score of 54/100 in a EMA200 Üstü trend — entry zone $9.15–$9.37 targets $9.67 with a 8.7:1 risk/reward.",
+  "detail_reasoning": "OGN operates in the Healthcare sector, and BOGA AI's algorithm flagged it with a 54/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 75 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 43 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at -5.3% with a net margin of 3.0%, which means it keeps $3.0 of profit for every $100 in sales. P/E at 12x is reasonable for the sector, leaving room for re-rating if earnings accelerate. The tactical setup: buy between $9.15 and $9.37, target $9.67, and place a hard stop at $9.09 — a 8.7:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+  "adx": 42.9,
+  "rsi": 74.9,
+  "rvol": 0.87,
+  "change_1d": 0.87,
+  "change_1w": 34.44,
+  "change_1m": 45.38,
+  "change_1y": -15.12,
+  "change_5y": -62.43,
+  "boga_zones": {
+    "buying_zone": {
+      "low": 9.15,
+      "high": 9.37
+    },
+    "sell_zone": {
+      "low": 9.39,
+      "high": 9.67
+    },
+    "stop_loss_zone": {
+      "low": 8.87,
+      "high": 9.09
+    },
+    "risk_reward": 8.67,
+    "support_1h": 9.15,
+    "resistance_1h": 9.77,
+    "atr_1d": 0.56,
+    "atr_pct": 6.08,
+    "risk_usd": 0.06,
+    "reward_usd": 0.52
+  },
+  "trend_status": {
+    "trend": "EMA200 Üstü",
+    "rsi_14": 74.9,
+    "adx": 42.9,
+    "macd_hist": 0.411,
+    "mfi": 75.1,
+    "cmf": 0.3101,
+    "rvol_today": 0.87,
+    "entry_trigger": "Rising: Gaining Momentum",
+    "is_exhausted": false
+  },
+  "moving_averages": {
+    "ema_20": 7.34,
+    "ema_50": 7.18,
+    "ema_200": 8.16,
+    "price_vs_ema20": 1.92,
+    "price_vs_ema50": 2.08,
+    "price_vs_ema200": 1.1,
+    "ema20_slope": "Positive"
+  },
+  "hourly_analysis": {
+    "rsi_1h": 69.4,
+    "adx_1h": 30.4,
+    "rvol_1h": "0.4x (❄️ Hacimsiz)",
+    "ema_structure": "Below EMA50",
+    "pivot_structure": "Pivot HL"
+  },
+  "fundamentals": {
+    "gross_margin_pct": 54.34,
+    "operating_margin_pct": 16.19,
+    "net_margin_pct": 3.01,
+    "revenue_growth_pct": -5.3,
+    "pe_ratio": 11.9,
+    "pb_ratio": 2.97,
+    "fcf_yield_pct": 0.0,
+    "market_cap": "2.23B",
+    "market_cap_usd": 2230905088
+  },
+  "performance": {
+    "1d_pct": 0.49,
+    "1w_pct": 33.94,
+    "1m_pct": 44.84,
+    "1y_pct": -13.41,
+    "5y_pct": -62.43
+  },
+  "factor_scores": {
+    "trend_score": 8.0,
+    "momentum_score": 12.0,
+    "volatility_score": 12.0,
+    "volume_score": 1.02,
+    "financial_score": 4.0,
+    "catalyst_score": 0.3,
+    "insider_score": 0.0,
+    "composite": 6.61,
+    "raw_score": 92.91999999999999
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns OGN a score of 54/100 in a EMA200 Üstü trend — entry zone $9.15–$9.37 targets $9.67 with a 8.7:1 risk/reward.",
+      "tr": "BOGA AI, OGN hissesine EMA200 Üstü trend içinde 54/100 skor verdi — $9.15–$9.37 giriş bölgesi, $9.67 hedef, 8.7:1 risk/ödül oranı.",
+      "es": "BOGA AI otorga a OGN una puntuación de 54/100 en tendencia EMA200 Üstü — zona de entrada $9.15–$9.37, objetivo $9.67, relación riesgo/beneficio 8.7:1.",
+      "pt": "BOGA AI atribui ao OGN uma pontuação de 54/100 em tendência EMA200 Üstü — zona de entrada $9.15–$9.37, alvo $9.67, relação risco/retorno 8.7:1.",
+      "fr": "BOGA AI attribue à OGN un score de 54/100 en tendance EMA200 Üstü — zone d'entrée $9.15–$9.37, objectif $9.67, ratio risque/rendement 8.7:1.",
+      "id": "BOGA AI memberi OGN skor 54/100 dalam tren EMA200 Üstü — zona beli $9.15–$9.37, target $9.67, rasio risiko/imbalan 8.7:1."
+    },
+    "detail_summary": {
+      "en": "OGN operates in the Healthcare sector, and BOGA AI's algorithm flagged it with a 54/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 75 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, with ADX at 43 confirming a genuine trend, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at -5.3% with a net margin of 3.0%, which means it keeps $3.0 of profit for every $100 in sales. P/E at 12x is reasonable for the sector, leaving room for re-rating if earnings accelerate. The tactical setup: buy between $9.15 and $9.37, target $9.67, and place a hard stop at $9.09 — a 8.7:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+      "tr": "OGN, Healthcare sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile EMA200 Üstü günlük trendi tespit ederek hisseye 54/100 skor atadı. Teknik tarafta RSI 75 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ADX 43 gerçek bir trendin varlığını doğruluyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %-5.3 büyütürken net kar marjı %3.0 — yani her 100 dolarlık satıştan 3.0 dolar kar elde ediyor. F/K 12x sektör için makul — kazançlar hızlanırsa yeniden değerleme potansiyeli var. Operasyonel plan: $9.15–$9.37 aralığından giriş, $9.67 kâr hedefi, $9.09 kesin stop — 8.7:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
+      "es": "OGN opera en el sector Healthcare, y el algoritmo BOGA AI le asignó 54/100 al detectar señales de acumulación institucional alineadas con una tendencia EMA200 Üstü diaria. Técnicamente, RSI en 75 — sobrecomprado, posible corrección breve antes de continuar al alza, con ADX en 43 confirmando una tendencia real, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al -5.3% con un margen neto del 3.0% — es decir, retiene $3.0 de ganancia por cada $100 en ventas. P/E de 12x es razonable para el sector, con margen de revalorización si los beneficios aceleran. El plan táctico: comprar entre $9.15 y $9.37, objetivo $9.67, stop definitivo en $9.09 — una relación recompensa/riesgo de 8.7:1 que lo convierte en candidato ideal para swing trade.",
+      "pt": "OGN atua no setor de Healthcare, e o algoritmo BOGA AI atribuiu 54/100 ao detectar sinais de acumulação institucional alinhados com uma tendência EMA200 Üstü diária. No âmbito técnico, RSI em 75 — sobrecomprado, possível recuo breve antes de continuar em alta, com ADX em 43 confirmando uma tendência real, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a -5.3% com margem líquida de 3.0% — ou seja, retém $3.0 de lucro para cada $100 em vendas. P/L de 12x é razoável para o setor, com espaço para reavaliação se os lucros acelerarem. O plano tático: comprar entre $9.15 e $9.37, alvo $9.67, stop definitivo em $9.09 — uma relação retorno/risco de 8.7:1 que o torna candidato ideal para swing trade.",
+      "fr": "OGN opère dans le secteur Healthcare, et l'algorithme BOGA AI lui a attribué 54/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance EMA200 Üstü journalière. Techniquement, RSI à 75 — suracheté, une correction courte est possible avant la prochaine hausse, avec un ADX à 43 confirmant une vraie tendance, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de -5.3% avec une marge nette de 3.0% — soit $3.0 de bénéfice pour chaque $100 de ventes. Le P/E à 12x est raisonnable pour le secteur, avec une marge de revalorisation si les bénéfices s'accélèrent. Le plan tactique : achat entre $9.15 et $9.37, objectif $9.67, stop définitif à $9.09 — un ratio rendement/risque de 8.7:1 qui en fait un candidat idéal pour le swing trade.",
+      "id": "OGN beroperasi di sektor Healthcare, dan algoritma BOGA AI menetapkan skor 54/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren EMA200 Üstü harian. Secara teknikal, RSI di 75 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, dengan ADX 43 mengkonfirmasi tren nyata, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya -5.3% dengan margin bersih 3.0% — artinya setiap $100 penjualan menghasilkan $3.0 keuntungan bersih. P/E 12x wajar untuk sektor ini, dengan ruang rerating jika laba meningkat. Rencana taktis: beli di antara $9.15 dan $9.37, target $9.67, stop ketat di $9.09 — rasio imbalan/risiko 8.7:1 menjadikannya kandidat swing trade yang terukur."
+    }
+  }
+}

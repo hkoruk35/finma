@@ -1,0 +1,128 @@
+{
+  "rank": 7,
+  "ticker": "CRWV",
+  "company": "CRWV",
+  "sector": "Technology",
+  "score": 47.2,
+  "boga_score": 47.2,
+  "market_regime": "BULLISH",
+  "current_price": 117.07,
+  "holding_period": "5-10 Days",
+  "buy_zone": {
+    "low": 114.8,
+    "high": 118.62
+  },
+  "profit_zone": {
+    "low": 113.68,
+    "high": 117.5
+  },
+  "stop_zone": {
+    "low": 110.98,
+    "high": 114.04
+  },
+  "reasoning": "BOGA AI assigns CRWV a score of 47/100 in a EMA200 Üstü trend — entry zone $114.80–$118.62 targets $117.50 with a 3.5:1 risk/reward.",
+  "detail_reasoning": "CRWV operates in the Technology sector, and BOGA AI's algorithm flagged it with a 47/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 73 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 110.4% with a net margin of -22.7%, which means it keeps $-22.7 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $114.80 and $118.62, target $117.50, and place a hard stop at $114.04 — a 3.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+  "adx": 19.2,
+  "rsi": 72.7,
+  "rvol": 0.6,
+  "change_1d": -1.36,
+  "change_1w": 27.25,
+  "change_1m": 42.56,
+  "change_1y": 187.08,
+  "change_5y": 183.87,
+  "boga_zones": {
+    "buying_zone": {
+      "low": 114.8,
+      "high": 118.62
+    },
+    "sell_zone": {
+      "low": 113.68,
+      "high": 117.5
+    },
+    "stop_loss_zone": {
+      "low": 110.98,
+      "high": 114.04
+    },
+    "risk_reward": 3.55,
+    "support_1h": 114.8,
+    "resistance_1h": 118.69,
+    "atr_1d": 7.63,
+    "atr_pct": 6.52,
+    "risk_usd": 0.76,
+    "reward_usd": 2.7
+  },
+  "trend_status": {
+    "trend": "EMA200 Üstü",
+    "rsi_14": 72.7,
+    "adx": 19.2,
+    "macd_hist": 4.486,
+    "mfi": 92.4,
+    "cmf": 0.2085,
+    "rvol_today": 0.6,
+    "entry_trigger": "Rising: Gaining Momentum",
+    "is_exhausted": false
+  },
+  "moving_averages": {
+    "ema_20": 94.98,
+    "ema_50": 89.68,
+    "ema_200": 91.16,
+    "price_vs_ema20": 22.11,
+    "price_vs_ema50": 27.41,
+    "price_vs_ema200": 25.93,
+    "ema20_slope": "Positive"
+  },
+  "hourly_analysis": {
+    "rsi_1h": 62.0,
+    "adx_1h": 37.7,
+    "rvol_1h": "0.5x (❄️ Hacimsiz)",
+    "ema_structure": "Below EMA50",
+    "pivot_structure": "Pivot HL"
+  },
+  "fundamentals": {
+    "gross_margin_pct": 71.68,
+    "operating_margin_pct": -5.7,
+    "net_margin_pct": -22.74,
+    "revenue_growth_pct": 110.4,
+    "pe_ratio": 0,
+    "pb_ratio": 17.72,
+    "fcf_yield_pct": 0.0,
+    "market_cap": "61.89B",
+    "market_cap_usd": 61889265664
+  },
+  "performance": {
+    "1d_pct": -1.35,
+    "1w_pct": 27.27,
+    "1m_pct": 42.58,
+    "1y_pct": 187.85,
+    "5y_pct": 183.87
+  },
+  "factor_scores": {
+    "trend_score": 4.0,
+    "momentum_score": 12.0,
+    "volatility_score": 12.0,
+    "volume_score": 0.0,
+    "financial_score": 5.0,
+    "catalyst_score": 0.4,
+    "insider_score": 0.0,
+    "composite": 4.89,
+    "raw_score": 100.02000000000001
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CRWV a score of 47/100 in a EMA200 Üstü trend — entry zone $114.80–$118.62 targets $117.50 with a 3.5:1 risk/reward.",
+      "tr": "BOGA AI, CRWV hissesine EMA200 Üstü trend içinde 47/100 skor verdi — $114.80–$118.62 giriş bölgesi, $117.50 hedef, 3.5:1 risk/ödül oranı.",
+      "es": "BOGA AI otorga a CRWV una puntuación de 47/100 en tendencia EMA200 Üstü — zona de entrada $114.80–$118.62, objetivo $117.50, relación riesgo/beneficio 3.5:1.",
+      "pt": "BOGA AI atribui ao CRWV uma pontuação de 47/100 em tendência EMA200 Üstü — zona de entrada $114.80–$118.62, alvo $117.50, relação risco/retorno 3.5:1.",
+      "fr": "BOGA AI attribue à CRWV un score de 47/100 en tendance EMA200 Üstü — zone d'entrée $114.80–$118.62, objectif $117.50, ratio risque/rendement 3.5:1.",
+      "id": "BOGA AI memberi CRWV skor 47/100 dalam tren EMA200 Üstü — zona beli $114.80–$118.62, target $117.50, rasio risiko/imbalan 3.5:1."
+    },
+    "detail_summary": {
+      "en": "CRWV operates in the Technology sector, and BOGA AI's algorithm flagged it with a 47/100 score after detecting institutional accumulation signals aligned with a EMA200 Üstü daily trend. On the technical side, RSI at 73 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 19 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 110.4% with a net margin of -22.7%, which means it keeps $-22.7 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $114.80 and $118.62, target $117.50, and place a hard stop at $114.04 — a 3.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+      "tr": "CRWV, Technology sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile EMA200 Üstü günlük trendi tespit ederek hisseye 47/100 skor atadı. Teknik tarafta RSI 73 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ancak ADX 19 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %110.4 büyütürken net kar marjı %-22.7 — yani her 100 dolarlık satıştan -22.7 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $114.80–$118.62 aralığından giriş, $117.50 kâr hedefi, $114.04 kesin stop — 3.5:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
+      "es": "CRWV opera en el sector Technology, y el algoritmo BOGA AI le asignó 47/100 al detectar señales de acumulación institucional alineadas con una tendencia EMA200 Üstü diaria. Técnicamente, RSI en 73 — sobrecomprado, posible corrección breve antes de continuar al alza, aunque el ADX en 19 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 110.4% con un margen neto del -22.7% — es decir, retiene $-22.7 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $114.80 y $118.62, objetivo $117.50, stop definitivo en $114.04 — una relación recompensa/riesgo de 3.5:1 que lo convierte en candidato ideal para swing trade.",
+      "pt": "CRWV atua no setor de Technology, e o algoritmo BOGA AI atribuiu 47/100 ao detectar sinais de acumulação institucional alinhados com uma tendência EMA200 Üstü diária. No âmbito técnico, RSI em 73 — sobrecomprado, possível recuo breve antes de continuar em alta, embora ADX em 19 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 110.4% com margem líquida de -22.7% — ou seja, retém $-22.7 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $114.80 e $118.62, alvo $117.50, stop definitivo em $114.04 — uma relação retorno/risco de 3.5:1 que o torna candidato ideal para swing trade.",
+      "fr": "CRWV opère dans le secteur Technology, et l'algorithme BOGA AI lui a attribué 47/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance EMA200 Üstü journalière. Techniquement, RSI à 73 — suracheté, une correction courte est possible avant la prochaine hausse, bien que l'ADX à 19 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 110.4% avec une marge nette de -22.7% — soit $-22.7 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $114.80 et $118.62, objectif $117.50, stop définitif à $114.04 — un ratio rendement/risque de 3.5:1 qui en fait un candidat idéal pour le swing trade.",
+      "id": "CRWV beroperasi di sektor Technology, dan algoritma BOGA AI menetapkan skor 47/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren EMA200 Üstü harian. Secara teknikal, RSI di 73 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, meskipun ADX 19 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 110.4% dengan margin bersih -22.7% — artinya setiap $100 penjualan menghasilkan $-22.7 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $114.80 dan $118.62, target $117.50, stop ketat di $114.04 — rasio imbalan/risiko 3.5:1 menjadikannya kandidat swing trade yang terukur."
+    }
+  }
+}

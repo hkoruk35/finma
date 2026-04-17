@@ -1,0 +1,128 @@
+{
+  "rank": 5,
+  "ticker": "JBHT",
+  "company": "JBHT",
+  "sector": "Industrials",
+  "score": 53.4,
+  "boga_score": 53.4,
+  "market_regime": "BULLISH",
+  "current_price": 242.54,
+  "holding_period": "10-15 Days",
+  "buy_zone": {
+    "low": 238.85,
+    "high": 244.06
+  },
+  "profit_zone": {
+    "low": 261.59,
+    "high": 267.27
+  },
+  "stop_zone": {
+    "low": 225.99,
+    "high": 227.48
+  },
+  "reasoning": "BOGA AI assigns JBHT a score of 53/100 in a Makro Bullish trend — entry zone $238.85–$244.06 targets $267.27 with a 2.5:1 risk/reward.",
+  "detail_reasoning": "JBHT operates in the Industrials sector, and BOGA AI's algorithm flagged it with a 53/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 73 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 22 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 0.0% with a net margin of 0.0%, which means it keeps $0.0 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $238.85 and $244.06, target $267.27, and place a hard stop at $227.48 — a 2.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+  "adx": 22.1,
+  "rsi": 72.9,
+  "rvol": 1.32,
+  "change_1d": 8.19,
+  "change_1w": 7.69,
+  "change_1m": 21.2,
+  "change_1y": 81.49,
+  "change_5y": 48.06,
+  "boga_zones": {
+    "buying_zone": {
+      "low": 238.85,
+      "high": 244.06
+    },
+    "sell_zone": {
+      "low": 261.59,
+      "high": 267.27
+    },
+    "stop_loss_zone": {
+      "low": 225.99,
+      "high": 227.48
+    },
+    "risk_reward": 2.5,
+    "support_1h": 228.22,
+    "resistance_1h": 242.57,
+    "atr_1d": 7.45,
+    "atr_pct": 3.07,
+    "risk_usd": 11.37,
+    "reward_usd": 28.42
+  },
+  "trend_status": {
+    "trend": "Makro Bullish",
+    "rsi_14": 72.9,
+    "adx": 22.1,
+    "macd_hist": 2.852,
+    "mfi": 62.0,
+    "cmf": 0.1938,
+    "rvol_today": 1.32,
+    "entry_trigger": "Trend Continuation Swing",
+    "is_exhausted": false
+  },
+  "moving_averages": {
+    "ema_20": 220.4,
+    "ema_50": 214.87,
+    "ema_200": 186.18,
+    "price_vs_ema20": 22.17,
+    "price_vs_ema50": 27.7,
+    "price_vs_ema200": 56.39,
+    "ema20_slope": "Positive"
+  },
+  "hourly_analysis": {
+    "rsi_1h": 73.8,
+    "adx_1h": 30.5,
+    "rvol_1h": "1.0x (Normal)",
+    "ema_structure": "Below EMA50",
+    "pivot_structure": "Normal"
+  },
+  "fundamentals": {
+    "gross_margin_pct": 0,
+    "operating_margin_pct": 0,
+    "net_margin_pct": 0,
+    "revenue_growth_pct": 0,
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "fcf_yield_pct": 0,
+    "market_cap": "21.84B",
+    "market_cap_usd": 21836423168
+  },
+  "performance": {
+    "1d_pct": 8.21,
+    "1w_pct": 7.7,
+    "1m_pct": 21.21,
+    "1y_pct": 96.61,
+    "5y_pct": 48.06
+  },
+  "factor_scores": {
+    "trend_score": 4.0,
+    "momentum_score": 8.0,
+    "volatility_score": 8.0,
+    "volume_score": 4.57,
+    "financial_score": 0.0,
+    "catalyst_score": 0.7,
+    "insider_score": 0.0,
+    "composite": 5.76,
+    "raw_score": 94.0
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns JBHT a score of 53/100 in a Makro Bullish trend — entry zone $238.85–$244.06 targets $267.27 with a 2.5:1 risk/reward.",
+      "tr": "BOGA AI, JBHT hissesine Makro Bullish trend içinde 53/100 skor verdi — $238.85–$244.06 giriş bölgesi, $267.27 hedef, 2.5:1 risk/ödül oranı.",
+      "es": "BOGA AI otorga a JBHT una puntuación de 53/100 en tendencia Makro Bullish — zona de entrada $238.85–$244.06, objetivo $267.27, relación riesgo/beneficio 2.5:1.",
+      "pt": "BOGA AI atribui ao JBHT uma pontuação de 53/100 em tendência Makro Bullish — zona de entrada $238.85–$244.06, alvo $267.27, relação risco/retorno 2.5:1.",
+      "fr": "BOGA AI attribue à JBHT un score de 53/100 en tendance Makro Bullish — zone d'entrée $238.85–$244.06, objectif $267.27, ratio risque/rendement 2.5:1.",
+      "id": "BOGA AI memberi JBHT skor 53/100 dalam tren Makro Bullish — zona beli $238.85–$244.06, target $267.27, rasio risiko/imbalan 2.5:1."
+    },
+    "detail_summary": {
+      "en": "JBHT operates in the Industrials sector, and BOGA AI's algorithm flagged it with a 53/100 score after detecting institutional accumulation signals aligned with a Makro Bullish daily trend. On the technical side, RSI at 73 — the stock is in overbought territory, so a brief pullback before the next leg up is possible, though ADX at 22 suggests the trend is still maturing, and the positive MACD histogram reinforces the directional bias. Fundamentally, the company is growing revenue at 0.0% with a net margin of 0.0%, which means it keeps $0.0 of profit for every $100 in sales. Valuation data is limited — weight technical signals more heavily for this setup. The tactical setup: buy between $238.85 and $244.06, target $267.27, and place a hard stop at $227.48 — a 2.5:1 reward-to-risk ratio that makes this a disciplined swing trade candidate.",
+      "tr": "JBHT, Industrials sektöründe faaliyet gösteriyor ve BOGA AI algoritması, kurumsal birikim sinyalleri ile Makro Bullish günlük trendi tespit ederek hisseye 53/100 skor atadı. Teknik tarafta RSI 73 aşırı alım bölgesinde — kısa vadeli bir geri çekilme sonrası yükseliş sürebilir, ancak ADX 22 trendin henüz olgunlaşma aşamasında olduğuna işaret ediyor ve pozitif MACD histogramı yönsel eğilimi destekliyor. Temel açıdan bakıldığında şirket gelirlerini %0.0 büyütürken net kar marjı %0.0 — yani her 100 dolarlık satıştan 0.0 dolar kar elde ediyor. Değerleme verisi sınırlı — bu kurulumda teknik sinyallere daha fazla ağırlık ver. Operasyonel plan: $238.85–$244.06 aralığından giriş, $267.27 kâr hedefi, $227.48 kesin stop — 2.5:1 risk/ödül oranıyla disiplinli bir swing trade fırsatı.",
+      "es": "JBHT opera en el sector Industrials, y el algoritmo BOGA AI le asignó 53/100 al detectar señales de acumulación institucional alineadas con una tendencia Makro Bullish diaria. Técnicamente, RSI en 73 — sobrecomprado, posible corrección breve antes de continuar al alza, aunque el ADX en 22 indica que la tendencia aún madura, y el histograma MACD positivo refuerza el sesgo direccional. En lo fundamental, la empresa crece sus ingresos al 0.0% con un margen neto del 0.0% — es decir, retiene $0.0 de ganancia por cada $100 en ventas. Datos de valoración limitados — priorizar señales técnicas para este setup. El plan táctico: comprar entre $238.85 y $244.06, objetivo $267.27, stop definitivo en $227.48 — una relación recompensa/riesgo de 2.5:1 que lo convierte en candidato ideal para swing trade.",
+      "pt": "JBHT atua no setor de Industrials, e o algoritmo BOGA AI atribuiu 53/100 ao detectar sinais de acumulação institucional alinhados com uma tendência Makro Bullish diária. No âmbito técnico, RSI em 73 — sobrecomprado, possível recuo breve antes de continuar em alta, embora ADX em 22 indique que a tendência ainda está se formando, e o histograma MACD positivo reforça o viés direcional. Nos fundamentos, a empresa cresce receita a 0.0% com margem líquida de 0.0% — ou seja, retém $0.0 de lucro para cada $100 em vendas. Dados de avaliação limitados — priorizar sinais técnicos neste setup. O plano tático: comprar entre $238.85 e $244.06, alvo $267.27, stop definitivo em $227.48 — uma relação retorno/risco de 2.5:1 que o torna candidato ideal para swing trade.",
+      "fr": "JBHT opère dans le secteur Industrials, et l'algorithme BOGA AI lui a attribué 53/100 après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance Makro Bullish journalière. Techniquement, RSI à 73 — suracheté, une correction courte est possible avant la prochaine hausse, bien que l'ADX à 22 suggère que la tendance est encore en formation, et le histogramme MACD positif renforce le biais directionnel. Sur le plan fondamental, l'entreprise affiche une croissance des revenus de 0.0% avec une marge nette de 0.0% — soit $0.0 de bénéfice pour chaque $100 de ventes. Données de valorisation limitées — privilégier les signaux techniques pour ce setup. Le plan tactique : achat entre $238.85 et $244.06, objectif $267.27, stop définitif à $227.48 — un ratio rendement/risque de 2.5:1 qui en fait un candidat idéal pour le swing trade.",
+      "id": "JBHT beroperasi di sektor Industrials, dan algoritma BOGA AI menetapkan skor 53/100 setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren Makro Bullish harian. Secara teknikal, RSI di 73 — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik, meskipun ADX 22 menunjukkan tren masih dalam pematangan, dan histogram MACD positif memperkuat bias arah pergerakan. Secara fundamental, perusahaan tumbuh pendapatannya 0.0% dengan margin bersih 0.0% — artinya setiap $100 penjualan menghasilkan $0.0 keuntungan bersih. Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini. Rencana taktis: beli di antara $238.85 dan $244.06, target $267.27, stop ketat di $227.48 — rasio imbalan/risiko 2.5:1 menjadikannya kandidat swing trade yang terukur."
+    }
+  }
+}
