@@ -199,55 +199,113 @@ export default async function StockDetailPage({ params }: Props) {
 
         {/* ── BOGA AI Decision Banner (for swing picks) ── */}
         {isSwingPick && (
-          <div className={`glass-card p-5 mb-4 border border-[#22c55e]/25 bg-[#22c55e]/5`}>
-            <div className="flex flex-col md:flex-row md:items-center gap-5">
-              {/* Score */}
-              <div className="flex items-center gap-4 shrink-0">
-                <div className="flex flex-col items-center justify-center w-20 h-20 rounded-2xl bg-[#141924] border border-[#1e2a3a]">
-                  <span className="text-2xl font-black text-white font-mono">
-                    {stock.scores.master_score.toFixed(0)}
-                  </span>
-                  <span className="text-[8px] text-[#64748b] uppercase tracking-widest">/ 100</span>
+          <div className="relative overflow-hidden mb-6">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-transparent pointer-events-none" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+              {/* Score Section */}
+              <div className="lg:col-span-3 glass-card p-5 flex flex-col items-center justify-center border-b-4 border-b-[#3b82f6]">
+                <div className="relative flex items-center justify-center w-24 h-24 mb-3">
+                  <svg className="absolute inset-0 w-full h-full -rotate-90">
+                    <circle cx="48" cy="48" r="42" fill="none" stroke="#1e2a3a" strokeWidth="6" />
+                    <circle cx="48" cy="48" r="42" fill="none" stroke="#3b82f6" strokeWidth="6" 
+                            strokeDasharray={`${(stock.scores.master_score / 100) * 264} 264`} 
+                            strokeLinecap="round" className="transition-all duration-1000" />
+                  </svg>
+                  <div className="flex flex-col items-center">
+                    <span className="text-3xl font-black text-white font-mono leading-none">
+                      {stock.scores.master_score.toFixed(0)}
+                    </span>
+                    <span className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Score</span>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-1">BOGA AI Score</p>
-                  <p className={`text-lg font-black uppercase ${sig.color}`}>{sig.icon} {sig.label}</p>
+                <div className="text-center">
+                  <p className={`text-base font-black uppercase tracking-tight ${sig.color}`}>{sig.icon} {sig.label}</p>
                   {swing?.boga_zones?.risk_reward && (
-                    <p className="text-xs text-[#94a3b8] mt-0.5">
-                      Risk/Reward: <span className="text-white font-bold">{swing.boga_zones.risk_reward}:1</span>
-                    </p>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 mt-2">
+                       <span className="text-[9px] text-[#64748b] font-black uppercase tracking-widest">R:R</span>
+                       <span className="text-xs text-white font-bold">{swing.boga_zones.risk_reward}:1</span>
+                    </div>
                   )}
                 </div>
               </div>
 
-              {/* Trading Zones — compact */}
-              <div className="flex-1 grid grid-cols-3 gap-3">
-                <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
-                  <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">Entry Zone</p>
-                  <p className="font-mono font-black text-white text-sm">
-                    ${formatPrice(stock.scores_detail.entry_range_low)}
-                  </p>
-                  <p className="font-mono font-black text-white text-sm">
-                    – ${formatPrice(stock.scores_detail.entry_range_high)}
-                  </p>
+              {/* Trading Zones — Luxury Cards */}
+              <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-3">
+                {/* Entry Zone */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#141924] to-[#0d1117] rounded-2xl p-5 border border-[#1e2a3a] border-l-4 border-l-[#94a3b8] group hover:border-[#94a3b8]/40 transition-all">
+                  <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#94a3b8]/5 blur-2xl rounded-full" />
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="p-2 rounded-lg bg-[#94a3b8]/10">
+                      <svg className="w-4 h-4 text-[#94a3b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M12 2v20M2 12h20M7 7l10 10M7 17L17 7" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-[11px] font-black text-[#94a3b8] uppercase tracking-[0.15em]">Entry Zone</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-[#64748b] uppercase mb-1">Buy Range</span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-black text-white font-mono tracking-tighter">
+                        ${formatPrice(stock.scores_detail.entry_range_low)}
+                      </span>
+                      <span className="text-[#64748b] font-black">–</span>
+                      <span className="text-2xl font-black text-white font-mono tracking-tighter">
+                        ${formatPrice(stock.scores_detail.entry_range_high)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#22c55e]">
-                  <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">Target</p>
-                  <p className="font-mono font-black text-[#22c55e] text-sm">
-                    ${formatPrice(stock.scores_detail.target_range_low)}
-                  </p>
-                  <p className="font-mono font-black text-[#22c55e] text-sm">
-                    – ${formatPrice(stock.scores_detail.target_range_high)}
-                  </p>
+
+                {/* Target Zone */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#141924] to-[#0d1117] rounded-2xl p-5 border border-[#1e2a3a] border-l-4 border-l-[#22c55e] group hover:border-[#22c55e]/40 transition-all">
+                  <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#22c55e]/5 blur-2xl rounded-full" />
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="p-2 rounded-lg bg-[#22c55e]/10">
+                      <svg className="w-4 h-4 text-[#22c55e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" />
+                        <path d="M9 12l2 2 4-4" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-[11px] font-black text-[#22c55e] uppercase tracking-[0.15em]">Profit Target</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-[#64748b] uppercase mb-1">Exit Range</span>
+                    <div className="flex items-baseline gap-2 text-[#22c55e]">
+                      <span className="text-2xl font-black font-mono tracking-tighter">
+                        ${formatPrice(stock.scores_detail.target_range_low)}
+                      </span>
+                      <span className="text-[#64748b] font-black">–</span>
+                      <span className="text-2xl font-black font-mono tracking-tighter">
+                        ${formatPrice(stock.scores_detail.target_range_high)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
-                  <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">Stop Loss</p>
-                  <p className="font-mono font-black text-[#ef4444] text-sm">
-                    ${formatPrice(stock.scores_detail.stop_range_low)}
-                  </p>
-                  <p className="font-mono font-black text-[#ef4444] text-sm">
-                    – ${formatPrice(stock.scores_detail.stop_range_high)}
-                  </p>
+
+                {/* Stop Loss Zone */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#141924] to-[#0d1117] rounded-2xl p-5 border border-[#1e2a3a] border-l-4 border-l-[#ef4444] group hover:border-[#ef4444]/40 transition-all">
+                  <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#ef4444]/5 blur-2xl rounded-full" />
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="p-2 rounded-lg bg-[#ef4444]/10">
+                      <svg className="w-4 h-4 text-[#ef4444]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-[11px] font-black text-[#ef4444] uppercase tracking-[0.15em]">Stop Loss</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-[#64748b] uppercase mb-1">Safety Cut-off</span>
+                    <div className="flex items-baseline gap-2 text-[#ef4444]">
+                      <span className="text-2xl font-black font-mono tracking-tighter">
+                        ${formatPrice(stock.scores_detail.stop_range_low)}
+                      </span>
+                      <span className="text-[#64748b] font-black">–</span>
+                      <span className="text-2xl font-black font-mono tracking-tighter">
+                        ${formatPrice(stock.scores_detail.stop_range_high)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

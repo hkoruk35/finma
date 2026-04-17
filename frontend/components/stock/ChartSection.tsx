@@ -11,22 +11,49 @@ interface Props {
 
 export default function ChartSection({ ticker, exchange, companyMismatch }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const [interval, setInterval] = useState("D");
+
+  const intervals = [
+    { label: "15M", value: "15" },
+    { label: "1H", value: "60" },
+    { label: "1D", value: "D" },
+    { label: "1W", value: "W" },
+  ];
 
   return (
     <div className="glass-card overflow-hidden mb-4">
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1e2a3a] bg-[#0d1117]/60">
+      <div className="flex flex-col md:flex-row md:items-center justify-between px-4 py-2.5 border-b border-[#1e2a3a] bg-[#0d1117]/60 gap-3">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
           <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">
             Live Chart · {ticker}
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">1D</span>
-          <span className="px-2 py-0.5 rounded bg-[#1e2a3a] text-[10px] font-bold text-[#94a3b8]">NY TIME</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Interval Selector */}
+          <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+            {intervals.map((int) => (
+              <button
+                key={int.value}
+                onClick={() => setInterval(int.value)}
+                className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
+                  interval === int.value
+                    ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
+                    : "text-[#64748b] hover:text-white"
+                }`}
+              >
+                {int.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="h-4 w-px bg-[#1e2a3a] mx-1 hidden md:block" />
+          
+          <span className="px-2 py-1 rounded bg-[#1e2a3a] text-[9px] font-black text-[#64748b] uppercase tracking-widest">NY TIME</span>
+          
           <button
             onClick={() => setExpanded((v) => !v)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#1e2a3a] hover:bg-[#2a3545] text-[10px] font-black text-[#94a3b8] hover:text-white transition-all border border-[#2a3545] hover:border-[#3b82f6]/40"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 text-[10px] font-black text-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/30"
           >
             {expanded ? (
               <>
@@ -69,6 +96,7 @@ export default function ChartSection({ ticker, exchange, companyMismatch }: Prop
           symbol={ticker}
           exchange={exchange}
           height={expanded ? 520 : 260}
+          interval={interval}
         />
       </div>
     </div>

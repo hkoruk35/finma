@@ -8,9 +8,10 @@ interface Props {
   symbol: string;
   exchange?: string; // e.g. "NASDAQ", "NYSE" — pins TradingView to the correct exchange
   height?: number;
+  interval?: string;
 }
 
-export default function TradingViewWidget({ symbol, exchange, height }: Props) {
+export default function TradingViewWidget({ symbol, exchange, height, interval = "D" }: Props) {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function TradingViewWidget({ symbol, exchange, height }: Props) {
         new (window as any).TradingView.widget({
           autosize: true,
           symbol: tvSymbol,
-          interval: "D",
+          interval: interval,
           timezone: "America/New_York",
           theme: "dark",
           style: "1",
@@ -51,15 +52,21 @@ export default function TradingViewWidget({ symbol, exchange, height }: Props) {
           toolbar_bg: "#0d1117",
           enable_publishing: false,
           hide_side_toolbar: true,
-          hide_top_toolbar: true,
-          withdateranges: false,
+          hide_top_toolbar: false, // Changed to false to allow interval change visibility if needed
+          withdateranges: true,
           allow_symbol_change: false,
           save_image: false,
           container_id: "tradingview_widget",
+          studies: [
+            "MASimple@tv-basicstudies", // EMA 20 substitute or generic MA
+            "MASimple@tv-basicstudies", // EMA 50 substitute
+            "RSI@tv-basicstudies",
+            "VWAP@tv-basicstudies"
+          ],
         });
       }
     }
-  }, [symbol, exchange]);
+  }, [symbol, exchange, interval]);
 
   const tvLink = exchange
     ? `https://www.tradingview.com/symbols/${exchange}-${symbol.replace('-', '.')}/`
