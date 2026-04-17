@@ -136,6 +136,24 @@ export default function AnalysisTabs({ stock }: Props) {
 
   return (
     <div className="flex flex-col gap-3">
+      {/* Language selector — always visible, above tabs */}
+      <div className="flex items-center gap-1.5 flex-wrap">
+        {LANG_LABELS.map((l) => (
+          <button
+            key={l.id}
+            onClick={() => setActiveLang(l.id)}
+            className={`px-2.5 py-1 rounded-lg text-[11px] font-black transition-all flex items-center gap-1 border ${
+              activeLang === l.id
+                ? "bg-[#3b82f6] border-[#3b82f6] text-white"
+                : "border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5"
+            }`}
+          >
+            <span className="leading-none">{l.flag}</span>
+            <span className="uppercase tracking-wide">{l.id.toUpperCase()}</span>
+          </button>
+        ))}
+      </div>
+
       {/* Tab selector */}
       <div className="grid grid-cols-3 gap-1.5 bg-[#0d1117] p-1.5 rounded-xl border border-[#1e2a3a]">
         {tabs.map((tab) => (
@@ -157,30 +175,12 @@ export default function AnalysisTabs({ stock }: Props) {
       {/* ── AI BRIEFING TAB ── */}
       {activeTab === "ai" && (
         <div className="glass-card overflow-hidden border-t-2 border-t-[#3b82f6]">
-          {/* Language selector */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 py-4 border-b border-[#1e2a3a] bg-[#0d1117]/60">
-            <div className="flex items-center gap-2.5 shrink-0">
-              <div className="w-1.5 h-5 bg-[#3b82f6] rounded-full" />
-              <span className="text-xs font-black text-white uppercase tracking-widest">
-                BOGA AI Analysis Engine
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {LANG_LABELS.map((l) => (
-                <button
-                  key={l.id}
-                  onClick={() => setActiveLang(l.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 border ${
-                    activeLang === l.id
-                      ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-md shadow-[#3b82f6]/20"
-                      : "border-[#1e2a3a] text-[#94a3b8] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5"
-                  }`}
-                >
-                  <span className="text-sm leading-none">{l.flag}</span>
-                  <span>{l.name}</span>
-                </button>
-              ))}
-            </div>
+          {/* Panel header */}
+          <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-[#1e2a3a] bg-[#0d1117]/60">
+            <div className="w-1.5 h-5 bg-[#3b82f6] rounded-full" />
+            <span className="text-xs font-black text-white uppercase tracking-widest">
+              BOGA AI Analysis Engine
+            </span>
           </div>
 
           <div className="p-5 md:p-8">
