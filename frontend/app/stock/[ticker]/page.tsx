@@ -104,23 +104,6 @@ export default async function StockDetailPage({ params }: Props) {
           <span className="text-[#94a3b8]">{stock.ticker}</span>
         </nav>
 
-        {/* Language analysis pages — only for current swing picks */}
-        {isSwingPick && (
-          <div className="flex items-center gap-1.5 flex-wrap mb-5">
-            <span className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mr-1">Read in:</span>
-            {Object.entries(LANG_CONFIG).map(([l, cfg]) => (
-              <Link
-                key={l}
-                href={`/${l}/${cfg.slug}/${stock.ticker.toLowerCase()}`}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-black flex items-center gap-1 border border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5 transition-all"
-              >
-                <span>{cfg.flag}</span>
-                <span>{l.toUpperCase()}</span>
-              </Link>
-            ))}
-          </div>
-        )}
-
         {/* ── HERO: Ticker Header ── */}
         <div className="glass-card px-5 py-5 md:px-8 mb-3 border-b-2 border-b-[#3b82f6]/30">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
