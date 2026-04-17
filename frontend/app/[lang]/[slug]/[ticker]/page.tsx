@@ -17,7 +17,7 @@ import TickerTape from "@/components/TickerTape";
 import AIReportFormatter from "@/components/stock/AIReportFormatter";
 
 export const dynamic = "force-static";
-export const revalidate = 3600; // re-generate at most once per hour on Vercel
+export const revalidate = 1; // force rapid refresh for update
 
 interface Props {
   params: Promise<{ lang: string; slug: string; ticker: string }>;

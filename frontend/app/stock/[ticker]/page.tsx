@@ -7,6 +7,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import SocialShare from "@/components/SocialShare";
+export const dynamic = "force-static";
+export const revalidate = 1; // force rapid refresh
 import MarketStatus from "@/components/MarketStatus";
 import AnalysisTabs from "@/components/stock/AnalysisTabs";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
