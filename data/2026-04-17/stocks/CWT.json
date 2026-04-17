@@ -143,7 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CWT is under selling pressure — RSI at 46, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 28,

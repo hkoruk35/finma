@@ -145,7 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AEP is range-bound — RSI 54 with flat MACD and below-average volume; trend direction remains unclear.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 43,

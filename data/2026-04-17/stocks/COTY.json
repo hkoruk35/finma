@@ -143,7 +143,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "COTY maintains a bullish bias — RSI 65, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 36,

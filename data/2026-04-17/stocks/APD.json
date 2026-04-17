@@ -145,7 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "APD is range-bound — RSI 56 with flat MACD and below-average volume; trend direction remains unclear.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 35,

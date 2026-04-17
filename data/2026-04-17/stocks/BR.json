@@ -145,7 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BR trades near equilibrium with RSI 44 and positive MACD; watch for a catalyst to establish directional bias.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 43,

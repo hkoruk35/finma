@@ -145,7 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BE maintains a bullish bias — RSI 66, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 53,

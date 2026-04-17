@@ -147,7 +147,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AVGO is in overbought territory with RSI at 78, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 55,

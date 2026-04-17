@@ -146,7 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "DLTR shows mixed signals with RSI at 47 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 28,

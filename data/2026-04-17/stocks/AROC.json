@@ -145,7 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AROC is range-bound — RSI 58 with flat MACD and below-average volume; trend direction remains unclear.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 50,

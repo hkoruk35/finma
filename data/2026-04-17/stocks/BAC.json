@@ -145,7 +145,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "BAC is in overbought territory with RSI at 70, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
     "score_bar": 63,
