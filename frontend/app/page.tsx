@@ -128,6 +128,57 @@ export default async function HomePage() {
             </a>
           </div>
         </section>
+        {/* SEO & Topical Authority Content */}
+        <section className="mt-16 mb-12 animate-fade-in" style={{ animationDelay: "500ms" }}>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="glass-card p-8 border-l-4 border-l-[#3b82f6]">
+              <h2 className="text-2xl font-black text-white mb-4">How BOGA AI Works</h2>
+              <p className="text-[#94a3b8] leading-relaxed mb-4 text-sm">
+                BOGA AI is an advanced analysis engine that scans over 500 US stocks every day. 
+                Using a combination of technical momentum, fundamental valuation, and sentiment analysis, 
+                our system identifies high-probability trading setups.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { title: "Daily 1D Scans", desc: "Every morning before market open, our engine analyzes the previous day's closing data." },
+                  { title: "Multi-Factor Scoring", desc: "Stocks are scored on a scale of 0-100 based on price action and volume profiles." },
+                  { title: "Risk-Managed Entries", desc: "Every pick includes suggested entry zones, targets, and stop-loss levels." }
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-3">
+                    <span className="text-[#3b82f6] font-bold">✓</span>
+                    <div>
+                      <h4 className="text-white text-[13px] font-bold">{item.title}</h4>
+                      <p className="text-[#64748b] text-[12px]">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="glass-card p-8 border-l-4 border-l-[#f59e0b]">
+              <h2 className="text-2xl font-black text-white mb-4">Trading Disciplines</h2>
+              <p className="text-[#94a3b8] leading-relaxed text-sm">
+                Our AI categorizes stocks into five distinct trading regimes to suit your strategy:
+              </p>
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                {[
+                  { tag: "Breakout", color: "text-[#22c55e]" },
+                  { tag: "Momentum", color: "text-[#3b82f6]" },
+                  { tag: "Undervalued", color: "text-[#f59e0b]" },
+                  { tag: "Reversal", color: "text-[#8b5cf6]" },
+                  { tag: "Dividend", color: "text-[#10b981]" }
+                ].map((cat) => (
+                  <div key={cat.tag} className="flex items-center gap-2">
+                    <div className={`w-1.5 h-1.5 rounded-full ${cat.color.replace('text-', 'bg-')}`} />
+                    <span className={`text-[13px] font-black uppercase tracking-wider ${cat.color}`}>{cat.tag}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-8 text-xs text-[#64748b] italic">
+                *Note: AI analysis is for informational purposes only. Always conduct your own research before trading.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
