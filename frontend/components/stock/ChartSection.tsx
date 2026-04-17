@@ -62,10 +62,14 @@ export default function ChartSection({ ticker, exchange, companyMismatch }: Prop
       )}
 
       <div
-        className="w-full overflow-hidden transition-all duration-500 ease-in-out"
-        style={{ height: expanded ? 500 : 150 }}
+        className="transition-all duration-500 ease-in-out overflow-hidden"
+        style={{ height: expanded ? 520 : 260 }}
       >
-        <TradingViewWidget symbol={ticker} exchange={exchange} />
+        <TradingViewWidget
+          symbol={ticker}
+          exchange={exchange}
+          height={expanded ? 520 : 260}
+        />
       </div>
     </div>
   );

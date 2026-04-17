@@ -7,9 +7,10 @@ let tvScriptLoadingPromise: Promise<void> | null = null;
 interface Props {
   symbol: string;
   exchange?: string; // e.g. "NASDAQ", "NYSE" — pins TradingView to the correct exchange
+  height?: number;
 }
 
-export default function TradingViewWidget({ symbol, exchange }: Props) {
+export default function TradingViewWidget({ symbol, exchange, height }: Props) {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
@@ -65,7 +66,10 @@ export default function TradingViewWidget({ symbol, exchange }: Props) {
     : `https://www.tradingview.com/symbols/${symbol.replace('-', '.')}/`;
 
   return (
-    <div className='tradingview-widget-container w-full h-[350px] md:h-[550px] rounded-xl overflow-hidden'>
+    <div
+      className={`tradingview-widget-container w-full rounded-xl overflow-hidden ${height ? '' : 'h-[350px] md:h-[550px]'}`}
+      style={height ? { height } : undefined}
+    >
       <div id='tradingview_widget' style={{ height: "100%", width: "100%" }} />
       <div className="tradingview-widget-copyright" style={{ fontSize: "12px", textAlign: "center", padding: "8px", color: "#64748b" }}>
         <a href={tvLink} rel="noopener nofollow" target="_blank" style={{ textDecoration: "none", color: "#3b82f6" }}>
