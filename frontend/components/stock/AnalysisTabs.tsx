@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { StockDetail } from "@/lib/data";
+import Link from "next/link";
+import { LANG_CONFIG } from "@/lib/analysis-langs";
+import AIReportFormatter from "./AIReportFormatter";
 
 interface Props {
   stock: StockDetail;
@@ -45,11 +48,12 @@ function getAIContent(
 
 function getHomePageSummary(ai: any, lang: LangTab): string {
   if (!ai || typeof ai !== "object") return "";
-  if (ai.homepage?.[lang]) return ai.homepage[lang];
-  if (ai.homepage_summary?.[lang]) return ai.homepage_summary[lang];
+  const obj = ai.homepage_summary || ai.homepage || {};
+  if (obj[lang]) return obj[lang];
   if (lang !== "en") return getHomePageSummary(ai, "en");
   return "";
 }
+
 
 export default function AnalysisTabs({ stock }: Props) {
   const [activeLang, setActiveLang] = useState<LangTab>("en");
@@ -65,20 +69,27 @@ export default function AnalysisTabs({ stock }: Props) {
       <div className="flex flex-col gap-3">
         <span className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em] ml-1">Analysis Language</span>
         <div className="flex items-center gap-2 flex-wrap">
-          {LANG_LABELS.map((l) => (
-            <button
-              key={l.id}
-              onClick={() => setActiveLang(l.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 border shadow-sm ${
-                activeLang === l.id
-                  ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-blue-500/20 scale-105"
-                  : "bg-[#0d1117] border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40"
-              }`}
-            >
-              <span className="text-sm">{l.flag}</span>
-              <span className="uppercase tracking-widest">{l.id}</span>
-            </button>
-          ))}
+          {LANG_LABELS.map((l) => {
+            const cfg = LANG_CONFIG[l.id];
+            // Pre-calculate localized link for SEO
+            const localizedLink = `/${l.id}/${cfg.slug}/${stock.ticker.toLowerCase()}`;
+            
+            return (
+              <Link
+                key={l.id}
+                href={localizedLink}
+                onClick={() => setActiveLang(l.id)}
+                className={`px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 border shadow-sm ${
+                  activeLang === l.id
+                    ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-blue-500/20 scale-105"
+                    : "bg-[#0d1117] border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40"
+                }`}
+              >
+                <span className="text-sm">{l.flag}</span>
+                <span className="uppercase tracking-widest">{l.id}</span>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
@@ -110,8 +121,28 @@ export default function AnalysisTabs({ stock }: Props) {
                 </div>
               )}
               {/* Main Text Content */}
-              <div className="text-[#94a3b8] leading-[1.8] text-base md:text-xl font-medium whitespace-pre-wrap selection:bg-blue-500/30">
-                {detailContent}
+                            <AIReportFormatter content={detailContent} />
+
+              {/* Explicit SEO Links Section */}
+              <div className="mt-12 pt-8 border-t border-white/5">
+                 <p className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em] mb-4">Discover in Other Languages (SEO Index)</p>
+                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+                    {LANG_LABELS.map(l => (
+                      <Link 
+                        key={l.id} 
+                        href={`/${l.id}/${LANG_CONFIG[l.id].slug}/${stock.ticker.toLowerCase()}`}
+                        className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all group"
+                      >
+                         <div className="flex items-center gap-2 mb-1">
+                            <span>{l.flag}</span>
+                            <span className="text-[10px] font-black text-white uppercase">{l.id}</span>
+                         </div>
+                         <p className="text-[9px] text-[#64748b] group-hover:text-blue-400 truncate font-semibold">
+                            {stock.ticker} {LANG_CONFIG[l.id].name} Analysis
+                         </p>
+                      </Link>
+                    ))}
+                 </div>
               </div>
             </div>
           ) : (
