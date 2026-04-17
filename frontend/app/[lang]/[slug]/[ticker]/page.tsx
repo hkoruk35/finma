@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const swingData = await getSwingAllPicks();
   const pick = swingData?.picks.find(
-    (p) => p.ticker.toLowerCase() === ticker.toLowerCase()
+    (p: any) => p.ticker.toLowerCase() === ticker.toLowerCase()
   );
   if (!pick) return {};
 
@@ -92,7 +92,7 @@ export default async function LangAnalysisPage({ params }: Props) {
   ]);
 
   const pick = swingData?.picks.find(
-    (p) => p.ticker.toLowerCase() === ticker.toLowerCase()
+    (p: any) => p.ticker.toLowerCase() === ticker.toLowerCase()
   );
   if (!pick) notFound();
 
