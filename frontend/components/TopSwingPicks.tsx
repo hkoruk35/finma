@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { formatPrice } from "@/lib/data";
+import { LANG_CONFIG } from "@/lib/analysis-langs";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
@@ -229,6 +230,22 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                   );
                 })()}
               </Link>
+
+              {/* Language analysis pages — outside <Link> to avoid nested anchors */}
+              {!isLocked && (
+                <div className="flex gap-1 flex-wrap mt-2 px-1">
+                  {Object.entries(LANG_CONFIG).map(([l, cfg]) => (
+                    <Link
+                      key={l}
+                      href={`/${l}/${cfg.slug}/${item.ticker.toLowerCase()}`}
+                      className="px-2 py-1 rounded text-[10px] font-black flex items-center gap-0.5 border border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5 transition-all"
+                    >
+                      <span>{cfg.flag}</span>
+                      <span>{l.toUpperCase()}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}

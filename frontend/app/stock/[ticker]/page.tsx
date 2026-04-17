@@ -9,6 +9,8 @@ import { Metadata } from "next";
 import SocialShare from "@/components/SocialShare";
 import MarketStatus from "@/components/MarketStatus";
 import AnalysisTabs from "@/components/stock/AnalysisTabs";
+import { LANG_CONFIG } from "@/lib/analysis-langs";
+import { getArchivedDates } from "@/lib/analysis-archive";
 
 interface Props {
   params: Promise<{ ticker: string }>;
@@ -54,6 +56,7 @@ export default async function StockDetailPage({ params }: Props) {
   const swing = (stock as any)._swing;
   const scoreType = stock.scores.score_type;
   const isSwingPick = !!swing;
+  const archivedDates = getArchivedDates(ticker);
 
   // Signal icon and color based on score type
   const signalConfig: Record<string, { icon: string; label: string; color: string; bg: string }> = {
@@ -100,6 +103,23 @@ export default async function StockDetailPage({ params }: Props) {
           <span>/</span>
           <span className="text-[#94a3b8]">{stock.ticker}</span>
         </nav>
+
+        {/* Language analysis pages — only for current swing picks */}
+        {isSwingPick && (
+          <div className="flex items-center gap-1.5 flex-wrap mb-5">
+            <span className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mr-1">Read in:</span>
+            {Object.entries(LANG_CONFIG).map(([l, cfg]) => (
+              <Link
+                key={l}
+                href={`/${l}/${cfg.slug}/${stock.ticker.toLowerCase()}`}
+                className="px-2.5 py-1 rounded-lg text-[11px] font-black flex items-center gap-1 border border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5 transition-all"
+              >
+                <span>{cfg.flag}</span>
+                <span>{l.toUpperCase()}</span>
+              </Link>
+            ))}
+          </div>
+        )}
 
         {/* ── HERO: Ticker Header ── */}
         <div className="glass-card px-5 py-5 md:px-8 mb-3 border-b-2 border-b-[#3b82f6]/30">
@@ -345,6 +365,26 @@ export default async function StockDetailPage({ params }: Props) {
             </div>
           </div>
         </div>
+
+        {/* ── Previous Analyses Archive ── */}
+        {archivedDates.length > 0 && (
+          <div className="glass-card p-5 mb-4">
+            <h3 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-3">
+              Previous Analyses · {stock.ticker}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {archivedDates.map((date) => (
+                <Link
+                  key={date}
+                  href={`/en/analysis/${stock.ticker.toLowerCase()}/${date}`}
+                  className="px-3 py-1.5 rounded-lg border border-[#1e2a3a] text-xs font-semibold text-[#64748b] hover:text-white hover:border-[#f59e0b]/40 transition-all"
+                >
+                  {date}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* ── Related Stocks ── */}
         {allTickers.filter(s => s.sector === stock.sector && s.ticker !== stock.ticker).length > 0 && (
