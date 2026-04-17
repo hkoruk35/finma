@@ -30,62 +30,67 @@ else:
 
 GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
-async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dict:
-    """
-    Enhanced BOGA AI Engine: Generates multi-tab specific analysis.
-    """
-    ticker = c.get("ticker", "UNKNOWN")
-    company = c.get("company", ticker)
-    sector = c.get("sector", "Market")
-    price = c.get("price", 0.0)
-    score_100 = c.get("composite_score_100", c.get("score", 0.0))
-    
-    # Technical Data
-    tech = c.get("technical", {})
-    rsi = tech.get("rsi_14", 50.0)
-    adx = tech.get("adx", 20.0)
-    macd_hist = tech.get("macd_histogram", 0.0)
-    
-    # Fundamentals
-    if not fin_health and "fundamentals" in c: fin_health = c["fundamentals"]
-    rev_g = fin_health.get("revenue_growth", 0)
-    gross_m = fin_health.get("gross_margin", 0)
-    pe = fin_health.get("pe_ratio", 0)
-
-    prompt = f"""
-You are BOGA AI. Analyze {ticker} ({company}).
-Data: Score {score_100}/100, Price ${price}, RSI {rsi}, ADX {adx}, MACD {macd_hist}, Revenue Growth {rev_g}%, Gross Margin {gross_m}%, P/E {pe}.
-
-TASKS:
-1. Homepage Summary: 1 sharp sentence for the main dashboard.
-2. Detail Report: 6 sentences deep briefing. Link numbers to risks. No generic intros.
-3. Technical Insight: 2 sentences explaining the RSI/ADX/MACD setup.
-4. Fundamental Insight: 2 sentences explaining the Margin/Growth health.
-
-LANGUAGES: Provide ALL tasks in 6 languages: EN, TR, ES, PT, FR, ID.
-
-OUTPUT FORMAT (STRICT JSON):
-{{
-  "homepage": {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
-  "detail":   {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
-  "tech_ins": {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
-  "quant_ins":{{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }}
-}}
-"""
+def safe_json_parse(text: str):
+    if not text: return None
     try:
-        url = f"{GEMINI_API_URL}?key={GEMINI_API_KEY}"
-        payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.3, "maxOutputTokens": 4000}}
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=payload, timeout=40) as resp:
-                if resp.status == 200:
-                    result = await resp.json()
-                    text = result['candidates'][0]['content']['parts'][0]['text']
-                    json_match = re.search(r'\{.*\}', text, re.DOTALL)
-                    if json_match: return json.loads(json_match.group())
-        return _fallback(c)
-    except Exception as e:
-        logging.error(f"Gemini error: {e}")
-        return _fallback(c)
+        clean_text = re.sub(r"```json\s*", "", text); clean_text = re.sub(r"```\s*", "", clean_text).strip()
+        return json.loads(clean_text)
+    except Exception:
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
+            try:
+                jp = match.group(); jp = re.sub(r",\s*\}", "}", jp); jp = re.sub(r",\s*\]", "]", jp)
+                return json.loads(jp)
+            except Exception: pass
+    return None
+
+async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dict:
+    ticker = c.get("ticker", "UNKNOWN"); company = c.get("company", ticker)
+    price = c.get("price", c.get("current_price", 0.0))
+    score = c.get("composite_score_100", c.get("score", 0.0))
+    tech = c.get("technical", c.get("meta", {}).get("1d", {}))
+    
+    # OHLC
+    df_1d = c.get("df_1d")
+    ohlc_str = "N/A"
+    if df_1d is not None and len(df_1d) >= 10:
+        ohlc_str = df_1d.tail(10)[['Open', 'High', 'Low', 'Close', 'Volume']].to_string()
+
+    lang_configs = {"en": "English", "tr": "Turkish", "es": "Spanish", "pt": "Portuguese", "fr": "French", "id": "Indonesian"}
+    
+    async def fetch_lang(l, desc):
+        prompt = f"""
+You are a senior Wall Street Analyst. Analyze {ticker} ({company}).
+Score: {score}/100, Price: ${price}. RSI: {tech.get('RSI', 'N/A')}, ADX: {tech.get('ADX', 'N/A')}.
+Tactical: {zones.get('buy_zone', 'N/A')} -> Target {zones.get('sell_zone', 'N/A')}.
+
+HISTORICAL OHLC (Last 10 Days):
+{ohlc_str}
+
+TASK: 5 Sections (Summary, Performance, Technical with Table, Fundamental/Risks, Strategy) for {desc} audience.
+Return JSON: {{"homepage": "1 sentence", "detail": "Full Markdown"}}
+"""
+        for attempt in range(2):
+            try:
+                url = f"{GEMINI_API_URL}?key={GEMINI_API_KEY}"
+                payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.4, "maxOutputTokens": 2500}}
+                async with aiohttp.ClientSession() as session:
+                    async with session.post(url, json=payload, timeout=45) as resp:
+                        if resp.status == 200:
+                            data = await resp.json()
+                            parsed = safe_json_parse(data["candidates"][0]["content"]["parts"][0]["text"])
+                            if parsed: return l, parsed
+            except Exception: pass
+        return l, None
+
+    tasks = [fetch_lang(l, d) for l, d in lang_configs.items()]
+    results = await asyncio.gather(*tasks)
+    
+    out = {"homepage": {}, "detail": {}}
+    for l, data in results:
+        if data:
+            out["homepage"][l] = data["homepage"]; out["detail"][l] = data["detail"]
+    return out
 
 def _fallback(c: dict) -> dict:
     t = c.get("ticker", "")
