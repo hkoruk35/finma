@@ -126,6 +126,11 @@ async def main():
     # Save to public folder
     with open(SWING_PICKS_PATH, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2, ensure_ascii=False)
+    
+    # Also update swing_all_picks.json for complete synchronization
+    SWING_ALL_PATH = SWING_PICKS_PATH.replace("swing_picks.json", "swing_all_picks.json")
+    with open(SWING_ALL_PATH, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2, ensure_ascii=False)
 
     # Sync to latest data folder
     data_dir_root = os.path.join(BASE_DIR, "data")
@@ -134,6 +139,11 @@ async def main():
         date_folder = dates[-1]
         today_swing_path = os.path.join(data_dir_root, date_folder, "swing_picks.json")
         with open(today_swing_path, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2, ensure_ascii=False)
+        
+        # Parallel update for the data folder
+        today_all_path = today_swing_path.replace("swing_picks.json", "swing_all_picks.json")
+        with open(today_all_path, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2, ensure_ascii=False)
         
         # Individual stock JSONs

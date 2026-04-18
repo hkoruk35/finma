@@ -340,10 +340,6 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
                     <p className="font-mono font-bold text-white">${fmt(t.entry)}</p>
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Current</p>
-                    <p className="font-mono font-bold text-[#3b82f6]">${fmt(t.current_price)}</p>
-                  </div>
-                  <div>
                     <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Peak</p>
                     <p className="font-mono text-white">{t.max_price != null ? `$${fmt(t.max_price)}` : "—"}</p>
                   </div>
@@ -373,7 +369,6 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
                   <th className="px-4 py-3 font-bold uppercase tracking-wider">Symbol</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e]">Max Return</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Entry Price</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Current Price</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Peak Price</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-center">Days to Peak</th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6]">PnL/$1000</th>
@@ -403,7 +398,6 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
                           : "—"}
                       </td>
                       <td className="px-4 py-3 text-right">${fmt(t.entry)}</td>
-                      <td className="px-4 py-3 text-right font-bold text-[#3b82f6]">${fmt(t.current_price)}</td>
                       <td className="px-4 py-3 text-right">
                         {t.max_price != null ? (
                           <span>

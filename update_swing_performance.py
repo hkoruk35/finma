@@ -7,19 +7,27 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
-def get_sector_info(ticker, cache):
-    """Try to get sector info from cache or live yfinance."""
+def get_ticker_info(ticker, cache):
+    """Try to get sector and industry info from cache or live yfinance."""
     ticker = ticker.upper()
-    if ticker in cache and cache[ticker].get('sector') and cache[ticker]['sector'] != 'Unknown':
-        return cache[ticker]['sector']
+    if ticker in cache:
+        c = cache[ticker]
+        return {
+            'sector': c.get('sector', 'Unknown'),
+            'industry': c.get('industry', 'Unknown'),
+            'company': c.get('companyName', ticker)
+        }
     
     try:
-        logging.info(f"Fetching sector for {ticker} live...")
+        logging.info(f"Fetching info for {ticker} live...")
         info = yf.Ticker(ticker).info
-        sector = info.get('sector', 'Unknown')
-        return sector
+        return {
+            'sector': info.get('sector', 'Unknown'),
+            'industry': info.get('industry', 'Unknown'),
+            'company': info.get('longName', ticker)
+        }
     except:
-        return 'Unknown'
+        return {'sector': 'Unknown', 'industry': 'Unknown', 'company': ticker}
 
 def update_performance_live():
     performance_file = 'frontend/public/swing_performance.json'
@@ -59,12 +67,16 @@ def update_performance_live():
             if (today_date - entry_date).days <= 30:
                 tickers_to_update.add(record['ticker'])
                 
-                # Fix missing sector/company while we are at it
-                if not record.get('sector') or record['sector'] == 'Unknown' or record['sector'] == '—':
-                    record['sector'] = get_sector_info(record['ticker'], info_cache)
-                if not record.get('company') or record['company'] == record['ticker']:
-                    if record['ticker'] in info_cache:
-                        record['company'] = info_cache[record['ticker']].get('companyName', record['ticker'])
+                # Fix missing sector/company/subsector
+                needs_info = (not record.get('sector') or record['sector'] in ['Unknown', '—', 'None'] or
+                             not record.get('subsector') or record['subsector'] in ['Unknown', '—', 'None'] or
+                             not record.get('company') or record['company'] == record['ticker'])
+                
+                if needs_info:
+                    info = get_ticker_info(record['ticker'], info_cache)
+                    record['sector'] = info['sector']
+                    record['subsector'] = info['industry']
+                    record['company'] = info['company']
         except: pass
 
     # 4. Load today's picks and add to tickers
@@ -175,31 +187,21 @@ def update_performance_live():
     for p in today_picks_list:
         ticker = p['ticker']
         if ticker not in existing_today_tickers:
-            # Check 5-day rule
-            skip = False
-            for r in reversed(history):
-                if r['ticker'] == ticker:
-                    try:
-                        r_date = datetime.strptime(r['date'], '%Y-%m-%d')
-                        if (today_date - r_date).days < 5:
-                            skip = True
-                            break
-                    except: pass
-            
-            if not skip:
-                price = live_prices.get(ticker, p.get('current_price', 0))
-                if price > 0:
-                    history.append({
-                        'date': today_str,
-                        'ticker': ticker,
-                        'company': p.get('company', ticker),
-                        'sector': p.get('sector', get_sector_info(ticker, info_cache)),
-                        'entry': price,
-                        'max_price': price,
-                        'return_pct': 0.0,
-                        'days': 0,
-                        'result': 'PENDING'
-                    })
+            price = live_prices.get(ticker, p.get('current_price', 0))
+            if price > 0:
+                info = get_ticker_info(ticker, info_cache)
+                history.append({
+                    'date': today_str,
+                    'ticker': ticker,
+                    'company': info['company'],
+                    'sector': info['sector'],
+                    'subsector': info['industry'],
+                    'entry': price,
+                    'max_price': price,
+                    'return_pct': 0.0,
+                    'days': 0,
+                    'result': 'PENDING'
+                })
 
     # 8. Finalize and Save
     history.sort(key=lambda x: (x['date'], x['ticker']), reverse=True)

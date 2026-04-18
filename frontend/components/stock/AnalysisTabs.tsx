@@ -27,30 +27,52 @@ function getAIContent(
   type: "detail" | "tech_ins" | "quant_ins",
   lang: LangTab
 ): string {
-  if (!ai || typeof ai === "string") {
-    if (type === "detail") return ai || "";
+  if (!ai) return "";
+  
+  // Defensive: If it's a JSON string, parse it
+  let parsedAi = ai;
+  if (typeof ai === "string" && ai.trim().startsWith("{")) {
+    try { parsedAi = JSON.parse(ai); } catch (e) { }
+  }
+
+  if (!parsedAi || typeof parsedAi === "string") {
+    if (type === "detail") return parsedAi || "";
     return "";
   }
-  if (typeof ai !== "object") return "";
-  if (ai[type]?.[lang]) return ai[type][lang];
+  
+  if (typeof parsedAi !== "object") return "";
 
+  // Strategy: Check exact type first, then map
   const altMap: Record<string, string> = {
     detail: "detail_summary",
     tech_ins: "tech_insight",
     quant_ins: "fundamental_insight",
   };
-  const altKey = altMap[type];
-  if (altKey && ai[altKey]?.[lang]) return ai[altKey][lang];
+  
+  const keysToTry = [type, altMap[type]].filter(Boolean);
+  
+  for (const key of keysToTry) {
+     if (parsedAi[key!]?.[lang]) return parsedAi[key!][lang];
+  }
 
-  if (lang !== "en") return getAIContent(ai, type, "en");
+  // Fallback to English
+  if (lang !== "en") return getAIContent(parsedAi, type, "en");
+  
+  // Last resort: If the object itself contains the keys at root
   return "";
 }
 
 function getHomePageSummary(ai: any, lang: LangTab): string {
-  if (!ai || typeof ai !== "object") return "";
-  const obj = ai.homepage_summary || ai.homepage || {};
+  if (!ai) return "";
+  let p = ai;
+  if (typeof ai === "string" && ai.trim().startsWith("{")) {
+    try { p = JSON.parse(ai); } catch(e) {}
+  }
+  if (!p || typeof p !== "object") return "";
+  
+  const obj = p.homepage_summary || p.homepage || {};
   if (obj[lang]) return obj[lang];
-  if (lang !== "en") return getHomePageSummary(ai, "en");
+  if (lang !== "en") return getHomePageSummary(p, "en");
   return "";
 }
 
@@ -101,8 +123,9 @@ export default function AnalysisTabs({ stock }: Props) {
             <span className="text-lg">🦅</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-black text-white uppercase tracking-widest">
+            <span className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
               BOGA AI Analysis Briefing
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 lowercase font-bold">v5.5.2</span>
             </span>
             <span className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest">Autonomous Intelligence Output</span>
           </div>
