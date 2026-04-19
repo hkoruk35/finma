@@ -1,11 +1,11 @@
 {
   "stats": {
-    "total_picks": 1067,
-    "win_rate": 98.1,
-    "avg_return_pct": 10.7,
+    "total_picks": 1072,
+    "win_rate": 97.7,
+    "avg_return_pct": 10.6,
     "period_days": 180,
-    "above_5pct_rate": 67.7,
-    "above_10pct_rate": 40.8
+    "above_5pct_rate": 67.4,
+    "above_10pct_rate": 40.6
   },
   "history": [
     {

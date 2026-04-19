@@ -97,7 +97,7 @@ OUTPUT_ALL_JSON_FILE = "swing_all_picks.json"
 # ================================================================
 MAX_TICKERS_FINAL = 500          # Katman 1: En likit 500 hisse
 TOP_DEEP_ANALYSIS = 50           # Katman 3: Derin analize giren hisse sayısı
-TOP_FINAL_PICKS = 5             # Nihai BOGA AI seçim sayısı
+TOP_FINAL_PICKS = 10             # Nihai BOGA AI seçim sayısı
 
 PRICE_MIN = 5.0
 PRICE_MAX = 1000.0
@@ -1521,25 +1521,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         elif obv_slope < -1000: score -= 3.2; details.append("⚠️ OBV: Dağıtım Riski")
         else: score -= 0.8; details.append("➖ OBV: Nötr")
 
-        # ── RVOL (1D) & SAHTE HACİM (CHURN) KORUMASI ──────────────────
+        # ── RVOL (1D) ─────────────────────────────────────────────────
         vol_today = float(volume_1d.iloc[-1])
         vol_ma_1d = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_today
         rvol_today = (vol_today / vol_ma_1d) if vol_ma_1d > 0 else 0.0
         close_change_pct = (float(close_1d.iloc[-1]) - float(close_1d.iloc[-2])) / float(close_1d.iloc[-2]) if len(close_1d) > 1 else 0.0
 
-        # Mum Gövdesi (Candle Body) Analizi
-        open_today = float(df_1d['Open'].iloc[-1])
-        high_today = float(high_1d.iloc[-1])
-        low_today = float(low_1d.iloc[-1])
-        candle_range = high_today - low_today
-        candle_body = abs(current_price - open_today)
-        churn_ratio = (candle_body / candle_range) if candle_range > 0 else 1.0
-
-        # Fake Spike & Churn Koruması (Yataya Bağlama İhtimali)
-        if rvol_today > 1.8 and churn_ratio < 0.25:
-            # Hacim var ama mum gövdesi çok küçük (Doji/Pinbar). Bu bir momentum değil, mal değişimidir (Churn).
-            return None
-            
+        # Fake Spike Koruması
         if rvol_today > 2.5 and close_change_pct < -0.015:
             return None
 
