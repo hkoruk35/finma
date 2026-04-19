@@ -500,20 +500,32 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
 
         {/* ── Desktop Table View ───────────────────────────────────────────── */}
         <div className="hidden md:block glass-card overflow-hidden">
-          <div className="overflow-x-auto w-full">
-            <table className="w-full text-left text-xs whitespace-nowrap">
+          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
+            <table className="w-full min-w-[1100px] text-left text-xs whitespace-nowrap table-fixed">
+              <colgroup>
+                <col className="w-[100px]" />
+                <col className="w-[120px]" />
+                <col className="w-[100px]" />
+                <col className="w-[100px]" />
+                <col className="w-[100px]" />
+                <col className="w-[100px]" />
+                <col className="w-[100px]" />
+                <col className="w-[150px]" />
+                <col className="w-[150px]" />
+                <col className="w-[80px]" />
+              </colgroup>
               <thead>
                 <tr className="bg-[#1a2030] border-b border-[#1e2a3a] text-[#64748b]">
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('date')}>Date <SortIcon column="date" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:text-white" onClick={() => handleSort('return_pct')}>Max Return <SortIcon column="return_pct" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:text-white" onClick={() => handleSort('entry')}>Entry Price <SortIcon column="entry" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:text-white" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:text-white" onClick={() => handleSort('days')}>Days to Peak <SortIcon column="days" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6]">PnL/$1000</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('sector')}>Sector <SortIcon column="sector" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('subsector')}>Subsector <SortIcon column="subsector" /></th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:text-white" onClick={() => handleSort('result')}>Result <SortIcon column="result" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('date')}>Date <SortIcon column="date" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('return_pct')}>Max Return <SortIcon column="return_pct" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('entry')}>Entry Price <SortIcon column="entry" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('return_pct')}>PnL/$1000 <SortIcon column="return_pct" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('sector')}>Sector <SortIcon column="sector" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('subsector')}>Subsector <SortIcon column="subsector" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] transition-colors" onClick={() => handleSort('result')}>Result <SortIcon column="result" /></th>
                 </tr>
               </thead>
               <tbody className="text-white font-mono divide-y divide-[#1e2a3a]">
@@ -528,7 +540,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
                           {t.ticker}
                         </Link>
                         {t.company && t.company !== t.ticker && (
-                          <p className="text-[9px] text-[#475569] truncate max-w-[100px]">{t.company}</p>
+                          <p className="text-[9px] text-[#475569] truncate">{t.company}</p>
                         )}
                       </td>
                       <td className={`px-4 py-3 text-right font-black text-sm ${retColor(t.return_pct)}`}>
@@ -556,7 +568,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
                         {pnl != null ? `${pnl >= 0 ? "+" : ""}$${Math.abs(pnl).toFixed(0)}` : "—"}
                       </td>
                       <td className="px-4 py-3 text-[#94a3b8] text-[10px] uppercase">{t.sector || "—"}</td>
-                      <td className="px-4 py-3 text-[#64748b] text-[10px] max-w-[140px]">
+                      <td className="px-4 py-3 text-[#64748b] text-[10px]">
                         <span className="truncate block" title={t.subsector}>{t.subsector || "—"}</span>
                       </td>
                       <td className="px-4 py-3 text-center">
