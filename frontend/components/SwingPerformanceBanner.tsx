@@ -6,6 +6,7 @@ interface Stats {
   total_picks: number;
   period_days: number;
   above_5pct_rate: number;
+  above_10pct_rate: number;
 }
 
 export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
