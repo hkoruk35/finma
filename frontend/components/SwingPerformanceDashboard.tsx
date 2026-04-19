@@ -54,6 +54,8 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
   const [selectedYear,      setSelectedYear]      = useState("All");
   const [selectedMonth,     setSelectedMonth]     = useState("All");
   const [selectedDate,      setSelectedDate]      = useState("");
+  const [searchTicker,      setSearchTicker]      = useState("");
+  const [sortConfig, setSortConfig] = useState<{ key: keyof Trade; direction: 'asc' | 'desc' } | null>({ key: 'date', direction: 'desc' });
 
   // Format last updated time
   const formatLastUpdated = (isoString?: string) => {
@@ -110,19 +112,34 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
     }));
   }, [initialHistory, selectedYear]);
 
-  // ── Filtered data ──────────────────────────────────────────────────────────
+  // ── Filtered and Sorted data ──────────────────────────────────────────────
   const filtered = useMemo(() => {
-    return initialHistory
-      .filter(t => {
-        if (selectedSector    !== "All" && t.sector    !== selectedSector)    return false;
-        if (selectedSubsector !== "All" && t.subsector !== selectedSubsector) return false;
-        if (selectedYear      !== "All" && !t.date.startsWith(selectedYear))  return false;
-        if (selectedMonth     !== "All" && t.date.slice(5, 7) !== selectedMonth) return false;
-        if (selectedDate && t.date !== selectedDate)                           return false;
-        return true;
-      })
-      .sort((a, b) => b.date.localeCompare(a.date));
-  }, [initialHistory, selectedSector, selectedSubsector, selectedYear, selectedMonth, selectedDate]);
+    let data = initialHistory.filter(t => {
+      if (selectedSector    !== "All" && t.sector    !== selectedSector)    return false;
+      if (selectedSubsector !== "All" && t.subsector !== selectedSubsector) return false;
+      if (selectedYear      !== "All" && !t.date.startsWith(selectedYear))  return false;
+      if (selectedMonth     !== "All" && t.date.slice(5, 7) !== selectedMonth) return false;
+      if (selectedDate && t.date !== selectedDate)                           return false;
+      if (searchTicker && !t.ticker.toLowerCase().includes(searchTicker.toLowerCase())) return false;
+      return true;
+    });
+
+    if (sortConfig) {
+      data.sort((a, b) => {
+        const aVal = a[sortConfig.key];
+        const bVal = b[sortConfig.key];
+        if (aVal == null) return 1;
+        if (bVal == null) return -1;
+
+        if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
+        if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
+      });
+    } else {
+      data.sort((a, b) => b.date.localeCompare(a.date));
+    }
+    return data;
+  }, [initialHistory, selectedSector, selectedSubsector, selectedYear, selectedMonth, selectedDate, searchTicker, sortConfig]);
 
   // ── Stats ──────────────────────────────────────────────────────────────────
   const stats = useMemo(() => {
@@ -178,7 +195,20 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
 
   const hasActiveFilter =
     selectedSector !== "All" || selectedSubsector !== "All" ||
-    selectedYear !== "All" || selectedMonth !== "All" || selectedDate !== "";
+    selectedYear !== "All" || selectedMonth !== "All" || selectedDate !== "" || searchTicker !== "";
+
+  const handleSort = (key: keyof Trade) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const SortIcon = ({ column }: { column: keyof Trade }) => {
+    if (sortConfig?.key !== column) return <span className="ml-1 opacity-20">⇅</span>;
+    return <span className="ml-1 text-[#3b82f6] font-bold">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>;
+  };
 
   // ── Export Functions ──────────────────────────────────────────────────────
   const handleExportCSV = () => {
@@ -315,6 +345,17 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]"
           title="Filter by exact date"
         />
+
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search Ticker..."
+            value={searchTicker}
+            onChange={e => setSearchTicker(e.target.value)}
+            className="bg-[#1a2030] border border-[#1e2a3a] text-white pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6] w-full md:w-40"
+          />
+          <svg className="w-4 h-4 text-[#64748b] absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
 
         {hasActiveFilter && (
           <button
@@ -463,16 +504,16 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
             <table className="w-full text-left text-xs whitespace-nowrap">
               <thead>
                 <tr className="bg-[#1a2030] border-b border-[#1e2a3a] text-[#64748b]">
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider">Date</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider">Symbol</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e]">Max Return</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Entry Price</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right">Peak Price</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-center">Days to Peak</th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('date')}>Date <SortIcon column="date" /></th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:text-white" onClick={() => handleSort('return_pct')}>Max Return <SortIcon column="return_pct" /></th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:text-white" onClick={() => handleSort('entry')}>Entry Price <SortIcon column="entry" /></th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:text-white" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:text-white" onClick={() => handleSort('days')}>Days to Peak <SortIcon column="days" /></th>
                   <th className="px-4 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6]">PnL/$1000</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider">Sector</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider">Subsector</th>
-                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-center">Result</th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('sector')}>Sector <SortIcon column="sector" /></th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider cursor-pointer hover:text-white" onClick={() => handleSort('subsector')}>Subsector <SortIcon column="subsector" /></th>
+                  <th className="px-4 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:text-white" onClick={() => handleSort('result')}>Result <SortIcon column="result" /></th>
                 </tr>
               </thead>
               <tbody className="text-white font-mono divide-y divide-[#1e2a3a]">
