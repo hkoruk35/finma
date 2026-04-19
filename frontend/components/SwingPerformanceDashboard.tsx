@@ -180,6 +180,86 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
     selectedSector !== "All" || selectedSubsector !== "All" ||
     selectedYear !== "All" || selectedMonth !== "All" || selectedDate !== "";
 
+  // ── Export Functions ──────────────────────────────────────────────────────
+  const handleExportCSV = () => {
+    const headers = ["Date", "Ticker", "Company", "Sector", "Subsector", "Entry Price", "Peak Price", "Return %", "Days to Peak", "Result"];
+    const csvRows = [headers.join(",")];
+    
+    filtered.forEach(t => {
+      const row = [
+        t.date,
+        t.ticker,
+        `"${(t.company || "").replace(/"/g, '""')}"`,
+        `"${(t.sector || "").replace(/"/g, '""')}"`,
+        `"${(t.subsector || "").replace(/"/g, '""')}"`,
+        t.entry,
+        t.max_price || 0,
+        t.return_pct || 0,
+        t.days || 0,
+        t.result
+      ];
+      csvRows.push(row.join(","));
+    });
+
+    const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `finma_historical_trades_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExportExcel = () => {
+    let tableHtml = `
+      <table border="1">
+        <thead>
+          <tr style="background-color: #f3f4f6; font-weight: bold;">
+            <th>Date</th>
+            <th>Ticker</th>
+            <th>Company</th>
+            <th>Sector</th>
+            <th>Subsector</th>
+            <th>Entry Price</th>
+            <th>Peak Price</th>
+            <th>Return %</th>
+            <th>Days to Peak</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    filtered.forEach(t => {
+      tableHtml += `
+        <tr>
+          <td>${t.date}</td>
+          <td>${t.ticker}</td>
+          <td>${t.company || ""}</td>
+          <td>${t.sector || ""}</td>
+          <td>${t.subsector || ""}</td>
+          <td>${t.entry}</td>
+          <td>${t.max_price || 0}</td>
+          <td>${t.return_pct || 0}</td>
+          <td>${t.days || 0}</td>
+          <td>${t.result}</td>
+        </tr>
+      `;
+    });
+
+    tableHtml += "</tbody></table>";
+
+    const blob = new Blob([tableHtml], { type: "application/vnd.ms-excel" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `finma_historical_trades_${new Date().toISOString().split('T')[0]}.xls`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       {/* ── Last Updated ────────────────────────────────────────────────── */}
@@ -311,8 +391,26 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
       {/* ── Trade History ─────────────────────────────────────────────────── */}
       <div className="w-full">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-          <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
-          <p className="text-xs text-[#94a3b8]">Showing {filtered.length} trades</p>
+          <div className="flex flex-col md:flex-row md:items-center gap-3">
+            <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
+            <p className="text-xs text-[#94a3b8]">Showing {filtered.length} trades</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleExportCSV}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-[#94a3b8] border border-[#2d3a4b] hover:border-[#3b82f6] hover:text-white transition-all flex items-center gap-2"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              CSV
+            </button>
+            <button
+              onClick={handleExportExcel}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-[#94a3b8] border border-[#2d3a4b] hover:border-[#22c55e] hover:text-white transition-all flex items-center gap-2"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              Excel (XLS)
+            </button>
+          </div>
         </div>
 
         {/* ── Mobile Card View ────────────────────────────────────────────── */}
