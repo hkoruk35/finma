@@ -394,7 +394,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
 
         {/* Profit Target Breakdown */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-4 font-bold">Profit Target Breakdown — Ortalama Kaç Günde Kaç % Kar?</p>
+          <p className="text-xs text-[#64748b] uppercase tracking-wider mb-4 font-bold">Profit Target Breakdown — Avg Days & Hit Rate per Target</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
             {profitTargets.map(pt => (
               <div key={pt.pct} className="rounded-xl bg-[#141924] border border-[#1e2a3a] p-3 text-center hover:border-[#22c55e]/40 transition-colors">
@@ -405,14 +405,14 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
               </div>
             ))}
           </div>
-          <p className="text-[9px] text-[#475569] mt-3">
-            Örnek: "+5% Target → 8.2d → %62.3" demek; tamamlanan işlemlerin %62.3'ü ortalama 8.2 günde +5% veya üzerine ulaştı.
+          <p className="text-xs text-[#64748b] mt-3">
+            Example: "+5% Target → 19.9d → 67.3%" means 67.3% of completed trades reached +5% or more, in an average of 19.9 days.
           </p>
         </div>
 
         {/* Days-to-Profit Distribution Bar Chart */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-4 font-bold">Gün Dağılımı — Kazanan İşlemler (Ort. Getiri)</p>
+          <p className="text-xs text-[#64748b] uppercase tracking-wider mb-4 font-bold">Days Distribution — Winning Trades (Avg Return)</p>
           <div className="flex items-end gap-3 h-28">
             {daysDistribution.map(b => {
               const barHeight = maxDaysBucket > 0 ? Math.max(4, (b.avgRet / maxDaysBucket) * 96) : 4;
@@ -429,21 +429,21 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
               );
             })}
           </div>
-          <p className="text-[9px] text-[#475569] mt-2">Her kolon: o gün aralığında tamamlanan kazanan işlemlerin ortalama getirisi ve işlem sayısı.</p>
+          <p className="text-xs text-[#64748b] mt-2">Each bar shows the avg return and trade count for winning trades that peaked within that holding period.</p>
         </div>
 
         {/* Quick Percentile Row */}
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
           <div className="px-5 py-3 text-center">
-            <p className="text-[9px] text-[#64748b] uppercase tracking-wider mb-1">+5% Geçen</p>
+            <p className="text-xs text-[#64748b] uppercase tracking-wider mb-1">Reached +5%</p>
             <p className="text-lg font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
           </div>
           <div className="px-5 py-3 text-center">
-            <p className="text-[9px] text-[#64748b] uppercase tracking-wider mb-1">+10% Geçen</p>
+            <p className="text-xs text-[#64748b] uppercase tracking-wider mb-1">Reached +10%</p>
             <p className="text-lg font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
           </div>
           <div className="px-5 py-3 text-center">
-            <p className="text-[9px] text-[#64748b] uppercase tracking-wider mb-1">+15% Geçen</p>
+            <p className="text-xs text-[#64748b] uppercase tracking-wider mb-1">Reached +15%</p>
             <p className="text-lg font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
           </div>
         </div>
@@ -511,7 +511,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
                     <p className={`text-xl font-black font-mono ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                       {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
                     </p>
-                    <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Avg Return</p>
+                    <p className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Avg Return</p>
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-bold text-white leading-none">{s.total}</p>
