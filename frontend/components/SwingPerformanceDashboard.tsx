@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useMemo, useDeferredValue } from "react";
+import { useState, useMemo, useDeferredValue, useRef } from "react";
 import Link from "next/link";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const PAGE_SIZE = 50;
 const SL_PCT = -3.5; // Stop-loss threshold
@@ -71,6 +73,7 @@ function slTriggered(t: Trade): boolean {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function SwingPerformanceDashboard({ initialHistory, lastUpdated }: Props) {
+  const dashboardRef = useRef<HTMLDivElement>(null);
   const [selectedSector,    setSelectedSector]    = useState("All");
   const [selectedSubsector, setSelectedSubsector] = useState("All");
   const [selectedYear,      setSelectedYear]      = useState("All");
@@ -79,6 +82,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
   const [searchTicker,      setSearchTicker]      = useState("");
   const [sortConfig, setSortConfig] = useState<{ key: keyof Trade; direction: 'asc' | 'desc' } | null>({ key: 'date', direction: 'desc' });
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [pdfExporting, setPdfExporting] = useState(false);
 
   const deferredSector    = useDeferredValue(selectedSector);
   const deferredSubsector = useDeferredValue(selectedSubsector);
@@ -337,8 +341,49 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
     document.body.removeChild(link);
   };
 
+  const handleExportPDF = async () => {
+    if (!dashboardRef.current) return;
+    setPdfExporting(true);
+    try {
+      const element = dashboardRef.current;
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#0f172a',
+      });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      const imgWidth = 210;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= 297;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= 297;
+      }
+
+      pdf.save(`finma_swing_performance_${new Date().toISOString().split('T')[0]}.pdf`);
+    } catch (error) {
+      console.error('PDF export error:', error);
+    } finally {
+      setPdfExporting(false);
+    }
+  };
+
   return (
-    <>
+    <div ref={dashboardRef} className="space-y-8">
       {/* ── Hero Overview ──────────────────────────────────────────────────── */}
       <div className="mb-10 rounded-2xl overflow-hidden border border-[#1e2a3a] bg-gradient-to-br from-[#0d1521] via-[#111827] to-[#0d1521]">
         {/* Header Row */}
@@ -545,6 +590,11 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               Excel (XLS)
             </button>
+            <button onClick={handleExportPDF} disabled={pdfExporting}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-[#94a3b8] border border-[#2d3a4b] hover:border-[#ef4444] hover:text-white transition-all flex items-center gap-2 disabled:opacity-50">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              {pdfExporting ? "Exporting..." : "PDF"}
+            </button>
           </div>
         </div>
 
@@ -702,6 +752,6 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
