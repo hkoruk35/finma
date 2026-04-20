@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -29,7 +30,14 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="relative w-8 h-8">
-                <img src="/finmawave.png" alt="BOGA AI - Blue One Global Analysis" className="w-full h-full object-contain rounded-lg" />
+                <Image
+                  src="/finmawave.png"
+                  alt="BOGA AI - Blue One Global Analysis"
+                  width={32}
+                  height={32}
+                  loading="lazy"
+                  className="object-contain rounded-lg"
+                />
               </div>
               <span className="text-base font-black text-white tracking-tighter">BOGA AI - Blue One Global<br/>Analysis</span>
             </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 
@@ -85,7 +86,14 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="relative w-9 h-9 group-hover:scale-110 transition-transform">
-            <img src="/finmawave.png" alt="BOGA AI - Blue One Global Analysis" className="w-full h-full object-contain rounded-lg shadow-lg shadow-blue-500/10" />
+            <Image
+              src="/finmawave.png"
+              alt="BOGA AI - Blue One Global Analysis"
+              width={36}
+              height={36}
+              priority
+              className="object-contain rounded-lg shadow-lg shadow-blue-500/10"
+            />
           </div>
           <div className="flex flex-col md:flex-row md:items-baseline">
             <span

@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useDeferredValue } from "react";
 import Link from "next/link";
+
+const PAGE_SIZE = 50; // İlk render'da kaç satır gösterilsin
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Trade {
@@ -56,6 +58,15 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
   const [selectedDate,      setSelectedDate]      = useState("");
   const [searchTicker,      setSearchTicker]      = useState("");
   const [sortConfig, setSortConfig] = useState<{ key: keyof Trade; direction: 'asc' | 'desc' } | null>({ key: 'date', direction: 'desc' });
+  const [visibleCount,      setVisibleCount]      = useState(PAGE_SIZE); // Virtualization
+
+  // Filtreler defer edilir — typing sırasında ana iş parçacığını bloke etmez
+  const deferredSector    = useDeferredValue(selectedSector);
+  const deferredSubsector = useDeferredValue(selectedSubsector);
+  const deferredYear      = useDeferredValue(selectedYear);
+  const deferredMonth     = useDeferredValue(selectedMonth);
+  const deferredDate      = useDeferredValue(selectedDate);
+  const deferredTicker    = useDeferredValue(searchTicker);
 
   // Format last updated time
   const formatLastUpdated = (isoString?: string) => {
@@ -112,15 +123,15 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
     }));
   }, [initialHistory, selectedYear]);
 
-  // ── Filtered and Sorted data ──────────────────────────────────────────────
+  // ── Filtered and Sorted data — defer kullanır, typing sırasında UI donmaz ──
   const filtered = useMemo(() => {
     let data = initialHistory.filter(t => {
-      if (selectedSector    !== "All" && t.sector    !== selectedSector)    return false;
-      if (selectedSubsector !== "All" && t.subsector !== selectedSubsector) return false;
-      if (selectedYear      !== "All" && !t.date.startsWith(selectedYear))  return false;
-      if (selectedMonth     !== "All" && t.date.slice(5, 7) !== selectedMonth) return false;
-      if (selectedDate && t.date !== selectedDate)                           return false;
-      if (searchTicker && !t.ticker.toLowerCase().includes(searchTicker.toLowerCase())) return false;
+      if (deferredSector    !== "All" && t.sector    !== deferredSector)    return false;
+      if (deferredSubsector !== "All" && t.subsector !== deferredSubsector) return false;
+      if (deferredYear      !== "All" && !t.date.startsWith(deferredYear))  return false;
+      if (deferredMonth     !== "All" && t.date.slice(5, 7) !== deferredMonth) return false;
+      if (deferredDate && t.date !== deferredDate)                           return false;
+      if (deferredTicker && !t.ticker.toLowerCase().includes(deferredTicker.toLowerCase())) return false;
       return true;
     });
 
@@ -130,7 +141,6 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
         const bVal = b[sortConfig.key];
         if (aVal == null) return 1;
         if (bVal == null) return -1;
-
         if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
         if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
         return 0;
@@ -139,7 +149,13 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
       data.sort((a, b) => b.date.localeCompare(a.date));
     }
     return data;
-  }, [initialHistory, selectedSector, selectedSubsector, selectedYear, selectedMonth, selectedDate, searchTicker, sortConfig]);
+  }, [initialHistory, deferredSector, deferredSubsector, deferredYear, deferredMonth, deferredDate, deferredTicker, sortConfig]);
+
+  // Filtre değişince sayfalamayı sıfırla
+  const resetPagination = () => setVisibleCount(PAGE_SIZE);
+
+  // Sayfada gösterilen trades (ilk 50, "Daha Fazla" ile artar)
+  const visibleTrades = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
   // ── Stats ──────────────────────────────────────────────────────────────────
   const stats = useMemo(() => {
@@ -191,6 +207,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
     setSelectedYear("All");
     setSelectedMonth("All");
     setSelectedDate("");
+    resetPagination();
   }
 
   const hasActiveFilter =
@@ -434,7 +451,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
           <div className="flex flex-col md:flex-row md:items-center gap-3">
             <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
-            <p className="text-xs text-[#94a3b8]">Showing {filtered.length} trades</p>
+            <p className="text-xs text-[#94a3b8]">Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} trades</p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -456,7 +473,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
 
         {/* ── Mobile Card View ────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 gap-4 md:hidden">
-          {filtered.map((t, i) => {
+          {visibleTrades.map((t, i) => {
             const resultCls = RESULT_COLORS[t.result] ?? "text-[#94a3b8]";
             const pnl = pnlFromReturn(t.return_pct);
             return (
@@ -529,7 +546,7 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
                 </tr>
               </thead>
               <tbody className="text-white font-mono divide-y divide-[#1e2a3a]">
-                {filtered.map((t, i) => {
+                {visibleTrades.map((t, i) => {
                   const resultCls = RESULT_COLORS[t.result] ?? "text-[#94a3b8]";
                   const pnl = pnlFromReturn(t.return_pct);
                   return (
@@ -586,6 +603,19 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
             <div className="p-12 text-center text-[#64748b]">No trades found for selected filters.</div>
           )}
         </div>
+
+        {/* ── Load More ───────────────────────────────────────────────────── */}
+        {visibleCount < filtered.length && (
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+              className="px-8 py-3 rounded-xl bg-[#1e2a3a] border border-[#2d3a4b] text-sm font-bold text-[#94a3b8] hover:border-[#3b82f6] hover:text-white transition-all"
+            >
+              Load {Math.min(PAGE_SIZE, filtered.length - visibleCount)} more
+              <span className="ml-2 text-[#64748b]">({filtered.length - visibleCount} remaining)</span>
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

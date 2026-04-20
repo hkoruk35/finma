@@ -24,10 +24,13 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Image optimization for better SEO
+  // Image optimization — avif %50 daha küçük, webp fallback
   images: {
     unoptimized: false,
-    formats: ["image/webp"],
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    minimumCacheTTL: 86400, // 24 saat cache
   },
 };
 

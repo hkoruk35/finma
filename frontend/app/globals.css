@@ -18,14 +18,14 @@
   --color-text-secondary: #94a3b8;
   --color-text-muted: #64748b;
   --color-gold: #f59e0b;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-mono: var(--font-mono, 'JetBrains Mono', 'Fira Code', ui-monospace, monospace);
 }
 
 /* Base styles */
 body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
 }
 
 /* Scrollbar */

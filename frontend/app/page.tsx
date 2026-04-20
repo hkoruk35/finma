@@ -11,6 +11,8 @@ import MarketExplorer from "@/components/MarketExplorer";
 import SectorHeatMap from "@/components/SectorHeatMap";
 import { Metadata } from "next";
 
+export const revalidate = 60; // ISR: 1 dakikada bir yenile
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: "US Stock AI Analysis & Daily Trading Scores | BOGA - Blue One Global Analysis - Daily +500 Stocks",

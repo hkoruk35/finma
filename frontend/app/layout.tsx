@@ -4,6 +4,31 @@ import BottomNav from "@/components/BottomNav";
 import PWAInstaller from "@/components/PWAInstaller";
 import Script from "next/script";
 import StructuredData from "@/components/StructuredData";
+import { Inter, Montserrat, JetBrains_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  variable: "--font-inter",
+  preload: true,
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["700", "900"],
+  display: "swap",
+  variable: "--font-montserrat",
+  preload: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  display: "swap",
+  variable: "--font-mono",
+  preload: false,
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
@@ -87,12 +112,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${montserrat.variable} ${jetbrainsMono.variable}`}>
       <head>
         <StructuredData />
-        {/* Google Tag (gtag.js) */}
-        <Script id="google-analytics" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-CCSWK67D93" />
-        <Script id="google-analytics-config" strategy="afterInteractive">
+        {/* Google Analytics — lazyOnload: render'ı bloke etmez */}
+        <Script id="google-analytics" strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=G-CCSWK67D93" />
+        <Script id="google-analytics-config" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -101,20 +126,13 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Google AdSense */}
-        <Script 
+        {/* Google AdSense — lazyOnload: TBT'yi 200-400ms azaltır */}
+        <Script
           id="google-adsense"
-          async 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1081747094060539" 
-          crossOrigin="anonymous" 
-          strategy="afterInteractive"
-        />
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1081747094060539"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
         />
       </head>
       <body className="antialiased min-h-screen bg-[#0a0e17] pb-20 lg:pb-0">

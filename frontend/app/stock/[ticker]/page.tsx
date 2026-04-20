@@ -2,17 +2,24 @@ import { getStockData, getMasterData, getAllTickers, getScoreBadgeClass, getChan
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
-import ChartSection from "@/components/stock/ChartSection";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import SocialShare from "@/components/SocialShare";
-export const dynamic = "force-static";
-export const revalidate = 1; // force rapid refresh
+import dynamic from "next/dynamic";
 import MarketStatus from "@/components/MarketStatus";
-import AnalysisTabs from "@/components/stock/AnalysisTabs";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
 import { getArchivedDates } from "@/lib/analysis-archive";
+
+export const revalidate = 300; // ISR: 5 dakikada bir yenile (eski değer: 1 saniye = performans katili)
+
+// Ağır bileşenler lazy-load: kod bölme ile JS bundle küçülür, LCP hızlanır
+const ChartSection = dynamic(() => import("@/components/stock/ChartSection"), {
+  loading: () => <div className="h-[420px] bg-[#141924] animate-pulse rounded-xl" />,
+});
+const AnalysisTabs = dynamic(() => import("@/components/stock/AnalysisTabs"), {
+  loading: () => <div className="h-48 bg-[#141924] animate-pulse rounded-xl" />,
+});
+const SocialShare = dynamic(() => import("@/components/SocialShare"));
 
 interface Props {
   params: Promise<{ ticker: string }>;
