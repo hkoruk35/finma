@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useDeferredValue, useRef } from "react";
 import Link from "next/link";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 const PAGE_SIZE = 50;
@@ -341,42 +340,109 @@ export default function SwingPerformanceDashboard({ initialHistory, lastUpdated 
     document.body.removeChild(link);
   };
 
-  const handleExportPDF = async () => {
-    if (!dashboardRef.current) return;
+  const handleExportPDF = () => {
     setPdfExporting(true);
     try {
-      const element = dashboardRef.current;
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#0f172a',
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      let yPos = 15;
+      const margin = 10;
+
+      // Header
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(18);
+      pdf.text('BOGA AI Swing Engine Performance Report', margin, yPos);
+      yPos += 10;
+
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(9);
+      pdf.setTextColor(80, 80, 80);
+      pdf.text(`Stop Loss: −3.5% | Generated: ${new Date().toLocaleDateString()}`, margin, yPos);
+      yPos += 8;
+
+      // Summary Stats
+      pdf.setTextColor(0, 0, 0);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(11);
+      pdf.text('Summary Statistics', margin, yPos);
+      yPos += 7;
+
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      const summaryLines = [
+        `Win Rate (with SL):              ${stats.winRate}%`,
+        `Average Return (with SL):        ${stats.avgReturn}%`,
+        `Average Days to Peak:            ${stats.avgDays}d`,
+        `Total Signals:                   ${stats.totalSignals}`,
+        `Completed Trades:                ${stats.completedCount}`,
+        `Wins / Losses:                   ${stats.wins} / ${stats.losses}`,
+        `Trades Reaching +5%:             ${stats.above5Rate}%`,
+        `Trades Reaching +10%:            ${stats.above10Rate}%`,
+        `Trades Reaching +15%:            ${stats.above15Rate}%`,
+      ];
+
+      summaryLines.forEach(line => {
+        pdf.text(line, margin, yPos);
+        yPos += 6;
+        if (yPos > pageHeight - 20) {
+          pdf.addPage();
+          yPos = 15;
+          pdf.setFont('helvetica', 'normal');
+          pdf.setFontSize(10);
+        }
       });
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
+
+      yPos += 4;
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(11);
+      pdf.text(`Trade Log (Showing first 50 of ${filtered.length} trades)`, margin, yPos);
+      yPos += 8;
+
+      // Table Header
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(8);
+      const colX = [margin, margin + 18, margin + 28, margin + 40, margin + 52, margin + 62];
+      pdf.text('Date', colX[0], yPos);
+      pdf.text('Ticker', colX[1], yPos);
+      pdf.text('Entry', colX[2], yPos);
+      pdf.text('Return%', colX[3], yPos);
+      pdf.text('Days', colX[4], yPos);
+      pdf.text('Result', colX[5], yPos);
+      yPos += 6;
+
+      // Table Data
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(7.5);
+      filtered.slice(0, 50).forEach(t => {
+        if (yPos > pageHeight - 15) {
+          pdf.addPage();
+          yPos = 15;
+          pdf.setFont('helvetica', 'bold');
+          pdf.setFontSize(8);
+          pdf.text('Date', colX[0], yPos);
+          pdf.text('Ticker', colX[1], yPos);
+          pdf.text('Entry', colX[2], yPos);
+          pdf.text('Return%', colX[3], yPos);
+          pdf.text('Days', colX[4], yPos);
+          pdf.text('Result', colX[5], yPos);
+          yPos += 6;
+          pdf.setFont('helvetica', 'normal');
+          pdf.setFontSize(7.5);
+        }
+        pdf.text(t.date, colX[0], yPos);
+        pdf.text(t.ticker, colX[1], yPos);
+        pdf.text(fmt(t.entry), colX[2], yPos);
+        pdf.text(`${fmt(effectiveReturn(t), 1)}%`, colX[3], yPos);
+        pdf.text(t.days ? `${t.days}d` : '—', colX[4], yPos);
+        pdf.text(effectiveResult(t), colX[5], yPos);
+        yPos += 5;
       });
-
-      const imgWidth = 210;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= 297;
-
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= 297;
-      }
 
       pdf.save(`finma_swing_performance_${new Date().toISOString().split('T')[0]}.pdf`);
     } catch (error) {
       console.error('PDF export error:', error);
+      alert('PDF export failed. Please try again.');
     } finally {
       setPdfExporting(false);
     }
