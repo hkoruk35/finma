@@ -61,10 +61,55 @@ export default function RootLayout({
         />
 
         {/* Google AdSense */}
-        <script 
-          async 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1081747094060539" 
-          crossOrigin="anonymous" 
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1081747094060539"
+          crossOrigin="anonymous"
+        />
+
+        {/* JSON-LD Structured Data for Google & AI Crawlers */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "BOGA AI - Blue One Global Analysis",
+              "alternateName": "BOGA",
+              "url": "https://bogastock.com",
+              "logo": "https://bogastock.com/finmawave.png",
+              "description": "AI-powered stock analysis platform providing daily trading signals and technical analysis for +500 US stocks",
+              "sameAs": [
+                "https://twitter.com/bogaai",
+                "https://linkedin.com/company/bogaai"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Customer Service",
+                "url": "https://bogastock.com/contact"
+              }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "BOGA AI - Blue One Global Analysis",
+              "url": "https://bogastock.com",
+              "description": "Daily AI-powered analysis of +500 top US stocks with trading signals and scores",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://bogastock.com/stock/{search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
         />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />

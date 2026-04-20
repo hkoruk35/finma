@@ -1,99 +1,164 @@
-import { MetadataRoute } from 'next';
-import { getAllTickers, getSwingAllPicks } from '@/lib/data';
-import { getAllLangParams, LANG_CONFIG } from '@/lib/analysis-langs';
-import { getAllArchivedTickers, getArchivedDates } from '@/lib/analysis-archive';
+import { MetadataRoute } from "next";
+import { getAllTickers } from "@/lib/data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [allTickers, swingData] = await Promise.all([
-    getAllTickers(),
-    getSwingAllPicks(),
-  ]);
+  const baseUrl = "https://bogastock.com";
 
-  const baseUrl = 'https://bogastock.com';
-  const now = new Date();
+  // Fetch all tickers for dynamic routes
+  let allTickers: string[] = [];
+  try {
+    const data = await getAllTickers();
+    allTickers = Array.isArray(data) ? data.map((stock: any) => stock.ticker) : [];
+  } catch (error) {
+    console.error("Error fetching tickers for sitemap:", error);
+  }
 
-  // ── Static routes ─────────────────────────────────────────────
-  const staticRoutes = [
-    { route: '',                             priority: 1.0, cf: 'hourly'  },
-    { route: '/swing-picks',                 priority: 0.9, cf: 'daily'   },
-    { route: '/swing-performance',           priority: 0.8, cf: 'weekly'  },
-    { route: '/category/top-scores',         priority: 0.8, cf: 'daily'   },
-    { route: '/category/breakout',           priority: 0.8, cf: 'daily'   },
-    { route: '/category/undervalued',        priority: 0.8, cf: 'daily'   },
-    { route: '/category/momentum',           priority: 0.8, cf: 'daily'   },
-    { route: '/category/reversal',           priority: 0.8, cf: 'daily'   },
-    { route: '/category/dividend',           priority: 0.8, cf: 'daily'   },
-    { route: '/academy',                     priority: 0.9, cf: 'weekly'  },
-    { route: '/academy/how-to-start-investing', priority: 0.8, cf: 'monthly' },
-    { route: '/academy/rsi-indicator',       priority: 0.8, cf: 'monthly' },
-    { route: '/academy/momentum-trading',    priority: 0.8, cf: 'monthly' },
-    { route: '/academy/ai-stock-picking',    priority: 0.8, cf: 'monthly' },
-    { route: '/about',                       priority: 0.5, cf: 'monthly' },
-    { route: '/about/how-it-works',          priority: 0.8, cf: 'monthly' },
-    { route: '/contact',                     priority: 0.5, cf: 'monthly' },
-    { route: '/disclaimer',                  priority: 0.3, cf: 'monthly' },
-    { route: '/privacy',                     priority: 0.3, cf: 'monthly' },
-    { route: '/terms',                       priority: 0.3, cf: 'monthly' },
-    { route: '/login',                       priority: 0.4, cf: 'monthly' },
-    { route: '/register',                    priority: 0.4, cf: 'monthly' },
-  ].map(({ route, priority, cf }) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: now,
-    changeFrequency: cf as MetadataRoute.Sitemap[0]['changeFrequency'],
-    priority,
-  }));
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
+    // Main pages
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/swing-picks`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/swing-performance`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/watchlist`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/archive`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.75,
+    },
 
-  // ── /stock/[ticker] — all 500+ stocks ─────────────────────────
-  const stockRoutes = allTickers.map(stock => ({
-    url: `${baseUrl}/stock/${stock.ticker.toLowerCase()}`,
-    lastModified: now,
-    changeFrequency: 'daily' as const,
-    priority: 0.6,
-  }));
+    // Sector pages
+    {
+      url: `${baseUrl}/sector/technology`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/sector/finance`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/sector/healthcare`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/sector/energy`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/sector/consumer`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
 
-  // ── Sector routes ──────────────────────────────────────────────
-  const sectorRoutes = [
-    'technology', 'financials', 'healthcare', 'consumer-discretionary',
-    'industrials', 'communication-services', 'energy', 'consumer-staples',
-    'real-estate', 'materials', 'utilities',
-  ].map(sector => ({
-    url: `${baseUrl}/sector/${sector}`,
-    lastModified: now,
-    changeFrequency: 'daily' as const,
+    // Academy pages
+    {
+      url: `${baseUrl}/academy`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/academy/ai-stock-picking`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/academy/momentum-trading`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/academy/rsi-indicator`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/academy/how-to-start-investing`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+
+    // About pages
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/about/how-it-works`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+
+    // Legal pages
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/disclaimer`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+  ];
+
+  // Dynamic stock pages (up to 500)
+  const dynamicPages: MetadataRoute.Sitemap = allTickers.slice(0, 500).map((ticker) => ({
+    url: `${baseUrl}/stock/${ticker.toLowerCase()}`,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
     priority: 0.7,
   }));
 
-  // ── /[lang]/[slug]/[ticker] — current swing picks × 6 languages ──
-  const picks = swingData?.picks ?? [];
-  const langParams = getAllLangParams();
-
-  const langCurrentRoutes = langParams.flatMap(({ lang, slug }) =>
-    picks.map((pick: any) => ({
-      url: `${baseUrl}/${lang}/${slug}/${pick.ticker.toLowerCase()}`,
-      lastModified: now,
-      changeFrequency: 'daily' as const,
-      priority: lang === 'en' ? 0.9 : 0.85,
-    }))
-  );
-
-  // ── /[lang]/[slug]/[ticker]/[date] — archive pages ────────────
-  const archivedTickers = getAllArchivedTickers();
-  const langArchiveRoutes = langParams.flatMap(({ lang, slug }) =>
-    archivedTickers.flatMap(ticker =>
-      getArchivedDates(ticker).map(date => ({
-        url: `${baseUrl}/${lang}/${slug}/${ticker.toLowerCase()}/${date}`,
-        lastModified: new Date(date),
-        changeFrequency: 'never' as const,
-        priority: 0.5,
-      }))
-    )
-  );
-
-  return [
-    ...staticRoutes,
-    ...stockRoutes,
-    ...sectorRoutes,
-    ...langCurrentRoutes,
-    ...langArchiveRoutes,
-  ];
+  return [...staticPages, ...dynamicPages];
 }
