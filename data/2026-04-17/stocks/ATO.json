@@ -1,0 +1,163 @@
+{
+  "ticker": "ATO",
+  "company": "Atmos Energy Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.969094-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Gas",
+  "price": {
+    "current": 185.53,
+    "open": 187.34,
+    "high": 187.34,
+    "low": 183.77,
+    "prev_close": 187.98,
+    "change_pct": -1.3,
+    "change_pct_1w": -2.54,
+    "change_pct_1m": 0.15,
+    "change_pct_1y": 21.36,
+    "volume": 265797,
+    "avg_volume_30d": 976279
+  },
+  "scores": {
+    "master_score": 41.41,
+    "technical_score": 37.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 32.1,
+    "breakout_score": 0.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 41.41,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 49.2,
+    "macd": 1.3602,
+    "macd_signal": 1.7541,
+    "macd_histogram": -0.3938,
+    "macd_crossover": "neutral",
+    "ema_20": 186.64,
+    "ema_50": 182.92,
+    "ema_200": 171.26,
+    "ema_stack_bullish": false,
+    "bb_upper": 192.57,
+    "bb_middle": 185.99,
+    "bb_lower": 179.41,
+    "bb_width": 0.0708,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.2,
+    "atr": 3.06,
+    "atr_pct": 0.0165,
+    "obv_trend": "UP",
+    "mfi": 53.3,
+    "cmf": -0.106,
+    "stoch_k": 30.3,
+    "stoch_d": 43.8,
+    "rvol": 0.68,
+    "volume_5d_avg": 662399,
+    "green_days_10d": 5,
+    "52w_high": 192.29,
+    "52w_low": 148.94,
+    "52w_high_proximity_pct": 0.0352,
+    "52w_low_proximity_pct": 0.2457
+  },
+  "fundamental": {
+    "pe_ratio": 24.189049,
+    "sector_pe_median": 21.982954,
+    "pb_ratio": 2.1489298,
+    "de_ratio": 67.443,
+    "fcf_yield": -0.061,
+    "eps_growth_5y": 0.094,
+    "revenue_growth_ttm": 0.142,
+    "gross_margin": 0.57824004,
+    "operating_margin": 0.38848,
+    "net_margin": 0.25667998,
+    "market_cap": 30693888000,
+    "enterprise_value": 40365068288,
+    "dividend_yield": 2.13,
+    "payout_ratio": 0.4707,
+    "insider_ownership_pct": 0.00398,
+    "institutional_ownership_pct": 0.99741995,
+    "short_ratio": 3.75,
+    "beta": 0.688
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 182.01,
+    "entry_range_high": 186.46,
+    "target_range_low": 190.82,
+    "target_range_high": 204.45,
+    "stop_range_low": 170.44,
+    "stop_range_high": 179.41,
+    "target_price": 194.71,
+    "stop_loss": 179.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.969068-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 231.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 213.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 148.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 60,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -0.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "-1.30%",
+    "key_metrics": {
+      "RSI": 49.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

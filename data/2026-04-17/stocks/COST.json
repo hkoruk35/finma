@@ -1,0 +1,163 @@
+{
+  "ticker": "COST",
+  "company": "Costco Wholesale Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.406116-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 990.97,
+    "open": 985.0,
+    "high": 991.66,
+    "low": 977.0,
+    "prev_close": 987.21,
+    "change_pct": 0.38,
+    "change_pct_1w": -0.75,
+    "change_pct_1m": 1.13,
+    "change_pct_1y": 1.99,
+    "volume": 961462,
+    "avg_volume_30d": 1744398
+  },
+  "scores": {
+    "master_score": 37.97,
+    "technical_score": 35.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 24.7,
+    "breakout_score": 0.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 37.97,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 48.8,
+    "macd": 0.3626,
+    "macd_signal": 2.9275,
+    "macd_histogram": -2.5649,
+    "macd_crossover": "neutral",
+    "ema_20": 994.68,
+    "ema_50": 985.81,
+    "ema_200": 959.02,
+    "ema_stack_bullish": false,
+    "bb_upper": 1031.34,
+    "bb_middle": 993.29,
+    "bb_lower": 955.25,
+    "bb_width": 0.0766,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.7,
+    "atr": 18.25,
+    "atr_pct": 0.0184,
+    "obv_trend": "UP",
+    "mfi": 58.8,
+    "cmf": 0.08,
+    "stoch_k": 35.8,
+    "stoch_d": 31.0,
+    "rvol": 1.05,
+    "volume_5d_avg": 1836572,
+    "green_days_10d": 6,
+    "52w_high": 1052.46,
+    "52w_low": 848.84,
+    "52w_high_proximity_pct": 0.0584,
+    "52w_low_proximity_pct": 0.1674
+  },
+  "fundamental": {
+    "pe_ratio": 51.47896,
+    "sector_pe_median": 23.958709,
+    "pb_ratio": 26.583239,
+    "de_ratio": 60.257,
+    "fcf_yield": 0.0152,
+    "eps_growth_5y": 0.455,
+    "revenue_growth_ttm": 0.215,
+    "gross_margin": 0.12926,
+    "operating_margin": 0.036730003,
+    "net_margin": 0.029860001,
+    "market_cap": 439861248000,
+    "enterprise_value": 436080017408,
+    "dividend_yield": 0.6,
+    "payout_ratio": 0.27040002,
+    "insider_ownership_pct": 0.0016699999,
+    "institutional_ownership_pct": 0.72673,
+    "short_ratio": 3.78,
+    "beta": 0.978
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 980.88,
+    "entry_range_high": 995.92,
+    "target_range_low": 1024.81,
+    "target_range_high": 1098.01,
+    "stop_range_low": 906.75,
+    "stop_range_high": 954.47,
+    "target_price": 1045.72,
+    "stop_loss": 954.47,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.406058-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1238.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 60.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 848.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 700,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 0.99,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "+0.38%",
+    "key_metrics": {
+      "RSI": 48.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

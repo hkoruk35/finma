@@ -1,0 +1,163 @@
+{
+  "ticker": "CNQ",
+  "company": "Canadian Natural Resources Limited",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.589039-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 42.49,
+    "open": 44.0,
+    "high": 44.36,
+    "low": 42.1,
+    "prev_close": 46.31,
+    "change_pct": -8.25,
+    "change_pct_1w": -8.33,
+    "change_pct_1m": -12.68,
+    "change_pct_1y": 58.84,
+    "volume": 8140324,
+    "avg_volume_30d": 12547414
+  },
+  "scores": {
+    "master_score": 42.75,
+    "technical_score": 34.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 65.0,
+    "sector_score": 36.0,
+    "breakout_score": 30.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 42.75,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 35.8,
+    "macd": -0.1762,
+    "macd_signal": 0.5394,
+    "macd_histogram": -0.7156,
+    "macd_crossover": "neutral",
+    "ema_20": 46.48,
+    "ema_50": 44.57,
+    "ema_200": 37.12,
+    "ema_stack_bullish": false,
+    "bb_upper": 51.07,
+    "bb_middle": 47.48,
+    "bb_lower": 43.88,
+    "bb_width": 0.1514,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 27.9,
+    "atr": 1.7,
+    "atr_pct": 0.04,
+    "obv_trend": "DOWN",
+    "mfi": 48.4,
+    "cmf": -0.083,
+    "stoch_k": 4.4,
+    "stoch_d": 15.6,
+    "rvol": 0.6,
+    "volume_5d_avg": 7575844,
+    "green_days_10d": 6,
+    "52w_high": 50.09,
+    "52w_low": 27.4,
+    "52w_high_proximity_pct": 0.1518,
+    "52w_low_proximity_pct": 0.551
+  },
+  "fundamental": {
+    "pe_ratio": 11.3306675,
+    "sector_pe_median": 17.745245,
+    "pb_ratio": 2.737607,
+    "de_ratio": 44.455,
+    "fcf_yield": 0.0723,
+    "eps_growth_5y": 3.718,
+    "revenue_growth_ttm": 0.015,
+    "gross_margin": 0.48462,
+    "operating_margin": 0.19555001,
+    "net_margin": 0.27914,
+    "market_cap": 88850046976,
+    "enterprise_value": 115651362816,
+    "dividend_yield": 3.88,
+    "payout_ratio": 0.45540002,
+    "insider_ownership_pct": 0.02173,
+    "institutional_ownership_pct": 0.74624,
+    "short_ratio": 7.61,
+    "beta": 0.934
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 42.28,
+    "entry_range_high": 42.7,
+    "target_range_low": 46.64,
+    "target_range_high": 49.97,
+    "stop_range_low": 37.14,
+    "stop_range_high": 39.09,
+    "target_price": 47.59,
+    "stop_loss": 39.09,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.589014-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 53.11,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 388.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 27.4,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 32,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 754,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-8.25%",
+    "key_metrics": {
+      "RSI": 35.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

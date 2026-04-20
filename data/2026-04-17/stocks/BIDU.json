@@ -1,0 +1,159 @@
+{
+  "ticker": "BIDU",
+  "company": "Baidu, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.312026-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 126.17,
+    "open": 127.92,
+    "high": 127.99,
+    "low": 125.7,
+    "prev_close": 125.03,
+    "change_pct": 0.91,
+    "change_pct_1w": 16.38,
+    "change_pct_1m": 3.52,
+    "change_pct_1y": 49.22,
+    "volume": 1445877,
+    "avg_volume_30d": 1984212
+  },
+  "scores": {
+    "master_score": 47.79,
+    "technical_score": 51.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 60.0,
+    "sector_score": 31.9,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 47.79,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.6,
+    "macd": -0.421,
+    "macd_signal": -2.9505,
+    "macd_histogram": 2.5295,
+    "macd_crossover": "neutral",
+    "ema_20": 116.84,
+    "ema_50": 121.78,
+    "ema_200": 119.49,
+    "ema_stack_bullish": false,
+    "bb_upper": 124.0,
+    "bb_middle": 113.51,
+    "bb_lower": 103.02,
+    "bb_width": 0.1848,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 25.0,
+    "atr": 4.24,
+    "atr_pct": 0.0336,
+    "obv_trend": "UP",
+    "mfi": 75.1,
+    "cmf": -0.133,
+    "stoch_k": 91.8,
+    "stoch_d": 93.0,
+    "rvol": 1.06,
+    "volume_5d_avg": 2107855,
+    "green_days_10d": 8,
+    "52w_high": 162.52,
+    "52w_low": 81.9,
+    "52w_high_proximity_pct": 0.2237,
+    "52w_low_proximity_pct": 0.5405
+  },
+  "fundamental": {
+    "pe_ratio": 72.92774,
+    "sector_pe_median": 25.905765000000002,
+    "pb_ratio": 1.1012473,
+    "de_ratio": 33.506,
+    "fcf_yield": 0.3912,
+    "eps_growth_5y": -0.81,
+    "revenue_growth_ttm": -0.041,
+    "gross_margin": 0.43882,
+    "operating_margin": 0.045300003,
+    "net_margin": 0.0433,
+    "market_cap": 42927980544,
+    "enterprise_value": 345540329472,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0323,
+    "institutional_ownership_pct": 0.19486,
+    "short_ratio": 3.13,
+    "beta": 0.431
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 121.17,
+    "entry_range_high": 126.8,
+    "target_range_low": 136.11,
+    "target_range_high": 145.83,
+    "stop_range_low": 111.81,
+    "stop_range_high": 117.69,
+    "target_price": 138.89,
+    "stop_loss": 117.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.311938-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 157.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 81.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 3.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "+0.91%",
+    "key_metrics": {
+      "RSI": 62.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "ticker": "BHP",
+  "company": "BHP Group Limited",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.654332-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 80.51,
+    "open": 80.3,
+    "high": 81.26,
+    "low": 79.76,
+    "prev_close": 79.47,
+    "change_pct": 1.31,
+    "change_pct_1w": 4.82,
+    "change_pct_1m": 17.88,
+    "change_pct_1y": 77.5,
+    "volume": 1805355,
+    "avg_volume_30d": 3449995
+  },
+  "scores": {
+    "master_score": 60.37,
+    "technical_score": 58.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 60.0,
+    "sector_score": 45.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 60.37,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 70.2,
+    "macd": 2.2705,
+    "macd_signal": 1.4369,
+    "macd_histogram": 0.8336,
+    "macd_crossover": "neutral",
+    "ema_20": 75.45,
+    "ema_50": 72.47,
+    "ema_200": 62.62,
+    "ema_stack_bullish": true,
+    "bb_upper": 82.6,
+    "bb_middle": 73.63,
+    "bb_lower": 64.66,
+    "bb_width": 0.2437,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.8,
+    "atr": 2.03,
+    "atr_pct": 0.0252,
+    "obv_trend": "UP",
+    "mfi": 86.0,
+    "cmf": 0.009,
+    "stoch_k": 93.9,
+    "stoch_d": 95.3,
+    "rvol": 0.68,
+    "volume_5d_avg": 2339531,
+    "green_days_10d": 7,
+    "52w_high": 81.41,
+    "52w_low": 44.75,
+    "52w_high_proximity_pct": 0.011,
+    "52w_low_proximity_pct": 0.7992
+  },
+  "fundamental": {
+    "pe_ratio": 19.977667,
+    "sector_pe_median": 25.080137,
+    "pb_ratio": 4.0542855,
+    "de_ratio": 52.639,
+    "fcf_yield": 0.0398,
+    "eps_growth_5y": 0.275,
+    "revenue_growth_ttm": 0.108,
+    "gross_margin": 0.83085,
+    "operating_margin": 0.40728,
+    "net_margin": 0.18972999,
+    "market_cap": 204523192320,
+    "enterprise_value": 424214200320,
+    "dividend_yield": 3.35,
+    "payout_ratio": 0.5464,
+    "insider_ownership_pct": 5e-05,
+    "institutional_ownership_pct": 0.04082,
+    "short_ratio": 3.66,
+    "beta": 0.798
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 72.11,
+    "entry_range_high": 80.91,
+    "target_range_low": 84.87,
+    "target_range_high": 90.93,
+    "stop_range_low": 72.63,
+    "stop_range_high": 76.45,
+    "target_price": 86.6,
+    "stop_loss": 76.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.654304-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 100.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 335.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 44.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1000,
+      "date": "2025-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 60,
+    "price_change_display": "+1.31%",
+    "key_metrics": {
+      "RSI": 70.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

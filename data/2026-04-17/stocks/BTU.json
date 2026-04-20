@@ -1,0 +1,164 @@
+{
+  "ticker": "BTU",
+  "company": "Peabody Energy Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.641978-04:00",
+  "sector": "Energy",
+  "industry": "Thermal Coal",
+  "price": {
+    "current": 25.4,
+    "open": 26.39,
+    "high": 26.46,
+    "low": 25.2,
+    "prev_close": 26.93,
+    "change_pct": -5.7,
+    "change_pct_1w": -10.23,
+    "change_pct_1m": -29.96,
+    "change_pct_1y": 108.18,
+    "volume": 3033016,
+    "avg_volume_30d": 3790370
+  },
+  "scores": {
+    "master_score": 15.69,
+    "technical_score": 2.4,
+    "fundamental_score": 15.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.0,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 30.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 15.69,
+    "confidence": 0.16,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 29.3,
+    "macd": -2.2342,
+    "macd_signal": -1.451,
+    "macd_histogram": -0.7832,
+    "macd_crossover": "neutral",
+    "ema_20": 30.82,
+    "ema_50": 32.55,
+    "ema_200": 28.04,
+    "ema_stack_bullish": false,
+    "bb_upper": 40.93,
+    "bb_middle": 32.41,
+    "bb_lower": 23.89,
+    "bb_width": 0.5256,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.2,
+    "atr": 1.95,
+    "atr_pct": 0.0767,
+    "obv_trend": "DOWN",
+    "mfi": 15.7,
+    "cmf": -0.26,
+    "stoch_k": 1.4,
+    "stoch_d": 3.2,
+    "rvol": 0.76,
+    "volume_5d_avg": 2891183,
+    "green_days_10d": 3,
+    "52w_high": 39.5,
+    "52w_low": 11.95,
+    "52w_high_proximity_pct": 0.3571,
+    "52w_low_proximity_pct": 1.1247
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 17.745245,
+    "pb_ratio": 0.87322056,
+    "de_ratio": 12.838,
+    "fcf_yield": 0.0266,
+    "eps_growth_5y": -0.626,
+    "revenue_growth_ttm": -0.09,
+    "gross_margin": 0.13637,
+    "operating_margin": 0.020539999,
+    "net_margin": -0.0137,
+    "market_cap": 3093975296,
+    "enterprise_value": 3209070336,
+    "dividend_yield": 1.11,
+    "payout_ratio": 0.2752,
+    "insider_ownership_pct": 0.00959,
+    "institutional_ownership_pct": 1.0625,
+    "short_ratio": 3.54,
+    "beta": 0.619
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 25.27,
+    "entry_range_high": 25.53,
+    "target_range_low": 30.62,
+    "target_range_high": 32.81,
+    "stop_range_low": 20.43,
+    "stop_range_high": 21.5,
+    "target_price": 31.25,
+    "stop_loss": 21.5,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.641931-04:00",
+    "categories": [
+      "top_scores",
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 31.75,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 111.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 11.95,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 46,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 16,
+    "price_change_display": "-5.70%",
+    "key_metrics": {
+      "RSI": 29.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

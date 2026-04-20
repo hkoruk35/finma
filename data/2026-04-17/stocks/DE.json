@@ -1,0 +1,163 @@
+{
+  "ticker": "DE",
+  "company": "Deere & Company",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.833449-04:00",
+  "sector": "Industrials",
+  "industry": "Farm & Heavy Construction Machinery",
+  "price": {
+    "current": 590.38,
+    "open": 586.0,
+    "high": 593.7,
+    "low": 582.03,
+    "prev_close": 584.19,
+    "change_pct": 1.06,
+    "change_pct_1w": -2.42,
+    "change_pct_1m": 3.69,
+    "change_pct_1y": 29.67,
+    "volume": 658041,
+    "avg_volume_30d": 1313284
+  },
+  "scores": {
+    "master_score": 34.73,
+    "technical_score": 52.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.3,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 34.73,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 52.2,
+    "macd": 2.9338,
+    "macd_signal": 2.1874,
+    "macd_histogram": 0.7464,
+    "macd_crossover": "neutral",
+    "ema_20": 586.6,
+    "ema_50": 576.46,
+    "ema_200": 526.8,
+    "ema_stack_bullish": true,
+    "bb_upper": 615.33,
+    "bb_middle": 581.24,
+    "bb_lower": 547.16,
+    "bb_width": 0.1173,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 17.8,
+    "atr": 16.35,
+    "atr_pct": 0.0277,
+    "obv_trend": "DOWN",
+    "mfi": 48.3,
+    "cmf": 0.107,
+    "stoch_k": 58.5,
+    "stoch_d": 49.0,
+    "rvol": 0.87,
+    "volume_5d_avg": 1140448,
+    "green_days_10d": 5,
+    "52w_high": 660.56,
+    "52w_low": 435.85,
+    "52w_high_proximity_pct": 0.1062,
+    "52w_low_proximity_pct": 0.3546
+  },
+  "fundamental": {
+    "pe_ratio": 33.3548,
+    "sector_pe_median": 33.587625,
+    "pb_ratio": 6.063326,
+    "de_ratio": 376.022,
+    "fcf_yield": 0.0263,
+    "eps_growth_5y": -0.085,
+    "revenue_growth_ttm": -0.111,
+    "gross_margin": 0.26248,
+    "operating_margin": 0.17479,
+    "net_margin": 0.10302,
+    "market_cap": 159465947136,
+    "enterprise_value": 197439979520,
+    "dividend_yield": 1.11,
+    "payout_ratio": 0.3655,
+    "insider_ownership_pct": 0.0016500001,
+    "institutional_ownership_pct": 0.82941,
+    "short_ratio": 3.33,
+    "beta": 0.992
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 573.58,
+    "entry_range_high": 593.33,
+    "target_range_low": 626.64,
+    "target_range_high": 671.4,
+    "stop_range_low": 529.8,
+    "stop_range_high": 557.68,
+    "target_price": 639.43,
+    "stop_loss": 557.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.833332-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 737.98,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 111.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 435.85,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 293,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 1.11,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+1.06%",
+    "key_metrics": {
+      "RSI": 52.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

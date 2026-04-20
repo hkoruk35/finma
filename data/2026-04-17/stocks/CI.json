@@ -1,0 +1,164 @@
+{
+  "ticker": "CI",
+  "company": "The Cigna Group",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.482280-04:00",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 279.18,
+    "open": 275.55,
+    "high": 279.93,
+    "low": 274.81,
+    "prev_close": 276.37,
+    "change_pct": 1.02,
+    "change_pct_1w": 2.92,
+    "change_pct_1m": 5.51,
+    "change_pct_1y": -13.25,
+    "volume": 748125,
+    "avg_volume_30d": 1602604
+  },
+  "scores": {
+    "master_score": 39.28,
+    "technical_score": 11.1,
+    "fundamental_score": 60.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.28,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 56.8,
+    "macd": 1.0526,
+    "macd_signal": -0.0317,
+    "macd_histogram": 1.0843,
+    "macd_crossover": "neutral",
+    "ema_20": 272.45,
+    "ema_50": 273.18,
+    "ema_200": 282.36,
+    "ema_stack_bullish": false,
+    "bb_upper": 282.19,
+    "bb_middle": 270.29,
+    "bb_lower": 258.39,
+    "bb_width": 0.0881,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.8,
+    "atr": 6.55,
+    "atr_pct": 0.0235,
+    "obv_trend": "UP",
+    "mfi": 64.0,
+    "cmf": 0.099,
+    "stoch_k": 96.6,
+    "stoch_d": 77.6,
+    "rvol": 0.75,
+    "volume_5d_avg": 1203645,
+    "green_days_10d": 6,
+    "52w_high": 332.99,
+    "52w_low": 241.71,
+    "52w_high_proximity_pct": 0.1616,
+    "52w_low_proximity_pct": 0.155
+  },
+  "fundamental": {
+    "pe_ratio": 12.581343,
+    "sector_pe_median": 25.526684000000003,
+    "pb_ratio": 1.7633349,
+    "de_ratio": 75.137,
+    "fcf_yield": 0.131,
+    "eps_growth_5y": -0.093,
+    "revenue_growth_ttm": 0.104,
+    "gross_margin": 0.092980005,
+    "operating_margin": 0.0353,
+    "net_margin": 0.02167,
+    "market_cap": 74576183296,
+    "enterprise_value": 95723307008,
+    "dividend_yield": 2.26,
+    "payout_ratio": 0.2723,
+    "insider_ownership_pct": 0.01441,
+    "institutional_ownership_pct": 0.91705,
+    "short_ratio": 3.61,
+    "beta": 0.272
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 271.81,
+    "entry_range_high": 280.58,
+    "target_range_low": 292.85,
+    "target_range_high": 313.77,
+    "stop_range_low": 252.78,
+    "stop_range_high": 266.08,
+    "target_price": 298.83,
+    "stop_loss": 266.08,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.482255-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 348.98,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 226.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 241.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2307,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.76,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+1.02%",
+    "key_metrics": {
+      "RSI": 56.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

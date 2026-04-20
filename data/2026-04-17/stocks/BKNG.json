@@ -1,0 +1,163 @@
+{
+  "ticker": "BKNG",
+  "company": "Booking Holdings Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.345342-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Travel Services",
+  "price": {
+    "current": 192.23,
+    "open": 188.55,
+    "high": 192.76,
+    "low": 188.0,
+    "prev_close": 184.56,
+    "change_pct": 4.16,
+    "change_pct_1w": 10.82,
+    "change_pct_1m": 9.69,
+    "change_pct_1y": 4.99,
+    "volume": 3567001,
+    "avg_volume_30d": 7608876
+  },
+  "scores": {
+    "master_score": 35.2,
+    "technical_score": 9.6,
+    "fundamental_score": 42.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.2,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 65.5,
+    "macd": 3.2597,
+    "macd_signal": 1.0034,
+    "macd_histogram": 2.2564,
+    "macd_crossover": "neutral",
+    "ema_20": 177.38,
+    "ema_50": 178.4,
+    "ema_200": 193.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 189.3,
+    "bb_middle": 174.54,
+    "bb_lower": 159.77,
+    "bb_width": 0.1692,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.9,
+    "atr": 6.78,
+    "atr_pct": 0.0352,
+    "obv_trend": "UP",
+    "mfi": 64.4,
+    "cmf": 0.101,
+    "stoch_k": 98.3,
+    "stoch_d": 93.7,
+    "rvol": 0.7,
+    "volume_5d_avg": 5340080,
+    "green_days_10d": 6,
+    "52w_high": 231.27,
+    "52w_low": 154.48,
+    "52w_high_proximity_pct": 0.1688,
+    "52w_low_proximity_pct": 0.2444
+  },
+  "fundamental": {
+    "pe_ratio": 28.993965,
+    "sector_pe_median": 26.333786,
+    "pb_ratio": -27.477129,
+    "de_ratio": null,
+    "fcf_yield": 0.043,
+    "eps_growth_5y": 0.384,
+    "revenue_growth_ttm": 0.16,
+    "gross_margin": 0.87357,
+    "operating_margin": 0.32446,
+    "net_margin": 0.20076999,
+    "market_cap": 152214175744,
+    "enterprise_value": 148351811584,
+    "dividend_yield": 0.85,
+    "payout_ratio": 0.2319,
+    "insider_ownership_pct": 0.00196,
+    "institutional_ownership_pct": 0.96932,
+    "short_ratio": 2.21,
+    "beta": 1.198
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 177.51,
+    "entry_range_high": 193.19,
+    "target_range_low": 208.32,
+    "target_range_high": 223.2,
+    "stop_range_low": 169.74,
+    "stop_range_high": 178.67,
+    "target_price": 212.57,
+    "stop_loss": 178.67,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.345252-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 240.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 85.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 154.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 16726,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 6.74,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+4.16%",
+    "key_metrics": {
+      "RSI": 65.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

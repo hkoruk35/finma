@@ -1,0 +1,163 @@
+{
+  "ticker": "AME",
+  "company": "AMETEK, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.724007-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 237.56,
+    "open": 232.71,
+    "high": 238.39,
+    "low": 231.2,
+    "prev_close": 230.24,
+    "change_pct": 3.18,
+    "change_pct_1w": 1.13,
+    "change_pct_1m": 11.65,
+    "change_pct_1y": 49.25,
+    "volume": 450196,
+    "avg_volume_30d": 1222433
+  },
+  "scores": {
+    "master_score": 46.53,
+    "technical_score": 60.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.3,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 46.53,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 66.5,
+    "macd": 3.751,
+    "macd_signal": 1.7483,
+    "macd_histogram": 2.0027,
+    "macd_crossover": "neutral",
+    "ema_20": 226.08,
+    "ema_50": 222.69,
+    "ema_200": 206.03,
+    "ema_stack_bullish": true,
+    "bb_upper": 241.54,
+    "bb_middle": 221.83,
+    "bb_lower": 202.13,
+    "bb_width": 0.1777,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.7,
+    "atr": 5.71,
+    "atr_pct": 0.0241,
+    "obv_trend": "UP",
+    "mfi": 58.8,
+    "cmf": 0.005,
+    "stoch_k": 97.3,
+    "stoch_d": 85.2,
+    "rvol": 0.7,
+    "volume_5d_avg": 857219,
+    "green_days_10d": 6,
+    "52w_high": 241.08,
+    "52w_low": 154.24,
+    "52w_high_proximity_pct": 0.0146,
+    "52w_low_proximity_pct": 0.5402
+  },
+  "fundamental": {
+    "pe_ratio": 37.118748,
+    "sector_pe_median": 33.587625,
+    "pb_ratio": 5.119166,
+    "de_ratio": 24.194,
+    "fcf_yield": 0.0248,
+    "eps_growth_5y": 0.036,
+    "revenue_growth_ttm": 0.134,
+    "gross_margin": 0.36383,
+    "operating_margin": 0.27523002,
+    "net_margin": 0.19999,
+    "market_cap": 54416781312,
+    "enterprise_value": 54833266688,
+    "dividend_yield": 0.59,
+    "payout_ratio": 0.19379999,
+    "insider_ownership_pct": 0.0043,
+    "institutional_ownership_pct": 0.92652,
+    "short_ratio": 2.14,
+    "beta": 1.041
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 221.58,
+    "entry_range_high": 238.75,
+    "target_range_low": 249.6,
+    "target_range_high": 267.42,
+    "stop_range_low": 214.83,
+    "stop_range_high": 226.14,
+    "target_price": 254.69,
+    "stop_loss": 226.14,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.723978-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 296.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 59.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 154.24,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 530,
+      "date": "2026-03-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 1.11,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "+3.18%",
+    "key_metrics": {
+      "RSI": 66.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

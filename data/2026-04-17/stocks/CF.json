@@ -1,0 +1,163 @@
+{
+  "ticker": "CF",
+  "company": "CF Industries Holdings, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.695384-04:00",
+  "sector": "Materials",
+  "industry": "Agricultural Inputs",
+  "price": {
+    "current": 113.27,
+    "open": 114.0,
+    "high": 114.8,
+    "low": 109.71,
+    "prev_close": 124.71,
+    "change_pct": -9.17,
+    "change_pct_1w": -6.64,
+    "change_pct_1m": -10.62,
+    "change_pct_1y": 58.51,
+    "volume": 3934216,
+    "avg_volume_30d": 6219693
+  },
+  "scores": {
+    "master_score": 44.92,
+    "technical_score": 26.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 45.7,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 44.92,
+    "confidence": 0.45,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 42.0,
+    "macd": 0.8479,
+    "macd_signal": 3.2468,
+    "macd_histogram": -2.399,
+    "macd_crossover": "neutral",
+    "ema_20": 122.77,
+    "ema_50": 115.09,
+    "ema_200": 95.99,
+    "ema_stack_bullish": false,
+    "bb_upper": 138.69,
+    "bb_middle": 126.28,
+    "bb_lower": 113.87,
+    "bb_width": 0.1965,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.3,
+    "atr": 7.53,
+    "atr_pct": 0.0664,
+    "obv_trend": "DOWN",
+    "mfi": 52.3,
+    "cmf": 0.07,
+    "stoch_k": 11.0,
+    "stoch_d": 29.7,
+    "rvol": 0.52,
+    "volume_5d_avg": 3226903,
+    "green_days_10d": 6,
+    "52w_high": 137.6,
+    "52w_low": 72.42,
+    "52w_high_proximity_pct": 0.1768,
+    "52w_low_proximity_pct": 0.5642
+  },
+  "fundamental": {
+    "pe_ratio": 12.627647,
+    "sector_pe_median": 25.080137,
+    "pb_ratio": 3.595074,
+    "de_ratio": 46.765,
+    "fcf_yield": 0.0751,
+    "eps_growth_5y": 0.371,
+    "revenue_growth_ttm": 0.228,
+    "gross_margin": 0.38452998,
+    "operating_margin": 0.3531,
+    "net_margin": 0.20538999,
+    "market_cap": 17406066688,
+    "enterprise_value": 23755038720,
+    "dividend_yield": 1.6,
+    "payout_ratio": 0.22299999,
+    "insider_ownership_pct": 0.00433,
+    "institutional_ownership_pct": 1.0686901,
+    "short_ratio": 1.0,
+    "beta": 0.516
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 112.7,
+    "entry_range_high": 113.84,
+    "target_range_low": 133.14,
+    "target_range_high": 142.65,
+    "stop_range_low": 93.3,
+    "stop_range_high": 98.21,
+    "target_price": 135.86,
+    "stop_loss": 98.21,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.695325-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 141.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 160.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 72.42,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 25,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 17654,
+      "date": "2026-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 45,
+    "price_change_display": "-9.17%",
+    "key_metrics": {
+      "RSI": 42.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

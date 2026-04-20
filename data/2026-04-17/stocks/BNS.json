@@ -1,0 +1,163 @@
+{
+  "ticker": "BNS",
+  "company": "The Bank of Nova Scotia",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.500835-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 76.95,
+    "open": 75.5,
+    "high": 76.99,
+    "low": 75.5,
+    "prev_close": 75.0,
+    "change_pct": 2.59,
+    "change_pct_1w": 5.53,
+    "change_pct_1m": 10.25,
+    "change_pct_1y": 66.51,
+    "volume": 869938,
+    "avg_volume_30d": 2727267
+  },
+  "scores": {
+    "master_score": 56.63,
+    "technical_score": 58.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 58.0,
+    "sector_score": 40.3,
+    "breakout_score": 20.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 56.63,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 71.3,
+    "macd": 1.0354,
+    "macd_signal": 0.1554,
+    "macd_histogram": 0.88,
+    "macd_crossover": "neutral",
+    "ema_20": 72.47,
+    "ema_50": 72.23,
+    "ema_200": 67.11,
+    "ema_stack_bullish": true,
+    "bb_upper": 76.5,
+    "bb_middle": 71.11,
+    "bb_lower": 65.71,
+    "bb_width": 0.1517,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.3,
+    "atr": 1.29,
+    "atr_pct": 0.0168,
+    "obv_trend": "UP",
+    "mfi": 72.0,
+    "cmf": 0.262,
+    "stoch_k": 99.6,
+    "stoch_d": 98.1,
+    "rvol": 0.72,
+    "volume_5d_avg": 1951767,
+    "green_days_10d": 8,
+    "52w_high": 77.78,
+    "52w_low": 46.43,
+    "52w_high_proximity_pct": 0.0107,
+    "52w_low_proximity_pct": 0.6573
+  },
+  "fundamental": {
+    "pe_ratio": 15.703121,
+    "sector_pe_median": 16.476388,
+    "pb_ratio": 1.5058669,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 1.614,
+    "revenue_growth_ttm": 0.235,
+    "gross_margin": 0.0,
+    "operating_margin": 0.37487,
+    "net_margin": 0.26853,
+    "market_cap": 95203606528,
+    "enterprise_value": -82485952512,
+    "dividend_yield": 4.24,
+    "payout_ratio": 0.6469,
+    "insider_ownership_pct": 0.00023,
+    "institutional_ownership_pct": 0.52083,
+    "short_ratio": 5.63,
+    "beta": 1.191
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 71.87,
+    "entry_range_high": 77.33,
+    "target_range_low": 79.2,
+    "target_range_high": 84.86,
+    "stop_range_low": 70.65,
+    "stop_range_high": 74.37,
+    "target_price": 80.82,
+    "stop_loss": 74.37,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.500814-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 96.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 424.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 46.43,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 49,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 0,
+      "date": "2026-04-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "+2.59%",
+    "key_metrics": {
+      "RSI": 71.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

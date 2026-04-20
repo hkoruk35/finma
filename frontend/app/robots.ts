@@ -4,7 +4,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        // Allow all bots access
+        // Allow all bots access with security constraints
         userAgent: "*",
         allow: "/",
         disallow: [
@@ -22,6 +22,11 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "Googlebot",
         allow: "/",
         crawlDelay: 0.5, // Be nice to the server
+      },
+      {
+        // AI crawlers - explicit allow for better indexing
+        userAgent: ["GPTBot", "ChatGPT-User", "Google-Extended", "Claude-Web", "CCBot"],
+        allow: "/",
       },
       {
         // Disallow bad bots

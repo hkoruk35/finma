@@ -1,0 +1,163 @@
+{
+  "ticker": "APA",
+  "company": "APA Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.582933-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 34.9,
+    "open": 34.62,
+    "high": 34.96,
+    "low": 33.43,
+    "prev_close": 37.9,
+    "change_pct": -7.9,
+    "change_pct_1w": -9.64,
+    "change_pct_1m": -4.66,
+    "change_pct_1y": 146.53,
+    "volume": 6580090,
+    "avg_volume_30d": 9831203
+  },
+  "scores": {
+    "master_score": 35.9,
+    "technical_score": 33.0,
+    "fundamental_score": 53.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.0,
+    "breakout_score": 15.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 35.9,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 40.7,
+    "macd": 0.5134,
+    "macd_signal": 1.5959,
+    "macd_histogram": -1.0825,
+    "macd_crossover": "neutral",
+    "ema_20": 38.36,
+    "ema_50": 35.32,
+    "ema_200": 27.38,
+    "ema_stack_bullish": false,
+    "bb_upper": 45.35,
+    "bb_middle": 40.26,
+    "bb_lower": 35.18,
+    "bb_width": 0.2525,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 33.6,
+    "atr": 2.15,
+    "atr_pct": 0.0616,
+    "obv_trend": "DOWN",
+    "mfi": 47.1,
+    "cmf": 0.231,
+    "stoch_k": 12.1,
+    "stoch_d": 17.4,
+    "rvol": 0.7,
+    "volume_5d_avg": 6858898,
+    "green_days_10d": 4,
+    "52w_high": 44.39,
+    "52w_low": 14.61,
+    "52w_high_proximity_pct": 0.2137,
+    "52w_low_proximity_pct": 1.3884
+  },
+  "fundamental": {
+    "pe_ratio": 8.74812,
+    "sector_pe_median": 17.745245,
+    "pb_ratio": 2.0220716,
+    "de_ratio": 68.685,
+    "fcf_yield": 0.159,
+    "eps_growth_5y": -0.182,
+    "revenue_growth_ttm": -0.28,
+    "gross_margin": 0.68014,
+    "operating_margin": 0.30581,
+    "net_margin": 0.16510999,
+    "market_cap": 12335440896,
+    "enterprise_value": 18592231424,
+    "dividend_yield": 2.64,
+    "payout_ratio": 0.25059998,
+    "insider_ownership_pct": 0.00439,
+    "institutional_ownership_pct": 0.99512,
+    "short_ratio": 2.81,
+    "beta": 0.484
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 34.73,
+    "entry_range_high": 35.07,
+    "target_range_low": 40.52,
+    "target_range_high": 43.42,
+    "stop_range_low": 29.07,
+    "stop_range_high": 30.6,
+    "target_price": 41.35,
+    "stop_loss": 30.6,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.582905-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 43.62,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 264.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1767,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "-7.90%",
+    "key_metrics": {
+      "RSI": 40.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

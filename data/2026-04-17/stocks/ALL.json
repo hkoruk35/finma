@@ -1,0 +1,164 @@
+{
+  "ticker": "ALL",
+  "company": "The Allstate Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.532985-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Property & Casualty",
+  "price": {
+    "current": 217.42,
+    "open": 213.96,
+    "high": 218.08,
+    "low": 212.71,
+    "prev_close": 213.87,
+    "change_pct": 1.66,
+    "change_pct_1w": 3.05,
+    "change_pct_1m": 6.38,
+    "change_pct_1y": 13.96,
+    "volume": 368202,
+    "avg_volume_30d": 1310610
+  },
+  "scores": {
+    "master_score": 57.98,
+    "technical_score": 42.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 40.3,
+    "breakout_score": 15.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 57.98,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 60.6,
+    "macd": 2.5194,
+    "macd_signal": 1.649,
+    "macd_histogram": 0.8703,
+    "macd_crossover": "neutral",
+    "ema_20": 211.39,
+    "ema_50": 208.51,
+    "ema_200": 203.71,
+    "ema_stack_bullish": true,
+    "bb_upper": 218.73,
+    "bb_middle": 209.85,
+    "bb_lower": 200.97,
+    "bb_width": 0.0847,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.0,
+    "atr": 4.7,
+    "atr_pct": 0.0216,
+    "obv_trend": "DOWN",
+    "mfi": 74.8,
+    "cmf": 0.144,
+    "stoch_k": 87.2,
+    "stoch_d": 82.9,
+    "rvol": 0.87,
+    "volume_5d_avg": 1143500,
+    "green_days_10d": 7,
+    "52w_high": 218.23,
+    "52w_low": 183.34,
+    "52w_high_proximity_pct": 0.0037,
+    "52w_low_proximity_pct": 0.1859
+  },
+  "fundamental": {
+    "pe_ratio": 5.7110586,
+    "sector_pe_median": 16.476388,
+    "pb_ratio": 1.9759166,
+    "de_ratio": 25.091,
+    "fcf_yield": 0.1582,
+    "eps_growth_5y": 1.032,
+    "revenue_growth_ttm": 0.051,
+    "gross_margin": 0.31301,
+    "operating_margin": 0.29017,
+    "net_margin": 0.15191,
+    "market_cap": 56428281856,
+    "enterprise_value": 59596931072,
+    "dividend_yield": 2.02,
+    "payout_ratio": 0.105100006,
+    "insider_ownership_pct": 0.00546,
+    "institutional_ownership_pct": 0.83095,
+    "short_ratio": 0.04,
+    "beta": 0.224
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 207.47,
+    "entry_range_high": 218.51,
+    "target_range_low": 226.89,
+    "target_range_high": 243.1,
+    "stop_range_low": 197.62,
+    "stop_range_high": 208.02,
+    "target_price": 231.52,
+    "stop_loss": 208.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.532965-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 271.77,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 202.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 183.34,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 165,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+1.66%",
+    "key_metrics": {
+      "RSI": 60.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

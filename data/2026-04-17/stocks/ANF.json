@@ -1,0 +1,163 @@
+{
+  "ticker": "ANF",
+  "company": "Abercrombie & Fitch Co.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.374073-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 95.94,
+    "open": 95.41,
+    "high": 97.77,
+    "low": 94.27,
+    "prev_close": 92.89,
+    "change_pct": 3.28,
+    "change_pct_1w": -2.49,
+    "change_pct_1m": 11.6,
+    "change_pct_1y": 36.09,
+    "volume": 543917,
+    "avg_volume_30d": 1201307
+  },
+  "scores": {
+    "master_score": 49.29,
+    "technical_score": 42.0,
+    "fundamental_score": 53.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 25.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 49.29,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 54.2,
+    "macd": 0.8959,
+    "macd_signal": 0.8641,
+    "macd_histogram": 0.0318,
+    "macd_crossover": "bullish",
+    "ema_20": 93.61,
+    "ema_50": 93.97,
+    "ema_200": 92.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 102.36,
+    "bb_middle": 93.05,
+    "bb_lower": 83.73,
+    "bb_width": 0.2003,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 13.9,
+    "atr": 4.41,
+    "atr_pct": 0.046,
+    "obv_trend": "UP",
+    "mfi": 56.6,
+    "cmf": -0.101,
+    "stoch_k": 51.6,
+    "stoch_d": 38.5,
+    "rvol": 0.82,
+    "volume_5d_avg": 981823,
+    "green_days_10d": 7,
+    "52w_high": 129.85,
+    "52w_low": 65.61,
+    "52w_high_proximity_pct": 0.2611,
+    "52w_low_proximity_pct": 0.4623
+  },
+  "fundamental": {
+    "pe_ratio": 9.172084,
+    "sector_pe_median": 26.333786,
+    "pb_ratio": 3.0755916,
+    "de_ratio": 82.236,
+    "fcf_yield": 0.0599,
+    "eps_growth_5y": 0.03,
+    "revenue_growth_ttm": 0.054,
+    "gross_margin": 0.61474,
+    "operating_margin": 0.15227,
+    "net_margin": 0.096260004,
+    "market_cap": 4399574016,
+    "enterprise_value": 4573069312,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02437,
+    "institutional_ownership_pct": 1.04435,
+    "short_ratio": 2.17,
+    "beta": 1.127
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 93.5,
+    "entry_range_high": 96.42,
+    "target_range_low": 106.99,
+    "target_range_high": 114.63,
+    "stop_range_low": 82.76,
+    "stop_range_high": 87.12,
+    "target_price": 109.17,
+    "stop_loss": 87.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.374047-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 25.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 119.92,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 65.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 290904,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 6.74,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "+3.28%",
+    "key_metrics": {
+      "RSI": 54.2,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

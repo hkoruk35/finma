@@ -1,0 +1,164 @@
+{
+  "ticker": "CAVA",
+  "company": "CAVA Group, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.375037-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Restaurants",
+  "price": {
+    "current": 94.54,
+    "open": 92.92,
+    "high": 96.7,
+    "low": 92.5,
+    "prev_close": 91.24,
+    "change_pct": 3.61,
+    "change_pct_1w": 11.3,
+    "change_pct_1m": 6.3,
+    "change_pct_1y": 7.03,
+    "volume": 1588362,
+    "avg_volume_30d": 2759802
+  },
+  "scores": {
+    "master_score": 51.94,
+    "technical_score": 66.0,
+    "fundamental_score": 10.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 38.4,
+    "breakout_score": 50.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 51.94,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.6,
+    "macd": 3.0956,
+    "macd_signal": 2.2462,
+    "macd_histogram": 0.8494,
+    "macd_crossover": "neutral",
+    "ema_20": 85.14,
+    "ema_50": 79.58,
+    "ema_200": 72.48,
+    "ema_stack_bullish": true,
+    "bb_upper": 93.16,
+    "bb_middle": 83.87,
+    "bb_lower": 74.59,
+    "bb_width": 0.2214,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.2,
+    "atr": 4.25,
+    "atr_pct": 0.0449,
+    "obv_trend": "UP",
+    "mfi": 74.0,
+    "cmf": -0.156,
+    "stoch_k": 90.0,
+    "stoch_d": 92.3,
+    "rvol": 0.82,
+    "volume_5d_avg": 2250272,
+    "green_days_10d": 7,
+    "52w_high": 99.7,
+    "52w_low": 43.59,
+    "52w_high_proximity_pct": 0.0518,
+    "52w_low_proximity_pct": 1.1688
+  },
+  "fundamental": {
+    "pe_ratio": 175.06685,
+    "sector_pe_median": 26.333786,
+    "pb_ratio": 14.080443,
+    "de_ratio": 59.802,
+    "fcf_yield": -0.0019,
+    "eps_growth_5y": -0.94,
+    "revenue_growth_ttm": 0.209,
+    "gross_margin": 0.37422,
+    "operating_margin": 0.01388,
+    "net_margin": 0.054029997,
+    "market_cap": 11001901056,
+    "enterprise_value": 10691526656,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.055999998,
+    "institutional_ownership_pct": 0.95366997,
+    "short_ratio": 5.11,
+    "beta": 2.042
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 79.18,
+    "entry_range_high": 95.01,
+    "target_range_low": 105.14,
+    "target_range_high": 112.65,
+    "stop_range_low": 81.74,
+    "stop_range_high": 86.04,
+    "target_price": 107.29,
+    "stop_loss": 86.04,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.375012-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 50.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 118.18,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 43.59,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 14,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 15000,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 6.74,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+3.61%",
+    "key_metrics": {
+      "RSI": 69.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

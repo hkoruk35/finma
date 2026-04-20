@@ -1,0 +1,161 @@
+{
+  "ticker": "CWT",
+  "company": "California Water Service Group",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.987731-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Water",
+  "price": {
+    "current": 44.66,
+    "open": 44.53,
+    "high": 45.05,
+    "low": 44.04,
+    "prev_close": 44.81,
+    "change_pct": -0.33,
+    "change_pct_1w": -4.86,
+    "change_pct_1m": 3.21,
+    "change_pct_1y": -9.62,
+    "volume": 176752,
+    "avg_volume_30d": 453868
+  },
+  "scores": {
+    "master_score": 27.77,
+    "technical_score": 12.3,
+    "fundamental_score": 27.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 32.1,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 27.77,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 45.6,
+    "macd": 0.0243,
+    "macd_signal": 0.1518,
+    "macd_histogram": -0.1275,
+    "macd_crossover": "neutral",
+    "ema_20": 45.28,
+    "ema_50": 45.12,
+    "ema_200": 45.2,
+    "ema_stack_bullish": false,
+    "bb_upper": 46.98,
+    "bb_middle": 45.27,
+    "bb_lower": 43.56,
+    "bb_width": 0.0757,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.3,
+    "atr": 1.09,
+    "atr_pct": 0.0243,
+    "obv_trend": "UP",
+    "mfi": 33.8,
+    "cmf": -0.016,
+    "stoch_k": 19.1,
+    "stoch_d": 17.7,
+    "rvol": 1.04,
+    "volume_5d_avg": 472150,
+    "green_days_10d": 5,
+    "52w_high": 50.01,
+    "52w_low": 41.99,
+    "52w_high_proximity_pct": 0.107,
+    "52w_low_proximity_pct": 0.0636
+  },
+  "fundamental": {
+    "pe_ratio": 20.772093,
+    "sector_pe_median": 21.982954,
+    "pb_ratio": 1.5765321,
+    "de_ratio": 95.551,
+    "fcf_yield": -0.1079,
+    "eps_growth_5y": -0.422,
+    "revenue_growth_ttm": -0.01,
+    "gross_margin": 0.53595,
+    "operating_margin": 0.10216,
+    "net_margin": 0.12819,
+    "market_cap": 2672644352,
+    "enterprise_value": 4240051712,
+    "dividend_yield": 2.76,
+    "payout_ratio": 0.5581,
+    "insider_ownership_pct": 0.00681,
+    "institutional_ownership_pct": 0.91585,
+    "short_ratio": 2.66,
+    "beta": 0.607
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 44.44,
+    "entry_range_high": 44.88,
+    "target_range_low": 46.97,
+    "target_range_high": 50.33,
+    "stop_range_low": 40.36,
+    "stop_range_high": 42.48,
+    "target_price": 47.93,
+    "stop_loss": 42.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.987695-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 55.82,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 276.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 41.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 739,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -0.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-0.33%",
+    "key_metrics": {
+      "RSI": 45.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

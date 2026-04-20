@@ -1,0 +1,163 @@
+{
+  "ticker": "CE",
+  "company": "Celanese Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.686894-04:00",
+  "sector": "Materials",
+  "industry": "Chemicals",
+  "price": {
+    "current": 62.56,
+    "open": 65.01,
+    "high": 65.35,
+    "low": 61.48,
+    "prev_close": 68.34,
+    "change_pct": -8.46,
+    "change_pct_1w": -0.9,
+    "change_pct_1m": 4.46,
+    "change_pct_1y": 65.34,
+    "volume": 1707895,
+    "avg_volume_30d": 2576833
+  },
+  "scores": {
+    "master_score": 40.82,
+    "technical_score": 40.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.7,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 40.82,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.6,
+    "macd": 2.369,
+    "macd_signal": 2.6299,
+    "macd_histogram": -0.2609,
+    "macd_crossover": "bearish",
+    "ema_20": 62.91,
+    "ema_50": 58.24,
+    "ema_200": 51.06,
+    "ema_stack_bullish": false,
+    "bb_upper": 68.99,
+    "bb_middle": 63.23,
+    "bb_lower": 57.47,
+    "bb_width": 0.1823,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 23.2,
+    "atr": 3.62,
+    "atr_pct": 0.0578,
+    "obv_trend": "DOWN",
+    "mfi": 57.6,
+    "cmf": 0.06,
+    "stoch_k": 37.9,
+    "stoch_d": 64.6,
+    "rvol": 0.89,
+    "volume_5d_avg": 2303319,
+    "green_days_10d": 4,
+    "52w_high": 68.34,
+    "52w_low": 35.51,
+    "52w_high_proximity_pct": 0.0846,
+    "52w_low_proximity_pct": 0.7618
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.080137,
+    "pb_ratio": 1.6929615,
+    "de_ratio": 289.222,
+    "fcf_yield": 0.0526,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.065,
+    "gross_margin": 0.20568001,
+    "operating_margin": 0.08575,
+    "net_margin": -0.12207,
+    "market_cap": 7001888256,
+    "enterprise_value": 19582148608,
+    "dividend_yield": 0.18,
+    "payout_ratio": 0.2789,
+    "insider_ownership_pct": 0.00333,
+    "institutional_ownership_pct": 1.01585,
+    "short_ratio": 2.61,
+    "beta": 0.848
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 57.95,
+    "entry_range_high": 62.87,
+    "target_range_low": 71.95,
+    "target_range_high": 77.09,
+    "stop_range_low": 52.55,
+    "stop_range_high": 55.32,
+    "target_price": 73.42,
+    "stop_loss": 55.32,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.686866-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 78.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 18.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 35.51,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 50623,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "-8.46%",
+    "key_metrics": {
+      "RSI": 51.6,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

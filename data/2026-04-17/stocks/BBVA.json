@@ -1,0 +1,159 @@
+{
+  "ticker": "BBVA",
+  "company": "Banco Bilbao Vizcaya Argentaria, S.A.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.508321-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 24.0,
+    "open": 23.85,
+    "high": 24.14,
+    "low": 23.78,
+    "prev_close": 22.97,
+    "change_pct": 4.48,
+    "change_pct_1w": 4.08,
+    "change_pct_1m": 19.16,
+    "change_pct_1y": 88.09,
+    "volume": 638635,
+    "avg_volume_30d": 1981501
+  },
+  "scores": {
+    "master_score": 54.78,
+    "technical_score": 60.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 70.0,
+    "sector_score": 40.3,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.78,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.7,
+    "macd": 0.6205,
+    "macd_signal": 0.3097,
+    "macd_histogram": 0.3108,
+    "macd_crossover": "neutral",
+    "ema_20": 22.22,
+    "ema_50": 21.94,
+    "ema_200": 20.02,
+    "ema_stack_bullish": true,
+    "bb_upper": 24.4,
+    "bb_middle": 21.7,
+    "bb_lower": 19.0,
+    "bb_width": 0.249,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.3,
+    "atr": 0.67,
+    "atr_pct": 0.0278,
+    "obv_trend": "UP",
+    "mfi": 59.4,
+    "cmf": 0.092,
+    "stoch_k": 97.0,
+    "stoch_d": 89.2,
+    "rvol": 0.76,
+    "volume_5d_avg": 1505867,
+    "green_days_10d": 7,
+    "52w_high": 25.32,
+    "52w_low": 12.75,
+    "52w_high_proximity_pct": 0.0521,
+    "52w_low_proximity_pct": 0.8823
+  },
+  "fundamental": {
+    "pe_ratio": 11.538462,
+    "sector_pe_median": 16.476388,
+    "pb_ratio": 2.0170627,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.054,
+    "revenue_growth_ttm": 0.003,
+    "gross_margin": 0.0,
+    "operating_margin": 0.509,
+    "net_margin": 0.33212003,
+    "market_cap": 135216136192,
+    "enterprise_value": 139413536768,
+    "dividend_yield": 4.69,
+    "payout_ratio": 0.41009998,
+    "insider_ownership_pct": 0.00017999999,
+    "institutional_ownership_pct": 0.03435,
+    "short_ratio": 0.74,
+    "beta": 0.923
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 21.83,
+    "entry_range_high": 24.12,
+    "target_range_low": 25.49,
+    "target_range_high": 27.31,
+    "stop_range_low": 21.53,
+    "stop_range_high": 22.66,
+    "target_price": 26.01,
+    "stop_loss": 22.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.508298-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 30.0,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 469.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+4.48%",
+    "key_metrics": {
+      "RSI": 67.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

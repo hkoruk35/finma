@@ -1,0 +1,163 @@
+{
+  "ticker": "BEP",
+  "company": "Brookfield Renewable Partners L.P.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.643579-04:00",
+  "sector": "Energy",
+  "industry": "Utilities - Renewable",
+  "price": {
+    "current": 34.48,
+    "open": 35.0,
+    "high": 35.0,
+    "low": 34.44,
+    "prev_close": 34.68,
+    "change_pct": -0.58,
+    "change_pct_1w": -0.52,
+    "change_pct_1m": 8.87,
+    "change_pct_1y": 67.07,
+    "volume": 162941,
+    "avg_volume_30d": 830871
+  },
+  "scores": {
+    "master_score": 45.8,
+    "technical_score": 52.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 85.0,
+    "sector_score": 36.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 45.8,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.1,
+    "macd": 1.0102,
+    "macd_signal": 0.8994,
+    "macd_histogram": 0.1108,
+    "macd_crossover": "neutral",
+    "ema_20": 33.42,
+    "ema_50": 31.9,
+    "ema_200": 28.54,
+    "ema_stack_bullish": true,
+    "bb_upper": 35.99,
+    "bb_middle": 33.08,
+    "bb_lower": 30.18,
+    "bb_width": 0.1755,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 29.6,
+    "atr": 0.97,
+    "atr_pct": 0.0283,
+    "obv_trend": "DOWN",
+    "mfi": 86.6,
+    "cmf": -0.053,
+    "stoch_k": 65.2,
+    "stoch_d": 78.9,
+    "rvol": 0.63,
+    "volume_5d_avg": 520348,
+    "green_days_10d": 4,
+    "52w_high": 35.38,
+    "52w_low": 20.44,
+    "52w_high_proximity_pct": 0.0254,
+    "52w_low_proximity_pct": 0.6866
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 17.745245,
+    "pb_ratio": 2.6572132,
+    "de_ratio": 104.498,
+    "fcf_yield": -0.2008,
+    "eps_growth_5y": 45.114,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.5469,
+    "operating_margin": 0.03119,
+    "net_margin": 0.00858,
+    "market_cap": 22265552896,
+    "enterprise_value": 83039133696,
+    "dividend_yield": 4.52,
+    "payout_ratio": 6.4902,
+    "insider_ownership_pct": 0.0002,
+    "institutional_ownership_pct": 0.64186996,
+    "short_ratio": 0.7,
+    "beta": 0.957
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 31.74,
+    "entry_range_high": 34.65,
+    "target_range_low": 36.64,
+    "target_range_high": 39.26,
+    "stop_range_low": 30.91,
+    "stop_range_high": 32.54,
+    "target_price": 37.39,
+    "stop_loss": 32.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.643541-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 43.1,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 452.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.44,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 19,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2141549,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "-0.58%",
+    "key_metrics": {
+      "RSI": 62.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

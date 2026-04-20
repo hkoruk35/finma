@@ -1,0 +1,163 @@
+{
+  "ticker": "AIR",
+  "company": "AAR Corp.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.945470-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 124.71,
+    "open": 121.0,
+    "high": 125.74,
+    "low": 121.75,
+    "prev_close": 118.51,
+    "change_pct": 5.23,
+    "change_pct_1w": 3.21,
+    "change_pct_1m": 14.57,
+    "change_pct_1y": 134.29,
+    "volume": 244191,
+    "avg_volume_30d": 523983
+  },
+  "scores": {
+    "master_score": 51.53,
+    "technical_score": 60.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 51.53,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 60.2,
+    "macd": 3.7408,
+    "macd_signal": 2.731,
+    "macd_histogram": 1.0098,
+    "macd_crossover": "neutral",
+    "ema_20": 116.93,
+    "ema_50": 111.73,
+    "ema_200": 93.79,
+    "ema_stack_bullish": true,
+    "bb_upper": 129.84,
+    "bb_middle": 114.56,
+    "bb_lower": 99.28,
+    "bb_width": 0.2667,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.0,
+    "atr": 5.34,
+    "atr_pct": 0.0428,
+    "obv_trend": "UP",
+    "mfi": 66.0,
+    "cmf": -0.094,
+    "stoch_k": 90.0,
+    "stoch_d": 79.1,
+    "rvol": 0.57,
+    "volume_5d_avg": 298518,
+    "green_days_10d": 6,
+    "52w_high": 125.99,
+    "52w_low": 50.91,
+    "52w_high_proximity_pct": 0.0102,
+    "52w_low_proximity_pct": 1.4496
+  },
+  "fundamental": {
+    "pe_ratio": 27.40879,
+    "sector_pe_median": 33.587625,
+    "pb_ratio": 2.9768696,
+    "de_ratio": 59.614,
+    "fcf_yield": 0.0056,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.246,
+    "gross_margin": 0.18997999,
+    "operating_margin": 0.0762,
+    "net_margin": 0.05455,
+    "market_cap": 4959001600,
+    "enterprise_value": 5550141952,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.021089999,
+    "institutional_ownership_pct": 0.98692,
+    "short_ratio": 2.15,
+    "beta": 1.206
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 111.17,
+    "entry_range_high": 125.33,
+    "target_range_low": 137.92,
+    "target_range_high": 147.77,
+    "stop_range_low": 108.33,
+    "stop_range_high": 114.03,
+    "target_price": 140.73,
+    "stop_loss": 114.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.945424-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 155.89,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.91,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 86175,
+      "date": "2026-03-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 1.11,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+5.23%",
+    "key_metrics": {
+      "RSI": 60.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

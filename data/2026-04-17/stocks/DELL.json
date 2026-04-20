@@ -1,0 +1,165 @@
+{
+  "ticker": "DELL",
+  "company": "Dell Technologies Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.206826-04:00",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 195.57,
+    "open": 192.83,
+    "high": 196.78,
+    "low": 191.75,
+    "prev_close": 193.09,
+    "change_pct": 1.28,
+    "change_pct_1w": 9.99,
+    "change_pct_1m": 31.07,
+    "change_pct_1y": 133.01,
+    "volume": 3179967,
+    "avg_volume_30d": 8345548
+  },
+  "scores": {
+    "master_score": 67.83,
+    "technical_score": 67.0,
+    "fundamental_score": 85.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.3,
+    "breakout_score": 35.0,
+    "value_score": 85.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 67.83,
+    "confidence": 0.68,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 66.2,
+    "macd": 10.5874,
+    "macd_signal": 10.1388,
+    "macd_histogram": 0.4486,
+    "macd_crossover": "neutral",
+    "ema_20": 176.07,
+    "ema_50": 158.9,
+    "ema_200": 135.63,
+    "ema_stack_bullish": true,
+    "bb_upper": 196.55,
+    "bb_middle": 176.96,
+    "bb_lower": 157.37,
+    "bb_width": 0.2214,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.6,
+    "atr": 8.85,
+    "atr_pct": 0.0453,
+    "obv_trend": "UP",
+    "mfi": 55.1,
+    "cmf": 0.041,
+    "stoch_k": 97.1,
+    "stoch_d": 85.4,
+    "rvol": 0.94,
+    "volume_5d_avg": 7837673,
+    "green_days_10d": 5,
+    "52w_high": 195.57,
+    "52w_low": 80.89,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.4178
+  },
+  "fundamental": {
+    "pe_ratio": 22.50518,
+    "sector_pe_median": 40.981632,
+    "pb_ratio": -51.62883,
+    "de_ratio": null,
+    "fcf_yield": 0.051,
+    "eps_growth_5y": 0.573,
+    "revenue_growth_ttm": 0.395,
+    "gross_margin": 0.20125,
+    "operating_margin": 0.09623,
+    "net_margin": 0.05228,
+    "market_cap": 129602207744,
+    "enterprise_value": 145414569984,
+    "dividend_yield": 1.31,
+    "payout_ratio": 0.24190001,
+    "insider_ownership_pct": 0.07678,
+    "institutional_ownership_pct": 0.85126996,
+    "short_ratio": 2.4,
+    "beta": 0.954
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 158.11,
+    "entry_range_high": 196.55,
+    "target_range_low": 217.68,
+    "target_range_high": 233.23,
+    "stop_range_low": 168.98,
+    "stop_range_high": 177.87,
+    "target_price": 222.12,
+    "stop_loss": 177.87,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.206800-04:00",
+    "categories": [
+      "top_scores",
+      "value",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 244.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 85.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 131.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 80.89,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 16,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 19500,
+      "date": "2026-04-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 6.13,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 68,
+    "price_change_display": "+1.28%",
+    "key_metrics": {
+      "RSI": 66.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

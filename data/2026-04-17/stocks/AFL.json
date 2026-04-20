@@ -1,0 +1,163 @@
+{
+  "ticker": "AFL",
+  "company": "Aflac Incorporated",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.532068-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Life",
+  "price": {
+    "current": 115.48,
+    "open": 112.96,
+    "high": 115.6,
+    "low": 112.96,
+    "prev_close": 113.71,
+    "change_pct": 1.56,
+    "change_pct_1w": 4.32,
+    "change_pct_1m": 7.01,
+    "change_pct_1y": 9.21,
+    "volume": 930186,
+    "avg_volume_30d": 2277459
+  },
+  "scores": {
+    "master_score": 54.53,
+    "technical_score": 52.0,
+    "fundamental_score": 38.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 68.0,
+    "sector_score": 40.3,
+    "breakout_score": 20.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.53,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 66.8,
+    "macd": 1.0489,
+    "macd_signal": 0.4173,
+    "macd_histogram": 0.6315,
+    "macd_crossover": "neutral",
+    "ema_20": 111.37,
+    "ema_50": 110.77,
+    "ema_200": 108.83,
+    "ema_stack_bullish": true,
+    "bb_upper": 115.57,
+    "bb_middle": 110.14,
+    "bb_lower": 104.7,
+    "bb_width": 0.0986,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.5,
+    "atr": 2.1,
+    "atr_pct": 0.0181,
+    "obv_trend": "UP",
+    "mfi": 86.7,
+    "cmf": 0.093,
+    "stoch_k": 98.7,
+    "stoch_d": 95.2,
+    "rvol": 0.69,
+    "volume_5d_avg": 1575717,
+    "green_days_10d": 7,
+    "52w_high": 116.85,
+    "52w_low": 96.54,
+    "52w_high_proximity_pct": 0.0117,
+    "52w_low_proximity_pct": 0.1962
+  },
+  "fundamental": {
+    "pe_ratio": 16.932552,
+    "sector_pe_median": 16.476388,
+    "pb_ratio": 2.031132,
+    "de_ratio": 42.682,
+    "fcf_yield": 0.0855,
+    "eps_growth_5y": -0.229,
+    "revenue_growth_ttm": -0.099,
+    "gross_margin": 0.46644002,
+    "operating_margin": 0.33558998,
+    "net_margin": 0.21242,
+    "market_cap": 60524679168,
+    "enterprise_value": 63671369728,
+    "dividend_yield": 2.15,
+    "payout_ratio": 0.3402,
+    "insider_ownership_pct": 0.108509995,
+    "institutional_ownership_pct": 0.59744,
+    "short_ratio": 3.23,
+    "beta": 0.652
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 110.22,
+    "entry_range_high": 116.06,
+    "target_range_low": 119.34,
+    "target_range_high": 127.87,
+    "stop_range_low": 105.72,
+    "stop_range_high": 111.28,
+    "target_price": 121.78,
+    "stop_loss": 111.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.532046-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 144.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 215.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 96.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 32,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 86155,
+      "date": "2026-04-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+1.56%",
+    "key_metrics": {
+      "RSI": 66.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

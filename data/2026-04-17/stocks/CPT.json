@@ -1,0 +1,163 @@
+{
+  "ticker": "CPT",
+  "company": "Camden Property Trust",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:20.025807-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 103.51,
+    "open": 100.52,
+    "high": 103.61,
+    "low": 100.52,
+    "prev_close": 100.18,
+    "change_pct": 3.32,
+    "change_pct_1w": 1.53,
+    "change_pct_1m": 4.28,
+    "change_pct_1y": -3.23,
+    "volume": 350052,
+    "avg_volume_30d": 1148685
+  },
+  "scores": {
+    "master_score": 35.7,
+    "technical_score": 9.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 45.5,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 35.7,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 58.3,
+    "macd": 0.0243,
+    "macd_signal": -0.5681,
+    "macd_histogram": 0.5924,
+    "macd_crossover": "neutral",
+    "ema_20": 100.82,
+    "ema_50": 102.06,
+    "ema_200": 104.98,
+    "ema_stack_bullish": false,
+    "bb_upper": 104.15,
+    "bb_middle": 99.36,
+    "bb_lower": 94.57,
+    "bb_width": 0.0965,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.3,
+    "atr": 2.1,
+    "atr_pct": 0.0203,
+    "obv_trend": "DOWN",
+    "mfi": 64.6,
+    "cmf": -0.158,
+    "stoch_k": 98.7,
+    "stoch_d": 81.7,
+    "rvol": 0.8,
+    "volume_5d_avg": 914810,
+    "green_days_10d": 5,
+    "52w_high": 116.12,
+    "52w_low": 95.56,
+    "52w_high_proximity_pct": 0.1086,
+    "52w_low_proximity_pct": 0.0831
+  },
+  "fundamental": {
+    "pe_ratio": 29.239323,
+    "sector_pe_median": 30.340761999999998,
+    "pb_ratio": 2.5236428,
+    "de_ratio": 88.402,
+    "fcf_yield": 0.0708,
+    "eps_growth_5y": 2.876,
+    "revenue_growth_ttm": 0.022,
+    "gross_margin": 0.61731,
+    "operating_margin": 0.19797,
+    "net_margin": 0.24229,
+    "market_cap": 10839948288,
+    "enterprise_value": 14629614592,
+    "dividend_yield": 4.23,
+    "payout_ratio": 1.1863999,
+    "insider_ownership_pct": 0.0141199995,
+    "institutional_ownership_pct": 1.04765,
+    "short_ratio": 5.29,
+    "beta": 0.848
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 101.55,
+    "entry_range_high": 104.03,
+    "target_range_low": 107.61,
+    "target_range_high": 115.3,
+    "stop_range_low": 94.34,
+    "stop_range_high": 99.31,
+    "target_price": 109.81,
+    "stop_loss": 99.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:20.025776-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 129.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 423.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 95.56,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13502,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 3.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "+3.32%",
+    "key_metrics": {
+      "RSI": 58.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

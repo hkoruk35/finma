@@ -1,0 +1,163 @@
+{
+  "ticker": "DASH",
+  "company": "DoorDash, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.370157-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 185.26,
+    "open": 184.91,
+    "high": 188.44,
+    "low": 183.48,
+    "prev_close": 179.33,
+    "change_pct": 3.3,
+    "change_pct_1w": 21.41,
+    "change_pct_1m": 12.28,
+    "change_pct_1y": 2.04,
+    "volume": 1970111,
+    "avg_volume_30d": 4027780
+  },
+  "scores": {
+    "master_score": 33.04,
+    "technical_score": 12.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 38.4,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 33.04,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 67.6,
+    "macd": 1.9882,
+    "macd_signal": -2.4586,
+    "macd_histogram": 4.4469,
+    "macd_crossover": "neutral",
+    "ema_20": 164.59,
+    "ema_50": 171.59,
+    "ema_200": 200.37,
+    "ema_stack_bullish": false,
+    "bb_upper": 179.66,
+    "bb_middle": 158.72,
+    "bb_lower": 137.78,
+    "bb_width": 0.2639,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.4,
+    "atr": 8.17,
+    "atr_pct": 0.0441,
+    "obv_trend": "UP",
+    "mfi": 82.8,
+    "cmf": 0.004,
+    "stoch_k": 92.8,
+    "stoch_d": 93.7,
+    "rvol": 1.02,
+    "volume_5d_avg": 4114562,
+    "green_days_10d": 6,
+    "52w_high": 281.74,
+    "52w_low": 146.6,
+    "52w_high_proximity_pct": 0.3425,
+    "52w_low_proximity_pct": 0.2637
+  },
+  "fundamental": {
+    "pe_ratio": 86.974174,
+    "sector_pe_median": 26.333786,
+    "pb_ratio": 8.018309,
+    "de_ratio": 32.749,
+    "fcf_yield": 0.0295,
+    "eps_growth_5y": 0.477,
+    "revenue_growth_ttm": 0.377,
+    "gross_margin": 0.51826,
+    "operating_margin": 0.052589998,
+    "net_margin": 0.06816,
+    "market_cap": 80479657984,
+    "enterprise_value": 75702681600,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0057599996,
+    "institutional_ownership_pct": 0.98879,
+    "short_ratio": 3.06,
+    "beta": 1.925
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 170.73,
+    "entry_range_high": 186.19,
+    "target_range_low": 205.57,
+    "target_range_high": 220.26,
+    "stop_range_low": 160.47,
+    "stop_range_high": 168.92,
+    "target_price": 209.77,
+    "stop_loss": 168.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.370130-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 231.57,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 146.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 22,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 23125,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 6.74,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "+3.30%",
+    "key_metrics": {
+      "RSI": 67.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

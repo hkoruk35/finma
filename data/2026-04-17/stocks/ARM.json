@@ -1,0 +1,164 @@
+{
+  "ticker": "ARM",
+  "company": "Arm Holdings plc",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.108946-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 164.38,
+    "open": 166.5,
+    "high": 167.46,
+    "low": 163.44,
+    "prev_close": 162.33,
+    "change_pct": 1.26,
+    "change_pct_1w": 10.37,
+    "change_pct_1m": 28.06,
+    "change_pct_1y": 58.36,
+    "volume": 2519888,
+    "avg_volume_30d": 7115972
+  },
+  "scores": {
+    "master_score": 46.13,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.3,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 46.13,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 67.0,
+    "macd": 8.4339,
+    "macd_signal": 7.5123,
+    "macd_histogram": 0.9216,
+    "macd_crossover": "neutral",
+    "ema_20": 149.51,
+    "ema_50": 138.31,
+    "ema_200": 133.85,
+    "ema_stack_bullish": true,
+    "bb_upper": 168.25,
+    "bb_middle": 149.89,
+    "bb_lower": 131.52,
+    "bb_width": 0.245,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.0,
+    "atr": 8.37,
+    "atr_pct": 0.0509,
+    "obv_trend": "UP",
+    "mfi": 64.6,
+    "cmf": -0.142,
+    "stoch_k": 90.2,
+    "stoch_d": 87.5,
+    "rvol": 0.65,
+    "volume_5d_avg": 4620977,
+    "green_days_10d": 6,
+    "52w_high": 178.62,
+    "52w_low": 96.83,
+    "52w_high_proximity_pct": 0.0797,
+    "52w_low_proximity_pct": 0.6976
+  },
+  "fundamental": {
+    "pe_ratio": 219.17334,
+    "sector_pe_median": 40.981632,
+    "pb_ratio": 22.385946,
+    "de_ratio": 5.912,
+    "fcf_yield": 0.0047,
+    "eps_growth_5y": -0.123,
+    "revenue_growth_ttm": 0.263,
+    "gross_margin": 0.97495,
+    "operating_margin": 0.15378,
+    "net_margin": 0.17148,
+    "market_cap": 174571339776,
+    "enterprise_value": 169313452032,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00045000002,
+    "institutional_ownership_pct": 0.95079005,
+    "short_ratio": 2.14,
+    "beta": 3.338
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 137.62,
+    "entry_range_high": 165.2,
+    "target_range_low": 185.7,
+    "target_range_high": 198.96,
+    "stop_range_low": 140.26,
+    "stop_range_high": 147.64,
+    "target_price": 189.49,
+    "stop_loss": 147.64,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.108918-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 205.47,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 96.83,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 31853,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 6.13,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "+1.26%",
+    "key_metrics": {
+      "RSI": 67.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

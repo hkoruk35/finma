@@ -1,0 +1,163 @@
+{
+  "ticker": "AKAM",
+  "company": "Akamai Technologies, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.202692-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 96.05,
+    "open": 97.3,
+    "high": 98.64,
+    "low": 94.97,
+    "prev_close": 96.81,
+    "change_pct": -0.79,
+    "change_pct_1w": 5.15,
+    "change_pct_1m": -11.77,
+    "change_pct_1y": 28.91,
+    "volume": 2658486,
+    "avg_volume_30d": 5220016
+  },
+  "scores": {
+    "master_score": 29.98,
+    "technical_score": 31.0,
+    "fundamental_score": 32.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 29.98,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 41.5,
+    "macd": -3.3246,
+    "macd_signal": -0.7707,
+    "macd_histogram": -2.5539,
+    "macd_crossover": "neutral",
+    "ema_20": 103.46,
+    "ema_50": 103.09,
+    "ema_200": 92.1,
+    "ema_stack_bullish": false,
+    "bb_upper": 128.53,
+    "bb_middle": 108.08,
+    "bb_lower": 87.63,
+    "bb_width": 0.3785,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 29.4,
+    "atr": 6.04,
+    "atr_pct": 0.0628,
+    "obv_trend": "DOWN",
+    "mfi": 29.5,
+    "cmf": -0.104,
+    "stoch_k": 25.4,
+    "stoch_d": 19.7,
+    "rvol": 1.12,
+    "volume_5d_avg": 5849177,
+    "green_days_10d": 4,
+    "52w_high": 119.15,
+    "52w_low": 70.53,
+    "52w_high_proximity_pct": 0.1939,
+    "52w_low_proximity_pct": 0.3618
+  },
+  "fundamental": {
+    "pe_ratio": 31.286646,
+    "sector_pe_median": 40.981632,
+    "pb_ratio": 2.792557,
+    "de_ratio": 114.024,
+    "fcf_yield": 0.0409,
+    "eps_growth_5y": -0.374,
+    "revenue_growth_ttm": 0.074,
+    "gross_margin": 0.58949,
+    "operating_margin": 0.13822,
+    "net_margin": 0.10742,
+    "market_cap": 14140773376,
+    "enterprise_value": 18515472384,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02081,
+    "institutional_ownership_pct": 1.00749,
+    "short_ratio": 3.98,
+    "beta": 0.594
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 95.57,
+    "entry_range_high": 96.53,
+    "target_range_low": 111.89,
+    "target_range_high": 119.88,
+    "stop_range_low": 79.77,
+    "stop_range_high": 83.97,
+    "target_price": 114.17,
+    "stop_loss": 83.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.202638-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 120.06,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 70.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 15,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 6.13,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-0.79%",
+    "key_metrics": {
+      "RSI": 41.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

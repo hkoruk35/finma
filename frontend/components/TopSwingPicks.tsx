@@ -233,17 +233,24 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
               {/* Language analysis pages — outside <Link> to avoid nested anchors */}
               {!isLocked && (
-                <div className="flex gap-1 flex-wrap mt-2 px-1">
-                  {Object.entries(LANG_CONFIG).map(([l, cfg]) => (
-                    <Link
-                      key={l}
-                      href={`/${l}/${cfg.slug}/${item.ticker.toLowerCase()}`}
-                      className="px-2 py-1 rounded text-[10px] font-black flex items-center gap-0.5 border border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5 transition-all"
-                    >
-                      <span>{cfg.flag}</span>
-                      <span>{l.toUpperCase()}</span>
-                    </Link>
-                  ))}
+                <div className="grid grid-cols-6 gap-1.5 mt-3 w-full">
+                  {Object.entries(LANG_CONFIG).map(([l, cfg]) => {
+                    const [langPart, countryPart] = cfg.locale.split('_');
+                    return (
+                      <Link
+                        key={l}
+                        href={`/${l}/${cfg.slug}/${item.ticker.toLowerCase()}`}
+                        className="flex flex-col items-center justify-center py-2.5 rounded-xl border border-[#1e2a3a] bg-[#0d1117] hover:bg-[#141924] hover:border-[#3b82f6]/40 transition-all group/lang shadow-sm"
+                      >
+                        <span className="text-[8px] font-black text-[#4b5563] group-hover/lang:text-[#3b82f6] transition-colors leading-none mb-1 uppercase tracking-tighter">
+                          {countryPart}
+                        </span>
+                        <span className="text-[14px] font-black text-[#94a3b8] group-hover/lang:text-white transition-colors leading-none tracking-tight">
+                          {langPart.toUpperCase()}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>

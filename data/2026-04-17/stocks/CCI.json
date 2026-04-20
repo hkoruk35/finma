@@ -1,0 +1,163 @@
+{
+  "ticker": "CCI",
+  "company": "Crown Castle Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:20.004030-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 88.54,
+    "open": 86.96,
+    "high": 89.0,
+    "low": 86.46,
+    "prev_close": 86.87,
+    "change_pct": 1.93,
+    "change_pct_1w": 2.61,
+    "change_pct_1m": 4.28,
+    "change_pct_1y": -7.75,
+    "volume": 1542457,
+    "avg_volume_30d": 2927808
+  },
+  "scores": {
+    "master_score": 32.16,
+    "technical_score": 9.6,
+    "fundamental_score": 27.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.5,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 32.16,
+    "confidence": 0.32,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 60.6,
+    "macd": 0.7222,
+    "macd_signal": 0.0827,
+    "macd_histogram": 0.6395,
+    "macd_crossover": "neutral",
+    "ema_20": 85.21,
+    "ema_50": 85.26,
+    "ema_200": 88.89,
+    "ema_stack_bullish": false,
+    "bb_upper": 90.4,
+    "bb_middle": 83.33,
+    "bb_lower": 76.27,
+    "bb_width": 0.1696,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.2,
+    "atr": 2.37,
+    "atr_pct": 0.0268,
+    "obv_trend": "UP",
+    "mfi": 71.8,
+    "cmf": 0.035,
+    "stoch_k": 95.4,
+    "stoch_d": 90.4,
+    "rvol": 0.81,
+    "volume_5d_avg": 2377691,
+    "green_days_10d": 6,
+    "52w_high": 109.95,
+    "52w_low": 76.96,
+    "52w_high_proximity_pct": 0.1947,
+    "52w_low_proximity_pct": 0.1505
+  },
+  "fundamental": {
+    "pe_ratio": 35.136906,
+    "sector_pe_median": 30.340761999999998,
+    "pb_ratio": -23.555466,
+    "de_ratio": null,
+    "fcf_yield": 0.0355,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.043,
+    "gross_margin": 0.74085,
+    "operating_margin": 0.49206,
+    "net_margin": 0.10413,
+    "market_cap": 38638145536,
+    "enterprise_value": 67348439040,
+    "dividend_yield": 4.89,
+    "payout_ratio": 1.8859,
+    "insider_ownership_pct": 0.0011,
+    "institutional_ownership_pct": 0.995,
+    "short_ratio": 3.36,
+    "beta": 0.964
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 84.83,
+    "entry_range_high": 88.98,
+    "target_range_low": 93.74,
+    "target_range_high": 100.43,
+    "stop_range_low": 79.61,
+    "stop_range_high": 83.8,
+    "target_price": 95.65,
+    "stop_loss": 83.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:20.003997-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 110.68,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 489.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 76.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9649,
+      "date": "2026-04-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 3.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "+1.93%",
+    "key_metrics": {
+      "RSI": 60.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "ticker": "BIIB",
+  "company": "Biogen Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.439368-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 178.12,
+    "open": 176.29,
+    "high": 178.4,
+    "low": 175.98,
+    "prev_close": 176.02,
+    "change_pct": 1.19,
+    "change_pct_1w": 2.98,
+    "change_pct_1m": -2.3,
+    "change_pct_1y": 52.27,
+    "volume": 396491,
+    "avg_volume_30d": 1141883
+  },
+  "scores": {
+    "master_score": 38.65,
+    "technical_score": 30.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 38.65,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 46.7,
+    "macd": -2.2443,
+    "macd_signal": -2.2136,
+    "macd_histogram": -0.0307,
+    "macd_crossover": "neutral",
+    "ema_20": 179.99,
+    "ema_50": 181.69,
+    "ema_200": 167.43,
+    "ema_stack_bullish": false,
+    "bb_upper": 190.69,
+    "bb_middle": 180.65,
+    "bb_lower": 170.62,
+    "bb_width": 0.1111,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.2,
+    "atr": 5.44,
+    "atr_pct": 0.0306,
+    "obv_trend": "UP",
+    "mfi": 49.3,
+    "cmf": 0.109,
+    "stoch_k": 44.2,
+    "stoch_d": 42.5,
+    "rvol": 0.96,
+    "volume_5d_avg": 1096858,
+    "green_days_10d": 6,
+    "52w_high": 201.18,
+    "52w_low": 115.29,
+    "52w_high_proximity_pct": 0.1146,
+    "52w_low_proximity_pct": 0.545
+  },
+  "fundamental": {
+    "pe_ratio": 20.287016,
+    "sector_pe_median": 25.526684000000003,
+    "pb_ratio": 1.4322357,
+    "de_ratio": 36.466,
+    "fcf_yield": 0.0758,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.071,
+    "gross_margin": 0.78946,
+    "operating_margin": 0.19641,
+    "net_margin": 0.13071999,
+    "market_cap": 26140628992,
+    "enterprise_value": 28674336768,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0016500001,
+    "institutional_ownership_pct": 0.98572,
+    "short_ratio": 3.96,
+    "beta": 0.162
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 177.23,
+    "entry_range_high": 179.01,
+    "target_range_low": 190.55,
+    "target_range_high": 204.16,
+    "stop_range_low": 158.88,
+    "stop_range_high": 167.24,
+    "target_price": 194.44,
+    "stop_loss": 167.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.439342-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 222.65,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 115.29,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 181,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.76,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+1.19%",
+    "key_metrics": {
+      "RSI": 46.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

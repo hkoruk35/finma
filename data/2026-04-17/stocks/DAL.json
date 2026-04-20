@@ -1,0 +1,163 @@
+{
+  "ticker": "DAL",
+  "company": "Delta Air Lines, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.892431-04:00",
+  "sector": "Industrials",
+  "industry": "Airlines",
+  "price": {
+    "current": 72.89,
+    "open": 74.42,
+    "high": 75.02,
+    "low": 72.68,
+    "prev_close": 69.89,
+    "change_pct": 4.29,
+    "change_pct_1w": 7.48,
+    "change_pct_1m": 14.23,
+    "change_pct_1y": 80.71,
+    "volume": 6705603,
+    "avg_volume_30d": 14698606
+  },
+  "scores": {
+    "master_score": 58.08,
+    "technical_score": 58.0,
+    "fundamental_score": 53.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 40.3,
+    "breakout_score": 30.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.08,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 63.1,
+    "macd": 1.6127,
+    "macd_signal": 0.9478,
+    "macd_histogram": 0.665,
+    "macd_crossover": "neutral",
+    "ema_20": 67.93,
+    "ema_50": 66.85,
+    "ema_200": 62.63,
+    "ema_stack_bullish": true,
+    "bb_upper": 72.49,
+    "bb_middle": 67.43,
+    "bb_lower": 62.37,
+    "bb_width": 0.1501,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 17.3,
+    "atr": 3.17,
+    "atr_pct": 0.0435,
+    "obv_trend": "UP",
+    "mfi": 60.0,
+    "cmf": -0.147,
+    "stoch_k": 82.4,
+    "stoch_d": 74.8,
+    "rvol": 0.72,
+    "volume_5d_avg": 10536360,
+    "green_days_10d": 5,
+    "52w_high": 75.15,
+    "52w_low": 38.99,
+    "52w_high_proximity_pct": 0.03,
+    "52w_low_proximity_pct": 0.8694
+  },
+  "fundamental": {
+    "pe_ratio": 10.640876,
+    "sector_pe_median": 33.587625,
+    "pb_ratio": 2.3374915,
+    "de_ratio": 105.021,
+    "fcf_yield": 0.0646,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.129,
+    "gross_margin": 0.19900998,
+    "operating_margin": 0.03179,
+    "net_margin": 0.068670005,
+    "market_cap": 47888302080,
+    "enterprise_value": 62014980096,
+    "dividend_yield": 1.07,
+    "payout_ratio": 0.103999995,
+    "insider_ownership_pct": 0.00524,
+    "institutional_ownership_pct": 0.86033,
+    "short_ratio": 1.5,
+    "beta": 1.306
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 66.52,
+    "entry_range_high": 73.25,
+    "target_range_low": 80.75,
+    "target_range_high": 86.52,
+    "stop_range_low": 63.22,
+    "stop_range_high": 66.55,
+    "target_price": 82.4,
+    "stop_loss": 66.55,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.892405-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 91.11,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 107.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 38.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 15000,
+      "date": "2026-04-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 1.11,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+4.29%",
+    "key_metrics": {
+      "RSI": 63.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

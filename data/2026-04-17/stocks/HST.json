@@ -1,0 +1,177 @@
+{
+  "ticker": "HST",
+  "company": "Host Hotels & Resorts, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:20.041418-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Hotel & Motel",
+  "price": {
+    "current": 21.1,
+    "open": 20.75,
+    "high": 21.15,
+    "low": 20.75,
+    "prev_close": 20.57,
+    "change_pct": 2.58,
+    "change_pct_1w": 4.77,
+    "change_pct_1m": 11.82,
+    "change_pct_1y": 63.91,
+    "volume": 2504778,
+    "avg_volume_30d": 9133272
+  },
+  "scores": {
+    "master_score": 67.8,
+    "technical_score": 60.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.5,
+    "breakout_score": 35.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 67.8,
+    "confidence": 0.68,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 69.5,
+    "macd": 0.4668,
+    "macd_signal": 0.2761,
+    "macd_histogram": 0.1907,
+    "macd_crossover": "neutral",
+    "ema_20": 19.84,
+    "ema_50": 19.32,
+    "ema_200": 17.66,
+    "ema_stack_bullish": true,
+    "bb_upper": 21.12,
+    "bb_middle": 19.55,
+    "bb_lower": 17.98,
+    "bb_width": 0.161,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.2,
+    "atr": 0.53,
+    "atr_pct": 0.0251,
+    "obv_trend": "UP",
+    "mfi": 82.9,
+    "cmf": -0.013,
+    "stoch_k": 98.2,
+    "stoch_d": 90.7,
+    "rvol": 0.93,
+    "volume_5d_avg": 8505515,
+    "green_days_10d": 7,
+    "52w_high": 21.1,
+    "52w_low": 12.7,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6612
+  },
+  "fundamental": {
+    "pe_ratio": 19.181818,
+    "sector_pe_median": 30.340761999999998,
+    "pb_ratio": 2.2129,
+    "de_ratio": 83.779,
+    "fcf_yield": 0.0805,
+    "eps_growth_5y": 0.271,
+    "revenue_growth_ttm": 0.128,
+    "gross_margin": 0.28832,
+    "operating_margin": 0.12087,
+    "net_margin": 0.12476,
+    "market_cap": 14697762816,
+    "enterprise_value": 19194091520,
+    "dividend_yield": 3.89,
+    "payout_ratio": 0.72730005,
+    "insider_ownership_pct": 0.01491,
+    "institutional_ownership_pct": 1.07678,
+    "short_ratio": 3.68,
+    "beta": 1.131
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 19.22,
+    "entry_range_high": 21.21,
+    "target_range_low": 22.24,
+    "target_range_high": 23.82,
+    "stop_range_low": 19.04,
+    "stop_range_high": 20.04,
+    "target_price": 22.69,
+    "stop_loss": 20.04,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:20.041394-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 26.38,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 389.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.7,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12673,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 3.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {
+      "en": "HST (Host Hotels & Resorts, Inc.) Analysis for Institutional Swing Traders",
+      "tr": "HST (Host Hotels & Resorts, Inc.) Kurumsal Swing Trader'lar için Analiz",
+      "es": "Análisis de HST (Host Hotels & Resorts, Inc.) para Swing Traders Institucionales",
+      "pt": "Análise de HST (Host Hotels & Resorts, Inc.) para Swing Traders Institucionais",
+      "fr": "Analyse de HST (Host Hotels & Resorts, Inc.) pour les Swing Traders Institutionnels",
+      "id": "Analisis HST (Host Hotels & Resorts, Inc.) untuk Swing Trader Institusional"
+    },
+    "detail": {
+      "en": "## HST (Host Hotels & Resorts, Inc.) Analysis for Institutional Swing Traders\n\n**Data:** $21.10, Score 67.8/100. RSI 69.5, ADX 20.2.\n**Zones:** Entry [19.22 - 21.21] -> Target 22.69.\n\n### 1. Business Context\n\nHost Hotels & Resorts, Inc. is a real estate investment trust (REIT) that owns primarily luxury and upper-upscale hotels. Understanding the macro environment for hospitality, including occupancy rates, average daily rates (ADR), and revenue per available room (RevPAR), is crucial. Consider factors like economic growth, travel trends (business and leisure), and competitive landscape. Institutional traders should assess the quality of HST's portfolio, its management team's track record, and its capital allocation strategy.\n\n### 2. Performance\n\n*   **Score 67.8/100:** Indicates a moderately positive outlook. Further investigation into the components of this score is needed to understand its strengths and weaknesses (e.g., growth, profitability, valuation).\n*   Analyze HST's recent financial performance (revenue, earnings, cash flow) and compare it to its peers and historical performance. Look for trends and potential catalysts.\n*   Consider the impact of seasonality on HST's business. Hotel performance typically fluctuates throughout the year.\n\n### 3. Technical Matrix\n\n| Indicator | Value | Interpretation | Verdict | Action | \n|---|---|---|---|---|\n| Price | $21.10 | Current price level | Neutral | Observe | \n| RSI | 69.5 | Approaching overbought territory | Bearish | Caution | \n| ADX | 20.2 | Weak trend strength | Neutral | Wait for confirmation | \n| Entry Zone | [19.22 - 21.21] | Potential buy zone | Neutral | Monitor for price action | \n| Target | 22.69 | Potential profit target | Bullish | Set profit target | \n\n**Verdict:** The technical indicators present a mixed picture. The RSI suggests the stock is approaching overbought conditions, which could lead to a pullback. The ADX indicates a weak trend, suggesting that the current price movement may not be sustainable. The entry zone is currently being tested. \n\n### 4. Risks\n\n*   **Macroeconomic Risks:** Economic downturns can significantly impact travel and hotel occupancy rates.\n*   **Interest Rate Risk:** As a REIT, HST is sensitive to changes in interest rates. Rising rates can increase borrowing costs and decrease the attractiveness of REITs.\n*   **Operational Risks:** Competition from other hotels, changing consumer preferences, and property-specific issues (e.g., renovations, natural disasters) can impact performance.\n*   **Geopolitical Risks:** Global events can disrupt travel patterns and impact hotel demand.\n\n### 5. Execution Strategy\n\n*   **Entry:** Given the RSI and ADX readings, consider a partial entry within the [19.22 - 21.21] zone. A stop-loss order should be placed below the lower end of the entry zone to limit potential losses.\n*   **Position Sizing:** Determine the appropriate position size based on your risk tolerance and the volatility of HST.\n*   **Target:** Set a profit target at $22.69. Consider trailing stops to protect profits if the stock price moves higher.\n*   **Monitoring:** Continuously monitor the stock price, technical indicators, and relevant news events. Be prepared to adjust your strategy as needed.\n*   **Confirmation:** Wait for a confirmed breakout above $21.21 with increasing volume before adding to the position.\n\n**Disclaimer:** This analysis is for informational purposes only and should not be considered financial advice. Conduct thorough due diligence before making any investment decisions.",
+      "tr": "## HST (Host Hotels & Resorts, Inc.) Kurumsal Swing Trader'lar için Analiz\n\n**Veri:** 21.10$, Puan 67.8/100. RSI 69.5, ADX 20.2.\n**Bölgeler:** Giriş [19.22 - 21.21] -> Hedef 22.69.\n\n### 1. İş Bağlamı\n\nHost Hotels & Resorts, Inc., öncelikle lüks ve üst düzey otellere sahip bir gayrimenkul yatırım ortaklığıdır (GYO). Doluluk oranları, ortalama günlük oranlar (ADR) ve oda başına gelir (RevPAR) dahil olmak üzere konaklama için makro ortamı anlamak çok önemlidir. Ekonomik büyüme, seyahat eğilimleri (iş ve eğlence) ve rekabet ortamı gibi faktörleri göz önünde bulundurun. Kurumsal yatırımcılar, HST'nin portföyünün kalitesini, yönetim ekibinin geçmiş performansını ve sermaye tahsis stratejisini değerlendirmelidir.\n\n### 2. Performans\n\n*   **Puan 67.8/100:** Orta derecede olumlu bir görünüm olduğunu gösterir. Güçlü ve zayıf yönlerini anlamak için bu puanın bileşenlerinin daha fazla araştırılması gerekir (örneğin, büyüme, karlılık, değerleme).\n*   HST'nin son mali performansını (gelir, kazanç, nakit akışı) analiz edin ve emsalleri ve geçmiş performansıyla karşılaştırın. Eğilimleri ve potansiyel katalizörleri arayın.\n*   Mevsimselliğin HST'nin işi üzerindeki etkisini göz önünde bulundurun. Otel performansı yıl boyunca tipik olarak dalgalanır.\n\n### 3. Teknik Matris\n\n| Gösterge | Değer | Yorum | Karar | Eylem | \n|---|---|---|---|---|\n| Fiyat | 21.10$ | Mevcut fiyat seviyesi | Nötr | Gözlemle | \n| RSI | 69.5 | Aşırı alım bölgesine yaklaşıyor | Ayı | Dikkatli ol | \n| ADX | 20.2 | Zayıf trend gücü | Nötr | Onay bekle | \n| Giriş Bölgesi | [19.22 - 21.21] | Potansiyel satın alma bölgesi | Nötr | Fiyat hareketini izle | \n| Hedef | 22.69 | Potansiyel kar hedefi | Boğa | Kar hedefi belirle | \n\n**Karar:** Teknik göstergeler karışık bir tablo sunuyor. RSI, hisse senedinin aşırı alım koşullarına yaklaştığını gösteriyor ve bu da bir geri çekilmeye yol açabilir. ADX, zayıf bir trend gösteriyor ve bu da mevcut fiyat hareketinin sürdürülebilir olmayabileceğini gösteriyor. Giriş bölgesi şu anda test ediliyor.\n\n### 4. Riskler\n\n*   **Makroekonomik Riskler:** Ekonomik gerilemeler, seyahat ve otel doluluk oranlarını önemli ölçüde etkileyebilir.\n*   **Faiz Oranı Riski:** Bir GYO olarak HST, faiz oranlarındaki değişikliklere karşı hassastır. Artan oranlar, borçlanma maliyetlerini artırabilir ve GYO'ların çekiciliğini azaltabilir.\n*   **Operasyonel Riskler:** Diğer otellerden gelen rekabet, değişen tüketici tercihleri ​​ve mülke özgü sorunlar (örneğin, tadilatlar, doğal afetler) performansı etkileyebilir.\n*   **Jeopolitik Riskler:** Küresel olaylar seyahat düzenlerini bozabilir ve otel talebini etkileyebilir.\n\n### 5. Uygulama Stratejisi\n\n*   **Giriş:** RSI ve ADX okumaları göz önüne alındığında, [19.22 - 21.21] bölgesi içinde kısmi bir giriş yapmayı düşünün. Potansiyel kayıpları sınırlamak için giriş bölgesinin alt ucunun altına bir stop-loss emri yerleştirilmelidir.\n*   **Pozisyon Boyutlandırma:** Risk toleransınıza ve HST'nin oynaklığına göre uygun pozisyon boyutunu belirleyin.\n*   **Hedef:** 22.69$'da bir kar hedefi belirleyin. Hisse senedi fiyatı yükselirse karları korumak için iz süren durakları düşünün.\n*   **İzleme:** Hisse senedi fiyatını, teknik göstergeleri ve ilgili haber olaylarını sürekli olarak izleyin. Stratejinizi gerektiği gibi ayarlamaya hazırlıklı olun.\n*   **Onay:** Pozisyona ekleme yapmadan önce artan hacimle 21.21$'ın üzerinde onaylanmış bir kırılma bekleyin.\n\n**Yasal Uyarı:** Bu analiz yalnızca bilgilendirme amaçlıdır ve finansal tavsiye olarak kabul edilmemelidir. Herhangi bir yatırım kararı vermeden önce kapsamlı durum tespiti yapın.",
+      "es": "## Análisis de HST (Host Hotels & Resorts, Inc.) para Swing Traders Institucionales\n\n**Datos:** $21.10, Puntuación 67.8/100. RSI 69.5, ADX 20.2.\n**Zonas:** Entrada [19.22 - 21.21] -> Objetivo 22.69.\n\n### 1. Contexto Empresarial\n\nHost Hotels & Resorts, Inc. es un fideicomiso de inversión en bienes raíces (REIT) que posee principalmente hoteles de lujo y de alta gama. Es crucial comprender el entorno macro para la hostelería, incluidas las tasas de ocupación, las tarifas diarias promedio (ADR) y los ingresos por habitación disponible (RevPAR). Considere factores como el crecimiento económico, las tendencias de viaje (negocios y placer) y el panorama competitivo. Los operadores institucionales deben evaluar la calidad de la cartera de HST, el historial del equipo directivo y su estrategia de asignación de capital.\n\n### 2. Rendimiento\n\n*   **Puntuación 67.8/100:** Indica una perspectiva moderadamente positiva. Se necesita una mayor investigación de los componentes de esta puntuación para comprender sus fortalezas y debilidades (por ejemplo, crecimiento, rentabilidad, valoración).\n*   Analice el rendimiento financiero reciente de HST (ingresos, ganancias, flujo de caja) y compárelo con sus pares y el rendimiento histórico. Busque tendencias y posibles catalizadores.\n*   Considere el impacto de la estacionalidad en el negocio de HST. El rendimiento del hotel suele fluctuar a lo largo del año.\n\n### 3. Matriz Técnica\n\n| Indicador | Valor | Interpretación | Veredicto | Acción |\n|---|---|---|---|---|\n| Precio | $21.10 | Nivel de precio actual | Neutral | Observar |\n| RSI | 69.5 | Acercándose al territorio de sobrecompra | Bajista | Precaución |\n| ADX | 20.2 | Fuerza de tendencia débil | Neutral | Esperar confirmación |\n| Zona de entrada | [19.22 - 21.21] | Zona de compra potencial | Neutral | Monitorear la acción del precio |\n| Objetivo | 22.69 | Objetivo de beneficio potencial | Alcista | Establecer objetivo de beneficio |\n\n**Veredicto:** Los indicadores técnicos presentan una imagen mixta. El RSI sugiere que la acción se acerca a condiciones de sobrecompra, lo que podría conducir a un retroceso. El ADX indica una tendencia débil, lo que sugiere que el movimiento actual del precio puede no ser sostenible. La zona de entrada se está probando actualmente.\n\n### 4. Riesgos\n\n*   **Riesgos macroeconómicos:** Las recesiones económicas pueden afectar significativamente las tasas de ocupación de viajes y hoteles.\n*   **Riesgo de tasa de interés:** Como REIT, HST es sensible a los cambios en las tasas de interés. El aumento de las tasas puede aumentar los costos de endeudamiento y disminuir el atractivo de los REIT.\n*   **Riesgos operativos:** La competencia de otros hoteles, los cambios en las preferencias de los consumidores y los problemas específicos de la propiedad (por ejemplo, renovaciones, desastres naturales) pueden afectar el rendimiento.\n*   **Riesgos geopolíticos:** Los eventos globales pueden interrumpir los patrones de viaje e impactar la demanda hotelera.\n\n### 5. Estrategia de Ejecución\n\n*   **Entrada:** Dadas las lecturas de RSI y ADX, considere una entrada parcial dentro de la zona [19.22 - 21.21]. Se debe colocar una orden de stop-loss por debajo del extremo inferior de la zona de entrada para limitar las posibles pérdidas.\n*   **Tamaño de la posición:** Determine el tamaño de la posición apropiado en función de su tolerancia al riesgo y la volatilidad de HST.\n*   **Objetivo:** Establezca un objetivo de beneficio en $22.69. Considere los stops dinámicos para proteger las ganancias si el precio de la acción sube.\n*   **Monitoreo:** Monitoree continuamente el precio de la acción, los indicadores técnicos y los eventos de noticias relevantes. Esté preparado para ajustar su estrategia según sea necesario.\n*   **Confirmación:** Espere una ruptura confirmada por encima de $21.21 con un volumen creciente antes de agregar a la posición.\n\n**Descargo de responsabilidad:** Este análisis es solo para fines informativos y no debe considerarse asesoramiento financiero. Realice una debida diligencia exhaustiva antes de tomar cualquier decisión de inversión.",
+      "pt": "## Análise de HST (Host Hotels & Resorts, Inc.) para Swing Traders Institucionais\n\n**Dados:** $21.10, Pontuação 67.8/100. RSI 69.5, ADX 20.2.\n**Zonas:** Entrada [19.22 - 21.21] -> Alvo 22.69.\n\n### 1. Contexto de Negócios\n\nHost Hotels & Resorts, Inc. é um fundo de investimento imobiliário (REIT) que possui principalmente hotéis de luxo e de alto padrão. Compreender o ambiente macro para hospitalidade, incluindo taxas de ocupação, tarifas diárias médias (ADR) e receita por quarto disponível (RevPAR), é crucial. Considere fatores como crescimento econômico, tendências de viagens (negócios e lazer) e cenário competitivo. Os traders institucionais devem avaliar a qualidade do portfólio da HST, o histórico da equipe de gestão e sua estratégia de alocação de capital.\n\n### 2. Desempenho\n\n*   **Pontuação 67.8/100:** Indica uma perspectiva moderadamente positiva. Uma investigação mais aprofundada dos componentes desta pontuação é necessária para entender seus pontos fortes e fracos (por exemplo, crescimento, lucratividade, avaliação).\n*   Analise o desempenho financeiro recente da HST (receita, lucros, fluxo de caixa) e compare-o com seus pares e desempenho histórico. Procure por tendências e potenciais catalisadores.\n*   Considere o impacto da sazonalidade nos negócios da HST. O desempenho do hotel normalmente flutua ao longo do ano.\n\n### 3. Matriz Técnica\n\n| Indicador | Valor | Interpretação | Veredito | Ação |\n|---|---|---|---|---|\n| Preço | $21.10 | Nível de preço atual | Neutro | Observar |\n| RSI | 69.5 | Aproximando-se do território de sobrecompra | Baixista | Cautela |\n| ADX | 20.2 | Força de tendência fraca | Neutro | Aguardar confirmação |\n| Zona de entrada | [19.22 - 21.21] | Zona de compra potencial | Neutro | Monitorar a ação do preço |\n| Alvo | 22.69 | Alvo de lucro potencial | Altista | Definir alvo de lucro |\n\n**Veredito:** Os indicadores técnicos apresentam um quadro misto. O RSI sugere que a ação está se aproximando de condições de sobrecompra, o que pode levar a uma retração. O ADX indica uma tendência fraca, sugerindo que o movimento de preço atual pode não ser sustentável. A zona de entrada está sendo testada atualmente.\n\n### 4. Riscos\n\n*   **Riscos Macroeconômicos:** As crises econômicas podem impactar significativamente as taxas de ocupação de viagens e hotéis.\n*   **Risco de Taxa de Juros:** Como um REIT, a HST é sensível a mudanças nas taxas de juros. O aumento das taxas pode aumentar os custos de empréstimos e diminuir a atratividade dos REITs.\n*   **Riscos Operacionais:** A concorrência de outros hotéis, as mudanças nas preferências do consumidor e os problemas específicos da propriedade (por exemplo, reformas, desastres naturais) podem impactar o desempenho.\n*   **Riscos Geopolíticos:** Eventos globais podem interromper os padrões de viagens e impactar a demanda hoteleira.\n\n### 5. Estratégia de Execução\n\n*   **Entrada:** Dadas as leituras de RSI e ADX, considere uma entrada parcial dentro da zona [19.22 - 21.21]. Uma ordem de stop-loss deve ser colocada abaixo da extremidade inferior da zona de entrada para limitar as perdas potenciais.\n*   **Tamanho da Posição:** Determine o tamanho da posição apropriado com base em sua tolerância ao risco e na volatilidade da HST.\n*   **Alvo:** Defina um alvo de lucro em $22.69. Considere stops móveis para proteger os lucros se o preço das ações subir.\n*   **Monitoramento:** Monitore continuamente o preço das ações, os indicadores técnicos e os eventos de notícias relevantes. Esteja preparado para ajustar sua estratégia conforme necessário.\n*   **Confirmação:** Aguarde uma quebra confirmada acima de $21.21 com volume crescente antes de adicionar à posição.\n\n**Isenção de responsabilidade:** Esta análise é apenas para fins informativos e não deve ser considerada aconselhamento financeiro. Realize uma due diligence completa antes de tomar qualquer decisão de investimento.",
+      "fr": "## Analyse de HST (Host Hotels & Resorts, Inc.) pour les Swing Traders Institutionnels\n\n**Données :** 21,10 $, Score 67,8/100. RSI 69,5, ADX 20,2.\n**Zones :** Entrée [19,22 - 21,21] -> Objectif 22,69.\n\n### 1. Contexte Commercial\n\nHost Hotels & Resorts, Inc. est une fiducie de placement immobilier (FPI) qui possède principalement des hôtels de luxe et haut de gamme. Il est crucial de comprendre le macro-environnement de l'hôtellerie, y compris les taux d'occupation, les tarifs journaliers moyens (ADR) et le revenu par chambre disponible (RevPAR). Tenez compte de facteurs tels que la croissance économique, les tendances de voyage (affaires et loisirs) et le paysage concurrentiel. Les traders institutionnels doivent évaluer la qualité du portefeuille de HST, les antécédents de son équipe de direction et sa stratégie d'allocation du capital.\n\n### 2. Performance\n\n*   **Score 67,8/100 :** Indique une perspective modérément positive. Une enquête plus approfondie sur les composantes de ce score est nécessaire pour comprendre ses forces et ses faiblesses (par exemple, la croissance, la rentabilité, la valorisation).\n*   Analysez les performances financières récentes de HST (revenus, bénéfices, flux de trésorerie) et comparez-les à celles de ses pairs et à ses performances historiques. Recherchez les tendances et les catalyseurs potentiels.\n*   Tenez compte de l'impact de la saisonnalité sur les activités de HST. Les performances hôtelières fluctuent généralement tout au long de l'année.\n\n### 3. Matrice Technique\n\n| Indicateur | Valeur | Interprétation | Verdict | Action |\n|---|---|---|---|---|\n| Prix | 21,10 $ | Niveau de prix actuel | Neutre | Observer |\n| RSI | 69,5 | Approche de la zone de surachat | Baissier | Prudence |\n| ADX | 20,2 | Faible force de tendance | Neutre | Attendre la confirmation |\n| Zone d'entrée | [19,22 - 21,21] | Zone d'achat potentielle | Neutre | Surveiller l'action des prix |\n| Objectif | 22,69 $ | Objectif de profit potentiel | Haussier | Définir un objectif de profit |\n\n**Verdict :** Les indicateurs techniques présentent une image mitigée. Le RSI suggère que l'action approche des conditions de surachat, ce qui pourrait entraîner un repli. L'ADX indique une faible tendance, ce qui suggère que le mouvement de prix actuel pourrait ne pas être durable. La zone d'entrée est actuellement testée.\n\n### 4. Risques\n\n*   **Risques macroéconomiques :** Les ralentissements économiques peuvent avoir un impact significatif sur les taux d'occupation des voyages et des hôtels.\n*   **Risque de taux d'intérêt :** En tant que FPI, HST est sensible aux variations des taux d'intérêt. La hausse des taux peut augmenter les coûts d'emprunt et diminuer l'attrait des FPI.\n*   **Risques opérationnels :** La concurrence d'autres hôtels, l'évolution des préférences des consommateurs et les problèmes spécifiques à la propriété (par exemple, les rénovations, les catastrophes naturelles) peuvent avoir un impact sur les performances.\n*   **Risques géopolitiques :** Les événements mondiaux peuvent perturber les schémas de voyage et avoir un impact sur la demande hôtelière.\n\n### 5. Stratégie d'exécution\n\n*   **Entrée :** Compte tenu des lectures RSI et ADX, envisagez une entrée partielle dans la zone [19,22 - 21,21]. Un ordre stop-loss doit être placé en dessous de l'extrémité inférieure de la zone d'entrée pour limiter les pertes potentielles.\n*   **Taille de la position :** Déterminez la taille de la position appropriée en fonction de votre tolérance au risque et de la volatilité de HST.\n*   **Objectif :** Fixez un objectif de profit à 22,69 $. Envisagez des stops suiveurs pour protéger les bénéfices si le cours de l'action augmente.\n*   **Surveillance :** Surveillez en permanence le cours de l'action, les indicateurs techniques et les événements d'actualité pertinents. Soyez prêt à ajuster votre stratégie au besoin.\n*   **Confirmation :** Attendez une cassure confirmée au-dessus de 21,21 $ avec un volume croissant avant d'ajouter à la position.\n\n**Avis de non-responsabilité :** Cette analyse est uniquement à des fins d'information et ne doit pas être considérée comme un conseil financier. Faites preuve de diligence raisonnable avant de prendre toute décision d'investissement.",
+      "id": "## Analisis HST (Host Hotels & Resorts, Inc.) untuk Swing Trader Institusional\n\n**Data:** $21.10, Skor 67.8/100. RSI 69.5, ADX 20.2.\n**Zona:** Masuk [19.22 - 21.21] -> Target 22.69.\n\n### 1. Konteks Bisnis\n\nHost Hotels & Resorts, Inc. adalah real estate investment trust (REIT) yang terutama memiliki hotel-hotel mewah dan kelas atas. Memahami lingkungan makro untuk perhotelan, termasuk tingkat hunian, tarif harian rata-rata (ADR), dan pendapatan per kamar yang tersedia (RevPAR), sangat penting. Pertimbangkan faktor-faktor seperti pertumbuhan ekonomi, tren perjalanan (bisnis dan rekreasi), dan lanskap kompetitif. Trader institusional harus menilai kualitas portofolio HST, rekam jejak tim manajemennya, dan strategi alokasi modalnya.\n\n### 2. Kinerja\n\n*   **Skor 67.8/100:** Menunjukkan prospek yang cukup positif. Penyelidikan lebih lanjut terhadap komponen skor ini diperlukan untuk memahami kekuatan dan kelemahannya (misalnya, pertumbuhan, profitabilitas, valuasi).\n*   Analisis kinerja keuangan HST baru-baru ini (pendapatan, laba, arus kas) dan bandingkan dengan rekan-rekannya dan kinerja historis. Cari tren dan potensi katalis.\n*   Pertimbangkan dampak musiman pada bisnis HST. Kinerja hotel biasanya berfluktuasi sepanjang tahun.\n\n### 3. Matriks Teknis\n\n| Indikator | Nilai | Interpretasi | Putusan | Tindakan |\n|---|---|---|---|---|\n| Harga | $21.10 | Tingkat harga saat ini | Netral | Amati |\n| RSI | 69.5 | Mendekati wilayah overbought | Bearish | Hati-hati |\n| ADX | 20.2 | Kekuatan tren lemah | Netral | Tunggu konfirmasi |\n| Zona Masuk | [19.22 - 21.21] | Zona beli potensial | Netral | Pantau aksi harga |\n| Target | 22.69 | Target keuntungan potensial | Bullish | Tetapkan target keuntungan |\n\n**Putusan:** Indikator teknis menyajikan gambaran yang beragam. RSI menunjukkan bahwa saham mendekati kondisi overbought, yang dapat menyebabkan pullback. ADX menunjukkan tren yang lemah, menunjukkan bahwa pergerakan harga saat ini mungkin tidak berkelanjutan. Zona masuk saat ini sedang diuji.\n\n### 4. Risiko\n\n*   **Risiko Makroekonomi:** Penurunan ekonomi dapat secara signifikan memengaruhi tingkat hunian perjalanan dan hotel.\n*   **Risiko Suku Bunga:** Sebagai REIT, HST sensitif terhadap perubahan suku bunga. Kenaikan suku bunga dapat meningkatkan biaya pinjaman dan menurunkan daya tarik REIT.\n*   **Risiko Operasional:** Persaingan dari hotel lain, perubahan preferensi konsumen, dan masalah khusus properti (misalnya, renovasi, bencana alam) dapat memengaruhi kinerja.\n*   **Risiko Geopolitik:** Peristiwa global dapat mengganggu pola perjalanan dan memengaruhi permintaan hotel.\n\n### 5. Strategi Eksekusi\n\n*   **Masuk:** Mengingat pembacaan RSI dan ADX, pertimbangkan entri parsial dalam zona [19.22 - 21.21]. Perintah stop-loss harus ditempatkan di bawah ujung bawah zona masuk untuk membatasi potensi kerugian.\n*   **Ukuran Posisi:** Tentukan ukuran posisi yang sesuai berdasarkan toleransi risiko Anda dan volatilitas HST.\n*   **Target:** Tetapkan target keuntungan pada $22.69. Pertimbangkan trailing stop untuk melindungi keuntungan jika harga saham bergerak lebih tinggi.\n*   **Pemantauan:** Terus pantau harga saham, indikator teknis, dan peristiwa berita yang relevan. Bersiaplah untuk menyesuaikan strategi Anda sesuai kebutuhan.\n*   **Konfirmasi:** Tunggu penembusan yang dikonfirmasi di atas $21.21 dengan volume yang meningkat sebelum menambahkan ke posisi.\n\n**Penafian:** Analisis ini hanya untuk tujuan informasi dan tidak boleh dianggap sebagai nasihat keuangan. Lakukan uji tuntas menyeluruh sebelum membuat keputusan investasi apa pun."
+    }
+  },
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 68,
+    "price_change_display": "+2.58%",
+    "key_metrics": {
+      "RSI": 69.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

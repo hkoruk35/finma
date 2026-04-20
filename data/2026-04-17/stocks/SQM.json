@@ -1,0 +1,165 @@
+{
+  "ticker": "SQM",
+  "company": "SQM",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.682119-04:00",
+  "sector": "Basic Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 88.9,
+    "open": 94.34,
+    "high": 94.05,
+    "low": 88.0,
+    "prev_close": 95.31,
+    "change_pct": -6.73,
+    "change_pct_1w": 8.26,
+    "change_pct_1m": 18.49,
+    "change_pct_1y": 154.95,
+    "volume": 1535676,
+    "avg_volume_30d": 1325022
+  },
+  "scores": {
+    "master_score": 56.87,
+    "technical_score": 68.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 70.0,
+    "sector_score": 45.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 56.87,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 59.7,
+    "macd": 3.6557,
+    "macd_signal": 2.6863,
+    "macd_histogram": 0.9693,
+    "macd_crossover": "neutral",
+    "ema_20": 83.45,
+    "ema_50": 78.82,
+    "ema_200": 63.59,
+    "ema_stack_bullish": true,
+    "bb_upper": 92.87,
+    "bb_middle": 82.19,
+    "bb_lower": 71.5,
+    "bb_width": 0.26,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.9,
+    "atr": 4.38,
+    "atr_pct": 0.0493,
+    "obv_trend": "UP",
+    "mfi": 68.9,
+    "cmf": 0.114,
+    "stoch_k": 62.7,
+    "stoch_d": 80.1,
+    "rvol": 1.37,
+    "volume_5d_avg": 1815195,
+    "green_days_10d": 4,
+    "52w_high": 95.31,
+    "52w_low": 30.03,
+    "52w_high_proximity_pct": 0.0673,
+    "52w_low_proximity_pct": 1.9604
+  },
+  "fundamental": {
+    "pe_ratio": 43.17961,
+    "sector_pe_median": 25.080137,
+    "pb_ratio": 4.464241,
+    "de_ratio": 59.155,
+    "fcf_yield": 0.0169,
+    "eps_growth_5y": 0.523,
+    "revenue_growth_ttm": 0.233,
+    "gross_margin": 0.29557,
+    "operating_margin": 0.28328,
+    "net_margin": 0.12852,
+    "market_cap": 25407483904,
+    "enterprise_value": 31629295616,
+    "dividend_yield": 1.08,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.009509999,
+    "institutional_ownership_pct": 0.34307998,
+    "short_ratio": 1.02,
+    "beta": 0.983
+  },
+  "scores_detail": {
+    "entry_range_low": 88.72,
+    "entry_range_high": 90.16,
+    "target_range_low": 93.1,
+    "target_range_high": 94.2,
+    "stop_range_low": 86.53,
+    "stop_range_high": 88.28,
+    "risk_reward_ratio": 12.45
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 111.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 108.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 30.03,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.2,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SQM a score of 62.2/100. Tactical targets suggest 94.20 range.",
+      "tr": "BOGA AI assigns SQM a score of 62.2/100. Tactical targets suggest 94.20 range.",
+      "es": "BOGA AI assigns SQM a score of 62.2/100. Tactical targets suggest 94.20 range.",
+      "pt": "BOGA AI assigns SQM a score of 62.2/100. Tactical targets suggest 94.20 range.",
+      "fr": "BOGA AI assigns SQM a score of 62.2/100. Tactical targets suggest 94.20 range.",
+      "id": "BOGA AI assigns SQM a score of 62.2/100. Tactical targets suggest 94.20 range."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SQM (Alpha Commander v5.5)\n\n### 1. Business Context\nSQM operates as a high-authority candidate in the Basic Materials sector. The BOGA AI algorithm has detected significant institutional accumulation signals near $89.29.\n\n### 2. Performance\n* **Master Score:** 62.2/100\n* **Sector Strength:** Robust\n* **Volume Profile:** Increasing\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| RSI | 60.3 | Positive |\n| ADX | 23.9 | Trending |\n| Price | $89.29 | Accumulate |\n\n### 4. Risks\nPrimary risks include macro-economic volatility and sector-specific rotation. Maintaining the stop-loss level at $86.53 is critical for capital preservation.\n\n### 5. Execution\n* **Entry Zone:** $88.72 - $90.16\n* **Target Price:** $94.20\n* **Stop Protection:** $86.53\n",
+      "tr": "## Kurumsal Analiz: SQM (Alpha Commander v5.5)\n\n### 1. İş Bağlamı\nSQM operates as a high-authority candidate in the Basic Materials sector. The BOGA AI algorithm has detected significant institutional accumulation signals near $89.29.\n\n### 2. Performans\n* **Master Score:** 62.2/100\n* **Sector Strength:** Robust\n* **Volume Profile:** Increasing\n\n### 3. Teknik Matris\n| Metric | Value | Verdict |\n|---|---|---|\n| RSI | 60.3 | Positive |\n| ADX | 23.9 | Trending |\n| Price | $89.29 | Accumulate |\n\n### 4. Riskler\nPrimary risks include macro-economic volatility and sector-specific rotation. Maintaining the stop-loss level at $86.53 is critical for capital preservation.\n\n### 5. Uygulama\n* **Entry Zone:** $88.72 - $90.16\n* **Target Price:** $94.20\n* **Stop Protection:** $86.53\n",
+      "es": "## Análisis Institucional: SQM (Alpha Commander v5.5)\n\n### 1. Contexto\nSQM operates as a high-authority candidate in the Basic Materials sector. The BOGA AI algorithm has detected significant institutional accumulation signals near $89.29.\n\n### 2. Desempeño\n* **Master Score:** 62.2/100\n* **Sector Strength:** Robust\n* **Volume Profile:** Increasing\n\n### 3. Matriz Técnica\n| Metric | Value | Verdict |\n|---|---|---|\n| RSI | 60.3 | Positive |\n| ADX | 23.9 | Trending |\n| Price | $89.29 | Accumulate |\n\n### 4. Riesgos\nPrimary risks include macro-economic volatility and sector-specific rotation. Maintaining the stop-loss level at $86.53 is critical for capital preservation.\n\n### 5. Ejecución\n* **Entry Zone:** $88.72 - $90.16\n* **Target Price:** $94.20\n* **Stop Protection:** $86.53\n",
+      "pt": "## Análise Institucional: SQM (Alpha Commander v5.5)\n\n### 1. Contexto\nSQM operates as a high-authority candidate in the Basic Materials sector. The BOGA AI algorithm has detected significant institutional accumulation signals near $89.29.\n\n### 2. Desempenho\n* **Master Score:** 62.2/100\n* **Sector Strength:** Robust\n* **Volume Profile:** Increasing\n\n### 3. Matriz Técnica\n| Metric | Value | Verdict |\n|---|---|---|\n| RSI | 60.3 | Positive |\n| ADX | 23.9 | Trending |\n| Price | $89.29 | Accumulate |\n\n### 4. Riscos\nPrimary risks include macro-economic volatility and sector-specific rotation. Maintaining the stop-loss level at $86.53 is critical for capital preservation.\n\n### 5. Execução\n* **Entry Zone:** $88.72 - $90.16\n* **Target Price:** $94.20\n* **Stop Protection:** $86.53\n",
+      "fr": "## Analyse Institutionnelle: SQM (Alpha Commander v5.5)\n\n### 1. Contexte Business\nSQM operates as a high-authority candidate in the Basic Materials sector. The BOGA AI algorithm has detected significant institutional accumulation signals near $89.29.\n\n### 2. Performance\n* **Master Score:** 62.2/100\n* **Sector Strength:** Robust\n* **Volume Profile:** Increasing\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| RSI | 60.3 | Positive |\n| ADX | 23.9 | Trending |\n| Price | $89.29 | Accumulate |\n\n### 4. Risques\nPrimary risks include macro-economic volatility and sector-specific rotation. Maintaining the stop-loss level at $86.53 is critical for capital preservation.\n\n### 5. Exécution\n* **Entry Zone:** $88.72 - $90.16\n* **Target Price:** $94.20\n* **Stop Protection:** $86.53\n",
+      "id": "## Analisis Institusional: SQM (Alpha Commander v5.5)\n\n### 1. Konteks Bisnis\nSQM operates as a high-authority candidate in the Basic Materials sector. The BOGA AI algorithm has detected significant institutional accumulation signals near $89.29.\n\n### 2. Performa\n* **Master Score:** 62.2/100\n* **Sector Strength:** Robust\n* **Volume Profile:** Increasing\n\n### 3. Matriks Teknikal\n| Metric | Value | Verdict |\n|---|---|---|\n| RSI | 60.3 | Positive |\n| ADX | 23.9 | Trending |\n| Price | $89.29 | Accumulate |\n\n### 4. Risiko\nPrimary risks include macro-economic volatility and sector-specific rotation. Maintaining the stop-loss level at $86.53 is critical for capital preservation.\n\n### 5. Eksekusi\n* **Entry Zone:** $88.72 - $90.16\n* **Target Price:** $94.20\n* **Stop Protection:** $86.53\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "-6.73%",
+    "key_metrics": {
+      "RSI": 59.7,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

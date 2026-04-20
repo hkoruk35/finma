@@ -1,0 +1,163 @@
+{
+  "ticker": "APO",
+  "company": "Apollo Global Management, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.521327-04:00",
+  "sector": "Financials",
+  "industry": "Asset Management",
+  "price": {
+    "current": 125.63,
+    "open": 122.8,
+    "high": 126.57,
+    "low": 121.12,
+    "prev_close": 120.81,
+    "change_pct": 3.99,
+    "change_pct_1w": 20.47,
+    "change_pct_1m": 12.98,
+    "change_pct_1y": -0.22,
+    "volume": 2768669,
+    "avg_volume_30d": 5419455
+  },
+  "scores": {
+    "master_score": 27.44,
+    "technical_score": 12.6,
+    "fundamental_score": 10.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 40.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 27.44,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 69.8,
+    "macd": 1.6513,
+    "macd_signal": -0.6538,
+    "macd_histogram": 2.3051,
+    "macd_crossover": "neutral",
+    "ema_20": 112.73,
+    "ema_50": 115.54,
+    "ema_200": 126.57,
+    "ema_stack_bullish": false,
+    "bb_upper": 121.85,
+    "bb_middle": 111.1,
+    "bb_lower": 100.36,
+    "bb_width": 0.1934,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.6,
+    "atr": 4.82,
+    "atr_pct": 0.0384,
+    "obv_trend": "UP",
+    "mfi": 65.3,
+    "cmf": 0.104,
+    "stoch_k": 96.0,
+    "stoch_d": 94.6,
+    "rvol": 0.96,
+    "volume_5d_avg": 5223273,
+    "green_days_10d": 6,
+    "52w_high": 154.24,
+    "52w_low": 100.3,
+    "52w_high_proximity_pct": 0.1855,
+    "52w_low_proximity_pct": 0.2525
+  },
+  "fundamental": {
+    "pe_ratio": 22.636034,
+    "sector_pe_median": 16.476388,
+    "pb_ratio": 3.3148632,
+    "de_ratio": 99.468,
+    "fcf_yield": null,
+    "eps_growth_5y": -0.573,
+    "revenue_growth_ttm": 0.877,
+    "gross_margin": 0.37342,
+    "operating_margin": 0.18127,
+    "net_margin": 0.109840006,
+    "market_cap": 72918491136,
+    "enterprise_value": 94299062272,
+    "dividend_yield": 1.69,
+    "payout_ratio": 0.35970002,
+    "insider_ownership_pct": 0.26990998,
+    "institutional_ownership_pct": 0.68114,
+    "short_ratio": 5.02,
+    "beta": 1.56
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 114.96,
+    "entry_range_high": 126.26,
+    "target_range_low": 137.29,
+    "target_range_high": 147.09,
+    "stop_range_low": 110.19,
+    "stop_range_high": 115.99,
+    "target_price": 140.09,
+    "stop_loss": 115.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.521289-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 157.04,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 169.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 100.3,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2048,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
+    "price_change_display": "+3.99%",
+    "key_metrics": {
+      "RSI": 69.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import Link from "next/link";
 import { Metadata } from "next";
+import { LANG_CONFIG } from "@/lib/analysis-langs";
 
 export const metadata: Metadata = {
   title: "Daily Swing Trade Candidates | BOGA AI",
@@ -225,6 +226,36 @@ export default async function SwingPicksPage() {
               <span className="ml-auto">
                 <Link href="/" className="text-[#3b82f6] hover:underline">← Back to Dashboard</Link>
               </span>
+            </div>
+
+            {/* SEO Localized Index (60 Links) */}
+            <div className="mt-12 glass-card p-6 md:p-10 border-t-2 border-t-[#3b82f6]/40">
+               <div className="flex flex-col gap-2 mb-8">
+                  <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">📈 BOGA AI Global SEO Index</h2>
+                  <p className="text-sm text-[#64748b]">Daily institutional swing trade briefings in 6 languages. Total of 60 active analysis landings.</p>
+               </div>
+               
+               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                  {Object.entries(LANG_CONFIG).map(([lang, cfg]) => (
+                    <div key={lang} className="flex flex-col gap-3">
+                       <div className="flex items-center gap-2 pb-2 border-b border-white/5">
+                          <span className="text-xl">{cfg.flag}</span>
+                          <span className="text-[11px] font-black text-white uppercase tracking-widest">{cfg.name}</span>
+                       </div>
+                       <div className="flex flex-col gap-1.5">
+                          {picks.slice(0, 10).map((p: any) => (
+                            <Link 
+                              key={p.ticker}
+                              href={`/${lang}/${cfg.slug}/${p.ticker.toLowerCase()}`}
+                              className="text-[10px] text-[#64748b] hover:text-[#3b82f6] font-bold transition-all truncate"
+                            >
+                               {p.ticker} · {cfg.slug.charAt(0).toUpperCase() + cfg.slug.slice(1)}
+                            </Link>
+                          ))}
+                       </div>
+                    </div>
+                  ))}
+               </div>
             </div>
           </>
         )}

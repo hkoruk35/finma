@@ -1,0 +1,159 @@
+{
+  "ticker": "CCJ",
+  "company": "Cameco Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.646664-04:00",
+  "sector": "Energy",
+  "industry": "Uranium",
+  "price": {
+    "current": 120.76,
+    "open": 121.02,
+    "high": 123.69,
+    "low": 117.61,
+    "prev_close": 120.27,
+    "change_pct": 0.41,
+    "change_pct_1w": 4.07,
+    "change_pct_1m": 10.39,
+    "change_pct_1y": 196.5,
+    "volume": 2311612,
+    "avg_volume_30d": 3279503
+  },
+  "scores": {
+    "master_score": 51.8,
+    "technical_score": 52.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 36.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 51.8,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 62.0,
+    "macd": 1.9684,
+    "macd_signal": 0.5671,
+    "macd_histogram": 1.4012,
+    "macd_crossover": "neutral",
+    "ema_20": 114.36,
+    "ema_50": 112.63,
+    "ema_200": 95.62,
+    "ema_stack_bullish": true,
+    "bb_upper": 123.01,
+    "bb_middle": 111.45,
+    "bb_lower": 99.89,
+    "bb_width": 0.2075,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 14.4,
+    "atr": 5.41,
+    "atr_pct": 0.0448,
+    "obv_trend": "UP",
+    "mfi": 63.8,
+    "cmf": -0.053,
+    "stoch_k": 86.9,
+    "stoch_d": 88.1,
+    "rvol": 0.91,
+    "volume_5d_avg": 2990222,
+    "green_days_10d": 6,
+    "52w_high": 134.09,
+    "52w_low": 39.53,
+    "52w_high_proximity_pct": 0.0994,
+    "52w_low_proximity_pct": 2.0548
+  },
+  "fundamental": {
+    "pe_ratio": 121.98485,
+    "sector_pe_median": 17.745245,
+    "pb_ratio": 10.4877825,
+    "de_ratio": 14.673,
+    "fcf_yield": 0.0091,
+    "eps_growth_5y": 0.453,
+    "revenue_growth_ttm": 0.015,
+    "gross_margin": 0.36283,
+    "operating_margin": 0.13628,
+    "net_margin": 0.16931999,
+    "market_cap": 52597141504,
+    "enterprise_value": 52180062208,
+    "dividend_yield": 0.14,
+    "payout_ratio": 0.1778,
+    "insider_ownership_pct": 0.00171,
+    "institutional_ownership_pct": 0.68998003,
+    "short_ratio": 1.45,
+    "beta": 1.009
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 112.07,
+    "entry_range_high": 121.36,
+    "target_range_low": 134.25,
+    "target_range_high": 143.84,
+    "stop_range_low": 104.44,
+    "stop_range_high": 109.94,
+    "target_price": 136.99,
+    "stop_loss": 109.94,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.646604-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 150.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 14.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 39.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -4.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+0.41%",
+    "key_metrics": {
+      "RSI": 62.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

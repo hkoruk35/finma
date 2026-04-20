@@ -1,0 +1,163 @@
+{
+  "ticker": "BXP",
+  "company": "BXP, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:20.009398-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Office",
+  "price": {
+    "current": 57.97,
+    "open": 56.64,
+    "high": 58.4,
+    "low": 56.5,
+    "prev_close": 56.17,
+    "change_pct": 3.2,
+    "change_pct_1w": 9.38,
+    "change_pct_1m": 11.02,
+    "change_pct_1y": -4.41,
+    "volume": 1051946,
+    "avg_volume_30d": 2168314
+  },
+  "scores": {
+    "master_score": 36.73,
+    "technical_score": 14.1,
+    "fundamental_score": 35.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 65.0,
+    "sector_score": 45.5,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 36.73,
+    "confidence": 0.37,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 68.8,
+    "macd": 0.3581,
+    "macd_signal": -0.5401,
+    "macd_histogram": 0.8982,
+    "macd_crossover": "neutral",
+    "ema_20": 53.91,
+    "ema_50": 55.77,
+    "ema_200": 62.38,
+    "ema_stack_bullish": false,
+    "bb_upper": 56.63,
+    "bb_middle": 52.86,
+    "bb_lower": 49.1,
+    "bb_width": 0.1425,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.5,
+    "atr": 1.69,
+    "atr_pct": 0.0292,
+    "obv_trend": "UP",
+    "mfi": 73.3,
+    "cmf": -0.101,
+    "stoch_k": 94.9,
+    "stoch_d": 93.6,
+    "rvol": 0.79,
+    "volume_5d_avg": 1708889,
+    "green_days_10d": 8,
+    "52w_high": 76.36,
+    "52w_low": 50.74,
+    "52w_high_proximity_pct": 0.2408,
+    "52w_low_proximity_pct": 0.1426
+  },
+  "fundamental": {
+    "pe_ratio": 33.311954,
+    "sector_pe_median": 30.340761999999998,
+    "pb_ratio": 1.7854484,
+    "de_ratio": 225.995,
+    "fcf_yield": 0.0922,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.319,
+    "gross_margin": 0.56444,
+    "operating_margin": -0.06589,
+    "net_margin": 0.087790005,
+    "market_cap": 10262717440,
+    "enterprise_value": 27336521728,
+    "dividend_yield": 5.48,
+    "payout_ratio": 1.9310001,
+    "insider_ownership_pct": 0.00401,
+    "institutional_ownership_pct": 1.17091,
+    "short_ratio": 5.06,
+    "beta": 1.047
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 55.49,
+    "entry_range_high": 58.26,
+    "target_range_low": 61.78,
+    "target_range_high": 66.19,
+    "stop_range_low": 51.86,
+    "stop_range_high": 54.59,
+    "target_price": 63.04,
+    "stop_loss": 54.59,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:20.009365-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 72.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 548.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.74,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5495,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 3.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 37,
+    "price_change_display": "+3.20%",
+    "key_metrics": {
+      "RSI": 68.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

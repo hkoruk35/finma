@@ -14,9 +14,10 @@ import ChartSection from "@/components/stock/ChartSection";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
+import AIReportFormatter from "@/components/stock/AIReportFormatter";
 
 export const dynamic = "force-static";
-export const revalidate = 3600; // re-generate at most once per hour on Vercel
+export const revalidate = 1; // force rapid refresh for update
 
 interface Props {
   params: Promise<{ lang: string; slug: string; ticker: string }>;
@@ -257,11 +258,31 @@ export default async function LangAnalysisPage({ params }: Props) {
               <span className="w-1 h-5 bg-[#3b82f6] rounded-full" />
               {labels.analysisEngine}
             </h2>
-            <div className="text-[#cbd5e1] leading-[1.85] text-base whitespace-pre-wrap">
-              {detail}
-            </div>
+            <AIReportFormatter content={detail} />
           </div>
         )}
+
+        {/* SEO Index - Multi-language navigation */}
+        <div className="glass-card p-6 mb-5">
+           <h3 className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em] mb-4">Discover {pick.ticker} Analysis in Other Languages</h3>
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              {Object.entries(LANG_CONFIG).map(([l, cfg]) => (
+                <Link 
+                  key={l}
+                  href={`/${l}/${cfg.slug}/${ticker}`}
+                  className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all group"
+                >
+                   <div className="flex items-center gap-2 mb-1">
+                      <span>{cfg.flag}</span>
+                      <span className="text-[10px] font-black text-white uppercase">{l}</span>
+                   </div>
+                   <p className="text-[9px] text-[#64748b] group-hover:text-blue-400 truncate font-semibold">
+                      {pick.ticker} {cfg.name}
+                   </p>
+                </Link>
+              ))}
+           </div>
+        </div>
 
         {/* Link to full interactive page */}
         <div className="glass-card p-4 mb-5 flex items-center justify-between gap-4">

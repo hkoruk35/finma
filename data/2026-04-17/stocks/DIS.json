@@ -1,0 +1,163 @@
+{
+  "ticker": "DIS",
+  "company": "The Walt Disney Company",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.267287-04:00",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 106.15,
+    "open": 104.68,
+    "high": 106.28,
+    "low": 104.68,
+    "prev_close": 103.9,
+    "change_pct": 2.17,
+    "change_pct_1w": 7.04,
+    "change_pct_1m": 6.77,
+    "change_pct_1y": 26.25,
+    "volume": 4624556,
+    "avg_volume_30d": 9983525
+  },
+  "scores": {
+    "master_score": 38.1,
+    "technical_score": 12.6,
+    "fundamental_score": 40.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 31.9,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 38.1,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 68.7,
+    "macd": 0.7687,
+    "macd_signal": -0.5295,
+    "macd_histogram": 1.2982,
+    "macd_crossover": "neutral",
+    "ema_20": 100.32,
+    "ema_50": 101.8,
+    "ema_200": 106.62,
+    "ema_stack_bullish": false,
+    "bb_upper": 105.32,
+    "bb_middle": 98.39,
+    "bb_lower": 91.47,
+    "bb_width": 0.1407,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.2,
+    "atr": 2.17,
+    "atr_pct": 0.0204,
+    "obv_trend": "UP",
+    "mfi": 87.7,
+    "cmf": 0.035,
+    "stoch_k": 99.1,
+    "stoch_d": 97.0,
+    "rvol": 0.73,
+    "volume_5d_avg": 7318511,
+    "green_days_10d": 7,
+    "52w_high": 123.18,
+    "52w_low": 81.86,
+    "52w_high_proximity_pct": 0.1382,
+    "52w_low_proximity_pct": 0.2967
+  },
+  "fundamental": {
+    "pe_ratio": 15.610294,
+    "sector_pe_median": 25.905765000000002,
+    "pb_ratio": 1.7379133,
+    "de_ratio": 40.909,
+    "fcf_yield": 0.0169,
+    "eps_growth_5y": -0.043,
+    "revenue_growth_ttm": 0.052,
+    "gross_margin": 0.37284002,
+    "operating_margin": 0.15361,
+    "net_margin": 0.128,
+    "market_cap": 188245032960,
+    "enterprise_value": 230554910720,
+    "dividend_yield": 1.44,
+    "payout_ratio": 0.1841,
+    "insider_ownership_pct": 0.00077,
+    "institutional_ownership_pct": 0.77274,
+    "short_ratio": 1.77,
+    "beta": 1.441
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 101.29,
+    "entry_range_high": 106.68,
+    "target_range_low": 110.41,
+    "target_range_high": 118.29,
+    "stop_range_low": 96.72,
+    "stop_range_high": 101.81,
+    "target_price": 112.66,
+    "stop_loss": 101.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.267255-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 132.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 144.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 81.86,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1064,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 3.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "+2.17%",
+    "key_metrics": {
+      "RSI": 68.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

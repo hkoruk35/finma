@@ -1,0 +1,163 @@
+{
+  "ticker": "AVB",
+  "company": "AvalonBay Communities, Inc.",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:20.021217-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 174.68,
+    "open": 170.23,
+    "high": 174.79,
+    "low": 169.78,
+    "prev_close": 169.63,
+    "change_pct": 2.98,
+    "change_pct_1w": 2.89,
+    "change_pct_1m": 6.33,
+    "change_pct_1y": -9.48,
+    "volume": 405848,
+    "avg_volume_30d": 984824
+  },
+  "scores": {
+    "master_score": 38.46,
+    "technical_score": 12.6,
+    "fundamental_score": 40.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 45.5,
+    "breakout_score": 0.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 38.46,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 65.4,
+    "macd": 0.807,
+    "macd_signal": -0.4399,
+    "macd_histogram": 1.2469,
+    "macd_crossover": "neutral",
+    "ema_20": 168.52,
+    "ema_50": 169.86,
+    "ema_200": 179.03,
+    "ema_stack_bullish": false,
+    "bb_upper": 174.71,
+    "bb_middle": 165.83,
+    "bb_lower": 156.94,
+    "bb_width": 0.1072,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.2,
+    "atr": 3.15,
+    "atr_pct": 0.018,
+    "obv_trend": "UP",
+    "mfi": 79.0,
+    "cmf": 0.056,
+    "stoch_k": 99.3,
+    "stoch_d": 93.1,
+    "rvol": 0.73,
+    "volume_5d_avg": 714589,
+    "green_days_10d": 8,
+    "52w_high": 204.23,
+    "52w_low": 159.04,
+    "52w_high_proximity_pct": 0.1447,
+    "52w_low_proximity_pct": 0.0984
+  },
+  "fundamental": {
+    "pe_ratio": 23.605404,
+    "sector_pe_median": 30.340761999999998,
+    "pb_ratio": 2.1048572,
+    "de_ratio": 80.256,
+    "fcf_yield": 0.0548,
+    "eps_growth_5y": -0.409,
+    "revenue_growth_ttm": 0.037,
+    "gross_margin": 0.63141996,
+    "operating_margin": 0.30638,
+    "net_margin": 0.34569,
+    "market_cap": 24469780480,
+    "enterprise_value": 33267542016,
+    "dividend_yield": 4.2,
+    "payout_ratio": 0.94589996,
+    "insider_ownership_pct": 0.0042,
+    "institutional_ownership_pct": 1.01254,
+    "short_ratio": 4.38,
+    "beta": 0.763
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 169.01,
+    "entry_range_high": 175.55,
+    "target_range_low": 180.45,
+    "target_range_high": 193.34,
+    "stop_range_low": 159.96,
+    "stop_range_high": 168.38,
+    "target_price": 184.13,
+    "stop_loss": 168.38,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:20.021174-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 218.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 420.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 159.04,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 140,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 3.49,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "+2.98%",
+    "key_metrics": {
+      "RSI": 65.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

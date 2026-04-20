@@ -1,0 +1,163 @@
+{
+  "ticker": "DGX",
+  "company": "Quest Diagnostics Incorporated",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.480233-04:00",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 195.63,
+    "open": 190.23,
+    "high": 196.05,
+    "low": 190.23,
+    "prev_close": 191.46,
+    "change_pct": 2.18,
+    "change_pct_1w": 2.15,
+    "change_pct_1m": 0.64,
+    "change_pct_1y": 19.09,
+    "volume": 288129,
+    "avg_volume_30d": 828907
+  },
+  "scores": {
+    "master_score": 48.35,
+    "technical_score": 52.0,
+    "fundamental_score": 39.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.0,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 48.35,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 49.6,
+    "macd": -1.2122,
+    "macd_signal": -0.958,
+    "macd_histogram": -0.2541,
+    "macd_crossover": "neutral",
+    "ema_20": 195.45,
+    "ema_50": 195.25,
+    "ema_200": 185.98,
+    "ema_stack_bullish": true,
+    "bb_upper": 199.77,
+    "bb_middle": 195.34,
+    "bb_lower": 190.92,
+    "bb_width": 0.0453,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 12.8,
+    "atr": 4.3,
+    "atr_pct": 0.022,
+    "obv_trend": "UP",
+    "mfi": 48.0,
+    "cmf": 0.086,
+    "stoch_k": 52.4,
+    "stoch_d": 27.6,
+    "rvol": 0.95,
+    "volume_5d_avg": 787505,
+    "green_days_10d": 6,
+    "52w_high": 210.99,
+    "52w_low": 158.99,
+    "52w_high_proximity_pct": 0.0728,
+    "52w_low_proximity_pct": 0.2304
+  },
+  "fundamental": {
+    "pe_ratio": 22.357716,
+    "sector_pe_median": 25.526684000000003,
+    "pb_ratio": 3.001289,
+    "de_ratio": 90.379,
+    "fcf_yield": 0.0467,
+    "eps_growth_5y": 0.11,
+    "revenue_growth_ttm": 0.071,
+    "gross_margin": 0.33330002,
+    "operating_margin": 0.1397,
+    "net_margin": 0.089899994,
+    "market_cap": 21653223424,
+    "enterprise_value": 27316004864,
+    "dividend_yield": 1.8,
+    "payout_ratio": 0.36,
+    "insider_ownership_pct": 0.00418,
+    "institutional_ownership_pct": 1.00244,
+    "short_ratio": 4.93,
+    "beta": 0.654
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 194.27,
+    "entry_range_high": 196.61,
+    "target_range_low": 204.36,
+    "target_range_high": 218.96,
+    "stop_range_low": 177.68,
+    "stop_range_high": 187.03,
+    "target_price": 208.53,
+    "stop_loss": 187.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.480192-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 244.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 180.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 158.99,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 5,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 215,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": 0.76,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "+2.18%",
+    "key_metrics": {
+      "RSI": 49.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

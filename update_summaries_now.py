@@ -4,150 +4,131 @@ import logging
 import os
 import aiohttp
 import re
+import sys
 from datetime import datetime
+
+# ================================================================
+# ALPHA COMMANDER v5.5 - UNIFIED BATCH UPDATER (PATH FIX)
+# ================================================================
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
+BASE_DIR = r"C:\Users\afksm\finma"
 GEMINI_API_KEY = ""
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+GEMINI_MODEL = "gemini-2.0-flash"
 
 try:
-    # Try importing directly from config.py values
-    import importlib.util
-    spec = importlib.util.spec_from_file_location("config", os.path.join(os.path.dirname(__file__), "config.py"))
-    cfg = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(cfg)
-    GEMINI_API_KEY = getattr(cfg, "GEMINI_API_KEY", "") or os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL = getattr(cfg, "GEMINI_MODEL", GEMINI_MODEL) or GEMINI_MODEL
-except Exception as e:
-    logging.warning(f"Could not load config.py: {e}")
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+    env_path = os.path.join(BASE_DIR, ".env")
+    if os.path.exists(env_path):
+        with open(env_path, "r") as f:
+            for line in f:
+                if "GEMINI_API_KEY=" in line:
+                    GEMINI_API_KEY = line.split("=")[1].strip()
+    config_path = os.path.join(BASE_DIR, "config.py")
+    if os.path.exists(config_path):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("config", config_path)
+        cfg = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cfg)
+        if not GEMINI_API_KEY:
+            GEMINI_API_KEY = getattr(cfg, "GEMINI_API_KEY", "")
+        GEMINI_MODEL = getattr(cfg, "GEMINI_MODEL", "gemini-2.0-flash")
+except Exception: pass
 
 if not GEMINI_API_KEY:
-    logging.error("GEMINI_API_KEY not found — set it in config.py or as env var")
-else:
-    logging.info(f"Gemini API key loaded (model: {GEMINI_MODEL})")
+    logging.error("GEMINI_API_KEY not found!")
+    sys.exit(1)
 
 GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
-async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dict:
-    """
-    Enhanced BOGA AI Engine: Generates multi-tab specific analysis.
-    """
-    ticker = c.get("ticker", "UNKNOWN")
-    company = c.get("company", ticker)
-    sector = c.get("sector", "Market")
-    price = c.get("price", 0.0)
-    score_100 = c.get("composite_score_100", c.get("score", 0.0))
-    
-    # Technical Data
+def safe_json_parse(text: str):
+    if not text: return None
+    try:
+        clean_text = re.sub(r"```json\s*", "", text); clean_text = re.sub(r"```\s*", "", clean_text).strip()
+        return json.loads(clean_text)
+    except Exception:
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
+            try:
+                jp = match.group(); jp = re.sub(r",\s*\}", "}", jp); jp = re.sub(r",\s*\]", "]", jp)
+                return json.loads(jp)
+            except Exception: pass
+    return None
+
+async def generate_gemini_summary_unified(c: dict) -> dict:
+    ticker = c.get("ticker", "UNKNOWN"); company = c.get("company", ticker)
+    price = c.get("price", {}).get("current", 0.0)
+    score = c.get("scores", {}).get("master_score", 0.0)
     tech = c.get("technical", {})
-    rsi = tech.get("rsi_14", 50.0)
-    adx = tech.get("adx", 20.0)
-    macd_hist = tech.get("macd_histogram", 0.0)
+    zones = c.get("scores_detail", {})
     
-    # Fundamentals
-    if not fin_health and "fundamentals" in c: fin_health = c["fundamentals"]
-    rev_g = fin_health.get("revenue_growth", 0)
-    gross_m = fin_health.get("gross_margin", 0)
-    pe = fin_health.get("pe_ratio", 0)
-
+    ohlc_str = "N/A"
+    if "history" in c and len(c["history"]) > 0:
+        ohlc_str = "\n".join([f"{h['Date']}: {h['Close']}" for h in c["history"][-10:]])
+    
     prompt = f"""
-You are BOGA AI. Analyze {ticker} ({company}).
-Data: Score {score_100}/100, Price ${price}, RSI {rsi}, ADX {adx}, MACD {macd_hist}, Revenue Growth {rev_g}%, Gross Margin {gross_m}%, P/E {pe}.
+Analyze {ticker} ({company}) for institutional swing traders.
+BOGA AI Alpha Commander v5.5 protocol. 6 languages: EN, TR, ES, PT, FR, ID.
 
-TASKS:
-1. Homepage Summary: 1 sharp sentence for the main dashboard.
-2. Detail Report: 6 sentences deep briefing. Link numbers to risks. No generic intros.
-3. Technical Insight: 2 sentences explaining the RSI/ADX/MACD setup.
-4. Fundamental Insight: 2 sentences explaining the Margin/Growth health.
+DATA: ${price:.2f}, Score {score}/100. RSI {tech.get('rsi_14')}, ADX {tech.get('adx')}.
+Zones: Entry [{zones.get('entry_range_low')} - {zones.get('entry_range_high')}] -> Target {zones.get('target_price')}.
 
-LANGUAGES: Provide ALL tasks in 6 languages: EN, TR, ES, PT, FR, ID.
+Sections:
+1. Business Context
+2. Performance
+3. Technical Matrix (With OHLC Table + Verdict)
+4. Risks
+5. Execution Strategy
 
-OUTPUT FORMAT (STRICT JSON):
+Return ONLY JSON:
 {{
   "homepage": {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
-  "detail":   {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
-  "tech_ins": {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
-  "quant_ins":{{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }}
+  "detail":   {{ "en": "Markdown...", "tr": "Markdown...", "es": "...", "pt": "...", "fr": "...", "id": "..." }}
 }}
 """
-    try:
-        url = f"{GEMINI_API_URL}?key={GEMINI_API_KEY}"
-        payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.3, "maxOutputTokens": 4000}}
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=payload, timeout=40) as resp:
-                if resp.status == 200:
-                    result = await resp.json()
-                    text = result['candidates'][0]['content']['parts'][0]['text']
-                    json_match = re.search(r'\{.*\}', text, re.DOTALL)
-                    if json_match: return json.loads(json_match.group())
-        return _fallback(c)
-    except Exception as e:
-        logging.error(f"Gemini error: {e}")
-        return _fallback(c)
-
-def _fallback(c: dict) -> dict:
-    t = c.get("ticker", "")
-    return {
-        "homepage": {"en": f"Analysis for {t}.", "tr": f"{t} için analiz."},
-        "detail": {"en": "Synchronizing data...", "tr": "Veriler senkronize ediliyor..."},
-        "tech_ins": {"en": "Technical signals active.", "tr": "Teknik sinyaller aktif."},
-        "quant_ins": {"en": "Fundamentals monitored.", "tr": "Temel veriler izleniyor."}
-    }
+    url = f"{GEMINI_API_URL}?key={GEMINI_API_KEY}"
+    payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.45, "maxOutputTokens": 8192}}
+    
+    async with aiohttp.ClientSession() as session:
+        for attempt in range(2):
+            try:
+                async with session.post(url, json=payload, timeout=60) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
+                        return safe_json_parse(raw_text)
+                    elif resp.status == 429: await asyncio.sleep(20)
+            except Exception: await asyncio.sleep(2)
+    return None
 
 async def main():
-    # Detect the latest data directory
-    data_base = "data"
-    if not os.path.exists(data_base):
-        logging.error(f"Data directory {data_base} not found")
-        return
+    target_tickers = [t.upper() for t in sys.argv[1:]]
+    data_dir_root = os.path.join(BASE_DIR, "data")
+    # Only directories starting with 202
+    dates = sorted([d for d in os.listdir(data_dir_root) if os.path.isdir(os.path.join(data_dir_root, d)) and d.startswith("202")])
+    if not dates: return
+    
+    stocks_dir = os.path.join(data_dir_root, dates[-1], "stocks")
+    stock_files = [f"{t}.json" for t in target_tickers if os.path.exists(os.path.join(stocks_dir, f"{t}.json"))]
+    if not stock_files and not target_tickers:
+        stock_files = [f for f in os.listdir(stocks_dir) if f.endswith('.json') and f != "master.json"]
 
-    # Find latest date folder
-    dates = sorted([d for d in os.listdir(data_base) if os.path.isdir(os.path.join(data_base, d))])
-    if not dates:
-        logging.error("No dated folders found in data/")
-        return
-
-    latest_date = dates[-1]
-    data_dir = os.path.join(data_base, latest_date)
-    stocks_dir = os.path.join(data_dir, "stocks")
-
-    if not os.path.exists(stocks_dir):
-        logging.error(f"Stocks directory {stocks_dir} not found")
-        return
-
-    logging.info(f"Using data from {data_dir}")
-
-    # Process all stock files
-    stock_files = [f for f in os.listdir(stocks_dir) if f.endswith('.json') and f != "master.json"]
+    logging.info(f"Processing {len(stock_files)} stocks...")
 
     for stock_file in stock_files:
         ticker = stock_file.replace('.json', '').upper()
         stock_path = os.path.join(stocks_dir, stock_file)
-
         try:
-            logging.info(f"Analyzing {ticker}...")
-            with open(stock_path, "r", encoding="utf-8") as f:
-                stock_data = json.load(f)
-
-            # Generate AI summary
-            summary = await generate_gemini_summary(
-                stock_data,
-                stock_data.get("fundamental", {}),
-                stock_data.get("signals", {})
-            )
-            stock_data["ai_summary"] = summary
-
-            # Save updated data
-            with open(stock_path, "w", encoding="utf-8") as f:
-                json.dump(stock_data, f, indent=2, ensure_ascii=False)
-
-            logging.info(f"✓ {ticker} AI summary updated")
-        except Exception as e:
-            logging.error(f"✗ {ticker} failed: {e}")
-
-    logging.info("Deep AI upgrade complete.")
+            with open(stock_path, "r", encoding="utf-8") as f: stock_data = json.load(f)
+            logging.info(f"AI Request for {ticker}...")
+            summary = await generate_gemini_summary_unified(stock_data)
+            if summary:
+                stock_data["ai_summary"] = summary
+                with open(stock_path, "w", encoding="utf-8") as f: json.dump(stock_data, f, indent=2, ensure_ascii=False)
+                logging.info(f"✓ {ticker} OK.")
+                await asyncio.sleep(6) 
+            else: logging.error(f"✗ {ticker} Failed.")
+        except Exception as e: logging.error(f"✗ {ticker} Error: {e}")
 
 if __name__ == "__main__":
     if os.name == 'nt': asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

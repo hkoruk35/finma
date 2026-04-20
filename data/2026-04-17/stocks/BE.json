@@ -1,0 +1,163 @@
+{
+  "ticker": "BE",
+  "company": "Bloom Energy Corporation",
+  "date": "2026-04-17",
+  "generated_at": "2026-04-17T13:18:19.990697-04:00",
+  "sector": "Utilities",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 202.77,
+    "open": 215.69,
+    "high": 215.44,
+    "low": 200.23,
+    "prev_close": 210.06,
+    "change_pct": -3.47,
+    "change_pct_1w": 21.64,
+    "change_pct_1m": 29.5,
+    "change_pct_1y": 1007.44,
+    "volume": 6191809,
+    "avg_volume_30d": 10495973
+  },
+  "scores": {
+    "master_score": 53.01,
+    "technical_score": 68.0,
+    "fundamental_score": 10.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 32.1,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 53.01,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 65.7,
+    "macd": 14.6594,
+    "macd_signal": 6.5155,
+    "macd_histogram": 8.1439,
+    "macd_crossover": "neutral",
+    "ema_20": 169.55,
+    "ema_50": 155.49,
+    "ema_200": 111.72,
+    "ema_stack_bullish": true,
+    "bb_upper": 217.24,
+    "bb_middle": 157.21,
+    "bb_lower": 97.18,
+    "bb_width": 0.7637,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.2,
+    "atr": 16.15,
+    "atr_pct": 0.0796,
+    "obv_trend": "UP",
+    "mfi": 74.7,
+    "cmf": -0.057,
+    "stoch_k": 76.3,
+    "stoch_d": 81.7,
+    "rvol": 1.21,
+    "volume_5d_avg": 12733321,
+    "green_days_10d": 6,
+    "52w_high": 219.03,
+    "52w_low": 16.32,
+    "52w_high_proximity_pct": 0.0742,
+    "52w_low_proximity_pct": 11.4247
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 21.982954,
+    "pb_ratio": 73.86936,
+    "de_ratio": 377.798,
+    "fcf_yield": 0.0033,
+    "eps_growth_5y": -0.988,
+    "revenue_growth_ttm": 0.359,
+    "gross_margin": 0.29648,
+    "operating_margin": 0.13270001,
+    "net_margin": -0.04369,
+    "market_cap": 57627779072,
+    "enterprise_value": 59497971712,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.05843,
+    "institutional_ownership_pct": 0.85530996,
+    "short_ratio": 2.34,
+    "beta": 3.185
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 154.71,
+    "entry_range_high": 203.78,
+    "target_range_low": 246.2,
+    "target_range_high": 263.78,
+    "stop_range_low": 161.95,
+    "stop_range_high": 170.47,
+    "target_price": 251.22,
+    "stop_loss": 170.47,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-17T13:18:19.990677-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 253.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 16.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 15,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 55000,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -0.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage": {},
+    "detail": {}
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "-3.47%",
+    "key_metrics": {
+      "RSI": 65.7,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}
