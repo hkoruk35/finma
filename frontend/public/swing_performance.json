@@ -1,24 +1,85 @@
 {
   "stats": {
-    "total_picks": 1072,
-    "win_rate": 97.7,
-    "avg_return_pct": 10.6,
+    "total_picks": 1077,
+    "win_rate": 98.1,
+    "avg_return_pct": 10.7,
     "period_days": 180,
     "above_5pct_rate": 67.4,
-    "above_10pct_rate": 40.6
+    "above_10pct_rate": 40.8
   },
   "history": [
+    {
+      "date": "2026-04-20",
+      "ticker": "VIK",
+      "company": "Viking Holdings Ltd",
+      "sector": "Consumer Cyclical",
+      "subsector": "Unknown",
+      "entry": 86.08499908447266,
+      "max_price": 86.08499908447266,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-20",
+      "ticker": "QBTS",
+      "company": "D-Wave Quantum Inc.",
+      "sector": "Technology",
+      "subsector": "Unknown",
+      "entry": 21.1200008392334,
+      "max_price": 21.1200008392334,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-20",
+      "ticker": "LSCC",
+      "company": "Lattice Semiconductor Corporation",
+      "sector": "Technology",
+      "subsector": "Unknown",
+      "entry": 118.37999725341797,
+      "max_price": 118.37999725341797,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-20",
+      "ticker": "CVNA",
+      "company": "Carvana Co.",
+      "sector": "Consumer Cyclical",
+      "subsector": "Unknown",
+      "entry": 395.69000244140625,
+      "max_price": 395.69000244140625,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-20",
+      "ticker": "CIFR",
+      "company": "Cipher Digital Inc.",
+      "sector": "Technology",
+      "subsector": "Unknown",
+      "entry": 19.28499984741211,
+      "max_price": 19.28499984741211,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
     {
       "date": "2026-04-17",
       "ticker": "SQM",
       "company": "Sociedad Química y Minera",
       "sector": "Basic Materials",
       "entry": 88.72,
-      "max_price": 88.72,
-      "return_pct": 0.0,
+      "max_price": 94.34,
+      "return_pct": 6.33,
       "days": 0,
       "result": "PENDING",
-      "subsector": "Specialty Chemicals"
+      "subsector": "Specialty Chemicals",
+      "peak_date": "2026-04-17"
     },
     {
       "date": "2026-04-17",
@@ -26,11 +87,12 @@
       "company": "Leggett & Platt",
       "sector": "Consumer Cyclical",
       "entry": 11.92,
-      "max_price": 11.92,
-      "return_pct": 0.0,
+      "max_price": 12.24,
+      "return_pct": 2.68,
       "days": 0,
       "result": "PENDING",
-      "subsector": "Furnishings, Fixtures & Appliances"
+      "subsector": "Furnishings, Fixtures & Appliances",
+      "peak_date": "2026-04-17"
     },
     {
       "date": "2026-04-17",
@@ -38,11 +100,12 @@
       "company": "J.B. Hunt Transport",
       "sector": "Industrials",
       "entry": 241.96,
-      "max_price": 241.96,
-      "return_pct": 0.0,
-      "days": 0,
+      "max_price": 250.94,
+      "return_pct": 3.71,
+      "days": 3,
       "result": "PENDING",
-      "subsector": "Integrated Freight & Logistics"
+      "subsector": "Integrated Freight & Logistics",
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-17",
@@ -50,11 +113,12 @@
       "company": "Jazz Pharmaceuticals",
       "sector": "Healthcare",
       "entry": 200.77,
-      "max_price": 200.77,
-      "return_pct": 0.0,
-      "days": 0,
+      "max_price": 207.14,
+      "return_pct": 3.17,
+      "days": 3,
       "result": "PENDING",
-      "subsector": "Drug Manufacturers—Specialty & Generic"
+      "subsector": "Drug Manufacturers—Specialty & Generic",
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-17",
@@ -62,11 +126,12 @@
       "company": "Iron Mountain",
       "sector": "Real Estate",
       "entry": 117.62069702148438,
-      "max_price": 117.62069702148438,
-      "return_pct": 0.0,
-      "days": 0,
+      "max_price": 120.26,
+      "return_pct": 2.24,
+      "days": 3,
       "result": "PENDING",
-      "subsector": "REIT—Specialty"
+      "subsector": "REIT—Specialty",
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-17",
@@ -74,11 +139,12 @@
       "company": "Carvana Co",
       "sector": "Consumer Cyclical",
       "entry": 377.45,
-      "max_price": 377.45,
-      "return_pct": 0.0,
+      "max_price": 398.12,
+      "return_pct": 5.48,
       "days": 0,
       "result": "PENDING",
-      "subsector": "Auto & Truck Dealerships"
+      "subsector": "Auto & Truck Dealerships",
+      "peak_date": "2026-04-17"
     },
     {
       "date": "2026-04-17",
@@ -86,11 +152,12 @@
       "company": "Cirrus Logic",
       "sector": "Technology",
       "entry": 166.24000549316406,
-      "max_price": 166.24000549316406,
-      "return_pct": 0.0,
-      "days": 0,
+      "max_price": 170.04,
+      "return_pct": 2.29,
+      "days": 3,
       "result": "PENDING",
-      "subsector": "Semiconductors"
+      "subsector": "Semiconductors",
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-17",
@@ -98,11 +165,12 @@
       "company": "Credo Technology",
       "sector": "Technology",
       "entry": 156.38999938964844,
-      "max_price": 156.38999938964844,
-      "return_pct": 0.0,
-      "days": 0,
+      "max_price": 168.59,
+      "return_pct": 7.8,
+      "days": 3,
       "result": "PENDING",
-      "subsector": "Semiconductors"
+      "subsector": "Semiconductors",
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-17",
@@ -110,11 +178,12 @@
       "company": "APi Group Corp",
       "sector": "Industrials",
       "entry": 46.3849983215332,
-      "max_price": 46.3849983215332,
-      "return_pct": 0.0,
-      "days": 0,
+      "max_price": 48.08,
+      "return_pct": 3.65,
+      "days": 3,
       "result": "PENDING",
-      "subsector": "Specialty Business Services"
+      "subsector": "Specialty Business Services",
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-17",
@@ -122,11 +191,12 @@
       "company": "Albemarle Corp",
       "sector": "Basic Materials",
       "entry": 200.13999938964844,
-      "max_price": 200.13999938964844,
-      "return_pct": 0.0,
+      "max_price": 208.05,
+      "return_pct": 3.95,
       "days": 0,
       "result": "PENDING",
-      "subsector": "Specialty Chemicals"
+      "subsector": "Specialty Chemicals",
+      "peak_date": "2026-04-17"
     },
     {
       "date": "2026-04-16",
@@ -134,11 +204,12 @@
       "company": "Zoom Communications, Inc.",
       "sector": "Technology",
       "entry": 86.8499984741211,
-      "max_price": 90.5,
-      "return_pct": 4.2,
-      "days": 0,
+      "max_price": 90.62,
+      "return_pct": 4.34,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-04-16"
+      "peak_date": "2026-04-20",
+      "subsector": "Unknown"
     },
     {
       "date": "2026-04-16",
@@ -146,11 +217,12 @@
       "company": "Organon & Co.",
       "sector": "Healthcare",
       "entry": 9.279999732971191,
-      "max_price": 9.78,
-      "return_pct": 5.39,
-      "days": 1,
+      "max_price": 9.82,
+      "return_pct": 5.82,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20",
+      "subsector": "Unknown"
     },
     {
       "date": "2026-04-16",
@@ -162,7 +234,8 @@
       "return_pct": 2.73,
       "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-17",
+      "subsector": "Unknown"
     },
     {
       "date": "2026-04-16",
@@ -183,11 +256,11 @@
       "company": "J.B. Hunt Transport",
       "sector": "Industrials",
       "entry": 242.5399932861328,
-      "max_price": 247.75,
-      "return_pct": 2.15,
-      "days": 1,
+      "max_price": 250.94,
+      "return_pct": 3.46,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-04-17",
+      "peak_date": "2026-04-20",
       "subsector": "Integrated Freight & Logistics"
     },
     {
@@ -196,11 +269,11 @@
       "company": "Jazz Pharmaceuticals",
       "sector": "Healthcare",
       "entry": 197.97000122070312,
-      "max_price": 203.49,
-      "return_pct": 2.79,
-      "days": 1,
+      "max_price": 207.14,
+      "return_pct": 4.63,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-04-17",
+      "peak_date": "2026-04-20",
       "subsector": "Drug Manufacturers—Specialty & Generic"
     },
     {
@@ -213,7 +286,8 @@
       "return_pct": 4.34,
       "days": 0,
       "result": "PENDING",
-      "peak_date": "2026-04-16"
+      "peak_date": "2026-04-16",
+      "subsector": "Unknown"
     },
     {
       "date": "2026-04-16",
@@ -221,11 +295,12 @@
       "company": "Amkor Technology, Inc.",
       "sector": "Technology",
       "entry": 62.849998474121094,
-      "max_price": 69.37,
-      "return_pct": 10.37,
-      "days": 1,
+      "max_price": 69.46,
+      "return_pct": 10.52,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20",
+      "subsector": "Unknown"
     },
     {
       "date": "2026-04-15",
@@ -260,18 +335,18 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 9.79,
-      "max_price": 10.48,
-      "return_pct": 7.05,
-      "days": 2,
+      "max_price": 10.69,
+      "return_pct": 9.19,
+      "days": 5,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-15",
       "ticker": "NBIS",
       "company": "NBIS",
-      "sector": "Technology",
-      "subsector": "Semiconductors",
+      "sector": "Communication Services",
+      "subsector": "Unknown",
       "entry": 156.5,
       "max_price": 168.71,
       "return_pct": 7.8,
@@ -299,11 +374,11 @@
       "sector": "Technology",
       "subsector": "Semiconductor Equipment",
       "entry": 127.11,
-      "max_price": 138.28,
-      "return_pct": 8.79,
-      "days": 2,
+      "max_price": 145.1,
+      "return_pct": 14.15,
+      "days": 5,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-15",
@@ -325,11 +400,11 @@
       "sector": "Technology",
       "subsector": "Electronic Components",
       "entry": 367.02,
-      "max_price": 397.7,
-      "return_pct": 8.36,
-      "days": 2,
+      "max_price": 404.29,
+      "return_pct": 10.15,
+      "days": 5,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-15",
@@ -338,11 +413,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 70.07,
-      "max_price": 74.43,
-      "return_pct": 6.23,
-      "days": 2,
+      "max_price": 74.94,
+      "return_pct": 6.95,
+      "days": 5,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-15",
@@ -351,11 +426,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 168.0,
-      "max_price": 176.45,
-      "return_pct": 5.03,
-      "days": 2,
+      "max_price": 177.24,
+      "return_pct": 5.5,
+      "days": 5,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-14",
@@ -416,7 +491,7 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 62.22,
-      "max_price": 70.32,
+      "max_price": 70.33,
       "return_pct": 13.03,
       "days": 3,
       "result": "PENDING",
@@ -455,11 +530,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Footwear & Accessories",
       "entry": 100.01,
-      "max_price": 106.71,
-      "return_pct": 6.7,
-      "days": 3,
+      "max_price": 110.71,
+      "return_pct": 10.7,
+      "days": 6,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-14",
@@ -481,11 +556,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 72.49,
-      "max_price": 74.43,
-      "return_pct": 2.68,
-      "days": 3,
+      "max_price": 74.94,
+      "return_pct": 3.38,
+      "days": 6,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-13",
@@ -494,11 +569,11 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 10.42,
-      "max_price": 10.56,
-      "return_pct": 1.34,
-      "days": 1,
+      "max_price": 10.69,
+      "return_pct": 2.59,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-13",
@@ -507,11 +582,11 @@
       "sector": "Technology",
       "subsector": "Semiconductor Equipment",
       "entry": 132.08,
-      "max_price": 138.28,
-      "return_pct": 4.69,
-      "days": 4,
+      "max_price": 145.1,
+      "return_pct": 9.85,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-13",
@@ -520,11 +595,11 @@
       "sector": "Technology",
       "subsector": "Electronic Components",
       "entry": 363.25,
-      "max_price": 397.7,
-      "return_pct": 9.48,
-      "days": 4,
+      "max_price": 404.29,
+      "return_pct": 11.3,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-13",
@@ -533,16 +608,16 @@
       "sector": "Consumer Cyclical",
       "subsector": "Rental & Leasing Services",
       "entry": 336.0,
-      "max_price": 484.7,
-      "return_pct": 44.26,
-      "days": 4,
+      "max_price": 573.24,
+      "return_pct": 70.61,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-10",
       "ticker": "SSSS",
-      "company": "SSSS",
+      "company": "SuRo Capital Corp.",
       "sector": "Financial Services",
       "subsector": "Asset Management",
       "entry": 11.98,
@@ -559,11 +634,11 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 9.52,
-      "max_price": 10.56,
-      "return_pct": 10.92,
-      "days": 5,
+      "max_price": 10.69,
+      "return_pct": 12.29,
+      "days": 11,
       "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-09",
@@ -572,8 +647,8 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 60.48,
-      "max_price": 70.32,
-      "return_pct": 16.28,
+      "max_price": 70.33,
+      "return_pct": 16.29,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-04-17"
@@ -585,11 +660,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Rental & Leasing Services",
       "entry": 260.85,
-      "max_price": 484.7,
-      "return_pct": 85.82,
-      "days": 8,
+      "max_price": 573.24,
+      "return_pct": 119.76,
+      "days": 11,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-08",
@@ -607,15 +682,15 @@
     {
       "date": "2026-04-08",
       "ticker": "HTZ",
-      "company": "HTZ",
-      "sector": "Consumer Cyclical",
+      "company": "Hertz Global Holdings, Inc.",
+      "sector": "Industrials",
       "subsector": "Rental & Leasing Services",
       "entry": 5.89,
-      "max_price": 7.39,
-      "return_pct": 25.47,
-      "days": 9,
+      "max_price": 8.18,
+      "return_pct": 38.88,
+      "days": 12,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-08",
@@ -633,12 +708,12 @@
     {
       "date": "2026-04-07",
       "ticker": "AMLX",
-      "company": "AMLX",
+      "company": "Amylyx Pharmaceuticals, Inc.",
       "sector": "Healthcare",
-      "subsector": "Biotechnology",
+      "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 16.13,
-      "max_price": 18.53,
-      "return_pct": 14.88,
+      "max_price": 18.6,
+      "return_pct": 15.34,
       "days": 10,
       "result": "PENDING",
       "peak_date": "2026-04-17"
@@ -646,12 +721,12 @@
     {
       "date": "2026-04-06",
       "ticker": "RLAY",
-      "company": "RLAY",
+      "company": "Relay Therapeutics, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 12.48,
-      "max_price": 17.31,
-      "return_pct": 38.7,
+      "max_price": 17.32,
+      "return_pct": 38.78,
       "days": 11,
       "result": "PENDING",
       "peak_date": "2026-04-17"
@@ -659,7 +734,7 @@
     {
       "date": "2026-04-06",
       "ticker": "MGTX",
-      "company": "MGTX",
+      "company": "MeiraGTx Holdings plc",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 9.69,
@@ -672,22 +747,22 @@
     {
       "date": "2026-04-06",
       "ticker": "KODK",
-      "company": "KODK",
+      "company": "Eastman Kodak Company",
       "sector": "Industrials",
-      "subsector": "Electronic Components",
+      "subsector": "Specialty Business Services",
       "entry": 11.4,
-      "max_price": 13.22,
-      "return_pct": 16.0,
-      "days": 11,
+      "max_price": 13.38,
+      "return_pct": 17.37,
+      "days": 14,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-04-06",
       "ticker": "CTA",
-      "company": "CTA",
-      "sector": "Industrials",
-      "subsector": "Diversified Industrials",
+      "company": "Simplify Managed Futures Strategy ETF",
+      "sector": "Unknown",
+      "subsector": "Unknown",
       "entry": 31.2,
       "max_price": 31.28,
       "return_pct": 0.26,
@@ -698,9 +773,9 @@
     {
       "date": "2026-03-30",
       "ticker": "SOBO",
-      "company": "SOBO",
-      "sector": "Consumer Cyclical",
-      "subsector": "Specialty Retail",
+      "company": "South Bow Corporation",
+      "sector": "Energy",
+      "subsector": "Oil & Gas Midstream",
       "entry": 34.7,
       "max_price": 34.39,
       "return_pct": -0.89,
@@ -711,38 +786,38 @@
     {
       "date": "2026-03-30",
       "ticker": "KODK",
-      "company": "KODK",
+      "company": "Eastman Kodak Company",
       "sector": "Industrials",
-      "subsector": "Electronic Components",
+      "subsector": "Specialty Business Services",
       "entry": 8.76,
-      "max_price": 13.22,
-      "return_pct": 50.96,
-      "days": 18,
+      "max_price": 13.38,
+      "return_pct": 52.74,
+      "days": 21,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-03-30",
       "ticker": "CODI",
-      "company": "CODI",
-      "sector": "Financial Services",
-      "subsector": "Asset Management",
+      "company": "Compass Diversified",
+      "sector": "Industrials",
+      "subsector": "Conglomerates",
       "entry": 7.95,
-      "max_price": 10.78,
-      "return_pct": 35.66,
-      "days": 18,
+      "max_price": 11.77,
+      "return_pct": 48.05,
+      "days": 21,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-03-26",
       "ticker": "ELVN",
-      "company": "ELVN",
-      "sector": "Real Estate",
-      "subsector": "Real Estate Services",
+      "company": "Enliven Therapeutics, Inc.",
+      "sector": "Healthcare",
+      "subsector": "Biotechnology",
       "entry": 39.65,
-      "max_price": 48.06,
-      "return_pct": 21.2,
+      "max_price": 48.53,
+      "return_pct": 22.4,
       "days": 22,
       "result": "PENDING",
       "peak_date": "2026-04-17"
@@ -750,7 +825,7 @@
     {
       "date": "2026-03-26",
       "ticker": "AIR",
-      "company": "AIR",
+      "company": "AAR Corp.",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 111.08,
@@ -763,12 +838,12 @@
     {
       "date": "2026-03-25",
       "ticker": "ELVN",
-      "company": "ELVN",
-      "sector": "Real Estate",
-      "subsector": "Real Estate Services",
+      "company": "Enliven Therapeutics, Inc.",
+      "sector": "Healthcare",
+      "subsector": "Biotechnology",
       "entry": 35.95,
-      "max_price": 48.06,
-      "return_pct": 33.67,
+      "max_price": 48.53,
+      "return_pct": 34.99,
       "days": 23,
       "result": "PENDING",
       "peak_date": "2026-04-17"
@@ -776,9 +851,9 @@
     {
       "date": "2026-03-25",
       "ticker": "DOCN",
-      "company": "DOCN",
+      "company": "DigitalOcean Holdings, Inc.",
       "sector": "Technology",
-      "subsector": "Software—Infrastructure",
+      "subsector": "Software - Infrastructure",
       "entry": 84.68,
       "max_price": 94.66,
       "return_pct": 11.78,
@@ -789,9 +864,9 @@
     {
       "date": "2026-03-24",
       "ticker": "BEP",
-      "company": "BEP",
+      "company": "Brookfield Renewable Partners L.P.",
       "sector": "Utilities",
-      "subsector": "Utilities—Renewable",
+      "subsector": "Utilities - Renewable",
       "entry": 31.3,
       "max_price": 35.97,
       "return_pct": 14.92,
@@ -802,15 +877,15 @@
     {
       "date": "2026-03-23",
       "ticker": "VSAT",
-      "company": "VSAT",
-      "sector": "Communication Services",
-      "subsector": "Telecom Services",
+      "company": "Viasat, Inc.",
+      "sector": "Technology",
+      "subsector": "Communication Equipment",
       "entry": 48.67,
-      "max_price": 64.46,
-      "return_pct": 32.44,
-      "days": 25,
+      "max_price": 64.92,
+      "return_pct": 33.39,
+      "days": 28,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-03-23",
@@ -841,7 +916,7 @@
     {
       "date": "2026-03-23",
       "ticker": "PARR",
-      "company": "PARR",
+      "company": "Par Pacific Holdings, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Refining & Marketing",
       "entry": 58.35,
@@ -854,7 +929,7 @@
     {
       "date": "2026-03-23",
       "ticker": "OVV",
-      "company": "OVV",
+      "company": "Ovintiv Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 56.97,
@@ -867,20 +942,20 @@
     {
       "date": "2026-03-23",
       "ticker": "KNF",
-      "company": "KNF",
+      "company": "Knife River Corporation",
       "sector": "Basic Materials",
-      "subsector": "Other Industrial Metals & Mining",
+      "subsector": "Building Materials",
       "entry": 84.33,
-      "max_price": 90.5,
-      "return_pct": 7.32,
-      "days": 25,
+      "max_price": 90.64,
+      "return_pct": 7.48,
+      "days": 28,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-03-23",
       "ticker": "ECVT",
-      "company": "ECVT",
+      "company": "Ecovyst Inc.",
       "sector": "Basic Materials",
       "subsector": "Specialty Chemicals",
       "entry": 11.98,
@@ -893,7 +968,7 @@
     {
       "date": "2026-03-23",
       "ticker": "E",
-      "company": "E",
+      "company": "Eni S.p.A.",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 52.79,
@@ -919,12 +994,12 @@
     {
       "date": "2026-03-23",
       "ticker": "DAN",
-      "company": "DAN",
-      "sector": "Industrials",
+      "company": "Dana Incorporated",
+      "sector": "Consumer Cyclical",
       "subsector": "Auto Parts",
       "entry": 32.78,
-      "max_price": 37.84,
-      "return_pct": 15.44,
+      "max_price": 37.85,
+      "return_pct": 15.47,
       "days": 25,
       "result": "PENDING",
       "peak_date": "2026-04-17"
@@ -932,9 +1007,9 @@
     {
       "date": "2026-03-23",
       "ticker": "CNR",
-      "company": "CNR",
-      "sector": "Industrials",
-      "subsector": "Railroads",
+      "company": "Core Natural Resources, Inc.",
+      "sector": "Energy",
+      "subsector": "Thermal Coal",
       "entry": 103.63,
       "max_price": 114.8,
       "return_pct": 10.78,
@@ -945,7 +1020,7 @@
     {
       "date": "2026-03-23",
       "ticker": "CC",
-      "company": "CC",
+      "company": "The Chemours Company",
       "sector": "Basic Materials",
       "subsector": "Specialty Chemicals",
       "entry": 18.61,
@@ -958,7 +1033,7 @@
     {
       "date": "2026-03-23",
       "ticker": "BTU",
-      "company": "BTU",
+      "company": "Peabody Energy Corporation",
       "sector": "Energy",
       "subsector": "Thermal Coal",
       "entry": 37.31,
@@ -971,7 +1046,7 @@
     {
       "date": "2026-03-23",
       "ticker": "AROC",
-      "company": "AROC",
+      "company": "Archrock, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 35.53,
@@ -984,7 +1059,7 @@
     {
       "date": "2026-03-21",
       "ticker": "WDS",
-      "company": "WDS",
+      "company": "Woodside Energy Group Ltd",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 24.14,
@@ -997,7 +1072,7 @@
     {
       "date": "2026-03-21",
       "ticker": "VET",
-      "company": "VET",
+      "company": "Vermilion Energy Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 13.89,
@@ -1023,7 +1098,7 @@
     {
       "date": "2026-03-21",
       "ticker": "SNDX",
-      "company": "SNDX",
+      "company": "Syndax Pharmaceuticals, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 24.23,
@@ -1036,20 +1111,20 @@
     {
       "date": "2026-03-21",
       "ticker": "KNF",
-      "company": "KNF",
+      "company": "Knife River Corporation",
       "sector": "Basic Materials",
-      "subsector": "Other Industrial Metals & Mining",
+      "subsector": "Building Materials",
       "entry": 80.9,
-      "max_price": 90.5,
-      "return_pct": 11.87,
-      "days": 27,
+      "max_price": 90.64,
+      "return_pct": 12.04,
+      "days": 30,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-20"
     },
     {
       "date": "2026-03-21",
       "ticker": "GAIN",
-      "company": "GAIN",
+      "company": "Gladstone Investment Corporation",
       "sector": "Financial Services",
       "subsector": "Asset Management",
       "entry": 14.05,
@@ -1062,7 +1137,7 @@
     {
       "date": "2026-03-21",
       "ticker": "FLNG",
-      "company": "FLNG",
+      "company": "FLEX LNG Ltd.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 30.08,
@@ -1075,7 +1150,7 @@
     {
       "date": "2026-03-21",
       "ticker": "EGY",
-      "company": "EGY",
+      "company": "VAALCO Energy, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 6.25,
@@ -1088,7 +1163,7 @@
     {
       "date": "2026-03-21",
       "ticker": "DIOD",
-      "company": "DIOD",
+      "company": "Diodes Incorporated",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 64.75,
@@ -1101,9 +1176,9 @@
     {
       "date": "2026-03-21",
       "ticker": "BEP",
-      "company": "BEP",
+      "company": "Brookfield Renewable Partners L.P.",
       "sector": "Utilities",
-      "subsector": "Utilities—Renewable",
+      "subsector": "Utilities - Renewable",
       "entry": 30.83,
       "max_price": 35.97,
       "return_pct": 16.67,
@@ -1114,7 +1189,7 @@
     {
       "date": "2026-03-21",
       "ticker": "AGRO",
-      "company": "AGRO",
+      "company": "Adecoagro S.A.",
       "sector": "Consumer Defensive",
       "subsector": "Farm Products",
       "entry": 14.11,
@@ -13930,5 +14005,5 @@
       "peak_date": "2026-01-28"
     }
   ],
-  "generated_at": "2026-04-17T13:33:33.934147"
+  "generated_at": "2026-04-20T14:18:24.716980"
 }

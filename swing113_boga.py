@@ -1398,10 +1398,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             macd_hist    = macd_obj.macd_diff()
             macd_hist_val= float(macd_hist.iloc[-1])
             macd_hist_prev = float(macd_hist.iloc[-2]) if len(macd_hist) >= 2 else 0.0
+            
             if macd_hist_val > 0 and macd_hist_val > macd_hist_prev:
                 score += 3.0; details.append(f"📈 MACD Hist: Yükselen ({macd_hist_val:.3f})")
             elif macd_hist_val > 0:
                 score += 1.5; details.append(f"✅ MACD Hist: Pozitif ({macd_hist_val:.3f})")
+            elif macd_hist_val < 0 and macd_hist_val > macd_hist_prev and (macd_hist_val - macd_hist_prev) > abs(macd_hist_prev) * 0.15:
+                score += 2.5; details.append("🌅 MACD: Dipten Sert Dönüş İvmesi")
             elif macd_hist_val < 0:
                 score -= 2.0; details.append(f"⚠️ MACD Hist: Negatif ({macd_hist_val:.3f})")
         except Exception:
@@ -1545,8 +1548,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         try:
             price_20d_range = (high_1d.tail(20).max() - low_1d.tail(20).min()) / current_price
-            if 0 < price_20d_range < 0.05:
-                return None  # Kronik stabil
+            if 0 < price_20d_range < 0.08:
+                return None  # Kronik stabil (Ölü Para - Bant genişletildi)
         except Exception:
             pass
 

@@ -1,6 +1,11 @@
 import asyncio
 import os
 import sys
+
+if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+
 from swing113_boga import scan_top_stocks
 
 async def main():

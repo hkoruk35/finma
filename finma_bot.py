@@ -1652,7 +1652,7 @@ async def daily_run():
     log.info("=" * 60)
     log.info(f"RUN COMPLETE in {elapsed}s")
     log.info(f"  Tickers analyzed : {len(all_stocks_data)}")
-    log.info(f"  Active signals   : {active_signals}")
+    log.info(f"  Active signals   : {len(alerts)}")
     log.info(f"  AI summaries     : {len(ai_summaries)}")
     log.info(f"  Market regime    : {regime}")
     log.info("=" * 60)
@@ -1673,7 +1673,7 @@ async def daily_run():
             f"<b>BOGA AI Daily Scan — Complete</b>\n\n"
             f"📊 <b>Summary</b>\n"
             f"• Tickers analyzed: {len(all_stocks_data)}\n"
-            f"• Active signals: {active_signals}\n"
+            f"• Active signals: {len(alerts)}\n"
             f"• AI summaries: {len(ai_summaries)}\n"
             f"• Market regime: {regime}\n"
             f"• Duration: {elapsed}s\n\n"
