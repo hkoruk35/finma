@@ -1,1 +1,160 @@
-{"ticker":"RIO","company":"Rio Tinto Group","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.353203-04:00","sector":"Materials","industry":"Other Industrial Metals & Mining","price":{"current":98.54,"open":99.12,"high":99.1,"low":98.24,"prev_close":98.87,"change_pct":-0.33,"change_pct_1w":0.09,"change_pct_1m":9.66,"change_pct_1y":82.47,"volume":1119657,"avg_volume_30d":3106748},"scores":{"master_score":53.81,"technical_score":60.0,"fundamental_score":33.0,"momentum_score":70.0,"sentiment_score":60.0,"sector_score":45.6,"breakout_score":15.0,"value_score":25.0,"reversal_score":0.0,"momentum_cat_score":100.0,"dividend_score":100.0,"signal_score":53.81,"confidence":0.54,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":64.0,"macd":2.3325,"macd_signal":1.4246,"macd_histogram":0.9079,"macd_crossover":"neutral","ema_20":94.31,"ema_50":91.23,"ema_200":77.9,"ema_stack_bullish":true,"bb_upper":102.7,"bb_middle":91.98,"bb_lower":81.25,"bb_width":0.2332,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":20.8,"atr":2.44,"atr_pct":0.0248,"obv_trend":"UP","mfi":76.0,"cmf":-0.003,"stoch_k":87.6,"stoch_d":89.9,"rvol":0.68,"volume_5d_avg":2098831,"green_days_10d":5,"52w_high":99.2,"52w_low":53.08,"52w_high_proximity_pct":0.0067,"52w_low_proximity_pct":0.8564},"fundamental":{"pe_ratio":16.207237,"sector_pe_median":23.866705,"pb_ratio":2.5741231,"de_ratio":35.432,"fcf_yield":0.0218,"eps_growth_5y":-0.056,"revenue_growth_ttm":0.146,"gross_margin":0.28124002,"operating_margin":0.25318,"net_margin":0.17291,"market_cap":160242057216,"enterprise_value":179802210304,"dividend_yield":4.07,"payout_ratio":0.6131,"insider_ownership_pct":3.0000001e-05,"institutional_ownership_pct":0.10578,"short_ratio":2.92,"beta":0.638},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":90.77,"entry_range_high":99.03,"target_range_low":103.74,"target_range_high":111.15,"stop_range_low":88.98,"stop_range_high":93.66,"target_price":105.86,"stop_loss":93.66,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.353181-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":123.18,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":25.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":407.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":53.08,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":{"type":"SELL","shares":0,"date":"2026-01-21"}},"sector_context":{"sector_etf":"XLB","sector_performance_5d":-0.71,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"RIO maintains bullish bias \u2014 RSI 64, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":54,"price_change_display":"-0.33%","key_metrics":{"RSI":64.0,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "RIO",
+  "company": "Rio Tinto Group",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.907410-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 99.81,
+    "open": 99.62,
+    "high": 100.24,
+    "low": 98.86,
+    "prev_close": 100.15,
+    "change_pct": -0.34,
+    "change_pct_1w": 0.61,
+    "change_pct_1m": 16.53,
+    "change_pct_1y": 83.85,
+    "volume": 1461524,
+    "avg_volume_30d": 2939754
+  },
+  "scores": {
+    "master_score": 53.85,
+    "technical_score": 60.0,
+    "fundamental_score": 33.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 60.0,
+    "sector_score": 46.0,
+    "breakout_score": 35.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 53.85,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 65.8,
+    "macd": 2.6015,
+    "macd_signal": 1.9769,
+    "macd_histogram": 0.6246,
+    "macd_crossover": "neutral",
+    "ema_20": 95.76,
+    "ema_50": 92.21,
+    "ema_200": 78.59,
+    "ema_stack_bullish": true,
+    "bb_upper": 104.47,
+    "bb_middle": 94.14,
+    "bb_lower": 83.8,
+    "bb_width": 0.2195,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.1,
+    "atr": 2.27,
+    "atr_pct": 0.0227,
+    "obv_trend": "UP",
+    "mfi": 75.6,
+    "cmf": 0.008,
+    "stoch_k": 85.3,
+    "stoch_d": 90.5,
+    "rvol": 0.78,
+    "volume_5d_avg": 2295164,
+    "green_days_10d": 6,
+    "52w_high": 100.15,
+    "52w_low": 53.08,
+    "52w_high_proximity_pct": 0.0034,
+    "52w_low_proximity_pct": 0.8803
+  },
+  "fundamental": {
+    "pe_ratio": 16.416119,
+    "sector_pe_median": 24.255919,
+    "pb_ratio": 2.6072986,
+    "de_ratio": 35.432,
+    "fcf_yield": 0.0215,
+    "eps_growth_5y": -0.056,
+    "revenue_growth_ttm": 0.146,
+    "gross_margin": 0.28124002,
+    "operating_margin": 0.25318,
+    "net_margin": 0.17291,
+    "market_cap": 162307276800,
+    "enterprise_value": 181882077184,
+    "dividend_yield": 4.01,
+    "payout_ratio": 0.6131,
+    "insider_ownership_pct": 3.0000001e-05,
+    "institutional_ownership_pct": 0.10581,
+    "short_ratio": 2.92,
+    "beta": 0.638
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 91.75,
+    "entry_range_high": 100.31,
+    "target_range_low": 104.49,
+    "target_range_high": 111.95,
+    "stop_range_low": 90.51,
+    "stop_range_high": 95.27,
+    "target_price": 106.62,
+    "stop_loss": 95.27,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.907392-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 124.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 401.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 53.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 0,
+      "date": "2026-01-21"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "RIO maintains a bullish bias — RSI 66, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "-0.34%",
+    "key_metrics": {
+      "RSI": 65.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

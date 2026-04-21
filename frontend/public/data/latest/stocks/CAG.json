@@ -1,1 +1,160 @@
-{"ticker":"CAG","company":"Conagra Brands, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.008640-04:00","sector":"Consumer Staples","industry":"Packaged Foods","price":{"current":14.15,"open":14.3,"high":14.33,"low":14.04,"prev_close":14.28,"change_pct":-0.93,"change_pct_1w":-9.2,"change_pct_1m":-11.75,"change_pct_1y":-41.45,"volume":9202701,"avg_volume_30d":16087243},"scores":{"master_score":24.5,"technical_score":6.3,"fundamental_score":50.0,"momentum_score":0.0,"sentiment_score":75.0,"sector_score":23.0,"breakout_score":30.0,"value_score":60.0,"reversal_score":20.0,"momentum_cat_score":25.0,"dividend_score":70.0,"signal_score":24.5,"confidence":0.24,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":25.3,"macd":-0.6865,"macd_signal":-0.636,"macd_histogram":-0.0505,"macd_crossover":"neutral","ema_20":15.51,"ema_50":16.48,"ema_200":18.04,"ema_stack_bullish":false,"bb_upper":16.25,"bb_middle":15.32,"bb_lower":14.4,"bb_width":0.121,"bb_squeeze":true,"bb_squeeze_intensity":"MEDIUM","adx":44.2,"atr":0.51,"atr_pct":0.0363,"obv_trend":"DOWN","mfi":30.2,"cmf":-0.12,"stoch_k":5.2,"stoch_d":8.1,"rvol":0.93,"volume_5d_avg":14928840,"green_days_10d":3,"52w_high":24.36,"52w_low":14.15,"52w_high_proximity_pct":0.4192,"52w_low_proximity_pct":0.0},"fundamental":{"pe_ratio":null,"sector_pe_median":23.7782275,"pb_ratio":0.82902604,"de_ratio":89.813,"fcf_yield":0.0967,"eps_growth_5y":0.39,"revenue_growth_ttm":-0.019,"gross_margin":0.24274999,"operating_margin":0.105670005,"net_margin":-0.00387,"market_cap":6768210944,"enterprise_value":14109382656,"dividend_yield":9.8,"payout_ratio":0.791,"insider_ownership_pct":0.00643,"institutional_ownership_pct":0.87318003,"short_ratio":2.71,"beta":0.033},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":14.08,"entry_range_high":14.22,"target_range_low":15.37,"target_range_high":16.46,"stop_range_low":12.47,"stop_range_high":13.13,"target_price":15.68,"stop_loss":13.13,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.008605-04:00","categories":["reversal"]},"breakout":{"squeeze_intensity":"MEDIUM","breakout_direction":"UNCLEAR","breakout_score":30.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":17.69,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":60.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":980.0},"reversal":{"is_oversold":true,"bullish_divergence":false,"support_level":14.15,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":{"type":"SELL","shares":3228,"date":"2026-03-02"}},"sector_context":{"sector_etf":"XLP","sector_performance_5d":-2.64,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"CAG is deeply oversold (RSI 25); watch for a reversal setup with volume confirmation.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":24,"price_change_display":"-0.93%","key_metrics":{"RSI":25.3,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "CAG",
+  "company": "Conagra Brands, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.721237-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 14.8,
+    "open": 14.76,
+    "high": 14.96,
+    "low": 14.61,
+    "prev_close": 14.86,
+    "change_pct": -0.44,
+    "change_pct_1w": 1.96,
+    "change_pct_1m": -3.93,
+    "change_pct_1y": -36.11,
+    "volume": 4244192,
+    "avg_volume_30d": 16658723
+  },
+  "scores": {
+    "master_score": 26.74,
+    "technical_score": 11.7,
+    "fundamental_score": 50.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.5,
+    "breakout_score": 30.0,
+    "value_score": 60.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 26.74,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.1,
+    "macd": -0.6038,
+    "macd_signal": -0.6342,
+    "macd_histogram": 0.0304,
+    "macd_crossover": "neutral",
+    "ema_20": 15.32,
+    "ema_50": 16.29,
+    "ema_200": 18.07,
+    "ema_stack_bullish": false,
+    "bb_upper": 16.24,
+    "bb_middle": 15.23,
+    "bb_lower": 14.23,
+    "bb_width": 0.1321,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 42.7,
+    "atr": 0.5,
+    "atr_pct": 0.0336,
+    "obv_trend": "DOWN",
+    "mfi": 27.4,
+    "cmf": 0.029,
+    "stoch_k": 37.2,
+    "stoch_d": 36.7,
+    "rvol": 0.87,
+    "volume_5d_avg": 14488978,
+    "green_days_10d": 3,
+    "52w_high": 23.7,
+    "52w_low": 14.09,
+    "52w_high_proximity_pct": 0.3757,
+    "52w_low_proximity_pct": 0.05
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.180949,
+    "pb_ratio": 0.86703,
+    "de_ratio": 89.813,
+    "fcf_yield": 0.0925,
+    "eps_growth_5y": 0.39,
+    "revenue_growth_ttm": -0.019,
+    "gross_margin": 0.24274999,
+    "operating_margin": 0.105670005,
+    "net_margin": -0.00387,
+    "market_cap": 7078477824,
+    "enterprise_value": 14386876416,
+    "dividend_yield": 9.42,
+    "payout_ratio": 0.791,
+    "insider_ownership_pct": 0.0065200003,
+    "institutional_ownership_pct": 0.87377,
+    "short_ratio": 2.71,
+    "beta": 0.033
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 14.73,
+    "entry_range_high": 14.87,
+    "target_range_low": 15.97,
+    "target_range_high": 17.12,
+    "stop_range_low": 13.11,
+    "stop_range_high": 13.8,
+    "target_price": 16.3,
+    "stop_loss": 13.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.721202-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 18.5,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 942.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.09,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 17500,
+      "date": "2026-04-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CAG trades near equilibrium with RSI 38 and positive MACD; watch for a catalyst to establish directional bias.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
+    "price_change_display": "-0.44%",
+    "key_metrics": {
+      "RSI": 38.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

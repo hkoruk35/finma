@@ -1,1 +1,161 @@
-{"ticker":"UAA","company":"Under Armour, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.943601-04:00","sector":"Consumer Discretionary","industry":"Apparel Manufacturing","price":{"current":6.34,"open":6.37,"high":6.47,"low":6.33,"prev_close":6.31,"change_pct":0.55,"change_pct_1w":5.93,"change_pct_1m":-0.08,"change_pct_1y":22.25,"volume":1846609,"avg_volume_30d":9115773},"scores":{"master_score":37.22,"technical_score":42.0,"fundamental_score":15.0,"momentum_score":40.0,"sentiment_score":75.0,"sector_score":32.7,"breakout_score":45.0,"value_score":20.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":0.0,"signal_score":37.22,"confidence":0.37,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":54.1,"macd":-0.0747,"macd_signal":-0.1609,"macd_histogram":0.0862,"macd_crossover":"neutral","ema_20":6.14,"ema_50":6.23,"ema_200":5.94,"ema_stack_bullish":false,"bb_upper":6.4,"bb_middle":5.99,"bb_lower":5.58,"bb_width":0.1359,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":17.6,"atr":0.29,"atr_pct":0.0453,"obv_trend":"UP","mfi":50.8,"cmf":-0.143,"stoch_k":88.5,"stoch_d":85.9,"rvol":0.55,"volume_5d_avg":4984941,"green_days_10d":6,"52w_high":8.14,"52w_low":4.17,"52w_high_proximity_pct":0.2205,"52w_low_proximity_pct":0.5216},"fundamental":{"pe_ratio":null,"sector_pe_median":25.634937,"pb_ratio":1.8827894,"de_ratio":117.662,"fcf_yield":-0.1428,"eps_growth_5y":null,"revenue_growth_ttm":-0.052,"gross_margin":0.46578,"operating_margin":-0.05429,"net_margin":-0.104449995,"market_cap":2702272000,"enterprise_value":3911237888,"dividend_yield":null,"payout_ratio":0.0,"insider_ownership_pct":0.0027200002,"institutional_ownership_pct":1.05594,"short_ratio":3.99,"beta":1.815},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":6.2,"entry_range_high":6.37,"target_range_low":7.07,"target_range_high":7.57,"stop_range_low":5.47,"stop_range_high":5.76,"target_price":7.21,"stop_loss":5.76,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.943570-04:00","categories":["breakout"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":7.92,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":20.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":0.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":4.17,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":2,"last_90_days_sells":0,"net_direction":"BUY","last_transaction":{"type":"BUY","shares":776291,"date":"2026-01-28"}},"sector_context":{"sector_etf":"XLY","sector_performance_5d":4.49,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"UAA maintains bullish bias \u2014 RSI 54, rising MACD, normal volume.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":37,"price_change_display":"+0.55%","key_metrics":{"RSI":54.1,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "UAA",
+  "company": "Under Armour, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.679217-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Manufacturing",
+  "price": {
+    "current": 6.64,
+    "open": 6.45,
+    "high": 6.65,
+    "low": 6.44,
+    "prev_close": 6.49,
+    "change_pct": 2.23,
+    "change_pct_1w": 8.06,
+    "change_pct_1m": 8.59,
+    "change_pct_1y": 19.33,
+    "volume": 2624712,
+    "avg_volume_30d": 8770197
+  },
+  "scores": {
+    "master_score": 41.58,
+    "technical_score": 42.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.3,
+    "breakout_score": 45.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 41.58,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 60.4,
+    "macd": 0.0121,
+    "macd_signal": -0.0916,
+    "macd_histogram": 0.1037,
+    "macd_crossover": "neutral",
+    "ema_20": 6.23,
+    "ema_50": 6.26,
+    "ema_200": 5.97,
+    "ema_stack_bullish": false,
+    "bb_upper": 6.59,
+    "bb_middle": 6.05,
+    "bb_lower": 5.52,
+    "bb_width": 0.1764,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 15.9,
+    "atr": 0.3,
+    "atr_pct": 0.0449,
+    "obv_trend": "UP",
+    "mfi": 68.6,
+    "cmf": -0.116,
+    "stoch_k": 95.7,
+    "stoch_d": 85.7,
+    "rvol": 0.7,
+    "volume_5d_avg": 6106962,
+    "green_days_10d": 7,
+    "52w_high": 8.14,
+    "52w_low": 4.17,
+    "52w_high_proximity_pct": 0.1849,
+    "52w_low_proximity_pct": 0.5911
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 26.283674,
+    "pb_ratio": 1.9688429,
+    "de_ratio": 117.662,
+    "fcf_yield": -0.1365,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.052,
+    "gross_margin": 0.46578,
+    "operating_margin": -0.05429,
+    "net_margin": -0.104449995,
+    "market_cap": 2825780480,
+    "enterprise_value": 3987898112,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0027200002,
+    "institutional_ownership_pct": 1.05344,
+    "short_ratio": 3.99,
+    "beta": 1.815
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 6.23,
+    "entry_range_high": 6.67,
+    "target_range_low": 7.39,
+    "target_range_high": 7.92,
+    "stop_range_low": 5.74,
+    "stop_range_high": 6.04,
+    "target_price": 7.54,
+    "stop_loss": 6.04,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.679178-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 8.3,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 4.17,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 776291,
+      "date": "2026-01-28"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "UAA maintains a bullish bias — RSI 60, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "+2.23%",
+    "key_metrics": {
+      "RSI": 60.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

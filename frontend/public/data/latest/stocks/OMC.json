@@ -1,1 +1,161 @@
-{"ticker":"OMC","company":"Omnicom Group Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.862948-04:00","sector":"Communication Services","industry":"Advertising Agencies","price":{"current":77.75,"open":76.48,"high":77.85,"low":76.66,"prev_close":76.48,"change_pct":1.66,"change_pct_1w":1.14,"change_pct_1m":-1.23,"change_pct_1y":6.89,"volume":1274836,"avg_volume_30d":4752884},"scores":{"master_score":45.38,"technical_score":42.0,"fundamental_score":28.0,"momentum_score":70.0,"sentiment_score":65.0,"sector_score":31.8,"breakout_score":45.0,"value_score":25.0,"reversal_score":0.0,"momentum_cat_score":50.0,"dividend_score":100.0,"signal_score":45.38,"confidence":0.45,"signal_type":"NEGATIVE_BIAS"},"technical":{"rsi_14":55.1,"macd":-0.3564,"macd_signal":-0.6146,"macd_histogram":0.2582,"macd_crossover":"neutral","ema_20":76.3,"ema_50":76.68,"ema_200":75.82,"ema_stack_bullish":false,"bb_upper":77.23,"bb_middle":75.59,"bb_lower":73.96,"bb_width":0.0432,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":14.1,"atr":2.25,"atr_pct":0.029,"obv_trend":"UP","mfi":70.8,"cmf":-0.163,"stoch_k":97.7,"stoch_d":76.3,"rvol":0.71,"volume_5d_avg":3386167,"green_days_10d":5,"52w_high":84.95,"52w_low":66.61,"52w_high_proximity_pct":0.0848,"52w_low_proximity_pct":0.1673},"fundamental":{"pe_ratio":null,"sector_pe_median":26.190125000000002,"pb_ratio":2.0208979,"de_ratio":86.307,"fcf_yield":0.1867,"eps_growth_5y":null,"revenue_growth_ttm":0.279,"gross_margin":0.18571,"operating_margin":0.14877,"net_margin":-0.00316,"market_cap":24128651264,"enterprise_value":29132224512,"dividend_yield":4.18,"payout_ratio":0.413,"insider_ownership_pct":0.00876,"institutional_ownership_pct":1.1188099,"short_ratio":6.5,"beta":0.751},"scores_detail":{"signal_type":"NEGATIVE_BIAS","entry_range_low":76.3,"entry_range_high":78.14,"target_range_low":82.81,"target_range_high":88.73,"stop_range_low":69.59,"stop_range_high":73.25,"target_price":84.5,"stop_loss":73.25,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.862923-04:00","categories":["breakout","dividend"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":97.19,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":25.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":418.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":66.61,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":1,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":681,"date":"2026-04-01"}},"sector_context":{"sector_etf":"XLC","sector_performance_5d":3.02,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"OMC maintains bullish bias \u2014 RSI 55, rising MACD, normal volume.","quick_view":{"score_badge":"NEGATIVE BIAS","score_bar":45,"price_change_display":"+1.66%","key_metrics":{"RSI":55.1,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "OMC",
+  "company": "Omnicom Group Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.646593-04:00",
+  "sector": "Communication Services",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 78.87,
+    "open": 78.25,
+    "high": 79.02,
+    "low": 78.07,
+    "prev_close": 78.67,
+    "change_pct": 0.25,
+    "change_pct_1w": 3.78,
+    "change_pct_1m": 4.0,
+    "change_pct_1y": 15.07,
+    "volume": 1145418,
+    "avg_volume_30d": 4718467
+  },
+  "scores": {
+    "master_score": 51.11,
+    "technical_score": 58.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 33.1,
+    "breakout_score": 30.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 51.11,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 58.9,
+    "macd": 0.2096,
+    "macd_signal": -0.2842,
+    "macd_histogram": 0.4938,
+    "macd_crossover": "neutral",
+    "ema_20": 76.93,
+    "ema_50": 76.9,
+    "ema_200": 76.1,
+    "ema_stack_bullish": true,
+    "bb_upper": 78.8,
+    "bb_middle": 76.05,
+    "bb_lower": 73.3,
+    "bb_width": 0.0723,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 13.9,
+    "atr": 2.12,
+    "atr_pct": 0.0269,
+    "obv_trend": "UP",
+    "mfi": 82.0,
+    "cmf": -0.112,
+    "stoch_k": 81.5,
+    "stoch_d": 82.2,
+    "rvol": 0.66,
+    "volume_5d_avg": 3091783,
+    "green_days_10d": 6,
+    "52w_high": 84.95,
+    "52w_low": 66.61,
+    "52w_high_proximity_pct": 0.0716,
+    "52w_low_proximity_pct": 0.1841
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.391956,
+    "pb_ratio": 2.0500093,
+    "de_ratio": 86.307,
+    "fcf_yield": 0.184,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.279,
+    "gross_margin": 0.18571,
+    "operating_margin": 0.14877,
+    "net_margin": -0.00316,
+    "market_cap": 24476229632,
+    "enterprise_value": 29811859456,
+    "dividend_yield": 4.07,
+    "payout_ratio": 0.413,
+    "insider_ownership_pct": 0.00876,
+    "institutional_ownership_pct": 1.12062,
+    "short_ratio": 6.5,
+    "beta": 0.751
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 76.52,
+    "entry_range_high": 79.26,
+    "target_range_low": 83.53,
+    "target_range_high": 89.49,
+    "stop_range_low": 70.9,
+    "stop_range_high": 74.63,
+    "target_price": 85.23,
+    "stop_loss": 74.63,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.646564-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 98.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 407.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 66.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 680,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "OMC maintains a bullish bias — RSI 59, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "+0.25%",
+    "key_metrics": {
+      "RSI": 58.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

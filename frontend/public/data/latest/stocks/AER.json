@@ -1,1 +1,160 @@
-{"ticker":"AER","company":"AerCap Holdings N.V.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.441466-04:00","sector":"Industrials","industry":"Rental & Leasing Services","price":{"current":148.67,"open":148.3,"high":149.37,"low":147.62,"prev_close":148.97,"change_pct":-0.2,"change_pct_1w":3.08,"change_pct_1m":9.96,"change_pct_1y":62.85,"volume":419595,"avg_volume_30d":1349843},"scores":{"master_score":58.37,"technical_score":52.0,"fundamental_score":55.0,"momentum_score":70.0,"sentiment_score":85.0,"sector_score":39.2,"breakout_score":15.0,"value_score":60.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":40.0,"signal_score":58.37,"confidence":0.58,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":63.8,"macd":2.0503,"macd_signal":0.4331,"macd_histogram":1.6171,"macd_crossover":"neutral","ema_20":142.3,"ema_50":141.51,"ema_200":132.16,"ema_stack_bullish":true,"bb_upper":150.68,"bb_middle":139.49,"bb_lower":128.29,"bb_width":0.1605,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":14.7,"atr":4.0,"atr_pct":0.0269,"obv_trend":"UP","mfi":53.2,"cmf":-0.059,"stoch_k":89.5,"stoch_d":92.9,"rvol":0.68,"volume_5d_avg":917379,"green_days_10d":7,"52w_high":154.41,"52w_low":93.8,"52w_high_proximity_pct":0.0372,"52w_low_proximity_pct":0.585},"fundamental":{"pe_ratio":6.979812,"sector_pe_median":33.2737235,"pb_ratio":1.3204312,"de_ratio":238.421,"fcf_yield":-0.0662,"eps_growth_5y":0.066,"revenue_growth_ttm":0.083,"gross_margin":0.61314,"operating_margin":0.48051998,"net_margin":0.44037998,"market_cap":25305403392,"enterprise_value":66539307008,"dividend_yield":1.07,"payout_ratio":0.0507,"insider_ownership_pct":0.040900003,"institutional_ownership_pct":0.94621,"short_ratio":1.31,"beta":0.985},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":140.8,"entry_range_high":149.41,"target_range_low":157.46,"target_range_high":168.7,"stop_range_low":133.64,"stop_range_high":140.67,"target_price":160.67,"stop_loss":140.67,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.441447-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":185.84,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":60.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":40.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":107.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":93.8,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":null},"sector_context":{"sector_etf":"XLI","sector_performance_5d":-1.09,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"AER maintains bullish bias \u2014 RSI 64, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":58,"price_change_display":"-0.20%","key_metrics":{"RSI":63.8,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "AER",
+  "company": "AerCap Holdings N.V.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:52.013023-04:00",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 146.13,
+    "open": 146.75,
+    "high": 147.29,
+    "low": 145.68,
+    "prev_close": 147.45,
+    "change_pct": -0.9,
+    "change_pct_1w": -1.66,
+    "change_pct_1m": 9.57,
+    "change_pct_1y": 54.77,
+    "volume": 413547,
+    "avg_volume_30d": 1296054
+  },
+  "scores": {
+    "master_score": 56.55,
+    "technical_score": 52.0,
+    "fundamental_score": 55.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.0,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 56.55,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 56.1,
+    "macd": 1.9022,
+    "macd_signal": 1.1083,
+    "macd_histogram": 0.794,
+    "macd_crossover": "neutral",
+    "ema_20": 143.02,
+    "ema_50": 141.9,
+    "ema_200": 132.14,
+    "ema_stack_bullish": true,
+    "bb_upper": 151.65,
+    "bb_middle": 141.18,
+    "bb_lower": 130.71,
+    "bb_width": 0.1484,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.4,
+    "atr": 4.22,
+    "atr_pct": 0.0289,
+    "obv_trend": "UP",
+    "mfi": 59.1,
+    "cmf": -0.054,
+    "stoch_k": 74.3,
+    "stoch_d": 71.5,
+    "rvol": 0.91,
+    "volume_5d_avg": 1175149,
+    "green_days_10d": 6,
+    "52w_high": 154.41,
+    "52w_low": 93.8,
+    "52w_high_proximity_pct": 0.0536,
+    "52w_low_proximity_pct": 0.558
+  },
+  "fundamental": {
+    "pe_ratio": 6.857344,
+    "sector_pe_median": 33.496521,
+    "pb_ratio": 1.297872,
+    "de_ratio": 238.421,
+    "fcf_yield": -0.0673,
+    "eps_growth_5y": 0.066,
+    "revenue_growth_ttm": 0.083,
+    "gross_margin": 0.61314,
+    "operating_margin": 0.48051998,
+    "net_margin": 0.44037998,
+    "market_cap": 24873066496,
+    "enterprise_value": 66291941376,
+    "dividend_yield": 1.09,
+    "payout_ratio": 0.0507,
+    "insider_ownership_pct": 0.040900003,
+    "institutional_ownership_pct": 0.94652003,
+    "short_ratio": 1.31,
+    "beta": 0.985
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 141.19,
+    "entry_range_high": 146.86,
+    "target_range_low": 155.61,
+    "target_range_high": 166.73,
+    "stop_range_low": 130.81,
+    "stop_range_high": 137.69,
+    "target_price": 158.79,
+    "stop_loss": 137.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:52.012997-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 182.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 109.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 93.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3345,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "AER maintains a bullish bias — RSI 56, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "-0.90%",
+    "key_metrics": {
+      "RSI": 56.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

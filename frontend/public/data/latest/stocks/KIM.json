@@ -1,1 +1,160 @@
-{"ticker":"KIM","company":"Kimco Realty Corporation","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.496124-04:00","sector":"Real Estate","industry":"REIT - Retail","price":{"current":23.5,"open":23.53,"high":23.56,"low":23.39,"prev_close":23.6,"change_pct":-0.44,"change_pct_1w":3.64,"change_pct_1m":1.32,"change_pct_1y":22.34,"volume":1505206,"avg_volume_30d":5230700},"scores":{"master_score":60.57,"technical_score":60.0,"fundamental_score":47.0,"momentum_score":80.0,"sentiment_score":75.0,"sector_score":43.2,"breakout_score":20.0,"value_score":45.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":70.0,"signal_score":60.57,"confidence":0.61,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":65.2,"macd":0.1914,"macd_signal":0.0929,"macd_histogram":0.0986,"macd_crossover":"neutral","ema_20":22.89,"ema_50":22.48,"ema_200":21.34,"ema_stack_bullish":true,"bb_upper":23.53,"bb_middle":22.73,"bb_lower":21.93,"bb_width":0.0703,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":24.8,"atr":0.4,"atr_pct":0.017,"obv_trend":"UP","mfi":66.7,"cmf":-0.123,"stoch_k":88.8,"stoch_d":93.0,"rvol":0.8,"volume_5d_avg":4206161,"green_days_10d":7,"52w_high":23.6,"52w_low":19.06,"52w_high_proximity_pct":0.0044,"52w_low_proximity_pct":0.2326},"fundamental":{"pe_ratio":28.652441,"sector_pe_median":29.5436075,"pb_ratio":1.524066,"de_ratio":78.678,"fcf_yield":0.0532,"eps_growth_5y":-0.068,"revenue_growth_ttm":0.032,"gross_margin":0.69051003,"operating_margin":0.33007,"net_margin":0.27323,"market_cap":15845103616,"enterprise_value":24186968064,"dividend_yield":4.41,"payout_ratio":1.2317,"insider_ownership_pct":0.021960001,"institutional_ownership_pct":0.97927004,"short_ratio":4.4,"beta":1.051},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":22.37,"entry_range_high":23.62,"target_range_low":24.21,"target_range_high":25.93,"stop_range_low":21.56,"stop_range_high":22.7,"target_price":24.7,"stop_loss":22.7,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.496092-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":20.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":29.38,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":45.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":441.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":19.06,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":1,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":7720,"date":"2026-02-19"}},"sector_context":{"sector_etf":"XLRE","sector_performance_5d":1.43,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"KIM maintains bullish bias \u2014 RSI 65, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":61,"price_change_display":"-0.44%","key_metrics":{"RSI":65.2,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "KIM",
+  "company": "Kimco Realty Corporation",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:52.070736-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 24.2,
+    "open": 24.1,
+    "high": 24.31,
+    "low": 24.07,
+    "prev_close": 24.19,
+    "change_pct": 0.06,
+    "change_pct_1w": 4.33,
+    "change_pct_1m": 4.83,
+    "change_pct_1y": 25.85,
+    "volume": 884030,
+    "avg_volume_30d": 5059891
+  },
+  "scores": {
+    "master_score": 60.88,
+    "technical_score": 60.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.3,
+    "breakout_score": 20.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 60.88,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 73.7,
+    "macd": 0.3533,
+    "macd_signal": 0.1966,
+    "macd_histogram": 0.1567,
+    "macd_crossover": "neutral",
+    "ema_20": 23.2,
+    "ema_50": 22.65,
+    "ema_200": 21.41,
+    "ema_stack_bullish": true,
+    "bb_upper": 24.15,
+    "bb_middle": 22.92,
+    "bb_lower": 21.7,
+    "bb_width": 0.1068,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 29.7,
+    "atr": 0.4,
+    "atr_pct": 0.0165,
+    "obv_trend": "UP",
+    "mfi": 80.2,
+    "cmf": 0.029,
+    "stoch_k": 94.9,
+    "stoch_d": 96.2,
+    "rvol": 0.81,
+    "volume_5d_avg": 4091746,
+    "green_days_10d": 9,
+    "52w_high": 24.2,
+    "52w_low": 19.06,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.2699
+  },
+  "fundamental": {
+    "pe_ratio": 29.518293,
+    "sector_pe_median": 30.524634,
+    "pb_ratio": 1.5701219,
+    "de_ratio": 78.678,
+    "fcf_yield": 0.0516,
+    "eps_growth_5y": -0.068,
+    "revenue_growth_ttm": 0.032,
+    "gross_margin": 0.69051003,
+    "operating_margin": 0.33007,
+    "net_margin": 0.27323,
+    "market_cap": 16323929088,
+    "enterprise_value": 24584669184,
+    "dividend_yield": 4.3,
+    "payout_ratio": 1.2317,
+    "insider_ownership_pct": 0.021960001,
+    "institutional_ownership_pct": 0.98535,
+    "short_ratio": 4.4,
+    "beta": 1.051
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 22.54,
+    "entry_range_high": 24.32,
+    "target_range_low": 24.89,
+    "target_range_high": 26.67,
+    "stop_range_low": 22.23,
+    "stop_range_high": 23.4,
+    "target_price": 25.4,
+    "stop_loss": 23.4,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:52.070716-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 30.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 430.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.06,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7720,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "KIM is in overbought territory with RSI at 74, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "+0.06%",
+    "key_metrics": {
+      "RSI": 73.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

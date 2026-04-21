@@ -1,1 +1,160 @@
-{"ticker":"EBAY","company":"eBay Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.867757-04:00","sector":"Consumer Discretionary","industry":"Internet Retail","price":{"current":100.0,"open":99.89,"high":101.25,"low":99.69,"prev_close":100.4,"change_pct":-0.4,"change_pct_1w":3.32,"change_pct_1m":9.4,"change_pct_1y":57.03,"volume":1538810,"avg_volume_30d":4699167},"scores":{"master_score":49.47,"technical_score":62.0,"fundamental_score":12.0,"momentum_score":70.0,"sentiment_score":75.0,"sector_score":32.7,"breakout_score":35.0,"value_score":0.0,"reversal_score":0.0,"momentum_cat_score":100.0,"dividend_score":70.0,"signal_score":49.47,"confidence":0.49,"signal_type":"NEGATIVE_BIAS"},"technical":{"rsi_14":67.2,"macd":2.481,"macd_signal":1.7455,"macd_histogram":0.7356,"macd_crossover":"neutral","ema_20":94.48,"ema_50":91.67,"ema_200":86.23,"ema_stack_bullish":true,"bb_upper":101.13,"bb_middle":93.19,"bb_lower":85.24,"bb_width":0.1705,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":25.6,"atr":2.8,"atr_pct":0.028,"obv_trend":"UP","mfi":64.1,"cmf":-0.038,"stoch_k":90.6,"stoch_d":93.6,"rvol":0.81,"volume_5d_avg":3820642,"green_days_10d":6,"52w_high":100.4,"52w_low":64.56,"52w_high_proximity_pct":0.004,"52w_low_proximity_pct":0.5489},"fundamental":{"pe_ratio":23.474176,"sector_pe_median":25.634937,"pb_ratio":9.72952,"de_ratio":155.623,"fcf_yield":0.0164,"eps_growth_5y":-0.184,"revenue_growth_ttm":0.15,"gross_margin":0.71449995,"operating_margin":0.16223,"net_margin":0.18297,"market_cap":45199998976,"enterprise_value":49242198016,"dividend_yield":1.24,"payout_ratio":0.2723,"insider_ownership_pct":0.0030500002,"institutional_ownership_pct":0.9546,"short_ratio":2.16,"beta":1.33},"scores_detail":{"signal_type":"NEGATIVE_BIAS","entry_range_low":91.21,"entry_range_high":100.5,"target_range_low":106.23,"target_range_high":113.82,"stop_range_low":89.68,"stop_range_high":94.4,"target_price":108.4,"stop_loss":94.4,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.867730-04:00","categories":["momentum"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":125.0,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":0.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":124.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":64.56,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":10,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":42000,"date":"2026-04-07"}},"sector_context":{"sector_etf":"XLY","sector_performance_5d":4.49,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"EBAY maintains bullish bias \u2014 RSI 67, rising MACD, normal volume.","quick_view":{"score_badge":"NEGATIVE BIAS","score_bar":49,"price_change_display":"-0.40%","key_metrics":{"RSI":67.2,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "EBAY",
+  "company": "eBay Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.648752-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 106.16,
+    "open": 104.0,
+    "high": 106.29,
+    "low": 103.55,
+    "prev_close": 104.65,
+    "change_pct": 1.44,
+    "change_pct_1w": 8.16,
+    "change_pct_1m": 16.99,
+    "change_pct_1y": 64.43,
+    "volume": 1576132,
+    "avg_volume_30d": 4653331
+  },
+  "scores": {
+    "master_score": 50.88,
+    "technical_score": 65.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.3,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.88,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 75.8,
+    "macd": 3.5688,
+    "macd_signal": 2.4681,
+    "macd_histogram": 1.1006,
+    "macd_crossover": "neutral",
+    "ema_20": 97.05,
+    "ema_50": 93.1,
+    "ema_200": 86.86,
+    "ema_stack_bullish": true,
+    "bb_upper": 106.03,
+    "bb_middle": 95.25,
+    "bb_lower": 84.47,
+    "bb_width": 0.2264,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 32.4,
+    "atr": 2.87,
+    "atr_pct": 0.0271,
+    "obv_trend": "UP",
+    "mfi": 79.9,
+    "cmf": 0.109,
+    "stoch_k": 99.3,
+    "stoch_d": 96.3,
+    "rvol": 0.84,
+    "volume_5d_avg": 3923706,
+    "green_days_10d": 6,
+    "52w_high": 106.16,
+    "52w_low": 64.72,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6403
+  },
+  "fundamental": {
+    "pe_ratio": 24.919012,
+    "sector_pe_median": 26.283674,
+    "pb_ratio": 10.328371,
+    "de_ratio": 155.623,
+    "fcf_yield": 0.0154,
+    "eps_growth_5y": -0.184,
+    "revenue_growth_ttm": 0.15,
+    "gross_margin": 0.71449995,
+    "operating_margin": 0.16223,
+    "net_margin": 0.18297,
+    "market_cap": 47982059520,
+    "enterprise_value": 51146199040,
+    "dividend_yield": 1.18,
+    "payout_ratio": 0.2723,
+    "insider_ownership_pct": 0.0030500002,
+    "institutional_ownership_pct": 0.95466006,
+    "short_ratio": 2.74,
+    "beta": 1.33
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 92.63,
+    "entry_range_high": 106.69,
+    "target_range_low": 112.47,
+    "target_range_high": 120.51,
+    "stop_range_low": 95.4,
+    "stop_range_high": 100.42,
+    "target_price": 114.77,
+    "stop_loss": 100.42,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.648725-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 132.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 118.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 64.72,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12113,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "EBAY is in overbought territory with RSI at 76, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "+1.44%",
+    "key_metrics": {
+      "RSI": 75.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

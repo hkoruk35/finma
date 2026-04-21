@@ -82,6 +82,9 @@ UNIVERSE_CACHE: Dict[str, Any] = {"ts": 0.0, "data": []}
 BULK_DATA_CACHE: Dict[str, pd.DataFrame] = {}
 index_cache: Dict[str, pd.Series] = {}
 alpha_vantage_cache: Dict[str, dict] = {}
+# 5Y performans verisi — 500+ API çağrısını önlemek için tarama başına cache'lenir
+LONG_HISTORY_CACHE: Dict[str, Dict[str, float]] = {}
+LONG_HISTORY_TTL = 12 * 3600  # 12 saat
 
 WATCHLIST_DIR = r"C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists"
 INFO_CACHE_FILE = os.path.join(WATCHLIST_DIR, "persistent_info_cache.json")
@@ -120,7 +123,6 @@ RSI_MAX_SWING = 78
 
 MIN_RR_RATIO = 1.2
 MIN_RR_RATIO_RELAXED = 1.3
-MIN_ATMACA_SCORE = 8
 
 LOOKBACK_DAYS = 200
 INDEX_BENCHMARK = "^GSPC"
@@ -178,7 +180,6 @@ EXCLUDED_STOCKS: set = set()
 EXCHANGE_SOURCES: List[str] = [
     "https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/all/all_tickers.txt",
     "https://raw.githubusercontent.com/datasets/nasdaq-listings/master/data/nasdaq-listed-symbols.csv",
-    "https://raw.githubusercontent.com/shilewenuw/get_all_tickers/master/get_all_tickers/tickers.csv"
 ]
 
 # ================================================================
@@ -943,26 +944,26 @@ def get_price_performance(df_1d: pd.DataFrame, ticker: str) -> dict:
         else:
             perf['1m'] = 0.0
 
-        # 1 Yıllık — cache'deki veri sınırlı olabilir, doğrudan çekilir
-        try:
-            stock = yf.Ticker(ticker)
-            hist_1y = stock.history(period="1y", interval="1d")
-            if len(hist_1y) >= 2:
-                perf['1y'] = round((float(hist_1y['Close'].iloc[-1]) - float(hist_1y['Close'].iloc[0])) / float(hist_1y['Close'].iloc[0]) * 100, 2)
-            else:
-                perf['1y'] = 0.0
-        except Exception:
+        # 1Y ve 5Y — cache kontrolü (tarama başına 1 kez yf.Ticker çağrısı)
+        now = time.time()
+        cached = LONG_HISTORY_CACHE.get(ticker)
+        if cached and (now - cached.get("ts", 0)) < LONG_HISTORY_TTL:
+            perf['1y'] = cached.get('1y', 0.0)
+            perf['5y'] = cached.get('5y', 0.0)
+        else:
             perf['1y'] = 0.0
-
-        # 5 Yıllık
-        try:
-            hist_5y = stock.history(period="5y", interval="1mo")
-            if len(hist_5y) >= 2:
-                perf['5y'] = round((float(hist_5y['Close'].iloc[-1]) - float(hist_5y['Close'].iloc[0])) / float(hist_5y['Close'].iloc[0]) * 100, 2)
-            else:
-                perf['5y'] = 0.0
-        except Exception:
             perf['5y'] = 0.0
+            try:
+                stock = yf.Ticker(ticker)
+                hist_1y = stock.history(period="1y", interval="1d")
+                if len(hist_1y) >= 2:
+                    perf['1y'] = round((float(hist_1y['Close'].iloc[-1]) - float(hist_1y['Close'].iloc[0])) / float(hist_1y['Close'].iloc[0]) * 100, 2)
+                hist_5y = stock.history(period="5y", interval="1mo")
+                if len(hist_5y) >= 2:
+                    perf['5y'] = round((float(hist_5y['Close'].iloc[-1]) - float(hist_5y['Close'].iloc[0])) / float(hist_5y['Close'].iloc[0]) * 100, 2)
+            except Exception:
+                pass
+            LONG_HISTORY_CACHE[ticker] = {"ts": now, "1y": perf['1y'], "5y": perf['5y']}
 
         return perf
     except Exception:
@@ -995,8 +996,13 @@ def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 7) -> bool:
         earnings_date = get_earnings_date_safe(ticker)
         if earnings_date is None: return True
         now = datetime.now(NY_TZ)
+        # yfinance bazen naive (UTC varsayımı) bazen aware dönüyor.
+        # Naive geldiğinde UTC kabul edip NY'a çeviriyoruz — varsayılan NY_TZ
+        # saat farkı yüzünden sınırdaki earnings'lerde yanlış karar verdiriyordu.
         if earnings_date.tzinfo is None:
-            earnings_date = earnings_date.replace(tzinfo=NY_TZ)
+            earnings_date = earnings_date.replace(tzinfo=timezone.utc).astimezone(NY_TZ)
+        else:
+            earnings_date = earnings_date.astimezone(NY_TZ)
         days_until = (earnings_date - now).days
         if 0 <= days_until < min_days_away: return False
         if -2 <= days_until < 0: return False
@@ -1062,18 +1068,27 @@ async def analyze_market_and_sectors():
 # ================================================================
 
 def calculate_profit_target(entry_price, atr_value, momentum_score, is_exhausted=False, beta=1.0):
-    """V114 — ATR Bazlı Dinamik TP/SL (Tavan %10-12)"""
+    """V114 — ATR Bazlı Dinamik TP/SL (Minervini-style: tavan %18-25)"""
     if pd.isna(atr_value) or atr_value == 0:
-        fallback_tp_pct = 0.07 if not is_exhausted else 0.04
+        fallback_tp_pct = 0.10 if not is_exhausted else 0.05
         return entry_price * (1 + fallback_tp_pct), entry_price * 0.98
 
     atr_multiplier_sl = 1.5 if atr_value < entry_price * 0.01 else 2.0
     stop_loss = entry_price - atr_value * atr_multiplier_sl
     m = min(1.0, momentum_score / 12.0)
-    tp_atr_mult = 1.8 if is_exhausted else 1.8 + (0.7 * m)
+    # Agresif swing'lerde ATR çarpanı 2.5-3.5 arası — Minervini %20-25 hedefler
+    tp_atr_mult = 2.0 if is_exhausted else 2.5 + (1.0 * m)
     profit_target_raw = entry_price + atr_value * tp_atr_mult
     profit_pct_raw = (profit_target_raw - entry_price) / entry_price * 100
-    max_profit_pct = 12.0 if beta > 1.5 else 10.0
+    # Tavan: yüksek beta agresif swing'e 25%, orta 22%, düşük beta 18%
+    if beta > 1.5:
+        max_profit_pct = 25.0
+    elif beta > 1.0:
+        max_profit_pct = 22.0
+    else:
+        max_profit_pct = 18.0
+    if is_exhausted:
+        max_profit_pct = min(max_profit_pct, 12.0)  # Zirvedekiler için hedef kırpılır
     profit_target = entry_price * (1 + max_profit_pct / 100) if profit_pct_raw > max_profit_pct else profit_target_raw
 
     return float(round(profit_target, 4)), float(round(stop_loss, 4))
@@ -1273,9 +1288,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             pass
 
-        # 3. ADX ESNETİLDİ: 10 seviyesi yatay piyasa uyanışı için kafidir.
-        if adx_1d > 0 and adx_1d < 10:
-            layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<10")
+        # 3. ADX: 12 minimum — tam yatay ölü bölge elenir, yatay uyanış hala geçer.
+        if adx_1d > 0 and adx_1d < 12:
+            layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<12")
 
         try:
             last10 = df_1d.tail(10)
@@ -1763,12 +1778,15 @@ def compute_multi_factor_score(c: dict) -> float:
     rvol_zscore = min(max((rvol_raw - 1.0) / 0.5 * 4, 0.0), 14.0)
 
     trend_score = 0.0
-    if d1.get("EMA20 Eğimi") == "Pozitif": trend_score += 4.0
-    adx_val = float(d1.get("ADX", 0) or 0)
+    # NOT: d1_summary İngilizce anahtarlar, trend_durumu_1d Türkçe değerler kullanır.
+    if d1.get("EMA20 Slope") == "Positive": trend_score += 4.0
+    adx_str = str(d1.get("ADX", "0")).replace("%", "").strip()
+    try: adx_val = float(adx_str)
+    except Exception: adx_val = 0.0
     if adx_val >= 30: trend_score += 8.0
     elif adx_val >= 25: trend_score += 6.0
     elif adx_val >= 18: trend_score += 4.0
-    trend_durumu = str(d1.get("Trend Durumu", ""))
+    trend_durumu = str(d1.get("Trend Status", ""))
     if "Makro" in trend_durumu: trend_score = min(trend_score + 4.0, 12.0)
     elif "Yükseliş" in trend_durumu: trend_score = min(trend_score + 2.0, 12.0)
 
@@ -1813,7 +1831,12 @@ def compute_multi_factor_score(c: dict) -> float:
 
 def compute_boga_score_100(c: dict) -> float:
     """
-    100 üzerinden BOGA AI Swing Trade Skoru.
+    🎯 BOGA AI NİHAİ SKOR (0-100) — TEK KULLANICI-DOSTU KARAR DEĞERİ.
+
+    Raporda ve JSON'da 'score' olarak gösterilen tek değer budur.
+    Diğerleri (raw 'score', 'composite_score') yalnızca iç hesaplama
+    ara-değeridir; dış tüketicinin bakması gereken tek alan boga_score_100.
+
     Teknik (70%) + Fundamental (15%) + Risk/Reward (15%)
     """
     score_100 = 0.0
@@ -2486,7 +2509,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
                 "5y_pct":  perf.get("5y", 0.0),
             },
 
-            # ── FACTOR SCORES ──────────────────────────────────────
+            # ── FAKTÖR AYRIŞIMI (sadece teknik görselleştirme için; nihai skor boga_score_100) ─
             "factor_scores": {
                 "trend_score":   c.get("tsi", 0.0),
                 "momentum_score": c.get("msi", 0.0),
@@ -2495,6 +2518,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
                 "financial_score": c.get("ffi", 0.0),
                 "catalyst_score": c.get("pfi", 0.0),
                 "insider_score": c.get("ifi", 0.0),
+                # Aşağıdaki iki alan iç hesaplama ara-değeridir, nihai skor DEĞİLDİR:
                 "composite":     c.get("composite_score", 0.0),
                 "raw_score":     c.get("score", 0.0),
             },
@@ -2883,9 +2907,7 @@ async def scan_top_stocks():
 
     # ── ADIM 1: PİYASA ANALİZİ ──────────────────────────────────────
     await analyze_market_and_sectors()
-    global MIN_ATMACA_SCORE
-    MIN_ATMACA_SCORE = 8.0 + (MARKET_STATUS["min_score_modifier"] * 4)
-    logging.info(f"⚙️ Rejim: {MARKET_STATUS['regime']} | Puan Barajı: {MIN_ATMACA_SCORE}")
+    logging.info(f"⚙️ Rejim: {MARKET_STATUS['regime']} | Modifier: {MARKET_STATUS['min_score_modifier']}")
 
     # ── ADIM 2: EVREN (500 hisse - haftalık cache) ───────────────────
     MASTER_UNIVERSE = await build_atmaca_universe_full()

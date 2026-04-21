@@ -1,8 +1,8 @@
 {
   "ticker": "AL",
   "company": "Air Lease Corp",
-  "date": "2026-04-15",
-  "generated_at": "2026-04-15T13:17:44.440412-04:00",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:52.012133-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 2651936
   },
   "scores": {
-    "master_score": 66.12,
+    "master_score": 66.3,
     "technical_score": 67.0,
     "fundamental_score": 65.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 39.2,
+    "sector_score": 41.0,
     "breakout_score": 20.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
-    "dividend_score": 70.0,
-    "signal_score": 66.12,
+    "dividend_score": 30.0,
+    "signal_score": 66.3,
     "confidence": 0.66,
     "signal_type": "POSITIVE_BIAS"
   },
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 64.79,
     "ema_50": 64.56,
-    "ema_200": 61.38,
+    "ema_200": 61.15,
     "ema_stack_bullish": true,
     "bb_upper": 65.03,
     "bb_middle": 64.74,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 6.996771,
-    "sector_pe_median": 33.2737235,
+    "sector_pe_median": 33.496521,
     "pb_ratio": 0.8594928,
     "de_ratio": 232.866,
     "fcf_yield": 0.0223,
@@ -79,7 +79,7 @@
     "net_margin": 0.3609,
     "market_cap": 7282301440,
     "enterprise_value": 26546028544,
-    "dividend_yield": 1.35,
+    "dividend_yield": 0.0135,
     "payout_ratio": 0.0947,
     "insider_ownership_pct": 0.06053,
     "institutional_ownership_pct": 0.91934997,
@@ -98,7 +98,7 @@
     "stop_loss": 64.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-15T13:17:44.440395-04:00",
+    "generated_at": "2026-04-20T13:18:52.012110-04:00",
     "categories": [
       "top_scores"
     ]
@@ -118,9 +118,9 @@
   "dividend": {
     "next_dividend_date": null,
     "annual_dividend_per_share": null,
-    "dividend_safety_score": 70.0,
+    "dividend_safety_score": 30.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 135.0
+    "dividend_yield_pct": 1.35
   },
   "reversal": {
     "is_oversold": false,
@@ -141,11 +141,11 @@
   },
   "sector_context": {
     "sector_etf": "XLI",
-    "sector_performance_5d": -1.09,
+    "sector_performance_5d": 0.14,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AL (Air Lease Corporation) exhibits a POSITIVE_BIAS, according to the BOGA AI score, with 70% confidence. Trading at $65.0, AL sits at its 52-week high. Technically, the RSI of 67.7 suggests approaching overbought conditions, while the MACD remains neutral. ADX strength is moderate at 31.7, indicating a defined trend.\n\nFundamentally, AL's compelling valuation (P/E of 6.996771) is significantly lower than the sector median (34.1074905), alongside strong profitability with a 36.1% net margin. The recent surge is supported by a high dividend yield of 135.00%. Continued strong performance in aircraft leasing demand, a sector specific catalyst, could push AL higher.",
+  "ai_summary": "AL maintains a bullish bias — RSI 68, rising MACD, and normal volume keep the trend intact.",
   "quick_view": {
     "score_badge": "POSITIVE BIAS",
     "score_bar": 66,

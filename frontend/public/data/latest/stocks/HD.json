@@ -1,1 +1,161 @@
-{"ticker":"HD","company":"The Home Depot, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.888549-04:00","sector":"Consumer Discretionary","industry":"Home Improvement Retail","price":{"current":337.09,"open":341.85,"high":342.11,"low":336.62,"prev_close":342.71,"change_pct":-1.64,"change_pct_1w":0.28,"change_pct_1m":-1.6,"change_pct_1y":-2.33,"volume":1245255,"avg_volume_30d":3979511},"scores":{"master_score":29.33,"technical_score":15.9,"fundamental_score":12.0,"momentum_score":50.0,"sentiment_score":75.0,"sector_score":32.7,"breakout_score":30.0,"value_score":0.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":100.0,"signal_score":29.33,"confidence":0.29,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":48.8,"macd":-3.2743,"macd_signal":-6.3784,"macd_histogram":3.1041,"macd_crossover":"neutral","ema_20":336.17,"ema_50":346.2,"ema_200":361.51,"ema_stack_bullish":false,"bb_upper":344.06,"bb_middle":330.37,"bb_lower":316.67,"bb_width":0.0829,"bb_squeeze":true,"bb_squeeze_intensity":"MEDIUM","adx":30.4,"atr":8.96,"atr_pct":0.0266,"obv_trend":"UP","mfi":66.5,"cmf":-0.084,"stoch_k":79.3,"stoch_d":92.7,"rvol":0.71,"volume_5d_avg":2815551,"green_days_10d":6,"52w_high":417.91,"52w_low":318.77,"52w_high_proximity_pct":0.1934,"52w_low_proximity_pct":0.0575},"fundamental":{"pe_ratio":23.705343,"sector_pe_median":25.634937,"pb_ratio":26.204134,"de_ratio":514.392,"fcf_yield":0.0257,"eps_growth_5y":-0.142,"revenue_growth_ttm":-0.038,"gross_margin":0.33316,"operating_margin":0.100760005,"net_margin":0.08596,"market_cap":335750955008,"enterprise_value":405863104512,"dividend_yield":2.72,"payout_ratio":0.6465,"insider_ownership_pct":0.00072999997,"institutional_ownership_pct":0.74461997,"short_ratio":2.79,"beta":1.085},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":335.4,"entry_range_high":338.78,"target_range_low":356.69,"target_range_high":382.17,"stop_range_low":303.21,"stop_range_high":319.17,"target_price":363.97,"stop_loss":319.17,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.888502-04:00","categories":["dividend"]},"breakout":{"squeeze_intensity":"MEDIUM","breakout_direction":"UNCLEAR","breakout_score":30.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":421.36,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":0.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":272.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":318.77,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":2,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":4691,"date":"2026-03-25"}},"sector_context":{"sector_etf":"XLY","sector_performance_5d":4.49,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"HD near equilibrium \u2014 RSI 49, positive MACD; watch for directional catalyst.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":29,"price_change_display":"-1.64%","key_metrics":{"RSI":48.8,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "HD",
+  "company": "The Home Depot, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.660481-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Home Improvement Retail",
+  "price": {
+    "current": 347.32,
+    "open": 348.33,
+    "high": 348.71,
+    "low": 343.65,
+    "prev_close": 349.4,
+    "change_pct": -0.6,
+    "change_pct_1w": 1.81,
+    "change_pct_1m": 5.82,
+    "change_pct_1y": 2.92,
+    "volume": 1173895,
+    "avg_volume_30d": 3907226
+  },
+  "scores": {
+    "master_score": 28.54,
+    "technical_score": 12.6,
+    "fundamental_score": 12.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 28.54,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 55.7,
+    "macd": -0.5702,
+    "macd_signal": -3.9479,
+    "macd_histogram": 3.3777,
+    "macd_crossover": "neutral",
+    "ema_20": 338.58,
+    "ema_50": 346.1,
+    "ema_200": 360.34,
+    "ema_stack_bullish": false,
+    "bb_upper": 349.94,
+    "bb_middle": 333.16,
+    "bb_lower": 316.37,
+    "bb_width": 0.1008,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.7,
+    "atr": 8.89,
+    "atr_pct": 0.0256,
+    "obv_trend": "UP",
+    "mfi": 68.6,
+    "cmf": 0.059,
+    "stoch_k": 87.2,
+    "stoch_d": 86.5,
+    "rvol": 0.78,
+    "volume_5d_avg": 3040339,
+    "green_days_10d": 5,
+    "52w_high": 417.91,
+    "52w_low": 318.77,
+    "52w_high_proximity_pct": 0.1689,
+    "52w_low_proximity_pct": 0.0896
+  },
+  "fundamental": {
+    "pe_ratio": 24.424753,
+    "sector_pe_median": 26.283674,
+    "pb_ratio": 26.999378,
+    "de_ratio": 514.392,
+    "fcf_yield": 0.0249,
+    "eps_growth_5y": -0.142,
+    "revenue_growth_ttm": -0.038,
+    "gross_margin": 0.33316,
+    "operating_margin": 0.100760005,
+    "net_margin": 0.08596,
+    "market_cap": 345940328448,
+    "enterprise_value": 412526411776,
+    "dividend_yield": 2.67,
+    "payout_ratio": 0.6465,
+    "insider_ownership_pct": 0.00071999995,
+    "institutional_ownership_pct": 0.74442,
+    "short_ratio": 2.79,
+    "beta": 1.085
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 344.37,
+    "entry_range_high": 349.06,
+    "target_range_low": 366.51,
+    "target_range_high": 392.69,
+    "stop_range_low": 313.06,
+    "stop_range_high": 329.54,
+    "target_price": 373.99,
+    "stop_loss": 329.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.660439-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 434.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 267.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 318.77,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4691,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "HD shows mixed signals with RSI at 56 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
+    "price_change_display": "-0.60%",
+    "key_metrics": {
+      "RSI": 55.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

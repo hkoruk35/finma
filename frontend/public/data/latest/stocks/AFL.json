@@ -1,1 +1,160 @@
-{"ticker":"AFL","company":"Aflac Incorporated","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.166726-04:00","sector":"Financials","industry":"Insurance - Life","price":{"current":113.04,"open":111.81,"high":113.1,"low":111.78,"prev_close":111.94,"change_pct":0.98,"change_pct_1w":0.04,"change_pct_1m":3.6,"change_pct_1y":8.11,"volume":518879,"avg_volume_30d":2275052},"scores":{"master_score":54.15,"technical_score":52.0,"fundamental_score":45.0,"momentum_score":70.0,"sentiment_score":68.0,"sector_score":39.0,"breakout_score":0.0,"value_score":45.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":100.0,"signal_score":54.15,"confidence":0.54,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":60.0,"macd":0.6438,"macd_signal":0.1266,"macd_histogram":0.5172,"macd_crossover":"neutral","ema_20":110.65,"ema_50":110.45,"ema_200":108.7,"ema_stack_bullish":true,"bb_upper":114.13,"bb_middle":109.43,"bb_lower":104.73,"bb_width":0.0859,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":14.0,"atr":2.06,"atr_pct":0.0182,"obv_trend":"UP","mfi":78.0,"cmf":-0.044,"stoch_k":90.3,"stoch_d":82.0,"rvol":0.66,"volume_5d_avg":1508695,"green_days_10d":6,"52w_high":116.85,"52w_low":96.54,"52w_high_proximity_pct":0.0326,"52w_low_proximity_pct":0.1709},"fundamental":{"pe_ratio":16.57478,"sector_pe_median":16.357060500000003,"pb_ratio":1.9882157,"de_ratio":42.682,"fcf_yield":0.0874,"eps_growth_5y":-0.229,"revenue_growth_ttm":-0.099,"gross_margin":0.46644002,"operating_margin":0.33558998,"net_margin":0.21242,"market_cap":59245838336,"enterprise_value":62757396480,"dividend_yield":2.18,"payout_ratio":0.3402,"insider_ownership_pct":0.10852,"institutional_ownership_pct":0.5973,"short_ratio":3.23,"beta":0.652},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":109.9,"entry_range_high":113.61,"target_range_low":116.84,"target_range_high":125.18,"stop_range_low":103.47,"stop_range_high":108.92,"target_price":119.22,"stop_loss":108.92,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.166660-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":0.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":141.3,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":45.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":218.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":96.54,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":32,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":86155,"date":"2026-04-09"}},"sector_context":{"sector_etf":"XLF","sector_performance_5d":1.69,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"AFL maintains bullish bias \u2014 RSI 60, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":54,"price_change_display":"+0.98%","key_metrics":{"RSI":60.0,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "AFL",
+  "company": "Aflac Incorporated",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.826269-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Life",
+  "price": {
+    "current": 115.05,
+    "open": 114.31,
+    "high": 115.58,
+    "low": 113.7,
+    "prev_close": 114.52,
+    "change_pct": 0.46,
+    "change_pct_1w": 2.59,
+    "change_pct_1m": 7.35,
+    "change_pct_1y": 9.51,
+    "volume": 474949,
+    "avg_volume_30d": 2349944
+  },
+  "scores": {
+    "master_score": 54.62,
+    "technical_score": 52.0,
+    "fundamental_score": 38.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 68.0,
+    "sector_score": 41.2,
+    "breakout_score": 20.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.62,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 65.8,
+    "macd": 1.1426,
+    "macd_signal": 0.5501,
+    "macd_histogram": 0.5925,
+    "macd_crossover": "neutral",
+    "ema_20": 111.64,
+    "ema_50": 110.9,
+    "ema_200": 108.79,
+    "ema_stack_bullish": true,
+    "bb_upper": 115.89,
+    "bb_middle": 110.53,
+    "bb_lower": 105.16,
+    "bb_width": 0.0971,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.6,
+    "atr": 2.08,
+    "atr_pct": 0.0181,
+    "obv_trend": "UP",
+    "mfi": 87.9,
+    "cmf": 0.233,
+    "stoch_k": 93.0,
+    "stoch_d": 92.8,
+    "rvol": 0.92,
+    "volume_5d_avg": 2161369,
+    "green_days_10d": 8,
+    "52w_high": 116.85,
+    "52w_low": 96.54,
+    "52w_high_proximity_pct": 0.0154,
+    "52w_low_proximity_pct": 0.1918
+  },
+  "fundamental": {
+    "pe_ratio": 16.844803,
+    "sector_pe_median": 16.511834999999998,
+    "pb_ratio": 2.0235689,
+    "de_ratio": 42.682,
+    "fcf_yield": 0.0858,
+    "eps_growth_5y": -0.229,
+    "revenue_growth_ttm": -0.099,
+    "gross_margin": 0.46644002,
+    "operating_margin": 0.33558998,
+    "net_margin": 0.21242,
+    "market_cap": 60299309056,
+    "enterprise_value": 64089628672,
+    "dividend_yield": 2.13,
+    "payout_ratio": 0.3402,
+    "insider_ownership_pct": 0.108509995,
+    "institutional_ownership_pct": 0.59738,
+    "short_ratio": 3.23,
+    "beta": 0.652
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 110.35,
+    "entry_range_high": 115.63,
+    "target_range_low": 118.86,
+    "target_range_high": 127.35,
+    "stop_range_low": 105.35,
+    "stop_range_high": 110.89,
+    "target_price": 121.29,
+    "stop_loss": 110.89,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.826245-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 143.81,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 213.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 96.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 32,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 86155,
+      "date": "2026-04-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "AFL maintains a bullish bias — RSI 66, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+0.46%",
+    "key_metrics": {
+      "RSI": 65.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

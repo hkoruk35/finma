@@ -1,1 +1,160 @@
-{"ticker":"PLD","company":"Prologis, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.480120-04:00","sector":"Real Estate","industry":"REIT - Industrial","price":{"current":138.76,"open":137.78,"high":138.85,"low":137.49,"prev_close":138.36,"change_pct":0.29,"change_pct_1w":0.98,"change_pct_1m":4.33,"change_pct_1y":49.2,"volume":1282998,"avg_volume_30d":3511703},"scores":{"master_score":54.52,"technical_score":57.0,"fundamental_score":35.0,"momentum_score":70.0,"sentiment_score":75.0,"sector_score":43.2,"breakout_score":15.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":50.0,"dividend_score":70.0,"signal_score":54.52,"confidence":0.55,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":63.8,"macd":1.227,"macd_signal":0.3296,"macd_histogram":0.8973,"macd_crossover":"neutral","ema_20":134.83,"ema_50":133.56,"ema_200":124.88,"ema_stack_bullish":true,"bb_upper":139.97,"bb_middle":133.02,"bb_lower":126.08,"bb_width":0.1045,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":19.7,"atr":2.82,"atr_pct":0.0203,"obv_trend":"UP","mfi":59.1,"cmf":0.022,"stoch_k":88.8,"stoch_d":83.2,"rvol":0.97,"volume_5d_avg":3422859,"green_days_10d":7,"52w_high":141.58,"52w_low":95.0,"52w_high_proximity_pct":0.02,"52w_low_proximity_pct":0.4606},"fundamental":{"pe_ratio":38.976124,"sector_pe_median":29.5436075,"pb_ratio":2.4266353,"de_ratio":61.78,"fcf_yield":0.0369,"eps_growth_5y":0.063,"revenue_growth_ttm":0.04,"gross_margin":0.75691,"operating_margin":0.4133,"net_margin":0.36205003,"market_cap":129351671808,"enterprise_value":167771963392,"dividend_yield":3.09,"payout_ratio":1.1348001,"insider_ownership_pct":0.0026,"institutional_ownership_pct":0.96441,"short_ratio":3.5,"beta":1.412},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":132.89,"entry_range_high":139.45,"target_range_low":144.28,"target_range_high":154.58,"stop_range_low":126.46,"stop_range_high":133.12,"target_price":147.22,"stop_loss":133.12,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.480064-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":173.45,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":309.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":95.0,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":1,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":16000,"date":"2026-03-31"}},"sector_context":{"sector_etf":"XLRE","sector_performance_5d":1.43,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"PLD maintains bullish bias \u2014 RSI 64, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":55,"price_change_display":"+0.29%","key_metrics":{"RSI":63.8,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "PLD",
+  "company": "Prologis, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:52.056710-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Industrial",
+  "price": {
+    "current": 144.0,
+    "open": 144.7,
+    "high": 144.59,
+    "low": 143.34,
+    "prev_close": 145.1,
+    "change_pct": -0.76,
+    "change_pct_1w": 5.0,
+    "change_pct_1m": 9.85,
+    "change_pct_1y": 48.58,
+    "volume": 859016,
+    "avg_volume_30d": 3542890
+  },
+  "scores": {
+    "master_score": 56.98,
+    "technical_score": 61.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.3,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 56.98,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 70.5,
+    "macd": 2.5423,
+    "macd_signal": 1.2629,
+    "macd_histogram": 1.2794,
+    "macd_crossover": "neutral",
+    "ema_20": 137.23,
+    "ema_50": 134.75,
+    "ema_200": 125.09,
+    "ema_stack_bullish": true,
+    "bb_upper": 144.96,
+    "bb_middle": 135.12,
+    "bb_lower": 125.29,
+    "bb_width": 0.1456,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.8,
+    "atr": 2.99,
+    "atr_pct": 0.0207,
+    "obv_trend": "UP",
+    "mfi": 72.8,
+    "cmf": 0.132,
+    "stoch_k": 90.9,
+    "stoch_d": 90.7,
+    "rvol": 1.06,
+    "volume_5d_avg": 3771463,
+    "green_days_10d": 7,
+    "52w_high": 145.1,
+    "52w_low": 95.32,
+    "52w_high_proximity_pct": 0.0076,
+    "52w_low_proximity_pct": 0.5108
+  },
+  "fundamental": {
+    "pe_ratio": 40.56431,
+    "sector_pe_median": 30.524634,
+    "pb_ratio": 2.5184207,
+    "de_ratio": 59.828,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.652,
+    "revenue_growth_ttm": 0.083,
+    "gross_margin": 0.756,
+    "operating_margin": 0.38491002,
+    "net_margin": 0.39646,
+    "market_cap": 134244286464,
+    "enterprise_value": 173379502080,
+    "dividend_yield": 2.95,
+    "payout_ratio": 1.1348001,
+    "insider_ownership_pct": 0.00259,
+    "institutional_ownership_pct": 0.96532,
+    "short_ratio": 3.5,
+    "beta": 1.412
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 134.08,
+    "entry_range_high": 144.72,
+    "target_range_low": 149.91,
+    "target_range_high": 160.62,
+    "stop_range_low": 131.12,
+    "stop_range_high": 138.02,
+    "target_price": 152.97,
+    "stop_loss": 138.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:52.056691-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 180.0,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 295.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 95.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 16000,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "PLD is in overbought territory with RSI at 70, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "-0.76%",
+    "key_metrics": {
+      "RSI": 70.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,1 +1,160 @@
-{"ticker":"CM","company":"Canadian Imperial Bank of Commerce","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.099598-04:00","sector":"Financials","industry":"Banks - Diversified","price":{"current":106.75,"open":106.24,"high":107.2,"low":106.24,"prev_close":106.14,"change_pct":0.57,"change_pct_1w":5.72,"change_pct_1m":10.36,"change_pct_1y":90.41,"volume":360644,"avg_volume_30d":1560461},"scores":{"master_score":54.5,"technical_score":58.0,"fundamental_score":42.0,"momentum_score":70.0,"sentiment_score":58.0,"sector_score":39.0,"breakout_score":20.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":50.0,"dividend_score":70.0,"signal_score":54.5,"confidence":0.55,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":73.4,"macd":2.3572,"macd_signal":1.1098,"macd_histogram":1.2474,"macd_crossover":"neutral","ema_20":99.77,"ema_50":97.16,"ema_200":86.31,"ema_stack_bullish":true,"bb_upper":106.74,"bb_middle":97.86,"bb_lower":88.98,"bb_width":0.1815,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":20.7,"atr":1.98,"atr_pct":0.0186,"obv_trend":"UP","mfi":56.9,"cmf":0.053,"stoch_k":97.2,"stoch_d":98.9,"rvol":0.51,"volume_5d_avg":795488,"green_days_10d":10,"52w_high":106.75,"52w_low":57.12,"52w_high_proximity_pct":0.0,"52w_low_proximity_pct":0.8688},"fundamental":{"pe_ratio":15.448626,"sector_pe_median":16.357060500000003,"pb_ratio":2.128979,"de_ratio":null,"fcf_yield":null,"eps_growth_5y":0.466,"revenue_growth_ttm":0.167,"gross_margin":0.0,"operating_margin":0.44713002,"net_margin":0.33528998,"market_cap":98247360512,"enterprise_value":93410951168,"dividend_yield":2.91,"payout_ratio":0.415,"insider_ownership_pct":0.0005,"institutional_ownership_pct":0.53056,"short_ratio":7.49,"beta":1.269},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":96.67,"entry_range_high":107.28,"target_range_low":110.44,"target_range_high":118.32,"stop_range_low":97.65,"stop_range_high":102.79,"target_price":112.69,"stop_loss":102.79,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.099566-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":20.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":133.44,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":291.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":57.12,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":51,"last_90_days_sells":0,"net_direction":"BUY","last_transaction":{"type":"BUY","shares":95000,"date":"2026-03-30"}},"sector_context":{"sector_etf":"XLF","sector_performance_5d":1.69,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"CM is overbought (RSI 73) but MACD momentum stays positive \u2014 trend may extend higher.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":54,"price_change_display":"+0.57%","key_metrics":{"RSI":73.4,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "CM",
+  "company": "Canadian Imperial Bank of Commerce",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.802330-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 110.29,
+    "open": 109.17,
+    "high": 110.35,
+    "low": 109.3,
+    "prev_close": 109.26,
+    "change_pct": 0.94,
+    "change_pct_1w": 5.27,
+    "change_pct_1m": 16.4,
+    "change_pct_1y": 91.14,
+    "volume": 836660,
+    "avg_volume_30d": 1591535
+  },
+  "scores": {
+    "master_score": 57.42,
+    "technical_score": 60.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 58.0,
+    "sector_score": 41.2,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 57.42,
+    "confidence": 0.57,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 78.3,
+    "macd": 3.3628,
+    "macd_signal": 2.078,
+    "macd_histogram": 1.2848,
+    "macd_crossover": "neutral",
+    "ema_20": 102.23,
+    "ema_50": 98.53,
+    "ema_200": 86.84,
+    "ema_stack_bullish": true,
+    "bb_upper": 111.47,
+    "bb_middle": 100.05,
+    "bb_lower": 88.62,
+    "bb_width": 0.2284,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.4,
+    "atr": 1.92,
+    "atr_pct": 0.0174,
+    "obv_trend": "UP",
+    "mfi": 95.3,
+    "cmf": 0.163,
+    "stoch_k": 99.7,
+    "stoch_d": 97.7,
+    "rvol": 0.78,
+    "volume_5d_avg": 1237332,
+    "green_days_10d": 10,
+    "52w_high": 110.29,
+    "52w_low": 57.38,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.9222
+  },
+  "fundamental": {
+    "pe_ratio": 15.800859,
+    "sector_pe_median": 16.511834999999998,
+    "pb_ratio": 2.1985881,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.466,
+    "revenue_growth_ttm": 0.167,
+    "gross_margin": 0.0,
+    "operating_margin": 0.44713002,
+    "net_margin": 0.33528998,
+    "market_cap": 101505400832,
+    "enterprise_value": 96282443776,
+    "dividend_yield": 2.83,
+    "payout_ratio": 0.415,
+    "insider_ownership_pct": 0.00022,
+    "institutional_ownership_pct": 0.53059,
+    "short_ratio": 7.49,
+    "beta": 1.269
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 98.04,
+    "entry_range_high": 110.84,
+    "target_range_low": 113.73,
+    "target_range_high": 121.85,
+    "stop_range_low": 101.13,
+    "stop_range_high": 106.45,
+    "target_price": 116.05,
+    "stop_loss": 106.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.802298-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 137.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 283.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 57.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 48,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 95000,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CM is in overbought territory with RSI at 78, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 57,
+    "price_change_display": "+0.94%",
+    "key_metrics": {
+      "RSI": 78.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

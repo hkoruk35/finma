@@ -1,1 +1,156 @@
-{"ticker":"BIDU","company":"Baidu, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.865744-04:00","sector":"Communication Services","industry":"Internet Content & Information","price":{"current":120.17,"open":118.21,"high":121.19,"low":117.45,"prev_close":118.23,"change_pct":1.64,"change_pct_1w":5.87,"change_pct_1m":-1.34,"change_pct_1y":45.26,"volume":1219545,"avg_volume_30d":1983351},"scores":{"master_score":47.18,"technical_score":55.0,"fundamental_score":35.0,"momentum_score":50.0,"sentiment_score":60.0,"sector_score":31.8,"breakout_score":45.0,"value_score":45.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":30.0,"signal_score":47.18,"confidence":0.47,"signal_type":"NEGATIVE_BIAS"},"technical":{"rsi_14":55.7,"macd":-2.4976,"macd_signal":-4.1495,"macd_histogram":1.6518,"macd_crossover":"neutral","ema_20":114.82,"ema_50":121.43,"ema_200":119.18,"ema_stack_bullish":false,"bb_upper":121.21,"bb_middle":112.96,"bb_lower":104.71,"bb_width":0.1461,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":25.8,"atr":4.18,"atr_pct":0.0348,"obv_trend":"UP","mfi":58.8,"cmf":-0.193,"stoch_k":93.4,"stoch_d":81.2,"rvol":1.15,"volume_5d_avg":2286269,"green_days_10d":7,"52w_high":162.52,"52w_low":81.9,"52w_high_proximity_pct":0.2606,"52w_low_proximity_pct":0.4673},"fundamental":{"pe_ratio":69.462425,"sector_pe_median":26.190125000000002,"pb_ratio":1.0489192,"de_ratio":33.506,"fcf_yield":0.4107,"eps_growth_5y":-0.81,"revenue_growth_ttm":-0.041,"gross_margin":0.43882,"operating_margin":0.045300003,"net_margin":0.0433,"market_cap":40888164352,"enterprise_value":327030571008,"dividend_yield":null,"payout_ratio":0.0,"insider_ownership_pct":0.0323,"institutional_ownership_pct":0.195,"short_ratio":3.14,"beta":0.431},"scores_detail":{"signal_type":"NEGATIVE_BIAS","entry_range_low":119.57,"entry_range_high":120.77,"target_range_low":130.06,"target_range_high":139.35,"stop_range_low":106.22,"stop_range_high":111.81,"target_price":132.71,"stop_loss":111.81,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.865695-04:00","categories":["breakout"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":150.21,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":45.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":30.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":81.9,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":null},"sector_context":{"sector_etf":"XLC","sector_performance_5d":3.02,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"BIDU maintains bullish bias \u2014 RSI 56, rising MACD, normal volume.","quick_view":{"score_badge":"NEGATIVE BIAS","score_bar":47,"price_change_display":"+1.64%","key_metrics":{"RSI":55.7,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "BIDU",
+  "company": "Baidu, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.647696-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 126.58,
+    "open": 124.49,
+    "high": 126.62,
+    "low": 123.4,
+    "prev_close": 126.13,
+    "change_pct": 0.36,
+    "change_pct_1w": 13.01,
+    "change_pct_1m": 6.36,
+    "change_pct_1y": 53.43,
+    "volume": 987404,
+    "avg_volume_30d": 1969463
+  },
+  "scores": {
+    "master_score": 45.11,
+    "technical_score": 43.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 60.0,
+    "sector_score": 33.1,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 45.11,
+    "confidence": 0.45,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 63.1,
+    "macd": 0.355,
+    "macd_signal": -2.2899,
+    "macd_histogram": 2.6448,
+    "macd_crossover": "neutral",
+    "ema_20": 117.76,
+    "ema_50": 121.97,
+    "ema_200": 119.42,
+    "ema_stack_bullish": false,
+    "bb_upper": 126.06,
+    "bb_middle": 114.13,
+    "bb_lower": 102.2,
+    "bb_width": 0.2091,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.2,
+    "atr": 4.17,
+    "atr_pct": 0.0329,
+    "obv_trend": "UP",
+    "mfi": 77.4,
+    "cmf": -0.076,
+    "stoch_k": 93.1,
+    "stoch_d": 91.5,
+    "rvol": 1.08,
+    "volume_5d_avg": 2129260,
+    "green_days_10d": 8,
+    "52w_high": 162.52,
+    "52w_low": 81.9,
+    "52w_high_proximity_pct": 0.2211,
+    "52w_low_proximity_pct": 0.5455
+  },
+  "fundamental": {
+    "pe_ratio": 73.16763,
+    "sector_pe_median": 25.391956,
+    "pb_ratio": 1.1048697,
+    "de_ratio": 33.506,
+    "fcf_yield": 0.3899,
+    "eps_growth_5y": -0.81,
+    "revenue_growth_ttm": -0.041,
+    "gross_margin": 0.43882,
+    "operating_margin": 0.045300003,
+    "net_margin": 0.0433,
+    "market_cap": 43069181952,
+    "enterprise_value": 348534538240,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0323,
+    "institutional_ownership_pct": 0.19485001,
+    "short_ratio": 3.13,
+    "beta": 0.431
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 121.36,
+    "entry_range_high": 127.21,
+    "target_range_low": 136.31,
+    "target_range_high": 146.04,
+    "stop_range_low": 112.33,
+    "stop_range_high": 118.24,
+    "target_price": 139.09,
+    "stop_loss": 118.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.647667-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 158.22,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 81.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BIDU maintains a bullish bias — RSI 63, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 45,
+    "price_change_display": "+0.36%",
+    "key_metrics": {
+      "RSI": 63.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

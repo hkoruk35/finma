@@ -1,1 +1,160 @@
-{"ticker":"MAR","company":"Marriott International, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.952952-04:00","sector":"Consumer Discretionary","industry":"Lodging","price":{"current":363.84,"open":366.09,"high":366.14,"low":360.87,"prev_close":366.7,"change_pct":-0.78,"change_pct_1w":4.38,"change_pct_1m":13.05,"change_pct_1y":63.08,"volume":677603,"avg_volume_30d":1466043},"scores":{"master_score":56.02,"technical_score":60.0,"fundamental_score":33.0,"momentum_score":80.0,"sentiment_score":75.0,"sector_score":32.7,"breakout_score":35.0,"value_score":20.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":70.0,"signal_score":56.02,"confidence":0.56,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":67.9,"macd":8.4905,"macd_signal":4.1642,"macd_histogram":4.3263,"macd_crossover":"neutral","ema_20":342.02,"ema_50":333.41,"ema_200":303.88,"ema_stack_bullish":true,"bb_upper":366.65,"bb_middle":335.72,"bb_lower":304.8,"bb_width":0.1842,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":21.7,"atr":9.63,"atr_pct":0.0265,"obv_trend":"UP","mfi":74.0,"cmf":0.023,"stoch_k":93.1,"stoch_d":97.2,"rvol":0.78,"volume_5d_avg":1142100,"green_days_10d":7,"52w_high":366.7,"52w_low":213.67,"52w_high_proximity_pct":0.0078,"52w_low_proximity_pct":0.7028},"fundamental":{"pe_ratio":38.339306,"sector_pe_median":25.634937,"pb_ratio":-25.651438,"de_ratio":null,"fcf_yield":0.0174,"eps_growth_5y":0.016,"revenue_growth_ttm":0.063,"gross_margin":0.79074997,"operating_margin":0.43972,"net_margin":0.37252998,"market_cap":96411983872,"enterprise_value":113993834496,"dividend_yield":0.73,"payout_ratio":0.2776,"insider_ownership_pct":0.17803,"institutional_ownership_pct":0.65529996,"short_ratio":4.28,"beta":1.097},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":331.74,"entry_range_high":365.66,"target_range_low":384.88,"target_range_high":412.37,"stop_range_low":327.35,"stop_range_high":344.58,"target_price":392.73,"stop_loss":344.58,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.952892-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":454.8,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":20.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":73.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":213.67,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":8,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":11,"date":"2026-03-31"}},"sector_context":{"sector_etf":"XLY","sector_performance_5d":4.49,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"MAR maintains bullish bias \u2014 RSI 68, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":56,"price_change_display":"-0.78%","key_metrics":{"RSI":67.9,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "MAR",
+  "company": "Marriott International, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.684445-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Lodging",
+  "price": {
+    "current": 377.57,
+    "open": 375.36,
+    "high": 379.18,
+    "low": 374.58,
+    "prev_close": 377.93,
+    "change_pct": -0.1,
+    "change_pct_1w": 5.01,
+    "change_pct_1m": 16.21,
+    "change_pct_1y": 74.2,
+    "volume": 465012,
+    "avg_volume_30d": 1466270
+  },
+  "scores": {
+    "master_score": 54.38,
+    "technical_score": 60.0,
+    "fundamental_score": 33.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.3,
+    "breakout_score": 35.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.38,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 72.6,
+    "macd": 11.6022,
+    "macd_signal": 7.291,
+    "macd_histogram": 4.3113,
+    "macd_crossover": "neutral",
+    "ema_20": 350.09,
+    "ema_50": 337.86,
+    "ema_200": 305.09,
+    "ema_stack_bullish": true,
+    "bb_upper": 381.57,
+    "bb_middle": 343.26,
+    "bb_lower": 304.94,
+    "bb_width": 0.2232,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.2,
+    "atr": 9.56,
+    "atr_pct": 0.0253,
+    "obv_trend": "UP",
+    "mfi": 79.7,
+    "cmf": 0.114,
+    "stoch_k": 96.6,
+    "stoch_d": 94.7,
+    "rvol": 0.96,
+    "volume_5d_avg": 1411482,
+    "green_days_10d": 6,
+    "52w_high": 377.93,
+    "52w_low": 213.67,
+    "52w_high_proximity_pct": 0.001,
+    "52w_low_proximity_pct": 0.767
+  },
+  "fundamental": {
+    "pe_ratio": 39.660187,
+    "sector_pe_median": 26.283674,
+    "pb_ratio": -26.619078,
+    "de_ratio": null,
+    "fcf_yield": 0.0167,
+    "eps_growth_5y": 0.016,
+    "revenue_growth_ttm": 0.063,
+    "gross_margin": 0.79074997,
+    "operating_margin": 0.43972,
+    "net_margin": 0.37252998,
+    "market_cap": 100048896000,
+    "enterprise_value": 116969611264,
+    "dividend_yield": 0.71,
+    "payout_ratio": 0.2776,
+    "insider_ownership_pct": 0.17803,
+    "institutional_ownership_pct": 0.65620005,
+    "short_ratio": 4.01,
+    "beta": 1.097
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 336.17,
+    "entry_range_high": 379.46,
+    "target_range_low": 398.12,
+    "target_range_high": 426.56,
+    "stop_range_low": 340.53,
+    "stop_range_high": 358.45,
+    "target_price": 406.25,
+    "stop_loss": 358.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.684402-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 471.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 71.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 213.67,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "MAR is in overbought territory with RSI at 73, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "-0.10%",
+    "key_metrics": {
+      "RSI": 72.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

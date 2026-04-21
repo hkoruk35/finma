@@ -1,1 +1,162 @@
-{"ticker":"GOOGL","company":"Alphabet Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.606973-04:00","sector":"Technology","industry":"Internet Content & Information","price":{"current":334.14,"open":332.89,"high":335.22,"low":330.9,"prev_close":332.91,"change_pct":0.37,"change_pct_1w":5.3,"change_pct_1m":9.35,"change_pct_1y":113.38,"volume":10768855,"avg_volume_30d":27796968},"scores":{"master_score":58.3,"technical_score":60.0,"fundamental_score":42.0,"momentum_score":80.0,"sentiment_score":75.0,"sector_score":33.0,"breakout_score":35.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":100.0,"dividend_score":40.0,"signal_score":58.3,"confidence":0.58,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":70.1,"macd":6.0034,"macd_signal":0.8564,"macd_histogram":5.1471,"macd_crossover":"neutral","ema_20":309.6,"ema_50":307.79,"ema_200":275.22,"ema_stack_bullish":true,"bb_upper":336.57,"bb_middle":302.78,"bb_lower":268.99,"bb_width":0.2232,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":25.7,"atr":8.35,"atr_pct":0.025,"obv_trend":"UP","mfi":61.6,"cmf":-0.004,"stoch_k":98.3,"stoch_d":98.7,"rvol":0.72,"volume_5d_avg":20026291,"green_days_10d":8,"52w_high":343.45,"52w_low":147.16,"52w_high_proximity_pct":0.0271,"52w_low_proximity_pct":1.2706},"fundamental":{"pe_ratio":30.881691,"sector_pe_median":39.217884,"pb_ratio":9.726658,"de_ratio":16.133,"fcf_yield":0.0094,"eps_growth_5y":0.311,"revenue_growth_ttm":0.18,"gross_margin":0.59652,"operating_margin":0.31568,"net_margin":0.32810003,"market_cap":4042090348544,"enterprise_value":3967365152768,"dividend_yield":0.25,"payout_ratio":0.076799996,"insider_ownership_pct":0.0058,"institutional_ownership_pct":0.80784,"short_ratio":2.64,"beta":1.128},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":306.25,"entry_range_high":335.81,"target_range_low":352.01,"target_range_high":377.15,"stop_range_low":301.57,"stop_range_high":317.44,"target_price":359.19,"stop_loss":317.44,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.606955-04:00","categories":["top_scores","momentum"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":417.67,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":40.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":25.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":147.16,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":1,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":437500,"date":"2026-02-19"}},"sector_context":{"sector_etf":"XLK","sector_performance_5d":4.44,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"GOOGL is overbought (RSI 70) but MACD momentum stays positive \u2014 trend may extend higher.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":58,"price_change_display":"+0.37%","key_metrics":{"RSI":70.1,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "GOOGL",
+  "company": "Alphabet Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.337960-04:00",
+  "sector": "Technology",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 338.88,
+    "open": 340.89,
+    "high": 341.35,
+    "low": 336.63,
+    "prev_close": 341.68,
+    "change_pct": -0.82,
+    "change_pct_1w": 5.47,
+    "change_pct_1m": 10.34,
+    "change_pct_1y": 121.78,
+    "volume": 9369806,
+    "avg_volume_30d": 27091363
+  },
+  "scores": {
+    "master_score": 59.47,
+    "technical_score": 62.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 59.47,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.6,
+    "macd": 9.5124,
+    "macd_signal": 4.7286,
+    "macd_histogram": 4.7838,
+    "macd_crossover": "neutral",
+    "ema_20": 317.42,
+    "ema_50": 311.41,
+    "ema_200": 276.71,
+    "ema_stack_bullish": true,
+    "bb_upper": 350.96,
+    "bb_middle": 307.97,
+    "bb_lower": 264.97,
+    "bb_width": 0.2792,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.7,
+    "atr": 7.92,
+    "atr_pct": 0.0234,
+    "obv_trend": "UP",
+    "mfi": 84.3,
+    "cmf": 0.065,
+    "stoch_k": 94.7,
+    "stoch_d": 96.0,
+    "rvol": 0.8,
+    "volume_5d_avg": 21614101,
+    "green_days_10d": 7,
+    "52w_high": 343.45,
+    "52w_low": 147.16,
+    "52w_high_proximity_pct": 0.0133,
+    "52w_low_proximity_pct": 1.3028
+  },
+  "fundamental": {
+    "pe_ratio": 31.377314,
+    "sector_pe_median": 40.685715,
+    "pb_ratio": 9.864495,
+    "de_ratio": 16.133,
+    "fcf_yield": 0.0093,
+    "eps_growth_5y": 0.311,
+    "revenue_growth_ttm": 0.18,
+    "gross_margin": 0.59652,
+    "operating_margin": 0.31568,
+    "net_margin": 0.32810003,
+    "market_cap": 4099370909696,
+    "enterprise_value": 4073455878144,
+    "dividend_yield": 0.25,
+    "payout_ratio": 0.076799996,
+    "insider_ownership_pct": 0.00575,
+    "institutional_ownership_pct": 0.80924004,
+    "short_ratio": 2.74,
+    "beta": 1.128
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 309.85,
+    "entry_range_high": 340.57,
+    "target_range_low": 355.39,
+    "target_range_high": 380.77,
+    "stop_range_low": 306.89,
+    "stop_range_high": 323.04,
+    "target_price": 362.64,
+    "stop_loss": 323.04,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.337927-04:00",
+    "categories": [
+      "top_scores",
+      "reversal",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 423.6,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 25.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 147.16,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 437500,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "GOOGL maintains a bullish bias — RSI 70, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 59,
+    "price_change_display": "-0.82%",
+    "key_metrics": {
+      "RSI": 69.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,1 +1,159 @@
-{"ticker":"ERIC","company":"Telefonaktiebolaget LM Ericsson (publ)","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.843433-04:00","sector":"Communication Services","industry":"Communication Equipment","price":{"current":11.74,"open":12.0,"high":12.0,"low":11.69,"prev_close":12.01,"change_pct":-2.21,"change_pct_1w":-0.89,"change_pct_1m":-0.44,"change_pct_1y":66.49,"volume":6547420,"avg_volume_30d":9677114},"scores":{"master_score":52.68,"technical_score":45.0,"fundamental_score":75.0,"momentum_score":50.0,"sentiment_score":50.0,"sector_score":31.8,"breakout_score":15.0,"value_score":85.0,"reversal_score":0.0,"momentum_cat_score":50.0,"dividend_score":100.0,"signal_score":52.68,"confidence":0.53,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":56.7,"macd":0.2129,"macd_signal":0.1719,"macd_histogram":0.041,"macd_crossover":"neutral","ema_20":11.56,"ema_50":11.16,"ema_200":9.78,"ema_stack_bullish":true,"bb_upper":12.15,"bb_middle":11.46,"bb_lower":10.77,"bb_width":0.1203,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":10.7,"atr":0.31,"atr_pct":0.0263,"obv_trend":"DOWN","mfi":69.7,"cmf":-0.024,"stoch_k":73.8,"stoch_d":88.6,"rvol":1.12,"volume_5d_avg":10870704,"green_days_10d":5,"52w_high":12.03,"52w_low":6.97,"52w_high_proximity_pct":0.0237,"52w_low_proximity_pct":0.6857},"fundamental":{"pe_ratio":12.906593,"sector_pe_median":26.190125000000002,"pb_ratio":0.3814426,"de_ratio":36.516,"fcf_yield":0.4817,"eps_growth_5y":0.792,"revenue_growth_ttm":-0.05,"gross_margin":0.48143002,"operating_margin":0.0,"net_margin":0.12011,"market_cap":39150186496,"enterprise_value":null,"dividend_yield":2.65,"payout_ratio":0.3351,"insider_ownership_pct":0.0,"institutional_ownership_pct":0.10654,"short_ratio":5.81,"beta":0.496},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":11.1,"entry_range_high":11.8,"target_range_low":12.42,"target_range_high":13.3,"stop_range_low":10.56,"stop_range_high":11.12,"target_price":12.67,"stop_loss":11.12,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.843409-04:00","categories":["value","dividend"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":14.68,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":85.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":265.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":6.97,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":null},"sector_context":{"sector_etf":"XLC","sector_performance_5d":3.02,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"ERIC maintains bullish bias \u2014 RSI 57, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":53,"price_change_display":"-2.21%","key_metrics":{"RSI":56.7,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "ERIC",
+  "company": "Telefonaktiebolaget LM Ericsson (publ)",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.629510-04:00",
+  "sector": "Communication Services",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 11.76,
+    "open": 11.67,
+    "high": 11.9,
+    "low": 11.64,
+    "prev_close": 11.37,
+    "change_pct": 3.39,
+    "change_pct_1w": -2.29,
+    "change_pct_1m": 3.0,
+    "change_pct_1y": 52.99,
+    "volume": 9602362,
+    "avg_volume_30d": 11479572
+  },
+  "scores": {
+    "master_score": 52.01,
+    "technical_score": 42.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 50.0,
+    "sector_score": 33.1,
+    "breakout_score": 27.0,
+    "value_score": 70.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 52.01,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 53.9,
+    "macd": 0.1803,
+    "macd_signal": 0.1867,
+    "macd_histogram": -0.0064,
+    "macd_crossover": "bearish",
+    "ema_20": 11.62,
+    "ema_50": 11.23,
+    "ema_200": 9.83,
+    "ema_stack_bullish": true,
+    "bb_upper": 12.28,
+    "bb_middle": 11.55,
+    "bb_lower": 10.81,
+    "bb_width": 0.1269,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 11.4,
+    "atr": 0.37,
+    "atr_pct": 0.0311,
+    "obv_trend": "DOWN",
+    "mfi": 64.0,
+    "cmf": -0.041,
+    "stoch_k": 67.8,
+    "stoch_d": 68.4,
+    "rvol": 1.64,
+    "volume_5d_avg": 18800232,
+    "green_days_10d": 5,
+    "52w_high": 12.16,
+    "52w_low": 6.97,
+    "52w_high_proximity_pct": 0.0333,
+    "52w_low_proximity_pct": 0.6871
+  },
+  "fundamental": {
+    "pe_ratio": 14.335366,
+    "sector_pe_median": 25.391956,
+    "pb_ratio": 0.3817674,
+    "de_ratio": 38.097,
+    "fcf_yield": 0.7525,
+    "eps_growth_5y": -0.785,
+    "revenue_growth_ttm": -0.103,
+    "gross_margin": 0.48048002,
+    "operating_margin": 0.0,
+    "net_margin": 0.108950004,
+    "market_cap": 39183523840,
+    "enterprise_value": null,
+    "dividend_yield": 2.79,
+    "payout_ratio": 0.4003,
+    "insider_ownership_pct": 0.0,
+    "institutional_ownership_pct": 0.10657,
+    "short_ratio": 6.1,
+    "beta": 0.496
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 11.17,
+    "entry_range_high": 11.82,
+    "target_range_low": 12.61,
+    "target_range_high": 13.51,
+    "stop_range_low": 10.47,
+    "stop_range_high": 11.02,
+    "target_price": 12.87,
+    "stop_loss": 11.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.629474-04:00",
+    "categories": [
+      "top_scores",
+      "value",
+      "reversal",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 27.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 14.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 279.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 6.97,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "ERIC is range-bound — RSI 54 with flat MACD and below-average volume; trend direction remains unclear.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+3.39%",
+    "key_metrics": {
+      "RSI": 53.9,
+      "MACD": "Bearish",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

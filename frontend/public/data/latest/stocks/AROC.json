@@ -1,1 +1,160 @@
-{"ticker":"AROC","company":"Archrock, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.345947-04:00","sector":"Energy","industry":"Oil & Gas Equipment & Services","price":{"current":36.38,"open":36.01,"high":36.53,"low":36.0,"prev_close":36.34,"change_pct":0.1,"change_pct_1w":1.89,"change_pct_1m":2.52,"change_pct_1y":64.77,"volume":277530,"avg_volume_30d":1610657},"scores":{"master_score":57.65,"technical_score":76.0,"fundamental_score":30.0,"momentum_score":60.0,"sentiment_score":75.0,"sector_score":40.5,"breakout_score":40.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":50.0,"dividend_score":70.0,"signal_score":57.65,"confidence":0.58,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":59.3,"macd":0.4299,"macd_signal":0.4211,"macd_histogram":0.0088,"macd_crossover":"bullish","ema_20":35.62,"ema_50":34.05,"ema_200":28.78,"ema_stack_bullish":true,"bb_upper":37.33,"bb_middle":35.71,"bb_lower":34.1,"bb_width":0.0906,"bb_squeeze":true,"bb_squeeze_intensity":"MEDIUM","adx":22.9,"atr":1.05,"atr_pct":0.0289,"obv_trend":"UP","mfi":44.1,"cmf":-0.109,"stoch_k":81.6,"stoch_d":73.8,"rvol":0.7,"volume_5d_avg":1130666,"green_days_10d":8,"52w_high":37.04,"52w_low":21.67,"52w_high_proximity_pct":0.018,"52w_low_proximity_pct":0.6785},"fundamental":{"pe_ratio":19.877048,"sector_pe_median":18.18,"pb_ratio":4.264861,"de_ratio":162.619,"fcf_yield":0.0021,"eps_growth_5y":0.954,"revenue_growth_ttm":0.155,"gross_margin":0.65806,"operating_margin":0.43232,"net_margin":0.21632999,"market_cap":6374639104,"enterprise_value":8781407232,"dividend_yield":2.28,"payout_ratio":0.4368,"insider_ownership_pct":0.029779999,"institutional_ownership_pct":0.99627995,"short_ratio":4.16,"beta":0.904},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":33.88,"entry_range_high":36.56,"target_range_low":38.74,"target_range_high":41.51,"stop_range_low":32.57,"stop_range_high":34.28,"target_price":39.53,"stop_loss":34.28,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.345927-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"MEDIUM","breakout_direction":"UPWARD","breakout_score":40.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":45.48,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":228.0},"reversal":{"is_oversold":false,"bullish_divergence":true,"support_level":21.67,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":2,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":169550,"date":"2026-03-30"}},"sector_context":{"sector_etf":"XLE","sector_performance_5d":-2.26,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"AROC maintains bullish bias \u2014 RSI 59, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":58,"price_change_display":"+0.10%","key_metrics":{"RSI":59.3,"MACD":"Bullish","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "AROC",
+  "company": "Archrock, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.900601-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 36.2,
+    "open": 36.12,
+    "high": 36.67,
+    "low": 35.63,
+    "prev_close": 36.3,
+    "change_pct": -0.28,
+    "change_pct_1w": -0.74,
+    "change_pct_1m": -0.33,
+    "change_pct_1y": 58.56,
+    "volume": 375779,
+    "avg_volume_30d": 1566839
+  },
+  "scores": {
+    "master_score": 48.27,
+    "technical_score": 56.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 36.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.27,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 57.2,
+    "macd": 0.4159,
+    "macd_signal": 0.4207,
+    "macd_histogram": -0.0048,
+    "macd_crossover": "bearish",
+    "ema_20": 35.77,
+    "ema_50": 34.29,
+    "ema_200": 28.85,
+    "ema_stack_bullish": true,
+    "bb_upper": 37.4,
+    "bb_middle": 35.77,
+    "bb_lower": 34.13,
+    "bb_width": 0.0914,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.0,
+    "atr": 1.05,
+    "atr_pct": 0.029,
+    "obv_trend": "UP",
+    "mfi": 48.9,
+    "cmf": 0.005,
+    "stoch_k": 76.6,
+    "stoch_d": 77.5,
+    "rvol": 0.71,
+    "volume_5d_avg": 1104915,
+    "green_days_10d": 6,
+    "52w_high": 37.04,
+    "52w_low": 21.67,
+    "52w_high_proximity_pct": 0.0227,
+    "52w_low_proximity_pct": 0.6704
+  },
+  "fundamental": {
+    "pe_ratio": 19.781422,
+    "sector_pe_median": 17.889732,
+    "pb_ratio": 4.244343,
+    "de_ratio": 162.619,
+    "fcf_yield": 0.0021,
+    "eps_growth_5y": 0.954,
+    "revenue_growth_ttm": 0.155,
+    "gross_margin": 0.65806,
+    "operating_margin": 0.43232,
+    "net_margin": 0.21632999,
+    "market_cap": 6343970816,
+    "enterprise_value": 8774409216,
+    "dividend_yield": 2.29,
+    "payout_ratio": 0.4368,
+    "insider_ownership_pct": 0.029779999,
+    "institutional_ownership_pct": 0.99779,
+    "short_ratio": 4.16,
+    "beta": 0.904
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 34.12,
+    "entry_range_high": 36.38,
+    "target_range_low": 38.56,
+    "target_range_high": 41.32,
+    "stop_range_low": 32.4,
+    "stop_range_high": 34.1,
+    "target_price": 39.35,
+    "stop_loss": 34.1,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.900576-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 45.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 229.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 21.67,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 169550,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.97,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "AROC is range-bound — RSI 57 with flat MACD and below-average volume; trend direction remains unclear.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-0.28%",
+    "key_metrics": {
+      "RSI": 57.2,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

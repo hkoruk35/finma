@@ -1,1 +1,161 @@
-{"ticker":"QCOM","company":"QUALCOMM Incorporated","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.624836-04:00","sector":"Technology","industry":"Semiconductors","price":{"current":133.23,"open":133.44,"high":134.34,"low":132.72,"prev_close":132.84,"change_pct":0.29,"change_pct_1w":4.49,"change_pct_1m":2.97,"change_pct_1y":-2.08,"volume":3499434,"avg_volume_30d":11694674},"scores":{"master_score":35.51,"technical_score":15.6,"fundamental_score":45.0,"momentum_score":40.0,"sentiment_score":75.0,"sector_score":33.0,"breakout_score":45.0,"value_score":50.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":100.0,"signal_score":35.51,"confidence":0.36,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":54.9,"macd":-1.4452,"macd_signal":-2.7002,"macd_histogram":1.255,"macd_crossover":"neutral","ema_20":130.19,"ema_50":136.45,"ema_200":150.58,"ema_stack_bullish":false,"bb_upper":133.43,"bb_middle":128.85,"bb_lower":124.27,"bb_width":0.0711,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":25.3,"atr":3.46,"atr_pct":0.026,"obv_trend":"UP","mfi":55.9,"cmf":-0.29,"stoch_k":91.0,"stoch_d":93.2,"rvol":0.64,"volume_5d_avg":7494046,"green_days_10d":6,"52w_high":185.53,"52w_low":124.07,"52w_high_proximity_pct":0.2819,"52w_low_proximity_pct":0.0738},"fundamental":{"pe_ratio":26.915152,"sector_pe_median":39.217884,"pb_ratio":6.2016478,"de_ratio":64.218,"fcf_yield":0.0733,"eps_growth_5y":-0.018,"revenue_growth_ttm":0.05,"gross_margin":0.55101,"operating_margin":0.27473,"net_margin":0.11958,"market_cap":142295646208,"enterprise_value":144735272960,"dividend_yield":2.68,"payout_ratio":0.7097,"insider_ownership_pct":0.0013600001,"institutional_ownership_pct":0.81705004,"short_ratio":4.36,"beta":1.279},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":132.56,"entry_range_high":133.9,"target_range_low":140.74,"target_range_high":150.79,"stop_range_low":119.99,"stop_range_high":126.31,"target_price":143.61,"stop_loss":126.31,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.624790-04:00","categories":["breakout","dividend"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":166.54,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":50.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":268.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":124.07,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":6,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":2500,"date":"2026-04-13"}},"sector_context":{"sector_etf":"XLK","sector_performance_5d":4.44,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"QCOM maintains bullish bias \u2014 RSI 55, rising MACD, normal volume.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":36,"price_change_display":"+0.29%","key_metrics":{"RSI":54.9,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "QCOM",
+  "company": "QUALCOMM Incorporated",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.361945-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 137.27,
+    "open": 136.39,
+    "high": 138.5,
+    "low": 136.08,
+    "prev_close": 136.2,
+    "change_pct": 0.79,
+    "change_pct_1w": 4.59,
+    "change_pct_1m": 4.56,
+    "change_pct_1y": 3.5,
+    "volume": 3367942,
+    "avg_volume_30d": 11689871
+  },
+  "scores": {
+    "master_score": 39.35,
+    "technical_score": 13.8,
+    "fundamental_score": 45.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.7,
+    "breakout_score": 30.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.35,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 63.2,
+    "macd": 0.0735,
+    "macd_signal": -1.5629,
+    "macd_histogram": 1.6364,
+    "macd_crossover": "neutral",
+    "ema_20": 131.7,
+    "ema_50": 136.39,
+    "ema_200": 149.99,
+    "ema_stack_bullish": false,
+    "bb_upper": 136.54,
+    "bb_middle": 129.66,
+    "bb_lower": 122.77,
+    "bb_width": 0.1062,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 23.4,
+    "atr": 3.38,
+    "atr_pct": 0.0246,
+    "obv_trend": "UP",
+    "mfi": 80.4,
+    "cmf": 0.041,
+    "stoch_k": 92.5,
+    "stoch_d": 92.8,
+    "rvol": 0.66,
+    "volume_5d_avg": 7683768,
+    "green_days_10d": 9,
+    "52w_high": 185.53,
+    "52w_low": 124.07,
+    "52w_high_proximity_pct": 0.2601,
+    "52w_low_proximity_pct": 0.1064
+  },
+  "fundamental": {
+    "pe_ratio": 27.675404,
+    "sector_pe_median": 40.685715,
+    "pb_ratio": 6.3897038,
+    "de_ratio": 64.218,
+    "fcf_yield": 0.0711,
+    "eps_growth_5y": -0.018,
+    "revenue_growth_ttm": 0.05,
+    "gross_margin": 0.55101,
+    "operating_margin": 0.27473,
+    "net_margin": 0.11958,
+    "market_cap": 146610552832,
+    "enterprise_value": 148320403456,
+    "dividend_yield": 2.7,
+    "payout_ratio": 0.7097,
+    "insider_ownership_pct": 0.0013600001,
+    "institutional_ownership_pct": 0.81656,
+    "short_ratio": 3.52,
+    "beta": 1.279
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 135.71,
+    "entry_range_high": 137.96,
+    "target_range_low": 144.46,
+    "target_range_high": 154.78,
+    "stop_range_low": 123.98,
+    "stop_range_high": 130.51,
+    "target_price": 147.41,
+    "stop_loss": 130.51,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.361899-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 171.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 270.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 124.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2500,
+      "date": "2026-04-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "QCOM maintains a bullish bias — RSI 63, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+0.79%",
+    "key_metrics": {
+      "RSI": 63.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,1 +1,161 @@
-{"ticker":"CMCSA","company":"Comcast Corporation","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.835860-04:00","sector":"Communication Services","industry":"Telecom Services","price":{"current":28.44,"open":28.15,"high":28.45,"low":28.0,"prev_close":28.14,"change_pct":1.08,"change_pct_1w":1.73,"change_pct_1m":-5.16,"change_pct_1y":-6.05,"volume":7345691,"avg_volume_30d":32607296},"scores":{"master_score":36.62,"technical_score":14.1,"fundamental_score":60.0,"momentum_score":30.0,"sentiment_score":75.0,"sector_score":31.8,"breakout_score":45.0,"value_score":70.0,"reversal_score":0.0,"momentum_cat_score":50.0,"dividend_score":70.0,"signal_score":36.62,"confidence":0.37,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":46.8,"macd":-0.4215,"macd_signal":-0.4988,"macd_histogram":0.0774,"macd_crossover":"neutral","ema_20":28.48,"ema_50":28.9,"ema_200":28.95,"ema_stack_bullish":false,"bb_upper":28.91,"bb_middle":28.26,"bb_lower":27.6,"bb_width":0.0462,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":19.3,"atr":0.66,"atr_pct":0.0233,"obv_trend":"UP","mfi":31.9,"cmf":-0.247,"stoch_k":65.5,"stoch_d":45.6,"rvol":0.54,"volume_5d_avg":17516318,"green_days_10d":6,"52w_high":32.62,"52w_low":24.23,"52w_high_proximity_pct":0.128,"52w_low_proximity_pct":0.174},"fundamental":{"pe_ratio":5.2773657,"sector_pe_median":26.190125000000002,"pb_ratio":1.0579855,"de_ratio":107.863,"fcf_yield":0.054,"eps_growth_5y":-0.525,"revenue_growth_ttm":0.012,"gross_margin":0.71747,"operating_margin":0.107889995,"net_margin":0.16166,"market_cap":103650582528,"enterprise_value":197268389888,"dividend_yield":4.69,"payout_ratio":0.18370001,"insider_ownership_pct":0.00758,"institutional_ownership_pct":0.88716006,"short_ratio":2.91,"beta":0.79},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":28.3,"entry_range_high":28.58,"target_range_low":29.81,"target_range_high":31.94,"stop_range_low":25.76,"stop_range_high":27.12,"target_price":30.42,"stop_loss":27.12,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.835819-04:00","categories":["breakout","value"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":35.55,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":70.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":469.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":24.23,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":3,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":5268,"date":"2026-04-02"}},"sector_context":{"sector_etf":"XLC","sector_performance_5d":3.02,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"CMCSA shows mixed signals \u2014 RSI 47 with positive MACD; volume confirmation needed for a breakout.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":37,"price_change_display":"+1.08%","key_metrics":{"RSI":46.8,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "CMCSA",
+  "company": "Comcast Corporation",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.626624-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 30.0,
+    "open": 29.6,
+    "high": 30.14,
+    "low": 29.57,
+    "prev_close": 29.63,
+    "change_pct": 1.27,
+    "change_pct_1w": 6.97,
+    "change_pct_1m": 4.74,
+    "change_pct_1y": -0.39,
+    "volume": 8619162,
+    "avg_volume_30d": 32708222
+  },
+  "scores": {
+    "master_score": 53.91,
+    "technical_score": 46.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 33.1,
+    "breakout_score": 30.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 53.91,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 63.4,
+    "macd": -0.0595,
+    "macd_signal": -0.3381,
+    "macd_histogram": 0.2787,
+    "macd_crossover": "neutral",
+    "ema_20": 28.78,
+    "ema_50": 28.98,
+    "ema_200": 29.0,
+    "ema_stack_bullish": false,
+    "bb_upper": 29.63,
+    "bb_middle": 28.42,
+    "bb_lower": 27.21,
+    "bb_width": 0.0854,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.9,
+    "atr": 0.69,
+    "atr_pct": 0.023,
+    "obv_trend": "UP",
+    "mfi": 46.7,
+    "cmf": 0.033,
+    "stoch_k": 94.9,
+    "stoch_d": 94.3,
+    "rvol": 0.63,
+    "volume_5d_avg": 20752872,
+    "green_days_10d": 9,
+    "52w_high": 32.62,
+    "52w_low": 24.23,
+    "52w_high_proximity_pct": 0.0801,
+    "52w_low_proximity_pct": 0.2384
+  },
+  "fundamental": {
+    "pe_ratio": 5.56679,
+    "sector_pe_median": 25.391956,
+    "pb_ratio": 1.1160083,
+    "de_ratio": 107.863,
+    "fcf_yield": 0.0511,
+    "eps_growth_5y": -0.525,
+    "revenue_growth_ttm": 0.012,
+    "gross_margin": 0.71747,
+    "operating_margin": 0.107889995,
+    "net_margin": 0.16166,
+    "market_cap": 109335052288,
+    "enterprise_value": 202629169152,
+    "dividend_yield": 4.45,
+    "payout_ratio": 0.18370001,
+    "insider_ownership_pct": 0.00758,
+    "institutional_ownership_pct": 0.89046997,
+    "short_ratio": 2.28,
+    "beta": 0.79
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 28.84,
+    "entry_range_high": 30.15,
+    "target_range_low": 31.43,
+    "target_range_high": 33.67,
+    "stop_range_low": 27.19,
+    "stop_range_high": 28.62,
+    "target_price": 32.07,
+    "stop_loss": 28.62,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.626587-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 37.5,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 445.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 24.23,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5268,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 1.96,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CMCSA maintains a bullish bias — RSI 63, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+1.27%",
+    "key_metrics": {
+      "RSI": 63.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

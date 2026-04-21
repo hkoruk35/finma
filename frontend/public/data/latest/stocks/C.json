@@ -1,1 +1,160 @@
-{"ticker":"C","company":"Citigroup Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.091975-04:00","sector":"Financials","industry":"Banks - Diversified","price":{"current":131.49,"open":131.25,"high":132.7,"low":130.57,"prev_close":129.58,"change_pct":1.47,"change_pct_1w":6.48,"change_pct_1m":22.49,"change_pct_1y":118.86,"volume":7743170,"avg_volume_30d":14723949},"scores":{"master_score":58.15,"technical_score":55.0,"fundamental_score":42.0,"momentum_score":80.0,"sentiment_score":85.0,"sector_score":39.0,"breakout_score":35.0,"value_score":35.0,"reversal_score":0.0,"momentum_cat_score":100.0,"dividend_score":70.0,"signal_score":58.15,"confidence":0.58,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":76.1,"macd":4.5738,"macd_signal":2.6437,"macd_histogram":1.9302,"macd_crossover":"neutral","ema_20":119.09,"ema_50":115.22,"ema_200":103.99,"ema_stack_bullish":true,"bb_upper":131.25,"bb_middle":116.68,"bb_lower":102.11,"bb_width":0.2497,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":19.2,"atr":3.77,"atr_pct":0.0287,"obv_trend":"UP","mfi":63.5,"cmf":0.085,"stoch_k":95.4,"stoch_d":96.5,"rvol":0.77,"volume_5d_avg":11394854,"green_days_10d":7,"52w_high":131.49,"52w_low":60.53,"52w_high_proximity_pct":0.0,"52w_low_proximity_pct":1.1724},"fundamental":{"pe_ratio":16.253399,"sector_pe_median":16.357060500000003,"pb_ratio":1.1952986,"de_ratio":null,"fcf_yield":null,"eps_growth_5y":0.687,"revenue_growth_ttm":0.169,"gross_margin":0.0,"operating_margin":0.34078,"net_margin":0.20356001,"market_cap":230017974272,"enterprise_value":-335242231808,"dividend_yield":1.85,"payout_ratio":0.2917,"insider_ownership_pct":0.0026800002,"institutional_ownership_pct":0.8282,"short_ratio":0.02,"beta":null},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":114.64,"entry_range_high":132.15,"target_range_low":139.94,"target_range_high":149.94,"stop_range_low":117.75,"stop_range_high":123.95,"target_price":142.8,"stop_loss":123.95,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.091956-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":164.36,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":35.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":185.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":60.53,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":6,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":405,"date":"2026-04-01"}},"sector_context":{"sector_etf":"XLF","sector_performance_5d":1.69,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"C is overbought (RSI 76) but MACD momentum stays positive \u2014 trend may extend higher.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":58,"price_change_display":"+1.47%","key_metrics":{"RSI":76.1,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "C",
+  "company": "Citigroup Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.795705-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 132.69,
+    "open": 131.98,
+    "high": 133.44,
+    "low": 131.7,
+    "prev_close": 132.18,
+    "change_pct": 0.39,
+    "change_pct_1w": 5.08,
+    "change_pct_1m": 20.79,
+    "change_pct_1y": 119.23,
+    "volume": 5641148,
+    "avg_volume_30d": 14480334
+  },
+  "scores": {
+    "master_score": 59.42,
+    "technical_score": 58.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 41.2,
+    "breakout_score": 35.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 59.42,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 73.4,
+    "macd": 5.4039,
+    "macd_signal": 3.876,
+    "macd_histogram": 1.5279,
+    "macd_crossover": "neutral",
+    "ema_20": 122.33,
+    "ema_50": 117.06,
+    "ema_200": 104.47,
+    "ema_stack_bullish": true,
+    "bb_upper": 136.38,
+    "bb_middle": 120.0,
+    "bb_lower": 103.61,
+    "bb_width": 0.273,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.6,
+    "atr": 3.65,
+    "atr_pct": 0.0275,
+    "obv_trend": "UP",
+    "mfi": 84.5,
+    "cmf": 0.066,
+    "stoch_k": 96.5,
+    "stoch_d": 92.7,
+    "rvol": 0.87,
+    "volume_5d_avg": 12526769,
+    "green_days_10d": 7,
+    "52w_high": 132.69,
+    "52w_low": 61.1,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.1716
+  },
+  "fundamental": {
+    "pe_ratio": 16.40173,
+    "sector_pe_median": 16.511834999999998,
+    "pb_ratio": 1.1823674,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.561,
+    "revenue_growth_ttm": 0.169,
+    "gross_margin": 0.0,
+    "operating_margin": 0.34078,
+    "net_margin": 0.20356001,
+    "market_cap": 232117141504,
+    "enterprise_value": -336472801280,
+    "dividend_yield": 1.82,
+    "payout_ratio": 0.2917,
+    "insider_ownership_pct": 0.00269,
+    "institutional_ownership_pct": 0.83372,
+    "short_ratio": 0.02,
+    "beta": 1.085
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 116.47,
+    "entry_range_high": 133.35,
+    "target_range_low": 140.77,
+    "target_range_high": 150.82,
+    "stop_range_low": 119.12,
+    "stop_range_high": 125.39,
+    "target_price": 143.64,
+    "stop_loss": 125.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.795686-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 165.86,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 182.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.1,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25000,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "C is in overbought territory with RSI at 73, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 59,
+    "price_change_display": "+0.39%",
+    "key_metrics": {
+      "RSI": 73.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

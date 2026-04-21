@@ -1,1 +1,160 @@
-{"ticker":"CBOE","company":"Cboe Global Markets, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.233347-04:00","sector":"Financials","industry":"Financial Data & Stock Exchanges","price":{"current":304.73,"open":303.4,"high":305.52,"low":301.18,"prev_close":300.75,"change_pct":1.32,"change_pct_1w":2.62,"change_pct_1m":4.44,"change_pct_1y":42.42,"volume":202174,"avg_volume_30d":832255},"scores":{"master_score":56.1,"technical_score":52.0,"fundamental_score":42.0,"momentum_score":80.0,"sentiment_score":75.0,"sector_score":39.0,"breakout_score":35.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":100.0,"dividend_score":100.0,"signal_score":56.1,"confidence":0.56,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":66.1,"macd":4.221,"macd_signal":2.3655,"macd_histogram":1.8555,"macd_crossover":"neutral","ema_20":292.27,"ema_50":285.47,"ema_200":260.57,"ema_stack_bullish":true,"bb_upper":306.1,"bb_middle":288.38,"bb_lower":270.67,"bb_width":0.1229,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":17.4,"atr":7.11,"atr_pct":0.0233,"obv_trend":"UP","mfi":67.3,"cmf":-0.036,"stoch_k":97.6,"stoch_d":95.3,"rvol":0.74,"volume_5d_avg":612414,"green_days_10d":7,"52w_high":304.73,"52w_low":210.31,"52w_high_proximity_pct":0.0,"52w_low_proximity_pct":0.4489},"fundamental":{"pe_ratio":29.272335,"sector_pe_median":16.357060500000003,"pb_ratio":6.206085,"de_ratio":30.958,"fcf_yield":0.0397,"eps_growth_5y":0.605,"revenue_growth_ttm":0.087,"gross_margin":0.51527,"operating_margin":0.36196,"net_margin":0.23334,"market_cap":31917588480,"enterprise_value":30852710400,"dividend_yield":0.93,"payout_ratio":0.2591,"insider_ownership_pct":0.00254,"institutional_ownership_pct":0.89345,"short_ratio":2.87,"beta":0.369},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":284.04,"entry_range_high":306.25,"target_range_low":319.54,"target_range_high":342.36,"stop_range_low":275.98,"stop_range_high":290.51,"target_price":326.06,"stop_loss":290.51,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.233317-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":380.91,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":93.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":210.31,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":3,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":248,"date":"2026-02-23"}},"sector_context":{"sector_etf":"XLF","sector_performance_5d":1.69,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"CBOE maintains bullish bias \u2014 RSI 66, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":56,"price_change_display":"+1.32%","key_metrics":{"RSI":66.1,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "CBOE",
+  "company": "Cboe Global Markets, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.841833-04:00",
+  "sector": "Financials",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 306.18,
+    "open": 300.91,
+    "high": 307.28,
+    "low": 299.91,
+    "prev_close": 299.94,
+    "change_pct": 2.08,
+    "change_pct_1w": 1.96,
+    "change_pct_1m": 7.65,
+    "change_pct_1y": 41.21,
+    "volume": 642301,
+    "avg_volume_30d": 859276
+  },
+  "scores": {
+    "master_score": 56.32,
+    "technical_score": 52.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.2,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 56.32,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 62.0,
+    "macd": 5.215,
+    "macd_signal": 3.6892,
+    "macd_histogram": 1.5258,
+    "macd_crossover": "neutral",
+    "ema_20": 295.61,
+    "ema_50": 287.71,
+    "ema_200": 262.3,
+    "ema_stack_bullish": true,
+    "bb_upper": 312.61,
+    "bb_middle": 291.41,
+    "bb_lower": 270.2,
+    "bb_width": 0.1456,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.2,
+    "atr": 7.34,
+    "atr_pct": 0.024,
+    "obv_trend": "UP",
+    "mfi": 63.5,
+    "cmf": 0.035,
+    "stoch_k": 88.3,
+    "stoch_d": 86.3,
+    "rvol": 0.98,
+    "volume_5d_avg": 842960,
+    "green_days_10d": 7,
+    "52w_high": 309.38,
+    "52w_low": 210.31,
+    "52w_high_proximity_pct": 0.0103,
+    "52w_low_proximity_pct": 0.4558
+  },
+  "fundamental": {
+    "pe_ratio": 29.412104,
+    "sector_pe_median": 16.511834999999998,
+    "pb_ratio": 6.235718,
+    "de_ratio": 30.958,
+    "fcf_yield": 0.0395,
+    "eps_growth_5y": 0.605,
+    "revenue_growth_ttm": 0.087,
+    "gross_margin": 0.51527,
+    "operating_margin": 0.36196,
+    "net_margin": 0.23334,
+    "market_cap": 32069988352,
+    "enterprise_value": 30767929344,
+    "dividend_yield": 0.93,
+    "payout_ratio": 0.2591,
+    "insider_ownership_pct": 0.00254,
+    "institutional_ownership_pct": 0.89425004,
+    "short_ratio": 2.87,
+    "beta": 0.369
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 286.27,
+    "entry_range_high": 307.71,
+    "target_range_low": 321.64,
+    "target_range_high": 344.61,
+    "stop_range_low": 276.93,
+    "stop_range_high": 291.5,
+    "target_price": 328.2,
+    "stop_loss": 291.5,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.841813-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 382.73,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 93.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 210.31,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 248,
+      "date": "2026-02-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CBOE maintains a bullish bias — RSI 62, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "+2.08%",
+    "key_metrics": {
+      "RSI": 62.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

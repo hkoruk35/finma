@@ -1,1 +1,160 @@
-{"ticker":"TGT","company":"Target Corporation","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.024087-04:00","sector":"Consumer Staples","industry":"Discount Stores","price":{"current":122.83,"open":119.73,"high":122.93,"low":118.79,"prev_close":119.53,"change_pct":2.76,"change_pct_1w":-0.24,"change_pct_1m":4.94,"change_pct_1y":38.45,"volume":2323134,"avg_volume_30d":5608261},"scores":{"master_score":50.55,"technical_score":50.0,"fundamental_score":37.0,"momentum_score":70.0,"sentiment_score":75.0,"sector_score":23.0,"breakout_score":15.0,"value_score":25.0,"reversal_score":0.0,"momentum_cat_score":100.0,"dividend_score":100.0,"signal_score":50.55,"confidence":0.51,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":58.1,"macd":1.5174,"macd_signal":1.5556,"macd_histogram":-0.0381,"macd_crossover":"neutral","ema_20":119.67,"ema_50":115.9,"ema_200":105.02,"ema_stack_bullish":true,"bb_upper":125.15,"bb_middle":118.94,"bb_lower":112.72,"bb_width":0.1045,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":21.4,"atr":3.3,"atr_pct":0.0268,"obv_trend":"UP","mfi":62.2,"cmf":-0.035,"stoch_k":81.4,"stoch_d":57.8,"rvol":0.75,"volume_5d_avg":4220886,"green_days_10d":5,"52w_high":124.03,"52w_low":82.84,"52w_high_proximity_pct":0.0097,"52w_low_proximity_pct":0.4828},"fundamental":{"pe_ratio":15.108241,"sector_pe_median":23.7782275,"pb_ratio":3.4409056,"de_ratio":125.518,"fcf_yield":0.0466,"eps_growth_5y":-0.05,"revenue_growth_ttm":-0.015,"gross_margin":0.27934,"operating_margin":0.049089998,"net_margin":0.03536,"market_cap":55624253440,"enterprise_value":68931829760,"dividend_yield":3.81,"payout_ratio":0.556,"insider_ownership_pct":0.00306,"institutional_ownership_pct":0.86336,"short_ratio":2.81,"beta":1.032},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":115.32,"entry_range_high":123.44,"target_range_low":130.08,"target_range_high":139.37,"stop_range_low":110.42,"stop_range_high":116.23,"target_price":132.73,"stop_loss":116.23,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.024063-04:00","categories":["momentum"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":153.54,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":25.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":381.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":82.84,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":2,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":7259,"date":"2026-04-07"}},"sector_context":{"sector_etf":"XLP","sector_performance_5d":-2.64,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"TGT near equilibrium \u2014 RSI 58, neutral MACD; watch for directional catalyst.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":51,"price_change_display":"+2.76%","key_metrics":{"RSI":58.1,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "TGT",
+  "company": "Target Corporation",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.731775-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 129.18,
+    "open": 127.85,
+    "high": 129.78,
+    "low": 126.87,
+    "prev_close": 127.84,
+    "change_pct": 1.04,
+    "change_pct_1w": 9.58,
+    "change_pct_1m": 12.85,
+    "change_pct_1y": 49.34,
+    "volume": 1510100,
+    "avg_volume_30d": 5339993
+  },
+  "scores": {
+    "master_score": 56.4,
+    "technical_score": 60.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.5,
+    "breakout_score": 35.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 56.4,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.4,
+    "macd": 2.5048,
+    "macd_signal": 1.8477,
+    "macd_histogram": 0.6571,
+    "macd_crossover": "neutral",
+    "ema_20": 121.61,
+    "ema_50": 117.16,
+    "ema_200": 105.51,
+    "ema_stack_bullish": true,
+    "bb_upper": 128.09,
+    "bb_middle": 120.85,
+    "bb_lower": 113.61,
+    "bb_width": 0.1198,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.9,
+    "atr": 3.34,
+    "atr_pct": 0.0258,
+    "obv_trend": "UP",
+    "mfi": 61.8,
+    "cmf": 0.265,
+    "stoch_k": 95.3,
+    "stoch_d": 95.5,
+    "rvol": 0.83,
+    "volume_5d_avg": 4413580,
+    "green_days_10d": 7,
+    "52w_high": 129.18,
+    "52w_low": 82.84,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.5594
+  },
+  "fundamental": {
+    "pe_ratio": 15.888684,
+    "sector_pe_median": 24.180949,
+    "pb_ratio": 3.6186516,
+    "de_ratio": 125.518,
+    "fcf_yield": 0.0443,
+    "eps_growth_5y": -0.05,
+    "revenue_growth_ttm": -0.015,
+    "gross_margin": 0.27934,
+    "operating_margin": 0.049089998,
+    "net_margin": 0.03536,
+    "market_cap": 58497622016,
+    "enterprise_value": 72695062528,
+    "dividend_yield": 3.57,
+    "payout_ratio": 0.556,
+    "insider_ownership_pct": 0.00306,
+    "institutional_ownership_pct": 0.86656,
+    "short_ratio": 2.81,
+    "beta": 1.032
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 116.57,
+    "entry_range_high": 129.83,
+    "target_range_low": 136.42,
+    "target_range_high": 146.16,
+    "stop_range_low": 116.38,
+    "stop_range_high": 122.5,
+    "target_price": 139.2,
+    "stop_loss": 122.5,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.731748-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 161.48,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 357.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 82.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7259,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "TGT maintains a bullish bias — RSI 67, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "+1.04%",
+    "key_metrics": {
+      "RSI": 67.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

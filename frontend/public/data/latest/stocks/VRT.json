@@ -1,1 +1,161 @@
-{"ticker":"VRT","company":"Vertiv Holdings Co","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.816216-04:00","sector":"Technology","industry":"Electrical Equipment & Parts","price":{"current":298.19,"open":309.5,"high":310.99,"low":296.64,"prev_close":310.51,"change_pct":-3.97,"change_pct_1w":6.11,"change_pct_1m":12.66,"change_pct_1y":328.91,"volume":2982048,"avg_volume_30d":9220501},"scores":{"master_score":52.55,"technical_score":60.0,"fundamental_score":15.0,"momentum_score":80.0,"sentiment_score":85.0,"sector_score":33.0,"breakout_score":15.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":100.0,"dividend_score":40.0,"signal_score":52.55,"confidence":0.53,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":63.5,"macd":13.3926,"macd_signal":9.5954,"macd_histogram":3.7972,"macd_crossover":"neutral","ema_20":274.59,"ema_50":251.74,"ema_200":190.36,"ema_stack_bullish":true,"bb_upper":308.64,"bb_middle":269.76,"bb_lower":230.88,"bb_width":0.2883,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":20.5,"atr":13.95,"atr_pct":0.0468,"obv_trend":"UP","mfi":60.1,"cmf":-0.458,"stoch_k":82.3,"stoch_d":93.0,"rvol":0.49,"volume_5d_avg":4502889,"green_days_10d":8,"52w_high":310.51,"52w_low":67.49,"52w_high_proximity_pct":0.0397,"52w_low_proximity_pct":3.4185},"fundamental":{"pe_ratio":87.19079,"sector_pe_median":39.217884,"pb_ratio":28.942297,"de_ratio":81.899,"fcf_yield":0.0125,"eps_growth_5y":1.995,"revenue_growth_ttm":0.227,"gross_margin":0.36317003,"operating_margin":0.21174,"net_margin":0.13028,"market_cap":114087993344,"enterprise_value":120177246208,"dividend_yield":0.08,"payout_ratio":0.0513,"insider_ownership_pct":0.0037,"institutional_ownership_pct":0.80267,"short_ratio":1.18,"beta":2.048},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":250.48,"entry_range_high":299.68,"target_range_low":333.24,"target_range_high":357.04,"stop_range_low":256.78,"stop_range_high":270.29,"target_price":340.04,"stop_loss":270.29,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.816167-04:00","categories":["momentum"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":372.74,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":40.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":8.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":67.49,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":6,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":4,"date":"2026-03-26"}},"sector_context":{"sector_etf":"XLK","sector_performance_5d":4.44,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"VRT maintains bullish bias \u2014 RSI 64, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":53,"price_change_display":"-3.97%","key_metrics":{"RSI":63.5,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "VRT",
+  "company": "Vertiv Holdings Co",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.607731-04:00",
+  "sector": "Technology",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 313.44,
+    "open": 307.01,
+    "high": 313.87,
+    "low": 305.11,
+    "prev_close": 307.34,
+    "change_pct": 1.98,
+    "change_pct_1w": 4.49,
+    "change_pct_1m": 16.45,
+    "change_pct_1y": 338.0,
+    "volume": 2365138,
+    "avg_volume_30d": 9120894
+  },
+  "scores": {
+    "master_score": 53.02,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 37.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 53.02,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.3,
+    "macd": 15.1873,
+    "macd_signal": 11.9797,
+    "macd_histogram": 3.2076,
+    "macd_crossover": "neutral",
+    "ema_20": 282.85,
+    "ema_50": 257.89,
+    "ema_200": 193.19,
+    "ema_stack_bullish": true,
+    "bb_upper": 322.23,
+    "bb_middle": 276.17,
+    "bb_lower": 230.1,
+    "bb_width": 0.3336,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.9,
+    "atr": 13.41,
+    "atr_pct": 0.0428,
+    "obv_trend": "UP",
+    "mfi": 73.9,
+    "cmf": 0.005,
+    "stoch_k": 99.5,
+    "stoch_d": 90.1,
+    "rvol": 0.51,
+    "volume_5d_avg": 4668747,
+    "green_days_10d": 8,
+    "52w_high": 313.44,
+    "52w_low": 67.49,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 3.6445
+  },
+  "fundamental": {
+    "pe_ratio": 91.917885,
+    "sector_pe_median": 40.685715,
+    "pb_ratio": 30.422207,
+    "de_ratio": 81.899,
+    "fcf_yield": 0.0119,
+    "eps_growth_5y": 1.995,
+    "revenue_growth_ttm": 0.227,
+    "gross_margin": 0.36317003,
+    "operating_margin": 0.21174,
+    "net_margin": 0.13028,
+    "market_cap": 119921664000,
+    "enterprise_value": 118964412416,
+    "dividend_yield": 0.08,
+    "payout_ratio": 0.0513,
+    "insider_ownership_pct": 0.00373,
+    "institutional_ownership_pct": 0.80593,
+    "short_ratio": 1.18,
+    "beta": 2.048
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 256.6,
+    "entry_range_high": 315.01,
+    "target_range_low": 346.6,
+    "target_range_high": 371.35,
+    "stop_range_low": 272.29,
+    "stop_range_high": 286.62,
+    "target_price": 353.67,
+    "stop_loss": 286.62,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.607657-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 391.8,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 8.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 67.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "VRT maintains a bullish bias — RSI 67, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "+1.98%",
+    "key_metrics": {
+      "RSI": 67.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

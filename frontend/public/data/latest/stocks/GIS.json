@@ -1,1 +1,161 @@
-{"ticker":"GIS","company":"General Mills, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.005076-04:00","sector":"Consumer Staples","industry":"Packaged Foods","price":{"current":34.64,"open":34.75,"high":34.75,"low":34.21,"prev_close":34.7,"change_pct":-0.17,"change_pct_1w":-3.76,"change_pct_1m":-9.63,"change_pct_1y":-36.85,"volume":3536944,"avg_volume_30d":10054291},"scores":{"master_score":24.73,"technical_score":10.5,"fundamental_score":45.0,"momentum_score":0.0,"sentiment_score":75.0,"sector_score":23.0,"breakout_score":45.0,"value_score":50.0,"reversal_score":20.0,"momentum_cat_score":0.0,"dividend_score":100.0,"signal_score":24.73,"confidence":0.25,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":25.9,"macd":-1.5075,"macd_signal":-1.5979,"macd_histogram":0.0903,"macd_crossover":"neutral","ema_20":36.6,"ema_50":39.37,"ema_200":44.85,"ema_stack_bullish":false,"bb_upper":37.58,"bb_middle":36.07,"bb_lower":34.56,"bb_width":0.0838,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":53.3,"atr":0.94,"atr_pct":0.0272,"obv_trend":"DOWN","mfi":36.3,"cmf":-0.148,"stoch_k":18.4,"stoch_d":18.2,"rvol":0.79,"volume_5d_avg":7897168,"green_days_10d":4,"52w_high":55.83,"52w_low":34.56,"52w_high_proximity_pct":0.3796,"52w_low_proximity_pct":0.0023},"fundamental":{"pe_ratio":8.469438,"sector_pe_median":23.7782275,"pb_ratio":3.3455667,"de_ratio":217.629,"fcf_yield":0.1224,"eps_growth_5y":-0.145,"revenue_growth_ttm":0.022,"gross_margin":0.3314,"operating_margin":0.19194001,"net_margin":0.12053,"market_cap":18486716416,"enterprise_value":21309069312,"dividend_yield":7.03,"payout_ratio":0.5941,"insider_ownership_pct":0.0030500002,"institutional_ownership_pct":0.8849,"short_ratio":3.83,"beta":0.0},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":34.47,"entry_range_high":34.81,"target_range_low":36.71,"target_range_high":39.33,"stop_range_low":31.12,"stop_range_high":32.76,"target_price":37.46,"stop_loss":32.76,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.005045-04:00","categories":["reversal"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":43.3,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":50.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":703.0},"reversal":{"is_oversold":true,"bullish_divergence":false,"support_level":34.56,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":{"type":"SELL","shares":578,"date":"2026-02-20"}},"sector_context":{"sector_etf":"XLP","sector_performance_5d":-2.64,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"GIS is deeply oversold (RSI 26); watch for a reversal setup with volume confirmation.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":25,"price_change_display":"-0.17%","key_metrics":{"RSI":25.9,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "GIS",
+  "company": "General Mills, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.718204-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 35.25,
+    "open": 35.31,
+    "high": 35.47,
+    "low": 35.0,
+    "prev_close": 35.5,
+    "change_pct": -0.7,
+    "change_pct_1w": 2.0,
+    "change_pct_1m": -4.41,
+    "change_pct_1y": -34.04,
+    "volume": 3073289,
+    "avg_volume_30d": 10098882
+  },
+  "scores": {
+    "master_score": 30.96,
+    "technical_score": 15.9,
+    "fundamental_score": 45.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.5,
+    "breakout_score": 45.0,
+    "value_score": 50.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 30.96,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 35.0,
+    "macd": -1.2777,
+    "macd_signal": -1.4745,
+    "macd_histogram": 0.1968,
+    "macd_crossover": "neutral",
+    "ema_20": 36.27,
+    "ema_50": 38.91,
+    "ema_200": 44.81,
+    "ema_stack_bullish": false,
+    "bb_upper": 37.33,
+    "bb_middle": 35.85,
+    "bb_lower": 34.37,
+    "bb_width": 0.0824,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 49.6,
+    "atr": 0.89,
+    "atr_pct": 0.0251,
+    "obv_trend": "UP",
+    "mfi": 36.2,
+    "cmf": 0.088,
+    "stoch_k": 37.1,
+    "stoch_d": 40.4,
+    "rvol": 0.7,
+    "volume_5d_avg": 7057117,
+    "green_days_10d": 4,
+    "52w_high": 54.94,
+    "52w_low": 34.49,
+    "52w_high_proximity_pct": 0.3584,
+    "52w_low_proximity_pct": 0.022
+  },
+  "fundamental": {
+    "pe_ratio": 8.618582,
+    "sector_pe_median": 24.180949,
+    "pb_ratio": 3.4044814,
+    "de_ratio": 217.629,
+    "fcf_yield": 0.1203,
+    "eps_growth_5y": -0.145,
+    "revenue_growth_ttm": 0.022,
+    "gross_margin": 0.3314,
+    "operating_margin": 0.19194001,
+    "net_margin": 0.12053,
+    "market_cap": 18812262400,
+    "enterprise_value": 21783549952,
+    "dividend_yield": 6.87,
+    "payout_ratio": 0.5941,
+    "insider_ownership_pct": 0.0030399999,
+    "institutional_ownership_pct": 0.88618,
+    "short_ratio": 3.83,
+    "beta": 0.0
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 35.07,
+    "entry_range_high": 35.43,
+    "target_range_low": 37.16,
+    "target_range_high": 39.82,
+    "stop_range_low": 31.8,
+    "stop_range_high": 33.47,
+    "target_price": 37.92,
+    "stop_loss": 33.47,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.718150-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 44.06,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 687.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 578,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.21,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "GIS shows oversold RSI (35) with weakening momentum; a bounce setup is forming if volume supports the move.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-0.70%",
+    "key_metrics": {
+      "RSI": 35.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

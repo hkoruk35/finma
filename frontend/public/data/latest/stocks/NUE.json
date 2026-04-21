@@ -1,1 +1,160 @@
-{"ticker":"NUE","company":"Nucor Corporation","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.378752-04:00","sector":"Materials","industry":"Steel","price":{"current":189.65,"open":190.04,"high":190.52,"low":187.67,"prev_close":190.04,"change_pct":-0.21,"change_pct_1w":4.11,"change_pct_1m":16.93,"change_pct_1y":73.07,"volume":342877,"avg_volume_30d":1367739},"scores":{"master_score":56.56,"technical_score":60.0,"fundamental_score":30.0,"momentum_score":80.0,"sentiment_score":75.0,"sector_score":45.6,"breakout_score":35.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":70.0,"signal_score":56.56,"confidence":0.57,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":71.7,"macd":4.9838,"macd_signal":2.1135,"macd_histogram":2.8702,"macd_crossover":"neutral","ema_20":176.94,"ema_50":173.36,"ema_200":157.86,"ema_stack_bullish":true,"bb_upper":193.56,"bb_middle":171.96,"bb_lower":150.36,"bb_width":0.2512,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":27.2,"atr":4.57,"atr_pct":0.0241,"obv_trend":"UP","mfi":80.2,"cmf":0.058,"stoch_k":93.3,"stoch_d":95.8,"rvol":0.83,"volume_5d_avg":1129155,"green_days_10d":7,"52w_high":193.76,"52w_low":105.08,"52w_high_proximity_pct":0.0212,"52w_low_proximity_pct":0.8049},"fundamental":{"pe_ratio":25.18592,"sector_pe_median":23.866705,"pb_ratio":2.0680666,"de_ratio":32.765,"fcf_yield":-0.0209,"eps_growth_5y":0.342,"revenue_growth_ttm":0.086,"gross_margin":0.12027001,"operating_margin":0.06869,"net_margin":0.05367,"market_cap":43197452288,"enterprise_value":49024286720,"dividend_yield":1.18,"payout_ratio":0.29389998,"insider_ownership_pct":0.03199,"institutional_ownership_pct":0.78792,"short_ratio":3.12,"beta":1.745},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":172.49,"entry_range_high":190.6,"target_range_low":199.29,"target_range_high":213.53,"stop_range_low":171.48,"stop_range_high":180.51,"target_price":203.36,"stop_loss":180.51,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.378734-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":237.06,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":118.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":105.08,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":4,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":3800,"date":"2026-03-23"}},"sector_context":{"sector_etf":"XLB","sector_performance_5d":-0.71,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"NUE is overbought (RSI 72) but MACD momentum stays positive \u2014 trend may extend higher.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":57,"price_change_display":"-0.21%","key_metrics":{"RSI":71.7,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "NUE",
+  "company": "Nucor Corporation",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.937797-04:00",
+  "sector": "Materials",
+  "industry": "Steel",
+  "price": {
+    "current": 201.97,
+    "open": 195.05,
+    "high": 202.88,
+    "low": 195.01,
+    "prev_close": 195.87,
+    "change_pct": 3.11,
+    "change_pct_1w": 6.48,
+    "change_pct_1m": 25.14,
+    "change_pct_1y": 88.19,
+    "volume": 606415,
+    "avg_volume_30d": 1362693
+  },
+  "scores": {
+    "master_score": 58.35,
+    "technical_score": 65.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.0,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.35,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 79.9,
+    "macd": 7.1182,
+    "macd_signal": 4.1984,
+    "macd_histogram": 2.9198,
+    "macd_crossover": "neutral",
+    "ema_20": 182.11,
+    "ema_50": 176.0,
+    "ema_200": 158.66,
+    "ema_stack_bullish": true,
+    "bb_upper": 202.6,
+    "bb_middle": 177.44,
+    "bb_lower": 152.28,
+    "bb_width": 0.2836,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.0,
+    "atr": 4.84,
+    "atr_pct": 0.024,
+    "obv_trend": "UP",
+    "mfi": 83.0,
+    "cmf": 0.2,
+    "stoch_k": 97.6,
+    "stoch_d": 96.4,
+    "rvol": 0.81,
+    "volume_5d_avg": 1098263,
+    "green_days_10d": 9,
+    "52w_high": 201.97,
+    "52w_low": 105.08,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.9221
+  },
+  "fundamental": {
+    "pe_ratio": 26.857714,
+    "sector_pe_median": 24.255919,
+    "pb_ratio": 2.2024121,
+    "de_ratio": 32.765,
+    "fcf_yield": -0.0196,
+    "eps_growth_5y": 0.342,
+    "revenue_growth_ttm": 0.086,
+    "gross_margin": 0.12027001,
+    "operating_margin": 0.06869,
+    "net_margin": 0.05367,
+    "market_cap": 46003638272,
+    "enterprise_value": 50352214016,
+    "dividend_yield": 1.14,
+    "payout_ratio": 0.29389998,
+    "insider_ownership_pct": 0.03199,
+    "institutional_ownership_pct": 0.78999,
+    "short_ratio": 3.12,
+    "beta": 1.745
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 175.12,
+    "entry_range_high": 202.98,
+    "target_range_low": 212.16,
+    "target_range_high": 227.31,
+    "stop_range_low": 182.68,
+    "stop_range_high": 192.29,
+    "target_price": 216.49,
+    "stop_loss": 192.29,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.937775-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 252.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 114.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 105.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3800,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "NUE is in overbought territory with RSI at 80, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+3.11%",
+    "key_metrics": {
+      "RSI": 79.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

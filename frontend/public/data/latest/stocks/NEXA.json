@@ -1,1 +1,162 @@
-{"ticker":"NEXA","company":"Nexa Resources S.A.","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.387569-04:00","sector":"Materials","industry":"Other Industrial Metals & Mining","price":{"current":14.19,"open":11.82,"high":14.54,"low":11.65,"prev_close":11.94,"change_pct":18.8,"change_pct_1w":25.87,"change_pct_1m":28.02,"change_pct_1y":141.76,"volume":5208536,"avg_volume_30d":702897},"scores":{"master_score":71.81,"technical_score":65.0,"fundamental_score":70.0,"momentum_score":100.0,"sentiment_score":70.0,"sector_score":45.6,"breakout_score":60.0,"value_score":70.0,"reversal_score":15.0,"momentum_cat_score":100.0,"dividend_score":70.0,"signal_score":71.81,"confidence":0.72,"signal_type":"POSITIVE_BIAS"},"technical":{"rsi_14":73.2,"macd":0.3901,"macd_signal":0.0158,"macd_histogram":0.3742,"macd_crossover":"neutral","ema_20":11.42,"ema_50":11.14,"ema_200":8.74,"ema_stack_bullish":true,"bb_upper":13.1,"bb_middle":10.76,"bb_lower":8.42,"bb_width":0.4348,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":16.3,"atr":0.83,"atr_pct":0.0586,"obv_trend":"UP","mfi":91.8,"cmf":0.295,"stoch_k":92.9,"stoch_d":91.1,"rvol":2.19,"volume_5d_avg":1542707,"green_days_10d":8,"52w_high":14.66,"52w_low":4.66,"52w_high_proximity_pct":0.0324,"52w_low_proximity_pct":2.044},"fundamental":{"pe_ratio":14.185,"sector_pe_median":23.866705,"pb_ratio":1.8731018,"de_ratio":141.685,"fcf_yield":0.0969,"eps_growth_5y":null,"revenue_growth_ttm":0.219,"gross_margin":0.23401,"operating_margin":0.23941,"net_margin":0.044180002,"market_cap":1878641664,"enterprise_value":3173506048,"dividend_yield":1.18,"payout_ratio":0.0,"insider_ownership_pct":0.66472,"institutional_ownership_pct":0.30183,"short_ratio":0.39,"beta":0.596},"scores_detail":{"signal_type":"POSITIVE_BIAS","entry_range_low":11.08,"entry_range_high":14.26,"target_range_low":16.35,"target_range_high":17.51,"stop_range_low":11.9,"stop_range_high":12.53,"target_price":16.68,"stop_loss":12.53,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.387554-04:00","categories":["top_scores","breakout","reversal"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":60.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":17.74,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":70.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":118.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":4.66,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":{"type":"SELL","shares":8000,"date":"2022-11-14"}},"sector_context":{"sector_etf":"XLB","sector_performance_5d":-0.71,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"NEXA is overbought (RSI 73) but MACD momentum stays positive \u2014 trend may extend higher.","quick_view":{"score_badge":"POSITIVE BIAS","score_bar":72,"price_change_display":"+18.80%","key_metrics":{"RSI":73.2,"MACD":"Neutral","Volume":"Above avg","Trend":"Uptrend"}}}
+{
+  "ticker": "NEXA",
+  "company": "Nexa Resources S.A.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.947360-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 16.15,
+    "open": 15.89,
+    "high": 16.75,
+    "low": 15.3,
+    "prev_close": 16.0,
+    "change_pct": 0.94,
+    "change_pct_1w": 33.58,
+    "change_pct_1m": 68.93,
+    "change_pct_1y": 172.98,
+    "volume": 1509621,
+    "avg_volume_30d": 1061364
+  },
+  "scores": {
+    "master_score": 72.9,
+    "technical_score": 73.0,
+    "fundamental_score": 63.0,
+    "momentum_score": 100.0,
+    "sentiment_score": 70.0,
+    "sector_score": 46.0,
+    "breakout_score": 60.0,
+    "value_score": 50.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 72.9,
+    "confidence": 0.73,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 79.9,
+    "macd": 1.087,
+    "macd_signal": 0.4536,
+    "macd_histogram": 0.6334,
+    "macd_crossover": "neutral",
+    "ema_20": 12.57,
+    "ema_50": 11.67,
+    "ema_200": 8.95,
+    "ema_stack_bullish": true,
+    "bb_upper": 15.75,
+    "bb_middle": 11.69,
+    "bb_lower": 7.63,
+    "bb_width": 0.6942,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.7,
+    "atr": 0.99,
+    "atr_pct": 0.0612,
+    "obv_trend": "UP",
+    "mfi": 97.6,
+    "cmf": 0.349,
+    "stoch_k": 91.0,
+    "stoch_d": 86.1,
+    "rvol": 3.49,
+    "volume_5d_avg": 3703344,
+    "green_days_10d": 9,
+    "52w_high": 16.15,
+    "52w_low": 4.66,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 2.4657
+  },
+  "fundamental": {
+    "pe_ratio": 16.15,
+    "sector_pe_median": 24.255919,
+    "pb_ratio": 2.1325762,
+    "de_ratio": 141.685,
+    "fcf_yield": 0.0851,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.219,
+    "gross_margin": 0.23401,
+    "operating_margin": 0.23941,
+    "net_margin": 0.044180002,
+    "market_cap": 2138883456,
+    "enterprise_value": 3711206656,
+    "dividend_yield": 1.18,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.66472,
+    "institutional_ownership_pct": 0.30262,
+    "short_ratio": 0.39,
+    "beta": 0.596
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 11.61,
+    "entry_range_high": 16.23,
+    "target_range_low": 18.74,
+    "target_range_high": 20.08,
+    "stop_range_low": 13.46,
+    "stop_range_high": 14.17,
+    "target_price": 19.12,
+    "stop_loss": 14.17,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.947337-04:00",
+    "categories": [
+      "top_scores",
+      "breakout",
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 60.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 20.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 118.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 4.66,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8000,
+      "date": "2022-11-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "NEXA is in overbought territory with RSI at 80, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 73,
+    "price_change_display": "+0.94%",
+    "key_metrics": {
+      "RSI": 79.9,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

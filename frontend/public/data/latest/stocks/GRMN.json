@@ -1,1 +1,160 @@
-{"ticker":"GRMN","company":"Garmin Ltd.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.810029-04:00","sector":"Technology","industry":"Scientific & Technical Instruments","price":{"current":265.33,"open":264.42,"high":266.24,"low":263.73,"prev_close":264.48,"change_pct":0.32,"change_pct_1w":4.96,"change_pct_1m":12.99,"change_pct_1y":42.11,"volume":178122,"avg_volume_30d":746330},"scores":{"master_score":59.4,"technical_score":58.0,"fundamental_score":52.0,"momentum_score":80.0,"sentiment_score":68.0,"sector_score":33.0,"breakout_score":35.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":70.0,"signal_score":59.4,"confidence":0.59,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":71.7,"macd":7.4622,"macd_signal":4.7268,"macd_histogram":2.7354,"macd_crossover":"neutral","ema_20":247.34,"ema_50":236.92,"ema_200":223.18,"ema_stack_bullish":true,"bb_upper":266.86,"bb_middle":243.24,"bb_lower":219.62,"bb_width":0.1942,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":21.3,"atr":6.67,"atr_pct":0.0252,"obv_trend":"UP","mfi":67.5,"cmf":0.245,"stoch_k":97.8,"stoch_d":97.7,"rvol":0.83,"volume_5d_avg":618944,"green_days_10d":9,"52w_high":265.33,"52w_low":183.76,"52w_high_proximity_pct":0.0,"52w_low_proximity_pct":0.444},"fundamental":{"pe_ratio":30.852905,"sector_pe_median":39.217884,"pb_ratio":5.696084,"de_ratio":2.184,"fcf_yield":0.0155,"eps_growth_5y":0.212,"revenue_growth_ttm":0.166,"gross_margin":0.58744,"operating_margin":0.28902,"net_margin":0.22964,"market_cap":51071901696,"enterprise_value":48365469696,"dividend_yield":1.59,"payout_ratio":0.4016,"insider_ownership_pct":0.14883,"institutional_ownership_pct":0.57666,"short_ratio":3.56,"beta":0.968},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":235.74,"entry_range_high":266.66,"target_range_low":279.63,"target_range_high":299.61,"stop_range_low":239.39,"stop_range_high":251.99,"target_price":285.34,"stop_loss":251.99,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.809983-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":331.66,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":159.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":183.76,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":9,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":593000,"date":"2026-03-13"}},"sector_context":{"sector_etf":"XLK","sector_performance_5d":4.44,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"GRMN is overbought (RSI 72) but MACD momentum stays positive \u2014 trend may extend higher.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":59,"price_change_display":"+0.32%","key_metrics":{"RSI":71.7,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "GRMN",
+  "company": "Garmin Ltd.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.600041-04:00",
+  "sector": "Technology",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 266.51,
+    "open": 266.07,
+    "high": 268.11,
+    "low": 266.32,
+    "prev_close": 267.42,
+    "change_pct": -0.34,
+    "change_pct_1w": 1.89,
+    "change_pct_1m": 13.35,
+    "change_pct_1y": 43.36,
+    "volume": 164983,
+    "avg_volume_30d": 735222
+  },
+  "scores": {
+    "master_score": 60.57,
+    "technical_score": 60.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 68.0,
+    "sector_score": 37.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 60.57,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 70.3,
+    "macd": 8.5852,
+    "macd_signal": 6.495,
+    "macd_histogram": 2.0902,
+    "macd_crossover": "neutral",
+    "ema_20": 252.26,
+    "ema_50": 240.24,
+    "ema_200": 223.89,
+    "ema_stack_bullish": true,
+    "bb_upper": 274.94,
+    "bb_middle": 248.23,
+    "bb_lower": 221.51,
+    "bb_width": 0.2152,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.6,
+    "atr": 6.31,
+    "atr_pct": 0.0237,
+    "obv_trend": "UP",
+    "mfi": 80.0,
+    "cmf": 0.19,
+    "stoch_k": 85.7,
+    "stoch_d": 88.8,
+    "rvol": 0.97,
+    "volume_5d_avg": 713496,
+    "green_days_10d": 7,
+    "52w_high": 267.42,
+    "52w_low": 183.76,
+    "52w_high_proximity_pct": 0.0034,
+    "52w_low_proximity_pct": 0.4503
+  },
+  "fundamental": {
+    "pe_ratio": 31.06119,
+    "sector_pe_median": 40.685715,
+    "pb_ratio": 5.7212014,
+    "de_ratio": 2.184,
+    "fcf_yield": 0.0154,
+    "eps_growth_5y": 0.212,
+    "revenue_growth_ttm": 0.166,
+    "gross_margin": 0.58744,
+    "operating_margin": 0.28902,
+    "net_margin": 0.22964,
+    "market_cap": 51297103872,
+    "enterprise_value": 48931364864,
+    "dividend_yield": 1.57,
+    "payout_ratio": 0.4016,
+    "insider_ownership_pct": 0.14902,
+    "institutional_ownership_pct": 0.57910997,
+    "short_ratio": 3.56,
+    "beta": 0.968
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 239.04,
+    "entry_range_high": 267.84,
+    "target_range_low": 279.73,
+    "target_range_high": 299.71,
+    "stop_range_low": 241.2,
+    "stop_range_high": 253.89,
+    "target_price": 285.44,
+    "stop_loss": 253.89,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.600005-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 333.14,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 157.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 183.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 593000,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "GRMN is in overbought territory with RSI at 70, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "-0.34%",
+    "key_metrics": {
+      "RSI": 70.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

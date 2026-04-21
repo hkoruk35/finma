@@ -1,1 +1,161 @@
-{"ticker":"CI","company":"The Cigna Group","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.081850-04:00","sector":"Healthcare","industry":"Healthcare Plans","price":{"current":269.01,"open":270.97,"high":271.53,"low":264.89,"prev_close":272.6,"change_pct":-1.32,"change_pct_1w":-3.08,"change_pct_1m":0.25,"change_pct_1y":-16.8,"volume":523740,"avg_volume_30d":1589868},"scores":{"master_score":34.21,"technical_score":9.0,"fundamental_score":60.0,"momentum_score":30.0,"sentiment_score":75.0,"sector_score":25.6,"breakout_score":15.0,"value_score":70.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":100.0,"signal_score":34.21,"confidence":0.34,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":47.3,"macd":0.2147,"macd_signal":-0.5097,"macd_histogram":0.7244,"macd_crossover":"neutral","ema_20":271.29,"ema_50":272.81,"ema_200":281.78,"ema_stack_bullish":false,"bb_upper":280.15,"bb_middle":268.99,"bb_lower":257.84,"bb_width":0.083,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":22.0,"atr":6.57,"atr_pct":0.0244,"obv_trend":"DOWN","mfi":60.2,"cmf":0.019,"stoch_k":51.9,"stoch_d":66.9,"rvol":0.56,"volume_5d_avg":890208,"green_days_10d":6,"52w_high":332.99,"52w_low":241.71,"52w_high_proximity_pct":0.1921,"52w_low_proximity_pct":0.1129},"fundamental":{"pe_ratio":12.123029,"sector_pe_median":24.8743815,"pb_ratio":1.6991,"de_ratio":75.137,"fcf_yield":0.136,"eps_growth_5y":-0.093,"revenue_growth_ttm":0.104,"gross_margin":0.092980005,"operating_margin":0.0353,"net_margin":0.02167,"market_cap":71859519488,"enterprise_value":94729805824,"dividend_yield":2.29,"payout_ratio":0.2723,"insider_ownership_pct":0.01441,"institutional_ownership_pct":0.91553,"short_ratio":3.61,"beta":0.272},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":267.66,"entry_range_high":270.36,"target_range_low":282.95,"target_range_high":303.16,"stop_range_low":243.08,"stop_range_high":255.87,"target_price":288.72,"stop_loss":255.87,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.081822-04:00","categories":["value"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UNCLEAR","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":336.26,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":70.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":229.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":241.71,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":2,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":2307,"date":"2026-03-02"}},"sector_context":{"sector_etf":"XLV","sector_performance_5d":-1.21,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"CI near equilibrium \u2014 RSI 47, positive MACD; watch for directional catalyst.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":34,"price_change_display":"-1.32%","key_metrics":{"RSI":47.3,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "CI",
+  "company": "The Cigna Group",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.783981-04:00",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 279.87,
+    "open": 279.78,
+    "high": 280.96,
+    "low": 278.13,
+    "prev_close": 278.64,
+    "change_pct": 0.44,
+    "change_pct_1w": 1.73,
+    "change_pct_1m": 5.78,
+    "change_pct_1y": -13.25,
+    "volume": 441776,
+    "avg_volume_30d": 1585395
+  },
+  "scores": {
+    "master_score": 39.2,
+    "technical_score": 11.1,
+    "fundamental_score": 60.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 28.2,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.2,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 57.4,
+    "macd": 1.457,
+    "macd_signal": 0.2591,
+    "macd_histogram": 1.1978,
+    "macd_crossover": "neutral",
+    "ema_20": 273.11,
+    "ema_50": 273.42,
+    "ema_200": 282.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 283.13,
+    "bb_middle": 271.12,
+    "bb_lower": 259.11,
+    "bb_width": 0.0886,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.4,
+    "atr": 6.28,
+    "atr_pct": 0.0225,
+    "obv_trend": "UP",
+    "mfi": 76.3,
+    "cmf": 0.165,
+    "stoch_k": 95.3,
+    "stoch_d": 91.8,
+    "rvol": 0.81,
+    "volume_5d_avg": 1287575,
+    "green_days_10d": 6,
+    "52w_high": 332.99,
+    "52w_low": 241.71,
+    "52w_high_proximity_pct": 0.1595,
+    "52w_low_proximity_pct": 0.1579
+  },
+  "fundamental": {
+    "pe_ratio": 12.618124,
+    "sector_pe_median": 25.218787,
+    "pb_ratio": 1.767693,
+    "de_ratio": 75.137,
+    "fcf_yield": 0.1307,
+    "eps_growth_5y": -0.093,
+    "revenue_growth_ttm": 0.104,
+    "gross_margin": 0.092980005,
+    "operating_margin": 0.0353,
+    "net_margin": 0.02167,
+    "market_cap": 74760503296,
+    "enterprise_value": 96321519616,
+    "dividend_yield": 2.24,
+    "payout_ratio": 0.2723,
+    "insider_ownership_pct": 0.01441,
+    "institutional_ownership_pct": 0.91706,
+    "short_ratio": 3.61,
+    "beta": 0.272
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 272.05,
+    "entry_range_high": 281.27,
+    "target_range_low": 292.74,
+    "target_range_high": 313.65,
+    "stop_range_low": 253.94,
+    "stop_range_high": 267.31,
+    "target_price": 298.71,
+    "stop_loss": 267.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.783948-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 349.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 224.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 241.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2307,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -0.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "CI maintains a bullish bias — RSI 57, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+0.44%",
+    "key_metrics": {
+      "RSI": 57.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,1 +1,156 @@
-{"ticker":"BABA","company":"Alibaba Group Holding Limited","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.874631-04:00","sector":"Consumer Discretionary","industry":"Internet Retail","price":{"current":132.64,"open":132.7,"high":133.57,"low":131.38,"prev_close":131.35,"change_pct":0.98,"change_pct_1w":5.84,"change_pct_1m":-2.98,"change_pct_1y":25.2,"volume":5241890,"avg_volume_30d":11348323},"scores":{"master_score":27.73,"technical_score":15.6,"fundamental_score":20.0,"momentum_score":40.0,"sentiment_score":60.0,"sector_score":32.7,"breakout_score":45.0,"value_score":0.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":40.0,"signal_score":27.73,"confidence":0.28,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":53.6,"macd":-2.4894,"macd_signal":-4.4227,"macd_histogram":1.9333,"macd_crossover":"neutral","ema_20":128.61,"ema_50":136.73,"ema_200":144.56,"ema_stack_bullish":false,"bb_upper":133.47,"bb_middle":125.94,"bb_lower":118.41,"bb_width":0.1196,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":25.6,"atr":4.17,"atr_pct":0.0314,"obv_trend":"UP","mfi":53.8,"cmf":-0.067,"stoch_k":94.1,"stoch_d":87.7,"rvol":0.74,"volume_5d_avg":8368818,"green_days_10d":6,"52w_high":189.34,"52w_low":103.83,"52w_high_proximity_pct":0.2995,"52w_low_proximity_pct":0.2775},"fundamental":{"pe_ratio":23.391535,"sector_pe_median":25.634937,"pb_ratio":2.0416245,"de_ratio":25.908,"fcf_yield":-0.0823,"eps_growth_5y":-0.709,"revenue_growth_ttm":0.017,"gross_margin":0.40755,"operating_margin":0.07078,"net_margin":0.08912,"market_cap":317218652160,"enterprise_value":2453598896128,"dividend_yield":0.8,"payout_ratio":0.19450001,"insider_ownership_pct":0.000120000004,"institutional_ownership_pct":0.1175,"short_ratio":3.17,"beta":0.489},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":131.98,"entry_range_high":133.3,"target_range_low":142.25,"target_range_high":152.41,"stop_range_low":118.08,"stop_range_high":124.3,"target_price":145.15,"stop_loss":124.3,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.874560-04:00","categories":["breakout"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":165.8,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":0.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":40.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":80.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":103.83,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":null},"sector_context":{"sector_etf":"XLY","sector_performance_5d":4.49,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"BABA maintains bullish bias \u2014 RSI 54, rising MACD, normal volume.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":28,"price_change_display":"+0.98%","key_metrics":{"RSI":53.6,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "BABA",
+  "company": "Alibaba Group Holding Limited",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.653030-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 140.27,
+    "open": 140.46,
+    "high": 140.46,
+    "low": 138.87,
+    "prev_close": 141.01,
+    "change_pct": -0.52,
+    "change_pct_1w": 9.58,
+    "change_pct_1m": 12.31,
+    "change_pct_1y": 33.62,
+    "volume": 3815384,
+    "avg_volume_30d": 11131019
+  },
+  "scores": {
+    "master_score": 31.04,
+    "technical_score": 12.6,
+    "fundamental_score": 20.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 60.0,
+    "sector_score": 36.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 31.04,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 62.4,
+    "macd": 0.3819,
+    "macd_signal": -2.4202,
+    "macd_histogram": 2.8021,
+    "macd_crossover": "neutral",
+    "ema_20": 131.61,
+    "ema_50": 137.12,
+    "ema_200": 143.92,
+    "ema_stack_bullish": false,
+    "bb_upper": 139.92,
+    "bb_middle": 127.88,
+    "bb_lower": 115.84,
+    "bb_width": 0.1882,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.3,
+    "atr": 4.3,
+    "atr_pct": 0.0307,
+    "obv_trend": "UP",
+    "mfi": 73.1,
+    "cmf": 0.046,
+    "stoch_k": 86.4,
+    "stoch_d": 88.5,
+    "rvol": 0.98,
+    "volume_5d_avg": 10853536,
+    "green_days_10d": 7,
+    "52w_high": 189.34,
+    "52w_low": 103.83,
+    "52w_high_proximity_pct": 0.2592,
+    "52w_low_proximity_pct": 0.351
+  },
+  "fundamental": {
+    "pe_ratio": 24.695423,
+    "sector_pe_median": 26.283674,
+    "pb_ratio": 2.1352026,
+    "de_ratio": 25.908,
+    "fcf_yield": -0.0779,
+    "eps_growth_5y": -0.709,
+    "revenue_growth_ttm": 0.017,
+    "gross_margin": 0.40755,
+    "operating_margin": 0.07078,
+    "net_margin": 0.08912,
+    "market_cap": 335491661824,
+    "enterprise_value": 2632965685248,
+    "dividend_yield": 0.74,
+    "payout_ratio": 0.19450001,
+    "insider_ownership_pct": 0.00011,
+    "institutional_ownership_pct": 0.11785,
+    "short_ratio": 3.17,
+    "beta": 0.489
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 136.43,
+    "entry_range_high": 140.97,
+    "target_range_low": 150.11,
+    "target_range_high": 160.83,
+    "stop_range_low": 125.09,
+    "stop_range_high": 131.67,
+    "target_price": 153.17,
+    "stop_loss": 131.67,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.652984-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 175.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 74.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 103.83,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 2.53,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BABA shows mixed signals with RSI at 62 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-0.52%",
+    "key_metrics": {
+      "RSI": 62.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

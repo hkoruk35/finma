@@ -1,1 +1,161 @@
-{"ticker":"INTU","company":"Intuit Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.717271-04:00","sector":"Technology","industry":"Software - Application","price":{"current":388.74,"open":375.0,"high":389.56,"low":372.76,"prev_close":366.8,"change_pct":5.98,"change_pct_1w":0.11,"change_pct_1m":-13.79,"change_pct_1y":-33.24,"volume":1610631,"avg_volume_30d":3534017},"scores":{"master_score":33.91,"technical_score":9.6,"fundamental_score":67.0,"momentum_score":10.0,"sentiment_score":85.0,"sector_score":33.0,"breakout_score":30.0,"value_score":40.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":100.0,"signal_score":33.91,"confidence":0.34,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":42.5,"macd":-18.9233,"macd_signal":-14.6398,"macd_histogram":-4.2835,"macd_crossover":"neutral","ema_20":403.61,"ema_50":439.42,"ema_200":557.13,"ema_stack_bullish":false,"bb_upper":475.87,"bb_middle":413.38,"bb_lower":350.88,"bb_width":0.3024,"bb_squeeze":true,"bb_squeeze_intensity":"MEDIUM","adx":27.7,"atr":20.32,"atr_pct":0.0523,"obv_trend":"DOWN","mfi":38.8,"cmf":-0.133,"stoch_k":46.6,"stoch_d":32.1,"rvol":1.29,"volume_5d_avg":4567826,"green_days_10d":2,"52w_high":801.96,"52w_low":350.94,"52w_high_proximity_pct":0.5153,"52w_low_proximity_pct":0.1077},"fundamental":{"pe_ratio":25.292128,"sector_pe_median":39.217884,"pb_ratio":5.66107,"de_ratio":36.148,"fcf_yield":0.049,"eps_growth_5y":0.485,"revenue_growth_ttm":0.174,"gross_margin":0.80896,"operating_margin":0.18383,"net_margin":0.2157,"market_cap":108176261120,"enterprise_value":105351536640,"dividend_yield":1.26,"payout_ratio":0.2915,"insider_ownership_pct":0.023540001,"institutional_ownership_pct":0.90494,"short_ratio":1.47,"beta":1.213},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":386.8,"entry_range_high":390.68,"target_range_low":440.71,"target_range_high":472.19,"stop_range_low":330.69,"stop_range_high":348.1,"target_price":449.7,"stop_loss":348.1,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.717220-04:00","categories":["dividend"]},"breakout":{"squeeze_intensity":"MEDIUM","breakout_direction":"UNCLEAR","breakout_score":30.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":485.93,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":40.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":126.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":350.94,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":1,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":3360,"date":"2026-04-01"}},"sector_context":{"sector_etf":"XLK","sector_performance_5d":4.44,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"INTU faces selling pressure \u2014 RSI 42, negative MACD, 1.0x volume indicate bearish momentum.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":34,"price_change_display":"+5.98%","key_metrics":{"RSI":42.5,"MACD":"Neutral","Volume":"Above avg","Trend":"Mixed"}}}
+{
+  "ticker": "INTU",
+  "company": "Intuit Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.512987-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 399.53,
+    "open": 393.99,
+    "high": 404.3,
+    "low": 391.91,
+    "prev_close": 393.25,
+    "change_pct": 1.6,
+    "change_pct_1w": 8.15,
+    "change_pct_1m": -11.97,
+    "change_pct_1y": -31.51,
+    "volume": 1089003,
+    "avg_volume_30d": 3251990
+  },
+  "scores": {
+    "master_score": 32.85,
+    "technical_score": 13.8,
+    "fundamental_score": 67.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.7,
+    "breakout_score": 40.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 32.85,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.8,
+    "macd": -14.4745,
+    "macd_signal": -15.277,
+    "macd_histogram": 0.8024,
+    "macd_crossover": "bullish",
+    "ema_20": 401.11,
+    "ema_50": 434.25,
+    "ema_200": 550.04,
+    "ema_stack_bullish": false,
+    "bb_upper": 459.44,
+    "bb_middle": 404.75,
+    "bb_lower": 350.06,
+    "bb_width": 0.2702,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 24.5,
+    "atr": 19.29,
+    "atr_pct": 0.0483,
+    "obv_trend": "DOWN",
+    "mfi": 45.8,
+    "cmf": -0.139,
+    "stoch_k": 61.7,
+    "stoch_d": 55.0,
+    "rvol": 0.78,
+    "volume_5d_avg": 2550440,
+    "green_days_10d": 4,
+    "52w_high": 801.96,
+    "52w_low": 350.94,
+    "52w_high_proximity_pct": 0.5018,
+    "52w_low_proximity_pct": 0.1385
+  },
+  "fundamental": {
+    "pe_ratio": 25.970741,
+    "sector_pe_median": 40.685715,
+    "pb_ratio": 5.8167443,
+    "de_ratio": 36.148,
+    "fcf_yield": 0.0477,
+    "eps_growth_5y": 0.485,
+    "revenue_growth_ttm": 0.174,
+    "gross_margin": 0.80896,
+    "operating_margin": 0.18383,
+    "net_margin": 0.2157,
+    "market_cap": 111151013888,
+    "enterprise_value": 112666288128,
+    "dividend_yield": 1.18,
+    "payout_ratio": 0.2915,
+    "insider_ownership_pct": 0.023540001,
+    "institutional_ownership_pct": 0.90676004,
+    "short_ratio": 2.0,
+    "beta": 1.213
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 397.53,
+    "entry_range_high": 401.53,
+    "target_range_low": 448.25,
+    "target_range_high": 480.27,
+    "stop_range_low": 342.9,
+    "stop_range_high": 360.95,
+    "target_price": 457.4,
+    "stop_loss": 360.95,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.512930-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 40.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 499.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 118.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": true,
+    "support_level": 350.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3360,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "INTU shows mixed signals with RSI at 47 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "+1.60%",
+    "key_metrics": {
+      "RSI": 46.8,
+      "MACD": "Bullish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

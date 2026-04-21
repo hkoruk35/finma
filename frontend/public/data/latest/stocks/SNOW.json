@@ -1,1 +1,160 @@
-{"ticker":"SNOW","company":"Snowflake Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.732173-04:00","sector":"Technology","industry":"Software - Application","price":{"current":141.4,"open":139.0,"high":141.69,"low":137.01,"prev_close":135.47,"change_pct":4.37,"change_pct_1w":-5.73,"change_pct_1m":-18.92,"change_pct_1y":-2.46,"volume":3727168,"avg_volume_30d":6196272},"scores":{"master_score":23.27,"technical_score":9.9,"fundamental_score":12.0,"momentum_score":30.0,"sentiment_score":75.0,"sector_score":33.0,"breakout_score":40.0,"value_score":0.0,"reversal_score":15.0,"momentum_cat_score":25.0,"dividend_score":30.0,"signal_score":23.27,"confidence":0.23,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":40.6,"macd":-10.2975,"macd_signal":-9.178,"macd_histogram":-1.1195,"macd_crossover":"neutral","ema_20":149.77,"ema_50":166.81,"ema_200":195.85,"ema_stack_bullish":false,"bb_upper":181.1,"bb_middle":152.52,"bb_lower":123.95,"bb_width":0.3746,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":29.7,"atr":9.34,"atr_pct":0.0661,"obv_trend":"DOWN","mfi":39.9,"cmf":-0.193,"stoch_k":47.9,"stoch_d":37.5,"rvol":2.13,"volume_5d_avg":13179713,"green_days_10d":5,"52w_high":277.14,"52w_low":121.11,"52w_high_proximity_pct":0.4898,"52w_low_proximity_pct":0.1675},"fundamental":{"pe_ratio":null,"sector_pe_median":39.217884,"pb_ratio":25.28329,"de_ratio":142.462,"fcf_yield":0.0325,"eps_growth_5y":null,"revenue_growth_ttm":0.301,"gross_margin":0.67169,"operating_margin":-0.33236998,"net_margin":-0.28429002,"market_cap":48902725632,"enterprise_value":45489352704,"dividend_yield":null,"payout_ratio":0.0,"insider_ownership_pct":0.03215,"institutional_ownership_pct":0.77292997,"short_ratio":2.91,"beta":1.228},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":140.69,"entry_range_high":142.11,"target_range_low":166.03,"target_range_high":177.89,"stop_range_low":116.58,"stop_range_high":122.72,"target_price":169.42,"stop_loss":122.72,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.732109-04:00","categories":["reversal"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UNCLEAR","breakout_score":40.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":176.75,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":0.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":30.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":121.11,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":18,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":1567652,"date":"2026-04-07"}},"sector_context":{"sector_etf":"XLK","sector_performance_5d":4.44,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"SNOW faces selling pressure \u2014 RSI 41, negative MACD, 1.0x volume indicate bearish momentum.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":23,"price_change_display":"+4.37%","key_metrics":{"RSI":40.6,"MACD":"Neutral","Volume":"Above avg","Trend":"Mixed"}}}
+{
+  "ticker": "SNOW",
+  "company": "Snowflake Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.528066-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 149.41,
+    "open": 143.48,
+    "high": 149.59,
+    "low": 143.47,
+    "prev_close": 143.98,
+    "change_pct": 3.77,
+    "change_pct_1w": 11.3,
+    "change_pct_1m": -14.82,
+    "change_pct_1y": 2.28,
+    "volume": 3436257,
+    "avg_volume_30d": 6371295
+  },
+  "scores": {
+    "master_score": 25.0,
+    "technical_score": 13.5,
+    "fundamental_score": 12.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 25.0,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 47.3,
+    "macd": -7.5503,
+    "macd_signal": -8.76,
+    "macd_histogram": 1.2097,
+    "macd_crossover": "neutral",
+    "ema_20": 148.97,
+    "ema_50": 164.53,
+    "ema_200": 192.62,
+    "ema_stack_bullish": false,
+    "bb_upper": 171.92,
+    "bb_middle": 148.69,
+    "bb_lower": 125.46,
+    "bb_width": 0.3125,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.2,
+    "atr": 8.86,
+    "atr_pct": 0.0593,
+    "obv_trend": "UP",
+    "mfi": 43.9,
+    "cmf": -0.164,
+    "stoch_k": 78.7,
+    "stoch_d": 67.7,
+    "rvol": 1.08,
+    "volume_5d_avg": 6868391,
+    "green_days_10d": 6,
+    "52w_high": 277.14,
+    "52w_low": 121.11,
+    "52w_high_proximity_pct": 0.4609,
+    "52w_low_proximity_pct": 0.2337
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 40.685715,
+    "pb_ratio": 26.704203,
+    "de_ratio": 142.462,
+    "fcf_yield": 0.0307,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.301,
+    "gross_margin": 0.67169,
+    "operating_margin": -0.33236998,
+    "net_margin": -0.28429002,
+    "market_cap": 51651039232,
+    "enterprise_value": 48427864064,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.03214,
+    "institutional_ownership_pct": 0.77312,
+    "short_ratio": 2.91,
+    "beta": 1.228
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 148.66,
+    "entry_range_high": 150.16,
+    "target_range_low": 172.47,
+    "target_range_high": 184.79,
+    "stop_range_low": 125.11,
+    "stop_range_high": 131.69,
+    "target_price": 175.99,
+    "stop_loss": 131.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.528032-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 186.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 121.11,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 17,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1567652,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "SNOW shows mixed signals with RSI at 47 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "+3.77%",
+    "key_metrics": {
+      "RSI": 47.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,1 +1,161 @@
-{"ticker":"TTD","company":"The Trade Desk, Inc.","date":"2026-04-15","generated_at":"2026-04-15T13:17:43.756421-04:00","sector":"Technology","industry":"Advertising Agencies","price":{"current":22.22,"open":21.43,"high":22.44,"low":21.3,"prev_close":21.02,"change_pct":5.71,"change_pct_1w":9.73,"change_pct_1m":-17.95,"change_pct_1y":-55.36,"volume":7821447,"avg_volume_30d":21198874},"scores":{"master_score":34.0,"technical_score":12.0,"fundamental_score":60.0,"momentum_score":20.0,"sentiment_score":75.0,"sector_score":33.0,"breakout_score":45.0,"value_score":65.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":30.0,"signal_score":34.0,"confidence":0.34,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":46.0,"macd":-1.2686,"macd_signal":-1.445,"macd_histogram":0.1763,"macd_crossover":"neutral","ema_20":22.28,"ema_50":25.39,"ema_200":40.06,"ema_stack_bullish":false,"bb_upper":24.26,"bb_middle":21.98,"bb_lower":19.69,"bb_width":0.2079,"bb_squeeze":true,"bb_squeeze_intensity":"HIGH","adx":24.8,"atr":1.39,"atr_pct":0.0627,"obv_trend":"DOWN","mfi":50.1,"cmf":-0.141,"stoch_k":69.7,"stoch_d":47.1,"rvol":0.64,"volume_5d_avg":13476109,"green_days_10d":5,"52w_high":89.76,"52w_low":20.09,"52w_high_proximity_pct":0.7525,"52w_low_proximity_pct":0.106},"fundamental":{"pe_ratio":24.688889,"sector_pe_median":39.217884,"pb_ratio":4.256705,"de_ratio":17.563,"fcf_yield":0.0569,"eps_growth_5y":0.075,"revenue_growth_ttm":0.143,"gross_margin":0.78625,"operating_margin":0.30335,"net_margin":0.15306,"market_cap":10576209920,"enterprise_value":9138310144,"dividend_yield":null,"payout_ratio":0.0,"insider_ownership_pct":0.02262,"institutional_ownership_pct":0.83629,"short_ratio":2.23,"beta":1.174},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":22.11,"entry_range_high":22.33,"target_range_low":25.86,"target_range_high":27.71,"stop_range_low":18.47,"stop_range_high":19.44,"target_price":26.39,"stop_loss":19.44,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:43.756395-04:00","categories":["breakout"]},"breakout":{"squeeze_intensity":"HIGH","breakout_direction":"UNCLEAR","breakout_score":45.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":27.77,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":65.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":30.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":20.09,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":1,"last_90_days_sells":1,"net_direction":"NEUTRAL","last_transaction":{"type":"SELL","shares":12304,"date":"2026-04-02"}},"sector_context":{"sector_etf":"XLK","sector_performance_5d":4.44,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"TTD shows mixed signals \u2014 RSI 46 with positive MACD; volume confirmation needed for a breakout.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":34,"price_change_display":"+5.71%","key_metrics":{"RSI":46.0,"MACD":"Neutral","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "TTD",
+  "company": "The Trade Desk, Inc.",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.535428-04:00",
+  "sector": "Technology",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 23.16,
+    "open": 22.27,
+    "high": 23.16,
+    "low": 22.25,
+    "prev_close": 22.47,
+    "change_pct": 3.05,
+    "change_pct_1w": 9.12,
+    "change_pct_1m": -1.51,
+    "change_pct_1y": -52.21,
+    "volume": 4984215,
+    "avg_volume_30d": 18381543
+  },
+  "scores": {
+    "master_score": 39.52,
+    "technical_score": 15.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.7,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 39.52,
+    "confidence": 0.4,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.3,
+    "macd": -0.7671,
+    "macd_signal": -1.179,
+    "macd_histogram": 0.4119,
+    "macd_crossover": "neutral",
+    "ema_20": 22.43,
+    "ema_50": 25.1,
+    "ema_200": 39.18,
+    "ema_stack_bullish": false,
+    "bb_upper": 23.78,
+    "bb_middle": 21.84,
+    "bb_lower": 19.91,
+    "bb_width": 0.1772,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 20.2,
+    "atr": 1.32,
+    "atr_pct": 0.0572,
+    "obv_trend": "UP",
+    "mfi": 54.1,
+    "cmf": -0.195,
+    "stoch_k": 92.8,
+    "stoch_d": 83.2,
+    "rvol": 0.76,
+    "volume_5d_avg": 14056103,
+    "green_days_10d": 5,
+    "52w_high": 89.76,
+    "52w_low": 20.09,
+    "52w_high_proximity_pct": 0.742,
+    "52w_low_proximity_pct": 0.1526
+  },
+  "fundamental": {
+    "pe_ratio": 25.72778,
+    "sector_pe_median": 40.685715,
+    "pb_ratio": 4.435824,
+    "de_ratio": 17.563,
+    "fcf_yield": 0.0546,
+    "eps_growth_5y": 0.075,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.78625,
+    "operating_margin": 0.30335,
+    "net_margin": 0.15306,
+    "market_cap": 11021249536,
+    "enterprise_value": 9828476928,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02262,
+    "institutional_ownership_pct": 0.83711,
+    "short_ratio": 2.8,
+    "beta": 1.174
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 23.04,
+    "entry_range_high": 23.28,
+    "target_range_low": 26.58,
+    "target_range_high": 28.48,
+    "stop_range_low": 19.49,
+    "stop_range_high": 20.52,
+    "target_price": 27.12,
+    "stop_loss": 20.52,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.535370-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 28.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.09,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 48,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 4.02,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "TTD maintains a bullish bias — RSI 51, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 40,
+    "price_change_display": "+3.05%",
+    "key_metrics": {
+      "RSI": 51.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,1 +1,160 @@
-{"ticker":"PODD","company":"Insulet Corporation","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.070437-04:00","sector":"Healthcare","industry":"Medical Devices","price":{"current":202.6,"open":202.82,"high":205.66,"low":201.96,"prev_close":201.49,"change_pct":0.55,"change_pct_1w":-0.44,"change_pct_1m":-9.82,"change_pct_1y":-20.23,"volume":276396,"avg_volume_30d":917283},"scores":{"master_score":20.79,"technical_score":13.5,"fundamental_score":8.0,"momentum_score":20.0,"sentiment_score":75.0,"sector_score":25.6,"breakout_score":25.0,"value_score":0.0,"reversal_score":80.0,"momentum_cat_score":50.0,"dividend_score":0.0,"signal_score":20.79,"confidence":0.21,"signal_type":"UNDERPERFORM"},"technical":{"rsi_14":33.2,"macd":-9.8344,"macd_signal":-10.2762,"macd_histogram":0.4418,"macd_crossover":"bullish","ema_20":210.35,"ema_50":229.61,"ema_200":270.74,"ema_stack_bullish":false,"bb_upper":232.88,"bb_middle":210.89,"bb_lower":188.91,"bb_width":0.2085,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":42.5,"atr":6.89,"atr_pct":0.034,"obv_trend":"UP","mfi":21.2,"cmf":-0.226,"stoch_k":30.2,"stoch_d":20.3,"rvol":0.7,"volume_5d_avg":643799,"green_days_10d":4,"52w_high":352.82,"52w_low":196.93,"52w_high_proximity_pct":0.4258,"52w_low_proximity_pct":0.0288},"fundamental":{"pe_ratio":58.05301,"sector_pe_median":24.8743815,"pb_ratio":9.4121065,"de_ratio":66.176,"fcf_yield":0.0109,"eps_growth_5y":0.039,"revenue_growth_ttm":0.312,"gross_margin":0.71633005,"operating_margin":0.18665001,"net_margin":0.091239996,"market_cap":14262550528,"enterprise_value":14470659072,"dividend_yield":null,"payout_ratio":0.0,"insider_ownership_pct":0.0031299999,"institutional_ownership_pct":1.0515,"short_ratio":2.17,"beta":1.47},"scores_detail":{"signal_type":"UNDERPERFORM","entry_range_low":201.59,"entry_range_high":203.61,"target_range_low":218.8,"target_range_high":234.43,"stop_range_low":179.38,"stop_range_high":188.82,"target_price":223.27,"stop_loss":188.82,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.070416-04:00","categories":["reversal"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UNCLEAR","breakout_score":25.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":253.25,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":0.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":0.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":0},"reversal":{"is_oversold":false,"bullish_divergence":true,"support_level":196.93,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":1,"last_90_days_sells":0,"net_direction":"BUY","last_transaction":{"type":"SELL","shares":2777,"date":"2026-04-01"}},"sector_context":{"sector_etf":"XLV","sector_performance_5d":-1.21,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"PODD shows mixed signals \u2014 RSI 33 with positive MACD; volume confirmation needed for a breakout.","quick_view":{"score_badge":"UNDERPERFORM","score_bar":21,"price_change_display":"+0.55%","key_metrics":{"RSI":33.2,"MACD":"Bullish","Volume":"Normal","Trend":"Mixed"}}}
+{
+  "ticker": "PODD",
+  "company": "Insulet Corporation",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.774782-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 202.51,
+    "open": 201.79,
+    "high": 204.95,
+    "low": 200.94,
+    "prev_close": 203.73,
+    "change_pct": -0.6,
+    "change_pct_1w": 2.38,
+    "change_pct_1m": -11.42,
+    "change_pct_1y": -19.23,
+    "volume": 178532,
+    "avg_volume_30d": 888991
+  },
+  "scores": {
+    "master_score": 22.84,
+    "technical_score": 12.9,
+    "fundamental_score": 8.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 28.2,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 22.84,
+    "confidence": 0.23,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 35.0,
+    "macd": -8.1939,
+    "macd_signal": -9.4942,
+    "macd_histogram": 1.3003,
+    "macd_crossover": "neutral",
+    "ema_20": 208.34,
+    "ema_50": 226.55,
+    "ema_200": 266.69,
+    "ema_stack_bullish": false,
+    "bb_upper": 223.51,
+    "bb_middle": 206.97,
+    "bb_lower": 190.43,
+    "bb_width": 0.1598,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 40.4,
+    "atr": 6.42,
+    "atr_pct": 0.0317,
+    "obv_trend": "UP",
+    "mfi": 34.7,
+    "cmf": -0.277,
+    "stoch_k": 43.1,
+    "stoch_d": 40.7,
+    "rvol": 0.75,
+    "volume_5d_avg": 664886,
+    "green_days_10d": 5,
+    "52w_high": 352.82,
+    "52w_low": 196.93,
+    "52w_high_proximity_pct": 0.426,
+    "52w_low_proximity_pct": 0.0283
+  },
+  "fundamental": {
+    "pe_ratio": 58.192528,
+    "sector_pe_median": 25.218787,
+    "pb_ratio": 9.407693,
+    "de_ratio": 66.176,
+    "fcf_yield": 0.0109,
+    "eps_growth_5y": 0.039,
+    "revenue_growth_ttm": 0.312,
+    "gross_margin": 0.71633005,
+    "operating_margin": 0.18665001,
+    "net_margin": 0.091239996,
+    "market_cap": 14255862784,
+    "enterprise_value": 14628345856,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0031299999,
+    "institutional_ownership_pct": 1.05443,
+    "short_ratio": 3.13,
+    "beta": 1.47
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 201.5,
+    "entry_range_high": 203.52,
+    "target_range_low": 217.33,
+    "target_range_high": 232.86,
+    "stop_range_low": 180.19,
+    "stop_range_high": 189.67,
+    "target_price": 221.77,
+    "stop_loss": 189.67,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.774758-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 253.14,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 196.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2777,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -0.54,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "PODD shows oversold RSI (35) with weakening momentum; a bounce setup is forming if volume supports the move.",
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 23,
+    "price_change_display": "-0.60%",
+    "key_metrics": {
+      "RSI": 35.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

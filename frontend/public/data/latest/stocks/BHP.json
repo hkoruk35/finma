@@ -1,1 +1,160 @@
-{"ticker":"BHP","company":"BHP Group Limited","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.354050-04:00","sector":"Materials","industry":"Other Industrial Metals & Mining","price":{"current":79.24,"open":79.8,"high":79.64,"low":78.77,"prev_close":79.17,"change_pct":0.08,"change_pct_1w":2.96,"change_pct_1m":12.69,"change_pct_1y":78.55,"volume":1252752,"avg_volume_30d":3541741},"scores":{"master_score":60.01,"technical_score":57.0,"fundamental_score":54.0,"momentum_score":80.0,"sentiment_score":60.0,"sector_score":45.6,"breakout_score":35.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":100.0,"signal_score":60.01,"confidence":0.6,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":67.6,"macd":1.9251,"macd_signal":1.0084,"macd_histogram":0.9168,"macd_crossover":"neutral","ema_20":74.42,"ema_50":71.83,"ema_200":62.24,"ema_stack_bullish":true,"bb_upper":80.84,"bb_middle":72.41,"bb_lower":63.97,"bb_width":0.233,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":19.4,"atr":2.11,"atr_pct":0.0266,"obv_trend":"UP","mfi":79.6,"cmf":0.014,"stoch_k":96.5,"stoch_d":96.4,"rvol":0.67,"volume_5d_avg":2389270,"green_days_10d":7,"52w_high":81.41,"52w_low":44.75,"52w_high_proximity_pct":0.0267,"52w_low_proximity_pct":0.7707},"fundamental":{"pe_ratio":19.66129,"sector_pe_median":23.866705,"pb_ratio":3.9900796,"de_ratio":52.639,"fcf_yield":0.0404,"eps_growth_5y":0.275,"revenue_growth_ttm":0.108,"gross_margin":0.83085,"operating_margin":0.40728,"net_margin":0.18972999,"market_cap":201284239360,"enterprise_value":422691078144,"dividend_yield":3.36,"payout_ratio":0.5464,"insider_ownership_pct":5e-05,"institutional_ownership_pct":0.04078,"short_ratio":3.66,"beta":0.798},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":71.47,"entry_range_high":79.64,"target_range_low":83.86,"target_range_high":89.85,"stop_range_low":71.27,"stop_range_high":75.02,"target_price":85.57,"stop_loss":75.02,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.354032-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":35.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":99.05,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":336.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":44.75,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":0,"net_direction":"NEUTRAL","last_transaction":{"type":"SELL","shares":1000,"date":"2025-04-07"}},"sector_context":{"sector_etf":"XLB","sector_performance_5d":-0.71,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"BHP maintains bullish bias \u2014 RSI 68, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":60,"price_change_display":"+0.08%","key_metrics":{"RSI":67.6,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "BHP",
+  "company": "BHP Group Limited",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.908168-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 79.55,
+    "open": 79.54,
+    "high": 79.84,
+    "low": 78.94,
+    "prev_close": 80.45,
+    "change_pct": -1.12,
+    "change_pct_1w": 1.86,
+    "change_pct_1m": 18.08,
+    "change_pct_1y": 77.77,
+    "volume": 1159232,
+    "avg_volume_30d": 3372914
+  },
+  "scores": {
+    "master_score": 61.1,
+    "technical_score": 60.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 60.0,
+    "sector_score": 46.0,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 61.1,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 66.0,
+    "macd": 2.3027,
+    "macd_signal": 1.6093,
+    "macd_histogram": 0.6934,
+    "macd_crossover": "neutral",
+    "ema_20": 75.84,
+    "ema_50": 72.75,
+    "ema_200": 62.75,
+    "ema_stack_bullish": true,
+    "bb_upper": 82.79,
+    "bb_middle": 74.34,
+    "bb_lower": 65.89,
+    "bb_width": 0.2273,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.1,
+    "atr": 1.99,
+    "atr_pct": 0.025,
+    "obv_trend": "UP",
+    "mfi": 82.4,
+    "cmf": 0.049,
+    "stoch_k": 83.8,
+    "stoch_d": 90.6,
+    "rvol": 0.73,
+    "volume_5d_avg": 2474186,
+    "green_days_10d": 7,
+    "52w_high": 81.41,
+    "52w_low": 45.25,
+    "52w_high_proximity_pct": 0.0228,
+    "52w_low_proximity_pct": 0.7581
+  },
+  "fundamental": {
+    "pe_ratio": 19.788559,
+    "sector_pe_median": 24.255919,
+    "pb_ratio": 4.0059423,
+    "de_ratio": 52.639,
+    "fcf_yield": 0.0403,
+    "eps_growth_5y": 0.275,
+    "revenue_growth_ttm": 0.108,
+    "gross_margin": 0.83085,
+    "operating_margin": 0.40728,
+    "net_margin": 0.18972999,
+    "market_cap": 202084466688,
+    "enterprise_value": 429189660672,
+    "dividend_yield": 3.31,
+    "payout_ratio": 0.5464,
+    "insider_ownership_pct": 5e-05,
+    "institutional_ownership_pct": 0.04083,
+    "short_ratio": 3.66,
+    "beta": 0.798
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 72.39,
+    "entry_range_high": 79.95,
+    "target_range_low": 83.81,
+    "target_range_high": 89.8,
+    "stop_range_low": 71.79,
+    "stop_range_high": 75.57,
+    "target_price": 85.52,
+    "stop_loss": 75.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.908150-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 99.44,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 331.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 45.25,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1000,
+      "date": "2025-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "BHP maintains a bullish bias — RSI 66, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "-1.12%",
+    "key_metrics": {
+      "RSI": 66.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

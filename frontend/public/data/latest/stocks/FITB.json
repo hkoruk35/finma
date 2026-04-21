@@ -1,1 +1,160 @@
-{"ticker":"FITB","company":"Fifth Third Bancorp","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.276761-04:00","sector":"Financials","industry":"Banks - Regional","price":{"current":50.1,"open":50.0,"high":50.2,"low":49.38,"prev_close":49.77,"change_pct":0.66,"change_pct_1w":1.54,"change_pct_1m":14.63,"change_pct_1y":53.36,"volume":2441794,"avg_volume_30d":9576283},"scores":{"master_score":56.9,"technical_score":60.0,"fundamental_score":42.0,"momentum_score":70.0,"sentiment_score":75.0,"sector_score":39.0,"breakout_score":15.0,"value_score":35.0,"reversal_score":0.0,"momentum_cat_score":25.0,"dividend_score":70.0,"signal_score":56.9,"confidence":0.57,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":64.4,"macd":0.7795,"macd_signal":0.1702,"macd_histogram":0.6093,"macd_crossover":"neutral","ema_20":47.84,"ema_50":47.72,"ema_200":45.21,"ema_stack_bullish":true,"bb_upper":51.42,"bb_middle":46.71,"bb_lower":42.0,"bb_width":0.2016,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":23.5,"atr":1.25,"atr_pct":0.025,"obv_trend":"UP","mfi":58.8,"cmf":0.251,"stoch_k":92.6,"stoch_d":89.7,"rvol":0.56,"volume_5d_avg":5383038,"green_days_10d":8,"52w_high":54.59,"52w_low":32.17,"52w_high_proximity_pct":0.0822,"52w_low_proximity_pct":0.5575},"fundamental":{"pe_ratio":14.192635,"sector_pe_median":16.357060500000003,"pb_ratio":1.6600946,"de_ratio":null,"fcf_yield":null,"eps_growth_5y":0.209,"revenue_growth_ttm":0.116,"gross_margin":0.0,"operating_margin":0.41089,"net_margin":0.30186,"market_cap":45368729600,"enterprise_value":57489530880,"dividend_yield":3.21,"payout_ratio":0.4363,"insider_ownership_pct":0.00352,"institutional_ownership_pct":0.70015,"short_ratio":4.07,"beta":0.973},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":47.48,"entry_range_high":50.35,"target_range_low":52.77,"target_range_high":56.54,"stop_range_low":45.22,"stop_range_high":47.6,"target_price":53.85,"stop_loss":47.6,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.276727-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":62.62,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":35.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":321.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":32.17,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":3,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":14896,"date":"2026-02-24"}},"sector_context":{"sector_etf":"XLF","sector_performance_5d":1.69,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"FITB maintains bullish bias \u2014 RSI 64, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":57,"price_change_display":"+0.66%","key_metrics":{"RSI":64.4,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "FITB",
+  "company": "Fifth Third Bancorp",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.852809-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 50.74,
+    "open": 49.99,
+    "high": 51.1,
+    "low": 49.98,
+    "prev_close": 50.34,
+    "change_pct": 0.79,
+    "change_pct_1w": 1.81,
+    "change_pct_1m": 17.27,
+    "change_pct_1y": 52.79,
+    "volume": 2626838,
+    "avg_volume_30d": 9598707
+  },
+  "scores": {
+    "master_score": 52.37,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.2,
+    "breakout_score": 35.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 52.37,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 66.3,
+    "macd": 0.9522,
+    "macd_signal": 0.5152,
+    "macd_histogram": 0.437,
+    "macd_crossover": "neutral",
+    "ema_20": 48.45,
+    "ema_50": 47.99,
+    "ema_200": 45.29,
+    "ema_stack_bullish": true,
+    "bb_upper": 52.09,
+    "bb_middle": 47.7,
+    "bb_lower": 43.32,
+    "bb_width": 0.1839,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.9,
+    "atr": 1.22,
+    "atr_pct": 0.0241,
+    "obv_trend": "UP",
+    "mfi": 74.9,
+    "cmf": 0.085,
+    "stoch_k": 94.4,
+    "stoch_d": 89.4,
+    "rvol": 0.71,
+    "volume_5d_avg": 6828187,
+    "green_days_10d": 7,
+    "52w_high": 54.59,
+    "52w_low": 32.17,
+    "52w_high_proximity_pct": 0.0705,
+    "52w_low_proximity_pct": 0.5774
+  },
+  "fundamental": {
+    "pe_ratio": 17.084175,
+    "sector_pe_median": 16.511834999999998,
+    "pb_ratio": 1.6813016,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": -0.789,
+    "revenue_growth_ttm": 0.33,
+    "gross_margin": 0.0,
+    "operating_margin": 0.07955,
+    "net_margin": 0.24133,
+    "market_cap": 45961457664,
+    "enterprise_value": 62070128640,
+    "dividend_yield": 3.18,
+    "payout_ratio": 0.5286,
+    "insider_ownership_pct": 0.00352,
+    "institutional_ownership_pct": 0.70121,
+    "short_ratio": 3.9,
+    "beta": 0.973
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 47.75,
+    "entry_range_high": 50.99,
+    "target_range_low": 53.31,
+    "target_range_high": 57.12,
+    "stop_range_low": 45.89,
+    "stop_range_high": 48.3,
+    "target_price": 54.4,
+    "stop_loss": 48.3,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.852783-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 63.43,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 318.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 32.17,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14896,
+      "date": "2026-02-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 1.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "FITB maintains a bullish bias — RSI 66, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+0.79%",
+    "key_metrics": {
+      "RSI": 66.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

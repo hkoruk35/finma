@@ -1,1 +1,160 @@
-{"ticker":"REG","company":"Regency Centers Corporation","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.497736-04:00","sector":"Real Estate","industry":"REIT - Retail","price":{"current":79.42,"open":79.44,"high":79.5,"low":79.08,"prev_close":79.57,"change_pct":-0.19,"change_pct_1w":2.0,"change_pct_1m":2.62,"change_pct_1y":19.17,"volume":434704,"avg_volume_30d":1321873},"scores":{"master_score":62.02,"technical_score":62.0,"fundamental_score":54.0,"momentum_score":80.0,"sentiment_score":65.0,"sector_score":43.2,"breakout_score":20.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":70.0,"signal_score":62.02,"confidence":0.62,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":69.7,"macd":0.8347,"macd_signal":0.4725,"macd_histogram":0.3622,"macd_crossover":"neutral","ema_20":77.27,"ema_50":75.83,"ema_200":72.32,"ema_stack_bullish":true,"bb_upper":79.9,"bb_middle":76.49,"bb_lower":73.08,"bb_width":0.0891,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":27.0,"atr":1.23,"atr_pct":0.0155,"obv_trend":"UP","mfi":87.4,"cmf":-0.067,"stoch_k":95.6,"stoch_d":93.6,"rvol":0.85,"volume_5d_avg":1126060,"green_days_10d":7,"52w_high":79.57,"52w_low":65.81,"52w_high_proximity_pct":0.0019,"52w_low_proximity_pct":0.2068},"fundamental":{"pe_ratio":28.16312,"sector_pe_median":29.5436075,"pb_ratio":2.1680498,"de_ratio":69.389,"fcf_yield":0.0452,"eps_growth_5y":1.419,"revenue_growth_ttm":0.089,"gross_margin":0.71623003,"operating_margin":0.38762,"net_margin":0.32740003,"market_cap":14845308928,"enterprise_value":19886098432,"dividend_yield":3.8,"payout_ratio":1.0177,"insider_ownership_pct":0.0064,"institutional_ownership_pct":1.03957,"short_ratio":5.2,"beta":0.922},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":75.45,"entry_range_high":79.82,"target_range_low":81.45,"target_range_high":87.27,"stop_range_low":73.11,"stop_range_high":76.96,"target_price":83.11,"stop_loss":76.96,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.497695-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":20.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":99.28,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":70.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":380.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":65.81,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":5,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":167490,"date":"2026-03-11"}},"sector_context":{"sector_etf":"XLRE","sector_performance_5d":1.43,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"REG maintains bullish bias \u2014 RSI 70, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":62,"price_change_display":"-0.19%","key_metrics":{"RSI":69.7,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "REG",
+  "company": "Regency Centers Corporation",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:52.071815-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 81.42,
+    "open": 80.93,
+    "high": 81.65,
+    "low": 80.68,
+    "prev_close": 80.93,
+    "change_pct": 0.61,
+    "change_pct_1w": 3.94,
+    "change_pct_1m": 6.17,
+    "change_pct_1y": 20.76,
+    "volume": 337020,
+    "avg_volume_30d": 1333447
+  },
+  "scores": {
+    "master_score": 64.38,
+    "technical_score": 65.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.3,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 64.38,
+    "confidence": 0.64,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 78.0,
+    "macd": 1.2307,
+    "macd_signal": 0.7804,
+    "macd_histogram": 0.4504,
+    "macd_crossover": "neutral",
+    "ema_20": 78.17,
+    "ema_50": 76.38,
+    "ema_200": 72.39,
+    "ema_stack_bullish": true,
+    "bb_upper": 81.67,
+    "bb_middle": 77.2,
+    "bb_lower": 72.73,
+    "bb_width": 0.1158,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.8,
+    "atr": 1.2,
+    "atr_pct": 0.0147,
+    "obv_trend": "UP",
+    "mfi": 93.2,
+    "cmf": 0.166,
+    "stoch_k": 96.6,
+    "stoch_d": 96.3,
+    "rvol": 0.86,
+    "volume_5d_avg": 1143944,
+    "green_days_10d": 8,
+    "52w_high": 81.42,
+    "52w_low": 65.81,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.2372
+  },
+  "fundamental": {
+    "pe_ratio": 28.872341,
+    "sector_pe_median": 30.524634,
+    "pb_ratio": 2.2226467,
+    "de_ratio": 69.389,
+    "fcf_yield": 0.0441,
+    "eps_growth_5y": 1.419,
+    "revenue_growth_ttm": 0.089,
+    "gross_margin": 0.71623003,
+    "operating_margin": 0.38762,
+    "net_margin": 0.32740003,
+    "market_cap": 15219152896,
+    "enterprise_value": 20134178816,
+    "dividend_yield": 3.73,
+    "payout_ratio": 1.0177,
+    "insider_ownership_pct": 0.0064,
+    "institutional_ownership_pct": 1.03948,
+    "short_ratio": 4.08,
+    "beta": 0.922
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 76.0,
+    "entry_range_high": 81.83,
+    "target_range_low": 83.32,
+    "target_range_high": 89.27,
+    "stop_range_low": 75.07,
+    "stop_range_high": 79.02,
+    "target_price": 85.02,
+    "stop_loss": 79.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:52.071795-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 101.78,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 373.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 65.81,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 167490,
+      "date": "2026-03-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 2.56,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "REG is in overbought territory with RSI at 78, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 64,
+    "price_change_display": "+0.61%",
+    "key_metrics": {
+      "RSI": 78.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

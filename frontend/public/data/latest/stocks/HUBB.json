@@ -1,1 +1,160 @@
-{"ticker":"HUBB","company":"Hubbell Incorporated","date":"2026-04-15","generated_at":"2026-04-15T13:17:44.409773-04:00","sector":"Industrials","industry":"Electrical Equipment & Parts","price":{"current":526.97,"open":542.27,"high":544.4,"low":522.51,"prev_close":545.62,"change_pct":-3.42,"change_pct_1w":-0.05,"change_pct_1m":11.49,"change_pct_1y":50.95,"volume":273027,"avg_volume_30d":541520},"scores":{"master_score":54.12,"technical_score":57.0,"fundamental_score":27.0,"momentum_score":80.0,"sentiment_score":75.0,"sector_score":39.2,"breakout_score":15.0,"value_score":15.0,"reversal_score":0.0,"momentum_cat_score":75.0,"dividend_score":100.0,"signal_score":54.12,"confidence":0.54,"signal_type":"NEUTRAL_STAY"},"technical":{"rsi_14":58.6,"macd":12.2239,"macd_signal":7.1786,"macd_histogram":5.0453,"macd_crossover":"neutral","ema_20":510.82,"ema_50":497.87,"ema_200":455.39,"ema_stack_bullish":true,"bb_upper":548.97,"bb_middle":503.63,"bb_lower":458.29,"bb_width":0.18,"bb_squeeze":false,"bb_squeeze_intensity":"LOW","adx":18.8,"atr":17.24,"atr_pct":0.0327,"obv_trend":"UP","mfi":61.1,"cmf":0.016,"stoch_k":72.6,"stoch_d":87.8,"rvol":0.81,"volume_5d_avg":440019,"green_days_10d":8,"52w_high":545.62,"52w_low":325.19,"52w_high_proximity_pct":0.0342,"52w_low_proximity_pct":0.6205},"fundamental":{"pe_ratio":31.87961,"sector_pe_median":33.2737235,"pb_ratio":7.2930965,"de_ratio":64.473,"fcf_yield":0.0243,"eps_growth_5y":0.138,"revenue_growth_ttm":0.119,"gross_margin":0.35486,"operating_margin":0.19126,"net_margin":0.15178001,"market_cap":28014567424,"enterprise_value":31005433856,"dividend_yield":1.04,"payout_ratio":0.32529998,"insider_ownership_pct":0.00332,"institutional_ownership_pct":1.0066301,"short_ratio":4.4,"beta":0.997},"scores_detail":{"signal_type":"NEUTRAL_STAY","entry_range_low":495.38,"entry_range_high":529.6,"target_range_low":567.12,"target_range_high":607.62,"stop_range_low":467.87,"stop_range_high":492.49,"target_price":578.69,"stop_loss":492.49,"risk_reward_ratio":1.5,"ttl_hours":120,"generated_at":"2026-04-15T13:17:44.409754-04:00","categories":["top_scores"]},"breakout":{"squeeze_intensity":"LOW","breakout_direction":"UPWARD","breakout_score":15.0,"previous_breakouts_2y":0},"undervalued":{"intrinsic_value_estimate":658.71,"margin_of_safety_pct":25.0,"value_catalyst":"Earnings growth consistency and low debt profile.","value_score":15.0},"dividend":{"next_dividend_date":null,"annual_dividend_per_share":null,"dividend_safety_score":100.0,"dividend_growth_rate_5y":null,"dividend_yield_pct":104.0},"reversal":{"is_oversold":false,"bullish_divergence":false,"support_level":325.19,"high_risk":true},"news":[],"insider_activity":{"last_90_days_buys":0,"last_90_days_sells":5,"net_direction":"SELL","last_transaction":{"type":"SELL","shares":3980,"date":"2026-02-17"}},"sector_context":{"sector_etf":"XLI","sector_performance_5d":-1.09,"stock_vs_sector_20d":null,"sector_rank":null},"ai_summary":"HUBB maintains bullish bias \u2014 RSI 59, rising MACD, normal volume.","quick_view":{"score_badge":"NEUTRAL STAY","score_bar":54,"price_change_display":"-3.42%","key_metrics":{"RSI":58.6,"MACD":"Neutral","Volume":"Normal","Trend":"Uptrend"}}}
+{
+  "ticker": "HUBB",
+  "company": "Hubbell Incorporated",
+  "date": "2026-04-20",
+  "generated_at": "2026-04-20T13:18:51.974147-04:00",
+  "sector": "Industrials",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 543.52,
+    "open": 536.02,
+    "high": 544.43,
+    "low": 534.0,
+    "prev_close": 535.57,
+    "change_pct": 1.48,
+    "change_pct_1w": 0.69,
+    "change_pct_1m": 10.33,
+    "change_pct_1y": 62.42,
+    "volume": 166638,
+    "avg_volume_30d": 529851
+  },
+  "scores": {
+    "master_score": 54.3,
+    "technical_score": 57.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 41.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.3,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 63.2,
+    "macd": 12.7428,
+    "macd_signal": 9.6038,
+    "macd_histogram": 3.1391,
+    "macd_crossover": "neutral",
+    "ema_20": 516.92,
+    "ema_50": 501.94,
+    "ema_200": 456.73,
+    "ema_stack_bullish": true,
+    "bb_upper": 557.05,
+    "bb_middle": 511.38,
+    "bb_lower": 465.7,
+    "bb_width": 0.1786,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.7,
+    "atr": 16.54,
+    "atr_pct": 0.0304,
+    "obv_trend": "UP",
+    "mfi": 70.5,
+    "cmf": 0.038,
+    "stoch_k": 92.7,
+    "stoch_d": 80.7,
+    "rvol": 0.85,
+    "volume_5d_avg": 448968,
+    "green_days_10d": 8,
+    "52w_high": 545.62,
+    "52w_low": 325.19,
+    "52w_high_proximity_pct": 0.0038,
+    "52w_low_proximity_pct": 0.6714
+  },
+  "fundamental": {
+    "pe_ratio": 32.84109,
+    "sector_pe_median": 33.496521,
+    "pb_ratio": 7.5221443,
+    "de_ratio": 64.473,
+    "fcf_yield": 0.0236,
+    "eps_growth_5y": 0.138,
+    "revenue_growth_ttm": 0.119,
+    "gross_margin": 0.35486,
+    "operating_margin": 0.19126,
+    "net_margin": 0.15178001,
+    "market_cap": 28894394368,
+    "enterprise_value": 30471159808,
+    "dividend_yield": 1.06,
+    "payout_ratio": 0.32529998,
+    "insider_ownership_pct": 0.00332,
+    "institutional_ownership_pct": 1.00698,
+    "short_ratio": 4.4,
+    "beta": 0.997
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 499.43,
+    "entry_range_high": 546.24,
+    "target_range_low": 581.28,
+    "target_range_high": 622.8,
+    "stop_range_low": 484.92,
+    "stop_range_high": 510.44,
+    "target_price": 593.14,
+    "stop_loss": 510.44,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-20T13:18:51.974121-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 679.4,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 106.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 325.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 628,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.14,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": "HUBB maintains a bullish bias — RSI 63, rising MACD, and normal volume keep the trend intact.",
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+1.48%",
+    "key_metrics": {
+      "RSI": 63.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}
