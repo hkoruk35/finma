@@ -61,6 +61,27 @@ export function readJson(relPath: string, date?: string): any | null {
   return null;
 }
 
+export function listOptionsDates(): string[] {
+  const candidates: string[] = [];
+  const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
+  candidates.push(path.join(dirBase, "public", "data"));
+  candidates.push(path.resolve(process.cwd(), "public", "data"));
+  candidates.push(path.resolve(process.cwd(), "..", "data"));
+  candidates.push(path.resolve(process.cwd(), "..", "..", "data"));
+
+  for (const base of candidates) {
+    try {
+      if (!fs.existsSync(base)) continue;
+      const dirs = fs.readdirSync(base).filter((d) => {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return false;
+        return fs.existsSync(path.join(base, d, "options_picks.json"));
+      });
+      if (dirs.length > 0) return dirs.sort().reverse();
+    } catch {}
+  }
+  return [];
+}
+
 export function readPublicJson(filename: string): any | null {
   try {
     const fullPath = path.join(process.cwd(), "public", filename);

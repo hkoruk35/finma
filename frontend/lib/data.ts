@@ -800,3 +800,208 @@ export async function getSwingAllPicks(): Promise<any | null> {
 }
 
 // Redeploy trigger: Wed Apr 15 06:15:36 DYS 2026
+
+// ─────────────────────────────────────────────────────────────────────────────
+// OPTIONS MODULE — Interfaces & Loaders
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface OptionContract {
+  strike: number | null;
+  expiration: string | null;
+  dte: number | null;
+  premium: number | null;
+  spread_pct: number | null;
+  delta: number | null;
+  gamma: number | null;
+  theta: number | null;
+  vega: number | null;
+  oi: number | null;
+  volume: number | null;
+  vol_oi_ratio: number | null;
+  contract_cost: number | null;
+  breakeven: number | null;
+  tp_price: number | null;
+  sl_price: number | null;
+  time_stop_days: number | null;
+  daily_decay_pct: number | null;
+  theta_delta_ratio: number | null;
+  sim_gain_pct: number | null;
+  liq_score: number | null;
+  sweep_score: number | null;
+}
+
+export interface OptionPick {
+  rank: number;
+  ticker: string;
+  current_price: number;
+  score: number;
+  grade: string;
+  entry_mode: string;
+  entry_mode_label: string;
+  regime: string;
+  ema_pattern: string;
+  ema9: number | null;
+  ema20: number | null;
+  ema50: number | null;
+  ema200: number | null;
+  adx: number | null;
+  rsi: number | null;
+  rvol: number | null;
+  roc20: number | null;
+  roc60: number | null;
+  hv30: number | null;
+  iv_pct: number | null;
+  iv_rank: number | null;
+  iv_vs_hv: number | null;
+  vwap: number | null;
+  vwap_ok: boolean;
+  rs_vs_spy_60d: number | null;
+  base_range_pct: number | null;
+  high_60d: number | null;
+  expected_move: number | null;
+  em_upper: number | null;
+  max_pain: number | null;
+  exp_date: string | null;
+  dte: number | null;
+  institutional: OptionContract | null;
+  asymmetric: OptionContract | null;
+  uoa_score: number;
+  uoa_signal: string;
+  earnings_warning: boolean;
+  golden_cross: boolean;
+  ema200_breakout: boolean;
+  breakout_base_score: number | null;
+}
+
+export interface OptionsData {
+  date: string;
+  generated_at: string;
+  vix: number;
+  vix_regime: string;
+  spy_return_60d: number;
+  universe_size: number;
+  scan_duration_sec: number;
+  total_candidates: number;
+  regime_summary: { trend: number; breakout: number; neutral: number };
+  settings: {
+    dte_min: number;
+    dte_max: number;
+    dte_target: number;
+    iv_rank_max: number;
+    take_profit_pct: number;
+    stop_loss_pct: number;
+  };
+  picks: OptionPick[];
+}
+
+export async function getOptionsData(date?: string): Promise<OptionsData | null> {
+  if (typeof window === "undefined") {
+    const data = await readJsonServer("options_picks.json", date);
+    return data ?? null;
+  }
+  try {
+    const base = DATA_BASE_URL || "/api/data";
+    const folder = date ? date : "latest";
+    const res = await fetch(`${base}/${folder}/options_picks.json`, {
+      cache: "no-store",
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
+
+export interface OptionPosition {
+  id: string;
+  scan_date: string;
+  ticker: string;
+  strategy: "institutional" | "asymmetric";
+  entry_mode: string;
+  entry_mode_label: string;
+  regime: string;
+  score: number;
+  underlying_entry: number | null;
+  strike: number | null;
+  expiration: string | null;
+  dte_at_entry: number | null;
+  entry_premium: number | null;
+  tp_target: number | null;
+  sl_target: number | null;
+  time_stop_days: number | null;
+  iv_rank_at_entry: number | null;
+  delta_at_entry: number | null;
+  expected_move: number | null;
+  status: "open" | "tp_hit" | "sl_hit" | "time_stop" | "expired" | "manual";
+  exit_premium: number | null;
+  exit_date: string | null;
+  exit_reason: string | null;
+  pnl_pct: number | null;
+  current_premium: number | null;
+  unrealized_pnl_pct: number | null;
+  days_held: number | null;
+  peak_premium: number | null;
+  trough_premium: number | null;
+  underlying_current: number | null;
+}
+
+export interface OptionsModeStats {
+  total: number;
+  wins: number;
+  win_rate: number | null;
+  avg_pnl: number | null;
+}
+
+export interface OptionsOutcomes {
+  updated_at: string;
+  tracker_version: string;
+  summary: {
+    total: number;
+    open: number;
+    closed: number;
+    tp_hit: number;
+    sl_hit: number;
+    time_stop: number;
+    expired: number;
+    win_rate: number | null;
+    avg_pnl_pct: number | null;
+    avg_winner_pct: number | null;
+    avg_loser_pct: number | null;
+    best_trade_pct: number | null;
+    worst_trade_pct: number | null;
+    avg_unrealized_pnl: number | null;
+    by_mode: Record<string, OptionsModeStats>;
+    expectancy: number | null;
+  };
+  positions: OptionPosition[];
+}
+
+export async function getOptionsOutcomes(): Promise<OptionsOutcomes | null> {
+  if (typeof window === "undefined") {
+    const data = await readJsonServer("options_outcomes.json");
+    return data ?? null;
+  }
+  try {
+    const base = DATA_BASE_URL || "/api/data";
+    const res = await fetch(`${base}/latest/options_outcomes.json`, {
+      cache: "no-store",
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
+
+export async function getOptionsDates(): Promise<string[]> {
+  if (typeof window === "undefined") {
+    try {
+      const mod = await import("./data-server");
+      return (mod as any).listOptionsDates?.() ?? [];
+    } catch { return []; }
+  }
+  try {
+    const res = await fetch("/api/options/dates");
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json.dates ?? [];
+  } catch { return []; }
+}
