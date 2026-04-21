@@ -2786,7 +2786,72 @@ def build_candidate_block(rank: int, c: dict) -> str:
 
 # ================================================================
 # ================================================================
-# BÖLÜM 16: ANA TARAYICI
+# BÖLÜM 16: STATS AUTO-UPDATE (Homepage ↔ Performance senkron)
+# ================================================================
+# ================================================================
+
+def update_swing_performance_stats():
+    """
+    Swing performance JSON'ının stats kısmını history verilerinden otomatik hesapla.
+    Her tarama tamamlanınca çağrılır — homepage & performance sayfaları her zaman senkron.
+    """
+    try:
+        public_dir = os.path.join(os.path.dirname(__file__), "frontend", "public")
+        perf_file = os.path.join(public_dir, "swing_performance.json")
+
+        if not os.path.exists(perf_file):
+            logging.warning(f"swing_performance.json bulunamadı: {perf_file}")
+            return
+
+        with open(perf_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        history = data.get('history', [])
+        if not history:
+            logging.warning("History verisi boş")
+            return
+
+        # Completed trades (PENDING hariç)
+        completed = [t for t in history if t.get('result') != 'PENDING']
+        if not completed:
+            logging.warning("Tamamlanmış trade yok")
+            return
+
+        # Stats hesapla
+        wins = sum(1 for t in completed if t.get('return_pct', 0) > 0)
+        losses = sum(1 for t in completed if t.get('return_pct', 0) <= 0)
+        avg_return = sum(t.get('return_pct', 0) for t in completed) / len(completed) if completed else 0
+        above_5 = sum(1 for t in completed if t.get('return_pct', 0) >= 5)
+        above_10 = sum(1 for t in completed if t.get('return_pct', 0) >= 10)
+
+        win_rate = (wins / len(completed) * 100) if completed else 0
+        above_5_rate = (above_5 / len(completed) * 100) if completed else 0
+        above_10_rate = (above_10 / len(completed) * 100) if completed else 0
+
+        # Update stats
+        data['stats']['win_rate'] = round(win_rate, 1)
+        data['stats']['avg_return_pct'] = round(avg_return, 1)
+        data['stats']['above_5pct_rate'] = round(above_5_rate, 1)
+        data['stats']['above_10pct_rate'] = round(above_10_rate, 1)
+        data['stats']['total_picks'] = len(history)
+
+        # Yazı geri
+        with open(perf_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+
+        logging.info(
+            f"📊 Stats otomatik güncellendi: "
+            f"Win Rate {win_rate:.1f}% | "
+            f"Avg Return {avg_return:.1f}% | "
+            f"Above 10% {above_10_rate:.1f}% | "
+            f"Total {len(history)} trades"
+        )
+    except Exception as e:
+        logging.error(f"❌ Stats update hatası: {e}")
+
+# ================================================================
+# ================================================================
+# BÖLÜM 17: ANA TARAYICI
 # ================================================================
 # ================================================================
 
@@ -3055,6 +3120,10 @@ async def scan_top_stocks():
         await asyncio.sleep(0.5) # Telegram flood protection
 
     save_info_cache()
+
+    # Stats otomatik güncelle (homepage ↔ performance senkron)
+    update_swing_performance_stats()
+
     logging.info(f"✅ BOGA AI Tarama tamamlandı. ({scanned_count} hisse taranmış | {duration:.1f}s)")
 
 
