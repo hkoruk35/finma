@@ -123,18 +123,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           {!user ? (
             <div className="flex items-center gap-1 md:gap-3">
-              <Link
-                href="/login"
-                className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[#94a3b8] hover:text-white transition-all"
-              >
-                Login
-              </Link>
-              <Link
-                href="/login"
-                className="px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl bg-white text-black hover:bg-[#3b82f6] hover:text-white transition-all shadow-xl"
-              >
-                Sign Up
-              </Link>
+              {/* Login/Sign Up temporarily hidden */}
             </div>
           ) : (
             <div className="flex items-center gap-4">
