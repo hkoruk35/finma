@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/category/undervalued',        priority: 0.8, cf: 'daily'   },
     { route: '/category/momentum',           priority: 0.8, cf: 'daily'   },
     { route: '/category/reversal',           priority: 0.8, cf: 'daily'   },
-    { route: '/category/dividend',           priority: 0.7, cf: 'daily'   },
+    { route: '/category/passive-income',     priority: 0.7, cf: 'daily'   },
     { route: '/academy',                     priority: 0.9, cf: 'weekly'  },
     { route: '/academy/how-to-start-investing', priority: 0.8, cf: 'monthly' },
     { route: '/academy/rsi-indicator',       priority: 0.8, cf: 'monthly' },
@@ -34,8 +34,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/disclaimer',                  priority: 0.3, cf: 'monthly' },
     { route: '/privacy',                     priority: 0.3, cf: 'monthly' },
     { route: '/terms',                       priority: 0.3, cf: 'monthly' },
-    { route: '/login',                       priority: 0.4, cf: 'monthly' },
-    { route: '/register',                    priority: 0.4, cf: 'monthly' },
   ].map(({ route, priority, cf }) => ({
     url: `${baseUrl}${route}`,
     lastModified: now,
@@ -76,12 +74,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
-  // ── /[lang]/[slug]/[ticker]/[date] — archive pages (Limit to last 7 days per stock) ──
+  // ── /[lang]/[slug]/[ticker]/[date] — archive pages (Limit to last 3 days per stock for fewer URLs) ──
   const archivedTickers = getAllArchivedTickers();
-  // We limit to prevent sitemap overflow (>50k URLs)
+  // We limit to prevent sitemap overflow (>50k URLs) — reduced from 7 to 3 days
   const langArchiveRoutes = langParams.flatMap(({ lang, slug }) =>
     archivedTickers.flatMap(ticker =>
-      getArchivedDates(ticker).slice(0, 7).map(date => ({
+      getArchivedDates(ticker).slice(0, 3).map(date => ({
         url: `${baseUrl}/${lang}/${slug}/${ticker.toLowerCase()}/${date}`,
         lastModified: new Date(date),
         changeFrequency: 'never' as const,

@@ -9,12 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: [
           "/admin/",
-          "/login",
-          "/register",
-          "/api/auth/",
-          "/*?*sort=", // Query parameters for sorting
-          "/*?*filter=", // Query parameters for filtering
-          "/*?*page=*", // Pagination
+          "/api/",
         ],
       },
       {
