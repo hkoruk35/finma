@@ -83,11 +83,21 @@ export function listOptionsDates(): string[] {
 }
 
 export function readPublicJson(filename: string): any | null {
-  try {
-    const fullPath = path.join(process.cwd(), "public", filename);
-    if (fs.existsSync(fullPath)) {
-      return JSON.parse(sanitizeNaN(fs.readFileSync(fullPath, "utf-8")));
+  const candidates = [
+    path.join(process.cwd(), "public", filename),
+    path.join(process.cwd(), "frontend", "public", filename),
+    path.resolve(__dirname, "..", "..", "..", "..", "public", filename),
+    path.resolve(__dirname, "..", "..", "..", "public", filename),
+  ];
+
+  for (const fullPath of candidates) {
+    try {
+      if (fs.existsSync(fullPath)) {
+        return JSON.parse(sanitizeNaN(fs.readFileSync(fullPath, "utf-8")));
+      }
+    } catch {
+      // try next
     }
-  } catch {}
+  }
   return null;
 }

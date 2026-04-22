@@ -769,13 +769,19 @@ export async function getSwingPicks(): Promise<any | null> {
 }
 
 export async function getSwingPerformance(): Promise<any | null> {
+  const t = Date.now();
   if (typeof window === "undefined") {
     const mod = await import("./data-server");
     return mod.readPublicJson("swing_performance.json");
   }
   try {
-    const res = await fetch("/swing_performance.json");
-    if (!res.ok) return null;
+    const res = await fetch(`/swing_performance.json?v=${t}`);
+    if (!res.ok) {
+       // Production Fallback
+       const res2 = await fetch(`https://bogastock.com/swing_performance.json?v=${t}`);
+       if (res2.ok) return await res2.json();
+       return null;
+    }
     return await res.json();
   } catch { return null; }
 }
