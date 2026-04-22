@@ -48,7 +48,7 @@ export default async function SwingPerformancePage() {
         </header>
 
         {/* Dashboard Client Component */}
-        <SwingPerformanceDashboard initialHistory={history} lastUpdated={lastUpdated} />
+        <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} />
       </main>
 
       <Footer />

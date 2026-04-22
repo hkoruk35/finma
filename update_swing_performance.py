@@ -218,17 +218,31 @@ def update_performance_live():
     history.sort(key=lambda x: (x['date'], x['ticker']), reverse=True)
     perf_data['history'] = history
     
-    # Recalculate stats based on full history (or filtered?)
-    # Generally stats should be based on what's visible
+    # 🔥 SYNC WITH FRONTEND: Apply -3.5% Stop-Loss Logic for stats
+    SL_PCT = -3.5
+    
     total = len(history)
-    wins = sum(1 for x in history if x.get('return_pct', 0) > 0)
+    completed = [r for r in history if r.get('result') != 'PENDING']
+    completed_count = len(completed)
+    
+    def get_effective_ret(r):
+        ret = r.get('return_pct', 0)
+        return max(ret, SL_PCT)
+
+    wins = sum(1 for r in completed if get_effective_ret(r) > 0)
+    sum_ret = sum(get_effective_ret(r) for r in completed)
+    
     perf_data['stats'] = {
         'total_picks': total,
-        'win_rate': round((wins / total * 100), 1) if total > 0 else 0,
-        'avg_return_pct': round(sum(x.get('return_pct', 0) for x in history) / total, 1) if total > 0 else 0,
-        'period_days': 180, # Extended historical view
-        'above_5pct_rate': round(sum(1 for x in history if x.get('return_pct', 0) >= 5) / total * 100, 1) if total > 0 else 0,
-        'above_10pct_rate': round(sum(1 for x in history if x.get('return_pct', 0) >= 10) / total * 100, 1) if total > 0 else 0
+        'completed_count': completed_count,
+        'pending_count': total - completed_count,
+        'win_rate': round((wins / completed_count * 100), 1) if completed_count > 0 else 0,
+        'avg_return_pct': round(sum_ret / completed_count, 1) if completed_count > 0 else 0,
+        'period_days': 180, 
+        'above_5pct_rate': round(sum(1 for r in completed if get_effective_ret(r) >= 5) / completed_count * 100, 1) if completed_count > 0 else 0,
+        'above_10pct_rate': round(sum(1 for r in completed if get_effective_ret(r) >= 10) / completed_count * 100, 1) if completed_count > 0 else 0,
+        'stop_loss_pct': SL_PCT,
+        'last_updated': datetime.now().isoformat()
     }
     perf_data['generated_at'] = datetime.now().isoformat()
 

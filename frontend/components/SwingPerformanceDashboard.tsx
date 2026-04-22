@@ -5,9 +5,22 @@ import Link from "next/link";
 import jsPDF from "jspdf";
 
 const PAGE_SIZE = 50;
-const SL_PCT = -3.5; // Stop-loss threshold
 
 // ── Types ─────────────────────────────────────────────────────────────────────
+interface PerformanceStats {
+  win_rate: number;
+  avg_return_pct: number;
+  total_picks: number;
+  period_days: number;
+  above_5pct_rate: number;
+  above_10pct_rate: number;
+  above_15pct_rate?: number;
+  stop_loss_pct?: number;
+  last_updated?: string;
+  completed_count?: number;
+  pending_count?: number;
+}
+
 interface Trade {
   date: string;
   ticker: string;
@@ -25,7 +38,7 @@ interface Trade {
 
 interface Props {
   initialHistory: Trade[];
-  lastUpdated?: string;
+  stats?: PerformanceStats;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -51,27 +64,29 @@ function pnlFromReturn(ret: number | null): number | null {
   return parseFloat((1000 * ret / 100).toFixed(2));
 }
 
-// %3.5 SL uygular — kayıpları -3.5 ile sınırlar
-function effectiveReturn(t: Trade): number | null {
-  if (t.return_pct == null) return null;
-  return t.return_pct < SL_PCT ? SL_PCT : t.return_pct;
-}
 
-function effectiveResult(t: Trade): string {
-  if (t.result === "PENDING") return "PENDING";
-  const r = effectiveReturn(t);
-  if (r == null) return t.result;
-  if (r > 0) return "WIN";
-  if (r <= SL_PCT) return "LOSS";
-  return t.result;
-}
+export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats }: Props) {
+  const SL_PCT = serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
+  const lastUpdated = serverStats?.last_updated;
 
-function slTriggered(t: Trade): boolean {
-  return t.return_pct != null && t.return_pct < SL_PCT;
-}
+  // %3.5 SL uygular — kayıpları -3.5 ile sınırlar
+  const effectiveReturn = (t: Trade): number | null => {
+    if (t.return_pct == null) return null;
+    return t.return_pct < SL_PCT ? SL_PCT : t.return_pct;
+  };
 
-// ── Component ─────────────────────────────────────────────────────────────────
-export default function SwingPerformanceDashboard({ initialHistory, lastUpdated }: Props) {
+  const effectiveResult = (t: Trade): string => {
+    if (t.result === "PENDING") return "PENDING";
+    const r = effectiveReturn(t);
+    if (r == null) return t.result;
+    if (r > 0) return "WIN";
+    if (r <= SL_PCT) return "LOSS";
+    return t.result;
+  };
+
+  const slTriggered = (t: Trade): boolean => {
+    return t.return_pct != null && t.return_pct < SL_PCT;
+  };
   const dashboardRef = useRef<HTMLDivElement>(null);
   const [selectedSector,    setSelectedSector]    = useState("All");
   const [selectedSubsector, setSelectedSubsector] = useState("All");
