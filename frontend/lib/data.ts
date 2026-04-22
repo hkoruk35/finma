@@ -615,8 +615,10 @@ export function getChangeColor(pct: number): string {
   return "text-[#94a3b8]";
 }
 
-export function formatPrice(n: number): string {
-  return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export function formatPrice(n: any): string {
+  const num = typeof n === "number" ? n : parseFloat(String(n));
+  if (isNaN(num)) return "0.00";
+  return num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function getMockStockDetail(ticker: string, overridePrice?: number): StockDetail {

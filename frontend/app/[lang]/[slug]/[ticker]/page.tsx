@@ -233,10 +233,10 @@ export default async function LangAnalysisPage({ params }: Props) {
                   {labels.entry}
                 </p>
                 <p className="font-mono font-black text-white text-sm">
-                  ${formatPrice(pick.buy_zone?.low ?? pick.boga_zones?.buying_zone?.split("–")[0]?.replace("$","").trim())}
+                  ${formatPrice(pick.buy_zone?.low ?? pick.scores_detail?.entry_range_low ?? 0)}
                 </p>
                 <p className="font-mono font-black text-white text-sm">
-                  – ${formatPrice(pick.buy_zone?.high ?? pick.boga_zones?.buying_zone?.split("–")[1]?.replace("$","").trim())}
+                  – ${formatPrice(pick.buy_zone?.high ?? pick.scores_detail?.entry_range_high ?? 0)}
                 </p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#22c55e]">
@@ -244,10 +244,10 @@ export default async function LangAnalysisPage({ params }: Props) {
                   {labels.target}
                 </p>
                 <p className="font-mono font-black text-[#22c55e] text-sm">
-                  ${formatPrice(pick.profit_zone?.low ?? 0)}
+                  ${formatPrice(pick.profit_zone?.low ?? pick.scores_detail?.target_range_low ?? pick.scores_detail?.target_price ?? 0)}
                 </p>
                 <p className="font-mono font-black text-[#22c55e] text-sm">
-                  – ${formatPrice(pick.profit_zone?.high ?? 0)}
+                  – ${formatPrice(pick.profit_zone?.high ?? pick.scores_detail?.target_range_high ?? 0)}
                 </p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
