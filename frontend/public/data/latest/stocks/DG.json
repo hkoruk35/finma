@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Discount Stores",
   "price": {
-    "current": 124.11,
+    "current": 122.48,
     "open": 126.31,
     "high": 126.87,
     "low": 124.63,
@@ -17,7 +17,7 @@
     "change_pct_1y": 43.24,
     "volume": 963646,
     "avg_volume_30d": 3535641,
-    "last_sync": "2026-04-22T02:47:22.405327"
+    "last_sync": "2026-04-22T13:49:20.122912"
   },
   "scores": {
     "master_score": 56.33,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 123.49,
-    "entry_range_high": 124.73,
-    "target_range_low": 133.73,
-    "target_range_high": 143.28,
-    "stop_range_low": 110.08,
-    "stop_range_high": 115.88,
-    "target_price": 136.46,
-    "stop_loss": 115.88,
+    "entry_range_low": 121.87,
+    "entry_range_high": 123.09,
+    "target_range_low": 131.97,
+    "target_range_high": 141.4,
+    "stop_range_low": 108.63,
+    "stop_range_high": 114.36,
+    "target_price": 134.67,
+    "stop_loss": 114.36,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.696891-04:00",

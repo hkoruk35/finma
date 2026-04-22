@@ -6,7 +6,7 @@
   "sector": "Real Estate",
   "industry": "Asset Management",
   "price": {
-    "current": 11.04,
+    "current": 10.77,
     "open": 11.0,
     "high": 10.98,
     "low": 10.75,
@@ -17,7 +17,7 @@
     "change_pct_1y": 17.07,
     "volume": 50237,
     "avg_volume_30d": 31947,
-    "last_sync": "2026-04-22T02:47:24.039092"
+    "last_sync": "2026-04-22T13:49:22.304830"
   },
   "scores": {
     "master_score": 47.13,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 10.34,
-    "entry_range_high": 11.09,
-    "target_range_low": 11.57,
-    "target_range_high": 12.4,
-    "stop_range_low": 10.01,
-    "stop_range_high": 10.53,
-    "target_price": 11.81,
-    "stop_loss": 10.53,
+    "entry_range_low": 10.09,
+    "entry_range_high": 10.82,
+    "target_range_low": 11.29,
+    "target_range_high": 12.1,
+    "stop_range_low": 9.77,
+    "stop_range_high": 10.27,
+    "target_price": 11.52,
+    "stop_loss": 10.27,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.079101-04:00",

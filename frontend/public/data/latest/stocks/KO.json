@@ -6,7 +6,7 @@
   "sector": "Consumer Staples",
   "industry": "Beverages - Non-Alcoholic",
   "price": {
-    "current": 74.7,
+    "current": 74.83,
     "open": 75.82,
     "high": 76.22,
     "low": 75.68,
@@ -17,7 +17,7 @@
     "change_pct_1y": 8.68,
     "volume": 3639888,
     "avg_volume_30d": 14461956,
-    "last_sync": "2026-04-22T02:47:26.623901"
+    "last_sync": "2026-04-22T13:49:25.554902"
   },
   "scores": {
     "master_score": 31.85,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 74.33,
-    "entry_range_high": 75.07,
-    "target_range_low": 76.77,
-    "target_range_high": 82.26,
-    "stop_range_low": 68.66,
-    "stop_range_high": 72.27,
-    "target_price": 78.34,
-    "stop_loss": 72.27,
+    "entry_range_low": 74.46,
+    "entry_range_high": 75.21,
+    "target_range_low": 76.91,
+    "target_range_high": 82.41,
+    "stop_range_low": 68.78,
+    "stop_range_high": 72.4,
+    "target_price": 78.48,
+    "stop_loss": 72.4,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.712798-04:00",

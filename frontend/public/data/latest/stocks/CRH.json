@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Building Materials",
   "price": {
-    "current": 117.36,
+    "current": 116.32,
     "open": 116.52,
     "high": 118.09,
     "low": 116.01,
@@ -17,7 +17,7 @@
     "change_pct_1y": 39.69,
     "volume": 1119234,
     "avg_volume_30d": 5403884,
-    "last_sync": "2026-04-22T02:47:23.693842"
+    "last_sync": "2026-04-22T13:49:21.905824"
   },
   "scores": {
     "master_score": 48.6,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 111.72,
-    "entry_range_high": 117.95,
-    "target_range_low": 125.31,
-    "target_range_high": 134.26,
-    "stop_range_low": 104.84,
-    "stop_range_high": 110.35,
-    "target_price": 127.87,
-    "stop_loss": 110.35,
+    "entry_range_low": 110.73,
+    "entry_range_high": 116.91,
+    "target_range_low": 124.2,
+    "target_range_high": 133.08,
+    "stop_range_low": 103.92,
+    "stop_range_high": 109.38,
+    "target_price": 126.74,
+    "stop_loss": 109.38,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.943663-04:00",

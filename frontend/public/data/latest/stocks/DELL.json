@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Computer Hardware",
   "price": {
-    "current": 212.36,
+    "current": 215.39,
     "open": 196.55,
     "high": 204.81,
     "low": 196.8,
@@ -17,7 +17,7 @@
     "change_pct_1y": 147.48,
     "volume": 3928744,
     "avg_volume_30d": 8343648,
-    "last_sync": "2026-04-22T02:47:21.490185"
+    "last_sync": "2026-04-22T13:49:18.806267"
   },
   "scores": {
     "master_score": 67.97,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "POSITIVE_BIAS",
-    "entry_range_low": 167.59,
-    "entry_range_high": 213.42,
-    "target_range_low": 235.4,
-    "target_range_high": 252.2,
-    "stop_range_low": 184.11,
-    "stop_range_high": 193.8,
-    "target_price": 240.2,
-    "stop_loss": 193.8,
+    "entry_range_low": 169.98,
+    "entry_range_high": 216.47,
+    "target_range_low": 238.76,
+    "target_range_high": 255.8,
+    "stop_range_low": 186.74,
+    "stop_range_high": 196.57,
+    "target_price": 243.63,
+    "stop_loss": 196.57,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.589158-04:00",

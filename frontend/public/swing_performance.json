@@ -1,16 +1,77 @@
 {
   "stats": {
-    "total_picks": 1082,
+    "total_picks": 1087,
     "completed_count": 985,
-    "pending_count": 97,
+    "pending_count": 102,
     "win_rate": 98.6,
     "avg_return_pct": 10.5,
     "period_days": 180,
     "above_5pct_rate": 67.3,
     "above_10pct_rate": 40.7,
-    "last_updated": "2026-04-21T21:39:55.779486"
+    "stop_loss_pct": -3.5,
+    "last_updated": "2026-04-22T13:33:15.942887"
   },
   "history": [
+    {
+      "date": "2026-04-22",
+      "ticker": "ONTO",
+      "company": "Onto Innovation Inc.",
+      "sector": "Technology",
+      "subsector": "Semiconductor Equipment & Materials",
+      "entry": 295.510009765625,
+      "max_price": 295.510009765625,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-22",
+      "ticker": "MSCI",
+      "company": "MSCI Inc.",
+      "sector": "Financial Services",
+      "subsector": "Financial Data & Stock Exchanges",
+      "entry": 610.1300048828125,
+      "max_price": 610.1300048828125,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-22",
+      "ticker": "MP",
+      "company": "MP Materials Corp.",
+      "sector": "Basic Materials",
+      "subsector": "Other Industrial Metals & Mining",
+      "entry": 66.98999786376953,
+      "max_price": 66.98999786376953,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-22",
+      "ticker": "IONQ",
+      "company": "IonQ, Inc.",
+      "sector": "Technology",
+      "subsector": "Computer Hardware",
+      "entry": 47.04999923706055,
+      "max_price": 47.04999923706055,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-22",
+      "ticker": "BLD",
+      "company": "TopBuild Corp.",
+      "sector": "Industrials",
+      "subsector": "Engineering & Construction",
+      "entry": 457.42999267578125,
+      "max_price": 457.42999267578125,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
     {
       "date": "2026-04-21",
       "ticker": "SIRI",
@@ -18,11 +79,11 @@
       "sector": "Communication Services",
       "subsector": "Entertainment",
       "entry": 26.5049991607666,
-      "max_price": 27.33,
-      "return_pct": 3.11,
-      "days": 0,
+      "max_price": 28.15,
+      "return_pct": 6.21,
+      "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-21",
@@ -31,8 +92,8 @@
       "sector": "Industrials",
       "subsector": "Software—Application",
       "entry": 22.825000762939453,
-      "max_price": 24.37,
-      "return_pct": 6.77,
+      "max_price": 24.4,
+      "return_pct": 6.9,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-04-21"
@@ -70,11 +131,11 @@
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 46.7599983215332,
-      "max_price": 48.73,
-      "return_pct": 4.21,
-      "days": 0,
+      "max_price": 49.13,
+      "return_pct": 5.07,
+      "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-20",
@@ -109,11 +170,11 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 118.37999725341797,
-      "max_price": 119.89,
-      "return_pct": 1.28,
-      "days": 1,
+      "max_price": 120.88,
+      "return_pct": 2.11,
+      "days": 2,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-20",
@@ -122,11 +183,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Auto & Truck Dealerships",
       "entry": 395.69000244140625,
-      "max_price": 412.35,
-      "return_pct": 4.21,
-      "days": 1,
+      "max_price": 412.88,
+      "return_pct": 4.34,
+      "days": 2,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-20",
@@ -199,8 +260,8 @@
       "company": "Iron Mountain",
       "sector": "Real Estate",
       "entry": 117.62069702148438,
-      "max_price": 120.98,
-      "return_pct": 2.86,
+      "max_price": 121.0,
+      "return_pct": 2.87,
       "days": 4,
       "result": "PENDING",
       "subsector": "REITâ€”Specialty",
@@ -212,12 +273,12 @@
       "company": "Carvana Co",
       "sector": "Consumer Cyclical",
       "entry": 377.45,
-      "max_price": 412.35,
-      "return_pct": 9.25,
-      "days": 4,
+      "max_price": 412.88,
+      "return_pct": 9.39,
+      "days": 5,
       "result": "PENDING",
       "subsector": "Auto & Truck Dealerships",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-17",
@@ -225,12 +286,12 @@
       "company": "Cirrus Logic",
       "sector": "Technology",
       "entry": 166.24000549316406,
-      "max_price": 171.02,
-      "return_pct": 2.88,
-      "days": 4,
+      "max_price": 173.0,
+      "return_pct": 4.07,
+      "days": 5,
       "result": "PENDING",
       "subsector": "Semiconductors",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-17",
@@ -238,12 +299,12 @@
       "company": "Credo Technology",
       "sector": "Technology",
       "entry": 156.38999938964844,
-      "max_price": 184.46,
-      "return_pct": 17.95,
-      "days": 4,
+      "max_price": 191.84,
+      "return_pct": 22.67,
+      "days": 5,
       "result": "PENDING",
       "subsector": "Semiconductors",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-17",
@@ -252,7 +313,7 @@
       "sector": "Industrials",
       "entry": 46.3849983215332,
       "max_price": 49.33,
-      "return_pct": 6.34,
+      "return_pct": 6.35,
       "days": 4,
       "result": "PENDING",
       "subsector": "Specialty Business Services",
@@ -277,8 +338,8 @@
       "company": "Zoom Communications, Inc.",
       "sector": "Technology",
       "entry": 86.8499984741211,
-      "max_price": 94.49,
-      "return_pct": 8.8,
+      "max_price": 94.5,
+      "return_pct": 8.81,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-04-21",
@@ -303,11 +364,11 @@
       "company": "Lumen Technologies, Inc.",
       "sector": "Communication Services",
       "entry": 8.604999542236328,
-      "max_price": 8.84,
-      "return_pct": 2.73,
-      "days": 1,
+      "max_price": 9.08,
+      "return_pct": 5.52,
+      "days": 6,
       "result": "PENDING",
-      "peak_date": "2026-04-17",
+      "peak_date": "2026-04-22",
       "subsector": "Telecom Services"
     },
     {
@@ -355,11 +416,11 @@
       "company": "CoreWeave, Inc.",
       "sector": "Technology",
       "entry": 117.05999755859375,
-      "max_price": 122.14,
-      "return_pct": 4.34,
-      "days": 0,
+      "max_price": 124.8,
+      "return_pct": 6.61,
+      "days": 6,
       "result": "PENDING",
-      "peak_date": "2026-04-16",
+      "peak_date": "2026-04-22",
       "subsector": "Software—Infrastructure"
     },
     {
@@ -460,11 +521,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Auto & Truck Dealerships",
       "entry": 369.89,
-      "max_price": 412.35,
-      "return_pct": 11.48,
-      "days": 6,
+      "max_price": 412.88,
+      "return_pct": 11.62,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-15",
@@ -473,11 +534,11 @@
       "sector": "Technology",
       "subsector": "Electronic Components",
       "entry": 367.02,
-      "max_price": 407.68,
-      "return_pct": 11.08,
-      "days": 6,
+      "max_price": 411.3,
+      "return_pct": 12.06,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-15",
@@ -486,11 +547,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 70.07,
-      "max_price": 75.87,
-      "return_pct": 8.28,
-      "days": 6,
+      "max_price": 76.2,
+      "return_pct": 8.75,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-15",
@@ -499,11 +560,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 168.0,
-      "max_price": 179.72,
-      "return_pct": 6.98,
-      "days": 6,
+      "max_price": 181.35,
+      "return_pct": 7.95,
+      "days": 7,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-14",
@@ -525,11 +586,11 @@
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 907.58,
-      "max_price": 965.0,
-      "return_pct": 6.33,
-      "days": 0,
+      "max_price": 975.2,
+      "return_pct": 7.45,
+      "days": 8,
       "result": "PENDING",
-      "peak_date": "2026-04-14"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-14",
@@ -629,11 +690,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 72.49,
-      "max_price": 75.87,
-      "return_pct": 4.66,
-      "days": 7,
+      "max_price": 76.2,
+      "return_pct": 5.12,
+      "days": 8,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-13",
@@ -668,11 +729,11 @@
       "sector": "Technology",
       "subsector": "Electronic Components",
       "entry": 363.25,
-      "max_price": 407.68,
-      "return_pct": 12.23,
-      "days": 8,
+      "max_price": 411.3,
+      "return_pct": 13.23,
+      "days": 9,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-13",
@@ -681,11 +742,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Rental & Leasing Services",
       "entry": 336.0,
-      "max_price": 765.94,
-      "return_pct": 127.96,
-      "days": 8,
+      "max_price": 847.7,
+      "return_pct": 152.29,
+      "days": 9,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-10",
@@ -694,11 +755,11 @@
       "sector": "Financial Services",
       "subsector": "Asset Management",
       "entry": 11.98,
-      "max_price": 13.48,
-      "return_pct": 12.52,
-      "days": 7,
+      "max_price": 13.65,
+      "return_pct": 13.98,
+      "days": 12,
       "result": "PENDING",
-      "peak_date": "2026-04-17"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-09",
@@ -733,11 +794,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Rental & Leasing Services",
       "entry": 260.85,
-      "max_price": 765.94,
-      "return_pct": 193.63,
-      "days": 12,
+      "max_price": 847.7,
+      "return_pct": 224.98,
+      "days": 13,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-08",
@@ -876,11 +937,11 @@
       "sector": "Industrials",
       "subsector": "Conglomerates",
       "entry": 7.95,
-      "max_price": 11.95,
-      "return_pct": 50.38,
-      "days": 22,
+      "max_price": 11.98,
+      "return_pct": 50.69,
+      "days": 23,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-03-26",
@@ -954,8 +1015,8 @@
       "sector": "Technology",
       "subsector": "Communication Equipment",
       "entry": 48.67,
-      "max_price": 64.97,
-      "return_pct": 33.49,
+      "max_price": 64.98,
+      "return_pct": 33.51,
       "days": 29,
       "result": "PENDING",
       "peak_date": "2026-04-21"
@@ -967,11 +1028,11 @@
       "sector": "Basic Materials",
       "subsector": "Steel",
       "entry": 56.52,
-      "max_price": 60.92,
-      "return_pct": 7.78,
-      "days": 29,
+      "max_price": 62.5,
+      "return_pct": 10.58,
+      "days": 30,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-03-23",
@@ -1071,11 +1132,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Auto Parts",
       "entry": 32.78,
-      "max_price": 38.49,
-      "return_pct": 17.4,
-      "days": 29,
+      "max_price": 38.6,
+      "return_pct": 17.75,
+      "days": 30,
       "result": "PENDING",
-      "peak_date": "2026-04-21"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-03-23",
@@ -1097,11 +1158,11 @@
       "sector": "Basic Materials",
       "subsector": "Specialty Chemicals",
       "entry": 18.61,
-      "max_price": 24.13,
-      "return_pct": 29.66,
-      "days": 24,
+      "max_price": 24.4,
+      "return_pct": 31.11,
+      "days": 30,
       "result": "PENDING",
-      "peak_date": "2026-04-16"
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-03-23",
@@ -14078,5 +14139,5 @@
       "peak_date": "2026-01-28"
     }
   ],
-  "generated_at": "2026-04-21T21:39:55.779551"
+  "generated_at": "2026-04-22T13:33:15.942911"
 }

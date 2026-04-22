@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
-    "current": 85.26,
+    "current": 86.07,
     "open": 82.66,
     "high": 83.33,
     "low": 81.47,
@@ -17,7 +17,7 @@
     "change_pct_1y": -14.13,
     "volume": 1582104,
     "avg_volume_30d": 5982760,
-    "last_sync": "2026-04-22T02:47:27.370257"
+    "last_sync": "2026-04-22T13:49:26.625119"
   },
   "scores": {
     "master_score": 26.13,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 83.54,
-    "entry_range_high": 85.68,
-    "target_range_low": 92.4,
-    "target_range_high": 98.99,
-    "stop_range_low": 75.29,
-    "stop_range_high": 79.25,
-    "target_price": 94.28,
-    "stop_loss": 79.25,
+    "entry_range_low": 84.33,
+    "entry_range_high": 86.49,
+    "target_range_low": 93.27,
+    "target_range_high": 99.92,
+    "stop_range_low": 76.0,
+    "stop_range_high": 80.0,
+    "target_price": 95.17,
+    "stop_loss": 80.0,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.540266-04:00",

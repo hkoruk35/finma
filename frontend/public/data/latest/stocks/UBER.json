@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Software - Application",
   "price": {
-    "current": 77.26,
+    "current": 75.28,
     "open": 76.67,
     "high": 77.06,
     "low": 75.7,
@@ -17,7 +17,7 @@
     "change_pct_1y": 5.06,
     "volume": 5613883,
     "avg_volume_30d": 15494266,
-    "last_sync": "2026-04-22T02:47:26.296333"
+    "last_sync": "2026-04-22T13:49:25.115379"
   },
   "scores": {
     "master_score": 33.74,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 75.05,
-    "entry_range_high": 77.64,
-    "target_range_low": 82.85,
-    "target_range_high": 88.76,
-    "stop_range_low": 68.79,
-    "stop_range_high": 72.41,
-    "target_price": 84.54,
-    "stop_loss": 72.41,
+    "entry_range_low": 73.13,
+    "entry_range_high": 75.65,
+    "target_range_low": 80.73,
+    "target_range_high": 86.49,
+    "stop_range_low": 67.03,
+    "stop_range_high": 70.55,
+    "target_price": 82.37,
+    "stop_loss": 70.55,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.697834-04:00",

@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Travel Services",
   "price": {
-    "current": 27.36,
+    "current": 27.14,
     "open": 28.76,
     "high": 28.99,
     "low": 28.5,
@@ -17,7 +17,7 @@
     "change_pct_1y": 62.78,
     "volume": 10623951,
     "avg_volume_30d": 29315558,
-    "last_sync": "2026-04-22T02:47:23.396602"
+    "last_sync": "2026-04-22T13:49:21.445439"
   },
   "scores": {
     "master_score": 49.88,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 25.99,
-    "entry_range_high": 27.49,
-    "target_range_low": 30.87,
-    "target_range_high": 33.08,
-    "stop_range_low": 23.37,
-    "stop_range_high": 24.6,
-    "target_price": 31.5,
-    "stop_loss": 24.6,
+    "entry_range_low": 25.78,
+    "entry_range_high": 27.26,
+    "target_range_low": 30.62,
+    "target_range_high": 32.81,
+    "stop_range_low": 23.18,
+    "stop_range_high": 24.4,
+    "target_price": 31.24,
+    "stop_loss": 24.4,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.689039-04:00",

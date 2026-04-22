@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
-    "current": 151.31,
+    "current": 156.96,
     "open": 147.45,
     "high": 148.77,
     "low": 143.93,
@@ -17,7 +17,7 @@
     "change_pct_1y": 182.18,
     "volume": 23887509,
     "avg_volume_30d": 24506603,
-    "last_sync": "2026-04-22T02:47:22.229393"
+    "last_sync": "2026-04-22T13:49:19.796306"
   },
   "scores": {
     "master_score": 57.82,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 105.7,
-    "entry_range_high": 152.07,
-    "target_range_low": 167.46,
-    "target_range_high": 179.42,
-    "stop_range_low": 131.35,
-    "stop_range_high": 138.26,
-    "target_price": 170.88,
-    "stop_loss": 138.26,
+    "entry_range_low": 109.65,
+    "entry_range_high": 157.75,
+    "target_range_low": 173.71,
+    "target_range_high": 186.12,
+    "stop_range_low": 136.25,
+    "stop_range_high": 143.42,
+    "target_price": 177.26,
+    "stop_loss": 143.42,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.408927-04:00",

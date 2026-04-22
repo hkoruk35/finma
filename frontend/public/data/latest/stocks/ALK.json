@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Airlines",
   "price": {
-    "current": 41.45,
+    "current": 40.65,
     "open": 44.79,
     "high": 45.22,
     "low": 43.51,
@@ -17,7 +17,7 @@
     "change_pct_1y": -0.96,
     "volume": 2045799,
     "avg_volume_30d": 5037586,
-    "last_sync": "2026-04-22T02:47:27.217879"
+    "last_sync": "2026-04-22T13:49:26.404806"
   },
   "scores": {
     "master_score": 27.55,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 40.29,
-    "entry_range_high": 41.66,
-    "target_range_low": 48.03,
-    "target_range_high": 51.46,
-    "stop_range_low": 34.59,
-    "stop_range_high": 36.41,
-    "target_price": 49.01,
-    "stop_loss": 36.41,
+    "entry_range_low": 39.51,
+    "entry_range_high": 40.86,
+    "target_range_low": 47.1,
+    "target_range_high": 50.47,
+    "stop_range_low": 33.92,
+    "stop_range_high": 35.71,
+    "target_price": 48.06,
+    "stop_loss": 35.71,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.992513-04:00",

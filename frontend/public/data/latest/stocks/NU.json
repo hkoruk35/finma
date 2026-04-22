@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Banks - Regional",
   "price": {
-    "current": 15.05,
+    "current": 14.84,
     "open": 15.24,
     "high": 15.35,
     "low": 14.93,
@@ -17,7 +17,7 @@
     "change_pct_1y": 40.51,
     "volume": 17734196,
     "avg_volume_30d": 49809213,
-    "last_sync": "2026-04-22T02:47:25.645731"
+    "last_sync": "2026-04-22T13:49:24.379735"
   },
   "scores": {
     "master_score": 37.07,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 14.97,
-    "entry_range_high": 15.13,
-    "target_range_low": 16.24,
-    "target_range_high": 17.4,
-    "stop_range_low": 13.33,
-    "stop_range_high": 14.04,
-    "target_price": 16.57,
-    "stop_loss": 14.04,
+    "entry_range_low": 14.76,
+    "entry_range_high": 14.91,
+    "target_range_low": 16.01,
+    "target_range_high": 17.15,
+    "stop_range_low": 13.14,
+    "stop_range_high": 13.84,
+    "target_price": 16.33,
+    "stop_loss": 13.84,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.845893-04:00",

@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Banks - Diversified",
   "price": {
-    "current": 23.41,
+    "current": 23.43,
     "open": 24.06,
     "high": 24.17,
     "low": 23.83,
@@ -17,7 +17,7 @@
     "change_pct_1y": 68.28,
     "volume": 4372204,
     "avg_volume_30d": 8741643,
-    "last_sync": "2026-04-22T02:47:24.179952"
+    "last_sync": "2026-04-22T13:49:22.583589"
   },
   "scores": {
     "master_score": 45.82,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 22.33,
-    "entry_range_high": 23.53,
-    "target_range_low": 25.01,
-    "target_range_high": 26.79,
-    "stop_range_low": 20.9,
-    "stop_range_high": 22.01,
-    "target_price": 25.52,
-    "stop_loss": 22.01,
+    "entry_range_low": 22.35,
+    "entry_range_high": 23.56,
+    "target_range_low": 25.04,
+    "target_range_high": 26.82,
+    "stop_range_low": 20.92,
+    "stop_range_high": 22.03,
+    "target_price": 25.55,
+    "stop_loss": 22.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.806192-04:00",

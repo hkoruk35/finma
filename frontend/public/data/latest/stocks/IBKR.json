@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Capital Markets",
   "price": {
-    "current": 79.62,
+    "current": 77.93,
     "open": 81.21,
     "high": 81.97,
     "low": 80.81,
@@ -17,7 +17,7 @@
     "change_pct_1y": 107.8,
     "volume": 1304002,
     "avg_volume_30d": 4609103,
-    "last_sync": "2026-04-22T02:47:22.876615"
+    "last_sync": "2026-04-22T13:49:20.762042"
   },
   "scores": {
     "master_score": 53.42,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 69.34,
-    "entry_range_high": 80.02,
-    "target_range_low": 85.94,
-    "target_range_high": 92.08,
-    "stop_range_low": 70.53,
-    "stop_range_high": 74.23,
-    "target_price": 87.7,
-    "stop_loss": 74.23,
+    "entry_range_low": 67.86,
+    "entry_range_high": 78.32,
+    "target_range_low": 84.11,
+    "target_range_high": 90.12,
+    "stop_range_low": 69.03,
+    "stop_range_high": 72.65,
+    "target_price": 85.83,
+    "stop_loss": 72.65,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.839531-04:00",

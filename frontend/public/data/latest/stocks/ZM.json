@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
-    "current": 90.96,
+    "current": 91.43,
     "open": 89.08,
     "high": 90.62,
     "low": 88.11,
@@ -17,7 +17,7 @@
     "change_pct_1y": 26.36,
     "volume": 1681177,
     "avg_volume_30d": 3687555,
-    "last_sync": "2026-04-22T02:47:21.473727"
+    "last_sync": "2026-04-22T13:49:18.775272"
   },
   "scores": {
     "master_score": 69.07,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "POSITIVE_BIAS",
-    "entry_range_low": 83.11,
-    "entry_range_high": 91.42,
-    "target_range_low": 99.19,
-    "target_range_high": 106.28,
-    "stop_range_low": 79.92,
-    "stop_range_high": 84.12,
-    "target_price": 101.21,
-    "stop_loss": 84.12,
+    "entry_range_low": 83.54,
+    "entry_range_high": 91.89,
+    "target_range_low": 99.7,
+    "target_range_high": 106.83,
+    "stop_range_low": 80.33,
+    "stop_range_high": 84.55,
+    "target_price": 101.73,
+    "stop_loss": 84.55,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.519884-04:00",

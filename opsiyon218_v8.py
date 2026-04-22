@@ -52,6 +52,8 @@ import math
 import html
 import os
 import re
+import json
+import shutil
 import aiohttp
 import numpy as np
 import pandas as pd
@@ -1339,6 +1341,13 @@ async def scan():
     duration = time.time() - start
     summary, detail = build_summary_report(candidates, MARKET_VIX['value'], duration, len(universe))
 
+    # JSON export for web
+    try:
+        options_data = build_options_json(candidates, MARKET_VIX['value'], duration, len(universe))
+        save_options_json(options_data)
+    except Exception as e:
+        logging.error(f"JSON export hatası: {e}")
+
     await send_tg(summary)
     await asyncio.sleep(1)
 
@@ -1355,6 +1364,65 @@ async def scan():
         f"📌 Rejim: {candidates[0]['options'].get('regime','—')}"
     )
     logging.info(f"✅ Swing tarama bitti: {len(candidates)} aday, {duration:.0f}sn")
+
+# ════════════════════════════════════════════════════════════════════════════
+# JSON EXPORT — Web sitesi için options_picks.json
+# ════════════════════════════════════════════════════════════════════════════
+
+def _opt_to_json(o: dict) -> dict:
+    if not o: return None
+    return {
+        "strike": o.get("strike"),
+        "expiration": o.get("exp_date") or o.get("expiration"),
+        "dte": o.get("dte"),
+        "premium": o.get("mid") or o.get("ask"),
+        "delta": o.get("delta"),
+        "gamma": o.get("gamma"),
+        "theta": o.get("theta"),
+        "vega": o.get("vega"),
+        "oi": o.get("oi"),
+        "volume": o.get("volume"),
+        "breakeven": o.get("breakeven"),
+        "tp_price": o.get("tp_price"),
+        "sl_price": o.get("sl_price"),
+        "time_stop_days": o.get("time_stop_days"),
+    }
+
+def build_options_json(candidates: list, vix: float, duration: float, universe_size: int) -> dict:
+    now_dt = datetime.now(NY_TZ)
+    picks = []
+    for c in candidates:
+        inst = c.get("options", {}).get("institutional")
+        asym = c.get("options", {}).get("asymmetric")
+        picks.append({
+            "ticker": c.get("ticker"),
+            "price": c.get("l3", {}).get("close"),
+            "score": round(c.get("score", 0), 1),
+            "entry_mode": c.get("l2", {}).get("entry_mode"),
+            "institutional": _opt_to_json(inst) if inst else None,
+            "asymmetric": _opt_to_json(asym) if asym else None,
+        })
+    return {
+        "timestamp": now_dt.isoformat(),
+        "date": now_dt.strftime("%Y-%m-%d"),
+        "vix": round(vix, 1),
+        "universe_size": universe_size,
+        "scan_duration_sec": round(duration, 0),
+        "total_candidates": len(candidates),
+        "picks": picks,
+    }
+
+def save_options_json(data: dict):
+    here = os.path.dirname(os.path.abspath(__file__))
+    date_str = data["date"]
+    transfer_dir = os.path.join(here, "transfer", "latest")
+    data_dir = os.path.join(here, "data", date_str)
+    os.makedirs(transfer_dir, exist_ok=True)
+    os.makedirs(data_dir, exist_ok=True)
+    for path in [os.path.join(transfer_dir, "options_picks.json"), os.path.join(data_dir, "options_picks.json")]:
+        with open(path, 'w') as f:
+            json.dump(data, f, indent=2)
+    logging.info(f"✅ options_picks.json kaydedildi: {len(data['picks'])} aday")
 
 # ════════════════════════════════════════════════════════════════════════════
 # 11) ZAMANLAYICI
@@ -1408,11 +1476,23 @@ async def run_scanner():
 # 12) BAŞLATMA
 # ════════════════════════════════════════════════════════════════════════════
 
+async def run_oneshot():
+    logging.info("🦅 v5.0 ONESHOT başlatıldı")
+    try:
+        await scan()
+    except Exception as e:
+        logging.error(f"Oneshot tarama hatası: {e}")
+        raise
+
 if __name__ == "__main__":
     if os.name == 'nt':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     try:
-        asyncio.run(run_scanner())
+        import sys as _sys
+        if "--oneshot" in _sys.argv:
+            asyncio.run(run_oneshot())
+        else:
+            asyncio.run(run_scanner())
     except KeyboardInterrupt:
         print("\n🦅 Swing bot durduruldu.")
     except Exception as e:

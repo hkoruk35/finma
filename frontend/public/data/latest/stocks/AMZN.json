@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Internet Retail",
   "price": {
-    "current": 249.91,
+    "current": 253.43,
     "open": 249.38,
     "high": 250.18,
     "low": 245.37,
@@ -17,7 +17,7 @@
     "change_pct_1y": 41.85,
     "volume": 19569174,
     "avg_volume_30d": 44316262,
-    "last_sync": "2026-04-22T02:47:22.341468"
+    "last_sync": "2026-04-22T13:49:20.006458"
   },
   "scores": {
     "master_score": 56.82,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 224.02,
-    "entry_range_high": 251.16,
-    "target_range_low": 264.19,
-    "target_range_high": 283.07,
-    "stop_range_low": 224.95,
-    "stop_range_high": 236.79,
-    "target_price": 269.59,
-    "stop_loss": 236.79,
+    "entry_range_low": 227.17,
+    "entry_range_high": 254.69,
+    "target_range_low": 267.91,
+    "target_range_high": 287.05,
+    "stop_range_low": 228.11,
+    "stop_range_high": 240.12,
+    "target_price": 273.38,
+    "stop_loss": 240.12,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.346793-04:00",

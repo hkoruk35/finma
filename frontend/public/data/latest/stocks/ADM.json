@@ -6,7 +6,7 @@
   "sector": "Consumer Staples",
   "industry": "Farm Products",
   "price": {
-    "current": 69.83,
+    "current": 69.52,
     "open": 67.67,
     "high": 68.33,
     "low": 67.3,
@@ -17,7 +17,7 @@
     "change_pct_1y": 52.77,
     "volume": 884338,
     "avg_volume_30d": 4134774,
-    "last_sync": "2026-04-22T02:47:26.602496"
+    "last_sync": "2026-04-22T13:49:25.519806"
   },
   "scores": {
     "master_score": 32.0,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 69.48,
-    "entry_range_high": 70.18,
-    "target_range_low": 74.95,
-    "target_range_high": 80.3,
-    "stop_range_low": 62.13,
-    "stop_range_high": 65.4,
-    "target_price": 76.48,
-    "stop_loss": 65.4,
+    "entry_range_low": 69.17,
+    "entry_range_high": 69.87,
+    "target_range_low": 74.62,
+    "target_range_high": 79.94,
+    "stop_range_low": 61.85,
+    "stop_range_high": 65.11,
+    "target_price": 76.14,
+    "stop_loss": 65.11,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.738954-04:00",

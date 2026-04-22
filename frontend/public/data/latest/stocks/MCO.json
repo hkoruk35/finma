@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Financial Data & Stock Exchanges",
   "price": {
-    "current": 459.59,
+    "current": 467.59,
     "open": 453.68,
     "high": 459.15,
     "low": 452.66,
@@ -17,7 +17,7 @@
     "change_pct_1y": 8.34,
     "volume": 412210,
     "avg_volume_30d": 1129317,
-    "last_sync": "2026-04-22T02:47:26.209751"
+    "last_sync": "2026-04-22T13:49:25.063878"
   },
   "scores": {
     "master_score": 33.86,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 450.95,
-    "entry_range_high": 461.89,
-    "target_range_low": 485.8,
-    "target_range_high": 520.51,
-    "stop_range_low": 413.73,
-    "stop_range_high": 435.5,
-    "target_price": 495.72,
-    "stop_loss": 435.5,
+    "entry_range_low": 458.8,
+    "entry_range_high": 469.93,
+    "target_range_low": 494.26,
+    "target_range_high": 529.57,
+    "stop_range_low": 420.93,
+    "stop_range_high": 443.08,
+    "target_price": 504.35,
+    "stop_loss": 443.08,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.846593-04:00",
