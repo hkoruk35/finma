@@ -885,6 +885,7 @@ export interface OptionPick {
   golden_cross: boolean;
   ema200_breakout: boolean;
   breakout_base_score: number | null;
+  date?: string;
 }
 
 export interface OptionsData {
@@ -951,6 +952,7 @@ function normalizeOptionsData(raw: any): OptionsData | null {
     golden_cross:      p.golden_cross ?? (p.entry_mode === "GOLDEN_CROSS"),
     ema200_breakout:   p.ema200_breakout ?? (p.entry_mode === "EMA200_BREAKOUT"),
     breakout_base_score: p.breakout_base_score ?? null,
+    date: p.date ?? raw.date ?? "",
   });
   const picks = Array.isArray(raw.picks) ? raw.picks.map(normalizePick) : [];
   return {

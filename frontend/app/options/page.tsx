@@ -243,8 +243,18 @@ function PickRow({ pick, index }: { pick: OptionPick; index: number }) {
 }
 
 export default async function OptionsPage() {
-  const [master, data] = await Promise.all([getMasterData(), getOptionsData()]);
-  const picks = data?.picks ?? [];
+  const [master, allDates] = await Promise.all([
+    getMasterData(),
+    getOptionsDates()
+  ]);
+
+  // Show last 5 days in the main list
+  const recentDates = allDates.slice(0, 5);
+  const results = await Promise.all(recentDates.map(d => getOptionsData(d)));
+  
+  // Aggregate all picks
+  const allPicks: OptionPick[] = results.flatMap(r => r?.picks ?? []);
+  const latestData = results[0]; // For summary stats
 
   const formatTime = (iso: string) => {
     try {
@@ -275,12 +285,12 @@ export default async function OptionsPage() {
             <div>
               <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
                 Options Picks
-                {data && <span className="ml-3 text-[#3b82f6]">— {data.date}</span>}
+                <span className="ml-3 text-[#3b82f6]">— Last 5 Days</span>
               </h1>
               <p className="text-[#94a3b8] text-base">
                 BOGA AI v6.1 daily call opportunities · EMA trend entries with full Greeks &amp; exit levels
-                {data && (
-                  <span className="ml-2 text-[#64748b]">· Updated {formatTime(data.generated_at)}</span>
+                {latestData && (
+                  <span className="ml-2 text-[#64748b]">· Latest Update: {formatTime(latestData.generated_at)}</span>
                 )}
               </p>
             </div>
@@ -301,18 +311,18 @@ export default async function OptionsPage() {
           </div>
         </div>
 
-        {/* Market summary bar */}
-        {data && (
+        {/* Market summary bar (Latest Day) */}
+        {latestData && (
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
             {[
-              { label: "VIX", val: `${data.vix} (${data.vix_regime.split(" ")[0]})`,
-                cls: data.vix < 18 ? "text-[#34d399]" : data.vix < 25 ? "text-[#fbbf24]" : "text-[#f87171]" },
-              { label: "SPY 60d", val: fmtPct(data.spy_return_60d),
-                cls: data.spy_return_60d >= 0 ? "text-[#34d399]" : "text-[#f87171]" },
-              { label: "Trend", val: String(data.regime_summary.trend), cls: "text-[#34d399]" },
-              { label: "Breakout", val: String(data.regime_summary.breakout), cls: "text-[#f59e0b]" },
-              { label: "Candidates", val: String(data.total_candidates), cls: "text-white" },
-              { label: "Universe", val: `${data.universe_size} stocks`, cls: "text-[#64748b]" },
+              { label: "VIX", val: `${latestData.vix} (${latestData.vix_regime.split(" ")[0]})`,
+                cls: latestData.vix < 18 ? "text-[#34d399]" : latestData.vix < 25 ? "text-[#fbbf24]" : "text-[#f87171]" },
+              { label: "SPY 60d", val: fmtPct(latestData.spy_return_60d),
+                cls: latestData.spy_return_60d >= 0 ? "text-[#34d399]" : "text-[#f87171]" },
+              { label: "Trend", val: String(latestData.regime_summary.trend), cls: "text-[#34d399]" },
+              { label: "Breakout", val: String(latestData.regime_summary.breakout), cls: "text-[#f59e0b]" },
+              { label: "Active", val: String(allPicks.length), cls: "text-white" },
+              { label: "Universe", val: `${latestData.universe_size} stocks`, cls: "text-[#64748b]" },
             ].map((m) => (
               <div key={m.label} className="glass-card p-3 text-center">
                 <div className="text-[10px] text-[#64748b] uppercase mb-1 tracking-wider">{m.label}</div>
@@ -322,7 +332,7 @@ export default async function OptionsPage() {
           </div>
         )}
 
-        {picks.length === 0 ? (
+        {allPicks.length === 0 ? (
           <div className="glass-card p-16 text-center">
             <div className="text-5xl mb-4">🦅</div>
             <h2 className="text-xl font-bold text-white mb-2">No Options Data Yet</h2>
@@ -336,12 +346,12 @@ export default async function OptionsPage() {
             {/* ── COMPACT SUMMARY TABLE ── */}
             <div className="glass-card mb-8 overflow-x-auto">
               <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
-                <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">Quick View — {picks.length} Candidates</span>
+                <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">Recent Setups — {allPicks.length} Opportunities</span>
               </div>
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-[10px] text-[#64748b] uppercase tracking-wider border-b border-white/5">
-                    <th className="px-4 py-2 text-left">#</th>
+                    <th className="px-4 py-2 text-left">Date</th>
                     <th className="px-4 py-2 text-left">Ticker</th>
                     <th className="px-4 py-2 text-right">Price</th>
                     <th className="px-4 py-2 text-right">Score</th>
@@ -351,16 +361,18 @@ export default async function OptionsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {picks.map((pick, idx) => {
+                  {allPicks.map((pick, idx) => {
                     const modeIcon = MODE_ICONS[pick.entry_mode] ?? "📊";
                     const modeLabel = pick.entry_mode_label || pick.entry_mode.replace(/_/g, " ");
                     const inst = pick.institutional;
                     const asym = pick.asymmetric;
+                    const isLatest = pick.date === latestData?.date;
+                    
                     return (
-                      <tr key={pick.ticker} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 3 ? "bg-[#3b82f6]/5" : ""}`}>
-                        <td className="px-4 py-2.5 font-mono text-[#64748b] text-xs">{pick.rank}</td>
+                      <tr key={`${pick.date}-${pick.ticker}`} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${isLatest ? "bg-[#3b82f6]/5" : ""}`}>
+                        <td className="px-4 py-2.5 font-mono text-[#64748b] text-[10px] uppercase">{pick.date?.substring(5)}</td>
                         <td className="px-4 py-2.5">
-                          <a href={`#detail-${pick.ticker}`} className="font-black text-white hover:text-[#3b82f6] transition-colors">
+                          <a href={`#detail-${pick.date}-${pick.ticker}`} className="font-black text-white hover:text-[#3b82f6] transition-colors">
                             {pick.ticker}
                           </a>
                         </td>
@@ -374,10 +386,10 @@ export default async function OptionsPage() {
                         </td>
                         <td className="px-4 py-2.5 text-xs text-[#94a3b8]">{modeIcon} {modeLabel}</td>
                         <td className="px-4 py-2.5 text-xs font-mono">
-                          {inst ? <span className="text-[#60a5fa]">${inst.strike?.toFixed(0)}C · ${inst.premium?.toFixed(2)} · TP ${inst.tp_price?.toFixed(2)}</span> : <span className="text-[#334155]">—</span>}
+                          {inst ? <span className="text-[#60a5fa]">${inst.strike?.toFixed(0)}C · ${inst.premium?.toFixed(2)}</span> : <span className="text-[#334155]">—</span>}
                         </td>
                         <td className="px-4 py-2.5 text-xs font-mono">
-                          {asym ? <span className="text-[#a78bfa]">${asym.strike?.toFixed(0)}C · ${asym.premium?.toFixed(2)} · TP ${asym.tp_price?.toFixed(2)}</span> : <span className="text-[#334155]">—</span>}
+                          {asym ? <span className="text-[#a78bfa]">${asym.strike?.toFixed(0)}C · ${asym.premium?.toFixed(2)}</span> : <span className="text-[#334155]">—</span>}
                         </td>
                       </tr>
                     );
@@ -387,9 +399,10 @@ export default async function OptionsPage() {
             </div>
 
             {/* ── DETAIL CARDS ── */}
-            <div className="space-y-5">
-              {picks.map((pick, idx) => (
-                <div key={pick.ticker} id={`detail-${pick.ticker}`}>
+            <div className="space-y-8">
+              {allPicks.map((pick, idx) => (
+                <div key={`${pick.date}-${pick.ticker}`} id={`detail-${pick.date}-${pick.ticker}`}>
+                  <div className="text-[10px] text-[#3b82f6] font-bold mb-1 uppercase tracking-widest">{pick.date} Report</div>
                   <PickRow pick={pick} index={idx} />
                 </div>
               ))}
@@ -398,7 +411,7 @@ export default async function OptionsPage() {
         )}
 
         {/* Legend */}
-        {picks.length > 0 && (
+        {allPicks.length > 0 && (
           <div className="mt-8 glass-card p-4 flex flex-wrap gap-x-6 gap-y-2 text-[11px] text-[#64748b]">
             <span>🛡️ <b className="text-[#94a3b8]">Institutional</b> = ATM/near-ATM, mid-delta (Δ0.4–0.6)</span>
             <span>🚀 <b className="text-[#94a3b8]">Asymmetric</b> = OTM within expected move, high sim gain</span>
