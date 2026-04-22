@@ -56,7 +56,7 @@ const MarketStatus = () => {
         <div className="flex items-center gap-2 mt-1">
             <div className={`w-2 h-2 rounded-full ${isOpen ? "bg-[#22c55e] live-dot" : "bg-[#64748b]"}`}></div>
             <span className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em]">
-                MARKET IS {isOpen ? "OPEN" : "CLOSED"}
+                MARKET IS {isOpen ? "OPEN" : "CLOSED"} {!isOpen && "· DATA: LAST CLOSE"}
             </span>
         </div>
     );

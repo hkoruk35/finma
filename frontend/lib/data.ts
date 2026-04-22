@@ -273,9 +273,9 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
       const ratio = livePrice / data.price.current;
       const drift = Math.abs(1 - ratio);
       // Sync prices across the app if they drift more than 2%
-      if (drift > 0.02) {
+      if (livePrice) {
         data.price.current = livePrice;
-        if (data.scores_detail) {
+        if (data.scores_detail && ratio !== 1) {
           data.scores_detail.entry_range_low *= ratio;
           data.scores_detail.entry_range_high *= ratio;
           data.scores_detail.target_price *= ratio;

@@ -152,16 +152,19 @@ export default async function StockDetailPage({ params }: Props) {
             </div>
 
             <div className="flex flex-col md:items-end gap-1">
-              <div className="flex items-baseline gap-3">
-                <span className="text-4xl md:text-5xl font-mono font-black text-white leading-none tracking-tighter">
-                  ${formatPrice(stock.price.current)}
-                </span>
-                <div className={`flex flex-col ${getChangeColor(stock.price.change_pct)}`}>
-                  <span className="text-xl font-mono font-black leading-none">
-                    {stock.price.change_pct >= 0 ? "+" : ""}{stock.price.change_pct.toFixed(2)}%
+              <div className="flex flex-col md:items-end">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-4xl md:text-5xl font-mono font-black text-white leading-none tracking-tighter">
+                    ${formatPrice(stock.price.current)}
                   </span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-right">Today</span>
+                  <div className={`flex flex-col ${getChangeColor(stock.price.change_pct)}`}>
+                    <span className="text-xl font-mono font-black leading-none">
+                      {stock.price.change_pct >= 0 ? "+" : ""}{stock.price.change_pct.toFixed(2)}%
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-right">Today</span>
+                  </div>
                 </div>
+                <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mt-1">Last Close Price</span>
               </div>
               <MarketStatus />
             </div>
