@@ -12,20 +12,31 @@ def get_ticker_info(ticker, cache):
     ticker = ticker.upper()
     if ticker in cache:
         c = cache[ticker]
-        return {
-            'sector': c.get('sector', 'Unknown'),
-            'industry': c.get('industry', 'Unknown'),
-            'company': c.get('companyName', ticker)
-        }
+        # Return if we have the info
+        if c.get('industry') and c.get('industry') != 'Unknown':
+            return {
+                'sector': c.get('sector', 'Unknown'),
+                'industry': c.get('industry', 'Unknown'),
+                'company': c.get('companyName', ticker)
+            }
     
     try:
         logging.info(f"Fetching info for {ticker} live...")
         info = yf.Ticker(ticker).info
-        return {
+        res = {
             'sector': info.get('sector', 'Unknown'),
             'industry': info.get('industry', 'Unknown'),
             'company': info.get('longName', ticker)
         }
+        # Update cache in-place
+        if ticker not in cache: cache[ticker] = {}
+        cache[ticker].update({
+            'sector': res['sector'],
+            'industry': res['industry'],
+            'companyName': res['company'],
+            'market_cap': info.get('marketCap', 0)
+        })
+        return res
     except:
         return {'sector': 'Unknown', 'industry': 'Unknown', 'company': ticker}
 
@@ -223,6 +234,15 @@ def update_performance_live():
 
     with open(performance_file, 'w', encoding='utf-8') as f:
         json.dump(perf_data, f, indent=2, ensure_ascii=False)
+    
+    # 9. Save Cache
+    try:
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(info_cache, f, indent=2, ensure_ascii=False)
+        logging.info("Cache persisted.")
+    except Exception as e:
+        logging.warning(f"Cache save error: {e}")
+
     logging.info(f"Performance updated. Total records: {len(history)}")
 
 if __name__ == "__main__":

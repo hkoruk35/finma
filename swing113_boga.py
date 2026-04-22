@@ -441,6 +441,7 @@ def get_stock_info(ticker: str) -> dict:
             "beta": inf.get("beta", 1.0),
             "short_float": inf.get("shortPercentOfFloat", 0.0),
             "sector": inf.get("sector", "Unknown"),
+            "industry": inf.get("industry", "Unknown"),
             "heldPercentInstitutions": inf.get("heldPercentInstitutions", 0),
             "grossMargins": inf.get("grossMargins", 0),
             "operatingMargins": inf.get("operatingMargins", 0),
@@ -869,10 +870,9 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
         sell_zone_low  = round(buy_zone_low + reward * 0.8, 2)
         sell_zone_high = round(buy_zone_low + reward, 2)
 
-        # Direnç noktasını da dikkate al
-        if resist_1h > buy_zone_high and resist_1h < sell_zone_high:
-            sell_zone_high = round(resist_1h * 0.99, 2)
-            sell_zone_low  = round(sell_zone_high - atr_1d * 0.5, 2)
+        # NOTE: Minervini tarzı ATR tabanlı hedefe güveniyoruz.
+        # 1H dirençle cap'leme dar target'lar → kaldırıldı. Dirençten geçen hisseler
+        # daha yüksek potansiyel = daha iyi fırsat. R/R 2.5:1 korunmuş.
 
         # Gerçek R/R hesapla
         actual_risk   = buy_zone_low - stop_high
@@ -3029,6 +3029,14 @@ async def scan_top_stocks():
         )
         c["boga_zones"] = zones
         c["boga_rr"] = zones.get("rr_ratio", 0.0)
+
+    # ── R/R < 1.0 HARD ELEMESİ ────────────────────────────────────────
+    # Riski ödülden fazla olan kurulumlar swing trade için uygun değil.
+    top_candidates = [c for c in top_candidates if c.get("boga_rr", 0.0) >= 1.0]
+    if not top_candidates:
+        logging.warning("⚠️ R/R < 1.0 eleme sonrası aday kalmadı.")
+        await send_telegram_message("⚠️ Günlük taramada R/R 1.0+ olan kurulum yok.")
+        return
 
     # ── ADIM 9: BOGA AI 100'LÜK SKOR ─────────────────────────────────
     for c in top_candidates:
