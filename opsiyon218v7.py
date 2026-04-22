@@ -1963,11 +1963,26 @@ async def run_scanner():
 # 12) BAŞLATMA
 # ════════════════════════════════════════════════════════════════════════════
 
+async def run_oneshot():
+    """Tek seferlik tarama — run_all_bots.py ve Task Scheduler için."""
+    logging.info("🐂 BOGA AI v6.1 ONESHOT başlatıldı")
+    try:
+        await scan()
+    except Exception as e:
+        logging.error(f"Oneshot tarama hatası: {e}")
+        raise
+
 if __name__ == "__main__":
+    import sys as _sys
     if os.name == 'nt':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    # --oneshot: tek tarama yap ve çık (run_all_bots.py tarafından kullanılır)
+    # Argümansız: sürekli çalışan zamanlayıcı modu
     try:
-        asyncio.run(run_scanner())
+        if "--oneshot" in _sys.argv:
+            asyncio.run(run_oneshot())
+        else:
+            asyncio.run(run_scanner())
     except KeyboardInterrupt:
         print("\n🐂 BOGA AI v6.1 durduruldu.")
     except Exception as e:

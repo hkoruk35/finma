@@ -103,8 +103,18 @@ def main():
     log.info("ADIM 5: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
 
+    # ── ADIM 6: Options Scanner (Opsiyon Fırsatları) ──
+    log.info("ADIM 6: opsiyon218v7.py --oneshot (Options Scanner) çalıştırılıyor...")
+    step6_ok = run_bot_subprocess("opsiyon218v7.py", ["--oneshot"])
+    if not step6_ok:
+        log.warning("⚠️ opsiyon218v7.py başarısız. Devam ediliyor...")
+
+    # ── ADIM 7: Options P&L Tracker ──
+    log.info("ADIM 7: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
+    run_bot_subprocess("options_pnl_tracker.py")
+
     log.info("=" * 60)
-    log.info("ADIM 6: Veriler GitHub'a yükleniyor (Git Push)...")
+    log.info("ADIM 8: Veriler GitHub'a yükleniyor (Git Push)...")
     try:
         subprocess.run(["git", "add", "."], cwd=FINMA_DIR, check=True)
         # Using a reliable date tag
