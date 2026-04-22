@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns F a score of 43.0/100. Trend: Neutral. RSI: 61.6.",
-      "tr": "BOGA AI assigns F a score of 43.0/100. Trend: Neutral. RSI: 61.6.",
-      "es": "BOGA AI assigns F a score of 43.0/100. Trend: Neutral. RSI: 61.6.",
-      "pt": "BOGA AI assigns F a score of 43.0/100. Trend: Neutral. RSI: 61.6.",
-      "fr": "BOGA AI assigns F a score of 43.0/100. Trend: Neutral. RSI: 61.6.",
-      "id": "BOGA AI assigns F a score of 43.0/100. Trend: Neutral. RSI: 61.6."
+      "tr": "BOGA AI, F için 43.0/100 skor verdi. Trend: Nötr. RSI: 61.6.",
+      "es": "BOGA AI asigna a F una puntuación de 43.0/100. Tendencia: Neutral. RSI: 61.6.",
+      "pt": "BOGA AI atribui a F uma pontuação de 43.0/100. Tendência: Neutro. RSI: 61.6.",
+      "fr": "BOGA AI attribue à F un score de 43.0/100. Tendance: Neutre. RSI: 61.6.",
+      "id": "BOGA AI memberikan F skor 43.0/100. Tren: Netral. RSI: 61.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: F (Ford Motor Company)\n\n### 1. Business Context\nFord Motor Company operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $12.86.\n\n### 2. Performance\n* **Master Score:** 43.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $12.86 | Current |\n| EMA20 | $12.32 | Support |\n| ADX | 23.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $12.16.\n\n### 5. Execution\n* **Entry Zone:** $12.42 - $12.92\n* **Target Price:** $13.91\n* **Stop Loss:** $12.16\n",

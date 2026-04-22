@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AMZN a score of 56.0/100. Trend: Neutral. RSI: 75.0.",
-      "tr": "BOGA AI assigns AMZN a score of 56.0/100. Trend: Neutral. RSI: 75.0.",
-      "es": "BOGA AI assigns AMZN a score of 56.0/100. Trend: Neutral. RSI: 75.0.",
-      "pt": "BOGA AI assigns AMZN a score of 56.0/100. Trend: Neutral. RSI: 75.0.",
-      "fr": "BOGA AI assigns AMZN a score of 56.0/100. Trend: Neutral. RSI: 75.0.",
-      "id": "BOGA AI assigns AMZN a score of 56.0/100. Trend: Neutral. RSI: 75.0."
+      "tr": "BOGA AI, AMZN için 56.0/100 skor verdi. Trend: Nötr. RSI: 75.0.",
+      "es": "BOGA AI asigna a AMZN una puntuación de 56.0/100. Tendencia: Neutral. RSI: 75.0.",
+      "pt": "BOGA AI atribui a AMZN uma pontuação de 56.0/100. Tendência: Neutro. RSI: 75.0.",
+      "fr": "BOGA AI attribue à AMZN un score de 56.0/100. Tendance: Neutre. RSI: 75.0.",
+      "id": "BOGA AI memberikan AMZN skor 56.0/100. Tren: Netral. RSI: 75.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AMZN (Amazon.com, Inc.)\n\n### 1. Business Context\nAmazon.com, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $251.82.\n\n### 2. Performance\n* **Master Score:** 56.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 75.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $251.82 | Current |\n| EMA20 | $232.22 | Support |\n| ADX | 28.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $238.80.\n\n### 5. Execution\n* **Entry Zone:** $222.84 - $253.08\n* **Target Price:** $271.35\n* **Stop Loss:** $238.80\n",

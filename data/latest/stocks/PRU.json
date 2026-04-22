@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PRU a score of 43.3/100. Trend: Neutral. RSI: 46.3.",
-      "tr": "BOGA AI assigns PRU a score of 43.3/100. Trend: Neutral. RSI: 46.3.",
-      "es": "BOGA AI assigns PRU a score of 43.3/100. Trend: Neutral. RSI: 46.3.",
-      "pt": "BOGA AI assigns PRU a score of 43.3/100. Trend: Neutral. RSI: 46.3.",
-      "fr": "BOGA AI assigns PRU a score of 43.3/100. Trend: Neutral. RSI: 46.3.",
-      "id": "BOGA AI assigns PRU a score of 43.3/100. Trend: Neutral. RSI: 46.3."
+      "tr": "BOGA AI, PRU için 43.3/100 skor verdi. Trend: Nötr. RSI: 46.3.",
+      "es": "BOGA AI asigna a PRU una puntuación de 43.3/100. Tendencia: Neutral. RSI: 46.3.",
+      "pt": "BOGA AI atribui a PRU uma pontuação de 43.3/100. Tendência: Neutro. RSI: 46.3.",
+      "fr": "BOGA AI attribue à PRU un score de 43.3/100. Tendance: Neutre. RSI: 46.3.",
+      "id": "BOGA AI memberikan PRU skor 43.3/100. Tren: Netral. RSI: 46.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PRU (Prudential Financial, Inc.)\n\n### 1. Business Context\nPrudential Financial, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $96.81.\n\n### 2. Performance\n* **Master Score:** 43.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 46.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $96.81 | Current |\n| EMA20 | $98.11 | Support |\n| ADX | 22.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $91.85.\n\n### 5. Execution\n* **Entry Zone:** $96.33 - $97.29\n* **Target Price:** $104.25\n* **Stop Loss:** $91.85\n",

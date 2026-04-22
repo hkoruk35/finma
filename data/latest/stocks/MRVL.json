@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MRVL a score of 58.0/100. Trend: Neutral. RSI: 86.1.",
-      "tr": "BOGA AI assigns MRVL a score of 58.0/100. Trend: Neutral. RSI: 86.1.",
-      "es": "BOGA AI assigns MRVL a score of 58.0/100. Trend: Neutral. RSI: 86.1.",
-      "pt": "BOGA AI assigns MRVL a score of 58.0/100. Trend: Neutral. RSI: 86.1.",
-      "fr": "BOGA AI assigns MRVL a score of 58.0/100. Trend: Neutral. RSI: 86.1.",
-      "id": "BOGA AI assigns MRVL a score of 58.0/100. Trend: Neutral. RSI: 86.1."
+      "tr": "BOGA AI, MRVL için 58.0/100 skor verdi. Trend: Nötr. RSI: 86.1.",
+      "es": "BOGA AI asigna a MRVL una puntuación de 58.0/100. Tendencia: Neutral. RSI: 86.1.",
+      "pt": "BOGA AI atribui a MRVL uma pontuação de 58.0/100. Tendência: Neutro. RSI: 86.1.",
+      "fr": "BOGA AI attribue à MRVL un score de 58.0/100. Tendance: Neutre. RSI: 86.1.",
+      "id": "BOGA AI memberikan MRVL skor 58.0/100. Tren: Netral. RSI: 86.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MRVL (Marvell Technology, Inc.)\n\n### 1. Business Context\nMarvell Technology, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $151.76.\n\n### 2. Performance\n* **Master Score:** 58.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 86.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $151.76 | Current |\n| EMA20 | $121.67 | Support |\n| ADX | 39.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $138.94.\n\n### 5. Execution\n* **Entry Zone:** $104.07 - $152.52\n* **Target Price:** $170.99\n* **Stop Loss:** $138.94\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GS a score of 51.2/100. Trend: Neutral. RSI: 62.7.",
-      "tr": "BOGA AI assigns GS a score of 51.2/100. Trend: Neutral. RSI: 62.7.",
-      "es": "BOGA AI assigns GS a score of 51.2/100. Trend: Neutral. RSI: 62.7.",
-      "pt": "BOGA AI assigns GS a score of 51.2/100. Trend: Neutral. RSI: 62.7.",
-      "fr": "BOGA AI assigns GS a score of 51.2/100. Trend: Neutral. RSI: 62.7.",
-      "id": "BOGA AI assigns GS a score of 51.2/100. Trend: Neutral. RSI: 62.7."
+      "tr": "BOGA AI, GS için 51.2/100 skor verdi. Trend: Nötr. RSI: 62.7.",
+      "es": "BOGA AI asigna a GS una puntuación de 51.2/100. Tendencia: Neutral. RSI: 62.7.",
+      "pt": "BOGA AI atribui a GS uma pontuação de 51.2/100. Tendência: Neutro. RSI: 62.7.",
+      "fr": "BOGA AI attribue à GS un score de 51.2/100. Tendance: Neutre. RSI: 62.7.",
+      "id": "BOGA AI memberikan GS skor 51.2/100. Tren: Netral. RSI: 62.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GS (The Goldman Sachs Group, Inc.)\n\n### 1. Business Context\nThe Goldman Sachs Group, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $925.57.\n\n### 2. Performance\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 62.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $925.57 | Current |\n| EMA20 | $887.5 | Support |\n| ADX | 17.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $872.75.\n\n### 5. Execution\n* **Entry Zone:** $870.43 - $930.20\n* **Target Price:** $1004.80\n* **Stop Loss:** $872.75\n",

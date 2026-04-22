@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
-      "tr": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
-      "es": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
-      "pt": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
-      "fr": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
-      "id": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0."
+      "tr": "BOGA AI, TTD için 39.4/100 skor verdi. Trend: Nötr. RSI: 53.0.",
+      "es": "BOGA AI asigna a TTD una puntuación de 39.4/100. Tendencia: Neutral. RSI: 53.0.",
+      "pt": "BOGA AI atribui a TTD uma pontuação de 39.4/100. Tendência: Neutro. RSI: 53.0.",
+      "fr": "BOGA AI attribue à TTD un score de 39.4/100. Tendance: Neutre. RSI: 53.0.",
+      "id": "BOGA AI memberikan TTD skor 39.4/100. Tren: Netral. RSI: 53.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TTD (The Trade Desk, Inc.)\n\n### 1. Business Context\nThe Trade Desk, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $23.59.\n\n### 2. Performance\n* **Master Score:** 39.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $23.59 | Current |\n| EMA20 | $22.62 | Support |\n| ADX | 19.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $20.87.\n\n### 5. Execution\n* **Entry Zone:** $23.47 - $23.71\n* **Target Price:** $27.67\n* **Stop Loss:** $20.87\n",

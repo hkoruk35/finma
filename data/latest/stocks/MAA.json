@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
-      "tr": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
-      "es": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
-      "pt": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
-      "fr": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
-      "id": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2."
+      "tr": "BOGA AI, MAA için 24.6/100 skor verdi. Trend: Nötr. RSI: 54.2.",
+      "es": "BOGA AI asigna a MAA una puntuación de 24.6/100. Tendencia: Neutral. RSI: 54.2.",
+      "pt": "BOGA AI atribui a MAA uma pontuação de 24.6/100. Tendência: Neutro. RSI: 54.2.",
+      "fr": "BOGA AI attribue à MAA un score de 24.6/100. Tendance: Neutre. RSI: 54.2.",
+      "id": "BOGA AI memberikan MAA skor 24.6/100. Tren: Netral. RSI: 54.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MAA (Mid-America Apartment Communities, Inc.)\n\n### 1. Business Context\nMid-America Apartment Communities, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $126.60.\n\n### 2. Performance\n* **Master Score:** 24.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $126.60 | Current |\n| EMA20 | $124.93 | Support |\n| ADX | 21.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $121.66.\n\n### 5. Execution\n* **Entry Zone:** $125.84 - $127.23\n* **Target Price:** $134.01\n* **Stop Loss:** $121.66\n",

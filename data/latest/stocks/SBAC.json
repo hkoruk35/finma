@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SBAC a score of 50.1/100. Trend: Neutral. RSI: 61.3.",
-      "tr": "BOGA AI assigns SBAC a score of 50.1/100. Trend: Neutral. RSI: 61.3.",
-      "es": "BOGA AI assigns SBAC a score of 50.1/100. Trend: Neutral. RSI: 61.3.",
-      "pt": "BOGA AI assigns SBAC a score of 50.1/100. Trend: Neutral. RSI: 61.3.",
-      "fr": "BOGA AI assigns SBAC a score of 50.1/100. Trend: Neutral. RSI: 61.3.",
-      "id": "BOGA AI assigns SBAC a score of 50.1/100. Trend: Neutral. RSI: 61.3."
+      "tr": "BOGA AI, SBAC için 50.1/100 skor verdi. Trend: Nötr. RSI: 61.3.",
+      "es": "BOGA AI asigna a SBAC una puntuación de 50.1/100. Tendencia: Neutral. RSI: 61.3.",
+      "pt": "BOGA AI atribui a SBAC uma pontuação de 50.1/100. Tendência: Neutro. RSI: 61.3.",
+      "fr": "BOGA AI attribue à SBAC un score de 50.1/100. Tendance: Neutre. RSI: 61.3.",
+      "id": "BOGA AI memberikan SBAC skor 50.1/100. Tren: Netral. RSI: 61.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SBAC (SBA Communications Corporation)\n\n### 1. Business Context\nSBA Communications Corporation operates in the Real Estate sector. BOGA AI detect institutional interest near $216.66.\n\n### 2. Performance\n* **Master Score:** 50.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $216.66 | Current |\n| EMA20 | $206.96 | Support |\n| ADX | 39.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $202.42.\n\n### 5. Execution\n* **Entry Zone:** $196.49 - $217.74\n* **Target Price:** $238.02\n* **Stop Loss:** $202.42\n",

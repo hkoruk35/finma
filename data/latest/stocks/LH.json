@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns LH a score of 37.0/100. Trend: Neutral. RSI: 56.4.",
-      "tr": "BOGA AI assigns LH a score of 37.0/100. Trend: Neutral. RSI: 56.4.",
-      "es": "BOGA AI assigns LH a score of 37.0/100. Trend: Neutral. RSI: 56.4.",
-      "pt": "BOGA AI assigns LH a score of 37.0/100. Trend: Neutral. RSI: 56.4.",
-      "fr": "BOGA AI assigns LH a score of 37.0/100. Trend: Neutral. RSI: 56.4.",
-      "id": "BOGA AI assigns LH a score of 37.0/100. Trend: Neutral. RSI: 56.4."
+      "tr": "BOGA AI, LH için 37.0/100 skor verdi. Trend: Nötr. RSI: 56.4.",
+      "es": "BOGA AI asigna a LH una puntuación de 37.0/100. Tendencia: Neutral. RSI: 56.4.",
+      "pt": "BOGA AI atribui a LH uma pontuação de 37.0/100. Tendência: Neutro. RSI: 56.4.",
+      "fr": "BOGA AI attribue à LH un score de 37.0/100. Tendance: Neutre. RSI: 56.4.",
+      "id": "BOGA AI memberikan LH skor 37.0/100. Tren: Netral. RSI: 56.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: LH (Labcorp Holdings Inc.)\n\n### 1. Business Context\nLabcorp Holdings Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $275.51.\n\n### 2. Performance\n* **Master Score:** 37.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 56.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $275.51 | Current |\n| EMA20 | $269.45 | Support |\n| ADX | 15.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $261.57.\n\n### 5. Execution\n* **Entry Zone:** $268.54 - $276.89\n* **Target Price:** $296.42\n* **Stop Loss:** $261.57\n",

@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
-      "tr": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
-      "es": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
-      "pt": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
-      "fr": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
-      "id": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3."
+      "tr": "BOGA AI, CI için 39.5/100 skor verdi. Trend: Nötr. RSI: 56.3.",
+      "es": "BOGA AI asigna a CI una puntuación de 39.5/100. Tendencia: Neutral. RSI: 56.3.",
+      "pt": "BOGA AI atribui a CI uma pontuação de 39.5/100. Tendência: Neutro. RSI: 56.3.",
+      "fr": "BOGA AI attribue à CI un score de 39.5/100. Tendance: Neutre. RSI: 56.3.",
+      "id": "BOGA AI memberikan CI skor 39.5/100. Tren: Netral. RSI: 56.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CI (The Cigna Group)\n\n### 1. Business Context\nThe Cigna Group operates in the Healthcare sector. BOGA AI detect institutional interest near $278.98.\n\n### 2. Performance\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $278.98 | Current |\n| EMA20 | $273.67 | Support |\n| ADX | 17.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $266.32.\n\n### 5. Execution\n* **Entry Zone:** $272.27 - $280.37\n* **Target Price:** $297.97\n* **Stop Loss:** $266.32\n",

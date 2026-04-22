@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TDW a score of 42.8/100. Trend: Neutral. RSI: 58.1.",
-      "tr": "BOGA AI assigns TDW a score of 42.8/100. Trend: Neutral. RSI: 58.1.",
-      "es": "BOGA AI assigns TDW a score of 42.8/100. Trend: Neutral. RSI: 58.1.",
-      "pt": "BOGA AI assigns TDW a score of 42.8/100. Trend: Neutral. RSI: 58.1.",
-      "fr": "BOGA AI assigns TDW a score of 42.8/100. Trend: Neutral. RSI: 58.1.",
-      "id": "BOGA AI assigns TDW a score of 42.8/100. Trend: Neutral. RSI: 58.1."
+      "tr": "BOGA AI, TDW için 42.8/100 skor verdi. Trend: Nötr. RSI: 58.1.",
+      "es": "BOGA AI asigna a TDW una puntuación de 42.8/100. Tendencia: Neutral. RSI: 58.1.",
+      "pt": "BOGA AI atribui a TDW uma pontuação de 42.8/100. Tendência: Neutro. RSI: 58.1.",
+      "fr": "BOGA AI attribue à TDW un score de 42.8/100. Tendance: Neutre. RSI: 58.1.",
+      "id": "BOGA AI memberikan TDW skor 42.8/100. Tren: Netral. RSI: 58.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TDW (Tidewater Inc.)\n\n### 1. Business Context\nTidewater Inc. operates in the Energy sector. BOGA AI detect institutional interest near $85.04.\n\n### 2. Performance\n* **Master Score:** 42.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $85.04 | Current |\n| EMA20 | $83.54 | Support |\n| ADX | 20.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $78.06.\n\n### 5. Execution\n* **Entry Zone:** $77.85 - $85.47\n* **Target Price:** $95.51\n* **Stop Loss:** $78.06\n",

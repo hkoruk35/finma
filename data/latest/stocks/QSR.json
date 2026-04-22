@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
-      "tr": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
-      "es": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
-      "pt": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
-      "fr": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
-      "id": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0."
+      "tr": "BOGA AI, QSR için 49.2/100 skor verdi. Trend: Nötr. RSI: 63.0.",
+      "es": "BOGA AI asigna a QSR una puntuación de 49.2/100. Tendencia: Neutral. RSI: 63.0.",
+      "pt": "BOGA AI atribui a QSR uma pontuação de 49.2/100. Tendência: Neutro. RSI: 63.0.",
+      "fr": "BOGA AI attribue à QSR un score de 49.2/100. Tendance: Neutre. RSI: 63.0.",
+      "id": "BOGA AI memberikan QSR skor 49.2/100. Tren: Netral. RSI: 63.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: QSR (Restaurant Brands International Inc.)\n\n### 1. Business Context\nRestaurant Brands International Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $78.51.\n\n### 2. Performance\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $78.51 | Current |\n| EMA20 | $76.52 | Support |\n| ADX | 21.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $75.45.\n\n### 5. Execution\n* **Entry Zone:** $73.43 - $78.90\n* **Target Price:** $83.10\n* **Stop Loss:** $75.45\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CM a score of 58.3/100. Trend: Neutral. RSI: 73.4.",
-      "tr": "BOGA AI assigns CM a score of 58.3/100. Trend: Neutral. RSI: 73.4.",
-      "es": "BOGA AI assigns CM a score of 58.3/100. Trend: Neutral. RSI: 73.4.",
-      "pt": "BOGA AI assigns CM a score of 58.3/100. Trend: Neutral. RSI: 73.4.",
-      "fr": "BOGA AI assigns CM a score of 58.3/100. Trend: Neutral. RSI: 73.4.",
-      "id": "BOGA AI assigns CM a score of 58.3/100. Trend: Neutral. RSI: 73.4."
+      "tr": "BOGA AI, CM için 58.3/100 skor verdi. Trend: Nötr. RSI: 73.4.",
+      "es": "BOGA AI asigna a CM una puntuación de 58.3/100. Tendencia: Neutral. RSI: 73.4.",
+      "pt": "BOGA AI atribui a CM uma pontuação de 58.3/100. Tendência: Neutro. RSI: 73.4.",
+      "fr": "BOGA AI attribue à CM un score de 58.3/100. Tendance: Neutre. RSI: 73.4.",
+      "id": "BOGA AI memberikan CM skor 58.3/100. Tren: Netral. RSI: 73.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CM (Canadian Imperial Bank of Commerce)\n\n### 1. Business Context\nCanadian Imperial Bank of Commerce operates in the Financials sector. BOGA AI detect institutional interest near $108.99.\n\n### 2. Performance\n* **Master Score:** 58.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 73.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $108.99 | Current |\n| EMA20 | $102.85 | Support |\n| ADX | 27.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $105.17.\n\n### 5. Execution\n* **Entry Zone:** $98.43 - $109.53\n* **Target Price:** $114.72\n* **Stop Loss:** $105.17\n",

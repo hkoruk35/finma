@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ICE a score of 24.9/100. Trend: Neutral. RSI: 46.2.",
-      "tr": "BOGA AI assigns ICE a score of 24.9/100. Trend: Neutral. RSI: 46.2.",
-      "es": "BOGA AI assigns ICE a score of 24.9/100. Trend: Neutral. RSI: 46.2.",
-      "pt": "BOGA AI assigns ICE a score of 24.9/100. Trend: Neutral. RSI: 46.2.",
-      "fr": "BOGA AI assigns ICE a score of 24.9/100. Trend: Neutral. RSI: 46.2.",
-      "id": "BOGA AI assigns ICE a score of 24.9/100. Trend: Neutral. RSI: 46.2."
+      "tr": "BOGA AI, ICE için 24.9/100 skor verdi. Trend: Nötr. RSI: 46.2.",
+      "es": "BOGA AI asigna a ICE una puntuación de 24.9/100. Tendencia: Neutral. RSI: 46.2.",
+      "pt": "BOGA AI atribui a ICE uma pontuação de 24.9/100. Tendência: Neutro. RSI: 46.2.",
+      "fr": "BOGA AI attribue à ICE un score de 24.9/100. Tendance: Neutre. RSI: 46.2.",
+      "id": "BOGA AI memberikan ICE skor 24.9/100. Tren: Netral. RSI: 46.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ICE (Intercontinental Exchange, Inc.)\n\n### 1. Business Context\nIntercontinental Exchange, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $159.18.\n\n### 2. Performance\n* **Master Score:** 24.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $159.18 | Current |\n| EMA20 | $161.41 | Support |\n| ADX | 15.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $151.68.\n\n### 5. Execution\n* **Entry Zone:** $158.38 - $159.98\n* **Target Price:** $170.43\n* **Stop Loss:** $151.68\n",

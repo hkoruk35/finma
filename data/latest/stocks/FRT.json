@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
-      "tr": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
-      "es": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
-      "pt": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
-      "fr": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
-      "id": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0."
+      "tr": "BOGA AI, FRT için 60.4/100 skor verdi. Trend: Nötr. RSI: 69.0.",
+      "es": "BOGA AI asigna a FRT una puntuación de 60.4/100. Tendencia: Neutral. RSI: 69.0.",
+      "pt": "BOGA AI atribui a FRT uma pontuação de 60.4/100. Tendência: Neutro. RSI: 69.0.",
+      "fr": "BOGA AI attribue à FRT un score de 60.4/100. Tendance: Neutre. RSI: 69.0.",
+      "id": "BOGA AI memberikan FRT skor 60.4/100. Tren: Netral. RSI: 69.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: FRT (Federal Realty Investment Trust)\n\n### 1. Business Context\nFederal Realty Investment Trust operates in the Real Estate sector. BOGA AI detect institutional interest near $111.58.\n\n### 2. Performance\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $111.58 | Current |\n| EMA20 | $108.4 | Support |\n| ADX | 27.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $108.12.\n\n### 5. Execution\n* **Entry Zone:** $105.50 - $112.14\n* **Target Price:** $116.77\n* **Stop Loss:** $108.12\n",

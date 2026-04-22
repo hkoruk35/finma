@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
-      "tr": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
-      "es": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
-      "pt": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
-      "fr": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
-      "id": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2."
+      "tr": "BOGA AI, SUI için 39.9/100 skor verdi. Trend: Nötr. RSI: 49.2.",
+      "es": "BOGA AI asigna a SUI una puntuación de 39.9/100. Tendencia: Neutral. RSI: 49.2.",
+      "pt": "BOGA AI atribui a SUI uma pontuação de 39.9/100. Tendência: Neutro. RSI: 49.2.",
+      "fr": "BOGA AI attribue à SUI un score de 39.9/100. Tendance: Neutre. RSI: 49.2.",
+      "id": "BOGA AI memberikan SUI skor 39.9/100. Tren: Netral. RSI: 49.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SUI (Sun Communities, Inc.)\n\n### 1. Business Context\nSun Communities, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $128.96.\n\n### 2. Performance\n* **Master Score:** 39.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $128.96 | Current |\n| EMA20 | $129.1 | Support |\n| ADX | 16.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $124.18.\n\n### 5. Execution\n* **Entry Zone:** $128.25 - $129.60\n* **Target Price:** $136.13\n* **Stop Loss:** $124.18\n",

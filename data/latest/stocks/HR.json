@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns HR a score of 41.4/100. Trend: Neutral. RSI: 59.1.",
-      "tr": "BOGA AI assigns HR a score of 41.4/100. Trend: Neutral. RSI: 59.1.",
-      "es": "BOGA AI assigns HR a score of 41.4/100. Trend: Neutral. RSI: 59.1.",
-      "pt": "BOGA AI assigns HR a score of 41.4/100. Trend: Neutral. RSI: 59.1.",
-      "fr": "BOGA AI assigns HR a score of 41.4/100. Trend: Neutral. RSI: 59.1.",
-      "id": "BOGA AI assigns HR a score of 41.4/100. Trend: Neutral. RSI: 59.1."
+      "tr": "BOGA AI, HR için 41.4/100 skor verdi. Trend: Nötr. RSI: 59.1.",
+      "es": "BOGA AI asigna a HR una puntuación de 41.4/100. Tendencia: Neutral. RSI: 59.1.",
+      "pt": "BOGA AI atribui a HR uma pontuação de 41.4/100. Tendência: Neutro. RSI: 59.1.",
+      "fr": "BOGA AI attribue à HR un score de 41.4/100. Tendance: Neutre. RSI: 59.1.",
+      "id": "BOGA AI memberikan HR skor 41.4/100. Tren: Netral. RSI: 59.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: HR (Healthcare Realty Trust Incorporated)\n\n### 1. Business Context\nHealthcare Realty Trust Incorporated operates in the Real Estate sector. BOGA AI detect institutional interest near $18.25.\n\n### 2. Performance\n* **Master Score:** 41.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $18.25 | Current |\n| EMA20 | $17.85 | Support |\n| ADX | 22.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $17.49.\n\n### 5. Execution\n* **Entry Zone:** $17.60 - $18.34\n* **Target Price:** $19.39\n* **Stop Loss:** $17.49\n",

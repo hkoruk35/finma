@@ -150,11 +150,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MO a score of 42.3/100. Trend: Neutral. RSI: 45.7.",
-      "tr": "BOGA AI assigns MO a score of 42.3/100. Trend: Neutral. RSI: 45.7.",
-      "es": "BOGA AI assigns MO a score of 42.3/100. Trend: Neutral. RSI: 45.7.",
-      "pt": "BOGA AI assigns MO a score of 42.3/100. Trend: Neutral. RSI: 45.7.",
-      "fr": "BOGA AI assigns MO a score of 42.3/100. Trend: Neutral. RSI: 45.7.",
-      "id": "BOGA AI assigns MO a score of 42.3/100. Trend: Neutral. RSI: 45.7."
+      "tr": "BOGA AI, MO için 42.3/100 skor verdi. Trend: Nötr. RSI: 45.7.",
+      "es": "BOGA AI asigna a MO una puntuación de 42.3/100. Tendencia: Neutral. RSI: 45.7.",
+      "pt": "BOGA AI atribui a MO uma pontuação de 42.3/100. Tendência: Neutro. RSI: 45.7.",
+      "fr": "BOGA AI attribue à MO un score de 42.3/100. Tendance: Neutre. RSI: 45.7.",
+      "id": "BOGA AI memberikan MO skor 42.3/100. Tren: Netral. RSI: 45.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MO (Altria Group, Inc.)\n\n### 1. Business Context\nAltria Group, Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $64.75.\n\n### 2. Performance\n* **Master Score:** 42.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $64.75 | Current |\n| EMA20 | $65.46 | Support |\n| ADX | 15.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $62.09.\n\n### 5. Execution\n* **Entry Zone:** $64.43 - $65.07\n* **Target Price:** $68.74\n* **Stop Loss:** $62.09\n",

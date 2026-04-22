@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
-      "tr": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
-      "es": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
-      "pt": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
-      "fr": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
-      "id": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2."
+      "tr": "BOGA AI, ARM için 48.5/100 skor verdi. Trend: Nötr. RSI: 72.2.",
+      "es": "BOGA AI asigna a ARM una puntuación de 48.5/100. Tendencia: Neutral. RSI: 72.2.",
+      "pt": "BOGA AI atribui a ARM uma pontuação de 48.5/100. Tendência: Neutro. RSI: 72.2.",
+      "fr": "BOGA AI attribue à ARM un score de 48.5/100. Tendance: Neutre. RSI: 72.2.",
+      "id": "BOGA AI memberikan ARM skor 48.5/100. Tren: Netral. RSI: 72.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ARM (Arm Holdings plc)\n\n### 1. Business Context\nArm Holdings plc operates in the Technology sector. BOGA AI detect institutional interest near $174.93.\n\n### 2. Performance\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 72.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $174.93 | Current |\n| EMA20 | $154.32 | Support |\n| ADX | 26.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $158.01.\n\n### 5. Execution\n* **Entry Zone:** $140.51 - $175.80\n* **Target Price:** $200.31\n* **Stop Loss:** $158.01\n",

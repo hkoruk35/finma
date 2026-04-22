@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns LIN a score of 28.7/100. Trend: Neutral. RSI: 50.1.",
-      "tr": "BOGA AI assigns LIN a score of 28.7/100. Trend: Neutral. RSI: 50.1.",
-      "es": "BOGA AI assigns LIN a score of 28.7/100. Trend: Neutral. RSI: 50.1.",
-      "pt": "BOGA AI assigns LIN a score of 28.7/100. Trend: Neutral. RSI: 50.1.",
-      "fr": "BOGA AI assigns LIN a score of 28.7/100. Trend: Neutral. RSI: 50.1.",
-      "id": "BOGA AI assigns LIN a score of 28.7/100. Trend: Neutral. RSI: 50.1."
+      "tr": "BOGA AI, LIN için 28.7/100 skor verdi. Trend: Nötr. RSI: 50.1.",
+      "es": "BOGA AI asigna a LIN una puntuación de 28.7/100. Tendencia: Neutral. RSI: 50.1.",
+      "pt": "BOGA AI atribui a LIN uma pontuação de 28.7/100. Tendência: Neutro. RSI: 50.1.",
+      "fr": "BOGA AI attribue à LIN un score de 28.7/100. Tendance: Neutre. RSI: 50.1.",
+      "id": "BOGA AI memberikan LIN skor 28.7/100. Tren: Netral. RSI: 50.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: LIN (Linde plc)\n\n### 1. Business Context\nLinde plc operates in the Materials sector. BOGA AI detect institutional interest near $494.85.\n\n### 2. Performance\n* **Master Score:** 28.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 50.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $494.85 | Current |\n| EMA20 | $496.48 | Support |\n| ADX | 12.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $475.89.\n\n### 5. Execution\n* **Entry Zone:** $484.35 - $497.32\n* **Target Price:** $523.29\n* **Stop Loss:** $475.89\n",

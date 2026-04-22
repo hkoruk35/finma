@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns FLNG a score of 55.1/100. Trend: Neutral. RSI: 59.9.",
-      "tr": "BOGA AI assigns FLNG a score of 55.1/100. Trend: Neutral. RSI: 59.9.",
-      "es": "BOGA AI assigns FLNG a score of 55.1/100. Trend: Neutral. RSI: 59.9.",
-      "pt": "BOGA AI assigns FLNG a score of 55.1/100. Trend: Neutral. RSI: 59.9.",
-      "fr": "BOGA AI assigns FLNG a score of 55.1/100. Trend: Neutral. RSI: 59.9.",
-      "id": "BOGA AI assigns FLNG a score of 55.1/100. Trend: Neutral. RSI: 59.9."
+      "tr": "BOGA AI, FLNG için 55.1/100 skor verdi. Trend: Nötr. RSI: 59.9.",
+      "es": "BOGA AI asigna a FLNG una puntuación de 55.1/100. Tendencia: Neutral. RSI: 59.9.",
+      "pt": "BOGA AI atribui a FLNG uma pontuação de 55.1/100. Tendência: Neutro. RSI: 59.9.",
+      "fr": "BOGA AI attribue à FLNG un score de 55.1/100. Tendance: Neutre. RSI: 59.9.",
+      "id": "BOGA AI memberikan FLNG skor 55.1/100. Tren: Netral. RSI: 59.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: FLNG (FLEX LNG Ltd.)\n\n### 1. Business Context\nFLEX LNG Ltd. operates in the Energy sector. BOGA AI detect institutional interest near $31.15.\n\n### 2. Performance\n* **Master Score:** 55.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $31.15 | Current |\n| EMA20 | $30.29 | Support |\n| ADX | 26.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $29.27.\n\n### 5. Execution\n* **Entry Zone:** $28.94 - $31.31\n* **Target Price:** $33.97\n* **Stop Loss:** $29.27\n",

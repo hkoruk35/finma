@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
-      "tr": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
-      "es": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
-      "pt": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
-      "fr": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
-      "id": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1."
+      "tr": "BOGA AI, SPOT için 37.5/100 skor verdi. Trend: Nötr. RSI: 61.1.",
+      "es": "BOGA AI asigna a SPOT una puntuación de 37.5/100. Tendencia: Neutral. RSI: 61.1.",
+      "pt": "BOGA AI atribui a SPOT uma pontuação de 37.5/100. Tendência: Neutro. RSI: 61.1.",
+      "fr": "BOGA AI attribue à SPOT un score de 37.5/100. Tendance: Neutre. RSI: 61.1.",
+      "id": "BOGA AI memberikan SPOT skor 37.5/100. Tren: Netral. RSI: 61.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SPOT (Spotify Technology S.A.)\n\n### 1. Business Context\nSpotify Technology S.A. operates in the Communication Services sector. BOGA AI detect institutional interest near $531.58.\n\n### 2. Performance\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $531.58 | Current |\n| EMA20 | $507.94 | Support |\n| ADX | 14.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $493.84.\n\n### 5. Execution\n* **Entry Zone:** $504.44 - $534.24\n* **Target Price:** $588.19\n* **Stop Loss:** $493.84\n",

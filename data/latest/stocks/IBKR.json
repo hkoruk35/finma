@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns IBKR a score of 54.0/100. Trend: Neutral. RSI: 67.7.",
-      "tr": "BOGA AI assigns IBKR a score of 54.0/100. Trend: Neutral. RSI: 67.7.",
-      "es": "BOGA AI assigns IBKR a score of 54.0/100. Trend: Neutral. RSI: 67.7.",
-      "pt": "BOGA AI assigns IBKR a score of 54.0/100. Trend: Neutral. RSI: 67.7.",
-      "fr": "BOGA AI assigns IBKR a score of 54.0/100. Trend: Neutral. RSI: 67.7.",
-      "id": "BOGA AI assigns IBKR a score of 54.0/100. Trend: Neutral. RSI: 67.7."
+      "tr": "BOGA AI, IBKR için 54.0/100 skor verdi. Trend: Nötr. RSI: 67.7.",
+      "es": "BOGA AI asigna a IBKR una puntuación de 54.0/100. Tendencia: Neutral. RSI: 67.7.",
+      "pt": "BOGA AI atribui a IBKR uma pontuação de 54.0/100. Tendência: Neutro. RSI: 67.7.",
+      "fr": "BOGA AI attribue à IBKR un score de 54.0/100. Tendance: Neutre. RSI: 67.7.",
+      "id": "BOGA AI memberikan IBKR skor 54.0/100. Tren: Netral. RSI: 67.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: IBKR (Interactive Brokers Group, Inc.)\n\n### 1. Business Context\nInteractive Brokers Group, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $80.17.\n\n### 2. Performance\n* **Master Score:** 54.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $80.17 | Current |\n| EMA20 | $74.18 | Support |\n| ADX | 21.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $74.71.\n\n### 5. Execution\n* **Entry Zone:** $71.40 - $80.57\n* **Target Price:** $88.36\n* **Stop Loss:** $74.71\n",

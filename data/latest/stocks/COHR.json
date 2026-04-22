@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
-      "tr": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
-      "es": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
-      "pt": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
-      "fr": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
-      "id": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8."
+      "tr": "BOGA AI, COHR için 56.3/100 skor verdi. Trend: Nötr. RSI: 72.8.",
+      "es": "BOGA AI asigna a COHR una puntuación de 56.3/100. Tendencia: Neutral. RSI: 72.8.",
+      "pt": "BOGA AI atribui a COHR uma pontuação de 56.3/100. Tendência: Neutro. RSI: 72.8.",
+      "fr": "BOGA AI attribue à COHR un score de 56.3/100. Tendance: Neutre. RSI: 72.8.",
+      "id": "BOGA AI memberikan COHR skor 56.3/100. Tren: Netral. RSI: 72.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: COHR (Coherent Corp.)\n\n### 1. Business Context\nCoherent Corp. operates in the Technology sector. BOGA AI detect institutional interest near $347.14.\n\n### 2. Performance\n* **Master Score:** 56.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $347.14 | Current |\n| EMA20 | $296.54 | Support |\n| ADX | 24.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $304.70.\n\n### 5. Execution\n* **Entry Zone:** $263.81 - $348.88\n* **Target Price:** $410.80\n* **Stop Loss:** $304.70\n",

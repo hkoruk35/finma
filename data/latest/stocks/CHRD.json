@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CHRD a score of 40.0/100. Trend: Neutral. RSI: 49.1.",
-      "tr": "BOGA AI assigns CHRD a score of 40.0/100. Trend: Neutral. RSI: 49.1.",
-      "es": "BOGA AI assigns CHRD a score of 40.0/100. Trend: Neutral. RSI: 49.1.",
-      "pt": "BOGA AI assigns CHRD a score of 40.0/100. Trend: Neutral. RSI: 49.1.",
-      "fr": "BOGA AI assigns CHRD a score of 40.0/100. Trend: Neutral. RSI: 49.1.",
-      "id": "BOGA AI assigns CHRD a score of 40.0/100. Trend: Neutral. RSI: 49.1."
+      "tr": "BOGA AI, CHRD için 40.0/100 skor verdi. Trend: Nötr. RSI: 49.1.",
+      "es": "BOGA AI asigna a CHRD una puntuación de 40.0/100. Tendencia: Neutral. RSI: 49.1.",
+      "pt": "BOGA AI atribui a CHRD uma pontuação de 40.0/100. Tendência: Neutro. RSI: 49.1.",
+      "fr": "BOGA AI attribue à CHRD un score de 40.0/100. Tendance: Neutre. RSI: 49.1.",
+      "id": "BOGA AI memberikan CHRD skor 40.0/100. Tren: Netral. RSI: 49.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CHRD (Chord Energy Corporation)\n\n### 1. Business Context\nChord Energy Corporation operates in the Energy sector. BOGA AI detect institutional interest near $129.57.\n\n### 2. Performance\n* **Master Score:** 40.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $129.57 | Current |\n| EMA20 | $131.75 | Support |\n| ADX | 22.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $118.09.\n\n### 5. Execution\n* **Entry Zone:** $123.30 - $130.22\n* **Target Price:** $146.79\n* **Stop Loss:** $118.09\n",

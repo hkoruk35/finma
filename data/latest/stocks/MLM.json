@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MLM a score of 24.9/100. Trend: Neutral. RSI: 52.2.",
-      "tr": "BOGA AI assigns MLM a score of 24.9/100. Trend: Neutral. RSI: 52.2.",
-      "es": "BOGA AI assigns MLM a score of 24.9/100. Trend: Neutral. RSI: 52.2.",
-      "pt": "BOGA AI assigns MLM a score of 24.9/100. Trend: Neutral. RSI: 52.2.",
-      "fr": "BOGA AI assigns MLM a score of 24.9/100. Trend: Neutral. RSI: 52.2.",
-      "id": "BOGA AI assigns MLM a score of 24.9/100. Trend: Neutral. RSI: 52.2."
+      "tr": "BOGA AI, MLM için 24.9/100 skor verdi. Trend: Nötr. RSI: 52.2.",
+      "es": "BOGA AI asigna a MLM una puntuación de 24.9/100. Tendencia: Neutral. RSI: 52.2.",
+      "pt": "BOGA AI atribui a MLM uma pontuação de 24.9/100. Tendência: Neutro. RSI: 52.2.",
+      "fr": "BOGA AI attribue à MLM un score de 24.9/100. Tendance: Neutre. RSI: 52.2.",
+      "id": "BOGA AI memberikan MLM skor 24.9/100. Tren: Netral. RSI: 52.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MLM (Martin Marietta Materials, Inc.)\n\n### 1. Business Context\nMartin Marietta Materials, Inc. operates in the Materials sector. BOGA AI detect institutional interest near $617.96.\n\n### 2. Performance\n* **Master Score:** 24.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $617.96 | Current |\n| EMA20 | $612.93 | Support |\n| ADX | 18.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $583.86.\n\n### 5. Execution\n* **Entry Zone:** $614.87 - $621.05\n* **Target Price:** $669.11\n* **Stop Loss:** $583.86\n",

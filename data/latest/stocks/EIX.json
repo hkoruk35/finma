@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns EIX a score of 34.1/100. Trend: Neutral. RSI: 44.3.",
-      "tr": "BOGA AI assigns EIX a score of 34.1/100. Trend: Neutral. RSI: 44.3.",
-      "es": "BOGA AI assigns EIX a score of 34.1/100. Trend: Neutral. RSI: 44.3.",
-      "pt": "BOGA AI assigns EIX a score of 34.1/100. Trend: Neutral. RSI: 44.3.",
-      "fr": "BOGA AI assigns EIX a score of 34.1/100. Trend: Neutral. RSI: 44.3.",
-      "id": "BOGA AI assigns EIX a score of 34.1/100. Trend: Neutral. RSI: 44.3."
+      "tr": "BOGA AI, EIX için 34.1/100 skor verdi. Trend: Nötr. RSI: 44.3.",
+      "es": "BOGA AI asigna a EIX una puntuación de 34.1/100. Tendencia: Neutral. RSI: 44.3.",
+      "pt": "BOGA AI atribui a EIX uma pontuação de 34.1/100. Tendência: Neutro. RSI: 44.3.",
+      "fr": "BOGA AI attribue à EIX un score de 34.1/100. Tendance: Neutre. RSI: 44.3.",
+      "id": "BOGA AI memberikan EIX skor 34.1/100. Tren: Netral. RSI: 44.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: EIX (Edison International)\n\n### 1. Business Context\nEdison International operates in the Utilities sector. BOGA AI detect institutional interest near $70.42.\n\n### 2. Performance\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $70.42 | Current |\n| EMA20 | $71.76 | Support |\n| ADX | 17.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $67.12.\n\n### 5. Execution\n* **Entry Zone:** $69.62 - $70.77\n* **Target Price:** $75.37\n* **Stop Loss:** $67.12\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PEB a score of 55.6/100. Trend: Neutral. RSI: 67.0.",
-      "tr": "BOGA AI assigns PEB a score of 55.6/100. Trend: Neutral. RSI: 67.0.",
-      "es": "BOGA AI assigns PEB a score of 55.6/100. Trend: Neutral. RSI: 67.0.",
-      "pt": "BOGA AI assigns PEB a score of 55.6/100. Trend: Neutral. RSI: 67.0.",
-      "fr": "BOGA AI assigns PEB a score of 55.6/100. Trend: Neutral. RSI: 67.0.",
-      "id": "BOGA AI assigns PEB a score of 55.6/100. Trend: Neutral. RSI: 67.0."
+      "tr": "BOGA AI, PEB için 55.6/100 skor verdi. Trend: Nötr. RSI: 67.0.",
+      "es": "BOGA AI asigna a PEB una puntuación de 55.6/100. Tendencia: Neutral. RSI: 67.0.",
+      "pt": "BOGA AI atribui a PEB uma pontuação de 55.6/100. Tendência: Neutro. RSI: 67.0.",
+      "fr": "BOGA AI attribue à PEB un score de 55.6/100. Tendance: Neutre. RSI: 67.0.",
+      "id": "BOGA AI memberikan PEB skor 55.6/100. Tren: Netral. RSI: 67.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PEB (Pebblebrook Hotel Trust)\n\n### 1. Business Context\nPebblebrook Hotel Trust operates in the Real Estate sector. BOGA AI detect institutional interest near $14.06.\n\n### 2. Performance\n* **Master Score:** 55.6/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $14.06 | Current |\n| EMA20 | $13.4 | Support |\n| ADX | 26.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $13.26.\n\n### 5. Execution\n* **Entry Zone:** $12.78 - $14.13\n* **Target Price:** $15.26\n* **Stop Loss:** $13.26\n",

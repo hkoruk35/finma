@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CBOE a score of 57.2/100. Trend: Neutral. RSI: 59.0.",
-      "tr": "BOGA AI assigns CBOE a score of 57.2/100. Trend: Neutral. RSI: 59.0.",
-      "es": "BOGA AI assigns CBOE a score of 57.2/100. Trend: Neutral. RSI: 59.0.",
-      "pt": "BOGA AI assigns CBOE a score of 57.2/100. Trend: Neutral. RSI: 59.0.",
-      "fr": "BOGA AI assigns CBOE a score of 57.2/100. Trend: Neutral. RSI: 59.0.",
-      "id": "BOGA AI assigns CBOE a score of 57.2/100. Trend: Neutral. RSI: 59.0."
+      "tr": "BOGA AI, CBOE için 57.2/100 skor verdi. Trend: Nötr. RSI: 59.0.",
+      "es": "BOGA AI asigna a CBOE una puntuación de 57.2/100. Tendencia: Neutral. RSI: 59.0.",
+      "pt": "BOGA AI atribui a CBOE uma pontuação de 57.2/100. Tendência: Neutro. RSI: 59.0.",
+      "fr": "BOGA AI attribue à CBOE un score de 57.2/100. Tendance: Neutre. RSI: 59.0.",
+      "id": "BOGA AI memberikan CBOE skor 57.2/100. Tren: Netral. RSI: 59.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CBOE (Cboe Global Markets, Inc.)\n\n### 1. Business Context\nCboe Global Markets, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $302.89.\n\n### 2. Performance\n* **Master Score:** 57.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $302.89 | Current |\n| EMA20 | $296.15 | Support |\n| ADX | 17.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $288.83.\n\n### 5. Execution\n* **Entry Zone:** $286.79 - $304.40\n* **Target Price:** $323.98\n* **Stop Loss:** $288.83\n",

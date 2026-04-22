@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CPB a score of 38.8/100. Trend: Neutral. RSI: 43.2.",
-      "tr": "BOGA AI assigns CPB a score of 38.8/100. Trend: Neutral. RSI: 43.2.",
-      "es": "BOGA AI assigns CPB a score of 38.8/100. Trend: Neutral. RSI: 43.2.",
-      "pt": "BOGA AI assigns CPB a score of 38.8/100. Trend: Neutral. RSI: 43.2.",
-      "fr": "BOGA AI assigns CPB a score of 38.8/100. Trend: Neutral. RSI: 43.2.",
-      "id": "BOGA AI assigns CPB a score of 38.8/100. Trend: Neutral. RSI: 43.2."
+      "tr": "BOGA AI, CPB için 38.8/100 skor verdi. Trend: Nötr. RSI: 43.2.",
+      "es": "BOGA AI asigna a CPB una puntuación de 38.8/100. Tendencia: Neutral. RSI: 43.2.",
+      "pt": "BOGA AI atribui a CPB uma pontuação de 38.8/100. Tendência: Neutro. RSI: 43.2.",
+      "fr": "BOGA AI attribue à CPB un score de 38.8/100. Tendance: Neutre. RSI: 43.2.",
+      "id": "BOGA AI memberikan CPB skor 38.8/100. Tren: Netral. RSI: 43.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CPB (The Campbell's Company)\n\n### 1. Business Context\nThe Campbell's Company operates in the Consumer Staples sector. BOGA AI detect institutional interest near $21.03.\n\n### 2. Performance\n* **Master Score:** 38.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 43.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $21.03 | Current |\n| EMA20 | $21.22 | Support |\n| ADX | 37.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $19.75.\n\n### 5. Execution\n* **Entry Zone:** $20.92 - $21.14\n* **Target Price:** $22.95\n* **Stop Loss:** $19.75\n",

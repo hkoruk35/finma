@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CF a score of 52.2/100. Trend: Neutral. RSI: 50.2.",
-      "tr": "BOGA AI assigns CF a score of 52.2/100. Trend: Neutral. RSI: 50.2.",
-      "es": "BOGA AI assigns CF a score of 52.2/100. Trend: Neutral. RSI: 50.2.",
-      "pt": "BOGA AI assigns CF a score of 52.2/100. Trend: Neutral. RSI: 50.2.",
-      "fr": "BOGA AI assigns CF a score of 52.2/100. Trend: Neutral. RSI: 50.2.",
-      "id": "BOGA AI assigns CF a score of 52.2/100. Trend: Neutral. RSI: 50.2."
+      "tr": "BOGA AI, CF için 52.2/100 skor verdi. Trend: Nötr. RSI: 50.2.",
+      "es": "BOGA AI asigna a CF una puntuación de 52.2/100. Tendencia: Neutral. RSI: 50.2.",
+      "pt": "BOGA AI atribui a CF uma pontuação de 52.2/100. Tendência: Neutro. RSI: 50.2.",
+      "fr": "BOGA AI attribue à CF un score de 52.2/100. Tendance: Neutre. RSI: 50.2.",
+      "id": "BOGA AI memberikan CF skor 52.2/100. Tren: Netral. RSI: 50.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CF (CF Industries Holdings, Inc.)\n\n### 1. Business Context\nCF Industries Holdings, Inc. operates in the Materials sector. BOGA AI detect institutional interest near $121.22.\n\n### 2. Performance\n* **Master Score:** 52.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $121.22 | Current |\n| EMA20 | $121.99 | Support |\n| ADX | 19.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $106.80.\n\n### 5. Execution\n* **Entry Zone:** $114.77 - $121.83\n* **Target Price:** $142.85\n* **Stop Loss:** $106.80\n",

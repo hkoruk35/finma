@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns LYG a score of 52.5/100. Trend: Neutral. RSI: 56.0.",
-      "tr": "BOGA AI assigns LYG a score of 52.5/100. Trend: Neutral. RSI: 56.0.",
-      "es": "BOGA AI assigns LYG a score of 52.5/100. Trend: Neutral. RSI: 56.0.",
-      "pt": "BOGA AI assigns LYG a score of 52.5/100. Trend: Neutral. RSI: 56.0.",
-      "fr": "BOGA AI assigns LYG a score of 52.5/100. Trend: Neutral. RSI: 56.0.",
-      "id": "BOGA AI assigns LYG a score of 52.5/100. Trend: Neutral. RSI: 56.0."
+      "tr": "BOGA AI, LYG için 52.5/100 skor verdi. Trend: Nötr. RSI: 56.0.",
+      "es": "BOGA AI asigna a LYG una puntuación de 52.5/100. Tendencia: Neutral. RSI: 56.0.",
+      "pt": "BOGA AI atribui a LYG uma pontuação de 52.5/100. Tendência: Neutro. RSI: 56.0.",
+      "fr": "BOGA AI attribue à LYG un score de 52.5/100. Tendance: Neutre. RSI: 56.0.",
+      "id": "BOGA AI memberikan LYG skor 52.5/100. Tren: Netral. RSI: 56.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: LYG (Lloyds Banking Group plc)\n\n### 1. Business Context\nLloyds Banking Group plc operates in the Financials sector. BOGA AI detect institutional interest near $5.46.\n\n### 2. Performance\n* **Master Score:** 52.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 56.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $5.46 | Current |\n| EMA20 | $5.36 | Support |\n| ADX | 20.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $5.16.\n\n### 5. Execution\n* **Entry Zone:** $5.25 - $5.49\n* **Target Price:** $5.91\n* **Stop Loss:** $5.16\n",

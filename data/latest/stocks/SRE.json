@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
-      "tr": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
-      "es": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
-      "pt": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
-      "fr": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
-      "id": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4."
+      "tr": "BOGA AI, SRE için 26.2/100 skor verdi. Trend: Nötr. RSI: 39.4.",
+      "es": "BOGA AI asigna a SRE una puntuación de 26.2/100. Tendencia: Neutral. RSI: 39.4.",
+      "pt": "BOGA AI atribui a SRE uma pontuação de 26.2/100. Tendência: Neutro. RSI: 39.4.",
+      "fr": "BOGA AI attribue à SRE un score de 26.2/100. Tendance: Neutre. RSI: 39.4.",
+      "id": "BOGA AI memberikan SRE skor 26.2/100. Tren: Netral. RSI: 39.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SRE (Sempra)\n\n### 1. Business Context\nSempra operates in the Utilities sector. BOGA AI detect institutional interest near $93.01.\n\n### 2. Performance\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $93.01 | Current |\n| EMA20 | $95.63 | Support |\n| ADX | 17.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $89.07.\n\n### 5. Execution\n* **Entry Zone:** $92.54 - $93.48\n* **Target Price:** $98.92\n* **Stop Loss:** $89.07\n",

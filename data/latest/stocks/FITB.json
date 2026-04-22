@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns FITB a score of 52.9/100. Trend: Neutral. RSI: 68.0.",
-      "tr": "BOGA AI assigns FITB a score of 52.9/100. Trend: Neutral. RSI: 68.0.",
-      "es": "BOGA AI assigns FITB a score of 52.9/100. Trend: Neutral. RSI: 68.0.",
-      "pt": "BOGA AI assigns FITB a score of 52.9/100. Trend: Neutral. RSI: 68.0.",
-      "fr": "BOGA AI assigns FITB a score of 52.9/100. Trend: Neutral. RSI: 68.0.",
-      "id": "BOGA AI assigns FITB a score of 52.9/100. Trend: Neutral. RSI: 68.0."
+      "tr": "BOGA AI, FITB için 52.9/100 skor verdi. Trend: Nötr. RSI: 68.0.",
+      "es": "BOGA AI asigna a FITB una puntuación de 52.9/100. Tendencia: Neutral. RSI: 68.0.",
+      "pt": "BOGA AI atribui a FITB uma pontuação de 52.9/100. Tendência: Neutro. RSI: 68.0.",
+      "fr": "BOGA AI attribue à FITB un score de 52.9/100. Tendance: Neutre. RSI: 68.0.",
+      "id": "BOGA AI memberikan FITB skor 52.9/100. Tren: Netral. RSI: 68.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: FITB (Fifth Third Bancorp)\n\n### 1. Business Context\nFifth Third Bancorp operates in the Financials sector. BOGA AI detect institutional interest near $51.17.\n\n### 2. Performance\n* **Master Score:** 52.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $51.17 | Current |\n| EMA20 | $48.73 | Support |\n| ADX | 25.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $48.75.\n\n### 5. Execution\n* **Entry Zone:** $47.88 - $51.43\n* **Target Price:** $54.80\n* **Stop Loss:** $48.75\n",

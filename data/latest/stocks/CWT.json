@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CWT a score of 53.9/100. Trend: Neutral. RSI: 57.4.",
-      "tr": "BOGA AI assigns CWT a score of 53.9/100. Trend: Neutral. RSI: 57.4.",
-      "es": "BOGA AI assigns CWT a score of 53.9/100. Trend: Neutral. RSI: 57.4.",
-      "pt": "BOGA AI assigns CWT a score of 53.9/100. Trend: Neutral. RSI: 57.4.",
-      "fr": "BOGA AI assigns CWT a score of 53.9/100. Trend: Neutral. RSI: 57.4.",
-      "id": "BOGA AI assigns CWT a score of 53.9/100. Trend: Neutral. RSI: 57.4."
+      "tr": "BOGA AI, CWT için 53.9/100 skor verdi. Trend: Nötr. RSI: 57.4.",
+      "es": "BOGA AI asigna a CWT una puntuación de 53.9/100. Tendencia: Neutral. RSI: 57.4.",
+      "pt": "BOGA AI atribui a CWT uma pontuação de 53.9/100. Tendência: Neutro. RSI: 57.4.",
+      "fr": "BOGA AI attribue à CWT un score de 53.9/100. Tendance: Neutre. RSI: 57.4.",
+      "id": "BOGA AI memberikan CWT skor 53.9/100. Tren: Netral. RSI: 57.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CWT (California Water Service Group)\n\n### 1. Business Context\nCalifornia Water Service Group operates in the Utilities sector. BOGA AI detect institutional interest near $46.60.\n\n### 2. Performance\n* **Master Score:** 53.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 57.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $46.60 | Current |\n| EMA20 | $45.57 | Support |\n| ADX | 13.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $44.28.\n\n### 5. Execution\n* **Entry Zone:** $45.02 - $46.83\n* **Target Price:** $50.08\n* **Stop Loss:** $44.28\n",

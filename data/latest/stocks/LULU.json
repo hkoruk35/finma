@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns LULU a score of 34.8/100. Trend: Neutral. RSI: 55.9.",
-      "tr": "BOGA AI assigns LULU a score of 34.8/100. Trend: Neutral. RSI: 55.9.",
-      "es": "BOGA AI assigns LULU a score of 34.8/100. Trend: Neutral. RSI: 55.9.",
-      "pt": "BOGA AI assigns LULU a score of 34.8/100. Trend: Neutral. RSI: 55.9.",
-      "fr": "BOGA AI assigns LULU a score of 34.8/100. Trend: Neutral. RSI: 55.9.",
-      "id": "BOGA AI assigns LULU a score of 34.8/100. Trend: Neutral. RSI: 55.9."
+      "tr": "BOGA AI, LULU için 34.8/100 skor verdi. Trend: Nötr. RSI: 55.9.",
+      "es": "BOGA AI asigna a LULU una puntuación de 34.8/100. Tendencia: Neutral. RSI: 55.9.",
+      "pt": "BOGA AI atribui a LULU uma pontuação de 34.8/100. Tendência: Neutro. RSI: 55.9.",
+      "fr": "BOGA AI attribue à LULU un score de 34.8/100. Tendance: Neutre. RSI: 55.9.",
+      "id": "BOGA AI memberikan LULU skor 34.8/100. Tren: Netral. RSI: 55.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: LULU (lululemon athletica inc.)\n\n### 1. Business Context\nlululemon athletica inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $167.50.\n\n### 2. Performance\n* **Master Score:** 34.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 55.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $167.50 | Current |\n| EMA20 | $162.55 | Support |\n| ADX | 15.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $155.60.\n\n### 5. Execution\n* **Entry Zone:** $166.51 - $168.34\n* **Target Price:** $185.35\n* **Stop Loss:** $155.60\n",

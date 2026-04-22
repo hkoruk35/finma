@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GRMN a score of 60.8/100. Trend: Neutral. RSI: 71.7.",
-      "tr": "BOGA AI assigns GRMN a score of 60.8/100. Trend: Neutral. RSI: 71.7.",
-      "es": "BOGA AI assigns GRMN a score of 60.8/100. Trend: Neutral. RSI: 71.7.",
-      "pt": "BOGA AI assigns GRMN a score of 60.8/100. Trend: Neutral. RSI: 71.7.",
-      "fr": "BOGA AI assigns GRMN a score of 60.8/100. Trend: Neutral. RSI: 71.7.",
-      "id": "BOGA AI assigns GRMN a score of 60.8/100. Trend: Neutral. RSI: 71.7."
+      "tr": "BOGA AI, GRMN için 60.8/100 skor verdi. Trend: Nötr. RSI: 71.7.",
+      "es": "BOGA AI asigna a GRMN una puntuación de 60.8/100. Tendencia: Neutral. RSI: 71.7.",
+      "pt": "BOGA AI atribui a GRMN uma pontuação de 60.8/100. Tendência: Neutro. RSI: 71.7.",
+      "fr": "BOGA AI attribue à GRMN un score de 60.8/100. Tendance: Neutre. RSI: 71.7.",
+      "id": "BOGA AI memberikan GRMN skor 60.8/100. Tren: Netral. RSI: 71.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GRMN (Garmin Ltd.)\n\n### 1. Business Context\nGarmin Ltd. operates in the Technology sector. BOGA AI detect institutional interest near $267.54.\n\n### 2. Performance\n* **Master Score:** 60.8/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 71.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $267.54 | Current |\n| EMA20 | $253.8 | Support |\n| ADX | 28.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $255.34.\n\n### 5. Execution\n* **Entry Zone:** $240.14 - $268.88\n* **Target Price:** $285.84\n* **Stop Loss:** $255.34\n",

@@ -150,11 +150,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns T a score of 36.4/100. Trend: Neutral. RSI: 40.0.",
-      "tr": "BOGA AI assigns T a score of 36.4/100. Trend: Neutral. RSI: 40.0.",
-      "es": "BOGA AI assigns T a score of 36.4/100. Trend: Neutral. RSI: 40.0.",
-      "pt": "BOGA AI assigns T a score of 36.4/100. Trend: Neutral. RSI: 40.0.",
-      "fr": "BOGA AI assigns T a score of 36.4/100. Trend: Neutral. RSI: 40.0.",
-      "id": "BOGA AI assigns T a score of 36.4/100. Trend: Neutral. RSI: 40.0."
+      "tr": "BOGA AI, T için 36.4/100 skor verdi. Trend: Nötr. RSI: 40.0.",
+      "es": "BOGA AI asigna a T una puntuación de 36.4/100. Tendencia: Neutral. RSI: 40.0.",
+      "pt": "BOGA AI atribui a T uma pontuação de 36.4/100. Tendência: Neutro. RSI: 40.0.",
+      "fr": "BOGA AI attribue à T un score de 36.4/100. Tendance: Neutre. RSI: 40.0.",
+      "id": "BOGA AI memberikan T skor 36.4/100. Tren: Netral. RSI: 40.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: T (AT&T Inc.)\n\n### 1. Business Context\nAT&T Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $26.18.\n\n### 2. Performance\n* **Master Score:** 36.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $26.18 | Current |\n| EMA20 | $26.85 | Support |\n| ADX | 25.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $24.92.\n\n### 5. Execution\n* **Entry Zone:** $26.05 - $26.31\n* **Target Price:** $28.07\n* **Stop Loss:** $24.92\n",

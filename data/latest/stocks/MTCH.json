@@ -150,11 +150,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MTCH a score of 67.2/100. Trend: Neutral. RSI: 74.9.",
-      "tr": "BOGA AI assigns MTCH a score of 67.2/100. Trend: Neutral. RSI: 74.9.",
-      "es": "BOGA AI assigns MTCH a score of 67.2/100. Trend: Neutral. RSI: 74.9.",
-      "pt": "BOGA AI assigns MTCH a score of 67.2/100. Trend: Neutral. RSI: 74.9.",
-      "fr": "BOGA AI assigns MTCH a score of 67.2/100. Trend: Neutral. RSI: 74.9.",
-      "id": "BOGA AI assigns MTCH a score of 67.2/100. Trend: Neutral. RSI: 74.9."
+      "tr": "BOGA AI, MTCH için 67.2/100 skor verdi. Trend: Nötr. RSI: 74.9.",
+      "es": "BOGA AI asigna a MTCH una puntuación de 67.2/100. Tendencia: Neutral. RSI: 74.9.",
+      "pt": "BOGA AI atribui a MTCH uma pontuação de 67.2/100. Tendência: Neutro. RSI: 74.9.",
+      "fr": "BOGA AI attribue à MTCH un score de 67.2/100. Tendance: Neutre. RSI: 74.9.",
+      "id": "BOGA AI memberikan MTCH skor 67.2/100. Tren: Netral. RSI: 74.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MTCH (Match Group, Inc.)\n\n### 1. Business Context\nMatch Group, Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $36.22.\n\n### 2. Performance\n* **Master Score:** 67.2/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 74.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $36.22 | Current |\n| EMA20 | $33.15 | Support |\n| ADX | 29.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $34.28.\n\n### 5. Execution\n* **Entry Zone:** $31.90 - $36.40\n* **Target Price:** $39.13\n* **Stop Loss:** $34.28\n",

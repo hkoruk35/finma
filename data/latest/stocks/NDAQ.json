@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns NDAQ a score of 45.7/100. Trend: Neutral. RSI: 54.6.",
-      "tr": "BOGA AI assigns NDAQ a score of 45.7/100. Trend: Neutral. RSI: 54.6.",
-      "es": "BOGA AI assigns NDAQ a score of 45.7/100. Trend: Neutral. RSI: 54.6.",
-      "pt": "BOGA AI assigns NDAQ a score of 45.7/100. Trend: Neutral. RSI: 54.6.",
-      "fr": "BOGA AI assigns NDAQ a score of 45.7/100. Trend: Neutral. RSI: 54.6.",
-      "id": "BOGA AI assigns NDAQ a score of 45.7/100. Trend: Neutral. RSI: 54.6."
+      "tr": "BOGA AI, NDAQ için 45.7/100 skor verdi. Trend: Nötr. RSI: 54.6.",
+      "es": "BOGA AI asigna a NDAQ una puntuación de 45.7/100. Tendencia: Neutral. RSI: 54.6.",
+      "pt": "BOGA AI atribui a NDAQ uma pontuação de 45.7/100. Tendência: Neutro. RSI: 54.6.",
+      "fr": "BOGA AI attribue à NDAQ un score de 45.7/100. Tendance: Neutre. RSI: 54.6.",
+      "id": "BOGA AI memberikan NDAQ skor 45.7/100. Tren: Netral. RSI: 54.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: NDAQ (Nasdaq, Inc.)\n\n### 1. Business Context\nNasdaq, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $87.94.\n\n### 2. Performance\n* **Master Score:** 45.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $87.94 | Current |\n| EMA20 | $86.66 | Support |\n| ADX | 13.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $83.62.\n\n### 5. Execution\n* **Entry Zone:** $86.55 - $88.38\n* **Target Price:** $94.42\n* **Stop Loss:** $83.62\n",

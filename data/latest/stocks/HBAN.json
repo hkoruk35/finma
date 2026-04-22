@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns HBAN a score of 42.2/100. Trend: Neutral. RSI: 65.2.",
-      "tr": "BOGA AI assigns HBAN a score of 42.2/100. Trend: Neutral. RSI: 65.2.",
-      "es": "BOGA AI assigns HBAN a score of 42.2/100. Trend: Neutral. RSI: 65.2.",
-      "pt": "BOGA AI assigns HBAN a score of 42.2/100. Trend: Neutral. RSI: 65.2.",
-      "fr": "BOGA AI assigns HBAN a score of 42.2/100. Trend: Neutral. RSI: 65.2.",
-      "id": "BOGA AI assigns HBAN a score of 42.2/100. Trend: Neutral. RSI: 65.2."
+      "tr": "BOGA AI, HBAN için 42.2/100 skor verdi. Trend: Nötr. RSI: 65.2.",
+      "es": "BOGA AI asigna a HBAN una puntuación de 42.2/100. Tendencia: Neutral. RSI: 65.2.",
+      "pt": "BOGA AI atribui a HBAN uma pontuação de 42.2/100. Tendência: Neutro. RSI: 65.2.",
+      "fr": "BOGA AI attribue à HBAN un score de 42.2/100. Tendance: Neutre. RSI: 65.2.",
+      "id": "BOGA AI memberikan HBAN skor 42.2/100. Tren: Netral. RSI: 65.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: HBAN (Huntington Bancshares Incorporated)\n\n### 1. Business Context\nHuntington Bancshares Incorporated operates in the Financials sector. BOGA AI detect institutional interest near $17.05.\n\n### 2. Performance\n* **Master Score:** 42.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 65.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $17.05 | Current |\n| EMA20 | $16.36 | Support |\n| ADX | 20.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $16.25.\n\n### 5. Execution\n* **Entry Zone:** $16.31 - $17.14\n* **Target Price:** $18.25\n* **Stop Loss:** $16.25\n",

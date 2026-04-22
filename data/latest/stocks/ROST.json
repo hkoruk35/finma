@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ROST a score of 46.9/100. Trend: Neutral. RSI: 63.2.",
-      "tr": "BOGA AI assigns ROST a score of 46.9/100. Trend: Neutral. RSI: 63.2.",
-      "es": "BOGA AI assigns ROST a score of 46.9/100. Trend: Neutral. RSI: 63.2.",
-      "pt": "BOGA AI assigns ROST a score of 46.9/100. Trend: Neutral. RSI: 63.2.",
-      "fr": "BOGA AI assigns ROST a score of 46.9/100. Trend: Neutral. RSI: 63.2.",
-      "id": "BOGA AI assigns ROST a score of 46.9/100. Trend: Neutral. RSI: 63.2."
+      "tr": "BOGA AI, ROST için 46.9/100 skor verdi. Trend: Nötr. RSI: 63.2.",
+      "es": "BOGA AI asigna a ROST una puntuación de 46.9/100. Tendencia: Neutral. RSI: 63.2.",
+      "pt": "BOGA AI atribui a ROST uma pontuação de 46.9/100. Tendência: Neutro. RSI: 63.2.",
+      "fr": "BOGA AI attribue à ROST un score de 46.9/100. Tendance: Neutre. RSI: 63.2.",
+      "id": "BOGA AI memberikan ROST skor 46.9/100. Tren: Netral. RSI: 63.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ROST (Ross Stores, Inc.)\n\n### 1. Business Context\nRoss Stores, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $226.72.\n\n### 2. Performance\n* **Master Score:** 46.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $226.72 | Current |\n| EMA20 | $220.53 | Support |\n| ADX | 19.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $217.54.\n\n### 5. Execution\n* **Entry Zone:** $210.19 - $227.85\n* **Target Price:** $240.49\n* **Stop Loss:** $217.54\n",

@@ -150,11 +150,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns VZ a score of 39.3/100. Trend: Neutral. RSI: 42.3.",
-      "tr": "BOGA AI assigns VZ a score of 39.3/100. Trend: Neutral. RSI: 42.3.",
-      "es": "BOGA AI assigns VZ a score of 39.3/100. Trend: Neutral. RSI: 42.3.",
-      "pt": "BOGA AI assigns VZ a score of 39.3/100. Trend: Neutral. RSI: 42.3.",
-      "fr": "BOGA AI assigns VZ a score of 39.3/100. Trend: Neutral. RSI: 42.3.",
-      "id": "BOGA AI assigns VZ a score of 39.3/100. Trend: Neutral. RSI: 42.3."
+      "tr": "BOGA AI, VZ için 39.3/100 skor verdi. Trend: Nötr. RSI: 42.3.",
+      "es": "BOGA AI asigna a VZ una puntuación de 39.3/100. Tendencia: Neutral. RSI: 42.3.",
+      "pt": "BOGA AI atribui a VZ uma pontuação de 39.3/100. Tendência: Neutro. RSI: 42.3.",
+      "fr": "BOGA AI attribue à VZ un score de 39.3/100. Tendance: Neutre. RSI: 42.3.",
+      "id": "BOGA AI memberikan VZ skor 39.3/100. Tren: Netral. RSI: 42.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: VZ (Verizon Communications Inc.)\n\n### 1. Business Context\nVerizon Communications Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $46.58.\n\n### 2. Performance\n* **Master Score:** 39.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 42.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $46.58 | Current |\n| EMA20 | $47.29 | Support |\n| ADX | 28.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $44.68.\n\n### 5. Execution\n* **Entry Zone:** $46.35 - $46.81\n* **Target Price:** $49.43\n* **Stop Loss:** $44.68\n",

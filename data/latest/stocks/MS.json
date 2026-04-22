@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MS a score of 61.9/100. Trend: Neutral. RSI: 69.4.",
-      "tr": "BOGA AI assigns MS a score of 61.9/100. Trend: Neutral. RSI: 69.4.",
-      "es": "BOGA AI assigns MS a score of 61.9/100. Trend: Neutral. RSI: 69.4.",
-      "pt": "BOGA AI assigns MS a score of 61.9/100. Trend: Neutral. RSI: 69.4.",
-      "fr": "BOGA AI assigns MS a score of 61.9/100. Trend: Neutral. RSI: 69.4.",
-      "id": "BOGA AI assigns MS a score of 61.9/100. Trend: Neutral. RSI: 69.4."
+      "tr": "BOGA AI, MS için 61.9/100 skor verdi. Trend: Nötr. RSI: 69.4.",
+      "es": "BOGA AI asigna a MS una puntuación de 61.9/100. Tendencia: Neutral. RSI: 69.4.",
+      "pt": "BOGA AI atribui a MS uma pontuação de 61.9/100. Tendência: Neutro. RSI: 69.4.",
+      "fr": "BOGA AI attribue à MS un score de 61.9/100. Tendance: Neutre. RSI: 69.4.",
+      "id": "BOGA AI memberikan MS skor 61.9/100. Tren: Netral. RSI: 69.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MS (Morgan Stanley)\n\n### 1. Business Context\nMorgan Stanley operates in the Financials sector. BOGA AI detect institutional interest near $189.20.\n\n### 2. Performance\n* **Master Score:** 61.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $189.20 | Current |\n| EMA20 | $177.81 | Support |\n| ADX | 30.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $178.28.\n\n### 5. Execution\n* **Entry Zone:** $172.13 - $190.15\n* **Target Price:** $205.58\n* **Stop Loss:** $178.28\n",

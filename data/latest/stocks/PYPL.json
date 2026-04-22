@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PYPL a score of 47.2/100. Trend: Neutral. RSI: 68.5.",
-      "tr": "BOGA AI assigns PYPL a score of 47.2/100. Trend: Neutral. RSI: 68.5.",
-      "es": "BOGA AI assigns PYPL a score of 47.2/100. Trend: Neutral. RSI: 68.5.",
-      "pt": "BOGA AI assigns PYPL a score of 47.2/100. Trend: Neutral. RSI: 68.5.",
-      "fr": "BOGA AI assigns PYPL a score of 47.2/100. Trend: Neutral. RSI: 68.5.",
-      "id": "BOGA AI assigns PYPL a score of 47.2/100. Trend: Neutral. RSI: 68.5."
+      "tr": "BOGA AI, PYPL için 47.2/100 skor verdi. Trend: Nötr. RSI: 68.5.",
+      "es": "BOGA AI asigna a PYPL una puntuación de 47.2/100. Tendencia: Neutral. RSI: 68.5.",
+      "pt": "BOGA AI atribui a PYPL uma pontuação de 47.2/100. Tendência: Neutro. RSI: 68.5.",
+      "fr": "BOGA AI attribue à PYPL un score de 47.2/100. Tendance: Neutre. RSI: 68.5.",
+      "id": "BOGA AI memberikan PYPL skor 47.2/100. Tren: Netral. RSI: 68.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PYPL (PayPal Holdings, Inc.)\n\n### 1. Business Context\nPayPal Holdings, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $51.11.\n\n### 2. Performance\n* **Master Score:** 47.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 68.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $51.11 | Current |\n| EMA20 | $47.62 | Support |\n| ADX | 19.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $48.15.\n\n### 5. Execution\n* **Entry Zone:** $47.35 - $51.37\n* **Target Price:** $55.55\n* **Stop Loss:** $48.15\n",

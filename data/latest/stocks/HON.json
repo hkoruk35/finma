@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns HON a score of 27.4/100. Trend: Neutral. RSI: 39.5.",
-      "tr": "BOGA AI assigns HON a score of 27.4/100. Trend: Neutral. RSI: 39.5.",
-      "es": "BOGA AI assigns HON a score of 27.4/100. Trend: Neutral. RSI: 39.5.",
-      "pt": "BOGA AI assigns HON a score of 27.4/100. Trend: Neutral. RSI: 39.5.",
-      "fr": "BOGA AI assigns HON a score of 27.4/100. Trend: Neutral. RSI: 39.5.",
-      "id": "BOGA AI assigns HON a score of 27.4/100. Trend: Neutral. RSI: 39.5."
+      "tr": "BOGA AI, HON için 27.4/100 skor verdi. Trend: Nötr. RSI: 39.5.",
+      "es": "BOGA AI asigna a HON una puntuación de 27.4/100. Tendencia: Neutral. RSI: 39.5.",
+      "pt": "BOGA AI atribui a HON uma pontuação de 27.4/100. Tendência: Neutro. RSI: 39.5.",
+      "fr": "BOGA AI attribue à HON un score de 27.4/100. Tendance: Neutre. RSI: 39.5.",
+      "id": "BOGA AI memberikan HON skor 27.4/100. Tren: Netral. RSI: 39.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: HON (Honeywell International Inc.)\n\n### 1. Business Context\nHoneywell International Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $222.00.\n\n### 2. Performance\n* **Master Score:** 27.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $222.00 | Current |\n| EMA20 | $230.02 | Support |\n| ADX | 18.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $211.46.\n\n### 5. Execution\n* **Entry Zone:** $220.89 - $223.11\n* **Target Price:** $237.81\n* **Stop Loss:** $211.46\n",

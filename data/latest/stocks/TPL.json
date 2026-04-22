@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
-      "tr": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
-      "es": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
-      "pt": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
-      "fr": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
-      "id": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8."
+      "tr": "BOGA AI, TPL için 31.2/100 skor verdi. Trend: Nötr. RSI: 46.8.",
+      "es": "BOGA AI asigna a TPL una puntuación de 31.2/100. Tendencia: Neutral. RSI: 46.8.",
+      "pt": "BOGA AI atribui a TPL uma pontuação de 31.2/100. Tendência: Neutro. RSI: 46.8.",
+      "fr": "BOGA AI attribue à TPL un score de 31.2/100. Tendance: Neutre. RSI: 46.8.",
+      "id": "BOGA AI memberikan TPL skor 31.2/100. Tren: Netral. RSI: 46.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TPL (Texas Pacific Land Corporation)\n\n### 1. Business Context\nTexas Pacific Land Corporation operates in the Energy sector. BOGA AI detect institutional interest near $442.42.\n\n### 2. Performance\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $442.42 | Current |\n| EMA20 | $446.75 | Support |\n| ADX | 43.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $397.92.\n\n### 5. Execution\n* **Entry Zone:** $440.21 - $444.63\n* **Target Price:** $509.17\n* **Stop Loss:** $397.92\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns BE a score of 49.6/100. Trend: Neutral. RSI: 73.1.",
-      "tr": "BOGA AI assigns BE a score of 49.6/100. Trend: Neutral. RSI: 73.1.",
-      "es": "BOGA AI assigns BE a score of 49.6/100. Trend: Neutral. RSI: 73.1.",
-      "pt": "BOGA AI assigns BE a score of 49.6/100. Trend: Neutral. RSI: 73.1.",
-      "fr": "BOGA AI assigns BE a score of 49.6/100. Trend: Neutral. RSI: 73.1.",
-      "id": "BOGA AI assigns BE a score of 49.6/100. Trend: Neutral. RSI: 73.1."
+      "tr": "BOGA AI, BE için 49.6/100 skor verdi. Trend: Nötr. RSI: 73.1.",
+      "es": "BOGA AI asigna a BE una puntuación de 49.6/100. Tendencia: Neutral. RSI: 73.1.",
+      "pt": "BOGA AI atribui a BE uma pontuação de 49.6/100. Tendência: Neutro. RSI: 73.1.",
+      "fr": "BOGA AI attribue à BE un score de 49.6/100. Tendance: Neutre. RSI: 73.1.",
+      "id": "BOGA AI memberikan BE skor 49.6/100. Tren: Netral. RSI: 73.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: BE (Bloom Energy Corporation)\n\n### 1. Business Context\nBloom Energy Corporation operates in the Utilities sector. BOGA AI detect institutional interest near $227.95.\n\n### 2. Performance\n* **Master Score:** 49.6/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 73.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $227.95 | Current |\n| EMA20 | $179.71 | Support |\n| ADX | 26.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $195.27.\n\n### 5. Execution\n* **Entry Zone:** $160.08 - $229.09\n* **Target Price:** $276.97\n* **Stop Loss:** $195.27\n",

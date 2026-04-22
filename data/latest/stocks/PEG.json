@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PEG a score of 22.7/100. Trend: Neutral. RSI: 37.5.",
-      "tr": "BOGA AI assigns PEG a score of 22.7/100. Trend: Neutral. RSI: 37.5.",
-      "es": "BOGA AI assigns PEG a score of 22.7/100. Trend: Neutral. RSI: 37.5.",
-      "pt": "BOGA AI assigns PEG a score of 22.7/100. Trend: Neutral. RSI: 37.5.",
-      "fr": "BOGA AI assigns PEG a score of 22.7/100. Trend: Neutral. RSI: 37.5.",
-      "id": "BOGA AI assigns PEG a score of 22.7/100. Trend: Neutral. RSI: 37.5."
+      "tr": "BOGA AI, PEG için 22.7/100 skor verdi. Trend: Nötr. RSI: 37.5.",
+      "es": "BOGA AI asigna a PEG una puntuación de 22.7/100. Tendencia: Neutral. RSI: 37.5.",
+      "pt": "BOGA AI atribui a PEG uma pontuação de 22.7/100. Tendência: Neutro. RSI: 37.5.",
+      "fr": "BOGA AI attribue à PEG un score de 22.7/100. Tendance: Neutre. RSI: 37.5.",
+      "id": "BOGA AI memberikan PEG skor 22.7/100. Tren: Netral. RSI: 37.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PEG (Public Service Enterprise Group Incorporated)\n\n### 1. Business Context\nPublic Service Enterprise Group Incorporated operates in the Utilities sector. BOGA AI detect institutional interest near $78.65.\n\n### 2. Performance\n* **Master Score:** 22.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $78.65 | Current |\n| EMA20 | $81.52 | Support |\n| ADX | 15.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $75.31.\n\n### 5. Execution\n* **Entry Zone:** $78.26 - $79.04\n* **Target Price:** $83.66\n* **Stop Loss:** $75.31\n",

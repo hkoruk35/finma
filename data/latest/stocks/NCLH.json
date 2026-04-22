@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns NCLH a score of 21.2/100. Trend: Neutral. RSI: 46.5.",
-      "tr": "BOGA AI assigns NCLH a score of 21.2/100. Trend: Neutral. RSI: 46.5.",
-      "es": "BOGA AI assigns NCLH a score of 21.2/100. Trend: Neutral. RSI: 46.5.",
-      "pt": "BOGA AI assigns NCLH a score of 21.2/100. Trend: Neutral. RSI: 46.5.",
-      "fr": "BOGA AI assigns NCLH a score of 21.2/100. Trend: Neutral. RSI: 46.5.",
-      "id": "BOGA AI assigns NCLH a score of 21.2/100. Trend: Neutral. RSI: 46.5."
+      "tr": "BOGA AI, NCLH için 21.2/100 skor verdi. Trend: Nötr. RSI: 46.5.",
+      "es": "BOGA AI asigna a NCLH una puntuación de 21.2/100. Tendencia: Neutral. RSI: 46.5.",
+      "pt": "BOGA AI atribui a NCLH uma pontuação de 21.2/100. Tendência: Neutro. RSI: 46.5.",
+      "fr": "BOGA AI attribue à NCLH un score de 21.2/100. Tendance: Neutre. RSI: 46.5.",
+      "id": "BOGA AI memberikan NCLH skor 21.2/100. Tren: Netral. RSI: 46.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: NCLH (Norwegian Cruise Line Holdings Ltd.)\n\n### 1. Business Context\nNorwegian Cruise Line Holdings Ltd. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $19.57.\n\n### 2. Performance\n* **Master Score:** 21.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $19.57 | Current |\n| EMA20 | $20.08 | Support |\n| ADX | 16.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $17.17.\n\n### 5. Execution\n* **Entry Zone:** $19.47 - $19.67\n* **Target Price:** $23.17\n* **Stop Loss:** $17.17\n",

@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns HOOD a score of 31.9/100. Trend: Neutral. RSI: 63.1.",
-      "tr": "BOGA AI assigns HOOD a score of 31.9/100. Trend: Neutral. RSI: 63.1.",
-      "es": "BOGA AI assigns HOOD a score of 31.9/100. Trend: Neutral. RSI: 63.1.",
-      "pt": "BOGA AI assigns HOOD a score of 31.9/100. Trend: Neutral. RSI: 63.1.",
-      "fr": "BOGA AI assigns HOOD a score of 31.9/100. Trend: Neutral. RSI: 63.1.",
-      "id": "BOGA AI assigns HOOD a score of 31.9/100. Trend: Neutral. RSI: 63.1."
+      "tr": "BOGA AI, HOOD için 31.9/100 skor verdi. Trend: Nötr. RSI: 63.1.",
+      "es": "BOGA AI asigna a HOOD una puntuación de 31.9/100. Tendencia: Neutral. RSI: 63.1.",
+      "pt": "BOGA AI atribui a HOOD uma pontuação de 31.9/100. Tendência: Neutro. RSI: 63.1.",
+      "fr": "BOGA AI attribue à HOOD un score de 31.9/100. Tendance: Neutre. RSI: 63.1.",
+      "id": "BOGA AI memberikan HOOD skor 31.9/100. Tren: Netral. RSI: 63.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: HOOD (Robinhood Markets, Inc.)\n\n### 1. Business Context\nRobinhood Markets, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $87.45.\n\n### 2. Performance\n* **Master Score:** 31.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 63.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $87.45 | Current |\n| EMA20 | $78.77 | Support |\n| ADX | 28.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $77.93.\n\n### 5. Execution\n* **Entry Zone:** $80.57 - $87.89\n* **Target Price:** $101.73\n* **Stop Loss:** $77.93\n",

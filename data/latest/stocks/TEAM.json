@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TEAM a score of 35.6/100. Trend: Neutral. RSI: 54.2.",
-      "tr": "BOGA AI assigns TEAM a score of 35.6/100. Trend: Neutral. RSI: 54.2.",
-      "es": "BOGA AI assigns TEAM a score of 35.6/100. Trend: Neutral. RSI: 54.2.",
-      "pt": "BOGA AI assigns TEAM a score of 35.6/100. Trend: Neutral. RSI: 54.2.",
-      "fr": "BOGA AI assigns TEAM a score of 35.6/100. Trend: Neutral. RSI: 54.2.",
-      "id": "BOGA AI assigns TEAM a score of 35.6/100. Trend: Neutral. RSI: 54.2."
+      "tr": "BOGA AI, TEAM için 35.6/100 skor verdi. Trend: Nötr. RSI: 54.2.",
+      "es": "BOGA AI asigna a TEAM una puntuación de 35.6/100. Tendencia: Neutral. RSI: 54.2.",
+      "pt": "BOGA AI atribui a TEAM uma pontuação de 35.6/100. Tendência: Neutro. RSI: 54.2.",
+      "fr": "BOGA AI attribue à TEAM un score de 35.6/100. Tendance: Neutre. RSI: 54.2.",
+      "id": "BOGA AI memberikan TEAM skor 35.6/100. Tren: Netral. RSI: 54.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TEAM (Atlassian Corporation)\n\n### 1. Business Context\nAtlassian Corporation operates in the Technology sector. BOGA AI detect institutional interest near $72.66.\n\n### 2. Performance\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $72.66 | Current |\n| EMA20 | $67.96 | Support |\n| ADX | 26.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $63.06.\n\n### 5. Execution\n* **Entry Zone:** $72.30 - $73.02\n* **Target Price:** $87.06\n* **Stop Loss:** $63.06\n",

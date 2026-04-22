@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
-      "tr": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
-      "es": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
-      "pt": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
-      "fr": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
-      "id": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6."
+      "tr": "BOGA AI, WM için 25.1/100 skor verdi. Trend: Nötr. RSI: 37.6.",
+      "es": "BOGA AI asigna a WM una puntuación de 25.1/100. Tendencia: Neutral. RSI: 37.6.",
+      "pt": "BOGA AI atribui a WM uma pontuação de 25.1/100. Tendência: Neutro. RSI: 37.6.",
+      "fr": "BOGA AI attribue à WM un score de 25.1/100. Tendance: Neutre. RSI: 37.6.",
+      "id": "BOGA AI memberikan WM skor 25.1/100. Tren: Netral. RSI: 37.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: WM (Waste Management, Inc.)\n\n### 1. Business Context\nWaste Management, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $223.65.\n\n### 2. Performance\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $223.65 | Current |\n| EMA20 | $228.48 | Support |\n| ADX | 18.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $215.25.\n\n### 5. Execution\n* **Entry Zone:** $222.53 - $224.77\n* **Target Price:** $236.25\n* **Stop Loss:** $215.25\n",

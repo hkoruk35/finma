@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns EC a score of 44.8/100. Trend: Neutral. RSI: 51.6.",
-      "tr": "BOGA AI assigns EC a score of 44.8/100. Trend: Neutral. RSI: 51.6.",
-      "es": "BOGA AI assigns EC a score of 44.8/100. Trend: Neutral. RSI: 51.6.",
-      "pt": "BOGA AI assigns EC a score of 44.8/100. Trend: Neutral. RSI: 51.6.",
-      "fr": "BOGA AI assigns EC a score of 44.8/100. Trend: Neutral. RSI: 51.6.",
-      "id": "BOGA AI assigns EC a score of 44.8/100. Trend: Neutral. RSI: 51.6."
+      "tr": "BOGA AI, EC için 44.8/100 skor verdi. Trend: Nötr. RSI: 51.6.",
+      "es": "BOGA AI asigna a EC una puntuación de 44.8/100. Tendencia: Neutral. RSI: 51.6.",
+      "pt": "BOGA AI atribui a EC uma pontuação de 44.8/100. Tendência: Neutro. RSI: 51.6.",
+      "fr": "BOGA AI attribue à EC un score de 44.8/100. Tendance: Neutre. RSI: 51.6.",
+      "id": "BOGA AI memberikan EC skor 44.8/100. Tren: Netral. RSI: 51.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: EC (Ecopetrol S.A.)\n\n### 1. Business Context\nEcopetrol S.A. operates in the Energy sector. BOGA AI detect institutional interest near $14.06.\n\n### 2. Performance\n* **Master Score:** 44.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $14.06 | Current |\n| EMA20 | $13.99 | Support |\n| ADX | 20.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $12.82.\n\n### 5. Execution\n* **Entry Zone:** $13.41 - $14.13\n* **Target Price:** $15.92\n* **Stop Loss:** $12.82\n",

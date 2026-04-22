@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ING a score of 61.7/100. Trend: Neutral. RSI: 64.8.",
-      "tr": "BOGA AI assigns ING a score of 61.7/100. Trend: Neutral. RSI: 64.8.",
-      "es": "BOGA AI assigns ING a score of 61.7/100. Trend: Neutral. RSI: 64.8.",
-      "pt": "BOGA AI assigns ING a score of 61.7/100. Trend: Neutral. RSI: 64.8.",
-      "fr": "BOGA AI assigns ING a score of 61.7/100. Trend: Neutral. RSI: 64.8.",
-      "id": "BOGA AI assigns ING a score of 61.7/100. Trend: Neutral. RSI: 64.8."
+      "tr": "BOGA AI, ING için 61.7/100 skor verdi. Trend: Nötr. RSI: 64.8.",
+      "es": "BOGA AI asigna a ING una puntuación de 61.7/100. Tendencia: Neutral. RSI: 64.8.",
+      "pt": "BOGA AI atribui a ING uma pontuação de 61.7/100. Tendência: Neutro. RSI: 64.8.",
+      "fr": "BOGA AI attribue à ING un score de 61.7/100. Tendance: Neutre. RSI: 64.8.",
+      "id": "BOGA AI memberikan ING skor 61.7/100. Tren: Netral. RSI: 64.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ING (ING Groep N.V.)\n\n### 1. Business Context\nING Groep N.V. operates in the Financials sector. BOGA AI detect institutional interest near $28.62.\n\n### 2. Performance\n* **Master Score:** 61.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $28.62 | Current |\n| EMA20 | $27.37 | Support |\n| ADX | 22.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $27.28.\n\n### 5. Execution\n* **Entry Zone:** $26.81 - $28.76\n* **Target Price:** $30.63\n* **Stop Loss:** $27.28\n",

@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
-      "tr": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
-      "es": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
-      "pt": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
-      "fr": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
-      "id": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1."
+      "tr": "BOGA AI, CRM için 40.8/100 skor verdi. Trend: Nötr. RSI: 55.1.",
+      "es": "BOGA AI asigna a CRM una puntuación de 40.8/100. Tendencia: Neutral. RSI: 55.1.",
+      "pt": "BOGA AI atribui a CRM uma pontuação de 40.8/100. Tendência: Neutro. RSI: 55.1.",
+      "fr": "BOGA AI attribue à CRM un score de 40.8/100. Tendance: Neutre. RSI: 55.1.",
+      "id": "BOGA AI memberikan CRM skor 40.8/100. Tren: Netral. RSI: 55.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CRM (Salesforce, Inc.)\n\n### 1. Business Context\nSalesforce, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $189.13.\n\n### 2. Performance\n* **Master Score:** 40.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $189.13 | Current |\n| EMA20 | $182.42 | Support |\n| ADX | 15.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $173.95.\n\n### 5. Execution\n* **Entry Zone:** $188.18 - $190.08\n* **Target Price:** $211.90\n* **Stop Loss:** $173.95\n",

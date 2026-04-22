@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns KMB a score of 24.1/100. Trend: Neutral. RSI: 46.2.",
-      "tr": "BOGA AI assigns KMB a score of 24.1/100. Trend: Neutral. RSI: 46.2.",
-      "es": "BOGA AI assigns KMB a score of 24.1/100. Trend: Neutral. RSI: 46.2.",
-      "pt": "BOGA AI assigns KMB a score of 24.1/100. Trend: Neutral. RSI: 46.2.",
-      "fr": "BOGA AI assigns KMB a score of 24.1/100. Trend: Neutral. RSI: 46.2.",
-      "id": "BOGA AI assigns KMB a score of 24.1/100. Trend: Neutral. RSI: 46.2."
+      "tr": "BOGA AI, KMB için 24.1/100 skor verdi. Trend: Nötr. RSI: 46.2.",
+      "es": "BOGA AI asigna a KMB una puntuación de 24.1/100. Tendencia: Neutral. RSI: 46.2.",
+      "pt": "BOGA AI atribui a KMB uma pontuação de 24.1/100. Tendência: Neutro. RSI: 46.2.",
+      "fr": "BOGA AI attribue à KMB un score de 24.1/100. Tendance: Neutre. RSI: 46.2.",
+      "id": "BOGA AI memberikan KMB skor 24.1/100. Tren: Netral. RSI: 46.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: KMB (Kimberly-Clark Corporation)\n\n### 1. Business Context\nKimberly-Clark Corporation operates in the Consumer Staples sector. BOGA AI detect institutional interest near $97.34.\n\n### 2. Performance\n* **Master Score:** 24.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $97.34 | Current |\n| EMA20 | $97.96 | Support |\n| ADX | 20.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $93.02.\n\n### 5. Execution\n* **Entry Zone:** $96.85 - $97.83\n* **Target Price:** $103.82\n* **Stop Loss:** $93.02\n",

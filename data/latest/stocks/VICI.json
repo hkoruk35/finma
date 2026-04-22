@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns VICI a score of 39.6/100. Trend: Neutral. RSI: 57.3.",
-      "tr": "BOGA AI assigns VICI a score of 39.6/100. Trend: Neutral. RSI: 57.3.",
-      "es": "BOGA AI assigns VICI a score of 39.6/100. Trend: Neutral. RSI: 57.3.",
-      "pt": "BOGA AI assigns VICI a score of 39.6/100. Trend: Neutral. RSI: 57.3.",
-      "fr": "BOGA AI assigns VICI a score of 39.6/100. Trend: Neutral. RSI: 57.3.",
-      "id": "BOGA AI assigns VICI a score of 39.6/100. Trend: Neutral. RSI: 57.3."
+      "tr": "BOGA AI, VICI için 39.6/100 skor verdi. Trend: Nötr. RSI: 57.3.",
+      "es": "BOGA AI asigna a VICI una puntuación de 39.6/100. Tendencia: Neutral. RSI: 57.3.",
+      "pt": "BOGA AI atribui a VICI uma pontuação de 39.6/100. Tendência: Neutro. RSI: 57.3.",
+      "fr": "BOGA AI attribue à VICI un score de 39.6/100. Tendance: Neutre. RSI: 57.3.",
+      "id": "BOGA AI memberikan VICI skor 39.6/100. Tren: Netral. RSI: 57.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: VICI (VICI Properties Inc.)\n\n### 1. Business Context\nVICI Properties Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $28.61.\n\n### 2. Performance\n* **Master Score:** 39.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $28.61 | Current |\n| EMA20 | $28.17 | Support |\n| ADX | 25.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $27.61.\n\n### 5. Execution\n* **Entry Zone:** $28.04 - $28.75\n* **Target Price:** $30.11\n* **Stop Loss:** $27.61\n",

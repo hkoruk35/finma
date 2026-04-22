@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ANET a score of 56.7/100. Trend: Neutral. RSI: 76.7.",
-      "tr": "BOGA AI assigns ANET a score of 56.7/100. Trend: Neutral. RSI: 76.7.",
-      "es": "BOGA AI assigns ANET a score of 56.7/100. Trend: Neutral. RSI: 76.7.",
-      "pt": "BOGA AI assigns ANET a score of 56.7/100. Trend: Neutral. RSI: 76.7.",
-      "fr": "BOGA AI assigns ANET a score of 56.7/100. Trend: Neutral. RSI: 76.7.",
-      "id": "BOGA AI assigns ANET a score of 56.7/100. Trend: Neutral. RSI: 76.7."
+      "tr": "BOGA AI, ANET için 56.7/100 skor verdi. Trend: Nötr. RSI: 76.7.",
+      "es": "BOGA AI asigna a ANET una puntuación de 56.7/100. Tendencia: Neutral. RSI: 76.7.",
+      "pt": "BOGA AI atribui a ANET uma pontuação de 56.7/100. Tendência: Neutro. RSI: 76.7.",
+      "fr": "BOGA AI attribue à ANET un score de 56.7/100. Tendance: Neutre. RSI: 76.7.",
+      "id": "BOGA AI memberikan ANET skor 56.7/100. Tren: Netral. RSI: 76.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ANET (Arista Networks, Inc.)\n\n### 1. Business Context\nArista Networks, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $171.50.\n\n### 2. Performance\n* **Master Score:** 56.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 76.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $171.50 | Current |\n| EMA20 | $147.93 | Support |\n| ADX | 25.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $159.38.\n\n### 5. Execution\n* **Entry Zone:** $139.52 - $172.36\n* **Target Price:** $189.68\n* **Stop Loss:** $159.38\n",

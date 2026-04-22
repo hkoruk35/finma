@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
-      "tr": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
-      "es": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
-      "pt": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
-      "fr": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
-      "id": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6."
+      "tr": "BOGA AI, NGG için 27.0/100 skor verdi. Trend: Nötr. RSI: 39.6.",
+      "es": "BOGA AI asigna a NGG una puntuación de 27.0/100. Tendencia: Neutral. RSI: 39.6.",
+      "pt": "BOGA AI atribui a NGG uma pontuação de 27.0/100. Tendência: Neutro. RSI: 39.6.",
+      "fr": "BOGA AI attribue à NGG un score de 27.0/100. Tendance: Neutre. RSI: 39.6.",
+      "id": "BOGA AI memberikan NGG skor 27.0/100. Tren: Netral. RSI: 39.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: NGG (National Grid plc)\n\n### 1. Business Context\nNational Grid plc operates in the Utilities sector. BOGA AI detect institutional interest near $84.68.\n\n### 2. Performance\n* **Master Score:** 27.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $84.68 | Current |\n| EMA20 | $87.21 | Support |\n| ADX | 17.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $81.48.\n\n### 5. Execution\n* **Entry Zone:** $84.26 - $85.10\n* **Target Price:** $89.48\n* **Stop Loss:** $81.48\n",

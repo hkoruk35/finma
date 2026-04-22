@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GFI a score of 41.5/100. Trend: Neutral. RSI: 46.8.",
-      "tr": "BOGA AI assigns GFI a score of 41.5/100. Trend: Neutral. RSI: 46.8.",
-      "es": "BOGA AI assigns GFI a score of 41.5/100. Trend: Neutral. RSI: 46.8.",
-      "pt": "BOGA AI assigns GFI a score of 41.5/100. Trend: Neutral. RSI: 46.8.",
-      "fr": "BOGA AI assigns GFI a score of 41.5/100. Trend: Neutral. RSI: 46.8.",
-      "id": "BOGA AI assigns GFI a score of 41.5/100. Trend: Neutral. RSI: 46.8."
+      "tr": "BOGA AI, GFI için 41.5/100 skor verdi. Trend: Nötr. RSI: 46.8.",
+      "es": "BOGA AI asigna a GFI una puntuación de 41.5/100. Tendencia: Neutral. RSI: 46.8.",
+      "pt": "BOGA AI atribui a GFI uma pontuação de 41.5/100. Tendência: Neutro. RSI: 46.8.",
+      "fr": "BOGA AI attribue à GFI un score de 41.5/100. Tendance: Neutre. RSI: 46.8.",
+      "id": "BOGA AI memberikan GFI skor 41.5/100. Tren: Netral. RSI: 46.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GFI (Gold Fields Limited)\n\n### 1. Business Context\nGold Fields Limited operates in the Materials sector. BOGA AI detect institutional interest near $46.12.\n\n### 2. Performance\n* **Master Score:** 41.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 46.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $46.12 | Current |\n| EMA20 | $47.38 | Support |\n| ADX | 17.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $41.10.\n\n### 5. Execution\n* **Entry Zone:** $45.89 - $46.35\n* **Target Price:** $53.65\n* **Stop Loss:** $41.10\n",

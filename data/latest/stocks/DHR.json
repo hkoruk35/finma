@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DHR a score of 37.5/100. Trend: Neutral. RSI: 46.7.",
-      "tr": "BOGA AI assigns DHR a score of 37.5/100. Trend: Neutral. RSI: 46.7.",
-      "es": "BOGA AI assigns DHR a score of 37.5/100. Trend: Neutral. RSI: 46.7.",
-      "pt": "BOGA AI assigns DHR a score of 37.5/100. Trend: Neutral. RSI: 46.7.",
-      "fr": "BOGA AI assigns DHR a score of 37.5/100. Trend: Neutral. RSI: 46.7.",
-      "id": "BOGA AI assigns DHR a score of 37.5/100. Trend: Neutral. RSI: 46.7."
+      "tr": "BOGA AI, DHR için 37.5/100 skor verdi. Trend: Nötr. RSI: 46.7.",
+      "es": "BOGA AI asigna a DHR una puntuación de 37.5/100. Tendencia: Neutral. RSI: 46.7.",
+      "pt": "BOGA AI atribui a DHR uma pontuação de 37.5/100. Tendência: Neutro. RSI: 46.7.",
+      "fr": "BOGA AI attribue à DHR un score de 37.5/100. Tendance: Neutre. RSI: 46.7.",
+      "id": "BOGA AI memberikan DHR skor 37.5/100. Tren: Netral. RSI: 46.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DHR (Danaher Corporation)\n\n### 1. Business Context\nDanaher Corporation operates in the Healthcare sector. BOGA AI detect institutional interest near $192.25.\n\n### 2. Performance\n* **Master Score:** 37.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $192.25 | Current |\n| EMA20 | $193.7 | Support |\n| ADX | 21.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $182.17.\n\n### 5. Execution\n* **Entry Zone:** $191.29 - $193.21\n* **Target Price:** $207.37\n* **Stop Loss:** $182.17\n",

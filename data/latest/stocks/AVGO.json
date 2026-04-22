@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AVGO a score of 57.0/100. Trend: Neutral. RSI: 74.5.",
-      "tr": "BOGA AI assigns AVGO a score of 57.0/100. Trend: Neutral. RSI: 74.5.",
-      "es": "BOGA AI assigns AVGO a score of 57.0/100. Trend: Neutral. RSI: 74.5.",
-      "pt": "BOGA AI assigns AVGO a score of 57.0/100. Trend: Neutral. RSI: 74.5.",
-      "fr": "BOGA AI assigns AVGO a score of 57.0/100. Trend: Neutral. RSI: 74.5.",
-      "id": "BOGA AI assigns AVGO a score of 57.0/100. Trend: Neutral. RSI: 74.5."
+      "tr": "BOGA AI, AVGO için 57.0/100 skor verdi. Trend: Nötr. RSI: 74.5.",
+      "es": "BOGA AI asigna a AVGO una puntuación de 57.0/100. Tendencia: Neutral. RSI: 74.5.",
+      "pt": "BOGA AI atribui a AVGO uma pontuação de 57.0/100. Tendência: Neutro. RSI: 74.5.",
+      "fr": "BOGA AI attribue à AVGO un score de 57.0/100. Tendance: Neutre. RSI: 74.5.",
+      "id": "BOGA AI memberikan AVGO skor 57.0/100. Tren: Netral. RSI: 74.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AVGO (Broadcom Inc.)\n\n### 1. Business Context\nBroadcom Inc. operates in the Technology sector. BOGA AI detect institutional interest near $401.66.\n\n### 2. Performance\n* **Master Score:** 57.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 74.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $401.66 | Current |\n| EMA20 | $362.8 | Support |\n| ADX | 31.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $377.76.\n\n### 5. Execution\n* **Entry Zone:** $343.29 - $403.67\n* **Target Price:** $437.51\n* **Stop Loss:** $377.76\n",

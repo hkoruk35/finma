@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
-      "tr": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
-      "es": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
-      "pt": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
-      "fr": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
-      "id": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4."
+      "tr": "BOGA AI, TDG için 29.4/100 skor verdi. Trend: Nötr. RSI: 47.4.",
+      "es": "BOGA AI asigna a TDG una puntuación de 29.4/100. Tendencia: Neutral. RSI: 47.4.",
+      "pt": "BOGA AI atribui a TDG uma pontuação de 29.4/100. Tendência: Neutro. RSI: 47.4.",
+      "fr": "BOGA AI attribue à TDG un score de 29.4/100. Tendance: Neutre. RSI: 47.4.",
+      "id": "BOGA AI memberikan TDG skor 29.4/100. Tren: Netral. RSI: 47.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TDG (TransDigm Group Incorporated)\n\n### 1. Business Context\nTransDigm Group Incorporated operates in the Industrials sector. BOGA AI detect institutional interest near $1210.59.\n\n### 2. Performance\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1210.59 | Current |\n| EMA20 | $1226.47 | Support |\n| ADX | 25.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $1130.79.\n\n### 5. Execution\n* **Entry Zone:** $1204.54 - $1216.64\n* **Target Price:** $1330.29\n* **Stop Loss:** $1130.79\n",

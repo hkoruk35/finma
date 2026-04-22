@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
-      "tr": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
-      "es": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
-      "pt": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
-      "fr": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
-      "id": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4."
+      "tr": "BOGA AI, TDY için 50.0/100 skor verdi. Trend: Nötr. RSI: 50.4.",
+      "es": "BOGA AI asigna a TDY una puntuación de 50.0/100. Tendencia: Neutral. RSI: 50.4.",
+      "pt": "BOGA AI atribui a TDY uma pontuação de 50.0/100. Tendência: Neutro. RSI: 50.4.",
+      "fr": "BOGA AI attribue à TDY un score de 50.0/100. Tendance: Neutre. RSI: 50.4.",
+      "id": "BOGA AI memberikan TDY skor 50.0/100. Tren: Netral. RSI: 50.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TDY (Teledyne Technologies Incorporated)\n\n### 1. Business Context\nTeledyne Technologies Incorporated operates in the Industrials sector. BOGA AI detect institutional interest near $637.91.\n\n### 2. Performance\n* **Master Score:** 50.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $637.91 | Current |\n| EMA20 | $637.63 | Support |\n| ADX | 17.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $606.09.\n\n### 5. Execution\n* **Entry Zone:** $627.79 - $641.10\n* **Target Price:** $685.64\n* **Stop Loss:** $606.09\n",

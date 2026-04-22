@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AKAM a score of 35.3/100. Trend: Neutral. RSI: 44.6.",
-      "tr": "BOGA AI assigns AKAM a score of 35.3/100. Trend: Neutral. RSI: 44.6.",
-      "es": "BOGA AI assigns AKAM a score of 35.3/100. Trend: Neutral. RSI: 44.6.",
-      "pt": "BOGA AI assigns AKAM a score of 35.3/100. Trend: Neutral. RSI: 44.6.",
-      "fr": "BOGA AI assigns AKAM a score of 35.3/100. Trend: Neutral. RSI: 44.6.",
-      "id": "BOGA AI assigns AKAM a score of 35.3/100. Trend: Neutral. RSI: 44.6."
+      "tr": "BOGA AI, AKAM için 35.3/100 skor verdi. Trend: Nötr. RSI: 44.6.",
+      "es": "BOGA AI asigna a AKAM una puntuación de 35.3/100. Tendencia: Neutral. RSI: 44.6.",
+      "pt": "BOGA AI atribui a AKAM uma pontuação de 35.3/100. Tendência: Neutro. RSI: 44.6.",
+      "fr": "BOGA AI attribue à AKAM un score de 35.3/100. Tendance: Neutre. RSI: 44.6.",
+      "id": "BOGA AI memberikan AKAM skor 35.3/100. Tren: Netral. RSI: 44.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AKAM (Akamai Technologies, Inc.)\n\n### 1. Business Context\nAkamai Technologies, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $98.56.\n\n### 2. Performance\n* **Master Score:** 35.3/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $98.56 | Current |\n| EMA20 | $102.48 | Support |\n| ADX | 28.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $87.28.\n\n### 5. Execution\n* **Entry Zone:** $98.07 - $99.05\n* **Target Price:** $115.48\n* **Stop Loss:** $87.28\n",

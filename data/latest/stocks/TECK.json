@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TECK a score of 55.0/100. Trend: Neutral. RSI: 57.2.",
-      "tr": "BOGA AI assigns TECK a score of 55.0/100. Trend: Neutral. RSI: 57.2.",
-      "es": "BOGA AI assigns TECK a score of 55.0/100. Trend: Neutral. RSI: 57.2.",
-      "pt": "BOGA AI assigns TECK a score of 55.0/100. Trend: Neutral. RSI: 57.2.",
-      "fr": "BOGA AI assigns TECK a score of 55.0/100. Trend: Neutral. RSI: 57.2.",
-      "id": "BOGA AI assigns TECK a score of 55.0/100. Trend: Neutral. RSI: 57.2."
+      "tr": "BOGA AI, TECK için 55.0/100 skor verdi. Trend: Nötr. RSI: 57.2.",
+      "es": "BOGA AI asigna a TECK una puntuación de 55.0/100. Tendencia: Neutral. RSI: 57.2.",
+      "pt": "BOGA AI atribui a TECK uma pontuação de 55.0/100. Tendência: Neutro. RSI: 57.2.",
+      "fr": "BOGA AI attribue à TECK un score de 55.0/100. Tendance: Neutre. RSI: 57.2.",
+      "id": "BOGA AI memberikan TECK skor 55.0/100. Tren: Netral. RSI: 57.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TECK (Teck Resources Limited)\n\n### 1. Business Context\nTeck Resources Limited operates in the Materials sector. BOGA AI detect institutional interest near $57.10.\n\n### 2. Performance\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 57.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $57.10 | Current |\n| EMA20 | $55.4 | Support |\n| ADX | 20.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $52.76.\n\n### 5. Execution\n* **Entry Zone:** $53.50 - $57.39\n* **Target Price:** $63.61\n* **Stop Loss:** $52.76\n",

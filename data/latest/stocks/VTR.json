@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns VTR a score of 36.1/100. Trend: Neutral. RSI: 40.1.",
-      "tr": "BOGA AI assigns VTR a score of 36.1/100. Trend: Neutral. RSI: 40.1.",
-      "es": "BOGA AI assigns VTR a score of 36.1/100. Trend: Neutral. RSI: 40.1.",
-      "pt": "BOGA AI assigns VTR a score of 36.1/100. Trend: Neutral. RSI: 40.1.",
-      "fr": "BOGA AI assigns VTR a score of 36.1/100. Trend: Neutral. RSI: 40.1.",
-      "id": "BOGA AI assigns VTR a score of 36.1/100. Trend: Neutral. RSI: 40.1."
+      "tr": "BOGA AI, VTR için 36.1/100 skor verdi. Trend: Nötr. RSI: 40.1.",
+      "es": "BOGA AI asigna a VTR una puntuación de 36.1/100. Tendencia: Neutral. RSI: 40.1.",
+      "pt": "BOGA AI atribui a VTR uma pontuação de 36.1/100. Tendência: Neutro. RSI: 40.1.",
+      "fr": "BOGA AI attribue à VTR un score de 36.1/100. Tendance: Neutre. RSI: 40.1.",
+      "id": "BOGA AI memberikan VTR skor 36.1/100. Tren: Netral. RSI: 40.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: VTR (Ventas, Inc.)\n\n### 1. Business Context\nVentas, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $81.97.\n\n### 2. Performance\n* **Master Score:** 36.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $81.97 | Current |\n| EMA20 | $84.01 | Support |\n| ADX | 18.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $78.65.\n\n### 5. Execution\n* **Entry Zone:** $81.56 - $82.38\n* **Target Price:** $86.95\n* **Stop Loss:** $78.65\n",

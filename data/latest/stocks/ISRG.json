@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ISRG a score of 21.9/100. Trend: Neutral. RSI: 42.6.",
-      "tr": "BOGA AI assigns ISRG a score of 21.9/100. Trend: Neutral. RSI: 42.6.",
-      "es": "BOGA AI assigns ISRG a score of 21.9/100. Trend: Neutral. RSI: 42.6.",
-      "pt": "BOGA AI assigns ISRG a score of 21.9/100. Trend: Neutral. RSI: 42.6.",
-      "fr": "BOGA AI assigns ISRG a score of 21.9/100. Trend: Neutral. RSI: 42.6.",
-      "id": "BOGA AI assigns ISRG a score of 21.9/100. Trend: Neutral. RSI: 42.6."
+      "tr": "BOGA AI, ISRG için 21.9/100 skor verdi. Trend: Nötr. RSI: 42.6.",
+      "es": "BOGA AI asigna a ISRG una puntuación de 21.9/100. Tendencia: Neutral. RSI: 42.6.",
+      "pt": "BOGA AI atribui a ISRG uma pontuação de 21.9/100. Tendência: Neutro. RSI: 42.6.",
+      "fr": "BOGA AI attribue à ISRG un score de 21.9/100. Tendance: Neutre. RSI: 42.6.",
+      "id": "BOGA AI memberikan ISRG skor 21.9/100. Tren: Netral. RSI: 42.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ISRG (Intuitive Surgical, Inc.)\n\n### 1. Business Context\nIntuitive Surgical, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $455.42.\n\n### 2. Performance\n* **Master Score:** 21.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $455.42 | Current |\n| EMA20 | $464.26 | Support |\n| ADX | 21.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $430.52.\n\n### 5. Execution\n* **Entry Zone:** $453.14 - $457.70\n* **Target Price:** $492.77\n* **Stop Loss:** $430.52\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns YUM a score of 45.5/100. Trend: Neutral. RSI: 51.6.",
-      "tr": "BOGA AI assigns YUM a score of 45.5/100. Trend: Neutral. RSI: 51.6.",
-      "es": "BOGA AI assigns YUM a score of 45.5/100. Trend: Neutral. RSI: 51.6.",
-      "pt": "BOGA AI assigns YUM a score of 45.5/100. Trend: Neutral. RSI: 51.6.",
-      "fr": "BOGA AI assigns YUM a score of 45.5/100. Trend: Neutral. RSI: 51.6.",
-      "id": "BOGA AI assigns YUM a score of 45.5/100. Trend: Neutral. RSI: 51.6."
+      "tr": "BOGA AI, YUM için 45.5/100 skor verdi. Trend: Nötr. RSI: 51.6.",
+      "es": "BOGA AI asigna a YUM una puntuación de 45.5/100. Tendencia: Neutral. RSI: 51.6.",
+      "pt": "BOGA AI atribui a YUM uma pontuação de 45.5/100. Tendência: Neutro. RSI: 51.6.",
+      "fr": "BOGA AI attribue à YUM un score de 45.5/100. Tendance: Neutre. RSI: 51.6.",
+      "id": "BOGA AI memberikan YUM skor 45.5/100. Tren: Netral. RSI: 51.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: YUM (Yum! Brands, Inc.)\n\n### 1. Business Context\nYum! Brands, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $160.23.\n\n### 2. Performance\n* **Master Score:** 45.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $160.23 | Current |\n| EMA20 | $159.85 | Support |\n| ADX | 13.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $153.99.\n\n### 5. Execution\n* **Entry Zone:** $158.00 - $161.03\n* **Target Price:** $169.59\n* **Stop Loss:** $153.99\n",

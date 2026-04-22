@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns HRL a score of 29.4/100. Trend: Neutral. RSI: 42.4.",
-      "tr": "BOGA AI assigns HRL a score of 29.4/100. Trend: Neutral. RSI: 42.4.",
-      "es": "BOGA AI assigns HRL a score of 29.4/100. Trend: Neutral. RSI: 42.4.",
-      "pt": "BOGA AI assigns HRL a score of 29.4/100. Trend: Neutral. RSI: 42.4.",
-      "fr": "BOGA AI assigns HRL a score of 29.4/100. Trend: Neutral. RSI: 42.4.",
-      "id": "BOGA AI assigns HRL a score of 29.4/100. Trend: Neutral. RSI: 42.4."
+      "tr": "BOGA AI, HRL için 29.4/100 skor verdi. Trend: Nötr. RSI: 42.4.",
+      "es": "BOGA AI asigna a HRL una puntuación de 29.4/100. Tendencia: Neutral. RSI: 42.4.",
+      "pt": "BOGA AI atribui a HRL uma pontuação de 29.4/100. Tendência: Neutro. RSI: 42.4.",
+      "fr": "BOGA AI attribue à HRL un score de 29.4/100. Tendance: Neutre. RSI: 42.4.",
+      "id": "BOGA AI memberikan HRL skor 29.4/100. Tren: Netral. RSI: 42.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: HRL (Hormel Foods Corporation)\n\n### 1. Business Context\nHormel Foods Corporation operates in the Consumer Staples sector. BOGA AI detect institutional interest near $21.25.\n\n### 2. Performance\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $21.25 | Current |\n| EMA20 | $21.49 | Support |\n| ADX | 32.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $20.29.\n\n### 5. Execution\n* **Entry Zone:** $21.14 - $21.36\n* **Target Price:** $22.69\n* **Stop Loss:** $20.29\n",

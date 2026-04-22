@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SNDK a score of 58.2/100. Trend: Neutral. RSI: 65.9.",
-      "tr": "BOGA AI assigns SNDK a score of 58.2/100. Trend: Neutral. RSI: 65.9.",
-      "es": "BOGA AI assigns SNDK a score of 58.2/100. Trend: Neutral. RSI: 65.9.",
-      "pt": "BOGA AI assigns SNDK a score of 58.2/100. Trend: Neutral. RSI: 65.9.",
-      "fr": "BOGA AI assigns SNDK a score of 58.2/100. Trend: Neutral. RSI: 65.9.",
-      "id": "BOGA AI assigns SNDK a score of 58.2/100. Trend: Neutral. RSI: 65.9."
+      "tr": "BOGA AI, SNDK için 58.2/100 skor verdi. Trend: Nötr. RSI: 65.9.",
+      "es": "BOGA AI asigna a SNDK una puntuación de 58.2/100. Tendencia: Neutral. RSI: 65.9.",
+      "pt": "BOGA AI atribui a SNDK uma pontuação de 58.2/100. Tendência: Neutro. RSI: 65.9.",
+      "fr": "BOGA AI attribue à SNDK un score de 58.2/100. Tendance: Neutre. RSI: 65.9.",
+      "id": "BOGA AI memberikan SNDK skor 58.2/100. Tren: Netral. RSI: 65.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SNDK (Sandisk Corporation)\n\n### 1. Business Context\nSandisk Corporation operates in the Technology sector. BOGA AI detect institutional interest near $909.03.\n\n### 2. Performance\n* **Master Score:** 58.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $909.03 | Current |\n| EMA20 | $815.06 | Support |\n| ADX | 28.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $793.43.\n\n### 5. Execution\n* **Entry Zone:** $695.50 - $913.58\n* **Target Price:** $1082.43\n* **Stop Loss:** $793.43\n",

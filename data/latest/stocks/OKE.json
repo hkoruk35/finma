@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns OKE a score of 24.3/100. Trend: Neutral. RSI: 43.0.",
-      "tr": "BOGA AI assigns OKE a score of 24.3/100. Trend: Neutral. RSI: 43.0.",
-      "es": "BOGA AI assigns OKE a score of 24.3/100. Trend: Neutral. RSI: 43.0.",
-      "pt": "BOGA AI assigns OKE a score of 24.3/100. Trend: Neutral. RSI: 43.0.",
-      "fr": "BOGA AI assigns OKE a score of 24.3/100. Trend: Neutral. RSI: 43.0.",
-      "id": "BOGA AI assigns OKE a score of 24.3/100. Trend: Neutral. RSI: 43.0."
+      "tr": "BOGA AI, OKE için 24.3/100 skor verdi. Trend: Nötr. RSI: 43.0.",
+      "es": "BOGA AI asigna a OKE una puntuación de 24.3/100. Tendencia: Neutral. RSI: 43.0.",
+      "pt": "BOGA AI atribui a OKE uma pontuação de 24.3/100. Tendência: Neutro. RSI: 43.0.",
+      "fr": "BOGA AI attribue à OKE un score de 24.3/100. Tendance: Neutre. RSI: 43.0.",
+      "id": "BOGA AI memberikan OKE skor 24.3/100. Tren: Netral. RSI: 43.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: OKE (ONEOK, Inc.)\n\n### 1. Business Context\nONEOK, Inc. operates in the Energy sector. BOGA AI detect institutional interest near $84.35.\n\n### 2. Performance\n* **Master Score:** 24.3/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $84.35 | Current |\n| EMA20 | $86.27 | Support |\n| ADX | 19.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $79.29.\n\n### 5. Execution\n* **Entry Zone:** $83.93 - $84.77\n* **Target Price:** $91.94\n* **Stop Loss:** $79.29\n",

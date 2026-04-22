@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SWKS a score of 41.4/100. Trend: Neutral. RSI: 68.4.",
-      "tr": "BOGA AI assigns SWKS a score of 41.4/100. Trend: Neutral. RSI: 68.4.",
-      "es": "BOGA AI assigns SWKS a score of 41.4/100. Trend: Neutral. RSI: 68.4.",
-      "pt": "BOGA AI assigns SWKS a score of 41.4/100. Trend: Neutral. RSI: 68.4.",
-      "fr": "BOGA AI assigns SWKS a score of 41.4/100. Trend: Neutral. RSI: 68.4.",
-      "id": "BOGA AI assigns SWKS a score of 41.4/100. Trend: Neutral. RSI: 68.4."
+      "tr": "BOGA AI, SWKS için 41.4/100 skor verdi. Trend: Nötr. RSI: 68.4.",
+      "es": "BOGA AI asigna a SWKS una puntuación de 41.4/100. Tendencia: Neutral. RSI: 68.4.",
+      "pt": "BOGA AI atribui a SWKS uma pontuação de 41.4/100. Tendência: Neutro. RSI: 68.4.",
+      "fr": "BOGA AI attribue à SWKS un score de 41.4/100. Tendance: Neutre. RSI: 68.4.",
+      "id": "BOGA AI memberikan SWKS skor 41.4/100. Tren: Netral. RSI: 68.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SWKS (Skyworks Solutions, Inc.)\n\n### 1. Business Context\nSkyworks Solutions, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $60.38.\n\n### 2. Performance\n* **Master Score:** 41.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 68.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $60.38 | Current |\n| EMA20 | $57.1 | Support |\n| ADX | 18.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $56.76.\n\n### 5. Execution\n* **Entry Zone:** $57.08 - $60.68\n* **Target Price:** $65.81\n* **Stop Loss:** $56.76\n",

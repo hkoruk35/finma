@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AA a score of 34.0/100. Trend: Neutral. RSI: 47.3.",
-      "tr": "BOGA AI assigns AA a score of 34.0/100. Trend: Neutral. RSI: 47.3.",
-      "es": "BOGA AI assigns AA a score of 34.0/100. Trend: Neutral. RSI: 47.3.",
-      "pt": "BOGA AI assigns AA a score of 34.0/100. Trend: Neutral. RSI: 47.3.",
-      "fr": "BOGA AI assigns AA a score of 34.0/100. Trend: Neutral. RSI: 47.3.",
-      "id": "BOGA AI assigns AA a score of 34.0/100. Trend: Neutral. RSI: 47.3."
+      "tr": "BOGA AI, AA için 34.0/100 skor verdi. Trend: Nötr. RSI: 47.3.",
+      "es": "BOGA AI asigna a AA una puntuación de 34.0/100. Tendencia: Neutral. RSI: 47.3.",
+      "pt": "BOGA AI atribui a AA uma pontuação de 34.0/100. Tendência: Neutro. RSI: 47.3.",
+      "fr": "BOGA AI attribue à AA un score de 34.0/100. Tendance: Neutre. RSI: 47.3.",
+      "id": "BOGA AI memberikan AA skor 34.0/100. Tren: Netral. RSI: 47.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AA (Alcoa Corporation)\n\n### 1. Business Context\nAlcoa Corporation operates in the Materials sector. BOGA AI detect institutional interest near $65.67.\n\n### 2. Performance\n* **Master Score:** 34.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $65.67 | Current |\n| EMA20 | $67.67 | Support |\n| ADX | 18.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $58.89.\n\n### 5. Execution\n* **Entry Zone:** $63.95 - $66.00\n* **Target Price:** $75.84\n* **Stop Loss:** $58.89\n",

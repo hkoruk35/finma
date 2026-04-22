@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MA a score of 33.2/100. Trend: Neutral. RSI: 52.7.",
-      "tr": "BOGA AI assigns MA a score of 33.2/100. Trend: Neutral. RSI: 52.7.",
-      "es": "BOGA AI assigns MA a score of 33.2/100. Trend: Neutral. RSI: 52.7.",
-      "pt": "BOGA AI assigns MA a score of 33.2/100. Trend: Neutral. RSI: 52.7.",
-      "fr": "BOGA AI assigns MA a score of 33.2/100. Trend: Neutral. RSI: 52.7.",
-      "id": "BOGA AI assigns MA a score of 33.2/100. Trend: Neutral. RSI: 52.7."
+      "tr": "BOGA AI, MA için 33.2/100 skor verdi. Trend: Nötr. RSI: 52.7.",
+      "es": "BOGA AI asigna a MA una puntuación de 33.2/100. Tendencia: Neutral. RSI: 52.7.",
+      "pt": "BOGA AI atribui a MA uma pontuação de 33.2/100. Tendência: Neutro. RSI: 52.7.",
+      "fr": "BOGA AI attribue à MA un score de 33.2/100. Tendance: Neutre. RSI: 52.7.",
+      "id": "BOGA AI memberikan MA skor 33.2/100. Tren: Netral. RSI: 52.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MA (Mastercard Incorporated)\n\n### 1. Business Context\nMastercard Incorporated operates in the Financials sector. BOGA AI detect institutional interest near $512.14.\n\n### 2. Performance\n* **Master Score:** 33.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $512.14 | Current |\n| EMA20 | $508.35 | Support |\n| ADX | 16.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $490.92.\n\n### 5. Execution\n* **Entry Zone:** $509.58 - $514.70\n* **Target Price:** $543.97\n* **Stop Loss:** $490.92\n",

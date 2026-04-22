@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns FDX a score of 57.7/100. Trend: Neutral. RSI: 68.7.",
-      "tr": "BOGA AI assigns FDX a score of 57.7/100. Trend: Neutral. RSI: 68.7.",
-      "es": "BOGA AI assigns FDX a score of 57.7/100. Trend: Neutral. RSI: 68.7.",
-      "pt": "BOGA AI assigns FDX a score of 57.7/100. Trend: Neutral. RSI: 68.7.",
-      "fr": "BOGA AI assigns FDX a score of 57.7/100. Trend: Neutral. RSI: 68.7.",
-      "id": "BOGA AI assigns FDX a score of 57.7/100. Trend: Neutral. RSI: 68.7."
+      "tr": "BOGA AI, FDX için 57.7/100 skor verdi. Trend: Nötr. RSI: 68.7.",
+      "es": "BOGA AI asigna a FDX una puntuación de 57.7/100. Tendencia: Neutral. RSI: 68.7.",
+      "pt": "BOGA AI atribui a FDX uma pontuação de 57.7/100. Tendência: Neutro. RSI: 68.7.",
+      "fr": "BOGA AI attribue à FDX un score de 57.7/100. Tendance: Neutre. RSI: 68.7.",
+      "id": "BOGA AI memberikan FDX skor 57.7/100. Tren: Netral. RSI: 68.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: FDX (FedEx Corporation)\n\n### 1. Business Context\nFedEx Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $394.57.\n\n### 2. Performance\n* **Master Score:** 57.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $394.57 | Current |\n| EMA20 | $372.55 | Support |\n| ADX | 22.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $374.95.\n\n### 5. Execution\n* **Entry Zone:** $357.95 - $396.54\n* **Target Price:** $424.00\n* **Stop Loss:** $374.95\n",

@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
-      "tr": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
-      "es": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
-      "pt": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
-      "fr": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
-      "id": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7."
+      "tr": "BOGA AI, BILL için 34.1/100 skor verdi. Trend: Nötr. RSI: 54.7.",
+      "es": "BOGA AI asigna a BILL una puntuación de 34.1/100. Tendencia: Neutral. RSI: 54.7.",
+      "pt": "BOGA AI atribui a BILL uma pontuação de 34.1/100. Tendência: Neutro. RSI: 54.7.",
+      "fr": "BOGA AI attribue à BILL un score de 34.1/100. Tendance: Neutre. RSI: 54.7.",
+      "id": "BOGA AI memberikan BILL skor 34.1/100. Tren: Netral. RSI: 54.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: BILL (BILL Holdings, Inc.)\n\n### 1. Business Context\nBILL Holdings, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $40.37.\n\n### 2. Performance\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $40.37 | Current |\n| EMA20 | $38.76 | Support |\n| ADX | 16.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $36.43.\n\n### 5. Execution\n* **Entry Zone:** $40.17 - $40.57\n* **Target Price:** $46.28\n* **Stop Loss:** $36.43\n",

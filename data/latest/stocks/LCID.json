@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns LCID a score of 16.6/100. Trend: Neutral. RSI: 34.1.",
-      "tr": "BOGA AI assigns LCID a score of 16.6/100. Trend: Neutral. RSI: 34.1.",
-      "es": "BOGA AI assigns LCID a score of 16.6/100. Trend: Neutral. RSI: 34.1.",
-      "pt": "BOGA AI assigns LCID a score of 16.6/100. Trend: Neutral. RSI: 34.1.",
-      "fr": "BOGA AI assigns LCID a score of 16.6/100. Trend: Neutral. RSI: 34.1.",
-      "id": "BOGA AI assigns LCID a score of 16.6/100. Trend: Neutral. RSI: 34.1."
+      "tr": "BOGA AI, LCID için 16.6/100 skor verdi. Trend: Nötr. RSI: 34.1.",
+      "es": "BOGA AI asigna a LCID una puntuación de 16.6/100. Tendencia: Neutral. RSI: 34.1.",
+      "pt": "BOGA AI atribui a LCID uma pontuação de 16.6/100. Tendência: Neutro. RSI: 34.1.",
+      "fr": "BOGA AI attribue à LCID un score de 16.6/100. Tendance: Neutre. RSI: 34.1.",
+      "id": "BOGA AI memberikan LCID skor 16.6/100. Tren: Netral. RSI: 34.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: LCID (Lucid Group, Inc.)\n\n### 1. Business Context\nLucid Group, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $7.28.\n\n### 2. Performance\n* **Master Score:** 16.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $7.28 | Current |\n| EMA20 | $8.62 | Support |\n| ADX | 20.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $5.88.\n\n### 5. Execution\n* **Entry Zone:** $7.24 - $7.32\n* **Target Price:** $9.38\n* **Stop Loss:** $5.88\n",

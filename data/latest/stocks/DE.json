@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DE a score of 43.9/100. Trend: Neutral. RSI: 51.8.",
-      "tr": "BOGA AI assigns DE a score of 43.9/100. Trend: Neutral. RSI: 51.8.",
-      "es": "BOGA AI assigns DE a score of 43.9/100. Trend: Neutral. RSI: 51.8.",
-      "pt": "BOGA AI assigns DE a score of 43.9/100. Trend: Neutral. RSI: 51.8.",
-      "fr": "BOGA AI assigns DE a score of 43.9/100. Trend: Neutral. RSI: 51.8.",
-      "id": "BOGA AI assigns DE a score of 43.9/100. Trend: Neutral. RSI: 51.8."
+      "tr": "BOGA AI, DE için 43.9/100 skor verdi. Trend: Nötr. RSI: 51.8.",
+      "es": "BOGA AI asigna a DE una puntuación de 43.9/100. Tendencia: Neutral. RSI: 51.8.",
+      "pt": "BOGA AI atribui a DE uma pontuação de 43.9/100. Tendência: Neutro. RSI: 51.8.",
+      "fr": "BOGA AI attribue à DE un score de 43.9/100. Tendance: Neutre. RSI: 51.8.",
+      "id": "BOGA AI memberikan DE skor 43.9/100. Tren: Netral. RSI: 51.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DE (Deere & Company)\n\n### 1. Business Context\nDeere & Company operates in the Industrials sector. BOGA AI detect institutional interest near $590.12.\n\n### 2. Performance\n* **Master Score:** 43.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $590.12 | Current |\n| EMA20 | $587.63 | Support |\n| ADX | 16.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $559.60.\n\n### 5. Execution\n* **Entry Zone:** $574.79 - $593.07\n* **Target Price:** $635.90\n* **Stop Loss:** $559.60\n",

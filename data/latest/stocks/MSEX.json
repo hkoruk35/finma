@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MSEX a score of 27.3/100. Trend: Neutral. RSI: 53.7.",
-      "tr": "BOGA AI assigns MSEX a score of 27.3/100. Trend: Neutral. RSI: 53.7.",
-      "es": "BOGA AI assigns MSEX a score of 27.3/100. Trend: Neutral. RSI: 53.7.",
-      "pt": "BOGA AI assigns MSEX a score of 27.3/100. Trend: Neutral. RSI: 53.7.",
-      "fr": "BOGA AI assigns MSEX a score of 27.3/100. Trend: Neutral. RSI: 53.7.",
-      "id": "BOGA AI assigns MSEX a score of 27.3/100. Trend: Neutral. RSI: 53.7."
+      "tr": "BOGA AI, MSEX için 27.3/100 skor verdi. Trend: Nötr. RSI: 53.7.",
+      "es": "BOGA AI asigna a MSEX una puntuación de 27.3/100. Tendencia: Neutral. RSI: 53.7.",
+      "pt": "BOGA AI atribui a MSEX uma pontuação de 27.3/100. Tendência: Neutro. RSI: 53.7.",
+      "fr": "BOGA AI attribue à MSEX un score de 27.3/100. Tendance: Neutre. RSI: 53.7.",
+      "id": "BOGA AI memberikan MSEX skor 27.3/100. Tren: Netral. RSI: 53.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MSEX (Middlesex Water Company)\n\n### 1. Business Context\nMiddlesex Water Company operates in the Utilities sector. BOGA AI detect institutional interest near $53.45.\n\n### 2. Performance\n* **Master Score:** 27.3/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $53.45 | Current |\n| EMA20 | $52.58 | Support |\n| ADX | 16.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $50.03.\n\n### 5. Execution\n* **Entry Zone:** $52.33 - $53.72\n* **Target Price:** $58.58\n* **Stop Loss:** $50.03\n",

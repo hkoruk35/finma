@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
-      "tr": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
-      "es": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
-      "pt": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
-      "fr": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
-      "id": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2."
+      "tr": "BOGA AI, DTM için 31.2/100 skor verdi. Trend: Nötr. RSI: 39.2.",
+      "es": "BOGA AI asigna a DTM una puntuación de 31.2/100. Tendencia: Neutral. RSI: 39.2.",
+      "pt": "BOGA AI atribui a DTM uma pontuação de 31.2/100. Tendência: Neutro. RSI: 39.2.",
+      "fr": "BOGA AI attribue à DTM un score de 31.2/100. Tendance: Neutre. RSI: 39.2.",
+      "id": "BOGA AI memberikan DTM skor 31.2/100. Tren: Netral. RSI: 39.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DTM (DT Midstream, Inc.)\n\n### 1. Business Context\nDT Midstream, Inc. operates in the Energy sector. BOGA AI detect institutional interest near $130.01.\n\n### 2. Performance\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $130.01 | Current |\n| EMA20 | $133.66 | Support |\n| ADX | 12.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $123.19.\n\n### 5. Execution\n* **Entry Zone:** $129.36 - $130.66\n* **Target Price:** $140.24\n* **Stop Loss:** $123.19\n",

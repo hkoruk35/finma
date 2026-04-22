@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
-      "tr": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
-      "es": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
-      "pt": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
-      "fr": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
-      "id": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4."
+      "tr": "BOGA AI, RCL için 37.7/100 skor verdi. Trend: Nötr. RSI: 47.4.",
+      "es": "BOGA AI asigna a RCL una puntuación de 37.7/100. Tendencia: Neutral. RSI: 47.4.",
+      "pt": "BOGA AI atribui a RCL uma pontuação de 37.7/100. Tendência: Neutro. RSI: 47.4.",
+      "fr": "BOGA AI attribue à RCL un score de 37.7/100. Tendance: Neutre. RSI: 47.4.",
+      "id": "BOGA AI memberikan RCL skor 37.7/100. Tren: Netral. RSI: 47.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: RCL (Royal Caribbean Cruises Ltd.)\n\n### 1. Business Context\nRoyal Caribbean Cruises Ltd. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $274.39.\n\n### 2. Performance\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $274.39 | Current |\n| EMA20 | $278.0 | Support |\n| ADX | 14.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $246.17.\n\n### 5. Execution\n* **Entry Zone:** $273.02 - $275.76\n* **Target Price:** $316.72\n* **Stop Loss:** $246.17\n",

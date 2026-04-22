@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns JNJ a score of 22.3/100. Trend: Neutral. RSI: 27.7.",
-      "tr": "BOGA AI assigns JNJ a score of 22.3/100. Trend: Neutral. RSI: 27.7.",
-      "es": "BOGA AI assigns JNJ a score of 22.3/100. Trend: Neutral. RSI: 27.7.",
-      "pt": "BOGA AI assigns JNJ a score of 22.3/100. Trend: Neutral. RSI: 27.7.",
-      "fr": "BOGA AI assigns JNJ a score of 22.3/100. Trend: Neutral. RSI: 27.7.",
-      "id": "BOGA AI assigns JNJ a score of 22.3/100. Trend: Neutral. RSI: 27.7."
+      "tr": "BOGA AI, JNJ için 22.3/100 skor verdi. Trend: Nötr. RSI: 27.7.",
+      "es": "BOGA AI asigna a JNJ una puntuación de 22.3/100. Tendencia: Neutral. RSI: 27.7.",
+      "pt": "BOGA AI atribui a JNJ uma pontuação de 22.3/100. Tendência: Neutro. RSI: 27.7.",
+      "fr": "BOGA AI attribue à JNJ un score de 22.3/100. Tendance: Neutre. RSI: 27.7.",
+      "id": "BOGA AI memberikan JNJ skor 22.3/100. Tren: Netral. RSI: 27.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: JNJ (Johnson & Johnson)\n\n### 1. Business Context\nJohnson & Johnson operates in the Healthcare sector. BOGA AI detect institutional interest near $225.18.\n\n### 2. Performance\n* **Master Score:** 22.3/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 27.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $225.18 | Current |\n| EMA20 | $237.0 | Support |\n| ADX | 18.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $215.74.\n\n### 5. Execution\n* **Entry Zone:** $224.05 - $226.31\n* **Target Price:** $239.34\n* **Stop Loss:** $215.74\n",

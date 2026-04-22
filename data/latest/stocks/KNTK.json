@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
-      "tr": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
-      "es": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
-      "pt": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
-      "fr": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
-      "id": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3."
+      "tr": "BOGA AI, KNTK için 42.7/100 skor verdi. Trend: Nötr. RSI: 54.3.",
+      "es": "BOGA AI asigna a KNTK una puntuación de 42.7/100. Tendencia: Neutral. RSI: 54.3.",
+      "pt": "BOGA AI atribui a KNTK uma pontuação de 42.7/100. Tendência: Neutro. RSI: 54.3.",
+      "fr": "BOGA AI attribue à KNTK un score de 42.7/100. Tendance: Neutre. RSI: 54.3.",
+      "id": "BOGA AI memberikan KNTK skor 42.7/100. Tren: Netral. RSI: 54.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: KNTK (Kinetik Holdings Inc.)\n\n### 1. Business Context\nKinetik Holdings Inc. operates in the Energy sector. BOGA AI detect institutional interest near $47.10.\n\n### 2. Performance\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $47.10 | Current |\n| EMA20 | $46.7 | Support |\n| ADX | 19.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $43.96.\n\n### 5. Execution\n* **Entry Zone:** $44.86 - $47.34\n* **Target Price:** $51.81\n* **Stop Loss:** $43.96\n",

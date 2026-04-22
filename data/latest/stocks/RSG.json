@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
-      "tr": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
-      "es": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
-      "pt": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
-      "fr": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
-      "id": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2."
+      "tr": "BOGA AI, RSG için 18.5/100 skor verdi. Trend: Nötr. RSI: 30.2.",
+      "es": "BOGA AI asigna a RSG una puntuación de 18.5/100. Tendencia: Neutral. RSI: 30.2.",
+      "pt": "BOGA AI atribui a RSG uma pontuação de 18.5/100. Tendência: Neutro. RSI: 30.2.",
+      "fr": "BOGA AI attribue à RSG un score de 18.5/100. Tendance: Neutre. RSI: 30.2.",
+      "id": "BOGA AI memberikan RSG skor 18.5/100. Tren: Netral. RSI: 30.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: RSG (Republic Services, Inc.)\n\n### 1. Business Context\nRepublic Services, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $206.09.\n\n### 2. Performance\n* **Master Score:** 18.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 30.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $206.09 | Current |\n| EMA20 | $214.25 | Support |\n| ADX | 19.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $198.33.\n\n### 5. Execution\n* **Entry Zone:** $205.06 - $207.12\n* **Target Price:** $217.73\n* **Stop Loss:** $198.33\n",

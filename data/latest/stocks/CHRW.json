@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CHRW a score of 54.0/100. Trend: Neutral. RSI: 60.3.",
-      "tr": "BOGA AI assigns CHRW a score of 54.0/100. Trend: Neutral. RSI: 60.3.",
-      "es": "BOGA AI assigns CHRW a score of 54.0/100. Trend: Neutral. RSI: 60.3.",
-      "pt": "BOGA AI assigns CHRW a score of 54.0/100. Trend: Neutral. RSI: 60.3.",
-      "fr": "BOGA AI assigns CHRW a score of 54.0/100. Trend: Neutral. RSI: 60.3.",
-      "id": "BOGA AI assigns CHRW a score of 54.0/100. Trend: Neutral. RSI: 60.3."
+      "tr": "BOGA AI, CHRW için 54.0/100 skor verdi. Trend: Nötr. RSI: 60.3.",
+      "es": "BOGA AI asigna a CHRW una puntuación de 54.0/100. Tendencia: Neutral. RSI: 60.3.",
+      "pt": "BOGA AI atribui a CHRW uma pontuação de 54.0/100. Tendência: Neutro. RSI: 60.3.",
+      "fr": "BOGA AI attribue à CHRW un score de 54.0/100. Tendance: Neutre. RSI: 60.3.",
+      "id": "BOGA AI memberikan CHRW skor 54.0/100. Tren: Netral. RSI: 60.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CHRW (C.H. Robinson Worldwide, Inc.)\n\n### 1. Business Context\nC.H. Robinson Worldwide, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $182.18.\n\n### 2. Performance\n* **Master Score:** 54.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 60.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $182.18 | Current |\n| EMA20 | $173.49 | Support |\n| ADX | 22.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $169.74.\n\n### 5. Execution\n* **Entry Zone:** $172.60 - $183.09\n* **Target Price:** $200.84\n* **Stop Loss:** $169.74\n",

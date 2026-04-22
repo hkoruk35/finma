@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SMFG a score of 33.7/100. Trend: Neutral. RSI: 46.7.",
-      "tr": "BOGA AI assigns SMFG a score of 33.7/100. Trend: Neutral. RSI: 46.7.",
-      "es": "BOGA AI assigns SMFG a score of 33.7/100. Trend: Neutral. RSI: 46.7.",
-      "pt": "BOGA AI assigns SMFG a score of 33.7/100. Trend: Neutral. RSI: 46.7.",
-      "fr": "BOGA AI assigns SMFG a score of 33.7/100. Trend: Neutral. RSI: 46.7.",
-      "id": "BOGA AI assigns SMFG a score of 33.7/100. Trend: Neutral. RSI: 46.7."
+      "tr": "BOGA AI, SMFG için 33.7/100 skor verdi. Trend: Nötr. RSI: 46.7.",
+      "es": "BOGA AI asigna a SMFG una puntuación de 33.7/100. Tendencia: Neutral. RSI: 46.7.",
+      "pt": "BOGA AI atribui a SMFG uma pontuação de 33.7/100. Tendência: Neutro. RSI: 46.7.",
+      "fr": "BOGA AI attribue à SMFG un score de 33.7/100. Tendance: Neutre. RSI: 46.7.",
+      "id": "BOGA AI memberikan SMFG skor 33.7/100. Tren: Netral. RSI: 46.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SMFG (Sumitomo Mitsui Financial Group, Inc.)\n\n### 1. Business Context\nSumitomo Mitsui Financial Group, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $20.46.\n\n### 2. Performance\n* **Master Score:** 33.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $20.46 | Current |\n| EMA20 | $20.83 | Support |\n| ADX | 15.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $19.36.\n\n### 5. Execution\n* **Entry Zone:** $20.36 - $20.56\n* **Target Price:** $22.11\n* **Stop Loss:** $19.36\n",

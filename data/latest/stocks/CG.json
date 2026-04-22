@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CG a score of 30.6/100. Trend: Neutral. RSI: 60.0.",
-      "tr": "BOGA AI assigns CG a score of 30.6/100. Trend: Neutral. RSI: 60.0.",
-      "es": "BOGA AI assigns CG a score of 30.6/100. Trend: Neutral. RSI: 60.0.",
-      "pt": "BOGA AI assigns CG a score of 30.6/100. Trend: Neutral. RSI: 60.0.",
-      "fr": "BOGA AI assigns CG a score of 30.6/100. Trend: Neutral. RSI: 60.0.",
-      "id": "BOGA AI assigns CG a score of 30.6/100. Trend: Neutral. RSI: 60.0."
+      "tr": "BOGA AI, CG için 30.6/100 skor verdi. Trend: Nötr. RSI: 60.0.",
+      "es": "BOGA AI asigna a CG una puntuación de 30.6/100. Tendencia: Neutral. RSI: 60.0.",
+      "pt": "BOGA AI atribui a CG uma pontuação de 30.6/100. Tendência: Neutro. RSI: 60.0.",
+      "fr": "BOGA AI attribue à CG un score de 30.6/100. Tendance: Neutre. RSI: 60.0.",
+      "id": "BOGA AI memberikan CG skor 30.6/100. Tren: Netral. RSI: 60.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CG (The Carlyle Group Inc.)\n\n### 1. Business Context\nThe Carlyle Group Inc. operates in the Financials sector. BOGA AI detect institutional interest near $52.06.\n\n### 2. Performance\n* **Master Score:** 30.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 60.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $52.06 | Current |\n| EMA20 | $49.79 | Support |\n| ADX | 20.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $48.10.\n\n### 5. Execution\n* **Entry Zone:** $50.57 - $52.32\n* **Target Price:** $58.00\n* **Stop Loss:** $48.10\n",

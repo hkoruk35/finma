@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns OGE a score of 29.1/100. Trend: Neutral. RSI: 39.2.",
-      "tr": "BOGA AI assigns OGE a score of 29.1/100. Trend: Neutral. RSI: 39.2.",
-      "es": "BOGA AI assigns OGE a score of 29.1/100. Trend: Neutral. RSI: 39.2.",
-      "pt": "BOGA AI assigns OGE a score of 29.1/100. Trend: Neutral. RSI: 39.2.",
-      "fr": "BOGA AI assigns OGE a score of 29.1/100. Trend: Neutral. RSI: 39.2.",
-      "id": "BOGA AI assigns OGE a score of 29.1/100. Trend: Neutral. RSI: 39.2."
+      "tr": "BOGA AI, OGE için 29.1/100 skor verdi. Trend: Nötr. RSI: 39.2.",
+      "es": "BOGA AI asigna a OGE una puntuación de 29.1/100. Tendencia: Neutral. RSI: 39.2.",
+      "pt": "BOGA AI atribui a OGE uma pontuação de 29.1/100. Tendência: Neutro. RSI: 39.2.",
+      "fr": "BOGA AI attribue à OGE un score de 29.1/100. Tendance: Neutre. RSI: 39.2.",
+      "id": "BOGA AI memberikan OGE skor 29.1/100. Tren: Netral. RSI: 39.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: OGE (OGE Energy Corp.)\n\n### 1. Business Context\nOGE Energy Corp. operates in the Utilities sector. BOGA AI detect institutional interest near $46.67.\n\n### 2. Performance\n* **Master Score:** 29.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $46.67 | Current |\n| EMA20 | $48.02 | Support |\n| ADX | 15.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $44.89.\n\n### 5. Execution\n* **Entry Zone:** $46.44 - $46.90\n* **Target Price:** $49.34\n* **Stop Loss:** $44.89\n",

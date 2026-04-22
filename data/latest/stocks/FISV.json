@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
-      "tr": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
-      "es": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
-      "pt": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
-      "fr": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
-      "id": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6."
+      "tr": "BOGA AI, FISV için 34.9/100 skor verdi. Trend: Nötr. RSI: 67.6.",
+      "es": "BOGA AI asigna a FISV una puntuación de 34.9/100. Tendencia: Neutral. RSI: 67.6.",
+      "pt": "BOGA AI atribui a FISV uma pontuação de 34.9/100. Tendência: Neutro. RSI: 67.6.",
+      "fr": "BOGA AI attribue à FISV un score de 34.9/100. Tendance: Neutre. RSI: 67.6.",
+      "id": "BOGA AI memberikan FISV skor 34.9/100. Tren: Netral. RSI: 67.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: FISV (Fiserv, Inc.)\n\n### 1. Business Context\nFiserv, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $63.71.\n\n### 2. Performance\n* **Master Score:** 34.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $63.71 | Current |\n| EMA20 | $59.55 | Support |\n| ADX | 19.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $59.83.\n\n### 5. Execution\n* **Entry Zone:** $60.10 - $64.03\n* **Target Price:** $69.53\n* **Stop Loss:** $59.83\n",

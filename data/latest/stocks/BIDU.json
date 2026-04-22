@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns BIDU a score of 44.8/100. Trend: Neutral. RSI: 57.4.",
-      "tr": "BOGA AI assigns BIDU a score of 44.8/100. Trend: Neutral. RSI: 57.4.",
-      "es": "BOGA AI assigns BIDU a score of 44.8/100. Trend: Neutral. RSI: 57.4.",
-      "pt": "BOGA AI assigns BIDU a score of 44.8/100. Trend: Neutral. RSI: 57.4.",
-      "fr": "BOGA AI assigns BIDU a score of 44.8/100. Trend: Neutral. RSI: 57.4.",
-      "id": "BOGA AI assigns BIDU a score of 44.8/100. Trend: Neutral. RSI: 57.4."
+      "tr": "BOGA AI, BIDU için 44.8/100 skor verdi. Trend: Nötr. RSI: 57.4.",
+      "es": "BOGA AI asigna a BIDU una puntuación de 44.8/100. Tendencia: Neutral. RSI: 57.4.",
+      "pt": "BOGA AI atribui a BIDU uma pontuação de 44.8/100. Tendência: Neutro. RSI: 57.4.",
+      "fr": "BOGA AI attribue à BIDU un score de 44.8/100. Tendance: Neutre. RSI: 57.4.",
+      "id": "BOGA AI memberikan BIDU skor 44.8/100. Tren: Netral. RSI: 57.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: BIDU (Baidu, Inc.)\n\n### 1. Business Context\nBaidu, Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $123.88.\n\n### 2. Performance\n* **Master Score:** 44.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $123.88 | Current |\n| EMA20 | $118.45 | Support |\n| ADX | 23.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $115.30.\n\n### 5. Execution\n* **Entry Zone:** $121.47 - $124.50\n* **Target Price:** $136.75\n* **Stop Loss:** $115.30\n",

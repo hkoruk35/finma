@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns KEYS a score of 57.0/100. Trend: Neutral. RSI: 72.6.",
-      "tr": "BOGA AI assigns KEYS a score of 57.0/100. Trend: Neutral. RSI: 72.6.",
-      "es": "BOGA AI assigns KEYS a score of 57.0/100. Trend: Neutral. RSI: 72.6.",
-      "pt": "BOGA AI assigns KEYS a score of 57.0/100. Trend: Neutral. RSI: 72.6.",
-      "fr": "BOGA AI assigns KEYS a score of 57.0/100. Trend: Neutral. RSI: 72.6.",
-      "id": "BOGA AI assigns KEYS a score of 57.0/100. Trend: Neutral. RSI: 72.6."
+      "tr": "BOGA AI, KEYS için 57.0/100 skor verdi. Trend: Nötr. RSI: 72.6.",
+      "es": "BOGA AI asigna a KEYS una puntuación de 57.0/100. Tendencia: Neutral. RSI: 72.6.",
+      "pt": "BOGA AI atribui a KEYS uma pontuação de 57.0/100. Tendência: Neutro. RSI: 72.6.",
+      "fr": "BOGA AI attribue à KEYS un score de 57.0/100. Tendance: Neutre. RSI: 72.6.",
+      "id": "BOGA AI memberikan KEYS skor 57.0/100. Tren: Netral. RSI: 72.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: KEYS (Keysight Technologies, Inc.)\n\n### 1. Business Context\nKeysight Technologies, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $339.94.\n\n### 2. Performance\n* **Master Score:** 57.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $339.94 | Current |\n| EMA20 | $314.08 | Support |\n| ADX | 25.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $318.84.\n\n### 5. Execution\n* **Entry Zone:** $286.57 - $341.64\n* **Target Price:** $371.59\n* **Stop Loss:** $318.84\n",

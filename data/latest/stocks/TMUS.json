@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TMUS a score of 25.0/100. Trend: Neutral. RSI: 41.3.",
-      "tr": "BOGA AI assigns TMUS a score of 25.0/100. Trend: Neutral. RSI: 41.3.",
-      "es": "BOGA AI assigns TMUS a score of 25.0/100. Trend: Neutral. RSI: 41.3.",
-      "pt": "BOGA AI assigns TMUS a score of 25.0/100. Trend: Neutral. RSI: 41.3.",
-      "fr": "BOGA AI assigns TMUS a score of 25.0/100. Trend: Neutral. RSI: 41.3.",
-      "id": "BOGA AI assigns TMUS a score of 25.0/100. Trend: Neutral. RSI: 41.3."
+      "tr": "BOGA AI, TMUS için 25.0/100 skor verdi. Trend: Nötr. RSI: 41.3.",
+      "es": "BOGA AI asigna a TMUS una puntuación de 25.0/100. Tendencia: Neutral. RSI: 41.3.",
+      "pt": "BOGA AI atribui a TMUS uma pontuação de 25.0/100. Tendência: Neutro. RSI: 41.3.",
+      "fr": "BOGA AI attribue à TMUS un score de 25.0/100. Tendance: Neutre. RSI: 41.3.",
+      "id": "BOGA AI memberikan TMUS skor 25.0/100. Tren: Netral. RSI: 41.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TMUS (T-Mobile US, Inc.)\n\n### 1. Business Context\nT-Mobile US, Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $196.69.\n\n### 2. Performance\n* **Master Score:** 25.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 41.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $196.69 | Current |\n| EMA20 | $200.21 | Support |\n| ADX | 24.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $186.67.\n\n### 5. Execution\n* **Entry Zone:** $195.71 - $197.67\n* **Target Price:** $211.72\n* **Stop Loss:** $186.67\n",

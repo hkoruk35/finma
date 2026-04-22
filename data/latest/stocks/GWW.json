@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GWW a score of 41.4/100. Trend: Neutral. RSI: 63.6.",
-      "tr": "BOGA AI assigns GWW a score of 41.4/100. Trend: Neutral. RSI: 63.6.",
-      "es": "BOGA AI assigns GWW a score of 41.4/100. Trend: Neutral. RSI: 63.6.",
-      "pt": "BOGA AI assigns GWW a score of 41.4/100. Trend: Neutral. RSI: 63.6.",
-      "fr": "BOGA AI assigns GWW a score of 41.4/100. Trend: Neutral. RSI: 63.6.",
-      "id": "BOGA AI assigns GWW a score of 41.4/100. Trend: Neutral. RSI: 63.6."
+      "tr": "BOGA AI, GWW için 41.4/100 skor verdi. Trend: Nötr. RSI: 63.6.",
+      "es": "BOGA AI asigna a GWW una puntuación de 41.4/100. Tendencia: Neutral. RSI: 63.6.",
+      "pt": "BOGA AI atribui a GWW uma pontuação de 41.4/100. Tendência: Neutro. RSI: 63.6.",
+      "fr": "BOGA AI attribue à GWW un score de 41.4/100. Tendance: Neutre. RSI: 63.6.",
+      "id": "BOGA AI memberikan GWW skor 41.4/100. Tren: Netral. RSI: 63.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GWW (W.W. Grainger, Inc.)\n\n### 1. Business Context\nW.W. Grainger, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $1168.02.\n\n### 2. Performance\n* **Master Score:** 41.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1168.02 | Current |\n| EMA20 | $1133.03 | Support |\n| ADX | 14.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $1112.80.\n\n### 5. Execution\n* **Entry Zone:** $1104.83 - $1173.86\n* **Target Price:** $1250.85\n* **Stop Loss:** $1112.80\n",

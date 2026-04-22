@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns VLO a score of 43.1/100. Trend: Neutral. RSI: 47.8.",
-      "tr": "BOGA AI assigns VLO a score of 43.1/100. Trend: Neutral. RSI: 47.8.",
-      "es": "BOGA AI assigns VLO a score of 43.1/100. Trend: Neutral. RSI: 47.8.",
-      "pt": "BOGA AI assigns VLO a score of 43.1/100. Trend: Neutral. RSI: 47.8.",
-      "fr": "BOGA AI assigns VLO a score of 43.1/100. Trend: Neutral. RSI: 47.8.",
-      "id": "BOGA AI assigns VLO a score of 43.1/100. Trend: Neutral. RSI: 47.8."
+      "tr": "BOGA AI, VLO için 43.1/100 skor verdi. Trend: Nötr. RSI: 47.8.",
+      "es": "BOGA AI asigna a VLO una puntuación de 43.1/100. Tendencia: Neutral. RSI: 47.8.",
+      "pt": "BOGA AI atribui a VLO uma pontuação de 43.1/100. Tendência: Neutro. RSI: 47.8.",
+      "fr": "BOGA AI attribue à VLO un score de 43.1/100. Tendance: Neutre. RSI: 47.8.",
+      "id": "BOGA AI memberikan VLO skor 43.1/100. Tren: Netral. RSI: 47.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: VLO (Valero Energy Corporation)\n\n### 1. Business Context\nValero Energy Corporation operates in the Energy sector. BOGA AI detect institutional interest near $230.88.\n\n### 2. Performance\n* **Master Score:** 43.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $230.88 | Current |\n| EMA20 | $235.55 | Support |\n| ADX | 28.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $211.34.\n\n### 5. Execution\n* **Entry Zone:** $224.04 - $232.03\n* **Target Price:** $260.19\n* **Stop Loss:** $211.34\n",

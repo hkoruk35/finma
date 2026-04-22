@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns VNO a score of 50.8/100. Trend: Neutral. RSI: 61.5.",
-      "tr": "BOGA AI assigns VNO a score of 50.8/100. Trend: Neutral. RSI: 61.5.",
-      "es": "BOGA AI assigns VNO a score of 50.8/100. Trend: Neutral. RSI: 61.5.",
-      "pt": "BOGA AI assigns VNO a score of 50.8/100. Trend: Neutral. RSI: 61.5.",
-      "fr": "BOGA AI assigns VNO a score of 50.8/100. Trend: Neutral. RSI: 61.5.",
-      "id": "BOGA AI assigns VNO a score of 50.8/100. Trend: Neutral. RSI: 61.5."
+      "tr": "BOGA AI, VNO için 50.8/100 skor verdi. Trend: Nötr. RSI: 61.5.",
+      "es": "BOGA AI asigna a VNO una puntuación de 50.8/100. Tendencia: Neutral. RSI: 61.5.",
+      "pt": "BOGA AI atribui a VNO uma pontuação de 50.8/100. Tendência: Neutro. RSI: 61.5.",
+      "fr": "BOGA AI attribue à VNO un score de 50.8/100. Tendance: Neutre. RSI: 61.5.",
+      "id": "BOGA AI memberikan VNO skor 50.8/100. Tren: Netral. RSI: 61.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: VNO (Vornado Realty Trust)\n\n### 1. Business Context\nVornado Realty Trust operates in the Real Estate sector. BOGA AI detect institutional interest near $28.95.\n\n### 2. Performance\n* **Master Score:** 50.8/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $28.95 | Current |\n| EMA20 | $27.55 | Support |\n| ADX | 25.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $27.03.\n\n### 5. Execution\n* **Entry Zone:** $27.93 - $29.09\n* **Target Price:** $31.83\n* **Stop Loss:** $27.03\n",

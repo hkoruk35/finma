@@ -147,11 +147,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ERIC a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
-      "tr": "BOGA AI assigns ERIC a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
-      "es": "BOGA AI assigns ERIC a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
-      "pt": "BOGA AI assigns ERIC a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
-      "fr": "BOGA AI assigns ERIC a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
-      "id": "BOGA AI assigns ERIC a score of 51.7/100. Trend: Neutral. RSI: 53.4."
+      "tr": "BOGA AI, ERIC için 51.7/100 skor verdi. Trend: Nötr. RSI: 53.4.",
+      "es": "BOGA AI asigna a ERIC una puntuación de 51.7/100. Tendencia: Neutral. RSI: 53.4.",
+      "pt": "BOGA AI atribui a ERIC uma pontuação de 51.7/100. Tendência: Neutro. RSI: 53.4.",
+      "fr": "BOGA AI attribue à ERIC un score de 51.7/100. Tendance: Neutre. RSI: 53.4.",
+      "id": "BOGA AI memberikan ERIC skor 51.7/100. Tren: Netral. RSI: 53.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ERIC (Telefonaktiebolaget LM Ericsson (publ))\n\n### 1. Business Context\nTelefonaktiebolaget LM Ericsson (publ) operates in the Communication Services sector. BOGA AI detect institutional interest near $11.73.\n\n### 2. Performance\n* **Master Score:** 51.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $11.73 | Current |\n| EMA20 | $11.63 | Support |\n| ADX | 12.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $11.03.\n\n### 5. Execution\n* **Entry Zone:** $11.19 - $11.79\n* **Target Price:** $12.78\n* **Stop Loss:** $11.03\n",

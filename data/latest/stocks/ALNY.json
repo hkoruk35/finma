@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ALNY a score of 12.9/100. Trend: Neutral. RSI: 40.8.",
-      "tr": "BOGA AI assigns ALNY a score of 12.9/100. Trend: Neutral. RSI: 40.8.",
-      "es": "BOGA AI assigns ALNY a score of 12.9/100. Trend: Neutral. RSI: 40.8.",
-      "pt": "BOGA AI assigns ALNY a score of 12.9/100. Trend: Neutral. RSI: 40.8.",
-      "fr": "BOGA AI assigns ALNY a score of 12.9/100. Trend: Neutral. RSI: 40.8.",
-      "id": "BOGA AI assigns ALNY a score of 12.9/100. Trend: Neutral. RSI: 40.8."
+      "tr": "BOGA AI, ALNY için 12.9/100 skor verdi. Trend: Nötr. RSI: 40.8.",
+      "es": "BOGA AI asigna a ALNY una puntuación de 12.9/100. Tendencia: Neutral. RSI: 40.8.",
+      "pt": "BOGA AI atribui a ALNY uma pontuação de 12.9/100. Tendência: Neutro. RSI: 40.8.",
+      "fr": "BOGA AI attribue à ALNY un score de 12.9/100. Tendance: Neutre. RSI: 40.8.",
+      "id": "BOGA AI memberikan ALNY skor 12.9/100. Tren: Netral. RSI: 40.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ALNY (Alnylam Pharmaceuticals, Inc.)\n\n### 1. Business Context\nAlnylam Pharmaceuticals, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $306.27.\n\n### 2. Performance\n* **Master Score:** 12.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $306.27 | Current |\n| EMA20 | $320.97 | Support |\n| ADX | 13.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $282.11.\n\n### 5. Execution\n* **Entry Zone:** $304.74 - $307.80\n* **Target Price:** $342.51\n* **Stop Loss:** $282.11\n",

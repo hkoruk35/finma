@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ROK a score of 46.9/100. Trend: Neutral. RSI: 66.1.",
-      "tr": "BOGA AI assigns ROK a score of 46.9/100. Trend: Neutral. RSI: 66.1.",
-      "es": "BOGA AI assigns ROK a score of 46.9/100. Trend: Neutral. RSI: 66.1.",
-      "pt": "BOGA AI assigns ROK a score of 46.9/100. Trend: Neutral. RSI: 66.1.",
-      "fr": "BOGA AI assigns ROK a score of 46.9/100. Trend: Neutral. RSI: 66.1.",
-      "id": "BOGA AI assigns ROK a score of 46.9/100. Trend: Neutral. RSI: 66.1."
+      "tr": "BOGA AI, ROK için 46.9/100 skor verdi. Trend: Nötr. RSI: 66.1.",
+      "es": "BOGA AI asigna a ROK una puntuación de 46.9/100. Tendencia: Neutral. RSI: 66.1.",
+      "pt": "BOGA AI atribui a ROK uma pontuação de 46.9/100. Tendência: Neutro. RSI: 66.1.",
+      "fr": "BOGA AI attribue à ROK un score de 46.9/100. Tendance: Neutre. RSI: 66.1.",
+      "id": "BOGA AI memberikan ROK skor 46.9/100. Tren: Netral. RSI: 66.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ROK (Rockwell Automation, Inc.)\n\n### 1. Business Context\nRockwell Automation, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $412.29.\n\n### 2. Performance\n* **Master Score:** 46.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $412.29 | Current |\n| EMA20 | $390.97 | Support |\n| ADX | 27.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $389.95.\n\n### 5. Execution\n* **Entry Zone:** $384.61 - $414.35\n* **Target Price:** $445.80\n* **Stop Loss:** $389.95\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MU a score of 53.7/100. Trend: Neutral. RSI: 59.9.",
-      "tr": "BOGA AI assigns MU a score of 53.7/100. Trend: Neutral. RSI: 59.9.",
-      "es": "BOGA AI assigns MU a score of 53.7/100. Trend: Neutral. RSI: 59.9.",
-      "pt": "BOGA AI assigns MU a score of 53.7/100. Trend: Neutral. RSI: 59.9.",
-      "fr": "BOGA AI assigns MU a score of 53.7/100. Trend: Neutral. RSI: 59.9.",
-      "id": "BOGA AI assigns MU a score of 53.7/100. Trend: Neutral. RSI: 59.9."
+      "tr": "BOGA AI, MU için 53.7/100 skor verdi. Trend: Nötr. RSI: 59.9.",
+      "es": "BOGA AI asigna a MU una puntuación de 53.7/100. Tendencia: Neutral. RSI: 59.9.",
+      "pt": "BOGA AI atribui a MU uma pontuação de 53.7/100. Tendência: Neutro. RSI: 59.9.",
+      "fr": "BOGA AI attribue à MU un score de 53.7/100. Tendance: Neutre. RSI: 59.9.",
+      "id": "BOGA AI memberikan MU skor 53.7/100. Tren: Netral. RSI: 59.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MU (Micron Technology, Inc.)\n\n### 1. Business Context\nMicron Technology, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $447.28.\n\n### 2. Performance\n* **Master Score:** 53.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $447.28 | Current |\n| EMA20 | $422.09 | Support |\n| ADX | 20.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $397.08.\n\n### 5. Execution\n* **Entry Zone:** $399.37 - $449.52\n* **Target Price:** $522.58\n* **Stop Loss:** $397.08\n",

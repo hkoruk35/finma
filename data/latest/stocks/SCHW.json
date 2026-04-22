@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SCHW a score of 30.4/100. Trend: Neutral. RSI: 44.0.",
-      "tr": "BOGA AI assigns SCHW a score of 30.4/100. Trend: Neutral. RSI: 44.0.",
-      "es": "BOGA AI assigns SCHW a score of 30.4/100. Trend: Neutral. RSI: 44.0.",
-      "pt": "BOGA AI assigns SCHW a score of 30.4/100. Trend: Neutral. RSI: 44.0.",
-      "fr": "BOGA AI assigns SCHW a score of 30.4/100. Trend: Neutral. RSI: 44.0.",
-      "id": "BOGA AI assigns SCHW a score of 30.4/100. Trend: Neutral. RSI: 44.0."
+      "tr": "BOGA AI, SCHW için 30.4/100 skor verdi. Trend: Nötr. RSI: 44.0.",
+      "es": "BOGA AI asigna a SCHW una puntuación de 30.4/100. Tendencia: Neutral. RSI: 44.0.",
+      "pt": "BOGA AI atribui a SCHW uma pontuação de 30.4/100. Tendência: Neutro. RSI: 44.0.",
+      "fr": "BOGA AI attribue à SCHW un score de 30.4/100. Tendance: Neutre. RSI: 44.0.",
+      "id": "BOGA AI memberikan SCHW skor 30.4/100. Tren: Netral. RSI: 44.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SCHW (The Charles Schwab Corporation)\n\n### 1. Business Context\nThe Charles Schwab Corporation operates in the Financials sector. BOGA AI detect institutional interest near $92.29.\n\n### 2. Performance\n* **Master Score:** 30.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $92.29 | Current |\n| EMA20 | $94.59 | Support |\n| ADX | 17.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $86.61.\n\n### 5. Execution\n* **Entry Zone:** $91.83 - $92.75\n* **Target Price:** $100.81\n* **Stop Loss:** $86.61\n",

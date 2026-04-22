@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns BSX a score of 24.4/100. Trend: Neutral. RSI: 32.1.",
-      "tr": "BOGA AI assigns BSX a score of 24.4/100. Trend: Neutral. RSI: 32.1.",
-      "es": "BOGA AI assigns BSX a score of 24.4/100. Trend: Neutral. RSI: 32.1.",
-      "pt": "BOGA AI assigns BSX a score of 24.4/100. Trend: Neutral. RSI: 32.1.",
-      "fr": "BOGA AI assigns BSX a score of 24.4/100. Trend: Neutral. RSI: 32.1.",
-      "id": "BOGA AI assigns BSX a score of 24.4/100. Trend: Neutral. RSI: 32.1."
+      "tr": "BOGA AI, BSX için 24.4/100 skor verdi. Trend: Nötr. RSI: 32.1.",
+      "es": "BOGA AI asigna a BSX una puntuación de 24.4/100. Tendencia: Neutral. RSI: 32.1.",
+      "pt": "BOGA AI atribui a BSX uma pontuação de 24.4/100. Tendência: Neutro. RSI: 32.1.",
+      "fr": "BOGA AI attribue à BSX un score de 24.4/100. Tendance: Neutre. RSI: 32.1.",
+      "id": "BOGA AI memberikan BSX skor 24.4/100. Tren: Netral. RSI: 32.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: BSX (Boston Scientific Corporation)\n\n### 1. Business Context\nBoston Scientific Corporation operates in the Healthcare sector. BOGA AI detect institutional interest near $60.12.\n\n### 2. Performance\n* **Master Score:** 24.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 32.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $60.12 | Current |\n| EMA20 | $64.25 | Support |\n| ADX | 37.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $56.06.\n\n### 5. Execution\n* **Entry Zone:** $59.82 - $60.42\n* **Target Price:** $66.21\n* **Stop Loss:** $56.06\n",

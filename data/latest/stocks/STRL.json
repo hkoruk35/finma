@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns STRL a score of 45.4/100. Trend: Neutral. RSI: 58.1.",
-      "tr": "BOGA AI assigns STRL a score of 45.4/100. Trend: Neutral. RSI: 58.1.",
-      "es": "BOGA AI assigns STRL a score of 45.4/100. Trend: Neutral. RSI: 58.1.",
-      "pt": "BOGA AI assigns STRL a score of 45.4/100. Trend: Neutral. RSI: 58.1.",
-      "fr": "BOGA AI assigns STRL a score of 45.4/100. Trend: Neutral. RSI: 58.1.",
-      "id": "BOGA AI assigns STRL a score of 45.4/100. Trend: Neutral. RSI: 58.1."
+      "tr": "BOGA AI, STRL için 45.4/100 skor verdi. Trend: Nötr. RSI: 58.1.",
+      "es": "BOGA AI asigna a STRL una puntuación de 45.4/100. Tendencia: Neutral. RSI: 58.1.",
+      "pt": "BOGA AI atribui a STRL uma pontuação de 45.4/100. Tendência: Neutro. RSI: 58.1.",
+      "fr": "BOGA AI attribue à STRL un score de 45.4/100. Tendance: Neutre. RSI: 58.1.",
+      "id": "BOGA AI memberikan STRL skor 45.4/100. Tren: Netral. RSI: 58.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: STRL (Sterling Infrastructure, Inc.)\n\n### 1. Business Context\nSterling Infrastructure, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $464.82.\n\n### 2. Performance\n* **Master Score:** 45.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $464.82 | Current |\n| EMA20 | $439.53 | Support |\n| ADX | 11.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $414.40.\n\n### 5. Execution\n* **Entry Zone:** $417.14 - $467.14\n* **Target Price:** $540.45\n* **Stop Loss:** $414.40\n",

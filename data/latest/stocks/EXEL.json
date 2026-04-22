@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
-      "tr": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
-      "es": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
-      "pt": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
-      "fr": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
-      "id": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5."
+      "tr": "BOGA AI, EXEL için 64.8/100 skor verdi. Trend: Nötr. RSI: 57.5.",
+      "es": "BOGA AI asigna a EXEL una puntuación de 64.8/100. Tendencia: Neutral. RSI: 57.5.",
+      "pt": "BOGA AI atribui a EXEL uma pontuação de 64.8/100. Tendência: Neutro. RSI: 57.5.",
+      "fr": "BOGA AI attribue à EXEL un score de 64.8/100. Tendance: Neutre. RSI: 57.5.",
+      "id": "BOGA AI memberikan EXEL skor 64.8/100. Tren: Netral. RSI: 57.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: EXEL (Exelixis, Inc.)\n\n### 1. Business Context\nExelixis, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $45.13.\n\n### 2. Performance\n* **Master Score:** 64.8/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 57.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.13 | Current |\n| EMA20 | $43.94 | Support |\n| ADX | 23.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $42.57.\n\n### 5. Execution\n* **Entry Zone:** $43.11 - $45.36\n* **Target Price:** $48.97\n* **Stop Loss:** $42.57\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns C a score of 59.3/100. Trend: Neutral. RSI: 72.1.",
-      "tr": "BOGA AI assigns C a score of 59.3/100. Trend: Neutral. RSI: 72.1.",
-      "es": "BOGA AI assigns C a score of 59.3/100. Trend: Neutral. RSI: 72.1.",
-      "pt": "BOGA AI assigns C a score of 59.3/100. Trend: Neutral. RSI: 72.1.",
-      "fr": "BOGA AI assigns C a score of 59.3/100. Trend: Neutral. RSI: 72.1.",
-      "id": "BOGA AI assigns C a score of 59.3/100. Trend: Neutral. RSI: 72.1."
+      "tr": "BOGA AI, C için 59.3/100 skor verdi. Trend: Nötr. RSI: 72.1.",
+      "es": "BOGA AI asigna a C una puntuación de 59.3/100. Tendencia: Neutral. RSI: 72.1.",
+      "pt": "BOGA AI atribui a C uma pontuação de 59.3/100. Tendência: Neutro. RSI: 72.1.",
+      "fr": "BOGA AI attribue à C un score de 59.3/100. Tendance: Neutre. RSI: 72.1.",
+      "id": "BOGA AI memberikan C skor 59.3/100. Tren: Netral. RSI: 72.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: C (Citigroup Inc.)\n\n### 1. Business Context\nCitigroup Inc. operates in the Financials sector. BOGA AI detect institutional interest near $132.42.\n\n### 2. Performance\n* **Master Score:** 59.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $132.42 | Current |\n| EMA20 | $123.32 | Support |\n| ADX | 22.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $125.22.\n\n### 5. Execution\n* **Entry Zone:** $117.09 - $133.08\n* **Target Price:** $143.22\n* **Stop Loss:** $125.22\n",

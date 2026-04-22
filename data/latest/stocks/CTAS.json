@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CTAS a score of 32.8/100. Trend: Neutral. RSI: 46.2.",
-      "tr": "BOGA AI assigns CTAS a score of 32.8/100. Trend: Neutral. RSI: 46.2.",
-      "es": "BOGA AI assigns CTAS a score of 32.8/100. Trend: Neutral. RSI: 46.2.",
-      "pt": "BOGA AI assigns CTAS a score of 32.8/100. Trend: Neutral. RSI: 46.2.",
-      "fr": "BOGA AI assigns CTAS a score of 32.8/100. Trend: Neutral. RSI: 46.2.",
-      "id": "BOGA AI assigns CTAS a score of 32.8/100. Trend: Neutral. RSI: 46.2."
+      "tr": "BOGA AI, CTAS için 32.8/100 skor verdi. Trend: Nötr. RSI: 46.2.",
+      "es": "BOGA AI asigna a CTAS una puntuación de 32.8/100. Tendencia: Neutral. RSI: 46.2.",
+      "pt": "BOGA AI atribui a CTAS uma pontuação de 32.8/100. Tendência: Neutro. RSI: 46.2.",
+      "fr": "BOGA AI attribue à CTAS un score de 32.8/100. Tendance: Neutre. RSI: 46.2.",
+      "id": "BOGA AI memberikan CTAS skor 32.8/100. Tren: Netral. RSI: 46.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CTAS (Cintas Corporation)\n\n### 1. Business Context\nCintas Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $177.29.\n\n### 2. Performance\n* **Master Score:** 32.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $177.29 | Current |\n| EMA20 | $177.61 | Support |\n| ADX | 17.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $169.37.\n\n### 5. Execution\n* **Entry Zone:** $176.40 - $178.18\n* **Target Price:** $189.17\n* **Stop Loss:** $169.37\n",

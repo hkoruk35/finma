@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AME a score of 48.2/100. Trend: Neutral. RSI: 61.4.",
-      "tr": "BOGA AI assigns AME a score of 48.2/100. Trend: Neutral. RSI: 61.4.",
-      "es": "BOGA AI assigns AME a score of 48.2/100. Trend: Neutral. RSI: 61.4.",
-      "pt": "BOGA AI assigns AME a score of 48.2/100. Trend: Neutral. RSI: 61.4.",
-      "fr": "BOGA AI assigns AME a score of 48.2/100. Trend: Neutral. RSI: 61.4.",
-      "id": "BOGA AI assigns AME a score of 48.2/100. Trend: Neutral. RSI: 61.4."
+      "tr": "BOGA AI, AME için 48.2/100 skor verdi. Trend: Nötr. RSI: 61.4.",
+      "es": "BOGA AI asigna a AME una puntuación de 48.2/100. Tendencia: Neutral. RSI: 61.4.",
+      "pt": "BOGA AI atribui a AME uma pontuação de 48.2/100. Tendência: Neutro. RSI: 61.4.",
+      "fr": "BOGA AI attribue à AME un score de 48.2/100. Tendance: Neutre. RSI: 61.4.",
+      "id": "BOGA AI memberikan AME skor 48.2/100. Tren: Netral. RSI: 61.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AME (AMETEK, Inc.)\n\n### 1. Business Context\nAMETEK, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $234.24.\n\n### 2. Performance\n* **Master Score:** 48.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $234.24 | Current |\n| EMA20 | $227.68 | Support |\n| ADX | 24.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $223.60.\n\n### 5. Execution\n* **Entry Zone:** $222.51 - $235.41\n* **Target Price:** $250.20\n* **Stop Loss:** $223.60\n",

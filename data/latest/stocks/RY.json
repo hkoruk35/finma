@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns RY a score of 53.5/100. Trend: Neutral. RSI: 70.3.",
-      "tr": "BOGA AI assigns RY a score of 53.5/100. Trend: Neutral. RSI: 70.3.",
-      "es": "BOGA AI assigns RY a score of 53.5/100. Trend: Neutral. RSI: 70.3.",
-      "pt": "BOGA AI assigns RY a score of 53.5/100. Trend: Neutral. RSI: 70.3.",
-      "fr": "BOGA AI assigns RY a score of 53.5/100. Trend: Neutral. RSI: 70.3.",
-      "id": "BOGA AI assigns RY a score of 53.5/100. Trend: Neutral. RSI: 70.3."
+      "tr": "BOGA AI, RY için 53.5/100 skor verdi. Trend: Nötr. RSI: 70.3.",
+      "es": "BOGA AI asigna a RY una puntuación de 53.5/100. Tendencia: Neutral. RSI: 70.3.",
+      "pt": "BOGA AI atribui a RY uma pontuação de 53.5/100. Tendência: Neutro. RSI: 70.3.",
+      "fr": "BOGA AI attribue à RY un score de 53.5/100. Tendance: Neutre. RSI: 70.3.",
+      "id": "BOGA AI memberikan RY skor 53.5/100. Tren: Netral. RSI: 70.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: RY (Royal Bank of Canada)\n\n### 1. Business Context\nRoyal Bank of Canada operates in the Financials sector. BOGA AI detect institutional interest near $178.02.\n\n### 2. Performance\n* **Master Score:** 53.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $178.02 | Current |\n| EMA20 | $171.11 | Support |\n| ADX | 28.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $172.86.\n\n### 5. Execution\n* **Entry Zone:** $167.17 - $178.91\n* **Target Price:** $185.76\n* **Stop Loss:** $172.86\n",

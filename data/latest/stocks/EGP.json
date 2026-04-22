@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns EGP a score of 55.6/100. Trend: Neutral. RSI: 69.0.",
-      "tr": "BOGA AI assigns EGP a score of 55.6/100. Trend: Neutral. RSI: 69.0.",
-      "es": "BOGA AI assigns EGP a score of 55.6/100. Trend: Neutral. RSI: 69.0.",
-      "pt": "BOGA AI assigns EGP a score of 55.6/100. Trend: Neutral. RSI: 69.0.",
-      "fr": "BOGA AI assigns EGP a score of 55.6/100. Trend: Neutral. RSI: 69.0.",
-      "id": "BOGA AI assigns EGP a score of 55.6/100. Trend: Neutral. RSI: 69.0."
+      "tr": "BOGA AI, EGP için 55.6/100 skor verdi. Trend: Nötr. RSI: 69.0.",
+      "es": "BOGA AI asigna a EGP una puntuación de 55.6/100. Tendencia: Neutral. RSI: 69.0.",
+      "pt": "BOGA AI atribui a EGP uma pontuação de 55.6/100. Tendência: Neutro. RSI: 69.0.",
+      "fr": "BOGA AI attribue à EGP un score de 55.6/100. Tendance: Neutre. RSI: 69.0.",
+      "id": "BOGA AI memberikan EGP skor 55.6/100. Tren: Netral. RSI: 69.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: EGP (EastGroup Properties, Inc.)\n\n### 1. Business Context\nEastGroup Properties, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $200.58.\n\n### 2. Performance\n* **Master Score:** 55.6/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $200.58 | Current |\n| EMA20 | $193.27 | Support |\n| ADX | 27.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $192.92.\n\n### 5. Execution\n* **Entry Zone:** $188.29 - $201.58\n* **Target Price:** $212.07\n* **Stop Loss:** $192.92\n",

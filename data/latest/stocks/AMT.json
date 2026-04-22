@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AMT a score of 30.5/100. Trend: Neutral. RSI: 49.2.",
-      "tr": "BOGA AI assigns AMT a score of 30.5/100. Trend: Neutral. RSI: 49.2.",
-      "es": "BOGA AI assigns AMT a score of 30.5/100. Trend: Neutral. RSI: 49.2.",
-      "pt": "BOGA AI assigns AMT a score of 30.5/100. Trend: Neutral. RSI: 49.2.",
-      "fr": "BOGA AI assigns AMT a score of 30.5/100. Trend: Neutral. RSI: 49.2.",
-      "id": "BOGA AI assigns AMT a score of 30.5/100. Trend: Neutral. RSI: 49.2."
+      "tr": "BOGA AI, AMT için 30.5/100 skor verdi. Trend: Nötr. RSI: 49.2.",
+      "es": "BOGA AI asigna a AMT una puntuación de 30.5/100. Tendencia: Neutral. RSI: 49.2.",
+      "pt": "BOGA AI atribui a AMT uma pontuação de 30.5/100. Tendência: Neutro. RSI: 49.2.",
+      "fr": "BOGA AI attribue à AMT un score de 30.5/100. Tendance: Neutre. RSI: 49.2.",
+      "id": "BOGA AI memberikan AMT skor 30.5/100. Tren: Netral. RSI: 49.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AMT (American Tower Corporation)\n\n### 1. Business Context\nAmerican Tower Corporation operates in the Real Estate sector. BOGA AI detect institutional interest near $176.54.\n\n### 2. Performance\n* **Master Score:** 30.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $176.54 | Current |\n| EMA20 | $176.98 | Support |\n| ADX | 14.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $167.62.\n\n### 5. Execution\n* **Entry Zone:** $175.66 - $177.42\n* **Target Price:** $189.92\n* **Stop Loss:** $167.62\n",

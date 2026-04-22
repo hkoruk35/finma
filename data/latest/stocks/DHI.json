@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DHI a score of 50.7/100. Trend: Neutral. RSI: 73.2.",
-      "tr": "BOGA AI assigns DHI a score of 50.7/100. Trend: Neutral. RSI: 73.2.",
-      "es": "BOGA AI assigns DHI a score of 50.7/100. Trend: Neutral. RSI: 73.2.",
-      "pt": "BOGA AI assigns DHI a score of 50.7/100. Trend: Neutral. RSI: 73.2.",
-      "fr": "BOGA AI assigns DHI a score of 50.7/100. Trend: Neutral. RSI: 73.2.",
-      "id": "BOGA AI assigns DHI a score of 50.7/100. Trend: Neutral. RSI: 73.2."
+      "tr": "BOGA AI, DHI için 50.7/100 skor verdi. Trend: Nötr. RSI: 73.2.",
+      "es": "BOGA AI asigna a DHI una puntuación de 50.7/100. Tendencia: Neutral. RSI: 73.2.",
+      "pt": "BOGA AI atribui a DHI uma pontuação de 50.7/100. Tendência: Neutro. RSI: 73.2.",
+      "fr": "BOGA AI attribue à DHI un score de 50.7/100. Tendance: Neutre. RSI: 73.2.",
+      "id": "BOGA AI memberikan DHI skor 50.7/100. Tren: Netral. RSI: 73.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DHI (D.R. Horton, Inc.)\n\n### 1. Business Context\nD.R. Horton, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $163.76.\n\n### 2. Performance\n* **Master Score:** 50.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 73.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $163.76 | Current |\n| EMA20 | $145.74 | Support |\n| ADX | 26.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $152.72.\n\n### 5. Execution\n* **Entry Zone:** $145.85 - $164.58\n* **Target Price:** $180.32\n* **Stop Loss:** $152.72\n",

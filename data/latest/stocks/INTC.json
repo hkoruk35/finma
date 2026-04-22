@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
-      "tr": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
-      "es": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
-      "pt": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
-      "fr": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
-      "id": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7."
+      "tr": "BOGA AI, INTC için 55.7/100 skor verdi. Trend: Nötr. RSI: 70.7.",
+      "es": "BOGA AI asigna a INTC una puntuación de 55.7/100. Tendencia: Neutral. RSI: 70.7.",
+      "pt": "BOGA AI atribui a INTC uma pontuação de 55.7/100. Tendência: Neutro. RSI: 70.7.",
+      "fr": "BOGA AI attribue à INTC un score de 55.7/100. Tendance: Neutre. RSI: 70.7.",
+      "id": "BOGA AI memberikan INTC skor 55.7/100. Tren: Netral. RSI: 70.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: INTC (Intel Corporation)\n\n### 1. Business Context\nIntel Corporation operates in the Technology sector. BOGA AI detect institutional interest near $66.11.\n\n### 2. Performance\n* **Master Score:** 55.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $66.11 | Current |\n| EMA20 | $58.38 | Support |\n| ADX | 37.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $59.77.\n\n### 5. Execution\n* **Entry Zone:** $51.63 - $66.44\n* **Target Price:** $75.62\n* **Stop Loss:** $59.77\n",

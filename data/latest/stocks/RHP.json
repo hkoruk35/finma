@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns RHP a score of 56.9/100. Trend: Neutral. RSI: 65.4.",
-      "tr": "BOGA AI assigns RHP a score of 56.9/100. Trend: Neutral. RSI: 65.4.",
-      "es": "BOGA AI assigns RHP a score of 56.9/100. Trend: Neutral. RSI: 65.4.",
-      "pt": "BOGA AI assigns RHP a score of 56.9/100. Trend: Neutral. RSI: 65.4.",
-      "fr": "BOGA AI assigns RHP a score of 56.9/100. Trend: Neutral. RSI: 65.4.",
-      "id": "BOGA AI assigns RHP a score of 56.9/100. Trend: Neutral. RSI: 65.4."
+      "tr": "BOGA AI, RHP için 56.9/100 skor verdi. Trend: Nötr. RSI: 65.4.",
+      "es": "BOGA AI asigna a RHP una puntuación de 56.9/100. Tendencia: Neutral. RSI: 65.4.",
+      "pt": "BOGA AI atribui a RHP uma pontuação de 56.9/100. Tendência: Neutro. RSI: 65.4.",
+      "fr": "BOGA AI attribue à RHP un score de 56.9/100. Tendance: Neutre. RSI: 65.4.",
+      "id": "BOGA AI memberikan RHP skor 56.9/100. Tren: Netral. RSI: 65.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: RHP (Ryman Hospitality Properties, Inc.)\n\n### 1. Business Context\nRyman Hospitality Properties, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $102.76.\n\n### 2. Performance\n* **Master Score:** 56.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $102.76 | Current |\n| EMA20 | $98.31 | Support |\n| ADX | 29.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $97.84.\n\n### 5. Execution\n* **Entry Zone:** $95.70 - $103.27\n* **Target Price:** $110.14\n* **Stop Loss:** $97.84\n",

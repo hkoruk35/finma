@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TXN a score of 48.5/100. Trend: Neutral. RSI: 74.8.",
-      "tr": "BOGA AI assigns TXN a score of 48.5/100. Trend: Neutral. RSI: 74.8.",
-      "es": "BOGA AI assigns TXN a score of 48.5/100. Trend: Neutral. RSI: 74.8.",
-      "pt": "BOGA AI assigns TXN a score of 48.5/100. Trend: Neutral. RSI: 74.8.",
-      "fr": "BOGA AI assigns TXN a score of 48.5/100. Trend: Neutral. RSI: 74.8.",
-      "id": "BOGA AI assigns TXN a score of 48.5/100. Trend: Neutral. RSI: 74.8."
+      "tr": "BOGA AI, TXN için 48.5/100 skor verdi. Trend: Nötr. RSI: 74.8.",
+      "es": "BOGA AI asigna a TXN una puntuación de 48.5/100. Tendencia: Neutral. RSI: 74.8.",
+      "pt": "BOGA AI atribui a TXN uma pontuação de 48.5/100. Tendência: Neutro. RSI: 74.8.",
+      "fr": "BOGA AI attribue à TXN un score de 48.5/100. Tendance: Neutre. RSI: 74.8.",
+      "id": "BOGA AI memberikan TXN skor 48.5/100. Tren: Netral. RSI: 74.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TXN (Texas Instruments Incorporated)\n\n### 1. Business Context\nTexas Instruments Incorporated operates in the Technology sector. BOGA AI detect institutional interest near $232.80.\n\n### 2. Performance\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 74.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $232.80 | Current |\n| EMA20 | $213.19 | Support |\n| ADX | 26.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $220.94.\n\n### 5. Execution\n* **Entry Zone:** $204.64 - $233.96\n* **Target Price:** $250.59\n* **Stop Loss:** $220.94\n",

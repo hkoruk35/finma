@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
-      "tr": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
-      "es": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
-      "pt": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
-      "fr": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
-      "id": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2."
+      "tr": "BOGA AI, CHTR için 44.2/100 skor verdi. Trend: Nötr. RSI: 67.2.",
+      "es": "BOGA AI asigna a CHTR una puntuación de 44.2/100. Tendencia: Neutral. RSI: 67.2.",
+      "pt": "BOGA AI atribui a CHTR uma pontuação de 44.2/100. Tendência: Neutro. RSI: 67.2.",
+      "fr": "BOGA AI attribue à CHTR un score de 44.2/100. Tendance: Neutre. RSI: 67.2.",
+      "id": "BOGA AI memberikan CHTR skor 44.2/100. Tren: Netral. RSI: 67.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CHTR (Charter Communications, Inc.)\n\n### 1. Business Context\nCharter Communications, Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $245.91.\n\n### 2. Performance\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $245.91 | Current |\n| EMA20 | $227.17 | Support |\n| ADX | 15.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $227.89.\n\n### 5. Execution\n* **Entry Zone:** $222.03 - $247.14\n* **Target Price:** $272.94\n* **Stop Loss:** $227.89\n",

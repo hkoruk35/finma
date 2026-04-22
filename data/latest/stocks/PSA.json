@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PSA a score of 56.1/100. Trend: Neutral. RSI: 66.3.",
-      "tr": "BOGA AI assigns PSA a score of 56.1/100. Trend: Neutral. RSI: 66.3.",
-      "es": "BOGA AI assigns PSA a score of 56.1/100. Trend: Neutral. RSI: 66.3.",
-      "pt": "BOGA AI assigns PSA a score of 56.1/100. Trend: Neutral. RSI: 66.3.",
-      "fr": "BOGA AI assigns PSA a score of 56.1/100. Trend: Neutral. RSI: 66.3.",
-      "id": "BOGA AI assigns PSA a score of 56.1/100. Trend: Neutral. RSI: 66.3."
+      "tr": "BOGA AI, PSA için 56.1/100 skor verdi. Trend: Nötr. RSI: 66.3.",
+      "es": "BOGA AI asigna a PSA una puntuación de 56.1/100. Tendencia: Neutral. RSI: 66.3.",
+      "pt": "BOGA AI atribui a PSA uma pontuação de 56.1/100. Tendência: Neutro. RSI: 66.3.",
+      "fr": "BOGA AI attribue à PSA un score de 56.1/100. Tendance: Neutre. RSI: 66.3.",
+      "id": "BOGA AI memberikan PSA skor 56.1/100. Tren: Netral. RSI: 66.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PSA (Public Storage)\n\n### 1. Business Context\nPublic Storage operates in the Real Estate sector. BOGA AI detect institutional interest near $308.34.\n\n### 2. Performance\n* **Master Score:** 56.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 66.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $308.34 | Current |\n| EMA20 | $294.11 | Support |\n| ADX | 30.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $294.34.\n\n### 5. Execution\n* **Entry Zone:** $287.30 - $309.88\n* **Target Price:** $329.34\n* **Stop Loss:** $294.34\n",

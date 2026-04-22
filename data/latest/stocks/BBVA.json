@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
-      "tr": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
-      "es": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
-      "pt": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
-      "fr": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
-      "id": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8."
+      "tr": "BOGA AI, BBVA için 45.2/100 skor verdi. Trend: Nötr. RSI: 53.8.",
+      "es": "BOGA AI asigna a BBVA una puntuación de 45.2/100. Tendencia: Neutral. RSI: 53.8.",
+      "pt": "BOGA AI atribui a BBVA uma pontuação de 45.2/100. Tendência: Neutro. RSI: 53.8.",
+      "fr": "BOGA AI attribue à BBVA un score de 45.2/100. Tendance: Neutre. RSI: 53.8.",
+      "id": "BOGA AI memberikan BBVA skor 45.2/100. Tren: Netral. RSI: 53.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: BBVA (Banco Bilbao Vizcaya Argentaria, S.A.)\n\n### 1. Business Context\nBanco Bilbao Vizcaya Argentaria, S.A. operates in the Financials sector. BOGA AI detect institutional interest near $22.59.\n\n### 2. Performance\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $22.59 | Current |\n| EMA20 | $22.33 | Support |\n| ADX | 18.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $21.21.\n\n### 5. Execution\n* **Entry Zone:** $21.89 - $22.70\n* **Target Price:** $24.66\n* **Stop Loss:** $21.21\n",

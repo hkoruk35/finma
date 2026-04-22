@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ANF a score of 45.7/100. Trend: Neutral. RSI: 55.4.",
-      "tr": "BOGA AI assigns ANF a score of 45.7/100. Trend: Neutral. RSI: 55.4.",
-      "es": "BOGA AI assigns ANF a score of 45.7/100. Trend: Neutral. RSI: 55.4.",
-      "pt": "BOGA AI assigns ANF a score of 45.7/100. Trend: Neutral. RSI: 55.4.",
-      "fr": "BOGA AI assigns ANF a score of 45.7/100. Trend: Neutral. RSI: 55.4.",
-      "id": "BOGA AI assigns ANF a score of 45.7/100. Trend: Neutral. RSI: 55.4."
+      "tr": "BOGA AI, ANF için 45.7/100 skor verdi. Trend: Nötr. RSI: 55.4.",
+      "es": "BOGA AI asigna a ANF una puntuación de 45.7/100. Tendencia: Neutral. RSI: 55.4.",
+      "pt": "BOGA AI atribui a ANF uma pontuação de 45.7/100. Tendência: Neutro. RSI: 55.4.",
+      "fr": "BOGA AI attribue à ANF un score de 45.7/100. Tendance: Neutre. RSI: 55.4.",
+      "id": "BOGA AI memberikan ANF skor 45.7/100. Tren: Netral. RSI: 55.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ANF (Abercrombie & Fitch Co.)\n\n### 1. Business Context\nAbercrombie & Fitch Co. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $96.83.\n\n### 2. Performance\n* **Master Score:** 45.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $96.83 | Current |\n| EMA20 | $94.11 | Support |\n| ADX | 13.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $88.05.\n\n### 5. Execution\n* **Entry Zone:** $93.68 - $97.31\n* **Target Price:** $110.00\n* **Stop Loss:** $88.05\n",

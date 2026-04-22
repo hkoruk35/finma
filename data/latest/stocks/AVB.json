@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AVB a score of 38.6/100. Trend: Neutral. RSI: 60.4.",
-      "tr": "BOGA AI assigns AVB a score of 38.6/100. Trend: Neutral. RSI: 60.4.",
-      "es": "BOGA AI assigns AVB a score of 38.6/100. Trend: Neutral. RSI: 60.4.",
-      "pt": "BOGA AI assigns AVB a score of 38.6/100. Trend: Neutral. RSI: 60.4.",
-      "fr": "BOGA AI assigns AVB a score of 38.6/100. Trend: Neutral. RSI: 60.4.",
-      "id": "BOGA AI assigns AVB a score of 38.6/100. Trend: Neutral. RSI: 60.4."
+      "tr": "BOGA AI, AVB için 38.6/100 skor verdi. Trend: Nötr. RSI: 60.4.",
+      "es": "BOGA AI asigna a AVB una puntuación de 38.6/100. Tendencia: Neutral. RSI: 60.4.",
+      "pt": "BOGA AI atribui a AVB uma pontuação de 38.6/100. Tendência: Neutro. RSI: 60.4.",
+      "fr": "BOGA AI attribue à AVB un score de 38.6/100. Tendance: Neutre. RSI: 60.4.",
+      "id": "BOGA AI memberikan AVB skor 38.6/100. Tren: Netral. RSI: 60.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AVB (AvalonBay Communities, Inc.)\n\n### 1. Business Context\nAvalonBay Communities, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $173.78.\n\n### 2. Performance\n* **Master Score:** 38.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $173.78 | Current |\n| EMA20 | $169.64 | Support |\n| ADX | 26.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $167.44.\n\n### 5. Execution\n* **Entry Zone:** $169.38 - $174.65\n* **Target Price:** $183.29\n* **Stop Loss:** $167.44\n",

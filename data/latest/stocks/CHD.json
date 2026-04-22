@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CHD a score of 33.1/100. Trend: Neutral. RSI: 45.1.",
-      "tr": "BOGA AI assigns CHD a score of 33.1/100. Trend: Neutral. RSI: 45.1.",
-      "es": "BOGA AI assigns CHD a score of 33.1/100. Trend: Neutral. RSI: 45.1.",
-      "pt": "BOGA AI assigns CHD a score of 33.1/100. Trend: Neutral. RSI: 45.1.",
-      "fr": "BOGA AI assigns CHD a score of 33.1/100. Trend: Neutral. RSI: 45.1.",
-      "id": "BOGA AI assigns CHD a score of 33.1/100. Trend: Neutral. RSI: 45.1."
+      "tr": "BOGA AI, CHD için 33.1/100 skor verdi. Trend: Nötr. RSI: 45.1.",
+      "es": "BOGA AI asigna a CHD una puntuación de 33.1/100. Tendencia: Neutral. RSI: 45.1.",
+      "pt": "BOGA AI atribui a CHD uma pontuação de 33.1/100. Tendência: Neutro. RSI: 45.1.",
+      "fr": "BOGA AI attribue à CHD un score de 33.1/100. Tendance: Neutre. RSI: 45.1.",
+      "id": "BOGA AI memberikan CHD skor 33.1/100. Tren: Netral. RSI: 45.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CHD (Church & Dwight Co., Inc.)\n\n### 1. Business Context\nChurch & Dwight Co., Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $94.33.\n\n### 2. Performance\n* **Master Score:** 33.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 45.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $94.33 | Current |\n| EMA20 | $95.3 | Support |\n| ADX | 21.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $90.31.\n\n### 5. Execution\n* **Entry Zone:** $93.86 - $94.80\n* **Target Price:** $100.36\n* **Stop Loss:** $90.31\n",

@@ -150,11 +150,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
-      "tr": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
-      "es": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
-      "pt": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
-      "fr": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
-      "id": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1."
+      "tr": "BOGA AI, DELL için 67.5/100 skor verdi. Trend: Nötr. RSI: 72.1.",
+      "es": "BOGA AI asigna a DELL una puntuación de 67.5/100. Tendencia: Neutral. RSI: 72.1.",
+      "pt": "BOGA AI atribui a DELL uma pontuação de 67.5/100. Tendência: Neutro. RSI: 72.1.",
+      "fr": "BOGA AI attribue à DELL un score de 67.5/100. Tendance: Neutre. RSI: 72.1.",
+      "id": "BOGA AI memberikan DELL skor 67.5/100. Tren: Netral. RSI: 72.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DELL (Dell Technologies Inc.)\n\n### 1. Business Context\nDell Technologies Inc. operates in the Technology sector. BOGA AI detect institutional interest near $210.83.\n\n### 2. Performance\n* **Master Score:** 67.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 72.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $210.83 | Current |\n| EMA20 | $181.88 | Support |\n| ADX | 33.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $193.13.\n\n### 5. Execution\n* **Entry Zone:** $161.87 - $211.88\n* **Target Price:** $237.38\n* **Stop Loss:** $193.13\n",

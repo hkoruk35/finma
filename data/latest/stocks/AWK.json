@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AWK a score of 24.3/100. Trend: Neutral. RSI: 42.4.",
-      "tr": "BOGA AI assigns AWK a score of 24.3/100. Trend: Neutral. RSI: 42.4.",
-      "es": "BOGA AI assigns AWK a score of 24.3/100. Trend: Neutral. RSI: 42.4.",
-      "pt": "BOGA AI assigns AWK a score of 24.3/100. Trend: Neutral. RSI: 42.4.",
-      "fr": "BOGA AI assigns AWK a score of 24.3/100. Trend: Neutral. RSI: 42.4.",
-      "id": "BOGA AI assigns AWK a score of 24.3/100. Trend: Neutral. RSI: 42.4."
+      "tr": "BOGA AI, AWK için 24.3/100 skor verdi. Trend: Nötr. RSI: 42.4.",
+      "es": "BOGA AI asigna a AWK una puntuación de 24.3/100. Tendencia: Neutral. RSI: 42.4.",
+      "pt": "BOGA AI atribui a AWK uma pontuação de 24.3/100. Tendência: Neutro. RSI: 42.4.",
+      "fr": "BOGA AI attribue à AWK un score de 24.3/100. Tendance: Neutre. RSI: 42.4.",
+      "id": "BOGA AI memberikan AWK skor 24.3/100. Tren: Netral. RSI: 42.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AWK (American Water Works Company, Inc.)\n\n### 1. Business Context\nAmerican Water Works Company, Inc. operates in the Utilities sector. BOGA AI detect institutional interest near $131.30.\n\n### 2. Performance\n* **Master Score:** 24.3/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $131.30 | Current |\n| EMA20 | $134.32 | Support |\n| ADX | 16.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $124.66.\n\n### 5. Execution\n* **Entry Zone:** $130.64 - $131.96\n* **Target Price:** $141.26\n* **Stop Loss:** $124.66\n",

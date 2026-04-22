@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
-      "tr": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
-      "es": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
-      "pt": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
-      "fr": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
-      "id": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2."
+      "tr": "BOGA AI, ULTA için 44.6/100 skor verdi. Trend: Nötr. RSI: 58.2.",
+      "es": "BOGA AI asigna a ULTA una puntuación de 44.6/100. Tendencia: Neutral. RSI: 58.2.",
+      "pt": "BOGA AI atribui a ULTA uma pontuação de 44.6/100. Tendência: Neutro. RSI: 58.2.",
+      "fr": "BOGA AI attribue à ULTA un score de 44.6/100. Tendance: Neutre. RSI: 58.2.",
+      "id": "BOGA AI memberikan ULTA skor 44.6/100. Tren: Netral. RSI: 58.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ULTA (Ulta Beauty, Inc.)\n\n### 1. Business Context\nUlta Beauty, Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $573.02.\n\n### 2. Performance\n* **Master Score:** 44.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $573.02 | Current |\n| EMA20 | $548.55 | Support |\n| ADX | 30.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $537.90.\n\n### 5. Execution\n* **Entry Zone:** $570.15 - $575.89\n* **Target Price:** $625.70\n* **Stop Loss:** $537.90\n",

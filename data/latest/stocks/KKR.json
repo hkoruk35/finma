@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns KKR a score of 29.4/100. Trend: Neutral. RSI: 67.6.",
-      "tr": "BOGA AI assigns KKR a score of 29.4/100. Trend: Neutral. RSI: 67.6.",
-      "es": "BOGA AI assigns KKR a score of 29.4/100. Trend: Neutral. RSI: 67.6.",
-      "pt": "BOGA AI assigns KKR a score of 29.4/100. Trend: Neutral. RSI: 67.6.",
-      "fr": "BOGA AI assigns KKR a score of 29.4/100. Trend: Neutral. RSI: 67.6.",
-      "id": "BOGA AI assigns KKR a score of 29.4/100. Trend: Neutral. RSI: 67.6."
+      "tr": "BOGA AI, KKR için 29.4/100 skor verdi. Trend: Nötr. RSI: 67.6.",
+      "es": "BOGA AI asigna a KKR una puntuación de 29.4/100. Tendencia: Neutral. RSI: 67.6.",
+      "pt": "BOGA AI atribui a KKR uma pontuação de 29.4/100. Tendência: Neutro. RSI: 67.6.",
+      "fr": "BOGA AI attribue à KKR un score de 29.4/100. Tendance: Neutre. RSI: 67.6.",
+      "id": "BOGA AI memberikan KKR skor 29.4/100. Tren: Netral. RSI: 67.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: KKR (KKR & Co. Inc.)\n\n### 1. Business Context\nKKR & Co. Inc. operates in the Financials sector. BOGA AI detect institutional interest near $104.99.\n\n### 2. Performance\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $104.99 | Current |\n| EMA20 | $97.22 | Support |\n| ADX | 28.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $97.23.\n\n### 5. Execution\n* **Entry Zone:** $98.13 - $105.51\n* **Target Price:** $116.63\n* **Stop Loss:** $97.23\n",

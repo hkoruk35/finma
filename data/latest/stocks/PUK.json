@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PUK a score of 54.4/100. Trend: Neutral. RSI: 57.0.",
-      "tr": "BOGA AI assigns PUK a score of 54.4/100. Trend: Neutral. RSI: 57.0.",
-      "es": "BOGA AI assigns PUK a score of 54.4/100. Trend: Neutral. RSI: 57.0.",
-      "pt": "BOGA AI assigns PUK a score of 54.4/100. Trend: Neutral. RSI: 57.0.",
-      "fr": "BOGA AI assigns PUK a score of 54.4/100. Trend: Neutral. RSI: 57.0.",
-      "id": "BOGA AI assigns PUK a score of 54.4/100. Trend: Neutral. RSI: 57.0."
+      "tr": "BOGA AI, PUK için 54.4/100 skor verdi. Trend: Nötr. RSI: 57.0.",
+      "es": "BOGA AI asigna a PUK una puntuación de 54.4/100. Tendencia: Neutral. RSI: 57.0.",
+      "pt": "BOGA AI atribui a PUK uma pontuação de 54.4/100. Tendência: Neutro. RSI: 57.0.",
+      "fr": "BOGA AI attribue à PUK un score de 54.4/100. Tendance: Neutre. RSI: 57.0.",
+      "id": "BOGA AI memberikan PUK skor 54.4/100. Tren: Netral. RSI: 57.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PUK (Prudential plc)\n\n### 1. Business Context\nPrudential plc operates in the Financials sector. BOGA AI detect institutional interest near $30.59.\n\n### 2. Performance\n* **Master Score:** 54.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 57.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $30.59 | Current |\n| EMA20 | $30.01 | Support |\n| ADX | 11.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $29.19.\n\n### 5. Execution\n* **Entry Zone:** $29.69 - $30.74\n* **Target Price:** $32.69\n* **Stop Loss:** $29.19\n",

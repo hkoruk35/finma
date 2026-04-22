@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AIG a score of 54.7/100. Trend: Neutral. RSI: 56.5.",
-      "tr": "BOGA AI assigns AIG a score of 54.7/100. Trend: Neutral. RSI: 56.5.",
-      "es": "BOGA AI assigns AIG a score of 54.7/100. Trend: Neutral. RSI: 56.5.",
-      "pt": "BOGA AI assigns AIG a score of 54.7/100. Trend: Neutral. RSI: 56.5.",
-      "fr": "BOGA AI assigns AIG a score of 54.7/100. Trend: Neutral. RSI: 56.5.",
-      "id": "BOGA AI assigns AIG a score of 54.7/100. Trend: Neutral. RSI: 56.5."
+      "tr": "BOGA AI, AIG için 54.7/100 skor verdi. Trend: Nötr. RSI: 56.5.",
+      "es": "BOGA AI asigna a AIG una puntuación de 54.7/100. Tendencia: Neutral. RSI: 56.5.",
+      "pt": "BOGA AI atribui a AIG uma pontuação de 54.7/100. Tendência: Neutro. RSI: 56.5.",
+      "fr": "BOGA AI attribue à AIG un score de 54.7/100. Tendance: Neutre. RSI: 56.5.",
+      "id": "BOGA AI memberikan AIG skor 54.7/100. Tren: Netral. RSI: 56.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AIG (American International Group, Inc.)\n\n### 1. Business Context\nAmerican International Group, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $78.08.\n\n### 2. Performance\n* **Master Score:** 54.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 56.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $78.08 | Current |\n| EMA20 | $77.06 | Support |\n| ADX | 19.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $75.04.\n\n### 5. Execution\n* **Entry Zone:** $76.50 - $78.47\n* **Target Price:** $82.64\n* **Stop Loss:** $75.04\n",

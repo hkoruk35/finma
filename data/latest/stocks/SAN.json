@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SAN a score of 41.2/100. Trend: Neutral. RSI: 57.4.",
-      "tr": "BOGA AI assigns SAN a score of 41.2/100. Trend: Neutral. RSI: 57.4.",
-      "es": "BOGA AI assigns SAN a score of 41.2/100. Trend: Neutral. RSI: 57.4.",
-      "pt": "BOGA AI assigns SAN a score of 41.2/100. Trend: Neutral. RSI: 57.4.",
-      "fr": "BOGA AI assigns SAN a score of 41.2/100. Trend: Neutral. RSI: 57.4.",
-      "id": "BOGA AI assigns SAN a score of 41.2/100. Trend: Neutral. RSI: 57.4."
+      "tr": "BOGA AI, SAN için 41.2/100 skor verdi. Trend: Nötr. RSI: 57.4.",
+      "es": "BOGA AI asigna a SAN una puntuación de 41.2/100. Tendencia: Neutral. RSI: 57.4.",
+      "pt": "BOGA AI atribui a SAN uma pontuação de 41.2/100. Tendência: Neutro. RSI: 57.4.",
+      "fr": "BOGA AI attribue à SAN un score de 41.2/100. Tendance: Neutre. RSI: 57.4.",
+      "id": "BOGA AI memberikan SAN skor 41.2/100. Tren: Netral. RSI: 57.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SAN (Banco Santander, S.A.)\n\n### 1. Business Context\nBanco Santander, S.A. operates in the Financials sector. BOGA AI detect institutional interest near $12.41.\n\n### 2. Performance\n* **Master Score:** 41.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $12.41 | Current |\n| EMA20 | $12.02 | Support |\n| ADX | 13.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $11.61.\n\n### 5. Execution\n* **Entry Zone:** $11.75 - $12.47\n* **Target Price:** $13.61\n* **Stop Loss:** $11.61\n",

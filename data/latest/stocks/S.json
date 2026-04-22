@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns S a score of 32.7/100. Trend: Neutral. RSI: 61.1.",
-      "tr": "BOGA AI assigns S a score of 32.7/100. Trend: Neutral. RSI: 61.1.",
-      "es": "BOGA AI assigns S a score of 32.7/100. Trend: Neutral. RSI: 61.1.",
-      "pt": "BOGA AI assigns S a score of 32.7/100. Trend: Neutral. RSI: 61.1.",
-      "fr": "BOGA AI assigns S a score of 32.7/100. Trend: Neutral. RSI: 61.1.",
-      "id": "BOGA AI assigns S a score of 32.7/100. Trend: Neutral. RSI: 61.1."
+      "tr": "BOGA AI, S için 32.7/100 skor verdi. Trend: Nötr. RSI: 61.1.",
+      "es": "BOGA AI asigna a S una puntuación de 32.7/100. Tendencia: Neutral. RSI: 61.1.",
+      "pt": "BOGA AI atribui a S uma pontuação de 32.7/100. Tendência: Neutro. RSI: 61.1.",
+      "fr": "BOGA AI attribue à S un score de 32.7/100. Tendance: Neutre. RSI: 61.1.",
+      "id": "BOGA AI memberikan S skor 32.7/100. Tren: Netral. RSI: 61.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: S (SentinelOne, Inc.)\n\n### 1. Business Context\nSentinelOne, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $14.60.\n\n### 2. Performance\n* **Master Score:** 32.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 61.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $14.60 | Current |\n| EMA20 | $13.54 | Support |\n| ADX | 23.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $13.26.\n\n### 5. Execution\n* **Entry Zone:** $13.63 - $14.67\n* **Target Price:** $16.61\n* **Stop Loss:** $13.26\n",

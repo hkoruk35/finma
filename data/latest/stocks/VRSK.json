@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns VRSK a score of 28.3/100. Trend: Neutral. RSI: 48.9.",
-      "tr": "BOGA AI assigns VRSK a score of 28.3/100. Trend: Neutral. RSI: 48.9.",
-      "es": "BOGA AI assigns VRSK a score of 28.3/100. Trend: Neutral. RSI: 48.9.",
-      "pt": "BOGA AI assigns VRSK a score of 28.3/100. Trend: Neutral. RSI: 48.9.",
-      "fr": "BOGA AI assigns VRSK a score of 28.3/100. Trend: Neutral. RSI: 48.9.",
-      "id": "BOGA AI assigns VRSK a score of 28.3/100. Trend: Neutral. RSI: 48.9."
+      "tr": "BOGA AI, VRSK için 28.3/100 skor verdi. Trend: Nötr. RSI: 48.9.",
+      "es": "BOGA AI asigna a VRSK una puntuación de 28.3/100. Tendencia: Neutral. RSI: 48.9.",
+      "pt": "BOGA AI atribui a VRSK uma pontuação de 28.3/100. Tendência: Neutro. RSI: 48.9.",
+      "fr": "BOGA AI attribue à VRSK un score de 28.3/100. Tendance: Neutre. RSI: 48.9.",
+      "id": "BOGA AI memberikan VRSK skor 28.3/100. Tren: Netral. RSI: 48.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: VRSK (Verisk Analytics, Inc.)\n\n### 1. Business Context\nVerisk Analytics, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $182.94.\n\n### 2. Performance\n* **Master Score:** 28.3/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $182.94 | Current |\n| EMA20 | $181.45 | Support |\n| ADX | 27.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $170.98.\n\n### 5. Execution\n* **Entry Zone:** $182.03 - $183.85\n* **Target Price:** $200.88\n* **Stop Loss:** $170.98\n",

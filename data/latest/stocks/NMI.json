@@ -142,11 +142,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns NMI a score of 54.0/100. Trend: Neutral. RSI: 72.1.",
-      "tr": "BOGA AI assigns NMI a score of 54.0/100. Trend: Neutral. RSI: 72.1.",
-      "es": "BOGA AI assigns NMI a score of 54.0/100. Trend: Neutral. RSI: 72.1.",
-      "pt": "BOGA AI assigns NMI a score of 54.0/100. Trend: Neutral. RSI: 72.1.",
-      "fr": "BOGA AI assigns NMI a score of 54.0/100. Trend: Neutral. RSI: 72.1.",
-      "id": "BOGA AI assigns NMI a score of 54.0/100. Trend: Neutral. RSI: 72.1."
+      "tr": "BOGA AI, NMI için 54.0/100 skor verdi. Trend: Nötr. RSI: 72.1.",
+      "es": "BOGA AI asigna a NMI una puntuación de 54.0/100. Tendencia: Neutral. RSI: 72.1.",
+      "pt": "BOGA AI atribui a NMI uma pontuação de 54.0/100. Tendência: Neutro. RSI: 72.1.",
+      "fr": "BOGA AI attribue à NMI un score de 54.0/100. Tendance: Neutre. RSI: 72.1.",
+      "id": "BOGA AI memberikan NMI skor 54.0/100. Tren: Netral. RSI: 72.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: NMI (Nuveen Municipal Income Fund, Inc.)\n\n### 1. Business Context\nNuveen Municipal Income Fund, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $10.94.\n\n### 2. Performance\n* **Master Score:** 54.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $10.94 | Current |\n| EMA20 | $10.44 | Support |\n| ADX | 40.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $10.44.\n\n### 5. Execution\n* **Entry Zone:** $10.14 - $10.99\n* **Target Price:** $11.69\n* **Stop Loss:** $10.44\n",

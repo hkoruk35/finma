@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
-      "tr": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
-      "es": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
-      "pt": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
-      "fr": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
-      "id": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9."
+      "tr": "BOGA AI, IR için 44.0/100 skor verdi. Trend: Nötr. RSI: 51.9.",
+      "es": "BOGA AI asigna a IR una puntuación de 44.0/100. Tendencia: Neutral. RSI: 51.9.",
+      "pt": "BOGA AI atribui a IR uma pontuação de 44.0/100. Tendência: Neutro. RSI: 51.9.",
+      "fr": "BOGA AI attribue à IR un score de 44.0/100. Tendance: Neutre. RSI: 51.9.",
+      "id": "BOGA AI memberikan IR skor 44.0/100. Tren: Netral. RSI: 51.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: IR (Ingersoll Rand Inc.)\n\n### 1. Business Context\nIngersoll Rand Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $85.36.\n\n### 2. Performance\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $85.36 | Current |\n| EMA20 | $84.35 | Support |\n| ADX | 21.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $79.58.\n\n### 5. Execution\n* **Entry Zone:** $84.82 - $85.79\n* **Target Price:** $94.03\n* **Stop Loss:** $79.58\n",

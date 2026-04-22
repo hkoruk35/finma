@@ -150,11 +150,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ADI a score of 54.0/100. Trend: Neutral. RSI: 73.1.",
-      "tr": "BOGA AI assigns ADI a score of 54.0/100. Trend: Neutral. RSI: 73.1.",
-      "es": "BOGA AI assigns ADI a score of 54.0/100. Trend: Neutral. RSI: 73.1.",
-      "pt": "BOGA AI assigns ADI a score of 54.0/100. Trend: Neutral. RSI: 73.1.",
-      "fr": "BOGA AI assigns ADI a score of 54.0/100. Trend: Neutral. RSI: 73.1.",
-      "id": "BOGA AI assigns ADI a score of 54.0/100. Trend: Neutral. RSI: 73.1."
+      "tr": "BOGA AI, ADI için 54.0/100 skor verdi. Trend: Nötr. RSI: 73.1.",
+      "es": "BOGA AI asigna a ADI una puntuación de 54.0/100. Tendencia: Neutral. RSI: 73.1.",
+      "pt": "BOGA AI atribui a ADI uma pontuação de 54.0/100. Tendência: Neutro. RSI: 73.1.",
+      "fr": "BOGA AI attribue à ADI un score de 54.0/100. Tendance: Neutre. RSI: 73.1.",
+      "id": "BOGA AI memberikan ADI skor 54.0/100. Tren: Netral. RSI: 73.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ADI (Analog Devices, Inc.)\n\n### 1. Business Context\nAnalog Devices, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $375.82.\n\n### 2. Performance\n* **Master Score:** 54.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 73.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $375.82 | Current |\n| EMA20 | $345.48 | Support |\n| ADX | 25.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $354.92.\n\n### 5. Execution\n* **Entry Zone:** $328.61 - $377.70\n* **Target Price:** $407.17\n* **Stop Loss:** $354.92\n",

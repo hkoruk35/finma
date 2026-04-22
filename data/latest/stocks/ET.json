@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
-      "tr": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
-      "es": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
-      "pt": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
-      "fr": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
-      "id": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5."
+      "tr": "BOGA AI, ET için 47.1/100 skor verdi. Trend: Nötr. RSI: 51.5.",
+      "es": "BOGA AI asigna a ET una puntuación de 47.1/100. Tendencia: Neutral. RSI: 51.5.",
+      "pt": "BOGA AI atribui a ET uma pontuação de 47.1/100. Tendência: Neutro. RSI: 51.5.",
+      "fr": "BOGA AI attribue à ET un score de 47.1/100. Tendance: Neutre. RSI: 51.5.",
+      "id": "BOGA AI memberikan ET skor 47.1/100. Tren: Netral. RSI: 51.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ET (Energy Transfer LP)\n\n### 1. Business Context\nEnergy Transfer LP operates in the Energy sector. BOGA AI detect institutional interest near $18.97.\n\n### 2. Performance\n* **Master Score:** 47.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $18.97 | Current |\n| EMA20 | $18.95 | Support |\n| ADX | 15.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $18.21.\n\n### 5. Execution\n* **Entry Zone:** $18.58 - $19.06\n* **Target Price:** $20.11\n* **Stop Loss:** $18.21\n",

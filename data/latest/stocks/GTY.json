@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GTY a score of 62.7/100. Trend: Neutral. RSI: 63.4.",
-      "tr": "BOGA AI assigns GTY a score of 62.7/100. Trend: Neutral. RSI: 63.4.",
-      "es": "BOGA AI assigns GTY a score of 62.7/100. Trend: Neutral. RSI: 63.4.",
-      "pt": "BOGA AI assigns GTY a score of 62.7/100. Trend: Neutral. RSI: 63.4.",
-      "fr": "BOGA AI assigns GTY a score of 62.7/100. Trend: Neutral. RSI: 63.4.",
-      "id": "BOGA AI assigns GTY a score of 62.7/100. Trend: Neutral. RSI: 63.4."
+      "tr": "BOGA AI, GTY için 62.7/100 skor verdi. Trend: Nötr. RSI: 63.4.",
+      "es": "BOGA AI asigna a GTY una puntuación de 62.7/100. Tendencia: Neutral. RSI: 63.4.",
+      "pt": "BOGA AI atribui a GTY uma pontuação de 62.7/100. Tendência: Neutro. RSI: 63.4.",
+      "fr": "BOGA AI attribue à GTY un score de 62.7/100. Tendance: Neutre. RSI: 63.4.",
+      "id": "BOGA AI memberikan GTY skor 62.7/100. Tren: Netral. RSI: 63.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GTY (Getty Realty Corp.)\n\n### 1. Business Context\nGetty Realty Corp. operates in the Real Estate sector. BOGA AI detect institutional interest near $34.04.\n\n### 2. Performance\n* **Master Score:** 62.7/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 63.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $34.04 | Current |\n| EMA20 | $33.33 | Support |\n| ADX | 24.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $32.88.\n\n### 5. Execution\n* **Entry Zone:** $32.12 - $34.21\n* **Target Price:** $35.78\n* **Stop Loss:** $32.88\n",

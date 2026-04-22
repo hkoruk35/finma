@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns OMC a score of 50.8/100. Trend: Neutral. RSI: 58.7.",
-      "tr": "BOGA AI assigns OMC a score of 50.8/100. Trend: Neutral. RSI: 58.7.",
-      "es": "BOGA AI assigns OMC a score of 50.8/100. Trend: Neutral. RSI: 58.7.",
-      "pt": "BOGA AI assigns OMC a score of 50.8/100. Trend: Neutral. RSI: 58.7.",
-      "fr": "BOGA AI assigns OMC a score of 50.8/100. Trend: Neutral. RSI: 58.7.",
-      "id": "BOGA AI assigns OMC a score of 50.8/100. Trend: Neutral. RSI: 58.7."
+      "tr": "BOGA AI, OMC için 50.8/100 skor verdi. Trend: Nötr. RSI: 58.7.",
+      "es": "BOGA AI asigna a OMC una puntuación de 50.8/100. Tendencia: Neutral. RSI: 58.7.",
+      "pt": "BOGA AI atribui a OMC uma pontuação de 50.8/100. Tendência: Neutro. RSI: 58.7.",
+      "fr": "BOGA AI attribue à OMC un score de 50.8/100. Tendance: Neutre. RSI: 58.7.",
+      "id": "BOGA AI memberikan OMC skor 50.8/100. Tren: Netral. RSI: 58.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: OMC (Omnicom Group Inc.)\n\n### 1. Business Context\nOmnicom Group Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $78.86.\n\n### 2. Performance\n* **Master Score:** 50.8/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 58.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $78.86 | Current |\n| EMA20 | $77.08 | Support |\n| ADX | 14.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $74.74.\n\n### 5. Execution\n* **Entry Zone:** $76.59 - $79.25\n* **Target Price:** $85.04\n* **Stop Loss:** $74.74\n",

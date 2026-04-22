@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AER a score of 45.2/100. Trend: Neutral. RSI: 47.8.",
-      "tr": "BOGA AI assigns AER a score of 45.2/100. Trend: Neutral. RSI: 47.8.",
-      "es": "BOGA AI assigns AER a score of 45.2/100. Trend: Neutral. RSI: 47.8.",
-      "pt": "BOGA AI assigns AER a score of 45.2/100. Trend: Neutral. RSI: 47.8.",
-      "fr": "BOGA AI assigns AER a score of 45.2/100. Trend: Neutral. RSI: 47.8.",
-      "id": "BOGA AI assigns AER a score of 45.2/100. Trend: Neutral. RSI: 47.8."
+      "tr": "BOGA AI, AER için 45.2/100 skor verdi. Trend: Nötr. RSI: 47.8.",
+      "es": "BOGA AI asigna a AER una puntuación de 45.2/100. Tendencia: Neutral. RSI: 47.8.",
+      "pt": "BOGA AI atribui a AER uma pontuação de 45.2/100. Tendência: Neutro. RSI: 47.8.",
+      "fr": "BOGA AI attribue à AER un score de 45.2/100. Tendance: Neutre. RSI: 47.8.",
+      "id": "BOGA AI memberikan AER skor 45.2/100. Tren: Netral. RSI: 47.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AER (AerCap Holdings N.V.)\n\n### 1. Business Context\nAerCap Holdings N.V. operates in the Industrials sector. BOGA AI detect institutional interest near $140.94.\n\n### 2. Performance\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $140.94 | Current |\n| EMA20 | $142.85 | Support |\n| ADX | 16.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $132.24.\n\n### 5. Execution\n* **Entry Zone:** $140.24 - $141.64\n* **Target Price:** $153.99\n* **Stop Loss:** $132.24\n",

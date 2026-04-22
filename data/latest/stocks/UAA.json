@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns UAA a score of 40.3/100. Trend: Neutral. RSI: 62.2.",
-      "tr": "BOGA AI assigns UAA a score of 40.3/100. Trend: Neutral. RSI: 62.2.",
-      "es": "BOGA AI assigns UAA a score of 40.3/100. Trend: Neutral. RSI: 62.2.",
-      "pt": "BOGA AI assigns UAA a score of 40.3/100. Trend: Neutral. RSI: 62.2.",
-      "fr": "BOGA AI assigns UAA a score of 40.3/100. Trend: Neutral. RSI: 62.2.",
-      "id": "BOGA AI assigns UAA a score of 40.3/100. Trend: Neutral. RSI: 62.2."
+      "tr": "BOGA AI, UAA için 40.3/100 skor verdi. Trend: Nötr. RSI: 62.2.",
+      "es": "BOGA AI asigna a UAA una puntuación de 40.3/100. Tendencia: Neutral. RSI: 62.2.",
+      "pt": "BOGA AI atribui a UAA uma pontuação de 40.3/100. Tendência: Neutro. RSI: 62.2.",
+      "fr": "BOGA AI attribue à UAA un score de 40.3/100. Tendance: Neutre. RSI: 62.2.",
+      "id": "BOGA AI memberikan UAA skor 40.3/100. Tren: Netral. RSI: 62.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: UAA (Under Armour, Inc.)\n\n### 1. Business Context\nUnder Armour, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $6.72.\n\n### 2. Performance\n* **Master Score:** 40.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 62.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $6.72 | Current |\n| EMA20 | $6.27 | Support |\n| ADX | 16.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $6.12.\n\n### 5. Execution\n* **Entry Zone:** $6.24 - $6.75\n* **Target Price:** $7.62\n* **Stop Loss:** $6.12\n",

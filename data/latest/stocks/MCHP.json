@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MCHP a score of 48.5/100. Trend: Neutral. RSI: 77.6.",
-      "tr": "BOGA AI assigns MCHP a score of 48.5/100. Trend: Neutral. RSI: 77.6.",
-      "es": "BOGA AI assigns MCHP a score of 48.5/100. Trend: Neutral. RSI: 77.6.",
-      "pt": "BOGA AI assigns MCHP a score of 48.5/100. Trend: Neutral. RSI: 77.6.",
-      "fr": "BOGA AI assigns MCHP a score of 48.5/100. Trend: Neutral. RSI: 77.6.",
-      "id": "BOGA AI assigns MCHP a score of 48.5/100. Trend: Neutral. RSI: 77.6."
+      "tr": "BOGA AI, MCHP için 48.5/100 skor verdi. Trend: Nötr. RSI: 77.6.",
+      "es": "BOGA AI asigna a MCHP una puntuación de 48.5/100. Tendencia: Neutral. RSI: 77.6.",
+      "pt": "BOGA AI atribui a MCHP uma pontuação de 48.5/100. Tendência: Neutro. RSI: 77.6.",
+      "fr": "BOGA AI attribue à MCHP un score de 48.5/100. Tendance: Neutre. RSI: 77.6.",
+      "id": "BOGA AI memberikan MCHP skor 48.5/100. Tren: Netral. RSI: 77.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MCHP (Microchip Technology Incorporated)\n\n### 1. Business Context\nMicrochip Technology Incorporated operates in the Technology sector. BOGA AI detect institutional interest near $80.79.\n\n### 2. Performance\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 77.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $80.79 | Current |\n| EMA20 | $72.43 | Support |\n| ADX | 27.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $75.51.\n\n### 5. Execution\n* **Entry Zone:** $70.12 - $81.19\n* **Target Price:** $88.71\n* **Stop Loss:** $75.51\n",

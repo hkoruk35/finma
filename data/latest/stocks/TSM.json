@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns TSM a score of 46.5/100. Trend: Neutral. RSI: 56.9.",
-      "tr": "BOGA AI assigns TSM a score of 46.5/100. Trend: Neutral. RSI: 56.9.",
-      "es": "BOGA AI assigns TSM a score of 46.5/100. Trend: Neutral. RSI: 56.9.",
-      "pt": "BOGA AI assigns TSM a score of 46.5/100. Trend: Neutral. RSI: 56.9.",
-      "fr": "BOGA AI assigns TSM a score of 46.5/100. Trend: Neutral. RSI: 56.9.",
-      "id": "BOGA AI assigns TSM a score of 46.5/100. Trend: Neutral. RSI: 56.9."
+      "tr": "BOGA AI, TSM için 46.5/100 skor verdi. Trend: Nötr. RSI: 56.9.",
+      "es": "BOGA AI asigna a TSM una puntuación de 46.5/100. Tendencia: Neutral. RSI: 56.9.",
+      "pt": "BOGA AI atribui a TSM uma pontuação de 46.5/100. Tendência: Neutro. RSI: 56.9.",
+      "fr": "BOGA AI attribue à TSM un score de 46.5/100. Tendance: Neutre. RSI: 56.9.",
+      "id": "BOGA AI memberikan TSM skor 46.5/100. Tren: Netral. RSI: 56.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: TSM (Taiwan Semiconductor Manufacturing Company Limited)\n\n### 1. Business Context\nTaiwan Semiconductor Manufacturing Company Limited operates in the Technology sector. BOGA AI detect institutional interest near $368.02.\n\n### 2. Performance\n* **Master Score:** 46.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $368.02 | Current |\n| EMA20 | $358.74 | Support |\n| ADX | 17.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $344.78.\n\n### 5. Execution\n* **Entry Zone:** $347.83 - $369.86\n* **Target Price:** $402.88\n* **Stop Loss:** $344.78\n",

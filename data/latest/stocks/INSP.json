@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns INSP a score of 32.6/100. Trend: Neutral. RSI: 40.8.",
-      "tr": "BOGA AI assigns INSP a score of 32.6/100. Trend: Neutral. RSI: 40.8.",
-      "es": "BOGA AI assigns INSP a score of 32.6/100. Trend: Neutral. RSI: 40.8.",
-      "pt": "BOGA AI assigns INSP a score of 32.6/100. Trend: Neutral. RSI: 40.8.",
-      "fr": "BOGA AI assigns INSP a score of 32.6/100. Trend: Neutral. RSI: 40.8.",
-      "id": "BOGA AI assigns INSP a score of 32.6/100. Trend: Neutral. RSI: 40.8."
+      "tr": "BOGA AI, INSP için 32.6/100 skor verdi. Trend: Nötr. RSI: 40.8.",
+      "es": "BOGA AI asigna a INSP una puntuación de 32.6/100. Tendencia: Neutral. RSI: 40.8.",
+      "pt": "BOGA AI atribui a INSP uma pontuação de 32.6/100. Tendência: Neutro. RSI: 40.8.",
+      "fr": "BOGA AI attribue à INSP un score de 32.6/100. Tendance: Neutre. RSI: 40.8.",
+      "id": "BOGA AI memberikan INSP skor 32.6/100. Tren: Netral. RSI: 40.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: INSP (Inspire Medical Systems, Inc.)\n\n### 1. Business Context\nInspire Medical Systems, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $52.82.\n\n### 2. Performance\n* **Master Score:** 32.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $52.82 | Current |\n| EMA20 | $55.5 | Support |\n| ADX | 20.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $46.04.\n\n### 5. Execution\n* **Entry Zone:** $52.56 - $53.08\n* **Target Price:** $62.99\n* **Stop Loss:** $46.04\n",

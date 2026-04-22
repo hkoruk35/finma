@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
-      "tr": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
-      "es": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
-      "pt": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
-      "fr": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
-      "id": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9."
+      "tr": "BOGA AI, ABT için 15.0/100 skor verdi. Trend: Nötr. RSI: 26.9.",
+      "es": "BOGA AI asigna a ABT una puntuación de 15.0/100. Tendencia: Neutral. RSI: 26.9.",
+      "pt": "BOGA AI atribui a ABT uma pontuação de 15.0/100. Tendência: Neutro. RSI: 26.9.",
+      "fr": "BOGA AI attribue à ABT un score de 15.0/100. Tendance: Neutre. RSI: 26.9.",
+      "id": "BOGA AI memberikan ABT skor 15.0/100. Tren: Netral. RSI: 26.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ABT (Abbott Laboratories)\n\n### 1. Business Context\nAbbott Laboratories operates in the Healthcare sector. BOGA AI detect institutional interest near $93.26.\n\n### 2. Performance\n* **Master Score:** 15.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 26.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $93.26 | Current |\n| EMA20 | $100.52 | Support |\n| ADX | 40.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $88.24.\n\n### 5. Execution\n* **Entry Zone:** $92.79 - $93.73\n* **Target Price:** $100.79\n* **Stop Loss:** $88.24\n",

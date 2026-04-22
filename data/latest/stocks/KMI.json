@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns KMI a score of 31.6/100. Trend: Neutral. RSI: 34.0.",
-      "tr": "BOGA AI assigns KMI a score of 31.6/100. Trend: Neutral. RSI: 34.0.",
-      "es": "BOGA AI assigns KMI a score of 31.6/100. Trend: Neutral. RSI: 34.0.",
-      "pt": "BOGA AI assigns KMI a score of 31.6/100. Trend: Neutral. RSI: 34.0.",
-      "fr": "BOGA AI assigns KMI a score of 31.6/100. Trend: Neutral. RSI: 34.0.",
-      "id": "BOGA AI assigns KMI a score of 31.6/100. Trend: Neutral. RSI: 34.0."
+      "tr": "BOGA AI, KMI için 31.6/100 skor verdi. Trend: Nötr. RSI: 34.0.",
+      "es": "BOGA AI asigna a KMI una puntuación de 31.6/100. Tendencia: Neutral. RSI: 34.0.",
+      "pt": "BOGA AI atribui a KMI uma pontuação de 31.6/100. Tendência: Neutro. RSI: 34.0.",
+      "fr": "BOGA AI attribue à KMI un score de 31.6/100. Tendance: Neutre. RSI: 34.0.",
+      "id": "BOGA AI memberikan KMI skor 31.6/100. Tren: Netral. RSI: 34.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: KMI (Kinder Morgan, Inc.)\n\n### 1. Business Context\nKinder Morgan, Inc. operates in the Energy sector. BOGA AI detect institutional interest near $31.42.\n\n### 2. Performance\n* **Master Score:** 31.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $31.42 | Current |\n| EMA20 | $32.47 | Support |\n| ADX | 22.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $29.86.\n\n### 5. Execution\n* **Entry Zone:** $31.26 - $31.58\n* **Target Price:** $33.76\n* **Stop Loss:** $29.86\n",

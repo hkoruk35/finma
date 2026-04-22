@@ -2090,36 +2090,84 @@ def _fallback_summary(c: dict) -> dict:
         "id": ["Wawasan Industri", "Tinjauan Performa", "Analisis Teknikal", "Profil Risiko", "Strategi Eksekusi", "Putusan"]
     }
 
+    lang_data = {
+        "en": {
+            "desc": f"{company} is showing institutional interest in the {sector} sector. BOGA AI indicates a tactical score of {score:.0f}/100, aligning with the current {trend} volume profile.",
+            "perf": f"The stock is currently trading at ${price:.2f}. Momentum indicators suggest entry is optimal within the identified strategic zones.",
+            "tech": f"Technical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.",
+            "risk": f"Primary risks involve general market volatility and volume rotation. Disciplined use of stop losses at ${stp.get('high',0):.2f} is mandatory.",
+            "entry": "Entry Zone", "target": "Short-term Target", "stop": "Stop Protection", "rr": "Risk/Reward Reward", "disclaimer": "Not Financial Advice"
+        },
+        "tr": {
+            "desc": f"{company}, {sector} sektöründe kurumsal ilgi görüyor. BOGA AI, mevcut {trend} hacim profiliyle uyumlu olarak {score:.0f}/100 taktiksel skor gösteriyor.",
+            "perf": f"Hisse şu anda ${price:.2f} seviyesinde işlem görüyor. Momentum göstergeleri, belirlenen stratejik bölgelerde girişin optimal olduğunu gösteriyor.",
+            "tech": f"Teknik matris aktif boğa birikimi gösteriyor. EMA yapıları mevcut yükselişi destekliyor.",
+            "risk": f"Temel riskler genel piyasa oynaklığı ve sektör rotasyonunu içerir. ${stp.get('high',0):.2f} seviyesinde disiplinli zarar kes kullanımı zorunludur.",
+            "entry": "Giriş Bölgesi", "target": "Kısa Vadeli Hedef", "stop": "Zarar Kes Koruması", "rr": "Risk/Ödül Oranı", "disclaimer": "Yatırım Tavsiyesi Değildir"
+        },
+        "es": {
+            "desc": f"{company} está mostrando interés institucional en el sector {sector}. BOGA AI indica una puntuación táctica de {score:.0f}/100, alineándose con el perfil de volumen {trend} actual.",
+            "perf": f"La acción cotiza actualmente a ${price:.2f}. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.",
+            "tech": f"La matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.",
+            "risk": f"Los riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en ${stp.get('high',0):.2f} es obligatorio.",
+            "entry": "Zona de Entrada", "target": "Objetivo a Corto Plazo", "stop": "Protección de Stop", "rr": "Relación Riesgo/Beneficio", "disclaimer": "No es asesoramiento financiero"
+        },
+        "pt": {
+            "desc": f"{company} está mostrando interesse institucional no setor {sector}. BOGA AI indica uma pontuação tática de {score:.0f}/100, alinhando-se com o perfil de volume {trend} atual.",
+            "perf": f"A ação está sendo negociada atualmente a ${price:.2f}. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.",
+            "tech": f"A matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.",
+            "risk": f"Os riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em ${stp.get('high',0):.2f} é obrigatório.",
+            "entry": "Zona de Entrada", "target": "Alvo de Curto Prazo", "stop": "Proteção de Stop", "rr": "Relação Risco/Recompensa", "disclaimer": "Não é aconselhamento financeiro"
+        },
+        "fr": {
+            "desc": f"{company} suscite un intérêt institutionnel dans le secteur {sector}. BOGA AI indique un score tactique de {score:.0f}/100, en phase avec le profil de volume {trend} actuel.",
+            "perf": f"L'action se négocie actuellement à ${price:.2f}. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.",
+            "tech": f"La matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.",
+            "risk": f"Les principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à ${stp.get('high',0):.2f} est obligatoire.",
+            "entry": "Zone d'Entrée", "target": "Objectif à Court Terme", "stop": "Protection Stop", "rr": "Rapport Risque/Récompense", "disclaimer": "Pas un conseil financier"
+        },
+        "id": {
+            "desc": f"{company} menunjukkan minat institusional di sektor {sector}. BOGA AI menunjukkan skor taktis {score:.0f}/100, selaras dengan profil volume {trend} saat ini.",
+            "perf": f"Saham saat ini diperdagangkan pada ${price:.2f}. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.",
+            "tech": f"Matriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.",
+            "risk": f"Risiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada ${stp.get('high',0):.2f} adalah wajib.",
+            "entry": "Zona Masuk", "target": "Target Jangka Pendek", "stop": "Perlindungan Stop", "rr": "Rasio Risiko/Imbalan", "disclaimer": "Bukan Nasihat Keuangan"
+        }
+    }
+
     homepage_summaries = {
         "en": f"BOGA AI rates {ticker} at {score:.0f}/100 within a {trend} trend. Macro targets suggest ${tgt.get('high',0):.2f}.",
         "tr": f"BOGA AI, {ticker} için {trend} trend içinde {score:.0f}/100 skor verdi. Hedef bölge: ${tgt.get('high',0):.2f}.",
+        "es": f"BOGA AI califica a {ticker} con {score:.0f}/100 en una tendencia {trend}. Los objetivos sugieren ${tgt.get('high',0):.2f}.",
+        "pt": f"BOGA AI avalia {ticker} em {score:.0f}/100 em uma tendência {trend}. Os alvos sugerem ${tgt.get('high',0):.2f}.",
+        "fr": f"BOGA AI évalue {ticker} à {score:.0f}/100 dans une tendance {trend}. Les objectifs suggèrent ${tgt.get('high',0):.2f}.",
+        "id": f"BOGA AI menilai {ticker} pada {score:.0f}/100 dalam tren {trend}. Target makro menunjukkan ${tgt.get('high',0):.2f}."
     }
-    # Simple defaults for others
-    for lang in ["es", "pt", "fr", "id"]: homepage_summaries[lang] = homepage_summaries["en"]
 
     detail_summaries = {}
     for lang, tags in lang_titles.items():
+        ld = lang_data[lang]
         detail_summaries[lang] = f"""
 ### 1. {tags[0]}
-{company} is showing institutional interest in the {sector} sector. BOGA AI indicates a tactical score of {score:.0f}/100, aligning with the current {trend} volume profile.
+{ld['desc']}
 
 ### 2. {tags[1]}
-The stock is currently trading at ${price:.2f}. Momentum indicators suggest entry is optimal within the identified strategic zones.
+{ld['perf']}
 
 ### 3. {tags[2]}
-Technical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.
+{ld['tech']}
 **{tags[5]}:** BUY / ACCUMULATE
 
 ### 4. {tags[3]}
-Primary risks involve general market volatility and volume rotation. Disciplined use of stop losses at ${stp.get('high',0):.2f} is mandatory.
+{ld['risk']}
 
 ### 5. {tags[4]}
-- **Entry Zone:** ${buy.get('low',0):.2f} - ${buy.get('high',0):.2f}
-- **Short-term Target:** ${tgt.get('high',0):.2f}
-- **Stop Protection:** ${stp.get('high',0):.2f}
-- **Risk/Reward Reward:** {rr:.1f}:1
+- **{ld['entry']}:** ${buy.get('low',0):.2f} - ${buy.get('high',0):.2f}
+- **{ld['target']}:** ${tgt.get('high',0):.2f}
+- **{ld['stop']}:** ${stp.get('high',0):.2f}
+- **{ld['rr']}:** {rr:.1f}:1
 
-*Disclaimer: Not Financial Advice.*
+*{ld['disclaimer']}*
 """
     return {
         "homepage_summary": homepage_summaries,

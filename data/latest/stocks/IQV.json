@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
-      "tr": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
-      "es": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
-      "pt": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
-      "fr": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
-      "id": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5."
+      "tr": "BOGA AI, IQV için 41.6/100 skor verdi. Trend: Nötr. RSI: 55.5.",
+      "es": "BOGA AI asigna a IQV una puntuación de 41.6/100. Tendencia: Neutral. RSI: 55.5.",
+      "pt": "BOGA AI atribui a IQV uma pontuação de 41.6/100. Tendência: Neutro. RSI: 55.5.",
+      "fr": "BOGA AI attribue à IQV un score de 41.6/100. Tendance: Neutre. RSI: 55.5.",
+      "id": "BOGA AI memberikan IQV skor 41.6/100. Tren: Netral. RSI: 55.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: IQV (IQVIA Holdings Inc.)\n\n### 1. Business Context\nIQVIA Holdings Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $177.19.\n\n### 2. Performance\n* **Master Score:** 41.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $177.19 | Current |\n| EMA20 | $172.86 | Support |\n| ADX | 14.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $164.43.\n\n### 5. Execution\n* **Entry Zone:** $176.30 - $178.08\n* **Target Price:** $196.33\n* **Stop Loss:** $164.43\n",

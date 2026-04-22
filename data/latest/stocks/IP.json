@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns IP a score of 18.0/100. Trend: Neutral. RSI: 44.1.",
-      "tr": "BOGA AI assigns IP a score of 18.0/100. Trend: Neutral. RSI: 44.1.",
-      "es": "BOGA AI assigns IP a score of 18.0/100. Trend: Neutral. RSI: 44.1.",
-      "pt": "BOGA AI assigns IP a score of 18.0/100. Trend: Neutral. RSI: 44.1.",
-      "fr": "BOGA AI assigns IP a score of 18.0/100. Trend: Neutral. RSI: 44.1.",
-      "id": "BOGA AI assigns IP a score of 18.0/100. Trend: Neutral. RSI: 44.1."
+      "tr": "BOGA AI, IP için 18.0/100 skor verdi. Trend: Nötr. RSI: 44.1.",
+      "es": "BOGA AI asigna a IP una puntuación de 18.0/100. Tendencia: Neutral. RSI: 44.1.",
+      "pt": "BOGA AI atribui a IP uma pontuação de 18.0/100. Tendência: Neutro. RSI: 44.1.",
+      "fr": "BOGA AI attribue à IP un score de 18.0/100. Tendance: Neutre. RSI: 44.1.",
+      "id": "BOGA AI memberikan IP skor 18.0/100. Tren: Netral. RSI: 44.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: IP (International Paper Company)\n\n### 1. Business Context\nInternational Paper Company operates in the Materials sector. BOGA AI detect institutional interest near $35.98.\n\n### 2. Performance\n* **Master Score:** 18.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $35.98 | Current |\n| EMA20 | $36.57 | Support |\n| ADX | 21.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $33.40.\n\n### 5. Execution\n* **Entry Zone:** $35.80 - $36.16\n* **Target Price:** $39.85\n* **Stop Loss:** $33.40\n",

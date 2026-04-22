@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DAL a score of 55.8/100. Trend: Neutral. RSI: 56.2.",
-      "tr": "BOGA AI assigns DAL a score of 55.8/100. Trend: Neutral. RSI: 56.2.",
-      "es": "BOGA AI assigns DAL a score of 55.8/100. Trend: Neutral. RSI: 56.2.",
-      "pt": "BOGA AI assigns DAL a score of 55.8/100. Trend: Neutral. RSI: 56.2.",
-      "fr": "BOGA AI assigns DAL a score of 55.8/100. Trend: Neutral. RSI: 56.2.",
-      "id": "BOGA AI assigns DAL a score of 55.8/100. Trend: Neutral. RSI: 56.2."
+      "tr": "BOGA AI, DAL için 55.8/100 skor verdi. Trend: Nötr. RSI: 56.2.",
+      "es": "BOGA AI asigna a DAL una puntuación de 55.8/100. Tendencia: Neutral. RSI: 56.2.",
+      "pt": "BOGA AI atribui a DAL uma pontuação de 55.8/100. Tendência: Neutro. RSI: 56.2.",
+      "fr": "BOGA AI attribue à DAL un score de 55.8/100. Tendance: Neutre. RSI: 56.2.",
+      "id": "BOGA AI memberikan DAL skor 55.8/100. Tren: Netral. RSI: 56.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DAL (Delta Air Lines, Inc.)\n\n### 1. Business Context\nDelta Air Lines, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $70.10.\n\n### 2. Performance\n* **Master Score:** 55.8/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 56.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $70.10 | Current |\n| EMA20 | $68.33 | Support |\n| ADX | 17.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $64.14.\n\n### 5. Execution\n* **Entry Zone:** $66.76 - $70.45\n* **Target Price:** $79.04\n* **Stop Loss:** $64.14\n",

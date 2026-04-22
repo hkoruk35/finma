@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ETSY a score of 48.5/100. Trend: Neutral. RSI: 76.0.",
-      "tr": "BOGA AI assigns ETSY a score of 48.5/100. Trend: Neutral. RSI: 76.0.",
-      "es": "BOGA AI assigns ETSY a score of 48.5/100. Trend: Neutral. RSI: 76.0.",
-      "pt": "BOGA AI assigns ETSY a score of 48.5/100. Trend: Neutral. RSI: 76.0.",
-      "fr": "BOGA AI assigns ETSY a score of 48.5/100. Trend: Neutral. RSI: 76.0.",
-      "id": "BOGA AI assigns ETSY a score of 48.5/100. Trend: Neutral. RSI: 76.0."
+      "tr": "BOGA AI, ETSY için 48.5/100 skor verdi. Trend: Nötr. RSI: 76.0.",
+      "es": "BOGA AI asigna a ETSY una puntuación de 48.5/100. Tendencia: Neutral. RSI: 76.0.",
+      "pt": "BOGA AI atribui a ETSY uma pontuação de 48.5/100. Tendência: Neutro. RSI: 76.0.",
+      "fr": "BOGA AI attribue à ETSY un score de 48.5/100. Tendance: Neutre. RSI: 76.0.",
+      "id": "BOGA AI memberikan ETSY skor 48.5/100. Tren: Netral. RSI: 76.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ETSY (Etsy, Inc.)\n\n### 1. Business Context\nEtsy, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $64.44.\n\n### 2. Performance\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 76.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $64.44 | Current |\n| EMA20 | $56.4 | Support |\n| ADX | 27.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $59.56.\n\n### 5. Execution\n* **Entry Zone:** $54.55 - $64.76\n* **Target Price:** $71.76\n* **Stop Loss:** $59.56\n",

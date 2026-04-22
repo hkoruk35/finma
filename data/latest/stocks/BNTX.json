@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns BNTX a score of 44.1/100. Trend: Neutral. RSI: 74.1.",
-      "tr": "BOGA AI assigns BNTX a score of 44.1/100. Trend: Neutral. RSI: 74.1.",
-      "es": "BOGA AI assigns BNTX a score of 44.1/100. Trend: Neutral. RSI: 74.1.",
-      "pt": "BOGA AI assigns BNTX a score of 44.1/100. Trend: Neutral. RSI: 74.1.",
-      "fr": "BOGA AI assigns BNTX a score of 44.1/100. Trend: Neutral. RSI: 74.1.",
-      "id": "BOGA AI assigns BNTX a score of 44.1/100. Trend: Neutral. RSI: 74.1."
+      "tr": "BOGA AI, BNTX için 44.1/100 skor verdi. Trend: Nötr. RSI: 74.1.",
+      "es": "BOGA AI asigna a BNTX una puntuación de 44.1/100. Tendencia: Neutral. RSI: 74.1.",
+      "pt": "BOGA AI atribui a BNTX uma pontuação de 44.1/100. Tendência: Neutro. RSI: 74.1.",
+      "fr": "BOGA AI attribue à BNTX un score de 44.1/100. Tendance: Neutre. RSI: 74.1.",
+      "id": "BOGA AI memberikan BNTX skor 44.1/100. Tren: Netral. RSI: 74.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: BNTX (BioNTech SE)\n\n### 1. Business Context\nBioNTech SE operates in the Healthcare sector. BOGA AI detect institutional interest near $110.02.\n\n### 2. Performance\n* **Master Score:** 44.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 74.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $110.02 | Current |\n| EMA20 | $97.47 | Support |\n| ADX | 20.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $102.86.\n\n### 5. Execution\n* **Entry Zone:** $97.31 - $110.57\n* **Target Price:** $120.76\n* **Stop Loss:** $102.86\n",

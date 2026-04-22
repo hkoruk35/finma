@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CRWD a score of 37.8/100. Trend: Neutral. RSI: 63.5.",
-      "tr": "BOGA AI assigns CRWD a score of 37.8/100. Trend: Neutral. RSI: 63.5.",
-      "es": "BOGA AI assigns CRWD a score of 37.8/100. Trend: Neutral. RSI: 63.5.",
-      "pt": "BOGA AI assigns CRWD a score of 37.8/100. Trend: Neutral. RSI: 63.5.",
-      "fr": "BOGA AI assigns CRWD a score of 37.8/100. Trend: Neutral. RSI: 63.5.",
-      "id": "BOGA AI assigns CRWD a score of 37.8/100. Trend: Neutral. RSI: 63.5."
+      "tr": "BOGA AI, CRWD için 37.8/100 skor verdi. Trend: Nötr. RSI: 63.5.",
+      "es": "BOGA AI asigna a CRWD una puntuación de 37.8/100. Tendencia: Neutral. RSI: 63.5.",
+      "pt": "BOGA AI atribui a CRWD uma pontuação de 37.8/100. Tendência: Neutro. RSI: 63.5.",
+      "fr": "BOGA AI attribue à CRWD un score de 37.8/100. Tendance: Neutre. RSI: 63.5.",
+      "id": "BOGA AI memberikan CRWD skor 37.8/100. Tren: Netral. RSI: 63.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CRWD (CrowdStrike Holdings, Inc.)\n\n### 1. Business Context\nCrowdStrike Holdings, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $453.25.\n\n### 2. Performance\n* **Master Score:** 37.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $453.25 | Current |\n| EMA20 | $413.25 | Support |\n| ADX | 14.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $413.07.\n\n### 5. Execution\n* **Entry Zone:** $414.76 - $455.52\n* **Target Price:** $513.52\n* **Stop Loss:** $413.07\n",

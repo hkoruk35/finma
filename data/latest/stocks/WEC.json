@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns WEC a score of 24.9/100. Trend: Neutral. RSI: 43.6.",
-      "tr": "BOGA AI assigns WEC a score of 24.9/100. Trend: Neutral. RSI: 43.6.",
-      "es": "BOGA AI assigns WEC a score of 24.9/100. Trend: Neutral. RSI: 43.6.",
-      "pt": "BOGA AI assigns WEC a score of 24.9/100. Trend: Neutral. RSI: 43.6.",
-      "fr": "BOGA AI assigns WEC a score of 24.9/100. Trend: Neutral. RSI: 43.6.",
-      "id": "BOGA AI assigns WEC a score of 24.9/100. Trend: Neutral. RSI: 43.6."
+      "tr": "BOGA AI, WEC için 24.9/100 skor verdi. Trend: Nötr. RSI: 43.6.",
+      "es": "BOGA AI asigna a WEC una puntuación de 24.9/100. Tendencia: Neutral. RSI: 43.6.",
+      "pt": "BOGA AI atribui a WEC uma pontuação de 24.9/100. Tendência: Neutro. RSI: 43.6.",
+      "fr": "BOGA AI attribue à WEC un score de 24.9/100. Tendance: Neutre. RSI: 43.6.",
+      "id": "BOGA AI memberikan WEC skor 24.9/100. Tren: Netral. RSI: 43.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: WEC (WEC Energy Group, Inc.)\n\n### 1. Business Context\nWEC Energy Group, Inc. operates in the Utilities sector. BOGA AI detect institutional interest near $113.97.\n\n### 2. Performance\n* **Master Score:** 24.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $113.97 | Current |\n| EMA20 | $115.73 | Support |\n| ADX | 11.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $109.95.\n\n### 5. Execution\n* **Entry Zone:** $113.40 - $114.54\n* **Target Price:** $120.00\n* **Stop Loss:** $109.95\n",

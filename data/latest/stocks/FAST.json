@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns FAST a score of 28.7/100. Trend: Neutral. RSI: 48.7.",
-      "tr": "BOGA AI assigns FAST a score of 28.7/100. Trend: Neutral. RSI: 48.7.",
-      "es": "BOGA AI assigns FAST a score of 28.7/100. Trend: Neutral. RSI: 48.7.",
-      "pt": "BOGA AI assigns FAST a score of 28.7/100. Trend: Neutral. RSI: 48.7.",
-      "fr": "BOGA AI assigns FAST a score of 28.7/100. Trend: Neutral. RSI: 48.7.",
-      "id": "BOGA AI assigns FAST a score of 28.7/100. Trend: Neutral. RSI: 48.7."
+      "tr": "BOGA AI, FAST için 28.7/100 skor verdi. Trend: Nötr. RSI: 48.7.",
+      "es": "BOGA AI asigna a FAST una puntuación de 28.7/100. Tendencia: Neutral. RSI: 48.7.",
+      "pt": "BOGA AI atribui a FAST uma pontuação de 28.7/100. Tendência: Neutro. RSI: 48.7.",
+      "fr": "BOGA AI attribue à FAST un score de 28.7/100. Tendance: Neutre. RSI: 48.7.",
+      "id": "BOGA AI memberikan FAST skor 28.7/100. Tren: Netral. RSI: 48.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: FAST (Fastenal Company)\n\n### 1. Business Context\nFastenal Company operates in the Industrials sector. BOGA AI detect institutional interest near $45.59.\n\n### 2. Performance\n* **Master Score:** 28.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.59 | Current |\n| EMA20 | $45.85 | Support |\n| ADX | 14.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $43.17.\n\n### 5. Execution\n* **Entry Zone:** $45.27 - $45.82\n* **Target Price:** $49.22\n* **Stop Loss:** $43.17\n",

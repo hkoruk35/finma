@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ROKU a score of 49.8/100. Trend: Neutral. RSI: 71.4.",
-      "tr": "BOGA AI assigns ROKU a score of 49.8/100. Trend: Neutral. RSI: 71.4.",
-      "es": "BOGA AI assigns ROKU a score of 49.8/100. Trend: Neutral. RSI: 71.4.",
-      "pt": "BOGA AI assigns ROKU a score of 49.8/100. Trend: Neutral. RSI: 71.4.",
-      "fr": "BOGA AI assigns ROKU a score of 49.8/100. Trend: Neutral. RSI: 71.4.",
-      "id": "BOGA AI assigns ROKU a score of 49.8/100. Trend: Neutral. RSI: 71.4."
+      "tr": "BOGA AI, ROKU için 49.8/100 skor verdi. Trend: Nötr. RSI: 71.4.",
+      "es": "BOGA AI asigna a ROKU una puntuación de 49.8/100. Tendencia: Neutral. RSI: 71.4.",
+      "pt": "BOGA AI atribui a ROKU uma pontuação de 49.8/100. Tendência: Neutro. RSI: 71.4.",
+      "fr": "BOGA AI attribue à ROKU un score de 49.8/100. Tendance: Neutre. RSI: 71.4.",
+      "id": "BOGA AI memberikan ROKU skor 49.8/100. Tren: Netral. RSI: 71.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ROKU (Roku, Inc.)\n\n### 1. Business Context\nRoku, Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $116.14.\n\n### 2. Performance\n* **Master Score:** 49.8/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 71.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $116.14 | Current |\n| EMA20 | $104.71 | Support |\n| ADX | 20.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $107.06.\n\n### 5. Execution\n* **Entry Zone:** $99.82 - $116.72\n* **Target Price:** $129.76\n* **Stop Loss:** $107.06\n",

@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
-      "tr": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
-      "es": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
-      "pt": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
-      "fr": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
-      "id": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4."
+      "tr": "BOGA AI, MPLX için 35.6/100 skor verdi. Trend: Nötr. RSI: 42.4.",
+      "es": "BOGA AI asigna a MPLX una puntuación de 35.6/100. Tendencia: Neutral. RSI: 42.4.",
+      "pt": "BOGA AI atribui a MPLX uma pontuação de 35.6/100. Tendência: Neutro. RSI: 42.4.",
+      "fr": "BOGA AI attribue à MPLX un score de 35.6/100. Tendance: Neutre. RSI: 42.4.",
+      "id": "BOGA AI memberikan MPLX skor 35.6/100. Tren: Netral. RSI: 42.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MPLX (MPLX LP)\n\n### 1. Business Context\nMPLX LP operates in the Energy sector. BOGA AI detect institutional interest near $55.61.\n\n### 2. Performance\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $55.61 | Current |\n| EMA20 | $56.24 | Support |\n| ADX | 26.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $53.41.\n\n### 5. Execution\n* **Entry Zone:** $55.33 - $55.89\n* **Target Price:** $58.91\n* **Stop Loss:** $53.41\n",

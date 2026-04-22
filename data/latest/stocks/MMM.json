@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns MMM a score of 20.9/100. Trend: Neutral. RSI: 47.3.",
-      "tr": "BOGA AI assigns MMM a score of 20.9/100. Trend: Neutral. RSI: 47.3.",
-      "es": "BOGA AI assigns MMM a score of 20.9/100. Trend: Neutral. RSI: 47.3.",
-      "pt": "BOGA AI assigns MMM a score of 20.9/100. Trend: Neutral. RSI: 47.3.",
-      "fr": "BOGA AI assigns MMM a score of 20.9/100. Trend: Neutral. RSI: 47.3.",
-      "id": "BOGA AI assigns MMM a score of 20.9/100. Trend: Neutral. RSI: 47.3."
+      "tr": "BOGA AI, MMM için 20.9/100 skor verdi. Trend: Nötr. RSI: 47.3.",
+      "es": "BOGA AI asigna a MMM una puntuación de 20.9/100. Tendencia: Neutral. RSI: 47.3.",
+      "pt": "BOGA AI atribui a MMM uma pontuação de 20.9/100. Tendência: Neutro. RSI: 47.3.",
+      "fr": "BOGA AI attribue à MMM un score de 20.9/100. Tendance: Neutre. RSI: 47.3.",
+      "id": "BOGA AI memberikan MMM skor 20.9/100. Tren: Netral. RSI: 47.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: MMM (3M Company)\n\n### 1. Business Context\n3M Company operates in the Industrials sector. BOGA AI detect institutional interest near $149.05.\n\n### 2. Performance\n* **Master Score:** 20.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $149.05 | Current |\n| EMA20 | $149.91 | Support |\n| ADX | 17.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $140.89.\n\n### 5. Execution\n* **Entry Zone:** $148.30 - $149.80\n* **Target Price:** $161.29\n* **Stop Loss:** $140.89\n",

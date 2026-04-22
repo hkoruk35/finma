@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CSX a score of 51.2/100. Trend: Neutral. RSI: 65.9.",
-      "tr": "BOGA AI assigns CSX a score of 51.2/100. Trend: Neutral. RSI: 65.9.",
-      "es": "BOGA AI assigns CSX a score of 51.2/100. Trend: Neutral. RSI: 65.9.",
-      "pt": "BOGA AI assigns CSX a score of 51.2/100. Trend: Neutral. RSI: 65.9.",
-      "fr": "BOGA AI assigns CSX a score of 51.2/100. Trend: Neutral. RSI: 65.9.",
-      "id": "BOGA AI assigns CSX a score of 51.2/100. Trend: Neutral. RSI: 65.9."
+      "tr": "BOGA AI, CSX için 51.2/100 skor verdi. Trend: Nötr. RSI: 65.9.",
+      "es": "BOGA AI asigna a CSX una puntuación de 51.2/100. Tendencia: Neutral. RSI: 65.9.",
+      "pt": "BOGA AI atribui a CSX uma pontuação de 51.2/100. Tendência: Neutro. RSI: 65.9.",
+      "fr": "BOGA AI attribue à CSX un score de 51.2/100. Tendance: Neutre. RSI: 65.9.",
+      "id": "BOGA AI memberikan CSX skor 51.2/100. Tren: Netral. RSI: 65.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CSX (CSX Corporation)\n\n### 1. Business Context\nCSX Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $43.34.\n\n### 2. Performance\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $43.34 | Current |\n| EMA20 | $41.94 | Support |\n| ADX | 24.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $41.72.\n\n### 5. Execution\n* **Entry Zone:** $40.55 - $43.56\n* **Target Price:** $45.77\n* **Stop Loss:** $41.72\n",

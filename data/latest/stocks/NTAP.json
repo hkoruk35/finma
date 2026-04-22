@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
-      "tr": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
-      "es": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
-      "pt": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
-      "fr": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
-      "id": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6."
+      "tr": "BOGA AI, NTAP için 57.9/100 skor verdi. Trend: Nötr. RSI: 69.6.",
+      "es": "BOGA AI asigna a NTAP una puntuación de 57.9/100. Tendencia: Neutral. RSI: 69.6.",
+      "pt": "BOGA AI atribui a NTAP uma pontuação de 57.9/100. Tendência: Neutro. RSI: 69.6.",
+      "fr": "BOGA AI attribue à NTAP un score de 57.9/100. Tendance: Neutre. RSI: 69.6.",
+      "id": "BOGA AI memberikan NTAP skor 57.9/100. Tren: Netral. RSI: 69.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: NTAP (NetApp, Inc.)\n\n### 1. Business Context\nNetApp, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $112.15.\n\n### 2. Performance\n* **Master Score:** 57.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $112.15 | Current |\n| EMA20 | $102.22 | Support |\n| ADX | 19.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $105.39.\n\n### 5. Execution\n* **Entry Zone:** $101.26 - $112.71\n* **Target Price:** $122.29\n* **Stop Loss:** $105.39\n",

@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SIG a score of 64.2/100. Trend: Neutral. RSI: 60.1.",
-      "tr": "BOGA AI assigns SIG a score of 64.2/100. Trend: Neutral. RSI: 60.1.",
-      "es": "BOGA AI assigns SIG a score of 64.2/100. Trend: Neutral. RSI: 60.1.",
-      "pt": "BOGA AI assigns SIG a score of 64.2/100. Trend: Neutral. RSI: 60.1.",
-      "fr": "BOGA AI assigns SIG a score of 64.2/100. Trend: Neutral. RSI: 60.1.",
-      "id": "BOGA AI assigns SIG a score of 64.2/100. Trend: Neutral. RSI: 60.1."
+      "tr": "BOGA AI, SIG için 64.2/100 skor verdi. Trend: Nötr. RSI: 60.1.",
+      "es": "BOGA AI asigna a SIG una puntuación de 64.2/100. Tendencia: Neutral. RSI: 60.1.",
+      "pt": "BOGA AI atribui a SIG uma pontuação de 64.2/100. Tendência: Neutro. RSI: 60.1.",
+      "fr": "BOGA AI attribue à SIG un score de 64.2/100. Tendance: Neutre. RSI: 60.1.",
+      "id": "BOGA AI memberikan SIG skor 64.2/100. Tren: Netral. RSI: 60.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SIG (Signet Jewelers Limited)\n\n### 1. Business Context\nSignet Jewelers Limited operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $96.01.\n\n### 2. Performance\n* **Master Score:** 64.2/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 60.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $96.01 | Current |\n| EMA20 | $91.38 | Support |\n| ADX | 12.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $88.23.\n\n### 5. Execution\n* **Entry Zone:** $90.28 - $96.49\n* **Target Price:** $107.68\n* **Stop Loss:** $88.23\n",

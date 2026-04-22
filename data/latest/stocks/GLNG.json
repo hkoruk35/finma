@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GLNG a score of 45.5/100. Trend: Neutral. RSI: 54.8.",
-      "tr": "BOGA AI assigns GLNG a score of 45.5/100. Trend: Neutral. RSI: 54.8.",
-      "es": "BOGA AI assigns GLNG a score of 45.5/100. Trend: Neutral. RSI: 54.8.",
-      "pt": "BOGA AI assigns GLNG a score of 45.5/100. Trend: Neutral. RSI: 54.8.",
-      "fr": "BOGA AI assigns GLNG a score of 45.5/100. Trend: Neutral. RSI: 54.8.",
-      "id": "BOGA AI assigns GLNG a score of 45.5/100. Trend: Neutral. RSI: 54.8."
+      "tr": "BOGA AI, GLNG için 45.5/100 skor verdi. Trend: Nötr. RSI: 54.8.",
+      "es": "BOGA AI asigna a GLNG una puntuación de 45.5/100. Tendencia: Neutral. RSI: 54.8.",
+      "pt": "BOGA AI atribui a GLNG uma pontuação de 45.5/100. Tendência: Neutro. RSI: 54.8.",
+      "fr": "BOGA AI attribue à GLNG un score de 45.5/100. Tendance: Neutre. RSI: 54.8.",
+      "id": "BOGA AI memberikan GLNG skor 45.5/100. Tren: Netral. RSI: 54.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GLNG (Golar LNG Limited)\n\n### 1. Business Context\nGolar LNG Limited operates in the Energy sector. BOGA AI detect institutional interest near $52.87.\n\n### 2. Performance\n* **Master Score:** 45.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $52.87 | Current |\n| EMA20 | $52.57 | Support |\n| ADX | 26.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $49.41.\n\n### 5. Execution\n* **Entry Zone:** $49.11 - $53.13\n* **Target Price:** $58.06\n* **Stop Loss:** $49.41\n",

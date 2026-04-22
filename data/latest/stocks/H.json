@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
-      "tr": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
-      "es": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
-      "pt": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
-      "fr": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
-      "id": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5."
+      "tr": "BOGA AI, H için 48.3/100 skor verdi. Trend: Nötr. RSI: 69.5.",
+      "es": "BOGA AI asigna a H una puntuación de 48.3/100. Tendencia: Neutral. RSI: 69.5.",
+      "pt": "BOGA AI atribui a H uma pontuação de 48.3/100. Tendência: Neutro. RSI: 69.5.",
+      "fr": "BOGA AI attribue à H un score de 48.3/100. Tendance: Neutre. RSI: 69.5.",
+      "id": "BOGA AI memberikan H skor 48.3/100. Tren: Netral. RSI: 69.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: H (Hyatt Hotels Corporation)\n\n### 1. Business Context\nHyatt Hotels Corporation operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $170.87.\n\n### 2. Performance\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 69.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $170.87 | Current |\n| EMA20 | $158.15 | Support |\n| ADX | 23.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $158.81.\n\n### 5. Execution\n* **Entry Zone:** $155.28 - $171.72\n* **Target Price:** $188.96\n* **Stop Loss:** $158.81\n",

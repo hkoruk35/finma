@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
-      "tr": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
-      "es": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
-      "pt": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
-      "fr": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
-      "id": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3."
+      "tr": "BOGA AI, KIM için 63.4/100 skor verdi. Trend: Nötr. RSI: 64.3.",
+      "es": "BOGA AI asigna a KIM una puntuación de 63.4/100. Tendencia: Neutral. RSI: 64.3.",
+      "pt": "BOGA AI atribui a KIM uma pontuação de 63.4/100. Tendência: Neutro. RSI: 64.3.",
+      "fr": "BOGA AI attribue à KIM un score de 63.4/100. Tendance: Neutre. RSI: 64.3.",
+      "id": "BOGA AI memberikan KIM skor 63.4/100. Tren: Netral. RSI: 64.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: KIM (Kimco Realty Corporation)\n\n### 1. Business Context\nKimco Realty Corporation operates in the Real Estate sector. BOGA AI detect institutional interest near $23.83.\n\n### 2. Performance\n* **Master Score:** 63.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 64.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $23.83 | Current |\n| EMA20 | $23.24 | Support |\n| ADX | 30.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $23.03.\n\n### 5. Execution\n* **Entry Zone:** $22.58 - $23.95\n* **Target Price:** $25.03\n* **Stop Loss:** $23.03\n",

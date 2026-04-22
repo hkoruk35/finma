@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PRIM a score of 50.5/100. Trend: Neutral. RSI: 60.3.",
-      "tr": "BOGA AI assigns PRIM a score of 50.5/100. Trend: Neutral. RSI: 60.3.",
-      "es": "BOGA AI assigns PRIM a score of 50.5/100. Trend: Neutral. RSI: 60.3.",
-      "pt": "BOGA AI assigns PRIM a score of 50.5/100. Trend: Neutral. RSI: 60.3.",
-      "fr": "BOGA AI assigns PRIM a score of 50.5/100. Trend: Neutral. RSI: 60.3.",
-      "id": "BOGA AI assigns PRIM a score of 50.5/100. Trend: Neutral. RSI: 60.3."
+      "tr": "BOGA AI, PRIM için 50.5/100 skor verdi. Trend: Nötr. RSI: 60.3.",
+      "es": "BOGA AI asigna a PRIM una puntuación de 50.5/100. Tendencia: Neutral. RSI: 60.3.",
+      "pt": "BOGA AI atribui a PRIM uma pontuação de 50.5/100. Tendência: Neutro. RSI: 60.3.",
+      "fr": "BOGA AI attribue à PRIM un score de 50.5/100. Tendance: Neutre. RSI: 60.3.",
+      "id": "BOGA AI memberikan PRIM skor 50.5/100. Tren: Netral. RSI: 60.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PRIM (Primoris Services Corporation)\n\n### 1. Business Context\nPrimoris Services Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $164.43.\n\n### 2. Performance\n* **Master Score:** 50.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 60.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $164.43 | Current |\n| EMA20 | $156.14 | Support |\n| ADX | 17.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $150.07.\n\n### 5. Execution\n* **Entry Zone:** $149.62 - $165.25\n* **Target Price:** $185.97\n* **Stop Loss:** $150.07\n",

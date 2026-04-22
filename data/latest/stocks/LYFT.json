@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns LYFT a score of 45.3/100. Trend: Neutral. RSI: 60.5.",
-      "tr": "BOGA AI assigns LYFT a score of 45.3/100. Trend: Neutral. RSI: 60.5.",
-      "es": "BOGA AI assigns LYFT a score of 45.3/100. Trend: Neutral. RSI: 60.5.",
-      "pt": "BOGA AI assigns LYFT a score of 45.3/100. Trend: Neutral. RSI: 60.5.",
-      "fr": "BOGA AI assigns LYFT a score of 45.3/100. Trend: Neutral. RSI: 60.5.",
-      "id": "BOGA AI assigns LYFT a score of 45.3/100. Trend: Neutral. RSI: 60.5."
+      "tr": "BOGA AI, LYFT için 45.3/100 skor verdi. Trend: Nötr. RSI: 60.5.",
+      "es": "BOGA AI asigna a LYFT una puntuación de 45.3/100. Tendencia: Neutral. RSI: 60.5.",
+      "pt": "BOGA AI atribui a LYFT uma pontuação de 45.3/100. Tendência: Neutro. RSI: 60.5.",
+      "fr": "BOGA AI attribue à LYFT un score de 45.3/100. Tendance: Neutre. RSI: 60.5.",
+      "id": "BOGA AI memberikan LYFT skor 45.3/100. Tren: Netral. RSI: 60.5."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: LYFT (Lyft, Inc.)\n\n### 1. Business Context\nLyft, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $14.74.\n\n### 2. Performance\n* **Master Score:** 45.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $14.74 | Current |\n| EMA20 | $13.94 | Support |\n| ADX | 16.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $13.50.\n\n### 5. Execution\n* **Entry Zone:** $14.33 - $14.81\n* **Target Price:** $16.60\n* **Stop Loss:** $13.50\n",

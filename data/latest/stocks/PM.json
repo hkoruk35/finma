@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PM a score of 26.4/100. Trend: Neutral. RSI: 36.7.",
-      "tr": "BOGA AI assigns PM a score of 26.4/100. Trend: Neutral. RSI: 36.7.",
-      "es": "BOGA AI assigns PM a score of 26.4/100. Trend: Neutral. RSI: 36.7.",
-      "pt": "BOGA AI assigns PM a score of 26.4/100. Trend: Neutral. RSI: 36.7.",
-      "fr": "BOGA AI assigns PM a score of 26.4/100. Trend: Neutral. RSI: 36.7.",
-      "id": "BOGA AI assigns PM a score of 26.4/100. Trend: Neutral. RSI: 36.7."
+      "tr": "BOGA AI, PM için 26.4/100 skor verdi. Trend: Nötr. RSI: 36.7.",
+      "es": "BOGA AI asigna a PM una puntuación de 26.4/100. Tendencia: Neutral. RSI: 36.7.",
+      "pt": "BOGA AI atribui a PM uma pontuação de 26.4/100. Tendência: Neutro. RSI: 36.7.",
+      "fr": "BOGA AI attribue à PM un score de 26.4/100. Tendance: Neutre. RSI: 36.7.",
+      "id": "BOGA AI memberikan PM skor 26.4/100. Tren: Netral. RSI: 36.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PM (Philip Morris International Inc.)\n\n### 1. Business Context\nPhilip Morris International Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $155.36.\n\n### 2. Performance\n* **Master Score:** 26.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 36.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $155.36 | Current |\n| EMA20 | $160.73 | Support |\n| ADX | 37.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $147.52.\n\n### 5. Execution\n* **Entry Zone:** $154.58 - $156.14\n* **Target Price:** $167.12\n* **Stop Loss:** $147.52\n",

@@ -146,11 +146,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns HII a score of 35.8/100. Trend: Neutral. RSI: 39.1.",
-      "tr": "BOGA AI assigns HII a score of 35.8/100. Trend: Neutral. RSI: 39.1.",
-      "es": "BOGA AI assigns HII a score of 35.8/100. Trend: Neutral. RSI: 39.1.",
-      "pt": "BOGA AI assigns HII a score of 35.8/100. Trend: Neutral. RSI: 39.1.",
-      "fr": "BOGA AI assigns HII a score of 35.8/100. Trend: Neutral. RSI: 39.1.",
-      "id": "BOGA AI assigns HII a score of 35.8/100. Trend: Neutral. RSI: 39.1."
+      "tr": "BOGA AI, HII için 35.8/100 skor verdi. Trend: Nötr. RSI: 39.1.",
+      "es": "BOGA AI asigna a HII una puntuación de 35.8/100. Tendencia: Neutral. RSI: 39.1.",
+      "pt": "BOGA AI atribui a HII uma pontuação de 35.8/100. Tendência: Neutro. RSI: 39.1.",
+      "fr": "BOGA AI attribue à HII un score de 35.8/100. Tendance: Neutre. RSI: 39.1.",
+      "id": "BOGA AI memberikan HII skor 35.8/100. Tren: Netral. RSI: 39.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: HII (Huntington Ingalls Industries, Inc.)\n\n### 1. Business Context\nHuntington Ingalls Industries, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $382.77.\n\n### 2. Performance\n* **Master Score:** 35.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $382.77 | Current |\n| EMA20 | $397.8 | Support |\n| ADX | 24.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $358.55.\n\n### 5. Execution\n* **Entry Zone:** $380.86 - $384.68\n* **Target Price:** $419.10\n* **Stop Loss:** $358.55\n",

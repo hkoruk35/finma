@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ETN a score of 49.2/100. Trend: Neutral. RSI: 67.7.",
-      "tr": "BOGA AI assigns ETN a score of 49.2/100. Trend: Neutral. RSI: 67.7.",
-      "es": "BOGA AI assigns ETN a score of 49.2/100. Trend: Neutral. RSI: 67.7.",
-      "pt": "BOGA AI assigns ETN a score of 49.2/100. Trend: Neutral. RSI: 67.7.",
-      "fr": "BOGA AI assigns ETN a score of 49.2/100. Trend: Neutral. RSI: 67.7.",
-      "id": "BOGA AI assigns ETN a score of 49.2/100. Trend: Neutral. RSI: 67.7."
+      "tr": "BOGA AI, ETN için 49.2/100 skor verdi. Trend: Nötr. RSI: 67.7.",
+      "es": "BOGA AI asigna a ETN una puntuación de 49.2/100. Tendencia: Neutral. RSI: 67.7.",
+      "pt": "BOGA AI atribui a ETN uma pontuação de 49.2/100. Tendência: Neutro. RSI: 67.7.",
+      "fr": "BOGA AI attribue à ETN un score de 49.2/100. Tendance: Neutre. RSI: 67.7.",
+      "id": "BOGA AI memberikan ETN skor 49.2/100. Tren: Netral. RSI: 67.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ETN (Eaton Corporation plc)\n\n### 1. Business Context\nEaton Corporation plc operates in the Industrials sector. BOGA AI detect institutional interest near $410.11.\n\n### 2. Performance\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $410.11 | Current |\n| EMA20 | $387.02 | Support |\n| ADX | 17.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $385.73.\n\n### 5. Execution\n* **Entry Zone:** $371.04 - $412.16\n* **Target Price:** $446.68\n* **Stop Loss:** $385.73\n",

@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
-      "tr": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
-      "es": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
-      "pt": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
-      "fr": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
-      "id": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0."
+      "tr": "BOGA AI, NEXA için 75.5/100 skor verdi. Trend: Nötr. RSI: 69.0.",
+      "es": "BOGA AI asigna a NEXA una puntuación de 75.5/100. Tendencia: Neutral. RSI: 69.0.",
+      "pt": "BOGA AI atribui a NEXA uma pontuação de 75.5/100. Tendência: Neutro. RSI: 69.0.",
+      "fr": "BOGA AI attribue à NEXA un score de 75.5/100. Tendance: Neutre. RSI: 69.0.",
+      "id": "BOGA AI memberikan NEXA skor 75.5/100. Tren: Netral. RSI: 69.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: NEXA (Nexa Resources S.A.)\n\n### 1. Business Context\nNexa Resources S.A. operates in the Materials sector. BOGA AI detect institutional interest near $15.02.\n\n### 2. Performance\n* **Master Score:** 75.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 69.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $15.02 | Current |\n| EMA20 | $12.79 | Support |\n| ADX | 26.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $13.02.\n\n### 5. Execution\n* **Entry Zone:** $11.73 - $15.10\n* **Target Price:** $18.02\n* **Stop Loss:** $13.02\n",

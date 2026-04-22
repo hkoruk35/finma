@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns RTX a score of 27.1/100. Trend: Neutral. RSI: 35.8.",
-      "tr": "BOGA AI assigns RTX a score of 27.1/100. Trend: Neutral. RSI: 35.8.",
-      "es": "BOGA AI assigns RTX a score of 27.1/100. Trend: Neutral. RSI: 35.8.",
-      "pt": "BOGA AI assigns RTX a score of 27.1/100. Trend: Neutral. RSI: 35.8.",
-      "fr": "BOGA AI assigns RTX a score of 27.1/100. Trend: Neutral. RSI: 35.8.",
-      "id": "BOGA AI assigns RTX a score of 27.1/100. Trend: Neutral. RSI: 35.8."
+      "tr": "BOGA AI, RTX için 27.1/100 skor verdi. Trend: Nötr. RSI: 35.8.",
+      "es": "BOGA AI asigna a RTX una puntuación de 27.1/100. Tendencia: Neutral. RSI: 35.8.",
+      "pt": "BOGA AI atribui a RTX uma pontuação de 27.1/100. Tendência: Neutro. RSI: 35.8.",
+      "fr": "BOGA AI attribue à RTX un score de 27.1/100. Tendance: Neutre. RSI: 35.8.",
+      "id": "BOGA AI memberikan RTX skor 27.1/100. Tren: Netral. RSI: 35.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: RTX (RTX Corporation)\n\n### 1. Business Context\nRTX Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $188.79.\n\n### 2. Performance\n* **Master Score:** 27.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $188.79 | Current |\n| EMA20 | $197.51 | Support |\n| ADX | 21.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $178.81.\n\n### 5. Execution\n* **Entry Zone:** $187.85 - $189.73\n* **Target Price:** $203.76\n* **Stop Loss:** $178.81\n",

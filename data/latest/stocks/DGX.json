@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DGX a score of 64.4/100. Trend: Neutral. RSI: 65.1.",
-      "tr": "BOGA AI assigns DGX a score of 64.4/100. Trend: Neutral. RSI: 65.1.",
-      "es": "BOGA AI assigns DGX a score of 64.4/100. Trend: Neutral. RSI: 65.1.",
-      "pt": "BOGA AI assigns DGX a score of 64.4/100. Trend: Neutral. RSI: 65.1.",
-      "fr": "BOGA AI assigns DGX a score of 64.4/100. Trend: Neutral. RSI: 65.1.",
-      "id": "BOGA AI assigns DGX a score of 64.4/100. Trend: Neutral. RSI: 65.1."
+      "tr": "BOGA AI, DGX için 64.4/100 skor verdi. Trend: Nötr. RSI: 65.1.",
+      "es": "BOGA AI asigna a DGX una puntuación de 64.4/100. Tendencia: Neutral. RSI: 65.1.",
+      "pt": "BOGA AI atribui a DGX uma pontuação de 64.4/100. Tendência: Neutro. RSI: 65.1.",
+      "fr": "BOGA AI attribue à DGX un score de 64.4/100. Tendance: Neutre. RSI: 65.1.",
+      "id": "BOGA AI memberikan DGX skor 64.4/100. Tren: Netral. RSI: 65.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DGX (Quest Diagnostics Incorporated)\n\n### 1. Business Context\nQuest Diagnostics Incorporated operates in the Healthcare sector. BOGA AI detect institutional interest near $205.99.\n\n### 2. Performance\n* **Master Score:** 64.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 65.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $205.99 | Current |\n| EMA20 | $196.48 | Support |\n| ADX | 14.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $195.93.\n\n### 5. Execution\n* **Entry Zone:** $194.71 - $207.02\n* **Target Price:** $221.08\n* **Stop Loss:** $195.93\n",

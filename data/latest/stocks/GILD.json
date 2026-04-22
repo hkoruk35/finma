@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GILD a score of 27.1/100. Trend: Neutral. RSI: 33.4.",
-      "tr": "BOGA AI assigns GILD a score of 27.1/100. Trend: Neutral. RSI: 33.4.",
-      "es": "BOGA AI assigns GILD a score of 27.1/100. Trend: Neutral. RSI: 33.4.",
-      "pt": "BOGA AI assigns GILD a score of 27.1/100. Trend: Neutral. RSI: 33.4.",
-      "fr": "BOGA AI assigns GILD a score of 27.1/100. Trend: Neutral. RSI: 33.4.",
-      "id": "BOGA AI assigns GILD a score of 27.1/100. Trend: Neutral. RSI: 33.4."
+      "tr": "BOGA AI, GILD için 27.1/100 skor verdi. Trend: Nötr. RSI: 33.4.",
+      "es": "BOGA AI asigna a GILD una puntuación de 27.1/100. Tendencia: Neutral. RSI: 33.4.",
+      "pt": "BOGA AI atribui a GILD uma pontuação de 27.1/100. Tendência: Neutro. RSI: 33.4.",
+      "fr": "BOGA AI attribue à GILD un score de 27.1/100. Tendance: Neutre. RSI: 33.4.",
+      "id": "BOGA AI memberikan GILD skor 27.1/100. Tren: Netral. RSI: 33.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GILD (Gilead Sciences, Inc.)\n\n### 1. Business Context\nGilead Sciences, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $132.62.\n\n### 2. Performance\n* **Master Score:** 27.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $132.62 | Current |\n| EMA20 | $138.83 | Support |\n| ADX | 11.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $126.22.\n\n### 5. Execution\n* **Entry Zone:** $131.96 - $133.28\n* **Target Price:** $142.22\n* **Stop Loss:** $126.22\n",

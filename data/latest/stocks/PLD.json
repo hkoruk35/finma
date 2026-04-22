@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns PLD a score of 56.4/100. Trend: Neutral. RSI: 62.9.",
-      "tr": "BOGA AI assigns PLD a score of 56.4/100. Trend: Neutral. RSI: 62.9.",
-      "es": "BOGA AI assigns PLD a score of 56.4/100. Trend: Neutral. RSI: 62.9.",
-      "pt": "BOGA AI assigns PLD a score of 56.4/100. Trend: Neutral. RSI: 62.9.",
-      "fr": "BOGA AI assigns PLD a score of 56.4/100. Trend: Neutral. RSI: 62.9.",
-      "id": "BOGA AI assigns PLD a score of 56.4/100. Trend: Neutral. RSI: 62.9."
+      "tr": "BOGA AI, PLD için 56.4/100 skor verdi. Trend: Nötr. RSI: 62.9.",
+      "es": "BOGA AI asigna a PLD una puntuación de 56.4/100. Tendencia: Neutral. RSI: 62.9.",
+      "pt": "BOGA AI atribui a PLD uma pontuação de 56.4/100. Tendência: Neutro. RSI: 62.9.",
+      "fr": "BOGA AI attribue à PLD un score de 56.4/100. Tendance: Neutre. RSI: 62.9.",
+      "id": "BOGA AI memberikan PLD skor 56.4/100. Tren: Netral. RSI: 62.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: PLD (Prologis, Inc.)\n\n### 1. Business Context\nPrologis, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $141.84.\n\n### 2. Performance\n* **Master Score:** 56.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 62.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $141.84 | Current |\n| EMA20 | $137.76 | Support |\n| ADX | 25.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $135.78.\n\n### 5. Execution\n* **Entry Zone:** $134.39 - $142.55\n* **Target Price:** $150.93\n* **Stop Loss:** $135.78\n",

@@ -69,48 +69,54 @@ def generate_v55_report_local(c: dict) -> dict:
             "desc": f"{comp} operates in the {sect} sector. BOGA AI detect institutional interest near ${pr:.2f}.",
             "v": "Verdict", "cur": "Current", "sup": "Support", "str": "Strength",
             "r_body": f"Volatility and sector rotation are key risks. Support near ${zd.get('stop_range_high', 0):.2f}.",
-            "entry": "Entry Zone", "target": "Target Price", "stop": "Stop Loss"
+            "entry": "Entry Zone", "target": "Target Price", "stop": "Stop Loss",
+            "home": f"BOGA AI assigns {t} a score of {s:.1f}/100. Trend: {tech.get('trend', 'Neutral')}. RSI: {tech.get('rsi_14', 50)}."
         },
         "tr": {
             "t": "Kurumsal Analiz", "b": "İş Bağlamı", "p": "Performans", "tm": "Teknik Matris", "r": "Riskler", "e": "Uygulama",
             "desc": f"{comp}, {sect} sektöründe faaliyet göstermektedir. BOGA AI, ${pr:.2f} seviyelerinde kurumsal ilgi tespit etti.",
             "v": "Karar", "cur": "Güncel", "sup": "Destek", "str": "Güç",
             "r_body": f"Volatilite ve sektör rotasyonu temel risklerdir. Destek seviyesi ${zd.get('stop_range_high', 0):.2f} civarındadır.",
-            "entry": "Giriş Bölgesi", "target": "Hedef Fiyat", "stop": "Zarar Kes"
+            "entry": "Giriş Bölgesi", "target": "Hedef Fiyat", "stop": "Zarar Kes",
+            "home": f"BOGA AI, {t} için {s:.1f}/100 skor verdi. Trend: {tech.get('trend', 'Nötr')}. RSI: {tech.get('rsi_14', 50)}."
         },
         "es": {
             "t": "Análisis Institucional", "b": "Contexto", "p": "Desempeño", "tm": "Matriz Técnica", "r": "Riesgos", "e": "Ejecución",
             "desc": f"{comp} opera en el sector {sect}. BOGA AI detecta interés institucional cerca de ${pr:.2f}.",
             "v": "Veredicto", "cur": "Actual", "sup": "Soporte", "str": "Fuerza",
             "r_body": f"La volatilidad y la rotación sectorial son riesgos clave. Soporte cerca de ${zd.get('stop_range_high', 0):.2f}.",
-            "entry": "Zona de Entrada", "target": "Precio Objetivo", "stop": "Stop Loss"
+            "entry": "Zona de Entrada", "target": "Precio Objetivo", "stop": "Stop Loss",
+            "home": f"BOGA AI asigna a {t} una puntuación de {s:.1f}/100. Tendencia: {tech.get('trend', 'Neutral')}. RSI: {tech.get('rsi_14', 50)}."
         },
         "pt": {
             "t": "Análise Institucional", "b": "Contexto", "p": "Desempenho", "tm": "Matriz Técnica", "r": "Riscos", "e": "Execução",
             "desc": f"{comp} opera no setor {sect}. BOGA AI detecta interesse institucional perto de ${pr:.2f}.",
             "v": "Veredito", "cur": "Atual", "sup": "Suporte", "str": "Força",
             "r_body": f"A volatilidade e a rotação setorial são riscos principais. Suporte próximo de ${zd.get('stop_range_high', 0):.2f}.",
-            "entry": "Zona de Entrada", "target": "Preço Alvo", "stop": "Stop Loss"
+            "entry": "Zona de Entrada", "target": "Preço Alvo", "stop": "Stop Loss",
+            "home": f"BOGA AI atribui a {t} uma pontuação de {s:.1f}/100. Tendência: {tech.get('trend', 'Neutro')}. RSI: {tech.get('rsi_14', 50)}."
         },
         "fr": {
             "t": "Analyse Institutionnelle", "b": "Contexte Business", "p": "Performance", "tm": "Matrice Technique", "r": "Risques", "e": "Exécution",
             "desc": f"{comp} opère dans le secteur {sect}. BOGA AI détecte un intérêt institutionnel proche de ${pr:.2f}.",
             "v": "Verdict", "cur": "Actuel", "sup": "Support", "str": "Force",
             "r_body": f"La volatilité et la rotation sectorielle sont des risques clés. Support proche de ${zd.get('stop_range_high', 0):.2f}.",
-            "entry": "Zone d'Entrée", "target": "Prix Cible", "stop": "Stop Loss"
+            "entry": "Zone d'Entrée", "target": "Prix Cible", "stop": "Stop Loss",
+            "home": f"BOGA AI attribue à {t} un score de {s:.1f}/100. Tendance: {tech.get('trend', 'Neutre')}. RSI: {tech.get('rsi_14', 50)}."
         },
         "id": {
             "t": "Analisis Institusional", "b": "Konteks Bisnis", "p": "Performa", "tm": "Matriks Teknikal", "r": "Risiko", "e": "Eksekusi",
             "desc": f"{comp} beroperasi di sektor {sect}. BOGA AI mendeteksi minat institusional di dekat ${pr:.2f}.",
             "v": "Keputusan", "cur": "Saat Ini", "sup": "Dukungan", "str": "Kekuatan",
             "r_body": f"Volatilitas dan rotasi sektor adalah risiko utama. Dukungan di dekat ${zd.get('stop_range_high', 0):.2f}.",
-            "entry": "Zona Masuk", "target": "Target Harga", "stop": "Stop Loss"
+            "entry": "Zona Masuk", "target": "Target Harga", "stop": "Stop Loss",
+            "home": f"BOGA AI memberikan {t} skor {s:.1f}/100. Tren: {tech.get('trend', 'Netral')}. RSI: {tech.get('rsi_14', 50)}."
         }
     }
 
     home = {}; detail = {}
     for l, val in langs.items():
-        home[l] = f"BOGA AI assigns {t} a score of {s:.1f}/100. Trend: {tech.get('trend', 'Neutral')}. RSI: {tech.get('rsi_14', 50)}."
+        home[l] = val['home']
         detail[l] = f"""## {val['t']}: {t} ({comp})
 
 ### 1. {val['b']}

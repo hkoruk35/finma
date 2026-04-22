@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CVE a score of 54.8/100. Trend: Neutral. RSI: 53.4.",
-      "tr": "BOGA AI assigns CVE a score of 54.8/100. Trend: Neutral. RSI: 53.4.",
-      "es": "BOGA AI assigns CVE a score of 54.8/100. Trend: Neutral. RSI: 53.4.",
-      "pt": "BOGA AI assigns CVE a score of 54.8/100. Trend: Neutral. RSI: 53.4.",
-      "fr": "BOGA AI assigns CVE a score of 54.8/100. Trend: Neutral. RSI: 53.4.",
-      "id": "BOGA AI assigns CVE a score of 54.8/100. Trend: Neutral. RSI: 53.4."
+      "tr": "BOGA AI, CVE için 54.8/100 skor verdi. Trend: Nötr. RSI: 53.4.",
+      "es": "BOGA AI asigna a CVE una puntuación de 54.8/100. Tendencia: Neutral. RSI: 53.4.",
+      "pt": "BOGA AI atribui a CVE uma pontuação de 54.8/100. Tendência: Neutro. RSI: 53.4.",
+      "fr": "BOGA AI attribue à CVE un score de 54.8/100. Tendance: Neutre. RSI: 53.4.",
+      "id": "BOGA AI memberikan CVE skor 54.8/100. Tren: Netral. RSI: 53.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CVE (Cenovus Energy Inc.)\n\n### 1. Business Context\nCenovus Energy Inc. operates in the Energy sector. BOGA AI detect institutional interest near $25.59.\n\n### 2. Performance\n* **Master Score:** 54.8/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $25.59 | Current |\n| EMA20 | $25.43 | Support |\n| ADX | 25.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $23.71.\n\n### 5. Execution\n* **Entry Zone:** $23.82 - $25.72\n* **Target Price:** $28.41\n* **Stop Loss:** $23.71\n",

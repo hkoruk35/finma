@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns AEP a score of 27.8/100. Trend: Neutral. RSI: 52.3.",
-      "tr": "BOGA AI assigns AEP a score of 27.8/100. Trend: Neutral. RSI: 52.3.",
-      "es": "BOGA AI assigns AEP a score of 27.8/100. Trend: Neutral. RSI: 52.3.",
-      "pt": "BOGA AI assigns AEP a score of 27.8/100. Trend: Neutral. RSI: 52.3.",
-      "fr": "BOGA AI assigns AEP a score of 27.8/100. Trend: Neutral. RSI: 52.3.",
-      "id": "BOGA AI assigns AEP a score of 27.8/100. Trend: Neutral. RSI: 52.3."
+      "tr": "BOGA AI, AEP için 27.8/100 skor verdi. Trend: Nötr. RSI: 52.3.",
+      "es": "BOGA AI asigna a AEP una puntuación de 27.8/100. Tendencia: Neutral. RSI: 52.3.",
+      "pt": "BOGA AI atribui a AEP uma pontuação de 27.8/100. Tendência: Neutro. RSI: 52.3.",
+      "fr": "BOGA AI attribue à AEP un score de 27.8/100. Tendance: Neutre. RSI: 52.3.",
+      "id": "BOGA AI memberikan AEP skor 27.8/100. Tren: Netral. RSI: 52.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: AEP (American Electric Power Company, Inc.)\n\n### 1. Business Context\nAmerican Electric Power Company, Inc. operates in the Utilities sector. BOGA AI detect institutional interest near $133.05.\n\n### 2. Performance\n* **Master Score:** 27.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $133.05 | Current |\n| EMA20 | $133.09 | Support |\n| ADX | 16.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $128.31.\n\n### 5. Execution\n* **Entry Zone:** $129.48 - $133.72\n* **Target Price:** $140.16\n* **Stop Loss:** $128.31\n",

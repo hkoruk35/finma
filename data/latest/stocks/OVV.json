@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns OVV a score of 42.3/100. Trend: Neutral. RSI: 45.8.",
-      "tr": "BOGA AI assigns OVV a score of 42.3/100. Trend: Neutral. RSI: 45.8.",
-      "es": "BOGA AI assigns OVV a score of 42.3/100. Trend: Neutral. RSI: 45.8.",
-      "pt": "BOGA AI assigns OVV a score of 42.3/100. Trend: Neutral. RSI: 45.8.",
-      "fr": "BOGA AI assigns OVV a score of 42.3/100. Trend: Neutral. RSI: 45.8.",
-      "id": "BOGA AI assigns OVV a score of 42.3/100. Trend: Neutral. RSI: 45.8."
+      "tr": "BOGA AI, OVV için 42.3/100 skor verdi. Trend: Nötr. RSI: 45.8.",
+      "es": "BOGA AI asigna a OVV una puntuación de 42.3/100. Tendencia: Neutral. RSI: 45.8.",
+      "pt": "BOGA AI atribui a OVV uma pontuação de 42.3/100. Tendência: Neutro. RSI: 45.8.",
+      "fr": "BOGA AI attribue à OVV un score de 42.3/100. Tendance: Neutre. RSI: 45.8.",
+      "id": "BOGA AI memberikan OVV skor 42.3/100. Tren: Netral. RSI: 45.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: OVV (Ovintiv Inc.)\n\n### 1. Business Context\nOvintiv Inc. operates in the Energy sector. BOGA AI detect institutional interest near $54.38.\n\n### 2. Performance\n* **Master Score:** 42.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $54.38 | Current |\n| EMA20 | $55.84 | Support |\n| ADX | 24.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $50.36.\n\n### 5. Execution\n* **Entry Zone:** $53.13 - $54.65\n* **Target Price:** $60.41\n* **Stop Loss:** $50.36\n",

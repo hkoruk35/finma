@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SO a score of 21.3/100. Trend: Neutral. RSI: 33.9.",
-      "tr": "BOGA AI assigns SO a score of 21.3/100. Trend: Neutral. RSI: 33.9.",
-      "es": "BOGA AI assigns SO a score of 21.3/100. Trend: Neutral. RSI: 33.9.",
-      "pt": "BOGA AI assigns SO a score of 21.3/100. Trend: Neutral. RSI: 33.9.",
-      "fr": "BOGA AI assigns SO a score of 21.3/100. Trend: Neutral. RSI: 33.9.",
-      "id": "BOGA AI assigns SO a score of 21.3/100. Trend: Neutral. RSI: 33.9."
+      "tr": "BOGA AI, SO için 21.3/100 skor verdi. Trend: Nötr. RSI: 33.9.",
+      "es": "BOGA AI asigna a SO una puntuación de 21.3/100. Tendencia: Neutral. RSI: 33.9.",
+      "pt": "BOGA AI atribui a SO uma pontuação de 21.3/100. Tendência: Neutro. RSI: 33.9.",
+      "fr": "BOGA AI attribue à SO un score de 21.3/100. Tendance: Neutre. RSI: 33.9.",
+      "id": "BOGA AI memberikan SO skor 21.3/100. Tren: Netral. RSI: 33.9."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SO (The Southern Company)\n\n### 1. Business Context\nThe Southern Company operates in the Utilities sector. BOGA AI detect institutional interest near $92.54.\n\n### 2. Performance\n* **Master Score:** 21.3/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $92.54 | Current |\n| EMA20 | $95.39 | Support |\n| ADX | 18.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $89.44.\n\n### 5. Execution\n* **Entry Zone:** $92.08 - $93.00\n* **Target Price:** $97.19\n* **Stop Loss:** $89.44\n",

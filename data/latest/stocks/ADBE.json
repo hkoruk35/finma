@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns ADBE a score of 42.9/100. Trend: Neutral. RSI: 52.6.",
-      "tr": "BOGA AI assigns ADBE a score of 42.9/100. Trend: Neutral. RSI: 52.6.",
-      "es": "BOGA AI assigns ADBE a score of 42.9/100. Trend: Neutral. RSI: 52.6.",
-      "pt": "BOGA AI assigns ADBE a score of 42.9/100. Trend: Neutral. RSI: 52.6.",
-      "fr": "BOGA AI assigns ADBE a score of 42.9/100. Trend: Neutral. RSI: 52.6.",
-      "id": "BOGA AI assigns ADBE a score of 42.9/100. Trend: Neutral. RSI: 52.6."
+      "tr": "BOGA AI, ADBE için 42.9/100 skor verdi. Trend: Nötr. RSI: 52.6.",
+      "es": "BOGA AI asigna a ADBE una puntuación de 42.9/100. Tendencia: Neutral. RSI: 52.6.",
+      "pt": "BOGA AI atribui a ADBE uma pontuação de 42.9/100. Tendência: Neutro. RSI: 52.6.",
+      "fr": "BOGA AI attribue à ADBE un score de 42.9/100. Tendance: Neutre. RSI: 52.6.",
+      "id": "BOGA AI memberikan ADBE skor 42.9/100. Tren: Netral. RSI: 52.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: ADBE (Adobe Inc.)\n\n### 1. Business Context\nAdobe Inc. operates in the Technology sector. BOGA AI detect institutional interest near $249.79.\n\n### 2. Performance\n* **Master Score:** 42.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 52.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $249.79 | Current |\n| EMA20 | $244.48 | Support |\n| ADX | 25.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $231.19.\n\n### 5. Execution\n* **Entry Zone:** $248.54 - $251.04\n* **Target Price:** $277.69\n* **Stop Loss:** $231.19\n",

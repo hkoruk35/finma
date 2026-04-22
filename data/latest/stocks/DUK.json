@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
-      "tr": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
-      "es": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
-      "pt": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
-      "fr": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
-      "id": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3."
+      "tr": "BOGA AI, DUK için 29.2/100 skor verdi. Trend: Nötr. RSI: 38.3.",
+      "es": "BOGA AI asigna a DUK una puntuación de 29.2/100. Tendencia: Neutral. RSI: 38.3.",
+      "pt": "BOGA AI atribui a DUK uma pontuação de 29.2/100. Tendência: Neutro. RSI: 38.3.",
+      "fr": "BOGA AI attribue à DUK un score de 29.2/100. Tendance: Neutre. RSI: 38.3.",
+      "id": "BOGA AI memberikan DUK skor 29.2/100. Tren: Netral. RSI: 38.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DUK (Duke Energy Corporation)\n\n### 1. Business Context\nDuke Energy Corporation operates in the Utilities sector. BOGA AI detect institutional interest near $126.64.\n\n### 2. Performance\n* **Master Score:** 29.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $126.64 | Current |\n| EMA20 | $129.5 | Support |\n| ADX | 16.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $122.32.\n\n### 5. Execution\n* **Entry Zone:** $126.01 - $127.27\n* **Target Price:** $133.12\n* **Stop Loss:** $122.32\n",

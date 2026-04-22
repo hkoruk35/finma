@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns IBM a score of 45.6/100. Trend: Neutral. RSI: 59.1.",
-      "tr": "BOGA AI assigns IBM a score of 45.6/100. Trend: Neutral. RSI: 59.1.",
-      "es": "BOGA AI assigns IBM a score of 45.6/100. Trend: Neutral. RSI: 59.1.",
-      "pt": "BOGA AI assigns IBM a score of 45.6/100. Trend: Neutral. RSI: 59.1.",
-      "fr": "BOGA AI assigns IBM a score of 45.6/100. Trend: Neutral. RSI: 59.1.",
-      "id": "BOGA AI assigns IBM a score of 45.6/100. Trend: Neutral. RSI: 59.1."
+      "tr": "BOGA AI, IBM için 45.6/100 skor verdi. Trend: Nötr. RSI: 59.1.",
+      "es": "BOGA AI asigna a IBM una puntuación de 45.6/100. Tendencia: Neutral. RSI: 59.1.",
+      "pt": "BOGA AI atribui a IBM uma pontuação de 45.6/100. Tendência: Neutro. RSI: 59.1.",
+      "fr": "BOGA AI attribue à IBM un score de 45.6/100. Tendance: Neutre. RSI: 59.1.",
+      "id": "BOGA AI memberikan IBM skor 45.6/100. Tren: Netral. RSI: 59.1."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: IBM (International Business Machines Corporation)\n\n### 1. Business Context\nInternational Business Machines Corporation operates in the Technology sector. BOGA AI detect institutional interest near $256.42.\n\n### 2. Performance\n* **Master Score:** 45.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $256.42 | Current |\n| EMA20 | $246.58 | Support |\n| ADX | 17.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $242.82.\n\n### 5. Execution\n* **Entry Zone:** $252.28 - $257.70\n* **Target Price:** $276.82\n* **Stop Loss:** $242.82\n",

@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns WDS a score of 37.5/100. Trend: Neutral. RSI: 46.6.",
-      "tr": "BOGA AI assigns WDS a score of 37.5/100. Trend: Neutral. RSI: 46.6.",
-      "es": "BOGA AI assigns WDS a score of 37.5/100. Trend: Neutral. RSI: 46.6.",
-      "pt": "BOGA AI assigns WDS a score of 37.5/100. Trend: Neutral. RSI: 46.6.",
-      "fr": "BOGA AI assigns WDS a score of 37.5/100. Trend: Neutral. RSI: 46.6.",
-      "id": "BOGA AI assigns WDS a score of 37.5/100. Trend: Neutral. RSI: 46.6."
+      "tr": "BOGA AI, WDS için 37.5/100 skor verdi. Trend: Nötr. RSI: 46.6.",
+      "es": "BOGA AI asigna a WDS una puntuación de 37.5/100. Tendencia: Neutral. RSI: 46.6.",
+      "pt": "BOGA AI atribui a WDS uma pontuação de 37.5/100. Tendência: Neutro. RSI: 46.6.",
+      "fr": "BOGA AI attribue à WDS un score de 37.5/100. Tendance: Neutre. RSI: 46.6.",
+      "id": "BOGA AI memberikan WDS skor 37.5/100. Tren: Netral. RSI: 46.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: WDS (Woodside Energy Group Ltd)\n\n### 1. Business Context\nWoodside Energy Group Ltd operates in the Energy sector. BOGA AI detect institutional interest near $22.65.\n\n### 2. Performance\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 46.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $22.65 | Current |\n| EMA20 | $23.26 | Support |\n| ADX | 24.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $21.19.\n\n### 5. Execution\n* **Entry Zone:** $21.76 - $22.76\n* **Target Price:** $24.84\n* **Stop Loss:** $21.19\n",

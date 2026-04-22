@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
-      "tr": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
-      "es": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
-      "pt": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
-      "fr": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
-      "id": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4."
+      "tr": "BOGA AI, GD için 23.1/100 skor verdi. Trend: Nötr. RSI: 33.4.",
+      "es": "BOGA AI asigna a GD una puntuación de 23.1/100. Tendencia: Neutral. RSI: 33.4.",
+      "pt": "BOGA AI atribui a GD uma pontuação de 23.1/100. Tendência: Neutro. RSI: 33.4.",
+      "fr": "BOGA AI attribue à GD un score de 23.1/100. Tendance: Neutre. RSI: 33.4.",
+      "id": "BOGA AI memberikan GD skor 23.1/100. Tren: Netral. RSI: 33.4."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: GD (General Dynamics Corporation)\n\n### 1. Business Context\nGeneral Dynamics Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $326.36.\n\n### 2. Performance\n* **Master Score:** 23.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $326.36 | Current |\n| EMA20 | $340.72 | Support |\n| ADX | 33.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $312.00.\n\n### 5. Execution\n* **Entry Zone:** $324.73 - $327.99\n* **Target Price:** $347.90\n* **Stop Loss:** $312.00\n",

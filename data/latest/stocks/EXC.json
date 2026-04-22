@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns EXC a score of 29.9/100. Trend: Neutral. RSI: 35.6.",
-      "tr": "BOGA AI assigns EXC a score of 29.9/100. Trend: Neutral. RSI: 35.6.",
-      "es": "BOGA AI assigns EXC a score of 29.9/100. Trend: Neutral. RSI: 35.6.",
-      "pt": "BOGA AI assigns EXC a score of 29.9/100. Trend: Neutral. RSI: 35.6.",
-      "fr": "BOGA AI assigns EXC a score of 29.9/100. Trend: Neutral. RSI: 35.6.",
-      "id": "BOGA AI assigns EXC a score of 29.9/100. Trend: Neutral. RSI: 35.6."
+      "tr": "BOGA AI, EXC için 29.9/100 skor verdi. Trend: Nötr. RSI: 35.6.",
+      "es": "BOGA AI asigna a EXC una puntuación de 29.9/100. Tendencia: Neutral. RSI: 35.6.",
+      "pt": "BOGA AI atribui a EXC uma pontuação de 29.9/100. Tendência: Neutro. RSI: 35.6.",
+      "fr": "BOGA AI attribue à EXC un score de 29.9/100. Tendance: Neutre. RSI: 35.6.",
+      "id": "BOGA AI memberikan EXC skor 29.9/100. Tren: Netral. RSI: 35.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: EXC (Exelon Corporation)\n\n### 1. Business Context\nExelon Corporation operates in the Utilities sector. BOGA AI detect institutional interest near $46.35.\n\n### 2. Performance\n* **Master Score:** 29.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $46.35 | Current |\n| EMA20 | $47.98 | Support |\n| ADX | 18.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $44.45.\n\n### 5. Execution\n* **Entry Zone:** $46.12 - $46.58\n* **Target Price:** $49.20\n* **Stop Loss:** $44.45\n",

@@ -149,11 +149,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns FSM a score of 41.5/100. Trend: Neutral. RSI: 47.0.",
-      "tr": "BOGA AI assigns FSM a score of 41.5/100. Trend: Neutral. RSI: 47.0.",
-      "es": "BOGA AI assigns FSM a score of 41.5/100. Trend: Neutral. RSI: 47.0.",
-      "pt": "BOGA AI assigns FSM a score of 41.5/100. Trend: Neutral. RSI: 47.0.",
-      "fr": "BOGA AI assigns FSM a score of 41.5/100. Trend: Neutral. RSI: 47.0.",
-      "id": "BOGA AI assigns FSM a score of 41.5/100. Trend: Neutral. RSI: 47.0."
+      "tr": "BOGA AI, FSM için 41.5/100 skor verdi. Trend: Nötr. RSI: 47.0.",
+      "es": "BOGA AI asigna a FSM una puntuación de 41.5/100. Tendencia: Neutral. RSI: 47.0.",
+      "pt": "BOGA AI atribui a FSM uma pontuação de 41.5/100. Tendência: Neutro. RSI: 47.0.",
+      "fr": "BOGA AI attribue à FSM un score de 41.5/100. Tendance: Neutre. RSI: 47.0.",
+      "id": "BOGA AI memberikan FSM skor 41.5/100. Tren: Netral. RSI: 47.0."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: FSM (Fortuna Mining Corp.)\n\n### 1. Business Context\nFortuna Mining Corp. operates in the Materials sector. BOGA AI detect institutional interest near $10.22.\n\n### 2. Performance\n* **Master Score:** 41.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $10.22 | Current |\n| EMA20 | $10.4 | Support |\n| ADX | 14.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $9.16.\n\n### 5. Execution\n* **Entry Zone:** $10.17 - $10.27\n* **Target Price:** $11.81\n* **Stop Loss:** $9.16\n",

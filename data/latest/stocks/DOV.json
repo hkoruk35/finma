@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
-      "tr": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
-      "es": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
-      "pt": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
-      "fr": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
-      "id": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8."
+      "tr": "BOGA AI, DOV için 47.5/100 skor verdi. Trend: Nötr. RSI: 57.8.",
+      "es": "BOGA AI asigna a DOV una puntuación de 47.5/100. Tendencia: Neutral. RSI: 57.8.",
+      "pt": "BOGA AI atribui a DOV uma pontuação de 47.5/100. Tendência: Neutro. RSI: 57.8.",
+      "fr": "BOGA AI attribue à DOV un score de 47.5/100. Tendance: Neutre. RSI: 57.8.",
+      "id": "BOGA AI memberikan DOV skor 47.5/100. Tren: Netral. RSI: 57.8."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: DOV (Dover Corporation)\n\n### 1. Business Context\nDover Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $220.27.\n\n### 2. Performance\n* **Master Score:** 47.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $220.27 | Current |\n| EMA20 | $215.32 | Support |\n| ADX | 15.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $209.41.\n\n### 5. Execution\n* **Entry Zone:** $212.30 - $221.37\n* **Target Price:** $236.56\n* **Stop Loss:** $209.41\n",

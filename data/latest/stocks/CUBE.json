@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CUBE a score of 57.2/100. Trend: Neutral. RSI: 60.7.",
-      "tr": "BOGA AI assigns CUBE a score of 57.2/100. Trend: Neutral. RSI: 60.7.",
-      "es": "BOGA AI assigns CUBE a score of 57.2/100. Trend: Neutral. RSI: 60.7.",
-      "pt": "BOGA AI assigns CUBE a score of 57.2/100. Trend: Neutral. RSI: 60.7.",
-      "fr": "BOGA AI assigns CUBE a score of 57.2/100. Trend: Neutral. RSI: 60.7.",
-      "id": "BOGA AI assigns CUBE a score of 57.2/100. Trend: Neutral. RSI: 60.7."
+      "tr": "BOGA AI, CUBE için 57.2/100 skor verdi. Trend: Nötr. RSI: 60.7.",
+      "es": "BOGA AI asigna a CUBE una puntuación de 57.2/100. Tendencia: Neutral. RSI: 60.7.",
+      "pt": "BOGA AI atribui a CUBE uma pontuação de 57.2/100. Tendência: Neutro. RSI: 60.7.",
+      "fr": "BOGA AI attribue à CUBE un score de 57.2/100. Tendance: Neutre. RSI: 60.7.",
+      "id": "BOGA AI memberikan CUBE skor 57.2/100. Tren: Netral. RSI: 60.7."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CUBE (CubeSmart)\n\n### 1. Business Context\nCubeSmart operates in the Real Estate sector. BOGA AI detect institutional interest near $39.61.\n\n### 2. Performance\n* **Master Score:** 57.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 60.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $39.61 | Current |\n| EMA20 | $38.53 | Support |\n| ADX | 23.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $37.87.\n\n### 5. Execution\n* **Entry Zone:** $37.90 - $39.81\n* **Target Price:** $42.22\n* **Stop Loss:** $37.87\n",

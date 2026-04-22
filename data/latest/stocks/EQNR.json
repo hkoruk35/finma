@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns EQNR a score of 29.0/100. Trend: Neutral. RSI: 49.3.",
-      "tr": "BOGA AI assigns EQNR a score of 29.0/100. Trend: Neutral. RSI: 49.3.",
-      "es": "BOGA AI assigns EQNR a score of 29.0/100. Trend: Neutral. RSI: 49.3.",
-      "pt": "BOGA AI assigns EQNR a score of 29.0/100. Trend: Neutral. RSI: 49.3.",
-      "fr": "BOGA AI assigns EQNR a score of 29.0/100. Trend: Neutral. RSI: 49.3.",
-      "id": "BOGA AI assigns EQNR a score of 29.0/100. Trend: Neutral. RSI: 49.3."
+      "tr": "BOGA AI, EQNR için 29.0/100 skor verdi. Trend: Nötr. RSI: 49.3.",
+      "es": "BOGA AI asigna a EQNR una puntuación de 29.0/100. Tendencia: Neutral. RSI: 49.3.",
+      "pt": "BOGA AI atribui a EQNR uma pontuação de 29.0/100. Tendência: Neutro. RSI: 49.3.",
+      "fr": "BOGA AI attribue à EQNR un score de 29.0/100. Tendance: Neutre. RSI: 49.3.",
+      "id": "BOGA AI memberikan EQNR skor 29.0/100. Tren: Netral. RSI: 49.3."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: EQNR (Equinor ASA)\n\n### 1. Business Context\nEquinor ASA operates in the Energy sector. BOGA AI detect institutional interest near $37.43.\n\n### 2. Performance\n* **Master Score:** 29.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $37.43 | Current |\n| EMA20 | $38.08 | Support |\n| ADX | 27.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $33.91.\n\n### 5. Execution\n* **Entry Zone:** $35.17 - $37.62\n* **Target Price:** $42.71\n* **Stop Loss:** $33.91\n",

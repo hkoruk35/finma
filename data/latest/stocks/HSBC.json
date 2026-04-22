@@ -144,11 +144,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns HSBC a score of 41.2/100. Trend: Neutral. RSI: 64.2.",
-      "tr": "BOGA AI assigns HSBC a score of 41.2/100. Trend: Neutral. RSI: 64.2.",
-      "es": "BOGA AI assigns HSBC a score of 41.2/100. Trend: Neutral. RSI: 64.2.",
-      "pt": "BOGA AI assigns HSBC a score of 41.2/100. Trend: Neutral. RSI: 64.2.",
-      "fr": "BOGA AI assigns HSBC a score of 41.2/100. Trend: Neutral. RSI: 64.2.",
-      "id": "BOGA AI assigns HSBC a score of 41.2/100. Trend: Neutral. RSI: 64.2."
+      "tr": "BOGA AI, HSBC için 41.2/100 skor verdi. Trend: Nötr. RSI: 64.2.",
+      "es": "BOGA AI asigna a HSBC una puntuación de 41.2/100. Tendencia: Neutral. RSI: 64.2.",
+      "pt": "BOGA AI atribui a HSBC uma pontuação de 41.2/100. Tendência: Neutro. RSI: 64.2.",
+      "fr": "BOGA AI attribue à HSBC un score de 41.2/100. Tendance: Neutre. RSI: 64.2.",
+      "id": "BOGA AI memberikan HSBC skor 41.2/100. Tren: Netral. RSI: 64.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: HSBC (HSBC Holdings plc)\n\n### 1. Business Context\nHSBC Holdings plc operates in the Financials sector. BOGA AI detect institutional interest near $91.13.\n\n### 2. Performance\n* **Master Score:** 41.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 64.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $91.13 | Current |\n| EMA20 | $87.87 | Support |\n| ADX | 17.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $87.09.\n\n### 5. Execution\n* **Entry Zone:** $84.50 - $91.59\n* **Target Price:** $97.19\n* **Stop Loss:** $87.09\n",

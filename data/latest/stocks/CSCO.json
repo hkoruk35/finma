@@ -150,11 +150,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns CSCO a score of 57.2/100. Trend: Neutral. RSI: 73.2.",
-      "tr": "BOGA AI assigns CSCO a score of 57.2/100. Trend: Neutral. RSI: 73.2.",
-      "es": "BOGA AI assigns CSCO a score of 57.2/100. Trend: Neutral. RSI: 73.2.",
-      "pt": "BOGA AI assigns CSCO a score of 57.2/100. Trend: Neutral. RSI: 73.2.",
-      "fr": "BOGA AI assigns CSCO a score of 57.2/100. Trend: Neutral. RSI: 73.2.",
-      "id": "BOGA AI assigns CSCO a score of 57.2/100. Trend: Neutral. RSI: 73.2."
+      "tr": "BOGA AI, CSCO için 57.2/100 skor verdi. Trend: Nötr. RSI: 73.2.",
+      "es": "BOGA AI asigna a CSCO una puntuación de 57.2/100. Tendencia: Neutral. RSI: 73.2.",
+      "pt": "BOGA AI atribui a CSCO uma pontuação de 57.2/100. Tendência: Neutro. RSI: 73.2.",
+      "fr": "BOGA AI attribue à CSCO un score de 57.2/100. Tendance: Neutre. RSI: 73.2.",
+      "id": "BOGA AI memberikan CSCO skor 57.2/100. Tren: Netral. RSI: 73.2."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: CSCO (Cisco Systems, Inc.)\n\n### 1. Business Context\nCisco Systems, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $88.90.\n\n### 2. Performance\n* **Master Score:** 57.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 73.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $88.90 | Current |\n| EMA20 | $82.73 | Support |\n| ADX | 19.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $84.72.\n\n### 5. Execution\n* **Entry Zone:** $79.98 - $89.34\n* **Target Price:** $95.17\n* **Stop Loss:** $84.72\n",

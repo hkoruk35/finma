@@ -148,11 +148,11 @@
   "ai_summary": {
     "homepage_summary": {
       "en": "BOGA AI assigns SPG a score of 64.6/100. Trend: Neutral. RSI: 68.6.",
-      "tr": "BOGA AI assigns SPG a score of 64.6/100. Trend: Neutral. RSI: 68.6.",
-      "es": "BOGA AI assigns SPG a score of 64.6/100. Trend: Neutral. RSI: 68.6.",
-      "pt": "BOGA AI assigns SPG a score of 64.6/100. Trend: Neutral. RSI: 68.6.",
-      "fr": "BOGA AI assigns SPG a score of 64.6/100. Trend: Neutral. RSI: 68.6.",
-      "id": "BOGA AI assigns SPG a score of 64.6/100. Trend: Neutral. RSI: 68.6."
+      "tr": "BOGA AI, SPG için 64.6/100 skor verdi. Trend: Nötr. RSI: 68.6.",
+      "es": "BOGA AI asigna a SPG una puntuación de 64.6/100. Tendencia: Neutral. RSI: 68.6.",
+      "pt": "BOGA AI atribui a SPG uma pontuação de 64.6/100. Tendência: Neutro. RSI: 68.6.",
+      "fr": "BOGA AI attribue à SPG un score de 64.6/100. Tendance: Neutre. RSI: 68.6.",
+      "id": "BOGA AI memberikan SPG skor 64.6/100. Tren: Netral. RSI: 68.6."
     },
     "detail_summary": {
       "en": "## Institutional Analysis: SPG (Simon Property Group, Inc.)\n\n### 1. Business Context\nSimon Property Group, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $205.76.\n\n### 2. Performance\n* **Master Score:** 64.6/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 68.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $205.76 | Current |\n| EMA20 | $197.33 | Support |\n| ADX | 27.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $198.24.\n\n### 5. Execution\n* **Entry Zone:** $192.09 - $206.79\n* **Target Price:** $217.04\n* **Stop Loss:** $198.24\n",
