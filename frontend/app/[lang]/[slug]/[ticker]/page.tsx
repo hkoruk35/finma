@@ -24,8 +24,8 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const master = await getMasterData();
-  const tickers = master ? Object.keys(master) : [];
+  const allTickers = await getAllTickers();
+  const tickers = allTickers.map((t: any) => t.ticker);
   const params: { lang: string; slug: string; ticker: string }[] = [];
   for (const { lang, slug } of getAllLangParams()) {
     for (const ticker of tickers) {
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     (p: any) => p.ticker.toLowerCase() === ticker.toLowerCase()
   ) || stockDetail;
 
-  if (!pick) return {};
+  if (!pick || !pick.ticker) return {};
 
   const summary =
     pick.ai_summary?.homepage_summary?.[langCode] ||
@@ -103,7 +103,7 @@ export default async function LangAnalysisPage({ params }: Props) {
     (p: any) => p.ticker.toLowerCase() === ticker.toLowerCase()
   ) || stockDetail;
 
-  if (!pick) notFound();
+  if (!pick || !pick.ticker) notFound();
 
   const labels = TRADE_LABELS[langCode];
   
