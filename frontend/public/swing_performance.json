@@ -1,11 +1,15 @@
 {
   "stats": {
     "total_picks": 1082,
-    "win_rate": 98.2,
-    "avg_return_pct": 10.9,
+    "completed_count": 985,
+    "pending_count": 97,
+    "win_rate": 98.6,
+    "avg_return_pct": 10.5,
     "period_days": 180,
-    "above_5pct_rate": 67.5,
-    "above_10pct_rate": 40.9
+    "above_5pct_rate": 67.3,
+    "above_10pct_rate": 40.7,
+    "stop_loss_pct": -3.5,
+    "last_updated": "2026-04-21T21:18:13.159076"
   },
   "history": [
     {
@@ -14070,5 +14074,5 @@
       "peak_date": "2026-01-28"
     }
   ],
-  "generated_at": "2026-04-21T14:00:09.405093"
+  "generated_at": "2026-04-21T21:18:13.159135"
 }
