@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-04-21T13:11:00-04:00",
+  "date": "2026-04-21",
+  "vix": 20.1,
+  "universe_size": 500,
+  "scan_duration_sec": 695,
+  "total_candidates": 13,
+  "regime_summary": {"trend": 11, "breakout": 2, "neutral": 0},
+  "picks": [
+    {"rank": 1, "ticker": "ZION", "price": 61.87, "score": 68.6, "entry_mode": "NEAR_GOLDEN", "institutional": {"strike": 62.5, "expiration": "2026-07-17", "dte": 87, "premium": 3.15, "delta": 0.534, "theta": -0.025}},
+    {"rank": 2, "ticker": "MP", "price": 66.05, "score": 63.8, "entry_mode": "GOLDEN_CROSS", "institutional": {"strike": 70.0, "expiration": "2026-09-18", "dte": 150, "premium": 10.93, "delta": 0.563, "theta": -0.044}},
+    {"rank": 3, "ticker": "BAC", "price": 53.62, "score": 63.6, "entry_mode": "NEAR_GOLDEN", "institutional": {"strike": 55.0, "expiration": "2026-07-17", "dte": 87, "premium": 2.19, "delta": 0.485, "theta": -0.020}},
+    {"rank": 4, "ticker": "HAL", "price": 38.17, "score": 61.8, "entry_mode": "TREND_BIRTH", "institutional": {"strike": 40.0, "expiration": "2026-07-17", "dte": 87, "premium": 2.08, "delta": 0.465, "theta": -0.019}},
+    {"rank": 5, "ticker": "FHN", "price": 24.85, "score": 60.6, "entry_mode": "NEAR_GOLDEN", "institutional": {"strike": 27.0, "expiration": "2026-08-21", "dte": 122, "premium": 0.85, "delta": 0.381, "theta": -0.008}},
+    {"rank": 6, "ticker": "USAR", "price": 23.01, "score": 59.8, "entry_mode": "GOLDEN_CROSS", "institutional": {"strike": 25.0, "expiration": "2026-09-18", "dte": 150, "premium": 5.35, "delta": 0.595, "theta": -0.021}, "asymmetric": {"strike": 32.0, "expiration": "2026-09-18", "dte": 150, "premium": 3.55, "delta": 0.449, "theta": -0.021}},
+    {"rank": 7, "ticker": "PTEN", "price": 10.42, "score": 59.5, "entry_mode": "TREND_BIRTH", "institutional": {"strike": 11.0, "expiration": "2026-08-21", "dte": 122, "premium": 1.12, "delta": 0.519, "theta": -0.006}},
+    {"rank": 8, "ticker": "TFC", "price": 51.11, "score": 57.8, "entry_mode": "NEAR_GOLDEN", "institutional": {"strike": 52.5, "expiration": "2026-09-18", "dte": 150, "premium": 2.67, "delta": 0.518, "theta": -0.013}},
+    {"rank": 9, "ticker": "IBKR", "price": 80.08, "score": 57.1, "entry_mode": "TREND_BIRTH", "institutional": {"strike": 85.0, "expiration": "2026-09-18", "dte": 150, "premium": 6.50, "delta": 0.497, "theta": -0.033}},
+    {"rank": 10, "ticker": "KEY", "price": 22.27, "score": 56.1, "entry_mode": "NEAR_GOLDEN", "institutional": {"strike": 23.0, "expiration": "2026-09-18", "dte": 150, "premium": 1.23, "delta": 0.511, "theta": -0.007}},
+    {"rank": 11, "ticker": "DOW", "price": 37.63, "score": 53.8, "entry_mode": "TREND_BIRTH", "institutional": {"strike": 37.5, "expiration": "2026-07-17", "dte": 87, "premium": 3.35, "delta": 0.572, "theta": -0.022}, "asymmetric": {"strike": 42.5, "expiration": "2026-07-17", "dte": 87, "premium": 1.65, "delta": 0.359, "theta": -0.020}},
+    {"rank": 12, "ticker": "KSS", "price": 15.63, "score": 53.8, "entry_mode": "EMA200_BREAKOUT", "institutional": {"strike": 17.0, "expiration": "2026-07-17", "dte": 87, "premium": 1.71, "delta": 0.492, "theta": -0.013}},
+    {"rank": 13, "ticker": "SIDU", "price": 3.78, "score": 47.0, "entry_mode": "TREND_BIRTH", "institutional": {"strike": 6.0, "expiration": "2026-08-21", "dte": 122, "premium": 0.78, "delta": 0.476, "theta": -0.006}}
+  ]
+}

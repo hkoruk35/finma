@@ -896,10 +896,70 @@ export interface OptionsData {
   picks: OptionPick[];
 }
 
+function normalizeOptionsData(raw: any): OptionsData | null {
+  if (!raw) return null;
+  const normalizePick = (p: any, idx: number): OptionPick => ({
+    rank:              p.rank ?? idx + 1,
+    ticker:            p.ticker ?? "",
+    current_price:     p.current_price ?? p.price ?? 0,
+    score:             p.score ?? 0,
+    grade:             p.grade ?? (p.quality ?? ""),
+    entry_mode:        p.entry_mode ?? "",
+    entry_mode_label:  p.entry_mode_label ?? (p.entry_mode ?? "").replace(/_/g, " "),
+    regime:            p.regime ?? (p.institutional ? "trend" : "neutral"),
+    ema_pattern:       p.ema_pattern ?? "",
+    ema9:              p.ema9 ?? null,
+    ema20:             p.ema20 ?? null,
+    ema50:             p.ema50 ?? null,
+    ema200:            p.ema200 ?? null,
+    adx:               p.adx ?? null,
+    rsi:               p.rsi ?? null,
+    rvol:              p.rvol ?? null,
+    roc20:             p.roc20 ?? null,
+    roc60:             p.roc60 ?? null,
+    hv30:              p.hv30 ?? null,
+    iv_pct:            p.iv_pct ?? null,
+    iv_rank:           p.iv_rank ?? null,
+    iv_vs_hv:          p.iv_vs_hv ?? null,
+    vwap:              p.vwap ?? null,
+    vwap_ok:           p.vwap_ok ?? true,
+    rs_vs_spy_60d:     p.rs_vs_spy_60d ?? null,
+    base_range_pct:    p.base_range_pct ?? null,
+    high_60d:          p.high_60d ?? null,
+    expected_move:     p.expected_move ?? null,
+    em_upper:          p.em_upper ?? null,
+    max_pain:          p.max_pain ?? null,
+    exp_date:          p.exp_date ?? p.institutional?.expiration ?? null,
+    dte:               p.dte ?? p.institutional?.dte ?? null,
+    institutional:     p.institutional ?? null,
+    asymmetric:        p.asymmetric ?? null,
+    uoa_score:         p.uoa_score ?? 0,
+    uoa_signal:        p.uoa_signal ?? "",
+    earnings_warning:  p.earnings_warning ?? false,
+    golden_cross:      p.golden_cross ?? (p.entry_mode === "GOLDEN_CROSS"),
+    ema200_breakout:   p.ema200_breakout ?? (p.entry_mode === "EMA200_BREAKOUT"),
+    breakout_base_score: p.breakout_base_score ?? null,
+  });
+  const picks = Array.isArray(raw.picks) ? raw.picks.map(normalizePick) : [];
+  return {
+    date:             raw.date ?? "",
+    generated_at:     raw.generated_at ?? raw.timestamp ?? raw.date ?? "",
+    vix:              raw.vix ?? 0,
+    vix_regime:       raw.vix_regime ?? (raw.vix < 18 ? "Low 🟢" : raw.vix < 25 ? "Normal 🟡" : "High 🔴"),
+    spy_return_60d:   raw.spy_return_60d ?? 0,
+    universe_size:    raw.universe_size ?? 500,
+    scan_duration_sec: raw.scan_duration_sec ?? 0,
+    total_candidates: raw.total_candidates ?? picks.length,
+    regime_summary:   raw.regime_summary ?? { trend: 0, breakout: 0, neutral: 0 },
+    settings:         raw.settings ?? { dte_min: 60, dte_max: 150, dte_target: 90, iv_rank_max: 40, take_profit_pct: 40, stop_loss_pct: 25 },
+    picks,
+  };
+}
+
 export async function getOptionsData(date?: string): Promise<OptionsData | null> {
   if (typeof window === "undefined") {
     const data = await readJsonServer("options_picks.json", date);
-    return data ?? null;
+    return normalizeOptionsData(data);
   }
   try {
     const base = DATA_BASE_URL || "/api/data";
@@ -909,7 +969,7 @@ export async function getOptionsData(date?: string): Promise<OptionsData | null>
       next: { revalidate: 60 },
     });
     if (!res.ok) return null;
-    return await res.json();
+    return normalizeOptionsData(await res.json());
   } catch { return null; }
 }
 
