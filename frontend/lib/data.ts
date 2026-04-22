@@ -779,10 +779,16 @@ export async function getSwingPerformance(): Promise<any | null> {
     if (!res.ok) {
        // Production Fallback
        const res2 = await fetch(`https://bogastock.com/swing_performance.json?v=${t}`);
-       if (res2.ok) return await res2.json();
+       if (res2.ok) {
+         const raw = await res2.text();
+         const lastBrace = raw.lastIndexOf('}');
+         return JSON.parse(lastBrace !== -1 ? raw.substring(0, lastBrace + 1) : raw);
+       }
        return null;
     }
-    return await res.json();
+    const raw = await res.text();
+    const lastBrace = raw.lastIndexOf('}');
+    return JSON.parse(lastBrace !== -1 ? raw.substring(0, lastBrace + 1) : raw);
   } catch { return null; }
 }
 

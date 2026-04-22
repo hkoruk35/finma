@@ -10,6 +10,11 @@ import fs from "fs";
 import path from "path";
 
 function sanitizeNaN(raw: string): string {
+  // Truncate trailing garbage after the last closing brace
+  const lastBraceIndex = raw.lastIndexOf("}");
+  if (lastBraceIndex !== -1) {
+    raw = raw.substring(0, lastBraceIndex + 1);
+  }
   return raw
     .replace(/:\s*NaN/g, ": null")
     .replace(/:\s*Infinity/g, ": null")
