@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { StockQuickView, MasterData, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import MiniChart from "./stock/MiniChart";
 
 const TABS = [
   { key: "top_scores", label: "Top Scores" },
@@ -107,11 +108,18 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
               </div>
               {/* Score — compact, secondary */}
               <div className="text-right">
-                <div className="text-lg font-mono font-black text-[#3b82f6] leading-none">
-                  {stock.master_score.toFixed(0)}
+                <div className={`text-lg font-mono font-black ${getChangeColor(stock.change_pct)} leading-none`}>
+                  ${formatPrice(stock.price)}
                 </div>
-                <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">PTS</div>
+                <div className={`text-[10px] font-bold uppercase tracking-widest leading-none mt-1 ${getChangeColor(stock.change_pct)}`}>
+                  {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
+                </div>
               </div>
+            </div>
+
+            {/* Chart Section */}
+            <div className="mb-4 rounded-lg overflow-hidden bg-black/20 border border-white/5 h-[140px]">
+               <MiniChart symbol={stock.ticker} height="140" />
             </div>
 
             {/* Status badge — prominent, primary */}
@@ -121,31 +129,6 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
               </span>
             </div>
 
-            {/* Time-Period Returns */}
-            <div className="mb-5">
-              <div className="text-[12px] text-[#64748b] font-bold uppercase tracking-[0.2em] mb-3 leading-none">RETURNS</div>
-              <div className="flex items-stretch divide-x divide-[#1e2a3a]">
-                {[
-                  { label: "1D", value: stock.change_pct },
-                  { label: "1W", value: stock.change_pct_1w },
-                  { label: "1M", value: stock.change_pct_1m },
-                  { label: "1Y", value: stock.change_pct_1y },
-                ].map((period) => (
-                  <div key={period.label} className="flex-1 text-center px-1">
-                    <div className={`text-[17px] md:text-[18px] font-mono font-black ${
-                      period.value !== undefined && period.value !== null
-                        ? getChangeColor(period.value)
-                        : 'text-[#64748b]'
-                    }`}>
-                      {period.value !== undefined && period.value !== null
-                        ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
-                        : '—'}
-                    </div>
-                    <div className="text-[11px] text-[#94a3b8] font-black mt-1 uppercase">{period.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
 
             {/* AI Summary One-Liner */}
             <div className="mb-4">
@@ -154,9 +137,13 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
               </p>
             </div>
 
-            <div className="relative w-full h-2 bg-[#1e2a3a] rounded-full overflow-hidden mb-1">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[9px] text-[#64748b] font-black uppercase tracking-widest">BOGA SCORE</span>
+              <span className="text-[11px] font-mono font-black text-[#3b82f6]">{stock.master_score.toFixed(0)} / 100</span>
+            </div>
+            <div className="relative w-full h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden mb-1">
               <div
-                className="h-full rounded-full score-gradient-noble transition-all duration-500"
+                className="h-full rounded-full bg-[#3b82f6] transition-all duration-500"
                 style={{ width: `${Math.min(stock.master_score, 100)}%` }}
               />
             </div>
