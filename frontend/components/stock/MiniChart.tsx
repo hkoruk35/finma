@@ -13,19 +13,40 @@ export default function MiniChart({ symbol, height = "180" }: Props) {
   useEffect(() => {
     if (!container.current) return;
     const script = document.createElement("script");
-    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      symbol: symbol.includes(":") ? symbol : symbol,
+      symbols: [[symbol, symbol + "|1M"]],
+      chartOnly: false,
       width: "100%",
       height: height,
       locale: "en",
-      dateRange: "3M",
       colorTheme: "dark",
-      isTransparent: true,
       autosize: true,
-      largeChartUrl: "",
+      showVolume: false,
+      showMA: false,
+      hideDateRanges: true,
+      hideMarketStatus: true,
+      hideSymbolLogo: true,
+      scalePosition: "no",
+      scaleMode: "Normal",
+      fontFamily: "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+      fontSize: "10",
+      noTimeScale: true,
+      valuesTracking: "1",
+      changeMode: "price-and-percent",
+      chartType: "area",
+      maLineColor: "#2962FF",
+      maLineWidth: 1,
+      maLength: 9,
+      lineWidth: 2,
+      lineColor: "#3b82f6",
+      topColor: "rgba(59, 130, 246, 0.3)",
+      bottomColor: "rgba(59, 130, 246, 0)",
+      gridLineColor: "rgba(42, 46, 57, 0)",
+      dateFormat: "MMM dd, yyyy",
+      timeHoursFormat: "24-h",
     });
     container.current.innerHTML = "";
     container.current.appendChild(script);

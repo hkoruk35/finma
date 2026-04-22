@@ -106,18 +106,11 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
                   {stock.company}
                 </p>
               </div>
-              {/* Daily Change — prominent in top right */}
-              <div className="text-right">
-                <div className={`text-lg font-mono font-black ${getChangeColor(stock.change_pct)} leading-none`}>
-                  {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
-                </div>
-                <div className="text-[8px] text-[#64748b] font-bold uppercase tracking-widest mt-1">1D CHG</div>
-              </div>
             </div>
 
             {/* Chart Section */}
-            <div className="mb-4 rounded-lg overflow-hidden bg-black/20 border border-white/5 h-[140px]">
-               <MiniChart symbol={stock.ticker} height="140" />
+            <div className="mb-4 rounded-lg overflow-hidden bg-black/20 border border-white/5 h-[160px]">
+               <MiniChart symbol={stock.ticker} height="160" />
             </div>
 
             {/* Status badge — prominent, primary */}

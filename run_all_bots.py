@@ -107,11 +107,11 @@ def main():
     log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
     run_bot_subprocess("update_summaries_now.py")
 
-    # ── ADIM 7: Options Scanner (Opsiyon Fırsatları) ──
-    log.info("ADIM 7: opsiyon218v7.py --oneshot (Options Scanner) çalıştırılıyor...")
-    step7_ok = run_bot_subprocess("opsiyon218v7.py", ["--oneshot"])
-    if not step7_ok:
-        log.warning("⚠️ opsiyon218v7.py başarısız. Devam ediliyor...")
+    # ── ADIM 7: Options Scanner (Opsiyon Fırsatları) - DISABLED BY USER REQUEST ──
+    # log.info("ADIM 7: opsiyon218v7.py --oneshot (Options Scanner) çalıştırılıyor...")
+    # step7_ok = run_bot_subprocess("opsiyon218v7.py", ["--oneshot"])
+    # if not step7_ok:
+    #     log.warning("⚠️ opsiyon218v7.py başarısız. Devam ediliyor...")
 
     # ── ADIM 8: Options P&L Tracker ──
     log.info("ADIM 8: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
