@@ -113,6 +113,10 @@ def main():
     log.info("ADIM 7: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
     run_bot_subprocess("options_pnl_tracker.py")
 
+    # ── ADIM 8: SYSTEMATIC PRICE SYNC (Kritik: Tüm fiyatları eşitle) ──
+    log.info("ADIM 8: update_all_prices.py (Fiyat Senkronizasyonu) çalıştırılıyor...")
+    run_bot_subprocess("update_all_prices.py")
+
     log.info("=" * 60)
     log.info("ADIM 8: Veriler GitHub'a yükleniyor (Git Push)...")
     try:

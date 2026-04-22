@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Insurance - Diversified",
   "price": {
-    "current": 78.74,
+    "current": 77.93,
     "open": 78.74,
     "high": 79.47,
     "low": 78.53,
@@ -16,7 +16,8 @@
     "change_pct_1m": 6.56,
     "change_pct_1y": -0.57,
     "volume": 569899,
-    "avg_volume_30d": 3752253
+    "avg_volume_30d": 3752253,
+    "last_sync": "2026-04-22T02:47:22.088730"
   },
   "scores": {
     "master_score": 58.92,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 76.46,
-    "entry_range_high": 79.13,
-    "target_range_low": 81.69,
-    "target_range_high": 87.53,
-    "stop_range_low": 71.88,
-    "stop_range_high": 75.66,
-    "target_price": 83.36,
-    "stop_loss": 75.66,
+    "entry_range_low": 75.67,
+    "entry_range_high": 78.32,
+    "target_range_low": 80.85,
+    "target_range_high": 86.63,
+    "stop_range_low": 71.14,
+    "stop_range_high": 74.88,
+    "target_price": 82.5,
+    "stop_loss": 74.88,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.823195-04:00",

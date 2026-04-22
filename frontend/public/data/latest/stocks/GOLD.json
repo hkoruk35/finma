@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Capital Markets",
   "price": {
-    "current": 47.98,
+    "current": 45.8,
     "open": 48.3,
     "high": 49.16,
     "low": 47.55,
@@ -16,7 +16,8 @@
     "change_pct_1m": 9.12,
     "change_pct_1y": 105.35,
     "volume": 429391,
-    "avg_volume_30d": 600226
+    "avg_volume_30d": 600226,
+    "last_sync": "2026-04-22T02:47:22.978163"
   },
   "scores": {
     "master_score": 52.5,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 45.74,
-    "entry_range_high": 48.22,
-    "target_range_low": 53.9,
-    "target_range_high": 57.75,
-    "stop_range_low": 41.13,
-    "stop_range_high": 43.3,
-    "target_price": 55.0,
-    "stop_loss": 43.3,
+    "entry_range_low": 43.66,
+    "entry_range_high": 46.03,
+    "target_range_low": 51.45,
+    "target_range_high": 55.13,
+    "stop_range_low": 39.26,
+    "stop_range_high": 41.33,
+    "target_price": 52.5,
+    "stop_loss": 41.33,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.911422-04:00",

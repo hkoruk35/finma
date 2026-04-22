@@ -6,7 +6,7 @@
   "sector": "Consumer Staples",
   "industry": "Beverages - Brewers",
   "price": {
-    "current": 161.12,
+    "current": 156.95,
     "open": 162.12,
     "high": 163.82,
     "low": 160.74,
@@ -16,7 +16,8 @@
     "change_pct_1m": 6.06,
     "change_pct_1y": -9.69,
     "volume": 617059,
-    "avg_volume_30d": 2105065
+    "avg_volume_30d": 2105065,
+    "last_sync": "2026-04-22T02:47:24.798275"
   },
   "scores": {
     "master_score": 41.4,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 154.39,
-    "entry_range_high": 161.93,
-    "target_range_low": 170.89,
-    "target_range_high": 183.1,
-    "stop_range_low": 144.67,
-    "stop_range_high": 152.28,
-    "target_price": 174.38,
-    "stop_loss": 152.28,
+    "entry_range_low": 150.39,
+    "entry_range_high": 157.74,
+    "target_range_low": 166.47,
+    "target_range_high": 178.36,
+    "stop_range_low": 140.93,
+    "stop_range_high": 148.34,
+    "target_price": 169.87,
+    "stop_loss": 148.34,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.715883-04:00",

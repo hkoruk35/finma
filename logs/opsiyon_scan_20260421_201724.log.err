@@ -1,0 +1,7 @@
+2026-04-21 20:40:35,603 — INFO — \U0001f321\ufe0f VIX: 19.5 (Orta \U0001f7e1)
+2026-04-21 20:40:35,889 — INFO — \U0001f4ca SPY 60g: %2.4 | 20g: %7.4
+2026-04-21 20:40:38,280 — INFO — \u2705 Ham ticker: 8086
+2026-04-21 20:40:38,282 — INFO — \U0001f680 8086 hisse Katman 1 taramas\u0131na giriyor...
+2026-04-21 20:50:55,308 — WARNING — Chunk 6000: dictionary changed size during iteration
+Exception ignored in thread started by <bound method Thread._bootstrap of <Thread(Thread-7597 (_run_via_pool), initial)>>:
+MemoryError: 

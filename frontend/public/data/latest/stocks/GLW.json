@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Electronic Components",
   "price": {
-    "current": 165.31,
+    "current": 165.45,
     "open": 166.08,
     "high": 168.59,
     "low": 162.51,
@@ -16,7 +16,8 @@
     "change_pct_1m": 24.22,
     "change_pct_1y": 306.5,
     "volume": 3960955,
-    "avg_volume_30d": 11683801
+    "avg_volume_30d": 11683801,
+    "last_sync": "2026-04-22T02:47:23.451800"
   },
   "scores": {
     "master_score": 49.77,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 140.34,
-    "entry_range_high": 166.14,
-    "target_range_low": 188.14,
-    "target_range_high": 201.58,
-    "stop_range_low": 140.15,
-    "stop_range_high": 147.53,
-    "target_price": 191.98,
-    "stop_loss": 147.53,
+    "entry_range_low": 140.46,
+    "entry_range_high": 166.28,
+    "target_range_low": 188.3,
+    "target_range_high": 201.75,
+    "stop_range_low": 140.27,
+    "stop_range_high": 147.65,
+    "target_price": 192.14,
+    "stop_loss": 147.65,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.598173-04:00",

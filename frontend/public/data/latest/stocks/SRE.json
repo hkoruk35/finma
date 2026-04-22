@@ -6,7 +6,7 @@
   "sector": "Utilities",
   "industry": "Utilities - Diversified",
   "price": {
-    "current": 94.05,
+    "current": 93.15,
     "open": 94.28,
     "high": 94.43,
     "low": 93.26,
@@ -16,7 +16,8 @@
     "change_pct_1m": -1.26,
     "change_pct_1y": 37.69,
     "volume": 1553731,
-    "avg_volume_30d": 3377481
+    "avg_volume_30d": 3377481,
+    "last_sync": "2026-04-22T02:47:27.001318"
   },
   "scores": {
     "master_score": 29.43,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 93.58,
-    "entry_range_high": 94.52,
-    "target_range_low": 97.93,
-    "target_range_high": 104.93,
-    "stop_range_low": 85.62,
-    "stop_range_high": 90.13,
-    "target_price": 99.93,
-    "stop_loss": 90.13,
+    "entry_range_low": 92.68,
+    "entry_range_high": 93.62,
+    "target_range_low": 96.99,
+    "target_range_high": 103.93,
+    "stop_range_low": 84.8,
+    "stop_range_high": 89.27,
+    "target_price": 98.97,
+    "stop_loss": 89.27,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.046354-04:00",

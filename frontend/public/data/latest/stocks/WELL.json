@@ -6,7 +6,7 @@
   "sector": "Real Estate",
   "industry": "REIT - Healthcare Facilities",
   "price": {
-    "current": 209.43,
+    "current": 206.39,
     "open": 210.59,
     "high": 211.02,
     "low": 209.06,
@@ -16,7 +16,8 @@
     "change_pct_1m": 1.62,
     "change_pct_1y": 46.2,
     "volume": 546341,
-    "avg_volume_30d": 2841118
+    "avg_volume_30d": 2841118,
+    "last_sync": "2026-04-22T02:47:23.918469"
   },
   "scores": {
     "master_score": 48.13,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 201.66,
-    "entry_range_high": 210.48,
-    "target_range_low": 217.24,
-    "target_range_high": 232.75,
-    "stop_range_low": 191.21,
-    "stop_range_high": 201.27,
-    "target_price": 221.67,
-    "stop_loss": 201.27,
+    "entry_range_low": 198.73,
+    "entry_range_high": 207.42,
+    "target_range_low": 214.09,
+    "target_range_high": 229.37,
+    "stop_range_low": 188.43,
+    "stop_range_high": 198.35,
+    "target_price": 218.45,
+    "stop_loss": 198.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.080797-04:00",

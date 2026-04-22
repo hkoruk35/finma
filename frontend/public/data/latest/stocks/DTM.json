@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Oil & Gas Midstream",
   "price": {
-    "current": 133.58,
+    "current": 130.42,
     "open": 131.34,
     "high": 134.96,
     "low": 132.38,
@@ -16,7 +16,8 @@
     "change_pct_1m": -3.37,
     "change_pct_1y": 43.85,
     "volume": 124398,
-    "avg_volume_30d": 830749
+    "avg_volume_30d": 830749,
+    "last_sync": "2026-04-22T02:47:26.185853"
   },
   "scores": {
     "master_score": 33.87,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 132.16,
-    "entry_range_high": 134.25,
-    "target_range_low": 140.67,
-    "target_range_high": 150.72,
-    "stop_range_low": 120.59,
-    "stop_range_high": 126.94,
-    "target_price": 143.54,
-    "stop_loss": 126.94,
+    "entry_range_low": 129.03,
+    "entry_range_high": 131.07,
+    "target_range_low": 137.34,
+    "target_range_high": 147.15,
+    "stop_range_low": 117.74,
+    "stop_range_high": 123.94,
+    "target_price": 140.14,
+    "stop_loss": 123.94,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.889493-04:00",

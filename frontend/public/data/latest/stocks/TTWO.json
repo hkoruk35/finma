@@ -6,7 +6,7 @@
   "sector": "Communication Services",
   "industry": "Electronic Gaming & Multimedia",
   "price": {
-    "current": 215.59,
+    "current": 217.65,
     "open": 212.14,
     "high": 216.45,
     "low": 210.78,
@@ -16,7 +16,8 @@
     "change_pct_1m": 6.86,
     "change_pct_1y": 1.98,
     "volume": 547981,
-    "avg_volume_30d": 1759029
+    "avg_volume_30d": 1759029,
+    "last_sync": "2026-04-22T02:47:27.189448"
   },
   "scores": {
     "master_score": 28.01,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 207.56,
-    "entry_range_high": 216.67,
-    "target_range_low": 229.8,
-    "target_range_high": 246.21,
-    "stop_range_low": 192.84,
-    "stop_range_high": 202.99,
-    "target_price": 234.49,
-    "stop_loss": 202.99,
+    "entry_range_low": 209.54,
+    "entry_range_high": 218.74,
+    "target_range_low": 232.0,
+    "target_range_high": 248.56,
+    "stop_range_low": 194.68,
+    "stop_range_high": 204.93,
+    "target_price": 236.73,
+    "stop_loss": 204.93,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.639704-04:00",

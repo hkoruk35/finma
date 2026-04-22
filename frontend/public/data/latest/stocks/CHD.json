@@ -6,7 +6,7 @@
   "sector": "Consumer Staples",
   "industry": "Household & Personal Products",
   "price": {
-    "current": 96.5,
+    "current": 93.21,
     "open": 96.76,
     "high": 97.12,
     "low": 95.99,
@@ -16,7 +16,8 @@
     "change_pct_1m": 2.03,
     "change_pct_1y": -5.05,
     "volume": 430133,
-    "avg_volume_30d": 2042107
+    "avg_volume_30d": 2042107,
+    "last_sync": "2026-04-22T02:47:26.402450"
   },
   "scores": {
     "master_score": 33.15,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 95.13,
-    "entry_range_high": 96.98,
-    "target_range_low": 100.27,
-    "target_range_high": 107.44,
-    "stop_range_low": 87.99,
-    "stop_range_high": 92.62,
-    "target_price": 102.32,
-    "stop_loss": 92.62,
+    "entry_range_low": 91.89,
+    "entry_range_high": 93.67,
+    "target_range_low": 96.85,
+    "target_range_high": 103.78,
+    "stop_range_low": 84.99,
+    "stop_range_high": 89.46,
+    "target_price": 98.83,
+    "stop_loss": 89.46,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.711976-04:00",

@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
-    "current": 13.73,
+    "current": 14.15,
     "open": 13.7,
     "high": 13.86,
     "low": 13.57,
@@ -16,7 +16,8 @@
     "change_pct_1m": -6.18,
     "change_pct_1y": 63.95,
     "volume": 1072845,
-    "avg_volume_30d": 3545024
+    "avg_volume_30d": 3545024,
+    "last_sync": "2026-04-22T02:47:25.302101"
   },
   "scores": {
     "master_score": 39.17,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 13.39,
-    "entry_range_high": 13.8,
-    "target_range_low": 15.34,
-    "target_range_high": 16.43,
-    "stop_range_low": 11.83,
-    "stop_range_high": 12.45,
-    "target_price": 15.65,
-    "stop_loss": 12.45,
+    "entry_range_low": 13.8,
+    "entry_range_high": 14.22,
+    "target_range_low": 15.81,
+    "target_range_high": 16.93,
+    "stop_range_low": 12.19,
+    "stop_range_high": 12.83,
+    "target_price": 16.13,
+    "stop_loss": 12.83,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.875267-04:00",

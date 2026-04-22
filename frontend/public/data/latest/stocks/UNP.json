@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Railroads",
   "price": {
-    "current": 252.82,
+    "current": 251.25,
     "open": 251.39,
     "high": 253.58,
     "low": 248.82,
@@ -16,7 +16,8 @@
     "change_pct_1m": 7.96,
     "change_pct_1y": 19.48,
     "volume": 864347,
-    "avg_volume_30d": 2721791
+    "avg_volume_30d": 2721791,
+    "last_sync": "2026-04-22T02:47:21.995403"
   },
   "scores": {
     "master_score": 59.7,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 245.32,
-    "entry_range_high": 254.08,
-    "target_range_low": 261.2,
-    "target_range_high": 279.86,
-    "stop_range_low": 231.5,
-    "stop_range_high": 243.68,
-    "target_price": 266.53,
-    "stop_loss": 243.68,
+    "entry_range_low": 243.8,
+    "entry_range_high": 252.5,
+    "target_range_low": 259.58,
+    "target_range_high": 278.12,
+    "stop_range_low": 230.06,
+    "stop_range_high": 242.17,
+    "target_price": 264.87,
+    "stop_loss": 242.17,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.980270-04:00",

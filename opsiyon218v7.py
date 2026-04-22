@@ -110,24 +110,23 @@ ENABLE_TELEGRAM  = True
 # ── Hisse Filtresi ────────────────────────────────────────────────────────
 PRICE_MIN      = 1.0
 PRICE_MAX      = 100.0
-AVG_VOL_MIN    = 100_000        # ✅ Gevşetildi: 150K → 100K (daha az likit hisseler)
-DOLLAR_VOL_MIN = 300_000        # ✅ Gevşetildi: 500K → 300K
-ADX_MIN        = 12             # ✅ Gevşetildi: 15 → 12 (zayıf trendleri yakala)
-RSI_MIN        = 30             # ✅ Gevşetildi: 35 → 30 (oversold bölgeler)
+AVG_VOL_MIN    = 150_000        # İşlem hacmi minimum
+DOLLAR_VOL_MIN = 500_000        # Dolar hacmi minimum
+ADX_MIN        = 15             # ADX trend gücü minimum
 RSI_MAX        = 80             # Geçti: overbought toleransı
 
 # ── Opsiyon Filtresi (SWING MOD) ──────────────────────────────────────────
-DTE_MIN       = 1              # ✅ Genişletildi: 45 → 1 (1 günden 360 güne tüm fırsatlar)
-DTE_MAX       = 360            # ✅ Genişletildi: 180 → 360 (uzun vadeli LEAPS dahil)
+DTE_MIN       = 1              # 1 günden 360 güne tüm fırsatlar (weeklies → LEAPS)
+DTE_MAX       = 360            # Uzun vadeli LEAPS dahil
 DTE_TARGET    = 90             # Hedef 90g, ama 1-360 aralığında esneklik
-OI_MIN        = 100            # ✅ Gevşetildi: 150 → 100 (daha az likit kontratlar)
-SPREAD_MAX    = 0.20           # ✅ Gevşetildi: 0.15 → 0.20 (daha geniş spread toleransı)
-MID_MIN       = 0.10           # ✅ Gevşetildi: 0.15 → 0.10 (daha ucuz kontratlar)
-MID_MAX       = 25.0           # ✅ Gevşetildi: 20 → 25 (daha pahalı kontratlar)
+OI_MIN        = 100            # Daha az likit kontratlar toleransı
+SPREAD_MAX    = 0.20           # Spread toleransı
+MID_MIN       = 0.10           # Minimum kontrat fiyatı
+MID_MAX       = 25.0           # Maximum kontrat fiyatı
 
 # ── IV Rank Filtresi (SWING MOD: Daha toleranslı) ───────────────────────
-IV_RANK_BUY_MAX   = 55.0       # ✅ Gevşetildi: 40 → 55 (yüksek IV da gat)
-IV_RANK_BONUS_MAX = 30.0       # ✅ Gevşetildi: 20 → 30 (bonus aralığı genişletildi)
+IV_RANK_BUY_MAX   = 55.0       # Yüksek IV toleransı
+IV_RANK_BONUS_MAX = 30.0       # Bonus aralığı
 
 # ── Theta/Delta Kalite Oranı ──────────────────────────────────────────────
 THETA_DELTA_MIN = 0.04         # ✅ Gevşetildi: 0.06 → 0.04 (daha gevşek kalite)
@@ -138,7 +137,7 @@ STOP_LOSS_PCT    = -0.25     # -%25 zarar — biraz genişletildi (dalgalanma to
 TIME_STOP_RATIO  = 0.65      # ✅ Değişti (eski 0.5) — theta şelalesi son 30 günde başlar
 
 # ── Evren / Tarama ────────────────────────────────────────────────────────
-MAX_TICKERS_SCAN = 500
+MAX_TICKERS_SCAN = 1000        # ✅ Arttırıldı: 500 → 1000 (daha geniş evren)
 UNIVERSE_TTL     = 24 * 3600
 SEMAPHORE_N      = 8
 MIN_CANDIDATES   = 5            # ✅ Düşürüldü: 10 → 5 (az da olsa göster)
@@ -433,7 +432,7 @@ async def build_universe() -> List[str]:
                     if dvol < DOLLAR_VOL_MIN: continue
 
                     rvol = avg5 / avg30 if avg30 > 0 else 0.0
-                    # ✅ v6.1: 0.8 → 0.5 (büyük trendler sessiz başlar, daha fazla aday yakala)
+                    # Büyük trendler sessiz başlar — 0.5 threshold
                     if rvol < 0.5: continue
 
                     roc5 = float((close.iloc[-1] - close.iloc[-6]) / close.iloc[-6]) if len(close) >= 6 else 0.0
@@ -1834,9 +1833,9 @@ async def scan():
         f"🔍 Swing/Position taraması başlıyor...\n"
         f"🎯 Hedef: 60-120 günlük trend başlangıçları\n"
         f"⚡ EMA200 Kırılımı (EMA200 altında bile!) | 🌟 Golden Cross | 📉 EMA50 Sekmesi\n"
-        f"✅ IV Rank<{IV_RANK_BUY_MAX} | DTE {DTE_MIN}-{DTE_MAX}g (hedef {DTE_TARGET}g) | RVOL>0.5\n"
+        f"✅ IV Rank<{IV_RANK_BUY_MAX} | DTE {DTE_MIN}-{DTE_MAX}g (hedef {DTE_TARGET}g) | RVOL>0.3\n"
         f"✅ Higher Highs | Hacimli Breakout | Base Formation (VCP)\n"
-        f"📌 $1-$100 | Nötr Yasak | Breakout+Base max 20p\n"
+        f"📌 $1-${PRICE_MAX} | Nötr Yasak | Breakout+Base max 20p\n"
         f"📊 {MAX_TICKERS_SCAN} hisse taranacak"
     )
 
@@ -1849,9 +1848,16 @@ async def scan():
         f"⏳ Katman 2-4 swing analizi başlıyor (5-10 dk)..."
     )
 
-    results    = await asyncio.gather(*[analyze(t) for t in universe], return_exceptions=True)
+    # Batch processing to avoid OOM with 500+ concurrent yfinance downloads
+    BATCH = 50
+    all_results = []
+    for i in range(0, len(universe), BATCH):
+        batch = universe[i:i+BATCH]
+        batch_res = await asyncio.gather(*[analyze(t) for t in batch], return_exceptions=True)
+        all_results.extend(batch_res)
+        import gc; gc.collect()
     candidates = sorted(
-        [r for r in results if isinstance(r, dict)],
+        [r for r in all_results if isinstance(r, dict)],
         key=lambda x: x['score'], reverse=True
     )
 

@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Communication Equipment",
   "price": {
-    "current": 87.86,
+    "current": 89.7,
     "open": 86.19,
     "high": 88.21,
     "low": 85.86,
@@ -16,7 +16,8 @@
     "change_pct_1m": 12.52,
     "change_pct_1y": 61.19,
     "volume": 6936646,
-    "avg_volume_30d": 21525474
+    "avg_volume_30d": 21525474,
+    "last_sync": "2026-04-22T02:47:22.586766"
   },
   "scores": {
     "master_score": 55.27,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 79.64,
-    "entry_range_high": 88.3,
-    "target_range_low": 92.25,
-    "target_range_high": 98.84,
-    "stop_range_low": 79.5,
-    "stop_range_high": 83.68,
-    "target_price": 94.13,
-    "stop_loss": 83.68,
+    "entry_range_low": 81.31,
+    "entry_range_high": 90.15,
+    "target_range_low": 94.18,
+    "target_range_high": 100.91,
+    "stop_range_low": 81.16,
+    "stop_range_high": 85.43,
+    "target_price": 96.1,
+    "stop_loss": 85.43,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.575766-04:00",

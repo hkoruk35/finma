@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Uranium",
   "price": {
-    "current": 121.74,
+    "current": 116.61,
     "open": 120.12,
     "high": 122.61,
     "low": 117.68,
@@ -16,7 +16,8 @@
     "change_pct_1m": 14.2,
     "change_pct_1y": 195.47,
     "volume": 1367718,
-    "avg_volume_30d": 3251643
+    "avg_volume_30d": 3251643,
+    "last_sync": "2026-04-22T02:47:22.770312"
   },
   "scores": {
     "master_score": 53.87,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 112.42,
-    "entry_range_high": 122.35,
-    "target_range_low": 135.12,
-    "target_range_high": 144.77,
-    "stop_range_low": 105.43,
-    "stop_range_high": 110.98,
-    "target_price": 137.88,
-    "stop_loss": 110.98,
+    "entry_range_low": 107.68,
+    "entry_range_high": 117.19,
+    "target_range_low": 129.43,
+    "target_range_high": 138.67,
+    "stop_range_low": 100.99,
+    "stop_range_high": 106.3,
+    "target_price": 132.07,
+    "stop_loss": 106.3,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.903409-04:00",

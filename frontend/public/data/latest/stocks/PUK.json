@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Insurance - Life",
   "price": {
-    "current": 30.61,
+    "current": 30.51,
     "open": 30.59,
     "high": 30.73,
     "low": 30.4,
@@ -16,7 +16,8 @@
     "change_pct_1m": 7.17,
     "change_pct_1y": 54.29,
     "volume": 345982,
-    "avg_volume_30d": 938139
+    "avg_volume_30d": 938139,
+    "last_sync": "2026-04-22T02:47:21.772508"
   },
   "scores": {
     "master_score": 62.07,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 29.65,
-    "entry_range_high": 30.76,
-    "target_range_low": 32.14,
-    "target_range_high": 34.44,
-    "stop_range_low": 27.69,
-    "stop_range_high": 29.15,
-    "target_price": 32.8,
-    "stop_loss": 29.15,
+    "entry_range_low": 29.55,
+    "entry_range_high": 30.66,
+    "target_range_low": 32.04,
+    "target_range_high": 34.33,
+    "stop_range_low": 27.6,
+    "stop_range_high": 29.05,
+    "target_price": 32.69,
+    "stop_loss": 29.05,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.830350-04:00",

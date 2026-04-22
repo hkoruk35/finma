@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Copper",
   "price": {
-    "current": 190.58,
+    "current": 183.53,
     "open": 190.07,
     "high": 192.84,
     "low": 188.52,
@@ -16,7 +16,8 @@
     "change_pct_1m": 19.25,
     "change_pct_1y": 135.31,
     "volume": 415143,
-    "avg_volume_30d": 1673808
+    "avg_volume_30d": 1673808,
+    "last_sync": "2026-04-22T02:47:23.970657"
   },
   "scores": {
     "master_score": 47.8,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 180.55,
-    "entry_range_high": 191.53,
-    "target_range_low": 211.73,
-    "target_range_high": 226.85,
-    "stop_range_low": 164.92,
-    "stop_range_high": 173.6,
-    "target_price": 216.05,
-    "stop_loss": 173.6,
+    "entry_range_low": 173.87,
+    "entry_range_high": 184.44,
+    "target_range_low": 203.9,
+    "target_range_high": 218.46,
+    "stop_range_low": 158.82,
+    "stop_range_high": 167.18,
+    "target_price": 208.06,
+    "stop_loss": 167.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.905827-04:00",

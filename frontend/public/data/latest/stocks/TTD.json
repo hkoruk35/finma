@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Advertising Agencies",
   "price": {
-    "current": 23.16,
+    "current": 23.2,
     "open": 22.27,
     "high": 23.16,
     "low": 22.25,
@@ -16,7 +16,8 @@
     "change_pct_1m": -1.51,
     "change_pct_1y": -52.21,
     "volume": 4984215,
-    "avg_volume_30d": 18381543
+    "avg_volume_30d": 18381543,
+    "last_sync": "2026-04-22T02:47:25.233414"
   },
   "scores": {
     "master_score": 39.52,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 23.04,
-    "entry_range_high": 23.28,
-    "target_range_low": 26.58,
-    "target_range_high": 28.48,
-    "stop_range_low": 19.49,
-    "stop_range_high": 20.52,
-    "target_price": 27.12,
-    "stop_loss": 20.52,
+    "entry_range_low": 23.08,
+    "entry_range_high": 23.32,
+    "target_range_low": 26.63,
+    "target_range_high": 28.53,
+    "stop_range_low": 19.52,
+    "stop_range_high": 20.56,
+    "target_price": 27.17,
+    "stop_loss": 20.56,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.535370-04:00",

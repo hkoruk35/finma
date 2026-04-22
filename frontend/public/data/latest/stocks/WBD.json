@@ -6,7 +6,7 @@
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
-    "current": 27.49,
+    "current": 27.31,
     "open": 27.41,
     "high": 27.59,
     "low": 27.36,
@@ -16,7 +16,8 @@
     "change_pct_1m": -0.51,
     "change_pct_1y": 247.09,
     "volume": 6943672,
-    "avg_volume_30d": 24611215
+    "avg_volume_30d": 24611215,
+    "last_sync": "2026-04-22T02:47:24.429105"
   },
   "scores": {
     "master_score": 44.26,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 27.34,
-    "entry_range_high": 27.63,
-    "target_range_low": 27.68,
-    "target_range_high": 29.65,
-    "stop_range_low": 25.64,
-    "stop_range_high": 26.99,
-    "target_price": 28.24,
-    "stop_loss": 26.99,
+    "entry_range_low": 27.16,
+    "entry_range_high": 27.45,
+    "target_range_low": 27.5,
+    "target_range_high": 29.46,
+    "stop_range_low": 25.47,
+    "stop_range_high": 26.81,
+    "target_price": 28.06,
+    "stop_loss": 26.81,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.616381-04:00",

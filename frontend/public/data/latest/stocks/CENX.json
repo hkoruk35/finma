@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Aluminum",
   "price": {
-    "current": 60.89,
+    "current": 61.4,
     "open": 62.32,
     "high": 62.99,
     "low": 60.14,
@@ -16,7 +16,8 @@
     "change_pct_1m": 22.64,
     "change_pct_1y": 285.62,
     "volume": 485216,
-    "avg_volume_30d": 2285540
+    "avg_volume_30d": 2285540,
+    "last_sync": "2026-04-22T02:47:26.896082"
   },
   "scores": {
     "master_score": 30.05,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 55.6,
-    "entry_range_high": 61.19,
-    "target_range_low": 71.37,
-    "target_range_high": 76.47,
-    "stop_range_low": 50.28,
-    "stop_range_high": 52.93,
-    "target_price": 72.83,
-    "stop_loss": 52.93,
+    "entry_range_low": 56.07,
+    "entry_range_high": 61.7,
+    "target_range_low": 71.97,
+    "target_range_high": 77.11,
+    "stop_range_low": 50.7,
+    "stop_range_high": 53.37,
+    "target_price": 73.44,
+    "stop_loss": 53.37,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.940347-04:00",

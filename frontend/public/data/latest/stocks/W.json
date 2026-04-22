@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Internet Retail",
   "price": {
-    "current": 79.97,
+    "current": 80.07,
     "open": 79.5,
     "high": 80.45,
     "low": 78.4,
@@ -16,7 +16,8 @@
     "change_pct_1m": 4.86,
     "change_pct_1y": 218.12,
     "volume": 1184689,
-    "avg_volume_30d": 3321586
+    "avg_volume_30d": 3321586,
+    "last_sync": "2026-04-22T02:47:27.180319"
   },
   "scores": {
     "master_score": 28.24,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 79.46,
-    "entry_range_high": 80.37,
-    "target_range_low": 92.75,
-    "target_range_high": 99.37,
-    "stop_range_low": 66.68,
-    "stop_range_high": 70.19,
-    "target_price": 94.64,
-    "stop_loss": 70.19,
+    "entry_range_low": 79.56,
+    "entry_range_high": 80.47,
+    "target_range_low": 92.87,
+    "target_range_high": 99.49,
+    "stop_range_low": 66.76,
+    "stop_range_high": 70.28,
+    "target_price": 94.76,
+    "stop_loss": 70.28,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.651349-04:00",

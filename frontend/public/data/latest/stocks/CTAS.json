@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Specialty Business Services",
   "price": {
-    "current": 179.14,
+    "current": 176.26,
     "open": 178.46,
     "high": 180.24,
     "low": 177.67,
@@ -16,7 +16,8 @@
     "change_pct_1m": -1.48,
     "change_pct_1y": -11.74,
     "volume": 547491,
-    "avg_volume_30d": 2519469
+    "avg_volume_30d": 2519469,
+    "last_sync": "2026-04-22T02:47:26.393101"
   },
   "scores": {
     "master_score": 33.21,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 178.24,
-    "entry_range_high": 180.04,
-    "target_range_low": 187.46,
-    "target_range_high": 200.85,
-    "stop_range_low": 162.49,
-    "stop_range_high": 171.04,
-    "target_price": 191.29,
-    "stop_loss": 171.04,
+    "entry_range_low": 175.37,
+    "entry_range_high": 177.15,
+    "target_range_low": 184.45,
+    "target_range_high": 197.62,
+    "stop_range_low": 159.88,
+    "stop_range_high": 168.29,
+    "target_price": 188.21,
+    "stop_loss": 168.29,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.998034-04:00",

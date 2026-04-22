@@ -6,7 +6,7 @@
   "sector": "Real Estate",
   "industry": "Residential Construction",
   "price": {
-    "current": 150.61,
+    "current": 162.2,
     "open": 148.57,
     "high": 151.42,
     "low": 148.52,
@@ -16,7 +16,8 @@
     "change_pct_1m": 9.15,
     "change_pct_1y": 29.65,
     "volume": 1103050,
-    "avg_volume_30d": 2700245
+    "avg_volume_30d": 2700245,
+    "last_sync": "2026-04-22T02:47:23.343195"
   },
   "scores": {
     "master_score": 50.43,
@@ -88,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 145.04,
-    "entry_range_high": 151.36,
-    "target_range_low": 161.5,
-    "target_range_high": 173.04,
-    "stop_range_low": 134.09,
-    "stop_range_high": 141.15,
-    "target_price": 164.8,
-    "stop_loss": 141.15,
+    "entry_range_low": 156.2,
+    "entry_range_high": 163.01,
+    "target_range_low": 173.93,
+    "target_range_high": 186.36,
+    "stop_range_low": 144.41,
+    "stop_range_high": 152.01,
+    "target_price": 177.48,
+    "stop_loss": 152.01,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.096145-04:00",
