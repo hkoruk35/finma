@@ -64,7 +64,7 @@ function TradingViewChart({ symbol }: { symbol: string }) {
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      symbol: symbol.includes(":") ? symbol : `AMEX:${symbol}|NYSE:${symbol}|NASDAQ:${symbol}`,
+      symbol: symbol.includes(":") ? symbol : symbol,
       width: "100%",
       height: "180",
       locale: "en",
