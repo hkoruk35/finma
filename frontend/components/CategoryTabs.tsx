@@ -106,14 +106,12 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
                   {stock.company}
                 </p>
               </div>
-              {/* Score — compact, secondary */}
+              {/* Daily Change — prominent in top right */}
               <div className="text-right">
                 <div className={`text-lg font-mono font-black ${getChangeColor(stock.change_pct)} leading-none`}>
-                  ${formatPrice(stock.price)}
-                </div>
-                <div className={`text-[10px] font-bold uppercase tracking-widest leading-none mt-1 ${getChangeColor(stock.change_pct)}`}>
                   {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
                 </div>
+                <div className="text-[8px] text-[#64748b] font-bold uppercase tracking-widest mt-1">1D CHG</div>
               </div>
             </div>
 
