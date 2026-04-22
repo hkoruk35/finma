@@ -1,0 +1,177 @@
+{
+  "ticker": "XYL",
+  "company": "Xylem Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.859277-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 119.9,
+    "open": 118.67,
+    "high": 121.02,
+    "low": 118.01,
+    "prev_close": 120.46,
+    "change_pct": -0.46,
+    "change_pct_1w": -7.53,
+    "change_pct_1m": -0.45,
+    "change_pct_1y": 9.91,
+    "volume": 1615898,
+    "avg_volume_30d": 2163989
+  },
+  "scores": {
+    "master_score": 27.75,
+    "technical_score": 7.2,
+    "fundamental_score": 40.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 27.75,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 40.1,
+    "macd": -0.413,
+    "macd_signal": -0.0898,
+    "macd_histogram": -0.3232,
+    "macd_crossover": "neutral",
+    "ema_20": 123.72,
+    "ema_50": 126.04,
+    "ema_200": 131.74,
+    "ema_stack_bullish": false,
+    "bb_upper": 131.17,
+    "bb_middle": 123.16,
+    "bb_lower": 115.16,
+    "bb_width": 0.13,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.7,
+    "atr": 3.12,
+    "atr_pct": 0.026,
+    "obv_trend": "DOWN",
+    "mfi": 49.0,
+    "cmf": 0.019,
+    "stoch_k": 15.5,
+    "stoch_d": 27.0,
+    "rvol": 1.29,
+    "volume_5d_avg": 2786219,
+    "green_days_10d": 5,
+    "52w_high": 152.0,
+    "52w_low": 107.21,
+    "52w_high_proximity_pct": 0.2112,
+    "52w_low_proximity_pct": 0.1184
+  },
+  "fundamental": {
+    "pe_ratio": 30.66496,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 2.544027,
+    "de_ratio": 21.066,
+    "fcf_yield": 0.0306,
+    "eps_growth_5y": 0.03,
+    "revenue_growth_ttm": 0.063,
+    "gross_margin": 0.38462,
+    "operating_margin": 0.15978,
+    "net_margin": 0.10592,
+    "market_cap": 29152655360,
+    "enterprise_value": 30553812992,
+    "dividend_yield": 1.43,
+    "payout_ratio": 0.4082,
+    "insider_ownership_pct": 0.00318,
+    "institutional_ownership_pct": 0.97857004,
+    "short_ratio": 2.5,
+    "beta": 1.174
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 119.3,
+    "entry_range_high": 120.5,
+    "target_range_low": 126.67,
+    "target_range_high": 135.72,
+    "stop_range_low": 107.98,
+    "stop_range_high": 113.66,
+    "target_price": 129.26,
+    "stop_loss": 113.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.859138-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 149.88,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 143.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 107.21,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9382,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns XYL a score of 27.8/100. Trend: Neutral. RSI: 40.1.",
+      "tr": "BOGA AI assigns XYL a score of 27.8/100. Trend: Neutral. RSI: 40.1.",
+      "es": "BOGA AI assigns XYL a score of 27.8/100. Trend: Neutral. RSI: 40.1.",
+      "pt": "BOGA AI assigns XYL a score of 27.8/100. Trend: Neutral. RSI: 40.1.",
+      "fr": "BOGA AI assigns XYL a score of 27.8/100. Trend: Neutral. RSI: 40.1.",
+      "id": "BOGA AI assigns XYL a score of 27.8/100. Trend: Neutral. RSI: 40.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: XYL (Xylem Inc.)\n\n### 1. Business Context\nXylem Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $119.90.\n\n### 2. Performance\n* **Master Score:** 27.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $119.90 | Current |\n| EMA20 | $123.72 | Support |\n| ADX | 22.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $113.66.\n\n### 5. Execution\n* **Entry Zone:** $119.30 - $120.50\n* **Target Price:** $129.26\n* **Stop Loss:** $113.66\n",
+      "tr": "## Kurumsal Analiz: XYL (Xylem Inc.)\n\n### 1. İş Bağlamı\nXylem Inc., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $119.90 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 27.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $119.90 | Güncel |\n| EMA20 | $123.72 | Destek |\n| ADX | 22.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $113.66.\n\n### 5. Uygulama\n* **Entry Zone:** $119.30 - $120.50\n* **Target Price:** $129.26\n* **Stop Loss:** $113.66\n",
+      "es": "## Análisis Institucional: XYL (Xylem Inc.)\n\n### 1. Contexto\nXylem Inc. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $119.90.\n\n### 2. Desempeño\n* **Master Score:** 27.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $119.90 | Actual |\n| EMA20 | $123.72 | Soporte |\n| ADX | 22.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $113.66.\n\n### 5. Ejecución\n* **Entry Zone:** $119.30 - $120.50\n* **Target Price:** $129.26\n* **Stop Loss:** $113.66\n",
+      "pt": "## Análise Institucional: XYL (Xylem Inc.)\n\n### 1. Contexto\nXylem Inc. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $119.90.\n\n### 2. Desempenho\n* **Master Score:** 27.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $119.90 | Atual |\n| EMA20 | $123.72 | Suporte |\n| ADX | 22.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $113.66.\n\n### 5. Execução\n* **Entry Zone:** $119.30 - $120.50\n* **Target Price:** $129.26\n* **Stop Loss:** $113.66\n",
+      "fr": "## Analyse Institutionnelle: XYL (Xylem Inc.)\n\n### 1. Contexte Business\nXylem Inc. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $119.90.\n\n### 2. Performance\n* **Master Score:** 27.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $119.90 | Actuel |\n| EMA20 | $123.72 | Support |\n| ADX | 22.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $113.66.\n\n### 5. Exécution\n* **Entry Zone:** $119.30 - $120.50\n* **Target Price:** $129.26\n* **Stop Loss:** $113.66\n",
+      "id": "## Analisis Institusional: XYL (Xylem Inc.)\n\n### 1. Konteks Bisnis\nXylem Inc. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $119.90.\n\n### 2. Performa\n* **Master Score:** 27.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $119.90 | Saat Ini |\n| EMA20 | $123.72 | Dukungan |\n| ADX | 22.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $113.66.\n\n### 5. Eksekusi\n* **Entry Zone:** $119.30 - $120.50\n* **Target Price:** $129.26\n* **Stop Loss:** $113.66\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-0.46%",
+    "key_metrics": {
+      "RSI": 40.1,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

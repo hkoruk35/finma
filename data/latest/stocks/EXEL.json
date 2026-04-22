@@ -1,0 +1,177 @@
+{
+  "ticker": "EXEL",
+  "company": "Exelixis, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.858626-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 45.13,
+    "open": 44.18,
+    "high": 45.7,
+    "low": 44.12,
+    "prev_close": 43.61,
+    "change_pct": 3.49,
+    "change_pct_1w": -1.59,
+    "change_pct_1m": 9.35,
+    "change_pct_1y": 24.7,
+    "volume": 1554992,
+    "avg_volume_30d": 2388563
+  },
+  "scores": {
+    "master_score": 64.82,
+    "technical_score": 60.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 64.82,
+    "confidence": 0.65,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 57.5,
+    "macd": 0.6088,
+    "macd_signal": 0.5642,
+    "macd_histogram": 0.0446,
+    "macd_crossover": "neutral",
+    "ema_20": 43.94,
+    "ema_50": 43.33,
+    "ema_200": 41.9,
+    "ema_stack_bullish": true,
+    "bb_upper": 46.24,
+    "bb_middle": 43.8,
+    "bb_lower": 41.36,
+    "bb_width": 0.1113,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.9,
+    "atr": 1.28,
+    "atr_pct": 0.0285,
+    "obv_trend": "UP",
+    "mfi": 69.3,
+    "cmf": 0.028,
+    "stoch_k": 73.1,
+    "stoch_d": 59.6,
+    "rvol": 0.87,
+    "volume_5d_avg": 2070818,
+    "green_days_10d": 7,
+    "52w_high": 46.61,
+    "52w_low": 34.54,
+    "52w_high_proximity_pct": 0.0318,
+    "52w_low_proximity_pct": 0.3066
+  },
+  "fundamental": {
+    "pe_ratio": 16.233814,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 5.4809327,
+    "de_ratio": 9.296,
+    "fcf_yield": 0.0538,
+    "eps_growth_5y": 0.842,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.96392995,
+    "operating_margin": 0.39406,
+    "net_margin": 0.3373,
+    "market_cap": 11720653824,
+    "enterprise_value": 10467725312,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.019609999,
+    "institutional_ownership_pct": 1.05667,
+    "short_ratio": 9.57,
+    "beta": 0.418
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 43.11,
+    "entry_range_high": 45.36,
+    "target_range_low": 47.99,
+    "target_range_high": 51.42,
+    "stop_range_low": 40.44,
+    "stop_range_high": 42.57,
+    "target_price": 48.97,
+    "stop_loss": 42.57,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.858608-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 56.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 160437,
+      "date": "2026-02-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
+      "tr": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
+      "es": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
+      "pt": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
+      "fr": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5.",
+      "id": "BOGA AI assigns EXEL a score of 64.8/100. Trend: Neutral. RSI: 57.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: EXEL (Exelixis, Inc.)\n\n### 1. Business Context\nExelixis, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $45.13.\n\n### 2. Performance\n* **Master Score:** 64.8/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 57.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.13 | Current |\n| EMA20 | $43.94 | Support |\n| ADX | 23.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $42.57.\n\n### 5. Execution\n* **Entry Zone:** $43.11 - $45.36\n* **Target Price:** $48.97\n* **Stop Loss:** $42.57\n",
+      "tr": "## Kurumsal Analiz: EXEL (Exelixis, Inc.)\n\n### 1. İş Bağlamı\nExelixis, Inc., Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $45.13 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 64.8/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 57.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $45.13 | Güncel |\n| EMA20 | $43.94 | Destek |\n| ADX | 23.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $42.57.\n\n### 5. Uygulama\n* **Entry Zone:** $43.11 - $45.36\n* **Target Price:** $48.97\n* **Stop Loss:** $42.57\n",
+      "es": "## Análisis Institucional: EXEL (Exelixis, Inc.)\n\n### 1. Contexto\nExelixis, Inc. opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $45.13.\n\n### 2. Desempeño\n* **Master Score:** 64.8/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 57.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $45.13 | Actual |\n| EMA20 | $43.94 | Soporte |\n| ADX | 23.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $42.57.\n\n### 5. Ejecución\n* **Entry Zone:** $43.11 - $45.36\n* **Target Price:** $48.97\n* **Stop Loss:** $42.57\n",
+      "pt": "## Análise Institucional: EXEL (Exelixis, Inc.)\n\n### 1. Contexto\nExelixis, Inc. opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $45.13.\n\n### 2. Desempenho\n* **Master Score:** 64.8/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 57.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $45.13 | Atual |\n| EMA20 | $43.94 | Suporte |\n| ADX | 23.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $42.57.\n\n### 5. Execução\n* **Entry Zone:** $43.11 - $45.36\n* **Target Price:** $48.97\n* **Stop Loss:** $42.57\n",
+      "fr": "## Analyse Institutionnelle: EXEL (Exelixis, Inc.)\n\n### 1. Contexte Business\nExelixis, Inc. opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $45.13.\n\n### 2. Performance\n* **Master Score:** 64.8/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 57.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.13 | Actuel |\n| EMA20 | $43.94 | Support |\n| ADX | 23.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $42.57.\n\n### 5. Exécution\n* **Entry Zone:** $43.11 - $45.36\n* **Target Price:** $48.97\n* **Stop Loss:** $42.57\n",
+      "id": "## Analisis Institusional: EXEL (Exelixis, Inc.)\n\n### 1. Konteks Bisnis\nExelixis, Inc. beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $45.13.\n\n### 2. Performa\n* **Master Score:** 64.8/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 57.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $45.13 | Saat Ini |\n| EMA20 | $43.94 | Dukungan |\n| ADX | 23.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $42.57.\n\n### 5. Eksekusi\n* **Entry Zone:** $43.11 - $45.36\n* **Target Price:** $48.97\n* **Stop Loss:** $42.57\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 65,
+    "price_change_display": "+3.49%",
+    "key_metrics": {
+      "RSI": 57.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

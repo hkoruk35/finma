@@ -1,0 +1,177 @@
+{
+  "ticker": "TPL",
+  "company": "Texas Pacific Land Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.506347-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 442.42,
+    "open": 437.78,
+    "high": 444.75,
+    "low": 436.63,
+    "prev_close": 434.82,
+    "change_pct": 1.75,
+    "change_pct_1w": 7.33,
+    "change_pct_1m": -14.82,
+    "change_pct_1y": 2.83,
+    "volume": 84643,
+    "avg_volume_30d": 516118
+  },
+  "scores": {
+    "master_score": 31.21,
+    "technical_score": 37.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.6,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 31.21,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.8,
+    "macd": -16.9238,
+    "macd_signal": -16.5143,
+    "macd_histogram": -0.4095,
+    "macd_crossover": "neutral",
+    "ema_20": 446.75,
+    "ema_50": 448.24,
+    "ema_200": 391.99,
+    "ema_stack_bullish": false,
+    "bb_upper": 536.19,
+    "bb_middle": 451.61,
+    "bb_lower": 367.03,
+    "bb_width": 0.3746,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 43.6,
+    "atr": 22.25,
+    "atr_pct": 0.0503,
+    "obv_trend": "UP",
+    "mfi": 41.8,
+    "cmf": -0.145,
+    "stoch_k": 69.0,
+    "stoch_d": 54.2,
+    "rvol": 0.59,
+    "volume_5d_avg": 306588,
+    "green_days_10d": 6,
+    "52w_high": 539.79,
+    "52w_low": 273.25,
+    "52w_high_proximity_pct": 0.1804,
+    "52w_low_proximity_pct": 0.6191
+  },
+  "fundamental": {
+    "pe_ratio": 63.566093,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 20.905354,
+    "de_ratio": 1.219,
+    "fcf_yield": -0.0027,
+    "eps_growth_5y": 0.043,
+    "revenue_growth_ttm": 0.139,
+    "gross_margin": 0.93294,
+    "operating_margin": 0.70641,
+    "net_margin": 0.60308,
+    "market_cap": 30501122048,
+    "enterprise_value": 29850144768,
+    "dividend_yield": 0.55,
+    "payout_ratio": 0.3061,
+    "insider_ownership_pct": 0.0016500001,
+    "institutional_ownership_pct": 0.73513,
+    "short_ratio": 7.68,
+    "beta": 0.773
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 440.21,
+    "entry_range_high": 444.63,
+    "target_range_low": 498.99,
+    "target_range_high": 534.63,
+    "stop_range_low": 378.02,
+    "stop_range_high": 397.92,
+    "target_price": 509.17,
+    "stop_loss": 397.92,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.506283-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 553.02,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 55.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 273.25,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 51,
+    "last_90_days_sells": 2,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 1,
+      "date": "2026-04-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
+      "tr": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
+      "es": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
+      "pt": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
+      "fr": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8.",
+      "id": "BOGA AI assigns TPL a score of 31.2/100. Trend: Neutral. RSI: 46.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TPL (Texas Pacific Land Corporation)\n\n### 1. Business Context\nTexas Pacific Land Corporation operates in the Energy sector. BOGA AI detect institutional interest near $442.42.\n\n### 2. Performance\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $442.42 | Current |\n| EMA20 | $446.75 | Support |\n| ADX | 43.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $397.92.\n\n### 5. Execution\n* **Entry Zone:** $440.21 - $444.63\n* **Target Price:** $509.17\n* **Stop Loss:** $397.92\n",
+      "tr": "## Kurumsal Analiz: TPL (Texas Pacific Land Corporation)\n\n### 1. İş Bağlamı\nTexas Pacific Land Corporation, Energy sektöründe faaliyet göstermektedir. BOGA AI, $442.42 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $442.42 | Güncel |\n| EMA20 | $446.75 | Destek |\n| ADX | 43.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $397.92.\n\n### 5. Uygulama\n* **Entry Zone:** $440.21 - $444.63\n* **Target Price:** $509.17\n* **Stop Loss:** $397.92\n",
+      "es": "## Análisis Institucional: TPL (Texas Pacific Land Corporation)\n\n### 1. Contexto\nTexas Pacific Land Corporation opera en el sector Energy. BOGA AI detecta interés institucional cerca de $442.42.\n\n### 2. Desempeño\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $442.42 | Actual |\n| EMA20 | $446.75 | Soporte |\n| ADX | 43.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $397.92.\n\n### 5. Ejecución\n* **Entry Zone:** $440.21 - $444.63\n* **Target Price:** $509.17\n* **Stop Loss:** $397.92\n",
+      "pt": "## Análise Institucional: TPL (Texas Pacific Land Corporation)\n\n### 1. Contexto\nTexas Pacific Land Corporation opera no setor Energy. BOGA AI detecta interesse institucional perto de $442.42.\n\n### 2. Desempenho\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $442.42 | Atual |\n| EMA20 | $446.75 | Suporte |\n| ADX | 43.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $397.92.\n\n### 5. Execução\n* **Entry Zone:** $440.21 - $444.63\n* **Target Price:** $509.17\n* **Stop Loss:** $397.92\n",
+      "fr": "## Analyse Institutionnelle: TPL (Texas Pacific Land Corporation)\n\n### 1. Contexte Business\nTexas Pacific Land Corporation opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $442.42.\n\n### 2. Performance\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $442.42 | Actuel |\n| EMA20 | $446.75 | Support |\n| ADX | 43.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $397.92.\n\n### 5. Exécution\n* **Entry Zone:** $440.21 - $444.63\n* **Target Price:** $509.17\n* **Stop Loss:** $397.92\n",
+      "id": "## Analisis Institusional: TPL (Texas Pacific Land Corporation)\n\n### 1. Konteks Bisnis\nTexas Pacific Land Corporation beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $442.42.\n\n### 2. Performa\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $442.42 | Saat Ini |\n| EMA20 | $446.75 | Dukungan |\n| ADX | 43.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $397.92.\n\n### 5. Eksekusi\n* **Entry Zone:** $440.21 - $444.63\n* **Target Price:** $509.17\n* **Stop Loss:** $397.92\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "+1.75%",
+    "key_metrics": {
+      "RSI": 46.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

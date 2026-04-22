@@ -1,0 +1,177 @@
+{
+  "ticker": "PLTR",
+  "company": "Palantir Technologies Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.134966-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 146.74,
+    "open": 146.83,
+    "high": 149.87,
+    "low": 144.0,
+    "prev_close": 145.89,
+    "change_pct": 0.59,
+    "change_pct_1w": 8.14,
+    "change_pct_1m": -2.61,
+    "change_pct_1y": 56.48,
+    "volume": 27927366,
+    "avg_volume_30d": 46541498
+  },
+  "scores": {
+    "master_score": 26.21,
+    "technical_score": 11.4,
+    "fundamental_score": 15.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 26.21,
+    "confidence": 0.26,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 52.5,
+    "macd": -1.3977,
+    "macd_signal": -2.2336,
+    "macd_histogram": 0.8359,
+    "macd_crossover": "neutral",
+    "ema_20": 143.62,
+    "ema_50": 147.61,
+    "ema_200": 151.33,
+    "ema_stack_bullish": false,
+    "bb_upper": 157.85,
+    "bb_middle": 143.42,
+    "bb_lower": 128.99,
+    "bb_width": 0.2013,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.9,
+    "atr": 7.03,
+    "atr_pct": 0.0479,
+    "obv_trend": "UP",
+    "mfi": 49.5,
+    "cmf": -0.025,
+    "stoch_k": 71.6,
+    "stoch_d": 70.4,
+    "rvol": 0.88,
+    "volume_5d_avg": 40819313,
+    "green_days_10d": 6,
+    "52w_high": 207.18,
+    "52w_low": 90.8,
+    "52w_high_proximity_pct": 0.2917,
+    "52w_low_proximity_pct": 0.6161
+  },
+  "fundamental": {
+    "pe_ratio": 232.93651,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 47.507282,
+    "de_ratio": 3.063,
+    "fcf_yield": 0.0036,
+    "eps_growth_5y": 6.476,
+    "revenue_growth_ttm": 0.7,
+    "gross_margin": 0.82366997,
+    "operating_margin": 0.40901002,
+    "net_margin": 0.36310002,
+    "market_cap": 350978408448,
+    "enterprise_value": 342074621952,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.03583,
+    "institutional_ownership_pct": 0.6158,
+    "short_ratio": 1.06,
+    "beta": 1.674
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 146.01,
+    "entry_range_high": 147.47,
+    "target_range_low": 164.47,
+    "target_range_high": 176.22,
+    "stop_range_low": 126.05,
+    "stop_range_high": 132.68,
+    "target_price": 167.83,
+    "stop_loss": 132.68,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.134547-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 183.43,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 90.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 16000,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns PLTR a score of 26.2/100. Trend: Neutral. RSI: 52.5.",
+      "tr": "BOGA AI assigns PLTR a score of 26.2/100. Trend: Neutral. RSI: 52.5.",
+      "es": "BOGA AI assigns PLTR a score of 26.2/100. Trend: Neutral. RSI: 52.5.",
+      "pt": "BOGA AI assigns PLTR a score of 26.2/100. Trend: Neutral. RSI: 52.5.",
+      "fr": "BOGA AI assigns PLTR a score of 26.2/100. Trend: Neutral. RSI: 52.5.",
+      "id": "BOGA AI assigns PLTR a score of 26.2/100. Trend: Neutral. RSI: 52.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: PLTR (Palantir Technologies Inc.)\n\n### 1. Business Context\nPalantir Technologies Inc. operates in the Technology sector. BOGA AI detect institutional interest near $146.74.\n\n### 2. Performance\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $146.74 | Current |\n| EMA20 | $143.62 | Support |\n| ADX | 15.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $132.68.\n\n### 5. Execution\n* **Entry Zone:** $146.01 - $147.47\n* **Target Price:** $167.83\n* **Stop Loss:** $132.68\n",
+      "tr": "## Kurumsal Analiz: PLTR (Palantir Technologies Inc.)\n\n### 1. İş Bağlamı\nPalantir Technologies Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $146.74 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $146.74 | Güncel |\n| EMA20 | $143.62 | Destek |\n| ADX | 15.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $132.68.\n\n### 5. Uygulama\n* **Entry Zone:** $146.01 - $147.47\n* **Target Price:** $167.83\n* **Stop Loss:** $132.68\n",
+      "es": "## Análisis Institucional: PLTR (Palantir Technologies Inc.)\n\n### 1. Contexto\nPalantir Technologies Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $146.74.\n\n### 2. Desempeño\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $146.74 | Actual |\n| EMA20 | $143.62 | Soporte |\n| ADX | 15.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $132.68.\n\n### 5. Ejecución\n* **Entry Zone:** $146.01 - $147.47\n* **Target Price:** $167.83\n* **Stop Loss:** $132.68\n",
+      "pt": "## Análise Institucional: PLTR (Palantir Technologies Inc.)\n\n### 1. Contexto\nPalantir Technologies Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $146.74.\n\n### 2. Desempenho\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $146.74 | Atual |\n| EMA20 | $143.62 | Suporte |\n| ADX | 15.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $132.68.\n\n### 5. Execução\n* **Entry Zone:** $146.01 - $147.47\n* **Target Price:** $167.83\n* **Stop Loss:** $132.68\n",
+      "fr": "## Analyse Institutionnelle: PLTR (Palantir Technologies Inc.)\n\n### 1. Contexte Business\nPalantir Technologies Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $146.74.\n\n### 2. Performance\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $146.74 | Actuel |\n| EMA20 | $143.62 | Support |\n| ADX | 15.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $132.68.\n\n### 5. Exécution\n* **Entry Zone:** $146.01 - $147.47\n* **Target Price:** $167.83\n* **Stop Loss:** $132.68\n",
+      "id": "## Analisis Institusional: PLTR (Palantir Technologies Inc.)\n\n### 1. Konteks Bisnis\nPalantir Technologies Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $146.74.\n\n### 2. Performa\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $146.74 | Saat Ini |\n| EMA20 | $143.62 | Dukungan |\n| ADX | 15.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $132.68.\n\n### 5. Eksekusi\n* **Entry Zone:** $146.01 - $147.47\n* **Target Price:** $167.83\n* **Stop Loss:** $132.68\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 26,
+    "price_change_display": "+0.59%",
+    "key_metrics": {
+      "RSI": 52.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

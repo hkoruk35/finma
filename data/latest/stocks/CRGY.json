@@ -1,0 +1,177 @@
+{
+  "ticker": "CRGY",
+  "company": "Crescent Energy Company",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.418100-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 12.22,
+    "open": 12.08,
+    "high": 12.25,
+    "low": 12.02,
+    "prev_close": 11.98,
+    "change_pct": 1.96,
+    "change_pct_1w": 0.29,
+    "change_pct_1m": -3.59,
+    "change_pct_1y": 53.11,
+    "volume": 2517239,
+    "avg_volume_30d": 8274521
+  },
+  "scores": {
+    "master_score": 38.81,
+    "technical_score": 38.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.6,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 38.81,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 47.8,
+    "macd": 0.0335,
+    "macd_signal": 0.2398,
+    "macd_histogram": -0.2063,
+    "macd_crossover": "neutral",
+    "ema_20": 12.5,
+    "ema_50": 11.84,
+    "ema_200": 10.09,
+    "ema_stack_bullish": false,
+    "bb_upper": 14.13,
+    "bb_middle": 12.91,
+    "bb_lower": 11.7,
+    "bb_width": 0.188,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 17.8,
+    "atr": 0.58,
+    "atr_pct": 0.0479,
+    "obv_trend": "UP",
+    "mfi": 53.0,
+    "cmf": 0.086,
+    "stoch_k": 32.9,
+    "stoch_d": 24.6,
+    "rvol": 0.75,
+    "volume_5d_avg": 6165827,
+    "green_days_10d": 6,
+    "52w_high": 13.7,
+    "52w_low": 7.56,
+    "52w_high_proximity_pct": 0.1084,
+    "52w_low_proximity_pct": 0.616
+  },
+  "fundamental": {
+    "pe_ratio": 22.620369,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 0.77654165,
+    "de_ratio": 107.101,
+    "fcf_yield": -0.185,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.012,
+    "gross_margin": 0.5565,
+    "operating_margin": 0.05461,
+    "net_margin": 0.037130002,
+    "market_cap": 4005302016,
+    "enterprise_value": 9457831936,
+    "dividend_yield": 4.01,
+    "payout_ratio": 0.8889,
+    "insider_ownership_pct": 0.14659001,
+    "institutional_ownership_pct": 0.88597,
+    "short_ratio": 3.33,
+    "beta": 1.05
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 11.78,
+    "entry_range_high": 12.28,
+    "target_range_low": 13.68,
+    "target_range_high": 14.66,
+    "stop_range_low": 10.51,
+    "stop_range_high": 11.06,
+    "target_price": 13.96,
+    "stop_loss": 11.06,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.418050-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 15.28,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 401.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 7.56,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 17411,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CRGY a score of 38.8/100. Trend: Neutral. RSI: 47.8.",
+      "tr": "BOGA AI assigns CRGY a score of 38.8/100. Trend: Neutral. RSI: 47.8.",
+      "es": "BOGA AI assigns CRGY a score of 38.8/100. Trend: Neutral. RSI: 47.8.",
+      "pt": "BOGA AI assigns CRGY a score of 38.8/100. Trend: Neutral. RSI: 47.8.",
+      "fr": "BOGA AI assigns CRGY a score of 38.8/100. Trend: Neutral. RSI: 47.8.",
+      "id": "BOGA AI assigns CRGY a score of 38.8/100. Trend: Neutral. RSI: 47.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: CRGY (Crescent Energy Company)\n\n### 1. Business Context\nCrescent Energy Company operates in the Energy sector. BOGA AI detect institutional interest near $12.22.\n\n### 2. Performance\n* **Master Score:** 38.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $12.22 | Current |\n| EMA20 | $12.5 | Support |\n| ADX | 17.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $11.06.\n\n### 5. Execution\n* **Entry Zone:** $11.78 - $12.28\n* **Target Price:** $13.96\n* **Stop Loss:** $11.06\n",
+      "tr": "## Kurumsal Analiz: CRGY (Crescent Energy Company)\n\n### 1. İş Bağlamı\nCrescent Energy Company, Energy sektöründe faaliyet göstermektedir. BOGA AI, $12.22 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 38.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $12.22 | Güncel |\n| EMA20 | $12.5 | Destek |\n| ADX | 17.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $11.06.\n\n### 5. Uygulama\n* **Entry Zone:** $11.78 - $12.28\n* **Target Price:** $13.96\n* **Stop Loss:** $11.06\n",
+      "es": "## Análisis Institucional: CRGY (Crescent Energy Company)\n\n### 1. Contexto\nCrescent Energy Company opera en el sector Energy. BOGA AI detecta interés institucional cerca de $12.22.\n\n### 2. Desempeño\n* **Master Score:** 38.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $12.22 | Actual |\n| EMA20 | $12.5 | Soporte |\n| ADX | 17.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $11.06.\n\n### 5. Ejecución\n* **Entry Zone:** $11.78 - $12.28\n* **Target Price:** $13.96\n* **Stop Loss:** $11.06\n",
+      "pt": "## Análise Institucional: CRGY (Crescent Energy Company)\n\n### 1. Contexto\nCrescent Energy Company opera no setor Energy. BOGA AI detecta interesse institucional perto de $12.22.\n\n### 2. Desempenho\n* **Master Score:** 38.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $12.22 | Atual |\n| EMA20 | $12.5 | Suporte |\n| ADX | 17.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $11.06.\n\n### 5. Execução\n* **Entry Zone:** $11.78 - $12.28\n* **Target Price:** $13.96\n* **Stop Loss:** $11.06\n",
+      "fr": "## Analyse Institutionnelle: CRGY (Crescent Energy Company)\n\n### 1. Contexte Business\nCrescent Energy Company opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $12.22.\n\n### 2. Performance\n* **Master Score:** 38.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $12.22 | Actuel |\n| EMA20 | $12.5 | Support |\n| ADX | 17.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $11.06.\n\n### 5. Exécution\n* **Entry Zone:** $11.78 - $12.28\n* **Target Price:** $13.96\n* **Stop Loss:** $11.06\n",
+      "id": "## Analisis Institusional: CRGY (Crescent Energy Company)\n\n### 1. Konteks Bisnis\nCrescent Energy Company beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $12.22.\n\n### 2. Performa\n* **Master Score:** 38.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $12.22 | Saat Ini |\n| EMA20 | $12.5 | Dukungan |\n| ADX | 17.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $11.06.\n\n### 5. Eksekusi\n* **Entry Zone:** $11.78 - $12.28\n* **Target Price:** $13.96\n* **Stop Loss:** $11.06\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+1.96%",
+    "key_metrics": {
+      "RSI": 47.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

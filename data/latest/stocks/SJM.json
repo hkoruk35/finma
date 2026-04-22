@@ -1,0 +1,178 @@
+{
+  "ticker": "SJM",
+  "company": "The J. M. Smucker Company",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.761914-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 95.01,
+    "open": 95.49,
+    "high": 95.99,
+    "low": 94.39,
+    "prev_close": 96.14,
+    "change_pct": -1.17,
+    "change_pct_1w": 3.04,
+    "change_pct_1m": -4.38,
+    "change_pct_1y": -15.11,
+    "volume": 332172,
+    "avg_volume_30d": 1911469
+  },
+  "scores": {
+    "master_score": 30.44,
+    "technical_score": 15.9,
+    "fundamental_score": 35.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.3,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 30.44,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 43.9,
+    "macd": -2.1598,
+    "macd_signal": -2.8733,
+    "macd_histogram": 0.7135,
+    "macd_crossover": "neutral",
+    "ema_20": 95.66,
+    "ema_50": 99.36,
+    "ema_200": 102.96,
+    "ema_stack_bullish": false,
+    "bb_upper": 98.02,
+    "bb_middle": 94.38,
+    "bb_lower": 90.73,
+    "bb_width": 0.0773,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 33.7,
+    "atr": 2.44,
+    "atr_pct": 0.0257,
+    "obv_trend": "UP",
+    "mfi": 46.1,
+    "cmf": -0.005,
+    "stoch_k": 83.1,
+    "stoch_d": 86.6,
+    "rvol": 0.89,
+    "volume_5d_avg": 1696474,
+    "green_days_10d": 5,
+    "52w_high": 116.0,
+    "52w_low": 89.53,
+    "52w_high_proximity_pct": 0.1809,
+    "52w_low_proximity_pct": 0.0613
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 24.066932,
+    "pb_ratio": 1.9361576,
+    "de_ratio": 143.204,
+    "fcf_yield": 0.0872,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.07,
+    "gross_margin": 0.3421,
+    "operating_margin": 0.18778,
+    "net_margin": -0.14068,
+    "market_cap": 10137561088,
+    "enterprise_value": 17698668544,
+    "dividend_yield": 4.58,
+    "payout_ratio": 0.8606,
+    "insider_ownership_pct": 0.02232,
+    "institutional_ownership_pct": 0.93931,
+    "short_ratio": 3.23,
+    "beta": 0.259
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 94.53,
+    "entry_range_high": 95.49,
+    "target_range_low": 100.28,
+    "target_range_high": 107.45,
+    "stop_range_low": 85.62,
+    "stop_range_high": 90.13,
+    "target_price": 102.33,
+    "stop_loss": 90.13,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.761493-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 118.76,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 458.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 89.53,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 613,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SJM a score of 30.4/100. Trend: Neutral. RSI: 43.9.",
+      "tr": "BOGA AI assigns SJM a score of 30.4/100. Trend: Neutral. RSI: 43.9.",
+      "es": "BOGA AI assigns SJM a score of 30.4/100. Trend: Neutral. RSI: 43.9.",
+      "pt": "BOGA AI assigns SJM a score of 30.4/100. Trend: Neutral. RSI: 43.9.",
+      "fr": "BOGA AI assigns SJM a score of 30.4/100. Trend: Neutral. RSI: 43.9.",
+      "id": "BOGA AI assigns SJM a score of 30.4/100. Trend: Neutral. RSI: 43.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SJM (The J. M. Smucker Company)\n\n### 1. Business Context\nThe J. M. Smucker Company operates in the Consumer Staples sector. BOGA AI detect institutional interest near $95.01.\n\n### 2. Performance\n* **Master Score:** 30.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $95.01 | Current |\n| EMA20 | $95.66 | Support |\n| ADX | 33.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $90.13.\n\n### 5. Execution\n* **Entry Zone:** $94.53 - $95.49\n* **Target Price:** $102.33\n* **Stop Loss:** $90.13\n",
+      "tr": "## Kurumsal Analiz: SJM (The J. M. Smucker Company)\n\n### 1. İş Bağlamı\nThe J. M. Smucker Company, Consumer Staples sektöründe faaliyet göstermektedir. BOGA AI, $95.01 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 30.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $95.01 | Güncel |\n| EMA20 | $95.66 | Destek |\n| ADX | 33.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $90.13.\n\n### 5. Uygulama\n* **Entry Zone:** $94.53 - $95.49\n* **Target Price:** $102.33\n* **Stop Loss:** $90.13\n",
+      "es": "## Análisis Institucional: SJM (The J. M. Smucker Company)\n\n### 1. Contexto\nThe J. M. Smucker Company opera en el sector Consumer Staples. BOGA AI detecta interés institucional cerca de $95.01.\n\n### 2. Desempeño\n* **Master Score:** 30.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $95.01 | Actual |\n| EMA20 | $95.66 | Soporte |\n| ADX | 33.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $90.13.\n\n### 5. Ejecución\n* **Entry Zone:** $94.53 - $95.49\n* **Target Price:** $102.33\n* **Stop Loss:** $90.13\n",
+      "pt": "## Análise Institucional: SJM (The J. M. Smucker Company)\n\n### 1. Contexto\nThe J. M. Smucker Company opera no setor Consumer Staples. BOGA AI detecta interesse institucional perto de $95.01.\n\n### 2. Desempenho\n* **Master Score:** 30.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $95.01 | Atual |\n| EMA20 | $95.66 | Suporte |\n| ADX | 33.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $90.13.\n\n### 5. Execução\n* **Entry Zone:** $94.53 - $95.49\n* **Target Price:** $102.33\n* **Stop Loss:** $90.13\n",
+      "fr": "## Analyse Institutionnelle: SJM (The J. M. Smucker Company)\n\n### 1. Contexte Business\nThe J. M. Smucker Company opère dans le secteur Consumer Staples. BOGA AI détecte un intérêt institutionnel proche de $95.01.\n\n### 2. Performance\n* **Master Score:** 30.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $95.01 | Actuel |\n| EMA20 | $95.66 | Support |\n| ADX | 33.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $90.13.\n\n### 5. Exécution\n* **Entry Zone:** $94.53 - $95.49\n* **Target Price:** $102.33\n* **Stop Loss:** $90.13\n",
+      "id": "## Analisis Institusional: SJM (The J. M. Smucker Company)\n\n### 1. Konteks Bisnis\nThe J. M. Smucker Company beroperasi di sektor Consumer Staples. BOGA AI mendeteksi minat institusional di dekat $95.01.\n\n### 2. Performa\n* **Master Score:** 30.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 43.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $95.01 | Saat Ini |\n| EMA20 | $95.66 | Dukungan |\n| ADX | 33.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $90.13.\n\n### 5. Eksekusi\n* **Entry Zone:** $94.53 - $95.49\n* **Target Price:** $102.33\n* **Stop Loss:** $90.13\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-1.17%",
+    "key_metrics": {
+      "RSI": 43.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

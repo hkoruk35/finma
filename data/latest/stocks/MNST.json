@@ -1,0 +1,177 @@
+{
+  "ticker": "MNST",
+  "company": "Monster Beverage Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.741044-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 75.53,
+    "open": 76.94,
+    "high": 77.11,
+    "low": 75.11,
+    "prev_close": 77.23,
+    "change_pct": -2.2,
+    "change_pct_1w": 0.61,
+    "change_pct_1m": 2.5,
+    "change_pct_1y": 29.31,
+    "volume": 1931577,
+    "avg_volume_30d": 4949235
+  },
+  "scores": {
+    "master_score": 48.23,
+    "technical_score": 46.0,
+    "fundamental_score": 48.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.3,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 48.23,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.3,
+    "macd": -0.0628,
+    "macd_signal": -0.5661,
+    "macd_histogram": 0.5034,
+    "macd_crossover": "neutral",
+    "ema_20": 75.26,
+    "ema_50": 76.17,
+    "ema_200": 72.14,
+    "ema_stack_bullish": false,
+    "bb_upper": 77.61,
+    "bb_middle": 74.13,
+    "bb_lower": 70.65,
+    "bb_width": 0.094,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.6,
+    "atr": 1.73,
+    "atr_pct": 0.0229,
+    "obv_trend": "UP",
+    "mfi": 69.1,
+    "cmf": 0.078,
+    "stoch_k": 66.5,
+    "stoch_d": 86.6,
+    "rvol": 0.88,
+    "volume_5d_avg": 4367315,
+    "green_days_10d": 5,
+    "52w_high": 86.66,
+    "52w_low": 58.01,
+    "52w_high_proximity_pct": 0.1284,
+    "52w_low_proximity_pct": 0.302
+  },
+  "fundamental": {
+    "pe_ratio": 38.932938,
+    "sector_pe_median": 24.066932,
+    "pb_ratio": 8.950101,
+    "de_ratio": 0.8,
+    "fcf_yield": 0.0205,
+    "eps_growth_5y": 0.666,
+    "revenue_growth_ttm": 0.176,
+    "gross_margin": 0.55848,
+    "operating_margin": 0.31315002,
+    "net_margin": 0.22973,
+    "market_cap": 73888686080,
+    "enterprise_value": 72852652032,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.28488,
+    "institutional_ownership_pct": 0.69138,
+    "short_ratio": 4.16,
+    "beta": 0.509
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 75.15,
+    "entry_range_high": 75.91,
+    "target_range_low": 79.11,
+    "target_range_high": 84.76,
+    "stop_range_low": 68.47,
+    "stop_range_high": 72.07,
+    "target_price": 80.72,
+    "stop_loss": 72.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.740802-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 94.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 58.01,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13600,
+      "date": "2026-03-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns MNST a score of 48.2/100. Trend: Neutral. RSI: 50.3.",
+      "tr": "BOGA AI assigns MNST a score of 48.2/100. Trend: Neutral. RSI: 50.3.",
+      "es": "BOGA AI assigns MNST a score of 48.2/100. Trend: Neutral. RSI: 50.3.",
+      "pt": "BOGA AI assigns MNST a score of 48.2/100. Trend: Neutral. RSI: 50.3.",
+      "fr": "BOGA AI assigns MNST a score of 48.2/100. Trend: Neutral. RSI: 50.3.",
+      "id": "BOGA AI assigns MNST a score of 48.2/100. Trend: Neutral. RSI: 50.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: MNST (Monster Beverage Corporation)\n\n### 1. Business Context\nMonster Beverage Corporation operates in the Consumer Staples sector. BOGA AI detect institutional interest near $75.53.\n\n### 2. Performance\n* **Master Score:** 48.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $75.53 | Current |\n| EMA20 | $75.26 | Support |\n| ADX | 21.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $72.07.\n\n### 5. Execution\n* **Entry Zone:** $75.15 - $75.91\n* **Target Price:** $80.72\n* **Stop Loss:** $72.07\n",
+      "tr": "## Kurumsal Analiz: MNST (Monster Beverage Corporation)\n\n### 1. İş Bağlamı\nMonster Beverage Corporation, Consumer Staples sektöründe faaliyet göstermektedir. BOGA AI, $75.53 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $75.53 | Güncel |\n| EMA20 | $75.26 | Destek |\n| ADX | 21.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $72.07.\n\n### 5. Uygulama\n* **Entry Zone:** $75.15 - $75.91\n* **Target Price:** $80.72\n* **Stop Loss:** $72.07\n",
+      "es": "## Análisis Institucional: MNST (Monster Beverage Corporation)\n\n### 1. Contexto\nMonster Beverage Corporation opera en el sector Consumer Staples. BOGA AI detecta interés institucional cerca de $75.53.\n\n### 2. Desempeño\n* **Master Score:** 48.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $75.53 | Actual |\n| EMA20 | $75.26 | Soporte |\n| ADX | 21.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $72.07.\n\n### 5. Ejecución\n* **Entry Zone:** $75.15 - $75.91\n* **Target Price:** $80.72\n* **Stop Loss:** $72.07\n",
+      "pt": "## Análise Institucional: MNST (Monster Beverage Corporation)\n\n### 1. Contexto\nMonster Beverage Corporation opera no setor Consumer Staples. BOGA AI detecta interesse institucional perto de $75.53.\n\n### 2. Desempenho\n* **Master Score:** 48.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $75.53 | Atual |\n| EMA20 | $75.26 | Suporte |\n| ADX | 21.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $72.07.\n\n### 5. Execução\n* **Entry Zone:** $75.15 - $75.91\n* **Target Price:** $80.72\n* **Stop Loss:** $72.07\n",
+      "fr": "## Analyse Institutionnelle: MNST (Monster Beverage Corporation)\n\n### 1. Contexte Business\nMonster Beverage Corporation opère dans le secteur Consumer Staples. BOGA AI détecte un intérêt institutionnel proche de $75.53.\n\n### 2. Performance\n* **Master Score:** 48.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $75.53 | Actuel |\n| EMA20 | $75.26 | Support |\n| ADX | 21.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $72.07.\n\n### 5. Exécution\n* **Entry Zone:** $75.15 - $75.91\n* **Target Price:** $80.72\n* **Stop Loss:** $72.07\n",
+      "id": "## Analisis Institusional: MNST (Monster Beverage Corporation)\n\n### 1. Konteks Bisnis\nMonster Beverage Corporation beroperasi di sektor Consumer Staples. BOGA AI mendeteksi minat institusional di dekat $75.53.\n\n### 2. Performa\n* **Master Score:** 48.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $75.53 | Saat Ini |\n| EMA20 | $75.26 | Dukungan |\n| ADX | 21.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $72.07.\n\n### 5. Eksekusi\n* **Entry Zone:** $75.15 - $75.91\n* **Target Price:** $80.72\n* **Stop Loss:** $72.07\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-2.20%",
+    "key_metrics": {
+      "RSI": 50.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

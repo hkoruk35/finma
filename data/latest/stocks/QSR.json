@@ -1,0 +1,177 @@
+{
+  "ticker": "QSR",
+  "company": "Restaurant Brands International Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.556599-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Restaurants",
+  "price": {
+    "current": 78.51,
+    "open": 78.94,
+    "high": 79.19,
+    "low": 78.46,
+    "prev_close": 78.91,
+    "change_pct": -0.51,
+    "change_pct_1w": -0.08,
+    "change_pct_1m": 6.45,
+    "change_pct_1y": 28.83,
+    "volume": 667337,
+    "avg_volume_30d": 3582721
+  },
+  "scores": {
+    "master_score": 49.23,
+    "technical_score": 60.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 0.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.23,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 63.0,
+    "macd": 1.6726,
+    "macd_signal": 1.6209,
+    "macd_histogram": 0.0517,
+    "macd_crossover": "neutral",
+    "ema_20": 76.52,
+    "ema_50": 73.8,
+    "ema_200": 69.14,
+    "ema_stack_bullish": true,
+    "bb_upper": 80.59,
+    "bb_middle": 76.17,
+    "bb_lower": 71.75,
+    "bb_width": 0.116,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.7,
+    "atr": 1.53,
+    "atr_pct": 0.0195,
+    "obv_trend": "UP",
+    "mfi": 68.4,
+    "cmf": -0.064,
+    "stoch_k": 82.6,
+    "stoch_d": 85.5,
+    "rvol": 0.59,
+    "volume_5d_avg": 2121187,
+    "green_days_10d": 6,
+    "52w_high": 78.91,
+    "52w_low": 60.2,
+    "52w_high_proximity_pct": 0.0051,
+    "52w_low_proximity_pct": 0.3043
+  },
+  "fundamental": {
+    "pe_ratio": 29.851711,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 7.482131,
+    "de_ratio": 303.915,
+    "fcf_yield": 0.0388,
+    "eps_growth_5y": -0.574,
+    "revenue_growth_ttm": 0.074,
+    "gross_margin": 0.33846,
+    "operating_margin": 0.2644,
+    "net_margin": 0.08226,
+    "market_cap": 35789627392,
+    "enterprise_value": 43375644672,
+    "dividend_yield": 3.29,
+    "payout_ratio": 0.943,
+    "insider_ownership_pct": 0.01339,
+    "institutional_ownership_pct": 0.89834,
+    "short_ratio": 3.22,
+    "beta": 0.527
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 73.43,
+    "entry_range_high": 78.9,
+    "target_range_low": 81.44,
+    "target_range_high": 87.26,
+    "stop_range_low": 71.68,
+    "stop_range_high": 75.45,
+    "target_price": 83.1,
+    "stop_loss": 75.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.555903-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 98.14,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 329.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 60.2,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 15,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 20000,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
+      "tr": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
+      "es": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
+      "pt": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
+      "fr": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0.",
+      "id": "BOGA AI assigns QSR a score of 49.2/100. Trend: Neutral. RSI: 63.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: QSR (Restaurant Brands International Inc.)\n\n### 1. Business Context\nRestaurant Brands International Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $78.51.\n\n### 2. Performance\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $78.51 | Current |\n| EMA20 | $76.52 | Support |\n| ADX | 21.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $75.45.\n\n### 5. Execution\n* **Entry Zone:** $73.43 - $78.90\n* **Target Price:** $83.10\n* **Stop Loss:** $75.45\n",
+      "tr": "## Kurumsal Analiz: QSR (Restaurant Brands International Inc.)\n\n### 1. İş Bağlamı\nRestaurant Brands International Inc., Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $78.51 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $78.51 | Güncel |\n| EMA20 | $76.52 | Destek |\n| ADX | 21.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $75.45.\n\n### 5. Uygulama\n* **Entry Zone:** $73.43 - $78.90\n* **Target Price:** $83.10\n* **Stop Loss:** $75.45\n",
+      "es": "## Análisis Institucional: QSR (Restaurant Brands International Inc.)\n\n### 1. Contexto\nRestaurant Brands International Inc. opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $78.51.\n\n### 2. Desempeño\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $78.51 | Actual |\n| EMA20 | $76.52 | Soporte |\n| ADX | 21.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $75.45.\n\n### 5. Ejecución\n* **Entry Zone:** $73.43 - $78.90\n* **Target Price:** $83.10\n* **Stop Loss:** $75.45\n",
+      "pt": "## Análise Institucional: QSR (Restaurant Brands International Inc.)\n\n### 1. Contexto\nRestaurant Brands International Inc. opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $78.51.\n\n### 2. Desempenho\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $78.51 | Atual |\n| EMA20 | $76.52 | Suporte |\n| ADX | 21.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $75.45.\n\n### 5. Execução\n* **Entry Zone:** $73.43 - $78.90\n* **Target Price:** $83.10\n* **Stop Loss:** $75.45\n",
+      "fr": "## Analyse Institutionnelle: QSR (Restaurant Brands International Inc.)\n\n### 1. Contexte Business\nRestaurant Brands International Inc. opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $78.51.\n\n### 2. Performance\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $78.51 | Actuel |\n| EMA20 | $76.52 | Support |\n| ADX | 21.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $75.45.\n\n### 5. Exécution\n* **Entry Zone:** $73.43 - $78.90\n* **Target Price:** $83.10\n* **Stop Loss:** $75.45\n",
+      "id": "## Analisis Institusional: QSR (Restaurant Brands International Inc.)\n\n### 1. Konteks Bisnis\nRestaurant Brands International Inc. beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $78.51.\n\n### 2. Performa\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 63.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $78.51 | Saat Ini |\n| EMA20 | $76.52 | Dukungan |\n| ADX | 21.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $75.45.\n\n### 5. Eksekusi\n* **Entry Zone:** $73.43 - $78.90\n* **Target Price:** $83.10\n* **Stop Loss:** $75.45\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-0.51%",
+    "key_metrics": {
+      "RSI": 63.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

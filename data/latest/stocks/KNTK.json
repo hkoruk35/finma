@@ -1,0 +1,177 @@
+{
+  "ticker": "KNTK",
+  "company": "Kinetik Holdings Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.475276-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 47.1,
+    "open": 46.59,
+    "high": 47.31,
+    "low": 46.52,
+    "prev_close": 46.52,
+    "change_pct": 1.25,
+    "change_pct_1w": 0.17,
+    "change_pct_1m": 2.66,
+    "change_pct_1y": 16.16,
+    "volume": 217058,
+    "avg_volume_30d": 1022245
+  },
+  "scores": {
+    "master_score": 42.71,
+    "technical_score": 47.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.6,
+    "breakout_score": 45.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 42.71,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 54.3,
+    "macd": 0.3893,
+    "macd_signal": 0.5344,
+    "macd_histogram": -0.1451,
+    "macd_crossover": "neutral",
+    "ema_20": 46.7,
+    "ema_50": 45.09,
+    "ema_200": 41.61,
+    "ema_stack_bullish": true,
+    "bb_upper": 48.85,
+    "bb_middle": 47.09,
+    "bb_lower": 45.34,
+    "bb_width": 0.0746,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.8,
+    "atr": 1.57,
+    "atr_pct": 0.0333,
+    "obv_trend": "DOWN",
+    "mfi": 58.3,
+    "cmf": 0.042,
+    "stoch_k": 60.7,
+    "stoch_d": 47.9,
+    "rvol": 0.53,
+    "volume_5d_avg": 542411,
+    "green_days_10d": 4,
+    "52w_high": 48.64,
+    "52w_low": 31.05,
+    "52w_high_proximity_pct": 0.0317,
+    "52w_low_proximity_pct": 0.5168
+  },
+  "fundamental": {
+    "pe_ratio": 17.908745,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": -5.3383203,
+    "de_ratio": 131.918,
+    "fcf_yield": -0.0401,
+    "eps_growth_5y": 485.801,
+    "revenue_growth_ttm": 0.116,
+    "gross_margin": 0.40367,
+    "operating_margin": 0.16188999,
+    "net_margin": 0.29808,
+    "market_cap": 3240582656,
+    "enterprise_value": 10362269696,
+    "dividend_yield": 6.84,
+    "payout_ratio": 1.1862999,
+    "insider_ownership_pct": 0.1013,
+    "institutional_ownership_pct": 1.0188301,
+    "short_ratio": 5.2,
+    "beta": 0.882
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 44.86,
+    "entry_range_high": 47.34,
+    "target_range_low": 50.77,
+    "target_range_high": 54.4,
+    "stop_range_low": 41.76,
+    "stop_range_high": 43.96,
+    "target_price": 51.81,
+    "stop_loss": 43.96,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.475228-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 58.88,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 684.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 31.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1500000,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
+      "tr": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
+      "es": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
+      "pt": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
+      "fr": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3.",
+      "id": "BOGA AI assigns KNTK a score of 42.7/100. Trend: Neutral. RSI: 54.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: KNTK (Kinetik Holdings Inc.)\n\n### 1. Business Context\nKinetik Holdings Inc. operates in the Energy sector. BOGA AI detect institutional interest near $47.10.\n\n### 2. Performance\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $47.10 | Current |\n| EMA20 | $46.7 | Support |\n| ADX | 19.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $43.96.\n\n### 5. Execution\n* **Entry Zone:** $44.86 - $47.34\n* **Target Price:** $51.81\n* **Stop Loss:** $43.96\n",
+      "tr": "## Kurumsal Analiz: KNTK (Kinetik Holdings Inc.)\n\n### 1. İş Bağlamı\nKinetik Holdings Inc., Energy sektöründe faaliyet göstermektedir. BOGA AI, $47.10 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $47.10 | Güncel |\n| EMA20 | $46.7 | Destek |\n| ADX | 19.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $43.96.\n\n### 5. Uygulama\n* **Entry Zone:** $44.86 - $47.34\n* **Target Price:** $51.81\n* **Stop Loss:** $43.96\n",
+      "es": "## Análisis Institucional: KNTK (Kinetik Holdings Inc.)\n\n### 1. Contexto\nKinetik Holdings Inc. opera en el sector Energy. BOGA AI detecta interés institucional cerca de $47.10.\n\n### 2. Desempeño\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $47.10 | Actual |\n| EMA20 | $46.7 | Soporte |\n| ADX | 19.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $43.96.\n\n### 5. Ejecución\n* **Entry Zone:** $44.86 - $47.34\n* **Target Price:** $51.81\n* **Stop Loss:** $43.96\n",
+      "pt": "## Análise Institucional: KNTK (Kinetik Holdings Inc.)\n\n### 1. Contexto\nKinetik Holdings Inc. opera no setor Energy. BOGA AI detecta interesse institucional perto de $47.10.\n\n### 2. Desempenho\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $47.10 | Atual |\n| EMA20 | $46.7 | Suporte |\n| ADX | 19.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $43.96.\n\n### 5. Execução\n* **Entry Zone:** $44.86 - $47.34\n* **Target Price:** $51.81\n* **Stop Loss:** $43.96\n",
+      "fr": "## Analyse Institutionnelle: KNTK (Kinetik Holdings Inc.)\n\n### 1. Contexte Business\nKinetik Holdings Inc. opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $47.10.\n\n### 2. Performance\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $47.10 | Actuel |\n| EMA20 | $46.7 | Support |\n| ADX | 19.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $43.96.\n\n### 5. Exécution\n* **Entry Zone:** $44.86 - $47.34\n* **Target Price:** $51.81\n* **Stop Loss:** $43.96\n",
+      "id": "## Analisis Institusional: KNTK (Kinetik Holdings Inc.)\n\n### 1. Konteks Bisnis\nKinetik Holdings Inc. beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $47.10.\n\n### 2. Performa\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $47.10 | Saat Ini |\n| EMA20 | $46.7 | Dukungan |\n| ADX | 19.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $43.96.\n\n### 5. Eksekusi\n* **Entry Zone:** $44.86 - $47.34\n* **Target Price:** $51.81\n* **Stop Loss:** $43.96\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "+1.25%",
+    "key_metrics": {
+      "RSI": 54.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

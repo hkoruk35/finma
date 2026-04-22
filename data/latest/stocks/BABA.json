@@ -1,0 +1,173 @@
+{
+  "ticker": "BABA",
+  "company": "Alibaba Group Holding Limited",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.474320-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 135.83,
+    "open": 139.25,
+    "high": 139.2,
+    "low": 135.55,
+    "prev_close": 140.17,
+    "change_pct": -3.1,
+    "change_pct_1w": 3.41,
+    "change_pct_1m": 10.96,
+    "change_pct_1y": 26.87,
+    "volume": 6147753,
+    "avg_volume_30d": 11134085
+  },
+  "scores": {
+    "master_score": 30.93,
+    "technical_score": 12.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 60.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 30.93,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.8,
+    "macd": 0.6045,
+    "macd_signal": -1.8165,
+    "macd_histogram": 2.421,
+    "macd_crossover": "neutral",
+    "ema_20": 132.01,
+    "ema_50": 137.07,
+    "ema_200": 144.23,
+    "ema_stack_bullish": false,
+    "bb_upper": 140.83,
+    "bb_middle": 128.36,
+    "bb_lower": 115.9,
+    "bb_width": 0.1942,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.4,
+    "atr": 4.33,
+    "atr_pct": 0.0318,
+    "obv_trend": "UP",
+    "mfi": 65.8,
+    "cmf": -0.017,
+    "stoch_k": 69.2,
+    "stoch_d": 81.5,
+    "rvol": 0.95,
+    "volume_5d_avg": 10542710,
+    "green_days_10d": 7,
+    "52w_high": 189.34,
+    "52w_low": 103.83,
+    "52w_high_proximity_pct": 0.2826,
+    "52w_low_proximity_pct": 0.3082
+  },
+  "fundamental": {
+    "pe_ratio": 23.913733,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 2.0676165,
+    "de_ratio": 25.908,
+    "fcf_yield": -0.0804,
+    "eps_growth_5y": -0.709,
+    "revenue_growth_ttm": 0.017,
+    "gross_margin": 0.40755,
+    "operating_margin": 0.07078,
+    "net_margin": 0.08912,
+    "market_cap": 324872273920,
+    "enterprise_value": 2617368641536,
+    "dividend_yield": 0.75,
+    "payout_ratio": 0.19450001,
+    "insider_ownership_pct": 0.00011,
+    "institutional_ownership_pct": 0.117860004,
+    "short_ratio": 3.17,
+    "beta": 0.489
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 135.15,
+    "entry_range_high": 136.51,
+    "target_range_low": 145.84,
+    "target_range_high": 156.26,
+    "stop_range_low": 120.81,
+    "stop_range_high": 127.17,
+    "target_price": 148.82,
+    "stop_loss": 127.17,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.474088-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 169.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 75.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 103.83,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BABA a score of 30.9/100. Trend: Neutral. RSI: 54.8.",
+      "tr": "BOGA AI assigns BABA a score of 30.9/100. Trend: Neutral. RSI: 54.8.",
+      "es": "BOGA AI assigns BABA a score of 30.9/100. Trend: Neutral. RSI: 54.8.",
+      "pt": "BOGA AI assigns BABA a score of 30.9/100. Trend: Neutral. RSI: 54.8.",
+      "fr": "BOGA AI assigns BABA a score of 30.9/100. Trend: Neutral. RSI: 54.8.",
+      "id": "BOGA AI assigns BABA a score of 30.9/100. Trend: Neutral. RSI: 54.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BABA (Alibaba Group Holding Limited)\n\n### 1. Business Context\nAlibaba Group Holding Limited operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $135.83.\n\n### 2. Performance\n* **Master Score:** 30.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $135.83 | Current |\n| EMA20 | $132.01 | Support |\n| ADX | 24.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $127.17.\n\n### 5. Execution\n* **Entry Zone:** $135.15 - $136.51\n* **Target Price:** $148.82\n* **Stop Loss:** $127.17\n",
+      "tr": "## Kurumsal Analiz: BABA (Alibaba Group Holding Limited)\n\n### 1. İş Bağlamı\nAlibaba Group Holding Limited, Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $135.83 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 30.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $135.83 | Güncel |\n| EMA20 | $132.01 | Destek |\n| ADX | 24.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $127.17.\n\n### 5. Uygulama\n* **Entry Zone:** $135.15 - $136.51\n* **Target Price:** $148.82\n* **Stop Loss:** $127.17\n",
+      "es": "## Análisis Institucional: BABA (Alibaba Group Holding Limited)\n\n### 1. Contexto\nAlibaba Group Holding Limited opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $135.83.\n\n### 2. Desempeño\n* **Master Score:** 30.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $135.83 | Actual |\n| EMA20 | $132.01 | Soporte |\n| ADX | 24.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $127.17.\n\n### 5. Ejecución\n* **Entry Zone:** $135.15 - $136.51\n* **Target Price:** $148.82\n* **Stop Loss:** $127.17\n",
+      "pt": "## Análise Institucional: BABA (Alibaba Group Holding Limited)\n\n### 1. Contexto\nAlibaba Group Holding Limited opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $135.83.\n\n### 2. Desempenho\n* **Master Score:** 30.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $135.83 | Atual |\n| EMA20 | $132.01 | Suporte |\n| ADX | 24.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $127.17.\n\n### 5. Execução\n* **Entry Zone:** $135.15 - $136.51\n* **Target Price:** $148.82\n* **Stop Loss:** $127.17\n",
+      "fr": "## Analyse Institutionnelle: BABA (Alibaba Group Holding Limited)\n\n### 1. Contexte Business\nAlibaba Group Holding Limited opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $135.83.\n\n### 2. Performance\n* **Master Score:** 30.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $135.83 | Actuel |\n| EMA20 | $132.01 | Support |\n| ADX | 24.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $127.17.\n\n### 5. Exécution\n* **Entry Zone:** $135.15 - $136.51\n* **Target Price:** $148.82\n* **Stop Loss:** $127.17\n",
+      "id": "## Analisis Institusional: BABA (Alibaba Group Holding Limited)\n\n### 1. Konteks Bisnis\nAlibaba Group Holding Limited beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $135.83.\n\n### 2. Performa\n* **Master Score:** 30.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $135.83 | Saat Ini |\n| EMA20 | $132.01 | Dukungan |\n| ADX | 24.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $127.17.\n\n### 5. Eksekusi\n* **Entry Zone:** $135.15 - $136.51\n* **Target Price:** $148.82\n* **Stop Loss:** $127.17\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-3.10%",
+    "key_metrics": {
+      "RSI": 54.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

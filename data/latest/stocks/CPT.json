@@ -1,0 +1,177 @@
+{
+  "ticker": "CPT",
+  "company": "Camden Property Trust",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.112502-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 102.91,
+    "open": 104.53,
+    "high": 104.7,
+    "low": 102.76,
+    "prev_close": 104.76,
+    "change_pct": -1.77,
+    "change_pct_1w": 1.11,
+    "change_pct_1m": 6.86,
+    "change_pct_1y": -4.6,
+    "volume": 160386,
+    "avg_volume_30d": 1154292
+  },
+  "scores": {
+    "master_score": 40.55,
+    "technical_score": 11.1,
+    "fundamental_score": 62.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 46.6,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 40.55,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 54.8,
+    "macd": 0.3972,
+    "macd_signal": -0.2349,
+    "macd_histogram": 0.6321,
+    "macd_crossover": "neutral",
+    "ema_20": 101.35,
+    "ema_50": 102.19,
+    "ema_200": 104.89,
+    "ema_stack_bullish": false,
+    "bb_upper": 105.19,
+    "bb_middle": 100.07,
+    "bb_lower": 94.94,
+    "bb_width": 0.1024,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.9,
+    "atr": 2.13,
+    "atr_pct": 0.0207,
+    "obv_trend": "UP",
+    "mfi": 61.8,
+    "cmf": 0.027,
+    "stoch_k": 73.0,
+    "stoch_d": 88.3,
+    "rvol": 0.83,
+    "volume_5d_avg": 961717,
+    "green_days_10d": 5,
+    "52w_high": 116.12,
+    "52w_low": 95.56,
+    "52w_high_proximity_pct": 0.1138,
+    "52w_low_proximity_pct": 0.0769
+  },
+  "fundamental": {
+    "pe_ratio": 29.070623,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 2.509082,
+    "de_ratio": 88.402,
+    "fcf_yield": 0.0712,
+    "eps_growth_5y": 2.876,
+    "revenue_growth_ttm": 0.022,
+    "gross_margin": 0.61731,
+    "operating_margin": 0.19797,
+    "net_margin": 0.24229,
+    "market_cap": 10777405440,
+    "enterprise_value": 15116764160,
+    "dividend_yield": 4.05,
+    "payout_ratio": 1.1863999,
+    "insider_ownership_pct": 0.0141199995,
+    "institutional_ownership_pct": 1.0474601,
+    "short_ratio": 5.29,
+    "beta": 0.848
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 101.68,
+    "entry_range_high": 103.42,
+    "target_range_low": 107.11,
+    "target_range_high": 114.77,
+    "stop_range_low": 93.72,
+    "stop_range_high": 98.65,
+    "target_price": 109.3,
+    "stop_loss": 98.65,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.112466-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 128.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 405.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 95.56,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 17059,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CPT a score of 40.5/100. Trend: Neutral. RSI: 54.8.",
+      "tr": "BOGA AI assigns CPT a score of 40.5/100. Trend: Neutral. RSI: 54.8.",
+      "es": "BOGA AI assigns CPT a score of 40.5/100. Trend: Neutral. RSI: 54.8.",
+      "pt": "BOGA AI assigns CPT a score of 40.5/100. Trend: Neutral. RSI: 54.8.",
+      "fr": "BOGA AI assigns CPT a score of 40.5/100. Trend: Neutral. RSI: 54.8.",
+      "id": "BOGA AI assigns CPT a score of 40.5/100. Trend: Neutral. RSI: 54.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: CPT (Camden Property Trust)\n\n### 1. Business Context\nCamden Property Trust operates in the Real Estate sector. BOGA AI detect institutional interest near $102.91.\n\n### 2. Performance\n* **Master Score:** 40.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $102.91 | Current |\n| EMA20 | $101.35 | Support |\n| ADX | 19.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $98.65.\n\n### 5. Execution\n* **Entry Zone:** $101.68 - $103.42\n* **Target Price:** $109.30\n* **Stop Loss:** $98.65\n",
+      "tr": "## Kurumsal Analiz: CPT (Camden Property Trust)\n\n### 1. İş Bağlamı\nCamden Property Trust, Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $102.91 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 40.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $102.91 | Güncel |\n| EMA20 | $101.35 | Destek |\n| ADX | 19.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $98.65.\n\n### 5. Uygulama\n* **Entry Zone:** $101.68 - $103.42\n* **Target Price:** $109.30\n* **Stop Loss:** $98.65\n",
+      "es": "## Análisis Institucional: CPT (Camden Property Trust)\n\n### 1. Contexto\nCamden Property Trust opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $102.91.\n\n### 2. Desempeño\n* **Master Score:** 40.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $102.91 | Actual |\n| EMA20 | $101.35 | Soporte |\n| ADX | 19.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $98.65.\n\n### 5. Ejecución\n* **Entry Zone:** $101.68 - $103.42\n* **Target Price:** $109.30\n* **Stop Loss:** $98.65\n",
+      "pt": "## Análise Institucional: CPT (Camden Property Trust)\n\n### 1. Contexto\nCamden Property Trust opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $102.91.\n\n### 2. Desempenho\n* **Master Score:** 40.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $102.91 | Atual |\n| EMA20 | $101.35 | Suporte |\n| ADX | 19.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $98.65.\n\n### 5. Execução\n* **Entry Zone:** $101.68 - $103.42\n* **Target Price:** $109.30\n* **Stop Loss:** $98.65\n",
+      "fr": "## Analyse Institutionnelle: CPT (Camden Property Trust)\n\n### 1. Contexte Business\nCamden Property Trust opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $102.91.\n\n### 2. Performance\n* **Master Score:** 40.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $102.91 | Actuel |\n| EMA20 | $101.35 | Support |\n| ADX | 19.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $98.65.\n\n### 5. Exécution\n* **Entry Zone:** $101.68 - $103.42\n* **Target Price:** $109.30\n* **Stop Loss:** $98.65\n",
+      "id": "## Analisis Institusional: CPT (Camden Property Trust)\n\n### 1. Konteks Bisnis\nCamden Property Trust beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $102.91.\n\n### 2. Performa\n* **Master Score:** 40.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 54.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $102.91 | Saat Ini |\n| EMA20 | $101.35 | Dukungan |\n| ADX | 19.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $98.65.\n\n### 5. Eksekusi\n* **Entry Zone:** $101.68 - $103.42\n* **Target Price:** $109.30\n* **Stop Loss:** $98.65\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "-1.77%",
+    "key_metrics": {
+      "RSI": 54.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

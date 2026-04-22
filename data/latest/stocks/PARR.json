@@ -1,0 +1,177 @@
+{
+  "ticker": "PARR",
+  "company": "Par Pacific Holdings, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.455189-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 61.38,
+    "open": 60.03,
+    "high": 61.58,
+    "low": 58.5,
+    "prev_close": 59.14,
+    "change_pct": 3.8,
+    "change_pct_1w": -2.96,
+    "change_pct_1m": -0.01,
+    "change_pct_1y": 366.1,
+    "volume": 482383,
+    "avg_volume_30d": 1528539
+  },
+  "scores": {
+    "master_score": 48.71,
+    "technical_score": 52.0,
+    "fundamental_score": 53.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.6,
+    "breakout_score": 45.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 48.71,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.7,
+    "macd": 1.9269,
+    "macd_signal": 2.9664,
+    "macd_histogram": -1.0395,
+    "macd_crossover": "neutral",
+    "ema_20": 60.54,
+    "ema_50": 54.94,
+    "ema_200": 41.38,
+    "ema_stack_bullish": true,
+    "bb_upper": 66.86,
+    "bb_middle": 62.51,
+    "bb_lower": 58.15,
+    "bb_width": 0.1395,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 27.8,
+    "atr": 3.9,
+    "atr_pct": 0.0636,
+    "obv_trend": "DOWN",
+    "mfi": 49.1,
+    "cmf": 0.15,
+    "stoch_k": 55.2,
+    "stoch_d": 39.5,
+    "rvol": 0.8,
+    "volume_5d_avg": 1226256,
+    "green_days_10d": 5,
+    "52w_high": 65.81,
+    "52w_low": 13.35,
+    "52w_high_proximity_pct": 0.0672,
+    "52w_low_proximity_pct": 3.5981
+  },
+  "fundamental": {
+    "pe_ratio": 8.573324,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 2.0177832,
+    "de_ratio": 79.198,
+    "fcf_yield": 0.0802,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.01,
+    "gross_margin": 0.1815,
+    "operating_margin": 0.05412,
+    "net_margin": 0.049489997,
+    "market_cap": 3036762880,
+    "enterprise_value": 4004485376,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.028719999,
+    "institutional_ownership_pct": 1.0816799,
+    "short_ratio": 2.52,
+    "beta": 0.972
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 54.67,
+    "entry_range_high": 61.69,
+    "target_range_low": 71.62,
+    "target_range_high": 76.73,
+    "stop_range_low": 50.9,
+    "stop_range_high": 53.58,
+    "target_price": 73.08,
+    "stop_loss": 53.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.455128-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 76.73,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 13.35,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 385,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns PARR a score of 48.7/100. Trend: Neutral. RSI: 53.7.",
+      "tr": "BOGA AI assigns PARR a score of 48.7/100. Trend: Neutral. RSI: 53.7.",
+      "es": "BOGA AI assigns PARR a score of 48.7/100. Trend: Neutral. RSI: 53.7.",
+      "pt": "BOGA AI assigns PARR a score of 48.7/100. Trend: Neutral. RSI: 53.7.",
+      "fr": "BOGA AI assigns PARR a score of 48.7/100. Trend: Neutral. RSI: 53.7.",
+      "id": "BOGA AI assigns PARR a score of 48.7/100. Trend: Neutral. RSI: 53.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: PARR (Par Pacific Holdings, Inc.)\n\n### 1. Business Context\nPar Pacific Holdings, Inc. operates in the Energy sector. BOGA AI detect institutional interest near $61.38.\n\n### 2. Performance\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $61.38 | Current |\n| EMA20 | $60.54 | Support |\n| ADX | 27.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $53.58.\n\n### 5. Execution\n* **Entry Zone:** $54.67 - $61.69\n* **Target Price:** $73.08\n* **Stop Loss:** $53.58\n",
+      "tr": "## Kurumsal Analiz: PARR (Par Pacific Holdings, Inc.)\n\n### 1. İş Bağlamı\nPar Pacific Holdings, Inc., Energy sektöründe faaliyet göstermektedir. BOGA AI, $61.38 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $61.38 | Güncel |\n| EMA20 | $60.54 | Destek |\n| ADX | 27.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $53.58.\n\n### 5. Uygulama\n* **Entry Zone:** $54.67 - $61.69\n* **Target Price:** $73.08\n* **Stop Loss:** $53.58\n",
+      "es": "## Análisis Institucional: PARR (Par Pacific Holdings, Inc.)\n\n### 1. Contexto\nPar Pacific Holdings, Inc. opera en el sector Energy. BOGA AI detecta interés institucional cerca de $61.38.\n\n### 2. Desempeño\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $61.38 | Actual |\n| EMA20 | $60.54 | Soporte |\n| ADX | 27.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $53.58.\n\n### 5. Ejecución\n* **Entry Zone:** $54.67 - $61.69\n* **Target Price:** $73.08\n* **Stop Loss:** $53.58\n",
+      "pt": "## Análise Institucional: PARR (Par Pacific Holdings, Inc.)\n\n### 1. Contexto\nPar Pacific Holdings, Inc. opera no setor Energy. BOGA AI detecta interesse institucional perto de $61.38.\n\n### 2. Desempenho\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $61.38 | Atual |\n| EMA20 | $60.54 | Suporte |\n| ADX | 27.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $53.58.\n\n### 5. Execução\n* **Entry Zone:** $54.67 - $61.69\n* **Target Price:** $73.08\n* **Stop Loss:** $53.58\n",
+      "fr": "## Analyse Institutionnelle: PARR (Par Pacific Holdings, Inc.)\n\n### 1. Contexte Business\nPar Pacific Holdings, Inc. opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $61.38.\n\n### 2. Performance\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $61.38 | Actuel |\n| EMA20 | $60.54 | Support |\n| ADX | 27.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $53.58.\n\n### 5. Exécution\n* **Entry Zone:** $54.67 - $61.69\n* **Target Price:** $73.08\n* **Stop Loss:** $53.58\n",
+      "id": "## Analisis Institusional: PARR (Par Pacific Holdings, Inc.)\n\n### 1. Konteks Bisnis\nPar Pacific Holdings, Inc. beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $61.38.\n\n### 2. Performa\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $61.38 | Saat Ini |\n| EMA20 | $60.54 | Dukungan |\n| ADX | 27.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $53.58.\n\n### 5. Eksekusi\n* **Entry Zone:** $54.67 - $61.69\n* **Target Price:** $73.08\n* **Stop Loss:** $53.58\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "+3.80%",
+    "key_metrics": {
+      "RSI": 53.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "AIR",
+  "company": "AAR Corp.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.974055-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 116.39,
+    "open": 121.58,
+    "high": 122.13,
+    "low": 115.24,
+    "prev_close": 121.97,
+    "change_pct": -4.57,
+    "change_pct_1w": -7.62,
+    "change_pct_1m": 14.86,
+    "change_pct_1y": 120.39,
+    "volume": 180174,
+    "avg_volume_30d": 507152
+  },
+  "scores": {
+    "master_score": 39.18,
+    "technical_score": 37.0,
+    "fundamental_score": 20.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 39.18,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.6,
+    "macd": 3.046,
+    "macd_signal": 2.9104,
+    "macd_histogram": 0.1356,
+    "macd_crossover": "neutral",
+    "ema_20": 117.18,
+    "ema_50": 112.24,
+    "ema_200": 94.33,
+    "ema_stack_bullish": false,
+    "bb_upper": 129.16,
+    "bb_middle": 116.15,
+    "bb_lower": 103.15,
+    "bb_width": 0.2239,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.4,
+    "atr": 5.27,
+    "atr_pct": 0.0453,
+    "obv_trend": "DOWN",
+    "mfi": 64.2,
+    "cmf": -0.0,
+    "stoch_k": 46.5,
+    "stoch_d": 69.1,
+    "rvol": 0.64,
+    "volume_5d_avg": 322714,
+    "green_days_10d": 5,
+    "52w_high": 125.99,
+    "52w_low": 50.91,
+    "52w_high_proximity_pct": 0.0762,
+    "52w_low_proximity_pct": 1.2862
+  },
+  "fundamental": {
+    "pe_ratio": 25.58022,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 2.7782683,
+    "de_ratio": 59.614,
+    "fcf_yield": 0.006,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.246,
+    "gross_margin": 0.18997999,
+    "operating_margin": 0.0762,
+    "net_margin": 0.05455,
+    "market_cap": 4628163072,
+    "enterprise_value": 5685871616,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.021089999,
+    "institutional_ownership_pct": 0.98695,
+    "short_ratio": 2.15,
+    "beta": 1.206
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 111.68,
+    "entry_range_high": 116.97,
+    "target_range_low": 129.56,
+    "target_range_high": 138.81,
+    "stop_range_low": 100.56,
+    "stop_range_high": 105.85,
+    "target_price": 132.2,
+    "stop_loss": 105.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.974000-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 145.49,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 50.91,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 86175,
+      "date": "2026-03-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns AIR a score of 39.2/100. Trend: Neutral. RSI: 50.6.",
+      "tr": "BOGA AI assigns AIR a score of 39.2/100. Trend: Neutral. RSI: 50.6.",
+      "es": "BOGA AI assigns AIR a score of 39.2/100. Trend: Neutral. RSI: 50.6.",
+      "pt": "BOGA AI assigns AIR a score of 39.2/100. Trend: Neutral. RSI: 50.6.",
+      "fr": "BOGA AI assigns AIR a score of 39.2/100. Trend: Neutral. RSI: 50.6.",
+      "id": "BOGA AI assigns AIR a score of 39.2/100. Trend: Neutral. RSI: 50.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: AIR (AAR Corp.)\n\n### 1. Business Context\nAAR Corp. operates in the Industrials sector. BOGA AI detect institutional interest near $116.39.\n\n### 2. Performance\n* **Master Score:** 39.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $116.39 | Current |\n| EMA20 | $117.18 | Support |\n| ADX | 18.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $105.85.\n\n### 5. Execution\n* **Entry Zone:** $111.68 - $116.97\n* **Target Price:** $132.20\n* **Stop Loss:** $105.85\n",
+      "tr": "## Kurumsal Analiz: AIR (AAR Corp.)\n\n### 1. İş Bağlamı\nAAR Corp., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $116.39 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 39.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $116.39 | Güncel |\n| EMA20 | $117.18 | Destek |\n| ADX | 18.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $105.85.\n\n### 5. Uygulama\n* **Entry Zone:** $111.68 - $116.97\n* **Target Price:** $132.20\n* **Stop Loss:** $105.85\n",
+      "es": "## Análisis Institucional: AIR (AAR Corp.)\n\n### 1. Contexto\nAAR Corp. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $116.39.\n\n### 2. Desempeño\n* **Master Score:** 39.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $116.39 | Actual |\n| EMA20 | $117.18 | Soporte |\n| ADX | 18.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $105.85.\n\n### 5. Ejecución\n* **Entry Zone:** $111.68 - $116.97\n* **Target Price:** $132.20\n* **Stop Loss:** $105.85\n",
+      "pt": "## Análise Institucional: AIR (AAR Corp.)\n\n### 1. Contexto\nAAR Corp. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $116.39.\n\n### 2. Desempenho\n* **Master Score:** 39.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $116.39 | Atual |\n| EMA20 | $117.18 | Suporte |\n| ADX | 18.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $105.85.\n\n### 5. Execução\n* **Entry Zone:** $111.68 - $116.97\n* **Target Price:** $132.20\n* **Stop Loss:** $105.85\n",
+      "fr": "## Analyse Institutionnelle: AIR (AAR Corp.)\n\n### 1. Contexte Business\nAAR Corp. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $116.39.\n\n### 2. Performance\n* **Master Score:** 39.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $116.39 | Actuel |\n| EMA20 | $117.18 | Support |\n| ADX | 18.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $105.85.\n\n### 5. Exécution\n* **Entry Zone:** $111.68 - $116.97\n* **Target Price:** $132.20\n* **Stop Loss:** $105.85\n",
+      "id": "## Analisis Institusional: AIR (AAR Corp.)\n\n### 1. Konteks Bisnis\nAAR Corp. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $116.39.\n\n### 2. Performa\n* **Master Score:** 39.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $116.39 | Saat Ini |\n| EMA20 | $117.18 | Dukungan |\n| ADX | 18.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $105.85.\n\n### 5. Eksekusi\n* **Entry Zone:** $111.68 - $116.97\n* **Target Price:** $132.20\n* **Stop Loss:** $105.85\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-4.57%",
+    "key_metrics": {
+      "RSI": 50.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

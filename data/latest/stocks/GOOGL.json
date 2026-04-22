@@ -1,0 +1,178 @@
+{
+  "ticker": "GOOGL",
+  "company": "Alphabet Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.665783-04:00",
+  "sector": "Technology",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 334.06,
+    "open": 337.68,
+    "high": 339.34,
+    "low": 333.79,
+    "prev_close": 337.42,
+    "change_pct": -1.0,
+    "change_pct_1w": 0.35,
+    "change_pct_1m": 10.98,
+    "change_pct_1y": 121.76,
+    "volume": 8938243,
+    "avg_volume_30d": 26727238
+  },
+  "scores": {
+    "master_score": 57.67,
+    "technical_score": 62.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 57.67,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 64.7,
+    "macd": 9.4915,
+    "macd_signal": 5.6626,
+    "macd_histogram": 3.8289,
+    "macd_crossover": "neutral",
+    "ema_20": 318.88,
+    "ema_50": 312.24,
+    "ema_200": 277.16,
+    "ema_stack_bullish": true,
+    "bb_upper": 353.66,
+    "bb_middle": 309.49,
+    "bb_lower": 265.32,
+    "bb_width": 0.2854,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 29.1,
+    "atr": 7.76,
+    "atr_pct": 0.0232,
+    "obv_trend": "UP",
+    "mfi": 77.3,
+    "cmf": 0.059,
+    "stoch_k": 84.4,
+    "stoch_d": 92.0,
+    "rvol": 0.74,
+    "volume_5d_avg": 19747488,
+    "green_days_10d": 6,
+    "52w_high": 343.45,
+    "52w_low": 147.16,
+    "52w_high_proximity_pct": 0.0273,
+    "52w_low_proximity_pct": 1.2701
+  },
+  "fundamental": {
+    "pe_ratio": 30.93148,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 9.724333,
+    "de_ratio": 16.133,
+    "fcf_yield": 0.0094,
+    "eps_growth_5y": 0.311,
+    "revenue_growth_ttm": 0.18,
+    "gross_margin": 0.59652,
+    "operating_margin": 0.31568,
+    "net_margin": 0.32810003,
+    "market_cap": 4041123823616,
+    "enterprise_value": 4021922824192,
+    "dividend_yield": 0.25,
+    "payout_ratio": 0.076799996,
+    "insider_ownership_pct": 0.00575,
+    "institutional_ownership_pct": 0.80896,
+    "short_ratio": 2.74,
+    "beta": 1.128
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 310.68,
+    "entry_range_high": 335.73,
+    "target_range_low": 350.19,
+    "target_range_high": 375.21,
+    "stop_range_low": 302.61,
+    "stop_range_high": 318.54,
+    "target_price": 357.34,
+    "stop_loss": 318.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.664894-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 417.57,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 25.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 147.16,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 437500,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns GOOGL a score of 57.7/100. Trend: Neutral. RSI: 64.7.",
+      "tr": "BOGA AI assigns GOOGL a score of 57.7/100. Trend: Neutral. RSI: 64.7.",
+      "es": "BOGA AI assigns GOOGL a score of 57.7/100. Trend: Neutral. RSI: 64.7.",
+      "pt": "BOGA AI assigns GOOGL a score of 57.7/100. Trend: Neutral. RSI: 64.7.",
+      "fr": "BOGA AI assigns GOOGL a score of 57.7/100. Trend: Neutral. RSI: 64.7.",
+      "id": "BOGA AI assigns GOOGL a score of 57.7/100. Trend: Neutral. RSI: 64.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: GOOGL (Alphabet Inc.)\n\n### 1. Business Context\nAlphabet Inc. operates in the Technology sector. BOGA AI detect institutional interest near $334.06.\n\n### 2. Performance\n* **Master Score:** 57.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $334.06 | Current |\n| EMA20 | $318.88 | Support |\n| ADX | 29.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $318.54.\n\n### 5. Execution\n* **Entry Zone:** $310.68 - $335.73\n* **Target Price:** $357.34\n* **Stop Loss:** $318.54\n",
+      "tr": "## Kurumsal Analiz: GOOGL (Alphabet Inc.)\n\n### 1. İş Bağlamı\nAlphabet Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $334.06 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 57.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $334.06 | Güncel |\n| EMA20 | $318.88 | Destek |\n| ADX | 29.1 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $318.54.\n\n### 5. Uygulama\n* **Entry Zone:** $310.68 - $335.73\n* **Target Price:** $357.34\n* **Stop Loss:** $318.54\n",
+      "es": "## Análisis Institucional: GOOGL (Alphabet Inc.)\n\n### 1. Contexto\nAlphabet Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $334.06.\n\n### 2. Desempeño\n* **Master Score:** 57.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $334.06 | Actual |\n| EMA20 | $318.88 | Soporte |\n| ADX | 29.1 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $318.54.\n\n### 5. Ejecución\n* **Entry Zone:** $310.68 - $335.73\n* **Target Price:** $357.34\n* **Stop Loss:** $318.54\n",
+      "pt": "## Análise Institucional: GOOGL (Alphabet Inc.)\n\n### 1. Contexto\nAlphabet Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $334.06.\n\n### 2. Desempenho\n* **Master Score:** 57.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $334.06 | Atual |\n| EMA20 | $318.88 | Suporte |\n| ADX | 29.1 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $318.54.\n\n### 5. Execução\n* **Entry Zone:** $310.68 - $335.73\n* **Target Price:** $357.34\n* **Stop Loss:** $318.54\n",
+      "fr": "## Analyse Institutionnelle: GOOGL (Alphabet Inc.)\n\n### 1. Contexte Business\nAlphabet Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $334.06.\n\n### 2. Performance\n* **Master Score:** 57.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $334.06 | Actuel |\n| EMA20 | $318.88 | Support |\n| ADX | 29.1 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $318.54.\n\n### 5. Exécution\n* **Entry Zone:** $310.68 - $335.73\n* **Target Price:** $357.34\n* **Stop Loss:** $318.54\n",
+      "id": "## Analisis Institusional: GOOGL (Alphabet Inc.)\n\n### 1. Konteks Bisnis\nAlphabet Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $334.06.\n\n### 2. Performa\n* **Master Score:** 57.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $334.06 | Saat Ini |\n| EMA20 | $318.88 | Dukungan |\n| ADX | 29.1 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $318.54.\n\n### 5. Eksekusi\n* **Entry Zone:** $310.68 - $335.73\n* **Target Price:** $357.34\n* **Stop Loss:** $318.54\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "-1.00%",
+    "key_metrics": {
+      "RSI": 64.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

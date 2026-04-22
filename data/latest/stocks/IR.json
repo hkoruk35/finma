@@ -1,0 +1,177 @@
+{
+  "ticker": "IR",
+  "company": "Ingersoll Rand Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.855897-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 85.36,
+    "open": 86.22,
+    "high": 87.52,
+    "low": 85.33,
+    "prev_close": 86.01,
+    "change_pct": -0.76,
+    "change_pct_1w": -3.36,
+    "change_pct_1m": 4.87,
+    "change_pct_1y": 18.6,
+    "volume": 842079,
+    "avg_volume_30d": 3277835
+  },
+  "scores": {
+    "master_score": 44.03,
+    "technical_score": 43.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 44.03,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.9,
+    "macd": 0.1275,
+    "macd_signal": -0.5172,
+    "macd_histogram": 0.6447,
+    "macd_crossover": "neutral",
+    "ema_20": 84.35,
+    "ema_50": 85.25,
+    "ema_200": 83.81,
+    "ema_stack_bullish": false,
+    "bb_upper": 89.6,
+    "bb_middle": 82.91,
+    "bb_lower": 76.22,
+    "bb_width": 0.1614,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.7,
+    "atr": 2.89,
+    "atr_pct": 0.0339,
+    "obv_trend": "UP",
+    "mfi": 61.2,
+    "cmf": 0.021,
+    "stoch_k": 71.4,
+    "stoch_d": 74.2,
+    "rvol": 1.15,
+    "volume_5d_avg": 3771775,
+    "green_days_10d": 7,
+    "52w_high": 98.74,
+    "52w_low": 69.65,
+    "52w_high_proximity_pct": 0.1355,
+    "52w_low_proximity_pct": 0.2254
+  },
+  "fundamental": {
+    "pe_ratio": 58.865517,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 3.308718,
+    "de_ratio": 50.699,
+    "fcf_yield": 0.0319,
+    "eps_growth_5y": 0.184,
+    "revenue_growth_ttm": 0.101,
+    "gross_margin": 0.43607,
+    "operating_margin": 0.20011999,
+    "net_margin": 0.07599,
+    "market_cap": 33724649472,
+    "enterprise_value": 37631262720,
+    "dividend_yield": 0.09,
+    "payout_ratio": 0.0552,
+    "insider_ownership_pct": 0.00232,
+    "institutional_ownership_pct": 0.96876,
+    "short_ratio": 5.33,
+    "beta": 1.333
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 84.82,
+    "entry_range_high": 85.79,
+    "target_range_low": 92.15,
+    "target_range_high": 98.73,
+    "stop_range_low": 75.6,
+    "stop_range_high": 79.58,
+    "target_price": 94.03,
+    "stop_loss": 79.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.855840-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 106.7,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 9.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 69.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 12,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 30492,
+      "date": "2026-04-13"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
+      "tr": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
+      "es": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
+      "pt": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
+      "fr": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9.",
+      "id": "BOGA AI assigns IR a score of 44.0/100. Trend: Neutral. RSI: 51.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: IR (Ingersoll Rand Inc.)\n\n### 1. Business Context\nIngersoll Rand Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $85.36.\n\n### 2. Performance\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $85.36 | Current |\n| EMA20 | $84.35 | Support |\n| ADX | 21.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $79.58.\n\n### 5. Execution\n* **Entry Zone:** $84.82 - $85.79\n* **Target Price:** $94.03\n* **Stop Loss:** $79.58\n",
+      "tr": "## Kurumsal Analiz: IR (Ingersoll Rand Inc.)\n\n### 1. İş Bağlamı\nIngersoll Rand Inc., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $85.36 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $85.36 | Güncel |\n| EMA20 | $84.35 | Destek |\n| ADX | 21.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $79.58.\n\n### 5. Uygulama\n* **Entry Zone:** $84.82 - $85.79\n* **Target Price:** $94.03\n* **Stop Loss:** $79.58\n",
+      "es": "## Análisis Institucional: IR (Ingersoll Rand Inc.)\n\n### 1. Contexto\nIngersoll Rand Inc. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $85.36.\n\n### 2. Desempeño\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $85.36 | Actual |\n| EMA20 | $84.35 | Soporte |\n| ADX | 21.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $79.58.\n\n### 5. Ejecución\n* **Entry Zone:** $84.82 - $85.79\n* **Target Price:** $94.03\n* **Stop Loss:** $79.58\n",
+      "pt": "## Análise Institucional: IR (Ingersoll Rand Inc.)\n\n### 1. Contexto\nIngersoll Rand Inc. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $85.36.\n\n### 2. Desempenho\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $85.36 | Atual |\n| EMA20 | $84.35 | Suporte |\n| ADX | 21.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $79.58.\n\n### 5. Execução\n* **Entry Zone:** $84.82 - $85.79\n* **Target Price:** $94.03\n* **Stop Loss:** $79.58\n",
+      "fr": "## Analyse Institutionnelle: IR (Ingersoll Rand Inc.)\n\n### 1. Contexte Business\nIngersoll Rand Inc. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $85.36.\n\n### 2. Performance\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $85.36 | Actuel |\n| EMA20 | $84.35 | Support |\n| ADX | 21.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $79.58.\n\n### 5. Exécution\n* **Entry Zone:** $84.82 - $85.79\n* **Target Price:** $94.03\n* **Stop Loss:** $79.58\n",
+      "id": "## Analisis Institusional: IR (Ingersoll Rand Inc.)\n\n### 1. Konteks Bisnis\nIngersoll Rand Inc. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $85.36.\n\n### 2. Performa\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $85.36 | Saat Ini |\n| EMA20 | $84.35 | Dukungan |\n| ADX | 21.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $79.58.\n\n### 5. Eksekusi\n* **Entry Zone:** $84.82 - $85.79\n* **Target Price:** $94.03\n* **Stop Loss:** $79.58\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "-0.76%",
+    "key_metrics": {
+      "RSI": 51.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

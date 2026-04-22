@@ -1,0 +1,177 @@
+{
+  "ticker": "GD",
+  "company": "General Dynamics Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.717733-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 326.36,
+    "open": 330.47,
+    "high": 331.05,
+    "low": 324.04,
+    "prev_close": 332.14,
+    "change_pct": -1.74,
+    "change_pct_1w": -3.98,
+    "change_pct_1m": -5.18,
+    "change_pct_1y": 20.38,
+    "volume": 579830,
+    "avg_volume_30d": 1290754
+  },
+  "scores": {
+    "master_score": 23.05,
+    "technical_score": 4.5,
+    "fundamental_score": 37.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 85.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 25.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 23.05,
+    "confidence": 0.23,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 33.4,
+    "macd": -4.8325,
+    "macd_signal": -3.4036,
+    "macd_histogram": -1.4289,
+    "macd_crossover": "neutral",
+    "ema_20": 340.72,
+    "ema_50": 345.42,
+    "ema_200": 331.34,
+    "ema_stack_bullish": false,
+    "bb_upper": 355.78,
+    "bb_middle": 342.16,
+    "bb_lower": 328.54,
+    "bb_width": 0.0796,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 33.3,
+    "atr": 7.18,
+    "atr_pct": 0.022,
+    "obv_trend": "DOWN",
+    "mfi": 35.6,
+    "cmf": -0.042,
+    "stoch_k": 8.5,
+    "stoch_d": 11.7,
+    "rvol": 0.89,
+    "volume_5d_avg": 1152106,
+    "green_days_10d": 3,
+    "52w_high": 365.68,
+    "52w_low": 260.93,
+    "52w_high_proximity_pct": 0.1075,
+    "52w_low_proximity_pct": 0.2507
+  },
+  "fundamental": {
+    "pe_ratio": 21.137306,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 3.4389157,
+    "de_ratio": 38.205,
+    "fcf_yield": 0.038,
+    "eps_growth_5y": 0.004,
+    "revenue_growth_ttm": 0.078,
+    "gross_margin": 0.1513,
+    "operating_margin": 0.1014,
+    "net_margin": 0.08011,
+    "market_cap": 88393252864,
+    "enterprise_value": 97128071168,
+    "dividend_yield": 1.83,
+    "payout_ratio": 0.38830003,
+    "insider_ownership_pct": 0.00524,
+    "institutional_ownership_pct": 0.87301004,
+    "short_ratio": 1.81,
+    "beta": 0.387
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 324.73,
+    "entry_range_high": 327.99,
+    "target_range_low": 340.94,
+    "target_range_high": 365.3,
+    "stop_range_low": 296.4,
+    "stop_range_high": 312.0,
+    "target_price": 347.9,
+    "stop_loss": 312.0,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.717609-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 407.95,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 183.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 260.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 52,
+      "date": "2026-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
+      "tr": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
+      "es": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
+      "pt": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
+      "fr": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4.",
+      "id": "BOGA AI assigns GD a score of 23.1/100. Trend: Neutral. RSI: 33.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: GD (General Dynamics Corporation)\n\n### 1. Business Context\nGeneral Dynamics Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $326.36.\n\n### 2. Performance\n* **Master Score:** 23.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $326.36 | Current |\n| EMA20 | $340.72 | Support |\n| ADX | 33.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $312.00.\n\n### 5. Execution\n* **Entry Zone:** $324.73 - $327.99\n* **Target Price:** $347.90\n* **Stop Loss:** $312.00\n",
+      "tr": "## Kurumsal Analiz: GD (General Dynamics Corporation)\n\n### 1. İş Bağlamı\nGeneral Dynamics Corporation, Industrials sektöründe faaliyet göstermektedir. BOGA AI, $326.36 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 23.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $326.36 | Güncel |\n| EMA20 | $340.72 | Destek |\n| ADX | 33.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $312.00.\n\n### 5. Uygulama\n* **Entry Zone:** $324.73 - $327.99\n* **Target Price:** $347.90\n* **Stop Loss:** $312.00\n",
+      "es": "## Análisis Institucional: GD (General Dynamics Corporation)\n\n### 1. Contexto\nGeneral Dynamics Corporation opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $326.36.\n\n### 2. Desempeño\n* **Master Score:** 23.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $326.36 | Actual |\n| EMA20 | $340.72 | Soporte |\n| ADX | 33.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $312.00.\n\n### 5. Ejecución\n* **Entry Zone:** $324.73 - $327.99\n* **Target Price:** $347.90\n* **Stop Loss:** $312.00\n",
+      "pt": "## Análise Institucional: GD (General Dynamics Corporation)\n\n### 1. Contexto\nGeneral Dynamics Corporation opera no setor Industrials. BOGA AI detecta interesse institucional perto de $326.36.\n\n### 2. Desempenho\n* **Master Score:** 23.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $326.36 | Atual |\n| EMA20 | $340.72 | Suporte |\n| ADX | 33.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $312.00.\n\n### 5. Execução\n* **Entry Zone:** $324.73 - $327.99\n* **Target Price:** $347.90\n* **Stop Loss:** $312.00\n",
+      "fr": "## Analyse Institutionnelle: GD (General Dynamics Corporation)\n\n### 1. Contexte Business\nGeneral Dynamics Corporation opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $326.36.\n\n### 2. Performance\n* **Master Score:** 23.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $326.36 | Actuel |\n| EMA20 | $340.72 | Support |\n| ADX | 33.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $312.00.\n\n### 5. Exécution\n* **Entry Zone:** $324.73 - $327.99\n* **Target Price:** $347.90\n* **Stop Loss:** $312.00\n",
+      "id": "## Analisis Institusional: GD (General Dynamics Corporation)\n\n### 1. Konteks Bisnis\nGeneral Dynamics Corporation beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $326.36.\n\n### 2. Performa\n* **Master Score:** 23.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 33.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $326.36 | Saat Ini |\n| EMA20 | $340.72 | Dukungan |\n| ADX | 33.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $312.00.\n\n### 5. Eksekusi\n* **Entry Zone:** $324.73 - $327.99\n* **Target Price:** $347.90\n* **Stop Loss:** $312.00\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 23,
+    "price_change_display": "-1.74%",
+    "key_metrics": {
+      "RSI": 33.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

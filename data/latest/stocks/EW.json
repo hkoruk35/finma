@@ -1,0 +1,177 @@
+{
+  "ticker": "EW",
+  "company": "Edwards Lifesciences Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.887208-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 80.34,
+    "open": 81.48,
+    "high": 81.84,
+    "low": 80.2,
+    "prev_close": 81.44,
+    "change_pct": -1.35,
+    "change_pct_1w": 2.74,
+    "change_pct_1m": -2.62,
+    "change_pct_1y": 12.32,
+    "volume": 1828124,
+    "avg_volume_30d": 4657370
+  },
+  "scores": {
+    "master_score": 37.82,
+    "technical_score": 45.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 37.82,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 48.5,
+    "macd": -0.5996,
+    "macd_signal": -0.7743,
+    "macd_histogram": 0.1747,
+    "macd_crossover": "neutral",
+    "ema_20": 80.4,
+    "ema_50": 81.33,
+    "ema_200": 80.21,
+    "ema_stack_bullish": false,
+    "bb_upper": 83.1,
+    "bb_middle": 80.24,
+    "bb_lower": 77.38,
+    "bb_width": 0.0714,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.0,
+    "atr": 2.07,
+    "atr_pct": 0.0257,
+    "obv_trend": "UP",
+    "mfi": 53.7,
+    "cmf": 0.035,
+    "stoch_k": 57.1,
+    "stoch_d": 67.4,
+    "rvol": 1.04,
+    "volume_5d_avg": 4842644,
+    "green_days_10d": 6,
+    "52w_high": 87.18,
+    "52w_low": 69.2,
+    "52w_high_proximity_pct": 0.0785,
+    "52w_low_proximity_pct": 0.161
+  },
+  "fundamental": {
+    "pe_ratio": 44.386738,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 4.5129757,
+    "de_ratio": 6.824,
+    "fcf_yield": 0.0251,
+    "eps_growth_5y": -0.766,
+    "revenue_growth_ttm": 0.133,
+    "gross_margin": 0.78011,
+    "operating_margin": 0.237,
+    "net_margin": 0.17692,
+    "market_cap": 46661468160,
+    "enterprise_value": 43779452928,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00171,
+    "institutional_ownership_pct": 0.92254996,
+    "short_ratio": 2.14,
+    "beta": 0.945
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 79.94,
+    "entry_range_high": 80.74,
+    "target_range_low": 84.82,
+    "target_range_high": 90.88,
+    "stop_range_low": 72.39,
+    "stop_range_high": 76.2,
+    "target_price": 86.55,
+    "stop_loss": 76.2,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.887076-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 100.43,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 69.2,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13000,
+      "date": "2026-04-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns EW a score of 37.8/100. Trend: Neutral. RSI: 48.5.",
+      "tr": "BOGA AI assigns EW a score of 37.8/100. Trend: Neutral. RSI: 48.5.",
+      "es": "BOGA AI assigns EW a score of 37.8/100. Trend: Neutral. RSI: 48.5.",
+      "pt": "BOGA AI assigns EW a score of 37.8/100. Trend: Neutral. RSI: 48.5.",
+      "fr": "BOGA AI assigns EW a score of 37.8/100. Trend: Neutral. RSI: 48.5.",
+      "id": "BOGA AI assigns EW a score of 37.8/100. Trend: Neutral. RSI: 48.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: EW (Edwards Lifesciences Corporation)\n\n### 1. Business Context\nEdwards Lifesciences Corporation operates in the Healthcare sector. BOGA AI detect institutional interest near $80.34.\n\n### 2. Performance\n* **Master Score:** 37.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $80.34 | Current |\n| EMA20 | $80.4 | Support |\n| ADX | 16.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $76.20.\n\n### 5. Execution\n* **Entry Zone:** $79.94 - $80.74\n* **Target Price:** $86.55\n* **Stop Loss:** $76.20\n",
+      "tr": "## Kurumsal Analiz: EW (Edwards Lifesciences Corporation)\n\n### 1. İş Bağlamı\nEdwards Lifesciences Corporation, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $80.34 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 37.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $80.34 | Güncel |\n| EMA20 | $80.4 | Destek |\n| ADX | 16.0 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $76.20.\n\n### 5. Uygulama\n* **Entry Zone:** $79.94 - $80.74\n* **Target Price:** $86.55\n* **Stop Loss:** $76.20\n",
+      "es": "## Análisis Institucional: EW (Edwards Lifesciences Corporation)\n\n### 1. Contexto\nEdwards Lifesciences Corporation opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $80.34.\n\n### 2. Desempeño\n* **Master Score:** 37.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $80.34 | Actual |\n| EMA20 | $80.4 | Soporte |\n| ADX | 16.0 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $76.20.\n\n### 5. Ejecución\n* **Entry Zone:** $79.94 - $80.74\n* **Target Price:** $86.55\n* **Stop Loss:** $76.20\n",
+      "pt": "## Análise Institucional: EW (Edwards Lifesciences Corporation)\n\n### 1. Contexto\nEdwards Lifesciences Corporation opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $80.34.\n\n### 2. Desempenho\n* **Master Score:** 37.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $80.34 | Atual |\n| EMA20 | $80.4 | Suporte |\n| ADX | 16.0 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $76.20.\n\n### 5. Execução\n* **Entry Zone:** $79.94 - $80.74\n* **Target Price:** $86.55\n* **Stop Loss:** $76.20\n",
+      "fr": "## Analyse Institutionnelle: EW (Edwards Lifesciences Corporation)\n\n### 1. Contexte Business\nEdwards Lifesciences Corporation opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $80.34.\n\n### 2. Performance\n* **Master Score:** 37.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $80.34 | Actuel |\n| EMA20 | $80.4 | Support |\n| ADX | 16.0 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $76.20.\n\n### 5. Exécution\n* **Entry Zone:** $79.94 - $80.74\n* **Target Price:** $86.55\n* **Stop Loss:** $76.20\n",
+      "id": "## Analisis Institusional: EW (Edwards Lifesciences Corporation)\n\n### 1. Konteks Bisnis\nEdwards Lifesciences Corporation beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $80.34.\n\n### 2. Performa\n* **Master Score:** 37.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $80.34 | Saat Ini |\n| EMA20 | $80.4 | Dukungan |\n| ADX | 16.0 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $76.20.\n\n### 5. Eksekusi\n* **Entry Zone:** $79.94 - $80.74\n* **Target Price:** $86.55\n* **Stop Loss:** $76.20\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "-1.35%",
+    "key_metrics": {
+      "RSI": 48.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "ticker": "VRT",
+  "company": "Vertiv Holdings Co",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.195128-04:00",
+  "sector": "Technology",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 317.74,
+    "open": 316.1,
+    "high": 323.04,
+    "low": 315.3,
+    "prev_close": 314.41,
+    "change_pct": 1.06,
+    "change_pct_1w": 2.33,
+    "change_pct_1m": 24.18,
+    "change_pct_1y": 334.55,
+    "volume": 3553369,
+    "avg_volume_30d": 8635048
+  },
+  "scores": {
+    "master_score": 53.22,
+    "technical_score": 60.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 53.22,
+    "confidence": 0.53,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 68.5,
+    "macd": 16.149,
+    "macd_signal": 12.826,
+    "macd_histogram": 3.3231,
+    "macd_crossover": "neutral",
+    "ema_20": 286.25,
+    "ema_50": 260.27,
+    "ema_200": 194.75,
+    "ema_stack_bullish": true,
+    "bb_upper": 327.9,
+    "bb_middle": 279.3,
+    "bb_lower": 230.7,
+    "bb_width": 0.348,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.9,
+    "atr": 13.19,
+    "atr_pct": 0.0415,
+    "obv_trend": "UP",
+    "mfi": 74.2,
+    "cmf": 0.083,
+    "stoch_k": 92.9,
+    "stoch_d": 95.0,
+    "rvol": 0.56,
+    "volume_5d_avg": 4840493,
+    "green_days_10d": 8,
+    "52w_high": 317.74,
+    "52w_low": 67.49,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 3.7082
+  },
+  "fundamental": {
+    "pe_ratio": 93.452934,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 30.83956,
+    "de_ratio": 81.899,
+    "fcf_yield": 0.0118,
+    "eps_growth_5y": 1.995,
+    "revenue_growth_ttm": 0.227,
+    "gross_margin": 0.36317003,
+    "operating_margin": 0.21174,
+    "net_margin": 0.13028,
+    "market_cap": 121566830592,
+    "enterprise_value": 121669386240,
+    "dividend_yield": 0.08,
+    "payout_ratio": 0.0513,
+    "insider_ownership_pct": 0.00373,
+    "institutional_ownership_pct": 0.80636,
+    "short_ratio": 1.18,
+    "beta": 2.048
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 258.97,
+    "entry_range_high": 319.33,
+    "target_range_low": 350.16,
+    "target_range_high": 375.18,
+    "stop_range_low": 276.79,
+    "stop_range_high": 291.36,
+    "target_price": 357.31,
+    "stop_loss": 291.36,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.194811-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 397.18,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 8.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 67.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns VRT a score of 53.2/100. Trend: Neutral. RSI: 68.5.",
+      "tr": "BOGA AI assigns VRT a score of 53.2/100. Trend: Neutral. RSI: 68.5.",
+      "es": "BOGA AI assigns VRT a score of 53.2/100. Trend: Neutral. RSI: 68.5.",
+      "pt": "BOGA AI assigns VRT a score of 53.2/100. Trend: Neutral. RSI: 68.5.",
+      "fr": "BOGA AI assigns VRT a score of 53.2/100. Trend: Neutral. RSI: 68.5.",
+      "id": "BOGA AI assigns VRT a score of 53.2/100. Trend: Neutral. RSI: 68.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: VRT (Vertiv Holdings Co)\n\n### 1. Business Context\nVertiv Holdings Co operates in the Technology sector. BOGA AI detect institutional interest near $317.74.\n\n### 2. Performance\n* **Master Score:** 53.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $317.74 | Current |\n| EMA20 | $286.25 | Support |\n| ADX | 21.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $291.36.\n\n### 5. Execution\n* **Entry Zone:** $258.97 - $319.33\n* **Target Price:** $357.31\n* **Stop Loss:** $291.36\n",
+      "tr": "## Kurumsal Analiz: VRT (Vertiv Holdings Co)\n\n### 1. İş Bağlamı\nVertiv Holdings Co, Technology sektöründe faaliyet göstermektedir. BOGA AI, $317.74 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 53.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $317.74 | Güncel |\n| EMA20 | $286.25 | Destek |\n| ADX | 21.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $291.36.\n\n### 5. Uygulama\n* **Entry Zone:** $258.97 - $319.33\n* **Target Price:** $357.31\n* **Stop Loss:** $291.36\n",
+      "es": "## Análisis Institucional: VRT (Vertiv Holdings Co)\n\n### 1. Contexto\nVertiv Holdings Co opera en el sector Technology. BOGA AI detecta interés institucional cerca de $317.74.\n\n### 2. Desempeño\n* **Master Score:** 53.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $317.74 | Actual |\n| EMA20 | $286.25 | Soporte |\n| ADX | 21.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $291.36.\n\n### 5. Ejecución\n* **Entry Zone:** $258.97 - $319.33\n* **Target Price:** $357.31\n* **Stop Loss:** $291.36\n",
+      "pt": "## Análise Institucional: VRT (Vertiv Holdings Co)\n\n### 1. Contexto\nVertiv Holdings Co opera no setor Technology. BOGA AI detecta interesse institucional perto de $317.74.\n\n### 2. Desempenho\n* **Master Score:** 53.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $317.74 | Atual |\n| EMA20 | $286.25 | Suporte |\n| ADX | 21.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $291.36.\n\n### 5. Execução\n* **Entry Zone:** $258.97 - $319.33\n* **Target Price:** $357.31\n* **Stop Loss:** $291.36\n",
+      "fr": "## Analyse Institutionnelle: VRT (Vertiv Holdings Co)\n\n### 1. Contexte Business\nVertiv Holdings Co opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $317.74.\n\n### 2. Performance\n* **Master Score:** 53.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $317.74 | Actuel |\n| EMA20 | $286.25 | Support |\n| ADX | 21.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $291.36.\n\n### 5. Exécution\n* **Entry Zone:** $258.97 - $319.33\n* **Target Price:** $357.31\n* **Stop Loss:** $291.36\n",
+      "id": "## Analisis Institusional: VRT (Vertiv Holdings Co)\n\n### 1. Konteks Bisnis\nVertiv Holdings Co beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $317.74.\n\n### 2. Performa\n* **Master Score:** 53.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 68.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $317.74 | Saat Ini |\n| EMA20 | $286.25 | Dukungan |\n| ADX | 21.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $291.36.\n\n### 5. Eksekusi\n* **Entry Zone:** $258.97 - $319.33\n* **Target Price:** $357.31\n* **Stop Loss:** $291.36\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 53,
+    "price_change_display": "+1.06%",
+    "key_metrics": {
+      "RSI": 68.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

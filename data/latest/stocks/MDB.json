@@ -1,0 +1,178 @@
+{
+  "ticker": "MDB",
+  "company": "MongoDB, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.029533-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 263.83,
+    "open": 266.1,
+    "high": 272.77,
+    "low": 262.9,
+    "prev_close": 264.11,
+    "change_pct": -0.1,
+    "change_pct_1w": 12.94,
+    "change_pct_1m": 1.02,
+    "change_pct_1y": 65.66,
+    "volume": 485095,
+    "avg_volume_30d": 1547976
+  },
+  "scores": {
+    "master_score": 30.24,
+    "technical_score": 16.5,
+    "fundamental_score": 8.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 30.24,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 52.8,
+    "macd": -6.1963,
+    "macd_signal": -11.7543,
+    "macd_histogram": 5.558,
+    "macd_crossover": "neutral",
+    "ema_20": 253.77,
+    "ema_50": 280.07,
+    "ema_200": 300.24,
+    "ema_stack_bullish": false,
+    "bb_upper": 268.61,
+    "bb_middle": 246.53,
+    "bb_lower": 224.46,
+    "bb_width": 0.1791,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 25.6,
+    "atr": 14.41,
+    "atr_pct": 0.0546,
+    "obv_trend": "UP",
+    "mfi": 77.0,
+    "cmf": -0.008,
+    "stoch_k": 84.4,
+    "stoch_d": 87.7,
+    "rvol": 1.02,
+    "volume_5d_avg": 1571359,
+    "green_days_10d": 5,
+    "52w_high": 440.6,
+    "52w_low": 151.67,
+    "52w_high_proximity_pct": 0.4012,
+    "52w_low_proximity_pct": 0.7395
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 7.19308,
+    "de_ratio": 2.128,
+    "fcf_yield": 0.0216,
+    "eps_growth_5y": 0.022,
+    "revenue_growth_ttm": 0.267,
+    "gross_margin": 0.71749,
+    "operating_margin": 0.00044,
+    "net_margin": -0.02888,
+    "market_cap": 21473994752,
+    "enterprise_value": 18901985280,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.03042,
+    "institutional_ownership_pct": 0.94024,
+    "short_ratio": 1.27,
+    "beta": 1.605
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 262.51,
+    "entry_range_high": 265.15,
+    "target_range_low": 300.92,
+    "target_range_high": 322.41,
+    "stop_range_low": 223.26,
+    "stop_range_high": 235.01,
+    "target_price": 307.06,
+    "stop_loss": 235.01,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.029487-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 329.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 151.67,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12000,
+      "date": "2026-04-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns MDB a score of 30.2/100. Trend: Neutral. RSI: 52.8.",
+      "tr": "BOGA AI assigns MDB a score of 30.2/100. Trend: Neutral. RSI: 52.8.",
+      "es": "BOGA AI assigns MDB a score of 30.2/100. Trend: Neutral. RSI: 52.8.",
+      "pt": "BOGA AI assigns MDB a score of 30.2/100. Trend: Neutral. RSI: 52.8.",
+      "fr": "BOGA AI assigns MDB a score of 30.2/100. Trend: Neutral. RSI: 52.8.",
+      "id": "BOGA AI assigns MDB a score of 30.2/100. Trend: Neutral. RSI: 52.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: MDB (MongoDB, Inc.)\n\n### 1. Business Context\nMongoDB, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $263.83.\n\n### 2. Performance\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $263.83 | Current |\n| EMA20 | $253.77 | Support |\n| ADX | 25.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $235.01.\n\n### 5. Execution\n* **Entry Zone:** $262.51 - $265.15\n* **Target Price:** $307.06\n* **Stop Loss:** $235.01\n",
+      "tr": "## Kurumsal Analiz: MDB (MongoDB, Inc.)\n\n### 1. İş Bağlamı\nMongoDB, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $263.83 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $263.83 | Güncel |\n| EMA20 | $253.77 | Destek |\n| ADX | 25.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $235.01.\n\n### 5. Uygulama\n* **Entry Zone:** $262.51 - $265.15\n* **Target Price:** $307.06\n* **Stop Loss:** $235.01\n",
+      "es": "## Análisis Institucional: MDB (MongoDB, Inc.)\n\n### 1. Contexto\nMongoDB, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $263.83.\n\n### 2. Desempeño\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $263.83 | Actual |\n| EMA20 | $253.77 | Soporte |\n| ADX | 25.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $235.01.\n\n### 5. Ejecución\n* **Entry Zone:** $262.51 - $265.15\n* **Target Price:** $307.06\n* **Stop Loss:** $235.01\n",
+      "pt": "## Análise Institucional: MDB (MongoDB, Inc.)\n\n### 1. Contexto\nMongoDB, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $263.83.\n\n### 2. Desempenho\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $263.83 | Atual |\n| EMA20 | $253.77 | Suporte |\n| ADX | 25.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $235.01.\n\n### 5. Execução\n* **Entry Zone:** $262.51 - $265.15\n* **Target Price:** $307.06\n* **Stop Loss:** $235.01\n",
+      "fr": "## Analyse Institutionnelle: MDB (MongoDB, Inc.)\n\n### 1. Contexte Business\nMongoDB, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $263.83.\n\n### 2. Performance\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $263.83 | Actuel |\n| EMA20 | $253.77 | Support |\n| ADX | 25.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $235.01.\n\n### 5. Exécution\n* **Entry Zone:** $262.51 - $265.15\n* **Target Price:** $307.06\n* **Stop Loss:** $235.01\n",
+      "id": "## Analisis Institusional: MDB (MongoDB, Inc.)\n\n### 1. Konteks Bisnis\nMongoDB, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $263.83.\n\n### 2. Performa\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 52.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $263.83 | Saat Ini |\n| EMA20 | $253.77 | Dukungan |\n| ADX | 25.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $235.01.\n\n### 5. Eksekusi\n* **Entry Zone:** $262.51 - $265.15\n* **Target Price:** $307.06\n* **Stop Loss:** $235.01\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-0.10%",
+    "key_metrics": {
+      "RSI": 52.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

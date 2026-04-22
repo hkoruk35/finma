@@ -1,0 +1,177 @@
+{
+  "ticker": "FISV",
+  "company": "Fiserv, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.322677-04:00",
+  "sector": "Financials",
+  "industry": "",
+  "price": {
+    "current": 63.71,
+    "open": 64.87,
+    "high": 65.29,
+    "low": 63.6,
+    "prev_close": 64.14,
+    "change_pct": -0.67,
+    "change_pct_1w": 7.95,
+    "change_pct_1m": 11.63,
+    "change_pct_1y": -69.68,
+    "volume": 1753847,
+    "avg_volume_30d": 6238044
+  },
+  "scores": {
+    "master_score": 34.85,
+    "technical_score": 11.1,
+    "fundamental_score": 40.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 50.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 34.85,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 67.6,
+    "macd": 1.2291,
+    "macd_signal": 0.1445,
+    "macd_histogram": 1.0846,
+    "macd_crossover": "neutral",
+    "ema_20": 59.55,
+    "ema_50": 60.4,
+    "ema_200": 92.77,
+    "ema_stack_bullish": false,
+    "bb_upper": 64.41,
+    "bb_middle": 57.92,
+    "bb_lower": 51.44,
+    "bb_width": 0.2239,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.8,
+    "atr": 1.94,
+    "atr_pct": 0.0305,
+    "obv_trend": "UP",
+    "mfi": 77.4,
+    "cmf": 0.041,
+    "stoch_k": 86.3,
+    "stoch_d": 91.5,
+    "rvol": 0.79,
+    "volume_5d_avg": 4911889,
+    "green_days_10d": 7,
+    "52w_high": 217.1,
+    "52w_low": 53.9,
+    "52w_high_proximity_pct": 0.7065,
+    "52w_low_proximity_pct": 0.182
+  },
+  "fundamental": {
+    "pe_ratio": 10.048896,
+    "sector_pe_median": 16.433114,
+    "pb_ratio": 1.3190476,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": null,
+    "gross_margin": null,
+    "operating_margin": null,
+    "net_margin": null,
+    "market_cap": 34070673408,
+    "enterprise_value": null,
+    "dividend_yield": null,
+    "payout_ratio": null,
+    "insider_ownership_pct": null,
+    "institutional_ownership_pct": null,
+    "short_ratio": null,
+    "beta": null
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 60.1,
+    "entry_range_high": 64.03,
+    "target_range_low": 68.14,
+    "target_range_high": 73.01,
+    "stop_range_low": 56.84,
+    "stop_range_high": 59.83,
+    "target_price": 69.53,
+    "stop_loss": 59.83,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.322633-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 79.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 53.9,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 62094,
+      "date": "2026-02-18"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 0.58,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
+      "tr": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
+      "es": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
+      "pt": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
+      "fr": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6.",
+      "id": "BOGA AI assigns FISV a score of 34.9/100. Trend: Neutral. RSI: 67.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: FISV (Fiserv, Inc.)\n\n### 1. Business Context\nFiserv, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $63.71.\n\n### 2. Performance\n* **Master Score:** 34.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $63.71 | Current |\n| EMA20 | $59.55 | Support |\n| ADX | 19.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $59.83.\n\n### 5. Execution\n* **Entry Zone:** $60.10 - $64.03\n* **Target Price:** $69.53\n* **Stop Loss:** $59.83\n",
+      "tr": "## Kurumsal Analiz: FISV (Fiserv, Inc.)\n\n### 1. İş Bağlamı\nFiserv, Inc., Financials sektöründe faaliyet göstermektedir. BOGA AI, $63.71 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 34.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $63.71 | Güncel |\n| EMA20 | $59.55 | Destek |\n| ADX | 19.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $59.83.\n\n### 5. Uygulama\n* **Entry Zone:** $60.10 - $64.03\n* **Target Price:** $69.53\n* **Stop Loss:** $59.83\n",
+      "es": "## Análisis Institucional: FISV (Fiserv, Inc.)\n\n### 1. Contexto\nFiserv, Inc. opera en el sector Financials. BOGA AI detecta interés institucional cerca de $63.71.\n\n### 2. Desempeño\n* **Master Score:** 34.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $63.71 | Actual |\n| EMA20 | $59.55 | Soporte |\n| ADX | 19.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $59.83.\n\n### 5. Ejecución\n* **Entry Zone:** $60.10 - $64.03\n* **Target Price:** $69.53\n* **Stop Loss:** $59.83\n",
+      "pt": "## Análise Institucional: FISV (Fiserv, Inc.)\n\n### 1. Contexto\nFiserv, Inc. opera no setor Financials. BOGA AI detecta interesse institucional perto de $63.71.\n\n### 2. Desempenho\n* **Master Score:** 34.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $63.71 | Atual |\n| EMA20 | $59.55 | Suporte |\n| ADX | 19.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $59.83.\n\n### 5. Execução\n* **Entry Zone:** $60.10 - $64.03\n* **Target Price:** $69.53\n* **Stop Loss:** $59.83\n",
+      "fr": "## Analyse Institutionnelle: FISV (Fiserv, Inc.)\n\n### 1. Contexte Business\nFiserv, Inc. opère dans le secteur Financials. BOGA AI détecte un intérêt institutionnel proche de $63.71.\n\n### 2. Performance\n* **Master Score:** 34.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $63.71 | Actuel |\n| EMA20 | $59.55 | Support |\n| ADX | 19.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $59.83.\n\n### 5. Exécution\n* **Entry Zone:** $60.10 - $64.03\n* **Target Price:** $69.53\n* **Stop Loss:** $59.83\n",
+      "id": "## Analisis Institusional: FISV (Fiserv, Inc.)\n\n### 1. Konteks Bisnis\nFiserv, Inc. beroperasi di sektor Financials. BOGA AI mendeteksi minat institusional di dekat $63.71.\n\n### 2. Performa\n* **Master Score:** 34.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 67.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $63.71 | Saat Ini |\n| EMA20 | $59.55 | Dukungan |\n| ADX | 19.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $59.83.\n\n### 5. Eksekusi\n* **Entry Zone:** $60.10 - $64.03\n* **Target Price:** $69.53\n* **Stop Loss:** $59.83\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "-0.67%",
+    "key_metrics": {
+      "RSI": 67.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

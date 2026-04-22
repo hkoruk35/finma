@@ -1,0 +1,177 @@
+{
+  "ticker": "TRP",
+  "company": "TC Energy Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.479448-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 59.94,
+    "open": 60.92,
+    "high": 61.3,
+    "low": 59.88,
+    "prev_close": 60.81,
+    "change_pct": -1.43,
+    "change_pct_1w": -2.55,
+    "change_pct_1m": -4.43,
+    "change_pct_1y": 24.09,
+    "volume": 624136,
+    "avg_volume_30d": 2685197
+  },
+  "scores": {
+    "master_score": 21.86,
+    "technical_score": 26.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 50.0,
+    "sector_score": 37.6,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 21.86,
+    "confidence": 0.22,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 35.0,
+    "macd": -0.4934,
+    "macd_signal": -0.0862,
+    "macd_histogram": -0.4072,
+    "macd_crossover": "neutral",
+    "ema_20": 61.97,
+    "ema_50": 61.42,
+    "ema_200": 55.88,
+    "ema_stack_bullish": false,
+    "bb_upper": 64.89,
+    "bb_middle": 62.4,
+    "bb_lower": 59.9,
+    "bb_width": 0.08,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.2,
+    "atr": 1.28,
+    "atr_pct": 0.0213,
+    "obv_trend": "DOWN",
+    "mfi": 37.8,
+    "cmf": -0.193,
+    "stoch_k": 10.8,
+    "stoch_d": 19.4,
+    "rvol": 0.73,
+    "volume_5d_avg": 1952367,
+    "green_days_10d": 4,
+    "52w_high": 64.44,
+    "52w_low": 45.92,
+    "52w_high_proximity_pct": 0.0698,
+    "52w_low_proximity_pct": 0.3053
+  },
+  "fundamental": {
+    "pe_ratio": 23.785713,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 3.4642847,
+    "de_ratio": 165.373,
+    "fcf_yield": -0.0294,
+    "eps_growth_5y": 0.005,
+    "revenue_growth_ttm": 0.165,
+    "gross_margin": 0.69027,
+    "operating_margin": 0.45441002,
+    "net_margin": 0.23091999,
+    "market_cap": 62549745664,
+    "enterprise_value": 133108998144,
+    "dividend_yield": 4.15,
+    "payout_ratio": 0.97980005,
+    "insider_ownership_pct": 0.0005,
+    "institutional_ownership_pct": 0.77024,
+    "short_ratio": 14.84,
+    "beta": 0.973
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 59.64,
+    "entry_range_high": 60.24,
+    "target_range_low": 62.5,
+    "target_range_high": 66.97,
+    "stop_range_low": 54.51,
+    "stop_range_high": 57.38,
+    "target_price": 63.78,
+    "stop_loss": 57.38,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.479407-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 74.92,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 415.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 45.92,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 4,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25342,
+      "date": "2026-03-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TRP a score of 21.9/100. Trend: Neutral. RSI: 35.0.",
+      "tr": "BOGA AI assigns TRP a score of 21.9/100. Trend: Neutral. RSI: 35.0.",
+      "es": "BOGA AI assigns TRP a score of 21.9/100. Trend: Neutral. RSI: 35.0.",
+      "pt": "BOGA AI assigns TRP a score of 21.9/100. Trend: Neutral. RSI: 35.0.",
+      "fr": "BOGA AI assigns TRP a score of 21.9/100. Trend: Neutral. RSI: 35.0.",
+      "id": "BOGA AI assigns TRP a score of 21.9/100. Trend: Neutral. RSI: 35.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TRP (TC Energy Corporation)\n\n### 1. Business Context\nTC Energy Corporation operates in the Energy sector. BOGA AI detect institutional interest near $59.94.\n\n### 2. Performance\n* **Master Score:** 21.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $59.94 | Current |\n| EMA20 | $61.97 | Support |\n| ADX | 22.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $57.38.\n\n### 5. Execution\n* **Entry Zone:** $59.64 - $60.24\n* **Target Price:** $63.78\n* **Stop Loss:** $57.38\n",
+      "tr": "## Kurumsal Analiz: TRP (TC Energy Corporation)\n\n### 1. İş Bağlamı\nTC Energy Corporation, Energy sektöründe faaliyet göstermektedir. BOGA AI, $59.94 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 21.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $59.94 | Güncel |\n| EMA20 | $61.97 | Destek |\n| ADX | 22.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $57.38.\n\n### 5. Uygulama\n* **Entry Zone:** $59.64 - $60.24\n* **Target Price:** $63.78\n* **Stop Loss:** $57.38\n",
+      "es": "## Análisis Institucional: TRP (TC Energy Corporation)\n\n### 1. Contexto\nTC Energy Corporation opera en el sector Energy. BOGA AI detecta interés institucional cerca de $59.94.\n\n### 2. Desempeño\n* **Master Score:** 21.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $59.94 | Actual |\n| EMA20 | $61.97 | Soporte |\n| ADX | 22.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $57.38.\n\n### 5. Ejecución\n* **Entry Zone:** $59.64 - $60.24\n* **Target Price:** $63.78\n* **Stop Loss:** $57.38\n",
+      "pt": "## Análise Institucional: TRP (TC Energy Corporation)\n\n### 1. Contexto\nTC Energy Corporation opera no setor Energy. BOGA AI detecta interesse institucional perto de $59.94.\n\n### 2. Desempenho\n* **Master Score:** 21.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $59.94 | Atual |\n| EMA20 | $61.97 | Suporte |\n| ADX | 22.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $57.38.\n\n### 5. Execução\n* **Entry Zone:** $59.64 - $60.24\n* **Target Price:** $63.78\n* **Stop Loss:** $57.38\n",
+      "fr": "## Analyse Institutionnelle: TRP (TC Energy Corporation)\n\n### 1. Contexte Business\nTC Energy Corporation opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $59.94.\n\n### 2. Performance\n* **Master Score:** 21.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $59.94 | Actuel |\n| EMA20 | $61.97 | Support |\n| ADX | 22.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $57.38.\n\n### 5. Exécution\n* **Entry Zone:** $59.64 - $60.24\n* **Target Price:** $63.78\n* **Stop Loss:** $57.38\n",
+      "id": "## Analisis Institusional: TRP (TC Energy Corporation)\n\n### 1. Konteks Bisnis\nTC Energy Corporation beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $59.94.\n\n### 2. Performa\n* **Master Score:** 21.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 35.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $59.94 | Saat Ini |\n| EMA20 | $61.97 | Dukungan |\n| ADX | 22.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $57.38.\n\n### 5. Eksekusi\n* **Entry Zone:** $59.64 - $60.24\n* **Target Price:** $63.78\n* **Stop Loss:** $57.38\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 22,
+    "price_change_display": "-1.43%",
+    "key_metrics": {
+      "RSI": 35.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

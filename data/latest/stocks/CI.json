@@ -1,0 +1,178 @@
+{
+  "ticker": "CI",
+  "company": "The Cigna Group",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.933613-04:00",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 278.98,
+    "open": 284.0,
+    "high": 285.67,
+    "low": 278.82,
+    "prev_close": 279.92,
+    "change_pct": -0.34,
+    "change_pct_1w": 2.34,
+    "change_pct_1m": 6.14,
+    "change_pct_1y": -13.71,
+    "volume": 593568,
+    "avg_volume_30d": 1576918
+  },
+  "scores": {
+    "master_score": 39.48,
+    "technical_score": 12.6,
+    "fundamental_score": 60.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.48,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 56.3,
+    "macd": 1.7226,
+    "macd_signal": 0.5525,
+    "macd_histogram": 1.1701,
+    "macd_crossover": "neutral",
+    "ema_20": 273.67,
+    "ema_50": 273.64,
+    "ema_200": 282.11,
+    "ema_stack_bullish": false,
+    "bb_upper": 283.62,
+    "bb_middle": 271.99,
+    "bb_lower": 260.37,
+    "bb_width": 0.0855,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.9,
+    "atr": 6.33,
+    "atr_pct": 0.0227,
+    "obv_trend": "UP",
+    "mfi": 76.3,
+    "cmf": 0.174,
+    "stoch_k": 67.8,
+    "stoch_d": 85.7,
+    "rvol": 0.88,
+    "volume_5d_avg": 1384353,
+    "green_days_10d": 6,
+    "52w_high": 332.99,
+    "52w_low": 241.71,
+    "52w_high_proximity_pct": 0.1622,
+    "52w_low_proximity_pct": 0.1542
+  },
+  "fundamental": {
+    "pe_ratio": 12.5834465,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 1.7620401,
+    "de_ratio": 75.137,
+    "fcf_yield": 0.1311,
+    "eps_growth_5y": -0.093,
+    "revenue_growth_ttm": 0.104,
+    "gross_margin": 0.092980005,
+    "operating_margin": 0.0353,
+    "net_margin": 0.02167,
+    "market_cap": 74521427968,
+    "enterprise_value": 96658833408,
+    "dividend_yield": 2.23,
+    "payout_ratio": 0.2723,
+    "insider_ownership_pct": 0.01441,
+    "institutional_ownership_pct": 0.91804004,
+    "short_ratio": 3.61,
+    "beta": 0.272
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 272.27,
+    "entry_range_high": 280.37,
+    "target_range_low": 292.01,
+    "target_range_high": 312.87,
+    "stop_range_low": 253.0,
+    "stop_range_high": 266.32,
+    "target_price": 297.97,
+    "stop_loss": 266.32,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.933560-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 348.73,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 223.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 241.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2307,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
+      "tr": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
+      "es": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
+      "pt": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
+      "fr": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3.",
+      "id": "BOGA AI assigns CI a score of 39.5/100. Trend: Neutral. RSI: 56.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: CI (The Cigna Group)\n\n### 1. Business Context\nThe Cigna Group operates in the Healthcare sector. BOGA AI detect institutional interest near $278.98.\n\n### 2. Performance\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $278.98 | Current |\n| EMA20 | $273.67 | Support |\n| ADX | 17.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $266.32.\n\n### 5. Execution\n* **Entry Zone:** $272.27 - $280.37\n* **Target Price:** $297.97\n* **Stop Loss:** $266.32\n",
+      "tr": "## Kurumsal Analiz: CI (The Cigna Group)\n\n### 1. İş Bağlamı\nThe Cigna Group, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $278.98 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $278.98 | Güncel |\n| EMA20 | $273.67 | Destek |\n| ADX | 17.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $266.32.\n\n### 5. Uygulama\n* **Entry Zone:** $272.27 - $280.37\n* **Target Price:** $297.97\n* **Stop Loss:** $266.32\n",
+      "es": "## Análisis Institucional: CI (The Cigna Group)\n\n### 1. Contexto\nThe Cigna Group opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $278.98.\n\n### 2. Desempeño\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $278.98 | Actual |\n| EMA20 | $273.67 | Soporte |\n| ADX | 17.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $266.32.\n\n### 5. Ejecución\n* **Entry Zone:** $272.27 - $280.37\n* **Target Price:** $297.97\n* **Stop Loss:** $266.32\n",
+      "pt": "## Análise Institucional: CI (The Cigna Group)\n\n### 1. Contexto\nThe Cigna Group opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $278.98.\n\n### 2. Desempenho\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $278.98 | Atual |\n| EMA20 | $273.67 | Suporte |\n| ADX | 17.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $266.32.\n\n### 5. Execução\n* **Entry Zone:** $272.27 - $280.37\n* **Target Price:** $297.97\n* **Stop Loss:** $266.32\n",
+      "fr": "## Analyse Institutionnelle: CI (The Cigna Group)\n\n### 1. Contexte Business\nThe Cigna Group opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $278.98.\n\n### 2. Performance\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $278.98 | Actuel |\n| EMA20 | $273.67 | Support |\n| ADX | 17.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $266.32.\n\n### 5. Exécution\n* **Entry Zone:** $272.27 - $280.37\n* **Target Price:** $297.97\n* **Stop Loss:** $266.32\n",
+      "id": "## Analisis Institusional: CI (The Cigna Group)\n\n### 1. Konteks Bisnis\nThe Cigna Group beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $278.98.\n\n### 2. Performa\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 56.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $278.98 | Saat Ini |\n| EMA20 | $273.67 | Dukungan |\n| ADX | 17.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $266.32.\n\n### 5. Eksekusi\n* **Entry Zone:** $272.27 - $280.37\n* **Target Price:** $297.97\n* **Stop Loss:** $266.32\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-0.34%",
+    "key_metrics": {
+      "RSI": 56.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

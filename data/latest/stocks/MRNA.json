@@ -1,0 +1,177 @@
+{
+  "ticker": "MRNA",
+  "company": "Moderna, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.857329-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 54.57,
+    "open": 53.9,
+    "high": 56.2,
+    "low": 51.68,
+    "prev_close": 54.59,
+    "change_pct": -0.04,
+    "change_pct_1w": 3.27,
+    "change_pct_1m": 6.21,
+    "change_pct_1y": 120.8,
+    "volume": 3418929,
+    "avg_volume_30d": 6280097
+  },
+  "scores": {
+    "master_score": 44.22,
+    "technical_score": 59.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 25.7,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 44.22,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 59.1,
+    "macd": 0.9665,
+    "macd_signal": 0.6305,
+    "macd_histogram": 0.336,
+    "macd_crossover": "neutral",
+    "ema_20": 52.4,
+    "ema_50": 49.79,
+    "ema_200": 39.01,
+    "ema_stack_bullish": true,
+    "bb_upper": 55.84,
+    "bb_middle": 51.74,
+    "bb_lower": 47.65,
+    "bb_width": 0.1583,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.3,
+    "atr": 2.94,
+    "atr_pct": 0.0539,
+    "obv_trend": "DOWN",
+    "mfi": 74.0,
+    "cmf": -0.059,
+    "stoch_k": 81.5,
+    "stoch_d": 79.4,
+    "rvol": 1.04,
+    "volume_5d_avg": 6501965,
+    "green_days_10d": 5,
+    "52w_high": 57.8,
+    "52w_low": 22.36,
+    "52w_high_proximity_pct": 0.0559,
+    "52w_low_proximity_pct": 1.4405
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 2.4856517,
+    "de_ratio": 15.087,
+    "fcf_yield": -0.0613,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.298,
+    "gross_margin": -1.05761,
+    "operating_margin": -1.26401,
+    "net_margin": -1.4516499,
+    "market_cap": 21641744384,
+    "enterprise_value": 17065743360,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.07316,
+    "institutional_ownership_pct": 0.77018,
+    "short_ratio": 7.11,
+    "beta": 1.336
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 49.54,
+    "entry_range_high": 54.84,
+    "target_range_low": 62.12,
+    "target_range_high": 66.56,
+    "stop_range_low": 46.26,
+    "stop_range_high": 48.69,
+    "target_price": 63.39,
+    "stop_loss": 48.69,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.857308-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 68.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 22.36,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1453,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns MRNA a score of 44.2/100. Trend: Neutral. RSI: 59.1.",
+      "tr": "BOGA AI assigns MRNA a score of 44.2/100. Trend: Neutral. RSI: 59.1.",
+      "es": "BOGA AI assigns MRNA a score of 44.2/100. Trend: Neutral. RSI: 59.1.",
+      "pt": "BOGA AI assigns MRNA a score of 44.2/100. Trend: Neutral. RSI: 59.1.",
+      "fr": "BOGA AI assigns MRNA a score of 44.2/100. Trend: Neutral. RSI: 59.1.",
+      "id": "BOGA AI assigns MRNA a score of 44.2/100. Trend: Neutral. RSI: 59.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: MRNA (Moderna, Inc.)\n\n### 1. Business Context\nModerna, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $54.57.\n\n### 2. Performance\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $54.57 | Current |\n| EMA20 | $52.4 | Support |\n| ADX | 20.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $48.69.\n\n### 5. Execution\n* **Entry Zone:** $49.54 - $54.84\n* **Target Price:** $63.39\n* **Stop Loss:** $48.69\n",
+      "tr": "## Kurumsal Analiz: MRNA (Moderna, Inc.)\n\n### 1. İş Bağlamı\nModerna, Inc., Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $54.57 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $54.57 | Güncel |\n| EMA20 | $52.4 | Destek |\n| ADX | 20.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $48.69.\n\n### 5. Uygulama\n* **Entry Zone:** $49.54 - $54.84\n* **Target Price:** $63.39\n* **Stop Loss:** $48.69\n",
+      "es": "## Análisis Institucional: MRNA (Moderna, Inc.)\n\n### 1. Contexto\nModerna, Inc. opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $54.57.\n\n### 2. Desempeño\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $54.57 | Actual |\n| EMA20 | $52.4 | Soporte |\n| ADX | 20.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $48.69.\n\n### 5. Ejecución\n* **Entry Zone:** $49.54 - $54.84\n* **Target Price:** $63.39\n* **Stop Loss:** $48.69\n",
+      "pt": "## Análise Institucional: MRNA (Moderna, Inc.)\n\n### 1. Contexto\nModerna, Inc. opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $54.57.\n\n### 2. Desempenho\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $54.57 | Atual |\n| EMA20 | $52.4 | Suporte |\n| ADX | 20.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $48.69.\n\n### 5. Execução\n* **Entry Zone:** $49.54 - $54.84\n* **Target Price:** $63.39\n* **Stop Loss:** $48.69\n",
+      "fr": "## Analyse Institutionnelle: MRNA (Moderna, Inc.)\n\n### 1. Contexte Business\nModerna, Inc. opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $54.57.\n\n### 2. Performance\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $54.57 | Actuel |\n| EMA20 | $52.4 | Support |\n| ADX | 20.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $48.69.\n\n### 5. Exécution\n* **Entry Zone:** $49.54 - $54.84\n* **Target Price:** $63.39\n* **Stop Loss:** $48.69\n",
+      "id": "## Analisis Institusional: MRNA (Moderna, Inc.)\n\n### 1. Konteks Bisnis\nModerna, Inc. beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $54.57.\n\n### 2. Performa\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $54.57 | Saat Ini |\n| EMA20 | $52.4 | Dukungan |\n| ADX | 20.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $48.69.\n\n### 5. Eksekusi\n* **Entry Zone:** $49.54 - $54.84\n* **Target Price:** $63.39\n* **Stop Loss:** $48.69\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "-0.04%",
+    "key_metrics": {
+      "RSI": 59.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

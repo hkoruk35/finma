@@ -1,0 +1,173 @@
+{
+  "ticker": "NOK",
+  "company": "Nokia Oyj",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.325157-04:00",
+  "sector": "Communication Services",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 10.42,
+    "open": 10.6,
+    "high": 10.67,
+    "low": 10.36,
+    "prev_close": 10.6,
+    "change_pct": -1.7,
+    "change_pct_1w": 0.68,
+    "change_pct_1m": 30.58,
+    "change_pct_1y": 108.08,
+    "volume": 43270667,
+    "avg_volume_30d": 69016455
+  },
+  "scores": {
+    "master_score": 48.74,
+    "technical_score": 65.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 70.0,
+    "sector_score": 29.9,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 40.0,
+    "signal_score": 48.74,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 70.9,
+    "macd": 0.6553,
+    "macd_signal": 0.549,
+    "macd_histogram": 0.1064,
+    "macd_crossover": "neutral",
+    "ema_20": 9.47,
+    "ema_50": 8.55,
+    "ema_200": 6.82,
+    "ema_stack_bullish": true,
+    "bb_upper": 11.09,
+    "bb_middle": 9.23,
+    "bb_lower": 7.36,
+    "bb_width": 0.4043,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 38.9,
+    "atr": 0.42,
+    "atr_pct": 0.0398,
+    "obv_trend": "UP",
+    "mfi": 83.0,
+    "cmf": 0.135,
+    "stoch_k": 89.7,
+    "stoch_d": 92.5,
+    "rvol": 0.89,
+    "volume_5d_avg": 61109993,
+    "green_days_10d": 6,
+    "52w_high": 10.6,
+    "52w_low": 4.05,
+    "52w_high_proximity_pct": 0.017,
+    "52w_low_proximity_pct": 1.5728
+  },
+  "fundamental": {
+    "pe_ratio": 80.15385,
+    "sector_pe_median": 25.1250565,
+    "pb_ratio": 2.3970726,
+    "de_ratio": 20.971,
+    "fcf_yield": 0.0086,
+    "eps_growth_5y": -0.408,
+    "revenue_growth_ttm": 0.024,
+    "gross_margin": 0.44647998,
+    "operating_margin": 0.13029,
+    "net_margin": 0.03273,
+    "market_cap": 58170007552,
+    "enterprise_value": 57236860928,
+    "dividend_yield": 1.52,
+    "payout_ratio": 1.2697,
+    "insider_ownership_pct": 0.02981,
+    "institutional_ownership_pct": 0.15525,
+    "short_ratio": 0.91,
+    "beta": 0.513
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 8.51,
+    "entry_range_high": 10.47,
+    "target_range_low": 11.45,
+    "target_range_high": 12.26,
+    "stop_range_low": 9.1,
+    "stop_range_high": 9.58,
+    "target_price": 11.68,
+    "stop_loss": 9.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.325111-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 13.03,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 152.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 4.05,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns NOK a score of 48.7/100. Trend: Neutral. RSI: 70.9.",
+      "tr": "BOGA AI assigns NOK a score of 48.7/100. Trend: Neutral. RSI: 70.9.",
+      "es": "BOGA AI assigns NOK a score of 48.7/100. Trend: Neutral. RSI: 70.9.",
+      "pt": "BOGA AI assigns NOK a score of 48.7/100. Trend: Neutral. RSI: 70.9.",
+      "fr": "BOGA AI assigns NOK a score of 48.7/100. Trend: Neutral. RSI: 70.9.",
+      "id": "BOGA AI assigns NOK a score of 48.7/100. Trend: Neutral. RSI: 70.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: NOK (Nokia Oyj)\n\n### 1. Business Context\nNokia Oyj operates in the Communication Services sector. BOGA AI detect institutional interest near $10.42.\n\n### 2. Performance\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 70.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $10.42 | Current |\n| EMA20 | $9.47 | Support |\n| ADX | 38.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $9.58.\n\n### 5. Execution\n* **Entry Zone:** $8.51 - $10.47\n* **Target Price:** $11.68\n* **Stop Loss:** $9.58\n",
+      "tr": "## Kurumsal Analiz: NOK (Nokia Oyj)\n\n### 1. İş Bağlamı\nNokia Oyj, Communication Services sektöründe faaliyet göstermektedir. BOGA AI, $10.42 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 70.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $10.42 | Güncel |\n| EMA20 | $9.47 | Destek |\n| ADX | 38.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $9.58.\n\n### 5. Uygulama\n* **Entry Zone:** $8.51 - $10.47\n* **Target Price:** $11.68\n* **Stop Loss:** $9.58\n",
+      "es": "## Análisis Institucional: NOK (Nokia Oyj)\n\n### 1. Contexto\nNokia Oyj opera en el sector Communication Services. BOGA AI detecta interés institucional cerca de $10.42.\n\n### 2. Desempeño\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 70.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $10.42 | Actual |\n| EMA20 | $9.47 | Soporte |\n| ADX | 38.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $9.58.\n\n### 5. Ejecución\n* **Entry Zone:** $8.51 - $10.47\n* **Target Price:** $11.68\n* **Stop Loss:** $9.58\n",
+      "pt": "## Análise Institucional: NOK (Nokia Oyj)\n\n### 1. Contexto\nNokia Oyj opera no setor Communication Services. BOGA AI detecta interesse institucional perto de $10.42.\n\n### 2. Desempenho\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 70.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $10.42 | Atual |\n| EMA20 | $9.47 | Suporte |\n| ADX | 38.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $9.58.\n\n### 5. Execução\n* **Entry Zone:** $8.51 - $10.47\n* **Target Price:** $11.68\n* **Stop Loss:** $9.58\n",
+      "fr": "## Analyse Institutionnelle: NOK (Nokia Oyj)\n\n### 1. Contexte Business\nNokia Oyj opère dans le secteur Communication Services. BOGA AI détecte un intérêt institutionnel proche de $10.42.\n\n### 2. Performance\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 70.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $10.42 | Actuel |\n| EMA20 | $9.47 | Support |\n| ADX | 38.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $9.58.\n\n### 5. Exécution\n* **Entry Zone:** $8.51 - $10.47\n* **Target Price:** $11.68\n* **Stop Loss:** $9.58\n",
+      "id": "## Analisis Institusional: NOK (Nokia Oyj)\n\n### 1. Konteks Bisnis\nNokia Oyj beroperasi di sektor Communication Services. BOGA AI mendeteksi minat institusional di dekat $10.42.\n\n### 2. Performa\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 70.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $10.42 | Saat Ini |\n| EMA20 | $9.47 | Dukungan |\n| ADX | 38.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $9.58.\n\n### 5. Eksekusi\n* **Entry Zone:** $8.51 - $10.47\n* **Target Price:** $11.68\n* **Stop Loss:** $9.58\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-1.70%",
+    "key_metrics": {
+      "RSI": 70.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

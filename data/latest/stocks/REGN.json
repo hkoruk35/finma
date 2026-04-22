@@ -1,0 +1,177 @@
+{
+  "ticker": "REGN",
+  "company": "Regeneron Pharmaceuticals, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.849347-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 744.67,
+    "open": 746.22,
+    "high": 751.54,
+    "low": 734.12,
+    "prev_close": 749.41,
+    "change_pct": -0.63,
+    "change_pct_1w": -1.43,
+    "change_pct_1m": 1.61,
+    "change_pct_1y": 32.95,
+    "volume": 255924,
+    "avg_volume_30d": 588360
+  },
+  "scores": {
+    "master_score": 33.37,
+    "technical_score": 23.0,
+    "fundamental_score": 45.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 33.37,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 44.8,
+    "macd": -3.2098,
+    "macd_signal": -2.1947,
+    "macd_histogram": -1.0151,
+    "macd_crossover": "neutral",
+    "ema_20": 754.41,
+    "ema_50": 756.51,
+    "ema_200": 706.46,
+    "ema_stack_bullish": false,
+    "bb_upper": 777.44,
+    "bb_middle": 755.44,
+    "bb_lower": 733.43,
+    "bb_width": 0.0583,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 18.5,
+    "atr": 18.35,
+    "atr_pct": 0.0246,
+    "obv_trend": "DOWN",
+    "mfi": 34.0,
+    "cmf": 0.171,
+    "stoch_k": 22.4,
+    "stoch_d": 26.7,
+    "rvol": 0.79,
+    "volume_5d_avg": 467344,
+    "green_days_10d": 3,
+    "52w_high": 811.29,
+    "52w_low": 481.15,
+    "52w_high_proximity_pct": 0.0821,
+    "52w_low_proximity_pct": 0.5477
+  },
+  "fundamental": {
+    "pe_ratio": 17.935211,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 2.444362,
+    "de_ratio": 9.511,
+    "fcf_yield": 0.0414,
+    "eps_growth_5y": -0.026,
+    "revenue_growth_ttm": 0.025,
+    "gross_margin": 0.44566002,
+    "operating_margin": 0.23134,
+    "net_margin": 0.31409,
+    "market_cap": 78726365184,
+    "enterprise_value": 71271809024,
+    "dividend_yield": 0.5,
+    "payout_ratio": 0.0849,
+    "insider_ownership_pct": 0.01984,
+    "institutional_ownership_pct": 0.90959,
+    "short_ratio": 4.46,
+    "beta": 0.397
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 740.95,
+    "entry_range_high": 748.39,
+    "target_range_low": 783.73,
+    "target_range_high": 839.71,
+    "stop_range_low": 672.57,
+    "stop_range_high": 707.97,
+    "target_price": 799.72,
+    "stop_loss": 707.97,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.849164-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 930.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 50.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 481.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 100,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns REGN a score of 33.4/100. Trend: Neutral. RSI: 44.8.",
+      "tr": "BOGA AI assigns REGN a score of 33.4/100. Trend: Neutral. RSI: 44.8.",
+      "es": "BOGA AI assigns REGN a score of 33.4/100. Trend: Neutral. RSI: 44.8.",
+      "pt": "BOGA AI assigns REGN a score of 33.4/100. Trend: Neutral. RSI: 44.8.",
+      "fr": "BOGA AI assigns REGN a score of 33.4/100. Trend: Neutral. RSI: 44.8.",
+      "id": "BOGA AI assigns REGN a score of 33.4/100. Trend: Neutral. RSI: 44.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: REGN (Regeneron Pharmaceuticals, Inc.)\n\n### 1. Business Context\nRegeneron Pharmaceuticals, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $744.67.\n\n### 2. Performance\n* **Master Score:** 33.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $744.67 | Current |\n| EMA20 | $754.41 | Support |\n| ADX | 18.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $707.97.\n\n### 5. Execution\n* **Entry Zone:** $740.95 - $748.39\n* **Target Price:** $799.72\n* **Stop Loss:** $707.97\n",
+      "tr": "## Kurumsal Analiz: REGN (Regeneron Pharmaceuticals, Inc.)\n\n### 1. İş Bağlamı\nRegeneron Pharmaceuticals, Inc., Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $744.67 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 33.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $744.67 | Güncel |\n| EMA20 | $754.41 | Destek |\n| ADX | 18.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $707.97.\n\n### 5. Uygulama\n* **Entry Zone:** $740.95 - $748.39\n* **Target Price:** $799.72\n* **Stop Loss:** $707.97\n",
+      "es": "## Análisis Institucional: REGN (Regeneron Pharmaceuticals, Inc.)\n\n### 1. Contexto\nRegeneron Pharmaceuticals, Inc. opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $744.67.\n\n### 2. Desempeño\n* **Master Score:** 33.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $744.67 | Actual |\n| EMA20 | $754.41 | Soporte |\n| ADX | 18.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $707.97.\n\n### 5. Ejecución\n* **Entry Zone:** $740.95 - $748.39\n* **Target Price:** $799.72\n* **Stop Loss:** $707.97\n",
+      "pt": "## Análise Institucional: REGN (Regeneron Pharmaceuticals, Inc.)\n\n### 1. Contexto\nRegeneron Pharmaceuticals, Inc. opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $744.67.\n\n### 2. Desempenho\n* **Master Score:** 33.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $744.67 | Atual |\n| EMA20 | $754.41 | Suporte |\n| ADX | 18.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $707.97.\n\n### 5. Execução\n* **Entry Zone:** $740.95 - $748.39\n* **Target Price:** $799.72\n* **Stop Loss:** $707.97\n",
+      "fr": "## Analyse Institutionnelle: REGN (Regeneron Pharmaceuticals, Inc.)\n\n### 1. Contexte Business\nRegeneron Pharmaceuticals, Inc. opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $744.67.\n\n### 2. Performance\n* **Master Score:** 33.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $744.67 | Actuel |\n| EMA20 | $754.41 | Support |\n| ADX | 18.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $707.97.\n\n### 5. Exécution\n* **Entry Zone:** $740.95 - $748.39\n* **Target Price:** $799.72\n* **Stop Loss:** $707.97\n",
+      "id": "## Analisis Institusional: REGN (Regeneron Pharmaceuticals, Inc.)\n\n### 1. Konteks Bisnis\nRegeneron Pharmaceuticals, Inc. beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $744.67.\n\n### 2. Performa\n* **Master Score:** 33.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $744.67 | Saat Ini |\n| EMA20 | $754.41 | Dukungan |\n| ADX | 18.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $707.97.\n\n### 5. Eksekusi\n* **Entry Zone:** $740.95 - $748.39\n* **Target Price:** $799.72\n* **Stop Loss:** $707.97\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "-0.63%",
+    "key_metrics": {
+      "RSI": 44.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

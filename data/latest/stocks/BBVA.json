@@ -1,0 +1,173 @@
+{
+  "ticker": "BBVA",
+  "company": "Banco Bilbao Vizcaya Argentaria, S.A.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.189592-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 22.59,
+    "open": 22.92,
+    "high": 23.0,
+    "low": 22.46,
+    "prev_close": 23.2,
+    "change_pct": -2.63,
+    "change_pct_1w": -4.32,
+    "change_pct_1m": 13.41,
+    "change_pct_1y": 75.99,
+    "volume": 1464615,
+    "avg_volume_30d": 2000323
+  },
+  "scores": {
+    "master_score": 45.17,
+    "technical_score": 47.0,
+    "fundamental_score": 55.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 70.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 45.17,
+    "confidence": 0.45,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.8,
+    "macd": 0.549,
+    "macd_signal": 0.4035,
+    "macd_histogram": 0.1455,
+    "macd_crossover": "neutral",
+    "ema_20": 22.33,
+    "ema_50": 22.0,
+    "ema_200": 20.05,
+    "ema_stack_bullish": true,
+    "bb_upper": 24.54,
+    "bb_middle": 21.94,
+    "bb_lower": 19.35,
+    "bb_width": 0.2365,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 18.2,
+    "atr": 0.69,
+    "atr_pct": 0.0304,
+    "obv_trend": "DOWN",
+    "mfi": 53.0,
+    "cmf": 0.122,
+    "stoch_k": 58.1,
+    "stoch_d": 75.8,
+    "rvol": 0.67,
+    "volume_5d_avg": 1348463,
+    "green_days_10d": 6,
+    "52w_high": 25.32,
+    "52w_low": 12.75,
+    "52w_high_proximity_pct": 0.1078,
+    "52w_low_proximity_pct": 0.7717
+  },
+  "fundamental": {
+    "pe_ratio": 10.913044,
+    "sector_pe_median": 16.433114,
+    "pb_ratio": 1.8985603,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.054,
+    "revenue_growth_ttm": 0.003,
+    "gross_margin": 0.0,
+    "operating_margin": 0.509,
+    "net_margin": 0.33212003,
+    "market_cap": 127672836096,
+    "enterprise_value": 140722552832,
+    "dividend_yield": 4.65,
+    "payout_ratio": 0.41009998,
+    "insider_ownership_pct": 0.00017999999,
+    "institutional_ownership_pct": 0.03435,
+    "short_ratio": 0.74,
+    "beta": 0.923
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 21.89,
+    "entry_range_high": 22.7,
+    "target_range_low": 24.17,
+    "target_range_high": 25.89,
+    "stop_range_low": 20.15,
+    "stop_range_high": 21.21,
+    "target_price": 24.66,
+    "stop_loss": 21.21,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.189524-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 28.24,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 465.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 12.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 0.58,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
+      "tr": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
+      "es": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
+      "pt": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
+      "fr": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8.",
+      "id": "BOGA AI assigns BBVA a score of 45.2/100. Trend: Neutral. RSI: 53.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BBVA (Banco Bilbao Vizcaya Argentaria, S.A.)\n\n### 1. Business Context\nBanco Bilbao Vizcaya Argentaria, S.A. operates in the Financials sector. BOGA AI detect institutional interest near $22.59.\n\n### 2. Performance\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $22.59 | Current |\n| EMA20 | $22.33 | Support |\n| ADX | 18.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $21.21.\n\n### 5. Execution\n* **Entry Zone:** $21.89 - $22.70\n* **Target Price:** $24.66\n* **Stop Loss:** $21.21\n",
+      "tr": "## Kurumsal Analiz: BBVA (Banco Bilbao Vizcaya Argentaria, S.A.)\n\n### 1. İş Bağlamı\nBanco Bilbao Vizcaya Argentaria, S.A., Financials sektöründe faaliyet göstermektedir. BOGA AI, $22.59 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $22.59 | Güncel |\n| EMA20 | $22.33 | Destek |\n| ADX | 18.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $21.21.\n\n### 5. Uygulama\n* **Entry Zone:** $21.89 - $22.70\n* **Target Price:** $24.66\n* **Stop Loss:** $21.21\n",
+      "es": "## Análisis Institucional: BBVA (Banco Bilbao Vizcaya Argentaria, S.A.)\n\n### 1. Contexto\nBanco Bilbao Vizcaya Argentaria, S.A. opera en el sector Financials. BOGA AI detecta interés institucional cerca de $22.59.\n\n### 2. Desempeño\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $22.59 | Actual |\n| EMA20 | $22.33 | Soporte |\n| ADX | 18.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $21.21.\n\n### 5. Ejecución\n* **Entry Zone:** $21.89 - $22.70\n* **Target Price:** $24.66\n* **Stop Loss:** $21.21\n",
+      "pt": "## Análise Institucional: BBVA (Banco Bilbao Vizcaya Argentaria, S.A.)\n\n### 1. Contexto\nBanco Bilbao Vizcaya Argentaria, S.A. opera no setor Financials. BOGA AI detecta interesse institucional perto de $22.59.\n\n### 2. Desempenho\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $22.59 | Atual |\n| EMA20 | $22.33 | Suporte |\n| ADX | 18.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $21.21.\n\n### 5. Execução\n* **Entry Zone:** $21.89 - $22.70\n* **Target Price:** $24.66\n* **Stop Loss:** $21.21\n",
+      "fr": "## Analyse Institutionnelle: BBVA (Banco Bilbao Vizcaya Argentaria, S.A.)\n\n### 1. Contexte Business\nBanco Bilbao Vizcaya Argentaria, S.A. opère dans le secteur Financials. BOGA AI détecte un intérêt institutionnel proche de $22.59.\n\n### 2. Performance\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $22.59 | Actuel |\n| EMA20 | $22.33 | Support |\n| ADX | 18.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $21.21.\n\n### 5. Exécution\n* **Entry Zone:** $21.89 - $22.70\n* **Target Price:** $24.66\n* **Stop Loss:** $21.21\n",
+      "id": "## Analisis Institusional: BBVA (Banco Bilbao Vizcaya Argentaria, S.A.)\n\n### 1. Konteks Bisnis\nBanco Bilbao Vizcaya Argentaria, S.A. beroperasi di sektor Financials. BOGA AI mendeteksi minat institusional di dekat $22.59.\n\n### 2. Performa\n* **Master Score:** 45.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $22.59 | Saat Ini |\n| EMA20 | $22.33 | Dukungan |\n| ADX | 18.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $21.21.\n\n### 5. Eksekusi\n* **Entry Zone:** $21.89 - $22.70\n* **Target Price:** $24.66\n* **Stop Loss:** $21.21\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 45,
+    "price_change_display": "-2.63%",
+    "key_metrics": {
+      "RSI": 53.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

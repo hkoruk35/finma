@@ -1,0 +1,178 @@
+{
+  "ticker": "EA",
+  "company": "Electronic Arts Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.426628-04:00",
+  "sector": "Communication Services",
+  "industry": "Electronic Gaming & Multimedia",
+  "price": {
+    "current": 203.29,
+    "open": 203.1,
+    "high": 203.47,
+    "low": 203.0,
+    "prev_close": 203.36,
+    "change_pct": -0.03,
+    "change_pct_1w": 0.22,
+    "change_pct_1m": 1.39,
+    "change_pct_1y": 40.21,
+    "volume": 223310,
+    "avg_volume_30d": 1994690
+  },
+  "scores": {
+    "master_score": 46.49,
+    "technical_score": 60.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.9,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 46.49,
+    "confidence": 0.46,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.9,
+    "macd": 0.5396,
+    "macd_signal": 0.576,
+    "macd_histogram": -0.0365,
+    "macd_crossover": "neutral",
+    "ema_20": 202.82,
+    "ema_50": 202.08,
+    "ema_200": 190.02,
+    "ema_stack_bullish": true,
+    "bb_upper": 204.56,
+    "bb_middle": 203.05,
+    "bb_lower": 201.55,
+    "bb_width": 0.0148,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 21.2,
+    "atr": 0.93,
+    "atr_pct": 0.0046,
+    "obv_trend": "UP",
+    "mfi": 57.2,
+    "cmf": 0.247,
+    "stoch_k": 57.1,
+    "stoch_d": 66.5,
+    "rvol": 0.7,
+    "volume_5d_avg": 1399902,
+    "green_days_10d": 6,
+    "52w_high": 204.6,
+    "52w_low": 141.32,
+    "52w_high_proximity_pct": 0.0064,
+    "52w_low_proximity_pct": 0.4385
+  },
+  "fundamental": {
+    "pe_ratio": 76.424805,
+    "sector_pe_median": 25.1250565,
+    "pb_ratio": 8.266173,
+    "de_ratio": 36.443,
+    "fcf_yield": 0.0434,
+    "eps_growth_5y": -0.685,
+    "revenue_growth_ttm": 0.01,
+    "gross_margin": 0.78264,
+    "operating_margin": 0.08574,
+    "net_margin": 0.09307,
+    "market_cap": 50874077184,
+    "enterprise_value": 50234593280,
+    "dividend_yield": 0.37,
+    "payout_ratio": 0.2846,
+    "insider_ownership_pct": 0.00206,
+    "institutional_ownership_pct": 0.95343,
+    "short_ratio": 4.66,
+    "beta": 0.725
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 201.07,
+    "entry_range_high": 204.31,
+    "target_range_low": 201.96,
+    "target_range_high": 216.38,
+    "stop_range_low": 191.36,
+    "stop_range_high": 201.43,
+    "target_price": 206.08,
+    "stop_loss": 201.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.426564-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 254.11,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 37.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 141.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5000,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns EA a score of 46.5/100. Trend: Neutral. RSI: 55.9.",
+      "tr": "BOGA AI assigns EA a score of 46.5/100. Trend: Neutral. RSI: 55.9.",
+      "es": "BOGA AI assigns EA a score of 46.5/100. Trend: Neutral. RSI: 55.9.",
+      "pt": "BOGA AI assigns EA a score of 46.5/100. Trend: Neutral. RSI: 55.9.",
+      "fr": "BOGA AI assigns EA a score of 46.5/100. Trend: Neutral. RSI: 55.9.",
+      "id": "BOGA AI assigns EA a score of 46.5/100. Trend: Neutral. RSI: 55.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: EA (Electronic Arts Inc.)\n\n### 1. Business Context\nElectronic Arts Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $203.29.\n\n### 2. Performance\n* **Master Score:** 46.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $203.29 | Current |\n| EMA20 | $202.82 | Support |\n| ADX | 21.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $201.43.\n\n### 5. Execution\n* **Entry Zone:** $201.07 - $204.31\n* **Target Price:** $206.08\n* **Stop Loss:** $201.43\n",
+      "tr": "## Kurumsal Analiz: EA (Electronic Arts Inc.)\n\n### 1. İş Bağlamı\nElectronic Arts Inc., Communication Services sektöründe faaliyet göstermektedir. BOGA AI, $203.29 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 46.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $203.29 | Güncel |\n| EMA20 | $202.82 | Destek |\n| ADX | 21.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $201.43.\n\n### 5. Uygulama\n* **Entry Zone:** $201.07 - $204.31\n* **Target Price:** $206.08\n* **Stop Loss:** $201.43\n",
+      "es": "## Análisis Institucional: EA (Electronic Arts Inc.)\n\n### 1. Contexto\nElectronic Arts Inc. opera en el sector Communication Services. BOGA AI detecta interés institucional cerca de $203.29.\n\n### 2. Desempeño\n* **Master Score:** 46.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $203.29 | Actual |\n| EMA20 | $202.82 | Soporte |\n| ADX | 21.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $201.43.\n\n### 5. Ejecución\n* **Entry Zone:** $201.07 - $204.31\n* **Target Price:** $206.08\n* **Stop Loss:** $201.43\n",
+      "pt": "## Análise Institucional: EA (Electronic Arts Inc.)\n\n### 1. Contexto\nElectronic Arts Inc. opera no setor Communication Services. BOGA AI detecta interesse institucional perto de $203.29.\n\n### 2. Desempenho\n* **Master Score:** 46.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $203.29 | Atual |\n| EMA20 | $202.82 | Suporte |\n| ADX | 21.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $201.43.\n\n### 5. Execução\n* **Entry Zone:** $201.07 - $204.31\n* **Target Price:** $206.08\n* **Stop Loss:** $201.43\n",
+      "fr": "## Analyse Institutionnelle: EA (Electronic Arts Inc.)\n\n### 1. Contexte Business\nElectronic Arts Inc. opère dans le secteur Communication Services. BOGA AI détecte un intérêt institutionnel proche de $203.29.\n\n### 2. Performance\n* **Master Score:** 46.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $203.29 | Actuel |\n| EMA20 | $202.82 | Support |\n| ADX | 21.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $201.43.\n\n### 5. Exécution\n* **Entry Zone:** $201.07 - $204.31\n* **Target Price:** $206.08\n* **Stop Loss:** $201.43\n",
+      "id": "## Analisis Institusional: EA (Electronic Arts Inc.)\n\n### 1. Konteks Bisnis\nElectronic Arts Inc. beroperasi di sektor Communication Services. BOGA AI mendeteksi minat institusional di dekat $203.29.\n\n### 2. Performa\n* **Master Score:** 46.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $203.29 | Saat Ini |\n| EMA20 | $202.82 | Dukungan |\n| ADX | 21.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $201.43.\n\n### 5. Eksekusi\n* **Entry Zone:** $201.07 - $204.31\n* **Target Price:** $206.08\n* **Stop Loss:** $201.43\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 46,
+    "price_change_display": "-0.03%",
+    "key_metrics": {
+      "RSI": 55.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "ticker": "INTC",
+  "company": "Intel Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.175831-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 66.11,
+    "open": 67.15,
+    "high": 67.67,
+    "low": 65.91,
+    "prev_close": 65.7,
+    "change_pct": 0.62,
+    "change_pct_1w": 3.6,
+    "change_pct_1m": 50.68,
+    "change_pct_1y": 249.21,
+    "volume": 56129362,
+    "avg_volume_30d": 99919688
+  },
+  "scores": {
+    "master_score": 55.72,
+    "technical_score": 65.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 55.72,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 70.7,
+    "macd": 5.7219,
+    "macd_signal": 4.6013,
+    "macd_histogram": 1.1206,
+    "macd_crossover": "neutral",
+    "ema_20": 58.38,
+    "ema_50": 51.89,
+    "ema_200": 40.15,
+    "ema_stack_bullish": true,
+    "bb_upper": 74.73,
+    "bb_middle": 55.58,
+    "bb_lower": 36.44,
+    "bb_width": 0.6888,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 37.3,
+    "atr": 3.17,
+    "atr_pct": 0.0479,
+    "obv_trend": "UP",
+    "mfi": 85.7,
+    "cmf": 0.316,
+    "stoch_k": 83.3,
+    "stoch_d": 87.0,
+    "rvol": 0.94,
+    "volume_5d_avg": 94380552,
+    "green_days_10d": 7,
+    "52w_high": 68.5,
+    "52w_low": 18.84,
+    "52w_high_proximity_pct": 0.035,
+    "52w_low_proximity_pct": 2.5088
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 2.888481,
+    "de_ratio": 37.282,
+    "fcf_yield": -0.0136,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.041,
+    "gross_margin": 0.36563998,
+    "operating_margin": 0.051409997,
+    "net_margin": -0.00505,
+    "market_cap": 331888787456,
+    "enterprise_value": 349943496704,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12966,
+    "institutional_ownership_pct": 0.61867,
+    "short_ratio": 1.46,
+    "beta": 1.349
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 51.63,
+    "entry_range_high": 66.44,
+    "target_range_low": 74.11,
+    "target_range_high": 79.4,
+    "stop_range_low": 56.78,
+    "stop_range_high": 59.77,
+    "target_price": 75.62,
+    "stop_loss": 59.77,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.175798-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 82.64,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 18.84,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 59878,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
+      "tr": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
+      "es": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
+      "pt": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
+      "fr": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7.",
+      "id": "BOGA AI assigns INTC a score of 55.7/100. Trend: Neutral. RSI: 70.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: INTC (Intel Corporation)\n\n### 1. Business Context\nIntel Corporation operates in the Technology sector. BOGA AI detect institutional interest near $66.11.\n\n### 2. Performance\n* **Master Score:** 55.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $66.11 | Current |\n| EMA20 | $58.38 | Support |\n| ADX | 37.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $59.77.\n\n### 5. Execution\n* **Entry Zone:** $51.63 - $66.44\n* **Target Price:** $75.62\n* **Stop Loss:** $59.77\n",
+      "tr": "## Kurumsal Analiz: INTC (Intel Corporation)\n\n### 1. İş Bağlamı\nIntel Corporation, Technology sektöründe faaliyet göstermektedir. BOGA AI, $66.11 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 55.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $66.11 | Güncel |\n| EMA20 | $58.38 | Destek |\n| ADX | 37.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $59.77.\n\n### 5. Uygulama\n* **Entry Zone:** $51.63 - $66.44\n* **Target Price:** $75.62\n* **Stop Loss:** $59.77\n",
+      "es": "## Análisis Institucional: INTC (Intel Corporation)\n\n### 1. Contexto\nIntel Corporation opera en el sector Technology. BOGA AI detecta interés institucional cerca de $66.11.\n\n### 2. Desempeño\n* **Master Score:** 55.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $66.11 | Actual |\n| EMA20 | $58.38 | Soporte |\n| ADX | 37.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $59.77.\n\n### 5. Ejecución\n* **Entry Zone:** $51.63 - $66.44\n* **Target Price:** $75.62\n* **Stop Loss:** $59.77\n",
+      "pt": "## Análise Institucional: INTC (Intel Corporation)\n\n### 1. Contexto\nIntel Corporation opera no setor Technology. BOGA AI detecta interesse institucional perto de $66.11.\n\n### 2. Desempenho\n* **Master Score:** 55.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $66.11 | Atual |\n| EMA20 | $58.38 | Suporte |\n| ADX | 37.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $59.77.\n\n### 5. Execução\n* **Entry Zone:** $51.63 - $66.44\n* **Target Price:** $75.62\n* **Stop Loss:** $59.77\n",
+      "fr": "## Analyse Institutionnelle: INTC (Intel Corporation)\n\n### 1. Contexte Business\nIntel Corporation opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $66.11.\n\n### 2. Performance\n* **Master Score:** 55.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $66.11 | Actuel |\n| EMA20 | $58.38 | Support |\n| ADX | 37.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $59.77.\n\n### 5. Exécution\n* **Entry Zone:** $51.63 - $66.44\n* **Target Price:** $75.62\n* **Stop Loss:** $59.77\n",
+      "id": "## Analisis Institusional: INTC (Intel Corporation)\n\n### 1. Konteks Bisnis\nIntel Corporation beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $66.11.\n\n### 2. Performa\n* **Master Score:** 55.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 70.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $66.11 | Saat Ini |\n| EMA20 | $58.38 | Dukungan |\n| ADX | 37.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $59.77.\n\n### 5. Eksekusi\n* **Entry Zone:** $51.63 - $66.44\n* **Target Price:** $75.62\n* **Stop Loss:** $59.77\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "+0.62%",
+    "key_metrics": {
+      "RSI": 70.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

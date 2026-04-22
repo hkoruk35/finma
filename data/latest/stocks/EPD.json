@@ -1,0 +1,177 @@
+{
+  "ticker": "EPD",
+  "company": "Enterprise Products Partners L.P.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.465294-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 37.24,
+    "open": 36.93,
+    "high": 37.29,
+    "low": 36.94,
+    "prev_close": 36.91,
+    "change_pct": 0.88,
+    "change_pct_1w": -0.04,
+    "change_pct_1m": -0.87,
+    "change_pct_1y": 28.57,
+    "volume": 1112395,
+    "avg_volume_30d": 4218389
+  },
+  "scores": {
+    "master_score": 34.81,
+    "technical_score": 33.0,
+    "fundamental_score": 38.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 60.0,
+    "sector_score": 37.6,
+    "breakout_score": 0.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 34.81,
+    "confidence": 0.35,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 48.6,
+    "macd": -0.0338,
+    "macd_signal": 0.1455,
+    "macd_histogram": -0.1793,
+    "macd_crossover": "neutral",
+    "ema_20": 37.42,
+    "ema_50": 36.71,
+    "ema_200": 33.53,
+    "ema_stack_bullish": false,
+    "bb_upper": 39.37,
+    "bb_middle": 37.84,
+    "bb_lower": 36.31,
+    "bb_width": 0.0809,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 20.7,
+    "atr": 0.71,
+    "atr_pct": 0.019,
+    "obv_trend": "DOWN",
+    "mfi": 44.1,
+    "cmf": -0.069,
+    "stoch_k": 43.6,
+    "stoch_d": 27.7,
+    "rvol": 1.13,
+    "volume_5d_avg": 4765159,
+    "green_days_10d": 4,
+    "52w_high": 39.28,
+    "52w_low": 28.07,
+    "52w_high_proximity_pct": 0.0521,
+    "52w_low_proximity_pct": 0.3263
+  },
+  "fundamental": {
+    "pe_ratio": 13.99812,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 2.7066221,
+    "de_ratio": 113.941,
+    "fcf_yield": 0.0003,
+    "eps_growth_5y": 0.017,
+    "revenue_growth_ttm": -0.029,
+    "gross_margin": 0.13701001,
+    "operating_margin": 0.14145,
+    "net_margin": 0.11054,
+    "market_cap": 80493166592,
+    "enterprise_value": 114578587648,
+    "dividend_yield": 5.93,
+    "payout_ratio": 0.812,
+    "insider_ownership_pct": 0.33009997,
+    "institutional_ownership_pct": 0.25171,
+    "short_ratio": 4.46,
+    "beta": 0.529
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 36.53,
+    "entry_range_high": 37.43,
+    "target_range_low": 38.58,
+    "target_range_high": 41.34,
+    "stop_range_low": 34.03,
+    "stop_range_high": 35.82,
+    "target_price": 39.37,
+    "stop_loss": 35.82,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.465215-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 46.55,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 593.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 28.07,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 2665,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns EPD a score of 34.8/100. Trend: Neutral. RSI: 48.6.",
+      "tr": "BOGA AI assigns EPD a score of 34.8/100. Trend: Neutral. RSI: 48.6.",
+      "es": "BOGA AI assigns EPD a score of 34.8/100. Trend: Neutral. RSI: 48.6.",
+      "pt": "BOGA AI assigns EPD a score of 34.8/100. Trend: Neutral. RSI: 48.6.",
+      "fr": "BOGA AI assigns EPD a score of 34.8/100. Trend: Neutral. RSI: 48.6.",
+      "id": "BOGA AI assigns EPD a score of 34.8/100. Trend: Neutral. RSI: 48.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: EPD (Enterprise Products Partners L.P.)\n\n### 1. Business Context\nEnterprise Products Partners L.P. operates in the Energy sector. BOGA AI detect institutional interest near $37.24.\n\n### 2. Performance\n* **Master Score:** 34.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $37.24 | Current |\n| EMA20 | $37.42 | Support |\n| ADX | 20.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $35.82.\n\n### 5. Execution\n* **Entry Zone:** $36.53 - $37.43\n* **Target Price:** $39.37\n* **Stop Loss:** $35.82\n",
+      "tr": "## Kurumsal Analiz: EPD (Enterprise Products Partners L.P.)\n\n### 1. İş Bağlamı\nEnterprise Products Partners L.P., Energy sektöründe faaliyet göstermektedir. BOGA AI, $37.24 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 34.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $37.24 | Güncel |\n| EMA20 | $37.42 | Destek |\n| ADX | 20.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $35.82.\n\n### 5. Uygulama\n* **Entry Zone:** $36.53 - $37.43\n* **Target Price:** $39.37\n* **Stop Loss:** $35.82\n",
+      "es": "## Análisis Institucional: EPD (Enterprise Products Partners L.P.)\n\n### 1. Contexto\nEnterprise Products Partners L.P. opera en el sector Energy. BOGA AI detecta interés institucional cerca de $37.24.\n\n### 2. Desempeño\n* **Master Score:** 34.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $37.24 | Actual |\n| EMA20 | $37.42 | Soporte |\n| ADX | 20.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $35.82.\n\n### 5. Ejecución\n* **Entry Zone:** $36.53 - $37.43\n* **Target Price:** $39.37\n* **Stop Loss:** $35.82\n",
+      "pt": "## Análise Institucional: EPD (Enterprise Products Partners L.P.)\n\n### 1. Contexto\nEnterprise Products Partners L.P. opera no setor Energy. BOGA AI detecta interesse institucional perto de $37.24.\n\n### 2. Desempenho\n* **Master Score:** 34.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $37.24 | Atual |\n| EMA20 | $37.42 | Suporte |\n| ADX | 20.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $35.82.\n\n### 5. Execução\n* **Entry Zone:** $36.53 - $37.43\n* **Target Price:** $39.37\n* **Stop Loss:** $35.82\n",
+      "fr": "## Analyse Institutionnelle: EPD (Enterprise Products Partners L.P.)\n\n### 1. Contexte Business\nEnterprise Products Partners L.P. opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $37.24.\n\n### 2. Performance\n* **Master Score:** 34.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $37.24 | Actuel |\n| EMA20 | $37.42 | Support |\n| ADX | 20.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $35.82.\n\n### 5. Exécution\n* **Entry Zone:** $36.53 - $37.43\n* **Target Price:** $39.37\n* **Stop Loss:** $35.82\n",
+      "id": "## Analisis Institusional: EPD (Enterprise Products Partners L.P.)\n\n### 1. Konteks Bisnis\nEnterprise Products Partners L.P. beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $37.24.\n\n### 2. Performa\n* **Master Score:** 34.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $37.24 | Saat Ini |\n| EMA20 | $37.42 | Dukungan |\n| ADX | 20.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $35.82.\n\n### 5. Eksekusi\n* **Entry Zone:** $36.53 - $37.43\n* **Target Price:** $39.37\n* **Stop Loss:** $35.82\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 35,
+    "price_change_display": "+0.88%",
+    "key_metrics": {
+      "RSI": 48.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

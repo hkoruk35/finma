@@ -1,0 +1,177 @@
+{
+  "ticker": "BMO",
+  "company": "Bank of Montreal",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.997651-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 152.16,
+    "open": 153.39,
+    "high": 154.48,
+    "low": 152.11,
+    "prev_close": 153.39,
+    "change_pct": -0.8,
+    "change_pct_1w": 2.54,
+    "change_pct_1m": 13.7,
+    "change_pct_1y": 66.58,
+    "volume": 240851,
+    "avg_volume_30d": 715565
+  },
+  "scores": {
+    "master_score": 54.97,
+    "technical_score": 62.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 58.0,
+    "sector_score": 39.7,
+    "breakout_score": 20.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 54.97,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.7,
+    "macd": 3.5378,
+    "macd_signal": 1.9608,
+    "macd_histogram": 1.577,
+    "macd_crossover": "neutral",
+    "ema_20": 144.65,
+    "ema_50": 141.26,
+    "ema_200": 129.22,
+    "ema_stack_bullish": true,
+    "bb_upper": 155.79,
+    "bb_middle": 141.62,
+    "bb_lower": 127.45,
+    "bb_width": 0.2001,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.7,
+    "atr": 2.81,
+    "atr_pct": 0.0184,
+    "obv_trend": "UP",
+    "mfi": 92.8,
+    "cmf": 0.163,
+    "stoch_k": 88.3,
+    "stoch_d": 92.8,
+    "rvol": 0.62,
+    "volume_5d_avg": 441830,
+    "green_days_10d": 8,
+    "52w_high": 153.39,
+    "52w_low": 90.24,
+    "52w_high_proximity_pct": 0.008,
+    "52w_low_proximity_pct": 0.6862
+  },
+  "fundamental": {
+    "pe_ratio": 17.470148,
+    "sector_pe_median": 16.433114,
+    "pb_ratio": 1.768004,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.198,
+    "revenue_growth_ttm": 0.1,
+    "gross_margin": 0.0,
+    "operating_margin": 0.39866,
+    "net_margin": 0.27076,
+    "market_cap": 107860729856,
+    "enterprise_value": -8711632896,
+    "dividend_yield": 3.18,
+    "payout_ratio": 0.54330003,
+    "insider_ownership_pct": 0.00033,
+    "institutional_ownership_pct": 0.53,
+    "short_ratio": 5.11,
+    "beta": 1.149
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 140.55,
+    "entry_range_high": 152.92,
+    "target_range_low": 157.38,
+    "target_range_high": 168.62,
+    "stop_range_low": 139.21,
+    "stop_range_high": 146.54,
+    "target_price": 160.59,
+    "stop_loss": 146.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.997596-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 190.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 318.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 90.24,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 28,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 243000,
+      "date": "2026-03-18"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 0.58,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BMO a score of 55.0/100. Trend: Neutral. RSI: 69.7.",
+      "tr": "BOGA AI assigns BMO a score of 55.0/100. Trend: Neutral. RSI: 69.7.",
+      "es": "BOGA AI assigns BMO a score of 55.0/100. Trend: Neutral. RSI: 69.7.",
+      "pt": "BOGA AI assigns BMO a score of 55.0/100. Trend: Neutral. RSI: 69.7.",
+      "fr": "BOGA AI assigns BMO a score of 55.0/100. Trend: Neutral. RSI: 69.7.",
+      "id": "BOGA AI assigns BMO a score of 55.0/100. Trend: Neutral. RSI: 69.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BMO (Bank of Montreal)\n\n### 1. Business Context\nBank of Montreal operates in the Financials sector. BOGA AI detect institutional interest near $152.16.\n\n### 2. Performance\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $152.16 | Current |\n| EMA20 | $144.65 | Support |\n| ADX | 26.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $146.54.\n\n### 5. Execution\n* **Entry Zone:** $140.55 - $152.92\n* **Target Price:** $160.59\n* **Stop Loss:** $146.54\n",
+      "tr": "## Kurumsal Analiz: BMO (Bank of Montreal)\n\n### 1. İş Bağlamı\nBank of Montreal, Financials sektöründe faaliyet göstermektedir. BOGA AI, $152.16 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $152.16 | Güncel |\n| EMA20 | $144.65 | Destek |\n| ADX | 26.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $146.54.\n\n### 5. Uygulama\n* **Entry Zone:** $140.55 - $152.92\n* **Target Price:** $160.59\n* **Stop Loss:** $146.54\n",
+      "es": "## Análisis Institucional: BMO (Bank of Montreal)\n\n### 1. Contexto\nBank of Montreal opera en el sector Financials. BOGA AI detecta interés institucional cerca de $152.16.\n\n### 2. Desempeño\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $152.16 | Actual |\n| EMA20 | $144.65 | Soporte |\n| ADX | 26.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $146.54.\n\n### 5. Ejecución\n* **Entry Zone:** $140.55 - $152.92\n* **Target Price:** $160.59\n* **Stop Loss:** $146.54\n",
+      "pt": "## Análise Institucional: BMO (Bank of Montreal)\n\n### 1. Contexto\nBank of Montreal opera no setor Financials. BOGA AI detecta interesse institucional perto de $152.16.\n\n### 2. Desempenho\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $152.16 | Atual |\n| EMA20 | $144.65 | Suporte |\n| ADX | 26.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $146.54.\n\n### 5. Execução\n* **Entry Zone:** $140.55 - $152.92\n* **Target Price:** $160.59\n* **Stop Loss:** $146.54\n",
+      "fr": "## Analyse Institutionnelle: BMO (Bank of Montreal)\n\n### 1. Contexte Business\nBank of Montreal opère dans le secteur Financials. BOGA AI détecte un intérêt institutionnel proche de $152.16.\n\n### 2. Performance\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $152.16 | Actuel |\n| EMA20 | $144.65 | Support |\n| ADX | 26.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $146.54.\n\n### 5. Exécution\n* **Entry Zone:** $140.55 - $152.92\n* **Target Price:** $160.59\n* **Stop Loss:** $146.54\n",
+      "id": "## Analisis Institusional: BMO (Bank of Montreal)\n\n### 1. Konteks Bisnis\nBank of Montreal beroperasi di sektor Financials. BOGA AI mendeteksi minat institusional di dekat $152.16.\n\n### 2. Performa\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $152.16 | Saat Ini |\n| EMA20 | $144.65 | Dukungan |\n| ADX | 26.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $146.54.\n\n### 5. Eksekusi\n* **Entry Zone:** $140.55 - $152.92\n* **Target Price:** $160.59\n* **Stop Loss:** $146.54\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "-0.80%",
+    "key_metrics": {
+      "RSI": 69.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

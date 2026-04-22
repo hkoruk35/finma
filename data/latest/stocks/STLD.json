@@ -1,0 +1,177 @@
+{
+  "ticker": "STLD",
+  "company": "Steel Dynamics, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.616538-04:00",
+  "sector": "Materials",
+  "industry": "Steel",
+  "price": {
+    "current": 219.57,
+    "open": 211.5,
+    "high": 223.78,
+    "low": 211.38,
+    "prev_close": 209.35,
+    "change_pct": 4.88,
+    "change_pct_1w": 12.43,
+    "change_pct_1m": 34.34,
+    "change_pct_1y": 88.13,
+    "volume": 1132658,
+    "avg_volume_30d": 1159568
+  },
+  "scores": {
+    "master_score": 58.85,
+    "technical_score": 61.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.0,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.85,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 79.0,
+    "macd": 7.5982,
+    "macd_signal": 3.8555,
+    "macd_histogram": 3.7427,
+    "macd_crossover": "neutral",
+    "ema_20": 191.63,
+    "ema_50": 185.18,
+    "ema_200": 164.36,
+    "ema_stack_bullish": true,
+    "bb_upper": 213.28,
+    "bb_middle": 186.62,
+    "bb_lower": 159.97,
+    "bb_width": 0.2857,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.2,
+    "atr": 6.79,
+    "atr_pct": 0.0309,
+    "obv_trend": "UP",
+    "mfi": 75.5,
+    "cmf": 0.221,
+    "stoch_k": 91.5,
+    "stoch_d": 92.8,
+    "rvol": 1.11,
+    "volume_5d_avg": 1290931,
+    "green_days_10d": 8,
+    "52w_high": 219.57,
+    "52w_low": 112.03,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.9599
+  },
+  "fundamental": {
+    "pe_ratio": 27.44625,
+    "sector_pe_median": 23.229378,
+    "pb_ratio": 3.5529702,
+    "de_ratio": 49.077,
+    "fcf_yield": -0.0034,
+    "eps_growth_5y": 0.347,
+    "revenue_growth_ttm": 0.14,
+    "gross_margin": 0.13161,
+    "operating_margin": 0.07028,
+    "net_margin": 0.06523,
+    "market_cap": 31811829760,
+    "enterprise_value": 33917298688,
+    "dividend_yield": 0.97,
+    "payout_ratio": 0.25030002,
+    "insider_ownership_pct": 0.06568,
+    "institutional_ownership_pct": 0.86752,
+    "short_ratio": 3.44,
+    "beta": 1.4
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 184.25,
+    "entry_range_high": 220.67,
+    "target_range_low": 235.14,
+    "target_range_high": 251.94,
+    "stop_range_low": 195.69,
+    "stop_range_high": 205.99,
+    "target_price": 239.94,
+    "stop_loss": 205.99,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.616506-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 274.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 97.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 112.03,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 129,
+      "date": "2026-04-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns STLD a score of 58.9/100. Trend: Neutral. RSI: 79.0.",
+      "tr": "BOGA AI assigns STLD a score of 58.9/100. Trend: Neutral. RSI: 79.0.",
+      "es": "BOGA AI assigns STLD a score of 58.9/100. Trend: Neutral. RSI: 79.0.",
+      "pt": "BOGA AI assigns STLD a score of 58.9/100. Trend: Neutral. RSI: 79.0.",
+      "fr": "BOGA AI assigns STLD a score of 58.9/100. Trend: Neutral. RSI: 79.0.",
+      "id": "BOGA AI assigns STLD a score of 58.9/100. Trend: Neutral. RSI: 79.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: STLD (Steel Dynamics, Inc.)\n\n### 1. Business Context\nSteel Dynamics, Inc. operates in the Materials sector. BOGA AI detect institutional interest near $219.57.\n\n### 2. Performance\n* **Master Score:** 58.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 79.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $219.57 | Current |\n| EMA20 | $191.63 | Support |\n| ADX | 24.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $205.99.\n\n### 5. Execution\n* **Entry Zone:** $184.25 - $220.67\n* **Target Price:** $239.94\n* **Stop Loss:** $205.99\n",
+      "tr": "## Kurumsal Analiz: STLD (Steel Dynamics, Inc.)\n\n### 1. İş Bağlamı\nSteel Dynamics, Inc., Materials sektöründe faaliyet göstermektedir. BOGA AI, $219.57 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 58.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 79.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $219.57 | Güncel |\n| EMA20 | $191.63 | Destek |\n| ADX | 24.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $205.99.\n\n### 5. Uygulama\n* **Entry Zone:** $184.25 - $220.67\n* **Target Price:** $239.94\n* **Stop Loss:** $205.99\n",
+      "es": "## Análisis Institucional: STLD (Steel Dynamics, Inc.)\n\n### 1. Contexto\nSteel Dynamics, Inc. opera en el sector Materials. BOGA AI detecta interés institucional cerca de $219.57.\n\n### 2. Desempeño\n* **Master Score:** 58.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 79.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $219.57 | Actual |\n| EMA20 | $191.63 | Soporte |\n| ADX | 24.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $205.99.\n\n### 5. Ejecución\n* **Entry Zone:** $184.25 - $220.67\n* **Target Price:** $239.94\n* **Stop Loss:** $205.99\n",
+      "pt": "## Análise Institucional: STLD (Steel Dynamics, Inc.)\n\n### 1. Contexto\nSteel Dynamics, Inc. opera no setor Materials. BOGA AI detecta interesse institucional perto de $219.57.\n\n### 2. Desempenho\n* **Master Score:** 58.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 79.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $219.57 | Atual |\n| EMA20 | $191.63 | Suporte |\n| ADX | 24.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $205.99.\n\n### 5. Execução\n* **Entry Zone:** $184.25 - $220.67\n* **Target Price:** $239.94\n* **Stop Loss:** $205.99\n",
+      "fr": "## Analyse Institutionnelle: STLD (Steel Dynamics, Inc.)\n\n### 1. Contexte Business\nSteel Dynamics, Inc. opère dans le secteur Materials. BOGA AI détecte un intérêt institutionnel proche de $219.57.\n\n### 2. Performance\n* **Master Score:** 58.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 79.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $219.57 | Actuel |\n| EMA20 | $191.63 | Support |\n| ADX | 24.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $205.99.\n\n### 5. Exécution\n* **Entry Zone:** $184.25 - $220.67\n* **Target Price:** $239.94\n* **Stop Loss:** $205.99\n",
+      "id": "## Analisis Institusional: STLD (Steel Dynamics, Inc.)\n\n### 1. Konteks Bisnis\nSteel Dynamics, Inc. beroperasi di sektor Materials. BOGA AI mendeteksi minat institusional di dekat $219.57.\n\n### 2. Performa\n* **Master Score:** 58.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 79.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $219.57 | Saat Ini |\n| EMA20 | $191.63 | Dukungan |\n| ADX | 24.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $205.99.\n\n### 5. Eksekusi\n* **Entry Zone:** $184.25 - $220.67\n* **Target Price:** $239.94\n* **Stop Loss:** $205.99\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 59,
+    "price_change_display": "+4.88%",
+    "key_metrics": {
+      "RSI": 79.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "EBAY",
+  "company": "eBay Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.463855-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 105.78,
+    "open": 106.75,
+    "high": 107.34,
+    "low": 103.89,
+    "prev_close": 107.13,
+    "change_pct": -1.26,
+    "change_pct_1w": 5.35,
+    "change_pct_1m": 18.88,
+    "change_pct_1y": 61.88,
+    "volume": 1744833,
+    "avg_volume_30d": 4673037
+  },
+  "scores": {
+    "master_score": 50.98,
+    "technical_score": 65.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 50.98,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 72.2,
+    "macd": 3.8712,
+    "macd_signal": 2.7611,
+    "macd_histogram": 1.1101,
+    "macd_crossover": "neutral",
+    "ema_20": 97.97,
+    "ema_50": 93.64,
+    "ema_200": 86.88,
+    "ema_stack_bullish": true,
+    "bb_upper": 107.68,
+    "bb_middle": 96.1,
+    "bb_lower": 84.51,
+    "bb_width": 0.2411,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 34.8,
+    "atr": 2.98,
+    "atr_pct": 0.0281,
+    "obv_trend": "UP",
+    "mfi": 76.9,
+    "cmf": 0.16,
+    "stoch_k": 90.7,
+    "stoch_d": 95.3,
+    "rvol": 0.84,
+    "volume_5d_avg": 3905146,
+    "green_days_10d": 6,
+    "52w_high": 107.13,
+    "52w_low": 64.72,
+    "52w_high_proximity_pct": 0.0126,
+    "52w_low_proximity_pct": 0.6344
+  },
+  "fundamental": {
+    "pe_ratio": 24.829811,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 10.291399,
+    "de_ratio": 155.623,
+    "fcf_yield": 0.0155,
+    "eps_growth_5y": -0.184,
+    "revenue_growth_ttm": 0.15,
+    "gross_margin": 0.71449995,
+    "operating_margin": 0.16223,
+    "net_margin": 0.18297,
+    "market_cap": 47810301952,
+    "enterprise_value": 52257239040,
+    "dividend_yield": 1.16,
+    "payout_ratio": 0.2723,
+    "insider_ownership_pct": 0.00302,
+    "institutional_ownership_pct": 0.95494,
+    "short_ratio": 2.74,
+    "beta": 1.33
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 93.17,
+    "entry_range_high": 106.31,
+    "target_range_low": 112.43,
+    "target_range_high": 120.46,
+    "stop_range_low": 94.83,
+    "stop_range_high": 99.82,
+    "target_price": 114.72,
+    "stop_loss": 99.82,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.463678-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 132.22,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 116.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 64.72,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 12113,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns EBAY a score of 51.0/100. Trend: Neutral. RSI: 72.2.",
+      "tr": "BOGA AI assigns EBAY a score of 51.0/100. Trend: Neutral. RSI: 72.2.",
+      "es": "BOGA AI assigns EBAY a score of 51.0/100. Trend: Neutral. RSI: 72.2.",
+      "pt": "BOGA AI assigns EBAY a score of 51.0/100. Trend: Neutral. RSI: 72.2.",
+      "fr": "BOGA AI assigns EBAY a score of 51.0/100. Trend: Neutral. RSI: 72.2.",
+      "id": "BOGA AI assigns EBAY a score of 51.0/100. Trend: Neutral. RSI: 72.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: EBAY (eBay Inc.)\n\n### 1. Business Context\neBay Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $105.78.\n\n### 2. Performance\n* **Master Score:** 51.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $105.78 | Current |\n| EMA20 | $97.97 | Support |\n| ADX | 34.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $99.82.\n\n### 5. Execution\n* **Entry Zone:** $93.17 - $106.31\n* **Target Price:** $114.72\n* **Stop Loss:** $99.82\n",
+      "tr": "## Kurumsal Analiz: EBAY (eBay Inc.)\n\n### 1. İş Bağlamı\neBay Inc., Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $105.78 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 51.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $105.78 | Güncel |\n| EMA20 | $97.97 | Destek |\n| ADX | 34.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $99.82.\n\n### 5. Uygulama\n* **Entry Zone:** $93.17 - $106.31\n* **Target Price:** $114.72\n* **Stop Loss:** $99.82\n",
+      "es": "## Análisis Institucional: EBAY (eBay Inc.)\n\n### 1. Contexto\neBay Inc. opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $105.78.\n\n### 2. Desempeño\n* **Master Score:** 51.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $105.78 | Actual |\n| EMA20 | $97.97 | Soporte |\n| ADX | 34.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $99.82.\n\n### 5. Ejecución\n* **Entry Zone:** $93.17 - $106.31\n* **Target Price:** $114.72\n* **Stop Loss:** $99.82\n",
+      "pt": "## Análise Institucional: EBAY (eBay Inc.)\n\n### 1. Contexto\neBay Inc. opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $105.78.\n\n### 2. Desempenho\n* **Master Score:** 51.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $105.78 | Atual |\n| EMA20 | $97.97 | Suporte |\n| ADX | 34.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $99.82.\n\n### 5. Execução\n* **Entry Zone:** $93.17 - $106.31\n* **Target Price:** $114.72\n* **Stop Loss:** $99.82\n",
+      "fr": "## Analyse Institutionnelle: EBAY (eBay Inc.)\n\n### 1. Contexte Business\neBay Inc. opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $105.78.\n\n### 2. Performance\n* **Master Score:** 51.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $105.78 | Actuel |\n| EMA20 | $97.97 | Support |\n| ADX | 34.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $99.82.\n\n### 5. Exécution\n* **Entry Zone:** $93.17 - $106.31\n* **Target Price:** $114.72\n* **Stop Loss:** $99.82\n",
+      "id": "## Analisis Institusional: EBAY (eBay Inc.)\n\n### 1. Konteks Bisnis\neBay Inc. beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $105.78.\n\n### 2. Performa\n* **Master Score:** 51.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $105.78 | Saat Ini |\n| EMA20 | $97.97 | Dukungan |\n| ADX | 34.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $99.82.\n\n### 5. Eksekusi\n* **Entry Zone:** $93.17 - $106.31\n* **Target Price:** $114.72\n* **Stop Loss:** $99.82\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-1.26%",
+    "key_metrics": {
+      "RSI": 72.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

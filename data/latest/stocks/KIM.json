@@ -1,0 +1,177 @@
+{
+  "ticker": "KIM",
+  "company": "Kimco Realty Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.095257-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 23.83,
+    "open": 24.08,
+    "high": 24.17,
+    "low": 23.79,
+    "prev_close": 24.06,
+    "change_pct": -0.94,
+    "change_pct_1w": 1.0,
+    "change_pct_1m": 6.69,
+    "change_pct_1y": 21.34,
+    "volume": 841949,
+    "avg_volume_30d": 4945338
+  },
+  "scores": {
+    "master_score": 63.36,
+    "technical_score": 67.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.6,
+    "breakout_score": 0.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 63.36,
+    "confidence": 0.63,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 64.3,
+    "macd": 0.3505,
+    "macd_signal": 0.2255,
+    "macd_histogram": 0.125,
+    "macd_crossover": "neutral",
+    "ema_20": 23.24,
+    "ema_50": 22.69,
+    "ema_200": 21.4,
+    "ema_stack_bullish": true,
+    "bb_upper": 24.23,
+    "bb_middle": 22.97,
+    "bb_lower": 21.72,
+    "bb_width": 0.1093,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.4,
+    "atr": 0.4,
+    "atr_pct": 0.0169,
+    "obv_trend": "UP",
+    "mfi": 77.7,
+    "cmf": 0.022,
+    "stoch_k": 76.4,
+    "stoch_d": 87.1,
+    "rvol": 0.77,
+    "volume_5d_avg": 3816369,
+    "green_days_10d": 7,
+    "52w_high": 24.19,
+    "52w_low": 19.06,
+    "52w_high_proximity_pct": 0.0147,
+    "52w_low_proximity_pct": 0.2505
+  },
+  "fundamental": {
+    "pe_ratio": 29.067072,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 1.5461208,
+    "de_ratio": 78.678,
+    "fcf_yield": 0.0524,
+    "eps_growth_5y": -0.068,
+    "revenue_growth_ttm": 0.032,
+    "gross_margin": 0.69051003,
+    "operating_margin": 0.33007,
+    "net_margin": 0.27323,
+    "market_cap": 16074399744,
+    "enterprise_value": 24497039360,
+    "dividend_yield": 4.32,
+    "payout_ratio": 1.2317,
+    "insider_ownership_pct": 0.021960001,
+    "institutional_ownership_pct": 0.98550004,
+    "short_ratio": 4.4,
+    "beta": 1.051
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 22.58,
+    "entry_range_high": 23.95,
+    "target_range_low": 24.53,
+    "target_range_high": 26.28,
+    "stop_range_low": 21.88,
+    "stop_range_high": 23.03,
+    "target_price": 25.03,
+    "stop_loss": 23.03,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.095193-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 29.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 432.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 19.06,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 31770,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
+      "tr": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
+      "es": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
+      "pt": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
+      "fr": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3.",
+      "id": "BOGA AI assigns KIM a score of 63.4/100. Trend: Neutral. RSI: 64.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: KIM (Kimco Realty Corporation)\n\n### 1. Business Context\nKimco Realty Corporation operates in the Real Estate sector. BOGA AI detect institutional interest near $23.83.\n\n### 2. Performance\n* **Master Score:** 63.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 64.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $23.83 | Current |\n| EMA20 | $23.24 | Support |\n| ADX | 30.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $23.03.\n\n### 5. Execution\n* **Entry Zone:** $22.58 - $23.95\n* **Target Price:** $25.03\n* **Stop Loss:** $23.03\n",
+      "tr": "## Kurumsal Analiz: KIM (Kimco Realty Corporation)\n\n### 1. İş Bağlamı\nKimco Realty Corporation, Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $23.83 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 63.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 64.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $23.83 | Güncel |\n| EMA20 | $23.24 | Destek |\n| ADX | 30.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $23.03.\n\n### 5. Uygulama\n* **Entry Zone:** $22.58 - $23.95\n* **Target Price:** $25.03\n* **Stop Loss:** $23.03\n",
+      "es": "## Análisis Institucional: KIM (Kimco Realty Corporation)\n\n### 1. Contexto\nKimco Realty Corporation opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $23.83.\n\n### 2. Desempeño\n* **Master Score:** 63.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 64.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $23.83 | Actual |\n| EMA20 | $23.24 | Soporte |\n| ADX | 30.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $23.03.\n\n### 5. Ejecución\n* **Entry Zone:** $22.58 - $23.95\n* **Target Price:** $25.03\n* **Stop Loss:** $23.03\n",
+      "pt": "## Análise Institucional: KIM (Kimco Realty Corporation)\n\n### 1. Contexto\nKimco Realty Corporation opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $23.83.\n\n### 2. Desempenho\n* **Master Score:** 63.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 64.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $23.83 | Atual |\n| EMA20 | $23.24 | Suporte |\n| ADX | 30.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $23.03.\n\n### 5. Execução\n* **Entry Zone:** $22.58 - $23.95\n* **Target Price:** $25.03\n* **Stop Loss:** $23.03\n",
+      "fr": "## Analyse Institutionnelle: KIM (Kimco Realty Corporation)\n\n### 1. Contexte Business\nKimco Realty Corporation opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $23.83.\n\n### 2. Performance\n* **Master Score:** 63.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 64.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $23.83 | Actuel |\n| EMA20 | $23.24 | Support |\n| ADX | 30.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $23.03.\n\n### 5. Exécution\n* **Entry Zone:** $22.58 - $23.95\n* **Target Price:** $25.03\n* **Stop Loss:** $23.03\n",
+      "id": "## Analisis Institusional: KIM (Kimco Realty Corporation)\n\n### 1. Konteks Bisnis\nKimco Realty Corporation beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $23.83.\n\n### 2. Performa\n* **Master Score:** 63.4/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 64.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $23.83 | Saat Ini |\n| EMA20 | $23.24 | Dukungan |\n| ADX | 30.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $23.03.\n\n### 5. Eksekusi\n* **Entry Zone:** $22.58 - $23.95\n* **Target Price:** $25.03\n* **Stop Loss:** $23.03\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 63,
+    "price_change_display": "-0.94%",
+    "key_metrics": {
+      "RSI": 64.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

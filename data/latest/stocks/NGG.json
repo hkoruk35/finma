@@ -1,0 +1,177 @@
+{
+  "ticker": "NGG",
+  "company": "National Grid plc",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.023683-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 84.68,
+    "open": 86.0,
+    "high": 86.13,
+    "low": 84.68,
+    "prev_close": 86.02,
+    "change_pct": -1.56,
+    "change_pct_1w": -4.8,
+    "change_pct_1m": 3.28,
+    "change_pct_1y": 22.58,
+    "volume": 623929,
+    "avg_volume_30d": 1130410
+  },
+  "scores": {
+    "master_score": 26.97,
+    "technical_score": 24.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 70.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 26.97,
+    "confidence": 0.27,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.6,
+    "macd": -0.1809,
+    "macd_signal": 0.0101,
+    "macd_histogram": -0.1909,
+    "macd_crossover": "neutral",
+    "ema_20": 87.21,
+    "ema_50": 86.77,
+    "ema_200": 79.35,
+    "ema_stack_bullish": false,
+    "bb_upper": 91.7,
+    "bb_middle": 86.51,
+    "bb_lower": 81.31,
+    "bb_width": 0.12,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 17.7,
+    "atr": 1.6,
+    "atr_pct": 0.0189,
+    "obv_trend": "DOWN",
+    "mfi": 52.2,
+    "cmf": 0.049,
+    "stoch_k": null,
+    "stoch_d": 26.1,
+    "rvol": 0.73,
+    "volume_5d_avg": 823885,
+    "green_days_10d": 2,
+    "52w_high": 93.93,
+    "52w_low": 64.6,
+    "52w_high_proximity_pct": 0.0985,
+    "52w_low_proximity_pct": 0.3108
+  },
+  "fundamental": {
+    "pe_ratio": 21.012405,
+    "sector_pe_median": 21.999998,
+    "pb_ratio": 8.469364,
+    "de_ratio": 123.365,
+    "fcf_yield": -0.0425,
+    "eps_growth_5y": -0.124,
+    "revenue_growth_ttm": -0.113,
+    "gross_margin": 1.0,
+    "operating_margin": 0.24147,
+    "net_margin": 0.16428,
+    "market_cap": 84229955584,
+    "enterprise_value": 465617518592,
+    "dividend_yield": 3.63,
+    "payout_ratio": 0.77959996,
+    "insider_ownership_pct": 0.00075,
+    "institutional_ownership_pct": 0.05874,
+    "short_ratio": 0.74,
+    "beta": 0.638
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 84.26,
+    "entry_range_high": 85.1,
+    "target_range_low": 87.69,
+    "target_range_high": 93.95,
+    "stop_range_low": 77.41,
+    "stop_range_high": 81.48,
+    "target_price": 89.48,
+    "stop_loss": 81.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.023638-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 105.85,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 363.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 64.6,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 123,
+      "date": "2026-01-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -1.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
+      "tr": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
+      "es": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
+      "pt": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
+      "fr": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6.",
+      "id": "BOGA AI assigns NGG a score of 27.0/100. Trend: Neutral. RSI: 39.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: NGG (National Grid plc)\n\n### 1. Business Context\nNational Grid plc operates in the Utilities sector. BOGA AI detect institutional interest near $84.68.\n\n### 2. Performance\n* **Master Score:** 27.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $84.68 | Current |\n| EMA20 | $87.21 | Support |\n| ADX | 17.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $81.48.\n\n### 5. Execution\n* **Entry Zone:** $84.26 - $85.10\n* **Target Price:** $89.48\n* **Stop Loss:** $81.48\n",
+      "tr": "## Kurumsal Analiz: NGG (National Grid plc)\n\n### 1. İş Bağlamı\nNational Grid plc, Utilities sektöründe faaliyet göstermektedir. BOGA AI, $84.68 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 27.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $84.68 | Güncel |\n| EMA20 | $87.21 | Destek |\n| ADX | 17.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $81.48.\n\n### 5. Uygulama\n* **Entry Zone:** $84.26 - $85.10\n* **Target Price:** $89.48\n* **Stop Loss:** $81.48\n",
+      "es": "## Análisis Institucional: NGG (National Grid plc)\n\n### 1. Contexto\nNational Grid plc opera en el sector Utilities. BOGA AI detecta interés institucional cerca de $84.68.\n\n### 2. Desempeño\n* **Master Score:** 27.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $84.68 | Actual |\n| EMA20 | $87.21 | Soporte |\n| ADX | 17.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $81.48.\n\n### 5. Ejecución\n* **Entry Zone:** $84.26 - $85.10\n* **Target Price:** $89.48\n* **Stop Loss:** $81.48\n",
+      "pt": "## Análise Institucional: NGG (National Grid plc)\n\n### 1. Contexto\nNational Grid plc opera no setor Utilities. BOGA AI detecta interesse institucional perto de $84.68.\n\n### 2. Desempenho\n* **Master Score:** 27.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $84.68 | Atual |\n| EMA20 | $87.21 | Suporte |\n| ADX | 17.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $81.48.\n\n### 5. Execução\n* **Entry Zone:** $84.26 - $85.10\n* **Target Price:** $89.48\n* **Stop Loss:** $81.48\n",
+      "fr": "## Analyse Institutionnelle: NGG (National Grid plc)\n\n### 1. Contexte Business\nNational Grid plc opère dans le secteur Utilities. BOGA AI détecte un intérêt institutionnel proche de $84.68.\n\n### 2. Performance\n* **Master Score:** 27.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $84.68 | Actuel |\n| EMA20 | $87.21 | Support |\n| ADX | 17.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $81.48.\n\n### 5. Exécution\n* **Entry Zone:** $84.26 - $85.10\n* **Target Price:** $89.48\n* **Stop Loss:** $81.48\n",
+      "id": "## Analisis Institusional: NGG (National Grid plc)\n\n### 1. Konteks Bisnis\nNational Grid plc beroperasi di sektor Utilities. BOGA AI mendeteksi minat institusional di dekat $84.68.\n\n### 2. Performa\n* **Master Score:** 27.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $84.68 | Saat Ini |\n| EMA20 | $87.21 | Dukungan |\n| ADX | 17.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $81.48.\n\n### 5. Eksekusi\n* **Entry Zone:** $84.26 - $85.10\n* **Target Price:** $89.48\n* **Stop Loss:** $81.48\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 27,
+    "price_change_display": "-1.56%",
+    "key_metrics": {
+      "RSI": 39.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

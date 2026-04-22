@@ -1,0 +1,177 @@
+{
+  "ticker": "SYK",
+  "company": "Stryker Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.884895-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 330.95,
+    "open": 338.3,
+    "high": 339.16,
+    "low": 329.91,
+    "prev_close": 338.34,
+    "change_pct": -2.18,
+    "change_pct_1w": -4.32,
+    "change_pct_1m": -1.14,
+    "change_pct_1y": -3.57,
+    "volume": 714456,
+    "avg_volume_30d": 2116578
+  },
+  "scores": {
+    "master_score": 31.43,
+    "technical_score": 9.6,
+    "fundamental_score": 52.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 85.0,
+    "sector_score": 25.7,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 31.43,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 40.3,
+    "macd": -2.4912,
+    "macd_signal": -3.574,
+    "macd_histogram": 1.0828,
+    "macd_crossover": "neutral",
+    "ema_20": 339.15,
+    "ema_50": 346.29,
+    "ema_200": 359.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 347.99,
+    "bb_middle": 334.77,
+    "bb_lower": 321.56,
+    "bb_width": 0.079,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 21.0,
+    "atr": 8.21,
+    "atr_pct": 0.0248,
+    "obv_trend": "DOWN",
+    "mfi": 64.1,
+    "cmf": -0.083,
+    "stoch_k": 24.1,
+    "stoch_d": 50.8,
+    "rvol": 0.76,
+    "volume_5d_avg": 1605331,
+    "green_days_10d": 4,
+    "52w_high": 400.53,
+    "52w_low": 325.22,
+    "52w_high_proximity_pct": 0.1737,
+    "52w_low_proximity_pct": 0.0176
+  },
+  "fundamental": {
+    "pe_ratio": 39.44577,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 5.646262,
+    "de_ratio": 72.971,
+    "fcf_yield": 0.0329,
+    "eps_growth_5y": 0.559,
+    "revenue_growth_ttm": 0.114,
+    "gross_margin": 0.65042,
+    "operating_margin": 0.27235,
+    "net_margin": 0.12923999,
+    "market_cap": 126748647424,
+    "enterprise_value": 141738885120,
+    "dividend_yield": 1.04,
+    "payout_ratio": 0.4048,
+    "insider_ownership_pct": 0.053740002,
+    "institutional_ownership_pct": 0.82123,
+    "short_ratio": 1.95,
+    "beta": 0.926
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 329.3,
+    "entry_range_high": 332.6,
+    "target_range_low": 348.47,
+    "target_range_high": 373.36,
+    "stop_range_low": 298.8,
+    "stop_range_high": 314.53,
+    "target_price": 355.58,
+    "stop_loss": 314.53,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.884869-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 413.69,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 104.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 325.22,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 269,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SYK a score of 31.4/100. Trend: Neutral. RSI: 40.3.",
+      "tr": "BOGA AI assigns SYK a score of 31.4/100. Trend: Neutral. RSI: 40.3.",
+      "es": "BOGA AI assigns SYK a score of 31.4/100. Trend: Neutral. RSI: 40.3.",
+      "pt": "BOGA AI assigns SYK a score of 31.4/100. Trend: Neutral. RSI: 40.3.",
+      "fr": "BOGA AI assigns SYK a score of 31.4/100. Trend: Neutral. RSI: 40.3.",
+      "id": "BOGA AI assigns SYK a score of 31.4/100. Trend: Neutral. RSI: 40.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SYK (Stryker Corporation)\n\n### 1. Business Context\nStryker Corporation operates in the Healthcare sector. BOGA AI detect institutional interest near $330.95.\n\n### 2. Performance\n* **Master Score:** 31.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $330.95 | Current |\n| EMA20 | $339.15 | Support |\n| ADX | 21.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $314.53.\n\n### 5. Execution\n* **Entry Zone:** $329.30 - $332.60\n* **Target Price:** $355.58\n* **Stop Loss:** $314.53\n",
+      "tr": "## Kurumsal Analiz: SYK (Stryker Corporation)\n\n### 1. İş Bağlamı\nStryker Corporation, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $330.95 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 31.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $330.95 | Güncel |\n| EMA20 | $339.15 | Destek |\n| ADX | 21.0 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $314.53.\n\n### 5. Uygulama\n* **Entry Zone:** $329.30 - $332.60\n* **Target Price:** $355.58\n* **Stop Loss:** $314.53\n",
+      "es": "## Análisis Institucional: SYK (Stryker Corporation)\n\n### 1. Contexto\nStryker Corporation opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $330.95.\n\n### 2. Desempeño\n* **Master Score:** 31.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $330.95 | Actual |\n| EMA20 | $339.15 | Soporte |\n| ADX | 21.0 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $314.53.\n\n### 5. Ejecución\n* **Entry Zone:** $329.30 - $332.60\n* **Target Price:** $355.58\n* **Stop Loss:** $314.53\n",
+      "pt": "## Análise Institucional: SYK (Stryker Corporation)\n\n### 1. Contexto\nStryker Corporation opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $330.95.\n\n### 2. Desempenho\n* **Master Score:** 31.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $330.95 | Atual |\n| EMA20 | $339.15 | Suporte |\n| ADX | 21.0 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $314.53.\n\n### 5. Execução\n* **Entry Zone:** $329.30 - $332.60\n* **Target Price:** $355.58\n* **Stop Loss:** $314.53\n",
+      "fr": "## Analyse Institutionnelle: SYK (Stryker Corporation)\n\n### 1. Contexte Business\nStryker Corporation opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $330.95.\n\n### 2. Performance\n* **Master Score:** 31.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $330.95 | Actuel |\n| EMA20 | $339.15 | Support |\n| ADX | 21.0 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $314.53.\n\n### 5. Exécution\n* **Entry Zone:** $329.30 - $332.60\n* **Target Price:** $355.58\n* **Stop Loss:** $314.53\n",
+      "id": "## Analisis Institusional: SYK (Stryker Corporation)\n\n### 1. Konteks Bisnis\nStryker Corporation beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $330.95.\n\n### 2. Performa\n* **Master Score:** 31.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $330.95 | Saat Ini |\n| EMA20 | $339.15 | Dukungan |\n| ADX | 21.0 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $314.53.\n\n### 5. Eksekusi\n* **Entry Zone:** $329.30 - $332.60\n* **Target Price:** $355.58\n* **Stop Loss:** $314.53\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-2.18%",
+    "key_metrics": {
+      "RSI": 40.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

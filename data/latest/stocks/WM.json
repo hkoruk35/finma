@@ -1,0 +1,177 @@
+{
+  "ticker": "WM",
+  "company": "Waste Management, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.924663-04:00",
+  "sector": "Industrials",
+  "industry": "Waste Management",
+  "price": {
+    "current": 223.65,
+    "open": 224.0,
+    "high": 224.43,
+    "low": 222.51,
+    "prev_close": 224.18,
+    "change_pct": -0.24,
+    "change_pct_1w": -1.51,
+    "change_pct_1m": -3.28,
+    "change_pct_1y": -1.68,
+    "volume": 549968,
+    "avg_volume_30d": 1857282
+  },
+  "scores": {
+    "master_score": 25.14,
+    "technical_score": 6.9,
+    "fundamental_score": 30.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 25.14,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 37.6,
+    "macd": -2.1624,
+    "macd_signal": -1.4082,
+    "macd_histogram": -0.7542,
+    "macd_crossover": "neutral",
+    "ema_20": 228.48,
+    "ema_50": 229.32,
+    "ema_200": 224.16,
+    "ema_stack_bullish": false,
+    "bb_upper": 235.92,
+    "bb_middle": 228.37,
+    "bb_lower": 220.83,
+    "bb_width": 0.0661,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 18.0,
+    "atr": 4.2,
+    "atr_pct": 0.0188,
+    "obv_trend": "DOWN",
+    "mfi": 26.5,
+    "cmf": 0.097,
+    "stoch_k": 14.6,
+    "stoch_d": 16.5,
+    "rvol": 0.96,
+    "volume_5d_avg": 1784113,
+    "green_days_10d": 3,
+    "52w_high": 245.53,
+    "52w_low": 195.24,
+    "52w_high_proximity_pct": 0.0891,
+    "52w_low_proximity_pct": 0.1455
+  },
+  "fundamental": {
+    "pe_ratio": 33.380596,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 9.020691,
+    "de_ratio": 239.385,
+    "fcf_yield": 0.0192,
+    "eps_growth_5y": 0.236,
+    "revenue_growth_ttm": 0.071,
+    "gross_margin": 0.40438,
+    "operating_margin": 0.20038,
+    "net_margin": 0.10744,
+    "market_cap": 90206044160,
+    "enterprise_value": 114136817664,
+    "dividend_yield": 1.53,
+    "payout_ratio": 0.4925,
+    "insider_ownership_pct": 0.00252,
+    "institutional_ownership_pct": 0.83945,
+    "short_ratio": 2.66,
+    "beta": 0.547
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 222.53,
+    "entry_range_high": 224.77,
+    "target_range_low": 231.53,
+    "target_range_high": 248.06,
+    "stop_range_low": 204.49,
+    "stop_range_high": 215.25,
+    "target_price": 236.25,
+    "stop_loss": 215.25,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.924618-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 279.56,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 153.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 195.24,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 28,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 47,
+      "date": "2026-03-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
+      "tr": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
+      "es": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
+      "pt": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
+      "fr": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6.",
+      "id": "BOGA AI assigns WM a score of 25.1/100. Trend: Neutral. RSI: 37.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: WM (Waste Management, Inc.)\n\n### 1. Business Context\nWaste Management, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $223.65.\n\n### 2. Performance\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $223.65 | Current |\n| EMA20 | $228.48 | Support |\n| ADX | 18.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $215.25.\n\n### 5. Execution\n* **Entry Zone:** $222.53 - $224.77\n* **Target Price:** $236.25\n* **Stop Loss:** $215.25\n",
+      "tr": "## Kurumsal Analiz: WM (Waste Management, Inc.)\n\n### 1. İş Bağlamı\nWaste Management, Inc., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $223.65 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $223.65 | Güncel |\n| EMA20 | $228.48 | Destek |\n| ADX | 18.0 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $215.25.\n\n### 5. Uygulama\n* **Entry Zone:** $222.53 - $224.77\n* **Target Price:** $236.25\n* **Stop Loss:** $215.25\n",
+      "es": "## Análisis Institucional: WM (Waste Management, Inc.)\n\n### 1. Contexto\nWaste Management, Inc. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $223.65.\n\n### 2. Desempeño\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $223.65 | Actual |\n| EMA20 | $228.48 | Soporte |\n| ADX | 18.0 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $215.25.\n\n### 5. Ejecución\n* **Entry Zone:** $222.53 - $224.77\n* **Target Price:** $236.25\n* **Stop Loss:** $215.25\n",
+      "pt": "## Análise Institucional: WM (Waste Management, Inc.)\n\n### 1. Contexto\nWaste Management, Inc. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $223.65.\n\n### 2. Desempenho\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $223.65 | Atual |\n| EMA20 | $228.48 | Suporte |\n| ADX | 18.0 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $215.25.\n\n### 5. Execução\n* **Entry Zone:** $222.53 - $224.77\n* **Target Price:** $236.25\n* **Stop Loss:** $215.25\n",
+      "fr": "## Analyse Institutionnelle: WM (Waste Management, Inc.)\n\n### 1. Contexte Business\nWaste Management, Inc. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $223.65.\n\n### 2. Performance\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $223.65 | Actuel |\n| EMA20 | $228.48 | Support |\n| ADX | 18.0 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $215.25.\n\n### 5. Exécution\n* **Entry Zone:** $222.53 - $224.77\n* **Target Price:** $236.25\n* **Stop Loss:** $215.25\n",
+      "id": "## Analisis Institusional: WM (Waste Management, Inc.)\n\n### 1. Konteks Bisnis\nWaste Management, Inc. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $223.65.\n\n### 2. Performa\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 37.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $223.65 | Saat Ini |\n| EMA20 | $228.48 | Dukungan |\n| ADX | 18.0 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $215.25.\n\n### 5. Eksekusi\n* **Entry Zone:** $222.53 - $224.77\n* **Target Price:** $236.25\n* **Stop Loss:** $215.25\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "-0.24%",
+    "key_metrics": {
+      "RSI": 37.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

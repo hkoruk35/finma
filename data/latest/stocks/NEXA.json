@@ -1,0 +1,178 @@
+{
+  "ticker": "NEXA",
+  "company": "Nexa Resources S.A.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.669515-04:00",
+  "sector": "Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 15.02,
+    "open": 16.0,
+    "high": 16.09,
+    "low": 15.0,
+    "prev_close": 16.0,
+    "change_pct": -6.09,
+    "change_pct_1w": 25.84,
+    "change_pct_1m": 63.49,
+    "change_pct_1y": 152.71,
+    "volume": 990141,
+    "avg_volume_30d": 1098131
+  },
+  "scores": {
+    "master_score": 75.45,
+    "technical_score": 77.0,
+    "fundamental_score": 70.0,
+    "momentum_score": 100.0,
+    "sentiment_score": 70.0,
+    "sector_score": 40.0,
+    "breakout_score": 60.0,
+    "value_score": 70.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 75.45,
+    "confidence": 0.75,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 69.0,
+    "macd": 1.1302,
+    "macd_signal": 0.587,
+    "macd_histogram": 0.5433,
+    "macd_crossover": "neutral",
+    "ema_20": 12.79,
+    "ema_50": 11.79,
+    "ema_200": 9.0,
+    "ema_stack_bullish": true,
+    "bb_upper": 16.11,
+    "bb_middle": 11.96,
+    "bb_lower": 7.8,
+    "bb_width": 0.6953,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.7,
+    "atr": 1.0,
+    "atr_pct": 0.0662,
+    "obv_trend": "UP",
+    "mfi": 93.4,
+    "cmf": 0.278,
+    "stoch_k": 73.0,
+    "stoch_d": 84.5,
+    "rvol": 3.67,
+    "volume_5d_avg": 4031088,
+    "green_days_10d": 7,
+    "52w_high": 16.0,
+    "52w_low": 4.66,
+    "52w_high_proximity_pct": 0.0609,
+    "52w_low_proximity_pct": 2.2242
+  },
+  "fundamental": {
+    "pe_ratio": 15.025,
+    "sector_pe_median": 23.229378,
+    "pb_ratio": 1.9840221,
+    "de_ratio": 141.685,
+    "fcf_yield": 0.0915,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.219,
+    "gross_margin": 0.23401,
+    "operating_margin": 0.23941,
+    "net_margin": 0.044180002,
+    "market_cap": 1989890048,
+    "enterprise_value": 3711206656,
+    "dividend_yield": 1.18,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.66472,
+    "institutional_ownership_pct": 0.30238,
+    "short_ratio": 0.39,
+    "beta": 0.596
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 11.73,
+    "entry_range_high": 15.1,
+    "target_range_low": 17.66,
+    "target_range_high": 18.92,
+    "stop_range_low": 12.37,
+    "stop_range_high": 13.02,
+    "target_price": 18.02,
+    "stop_loss": 13.02,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.669427-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 60.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 18.77,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 118.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 4.66,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8000,
+      "date": "2022-11-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
+      "tr": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
+      "es": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
+      "pt": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
+      "fr": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0.",
+      "id": "BOGA AI assigns NEXA a score of 75.5/100. Trend: Neutral. RSI: 69.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: NEXA (Nexa Resources S.A.)\n\n### 1. Business Context\nNexa Resources S.A. operates in the Materials sector. BOGA AI detect institutional interest near $15.02.\n\n### 2. Performance\n* **Master Score:** 75.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 69.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $15.02 | Current |\n| EMA20 | $12.79 | Support |\n| ADX | 26.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $13.02.\n\n### 5. Execution\n* **Entry Zone:** $11.73 - $15.10\n* **Target Price:** $18.02\n* **Stop Loss:** $13.02\n",
+      "tr": "## Kurumsal Analiz: NEXA (Nexa Resources S.A.)\n\n### 1. İş Bağlamı\nNexa Resources S.A., Materials sektöründe faaliyet göstermektedir. BOGA AI, $15.02 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 75.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 69.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $15.02 | Güncel |\n| EMA20 | $12.79 | Destek |\n| ADX | 26.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $13.02.\n\n### 5. Uygulama\n* **Entry Zone:** $11.73 - $15.10\n* **Target Price:** $18.02\n* **Stop Loss:** $13.02\n",
+      "es": "## Análisis Institucional: NEXA (Nexa Resources S.A.)\n\n### 1. Contexto\nNexa Resources S.A. opera en el sector Materials. BOGA AI detecta interés institucional cerca de $15.02.\n\n### 2. Desempeño\n* **Master Score:** 75.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 69.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $15.02 | Actual |\n| EMA20 | $12.79 | Soporte |\n| ADX | 26.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $13.02.\n\n### 5. Ejecución\n* **Entry Zone:** $11.73 - $15.10\n* **Target Price:** $18.02\n* **Stop Loss:** $13.02\n",
+      "pt": "## Análise Institucional: NEXA (Nexa Resources S.A.)\n\n### 1. Contexto\nNexa Resources S.A. opera no setor Materials. BOGA AI detecta interesse institucional perto de $15.02.\n\n### 2. Desempenho\n* **Master Score:** 75.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 69.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $15.02 | Atual |\n| EMA20 | $12.79 | Suporte |\n| ADX | 26.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $13.02.\n\n### 5. Execução\n* **Entry Zone:** $11.73 - $15.10\n* **Target Price:** $18.02\n* **Stop Loss:** $13.02\n",
+      "fr": "## Analyse Institutionnelle: NEXA (Nexa Resources S.A.)\n\n### 1. Contexte Business\nNexa Resources S.A. opère dans le secteur Materials. BOGA AI détecte un intérêt institutionnel proche de $15.02.\n\n### 2. Performance\n* **Master Score:** 75.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 69.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $15.02 | Actuel |\n| EMA20 | $12.79 | Support |\n| ADX | 26.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $13.02.\n\n### 5. Exécution\n* **Entry Zone:** $11.73 - $15.10\n* **Target Price:** $18.02\n* **Stop Loss:** $13.02\n",
+      "id": "## Analisis Institusional: NEXA (Nexa Resources S.A.)\n\n### 1. Konteks Bisnis\nNexa Resources S.A. beroperasi di sektor Materials. BOGA AI mendeteksi minat institusional di dekat $15.02.\n\n### 2. Performa\n* **Master Score:** 75.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 69.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $15.02 | Saat Ini |\n| EMA20 | $12.79 | Dukungan |\n| ADX | 26.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $13.02.\n\n### 5. Eksekusi\n* **Entry Zone:** $11.73 - $15.10\n* **Target Price:** $18.02\n* **Stop Loss:** $13.02\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 75,
+    "price_change_display": "-6.09%",
+    "key_metrics": {
+      "RSI": 69.0,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

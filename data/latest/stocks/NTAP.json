@@ -1,0 +1,178 @@
+{
+  "ticker": "NTAP",
+  "company": "NetApp, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.169957-04:00",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 112.15,
+    "open": 106.87,
+    "high": 113.78,
+    "low": 106.87,
+    "prev_close": 106.79,
+    "change_pct": 5.02,
+    "change_pct_1w": 13.41,
+    "change_pct_1m": 11.49,
+    "change_pct_1y": 38.38,
+    "volume": 1333906,
+    "avg_volume_30d": 2184303
+  },
+  "scores": {
+    "master_score": 57.92,
+    "technical_score": 47.0,
+    "fundamental_score": 60.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 57.92,
+    "confidence": 0.58,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.6,
+    "macd": 1.4197,
+    "macd_signal": 0.235,
+    "macd_histogram": 1.1848,
+    "macd_crossover": "neutral",
+    "ema_20": 102.22,
+    "ema_50": 101.77,
+    "ema_200": 103.56,
+    "ema_stack_bullish": false,
+    "bb_upper": 109.34,
+    "bb_middle": 101.81,
+    "bb_lower": 94.29,
+    "bb_width": 0.1478,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.5,
+    "atr": 3.38,
+    "atr_pct": 0.0302,
+    "obv_trend": "UP",
+    "mfi": 69.8,
+    "cmf": 0.162,
+    "stoch_k": 91.4,
+    "stoch_d": 92.7,
+    "rvol": 0.85,
+    "volume_5d_avg": 1848801,
+    "green_days_10d": 9,
+    "52w_high": 124.56,
+    "52w_low": 80.13,
+    "52w_high_proximity_pct": 0.0997,
+    "52w_low_proximity_pct": 0.3996
+  },
+  "fundamental": {
+    "pe_ratio": 18.817114,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 19.177496,
+    "de_ratio": 236.097,
+    "fcf_yield": 0.0502,
+    "eps_growth_5y": 0.16,
+    "revenue_growth_ttm": 0.044,
+    "gross_margin": 0.70458,
+    "operating_margin": 0.25160998,
+    "net_margin": 0.18065001,
+    "market_cap": 22212468736,
+    "enterprise_value": 20791912448,
+    "dividend_yield": 1.95,
+    "payout_ratio": 0.349,
+    "insider_ownership_pct": 0.0051599997,
+    "institutional_ownership_pct": 1.02733,
+    "short_ratio": 8.41,
+    "beta": 1.292
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 101.26,
+    "entry_range_high": 112.71,
+    "target_range_low": 119.84,
+    "target_range_high": 128.4,
+    "stop_range_low": 100.12,
+    "stop_range_high": 105.39,
+    "target_price": 122.29,
+    "stop_loss": 105.39,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.169927-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 140.19,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 195.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 80.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 28654,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
+      "tr": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
+      "es": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
+      "pt": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
+      "fr": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6.",
+      "id": "BOGA AI assigns NTAP a score of 57.9/100. Trend: Neutral. RSI: 69.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: NTAP (NetApp, Inc.)\n\n### 1. Business Context\nNetApp, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $112.15.\n\n### 2. Performance\n* **Master Score:** 57.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $112.15 | Current |\n| EMA20 | $102.22 | Support |\n| ADX | 19.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $105.39.\n\n### 5. Execution\n* **Entry Zone:** $101.26 - $112.71\n* **Target Price:** $122.29\n* **Stop Loss:** $105.39\n",
+      "tr": "## Kurumsal Analiz: NTAP (NetApp, Inc.)\n\n### 1. İş Bağlamı\nNetApp, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $112.15 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 57.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $112.15 | Güncel |\n| EMA20 | $102.22 | Destek |\n| ADX | 19.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $105.39.\n\n### 5. Uygulama\n* **Entry Zone:** $101.26 - $112.71\n* **Target Price:** $122.29\n* **Stop Loss:** $105.39\n",
+      "es": "## Análisis Institucional: NTAP (NetApp, Inc.)\n\n### 1. Contexto\nNetApp, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $112.15.\n\n### 2. Desempeño\n* **Master Score:** 57.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $112.15 | Actual |\n| EMA20 | $102.22 | Soporte |\n| ADX | 19.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $105.39.\n\n### 5. Ejecución\n* **Entry Zone:** $101.26 - $112.71\n* **Target Price:** $122.29\n* **Stop Loss:** $105.39\n",
+      "pt": "## Análise Institucional: NTAP (NetApp, Inc.)\n\n### 1. Contexto\nNetApp, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $112.15.\n\n### 2. Desempenho\n* **Master Score:** 57.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $112.15 | Atual |\n| EMA20 | $102.22 | Suporte |\n| ADX | 19.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $105.39.\n\n### 5. Execução\n* **Entry Zone:** $101.26 - $112.71\n* **Target Price:** $122.29\n* **Stop Loss:** $105.39\n",
+      "fr": "## Analyse Institutionnelle: NTAP (NetApp, Inc.)\n\n### 1. Contexte Business\nNetApp, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $112.15.\n\n### 2. Performance\n* **Master Score:** 57.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $112.15 | Actuel |\n| EMA20 | $102.22 | Support |\n| ADX | 19.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $105.39.\n\n### 5. Exécution\n* **Entry Zone:** $101.26 - $112.71\n* **Target Price:** $122.29\n* **Stop Loss:** $105.39\n",
+      "id": "## Analisis Institusional: NTAP (NetApp, Inc.)\n\n### 1. Konteks Bisnis\nNetApp, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $112.15.\n\n### 2. Performa\n* **Master Score:** 57.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $112.15 | Saat Ini |\n| EMA20 | $102.22 | Dukungan |\n| ADX | 19.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $105.39.\n\n### 5. Eksekusi\n* **Entry Zone:** $101.26 - $112.71\n* **Target Price:** $122.29\n* **Stop Loss:** $105.39\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 58,
+    "price_change_display": "+5.02%",
+    "key_metrics": {
+      "RSI": 69.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "APA",
+  "company": "APA Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.408617-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 37.11,
+    "open": 36.2,
+    "high": 37.12,
+    "low": 35.83,
+    "prev_close": 35.97,
+    "change_pct": 3.17,
+    "change_pct_1w": 0.22,
+    "change_pct_1m": -5.11,
+    "change_pct_1y": 142.26,
+    "volume": 2845150,
+    "avg_volume_30d": 9601911
+  },
+  "scores": {
+    "master_score": 39.46,
+    "technical_score": 37.0,
+    "fundamental_score": 53.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.6,
+    "breakout_score": 15.0,
+    "value_score": 50.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.46,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 48.1,
+    "macd": 0.2297,
+    "macd_signal": 1.1294,
+    "macd_histogram": -0.8997,
+    "macd_crossover": "neutral",
+    "ema_20": 38.1,
+    "ema_50": 35.44,
+    "ema_200": 27.59,
+    "ema_stack_bullish": false,
+    "bb_upper": 45.45,
+    "bb_middle": 40.05,
+    "bb_lower": 34.66,
+    "bb_width": 0.2694,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 31.3,
+    "atr": 2.01,
+    "atr_pct": 0.0542,
+    "obv_trend": "DOWN",
+    "mfi": 48.5,
+    "cmf": 0.198,
+    "stoch_k": 33.9,
+    "stoch_d": 25.4,
+    "rvol": 0.72,
+    "volume_5d_avg": 6908770,
+    "green_days_10d": 5,
+    "52w_high": 44.39,
+    "52w_low": 14.74,
+    "52w_high_proximity_pct": 0.164,
+    "52w_low_proximity_pct": 1.5179
+  },
+  "fundamental": {
+    "pe_ratio": 9.300752,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 2.149809,
+    "de_ratio": 68.685,
+    "fcf_yield": 0.1495,
+    "eps_growth_5y": -0.182,
+    "revenue_growth_ttm": -0.28,
+    "gross_margin": 0.68014,
+    "operating_margin": 0.30581,
+    "net_margin": 0.16510999,
+    "market_cap": 13114689536,
+    "enterprise_value": 17908688896,
+    "dividend_yield": 2.78,
+    "payout_ratio": 0.25059998,
+    "insider_ownership_pct": 0.00439,
+    "institutional_ownership_pct": 0.99584,
+    "short_ratio": 2.81,
+    "beta": 0.484
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 35.26,
+    "entry_range_high": 37.3,
+    "target_range_low": 42.28,
+    "target_range_high": 45.3,
+    "stop_range_low": 31.44,
+    "stop_range_high": 33.09,
+    "target_price": 43.14,
+    "stop_loss": 33.09,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.408574-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 46.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 278.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.74,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1767,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns APA a score of 39.5/100. Trend: Neutral. RSI: 48.1.",
+      "tr": "BOGA AI assigns APA a score of 39.5/100. Trend: Neutral. RSI: 48.1.",
+      "es": "BOGA AI assigns APA a score of 39.5/100. Trend: Neutral. RSI: 48.1.",
+      "pt": "BOGA AI assigns APA a score of 39.5/100. Trend: Neutral. RSI: 48.1.",
+      "fr": "BOGA AI assigns APA a score of 39.5/100. Trend: Neutral. RSI: 48.1.",
+      "id": "BOGA AI assigns APA a score of 39.5/100. Trend: Neutral. RSI: 48.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: APA (APA Corporation)\n\n### 1. Business Context\nAPA Corporation operates in the Energy sector. BOGA AI detect institutional interest near $37.11.\n\n### 2. Performance\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $37.11 | Current |\n| EMA20 | $38.1 | Support |\n| ADX | 31.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $33.09.\n\n### 5. Execution\n* **Entry Zone:** $35.26 - $37.30\n* **Target Price:** $43.14\n* **Stop Loss:** $33.09\n",
+      "tr": "## Kurumsal Analiz: APA (APA Corporation)\n\n### 1. İş Bağlamı\nAPA Corporation, Energy sektöründe faaliyet göstermektedir. BOGA AI, $37.11 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $37.11 | Güncel |\n| EMA20 | $38.1 | Destek |\n| ADX | 31.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $33.09.\n\n### 5. Uygulama\n* **Entry Zone:** $35.26 - $37.30\n* **Target Price:** $43.14\n* **Stop Loss:** $33.09\n",
+      "es": "## Análisis Institucional: APA (APA Corporation)\n\n### 1. Contexto\nAPA Corporation opera en el sector Energy. BOGA AI detecta interés institucional cerca de $37.11.\n\n### 2. Desempeño\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $37.11 | Actual |\n| EMA20 | $38.1 | Soporte |\n| ADX | 31.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $33.09.\n\n### 5. Ejecución\n* **Entry Zone:** $35.26 - $37.30\n* **Target Price:** $43.14\n* **Stop Loss:** $33.09\n",
+      "pt": "## Análise Institucional: APA (APA Corporation)\n\n### 1. Contexto\nAPA Corporation opera no setor Energy. BOGA AI detecta interesse institucional perto de $37.11.\n\n### 2. Desempenho\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $37.11 | Atual |\n| EMA20 | $38.1 | Suporte |\n| ADX | 31.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $33.09.\n\n### 5. Execução\n* **Entry Zone:** $35.26 - $37.30\n* **Target Price:** $43.14\n* **Stop Loss:** $33.09\n",
+      "fr": "## Analyse Institutionnelle: APA (APA Corporation)\n\n### 1. Contexte Business\nAPA Corporation opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $37.11.\n\n### 2. Performance\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $37.11 | Actuel |\n| EMA20 | $38.1 | Support |\n| ADX | 31.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $33.09.\n\n### 5. Exécution\n* **Entry Zone:** $35.26 - $37.30\n* **Target Price:** $43.14\n* **Stop Loss:** $33.09\n",
+      "id": "## Analisis Institusional: APA (APA Corporation)\n\n### 1. Konteks Bisnis\nAPA Corporation beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $37.11.\n\n### 2. Performa\n* **Master Score:** 39.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 48.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $37.11 | Saat Ini |\n| EMA20 | $38.1 | Dukungan |\n| ADX | 31.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $33.09.\n\n### 5. Eksekusi\n* **Entry Zone:** $35.26 - $37.30\n* **Target Price:** $43.14\n* **Stop Loss:** $33.09\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+3.17%",
+    "key_metrics": {
+      "RSI": 48.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

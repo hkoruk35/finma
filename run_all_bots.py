@@ -103,22 +103,26 @@ def main():
     log.info("ADIM 5: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
 
-    # ── ADIM 6: Options Scanner (Opsiyon Fırsatları) ──
-    log.info("ADIM 6: opsiyon218v7.py --oneshot (Options Scanner) çalıştırılıyor...")
-    step6_ok = run_bot_subprocess("opsiyon218v7.py", ["--oneshot"])
-    if not step6_ok:
+    # ── ADIM 6: Multilingual AI Summaries (Kritik: Tüm diller için rapor üret) ──
+    log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
+    run_bot_subprocess("update_summaries_now.py")
+
+    # ── ADIM 7: Options Scanner (Opsiyon Fırsatları) ──
+    log.info("ADIM 7: opsiyon218v7.py --oneshot (Options Scanner) çalıştırılıyor...")
+    step7_ok = run_bot_subprocess("opsiyon218v7.py", ["--oneshot"])
+    if not step7_ok:
         log.warning("⚠️ opsiyon218v7.py başarısız. Devam ediliyor...")
 
-    # ── ADIM 7: Options P&L Tracker ──
-    log.info("ADIM 7: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
+    # ── ADIM 8: Options P&L Tracker ──
+    log.info("ADIM 8: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
     run_bot_subprocess("options_pnl_tracker.py")
 
-    # ── ADIM 8: SYSTEMATIC PRICE SYNC (Kritik: Tüm fiyatları eşitle) ──
-    log.info("ADIM 8: update_all_prices.py (Fiyat Senkronizasyonu) çalıştırılıyor...")
+    # ── ADIM 9: SYSTEMATIC PRICE SYNC (Kritik: Tüm fiyatları eşitle) ──
+    log.info("ADIM 9: update_all_prices.py (Fiyat Senkronizasyonu) çalıştırılıyor...")
     run_bot_subprocess("update_all_prices.py")
 
     log.info("=" * 60)
-    log.info("ADIM 8: Veriler GitHub'a yükleniyor (Git Push)...")
+    log.info("ADIM 10: Veriler GitHub'a yükleniyor (Git Push)...")
     try:
         subprocess.run(["git", "add", "."], cwd=FINMA_DIR, check=True)
         # Using a reliable date tag

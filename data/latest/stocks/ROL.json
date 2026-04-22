@@ -1,0 +1,177 @@
+{
+  "ticker": "ROL",
+  "company": "Rollins, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.939121-04:00",
+  "sector": "Industrials",
+  "industry": "Personal Services",
+  "price": {
+    "current": 54.77,
+    "open": 54.71,
+    "high": 54.92,
+    "low": 54.18,
+    "prev_close": 54.9,
+    "change_pct": -0.24,
+    "change_pct_1w": -0.05,
+    "change_pct_1m": 2.84,
+    "change_pct_1y": -0.64,
+    "volume": 1274884,
+    "avg_volume_30d": 2781952
+  },
+  "scores": {
+    "master_score": 32.03,
+    "technical_score": 15.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 68.0,
+    "sector_score": 37.3,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": -10.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 32.03,
+    "confidence": 0.32,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 48.1,
+    "macd": -0.3744,
+    "macd_signal": -0.6768,
+    "macd_histogram": 0.3025,
+    "macd_crossover": "neutral",
+    "ema_20": 54.7,
+    "ema_50": 56.2,
+    "ema_200": 57.28,
+    "ema_stack_bullish": false,
+    "bb_upper": 55.73,
+    "bb_middle": 54.07,
+    "bb_lower": 52.42,
+    "bb_width": 0.0612,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 22.5,
+    "atr": 1.12,
+    "atr_pct": 0.0205,
+    "obv_trend": "UP",
+    "mfi": 60.6,
+    "cmf": -0.049,
+    "stoch_k": 56.9,
+    "stoch_d": 65.0,
+    "rvol": 0.79,
+    "volume_5d_avg": 2206316,
+    "green_days_10d": 6,
+    "52w_high": 65.4,
+    "52w_low": 52.46,
+    "52w_high_proximity_pct": 0.1626,
+    "52w_low_proximity_pct": 0.044
+  },
+  "fundamental": {
+    "pe_ratio": 50.247704,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 19.177172,
+    "de_ratio": 75.529,
+    "fcf_yield": 0.021,
+    "eps_growth_5y": 0.099,
+    "revenue_growth_ttm": 0.097,
+    "gross_margin": 0.52752,
+    "operating_margin": 0.17643,
+    "net_margin": 0.14004,
+    "market_cap": 26398529536,
+    "enterprise_value": 27349964800,
+    "dividend_yield": 1.33,
+    "payout_ratio": 0.6228,
+    "insider_ownership_pct": 0.38371,
+    "institutional_ownership_pct": 0.59263,
+    "short_ratio": 3.97,
+    "beta": 0.84
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 54.5,
+    "entry_range_high": 55.04,
+    "target_range_low": 56.97,
+    "target_range_high": 61.04,
+    "stop_range_low": 49.9,
+    "stop_range_high": 52.53,
+    "target_price": 58.13,
+    "stop_loss": 52.53,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.939074-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 68.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 133.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 52.46,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 11,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14201,
+      "date": "2026-02-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns ROL a score of 32.0/100. Trend: Neutral. RSI: 48.1.",
+      "tr": "BOGA AI assigns ROL a score of 32.0/100. Trend: Neutral. RSI: 48.1.",
+      "es": "BOGA AI assigns ROL a score of 32.0/100. Trend: Neutral. RSI: 48.1.",
+      "pt": "BOGA AI assigns ROL a score of 32.0/100. Trend: Neutral. RSI: 48.1.",
+      "fr": "BOGA AI assigns ROL a score of 32.0/100. Trend: Neutral. RSI: 48.1.",
+      "id": "BOGA AI assigns ROL a score of 32.0/100. Trend: Neutral. RSI: 48.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: ROL (Rollins, Inc.)\n\n### 1. Business Context\nRollins, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $54.77.\n\n### 2. Performance\n* **Master Score:** 32.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $54.77 | Current |\n| EMA20 | $54.7 | Support |\n| ADX | 22.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $52.53.\n\n### 5. Execution\n* **Entry Zone:** $54.50 - $55.04\n* **Target Price:** $58.13\n* **Stop Loss:** $52.53\n",
+      "tr": "## Kurumsal Analiz: ROL (Rollins, Inc.)\n\n### 1. İş Bağlamı\nRollins, Inc., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $54.77 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 32.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $54.77 | Güncel |\n| EMA20 | $54.7 | Destek |\n| ADX | 22.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $52.53.\n\n### 5. Uygulama\n* **Entry Zone:** $54.50 - $55.04\n* **Target Price:** $58.13\n* **Stop Loss:** $52.53\n",
+      "es": "## Análisis Institucional: ROL (Rollins, Inc.)\n\n### 1. Contexto\nRollins, Inc. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $54.77.\n\n### 2. Desempeño\n* **Master Score:** 32.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $54.77 | Actual |\n| EMA20 | $54.7 | Soporte |\n| ADX | 22.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $52.53.\n\n### 5. Ejecución\n* **Entry Zone:** $54.50 - $55.04\n* **Target Price:** $58.13\n* **Stop Loss:** $52.53\n",
+      "pt": "## Análise Institucional: ROL (Rollins, Inc.)\n\n### 1. Contexto\nRollins, Inc. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $54.77.\n\n### 2. Desempenho\n* **Master Score:** 32.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $54.77 | Atual |\n| EMA20 | $54.7 | Suporte |\n| ADX | 22.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $52.53.\n\n### 5. Execução\n* **Entry Zone:** $54.50 - $55.04\n* **Target Price:** $58.13\n* **Stop Loss:** $52.53\n",
+      "fr": "## Analyse Institutionnelle: ROL (Rollins, Inc.)\n\n### 1. Contexte Business\nRollins, Inc. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $54.77.\n\n### 2. Performance\n* **Master Score:** 32.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $54.77 | Actuel |\n| EMA20 | $54.7 | Support |\n| ADX | 22.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $52.53.\n\n### 5. Exécution\n* **Entry Zone:** $54.50 - $55.04\n* **Target Price:** $58.13\n* **Stop Loss:** $52.53\n",
+      "id": "## Analisis Institusional: ROL (Rollins, Inc.)\n\n### 1. Konteks Bisnis\nRollins, Inc. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $54.77.\n\n### 2. Performa\n* **Master Score:** 32.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 48.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $54.77 | Saat Ini |\n| EMA20 | $54.7 | Dukungan |\n| ADX | 22.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $52.53.\n\n### 5. Eksekusi\n* **Entry Zone:** $54.50 - $55.04\n* **Target Price:** $58.13\n* **Stop Loss:** $52.53\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 32,
+    "price_change_display": "-0.24%",
+    "key_metrics": {
+      "RSI": 48.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

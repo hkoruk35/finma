@@ -1,0 +1,177 @@
+{
+  "ticker": "FTAI",
+  "company": "FTAI Aviation Ltd.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.978916-04:00",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 237.84,
+    "open": 257.25,
+    "high": 257.92,
+    "low": 234.5,
+    "prev_close": 257.3,
+    "change_pct": -7.56,
+    "change_pct_1w": -11.74,
+    "change_pct_1m": 3.4,
+    "change_pct_1y": 157.94,
+    "volume": 895978,
+    "avg_volume_30d": 1333412
+  },
+  "scores": {
+    "master_score": 28.88,
+    "technical_score": 34.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 28.88,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 42.6,
+    "macd": -0.1139,
+    "macd_signal": -0.5367,
+    "macd_histogram": 0.4228,
+    "macd_crossover": "neutral",
+    "ema_20": 253.11,
+    "ema_50": 252.62,
+    "ema_200": 207.29,
+    "ema_stack_bullish": false,
+    "bb_upper": 271.02,
+    "bb_middle": 250.11,
+    "bb_lower": 229.2,
+    "bb_width": 0.1672,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.8,
+    "atr": 15.5,
+    "atr_pct": 0.0652,
+    "obv_trend": "DOWN",
+    "mfi": 49.8,
+    "cmf": -0.201,
+    "stoch_k": 7.7,
+    "stoch_d": 41.5,
+    "rvol": 0.72,
+    "volume_5d_avg": 965135,
+    "green_days_10d": 5,
+    "52w_high": 309.52,
+    "52w_low": 86.16,
+    "52w_high_proximity_pct": 0.2316,
+    "52w_low_proximity_pct": 1.7604
+  },
+  "fundamental": {
+    "pe_ratio": 51.59219,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 73.024254,
+    "de_ratio": 1046.368,
+    "fcf_yield": -0.0317,
+    "eps_growth_5y": 0.298,
+    "revenue_growth_ttm": 0.327,
+    "gross_margin": 0.40087003,
+    "operating_margin": 0.28505,
+    "net_margin": 0.19983,
+    "market_cap": 24397783040,
+    "enterprise_value": 29588387840,
+    "dividend_yield": 0.52,
+    "payout_ratio": 0.2717,
+    "insider_ownership_pct": 0.01367,
+    "institutional_ownership_pct": 1.0023999,
+    "short_ratio": 2.87,
+    "beta": 1.649
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 236.65,
+    "entry_range_high": 239.03,
+    "target_range_low": 278.65,
+    "target_range_high": 298.56,
+    "stop_range_low": 196.5,
+    "stop_range_high": 206.84,
+    "target_price": 284.34,
+    "stop_loss": 206.84,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.978874-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 297.3,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 52.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 86.16,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5083,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns FTAI a score of 28.9/100. Trend: Neutral. RSI: 42.6.",
+      "tr": "BOGA AI assigns FTAI a score of 28.9/100. Trend: Neutral. RSI: 42.6.",
+      "es": "BOGA AI assigns FTAI a score of 28.9/100. Trend: Neutral. RSI: 42.6.",
+      "pt": "BOGA AI assigns FTAI a score of 28.9/100. Trend: Neutral. RSI: 42.6.",
+      "fr": "BOGA AI assigns FTAI a score of 28.9/100. Trend: Neutral. RSI: 42.6.",
+      "id": "BOGA AI assigns FTAI a score of 28.9/100. Trend: Neutral. RSI: 42.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: FTAI (FTAI Aviation Ltd.)\n\n### 1. Business Context\nFTAI Aviation Ltd. operates in the Industrials sector. BOGA AI detect institutional interest near $237.84.\n\n### 2. Performance\n* **Master Score:** 28.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $237.84 | Current |\n| EMA20 | $253.11 | Support |\n| ADX | 15.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $206.84.\n\n### 5. Execution\n* **Entry Zone:** $236.65 - $239.03\n* **Target Price:** $284.34\n* **Stop Loss:** $206.84\n",
+      "tr": "## Kurumsal Analiz: FTAI (FTAI Aviation Ltd.)\n\n### 1. İş Bağlamı\nFTAI Aviation Ltd., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $237.84 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 28.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $237.84 | Güncel |\n| EMA20 | $253.11 | Destek |\n| ADX | 15.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $206.84.\n\n### 5. Uygulama\n* **Entry Zone:** $236.65 - $239.03\n* **Target Price:** $284.34\n* **Stop Loss:** $206.84\n",
+      "es": "## Análisis Institucional: FTAI (FTAI Aviation Ltd.)\n\n### 1. Contexto\nFTAI Aviation Ltd. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $237.84.\n\n### 2. Desempeño\n* **Master Score:** 28.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $237.84 | Actual |\n| EMA20 | $253.11 | Soporte |\n| ADX | 15.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $206.84.\n\n### 5. Ejecución\n* **Entry Zone:** $236.65 - $239.03\n* **Target Price:** $284.34\n* **Stop Loss:** $206.84\n",
+      "pt": "## Análise Institucional: FTAI (FTAI Aviation Ltd.)\n\n### 1. Contexto\nFTAI Aviation Ltd. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $237.84.\n\n### 2. Desempenho\n* **Master Score:** 28.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $237.84 | Atual |\n| EMA20 | $253.11 | Suporte |\n| ADX | 15.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $206.84.\n\n### 5. Execução\n* **Entry Zone:** $236.65 - $239.03\n* **Target Price:** $284.34\n* **Stop Loss:** $206.84\n",
+      "fr": "## Analyse Institutionnelle: FTAI (FTAI Aviation Ltd.)\n\n### 1. Contexte Business\nFTAI Aviation Ltd. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $237.84.\n\n### 2. Performance\n* **Master Score:** 28.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $237.84 | Actuel |\n| EMA20 | $253.11 | Support |\n| ADX | 15.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $206.84.\n\n### 5. Exécution\n* **Entry Zone:** $236.65 - $239.03\n* **Target Price:** $284.34\n* **Stop Loss:** $206.84\n",
+      "id": "## Analisis Institusional: FTAI (FTAI Aviation Ltd.)\n\n### 1. Konteks Bisnis\nFTAI Aviation Ltd. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $237.84.\n\n### 2. Performa\n* **Master Score:** 28.9/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $237.84 | Saat Ini |\n| EMA20 | $253.11 | Dukungan |\n| ADX | 15.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $206.84.\n\n### 5. Eksekusi\n* **Entry Zone:** $236.65 - $239.03\n* **Target Price:** $284.34\n* **Stop Loss:** $206.84\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
+    "price_change_display": "-7.56%",
+    "key_metrics": {
+      "RSI": 42.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

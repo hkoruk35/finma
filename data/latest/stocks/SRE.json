@@ -1,0 +1,177 @@
+{
+  "ticker": "SRE",
+  "company": "Sempra",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.034650-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Diversified",
+  "price": {
+    "current": 93.01,
+    "open": 94.5,
+    "high": 94.57,
+    "low": 92.72,
+    "prev_close": 93.38,
+    "change_pct": -0.4,
+    "change_pct_1w": -3.28,
+    "change_pct_1m": 1.41,
+    "change_pct_1y": 34.77,
+    "volume": 1488508,
+    "avg_volume_30d": 3356926
+  },
+  "scores": {
+    "master_score": 26.22,
+    "technical_score": 24.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 30.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 40.0,
+    "signal_score": 26.22,
+    "confidence": 0.26,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.4,
+    "macd": 0.0214,
+    "macd_signal": 0.7538,
+    "macd_histogram": -0.7324,
+    "macd_crossover": "neutral",
+    "ema_20": 95.63,
+    "ema_50": 94.21,
+    "ema_200": 87.47,
+    "ema_stack_bullish": false,
+    "bb_upper": 100.27,
+    "bb_middle": 96.5,
+    "bb_lower": 92.73,
+    "bb_width": 0.0781,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 17.2,
+    "atr": 1.97,
+    "atr_pct": 0.0211,
+    "obv_trend": "DOWN",
+    "mfi": 26.7,
+    "cmf": 0.088,
+    "stoch_k": 3.5,
+    "stoch_d": 7.5,
+    "rvol": 0.96,
+    "volume_5d_avg": 3227581,
+    "green_days_10d": 3,
+    "52w_high": 99.75,
+    "52w_low": 68.37,
+    "52w_high_proximity_pct": 0.0676,
+    "52w_low_proximity_pct": 0.3603
+  },
+  "fundamental": {
+    "pe_ratio": 33.82182,
+    "sector_pe_median": 21.999998,
+    "pb_ratio": 1.9215752,
+    "de_ratio": 83.385,
+    "fcf_yield": -0.4563,
+    "eps_growth_5y": -0.482,
+    "revenue_growth_ttm": -0.002,
+    "gross_margin": 0.41184,
+    "operating_margin": 0.27741,
+    "net_margin": 0.134,
+    "market_cap": 60766461952,
+    "enterprise_value": 106400669696,
+    "dividend_yield": 2.82,
+    "payout_ratio": 0.9382,
+    "insider_ownership_pct": 0.00103,
+    "institutional_ownership_pct": 0.94607,
+    "short_ratio": 2.97,
+    "beta": 0.677
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 92.54,
+    "entry_range_high": 93.48,
+    "target_range_low": 96.94,
+    "target_range_high": 103.87,
+    "stop_range_low": 84.62,
+    "stop_range_high": 89.07,
+    "target_price": 98.92,
+    "stop_loss": 89.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.034559-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 116.26,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 282.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 68.37,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 3,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1128,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -1.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
+      "tr": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
+      "es": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
+      "pt": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
+      "fr": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4.",
+      "id": "BOGA AI assigns SRE a score of 26.2/100. Trend: Neutral. RSI: 39.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SRE (Sempra)\n\n### 1. Business Context\nSempra operates in the Utilities sector. BOGA AI detect institutional interest near $93.01.\n\n### 2. Performance\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $93.01 | Current |\n| EMA20 | $95.63 | Support |\n| ADX | 17.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $89.07.\n\n### 5. Execution\n* **Entry Zone:** $92.54 - $93.48\n* **Target Price:** $98.92\n* **Stop Loss:** $89.07\n",
+      "tr": "## Kurumsal Analiz: SRE (Sempra)\n\n### 1. İş Bağlamı\nSempra, Utilities sektöründe faaliyet göstermektedir. BOGA AI, $93.01 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $93.01 | Güncel |\n| EMA20 | $95.63 | Destek |\n| ADX | 17.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $89.07.\n\n### 5. Uygulama\n* **Entry Zone:** $92.54 - $93.48\n* **Target Price:** $98.92\n* **Stop Loss:** $89.07\n",
+      "es": "## Análisis Institucional: SRE (Sempra)\n\n### 1. Contexto\nSempra opera en el sector Utilities. BOGA AI detecta interés institucional cerca de $93.01.\n\n### 2. Desempeño\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $93.01 | Actual |\n| EMA20 | $95.63 | Soporte |\n| ADX | 17.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $89.07.\n\n### 5. Ejecución\n* **Entry Zone:** $92.54 - $93.48\n* **Target Price:** $98.92\n* **Stop Loss:** $89.07\n",
+      "pt": "## Análise Institucional: SRE (Sempra)\n\n### 1. Contexto\nSempra opera no setor Utilities. BOGA AI detecta interesse institucional perto de $93.01.\n\n### 2. Desempenho\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $93.01 | Atual |\n| EMA20 | $95.63 | Suporte |\n| ADX | 17.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $89.07.\n\n### 5. Execução\n* **Entry Zone:** $92.54 - $93.48\n* **Target Price:** $98.92\n* **Stop Loss:** $89.07\n",
+      "fr": "## Analyse Institutionnelle: SRE (Sempra)\n\n### 1. Contexte Business\nSempra opère dans le secteur Utilities. BOGA AI détecte un intérêt institutionnel proche de $93.01.\n\n### 2. Performance\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $93.01 | Actuel |\n| EMA20 | $95.63 | Support |\n| ADX | 17.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $89.07.\n\n### 5. Exécution\n* **Entry Zone:** $92.54 - $93.48\n* **Target Price:** $98.92\n* **Stop Loss:** $89.07\n",
+      "id": "## Analisis Institusional: SRE (Sempra)\n\n### 1. Konteks Bisnis\nSempra beroperasi di sektor Utilities. BOGA AI mendeteksi minat institusional di dekat $93.01.\n\n### 2. Performa\n* **Master Score:** 26.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $93.01 | Saat Ini |\n| EMA20 | $95.63 | Dukungan |\n| ADX | 17.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $89.07.\n\n### 5. Eksekusi\n* **Entry Zone:** $92.54 - $93.48\n* **Target Price:** $98.92\n* **Stop Loss:** $89.07\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 26,
+    "price_change_display": "-0.40%",
+    "key_metrics": {
+      "RSI": 39.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

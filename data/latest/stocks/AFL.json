@@ -1,0 +1,177 @@
+{
+  "ticker": "AFL",
+  "company": "Aflac Incorporated",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.291474-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Life",
+  "price": {
+    "current": 115.48,
+    "open": 114.83,
+    "high": 115.68,
+    "low": 114.75,
+    "prev_close": 114.67,
+    "change_pct": 0.71,
+    "change_pct_1w": 3.16,
+    "change_pct_1m": 8.72,
+    "change_pct_1y": 9.81,
+    "volume": 815464,
+    "avg_volume_30d": 2321815
+  },
+  "scores": {
+    "master_score": 54.47,
+    "technical_score": 52.0,
+    "fundamental_score": 38.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 68.0,
+    "sector_score": 39.7,
+    "breakout_score": 20.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.47,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.1,
+    "macd": 1.274,
+    "macd_signal": 0.6901,
+    "macd_histogram": 0.5839,
+    "macd_crossover": "neutral",
+    "ema_20": 111.97,
+    "ema_50": 111.06,
+    "ema_200": 108.82,
+    "ema_stack_bullish": true,
+    "bb_upper": 116.36,
+    "bb_middle": 110.95,
+    "bb_lower": 105.54,
+    "bb_width": 0.0976,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.6,
+    "atr": 2.0,
+    "atr_pct": 0.0174,
+    "obv_trend": "UP",
+    "mfi": 87.7,
+    "cmf": 0.31,
+    "stoch_k": 97.0,
+    "stoch_d": 91.0,
+    "rvol": 0.96,
+    "volume_5d_avg": 2219772,
+    "green_days_10d": 8,
+    "52w_high": 116.85,
+    "52w_low": 96.54,
+    "52w_high_proximity_pct": 0.0117,
+    "52w_low_proximity_pct": 0.1962
+  },
+  "fundamental": {
+    "pe_ratio": 16.932552,
+    "sector_pe_median": 16.433114,
+    "pb_ratio": 2.031132,
+    "de_ratio": 42.682,
+    "fcf_yield": 0.0855,
+    "eps_growth_5y": -0.229,
+    "revenue_growth_ttm": -0.099,
+    "gross_margin": 0.46644002,
+    "operating_margin": 0.33558998,
+    "net_margin": 0.21242,
+    "market_cap": 60524679168,
+    "enterprise_value": 64167084032,
+    "dividend_yield": 2.13,
+    "payout_ratio": 0.3402,
+    "insider_ownership_pct": 0.108509995,
+    "institutional_ownership_pct": 0.59671,
+    "short_ratio": 3.23,
+    "beta": 0.652
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 110.5,
+    "entry_range_high": 116.06,
+    "target_range_low": 119.05,
+    "target_range_high": 127.55,
+    "stop_range_low": 105.91,
+    "stop_range_high": 111.48,
+    "target_price": 121.48,
+    "stop_loss": 111.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.291403-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 144.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 213.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 96.54,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 32,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 86155,
+      "date": "2026-04-09"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 0.58,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns AFL a score of 54.5/100. Trend: Neutral. RSI: 67.1.",
+      "tr": "BOGA AI assigns AFL a score of 54.5/100. Trend: Neutral. RSI: 67.1.",
+      "es": "BOGA AI assigns AFL a score of 54.5/100. Trend: Neutral. RSI: 67.1.",
+      "pt": "BOGA AI assigns AFL a score of 54.5/100. Trend: Neutral. RSI: 67.1.",
+      "fr": "BOGA AI assigns AFL a score of 54.5/100. Trend: Neutral. RSI: 67.1.",
+      "id": "BOGA AI assigns AFL a score of 54.5/100. Trend: Neutral. RSI: 67.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: AFL (Aflac Incorporated)\n\n### 1. Business Context\nAflac Incorporated operates in the Financials sector. BOGA AI detect institutional interest near $115.48.\n\n### 2. Performance\n* **Master Score:** 54.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $115.48 | Current |\n| EMA20 | $111.97 | Support |\n| ADX | 17.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $111.48.\n\n### 5. Execution\n* **Entry Zone:** $110.50 - $116.06\n* **Target Price:** $121.48\n* **Stop Loss:** $111.48\n",
+      "tr": "## Kurumsal Analiz: AFL (Aflac Incorporated)\n\n### 1. İş Bağlamı\nAflac Incorporated, Financials sektöründe faaliyet göstermektedir. BOGA AI, $115.48 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 54.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $115.48 | Güncel |\n| EMA20 | $111.97 | Destek |\n| ADX | 17.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $111.48.\n\n### 5. Uygulama\n* **Entry Zone:** $110.50 - $116.06\n* **Target Price:** $121.48\n* **Stop Loss:** $111.48\n",
+      "es": "## Análisis Institucional: AFL (Aflac Incorporated)\n\n### 1. Contexto\nAflac Incorporated opera en el sector Financials. BOGA AI detecta interés institucional cerca de $115.48.\n\n### 2. Desempeño\n* **Master Score:** 54.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $115.48 | Actual |\n| EMA20 | $111.97 | Soporte |\n| ADX | 17.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $111.48.\n\n### 5. Ejecución\n* **Entry Zone:** $110.50 - $116.06\n* **Target Price:** $121.48\n* **Stop Loss:** $111.48\n",
+      "pt": "## Análise Institucional: AFL (Aflac Incorporated)\n\n### 1. Contexto\nAflac Incorporated opera no setor Financials. BOGA AI detecta interesse institucional perto de $115.48.\n\n### 2. Desempenho\n* **Master Score:** 54.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $115.48 | Atual |\n| EMA20 | $111.97 | Suporte |\n| ADX | 17.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $111.48.\n\n### 5. Execução\n* **Entry Zone:** $110.50 - $116.06\n* **Target Price:** $121.48\n* **Stop Loss:** $111.48\n",
+      "fr": "## Analyse Institutionnelle: AFL (Aflac Incorporated)\n\n### 1. Contexte Business\nAflac Incorporated opère dans le secteur Financials. BOGA AI détecte un intérêt institutionnel proche de $115.48.\n\n### 2. Performance\n* **Master Score:** 54.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $115.48 | Actuel |\n| EMA20 | $111.97 | Support |\n| ADX | 17.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $111.48.\n\n### 5. Exécution\n* **Entry Zone:** $110.50 - $116.06\n* **Target Price:** $121.48\n* **Stop Loss:** $111.48\n",
+      "id": "## Analisis Institusional: AFL (Aflac Incorporated)\n\n### 1. Konteks Bisnis\nAflac Incorporated beroperasi di sektor Financials. BOGA AI mendeteksi minat institusional di dekat $115.48.\n\n### 2. Performa\n* **Master Score:** 54.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $115.48 | Saat Ini |\n| EMA20 | $111.97 | Dukungan |\n| ADX | 17.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $111.48.\n\n### 5. Eksekusi\n* **Entry Zone:** $110.50 - $116.06\n* **Target Price:** $121.48\n* **Stop Loss:** $111.48\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+0.71%",
+    "key_metrics": {
+      "RSI": 67.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

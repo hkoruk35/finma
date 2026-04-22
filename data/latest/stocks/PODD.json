@@ -1,0 +1,178 @@
+{
+  "ticker": "PODD",
+  "company": "Insulet Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.898126-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 193.82,
+    "open": 200.87,
+    "high": 201.49,
+    "low": 193.05,
+    "prev_close": 200.87,
+    "change_pct": -3.51,
+    "change_pct_1w": -3.81,
+    "change_pct_1m": -14.65,
+    "change_pct_1y": -21.47,
+    "volume": 283494,
+    "avg_volume_30d": 881116
+  },
+  "scores": {
+    "master_score": 21.75,
+    "technical_score": 10.5,
+    "fundamental_score": 8.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 0.0,
+    "signal_score": 21.75,
+    "confidence": 0.22,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 27.9,
+    "macd": -8.4893,
+    "macd_signal": -9.3141,
+    "macd_histogram": 0.8248,
+    "macd_crossover": "neutral",
+    "ema_20": 206.81,
+    "ema_50": 225.2,
+    "ema_200": 266.45,
+    "ema_stack_bullish": false,
+    "bb_upper": 220.01,
+    "bb_middle": 205.23,
+    "bb_lower": 190.44,
+    "bb_width": 0.1441,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 40.9,
+    "atr": 6.64,
+    "atr_pct": 0.0343,
+    "obv_trend": "UP",
+    "mfi": 28.0,
+    "cmf": -0.295,
+    "stoch_k": 3.9,
+    "stoch_d": 29.3,
+    "rvol": 0.75,
+    "volume_5d_avg": 656598,
+    "green_days_10d": 5,
+    "52w_high": 352.82,
+    "52w_low": 193.82,
+    "52w_high_proximity_pct": 0.4507,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 55.695404,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 9.003996,
+    "de_ratio": 66.176,
+    "fcf_yield": 0.0114,
+    "eps_growth_5y": 0.039,
+    "revenue_growth_ttm": 0.312,
+    "gross_margin": 0.71633005,
+    "operating_margin": 0.18665001,
+    "net_margin": 0.091239996,
+    "market_cap": 13644124160,
+    "enterprise_value": 14427014144,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0031299999,
+    "institutional_ownership_pct": 1.0557,
+    "short_ratio": 3.13,
+    "beta": 1.47
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 192.85,
+    "entry_range_high": 194.79,
+    "target_range_low": 209.47,
+    "target_range_high": 224.43,
+    "stop_range_low": 171.51,
+    "stop_range_high": 180.54,
+    "target_price": 213.74,
+    "stop_loss": 180.54,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.898100-04:00",
+    "categories": [
+      "top_scores",
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 242.27,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 193.82,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2777,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns PODD a score of 21.8/100. Trend: Neutral. RSI: 27.9.",
+      "tr": "BOGA AI assigns PODD a score of 21.8/100. Trend: Neutral. RSI: 27.9.",
+      "es": "BOGA AI assigns PODD a score of 21.8/100. Trend: Neutral. RSI: 27.9.",
+      "pt": "BOGA AI assigns PODD a score of 21.8/100. Trend: Neutral. RSI: 27.9.",
+      "fr": "BOGA AI assigns PODD a score of 21.8/100. Trend: Neutral. RSI: 27.9.",
+      "id": "BOGA AI assigns PODD a score of 21.8/100. Trend: Neutral. RSI: 27.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: PODD (Insulet Corporation)\n\n### 1. Business Context\nInsulet Corporation operates in the Healthcare sector. BOGA AI detect institutional interest near $193.82.\n\n### 2. Performance\n* **Master Score:** 21.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 27.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $193.82 | Current |\n| EMA20 | $206.81 | Support |\n| ADX | 40.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $180.54.\n\n### 5. Execution\n* **Entry Zone:** $192.85 - $194.79\n* **Target Price:** $213.74\n* **Stop Loss:** $180.54\n",
+      "tr": "## Kurumsal Analiz: PODD (Insulet Corporation)\n\n### 1. İş Bağlamı\nInsulet Corporation, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $193.82 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 21.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 27.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $193.82 | Güncel |\n| EMA20 | $206.81 | Destek |\n| ADX | 40.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $180.54.\n\n### 5. Uygulama\n* **Entry Zone:** $192.85 - $194.79\n* **Target Price:** $213.74\n* **Stop Loss:** $180.54\n",
+      "es": "## Análisis Institucional: PODD (Insulet Corporation)\n\n### 1. Contexto\nInsulet Corporation opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $193.82.\n\n### 2. Desempeño\n* **Master Score:** 21.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 27.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $193.82 | Actual |\n| EMA20 | $206.81 | Soporte |\n| ADX | 40.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $180.54.\n\n### 5. Ejecución\n* **Entry Zone:** $192.85 - $194.79\n* **Target Price:** $213.74\n* **Stop Loss:** $180.54\n",
+      "pt": "## Análise Institucional: PODD (Insulet Corporation)\n\n### 1. Contexto\nInsulet Corporation opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $193.82.\n\n### 2. Desempenho\n* **Master Score:** 21.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 27.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $193.82 | Atual |\n| EMA20 | $206.81 | Suporte |\n| ADX | 40.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $180.54.\n\n### 5. Execução\n* **Entry Zone:** $192.85 - $194.79\n* **Target Price:** $213.74\n* **Stop Loss:** $180.54\n",
+      "fr": "## Analyse Institutionnelle: PODD (Insulet Corporation)\n\n### 1. Contexte Business\nInsulet Corporation opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $193.82.\n\n### 2. Performance\n* **Master Score:** 21.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 27.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $193.82 | Actuel |\n| EMA20 | $206.81 | Support |\n| ADX | 40.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $180.54.\n\n### 5. Exécution\n* **Entry Zone:** $192.85 - $194.79\n* **Target Price:** $213.74\n* **Stop Loss:** $180.54\n",
+      "id": "## Analisis Institusional: PODD (Insulet Corporation)\n\n### 1. Konteks Bisnis\nInsulet Corporation beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $193.82.\n\n### 2. Performa\n* **Master Score:** 21.8/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 27.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $193.82 | Saat Ini |\n| EMA20 | $206.81 | Dukungan |\n| ADX | 40.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $180.54.\n\n### 5. Eksekusi\n* **Entry Zone:** $192.85 - $194.79\n* **Target Price:** $213.74\n* **Stop Loss:** $180.54\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 22,
+    "price_change_display": "-3.51%",
+    "key_metrics": {
+      "RSI": 27.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

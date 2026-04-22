@@ -1,0 +1,178 @@
+{
+  "ticker": "CHTR",
+  "company": "Charter Communications, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.295266-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 245.91,
+    "open": 243.93,
+    "high": 248.66,
+    "low": 243.93,
+    "prev_close": 244.69,
+    "change_pct": 0.5,
+    "change_pct_1w": 14.07,
+    "change_pct_1m": 15.45,
+    "change_pct_1y": -27.45,
+    "volume": 726986,
+    "avg_volume_30d": 1680142
+  },
+  "scores": {
+    "master_score": 44.22,
+    "technical_score": 13.5,
+    "fundamental_score": 78.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 50.0,
+    "sector_score": 29.9,
+    "breakout_score": 15.0,
+    "value_score": 70.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 44.22,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 67.2,
+    "macd": 4.7782,
+    "macd_signal": 1.7663,
+    "macd_histogram": 3.0118,
+    "macd_crossover": "neutral",
+    "ema_20": 227.17,
+    "ema_50": 223.15,
+    "ema_200": 248.7,
+    "ema_stack_bullish": false,
+    "bb_upper": 242.01,
+    "bb_middle": 223.99,
+    "bb_lower": 205.97,
+    "bb_width": 0.1609,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.5,
+    "atr": 9.01,
+    "atr_pct": 0.0367,
+    "obv_trend": "UP",
+    "mfi": 69.4,
+    "cmf": 0.059,
+    "stoch_k": 91.6,
+    "stoch_d": 88.5,
+    "rvol": 1.05,
+    "volume_5d_avg": 1756117,
+    "green_days_10d": 7,
+    "52w_high": 427.25,
+    "52w_low": 182.81,
+    "52w_high_proximity_pct": 0.4244,
+    "52w_low_proximity_pct": 0.3452
+  },
+  "fundamental": {
+    "pe_ratio": 6.7912183,
+    "sector_pe_median": 25.1250565,
+    "pb_ratio": 1.9397051,
+    "de_ratio": 482.329,
+    "fcf_yield": 0.0878,
+    "eps_growth_5y": 0.024,
+    "revenue_growth_ttm": -0.023,
+    "gross_margin": 0.55309,
+    "operating_margin": 0.24741,
+    "net_margin": 0.09105,
+    "market_cap": 31139964928,
+    "enterprise_value": 133942476800,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.31763,
+    "institutional_ownership_pct": 0.73067003,
+    "short_ratio": 10.6,
+    "beta": 1.026
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 222.03,
+    "entry_range_high": 247.14,
+    "target_range_low": 267.48,
+    "target_range_high": 286.59,
+    "stop_range_low": 216.5,
+    "stop_range_high": 227.89,
+    "target_price": 272.94,
+    "stop_loss": 227.89,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.294986-04:00",
+    "categories": [
+      "top_scores",
+      "value"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 307.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 70.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 182.81,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 737,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
+      "tr": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
+      "es": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
+      "pt": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
+      "fr": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2.",
+      "id": "BOGA AI assigns CHTR a score of 44.2/100. Trend: Neutral. RSI: 67.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: CHTR (Charter Communications, Inc.)\n\n### 1. Business Context\nCharter Communications, Inc. operates in the Communication Services sector. BOGA AI detect institutional interest near $245.91.\n\n### 2. Performance\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $245.91 | Current |\n| EMA20 | $227.17 | Support |\n| ADX | 15.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $227.89.\n\n### 5. Execution\n* **Entry Zone:** $222.03 - $247.14\n* **Target Price:** $272.94\n* **Stop Loss:** $227.89\n",
+      "tr": "## Kurumsal Analiz: CHTR (Charter Communications, Inc.)\n\n### 1. İş Bağlamı\nCharter Communications, Inc., Communication Services sektöründe faaliyet göstermektedir. BOGA AI, $245.91 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $245.91 | Güncel |\n| EMA20 | $227.17 | Destek |\n| ADX | 15.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $227.89.\n\n### 5. Uygulama\n* **Entry Zone:** $222.03 - $247.14\n* **Target Price:** $272.94\n* **Stop Loss:** $227.89\n",
+      "es": "## Análisis Institucional: CHTR (Charter Communications, Inc.)\n\n### 1. Contexto\nCharter Communications, Inc. opera en el sector Communication Services. BOGA AI detecta interés institucional cerca de $245.91.\n\n### 2. Desempeño\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $245.91 | Actual |\n| EMA20 | $227.17 | Soporte |\n| ADX | 15.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $227.89.\n\n### 5. Ejecución\n* **Entry Zone:** $222.03 - $247.14\n* **Target Price:** $272.94\n* **Stop Loss:** $227.89\n",
+      "pt": "## Análise Institucional: CHTR (Charter Communications, Inc.)\n\n### 1. Contexto\nCharter Communications, Inc. opera no setor Communication Services. BOGA AI detecta interesse institucional perto de $245.91.\n\n### 2. Desempenho\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $245.91 | Atual |\n| EMA20 | $227.17 | Suporte |\n| ADX | 15.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $227.89.\n\n### 5. Execução\n* **Entry Zone:** $222.03 - $247.14\n* **Target Price:** $272.94\n* **Stop Loss:** $227.89\n",
+      "fr": "## Analyse Institutionnelle: CHTR (Charter Communications, Inc.)\n\n### 1. Contexte Business\nCharter Communications, Inc. opère dans le secteur Communication Services. BOGA AI détecte un intérêt institutionnel proche de $245.91.\n\n### 2. Performance\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $245.91 | Actuel |\n| EMA20 | $227.17 | Support |\n| ADX | 15.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $227.89.\n\n### 5. Exécution\n* **Entry Zone:** $222.03 - $247.14\n* **Target Price:** $272.94\n* **Stop Loss:** $227.89\n",
+      "id": "## Analisis Institusional: CHTR (Charter Communications, Inc.)\n\n### 1. Konteks Bisnis\nCharter Communications, Inc. beroperasi di sektor Communication Services. BOGA AI mendeteksi minat institusional di dekat $245.91.\n\n### 2. Performa\n* **Master Score:** 44.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $245.91 | Saat Ini |\n| EMA20 | $227.17 | Dukungan |\n| ADX | 15.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $227.89.\n\n### 5. Eksekusi\n* **Entry Zone:** $222.03 - $247.14\n* **Target Price:** $272.94\n* **Stop Loss:** $227.89\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "+0.50%",
+    "key_metrics": {
+      "RSI": 67.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

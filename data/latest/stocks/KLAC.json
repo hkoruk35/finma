@@ -1,0 +1,177 @@
+{
+  "ticker": "KLAC",
+  "company": "KLA Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.836937-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 1791.77,
+    "open": 1811.58,
+    "high": 1823.27,
+    "low": 1782.05,
+    "prev_close": 1805.32,
+    "change_pct": -0.75,
+    "change_pct_1w": -0.23,
+    "change_pct_1m": 19.56,
+    "change_pct_1y": 184.56,
+    "volume": 324937,
+    "avg_volume_30d": 911827
+  },
+  "scores": {
+    "master_score": 49.42,
+    "technical_score": 52.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.42,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 67.7,
+    "macd": 85.1733,
+    "macd_signal": 68.8451,
+    "macd_histogram": 16.3283,
+    "macd_crossover": "neutral",
+    "ema_20": 1664.32,
+    "ema_50": 1556.63,
+    "ema_200": 1269.59,
+    "ema_stack_bullish": true,
+    "bb_upper": 1904.1,
+    "bb_middle": 1627.9,
+    "bb_lower": 1351.7,
+    "bb_width": 0.3393,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.2,
+    "atr": 62.92,
+    "atr_pct": 0.0351,
+    "obv_trend": "UP",
+    "mfi": 74.9,
+    "cmf": 0.308,
+    "stoch_k": 91.5,
+    "stoch_d": 96.5,
+    "rvol": 0.8,
+    "volume_5d_avg": 733927,
+    "green_days_10d": 7,
+    "52w_high": 1805.32,
+    "52w_low": 616.13,
+    "52w_high_proximity_pct": 0.0075,
+    "52w_low_proximity_pct": 1.9081
+  },
+  "fundamental": {
+    "pe_ratio": 52.238194,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 42.990784,
+    "de_ratio": 111.778,
+    "fcf_yield": 0.0137,
+    "eps_growth_5y": 0.409,
+    "revenue_growth_ttm": 0.072,
+    "gross_margin": 0.61574,
+    "operating_margin": 0.41313,
+    "net_margin": 0.35764,
+    "market_cap": 235424841728,
+    "enterprise_value": 237537247232,
+    "dividend_yield": 0.42,
+    "payout_ratio": 0.21540001,
+    "insider_ownership_pct": 0.00102,
+    "institutional_ownership_pct": 0.94364,
+    "short_ratio": 3.19,
+    "beta": 1.435
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 1548.85,
+    "entry_range_high": 1800.73,
+    "target_range_low": 1940.92,
+    "target_range_high": 2079.56,
+    "stop_range_low": 1582.63,
+    "stop_range_high": 1665.93,
+    "target_price": 1980.53,
+    "stop_loss": 1665.93,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.836892-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 2239.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 42.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 616.13,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-02-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns KLAC a score of 49.4/100. Trend: Neutral. RSI: 67.7.",
+      "tr": "BOGA AI assigns KLAC a score of 49.4/100. Trend: Neutral. RSI: 67.7.",
+      "es": "BOGA AI assigns KLAC a score of 49.4/100. Trend: Neutral. RSI: 67.7.",
+      "pt": "BOGA AI assigns KLAC a score of 49.4/100. Trend: Neutral. RSI: 67.7.",
+      "fr": "BOGA AI assigns KLAC a score of 49.4/100. Trend: Neutral. RSI: 67.7.",
+      "id": "BOGA AI assigns KLAC a score of 49.4/100. Trend: Neutral. RSI: 67.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: KLAC (KLA Corporation)\n\n### 1. Business Context\nKLA Corporation operates in the Technology sector. BOGA AI detect institutional interest near $1791.77.\n\n### 2. Performance\n* **Master Score:** 49.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1791.77 | Current |\n| EMA20 | $1664.32 | Support |\n| ADX | 16.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $1665.93.\n\n### 5. Execution\n* **Entry Zone:** $1548.85 - $1800.73\n* **Target Price:** $1980.53\n* **Stop Loss:** $1665.93\n",
+      "tr": "## Kurumsal Analiz: KLAC (KLA Corporation)\n\n### 1. İş Bağlamı\nKLA Corporation, Technology sektöründe faaliyet göstermektedir. BOGA AI, $1791.77 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 49.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $1791.77 | Güncel |\n| EMA20 | $1664.32 | Destek |\n| ADX | 16.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $1665.93.\n\n### 5. Uygulama\n* **Entry Zone:** $1548.85 - $1800.73\n* **Target Price:** $1980.53\n* **Stop Loss:** $1665.93\n",
+      "es": "## Análisis Institucional: KLAC (KLA Corporation)\n\n### 1. Contexto\nKLA Corporation opera en el sector Technology. BOGA AI detecta interés institucional cerca de $1791.77.\n\n### 2. Desempeño\n* **Master Score:** 49.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $1791.77 | Actual |\n| EMA20 | $1664.32 | Soporte |\n| ADX | 16.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $1665.93.\n\n### 5. Ejecución\n* **Entry Zone:** $1548.85 - $1800.73\n* **Target Price:** $1980.53\n* **Stop Loss:** $1665.93\n",
+      "pt": "## Análise Institucional: KLAC (KLA Corporation)\n\n### 1. Contexto\nKLA Corporation opera no setor Technology. BOGA AI detecta interesse institucional perto de $1791.77.\n\n### 2. Desempenho\n* **Master Score:** 49.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $1791.77 | Atual |\n| EMA20 | $1664.32 | Suporte |\n| ADX | 16.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $1665.93.\n\n### 5. Execução\n* **Entry Zone:** $1548.85 - $1800.73\n* **Target Price:** $1980.53\n* **Stop Loss:** $1665.93\n",
+      "fr": "## Analyse Institutionnelle: KLAC (KLA Corporation)\n\n### 1. Contexte Business\nKLA Corporation opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $1791.77.\n\n### 2. Performance\n* **Master Score:** 49.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1791.77 | Actuel |\n| EMA20 | $1664.32 | Support |\n| ADX | 16.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $1665.93.\n\n### 5. Exécution\n* **Entry Zone:** $1548.85 - $1800.73\n* **Target Price:** $1980.53\n* **Stop Loss:** $1665.93\n",
+      "id": "## Analisis Institusional: KLAC (KLA Corporation)\n\n### 1. Konteks Bisnis\nKLA Corporation beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $1791.77.\n\n### 2. Performa\n* **Master Score:** 49.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 67.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $1791.77 | Saat Ini |\n| EMA20 | $1664.32 | Dukungan |\n| ADX | 16.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $1665.93.\n\n### 5. Eksekusi\n* **Entry Zone:** $1548.85 - $1800.73\n* **Target Price:** $1980.53\n* **Stop Loss:** $1665.93\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-0.75%",
+    "key_metrics": {
+      "RSI": 67.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

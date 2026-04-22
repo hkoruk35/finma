@@ -1,0 +1,177 @@
+{
+  "ticker": "TRGP",
+  "company": "Targa Resources Corp.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.471529-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 231.51,
+    "open": 233.66,
+    "high": 234.34,
+    "low": 230.4,
+    "prev_close": 231.51,
+    "change_pct": 0.0,
+    "change_pct_1w": -3.25,
+    "change_pct_1m": -2.48,
+    "change_pct_1y": 35.73,
+    "volume": 288561,
+    "avg_volume_30d": 1399862
+  },
+  "scores": {
+    "master_score": 30.11,
+    "technical_score": 26.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.6,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 30.11,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.9,
+    "macd": -0.5095,
+    "macd_signal": 1.8475,
+    "macd_histogram": -2.357,
+    "macd_crossover": "neutral",
+    "ema_20": 239.57,
+    "ema_50": 232.14,
+    "ema_200": 198.82,
+    "ema_stack_bullish": false,
+    "bb_upper": 254.74,
+    "bb_middle": 243.28,
+    "bb_lower": 231.82,
+    "bb_width": 0.0942,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.4,
+    "atr": 6.72,
+    "atr_pct": 0.029,
+    "obv_trend": "DOWN",
+    "mfi": 31.3,
+    "cmf": 0.166,
+    "stoch_k": 4.8,
+    "stoch_d": 9.7,
+    "rvol": 0.79,
+    "volume_5d_avg": 1112272,
+    "green_days_10d": 3,
+    "52w_high": 250.98,
+    "52w_low": 144.61,
+    "52w_high_proximity_pct": 0.0776,
+    "52w_low_proximity_pct": 0.6009
+  },
+  "fundamental": {
+    "pe_ratio": 27.236765,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 16.198748,
+    "de_ratio": 548.63,
+    "fcf_yield": -0.0053,
+    "eps_growth_5y": 0.745,
+    "revenue_growth_ttm": -0.079,
+    "gross_margin": 0.38292,
+    "operating_margin": 0.22621,
+    "net_margin": 0.11293,
+    "market_cap": 49764024320,
+    "enterprise_value": 67273990144,
+    "dividend_yield": 1.84,
+    "payout_ratio": 0.44169998,
+    "insider_ownership_pct": 0.01393,
+    "institutional_ownership_pct": 0.95936996,
+    "short_ratio": 2.78,
+    "beta": 0.811
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 230.35,
+    "entry_range_high": 232.67,
+    "target_range_low": 246.64,
+    "target_range_high": 264.25,
+    "stop_range_low": 207.17,
+    "stop_range_high": 218.07,
+    "target_price": 251.67,
+    "stop_loss": 218.07,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.471484-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 289.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 184.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 144.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 7,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 24589,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TRGP a score of 30.1/100. Trend: Neutral. RSI: 38.9.",
+      "tr": "BOGA AI assigns TRGP a score of 30.1/100. Trend: Neutral. RSI: 38.9.",
+      "es": "BOGA AI assigns TRGP a score of 30.1/100. Trend: Neutral. RSI: 38.9.",
+      "pt": "BOGA AI assigns TRGP a score of 30.1/100. Trend: Neutral. RSI: 38.9.",
+      "fr": "BOGA AI assigns TRGP a score of 30.1/100. Trend: Neutral. RSI: 38.9.",
+      "id": "BOGA AI assigns TRGP a score of 30.1/100. Trend: Neutral. RSI: 38.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TRGP (Targa Resources Corp.)\n\n### 1. Business Context\nTarga Resources Corp. operates in the Energy sector. BOGA AI detect institutional interest near $231.51.\n\n### 2. Performance\n* **Master Score:** 30.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $231.51 | Current |\n| EMA20 | $239.57 | Support |\n| ADX | 21.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $218.07.\n\n### 5. Execution\n* **Entry Zone:** $230.35 - $232.67\n* **Target Price:** $251.67\n* **Stop Loss:** $218.07\n",
+      "tr": "## Kurumsal Analiz: TRGP (Targa Resources Corp.)\n\n### 1. İş Bağlamı\nTarga Resources Corp., Energy sektöründe faaliyet göstermektedir. BOGA AI, $231.51 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 30.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $231.51 | Güncel |\n| EMA20 | $239.57 | Destek |\n| ADX | 21.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $218.07.\n\n### 5. Uygulama\n* **Entry Zone:** $230.35 - $232.67\n* **Target Price:** $251.67\n* **Stop Loss:** $218.07\n",
+      "es": "## Análisis Institucional: TRGP (Targa Resources Corp.)\n\n### 1. Contexto\nTarga Resources Corp. opera en el sector Energy. BOGA AI detecta interés institucional cerca de $231.51.\n\n### 2. Desempeño\n* **Master Score:** 30.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $231.51 | Actual |\n| EMA20 | $239.57 | Soporte |\n| ADX | 21.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $218.07.\n\n### 5. Ejecución\n* **Entry Zone:** $230.35 - $232.67\n* **Target Price:** $251.67\n* **Stop Loss:** $218.07\n",
+      "pt": "## Análise Institucional: TRGP (Targa Resources Corp.)\n\n### 1. Contexto\nTarga Resources Corp. opera no setor Energy. BOGA AI detecta interesse institucional perto de $231.51.\n\n### 2. Desempenho\n* **Master Score:** 30.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $231.51 | Atual |\n| EMA20 | $239.57 | Suporte |\n| ADX | 21.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $218.07.\n\n### 5. Execução\n* **Entry Zone:** $230.35 - $232.67\n* **Target Price:** $251.67\n* **Stop Loss:** $218.07\n",
+      "fr": "## Analyse Institutionnelle: TRGP (Targa Resources Corp.)\n\n### 1. Contexte Business\nTarga Resources Corp. opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $231.51.\n\n### 2. Performance\n* **Master Score:** 30.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $231.51 | Actuel |\n| EMA20 | $239.57 | Support |\n| ADX | 21.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $218.07.\n\n### 5. Exécution\n* **Entry Zone:** $230.35 - $232.67\n* **Target Price:** $251.67\n* **Stop Loss:** $218.07\n",
+      "id": "## Analisis Institusional: TRGP (Targa Resources Corp.)\n\n### 1. Konteks Bisnis\nTarga Resources Corp. beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $231.51.\n\n### 2. Performa\n* **Master Score:** 30.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $231.51 | Saat Ini |\n| EMA20 | $239.57 | Dukungan |\n| ADX | 21.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $218.07.\n\n### 5. Eksekusi\n* **Entry Zone:** $230.35 - $232.67\n* **Target Price:** $251.67\n* **Stop Loss:** $218.07\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+0.00%",
+    "key_metrics": {
+      "RSI": 38.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

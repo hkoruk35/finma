@@ -1,0 +1,178 @@
+{
+  "ticker": "ARM",
+  "company": "Arm Holdings plc",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.953096-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 174.93,
+    "open": 174.99,
+    "high": 179.4,
+    "low": 173.3,
+    "prev_close": 175.1,
+    "change_pct": -0.09,
+    "change_pct_1w": 8.51,
+    "change_pct_1m": 32.18,
+    "change_pct_1y": 73.67,
+    "volume": 4341745,
+    "avg_volume_30d": 7352408
+  },
+  "scores": {
+    "master_score": 48.47,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 48.47,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 72.2,
+    "macd": 10.2081,
+    "macd_signal": 8.4062,
+    "macd_histogram": 1.8019,
+    "macd_crossover": "neutral",
+    "ema_20": 154.32,
+    "ema_50": 141.22,
+    "ema_200": 133.84,
+    "ema_stack_bullish": true,
+    "bb_upper": 175.02,
+    "bb_middle": 154.04,
+    "bb_lower": 133.06,
+    "bb_width": 0.2724,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.9,
+    "atr": 8.46,
+    "atr_pct": 0.0483,
+    "obv_trend": "UP",
+    "mfi": 73.1,
+    "cmf": -0.047,
+    "stoch_k": 89.3,
+    "stoch_d": 94.6,
+    "rvol": 0.74,
+    "volume_5d_avg": 5465089,
+    "green_days_10d": 7,
+    "52w_high": 178.62,
+    "52w_low": 96.83,
+    "52w_high_proximity_pct": 0.0206,
+    "52w_low_proximity_pct": 0.8066
+  },
+  "fundamental": {
+    "pe_ratio": 233.30333,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 23.829157,
+    "de_ratio": 5.912,
+    "fcf_yield": 0.0044,
+    "eps_growth_5y": -0.123,
+    "revenue_growth_ttm": 0.263,
+    "gross_margin": 0.97495,
+    "operating_margin": 0.15378,
+    "net_margin": 0.17148,
+    "market_cap": 185825853440,
+    "enterprise_value": 182875193344,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00045000002,
+    "institutional_ownership_pct": 0.95075995,
+    "short_ratio": 2.14,
+    "beta": 3.338
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 140.51,
+    "entry_range_high": 175.8,
+    "target_range_low": 196.3,
+    "target_range_high": 210.33,
+    "stop_range_low": 150.11,
+    "stop_range_high": 158.01,
+    "target_price": 200.31,
+    "stop_loss": 158.01,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.952986-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 218.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 96.83,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9299,
+      "date": "2026-04-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
+      "tr": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
+      "es": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
+      "pt": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
+      "fr": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2.",
+      "id": "BOGA AI assigns ARM a score of 48.5/100. Trend: Neutral. RSI: 72.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: ARM (Arm Holdings plc)\n\n### 1. Business Context\nArm Holdings plc operates in the Technology sector. BOGA AI detect institutional interest near $174.93.\n\n### 2. Performance\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 72.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $174.93 | Current |\n| EMA20 | $154.32 | Support |\n| ADX | 26.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $158.01.\n\n### 5. Execution\n* **Entry Zone:** $140.51 - $175.80\n* **Target Price:** $200.31\n* **Stop Loss:** $158.01\n",
+      "tr": "## Kurumsal Analiz: ARM (Arm Holdings plc)\n\n### 1. İş Bağlamı\nArm Holdings plc, Technology sektöründe faaliyet göstermektedir. BOGA AI, $174.93 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 72.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $174.93 | Güncel |\n| EMA20 | $154.32 | Destek |\n| ADX | 26.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $158.01.\n\n### 5. Uygulama\n* **Entry Zone:** $140.51 - $175.80\n* **Target Price:** $200.31\n* **Stop Loss:** $158.01\n",
+      "es": "## Análisis Institucional: ARM (Arm Holdings plc)\n\n### 1. Contexto\nArm Holdings plc opera en el sector Technology. BOGA AI detecta interés institucional cerca de $174.93.\n\n### 2. Desempeño\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 72.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $174.93 | Actual |\n| EMA20 | $154.32 | Soporte |\n| ADX | 26.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $158.01.\n\n### 5. Ejecución\n* **Entry Zone:** $140.51 - $175.80\n* **Target Price:** $200.31\n* **Stop Loss:** $158.01\n",
+      "pt": "## Análise Institucional: ARM (Arm Holdings plc)\n\n### 1. Contexto\nArm Holdings plc opera no setor Technology. BOGA AI detecta interesse institucional perto de $174.93.\n\n### 2. Desempenho\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 72.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $174.93 | Atual |\n| EMA20 | $154.32 | Suporte |\n| ADX | 26.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $158.01.\n\n### 5. Execução\n* **Entry Zone:** $140.51 - $175.80\n* **Target Price:** $200.31\n* **Stop Loss:** $158.01\n",
+      "fr": "## Analyse Institutionnelle: ARM (Arm Holdings plc)\n\n### 1. Contexte Business\nArm Holdings plc opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $174.93.\n\n### 2. Performance\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 72.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $174.93 | Actuel |\n| EMA20 | $154.32 | Support |\n| ADX | 26.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $158.01.\n\n### 5. Exécution\n* **Entry Zone:** $140.51 - $175.80\n* **Target Price:** $200.31\n* **Stop Loss:** $158.01\n",
+      "id": "## Analisis Institusional: ARM (Arm Holdings plc)\n\n### 1. Konteks Bisnis\nArm Holdings plc beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $174.93.\n\n### 2. Performa\n* **Master Score:** 48.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 72.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $174.93 | Saat Ini |\n| EMA20 | $154.32 | Dukungan |\n| ADX | 26.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $158.01.\n\n### 5. Eksekusi\n* **Entry Zone:** $140.51 - $175.80\n* **Target Price:** $200.31\n* **Stop Loss:** $158.01\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-0.09%",
+    "key_metrics": {
+      "RSI": 72.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "CRH",
+  "company": "CRH plc",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.631718-04:00",
+  "sector": "Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 117.29,
+    "open": 118.79,
+    "high": 119.67,
+    "low": 116.98,
+    "prev_close": 118.56,
+    "change_pct": -1.07,
+    "change_pct_1w": -0.1,
+    "change_pct_1m": 16.74,
+    "change_pct_1y": 39.42,
+    "volume": 1025280,
+    "avg_volume_30d": 5205776
+  },
+  "scores": {
+    "master_score": 44.0,
+    "technical_score": 40.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.0,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 44.0,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 60.5,
+    "macd": 2.3184,
+    "macd_signal": 1.1396,
+    "macd_histogram": 1.1788,
+    "macd_crossover": "neutral",
+    "ema_20": 112.78,
+    "ema_50": 112.98,
+    "ema_200": 112.08,
+    "ema_stack_bullish": false,
+    "bb_upper": 122.86,
+    "bb_middle": 110.65,
+    "bb_lower": 98.44,
+    "bb_width": 0.2207,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.9,
+    "atr": 3.49,
+    "atr_pct": 0.0298,
+    "obv_trend": "UP",
+    "mfi": 55.4,
+    "cmf": -0.007,
+    "stoch_k": 81.3,
+    "stoch_d": 84.3,
+    "rvol": 0.63,
+    "volume_5d_avg": 3275416,
+    "green_days_10d": 6,
+    "52w_high": 130.92,
+    "52w_low": 82.1,
+    "52w_high_proximity_pct": 0.1041,
+    "52w_low_proximity_pct": 0.4286
+  },
+  "fundamental": {
+    "pe_ratio": 21.28675,
+    "sector_pe_median": 23.229378,
+    "pb_ratio": 3.2672222,
+    "de_ratio": 77.341,
+    "fcf_yield": 0.0234,
+    "eps_growth_5y": 0.484,
+    "revenue_growth_ttm": 0.062,
+    "gross_margin": 0.36126,
+    "operating_margin": 0.15059,
+    "net_margin": 0.10022,
+    "market_cap": 78373224448,
+    "enterprise_value": 96311820288,
+    "dividend_yield": 1.27,
+    "payout_ratio": 0.26860002,
+    "insider_ownership_pct": 0.00139,
+    "institutional_ownership_pct": 0.90112996,
+    "short_ratio": 2.09,
+    "beta": 1.241
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 112.42,
+    "entry_range_high": 117.88,
+    "target_range_low": 125.2,
+    "target_range_high": 134.15,
+    "stop_range_low": 104.79,
+    "stop_range_high": 110.31,
+    "target_price": 127.76,
+    "stop_loss": 110.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.631649-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 146.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 127.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 82.1,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 2000,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CRH a score of 44.0/100. Trend: Neutral. RSI: 60.5.",
+      "tr": "BOGA AI assigns CRH a score of 44.0/100. Trend: Neutral. RSI: 60.5.",
+      "es": "BOGA AI assigns CRH a score of 44.0/100. Trend: Neutral. RSI: 60.5.",
+      "pt": "BOGA AI assigns CRH a score of 44.0/100. Trend: Neutral. RSI: 60.5.",
+      "fr": "BOGA AI assigns CRH a score of 44.0/100. Trend: Neutral. RSI: 60.5.",
+      "id": "BOGA AI assigns CRH a score of 44.0/100. Trend: Neutral. RSI: 60.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: CRH (CRH plc)\n\n### 1. Business Context\nCRH plc operates in the Materials sector. BOGA AI detect institutional interest near $117.29.\n\n### 2. Performance\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $117.29 | Current |\n| EMA20 | $112.78 | Support |\n| ADX | 22.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $110.31.\n\n### 5. Execution\n* **Entry Zone:** $112.42 - $117.88\n* **Target Price:** $127.76\n* **Stop Loss:** $110.31\n",
+      "tr": "## Kurumsal Analiz: CRH (CRH plc)\n\n### 1. İş Bağlamı\nCRH plc, Materials sektöründe faaliyet göstermektedir. BOGA AI, $117.29 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $117.29 | Güncel |\n| EMA20 | $112.78 | Destek |\n| ADX | 22.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $110.31.\n\n### 5. Uygulama\n* **Entry Zone:** $112.42 - $117.88\n* **Target Price:** $127.76\n* **Stop Loss:** $110.31\n",
+      "es": "## Análisis Institucional: CRH (CRH plc)\n\n### 1. Contexto\nCRH plc opera en el sector Materials. BOGA AI detecta interés institucional cerca de $117.29.\n\n### 2. Desempeño\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $117.29 | Actual |\n| EMA20 | $112.78 | Soporte |\n| ADX | 22.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $110.31.\n\n### 5. Ejecución\n* **Entry Zone:** $112.42 - $117.88\n* **Target Price:** $127.76\n* **Stop Loss:** $110.31\n",
+      "pt": "## Análise Institucional: CRH (CRH plc)\n\n### 1. Contexto\nCRH plc opera no setor Materials. BOGA AI detecta interesse institucional perto de $117.29.\n\n### 2. Desempenho\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $117.29 | Atual |\n| EMA20 | $112.78 | Suporte |\n| ADX | 22.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $110.31.\n\n### 5. Execução\n* **Entry Zone:** $112.42 - $117.88\n* **Target Price:** $127.76\n* **Stop Loss:** $110.31\n",
+      "fr": "## Analyse Institutionnelle: CRH (CRH plc)\n\n### 1. Contexte Business\nCRH plc opère dans le secteur Materials. BOGA AI détecte un intérêt institutionnel proche de $117.29.\n\n### 2. Performance\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $117.29 | Actuel |\n| EMA20 | $112.78 | Support |\n| ADX | 22.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $110.31.\n\n### 5. Exécution\n* **Entry Zone:** $112.42 - $117.88\n* **Target Price:** $127.76\n* **Stop Loss:** $110.31\n",
+      "id": "## Analisis Institusional: CRH (CRH plc)\n\n### 1. Konteks Bisnis\nCRH plc beroperasi di sektor Materials. BOGA AI mendeteksi minat institusional di dekat $117.29.\n\n### 2. Performa\n* **Master Score:** 44.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 60.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $117.29 | Saat Ini |\n| EMA20 | $112.78 | Dukungan |\n| ADX | 22.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $110.31.\n\n### 5. Eksekusi\n* **Entry Zone:** $112.42 - $117.88\n* **Target Price:** $127.76\n* **Stop Loss:** $110.31\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "-1.07%",
+    "key_metrics": {
+      "RSI": 60.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

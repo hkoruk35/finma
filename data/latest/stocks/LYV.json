@@ -1,0 +1,177 @@
+{
+  "ticker": "LYV",
+  "company": "Live Nation Entertainment, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.647870-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Entertainment",
+  "price": {
+    "current": 154.82,
+    "open": 156.34,
+    "high": 158.06,
+    "low": 154.44,
+    "prev_close": 156.09,
+    "change_pct": -0.81,
+    "change_pct_1w": -6.89,
+    "change_pct_1m": 4.01,
+    "change_pct_1y": 21.7,
+    "volume": 809435,
+    "avg_volume_30d": 2934351
+  },
+  "scores": {
+    "master_score": 30.23,
+    "technical_score": 30.0,
+    "fundamental_score": 22.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 30.23,
+    "confidence": 0.3,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 47.0,
+    "macd": 0.7328,
+    "macd_signal": 1.2033,
+    "macd_histogram": -0.4705,
+    "macd_crossover": "neutral",
+    "ema_20": 157.73,
+    "ema_50": 155.51,
+    "ema_200": 148.9,
+    "ema_stack_bullish": false,
+    "bb_upper": 167.72,
+    "bb_middle": 156.75,
+    "bb_lower": 145.79,
+    "bb_width": 0.1399,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.9,
+    "atr": 5.7,
+    "atr_pct": 0.0368,
+    "obv_trend": "DOWN",
+    "mfi": 28.9,
+    "cmf": -0.056,
+    "stoch_k": 28.8,
+    "stoch_d": 36.6,
+    "rvol": 1.29,
+    "volume_5d_avg": 3797267,
+    "green_days_10d": 5,
+    "52w_high": 174.06,
+    "52w_low": 123.48,
+    "52w_high_proximity_pct": 0.1105,
+    "52w_low_proximity_pct": 0.2538
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 133.70035,
+    "de_ratio": 572.032,
+    "fcf_yield": 0.0305,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.111,
+    "gross_margin": 0.25546,
+    "operating_margin": -0.00821,
+    "net_margin": 0.01968,
+    "market_cap": 36353208320,
+    "enterprise_value": 41128386560,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.32615003,
+    "institutional_ownership_pct": 0.83185995,
+    "short_ratio": 6.56,
+    "beta": 1.147
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 154.05,
+    "entry_range_high": 155.59,
+    "target_range_low": 168.48,
+    "target_range_high": 180.52,
+    "stop_range_low": 136.25,
+    "stop_range_high": 143.42,
+    "target_price": 171.92,
+    "stop_loss": 143.42,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.646688-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 193.52,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 123.48,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 61895,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns LYV a score of 30.2/100. Trend: Neutral. RSI: 47.0.",
+      "tr": "BOGA AI assigns LYV a score of 30.2/100. Trend: Neutral. RSI: 47.0.",
+      "es": "BOGA AI assigns LYV a score of 30.2/100. Trend: Neutral. RSI: 47.0.",
+      "pt": "BOGA AI assigns LYV a score of 30.2/100. Trend: Neutral. RSI: 47.0.",
+      "fr": "BOGA AI assigns LYV a score of 30.2/100. Trend: Neutral. RSI: 47.0.",
+      "id": "BOGA AI assigns LYV a score of 30.2/100. Trend: Neutral. RSI: 47.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: LYV (Live Nation Entertainment, Inc.)\n\n### 1. Business Context\nLive Nation Entertainment, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $154.82.\n\n### 2. Performance\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $154.82 | Current |\n| EMA20 | $157.73 | Support |\n| ADX | 15.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $143.42.\n\n### 5. Execution\n* **Entry Zone:** $154.05 - $155.59\n* **Target Price:** $171.92\n* **Stop Loss:** $143.42\n",
+      "tr": "## Kurumsal Analiz: LYV (Live Nation Entertainment, Inc.)\n\n### 1. İş Bağlamı\nLive Nation Entertainment, Inc., Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $154.82 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $154.82 | Güncel |\n| EMA20 | $157.73 | Destek |\n| ADX | 15.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $143.42.\n\n### 5. Uygulama\n* **Entry Zone:** $154.05 - $155.59\n* **Target Price:** $171.92\n* **Stop Loss:** $143.42\n",
+      "es": "## Análisis Institucional: LYV (Live Nation Entertainment, Inc.)\n\n### 1. Contexto\nLive Nation Entertainment, Inc. opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $154.82.\n\n### 2. Desempeño\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $154.82 | Actual |\n| EMA20 | $157.73 | Soporte |\n| ADX | 15.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $143.42.\n\n### 5. Ejecución\n* **Entry Zone:** $154.05 - $155.59\n* **Target Price:** $171.92\n* **Stop Loss:** $143.42\n",
+      "pt": "## Análise Institucional: LYV (Live Nation Entertainment, Inc.)\n\n### 1. Contexto\nLive Nation Entertainment, Inc. opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $154.82.\n\n### 2. Desempenho\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $154.82 | Atual |\n| EMA20 | $157.73 | Suporte |\n| ADX | 15.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $143.42.\n\n### 5. Execução\n* **Entry Zone:** $154.05 - $155.59\n* **Target Price:** $171.92\n* **Stop Loss:** $143.42\n",
+      "fr": "## Analyse Institutionnelle: LYV (Live Nation Entertainment, Inc.)\n\n### 1. Contexte Business\nLive Nation Entertainment, Inc. opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $154.82.\n\n### 2. Performance\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $154.82 | Actuel |\n| EMA20 | $157.73 | Support |\n| ADX | 15.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $143.42.\n\n### 5. Exécution\n* **Entry Zone:** $154.05 - $155.59\n* **Target Price:** $171.92\n* **Stop Loss:** $143.42\n",
+      "id": "## Analisis Institusional: LYV (Live Nation Entertainment, Inc.)\n\n### 1. Konteks Bisnis\nLive Nation Entertainment, Inc. beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $154.82.\n\n### 2. Performa\n* **Master Score:** 30.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $154.82 | Saat Ini |\n| EMA20 | $157.73 | Dukungan |\n| ADX | 15.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $143.42.\n\n### 5. Eksekusi\n* **Entry Zone:** $154.05 - $155.59\n* **Target Price:** $171.92\n* **Stop Loss:** $143.42\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "-0.81%",
+    "key_metrics": {
+      "RSI": 47.0,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

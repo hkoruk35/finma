@@ -1,0 +1,177 @@
+{
+  "ticker": "DOV",
+  "company": "Dover Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.862120-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 220.27,
+    "open": 221.77,
+    "high": 224.1,
+    "low": 219.82,
+    "prev_close": 221.9,
+    "change_pct": -0.73,
+    "change_pct_1w": 0.82,
+    "change_pct_1m": 5.21,
+    "change_pct_1y": 38.23,
+    "volume": 345633,
+    "avg_volume_30d": 1014994
+  },
+  "scores": {
+    "master_score": 47.48,
+    "technical_score": 55.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 47.48,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 57.8,
+    "macd": 1.7461,
+    "macd_signal": 0.5709,
+    "macd_histogram": 1.1752,
+    "macd_crossover": "neutral",
+    "ema_20": 215.32,
+    "ema_50": 213.37,
+    "ema_200": 198.01,
+    "ema_stack_bullish": true,
+    "bb_upper": 224.66,
+    "bb_middle": 213.31,
+    "bb_lower": 201.96,
+    "bb_width": 0.1064,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.1,
+    "atr": 5.43,
+    "atr_pct": 0.0246,
+    "obv_trend": "UP",
+    "mfi": 73.4,
+    "cmf": 0.019,
+    "stoch_k": 83.7,
+    "stoch_d": 88.6,
+    "rvol": 1.07,
+    "volume_5d_avg": 1089326,
+    "green_days_10d": 5,
+    "52w_high": 232.78,
+    "52w_low": 156.32,
+    "52w_high_proximity_pct": 0.0537,
+    "52w_low_proximity_pct": 0.4091
+  },
+  "fundamental": {
+    "pe_ratio": 27.637392,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 4.011035,
+    "de_ratio": 48.404,
+    "fcf_yield": 0.0289,
+    "eps_growth_5y": -0.801,
+    "revenue_growth_ttm": 0.088,
+    "gross_margin": 0.40164003,
+    "operating_margin": 0.18225999,
+    "net_margin": 0.13518,
+    "market_cap": 29707071488,
+    "enterprise_value": 31834548224,
+    "dividend_yield": 0.94,
+    "payout_ratio": 0.2597,
+    "insider_ownership_pct": 0.012569999,
+    "institutional_ownership_pct": 0.92503,
+    "short_ratio": 2.8,
+    "beta": 1.254
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 212.3,
+    "entry_range_high": 221.37,
+    "target_range_low": 231.83,
+    "target_range_high": 248.39,
+    "stop_range_low": 198.94,
+    "stop_range_high": 209.41,
+    "target_price": 236.56,
+    "stop_loss": 209.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.862072-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 275.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 94.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 156.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 76997,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
+      "tr": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
+      "es": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
+      "pt": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
+      "fr": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8.",
+      "id": "BOGA AI assigns DOV a score of 47.5/100. Trend: Neutral. RSI: 57.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: DOV (Dover Corporation)\n\n### 1. Business Context\nDover Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $220.27.\n\n### 2. Performance\n* **Master Score:** 47.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $220.27 | Current |\n| EMA20 | $215.32 | Support |\n| ADX | 15.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $209.41.\n\n### 5. Execution\n* **Entry Zone:** $212.30 - $221.37\n* **Target Price:** $236.56\n* **Stop Loss:** $209.41\n",
+      "tr": "## Kurumsal Analiz: DOV (Dover Corporation)\n\n### 1. İş Bağlamı\nDover Corporation, Industrials sektöründe faaliyet göstermektedir. BOGA AI, $220.27 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 47.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $220.27 | Güncel |\n| EMA20 | $215.32 | Destek |\n| ADX | 15.1 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $209.41.\n\n### 5. Uygulama\n* **Entry Zone:** $212.30 - $221.37\n* **Target Price:** $236.56\n* **Stop Loss:** $209.41\n",
+      "es": "## Análisis Institucional: DOV (Dover Corporation)\n\n### 1. Contexto\nDover Corporation opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $220.27.\n\n### 2. Desempeño\n* **Master Score:** 47.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $220.27 | Actual |\n| EMA20 | $215.32 | Soporte |\n| ADX | 15.1 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $209.41.\n\n### 5. Ejecución\n* **Entry Zone:** $212.30 - $221.37\n* **Target Price:** $236.56\n* **Stop Loss:** $209.41\n",
+      "pt": "## Análise Institucional: DOV (Dover Corporation)\n\n### 1. Contexto\nDover Corporation opera no setor Industrials. BOGA AI detecta interesse institucional perto de $220.27.\n\n### 2. Desempenho\n* **Master Score:** 47.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $220.27 | Atual |\n| EMA20 | $215.32 | Suporte |\n| ADX | 15.1 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $209.41.\n\n### 5. Execução\n* **Entry Zone:** $212.30 - $221.37\n* **Target Price:** $236.56\n* **Stop Loss:** $209.41\n",
+      "fr": "## Analyse Institutionnelle: DOV (Dover Corporation)\n\n### 1. Contexte Business\nDover Corporation opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $220.27.\n\n### 2. Performance\n* **Master Score:** 47.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $220.27 | Actuel |\n| EMA20 | $215.32 | Support |\n| ADX | 15.1 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $209.41.\n\n### 5. Exécution\n* **Entry Zone:** $212.30 - $221.37\n* **Target Price:** $236.56\n* **Stop Loss:** $209.41\n",
+      "id": "## Analisis Institusional: DOV (Dover Corporation)\n\n### 1. Konteks Bisnis\nDover Corporation beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $220.27.\n\n### 2. Performa\n* **Master Score:** 47.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 57.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $220.27 | Saat Ini |\n| EMA20 | $215.32 | Dukungan |\n| ADX | 15.1 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $209.41.\n\n### 5. Eksekusi\n* **Entry Zone:** $212.30 - $221.37\n* **Target Price:** $236.56\n* **Stop Loss:** $209.41\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "-0.73%",
+    "key_metrics": {
+      "RSI": 57.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

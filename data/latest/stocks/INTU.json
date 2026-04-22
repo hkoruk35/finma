@@ -1,0 +1,178 @@
+{
+  "ticker": "INTU",
+  "company": "Intuit Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.006120-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 410.45,
+    "open": 407.83,
+    "high": 418.98,
+    "low": 400.67,
+    "prev_close": 404.83,
+    "change_pct": 1.39,
+    "change_pct_1w": 11.9,
+    "change_pct_1m": -9.62,
+    "change_pct_1y": -29.31,
+    "volume": 1338837,
+    "avg_volume_30d": 3222377
+  },
+  "scores": {
+    "master_score": 39.05,
+    "technical_score": 13.8,
+    "fundamental_score": 67.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 30.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 39.05,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 50.7,
+    "macd": -11.6572,
+    "macd_signal": -14.4854,
+    "macd_histogram": 2.8282,
+    "macd_crossover": "neutral",
+    "ema_20": 402.46,
+    "ema_50": 433.52,
+    "ema_200": 549.12,
+    "ema_stack_bullish": false,
+    "bb_upper": 452.34,
+    "bb_middle": 402.76,
+    "bb_lower": 353.17,
+    "bb_width": 0.2462,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 22.8,
+    "atr": 19.25,
+    "atr_pct": 0.0469,
+    "obv_trend": "UP",
+    "mfi": 45.4,
+    "cmf": -0.096,
+    "stoch_k": 73.4,
+    "stoch_d": 65.2,
+    "rvol": 0.83,
+    "volume_5d_avg": 2673307,
+    "green_days_10d": 5,
+    "52w_high": 801.96,
+    "52w_low": 350.94,
+    "52w_high_proximity_pct": 0.4882,
+    "52w_low_proximity_pct": 0.1696
+  },
+  "fundamental": {
+    "pe_ratio": 26.68758,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 5.977297,
+    "de_ratio": 36.148,
+    "fcf_yield": 0.0464,
+    "eps_growth_5y": 0.485,
+    "revenue_growth_ttm": 0.174,
+    "gross_margin": 0.80896,
+    "operating_margin": 0.18383,
+    "net_margin": 0.2157,
+    "market_cap": 114218983424,
+    "enterprise_value": 115868737536,
+    "dividend_yield": 1.15,
+    "payout_ratio": 0.2915,
+    "insider_ownership_pct": 0.023540001,
+    "institutional_ownership_pct": 0.90586,
+    "short_ratio": 2.0,
+    "beta": 1.213
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 408.4,
+    "entry_range_high": 412.5,
+    "target_range_low": 458.84,
+    "target_range_high": 491.61,
+    "stop_range_low": 353.35,
+    "stop_range_high": 371.95,
+    "target_price": 468.2,
+    "stop_loss": 371.95,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.006077-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 513.06,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 115.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 350.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3360,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns INTU a score of 39.0/100. Trend: Neutral. RSI: 50.7.",
+      "tr": "BOGA AI assigns INTU a score of 39.0/100. Trend: Neutral. RSI: 50.7.",
+      "es": "BOGA AI assigns INTU a score of 39.0/100. Trend: Neutral. RSI: 50.7.",
+      "pt": "BOGA AI assigns INTU a score of 39.0/100. Trend: Neutral. RSI: 50.7.",
+      "fr": "BOGA AI assigns INTU a score of 39.0/100. Trend: Neutral. RSI: 50.7.",
+      "id": "BOGA AI assigns INTU a score of 39.0/100. Trend: Neutral. RSI: 50.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: INTU (Intuit Inc.)\n\n### 1. Business Context\nIntuit Inc. operates in the Technology sector. BOGA AI detect institutional interest near $410.45.\n\n### 2. Performance\n* **Master Score:** 39.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $410.45 | Current |\n| EMA20 | $402.46 | Support |\n| ADX | 22.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $371.95.\n\n### 5. Execution\n* **Entry Zone:** $408.40 - $412.50\n* **Target Price:** $468.20\n* **Stop Loss:** $371.95\n",
+      "tr": "## Kurumsal Analiz: INTU (Intuit Inc.)\n\n### 1. İş Bağlamı\nIntuit Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $410.45 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 39.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $410.45 | Güncel |\n| EMA20 | $402.46 | Destek |\n| ADX | 22.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $371.95.\n\n### 5. Uygulama\n* **Entry Zone:** $408.40 - $412.50\n* **Target Price:** $468.20\n* **Stop Loss:** $371.95\n",
+      "es": "## Análisis Institucional: INTU (Intuit Inc.)\n\n### 1. Contexto\nIntuit Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $410.45.\n\n### 2. Desempeño\n* **Master Score:** 39.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $410.45 | Actual |\n| EMA20 | $402.46 | Soporte |\n| ADX | 22.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $371.95.\n\n### 5. Ejecución\n* **Entry Zone:** $408.40 - $412.50\n* **Target Price:** $468.20\n* **Stop Loss:** $371.95\n",
+      "pt": "## Análise Institucional: INTU (Intuit Inc.)\n\n### 1. Contexto\nIntuit Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $410.45.\n\n### 2. Desempenho\n* **Master Score:** 39.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $410.45 | Atual |\n| EMA20 | $402.46 | Suporte |\n| ADX | 22.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $371.95.\n\n### 5. Execução\n* **Entry Zone:** $408.40 - $412.50\n* **Target Price:** $468.20\n* **Stop Loss:** $371.95\n",
+      "fr": "## Analyse Institutionnelle: INTU (Intuit Inc.)\n\n### 1. Contexte Business\nIntuit Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $410.45.\n\n### 2. Performance\n* **Master Score:** 39.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $410.45 | Actuel |\n| EMA20 | $402.46 | Support |\n| ADX | 22.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $371.95.\n\n### 5. Exécution\n* **Entry Zone:** $408.40 - $412.50\n* **Target Price:** $468.20\n* **Stop Loss:** $371.95\n",
+      "id": "## Analisis Institusional: INTU (Intuit Inc.)\n\n### 1. Konteks Bisnis\nIntuit Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $410.45.\n\n### 2. Performa\n* **Master Score:** 39.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 50.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $410.45 | Saat Ini |\n| EMA20 | $402.46 | Dukungan |\n| ADX | 22.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $371.95.\n\n### 5. Eksekusi\n* **Entry Zone:** $408.40 - $412.50\n* **Target Price:** $468.20\n* **Stop Loss:** $371.95\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "+1.39%",
+    "key_metrics": {
+      "RSI": 50.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

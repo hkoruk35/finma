@@ -1,0 +1,177 @@
+{
+  "ticker": "BP",
+  "company": "BP p.l.c.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.386013-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 45.78,
+    "open": 45.43,
+    "high": 45.81,
+    "low": 45.31,
+    "prev_close": 45.12,
+    "change_pct": 1.45,
+    "change_pct_1w": -0.86,
+    "change_pct_1m": 2.22,
+    "change_pct_1y": 71.15,
+    "volume": 3853649,
+    "avg_volume_30d": 17981714
+  },
+  "scores": {
+    "master_score": 36.21,
+    "technical_score": 47.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 70.0,
+    "sector_score": 37.6,
+    "breakout_score": 45.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 36.21,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 53.9,
+    "macd": 0.8354,
+    "macd_signal": 1.249,
+    "macd_histogram": -0.4136,
+    "macd_crossover": "neutral",
+    "ema_20": 45.55,
+    "ema_50": 43.11,
+    "ema_200": 37.14,
+    "ema_stack_bullish": true,
+    "bb_upper": 47.98,
+    "bb_middle": 46.27,
+    "bb_lower": 44.57,
+    "bb_width": 0.0737,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.9,
+    "atr": 1.37,
+    "atr_pct": 0.0298,
+    "obv_trend": "DOWN",
+    "mfi": 48.5,
+    "cmf": 0.181,
+    "stoch_k": 52.4,
+    "stoch_d": 37.9,
+    "rvol": 0.58,
+    "volume_5d_avg": 10391829,
+    "green_days_10d": 5,
+    "52w_high": 47.63,
+    "52w_low": 25.93,
+    "52w_high_proximity_pct": 0.0389,
+    "52w_low_proximity_pct": 0.7651
+  },
+  "fundamental": {
+    "pe_ratio": 2288.7502,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 8.847976,
+    "de_ratio": 98.012,
+    "fcf_yield": 0.0478,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.036,
+    "gross_margin": 0.27384,
+    "operating_margin": 0.03878,
+    "net_margin": 0.00029,
+    "market_cap": 119544299520,
+    "enterprise_value": 750641807360,
+    "dividend_yield": 4.43,
+    "payout_ratio": 96.0,
+    "insider_ownership_pct": 2.0000001e-05,
+    "institutional_ownership_pct": 0.12788,
+    "short_ratio": 0.46,
+    "beta": -0.195
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 42.89,
+    "entry_range_high": 46.01,
+    "target_range_low": 48.89,
+    "target_range_high": 52.38,
+    "stop_range_low": 40.89,
+    "stop_range_high": 43.04,
+    "target_price": 49.89,
+    "stop_loss": 43.04,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.385981-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 57.23,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 443.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 25.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14308,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BP a score of 36.2/100. Trend: Neutral. RSI: 53.9.",
+      "tr": "BOGA AI assigns BP a score of 36.2/100. Trend: Neutral. RSI: 53.9.",
+      "es": "BOGA AI assigns BP a score of 36.2/100. Trend: Neutral. RSI: 53.9.",
+      "pt": "BOGA AI assigns BP a score of 36.2/100. Trend: Neutral. RSI: 53.9.",
+      "fr": "BOGA AI assigns BP a score of 36.2/100. Trend: Neutral. RSI: 53.9.",
+      "id": "BOGA AI assigns BP a score of 36.2/100. Trend: Neutral. RSI: 53.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BP (BP p.l.c.)\n\n### 1. Business Context\nBP p.l.c. operates in the Energy sector. BOGA AI detect institutional interest near $45.78.\n\n### 2. Performance\n* **Master Score:** 36.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.78 | Current |\n| EMA20 | $45.55 | Support |\n| ADX | 19.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $43.04.\n\n### 5. Execution\n* **Entry Zone:** $42.89 - $46.01\n* **Target Price:** $49.89\n* **Stop Loss:** $43.04\n",
+      "tr": "## Kurumsal Analiz: BP (BP p.l.c.)\n\n### 1. İş Bağlamı\nBP p.l.c., Energy sektöründe faaliyet göstermektedir. BOGA AI, $45.78 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 36.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $45.78 | Güncel |\n| EMA20 | $45.55 | Destek |\n| ADX | 19.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $43.04.\n\n### 5. Uygulama\n* **Entry Zone:** $42.89 - $46.01\n* **Target Price:** $49.89\n* **Stop Loss:** $43.04\n",
+      "es": "## Análisis Institucional: BP (BP p.l.c.)\n\n### 1. Contexto\nBP p.l.c. opera en el sector Energy. BOGA AI detecta interés institucional cerca de $45.78.\n\n### 2. Desempeño\n* **Master Score:** 36.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $45.78 | Actual |\n| EMA20 | $45.55 | Soporte |\n| ADX | 19.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $43.04.\n\n### 5. Ejecución\n* **Entry Zone:** $42.89 - $46.01\n* **Target Price:** $49.89\n* **Stop Loss:** $43.04\n",
+      "pt": "## Análise Institucional: BP (BP p.l.c.)\n\n### 1. Contexto\nBP p.l.c. opera no setor Energy. BOGA AI detecta interesse institucional perto de $45.78.\n\n### 2. Desempenho\n* **Master Score:** 36.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $45.78 | Atual |\n| EMA20 | $45.55 | Suporte |\n| ADX | 19.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $43.04.\n\n### 5. Execução\n* **Entry Zone:** $42.89 - $46.01\n* **Target Price:** $49.89\n* **Stop Loss:** $43.04\n",
+      "fr": "## Analyse Institutionnelle: BP (BP p.l.c.)\n\n### 1. Contexte Business\nBP p.l.c. opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $45.78.\n\n### 2. Performance\n* **Master Score:** 36.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.78 | Actuel |\n| EMA20 | $45.55 | Support |\n| ADX | 19.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $43.04.\n\n### 5. Exécution\n* **Entry Zone:** $42.89 - $46.01\n* **Target Price:** $49.89\n* **Stop Loss:** $43.04\n",
+      "id": "## Analisis Institusional: BP (BP p.l.c.)\n\n### 1. Konteks Bisnis\nBP p.l.c. beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $45.78.\n\n### 2. Performa\n* **Master Score:** 36.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $45.78 | Saat Ini |\n| EMA20 | $45.55 | Dukungan |\n| ADX | 19.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $43.04.\n\n### 5. Eksekusi\n* **Entry Zone:** $42.89 - $46.01\n* **Target Price:** $49.89\n* **Stop Loss:** $43.04\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "+1.45%",
+    "key_metrics": {
+      "RSI": 53.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

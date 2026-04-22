@@ -1,0 +1,177 @@
+{
+  "ticker": "CTVA",
+  "company": "Corteva, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.819972-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Agricultural Inputs",
+  "price": {
+    "current": 80.07,
+    "open": 80.57,
+    "high": 81.0,
+    "low": 79.48,
+    "prev_close": 80.29,
+    "change_pct": -0.27,
+    "change_pct_1w": -3.47,
+    "change_pct_1m": 3.55,
+    "change_pct_1y": 35.35,
+    "volume": 786049,
+    "avg_volume_30d": 4026114
+  },
+  "scores": {
+    "master_score": 33.73,
+    "technical_score": 36.0,
+    "fundamental_score": 28.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.3,
+    "breakout_score": 45.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 33.73,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 44.4,
+    "macd": 0.4125,
+    "macd_signal": 1.0991,
+    "macd_histogram": -0.6865,
+    "macd_crossover": "neutral",
+    "ema_20": 81.63,
+    "ema_50": 79.27,
+    "ema_200": 72.13,
+    "ema_stack_bullish": false,
+    "bb_upper": 85.9,
+    "bb_middle": 82.69,
+    "bb_lower": 79.48,
+    "bb_width": 0.0777,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 23.5,
+    "atr": 1.81,
+    "atr_pct": 0.0226,
+    "obv_trend": "DOWN",
+    "mfi": 38.9,
+    "cmf": 0.203,
+    "stoch_k": 17.3,
+    "stoch_d": 19.7,
+    "rvol": 0.76,
+    "volume_5d_avg": 3078649,
+    "green_days_10d": 1,
+    "52w_high": 85.46,
+    "52w_low": 58.55,
+    "52w_high_proximity_pct": 0.063,
+    "52w_low_proximity_pct": 0.3677
+  },
+  "fundamental": {
+    "pe_ratio": 45.75714,
+    "sector_pe_median": 24.066932,
+    "pb_ratio": 2.2292595,
+    "de_ratio": 12.282,
+    "fcf_yield": 0.0544,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.017,
+    "gross_margin": 0.4729,
+    "operating_margin": 0.056009997,
+    "net_margin": 0.06287,
+    "market_cap": 53852360704,
+    "enterprise_value": 52703952896,
+    "dividend_yield": 0.9,
+    "payout_ratio": 0.4,
+    "insider_ownership_pct": 0.0013,
+    "institutional_ownership_pct": 0.87975,
+    "short_ratio": 3.18,
+    "beta": 0.68
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 78.87,
+    "entry_range_high": 80.47,
+    "target_range_low": 83.79,
+    "target_range_high": 89.78,
+    "stop_range_low": 72.63,
+    "stop_range_high": 76.45,
+    "target_price": 85.5,
+    "stop_loss": 76.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.819919-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 100.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 90.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 58.55,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14173,
+      "date": "2026-02-24"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CTVA a score of 33.7/100. Trend: Neutral. RSI: 44.4.",
+      "tr": "BOGA AI assigns CTVA a score of 33.7/100. Trend: Neutral. RSI: 44.4.",
+      "es": "BOGA AI assigns CTVA a score of 33.7/100. Trend: Neutral. RSI: 44.4.",
+      "pt": "BOGA AI assigns CTVA a score of 33.7/100. Trend: Neutral. RSI: 44.4.",
+      "fr": "BOGA AI assigns CTVA a score of 33.7/100. Trend: Neutral. RSI: 44.4.",
+      "id": "BOGA AI assigns CTVA a score of 33.7/100. Trend: Neutral. RSI: 44.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: CTVA (Corteva, Inc.)\n\n### 1. Business Context\nCorteva, Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $80.07.\n\n### 2. Performance\n* **Master Score:** 33.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $80.07 | Current |\n| EMA20 | $81.63 | Support |\n| ADX | 23.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $76.45.\n\n### 5. Execution\n* **Entry Zone:** $78.87 - $80.47\n* **Target Price:** $85.50\n* **Stop Loss:** $76.45\n",
+      "tr": "## Kurumsal Analiz: CTVA (Corteva, Inc.)\n\n### 1. İş Bağlamı\nCorteva, Inc., Consumer Staples sektöründe faaliyet göstermektedir. BOGA AI, $80.07 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 33.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $80.07 | Güncel |\n| EMA20 | $81.63 | Destek |\n| ADX | 23.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $76.45.\n\n### 5. Uygulama\n* **Entry Zone:** $78.87 - $80.47\n* **Target Price:** $85.50\n* **Stop Loss:** $76.45\n",
+      "es": "## Análisis Institucional: CTVA (Corteva, Inc.)\n\n### 1. Contexto\nCorteva, Inc. opera en el sector Consumer Staples. BOGA AI detecta interés institucional cerca de $80.07.\n\n### 2. Desempeño\n* **Master Score:** 33.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $80.07 | Actual |\n| EMA20 | $81.63 | Soporte |\n| ADX | 23.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $76.45.\n\n### 5. Ejecución\n* **Entry Zone:** $78.87 - $80.47\n* **Target Price:** $85.50\n* **Stop Loss:** $76.45\n",
+      "pt": "## Análise Institucional: CTVA (Corteva, Inc.)\n\n### 1. Contexto\nCorteva, Inc. opera no setor Consumer Staples. BOGA AI detecta interesse institucional perto de $80.07.\n\n### 2. Desempenho\n* **Master Score:** 33.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $80.07 | Atual |\n| EMA20 | $81.63 | Suporte |\n| ADX | 23.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $76.45.\n\n### 5. Execução\n* **Entry Zone:** $78.87 - $80.47\n* **Target Price:** $85.50\n* **Stop Loss:** $76.45\n",
+      "fr": "## Analyse Institutionnelle: CTVA (Corteva, Inc.)\n\n### 1. Contexte Business\nCorteva, Inc. opère dans le secteur Consumer Staples. BOGA AI détecte un intérêt institutionnel proche de $80.07.\n\n### 2. Performance\n* **Master Score:** 33.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $80.07 | Actuel |\n| EMA20 | $81.63 | Support |\n| ADX | 23.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $76.45.\n\n### 5. Exécution\n* **Entry Zone:** $78.87 - $80.47\n* **Target Price:** $85.50\n* **Stop Loss:** $76.45\n",
+      "id": "## Analisis Institusional: CTVA (Corteva, Inc.)\n\n### 1. Konteks Bisnis\nCorteva, Inc. beroperasi di sektor Consumer Staples. BOGA AI mendeteksi minat institusional di dekat $80.07.\n\n### 2. Performa\n* **Master Score:** 33.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 44.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $80.07 | Saat Ini |\n| EMA20 | $81.63 | Dukungan |\n| ADX | 23.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $76.45.\n\n### 5. Eksekusi\n* **Entry Zone:** $78.87 - $80.47\n* **Target Price:** $85.50\n* **Stop Loss:** $76.45\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "-0.27%",
+    "key_metrics": {
+      "RSI": 44.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

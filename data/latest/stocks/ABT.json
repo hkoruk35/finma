@@ -1,0 +1,178 @@
+{
+  "ticker": "ABT",
+  "company": "Abbott Laboratories",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.877558-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 93.26,
+    "open": 95.6,
+    "high": 95.91,
+    "low": 93.25,
+    "prev_close": 96.0,
+    "change_pct": -2.85,
+    "change_pct_1w": -7.13,
+    "change_pct_1m": -11.01,
+    "change_pct_1y": -27.34,
+    "volume": 6568196,
+    "avg_volume_30d": 12582266
+  },
+  "scores": {
+    "master_score": 14.96,
+    "technical_score": 5.4,
+    "fundamental_score": 0.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 20.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 14.96,
+    "confidence": 0.15,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 26.9,
+    "macd": -3.1362,
+    "macd_signal": -2.6686,
+    "macd_histogram": -0.4676,
+    "macd_crossover": "neutral",
+    "ema_20": 100.52,
+    "ema_50": 105.65,
+    "ema_200": 117.41,
+    "ema_stack_bullish": false,
+    "bb_upper": 106.53,
+    "bb_middle": 100.66,
+    "bb_lower": 94.79,
+    "bb_width": 0.1166,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 40.8,
+    "atr": 2.51,
+    "atr_pct": 0.0269,
+    "obv_trend": "DOWN",
+    "mfi": 37.5,
+    "cmf": -0.098,
+    "stoch_k": 0.2,
+    "stoch_d": 17.0,
+    "rvol": 1.18,
+    "volume_5d_avg": 14795559,
+    "green_days_10d": 5,
+    "52w_high": 135.32,
+    "52w_low": 93.26,
+    "52w_high_proximity_pct": 0.3108,
+    "52w_low_proximity_pct": 0.0
+  },
+  "fundamental": {
+    "pe_ratio": 26.124651,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 3.106969,
+    "de_ratio": 26.787,
+    "fcf_yield": null,
+    "eps_growth_5y": -0.197,
+    "revenue_growth_ttm": 0.078,
+    "gross_margin": 0.56465,
+    "operating_margin": 0.16499001,
+    "net_margin": 0.13904999,
+    "market_cap": 162065006592,
+    "enterprise_value": 172655558656,
+    "dividend_yield": 2.63,
+    "payout_ratio": 0.67230004,
+    "insider_ownership_pct": 0.00541,
+    "institutional_ownership_pct": 0.82174003,
+    "short_ratio": 1.93,
+    "beta": 0.782
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 92.79,
+    "entry_range_high": 93.73,
+    "target_range_low": 98.77,
+    "target_range_high": 105.83,
+    "stop_range_low": 83.83,
+    "stop_range_high": 88.24,
+    "target_price": 100.79,
+    "stop_loss": 88.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.877530-04:00",
+    "categories": [
+      "top_scores",
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 116.58,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 263.0
+  },
+  "reversal": {
+    "is_oversold": true,
+    "bullish_divergence": false,
+    "support_level": 93.26,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 13255,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
+      "tr": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
+      "es": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
+      "pt": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
+      "fr": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9.",
+      "id": "BOGA AI assigns ABT a score of 15.0/100. Trend: Neutral. RSI: 26.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: ABT (Abbott Laboratories)\n\n### 1. Business Context\nAbbott Laboratories operates in the Healthcare sector. BOGA AI detect institutional interest near $93.26.\n\n### 2. Performance\n* **Master Score:** 15.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 26.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $93.26 | Current |\n| EMA20 | $100.52 | Support |\n| ADX | 40.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $88.24.\n\n### 5. Execution\n* **Entry Zone:** $92.79 - $93.73\n* **Target Price:** $100.79\n* **Stop Loss:** $88.24\n",
+      "tr": "## Kurumsal Analiz: ABT (Abbott Laboratories)\n\n### 1. İş Bağlamı\nAbbott Laboratories, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $93.26 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 15.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 26.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $93.26 | Güncel |\n| EMA20 | $100.52 | Destek |\n| ADX | 40.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $88.24.\n\n### 5. Uygulama\n* **Entry Zone:** $92.79 - $93.73\n* **Target Price:** $100.79\n* **Stop Loss:** $88.24\n",
+      "es": "## Análisis Institucional: ABT (Abbott Laboratories)\n\n### 1. Contexto\nAbbott Laboratories opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $93.26.\n\n### 2. Desempeño\n* **Master Score:** 15.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 26.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $93.26 | Actual |\n| EMA20 | $100.52 | Soporte |\n| ADX | 40.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $88.24.\n\n### 5. Ejecución\n* **Entry Zone:** $92.79 - $93.73\n* **Target Price:** $100.79\n* **Stop Loss:** $88.24\n",
+      "pt": "## Análise Institucional: ABT (Abbott Laboratories)\n\n### 1. Contexto\nAbbott Laboratories opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $93.26.\n\n### 2. Desempenho\n* **Master Score:** 15.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 26.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $93.26 | Atual |\n| EMA20 | $100.52 | Suporte |\n| ADX | 40.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $88.24.\n\n### 5. Execução\n* **Entry Zone:** $92.79 - $93.73\n* **Target Price:** $100.79\n* **Stop Loss:** $88.24\n",
+      "fr": "## Analyse Institutionnelle: ABT (Abbott Laboratories)\n\n### 1. Contexte Business\nAbbott Laboratories opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $93.26.\n\n### 2. Performance\n* **Master Score:** 15.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 26.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $93.26 | Actuel |\n| EMA20 | $100.52 | Support |\n| ADX | 40.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $88.24.\n\n### 5. Exécution\n* **Entry Zone:** $92.79 - $93.73\n* **Target Price:** $100.79\n* **Stop Loss:** $88.24\n",
+      "id": "## Analisis Institusional: ABT (Abbott Laboratories)\n\n### 1. Konteks Bisnis\nAbbott Laboratories beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $93.26.\n\n### 2. Performa\n* **Master Score:** 15.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 26.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $93.26 | Saat Ini |\n| EMA20 | $100.52 | Dukungan |\n| ADX | 40.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $88.24.\n\n### 5. Eksekusi\n* **Entry Zone:** $92.79 - $93.73\n* **Target Price:** $100.79\n* **Stop Loss:** $88.24\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 15,
+    "price_change_display": "-2.85%",
+    "key_metrics": {
+      "RSI": 26.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

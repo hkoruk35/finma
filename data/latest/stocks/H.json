@@ -1,0 +1,177 @@
+{
+  "ticker": "H",
+  "company": "Hyatt Hotels Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.613235-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Lodging",
+  "price": {
+    "current": 170.87,
+    "open": 172.31,
+    "high": 174.0,
+    "low": 169.31,
+    "prev_close": 172.68,
+    "change_pct": -1.05,
+    "change_pct_1w": 4.84,
+    "change_pct_1m": 20.23,
+    "change_pct_1y": 61.99,
+    "volume": 308962,
+    "avg_volume_30d": 723732
+  },
+  "scores": {
+    "master_score": 48.28,
+    "technical_score": 63.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.3,
+    "breakout_score": 35.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.28,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 69.5,
+    "macd": 5.0901,
+    "macd_signal": 2.1182,
+    "macd_histogram": 2.9719,
+    "macd_crossover": "neutral",
+    "ema_20": 158.15,
+    "ema_50": 156.06,
+    "ema_200": 150.91,
+    "ema_stack_bullish": true,
+    "bb_upper": 174.82,
+    "bb_middle": 153.59,
+    "bb_lower": 132.36,
+    "bb_width": 0.2765,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.9,
+    "atr": 6.03,
+    "atr_pct": 0.0353,
+    "obv_trend": "UP",
+    "mfi": 82.8,
+    "cmf": 0.153,
+    "stoch_k": 87.0,
+    "stoch_d": 90.5,
+    "rvol": 1.07,
+    "volume_5d_avg": 772032,
+    "green_days_10d": 8,
+    "52w_high": 172.68,
+    "52w_low": 103.8,
+    "52w_high_proximity_pct": 0.0105,
+    "52w_low_proximity_pct": 0.6462
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 4.8483343,
+    "de_ratio": 124.515,
+    "fcf_yield": 0.0244,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.175,
+    "gross_margin": 0.41877997,
+    "operating_margin": 0.14765,
+    "net_margin": -0.01498,
+    "market_cap": 16141235200,
+    "enterprise_value": 20380694528,
+    "dividend_yield": 0.35,
+    "payout_ratio": 0.1364,
+    "insider_ownership_pct": 0.033210002,
+    "institutional_ownership_pct": 1.27405,
+    "short_ratio": 7.05,
+    "beta": 1.281
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 155.28,
+    "entry_range_high": 171.72,
+    "target_range_low": 185.18,
+    "target_range_high": 198.41,
+    "stop_range_low": 150.87,
+    "stop_range_high": 158.81,
+    "target_price": 188.96,
+    "stop_loss": 158.81,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.613002-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 213.59,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 35.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 103.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 527,
+      "date": "2026-03-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
+      "tr": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
+      "es": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
+      "pt": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
+      "fr": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5.",
+      "id": "BOGA AI assigns H a score of 48.3/100. Trend: Neutral. RSI: 69.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: H (Hyatt Hotels Corporation)\n\n### 1. Business Context\nHyatt Hotels Corporation operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $170.87.\n\n### 2. Performance\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 69.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $170.87 | Current |\n| EMA20 | $158.15 | Support |\n| ADX | 23.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $158.81.\n\n### 5. Execution\n* **Entry Zone:** $155.28 - $171.72\n* **Target Price:** $188.96\n* **Stop Loss:** $158.81\n",
+      "tr": "## Kurumsal Analiz: H (Hyatt Hotels Corporation)\n\n### 1. İş Bağlamı\nHyatt Hotels Corporation, Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $170.87 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 69.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $170.87 | Güncel |\n| EMA20 | $158.15 | Destek |\n| ADX | 23.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $158.81.\n\n### 5. Uygulama\n* **Entry Zone:** $155.28 - $171.72\n* **Target Price:** $188.96\n* **Stop Loss:** $158.81\n",
+      "es": "## Análisis Institucional: H (Hyatt Hotels Corporation)\n\n### 1. Contexto\nHyatt Hotels Corporation opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $170.87.\n\n### 2. Desempeño\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 69.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $170.87 | Actual |\n| EMA20 | $158.15 | Soporte |\n| ADX | 23.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $158.81.\n\n### 5. Ejecución\n* **Entry Zone:** $155.28 - $171.72\n* **Target Price:** $188.96\n* **Stop Loss:** $158.81\n",
+      "pt": "## Análise Institucional: H (Hyatt Hotels Corporation)\n\n### 1. Contexto\nHyatt Hotels Corporation opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $170.87.\n\n### 2. Desempenho\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 69.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $170.87 | Atual |\n| EMA20 | $158.15 | Suporte |\n| ADX | 23.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $158.81.\n\n### 5. Execução\n* **Entry Zone:** $155.28 - $171.72\n* **Target Price:** $188.96\n* **Stop Loss:** $158.81\n",
+      "fr": "## Analyse Institutionnelle: H (Hyatt Hotels Corporation)\n\n### 1. Contexte Business\nHyatt Hotels Corporation opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $170.87.\n\n### 2. Performance\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 69.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $170.87 | Actuel |\n| EMA20 | $158.15 | Support |\n| ADX | 23.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $158.81.\n\n### 5. Exécution\n* **Entry Zone:** $155.28 - $171.72\n* **Target Price:** $188.96\n* **Stop Loss:** $158.81\n",
+      "id": "## Analisis Institusional: H (Hyatt Hotels Corporation)\n\n### 1. Konteks Bisnis\nHyatt Hotels Corporation beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $170.87.\n\n### 2. Performa\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 69.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $170.87 | Saat Ini |\n| EMA20 | $158.15 | Dukungan |\n| ADX | 23.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $158.81.\n\n### 5. Eksekusi\n* **Entry Zone:** $155.28 - $171.72\n* **Target Price:** $188.96\n* **Stop Loss:** $158.81\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "-1.05%",
+    "key_metrics": {
+      "RSI": 69.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "TSN",
+  "company": "Tyson Foods, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.766968-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Farm Products",
+  "price": {
+    "current": 64.23,
+    "open": 63.53,
+    "high": 64.24,
+    "low": 63.01,
+    "prev_close": 63.67,
+    "change_pct": 0.88,
+    "change_pct_1w": -1.12,
+    "change_pct_1m": 10.4,
+    "change_pct_1y": 8.65,
+    "volume": 448614,
+    "avg_volume_30d": 2786787
+  },
+  "scores": {
+    "master_score": 51.68,
+    "technical_score": 48.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.3,
+    "breakout_score": 30.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.68,
+    "confidence": 0.52,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 53.4,
+    "macd": 0.5537,
+    "macd_signal": 0.6386,
+    "macd_histogram": -0.0849,
+    "macd_crossover": "neutral",
+    "ema_20": 63.82,
+    "ema_50": 62.76,
+    "ema_200": 59.09,
+    "ema_stack_bullish": true,
+    "bb_upper": 66.26,
+    "bb_middle": 63.99,
+    "bb_lower": 61.73,
+    "bb_width": 0.0707,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 13.7,
+    "atr": 1.36,
+    "atr_pct": 0.0211,
+    "obv_trend": "UP",
+    "mfi": 64.7,
+    "cmf": 0.337,
+    "stoch_k": 47.0,
+    "stoch_d": 47.4,
+    "rvol": 0.86,
+    "volume_5d_avg": 2402302,
+    "green_days_10d": 7,
+    "52w_high": 65.64,
+    "52w_low": 49.87,
+    "52w_high_proximity_pct": 0.0215,
+    "52w_low_proximity_pct": 0.2879
+  },
+  "fundamental": {
+    "pe_ratio": 114.696434,
+    "sector_pe_median": 24.066932,
+    "pb_ratio": 1.2547374,
+    "de_ratio": 46.039,
+    "fcf_yield": 0.051,
+    "eps_growth_5y": -0.762,
+    "revenue_growth_ttm": 0.051,
+    "gross_margin": 0.06151,
+    "operating_margin": 0.02913,
+    "net_margin": 0.0036300002,
+    "market_cap": 22614034432,
+    "enterprise_value": 29640867840,
+    "dividend_yield": 3.2,
+    "payout_ratio": 3.5893,
+    "insider_ownership_pct": 0.02625,
+    "institutional_ownership_pct": 0.92345,
+    "short_ratio": 3.0,
+    "beta": 0.434
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 62.45,
+    "entry_range_high": 64.55,
+    "target_range_low": 66.94,
+    "target_range_high": 71.73,
+    "stop_range_low": 58.43,
+    "stop_range_high": 61.51,
+    "target_price": 68.31,
+    "stop_loss": 61.51,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.766938-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 80.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 320.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 49.87,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2911,
+      "date": "2026-02-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TSN a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
+      "tr": "BOGA AI assigns TSN a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
+      "es": "BOGA AI assigns TSN a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
+      "pt": "BOGA AI assigns TSN a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
+      "fr": "BOGA AI assigns TSN a score of 51.7/100. Trend: Neutral. RSI: 53.4.",
+      "id": "BOGA AI assigns TSN a score of 51.7/100. Trend: Neutral. RSI: 53.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TSN (Tyson Foods, Inc.)\n\n### 1. Business Context\nTyson Foods, Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $64.23.\n\n### 2. Performance\n* **Master Score:** 51.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $64.23 | Current |\n| EMA20 | $63.82 | Support |\n| ADX | 13.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $61.51.\n\n### 5. Execution\n* **Entry Zone:** $62.45 - $64.55\n* **Target Price:** $68.31\n* **Stop Loss:** $61.51\n",
+      "tr": "## Kurumsal Analiz: TSN (Tyson Foods, Inc.)\n\n### 1. İş Bağlamı\nTyson Foods, Inc., Consumer Staples sektöründe faaliyet göstermektedir. BOGA AI, $64.23 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 51.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $64.23 | Güncel |\n| EMA20 | $63.82 | Destek |\n| ADX | 13.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $61.51.\n\n### 5. Uygulama\n* **Entry Zone:** $62.45 - $64.55\n* **Target Price:** $68.31\n* **Stop Loss:** $61.51\n",
+      "es": "## Análisis Institucional: TSN (Tyson Foods, Inc.)\n\n### 1. Contexto\nTyson Foods, Inc. opera en el sector Consumer Staples. BOGA AI detecta interés institucional cerca de $64.23.\n\n### 2. Desempeño\n* **Master Score:** 51.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $64.23 | Actual |\n| EMA20 | $63.82 | Soporte |\n| ADX | 13.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $61.51.\n\n### 5. Ejecución\n* **Entry Zone:** $62.45 - $64.55\n* **Target Price:** $68.31\n* **Stop Loss:** $61.51\n",
+      "pt": "## Análise Institucional: TSN (Tyson Foods, Inc.)\n\n### 1. Contexto\nTyson Foods, Inc. opera no setor Consumer Staples. BOGA AI detecta interesse institucional perto de $64.23.\n\n### 2. Desempenho\n* **Master Score:** 51.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $64.23 | Atual |\n| EMA20 | $63.82 | Suporte |\n| ADX | 13.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $61.51.\n\n### 5. Execução\n* **Entry Zone:** $62.45 - $64.55\n* **Target Price:** $68.31\n* **Stop Loss:** $61.51\n",
+      "fr": "## Analyse Institutionnelle: TSN (Tyson Foods, Inc.)\n\n### 1. Contexte Business\nTyson Foods, Inc. opère dans le secteur Consumer Staples. BOGA AI détecte un intérêt institutionnel proche de $64.23.\n\n### 2. Performance\n* **Master Score:** 51.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $64.23 | Actuel |\n| EMA20 | $63.82 | Support |\n| ADX | 13.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $61.51.\n\n### 5. Exécution\n* **Entry Zone:** $62.45 - $64.55\n* **Target Price:** $68.31\n* **Stop Loss:** $61.51\n",
+      "id": "## Analisis Institusional: TSN (Tyson Foods, Inc.)\n\n### 1. Konteks Bisnis\nTyson Foods, Inc. beroperasi di sektor Consumer Staples. BOGA AI mendeteksi minat institusional di dekat $64.23.\n\n### 2. Performa\n* **Master Score:** 51.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 53.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $64.23 | Saat Ini |\n| EMA20 | $63.82 | Dukungan |\n| ADX | 13.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $61.51.\n\n### 5. Eksekusi\n* **Entry Zone:** $62.45 - $64.55\n* **Target Price:** $68.31\n* **Stop Loss:** $61.51\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 52,
+    "price_change_display": "+0.88%",
+    "key_metrics": {
+      "RSI": 53.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

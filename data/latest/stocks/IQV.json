@@ -1,0 +1,177 @@
+{
+  "ticker": "IQV",
+  "company": "IQVIA Holdings Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.908862-04:00",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 177.19,
+    "open": 177.17,
+    "high": 180.98,
+    "low": 175.74,
+    "prev_close": 176.76,
+    "change_pct": 0.24,
+    "change_pct_1w": 1.09,
+    "change_pct_1m": 6.7,
+    "change_pct_1y": 23.13,
+    "volume": 621672,
+    "avg_volume_30d": 1416229
+  },
+  "scores": {
+    "master_score": 41.56,
+    "technical_score": 11.4,
+    "fundamental_score": 62.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 30.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 41.56,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.5,
+    "macd": 0.7025,
+    "macd_signal": -0.6011,
+    "macd_histogram": 1.3036,
+    "macd_crossover": "neutral",
+    "ema_20": 172.86,
+    "ema_50": 178.46,
+    "ema_200": 190.67,
+    "ema_stack_bullish": false,
+    "bb_upper": 179.36,
+    "bb_middle": 171.26,
+    "bb_lower": 163.17,
+    "bb_width": 0.0946,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.9,
+    "atr": 6.38,
+    "atr_pct": 0.036,
+    "obv_trend": "UP",
+    "mfi": 60.9,
+    "cmf": -0.008,
+    "stoch_k": 78.2,
+    "stoch_d": 76.9,
+    "rvol": 0.87,
+    "volume_5d_avg": 1226274,
+    "green_days_10d": 7,
+    "52w_high": 244.29,
+    "52w_low": 137.0,
+    "52w_high_proximity_pct": 0.2747,
+    "52w_low_proximity_pct": 0.2934
+  },
+  "fundamental": {
+    "pe_ratio": 22.571976,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 4.621183,
+    "de_ratio": 245.928,
+    "fcf_yield": 0.0737,
+    "eps_growth_5y": 0.236,
+    "revenue_growth_ttm": 0.103,
+    "gross_margin": 0.33291999,
+    "operating_margin": 0.1517,
+    "net_margin": 0.083380006,
+    "market_cap": 30069143552,
+    "enterprise_value": 44287172608,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.01091,
+    "institutional_ownership_pct": 1.0338501,
+    "short_ratio": 2.81,
+    "beta": 1.391
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 176.3,
+    "entry_range_high": 178.08,
+    "target_range_low": 192.4,
+    "target_range_high": 206.15,
+    "stop_range_low": 156.21,
+    "stop_range_high": 164.43,
+    "target_price": 196.33,
+    "stop_loss": 164.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.908823-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 221.49,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 137.0,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 16335,
+      "date": "2026-02-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
+      "tr": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
+      "es": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
+      "pt": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
+      "fr": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5.",
+      "id": "BOGA AI assigns IQV a score of 41.6/100. Trend: Neutral. RSI: 55.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: IQV (IQVIA Holdings Inc.)\n\n### 1. Business Context\nIQVIA Holdings Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $177.19.\n\n### 2. Performance\n* **Master Score:** 41.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $177.19 | Current |\n| EMA20 | $172.86 | Support |\n| ADX | 14.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $164.43.\n\n### 5. Execution\n* **Entry Zone:** $176.30 - $178.08\n* **Target Price:** $196.33\n* **Stop Loss:** $164.43\n",
+      "tr": "## Kurumsal Analiz: IQV (IQVIA Holdings Inc.)\n\n### 1. İş Bağlamı\nIQVIA Holdings Inc., Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $177.19 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 41.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $177.19 | Güncel |\n| EMA20 | $172.86 | Destek |\n| ADX | 14.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $164.43.\n\n### 5. Uygulama\n* **Entry Zone:** $176.30 - $178.08\n* **Target Price:** $196.33\n* **Stop Loss:** $164.43\n",
+      "es": "## Análisis Institucional: IQV (IQVIA Holdings Inc.)\n\n### 1. Contexto\nIQVIA Holdings Inc. opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $177.19.\n\n### 2. Desempeño\n* **Master Score:** 41.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $177.19 | Actual |\n| EMA20 | $172.86 | Soporte |\n| ADX | 14.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $164.43.\n\n### 5. Ejecución\n* **Entry Zone:** $176.30 - $178.08\n* **Target Price:** $196.33\n* **Stop Loss:** $164.43\n",
+      "pt": "## Análise Institucional: IQV (IQVIA Holdings Inc.)\n\n### 1. Contexto\nIQVIA Holdings Inc. opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $177.19.\n\n### 2. Desempenho\n* **Master Score:** 41.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $177.19 | Atual |\n| EMA20 | $172.86 | Suporte |\n| ADX | 14.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $164.43.\n\n### 5. Execução\n* **Entry Zone:** $176.30 - $178.08\n* **Target Price:** $196.33\n* **Stop Loss:** $164.43\n",
+      "fr": "## Analyse Institutionnelle: IQV (IQVIA Holdings Inc.)\n\n### 1. Contexte Business\nIQVIA Holdings Inc. opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $177.19.\n\n### 2. Performance\n* **Master Score:** 41.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $177.19 | Actuel |\n| EMA20 | $172.86 | Support |\n| ADX | 14.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $164.43.\n\n### 5. Exécution\n* **Entry Zone:** $176.30 - $178.08\n* **Target Price:** $196.33\n* **Stop Loss:** $164.43\n",
+      "id": "## Analisis Institusional: IQV (IQVIA Holdings Inc.)\n\n### 1. Konteks Bisnis\nIQVIA Holdings Inc. beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $177.19.\n\n### 2. Performa\n* **Master Score:** 41.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $177.19 | Saat Ini |\n| EMA20 | $172.86 | Dukungan |\n| ADX | 14.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $164.43.\n\n### 5. Eksekusi\n* **Entry Zone:** $176.30 - $178.08\n* **Target Price:** $196.33\n* **Stop Loss:** $164.43\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "+0.24%",
+    "key_metrics": {
+      "RSI": 55.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

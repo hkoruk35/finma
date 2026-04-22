@@ -1,0 +1,177 @@
+{
+  "ticker": "SSRM",
+  "company": "SSR Mining Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.562552-04:00",
+  "sector": "Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 30.18,
+    "open": 31.55,
+    "high": 31.73,
+    "low": 30.1,
+    "prev_close": 31.92,
+    "change_pct": -5.45,
+    "change_pct_1w": -8.1,
+    "change_pct_1m": 31.27,
+    "change_pct_1y": 178.41,
+    "volume": 1284307,
+    "avg_volume_30d": 3903806
+  },
+  "scores": {
+    "master_score": 37.7,
+    "technical_score": 22.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 40.0,
+    "breakout_score": 15.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 30.0,
+    "signal_score": 37.7,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 49.5,
+    "macd": 0.93,
+    "macd_signal": 1.072,
+    "macd_histogram": -0.142,
+    "macd_crossover": "bearish",
+    "ema_20": 30.75,
+    "ema_50": 29.06,
+    "ema_200": 23.27,
+    "ema_stack_bullish": false,
+    "bb_upper": 36.43,
+    "bb_middle": 30.37,
+    "bb_lower": 24.32,
+    "bb_width": 0.3987,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.3,
+    "atr": 1.85,
+    "atr_pct": 0.0614,
+    "obv_trend": "DOWN",
+    "mfi": 50.9,
+    "cmf": 0.069,
+    "stoch_k": 11.0,
+    "stoch_d": 39.5,
+    "rvol": 0.56,
+    "volume_5d_avg": 2194141,
+    "green_days_10d": 4,
+    "52w_high": 35.08,
+    "52w_low": 10.03,
+    "52w_high_proximity_pct": 0.1397,
+    "52w_low_proximity_pct": 2.009
+  },
+  "fundamental": {
+    "pe_ratio": 16.313513,
+    "sector_pe_median": 23.229378,
+    "pb_ratio": 1.7465277,
+    "de_ratio": 9.161,
+    "fcf_yield": 0.0522,
+    "eps_growth_5y": 29.672,
+    "revenue_growth_ttm": 0.614,
+    "gross_margin": 0.50763,
+    "operating_margin": 0.43105,
+    "net_margin": 0.24285,
+    "market_cap": 6180336640,
+    "enterprise_value": 7116273152,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.0064600003,
+    "institutional_ownership_pct": 0.6819,
+    "short_ratio": 1.37,
+    "beta": 0.898
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 28.91,
+    "entry_range_high": 30.33,
+    "target_range_low": 35.02,
+    "target_range_high": 37.52,
+    "stop_range_low": 25.16,
+    "stop_range_high": 26.48,
+    "target_price": 35.73,
+    "stop_loss": 26.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.562486-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 37.73,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 10.03,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 73129,
+      "date": "2025-12-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SSRM a score of 37.7/100. Trend: Neutral. RSI: 49.5.",
+      "tr": "BOGA AI assigns SSRM a score of 37.7/100. Trend: Neutral. RSI: 49.5.",
+      "es": "BOGA AI assigns SSRM a score of 37.7/100. Trend: Neutral. RSI: 49.5.",
+      "pt": "BOGA AI assigns SSRM a score of 37.7/100. Trend: Neutral. RSI: 49.5.",
+      "fr": "BOGA AI assigns SSRM a score of 37.7/100. Trend: Neutral. RSI: 49.5.",
+      "id": "BOGA AI assigns SSRM a score of 37.7/100. Trend: Neutral. RSI: 49.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SSRM (SSR Mining Inc.)\n\n### 1. Business Context\nSSR Mining Inc. operates in the Materials sector. BOGA AI detect institutional interest near $30.18.\n\n### 2. Performance\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $30.18 | Current |\n| EMA20 | $30.75 | Support |\n| ADX | 17.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $26.48.\n\n### 5. Execution\n* **Entry Zone:** $28.91 - $30.33\n* **Target Price:** $35.73\n* **Stop Loss:** $26.48\n",
+      "tr": "## Kurumsal Analiz: SSRM (SSR Mining Inc.)\n\n### 1. İş Bağlamı\nSSR Mining Inc., Materials sektöründe faaliyet göstermektedir. BOGA AI, $30.18 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $30.18 | Güncel |\n| EMA20 | $30.75 | Destek |\n| ADX | 17.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $26.48.\n\n### 5. Uygulama\n* **Entry Zone:** $28.91 - $30.33\n* **Target Price:** $35.73\n* **Stop Loss:** $26.48\n",
+      "es": "## Análisis Institucional: SSRM (SSR Mining Inc.)\n\n### 1. Contexto\nSSR Mining Inc. opera en el sector Materials. BOGA AI detecta interés institucional cerca de $30.18.\n\n### 2. Desempeño\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $30.18 | Actual |\n| EMA20 | $30.75 | Soporte |\n| ADX | 17.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $26.48.\n\n### 5. Ejecución\n* **Entry Zone:** $28.91 - $30.33\n* **Target Price:** $35.73\n* **Stop Loss:** $26.48\n",
+      "pt": "## Análise Institucional: SSRM (SSR Mining Inc.)\n\n### 1. Contexto\nSSR Mining Inc. opera no setor Materials. BOGA AI detecta interesse institucional perto de $30.18.\n\n### 2. Desempenho\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $30.18 | Atual |\n| EMA20 | $30.75 | Suporte |\n| ADX | 17.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $26.48.\n\n### 5. Execução\n* **Entry Zone:** $28.91 - $30.33\n* **Target Price:** $35.73\n* **Stop Loss:** $26.48\n",
+      "fr": "## Analyse Institutionnelle: SSRM (SSR Mining Inc.)\n\n### 1. Contexte Business\nSSR Mining Inc. opère dans le secteur Materials. BOGA AI détecte un intérêt institutionnel proche de $30.18.\n\n### 2. Performance\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $30.18 | Actuel |\n| EMA20 | $30.75 | Support |\n| ADX | 17.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $26.48.\n\n### 5. Exécution\n* **Entry Zone:** $28.91 - $30.33\n* **Target Price:** $35.73\n* **Stop Loss:** $26.48\n",
+      "id": "## Analisis Institusional: SSRM (SSR Mining Inc.)\n\n### 1. Konteks Bisnis\nSSR Mining Inc. beroperasi di sektor Materials. BOGA AI mendeteksi minat institusional di dekat $30.18.\n\n### 2. Performa\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $30.18 | Saat Ini |\n| EMA20 | $30.75 | Dukungan |\n| ADX | 17.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $26.48.\n\n### 5. Eksekusi\n* **Entry Zone:** $28.91 - $30.33\n* **Target Price:** $35.73\n* **Stop Loss:** $26.48\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "-5.45%",
+    "key_metrics": {
+      "RSI": 49.5,
+      "MACD": "Bearish",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

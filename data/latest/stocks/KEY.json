@@ -1,0 +1,177 @@
+{
+  "ticker": "KEY",
+  "company": "KeyCorp",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.375462-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 22.27,
+    "open": 22.27,
+    "high": 22.55,
+    "low": 22.16,
+    "prev_close": 22.19,
+    "change_pct": 0.36,
+    "change_pct_1w": 2.96,
+    "change_pct_1m": 14.73,
+    "change_pct_1y": 63.2,
+    "volume": 6593937,
+    "avg_volume_30d": 15698451
+  },
+  "scores": {
+    "master_score": 60.32,
+    "technical_score": 61.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 60.32,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 72.0,
+    "macd": 0.5091,
+    "macd_signal": 0.3417,
+    "macd_histogram": 0.1673,
+    "macd_crossover": "neutral",
+    "ema_20": 21.16,
+    "ema_50": 20.75,
+    "ema_200": 19.22,
+    "ema_stack_bullish": true,
+    "bb_upper": 22.71,
+    "bb_middle": 20.9,
+    "bb_lower": 19.09,
+    "bb_width": 0.1731,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.7,
+    "atr": 0.51,
+    "atr_pct": 0.0231,
+    "obv_trend": "UP",
+    "mfi": 93.2,
+    "cmf": 0.11,
+    "stoch_k": 89.9,
+    "stoch_d": 91.6,
+    "rvol": 1.07,
+    "volume_5d_avg": 16728267,
+    "green_days_10d": 7,
+    "52w_high": 22.98,
+    "52w_low": 13.19,
+    "52w_high_proximity_pct": 0.031,
+    "52w_low_proximity_pct": 0.6889
+  },
+  "fundamental": {
+    "pe_ratio": 13.662577,
+    "sector_pe_median": 16.433114,
+    "pb_ratio": 1.3729963,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.337,
+    "revenue_growth_ttm": 0.117,
+    "gross_margin": 0.0,
+    "operating_margin": 0.36051998,
+    "net_margin": 0.27028,
+    "market_cap": 24214016000,
+    "enterprise_value": 41774030848,
+    "dividend_yield": 3.7,
+    "payout_ratio": 0.50310004,
+    "insider_ownership_pct": 0.00287,
+    "institutional_ownership_pct": 0.90414,
+    "short_ratio": 0.0,
+    "beta": 1.071
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 20.65,
+    "entry_range_high": 22.38,
+    "target_range_low": 23.32,
+    "target_range_high": 24.99,
+    "stop_range_low": 20.19,
+    "stop_range_high": 21.25,
+    "target_price": 23.8,
+    "stop_loss": 21.25,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.375434-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 27.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 370.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 13.19,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2917,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 0.58,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns KEY a score of 60.3/100. Trend: Neutral. RSI: 72.0.",
+      "tr": "BOGA AI assigns KEY a score of 60.3/100. Trend: Neutral. RSI: 72.0.",
+      "es": "BOGA AI assigns KEY a score of 60.3/100. Trend: Neutral. RSI: 72.0.",
+      "pt": "BOGA AI assigns KEY a score of 60.3/100. Trend: Neutral. RSI: 72.0.",
+      "fr": "BOGA AI assigns KEY a score of 60.3/100. Trend: Neutral. RSI: 72.0.",
+      "id": "BOGA AI assigns KEY a score of 60.3/100. Trend: Neutral. RSI: 72.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: KEY (KeyCorp)\n\n### 1. Business Context\nKeyCorp operates in the Financials sector. BOGA AI detect institutional interest near $22.27.\n\n### 2. Performance\n* **Master Score:** 60.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $22.27 | Current |\n| EMA20 | $21.16 | Support |\n| ADX | 21.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $21.25.\n\n### 5. Execution\n* **Entry Zone:** $20.65 - $22.38\n* **Target Price:** $23.80\n* **Stop Loss:** $21.25\n",
+      "tr": "## Kurumsal Analiz: KEY (KeyCorp)\n\n### 1. İş Bağlamı\nKeyCorp, Financials sektöründe faaliyet göstermektedir. BOGA AI, $22.27 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 60.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $22.27 | Güncel |\n| EMA20 | $21.16 | Destek |\n| ADX | 21.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $21.25.\n\n### 5. Uygulama\n* **Entry Zone:** $20.65 - $22.38\n* **Target Price:** $23.80\n* **Stop Loss:** $21.25\n",
+      "es": "## Análisis Institucional: KEY (KeyCorp)\n\n### 1. Contexto\nKeyCorp opera en el sector Financials. BOGA AI detecta interés institucional cerca de $22.27.\n\n### 2. Desempeño\n* **Master Score:** 60.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $22.27 | Actual |\n| EMA20 | $21.16 | Soporte |\n| ADX | 21.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $21.25.\n\n### 5. Ejecución\n* **Entry Zone:** $20.65 - $22.38\n* **Target Price:** $23.80\n* **Stop Loss:** $21.25\n",
+      "pt": "## Análise Institucional: KEY (KeyCorp)\n\n### 1. Contexto\nKeyCorp opera no setor Financials. BOGA AI detecta interesse institucional perto de $22.27.\n\n### 2. Desempenho\n* **Master Score:** 60.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $22.27 | Atual |\n| EMA20 | $21.16 | Suporte |\n| ADX | 21.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $21.25.\n\n### 5. Execução\n* **Entry Zone:** $20.65 - $22.38\n* **Target Price:** $23.80\n* **Stop Loss:** $21.25\n",
+      "fr": "## Analyse Institutionnelle: KEY (KeyCorp)\n\n### 1. Contexte Business\nKeyCorp opère dans le secteur Financials. BOGA AI détecte un intérêt institutionnel proche de $22.27.\n\n### 2. Performance\n* **Master Score:** 60.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $22.27 | Actuel |\n| EMA20 | $21.16 | Support |\n| ADX | 21.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $21.25.\n\n### 5. Exécution\n* **Entry Zone:** $20.65 - $22.38\n* **Target Price:** $23.80\n* **Stop Loss:** $21.25\n",
+      "id": "## Analisis Institusional: KEY (KeyCorp)\n\n### 1. Konteks Bisnis\nKeyCorp beroperasi di sektor Financials. BOGA AI mendeteksi minat institusional di dekat $22.27.\n\n### 2. Performa\n* **Master Score:** 60.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $22.27 | Saat Ini |\n| EMA20 | $21.16 | Dukungan |\n| ADX | 21.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $21.25.\n\n### 5. Eksekusi\n* **Entry Zone:** $20.65 - $22.38\n* **Target Price:** $23.80\n* **Stop Loss:** $21.25\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 60,
+    "price_change_display": "+0.36%",
+    "key_metrics": {
+      "RSI": 72.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

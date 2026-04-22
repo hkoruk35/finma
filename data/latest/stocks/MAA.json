@@ -1,0 +1,177 @@
+{
+  "ticker": "MAA",
+  "company": "Mid-America Apartment Communities, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.108983-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 126.6,
+    "open": 129.06,
+    "high": 129.53,
+    "low": 126.56,
+    "prev_close": 129.47,
+    "change_pct": -2.22,
+    "change_pct_1w": 1.43,
+    "change_pct_1m": 5.22,
+    "change_pct_1y": -15.7,
+    "volume": 309475,
+    "avg_volume_30d": 966869
+  },
+  "scores": {
+    "master_score": 24.62,
+    "technical_score": 9.9,
+    "fundamental_score": 28.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.6,
+    "breakout_score": 0.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 24.62,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.2,
+    "macd": 0.2157,
+    "macd_signal": -0.652,
+    "macd_histogram": 0.8678,
+    "macd_crossover": "neutral",
+    "ema_20": 124.93,
+    "ema_50": 126.47,
+    "ema_200": 133.12,
+    "ema_stack_bullish": false,
+    "bb_upper": 128.65,
+    "bb_middle": 123.29,
+    "bb_lower": 117.92,
+    "bb_width": 0.0871,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.0,
+    "atr": 2.47,
+    "atr_pct": 0.0195,
+    "obv_trend": "DOWN",
+    "mfi": 48.1,
+    "cmf": 0.006,
+    "stoch_k": 68.4,
+    "stoch_d": 87.4,
+    "rvol": 1.11,
+    "volume_5d_avg": 1076875,
+    "green_days_10d": 5,
+    "52w_high": 160.4,
+    "52w_low": 119.11,
+    "52w_high_proximity_pct": 0.2107,
+    "52w_low_proximity_pct": 0.0629
+  },
+  "fundamental": {
+    "pe_ratio": 33.49206,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 2.6129491,
+    "de_ratio": 93.305,
+    "fcf_yield": 0.0611,
+    "eps_growth_5y": -0.658,
+    "revenue_growth_ttm": 0.01,
+    "gross_margin": 0.5869,
+    "operating_margin": 0.28384,
+    "net_margin": 0.2023,
+    "market_cap": 15172105216,
+    "enterprise_value": 20660969472,
+    "dividend_yield": 4.73,
+    "payout_ratio": 1.6032001,
+    "insider_ownership_pct": 0.00664,
+    "institutional_ownership_pct": 0.98780996,
+    "short_ratio": 3.54,
+    "beta": 0.789
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 125.84,
+    "entry_range_high": 127.23,
+    "target_range_low": 131.33,
+    "target_range_high": 140.71,
+    "stop_range_low": 115.58,
+    "stop_range_high": 121.66,
+    "target_price": 134.01,
+    "stop_loss": 121.66,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.108943-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 158.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 473.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 119.11,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 731,
+      "date": "2026-04-06"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
+      "tr": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
+      "es": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
+      "pt": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
+      "fr": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2.",
+      "id": "BOGA AI assigns MAA a score of 24.6/100. Trend: Neutral. RSI: 54.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: MAA (Mid-America Apartment Communities, Inc.)\n\n### 1. Business Context\nMid-America Apartment Communities, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $126.60.\n\n### 2. Performance\n* **Master Score:** 24.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $126.60 | Current |\n| EMA20 | $124.93 | Support |\n| ADX | 21.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $121.66.\n\n### 5. Execution\n* **Entry Zone:** $125.84 - $127.23\n* **Target Price:** $134.01\n* **Stop Loss:** $121.66\n",
+      "tr": "## Kurumsal Analiz: MAA (Mid-America Apartment Communities, Inc.)\n\n### 1. İş Bağlamı\nMid-America Apartment Communities, Inc., Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $126.60 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 24.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $126.60 | Güncel |\n| EMA20 | $124.93 | Destek |\n| ADX | 21.0 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $121.66.\n\n### 5. Uygulama\n* **Entry Zone:** $125.84 - $127.23\n* **Target Price:** $134.01\n* **Stop Loss:** $121.66\n",
+      "es": "## Análisis Institucional: MAA (Mid-America Apartment Communities, Inc.)\n\n### 1. Contexto\nMid-America Apartment Communities, Inc. opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $126.60.\n\n### 2. Desempeño\n* **Master Score:** 24.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $126.60 | Actual |\n| EMA20 | $124.93 | Soporte |\n| ADX | 21.0 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $121.66.\n\n### 5. Ejecución\n* **Entry Zone:** $125.84 - $127.23\n* **Target Price:** $134.01\n* **Stop Loss:** $121.66\n",
+      "pt": "## Análise Institucional: MAA (Mid-America Apartment Communities, Inc.)\n\n### 1. Contexto\nMid-America Apartment Communities, Inc. opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $126.60.\n\n### 2. Desempenho\n* **Master Score:** 24.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $126.60 | Atual |\n| EMA20 | $124.93 | Suporte |\n| ADX | 21.0 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $121.66.\n\n### 5. Execução\n* **Entry Zone:** $125.84 - $127.23\n* **Target Price:** $134.01\n* **Stop Loss:** $121.66\n",
+      "fr": "## Analyse Institutionnelle: MAA (Mid-America Apartment Communities, Inc.)\n\n### 1. Contexte Business\nMid-America Apartment Communities, Inc. opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $126.60.\n\n### 2. Performance\n* **Master Score:** 24.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $126.60 | Actuel |\n| EMA20 | $124.93 | Support |\n| ADX | 21.0 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $121.66.\n\n### 5. Exécution\n* **Entry Zone:** $125.84 - $127.23\n* **Target Price:** $134.01\n* **Stop Loss:** $121.66\n",
+      "id": "## Analisis Institusional: MAA (Mid-America Apartment Communities, Inc.)\n\n### 1. Konteks Bisnis\nMid-America Apartment Communities, Inc. beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $126.60.\n\n### 2. Performa\n* **Master Score:** 24.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $126.60 | Saat Ini |\n| EMA20 | $124.93 | Dukungan |\n| ADX | 21.0 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $121.66.\n\n### 5. Eksekusi\n* **Entry Zone:** $125.84 - $127.23\n* **Target Price:** $134.01\n* **Stop Loss:** $121.66\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "-2.22%",
+    "key_metrics": {
+      "RSI": 54.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

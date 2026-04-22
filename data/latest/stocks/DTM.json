@@ -1,0 +1,177 @@
+{
+  "ticker": "DTM",
+  "company": "DT Midstream, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.473421-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 130.01,
+    "open": 132.75,
+    "high": 132.93,
+    "low": 129.42,
+    "prev_close": 132.15,
+    "change_pct": -1.62,
+    "change_pct_1w": -1.97,
+    "change_pct_1m": -1.46,
+    "change_pct_1y": 37.99,
+    "volume": 144342,
+    "avg_volume_30d": 815214
+  },
+  "scores": {
+    "master_score": 31.16,
+    "technical_score": 24.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.6,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 40.0,
+    "signal_score": 31.16,
+    "confidence": 0.31,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.2,
+    "macd": -0.8489,
+    "macd_signal": -0.4025,
+    "macd_histogram": -0.4464,
+    "macd_crossover": "neutral",
+    "ema_20": 133.66,
+    "ema_50": 132.66,
+    "ema_200": 119.28,
+    "ema_stack_bullish": false,
+    "bb_upper": 137.88,
+    "bb_middle": 134.14,
+    "bb_lower": 130.41,
+    "bb_width": 0.0556,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 12.6,
+    "atr": 3.41,
+    "atr_pct": 0.0262,
+    "obv_trend": "DOWN",
+    "mfi": 37.3,
+    "cmf": 0.017,
+    "stoch_k": 7.1,
+    "stoch_d": 30.4,
+    "rvol": 0.76,
+    "volume_5d_avg": 621588,
+    "green_days_10d": 3,
+    "52w_high": 141.5,
+    "52w_low": 90.3,
+    "52w_high_proximity_pct": 0.0812,
+    "52w_low_proximity_pct": 0.4398
+  },
+  "fundamental": {
+    "pe_ratio": 30.30536,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 2.791112,
+    "de_ratio": 69.127,
+    "fcf_yield": 0.0118,
+    "eps_growth_5y": 0.471,
+    "revenue_growth_ttm": 0.273,
+    "gross_margin": 0.75382006,
+    "operating_margin": 0.49210998,
+    "net_margin": 0.35479,
+    "market_cap": 13262855168,
+    "enterprise_value": 16902492160,
+    "dividend_yield": 2.66,
+    "payout_ratio": 0.7628,
+    "insider_ownership_pct": 0.0057200002,
+    "institutional_ownership_pct": 0.89217,
+    "short_ratio": 4.0,
+    "beta": 0.782
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 129.36,
+    "entry_range_high": 130.66,
+    "target_range_low": 137.44,
+    "target_range_high": 147.25,
+    "stop_range_low": 117.03,
+    "stop_range_high": 123.19,
+    "target_price": 140.24,
+    "stop_loss": 123.19,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.473382-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 162.51,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 266.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 90.3,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1033,
+      "date": "2026-03-05"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
+      "tr": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
+      "es": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
+      "pt": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
+      "fr": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2.",
+      "id": "BOGA AI assigns DTM a score of 31.2/100. Trend: Neutral. RSI: 39.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: DTM (DT Midstream, Inc.)\n\n### 1. Business Context\nDT Midstream, Inc. operates in the Energy sector. BOGA AI detect institutional interest near $130.01.\n\n### 2. Performance\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $130.01 | Current |\n| EMA20 | $133.66 | Support |\n| ADX | 12.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $123.19.\n\n### 5. Execution\n* **Entry Zone:** $129.36 - $130.66\n* **Target Price:** $140.24\n* **Stop Loss:** $123.19\n",
+      "tr": "## Kurumsal Analiz: DTM (DT Midstream, Inc.)\n\n### 1. İş Bağlamı\nDT Midstream, Inc., Energy sektöründe faaliyet göstermektedir. BOGA AI, $130.01 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $130.01 | Güncel |\n| EMA20 | $133.66 | Destek |\n| ADX | 12.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $123.19.\n\n### 5. Uygulama\n* **Entry Zone:** $129.36 - $130.66\n* **Target Price:** $140.24\n* **Stop Loss:** $123.19\n",
+      "es": "## Análisis Institucional: DTM (DT Midstream, Inc.)\n\n### 1. Contexto\nDT Midstream, Inc. opera en el sector Energy. BOGA AI detecta interés institucional cerca de $130.01.\n\n### 2. Desempeño\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $130.01 | Actual |\n| EMA20 | $133.66 | Soporte |\n| ADX | 12.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $123.19.\n\n### 5. Ejecución\n* **Entry Zone:** $129.36 - $130.66\n* **Target Price:** $140.24\n* **Stop Loss:** $123.19\n",
+      "pt": "## Análise Institucional: DTM (DT Midstream, Inc.)\n\n### 1. Contexto\nDT Midstream, Inc. opera no setor Energy. BOGA AI detecta interesse institucional perto de $130.01.\n\n### 2. Desempenho\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $130.01 | Atual |\n| EMA20 | $133.66 | Suporte |\n| ADX | 12.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $123.19.\n\n### 5. Execução\n* **Entry Zone:** $129.36 - $130.66\n* **Target Price:** $140.24\n* **Stop Loss:** $123.19\n",
+      "fr": "## Analyse Institutionnelle: DTM (DT Midstream, Inc.)\n\n### 1. Contexte Business\nDT Midstream, Inc. opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $130.01.\n\n### 2. Performance\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $130.01 | Actuel |\n| EMA20 | $133.66 | Support |\n| ADX | 12.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $123.19.\n\n### 5. Exécution\n* **Entry Zone:** $129.36 - $130.66\n* **Target Price:** $140.24\n* **Stop Loss:** $123.19\n",
+      "id": "## Analisis Institusional: DTM (DT Midstream, Inc.)\n\n### 1. Konteks Bisnis\nDT Midstream, Inc. beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $130.01.\n\n### 2. Performa\n* **Master Score:** 31.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $130.01 | Saat Ini |\n| EMA20 | $133.66 | Dukungan |\n| ADX | 12.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $123.19.\n\n### 5. Eksekusi\n* **Entry Zone:** $129.36 - $130.66\n* **Target Price:** $140.24\n* **Stop Loss:** $123.19\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 31,
+    "price_change_display": "-1.62%",
+    "key_metrics": {
+      "RSI": 39.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

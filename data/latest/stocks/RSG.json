@@ -1,0 +1,177 @@
+{
+  "ticker": "RSG",
+  "company": "Republic Services, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.926641-04:00",
+  "sector": "Industrials",
+  "industry": "Waste Management",
+  "price": {
+    "current": 206.09,
+    "open": 208.12,
+    "high": 208.7,
+    "low": 205.73,
+    "prev_close": 208.45,
+    "change_pct": -1.13,
+    "change_pct_1w": -2.66,
+    "change_pct_1m": -5.76,
+    "change_pct_1y": -14.36,
+    "volume": 542399,
+    "avg_volume_30d": 1451946
+  },
+  "scores": {
+    "master_score": 18.5,
+    "technical_score": 1.5,
+    "fundamental_score": 27.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 0.0,
+    "value_score": 15.0,
+    "reversal_score": 5.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 100.0,
+    "signal_score": 18.5,
+    "confidence": 0.18,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 30.2,
+    "macd": -3.4751,
+    "macd_signal": -2.4163,
+    "macd_histogram": -1.0588,
+    "macd_crossover": "neutral",
+    "ema_20": 214.25,
+    "ema_50": 217.17,
+    "ema_200": 221.07,
+    "ema_stack_bullish": false,
+    "bb_upper": 224.54,
+    "bb_middle": 215.07,
+    "bb_lower": 205.61,
+    "bb_width": 0.088,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 19.9,
+    "atr": 3.88,
+    "atr_pct": 0.0188,
+    "obv_trend": "DOWN",
+    "mfi": 24.6,
+    "cmf": -0.121,
+    "stoch_k": 1.9,
+    "stoch_d": 6.4,
+    "rvol": 0.95,
+    "volume_5d_avg": 1377119,
+    "green_days_10d": 2,
+    "52w_high": 255.27,
+    "52w_low": 202.94,
+    "52w_high_proximity_pct": 0.1927,
+    "52w_low_proximity_pct": 0.0155
+  },
+  "fundamental": {
+    "pe_ratio": 30.05685,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 5.3063803,
+    "de_ratio": 115.348,
+    "fcf_yield": 0.0278,
+    "eps_growth_5y": 0.074,
+    "revenue_growth_ttm": 0.022,
+    "gross_margin": 0.43005002,
+    "operating_margin": 0.19492,
+    "net_margin": 0.12893,
+    "market_cap": 63703678976,
+    "enterprise_value": 78101397504,
+    "dividend_yield": 1.2,
+    "payout_ratio": 0.3518,
+    "insider_ownership_pct": 0.0012899999,
+    "institutional_ownership_pct": 0.97352,
+    "short_ratio": 2.6,
+    "beta": 0.535
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 205.06,
+    "entry_range_high": 207.12,
+    "target_range_low": 213.38,
+    "target_range_high": 228.62,
+    "stop_range_low": 188.41,
+    "stop_range_high": 198.33,
+    "target_price": 217.73,
+    "stop_loss": 198.33,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.926594-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 257.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 120.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 202.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 878,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
+      "tr": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
+      "es": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
+      "pt": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
+      "fr": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2.",
+      "id": "BOGA AI assigns RSG a score of 18.5/100. Trend: Neutral. RSI: 30.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: RSG (Republic Services, Inc.)\n\n### 1. Business Context\nRepublic Services, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $206.09.\n\n### 2. Performance\n* **Master Score:** 18.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 30.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $206.09 | Current |\n| EMA20 | $214.25 | Support |\n| ADX | 19.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $198.33.\n\n### 5. Execution\n* **Entry Zone:** $205.06 - $207.12\n* **Target Price:** $217.73\n* **Stop Loss:** $198.33\n",
+      "tr": "## Kurumsal Analiz: RSG (Republic Services, Inc.)\n\n### 1. İş Bağlamı\nRepublic Services, Inc., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $206.09 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 18.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 30.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $206.09 | Güncel |\n| EMA20 | $214.25 | Destek |\n| ADX | 19.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $198.33.\n\n### 5. Uygulama\n* **Entry Zone:** $205.06 - $207.12\n* **Target Price:** $217.73\n* **Stop Loss:** $198.33\n",
+      "es": "## Análisis Institucional: RSG (Republic Services, Inc.)\n\n### 1. Contexto\nRepublic Services, Inc. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $206.09.\n\n### 2. Desempeño\n* **Master Score:** 18.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 30.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $206.09 | Actual |\n| EMA20 | $214.25 | Soporte |\n| ADX | 19.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $198.33.\n\n### 5. Ejecución\n* **Entry Zone:** $205.06 - $207.12\n* **Target Price:** $217.73\n* **Stop Loss:** $198.33\n",
+      "pt": "## Análise Institucional: RSG (Republic Services, Inc.)\n\n### 1. Contexto\nRepublic Services, Inc. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $206.09.\n\n### 2. Desempenho\n* **Master Score:** 18.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 30.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $206.09 | Atual |\n| EMA20 | $214.25 | Suporte |\n| ADX | 19.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $198.33.\n\n### 5. Execução\n* **Entry Zone:** $205.06 - $207.12\n* **Target Price:** $217.73\n* **Stop Loss:** $198.33\n",
+      "fr": "## Analyse Institutionnelle: RSG (Republic Services, Inc.)\n\n### 1. Contexte Business\nRepublic Services, Inc. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $206.09.\n\n### 2. Performance\n* **Master Score:** 18.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 30.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $206.09 | Actuel |\n| EMA20 | $214.25 | Support |\n| ADX | 19.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $198.33.\n\n### 5. Exécution\n* **Entry Zone:** $205.06 - $207.12\n* **Target Price:** $217.73\n* **Stop Loss:** $198.33\n",
+      "id": "## Analisis Institusional: RSG (Republic Services, Inc.)\n\n### 1. Konteks Bisnis\nRepublic Services, Inc. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $206.09.\n\n### 2. Performa\n* **Master Score:** 18.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 30.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $206.09 | Saat Ini |\n| EMA20 | $214.25 | Dukungan |\n| ADX | 19.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $198.33.\n\n### 5. Eksekusi\n* **Entry Zone:** $205.06 - $207.12\n* **Target Price:** $217.73\n* **Stop Loss:** $198.33\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 18,
+    "price_change_display": "-1.13%",
+    "key_metrics": {
+      "RSI": 30.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

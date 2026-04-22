@@ -1,0 +1,177 @@
+{
+  "ticker": "FRT",
+  "company": "Federal Realty Investment Trust",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.099719-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 111.58,
+    "open": 112.29,
+    "high": 112.41,
+    "low": 111.02,
+    "prev_close": 112.33,
+    "change_pct": -0.66,
+    "change_pct_1w": 1.25,
+    "change_pct_1m": 9.34,
+    "change_pct_1y": 24.52,
+    "volume": 181039,
+    "avg_volume_30d": 847497
+  },
+  "scores": {
+    "master_score": 60.36,
+    "technical_score": 62.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 46.6,
+    "breakout_score": 20.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 60.36,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.0,
+    "macd": 1.8789,
+    "macd_signal": 1.3248,
+    "macd_histogram": 0.5541,
+    "macd_crossover": "neutral",
+    "ema_20": 108.4,
+    "ema_50": 106.03,
+    "ema_200": 100.07,
+    "ema_stack_bullish": true,
+    "bb_upper": 113.95,
+    "bb_middle": 107.17,
+    "bb_lower": 100.38,
+    "bb_width": 0.1266,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.3,
+    "atr": 1.73,
+    "atr_pct": 0.0155,
+    "obv_trend": "UP",
+    "mfi": 80.0,
+    "cmf": 0.248,
+    "stoch_k": 82.9,
+    "stoch_d": 91.8,
+    "rvol": 0.71,
+    "volume_5d_avg": 598227,
+    "green_days_10d": 4,
+    "52w_high": 112.53,
+    "52w_low": 87.65,
+    "52w_high_proximity_pct": 0.0084,
+    "52w_low_proximity_pct": 0.273
+  },
+  "fundamental": {
+    "pe_ratio": 23.842949,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 3.11629,
+    "de_ratio": 143.64,
+    "fcf_yield": 0.0481,
+    "eps_growth_5y": 0.987,
+    "revenue_growth_ttm": 0.075,
+    "gross_margin": 0.67917,
+    "operating_margin": 0.34458,
+    "net_margin": 0.32092997,
+    "market_cap": 9698680832,
+    "enterprise_value": 15021409280,
+    "dividend_yield": 4.0,
+    "payout_ratio": 0.953,
+    "insider_ownership_pct": 0.01122,
+    "institutional_ownership_pct": 0.99727994,
+    "short_ratio": 0.02,
+    "beta": 0.992
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 105.5,
+    "entry_range_high": 112.14,
+    "target_range_low": 114.43,
+    "target_range_high": 122.61,
+    "stop_range_low": 102.71,
+    "stop_range_high": 108.12,
+    "target_price": 116.77,
+    "stop_loss": 108.12,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.099675-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 139.47,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 400.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 87.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 63708,
+      "date": "2026-02-11"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
+      "tr": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
+      "es": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
+      "pt": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
+      "fr": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0.",
+      "id": "BOGA AI assigns FRT a score of 60.4/100. Trend: Neutral. RSI: 69.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: FRT (Federal Realty Investment Trust)\n\n### 1. Business Context\nFederal Realty Investment Trust operates in the Real Estate sector. BOGA AI detect institutional interest near $111.58.\n\n### 2. Performance\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $111.58 | Current |\n| EMA20 | $108.4 | Support |\n| ADX | 27.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $108.12.\n\n### 5. Execution\n* **Entry Zone:** $105.50 - $112.14\n* **Target Price:** $116.77\n* **Stop Loss:** $108.12\n",
+      "tr": "## Kurumsal Analiz: FRT (Federal Realty Investment Trust)\n\n### 1. İş Bağlamı\nFederal Realty Investment Trust, Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $111.58 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $111.58 | Güncel |\n| EMA20 | $108.4 | Destek |\n| ADX | 27.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $108.12.\n\n### 5. Uygulama\n* **Entry Zone:** $105.50 - $112.14\n* **Target Price:** $116.77\n* **Stop Loss:** $108.12\n",
+      "es": "## Análisis Institucional: FRT (Federal Realty Investment Trust)\n\n### 1. Contexto\nFederal Realty Investment Trust opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $111.58.\n\n### 2. Desempeño\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $111.58 | Actual |\n| EMA20 | $108.4 | Soporte |\n| ADX | 27.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $108.12.\n\n### 5. Ejecución\n* **Entry Zone:** $105.50 - $112.14\n* **Target Price:** $116.77\n* **Stop Loss:** $108.12\n",
+      "pt": "## Análise Institucional: FRT (Federal Realty Investment Trust)\n\n### 1. Contexto\nFederal Realty Investment Trust opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $111.58.\n\n### 2. Desempenho\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $111.58 | Atual |\n| EMA20 | $108.4 | Suporte |\n| ADX | 27.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $108.12.\n\n### 5. Execução\n* **Entry Zone:** $105.50 - $112.14\n* **Target Price:** $116.77\n* **Stop Loss:** $108.12\n",
+      "fr": "## Analyse Institutionnelle: FRT (Federal Realty Investment Trust)\n\n### 1. Contexte Business\nFederal Realty Investment Trust opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $111.58.\n\n### 2. Performance\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $111.58 | Actuel |\n| EMA20 | $108.4 | Support |\n| ADX | 27.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $108.12.\n\n### 5. Exécution\n* **Entry Zone:** $105.50 - $112.14\n* **Target Price:** $116.77\n* **Stop Loss:** $108.12\n",
+      "id": "## Analisis Institusional: FRT (Federal Realty Investment Trust)\n\n### 1. Konteks Bisnis\nFederal Realty Investment Trust beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $111.58.\n\n### 2. Performa\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $111.58 | Saat Ini |\n| EMA20 | $108.4 | Dukungan |\n| ADX | 27.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $108.12.\n\n### 5. Eksekusi\n* **Entry Zone:** $105.50 - $112.14\n* **Target Price:** $116.77\n* **Stop Loss:** $108.12\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 60,
+    "price_change_display": "-0.66%",
+    "key_metrics": {
+      "RSI": 69.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "ticker": "WOLF",
+  "company": "Wolfspeed, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.942197-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 27.12,
+    "open": 26.83,
+    "high": 30.25,
+    "low": 26.77,
+    "prev_close": 26.33,
+    "change_pct": 3.0,
+    "change_pct_1w": 17.91,
+    "change_pct_1m": 66.18,
+    "change_pct_1y": null,
+    "volume": 4424370,
+    "avg_volume_30d": 1889772
+  },
+  "scores": {
+    "master_score": 53.67,
+    "technical_score": 67.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 39.7,
+    "breakout_score": 27.0,
+    "value_score": 20.0,
+    "reversal_score": 15.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 53.67,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 69.2,
+    "macd": 2.3181,
+    "macd_signal": 1.5551,
+    "macd_histogram": 0.7631,
+    "macd_crossover": "neutral",
+    "ema_20": 22.14,
+    "ema_50": 20.11,
+    "ema_200": null,
+    "ema_stack_bullish": false,
+    "bb_upper": 28.9,
+    "bb_middle": 20.71,
+    "bb_lower": 12.53,
+    "bb_width": 0.7901,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 32.9,
+    "atr": 2.4,
+    "atr_pct": 0.0884,
+    "obv_trend": "UP",
+    "mfi": 80.7,
+    "cmf": 0.024,
+    "stoch_k": 78.8,
+    "stoch_d": 81.1,
+    "rvol": 1.72,
+    "volume_5d_avg": 3246534,
+    "green_days_10d": 7,
+    "52w_high": 35.42,
+    "52w_low": 14.8,
+    "52w_high_proximity_pct": 0.2343,
+    "52w_low_proximity_pct": 0.8324
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 1.1828848,
+    "de_ratio": 330.379,
+    "fcf_yield": -0.653,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.066,
+    "gross_margin": -0.14244,
+    "operating_margin": -0.78990996,
+    "net_margin": -0.91640997,
+    "market_cap": 1310944000,
+    "enterprise_value": 1967684864,
+    "dividend_yield": null,
+    "payout_ratio": null,
+    "insider_ownership_pct": 0.0029199999,
+    "institutional_ownership_pct": 1.3653901,
+    "short_ratio": 7.34,
+    "beta": null
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 20.01,
+    "entry_range_high": 27.26,
+    "target_range_low": 33.63,
+    "target_range_high": 36.04,
+    "stop_range_low": 21.2,
+    "stop_range_high": 22.32,
+    "target_price": 34.32,
+    "stop_loss": 22.32,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.942040-04:00",
+    "categories": [
+      "top_scores",
+      "reversal"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 27.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 33.9,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.8,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 31732,
+      "date": "2025-12-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns WOLF a score of 53.7/100. Trend: Neutral. RSI: 69.2.",
+      "tr": "BOGA AI assigns WOLF a score of 53.7/100. Trend: Neutral. RSI: 69.2.",
+      "es": "BOGA AI assigns WOLF a score of 53.7/100. Trend: Neutral. RSI: 69.2.",
+      "pt": "BOGA AI assigns WOLF a score of 53.7/100. Trend: Neutral. RSI: 69.2.",
+      "fr": "BOGA AI assigns WOLF a score of 53.7/100. Trend: Neutral. RSI: 69.2.",
+      "id": "BOGA AI assigns WOLF a score of 53.7/100. Trend: Neutral. RSI: 69.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: WOLF (Wolfspeed, Inc.)\n\n### 1. Business Context\nWolfspeed, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $27.12.\n\n### 2. Performance\n* **Master Score:** 53.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $27.12 | Current |\n| EMA20 | $22.14 | Support |\n| ADX | 32.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $22.32.\n\n### 5. Execution\n* **Entry Zone:** $20.01 - $27.26\n* **Target Price:** $34.32\n* **Stop Loss:** $22.32\n",
+      "tr": "## Kurumsal Analiz: WOLF (Wolfspeed, Inc.)\n\n### 1. İş Bağlamı\nWolfspeed, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $27.12 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 53.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $27.12 | Güncel |\n| EMA20 | $22.14 | Destek |\n| ADX | 32.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $22.32.\n\n### 5. Uygulama\n* **Entry Zone:** $20.01 - $27.26\n* **Target Price:** $34.32\n* **Stop Loss:** $22.32\n",
+      "es": "## Análisis Institucional: WOLF (Wolfspeed, Inc.)\n\n### 1. Contexto\nWolfspeed, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $27.12.\n\n### 2. Desempeño\n* **Master Score:** 53.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $27.12 | Actual |\n| EMA20 | $22.14 | Soporte |\n| ADX | 32.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $22.32.\n\n### 5. Ejecución\n* **Entry Zone:** $20.01 - $27.26\n* **Target Price:** $34.32\n* **Stop Loss:** $22.32\n",
+      "pt": "## Análise Institucional: WOLF (Wolfspeed, Inc.)\n\n### 1. Contexto\nWolfspeed, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $27.12.\n\n### 2. Desempenho\n* **Master Score:** 53.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $27.12 | Atual |\n| EMA20 | $22.14 | Suporte |\n| ADX | 32.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $22.32.\n\n### 5. Execução\n* **Entry Zone:** $20.01 - $27.26\n* **Target Price:** $34.32\n* **Stop Loss:** $22.32\n",
+      "fr": "## Analyse Institutionnelle: WOLF (Wolfspeed, Inc.)\n\n### 1. Contexte Business\nWolfspeed, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $27.12.\n\n### 2. Performance\n* **Master Score:** 53.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $27.12 | Actuel |\n| EMA20 | $22.14 | Support |\n| ADX | 32.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $22.32.\n\n### 5. Exécution\n* **Entry Zone:** $20.01 - $27.26\n* **Target Price:** $34.32\n* **Stop Loss:** $22.32\n",
+      "id": "## Analisis Institusional: WOLF (Wolfspeed, Inc.)\n\n### 1. Konteks Bisnis\nWolfspeed, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $27.12.\n\n### 2. Performa\n* **Master Score:** 53.7/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 69.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $27.12 | Saat Ini |\n| EMA20 | $22.14 | Dukungan |\n| ADX | 32.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $22.32.\n\n### 5. Eksekusi\n* **Entry Zone:** $20.01 - $27.26\n* **Target Price:** $34.32\n* **Stop Loss:** $22.32\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "+3.00%",
+    "key_metrics": {
+      "RSI": 69.2,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Mixed"
+    }
+  }
+}

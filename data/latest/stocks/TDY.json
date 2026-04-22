@@ -1,0 +1,175 @@
+{
+  "ticker": "TDY",
+  "company": "Teledyne Technologies Incorporated",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.790251-04:00",
+  "sector": "Industrials",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 637.91,
+    "open": 644.47,
+    "high": 646.6,
+    "low": 636.96,
+    "prev_close": 645.73,
+    "change_pct": -1.21,
+    "change_pct_1w": -1.5,
+    "change_pct_1m": 3.53,
+    "change_pct_1y": 38.02,
+    "volume": 149407,
+    "avg_volume_30d": 315553
+  },
+  "scores": {
+    "master_score": 49.98,
+    "technical_score": 55.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 49.98,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 50.4,
+    "macd": 1.6894,
+    "macd_signal": 0.541,
+    "macd_histogram": 1.1484,
+    "macd_crossover": "neutral",
+    "ema_20": 637.63,
+    "ema_50": 630.94,
+    "ema_200": 578.53,
+    "ema_stack_bullish": true,
+    "bb_upper": 670.06,
+    "bb_middle": 630.38,
+    "bb_lower": 590.71,
+    "bb_width": 0.1259,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.4,
+    "atr": 15.91,
+    "atr_pct": 0.0249,
+    "obv_trend": "UP",
+    "mfi": 58.3,
+    "cmf": 0.056,
+    "stoch_k": 55.8,
+    "stoch_d": 66.4,
+    "rvol": 1.13,
+    "volume_5d_avg": 357421,
+    "green_days_10d": 5,
+    "52w_high": 688.59,
+    "52w_low": 448.52,
+    "52w_high_proximity_pct": 0.0736,
+    "52w_low_proximity_pct": 0.4222
+  },
+  "fundamental": {
+    "pe_ratio": 33.82317,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 2.802192,
+    "de_ratio": 25.13,
+    "fcf_yield": 0.0232,
+    "eps_growth_5y": 0.391,
+    "revenue_growth_ttm": 0.073,
+    "gross_margin": 0.42758,
+    "operating_margin": 0.20604,
+    "net_margin": 0.14632,
+    "market_cap": 29546029056,
+    "enterprise_value": 32190429184,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00851,
+    "institutional_ownership_pct": 0.98017997,
+    "short_ratio": 3.75,
+    "beta": 1.008
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 627.79,
+    "entry_range_high": 641.1,
+    "target_range_low": 671.93,
+    "target_range_high": 719.92,
+    "stop_range_low": 575.79,
+    "stop_range_high": 606.09,
+    "target_price": 685.64,
+    "stop_loss": 606.09,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.790038-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 797.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 448.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7500,
+      "date": "2026-02-03"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
+      "tr": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
+      "es": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
+      "pt": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
+      "fr": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4.",
+      "id": "BOGA AI assigns TDY a score of 50.0/100. Trend: Neutral. RSI: 50.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TDY (Teledyne Technologies Incorporated)\n\n### 1. Business Context\nTeledyne Technologies Incorporated operates in the Industrials sector. BOGA AI detect institutional interest near $637.91.\n\n### 2. Performance\n* **Master Score:** 50.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $637.91 | Current |\n| EMA20 | $637.63 | Support |\n| ADX | 17.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $606.09.\n\n### 5. Execution\n* **Entry Zone:** $627.79 - $641.10\n* **Target Price:** $685.64\n* **Stop Loss:** $606.09\n",
+      "tr": "## Kurumsal Analiz: TDY (Teledyne Technologies Incorporated)\n\n### 1. İş Bağlamı\nTeledyne Technologies Incorporated, Industrials sektöründe faaliyet göstermektedir. BOGA AI, $637.91 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 50.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $637.91 | Güncel |\n| EMA20 | $637.63 | Destek |\n| ADX | 17.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $606.09.\n\n### 5. Uygulama\n* **Entry Zone:** $627.79 - $641.10\n* **Target Price:** $685.64\n* **Stop Loss:** $606.09\n",
+      "es": "## Análisis Institucional: TDY (Teledyne Technologies Incorporated)\n\n### 1. Contexto\nTeledyne Technologies Incorporated opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $637.91.\n\n### 2. Desempeño\n* **Master Score:** 50.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $637.91 | Actual |\n| EMA20 | $637.63 | Soporte |\n| ADX | 17.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $606.09.\n\n### 5. Ejecución\n* **Entry Zone:** $627.79 - $641.10\n* **Target Price:** $685.64\n* **Stop Loss:** $606.09\n",
+      "pt": "## Análise Institucional: TDY (Teledyne Technologies Incorporated)\n\n### 1. Contexto\nTeledyne Technologies Incorporated opera no setor Industrials. BOGA AI detecta interesse institucional perto de $637.91.\n\n### 2. Desempenho\n* **Master Score:** 50.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $637.91 | Atual |\n| EMA20 | $637.63 | Suporte |\n| ADX | 17.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $606.09.\n\n### 5. Execução\n* **Entry Zone:** $627.79 - $641.10\n* **Target Price:** $685.64\n* **Stop Loss:** $606.09\n",
+      "fr": "## Analyse Institutionnelle: TDY (Teledyne Technologies Incorporated)\n\n### 1. Contexte Business\nTeledyne Technologies Incorporated opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $637.91.\n\n### 2. Performance\n* **Master Score:** 50.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $637.91 | Actuel |\n| EMA20 | $637.63 | Support |\n| ADX | 17.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $606.09.\n\n### 5. Exécution\n* **Entry Zone:** $627.79 - $641.10\n* **Target Price:** $685.64\n* **Stop Loss:** $606.09\n",
+      "id": "## Analisis Institusional: TDY (Teledyne Technologies Incorporated)\n\n### 1. Konteks Bisnis\nTeledyne Technologies Incorporated beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $637.91.\n\n### 2. Performa\n* **Master Score:** 50.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 50.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $637.91 | Saat Ini |\n| EMA20 | $637.63 | Dukungan |\n| ADX | 17.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $606.09.\n\n### 5. Eksekusi\n* **Entry Zone:** $627.79 - $641.10\n* **Target Price:** $685.64\n* **Stop Loss:** $606.09\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "-1.21%",
+    "key_metrics": {
+      "RSI": 50.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

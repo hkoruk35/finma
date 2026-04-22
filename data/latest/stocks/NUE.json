@@ -1,0 +1,177 @@
+{
+  "ticker": "NUE",
+  "company": "Nucor Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.612985-04:00",
+  "sector": "Materials",
+  "industry": "Steel",
+  "price": {
+    "current": 207.03,
+    "open": 202.66,
+    "high": 209.4,
+    "low": 202.66,
+    "prev_close": 202.26,
+    "change_pct": 2.36,
+    "change_pct_1w": 8.94,
+    "change_pct_1m": 31.0,
+    "change_pct_1y": 90.2,
+    "volume": 832418,
+    "avg_volume_30d": 1368223
+  },
+  "scores": {
+    "master_score": 56.0,
+    "technical_score": 60.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 40.0,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 56.0,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 82.3,
+    "macd": 8.1962,
+    "macd_signal": 5.0017,
+    "macd_histogram": 3.1945,
+    "macd_crossover": "neutral",
+    "ema_20": 184.51,
+    "ema_50": 177.22,
+    "ema_200": 159.33,
+    "ema_stack_bullish": true,
+    "bb_upper": 206.79,
+    "bb_middle": 179.8,
+    "bb_lower": 152.81,
+    "bb_width": 0.3002,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 33.1,
+    "atr": 5.01,
+    "atr_pct": 0.0242,
+    "obv_trend": "UP",
+    "mfi": 83.4,
+    "cmf": 0.303,
+    "stoch_k": 94.4,
+    "stoch_d": 96.2,
+    "rvol": 0.89,
+    "volume_5d_avg": 1221003,
+    "green_days_10d": 9,
+    "52w_high": 207.03,
+    "52w_low": 105.08,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.9703
+  },
+  "fundamental": {
+    "pe_ratio": 27.530584,
+    "sector_pe_median": 23.229378,
+    "pb_ratio": 2.2575896,
+    "de_ratio": 32.765,
+    "fcf_yield": -0.0192,
+    "eps_growth_5y": 0.342,
+    "revenue_growth_ttm": 0.086,
+    "gross_margin": 0.12027001,
+    "operating_margin": 0.06869,
+    "net_margin": 0.05367,
+    "market_cap": 47156174848,
+    "enterprise_value": 51807694848,
+    "dividend_yield": 1.11,
+    "payout_ratio": 0.29389998,
+    "insider_ownership_pct": 0.03199,
+    "institutional_ownership_pct": 0.79003,
+    "short_ratio": 3.12,
+    "beta": 1.745
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 176.33,
+    "entry_range_high": 208.07,
+    "target_range_low": 217.62,
+    "target_range_high": 233.16,
+    "stop_range_low": 187.16,
+    "stop_range_high": 197.01,
+    "target_price": 222.06,
+    "stop_loss": 197.01,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.612924-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 258.79,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 111.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 105.08,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3800,
+      "date": "2026-03-23"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns NUE a score of 56.0/100. Trend: Neutral. RSI: 82.3.",
+      "tr": "BOGA AI assigns NUE a score of 56.0/100. Trend: Neutral. RSI: 82.3.",
+      "es": "BOGA AI assigns NUE a score of 56.0/100. Trend: Neutral. RSI: 82.3.",
+      "pt": "BOGA AI assigns NUE a score of 56.0/100. Trend: Neutral. RSI: 82.3.",
+      "fr": "BOGA AI assigns NUE a score of 56.0/100. Trend: Neutral. RSI: 82.3.",
+      "id": "BOGA AI assigns NUE a score of 56.0/100. Trend: Neutral. RSI: 82.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: NUE (Nucor Corporation)\n\n### 1. Business Context\nNucor Corporation operates in the Materials sector. BOGA AI detect institutional interest near $207.03.\n\n### 2. Performance\n* **Master Score:** 56.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 82.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $207.03 | Current |\n| EMA20 | $184.51 | Support |\n| ADX | 33.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $197.01.\n\n### 5. Execution\n* **Entry Zone:** $176.33 - $208.07\n* **Target Price:** $222.06\n* **Stop Loss:** $197.01\n",
+      "tr": "## Kurumsal Analiz: NUE (Nucor Corporation)\n\n### 1. İş Bağlamı\nNucor Corporation, Materials sektöründe faaliyet göstermektedir. BOGA AI, $207.03 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 56.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 82.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $207.03 | Güncel |\n| EMA20 | $184.51 | Destek |\n| ADX | 33.1 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $197.01.\n\n### 5. Uygulama\n* **Entry Zone:** $176.33 - $208.07\n* **Target Price:** $222.06\n* **Stop Loss:** $197.01\n",
+      "es": "## Análisis Institucional: NUE (Nucor Corporation)\n\n### 1. Contexto\nNucor Corporation opera en el sector Materials. BOGA AI detecta interés institucional cerca de $207.03.\n\n### 2. Desempeño\n* **Master Score:** 56.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 82.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $207.03 | Actual |\n| EMA20 | $184.51 | Soporte |\n| ADX | 33.1 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $197.01.\n\n### 5. Ejecución\n* **Entry Zone:** $176.33 - $208.07\n* **Target Price:** $222.06\n* **Stop Loss:** $197.01\n",
+      "pt": "## Análise Institucional: NUE (Nucor Corporation)\n\n### 1. Contexto\nNucor Corporation opera no setor Materials. BOGA AI detecta interesse institucional perto de $207.03.\n\n### 2. Desempenho\n* **Master Score:** 56.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 82.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $207.03 | Atual |\n| EMA20 | $184.51 | Suporte |\n| ADX | 33.1 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $197.01.\n\n### 5. Execução\n* **Entry Zone:** $176.33 - $208.07\n* **Target Price:** $222.06\n* **Stop Loss:** $197.01\n",
+      "fr": "## Analyse Institutionnelle: NUE (Nucor Corporation)\n\n### 1. Contexte Business\nNucor Corporation opère dans le secteur Materials. BOGA AI détecte un intérêt institutionnel proche de $207.03.\n\n### 2. Performance\n* **Master Score:** 56.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 82.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $207.03 | Actuel |\n| EMA20 | $184.51 | Support |\n| ADX | 33.1 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $197.01.\n\n### 5. Exécution\n* **Entry Zone:** $176.33 - $208.07\n* **Target Price:** $222.06\n* **Stop Loss:** $197.01\n",
+      "id": "## Analisis Institusional: NUE (Nucor Corporation)\n\n### 1. Konteks Bisnis\nNucor Corporation beroperasi di sektor Materials. BOGA AI mendeteksi minat institusional di dekat $207.03.\n\n### 2. Performa\n* **Master Score:** 56.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 82.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $207.03 | Saat Ini |\n| EMA20 | $184.51 | Dukungan |\n| ADX | 33.1 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $197.01.\n\n### 5. Eksekusi\n* **Entry Zone:** $176.33 - $208.07\n* **Target Price:** $222.06\n* **Stop Loss:** $197.01\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "+2.36%",
+    "key_metrics": {
+      "RSI": 82.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

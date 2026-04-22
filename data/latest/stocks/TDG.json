@@ -1,0 +1,175 @@
+{
+  "ticker": "TDG",
+  "company": "TransDigm Group Incorporated",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.724289-04:00",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 1210.59,
+    "open": 1267.28,
+    "high": 1274.5,
+    "low": 1206.68,
+    "prev_close": 1274.62,
+    "change_pct": -5.02,
+    "change_pct_1w": -6.63,
+    "change_pct_1m": 2.82,
+    "change_pct_1y": -3.28,
+    "volume": 283090,
+    "avg_volume_30d": 389336
+  },
+  "scores": {
+    "master_score": 29.39,
+    "technical_score": 12.6,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 0.0,
+    "signal_score": 29.39,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 47.4,
+    "macd": 5.0543,
+    "macd_signal": -4.1269,
+    "macd_histogram": 9.1812,
+    "macd_crossover": "neutral",
+    "ema_20": 1226.47,
+    "ema_50": 1247.09,
+    "ema_200": 1294.9,
+    "ema_stack_bullish": false,
+    "bb_upper": 1297.91,
+    "bb_middle": 1201.94,
+    "bb_lower": 1105.97,
+    "bb_width": 0.1597,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.0,
+    "atr": 39.9,
+    "atr_pct": 0.033,
+    "obv_trend": "UP",
+    "mfi": 66.1,
+    "cmf": 0.101,
+    "stoch_k": 48.5,
+    "stoch_d": 70.6,
+    "rvol": 0.83,
+    "volume_5d_avg": 324858,
+    "green_days_10d": 6,
+    "52w_high": 1516.55,
+    "52w_low": 1132.88,
+    "52w_high_proximity_pct": 0.2017,
+    "52w_low_proximity_pct": 0.0686
+  },
+  "fundamental": {
+    "pe_ratio": 38.9,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": -7.360297,
+    "de_ratio": null,
+    "fcf_yield": 0.0194,
+    "eps_growth_5y": -0.129,
+    "revenue_growth_ttm": 0.139,
+    "gross_margin": 0.59693,
+    "operating_margin": 0.45602,
+    "net_margin": 0.22239,
+    "market_cap": 68321157120,
+    "enterprise_value": 99505332224,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00397,
+    "institutional_ownership_pct": 0.97378,
+    "short_ratio": 2.55,
+    "beta": 0.955
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 1204.54,
+    "entry_range_high": 1216.64,
+    "target_range_low": 1303.68,
+    "target_range_high": 1396.8,
+    "stop_range_low": 1074.25,
+    "stop_range_high": 1130.79,
+    "target_price": 1330.29,
+    "stop_loss": 1130.79,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.724212-04:00",
+    "categories": []
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1513.24,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 1132.88,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 8,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3900,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
+      "tr": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
+      "es": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
+      "pt": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
+      "fr": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4.",
+      "id": "BOGA AI assigns TDG a score of 29.4/100. Trend: Neutral. RSI: 47.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TDG (TransDigm Group Incorporated)\n\n### 1. Business Context\nTransDigm Group Incorporated operates in the Industrials sector. BOGA AI detect institutional interest near $1210.59.\n\n### 2. Performance\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1210.59 | Current |\n| EMA20 | $1226.47 | Support |\n| ADX | 25.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $1130.79.\n\n### 5. Execution\n* **Entry Zone:** $1204.54 - $1216.64\n* **Target Price:** $1330.29\n* **Stop Loss:** $1130.79\n",
+      "tr": "## Kurumsal Analiz: TDG (TransDigm Group Incorporated)\n\n### 1. İş Bağlamı\nTransDigm Group Incorporated, Industrials sektöründe faaliyet göstermektedir. BOGA AI, $1210.59 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $1210.59 | Güncel |\n| EMA20 | $1226.47 | Destek |\n| ADX | 25.0 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $1130.79.\n\n### 5. Uygulama\n* **Entry Zone:** $1204.54 - $1216.64\n* **Target Price:** $1330.29\n* **Stop Loss:** $1130.79\n",
+      "es": "## Análisis Institucional: TDG (TransDigm Group Incorporated)\n\n### 1. Contexto\nTransDigm Group Incorporated opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $1210.59.\n\n### 2. Desempeño\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $1210.59 | Actual |\n| EMA20 | $1226.47 | Soporte |\n| ADX | 25.0 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $1130.79.\n\n### 5. Ejecución\n* **Entry Zone:** $1204.54 - $1216.64\n* **Target Price:** $1330.29\n* **Stop Loss:** $1130.79\n",
+      "pt": "## Análise Institucional: TDG (TransDigm Group Incorporated)\n\n### 1. Contexto\nTransDigm Group Incorporated opera no setor Industrials. BOGA AI detecta interesse institucional perto de $1210.59.\n\n### 2. Desempenho\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $1210.59 | Atual |\n| EMA20 | $1226.47 | Suporte |\n| ADX | 25.0 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $1130.79.\n\n### 5. Execução\n* **Entry Zone:** $1204.54 - $1216.64\n* **Target Price:** $1330.29\n* **Stop Loss:** $1130.79\n",
+      "fr": "## Analyse Institutionnelle: TDG (TransDigm Group Incorporated)\n\n### 1. Contexte Business\nTransDigm Group Incorporated opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $1210.59.\n\n### 2. Performance\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1210.59 | Actuel |\n| EMA20 | $1226.47 | Support |\n| ADX | 25.0 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $1130.79.\n\n### 5. Exécution\n* **Entry Zone:** $1204.54 - $1216.64\n* **Target Price:** $1330.29\n* **Stop Loss:** $1130.79\n",
+      "id": "## Analisis Institusional: TDG (TransDigm Group Incorporated)\n\n### 1. Konteks Bisnis\nTransDigm Group Incorporated beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $1210.59.\n\n### 2. Performa\n* **Master Score:** 29.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 47.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $1210.59 | Saat Ini |\n| EMA20 | $1226.47 | Dukungan |\n| ADX | 25.0 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $1130.79.\n\n### 5. Eksekusi\n* **Entry Zone:** $1204.54 - $1216.64\n* **Target Price:** $1330.29\n* **Stop Loss:** $1130.79\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
+    "price_change_display": "-5.02%",
+    "key_metrics": {
+      "RSI": 47.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "SRPT",
+  "company": "Sarepta Therapeutics, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.952860-04:00",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 20.62,
+    "open": 21.5,
+    "high": 21.56,
+    "low": 20.59,
+    "prev_close": 21.42,
+    "change_pct": -3.74,
+    "change_pct_1w": -6.91,
+    "change_pct_1m": 23.55,
+    "change_pct_1y": -61.67,
+    "volume": 1443032,
+    "avg_volume_30d": 3054171
+  },
+  "scores": {
+    "master_score": 21.68,
+    "technical_score": 9.6,
+    "fundamental_score": 37.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 65.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 30.0,
+    "signal_score": 21.68,
+    "confidence": 0.22,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 49.6,
+    "macd": 0.6301,
+    "macd_signal": 0.858,
+    "macd_histogram": -0.2278,
+    "macd_crossover": "neutral",
+    "ema_20": 21.02,
+    "ema_50": 20.17,
+    "ema_200": 26.64,
+    "ema_stack_bullish": false,
+    "bb_upper": 24.19,
+    "bb_middle": 21.61,
+    "bb_lower": 19.03,
+    "bb_width": 0.2389,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.3,
+    "atr": 1.17,
+    "atr_pct": 0.0565,
+    "obv_trend": "DOWN",
+    "mfi": 39.4,
+    "cmf": 0.168,
+    "stoch_k": 0.9,
+    "stoch_d": 22.2,
+    "rvol": 0.75,
+    "volume_5d_avg": 2293226,
+    "green_days_10d": 4,
+    "52w_high": 63.66,
+    "52w_low": 11.93,
+    "52w_high_proximity_pct": 0.6761,
+    "52w_low_proximity_pct": 0.7284
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 1.8974787,
+    "de_ratio": 91.139,
+    "fcf_yield": 0.0443,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.327,
+    "gross_margin": -0.07435,
+    "operating_margin": -0.92584,
+    "net_margin": -0.32454,
+    "market_cap": 2164878592,
+    "enterprise_value": 2348779008,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.05152,
+    "institutional_ownership_pct": 0.90230006,
+    "short_ratio": 7.89,
+    "beta": 0.283
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 20.07,
+    "entry_range_high": 20.72,
+    "target_range_low": 23.65,
+    "target_range_high": 25.34,
+    "stop_range_low": 17.37,
+    "stop_range_high": 18.28,
+    "target_price": 24.13,
+    "stop_loss": 18.28,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.952500-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 25.78,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 11.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7239,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SRPT a score of 21.7/100. Trend: Neutral. RSI: 49.6.",
+      "tr": "BOGA AI assigns SRPT a score of 21.7/100. Trend: Neutral. RSI: 49.6.",
+      "es": "BOGA AI assigns SRPT a score of 21.7/100. Trend: Neutral. RSI: 49.6.",
+      "pt": "BOGA AI assigns SRPT a score of 21.7/100. Trend: Neutral. RSI: 49.6.",
+      "fr": "BOGA AI assigns SRPT a score of 21.7/100. Trend: Neutral. RSI: 49.6.",
+      "id": "BOGA AI assigns SRPT a score of 21.7/100. Trend: Neutral. RSI: 49.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SRPT (Sarepta Therapeutics, Inc.)\n\n### 1. Business Context\nSarepta Therapeutics, Inc. operates in the Healthcare sector. BOGA AI detect institutional interest near $20.62.\n\n### 2. Performance\n* **Master Score:** 21.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $20.62 | Current |\n| EMA20 | $21.02 | Support |\n| ADX | 28.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $18.28.\n\n### 5. Execution\n* **Entry Zone:** $20.07 - $20.72\n* **Target Price:** $24.13\n* **Stop Loss:** $18.28\n",
+      "tr": "## Kurumsal Analiz: SRPT (Sarepta Therapeutics, Inc.)\n\n### 1. İş Bağlamı\nSarepta Therapeutics, Inc., Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $20.62 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 21.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $20.62 | Güncel |\n| EMA20 | $21.02 | Destek |\n| ADX | 28.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $18.28.\n\n### 5. Uygulama\n* **Entry Zone:** $20.07 - $20.72\n* **Target Price:** $24.13\n* **Stop Loss:** $18.28\n",
+      "es": "## Análisis Institucional: SRPT (Sarepta Therapeutics, Inc.)\n\n### 1. Contexto\nSarepta Therapeutics, Inc. opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $20.62.\n\n### 2. Desempeño\n* **Master Score:** 21.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $20.62 | Actual |\n| EMA20 | $21.02 | Soporte |\n| ADX | 28.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $18.28.\n\n### 5. Ejecución\n* **Entry Zone:** $20.07 - $20.72\n* **Target Price:** $24.13\n* **Stop Loss:** $18.28\n",
+      "pt": "## Análise Institucional: SRPT (Sarepta Therapeutics, Inc.)\n\n### 1. Contexto\nSarepta Therapeutics, Inc. opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $20.62.\n\n### 2. Desempenho\n* **Master Score:** 21.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $20.62 | Atual |\n| EMA20 | $21.02 | Suporte |\n| ADX | 28.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $18.28.\n\n### 5. Execução\n* **Entry Zone:** $20.07 - $20.72\n* **Target Price:** $24.13\n* **Stop Loss:** $18.28\n",
+      "fr": "## Analyse Institutionnelle: SRPT (Sarepta Therapeutics, Inc.)\n\n### 1. Contexte Business\nSarepta Therapeutics, Inc. opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $20.62.\n\n### 2. Performance\n* **Master Score:** 21.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $20.62 | Actuel |\n| EMA20 | $21.02 | Support |\n| ADX | 28.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $18.28.\n\n### 5. Exécution\n* **Entry Zone:** $20.07 - $20.72\n* **Target Price:** $24.13\n* **Stop Loss:** $18.28\n",
+      "id": "## Analisis Institusional: SRPT (Sarepta Therapeutics, Inc.)\n\n### 1. Konteks Bisnis\nSarepta Therapeutics, Inc. beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $20.62.\n\n### 2. Performa\n* **Master Score:** 21.7/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 49.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $20.62 | Saat Ini |\n| EMA20 | $21.02 | Dukungan |\n| ADX | 28.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $18.28.\n\n### 5. Eksekusi\n* **Entry Zone:** $20.07 - $20.72\n* **Target Price:** $24.13\n* **Stop Loss:** $18.28\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 22,
+    "price_change_display": "-3.74%",
+    "key_metrics": {
+      "RSI": 49.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

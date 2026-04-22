@@ -1,0 +1,177 @@
+{
+  "ticker": "EQIX",
+  "company": "Equinix, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.071038-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 1099.73,
+    "open": 1104.6,
+    "high": 1105.4,
+    "low": 1087.17,
+    "prev_close": 1103.97,
+    "change_pct": -0.38,
+    "change_pct_1w": 4.01,
+    "change_pct_1m": 14.66,
+    "change_pct_1y": 42.41,
+    "volume": 226089,
+    "avg_volume_30d": 542419
+  },
+  "scores": {
+    "master_score": 49.16,
+    "technical_score": 60.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.6,
+    "breakout_score": 20.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.16,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 81.0,
+    "macd": 36.7688,
+    "macd_signal": 30.112,
+    "macd_histogram": 6.6568,
+    "macd_crossover": "neutral",
+    "ema_20": 1034.36,
+    "ema_50": 974.35,
+    "ema_200": 865.58,
+    "ema_stack_bullish": true,
+    "bb_upper": 1114.33,
+    "bb_middle": 1021.54,
+    "bb_lower": 928.75,
+    "bb_width": 0.1817,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 40.9,
+    "atr": 20.73,
+    "atr_pct": 0.0189,
+    "obv_trend": "UP",
+    "mfi": 73.3,
+    "cmf": 0.334,
+    "stoch_k": 95.6,
+    "stoch_d": 97.3,
+    "rvol": 0.79,
+    "volume_5d_avg": 428777,
+    "green_days_10d": 7,
+    "52w_high": 1103.97,
+    "52w_low": 722.15,
+    "52w_high_proximity_pct": 0.0038,
+    "52w_low_proximity_pct": 0.5229
+  },
+  "fundamental": {
+    "pe_ratio": 79.69094,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 7.6309013,
+    "de_ratio": 160.291,
+    "fcf_yield": 0.0261,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.081,
+    "gross_margin": 0.51317,
+    "operating_margin": 0.21540001,
+    "net_margin": 0.14579001,
+    "market_cap": 108459696128,
+    "enterprise_value": 129491492864,
+    "dividend_yield": 1.74,
+    "payout_ratio": 1.3634,
+    "insider_ownership_pct": 0.00275,
+    "institutional_ownership_pct": 0.99267995,
+    "short_ratio": 3.56,
+    "beta": 0.998
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 969.48,
+    "entry_range_high": 1105.23,
+    "target_range_low": 1138.68,
+    "target_range_high": 1220.02,
+    "stop_range_low": 1005.36,
+    "stop_range_high": 1058.27,
+    "target_price": 1161.92,
+    "stop_loss": 1058.27,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.070985-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 20.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1374.66,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 174.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 722.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 26,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 424,
+      "date": "2026-04-08"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns EQIX a score of 49.2/100. Trend: Neutral. RSI: 81.0.",
+      "tr": "BOGA AI assigns EQIX a score of 49.2/100. Trend: Neutral. RSI: 81.0.",
+      "es": "BOGA AI assigns EQIX a score of 49.2/100. Trend: Neutral. RSI: 81.0.",
+      "pt": "BOGA AI assigns EQIX a score of 49.2/100. Trend: Neutral. RSI: 81.0.",
+      "fr": "BOGA AI assigns EQIX a score of 49.2/100. Trend: Neutral. RSI: 81.0.",
+      "id": "BOGA AI assigns EQIX a score of 49.2/100. Trend: Neutral. RSI: 81.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: EQIX (Equinix, Inc.)\n\n### 1. Business Context\nEquinix, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $1099.73.\n\n### 2. Performance\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 81.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1099.73 | Current |\n| EMA20 | $1034.36 | Support |\n| ADX | 40.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $1058.27.\n\n### 5. Execution\n* **Entry Zone:** $969.48 - $1105.23\n* **Target Price:** $1161.92\n* **Stop Loss:** $1058.27\n",
+      "tr": "## Kurumsal Analiz: EQIX (Equinix, Inc.)\n\n### 1. İş Bağlamı\nEquinix, Inc., Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $1099.73 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 81.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $1099.73 | Güncel |\n| EMA20 | $1034.36 | Destek |\n| ADX | 40.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $1058.27.\n\n### 5. Uygulama\n* **Entry Zone:** $969.48 - $1105.23\n* **Target Price:** $1161.92\n* **Stop Loss:** $1058.27\n",
+      "es": "## Análisis Institucional: EQIX (Equinix, Inc.)\n\n### 1. Contexto\nEquinix, Inc. opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $1099.73.\n\n### 2. Desempeño\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 81.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $1099.73 | Actual |\n| EMA20 | $1034.36 | Soporte |\n| ADX | 40.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $1058.27.\n\n### 5. Ejecución\n* **Entry Zone:** $969.48 - $1105.23\n* **Target Price:** $1161.92\n* **Stop Loss:** $1058.27\n",
+      "pt": "## Análise Institucional: EQIX (Equinix, Inc.)\n\n### 1. Contexto\nEquinix, Inc. opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $1099.73.\n\n### 2. Desempenho\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 81.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $1099.73 | Atual |\n| EMA20 | $1034.36 | Suporte |\n| ADX | 40.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $1058.27.\n\n### 5. Execução\n* **Entry Zone:** $969.48 - $1105.23\n* **Target Price:** $1161.92\n* **Stop Loss:** $1058.27\n",
+      "fr": "## Analyse Institutionnelle: EQIX (Equinix, Inc.)\n\n### 1. Contexte Business\nEquinix, Inc. opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $1099.73.\n\n### 2. Performance\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 81.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $1099.73 | Actuel |\n| EMA20 | $1034.36 | Support |\n| ADX | 40.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $1058.27.\n\n### 5. Exécution\n* **Entry Zone:** $969.48 - $1105.23\n* **Target Price:** $1161.92\n* **Stop Loss:** $1058.27\n",
+      "id": "## Analisis Institusional: EQIX (Equinix, Inc.)\n\n### 1. Konteks Bisnis\nEquinix, Inc. beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $1099.73.\n\n### 2. Performa\n* **Master Score:** 49.2/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 81.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $1099.73 | Saat Ini |\n| EMA20 | $1034.36 | Dukungan |\n| ADX | 40.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $1058.27.\n\n### 5. Eksekusi\n* **Entry Zone:** $969.48 - $1105.23\n* **Target Price:** $1161.92\n* **Stop Loss:** $1058.27\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-0.38%",
+    "key_metrics": {
+      "RSI": 81.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

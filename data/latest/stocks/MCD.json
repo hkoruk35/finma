@@ -1,0 +1,177 @@
+{
+  "ticker": "MCD",
+  "company": "McDonald's Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.496435-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Restaurants",
+  "price": {
+    "current": 302.62,
+    "open": 305.55,
+    "high": 306.15,
+    "low": 302.6,
+    "prev_close": 306.94,
+    "change_pct": -1.41,
+    "change_pct_1w": -0.2,
+    "change_pct_1m": -2.02,
+    "change_pct_1y": -0.54,
+    "volume": 870221,
+    "avg_volume_30d": 2917414
+  },
+  "scores": {
+    "master_score": 32.56,
+    "technical_score": 13.8,
+    "fundamental_score": 42.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 30.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 32.56,
+    "confidence": 0.33,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 39.5,
+    "macd": -3.1788,
+    "macd_signal": -3.5803,
+    "macd_histogram": 0.4015,
+    "macd_crossover": "neutral",
+    "ema_20": 308.78,
+    "ema_50": 312.9,
+    "ema_200": 309.12,
+    "ema_stack_bullish": false,
+    "bb_upper": 312.28,
+    "bb_middle": 307.34,
+    "bb_lower": 302.4,
+    "bb_width": 0.0321,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 20.5,
+    "atr": 5.07,
+    "atr_pct": 0.0167,
+    "obv_trend": "UP",
+    "mfi": 34.3,
+    "cmf": 0.124,
+    "stoch_k": 9.9,
+    "stoch_d": 49.4,
+    "rvol": 0.81,
+    "volume_5d_avg": 2359824,
+    "green_days_10d": 5,
+    "52w_high": 339.17,
+    "52w_low": 280.68,
+    "52w_high_proximity_pct": 0.1078,
+    "52w_low_proximity_pct": 0.0782
+  },
+  "fundamental": {
+    "pe_ratio": 25.345058,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": -120.13497,
+    "de_ratio": null,
+    "fcf_yield": 0.0293,
+    "eps_growth_5y": 0.082,
+    "revenue_growth_ttm": 0.097,
+    "gross_margin": 0.57407004,
+    "operating_margin": 0.45071,
+    "net_margin": 0.3185,
+    "market_cap": 215110664192,
+    "enterprise_value": 272105766912,
+    "dividend_yield": 2.42,
+    "payout_ratio": 0.6,
+    "insider_ownership_pct": 0.00278,
+    "institutional_ownership_pct": 0.75611,
+    "short_ratio": 2.86,
+    "beta": 0.532
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 301.11,
+    "entry_range_high": 304.13,
+    "target_range_low": 311.47,
+    "target_range_high": 333.72,
+    "stop_range_low": 277.86,
+    "stop_range_high": 292.48,
+    "target_price": 317.83,
+    "stop_loss": 292.48,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.496409-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 378.27,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 242.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 280.68,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 9,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 2626,
+      "date": "2026-04-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns MCD a score of 32.6/100. Trend: Neutral. RSI: 39.5.",
+      "tr": "BOGA AI assigns MCD a score of 32.6/100. Trend: Neutral. RSI: 39.5.",
+      "es": "BOGA AI assigns MCD a score of 32.6/100. Trend: Neutral. RSI: 39.5.",
+      "pt": "BOGA AI assigns MCD a score of 32.6/100. Trend: Neutral. RSI: 39.5.",
+      "fr": "BOGA AI assigns MCD a score of 32.6/100. Trend: Neutral. RSI: 39.5.",
+      "id": "BOGA AI assigns MCD a score of 32.6/100. Trend: Neutral. RSI: 39.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: MCD (McDonald's Corporation)\n\n### 1. Business Context\nMcDonald's Corporation operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $302.62.\n\n### 2. Performance\n* **Master Score:** 32.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $302.62 | Current |\n| EMA20 | $308.78 | Support |\n| ADX | 20.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $292.48.\n\n### 5. Execution\n* **Entry Zone:** $301.11 - $304.13\n* **Target Price:** $317.83\n* **Stop Loss:** $292.48\n",
+      "tr": "## Kurumsal Analiz: MCD (McDonald's Corporation)\n\n### 1. İş Bağlamı\nMcDonald's Corporation, Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $302.62 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 32.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $302.62 | Güncel |\n| EMA20 | $308.78 | Destek |\n| ADX | 20.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $292.48.\n\n### 5. Uygulama\n* **Entry Zone:** $301.11 - $304.13\n* **Target Price:** $317.83\n* **Stop Loss:** $292.48\n",
+      "es": "## Análisis Institucional: MCD (McDonald's Corporation)\n\n### 1. Contexto\nMcDonald's Corporation opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $302.62.\n\n### 2. Desempeño\n* **Master Score:** 32.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $302.62 | Actual |\n| EMA20 | $308.78 | Soporte |\n| ADX | 20.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $292.48.\n\n### 5. Ejecución\n* **Entry Zone:** $301.11 - $304.13\n* **Target Price:** $317.83\n* **Stop Loss:** $292.48\n",
+      "pt": "## Análise Institucional: MCD (McDonald's Corporation)\n\n### 1. Contexto\nMcDonald's Corporation opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $302.62.\n\n### 2. Desempenho\n* **Master Score:** 32.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $302.62 | Atual |\n| EMA20 | $308.78 | Suporte |\n| ADX | 20.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $292.48.\n\n### 5. Execução\n* **Entry Zone:** $301.11 - $304.13\n* **Target Price:** $317.83\n* **Stop Loss:** $292.48\n",
+      "fr": "## Analyse Institutionnelle: MCD (McDonald's Corporation)\n\n### 1. Contexte Business\nMcDonald's Corporation opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $302.62.\n\n### 2. Performance\n* **Master Score:** 32.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $302.62 | Actuel |\n| EMA20 | $308.78 | Support |\n| ADX | 20.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $292.48.\n\n### 5. Exécution\n* **Entry Zone:** $301.11 - $304.13\n* **Target Price:** $317.83\n* **Stop Loss:** $292.48\n",
+      "id": "## Analisis Institusional: MCD (McDonald's Corporation)\n\n### 1. Konteks Bisnis\nMcDonald's Corporation beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $302.62.\n\n### 2. Performa\n* **Master Score:** 32.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 39.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $302.62 | Saat Ini |\n| EMA20 | $308.78 | Dukungan |\n| ADX | 20.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $292.48.\n\n### 5. Eksekusi\n* **Entry Zone:** $301.11 - $304.13\n* **Target Price:** $317.83\n* **Stop Loss:** $292.48\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 33,
+    "price_change_display": "-1.41%",
+    "key_metrics": {
+      "RSI": 39.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

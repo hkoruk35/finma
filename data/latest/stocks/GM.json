@@ -1,0 +1,177 @@
+{
+  "ticker": "GM",
+  "company": "General Motors Company",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.485394-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 79.97,
+    "open": 80.44,
+    "high": 81.2,
+    "low": 79.75,
+    "prev_close": 80.54,
+    "change_pct": -0.71,
+    "change_pct_1w": 0.64,
+    "change_pct_1m": 9.83,
+    "change_pct_1y": 81.25,
+    "volume": 1780546,
+    "avg_volume_30d": 6760101
+  },
+  "scores": {
+    "master_score": 51.18,
+    "technical_score": 52.0,
+    "fundamental_score": 47.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 51.18,
+    "confidence": 0.51,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 59.0,
+    "macd": 1.0288,
+    "macd_signal": 0.2871,
+    "macd_histogram": 0.7418,
+    "macd_crossover": "neutral",
+    "ema_20": 77.26,
+    "ema_50": 77.11,
+    "ema_200": 70.2,
+    "ema_stack_bullish": true,
+    "bb_upper": 81.56,
+    "bb_middle": 76.33,
+    "bb_lower": 71.11,
+    "bb_width": 0.1369,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.6,
+    "atr": 2.21,
+    "atr_pct": 0.0277,
+    "obv_trend": "UP",
+    "mfi": 45.2,
+    "cmf": -0.027,
+    "stoch_k": 75.6,
+    "stoch_d": 81.4,
+    "rvol": 0.74,
+    "volume_5d_avg": 5025629,
+    "green_days_10d": 5,
+    "52w_high": 86.18,
+    "52w_low": 43.94,
+    "52w_high_proximity_pct": 0.072,
+    "52w_low_proximity_pct": 0.8199
+  },
+  "fundamental": {
+    "pe_ratio": 24.449541,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 1.1825173,
+    "de_ratio": 208.299,
+    "fcf_yield": 0.1148,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.051,
+    "gross_margin": 0.107209995,
+    "operating_margin": 0.065359995,
+    "net_margin": 0.014579999,
+    "market_cap": 74582261760,
+    "enterprise_value": 178763563008,
+    "dividend_yield": 0.89,
+    "payout_ratio": 0.1743,
+    "insider_ownership_pct": 0.0026800002,
+    "institutional_ownership_pct": 0.87974,
+    "short_ratio": 2.54,
+    "beta": 1.345
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 76.72,
+    "entry_range_high": 80.37,
+    "target_range_low": 84.87,
+    "target_range_high": 90.93,
+    "stop_range_low": 71.77,
+    "stop_range_high": 75.55,
+    "target_price": 86.6,
+    "stop_loss": 75.55,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.485370-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 99.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 89.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 43.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 480724,
+      "date": "2026-02-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns GM a score of 51.2/100. Trend: Neutral. RSI: 59.0.",
+      "tr": "BOGA AI assigns GM a score of 51.2/100. Trend: Neutral. RSI: 59.0.",
+      "es": "BOGA AI assigns GM a score of 51.2/100. Trend: Neutral. RSI: 59.0.",
+      "pt": "BOGA AI assigns GM a score of 51.2/100. Trend: Neutral. RSI: 59.0.",
+      "fr": "BOGA AI assigns GM a score of 51.2/100. Trend: Neutral. RSI: 59.0.",
+      "id": "BOGA AI assigns GM a score of 51.2/100. Trend: Neutral. RSI: 59.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: GM (General Motors Company)\n\n### 1. Business Context\nGeneral Motors Company operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $79.97.\n\n### 2. Performance\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $79.97 | Current |\n| EMA20 | $77.26 | Support |\n| ADX | 16.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $75.55.\n\n### 5. Execution\n* **Entry Zone:** $76.72 - $80.37\n* **Target Price:** $86.60\n* **Stop Loss:** $75.55\n",
+      "tr": "## Kurumsal Analiz: GM (General Motors Company)\n\n### 1. İş Bağlamı\nGeneral Motors Company, Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $79.97 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $79.97 | Güncel |\n| EMA20 | $77.26 | Destek |\n| ADX | 16.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $75.55.\n\n### 5. Uygulama\n* **Entry Zone:** $76.72 - $80.37\n* **Target Price:** $86.60\n* **Stop Loss:** $75.55\n",
+      "es": "## Análisis Institucional: GM (General Motors Company)\n\n### 1. Contexto\nGeneral Motors Company opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $79.97.\n\n### 2. Desempeño\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $79.97 | Actual |\n| EMA20 | $77.26 | Soporte |\n| ADX | 16.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $75.55.\n\n### 5. Ejecución\n* **Entry Zone:** $76.72 - $80.37\n* **Target Price:** $86.60\n* **Stop Loss:** $75.55\n",
+      "pt": "## Análise Institucional: GM (General Motors Company)\n\n### 1. Contexto\nGeneral Motors Company opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $79.97.\n\n### 2. Desempenho\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $79.97 | Atual |\n| EMA20 | $77.26 | Suporte |\n| ADX | 16.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $75.55.\n\n### 5. Execução\n* **Entry Zone:** $76.72 - $80.37\n* **Target Price:** $86.60\n* **Stop Loss:** $75.55\n",
+      "fr": "## Analyse Institutionnelle: GM (General Motors Company)\n\n### 1. Contexte Business\nGeneral Motors Company opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $79.97.\n\n### 2. Performance\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $79.97 | Actuel |\n| EMA20 | $77.26 | Support |\n| ADX | 16.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $75.55.\n\n### 5. Exécution\n* **Entry Zone:** $76.72 - $80.37\n* **Target Price:** $86.60\n* **Stop Loss:** $75.55\n",
+      "id": "## Analisis Institusional: GM (General Motors Company)\n\n### 1. Konteks Bisnis\nGeneral Motors Company beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $79.97.\n\n### 2. Performa\n* **Master Score:** 51.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 59.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $79.97 | Saat Ini |\n| EMA20 | $77.26 | Dukungan |\n| ADX | 16.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $75.55.\n\n### 5. Eksekusi\n* **Entry Zone:** $76.72 - $80.37\n* **Target Price:** $86.60\n* **Stop Loss:** $75.55\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 51,
+    "price_change_display": "-0.71%",
+    "key_metrics": {
+      "RSI": 59.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

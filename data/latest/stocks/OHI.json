@@ -1,0 +1,177 @@
+{
+  "ticker": "OHI",
+  "company": "Omega Healthcare Investors, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.126165-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Healthcare Facilities",
+  "price": {
+    "current": 45.67,
+    "open": 46.47,
+    "high": 46.47,
+    "low": 45.56,
+    "prev_close": 46.51,
+    "change_pct": -1.8,
+    "change_pct_1w": 0.32,
+    "change_pct_1m": 1.98,
+    "change_pct_1y": 26.52,
+    "volume": 744639,
+    "avg_volume_30d": 1885677
+  },
+  "scores": {
+    "master_score": 58.51,
+    "technical_score": 51.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 65.0,
+    "sector_score": 46.6,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 58.51,
+    "confidence": 0.59,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 48.2,
+    "macd": 0.0781,
+    "macd_signal": -0.0824,
+    "macd_histogram": 0.1605,
+    "macd_crossover": "neutral",
+    "ema_20": 45.86,
+    "ema_50": 45.7,
+    "ema_200": 42.74,
+    "ema_stack_bullish": false,
+    "bb_upper": 47.01,
+    "bb_middle": 45.31,
+    "bb_lower": 43.61,
+    "bb_width": 0.075,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 16.3,
+    "atr": 0.89,
+    "atr_pct": 0.0196,
+    "obv_trend": "UP",
+    "mfi": 69.9,
+    "cmf": -0.062,
+    "stoch_k": 61.4,
+    "stoch_d": 80.7,
+    "rvol": 1.03,
+    "volume_5d_avg": 1938067,
+    "green_days_10d": 5,
+    "52w_high": 48.4,
+    "52w_low": 33.89,
+    "52w_high_proximity_pct": 0.0563,
+    "52w_low_proximity_pct": 0.3478
+  },
+  "fundamental": {
+    "pe_ratio": 23.543814,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 2.605236,
+    "de_ratio": 79.022,
+    "fcf_yield": 0.0548,
+    "eps_growth_5y": 0.346,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.98591006,
+    "operating_margin": 0.63188,
+    "net_margin": 0.49591,
+    "market_cap": 13875150848,
+    "enterprise_value": 18278320128,
+    "dividend_yield": 5.76,
+    "payout_ratio": 1.3814,
+    "insider_ownership_pct": 0.00199,
+    "institutional_ownership_pct": 0.82133,
+    "short_ratio": 6.25,
+    "beta": 0.58
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 45.44,
+    "entry_range_high": 45.9,
+    "target_range_low": 47.37,
+    "target_range_high": 50.76,
+    "stop_range_low": 41.7,
+    "stop_range_high": 43.89,
+    "target_price": 48.34,
+    "stop_loss": 43.89,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.126132-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 57.09,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 576.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 33.89,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 168,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns OHI a score of 58.5/100. Trend: Neutral. RSI: 48.2.",
+      "tr": "BOGA AI assigns OHI a score of 58.5/100. Trend: Neutral. RSI: 48.2.",
+      "es": "BOGA AI assigns OHI a score of 58.5/100. Trend: Neutral. RSI: 48.2.",
+      "pt": "BOGA AI assigns OHI a score of 58.5/100. Trend: Neutral. RSI: 48.2.",
+      "fr": "BOGA AI assigns OHI a score of 58.5/100. Trend: Neutral. RSI: 48.2.",
+      "id": "BOGA AI assigns OHI a score of 58.5/100. Trend: Neutral. RSI: 48.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: OHI (Omega Healthcare Investors, Inc.)\n\n### 1. Business Context\nOmega Healthcare Investors, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $45.67.\n\n### 2. Performance\n* **Master Score:** 58.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 48.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.67 | Current |\n| EMA20 | $45.86 | Support |\n| ADX | 16.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $43.89.\n\n### 5. Execution\n* **Entry Zone:** $45.44 - $45.90\n* **Target Price:** $48.34\n* **Stop Loss:** $43.89\n",
+      "tr": "## Kurumsal Analiz: OHI (Omega Healthcare Investors, Inc.)\n\n### 1. İş Bağlamı\nOmega Healthcare Investors, Inc., Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $45.67 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 58.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 48.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $45.67 | Güncel |\n| EMA20 | $45.86 | Destek |\n| ADX | 16.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $43.89.\n\n### 5. Uygulama\n* **Entry Zone:** $45.44 - $45.90\n* **Target Price:** $48.34\n* **Stop Loss:** $43.89\n",
+      "es": "## Análisis Institucional: OHI (Omega Healthcare Investors, Inc.)\n\n### 1. Contexto\nOmega Healthcare Investors, Inc. opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $45.67.\n\n### 2. Desempeño\n* **Master Score:** 58.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 48.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $45.67 | Actual |\n| EMA20 | $45.86 | Soporte |\n| ADX | 16.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $43.89.\n\n### 5. Ejecución\n* **Entry Zone:** $45.44 - $45.90\n* **Target Price:** $48.34\n* **Stop Loss:** $43.89\n",
+      "pt": "## Análise Institucional: OHI (Omega Healthcare Investors, Inc.)\n\n### 1. Contexto\nOmega Healthcare Investors, Inc. opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $45.67.\n\n### 2. Desempenho\n* **Master Score:** 58.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 48.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $45.67 | Atual |\n| EMA20 | $45.86 | Suporte |\n| ADX | 16.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $43.89.\n\n### 5. Execução\n* **Entry Zone:** $45.44 - $45.90\n* **Target Price:** $48.34\n* **Stop Loss:** $43.89\n",
+      "fr": "## Analyse Institutionnelle: OHI (Omega Healthcare Investors, Inc.)\n\n### 1. Contexte Business\nOmega Healthcare Investors, Inc. opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $45.67.\n\n### 2. Performance\n* **Master Score:** 58.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 48.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $45.67 | Actuel |\n| EMA20 | $45.86 | Support |\n| ADX | 16.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $43.89.\n\n### 5. Exécution\n* **Entry Zone:** $45.44 - $45.90\n* **Target Price:** $48.34\n* **Stop Loss:** $43.89\n",
+      "id": "## Analisis Institusional: OHI (Omega Healthcare Investors, Inc.)\n\n### 1. Konteks Bisnis\nOmega Healthcare Investors, Inc. beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $45.67.\n\n### 2. Performa\n* **Master Score:** 58.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 48.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $45.67 | Saat Ini |\n| EMA20 | $45.86 | Dukungan |\n| ADX | 16.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $43.89.\n\n### 5. Eksekusi\n* **Entry Zone:** $45.44 - $45.90\n* **Target Price:** $48.34\n* **Stop Loss:** $43.89\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 59,
+    "price_change_display": "-1.80%",
+    "key_metrics": {
+      "RSI": 48.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

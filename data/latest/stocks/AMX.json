@@ -1,0 +1,174 @@
+{
+  "ticker": "AMX",
+  "company": "América Móvil, S.A.B. de C.V.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.421924-04:00",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 25.71,
+    "open": 26.24,
+    "high": 26.44,
+    "low": 25.68,
+    "prev_close": 26.27,
+    "change_pct": -2.13,
+    "change_pct_1w": -2.13,
+    "change_pct_1m": 10.2,
+    "change_pct_1y": 61.94,
+    "volume": 402256,
+    "avg_volume_30d": 1446818
+  },
+  "scores": {
+    "master_score": 47.04,
+    "technical_score": 38.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 60.0,
+    "sector_score": 29.9,
+    "breakout_score": 30.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 47.04,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 52.7,
+    "macd": 0.5421,
+    "macd_signal": 0.6233,
+    "macd_histogram": -0.0813,
+    "macd_crossover": "neutral",
+    "ema_20": 25.74,
+    "ema_50": 24.67,
+    "ema_200": 21.75,
+    "ema_stack_bullish": false,
+    "bb_upper": 27.27,
+    "bb_middle": 25.81,
+    "bb_lower": 24.35,
+    "bb_width": 0.1131,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 27.8,
+    "atr": 0.65,
+    "atr_pct": 0.0255,
+    "obv_trend": "DOWN",
+    "mfi": 44.0,
+    "cmf": 0.031,
+    "stoch_k": 23.2,
+    "stoch_d": 43.2,
+    "rvol": 0.91,
+    "volume_5d_avg": 1323731,
+    "green_days_10d": 5,
+    "52w_high": 27.19,
+    "52w_low": 15.93,
+    "52w_high_proximity_pct": 0.0544,
+    "52w_low_proximity_pct": 0.6144
+  },
+  "fundamental": {
+    "pe_ratio": 16.169811,
+    "sector_pe_median": 25.1250565,
+    "pb_ratio": 3.718474,
+    "de_ratio": 172.8,
+    "fcf_yield": 1.6718,
+    "eps_growth_5y": 4.001,
+    "revenue_growth_ttm": 0.034,
+    "gross_margin": 0.4294,
+    "operating_margin": 0.20061001,
+    "net_margin": 0.08777001,
+    "market_cap": 77503225856,
+    "enterprise_value": 2244754014208,
+    "dividend_yield": 2.15,
+    "payout_ratio": 0.3804,
+    "insider_ownership_pct": 0.0,
+    "institutional_ownership_pct": 0.0644,
+    "short_ratio": 2.35,
+    "beta": 0.314
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 24.55,
+    "entry_range_high": 25.84,
+    "target_range_low": 27.11,
+    "target_range_high": 29.04,
+    "stop_range_low": 23.19,
+    "stop_range_high": 24.41,
+    "target_price": 27.66,
+    "stop_loss": 24.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.421620-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 32.14,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 215.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 15.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": null
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns AMX a score of 47.0/100. Trend: Neutral. RSI: 52.7.",
+      "tr": "BOGA AI assigns AMX a score of 47.0/100. Trend: Neutral. RSI: 52.7.",
+      "es": "BOGA AI assigns AMX a score of 47.0/100. Trend: Neutral. RSI: 52.7.",
+      "pt": "BOGA AI assigns AMX a score of 47.0/100. Trend: Neutral. RSI: 52.7.",
+      "fr": "BOGA AI assigns AMX a score of 47.0/100. Trend: Neutral. RSI: 52.7.",
+      "id": "BOGA AI assigns AMX a score of 47.0/100. Trend: Neutral. RSI: 52.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: AMX (América Móvil, S.A.B. de C.V.)\n\n### 1. Business Context\nAmérica Móvil, S.A.B. de C.V. operates in the Communication Services sector. BOGA AI detect institutional interest near $25.71.\n\n### 2. Performance\n* **Master Score:** 47.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 52.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $25.71 | Current |\n| EMA20 | $25.74 | Support |\n| ADX | 27.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $24.41.\n\n### 5. Execution\n* **Entry Zone:** $24.55 - $25.84\n* **Target Price:** $27.66\n* **Stop Loss:** $24.41\n",
+      "tr": "## Kurumsal Analiz: AMX (América Móvil, S.A.B. de C.V.)\n\n### 1. İş Bağlamı\nAmérica Móvil, S.A.B. de C.V., Communication Services sektöründe faaliyet göstermektedir. BOGA AI, $25.71 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 47.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 52.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $25.71 | Güncel |\n| EMA20 | $25.74 | Destek |\n| ADX | 27.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $24.41.\n\n### 5. Uygulama\n* **Entry Zone:** $24.55 - $25.84\n* **Target Price:** $27.66\n* **Stop Loss:** $24.41\n",
+      "es": "## Análisis Institucional: AMX (América Móvil, S.A.B. de C.V.)\n\n### 1. Contexto\nAmérica Móvil, S.A.B. de C.V. opera en el sector Communication Services. BOGA AI detecta interés institucional cerca de $25.71.\n\n### 2. Desempeño\n* **Master Score:** 47.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 52.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $25.71 | Actual |\n| EMA20 | $25.74 | Soporte |\n| ADX | 27.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $24.41.\n\n### 5. Ejecución\n* **Entry Zone:** $24.55 - $25.84\n* **Target Price:** $27.66\n* **Stop Loss:** $24.41\n",
+      "pt": "## Análise Institucional: AMX (América Móvil, S.A.B. de C.V.)\n\n### 1. Contexto\nAmérica Móvil, S.A.B. de C.V. opera no setor Communication Services. BOGA AI detecta interesse institucional perto de $25.71.\n\n### 2. Desempenho\n* **Master Score:** 47.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 52.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $25.71 | Atual |\n| EMA20 | $25.74 | Suporte |\n| ADX | 27.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $24.41.\n\n### 5. Execução\n* **Entry Zone:** $24.55 - $25.84\n* **Target Price:** $27.66\n* **Stop Loss:** $24.41\n",
+      "fr": "## Analyse Institutionnelle: AMX (América Móvil, S.A.B. de C.V.)\n\n### 1. Contexte Business\nAmérica Móvil, S.A.B. de C.V. opère dans le secteur Communication Services. BOGA AI détecte un intérêt institutionnel proche de $25.71.\n\n### 2. Performance\n* **Master Score:** 47.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 52.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $25.71 | Actuel |\n| EMA20 | $25.74 | Support |\n| ADX | 27.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $24.41.\n\n### 5. Exécution\n* **Entry Zone:** $24.55 - $25.84\n* **Target Price:** $27.66\n* **Stop Loss:** $24.41\n",
+      "id": "## Analisis Institusional: AMX (América Móvil, S.A.B. de C.V.)\n\n### 1. Konteks Bisnis\nAmérica Móvil, S.A.B. de C.V. beroperasi di sektor Communication Services. BOGA AI mendeteksi minat institusional di dekat $25.71.\n\n### 2. Performa\n* **Master Score:** 47.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 52.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $25.71 | Saat Ini |\n| EMA20 | $25.74 | Dukungan |\n| ADX | 27.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $24.41.\n\n### 5. Eksekusi\n* **Entry Zone:** $24.55 - $25.84\n* **Target Price:** $27.66\n* **Stop Loss:** $24.41\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "-2.13%",
+    "key_metrics": {
+      "RSI": 52.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "ULTA",
+  "company": "Ulta Beauty, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.800633-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Specialty Retail",
+  "price": {
+    "current": 573.02,
+    "open": 573.63,
+    "high": 576.59,
+    "low": 565.74,
+    "prev_close": 572.24,
+    "change_pct": 0.14,
+    "change_pct_1w": 7.49,
+    "change_pct_1m": 8.12,
+    "change_pct_1y": 60.17,
+    "volume": 226445,
+    "avg_volume_30d": 868674
+  },
+  "scores": {
+    "master_score": 44.58,
+    "technical_score": 47.0,
+    "fundamental_score": 24.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 30.0,
+    "signal_score": 44.58,
+    "confidence": 0.45,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 58.2,
+    "macd": -6.6845,
+    "macd_signal": -16.3029,
+    "macd_histogram": 9.6184,
+    "macd_crossover": "neutral",
+    "ema_20": 548.55,
+    "ema_50": 574.72,
+    "ema_200": 554.39,
+    "ema_stack_bullish": false,
+    "bb_upper": 567.31,
+    "bb_middle": 533.9,
+    "bb_lower": 500.5,
+    "bb_width": 0.1251,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 30.2,
+    "atr": 17.56,
+    "atr_pct": 0.0306,
+    "obv_trend": "UP",
+    "mfi": 70.6,
+    "cmf": 0.037,
+    "stoch_k": 94.4,
+    "stoch_d": 92.7,
+    "rvol": 0.73,
+    "volume_5d_avg": 632129,
+    "green_days_10d": 8,
+    "52w_high": 706.82,
+    "52w_low": 365.67,
+    "52w_high_proximity_pct": 0.1893,
+    "52w_low_proximity_pct": 0.567
+  },
+  "fundamental": {
+    "pe_ratio": 22.348286,
+    "sector_pe_median": 24.066932,
+    "pb_ratio": 9.027334,
+    "de_ratio": 77.835,
+    "fcf_yield": 0.0354,
+    "eps_growth_5y": -0.054,
+    "revenue_growth_ttm": 0.118,
+    "gross_margin": 0.43047002,
+    "operating_margin": 0.12234,
+    "net_margin": 0.09308,
+    "market_cap": 25419968512,
+    "enterprise_value": 26715666432,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00528,
+    "institutional_ownership_pct": 1.01775,
+    "short_ratio": 2.31,
+    "beta": 0.953
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 570.15,
+    "entry_range_high": 575.89,
+    "target_range_low": 613.19,
+    "target_range_high": 656.98,
+    "stop_range_low": 511.0,
+    "stop_range_high": 537.9,
+    "target_price": 625.7,
+    "stop_loss": 537.9,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.800464-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 716.27,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 365.67,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 452,
+      "date": "2026-04-07"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
+      "tr": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
+      "es": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
+      "pt": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
+      "fr": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2.",
+      "id": "BOGA AI assigns ULTA a score of 44.6/100. Trend: Neutral. RSI: 58.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: ULTA (Ulta Beauty, Inc.)\n\n### 1. Business Context\nUlta Beauty, Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $573.02.\n\n### 2. Performance\n* **Master Score:** 44.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $573.02 | Current |\n| EMA20 | $548.55 | Support |\n| ADX | 30.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $537.90.\n\n### 5. Execution\n* **Entry Zone:** $570.15 - $575.89\n* **Target Price:** $625.70\n* **Stop Loss:** $537.90\n",
+      "tr": "## Kurumsal Analiz: ULTA (Ulta Beauty, Inc.)\n\n### 1. İş Bağlamı\nUlta Beauty, Inc., Consumer Staples sektöründe faaliyet göstermektedir. BOGA AI, $573.02 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 44.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $573.02 | Güncel |\n| EMA20 | $548.55 | Destek |\n| ADX | 30.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $537.90.\n\n### 5. Uygulama\n* **Entry Zone:** $570.15 - $575.89\n* **Target Price:** $625.70\n* **Stop Loss:** $537.90\n",
+      "es": "## Análisis Institucional: ULTA (Ulta Beauty, Inc.)\n\n### 1. Contexto\nUlta Beauty, Inc. opera en el sector Consumer Staples. BOGA AI detecta interés institucional cerca de $573.02.\n\n### 2. Desempeño\n* **Master Score:** 44.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $573.02 | Actual |\n| EMA20 | $548.55 | Soporte |\n| ADX | 30.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $537.90.\n\n### 5. Ejecución\n* **Entry Zone:** $570.15 - $575.89\n* **Target Price:** $625.70\n* **Stop Loss:** $537.90\n",
+      "pt": "## Análise Institucional: ULTA (Ulta Beauty, Inc.)\n\n### 1. Contexto\nUlta Beauty, Inc. opera no setor Consumer Staples. BOGA AI detecta interesse institucional perto de $573.02.\n\n### 2. Desempenho\n* **Master Score:** 44.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $573.02 | Atual |\n| EMA20 | $548.55 | Suporte |\n| ADX | 30.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $537.90.\n\n### 5. Execução\n* **Entry Zone:** $570.15 - $575.89\n* **Target Price:** $625.70\n* **Stop Loss:** $537.90\n",
+      "fr": "## Analyse Institutionnelle: ULTA (Ulta Beauty, Inc.)\n\n### 1. Contexte Business\nUlta Beauty, Inc. opère dans le secteur Consumer Staples. BOGA AI détecte un intérêt institutionnel proche de $573.02.\n\n### 2. Performance\n* **Master Score:** 44.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $573.02 | Actuel |\n| EMA20 | $548.55 | Support |\n| ADX | 30.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $537.90.\n\n### 5. Exécution\n* **Entry Zone:** $570.15 - $575.89\n* **Target Price:** $625.70\n* **Stop Loss:** $537.90\n",
+      "id": "## Analisis Institusional: ULTA (Ulta Beauty, Inc.)\n\n### 1. Konteks Bisnis\nUlta Beauty, Inc. beroperasi di sektor Consumer Staples. BOGA AI mendeteksi minat institusional di dekat $573.02.\n\n### 2. Performa\n* **Master Score:** 44.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $573.02 | Saat Ini |\n| EMA20 | $548.55 | Dukungan |\n| ADX | 30.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $537.90.\n\n### 5. Eksekusi\n* **Entry Zone:** $570.15 - $575.89\n* **Target Price:** $625.70\n* **Stop Loss:** $537.90\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 45,
+    "price_change_display": "+0.14%",
+    "key_metrics": {
+      "RSI": 58.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

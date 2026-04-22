@@ -1,0 +1,177 @@
+{
+  "ticker": "MET",
+  "company": "MetLife, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.284717-04:00",
+  "sector": "Financials",
+  "industry": "Insurance - Life",
+  "price": {
+    "current": 77.68,
+    "open": 77.63,
+    "high": 78.35,
+    "low": 77.46,
+    "prev_close": 77.7,
+    "change_pct": -0.03,
+    "change_pct_1w": 2.15,
+    "change_pct_1m": 13.29,
+    "change_pct_1y": 10.25,
+    "volume": 787988,
+    "avg_volume_30d": 3569279
+  },
+  "scores": {
+    "master_score": 49.92,
+    "technical_score": 52.0,
+    "fundamental_score": 25.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 49.92,
+    "confidence": 0.5,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 67.4,
+    "macd": 1.6498,
+    "macd_signal": 0.9171,
+    "macd_histogram": 0.7327,
+    "macd_crossover": "neutral",
+    "ema_20": 74.39,
+    "ema_50": 73.88,
+    "ema_200": 75.84,
+    "ema_stack_bullish": false,
+    "bb_upper": 79.87,
+    "bb_middle": 73.16,
+    "bb_lower": 66.45,
+    "bb_width": 0.1834,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 27.7,
+    "atr": 1.72,
+    "atr_pct": 0.0222,
+    "obv_trend": "UP",
+    "mfi": 84.0,
+    "cmf": 0.166,
+    "stoch_k": 89.7,
+    "stoch_d": 92.0,
+    "rvol": 0.88,
+    "volume_5d_avg": 3123677,
+    "green_days_10d": 6,
+    "52w_high": 82.02,
+    "52w_low": 67.7,
+    "52w_high_proximity_pct": 0.053,
+    "52w_low_proximity_pct": 0.1473
+  },
+  "fundamental": {
+    "pe_ratio": 16.491508,
+    "sector_pe_median": 16.433114,
+    "pb_ratio": 1.7924725,
+    "de_ratio": 225.974,
+    "fcf_yield": -0.2489,
+    "eps_growth_5y": -0.342,
+    "revenue_growth_ttm": 0.276,
+    "gross_margin": 0.23363,
+    "operating_margin": 0.0467,
+    "net_margin": 0.04384,
+    "market_cap": 51179409408,
+    "enterprise_value": 90908581888,
+    "dividend_yield": 2.92,
+    "payout_ratio": 0.4772,
+    "insider_ownership_pct": 0.16440001,
+    "institutional_ownership_pct": 0.77292,
+    "short_ratio": 3.48,
+    "beta": 0.733
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 73.51,
+    "entry_range_high": 78.07,
+    "target_range_low": 81.18,
+    "target_range_high": 86.98,
+    "stop_range_low": 70.53,
+    "stop_range_high": 74.24,
+    "target_price": 82.84,
+    "stop_loss": 74.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.284655-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 97.1,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 292.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 67.7,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 721,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 0.58,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns MET a score of 49.9/100. Trend: Neutral. RSI: 67.4.",
+      "tr": "BOGA AI assigns MET a score of 49.9/100. Trend: Neutral. RSI: 67.4.",
+      "es": "BOGA AI assigns MET a score of 49.9/100. Trend: Neutral. RSI: 67.4.",
+      "pt": "BOGA AI assigns MET a score of 49.9/100. Trend: Neutral. RSI: 67.4.",
+      "fr": "BOGA AI assigns MET a score of 49.9/100. Trend: Neutral. RSI: 67.4.",
+      "id": "BOGA AI assigns MET a score of 49.9/100. Trend: Neutral. RSI: 67.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: MET (MetLife, Inc.)\n\n### 1. Business Context\nMetLife, Inc. operates in the Financials sector. BOGA AI detect institutional interest near $77.68.\n\n### 2. Performance\n* **Master Score:** 49.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $77.68 | Current |\n| EMA20 | $74.39 | Support |\n| ADX | 27.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $74.24.\n\n### 5. Execution\n* **Entry Zone:** $73.51 - $78.07\n* **Target Price:** $82.84\n* **Stop Loss:** $74.24\n",
+      "tr": "## Kurumsal Analiz: MET (MetLife, Inc.)\n\n### 1. İş Bağlamı\nMetLife, Inc., Financials sektöründe faaliyet göstermektedir. BOGA AI, $77.68 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 49.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $77.68 | Güncel |\n| EMA20 | $74.39 | Destek |\n| ADX | 27.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $74.24.\n\n### 5. Uygulama\n* **Entry Zone:** $73.51 - $78.07\n* **Target Price:** $82.84\n* **Stop Loss:** $74.24\n",
+      "es": "## Análisis Institucional: MET (MetLife, Inc.)\n\n### 1. Contexto\nMetLife, Inc. opera en el sector Financials. BOGA AI detecta interés institucional cerca de $77.68.\n\n### 2. Desempeño\n* **Master Score:** 49.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $77.68 | Actual |\n| EMA20 | $74.39 | Soporte |\n| ADX | 27.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $74.24.\n\n### 5. Ejecución\n* **Entry Zone:** $73.51 - $78.07\n* **Target Price:** $82.84\n* **Stop Loss:** $74.24\n",
+      "pt": "## Análise Institucional: MET (MetLife, Inc.)\n\n### 1. Contexto\nMetLife, Inc. opera no setor Financials. BOGA AI detecta interesse institucional perto de $77.68.\n\n### 2. Desempenho\n* **Master Score:** 49.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $77.68 | Atual |\n| EMA20 | $74.39 | Suporte |\n| ADX | 27.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $74.24.\n\n### 5. Execução\n* **Entry Zone:** $73.51 - $78.07\n* **Target Price:** $82.84\n* **Stop Loss:** $74.24\n",
+      "fr": "## Analyse Institutionnelle: MET (MetLife, Inc.)\n\n### 1. Contexte Business\nMetLife, Inc. opère dans le secteur Financials. BOGA AI détecte un intérêt institutionnel proche de $77.68.\n\n### 2. Performance\n* **Master Score:** 49.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $77.68 | Actuel |\n| EMA20 | $74.39 | Support |\n| ADX | 27.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $74.24.\n\n### 5. Exécution\n* **Entry Zone:** $73.51 - $78.07\n* **Target Price:** $82.84\n* **Stop Loss:** $74.24\n",
+      "id": "## Analisis Institusional: MET (MetLife, Inc.)\n\n### 1. Konteks Bisnis\nMetLife, Inc. beroperasi di sektor Financials. BOGA AI mendeteksi minat institusional di dekat $77.68.\n\n### 2. Performa\n* **Master Score:** 49.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 67.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $77.68 | Saat Ini |\n| EMA20 | $74.39 | Dukungan |\n| ADX | 27.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $74.24.\n\n### 5. Eksekusi\n* **Entry Zone:** $73.51 - $78.07\n* **Target Price:** $82.84\n* **Stop Loss:** $74.24\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 50,
+    "price_change_display": "-0.03%",
+    "key_metrics": {
+      "RSI": 67.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

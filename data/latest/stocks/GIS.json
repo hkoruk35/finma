@@ -1,0 +1,178 @@
+{
+  "ticker": "GIS",
+  "company": "General Mills, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.748624-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 35.15,
+    "open": 35.32,
+    "high": 35.47,
+    "low": 35.03,
+    "prev_close": 35.28,
+    "change_pct": -0.38,
+    "change_pct_1w": 1.28,
+    "change_pct_1m": -3.44,
+    "change_pct_1y": -35.42,
+    "volume": 3052028,
+    "avg_volume_30d": 10089270
+  },
+  "scores": {
+    "master_score": 25.05,
+    "technical_score": 10.5,
+    "fundamental_score": 45.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.3,
+    "breakout_score": 45.0,
+    "value_score": 50.0,
+    "reversal_score": 5.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 100.0,
+    "signal_score": 25.05,
+    "confidence": 0.25,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 34.4,
+    "macd": -1.216,
+    "macd_signal": -1.4224,
+    "macd_histogram": 0.2065,
+    "macd_crossover": "neutral",
+    "ema_20": 36.16,
+    "ema_50": 38.77,
+    "ema_200": 44.55,
+    "ema_stack_bullish": false,
+    "bb_upper": 37.22,
+    "bb_middle": 35.77,
+    "bb_lower": 34.33,
+    "bb_width": 0.0809,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 48.4,
+    "atr": 0.85,
+    "atr_pct": 0.0243,
+    "obv_trend": "DOWN",
+    "mfi": 28.0,
+    "cmf": 0.068,
+    "stoch_k": 33.9,
+    "stoch_d": 38.9,
+    "rvol": 0.69,
+    "volume_5d_avg": 6920905,
+    "green_days_10d": 4,
+    "52w_high": 54.94,
+    "52w_low": 34.49,
+    "52w_high_proximity_pct": 0.3603,
+    "52w_low_proximity_pct": 0.019
+  },
+  "fundamental": {
+    "pe_ratio": 8.592909,
+    "sector_pe_median": 24.066932,
+    "pb_ratio": 3.3943403,
+    "de_ratio": 217.629,
+    "fcf_yield": 0.1207,
+    "eps_growth_5y": -0.145,
+    "revenue_growth_ttm": 0.022,
+    "gross_margin": 0.3314,
+    "operating_margin": 0.19194001,
+    "net_margin": 0.12053,
+    "market_cap": 18756227072,
+    "enterprise_value": 21653067776,
+    "dividend_yield": 6.92,
+    "payout_ratio": 0.5941,
+    "insider_ownership_pct": 0.0030399999,
+    "institutional_ownership_pct": 0.88545,
+    "short_ratio": 3.83,
+    "beta": 0.0
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 34.97,
+    "entry_range_high": 35.33,
+    "target_range_low": 36.95,
+    "target_range_high": 39.58,
+    "stop_range_low": 31.78,
+    "stop_range_high": 33.45,
+    "target_price": 37.7,
+    "stop_loss": 33.45,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.748398-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 43.94,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 50.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 692.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 578,
+      "date": "2026-02-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns GIS a score of 25.1/100. Trend: Neutral. RSI: 34.4.",
+      "tr": "BOGA AI assigns GIS a score of 25.1/100. Trend: Neutral. RSI: 34.4.",
+      "es": "BOGA AI assigns GIS a score of 25.1/100. Trend: Neutral. RSI: 34.4.",
+      "pt": "BOGA AI assigns GIS a score of 25.1/100. Trend: Neutral. RSI: 34.4.",
+      "fr": "BOGA AI assigns GIS a score of 25.1/100. Trend: Neutral. RSI: 34.4.",
+      "id": "BOGA AI assigns GIS a score of 25.1/100. Trend: Neutral. RSI: 34.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: GIS (General Mills, Inc.)\n\n### 1. Business Context\nGeneral Mills, Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $35.15.\n\n### 2. Performance\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $35.15 | Current |\n| EMA20 | $36.16 | Support |\n| ADX | 48.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $33.45.\n\n### 5. Execution\n* **Entry Zone:** $34.97 - $35.33\n* **Target Price:** $37.70\n* **Stop Loss:** $33.45\n",
+      "tr": "## Kurumsal Analiz: GIS (General Mills, Inc.)\n\n### 1. İş Bağlamı\nGeneral Mills, Inc., Consumer Staples sektöründe faaliyet göstermektedir. BOGA AI, $35.15 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $35.15 | Güncel |\n| EMA20 | $36.16 | Destek |\n| ADX | 48.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $33.45.\n\n### 5. Uygulama\n* **Entry Zone:** $34.97 - $35.33\n* **Target Price:** $37.70\n* **Stop Loss:** $33.45\n",
+      "es": "## Análisis Institucional: GIS (General Mills, Inc.)\n\n### 1. Contexto\nGeneral Mills, Inc. opera en el sector Consumer Staples. BOGA AI detecta interés institucional cerca de $35.15.\n\n### 2. Desempeño\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $35.15 | Actual |\n| EMA20 | $36.16 | Soporte |\n| ADX | 48.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $33.45.\n\n### 5. Ejecución\n* **Entry Zone:** $34.97 - $35.33\n* **Target Price:** $37.70\n* **Stop Loss:** $33.45\n",
+      "pt": "## Análise Institucional: GIS (General Mills, Inc.)\n\n### 1. Contexto\nGeneral Mills, Inc. opera no setor Consumer Staples. BOGA AI detecta interesse institucional perto de $35.15.\n\n### 2. Desempenho\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $35.15 | Atual |\n| EMA20 | $36.16 | Suporte |\n| ADX | 48.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $33.45.\n\n### 5. Execução\n* **Entry Zone:** $34.97 - $35.33\n* **Target Price:** $37.70\n* **Stop Loss:** $33.45\n",
+      "fr": "## Analyse Institutionnelle: GIS (General Mills, Inc.)\n\n### 1. Contexte Business\nGeneral Mills, Inc. opère dans le secteur Consumer Staples. BOGA AI détecte un intérêt institutionnel proche de $35.15.\n\n### 2. Performance\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $35.15 | Actuel |\n| EMA20 | $36.16 | Support |\n| ADX | 48.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $33.45.\n\n### 5. Exécution\n* **Entry Zone:** $34.97 - $35.33\n* **Target Price:** $37.70\n* **Stop Loss:** $33.45\n",
+      "id": "## Analisis Institusional: GIS (General Mills, Inc.)\n\n### 1. Konteks Bisnis\nGeneral Mills, Inc. beroperasi di sektor Consumer Staples. BOGA AI mendeteksi minat institusional di dekat $35.15.\n\n### 2. Performa\n* **Master Score:** 25.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 34.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $35.15 | Saat Ini |\n| EMA20 | $36.16 | Dukungan |\n| ADX | 48.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $33.45.\n\n### 5. Eksekusi\n* **Entry Zone:** $34.97 - $35.33\n* **Target Price:** $37.70\n* **Stop Loss:** $33.45\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 25,
+    "price_change_display": "-0.38%",
+    "key_metrics": {
+      "RSI": 34.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -9,7 +9,7 @@ import {
   type LangCode,
 } from "@/lib/analysis-langs";
 import { getArchivedDates } from "@/lib/analysis-archive";
-import { getSwingAllPicks, getMasterData, formatPrice } from "@/lib/data";
+import { getSwingAllPicks, getMasterData, formatPrice, getStockData } from "@/lib/data";
 import ChartSection from "@/components/stock/ChartSection";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -24,12 +24,12 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const swingData = await getSwingAllPicks();
-  const picks = swingData?.picks ?? [];
+  const master = await getMasterData();
+  const tickers = master ? Object.keys(master) : [];
   const params: { lang: string; slug: string; ticker: string }[] = [];
   for (const { lang, slug } of getAllLangParams()) {
-    for (const pick of picks) {
-      params.push({ lang, slug, ticker: pick.ticker.toLowerCase() });
+    for (const ticker of tickers) {
+      params.push({ lang, slug, ticker: ticker.toLowerCase() });
     }
   }
   return params;
@@ -40,10 +40,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const langCode = getLangFromParams(lang, slug);
   if (!langCode) return {};
 
-  const swingData = await getSwingAllPicks();
+  const [swingData, stockDetail] = await Promise.all([
+    getSwingAllPicks(),
+    getStockData(ticker)
+  ]);
+
   const pick = swingData?.picks.find(
     (p: any) => p.ticker.toLowerCase() === ticker.toLowerCase()
-  );
+  ) || stockDetail;
+
   if (!pick) return {};
 
   const summary =
@@ -52,12 +57,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     "";
 
   const titles: Record<LangCode, string> = {
-    en: `${pick.ticker} Stock Analysis — BOGA AI Score ${Math.round(pick.score)}/100`,
-    tr: `${pick.ticker} Hisse Analizi — BOGA AI Skor ${Math.round(pick.score)}/100`,
-    es: `Análisis de Acciones ${pick.ticker} — BOGA AI Puntuación ${Math.round(pick.score)}/100`,
-    pt: `Análise de Ações ${pick.ticker} — BOGA AI Score ${Math.round(pick.score)}/100`,
-    fr: `Analyse d'Action ${pick.ticker} — BOGA AI Score ${Math.round(pick.score)}/100`,
-    id: `Analisis Saham ${pick.ticker} — Skor BOGA AI ${Math.round(pick.score)}/100`,
+    en: `${pick.ticker} Stock Analysis — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    tr: `${pick.ticker} Hisse Analizi — BOGA AI Skor ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    es: `Análisis de Acciones ${pick.ticker} — BOGA AI Puntuación ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    pt: `Análise de Ações ${pick.ticker} — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    fr: `Analyse d'Action ${pick.ticker} — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    id: `Analisis Saham ${pick.ticker} — Skor BOGA AI ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
   };
 
   const langAlternates: Record<string, string> = {};
@@ -87,22 +92,34 @@ export default async function LangAnalysisPage({ params }: Props) {
   const langCode = getLangFromParams(lang, slug);
   if (!langCode) notFound();
 
-  const [swingData, master] = await Promise.all([
+  const [swingData, master, stockDetail] = await Promise.all([
     getSwingAllPicks(),
     getMasterData(),
+    getStockData(ticker)
   ]);
 
+  // Priority: 1. Direct swing pick 2. Stock detail (which may have synced swing data)
   const pick = swingData?.picks.find(
     (p: any) => p.ticker.toLowerCase() === ticker.toLowerCase()
-  );
+  ) || stockDetail;
+
   if (!pick) notFound();
 
   const labels = TRADE_LABELS[langCode];
-  const summary = pick.ai_summary?.homepage_summary?.[langCode] || "";
-  const detail =
-    pick.ai_summary?.detail_summary?.[langCode] ||
-    pick.ai_summary?.detail_summary?.en ||
-    "";
+  
+  // Extract summaries with logic for both formats
+  const aiSummary = pick.ai_summary;
+  let summary = "";
+  let detail = "";
+
+  if (typeof aiSummary === "object" && aiSummary !== null) {
+    summary = aiSummary.homepage_summary?.[langCode] || aiSummary.homepage?.[langCode] || "";
+    detail = aiSummary.detail_summary?.[langCode] || aiSummary.detail?.[langCode] || aiSummary.detail_summary?.en || aiSummary.detail?.en || "";
+  } else if (typeof aiSummary === "string") {
+    summary = aiSummary;
+    detail = aiSummary; // Fallback
+  }
+
   const archivedDates = getArchivedDates(pick.ticker);
   const dateStr = swingData?.date || new Date().toISOString().split("T")[0];
 
@@ -238,10 +255,10 @@ export default async function LangAnalysisPage({ params }: Props) {
                   {labels.stop}
                 </p>
                 <p className="font-mono font-black text-[#ef4444] text-sm">
-                  ${formatPrice(pick.stop_zone?.low ?? 0)}
+                  ${formatPrice(pick.stop_zone?.low ?? pick.scores_detail?.stop_range_low ?? 0)}
                 </p>
                 <p className="font-mono font-black text-[#ef4444] text-sm">
-                  – ${formatPrice(pick.stop_zone?.high ?? 0)}
+                  – ${formatPrice(pick.stop_zone?.high ?? pick.scores_detail?.stop_range_high ?? 0)}
                 </p>
               </div>
             </div>

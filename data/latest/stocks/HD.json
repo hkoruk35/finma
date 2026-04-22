@@ -1,0 +1,178 @@
+{
+  "ticker": "HD",
+  "company": "The Home Depot, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.491610-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Home Improvement Retail",
+  "price": {
+    "current": 345.7,
+    "open": 352.93,
+    "high": 353.55,
+    "low": 345.52,
+    "prev_close": 350.99,
+    "change_pct": -1.51,
+    "change_pct_1w": 0.87,
+    "change_pct_1m": 7.78,
+    "change_pct_1y": -0.18,
+    "volume": 1230328,
+    "avg_volume_30d": 3877174
+  },
+  "scores": {
+    "master_score": 28.43,
+    "technical_score": 12.0,
+    "fundamental_score": 12.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 28.43,
+    "confidence": 0.28,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 53.9,
+    "macd": 0.2176,
+    "macd_signal": -3.0679,
+    "macd_histogram": 3.2856,
+    "macd_crossover": "neutral",
+    "ema_20": 339.57,
+    "ema_50": 346.23,
+    "ema_200": 359.85,
+    "ema_stack_bullish": false,
+    "bb_upper": 352.31,
+    "bb_middle": 334.08,
+    "bb_lower": 315.85,
+    "bb_width": 0.1091,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.2,
+    "atr": 8.95,
+    "atr_pct": 0.0259,
+    "obv_trend": "UP",
+    "mfi": 67.1,
+    "cmf": 0.094,
+    "stoch_k": 79.5,
+    "stoch_d": 89.8,
+    "rvol": 0.81,
+    "volume_5d_avg": 3128425,
+    "green_days_10d": 6,
+    "52w_high": 417.91,
+    "52w_low": 318.77,
+    "52w_high_proximity_pct": 0.1728,
+    "52w_low_proximity_pct": 0.0845
+  },
+  "fundamental": {
+    "pe_ratio": 24.310831,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 26.873446,
+    "de_ratio": 514.392,
+    "fcf_yield": 0.025,
+    "eps_growth_5y": -0.142,
+    "revenue_growth_ttm": -0.038,
+    "gross_margin": 0.33316,
+    "operating_margin": 0.100760005,
+    "net_margin": 0.08596,
+    "market_cap": 344326766592,
+    "enterprise_value": 414110056448,
+    "dividend_yield": 2.66,
+    "payout_ratio": 0.6465,
+    "insider_ownership_pct": 0.00071999995,
+    "institutional_ownership_pct": 0.74380994,
+    "short_ratio": 2.79,
+    "beta": 1.085
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 343.97,
+    "entry_range_high": 347.43,
+    "target_range_low": 365.1,
+    "target_range_high": 391.18,
+    "stop_range_low": 311.41,
+    "stop_range_high": 327.8,
+    "target_price": 372.55,
+    "stop_loss": 327.8,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.491436-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 432.12,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 266.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 318.77,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4691,
+      "date": "2026-03-25"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns HD a score of 28.4/100. Trend: Neutral. RSI: 53.9.",
+      "tr": "BOGA AI assigns HD a score of 28.4/100. Trend: Neutral. RSI: 53.9.",
+      "es": "BOGA AI assigns HD a score of 28.4/100. Trend: Neutral. RSI: 53.9.",
+      "pt": "BOGA AI assigns HD a score of 28.4/100. Trend: Neutral. RSI: 53.9.",
+      "fr": "BOGA AI assigns HD a score of 28.4/100. Trend: Neutral. RSI: 53.9.",
+      "id": "BOGA AI assigns HD a score of 28.4/100. Trend: Neutral. RSI: 53.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: HD (The Home Depot, Inc.)\n\n### 1. Business Context\nThe Home Depot, Inc. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $345.70.\n\n### 2. Performance\n* **Master Score:** 28.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $345.70 | Current |\n| EMA20 | $339.57 | Support |\n| ADX | 24.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $327.80.\n\n### 5. Execution\n* **Entry Zone:** $343.97 - $347.43\n* **Target Price:** $372.55\n* **Stop Loss:** $327.80\n",
+      "tr": "## Kurumsal Analiz: HD (The Home Depot, Inc.)\n\n### 1. İş Bağlamı\nThe Home Depot, Inc., Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $345.70 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 28.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $345.70 | Güncel |\n| EMA20 | $339.57 | Destek |\n| ADX | 24.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $327.80.\n\n### 5. Uygulama\n* **Entry Zone:** $343.97 - $347.43\n* **Target Price:** $372.55\n* **Stop Loss:** $327.80\n",
+      "es": "## Análisis Institucional: HD (The Home Depot, Inc.)\n\n### 1. Contexto\nThe Home Depot, Inc. opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $345.70.\n\n### 2. Desempeño\n* **Master Score:** 28.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $345.70 | Actual |\n| EMA20 | $339.57 | Soporte |\n| ADX | 24.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $327.80.\n\n### 5. Ejecución\n* **Entry Zone:** $343.97 - $347.43\n* **Target Price:** $372.55\n* **Stop Loss:** $327.80\n",
+      "pt": "## Análise Institucional: HD (The Home Depot, Inc.)\n\n### 1. Contexto\nThe Home Depot, Inc. opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $345.70.\n\n### 2. Desempenho\n* **Master Score:** 28.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $345.70 | Atual |\n| EMA20 | $339.57 | Suporte |\n| ADX | 24.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $327.80.\n\n### 5. Execução\n* **Entry Zone:** $343.97 - $347.43\n* **Target Price:** $372.55\n* **Stop Loss:** $327.80\n",
+      "fr": "## Analyse Institutionnelle: HD (The Home Depot, Inc.)\n\n### 1. Contexte Business\nThe Home Depot, Inc. opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $345.70.\n\n### 2. Performance\n* **Master Score:** 28.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $345.70 | Actuel |\n| EMA20 | $339.57 | Support |\n| ADX | 24.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $327.80.\n\n### 5. Exécution\n* **Entry Zone:** $343.97 - $347.43\n* **Target Price:** $372.55\n* **Stop Loss:** $327.80\n",
+      "id": "## Analisis Institusional: HD (The Home Depot, Inc.)\n\n### 1. Konteks Bisnis\nThe Home Depot, Inc. beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $345.70.\n\n### 2. Performa\n* **Master Score:** 28.4/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 53.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $345.70 | Saat Ini |\n| EMA20 | $339.57 | Dukungan |\n| ADX | 24.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $327.80.\n\n### 5. Eksekusi\n* **Entry Zone:** $343.97 - $347.43\n* **Target Price:** $372.55\n* **Stop Loss:** $327.80\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 28,
+    "price_change_display": "-1.51%",
+    "key_metrics": {
+      "RSI": 53.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

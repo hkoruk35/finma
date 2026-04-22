@@ -1,0 +1,178 @@
+{
+  "ticker": "RCL",
+  "company": "Royal Caribbean Cruises Ltd.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.636329-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Travel Services",
+  "price": {
+    "current": 274.39,
+    "open": 280.5,
+    "high": 284.24,
+    "low": 272.84,
+    "prev_close": 282.27,
+    "change_pct": -2.79,
+    "change_pct_1w": -2.54,
+    "change_pct_1m": 4.07,
+    "change_pct_1y": 44.49,
+    "volume": 1000808,
+    "avg_volume_30d": 2416273
+  },
+  "scores": {
+    "master_score": 37.7,
+    "technical_score": 13.5,
+    "fundamental_score": 55.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 45.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 37.7,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 47.4,
+    "macd": -1.5187,
+    "macd_signal": -2.8113,
+    "macd_histogram": 1.2926,
+    "macd_crossover": "neutral",
+    "ema_20": 278.0,
+    "ema_50": 283.66,
+    "ema_200": 283.5,
+    "ema_stack_bullish": false,
+    "bb_upper": 288.92,
+    "bb_middle": 275.51,
+    "bb_lower": 262.11,
+    "bb_width": 0.0973,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 14.1,
+    "atr": 14.11,
+    "atr_pct": 0.0514,
+    "obv_trend": "UP",
+    "mfi": 56.9,
+    "cmf": -0.145,
+    "stoch_k": 28.7,
+    "stoch_d": 44.3,
+    "rvol": 1.15,
+    "volume_5d_avg": 2778801,
+    "green_days_10d": 5,
+    "52w_high": 361.56,
+    "52w_low": 186.76,
+    "52w_high_proximity_pct": 0.2411,
+    "52w_low_proximity_pct": 0.4692
+  },
+  "fundamental": {
+    "pe_ratio": 17.577837,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 7.392769,
+    "de_ratio": 215.09,
+    "fcf_yield": -0.0027,
+    "eps_growth_5y": 0.371,
+    "revenue_growth_ttm": 0.133,
+    "gross_margin": 0.50616,
+    "operating_margin": 0.21977,
+    "net_margin": 0.23797001,
+    "market_cap": 74230267904,
+    "enterprise_value": 97780023296,
+    "dividend_yield": 1.51,
+    "payout_ratio": 0.2242,
+    "insider_ownership_pct": 0.01831,
+    "institutional_ownership_pct": 0.89549005,
+    "short_ratio": 4.5,
+    "beta": 1.941
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 273.02,
+    "entry_range_high": 275.76,
+    "target_range_low": 310.39,
+    "target_range_high": 332.56,
+    "stop_range_low": 233.86,
+    "stop_range_high": 246.17,
+    "target_price": 316.72,
+    "stop_loss": 246.17,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.636204-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 342.99,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 151.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 186.76,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 10,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 771607,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
+      "tr": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
+      "es": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
+      "pt": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
+      "fr": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4.",
+      "id": "BOGA AI assigns RCL a score of 37.7/100. Trend: Neutral. RSI: 47.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: RCL (Royal Caribbean Cruises Ltd.)\n\n### 1. Business Context\nRoyal Caribbean Cruises Ltd. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $274.39.\n\n### 2. Performance\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $274.39 | Current |\n| EMA20 | $278.0 | Support |\n| ADX | 14.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $246.17.\n\n### 5. Execution\n* **Entry Zone:** $273.02 - $275.76\n* **Target Price:** $316.72\n* **Stop Loss:** $246.17\n",
+      "tr": "## Kurumsal Analiz: RCL (Royal Caribbean Cruises Ltd.)\n\n### 1. İş Bağlamı\nRoyal Caribbean Cruises Ltd., Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $274.39 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $274.39 | Güncel |\n| EMA20 | $278.0 | Destek |\n| ADX | 14.1 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $246.17.\n\n### 5. Uygulama\n* **Entry Zone:** $273.02 - $275.76\n* **Target Price:** $316.72\n* **Stop Loss:** $246.17\n",
+      "es": "## Análisis Institucional: RCL (Royal Caribbean Cruises Ltd.)\n\n### 1. Contexto\nRoyal Caribbean Cruises Ltd. opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $274.39.\n\n### 2. Desempeño\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $274.39 | Actual |\n| EMA20 | $278.0 | Soporte |\n| ADX | 14.1 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $246.17.\n\n### 5. Ejecución\n* **Entry Zone:** $273.02 - $275.76\n* **Target Price:** $316.72\n* **Stop Loss:** $246.17\n",
+      "pt": "## Análise Institucional: RCL (Royal Caribbean Cruises Ltd.)\n\n### 1. Contexto\nRoyal Caribbean Cruises Ltd. opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $274.39.\n\n### 2. Desempenho\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $274.39 | Atual |\n| EMA20 | $278.0 | Suporte |\n| ADX | 14.1 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $246.17.\n\n### 5. Execução\n* **Entry Zone:** $273.02 - $275.76\n* **Target Price:** $316.72\n* **Stop Loss:** $246.17\n",
+      "fr": "## Analyse Institutionnelle: RCL (Royal Caribbean Cruises Ltd.)\n\n### 1. Contexte Business\nRoyal Caribbean Cruises Ltd. opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $274.39.\n\n### 2. Performance\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $274.39 | Actuel |\n| EMA20 | $278.0 | Support |\n| ADX | 14.1 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $246.17.\n\n### 5. Exécution\n* **Entry Zone:** $273.02 - $275.76\n* **Target Price:** $316.72\n* **Stop Loss:** $246.17\n",
+      "id": "## Analisis Institusional: RCL (Royal Caribbean Cruises Ltd.)\n\n### 1. Konteks Bisnis\nRoyal Caribbean Cruises Ltd. beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $274.39.\n\n### 2. Performa\n* **Master Score:** 37.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 47.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $274.39 | Saat Ini |\n| EMA20 | $278.0 | Dukungan |\n| ADX | 14.1 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $246.17.\n\n### 5. Eksekusi\n* **Entry Zone:** $273.02 - $275.76\n* **Target Price:** $316.72\n* **Stop Loss:** $246.17\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "-2.79%",
+    "key_metrics": {
+      "RSI": 47.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

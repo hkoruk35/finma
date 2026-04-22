@@ -1,0 +1,177 @@
+{
+  "ticker": "AROC",
+  "company": "Archrock, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.495544-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 35.4,
+    "open": 36.1,
+    "high": 36.64,
+    "low": 35.13,
+    "prev_close": 35.87,
+    "change_pct": -1.31,
+    "change_pct_1w": -2.59,
+    "change_pct_1m": -0.37,
+    "change_pct_1y": 52.15,
+    "volume": 470908,
+    "avg_volume_30d": 1549323
+  },
+  "scores": {
+    "master_score": 39.71,
+    "technical_score": 37.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.6,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 39.71,
+    "confidence": 0.4,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 49.1,
+    "macd": 0.3188,
+    "macd_signal": 0.3961,
+    "macd_histogram": -0.0773,
+    "macd_crossover": "neutral",
+    "ema_20": 35.71,
+    "ema_50": 34.33,
+    "ema_200": 28.99,
+    "ema_stack_bullish": false,
+    "bb_upper": 37.24,
+    "bb_middle": 35.68,
+    "bb_lower": 34.12,
+    "bb_width": 0.0872,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.6,
+    "atr": 1.08,
+    "atr_pct": 0.0306,
+    "obv_trend": "DOWN",
+    "mfi": 54.4,
+    "cmf": -0.059,
+    "stoch_k": 53.5,
+    "stoch_d": 66.7,
+    "rvol": 0.72,
+    "volume_5d_avg": 1116821,
+    "green_days_10d": 5,
+    "52w_high": 37.04,
+    "52w_low": 21.67,
+    "52w_high_proximity_pct": 0.0443,
+    "52w_low_proximity_pct": 0.6335
+  },
+  "fundamental": {
+    "pe_ratio": 19.344263,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 4.150545,
+    "de_ratio": 162.619,
+    "fcf_yield": 0.0021,
+    "eps_growth_5y": 0.954,
+    "revenue_growth_ttm": 0.155,
+    "gross_margin": 0.65806,
+    "operating_margin": 0.43232,
+    "net_margin": 0.21632999,
+    "market_cap": 6203772416,
+    "enterprise_value": 8699183104,
+    "dividend_yield": 2.31,
+    "payout_ratio": 0.4368,
+    "insider_ownership_pct": 0.029779999,
+    "institutional_ownership_pct": 0.99793,
+    "short_ratio": 4.16,
+    "beta": 0.904
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 34.16,
+    "entry_range_high": 35.58,
+    "target_range_low": 37.87,
+    "target_range_high": 40.57,
+    "stop_range_low": 31.58,
+    "stop_range_high": 33.24,
+    "target_price": 38.64,
+    "stop_loss": 33.24,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.495511-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 44.25,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 231.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 21.67,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 169550,
+      "date": "2026-03-30"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns AROC a score of 39.7/100. Trend: Neutral. RSI: 49.1.",
+      "tr": "BOGA AI assigns AROC a score of 39.7/100. Trend: Neutral. RSI: 49.1.",
+      "es": "BOGA AI assigns AROC a score of 39.7/100. Trend: Neutral. RSI: 49.1.",
+      "pt": "BOGA AI assigns AROC a score of 39.7/100. Trend: Neutral. RSI: 49.1.",
+      "fr": "BOGA AI assigns AROC a score of 39.7/100. Trend: Neutral. RSI: 49.1.",
+      "id": "BOGA AI assigns AROC a score of 39.7/100. Trend: Neutral. RSI: 49.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: AROC (Archrock, Inc.)\n\n### 1. Business Context\nArchrock, Inc. operates in the Energy sector. BOGA AI detect institutional interest near $35.40.\n\n### 2. Performance\n* **Master Score:** 39.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $35.40 | Current |\n| EMA20 | $35.71 | Support |\n| ADX | 19.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $33.24.\n\n### 5. Execution\n* **Entry Zone:** $34.16 - $35.58\n* **Target Price:** $38.64\n* **Stop Loss:** $33.24\n",
+      "tr": "## Kurumsal Analiz: AROC (Archrock, Inc.)\n\n### 1. İş Bağlamı\nArchrock, Inc., Energy sektöründe faaliyet göstermektedir. BOGA AI, $35.40 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 39.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $35.40 | Güncel |\n| EMA20 | $35.71 | Destek |\n| ADX | 19.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $33.24.\n\n### 5. Uygulama\n* **Entry Zone:** $34.16 - $35.58\n* **Target Price:** $38.64\n* **Stop Loss:** $33.24\n",
+      "es": "## Análisis Institucional: AROC (Archrock, Inc.)\n\n### 1. Contexto\nArchrock, Inc. opera en el sector Energy. BOGA AI detecta interés institucional cerca de $35.40.\n\n### 2. Desempeño\n* **Master Score:** 39.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $35.40 | Actual |\n| EMA20 | $35.71 | Soporte |\n| ADX | 19.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $33.24.\n\n### 5. Ejecución\n* **Entry Zone:** $34.16 - $35.58\n* **Target Price:** $38.64\n* **Stop Loss:** $33.24\n",
+      "pt": "## Análise Institucional: AROC (Archrock, Inc.)\n\n### 1. Contexto\nArchrock, Inc. opera no setor Energy. BOGA AI detecta interesse institucional perto de $35.40.\n\n### 2. Desempenho\n* **Master Score:** 39.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $35.40 | Atual |\n| EMA20 | $35.71 | Suporte |\n| ADX | 19.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $33.24.\n\n### 5. Execução\n* **Entry Zone:** $34.16 - $35.58\n* **Target Price:** $38.64\n* **Stop Loss:** $33.24\n",
+      "fr": "## Analyse Institutionnelle: AROC (Archrock, Inc.)\n\n### 1. Contexte Business\nArchrock, Inc. opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $35.40.\n\n### 2. Performance\n* **Master Score:** 39.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $35.40 | Actuel |\n| EMA20 | $35.71 | Support |\n| ADX | 19.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $33.24.\n\n### 5. Exécution\n* **Entry Zone:** $34.16 - $35.58\n* **Target Price:** $38.64\n* **Stop Loss:** $33.24\n",
+      "id": "## Analisis Institusional: AROC (Archrock, Inc.)\n\n### 1. Konteks Bisnis\nArchrock, Inc. beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $35.40.\n\n### 2. Performa\n* **Master Score:** 39.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $35.40 | Saat Ini |\n| EMA20 | $35.71 | Dukungan |\n| ADX | 19.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $33.24.\n\n### 5. Eksekusi\n* **Entry Zone:** $34.16 - $35.58\n* **Target Price:** $38.64\n* **Stop Loss:** $33.24\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 40,
+    "price_change_display": "-1.31%",
+    "key_metrics": {
+      "RSI": 49.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

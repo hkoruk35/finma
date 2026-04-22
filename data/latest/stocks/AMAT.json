@@ -1,0 +1,177 @@
+{
+  "ticker": "AMAT",
+  "company": "Applied Materials, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.833431-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 394.67,
+    "open": 393.0,
+    "high": 397.51,
+    "low": 391.05,
+    "prev_close": 391.62,
+    "change_pct": 0.78,
+    "change_pct_1w": -0.25,
+    "change_pct_1m": 10.53,
+    "change_pct_1y": 189.68,
+    "volume": 2161592,
+    "avg_volume_30d": 5941943
+  },
+  "scores": {
+    "master_score": 46.67,
+    "technical_score": 42.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 46.67,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 61.5,
+    "macd": 12.5352,
+    "macd_signal": 10.6366,
+    "macd_histogram": 1.8986,
+    "macd_crossover": "neutral",
+    "ema_20": 377.82,
+    "ema_50": 357.35,
+    "ema_200": 279.98,
+    "ema_stack_bullish": true,
+    "bb_upper": 421.32,
+    "bb_middle": 371.75,
+    "bb_lower": 322.18,
+    "bb_width": 0.2667,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.1,
+    "atr": 14.0,
+    "atr_pct": 0.0355,
+    "obv_trend": "DOWN",
+    "mfi": 65.1,
+    "cmf": 0.107,
+    "stoch_k": 82.0,
+    "stoch_d": 83.6,
+    "rvol": 0.77,
+    "volume_5d_avg": 4591178,
+    "green_days_10d": 5,
+    "52w_high": 399.49,
+    "52w_low": 134.36,
+    "52w_high_proximity_pct": 0.0121,
+    "52w_low_proximity_pct": 1.9374
+  },
+  "fundamental": {
+    "pe_ratio": 40.478977,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 14.422438,
+    "de_ratio": 33.108,
+    "fcf_yield": 0.0139,
+    "eps_growth_5y": 0.752,
+    "revenue_growth_ttm": -0.021,
+    "gross_margin": 0.48724,
+    "operating_margin": 0.29892,
+    "net_margin": 0.27784002,
+    "market_cap": 313214009344,
+    "enterprise_value": 309472493568,
+    "dividend_yield": 0.54,
+    "payout_ratio": 0.1826,
+    "insider_ownership_pct": 0.0032499998,
+    "institutional_ownership_pct": 0.855,
+    "short_ratio": 2.01,
+    "beta": 1.637
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 355.56,
+    "entry_range_high": 396.64,
+    "target_range_low": 427.94,
+    "target_range_high": 458.5,
+    "stop_range_low": 348.34,
+    "stop_range_high": 366.67,
+    "target_price": 436.67,
+    "stop_loss": 366.67,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.833292-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 493.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 54.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 134.36,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 741,
+      "date": "2026-03-12"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns AMAT a score of 46.7/100. Trend: Neutral. RSI: 61.5.",
+      "tr": "BOGA AI assigns AMAT a score of 46.7/100. Trend: Neutral. RSI: 61.5.",
+      "es": "BOGA AI assigns AMAT a score of 46.7/100. Trend: Neutral. RSI: 61.5.",
+      "pt": "BOGA AI assigns AMAT a score of 46.7/100. Trend: Neutral. RSI: 61.5.",
+      "fr": "BOGA AI assigns AMAT a score of 46.7/100. Trend: Neutral. RSI: 61.5.",
+      "id": "BOGA AI assigns AMAT a score of 46.7/100. Trend: Neutral. RSI: 61.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: AMAT (Applied Materials, Inc.)\n\n### 1. Business Context\nApplied Materials, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $394.67.\n\n### 2. Performance\n* **Master Score:** 46.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $394.67 | Current |\n| EMA20 | $377.82 | Support |\n| ADX | 17.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $366.67.\n\n### 5. Execution\n* **Entry Zone:** $355.56 - $396.64\n* **Target Price:** $436.67\n* **Stop Loss:** $366.67\n",
+      "tr": "## Kurumsal Analiz: AMAT (Applied Materials, Inc.)\n\n### 1. İş Bağlamı\nApplied Materials, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $394.67 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 46.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $394.67 | Güncel |\n| EMA20 | $377.82 | Destek |\n| ADX | 17.1 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $366.67.\n\n### 5. Uygulama\n* **Entry Zone:** $355.56 - $396.64\n* **Target Price:** $436.67\n* **Stop Loss:** $366.67\n",
+      "es": "## Análisis Institucional: AMAT (Applied Materials, Inc.)\n\n### 1. Contexto\nApplied Materials, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $394.67.\n\n### 2. Desempeño\n* **Master Score:** 46.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $394.67 | Actual |\n| EMA20 | $377.82 | Soporte |\n| ADX | 17.1 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $366.67.\n\n### 5. Ejecución\n* **Entry Zone:** $355.56 - $396.64\n* **Target Price:** $436.67\n* **Stop Loss:** $366.67\n",
+      "pt": "## Análise Institucional: AMAT (Applied Materials, Inc.)\n\n### 1. Contexto\nApplied Materials, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $394.67.\n\n### 2. Desempenho\n* **Master Score:** 46.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $394.67 | Atual |\n| EMA20 | $377.82 | Suporte |\n| ADX | 17.1 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $366.67.\n\n### 5. Execução\n* **Entry Zone:** $355.56 - $396.64\n* **Target Price:** $436.67\n* **Stop Loss:** $366.67\n",
+      "fr": "## Analyse Institutionnelle: AMAT (Applied Materials, Inc.)\n\n### 1. Contexte Business\nApplied Materials, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $394.67.\n\n### 2. Performance\n* **Master Score:** 46.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $394.67 | Actuel |\n| EMA20 | $377.82 | Support |\n| ADX | 17.1 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $366.67.\n\n### 5. Exécution\n* **Entry Zone:** $355.56 - $396.64\n* **Target Price:** $436.67\n* **Stop Loss:** $366.67\n",
+      "id": "## Analisis Institusional: AMAT (Applied Materials, Inc.)\n\n### 1. Konteks Bisnis\nApplied Materials, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $394.67.\n\n### 2. Performa\n* **Master Score:** 46.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $394.67 | Saat Ini |\n| EMA20 | $377.82 | Dukungan |\n| ADX | 17.1 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $366.67.\n\n### 5. Eksekusi\n* **Entry Zone:** $355.56 - $396.64\n* **Target Price:** $436.67\n* **Stop Loss:** $366.67\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "+0.78%",
+    "key_metrics": {
+      "RSI": 61.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "ticker": "TTD",
+  "company": "The Trade Desk, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.076540-04:00",
+  "sector": "Technology",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 23.59,
+    "open": 23.92,
+    "high": 24.06,
+    "low": 23.32,
+    "prev_close": 24.05,
+    "change_pct": -1.89,
+    "change_pct_1w": 12.25,
+    "change_pct_1m": -2.14,
+    "change_pct_1y": -53.05,
+    "volume": 9203237,
+    "avg_volume_30d": 18680887
+  },
+  "scores": {
+    "master_score": 39.41,
+    "technical_score": 14.1,
+    "fundamental_score": 60.0,
+    "momentum_score": 40.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 39.41,
+    "confidence": 0.39,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 53.0,
+    "macd": -0.5348,
+    "macd_signal": -1.0387,
+    "macd_histogram": 0.504,
+    "macd_crossover": "neutral",
+    "ema_20": 22.62,
+    "ema_50": 25.08,
+    "ema_200": 38.94,
+    "ema_stack_bullish": false,
+    "bb_upper": 23.89,
+    "bb_middle": 21.87,
+    "bb_lower": 19.85,
+    "bb_width": 0.1851,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 19.6,
+    "atr": 1.36,
+    "atr_pct": 0.0576,
+    "obv_trend": "UP",
+    "mfi": 50.6,
+    "cmf": -0.146,
+    "stoch_k": 84.3,
+    "stoch_d": 84.2,
+    "rvol": 0.89,
+    "volume_5d_avg": 16564567,
+    "green_days_10d": 5,
+    "52w_high": 89.76,
+    "52w_low": 20.09,
+    "52w_high_proximity_pct": 0.7371,
+    "52w_low_proximity_pct": 0.1745
+  },
+  "fundamental": {
+    "pe_ratio": 26.216667,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 4.520115,
+    "de_ratio": 17.563,
+    "fcf_yield": 0.0536,
+    "eps_growth_5y": 0.075,
+    "revenue_growth_ttm": 0.143,
+    "gross_margin": 0.78625,
+    "operating_margin": 0.30335,
+    "net_margin": 0.15306,
+    "market_cap": 11230678016,
+    "enterprise_value": 10580520960,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.02262,
+    "institutional_ownership_pct": 0.84393,
+    "short_ratio": 2.8,
+    "beta": 1.174
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 23.47,
+    "entry_range_high": 23.71,
+    "target_range_low": 27.12,
+    "target_range_high": 29.05,
+    "stop_range_low": 19.83,
+    "stop_range_high": 20.87,
+    "target_price": 27.67,
+    "stop_loss": 20.87,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.076491-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 29.49,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 20.09,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 1,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 48,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
+      "tr": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
+      "es": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
+      "pt": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
+      "fr": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0.",
+      "id": "BOGA AI assigns TTD a score of 39.4/100. Trend: Neutral. RSI: 53.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TTD (The Trade Desk, Inc.)\n\n### 1. Business Context\nThe Trade Desk, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $23.59.\n\n### 2. Performance\n* **Master Score:** 39.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $23.59 | Current |\n| EMA20 | $22.62 | Support |\n| ADX | 19.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $20.87.\n\n### 5. Execution\n* **Entry Zone:** $23.47 - $23.71\n* **Target Price:** $27.67\n* **Stop Loss:** $20.87\n",
+      "tr": "## Kurumsal Analiz: TTD (The Trade Desk, Inc.)\n\n### 1. İş Bağlamı\nThe Trade Desk, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $23.59 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 39.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $23.59 | Güncel |\n| EMA20 | $22.62 | Destek |\n| ADX | 19.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $20.87.\n\n### 5. Uygulama\n* **Entry Zone:** $23.47 - $23.71\n* **Target Price:** $27.67\n* **Stop Loss:** $20.87\n",
+      "es": "## Análisis Institucional: TTD (The Trade Desk, Inc.)\n\n### 1. Contexto\nThe Trade Desk, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $23.59.\n\n### 2. Desempeño\n* **Master Score:** 39.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $23.59 | Actual |\n| EMA20 | $22.62 | Soporte |\n| ADX | 19.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $20.87.\n\n### 5. Ejecución\n* **Entry Zone:** $23.47 - $23.71\n* **Target Price:** $27.67\n* **Stop Loss:** $20.87\n",
+      "pt": "## Análise Institucional: TTD (The Trade Desk, Inc.)\n\n### 1. Contexto\nThe Trade Desk, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $23.59.\n\n### 2. Desempenho\n* **Master Score:** 39.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $23.59 | Atual |\n| EMA20 | $22.62 | Suporte |\n| ADX | 19.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $20.87.\n\n### 5. Execução\n* **Entry Zone:** $23.47 - $23.71\n* **Target Price:** $27.67\n* **Stop Loss:** $20.87\n",
+      "fr": "## Analyse Institutionnelle: TTD (The Trade Desk, Inc.)\n\n### 1. Contexte Business\nThe Trade Desk, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $23.59.\n\n### 2. Performance\n* **Master Score:** 39.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $23.59 | Actuel |\n| EMA20 | $22.62 | Support |\n| ADX | 19.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $20.87.\n\n### 5. Exécution\n* **Entry Zone:** $23.47 - $23.71\n* **Target Price:** $27.67\n* **Stop Loss:** $20.87\n",
+      "id": "## Analisis Institusional: TTD (The Trade Desk, Inc.)\n\n### 1. Konteks Bisnis\nThe Trade Desk, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $23.59.\n\n### 2. Performa\n* **Master Score:** 39.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 53.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $23.59 | Saat Ini |\n| EMA20 | $22.62 | Dukungan |\n| ADX | 19.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $20.87.\n\n### 5. Eksekusi\n* **Entry Zone:** $23.47 - $23.71\n* **Target Price:** $27.67\n* **Stop Loss:** $20.87\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 39,
+    "price_change_display": "-1.89%",
+    "key_metrics": {
+      "RSI": 53.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

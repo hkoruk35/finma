@@ -1,0 +1,177 @@
+{
+  "ticker": "SUI",
+  "company": "Sun Communities, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.145693-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 128.96,
+    "open": 130.36,
+    "high": 130.43,
+    "low": 128.21,
+    "prev_close": 130.25,
+    "change_pct": -0.99,
+    "change_pct_1w": -0.83,
+    "change_pct_1m": -0.25,
+    "change_pct_1y": 11.75,
+    "volume": 177279,
+    "avg_volume_30d": 747245
+  },
+  "scores": {
+    "master_score": 39.91,
+    "technical_score": 45.0,
+    "fundamental_score": 8.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.6,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 39.91,
+    "confidence": 0.4,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 49.2,
+    "macd": -0.0599,
+    "macd_signal": -0.3214,
+    "macd_histogram": 0.2615,
+    "macd_crossover": "neutral",
+    "ema_20": 129.1,
+    "ema_50": 128.89,
+    "ema_200": 125.59,
+    "ema_stack_bullish": false,
+    "bb_upper": 131.31,
+    "bb_middle": 128.02,
+    "bb_lower": 124.74,
+    "bb_width": 0.0514,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.4,
+    "atr": 2.39,
+    "atr_pct": 0.0186,
+    "obv_trend": "DOWN",
+    "mfi": 64.2,
+    "cmf": -0.09,
+    "stoch_k": 63.9,
+    "stoch_d": 82.9,
+    "rvol": 1.0,
+    "volume_5d_avg": 748215,
+    "green_days_10d": 6,
+    "52w_high": 135.96,
+    "52w_low": 113.38,
+    "52w_high_proximity_pct": 0.0515,
+    "52w_low_proximity_pct": 0.1375
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 2.2894142,
+    "de_ratio": 60.914,
+    "fcf_yield": 0.0268,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.034,
+    "gross_margin": 0.53152,
+    "operating_margin": 0.15542,
+    "net_margin": 0.59221,
+    "market_cap": 16489327616,
+    "enterprise_value": 19900198912,
+    "dividend_yield": 3.26,
+    "payout_ratio": 4.5282,
+    "insider_ownership_pct": 0.011849999,
+    "institutional_ownership_pct": 1.0183,
+    "short_ratio": 3.09,
+    "beta": 0.894
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 128.25,
+    "entry_range_high": 129.6,
+    "target_range_low": 133.41,
+    "target_range_high": 142.94,
+    "stop_range_low": 117.97,
+    "stop_range_high": 124.18,
+    "target_price": 136.13,
+    "stop_loss": 124.18,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.145648-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 161.2,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 326.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 113.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 14334,
+      "date": "2026-03-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
+      "tr": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
+      "es": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
+      "pt": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
+      "fr": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2.",
+      "id": "BOGA AI assigns SUI a score of 39.9/100. Trend: Neutral. RSI: 49.2."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SUI (Sun Communities, Inc.)\n\n### 1. Business Context\nSun Communities, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $128.96.\n\n### 2. Performance\n* **Master Score:** 39.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.2\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $128.96 | Current |\n| EMA20 | $129.1 | Support |\n| ADX | 16.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $124.18.\n\n### 5. Execution\n* **Entry Zone:** $128.25 - $129.60\n* **Target Price:** $136.13\n* **Stop Loss:** $124.18\n",
+      "tr": "## Kurumsal Analiz: SUI (Sun Communities, Inc.)\n\n### 1. İş Bağlamı\nSun Communities, Inc., Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $128.96 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 39.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.2\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $128.96 | Güncel |\n| EMA20 | $129.1 | Destek |\n| ADX | 16.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $124.18.\n\n### 5. Uygulama\n* **Entry Zone:** $128.25 - $129.60\n* **Target Price:** $136.13\n* **Stop Loss:** $124.18\n",
+      "es": "## Análisis Institucional: SUI (Sun Communities, Inc.)\n\n### 1. Contexto\nSun Communities, Inc. opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $128.96.\n\n### 2. Desempeño\n* **Master Score:** 39.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $128.96 | Actual |\n| EMA20 | $129.1 | Soporte |\n| ADX | 16.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $124.18.\n\n### 5. Ejecución\n* **Entry Zone:** $128.25 - $129.60\n* **Target Price:** $136.13\n* **Stop Loss:** $124.18\n",
+      "pt": "## Análise Institucional: SUI (Sun Communities, Inc.)\n\n### 1. Contexto\nSun Communities, Inc. opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $128.96.\n\n### 2. Desempenho\n* **Master Score:** 39.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.2\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $128.96 | Atual |\n| EMA20 | $129.1 | Suporte |\n| ADX | 16.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $124.18.\n\n### 5. Execução\n* **Entry Zone:** $128.25 - $129.60\n* **Target Price:** $136.13\n* **Stop Loss:** $124.18\n",
+      "fr": "## Analyse Institutionnelle: SUI (Sun Communities, Inc.)\n\n### 1. Contexte Business\nSun Communities, Inc. opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $128.96.\n\n### 2. Performance\n* **Master Score:** 39.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.2\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $128.96 | Actuel |\n| EMA20 | $129.1 | Support |\n| ADX | 16.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $124.18.\n\n### 5. Exécution\n* **Entry Zone:** $128.25 - $129.60\n* **Target Price:** $136.13\n* **Stop Loss:** $124.18\n",
+      "id": "## Analisis Institusional: SUI (Sun Communities, Inc.)\n\n### 1. Konteks Bisnis\nSun Communities, Inc. beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $128.96.\n\n### 2. Performa\n* **Master Score:** 39.9/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 49.2\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $128.96 | Saat Ini |\n| EMA20 | $129.1 | Dukungan |\n| ADX | 16.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $124.18.\n\n### 5. Eksekusi\n* **Entry Zone:** $128.25 - $129.60\n* **Target Price:** $136.13\n* **Stop Loss:** $124.18\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 40,
+    "price_change_display": "-0.99%",
+    "key_metrics": {
+      "RSI": 49.2,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

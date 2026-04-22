@@ -1,0 +1,177 @@
+{
+  "ticker": "BDX",
+  "company": "Becton, Dickinson and Company",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.892790-04:00",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 157.77,
+    "open": 159.6,
+    "high": 159.38,
+    "low": 157.61,
+    "prev_close": 158.64,
+    "change_pct": -0.55,
+    "change_pct_1w": 1.31,
+    "change_pct_1m": 2.36,
+    "change_pct_1y": 3.37,
+    "volume": 1069033,
+    "avg_volume_30d": 2532574
+  },
+  "scores": {
+    "master_score": 54.12,
+    "technical_score": 53.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 45.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.12,
+    "confidence": 0.54,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 49.1,
+    "macd": -1.255,
+    "macd_signal": -2.0379,
+    "macd_histogram": 0.7829,
+    "macd_crossover": "neutral",
+    "ema_20": 157.3,
+    "ema_50": 159.62,
+    "ema_200": 156.44,
+    "ema_stack_bullish": false,
+    "bb_upper": 158.92,
+    "bb_middle": 156.12,
+    "bb_lower": 153.31,
+    "bb_width": 0.0359,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 20.6,
+    "atr": 3.2,
+    "atr_pct": 0.0203,
+    "obv_trend": "UP",
+    "mfi": 64.5,
+    "cmf": 0.088,
+    "stoch_k": 69.6,
+    "stoch_d": 77.2,
+    "rvol": 1.16,
+    "volume_5d_avg": 2938966,
+    "green_days_10d": 5,
+    "52w_high": 184.21,
+    "52w_low": 126.85,
+    "52w_high_proximity_pct": 0.1435,
+    "52w_low_proximity_pct": 0.2437
+  },
+  "fundamental": {
+    "pe_ratio": 25.779413,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 1.7769094,
+    "de_ratio": 77.284,
+    "fcf_yield": 0.0543,
+    "eps_growth_5y": 0.286,
+    "revenue_growth_ttm": 0.016,
+    "gross_margin": 0.46784002,
+    "operating_margin": 0.13347,
+    "net_margin": 0.08014,
+    "market_cap": 57159299072,
+    "enterprise_value": 63959441408,
+    "dividend_yield": 2.65,
+    "payout_ratio": 0.6814,
+    "insider_ownership_pct": 0.00398,
+    "institutional_ownership_pct": 0.96531,
+    "short_ratio": 3.92,
+    "beta": 0.352
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 156.98,
+    "entry_range_high": 158.56,
+    "target_range_low": 164.02,
+    "target_range_high": 175.74,
+    "stop_range_low": 143.8,
+    "stop_range_high": 151.37,
+    "target_price": 167.37,
+    "stop_loss": 151.37,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.891940-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 197.21,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 265.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 126.85,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 4,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 75,
+      "date": "2026-03-26"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BDX a score of 54.1/100. Trend: Neutral. RSI: 49.1.",
+      "tr": "BOGA AI assigns BDX a score of 54.1/100. Trend: Neutral. RSI: 49.1.",
+      "es": "BOGA AI assigns BDX a score of 54.1/100. Trend: Neutral. RSI: 49.1.",
+      "pt": "BOGA AI assigns BDX a score of 54.1/100. Trend: Neutral. RSI: 49.1.",
+      "fr": "BOGA AI assigns BDX a score of 54.1/100. Trend: Neutral. RSI: 49.1.",
+      "id": "BOGA AI assigns BDX a score of 54.1/100. Trend: Neutral. RSI: 49.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BDX (Becton, Dickinson and Company)\n\n### 1. Business Context\nBecton, Dickinson and Company operates in the Healthcare sector. BOGA AI detect institutional interest near $157.77.\n\n### 2. Performance\n* **Master Score:** 54.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 49.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $157.77 | Current |\n| EMA20 | $157.3 | Support |\n| ADX | 20.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $151.37.\n\n### 5. Execution\n* **Entry Zone:** $156.98 - $158.56\n* **Target Price:** $167.37\n* **Stop Loss:** $151.37\n",
+      "tr": "## Kurumsal Analiz: BDX (Becton, Dickinson and Company)\n\n### 1. İş Bağlamı\nBecton, Dickinson and Company, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $157.77 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 54.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 49.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $157.77 | Güncel |\n| EMA20 | $157.3 | Destek |\n| ADX | 20.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $151.37.\n\n### 5. Uygulama\n* **Entry Zone:** $156.98 - $158.56\n* **Target Price:** $167.37\n* **Stop Loss:** $151.37\n",
+      "es": "## Análisis Institucional: BDX (Becton, Dickinson and Company)\n\n### 1. Contexto\nBecton, Dickinson and Company opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $157.77.\n\n### 2. Desempeño\n* **Master Score:** 54.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 49.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $157.77 | Actual |\n| EMA20 | $157.3 | Soporte |\n| ADX | 20.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $151.37.\n\n### 5. Ejecución\n* **Entry Zone:** $156.98 - $158.56\n* **Target Price:** $167.37\n* **Stop Loss:** $151.37\n",
+      "pt": "## Análise Institucional: BDX (Becton, Dickinson and Company)\n\n### 1. Contexto\nBecton, Dickinson and Company opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $157.77.\n\n### 2. Desempenho\n* **Master Score:** 54.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 49.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $157.77 | Atual |\n| EMA20 | $157.3 | Suporte |\n| ADX | 20.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $151.37.\n\n### 5. Execução\n* **Entry Zone:** $156.98 - $158.56\n* **Target Price:** $167.37\n* **Stop Loss:** $151.37\n",
+      "fr": "## Analyse Institutionnelle: BDX (Becton, Dickinson and Company)\n\n### 1. Contexte Business\nBecton, Dickinson and Company opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $157.77.\n\n### 2. Performance\n* **Master Score:** 54.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 49.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $157.77 | Actuel |\n| EMA20 | $157.3 | Support |\n| ADX | 20.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $151.37.\n\n### 5. Exécution\n* **Entry Zone:** $156.98 - $158.56\n* **Target Price:** $167.37\n* **Stop Loss:** $151.37\n",
+      "id": "## Analisis Institusional: BDX (Becton, Dickinson and Company)\n\n### 1. Konteks Bisnis\nBecton, Dickinson and Company beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $157.77.\n\n### 2. Performa\n* **Master Score:** 54.1/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 49.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $157.77 | Saat Ini |\n| EMA20 | $157.3 | Dukungan |\n| ADX | 20.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $151.37.\n\n### 5. Eksekusi\n* **Entry Zone:** $156.98 - $158.56\n* **Target Price:** $167.37\n* **Stop Loss:** $151.37\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 54,
+    "price_change_display": "-0.55%",
+    "key_metrics": {
+      "RSI": 49.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

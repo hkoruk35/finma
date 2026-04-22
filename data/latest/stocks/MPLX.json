@@ -1,0 +1,177 @@
+{
+  "ticker": "MPLX",
+  "company": "MPLX LP",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.467391-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 55.61,
+    "open": 55.96,
+    "high": 56.1,
+    "low": 55.36,
+    "prev_close": 55.69,
+    "change_pct": -0.14,
+    "change_pct_1w": 1.09,
+    "change_pct_1m": -4.11,
+    "change_pct_1y": 18.97,
+    "volume": 969576,
+    "avg_volume_30d": 1766335
+  },
+  "scores": {
+    "master_score": 35.56,
+    "technical_score": 18.0,
+    "fundamental_score": 62.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 60.0,
+    "sector_score": 37.6,
+    "breakout_score": 0.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 35.56,
+    "confidence": 0.36,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 42.4,
+    "macd": -0.5734,
+    "macd_signal": -0.5177,
+    "macd_histogram": -0.0557,
+    "macd_crossover": "neutral",
+    "ema_20": 56.24,
+    "ema_50": 56.42,
+    "ema_200": 53.2,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.13,
+    "bb_middle": 56.46,
+    "bb_lower": 53.8,
+    "bb_width": 0.0944,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 26.9,
+    "atr": 1.1,
+    "atr_pct": 0.0197,
+    "obv_trend": "DOWN",
+    "mfi": 35.3,
+    "cmf": -0.119,
+    "stoch_k": 53.4,
+    "stoch_d": 44.2,
+    "rvol": 0.95,
+    "volume_5d_avg": 1681035,
+    "green_days_10d": 4,
+    "52w_high": 59.17,
+    "52w_low": 45.49,
+    "52w_high_proximity_pct": 0.0602,
+    "52w_low_proximity_pct": 0.2223
+  },
+  "fundamental": {
+    "pe_ratio": 11.53724,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 3.9495385,
+    "de_ratio": 180.08,
+    "fcf_yield": 0.0354,
+    "eps_growth_5y": 0.091,
+    "revenue_growth_ttm": 0.071,
+    "gross_margin": 0.56664,
+    "operating_margin": 0.42880002,
+    "net_margin": 0.41567,
+    "market_cap": 56558485504,
+    "enterprise_value": 80788725760,
+    "dividend_yield": 7.73,
+    "payout_ratio": 0.8187,
+    "insider_ownership_pct": 0.63939,
+    "institutional_ownership_pct": 0.17749001,
+    "short_ratio": 4.99,
+    "beta": 0.544
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 55.33,
+    "entry_range_high": 55.89,
+    "target_range_low": 57.73,
+    "target_range_high": 61.86,
+    "stop_range_low": 50.74,
+    "stop_range_high": 53.41,
+    "target_price": 58.91,
+    "stop_loss": 53.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.467349-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 69.51,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 773.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 45.49,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4930,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
+      "tr": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
+      "es": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
+      "pt": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
+      "fr": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4.",
+      "id": "BOGA AI assigns MPLX a score of 35.6/100. Trend: Neutral. RSI: 42.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: MPLX (MPLX LP)\n\n### 1. Business Context\nMPLX LP operates in the Energy sector. BOGA AI detect institutional interest near $55.61.\n\n### 2. Performance\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $55.61 | Current |\n| EMA20 | $56.24 | Support |\n| ADX | 26.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $53.41.\n\n### 5. Execution\n* **Entry Zone:** $55.33 - $55.89\n* **Target Price:** $58.91\n* **Stop Loss:** $53.41\n",
+      "tr": "## Kurumsal Analiz: MPLX (MPLX LP)\n\n### 1. İş Bağlamı\nMPLX LP, Energy sektöründe faaliyet göstermektedir. BOGA AI, $55.61 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $55.61 | Güncel |\n| EMA20 | $56.24 | Destek |\n| ADX | 26.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $53.41.\n\n### 5. Uygulama\n* **Entry Zone:** $55.33 - $55.89\n* **Target Price:** $58.91\n* **Stop Loss:** $53.41\n",
+      "es": "## Análisis Institucional: MPLX (MPLX LP)\n\n### 1. Contexto\nMPLX LP opera en el sector Energy. BOGA AI detecta interés institucional cerca de $55.61.\n\n### 2. Desempeño\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $55.61 | Actual |\n| EMA20 | $56.24 | Soporte |\n| ADX | 26.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $53.41.\n\n### 5. Ejecución\n* **Entry Zone:** $55.33 - $55.89\n* **Target Price:** $58.91\n* **Stop Loss:** $53.41\n",
+      "pt": "## Análise Institucional: MPLX (MPLX LP)\n\n### 1. Contexto\nMPLX LP opera no setor Energy. BOGA AI detecta interesse institucional perto de $55.61.\n\n### 2. Desempenho\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $55.61 | Atual |\n| EMA20 | $56.24 | Suporte |\n| ADX | 26.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $53.41.\n\n### 5. Execução\n* **Entry Zone:** $55.33 - $55.89\n* **Target Price:** $58.91\n* **Stop Loss:** $53.41\n",
+      "fr": "## Analyse Institutionnelle: MPLX (MPLX LP)\n\n### 1. Contexte Business\nMPLX LP opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $55.61.\n\n### 2. Performance\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $55.61 | Actuel |\n| EMA20 | $56.24 | Support |\n| ADX | 26.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $53.41.\n\n### 5. Exécution\n* **Entry Zone:** $55.33 - $55.89\n* **Target Price:** $58.91\n* **Stop Loss:** $53.41\n",
+      "id": "## Analisis Institusional: MPLX (MPLX LP)\n\n### 1. Konteks Bisnis\nMPLX LP beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $55.61.\n\n### 2. Performa\n* **Master Score:** 35.6/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 42.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $55.61 | Saat Ini |\n| EMA20 | $56.24 | Dukungan |\n| ADX | 26.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $53.41.\n\n### 5. Eksekusi\n* **Entry Zone:** $55.33 - $55.89\n* **Target Price:** $58.91\n* **Stop Loss:** $53.41\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 36,
+    "price_change_display": "-0.14%",
+    "key_metrics": {
+      "RSI": 42.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

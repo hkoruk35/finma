@@ -1,0 +1,177 @@
+{
+  "ticker": "SPOT",
+  "company": "Spotify Technology S.A.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.206387-04:00",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 531.58,
+    "open": 540.0,
+    "high": 541.79,
+    "low": 529.97,
+    "prev_close": 536.76,
+    "change_pct": -0.97,
+    "change_pct_1w": 3.95,
+    "change_pct_1m": 12.02,
+    "change_pct_1y": -7.43,
+    "volume": 625479,
+    "avg_volume_30d": 1526885
+  },
+  "scores": {
+    "master_score": 37.53,
+    "technical_score": 14.4,
+    "fundamental_score": 40.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 29.9,
+    "breakout_score": 30.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 0.0,
+    "signal_score": 37.53,
+    "confidence": 0.38,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 61.1,
+    "macd": 9.4524,
+    "macd_signal": 3.1362,
+    "macd_histogram": 6.3162,
+    "macd_crossover": "neutral",
+    "ema_20": 507.94,
+    "ema_50": 506.97,
+    "ema_200": 561.09,
+    "ema_stack_bullish": false,
+    "bb_upper": 543.37,
+    "bb_middle": 496.2,
+    "bb_lower": 449.04,
+    "bb_width": 0.1901,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 14.7,
+    "atr": 18.87,
+    "atr_pct": 0.0355,
+    "obv_trend": "UP",
+    "mfi": 60.3,
+    "cmf": 0.085,
+    "stoch_k": 85.1,
+    "stoch_d": 89.3,
+    "rvol": 0.87,
+    "volume_5d_avg": 1330435,
+    "green_days_10d": 7,
+    "52w_high": 775.9,
+    "52w_low": 412.75,
+    "52w_high_proximity_pct": 0.3149,
+    "52w_low_proximity_pct": 0.2879
+  },
+  "fundamental": {
+    "pe_ratio": 43.042915,
+    "sector_pe_median": 25.1250565,
+    "pb_ratio": 11.134662,
+    "de_ratio": 23.484,
+    "fcf_yield": 0.0062,
+    "eps_growth_5y": 2.139,
+    "revenue_growth_ttm": 0.068,
+    "gross_margin": 0.3198,
+    "operating_margin": 0.15471,
+    "net_margin": 0.12871,
+    "market_cap": 109442932736,
+    "enterprise_value": 104722669568,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.23412001,
+    "institutional_ownership_pct": 0.68396,
+    "short_ratio": 3.35,
+    "beta": 1.702
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 504.44,
+    "entry_range_high": 534.24,
+    "target_range_low": 576.43,
+    "target_range_high": 617.6,
+    "stop_range_low": 469.15,
+    "stop_range_high": 493.84,
+    "target_price": 588.19,
+    "stop_loss": 493.84,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.206339-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 664.48,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 412.75,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5436,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLC",
+    "sector_performance_5d": 0.48,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
+      "tr": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
+      "es": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
+      "pt": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
+      "fr": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1.",
+      "id": "BOGA AI assigns SPOT a score of 37.5/100. Trend: Neutral. RSI: 61.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: SPOT (Spotify Technology S.A.)\n\n### 1. Business Context\nSpotify Technology S.A. operates in the Communication Services sector. BOGA AI detect institutional interest near $531.58.\n\n### 2. Performance\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $531.58 | Current |\n| EMA20 | $507.94 | Support |\n| ADX | 14.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $493.84.\n\n### 5. Execution\n* **Entry Zone:** $504.44 - $534.24\n* **Target Price:** $588.19\n* **Stop Loss:** $493.84\n",
+      "tr": "## Kurumsal Analiz: SPOT (Spotify Technology S.A.)\n\n### 1. İş Bağlamı\nSpotify Technology S.A., Communication Services sektöründe faaliyet göstermektedir. BOGA AI, $531.58 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $531.58 | Güncel |\n| EMA20 | $507.94 | Destek |\n| ADX | 14.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $493.84.\n\n### 5. Uygulama\n* **Entry Zone:** $504.44 - $534.24\n* **Target Price:** $588.19\n* **Stop Loss:** $493.84\n",
+      "es": "## Análisis Institucional: SPOT (Spotify Technology S.A.)\n\n### 1. Contexto\nSpotify Technology S.A. opera en el sector Communication Services. BOGA AI detecta interés institucional cerca de $531.58.\n\n### 2. Desempeño\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $531.58 | Actual |\n| EMA20 | $507.94 | Soporte |\n| ADX | 14.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $493.84.\n\n### 5. Ejecución\n* **Entry Zone:** $504.44 - $534.24\n* **Target Price:** $588.19\n* **Stop Loss:** $493.84\n",
+      "pt": "## Análise Institucional: SPOT (Spotify Technology S.A.)\n\n### 1. Contexto\nSpotify Technology S.A. opera no setor Communication Services. BOGA AI detecta interesse institucional perto de $531.58.\n\n### 2. Desempenho\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $531.58 | Atual |\n| EMA20 | $507.94 | Suporte |\n| ADX | 14.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $493.84.\n\n### 5. Execução\n* **Entry Zone:** $504.44 - $534.24\n* **Target Price:** $588.19\n* **Stop Loss:** $493.84\n",
+      "fr": "## Analyse Institutionnelle: SPOT (Spotify Technology S.A.)\n\n### 1. Contexte Business\nSpotify Technology S.A. opère dans le secteur Communication Services. BOGA AI détecte un intérêt institutionnel proche de $531.58.\n\n### 2. Performance\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $531.58 | Actuel |\n| EMA20 | $507.94 | Support |\n| ADX | 14.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $493.84.\n\n### 5. Exécution\n* **Entry Zone:** $504.44 - $534.24\n* **Target Price:** $588.19\n* **Stop Loss:** $493.84\n",
+      "id": "## Analisis Institusional: SPOT (Spotify Technology S.A.)\n\n### 1. Konteks Bisnis\nSpotify Technology S.A. beroperasi di sektor Communication Services. BOGA AI mendeteksi minat institusional di dekat $531.58.\n\n### 2. Performa\n* **Master Score:** 37.5/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 61.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $531.58 | Saat Ini |\n| EMA20 | $507.94 | Dukungan |\n| ADX | 14.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $493.84.\n\n### 5. Eksekusi\n* **Entry Zone:** $504.44 - $534.24\n* **Target Price:** $588.19\n* **Stop Loss:** $493.84\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 38,
+    "price_change_display": "-0.97%",
+    "key_metrics": {
+      "RSI": 61.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

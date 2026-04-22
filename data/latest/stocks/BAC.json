@@ -1,0 +1,177 @@
+{
+  "ticker": "BAC",
+  "company": "Bank of America Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.965590-04:00",
+  "sector": "Financials",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 53.6,
+    "open": 54.0,
+    "high": 54.65,
+    "low": 53.6,
+    "prev_close": 53.95,
+    "change_pct": -0.65,
+    "change_pct_1w": 0.47,
+    "change_pct_1m": 13.66,
+    "change_pct_1y": 46.5,
+    "volume": 12488116,
+    "avg_volume_30d": 39224590
+  },
+  "scores": {
+    "master_score": 62.22,
+    "technical_score": 65.0,
+    "fundamental_score": 52.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 70.0,
+    "signal_score": 62.22,
+    "confidence": 0.62,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 65.5,
+    "macd": 1.2747,
+    "macd_signal": 0.8911,
+    "macd_histogram": 0.3836,
+    "macd_crossover": "neutral",
+    "ema_20": 51.75,
+    "ema_50": 51.09,
+    "ema_200": 49.81,
+    "ema_stack_bullish": true,
+    "bb_upper": 55.94,
+    "bb_middle": 51.01,
+    "bb_lower": 46.07,
+    "bb_width": 0.1935,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 28.9,
+    "atr": 1.21,
+    "atr_pct": 0.0225,
+    "obv_trend": "UP",
+    "mfi": 77.6,
+    "cmf": 0.135,
+    "stoch_k": 75.1,
+    "stoch_d": 79.8,
+    "rvol": 1.01,
+    "volume_5d_avg": 39802583,
+    "green_days_10d": 6,
+    "52w_high": 56.93,
+    "52w_low": 36.11,
+    "52w_high_proximity_pct": 0.0585,
+    "52w_low_proximity_pct": 0.4844
+  },
+  "fundamental": {
+    "pe_ratio": 13.333333,
+    "sector_pe_median": 16.433114,
+    "pb_ratio": 1.3863025,
+    "de_ratio": null,
+    "fcf_yield": null,
+    "eps_growth_5y": 0.233,
+    "revenue_growth_ttm": 0.118,
+    "gross_margin": 0.0,
+    "operating_margin": 0.35956,
+    "net_margin": 0.28956,
+    "market_cap": 383009980416,
+    "enterprise_value": 144541532160,
+    "dividend_yield": 2.08,
+    "payout_ratio": 0.2736,
+    "insider_ownership_pct": 0.07375,
+    "institutional_ownership_pct": 0.71717,
+    "short_ratio": 0.0,
+    "beta": 1.237
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 50.83,
+    "entry_range_high": 53.87,
+    "target_range_low": 56.09,
+    "target_range_high": 60.09,
+    "stop_range_low": 48.62,
+    "stop_range_high": 51.18,
+    "target_price": 57.23,
+    "stop_loss": 51.18,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.965322-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 67.0,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 208.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 36.11,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 18083,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLF",
+    "sector_performance_5d": 0.58,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BAC a score of 62.2/100. Trend: Neutral. RSI: 65.5.",
+      "tr": "BOGA AI assigns BAC a score of 62.2/100. Trend: Neutral. RSI: 65.5.",
+      "es": "BOGA AI assigns BAC a score of 62.2/100. Trend: Neutral. RSI: 65.5.",
+      "pt": "BOGA AI assigns BAC a score of 62.2/100. Trend: Neutral. RSI: 65.5.",
+      "fr": "BOGA AI assigns BAC a score of 62.2/100. Trend: Neutral. RSI: 65.5.",
+      "id": "BOGA AI assigns BAC a score of 62.2/100. Trend: Neutral. RSI: 65.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BAC (Bank of America Corporation)\n\n### 1. Business Context\nBank of America Corporation operates in the Financials sector. BOGA AI detect institutional interest near $53.60.\n\n### 2. Performance\n* **Master Score:** 62.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $53.60 | Current |\n| EMA20 | $51.75 | Support |\n| ADX | 28.9 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $51.18.\n\n### 5. Execution\n* **Entry Zone:** $50.83 - $53.87\n* **Target Price:** $57.23\n* **Stop Loss:** $51.18\n",
+      "tr": "## Kurumsal Analiz: BAC (Bank of America Corporation)\n\n### 1. İş Bağlamı\nBank of America Corporation, Financials sektöründe faaliyet göstermektedir. BOGA AI, $53.60 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 62.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $53.60 | Güncel |\n| EMA20 | $51.75 | Destek |\n| ADX | 28.9 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $51.18.\n\n### 5. Uygulama\n* **Entry Zone:** $50.83 - $53.87\n* **Target Price:** $57.23\n* **Stop Loss:** $51.18\n",
+      "es": "## Análisis Institucional: BAC (Bank of America Corporation)\n\n### 1. Contexto\nBank of America Corporation opera en el sector Financials. BOGA AI detecta interés institucional cerca de $53.60.\n\n### 2. Desempeño\n* **Master Score:** 62.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $53.60 | Actual |\n| EMA20 | $51.75 | Soporte |\n| ADX | 28.9 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $51.18.\n\n### 5. Ejecución\n* **Entry Zone:** $50.83 - $53.87\n* **Target Price:** $57.23\n* **Stop Loss:** $51.18\n",
+      "pt": "## Análise Institucional: BAC (Bank of America Corporation)\n\n### 1. Contexto\nBank of America Corporation opera no setor Financials. BOGA AI detecta interesse institucional perto de $53.60.\n\n### 2. Desempenho\n* **Master Score:** 62.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $53.60 | Atual |\n| EMA20 | $51.75 | Suporte |\n| ADX | 28.9 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $51.18.\n\n### 5. Execução\n* **Entry Zone:** $50.83 - $53.87\n* **Target Price:** $57.23\n* **Stop Loss:** $51.18\n",
+      "fr": "## Analyse Institutionnelle: BAC (Bank of America Corporation)\n\n### 1. Contexte Business\nBank of America Corporation opère dans le secteur Financials. BOGA AI détecte un intérêt institutionnel proche de $53.60.\n\n### 2. Performance\n* **Master Score:** 62.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $53.60 | Actuel |\n| EMA20 | $51.75 | Support |\n| ADX | 28.9 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $51.18.\n\n### 5. Exécution\n* **Entry Zone:** $50.83 - $53.87\n* **Target Price:** $57.23\n* **Stop Loss:** $51.18\n",
+      "id": "## Analisis Institusional: BAC (Bank of America Corporation)\n\n### 1. Konteks Bisnis\nBank of America Corporation beroperasi di sektor Financials. BOGA AI mendeteksi minat institusional di dekat $53.60.\n\n### 2. Performa\n* **Master Score:** 62.2/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 65.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $53.60 | Saat Ini |\n| EMA20 | $51.75 | Dukungan |\n| ADX | 28.9 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $51.18.\n\n### 5. Eksekusi\n* **Entry Zone:** $50.83 - $53.87\n* **Target Price:** $57.23\n* **Stop Loss:** $51.18\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 62,
+    "price_change_display": "-0.65%",
+    "key_metrics": {
+      "RSI": 65.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

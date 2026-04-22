@@ -1,0 +1,178 @@
+{
+  "ticker": "CRM",
+  "company": "Salesforce, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.993250-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 189.13,
+    "open": 186.6,
+    "high": 193.56,
+    "low": 184.1,
+    "prev_close": 186.27,
+    "change_pct": 1.54,
+    "change_pct_1w": 10.41,
+    "change_pct_1m": -2.95,
+    "change_pct_1y": -22.94,
+    "volume": 6665299,
+    "avg_volume_30d": 13689636
+  },
+  "scores": {
+    "master_score": 40.83,
+    "technical_score": 9.6,
+    "fundamental_score": 68.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 40.83,
+    "confidence": 0.41,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 55.1,
+    "macd": -2.548,
+    "macd_signal": -4.3654,
+    "macd_histogram": 1.8174,
+    "macd_crossover": "neutral",
+    "ema_20": 182.42,
+    "ema_50": 191.63,
+    "ema_200": 224.58,
+    "ema_stack_bullish": false,
+    "bb_upper": 193.06,
+    "bb_middle": 180.53,
+    "bb_lower": 168.01,
+    "bb_width": 0.1387,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 15.6,
+    "atr": 7.59,
+    "atr_pct": 0.0401,
+    "obv_trend": "UP",
+    "mfi": 61.0,
+    "cmf": -0.15,
+    "stoch_k": 85.3,
+    "stoch_d": 83.0,
+    "rvol": 0.94,
+    "volume_5d_avg": 12894659,
+    "green_days_10d": 6,
+    "52w_high": 288.99,
+    "52w_low": 164.96,
+    "52w_high_proximity_pct": 0.3455,
+    "52w_low_proximity_pct": 0.1466
+  },
+  "fundamental": {
+    "pe_ratio": 24.248075,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 2.9709246,
+    "de_ratio": 29.947,
+    "fcf_yield": 0.0938,
+    "eps_growth_5y": 0.179,
+    "revenue_growth_ttm": 0.121,
+    "gross_margin": 0.77676004,
+    "operating_margin": 0.19239001,
+    "net_margin": 0.17958,
+    "market_cap": 174571601920,
+    "enterprise_value": 180073218048,
+    "dividend_yield": 0.94,
+    "payout_ratio": 0.2133,
+    "insider_ownership_pct": 0.030199999,
+    "institutional_ownership_pct": 0.95913005,
+    "short_ratio": 5.94,
+    "beta": 1.288
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 188.18,
+    "entry_range_high": 190.08,
+    "target_range_low": 207.66,
+    "target_range_high": 222.5,
+    "stop_range_low": 165.25,
+    "stop_range_high": 173.95,
+    "target_price": 211.9,
+    "stop_loss": 173.95,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.993202-04:00",
+    "categories": [
+      "top_scores",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 236.41,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 94.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 164.96,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 2,
+    "last_90_days_sells": 0,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 16084,
+      "date": "2026-03-20"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
+      "tr": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
+      "es": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
+      "pt": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
+      "fr": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1.",
+      "id": "BOGA AI assigns CRM a score of 40.8/100. Trend: Neutral. RSI: 55.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: CRM (Salesforce, Inc.)\n\n### 1. Business Context\nSalesforce, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $189.13.\n\n### 2. Performance\n* **Master Score:** 40.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $189.13 | Current |\n| EMA20 | $182.42 | Support |\n| ADX | 15.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $173.95.\n\n### 5. Execution\n* **Entry Zone:** $188.18 - $190.08\n* **Target Price:** $211.90\n* **Stop Loss:** $173.95\n",
+      "tr": "## Kurumsal Analiz: CRM (Salesforce, Inc.)\n\n### 1. İş Bağlamı\nSalesforce, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $189.13 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 40.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $189.13 | Güncel |\n| EMA20 | $182.42 | Destek |\n| ADX | 15.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $173.95.\n\n### 5. Uygulama\n* **Entry Zone:** $188.18 - $190.08\n* **Target Price:** $211.90\n* **Stop Loss:** $173.95\n",
+      "es": "## Análisis Institucional: CRM (Salesforce, Inc.)\n\n### 1. Contexto\nSalesforce, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $189.13.\n\n### 2. Desempeño\n* **Master Score:** 40.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $189.13 | Actual |\n| EMA20 | $182.42 | Soporte |\n| ADX | 15.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $173.95.\n\n### 5. Ejecución\n* **Entry Zone:** $188.18 - $190.08\n* **Target Price:** $211.90\n* **Stop Loss:** $173.95\n",
+      "pt": "## Análise Institucional: CRM (Salesforce, Inc.)\n\n### 1. Contexto\nSalesforce, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $189.13.\n\n### 2. Desempenho\n* **Master Score:** 40.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $189.13 | Atual |\n| EMA20 | $182.42 | Suporte |\n| ADX | 15.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $173.95.\n\n### 5. Execução\n* **Entry Zone:** $188.18 - $190.08\n* **Target Price:** $211.90\n* **Stop Loss:** $173.95\n",
+      "fr": "## Analyse Institutionnelle: CRM (Salesforce, Inc.)\n\n### 1. Contexte Business\nSalesforce, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $189.13.\n\n### 2. Performance\n* **Master Score:** 40.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $189.13 | Actuel |\n| EMA20 | $182.42 | Support |\n| ADX | 15.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $173.95.\n\n### 5. Exécution\n* **Entry Zone:** $188.18 - $190.08\n* **Target Price:** $211.90\n* **Stop Loss:** $173.95\n",
+      "id": "## Analisis Institusional: CRM (Salesforce, Inc.)\n\n### 1. Konteks Bisnis\nSalesforce, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $189.13.\n\n### 2. Performa\n* **Master Score:** 40.8/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 55.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $189.13 | Saat Ini |\n| EMA20 | $182.42 | Dukungan |\n| ADX | 15.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $173.95.\n\n### 5. Eksekusi\n* **Entry Zone:** $188.18 - $190.08\n* **Target Price:** $211.90\n* **Stop Loss:** $173.95\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 41,
+    "price_change_display": "+1.54%",
+    "key_metrics": {
+      "RSI": 55.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

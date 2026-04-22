@@ -1,0 +1,177 @@
+{
+  "ticker": "AMH",
+  "company": "American Homes 4 Rent",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.117829-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 30.72,
+    "open": 31.04,
+    "high": 31.11,
+    "low": 30.72,
+    "prev_close": 31.1,
+    "change_pct": -1.24,
+    "change_pct_1w": 1.98,
+    "change_pct_1m": 12.18,
+    "change_pct_1y": -13.41,
+    "volume": 582149,
+    "avg_volume_30d": 3005828
+  },
+  "scores": {
+    "master_score": 44.39,
+    "technical_score": 17.1,
+    "fundamental_score": 57.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.6,
+    "breakout_score": 0.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 44.39,
+    "confidence": 0.44,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 66.6,
+    "macd": 0.4869,
+    "macd_signal": 0.2353,
+    "macd_histogram": 0.2515,
+    "macd_crossover": "neutral",
+    "ema_20": 29.63,
+    "ema_50": 29.56,
+    "ema_200": 31.25,
+    "ema_stack_bullish": false,
+    "bb_upper": 31.43,
+    "bb_middle": 29.16,
+    "bb_lower": 26.89,
+    "bb_width": 0.1556,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 33.3,
+    "atr": 0.57,
+    "atr_pct": 0.0185,
+    "obv_trend": "UP",
+    "mfi": 81.7,
+    "cmf": 0.086,
+    "stoch_k": 86.1,
+    "stoch_d": 93.7,
+    "rvol": 0.61,
+    "volume_5d_avg": 1846409,
+    "green_days_10d": 7,
+    "52w_high": 37.83,
+    "52w_low": 27.38,
+    "52w_high_proximity_pct": 0.1881,
+    "52w_low_proximity_pct": 0.1218
+  },
+  "fundamental": {
+    "pe_ratio": 26.029663,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 1.6011572,
+    "de_ratio": 66.32,
+    "fcf_yield": 0.0565,
+    "eps_growth_5y": 0.002,
+    "revenue_growth_ttm": 0.042,
+    "gross_margin": 0.56167,
+    "operating_margin": 0.25474,
+    "net_margin": 0.24482,
+    "market_cap": 12752031744,
+    "enterprise_value": 16993707008,
+    "dividend_yield": 3.95,
+    "payout_ratio": 1.0169001,
+    "insider_ownership_pct": 0.07783,
+    "institutional_ownership_pct": 0.92733,
+    "short_ratio": 2.03,
+    "beta": 0.805
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 29.41,
+    "entry_range_high": 30.87,
+    "target_range_low": 31.78,
+    "target_range_high": 34.05,
+    "stop_range_low": 28.1,
+    "stop_range_high": 29.58,
+    "target_price": 32.43,
+    "stop_loss": 29.58,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.117784-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 38.4,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 395.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 27.38,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 3,
+    "last_90_days_sells": 1,
+    "net_direction": "BUY",
+    "last_transaction": {
+      "type": "BUY",
+      "shares": 2000,
+      "date": "2026-03-03"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns AMH a score of 44.4/100. Trend: Neutral. RSI: 66.6.",
+      "tr": "BOGA AI assigns AMH a score of 44.4/100. Trend: Neutral. RSI: 66.6.",
+      "es": "BOGA AI assigns AMH a score of 44.4/100. Trend: Neutral. RSI: 66.6.",
+      "pt": "BOGA AI assigns AMH a score of 44.4/100. Trend: Neutral. RSI: 66.6.",
+      "fr": "BOGA AI assigns AMH a score of 44.4/100. Trend: Neutral. RSI: 66.6.",
+      "id": "BOGA AI assigns AMH a score of 44.4/100. Trend: Neutral. RSI: 66.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: AMH (American Homes 4 Rent)\n\n### 1. Business Context\nAmerican Homes 4 Rent operates in the Real Estate sector. BOGA AI detect institutional interest near $30.72.\n\n### 2. Performance\n* **Master Score:** 44.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $30.72 | Current |\n| EMA20 | $29.63 | Support |\n| ADX | 33.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $29.58.\n\n### 5. Execution\n* **Entry Zone:** $29.41 - $30.87\n* **Target Price:** $32.43\n* **Stop Loss:** $29.58\n",
+      "tr": "## Kurumsal Analiz: AMH (American Homes 4 Rent)\n\n### 1. İş Bağlamı\nAmerican Homes 4 Rent, Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $30.72 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 44.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $30.72 | Güncel |\n| EMA20 | $29.63 | Destek |\n| ADX | 33.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $29.58.\n\n### 5. Uygulama\n* **Entry Zone:** $29.41 - $30.87\n* **Target Price:** $32.43\n* **Stop Loss:** $29.58\n",
+      "es": "## Análisis Institucional: AMH (American Homes 4 Rent)\n\n### 1. Contexto\nAmerican Homes 4 Rent opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $30.72.\n\n### 2. Desempeño\n* **Master Score:** 44.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $30.72 | Actual |\n| EMA20 | $29.63 | Soporte |\n| ADX | 33.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $29.58.\n\n### 5. Ejecución\n* **Entry Zone:** $29.41 - $30.87\n* **Target Price:** $32.43\n* **Stop Loss:** $29.58\n",
+      "pt": "## Análise Institucional: AMH (American Homes 4 Rent)\n\n### 1. Contexto\nAmerican Homes 4 Rent opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $30.72.\n\n### 2. Desempenho\n* **Master Score:** 44.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $30.72 | Atual |\n| EMA20 | $29.63 | Suporte |\n| ADX | 33.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $29.58.\n\n### 5. Execução\n* **Entry Zone:** $29.41 - $30.87\n* **Target Price:** $32.43\n* **Stop Loss:** $29.58\n",
+      "fr": "## Analyse Institutionnelle: AMH (American Homes 4 Rent)\n\n### 1. Contexte Business\nAmerican Homes 4 Rent opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $30.72.\n\n### 2. Performance\n* **Master Score:** 44.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $30.72 | Actuel |\n| EMA20 | $29.63 | Support |\n| ADX | 33.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $29.58.\n\n### 5. Exécution\n* **Entry Zone:** $29.41 - $30.87\n* **Target Price:** $32.43\n* **Stop Loss:** $29.58\n",
+      "id": "## Analisis Institusional: AMH (American Homes 4 Rent)\n\n### 1. Konteks Bisnis\nAmerican Homes 4 Rent beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $30.72.\n\n### 2. Performa\n* **Master Score:** 44.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $30.72 | Saat Ini |\n| EMA20 | $29.63 | Dukungan |\n| ADX | 33.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $29.58.\n\n### 5. Eksekusi\n* **Entry Zone:** $29.41 - $30.87\n* **Target Price:** $32.43\n* **Stop Loss:** $29.58\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 44,
+    "price_change_display": "-1.24%",
+    "key_metrics": {
+      "RSI": 66.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

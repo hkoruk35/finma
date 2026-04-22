@@ -1,0 +1,177 @@
+{
+  "ticker": "PVH",
+  "company": "PVH Corp.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.586067-04:00",
+  "sector": "Consumer Discretionary",
+  "industry": "Apparel Manufacturing",
+  "price": {
+    "current": 99.51,
+    "open": 98.58,
+    "high": 100.0,
+    "low": 97.81,
+    "prev_close": 98.38,
+    "change_pct": 1.15,
+    "change_pct_1w": 13.18,
+    "change_pct_1m": 57.29,
+    "change_pct_1y": 44.67,
+    "volume": 333625,
+    "avg_volume_30d": 1312380
+  },
+  "scores": {
+    "master_score": 54.98,
+    "technical_score": 60.0,
+    "fundamental_score": 35.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 35.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 54.98,
+    "confidence": 0.55,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 83.9,
+    "macd": 7.6619,
+    "macd_signal": 6.1384,
+    "macd_histogram": 1.5235,
+    "macd_crossover": "neutral",
+    "ema_20": 84.3,
+    "ema_50": 76.14,
+    "ema_200": 73.33,
+    "ema_stack_bullish": true,
+    "bb_upper": 104.03,
+    "bb_middle": 81.71,
+    "bb_lower": 59.39,
+    "bb_width": 0.5463,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 44.6,
+    "atr": 3.6,
+    "atr_pct": 0.0362,
+    "obv_trend": "UP",
+    "mfi": 85.7,
+    "cmf": 0.396,
+    "stoch_k": 98.4,
+    "stoch_d": 97.0,
+    "rvol": 0.88,
+    "volume_5d_avg": 1155605,
+    "green_days_10d": 6,
+    "52w_high": 99.51,
+    "52w_low": 60.87,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 0.6349
+  },
+  "fundamental": {
+    "pe_ratio": 191.375,
+    "sector_pe_median": 26.224796,
+    "pb_ratio": 0.9512134,
+    "de_ratio": 89.761,
+    "fcf_yield": 0.1109,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.056,
+    "gross_margin": 0.57525,
+    "operating_margin": 0.102749996,
+    "net_margin": 0.00283,
+    "market_cap": 4558934016,
+    "enterprise_value": 8107038208,
+    "dividend_yield": 0.15,
+    "payout_ratio": 0.2885,
+    "insider_ownership_pct": 0.01222,
+    "institutional_ownership_pct": 1.0796499,
+    "short_ratio": 4.12,
+    "beta": 1.609
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 75.76,
+    "entry_range_high": 100.01,
+    "target_range_low": 108.1,
+    "target_range_high": 115.83,
+    "stop_range_low": 87.69,
+    "stop_range_high": 92.31,
+    "target_price": 110.31,
+    "stop_loss": 92.31,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.585916-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 124.39,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 15.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 60.87,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6939,
+      "date": "2026-04-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLY",
+    "sector_performance_5d": 1.19,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns PVH a score of 55.0/100. Trend: Neutral. RSI: 83.9.",
+      "tr": "BOGA AI assigns PVH a score of 55.0/100. Trend: Neutral. RSI: 83.9.",
+      "es": "BOGA AI assigns PVH a score of 55.0/100. Trend: Neutral. RSI: 83.9.",
+      "pt": "BOGA AI assigns PVH a score of 55.0/100. Trend: Neutral. RSI: 83.9.",
+      "fr": "BOGA AI assigns PVH a score of 55.0/100. Trend: Neutral. RSI: 83.9.",
+      "id": "BOGA AI assigns PVH a score of 55.0/100. Trend: Neutral. RSI: 83.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: PVH (PVH Corp.)\n\n### 1. Business Context\nPVH Corp. operates in the Consumer Discretionary sector. BOGA AI detect institutional interest near $99.51.\n\n### 2. Performance\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 83.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $99.51 | Current |\n| EMA20 | $84.3 | Support |\n| ADX | 44.6 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $92.31.\n\n### 5. Execution\n* **Entry Zone:** $75.76 - $100.01\n* **Target Price:** $110.31\n* **Stop Loss:** $92.31\n",
+      "tr": "## Kurumsal Analiz: PVH (PVH Corp.)\n\n### 1. İş Bağlamı\nPVH Corp., Consumer Discretionary sektöründe faaliyet göstermektedir. BOGA AI, $99.51 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 83.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $99.51 | Güncel |\n| EMA20 | $84.3 | Destek |\n| ADX | 44.6 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $92.31.\n\n### 5. Uygulama\n* **Entry Zone:** $75.76 - $100.01\n* **Target Price:** $110.31\n* **Stop Loss:** $92.31\n",
+      "es": "## Análisis Institucional: PVH (PVH Corp.)\n\n### 1. Contexto\nPVH Corp. opera en el sector Consumer Discretionary. BOGA AI detecta interés institucional cerca de $99.51.\n\n### 2. Desempeño\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 83.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $99.51 | Actual |\n| EMA20 | $84.3 | Soporte |\n| ADX | 44.6 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $92.31.\n\n### 5. Ejecución\n* **Entry Zone:** $75.76 - $100.01\n* **Target Price:** $110.31\n* **Stop Loss:** $92.31\n",
+      "pt": "## Análise Institucional: PVH (PVH Corp.)\n\n### 1. Contexto\nPVH Corp. opera no setor Consumer Discretionary. BOGA AI detecta interesse institucional perto de $99.51.\n\n### 2. Desempenho\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 83.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $99.51 | Atual |\n| EMA20 | $84.3 | Suporte |\n| ADX | 44.6 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $92.31.\n\n### 5. Execução\n* **Entry Zone:** $75.76 - $100.01\n* **Target Price:** $110.31\n* **Stop Loss:** $92.31\n",
+      "fr": "## Analyse Institutionnelle: PVH (PVH Corp.)\n\n### 1. Contexte Business\nPVH Corp. opère dans le secteur Consumer Discretionary. BOGA AI détecte un intérêt institutionnel proche de $99.51.\n\n### 2. Performance\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 83.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $99.51 | Actuel |\n| EMA20 | $84.3 | Support |\n| ADX | 44.6 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $92.31.\n\n### 5. Exécution\n* **Entry Zone:** $75.76 - $100.01\n* **Target Price:** $110.31\n* **Stop Loss:** $92.31\n",
+      "id": "## Analisis Institusional: PVH (PVH Corp.)\n\n### 1. Konteks Bisnis\nPVH Corp. beroperasi di sektor Consumer Discretionary. BOGA AI mendeteksi minat institusional di dekat $99.51.\n\n### 2. Performa\n* **Master Score:** 55.0/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 83.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $99.51 | Saat Ini |\n| EMA20 | $84.3 | Dukungan |\n| ADX | 44.6 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $92.31.\n\n### 5. Eksekusi\n* **Entry Zone:** $75.76 - $100.01\n* **Target Price:** $110.31\n* **Stop Loss:** $92.31\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 55,
+    "price_change_display": "+1.15%",
+    "key_metrics": {
+      "RSI": 83.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

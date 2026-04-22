@@ -1,0 +1,177 @@
+{
+  "ticker": "LLY",
+  "company": "Eli Lilly and Company",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.826989-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 899.69,
+    "open": 910.2,
+    "high": 913.05,
+    "low": 881.11,
+    "prev_close": 919.9,
+    "change_pct": -2.2,
+    "change_pct_1w": -2.47,
+    "change_pct_1m": -0.77,
+    "change_pct_1y": 7.9,
+    "volume": 2568114,
+    "avg_volume_30d": 2801017
+  },
+  "scores": {
+    "master_score": 16.02,
+    "technical_score": 6.3,
+    "fundamental_score": 15.0,
+    "momentum_score": 0.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 16.02,
+    "confidence": 0.16,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 40.5,
+    "macd": -13.6043,
+    "macd_signal": -14.6747,
+    "macd_histogram": 1.0703,
+    "macd_crossover": "neutral",
+    "ema_20": 927.64,
+    "ema_50": 956.49,
+    "ema_200": 928.42,
+    "ema_stack_bullish": false,
+    "bb_upper": 962.81,
+    "bb_middle": 920.24,
+    "bb_lower": 877.67,
+    "bb_width": 0.0925,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 16.5,
+    "atr": 28.03,
+    "atr_pct": 0.0312,
+    "obv_trend": "DOWN",
+    "mfi": 35.9,
+    "cmf": -0.074,
+    "stoch_k": 19.4,
+    "stoch_d": 34.1,
+    "rvol": 1.06,
+    "volume_5d_avg": 2965662,
+    "green_days_10d": 3,
+    "52w_high": 1108.09,
+    "52w_low": 622.32,
+    "52w_high_proximity_pct": 0.1881,
+    "52w_low_proximity_pct": 0.4457
+  },
+  "fundamental": {
+    "pe_ratio": 39.270626,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 30.33856,
+    "de_ratio": 165.31,
+    "fcf_yield": 0.0024,
+    "eps_growth_5y": 0.514,
+    "revenue_growth_ttm": 0.426,
+    "gross_margin": 0.83044,
+    "operating_margin": 0.44896,
+    "net_margin": 0.31667,
+    "market_cap": 805239455744,
+    "enterprise_value": 858453966848,
+    "dividend_yield": 0.68,
+    "payout_ratio": 0.26139998,
+    "insider_ownership_pct": 0.0017,
+    "institutional_ownership_pct": 0.84743,
+    "short_ratio": 2.73,
+    "beta": 0.504
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 895.19,
+    "entry_range_high": 904.19,
+    "target_range_low": 964.1,
+    "target_range_high": 1032.97,
+    "stop_range_low": 801.45,
+    "stop_range_high": 843.63,
+    "target_price": 983.78,
+    "stop_loss": 843.63,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.826949-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1124.61,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 68.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 622.32,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 5,
+      "date": "2026-03-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns LLY a score of 16.0/100. Trend: Neutral. RSI: 40.5.",
+      "tr": "BOGA AI assigns LLY a score of 16.0/100. Trend: Neutral. RSI: 40.5.",
+      "es": "BOGA AI assigns LLY a score of 16.0/100. Trend: Neutral. RSI: 40.5.",
+      "pt": "BOGA AI assigns LLY a score of 16.0/100. Trend: Neutral. RSI: 40.5.",
+      "fr": "BOGA AI assigns LLY a score of 16.0/100. Trend: Neutral. RSI: 40.5.",
+      "id": "BOGA AI assigns LLY a score of 16.0/100. Trend: Neutral. RSI: 40.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: LLY (Eli Lilly and Company)\n\n### 1. Business Context\nEli Lilly and Company operates in the Healthcare sector. BOGA AI detect institutional interest near $899.69.\n\n### 2. Performance\n* **Master Score:** 16.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $899.69 | Current |\n| EMA20 | $927.64 | Support |\n| ADX | 16.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $843.63.\n\n### 5. Execution\n* **Entry Zone:** $895.19 - $904.19\n* **Target Price:** $983.78\n* **Stop Loss:** $843.63\n",
+      "tr": "## Kurumsal Analiz: LLY (Eli Lilly and Company)\n\n### 1. İş Bağlamı\nEli Lilly and Company, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $899.69 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 16.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $899.69 | Güncel |\n| EMA20 | $927.64 | Destek |\n| ADX | 16.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $843.63.\n\n### 5. Uygulama\n* **Entry Zone:** $895.19 - $904.19\n* **Target Price:** $983.78\n* **Stop Loss:** $843.63\n",
+      "es": "## Análisis Institucional: LLY (Eli Lilly and Company)\n\n### 1. Contexto\nEli Lilly and Company opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $899.69.\n\n### 2. Desempeño\n* **Master Score:** 16.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $899.69 | Actual |\n| EMA20 | $927.64 | Soporte |\n| ADX | 16.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $843.63.\n\n### 5. Ejecución\n* **Entry Zone:** $895.19 - $904.19\n* **Target Price:** $983.78\n* **Stop Loss:** $843.63\n",
+      "pt": "## Análise Institucional: LLY (Eli Lilly and Company)\n\n### 1. Contexto\nEli Lilly and Company opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $899.69.\n\n### 2. Desempenho\n* **Master Score:** 16.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $899.69 | Atual |\n| EMA20 | $927.64 | Suporte |\n| ADX | 16.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $843.63.\n\n### 5. Execução\n* **Entry Zone:** $895.19 - $904.19\n* **Target Price:** $983.78\n* **Stop Loss:** $843.63\n",
+      "fr": "## Analyse Institutionnelle: LLY (Eli Lilly and Company)\n\n### 1. Contexte Business\nEli Lilly and Company opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $899.69.\n\n### 2. Performance\n* **Master Score:** 16.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $899.69 | Actuel |\n| EMA20 | $927.64 | Support |\n| ADX | 16.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $843.63.\n\n### 5. Exécution\n* **Entry Zone:** $895.19 - $904.19\n* **Target Price:** $983.78\n* **Stop Loss:** $843.63\n",
+      "id": "## Analisis Institusional: LLY (Eli Lilly and Company)\n\n### 1. Konteks Bisnis\nEli Lilly and Company beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $899.69.\n\n### 2. Performa\n* **Master Score:** 16.0/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 40.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $899.69 | Saat Ini |\n| EMA20 | $927.64 | Dukungan |\n| ADX | 16.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $843.63.\n\n### 5. Eksekusi\n* **Entry Zone:** $895.19 - $904.19\n* **Target Price:** $983.78\n* **Stop Loss:** $843.63\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 16,
+    "price_change_display": "-2.20%",
+    "key_metrics": {
+      "RSI": 40.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

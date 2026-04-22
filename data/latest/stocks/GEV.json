@@ -1,0 +1,177 @@
+{
+  "ticker": "GEV",
+  "company": "GE Vernova Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.754747-04:00",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 995.77,
+    "open": 994.0,
+    "high": 1016.0,
+    "low": 988.72,
+    "prev_close": 990.18,
+    "change_pct": 0.56,
+    "change_pct_1w": 0.84,
+    "change_pct_1m": 17.0,
+    "change_pct_1y": 208.44,
+    "volume": 1022855,
+    "avg_volume_30d": 2311858
+  },
+  "scores": {
+    "master_score": 41.68,
+    "technical_score": 42.0,
+    "fundamental_score": 23.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 41.68,
+    "confidence": 0.42,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 66.5,
+    "macd": 40.3915,
+    "macd_signal": 36.8471,
+    "macd_histogram": 3.5444,
+    "macd_crossover": "neutral",
+    "ema_20": 942.97,
+    "ema_50": 875.07,
+    "ema_200": 694.91,
+    "ema_stack_bullish": true,
+    "bb_upper": 1043.36,
+    "bb_middle": 933.9,
+    "bb_lower": 824.45,
+    "bb_width": 0.2344,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 17.4,
+    "atr": 34.59,
+    "atr_pct": 0.0347,
+    "obv_trend": "DOWN",
+    "mfi": 70.7,
+    "cmf": -0.104,
+    "stoch_k": 86.5,
+    "stoch_d": 90.9,
+    "rvol": 0.77,
+    "volume_5d_avg": 1772731,
+    "green_days_10d": 5,
+    "52w_high": 1002.75,
+    "52w_low": 312.39,
+    "52w_high_proximity_pct": 0.007,
+    "52w_low_proximity_pct": 2.1875
+  },
+  "fundamental": {
+    "pe_ratio": 56.194416,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 24.010538,
+    "de_ratio": 9.727,
+    "fcf_yield": 0.0197,
+    "eps_growth_5y": 6.717,
+    "revenue_growth_ttm": 0.038,
+    "gross_margin": 0.20082001,
+    "operating_margin": 0.07384,
+    "net_margin": 0.1283,
+    "market_cap": 268388024320,
+    "enterprise_value": 260261691392,
+    "dividend_yield": 0.15,
+    "payout_ratio": 0.070700005,
+    "insider_ownership_pct": 0.00099,
+    "institutional_ownership_pct": 0.79037005,
+    "short_ratio": 2.69,
+    "beta": 1.196
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 870.69,
+    "entry_range_high": 1000.75,
+    "target_range_low": 1077.55,
+    "target_range_high": 1154.52,
+    "stop_range_low": 880.26,
+    "stop_range_high": 926.59,
+    "target_price": 1099.54,
+    "stop_loss": 926.59,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.754677-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1244.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 15.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 312.39,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 8505,
+      "date": "2026-04-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns GEV a score of 41.7/100. Trend: Neutral. RSI: 66.5.",
+      "tr": "BOGA AI assigns GEV a score of 41.7/100. Trend: Neutral. RSI: 66.5.",
+      "es": "BOGA AI assigns GEV a score of 41.7/100. Trend: Neutral. RSI: 66.5.",
+      "pt": "BOGA AI assigns GEV a score of 41.7/100. Trend: Neutral. RSI: 66.5.",
+      "fr": "BOGA AI assigns GEV a score of 41.7/100. Trend: Neutral. RSI: 66.5.",
+      "id": "BOGA AI assigns GEV a score of 41.7/100. Trend: Neutral. RSI: 66.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: GEV (GE Vernova Inc.)\n\n### 1. Business Context\nGE Vernova Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $995.77.\n\n### 2. Performance\n* **Master Score:** 41.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $995.77 | Current |\n| EMA20 | $942.97 | Support |\n| ADX | 17.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $926.59.\n\n### 5. Execution\n* **Entry Zone:** $870.69 - $1000.75\n* **Target Price:** $1099.54\n* **Stop Loss:** $926.59\n",
+      "tr": "## Kurumsal Analiz: GEV (GE Vernova Inc.)\n\n### 1. İş Bağlamı\nGE Vernova Inc., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $995.77 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 41.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $995.77 | Güncel |\n| EMA20 | $942.97 | Destek |\n| ADX | 17.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $926.59.\n\n### 5. Uygulama\n* **Entry Zone:** $870.69 - $1000.75\n* **Target Price:** $1099.54\n* **Stop Loss:** $926.59\n",
+      "es": "## Análisis Institucional: GEV (GE Vernova Inc.)\n\n### 1. Contexto\nGE Vernova Inc. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $995.77.\n\n### 2. Desempeño\n* **Master Score:** 41.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $995.77 | Actual |\n| EMA20 | $942.97 | Soporte |\n| ADX | 17.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $926.59.\n\n### 5. Ejecución\n* **Entry Zone:** $870.69 - $1000.75\n* **Target Price:** $1099.54\n* **Stop Loss:** $926.59\n",
+      "pt": "## Análise Institucional: GEV (GE Vernova Inc.)\n\n### 1. Contexto\nGE Vernova Inc. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $995.77.\n\n### 2. Desempenho\n* **Master Score:** 41.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $995.77 | Atual |\n| EMA20 | $942.97 | Suporte |\n| ADX | 17.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $926.59.\n\n### 5. Execução\n* **Entry Zone:** $870.69 - $1000.75\n* **Target Price:** $1099.54\n* **Stop Loss:** $926.59\n",
+      "fr": "## Analyse Institutionnelle: GEV (GE Vernova Inc.)\n\n### 1. Contexte Business\nGE Vernova Inc. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $995.77.\n\n### 2. Performance\n* **Master Score:** 41.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $995.77 | Actuel |\n| EMA20 | $942.97 | Support |\n| ADX | 17.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $926.59.\n\n### 5. Exécution\n* **Entry Zone:** $870.69 - $1000.75\n* **Target Price:** $1099.54\n* **Stop Loss:** $926.59\n",
+      "id": "## Analisis Institusional: GEV (GE Vernova Inc.)\n\n### 1. Konteks Bisnis\nGE Vernova Inc. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $995.77.\n\n### 2. Performa\n* **Master Score:** 41.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 66.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $995.77 | Saat Ini |\n| EMA20 | $942.97 | Dukungan |\n| ADX | 17.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $926.59.\n\n### 5. Eksekusi\n* **Entry Zone:** $870.69 - $1000.75\n* **Target Price:** $1099.54\n* **Stop Loss:** $926.59\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 42,
+    "price_change_display": "+0.56%",
+    "key_metrics": {
+      "RSI": 66.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "FR",
+  "company": "First Industrial Realty Trust, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.083800-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Industrial",
+  "price": {
+    "current": 63.07,
+    "open": 64.43,
+    "high": 64.66,
+    "low": 63.07,
+    "prev_close": 64.4,
+    "change_pct": -2.07,
+    "change_pct_1w": 3.22,
+    "change_pct_1m": 11.62,
+    "change_pct_1y": 37.26,
+    "volume": 163416,
+    "avg_volume_30d": 920093
+  },
+  "scores": {
+    "master_score": 55.91,
+    "technical_score": 60.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 75.0,
+    "sector_score": 46.6,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 55.91,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 64.4,
+    "macd": 1.1016,
+    "macd_signal": 0.5585,
+    "macd_histogram": 0.5432,
+    "macd_crossover": "neutral",
+    "ema_20": 60.85,
+    "ema_50": 59.79,
+    "ema_200": 56.18,
+    "ema_stack_bullish": true,
+    "bb_upper": 64.37,
+    "bb_middle": 59.83,
+    "bb_lower": 55.3,
+    "bb_width": 0.1516,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 22.7,
+    "atr": 1.33,
+    "atr_pct": 0.021,
+    "obv_trend": "UP",
+    "mfi": 91.0,
+    "cmf": 0.268,
+    "stoch_k": 76.9,
+    "stoch_d": 90.8,
+    "rvol": 0.7,
+    "volume_5d_avg": 645663,
+    "green_days_10d": 8,
+    "52w_high": 64.4,
+    "52w_low": 43.93,
+    "52w_high_proximity_pct": 0.0207,
+    "52w_low_proximity_pct": 0.4357
+  },
+  "fundamental": {
+    "pe_ratio": 33.727272,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 3.1275413,
+    "de_ratio": 93.295,
+    "fcf_yield": 0.0489,
+    "eps_growth_5y": 0.152,
+    "revenue_growth_ttm": 0.077,
+    "gross_margin": 0.73595,
+    "operating_margin": 0.42117,
+    "net_margin": 0.3401,
+    "market_cap": 8618700800,
+    "enterprise_value": 11118008320,
+    "dividend_yield": 3.11,
+    "payout_ratio": 0.9519,
+    "insider_ownership_pct": 0.00352,
+    "institutional_ownership_pct": 1.02526,
+    "short_ratio": 4.24,
+    "beta": 1.128
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 59.49,
+    "entry_range_high": 63.39,
+    "target_range_low": 65.72,
+    "target_range_high": 70.41,
+    "stop_range_low": 57.39,
+    "stop_range_high": 60.41,
+    "target_price": 67.06,
+    "stop_loss": 60.41,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.083768-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 78.84,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 311.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 43.93,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 200,
+      "date": "2026-02-19"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns FR a score of 55.9/100. Trend: Neutral. RSI: 64.4.",
+      "tr": "BOGA AI assigns FR a score of 55.9/100. Trend: Neutral. RSI: 64.4.",
+      "es": "BOGA AI assigns FR a score of 55.9/100. Trend: Neutral. RSI: 64.4.",
+      "pt": "BOGA AI assigns FR a score of 55.9/100. Trend: Neutral. RSI: 64.4.",
+      "fr": "BOGA AI assigns FR a score of 55.9/100. Trend: Neutral. RSI: 64.4.",
+      "id": "BOGA AI assigns FR a score of 55.9/100. Trend: Neutral. RSI: 64.4."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: FR (First Industrial Realty Trust, Inc.)\n\n### 1. Business Context\nFirst Industrial Realty Trust, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $63.07.\n\n### 2. Performance\n* **Master Score:** 55.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.4\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $63.07 | Current |\n| EMA20 | $60.85 | Support |\n| ADX | 22.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $60.41.\n\n### 5. Execution\n* **Entry Zone:** $59.49 - $63.39\n* **Target Price:** $67.06\n* **Stop Loss:** $60.41\n",
+      "tr": "## Kurumsal Analiz: FR (First Industrial Realty Trust, Inc.)\n\n### 1. İş Bağlamı\nFirst Industrial Realty Trust, Inc., Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $63.07 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 55.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.4\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $63.07 | Güncel |\n| EMA20 | $60.85 | Destek |\n| ADX | 22.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $60.41.\n\n### 5. Uygulama\n* **Entry Zone:** $59.49 - $63.39\n* **Target Price:** $67.06\n* **Stop Loss:** $60.41\n",
+      "es": "## Análisis Institucional: FR (First Industrial Realty Trust, Inc.)\n\n### 1. Contexto\nFirst Industrial Realty Trust, Inc. opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $63.07.\n\n### 2. Desempeño\n* **Master Score:** 55.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $63.07 | Actual |\n| EMA20 | $60.85 | Soporte |\n| ADX | 22.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $60.41.\n\n### 5. Ejecución\n* **Entry Zone:** $59.49 - $63.39\n* **Target Price:** $67.06\n* **Stop Loss:** $60.41\n",
+      "pt": "## Análise Institucional: FR (First Industrial Realty Trust, Inc.)\n\n### 1. Contexto\nFirst Industrial Realty Trust, Inc. opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $63.07.\n\n### 2. Desempenho\n* **Master Score:** 55.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.4\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $63.07 | Atual |\n| EMA20 | $60.85 | Suporte |\n| ADX | 22.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $60.41.\n\n### 5. Execução\n* **Entry Zone:** $59.49 - $63.39\n* **Target Price:** $67.06\n* **Stop Loss:** $60.41\n",
+      "fr": "## Analyse Institutionnelle: FR (First Industrial Realty Trust, Inc.)\n\n### 1. Contexte Business\nFirst Industrial Realty Trust, Inc. opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $63.07.\n\n### 2. Performance\n* **Master Score:** 55.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.4\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $63.07 | Actuel |\n| EMA20 | $60.85 | Support |\n| ADX | 22.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $60.41.\n\n### 5. Exécution\n* **Entry Zone:** $59.49 - $63.39\n* **Target Price:** $67.06\n* **Stop Loss:** $60.41\n",
+      "id": "## Analisis Institusional: FR (First Industrial Realty Trust, Inc.)\n\n### 1. Konteks Bisnis\nFirst Industrial Realty Trust, Inc. beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $63.07.\n\n### 2. Performa\n* **Master Score:** 55.9/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 64.4\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $63.07 | Saat Ini |\n| EMA20 | $60.85 | Dukungan |\n| ADX | 22.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $60.41.\n\n### 5. Eksekusi\n* **Entry Zone:** $59.49 - $63.39\n* **Target Price:** $67.06\n* **Stop Loss:** $60.41\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "-2.07%",
+    "key_metrics": {
+      "RSI": 64.4,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

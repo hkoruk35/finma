@@ -1,0 +1,178 @@
+{
+  "ticker": "BILL",
+  "company": "BILL Holdings, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.067686-04:00",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 40.37,
+    "open": 39.83,
+    "high": 40.81,
+    "low": 39.33,
+    "prev_close": 39.63,
+    "change_pct": 1.87,
+    "change_pct_1w": 9.11,
+    "change_pct_1m": 1.3,
+    "change_pct_1y": -0.59,
+    "volume": 542577,
+    "avg_volume_30d": 1949092
+  },
+  "scores": {
+    "master_score": 34.13,
+    "technical_score": 12.6,
+    "fundamental_score": 37.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 65.0,
+    "sector_score": 39.7,
+    "breakout_score": 45.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 30.0,
+    "signal_score": 34.13,
+    "confidence": 0.34,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 54.7,
+    "macd": -0.5626,
+    "macd_signal": -1.1078,
+    "macd_histogram": 0.5453,
+    "macd_crossover": "neutral",
+    "ema_20": 38.76,
+    "ema_50": 40.99,
+    "ema_200": 45.37,
+    "ema_stack_bullish": false,
+    "bb_upper": 40.47,
+    "bb_middle": 38.01,
+    "bb_lower": 35.55,
+    "bb_width": 0.1294,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 16.8,
+    "atr": 1.97,
+    "atr_pct": 0.0489,
+    "obv_trend": "UP",
+    "mfi": 62.2,
+    "cmf": -0.054,
+    "stoch_k": 93.1,
+    "stoch_d": 81.7,
+    "rvol": 0.74,
+    "volume_5d_avg": 1447555,
+    "green_days_10d": 6,
+    "52w_high": 56.31,
+    "52w_low": 34.71,
+    "52w_high_proximity_pct": 0.2831,
+    "52w_low_proximity_pct": 0.1631
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 1.0601087,
+    "de_ratio": 49.571,
+    "fcf_yield": 0.0303,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.144,
+    "gross_margin": 0.83559,
+    "operating_margin": -0.042600002,
+    "net_margin": -0.0156,
+    "market_cap": 4043325184,
+    "enterprise_value": 3567392256,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.12362,
+    "institutional_ownership_pct": 1.11361,
+    "short_ratio": 6.42,
+    "beta": 1.325
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 40.17,
+    "entry_range_high": 40.57,
+    "target_range_low": 45.35,
+    "target_range_high": 48.59,
+    "stop_range_low": 34.61,
+    "stop_range_high": 36.43,
+    "target_price": 46.28,
+    "stop_loss": 36.43,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.067513-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 50.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 30.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 34.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25667,
+      "date": "2026-02-27"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
+      "tr": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
+      "es": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
+      "pt": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
+      "fr": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7.",
+      "id": "BOGA AI assigns BILL a score of 34.1/100. Trend: Neutral. RSI: 54.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BILL (BILL Holdings, Inc.)\n\n### 1. Business Context\nBILL Holdings, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $40.37.\n\n### 2. Performance\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $40.37 | Current |\n| EMA20 | $38.76 | Support |\n| ADX | 16.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $36.43.\n\n### 5. Execution\n* **Entry Zone:** $40.17 - $40.57\n* **Target Price:** $46.28\n* **Stop Loss:** $36.43\n",
+      "tr": "## Kurumsal Analiz: BILL (BILL Holdings, Inc.)\n\n### 1. İş Bağlamı\nBILL Holdings, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $40.37 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $40.37 | Güncel |\n| EMA20 | $38.76 | Destek |\n| ADX | 16.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $36.43.\n\n### 5. Uygulama\n* **Entry Zone:** $40.17 - $40.57\n* **Target Price:** $46.28\n* **Stop Loss:** $36.43\n",
+      "es": "## Análisis Institucional: BILL (BILL Holdings, Inc.)\n\n### 1. Contexto\nBILL Holdings, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $40.37.\n\n### 2. Desempeño\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $40.37 | Actual |\n| EMA20 | $38.76 | Soporte |\n| ADX | 16.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $36.43.\n\n### 5. Ejecución\n* **Entry Zone:** $40.17 - $40.57\n* **Target Price:** $46.28\n* **Stop Loss:** $36.43\n",
+      "pt": "## Análise Institucional: BILL (BILL Holdings, Inc.)\n\n### 1. Contexto\nBILL Holdings, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $40.37.\n\n### 2. Desempenho\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $40.37 | Atual |\n| EMA20 | $38.76 | Suporte |\n| ADX | 16.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $36.43.\n\n### 5. Execução\n* **Entry Zone:** $40.17 - $40.57\n* **Target Price:** $46.28\n* **Stop Loss:** $36.43\n",
+      "fr": "## Analyse Institutionnelle: BILL (BILL Holdings, Inc.)\n\n### 1. Contexte Business\nBILL Holdings, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $40.37.\n\n### 2. Performance\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $40.37 | Actuel |\n| EMA20 | $38.76 | Support |\n| ADX | 16.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $36.43.\n\n### 5. Exécution\n* **Entry Zone:** $40.17 - $40.57\n* **Target Price:** $46.28\n* **Stop Loss:** $36.43\n",
+      "id": "## Analisis Institusional: BILL (BILL Holdings, Inc.)\n\n### 1. Konteks Bisnis\nBILL Holdings, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $40.37.\n\n### 2. Performa\n* **Master Score:** 34.1/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 54.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $40.37 | Saat Ini |\n| EMA20 | $38.76 | Dukungan |\n| ADX | 16.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $36.43.\n\n### 5. Eksekusi\n* **Entry Zone:** $40.17 - $40.57\n* **Target Price:** $46.28\n* **Stop Loss:** $36.43\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 34,
+    "price_change_display": "+1.87%",
+    "key_metrics": {
+      "RSI": 54.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

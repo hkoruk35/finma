@@ -1,0 +1,177 @@
+{
+  "ticker": "UNP",
+  "company": "Union Pacific Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.881915-04:00",
+  "sector": "Industrials",
+  "industry": "Railroads",
+  "price": {
+    "current": 250.33,
+    "open": 253.52,
+    "high": 253.52,
+    "low": 248.5,
+    "prev_close": 252.18,
+    "change_pct": -0.73,
+    "change_pct_1w": -0.68,
+    "change_pct_1m": 6.56,
+    "change_pct_1y": 16.33,
+    "volume": 1067692,
+    "avg_volume_30d": 2721013
+  },
+  "scores": {
+    "master_score": 60.38,
+    "technical_score": 69.0,
+    "fundamental_score": 40.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 37.3,
+    "breakout_score": 15.0,
+    "value_score": 40.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 60.38,
+    "confidence": 0.6,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 55.1,
+    "macd": 1.3362,
+    "macd_signal": 0.5402,
+    "macd_histogram": 0.796,
+    "macd_crossover": "neutral",
+    "ema_20": 248.36,
+    "ema_50": 246.67,
+    "ema_200": 236.18,
+    "ema_stack_bullish": true,
+    "bb_upper": 255.95,
+    "bb_middle": 246.36,
+    "bb_lower": 236.77,
+    "bb_width": 0.0778,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 20.3,
+    "atr": 4.6,
+    "atr_pct": 0.0184,
+    "obv_trend": "UP",
+    "mfi": 70.2,
+    "cmf": 0.068,
+    "stoch_k": 64.2,
+    "stoch_d": 71.6,
+    "rvol": 1.01,
+    "volume_5d_avg": 2759578,
+    "green_days_10d": 7,
+    "52w_high": 266.97,
+    "52w_low": 207.71,
+    "52w_high_proximity_pct": 0.0623,
+    "52w_low_proximity_pct": 0.2052
+  },
+  "fundamental": {
+    "pe_ratio": 20.89566,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 8.0416975,
+    "de_ratio": 177.733,
+    "fcf_yield": 0.0264,
+    "eps_growth_5y": 0.068,
+    "revenue_growth_ttm": -0.006,
+    "gross_margin": 0.56353,
+    "operating_margin": 0.40887,
+    "net_margin": 0.29123,
+    "market_cap": 148615479296,
+    "enterprise_value": 180947451904,
+    "dividend_yield": 2.19,
+    "payout_ratio": 0.4541,
+    "insider_ownership_pct": 0.00119,
+    "institutional_ownership_pct": 0.89055,
+    "short_ratio": 9.66,
+    "beta": 0.968
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 245.44,
+    "entry_range_high": 251.58,
+    "target_range_low": 258.85,
+    "target_range_high": 277.34,
+    "stop_range_low": 229.07,
+    "stop_range_high": 241.13,
+    "target_price": 264.13,
+    "stop_loss": 241.13,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.881726-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 312.91,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 40.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 219.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 207.71,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 11,
+      "date": "2026-04-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns UNP a score of 60.4/100. Trend: Neutral. RSI: 55.1.",
+      "tr": "BOGA AI assigns UNP a score of 60.4/100. Trend: Neutral. RSI: 55.1.",
+      "es": "BOGA AI assigns UNP a score of 60.4/100. Trend: Neutral. RSI: 55.1.",
+      "pt": "BOGA AI assigns UNP a score of 60.4/100. Trend: Neutral. RSI: 55.1.",
+      "fr": "BOGA AI assigns UNP a score of 60.4/100. Trend: Neutral. RSI: 55.1.",
+      "id": "BOGA AI assigns UNP a score of 60.4/100. Trend: Neutral. RSI: 55.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: UNP (Union Pacific Corporation)\n\n### 1. Business Context\nUnion Pacific Corporation operates in the Industrials sector. BOGA AI detect institutional interest near $250.33.\n\n### 2. Performance\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 55.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $250.33 | Current |\n| EMA20 | $248.36 | Support |\n| ADX | 20.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $241.13.\n\n### 5. Execution\n* **Entry Zone:** $245.44 - $251.58\n* **Target Price:** $264.13\n* **Stop Loss:** $241.13\n",
+      "tr": "## Kurumsal Analiz: UNP (Union Pacific Corporation)\n\n### 1. İş Bağlamı\nUnion Pacific Corporation, Industrials sektöründe faaliyet göstermektedir. BOGA AI, $250.33 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 55.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $250.33 | Güncel |\n| EMA20 | $248.36 | Destek |\n| ADX | 20.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $241.13.\n\n### 5. Uygulama\n* **Entry Zone:** $245.44 - $251.58\n* **Target Price:** $264.13\n* **Stop Loss:** $241.13\n",
+      "es": "## Análisis Institucional: UNP (Union Pacific Corporation)\n\n### 1. Contexto\nUnion Pacific Corporation opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $250.33.\n\n### 2. Desempeño\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 55.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $250.33 | Actual |\n| EMA20 | $248.36 | Soporte |\n| ADX | 20.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $241.13.\n\n### 5. Ejecución\n* **Entry Zone:** $245.44 - $251.58\n* **Target Price:** $264.13\n* **Stop Loss:** $241.13\n",
+      "pt": "## Análise Institucional: UNP (Union Pacific Corporation)\n\n### 1. Contexto\nUnion Pacific Corporation opera no setor Industrials. BOGA AI detecta interesse institucional perto de $250.33.\n\n### 2. Desempenho\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 55.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $250.33 | Atual |\n| EMA20 | $248.36 | Suporte |\n| ADX | 20.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $241.13.\n\n### 5. Execução\n* **Entry Zone:** $245.44 - $251.58\n* **Target Price:** $264.13\n* **Stop Loss:** $241.13\n",
+      "fr": "## Analyse Institutionnelle: UNP (Union Pacific Corporation)\n\n### 1. Contexte Business\nUnion Pacific Corporation opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $250.33.\n\n### 2. Performance\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 55.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $250.33 | Actuel |\n| EMA20 | $248.36 | Support |\n| ADX | 20.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $241.13.\n\n### 5. Exécution\n* **Entry Zone:** $245.44 - $251.58\n* **Target Price:** $264.13\n* **Stop Loss:** $241.13\n",
+      "id": "## Analisis Institusional: UNP (Union Pacific Corporation)\n\n### 1. Konteks Bisnis\nUnion Pacific Corporation beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $250.33.\n\n### 2. Performa\n* **Master Score:** 60.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 55.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $250.33 | Saat Ini |\n| EMA20 | $248.36 | Dukungan |\n| ADX | 20.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $241.13.\n\n### 5. Eksekusi\n* **Entry Zone:** $245.44 - $251.58\n* **Target Price:** $264.13\n* **Stop Loss:** $241.13\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 60,
+    "price_change_display": "-0.73%",
+    "key_metrics": {
+      "RSI": 55.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

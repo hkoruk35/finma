@@ -1,0 +1,177 @@
+{
+  "ticker": "EPRT",
+  "company": "Essential Properties Realty Trust, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:06.064215-04:00",
+  "sector": "Real Estate",
+  "industry": "REIT - Retail",
+  "price": {
+    "current": 33.03,
+    "open": 33.19,
+    "high": 33.38,
+    "low": 32.83,
+    "prev_close": 33.3,
+    "change_pct": -0.81,
+    "change_pct_1w": 2.26,
+    "change_pct_1m": 5.22,
+    "change_pct_1y": 6.74,
+    "volume": 662135,
+    "avg_volume_30d": 2225267
+  },
+  "scores": {
+    "master_score": 62.36,
+    "technical_score": 62.0,
+    "fundamental_score": 54.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 65.0,
+    "sector_score": 46.6,
+    "breakout_score": 0.0,
+    "value_score": 35.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 62.36,
+    "confidence": 0.62,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 61.1,
+    "macd": 0.3504,
+    "macd_signal": 0.1179,
+    "macd_histogram": 0.2325,
+    "macd_crossover": "neutral",
+    "ema_20": 32.26,
+    "ema_50": 31.89,
+    "ema_200": 30.85,
+    "ema_stack_bullish": true,
+    "bb_upper": 33.85,
+    "bb_middle": 31.65,
+    "bb_lower": 29.45,
+    "bb_width": 0.139,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 25.8,
+    "atr": 0.59,
+    "atr_pct": 0.0179,
+    "obv_trend": "UP",
+    "mfi": 70.3,
+    "cmf": 0.094,
+    "stoch_k": 83.7,
+    "stoch_d": 90.7,
+    "rvol": 0.75,
+    "volume_5d_avg": 1679187,
+    "green_days_10d": 7,
+    "52w_high": 34.24,
+    "52w_low": 28.52,
+    "52w_high_proximity_pct": 0.0354,
+    "52w_low_proximity_pct": 0.1581
+  },
+  "fundamental": {
+    "pe_ratio": 25.796875,
+    "sector_pe_median": 30.0574365,
+    "pb_ratio": 1.6486919,
+    "de_ratio": 60.524,
+    "fcf_yield": 0.0432,
+    "eps_growth_5y": 0.111,
+    "revenue_growth_ttm": 0.252,
+    "gross_margin": 0.98630995,
+    "operating_margin": 0.65649,
+    "net_margin": 0.45083,
+    "market_cap": 6963299328,
+    "enterprise_value": 9483489280,
+    "dividend_yield": 3.72,
+    "payout_ratio": 0.9414,
+    "insider_ownership_pct": 0.0064999997,
+    "institutional_ownership_pct": 1.15206,
+    "short_ratio": 7.38,
+    "beta": 1.017
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 31.73,
+    "entry_range_high": 33.2,
+    "target_range_low": 34.1,
+    "target_range_high": 36.54,
+    "stop_range_low": 30.26,
+    "stop_range_high": 31.85,
+    "target_price": 34.8,
+    "stop_loss": 31.85,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:06.064166-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 0.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 41.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 35.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 372.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 28.52,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 1950,
+      "date": "2026-04-14"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLRE",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns EPRT a score of 62.4/100. Trend: Neutral. RSI: 61.1.",
+      "tr": "BOGA AI assigns EPRT a score of 62.4/100. Trend: Neutral. RSI: 61.1.",
+      "es": "BOGA AI assigns EPRT a score of 62.4/100. Trend: Neutral. RSI: 61.1.",
+      "pt": "BOGA AI assigns EPRT a score of 62.4/100. Trend: Neutral. RSI: 61.1.",
+      "fr": "BOGA AI assigns EPRT a score of 62.4/100. Trend: Neutral. RSI: 61.1.",
+      "id": "BOGA AI assigns EPRT a score of 62.4/100. Trend: Neutral. RSI: 61.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: EPRT (Essential Properties Realty Trust, Inc.)\n\n### 1. Business Context\nEssential Properties Realty Trust, Inc. operates in the Real Estate sector. BOGA AI detect institutional interest near $33.03.\n\n### 2. Performance\n* **Master Score:** 62.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $33.03 | Current |\n| EMA20 | $32.26 | Support |\n| ADX | 25.8 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $31.85.\n\n### 5. Execution\n* **Entry Zone:** $31.73 - $33.20\n* **Target Price:** $34.80\n* **Stop Loss:** $31.85\n",
+      "tr": "## Kurumsal Analiz: EPRT (Essential Properties Realty Trust, Inc.)\n\n### 1. İş Bağlamı\nEssential Properties Realty Trust, Inc., Real Estate sektöründe faaliyet göstermektedir. BOGA AI, $33.03 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 62.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $33.03 | Güncel |\n| EMA20 | $32.26 | Destek |\n| ADX | 25.8 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $31.85.\n\n### 5. Uygulama\n* **Entry Zone:** $31.73 - $33.20\n* **Target Price:** $34.80\n* **Stop Loss:** $31.85\n",
+      "es": "## Análisis Institucional: EPRT (Essential Properties Realty Trust, Inc.)\n\n### 1. Contexto\nEssential Properties Realty Trust, Inc. opera en el sector Real Estate. BOGA AI detecta interés institucional cerca de $33.03.\n\n### 2. Desempeño\n* **Master Score:** 62.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $33.03 | Actual |\n| EMA20 | $32.26 | Soporte |\n| ADX | 25.8 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $31.85.\n\n### 5. Ejecución\n* **Entry Zone:** $31.73 - $33.20\n* **Target Price:** $34.80\n* **Stop Loss:** $31.85\n",
+      "pt": "## Análise Institucional: EPRT (Essential Properties Realty Trust, Inc.)\n\n### 1. Contexto\nEssential Properties Realty Trust, Inc. opera no setor Real Estate. BOGA AI detecta interesse institucional perto de $33.03.\n\n### 2. Desempenho\n* **Master Score:** 62.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $33.03 | Atual |\n| EMA20 | $32.26 | Suporte |\n| ADX | 25.8 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $31.85.\n\n### 5. Execução\n* **Entry Zone:** $31.73 - $33.20\n* **Target Price:** $34.80\n* **Stop Loss:** $31.85\n",
+      "fr": "## Analyse Institutionnelle: EPRT (Essential Properties Realty Trust, Inc.)\n\n### 1. Contexte Business\nEssential Properties Realty Trust, Inc. opère dans le secteur Real Estate. BOGA AI détecte un intérêt institutionnel proche de $33.03.\n\n### 2. Performance\n* **Master Score:** 62.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $33.03 | Actuel |\n| EMA20 | $32.26 | Support |\n| ADX | 25.8 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $31.85.\n\n### 5. Exécution\n* **Entry Zone:** $31.73 - $33.20\n* **Target Price:** $34.80\n* **Stop Loss:** $31.85\n",
+      "id": "## Analisis Institusional: EPRT (Essential Properties Realty Trust, Inc.)\n\n### 1. Konteks Bisnis\nEssential Properties Realty Trust, Inc. beroperasi di sektor Real Estate. BOGA AI mendeteksi minat institusional di dekat $33.03.\n\n### 2. Performa\n* **Master Score:** 62.4/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 61.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $33.03 | Saat Ini |\n| EMA20 | $32.26 | Dukungan |\n| ADX | 25.8 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $31.85.\n\n### 5. Eksekusi\n* **Entry Zone:** $31.73 - $33.20\n* **Target Price:** $34.80\n* **Stop Loss:** $31.85\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 62,
+    "price_change_display": "-0.81%",
+    "key_metrics": {
+      "RSI": 61.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

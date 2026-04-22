@@ -1,0 +1,178 @@
+{
+  "ticker": "PEP",
+  "company": "PepsiCo, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.738204-04:00",
+  "sector": "Consumer Staples",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 154.52,
+    "open": 156.74,
+    "high": 157.0,
+    "low": 153.73,
+    "prev_close": 156.99,
+    "change_pct": -1.57,
+    "change_pct_1w": -0.77,
+    "change_pct_1m": 2.99,
+    "change_pct_1y": 12.51,
+    "volume": 2134681,
+    "avg_volume_30d": 6146962
+  },
+  "scores": {
+    "master_score": 40.38,
+    "technical_score": 45.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 26.3,
+    "breakout_score": 45.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 0.0,
+    "dividend_score": 70.0,
+    "signal_score": 40.38,
+    "confidence": 0.4,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 45.9,
+    "macd": -0.134,
+    "macd_signal": -0.3749,
+    "macd_histogram": 0.2409,
+    "macd_crossover": "neutral",
+    "ema_20": 156.07,
+    "ema_50": 155.88,
+    "ema_200": 149.07,
+    "ema_stack_bullish": false,
+    "bb_upper": 159.62,
+    "bb_middle": 155.16,
+    "bb_lower": 150.71,
+    "bb_width": 0.0574,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 13.0,
+    "atr": 3.17,
+    "atr_pct": 0.0205,
+    "obv_trend": "DOWN",
+    "mfi": 45.0,
+    "cmf": 0.152,
+    "stoch_k": 33.5,
+    "stoch_d": 56.1,
+    "rvol": 1.1,
+    "volume_5d_avg": 6753816,
+    "green_days_10d": 3,
+    "52w_high": 168.98,
+    "52w_low": 123.5,
+    "52w_high_proximity_pct": 0.0856,
+    "52w_low_proximity_pct": 0.2511
+  },
+  "fundamental": {
+    "pe_ratio": 24.257458,
+    "sector_pe_median": 24.066932,
+    "pb_ratio": 9.885485,
+    "de_ratio": 244.837,
+    "fcf_yield": 0.0414,
+    "eps_growth_5y": 0.278,
+    "revenue_growth_ttm": 0.085,
+    "gross_margin": 0.54383,
+    "operating_margin": 0.16961999,
+    "net_margin": 0.09149,
+    "market_cap": 211219709952,
+    "enterprise_value": 256621953024,
+    "dividend_yield": 3.62,
+    "payout_ratio": 0.8932,
+    "insider_ownership_pct": 0.00204,
+    "institutional_ownership_pct": 0.79797,
+    "short_ratio": 3.3,
+    "beta": 0.41
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 153.75,
+    "entry_range_high": 155.29,
+    "target_range_low": 160.75,
+    "target_range_high": 172.23,
+    "stop_range_low": 140.77,
+    "stop_range_high": 148.18,
+    "target_price": 164.03,
+    "stop_loss": 148.18,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.738154-04:00",
+    "categories": [
+      "top_scores",
+      "breakout"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 193.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 362.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 123.5,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 6500,
+      "date": "2026-03-04"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLP",
+    "sector_performance_5d": 1.16,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns PEP a score of 40.4/100. Trend: Neutral. RSI: 45.9.",
+      "tr": "BOGA AI assigns PEP a score of 40.4/100. Trend: Neutral. RSI: 45.9.",
+      "es": "BOGA AI assigns PEP a score of 40.4/100. Trend: Neutral. RSI: 45.9.",
+      "pt": "BOGA AI assigns PEP a score of 40.4/100. Trend: Neutral. RSI: 45.9.",
+      "fr": "BOGA AI assigns PEP a score of 40.4/100. Trend: Neutral. RSI: 45.9.",
+      "id": "BOGA AI assigns PEP a score of 40.4/100. Trend: Neutral. RSI: 45.9."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: PEP (PepsiCo, Inc.)\n\n### 1. Business Context\nPepsiCo, Inc. operates in the Consumer Staples sector. BOGA AI detect institutional interest near $154.52.\n\n### 2. Performance\n* **Master Score:** 40.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.9\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $154.52 | Current |\n| EMA20 | $156.07 | Support |\n| ADX | 13.0 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $148.18.\n\n### 5. Execution\n* **Entry Zone:** $153.75 - $155.29\n* **Target Price:** $164.03\n* **Stop Loss:** $148.18\n",
+      "tr": "## Kurumsal Analiz: PEP (PepsiCo, Inc.)\n\n### 1. İş Bağlamı\nPepsiCo, Inc., Consumer Staples sektöründe faaliyet göstermektedir. BOGA AI, $154.52 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 40.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.9\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $154.52 | Güncel |\n| EMA20 | $156.07 | Destek |\n| ADX | 13.0 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $148.18.\n\n### 5. Uygulama\n* **Entry Zone:** $153.75 - $155.29\n* **Target Price:** $164.03\n* **Stop Loss:** $148.18\n",
+      "es": "## Análisis Institucional: PEP (PepsiCo, Inc.)\n\n### 1. Contexto\nPepsiCo, Inc. opera en el sector Consumer Staples. BOGA AI detecta interés institucional cerca de $154.52.\n\n### 2. Desempeño\n* **Master Score:** 40.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $154.52 | Actual |\n| EMA20 | $156.07 | Soporte |\n| ADX | 13.0 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $148.18.\n\n### 5. Ejecución\n* **Entry Zone:** $153.75 - $155.29\n* **Target Price:** $164.03\n* **Stop Loss:** $148.18\n",
+      "pt": "## Análise Institucional: PEP (PepsiCo, Inc.)\n\n### 1. Contexto\nPepsiCo, Inc. opera no setor Consumer Staples. BOGA AI detecta interesse institucional perto de $154.52.\n\n### 2. Desempenho\n* **Master Score:** 40.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.9\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $154.52 | Atual |\n| EMA20 | $156.07 | Suporte |\n| ADX | 13.0 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $148.18.\n\n### 5. Execução\n* **Entry Zone:** $153.75 - $155.29\n* **Target Price:** $164.03\n* **Stop Loss:** $148.18\n",
+      "fr": "## Analyse Institutionnelle: PEP (PepsiCo, Inc.)\n\n### 1. Contexte Business\nPepsiCo, Inc. opère dans le secteur Consumer Staples. BOGA AI détecte un intérêt institutionnel proche de $154.52.\n\n### 2. Performance\n* **Master Score:** 40.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.9\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $154.52 | Actuel |\n| EMA20 | $156.07 | Support |\n| ADX | 13.0 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $148.18.\n\n### 5. Exécution\n* **Entry Zone:** $153.75 - $155.29\n* **Target Price:** $164.03\n* **Stop Loss:** $148.18\n",
+      "id": "## Analisis Institusional: PEP (PepsiCo, Inc.)\n\n### 1. Konteks Bisnis\nPepsiCo, Inc. beroperasi di sektor Consumer Staples. BOGA AI mendeteksi minat institusional di dekat $154.52.\n\n### 2. Performa\n* **Master Score:** 40.4/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 45.9\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $154.52 | Saat Ini |\n| EMA20 | $156.07 | Dukungan |\n| ADX | 13.0 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $148.18.\n\n### 5. Eksekusi\n* **Entry Zone:** $153.75 - $155.29\n* **Target Price:** $164.03\n* **Stop Loss:** $148.18\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 40,
+    "price_change_display": "-1.57%",
+    "key_metrics": {
+      "RSI": 45.9,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

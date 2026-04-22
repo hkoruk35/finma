@@ -1,0 +1,177 @@
+{
+  "ticker": "BMY",
+  "company": "Bristol-Myers Squibb Company",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.845155-04:00",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 59.26,
+    "open": 59.15,
+    "high": 59.47,
+    "low": 57.79,
+    "prev_close": 59.13,
+    "change_pct": 0.22,
+    "change_pct_1w": 2.03,
+    "change_pct_1m": 4.16,
+    "change_pct_1y": 26.39,
+    "volume": 3910197,
+    "avg_volume_30d": 11812133
+  },
+  "scores": {
+    "master_score": 60.52,
+    "technical_score": 62.0,
+    "fundamental_score": 75.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 45.0,
+    "value_score": 65.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 100.0,
+    "signal_score": 60.52,
+    "confidence": 0.61,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 52.0,
+    "macd": 0.0879,
+    "macd_signal": 0.0285,
+    "macd_histogram": 0.0594,
+    "macd_crossover": "neutral",
+    "ema_20": 58.92,
+    "ema_50": 58.28,
+    "ema_200": 53.57,
+    "ema_stack_bullish": true,
+    "bb_upper": 60.81,
+    "bb_middle": 58.88,
+    "bb_lower": 56.95,
+    "bb_width": 0.0656,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 11.4,
+    "atr": 1.38,
+    "atr_pct": 0.0232,
+    "obv_trend": "UP",
+    "mfi": 38.2,
+    "cmf": 0.174,
+    "stoch_k": 46.6,
+    "stoch_d": 52.6,
+    "rvol": 0.68,
+    "volume_5d_avg": 8009239,
+    "green_days_10d": 6,
+    "52w_high": 61.73,
+    "52w_low": 41.67,
+    "52w_high_proximity_pct": 0.0401,
+    "52w_low_proximity_pct": 0.422
+  },
+  "fundamental": {
+    "pe_ratio": 17.127167,
+    "sector_pe_median": 25.8525165,
+    "pb_ratio": 6.531467,
+    "de_ratio": 254.982,
+    "fcf_yield": 0.0921,
+    "eps_growth_5y": 13.921,
+    "revenue_growth_ttm": 0.013,
+    "gross_margin": 0.72623,
+    "operating_margin": 0.28163,
+    "net_margin": 0.14637,
+    "market_cap": 120993234944,
+    "enterprise_value": 156963684352,
+    "dividend_yield": 4.26,
+    "payout_ratio": 0.71970004,
+    "insider_ownership_pct": 0.00087,
+    "institutional_ownership_pct": 0.83682,
+    "short_ratio": 2.29,
+    "beta": 0.273
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 57.99,
+    "entry_range_high": 59.56,
+    "target_range_low": 62.13,
+    "target_range_high": 66.57,
+    "stop_range_low": 53.67,
+    "stop_range_high": 56.5,
+    "target_price": 63.4,
+    "stop_loss": 56.5,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.845122-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 74.08,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 65.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 426.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 41.67,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 3307,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLV",
+    "sector_performance_5d": -1.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns BMY a score of 60.5/100. Trend: Neutral. RSI: 52.0.",
+      "tr": "BOGA AI assigns BMY a score of 60.5/100. Trend: Neutral. RSI: 52.0.",
+      "es": "BOGA AI assigns BMY a score of 60.5/100. Trend: Neutral. RSI: 52.0.",
+      "pt": "BOGA AI assigns BMY a score of 60.5/100. Trend: Neutral. RSI: 52.0.",
+      "fr": "BOGA AI assigns BMY a score of 60.5/100. Trend: Neutral. RSI: 52.0.",
+      "id": "BOGA AI assigns BMY a score of 60.5/100. Trend: Neutral. RSI: 52.0."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: BMY (Bristol-Myers Squibb Company)\n\n### 1. Business Context\nBristol-Myers Squibb Company operates in the Healthcare sector. BOGA AI detect institutional interest near $59.26.\n\n### 2. Performance\n* **Master Score:** 60.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 52.0\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $59.26 | Current |\n| EMA20 | $58.92 | Support |\n| ADX | 11.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $56.50.\n\n### 5. Execution\n* **Entry Zone:** $57.99 - $59.56\n* **Target Price:** $63.40\n* **Stop Loss:** $56.50\n",
+      "tr": "## Kurumsal Analiz: BMY (Bristol-Myers Squibb Company)\n\n### 1. İş Bağlamı\nBristol-Myers Squibb Company, Healthcare sektöründe faaliyet göstermektedir. BOGA AI, $59.26 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 60.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 52.0\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $59.26 | Güncel |\n| EMA20 | $58.92 | Destek |\n| ADX | 11.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $56.50.\n\n### 5. Uygulama\n* **Entry Zone:** $57.99 - $59.56\n* **Target Price:** $63.40\n* **Stop Loss:** $56.50\n",
+      "es": "## Análisis Institucional: BMY (Bristol-Myers Squibb Company)\n\n### 1. Contexto\nBristol-Myers Squibb Company opera en el sector Healthcare. BOGA AI detecta interés institucional cerca de $59.26.\n\n### 2. Desempeño\n* **Master Score:** 60.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 52.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $59.26 | Actual |\n| EMA20 | $58.92 | Soporte |\n| ADX | 11.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $56.50.\n\n### 5. Ejecución\n* **Entry Zone:** $57.99 - $59.56\n* **Target Price:** $63.40\n* **Stop Loss:** $56.50\n",
+      "pt": "## Análise Institucional: BMY (Bristol-Myers Squibb Company)\n\n### 1. Contexto\nBristol-Myers Squibb Company opera no setor Healthcare. BOGA AI detecta interesse institucional perto de $59.26.\n\n### 2. Desempenho\n* **Master Score:** 60.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 52.0\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $59.26 | Atual |\n| EMA20 | $58.92 | Suporte |\n| ADX | 11.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $56.50.\n\n### 5. Execução\n* **Entry Zone:** $57.99 - $59.56\n* **Target Price:** $63.40\n* **Stop Loss:** $56.50\n",
+      "fr": "## Analyse Institutionnelle: BMY (Bristol-Myers Squibb Company)\n\n### 1. Contexte Business\nBristol-Myers Squibb Company opère dans le secteur Healthcare. BOGA AI détecte un intérêt institutionnel proche de $59.26.\n\n### 2. Performance\n* **Master Score:** 60.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 52.0\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $59.26 | Actuel |\n| EMA20 | $58.92 | Support |\n| ADX | 11.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $56.50.\n\n### 5. Exécution\n* **Entry Zone:** $57.99 - $59.56\n* **Target Price:** $63.40\n* **Stop Loss:** $56.50\n",
+      "id": "## Analisis Institusional: BMY (Bristol-Myers Squibb Company)\n\n### 1. Konteks Bisnis\nBristol-Myers Squibb Company beroperasi di sektor Healthcare. BOGA AI mendeteksi minat institusional di dekat $59.26.\n\n### 2. Performa\n* **Master Score:** 60.5/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 52.0\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $59.26 | Saat Ini |\n| EMA20 | $58.92 | Dukungan |\n| ADX | 11.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $56.50.\n\n### 5. Eksekusi\n* **Entry Zone:** $57.99 - $59.56\n* **Target Price:** $63.40\n* **Stop Loss:** $56.50\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 61,
+    "price_change_display": "+0.22%",
+    "key_metrics": {
+      "RSI": 52.0,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

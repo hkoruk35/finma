@@ -1,0 +1,177 @@
+{
+  "ticker": "META",
+  "company": "Meta Platforms, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.672559-04:00",
+  "sector": "Technology",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 670.37,
+    "open": 670.89,
+    "high": 676.2,
+    "low": 667.75,
+    "prev_close": 670.91,
+    "change_pct": -0.08,
+    "change_pct_1w": 1.19,
+    "change_pct_1m": 12.92,
+    "change_pct_1y": 34.1,
+    "volume": 3617208,
+    "avg_volume_30d": 16149133
+  },
+  "scores": {
+    "master_score": 48.72,
+    "technical_score": 50.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 40.0,
+    "signal_score": 48.72,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 62.7,
+    "macd": 16.409,
+    "macd_signal": 5.5113,
+    "macd_histogram": 10.8977,
+    "macd_crossover": "neutral",
+    "ema_20": 634.91,
+    "ema_50": 631.61,
+    "ema_200": 651.88,
+    "ema_stack_bullish": false,
+    "bb_upper": 709.91,
+    "bb_middle": 610.87,
+    "bb_lower": 511.82,
+    "bb_width": 0.3243,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.3,
+    "atr": 19.31,
+    "atr_pct": 0.0288,
+    "obv_trend": "UP",
+    "mfi": 81.3,
+    "cmf": 0.012,
+    "stoch_k": 84.0,
+    "stoch_d": 89.3,
+    "rvol": 0.7,
+    "volume_5d_avg": 11379241,
+    "green_days_10d": 8,
+    "52w_high": 788.15,
+    "52w_low": 483.15,
+    "52w_high_proximity_pct": 0.1494,
+    "52w_low_proximity_pct": 0.3875
+  },
+  "fundamental": {
+    "pe_ratio": 28.550682,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 7.807074,
+    "de_ratio": 39.164,
+    "fcf_yield": 0.0138,
+    "eps_growth_5y": 0.107,
+    "revenue_growth_ttm": 0.238,
+    "gross_margin": 0.81999,
+    "operating_margin": 0.41314998,
+    "net_margin": 0.30084,
+    "market_cap": 1701682872320,
+    "enterprise_value": 1700593008640,
+    "dividend_yield": 0.31,
+    "payout_ratio": 0.08939999,
+    "insider_ownership_pct": 0.00121,
+    "institutional_ownership_pct": 0.78497005,
+    "short_ratio": 1.65,
+    "beta": 1.309
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 628.45,
+    "entry_range_high": 673.72,
+    "target_range_low": 713.73,
+    "target_range_high": 764.72,
+    "stop_range_low": 600.16,
+    "stop_range_high": 631.75,
+    "target_price": 728.3,
+    "stop_loss": 631.75,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.672512-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 837.96,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 31.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 483.15,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 19,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 580,
+      "date": "2026-04-15"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns META a score of 48.7/100. Trend: Neutral. RSI: 62.7.",
+      "tr": "BOGA AI assigns META a score of 48.7/100. Trend: Neutral. RSI: 62.7.",
+      "es": "BOGA AI assigns META a score of 48.7/100. Trend: Neutral. RSI: 62.7.",
+      "pt": "BOGA AI assigns META a score of 48.7/100. Trend: Neutral. RSI: 62.7.",
+      "fr": "BOGA AI assigns META a score of 48.7/100. Trend: Neutral. RSI: 62.7.",
+      "id": "BOGA AI assigns META a score of 48.7/100. Trend: Neutral. RSI: 62.7."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: META (Meta Platforms, Inc.)\n\n### 1. Business Context\nMeta Platforms, Inc. operates in the Technology sector. BOGA AI detect institutional interest near $670.37.\n\n### 2. Performance\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 62.7\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $670.37 | Current |\n| EMA20 | $634.91 | Support |\n| ADX | 24.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $631.75.\n\n### 5. Execution\n* **Entry Zone:** $628.45 - $673.72\n* **Target Price:** $728.30\n* **Stop Loss:** $631.75\n",
+      "tr": "## Kurumsal Analiz: META (Meta Platforms, Inc.)\n\n### 1. İş Bağlamı\nMeta Platforms, Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $670.37 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 62.7\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $670.37 | Güncel |\n| EMA20 | $634.91 | Destek |\n| ADX | 24.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $631.75.\n\n### 5. Uygulama\n* **Entry Zone:** $628.45 - $673.72\n* **Target Price:** $728.30\n* **Stop Loss:** $631.75\n",
+      "es": "## Análisis Institucional: META (Meta Platforms, Inc.)\n\n### 1. Contexto\nMeta Platforms, Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $670.37.\n\n### 2. Desempeño\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 62.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $670.37 | Actual |\n| EMA20 | $634.91 | Soporte |\n| ADX | 24.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $631.75.\n\n### 5. Ejecución\n* **Entry Zone:** $628.45 - $673.72\n* **Target Price:** $728.30\n* **Stop Loss:** $631.75\n",
+      "pt": "## Análise Institucional: META (Meta Platforms, Inc.)\n\n### 1. Contexto\nMeta Platforms, Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $670.37.\n\n### 2. Desempenho\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 62.7\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $670.37 | Atual |\n| EMA20 | $634.91 | Suporte |\n| ADX | 24.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $631.75.\n\n### 5. Execução\n* **Entry Zone:** $628.45 - $673.72\n* **Target Price:** $728.30\n* **Stop Loss:** $631.75\n",
+      "fr": "## Analyse Institutionnelle: META (Meta Platforms, Inc.)\n\n### 1. Contexte Business\nMeta Platforms, Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $670.37.\n\n### 2. Performance\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 62.7\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $670.37 | Actuel |\n| EMA20 | $634.91 | Support |\n| ADX | 24.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $631.75.\n\n### 5. Exécution\n* **Entry Zone:** $628.45 - $673.72\n* **Target Price:** $728.30\n* **Stop Loss:** $631.75\n",
+      "id": "## Analisis Institusional: META (Meta Platforms, Inc.)\n\n### 1. Konteks Bisnis\nMeta Platforms, Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $670.37.\n\n### 2. Performa\n* **Master Score:** 48.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 62.7\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $670.37 | Saat Ini |\n| EMA20 | $634.91 | Dukungan |\n| ADX | 24.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $631.75.\n\n### 5. Eksekusi\n* **Entry Zone:** $628.45 - $673.72\n* **Target Price:** $728.30\n* **Stop Loss:** $631.75\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "-0.08%",
+    "key_metrics": {
+      "RSI": 62.7,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

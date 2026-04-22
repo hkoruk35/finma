@@ -1,0 +1,177 @@
+{
+  "ticker": "TTE",
+  "company": "TotalEnergies SE",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.384009-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 88.12,
+    "open": 88.08,
+    "high": 88.28,
+    "low": 87.74,
+    "prev_close": 87.31,
+    "change_pct": 0.93,
+    "change_pct_1w": -3.15,
+    "change_pct_1m": 0.36,
+    "change_pct_1y": 57.31,
+    "volume": 467403,
+    "avg_volume_30d": 2494703
+  },
+  "scores": {
+    "master_score": 48.96,
+    "technical_score": 47.0,
+    "fundamental_score": 57.0,
+    "momentum_score": 30.0,
+    "sentiment_score": 85.0,
+    "sector_score": 37.6,
+    "breakout_score": 45.0,
+    "value_score": 45.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 100.0,
+    "signal_score": 48.96,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.3,
+    "macd": 1.3895,
+    "macd_signal": 2.3062,
+    "macd_histogram": -0.9167,
+    "macd_crossover": "neutral",
+    "ema_20": 88.59,
+    "ema_50": 83.85,
+    "ema_200": 71.07,
+    "ema_stack_bullish": false,
+    "bb_upper": 93.71,
+    "bb_middle": 89.91,
+    "bb_lower": 86.11,
+    "bb_width": 0.0845,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "HIGH",
+    "adx": 33.7,
+    "atr": 2.51,
+    "atr_pct": 0.0285,
+    "obv_trend": "DOWN",
+    "mfi": 45.2,
+    "cmf": 0.027,
+    "stoch_k": 34.4,
+    "stoch_d": 26.9,
+    "rvol": 0.79,
+    "volume_5d_avg": 1979280,
+    "green_days_10d": 6,
+    "52w_high": 93.44,
+    "52w_low": 54.47,
+    "52w_high_proximity_pct": 0.0569,
+    "52w_low_proximity_pct": 0.6176
+  },
+  "fundamental": {
+    "pe_ratio": 15.245675,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 1.6436926,
+    "de_ratio": 52.263,
+    "fcf_yield": 0.0757,
+    "eps_growth_5y": -0.274,
+    "revenue_growth_ttm": -0.025,
+    "gross_margin": 0.35978,
+    "operating_margin": 0.08483,
+    "net_margin": 0.07199,
+    "market_cap": 187919417344,
+    "enterprise_value": 221630939136,
+    "dividend_yield": 4.2,
+    "payout_ratio": 0.6656,
+    "insider_ownership_pct": 0.09236,
+    "institutional_ownership_pct": 0.62484,
+    "short_ratio": 1.61,
+    "beta": 0.064
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 83.43,
+    "entry_range_high": 88.56,
+    "target_range_low": 93.74,
+    "target_range_high": 100.43,
+    "stop_range_low": 78.95,
+    "stop_range_high": 83.1,
+    "target_price": 95.65,
+    "stop_loss": 83.1,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.383936-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "HIGH",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 45.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 110.15,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 45.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 420.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 54.47,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 9821,
+      "date": "2025-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns TTE a score of 49.0/100. Trend: Neutral. RSI: 51.3.",
+      "tr": "BOGA AI assigns TTE a score of 49.0/100. Trend: Neutral. RSI: 51.3.",
+      "es": "BOGA AI assigns TTE a score of 49.0/100. Trend: Neutral. RSI: 51.3.",
+      "pt": "BOGA AI assigns TTE a score of 49.0/100. Trend: Neutral. RSI: 51.3.",
+      "fr": "BOGA AI assigns TTE a score of 49.0/100. Trend: Neutral. RSI: 51.3.",
+      "id": "BOGA AI assigns TTE a score of 49.0/100. Trend: Neutral. RSI: 51.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: TTE (TotalEnergies SE)\n\n### 1. Business Context\nTotalEnergies SE operates in the Energy sector. BOGA AI detect institutional interest near $88.12.\n\n### 2. Performance\n* **Master Score:** 49.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $88.12 | Current |\n| EMA20 | $88.59 | Support |\n| ADX | 33.7 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $83.10.\n\n### 5. Execution\n* **Entry Zone:** $83.43 - $88.56\n* **Target Price:** $95.65\n* **Stop Loss:** $83.10\n",
+      "tr": "## Kurumsal Analiz: TTE (TotalEnergies SE)\n\n### 1. İş Bağlamı\nTotalEnergies SE, Energy sektöründe faaliyet göstermektedir. BOGA AI, $88.12 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 49.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $88.12 | Güncel |\n| EMA20 | $88.59 | Destek |\n| ADX | 33.7 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $83.10.\n\n### 5. Uygulama\n* **Entry Zone:** $83.43 - $88.56\n* **Target Price:** $95.65\n* **Stop Loss:** $83.10\n",
+      "es": "## Análisis Institucional: TTE (TotalEnergies SE)\n\n### 1. Contexto\nTotalEnergies SE opera en el sector Energy. BOGA AI detecta interés institucional cerca de $88.12.\n\n### 2. Desempeño\n* **Master Score:** 49.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $88.12 | Actual |\n| EMA20 | $88.59 | Soporte |\n| ADX | 33.7 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $83.10.\n\n### 5. Ejecución\n* **Entry Zone:** $83.43 - $88.56\n* **Target Price:** $95.65\n* **Stop Loss:** $83.10\n",
+      "pt": "## Análise Institucional: TTE (TotalEnergies SE)\n\n### 1. Contexto\nTotalEnergies SE opera no setor Energy. BOGA AI detecta interesse institucional perto de $88.12.\n\n### 2. Desempenho\n* **Master Score:** 49.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $88.12 | Atual |\n| EMA20 | $88.59 | Suporte |\n| ADX | 33.7 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $83.10.\n\n### 5. Execução\n* **Entry Zone:** $83.43 - $88.56\n* **Target Price:** $95.65\n* **Stop Loss:** $83.10\n",
+      "fr": "## Analyse Institutionnelle: TTE (TotalEnergies SE)\n\n### 1. Contexte Business\nTotalEnergies SE opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $88.12.\n\n### 2. Performance\n* **Master Score:** 49.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $88.12 | Actuel |\n| EMA20 | $88.59 | Support |\n| ADX | 33.7 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $83.10.\n\n### 5. Exécution\n* **Entry Zone:** $83.43 - $88.56\n* **Target Price:** $95.65\n* **Stop Loss:** $83.10\n",
+      "id": "## Analisis Institusional: TTE (TotalEnergies SE)\n\n### 1. Konteks Bisnis\nTotalEnergies SE beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $88.12.\n\n### 2. Performa\n* **Master Score:** 49.0/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $88.12 | Saat Ini |\n| EMA20 | $88.59 | Dukungan |\n| ADX | 33.7 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $83.10.\n\n### 5. Eksekusi\n* **Entry Zone:** $83.43 - $88.56\n* **Target Price:** $95.65\n* **Stop Loss:** $83.10\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "+0.93%",
+    "key_metrics": {
+      "RSI": 51.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

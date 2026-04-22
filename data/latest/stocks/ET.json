@@ -1,0 +1,177 @@
+{
+  "ticker": "ET",
+  "company": "Energy Transfer LP",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.462628-04:00",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 18.97,
+    "open": 18.95,
+    "high": 19.17,
+    "low": 18.82,
+    "prev_close": 18.91,
+    "change_pct": 0.29,
+    "change_pct_1w": 1.25,
+    "change_pct_1m": -0.24,
+    "change_pct_1y": 18.54,
+    "volume": 5617025,
+    "avg_volume_30d": 16343147
+  },
+  "scores": {
+    "master_score": 47.06,
+    "technical_score": 48.0,
+    "fundamental_score": 42.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 60.0,
+    "sector_score": 37.6,
+    "breakout_score": 30.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 47.06,
+    "confidence": 0.47,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 51.5,
+    "macd": 0.0164,
+    "macd_signal": 0.0623,
+    "macd_histogram": -0.0459,
+    "macd_crossover": "neutral",
+    "ema_20": 18.95,
+    "ema_50": 18.67,
+    "ema_200": 17.51,
+    "ema_stack_bullish": true,
+    "bb_upper": 19.59,
+    "bb_middle": 19.08,
+    "bb_lower": 18.57,
+    "bb_width": 0.0536,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 15.5,
+    "atr": 0.38,
+    "atr_pct": 0.0201,
+    "obv_trend": "UP",
+    "mfi": 46.9,
+    "cmf": -0.081,
+    "stoch_k": 50.8,
+    "stoch_d": 42.1,
+    "rvol": 0.79,
+    "volume_5d_avg": 12832305,
+    "green_days_10d": 5,
+    "52w_high": 19.67,
+    "52w_low": 14.65,
+    "52w_high_proximity_pct": 0.0358,
+    "52w_low_proximity_pct": 0.2949
+  },
+  "fundamental": {
+    "pe_ratio": 15.673553,
+    "sector_pe_median": 17.908745,
+    "pb_ratio": 2.103716,
+    "de_ratio": 142.294,
+    "fcf_yield": 0.0339,
+    "eps_growth_5y": -0.152,
+    "revenue_growth_ttm": 0.296,
+    "gross_margin": 0.19181,
+    "operating_margin": 0.092930004,
+    "net_margin": 0.05178,
+    "market_cap": 65245569024,
+    "enterprise_value": 152126341120,
+    "dividend_yield": 7.01,
+    "payout_ratio": 1.0868,
+    "insider_ownership_pct": 0.1026,
+    "institutional_ownership_pct": 0.30247998,
+    "short_ratio": 2.01,
+    "beta": 0.623
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 18.58,
+    "entry_range_high": 19.06,
+    "target_range_low": 19.71,
+    "target_range_high": 21.12,
+    "stop_range_low": 17.3,
+    "stop_range_high": 18.21,
+    "target_price": 20.11,
+    "stop_loss": 18.21,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.462600-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 23.71,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 701.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 14.65,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 0,
+    "net_direction": "NEUTRAL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 7423,
+      "date": "2026-01-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLE",
+    "sector_performance_5d": -0.33,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
+      "tr": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
+      "es": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
+      "pt": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
+      "fr": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5.",
+      "id": "BOGA AI assigns ET a score of 47.1/100. Trend: Neutral. RSI: 51.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: ET (Energy Transfer LP)\n\n### 1. Business Context\nEnergy Transfer LP operates in the Energy sector. BOGA AI detect institutional interest near $18.97.\n\n### 2. Performance\n* **Master Score:** 47.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $18.97 | Current |\n| EMA20 | $18.95 | Support |\n| ADX | 15.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $18.21.\n\n### 5. Execution\n* **Entry Zone:** $18.58 - $19.06\n* **Target Price:** $20.11\n* **Stop Loss:** $18.21\n",
+      "tr": "## Kurumsal Analiz: ET (Energy Transfer LP)\n\n### 1. İş Bağlamı\nEnergy Transfer LP, Energy sektöründe faaliyet göstermektedir. BOGA AI, $18.97 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 47.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $18.97 | Güncel |\n| EMA20 | $18.95 | Destek |\n| ADX | 15.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $18.21.\n\n### 5. Uygulama\n* **Entry Zone:** $18.58 - $19.06\n* **Target Price:** $20.11\n* **Stop Loss:** $18.21\n",
+      "es": "## Análisis Institucional: ET (Energy Transfer LP)\n\n### 1. Contexto\nEnergy Transfer LP opera en el sector Energy. BOGA AI detecta interés institucional cerca de $18.97.\n\n### 2. Desempeño\n* **Master Score:** 47.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $18.97 | Actual |\n| EMA20 | $18.95 | Soporte |\n| ADX | 15.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $18.21.\n\n### 5. Ejecución\n* **Entry Zone:** $18.58 - $19.06\n* **Target Price:** $20.11\n* **Stop Loss:** $18.21\n",
+      "pt": "## Análise Institucional: ET (Energy Transfer LP)\n\n### 1. Contexto\nEnergy Transfer LP opera no setor Energy. BOGA AI detecta interesse institucional perto de $18.97.\n\n### 2. Desempenho\n* **Master Score:** 47.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $18.97 | Atual |\n| EMA20 | $18.95 | Suporte |\n| ADX | 15.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $18.21.\n\n### 5. Execução\n* **Entry Zone:** $18.58 - $19.06\n* **Target Price:** $20.11\n* **Stop Loss:** $18.21\n",
+      "fr": "## Analyse Institutionnelle: ET (Energy Transfer LP)\n\n### 1. Contexte Business\nEnergy Transfer LP opère dans le secteur Energy. BOGA AI détecte un intérêt institutionnel proche de $18.97.\n\n### 2. Performance\n* **Master Score:** 47.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $18.97 | Actuel |\n| EMA20 | $18.95 | Support |\n| ADX | 15.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $18.21.\n\n### 5. Exécution\n* **Entry Zone:** $18.58 - $19.06\n* **Target Price:** $20.11\n* **Stop Loss:** $18.21\n",
+      "id": "## Analisis Institusional: ET (Energy Transfer LP)\n\n### 1. Konteks Bisnis\nEnergy Transfer LP beroperasi di sektor Energy. BOGA AI mendeteksi minat institusional di dekat $18.97.\n\n### 2. Performa\n* **Master Score:** 47.1/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 51.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $18.97 | Saat Ini |\n| EMA20 | $18.95 | Dukungan |\n| ADX | 15.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $18.21.\n\n### 5. Eksekusi\n* **Entry Zone:** $18.58 - $19.06\n* **Target Price:** $20.11\n* **Stop Loss:** $18.21\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 47,
+    "price_change_display": "+0.29%",
+    "key_metrics": {
+      "RSI": 51.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "DUK",
+  "company": "Duke Energy Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.982979-04:00",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 126.64,
+    "open": 128.47,
+    "high": 128.51,
+    "low": 126.12,
+    "prev_close": 127.86,
+    "change_pct": -0.96,
+    "change_pct_1w": -2.42,
+    "change_pct_1m": -0.14,
+    "change_pct_1y": 7.65,
+    "volume": 1133151,
+    "avg_volume_30d": 4013128
+  },
+  "scores": {
+    "master_score": 29.22,
+    "technical_score": 24.0,
+    "fundamental_score": 27.0,
+    "momentum_score": 20.0,
+    "sentiment_score": 75.0,
+    "sector_score": 25.7,
+    "breakout_score": 15.0,
+    "value_score": 20.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 70.0,
+    "signal_score": 29.22,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 38.3,
+    "macd": -0.3486,
+    "macd_signal": 0.2749,
+    "macd_histogram": -0.6235,
+    "macd_crossover": "neutral",
+    "ema_20": 129.5,
+    "ema_50": 128.21,
+    "ema_200": 122.59,
+    "ema_stack_bullish": false,
+    "bb_upper": 133.62,
+    "bb_middle": 129.98,
+    "bb_lower": 126.34,
+    "bb_width": 0.056,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 16.2,
+    "atr": 2.16,
+    "atr_pct": 0.0171,
+    "obv_trend": "DOWN",
+    "mfi": 28.8,
+    "cmf": -0.051,
+    "stoch_k": 8.6,
+    "stoch_d": 19.2,
+    "rvol": 0.66,
+    "volume_5d_avg": 2662570,
+    "green_days_10d": 2,
+    "52w_high": 133.46,
+    "52w_low": 108.61,
+    "52w_high_proximity_pct": 0.0511,
+    "52w_low_proximity_pct": 0.1659
+  },
+  "fundamental": {
+    "pe_ratio": 20.037184,
+    "sector_pe_median": 21.999998,
+    "pb_ratio": 1.9367888,
+    "de_ratio": 171.838,
+    "fcf_yield": -0.0203,
+    "eps_growth_5y": -0.022,
+    "revenue_growth_ttm": 0.08,
+    "gross_margin": 0.51897,
+    "operating_margin": 0.28087,
+    "net_margin": 0.15628,
+    "market_cap": 98549473280,
+    "enterprise_value": 192444989440,
+    "dividend_yield": 3.33,
+    "payout_ratio": 0.6688,
+    "insider_ownership_pct": 0.00119,
+    "institutional_ownership_pct": 0.70525,
+    "short_ratio": 3.12,
+    "beta": 0.454
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 126.01,
+    "entry_range_high": 127.27,
+    "target_range_low": 130.46,
+    "target_range_high": 139.78,
+    "stop_range_low": 116.2,
+    "stop_range_high": 122.32,
+    "target_price": 133.12,
+    "stop_loss": 122.32,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.982924-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 158.3,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 20.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 333.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 108.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 18246,
+      "date": "2026-03-02"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLU",
+    "sector_performance_5d": -1.82,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
+      "tr": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
+      "es": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
+      "pt": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
+      "fr": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3.",
+      "id": "BOGA AI assigns DUK a score of 29.2/100. Trend: Neutral. RSI: 38.3."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: DUK (Duke Energy Corporation)\n\n### 1. Business Context\nDuke Energy Corporation operates in the Utilities sector. BOGA AI detect institutional interest near $126.64.\n\n### 2. Performance\n* **Master Score:** 29.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.3\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $126.64 | Current |\n| EMA20 | $129.5 | Support |\n| ADX | 16.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $122.32.\n\n### 5. Execution\n* **Entry Zone:** $126.01 - $127.27\n* **Target Price:** $133.12\n* **Stop Loss:** $122.32\n",
+      "tr": "## Kurumsal Analiz: DUK (Duke Energy Corporation)\n\n### 1. İş Bağlamı\nDuke Energy Corporation, Utilities sektöründe faaliyet göstermektedir. BOGA AI, $126.64 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 29.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.3\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $126.64 | Güncel |\n| EMA20 | $129.5 | Destek |\n| ADX | 16.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $122.32.\n\n### 5. Uygulama\n* **Entry Zone:** $126.01 - $127.27\n* **Target Price:** $133.12\n* **Stop Loss:** $122.32\n",
+      "es": "## Análisis Institucional: DUK (Duke Energy Corporation)\n\n### 1. Contexto\nDuke Energy Corporation opera en el sector Utilities. BOGA AI detecta interés institucional cerca de $126.64.\n\n### 2. Desempeño\n* **Master Score:** 29.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $126.64 | Actual |\n| EMA20 | $129.5 | Soporte |\n| ADX | 16.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $122.32.\n\n### 5. Ejecución\n* **Entry Zone:** $126.01 - $127.27\n* **Target Price:** $133.12\n* **Stop Loss:** $122.32\n",
+      "pt": "## Análise Institucional: DUK (Duke Energy Corporation)\n\n### 1. Contexto\nDuke Energy Corporation opera no setor Utilities. BOGA AI detecta interesse institucional perto de $126.64.\n\n### 2. Desempenho\n* **Master Score:** 29.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.3\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $126.64 | Atual |\n| EMA20 | $129.5 | Suporte |\n| ADX | 16.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $122.32.\n\n### 5. Execução\n* **Entry Zone:** $126.01 - $127.27\n* **Target Price:** $133.12\n* **Stop Loss:** $122.32\n",
+      "fr": "## Analyse Institutionnelle: DUK (Duke Energy Corporation)\n\n### 1. Contexte Business\nDuke Energy Corporation opère dans le secteur Utilities. BOGA AI détecte un intérêt institutionnel proche de $126.64.\n\n### 2. Performance\n* **Master Score:** 29.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.3\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $126.64 | Actuel |\n| EMA20 | $129.5 | Support |\n| ADX | 16.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $122.32.\n\n### 5. Exécution\n* **Entry Zone:** $126.01 - $127.27\n* **Target Price:** $133.12\n* **Stop Loss:** $122.32\n",
+      "id": "## Analisis Institusional: DUK (Duke Energy Corporation)\n\n### 1. Konteks Bisnis\nDuke Energy Corporation beroperasi di sektor Utilities. BOGA AI mendeteksi minat institusional di dekat $126.64.\n\n### 2. Performa\n* **Master Score:** 29.2/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 38.3\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $126.64 | Saat Ini |\n| EMA20 | $129.5 | Dukungan |\n| ADX | 16.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $122.32.\n\n### 5. Eksekusi\n* **Entry Zone:** $126.01 - $127.27\n* **Target Price:** $133.12\n* **Stop Loss:** $122.32\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 29,
+    "price_change_display": "-0.96%",
+    "key_metrics": {
+      "RSI": 38.3,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "ticker": "DELL",
+  "company": "Dell Technologies Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:04.173262-04:00",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 210.83,
+    "open": 205.85,
+    "high": 212.2,
+    "low": 205.5,
+    "prev_close": 204.24,
+    "change_pct": 3.23,
+    "change_pct_1w": 14.26,
+    "change_pct_1m": 33.72,
+    "change_pct_1y": 153.24,
+    "volume": 4683656,
+    "avg_volume_30d": 8361478
+  },
+  "scores": {
+    "master_score": 67.47,
+    "technical_score": 65.0,
+    "fundamental_score": 77.0,
+    "momentum_score": 70.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 60.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 100.0,
+    "signal_score": 67.47,
+    "confidence": 0.67,
+    "signal_type": "POSITIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 72.1,
+    "macd": 12.7484,
+    "macd_signal": 10.9066,
+    "macd_histogram": 1.8418,
+    "macd_crossover": "neutral",
+    "ema_20": 181.88,
+    "ema_50": 162.68,
+    "ema_200": 137.07,
+    "ema_stack_bullish": true,
+    "bb_upper": 205.66,
+    "bb_middle": 181.65,
+    "bb_lower": 157.64,
+    "bb_width": 0.2644,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 33.5,
+    "atr": 8.85,
+    "atr_pct": 0.042,
+    "obv_trend": "UP",
+    "mfi": 75.8,
+    "cmf": 0.203,
+    "stoch_k": 97.1,
+    "stoch_d": 97.4,
+    "rvol": 0.89,
+    "volume_5d_avg": 7480831,
+    "green_days_10d": 6,
+    "52w_high": 210.83,
+    "52w_low": 80.89,
+    "52w_high_proximity_pct": 0.0,
+    "52w_low_proximity_pct": 1.6064
+  },
+  "fundamental": {
+    "pe_ratio": 24.28917,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": -55.657337,
+    "de_ratio": null,
+    "fcf_yield": 0.0473,
+    "eps_growth_5y": 0.573,
+    "revenue_growth_ttm": 0.395,
+    "gross_margin": 0.20125,
+    "operating_margin": 0.09623,
+    "net_margin": 0.05228,
+    "market_cap": 139714854912,
+    "enterprise_value": 152614666240,
+    "dividend_yield": 1.23,
+    "payout_ratio": 0.24190001,
+    "insider_ownership_pct": 0.0747,
+    "institutional_ownership_pct": 0.83028,
+    "short_ratio": 2.4,
+    "beta": 0.954
+  },
+  "scores_detail": {
+    "signal_type": "POSITIVE_BIAS",
+    "entry_range_low": 161.87,
+    "entry_range_high": 211.88,
+    "target_range_low": 232.63,
+    "target_range_high": 249.25,
+    "stop_range_low": 183.47,
+    "stop_range_high": 193.13,
+    "target_price": 237.38,
+    "stop_loss": 193.13,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:04.173202-04:00",
+    "categories": [
+      "top_scores",
+      "momentum",
+      "dividend"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 263.54,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 60.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 100.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 123.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 80.89,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 19,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 382000,
+      "date": "2026-04-16"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
+      "tr": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
+      "es": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
+      "pt": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
+      "fr": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1.",
+      "id": "BOGA AI assigns DELL a score of 67.5/100. Trend: Neutral. RSI: 72.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: DELL (Dell Technologies Inc.)\n\n### 1. Business Context\nDell Technologies Inc. operates in the Technology sector. BOGA AI detect institutional interest near $210.83.\n\n### 2. Performance\n* **Master Score:** 67.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 72.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $210.83 | Current |\n| EMA20 | $181.88 | Support |\n| ADX | 33.5 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $193.13.\n\n### 5. Execution\n* **Entry Zone:** $161.87 - $211.88\n* **Target Price:** $237.38\n* **Stop Loss:** $193.13\n",
+      "tr": "## Kurumsal Analiz: DELL (Dell Technologies Inc.)\n\n### 1. İş Bağlamı\nDell Technologies Inc., Technology sektöründe faaliyet göstermektedir. BOGA AI, $210.83 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 67.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 72.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $210.83 | Güncel |\n| EMA20 | $181.88 | Destek |\n| ADX | 33.5 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $193.13.\n\n### 5. Uygulama\n* **Entry Zone:** $161.87 - $211.88\n* **Target Price:** $237.38\n* **Stop Loss:** $193.13\n",
+      "es": "## Análisis Institucional: DELL (Dell Technologies Inc.)\n\n### 1. Contexto\nDell Technologies Inc. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $210.83.\n\n### 2. Desempeño\n* **Master Score:** 67.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 72.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $210.83 | Actual |\n| EMA20 | $181.88 | Soporte |\n| ADX | 33.5 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $193.13.\n\n### 5. Ejecución\n* **Entry Zone:** $161.87 - $211.88\n* **Target Price:** $237.38\n* **Stop Loss:** $193.13\n",
+      "pt": "## Análise Institucional: DELL (Dell Technologies Inc.)\n\n### 1. Contexto\nDell Technologies Inc. opera no setor Technology. BOGA AI detecta interesse institucional perto de $210.83.\n\n### 2. Desempenho\n* **Master Score:** 67.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 72.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $210.83 | Atual |\n| EMA20 | $181.88 | Suporte |\n| ADX | 33.5 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $193.13.\n\n### 5. Execução\n* **Entry Zone:** $161.87 - $211.88\n* **Target Price:** $237.38\n* **Stop Loss:** $193.13\n",
+      "fr": "## Analyse Institutionnelle: DELL (Dell Technologies Inc.)\n\n### 1. Contexte Business\nDell Technologies Inc. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $210.83.\n\n### 2. Performance\n* **Master Score:** 67.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 72.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $210.83 | Actuel |\n| EMA20 | $181.88 | Support |\n| ADX | 33.5 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $193.13.\n\n### 5. Exécution\n* **Entry Zone:** $161.87 - $211.88\n* **Target Price:** $237.38\n* **Stop Loss:** $193.13\n",
+      "id": "## Analisis Institusional: DELL (Dell Technologies Inc.)\n\n### 1. Konteks Bisnis\nDell Technologies Inc. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $210.83.\n\n### 2. Performa\n* **Master Score:** 67.5/100\n* **Market Regime:** POSITIVE_BIAS\n* **RSI:** 72.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $210.83 | Saat Ini |\n| EMA20 | $181.88 | Dukungan |\n| ADX | 33.5 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $193.13.\n\n### 5. Eksekusi\n* **Entry Zone:** $161.87 - $211.88\n* **Target Price:** $237.38\n* **Stop Loss:** $193.13\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "POSITIVE BIAS",
+    "score_bar": 67,
+    "price_change_display": "+3.23%",
+    "key_metrics": {
+      "RSI": 72.1,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

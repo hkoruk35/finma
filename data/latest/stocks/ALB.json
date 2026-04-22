@@ -1,0 +1,177 @@
+{
+  "ticker": "ALB",
+  "company": "Albemarle Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.571216-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 195.43,
+    "open": 195.12,
+    "high": 198.43,
+    "low": 193.7,
+    "prev_close": 194.83,
+    "change_pct": 0.31,
+    "change_pct_1w": 2.93,
+    "change_pct_1m": 24.72,
+    "change_pct_1y": 275.85,
+    "volume": 665380,
+    "avg_volume_30d": 1992979
+  },
+  "scores": {
+    "master_score": 48.3,
+    "technical_score": 68.0,
+    "fundamental_score": 0.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 85.0,
+    "sector_score": 40.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 50.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.3,
+    "confidence": 0.48,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 58.1,
+    "macd": 7.0521,
+    "macd_signal": 5.0645,
+    "macd_histogram": 1.9876,
+    "macd_crossover": "neutral",
+    "ema_20": 184.53,
+    "ema_50": 175.19,
+    "ema_200": 135.61,
+    "ema_stack_bullish": true,
+    "bb_upper": 204.3,
+    "bb_middle": 183.0,
+    "bb_lower": 161.7,
+    "bb_width": 0.2328,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.1,
+    "atr": 10.41,
+    "atr_pct": 0.0533,
+    "obv_trend": "UP",
+    "mfi": 46.7,
+    "cmf": -0.022,
+    "stoch_k": 55.4,
+    "stoch_d": 56.6,
+    "rvol": 1.4,
+    "volume_5d_avg": 2794196,
+    "green_days_10d": 6,
+    "52w_high": 215.62,
+    "52w_low": 52.11,
+    "52w_high_proximity_pct": 0.0936,
+    "52w_low_proximity_pct": 2.7507
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 23.229378,
+    "pb_ratio": 3.1521475,
+    "de_ratio": 33.954,
+    "fcf_yield": 0.0197,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": 0.159,
+    "gross_margin": 0.13097,
+    "operating_margin": 0.02263,
+    "net_margin": -0.09929,
+    "market_cap": 23038633984,
+    "enterprise_value": 27146586112,
+    "dividend_yield": 0.83,
+    "payout_ratio": 0.5797,
+    "insider_ownership_pct": 0.00217,
+    "institutional_ownership_pct": 0.95934,
+    "short_ratio": 0.02,
+    "beta": 1.433
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 174.31,
+    "entry_range_high": 196.41,
+    "target_range_low": 222.13,
+    "target_range_high": 237.99,
+    "stop_range_low": 165.88,
+    "stop_range_high": 174.61,
+    "target_price": 226.66,
+    "stop_loss": 174.61,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.571180-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 244.29,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 83.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 52.11,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 3,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 25,
+      "date": "2026-04-01"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns ALB a score of 48.3/100. Trend: Neutral. RSI: 58.1.",
+      "tr": "BOGA AI assigns ALB a score of 48.3/100. Trend: Neutral. RSI: 58.1.",
+      "es": "BOGA AI assigns ALB a score of 48.3/100. Trend: Neutral. RSI: 58.1.",
+      "pt": "BOGA AI assigns ALB a score of 48.3/100. Trend: Neutral. RSI: 58.1.",
+      "fr": "BOGA AI assigns ALB a score of 48.3/100. Trend: Neutral. RSI: 58.1.",
+      "id": "BOGA AI assigns ALB a score of 48.3/100. Trend: Neutral. RSI: 58.1."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: ALB (Albemarle Corporation)\n\n### 1. Business Context\nAlbemarle Corporation operates in the Materials sector. BOGA AI detect institutional interest near $195.43.\n\n### 2. Performance\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $195.43 | Current |\n| EMA20 | $184.53 | Support |\n| ADX | 21.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $174.61.\n\n### 5. Execution\n* **Entry Zone:** $174.31 - $196.41\n* **Target Price:** $226.66\n* **Stop Loss:** $174.61\n",
+      "tr": "## Kurumsal Analiz: ALB (Albemarle Corporation)\n\n### 1. İş Bağlamı\nAlbemarle Corporation, Materials sektöründe faaliyet göstermektedir. BOGA AI, $195.43 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $195.43 | Güncel |\n| EMA20 | $184.53 | Destek |\n| ADX | 21.1 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $174.61.\n\n### 5. Uygulama\n* **Entry Zone:** $174.31 - $196.41\n* **Target Price:** $226.66\n* **Stop Loss:** $174.61\n",
+      "es": "## Análisis Institucional: ALB (Albemarle Corporation)\n\n### 1. Contexto\nAlbemarle Corporation opera en el sector Materials. BOGA AI detecta interés institucional cerca de $195.43.\n\n### 2. Desempeño\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $195.43 | Actual |\n| EMA20 | $184.53 | Soporte |\n| ADX | 21.1 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $174.61.\n\n### 5. Ejecución\n* **Entry Zone:** $174.31 - $196.41\n* **Target Price:** $226.66\n* **Stop Loss:** $174.61\n",
+      "pt": "## Análise Institucional: ALB (Albemarle Corporation)\n\n### 1. Contexto\nAlbemarle Corporation opera no setor Materials. BOGA AI detecta interesse institucional perto de $195.43.\n\n### 2. Desempenho\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $195.43 | Atual |\n| EMA20 | $184.53 | Suporte |\n| ADX | 21.1 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $174.61.\n\n### 5. Execução\n* **Entry Zone:** $174.31 - $196.41\n* **Target Price:** $226.66\n* **Stop Loss:** $174.61\n",
+      "fr": "## Analyse Institutionnelle: ALB (Albemarle Corporation)\n\n### 1. Contexte Business\nAlbemarle Corporation opère dans le secteur Materials. BOGA AI détecte un intérêt institutionnel proche de $195.43.\n\n### 2. Performance\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $195.43 | Actuel |\n| EMA20 | $184.53 | Support |\n| ADX | 21.1 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $174.61.\n\n### 5. Exécution\n* **Entry Zone:** $174.31 - $196.41\n* **Target Price:** $226.66\n* **Stop Loss:** $174.61\n",
+      "id": "## Analisis Institusional: ALB (Albemarle Corporation)\n\n### 1. Konteks Bisnis\nAlbemarle Corporation beroperasi di sektor Materials. BOGA AI mendeteksi minat institusional di dekat $195.43.\n\n### 2. Performa\n* **Master Score:** 48.3/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 58.1\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $195.43 | Saat Ini |\n| EMA20 | $184.53 | Dukungan |\n| ADX | 21.1 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $174.61.\n\n### 5. Eksekusi\n* **Entry Zone:** $174.31 - $196.41\n* **Target Price:** $226.66\n* **Stop Loss:** $174.61\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 48,
+    "price_change_display": "+0.31%",
+    "key_metrics": {
+      "RSI": 58.1,
+      "MACD": "Neutral",
+      "Volume": "Above avg",
+      "Trend": "Uptrend"
+    }
+  }
+}

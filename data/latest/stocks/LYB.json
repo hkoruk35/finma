@@ -1,0 +1,177 @@
+{
+  "ticker": "LYB",
+  "company": "LyondellBasell Industries N.V.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.602930-04:00",
+  "sector": "Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 69.88,
+    "open": 69.26,
+    "high": 70.16,
+    "low": 68.78,
+    "prev_close": 68.58,
+    "change_pct": 1.9,
+    "change_pct_1w": -4.6,
+    "change_pct_1m": -4.69,
+    "change_pct_1y": 34.49,
+    "volume": 2249836,
+    "avg_volume_30d": 8689964
+  },
+  "scores": {
+    "master_score": 29.5,
+    "technical_score": 30.0,
+    "fundamental_score": 18.0,
+    "momentum_score": 10.0,
+    "sentiment_score": 85.0,
+    "sector_score": 40.0,
+    "breakout_score": 15.0,
+    "value_score": 0.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 25.0,
+    "dividend_score": 40.0,
+    "signal_score": 29.5,
+    "confidence": 0.29,
+    "signal_type": "UNDERPERFORM"
+  },
+  "technical": {
+    "rsi_14": 46.5,
+    "macd": 0.2656,
+    "macd_signal": 1.8437,
+    "macd_histogram": -1.5781,
+    "macd_crossover": "neutral",
+    "ema_20": 72.81,
+    "ema_50": 68.11,
+    "ema_200": 57.79,
+    "ema_stack_bullish": false,
+    "bb_upper": 83.91,
+    "bb_middle": 75.58,
+    "bb_lower": 67.25,
+    "bb_width": 0.2203,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 23.4,
+    "atr": 3.87,
+    "atr_pct": 0.0554,
+    "obv_trend": "DOWN",
+    "mfi": 44.7,
+    "cmf": 0.063,
+    "stoch_k": 25.4,
+    "stoch_d": 14.6,
+    "rvol": 0.79,
+    "volume_5d_avg": 6826007,
+    "green_days_10d": 5,
+    "52w_high": 82.38,
+    "52w_low": 40.7,
+    "52w_high_proximity_pct": 0.1517,
+    "52w_low_proximity_pct": 0.7169
+  },
+  "fundamental": {
+    "pe_ratio": null,
+    "sector_pe_median": 23.229378,
+    "pb_ratio": 2.232445,
+    "de_ratio": 144.156,
+    "fcf_yield": 0.0198,
+    "eps_growth_5y": null,
+    "revenue_growth_ttm": -0.092,
+    "gross_margin": 0.08964,
+    "operating_margin": -0.0091699995,
+    "net_margin": -0.02471,
+    "market_cap": 22555115520,
+    "enterprise_value": 33490417664,
+    "dividend_yield": 7.0,
+    "payout_ratio": 11.468101,
+    "insider_ownership_pct": 0.20167999,
+    "institutional_ownership_pct": 0.74211,
+    "short_ratio": 1.26,
+    "beta": 0.437
+  },
+  "scores_detail": {
+    "signal_type": "UNDERPERFORM",
+    "entry_range_low": 67.77,
+    "entry_range_high": 70.23,
+    "target_range_low": 79.86,
+    "target_range_high": 85.56,
+    "stop_range_low": 59.03,
+    "stop_range_high": 62.14,
+    "target_price": 81.49,
+    "stop_loss": 62.14,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.602878-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 87.35,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 0.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 40.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 700.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 40.7,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 646,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLB",
+    "sector_performance_5d": 0.93,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns LYB a score of 29.5/100. Trend: Neutral. RSI: 46.5.",
+      "tr": "BOGA AI assigns LYB a score of 29.5/100. Trend: Neutral. RSI: 46.5.",
+      "es": "BOGA AI assigns LYB a score of 29.5/100. Trend: Neutral. RSI: 46.5.",
+      "pt": "BOGA AI assigns LYB a score of 29.5/100. Trend: Neutral. RSI: 46.5.",
+      "fr": "BOGA AI assigns LYB a score of 29.5/100. Trend: Neutral. RSI: 46.5.",
+      "id": "BOGA AI assigns LYB a score of 29.5/100. Trend: Neutral. RSI: 46.5."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: LYB (LyondellBasell Industries N.V.)\n\n### 1. Business Context\nLyondellBasell Industries N.V. operates in the Materials sector. BOGA AI detect institutional interest near $69.88.\n\n### 2. Performance\n* **Master Score:** 29.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.5\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $69.88 | Current |\n| EMA20 | $72.81 | Support |\n| ADX | 23.4 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $62.14.\n\n### 5. Execution\n* **Entry Zone:** $67.77 - $70.23\n* **Target Price:** $81.49\n* **Stop Loss:** $62.14\n",
+      "tr": "## Kurumsal Analiz: LYB (LyondellBasell Industries N.V.)\n\n### 1. İş Bağlamı\nLyondellBasell Industries N.V., Materials sektöründe faaliyet göstermektedir. BOGA AI, $69.88 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 29.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.5\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $69.88 | Güncel |\n| EMA20 | $72.81 | Destek |\n| ADX | 23.4 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $62.14.\n\n### 5. Uygulama\n* **Entry Zone:** $67.77 - $70.23\n* **Target Price:** $81.49\n* **Stop Loss:** $62.14\n",
+      "es": "## Análisis Institucional: LYB (LyondellBasell Industries N.V.)\n\n### 1. Contexto\nLyondellBasell Industries N.V. opera en el sector Materials. BOGA AI detecta interés institucional cerca de $69.88.\n\n### 2. Desempeño\n* **Master Score:** 29.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $69.88 | Actual |\n| EMA20 | $72.81 | Soporte |\n| ADX | 23.4 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $62.14.\n\n### 5. Ejecución\n* **Entry Zone:** $67.77 - $70.23\n* **Target Price:** $81.49\n* **Stop Loss:** $62.14\n",
+      "pt": "## Análise Institucional: LYB (LyondellBasell Industries N.V.)\n\n### 1. Contexto\nLyondellBasell Industries N.V. opera no setor Materials. BOGA AI detecta interesse institucional perto de $69.88.\n\n### 2. Desempenho\n* **Master Score:** 29.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.5\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $69.88 | Atual |\n| EMA20 | $72.81 | Suporte |\n| ADX | 23.4 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $62.14.\n\n### 5. Execução\n* **Entry Zone:** $67.77 - $70.23\n* **Target Price:** $81.49\n* **Stop Loss:** $62.14\n",
+      "fr": "## Analyse Institutionnelle: LYB (LyondellBasell Industries N.V.)\n\n### 1. Contexte Business\nLyondellBasell Industries N.V. opère dans le secteur Materials. BOGA AI détecte un intérêt institutionnel proche de $69.88.\n\n### 2. Performance\n* **Master Score:** 29.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.5\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $69.88 | Actuel |\n| EMA20 | $72.81 | Support |\n| ADX | 23.4 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $62.14.\n\n### 5. Exécution\n* **Entry Zone:** $67.77 - $70.23\n* **Target Price:** $81.49\n* **Stop Loss:** $62.14\n",
+      "id": "## Analisis Institusional: LYB (LyondellBasell Industries N.V.)\n\n### 1. Konteks Bisnis\nLyondellBasell Industries N.V. beroperasi di sektor Materials. BOGA AI mendeteksi minat institusional di dekat $69.88.\n\n### 2. Performa\n* **Master Score:** 29.5/100\n* **Market Regime:** UNDERPERFORM\n* **RSI:** 46.5\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $69.88 | Saat Ini |\n| EMA20 | $72.81 | Dukungan |\n| ADX | 23.4 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $62.14.\n\n### 5. Eksekusi\n* **Entry Zone:** $67.77 - $70.23\n* **Target Price:** $81.49\n* **Stop Loss:** $62.14\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "UNDERPERFORM",
+    "score_bar": 30,
+    "price_change_display": "+1.90%",
+    "key_metrics": {
+      "RSI": 46.5,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

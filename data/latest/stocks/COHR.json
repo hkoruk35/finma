@@ -1,0 +1,178 @@
+{
+  "ticker": "COHR",
+  "company": "Coherent Corp.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.978001-04:00",
+  "sector": "Technology",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 347.14,
+    "open": 352.94,
+    "high": 362.54,
+    "low": 340.71,
+    "prev_close": 347.51,
+    "change_pct": -0.11,
+    "change_pct_1w": 10.76,
+    "change_pct_1m": 36.87,
+    "change_pct_1y": 527.86,
+    "volume": 3375683,
+    "avg_volume_30d": 7803856
+  },
+  "scores": {
+    "master_score": 56.27,
+    "technical_score": 58.0,
+    "fundamental_score": 30.0,
+    "momentum_score": 80.0,
+    "sentiment_score": 85.0,
+    "sector_score": 39.7,
+    "breakout_score": 35.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 100.0,
+    "dividend_score": 0.0,
+    "signal_score": 56.27,
+    "confidence": 0.56,
+    "signal_type": "NEUTRAL_STAY"
+  },
+  "technical": {
+    "rsi_14": 72.8,
+    "macd": 24.6475,
+    "macd_signal": 16.9328,
+    "macd_histogram": 7.7148,
+    "macd_crossover": "neutral",
+    "ema_20": 296.54,
+    "ema_50": 265.14,
+    "ema_200": 187.25,
+    "ema_stack_bullish": true,
+    "bb_upper": 360.95,
+    "bb_middle": 283.7,
+    "bb_lower": 206.45,
+    "bb_width": 0.5446,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 24.2,
+    "atr": 21.22,
+    "atr_pct": 0.0611,
+    "obv_trend": "UP",
+    "mfi": 95.4,
+    "cmf": 0.136,
+    "stoch_k": 88.2,
+    "stoch_d": 95.8,
+    "rvol": 0.63,
+    "volume_5d_avg": 4925976,
+    "green_days_10d": 8,
+    "52w_high": 347.51,
+    "52w_low": 52.12,
+    "52w_high_proximity_pct": 0.0011,
+    "52w_low_proximity_pct": 5.6605
+  },
+  "fundamental": {
+    "pe_ratio": 343.70792,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 7.619178,
+    "de_ratio": 39.901,
+    "fcf_yield": 0.002,
+    "eps_growth_5y": 0.73,
+    "revenue_growth_ttm": 0.175,
+    "gross_margin": 0.36380002,
+    "operating_margin": 0.11783,
+    "net_margin": 0.04657,
+    "market_cap": 65083387904,
+    "enterprise_value": 68176592896,
+    "dividend_yield": null,
+    "payout_ratio": 0.0,
+    "insider_ownership_pct": 0.00495,
+    "institutional_ownership_pct": 0.88587,
+    "short_ratio": 1.12,
+    "beta": 1.905
+  },
+  "scores_detail": {
+    "signal_type": "NEUTRAL_STAY",
+    "entry_range_low": 263.81,
+    "entry_range_high": 348.88,
+    "target_range_low": 402.58,
+    "target_range_high": 431.34,
+    "stop_range_low": 289.46,
+    "stop_range_high": 304.7,
+    "target_price": 410.8,
+    "stop_loss": 304.7,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.977924-04:00",
+    "categories": [
+      "top_scores",
+      "momentum"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 35.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 433.92,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 0.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 52.12,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 6,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4240,
+      "date": "2026-03-17"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
+      "tr": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
+      "es": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
+      "pt": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
+      "fr": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8.",
+      "id": "BOGA AI assigns COHR a score of 56.3/100. Trend: Neutral. RSI: 72.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: COHR (Coherent Corp.)\n\n### 1. Business Context\nCoherent Corp. operates in the Technology sector. BOGA AI detect institutional interest near $347.14.\n\n### 2. Performance\n* **Master Score:** 56.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $347.14 | Current |\n| EMA20 | $296.54 | Support |\n| ADX | 24.2 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $304.70.\n\n### 5. Execution\n* **Entry Zone:** $263.81 - $348.88\n* **Target Price:** $410.80\n* **Stop Loss:** $304.70\n",
+      "tr": "## Kurumsal Analiz: COHR (Coherent Corp.)\n\n### 1. İş Bağlamı\nCoherent Corp., Technology sektöründe faaliyet göstermektedir. BOGA AI, $347.14 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 56.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $347.14 | Güncel |\n| EMA20 | $296.54 | Destek |\n| ADX | 24.2 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $304.70.\n\n### 5. Uygulama\n* **Entry Zone:** $263.81 - $348.88\n* **Target Price:** $410.80\n* **Stop Loss:** $304.70\n",
+      "es": "## Análisis Institucional: COHR (Coherent Corp.)\n\n### 1. Contexto\nCoherent Corp. opera en el sector Technology. BOGA AI detecta interés institucional cerca de $347.14.\n\n### 2. Desempeño\n* **Master Score:** 56.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $347.14 | Actual |\n| EMA20 | $296.54 | Soporte |\n| ADX | 24.2 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $304.70.\n\n### 5. Ejecución\n* **Entry Zone:** $263.81 - $348.88\n* **Target Price:** $410.80\n* **Stop Loss:** $304.70\n",
+      "pt": "## Análise Institucional: COHR (Coherent Corp.)\n\n### 1. Contexto\nCoherent Corp. opera no setor Technology. BOGA AI detecta interesse institucional perto de $347.14.\n\n### 2. Desempenho\n* **Master Score:** 56.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $347.14 | Atual |\n| EMA20 | $296.54 | Suporte |\n| ADX | 24.2 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $304.70.\n\n### 5. Execução\n* **Entry Zone:** $263.81 - $348.88\n* **Target Price:** $410.80\n* **Stop Loss:** $304.70\n",
+      "fr": "## Analyse Institutionnelle: COHR (Coherent Corp.)\n\n### 1. Contexte Business\nCoherent Corp. opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $347.14.\n\n### 2. Performance\n* **Master Score:** 56.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $347.14 | Actuel |\n| EMA20 | $296.54 | Support |\n| ADX | 24.2 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $304.70.\n\n### 5. Exécution\n* **Entry Zone:** $263.81 - $348.88\n* **Target Price:** $410.80\n* **Stop Loss:** $304.70\n",
+      "id": "## Analisis Institusional: COHR (Coherent Corp.)\n\n### 1. Konteks Bisnis\nCoherent Corp. beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $347.14.\n\n### 2. Performa\n* **Master Score:** 56.3/100\n* **Market Regime:** NEUTRAL_STAY\n* **RSI:** 72.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $347.14 | Saat Ini |\n| EMA20 | $296.54 | Dukungan |\n| ADX | 24.2 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $304.70.\n\n### 5. Eksekusi\n* **Entry Zone:** $263.81 - $348.88\n* **Target Price:** $410.80\n* **Stop Loss:** $304.70\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEUTRAL STAY",
+    "score_bar": 56,
+    "price_change_display": "-0.11%",
+    "key_metrics": {
+      "RSI": 72.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "ticker": "URI",
+  "company": "United Rentals, Inc.",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:05.960026-04:00",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 817.07,
+    "open": 815.91,
+    "high": 834.98,
+    "low": 814.67,
+    "prev_close": 812.27,
+    "change_pct": 0.59,
+    "change_pct_1w": 5.97,
+    "change_pct_1m": 15.0,
+    "change_pct_1y": 39.35,
+    "volume": 202911,
+    "avg_volume_30d": 533127
+  },
+  "scores": {
+    "master_score": 48.58,
+    "technical_score": 46.0,
+    "fundamental_score": 37.0,
+    "momentum_score": 60.0,
+    "sentiment_score": 75.0,
+    "sector_score": 37.3,
+    "breakout_score": 30.0,
+    "value_score": 25.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 48.58,
+    "confidence": 0.49,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 64.6,
+    "macd": 6.1071,
+    "macd_signal": -4.9075,
+    "macd_histogram": 11.0147,
+    "macd_crossover": "neutral",
+    "ema_20": 773.21,
+    "ema_50": 788.76,
+    "ema_200": 808.8,
+    "ema_stack_bullish": false,
+    "bb_upper": 814.06,
+    "bb_middle": 758.25,
+    "bb_lower": 702.44,
+    "bb_width": 0.1472,
+    "bb_squeeze": true,
+    "bb_squeeze_intensity": "MEDIUM",
+    "adx": 22.1,
+    "atr": 24.77,
+    "atr_pct": 0.0303,
+    "obv_trend": "UP",
+    "mfi": 79.0,
+    "cmf": 0.104,
+    "stoch_k": 85.7,
+    "stoch_d": 88.9,
+    "rvol": 0.83,
+    "volume_5d_avg": 444662,
+    "green_days_10d": 8,
+    "52w_high": 1015.58,
+    "52w_low": 565.61,
+    "52w_high_proximity_pct": 0.1955,
+    "52w_low_proximity_pct": 0.4446
+  },
+  "fundamental": {
+    "pe_ratio": 21.178589,
+    "sector_pe_median": 33.341539499999996,
+    "pb_ratio": 5.74863,
+    "de_ratio": 174.732,
+    "fcf_yield": 0.0375,
+    "eps_growth_5y": -0.019,
+    "revenue_growth_ttm": 0.028,
+    "gross_margin": 0.38356,
+    "operating_margin": 0.25166,
+    "net_margin": 0.15492,
+    "market_cap": 51473895424,
+    "enterprise_value": 66382503936,
+    "dividend_yield": 0.97,
+    "payout_ratio": 0.18540001,
+    "insider_ownership_pct": 0.00621,
+    "institutional_ownership_pct": 0.93218005,
+    "short_ratio": 2.97,
+    "beta": 1.681
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 784.82,
+    "entry_range_high": 821.16,
+    "target_range_low": 873.55,
+    "target_range_high": 935.95,
+    "stop_range_low": 729.15,
+    "stop_range_high": 767.53,
+    "target_price": 891.38,
+    "stop_loss": 767.53,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:05.959990-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "MEDIUM",
+    "breakout_direction": "UNCLEAR",
+    "breakout_score": 30.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 1021.34,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 25.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 97.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 565.61,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 1,
+    "last_90_days_sells": 2,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 51,
+      "date": "2026-03-31"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLI",
+    "sector_performance_5d": 0.44,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns URI a score of 48.6/100. Trend: Neutral. RSI: 64.6.",
+      "tr": "BOGA AI assigns URI a score of 48.6/100. Trend: Neutral. RSI: 64.6.",
+      "es": "BOGA AI assigns URI a score of 48.6/100. Trend: Neutral. RSI: 64.6.",
+      "pt": "BOGA AI assigns URI a score of 48.6/100. Trend: Neutral. RSI: 64.6.",
+      "fr": "BOGA AI assigns URI a score of 48.6/100. Trend: Neutral. RSI: 64.6.",
+      "id": "BOGA AI assigns URI a score of 48.6/100. Trend: Neutral. RSI: 64.6."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: URI (United Rentals, Inc.)\n\n### 1. Business Context\nUnited Rentals, Inc. operates in the Industrials sector. BOGA AI detect institutional interest near $817.07.\n\n### 2. Performance\n* **Master Score:** 48.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 64.6\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $817.07 | Current |\n| EMA20 | $773.21 | Support |\n| ADX | 22.1 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $767.53.\n\n### 5. Execution\n* **Entry Zone:** $784.82 - $821.16\n* **Target Price:** $891.38\n* **Stop Loss:** $767.53\n",
+      "tr": "## Kurumsal Analiz: URI (United Rentals, Inc.)\n\n### 1. İş Bağlamı\nUnited Rentals, Inc., Industrials sektöründe faaliyet göstermektedir. BOGA AI, $817.07 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 48.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 64.6\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $817.07 | Güncel |\n| EMA20 | $773.21 | Destek |\n| ADX | 22.1 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $767.53.\n\n### 5. Uygulama\n* **Entry Zone:** $784.82 - $821.16\n* **Target Price:** $891.38\n* **Stop Loss:** $767.53\n",
+      "es": "## Análisis Institucional: URI (United Rentals, Inc.)\n\n### 1. Contexto\nUnited Rentals, Inc. opera en el sector Industrials. BOGA AI detecta interés institucional cerca de $817.07.\n\n### 2. Desempeño\n* **Master Score:** 48.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 64.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $817.07 | Actual |\n| EMA20 | $773.21 | Soporte |\n| ADX | 22.1 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $767.53.\n\n### 5. Ejecución\n* **Entry Zone:** $784.82 - $821.16\n* **Target Price:** $891.38\n* **Stop Loss:** $767.53\n",
+      "pt": "## Análise Institucional: URI (United Rentals, Inc.)\n\n### 1. Contexto\nUnited Rentals, Inc. opera no setor Industrials. BOGA AI detecta interesse institucional perto de $817.07.\n\n### 2. Desempenho\n* **Master Score:** 48.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 64.6\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $817.07 | Atual |\n| EMA20 | $773.21 | Suporte |\n| ADX | 22.1 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $767.53.\n\n### 5. Execução\n* **Entry Zone:** $784.82 - $821.16\n* **Target Price:** $891.38\n* **Stop Loss:** $767.53\n",
+      "fr": "## Analyse Institutionnelle: URI (United Rentals, Inc.)\n\n### 1. Contexte Business\nUnited Rentals, Inc. opère dans le secteur Industrials. BOGA AI détecte un intérêt institutionnel proche de $817.07.\n\n### 2. Performance\n* **Master Score:** 48.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 64.6\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $817.07 | Actuel |\n| EMA20 | $773.21 | Support |\n| ADX | 22.1 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $767.53.\n\n### 5. Exécution\n* **Entry Zone:** $784.82 - $821.16\n* **Target Price:** $891.38\n* **Stop Loss:** $767.53\n",
+      "id": "## Analisis Institusional: URI (United Rentals, Inc.)\n\n### 1. Konteks Bisnis\nUnited Rentals, Inc. beroperasi di sektor Industrials. BOGA AI mendeteksi minat institusional di dekat $817.07.\n\n### 2. Performa\n* **Master Score:** 48.6/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 64.6\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $817.07 | Saat Ini |\n| EMA20 | $773.21 | Dukungan |\n| ADX | 22.1 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $767.53.\n\n### 5. Eksekusi\n* **Entry Zone:** $784.82 - $821.16\n* **Target Price:** $891.38\n* **Stop Loss:** $767.53\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 49,
+    "price_change_display": "+0.59%",
+    "key_metrics": {
+      "RSI": 64.6,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Mixed"
+    }
+  }
+}

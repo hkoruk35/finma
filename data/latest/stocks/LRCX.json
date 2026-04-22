@@ -1,0 +1,177 @@
+{
+  "ticker": "LRCX",
+  "company": "Lam Research Corporation",
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T13:19:03.805665-04:00",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 260.37,
+    "open": 263.8,
+    "high": 265.6,
+    "low": 259.35,
+    "prev_close": 263.16,
+    "change_pct": -1.06,
+    "change_pct_1w": -4.42,
+    "change_pct_1m": 14.02,
+    "change_pct_1y": 311.35,
+    "volume": 3299337,
+    "avg_volume_30d": 9610057
+  },
+  "scores": {
+    "master_score": 42.72,
+    "technical_score": 50.0,
+    "fundamental_score": 15.0,
+    "momentum_score": 50.0,
+    "sentiment_score": 75.0,
+    "sector_score": 39.7,
+    "breakout_score": 15.0,
+    "value_score": 15.0,
+    "reversal_score": 0.0,
+    "momentum_cat_score": 75.0,
+    "dividend_score": 70.0,
+    "signal_score": 42.72,
+    "confidence": 0.43,
+    "signal_type": "NEGATIVE_BIAS"
+  },
+  "technical": {
+    "rsi_14": 59.8,
+    "macd": 11.4275,
+    "macd_signal": 9.1071,
+    "macd_histogram": 2.3204,
+    "macd_crossover": "neutral",
+    "ema_20": 247.69,
+    "ema_50": 232.97,
+    "ema_200": 179.35,
+    "ema_stack_bullish": true,
+    "bb_upper": 287.68,
+    "bb_middle": 241.01,
+    "bb_lower": 194.34,
+    "bb_width": 0.3873,
+    "bb_squeeze": false,
+    "bb_squeeze_intensity": "LOW",
+    "adx": 21.3,
+    "atr": 10.75,
+    "atr_pct": 0.0413,
+    "obv_trend": "DOWN",
+    "mfi": 68.3,
+    "cmf": 0.199,
+    "stoch_k": 79.7,
+    "stoch_d": 85.7,
+    "rvol": 0.77,
+    "volume_5d_avg": 7380267,
+    "green_days_10d": 6,
+    "52w_high": 272.41,
+    "52w_low": 61.94,
+    "52w_high_proximity_pct": 0.0442,
+    "52w_low_proximity_pct": 3.2038
+  },
+  "fundamental": {
+    "pe_ratio": 53.464066,
+    "sector_pe_median": 40.74542,
+    "pb_ratio": 32.10877,
+    "de_ratio": 44.195,
+    "fcf_yield": 0.0147,
+    "eps_growth_5y": 0.37,
+    "revenue_growth_ttm": 0.221,
+    "gross_margin": 0.49800998,
+    "operating_margin": 0.33868998,
+    "net_margin": 0.3022,
+    "market_cap": 327032504320,
+    "enterprise_value": 326929874944,
+    "dividend_yield": 0.4,
+    "payout_ratio": 0.20120001,
+    "insider_ownership_pct": 0.0028799998,
+    "institutional_ownership_pct": 0.89063,
+    "short_ratio": 2.68,
+    "beta": 1.79
+  },
+  "scores_detail": {
+    "signal_type": "NEGATIVE_BIAS",
+    "entry_range_low": 231.81,
+    "entry_range_high": 261.67,
+    "target_range_low": 286.77,
+    "target_range_high": 307.25,
+    "stop_range_low": 226.93,
+    "stop_range_high": 238.87,
+    "target_price": 292.62,
+    "stop_loss": 238.87,
+    "risk_reward_ratio": 1.5,
+    "ttl_hours": 120,
+    "generated_at": "2026-04-21T13:19:03.805546-04:00",
+    "categories": [
+      "top_scores"
+    ]
+  },
+  "breakout": {
+    "squeeze_intensity": "LOW",
+    "breakout_direction": "UPWARD",
+    "breakout_score": 15.0,
+    "previous_breakouts_2y": 0
+  },
+  "undervalued": {
+    "intrinsic_value_estimate": 325.46,
+    "margin_of_safety_pct": 25.0,
+    "value_catalyst": "Earnings growth consistency and low debt profile.",
+    "value_score": 15.0
+  },
+  "dividend": {
+    "next_dividend_date": null,
+    "annual_dividend_per_share": null,
+    "dividend_safety_score": 70.0,
+    "dividend_growth_rate_5y": null,
+    "dividend_yield_pct": 40.0
+  },
+  "reversal": {
+    "is_oversold": false,
+    "bullish_divergence": false,
+    "support_level": 61.94,
+    "high_risk": true
+  },
+  "news": [],
+  "insider_activity": {
+    "last_90_days_buys": 0,
+    "last_90_days_sells": 5,
+    "net_direction": "SELL",
+    "last_transaction": {
+      "type": "SELL",
+      "shares": 4571,
+      "date": "2026-03-10"
+    }
+  },
+  "sector_context": {
+    "sector_etf": "XLK",
+    "sector_performance_5d": 3.07,
+    "stock_vs_sector_20d": null,
+    "sector_rank": null
+  },
+  "ai_summary": {
+    "homepage_summary": {
+      "en": "BOGA AI assigns LRCX a score of 42.7/100. Trend: Neutral. RSI: 59.8.",
+      "tr": "BOGA AI assigns LRCX a score of 42.7/100. Trend: Neutral. RSI: 59.8.",
+      "es": "BOGA AI assigns LRCX a score of 42.7/100. Trend: Neutral. RSI: 59.8.",
+      "pt": "BOGA AI assigns LRCX a score of 42.7/100. Trend: Neutral. RSI: 59.8.",
+      "fr": "BOGA AI assigns LRCX a score of 42.7/100. Trend: Neutral. RSI: 59.8.",
+      "id": "BOGA AI assigns LRCX a score of 42.7/100. Trend: Neutral. RSI: 59.8."
+    },
+    "detail_summary": {
+      "en": "## Institutional Analysis: LRCX (Lam Research Corporation)\n\n### 1. Business Context\nLam Research Corporation operates in the Technology sector. BOGA AI detect institutional interest near $260.37.\n\n### 2. Performance\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.8\n\n### 3. Technical Matrix\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $260.37 | Current |\n| EMA20 | $247.69 | Support |\n| ADX | 21.3 | Strength |\n\n### 4. Risks\nVolatility and sector rotation are key risks. Support near $238.87.\n\n### 5. Execution\n* **Entry Zone:** $231.81 - $261.67\n* **Target Price:** $292.62\n* **Stop Loss:** $238.87\n",
+      "tr": "## Kurumsal Analiz: LRCX (Lam Research Corporation)\n\n### 1. İş Bağlamı\nLam Research Corporation, Technology sektöründe faaliyet göstermektedir. BOGA AI, $260.37 seviyelerinde kurumsal ilgi tespit etti.\n\n### 2. Performans\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.8\n\n### 3. Teknik Matris\n| Metric | Value | Karar |\n|---|---|---|\n| Price | $260.37 | Güncel |\n| EMA20 | $247.69 | Destek |\n| ADX | 21.3 | Güç |\n\n### 4. Riskler\nVolatility and sector rotation are key risks. Support near $238.87.\n\n### 5. Uygulama\n* **Entry Zone:** $231.81 - $261.67\n* **Target Price:** $292.62\n* **Stop Loss:** $238.87\n",
+      "es": "## Análisis Institucional: LRCX (Lam Research Corporation)\n\n### 1. Contexto\nLam Research Corporation opera en el sector Technology. BOGA AI detecta interés institucional cerca de $260.37.\n\n### 2. Desempeño\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredicto |\n|---|---|---|\n| Price | $260.37 | Actual |\n| EMA20 | $247.69 | Soporte |\n| ADX | 21.3 | Fuerza |\n\n### 4. Riesgos\nVolatility and sector rotation are key risks. Support near $238.87.\n\n### 5. Ejecución\n* **Entry Zone:** $231.81 - $261.67\n* **Target Price:** $292.62\n* **Stop Loss:** $238.87\n",
+      "pt": "## Análise Institucional: LRCX (Lam Research Corporation)\n\n### 1. Contexto\nLam Research Corporation opera no setor Technology. BOGA AI detecta interesse institucional perto de $260.37.\n\n### 2. Desempenho\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.8\n\n### 3. Matriz Técnica\n| Metric | Value | Veredito |\n|---|---|---|\n| Price | $260.37 | Atual |\n| EMA20 | $247.69 | Suporte |\n| ADX | 21.3 | Força |\n\n### 4. Riscos\nVolatility and sector rotation are key risks. Support near $238.87.\n\n### 5. Execução\n* **Entry Zone:** $231.81 - $261.67\n* **Target Price:** $292.62\n* **Stop Loss:** $238.87\n",
+      "fr": "## Analyse Institutionnelle: LRCX (Lam Research Corporation)\n\n### 1. Contexte Business\nLam Research Corporation opère dans le secteur Technology. BOGA AI détecte un intérêt institutionnel proche de $260.37.\n\n### 2. Performance\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.8\n\n### 3. Matrice Technique\n| Metric | Value | Verdict |\n|---|---|---|\n| Price | $260.37 | Actuel |\n| EMA20 | $247.69 | Support |\n| ADX | 21.3 | Force |\n\n### 4. Risques\nVolatility and sector rotation are key risks. Support near $238.87.\n\n### 5. Exécution\n* **Entry Zone:** $231.81 - $261.67\n* **Target Price:** $292.62\n* **Stop Loss:** $238.87\n",
+      "id": "## Analisis Institusional: LRCX (Lam Research Corporation)\n\n### 1. Konteks Bisnis\nLam Research Corporation beroperasi di sektor Technology. BOGA AI mendeteksi minat institusional di dekat $260.37.\n\n### 2. Performa\n* **Master Score:** 42.7/100\n* **Market Regime:** NEGATIVE_BIAS\n* **RSI:** 59.8\n\n### 3. Matriks Teknikal\n| Metric | Value | Keputusan |\n|---|---|---|\n| Price | $260.37 | Saat Ini |\n| EMA20 | $247.69 | Dukungan |\n| ADX | 21.3 | Kekuatan |\n\n### 4. Risiko\nVolatility and sector rotation are key risks. Support near $238.87.\n\n### 5. Eksekusi\n* **Entry Zone:** $231.81 - $261.67\n* **Target Price:** $292.62\n* **Stop Loss:** $238.87\n"
+    }
+  },
+  "quick_view": {
+    "score_badge": "NEGATIVE BIAS",
+    "score_bar": 43,
+    "price_change_display": "-1.06%",
+    "key_metrics": {
+      "RSI": 59.8,
+      "MACD": "Neutral",
+      "Volume": "Normal",
+      "Trend": "Uptrend"
+    }
+  }
+}
