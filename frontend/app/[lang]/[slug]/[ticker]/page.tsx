@@ -9,7 +9,7 @@ import {
   type LangCode,
 } from "@/lib/analysis-langs";
 import { getArchivedDates } from "@/lib/analysis-archive";
-import { getSwingAllPicks, getMasterData, formatPrice, getStockData } from "@/lib/data";
+import { getSwingAllPicks, getMasterData, formatPrice, getStockData, getAllTickers } from "@/lib/data";
 import ChartSection from "@/components/stock/ChartSection";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
