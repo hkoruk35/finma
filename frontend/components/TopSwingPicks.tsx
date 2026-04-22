@@ -74,7 +74,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
   useEffect(() => {
     if (!picks || picks.length === 0) return;
     const missing = picks
-      .slice(0, 3)
+      .slice(0, 5)
       .filter((p) => {
         const live = allTickers?.find((t: any) => t.ticker === p.ticker);
         return !live && p.change_1d === undefined;
@@ -99,7 +99,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
         <div className="flex-1">
           <div className="flex items-center gap-4 flex-wrap">
             <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">
-              Top 3 Swing Picks
+              Top 5 Swing Picks
             </h2>
             <Link
               href="/swing-picks"
@@ -116,8 +116,8 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
       </div>
 
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {picks.slice(0, 3).map((item, idx) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        {picks.slice(0, 5).map((item, idx) => {
           const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
           
           // ACCESS LOGIC

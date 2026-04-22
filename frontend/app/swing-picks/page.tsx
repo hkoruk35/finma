@@ -2,6 +2,7 @@ import { getMasterData, getSwingAllPicks } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
+import TopSwingPicks from "@/components/TopSwingPicks";
 import Link from "next/link";
 import { Metadata } from "next";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
@@ -118,10 +119,10 @@ export default async function SwingPicksPage() {
                   {picks.map((pick: any, idx: number) => (
                     <tr
                       key={pick.ticker}
-                      className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 3 ? "bg-[#3b82f6]/5" : ""}`}
+                      className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 5 ? "bg-[#3b82f6]/5" : ""}`}
                     >
                       <td className="px-4 py-3.5">
-                        <span className={`text-xs font-black ${idx < 3 ? "text-[#3b82f6]" : "text-[#64748b]"}`}>
+                        <span className={`text-xs font-black ${idx < 5 ? "text-[#3b82f6]" : "text-[#64748b]"}`}>
                           #{idx + 1}
                         </span>
                       </td>
@@ -178,7 +179,7 @@ export default async function SwingPicksPage() {
                 <Link
                   key={pick.ticker}
                   href={`/stock/${pick.ticker}`}
-                  className={`glass-card p-4 block hover:border-[#3b82f6]/40 border-2 border-transparent transition-all ${idx < 3 ? "border-[#3b82f6]/20" : ""}`}
+                  className={`glass-card p-4 block hover:border-[#3b82f6]/40 border-2 border-transparent transition-all ${idx < 5 ? "border-[#3b82f6]/20" : ""}`}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>
@@ -222,10 +223,15 @@ export default async function SwingPicksPage() {
             <div className="glass-card p-4 flex flex-wrap gap-6 text-[11px] text-[#64748b]">
               <span>📈 <b className="text-[#94a3b8]">Zones</b> = BOGA AI defined price ranges</span>
               <span>🎯 <b className="text-[#94a3b8]">Hold</b> = Estimated swing duration</span>
-              <span>⚡ <b className="text-[#94a3b8]">Top 3</b> candidates highlighted</span>
+              <span>⚡ <b className="text-[#94a3b8]">Top 5</b> candidates highlighted</span>
               <span className="ml-auto">
                 <Link href="/" className="text-[#3b82f6] hover:underline">← Back to Dashboard</Link>
               </span>
+            </div>
+            
+            {/* Featured Cards Section - Under the list */}
+            <div className="mt-12">
+               <TopSwingPicks picks={picks} />
             </div>
 
             {/* SEO Localized Index (60 Links) */}
