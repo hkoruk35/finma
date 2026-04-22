@@ -167,7 +167,7 @@ export default async function HomePage() {
                   { tag: "Momentum", color: "text-[#3b82f6]" },
                   { tag: "Undervalued", color: "text-[#f59e0b]" },
                   { tag: "Reversal", color: "text-[#8b5cf6]" },
-                  { tag: "Dividend", color: "text-[#10b981]" }
+                  { tag: "Passive Income", color: "text-[#10b981]" }
                 ].map((cat) => (
                   <div key={cat.tag} className="flex items-center gap-2">
                     <div className={`w-1.5 h-1.5 rounded-full ${cat.color.replace('text-', 'bg-')}`} />

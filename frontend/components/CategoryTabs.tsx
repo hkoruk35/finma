@@ -167,7 +167,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
       {/* View all link */}
       <div className="text-center mt-6">
         <Link
-          href={`/category/${active === "value" ? "undervalued" : active.replace("_", "-")}`}
+          href={`/category/${active === "value" ? "undervalued" : active === "dividend" ? "passive-income" : active.replace("_", "-")}`}
           className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#141924] border border-[#1e2a3a] rounded-lg text-sm font-semibold text-[#3b82f6] hover:bg-[#1a2030] hover:border-[#3b82f6]/30 transition-all"
         >
           View All {TABS.find((t) => t.key === active)?.label}
