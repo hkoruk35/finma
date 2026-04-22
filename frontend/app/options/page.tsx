@@ -332,11 +332,69 @@ export default async function OptionsPage() {
             </p>
           </div>
         ) : (
-          <div className="space-y-5">
-            {picks.map((pick, idx) => (
-              <PickRow key={pick.ticker} pick={pick} index={idx} />
-            ))}
-          </div>
+          <>
+            {/* ── COMPACT SUMMARY TABLE ── */}
+            <div className="glass-card mb-8 overflow-x-auto">
+              <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
+                <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">Quick View — {picks.length} Candidates</span>
+              </div>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-[10px] text-[#64748b] uppercase tracking-wider border-b border-white/5">
+                    <th className="px-4 py-2 text-left">#</th>
+                    <th className="px-4 py-2 text-left">Ticker</th>
+                    <th className="px-4 py-2 text-right">Price</th>
+                    <th className="px-4 py-2 text-right">Score</th>
+                    <th className="px-4 py-2 text-left">Mode</th>
+                    <th className="px-4 py-2 text-left">🛡️ Institutional</th>
+                    <th className="px-4 py-2 text-left">🚀 Asymmetric</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {picks.map((pick, idx) => {
+                    const modeIcon = MODE_ICONS[pick.entry_mode] ?? "📊";
+                    const modeLabel = pick.entry_mode_label || pick.entry_mode.replace(/_/g, " ");
+                    const inst = pick.institutional;
+                    const asym = pick.asymmetric;
+                    return (
+                      <tr key={pick.ticker} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 3 ? "bg-[#3b82f6]/5" : ""}`}>
+                        <td className="px-4 py-2.5 font-mono text-[#64748b] text-xs">{pick.rank}</td>
+                        <td className="px-4 py-2.5">
+                          <a href={`#detail-${pick.ticker}`} className="font-black text-white hover:text-[#3b82f6] transition-colors">
+                            {pick.ticker}
+                          </a>
+                        </td>
+                        <td className="px-4 py-2.5 text-right font-mono text-[#94a3b8]">${pick.current_price.toFixed(2)}</td>
+                        <td className="px-4 py-2.5 text-right">
+                          <span className={`text-xs font-black px-2 py-0.5 rounded-full ${
+                            pick.score >= 70 ? "bg-[#3b82f6]/20 text-[#60a5fa]" :
+                            pick.score >= 60 ? "bg-[#10b981]/20 text-[#34d399]" :
+                            "bg-white/5 text-[#94a3b8]"
+                          }`}>{pick.score.toFixed(1)}</span>
+                        </td>
+                        <td className="px-4 py-2.5 text-xs text-[#94a3b8]">{modeIcon} {modeLabel}</td>
+                        <td className="px-4 py-2.5 text-xs font-mono">
+                          {inst ? <span className="text-[#60a5fa]">${inst.strike?.toFixed(0)}C · ${inst.premium?.toFixed(2)} · TP ${inst.tp_price?.toFixed(2)}</span> : <span className="text-[#334155]">—</span>}
+                        </td>
+                        <td className="px-4 py-2.5 text-xs font-mono">
+                          {asym ? <span className="text-[#a78bfa]">${asym.strike?.toFixed(0)}C · ${asym.premium?.toFixed(2)} · TP ${asym.tp_price?.toFixed(2)}</span> : <span className="text-[#334155]">—</span>}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* ── DETAIL CARDS ── */}
+            <div className="space-y-5">
+              {picks.map((pick, idx) => (
+                <div key={pick.ticker} id={`detail-${pick.ticker}`}>
+                  <PickRow pick={pick} index={idx} />
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         {/* Legend */}
