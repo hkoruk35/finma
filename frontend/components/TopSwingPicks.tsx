@@ -134,7 +134,7 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                 className={`glass-card p-6 transition-all duration-300 group relative overflow-hidden border-2 border-transparent flex flex-col h-full ${!isLocked ? 'hover:border-[#3b82f6]/50 hover:bg-[#1a2030]' : ''}`}
               >
                 {/* Rank badge */}
-                <div className={`absolute top-0 right-0 w-14 h-14 rounded-bl-3xl flex items-center justify-center text-lg font-black text-white shadow-2xl bg-gradient-to-br from-[#3b82f6] to-[#1e3a8a] z-20`}>
+                <div className={`absolute top-0 right-0 w-10 h-10 rounded-bl-2xl flex items-center justify-center text-sm font-black text-white shadow-2xl bg-gradient-to-br from-[#3b82f6] to-[#1e3a8a] z-20`}>
                   #{idx + 1}
                 </div>
 
@@ -154,53 +154,53 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                 )}
 
                 {/* Ticker & Company */}
-                <div className="mb-4 min-h-[70px]">
-                  <div className={`text-4xl font-black text-white transition-colors tracking-tighter uppercase ${isLocked ? 'blur-[12px] opacity-40 select-none' : 'group-hover:text-[#3b82f6]'}`}>
+                <div className="mb-3 min-h-[50px]">
+                  <div className={`text-2xl font-black text-white transition-colors tracking-tighter uppercase ${isLocked ? 'blur-[12px] opacity-40 select-none' : 'group-hover:text-[#3b82f6]'}`}>
                     {isLocked ? 'XXXX' : item.ticker}
                   </div>
-                  <div className={`text-sm font-bold text-[#64748b] tracking-wider mt-1 line-clamp-2 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
+                  <div className={`text-[10px] font-bold text-[#64748b] tracking-wider mt-0.5 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
                     {isLocked 
-                      ? (isProPick ? 'PRO MEMBERS ONLY CONTENT' : 'MEMBERSHIP REQUIRED TO VIEW')
+                      ? (isProPick ? 'PRO ONLY' : 'LOGIN')
                       : item.company}
                   </div>
                 </div>
 
                 {/* Score + AI Summary */}
-                <div className={`flex flex-col gap-3 mb-5 transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
-                  <div className="flex items-end gap-3">
-                    <div className="text-5xl md:text-6xl font-mono font-black text-white leading-none">
+                <div className={`flex flex-col gap-2 mb-4 transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
+                  <div className="flex items-end gap-2">
+                    <div className="text-3xl md:text-4xl font-mono font-black text-white leading-none">
                       {item.score.toFixed(1)}
                     </div>
-                    <div className="text-[11px] md:text-[12px] text-[#3b82f6] font-black uppercase tracking-[0.2em] mb-2">
-                      SWING SCORE
+                    <div className="text-[9px] text-[#3b82f6] font-black uppercase tracking-[0.15em] mb-1">
+                      SCORE
                     </div>
                   </div>
                   {/* AI Summary Box — always English */}
-                  <div className="bg-[#1e293b]/50 rounded-xl p-4 border border-[#3b82f6]/20 flex-1">
-                    <p className="text-xs md:text-[13px] text-[#d1d5db] leading-relaxed font-medium">
+                  <div className="bg-[#1e293b]/30 rounded-lg p-3 border border-[#3b82f6]/10 flex-1">
+                    <p className="text-[11px] text-[#94a3b8] leading-relaxed font-medium">
                       {(() => {
                         const raw = item.ai_summary?.homepage_summary?.en || item.reasoning;
                         const enText = sanitizeEn(raw);
-                        return enText.length > 130 ? enText.substring(0, 127) + "..." : enText;
+                        return enText.length > 100 ? enText.substring(0, 97) + "..." : enText;
                       })()}
                     </p>
                   </div>
                 </div>
 
                 {/* Zones — full rows on mobile for readability */}
-                <div className={`mb-5 bg-black/40 rounded-xl border border-white/10 shadow-inner overflow-hidden flex-1 transition-all duration-500 ${isLocked ? 'blur-[5px] opacity-20' : ''}`}>
+                <div className={`mb-4 bg-black/40 rounded-lg border border-white/5 shadow-inner overflow-hidden flex-1 transition-all duration-500 ${isLocked ? 'blur-[5px] opacity-20' : ''}`}>
                   {[
                     { label: "BUY ZONE",    dot: "bg-[#3b82f6]", val: `$${formatPrice(item.buy_zone.low)} – $${formatPrice(item.buy_zone.high)}`,    color: "text-white" },
                     { label: "PROFIT ZONE", dot: "bg-[#10b981]", val: `$${formatPrice(item.profit_zone.low)} – $${formatPrice(item.profit_zone.high)}`, color: "text-[#10b981]" },
                     { label: "STOP LOSS",   dot: "bg-[#ef4444]", val: `$${formatPrice(item.stop_zone.low)} – $${formatPrice(item.stop_zone.high)}`,    color: "text-[#ef4444]" },
                     { label: "HOLDING",     dot: "bg-[#a855f7]", val: item.holding_period,                                                               color: "text-[#f3e8ff]" },
                   ].map((row, i, arr) => (
-                    <div key={row.label} className={`flex items-center justify-between px-4 py-3 ${i < arr.length - 1 ? 'border-b border-white/5' : ''}`}>
-                      <div className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full shrink-0 ${row.dot}`} />
-                        <span className="text-[10px] text-[#64748b] font-black uppercase tracking-wider">{row.label}</span>
+                    <div key={row.label} className={`flex items-center justify-between px-3 py-2 ${i < arr.length - 1 ? 'border-b border-white/5' : ''}`}>
+                      <div className="flex items-center gap-1.5">
+                        <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${row.dot}`} />
+                        <span className="text-[9px] text-[#475569] font-black uppercase tracking-wider">{row.label}</span>
                       </div>
-                      <span className={`text-sm md:text-[15px] font-mono font-bold ${row.color}`}>
+                      <span className={`text-[12px] font-mono font-bold ${row.color}`}>
                         {row.val}
                       </span>
                     </div>
@@ -217,13 +217,13 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
                     { label: "1Y", val: liveData?.change_pct_1y ?? item.change_1y ?? q?.change_1y }
                   ];
                   return (
-                    <div className="grid grid-cols-4 divide-x divide-[#1e2a3a] border border-[#1e2a3a] rounded-xl overflow-hidden">
+                    <div className="grid grid-cols-4 divide-x divide-[#1e2a3a] border border-[#1e2a3a] rounded-lg overflow-hidden">
                       {metrics.map((p, i) => (
-                        <div key={i} className="flex flex-col items-center py-3 px-1">
-                          <span className={`text-[15px] md:text-[17px] font-mono font-black ${p.val != null && p.val >= 0 ? "text-[#10b981]" : p.val != null ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                        <div key={i} className="flex flex-col items-center py-2 px-1">
+                          <span className={`text-[13px] font-mono font-black ${p.val != null && p.val >= 0 ? "text-[#10b981]" : p.val != null ? "text-[#ef4444]" : "text-[#64748b]"}`}>
                             {p.val != null ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
                           </span>
-                          <span className="text-[10px] text-[#64748b] font-black mt-1 uppercase">{p.label}</span>
+                          <span className="text-[8px] text-[#475569] font-black mt-0.5 uppercase">{p.label}</span>
                         </div>
                       ))}
                     </div>
@@ -233,19 +233,19 @@ export default function TopSwingPicks({ picks, allTickers = [] }: Props) {
 
               {/* Language analysis pages — outside <Link> to avoid nested anchors */}
               {!isLocked && (
-                <div className="grid grid-cols-6 gap-1.5 mt-3 w-full">
+                <div className="grid grid-cols-6 gap-1 mt-2.5 w-full">
                   {Object.entries(LANG_CONFIG).map(([l, cfg]) => {
                     const [langPart, countryPart] = cfg.locale.split('_');
                     return (
                       <Link
                         key={l}
                         href={`/${l}/${cfg.slug}/${item.ticker.toLowerCase()}`}
-                        className="flex flex-col items-center justify-center py-2.5 rounded-xl border border-[#1e2a3a] bg-[#0d1117] hover:bg-[#141924] hover:border-[#3b82f6]/40 transition-all group/lang shadow-sm"
+                        className="flex flex-col items-center justify-center py-2 rounded-lg border border-[#1e2a3a] bg-[#0d1117] hover:bg-[#141924] hover:border-[#3b82f6]/40 transition-all group/lang shadow-sm"
                       >
-                        <span className="text-[8px] font-black text-[#4b5563] group-hover/lang:text-[#3b82f6] transition-colors leading-none mb-1 uppercase tracking-tighter">
+                        <span className="text-[7px] font-black text-[#334155] group-hover/lang:text-[#3b82f6] transition-colors leading-none mb-0.5 uppercase tracking-tighter">
                           {countryPart}
                         </span>
-                        <span className="text-[14px] font-black text-[#94a3b8] group-hover/lang:text-white transition-colors leading-none tracking-tight">
+                        <span className="text-[12px] font-black text-[#64748b] group-hover/lang:text-white transition-colors leading-none tracking-tight">
                           {langPart.toUpperCase()}
                         </span>
                       </Link>

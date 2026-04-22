@@ -121,35 +121,35 @@ export default async function SwingPicksPage() {
                       key={pick.ticker}
                       className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 5 ? "bg-[#3b82f6]/5" : ""}`}
                     >
-                      <td className="px-4 py-3.5">
-                        <span className={`text-xs font-black ${idx < 5 ? "text-[#3b82f6]" : "text-[#64748b]"}`}>
+                      <td className="px-3 py-2.5">
+                        <span className={`text-[11px] font-black ${idx < 5 ? "text-[#3b82f6]" : "text-[#64748b]"}`}>
                           #{idx + 1}
                         </span>
                       </td>
-                      <td className="px-4 py-3.5">
+                      <td className="px-3 py-2.5">
                         <Link href={`/stock/${pick.ticker}`} className="group">
-                          <div className="text-white font-black text-base tracking-tight group-hover:text-[#3b82f6] transition-colors">
+                          <div className="text-white font-black text-sm tracking-tight group-hover:text-[#3b82f6] transition-colors">
                             {pick.ticker}
                           </div>
-                          <div className="text-[#64748b] text-[11px] truncate max-w-[140px]">{pick.company}</div>
+                          <div className="text-[#64748b] text-[10px] truncate max-w-[120px]">{pick.company}</div>
                         </Link>
                       </td>
-                      <td className="px-4 py-3.5">
-                        <span className="text-[#94a3b8] text-xs">{pick.sector || "—"}</span>
+                      <td className="px-3 py-2.5">
+                        <span className="text-[#94a3b8] text-[11px]">{pick.sector || "—"}</span>
                       </td>
-                      <td className="px-4 py-3.5 text-right">
+                      <td className="px-3 py-2.5 text-right">
                         <ScoreBadge score={pick.score} />
                       </td>
-                      <td className="px-4 py-3.5 text-right">
-                        <span className="text-white font-mono font-semibold">${formatPrice(pick.current_price)}</span>
+                      <td className="px-3 py-2.5 text-right">
+                        <span className="text-white font-mono font-semibold text-[13px]">${formatPrice(pick.current_price)}</span>
                       </td>
-                      <td className="px-4 py-3.5 text-right text-[#94a3b8] font-mono text-xs">
+                      <td className="px-3 py-2.5 text-right text-[#94a3b8] font-mono text-[11px]">
                         ${formatPrice(pick.buy_zone.low)}–${formatPrice(pick.buy_zone.high)}
                       </td>
-                      <td className="px-4 py-3.5 text-right text-[#10b981] font-mono font-semibold text-xs">
+                      <td className="px-3 py-2.5 text-right text-[#10b981] font-mono font-semibold text-[11px]">
                         ${formatPrice(pick.profit_zone.low)}–${formatPrice(pick.profit_zone.high)}
                       </td>
-                      <td className="px-4 py-3.5 text-right text-[#ef4444] font-mono text-xs">
+                      <td className="px-3 py-2.5 text-right text-[#ef4444] font-mono text-[11px]">
                         ${formatPrice(pick.stop_zone.low)}–${formatPrice(pick.stop_zone.high)}
                       </td>
                       {[
@@ -159,12 +159,12 @@ export default async function SwingPicksPage() {
                         { field: "change_1y", label: "1Y" },
                         { field: "change_5y", label: "5Y" },
                       ].map((perf) => (
-                        <td key={perf.field} className="px-4 py-3.5 text-right">
+                        <td key={perf.field} className="px-3 py-2.5 text-right">
                           {pick[perf.field] !== undefined ? (
-                            <span className={`font-mono text-xs font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
+                            <span className={`font-mono text-[11px] font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
                               {pick[perf.field] >= 0 ? "+" : ""}{pick[perf.field].toFixed(1)}%
                             </span>
-                          ) : <span className="text-[#64748b] text-xs">—</span>}
+                          ) : <span className="text-[#64748b] text-[11px]"> —</span>}
                         </td>
                       ))}
                     </tr>
