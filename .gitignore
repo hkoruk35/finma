@@ -46,3 +46,5 @@ backend/test_*.py
 
 # Claude local
 .claude/
+
+.vercel

@@ -2,12 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const MODELS = [
-  "gemini-2.0-flash",
-  "gemini-2.0-flash-lite",
-  "gemini-1.5-flash",
-];
-
+// Gemini 1.5 Flash has the highest free-tier rate limits
+const MODEL = "gemini-1.5-flash";
 const BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
 const SYSTEM_PROMPT = `You are BOGA AI, an advanced stock analysis assistant powering BogaStock.com — a platform built for retail investors and traders.
@@ -27,25 +23,23 @@ Slash command behaviors:
 
 Always respond in the same language the user writes in (Turkish or English).`;
 
-const BUSY =
-  "Our systems are experiencing high demand right now. Please try again in a moment.";
-
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.error("[ask] GEMINI_API_KEY not set");
-    return NextResponse.json({ text: BUSY });
+    return NextResponse.json({ text: "Service temporarily unavailable. Please try again later." });
   }
 
   let body: { message: string; history?: { role: string; text: string }[] };
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ text: BUSY });
+    return NextResponse.json({ text: "Invalid request." });
   }
 
   const { message, history = [] } = body;
-  if (!message?.trim()) return NextResponse.json({ text: BUSY });
+  if (!message?.trim()) {
+    return NextResponse.json({ text: "Please enter a message." });
+  }
 
   const contents = [
     ...history.map((h) => ({
@@ -55,42 +49,47 @@ export async function POST(req: NextRequest) {
     { role: "user", parts: [{ text: message }] },
   ];
 
-  const payload = {
-    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-    contents,
-    generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
-  };
+  try {
+    const res = await fetch(`${BASE}/${MODEL}:generateContent?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents,
+        generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+      }),
+      signal: AbortSignal.timeout(30000),
+    });
 
-  for (const model of MODELS) {
-    try {
-      const url = `${BASE}/${model}:generateContent?key=${apiKey}`;
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(30000),
+    if (res.status === 429) {
+      return NextResponse.json({
+        text: "Our systems are experiencing high demand right now. Please try again in a moment.",
       });
-
-      const raw = await res.text();
-
-      if (!res.ok) {
-        console.error(`[ask] ${model} → HTTP ${res.status}: ${raw.slice(0, 300)}`);
-        // Try next model
-        continue;
-      }
-
-      const data = JSON.parse(raw);
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-      if (text) return NextResponse.json({ text });
-
-      // Blocked / empty
-      console.warn(`[ask] ${model} → empty candidate`);
-      continue;
-    } catch (e: any) {
-      console.error(`[ask] ${model} → fetch error: ${e?.message}`);
-      continue;
     }
-  }
 
-  return NextResponse.json({ text: BUSY });
+    if (!res.ok) {
+      const errBody = await res.text();
+      console.error(`[ask] HTTP ${res.status}:`, errBody.slice(0, 200));
+      return NextResponse.json({
+        text: "Our systems are experiencing high demand right now. Please try again in a moment.",
+      });
+    }
+
+    const data = await res.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+    if (!text) {
+      console.warn("[ask] Empty candidate:", JSON.stringify(data).slice(0, 200));
+      return NextResponse.json({
+        text: "Our systems are experiencing high demand right now. Please try again in a moment.",
+      });
+    }
+
+    return NextResponse.json({ text });
+  } catch (e: any) {
+    console.error("[ask] fetch error:", e?.message);
+    return NextResponse.json({
+      text: "Our systems are experiencing high demand right now. Please try again in a moment.",
+    });
+  }
 }
