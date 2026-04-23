@@ -316,14 +316,9 @@ export default function AIPage() {
                   )}
                 </div>
 
-                {/* Source Badge + Follow-up */}
+                {/* Follow-up only (no source badge) */}
                 {m.role === "assistant" && (
                   <div className="mt-2 ml-10 space-y-2">
-                    {m.source && (
-                      <div className="text-[10px] text-[#64748b] italic">
-                        Source: {m.source === "claude" ? "BOGA AI Analysis (Claude)" : "General Knowledge (Gemini)"}
-                      </div>
-                    )}
                     {m.followUp && m.followUp.length > 0 && (
                       <div className="space-y-1">
                         <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest">Related:</div>
