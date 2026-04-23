@@ -17,7 +17,7 @@ export default function MiniChart({ symbol, height = "180" }: Props) {
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      symbols: [[symbol, symbol + "|1M"]],
+      symbols: [[symbol, symbol + "|1D"]],
       chartOnly: false,
       width: "100%",
       height: height,
@@ -32,10 +32,10 @@ export default function MiniChart({ symbol, height = "180" }: Props) {
       scalePosition: "no",
       scaleMode: "Normal",
       fontFamily: "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
-      fontSize: "10",
+      fontSize: "12",
       noTimeScale: true,
       valuesTracking: "1",
-      changeMode: "price-and-percent",
+      changeMode: "percent",
       chartType: "area",
       maLineColor: "#2962FF",
       maLineWidth: 1,

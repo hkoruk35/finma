@@ -228,22 +228,15 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                 {/* Detailed mode: Performance strip */}
                 {!minimal && (() => {
                   const q = quoteData[item.ticker];
-                  const metrics = [
-                    { label: "1D", val: liveData?.change_pct ?? item.change_1d ?? q?.change_1d },
-                    { label: "1W", val: liveData?.change_pct_1w ?? item.change_1w ?? q?.change_1w },
-                    { label: "1M", val: liveData?.change_pct_1m ?? item.change_1m ?? q?.change_1m },
-                    { label: "1Y", val: liveData?.change_pct_1y ?? item.change_1y ?? q?.change_1y }
-                  ];
+                  const val = liveData?.change_pct ?? item.change_1d ?? q?.change_1d;
                   return (
-                    <div className="mt-4 grid grid-cols-4 divide-x divide-[#1e2a3a] border border-[#1e2a3a] rounded-lg overflow-hidden">
-                      {metrics.map((p, i) => (
-                        <div key={i} className="flex flex-col items-center py-2 px-1">
-                          <span className={`text-[13px] font-mono font-black ${p.val != null && p.val >= 0 ? "text-[#10b981]" : p.val != null ? "text-[#ef4444]" : "text-[#64748b]"}`}>
-                            {p.val != null ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
-                          </span>
-                          <span className="text-[8px] text-[#475569] font-black mt-0.5 uppercase">{p.label}</span>
-                        </div>
-                      ))}
+                    <div className="mt-4 flex items-center justify-center py-3 border border-[#1e2a3a] rounded-lg bg-black/20">
+                      <div className="flex flex-col items-center">
+                        <span className={`text-xl font-mono font-black ${val != null && val >= 0 ? "text-[#10b981]" : val != null ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                          {val != null ? `${val >= 0 ? '+' : ''}${val.toFixed(2)}%` : "—"}
+                        </span>
+                        <span className="text-[10px] text-[#475569] font-black mt-0.5 uppercase tracking-widest">Today's Change</span>
+                      </div>
                     </div>
                   );
                 })()}
