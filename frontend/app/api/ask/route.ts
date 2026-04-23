@@ -152,7 +152,7 @@ async function handleClaude(
 
   try {
     const response = await anthropic.messages.create({
-      model: "claude-3-5-haiku-20241022",
+      model: "claude-3-haiku-20240307",
       max_tokens: 1024,
       system: systemPrompt,
       messages: messages,
@@ -259,7 +259,7 @@ async function generateFollowUp(
 ): Promise<string[]> {
   try {
     const suggestion = await anthropic.messages.create({
-      model: "claude-3-5-haiku-20241022",
+      model: "claude-3-haiku-20240307",
       max_tokens: 200,
       system:
         "Generate 3 concise, related follow-up questions based on the original question and response. Return as JSON array: [\"Q1\", \"Q2\", \"Q3\"]. Keep questions under 15 words.",
