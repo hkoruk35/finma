@@ -1,468 +1,325 @@
 "use client";
-
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSmartCart } from "@/components/SmartCartContext";
 import { CartPosition, SizeUnit, computePnl } from "@/lib/smartCart";
 
-// ─── helpers ─────────────────────────────────────────────────────────────────
+const f = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const pColor = (v: number) => v > 0 ? "text-emerald-400" : v < 0 ? "text-red-400" : "text-slate-400";
+const sgn = (v: number) => v > 0 ? "+" : "";
 
-function fmt(n: number, dec = 2) {
-  return n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-}
-function pctColor(v: number) {
-  return v > 0 ? "text-[#10b981]" : v < 0 ? "text-[#ef4444]" : "text-[#00d2ff]";
-}
-function sign(v: number) {
-  return v > 0 ? "+" : "";
-}
-
-// ─── Mini Stat Card ───────────────────────────────────────────────────────────
-function StatCard({ label, value, sub, color = "text-white" }: { label: string; value: string; sub?: string; color?: string }) {
+function StatCard({ label, val, sub, color = "text-white" }: { label: string; val: string; sub?: string; color?: string }) {
   return (
-    <div className="bg-[#141924] border border-[#1e2a3a] rounded-xl p-4 flex flex-col gap-1">
-      <span className="text-[10px] font-black text-[#00d2ff] uppercase tracking-widest">{label}</span>
-      <span className={`text-xl font-black font-mono ${color}`}>{value}</span>
-      {sub && <span className="text-[10px] text-[#00d2ff]">{sub}</span>}
+    <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-3">
+      <div className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-widest mb-1">{label}</div>
+      <div className={`text-lg font-black font-mono leading-none ${color}`}>{val}</div>
+      {sub && <div className="text-[10px] text-slate-400 mt-0.5">{sub}</div>}
     </div>
   );
 }
 
-// ─── Sector Donut (pure CSS) ─────────────────────────────────────────────────
-function SectorBar({ distribution }: { distribution: Record<string, number> }) {
-  const total = Object.values(distribution).reduce((a, b) => a + b, 0);
-  if (total === 0) return <div className="text-[#00d2ff] text-xs">No open positions</div>;
-
-  const colors = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ef4444", "#06b6d4", "#ec4899"];
-  const entries = Object.entries(distribution).sort(([, a], [, b]) => b - a);
-
-  return (
-    <div className="space-y-2">
-      {entries.map(([sector, amount], i) => {
-        const pct = (amount / total) * 100;
-        return (
-          <div key={sector}>
-            <div className="flex justify-between text-[10px] mb-1">
-              <span className="text-white font-bold truncate">{sector}</span>
-              <span className="text-[#00d2ff] font-mono">${fmt(amount, 0)} ({pct.toFixed(0)}%)</span>
-            </div>
-            <div className="h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden">
-              <div
-                className="h-full rounded-full transition-all duration-700"
-                style={{ width: `${pct}%`, background: colors[i % colors.length] }}
-              />
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-// ─── Position Row ─────────────────────────────────────────────────────────────
-function PositionRow({ pos }: { pos: CartPosition }) {
-  const { openTrade, closeTrade, removeFromCart, updateSize } = useSmartCart();
-  const [editMode, setEditMode] = useState(false);
-  const [closePriceInput, setClosePriceInput] = useState("");
-  const [entryPriceInput, setEntryPriceInput] = useState("");
-  const [sizeVal, setSizeVal] = useState(pos.sizeValue);
-  const [sizeUnit, setSizeUnit] = useState<SizeUnit>(pos.sizeUnit);
-
+function PositionCard({ pos, simple }: { pos: CartPosition; simple: boolean }) {
+  const { openTrade, closeTrade, removeFromCart } = useSmartCart();
+  const [closeInput, setCloseInput] = useState("");
+  const [entryInput, setEntryInput] = useState("");
   const pnl = computePnl(pos, pos.currentPrice);
   const isClosed = pos.status === "closed";
   const isOpen = pos.status === "open";
-  const isPending = pos.status === "pending";
-
   const pnlUsd = isClosed ? (pos.realizedPnlUsd ?? 0) : pnl.pnlUsd;
   const pnlPct = isClosed ? (pos.realizedPnlPct ?? 0) : pnl.pnlPct;
 
-  const statusBadge = {
-    open: "bg-[#10b981]/20 text-[#10b981] border-[#10b981]/30",
-    closed: "bg-[#475569]/20 text-[#94a3b8] border-[#475569]/30",
-    pending: "bg-[#f59e0b]/20 text-[#f59e0b] border-[#f59e0b]/30",
-  }[pos.status];
+  const badge = { open: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30", closed: "bg-slate-500/20 text-slate-400 border-slate-500/30", pending: "bg-amber-500/20 text-amber-400 border-amber-500/30" }[pos.status];
 
-  return (
-    <div className={`border border-[#1e2a3a] rounded-xl p-4 ${isClosed ? "opacity-60" : "bg-[#0d1117]/50"} transition-all`}>
-      <div className="flex items-start justify-between gap-3 flex-wrap">
-        {/* Left: ticker info */}
-        <div className="flex items-start gap-3 min-w-0">
-          <div>
-            <div className="flex items-center gap-2 mb-0.5">
-              <Link href={`/stock/${pos.ticker}`} className="text-white font-black text-lg tracking-tighter hover:text-[#3b82f6] transition-colors">
-                {pos.ticker}
-              </Link>
-              <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border ${statusBadge}`}>
-                {pos.status}
-              </span>
-            </div>
-            <div className="text-[#00d2ff] text-[10px] font-bold truncate max-w-[160px]">{pos.company}</div>
-            <div className="text-[#475569] text-[10px] mt-0.5">{pos.sector} · Added {pos.addedDate}</div>
-          </div>
-        </div>
-
-        {/* Right: PnL */}
-        <div className="text-right">
-          <div className={`text-xl font-black font-mono ${pctColor(pnlUsd)}`}>
-            {sign(pnlUsd)}${fmt(Math.abs(pnlUsd))}
-          </div>
-          <div className={`text-sm font-mono font-bold ${pctColor(pnlPct)}`}>
-            {sign(pnlPct)}{fmt(Math.abs(pnlPct))}%
-          </div>
-          {isOpen && pos.currentPrice && (
-            <div className="text-[10px] text-[#00d2ff] mt-0.5">@ ${fmt(pos.currentPrice)}</div>
-          )}
-        </div>
-      </div>
-
-      {/* Price levels */}
-      <div className="mt-3 grid grid-cols-3 gap-2 text-center bg-[#141924] rounded-lg p-2">
-        <div>
-          <div className="text-[8px] text-[#3b82f6] font-black uppercase">Entry</div>
-          <div className="text-white text-[11px] font-mono font-bold">${fmt(pos.entryPrice ?? pos.buyZoneLow)}</div>
-        </div>
-        <div>
-          <div className="text-[8px] text-[#10b981] font-black uppercase">Target</div>
-          <div className="text-[#10b981] text-[11px] font-mono font-bold">${fmt(pos.profitZoneHigh)}</div>
-        </div>
-        <div>
-          <div className="text-[8px] text-[#ef4444] font-black uppercase">Stop</div>
-          <div className="text-[#ef4444] text-[11px] font-mono font-bold">${fmt(pos.stopZoneLow)}</div>
-        </div>
-      </div>
-
-      {/* Size & actions */}
-      <div className="mt-3 flex items-center justify-between gap-2 flex-wrap">
-        <div className="text-[10px] text-[#00d2ff]">
-          Size: <span className="text-white font-mono font-bold">
-            {pos.sizeUnit === "usd" ? `$${fmt(pos.sizeValue, 0)}` : `${pos.sizeValue} shares`}
-          </span>
-          {pos.sizeUnit === "usd" && pos.entryPrice && (
-            <span className="text-[#475569] ml-1">≈{fmt(pos.sizeValue / pos.entryPrice, 1)} sh</span>
-          )}
-        </div>
-
-        <div className="flex gap-1.5">
-          {isPending && (
-            <button
-              onClick={() => {
-                const price = parseFloat(entryPriceInput) || pos.buyZoneLow;
-                openTrade(pos.id, price);
-              }}
-              className="px-2.5 py-1 text-[10px] font-black uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded-lg hover:bg-[#3b82f6]/20 transition-all"
-            >
-              ▶ Open Trade
-            </button>
-          )}
-          {isOpen && (
-            <div className="flex items-center gap-1.5">
-              <input
-                type="number"
-                placeholder="Close $"
-                value={closePriceInput}
-                onChange={e => setClosePriceInput(e.target.value)}
-                className="w-20 bg-[#141924] border border-[#1e2a3a] rounded-lg px-2 py-1 text-white text-[10px] font-mono focus:outline-none focus:border-[#3b82f6]"
-              />
-              <button
-                onClick={() => {
-                  const price = parseFloat(closePriceInput) || (pos.currentPrice ?? pos.signalPrice);
-                  closeTrade(pos.id, price);
-                }}
-                className="px-2.5 py-1 text-[10px] font-black uppercase bg-[#ef4444]/10 text-[#ef4444] border border-[#ef4444]/30 rounded-lg hover:bg-[#ef4444]/20 transition-all"
-              >
-                ■ Close
-              </button>
-            </div>
-          )}
-          {!isClosed && (
-            <button
-              onClick={() => removeFromCart(pos.id)}
-              className="px-2.5 py-1 text-[10px] font-black uppercase bg-transparent text-[#475569] border border-[#1e2a3a] rounded-lg hover:text-[#ef4444] hover:border-[#ef4444]/30 transition-all"
-            >
-              ✕
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Pending: entry price input */}
-      {isPending && (
-        <div className="mt-2 flex items-center gap-2">
-          <input
-            type="number"
-            placeholder={`Entry price (default: $${fmt(pos.buyZoneLow)})`}
-            value={entryPriceInput}
-            onChange={e => setEntryPriceInput(e.target.value)}
-            className="flex-1 bg-[#141924] border border-[#1e2a3a] rounded-lg px-3 py-1.5 text-white text-[10px] font-mono focus:outline-none focus:border-[#3b82f6]"
-          />
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Main Dashboard ───────────────────────────────────────────────────────────
-export default function SmartCartDashboard() {
-  const { activeCart, stats, store, openBasket, closeBasket, refreshPrices, loading } = useSmartCart();
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [basketName, setBasketName] = useState("My Smart Cart");
-  const [budget, setBudget] = useState(10000);
-  const [filter, setFilter] = useState<"all" | "open" | "closed" | "pending">("all");
-  const refreshed = useRef(false);
-
-  useEffect(() => {
-    if (!refreshed.current && activeCart) {
-      refreshed.current = true;
-      refreshPrices();
-    }
-  }, [activeCart, refreshPrices]);
-
-  const positions = activeCart?.positions ?? [];
-  const filtered = filter === "all" ? positions : positions.filter(p => p.status === filter);
-
-  // ── No active cart ──────────────────────────────────────────────────────────
-  if (!activeCart) {
+  if (simple) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-6 py-20">
-        {/* breadcrumb */}
-        <nav className="absolute top-[6rem] left-4 flex items-center gap-2 text-sm text-[#00d2ff]">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-white">Smart Cart</span>
-        </nav>
-
-        {/* Hero icon */}
-        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#3b82f6]/20 to-[#6366f1]/20 border border-[#3b82f6]/20 flex items-center justify-center text-4xl shadow-2xl shadow-blue-500/10">
-          🛒
+      <div className={`flex items-center gap-3 px-4 py-2.5 border-b border-[#1e2a3a] hover:bg-white/[0.02] transition-colors ${isClosed ? "opacity-50" : ""}`}>
+        <div className="w-16 shrink-0">
+          <div className="text-white font-black text-sm">{pos.ticker}</div>
+          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${badge}`}>{pos.status}</span>
         </div>
-        <h1 className="text-3xl font-black text-white tracking-tighter text-center">Smart Cart</h1>
-        <p className="text-[#00d2ff] text-center max-w-md text-sm leading-relaxed">
-          Paper-trade your daily swing picks. Track PnL, sector allocation, and performance statistics — no real money involved.
-        </p>
-
-        <button
-          onClick={() => setShowCreateModal(true)}
-          className="px-8 py-4 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-2xl uppercase tracking-widest hover:from-[#2563eb] hover:to-[#5b21b6] transition-all shadow-xl shadow-blue-500/20 active:scale-[0.98]"
-        >
-          🚀 Create New Basket
-        </button>
-
-        {/* Archived carts */}
-        {store.archivedCarts.length > 0 && (
-          <div className="w-full max-w-xl mt-4">
-            <h3 className="text-xs font-black text-[#00d2ff] uppercase tracking-widest mb-3">Past Baskets</h3>
-            {store.archivedCarts.map(c => (
-              <div key={c.id} className="border border-[#1e2a3a] rounded-xl p-4 mb-2 bg-[#0d1117]/50 flex justify-between items-center">
-                <div>
-                  <div className="text-white font-bold text-sm">{c.name}</div>
-                  <div className="text-[#00d2ff] text-[10px]">{c.positions.length} positions · Created {c.createdAt.split("T")[0]}</div>
-                </div>
-                <span className="text-[#475569] text-[10px] font-black uppercase px-2 py-1 border border-[#1e2a3a] rounded-lg">Archived</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Create modal */}
-        {showCreateModal && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => setShowCreateModal(false)}>
-            <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl" onClick={e => e.stopPropagation()}>
-              <h3 className="text-white font-black text-lg mb-4">New Basket</h3>
-              <label className="text-[10px] text-[#00d2ff] font-black uppercase tracking-wider block mb-1.5">Basket Name</label>
-              <input type="text" value={basketName} onChange={e => setBasketName(e.target.value)}
-                className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-3 text-white text-sm mb-4 focus:outline-none focus:border-[#3b82f6]" />
-              <label className="text-[10px] text-[#00d2ff] font-black uppercase tracking-wider block mb-1.5">Total Budget (USD)</label>
-              <input type="number" value={budget} min={100} step={500} onChange={e => setBudget(parseFloat(e.target.value) || 0)}
-                className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-3 text-white font-mono text-sm mb-5 focus:outline-none focus:border-[#3b82f6]" />
-              <button
-                onClick={() => { openBasket(basketName, budget); setShowCreateModal(false); }}
-                className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90 transition-all"
-              >
-                Create Basket
-              </button>
-            </div>
-          </div>
-        )}
+        <div className="flex-1 grid grid-cols-3 gap-2 text-center text-[11px]">
+          <div><div className="text-slate-500 text-[9px] uppercase">Entry</div><div className="text-white font-mono font-bold">${f(pos.entryPrice ?? pos.buyZoneLow)}</div></div>
+          <div><div className="text-emerald-500 text-[9px] uppercase">Target</div><div className="text-emerald-400 font-mono font-bold">${f(pos.profitZoneHigh)}</div></div>
+          <div><div className="text-red-500 text-[9px] uppercase">Stop</div><div className="text-red-400 font-mono font-bold">${f(pos.stopZoneLow)}</div></div>
+        </div>
+        <div className="text-right shrink-0 w-24">
+          <div className={`text-sm font-black font-mono ${pColor(pnlUsd)}`}>{sgn(pnlUsd)}${f(Math.abs(pnlUsd))}</div>
+          <div className={`text-[10px] font-mono ${pColor(pnlPct)}`}>{sgn(pnlPct)}{f(Math.abs(pnlPct))}%</div>
+        </div>
+        <div className="flex gap-1 shrink-0">
+          {pos.status === "pending" && <button onClick={() => openTrade(pos.id, parseFloat(entryInput) || pos.buyZoneLow)} className="px-2 py-1 text-[9px] font-black uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20">Open</button>}
+          {isOpen && <button onClick={() => closeTrade(pos.id, parseFloat(closeInput) || (pos.currentPrice ?? pos.signalPrice))} className="px-2 py-1 text-[9px] font-black uppercase bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500/20">Close</button>}
+          {!isClosed && <button onClick={() => removeFromCart(pos.id)} className="px-2 py-1 text-[9px] text-slate-500 border border-[#1e2a3a] rounded hover:text-red-400">✕</button>}
+        </div>
       </div>
     );
   }
 
-  // ── Active cart ─────────────────────────────────────────────────────────────
+  return (
+    <div className={`bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4 ${isClosed ? "opacity-55" : ""}`}>
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Link href={`/stock/${pos.ticker}`} className="text-white font-black text-base hover:text-[#3b82f6] transition-colors tracking-tight">{pos.ticker}</Link>
+          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${badge}`}>{pos.status}</span>
+        </div>
+        <div className="text-right">
+          <div className={`text-base font-black font-mono ${pColor(pnlUsd)}`}>{sgn(pnlUsd)}${f(Math.abs(pnlUsd))}</div>
+          <div className={`text-[11px] font-mono font-bold ${pColor(pnlPct)}`}>{sgn(pnlPct)}{f(Math.abs(pnlPct))}%</div>
+        </div>
+      </div>
+      <div className="text-[10px] text-slate-500 mb-3">{pos.company} · {pos.sector} · {pos.addedDate}</div>
+
+      <div className="grid grid-cols-3 gap-2 mb-3">
+        {[
+          { label: "ENTRY", val: `$${f(pos.entryPrice ?? pos.buyZoneLow)}`, color: "text-white", bg: "bg-[#141924]" },
+          { label: "TARGET", val: `$${f(pos.profitZoneHigh)}`, color: "text-emerald-400", bg: "bg-emerald-500/5 border border-emerald-500/10" },
+          { label: "STOP", val: `$${f(pos.stopZoneLow)}`, color: "text-red-400", bg: "bg-red-500/5 border border-red-500/10" },
+        ].map(({ label, val, color, bg }) => (
+          <div key={label} className={`${bg} rounded-lg p-2 text-center`}>
+            <div className="text-[9px] font-black text-slate-500 uppercase mb-0.5">{label}</div>
+            <div className={`text-[12px] font-mono font-black ${color}`}>{val}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between text-[10px]">
+        <span className="text-slate-500">Size: <span className="text-white font-mono">{pos.sizeUnit === "usd" ? `$${f(pos.sizeValue, 0)}` : `${pos.sizeValue} sh`}</span>
+          {isOpen && pos.currentPrice && <span className="text-slate-500 ml-1">@ ${f(pos.currentPrice)}</span>}
+        </span>
+        <div className="flex items-center gap-1.5">
+          {pos.status === "pending" && (
+            <>
+              <input type="number" placeholder={`$${f(pos.buyZoneLow)}`} value={entryInput} onChange={e => setEntryInput(e.target.value)}
+                className="w-20 bg-[#141924] border border-[#1e2a3a] rounded px-2 py-1 text-white text-[10px] font-mono focus:outline-none focus:border-[#3b82f6]" />
+              <button onClick={() => openTrade(pos.id, parseFloat(entryInput) || pos.buyZoneLow)}
+                className="px-2.5 py-1 text-[10px] font-black uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20">▶ Open</button>
+            </>
+          )}
+          {isOpen && (
+            <>
+              <input type="number" placeholder="Close $" value={closeInput} onChange={e => setCloseInput(e.target.value)}
+                className="w-20 bg-[#141924] border border-[#1e2a3a] rounded px-2 py-1 text-white text-[10px] font-mono focus:outline-none focus:border-[#3b82f6]" />
+              <button onClick={() => closeTrade(pos.id, parseFloat(closeInput) || (pos.currentPrice ?? pos.signalPrice))}
+                className="px-2.5 py-1 text-[10px] font-black uppercase bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500/20">■ Close</button>
+            </>
+          )}
+          {!isClosed && (
+            <button onClick={() => removeFromCart(pos.id)} className="px-2 py-1 text-[10px] text-slate-500 border border-[#1e2a3a] rounded hover:text-red-400">✕</button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function SmartCartDashboard() {
+  const { activeCart, stats, store, openBasket, closeBasket, refreshPrices, loading } = useSmartCart();
+  const [showCreate, setShowCreate] = useState(false);
+  const [name, setName] = useState("My Smart Cart");
+  const [budget, setBudget] = useState(10000);
+  const [filter, setFilter] = useState<"all" | "open" | "pending" | "closed">("all");
+  const [view, setView] = useState<"card" | "list">("card");
+  const refreshed = useRef(false);
+
+  useEffect(() => {
+    if (!refreshed.current && activeCart) { refreshed.current = true; refreshPrices(); }
+  }, [activeCart, refreshPrices]);
+
+  if (!activeCart) return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-5 py-16">
+      <nav className="self-start flex items-center gap-2 text-sm text-[#3b82f6] mb-4">
+        <Link href="/" className="hover:text-white">Home</Link><span className="text-slate-600">/</span><span className="text-white">Smart Cart</span>
+      </nav>
+      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#3b82f6]/20 to-[#6366f1]/20 border border-[#3b82f6]/20 flex items-center justify-center text-4xl">🛒</div>
+      <h1 className="text-3xl font-black text-white">Smart Cart</h1>
+      <p className="text-slate-400 text-center max-w-sm text-sm">Paper-trade your swing picks. Track PnL, sector allocation and stats — no real money.</p>
+      <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-blue-500/20">
+        🚀 Create Basket
+      </button>
+      {store.archivedCarts.length > 0 && (
+        <div className="w-full max-w-lg mt-2">
+          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-2">Past Baskets</p>
+          {store.archivedCarts.map(c => (
+            <div key={c.id} className="border border-[#1e2a3a] rounded-xl p-3 mb-2 flex justify-between items-center">
+              <div><div className="text-white font-bold text-sm">{c.name}</div><div className="text-slate-500 text-[10px]">{c.positions.length} positions</div></div>
+              <span className="text-slate-600 text-[9px] font-black uppercase border border-[#1e2a3a] px-2 py-1 rounded">Archived</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {showCreate && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => setShowCreate(false)}>
+          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <h3 className="text-white font-black text-lg mb-4">New Basket</h3>
+            <label className="text-[10px] text-[#3b82f6] font-black uppercase tracking-wider block mb-1">Name</label>
+            <input value={name} onChange={e => setName(e.target.value)} className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-2.5 text-white text-sm mb-3 focus:outline-none focus:border-[#3b82f6]" />
+            <label className="text-[10px] text-[#3b82f6] font-black uppercase tracking-wider block mb-1">Budget (USD)</label>
+            <input type="number" value={budget} onChange={e => setBudget(+e.target.value)} className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-2.5 text-white font-mono text-sm mb-4 focus:outline-none focus:border-[#3b82f6]" />
+            <button onClick={() => { openBasket(name, budget); setShowCreate(false); }} className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90">Create</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const positions = activeCart.positions;
+  const filtered = filter === "all" ? positions : positions.filter(p => p.status === filter);
   const totalPnl = (stats?.totalUnrealizedPnl ?? 0) + (stats?.totalRealizedPnl ?? 0);
   const budgetUsed = stats?.totalInvested ?? 0;
-  const budgetPct = activeCart.totalBudgetUsd > 0 ? (budgetUsed / activeCart.totalBudgetUsd) * 100 : 0;
+  const budgetPct = Math.min((budgetUsed / activeCart.totalBudgetUsd) * 100, 100);
+  const sectorColors = ["#3b82f6","#10b981","#f59e0b","#8b5cf6","#ef4444","#06b6d4","#ec4899"];
 
   return (
     <div>
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
-        <Link href="/" className="hover:text-white transition-colors">Home</Link>
-        <span>/</span>
-        <span className="text-white">Smart Cart</span>
+      <nav className="flex items-center gap-2 text-sm text-[#3b82f6] mb-5">
+        <Link href="/" className="hover:text-white">Home</Link><span className="text-slate-600">/</span><span className="text-white">Smart Cart</span>
       </nav>
 
       {/* Header */}
-      <div className="flex items-start justify-between flex-wrap gap-4 mb-8">
+      <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-black text-white tracking-tighter flex items-center gap-3">
-            🛒 {activeCart.name}
-          </h1>
-          <p className="text-[#00d2ff] text-sm mt-1">
-            Paper Trade Basket · Budget: <span className="text-white font-mono font-bold">${fmt(activeCart.totalBudgetUsd, 0)}</span>
-            <span className="text-[#475569] ml-2">· Updated {activeCart.updatedAt.split("T")[0]}</span>
-          </p>
+          <h1 className="text-2xl font-black text-white flex items-center gap-2">🛒 {activeCart.name}</h1>
+          <p className="text-slate-500 text-xs mt-0.5">Paper Trade · Budget: <span className="text-white font-mono">${f(activeCart.totalBudgetUsd, 0)}</span> · {activeCart.updatedAt.split("T")[0]}</p>
         </div>
-        <div className="flex gap-2">
-          <button
-            onClick={refreshPrices}
-            disabled={loading}
-            className="flex items-center gap-1.5 px-4 py-2 bg-[#141924] border border-[#1e2a3a] text-[#00d2ff] text-xs font-black uppercase tracking-wider rounded-xl hover:border-[#3b82f6]/40 transition-all disabled:opacity-50"
-          >
-            {loading ? "⟳ Updating..." : "⟳ Refresh Prices"}
+        <div className="flex gap-2 flex-wrap">
+          <button onClick={refreshPrices} disabled={loading} className="px-3 py-1.5 bg-[#141924] border border-[#1e2a3a] text-slate-300 text-xs font-bold rounded-lg hover:border-[#3b82f6]/40 disabled:opacity-50">
+            {loading ? "⟳..." : "⟳ Refresh"}
           </button>
-          <Link href="/swing-picks" className="flex items-center gap-1.5 px-4 py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-xs font-black uppercase tracking-wider rounded-xl hover:bg-[#3b82f6]/20 transition-all">
-            + Add Picks
-          </Link>
-          <button
-            onClick={() => { if (confirm("Archive this basket and start fresh?")) closeBasket(); }}
-            className="px-4 py-2 bg-transparent text-[#475569] border border-[#1e2a3a] text-xs font-black uppercase tracking-wider rounded-xl hover:text-[#ef4444] hover:border-[#ef4444]/30 transition-all"
-          >
-            Archive
-          </button>
+          <Link href="/swing-picks" className="px-3 py-1.5 bg-[#3b82f6]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-xs font-bold rounded-lg hover:bg-[#3b82f6]/20">+ Add Picks</Link>
+          <button onClick={() => { if (confirm("Archive this basket?")) closeBasket(); }} className="px-3 py-1.5 text-slate-500 border border-[#1e2a3a] text-xs font-bold rounded-lg hover:text-red-400 hover:border-red-500/30">Archive</button>
         </div>
       </div>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-        <StatCard
-          label="Total PnL"
-          value={`${sign(totalPnl)}$${fmt(Math.abs(totalPnl))}`}
-          sub={`Unrealized + Realized`}
-          color={pctColor(totalPnl)}
-        />
-        <StatCard
-          label="Unrealized PnL"
-          value={`${sign(stats?.totalUnrealizedPnl ?? 0)}$${fmt(Math.abs(stats?.totalUnrealizedPnl ?? 0))}`}
-          sub={`${sign(stats?.totalUnrealizedPnlPct ?? 0)}${fmt(Math.abs(stats?.totalUnrealizedPnlPct ?? 0))}%`}
-          color={pctColor(stats?.totalUnrealizedPnl ?? 0)}
-        />
-        <StatCard
-          label="Realized PnL"
-          value={`${sign(stats?.totalRealizedPnl ?? 0)}$${fmt(Math.abs(stats?.totalRealizedPnl ?? 0))}`}
-          sub={`${stats?.closedCount ?? 0} closed trades`}
-          color={pctColor(stats?.totalRealizedPnl ?? 0)}
-        />
-        <StatCard
-          label="Win Rate"
-          value={`${fmt(stats?.winRate ?? 0, 1)}%`}
-          sub={`${stats?.closedCount ?? 0} closed · ${fmt(stats?.avgHoldingDays ?? 0, 0)}d avg hold`}
-          color={stats && stats.winRate >= 50 ? "text-[#10b981]" : "text-[#ef4444]"}
-        />
+      {/* Stats row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+        <StatCard label="Total PnL" val={`${sgn(totalPnl)}$${f(Math.abs(totalPnl))}`} sub="Unrealized + Realized" color={pColor(totalPnl)} />
+        <StatCard label="Unrealized" val={`${sgn(stats?.totalUnrealizedPnl??0)}$${f(Math.abs(stats?.totalUnrealizedPnl??0))}`} sub={`${sgn(stats?.totalUnrealizedPnlPct??0)}${f(Math.abs(stats?.totalUnrealizedPnlPct??0))}%`} color={pColor(stats?.totalUnrealizedPnl??0)} />
+        <StatCard label="Realized" val={`${sgn(stats?.totalRealizedPnl??0)}$${f(Math.abs(stats?.totalRealizedPnl??0))}`} sub={`${stats?.closedCount??0} closed`} color={pColor(stats?.totalRealizedPnl??0)} />
+        <StatCard label="Win Rate" val={`${f(stats?.winRate??0,1)}%`} sub={`${f(stats?.avgHoldingDays??0,0)}d avg hold`} color={(stats?.winRate??0)>=50?"text-emerald-400":"text-red-400"} />
       </div>
 
-      {/* Budget usage bar */}
-      <div className="bg-[#141924] border border-[#1e2a3a] rounded-xl p-4 mb-8">
-        <div className="flex justify-between text-xs mb-2">
-          <span className="text-[#00d2ff] font-black uppercase tracking-wider">Budget Allocation</span>
-          <span className="text-white font-mono font-bold">${fmt(budgetUsed, 0)} / ${fmt(activeCart.totalBudgetUsd, 0)} ({budgetPct.toFixed(0)}%)</span>
+      {/* Budget bar */}
+      <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-3 mb-5">
+        <div className="flex justify-between text-[10px] mb-1.5">
+          <span className="text-[#3b82f6] font-bold uppercase tracking-wider">Budget Used</span>
+          <span className="text-white font-mono">${f(budgetUsed,0)} / ${f(activeCart.totalBudgetUsd,0)} · {budgetPct.toFixed(0)}%</span>
         </div>
-        <div className="h-3 bg-[#1e2a3a] rounded-full overflow-hidden">
-          <div
-            className={`h-full rounded-full transition-all duration-700 ${budgetPct > 90 ? "bg-[#ef4444]" : budgetPct > 70 ? "bg-[#f59e0b]" : "bg-gradient-to-r from-[#3b82f6] to-[#6366f1]"}`}
-            style={{ width: `${Math.min(budgetPct, 100)}%` }}
-          />
+        <div className="h-2 bg-[#1e2a3a] rounded-full overflow-hidden">
+          <div className={`h-full rounded-full ${budgetPct>90?"bg-red-500":budgetPct>70?"bg-amber-500":"bg-gradient-to-r from-[#3b82f6] to-[#6366f1]"}`} style={{width:`${budgetPct}%`}} />
         </div>
-        <div className="flex justify-between mt-1.5 text-[10px] text-[#475569]">
-          <span>Open: {stats?.openCount} · Pending: {stats?.pendingCount}</span>
-          <span>Available: ${fmt(Math.max(0, activeCart.totalBudgetUsd - budgetUsed), 0)}</span>
+        <div className="flex justify-between mt-1 text-[9px] text-slate-600">
+          <span>{stats?.openCount} open · {stats?.pendingCount} pending · {stats?.closedCount} closed</span>
+          <span>Free: ${f(Math.max(0,activeCart.totalBudgetUsd-budgetUsed),0)}</span>
         </div>
       </div>
 
-      {/* 2-column layout */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {/* Positions (2/3 width) */}
+      {/* Main layout */}
+      <div className="grid md:grid-cols-3 gap-5">
+        {/* Positions */}
         <div className="md:col-span-2">
-          {/* Filter tabs */}
-          <div className="flex gap-2 mb-4 flex-wrap">
-            {(["all", "open", "pending", "closed"] as const).map(f => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-lg border transition-all ${
-                  filter === f
-                    ? "bg-[#3b82f6] text-white border-[#3b82f6]"
-                    : "text-[#00d2ff] border-[#1e2a3a] hover:border-[#3b82f6]/40"
-                }`}
-              >
-                {f} ({f === "all" ? positions.length : positions.filter(p => p.status === f).length})
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            {(["all","open","pending","closed"] as const).map(f2=>(
+              <button key={f2} onClick={()=>setFilter(f2)} className={`px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg border transition-all ${filter===f2?"bg-[#3b82f6] text-white border-[#3b82f6]":"text-slate-400 border-[#1e2a3a] hover:border-[#3b82f6]/40"}`}>
+                {f2} ({f2==="all"?positions.length:positions.filter(p=>p.status===f2).length})
               </button>
             ))}
+            <div className="ml-auto flex items-center gap-1 bg-[#0d1117] border border-[#1e2a3a] rounded-lg p-0.5">
+              <button onClick={()=>setView("card")} className={`px-3 py-1 text-[10px] font-black rounded-md transition-all ${view==="card"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>Card</button>
+              <button onClick={()=>setView("list")} className={`px-3 py-1 text-[10px] font-black rounded-md transition-all ${view==="list"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>List</button>
+            </div>
           </div>
 
-          {filtered.length === 0 ? (
+          {filtered.length===0 ? (
             <div className="border border-dashed border-[#1e2a3a] rounded-xl p-10 text-center">
-              <div className="text-3xl mb-3">📭</div>
-              <p className="text-[#00d2ff] text-sm">No positions yet. Go to <Link href="/swing-picks" className="text-[#3b82f6] hover:underline">Swing Picks</Link> and click <b className="text-white">Add Smart Cart</b>.</p>
+              <div className="text-3xl mb-2">📭</div>
+              <p className="text-slate-500 text-sm">No positions. Go to <Link href="/swing-picks" className="text-[#3b82f6] hover:underline">Swing Picks</Link> and click <b className="text-white">Add Smart Cart</b>.</p>
+            </div>
+          ) : view==="list" ? (
+            <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl overflow-hidden">
+              <div className="flex items-center gap-3 px-4 py-2 bg-[#141924] border-b border-[#1e2a3a]">
+                <div className="w-16 text-[9px] font-black text-[#3b82f6] uppercase">Ticker</div>
+                <div className="flex-1 grid grid-cols-3 gap-2 text-center text-[9px] font-black text-[#3b82f6] uppercase">
+                  <span>Entry</span><span>Target</span><span>Stop</span>
+                </div>
+                <div className="w-24 text-right text-[9px] font-black text-[#3b82f6] uppercase">PnL</div>
+                <div className="w-24 text-[9px] font-black text-[#3b82f6] uppercase">Action</div>
+              </div>
+              {filtered.map(pos=><PositionCard key={pos.id} pos={pos} simple={true}/>)}
             </div>
           ) : (
             <div className="space-y-3">
-              {filtered.map(pos => <PositionRow key={pos.id} pos={pos} />)}
+              {filtered.map(pos=><PositionCard key={pos.id} pos={pos} simple={false}/>)}
             </div>
           )}
         </div>
 
-        {/* Sidebar stats (1/3 width) */}
+        {/* Sidebar */}
         <div className="space-y-4">
-          {/* Sector distribution */}
-          <div className="bg-[#141924] border border-[#1e2a3a] rounded-xl p-4">
-            <h3 className="text-[10px] font-black text-[#00d2ff] uppercase tracking-widest mb-4">Sector Allocation</h3>
-            <SectorBar distribution={stats?.sectorDistribution ?? {}} />
+          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4">
+            <h3 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">Sector Allocation</h3>
+            {Object.entries(stats?.sectorDistribution??{}).length===0
+              ? <p className="text-slate-600 text-xs">No open positions</p>
+              : Object.entries(stats?.sectorDistribution??{}).sort(([,a],[,b])=>b-a).map(([s,amt],i)=>{
+                  const tot=Object.values(stats?.sectorDistribution??{}).reduce((a,b)=>a+b,0);
+                  const pct=tot>0?(amt/tot*100):0;
+                  return (
+                    <div key={s} className="mb-2">
+                      <div className="flex justify-between text-[10px] mb-0.5">
+                        <span className="text-white font-semibold truncate">{s}</span>
+                        <span className="text-slate-400 font-mono shrink-0 ml-2">${f(amt,0)} · {pct.toFixed(0)}%</span>
+                      </div>
+                      <div className="h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden">
+                        <div className="h-full rounded-full" style={{width:`${pct}%`,background:sectorColors[i%sectorColors.length]}}/>
+                      </div>
+                    </div>
+                  );
+                })
+            }
           </div>
 
-          {/* Best / Worst */}
           {stats?.bestPosition && (
-            <div className="bg-[#141924] border border-[#10b981]/20 rounded-xl p-4">
-              <h3 className="text-[10px] font-black text-[#10b981] uppercase tracking-widest mb-2">🏆 Best Position</h3>
-              <div className="text-white font-black text-lg">{stats.bestPosition.ticker}</div>
-              <div className={`text-sm font-mono font-bold ${pctColor(computePnl(stats.bestPosition).pnlUsd)}`}>
-                {sign(computePnl(stats.bestPosition).pnlUsd)}${fmt(Math.abs(computePnl(stats.bestPosition).pnlUsd))}
-              </div>
-            </div>
-          )}
-          {stats?.worstPosition && (
-            <div className="bg-[#141924] border border-[#ef4444]/20 rounded-xl p-4">
-              <h3 className="text-[10px] font-black text-[#ef4444] uppercase tracking-widest mb-2">📉 Worst Position</h3>
-              <div className="text-white font-black text-lg">{stats.worstPosition.ticker}</div>
-              <div className={`text-sm font-mono font-bold ${pctColor(computePnl(stats.worstPosition).pnlUsd)}`}>
-                {sign(computePnl(stats.worstPosition).pnlUsd)}${fmt(Math.abs(computePnl(stats.worstPosition).pnlUsd))}
+            <div className="bg-[#0d1117] border border-emerald-500/20 rounded-xl p-3">
+              <div className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-1">🏆 Best</div>
+              <div className="flex justify-between items-center">
+                <span className="text-white font-black text-base">{stats.bestPosition.ticker}</span>
+                <span className={`text-sm font-mono font-black ${pColor(computePnl(stats.bestPosition).pnlUsd)}`}>
+                  {sgn(computePnl(stats.bestPosition).pnlUsd)}${f(Math.abs(computePnl(stats.bestPosition).pnlUsd))}
+                </span>
               </div>
             </div>
           )}
 
-          {/* Quick stats */}
-          <div className="bg-[#141924] border border-[#1e2a3a] rounded-xl p-4 space-y-2">
-            <h3 className="text-[10px] font-black text-[#00d2ff] uppercase tracking-widest mb-3">Statistics</h3>
+          {stats?.worstPosition && (
+            <div className="bg-[#0d1117] border border-red-500/20 rounded-xl p-3">
+              <div className="text-[9px] font-black text-red-400 uppercase tracking-widest mb-1">📉 Worst</div>
+              <div className="flex justify-between items-center">
+                <span className="text-white font-black text-base">{stats.worstPosition.ticker}</span>
+                <span className={`text-sm font-mono font-black ${pColor(computePnl(stats.worstPosition).pnlUsd)}`}>
+                  {sgn(computePnl(stats.worstPosition).pnlUsd)}${f(Math.abs(computePnl(stats.worstPosition).pnlUsd))}
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4">
+            <h3 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">Statistics</h3>
             {[
-              { label: "Open Trades", value: String(stats?.openCount ?? 0) },
-              { label: "Pending", value: String(stats?.pendingCount ?? 0) },
-              { label: "Closed", value: String(stats?.closedCount ?? 0) },
-              { label: "Win Rate", value: `${fmt(stats?.winRate ?? 0, 1)}%` },
-              { label: "Avg Hold Days", value: `${fmt(stats?.avgHoldingDays ?? 0, 1)}d` },
-              { label: "Total Invested", value: `$${fmt(stats?.totalInvested ?? 0, 0)}` },
-            ].map(({ label, value }) => (
-              <div key={label} className="flex justify-between items-center text-sm">
-                <span className="text-[#00d2ff] text-[11px]">{label}</span>
-                <span className="text-white font-mono font-bold text-[11px]">{value}</span>
+              ["Open", stats?.openCount??0],
+              ["Pending", stats?.pendingCount??0],
+              ["Closed", stats?.closedCount??0],
+              ["Win Rate", `${f(stats?.winRate??0,1)}%`],
+              ["Avg Hold", `${f(stats?.avgHoldingDays??0,1)}d`],
+              ["Invested", `$${f(stats?.totalInvested??0,0)}`],
+            ].map(([l,v])=>(
+              <div key={String(l)} className="flex justify-between items-center py-1.5 border-b border-[#1e2a3a] last:border-0">
+                <span className="text-slate-500 text-xs">{l}</span>
+                <span className="text-white font-mono font-bold text-xs">{v}</span>
               </div>
             ))}
           </div>
 
-          {/* Swing Picks link */}
-          <Link
-            href="/swing-picks"
-            className="block w-full text-center py-3 bg-gradient-to-r from-[#3b82f6]/10 to-[#6366f1]/10 border border-[#3b82f6]/20 text-[#3b82f6] text-xs font-black uppercase tracking-widest rounded-xl hover:from-[#3b82f6]/20 hover:to-[#6366f1]/20 transition-all"
-          >
-            📋 View Today's Picks →
+          <Link href="/swing-picks" className="block w-full text-center py-2.5 bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[#3b82f6] text-xs font-black uppercase tracking-widest rounded-xl hover:bg-[#3b82f6]/20 transition-all">
+            📋 Today's Picks →
           </Link>
         </div>
       </div>
