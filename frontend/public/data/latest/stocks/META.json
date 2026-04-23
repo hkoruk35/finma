@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Internet Content & Information",
   "price": {
-    "current": 677.51,
+    "current": 674.72,
     "open": 681.45,
     "high": 683.33,
     "low": 668.0,
@@ -17,7 +17,7 @@
     "change_pct_1y": 34.17,
     "volume": 7230469,
     "avg_volume_30d": 16301385,
-    "last_sync": "2026-04-22T13:49:21.962691"
+    "last_sync": "2026-04-22T22:02:28.958557"
   },
   "scores": {
     "master_score": 48.52,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 632.21,
-    "entry_range_high": 680.9,
-    "target_range_low": 723.7,
-    "target_range_high": 775.39,
-    "stop_range_low": 605.02,
-    "stop_range_high": 636.87,
-    "target_price": 738.47,
-    "stop_loss": 636.87,
+    "entry_range_low": 629.61,
+    "entry_range_high": 678.1,
+    "target_range_low": 720.72,
+    "target_range_high": 772.2,
+    "stop_range_low": 602.53,
+    "stop_range_high": 634.25,
+    "target_price": 735.43,
+    "stop_loss": 634.25,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.341488-04:00",

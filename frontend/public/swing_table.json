@@ -2,41 +2,41 @@
   {
     "Tarih": "22 Nisan",
     "Sembol": "BLD",
-    "Giriş (Buy_L)": 453.82,
-    "Stop (SL)": 451.57,
-    "Hedef 1 (TP1)": 476.32,
-    "Hedef 2 (TP2)": 481.95
+    "Giriş (Buy_L)": 441.52,
+    "Stop (SL)": 406.9,
+    "Hedef 1 (TP1)": 510.76,
+    "Hedef 2 (TP2)": 528.07
   },
   {
     "Tarih": "22 Nisan",
-    "Sembol": "IONQ",
-    "Giriş (Buy_L)": 46.1,
-    "Stop (SL)": 45.8,
-    "Hedef 1 (TP1)": 49.09,
-    "Hedef 2 (TP2)": 49.84
+    "Sembol": "ALLY",
+    "Giriş (Buy_L)": 45.38,
+    "Stop (SL)": 45.25,
+    "Hedef 1 (TP1)": 46.73,
+    "Hedef 2 (TP2)": 47.07
   },
   {
     "Tarih": "22 Nisan",
-    "Sembol": "MP",
-    "Giriş (Buy_L)": 65.57,
-    "Stop (SL)": 65.22,
-    "Hedef 1 (TP1)": 69.11,
-    "Hedef 2 (TP2)": 69.99
-  },
-  {
-    "Tarih": "22 Nisan",
-    "Sembol": "ONTO",
-    "Giriş (Buy_L)": 290.99,
-    "Stop (SL)": 289.6,
-    "Hedef 1 (TP1)": 304.87,
-    "Hedef 2 (TP2)": 308.34
+    "Sembol": "CAVA",
+    "Giriş (Buy_L)": 95.15,
+    "Stop (SL)": 94.73,
+    "Hedef 1 (TP1)": 99.32,
+    "Hedef 2 (TP2)": 100.37
   },
   {
     "Tarih": "22 Nisan",
     "Sembol": "MSCI",
-    "Giriş (Buy_L)": 604.84,
+    "Giriş (Buy_L)": 600.04,
     "Stop (SL)": 583.98,
-    "Hedef 1 (TP1)": 646.56,
-    "Hedef 2 (TP2)": 656.99
+    "Hedef 1 (TP1)": 632.16,
+    "Hedef 2 (TP2)": 640.19
+  },
+  {
+    "Tarih": "22 Nisan",
+    "Sembol": "ADI",
+    "Giriş (Buy_L)": 378.25,
+    "Stop (SL)": 377.22,
+    "Hedef 1 (TP1)": 388.56,
+    "Hedef 2 (TP2)": 391.14
   }
 ]

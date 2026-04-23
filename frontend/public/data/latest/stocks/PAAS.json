@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Gold",
   "price": {
-    "current": 56.57,
+    "current": 56.46,
     "open": 58.52,
     "high": 58.8,
     "low": 57.75,
@@ -17,7 +17,7 @@
     "change_pct_1y": 109.08,
     "volume": 1774421,
     "avg_volume_30d": 7003050,
-    "last_sync": "2026-04-22T13:49:21.859767"
+    "last_sync": "2026-04-22T22:02:28.777402"
   },
   "scores": {
     "master_score": 48.8,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 54.33,
-    "entry_range_high": 56.85,
-    "target_range_low": 63.05,
-    "target_range_high": 67.55,
-    "stop_range_low": 48.83,
-    "stop_range_high": 51.4,
-    "target_price": 64.33,
-    "stop_loss": 51.4,
+    "entry_range_low": 54.22,
+    "entry_range_high": 56.74,
+    "target_range_low": 62.93,
+    "target_range_high": 67.42,
+    "stop_range_low": 48.74,
+    "stop_range_high": 51.3,
+    "target_price": 64.2,
+    "stop_loss": 51.3,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.920100-04:00",

@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
   "price": {
-    "current": 182.41,
+    "current": 182.35,
     "open": 180.08,
     "high": 182.85,
     "low": 177.5,
@@ -17,7 +17,7 @@
     "change_pct_1y": 106.68,
     "volume": 1084056,
     "avg_volume_30d": 1630101,
-    "last_sync": "2026-04-22T13:49:21.627822"
+    "last_sync": "2026-04-22T22:02:28.480453"
   },
   "scores": {
     "master_score": 49.5,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 172.31,
-    "entry_range_high": 183.33,
-    "target_range_low": 196.92,
-    "target_range_high": 210.98,
-    "stop_range_low": 161.56,
-    "stop_range_high": 170.07,
-    "target_price": 200.94,
-    "stop_loss": 170.07,
+    "entry_range_low": 172.25,
+    "entry_range_high": 183.27,
+    "target_range_low": 196.86,
+    "target_range_high": 210.91,
+    "stop_range_low": 161.51,
+    "stop_range_high": 170.01,
+    "target_price": 200.87,
+    "stop_loss": 170.01,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.993448-04:00",

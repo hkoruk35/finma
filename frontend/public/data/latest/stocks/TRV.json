@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Insurance - Property & Casualty",
   "price": {
-    "current": 300.86,
+    "current": 301.68,
     "open": 301.0,
     "high": 306.2,
     "low": 301.0,
@@ -17,7 +17,7 @@
     "change_pct_1y": 22.17,
     "volume": 566150,
     "avg_volume_30d": 1389665,
-    "last_sync": "2026-04-22T13:49:18.909637"
+    "last_sync": "2026-04-22T22:02:24.428247"
   },
   "scores": {
     "master_score": 65.72,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "POSITIVE_BIAS",
-    "entry_range_low": 292.33,
-    "entry_range_high": 302.37,
-    "target_range_low": 312.41,
-    "target_range_high": 334.73,
-    "stop_range_low": 274.47,
-    "stop_range_high": 288.91,
-    "target_price": 318.79,
-    "stop_loss": 288.91,
+    "entry_range_low": 293.13,
+    "entry_range_high": 303.19,
+    "target_range_low": 313.26,
+    "target_range_high": 335.64,
+    "stop_range_low": 275.22,
+    "stop_range_high": 289.7,
+    "target_price": 319.66,
+    "stop_loss": 289.7,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.828696-04:00",

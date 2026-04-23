@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Utilities - Renewable",
   "price": {
-    "current": 33.09,
+    "current": 33.25,
     "open": 34.52,
     "high": 35.11,
     "low": 34.52,
@@ -17,7 +17,7 @@
     "change_pct_1y": 69.45,
     "volume": 258323,
     "avg_volume_30d": 827164,
-    "last_sync": "2026-04-22T13:49:21.591976"
+    "last_sync": "2026-04-22T22:02:28.426022"
   },
   "scores": {
     "master_score": 49.62,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 30.43,
-    "entry_range_high": 33.25,
-    "target_range_low": 35.09,
-    "target_range_high": 37.6,
-    "stop_range_low": 29.71,
-    "stop_range_high": 31.27,
-    "target_price": 35.81,
-    "stop_loss": 31.27,
+    "entry_range_low": 30.58,
+    "entry_range_high": 33.41,
+    "target_range_low": 35.26,
+    "target_range_high": 37.78,
+    "stop_range_low": 29.85,
+    "stop_range_high": 31.42,
+    "target_price": 35.98,
+    "stop_loss": 31.42,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.902595-04:00",

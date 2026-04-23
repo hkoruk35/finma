@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Auto Manufacturers",
   "price": {
-    "current": 12.68,
+    "current": 12.63,
     "open": 12.81,
     "high": 12.91,
     "low": 12.75,
@@ -17,7 +17,7 @@
     "change_pct_1y": 43.22,
     "volume": 11872511,
     "avg_volume_30d": 45339230,
-    "last_sync": "2026-04-22T13:49:23.206385"
+    "last_sync": "2026-04-22T22:02:30.947226"
   },
   "scores": {
     "master_score": 42.88,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 12.27,
-    "entry_range_high": 12.73,
-    "target_range_low": 13.44,
-    "target_range_high": 14.4,
-    "stop_range_low": 11.38,
-    "stop_range_high": 11.98,
-    "target_price": 13.72,
-    "stop_loss": 11.98,
+    "entry_range_low": 12.22,
+    "entry_range_high": 12.68,
+    "target_range_low": 13.39,
+    "target_range_high": 14.34,
+    "stop_range_low": 11.34,
+    "stop_range_high": 11.93,
+    "target_price": 13.67,
+    "stop_loss": 11.93,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.655383-04:00",

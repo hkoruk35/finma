@@ -6,7 +6,7 @@
   "sector": "Real Estate",
   "industry": "REIT - Residential",
   "price": {
-    "current": 30.03,
+    "current": 30.18,
     "open": 30.56,
     "high": 31.15,
     "low": 30.53,
@@ -17,7 +17,7 @@
     "change_pct_1y": -11.01,
     "volume": 399186,
     "avg_volume_30d": 3112202,
-    "last_sync": "2026-04-22T13:49:23.170702"
+    "last_sync": "2026-04-22T22:02:30.866586"
   },
   "scores": {
     "master_score": 43.11,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 28.34,
-    "entry_range_high": 30.19,
-    "target_range_low": 31.08,
-    "target_range_high": 33.29,
-    "stop_range_low": 27.47,
-    "stop_range_high": 28.91,
-    "target_price": 31.72,
-    "stop_loss": 28.91,
+    "entry_range_low": 28.48,
+    "entry_range_high": 30.34,
+    "target_range_low": 31.24,
+    "target_range_high": 33.46,
+    "stop_range_low": 27.61,
+    "stop_range_high": 29.05,
+    "target_price": 31.88,
+    "stop_loss": 29.05,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.080015-04:00",

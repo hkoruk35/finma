@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Industrial Distribution",
   "price": {
-    "current": 1165.36,
+    "current": 1154.18,
     "open": 1158.65,
     "high": 1164.55,
     "low": 1153.43,
@@ -17,7 +17,7 @@
     "change_pct_1y": 18.94,
     "volume": 47341,
     "avg_volume_30d": 228374,
-    "last_sync": "2026-04-22T13:49:23.777981"
+    "last_sync": "2026-04-22T22:02:32.029808"
   },
   "scores": {
     "master_score": 39.8,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 1105.98,
-    "entry_range_high": 1171.19,
-    "target_range_low": 1226.43,
-    "target_range_high": 1314.04,
-    "stop_range_low": 1052.56,
-    "stop_range_high": 1107.96,
-    "target_price": 1251.47,
-    "stop_loss": 1107.96,
+    "entry_range_low": 1095.37,
+    "entry_range_high": 1159.95,
+    "target_range_low": 1214.66,
+    "target_range_high": 1301.43,
+    "stop_range_low": 1042.46,
+    "stop_range_high": 1097.33,
+    "target_price": 1239.46,
+    "stop_loss": 1097.33,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.001982-04:00",

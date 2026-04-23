@@ -153,9 +153,10 @@ def push_to_github():
 async def load_universe() -> List[str]:
     """Load ticker universe from Supabase DB (admin-managed).
     Falls back to FIXED_100_TICKERS from config."""
+    universe = list(FIXED_100_TICKERS)
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         log.info("Supabase not configured — using static ticker list.")
-        return list(FIXED_100_TICKERS)
+        return universe
     try:
         url = f"{SUPABASE_URL}/rest/v1/finma_universe?select=ticker&is_active=eq.true&order=sort_order"
         headers = {
@@ -168,11 +169,14 @@ async def load_universe() -> List[str]:
                     data = await r.json()
                     tickers = [d["ticker"] for d in data if d.get("ticker")]
                     if tickers:
-                        log.info(f"Loaded {len(tickers)} tickers from Supabase.")
-                        return tickers
+                        for t in tickers:
+                            if t not in universe:
+                                universe.append(t)
+                        log.info(f"Loaded and merged tickers. Total universe: {len(universe)}")
+                        return universe
     except Exception as e:
         log.warning(f"Supabase load failed: {e}. Using static list.")
-    return list(FIXED_100_TICKERS)
+    return universe
 
 
 # ============================================================
@@ -1338,7 +1342,7 @@ async def daily_run():
     market_indices = {}
     for name, sym in INDEX_TICKERS.items():
         try:
-            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="400d"))
+            h = await asyncio.to_thread(lambda s=sym: yf.Ticker(s).history(period="400d", interval="1d"))
             if h is not None and not h.empty:
                 # Only keep rows with price
                 h = h[h["Close"].notna()]

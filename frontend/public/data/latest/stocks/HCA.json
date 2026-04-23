@@ -6,7 +6,7 @@
   "sector": "Healthcare",
   "industry": "Medical Care Facilities",
   "price": {
-    "current": 474.18,
+    "current": 471.34,
     "open": 488.47,
     "high": 490.15,
     "low": 483.92,
@@ -17,7 +17,7 @@
     "change_pct_1y": 47.28,
     "volume": 199115,
     "avg_volume_30d": 983013,
-    "last_sync": "2026-04-22T13:49:20.795819"
+    "last_sync": "2026-04-22T22:02:27.024352"
   },
   "scores": {
     "master_score": 53.22,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 471.82,
-    "entry_range_high": 476.54,
-    "target_range_low": 502.33,
-    "target_range_high": 538.21,
-    "stop_range_low": 426.16,
-    "stop_range_high": 448.58,
-    "target_price": 512.57,
-    "stop_loss": 448.58,
+    "entry_range_low": 468.99,
+    "entry_range_high": 473.69,
+    "target_range_low": 499.32,
+    "target_range_high": 534.99,
+    "stop_range_low": 423.61,
+    "stop_range_high": 445.89,
+    "target_price": 509.5,
+    "stop_loss": 445.89,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.787422-04:00",

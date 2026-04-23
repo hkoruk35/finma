@@ -6,7 +6,7 @@
   "sector": "Consumer Staples",
   "industry": "Tobacco",
   "price": {
-    "current": 164.09,
+    "current": 163.95,
     "open": 159.09,
     "high": 160.07,
     "low": 157.51,
@@ -17,7 +17,7 @@
     "change_pct_1y": 1.95,
     "volume": 1632240,
     "avg_volume_30d": 4745421,
-    "last_sync": "2026-04-22T13:49:25.162863"
+    "last_sync": "2026-04-22T22:02:34.563339"
   },
   "scores": {
     "master_score": 33.46,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 163.27,
-    "entry_range_high": 164.91,
-    "target_range_low": 173.05,
-    "target_range_high": 185.41,
-    "stop_range_low": 147.98,
-    "stop_range_high": 155.76,
-    "target_price": 176.59,
-    "stop_loss": 155.76,
+    "entry_range_low": 163.13,
+    "entry_range_high": 164.77,
+    "target_range_low": 172.9,
+    "target_range_high": 185.25,
+    "stop_range_low": 147.85,
+    "stop_range_high": 155.63,
+    "target_price": 176.44,
+    "stop_loss": 155.63,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.725159-04:00",

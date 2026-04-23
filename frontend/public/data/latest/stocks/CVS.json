@@ -6,7 +6,7 @@
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
   "price": {
-    "current": 76.97,
+    "current": 76.43,
     "open": 77.0,
     "high": 77.31,
     "low": 76.56,
@@ -17,7 +17,7 @@
     "change_pct_1y": 16.02,
     "volume": 2473693,
     "avg_volume_30d": 7391103,
-    "last_sync": "2026-04-22T13:49:21.530339"
+    "last_sync": "2026-04-22T22:02:28.348355"
   },
   "scores": {
     "master_score": 49.77,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 75.99,
-    "entry_range_high": 77.35,
-    "target_range_low": 80.93,
-    "target_range_high": 86.7,
-    "stop_range_low": 69.58,
-    "stop_range_high": 73.23,
-    "target_price": 82.57,
-    "stop_loss": 73.23,
+    "entry_range_low": 75.46,
+    "entry_range_high": 76.81,
+    "target_range_low": 80.36,
+    "target_range_high": 86.09,
+    "stop_range_low": 69.09,
+    "stop_range_high": 72.72,
+    "target_price": 81.99,
+    "stop_loss": 72.72,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.782905-04:00",

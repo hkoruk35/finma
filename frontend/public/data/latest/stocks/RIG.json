@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Oil & Gas Drilling",
   "price": {
-    "current": 6.02,
+    "current": 6.06,
     "open": 5.95,
     "high": 5.98,
     "low": 5.82,
@@ -17,7 +17,7 @@
     "change_pct_1y": 172.92,
     "volume": 12521025,
     "avg_volume_30d": 33368164,
-    "last_sync": "2026-04-22T13:49:25.651312"
+    "last_sync": "2026-04-22T22:02:35.469120"
   },
   "scores": {
     "master_score": 31.22,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 5.99,
-    "entry_range_high": 6.05,
-    "target_range_low": 6.83,
-    "target_range_high": 7.31,
-    "stop_range_low": 5.12,
-    "stop_range_high": 5.38,
-    "target_price": 6.98,
-    "stop_loss": 5.38,
+    "entry_range_low": 6.03,
+    "entry_range_high": 6.09,
+    "target_range_low": 6.88,
+    "target_range_high": 7.36,
+    "stop_range_low": 5.15,
+    "stop_range_high": 5.42,
+    "target_price": 7.03,
+    "stop_loss": 5.42,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.898719-04:00",

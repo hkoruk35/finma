@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
-    "current": 806.91,
+    "current": 802.79,
     "open": 796.49,
     "high": 818.88,
     "low": 796.49,
@@ -17,7 +17,7 @@
     "change_pct_1y": 40.91,
     "volume": 175734,
     "avg_volume_30d": 552227,
-    "last_sync": "2026-04-22T13:49:21.773623"
+    "last_sync": "2026-04-22T22:02:28.661624"
   },
   "scores": {
     "master_score": 48.95,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 773.79,
-    "entry_range_high": 810.94,
-    "target_range_low": 862.98,
-    "target_range_high": 924.62,
-    "stop_range_low": 719.91,
-    "stop_range_high": 757.79,
-    "target_price": 880.59,
-    "stop_loss": 757.79,
+    "entry_range_low": 769.84,
+    "entry_range_high": 806.8,
+    "target_range_low": 858.57,
+    "target_range_high": 919.9,
+    "stop_range_low": 716.23,
+    "stop_range_high": 753.92,
+    "target_price": 876.09,
+    "stop_loss": 753.92,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.010820-04:00",

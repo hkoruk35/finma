@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Luxury Goods",
   "price": {
-    "current": 147.55,
+    "current": 146.17,
     "open": 155.18,
     "high": 156.4,
     "low": 152.69,
@@ -17,7 +17,7 @@
     "change_pct_1y": 149.05,
     "volume": 515806,
     "avg_volume_30d": 1761073,
-    "last_sync": "2026-04-22T13:49:22.322337"
+    "last_sync": "2026-04-22T22:02:29.634610"
   },
   "scores": {
     "master_score": 47.08,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 137.74,
-    "entry_range_high": 148.29,
-    "target_range_low": 158.89,
-    "target_range_high": 170.23,
-    "stop_range_low": 130.95,
-    "stop_range_high": 137.84,
-    "target_price": 162.12,
-    "stop_loss": 137.84,
+    "entry_range_low": 136.45,
+    "entry_range_high": 146.9,
+    "target_range_low": 157.4,
+    "target_range_high": 168.64,
+    "stop_range_low": 129.73,
+    "stop_range_high": 136.55,
+    "target_price": 160.6,
+    "stop_loss": 136.55,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.677328-04:00",

@@ -41,7 +41,7 @@ ENABLE_TELEGRAM_NOTIFICATIONS    = True
 DAILY_RUN_HOUR   = 9   # 09:00 New York time
 DAILY_RUN_MINUTE = 0
 NY_TIMEZONE      = "America/New_York"
-WEEKDAY_SET      = {0, 1, 2, 3, 4}  # Mon=0 ... Fri=4
+WEEKDAY_SET      = {0, 1, 2, 3, 4, 5, 6}  # Mon=0 ... Sun=6
 
 # ============================================================
 # PATHS

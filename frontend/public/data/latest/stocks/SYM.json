@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
   "price": {
-    "current": 62.51,
+    "current": 63.22,
     "open": 62.89,
     "high": 65.39,
     "low": 62.31,
@@ -17,7 +17,7 @@
     "change_pct_1y": 219.7,
     "volume": 762104,
     "avg_volume_30d": 1318476,
-    "last_sync": "2026-04-22T13:49:22.275340"
+    "last_sync": "2026-04-22T22:02:29.524508"
   },
   "scores": {
     "master_score": 47.65,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 53.39,
-    "entry_range_high": 62.82,
-    "target_range_low": 70.83,
-    "target_range_high": 75.89,
-    "stop_range_low": 53.21,
-    "stop_range_high": 56.01,
-    "target_price": 72.28,
-    "stop_loss": 56.01,
+    "entry_range_low": 54.0,
+    "entry_range_high": 63.53,
+    "target_range_low": 71.63,
+    "target_range_high": 76.75,
+    "stop_range_low": 53.81,
+    "stop_range_high": 56.65,
+    "target_price": 73.1,
+    "stop_loss": 56.65,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.017701-04:00",

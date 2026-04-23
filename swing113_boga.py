@@ -65,13 +65,13 @@ logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 NY_TZ = ZoneInfo("America/New_York")
 WEEKDAY_SET = {0, 1, 2, 3, 4}
 
-# Haftalık evren taraması (Pazartesi 13:00 NY)
+# Haftalık evren taraması (Pazartesi 09:00 NY)
 WEEKLY_SCAN_DAY = 0       # 0 = Pazartesi
-WEEKLY_SCAN_HOUR = 13
+WEEKLY_SCAN_HOUR = 9
 WEEKLY_SCAN_MINUTE = 0
 
-# Günlük seçim taraması (Her gün 13:00 NY)
-DAILY_RUN_HOUR = 13
+# Günlük seçim taraması (Her gün 09:00 NY)
+DAILY_RUN_HOUR = 9
 DAILY_RUN_MINUTE = 0
 
 # ================================================================
@@ -280,7 +280,7 @@ async def build_atmaca_universe_full() -> List[str]:
                         for j in range(0, len(data_list), chunk_size):
                             chunk = data_list[j : j + chunk_size]
                             downloaded = await asyncio.to_thread(
-                                yf.download, chunk, period="252d", progress=False, group_by="ticker", ignore_tz=True
+                                yf.download, chunk, period="252d", interval="1d", progress=False, group_by="ticker", ignore_tz=True
                             )
                             for sym in chunk:
                                 if sym in downloaded and not downloaded[sym].empty:
@@ -308,7 +308,7 @@ async def build_atmaca_universe_full() -> List[str]:
         logging.info(f"📥 İndiriliyor: {i}–{i + len(chunk)} ...")
         try:
             data = await asyncio.to_thread(
-                yf.download, chunk, period=PERIOD,
+                yf.download, chunk, period=PERIOD, interval="1d",
                 progress=False, threads=True, ignore_tz=True, group_by="ticker"
             )
 

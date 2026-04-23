@@ -6,7 +6,7 @@
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
-    "current": 75.37,
+    "current": 74.98,
     "open": 77.8,
     "high": 78.29,
     "low": 77.54,
@@ -17,7 +17,7 @@
     "change_pct_1y": 11.38,
     "volume": 469255,
     "avg_volume_30d": 2574525,
-    "last_sync": "2026-04-22T13:49:23.656908"
+    "last_sync": "2026-04-22T22:02:31.775244"
   },
   "scores": {
     "master_score": 40.23,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 73.53,
-    "entry_range_high": 75.75,
-    "target_range_low": 77.55,
-    "target_range_high": 83.1,
-    "stop_range_low": 69.22,
-    "stop_range_high": 72.86,
-    "target_price": 79.14,
-    "stop_loss": 72.86,
+    "entry_range_low": 73.15,
+    "entry_range_high": 75.36,
+    "target_range_low": 77.15,
+    "target_range_high": 82.67,
+    "stop_range_low": 68.86,
+    "stop_range_high": 72.48,
+    "target_price": 78.73,
+    "stop_loss": 72.48,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:52.031645-04:00",

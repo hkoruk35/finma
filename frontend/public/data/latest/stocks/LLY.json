@@ -6,7 +6,7 @@
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
-    "current": 916.61,
+    "current": 921.48,
     "open": 926.9,
     "high": 929.64,
     "low": 912.5,
@@ -17,7 +17,7 @@
     "change_pct_1y": 26.99,
     "volume": 819480,
     "avg_volume_30d": 2771312,
-    "last_sync": "2026-04-22T13:49:27.189377"
+    "last_sync": "2026-04-22T22:02:37.566422"
   },
   "scores": {
     "master_score": 16.38,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 912.03,
-    "entry_range_high": 921.19,
-    "target_range_low": 977.43,
-    "target_range_high": 1047.25,
-    "stop_range_low": 819.62,
-    "stop_range_high": 862.76,
-    "target_price": 997.38,
-    "stop_loss": 862.76,
+    "entry_range_low": 916.88,
+    "entry_range_high": 926.08,
+    "target_range_low": 982.62,
+    "target_range_high": 1052.81,
+    "stop_range_low": 823.97,
+    "stop_range_high": 867.34,
+    "target_price": 1002.68,
+    "stop_loss": 867.34,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.744263-04:00",

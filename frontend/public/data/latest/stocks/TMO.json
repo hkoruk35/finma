@@ -6,7 +6,7 @@
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
   "price": {
-    "current": 517.37,
+    "current": 513.98,
     "open": 522.83,
     "high": 528.82,
     "low": 521.14,
@@ -17,7 +17,7 @@
     "change_pct_1y": 21.11,
     "volume": 535397,
     "avg_volume_30d": 1903513,
-    "last_sync": "2026-04-22T13:49:23.468666"
+    "last_sync": "2026-04-22T22:02:31.417702"
   },
   "scores": {
     "master_score": 41.07,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 501.2,
-    "entry_range_high": 519.96,
-    "target_range_low": 547.54,
-    "target_range_high": 586.66,
-    "stop_range_low": 465.31,
-    "stop_range_high": 489.8,
-    "target_price": 558.71,
-    "stop_loss": 489.8,
+    "entry_range_low": 497.92,
+    "entry_range_high": 516.55,
+    "target_range_low": 543.95,
+    "target_range_high": 582.82,
+    "stop_range_low": 462.26,
+    "stop_range_high": 486.59,
+    "target_price": 555.05,
+    "stop_loss": 486.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.777071-04:00",

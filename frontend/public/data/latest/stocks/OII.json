@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Oil & Gas Equipment & Services",
   "price": {
-    "current": 37.92,
+    "current": 38.47,
     "open": 37.5,
     "high": 38.03,
     "low": 36.6,
@@ -17,7 +17,7 @@
     "change_pct_1y": 115.92,
     "volume": 593113,
     "avg_volume_30d": 1223130,
-    "last_sync": "2026-04-22T13:49:18.878699"
+    "last_sync": "2026-04-22T22:02:24.393099"
   },
   "scores": {
     "master_score": 66.67,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "POSITIVE_BIAS",
-    "entry_range_low": 35.05,
-    "entry_range_high": 38.11,
-    "target_range_low": 42.24,
-    "target_range_high": 45.26,
-    "stop_range_low": 32.75,
-    "stop_range_high": 34.46,
-    "target_price": 43.1,
-    "stop_loss": 34.46,
+    "entry_range_low": 35.56,
+    "entry_range_high": 38.66,
+    "target_range_low": 42.85,
+    "target_range_high": 45.92,
+    "stop_range_low": 33.23,
+    "stop_range_high": 34.96,
+    "target_price": 43.73,
+    "stop_loss": 34.96,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.878260-04:00",

@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Lodging",
   "price": {
-    "current": 368.15,
+    "current": 367.13,
     "open": 375.36,
     "high": 379.18,
     "low": 374.58,
@@ -17,7 +17,7 @@
     "change_pct_1y": 74.2,
     "volume": 465012,
     "avg_volume_30d": 1466270,
-    "last_sync": "2026-04-22T13:49:20.522139"
+    "last_sync": "2026-04-22T22:02:26.533987"
   },
   "scores": {
     "master_score": 54.38,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 327.78,
-    "entry_range_high": 369.99,
-    "target_range_low": 388.18,
-    "target_range_high": 415.91,
-    "stop_range_low": 332.04,
-    "stop_range_high": 349.51,
-    "target_price": 396.12,
-    "stop_loss": 349.51,
+    "entry_range_low": 326.87,
+    "entry_range_high": 368.96,
+    "target_range_low": 387.1,
+    "target_range_high": 414.76,
+    "stop_range_low": 331.12,
+    "stop_range_high": 348.54,
+    "target_price": 395.02,
+    "stop_loss": 348.54,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.684402-04:00",

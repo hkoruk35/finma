@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Specialty Retail",
   "price": {
-    "current": 38.74,
+    "current": 38.96,
     "open": 45.01,
     "high": 45.19,
     "low": 44.18,
@@ -17,7 +17,7 @@
     "change_pct_1y": -8.55,
     "volume": 2966091,
     "avg_volume_30d": 5893366,
-    "last_sync": "2026-04-22T13:49:27.165213"
+    "last_sync": "2026-04-22T22:02:37.512886"
   },
   "scores": {
     "master_score": 17.43,
@@ -89,14 +89,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 38.55,
-    "entry_range_high": 38.94,
-    "target_range_low": 41.26,
-    "target_range_high": 44.2,
-    "stop_range_low": 34.68,
-    "stop_range_high": 36.51,
-    "target_price": 42.09,
-    "stop_loss": 36.51,
+    "entry_range_low": 38.77,
+    "entry_range_high": 39.16,
+    "target_range_low": 41.49,
+    "target_range_high": 44.45,
+    "stop_range_low": 34.88,
+    "stop_range_high": 36.72,
+    "target_price": 42.33,
+    "stop_loss": 36.72,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-20T13:18:51.700627-04:00",
