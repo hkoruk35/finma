@@ -62,18 +62,18 @@ interface AskResponse {
   followUp: string[];
 }
 
-// Check if message is instant stock analysis (ticker + technical terms)
+// Check if message is instant stock analysis (clear ticker + technical terms)
 const isInstantStockAnalysis = (text: string): boolean => {
   const lower = text.toLowerCase();
-  // Ticker pattern: 1-5 uppercase letters (optional in any case)
-  const hasTickerLike = /\b[a-z]{1,5}\b/i.test(text);
+  // Ticker pattern: 2-5 UPPERCASE letters (strict)
+  const hasStockTicker = /\b[A-Z]{2,5}\b/.test(text);
   const hasTechnical = [
     "ema", "rsi", "macd", "technical", "analiz", "analisis",
     "chart", "candlestick", "support", "resistance", "trend",
-    "destek", "direnç", "trende",
+    "destek", "direnç", "trende", "teknik", "gösterge",
   ].some(kw => lower.includes(kw));
 
-  return hasTickerLike && hasTechnical;
+  return hasStockTicker && hasTechnical;
 };
 
 export async function POST(req: NextRequest) {
