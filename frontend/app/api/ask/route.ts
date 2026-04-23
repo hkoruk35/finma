@@ -142,7 +142,7 @@ async function handleClaude(
     .replace("{day}", dateCtx.day)
     .replace("{time}", dateCtx.time);
 
-  const messages = [
+  const messages: Array<{role: "user" | "assistant", content: string}> = [
     ...history.map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.text,
@@ -155,7 +155,7 @@ async function handleClaude(
       model: "claude-3-5-haiku-20241022",
       max_tokens: 1024,
       system: systemPrompt,
-      messages,
+      messages: messages,
     });
 
     const text =
@@ -172,7 +172,7 @@ async function handleClaude(
       followUp,
     });
   } catch (e: any) {
-    console.error("[claude] error:", e?.message);
+    console.error("[claude] error:", e?.status, e?.error?.error?.message || e?.message);
     return NextResponse.json({
       text: "Our financial analysis system is temporarily unavailable. Please try again.",
     });
