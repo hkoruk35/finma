@@ -62,6 +62,20 @@ interface AskResponse {
   followUp: string[];
 }
 
+// Check if message is instant stock analysis (ticker + technical terms)
+const isInstantStockAnalysis = (text: string): boolean => {
+  const lower = text.toLowerCase();
+  // Ticker pattern: 1-5 uppercase letters (optional in any case)
+  const hasTickerLike = /\b[a-z]{1,5}\b/i.test(text);
+  const hasTechnical = [
+    "ema", "rsi", "macd", "technical", "analiz", "analisis",
+    "chart", "candlestick", "support", "resistance", "trend",
+    "destek", "direnç", "trende",
+  ].some(kw => lower.includes(kw));
+
+  return hasTickerLike && hasTechnical;
+};
+
 export async function POST(req: NextRequest) {
   let body: { message: string; history?: Message[] };
   try {
@@ -79,19 +93,19 @@ export async function POST(req: NextRequest) {
     const hasOutOfScope = OUT_OF_SCOPE_KEYWORDS.some((kw) =>
       message.toLowerCase().includes(kw)
     );
-    const isFinancial = isFinancialQuestion(message);
 
-    if (hasOutOfScope && !isFinancial) {
+    if (hasOutOfScope) {
       return handleOutOfScope(message);
     }
 
-    // Use Claude for financial, Gemini for general
-    if (isFinancial) {
+    // Only use Claude for instant stock analysis (ticker + technical analysis)
+    // This saves credits by defaulting to free Gemini tier
+    if (isInstantStockAnalysis(message)) {
       const claudeRes = await handleClaude(message, history);
       if (claudeRes) return claudeRes;
-      // Fallback to Gemini if Claude fails
     }
 
+    // Default to Gemini for everything else (cheaper/free)
     return await handleGemini(message, history);
   } catch (e: any) {
     console.error("[ask] error:", e?.message);
