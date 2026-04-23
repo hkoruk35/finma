@@ -164,7 +164,9 @@ export default async function StockDetailPage({ params }: Props) {
                     <span className="text-[10px] font-bold uppercase tracking-widest text-right">Today</span>
                   </div>
                 </div>
-                <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mt-1">Last Close Price</span>
+                <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mt-1">
+                  ANALYSIS DATE: {stock.date ? new Date(stock.date).toLocaleDateString() : "—"}
+                </span>
               </div>
               <MarketStatus />
             </div>
