@@ -2,8 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-latest:generateContent";
+const MODELS = [
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite",
+  "gemini-1.5-flash",
+];
+
+const BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
 const SYSTEM_PROMPT = `You are BOGA AI, an advanced stock analysis assistant powering BogaStock.com — a platform built for retail investors and traders.
 
@@ -22,71 +27,70 @@ Slash command behaviors:
 
 Always respond in the same language the user writes in (Turkish or English).`;
 
-const BUSY_MESSAGE =
+const BUSY =
   "Our systems are experiencing high demand right now. Please try again in a moment.";
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ text: BUSY_MESSAGE });
+    console.error("[ask] GEMINI_API_KEY not set");
+    return NextResponse.json({ text: BUSY });
   }
 
   let body: { message: string; history?: { role: string; text: string }[] };
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ text: BUSY_MESSAGE });
+    return NextResponse.json({ text: BUSY });
   }
 
   const { message, history = [] } = body;
-  if (!message?.trim()) {
-    return NextResponse.json({ text: BUSY_MESSAGE });
-  }
+  if (!message?.trim()) return NextResponse.json({ text: BUSY });
 
-  // Build conversation turns (no system prompt in contents — use systemInstruction)
   const contents = [
     ...history.map((h) => ({
       role: h.role === "assistant" ? "model" : "user",
       parts: [{ text: h.text }],
     })),
-    {
-      role: "user",
-      parts: [{ text: message }],
-    },
+    { role: "user", parts: [{ text: message }] },
   ];
 
-  try {
-    const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: SYSTEM_PROMPT }],
-        },
-        contents,
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1024,
-        },
-      }),
-      signal: AbortSignal.timeout(30000),
-    });
+  const payload = {
+    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    contents,
+    generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+  };
 
-    if (!res.ok) {
-      const errBody = await res.text();
-      console.error("Gemini API error", res.status, errBody);
-      // Return soft error — client shows friendly message
-      return NextResponse.json({ text: BUSY_MESSAGE });
+  for (const model of MODELS) {
+    try {
+      const url = `${BASE}/${model}:generateContent?key=${apiKey}`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(30000),
+      });
+
+      const raw = await res.text();
+
+      if (!res.ok) {
+        console.error(`[ask] ${model} → HTTP ${res.status}: ${raw.slice(0, 300)}`);
+        // Try next model
+        continue;
+      }
+
+      const data = JSON.parse(raw);
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+      if (text) return NextResponse.json({ text });
+
+      // Blocked / empty
+      console.warn(`[ask] ${model} → empty candidate`);
+      continue;
+    } catch (e: any) {
+      console.error(`[ask] ${model} → fetch error: ${e?.message}`);
+      continue;
     }
-
-    const data = await res.json();
-    const text =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ??
-      BUSY_MESSAGE;
-
-    return NextResponse.json({ text });
-  } catch (e: any) {
-    console.error("Gemini fetch error:", e?.message);
-    return NextResponse.json({ text: BUSY_MESSAGE });
   }
+
+  return NextResponse.json({ text: BUSY });
 }

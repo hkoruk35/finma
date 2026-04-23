@@ -23,28 +23,34 @@ const SUGGESTIONS = [
   "Explain options premium decay (theta)",
 ];
 
+function formatInline(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**"))
+      return <strong key={i} className="text-white font-bold">{part.slice(2, -2)}</strong>;
+    if (part.startsWith("`") && part.endsWith("`"))
+      return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
+    return part;
+  });
+}
+
 function MarkdownText({ text }: { text: string }) {
-  const lines = text.split("\n");
   return (
     <div className="space-y-1.5 leading-relaxed">
-      {lines.map((line, i) => {
-        if (line.startsWith("### ")) {
+      {text.split("\n").map((line, i) => {
+        if (line.startsWith("### "))
           return <h3 key={i} className="text-sm font-black text-white uppercase tracking-widest mt-3 mb-1">{line.slice(4)}</h3>;
-        }
-        if (line.startsWith("## ")) {
+        if (line.startsWith("## "))
           return <h2 key={i} className="text-base font-black text-[#3b82f6] mt-3 mb-1">{line.slice(3)}</h2>;
-        }
-        if (line.startsWith("**") && line.endsWith("**")) {
+        if (line.startsWith("**") && line.endsWith("**"))
           return <p key={i} className="font-bold text-white">{line.slice(2, -2)}</p>;
-        }
-        if (line.startsWith("- ") || line.startsWith("• ")) {
+        if (line.startsWith("- ") || line.startsWith("• "))
           return (
             <div key={i} className="flex gap-2">
               <span className="text-[#3b82f6] mt-0.5 shrink-0">•</span>
               <span className="text-[#cbd5e1]">{formatInline(line.slice(2))}</span>
             </div>
           );
-        }
         if (/^\d+\.\s/.test(line)) {
           const num = line.match(/^(\d+)\./)?.[1];
           return (
@@ -61,31 +67,33 @@ function MarkdownText({ text }: { text: string }) {
   );
 }
 
-function formatInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={i} className="text-white font-bold">{part.slice(2, -2)}</strong>;
-    }
-    if (part.startsWith("`") && part.endsWith("`")) {
-      return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
-    }
-    return part;
-  });
-}
+const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
+  <div className={`${size} rounded-lg bg-gradient-to-br from-[#1d4ed8] to-[#3b82f6] flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20`}>
+    <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    </svg>
+  </div>
+);
 
 export default function AIPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showCommands, setShowCommands] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Ref for the scrollable messages container (NOT window scroll)
+  const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  // Scroll to bottom of chat container, not the whole page
+  const scrollToBottom = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  };
+
   useEffect(() => {
-    if (messages.length > 0 || loading) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
+    if (messages.length > 0 || loading) scrollToBottom();
   }, [messages, loading]);
 
   const handleInputChange = (val: string) => {
@@ -113,9 +121,15 @@ export default function AIPage() {
         }),
       });
       const data = await res.json();
-      setMessages([...newMessages, { role: "assistant", text: data.text ?? data.error ?? "Error." }]);
+      setMessages([
+        ...newMessages,
+        { role: "assistant", text: data.text ?? "Our systems are experiencing high demand right now. Please try again in a moment." },
+      ]);
     } catch {
-      setMessages([...newMessages, { role: "assistant", text: "Connection error. Please try again." }]);
+      setMessages([
+        ...newMessages,
+        { role: "assistant", text: "Our systems are experiencing high demand right now. Please try again in a moment." },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -129,35 +143,34 @@ export default function AIPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-white flex flex-col">
+    // Fixed full-viewport layout — no window scroll
+    <div className="h-screen bg-[#080c14] text-white flex flex-col overflow-hidden">
       <Header />
 
-      <main className="flex-1 flex flex-col max-w-3xl w-full mx-auto px-4 pt-8 pb-4">
-        {/* Page header */}
-        <div className="mb-8 text-center">
-          <div className="inline-flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#1d4ed8] to-[#3b82f6] flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-            </div>
+      {/* Main: fills remaining height, internal scroll only in messages */}
+      <div className="flex-1 flex flex-col min-h-0 max-w-3xl w-full mx-auto px-4 pt-6 pb-4">
+
+        {/* Title — always visible at top */}
+        <div className="mb-5 text-center shrink-0">
+          <div className="inline-flex items-center gap-2 mb-1.5">
+            <BotIcon size="w-8 h-8" />
             <h1 className="text-2xl font-black tracking-tight text-white">BOGA AI</h1>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#3b82f6] bg-[#3b82f6]/10 border border-[#3b82f6]/20 px-2 py-0.5 rounded-full">BETA</span>
           </div>
           <p className="text-[#64748b] text-sm">Ask anything about stocks, swing trades, and options strategies.</p>
         </div>
 
-        {/* Chat area */}
-        <div className="flex-1 space-y-6 mb-6 min-h-0">
+        {/* Scrollable messages area */}
+        <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0 space-y-5 pr-1 pb-2">
+
           {messages.length === 0 && (
-            <div className="space-y-6">
-              {/* Slash command pills */}
+            <div className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {SLASH_COMMANDS.map((c) => (
                   <button
                     key={c.cmd}
                     onClick={() => send(c.example)}
-                    className="text-left p-4 rounded-2xl border border-[#1e2a3a] bg-[#0d1117] hover:border-[#3b82f6]/40 hover:bg-[#0d1117] transition-all group"
+                    className="text-left p-4 rounded-2xl border border-[#1e2a3a] bg-[#0d1117] hover:border-[#3b82f6]/40 transition-all group"
                   >
                     <div className="text-xs font-black text-[#3b82f6] uppercase tracking-widest mb-1 group-hover:text-[#60a5fa]">{c.cmd}</div>
                     <div className="text-[11px] text-[#64748b]">{c.desc}</div>
@@ -165,8 +178,6 @@ export default function AIPage() {
                   </button>
                 ))}
               </div>
-
-              {/* Suggestion chips */}
               <div className="flex flex-wrap gap-2">
                 {SUGGESTIONS.map((s) => (
                   <button
@@ -183,13 +194,7 @@ export default function AIPage() {
 
           {messages.map((m, i) => (
             <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-              {m.role === "assistant" && (
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#1d4ed8] to-[#3b82f6] flex items-center justify-center shrink-0 mt-0.5 shadow-lg shadow-blue-500/20">
-                  <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
-              )}
+              {m.role === "assistant" && <BotIcon />}
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm ${
                   m.role === "user"
@@ -211,11 +216,7 @@ export default function AIPage() {
 
           {loading && (
             <div className="flex gap-3 justify-start">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#1d4ed8] to-[#3b82f6] flex items-center justify-center shrink-0 mt-0.5">
-                <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
+              <BotIcon />
               <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl rounded-tl-sm px-4 py-3">
                 <div className="flex gap-1.5 items-center h-5">
                   <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
@@ -225,12 +226,10 @@ export default function AIPage() {
               </div>
             </div>
           )}
-
-          <div ref={bottomRef} />
         </div>
 
-        {/* Input area */}
-        <div className="sticky bottom-4">
+        {/* Input — always pinned at bottom, never scrolls away */}
+        <div className="shrink-0 pt-3">
           {showCommands && (
             <div className="mb-2 bg-[#0d1117] border border-[#1e2a3a] rounded-xl overflow-hidden shadow-xl">
               {SLASH_COMMANDS.filter((c) => c.cmd.startsWith(input)).map((c) => (
@@ -269,9 +268,7 @@ export default function AIPage() {
           </div>
           <p className="text-center text-[10px] text-[#334155] mt-2">BOGA AI may make mistakes. Verify before trading.</p>
         </div>
-      </main>
-
-      <Footer />
+      </div>
     </div>
   );
 }
