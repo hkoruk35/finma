@@ -797,29 +797,323 @@ text_20_2 = """#1 📊 TDW  $85.67  PUAN:68.1  🔥 GÜÇLÜ
    ⏱ Günlük Theta Erimesi: %1.0 prim/gün  |  Θ/Δ Kalite: 20.60
    📈 Sim (+%10, 21g): $2.38 → $3.60  (%+51)"""
 
-# 21 April Data (Partial - I only have #1)
-text_21 = """#1 📊 TDW  $84.50  PUAN:72.5  🔥 GÜÇLÜ
-   EMA: EMA9>20>50>200 ✅  EMA200:$63.63  EMA50:$78.01
-   ADX:21  RSI:58  RVOL:0.92x  ROC20:+16.5%  ROC60:+43.2%
-   VWAP:$83.15  HV30:36%  IV Rank:30  ✅
-   RS vs SPY (60g): +40.5pp  Baz Aralığı:%18.1  60g Zirve:$87.84
+# 21 April Data (FULL 13 Candidates)
+text_21 = """#1 📊 ZION  $61.87  PUAN:68.6  🔥 GÜÇLÜ
+   EMA: 🔜NEAR GOLDEN ✅  EMA200:$56.22  EMA50:$58.92
+   ADX:24  RSI:62  RVOL:0.94x  ROC20:+12.4%  ROC60:+5.5%
+   VWAP:$59.38  HV30:24%  IV Rank:26  ✅
+   RS vs SPY (60g): +2.8pp  Baz Aralığı:%16.1  60g Zirve:$64.82
 
 ═══════════════════════════════════════════════════════
-🔥 GÜÇLÜ  #TDW  $84.50
-🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌱 TREND BAŞLANGICI
-📐 EM: ±$22.15 (üst ≤$106.65)  |  60g Zirve: $87.84
-📊 IV: 53%  IV Rank: 30  🟡 NORMAL  |  Max Pain: $85.00
+🔥 GÜÇLÜ  #ZION  $61.87
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🔜 NEAR GOLDEN CROSS
+📐 EM: ±$9.20 (üst ≤$71.07)  |  60g Zirve: $64.82
+📊 IV: 30%  IV Rank: 26  🟡 NORMAL  |  Max Pain: $60.00
 📅 Vade: 2026-07-17 (87 gün)
-📈 RS vs SPY: +40.5pp  💪 PAZAR LİDERİ  |  30g Baz Aralığı: %18.1
+📈 RS vs SPY: +2.8pp  🟡 GÜÇLÜ  |  30g Baz Aralığı: %16.1
 
 🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
-   🎯 $85.0 CALL  (2026-07-17)
-   💸 Prim: $8.95  Spread: 12.1%  |  Δ: 0.575  Γ: 0.0175
-   📊 OI: 226  Vol: 1  Vol/OI: 0.00x
-   💰 Kontrat: $960  Başabaş: $93.95
-   🎯 EXIT: TP $12.53  |  SL $6.71  |  Time Stop 31 gün kala
-   ⏱ Günlük Theta Erimesi: %0.6 prim/gün  |  Θ/Δ Kalite: 10.8
-   📈 Sim (+%7, 21g): $9.45 → $11.82  (%+25)"""
+   🎯 $62.5 CALL  (2026-07-17)
+   💸 Prim: $3.15  Spread: 14.7%  |  Δ: 0.534  Γ: 0.04322
+   📊 OI: 159  Vol: 32  Vol/OI: 0.20x
+   💰 Kontrat: $340  Başabaş: $65.90
+   🎯 EXIT: TP $4.41  |  SL $2.36  |  Time Stop 30 gün kala
+   ⏱ Günlük Theta Erimesi: %0.8 prim/gün  |  Θ/Δ Kalite: 21.38
+   📈 Sim (+%7, 21g): $3.72 → $5.72  (%+54)
+
+#2 📊 MP  $66.05  PUAN:63.8  🌟🔥 GÜÇLÜ
+   EMA: 🌟GOLDEN CROSS ✅  EMA200:$55.69  EMA50:$57.42
+   ADX:24  RSI:67  RVOL:1.11x  ROC20:+24.0%  ROC60:-5.1%
+   VWAP:$54.72  HV30:74%  IV Rank:26  ✅
+   RS vs SPY (60g): -7.7pp  Baz Aralığı:%31.2  60g Zirve:$67.01
+
+═══════════════════════════════════════════════════════
+🌟🔥 GÜÇLÜ  #MP  $66.05
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌟 GOLDEN CROSS — TREND DOĞUMU
+📐 EM: ±$31.31 (üst ≤$97.36)  |  60g Zirve: $67.01
+📊 IV: 74%  IV Rank: 26  🟡 NORMAL  |  Max Pain: $65.00
+📅 Vade: 2026-09-18 (150 gün)
+📈 RS vs SPY: -7.7pp  😟 ZAYIF  |  30g Baz Aralığı: %31.2
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $70.0 CALL  (2026-09-18)
+   💸 Prim: $10.93  Spread: 4.9%  |  Δ: 0.563  Γ: 0.01256
+   📊 OI: 6,595  Vol: 213  Vol/OI: 0.03x
+   💰 Kontrat: $1120  Başabaş: $81.20
+   🎯 EXIT: TP $15.29  |  SL $8.19  |  Time Stop 52 gün kala
+   ⏱ Günlük Theta Erimesi: %0.4 prim/gün  |  Θ/Δ Kalite: 12.59
+   📈 Sim (+%7, 21g): $11.41 → $12.52  (%+10)
+
+#3 📊 BAC  $53.62  PUAN:63.6  🔥 GÜÇLÜ
+   EMA: 🔜NEAR GOLDEN ✅  EMA200:$50.19  EMA50:$51.09
+   ADX:29  RSI:66  RVOL:1.02x  ROC20:+12.8%  ROC60:+4.3%
+   VWAP:$50.99  HV30:22%  IV Rank:37  ✅
+   RS vs SPY (60g): +1.6pp  Baz Aralığı:%14.2  60g Zirve:$56.21
+
+═══════════════════════════════════════════════════════
+🔥 GÜÇLÜ  #BAC  $53.62
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🔜 NEAR GOLDEN CROSS
+📐 EM: ±$7.72 (üst ≤$61.34)  |  60g Zirve: $56.21
+📊 IV: 30%  IV Rank: 37  🔴 PAHALI  |  Max Pain: $52.50
+📅 Vade: 2026-07-17 (87 gün)
+📈 RS vs SPY: +1.6pp  😐 NÖTR  |  30g Baz Aralığı: %14.2
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $55.0 CALL  (2026-07-17)
+   💸 Prim: $2.19  Spread: 2.3%  |  Δ: 0.485  Γ: 0.05683
+   📊 OI: 6,936  Vol: 248  Vol/OI: 0.04x
+   💰 Kontrat: $221  Başabaş: $57.21
+   🎯 EXIT: TP $3.06  |  SL $1.64  |  Time Stop 30 gün kala
+   ⏱ Günlük Theta Erimesi: %0.9 prim/gün  |  Θ/Δ Kalite: 25.14
+   📈 Sim (+%7, 21g): $2.47 → $4.12  (%+67)
+
+#4 📊 HAL  $38.17  PUAN:61.8  🔥 GÜÇLÜ ⚠️VWAP↓
+   EMA: EMA9>20>50>200 ✅  EMA200:$30.25  EMA50:$36.19
+   ADX:22  RSI:55  RVOL:0.81x  ROC20:+1.8%  ROC60:+13.0%
+   VWAP:$38.19  ⚠️ VWAP ALTI  HV30:36%  IV Rank:27  ✅
+   RS vs SPY (60g): +10.3pp  Baz Aralığı:%17.6  60g Zirve:$40.42
+
+═══════════════════════════════════════════════════════
+🔥 GÜÇLÜ ⚠️VWAP↓  #HAL  $38.17
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌱 TREND BAŞLANGICI
+📐 EM: ±$7.54 (üst ≤$45.71)  |  60g Zirve: $40.42
+📊 IV: 40%  IV Rank: 27  🟡 NORMAL  |  Max Pain: $38.00
+📅 Vade: 2026-07-17 (87 gün)
+📈 RS vs SPY: +10.3pp  💪 PAZAR LİDERİ  |  30g Baz Aralığı: %17.6
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $40.0 CALL  (2026-07-17)
+   💸 Prim: $2.08  Spread: 6.0%  |  Δ: 0.465  Γ: 0.05482
+   📊 OI: 2,395  Vol: 17  Vol/OI: 0.01x
+   💰 Kontrat: $215  Başabaş: $42.15
+   🎯 EXIT: TP $2.92  |  SL $1.56  |  Time Stop 30 gün kala
+   ⏱ Günlük Theta Erimesi: %0.9 prim/gün  |  Θ/Δ Kalite: 24.86
+   📈 Sim (+%7, 21g): $2.31 → $3.17  (%+37)
+
+#5 📊 FHN  $24.85  PUAN:60.6  🔥 GÜÇLÜ
+   EMA: 🔜NEAR GOLDEN ✅  EMA200:$22.64  EMA50:$23.53
+   ADX:19  RSI:67  RVOL:1.12x  ROC20:+10.9%  ROC60:+4.7%
+   VWAP:$23.69  HV30:22%  IV Rank:30  ✅
+   RS vs SPY (60g): +2.0pp  Baz Aralığı:%12.6  60g Zirve:$26.03
+
+═══════════════════════════════════════════════════════
+🔥 GÜÇLÜ  #FHN  $24.85
+🔮 Rejim: ⚡ KIRILIM REJİMİ  |  Giriş: 🔜 NEAR GOLDEN CROSS
+📐 EM: ±$4.55 (üst ≤$29.40)  |  60g Zirve: $26.03
+📊 IV: 32%  IV Rank: 30  🟡 NORMAL  |  Max Pain: $24.00
+📅 Vade: 2026-08-21 (122 gün)
+📈 RS vs SPY: +2.0pp  🟡 GÜÇLÜ  |  30g Baz Aralığı: %12.6
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: breakout)
+   🎯 $27.0 CALL  (2026-08-21)
+   💸 Prim: $0.85  Spread: 11.1%  |  Δ: 0.381  Γ: 0.08979
+   📊 OI: 407  Vol: 4  Vol/OI: 0.01x
+   💰 Kontrat: $90  Başabaş: $27.90
+   🎯 EXIT: TP $1.19  |  SL $0.64  |  Time Stop 43 gün kala
+   ⏱ Günlük Theta Erimesi: %0.9 prim/gün  |  Θ/Δ Kalite: 48.86
+   📈 Sim (+%7, 21g): $1.03 → $1.55  (%+50)
+
+#6 📊 USAR  $23.01  PUAN:59.8  🌟💡 İYİ
+   EMA: 🌟GOLDEN CROSS ✅  EMA200:$17.21  EMA50:$18.22
+   ADX:23  RSI:70  RVOL:1.55x  ROC20:+32.3%  ROC60:-7.1%
+   VWAP:$17.98  HV30:96%  IV Rank:12  ✅
+   RS vs SPY (60g): -9.8pp  Baz Aralığı:%38.2  60g Zirve:$26.72
+
+═══════════════════════════════════════════════════════
+🌟💡 İYİ  #USAR  $23.01
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌟 GOLDEN CROSS — TREND DOĞUMU
+📐 EM: ±$14.86 (üst ≤$37.87)  |  60g Zirve: $26.72
+📊 IV: 101%  IV Rank: 12  ✅ UCUZ IV  |  Max Pain: $23.00
+📅 Vade: 2026-09-18 (150 gün)
+📈 RS vs SPY: -9.8pp  😟 ZAYIF  |  30g Baz Aralığı: %38.2
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $25.0 CALL  (2026-09-18)
+   💸 Prim: $5.35  Spread: 5.5%  |  Δ: 0.595  Γ: 0.02523
+   📊 OI: 1,648  Vol: 673  Vol/OI: 0.41x
+   💰 Kontrat: $550  Başabaş: $30.50
+   🎯 EXIT: TP $7.49  |  SL $4.01  |  Time Stop 52 gün kala
+   ⏱ Günlük Theta Erimesi: %0.4 prim/gün  |  Θ/Δ Kalite: 28.33
+   📈 Sim (+%7, 21g): $5.50 → $5.72  (%+4)
+
+🚀 ASİMETRİK FIRSAT  [👀 SWEEP: 0.52x]
+   🎯 $32.0 CALL  (2026-09-18)  ✅ EM İçinde ≤$37.87
+   💸 Prim: $3.55  Spread: 8.1%  |  Δ: 0.449  Γ: 0.02570
+   📊 OI: 185  Vol: 97  Vol/OI: 0.52x
+   💰 Kontrat: $370  Başabaş: $35.70
+   🎯 EXIT: TP $4.97  |  SL $2.66  |  Time Stop 52 gün kala
+   ⏱ Günlük Theta Erimesi: %0.6 prim/gün  |  Θ/Δ Kalite: 21.19
+   📈 Sim (+%10, 21g): $3.67 → $3.94  (%+8)
+
+#7 📊 PTEN  $10.42  PUAN:59.5  💡 İYİ ⚠️VWAP↓
+   EMA: EMA20>50>200 ✅  EMA200:$7.70  EMA50:$9.60
+   ADX:24  RSI:53  RVOL:0.84x  ROC20:-2.8%  ROC60:+44.4%
+   VWAP:$10.45  ⚠️ VWAP ALTI  HV30:64%  IV Rank:29  ✅
+   RS vs SPY (60g): +41.8pp  Baz Aralığı:%18.6  60g Zirve:$11.36
+
+═══════════════════════════════════════════════════════
+💡 İYİ ⚠️VWAP↓  #PTEN  $10.42
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌱 TREND BAŞLANGICI
+📐 EM: ±$3.47 (üst ≤$13.89)  |  60g Zirve: $11.36
+📊 IV: 58%  IV Rank: 29  🟡 NORMAL  |  Max Pain: $10.00
+📅 Vade: 2026-08-21 (122 gün)
+📈 RS vs SPY: +41.8pp  💪 PAZAR LİDERİ  |  30g Baz Aralığı: %18.6
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $11.0 CALL  (2026-08-21)
+   💸 Prim: $1.12  Spread: 12.5%  |  Δ: 0.519  Γ: 0.11698
+   📊 OI: 37,526  Vol: 33  Vol/OI: 0.00x
+   💰 Kontrat: $120  Başabaş: $12.20
+   🎯 EXIT: TP $1.57  |  SL $0.84  |  Time Stop 43 gün kala
+   ⏱ Günlük Theta Erimesi: %0.5 prim/gün  |  Θ/Δ Kalite: 85.16
+   📈 Sim (+%7, 21g): $1.19 → $1.39  (%+17)
+
+#8 📊 TFC  $51.11  PUAN:57.8  💡 İYİ
+   EMA: 🔜NEAR GOLDEN ✅  EMA200:$46.60  EMA50:$48.36
+   ADX:27  RSI:68  RVOL:0.84x  ROC20:+13.9%  ROC60:+4.2%
+   VWAP:$47.82  HV30:23%  IV Rank:34  ✅
+   RS vs SPY (60g): +1.5pp  Baz Aralığı:%14.2  60g Zirve:$55.25
+
+═══════════════════════════════════════════════════════
+💡 İYİ  #TFC  $51.11
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🔜 NEAR GOLDEN CROSS
+📐 EM: ±$9.15 (üst ≤$60.26)  |  60g Zirve: $55.25
+📊 IV: 28%  IV Rank: 34  🟡 NORMAL  |  Max Pain: $50.00
+📅 Vade: 2026-09-18 (150 gün)
+📈 RS vs SPY: +1.5pp  😐 NÖTR  |  30g Baz Aralığı: %14.2
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $52.5 CALL  (2026-09-18)
+   💸 Prim: $2.67  Spread: 8.9%  |  Δ: 0.518  Γ: 0.04682
+   📊 OI: 1,361  Vol: 46  Vol/OI: 0.03x
+   💰 Kontrat: $280  Başabaş: $55.30
+   🎯 EXIT: TP $3.74  |  SL $2.01  |  Time Stop 52 gün kala
+   ⏱ Günlük Theta Erimesi: %0.5 prim/gün  |  Θ/Δ Kalite: 35.74
+   📈 Sim (+%7, 21g): $3.24 → $4.90  (%+51)
+
+#9 📊 IBKR  $80.08  PUAN:57.1  💡 İYİ
+   EMA: EMA9>20>50>200 ✅  EMA200:$66.87  EMA50:$71.76
+   ADX:21  RSI:67  RVOL:0.91x  ROC20:+18.0%  ROC60:+3.3%
+   VWAP:$71.72  HV30:42%  IV Rank:40  ✅
+   RS vs SPY (60g): +0.7pp  Baz Aralığı:%22.5  60g Zirve:$81.71
+
+═══════════════════════════════════════════════════════
+💡 İYİ  #IBKR  $80.08
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌱 TREND BAŞLANGICI
+📐 EM: ±$25.50 (üst ≤$105.58)  |  60g Zirve: $81.71
+📊 IV: 50%  IV Rank: 40  🔴 PAHALI  |  Max Pain: $80.00
+📅 Vade: 2026-09-18 (150 gün)
+📈 RS vs SPY: +0.7pp  😐 NÖTR  |  30g Baz Aralığı: %22.5
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $85.0 CALL  (2026-09-18)
+   💸 Prim: $6.50  Spread: 6.0%  |  Δ: 0.497  Γ: 0.01834
+   📊 OI: 278  Vol: 38  Vol/OI: 0.14x
+   💰 Kontrat: $670  Başabaş: $91.70
+   🎯 EXIT: TP $9.1  |  SL $4.88  |  Time Stop 52 gün kala
+   ⏱ Günlük Theta Erimesi: %0.5 prim/gün  |  Θ/Δ Kalite: 14.87
+   📈 Sim (+%7, 21g): $7.32 → $9.19  (%+26)
+
+#10 📊 KEY  $22.27  PUAN:56.1  💡 İYİ
+   EMA: 🔜NEAR GOLDEN ✅  EMA200:$19.34  EMA50:$20.75
+   ADX:22  RSI:72  RVOL:1.07x  ROC20:+13.4%  ROC60:+6.6%
+   VWAP:$20.89  HV30:20%  IV Rank:32  ✅
+   RS vs SPY (60g): +4.0pp  Baz Aralığı:%15.2  60g Zirve:$22.98
+
+═══════════════════════════════════════════════════════
+💡 İYİ  #KEY  $22.27
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🔜 NEAR GOLDEN CROSS
+📐 EM: ±$4.18 (üst ≤$26.45)  |  60g Zirve: $22.98
+📊 IV: 29%  IV Rank: 32  🟡 NORMAL  |  Max Pain: $22.00
+📅 Vade: 2026-09-18 (150 gün)
+📈 RS vs SPY: +4.0pp  🟡 GÜÇLÜ  |  30g Baz Aralığı: %15.2
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $23.0 CALL  (2026-09-18)
+   💸 Prim: $1.23  Spread: 11.5%  |  Δ: 0.511  Γ: 0.09895
+   📊 OI: 858  Vol: 7  Vol/OI: 0.01x
+   💰 Kontrat: $130  Başabaş: $24.30
+   🎯 EXIT: TP $1.72  |  SL $0.92  |  Time Stop 52 gün kala
+   ⏱ Günlük Theta Erimesi: %0.6 prim/gün  |  Θ/Δ Kalite: 76.24
+   📈 Sim (+%7, 21g): $1.49 → $2.17  (%+46)
+
+#11 📊 DOW  $37.63  PUAN:53.8  💡 İYİ ⚠️VWAP↓
+   EMA: EMA20>50>200 ✅  EMA200:$29.91  EMA50:$35.79
+   ADX:22  RSI:49  RVOL:0.86x  ROC20:+4.4%  ROC60:+34.8%
+   VWAP:$39.31  ⚠️ VWAP ALTI  HV30:59%  IV Rank:32  ✅
+   RS vs SPY (60g): +32.1pp  Baz Aralığı:%21.2  60g Zirve:$41.87
+
+═══════════════════════════════════════════════════════
+💡 İYİ ⚠️VWAP↓  #DOW  $37.63
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌱 TREND BAŞLANGICI
+📐 EM: ±$8.47 (üst ≤$46.10)  |  60g Zirve: $41.87
+📊 IV: 46%  IV Rank: 32  🟡 NORMAL  |  Max Pain: $37.50
+📅 Vade: 2026-07-17 (87 gün)
+📈 RS vs SPY: +32.1pp  💪 PAZAR LİDERİ  |  30g Baz Aralığı: %21.2
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $37.5 CALL  (2026-07-17)
+   💸 Prim: $3.35  Spread: 5.8%  |  Δ: 0.572  Γ: 0.04635
+   📊 OI: 667  Vol: 98  Vol/OI: 0.15x
+   💰 Kontrat: $345  Başabaş: $40.95
+   🎯 EXIT: TP $4.69  |  SL $2.51  |  Time Stop 30 gün kala
+   ⏱ Günlük Theta Erimesi: %0.6 prim/gün  |  Θ/Δ Kalite: 26.60
+   📈 Sim (+%7, 21g): $3.64 → $4.68  (%+29)
+
+🚀 ASİMETRİK FIRSAT  [👀 SWEEP: 0.13x]
+   🎯 $42.5 CALL  (2026-07-17)  ✅ EM İçinde ≤$46.10
+   💸 Prim: $1.65  Spread: 12.5%  |  Δ: 0.359  Γ: 0.04307
+   📊 OI: 213  Vol: 27  Vol/OI: 0.13x
+   💰 Kontrat: $176  Başabaş: $44.26
+   🎯 EXIT: TP $2.31  |  SL $1.24  |  Time Stop 30 gün kala
+   ⏱ Günlük Theta Erimesi: %1.2 prim/gün  |  Θ/Δ Kalite: 17.78
+   📈 Sim (+%10, 21g): $1.88 → $2.83  (%+51)
+
+#12 📊 KSS  $15.63  PUAN:53.8  ⚡💡 İYİ
+   EMA: ⚡EMA200 KIRILIM ✅  EMA200:$15.31  EMA50:$14.78
+   ADX:19  RSI:66  RVOL:0.83x  ROC20:+18.9%  ROC60:-10.6%
+   VWAP:$13.46  HV30:58%  IV Rank:22  ✅
+   RS vs SPY (60g): -13.3pp  Baz Aralığı:%23.0  60g Zirve:$19.65
+
+═══════════════════════════════════════════════════════
+⚡💡 İYİ  #KSS  $15.63
+🔮 Rejim: ⚡ KIRILIM REJİMİ  |  Giriş: ⚡ EMA200 KIRILIM — ALTIN SİNYAL
+📐 EM: ±$5.42 (üst ≤$21.05)  |  60g Zirve: $19.65
+📊 IV: 71%  IV Rank: 22  🟡 NORMAL  |  Max Pain: $16.00
+📅 Vade: 2026-07-17 (87 gün)
+📈 RS vs SPY: -13.3pp  😟 ZAYIF  |  30g Baz Aralığı: %23.0
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: breakout)
+   🎯 $17.0 CALL  (2026-07-17)
+   💸 Prim: $1.71  Spread: 9.4%  |  Δ: 0.492  Γ: 0.07111
+   📊 OI: 332  Vol: 16  Vol/OI: 0.05x
+   💰 Kontrat: $180  Başabaş: $18.80
+   🎯 EXIT: TP $2.4  |  SL $1.29  |  Time Stop 30 gün kala
+   ⏱ Günlük Theta Erimesi: %0.8 prim/gün  |  Θ/Δ Kalite: 35.88
+   📈 Sim (+%7, 21g): $1.77 → $1.92  (%+8)
+
+#13 📊 SIDU  $3.78  PUAN:47.0  💡 İYİ ⚠️VWAP↓
+   EMA: EMA20>50>200 ✅  EMA200:$2.28  EMA50:$3.16
+   ADX:37  RSI:51  RVOL:1.48x  ROC20:+50.4%  ROC60:-12.4%
+   VWAP:$3.91  ⚠️ VWAP ALTI  HV30:209%  IV Rank:37  ✅
+   RS vs SPY (60g): -15.1pp  Baz Aralığı:%105.4  60g Zirve:$5.95
+
+═══════════════════════════════════════════════════════
+💡 İYİ ⚠️VWAP↓  #SIDU  $3.78
+🔮 Rejim: 📈 TREND REJİMİ  |  Giriş: 🌱 TREND BAŞLANGICI
+📐 EM: ±$3.27 (üst ≤$7.05)  |  60g Zirve: $5.95
+📊 IV: 150%  IV Rank: 37  🔴 PAHALI  |  Max Pain: $4.00
+📅 Vade: 2026-08-21 (122 gün)
+📈 RS vs SPY: -15.1pp  😟 ZAYIF  |  30g Baz Aralığı: %105.4
+
+🛡️ KURUMSAL SIĞINAK  (Delta rejim: trend)
+   🎯 $6.0 CALL  (2026-08-21)
+   💸 Prim: $0.78  Spread: 6.3%  |  Δ: 0.476  Γ: 0.11886
+   📊 OI: 2,158  Vol: 48  Vol/OI: 0.02x
+   💰 Kontrat: $80  Başabaş: $6.80
+   🎯 EXIT: TP $1.08  |  SL $0.58  |  Time Stop 43 gün kala
+   ⏱ Günlük Theta Erimesi: %0.7 prim/gün  |  Θ/Δ Kalite: 85.05
+   📉 Sim (+%7, 21g): $0.78 → $0.72  (%-8)"""
 
 # 22 April Data (FULL 18 Candidates)
 text_22 = """#1 📊 AGNC  $10.90  PUAN:75.8  🌟🏆 MÜKEMMEL
