@@ -543,14 +543,14 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             {daysDistribution.map(b => {
               const barHeight = maxDaysBucket > 0 ? Math.max(4, (b.avgRet / maxDaysBucket) * 96) : 4;
               return (
-                <div key={b.label} className="flex-1 flex flex-col items-center justify-end gap-1">
-                  <p className="text-[11px] font-mono text-[#22c55e] font-bold">{b.avgRet > 0 ? `+${b.avgRet}%` : "—"}</p>
+                <div key={b.label} className="flex-1 flex flex-col items-center justify-end gap-1.5">
+                  <p className="text-sm md:text-base font-mono text-[#22c55e] font-black">{b.avgRet > 0 ? `+${b.avgRet}%` : "—"}</p>
                   <div
                     className="w-full rounded-t-md bg-gradient-to-t from-[#22c55e]/60 to-[#22c55e]/20 border border-[#22c55e]/30 transition-all"
                     style={{ height: `${barHeight}%` }}
                   />
-                  <p className="text-xs text-[#00d2ff] text-center">{b.label}</p>
-                  <p className="text-[10px] text-white">{b.count}</p>
+                  <p className="text-sm font-bold text-[#00d2ff] text-center">{b.label}</p>
+                  <p className="text-xs md:text-sm font-bold text-white">{b.count}</p>
                 </div>
               );
             })}
