@@ -9,6 +9,7 @@ import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
 import SectorScreener from "@/components/SectorScreener";
 import MarketExplorer from "@/components/MarketExplorer";
 import SectorHeatMap from "@/components/SectorHeatMap";
+import AIWidget from "@/components/AIWidget";
 import { Metadata } from "next";
 
 export const revalidate = 60; // ISR: 1 dakikada bir yenile
@@ -56,7 +57,12 @@ export default async function HomePage() {
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
-        {/* Index Quick View - Temporarily Hidden 
+        {/* AI Widget */}
+        <section className="mb-10 animate-fade-in">
+          <AIWidget />
+        </section>
+
+        {/* Index Quick View - Temporarily Hidden
         <section className="mb-8 animate-fade-in">
           <IndexCards data={master} />
         </section>
