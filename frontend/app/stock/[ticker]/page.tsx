@@ -172,13 +172,24 @@ export default async function StockDetailPage({ params }: Props) {
         </div>
 
         {/* ── Returns Strip ── */}
-        <div className="glass-card flex items-center justify-center p-6 mb-4 border-l-4 border-l-[#3b82f6]">
-          <div className="flex flex-col items-center">
-            <span className="text-[11px] font-bold text-[#64748b] uppercase tracking-[0.2em] mb-1">Last 24h Performance</span>
-            <span className={`text-4xl font-mono font-black ${getChangeColor(stock.price.change_pct)}`}>
-              {stock.price.change_pct >= 0 ? "+" : ""}{stock.price.change_pct.toFixed(2)}%
-            </span>
-          </div>
+        <div className="glass-card grid grid-cols-4 divide-x divide-[#1e2a3a] mb-4">
+          {[
+            { label: "1D", value: stock.price.change_pct },
+            { label: "1W", value: stock.price.change_pct_1w },
+            { label: "1M", value: stock.price.change_pct_1m },
+            { label: "1Y", value: stock.price.change_pct_1y },
+          ].map((p) => (
+            <div key={p.label} className="px-3 py-3 md:px-5 flex flex-col gap-0.5">
+              <span className="text-[11px] font-bold text-[#64748b] uppercase tracking-widest">{p.label}</span>
+              <span className={`text-base md:text-lg font-mono font-black ${
+                p.value !== undefined && p.value !== null ? getChangeColor(p.value) : "text-[#64748b]"
+              }`}>
+                {p.value !== undefined && p.value !== null
+                  ? `${p.value >= 0 ? "+" : ""}${p.value.toFixed(2)}%`
+                  : "—"}
+              </span>
+            </div>
+          ))}
         </div>
 
         {/* ── BOGA AI Decision Banner (for swing picks) ── */}

@@ -32,7 +32,7 @@ export default function MiniChart({ symbol, height = "180" }: Props) {
       scalePosition: "no",
       scaleMode: "Normal",
       fontFamily: "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
-      fontSize: "12",
+      fontSize: "10",
       noTimeScale: true,
       valuesTracking: "1",
       changeMode: "percent",
