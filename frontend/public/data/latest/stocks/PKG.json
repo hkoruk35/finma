@@ -1,12 +1,12 @@
 {
   "ticker": "PKG",
   "company": "Packaging Corporation of America",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.781335-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.172553-04:00",
   "sector": "Materials",
   "industry": "Packaging & Containers",
   "price": {
-    "current": 205.24,
+    "current": 215.46,
     "open": 211.25,
     "high": 211.96,
     "low": 201.87,
@@ -15,23 +15,23 @@
     "change_pct_1w": -0.88,
     "change_pct_1m": -1.83,
     "change_pct_1y": 15.5,
-    "volume": 944735,
-    "avg_volume_30d": 1023687,
-    "last_sync": "2026-04-22T22:18:13.590097"
+    "volume": 945000,
+    "avg_volume_30d": 1023696,
+    "last_sync": "2026-04-23T09:39:35.744281"
   },
   "scores": {
-    "master_score": 15.29,
+    "master_score": 15.37,
     "technical_score": 10.8,
     "fundamental_score": 0.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 40.1,
+    "sector_score": 40.9,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 15.29,
+    "signal_score": 15.37,
     "confidence": 0.15,
     "signal_type": "UNDERPERFORM"
   },
@@ -56,11 +56,11 @@
     "atr_pct": 0.0285,
     "obv_trend": "DOWN",
     "mfi": 40.0,
-    "cmf": -0.043,
+    "cmf": -0.044,
     "stoch_k": 23.6,
     "stoch_d": 52.3,
     "rvol": 0.81,
-    "volume_5d_avg": 829967,
+    "volume_5d_avg": 830020,
     "green_days_10d": 4,
     "52w_high": 244.87,
     "52w_low": 175.68,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.1683
   },
   "fundamental": {
-    "pe_ratio": 23.892899,
+    "pe_ratio": 23.920746,
     "sector_pe_median": 23.032734,
     "pb_ratio": 3.9554427,
     "de_ratio": 94.93,
@@ -80,26 +80,26 @@
     "net_margin": 0.08611,
     "market_cap": 18310156288,
     "enterprise_value": 21950949376,
-    "dividend_yield": 2.37,
+    "dividend_yield": 2.44,
     "payout_ratio": 0.5828,
     "insider_ownership_pct": 0.01589,
-    "institutional_ownership_pct": 1.00264,
+    "institutional_ownership_pct": 1.0026699,
     "short_ratio": 2.96,
     "beta": 0.918
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 204.21,
-    "entry_range_high": 206.27,
-    "target_range_low": 218.33,
-    "target_range_high": 233.93,
-    "stop_range_low": 183.86,
-    "stop_range_high": 193.54,
-    "target_price": 222.79,
-    "stop_loss": 193.54,
+    "entry_range_low": 214.38,
+    "entry_range_high": 216.54,
+    "target_range_low": 229.2,
+    "target_range_high": 245.58,
+    "stop_range_low": 193.02,
+    "stop_range_high": 203.18,
+    "target_price": 233.88,
+    "stop_loss": 203.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.781208-04:00",
+    "generated_at": "2026-04-23T09:19:04.172521-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 237.0
+    "dividend_yield_pct": 244.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 8916,
+      "shares": 6024,
       "date": "2026-03-27"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PKG trades near equilibrium with RSI 42 and positive MACD; watch for a catalyst to establish directional bias.",
+  "ai_summary": "PKG is stuck in a holding pattern. Watch for a volume spike to break the current equilibrium (RSI 42).",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 15,

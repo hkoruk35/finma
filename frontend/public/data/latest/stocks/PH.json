@@ -1,12 +1,12 @@
 {
   "ticker": "PH",
   "company": "Parker-Hannifin Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.029349-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.198430-04:00",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
   "price": {
-    "current": 954.43,
+    "current": 964.86,
     "open": 981.57,
     "high": 983.69,
     "low": 948.79,
@@ -15,9 +15,9 @@
     "change_pct_1w": -0.97,
     "change_pct_1m": 5.34,
     "change_pct_1y": 76.0,
-    "volume": 750027,
-    "avg_volume_30d": 690757,
-    "last_sync": "2026-04-22T22:18:12.712397"
+    "volume": 750100,
+    "avg_volume_30d": 690760,
+    "last_sync": "2026-04-23T09:39:33.986433"
   },
   "scores": {
     "master_score": 32.87,
@@ -60,7 +60,7 @@
     "stoch_k": 45.9,
     "stoch_d": 61.6,
     "rvol": 0.85,
-    "volume_5d_avg": 586905,
+    "volume_5d_avg": 586920,
     "green_days_10d": 5,
     "52w_high": 1023.02,
     "52w_low": 561.46,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 34.84593,
-    "sector_pe_median": 33.53837,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 8.4176035,
     "de_ratio": 68.925,
     "fcf_yield": 0.0205,
@@ -83,23 +83,23 @@
     "dividend_yield": 0.75,
     "payout_ratio": 0.2565,
     "insider_ownership_pct": 0.0016300001,
-    "institutional_ownership_pct": 0.90647006,
+    "institutional_ownership_pct": 0.90679,
     "short_ratio": 1.69,
     "beta": 1.25
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 939.2,
-    "entry_range_high": 959.2,
-    "target_range_low": 1023.63,
-    "target_range_high": 1096.75,
-    "stop_range_low": 849.65,
-    "stop_range_high": 894.37,
-    "target_price": 1044.52,
-    "stop_loss": 894.37,
+    "entry_range_low": 949.47,
+    "entry_range_high": 969.69,
+    "target_range_low": 1034.82,
+    "target_range_high": 1108.74,
+    "stop_range_low": 858.94,
+    "stop_range_high": 904.15,
+    "target_price": 1055.94,
+    "stop_loss": 904.15,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.029239-04:00",
+    "generated_at": "2026-04-23T09:19:04.198399-04:00",
     "categories": [
       "top_scores"
     ]
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PH shows mixed signals with RSI at 51 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "While PH's MACD is positive, the broader technical picture (RSI 51) is mixed. Waiting for volume confirmation is prudent.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 33,

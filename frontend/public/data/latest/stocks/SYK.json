@@ -1,12 +1,12 @@
 {
   "ticker": "SYK",
   "company": "Stryker Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.597630-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.956233-04:00",
   "sector": "Healthcare",
   "industry": "Medical Devices",
   "price": {
-    "current": 329.35,
+    "current": 332.26,
     "open": 327.75,
     "high": 335.42,
     "low": 327.75,
@@ -15,23 +15,23 @@
     "change_pct_1w": -3.48,
     "change_pct_1m": -0.71,
     "change_pct_1y": -2.08,
-    "volume": 1788955,
-    "avg_volume_30d": 2161138,
-    "last_sync": "2026-04-22T22:18:13.025864"
+    "volume": 2328500,
+    "avg_volume_30d": 2179123,
+    "last_sync": "2026-04-23T09:39:34.573561"
   },
   "scores": {
-    "master_score": 29.25,
+    "master_score": 29.26,
     "technical_score": 9.6,
     "fundamental_score": 52.0,
     "momentum_score": 10.0,
     "sentiment_score": 85.0,
-    "sector_score": 23.9,
+    "sector_score": 24.0,
     "breakout_score": 30.0,
     "value_score": 15.0,
     "reversal_score": -10.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 29.25,
+    "signal_score": 29.26,
     "confidence": 0.29,
     "signal_type": "UNDERPERFORM"
   },
@@ -55,12 +55,12 @@
     "atr": 8.41,
     "atr_pct": 0.0255,
     "obv_trend": "DOWN",
-    "mfi": 54.9,
-    "cmf": -0.111,
+    "mfi": 53.8,
+    "cmf": -0.117,
     "stoch_k": 18.5,
     "stoch_d": 28.9,
-    "rvol": 0.81,
-    "volume_5d_avg": 1745131,
+    "rvol": 0.85,
+    "volume_5d_avg": 1853040,
     "green_days_10d": 4,
     "52w_high": 400.53,
     "52w_low": 325.22,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.0127
   },
   "fundamental": {
-    "pe_ratio": 39.161713,
-    "sector_pe_median": 25.538895,
+    "pe_ratio": 39.208336,
+    "sector_pe_median": 25.55964,
     "pb_ratio": 5.618965,
     "de_ratio": 72.971,
     "fcf_yield": 0.0331,
@@ -80,26 +80,26 @@
     "net_margin": 0.12923999,
     "market_cap": 126135869440,
     "enterprise_value": 138298507264,
-    "dividend_yield": 1.08,
+    "dividend_yield": 1.07,
     "payout_ratio": 0.4048,
     "insider_ownership_pct": 0.053740002,
-    "institutional_ownership_pct": 0.8216,
+    "institutional_ownership_pct": 0.82089996,
     "short_ratio": 1.95,
     "beta": 0.926
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 327.7,
-    "entry_range_high": 331.0,
-    "target_range_low": 347.49,
-    "target_range_high": 372.31,
-    "stop_range_low": 296.9,
-    "stop_range_high": 312.53,
-    "target_price": 354.58,
-    "stop_loss": 312.53,
+    "entry_range_low": 330.6,
+    "entry_range_high": 333.92,
+    "target_range_low": 350.56,
+    "target_range_high": 375.6,
+    "stop_range_low": 299.52,
+    "stop_range_high": 315.29,
+    "target_price": 357.71,
+    "stop_loss": 315.29,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.597552-04:00",
+    "generated_at": "2026-04-23T09:19:03.956206-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 108.0
+    "dividend_yield_pct": 107.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 150,
+      "shares": 1452,
       "date": "2026-03-20"
     }
   },

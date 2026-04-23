@@ -1,23 +1,23 @@
 {
   "ticker": "EXPD",
   "company": "Expeditors International of Washington, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.531385-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.223312-04:00",
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
   "price": {
-    "current": 148.44,
+    "current": 150.43,
     "open": 151.68,
     "high": 151.92,
-    "low": 148.43,
+    "low": 148.42,
     "prev_close": 150.98,
     "change_pct": -1.68,
     "change_pct_1w": 3.07,
     "change_pct_1m": 5.62,
     "change_pct_1y": 43.38,
-    "volume": 522160,
-    "avg_volume_30d": 1070648,
-    "last_sync": "2026-04-22T22:18:12.195054"
+    "volume": 760400,
+    "avg_volume_30d": 1078590,
+    "last_sync": "2026-04-23T09:39:33.291092"
   },
   "scores": {
     "master_score": 40.92,
@@ -55,12 +55,12 @@
     "atr": 3.47,
     "atr_pct": 0.0234,
     "obv_trend": "UP",
-    "mfi": 67.1,
-    "cmf": 0.072,
+    "mfi": 65.9,
+    "cmf": 0.059,
     "stoch_k": 64.1,
     "stoch_d": 84.9,
-    "rvol": 0.95,
-    "volume_5d_avg": 1015412,
+    "rvol": 0.99,
+    "volume_5d_avg": 1063060,
     "green_days_10d": 6,
     "52w_high": 165.04,
     "52w_low": 104.9,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 24.9479,
-    "sector_pe_median": 33.53837,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 8.436488,
     "de_ratio": 24.197,
     "fcf_yield": 0.0405,
@@ -80,26 +80,26 @@
     "net_margin": 0.07321,
     "market_cap": 19817285632,
     "enterprise_value": 19076050944,
-    "dividend_yield": 1.02,
+    "dividend_yield": 1.04,
     "payout_ratio": 0.2588,
     "insider_ownership_pct": 0.00605,
-    "institutional_ownership_pct": 1.02019,
+    "institutional_ownership_pct": 1.01985,
     "short_ratio": 3.34,
     "beta": 1.081
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 145.95,
-    "entry_range_high": 149.18,
-    "target_range_low": 155.67,
-    "target_range_high": 166.79,
-    "stop_range_low": 134.42,
-    "stop_range_high": 141.5,
-    "target_price": 158.85,
-    "stop_loss": 141.5,
+    "entry_range_low": 147.9,
+    "entry_range_high": 151.17,
+    "target_range_low": 157.75,
+    "target_range_high": 169.02,
+    "stop_range_low": 136.22,
+    "stop_range_high": 143.39,
+    "target_price": 160.97,
+    "stop_loss": 143.39,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.531140-04:00",
+    "generated_at": "2026-04-23T09:19:04.223289-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 102.0
+    "dividend_yield_pct": 104.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "EXPD shows mixed signals with RSI at 56 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "MACD is curling up for EXPD, though RSI (56) is neutral. Watch for volume to confirm any breakout attempt.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 41,

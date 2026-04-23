@@ -1,12 +1,12 @@
 {
   "ticker": "HWM",
   "company": "Howmet Aerospace Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.119103-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.203608-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
-    "current": 240.88,
+    "current": 244.46,
     "open": 250.0,
     "high": 250.22,
     "low": 233.32,
@@ -15,9 +15,9 @@
     "change_pct_1w": -5.18,
     "change_pct_1m": 2.05,
     "change_pct_1y": 102.12,
-    "volume": 3107772,
-    "avg_volume_30d": 2212322,
-    "last_sync": "2026-04-22T22:18:12.803100"
+    "volume": 3629500,
+    "avg_volume_30d": 2229713,
+    "last_sync": "2026-04-23T09:39:34.120355"
   },
   "scores": {
     "master_score": 31.17,
@@ -55,12 +55,12 @@
     "atr": 8.59,
     "atr_pct": 0.0356,
     "obv_trend": "DOWN",
-    "mfi": 48.7,
-    "cmf": 0.005,
+    "mfi": 47.8,
+    "cmf": 0.004,
     "stoch_k": 34.4,
     "stoch_d": 60.1,
-    "rvol": 1.01,
-    "volume_5d_avg": 2226734,
+    "rvol": 1.05,
+    "volume_5d_avg": 2331080,
     "green_days_10d": 4,
     "52w_high": 265.11,
     "52w_low": 124.0,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.9427
   },
   "fundamental": {
-    "pe_ratio": 64.752686,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 64.92722,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 18.071873,
     "de_ratio": 60.022,
     "fcf_yield": 0.0095,
@@ -83,23 +83,23 @@
     "dividend_yield": 0.19,
     "payout_ratio": 0.118599996,
     "insider_ownership_pct": 0.00885,
-    "institutional_ownership_pct": 0.9449,
+    "institutional_ownership_pct": 0.94491,
     "short_ratio": 4.22,
     "beta": 1.235
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 239.68,
-    "entry_range_high": 242.08,
-    "target_range_low": 261.32,
-    "target_range_high": 279.98,
-    "stop_range_low": 212.51,
-    "stop_range_high": 223.7,
-    "target_price": 266.65,
-    "stop_loss": 223.7,
+    "entry_range_low": 243.24,
+    "entry_range_high": 245.68,
+    "target_range_low": 265.2,
+    "target_range_high": 284.14,
+    "stop_range_low": 215.67,
+    "stop_range_high": 227.02,
+    "target_price": 270.61,
+    "stop_loss": 227.02,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.118914-04:00",
+    "generated_at": "2026-04-23T09:19:04.203585-04:00",
     "categories": [
       "top_scores"
     ]
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HWM is under selling pressure — RSI at 46, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "Bearish momentum dominates HWM. With RSI at 46 and MACD pointing lower, caution is advised.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 31,

@@ -1,12 +1,12 @@
 {
   "ticker": "FANG",
   "company": "Diamondback Energy, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.174804-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.078401-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
-    "current": 193.87,
+    "current": 196.36,
     "open": 191.28,
     "high": 194.76,
     "low": 189.26,
@@ -15,23 +15,23 @@
     "change_pct_1w": 4.3,
     "change_pct_1m": 1.09,
     "change_pct_1y": 50.48,
-    "volume": 2042814,
+    "volume": 2042800,
     "avg_volume_30d": 3726453,
-    "last_sync": "2026-04-22T22:18:11.734919"
+    "last_sync": "2026-04-23T09:39:32.681352"
   },
   "scores": {
-    "master_score": 48.67,
+    "master_score": 48.74,
     "technical_score": 47.0,
     "fundamental_score": 25.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.7,
+    "sector_score": 45.4,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 48.67,
+    "signal_score": 48.74,
     "confidence": 0.49,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 75.4,
     "stoch_d": 59.1,
     "rvol": 0.89,
-    "volume_5d_avg": 3309402,
+    "volume_5d_avg": 3309400,
     "green_days_10d": 6,
     "52w_high": 202.19,
     "52w_low": 126.13,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.5371
   },
   "fundamental": {
-    "pe_ratio": 33.834206,
+    "pe_ratio": 33.77526,
     "sector_pe_median": 18.26616,
     "pb_ratio": 1.4923294,
     "de_ratio": 33.784,
@@ -80,26 +80,26 @@
     "net_margin": 0.1164,
     "market_cap": 54537908224,
     "enterprise_value": 75093655552,
-    "dividend_yield": 2.21,
+    "dividend_yield": 2.17,
     "payout_ratio": 0.6981,
     "insider_ownership_pct": 0.3065,
-    "institutional_ownership_pct": 0.65419,
+    "institutional_ownership_pct": 0.65422,
     "short_ratio": 2.22,
     "beta": 0.488
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 181.27,
-    "entry_range_high": 194.84,
-    "target_range_low": 210.31,
-    "target_range_high": 225.33,
-    "stop_range_low": 171.05,
-    "stop_range_high": 180.05,
-    "target_price": 214.6,
-    "stop_loss": 180.05,
+    "entry_range_low": 183.6,
+    "entry_range_high": 197.34,
+    "target_range_low": 213.01,
+    "target_range_high": 228.22,
+    "stop_range_low": 173.25,
+    "stop_range_high": 182.36,
+    "target_price": 217.36,
+    "stop_loss": 182.36,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.174706-04:00",
+    "generated_at": "2026-04-23T09:19:04.078381-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 221.0
+    "dividend_yield_pct": 217.0
   },
   "reversal": {
     "is_oversold": false,

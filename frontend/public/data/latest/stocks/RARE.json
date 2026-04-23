@@ -1,13 +1,13 @@
 {
   "ticker": "RARE",
   "company": "Ultragenyx Pharmaceutical Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.712666-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.988617-04:00",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
-    "current": 24.61,
-    "open": 24.5,
+    "current": 24.92,
+    "open": 24.31,
     "high": 24.72,
     "low": 24.05,
     "prev_close": 24.1,
@@ -15,23 +15,23 @@
     "change_pct_1w": -2.26,
     "change_pct_1m": 21.41,
     "change_pct_1y": -30.48,
-    "volume": 1337190,
-    "avg_volume_30d": 2046576,
-    "last_sync": "2026-04-22T22:18:12.901317"
+    "volume": 1349200,
+    "avg_volume_30d": 2046976,
+    "last_sync": "2026-04-23T09:39:34.344170"
   },
   "scores": {
-    "master_score": 30.1,
+    "master_score": 30.11,
     "technical_score": 15.6,
     "fundamental_score": 15.0,
     "momentum_score": 60.0,
     "sentiment_score": 65.0,
-    "sector_score": 23.9,
+    "sector_score": 24.0,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 0.0,
-    "signal_score": 30.1,
+    "signal_score": 30.11,
     "confidence": 0.3,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 70.7,
     "stoch_d": 71.7,
     "rvol": 0.75,
-    "volume_5d_avg": 1541938,
+    "volume_5d_avg": 1544340,
     "green_days_10d": 7,
     "52w_high": 41.44,
     "52w_low": 18.5,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": null,
-    "sector_pe_median": 25.538895,
+    "sector_pe_median": 25.55964,
     "pb_ratio": -29.650604,
     "de_ratio": null,
     "fcf_yield": -0.1038,
@@ -82,24 +82,24 @@
     "enterprise_value": 2952136960,
     "dividend_yield": null,
     "payout_ratio": 0.0,
-    "insider_ownership_pct": 0.03345,
-    "institutional_ownership_pct": 1.0131199,
+    "insider_ownership_pct": 0.03423,
+    "institutional_ownership_pct": 1.00665,
     "short_ratio": 5.03,
     "beta": 0.247
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 23.07,
-    "entry_range_high": 24.73,
-    "target_range_low": 27.29,
-    "target_range_high": 29.24,
-    "stop_range_low": 21.33,
-    "stop_range_high": 22.45,
-    "target_price": 27.85,
-    "stop_loss": 22.45,
+    "entry_range_low": 23.36,
+    "entry_range_high": 25.04,
+    "target_range_low": 27.63,
+    "target_range_high": 29.61,
+    "stop_range_low": 21.6,
+    "stop_range_high": 22.73,
+    "target_price": 28.2,
+    "stop_loss": 22.73,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.712554-04:00",
+    "generated_at": "2026-04-23T09:19:03.988591-04:00",
     "categories": [
       "top_scores"
     ]
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 23116,
+      "shares": 76745,
       "date": "2026-04-16"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "RARE maintains a bullish bias — RSI 60, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "The trend for RARE remains constructive. RSI sits at 60 alongside a rising MACD.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 30,

@@ -1,13 +1,13 @@
 {
   "ticker": "EBAY",
   "company": "eBay Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.766178-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.800769-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Internet Retail",
   "price": {
-    "current": 105.63,
-    "open": 105.43,
+    "current": 104.94,
+    "open": 105.88,
     "high": 106.96,
     "low": 105.0,
     "prev_close": 105.4,
@@ -15,23 +15,23 @@
     "change_pct_1w": 5.62,
     "change_pct_1m": 17.56,
     "change_pct_1y": 63.21,
-    "volume": 4263355,
-    "avg_volume_30d": 4796601,
-    "last_sync": "2026-04-22T22:18:11.600838"
+    "volume": 4263400,
+    "avg_volume_30d": 4796603,
+    "last_sync": "2026-04-23T09:39:32.500355"
   },
   "scores": {
-    "master_score": 50.68,
+    "master_score": 50.73,
     "technical_score": 65.0,
     "fundamental_score": 12.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 34.3,
+    "sector_score": 34.8,
     "breakout_score": 35.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 70.0,
-    "signal_score": 50.68,
+    "signal_score": 50.73,
     "confidence": 0.51,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 89.1,
     "stoch_d": 92.3,
     "rvol": 0.99,
-    "volume_5d_avg": 4762431,
+    "volume_5d_avg": 4762440,
     "green_days_10d": 6,
     "52w_high": 107.13,
     "52w_low": 65.4,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 24.795773,
-    "sector_pe_median": 25.529932,
+    "sector_pe_median": 25.512577,
     "pb_ratio": 10.277291,
     "de_ratio": 155.623,
     "fcf_yield": 0.0155,
@@ -80,26 +80,26 @@
     "net_margin": 0.18297,
     "market_cap": 47744757760,
     "enterprise_value": 51585241088,
-    "dividend_yield": 1.18,
+    "dividend_yield": 1.17,
     "payout_ratio": 0.2723,
     "insider_ownership_pct": 0.00302,
-    "institutional_ownership_pct": 0.95553,
+    "institutional_ownership_pct": 0.94921994,
     "short_ratio": 2.74,
     "beta": 1.33
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 93.62,
-    "entry_range_high": 106.16,
-    "target_range_low": 112.04,
-    "target_range_high": 120.05,
-    "stop_range_low": 94.84,
-    "stop_range_high": 99.83,
-    "target_price": 114.33,
-    "stop_loss": 99.83,
+    "entry_range_low": 93.01,
+    "entry_range_high": 105.47,
+    "target_range_low": 111.31,
+    "target_range_high": 119.27,
+    "stop_range_low": 94.22,
+    "stop_range_high": 99.18,
+    "target_price": 113.58,
+    "stop_loss": 99.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.766059-04:00",
+    "generated_at": "2026-04-23T09:19:03.800701-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 118.0
+    "dividend_yield_pct": 117.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "EBAY is in overbought territory with RSI at 71, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "ai_summary": "Momentum for EBAY remains intense. RSI is stretched at 71, but a rising MACD indicates buyers are still in control.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 51,

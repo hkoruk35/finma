@@ -1,12 +1,12 @@
 {
   "ticker": "HSY",
   "company": "The Hershey Company",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.320069-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.887127-04:00",
   "sector": "Consumer Staples",
   "industry": "Confectioners",
   "price": {
-    "current": 188.65,
+    "current": 190.88,
     "open": 188.55,
     "high": 189.96,
     "low": 187.76,
@@ -15,23 +15,23 @@
     "change_pct_1w": -1.69,
     "change_pct_1m": -12.33,
     "change_pct_1y": 16.8,
-    "volume": 1421440,
-    "avg_volume_30d": 1890294,
-    "last_sync": "2026-04-22T22:18:13.592251"
+    "volume": 1421500,
+    "avg_volume_30d": 1890296,
+    "last_sync": "2026-04-23T09:39:35.766703"
   },
   "scores": {
-    "master_score": 14.93,
+    "master_score": 14.94,
     "technical_score": 5.4,
     "fundamental_score": 12.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 25.4,
+    "sector_score": 25.5,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 30.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 70.0,
-    "signal_score": 14.93,
+    "signal_score": 14.94,
     "confidence": 0.15,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 3.8,
     "stoch_d": 4.3,
     "rvol": 1.03,
-    "volume_5d_avg": 1941128,
+    "volume_5d_avg": 1941140,
     "green_days_10d": 3,
     "52w_high": 236.28,
     "52w_low": 148.02,
@@ -83,23 +83,23 @@
     "dividend_yield": 3.08,
     "payout_ratio": 1.2627,
     "insider_ownership_pct": 0.00317,
-    "institutional_ownership_pct": 0.88641,
+    "institutional_ownership_pct": 0.88661003,
     "short_ratio": 4.98,
     "beta": 0.175
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 187.71,
-    "entry_range_high": 189.59,
-    "target_range_low": 199.4,
-    "target_range_high": 213.64,
-    "stop_range_low": 169.83,
-    "stop_range_high": 178.77,
-    "target_price": 203.47,
-    "stop_loss": 178.77,
+    "entry_range_low": 189.93,
+    "entry_range_high": 191.83,
+    "target_range_low": 201.76,
+    "target_range_high": 216.17,
+    "stop_range_low": 171.84,
+    "stop_range_high": 180.88,
+    "target_price": 205.88,
+    "stop_loss": 180.88,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.319939-04:00",
+    "generated_at": "2026-04-23T09:19:03.887099-04:00",
     "categories": [
       "top_scores",
       "reversal"
@@ -133,12 +133,12 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 16,
+    "last_90_days_sells": 17,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 1500,
-      "date": "2026-04-20"
+      "shares": 30000,
+      "date": "2026-04-22"
     }
   },
   "sector_context": {

@@ -1,12 +1,12 @@
 {
   "ticker": "ABNB",
   "company": "Airbnb, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.946215-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.838734-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Travel Services",
   "price": {
-    "current": 144.18,
+    "current": 142.93,
     "open": 146.48,
     "high": 147.25,
     "low": 142.75,
@@ -15,23 +15,23 @@
     "change_pct_1w": 4.85,
     "change_pct_1m": 8.74,
     "change_pct_1y": 29.18,
-    "volume": 4080715,
-    "avg_volume_30d": 3400407,
-    "last_sync": "2026-04-22T22:18:11.669674"
+    "volume": 4081200,
+    "avg_volume_30d": 3400423,
+    "last_sync": "2026-04-23T09:39:32.594849"
   },
   "scores": {
-    "master_score": 49.88,
+    "master_score": 49.93,
     "technical_score": 57.0,
     "fundamental_score": 12.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 34.3,
+    "sector_score": 34.8,
     "breakout_score": 35.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 30.0,
-    "signal_score": 49.88,
+    "signal_score": 49.93,
     "confidence": 0.5,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 88.1,
     "stoch_d": 91.3,
     "rvol": 0.99,
-    "volume_5d_avg": 3381843,
+    "volume_5d_avg": 3381940,
     "green_days_10d": 7,
     "52w_high": 144.18,
     "52w_low": 111.54,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 35.688118,
-    "sector_pe_median": 25.529932,
+    "sector_pe_median": 25.512577,
     "pb_ratio": 10.585902,
     "de_ratio": 27.698,
     "fcf_yield": 0.041,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.01363,
-    "institutional_ownership_pct": 0.87189,
+    "institutional_ownership_pct": 0.87222,
     "short_ratio": 3.79,
     "beta": 1.16
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 131.01,
-    "entry_range_high": 144.9,
-    "target_range_low": 154.59,
-    "target_range_high": 165.63,
-    "stop_range_low": 128.38,
-    "stop_range_high": 135.14,
-    "target_price": 157.74,
-    "stop_loss": 135.14,
+    "entry_range_low": 129.87,
+    "entry_range_high": 143.64,
+    "target_range_low": 153.25,
+    "target_range_high": 164.19,
+    "stop_range_low": 127.26,
+    "stop_range_high": 133.97,
+    "target_price": 156.37,
+    "stop_loss": 133.97,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.946135-04:00",
+    "generated_at": "2026-04-23T09:19:03.838708-04:00",
     "categories": [
       "top_scores"
     ]
@@ -132,12 +132,12 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 11,
+    "last_90_days_sells": 12,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 3750,
-      "date": "2026-04-08"
+      "shares": 58000,
+      "date": "2026-04-20"
     }
   },
   "sector_context": {

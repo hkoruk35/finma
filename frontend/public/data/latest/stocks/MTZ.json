@@ -1,12 +1,12 @@
 {
   "ticker": "MTZ",
   "company": "MasTec, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.596384-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.235394-04:00",
   "sector": "Industrials",
   "industry": "Engineering & Construction",
   "price": {
-    "current": 376.5,
+    "current": 382.97,
     "open": 378.31,
     "high": 383.0,
     "low": 372.77,
@@ -15,9 +15,9 @@
     "change_pct_1w": 3.13,
     "change_pct_1m": 21.21,
     "change_pct_1y": 238.82,
-    "volume": 535581,
-    "avg_volume_30d": 885352,
-    "last_sync": "2026-04-22T22:18:11.127769"
+    "volume": 535700,
+    "avg_volume_30d": 885356,
+    "last_sync": "2026-04-23T09:39:31.675396"
   },
   "scores": {
     "master_score": 57.92,
@@ -60,7 +60,7 @@
     "stoch_k": 89.3,
     "stoch_d": 91.6,
     "rvol": 0.77,
-    "volume_5d_avg": 681416,
+    "volume_5d_avg": 681440,
     "green_days_10d": 7,
     "52w_high": 376.5,
     "52w_low": 114.25,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 2.2954
   },
   "fundamental": {
-    "pe_ratio": 73.96857,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 74.114174,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 8.993837,
     "de_ratio": 83.945,
     "fcf_yield": 0.0033,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.21582001,
-    "institutional_ownership_pct": 0.76957,
+    "institutional_ownership_pct": 0.76997,
     "short_ratio": 2.64,
     "beta": 1.8
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 315.95,
-    "entry_range_high": 378.38,
-    "target_range_low": 406.66,
-    "target_range_high": 435.71,
-    "stop_range_low": 333.32,
-    "stop_range_high": 350.86,
-    "target_price": 414.96,
-    "stop_loss": 350.86,
+    "entry_range_low": 321.38,
+    "entry_range_high": 384.88,
+    "target_range_low": 413.65,
+    "target_range_high": 443.2,
+    "stop_range_low": 339.05,
+    "stop_range_high": 356.89,
+    "target_price": 422.09,
+    "stop_loss": 356.89,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.596332-04:00",
+    "generated_at": "2026-04-23T09:19:04.235371-04:00",
     "categories": [
       "top_scores"
     ]

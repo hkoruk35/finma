@@ -1,12 +1,12 @@
 {
   "ticker": "CWEN",
   "company": "Clearway Energy, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.925320-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.284055-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Renewable",
   "price": {
-    "current": 38.38,
+    "current": 39.37,
     "open": 38.33,
     "high": 39.0,
     "low": 38.24,
@@ -15,23 +15,23 @@
     "change_pct_1w": -4.69,
     "change_pct_1m": 0.73,
     "change_pct_1y": 48.11,
-    "volume": 795201,
+    "volume": 795200,
     "avg_volume_30d": 826390,
-    "last_sync": "2026-04-22T22:18:13.103262"
+    "last_sync": "2026-04-23T09:39:34.789435"
   },
   "scores": {
-    "master_score": 27.89,
+    "master_score": 27.91,
     "technical_score": 31.0,
     "fundamental_score": 8.0,
     "momentum_score": 30.0,
     "sentiment_score": 65.0,
-    "sector_score": 25.4,
+    "sector_score": 25.6,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 27.89,
+    "signal_score": 27.91,
     "confidence": 0.28,
     "signal_type": "UNDERPERFORM"
   },
@@ -80,26 +80,26 @@
     "net_margin": 0.11826,
     "market_cap": 7876301824,
     "enterprise_value": 17823297536,
-    "dividend_yield": 4.76,
+    "dividend_yield": 4.68,
     "payout_ratio": 1.2364,
     "insider_ownership_pct": 0.00821,
-    "institutional_ownership_pct": 0.92835,
+    "institutional_ownership_pct": 0.92824996,
     "short_ratio": 7.22,
     "beta": 0.918
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 38.19,
-    "entry_range_high": 38.57,
-    "target_range_low": 41.02,
-    "target_range_high": 43.95,
-    "stop_range_low": 34.26,
-    "stop_range_high": 36.06,
-    "target_price": 41.86,
-    "stop_loss": 36.06,
+    "entry_range_low": 39.18,
+    "entry_range_high": 39.56,
+    "target_range_low": 42.08,
+    "target_range_high": 45.08,
+    "stop_range_low": 35.14,
+    "stop_range_high": 36.99,
+    "target_price": 42.94,
+    "stop_loss": 36.99,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.925223-04:00",
+    "generated_at": "2026-04-23T09:19:04.284022-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 476.0
+    "dividend_yield_pct": 468.0
   },
   "reversal": {
     "is_oversold": false,

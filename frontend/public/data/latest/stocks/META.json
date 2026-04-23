@@ -1,13 +1,13 @@
 {
   "ticker": "META",
   "company": "Meta Platforms, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.032963-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.598881-04:00",
   "sector": "Technology",
   "industry": "Internet Content & Information",
   "price": {
-    "current": 674.72,
-    "open": 674.34,
+    "current": 664.42,
+    "open": 674.36,
     "high": 678.38,
     "low": 669.75,
     "prev_close": 668.84,
@@ -15,23 +15,23 @@
     "change_pct_1w": 0.47,
     "change_pct_1m": 11.7,
     "change_pct_1y": 39.65,
-    "volume": 9144787,
-    "avg_volume_30d": 16294609,
-    "last_sync": "2026-04-22T22:18:11.494042"
+    "volume": 9199500,
+    "avg_volume_30d": 16296433,
+    "last_sync": "2026-04-23T09:39:32.406612"
   },
   "scores": {
-    "master_score": 52.25,
+    "master_score": 52.26,
     "technical_score": 50.0,
     "fundamental_score": 40.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 42.5,
+    "sector_score": 42.6,
     "breakout_score": 15.0,
     "value_score": 40.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 40.0,
-    "signal_score": 52.25,
+    "signal_score": 52.26,
     "confidence": 0.52,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 87.3,
     "stoch_d": 85.3,
     "rvol": 0.69,
-    "volume_5d_avg": 11233437,
+    "volume_5d_avg": 11244380,
     "green_days_10d": 8,
     "52w_high": 788.15,
     "52w_low": 498.72,
@@ -83,23 +83,23 @@
     "dividend_yield": 0.31,
     "payout_ratio": 0.08939999,
     "insider_ownership_pct": 0.00121,
-    "institutional_ownership_pct": 0.78526,
+    "institutional_ownership_pct": 0.78529,
     "short_ratio": 1.65,
     "beta": 1.309
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 630.08,
-    "entry_range_high": 678.09,
-    "target_range_low": 716.03,
-    "target_range_high": 767.17,
-    "stop_range_low": 605.57,
-    "stop_range_high": 637.44,
-    "target_price": 730.64,
-    "stop_loss": 637.44,
+    "entry_range_low": 620.46,
+    "entry_range_high": 667.74,
+    "target_range_low": 705.1,
+    "target_range_high": 755.46,
+    "stop_range_low": 596.33,
+    "stop_range_high": 627.71,
+    "target_price": 719.49,
+    "stop_loss": 627.71,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.032876-04:00",
+    "generated_at": "2026-04-23T09:19:03.598833-04:00",
     "categories": [
       "top_scores"
     ]
@@ -132,12 +132,12 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 19,
+    "last_90_days_sells": 20,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 580,
-      "date": "2026-04-15"
+      "shares": 1555,
+      "date": "2026-04-20"
     }
   },
   "sector_context": {

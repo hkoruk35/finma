@@ -1,12 +1,12 @@
 {
   "ticker": "BTU",
   "company": "Peabody Energy Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.448223-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.123057-04:00",
   "sector": "Energy",
   "industry": "Thermal Coal",
   "price": {
-    "current": 27.71,
+    "current": 27.38,
     "open": 27.23,
     "high": 27.9,
     "low": 27.13,
@@ -15,23 +15,23 @@
     "change_pct_1w": -1.14,
     "change_pct_1m": -21.7,
     "change_pct_1y": 128.26,
-    "volume": 2705580,
-    "avg_volume_30d": 3903462,
-    "last_sync": "2026-04-22T22:18:13.297234"
+    "volume": 2717900,
+    "avg_volume_30d": 3903873,
+    "last_sync": "2026-04-23T09:39:35.319724"
   },
   "scores": {
-    "master_score": 24.66,
+    "master_score": 24.73,
     "technical_score": 8.4,
     "fundamental_score": 15.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.7,
+    "sector_score": 45.4,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 24.66,
+    "signal_score": 24.73,
     "confidence": 0.25,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 27.3,
     "stoch_d": 17.4,
     "rvol": 0.89,
-    "volume_5d_avg": 3469556,
+    "volume_5d_avg": 3472020,
     "green_days_10d": 6,
     "52w_high": 39.5,
     "52w_low": 11.95,
@@ -83,23 +83,23 @@
     "dividend_yield": 1.08,
     "payout_ratio": 0.2752,
     "insider_ownership_pct": 0.00959,
-    "institutional_ownership_pct": 1.06954,
+    "institutional_ownership_pct": 1.0699099,
     "short_ratio": 3.54,
     "beta": 0.619
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 27.57,
-    "entry_range_high": 27.85,
-    "target_range_low": 32.3,
-    "target_range_high": 34.61,
-    "stop_range_low": 23.0,
-    "stop_range_high": 24.21,
-    "target_price": 32.96,
-    "stop_loss": 24.21,
+    "entry_range_low": 27.24,
+    "entry_range_high": 27.52,
+    "target_range_low": 31.92,
+    "target_range_high": 34.2,
+    "stop_range_low": 22.73,
+    "stop_range_high": 23.92,
+    "target_price": 32.57,
+    "stop_loss": 23.92,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.448107-04:00",
+    "generated_at": "2026-04-23T09:19:04.123013-04:00",
     "categories": [
       "top_scores"
     ]
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 46,
+      "shares": 225,
       "date": "2026-03-10"
     }
   },

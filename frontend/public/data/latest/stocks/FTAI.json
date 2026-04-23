@@ -1,12 +1,12 @@
 {
   "ticker": "FTAI",
   "company": "FTAI Aviation Ltd.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.724329-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.245425-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
-    "current": 228.17,
+    "current": 231.54,
     "open": 238.0,
     "high": 240.88,
     "low": 218.16,
@@ -15,9 +15,9 @@
     "change_pct_1w": -15.44,
     "change_pct_1m": -5.54,
     "change_pct_1y": 163.46,
-    "volume": 2131672,
-    "avg_volume_30d": 1383242,
-    "last_sync": "2026-04-22T22:18:13.529736"
+    "volume": 2131700,
+    "avg_volume_30d": 1383243,
+    "last_sync": "2026-04-23T09:39:35.632683"
   },
   "scores": {
     "master_score": 19.57,
@@ -60,7 +60,7 @@
     "stoch_k": 16.7,
     "stoch_d": 25.0,
     "rvol": 0.99,
-    "volume_5d_avg": 1374094,
+    "volume_5d_avg": 1374100,
     "green_days_10d": 4,
     "52w_high": 309.52,
     "52w_low": 86.16,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 49.71024,
-    "sector_pe_median": 33.53837,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 70.05527,
     "de_ratio": 1046.368,
     "fcf_yield": -0.033,
@@ -80,26 +80,26 @@
     "net_margin": 0.19983,
     "market_cap": 23405828096,
     "enterprise_value": 26600429568,
-    "dividend_yield": 0.57,
+    "dividend_yield": 0.59,
     "payout_ratio": 0.2717,
     "insider_ownership_pct": 0.01367,
-    "institutional_ownership_pct": 1.00256,
+    "institutional_ownership_pct": 1.00307,
     "short_ratio": 2.87,
     "beta": 1.649
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 227.03,
-    "entry_range_high": 229.31,
-    "target_range_low": 270.71,
-    "target_range_high": 290.04,
-    "stop_range_low": 186.32,
-    "stop_range_high": 196.13,
-    "target_price": 276.23,
-    "stop_loss": 196.13,
+    "entry_range_low": 230.38,
+    "entry_range_high": 232.7,
+    "target_range_low": 274.71,
+    "target_range_high": 294.32,
+    "stop_range_low": 189.07,
+    "stop_range_high": 199.03,
+    "target_price": 280.31,
+    "stop_loss": 199.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.724219-04:00",
+    "generated_at": "2026-04-23T09:19:04.245399-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 57.0
+    "dividend_yield_pct": 59.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "FTAI is under selling pressure — RSI at 39, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "The chart for FTAI looks weak. Negative MACD and RSI at 39 suggest sellers remain firmly in control.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 20,

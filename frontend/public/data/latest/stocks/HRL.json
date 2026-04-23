@@ -1,12 +1,12 @@
 {
   "ticker": "HRL",
   "company": "Hormel Foods Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.299238-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.882481-04:00",
   "sector": "Consumer Staples",
   "industry": "Packaged Foods",
   "price": {
-    "current": 21.43,
+    "current": 21.47,
     "open": 21.3,
     "high": 21.53,
     "low": 21.25,
@@ -15,23 +15,23 @@
     "change_pct_1w": 3.73,
     "change_pct_1m": -3.05,
     "change_pct_1y": -25.98,
-    "volume": 4068549,
-    "avg_volume_30d": 4711231,
-    "last_sync": "2026-04-22T22:18:12.940065"
+    "volume": 4069700,
+    "avg_volume_30d": 4711270,
+    "last_sync": "2026-04-23T09:39:34.384960"
   },
   "scores": {
-    "master_score": 30.04,
+    "master_score": 30.05,
     "technical_score": 15.0,
     "fundamental_score": 39.0,
     "momentum_score": 30.0,
     "sentiment_score": 65.0,
-    "sector_score": 25.4,
+    "sector_score": 25.5,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": -10.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 30.04,
+    "signal_score": 30.05,
     "confidence": 0.3,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 73.6,
     "stoch_d": 52.9,
     "rvol": 1.02,
-    "volume_5d_avg": 4802429,
+    "volume_5d_avg": 4802660,
     "green_days_10d": 5,
     "52w_high": 30.04,
     "52w_low": 20.48,
@@ -80,26 +80,26 @@
     "net_margin": 0.0403,
     "market_cap": 11792590848,
     "enterprise_value": 11468327936,
-    "dividend_yield": 5.51,
+    "dividend_yield": 5.46,
     "payout_ratio": 1.3061999,
     "insider_ownership_pct": 0.00465,
-    "institutional_ownership_pct": 0.92274004,
+    "institutional_ownership_pct": 0.92291,
     "short_ratio": 5.43,
     "beta": 0.358
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 21.32,
-    "entry_range_high": 21.54,
-    "target_range_low": 22.38,
-    "target_range_high": 23.98,
-    "stop_range_low": 19.47,
-    "stop_range_high": 20.49,
-    "target_price": 22.84,
-    "stop_loss": 20.49,
+    "entry_range_low": 21.36,
+    "entry_range_high": 21.58,
+    "target_range_low": 22.42,
+    "target_range_high": 24.02,
+    "stop_range_low": 19.51,
+    "stop_range_high": 20.53,
+    "target_price": 22.88,
+    "stop_loss": 20.53,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.299051-04:00",
+    "generated_at": "2026-04-23T09:19:03.882417-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 551.0
+    "dividend_yield_pct": 546.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HRL shows mixed signals with RSI at 45 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "While HRL's MACD is positive, the broader technical picture (RSI 45) is mixed. Waiting for volume confirmation is prudent.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 30,

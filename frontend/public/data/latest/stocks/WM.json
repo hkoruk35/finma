@@ -1,12 +1,12 @@
 {
   "ticker": "WM",
   "company": "Waste Management, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.539285-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.224407-04:00",
   "sector": "Industrials",
   "industry": "Waste Management",
   "price": {
-    "current": 223.93,
+    "current": 227.75,
     "open": 223.65,
     "high": 225.63,
     "low": 222.86,
@@ -15,14 +15,14 @@
     "change_pct_1w": -0.44,
     "change_pct_1m": -1.58,
     "change_pct_1y": -0.11,
-    "volume": 1760752,
-    "avg_volume_30d": 1873585,
-    "last_sync": "2026-04-22T22:18:13.123092"
+    "volume": 1760900,
+    "avg_volume_30d": 1873590,
+    "last_sync": "2026-04-23T09:39:35.337788"
   },
   "scores": {
-    "master_score": 27.62,
+    "master_score": 24.62,
     "technical_score": 6.3,
-    "fundamental_score": 42.0,
+    "fundamental_score": 30.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
     "sector_score": 34.2,
@@ -31,8 +31,8 @@
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 27.62,
-    "confidence": 0.28,
+    "signal_score": 24.62,
+    "confidence": 0.25,
     "signal_type": "UNDERPERFORM"
   },
   "technical": {
@@ -60,7 +60,7 @@
     "stoch_k": 16.6,
     "stoch_d": 16.0,
     "rvol": 1.05,
-    "volume_5d_avg": 1960150,
+    "volume_5d_avg": 1960180,
     "green_days_10d": 4,
     "52w_high": 245.53,
     "52w_low": 195.24,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 33.422386,
-    "sector_pe_median": 33.53837,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 9.031984,
     "de_ratio": 239.385,
     "fcf_yield": 0.0192,
@@ -83,23 +83,23 @@
     "dividend_yield": 1.53,
     "payout_ratio": 0.4925,
     "insider_ownership_pct": 0.00252,
-    "institutional_ownership_pct": 0.83996004,
+    "institutional_ownership_pct": 0.83742994,
     "short_ratio": 2.66,
     "beta": 0.547
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 222.81,
-    "entry_range_high": 225.05,
-    "target_range_low": 231.51,
-    "target_range_high": 248.04,
-    "stop_range_low": 204.94,
-    "stop_range_high": 215.73,
-    "target_price": 236.23,
-    "stop_loss": 215.73,
+    "entry_range_low": 226.61,
+    "entry_range_high": 228.89,
+    "target_range_low": 235.46,
+    "target_range_high": 252.27,
+    "stop_range_low": 208.44,
+    "stop_range_high": 219.41,
+    "target_price": 240.26,
+    "stop_loss": 219.41,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.537172-04:00",
+    "generated_at": "2026-04-23T09:19:04.224382-04:00",
     "categories": [
       "top_scores"
     ]
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "WM is under selling pressure — RSI at 39, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "The chart for WM looks weak. Negative MACD and RSI at 39 suggest sellers remain firmly in control.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
-    "score_bar": 28,
+    "score_bar": 25,
     "price_change_display": "+0.23%",
     "key_metrics": {
       "RSI": 38.6,

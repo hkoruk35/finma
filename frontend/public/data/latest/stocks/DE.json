@@ -1,23 +1,23 @@
 {
   "ticker": "DE",
   "company": "Deere & Company",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.967460-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.193692-04:00",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
-    "current": 579.99,
+    "current": 582.93,
     "open": 589.49,
-    "high": 592.64,
+    "high": 593.1,
     "low": 579.81,
     "prev_close": 587.3,
     "change_pct": -1.24,
     "change_pct_1w": 0.58,
     "change_pct_1m": 2.22,
     "change_pct_1y": 33.07,
-    "volume": 795925,
-    "avg_volume_30d": 1277400,
-    "last_sync": "2026-04-22T22:18:13.254898"
+    "volume": 796500,
+    "avg_volume_30d": 1277420,
+    "last_sync": "2026-04-23T09:39:35.291867"
   },
   "scores": {
     "master_score": 25.12,
@@ -52,15 +52,15 @@
     "bb_squeeze": true,
     "bb_squeeze_intensity": "HIGH",
     "adx": 15.5,
-    "atr": 15.3,
+    "atr": 15.34,
     "atr_pct": 0.0264,
     "obv_trend": "DOWN",
-    "mfi": 43.1,
+    "mfi": 43.0,
     "cmf": 0.072,
     "stoch_k": 37.5,
     "stoch_d": 50.4,
     "rvol": 0.79,
-    "volume_5d_avg": 1006085,
+    "volume_5d_avg": 1006200,
     "green_days_10d": 4,
     "52w_high": 660.56,
     "52w_low": 436.32,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.3293
   },
   "fundamental": {
-    "pe_ratio": 32.693913,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 32.67549,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 5.9566183,
     "de_ratio": 376.022,
     "fcf_yield": 0.0268,
@@ -80,26 +80,26 @@
     "net_margin": 0.10302,
     "market_cap": 156659531776,
     "enterprise_value": 196305518592,
-    "dividend_yield": 1.1,
+    "dividend_yield": 1.12,
     "payout_ratio": 0.3655,
     "insider_ownership_pct": 0.0016500001,
-    "institutional_ownership_pct": 0.82981,
+    "institutional_ownership_pct": 0.8296,
     "short_ratio": 3.33,
     "beta": 0.992
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 574.77,
-    "entry_range_high": 582.89,
-    "target_range_low": 613.37,
-    "target_range_high": 657.18,
-    "stop_range_low": 521.92,
-    "stop_range_high": 549.39,
-    "target_price": 625.89,
-    "stop_loss": 549.39,
+    "entry_range_low": 577.68,
+    "entry_range_high": 585.84,
+    "target_range_low": 616.6,
+    "target_range_high": 660.64,
+    "stop_range_low": 524.49,
+    "stop_range_high": 552.09,
+    "target_price": 629.18,
+    "stop_loss": 552.09,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.967347-04:00",
+    "generated_at": "2026-04-23T09:19:04.193666-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 110.0
+    "dividend_yield_pct": 112.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "DE is under selling pressure — RSI at 48, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "Bearish momentum dominates DE. With RSI at 48 and MACD pointing lower, caution is advised.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 25,

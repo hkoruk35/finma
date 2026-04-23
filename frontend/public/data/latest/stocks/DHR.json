@@ -1,12 +1,12 @@
 {
   "ticker": "DHR",
   "company": "Danaher Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.643707-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.971487-04:00",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
   "price": {
-    "current": 184.04,
+    "current": 178.41,
     "open": 193.95,
     "high": 195.01,
     "low": 183.71,
@@ -15,23 +15,23 @@
     "change_pct_1w": -7.12,
     "change_pct_1m": -2.93,
     "change_pct_1y": 0.19,
-    "volume": 5892987,
-    "avg_volume_30d": 4116682,
-    "last_sync": "2026-04-22T22:18:12.993695"
+    "volume": 5904000,
+    "avg_volume_30d": 4117050,
+    "last_sync": "2026-04-23T09:39:34.458831"
   },
   "scores": {
-    "master_score": 29.71,
+    "master_score": 29.72,
     "technical_score": 10.2,
     "fundamental_score": 45.0,
     "momentum_score": 20.0,
     "sentiment_score": 85.0,
-    "sector_score": 23.9,
+    "sector_score": 24.0,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": -10.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 29.71,
+    "signal_score": 29.72,
     "confidence": 0.3,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 2.0,
     "stoch_d": 40.6,
     "rvol": 1.31,
-    "volume_5d_avg": 5406217,
+    "volume_5d_avg": 5408420,
     "green_days_10d": 4,
     "52w_high": 241.54,
     "52w_low": 180.5,
@@ -68,38 +68,38 @@
     "52w_low_proximity_pct": 0.0196
   },
   "fundamental": {
-    "pe_ratio": 35.666668,
-    "sector_pe_median": 25.538895,
+    "pe_ratio": 35.73592,
+    "sector_pe_median": 25.55964,
     "pb_ratio": 2.4764519,
-    "de_ratio": 34.904,
+    "de_ratio": 37.17,
     "fcf_yield": 0.0351,
     "eps_growth_5y": 0.098,
     "revenue_growth_ttm": 0.037,
-    "gross_margin": 0.59051996,
-    "operating_margin": 0.22584,
+    "gross_margin": 0.58992,
+    "operating_margin": 0.22937,
     "net_margin": 0.14887999,
     "market_cap": 130258100224,
-    "enterprise_value": 143049113600,
-    "dividend_yield": 0.82,
+    "enterprise_value": 144249110528,
+    "dividend_yield": 0.87,
     "payout_ratio": 0.2636,
     "insider_ownership_pct": 0.10784,
-    "institutional_ownership_pct": 0.84912,
+    "institutional_ownership_pct": 0.84839994,
     "short_ratio": 1.68,
-    "beta": null
+    "beta": 0.986
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 183.12,
-    "entry_range_high": 184.96,
-    "target_range_low": 196.79,
-    "target_range_high": 210.85,
-    "stop_range_low": 164.22,
-    "stop_range_high": 172.86,
-    "target_price": 200.81,
-    "stop_loss": 172.86,
+    "entry_range_low": 177.52,
+    "entry_range_high": 179.3,
+    "target_range_low": 190.77,
+    "target_range_high": 204.4,
+    "stop_range_low": 159.2,
+    "stop_range_high": 167.57,
+    "target_price": 194.67,
+    "stop_loss": 167.57,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.643553-04:00",
+    "generated_at": "2026-04-23T09:19:03.971456-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 82.0
+    "dividend_yield_pct": 87.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 17566,
+      "shares": 71648,
       "date": "2026-02-27"
     }
   },

@@ -1,12 +1,12 @@
 {
   "ticker": "LUV",
   "company": "Southwest Airlines Co.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.469498-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.220655-04:00",
   "sector": "Industrials",
   "industry": "Airlines",
   "price": {
-    "current": 39.35,
+    "current": 38.38,
     "open": 40.65,
     "high": 40.89,
     "low": 39.06,
@@ -15,9 +15,9 @@
     "change_pct_1w": -5.64,
     "change_pct_1m": -2.48,
     "change_pct_1y": 66.99,
-    "volume": 9407520,
-    "avg_volume_30d": 8067167,
-    "last_sync": "2026-04-22T22:18:13.003921"
+    "volume": 9492400,
+    "avg_volume_30d": 8069996,
+    "last_sync": "2026-04-23T09:39:34.485594"
   },
   "scores": {
     "master_score": 29.62,
@@ -55,12 +55,12 @@
     "atr": 2.01,
     "atr_pct": 0.051,
     "obv_trend": "DOWN",
-    "mfi": 43.6,
+    "mfi": 43.5,
     "cmf": -0.183,
     "stoch_k": 39.4,
     "stoch_d": 54.0,
     "rvol": 0.94,
-    "volume_5d_avg": 7556224,
+    "volume_5d_avg": 7573200,
     "green_days_10d": 3,
     "52w_high": 54.56,
     "52w_low": 24.26,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 49.810123,
-    "sector_pe_median": 33.53837,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 2.5419896,
     "de_ratio": 74.94,
     "fcf_yield": -0.0354,
@@ -80,26 +80,26 @@
     "net_margin": 0.01571,
     "market_cap": 19333361664,
     "enterprise_value": 22083362816,
-    "dividend_yield": 1.76,
+    "dividend_yield": 1.83,
     "payout_ratio": 0.9114,
     "insider_ownership_pct": 0.00997,
-    "institutional_ownership_pct": 0.93727994,
+    "institutional_ownership_pct": 0.93687,
     "short_ratio": 2.11,
     "beta": 1.184
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 39.15,
-    "entry_range_high": 39.55,
-    "target_range_low": 44.47,
-    "target_range_high": 47.65,
-    "stop_range_low": 33.56,
-    "stop_range_high": 35.33,
-    "target_price": 45.38,
-    "stop_loss": 35.33,
+    "entry_range_low": 38.18,
+    "entry_range_high": 38.58,
+    "target_range_low": 43.37,
+    "target_range_high": 46.48,
+    "stop_range_low": 32.73,
+    "stop_range_high": 34.46,
+    "target_price": 44.26,
+    "stop_loss": 34.46,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.469384-04:00",
+    "generated_at": "2026-04-23T09:19:04.220633-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 40.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 176.0
+    "dividend_yield_pct": 183.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "LUV trades near equilibrium with RSI 45 and positive MACD; watch for a catalyst to establish directional bias.",
+  "ai_summary": "LUV is stuck in a holding pattern. Watch for a volume spike to break the current equilibrium (RSI 45).",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 30,

@@ -1,12 +1,12 @@
 {
   "ticker": "CAT",
   "company": "Caterpillar Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.950537-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.192841-04:00",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
-    "current": 808.87,
+    "current": 826.06,
     "open": 812.5,
     "high": 817.85,
     "low": 805.48,
@@ -15,9 +15,9 @@
     "change_pct_1w": 5.22,
     "change_pct_1m": 15.49,
     "change_pct_1y": 187.15,
-    "volume": 1323952,
-    "avg_volume_30d": 2272035,
-    "last_sync": "2026-04-22T22:18:11.835572"
+    "volume": 1586600,
+    "avg_volume_30d": 2280790,
+    "last_sync": "2026-04-23T09:39:32.850201"
   },
   "scores": {
     "master_score": 46.87,
@@ -55,12 +55,12 @@
     "atr": 23.57,
     "atr_pct": 0.0291,
     "obv_trend": "UP",
-    "mfi": 67.0,
-    "cmf": 0.106,
+    "mfi": 67.3,
+    "cmf": 0.102,
     "stoch_k": 90.3,
     "stoch_d": 90.7,
-    "rvol": 0.87,
-    "volume_5d_avg": 1979090,
+    "rvol": 0.89,
+    "volume_5d_avg": 2031620,
     "green_days_10d": 9,
     "52w_high": 808.87,
     "52w_low": 288.05,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 1.8081
   },
   "fundamental": {
-    "pe_ratio": 43.00213,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 42.910873,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 17.654364,
     "de_ratio": 206.67,
     "fcf_yield": 0.0154,
@@ -83,23 +83,23 @@
     "dividend_yield": 0.75,
     "payout_ratio": 0.3105,
     "insider_ownership_pct": 0.00219,
-    "institutional_ownership_pct": 0.72620004,
+    "institutional_ownership_pct": 0.72641,
     "short_ratio": 2.94,
     "beta": 1.519
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 725.31,
-    "entry_range_high": 812.91,
-    "target_range_low": 861.99,
-    "target_range_high": 923.56,
-    "stop_range_low": 723.64,
-    "stop_range_high": 761.73,
-    "target_price": 879.58,
-    "stop_loss": 761.73,
+    "entry_range_low": 740.72,
+    "entry_range_high": 830.19,
+    "target_range_low": 880.31,
+    "target_range_high": 943.19,
+    "stop_range_low": 739.02,
+    "stop_range_high": 777.92,
+    "target_price": 898.27,
+    "stop_loss": 777.92,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.950446-04:00",
+    "generated_at": "2026-04-23T09:19:04.192820-04:00",
     "categories": [
       "top_scores"
     ]
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CAT maintains a bullish bias — RSI 68, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "The trend for CAT remains constructive. RSI sits at 68 alongside a rising MACD.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 47,

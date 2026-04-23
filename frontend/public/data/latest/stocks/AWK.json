@@ -1,12 +1,12 @@
 {
   "ticker": "AWK",
   "company": "American Water Works Company, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.901873-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.279131-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Water",
   "price": {
-    "current": 131.13,
+    "current": 133.24,
     "open": 132.48,
     "high": 133.98,
     "low": 130.59,
@@ -15,23 +15,23 @@
     "change_pct_1w": 0.63,
     "change_pct_1m": -3.39,
     "change_pct_1y": -8.63,
-    "volume": 1356839,
-    "avg_volume_30d": 1917687,
-    "last_sync": "2026-04-22T22:18:13.571613"
+    "volume": 1396000,
+    "avg_volume_30d": 1918993,
+    "last_sync": "2026-04-23T09:39:35.701926"
   },
   "scores": {
-    "master_score": 16.93,
+    "master_score": 16.95,
     "technical_score": 5.4,
     "fundamental_score": 8.0,
     "momentum_score": 20.0,
     "sentiment_score": 65.0,
-    "sector_score": 25.4,
+    "sector_score": 25.6,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 70.0,
-    "signal_score": 16.93,
+    "signal_score": 16.95,
     "confidence": 0.17,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 23.6,
     "stoch_d": 32.7,
     "rvol": 0.96,
-    "volume_5d_avg": 1833087,
+    "volume_5d_avg": 1840920,
     "green_days_10d": 4,
     "52w_high": 145.6,
     "52w_low": 122.12,
@@ -80,26 +80,26 @@
     "net_margin": 0.21615,
     "market_cap": 25607081984,
     "enterprise_value": 41373712384,
-    "dividend_yield": 2.51,
+    "dividend_yield": 2.52,
     "payout_ratio": 0.5707,
     "insider_ownership_pct": 0.00228,
-    "institutional_ownership_pct": 0.99735,
+    "institutional_ownership_pct": 0.98584,
     "short_ratio": 5.36,
     "beta": 0.734
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 130.47,
-    "entry_range_high": 131.79,
-    "target_range_low": 138.36,
-    "target_range_high": 148.24,
-    "stop_range_low": 118.21,
-    "stop_range_high": 124.43,
-    "target_price": 141.18,
-    "stop_loss": 124.43,
+    "entry_range_low": 132.56,
+    "entry_range_high": 133.91,
+    "target_range_low": 140.58,
+    "target_range_high": 150.62,
+    "stop_range_low": 120.11,
+    "stop_range_high": 126.43,
+    "target_price": 143.45,
+    "stop_loss": 126.43,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.901769-04:00",
+    "generated_at": "2026-04-23T09:19:04.279102-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 251.0
+    "dividend_yield_pct": 252.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,7 +136,7 @@
     "net_direction": "NEUTRAL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 1672,
+      "shares": 10159,
       "date": "2026-02-17"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AWK is under selling pressure — RSI at 42, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "Bearish momentum dominates AWK. With RSI at 42 and MACD pointing lower, caution is advised.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 17,

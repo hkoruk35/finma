@@ -1,37 +1,37 @@
 {
   "ticker": "DDOG",
   "company": "Datadog, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.347177-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.716945-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
-    "current": 132.14,
+    "current": 128.09,
     "open": 129.59,
     "high": 133.32,
-    "low": 129.58,
+    "low": 129.36,
     "prev_close": 129.29,
     "change_pct": 2.2,
     "change_pct_1w": 9.15,
     "change_pct_1m": 2.25,
     "change_pct_1y": 48.61,
-    "volume": 4507817,
-    "avg_volume_30d": 4514003,
-    "last_sync": "2026-04-22T22:18:12.525690"
+    "volume": 4636700,
+    "avg_volume_30d": 4518300,
+    "last_sync": "2026-04-23T09:39:33.678274"
   },
   "scores": {
-    "master_score": 36.0,
+    "master_score": 36.01,
     "technical_score": 35.0,
     "fundamental_score": 0.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.5,
+    "sector_score": 42.6,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 0.0,
-    "signal_score": 36.0,
+    "signal_score": 36.01,
     "confidence": 0.36,
     "signal_type": "UNDERPERFORM"
   },
@@ -55,12 +55,12 @@
     "atr": 6.8,
     "atr_pct": 0.0515,
     "obv_trend": "UP",
-    "mfi": 64.7,
-    "cmf": -0.048,
+    "mfi": 64.8,
+    "cmf": -0.045,
     "stoch_k": 89.1,
     "stoch_d": 90.0,
-    "rvol": 1.04,
-    "volume_5d_avg": 4702083,
+    "rvol": 1.05,
+    "volume_5d_avg": 4727860,
     "green_days_10d": 7,
     "52w_high": 199.72,
     "52w_low": 91.42,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.4454
   },
   "fundamental": {
-    "pe_ratio": 426.25806,
+    "pe_ratio": 440.46664,
     "sector_pe_median": 41.340164,
     "pb_ratio": 12.481345,
     "de_ratio": 34.269,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.0072500003,
-    "institutional_ownership_pct": 0.9103,
+    "institutional_ownership_pct": 0.91009,
     "short_ratio": 2.2,
     "beta": 1.294
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 122.03,
-    "entry_range_high": 132.8,
-    "target_range_low": 149.49,
-    "target_range_high": 160.17,
-    "stop_range_low": 112.61,
-    "stop_range_high": 118.54,
-    "target_price": 152.54,
-    "stop_loss": 118.54,
+    "entry_range_low": 118.29,
+    "entry_range_high": 128.72,
+    "target_range_low": 144.9,
+    "target_range_high": 155.25,
+    "stop_range_low": 109.15,
+    "stop_range_high": 114.9,
+    "target_price": 147.86,
+    "stop_loss": 114.9,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.347089-04:00",
+    "generated_at": "2026-04-23T09:19:03.716886-04:00",
     "categories": [
       "top_scores"
     ]
@@ -132,12 +132,12 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 26,
+    "last_90_days_sells": 27,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 7916,
-      "date": "2026-04-15"
+      "shares": 20000,
+      "date": "2026-04-20"
     }
   },
   "sector_context": {

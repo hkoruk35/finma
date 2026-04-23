@@ -1,13 +1,13 @@
 {
   "ticker": "CDNS",
   "company": "Cadence Design Systems, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.482468-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.746280-04:00",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
-    "current": 331.61,
-    "open": 332.84,
+    "current": 323.54,
+    "open": 332.85,
     "high": 334.0,
     "low": 327.69,
     "prev_close": 325.84,
@@ -15,23 +15,23 @@
     "change_pct_1w": 9.05,
     "change_pct_1m": 13.36,
     "change_pct_1y": 31.82,
-    "volume": 2199839,
-    "avg_volume_30d": 2202701,
-    "last_sync": "2026-04-22T22:18:12.009518"
+    "volume": 2202300,
+    "avg_volume_30d": 2202783,
+    "last_sync": "2026-04-23T09:39:33.063086"
   },
   "scores": {
-    "master_score": 44.3,
+    "master_score": 44.31,
     "technical_score": 48.0,
     "fundamental_score": 15.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.5,
+    "sector_score": 42.6,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 0.0,
-    "signal_score": 44.3,
+    "signal_score": 44.31,
     "confidence": 0.44,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 96.6,
     "stoch_d": 94.8,
     "rvol": 1.12,
-    "volume_5d_avg": 2462667,
+    "volume_5d_avg": 2463160,
     "green_days_10d": 8,
     "52w_high": 373.37,
     "52w_low": 258.15,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.2846
   },
   "fundamental": {
-    "pe_ratio": 81.476654,
+    "pe_ratio": 81.879005,
     "sector_pe_median": 41.340164,
     "pb_ratio": 16.464424,
     "de_ratio": 48.707,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.00342,
-    "institutional_ownership_pct": 0.89829004,
+    "institutional_ownership_pct": 0.89715,
     "short_ratio": 3.24,
     "beta": 1.041
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 294.84,
-    "entry_range_high": 333.27,
-    "target_range_low": 357.49,
-    "target_range_high": 383.03,
-    "stop_range_low": 294.02,
-    "stop_range_high": 309.49,
-    "target_price": 364.79,
-    "stop_loss": 309.49,
+    "entry_range_low": 287.66,
+    "entry_range_high": 325.16,
+    "target_range_low": 348.79,
+    "target_range_high": 373.71,
+    "stop_range_low": 286.86,
+    "stop_range_high": 301.96,
+    "target_price": 355.91,
+    "stop_loss": 301.96,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.482211-04:00",
+    "generated_at": "2026-04-23T09:19:03.746179-04:00",
     "categories": [
       "top_scores"
     ]
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CDNS is in overbought territory with RSI at 71, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "ai_summary": "Momentum for CDNS remains intense. RSI is stretched at 71, but a rising MACD indicates buyers are still in control.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 44,

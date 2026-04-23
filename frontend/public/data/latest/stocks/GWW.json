@@ -1,12 +1,12 @@
 {
   "ticker": "GWW",
   "company": "W.W. Grainger, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.567377-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.228958-04:00",
   "sector": "Industrials",
   "industry": "Industrial Distribution",
   "price": {
-    "current": 1154.18,
+    "current": 1172.75,
     "open": 1177.57,
     "high": 1182.71,
     "low": 1154.16,
@@ -15,9 +15,9 @@
     "change_pct_1w": 0.95,
     "change_pct_1m": 9.46,
     "change_pct_1y": 18.97,
-    "volume": 123888,
-    "avg_volume_30d": 228692,
-    "last_sync": "2026-04-22T22:18:12.308381"
+    "volume": 209900,
+    "avg_volume_30d": 231560,
+    "last_sync": "2026-04-23T09:39:33.473238"
   },
   "scores": {
     "master_score": 39.12,
@@ -55,12 +55,12 @@
     "atr": 27.8,
     "atr_pct": 0.0241,
     "obv_trend": "DOWN",
-    "mfi": 64.0,
-    "cmf": 0.198,
+    "mfi": 62.3,
+    "cmf": 0.175,
     "stoch_k": 74.4,
     "stoch_d": 82.4,
-    "rvol": 0.92,
-    "volume_5d_avg": 210037,
+    "rvol": 0.98,
+    "volume_5d_avg": 227240,
     "green_days_10d": 4,
     "52w_high": 1202.47,
     "52w_low": 916.45,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.2594
   },
   "fundamental": {
-    "pe_ratio": 32.63161,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 32.576347,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 14.649371,
     "de_ratio": 69.114,
     "fcf_yield": 0.02,
@@ -80,26 +80,26 @@
     "net_margin": 0.09508,
     "market_cap": 54677000192,
     "enterprise_value": 57358995456,
-    "dividend_yield": 0.77,
+    "dividend_yield": 0.78,
     "payout_ratio": 0.2494,
     "insider_ownership_pct": 0.06251,
-    "institutional_ownership_pct": 0.76583,
+    "institutional_ownership_pct": 0.76431,
     "short_ratio": 4.37,
     "beta": 1.092
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 1106.65,
-    "entry_range_high": 1159.95,
-    "target_range_low": 1212.83,
-    "target_range_high": 1299.46,
-    "stop_range_low": 1043.65,
-    "stop_range_high": 1098.58,
-    "target_price": 1237.58,
-    "stop_loss": 1098.58,
+    "entry_range_low": 1124.46,
+    "entry_range_high": 1178.61,
+    "target_range_low": 1232.34,
+    "target_range_high": 1320.37,
+    "stop_range_low": 1060.44,
+    "stop_range_high": 1116.26,
+    "target_price": 1257.49,
+    "stop_loss": 1116.26,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.567248-04:00",
+    "generated_at": "2026-04-23T09:19:04.228933-04:00",
     "categories": []
   },
   "breakout": {
@@ -119,7 +119,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 77.0
+    "dividend_yield_pct": 78.0
   },
   "reversal": {
     "is_oversold": false,
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "GWW maintains a bullish bias — RSI 58, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "The trend for GWW remains constructive. RSI sits at 58 alongside a rising MACD.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 39,

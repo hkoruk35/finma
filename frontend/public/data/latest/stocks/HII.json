@@ -1,12 +1,12 @@
 {
   "ticker": "HII",
   "company": "Huntington Ingalls Industries, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.834598-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.182137-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
-    "current": 366.88,
+    "current": 364.14,
     "open": 382.89,
     "high": 384.88,
     "low": 364.2,
@@ -15,9 +15,9 @@
     "change_pct_1w": -7.85,
     "change_pct_1m": -7.49,
     "change_pct_1y": 71.54,
-    "volume": 521240,
-    "avg_volume_30d": 463624,
-    "last_sync": "2026-04-22T22:18:12.792841"
+    "volume": 521600,
+    "avg_volume_30d": 463636,
+    "last_sync": "2026-04-23T09:39:34.080230"
   },
   "scores": {
     "master_score": 31.42,
@@ -60,7 +60,7 @@
     "stoch_k": 5.4,
     "stoch_d": 19.3,
     "rvol": 0.94,
-    "volume_5d_avg": 435828,
+    "volume_5d_avg": 435900,
     "green_days_10d": 3,
     "52w_high": 453.73,
     "52w_low": 213.24,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.7205
   },
   "fundamental": {
-    "pe_ratio": 23.838856,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 23.869877,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 2.837959,
     "de_ratio": 58.762,
     "fcf_yield": 0.0475,
@@ -83,23 +83,23 @@
     "dividend_yield": 1.5,
     "payout_ratio": 0.35279998,
     "insider_ownership_pct": 0.0053399997,
-    "institutional_ownership_pct": 0.96209997,
+    "institutional_ownership_pct": 0.96265,
     "short_ratio": 2.1,
     "beta": 0.356
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 365.05,
-    "entry_range_high": 368.71,
-    "target_range_low": 397.56,
-    "target_range_high": 425.95,
-    "stop_range_low": 323.97,
-    "stop_range_high": 341.02,
-    "target_price": 405.67,
-    "stop_loss": 341.02,
+    "entry_range_low": 362.33,
+    "entry_range_high": 365.96,
+    "target_range_low": 394.6,
+    "target_range_high": 422.77,
+    "stop_range_low": 321.55,
+    "stop_range_high": 338.48,
+    "target_price": 402.65,
+    "stop_loss": 338.48,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.834431-04:00",
+    "generated_at": "2026-04-23T09:19:04.182103-04:00",
     "categories": []
   },
   "breakout": {
@@ -144,7 +144,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "HII shows oversold RSI (33) with weakening momentum; a bounce setup is forming if volume supports the move.",
+  "ai_summary": "Momentum is sluggish for HII, but a low RSI of 33 suggests downside risk may be limited near these levels.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 31,

@@ -1,12 +1,12 @@
 {
   "ticker": "S",
   "company": "SentinelOne, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.449436-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.739702-04:00",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
-    "current": 14.63,
+    "current": 14.04,
     "open": 14.55,
     "high": 14.66,
     "low": 14.28,
@@ -15,23 +15,23 @@
     "change_pct_1w": 10.33,
     "change_pct_1m": 1.74,
     "change_pct_1y": -9.52,
-    "volume": 5658152,
-    "avg_volume_30d": 8579821,
-    "last_sync": "2026-04-22T22:18:12.703829"
+    "volume": 5669900,
+    "avg_volume_30d": 8580213,
+    "last_sync": "2026-04-23T09:39:33.973748"
   },
   "scores": {
-    "master_score": 32.95,
+    "master_score": 32.96,
     "technical_score": 12.0,
     "fundamental_score": 20.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.5,
+    "sector_score": 42.6,
     "breakout_score": 15.0,
     "value_score": 25.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 30.0,
-    "signal_score": 32.95,
+    "signal_score": 32.96,
     "confidence": 0.33,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 88.1,
     "stoch_d": 87.9,
     "rvol": 0.82,
-    "volume_5d_avg": 7051930,
+    "volume_5d_avg": 7054280,
     "green_days_10d": 7,
     "52w_high": 20.34,
     "52w_low": 11.94,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.01554,
-    "institutional_ownership_pct": 0.82404,
+    "institutional_ownership_pct": 0.82411003,
     "short_ratio": 2.37,
     "beta": 0.756
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 13.66,
-    "entry_range_high": 14.7,
-    "target_range_low": 16.25,
-    "target_range_high": 17.41,
-    "stop_range_low": 12.66,
-    "stop_range_high": 13.33,
-    "target_price": 16.58,
-    "stop_loss": 13.33,
+    "entry_range_low": 13.11,
+    "entry_range_high": 14.11,
+    "target_range_low": 15.6,
+    "target_range_high": 16.71,
+    "stop_range_low": 12.15,
+    "stop_range_high": 12.79,
+    "target_price": 15.91,
+    "stop_loss": 12.79,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.449350-04:00",
+    "generated_at": "2026-04-23T09:19:03.739639-04:00",
     "categories": [
       "top_scores"
     ]
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 421288,
+      "shares": 936196,
       "date": "2026-04-15"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "S maintains a bullish bias — RSI 62, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "Buyers continue to support S. With RSI at 62 and average volume, the chart looks technically sound.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 33,

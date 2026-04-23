@@ -1,13 +1,13 @@
 {
   "ticker": "COST",
   "company": "Costco Wholesale Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.375924-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.893483-04:00",
   "sector": "Consumer Staples",
   "industry": "Discount Stores",
   "price": {
-    "current": 1003.7,
-    "open": 1005.0,
+    "current": 1008.16,
+    "open": 1004.98,
     "high": 1008.11,
     "low": 998.29,
     "prev_close": 1005.81,
@@ -15,23 +15,23 @@
     "change_pct_1w": 1.92,
     "change_pct_1m": 3.93,
     "change_pct_1y": 5.37,
-    "volume": 1168736,
-    "avg_volume_30d": 1701961,
-    "last_sync": "2026-04-22T22:18:12.130872"
+    "volume": 1214600,
+    "avg_volume_30d": 1703490,
+    "last_sync": "2026-04-23T09:39:33.211160"
   },
   "scores": {
-    "master_score": 42.49,
+    "master_score": 42.5,
     "technical_score": 42.0,
     "fundamental_score": 15.0,
     "momentum_score": 70.0,
     "sentiment_score": 75.0,
-    "sector_score": 25.4,
+    "sector_score": 25.5,
     "breakout_score": 0.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 42.49,
+    "signal_score": 42.5,
     "confidence": 0.42,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -55,12 +55,12 @@
     "atr": 18.2,
     "atr_pct": 0.0181,
     "obv_trend": "UP",
-    "mfi": 62.6,
+    "mfi": 62.7,
     "cmf": 0.216,
     "stoch_k": 54.0,
     "stoch_d": 52.2,
-    "rvol": 0.92,
-    "volume_5d_avg": 1568407,
+    "rvol": 0.93,
+    "volume_5d_avg": 1577580,
     "green_days_10d": 5,
     "52w_high": 1052.46,
     "52w_low": 848.84,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.1824
   },
   "fundamental": {
-    "pe_ratio": 52.248833,
+    "pe_ratio": 52.086143,
     "sector_pe_median": 24.110754999999997,
     "pb_ratio": 26.924728,
     "de_ratio": 60.257,
@@ -80,26 +80,26 @@
     "net_margin": 0.029860001,
     "market_cap": 445511729152,
     "enterprise_value": 443370930176,
-    "dividend_yield": 0.58,
+    "dividend_yield": 0.59,
     "payout_ratio": 0.27040002,
     "insider_ownership_pct": 0.0016699999,
-    "institutional_ownership_pct": 0.72539,
+    "institutional_ownership_pct": 0.72503996,
     "short_ratio": 3.78,
     "beta": 0.978
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 983.07,
-    "entry_range_high": 1008.72,
-    "target_range_low": 1037.13,
-    "target_range_high": 1111.21,
-    "stop_range_low": 918.94,
-    "stop_range_high": 967.3,
-    "target_price": 1058.3,
-    "stop_loss": 967.3,
+    "entry_range_low": 987.44,
+    "entry_range_high": 1013.21,
+    "target_range_low": 1041.74,
+    "target_range_high": 1116.15,
+    "stop_range_low": 923.03,
+    "stop_range_high": 971.6,
+    "target_price": 1063.01,
+    "stop_loss": 971.6,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.375810-04:00",
+    "generated_at": "2026-04-23T09:19:03.893448-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 58.0
+    "dividend_yield_pct": 59.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "COST is range-bound — RSI 54 with flat MACD and below-average volume; trend direction remains unclear.",
+  "ai_summary": "Choppy price action defines COST right now. RSI at 54 and a flat MACD suggest waiting for a cleaner setup.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 42,

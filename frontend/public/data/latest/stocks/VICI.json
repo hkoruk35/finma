@@ -1,12 +1,12 @@
 {
   "ticker": "VICI",
   "company": "VICI Properties Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.945367-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.290397-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Diversified",
   "price": {
-    "current": 28.2,
+    "current": 28.22,
     "open": 28.54,
     "high": 28.57,
     "low": 28.05,
@@ -15,23 +15,23 @@
     "change_pct_1w": 0.25,
     "change_pct_1m": 4.25,
     "change_pct_1y": -6.9,
-    "volume": 5576812,
-    "avg_volume_30d": 8594290,
-    "last_sync": "2026-04-22T22:18:12.647989"
+    "volume": 5577300,
+    "avg_volume_30d": 8594306,
+    "last_sync": "2026-04-23T09:39:33.865945"
   },
   "scores": {
-    "master_score": 33.84,
+    "master_score": 33.82,
     "technical_score": 9.0,
     "fundamental_score": 52.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 41.9,
+    "sector_score": 41.7,
     "breakout_score": 0.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 33.84,
+    "signal_score": 33.82,
     "confidence": 0.34,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 49.5,
     "stoch_d": 65.1,
     "rvol": 0.87,
-    "volume_5d_avg": 7492722,
+    "volume_5d_avg": 7492820,
     "green_days_10d": 6,
     "52w_high": 32.4,
     "52w_low": 26.61,
@@ -80,26 +80,26 @@
     "net_margin": 0.69281,
     "market_cap": 30145490944,
     "enterprise_value": 47689601024,
-    "dividend_yield": 6.27,
+    "dividend_yield": 6.32,
     "payout_ratio": 0.67620003,
     "insider_ownership_pct": 0.0028799998,
-    "institutional_ownership_pct": 1.00167,
+    "institutional_ownership_pct": 1.00075,
     "short_ratio": 2.58,
     "beta": 0.728
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 28.04,
-    "entry_range_high": 28.34,
-    "target_range_low": 29.11,
-    "target_range_high": 31.19,
-    "stop_range_low": 25.84,
-    "stop_range_high": 27.2,
-    "target_price": 29.7,
-    "stop_loss": 27.2,
+    "entry_range_low": 28.06,
+    "entry_range_high": 28.36,
+    "target_range_low": 29.13,
+    "target_range_high": 31.21,
+    "stop_range_low": 25.86,
+    "stop_range_high": 27.22,
+    "target_price": 29.72,
+    "stop_loss": 27.22,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.945211-04:00",
+    "generated_at": "2026-04-23T09:19:04.290368-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 627.0
+    "dividend_yield_pct": 632.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,7 +136,7 @@
     "net_direction": "NEUTRAL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 320,
+      "shares": 480,
       "date": "2026-04-01"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "VICI shows mixed signals with RSI at 51 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "While VICI's MACD is positive, the broader technical picture (RSI 51) is mixed. Waiting for volume confirmation is prudent.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 34,

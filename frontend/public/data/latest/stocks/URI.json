@@ -1,12 +1,12 @@
 {
   "ticker": "URI",
   "company": "United Rentals, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.608486-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.237369-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
-    "current": 802.79,
+    "current": 950.0,
     "open": 816.29,
     "high": 820.49,
     "low": 801.26,
@@ -15,9 +15,9 @@
     "change_pct_1w": 4.9,
     "change_pct_1m": 9.66,
     "change_pct_1y": 41.93,
-    "volume": 571984,
-    "avg_volume_30d": 525499,
-    "last_sync": "2026-04-22T22:18:12.942735"
+    "volume": 583200,
+    "avg_volume_30d": 525873,
+    "last_sync": "2026-04-23T09:39:34.398675"
   },
   "scores": {
     "master_score": 29.95,
@@ -55,12 +55,12 @@
     "atr": 24.79,
     "atr_pct": 0.0309,
     "obv_trend": "DOWN",
-    "mfi": 70.7,
-    "cmf": -0.009,
+    "mfi": 70.6,
+    "cmf": -0.01,
     "stoch_k": 74.4,
     "stoch_d": 81.6,
     "rvol": 0.95,
-    "volume_5d_avg": 499056,
+    "volume_5d_avg": 501300,
     "green_days_10d": 6,
     "52w_high": 1015.58,
     "52w_low": 569.73,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.4091
   },
   "fundamental": {
-    "pe_ratio": 20.786898,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 20.79228,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 5.6481605,
     "de_ratio": 174.732,
     "fcf_yield": 0.0382,
@@ -89,17 +89,17 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 784.96,
-    "entry_range_high": 806.8,
-    "target_range_low": 859.62,
-    "target_range_high": 921.02,
-    "stop_range_low": 715.55,
-    "stop_range_high": 753.21,
-    "target_price": 877.16,
-    "stop_loss": 753.21,
+    "entry_range_low": 928.9,
+    "entry_range_high": 954.75,
+    "target_range_low": 1017.25,
+    "target_range_high": 1089.91,
+    "stop_range_low": 846.76,
+    "stop_range_high": 891.33,
+    "target_price": 1038.01,
+    "stop_loss": 891.33,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.608357-04:00",
+    "generated_at": "2026-04-23T09:19:04.237324-04:00",
     "categories": [
       "top_scores"
     ]
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "URI shows mixed signals with RSI at 60 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "While URI's MACD is positive, the broader technical picture (RSI 60) is mixed. Waiting for volume confirmation is prudent.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 30,

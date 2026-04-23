@@ -1,20 +1,20 @@
 {
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:29.350855-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.442383-04:00",
   "sectors": {
     "Technology": {
-      "avg_score": 47.8,
+      "avg_score": 47.9,
       "top_ticker": "ZM",
       "top_tickers": [
         "ZM",
         "DELL",
         "AMD",
+        "MRVL",
         "GRMN",
         "MU",
         "TSM",
         "WDC",
         "CSCO",
-        "MRVL",
         "ANET",
         "GOOGL",
         "SNDK",
@@ -26,19 +26,19 @@
       "stock_count": 67
     },
     "Communication Services": {
-      "avg_score": 38.4,
+      "avg_score": 38.3,
       "top_ticker": "MTCH",
       "top_tickers": [
         "MTCH",
         "CMCSA",
         "ROKU",
         "BIDU",
-        "AMX",
         "CHTR",
         "ERIC",
         "OMC",
         "NOK",
         "EA",
+        "AMX",
         "VZ",
         "NFLX",
         "DIS",
@@ -49,7 +49,7 @@
       "stock_count": 23
     },
     "Consumer Discretionary": {
-      "avg_score": 38.4,
+      "avg_score": 38.6,
       "top_ticker": "VFC",
       "top_tickers": [
         "VFC",
@@ -81,9 +81,9 @@
         "MNST",
         "KR",
         "TSN",
-        "PM",
         "COST",
         "ULTA",
+        "PM",
         "PEP",
         "SFM",
         "BG",
@@ -95,7 +95,7 @@
       "stock_count": 32
     },
     "Healthcare": {
-      "avg_score": 33.6,
+      "avg_score": 33.5,
       "top_ticker": "EXEL",
       "top_tickers": [
         "EXEL",
@@ -107,8 +107,8 @@
         "BNTX",
         "UNH",
         "ILMN",
-        "ELV",
         "MRNA",
+        "ELV",
         "AMGN",
         "HCA",
         "ACAD",
@@ -141,7 +141,7 @@
       "stock_count": 68
     },
     "Energy": {
-      "avg_score": 46.5,
+      "avg_score": 47.0,
       "top_ticker": "OII",
       "top_tickers": [
         "OII",
@@ -164,7 +164,7 @@
       "stock_count": 54
     },
     "Materials": {
-      "avg_score": 41.1,
+      "avg_score": 41.8,
       "top_ticker": "NEXA",
       "top_tickers": [
         "NEXA",
@@ -187,22 +187,22 @@
       "stock_count": 46
     },
     "Industrials": {
-      "avg_score": 36.9,
+      "avg_score": 37.1,
       "top_ticker": "AL",
       "top_tickers": [
         "AL",
         "CMI",
+        "TDY",
         "MTZ",
         "ALSN",
         "CHRW",
         "FDX",
-        "TDY",
-        "HUBB",
+        "GEV",
         "CNI",
+        "HUBB",
         "PRIM",
         "ETN",
         "UPS",
-        "GEV",
         "PWR",
         "ODFL"
       ],
@@ -210,7 +210,7 @@
       "stock_count": 67
     },
     "Utilities": {
-      "avg_score": 30.5,
+      "avg_score": 30.6,
       "top_ticker": "CWT",
       "top_tickers": [
         "CWT",
@@ -220,23 +220,22 @@
         "AES",
         "WTRG",
         "NI",
-        "OGS",
         "EIX",
         "XEL",
+        "CNP",
         "AEE",
         "NEE",
+        "OGS",
         "EXC",
-        "ES",
-        "PCG"
+        "ES"
       ],
       "volume_change_pct": null,
       "stock_count": 36
     },
     "Real Estate": {
-      "avg_score": 45.2,
-      "top_ticker": "KIM",
+      "avg_score": 44.9,
+      "top_ticker": "HST",
       "top_tickers": [
-        "KIM",
         "HST",
         "SPG",
         "DHI",
@@ -250,23 +249,24 @@
         "MAC",
         "EGP",
         "PSA",
-        "FRT"
+        "FRT",
+        "KIM"
       ],
       "volume_change_pct": null,
       "stock_count": 45
     }
   },
   "etf_performance": {
-    "XLC": -0.8,
-    "XLRE": -0.8,
-    "XLE": -0.07,
-    "XLV": -0.16,
-    "XLY": 1.11,
-    "XLK": 3.99,
     "XLI": 0.42,
-    "XLB": 0.15,
+    "XLE": -0.07,
     "XLP": 0.84,
+    "XLY": 1.11,
+    "XLB": 0.15,
+    "XLF": 0.35,
+    "XLC": -0.8,
+    "XLV": -0.16,
+    "XLK": 3.99,
     "XLU": -3.19,
-    "XLF": 0.35
+    "XLRE": -0.8
   }
 }

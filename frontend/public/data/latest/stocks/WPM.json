@@ -1,12 +1,12 @@
 {
   "ticker": "WPM",
   "company": "Wheaton Precious Metals Corp.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.568403-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.138142-04:00",
   "sector": "Materials",
   "industry": "Gold",
   "price": {
-    "current": 144.72,
+    "current": 142.65,
     "open": 144.61,
     "high": 146.58,
     "low": 143.23,
@@ -15,24 +15,24 @@
     "change_pct_1w": -1.96,
     "change_pct_1m": 20.91,
     "change_pct_1y": 70.58,
-    "volume": 1990200,
-    "avg_volume_30d": 2570890,
-    "last_sync": "2026-04-22T22:18:12.137798"
+    "volume": 2222500,
+    "avg_volume_30d": 2578633,
+    "last_sync": "2026-04-23T09:39:33.206413"
   },
   "scores": {
-    "master_score": 42.46,
+    "master_score": 42.54,
     "technical_score": 42.0,
     "fundamental_score": 45.0,
     "momentum_score": 20.0,
     "sentiment_score": 85.0,
-    "sector_score": 40.1,
+    "sector_score": 40.9,
     "breakout_score": 15.0,
     "value_score": 30.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 42.46,
-    "confidence": 0.42,
+    "signal_score": 42.54,
+    "confidence": 0.43,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -55,12 +55,12 @@
     "atr": 6.11,
     "atr_pct": 0.0422,
     "obv_trend": "DOWN",
-    "mfi": 56.1,
-    "cmf": 0.019,
+    "mfi": 56.5,
+    "cmf": 0.018,
     "stoch_k": 62.1,
     "stoch_d": 64.8,
-    "rvol": 0.92,
-    "volume_5d_avg": 2361560,
+    "rvol": 0.93,
+    "volume_5d_avg": 2408020,
     "green_days_10d": 5,
     "52w_high": 165.46,
     "52w_low": 76.23,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.8984
   },
   "fundamental": {
-    "pe_ratio": 44.804955,
+    "pe_ratio": 44.666668,
     "sector_pe_median": 23.032734,
     "pb_ratio": 7.5607333,
     "de_ratio": 0.091,
@@ -80,26 +80,26 @@
     "net_margin": 0.63584,
     "market_cap": 65866706944,
     "enterprise_value": 64562540544,
-    "dividend_yield": 0.55,
+    "dividend_yield": 0.54,
     "payout_ratio": 0.2039,
     "insider_ownership_pct": 0.00115,
-    "institutional_ownership_pct": 0.71667,
+    "institutional_ownership_pct": 0.71569,
     "short_ratio": 1.25,
     "beta": 1.218
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 138.02,
-    "entry_range_high": 145.44,
-    "target_range_low": 159.79,
-    "target_range_high": 171.2,
-    "stop_range_low": 125.88,
-    "stop_range_high": 132.5,
-    "target_price": 163.05,
-    "stop_loss": 132.5,
+    "entry_range_low": 136.05,
+    "entry_range_high": 143.36,
+    "target_range_low": 157.5,
+    "target_range_high": 168.75,
+    "stop_range_low": 124.08,
+    "stop_range_high": 130.6,
+    "target_price": 160.72,
+    "stop_loss": 130.6,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.568289-04:00",
+    "generated_at": "2026-04-23T09:19:04.138119-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 55.0
+    "dividend_yield_pct": 54.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "WPM maintains a bullish bias — RSI 54, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "Buyers continue to support WPM. With RSI at 54 and average volume, the chart looks technically sound.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 42,
+    "score_bar": 43,
     "price_change_display": "+2.05%",
     "key_metrics": {
       "RSI": 54.4,

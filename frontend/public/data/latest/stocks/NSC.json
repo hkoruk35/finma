@@ -1,38 +1,38 @@
 {
   "ticker": "NSC",
   "company": "Norfolk Southern Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.260863-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.211399-04:00",
   "sector": "Industrials",
   "industry": "Railroads",
   "price": {
-    "current": 298.33,
+    "current": 306.3,
     "open": 303.94,
-    "high": 305.56,
+    "high": 305.61,
     "low": 298.01,
     "prev_close": 302.22,
     "change_pct": -1.29,
     "change_pct_1w": 0.21,
     "change_pct_1m": 4.7,
     "change_pct_1y": 39.04,
-    "volume": 895973,
-    "avg_volume_30d": 1323979,
-    "last_sync": "2026-04-22T22:18:12.171695"
+    "volume": 896100,
+    "avg_volume_30d": 1323983,
+    "last_sync": "2026-04-23T09:39:33.530564"
   },
   "scores": {
-    "master_score": 41.67,
+    "master_score": 38.42,
     "technical_score": 50.0,
-    "fundamental_score": 25.0,
+    "fundamental_score": 12.0,
     "momentum_score": 40.0,
     "sentiment_score": 65.0,
     "sector_score": 34.2,
     "breakout_score": 0.0,
-    "value_score": 25.0,
+    "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 41.67,
-    "confidence": 0.42,
+    "signal_score": 38.42,
+    "confidence": 0.38,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -60,7 +60,7 @@
     "stoch_k": 61.7,
     "stoch_d": 76.9,
     "rvol": 0.89,
-    "volume_5d_avg": 1179174,
+    "volume_5d_avg": 1179200,
     "green_days_10d": 6,
     "52w_high": 317.83,
     "52w_low": 215.57,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.3839
   },
   "fundamental": {
-    "pe_ratio": 23.39843,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 23.416798,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 4.3063974,
     "de_ratio": 114.742,
     "fcf_yield": 0.0217,
@@ -80,26 +80,26 @@
     "net_margin": 0.23587999,
     "market_cap": 66996572160,
     "enterprise_value": 83305570304,
-    "dividend_yield": 1.79,
+    "dividend_yield": 1.81,
     "payout_ratio": 0.42349997,
     "insider_ownership_pct": 0.00082,
-    "institutional_ownership_pct": 0.78519994,
+    "institutional_ownership_pct": 0.785,
     "short_ratio": 6.54,
     "beta": 1.31
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 294.33,
-    "entry_range_high": 299.82,
-    "target_range_low": 307.8,
-    "target_range_high": 329.78,
-    "stop_range_low": 273.44,
-    "stop_range_high": 287.83,
-    "target_price": 314.08,
-    "stop_loss": 287.83,
+    "entry_range_low": 302.19,
+    "entry_range_high": 307.83,
+    "target_range_low": 316.02,
+    "target_range_high": 338.59,
+    "stop_range_low": 280.75,
+    "stop_range_high": 295.52,
+    "target_price": 322.47,
+    "stop_loss": 295.52,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.260763-04:00",
+    "generated_at": "2026-04-23T09:19:04.211375-04:00",
     "categories": [
       "top_scores"
     ]
@@ -114,14 +114,14 @@
     "intrinsic_value_estimate": 372.91,
     "margin_of_safety_pct": 25.0,
     "value_catalyst": "Earnings growth consistency and low debt profile.",
-    "value_score": 25.0
+    "value_score": 0.0
   },
   "dividend": {
     "next_dividend_date": null,
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 179.0
+    "dividend_yield_pct": 181.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NSC maintains a bullish bias — RSI 54, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "Buyers continue to support NSC. With RSI at 54 and average volume, the chart looks technically sound.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 42,
+    "score_bar": 38,
     "price_change_display": "-1.29%",
     "key_metrics": {
       "RSI": 54.1,

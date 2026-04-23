@@ -1,37 +1,37 @@
 {
   "ticker": "VMC",
   "company": "Vulcan Materials Company",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.747344-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.168240-04:00",
   "sector": "Materials",
   "industry": "Building Materials",
   "price": {
-    "current": 290.11,
+    "current": 292.51,
     "open": 293.65,
-    "high": 295.45,
+    "high": 295.49,
     "low": 289.15,
     "prev_close": 290.72,
     "change_pct": -0.21,
     "change_pct_1w": -0.39,
     "change_pct_1m": 9.99,
     "change_pct_1y": 24.77,
-    "volume": 656172,
-    "avg_volume_30d": 1270939,
-    "last_sync": "2026-04-22T22:18:13.272458"
+    "volume": 656400,
+    "avg_volume_30d": 1270946,
+    "last_sync": "2026-04-23T09:39:35.306581"
   },
   "scores": {
-    "master_score": 24.96,
+    "master_score": 25.04,
     "technical_score": 27.0,
     "fundamental_score": 0.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 40.1,
+    "sector_score": 40.9,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 0.0,
     "dividend_score": 70.0,
-    "signal_score": 24.96,
+    "signal_score": 25.04,
     "confidence": 0.25,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 61.0,
     "stoch_d": 71.2,
     "rvol": 0.55,
-    "volume_5d_avg": 700514,
+    "volume_5d_avg": 700560,
     "green_days_10d": 5,
     "52w_high": 329.75,
     "52w_low": 238.88,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.2145
   },
   "fundamental": {
-    "pe_ratio": 35.640045,
+    "pe_ratio": 35.596317,
     "sector_pe_median": 23.032734,
     "pb_ratio": 4.444359,
     "de_ratio": 57.785,
@@ -83,23 +83,23 @@
     "dividend_yield": 0.72,
     "payout_ratio": 0.24049999,
     "insider_ownership_pct": 0.00296,
-    "institutional_ownership_pct": 0.97833,
+    "institutional_ownership_pct": 0.97823995,
     "short_ratio": 3.3,
     "beta": 1.095
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 285.27,
-    "entry_range_high": 291.56,
-    "target_range_low": 306.65,
-    "target_range_high": 328.56,
-    "stop_range_low": 261.16,
-    "stop_range_high": 274.91,
-    "target_price": 312.91,
-    "stop_loss": 274.91,
+    "entry_range_low": 287.63,
+    "entry_range_high": 293.97,
+    "target_range_low": 309.19,
+    "target_range_high": 331.28,
+    "stop_range_low": 263.32,
+    "stop_range_high": 277.18,
+    "target_price": 315.5,
+    "stop_loss": 277.18,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.746916-04:00",
+    "generated_at": "2026-04-23T09:19:04.168206-04:00",
     "categories": [
       "top_scores"
     ]
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 8940,
+      "shares": 1137,
       "date": "2026-02-20"
     }
   },

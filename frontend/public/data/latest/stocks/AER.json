@@ -1,12 +1,12 @@
 {
   "ticker": "AER",
   "company": "AerCap Holdings N.V.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.626875-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.239784-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
-    "current": 138.27,
+    "current": 137.99,
     "open": 142.44,
     "high": 142.6,
     "low": 137.33,
@@ -15,9 +15,9 @@
     "change_pct_1w": -6.09,
     "change_pct_1m": 2.26,
     "change_pct_1y": 47.42,
-    "volume": 1295934,
-    "avg_volume_30d": 1253387,
-    "last_sync": "2026-04-22T22:18:12.584977"
+    "volume": 1295900,
+    "avg_volume_30d": 1253386,
+    "last_sync": "2026-04-23T09:39:33.758513"
   },
   "scores": {
     "master_score": 35.02,
@@ -60,7 +60,7 @@
     "stoch_k": 16.8,
     "stoch_d": 41.8,
     "rvol": 1.1,
-    "volume_5d_avg": 1382366,
+    "volume_5d_avg": 1382360,
     "green_days_10d": 5,
     "52w_high": 154.41,
     "52w_low": 96.28,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.4362
   },
   "fundamental": {
-    "pe_ratio": 6.4885035,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 6.4945984,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 1.2280624,
     "de_ratio": 238.421,
     "fcf_yield": -0.0711,
@@ -80,26 +80,26 @@
     "net_margin": 0.44037998,
     "market_cap": 23535200256,
     "enterprise_value": 64797982720,
-    "dividend_yield": 1.14,
+    "dividend_yield": 1.16,
     "payout_ratio": 0.0507,
     "insider_ownership_pct": 0.04101,
-    "institutional_ownership_pct": 0.94413,
+    "institutional_ownership_pct": 0.94416,
     "short_ratio": 1.31,
     "beta": 0.985
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 137.58,
-    "entry_range_high": 138.96,
-    "target_range_low": 148.73,
-    "target_range_high": 159.36,
-    "stop_range_low": 122.81,
-    "stop_range_high": 129.27,
-    "target_price": 151.77,
-    "stop_loss": 129.27,
+    "entry_range_low": 137.3,
+    "entry_range_high": 138.68,
+    "target_range_low": 148.43,
+    "target_range_high": 159.04,
+    "stop_range_low": 122.56,
+    "stop_range_high": 129.01,
+    "target_price": 151.46,
+    "stop_loss": 129.01,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.626743-04:00",
+    "generated_at": "2026-04-23T09:19:04.239756-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 40.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 114.0
+    "dividend_yield_pct": 116.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,8 +136,8 @@
     "net_direction": "NEUTRAL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 3345,
-      "date": "2026-04-15"
+      "shares": 500000,
+      "date": "2026-04-20"
     }
   },
   "sector_context": {
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "AER is under selling pressure — RSI at 44, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "The chart for AER looks weak. Negative MACD and RSI at 44 suggest sellers remain firmly in control.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 35,

@@ -1,23 +1,23 @@
 {
   "ticker": "CTAS",
   "company": "Cintas Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.548223-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.226209-04:00",
   "sector": "Industrials",
   "industry": "Specialty Business Services",
   "price": {
-    "current": 174.66,
-    "open": 176.21,
-    "high": 176.83,
+    "current": 174.53,
+    "open": 176.32,
+    "high": 176.85,
     "low": 173.54,
     "prev_close": 176.26,
     "change_pct": -0.91,
     "change_pct_1w": -1.02,
     "change_pct_1m": -3.61,
     "change_pct_1y": -12.1,
-    "volume": 1403716,
-    "avg_volume_30d": 2537417,
-    "last_sync": "2026-04-22T22:18:13.270252"
+    "volume": 1404800,
+    "avg_volume_30d": 2537453,
+    "last_sync": "2026-04-23T09:39:35.300908"
   },
   "scores": {
     "master_score": 25.06,
@@ -60,7 +60,7 @@
     "stoch_k": 48.4,
     "stoch_d": 66.9,
     "rvol": 0.67,
-    "volume_5d_avg": 1689963,
+    "volume_5d_avg": 1690180,
     "green_days_10d": 6,
     "52w_high": 226.13,
     "52w_low": 165.71,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.054
   },
   "fundamental": {
-    "pe_ratio": 36.848103,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 36.926006,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 14.5902605,
     "de_ratio": 60.943,
     "fcf_yield": 0.0216,
@@ -80,7 +80,7 @@
     "net_margin": 0.17568001,
     "market_cap": 69879218176,
     "enterprise_value": 72614199296,
-    "dividend_yield": 1.02,
+    "dividend_yield": 1.03,
     "payout_ratio": 0.3671,
     "insider_ownership_pct": 0.14974,
     "institutional_ownership_pct": 0.67802,
@@ -89,17 +89,17 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 173.79,
-    "entry_range_high": 175.53,
-    "target_range_low": 182.9,
-    "target_range_high": 195.96,
-    "stop_range_low": 158.35,
-    "stop_range_high": 166.68,
-    "target_price": 186.63,
-    "stop_loss": 166.68,
+    "entry_range_low": 173.66,
+    "entry_range_high": 175.4,
+    "target_range_low": 182.76,
+    "target_range_high": 195.81,
+    "stop_range_low": 158.23,
+    "stop_range_high": 166.56,
+    "target_price": 186.49,
+    "stop_loss": 166.56,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.548155-04:00",
+    "generated_at": "2026-04-23T09:19:04.226186-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 102.0
+    "dividend_yield_pct": 103.0
   },
   "reversal": {
     "is_oversold": false,
@@ -132,12 +132,12 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 0,
-    "net_direction": "NEUTRAL",
+    "last_90_days_sells": 1,
+    "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 12544,
-      "date": "2026-04-09"
+      "shares": 4666,
+      "date": "2026-04-20"
     }
   },
   "sector_context": {
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "CTAS trades near equilibrium with RSI 42 and positive MACD; watch for a catalyst to establish directional bias.",
+  "ai_summary": "A highly neutral setup for CTAS. RSI is 42 with a flat MACD, indicating the market is awaiting a catalyst.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 25,

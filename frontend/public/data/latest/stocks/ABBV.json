@@ -1,12 +1,12 @@
 {
   "ticker": "ABBV",
   "company": "AbbVie Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.476280-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.930561-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
-    "current": 200.5,
+    "current": 201.69,
     "open": 205.17,
     "high": 205.99,
     "low": 199.81,
@@ -15,23 +15,23 @@
     "change_pct_1w": -3.8,
     "change_pct_1m": -1.35,
     "change_pct_1y": 21.67,
-    "volume": 7643442,
-    "avg_volume_30d": 7037288,
-    "last_sync": "2026-04-22T22:18:13.484794"
+    "volume": 7644200,
+    "avg_volume_30d": 7037313,
+    "last_sync": "2026-04-23T09:39:35.523074"
   },
   "scores": {
-    "master_score": 20.84,
+    "master_score": 20.85,
     "technical_score": 6.3,
     "fundamental_score": 35.0,
     "momentum_score": 0.0,
     "sentiment_score": 75.0,
-    "sector_score": 23.9,
+    "sector_score": 24.0,
     "breakout_score": 45.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 20.84,
+    "signal_score": 20.85,
     "confidence": 0.21,
     "signal_type": "UNDERPERFORM"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 5.3,
     "stoch_d": 17.6,
     "rvol": 1.0,
-    "volume_5d_avg": 7050368,
+    "volume_5d_avg": 7050520,
     "green_days_10d": 4,
     "52w_high": 238.71,
     "52w_low": 168.3,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.1913
   },
   "fundamental": {
-    "pe_ratio": 84.24369,
-    "sector_pe_median": 25.538895,
+    "pe_ratio": 84.59916,
+    "sector_pe_median": 25.55964,
     "pb_ratio": -108.37838,
     "de_ratio": null,
     "fcf_yield": 0.0517,
@@ -80,26 +80,26 @@
     "net_margin": 0.0691,
     "market_cap": 354636857344,
     "enterprise_value": 417702871040,
-    "dividend_yield": 3.37,
+    "dividend_yield": 3.45,
     "payout_ratio": 2.7679,
     "insider_ownership_pct": 0.00117,
-    "institutional_ownership_pct": 0.76465,
+    "institutional_ownership_pct": 0.76431,
     "short_ratio": 2.67,
     "beta": 0.364
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 199.5,
-    "entry_range_high": 201.5,
-    "target_range_low": 212.42,
-    "target_range_high": 227.6,
-    "stop_range_low": 180.18,
-    "stop_range_high": 189.66,
-    "target_price": 216.76,
-    "stop_loss": 189.66,
+    "entry_range_low": 200.68,
+    "entry_range_high": 202.7,
+    "target_range_low": 213.68,
+    "target_range_high": 228.95,
+    "stop_range_low": 181.25,
+    "stop_range_high": 190.79,
+    "target_price": 218.05,
+    "stop_loss": 190.79,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.476179-04:00",
+    "generated_at": "2026-04-23T09:19:03.930528-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 337.0
+    "dividend_yield_pct": 345.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ABBV is under selling pressure — RSI at 37, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "Bearish momentum dominates ABBV. With RSI at 37 and MACD pointing lower, caution is advised.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 21,

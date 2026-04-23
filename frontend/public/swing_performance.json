@@ -1,17 +1,77 @@
 {
   "stats": {
-    "total_picks": 1090,
+    "total_picks": 1095,
     "completed_count": 985,
-    "pending_count": 105,
+    "pending_count": 110,
     "win_rate": 98.6,
     "avg_return_pct": 10.5,
     "period_days": 180,
     "above_5pct_rate": 67.3,
     "above_10pct_rate": 40.7,
     "stop_loss_pct": -3.5,
-    "last_updated": "2026-04-22T21:57:20.531115"
+    "last_updated": "2026-04-23T09:34:20.351848"
   },
   "history": [
+    {
+      "date": "2026-04-23",
+      "ticker": "OPEN",
+      "company": "Opendoor Technologies Inc.",
+      "sector": "Real Estate",
+      "subsector": "Real Estate Services",
+      "entry": 5.258399963378906,
+      "max_price": 5.258399963378906,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-23",
+      "ticker": "MSCI",
+      "company": "MSCI Inc.",
+      "sector": "Financial Services",
+      "subsector": "Financial Data & Stock Exchanges",
+      "entry": 603.094970703125,
+      "max_price": 603.094970703125,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-23",
+      "ticker": "CAVA",
+      "company": "CAVA Group, Inc.",
+      "sector": "Consumer Cyclical",
+      "subsector": "Restaurants",
+      "entry": 95.4000015258789,
+      "max_price": 95.4000015258789,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-23",
+      "ticker": "BLD",
+      "company": "TopBuild Corp.",
+      "sector": "Industrials",
+      "subsector": "Engineering & Construction",
+      "entry": 457.110107421875,
+      "max_price": 457.110107421875,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-23",
+      "ticker": "ALLY",
+      "company": "Ally Financial Inc.",
+      "sector": "Financial Services",
+      "subsector": "Credit Services",
+      "entry": 45.36899948120117,
+      "max_price": 45.36899948120117,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
     {
       "date": "2026-04-22",
       "ticker": "ONTO",
@@ -19,11 +79,11 @@
       "sector": "Technology",
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 295.510009765625,
-      "max_price": 298.61,
-      "return_pct": 1.05,
-      "days": 0,
+      "max_price": 299.0,
+      "return_pct": 1.18,
+      "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-04-22"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-22",
@@ -32,8 +92,8 @@
       "sector": "Financial Services",
       "subsector": "Financial Data & Stock Exchanges",
       "entry": 610.1300048828125,
-      "max_price": 621.2,
-      "return_pct": 1.81,
+      "max_price": 621.29,
+      "return_pct": 1.83,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-04-22"
@@ -71,10 +131,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Restaurants",
       "entry": 96.75,
-      "max_price": 96.75,
-      "return_pct": 0.0,
+      "max_price": 98.55,
+      "return_pct": 1.86,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-22",
@@ -96,10 +157,11 @@
       "sector": "Financial Services",
       "subsector": "Credit Services",
       "entry": 45.720001220703125,
-      "max_price": 45.720001220703125,
-      "return_pct": 0.0,
+      "max_price": 46.35,
+      "return_pct": 1.38,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-04-22"
     },
     {
       "date": "2026-04-22",
@@ -108,10 +170,11 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 381.4200134277344,
-      "max_price": 381.4200134277344,
-      "return_pct": 0.0,
-      "days": 0,
-      "result": "PENDING"
+      "max_price": 401.5,
+      "return_pct": 5.26,
+      "days": 1,
+      "result": "PENDING",
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-21",
@@ -120,11 +183,11 @@
       "sector": "Communication Services",
       "subsector": "Entertainment",
       "entry": 26.5049991607666,
-      "max_price": 28.43,
-      "return_pct": 7.28,
-      "days": 1,
+      "max_price": 28.77,
+      "return_pct": 8.55,
+      "days": 2,
       "result": "PENDING",
-      "peak_date": "2026-04-22"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-21",
@@ -405,8 +468,8 @@
       "company": "Lumen Technologies, Inc.",
       "sector": "Communication Services",
       "entry": 8.604999542236328,
-      "max_price": 9.4,
-      "return_pct": 9.3,
+      "max_price": 9.41,
+      "return_pct": 9.36,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-04-22",
@@ -457,8 +520,8 @@
       "company": "CoreWeave, Inc.",
       "sector": "Technology",
       "entry": 117.05999755859375,
-      "max_price": 124.95,
-      "return_pct": 6.74,
+      "max_price": 124.96,
+      "return_pct": 6.75,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-04-22",
@@ -510,11 +573,11 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 9.79,
-      "max_price": 10.69,
-      "return_pct": 9.19,
-      "days": 5,
+      "max_price": 10.86,
+      "return_pct": 10.93,
+      "days": 8,
       "result": "PENDING",
-      "peak_date": "2026-04-20"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-15",
@@ -536,11 +599,11 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 79.42,
-      "max_price": 81.36,
-      "return_pct": 2.44,
-      "days": 7,
+      "max_price": 81.57,
+      "return_pct": 2.71,
+      "days": 8,
       "result": "PENDING",
-      "peak_date": "2026-04-22"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-15",
@@ -588,11 +651,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 70.07,
-      "max_price": 76.2,
-      "return_pct": 8.75,
-      "days": 7,
+      "max_price": 76.46,
+      "return_pct": 9.12,
+      "days": 8,
       "result": "PENDING",
-      "peak_date": "2026-04-22"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-15",
@@ -601,11 +664,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 168.0,
-      "max_price": 181.93,
-      "return_pct": 8.29,
-      "days": 7,
+      "max_price": 182.75,
+      "return_pct": 8.78,
+      "days": 8,
       "result": "PENDING",
-      "peak_date": "2026-04-22"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-14",
@@ -679,11 +742,11 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 77.49,
-      "max_price": 81.36,
-      "return_pct": 4.99,
-      "days": 8,
+      "max_price": 81.57,
+      "return_pct": 5.27,
+      "days": 9,
       "result": "PENDING",
-      "peak_date": "2026-04-22"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-14",
@@ -731,11 +794,11 @@
       "sector": "Consumer Cyclical",
       "subsector": "Electronics Distribution",
       "entry": 72.49,
-      "max_price": 76.2,
-      "return_pct": 5.12,
-      "days": 8,
+      "max_price": 76.46,
+      "return_pct": 5.48,
+      "days": 9,
       "result": "PENDING",
-      "peak_date": "2026-04-22"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-13",
@@ -744,11 +807,11 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 10.42,
-      "max_price": 10.69,
-      "return_pct": 2.59,
-      "days": 7,
+      "max_price": 10.86,
+      "return_pct": 4.22,
+      "days": 10,
       "result": "PENDING",
-      "peak_date": "2026-04-20"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-13",
@@ -796,8 +859,8 @@
       "sector": "Financial Services",
       "subsector": "Asset Management",
       "entry": 11.98,
-      "max_price": 13.65,
-      "return_pct": 13.98,
+      "max_price": 13.66,
+      "return_pct": 14.02,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-04-22"
@@ -809,11 +872,11 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 9.52,
-      "max_price": 10.69,
-      "return_pct": 12.29,
-      "days": 11,
+      "max_price": 10.86,
+      "return_pct": 14.08,
+      "days": 14,
       "result": "PENDING",
-      "peak_date": "2026-04-20"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-09",
@@ -14180,5 +14243,5 @@
       "peak_date": "2026-01-28"
     }
   ],
-  "generated_at": "2026-04-22T21:57:20.531149"
+  "generated_at": "2026-04-23T09:34:20.351962"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "ALSN",
   "company": "Allison Transmission Holdings, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.163178-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.205556-04:00",
   "sector": "Industrials",
   "industry": "Auto Parts",
   "price": {
-    "current": 133.04,
+    "current": 133.63,
     "open": 132.35,
     "high": 133.22,
     "low": 131.01,
@@ -15,9 +15,9 @@
     "change_pct_1w": 5.74,
     "change_pct_1m": 16.03,
     "change_pct_1y": 56.82,
-    "volume": 765671,
-    "avg_volume_30d": 761159,
-    "last_sync": "2026-04-22T22:18:11.250872"
+    "volume": 979300,
+    "avg_volume_30d": 768280,
+    "last_sync": "2026-04-23T09:39:31.881882"
   },
   "scores": {
     "master_score": 56.47,
@@ -55,12 +55,12 @@
     "atr": 3.46,
     "atr_pct": 0.026,
     "obv_trend": "UP",
-    "mfi": 77.0,
-    "cmf": 0.098,
+    "mfi": 77.5,
+    "cmf": 0.11,
     "stoch_k": 99.0,
     "stoch_d": 95.3,
-    "rvol": 0.92,
-    "volume_5d_avg": 702834,
+    "rvol": 0.97,
+    "volume_5d_avg": 745560,
     "green_days_10d": 7,
     "52w_high": 133.04,
     "52w_low": 78.81,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 18.150068,
-    "sector_pe_median": 33.53837,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": 5.9023952,
     "de_ratio": 155.758,
     "fcf_yield": 0.0422,
@@ -80,26 +80,26 @@
     "net_margin": 0.20698,
     "market_cap": 11059536896,
     "enterprise_value": 12429456384,
-    "dividend_yield": 0.88,
+    "dividend_yield": 0.87,
     "payout_ratio": 0.14729999,
     "insider_ownership_pct": 0.00721,
-    "institutional_ownership_pct": 1.03325,
+    "institutional_ownership_pct": 1.03274,
     "short_ratio": 2.82,
     "beta": 0.965
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 118.6,
-    "entry_range_high": 133.71,
-    "target_range_low": 140.55,
-    "target_range_high": 150.59,
-    "stop_range_low": 119.81,
-    "stop_range_high": 126.12,
-    "target_price": 143.42,
-    "stop_loss": 126.12,
+    "entry_range_low": 119.13,
+    "entry_range_high": 134.3,
+    "target_range_low": 141.17,
+    "target_range_high": 151.26,
+    "stop_range_low": 120.34,
+    "stop_range_high": 126.68,
+    "target_price": 144.06,
+    "stop_loss": 126.68,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.163092-04:00",
+    "generated_at": "2026-04-23T09:19:04.205537-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 88.0
+    "dividend_yield_pct": 87.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ALSN is in overbought territory with RSI at 70, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "ai_summary": "Despite an elevated RSI of 70, ALSN shows robust MACD momentum, hinting at further upside potential if volume persists.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 56,

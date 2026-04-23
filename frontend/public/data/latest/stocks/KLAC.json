@@ -1,12 +1,12 @@
 {
   "ticker": "KLAC",
   "company": "KLA Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.134044-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.654576-04:00",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
-    "current": 1812.06,
+    "current": 1806.74,
     "open": 1812.99,
     "high": 1814.34,
     "low": 1776.64,
@@ -15,23 +15,23 @@
     "change_pct_1w": 3.66,
     "change_pct_1m": 19.89,
     "change_pct_1y": 194.1,
-    "volume": 666673,
-    "avg_volume_30d": 916049,
-    "last_sync": "2026-04-22T22:18:11.682465"
+    "volume": 682600,
+    "avg_volume_30d": 916580,
+    "last_sync": "2026-04-23T09:39:32.633465"
   },
   "scores": {
-    "master_score": 49.7,
+    "master_score": 49.71,
     "technical_score": 52.0,
     "fundamental_score": 15.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.5,
+    "sector_score": 42.6,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 49.7,
+    "signal_score": 49.71,
     "confidence": 0.5,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 97.0,
     "stoch_d": 95.5,
     "rvol": 0.77,
-    "volume_5d_avg": 704714,
+    "volume_5d_avg": 707900,
     "green_days_10d": 7,
     "52w_high": 1812.06,
     "52w_low": 631.57,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 1.8691
   },
   "fundamental": {
-    "pe_ratio": 52.860565,
+    "pe_ratio": 52.630264,
     "sector_pe_median": 41.340164,
     "pb_ratio": 43.477615,
     "de_ratio": 111.778,
@@ -80,26 +80,26 @@
     "net_margin": 0.35764,
     "market_cap": 238090797056,
     "enterprise_value": 238420705280,
-    "dividend_yield": 0.43,
+    "dividend_yield": 0.42,
     "payout_ratio": 0.21540001,
     "insider_ownership_pct": 0.00102,
-    "institutional_ownership_pct": 0.94399,
+    "institutional_ownership_pct": 0.94139,
     "short_ratio": 3.19,
     "beta": 1.435
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 1558.58,
-    "entry_range_high": 1821.12,
-    "target_range_low": 1957.36,
-    "target_range_high": 2097.18,
-    "stop_range_low": 1604.13,
-    "stop_range_high": 1688.56,
-    "target_price": 1997.31,
-    "stop_loss": 1688.56,
+    "entry_range_low": 1554.0,
+    "entry_range_high": 1815.77,
+    "target_range_low": 1951.61,
+    "target_range_high": 2091.02,
+    "stop_range_low": 1599.42,
+    "stop_range_high": 1683.6,
+    "target_price": 1991.45,
+    "stop_loss": 1683.6,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.133923-04:00",
+    "generated_at": "2026-04-23T09:19:03.654454-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 43.0
+    "dividend_yield_pct": 42.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "KLAC maintains a bullish bias — RSI 69, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "The trend for KLAC remains constructive. RSI sits at 69 alongside a rising MACD.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 50,

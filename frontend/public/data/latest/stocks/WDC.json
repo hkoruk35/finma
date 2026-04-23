@@ -1,13 +1,13 @@
 {
   "ticker": "WDC",
   "company": "Western Digital Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.236149-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.689022-04:00",
   "sector": "Technology",
   "industry": "Computer Hardware",
   "price": {
-    "current": 389.1,
-    "open": 398.48,
+    "current": 391.24,
+    "open": 398.57,
     "high": 402.0,
     "low": 381.76,
     "prev_close": 383.81,
@@ -15,23 +15,23 @@
     "change_pct_1w": 6.6,
     "change_pct_1m": 31.99,
     "change_pct_1y": 986.71,
-    "volume": 6738846,
-    "avg_volume_30d": 8024414,
-    "last_sync": "2026-04-22T22:18:11.062582"
+    "volume": 6983500,
+    "avg_volume_30d": 8032570,
+    "last_sync": "2026-04-23T09:39:31.537144"
   },
   "scores": {
-    "master_score": 59.25,
+    "master_score": 59.26,
     "technical_score": 65.0,
     "fundamental_score": 35.0,
     "momentum_score": 80.0,
     "sentiment_score": 75.0,
-    "sector_score": 42.5,
+    "sector_score": 42.6,
     "breakout_score": 35.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 59.25,
+    "signal_score": 59.26,
     "confidence": 0.59,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -56,11 +56,11 @@
     "atr_pct": 0.0517,
     "obv_trend": "UP",
     "mfi": 86.2,
-    "cmf": 0.199,
+    "cmf": 0.198,
     "stoch_k": 89.6,
     "stoch_d": 93.0,
-    "rvol": 0.74,
-    "volume_5d_avg": 5958029,
+    "rvol": 0.75,
+    "volume_5d_avg": 6006960,
     "green_days_10d": 7,
     "52w_high": 389.1,
     "52w_low": 36.52,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 9.6537
   },
   "fundamental": {
-    "pe_ratio": 36.74221,
+    "pe_ratio": 36.77694,
     "sector_pe_median": 41.340164,
     "pb_ratio": 18.603872,
     "de_ratio": 65.436,
@@ -83,23 +83,23 @@
     "dividend_yield": 0.13,
     "payout_ratio": 0.0307,
     "insider_ownership_pct": 0.00526,
-    "institutional_ownership_pct": 1.0318,
+    "institutional_ownership_pct": 1.02976,
     "short_ratio": 3.21,
     "beta": 1.829
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 301.55,
-    "entry_range_high": 391.05,
-    "target_range_low": 440.47,
-    "target_range_high": 471.93,
-    "stop_range_low": 331.42,
-    "stop_range_high": 348.86,
-    "target_price": 449.46,
-    "stop_loss": 348.86,
+    "entry_range_low": 303.21,
+    "entry_range_high": 393.2,
+    "target_range_low": 442.89,
+    "target_range_high": 474.53,
+    "stop_range_low": 333.24,
+    "stop_range_high": 350.78,
+    "target_price": 451.93,
+    "stop_loss": 350.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.235805-04:00",
+    "generated_at": "2026-04-23T09:19:03.688147-04:00",
     "categories": [
       "top_scores"
     ]
@@ -132,12 +132,12 @@
   "news": [],
   "insider_activity": {
     "last_90_days_buys": 0,
-    "last_90_days_sells": 10,
+    "last_90_days_sells": 11,
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 7,
-      "date": "2026-03-20"
+      "shares": 363,
+      "date": "2026-04-21"
     }
   },
   "sector_context": {
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "WDC is in overbought territory with RSI at 74, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+  "ai_summary": "Momentum for WDC remains intense. RSI is stretched at 74, but a rising MACD indicates buyers are still in control.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 59,

@@ -1,12 +1,12 @@
 {
   "ticker": "RIVN",
   "company": "Rivian Automotive, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.809371-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.809928-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Auto Manufacturers",
   "price": {
-    "current": 17.74,
+    "current": 17.68,
     "open": 17.4,
     "high": 18.07,
     "low": 17.25,
@@ -15,23 +15,23 @@
     "change_pct_1w": 8.1,
     "change_pct_1m": 12.49,
     "change_pct_1y": 59.1,
-    "volume": 25076268,
-    "avg_volume_30d": 27011072,
-    "last_sync": "2026-04-22T22:18:11.893709"
+    "volume": 26055700,
+    "avg_volume_30d": 27043720,
+    "last_sync": "2026-04-23T09:39:32.948122"
   },
   "scores": {
-    "master_score": 45.73,
+    "master_score": 45.78,
     "technical_score": 60.0,
     "fundamental_score": 10.0,
     "momentum_score": 60.0,
     "sentiment_score": 68.0,
-    "sector_score": 34.3,
+    "sector_score": 34.8,
     "breakout_score": 35.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 0.0,
-    "signal_score": 45.73,
+    "signal_score": 45.78,
     "confidence": 0.46,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -55,12 +55,12 @@
     "atr": 0.8,
     "atr_pct": 0.0449,
     "obv_trend": "UP",
-    "mfi": 76.2,
+    "mfi": 76.3,
     "cmf": -0.098,
     "stoch_k": 90.9,
     "stoch_d": 82.3,
-    "rvol": 0.94,
-    "volume_5d_avg": 25485393,
+    "rvol": 0.95,
+    "volume_5d_avg": 25681280,
     "green_days_10d": 9,
     "52w_high": 22.45,
     "52w_low": 11.36,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": null,
-    "sector_pe_median": 25.529932,
+    "sector_pe_median": 25.512577,
     "pb_ratio": 4.8180337,
     "de_ratio": 113.082,
     "fcf_yield": -0.0361,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.33722,
-    "institutional_ownership_pct": 0.46175,
+    "institutional_ownership_pct": 0.46175998,
     "short_ratio": 4.9,
     "beta": 1.691
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 15.84,
-    "entry_range_high": 17.83,
-    "target_range_low": 19.74,
-    "target_range_high": 21.15,
-    "stop_range_low": 15.33,
-    "stop_range_high": 16.14,
-    "target_price": 20.14,
-    "stop_loss": 16.14,
+    "entry_range_low": 15.79,
+    "entry_range_high": 17.77,
+    "target_range_low": 19.68,
+    "target_range_high": 21.08,
+    "stop_range_low": 15.28,
+    "stop_range_high": 16.09,
+    "target_price": 20.08,
+    "stop_loss": 16.09,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.809270-04:00",
+    "generated_at": "2026-04-23T09:19:03.809895-04:00",
     "categories": [
       "top_scores"
     ]
@@ -136,8 +136,8 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 21446,
-      "date": "2026-04-14"
+      "shares": 1255,
+      "date": "2026-04-20"
     }
   },
   "sector_context": {
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "RIVN maintains a bullish bias — RSI 67, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "The trend for RIVN remains constructive. RSI sits at 67 alongside a rising MACD.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 46,

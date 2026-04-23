@@ -1,12 +1,12 @@
 {
   "ticker": "O",
   "company": "Realty Income Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.941466-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.289329-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Retail",
   "price": {
-    "current": 63.34,
+    "current": 63.7,
     "open": 64.25,
     "high": 64.44,
     "low": 63.13,
@@ -15,23 +15,23 @@
     "change_pct_1w": -0.97,
     "change_pct_1m": 4.56,
     "change_pct_1y": 15.47,
-    "volume": 5450534,
-    "avg_volume_30d": 5713664,
-    "last_sync": "2026-04-22T22:18:11.866143"
+    "volume": 5455500,
+    "avg_volume_30d": 5713830,
+    "last_sync": "2026-04-23T09:39:32.876942"
   },
   "scores": {
-    "master_score": 46.19,
+    "master_score": 46.17,
     "technical_score": 40.0,
     "fundamental_score": 42.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 41.9,
+    "sector_score": 41.7,
     "breakout_score": 0.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 46.19,
+    "signal_score": 46.17,
     "confidence": 0.46,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 46.0,
     "stoch_d": 68.5,
     "rvol": 0.9,
-    "volume_5d_avg": 5123206,
+    "volume_5d_avg": 5124200,
     "green_days_10d": 6,
     "52w_high": 67.26,
     "52w_low": 51.86,
@@ -80,26 +80,26 @@
     "net_margin": 0.18370001,
     "market_cap": 59061424128,
     "enterprise_value": 88799043584,
-    "dividend_yield": 5.05,
+    "dividend_yield": 5.11,
     "payout_ratio": 2.7547,
     "insider_ownership_pct": 0.00124,
-    "institutional_ownership_pct": 0.80175,
+    "institutional_ownership_pct": 0.80179,
     "short_ratio": 4.51,
     "beta": 0.796
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 62.44,
-    "entry_range_high": 63.66,
-    "target_range_low": 64.9,
-    "target_range_high": 69.53,
-    "stop_range_low": 58.35,
-    "stop_range_high": 61.42,
-    "target_price": 66.22,
-    "stop_loss": 61.42,
+    "entry_range_low": 62.79,
+    "entry_range_high": 64.02,
+    "target_range_low": 65.27,
+    "target_range_high": 69.93,
+    "stop_range_low": 58.68,
+    "stop_range_high": 61.77,
+    "target_price": 66.6,
+    "stop_loss": 61.77,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.941391-04:00",
+    "generated_at": "2026-04-23T09:19:04.289306-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 505.0
+    "dividend_yield_pct": 511.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "O shows mixed signals with RSI at 51 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "While O's MACD is positive, the broader technical picture (RSI 51) is mixed. Waiting for volume confirmation is prudent.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 46,

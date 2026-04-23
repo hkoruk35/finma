@@ -1,12 +1,12 @@
 {
   "ticker": "SBAC",
   "company": "SBA Communications Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:29.006704-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.300848-04:00",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
-    "current": 211.86,
+    "current": 215.6,
     "open": 217.01,
     "high": 218.72,
     "low": 210.53,
@@ -15,23 +15,23 @@
     "change_pct_1w": -1.09,
     "change_pct_1m": 23.19,
     "change_pct_1y": -3.97,
-    "volume": 1157186,
+    "volume": 1157200,
     "avg_volume_30d": 1413536,
-    "last_sync": "2026-04-22T22:18:11.907431"
+    "last_sync": "2026-04-23T09:39:32.963276"
   },
   "scores": {
-    "master_score": 45.64,
+    "master_score": 45.62,
     "technical_score": 47.0,
     "fundamental_score": 54.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 41.9,
+    "sector_score": 41.7,
     "breakout_score": 15.0,
     "value_score": 35.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 45.64,
+    "signal_score": 45.62,
     "confidence": 0.46,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 76.7,
     "stoch_d": 82.8,
     "rvol": 0.71,
-    "volume_5d_avg": 1002797,
+    "volume_5d_avg": 1002800,
     "green_days_10d": 3,
     "52w_high": 238.08,
     "52w_low": 165.15,
@@ -80,26 +80,26 @@
     "net_margin": 0.37427,
     "market_cap": 22470381568,
     "enterprise_value": 37557460992,
-    "dividend_yield": 2.35,
+    "dividend_yield": 2.36,
     "payout_ratio": 0.45310003,
     "insider_ownership_pct": 0.0076200003,
-    "institutional_ownership_pct": 1.00449,
+    "institutional_ownership_pct": 1.00457,
     "short_ratio": 3.03,
     "beta": 0.88
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 196.92,
-    "entry_range_high": 212.92,
-    "target_range_low": 229.14,
-    "target_range_high": 245.51,
-    "stop_range_low": 187.36,
-    "stop_range_high": 197.22,
-    "target_price": 233.82,
-    "stop_loss": 197.22,
+    "entry_range_low": 200.39,
+    "entry_range_high": 216.67,
+    "target_range_low": 233.18,
+    "target_range_high": 249.84,
+    "stop_range_low": 190.66,
+    "stop_range_high": 200.7,
+    "target_price": 237.94,
+    "stop_loss": 200.7,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:29.006617-04:00",
+    "generated_at": "2026-04-23T09:19:04.300812-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 235.0
+    "dividend_yield_pct": 236.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "SBAC shows mixed signals with RSI at 57 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "While SBAC's MACD is positive, the broader technical picture (RSI 57) is mixed. Waiting for volume confirmation is prudent.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 46,

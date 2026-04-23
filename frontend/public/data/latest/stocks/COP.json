@@ -1,38 +1,38 @@
 {
   "ticker": "COP",
   "company": "ConocoPhillips",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.144836-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.074236-04:00",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
-    "current": 122.6,
+    "current": 123.96,
     "open": 121.44,
-    "high": 123.22,
+    "high": 123.23,
     "low": 120.91,
     "prev_close": 120.26,
     "change_pct": 1.95,
     "change_pct_1w": 3.09,
     "change_pct_1m": -3.61,
     "change_pct_1y": 44.83,
-    "volume": 6555934,
-    "avg_volume_30d": 9951304,
-    "last_sync": "2026-04-22T22:18:11.863111"
+    "volume": 6561900,
+    "avg_volume_30d": 9951503,
+    "last_sync": "2026-04-23T09:39:32.865624"
   },
   "scores": {
-    "master_score": 46.47,
+    "master_score": 46.54,
     "technical_score": 50.0,
     "fundamental_score": 20.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 44.7,
+    "sector_score": 45.4,
     "breakout_score": 15.0,
     "value_score": 0.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 100.0,
-    "signal_score": 46.47,
-    "confidence": 0.46,
+    "signal_score": 46.54,
+    "confidence": 0.47,
     "signal_type": "NEGATIVE_BIAS"
   },
   "technical": {
@@ -60,7 +60,7 @@
     "stoch_k": 46.8,
     "stoch_d": 33.8,
     "rvol": 0.79,
-    "volume_5d_avg": 7877906,
+    "volume_5d_avg": 7879100,
     "green_days_10d": 6,
     "52w_high": 133.8,
     "52w_low": 82.47,
@@ -80,26 +80,26 @@
     "net_margin": 0.13252,
     "market_cap": 149858779136,
     "enterprise_value": 167271776256,
-    "dividend_yield": 2.79,
+    "dividend_yield": 2.74,
     "payout_ratio": 0.5008,
     "insider_ownership_pct": 0.00127,
-    "institutional_ownership_pct": 0.85423,
+    "institutional_ownership_pct": 0.85431,
     "short_ratio": 2.0,
     "beta": 0.192
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 118.23,
-    "entry_range_high": 123.21,
-    "target_range_low": 132.32,
-    "target_range_high": 141.77,
-    "stop_range_low": 108.6,
-    "stop_range_high": 114.32,
-    "target_price": 135.02,
-    "stop_loss": 114.32,
+    "entry_range_low": 119.54,
+    "entry_range_high": 124.58,
+    "target_range_low": 133.79,
+    "target_range_high": 143.34,
+    "stop_range_low": 109.8,
+    "stop_range_high": 115.59,
+    "target_price": 136.52,
+    "stop_loss": 115.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.144737-04:00",
+    "generated_at": "2026-04-23T09:19:04.074214-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 279.0
+    "dividend_yield_pct": 274.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,10 +146,10 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "COP is range-bound — RSI 51 with flat MACD and below-average volume; trend direction remains unclear.",
+  "ai_summary": "Choppy price action defines COP right now. RSI at 51 and a flat MACD suggest waiting for a cleaner setup.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
-    "score_bar": 46,
+    "score_bar": 47,
     "price_change_display": "+1.95%",
     "key_metrics": {
       "RSI": 50.6,

@@ -1,12 +1,12 @@
 {
   "ticker": "PODD",
   "company": "Insulet Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.627493-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.966443-04:00",
   "sector": "Healthcare",
   "industry": "Medical Devices",
   "price": {
-    "current": 193.62,
+    "current": 193.6,
     "open": 192.67,
     "high": 195.16,
     "low": 191.89,
@@ -15,9 +15,9 @@
     "change_pct_1w": -4.39,
     "change_pct_1m": -14.73,
     "change_pct_1y": -18.84,
-    "volume": 763804,
+    "volume": 763800,
     "avg_volume_30d": 895683,
-    "last_sync": "2026-04-22T22:18:13.450556"
+    "last_sync": "2026-04-23T09:39:35.458047"
   },
   "scores": {
     "master_score": 22.2,
@@ -25,7 +25,7 @@
     "fundamental_score": 8.0,
     "momentum_score": 30.0,
     "sentiment_score": 75.0,
-    "sector_score": 23.9,
+    "sector_score": 24.0,
     "breakout_score": 30.0,
     "value_score": 0.0,
     "reversal_score": 20.0,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.0067
   },
   "fundamental": {
-    "pe_ratio": 55.637928,
-    "sector_pe_median": 25.538895,
+    "pe_ratio": 55.478508,
+    "sector_pe_median": 25.55964,
     "pb_ratio": 8.994704,
     "de_ratio": 66.176,
     "fcf_yield": 0.0114,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.0031299999,
-    "institutional_ownership_pct": 1.05619,
+    "institutional_ownership_pct": 1.0527201,
     "short_ratio": 3.13,
     "beta": 1.47
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 192.65,
-    "entry_range_high": 194.59,
-    "target_range_low": 208.95,
-    "target_range_high": 223.87,
-    "stop_range_low": 171.53,
-    "stop_range_high": 180.56,
-    "target_price": 213.21,
-    "stop_loss": 180.56,
+    "entry_range_low": 192.63,
+    "entry_range_high": 194.56,
+    "target_range_low": 208.92,
+    "target_range_high": 223.84,
+    "stop_range_low": 171.51,
+    "stop_range_high": 180.54,
+    "target_price": 213.18,
+    "stop_loss": 180.54,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.627418-04:00",
+    "generated_at": "2026-04-23T09:19:03.966378-04:00",
     "categories": [
       "top_scores",
       "reversal"
@@ -147,7 +147,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "PODD shows oversold RSI (29) with weakening momentum; a bounce setup is forming if volume supports the move.",
+  "ai_summary": "Momentum is sluggish for PODD, but a low RSI of 29 suggests downside risk may be limited near these levels.",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 22,

@@ -1,12 +1,12 @@
 {
   "ticker": "NI",
   "company": "NiSource Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:28.887191-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.275767-04:00",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Gas",
   "price": {
-    "current": 46.85,
+    "current": 47.33,
     "open": 47.31,
     "high": 47.58,
     "low": 46.49,
@@ -15,23 +15,23 @@
     "change_pct_1w": -1.1,
     "change_pct_1m": 3.03,
     "change_pct_1y": 26.32,
-    "volume": 4416809,
-    "avg_volume_30d": 3618736,
-    "last_sync": "2026-04-22T22:18:12.321475"
+    "volume": 4417300,
+    "avg_volume_30d": 3618753,
+    "last_sync": "2026-04-23T09:39:33.488441"
   },
   "scores": {
-    "master_score": 38.99,
+    "master_score": 39.01,
     "technical_score": 32.0,
     "fundamental_score": 23.0,
     "momentum_score": 60.0,
     "sentiment_score": 75.0,
-    "sector_score": 25.4,
+    "sector_score": 25.6,
     "breakout_score": 12.0,
     "value_score": 15.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 70.0,
-    "signal_score": 38.99,
+    "signal_score": 39.01,
     "confidence": 0.39,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 15.4,
     "stoch_d": 32.3,
     "rvol": 1.53,
-    "volume_5d_avg": 5548941,
+    "volume_5d_avg": 5549040,
     "green_days_10d": 5,
     "52w_high": 48.47,
     "52w_low": 37.07,
@@ -83,23 +83,23 @@
     "dividend_yield": 2.56,
     "payout_ratio": 0.5744,
     "insider_ownership_pct": 0.00386,
-    "institutional_ownership_pct": 1.0028,
+    "institutional_ownership_pct": 1.00152,
     "short_ratio": 3.53,
     "beta": 0.61
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 46.18,
-    "entry_range_high": 47.08,
-    "target_range_low": 48.59,
-    "target_range_high": 52.06,
-    "stop_range_low": 42.78,
-    "stop_range_high": 45.03,
-    "target_price": 49.58,
-    "stop_loss": 45.03,
+    "entry_range_low": 46.66,
+    "entry_range_high": 47.57,
+    "target_range_low": 49.09,
+    "target_range_high": 52.6,
+    "stop_range_low": 43.22,
+    "stop_range_high": 45.5,
+    "target_price": 50.09,
+    "stop_loss": 45.5,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:28.887062-04:00",
+    "generated_at": "2026-04-23T09:19:04.275739-04:00",
     "categories": [
       "top_scores"
     ]
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 71094,
+      "shares": 56434,
       "date": "2026-02-27"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "NI is under selling pressure — RSI at 48, negative MACD, and 1.0x volume indicate continued bearish momentum.",
+  "ai_summary": "Bearish momentum dominates NI. With RSI at 48 and MACD pointing lower, caution is advised.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 39,

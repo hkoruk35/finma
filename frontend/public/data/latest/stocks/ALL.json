@@ -1,12 +1,12 @@
 {
   "ticker": "ALL",
   "company": "The Allstate Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.918872-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.032991-04:00",
   "sector": "Financials",
   "industry": "Insurance - Property & Casualty",
   "price": {
-    "current": 214.16,
+    "current": 213.86,
     "open": 215.25,
     "high": 216.35,
     "low": 212.88,
@@ -15,23 +15,23 @@
     "change_pct_1w": -1.87,
     "change_pct_1m": 3.08,
     "change_pct_1y": 16.81,
-    "volume": 1166017,
+    "volume": 1166000,
     "avg_volume_30d": 1352963,
-    "last_sync": "2026-04-22T22:18:11.179829"
+    "last_sync": "2026-04-23T09:39:31.738809"
   },
   "scores": {
-    "master_score": 57.38,
+    "master_score": 57.39,
     "technical_score": 47.0,
     "fundamental_score": 75.0,
     "momentum_score": 50.0,
     "sentiment_score": 85.0,
-    "sector_score": 36.8,
+    "sector_score": 36.9,
     "breakout_score": 15.0,
     "value_score": 85.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 70.0,
-    "signal_score": 57.38,
+    "signal_score": 57.39,
     "confidence": 0.57,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 65.3,
     "stoch_d": 72.9,
     "rvol": 0.98,
-    "volume_5d_avg": 1329943,
+    "volume_5d_avg": 1329940,
     "green_days_10d": 5,
     "52w_high": 218.23,
     "52w_low": 188.16,
@@ -68,7 +68,7 @@
     "52w_low_proximity_pct": 0.1382
   },
   "fundamental": {
-    "pe_ratio": 5.628384,
+    "pe_ratio": 5.626905,
     "sector_pe_median": 16.254434500000002,
     "pb_ratio": 1.9462898,
     "de_ratio": 25.091,
@@ -80,26 +80,26 @@
     "net_margin": 0.15191,
     "market_cap": 55582195712,
     "enterprise_value": 59672195072,
-    "dividend_yield": 2.0,
+    "dividend_yield": 2.02,
     "payout_ratio": 0.105100006,
     "insider_ownership_pct": 0.00546,
-    "institutional_ownership_pct": 0.83333,
+    "institutional_ownership_pct": 0.8332,
     "short_ratio": 0.04,
     "beta": 0.224
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 208.17,
-    "entry_range_high": 215.23,
-    "target_range_low": 223.19,
-    "target_range_high": 239.14,
-    "stop_range_low": 194.84,
-    "stop_range_high": 205.1,
-    "target_price": 227.75,
-    "stop_loss": 205.1,
+    "entry_range_low": 207.88,
+    "entry_range_high": 214.93,
+    "target_range_low": 222.88,
+    "target_range_high": 238.81,
+    "stop_range_low": 194.57,
+    "stop_range_high": 204.81,
+    "target_price": 227.43,
+    "stop_loss": 204.81,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.918779-04:00",
+    "generated_at": "2026-04-23T09:19:04.032969-04:00",
     "categories": [
       "top_scores",
       "value"
@@ -122,7 +122,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 200.0
+    "dividend_yield_pct": 202.0
   },
   "reversal": {
     "is_oversold": false,
@@ -137,7 +137,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 165,
+      "shares": 208,
       "date": "2026-04-01"
     }
   },
@@ -147,7 +147,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ALL maintains a bullish bias — RSI 55, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "The trend for ALL remains constructive. RSI sits at 55 alongside a rising MACD.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
     "score_bar": 57,

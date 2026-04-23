@@ -1,12 +1,12 @@
 {
   "ticker": "TDG",
   "company": "TransDigm Group Incorporated",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.844356-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.183418-04:00",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
-    "current": 1187.75,
+    "current": 1189.41,
     "open": 1207.96,
     "high": 1214.49,
     "low": 1180.23,
@@ -15,9 +15,9 @@
     "change_pct_1w": -6.82,
     "change_pct_1m": 3.02,
     "change_pct_1y": -2.84,
-    "volume": 425175,
-    "avg_volume_30d": 407799,
-    "last_sync": "2026-04-22T22:18:13.467023"
+    "volume": 425200,
+    "avg_volume_30d": 407800,
+    "last_sync": "2026-04-23T09:39:35.498696"
   },
   "scores": {
     "master_score": 21.72,
@@ -60,7 +60,7 @@
     "stoch_k": 27.0,
     "stoch_d": 52.3,
     "rvol": 1.01,
-    "volume_5d_avg": 413635,
+    "volume_5d_avg": 413640,
     "green_days_10d": 5,
     "52w_high": 1516.55,
     "52w_low": 1132.88,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.0484
   },
   "fundamental": {
-    "pe_ratio": 38.179043,
-    "sector_pe_median": 33.53837,
+    "pe_ratio": 38.16677,
+    "sector_pe_median": 33.2170065,
     "pb_ratio": -7.226207,
     "de_ratio": null,
     "fcf_yield": 0.0198,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.00397,
-    "institutional_ownership_pct": 0.97439003,
+    "institutional_ownership_pct": 0.97416,
     "short_ratio": 2.55,
     "beta": 0.955
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 1181.81,
-    "entry_range_high": 1193.69,
-    "target_range_low": 1282.62,
-    "target_range_high": 1374.24,
-    "stop_range_low": 1051.7,
-    "stop_range_high": 1107.05,
-    "target_price": 1308.8,
-    "stop_loss": 1107.05,
+    "entry_range_low": 1183.46,
+    "entry_range_high": 1195.35,
+    "target_range_low": 1284.41,
+    "target_range_high": 1376.15,
+    "stop_range_low": 1053.17,
+    "stop_range_high": 1108.59,
+    "target_price": 1310.62,
+    "stop_loss": 1108.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.844265-04:00",
+    "generated_at": "2026-04-23T09:19:04.183345-04:00",
     "categories": []
   },
   "breakout": {

@@ -1,12 +1,12 @@
 {
   "ticker": "MNST",
   "company": "Monster Beverage Corporation",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.261341-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.875686-04:00",
   "sector": "Consumer Staples",
   "industry": "Beverages - Non-Alcoholic",
   "price": {
-    "current": 75.95,
+    "current": 76.96,
     "open": 75.78,
     "high": 76.68,
     "low": 75.54,
@@ -15,23 +15,23 @@
     "change_pct_1w": 1.36,
     "change_pct_1m": 2.69,
     "change_pct_1y": 30.93,
-    "volume": 4048748,
-    "avg_volume_30d": 5002761,
-    "last_sync": "2026-04-22T22:18:11.869245"
+    "volume": 4062800,
+    "avg_volume_30d": 5003230,
+    "last_sync": "2026-04-23T09:39:32.881309"
   },
   "scores": {
-    "master_score": 46.04,
+    "master_score": 46.05,
     "technical_score": 40.0,
     "fundamental_score": 48.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 25.4,
+    "sector_score": 25.5,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 30.0,
-    "signal_score": 46.04,
+    "signal_score": 46.05,
     "confidence": 0.46,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -56,11 +56,11 @@
     "atr_pct": 0.0225,
     "obv_trend": "UP",
     "mfi": 65.3,
-    "cmf": 0.066,
+    "cmf": 0.065,
     "stoch_k": 73.9,
     "stoch_d": 77.5,
     "rvol": 0.98,
-    "volume_5d_avg": 4901549,
+    "volume_5d_avg": 4904360,
     "green_days_10d": 5,
     "52w_high": 86.66,
     "52w_low": 58.49,
@@ -83,23 +83,23 @@
     "dividend_yield": null,
     "payout_ratio": 0.0,
     "insider_ownership_pct": 0.28488,
-    "institutional_ownership_pct": 0.69237,
+    "institutional_ownership_pct": 0.69225,
     "short_ratio": 4.16,
     "beta": 0.509
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 75.57,
-    "entry_range_high": 76.33,
-    "target_range_low": 79.46,
-    "target_range_high": 85.13,
-    "stop_range_low": 68.9,
-    "stop_range_high": 72.53,
-    "target_price": 81.08,
-    "stop_loss": 72.53,
+    "entry_range_low": 76.57,
+    "entry_range_high": 77.35,
+    "target_range_low": 80.52,
+    "target_range_high": 86.26,
+    "stop_range_low": 69.82,
+    "stop_range_high": 73.49,
+    "target_price": 82.16,
+    "stop_loss": 73.49,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.261207-04:00",
+    "generated_at": "2026-04-23T09:19:03.875636-04:00",
     "categories": [
       "top_scores"
     ]
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 13600,
+      "shares": 270400,
       "date": "2026-03-13"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MNST maintains a bullish bias — RSI 52, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "Buyers continue to support MNST. With RSI at 52 and average volume, the chart looks technically sound.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 46,

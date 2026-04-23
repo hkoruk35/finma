@@ -1,12 +1,12 @@
 {
   "ticker": "MAR",
   "company": "Marriott International, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.965375-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.841202-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Lodging",
   "price": {
-    "current": 367.13,
+    "current": 371.01,
     "open": 376.02,
     "high": 377.61,
     "low": 366.53,
@@ -15,23 +15,23 @@
     "change_pct_1w": 0.93,
     "change_pct_1m": 12.44,
     "change_pct_1y": 71.82,
-    "volume": 1390223,
-    "avg_volume_30d": 1484634,
-    "last_sync": "2026-04-22T22:18:11.739909"
+    "volume": 1391000,
+    "avg_volume_30d": 1484660,
+    "last_sync": "2026-04-23T09:39:32.695073"
   },
   "scores": {
-    "master_score": 48.43,
+    "master_score": 48.48,
     "technical_score": 55.0,
     "fundamental_score": 33.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 34.3,
+    "sector_score": 34.8,
     "breakout_score": 15.0,
     "value_score": 20.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 50.0,
     "dividend_score": 70.0,
-    "signal_score": 48.43,
+    "signal_score": 48.48,
     "confidence": 0.48,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -60,7 +60,7 @@
     "stoch_k": 76.6,
     "stoch_d": 89.0,
     "rvol": 1.04,
-    "volume_5d_avg": 1549104,
+    "volume_5d_avg": 1549260,
     "green_days_10d": 6,
     "52w_high": 378.72,
     "52w_low": 218.52,
@@ -68,8 +68,8 @@
     "52w_low_proximity_pct": 0.68
   },
   "fundamental": {
-    "pe_ratio": 38.645264,
-    "sector_pe_median": 25.529932,
+    "pe_ratio": 38.604626,
+    "sector_pe_median": 25.512577,
     "pb_ratio": -25.88339,
     "de_ratio": null,
     "fcf_yield": 0.0172,
@@ -80,26 +80,26 @@
     "net_margin": 0.37252998,
     "market_cap": 97283784704,
     "enterprise_value": 114107777024,
-    "dividend_yield": 0.71,
+    "dividend_yield": 0.73,
     "payout_ratio": 0.2776,
     "insider_ownership_pct": 0.17803,
-    "institutional_ownership_pct": 0.65928,
+    "institutional_ownership_pct": 0.65914,
     "short_ratio": 4.01,
     "beta": 1.097
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 338.77,
-    "entry_range_high": 368.97,
-    "target_range_low": 387.72,
-    "target_range_high": 415.41,
-    "stop_range_low": 330.72,
-    "stop_range_high": 348.13,
-    "target_price": 395.63,
-    "stop_loss": 348.13,
+    "entry_range_low": 342.35,
+    "entry_range_high": 372.87,
+    "target_range_low": 391.82,
+    "target_range_high": 419.8,
+    "stop_range_low": 334.22,
+    "stop_range_high": 351.81,
+    "target_price": 399.81,
+    "stop_loss": 351.81,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.965221-04:00",
+    "generated_at": "2026-04-23T09:19:03.840983-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 70.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 71.0
+    "dividend_yield_pct": 73.0
   },
   "reversal": {
     "is_oversold": false,
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "MAR maintains a bullish bias — RSI 62, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "The trend for MAR remains constructive. RSI sits at 62 alongside a rising MACD.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 48,

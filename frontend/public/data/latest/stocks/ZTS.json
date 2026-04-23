@@ -1,12 +1,12 @@
 {
   "ticker": "ZTS",
   "company": "Zoetis Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.699737-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.986640-04:00",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - Specialty & Generic",
   "price": {
-    "current": 117.52,
+    "current": 116.86,
     "open": 118.95,
     "high": 119.91,
     "low": 116.6,
@@ -15,9 +15,9 @@
     "change_pct_1w": -2.26,
     "change_pct_1m": 2.43,
     "change_pct_1y": -18.73,
-    "volume": 3489770,
-    "avg_volume_30d": 3718422,
-    "last_sync": "2026-04-22T22:18:13.167774"
+    "volume": 3514600,
+    "avg_volume_30d": 3719250,
+    "last_sync": "2026-04-23T09:39:35.097671"
   },
   "scores": {
     "master_score": 26.27,
@@ -25,7 +25,7 @@
     "fundamental_score": 39.0,
     "momentum_score": 20.0,
     "sentiment_score": 75.0,
-    "sector_score": 23.9,
+    "sector_score": 24.0,
     "breakout_score": 15.0,
     "value_score": 15.0,
     "reversal_score": -10.0,
@@ -60,7 +60,7 @@
     "stoch_k": 31.4,
     "stoch_d": 54.5,
     "rvol": 1.09,
-    "volume_5d_avg": 4035274,
+    "volume_5d_avg": 4040240,
     "green_days_10d": 5,
     "52w_high": 167.69,
     "52w_low": 112.86,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 19.521595,
-    "sector_pe_median": 25.538895,
+    "sector_pe_median": 25.55964,
     "pb_ratio": 14.991707,
     "de_ratio": 279.586,
     "fcf_yield": 0.0361,
@@ -80,26 +80,26 @@
     "net_margin": 0.28235,
     "market_cap": 49608445952,
     "enterprise_value": 56609447936,
-    "dividend_yield": 1.79,
+    "dividend_yield": 1.8,
     "payout_ratio": 0.33220002,
     "insider_ownership_pct": 0.00149,
-    "institutional_ownership_pct": 1.01062,
+    "institutional_ownership_pct": 1.00825,
     "short_ratio": 3.6,
     "beta": 0.974
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 116.93,
-    "entry_range_high": 118.11,
-    "target_range_low": 124.78,
-    "target_range_high": 133.7,
-    "stop_range_low": 105.43,
-    "stop_range_high": 110.98,
-    "target_price": 127.33,
-    "stop_loss": 110.98,
+    "entry_range_low": 116.27,
+    "entry_range_high": 117.45,
+    "target_range_low": 124.08,
+    "target_range_high": 132.95,
+    "stop_range_low": 104.84,
+    "stop_range_high": 110.36,
+    "target_price": 126.61,
+    "stop_loss": 110.36,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.699620-04:00",
+    "generated_at": "2026-04-23T09:19:03.986602-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 179.0
+    "dividend_yield_pct": 180.0
   },
   "reversal": {
     "is_oversold": false,

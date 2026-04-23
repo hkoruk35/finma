@@ -1,13 +1,13 @@
 {
   "ticker": "LYFT",
   "company": "Lyft, Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:26.159115-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.857935-04:00",
   "sector": "Consumer Discretionary",
   "industry": "Software - Application",
   "price": {
-    "current": 14.44,
-    "open": 14.98,
+    "current": 14.46,
+    "open": 14.97,
     "high": 14.98,
     "low": 14.27,
     "prev_close": 14.75,
@@ -15,23 +15,23 @@
     "change_pct_1w": -1.5,
     "change_pct_1m": 8.25,
     "change_pct_1y": 31.99,
-    "volume": 10834657,
-    "avg_volume_30d": 16334658,
-    "last_sync": "2026-04-22T22:18:12.087747"
+    "volume": 11091800,
+    "avg_volume_30d": 16343230,
+    "last_sync": "2026-04-23T09:39:33.140744"
   },
   "scores": {
-    "master_score": 43.04,
+    "master_score": 43.09,
     "technical_score": 9.6,
     "fundamental_score": 75.0,
     "momentum_score": 50.0,
     "sentiment_score": 75.0,
-    "sector_score": 34.3,
+    "sector_score": 34.8,
     "breakout_score": 15.0,
     "value_score": 85.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 30.0,
-    "signal_score": 43.04,
+    "signal_score": 43.09,
     "confidence": 0.43,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -55,12 +55,12 @@
     "atr": 0.63,
     "atr_pct": 0.0435,
     "obv_trend": "UP",
-    "mfi": 56.5,
+    "mfi": 56.4,
     "cmf": -0.018,
     "stoch_k": 64.0,
     "stoch_d": 68.8,
     "rvol": 0.88,
-    "volume_5d_avg": 14385071,
+    "volume_5d_avg": 14436500,
     "green_days_10d": 7,
     "52w_high": 24.57,
     "52w_low": 11.0,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 2.1204112,
-    "sector_pe_median": 25.529932,
+    "sector_pe_median": 25.512577,
     "pb_ratio": 1.7683074,
     "de_ratio": 40.211,
     "fcf_yield": 0.207,
@@ -82,24 +82,24 @@
     "enterprise_value": 5227797504,
     "dividend_yield": null,
     "payout_ratio": 0.0,
-    "insider_ownership_pct": 0.01424,
-    "institutional_ownership_pct": 1.0473,
+    "insider_ownership_pct": 0.01417,
+    "institutional_ownership_pct": 1.04661,
     "short_ratio": 4.03,
     "beta": 1.859
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 14.33,
-    "entry_range_high": 14.51,
-    "target_range_low": 16.0,
-    "target_range_high": 17.15,
-    "stop_range_low": 12.52,
-    "stop_range_high": 13.18,
-    "target_price": 16.33,
-    "stop_loss": 13.18,
+    "entry_range_low": 14.35,
+    "entry_range_high": 14.53,
+    "target_range_low": 16.02,
+    "target_range_high": 17.17,
+    "stop_range_low": 12.54,
+    "stop_range_high": 13.2,
+    "target_price": 16.35,
+    "stop_loss": 13.2,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:26.159022-04:00",
+    "generated_at": "2026-04-23T09:19:03.857899-04:00",
     "categories": [
       "top_scores",
       "value"
@@ -137,8 +137,8 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 23661,
-      "date": "2026-04-17"
+      "shares": 1127,
+      "date": "2026-04-20"
     }
   },
   "sector_context": {
@@ -147,7 +147,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "LYFT shows mixed signals with RSI at 56 and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+  "ai_summary": "MACD is curling up for LYFT, though RSI (56) is neutral. Watch for volume to confirm any breakout attempt.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 43,

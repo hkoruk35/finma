@@ -1,12 +1,12 @@
 {
   "ticker": "DIS",
   "company": "The Walt Disney Company",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:25.596872-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:03.770417-04:00",
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
-    "current": 104.82,
+    "current": 104.11,
     "open": 105.03,
     "high": 106.28,
     "low": 104.23,
@@ -15,23 +15,23 @@
     "change_pct_1w": 1.73,
     "change_pct_1m": 7.01,
     "change_pct_1y": 26.17,
-    "volume": 5149730,
-    "avg_volume_30d": 9824971,
-    "last_sync": "2026-04-22T22:18:12.401218"
+    "volume": 6885400,
+    "avg_volume_30d": 9882826,
+    "last_sync": "2026-04-23T09:39:33.572867"
   },
   "scores": {
-    "master_score": 37.74,
+    "master_score": 37.77,
     "technical_score": 12.6,
     "fundamental_score": 40.0,
     "momentum_score": 60.0,
     "sentiment_score": 85.0,
-    "sector_score": 28.3,
+    "sector_score": 28.6,
     "breakout_score": 15.0,
     "value_score": 45.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 75.0,
     "dividend_score": 40.0,
-    "signal_score": 37.74,
+    "signal_score": 37.77,
     "confidence": 0.38,
     "signal_type": "NEGATIVE_BIAS"
   },
@@ -55,12 +55,12 @@
     "atr": 2.15,
     "atr_pct": 0.0205,
     "obv_trend": "UP",
-    "mfi": 80.0,
-    "cmf": 0.062,
+    "mfi": 80.3,
+    "cmf": 0.057,
     "stoch_k": 80.9,
     "stoch_d": 83.7,
-    "rvol": 0.77,
-    "volume_5d_avg": 7601946,
+    "rvol": 0.8,
+    "volume_5d_avg": 7949080,
     "green_days_10d": 8,
     "52w_high": 123.18,
     "52w_low": 85.15,
@@ -69,7 +69,7 @@
   },
   "fundamental": {
     "pe_ratio": 15.437408,
-    "sector_pe_median": 24.766825,
+    "sector_pe_median": 24.7468295,
     "pb_ratio": 1.7161381,
     "de_ratio": 40.909,
     "fcf_yield": 0.0171,
@@ -80,26 +80,26 @@
     "net_margin": 0.128,
     "market_cap": 185886425088,
     "enterprise_value": 232184709120,
-    "dividend_yield": 1.44,
+    "dividend_yield": 1.43,
     "payout_ratio": 0.1841,
     "insider_ownership_pct": 0.00077,
-    "institutional_ownership_pct": 0.77364,
+    "institutional_ownership_pct": 0.77349,
     "short_ratio": 1.77,
     "beta": 1.441
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 101.67,
-    "entry_range_high": 105.34,
-    "target_range_low": 109.04,
-    "target_range_high": 116.83,
-    "stop_range_low": 95.49,
-    "stop_range_high": 100.52,
-    "target_price": 111.27,
-    "stop_loss": 100.52,
+    "entry_range_low": 100.98,
+    "entry_range_high": 104.63,
+    "target_range_low": 108.3,
+    "target_range_high": 116.04,
+    "stop_range_low": 94.84,
+    "stop_range_high": 99.84,
+    "target_price": 110.52,
+    "stop_loss": 99.84,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:25.596777-04:00",
+    "generated_at": "2026-04-23T09:19:03.770373-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 40.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 144.0
+    "dividend_yield_pct": 143.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,7 +136,7 @@
     "net_direction": "BUY",
     "last_transaction": {
       "type": "SELL",
-      "shares": 1064,
+      "shares": 1266,
       "date": "2026-03-31"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "DIS maintains a bullish bias — RSI 62, rising MACD, and normal volume keep the trend intact.",
+  "ai_summary": "Buyers continue to support DIS. With RSI at 62 and average volume, the chart looks technically sound.",
   "quick_view": {
     "score_badge": "NEGATIVE BIAS",
     "score_bar": 38,

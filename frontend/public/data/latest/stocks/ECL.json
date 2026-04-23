@@ -1,12 +1,12 @@
 {
   "ticker": "ECL",
   "company": "Ecolab Inc.",
-  "date": "2026-04-22",
-  "generated_at": "2026-04-22T21:40:27.663014-04:00",
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T09:19:04.154517-04:00",
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
-    "current": 268.93,
+    "current": 270.48,
     "open": 271.96,
     "high": 274.12,
     "low": 267.42,
@@ -15,23 +15,23 @@
     "change_pct_1w": -0.53,
     "change_pct_1m": 2.99,
     "change_pct_1y": 17.37,
-    "volume": 1058239,
-    "avg_volume_30d": 1519984,
-    "last_sync": "2026-04-22T22:18:13.175655"
+    "volume": 1083600,
+    "avg_volume_30d": 1520830,
+    "last_sync": "2026-04-23T09:39:35.094615"
   },
   "scores": {
-    "master_score": 26.21,
+    "master_score": 26.29,
     "technical_score": 12.0,
     "fundamental_score": 30.0,
     "momentum_score": 10.0,
     "sentiment_score": 85.0,
-    "sector_score": 40.1,
+    "sector_score": 40.9,
     "breakout_score": 45.0,
     "value_score": 15.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 25.0,
     "dividend_score": 100.0,
-    "signal_score": 26.21,
+    "signal_score": 26.29,
     "confidence": 0.26,
     "signal_type": "UNDERPERFORM"
   },
@@ -55,12 +55,12 @@
     "atr": 6.44,
     "atr_pct": 0.0239,
     "obv_trend": "DOWN",
-    "mfi": 57.6,
+    "mfi": 57.5,
     "cmf": 0.013,
     "stoch_k": 49.3,
     "stoch_d": 63.8,
-    "rvol": 0.97,
-    "volume_5d_avg": 1481187,
+    "rvol": 0.98,
+    "volume_5d_avg": 1486260,
     "green_days_10d": 4,
     "52w_high": 307.53,
     "52w_low": 234.38,
@@ -80,26 +80,26 @@
     "net_margin": 0.12907,
     "market_cap": 75952226304,
     "enterprise_value": 84215046144,
-    "dividend_yield": 1.02,
+    "dividend_yield": 1.03,
     "payout_ratio": 0.36810002,
     "insider_ownership_pct": 0.0015199999,
-    "institutional_ownership_pct": 0.94354,
+    "institutional_ownership_pct": 0.93714,
     "short_ratio": 1.73,
     "beta": 1.024
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 267.59,
-    "entry_range_high": 270.27,
-    "target_range_low": 282.49,
-    "target_range_high": 302.66,
-    "stop_range_low": 243.25,
-    "stop_range_high": 256.05,
-    "target_price": 288.25,
-    "stop_loss": 256.05,
+    "entry_range_low": 269.13,
+    "entry_range_high": 271.83,
+    "target_range_low": 284.12,
+    "target_range_high": 304.4,
+    "stop_range_low": 244.65,
+    "stop_range_high": 257.53,
+    "target_price": 289.91,
+    "stop_loss": 257.53,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-22T21:40:27.661973-04:00",
+    "generated_at": "2026-04-23T09:19:04.154491-04:00",
     "categories": [
       "top_scores"
     ]
@@ -121,7 +121,7 @@
     "annual_dividend_per_share": null,
     "dividend_safety_score": 100.0,
     "dividend_growth_rate_5y": null,
-    "dividend_yield_pct": 102.0
+    "dividend_yield_pct": 103.0
   },
   "reversal": {
     "is_oversold": false,
@@ -136,7 +136,7 @@
     "net_direction": "SELL",
     "last_transaction": {
       "type": "SELL",
-      "shares": 137,
+      "shares": 186,
       "date": "2026-03-31"
     }
   },
@@ -146,7 +146,7 @@
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
-  "ai_summary": "ECL trades near equilibrium with RSI 46 and positive MACD; watch for a catalyst to establish directional bias.",
+  "ai_summary": "ECL is stuck in a holding pattern. Watch for a volume spike to break the current equilibrium (RSI 46).",
   "quick_view": {
     "score_badge": "UNDERPERFORM",
     "score_bar": 26,
