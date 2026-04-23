@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-// Gemini 1.5 Flash has the highest free-tier rate limits
-const MODEL = "gemini-1.5-flash";
+const MODEL = "gemini-2.5-flash";
 const BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
 const SYSTEM_PROMPT = `You are BOGA AI, an advanced stock analysis assistant powering BogaStock.com — a platform built for retail investors and traders.
