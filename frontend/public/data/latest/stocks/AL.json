@@ -1,8 +1,8 @@
 {
   "ticker": "AL",
   "company": "Air Lease Corp",
-  "date": "2026-04-20",
-  "generated_at": "2026-04-20T13:18:52.012133-04:00",
+  "date": "2026-04-22",
+  "generated_at": "2026-04-22T21:40:28.613685-04:00",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 2651936
   },
   "scores": {
-    "master_score": 66.3,
+    "master_score": 65.62,
     "technical_score": 67.0,
     "fundamental_score": 65.0,
     "momentum_score": 70.0,
     "sentiment_score": 85.0,
-    "sector_score": 41.0,
+    "sector_score": 34.2,
     "breakout_score": 20.0,
     "value_score": 60.0,
     "reversal_score": 0.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 30.0,
-    "signal_score": 66.3,
+    "signal_score": 65.62,
     "confidence": 0.66,
     "signal_type": "POSITIVE_BIAS"
   },
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 64.79,
     "ema_50": 64.56,
-    "ema_200": 61.15,
+    "ema_200": 61.22,
     "ema_stack_bullish": true,
     "bb_upper": 65.03,
     "bb_middle": 64.74,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 6.996771,
-    "sector_pe_median": 33.496521,
+    "sector_pe_median": 33.53837,
     "pb_ratio": 0.8594928,
     "de_ratio": 232.866,
     "fcf_yield": 0.0223,
@@ -98,7 +98,7 @@
     "stop_loss": 64.78,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-20T13:18:52.012110-04:00",
+    "generated_at": "2026-04-22T21:40:28.613629-04:00",
     "categories": [
       "top_scores"
     ]
@@ -141,7 +141,7 @@
   },
   "sector_context": {
     "sector_etf": "XLI",
-    "sector_performance_5d": 0.14,
+    "sector_performance_5d": 0.42,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },

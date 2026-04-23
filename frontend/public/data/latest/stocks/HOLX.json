@@ -1,8 +1,8 @@
 {
   "ticker": "HOLX",
   "company": "Hologic, Inc.",
-  "date": "2026-04-20",
-  "generated_at": "2026-04-20T13:18:51.771662-04:00",
+  "date": "2026-04-22",
+  "generated_at": "2026-04-22T21:40:26.610648-04:00",
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
   "price": {
@@ -19,19 +19,19 @@
     "avg_volume_30d": 6082420
   },
   "scores": {
-    "master_score": 57.57,
+    "master_score": 57.14,
     "technical_score": 75.0,
     "fundamental_score": 12.0,
     "momentum_score": 90.0,
     "sentiment_score": 75.0,
-    "sector_score": 28.2,
+    "sector_score": 23.9,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 30.0,
-    "signal_score": 57.57,
-    "confidence": 0.58,
+    "signal_score": 57.14,
+    "confidence": 0.57,
     "signal_type": "NEUTRAL_STAY"
   },
   "technical": {
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 75.58,
     "ema_50": 75.28,
-    "ema_200": 71.88,
+    "ema_200": 71.57,
     "ema_stack_bullish": true,
     "bb_upper": 76.02,
     "bb_middle": 75.49,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 31.53942,
-    "sector_pe_median": 25.218787,
+    "sector_pe_median": 25.538895,
     "pb_ratio": 3.2325425,
     "de_ratio": 48.051,
     "fcf_yield": 0.05,
@@ -98,7 +98,7 @@
     "stop_loss": 75.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-20T13:18:51.771641-04:00",
+    "generated_at": "2026-04-22T21:40:26.610566-04:00",
     "categories": [
       "top_scores",
       "reversal"
@@ -142,14 +142,14 @@
   },
   "sector_context": {
     "sector_etf": "XLV",
-    "sector_performance_5d": -0.54,
+    "sector_performance_5d": -0.16,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },
   "ai_summary": "HOLX maintains a bullish bias — RSI 69, rising MACD, and normal volume keep the trend intact.",
   "quick_view": {
     "score_badge": "NEUTRAL STAY",
-    "score_bar": 58,
+    "score_bar": 57,
     "price_change_display": "+0.00%",
     "key_metrics": {
       "RSI": 68.7,

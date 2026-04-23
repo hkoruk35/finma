@@ -117,6 +117,26 @@ def main():
     log.info("ADIM 8: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
     run_bot_subprocess("options_pnl_tracker.py")
 
+    # ── ADIM 8.5: SYSTEMATIC DATA SYNC (Kritik: transfer/latest -> frontend) ──
+    log.info("ADIM 8.5: Transfer klasörü frontend'e senkronize ediliyor...")
+    try:
+        import shutil
+        transfer_src = os.path.join(FINMA_DIR, "transfer", "latest")
+        frontend_dst = os.path.join(FINMA_DIR, "frontend", "public", "data", "latest")
+        if os.path.exists(transfer_src):
+            os.makedirs(frontend_dst, exist_ok=True)
+            for item in os.listdir(transfer_src):
+                s = os.path.join(transfer_src, item)
+                d = os.path.join(frontend_dst, item)
+                if os.path.isdir(s):
+                    if os.path.exists(d): shutil.rmtree(d)
+                    shutil.copytree(s, d)
+                else:
+                    shutil.copy2(s, d)
+            log.info("✅ Senkronizasyon başarılı.")
+    except Exception as e:
+        log.error(f"❌ Senkronizasyon hatası: {e}")
+
     # ── ADIM 9: SYSTEMATIC PRICE SYNC (Kritik: Tüm fiyatları eşitle) ──
     log.info("ADIM 9: update_all_prices.py (Fiyat Senkronizasyonu) çalıştırılıyor...")
     run_bot_subprocess("update_all_prices.py")
