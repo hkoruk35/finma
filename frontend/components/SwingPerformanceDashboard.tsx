@@ -489,88 +489,88 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-[#1e2a3a]">
           <div className="p-5 md:p-6 text-center">
-            <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Win Rate (w/ SL)</p>
+            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Win Rate (w/ SL)</p>
             <p className="text-3xl md:text-4xl font-mono font-black text-[#22c55e]">
               {stats.winRate === "—" ? "—" : `${stats.winRate}%`}
             </p>
-            <p className="text-[10px] text-[#475569] mt-1">{stats.wins} wins / {stats.losses} losses</p>
+            <p className="text-xs text-[#475569] mt-1">{stats.wins} wins / {stats.losses} losses</p>
           </div>
           <div className="p-5 md:p-6 text-center">
-            <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Avg Return (w/ SL)</p>
+            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Avg Return (w/ SL)</p>
             <p className={`text-3xl md:text-4xl font-mono font-black ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "—" ? "—" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
-            <p className="text-[10px] text-[#475569] mt-1">avg ${stats.avgPnl} per $1,000</p>
+            <p className="text-xs text-[#475569] mt-1">avg ${stats.avgPnl} per $1,000</p>
           </div>
           <div className="p-5 md:p-6 text-center">
-            <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Avg Days to Peak</p>
+            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Avg Days to Peak</p>
             <p className="text-3xl md:text-4xl font-mono font-black text-[#3b82f6]">
               {stats.avgDays === "—" ? "—" : `${stats.avgDays}d`}
             </p>
-            <p className="text-[10px] text-[#475569] mt-1">winning trades only</p>
+            <p className="text-xs text-[#475569] mt-1">winning trades only</p>
           </div>
           <div className="p-5 md:p-6 text-center">
-            <p className="text-[9px] md:text-[10px] text-[#64748b] uppercase tracking-wider mb-2">Total Signals</p>
+            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Total Signals</p>
             <p className="text-3xl md:text-4xl font-mono font-black text-white">{stats.totalSignals}</p>
             {stats.pending > 0 && (
-              <p className="text-[10px] text-[#3b82f6] mt-1">{stats.pending} pending</p>
+              <p className="text-xs text-[#3b82f6] mt-1">{stats.pending} pending</p>
             )}
           </div>
         </div>
 
         {/* Profit Target Breakdown */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-xs text-[#64748b] uppercase tracking-wider mb-4 font-bold">Profit Target Breakdown — Avg Days & Hit Rate per Target</p>
+          <p className="text-sm text-[#64748b] uppercase tracking-wider mb-4 font-bold">Profit Target Breakdown — Avg Days & Hit Rate per Target</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
             {profitTargets.map(pt => (
               <div key={pt.pct} className="rounded-xl bg-[#141924] border border-[#1e2a3a] p-3 text-center hover:border-[#22c55e]/40 transition-colors">
-                <p className="text-[10px] text-[#64748b] uppercase mb-1">+{pt.pct}% Target</p>
+                <p className="text-xs text-[#64748b] uppercase mb-1">+{pt.pct}% Target</p>
                 <p className="text-xl font-black font-mono text-[#22c55e]">{pt.avgDays === "—" ? "—" : `${pt.avgDays}d`}</p>
-                <p className="text-[10px] text-[#94a3b8] mt-0.5 font-bold">{pt.rate}%</p>
-                <p className="text-[9px] text-[#475569]">{pt.count} trades</p>
+                <p className="text-xs text-[#94a3b8] mt-0.5 font-bold">{pt.rate}%</p>
+                <p className="text-[11px] text-[#475569]">{pt.count} trades</p>
               </div>
             ))}
           </div>
-          <p className="text-xs text-[#64748b] mt-3">
+          <p className="text-sm text-[#64748b] mt-3">
             Example: "+5% Target → 19.9d → 67.3%" means 67.3% of completed trades reached +5% or more, in an average of 19.9 days.
           </p>
         </div>
 
         {/* Days-to-Profit Distribution Bar Chart */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-xs text-[#64748b] uppercase tracking-wider mb-4 font-bold">Days Distribution — Winning Trades (Avg Return)</p>
+          <p className="text-sm text-[#64748b] uppercase tracking-wider mb-4 font-bold">Days Distribution — Winning Trades (Avg Return)</p>
           <div className="flex items-end gap-3 h-28">
             {daysDistribution.map(b => {
               const barHeight = maxDaysBucket > 0 ? Math.max(4, (b.avgRet / maxDaysBucket) * 96) : 4;
               return (
                 <div key={b.label} className="flex-1 flex flex-col items-center justify-end gap-1">
-                  <p className="text-[9px] font-mono text-[#22c55e] font-bold">{b.avgRet > 0 ? `+${b.avgRet}%` : "—"}</p>
+                  <p className="text-[11px] font-mono text-[#22c55e] font-bold">{b.avgRet > 0 ? `+${b.avgRet}%` : "—"}</p>
                   <div
                     className="w-full rounded-t-md bg-gradient-to-t from-[#22c55e]/60 to-[#22c55e]/20 border border-[#22c55e]/30 transition-all"
                     style={{ height: `${barHeight}%` }}
                   />
-                  <p className="text-[9px] text-[#64748b] text-center">{b.label}</p>
-                  <p className="text-[8px] text-[#475569]">{b.count}</p>
+                  <p className="text-xs text-[#64748b] text-center">{b.label}</p>
+                  <p className="text-[10px] text-[#475569]">{b.count}</p>
                 </div>
               );
             })}
           </div>
-          <p className="text-xs text-[#64748b] mt-2">Each bar shows the avg return and trade count for winning trades that peaked within that holding period.</p>
+          <p className="text-sm text-[#64748b] mt-2">Each bar shows the avg return and trade count for winning trades that peaked within that holding period.</p>
         </div>
 
         {/* Quick Percentile Row */}
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
-          <div className="px-5 py-3 text-center">
-            <p className="text-xs text-[#64748b] uppercase tracking-wider mb-1">Reached +5%</p>
-            <p className="text-lg font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
+          <div className="px-5 py-4 text-center">
+            <p className="text-sm text-[#64748b] uppercase tracking-wider mb-1">Reached +5%</p>
+            <p className="text-xl font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
           </div>
-          <div className="px-5 py-3 text-center">
-            <p className="text-xs text-[#64748b] uppercase tracking-wider mb-1">Reached +10%</p>
-            <p className="text-lg font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
+          <div className="px-5 py-4 text-center">
+            <p className="text-sm text-[#64748b] uppercase tracking-wider mb-1">Reached +10%</p>
+            <p className="text-xl font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
           </div>
-          <div className="px-5 py-3 text-center">
-            <p className="text-xs text-[#64748b] uppercase tracking-wider mb-1">Reached +15%</p>
-            <p className="text-lg font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
+          <div className="px-5 py-4 text-center">
+            <p className="text-sm text-[#64748b] uppercase tracking-wider mb-1">Reached +15%</p>
+            <p className="text-xl font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
           </div>
         </div>
       </div>
