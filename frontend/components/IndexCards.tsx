@@ -40,7 +40,7 @@ export default function IndexCards({ data }: { data: MasterData }) {
           <div className={`absolute inset-0 bg-gradient-to-br ${INDEX_COLORS[key] || 'from-blue-500/10'}`} />
           <div className="relative z-10 w-full h-full flex flex-col justify-between">
             <div className="flex flex-col gap-0.5">
-              <span className="text-[8px] sm:text-[11px] lg:text-[13px] font-black text-[#94a3b8] uppercase tracking-[0.05em] leading-tight">{INDEX_SHORT_LABELS[key] ?? key}</span>
+              <span className="text-[8px] sm:text-[11px] lg:text-[13px] font-black text-white uppercase tracking-[0.05em] leading-tight">{INDEX_SHORT_LABELS[key] ?? key}</span>
               <span className={`text-[10px] sm:text-[12px] lg:text-[14px] font-mono font-black px-1 py-0.25 sm:px-1.5 sm:py-0.5 lg:px-2 rounded whitespace-nowrap ${idx.change_pct >= 0 ? 'bg-green-500/10 text-[#22c55e]' : 'bg-red-500/10 text-[#ef4444]'}`}>
                 {idx.change_pct >= 0 ? '+' : ''}{idx.change_pct.toFixed(2)}%
               </span>
@@ -58,7 +58,7 @@ export default function IndexCards({ data }: { data: MasterData }) {
                     </svg>
                   )}
                </div>
-               <span className="text-[6px] sm:text-[7px] lg:text-[10px] font-bold text-[#64748b] uppercase tracking-[0.05em] lg:tracking-widest bg-[#141924] px-1 sm:px-1.5 lg:px-2 py-0.25 sm:py-0.5 lg:py-1 rounded-md border border-[#1e2a3a] whitespace-nowrap">
+               <span className="text-[6px] sm:text-[7px] lg:text-[10px] font-bold text-[#00d2ff] uppercase tracking-[0.05em] lg:tracking-widest bg-[#141924] px-1 sm:px-1.5 lg:px-2 py-0.25 sm:py-0.5 lg:py-1 rounded-md border border-[#1e2a3a] whitespace-nowrap">
                  {idx.change_pct >= 0 ? 'UP' : 'DN'}
                </span>
             </div>

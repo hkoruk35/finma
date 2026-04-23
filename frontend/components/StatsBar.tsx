@@ -20,7 +20,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
             ? `+${Math.floor(data.total_tickers_scanned / 100) * 100}`
             : data.total_tickers_scanned}
         </div>
-        <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
+        <div className="text-xs text-white uppercase tracking-wider mt-1">
           Stocks Analyzed
         </div>
       </div>
@@ -30,7 +30,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
         <div className="text-3xl font-bold font-mono text-[#f1f5f9]">
           {data.menus?.top_scores?.count ?? data.total_tickers_scanned}
         </div>
-        <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
+        <div className="text-xs text-white uppercase tracking-wider mt-1">
           Top Picks Today
         </div>
       </div>
@@ -44,7 +44,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
           {data.market_regime === "Bull" ? "BULL" :
            data.market_regime === "Bear" ? "BEAR" : "NEUTRAL"}
         </div>
-        <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
+        <div className="text-xs text-white uppercase tracking-wider mt-1">
           Market Regime
         </div>
       </div>
@@ -55,7 +55,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
           <span className="w-2 h-2 rounded-full bg-[#22c55e] live-dot" />
           <span className="text-lg font-mono text-[#f1f5f9]">{time}</span>
         </div>
-        <div className="text-xs text-[#94a3b8] uppercase tracking-wider mt-1">
+        <div className="text-xs text-white uppercase tracking-wider mt-1">
           Last Updated (ET)
         </div>
       </div>

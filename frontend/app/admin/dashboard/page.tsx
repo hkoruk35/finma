@@ -3,7 +3,7 @@ export default function AdminDashboard() {
     <div className="animate-fade-in">
       <div className="mb-8">
          <h1 className="text-2xl font-black text-white mb-2">System Overview</h1>
-         <p className="text-sm text-[#64748b]">Monitor bot status and key platform performance metrics.</p>
+         <p className="text-sm text-[#00d2ff]">Monitor bot status and key platform performance metrics.</p>
       </div>
 
       {/* Stats Cards */}
@@ -15,9 +15,9 @@ export default function AdminDashboard() {
             { label: "Active Scores", value: "47", sub: "12 High Conviction", color: "text-[#3b82f6]" },
          ].map((stat, i) => (
             <div key={i} className="glass-card p-6">
-               <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">{stat.label}</p>
+               <p className="text-[10px] text-[#00d2ff] uppercase tracking-widest mb-1">{stat.label}</p>
                <p className={`text-2xl font-black mb-1 ${stat.color}`}>{stat.value}</p>
-               <p className="text-[10px] text-[#64748b]">{stat.sub}</p>
+               <p className="text-[10px] text-[#00d2ff]">{stat.sub}</p>
             </div>
          ))}
       </div>
@@ -38,15 +38,15 @@ export default function AdminDashboard() {
                ].map((log, i) => (
                   <div key={i} className="px-6 py-3 flex items-center justify-between hover:bg-[#141924] transition-colors">
                      <div className="flex items-center gap-4">
-                        <span className="text-[10px] font-mono text-[#64748b]">{log.time}</span>
-                        <span className="text-xs text-[#94a3b8]">{log.msg}</span>
+                        <span className="text-[10px] font-mono text-[#00d2ff]">{log.time}</span>
+                        <span className="text-xs text-white">{log.msg}</span>
                      </div>
                      <span className="text-[10px] font-bold text-[#3b82f6] uppercase">{log.type}</span>
                   </div>
                ))}
             </div>
             <div className="px-6 py-3 bg-[#141924]/50 text-center">
-               <button className="text-[10px] font-bold text-[#64748b] hover:text-white uppercase tracking-widest">View Full Logs</button>
+               <button className="text-[10px] font-bold text-[#00d2ff] hover:text-white uppercase tracking-widest">View Full Logs</button>
             </div>
          </div>
 
@@ -65,7 +65,7 @@ export default function AdminDashboard() {
                   <div key={i} className="flex items-center justify-between">
                      <span className="text-sm font-bold text-white">{item.ticker}</span>
                      <div className="flex items-center gap-4">
-                        <span className="text-xs font-mono text-[#64748b]">{item.volume}</span>
+                        <span className="text-xs font-mono text-[#00d2ff]">{item.volume}</span>
                         <span className="text-xs font-mono font-bold text-[#22c55e]">{item.score}</span>
                      </div>
                   </div>

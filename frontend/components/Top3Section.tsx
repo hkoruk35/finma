@@ -42,7 +42,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                 <div className="text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase">
                   {item.ticker}
                 </div>
-                <div className="text-sm font-bold text-[#64748b] tracking-wider mt-1">
+                <div className="text-sm font-bold text-[#00d2ff] tracking-wider mt-1">
                    {stock?.company || item.ticker}
                 </div>
               </div>
@@ -53,7 +53,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                    <div className="text-6xl font-mono font-black text-[#3b82f6] leading-none">
                      {item.score.toFixed(1)}
                    </div>
-                   <div className="text-[9px] text-[#64748b] font-black uppercase tracking-[0.2em] mb-2">BOGA AI SCORE</div>
+                   <div className="text-[9px] text-[#00d2ff] font-black uppercase tracking-[0.2em] mb-2">BOGA AI SCORE</div>
                 </div>
                 <div className="flex">
                   <span className={`px-5 py-1.5 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-xl ${getScoreBadgeClass(item.score_type)}`}>
@@ -64,7 +64,7 @@ export default function Top3Section({ master, allTickers }: Props) {
 
               {/* Time-Period Returns */}
               <div className="mb-6">
-                 <span className="text-[14px] font-black text-[#64748b] uppercase tracking-widest mb-3 block">PERIOD RETURNS</span>
+                 <span className="text-[14px] font-black text-[#00d2ff] uppercase tracking-widest mb-3 block">PERIOD RETURNS</span>
                  <div className="grid grid-cols-4 gap-2">
                    {[
                      { label: "24H", value: stock?.change_pct },
@@ -76,13 +76,13 @@ export default function Top3Section({ master, allTickers }: Props) {
                        <div className={`text-base font-mono font-black ${
                          period.value !== undefined && period.value !== null
                            ? getChangeColor(period.value)
-                           : 'text-[#64748b]'
+                           : 'text-[#00d2ff]'
                        }`}>
                          {period.value !== undefined && period.value !== null
                            ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
                            : '—'}
                        </div>
-                       <div className="text-[12px] text-[#64748b] font-bold mt-2">{period.label}</div>
+                       <div className="text-[12px] text-[#00d2ff] font-bold mt-2">{period.label}</div>
                      </div>
                    ))}
                  </div>
@@ -90,7 +90,7 @@ export default function Top3Section({ master, allTickers }: Props) {
 
               {/* AI Analysis Summary One-Liner */}
               <div className="mb-6">
-                <p className="text-[#94a3b8] text-xs leading-relaxed italic line-clamp-2">
+                <p className="text-white text-xs leading-relaxed italic line-clamp-2">
                   {stock?.ai_short_summary || `AI analysis indicates a ${item.score_type.replace(/_/g, " ").toLowerCase()} pattern based on current market data.`}
                 </p>
               </div>

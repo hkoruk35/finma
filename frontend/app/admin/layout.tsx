@@ -26,7 +26,7 @@ export default function AdminLayout({
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-[#94a3b8] hover:bg-[#141924] hover:text-white transition-all group"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-[#141924] hover:text-white transition-all group"
             >
               <span>{item.icon}</span>
               {item.label}
@@ -35,7 +35,7 @@ export default function AdminLayout({
         </nav>
 
         <div className="p-4 border-t border-[#1e2a3a]">
-           <Link href="/" className="flex items-center gap-2 text-xs text-[#64748b] hover:text-[#3b82f6] transition-colors">
+           <Link href="/" className="flex items-center gap-2 text-xs text-[#00d2ff] hover:text-[#3b82f6] transition-colors">
               &larr; View Website
            </Link>
         </div>
@@ -46,7 +46,7 @@ export default function AdminLayout({
         <header className="h-16 border-b border-[#1e2a3a] flex items-center justify-between px-8 bg-[#0d1117]/50 backdrop-blur-md sticky top-0 z-30">
            <h2 className="font-bold text-white">Administration</h2>
            <div className="flex items-center gap-4">
-              <span className="text-xs text-[#64748b]">Logged in as <b>Admin</b></span>
+              <span className="text-xs text-[#00d2ff]">Logged in as <b>Admin</b></span>
               <button className="text-xs font-bold text-[#ef4444]">Logout</button>
            </div>
         </header>

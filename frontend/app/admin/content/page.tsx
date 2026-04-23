@@ -9,7 +9,7 @@ export default function AdminContent() {
     <div className="animate-fade-in">
       <div className="mb-8">
          <h1 className="text-2xl font-black text-white mb-2">Content Management</h1>
-         <p className="text-sm text-[#64748b]">Edit site terminology and override AI-generated summaries.</p>
+         <p className="text-sm text-[#00d2ff]">Edit site terminology and override AI-generated summaries.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -18,7 +18,7 @@ export default function AdminContent() {
             <h3 className="font-bold text-white mb-6">AI Summary Override</h3>
             <div className="space-y-6">
                <div>
-                  <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-widest mb-2">Ticker Symbol</label>
+                  <label className="block text-xs font-bold text-white uppercase tracking-widest mb-2">Ticker Symbol</label>
                   <div className="flex gap-2">
                      <input 
                         type="text" 
@@ -32,7 +32,7 @@ export default function AdminContent() {
                </div>
 
                <div>
-                  <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-widest mb-2">Custom Analysis Card</label>
+                  <label className="block text-xs font-bold text-white uppercase tracking-widest mb-2">Custom Analysis Card</label>
                   <textarea 
                      rows={6}
                      className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#3b82f6] text-sm"
@@ -57,14 +57,14 @@ export default function AdminContent() {
                ].map((item, i) => (
                   <div key={i} className="bg-[#141924] p-4 rounded-xl border border-[#1e2a3a]">
                      <div className="flex items-center justify-between mb-2">
-                        <p className="text-[10px] text-[#64748b] uppercase tracking-widest font-bold">{item.label}</p>
+                        <p className="text-[10px] text-[#00d2ff] uppercase tracking-widest font-bold">{item.label}</p>
                         {item.enabled !== undefined && (
                            <div className={`w-8 h-4 rounded-full relative ${item.enabled ? 'bg-[#3b82f6]' : 'bg-[#2c3e50]'}`}>
                               <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${item.enabled ? 'left-4.5' : 'left-0.5'}`}></div>
                            </div>
                         )}
                      </div>
-                     <p className="text-sm text-[#94a3b8]">{item.value}</p>
+                     <p className="text-sm text-white">{item.value}</p>
                      <button className="mt-3 text-[10px] text-[#3b82f6] font-bold uppercase hover:underline">Edit Content</button>
                   </div>
                ))}

@@ -33,7 +33,7 @@ export default function LanguageSwitcher({ currentLocale, onChange }: Props) {
         <span className="text-base">{current.flag}</span>
         <span>{current.label}</span>
         <svg
-          className={`w-4 h-4 text-[#64748b] transition-transform ${open ? "rotate-180" : ""}`}
+          className={`w-4 h-4 text-[#00d2ff] transition-transform ${open ? "rotate-180" : ""}`}
           fill="none" viewBox="0 0 24 24" stroke="currentColor"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -50,7 +50,7 @@ export default function LanguageSwitcher({ currentLocale, onChange }: Props) {
               className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors
                 ${locale.code === currentLocale
                   ? "bg-[#3b82f6]/10 text-[#3b82f6] font-bold"
-                  : "text-[#94a3b8] hover:bg-[#141924] hover:text-white"
+                  : "text-white hover:bg-[#141924] hover:text-white"
                 }`}
             >
               <span className="text-base">{locale.flag}</span>

@@ -57,10 +57,10 @@ export default async function SwingPicksPage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">Today&apos;s Swing Picks</span>
+          <span className="text-white">Today&apos;s Swing Picks</span>
         </nav>
 
         {/* Header */}
@@ -71,10 +71,10 @@ export default async function SwingPicksPage() {
                 Daily Swing Picks
                 <span className="ml-3 text-[#3b82f6]">— {dateStr}</span>
               </h1>
-              <p className="text-[#94a3b8] text-base">
+              <p className="text-white text-base">
                 Full algorithmic candidate list from the BOGA AI V114 Engine •{" "}
                 {generatedAt && (
-                  <span className="text-[#64748b]">Updated {formatTime(generatedAt)}</span>
+                  <span className="text-[#00d2ff]">Updated {formatTime(generatedAt)}</span>
                 )}
               </p>
             </div>
@@ -91,7 +91,7 @@ export default async function SwingPicksPage() {
           <div className="glass-card p-12 text-center">
             <div className="text-5xl mb-4">🦅</div>
             <h2 className="text-xl font-bold text-white mb-2">No Data Yet</h2>
-            <p className="text-[#94a3b8] text-sm">The Atmaca bot runs at 13:00 NY time on weekdays. Check back after the scan.</p>
+            <p className="text-white text-sm">The Atmaca bot runs at 13:00 NY time on weekdays. Check back after the scan.</p>
           </div>
         ) : (
           <>
@@ -99,7 +99,7 @@ export default async function SwingPicksPage() {
             <div className="hidden md:block glass-card overflow-hidden mb-6">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-white/5 text-[#64748b] text-[11px] uppercase tracking-wider">
+                  <tr className="border-b border-white/5 text-[#00d2ff] text-[11px] uppercase tracking-wider">
                     <th className="px-4 py-4 text-left">#</th>
                     <th className="px-4 py-4 text-left">Ticker</th>
                     <th className="px-4 py-4 text-left">Sector</th>
@@ -122,7 +122,7 @@ export default async function SwingPicksPage() {
                       className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 5 ? "bg-[#3b82f6]/5" : ""}`}
                     >
                       <td className="px-3 py-2.5">
-                        <span className={`text-[11px] font-black ${idx < 5 ? "text-[#3b82f6]" : "text-[#64748b]"}`}>
+                        <span className={`text-[11px] font-black ${idx < 5 ? "text-[#3b82f6]" : "text-[#00d2ff]"}`}>
                           #{idx + 1}
                         </span>
                       </td>
@@ -131,11 +131,11 @@ export default async function SwingPicksPage() {
                           <div className="text-white font-black text-sm tracking-tight group-hover:text-[#3b82f6] transition-colors">
                             {pick.ticker}
                           </div>
-                          <div className="text-[#64748b] text-[10px] truncate max-w-[120px]">{pick.company}</div>
+                          <div className="text-[#00d2ff] text-[10px] truncate max-w-[120px]">{pick.company}</div>
                         </Link>
                       </td>
                       <td className="px-3 py-2.5">
-                        <span className="text-[#94a3b8] text-[11px]">{pick.sector || "—"}</span>
+                        <span className="text-white text-[11px]">{pick.sector || "—"}</span>
                       </td>
                       <td className="px-3 py-2.5 text-right">
                         <ScoreBadge score={pick.score} />
@@ -143,7 +143,7 @@ export default async function SwingPicksPage() {
                       <td className="px-3 py-2.5 text-right">
                         <span className="text-white font-mono font-semibold text-[13px]">${formatPrice(pick.current_price)}</span>
                       </td>
-                      <td className="px-3 py-2.5 text-right text-[#94a3b8] font-mono text-[11px]">
+                      <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">
                         ${formatPrice(pick.buy_zone.low)}–${formatPrice(pick.buy_zone.high)}
                       </td>
                       <td className="px-3 py-2.5 text-right text-[#10b981] font-mono font-semibold text-[11px]">
@@ -164,7 +164,7 @@ export default async function SwingPicksPage() {
                             <span className={`font-mono text-[11px] font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
                               {pick[perf.field] >= 0 ? "+" : ""}{pick[perf.field].toFixed(1)}%
                             </span>
-                          ) : <span className="text-[#64748b] text-[11px]"> —</span>}
+                          ) : <span className="text-[#00d2ff] text-[11px]"> —</span>}
                         </td>
                       ))}
                     </tr>
@@ -183,16 +183,16 @@ export default async function SwingPicksPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <span className="text-[#64748b] text-xs font-bold">#{idx + 1}</span>
+                      <span className="text-[#00d2ff] text-xs font-bold">#{idx + 1}</span>
                       <div className="text-white font-black text-2xl tracking-tight">{pick.ticker}</div>
-                      <div className="text-[#64748b] text-xs">{pick.company}</div>
+                      <div className="text-[#00d2ff] text-xs">{pick.company}</div>
                     </div>
                     <ScoreBadge score={pick.score} />
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-center">
                     <div>
-                      <div className="text-[10px] text-[#64748b] uppercase mb-1">Buy</div>
-                      <div className="text-[#94a3b8] font-mono text-xs">${formatPrice(pick.buy_zone.low)}</div>
+                      <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Buy</div>
+                      <div className="text-white font-mono text-xs">${formatPrice(pick.buy_zone.low)}</div>
                     </div>
                     <div>
                       <div className="text-[10px] text-[#10b981] uppercase mb-1">Target</div>
@@ -203,7 +203,7 @@ export default async function SwingPicksPage() {
                       <div className="text-[#ef4444] font-mono text-xs">${formatPrice(pick.stop_zone.low)}</div>
                     </div>
                   </div>
-                  <div className="mt-3 flex items-center gap-3 text-[11px] text-[#64748b] overflow-x-auto whitespace-nowrap">
+                  <div className="mt-3 flex items-center gap-3 text-[11px] text-[#00d2ff] overflow-x-auto whitespace-nowrap">
                     {[
                       { label: "1D", val: pick.change_1d },
                       { label: "1W", val: pick.change_1w },
@@ -220,10 +220,10 @@ export default async function SwingPicksPage() {
             </div>
 
             {/* Legend */}
-            <div className="glass-card p-4 flex flex-wrap gap-6 text-[11px] text-[#64748b]">
-              <span>📈 <b className="text-[#94a3b8]">Zones</b> = BOGA AI defined price ranges</span>
-              <span>🎯 <b className="text-[#94a3b8]">Hold</b> = Estimated swing duration</span>
-              <span>⚡ <b className="text-[#94a3b8]">Top 5</b> candidates highlighted</span>
+            <div className="glass-card p-4 flex flex-wrap gap-6 text-[11px] text-[#00d2ff]">
+              <span>📈 <b className="text-white">Zones</b> = BOGA AI defined price ranges</span>
+              <span>🎯 <b className="text-white">Hold</b> = Estimated swing duration</span>
+              <span>⚡ <b className="text-white">Top 5</b> candidates highlighted</span>
               <span className="ml-auto">
                 <Link href="/" className="text-[#3b82f6] hover:underline">← Back to Dashboard</Link>
               </span>
@@ -238,7 +238,7 @@ export default async function SwingPicksPage() {
             <div className="mt-12 glass-card p-6 md:p-10 border-t-2 border-t-[#3b82f6]/40">
                <div className="flex flex-col gap-2 mb-8">
                   <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">📈 BOGA AI Global SEO Index</h2>
-                  <p className="text-sm text-[#64748b]">Daily institutional swing trade briefings in 6 languages. Total of 60 active analysis landings.</p>
+                  <p className="text-sm text-[#00d2ff]">Daily institutional swing trade briefings in 6 languages. Total of 60 active analysis landings.</p>
                </div>
                
                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -253,7 +253,7 @@ export default async function SwingPicksPage() {
                             <Link 
                               key={p.ticker}
                               href={`/${lang}/${cfg.slug}/${p.ticker.toLowerCase()}`}
-                              className="text-[10px] text-[#64748b] hover:text-[#3b82f6] font-bold transition-all truncate"
+                              className="text-[10px] text-[#00d2ff] hover:text-[#3b82f6] font-bold transition-all truncate"
                             >
                                {p.ticker} · {cfg.slug.charAt(0).toUpperCase() + cfg.slug.slice(1)}
                             </Link>

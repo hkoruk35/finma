@@ -31,7 +31,7 @@ export default function AboutPage() {
             Daily Financial Analysis.<br />
             <span className="text-[#3b82f6]">Built for US Markets.</span>
           </h1>
-          <p className="text-xl text-[#94a3b8] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
             BOGA AI - Blue One Global Analysis - Daily +500 stocks is a proprietary multi-stage stock screening and scoring system that turns the entire US equity universe into a focused shortlist of high-probability opportunities — every single trading day.
           </p>
         </div>
@@ -46,8 +46,8 @@ export default function AboutPage() {
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]"></div>
               <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
               <h3 className="text-lg font-bold text-white mb-3">Weekly Universe Scan</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
-                Every week, the BOGA AI algorithm sweeps through <strong className="text-[#94a3b8]">7,000+ US-listed equities</strong> across all major exchanges — NYSE, NASDAQ, and AMEX — applying liquidity, volatility, and structural filters to isolate the most tradeable candidates.
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
+                Every week, the BOGA AI algorithm sweeps through <strong className="text-white">7,000+ US-listed equities</strong> across all major exchanges — NYSE, NASDAQ, and AMEX — applying liquidity, volatility, and structural filters to isolate the most tradeable candidates.
               </p>
             </div>
 
@@ -56,8 +56,8 @@ export default function AboutPage() {
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
               <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6 text-2xl font-black">2</div>
               <h3 className="text-lg font-bold text-white mb-3">Top 500+ Daily Watchlist</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
-                From the weekly scan, the system selects <strong className="text-[#94a3b8]">500+ high-priority stocks</strong> for daily monitoring. These candidates are re-evaluated each morning at 09:00 NY time with fresh market data, technical readings, and fundamental metrics.
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
+                From the weekly scan, the system selects <strong className="text-white">500+ high-priority stocks</strong> for daily monitoring. These candidates are re-evaluated each morning at 09:00 NY time with fresh market data, technical readings, and fundamental metrics.
               </p>
             </div>
 
@@ -66,8 +66,8 @@ export default function AboutPage() {
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#06b6d4] to-[#22c55e]"></div>
               <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6 text-2xl font-black">3</div>
               <h3 className="text-lg font-bold text-white mb-3">~100 Best Candidates — Individually Scored</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
-                The BOGA AI scoring engine ranks every daily candidate and selects the <strong className="text-[#94a3b8]">~100 highest-conviction setups</strong>. Each receives a unique AI-generated analysis covering technicals, fundamentals, and score rationale — not a template, but a stock-specific brief.
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
+                The BOGA AI scoring engine ranks every daily candidate and selects the <strong className="text-white">~100 highest-conviction setups</strong>. Each receives a unique AI-generated analysis covering technicals, fundamentals, and score rationale — not a template, but a stock-specific brief.
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Multi-Factor Technical Engine</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
                 The BOGA AI Master Score is computed from a weighted blend of technical indicators — RSI, MACD, relative volume, EMA cross-multiples, ADX trend strength, and Bollinger Band squeeze intensity — engineered specifically for US equity momentum structures.
               </p>
             </div>
@@ -97,7 +97,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Fundamental & Sector Overlay</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
                 Every score is cross-referenced with fundamental data: P/E ratio vs. sector median, FCF yield, gross margins, and revenue growth momentum. Sector performance context ensures scores are always relative — not absolute — to current market conditions.
               </p>
             </div>
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Proprietary AI Commentary</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
                 Each shortlisted stock receives a plain-language analysis brief generated by the BOGA AI engine. The brief explains <em>why</em> a specific score was assigned — referencing the stock's own data, not generics — so you understand the rationale behind every rating.
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Five-Tier Score Ratings</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
                 BOGA AI scores are classified into five professional tiers: <strong className="text-white">High Conviction</strong>, <strong className="text-white">Positive Bias</strong>, <strong className="text-white">Neutral Stay</strong>, <strong className="text-white">Negative Bias</strong>, and <strong className="text-white">Underperform</strong> — giving you institutional-grade clarity without ambiguity.
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function AboutPage() {
         <div className="glass-card p-10 text-center mb-12">
           <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
           <h2 className="text-2xl font-bold text-white mb-4">100% Focused on US Equity Markets</h2>
-          <p className="text-[#94a3b8] max-w-2xl mx-auto leading-relaxed mb-6">
+          <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
             BOGA AI - Blue One Global Analysis - Daily +500 stocks is purpose-built for the US stock market. Every algorithm, every weight, and every score category is calibrated against NYSE, NASDAQ, and US market structure — not a generic global model adapted for the US.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-widest">
@@ -157,7 +157,7 @@ export default function AboutPage() {
         <div className="glass-card p-10 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]"></div>
           <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
-          <p className="text-[#94a3b8] max-w-2xl mx-auto italic leading-relaxed">
+          <p className="text-white max-w-2xl mx-auto italic leading-relaxed">
             "To democratize institutional-grade US stock market analysis — giving every retail trader access to the same daily screening depth, scoring precision, and actionable intelligence that professional desks rely on."
           </p>
         </div>

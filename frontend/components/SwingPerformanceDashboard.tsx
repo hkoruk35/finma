@@ -46,7 +46,7 @@ const RESULT_COLORS: Record<string, string> = {
   WIN:     "text-[#22c55e] bg-[#22c55e]/10",
   LOSS:    "text-[#ef4444] bg-[#ef4444]/10",
   PENDING: "text-[#3b82f6] bg-[#3b82f6]/10",
-  NO_DATA: "text-[#64748b] bg-transparent",
+  NO_DATA: "text-[#00d2ff] bg-transparent",
 };
 
 function fmt(n: number | null | undefined, dec = 2): string {
@@ -55,8 +55,8 @@ function fmt(n: number | null | undefined, dec = 2): string {
 }
 
 function retColor(n: number | null | undefined): string {
-  if (n == null) return "text-[#64748b]";
-  return n > 0 ? "text-[#22c55e]" : n < 0 ? "text-[#ef4444]" : "text-[#94a3b8]";
+  if (n == null) return "text-[#00d2ff]";
+  return n > 0 ? "text-[#22c55e]" : n < 0 ? "text-[#ef4444]" : "text-white";
 }
 
 function pnlFromReturn(ret: number | null): number | null {
@@ -471,7 +471,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 px-6 pt-6 pb-4 border-b border-[#1e2a3a]">
           <div>
             <h2 className="text-2xl font-black text-white">BOGA AI Swing Engine</h2>
-            <p className="text-xs text-[#64748b] mt-1">
+            <p className="text-xs text-[#00d2ff] mt-1">
               Performance overview · <span className="text-[#f59e0b] font-bold">−3.5% Stop-Loss Applied</span>
               {lastUpdated && <span className="ml-2">· Updated {formatLastUpdated(lastUpdated)}</span>}
             </p>
@@ -489,28 +489,28 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-[#1e2a3a]">
           <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Win Rate (w/ SL)</p>
+            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Win Rate (w/ SL)</p>
             <p className="text-3xl md:text-4xl font-mono font-black text-[#22c55e]">
               {stats.winRate === "—" ? "—" : `${stats.winRate}%`}
             </p>
-            <p className="text-xs text-[#475569] mt-1">{stats.wins} wins / {stats.losses} losses</p>
+            <p className="text-xs text-white mt-1">{stats.wins} wins / {stats.losses} losses</p>
           </div>
           <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Avg Return (w/ SL)</p>
+            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Avg Return (w/ SL)</p>
             <p className={`text-3xl md:text-4xl font-mono font-black ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "—" ? "—" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
-            <p className="text-xs text-[#475569] mt-1">avg ${stats.avgPnl} per $1,000</p>
+            <p className="text-xs text-white mt-1">avg ${stats.avgPnl} per $1,000</p>
           </div>
           <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Avg Days to Peak</p>
+            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Avg Days to Peak</p>
             <p className="text-3xl md:text-4xl font-mono font-black text-[#3b82f6]">
               {stats.avgDays === "—" ? "—" : `${stats.avgDays}d`}
             </p>
-            <p className="text-xs text-[#475569] mt-1">winning trades only</p>
+            <p className="text-xs text-white mt-1">winning trades only</p>
           </div>
           <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#64748b] uppercase tracking-wider mb-2">Total Signals</p>
+            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Total Signals</p>
             <p className="text-3xl md:text-4xl font-mono font-black text-white">{stats.totalSignals}</p>
             {stats.pending > 0 && (
               <p className="text-xs text-[#3b82f6] mt-1">{stats.pending} pending</p>
@@ -520,25 +520,25 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
         {/* Profit Target Breakdown */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-sm text-[#64748b] uppercase tracking-wider mb-4 font-bold">Profit Target Breakdown — Avg Days & Hit Rate per Target</p>
+          <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-4 font-bold">Profit Target Breakdown — Avg Days & Hit Rate per Target</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
             {profitTargets.map(pt => (
               <div key={pt.pct} className="rounded-xl bg-[#141924] border border-[#1e2a3a] p-3 text-center hover:border-[#22c55e]/40 transition-colors">
-                <p className="text-xs text-[#64748b] uppercase mb-1">+{pt.pct}% Target</p>
+                <p className="text-xs text-[#00d2ff] uppercase mb-1">+{pt.pct}% Target</p>
                 <p className="text-xl font-black font-mono text-[#22c55e]">{pt.avgDays === "—" ? "—" : `${pt.avgDays}d`}</p>
-                <p className="text-xs text-[#94a3b8] mt-0.5 font-bold">{pt.rate}%</p>
-                <p className="text-[11px] text-[#475569]">{pt.count} trades</p>
+                <p className="text-xs text-white mt-0.5 font-bold">{pt.rate}%</p>
+                <p className="text-[11px] text-white">{pt.count} trades</p>
               </div>
             ))}
           </div>
-          <p className="text-sm text-[#64748b] mt-3">
+          <p className="text-sm text-[#00d2ff] mt-3">
             Example: "+5% Target → 19.9d → 67.3%" means 67.3% of completed trades reached +5% or more, in an average of 19.9 days.
           </p>
         </div>
 
         {/* Days-to-Profit Distribution Bar Chart */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-sm text-[#64748b] uppercase tracking-wider mb-4 font-bold">Days Distribution — Winning Trades (Avg Return)</p>
+          <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-4 font-bold">Days Distribution — Winning Trades (Avg Return)</p>
           <div className="flex items-end gap-3 h-28">
             {daysDistribution.map(b => {
               const barHeight = maxDaysBucket > 0 ? Math.max(4, (b.avgRet / maxDaysBucket) * 96) : 4;
@@ -549,27 +549,27 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     className="w-full rounded-t-md bg-gradient-to-t from-[#22c55e]/60 to-[#22c55e]/20 border border-[#22c55e]/30 transition-all"
                     style={{ height: `${barHeight}%` }}
                   />
-                  <p className="text-xs text-[#64748b] text-center">{b.label}</p>
-                  <p className="text-[10px] text-[#475569]">{b.count}</p>
+                  <p className="text-xs text-[#00d2ff] text-center">{b.label}</p>
+                  <p className="text-[10px] text-white">{b.count}</p>
                 </div>
               );
             })}
           </div>
-          <p className="text-sm text-[#64748b] mt-2">Each bar shows the avg return and trade count for winning trades that peaked within that holding period.</p>
+          <p className="text-sm text-[#00d2ff] mt-2">Each bar shows the avg return and trade count for winning trades that peaked within that holding period.</p>
         </div>
 
         {/* Quick Percentile Row */}
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
           <div className="px-5 py-4 text-center">
-            <p className="text-sm text-[#64748b] uppercase tracking-wider mb-1">Reached +5%</p>
+            <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-1">Reached +5%</p>
             <p className="text-xl font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-sm text-[#64748b] uppercase tracking-wider mb-1">Reached +10%</p>
+            <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-1">Reached +10%</p>
             <p className="text-xl font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-sm text-[#64748b] uppercase tracking-wider mb-1">Reached +15%</p>
+            <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-1">Reached +15%</p>
             <p className="text-xl font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
           </div>
         </div>
@@ -609,7 +609,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           <input type="text" placeholder="Search Ticker..." value={searchTicker}
             onChange={e => setSearchTicker(e.target.value)}
             className="bg-[#1a2030] border border-[#1e2a3a] text-white pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6] w-full md:w-40" />
-          <svg className="w-4 h-4 text-[#64748b] absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 text-[#00d2ff] absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
         </div>
@@ -631,17 +631,17 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <button key={s.name}
                 onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
                 className={`rounded-xl border p-4 ${heatColor(s.avgReturn)} flex flex-col gap-2 transition-all hover:scale-105 shadow-xl text-left min-w-[160px] md:min-w-0 ${s.name === selectedSector ? "ring-2 ring-white" : ""}`}>
-                <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest truncate w-full" title={s.name}>{s.name}</p>
+                <p className="text-[10px] font-bold text-white uppercase tracking-widest truncate w-full" title={s.name}>{s.name}</p>
                 <div className="flex items-end justify-between w-full">
                   <div>
                     <p className={`text-xl font-black font-mono ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                       {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
                     </p>
-                    <p className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Avg Return</p>
+                    <p className="text-[10px] text-[#00d2ff] font-bold uppercase tracking-widest mt-1">Avg Return</p>
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-bold text-white leading-none">{s.total}</p>
-                    <p className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Picks</p>
+                    <p className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest mt-1">Picks</p>
                   </div>
                 </div>
               </button>
@@ -656,23 +656,23 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           <div className="flex flex-col md:flex-row md:items-center gap-3">
             <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
             <div className="flex items-center gap-2">
-              <p className="text-xs text-[#94a3b8]">Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} trades</p>
+              <p className="text-xs text-white">Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} trades</p>
               <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">−3.5% SL Applied</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={handleExportCSV}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-[#94a3b8] border border-[#2d3a4b] hover:border-[#3b82f6] hover:text-white transition-all flex items-center gap-2">
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-white border border-[#2d3a4b] hover:border-[#3b82f6] hover:text-white transition-all flex items-center gap-2">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               CSV
             </button>
             <button onClick={handleExportExcel}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-[#94a3b8] border border-[#2d3a4b] hover:border-[#22c55e] hover:text-white transition-all flex items-center gap-2">
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-white border border-[#2d3a4b] hover:border-[#22c55e] hover:text-white transition-all flex items-center gap-2">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               Excel (XLS)
             </button>
             <button onClick={handleExportPDF} disabled={pdfExporting}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-[#94a3b8] border border-[#2d3a4b] hover:border-[#ef4444] hover:text-white transition-all flex items-center gap-2 disabled:opacity-50">
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-white border border-[#2d3a4b] hover:border-[#ef4444] hover:text-white transition-all flex items-center gap-2 disabled:opacity-50">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               {pdfExporting ? "Exporting..." : "PDF"}
             </button>
@@ -684,7 +684,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           {visibleTrades.map((t, i) => {
             const effRet = effectiveReturn(t);
             const effRes = effectiveResult(t);
-            const resultCls = RESULT_COLORS[effRes] ?? "text-[#94a3b8]";
+            const resultCls = RESULT_COLORS[effRes] ?? "text-white";
             const pnl = pnlFromReturn(effRet);
             const slHit = slTriggered(t);
             return (
@@ -692,9 +692,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <Link href={`/stock/${t.ticker}`} className="text-xl font-black text-[#3b82f6] hover:underline">{t.ticker}</Link>
-                    <p className="text-[10px] text-[#64748b] mt-0.5">{t.date} · {t.sector}</p>
+                    <p className="text-[10px] text-[#00d2ff] mt-0.5">{t.date} · {t.sector}</p>
                     {t.subsector && t.subsector !== t.sector && (
-                      <p className="text-[9px] text-[#475569]">{t.subsector}</p>
+                      <p className="text-[9px] text-white">{t.subsector}</p>
                     )}
                   </div>
                   <div className="flex flex-col items-end gap-1">
@@ -704,26 +704,26 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 </div>
                 <div className="grid grid-cols-3 gap-2 border-t border-[#1e2a3a]/40 pt-3 text-sm">
                   <div>
-                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Entry</p>
+                    <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Entry</p>
                     <p className="font-mono font-bold text-white">${fmt(t.entry)}</p>
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Peak / SL</p>
+                    <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Peak / SL</p>
                     <p className="font-mono text-white">{slHit ? `$${fmt(t.entry * (1 + SL_PCT/100))}` : (t.max_price != null ? `$${fmt(t.max_price)}` : "—")}</p>
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Days</p>
-                    <p className="font-mono text-[#94a3b8]">{t.days != null ? `${t.days}d` : "—"}</p>
+                    <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Days</p>
+                    <p className="font-mono text-white">{t.days != null ? `${t.days}d` : "—"}</p>
                   </div>
                   <div className="col-span-3 border-t border-[#1e2a3a]/40 pt-2 flex justify-between">
                     <div>
-                      <p className="text-[9px] text-[#64748b] uppercase mb-0.5">Return (SL adj.)</p>
+                      <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Return (SL adj.)</p>
                       <p className={`font-mono font-black text-sm ${retColor(effRet)}`}>
                         {effRet != null ? `${effRet >= 0 ? "+" : ""}${fmt(effRet, 2)}%` : "—"}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-[9px] text-[#64748b] uppercase mb-0.5">PnL/$1000</p>
+                      <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">PnL/$1000</p>
                       <p className={`font-mono font-black ${retColor(pnl)}`}>
                         {pnl != null ? `${pnl >= 0 ? "+" : ""}$${Math.abs(pnl).toFixed(0)}` : "—"}
                       </p>
@@ -753,7 +753,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 <col className="w-[75px]" />
               </colgroup>
               <thead>
-                <tr className="bg-[#1a2030] border-b border-[#1e2a3a] text-[#64748b]">
+                <tr className="bg-[#1a2030] border-b border-[#1e2a3a] text-[#00d2ff]">
                   <th className="px-4 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('date')}>Date <SortIcon column="date" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('return_pct')}>Return (SL adj.) <SortIcon column="return_pct" /></th>
@@ -771,16 +771,16 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 {visibleTrades.map((t, i) => {
                   const effRet = effectiveReturn(t);
                   const effRes = effectiveResult(t);
-                  const resultCls = RESULT_COLORS[effRes] ?? "text-[#94a3b8]";
+                  const resultCls = RESULT_COLORS[effRes] ?? "text-white";
                   const pnl = pnlFromReturn(effRet);
                   const slHit = slTriggered(t);
                   return (
                     <tr key={i} className={`hover:bg-[#1a2030]/50 transition-colors ${slHit ? "bg-[#ef4444]/5" : ""}`}>
-                      <td className="px-4 py-3 text-[#94a3b8]">{t.date}</td>
+                      <td className="px-4 py-3 text-white">{t.date}</td>
                       <td className="px-4 py-3">
                         <Link href={`/stock/${t.ticker}`} className="font-bold text-[#3b82f6] hover:underline">{t.ticker}</Link>
                         {t.company && t.company !== t.ticker && (
-                          <p className="text-[9px] text-[#475569] truncate">{t.company}</p>
+                          <p className="text-[9px] text-white truncate">{t.company}</p>
                         )}
                       </td>
                       <td className={`px-4 py-3 text-right font-black text-sm ${retColor(effRet)}`}>
@@ -791,10 +791,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         {slHit ? (
                           <span className="text-[#ef4444]">${fmt(t.entry * (1 + SL_PCT/100))}<span className="block text-[9px] text-[#ef4444]/60">SL price</span></span>
                         ) : t.max_price != null ? (
-                          <span>${fmt(t.max_price)}{t.peak_date && <span className="block text-[9px] text-[#475569]">{t.peak_date}</span>}</span>
+                          <span>${fmt(t.max_price)}{t.peak_date && <span className="block text-[9px] text-white">{t.peak_date}</span>}</span>
                         ) : "—"}
                       </td>
-                      <td className="px-4 py-3 text-center text-[#94a3b8]">
+                      <td className="px-4 py-3 text-center text-white">
                         {t.result === "PENDING"
                           ? <span className="text-[#3b82f6] font-bold text-[10px]">PENDING</span>
                           : t.days != null ? `${t.days}d` : "—"}
@@ -805,8 +805,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       <td className="px-4 py-3 text-center">
                         {slHit && <span className="text-[9px] font-black text-[#ef4444]">●</span>}
                       </td>
-                      <td className="px-4 py-3 text-[#94a3b8] text-[10px] uppercase">{t.sector || "—"}</td>
-                      <td className="px-4 py-3 text-[#64748b] text-[10px]">
+                      <td className="px-4 py-3 text-white text-[10px] uppercase">{t.sector || "—"}</td>
+                      <td className="px-4 py-3 text-[#00d2ff] text-[10px]">
                         <span className="truncate block" title={t.subsector}>{t.subsector || "—"}</span>
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -819,16 +819,16 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             </table>
           </div>
           {filtered.length === 0 && (
-            <div className="p-12 text-center text-[#64748b]">No trades found for selected filters.</div>
+            <div className="p-12 text-center text-[#00d2ff]">No trades found for selected filters.</div>
           )}
         </div>
 
         {visibleCount < filtered.length && (
           <div className="mt-6 text-center">
             <button onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
-              className="px-8 py-3 rounded-xl bg-[#1e2a3a] border border-[#2d3a4b] text-sm font-bold text-[#94a3b8] hover:border-[#3b82f6] hover:text-white transition-all">
+              className="px-8 py-3 rounded-xl bg-[#1e2a3a] border border-[#2d3a4b] text-sm font-bold text-white hover:border-[#3b82f6] hover:text-white transition-all">
               Load {Math.min(PAGE_SIZE, filtered.length - visibleCount)} more
-              <span className="ml-2 text-[#64748b]">({filtered.length - visibleCount} remaining)</span>
+              <span className="ml-2 text-[#00d2ff]">({filtered.length - visibleCount} remaining)</span>
             </button>
           </div>
         )}

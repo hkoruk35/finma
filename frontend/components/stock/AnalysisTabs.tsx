@@ -89,7 +89,7 @@ export default function AnalysisTabs({ stock }: Props) {
     <div className="flex flex-col gap-6">
       {/* Premium Language Selector */}
       <div className="flex flex-col gap-3">
-        <span className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em] ml-1">Analysis Language</span>
+        <span className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em] ml-1">Analysis Language</span>
         <div className="flex items-center gap-2 flex-wrap">
           {LANG_LABELS.map((l) => {
             const cfg = LANG_CONFIG[l.id];
@@ -104,7 +104,7 @@ export default function AnalysisTabs({ stock }: Props) {
                 className={`px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 border shadow-sm ${
                   activeLang === l.id
                     ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-blue-500/20 scale-105"
-                    : "bg-[#0d1117] border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40"
+                    : "bg-[#0d1117] border-[#1e2a3a] text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/40"
                 }`}
               >
                 <span className="text-sm">{l.flag}</span>
@@ -127,7 +127,7 @@ export default function AnalysisTabs({ stock }: Props) {
               BOGA AI Analysis Briefing
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 lowercase font-bold">v5.5.2</span>
             </span>
-            <span className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest">Autonomous Intelligence Output</span>
+            <span className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest">Autonomous Intelligence Output</span>
           </div>
         </div>
 
@@ -148,7 +148,7 @@ export default function AnalysisTabs({ stock }: Props) {
 
               {/* Explicit SEO Links Section */}
               <div className="mt-12 pt-8 border-t border-white/5">
-                 <p className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em] mb-4">Discover in Other Languages (SEO Index)</p>
+                 <p className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em] mb-4">Discover in Other Languages (SEO Index)</p>
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
                     {LANG_LABELS.map(l => (
                       <Link 
@@ -160,7 +160,7 @@ export default function AnalysisTabs({ stock }: Props) {
                             <span>{l.flag}</span>
                             <span className="text-[10px] font-black text-white uppercase">{l.id}</span>
                          </div>
-                         <p className="text-[9px] text-[#64748b] group-hover:text-blue-400 truncate font-semibold">
+                         <p className="text-[9px] text-[#00d2ff] group-hover:text-blue-400 truncate font-semibold">
                             {stock.ticker} {LANG_CONFIG[l.id].name} Analysis
                          </p>
                       </Link>
@@ -175,7 +175,7 @@ export default function AnalysisTabs({ stock }: Props) {
               </div>
               <div>
                 <p className="text-lg font-black text-white mb-1">Generating Insights...</p>
-                <p className="text-sm text-[#64748b]">BOGA AI is processing latest market data for {stock.ticker}.</p>
+                <p className="text-sm text-[#00d2ff]">BOGA AI is processing latest market data for {stock.ticker}.</p>
               </div>
             </div>
           )}
@@ -183,7 +183,7 @@ export default function AnalysisTabs({ stock }: Props) {
 
         {/* Footer for the AI block */}
         <div className="px-6 py-4 bg-[#0d1117]/80 border-t border-[#1e2a3a] flex items-center justify-between">
-           <span className="text-[9px] font-black text-[#475569] uppercase tracking-widest">Analysis Engine v5.5</span>
+           <span className="text-[9px] font-black text-white uppercase tracking-widest">Analysis Engine v5.5</span>
            <div className="flex items-center gap-2">
              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
              <span className="text-[9px] font-black text-[#3b82f6] uppercase tracking-widest">Live Sync Connected</span>

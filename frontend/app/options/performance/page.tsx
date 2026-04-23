@@ -31,7 +31,7 @@ const STATUS_META: Record<string, { label: string; color: string; bg: string }> 
   tp_hit:     { label: "TP HIT",     color: "text-[#34d399]", bg: "bg-[#34d399]/10" },
   sl_hit:     { label: "SL HIT",     color: "text-[#f87171]", bg: "bg-[#f87171]/10" },
   time_stop:  { label: "TIME STOP",  color: "text-[#fbbf24]", bg: "bg-[#fbbf24]/10" },
-  expired:    { label: "EXPIRED",    color: "text-[#94a3b8]", bg: "bg-[#94a3b8]/10" },
+  expired:    { label: "EXPIRED",    color: "text-white", bg: "bg-[#94a3b8]/10" },
   manual:     { label: "MANUAL",     color: "text-[#e879f9]", bg: "bg-[#e879f9]/10" },
 };
 
@@ -43,8 +43,8 @@ function fmtPct(n: number | null | undefined, plus = true) {
   return (plus && n >= 0 ? "+" : "") + n.toFixed(1) + "%";
 }
 function pnlColor(n: number | null | undefined) {
-  if (n == null) return "text-[#64748b]";
-  return n > 0 ? "text-[#34d399]" : n < 0 ? "text-[#f87171]" : "text-[#94a3b8]";
+  if (n == null) return "text-[#00d2ff]";
+  return n > 0 ? "text-[#34d399]" : n < 0 ? "text-[#f87171]" : "text-white";
 }
 
 function StatCard({
@@ -52,9 +52,9 @@ function StatCard({
 }: { label: string; value: string; sub?: string; color?: string; small?: boolean }) {
   return (
     <div className="glass-card p-4 text-center">
-      <div className="text-[10px] text-[#64748b] uppercase tracking-wider mb-2">{label}</div>
+      <div className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-2">{label}</div>
       <div className={`font-black ${small ? "text-xl" : "text-2xl"} ${color}`}>{value}</div>
-      {sub && <div className="text-[11px] text-[#64748b] mt-1">{sub}</div>}
+      {sub && <div className="text-[11px] text-[#00d2ff] mt-1">{sub}</div>}
     </div>
   );
 }
@@ -67,7 +67,7 @@ function BarRow({ label, value, max, color = "bg-[#3b82f6]", right }: {
     <div>
       <div className="flex items-center justify-between mb-1.5">
         <span className="text-sm">{label}</span>
-        {right && <span className="text-xs text-[#64748b]">{right}</span>}
+        {right && <span className="text-xs text-[#00d2ff]">{right}</span>}
       </div>
       <div className="h-2 bg-white/5 rounded-full overflow-hidden">
         <div className={`h-full rounded-full transition-all ${color}`} style={{ width: `${pct}%` }} />
@@ -77,7 +77,7 @@ function BarRow({ label, value, max, color = "bg-[#3b82f6]", right }: {
 }
 
 function WinRateRing({ rate }: { rate: number | null }) {
-  if (rate == null) return <div className="text-[#64748b] text-2xl font-black">—</div>;
+  if (rate == null) return <div className="text-[#00d2ff] text-2xl font-black">—</div>;
   const color = rate >= 60 ? "#34d399" : rate >= 40 ? "#fbbf24" : "#f87171";
   const r = 40, circ = 2 * Math.PI * r;
   const dash = (rate / 100) * circ;
@@ -89,7 +89,7 @@ function WinRateRing({ rate }: { rate: number | null }) {
           strokeDasharray={`${dash} ${circ}`} strokeLinecap="round" />
       </svg>
       <div className="text-2xl font-black -mt-16" style={{ color }}>{rate.toFixed(0)}%</div>
-      <div className="text-[10px] text-[#64748b] mt-8 uppercase tracking-wider">Win Rate</div>
+      <div className="text-[10px] text-[#00d2ff] mt-8 uppercase tracking-wider">Win Rate</div>
     </div>
   );
 }
@@ -196,12 +196,12 @@ export default async function OptionsPerformancePage() {
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
 
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link href="/options" className="hover:text-white transition-colors">Options</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">Performance</span>
+          <span className="text-white">Performance</span>
         </nav>
 
         <div className="flex items-start justify-between flex-wrap gap-4 mb-8">
@@ -209,14 +209,14 @@ export default async function OptionsPerformancePage() {
             <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-1">
               Options Performance
             </h1>
-            <p className="text-[#64748b] text-sm">
+            <p className="text-[#00d2ff] text-sm">
               {summary
                 ? `${summary.total} tracked positions · updated ${new Date(outcomes!.updated_at).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })} ET`
                 : `${scanStats.totalPicks} picks from ${scanStats.totalScans} scans`}
             </p>
           </div>
           <div className="flex gap-3">
-            <Link href="/options/archive" className="px-4 py-2 bg-[#1e293b] border border-white/10 rounded-lg text-sm text-[#94a3b8] hover:text-white transition-colors">
+            <Link href="/options/archive" className="px-4 py-2 bg-[#1e293b] border border-white/10 rounded-lg text-sm text-white hover:text-white transition-colors">
               📅 Archive
             </Link>
             <Link href="/options" className="px-4 py-2 bg-[#1e293b] border border-[#3b82f6]/30 rounded-lg text-sm text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-colors">
@@ -260,11 +260,11 @@ export default async function OptionsPerformancePage() {
                 { label: "TP Hit",    val: summary!.tp_hit,     cls: "text-[#34d399]" },
                 { label: "SL Hit",    val: summary!.sl_hit,     cls: "text-[#f87171]" },
                 { label: "Time Stop", val: summary!.time_stop,  cls: "text-[#fbbf24]" },
-                { label: "Expired",   val: summary!.expired,    cls: "text-[#94a3b8]" },
+                { label: "Expired",   val: summary!.expired,    cls: "text-white" },
                 { label: "Total",     val: summary!.total,      cls: "text-white" },
               ].map((m) => (
                 <div key={m.label} className="glass-card p-3 text-center">
-                  <div className="text-[10px] text-[#64748b] uppercase mb-1">{m.label}</div>
+                  <div className="text-[10px] text-[#00d2ff] uppercase mb-1">{m.label}</div>
                   <div className={`font-black text-xl ${m.cls}`}>{m.val}</div>
                 </div>
               ))}
@@ -278,7 +278,7 @@ export default async function OptionsPerformancePage() {
                   {Object.entries(summary!.by_mode)
                     .sort((a, b) => (b[1].total ?? 0) - (a[1].total ?? 0))
                     .map(([mode, m]) => {
-                      const meta = MODE_META[mode] ?? { icon: "📊", label: mode, color: "text-[#94a3b8]", barColor: "bg-[#94a3b8]" };
+                      const meta = MODE_META[mode] ?? { icon: "📊", label: mode, color: "text-white", barColor: "bg-[#94a3b8]" };
                       const winRateVal = m.win_rate ?? 0;
                       return (
                         <div key={mode} className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-center">
@@ -287,7 +287,7 @@ export default async function OptionsPerformancePage() {
                               <span className={`text-sm font-semibold ${meta.color}`}>
                                 {meta.icon} {meta.label}
                               </span>
-                              <div className="flex items-center gap-4 text-xs text-[#64748b]">
+                              <div className="flex items-center gap-4 text-xs text-[#00d2ff]">
                                 <span>Win: <b className={winRateVal >= 50 ? "text-[#34d399]" : "text-[#f87171]"}>{m.win_rate != null ? m.win_rate + "%" : "—"}</b></span>
                                 <span>Avg P&L: <b className={pnlColor(m.avg_pnl)}>{fmtPct(m.avg_pnl)}</b></span>
                                 <span className="text-white font-bold">{m.total} trades</span>
@@ -311,7 +311,7 @@ export default async function OptionsPerformancePage() {
             <span className="text-2xl mt-0.5">⏳</span>
             <div>
               <div className="text-white font-bold mb-1">P&amp;L tracking active — no closed positions yet</div>
-              <div className="text-[#64748b] text-sm">
+              <div className="text-[#00d2ff] text-sm">
                 Positions are being tracked in real-time. P&amp;L stats will appear once trades hit TP, SL, or time stop.
                 The tracker updates automatically after each daily scan.
               </div>
@@ -324,13 +324,13 @@ export default async function OptionsPerformancePage() {
           <div className="mb-10">
             <h2 className="text-lg font-bold text-white mb-4">
               Open Positions
-              <span className="ml-2 text-[#64748b] text-sm font-normal">({openPositions.length})</span>
+              <span className="ml-2 text-[#00d2ff] text-sm font-normal">({openPositions.length})</span>
             </h2>
             <div className="glass-card overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-white/5 text-[#64748b] text-[10px] uppercase tracking-wider">
+                    <tr className="border-b border-white/5 text-[#00d2ff] text-[10px] uppercase tracking-wider">
                       <th className="py-3 px-3 text-left">Date</th>
                       <th className="py-3 px-3 text-left">Ticker</th>
                       <th className="py-3 px-3 text-left">Contract</th>
@@ -345,30 +345,30 @@ export default async function OptionsPerformancePage() {
                   </thead>
                   <tbody>
                     {openPositions.map((p) => {
-                      const meta = MODE_META[p.entry_mode] ?? { icon: "📊", label: p.entry_mode, color: "text-[#94a3b8]", barColor: "" };
+                      const meta = MODE_META[p.entry_mode] ?? { icon: "📊", label: p.entry_mode, color: "text-white", barColor: "" };
                       const unrlzd = p.unrealized_pnl_pct;
                       const daysLeft = p.time_stop_days != null && p.days_held != null
                         ? p.time_stop_days - p.days_held : null;
                       return (
                         <tr key={p.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                          <td className="py-3 px-3 text-[#64748b] text-xs font-mono">{p.scan_date}</td>
+                          <td className="py-3 px-3 text-[#00d2ff] text-xs font-mono">{p.scan_date}</td>
                           <td className="py-3 px-3">
                             <Link href={`/stock/${p.ticker}`}
                               className="text-white font-black hover:text-[#3b82f6] transition-colors">
                               {p.ticker}
                             </Link>
-                            <div className="text-[10px] text-[#64748b]">{p.strategy}</div>
+                            <div className="text-[10px] text-[#00d2ff]">{p.strategy}</div>
                           </td>
-                          <td className="py-3 px-3 font-mono text-xs text-[#94a3b8]">
+                          <td className="py-3 px-3 font-mono text-xs text-white">
                             ${p.strike?.toFixed(0)}C · {p.expiration}
                           </td>
-                          <td className="py-3 px-3 text-right font-mono text-[#94a3b8]">
+                          <td className="py-3 px-3 text-right font-mono text-white">
                             ${p.entry_premium?.toFixed(2) ?? "—"}
                           </td>
                           <td className="py-3 px-3 text-right font-mono">
                             {p.current_premium != null
                               ? <span className="text-white">${p.current_premium.toFixed(2)}</span>
-                              : <span className="text-[#64748b]">—</span>}
+                              : <span className="text-[#00d2ff]">—</span>}
                           </td>
                           <td className="py-3 px-3 text-right font-mono font-bold">
                             <span className={pnlColor(unrlzd)}>{fmtPct(unrlzd)}</span>
@@ -380,9 +380,9 @@ export default async function OptionsPerformancePage() {
                             ${p.sl_target?.toFixed(2) ?? "—"}
                           </td>
                           <td className="py-3 px-3 text-right text-xs">
-                            <span className={`text-[#94a3b8]`}>{p.days_held ?? 0}d</span>
+                            <span className={`text-white`}>{p.days_held ?? 0}d</span>
                             {daysLeft != null && (
-                              <span className={`ml-1 ${daysLeft <= 5 ? "text-[#fbbf24]" : "text-[#64748b]"}`}>
+                              <span className={`ml-1 ${daysLeft <= 5 ? "text-[#fbbf24]" : "text-[#00d2ff]"}`}>
                                 ({daysLeft}d left)
                               </span>
                             )}
@@ -415,13 +415,13 @@ export default async function OptionsPerformancePage() {
                         <Link href={`/stock/${p.ticker}`} className="text-white font-black hover:text-[#3b82f6]">
                           {p.ticker}
                         </Link>
-                        <div className="text-[10px] text-[#64748b]">
+                        <div className="text-[10px] text-[#00d2ff]">
                           ${p.strike?.toFixed(0)}C · {p.scan_date} · {p.exit_reason}
                         </div>
                       </div>
                       <div className="text-right">
                         <div className="text-[#34d399] font-black">{fmtPct(p.pnl_pct)}</div>
-                        <div className="text-[10px] text-[#64748b]">${p.entry_premium?.toFixed(2)} → ${p.exit_premium?.toFixed(2)}</div>
+                        <div className="text-[10px] text-[#00d2ff]">${p.entry_premium?.toFixed(2)} → ${p.exit_premium?.toFixed(2)}</div>
                       </div>
                     </div>
                   ))}
@@ -438,13 +438,13 @@ export default async function OptionsPerformancePage() {
                         <Link href={`/stock/${p.ticker}`} className="text-white font-black hover:text-[#3b82f6]">
                           {p.ticker}
                         </Link>
-                        <div className="text-[10px] text-[#64748b]">
+                        <div className="text-[10px] text-[#00d2ff]">
                           ${p.strike?.toFixed(0)}C · {p.scan_date} · {p.exit_reason}
                         </div>
                       </div>
                       <div className="text-right">
                         <div className="text-[#f87171] font-black">{fmtPct(p.pnl_pct)}</div>
-                        <div className="text-[10px] text-[#64748b]">${p.entry_premium?.toFixed(2)} → ${p.exit_premium?.toFixed(2)}</div>
+                        <div className="text-[10px] text-[#00d2ff]">${p.entry_premium?.toFixed(2)} → ${p.exit_premium?.toFixed(2)}</div>
                       </div>
                     </div>
                   ))}
@@ -457,7 +457,7 @@ export default async function OptionsPerformancePage() {
         {/* ── SECTION 4: Signal Quality Analytics ── */}
         <div className="mb-3">
           <h2 className="text-lg font-bold text-white">Signal Quality Analytics</h2>
-          <p className="text-[#64748b] text-xs mt-1">Entry mode frequency, IV environment, regime distribution across all {scanStats.totalPicks} picks</p>
+          <p className="text-[#00d2ff] text-xs mt-1">Entry mode frequency, IV environment, regime distribution across all {scanStats.totalPicks} picks</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
@@ -473,14 +473,14 @@ export default async function OptionsPerformancePage() {
             <h3 className="text-base font-bold text-white mb-5">Entry Mode Frequency</h3>
             <div className="space-y-4">
               {sortedModes.map(([mode, m]) => {
-                const meta = MODE_META[mode] ?? { icon: "📊", label: mode, color: "text-[#94a3b8]", barColor: "bg-[#94a3b8]" };
+                const meta = MODE_META[mode] ?? { icon: "📊", label: mode, color: "text-white", barColor: "bg-[#94a3b8]" };
                 const pct = scanStats.totalPicks > 0 ? ((m.count / scanStats.totalPicks) * 100).toFixed(0) : "0";
                 return (
                   <BarRow
                     key={mode}
                     label={<span className={`font-semibold ${meta.color}`}>{meta.icon} {meta.label}</span>}
                     value={m.count} max={maxModeCount} color={meta.barColor}
-                    right={<>{m.count} <span className="text-[#64748b]">({pct}%)</span> · avg score {m.avgScore}</>}
+                    right={<>{m.count} <span className="text-[#00d2ff]">({pct}%)</span> · avg score {m.avgScore}</>}
                   />
                 );
               })}
@@ -502,8 +502,8 @@ export default async function OptionsPerformancePage() {
                     value={row.val} max={scanStats.totalPicks} color={row.color}
                     right={row.val} />
                 ))}
-                <p className="text-[10px] text-[#64748b] pt-1">
-                  Avg IV Rank: <b className="text-[#94a3b8]">{scanStats.avgIVRank}</b> · Ideal buy zone: &lt;40
+                <p className="text-[10px] text-[#00d2ff] pt-1">
+                  Avg IV Rank: <b className="text-white">{scanStats.avgIVRank}</b> · Ideal buy zone: &lt;40
                 </p>
               </div>
             </div>
@@ -520,7 +520,7 @@ export default async function OptionsPerformancePage() {
                       <div className="h-full bg-[#3b82f6] rounded-full"
                         style={{ width: `${(count / maxTickerCount) * 100}%` }} />
                     </div>
-                    <div className="text-[#64748b] text-[10px] mt-1">{count}×</div>
+                    <div className="text-[#00d2ff] text-[10px] mt-1">{count}×</div>
                   </Link>
                 ))}
               </div>
@@ -529,8 +529,8 @@ export default async function OptionsPerformancePage() {
         </div>
 
         {/* Footer note */}
-        <div className="glass-card p-5 border-l-4 border-[#3b82f6] text-sm text-[#64748b]">
-          <b className="text-[#94a3b8]">P&amp;L Methodology:</b> Positions are opened at entry premium when the bot generates a pick.
+        <div className="glass-card p-5 border-l-4 border-[#3b82f6] text-sm text-[#00d2ff]">
+          <b className="text-white">P&amp;L Methodology:</b> Positions are opened at entry premium when the bot generates a pick.
           Status is updated by comparing current option mid-price vs TP/SL targets.
           <b className="text-white"> Time Stop</b> = DTE×0.65 days after entry.
           Prices fetched via yfinance · tracker runs automatically after each scan.

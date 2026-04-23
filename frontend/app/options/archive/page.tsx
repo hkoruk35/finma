@@ -29,12 +29,12 @@ export default async function OptionsArchivePage() {
       <Header />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link href="/options" className="hover:text-white transition-colors">Options</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">Archive</span>
+          <span className="text-white">Archive</span>
         </nav>
 
         <div className="flex items-center justify-between mb-8">
@@ -42,7 +42,7 @@ export default async function OptionsArchivePage() {
             <h1 className="text-3xl font-extrabold text-white tracking-tight mb-1">
               Options Archive
             </h1>
-            <p className="text-[#64748b] text-sm">{dates.length} scan{dates.length !== 1 ? "s" : ""} available</p>
+            <p className="text-[#00d2ff] text-sm">{dates.length} scan{dates.length !== 1 ? "s" : ""} available</p>
           </div>
           <Link
             href="/options"
@@ -56,7 +56,7 @@ export default async function OptionsArchivePage() {
           <div className="glass-card p-12 text-center">
             <div className="text-4xl mb-4">📅</div>
             <h2 className="text-lg font-bold text-white mb-2">No Archive Yet</h2>
-            <p className="text-[#64748b] text-sm">Historical data will appear here after the first scan.</p>
+            <p className="text-[#00d2ff] text-sm">Historical data will appear here after the first scan.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -68,7 +68,7 @@ export default async function OptionsArchivePage() {
               >
                 <div>
                   <div className="text-white font-bold">{formatDate(d)}</div>
-                  <div className="text-[#64748b] text-xs font-mono mt-0.5">{d}</div>
+                  <div className="text-[#00d2ff] text-xs font-mono mt-0.5">{d}</div>
                 </div>
                 <div className="flex items-center gap-2">
                   {i === 0 && (
@@ -76,7 +76,7 @@ export default async function OptionsArchivePage() {
                       LATEST
                     </span>
                   )}
-                  <span className="text-[#64748b]">→</span>
+                  <span className="text-[#00d2ff]">→</span>
                 </div>
               </Link>
             ))}

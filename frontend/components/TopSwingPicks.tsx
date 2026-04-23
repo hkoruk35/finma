@@ -116,7 +116,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
               </Link>
             )}
           </div>
-          <p className="text-[#94a3b8] text-sm mt-1">
+          <p className="text-white text-sm mt-1">
             {minimal ? "Automated institutional selections for today" : "Algorithmic high-conviction swing setups"}
           </p>
         </div>
@@ -148,7 +148,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   <div className={`${minimal ? 'text-xl' : 'text-2xl'} font-black text-white transition-colors tracking-tighter uppercase ${isLocked ? 'blur-[12px] opacity-40 select-none' : 'group-hover:text-[#3b82f6]'}`}>
                     {isLocked ? 'XXXX' : item.ticker}
                   </div>
-                  <div className={`text-[10px] font-bold text-[#64748b] tracking-wider mt-0.5 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
+                  <div className={`text-[10px] font-bold text-[#00d2ff] tracking-wider mt-0.5 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
                     {isLocked 
                       ? (isProPick ? 'PRO ONLY' : 'LOGIN')
                       : item.company}
@@ -178,7 +178,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
 
                 {/* AI Summary Box — always English */}
                 <div className={`bg-[#1e293b]/30 rounded-lg ${minimal ? 'p-2' : 'p-3'} border border-[#3b82f6]/10 mb-4`}>
-                  <p className={`${minimal ? 'text-[10px]' : 'text-[11px]'} text-[#94a3b8] leading-relaxed font-medium`}>
+                  <p className={`${minimal ? 'text-[10px]' : 'text-[11px]'} text-white leading-relaxed font-medium`}>
                     {(() => {
                       const raw = item.ai_summary?.homepage_summary?.en || item.reasoning;
                       const enText = sanitizeEn(raw);
@@ -215,7 +215,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                       <div key={row.label} className={`flex items-center justify-between px-3 py-2 ${i < arr.length - 1 ? 'border-b border-white/5' : ''}`}>
                         <div className="flex items-center gap-1.5">
                           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${row.dot}`} />
-                          <span className="text-[9px] text-[#475569] font-black uppercase tracking-wider">{row.label}</span>
+                          <span className="text-[9px] text-white font-black uppercase tracking-wider">{row.label}</span>
                         </div>
                         <span className={`text-[12px] font-mono font-bold ${row.color}`}>
                           {row.val}
@@ -238,10 +238,10 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                     <div className="mt-4 grid grid-cols-4 divide-x divide-[#1e2a3a] border border-[#1e2a3a] rounded-lg overflow-hidden">
                       {metrics.map((p, i) => (
                         <div key={i} className="flex flex-col items-center py-2 px-1">
-                          <span className={`text-[13px] font-mono font-black ${p.val != null && p.val >= 0 ? "text-[#10b981]" : p.val != null ? "text-[#ef4444]" : "text-[#64748b]"}`}>
+                          <span className={`text-[13px] font-mono font-black ${p.val != null && p.val >= 0 ? "text-[#10b981]" : p.val != null ? "text-[#ef4444]" : "text-[#00d2ff]"}`}>
                             {p.val != null ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
                           </span>
-                          <span className="text-[8px] text-[#475569] font-black mt-0.5 uppercase">{p.label}</span>
+                          <span className="text-[8px] text-white font-black mt-0.5 uppercase">{p.label}</span>
                         </div>
                       ))}
                     </div>
@@ -260,10 +260,10 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                         href={`/${l}/${cfg.slug}/${item.ticker.toLowerCase()}`}
                         className="flex flex-col items-center justify-center py-2 rounded-lg border border-[#1e2a3a] bg-[#0d1117] hover:bg-[#141924] hover:border-[#3b82f6]/40 transition-all group/lang shadow-sm"
                       >
-                        <span className="text-[7px] font-black text-[#334155] group-hover/lang:text-[#3b82f6] transition-colors leading-none mb-0.5 uppercase tracking-tighter">
+                        <span className="text-[7px] font-black text-white group-hover/lang:text-[#3b82f6] transition-colors leading-none mb-0.5 uppercase tracking-tighter">
                           {countryPart}
                         </span>
-                        <span className="text-[12px] font-black text-[#64748b] group-hover/lang:text-white transition-colors leading-none tracking-tight">
+                        <span className="text-[12px] font-black text-[#00d2ff] group-hover/lang:text-white transition-colors leading-none tracking-tight">
                           {langPart.toUpperCase()}
                         </span>
                       </Link>

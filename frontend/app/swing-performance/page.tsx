@@ -31,10 +31,10 @@ export default async function SwingPerformancePage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">System Performance</span>
+          <span className="text-white">System Performance</span>
         </nav>
 
         {/* Header Section */}
@@ -42,7 +42,7 @@ export default async function SwingPerformancePage() {
           <h1 className="text-2xl md:text-5xl font-extrabold text-white mb-4 whitespace-nowrap">
             Swing Engine Performance
           </h1>
-          <p className="text-[#94a3b8] text-lg leading-relaxed">
+          <p className="text-white text-lg leading-relaxed">
             Transparent and verifiable historical records of our algorithmic high-conviction swing setups. This log displays every signal the model has generated, emphasizing our commitment to real performance.
           </p>
         </header>

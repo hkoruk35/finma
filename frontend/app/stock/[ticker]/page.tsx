@@ -96,7 +96,7 @@ export default async function StockDetailPage({ params }: Props) {
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-5">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-5">
           <script type="application/ld+json" dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org", "@type": "BreadcrumbList",
@@ -110,7 +110,7 @@ export default async function StockDetailPage({ params }: Props) {
           <span>/</span>
           <Link href="/swing-picks" className="hover:text-white transition-colors">Top Picks</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">{stock.ticker}</span>
+          <span className="text-white">{stock.ticker}</span>
         </nav>
 
         {/* ── HERO: Ticker Header ── */}
@@ -124,7 +124,7 @@ export default async function StockDetailPage({ params }: Props) {
                     #{swing.rank} — BOGA AI Top Pick
                   </span>
                   {swing.holding_period && (
-                    <span className="text-[10px] text-[#64748b]">· {swing.holding_period} horizon</span>
+                    <span className="text-[10px] text-[#00d2ff]">· {swing.holding_period} horizon</span>
                   )}
                 </div>
               )}
@@ -137,9 +137,9 @@ export default async function StockDetailPage({ params }: Props) {
                 </span>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
-                <p className="text-base text-[#94a3b8] font-semibold">{stock.company}</p>
+                <p className="text-base text-white font-semibold">{stock.company}</p>
                 <span className="text-[#1e2a3a]">·</span>
-                <p className="text-sm text-[#64748b] font-medium uppercase tracking-wider">{stock.sector}</p>
+                <p className="text-sm text-[#00d2ff] font-medium uppercase tracking-wider">{stock.sector}</p>
                 {swing?.market_regime && (
                   <>
                     <span className="text-[#1e2a3a]">·</span>
@@ -164,7 +164,7 @@ export default async function StockDetailPage({ params }: Props) {
                     <span className="text-[10px] font-bold uppercase tracking-widest text-right">Today</span>
                   </div>
                 </div>
-                <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mt-1">Last Close Price</span>
+                <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mt-1">Last Close Price</span>
               </div>
               <MarketStatus />
             </div>
@@ -180,9 +180,9 @@ export default async function StockDetailPage({ params }: Props) {
             { label: "1Y", value: stock.price.change_pct_1y },
           ].map((p) => (
             <div key={p.label} className="px-3 py-3 md:px-5 flex flex-col gap-0.5">
-              <span className="text-[11px] font-bold text-[#64748b] uppercase tracking-widest">{p.label}</span>
+              <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-widest">{p.label}</span>
               <span className={`text-base md:text-lg font-mono font-black ${
-                p.value !== undefined && p.value !== null ? getChangeColor(p.value) : "text-[#64748b]"
+                p.value !== undefined && p.value !== null ? getChangeColor(p.value) : "text-[#00d2ff]"
               }`}>
                 {p.value !== undefined && p.value !== null
                   ? `${p.value >= 0 ? "+" : ""}${p.value.toFixed(2)}%`
@@ -211,14 +211,14 @@ export default async function StockDetailPage({ params }: Props) {
                     <span className="text-3xl font-black text-white font-mono leading-none">
                       {stock.scores.master_score.toFixed(0)}
                     </span>
-                    <span className="text-[10px] text-[#64748b] font-bold uppercase tracking-widest mt-1">Score</span>
+                    <span className="text-[10px] text-[#00d2ff] font-bold uppercase tracking-widest mt-1">Score</span>
                   </div>
                 </div>
                 <div className="text-center">
                   <p className={`text-base font-black uppercase tracking-tight ${sig.color}`}>{sig.icon} {sig.label}</p>
                   {swing?.boga_zones?.risk_reward && (
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 mt-2">
-                       <span className="text-[9px] text-[#64748b] font-black uppercase tracking-widest">R:R</span>
+                       <span className="text-[9px] text-[#00d2ff] font-black uppercase tracking-widest">R:R</span>
                        <span className="text-xs text-white font-bold">{swing.boga_zones.risk_reward}:1</span>
                     </div>
                   )}
@@ -232,19 +232,19 @@ export default async function StockDetailPage({ params }: Props) {
                   <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#94a3b8]/5 blur-2xl rounded-full" />
                   <div className="flex items-center gap-2 mb-4">
                     <div className="p-2 rounded-lg bg-[#94a3b8]/10">
-                      <svg className="w-4 h-4 text-[#94a3b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <path d="M12 2v20M2 12h20M7 7l10 10M7 17L17 7" strokeLinecap="round" />
                       </svg>
                     </div>
-                    <span className="text-[11px] font-black text-[#94a3b8] uppercase tracking-[0.15em]">Entry Zone</span>
+                    <span className="text-[11px] font-black text-white uppercase tracking-[0.15em]">Entry Zone</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-[#64748b] uppercase mb-1">Buy Range</span>
+                    <span className="text-[10px] font-bold text-[#00d2ff] uppercase mb-1">Buy Range</span>
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-black text-white font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.entry_range_low)}
                       </span>
-                      <span className="text-[#64748b] font-black">–</span>
+                      <span className="text-[#00d2ff] font-black">–</span>
                       <span className="text-2xl font-black text-white font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.entry_range_high)}
                       </span>
@@ -265,12 +265,12 @@ export default async function StockDetailPage({ params }: Props) {
                     <span className="text-[11px] font-black text-[#22c55e] uppercase tracking-[0.15em]">Profit Target</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-[#64748b] uppercase mb-1">Exit Range</span>
+                    <span className="text-[10px] font-bold text-[#00d2ff] uppercase mb-1">Exit Range</span>
                     <div className="flex items-baseline gap-2 text-[#22c55e]">
                       <span className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.target_range_low)}
                       </span>
-                      <span className="text-[#64748b] font-black">–</span>
+                      <span className="text-[#00d2ff] font-black">–</span>
                       <span className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.target_range_high)}
                       </span>
@@ -290,12 +290,12 @@ export default async function StockDetailPage({ params }: Props) {
                     <span className="text-[11px] font-black text-[#ef4444] uppercase tracking-[0.15em]">Stop Loss</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-[#64748b] uppercase mb-1">Safety Cut-off</span>
+                    <span className="text-[10px] font-bold text-[#00d2ff] uppercase mb-1">Safety Cut-off</span>
                     <div className="flex items-baseline gap-2 text-[#ef4444]">
                       <span className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.stop_range_low)}
                       </span>
-                      <span className="text-[#64748b] font-black">–</span>
+                      <span className="text-[#00d2ff] font-black">–</span>
                       <span className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.stop_range_high)}
                       </span>
@@ -322,30 +322,30 @@ export default async function StockDetailPage({ params }: Props) {
         {/* ── Trading Parameters (for non-swing-pick stocks) ── */}
         {!isSwingPick && (
           <div className="glass-card p-5 mb-4">
-            <h3 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-4 flex items-center gap-2">
+            <h3 className="text-[11px] font-black text-white uppercase tracking-widest mb-4 flex items-center gap-2">
               🎯 Trading Parameters
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
-                <p className="text-[9px] font-bold text-[#64748b] uppercase tracking-widest mb-1">Entry Zone</p>
+                <p className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Entry Zone</p>
                 <p className="font-mono font-black text-white text-sm">
                   ${formatPrice(stock.scores_detail.entry_range_low)} – ${formatPrice(stock.scores_detail.entry_range_high)}
                 </p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#22c55e]">
-                <p className="text-[9px] font-bold text-[#64748b] uppercase tracking-widest mb-1">Target</p>
+                <p className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Target</p>
                 <p className="font-mono font-black text-[#22c55e] text-sm">
                   ${formatPrice(stock.scores_detail.target_range_low)} – ${formatPrice(stock.scores_detail.target_range_high)}
                 </p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
-                <p className="text-[9px] font-bold text-[#64748b] uppercase tracking-widest mb-1">Stop Loss</p>
+                <p className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Stop Loss</p>
                 <p className="font-mono font-black text-[#ef4444] text-sm">
                   ${formatPrice(stock.scores_detail.stop_range_low)} – ${formatPrice(stock.scores_detail.stop_range_high)}
                 </p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#8b5cf6]">
-                <p className="text-[9px] font-bold text-[#64748b] uppercase tracking-widest mb-1">Risk / Reward</p>
+                <p className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Risk / Reward</p>
                 <p className="font-mono font-black text-[#8b5cf6] text-xl">{stock.scores_detail.risk_reward_ratio}:1</p>
               </div>
             </div>
@@ -354,17 +354,17 @@ export default async function StockDetailPage({ params }: Props) {
 
         {/* ── Sector Context ── */}
         <div className="glass-card p-5 mb-4">
-          <h3 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-3 flex items-center gap-2">
+          <h3 className="text-[11px] font-black text-white uppercase tracking-widest mb-3 flex items-center gap-2">
             🌍 Sector Context
           </h3>
           <div className="flex items-center justify-between p-4 bg-[#141924] rounded-xl border border-[#1e2a3a]">
             <div>
-              <p className="text-[10px] text-[#64748b] uppercase font-bold tracking-widest mb-1">Sector ETF</p>
+              <p className="text-[10px] text-[#00d2ff] uppercase font-bold tracking-widest mb-1">Sector ETF</p>
               <p className="text-lg font-black text-white">{stock.sector_context?.sector_etf ?? "—"}</p>
             </div>
             <div className="h-10 w-px bg-[#1e2a3a]" />
             <div className="text-right">
-              <p className="text-[10px] text-[#64748b] uppercase font-bold tracking-widest mb-1">5-Day Performance</p>
+              <p className="text-[10px] text-[#00d2ff] uppercase font-bold tracking-widest mb-1">5-Day Performance</p>
               <p className={`text-lg font-black ${(stock.sector_context?.sector_performance_5d ?? 0) >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                 {(stock.sector_context?.sector_performance_5d ?? 0) >= 0 ? "+" : ""}
                 {(stock.sector_context?.sector_performance_5d ?? 0).toFixed(2)}%
@@ -376,14 +376,14 @@ export default async function StockDetailPage({ params }: Props) {
         {/* ── News ── */}
         {stock.news && stock.news.length > 0 && (
           <div className="glass-card p-5 mb-4">
-            <h3 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-4">📰 Recent News</h3>
+            <h3 className="text-[11px] font-black text-white uppercase tracking-widest mb-4">📰 Recent News</h3>
             <div className="space-y-4">
               {stock.news.map((n, i) => (
                 <div key={i} className="flex flex-col md:flex-row md:items-center gap-3 group pb-4 border-b border-[#1e2a3a] last:border-0 last:pb-0">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[9px] font-black text-[#3b82f6] uppercase tracking-wider">{n.source}</span>
-                      <span className="text-[9px] text-[#64748b]">· {new Date(n.published).toLocaleDateString()}</span>
+                      <span className="text-[9px] text-[#00d2ff]">· {new Date(n.published).toLocaleDateString()}</span>
                     </div>
                     <a href={n.url} target="_blank" rel="noopener noreferrer"
                       className="text-sm font-semibold text-white group-hover:text-[#3b82f6] transition-colors line-clamp-2">
@@ -391,7 +391,7 @@ export default async function StockDetailPage({ params }: Props) {
                     </a>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase shrink-0 ${
-                    n.sentiment === "positive" ? "bg-[#22c55e]/10 text-[#22c55e]" : "bg-[#64748b]/10 text-[#94a3b8]"
+                    n.sentiment === "positive" ? "bg-[#22c55e]/10 text-[#22c55e]" : "bg-[#64748b]/10 text-white"
                   }`}>
                     {n.sentiment}
                   </span>
@@ -406,7 +406,7 @@ export default async function StockDetailPage({ params }: Props) {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h3 className="text-[11px] font-black text-white uppercase tracking-tight">Share This Analysis</h3>
-              <p className="text-xs text-[#64748b]">Help others discover this AI insight.</p>
+              <p className="text-xs text-[#00d2ff]">Help others discover this AI insight.</p>
             </div>
             <div className="flex-1 max-w-md">
               <SocialShare
@@ -422,7 +422,7 @@ export default async function StockDetailPage({ params }: Props) {
         {/* ── Previous Analyses Archive ── */}
         {archivedDates.length > 0 && (
           <div className="glass-card p-5 mb-4">
-            <h3 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-3">
+            <h3 className="text-[11px] font-black text-white uppercase tracking-widest mb-3">
               Previous Analyses · {stock.ticker}
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -430,7 +430,7 @@ export default async function StockDetailPage({ params }: Props) {
                 <Link
                   key={date}
                   href={`/en/analysis/${stock.ticker.toLowerCase()}/${date}`}
-                  className="px-3 py-1.5 rounded-lg border border-[#1e2a3a] text-xs font-semibold text-[#64748b] hover:text-white hover:border-[#f59e0b]/40 transition-all"
+                  className="px-3 py-1.5 rounded-lg border border-[#1e2a3a] text-xs font-semibold text-[#00d2ff] hover:text-white hover:border-[#f59e0b]/40 transition-all"
                 >
                   {date}
                 </Link>
@@ -442,7 +442,7 @@ export default async function StockDetailPage({ params }: Props) {
         {/* ── Related Stocks ── */}
         {allTickers.filter(s => s.sector === stock.sector && s.ticker !== stock.ticker).length > 0 && (
           <div className="mb-4">
-            <h3 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-3">
+            <h3 className="text-[11px] font-black text-white uppercase tracking-widest mb-3">
               Related in {stock.sector}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
@@ -455,8 +455,8 @@ export default async function StockDetailPage({ params }: Props) {
                     key={s.ticker}
                     className="glass-card p-3 hover:bg-[#1a2030] transition-all"
                   >
-                    <p className="text-[10px] font-bold text-[#64748b] uppercase mb-1">{s.ticker}</p>
-                    <p className="text-xs font-mono font-black text-[#64748b] truncate mb-1">{s.company}</p>
+                    <p className="text-[10px] font-bold text-[#00d2ff] uppercase mb-1">{s.ticker}</p>
+                    <p className="text-xs font-mono font-black text-[#00d2ff] truncate mb-1">{s.company}</p>
                     <p className={`text-sm font-mono font-black ${s.change_pct >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                       {s.change_pct >= 0 ? "+" : ""}{s.change_pct.toFixed(2)}%
                     </p>

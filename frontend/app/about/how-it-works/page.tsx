@@ -68,7 +68,7 @@ export default function HowItWorksPage() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         
         {/* Breadcrumb */}
-        <nav className="mb-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#64748b]">
+        <nav className="mb-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#00d2ff]">
           <Link href="/about" className="hover:text-[#3b82f6] transition-colors">About Us</Link>
           <span>/</span>
           <span className="text-white">AI Score Methodology</span>
@@ -79,7 +79,7 @@ export default function HowItWorksPage() {
           <h1 className="text-3xl md:text-5xl font-black text-white mb-6">
             How is BOGA AI Score <span className="text-[#3b82f6]">Calculated?</span>
           </h1>
-          <p className="text-lg text-[#94a3b8] leading-relaxed">
+          <p className="text-lg text-white leading-relaxed">
             Every trading day at 09:00 AM ET, BOGA AI processes thousands of data points from the US equity markets to generate a score between 0 and 100. This score is a mathematical synthesis of technical, fundamental, and sentiment data points.
           </p>
         </div>
@@ -92,7 +92,7 @@ export default function HowItWorksPage() {
                 {set.icon}
               </div>
               <h3 className="text-xl font-bold text-white mb-4">{set.title}</h3>
-              <p className="text-[#64748b] text-sm leading-relaxed">
+              <p className="text-[#00d2ff] text-sm leading-relaxed">
                 {set.description}
               </p>
             </div>
@@ -104,7 +104,7 @@ export default function HowItWorksPage() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#3b82f6]/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
           <h2 className="text-2xl font-bold text-white mb-6">Weighted Scoring Model</h2>
           <div className="space-y-8">
-            <p className="text-[#94a3b8] leading-relaxed">
+            <p className="text-white leading-relaxed">
               The BOGA AI Master Score is not built on a single data point. We use a dynamic weighting model to ensure signal accuracy:
             </p>
             
@@ -155,7 +155,7 @@ export default function HowItWorksPage() {
         {/* AI Interpretation */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-white mb-6">How AI Commentary is Generated</h2>
-          <div className="prose prose-invert max-w-none text-[#94a3b8] leading-relaxed space-y-4">
+          <div className="prose prose-invert max-w-none text-white leading-relaxed space-y-4">
             <p>
               Calculated scores and data points are passed to BOGA AI's proprietary financial language models (Gemini AI). The AI doesn't just look at numbers; it analyzes what those numbers mean in the current market context.
             </p>
@@ -168,7 +168,7 @@ export default function HowItWorksPage() {
         {/* CTA */}
         <div className="glass-card p-10 text-center">
           <h2 className="text-xl font-bold text-white mb-4">Discover the Power of Data</h2>
-          <p className="text-[#64748b] text-sm mb-8">Access daily AI-powered scores for the top 500 US stocks today.</p>
+          <p className="text-[#00d2ff] text-sm mb-8">Access daily AI-powered scores for the top 500 US stocks today.</p>
           <Link 
             href="/"
             className="px-8 py-3 bg-[#3b82f6] text-white rounded-xl font-bold hover:bg-[#2563eb] transition-all"

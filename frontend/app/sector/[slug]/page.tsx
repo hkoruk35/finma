@@ -86,10 +86,10 @@ export default async function SectorPage({ params }: Props) {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">{sectorName}</span>
+          <span className="text-white">{sectorName}</span>
         </nav>
 
         {/* Hero Section */}
@@ -103,18 +103,18 @@ export default async function SectorPage({ params }: Props) {
                   {etf}
                </span>
             </div>
-            <p className="text-[#94a3b8] text-lg max-w-2xl">
+            <p className="text-white text-lg max-w-2xl">
                In-depth analysis of the {stocks.length} top equities within the {sectorName} sector.
             </p>
           </div>
           
           <div className="flex gap-4">
              <div className="glass-card p-4 text-center min-w-[120px]">
-                <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-1">Sector Avg</p>
+                <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Sector Avg</p>
                 <p className="text-2xl font-mono font-bold text-white">{sectorStats.avg_score.toFixed(1)}</p>
              </div>
              <div className="glass-card p-4 text-center min-w-[120px]">
-                <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-1">Top Pick</p>
+                <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Top Pick</p>
                 <p className="text-2xl font-mono font-bold text-[#22c55e]">{sectorStats.top_ticker}</p>
              </div>
           </div>
@@ -123,7 +123,7 @@ export default async function SectorPage({ params }: Props) {
         {/* Sector Health / Market Indices Snippet */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
            <div className="lg:col-span-3 glass-card p-6">
-              <h3 className="text-sm font-bold text-[#94a3b8] uppercase tracking-widest mb-6">Sector Momentum Items</h3>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-6">Sector Momentum Items</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                  <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e]">
@@ -132,7 +132,7 @@ export default async function SectorPage({ params }: Props) {
                        </svg>
                     </div>
                     <div>
-                       <p className="text-xs text-[#64748b]">Outperforming</p>
+                       <p className="text-xs text-[#00d2ff]">Outperforming</p>
                        <p className="text-sm font-bold text-white">S&P 500 Index</p>
                     </div>
                  </div>
@@ -143,7 +143,7 @@ export default async function SectorPage({ params }: Props) {
                        </svg>
                     </div>
                     <div>
-                       <p className="text-xs text-[#64748b]">Median Volatility</p>
+                       <p className="text-xs text-[#00d2ff]">Median Volatility</p>
                        <p className="text-sm font-bold text-white">Normal Range</p>
                     </div>
                  </div>
@@ -154,14 +154,14 @@ export default async function SectorPage({ params }: Props) {
                        </svg>
                     </div>
                     <div>
-                       <p className="text-xs text-[#64748b]">Risk Status</p>
+                       <p className="text-xs text-[#00d2ff]">Risk Status</p>
                        <p className="text-sm font-bold text-white">Low Systematic Risk</p>
                     </div>
                  </div>
               </div>
            </div>
            {/* Ad Slot */}
-           <div className="glass-card flex items-center justify-center h-full min-h-[140px] text-[#64748b] text-sm">
+           <div className="glass-card flex items-center justify-center h-full min-h-[140px] text-[#00d2ff] text-sm">
               AD-S1 &middot; Sidebar
            </div>
         </div>
@@ -171,11 +171,11 @@ export default async function SectorPage({ params }: Props) {
            <table className="w-full text-left border-collapse">
               <thead>
                  <tr className="bg-[#141924] border-b border-[#1e2a3a]">
-                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Ticker</th>
-                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Change (%)</th>
-                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">BOGA AI Score</th>
-                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase">Rating</th>
-                    <th className="px-6 py-4 text-xs font-bold text-[#64748b] uppercase text-right">Action</th>
+                    <th className="px-6 py-4 text-xs font-bold text-[#00d2ff] uppercase">Ticker</th>
+                    <th className="px-6 py-4 text-xs font-bold text-[#00d2ff] uppercase">Change (%)</th>
+                    <th className="px-6 py-4 text-xs font-bold text-[#00d2ff] uppercase">BOGA AI Score</th>
+                    <th className="px-6 py-4 text-xs font-bold text-[#00d2ff] uppercase">Rating</th>
+                    <th className="px-6 py-4 text-xs font-bold text-[#00d2ff] uppercase text-right">Action</th>
                  </tr>
               </thead>
               <tbody className="divide-y divide-[#1e2a3a]">
@@ -184,7 +184,7 @@ export default async function SectorPage({ params }: Props) {
                        <td className="px-6 py-4">
                           <div className="flex flex-col">
                              <span className="text-sm font-bold text-white group-hover:text-[#3b82f6] transition-colors">{stock.ticker}</span>
-                             <span className="text-[10px] text-[#64748b] truncate max-w-[200px]">{stock.company}</span>
+                             <span className="text-[10px] text-[#00d2ff] truncate max-w-[200px]">{stock.company}</span>
                           </div>
                        </td>
                        <td className="px-6 py-4">

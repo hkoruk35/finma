@@ -9,7 +9,7 @@ export default function TermsPage() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Terms of Service</h1>
         
-        <div className="glass-card p-8 space-y-6 text-[#94a3b8] leading-relaxed">
+        <div className="glass-card p-8 space-y-6 text-white leading-relaxed">
           <section>
             <h2 className="text-xl font-bold text-white mb-3">1. Acceptance of Terms</h2>
             <p>

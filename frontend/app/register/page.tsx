@@ -26,7 +26,7 @@ export default function RegisterPage() {
                 </svg>
               </div>
               <h1 className="text-3xl font-black text-white mb-3 tracking-tight">Free Registration</h1>
-              <p className="text-[#94a3b8] leading-relaxed">
+              <p className="text-white leading-relaxed">
                 Join 1,000+ traders. One-click registration with Google to access exclusive member features.
               </p>
             </div>
@@ -57,7 +57,7 @@ export default function RegisterPage() {
             </button>
 
             <div className="mt-8 pt-8 border-t border-[#1e2a3a] text-center">
-              <p className="text-sm text-[#64748b]">
+              <p className="text-sm text-[#00d2ff]">
                 Already have an account?{" "}
                 <Link href="/login" className="font-bold text-white hover:text-[#3b82f6] transition-colors">
                   Sign in

@@ -31,7 +31,7 @@ export default async function WatchlistPage() {
         <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
            <div>
               <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Your Smart Watchlist</h1>
-              <p className="text-[#94a3b8] text-lg max-w-2xl leading-relaxed">
+              <p className="text-white text-lg max-w-2xl leading-relaxed">
                  Tracking {stocks.length} of 10 available slots. Monitor today's scores for your selected equities.
               </p>
            </div>
@@ -63,13 +63,13 @@ export default async function WatchlistPage() {
                    </div>
                    <div>
                       <h3 className="font-bold text-white group-hover:text-[#3b82f6] transition-colors">{stock!.ticker}</h3>
-                      <p className="text-[10px] text-[#64748b] uppercase tracking-wider">{stock!.sector}</p>
+                      <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider">{stock!.sector}</p>
                    </div>
                 </div>
 
                 <div className="flex justify-between items-end mb-6">
                    <div>
-                      <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">Current Price</p>
+                      <p className="text-[10px] text-[#00d2ff] uppercase tracking-widest mb-1">Current Price</p>
                       <p className="text-2xl font-mono font-bold text-white">${formatPrice(stock!.price)}</p>
                    </div>
                    <div className="text-right">
@@ -81,13 +81,13 @@ export default async function WatchlistPage() {
 
                 <div className="space-y-4 mb-6 pt-6 border-t border-[#1e2a3a]">
                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-[#64748b]">Score Type</span>
+                      <span className="text-[#00d2ff]">Score Type</span>
                       <span className={`font-bold ${getScoreBadgeClass(stock!.score_type)} px-2 py-0.5 rounded`}>
                          {stock!.score_type.replace("_", " ")}
                       </span>
                    </div>
                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-[#64748b]">BOGA AI Score</span>
+                      <span className="text-[#00d2ff]">BOGA AI Score</span>
                       <span className="font-mono font-bold text-white">{stock!.master_score.toFixed(1)}</span>
                    </div>
                 </div>
@@ -109,7 +109,7 @@ export default async function WatchlistPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                      </svg>
                   </div>
-                  <p className="text-sm font-bold text-[#64748b] group-hover:text-white transition-colors">Add Ticker</p>
+                  <p className="text-sm font-bold text-[#00d2ff] group-hover:text-white transition-colors">Add Ticker</p>
                   <p className="text-[10px] text-[#2c3e50] mt-1 uppercase tracking-widest">{10 - stocks.length} slots left</p>
                </div>
             )}

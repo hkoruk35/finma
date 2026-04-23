@@ -58,7 +58,7 @@ export default function AdminMessages() {
       <div className="mb-8 flex justify-between items-end">
          <div>
             <h1 className="text-2xl font-black text-white mb-2">Message Inbox</h1>
-            <p className="text-sm text-[#64748b]">Manage contact form submissions and professional inquiries.</p>
+            <p className="text-sm text-[#00d2ff]">Manage contact form submissions and professional inquiries.</p>
          </div>
          <div className="bg-[#3b82f6]/10 px-4 py-2 rounded-xl border border-[#3b82f6]/20">
             <span className="text-xs font-bold text-[#3b82f6] uppercase tracking-widest">{unreadCount} UNREAD</span>
@@ -78,11 +78,11 @@ export default function AdminMessages() {
                <button 
                   key={i} 
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                     cat.active ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/10' : 'bg-[#141924] text-[#94a3b8] border border-[#1e2a3a] hover:bg-[#1a2030] hover:text-white'
+                     cat.active ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/10' : 'bg-[#141924] text-white border border-[#1e2a3a] hover:bg-[#1a2030] hover:text-white'
                    }`}
                >
                   {cat.label}
-                  <span className={`text-[10px] font-bold ${cat.active ? 'text-[#e0e7ff]' : 'text-[#64748b]'}`}>({cat.count})</span>
+                  <span className={`text-[10px] font-bold ${cat.active ? 'text-[#e0e7ff]' : 'text-[#00d2ff]'}`}>({cat.count})</span>
                </button>
             ))}
          </div>
@@ -90,9 +90,9 @@ export default function AdminMessages() {
          {/* Message Feed */}
          <div className="lg:col-span-3 space-y-4">
             {loading ? (
-              <p className="text-[#94a3b8]">Loading messages...</p>
+              <p className="text-white">Loading messages...</p>
             ) : messages.length === 0 ? (
-              <div className="glass-card p-12 text-center text-[#64748b]">
+              <div className="glass-card p-12 text-center text-[#00d2ff]">
                  No messages in your inbox.
               </div>
             ) : (
@@ -104,13 +104,13 @@ export default function AdminMessages() {
                 >
                    <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                         <span className={`text-sm font-bold ${msg.isRead ? 'text-[#94a3b8]' : 'text-white'}`}>{msg.name}</span>
+                         <span className={`text-sm font-bold ${msg.isRead ? 'text-white' : 'text-white'}`}>{msg.name}</span>
                          <span className="text-[10px] text-[#3b82f6] font-mono">({msg.email})</span>
                       </div>
-                      <span className="text-[10px] text-[#64748b] font-mono">{new Date(msg.date).toLocaleString()}</span>
+                      <span className="text-[10px] text-[#00d2ff] font-mono">{new Date(msg.date).toLocaleString()}</span>
                    </div>
                    <div className="flex justify-between items-start mb-4">
-                      <h4 className={`text-sm font-bold ${msg.isRead ? 'text-[#64748b]' : 'text-white'}`}>{msg.subject}</h4>
+                      <h4 className={`text-sm font-bold ${msg.isRead ? 'text-[#00d2ff]' : 'text-white'}`}>{msg.subject}</h4>
                       <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                          <a 
                            href={`mailto:${msg.email}?subject=Re: ${msg.subject}`}
@@ -133,7 +133,7 @@ export default function AdminMessages() {
                          </button>
                       </div>
                    </div>
-                   <p className={`text-xs leading-relaxed ${msg.isRead ? 'text-[#64748b]' : 'text-[#94a3b8]'}`}>
+                   <p className={`text-xs leading-relaxed ${msg.isRead ? 'text-[#00d2ff]' : 'text-white'}`}>
                       {msg.message}
                    </p>
                 </div>

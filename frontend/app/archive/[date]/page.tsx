@@ -48,7 +48,7 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
             </svg>
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">No Data for {date}</h1>
-          <p className="text-[#94a3b8] mb-8 text-center max-w-sm">
+          <p className="text-white mb-8 text-center max-w-sm">
             We couldn't find any archived market data for this specific trading day. 
             The system may have been offline or data was not preserved.
           </p>
@@ -95,7 +95,7 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
 
         {/* Hero */}
         <section className="text-center mb-8 animate-fade-in">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-[#94a3b8] mb-3">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
             BOGA AI Analysis Archive
             <span className="block text-white mt-2">{date}</span>
           </h1>
@@ -122,7 +122,7 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
         </section>
 
         {/* Disclaimer */}
-        <div className="glass-card p-6 text-center text-[#64748b] text-xs leading-relaxed max-w-3xl mx-auto mb-12">
+        <div className="glass-card p-6 text-center text-[#00d2ff] text-xs leading-relaxed max-w-3xl mx-auto mb-12">
            This page displays historical data and analysis as it appeared on {date}. 
            Financial conditions and stock prices have likely changed since this snapshot. 
            Always verify current data before making trading decisions.

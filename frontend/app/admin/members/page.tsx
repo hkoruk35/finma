@@ -4,7 +4,7 @@ export default function AdminMembers() {
       <div className="mb-8 flex items-center justify-between">
          <div>
             <h1 className="text-2xl font-black text-white mb-2">Member Management</h1>
-            <p className="text-sm text-[#64748b]">View, filter, and manage registered BOGA AI members.</p>
+            <p className="text-sm text-[#00d2ff]">View, filter, and manage registered BOGA AI members.</p>
          </div>
          <button className="px-6 py-3 bg-[#141924] border border-[#1e2a3a] text-white rounded-xl text-sm font-bold hover:bg-[#1a2030] transition-all flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -23,22 +23,22 @@ export default function AdminMembers() {
                   placeholder="Search by email..."
                   className="bg-[#0a0e17] border border-[#1e2a3a] rounded-lg px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#3b82f6] w-64"
                />
-               <select className="bg-[#0a0e17] border border-[#1e2a3a] rounded-lg px-4 py-1.5 text-xs text-[#94a3b8] focus:outline-none focus:border-[#3b82f6]">
+               <select className="bg-[#0a0e17] border border-[#1e2a3a] rounded-lg px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#3b82f6]">
                   <option>All Tiers</option>
                   <option>Free Members</option>
                   <option>Admin</option>
                </select>
             </div>
-            <span className="text-[10px] text-[#64748b] uppercase tracking-widest font-bold">1,284 Total Members</span>
+            <span className="text-[10px] text-[#00d2ff] uppercase tracking-widest font-bold">1,284 Total Members</span>
          </div>
          <table className="w-full text-left border-collapse">
             <thead>
                <tr className="bg-[#141924]/10 border-b border-[#1e2a3a]">
-                  <th className="px-6 py-4 text-[10px] font-bold text-[#64748b] uppercase">Email / User</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-[#64748b] uppercase">Joined Date</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-[#64748b] uppercase">Watchlist</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-[#64748b] uppercase">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-[#64748b] uppercase text-right">Actions</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-[#00d2ff] uppercase">Email / User</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-[#00d2ff] uppercase">Joined Date</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-[#00d2ff] uppercase">Watchlist</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-[#00d2ff] uppercase">Status</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-[#00d2ff] uppercase text-right">Actions</th>
                </tr>
             </thead>
             <tbody className="divide-y divide-[#1e2a3a]">
@@ -52,13 +52,13 @@ export default function AdminMembers() {
                      <td className="px-6 py-4">
                         <span className="text-sm font-medium text-white">{user.email}</span>
                      </td>
-                     <td className="px-6 py-4 text-xs text-[#94a3b8] font-mono">{user.date}</td>
+                     <td className="px-6 py-4 text-xs text-white font-mono">{user.date}</td>
                      <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
                            <div className="w-20 h-1 bg-[#0a0e17] rounded-full">
                               <div className="h-full bg-[#3b82f6] rounded-full" style={{ width: `${(user.watchlist / 10) * 100}%` }}></div>
                            </div>
-                           <span className="text-[10px] font-bold text-[#64748b]">{user.watchlist}/10</span>
+                           <span className="text-[10px] font-bold text-[#00d2ff]">{user.watchlist}/10</span>
                         </div>
                      </td>
                      <td className="px-6 py-4">

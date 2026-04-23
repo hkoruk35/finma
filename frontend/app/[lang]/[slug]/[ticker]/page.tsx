@@ -146,10 +146,10 @@ export default async function LangAnalysisPage({ params }: Props) {
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-5 flex-wrap">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-5 flex-wrap">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">{LANG_CONFIG[langCode].name}</span>
+          <span className="text-white">{LANG_CONFIG[langCode].name}</span>
           <span>/</span>
           <span className="text-white font-bold">{pick.ticker}</span>
         </nav>
@@ -163,7 +163,7 @@ export default async function LangAnalysisPage({ params }: Props) {
               className={`px-2.5 py-1 rounded-lg text-[11px] font-black flex items-center gap-1 border transition-all ${
                 l === lang
                   ? "bg-[#3b82f6] border-[#3b82f6] text-white"
-                  : "border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5"
+                  : "border-[#1e2a3a] text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/40 hover:bg-white/5"
               }`}
             >
               <span>{cfg.flag}</span>
@@ -182,8 +182,8 @@ export default async function LangAnalysisPage({ params }: Props) {
               {pick.market_regime}
             </span>
           </div>
-          <p className="text-base text-[#94a3b8] font-semibold">{pick.company}</p>
-          <p className="text-xs text-[#64748b] mt-1">{labels.basedOn} · {dateStr}</p>
+          <p className="text-base text-white font-semibold">{pick.company}</p>
+          <p className="text-xs text-[#00d2ff] mt-1">{labels.basedOn} · {dateStr}</p>
         </div>
 
         {/* Quick Summary */}
@@ -204,21 +204,21 @@ export default async function LangAnalysisPage({ params }: Props) {
                 <span className="text-2xl font-black text-white font-mono">
                   {Math.round(pick.score)}
                 </span>
-                <span className="text-[8px] text-[#64748b] uppercase tracking-widest">/ 100</span>
+                <span className="text-[8px] text-[#00d2ff] uppercase tracking-widest">/ 100</span>
               </div>
               <div>
-                <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">
+                <p className="text-[10px] text-[#00d2ff] uppercase tracking-widest mb-1">
                   BOGA AI {labels.score}
                 </p>
                 <p className="text-sm font-black text-white">{pick.market_regime}</p>
                 {pick.holding_period && (
-                  <p className="text-xs text-[#64748b] mt-0.5">
+                  <p className="text-xs text-[#00d2ff] mt-0.5">
                     {labels.holdingPeriod}:{" "}
-                    <span className="text-[#94a3b8] font-bold">{pick.holding_period}</span>
+                    <span className="text-white font-bold">{pick.holding_period}</span>
                   </p>
                 )}
                 {pick.boga_zones?.risk_reward && (
-                  <p className="text-xs text-[#64748b] mt-0.5">
+                  <p className="text-xs text-[#00d2ff] mt-0.5">
                     {labels.rr}:{" "}
                     <span className="text-white font-bold">{pick.boga_zones.risk_reward}:1</span>
                   </p>
@@ -229,7 +229,7 @@ export default async function LangAnalysisPage({ params }: Props) {
             {/* Zones */}
             <div className="flex-1 grid grid-cols-3 gap-3">
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
-                <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">
+                <p className="text-[9px] font-black text-[#00d2ff] uppercase tracking-widest mb-1">
                   {labels.entry}
                 </p>
                 <p className="font-mono font-black text-white text-sm">
@@ -240,7 +240,7 @@ export default async function LangAnalysisPage({ params }: Props) {
                 </p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#22c55e]">
-                <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">
+                <p className="text-[9px] font-black text-[#00d2ff] uppercase tracking-widest mb-1">
                   {labels.target}
                 </p>
                 <p className="font-mono font-black text-[#22c55e] text-sm">
@@ -251,7 +251,7 @@ export default async function LangAnalysisPage({ params }: Props) {
                 </p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
-                <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">
+                <p className="text-[9px] font-black text-[#00d2ff] uppercase tracking-widest mb-1">
                   {labels.stop}
                 </p>
                 <p className="font-mono font-black text-[#ef4444] text-sm">
@@ -281,7 +281,7 @@ export default async function LangAnalysisPage({ params }: Props) {
 
         {/* SEO Index - Multi-language navigation */}
         <div className="glass-card p-6 mb-5">
-           <h3 className="text-[10px] font-black text-[#64748b] uppercase tracking-[0.2em] mb-4">Discover {pick.ticker} Analysis in Other Languages</h3>
+           <h3 className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em] mb-4">Discover {pick.ticker} Analysis in Other Languages</h3>
            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
               {Object.entries(LANG_CONFIG).map(([l, cfg]) => (
                 <Link 
@@ -293,7 +293,7 @@ export default async function LangAnalysisPage({ params }: Props) {
                       <span>{cfg.flag}</span>
                       <span className="text-[10px] font-black text-white uppercase">{l}</span>
                    </div>
-                   <p className="text-[9px] text-[#64748b] group-hover:text-blue-400 truncate font-semibold">
+                   <p className="text-[9px] text-[#00d2ff] group-hover:text-blue-400 truncate font-semibold">
                       {pick.ticker} {cfg.name}
                    </p>
                 </Link>
@@ -303,7 +303,7 @@ export default async function LangAnalysisPage({ params }: Props) {
 
         {/* Link to full interactive page */}
         <div className="glass-card p-4 mb-5 flex items-center justify-between gap-4">
-          <p className="text-xs text-[#64748b]">
+          <p className="text-xs text-[#00d2ff]">
             {langCode === "tr" ? "Tüm teknik ve temel veriler için:" :
              langCode === "es" ? "Para todos los datos técnicos y fundamentales:" :
              langCode === "pt" ? "Para todos os dados técnicos e fundamentais:" :
@@ -322,7 +322,7 @@ export default async function LangAnalysisPage({ params }: Props) {
         {/* Previous Analyses Archive */}
         {archivedDates.length > 0 && (
           <div className="glass-card p-5">
-            <h2 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-4">
+            <h2 className="text-[11px] font-black text-white uppercase tracking-widest mb-4">
               {labels.prevAnalyses} · {pick.ticker}
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -330,7 +330,7 @@ export default async function LangAnalysisPage({ params }: Props) {
                 <Link
                   key={date}
                   href={`/${lang}/${slug}/${ticker}/${date}`}
-                  className="px-3 py-1.5 rounded-lg border border-[#1e2a3a] text-xs font-semibold text-[#64748b] hover:text-white hover:border-[#3b82f6]/40 transition-all"
+                  className="px-3 py-1.5 rounded-lg border border-[#1e2a3a] text-xs font-semibold text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/40 transition-all"
                 >
                   {date}
                 </Link>

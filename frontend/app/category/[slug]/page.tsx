@@ -97,10 +97,10 @@ export default async function CategoryPage({ params }: Props) {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">{category.label}</span>
+          <span className="text-white">{category.label}</span>
         </nav>
 
         {/* Hero Section */}
@@ -108,7 +108,7 @@ export default async function CategoryPage({ params }: Props) {
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
             {category.label}
           </h1>
-          <p className="text-[#94a3b8] text-lg max-w-3xl leading-relaxed">
+          <p className="text-white text-lg max-w-3xl leading-relaxed">
             {category.description}
           </p>
         </header>
@@ -116,17 +116,17 @@ export default async function CategoryPage({ params }: Props) {
         {/* Stats Strip */}
         <div className="flex gap-6 mb-8 pb-8 border-b border-[#1e2a3a]">
           <div>
-             <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-1">Total Found</p>
+             <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Total Found</p>
              <p className="text-2xl font-mono font-bold text-white">{stocks.length}</p>
           </div>
           <div className="border-l border-[#1e2a3a] pl-6">
-             <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-1">Average Score</p>
+             <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Average Score</p>
              <p className="text-2xl font-mono font-bold text-[#3b82f6]">
                 {(stocks.reduce((acc, s) => acc + s!.master_score, 0) / (stocks.length || 1)).toFixed(1)}
              </p>
           </div>
           <div className="border-l border-[#1e2a3a] pl-6">
-             <p className="text-[10px] text-[#64748b] uppercase tracking-wider mb-1">Last Updated</p>
+             <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Last Updated</p>
              <p className="text-2xl font-mono font-bold text-white">
                {new Date(master.generated_at).toLocaleString("en-US", {
                  timeZone: "America/New_York",
@@ -143,7 +143,7 @@ export default async function CategoryPage({ params }: Props) {
           {/* Side Tabs / Category Menu */}
           <aside className="lg:w-64 shrink-0">
             <div className="sticky top-24 glass-card p-4 flex flex-col gap-2">
-              <h3 className="text-[10px] text-[#64748b] font-black uppercase tracking-widest pl-2 mb-2">Categories</h3>
+              <h3 className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest pl-2 mb-2">Categories</h3>
               {Object.values(CATEGORY_MAP).map((c) => (
                 <Link
                   key={c.key}
@@ -151,7 +151,7 @@ export default async function CategoryPage({ params }: Props) {
                   className={`px-4 py-3 rounded-lg text-sm font-bold transition-all uppercase tracking-widest ${
                     c.key === category.key 
                       ? "bg-[#3b82f6]/20 text-[#3b82f6] border border-[#3b82f6]/30" 
-                      : "text-[#94a3b8] hover:bg-[#1e2a3a] hover:text-white"
+                      : "text-white hover:bg-[#1e2a3a] hover:text-white"
                   }`}
                 >
                   {c.label}
@@ -168,11 +168,11 @@ export default async function CategoryPage({ params }: Props) {
                   <button className="px-3 py-1.5 rounded-lg bg-[#1e2a3a] text-white text-xs font-semibold border border-[#3b82f6]/30">
                      Highest Score
                   </button>
-                  <button className="px-3 py-1.5 rounded-lg bg-[#141924] text-[#94a3b8] text-xs font-semibold border border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white transition-all">
+                  <button className="px-3 py-1.5 rounded-lg bg-[#141924] text-white text-xs font-semibold border border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white transition-all">
                      Biggest Gainers
                   </button>
                </div>
-               <div className="text-xs text-[#64748b]">
+               <div className="text-xs text-[#00d2ff]">
                   Showing {stocks.length} equities
                </div>
             </div>
@@ -190,7 +190,7 @@ export default async function CategoryPage({ params }: Props) {
                   <h3 className="text-xl font-bold text-white group-hover:text-[#3b82f6] transition-colors">
                     {stock!.ticker}
                   </h3>
-                  <p className="text-xs text-[#64748b] truncate max-w-[150px]">{stock!.company}</p>
+                  <p className="text-xs text-[#00d2ff] truncate max-w-[150px]">{stock!.company}</p>
                 </div>
                 <span className={`px-2 py-1 rounded text-[10px] font-bold ${getScoreBadgeClass(stock!.score_type)}`}>
                   {stock!.score_type.replace("_", " ")}
@@ -203,13 +203,13 @@ export default async function CategoryPage({ params }: Props) {
                   <div className="text-3xl font-mono font-black text-[#3b82f6]">
                     {stock!.master_score.toFixed(1)}
                   </div>
-                  <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">BOGA AI Score</div>
+                  <div className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest leading-none">BOGA AI Score</div>
                 </div>
                 <div className="text-right">
                   <div className={`text-2xl font-mono font-black ${getChangeColor(stock!.change_pct)}`}>
                     {stock!.change_pct >= 0 ? "+" : ""}{stock!.change_pct.toFixed(2)}%
                   </div>
-                  <div className="text-[9px] text-[#64748b] font-bold uppercase tracking-widest leading-none">Change</div>
+                  <div className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest leading-none">Change</div>
                 </div>
               </div>
 
@@ -228,12 +228,12 @@ export default async function CategoryPage({ params }: Props) {
 
         {stocks.length === 0 && (
           <div className="text-center py-20">
-             <p className="text-[#64748b]">No stocks currently meet the criteria for this category.</p>
+             <p className="text-[#00d2ff]">No stocks currently meet the criteria for this category.</p>
           </div>
         )}
 
         {/* Ad Slot */}
-        <div className="mt-16 glass-card flex items-center justify-center h-24 text-[#64748b] text-sm">
+        <div className="mt-16 glass-card flex items-center justify-center h-24 text-[#00d2ff] text-sm">
           AD-C1 &middot; 728&times;90 Leaderboard
         </div>
         </div>

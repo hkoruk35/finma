@@ -62,13 +62,13 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
             <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic">
               Sector Heat Map
             </h2>
-            <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase">
+            <p className="text-xs text-white font-bold tracking-widest uppercase">
               Real-time Market Distribution &middot; {activeSectors.length} Sectors · Top 12 per Sector
             </p>
           </div>
         </div>
         
-        <div className="hidden sm:flex gap-4 text-[10px] font-bold text-[#64748b]">
+        <div className="hidden sm:flex gap-4 text-[10px] font-bold text-[#00d2ff]">
            <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded bg-green-500"></div> BULLISH
            </div>
@@ -137,7 +137,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                 href={`/sector/${slugify(sector)}`}
                 className="py-1.5 px-3 bg-[#141924]/50 hover:bg-[#141924] text-center transition-colors border-t border-[#1e2a3a]"
               >
-                 <span className="text-[9px] font-black text-[#94a3b8] uppercase tracking-[0.15em] group-hover:text-[#3b82f6] transition-colors">
+                 <span className="text-[9px] font-black text-white uppercase tracking-[0.15em] group-hover:text-[#3b82f6] transition-colors">
                     Explore All {sectorGroups[sector].length} Tickers →
                  </span>
               </Link>

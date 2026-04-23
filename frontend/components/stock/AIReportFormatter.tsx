@@ -36,14 +36,14 @@ export default function AIReportFormatter({ content }: { content: string }) {
           return (
             <div key={i} className="flex gap-3 pl-2">
               <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] mt-2.5 shrink-0" />
-              <p className="text-[#94a3b8] text-base md:text-lg">{renderBold(text)}</p>
+              <p className="text-white text-base md:text-lg">{renderBold(text)}</p>
             </div>
           );
         }
         // Normal paragraphs
         if (line.trim().length > 0) {
           return (
-            <p key={i} className="text-[#94a3b8] leading-[1.8] text-base md:text-xl font-medium">
+            <p key={i} className="text-white leading-[1.8] text-base md:text-xl font-medium">
               {renderBold(line)}
             </p>
           );

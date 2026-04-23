@@ -964,26 +964,78 @@ def generate_rule_based_summary(stock: Dict) -> str:
     # Count bullish signals
     bull_count = sum([rsi_up, macd_up, vol_up, trend_up])
 
+    import random
+    
     if rsi >= 70 and macd_up:
-        return f"{ticker} is in overbought territory with RSI at {rsi:.0f}, but strong MACD momentum suggests the trend may continue higher with elevated volume."
+        templates = [
+            f"{ticker} is in overbought territory with RSI at {rsi:.0f}, but strong MACD momentum suggests the trend may continue higher with elevated volume.",
+            f"Despite an elevated RSI of {rsi:.0f}, {ticker} shows robust MACD momentum, hinting at further upside potential if volume persists.",
+            f"Momentum for {ticker} remains intense. RSI is stretched at {rsi:.0f}, but a rising MACD indicates buyers are still in control."
+        ]
+        return random.choice(templates)
     elif rsi <= 30 and not macd_up:
-        return f"{ticker} is deeply oversold (RSI {rsi:.0f}) with bearish MACD, signaling potential capitulation — watch for a reversal setup near current levels."
+        templates = [
+            f"{ticker} is deeply oversold (RSI {rsi:.0f}) with bearish MACD, signaling potential capitulation — watch for a reversal setup near current levels.",
+            f"Heavy selling pressure has pushed {ticker}'s RSI to {rsi:.0f}. With MACD still bearish, wait for capitulation before considering entry.",
+            f"Extremely oversold conditions (RSI {rsi:.0f}) for {ticker}. A bearish MACD warns of weakness, but a technical bounce may be nearing."
+        ]
+        return random.choice(templates)
     elif rsi <= 35:
-        return f"{ticker} shows oversold RSI ({rsi:.0f}) with weakening momentum; a bounce setup is forming if volume supports the move."
+        templates = [
+            f"{ticker} shows oversold RSI ({rsi:.0f}) with weakening momentum; a bounce setup is forming if volume supports the move.",
+            f"Approaching oversold levels, {ticker} (RSI {rsi:.0f}) could offer a reversal opportunity if buying volume steps in.",
+            f"Momentum is sluggish for {ticker}, but a low RSI of {rsi:.0f} suggests downside risk may be limited near these levels."
+        ]
+        return random.choice(templates)
     elif bull_count == 4:
-        return f"{ticker} shows full bullish alignment — RSI {rsi:.0f}, rising MACD, {rvol:.1f}x relative volume, and price above key EMAs confirm strong momentum."
+        templates = [
+            f"{ticker} shows full bullish alignment — RSI {rsi:.0f}, rising MACD, {rvol:.1f}x relative volume, and price above key EMAs confirm strong momentum.",
+            f"A perfect technical setup for {ticker}: RSI at {rsi:.0f}, bullish MACD, and strong volume ({rvol:.1f}x) all point to continued upside.",
+            f"{ticker} is firing on all cylinders. Price is holding above key EMAs, RSI is healthy at {rsi:.0f}, and volume is confirming the move."
+        ]
+        return random.choice(templates)
     elif bull_count == 3 and macd_up and vol_up:
-        return f"{ticker} is building momentum with RSI at {rsi:.0f}, positive MACD histogram, and {rvol:.1f}x above-average volume supporting the upside move."
+        templates = [
+            f"{ticker} is building momentum with RSI at {rsi:.0f}, positive MACD histogram, and {rvol:.1f}x above-average volume supporting the upside move.",
+            f"Supported by strong volume ({rvol:.1f}x), {ticker} is trending well with RSI at {rsi:.0f} and a rising MACD.",
+            f"Volume expansion ({rvol:.1f}x) and a bullish MACD crossover give {ticker} a solid foundation for its current uptrend (RSI {rsi:.0f})."
+        ]
+        return random.choice(templates)
     elif bull_count == 3 and rsi_up:
-        return f"{ticker} maintains a bullish bias — RSI {rsi:.0f}, {('rising' if macd_up else 'neutral')} MACD, and {'elevated' if vol_up else 'normal'} volume keep the trend intact."
+        templates = [
+            f"{ticker} maintains a bullish bias — RSI {rsi:.0f}, {('rising' if macd_up else 'neutral')} MACD, and {'elevated' if vol_up else 'normal'} volume keep the trend intact.",
+            f"The trend for {ticker} remains constructive. RSI sits at {rsi:.0f} alongside a {('rising' if macd_up else 'flat')} MACD.",
+            f"Buyers continue to support {ticker}. With RSI at {rsi:.0f} and {'elevated' if vol_up else 'average'} volume, the chart looks technically sound."
+        ]
+        return random.choice(templates)
     elif bull_count == 2 and macd_up:
-        return f"{ticker} shows mixed signals with RSI at {rsi:.0f} and positive MACD momentum, but volume confirmation is needed for a decisive breakout."
+        templates = [
+            f"{ticker} shows mixed signals with RSI at {rsi:.0f} and positive MACD momentum, but volume confirmation is needed for a decisive breakout.",
+            f"MACD is curling up for {ticker}, though RSI ({rsi:.0f}) is neutral. Watch for volume to confirm any breakout attempt.",
+            f"While {ticker}'s MACD is positive, the broader technical picture (RSI {rsi:.0f}) is mixed. Waiting for volume confirmation is prudent."
+        ]
+        return random.choice(templates)
     elif bull_count == 2 and not macd_up:
-        return f"{ticker} is range-bound — RSI {rsi:.0f} with flat MACD and {'above-average' if vol_up else 'below-average'} volume; trend direction remains unclear."
+        templates = [
+            f"{ticker} is range-bound — RSI {rsi:.0f} with flat MACD and {'above-average' if vol_up else 'below-average'} volume; trend direction remains unclear.",
+            f"Consolidation continues for {ticker}. RSI is neutral at {rsi:.0f} and MACD lacks a clear directional slope.",
+            f"Choppy price action defines {ticker} right now. RSI at {rsi:.0f} and a flat MACD suggest waiting for a cleaner setup."
+        ]
+        return random.choice(templates)
     elif bull_count <= 1 and not macd_up:
-        return f"{ticker} is under selling pressure — RSI at {rsi:.0f}, negative MACD, and {rvol:.1f}x volume indicate continued bearish momentum."
+        templates = [
+            f"{ticker} is under selling pressure — RSI at {rsi:.0f}, negative MACD, and {rvol:.1f}x volume indicate continued bearish momentum.",
+            f"Bearish momentum dominates {ticker}. With RSI at {rsi:.0f} and MACD pointing lower, caution is advised.",
+            f"The chart for {ticker} looks weak. Negative MACD and RSI at {rsi:.0f} suggest sellers remain firmly in control."
+        ]
+        return random.choice(templates)
     else:
-        return f"{ticker} trades near equilibrium with RSI {rsi:.0f} and {'positive' if macd_up else 'neutral'} MACD; watch for a catalyst to establish directional bias."
+        templates = [
+            f"{ticker} trades near equilibrium with RSI {rsi:.0f} and {'positive' if macd_up else 'neutral'} MACD; watch for a catalyst to establish directional bias.",
+            f"A highly neutral setup for {ticker}. RSI is {rsi:.0f} with a flat MACD, indicating the market is awaiting a catalyst.",
+            f"{ticker} is stuck in a holding pattern. Watch for a volume spike to break the current equilibrium (RSI {rsi:.0f})."
+        ]
+        return random.choice(templates)
 
 
 async def generate_ai_summaries(stocks: List[Dict]) -> Dict[str, str]:

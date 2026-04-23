@@ -9,7 +9,7 @@ export default function DisclaimerPage() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Legal & Compliance</h1>
         
-        <div className="glass-card p-8 space-y-12 text-[#94a3b8] leading-relaxed">
+        <div className="glass-card p-8 space-y-12 text-white leading-relaxed">
           {/* Section 1 */}
           <section>
             <h2 className="text-xl font-bold text-white mb-4">1. Not Financial Advice</h2>
@@ -56,7 +56,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section className="pt-8 border-t border-[#1e2a3a]">
-            <p className="text-sm italic font-medium text-[#64748b]">
+            <p className="text-sm italic font-medium text-[#00d2ff]">
               Last Updated: April 2026. By using the BOGA AI Daily +500 platform, you acknowledge
               that you have read, understood, and voluntarily agreed to all terms outlined above.
             </p>

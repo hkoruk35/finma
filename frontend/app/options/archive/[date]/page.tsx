@@ -33,12 +33,12 @@ function ArchivePickRow({ pick, index }: { pick: OptionPick; index: number }) {
     <div className={`glass-card p-4 border-2 transition-all ${isTop3 ? "border-[#3b82f6]/20" : "border-transparent"}`}>
       <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
         <div className="flex items-center gap-3">
-          <span className={`text-xs font-black ${isTop3 ? "text-[#3b82f6]" : "text-[#64748b]"}`}>#{pick.rank}</span>
+          <span className={`text-xs font-black ${isTop3 ? "text-[#3b82f6]" : "text-[#00d2ff]"}`}>#{pick.rank}</span>
           <Link href={`/stock/${pick.ticker}`} className="text-xl font-black text-white hover:text-[#3b82f6] transition-colors">
             {pick.ticker}
           </Link>
-          <span className="text-[#64748b] font-mono text-sm">${pick.current_price.toFixed(2)}</span>
-          <span className="text-xs text-[#64748b]">{icon} {pick.entry_mode_label}</span>
+          <span className="text-[#00d2ff] font-mono text-sm">${pick.current_price.toFixed(2)}</span>
+          <span className="text-xs text-[#00d2ff]">{icon} {pick.entry_mode_label}</span>
         </div>
         <div className={`text-white text-xs font-black px-3 py-1 rounded-full bg-gradient-to-r ${
           pick.score >= 75 ? "from-[#f59e0b] to-[#ef4444]" :
@@ -46,23 +46,23 @@ function ArchivePickRow({ pick, index }: { pick: OptionPick; index: number }) {
         }`}>{pick.score.toFixed(1)}</div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-[#64748b] mb-3">
-        <span>ADX: <b className="text-[#94a3b8]">{fmt(pick.adx, 0)}</b></span>
-        <span>RSI: <b className="text-[#94a3b8]">{fmt(pick.rsi, 0)}</b></span>
-        <span>IV Rank: <b className="text-[#94a3b8]">{fmt(pick.iv_rank, 0)}</b></span>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-[#00d2ff] mb-3">
+        <span>ADX: <b className="text-white">{fmt(pick.adx, 0)}</b></span>
+        <span>RSI: <b className="text-white">{fmt(pick.rsi, 0)}</b></span>
+        <span>IV Rank: <b className="text-white">{fmt(pick.iv_rank, 0)}</b></span>
         <span>RS/SPY: <b className={`${(pick.rs_vs_spy_60d ?? 0) >= 0 ? "text-[#34d399]" : "text-[#f87171]"}`}>{fmtPct(pick.rs_vs_spy_60d)}</b></span>
       </div>
 
-      <div className="flex flex-wrap gap-4 text-xs text-[#64748b]">
+      <div className="flex flex-wrap gap-4 text-xs text-[#00d2ff]">
         {inst && (
-          <span className="text-[#94a3b8]">
+          <span className="text-white">
             🛡️ <b>${inst.strike?.toFixed(0)}C</b> · Prem: ${inst.premium?.toFixed(2)}
             · TP: ${inst.tp_price?.toFixed(2)} · SL: ${inst.sl_price?.toFixed(2)}
             · {inst.expiration} ({inst.dte}d)
           </span>
         )}
         {asym && (
-          <span className="text-[#94a3b8]">
+          <span className="text-white">
             🚀 <b>${asym.strike?.toFixed(0)}C</b> · Prem: ${asym.premium?.toFixed(2)}
             · TP: ${asym.tp_price?.toFixed(2)} · SL: ${asym.sl_price?.toFixed(2)}
           </span>
@@ -102,14 +102,14 @@ export default async function OptionsArchiveDatePage({
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-6">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link href="/options" className="hover:text-white transition-colors">Options</Link>
           <span>/</span>
           <Link href="/options/archive" className="hover:text-white transition-colors">Archive</Link>
           <span>/</span>
-          <span className="text-[#94a3b8]">{date}</span>
+          <span className="text-white">{date}</span>
         </nav>
 
         <div className="flex items-start justify-between flex-wrap gap-4 mb-8">
@@ -117,7 +117,7 @@ export default async function OptionsArchiveDatePage({
             <h1 className="text-3xl font-extrabold text-white tracking-tight mb-1">
               {formatDate(date)}
             </h1>
-            <p className="text-[#64748b] text-sm">
+            <p className="text-[#00d2ff] text-sm">
               {picks.length} candidates · VIX {data.vix} ({data.vix_regime.split(" ")[0]})
               · SPY 60d {fmtPct(data.spy_return_60d)}
             </p>
@@ -125,7 +125,7 @@ export default async function OptionsArchiveDatePage({
           <div className="flex gap-3">
             <Link
               href="/options/archive"
-              className="px-4 py-2 bg-[#1e293b] border border-white/10 rounded-lg text-sm text-[#94a3b8] hover:text-white transition-colors"
+              className="px-4 py-2 bg-[#1e293b] border border-white/10 rounded-lg text-sm text-white hover:text-white transition-colors"
             >
               ← Archive
             </Link>
@@ -144,10 +144,10 @@ export default async function OptionsArchiveDatePage({
             { label: "Trend", val: data.regime_summary.trend, cls: "text-[#34d399]" },
             { label: "Breakout", val: data.regime_summary.breakout, cls: "text-[#f59e0b]" },
             { label: "Total", val: data.total_candidates, cls: "text-white" },
-            { label: "Universe", val: data.universe_size, cls: "text-[#64748b]" },
+            { label: "Universe", val: data.universe_size, cls: "text-[#00d2ff]" },
           ].map((m) => (
             <div key={m.label} className="glass-card p-3 text-center">
-              <div className="text-[10px] text-[#64748b] uppercase mb-1">{m.label}</div>
+              <div className="text-[10px] text-[#00d2ff] uppercase mb-1">{m.label}</div>
               <div className={`font-mono font-bold text-lg ${m.cls}`}>{m.val}</div>
             </div>
           ))}

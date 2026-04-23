@@ -49,7 +49,7 @@ export default function LoginPage() {
           <h1 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
             Choose Your <span className="text-[#3b82f6]">Access Level</span>
           </h1>
-          <p className="text-[#94a3b8] text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             Join the professional algorithmic trading community. Unlock advanced AI scores and personalized tracking tools.
           </p>
         </div>
@@ -60,18 +60,18 @@ export default function LoginPage() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#3b82f6] blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
             
             <div className="mb-8">
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#64748b] bg-[#1a2030] px-3 py-1 rounded-full border border-[#1e2a3a]">Standard</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00d2ff] bg-[#1a2030] px-3 py-1 rounded-full border border-[#1e2a3a]">Standard</span>
               <h2 className="text-3xl font-black text-white mt-4">FREE</h2>
-              <p className="text-[#94a3b8] text-sm mt-3">Essential tools for beginner analysts.</p>
+              <p className="text-white text-sm mt-3">Essential tools for beginner analysts.</p>
             </div>
 
             <div className="text-4xl font-black text-white mb-8">
-              $0 <span className="text-sm font-medium text-[#64748b]">/ forever</span>
+              $0 <span className="text-sm font-medium text-[#00d2ff]">/ forever</span>
             </div>
 
             <ul className="space-y-4 mb-10 flex-1">
               {FREE_PERKS.map((perk, i) => (
-                <li key={i} className="flex items-center gap-3 text-sm text-[#94a3b8]">
+                <li key={i} className="flex items-center gap-3 text-sm text-white">
                   <svg className="w-4 h-4 text-[#3b82f6]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
@@ -97,13 +97,13 @@ export default function LoginPage() {
             <div className="mb-8">
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#3b82f6] bg-[#3b82f6]/10 px-3 py-1 rounded-full border border-[#3b82f6]/30">Professional</span>
               <h2 className="text-3xl font-black text-white mt-4">PRO AI</h2>
-              <p className="text-[#94a3b8] text-sm mt-3">Advanced algorithmic insights for serious traders.</p>
+              <p className="text-white text-sm mt-3">Advanced algorithmic insights for serious traders.</p>
             </div>
 
             <div className="mb-8 relative">
               <div className="flex items-baseline gap-2">
                 <span className="text-5xl font-black text-white">$19</span>
-                <span className="text-[#94a3b8] line-through text-lg">$49</span>
+                <span className="text-white line-through text-lg">$49</span>
               </div>
               <p className="text-[#10b981] text-xs font-bold mt-2 uppercase tracking-tight">Special Offer: 60% OFF First Month</p>
             </div>
@@ -148,7 +148,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-center text-[11px] text-[#4b5563] mt-16 leading-relaxed max-w-sm mx-auto">
+        <p className="text-center text-[11px] text-[#00d2ff] mt-16 leading-relaxed max-w-sm mx-auto">
           Secure payment processing will be enabled upon next update. By continuing, you agree to the BOGA AI <Link href="/terms" className="underline hover:text-white">Terms of Use</Link> and <Link href="/privacy" className="underline hover:text-white">Privacy Policy</Link>.
         </p>
       </main>

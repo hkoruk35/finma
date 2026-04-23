@@ -62,7 +62,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
               className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
                 active === tab.key
                   ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
-                  : "bg-[#141924] text-[#94a3b8] hover:bg-[#1a2030] hover:text-white border border-[#1e2a3a]"
+                  : "bg-[#141924] text-white hover:bg-[#1a2030] hover:text-white border border-[#1e2a3a]"
               }`}
             >
               {tab.label}
@@ -102,7 +102,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
                 <span className="text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
                   {stock.ticker}
                 </span>
-                <p className="text-[11px] text-[#64748b] font-bold uppercase tracking-wider truncate max-w-[120px]">
+                <p className="text-[11px] text-[#00d2ff] font-bold uppercase tracking-wider truncate max-w-[120px]">
                   {stock.company}
                 </p>
               </div>
@@ -129,7 +129,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             </div>
 
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[9px] text-[#64748b] font-black uppercase tracking-widest">BOGA SCORE</span>
+              <span className="text-[9px] text-[#00d2ff] font-black uppercase tracking-widest">BOGA SCORE</span>
               <span className="text-[11px] font-mono font-black text-[#3b82f6]">{stock.master_score.toFixed(0)} / 100</span>
             </div>
             <div className="relative w-full h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden mb-1">

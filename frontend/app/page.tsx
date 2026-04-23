@@ -42,7 +42,7 @@ export default async function HomePage() {
   if (!master) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-[#94a3b8]">Loading market data...</p>
+        <p className="text-white">Loading market data...</p>
       </div>
     );
   }
@@ -101,10 +101,10 @@ export default async function HomePage() {
 
         {/* Ad Slot Placeholder */}
         <section className="mb-8">
-          <div className="glass-card flex items-center justify-center h-24 text-[#64748b] text-sm hidden md:flex">
+          <div className="glass-card flex items-center justify-center h-24 text-[#00d2ff] text-sm hidden md:flex">
             AD-H1 &middot; 728&times;90 Leaderboard
           </div>
-          <div className="glass-card flex items-center justify-center h-16 text-[#64748b] text-[10px] md:hidden">
+          <div className="glass-card flex items-center justify-center h-16 text-[#00d2ff] text-[10px] md:hidden">
             AD-M1 &middot; 320&times;50 Mobile Banner
           </div>
         </section>
@@ -115,7 +115,7 @@ export default async function HomePage() {
             <h3 className="text-lg font-bold text-white mb-2">
               Access Past Analysis
             </h3>
-            <p className="text-sm text-[#94a3b8] mb-4">
+            <p className="text-sm text-white mb-4">
               View historical BOGA scores from the last 30 days.
               Sign in with Google for free access.
             </p>
@@ -135,7 +135,7 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="glass-card p-8 border-l-4 border-l-[#3b82f6]">
               <h2 className="text-2xl font-black text-white mb-4">How BOGA AI Works</h2>
-              <p className="text-[#94a3b8] leading-relaxed mb-4 text-sm">
+              <p className="text-white leading-relaxed mb-4 text-sm">
                 BOGA AI is an advanced analysis engine that scans over 500 US stocks every day. 
                 Using a combination of technical momentum, fundamental valuation, and sentiment analysis, 
                 our system identifies high-probability trading setups.
@@ -150,7 +150,7 @@ export default async function HomePage() {
                     <span className="text-[#3b82f6] font-bold">✓</span>
                     <div>
                       <h4 className="text-white text-[13px] font-bold">{item.title}</h4>
-                      <p className="text-[#64748b] text-[12px]">{item.desc}</p>
+                      <p className="text-[#00d2ff] text-[12px]">{item.desc}</p>
                     </div>
                   </li>
                 ))}
@@ -158,7 +158,7 @@ export default async function HomePage() {
             </div>
             <div className="glass-card p-8 border-l-4 border-l-[#f59e0b]">
               <h2 className="text-2xl font-black text-white mb-4">Trading Disciplines</h2>
-              <p className="text-[#94a3b8] leading-relaxed text-sm">
+              <p className="text-white leading-relaxed text-sm">
                 Our AI categorizes stocks into five distinct trading regimes to suit your strategy:
               </p>
               <div className="mt-6 grid grid-cols-2 gap-4">
@@ -175,7 +175,7 @@ export default async function HomePage() {
                   </div>
                 ))}
               </div>
-              <p className="mt-8 text-xs text-[#64748b] italic">
+              <p className="mt-8 text-xs text-[#00d2ff] italic">
                 *Note: AI analysis is for informational purposes only. Always conduct your own research before trading.
               </p>
             </div>

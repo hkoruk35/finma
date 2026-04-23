@@ -57,7 +57,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
         className={`px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border font-black transition-all flex items-center gap-2 group whitespace-nowrap shadow-xl ${getFontSize()} ${getOpacity()} ${
           isSelected 
             ? "bg-[#3366ff] border-[#3366ff] text-white ring-2 ring-blue-500/50 scale-105" 
-            : "bg-[#141924]/40 backdrop-blur-md border-[#ffffff]/10 text-[#94a3b8] hover:border-[#3b82f6]/50 hover:text-white hover:scale-105 hover:bg-[#1a2030]"
+            : "bg-[#141924]/40 backdrop-blur-md border-[#ffffff]/10 text-white hover:border-[#3b82f6]/50 hover:text-white hover:scale-105 hover:bg-[#1a2030]"
         }`}
       >
         <span className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.3)] ${
@@ -92,7 +92,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
           <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
           Active Market Themes
         </h3>
-        <p className="text-[10px] text-[#64748b] font-bold uppercase">Based on today's analysis</p>
+        <p className="text-[10px] text-[#00d2ff] font-bold uppercase">Based on today's analysis</p>
       </div>
 
       <div className="flex flex-col gap-2 pause-on-hover">

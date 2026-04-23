@@ -44,7 +44,7 @@ function formatPrice(price: number): string {
 }
 
 function getChangeColor(change: number | null | undefined) {
-  if (!change && change !== 0) return "text-[#94a3b8]";
+  if (!change && change !== 0) return "text-white";
   if (change >= 2) return "text-green-400 font-bold";
   if (change >= 0) return "text-green-300";
   if (change >= -2) return "text-red-300";
@@ -117,7 +117,7 @@ export default async function SubsectorPage({
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-white mb-4">Sector Not Found</h1>
-            <p className="text-[#94a3b8] mb-8">The sector "{decodedSector}" could not be found.</p>
+            <p className="text-white mb-8">The sector "{decodedSector}" could not be found.</p>
             <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
               ← Back to Home
             </Link>
@@ -172,7 +172,7 @@ export default async function SubsectorPage({
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-white mb-4">Subsector Not Found</h1>
-            <p className="text-[#94a3b8] mb-8">
+            <p className="text-white mb-8">
               No stocks found for "{matchingSubsector || decodedSubsector}" in {decodedSector}.
             </p>
             <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
@@ -190,7 +190,7 @@ export default async function SubsectorPage({
       <Header />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumb */}
-        <div className="mb-8 flex items-center gap-2 text-sm text-[#94a3b8]">
+        <div className="mb-8 flex items-center gap-2 text-sm text-white">
           <Link href="/" className="hover:text-white transition-colors">
             Home
           </Link>
@@ -210,7 +210,7 @@ export default async function SubsectorPage({
               <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
                 {displaySubsectorName}
               </h1>
-              <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase mt-1">
+              <p className="text-xs text-white font-bold tracking-widest uppercase mt-1">
                 {decodedSector} · {subsectorData.length} Stocks
               </p>
             </div>
@@ -222,22 +222,22 @@ export default async function SubsectorPage({
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#1e2a3a]">
-                <th className="text-left px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                <th className="text-left px-4 py-3 text-xs font-black text-white uppercase tracking-widest">
                   Ticker
                 </th>
-                <th className="text-left px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                <th className="text-left px-4 py-3 text-xs font-black text-white uppercase tracking-widest">
                   Price
                 </th>
-                <th className="text-right px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                <th className="text-right px-4 py-3 text-xs font-black text-white uppercase tracking-widest">
                   1D %
                 </th>
-                <th className="text-center px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                <th className="text-center px-4 py-3 text-xs font-black text-white uppercase tracking-widest">
                   RSI
                 </th>
-                <th className="text-center px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                <th className="text-center px-4 py-3 text-xs font-black text-white uppercase tracking-widest">
                   Momentum
                 </th>
-                <th className="text-center px-4 py-3 text-xs font-black text-[#94a3b8] uppercase tracking-widest">
+                <th className="text-center px-4 py-3 text-xs font-black text-white uppercase tracking-widest">
                   Trend
                 </th>
               </tr>
@@ -266,7 +266,7 @@ export default async function SubsectorPage({
                       ? `${stock.change_1d > 0 ? "+" : ""}${stock.change_1d.toFixed(2)}%`
                       : "N/A"}
                   </td>
-                  <td className="px-4 py-3 text-center text-[#94a3b8]">
+                  <td className="px-4 py-3 text-center text-white">
                     {stock.technical?.rsi?.toFixed(1) || "N/A"}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -280,7 +280,7 @@ export default async function SubsectorPage({
                         {stock.technical.momentum.toFixed(1)}%
                       </span>
                     ) : (
-                      <span className="text-[#94a3b8]">N/A</span>
+                      <span className="text-white">N/A</span>
                     )}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -312,7 +312,7 @@ export default async function SubsectorPage({
               <p className="text-white font-semibold mb-2">
                 ${stock.price?.toFixed(2) || "N/A"}
               </p>
-              <div className="grid grid-cols-3 gap-2 text-[10px] text-[#94a3b8]">
+              <div className="grid grid-cols-3 gap-2 text-[10px] text-white">
                 <div>
                   <p className="uppercase font-bold">RSI</p>
                   <p className="text-white">{stock.technical?.rsi?.toFixed(1) || "N/A"}</p>

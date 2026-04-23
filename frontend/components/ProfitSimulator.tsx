@@ -57,7 +57,7 @@ const ProfitSimulator = () => {
               <p className="text-[11px] md:text-[13px] font-black text-[#3b82f6] uppercase tracking-[0.3em]">PROFIT SIMULATOR</p>
             </div>
             <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tighter">BOGA AI PROFIT POTENTIAL</h2>
-            <p className="text-base md:text-lg text-[#94a3b8] leading-relaxed">
+            <p className="text-base md:text-lg text-white leading-relaxed">
               Visualize your growth potential based on BOGA AI's historical <span className="text-white font-bold">93.7%</span> win rate and <span className="text-white font-bold">7.4%</span> average monthly returns per pick.
             </p>
           </div>
@@ -65,10 +65,10 @@ const ProfitSimulator = () => {
           <div className="space-y-8 md:space-y-10">
             <div className="space-y-4 md:space-y-5">
               <div className="flex justify-between items-end">
-                <label className="text-[11px] md:text-[13px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Initial Capital</label>
+                <label className="text-[11px] md:text-[13px] font-bold text-white uppercase tracking-[0.2em]">Initial Capital</label>
                 <div className="flex items-baseline gap-1">
                    <span className="text-2xl md:text-3xl font-mono font-black text-[#3b82f6]">${capital.toLocaleString()}</span>
-                   <span className="text-[10px] md:text-[12px] text-[#64748b] uppercase font-bold">USD</span>
+                   <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-bold">USD</span>
                 </div>
               </div>
               <input 
@@ -80,10 +80,10 @@ const ProfitSimulator = () => {
 
             <div className="space-y-4 md:space-y-5">
               <div className="flex justify-between items-end">
-                <label className="text-[11px] md:text-[13px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Signals Per Month</label>
+                <label className="text-[11px] md:text-[13px] font-bold text-white uppercase tracking-[0.2em]">Signals Per Month</label>
                 <div className="flex items-baseline gap-1">
                    <span className="text-2xl md:text-3xl font-mono font-black text-[#3b82f6]">{signalCount}</span>
-                   <span className="text-[10px] md:text-[12px] text-[#64748b] uppercase font-bold">PICKS</span>
+                   <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-bold">PICKS</span>
                 </div>
               </div>
               <input 
@@ -94,7 +94,7 @@ const ProfitSimulator = () => {
             </div>
 
             <div className="space-y-4 md:space-y-5">
-              <label className="text-[11px] md:text-[13px] font-bold text-[#94a3b8] uppercase tracking-[0.2em]">Trading Aggression</label>
+              <label className="text-[11px] md:text-[13px] font-bold text-white uppercase tracking-[0.2em]">Trading Aggression</label>
               <div className="grid grid-cols-3 gap-3 md:gap-4">
                 {(['Low', 'Medium', 'Aggressive'] as const).map(profile => (
                   <button
@@ -103,7 +103,7 @@ const ProfitSimulator = () => {
                     className={`py-3 md:py-4 px-2 md:px-6 rounded-xl text-[10px] md:text-[12px] font-black uppercase tracking-widest transition-all border ${
                       riskProfile === profile 
                         ? "bg-[#3b82f6] text-white border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
-                        : "bg-[#0d1117] text-[#64748b] border-[#1e2a3a] hover:border-[#3b82f6]/40"
+                        : "bg-[#0d1117] text-[#00d2ff] border-[#1e2a3a] hover:border-[#3b82f6]/40"
                     }`}
                   >
                     {profile}
@@ -118,7 +118,7 @@ const ProfitSimulator = () => {
         <div className="lg:w-1/2 bg-[#0d1117]/30 p-5 md:p-8 lg:p-12 flex flex-col gap-8 md:gap-10">
            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
               <div className="flex flex-col gap-1 md:gap-2">
-                 <p className="text-[11px] md:text-[13px] text-[#94a3b8] font-bold uppercase tracking-widest">Est. Monthly Total</p>
+                 <p className="text-[11px] md:text-[13px] text-white font-bold uppercase tracking-widest">Est. Monthly Total</p>
                  <div className="flex items-baseline gap-2">
                     <p className="text-3xl md:text-4xl font-mono font-black text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
                     <span className={`text-sm md:text-base font-bold ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
@@ -127,10 +127,10 @@ const ProfitSimulator = () => {
                  </div>
               </div>
               <div className="flex flex-col gap-1 md:gap-2">
-                 <p className="text-[11px] md:text-[13px] text-[#94a3b8] font-bold uppercase tracking-widest">Boga Performance</p>
+                 <p className="text-[11px] md:text-[13px] text-white font-bold uppercase tracking-widest">Boga Performance</p>
                  <div className="flex items-baseline gap-2">
                     <p className="text-3xl md:text-4xl font-mono font-black text-[#3b82f6]">+{alphaEdge}%</p>
-                    <span className="text-[11px] md:text-[12px] text-[#64748b] font-bold uppercase">vs S&P 500</span>
+                    <span className="text-[11px] md:text-[12px] text-[#00d2ff] font-bold uppercase">vs S&P 500</span>
                  </div>
               </div>
            </div>
@@ -141,7 +141,7 @@ const ProfitSimulator = () => {
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#3b82f6]/10 blur-[80px] rounded-full group-hover:bg-[#3b82f6]/20 transition-all"></div>
 
               <div>
-                <p className="text-[11px] md:text-[13px] text-[#94a3b8] font-black uppercase tracking-widest mb-2">12-Month Compounding Pathway</p>
+                <p className="text-[11px] md:text-[13px] text-white font-black uppercase tracking-widest mb-2">12-Month Compounding Pathway</p>
                 <p className="text-3xl md:text-5xl font-mono font-black text-white leading-none tracking-tighter">
                    ${Math.floor(finalValue).toLocaleString()}
                 </p>
@@ -175,10 +175,10 @@ const ProfitSimulator = () => {
               </div>
 
               <div className="flex justify-between items-center mt-6">
-                 <span className="text-[10px] font-bold text-[#64748b] uppercase">Start</span>
-                 <span className="text-[10px] font-bold text-[#64748b] uppercase hidden sm:inline">Quarter 1</span>
-                 <span className="text-[10px] font-bold text-[#64748b] uppercase hidden sm:inline">Quarter 2</span>
-                 <span className="text-[10px] font-bold text-[#64748b] uppercase">Target</span>
+                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase">Start</span>
+                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase hidden sm:inline">Quarter 1</span>
+                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase hidden sm:inline">Quarter 2</span>
+                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase">Target</span>
               </div>
            </div>
 
@@ -186,7 +186,7 @@ const ProfitSimulator = () => {
               <button className="w-full py-6 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-[0_15px_35px_rgba(59,130,246,0.3)] hover:bg-[#2563eb] transition-all hover:-translate-y-1 active:scale-95 text-sm">
                 Unlock BOGA AI PRO Signals
               </button>
-              <p className="text-[10px] text-[#64748b] leading-relaxed text-center italic">
+              <p className="text-[10px] text-[#00d2ff] leading-relaxed text-center italic">
                 * Note: Historical performance is for informational purposes only. Trading involves significant risk of loss. This simulator calculates expectancy based on verified past results.
               </p>
             </div>

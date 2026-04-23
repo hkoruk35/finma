@@ -82,7 +82,7 @@ export default function SectorScreener() {
   if (loading) {
     return (
       <div className="glass-card p-6 text-center">
-        <p className="text-[#94a3b8]">Loading sector data...</p>
+        <p className="text-white">Loading sector data...</p>
       </div>
     );
   }
@@ -97,14 +97,14 @@ export default function SectorScreener() {
             <h3 className="text-xl font-black text-white tracking-tighter uppercase">
               Smart Sector Screener
             </h3>
-            <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase mt-0.5">
+            <p className="text-xs text-white font-bold tracking-widest uppercase mt-0.5">
               Filter by Sector & Subsector
             </p>
           </div>
         </div>
         <div className="text-center py-8">
-          <p className="text-[#94a3b8] mb-2">No sector data available</p>
-          <p className="text-sm text-[#64748b]">Please check back soon</p>
+          <p className="text-white mb-2">No sector data available</p>
+          <p className="text-sm text-[#00d2ff]">Please check back soon</p>
         </div>
       </div>
     );
@@ -119,7 +119,7 @@ export default function SectorScreener() {
           <h3 className="text-xl font-black text-white tracking-tighter uppercase">
             Smart Sector Screener
           </h3>
-          <p className="text-xs text-[#94a3b8] font-bold tracking-widest uppercase mt-0.5">
+          <p className="text-xs text-white font-bold tracking-widest uppercase mt-0.5">
             Filter by Sector & Subsector
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function SectorScreener() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Sector Selector */}
         <div className="space-y-2">
-          <label className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">
+          <label className="text-xs font-bold text-white uppercase tracking-widest">
             Sector ({sectors.length})
           </label>
           <select
@@ -148,7 +148,7 @@ export default function SectorScreener() {
 
         {/* Subsector Selector */}
         <div className="space-y-2">
-          <label className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">
+          <label className="text-xs font-bold text-white uppercase tracking-widest">
             Subsector / Category
           </label>
           <select
@@ -169,7 +169,7 @@ export default function SectorScreener() {
 
       {/* Info Text */}
       {selectedSector && sectorData && (
-        <div className="text-xs text-[#64748b] bg-[#0a0e17] px-3 py-2 rounded border border-[#1e2a3a]">
+        <div className="text-xs text-[#00d2ff] bg-[#0a0e17] px-3 py-2 rounded border border-[#1e2a3a]">
           📊{" "}
           {selectedSubsector === "all" ? (
             <>
@@ -177,12 +177,12 @@ export default function SectorScreener() {
                 (total, arr) => total + arr.length,
                 0
               )}{" "}
-              stocks in <span className="text-[#94a3b8] font-semibold">All {selectedSector}</span>
+              stocks in <span className="text-white font-semibold">All {selectedSector}</span>
             </>
           ) : (
             <>
               {sectorData[selectedSector]?.subsectors[selectedSubsector]?.length || 0} stocks in{" "}
-              <span className="text-[#94a3b8] font-semibold">{selectedSubsector}</span>
+              <span className="text-white font-semibold">{selectedSubsector}</span>
             </>
           )}
         </div>

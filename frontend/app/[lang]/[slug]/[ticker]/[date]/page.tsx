@@ -88,7 +88,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#64748b] mb-5 flex-wrap">
+        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-5 flex-wrap">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link
@@ -121,7 +121,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
               className={`px-2.5 py-1 rounded-lg text-[11px] font-black flex items-center gap-1 border transition-all ${
                 l === lang
                   ? "bg-[#f59e0b] border-[#f59e0b] text-black"
-                  : "border-[#1e2a3a] text-[#64748b] hover:text-white hover:border-[#f59e0b]/40 hover:bg-white/5"
+                  : "border-[#1e2a3a] text-[#00d2ff] hover:text-white hover:border-[#f59e0b]/40 hover:bg-white/5"
               }`}
             >
               <span>{cfg.flag}</span>
@@ -140,8 +140,8 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
               {pick.market_regime}
             </span>
           </div>
-          <p className="text-base text-[#94a3b8] font-semibold">{pick.company}</p>
-          <p className="text-xs text-[#64748b] mt-1">{labels.basedOn} · {date}</p>
+          <p className="text-base text-white font-semibold">{pick.company}</p>
+          <p className="text-xs text-[#00d2ff] mt-1">{labels.basedOn} · {date}</p>
         </div>
 
         {/* Quick Summary */}
@@ -161,15 +161,15 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
                 <span className="text-2xl font-black text-white font-mono">
                   {Math.round(pick.score ?? pick.boga_score ?? 0)}
                 </span>
-                <span className="text-[8px] text-[#64748b] uppercase tracking-widest">/ 100</span>
+                <span className="text-[8px] text-[#00d2ff] uppercase tracking-widest">/ 100</span>
               </div>
               <div>
-                <p className="text-[10px] text-[#64748b] uppercase tracking-widest mb-1">
+                <p className="text-[10px] text-[#00d2ff] uppercase tracking-widest mb-1">
                   BOGA AI {labels.score}
                 </p>
                 <p className="text-sm font-black text-white">{pick.market_regime}</p>
                 {pick.boga_zones?.risk_reward && (
-                  <p className="text-xs text-[#64748b] mt-0.5">
+                  <p className="text-xs text-[#00d2ff] mt-0.5">
                     {labels.rr}:{" "}
                     <span className="text-white font-bold">{pick.boga_zones.risk_reward}:1</span>
                   </p>
@@ -178,17 +178,17 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
             </div>
             <div className="flex-1 grid grid-cols-3 gap-3">
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
-                <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">{labels.entry}</p>
+                <p className="text-[9px] font-black text-[#00d2ff] uppercase tracking-widest mb-1">{labels.entry}</p>
                 <p className="font-mono font-black text-white text-sm">${formatPrice(pick.buy_zone?.low ?? 0)}</p>
                 <p className="font-mono font-black text-white text-sm">– ${formatPrice(pick.buy_zone?.high ?? 0)}</p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#22c55e]">
-                <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">{labels.target}</p>
+                <p className="text-[9px] font-black text-[#00d2ff] uppercase tracking-widest mb-1">{labels.target}</p>
                 <p className="font-mono font-black text-[#22c55e] text-sm">${formatPrice(pick.profit_zone?.low ?? 0)}</p>
                 <p className="font-mono font-black text-[#22c55e] text-sm">– ${formatPrice(pick.profit_zone?.high ?? 0)}</p>
               </div>
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#ef4444]">
-                <p className="text-[9px] font-black text-[#64748b] uppercase tracking-widest mb-1">{labels.stop}</p>
+                <p className="text-[9px] font-black text-[#00d2ff] uppercase tracking-widest mb-1">{labels.stop}</p>
                 <p className="font-mono font-black text-[#ef4444] text-sm">${formatPrice(pick.stop_zone?.low ?? 0)}</p>
                 <p className="font-mono font-black text-[#ef4444] text-sm">– ${formatPrice(pick.stop_zone?.high ?? 0)}</p>
               </div>
@@ -206,7 +206,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
               <span className="w-1 h-5 bg-[#f59e0b] rounded-full" />
               {labels.analysisEngine} · {date}
             </h2>
-            <div className="text-[#cbd5e1] leading-[1.85] text-base whitespace-pre-wrap">
+            <div className="text-white leading-[1.85] text-base whitespace-pre-wrap">
               {detail}
             </div>
           </div>
@@ -214,7 +214,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
 
         {/* Nav between archive dates */}
         <div className="glass-card p-5">
-          <h2 className="text-[11px] font-black text-[#94a3b8] uppercase tracking-widest mb-4">
+          <h2 className="text-[11px] font-black text-white uppercase tracking-widest mb-4">
             {labels.prevAnalyses} · {pick.ticker}
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -232,7 +232,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
               <Link
                 key={d}
                 href={`/${lang}/${slug}/${ticker}/${d}`}
-                className="px-3 py-1.5 rounded-lg border border-[#1e2a3a] text-xs font-semibold text-[#64748b] hover:text-white hover:border-[#f59e0b]/40 transition-all"
+                className="px-3 py-1.5 rounded-lg border border-[#1e2a3a] text-xs font-semibold text-[#00d2ff] hover:text-white hover:border-[#f59e0b]/40 transition-all"
               >
                 {d}
               </Link>

@@ -60,14 +60,14 @@ export default function AcademyArticleClient({
       <div className="border-b border-[#1e2a3a] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs text-[#64748b]" aria-label="Breadcrumb">
+          <nav className="flex items-center gap-2 text-xs text-[#00d2ff]" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <Link href="/academy" className="hover:text-white transition-colors">Academy</Link>
             {breadcrumb && (
               <>
                 <span>/</span>
-                <span className="text-[#94a3b8]">{breadcrumb.label}</span>
+                <span className="text-white">{breadcrumb.label}</span>
               </>
             )}
           </nav>
@@ -89,7 +89,7 @@ export default function AcademyArticleClient({
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
             {t.h1}
           </h1>
-          <p className="text-lg text-[#94a3b8] leading-relaxed border-l-4 border-[#3b82f6] pl-5 mt-4">
+          <p className="text-lg text-white leading-relaxed border-l-4 border-[#3b82f6] pl-5 mt-4">
             {t.intro}
           </p>
         </header>
@@ -106,7 +106,7 @@ export default function AcademyArticleClient({
               </h2>
 
               <div className="glass-card p-6">
-                <p className="text-[#94a3b8] leading-relaxed whitespace-pre-line text-sm md:text-base">
+                <p className="text-white leading-relaxed whitespace-pre-line text-sm md:text-base">
                   {section.body}
                 </p>
 
@@ -150,7 +150,7 @@ export default function AcademyArticleClient({
           <div className="relative z-10">
             <div className="text-4xl mb-4">🚀</div>
             <h3 className="text-2xl font-black text-white mb-3">{t.cta_text}</h3>
-            <p className="text-[#94a3b8] mb-8 max-w-md mx-auto text-sm leading-relaxed">
+            <p className="text-white mb-8 max-w-md mx-auto text-sm leading-relaxed">
               Join thousands of investors already using BOGA AI to analyze 560 US stocks daily.
             </p>
             <Link
@@ -202,7 +202,7 @@ export default function AcademyArticleClient({
         <div className="mt-12 text-center">
           <Link
             href="/academy"
-            className="inline-flex items-center gap-2 text-sm text-[#64748b] hover:text-[#3b82f6] transition-colors font-semibold"
+            className="inline-flex items-center gap-2 text-sm text-[#00d2ff] hover:text-[#3b82f6] transition-colors font-semibold"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

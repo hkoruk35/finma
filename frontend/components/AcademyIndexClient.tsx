@@ -89,10 +89,10 @@ export default function AcademyIndexClient() {
       {/* Sticky nav */}
       <div className="border-b border-[#1e2a3a] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <nav className="flex items-center gap-2 text-xs text-[#64748b]">
+          <nav className="flex items-center gap-2 text-xs text-[#00d2ff]">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-[#94a3b8] font-semibold">Academy</span>
+            <span className="text-white font-semibold">Academy</span>
           </nav>
           <LanguageSwitcher currentLocale={locale} onChange={handleLocale} />
         </div>
@@ -110,7 +110,7 @@ export default function AcademyIndexClient() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6">
               {hero.h1}
             </h1>
-            <p className="text-xl text-[#94a3b8] leading-relaxed mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-white leading-relaxed mb-10 max-w-2xl mx-auto">
               {hero.sub}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -185,7 +185,7 @@ export default function AcademyIndexClient() {
                           </h3>
                         </div>
                       </div>
-                      <p className="text-sm text-[#94a3b8] leading-relaxed mb-5">{t.desc}</p>
+                      <p className="text-sm text-white leading-relaxed mb-5">{t.desc}</p>
                       <div className="flex items-center gap-2 text-[#3b82f6] text-sm font-bold">
                         <span>{UI_STRINGS.read_guide[locale]}</span>
                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -207,7 +207,7 @@ export default function AcademyIndexClient() {
           <div className="relative z-10">
             <div className="text-5xl mb-6">🚀</div>
             <h2 className="text-3xl font-black text-white mb-4">{hero.cta}</h2>
-            <p className="text-[#94a3b8] mb-10 max-w-xl mx-auto leading-relaxed">
+            <p className="text-white mb-10 max-w-xl mx-auto leading-relaxed">
               Join thousands of investors already using BOGA AI to analyze 560 US stocks daily and find the highest-conviction opportunities before the market does.
             </p>
             <Link
