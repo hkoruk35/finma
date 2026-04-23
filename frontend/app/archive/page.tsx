@@ -80,7 +80,7 @@ export default async function ArchivePage() {
           <div className="max-w-2xl">
             <h3 className="text-xl font-bold text-white mb-3">About the Archive</h3>
             <p className="text-sm text-white leading-relaxed mb-6">
-              The BOGA AI archive stores full snapshots of the daily +100 stock universe. Unlike the live dashboard which updates every trading morning at 09:00 NY time, these pages preserve the exact signals and AI summaries generated on that specific date.
+              The BOGA AI archive stores full snapshots of the daily +500 stock universe. Unlike the live dashboard which updates every trading morning at 09:00 NY time, these pages preserve the exact signals and AI summaries generated on that specific date.
             </p>
             <div className="flex items-center gap-6 text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest">
               <div className="flex items-center gap-2">

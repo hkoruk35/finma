@@ -42,7 +42,7 @@ export default function Footer() {
               <span className="text-base font-black text-white tracking-tighter">BOGA AI - Blue One Global<br/>Analysis</span>
             </div>
             <p className="text-xs text-[#00d2ff]">
-              AI-powered stock analysis of +100 top US stocks.
+              AI-powered stock analysis of +500 top US stocks.
             </p>
           </div>
 
