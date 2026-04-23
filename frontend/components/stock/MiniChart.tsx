@@ -17,8 +17,8 @@ export default function MiniChart({ symbol, height = "180" }: Props) {
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      symbols: [[symbol, symbol + "|1D"]],
-      chartOnly: true,
+      symbols: [[symbol, symbol]],
+      chartOnly: false,
       width: "100%",
       height: height,
       locale: "en",

@@ -155,33 +155,10 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   </div>
                 </div>
 
-                {/* Minimal: Price & Change & Chart */}
+                {/* Minimal: Chart Tool */}
                 {minimal && !isLocked && (
-                  <div className="mb-4 flex flex-col h-[220px]">
-                    {/* Manual Price & Change Header */}
-                    <div className="flex flex-col mb-2 px-1">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-2xl font-mono font-black text-white tracking-tighter">
-                          ${formatPrice(item.current_price)}
-                        </span>
-                        <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">USD</span>
-                      </div>
-                      <div className={`text-sm font-mono font-bold ${
-                        (liveData?.change_pct ?? item.change_1d ?? quoteData[item.ticker]?.change_1d ?? 0) >= 0 
-                          ? "text-[#10b981]" 
-                          : "text-[#ef4444]"
-                      }`}>
-                        {(() => {
-                          const val = liveData?.change_pct ?? item.change_1d ?? quoteData[item.ticker]?.change_1d;
-                          return val != null ? `${val >= 0 ? '+' : ''}${val.toFixed(2)}%` : "—";
-                        })()}
-                        <span className="text-[10px] text-[#64748b] ml-1.5 font-bold uppercase tracking-widest opacity-60">Today</span>
-                      </div>
-                    </div>
-
-                    <div className="flex-1 rounded-lg overflow-hidden bg-black/20 border border-white/5">
-                      <MiniChart symbol={item.ticker} height="160" />
-                    </div>
+                  <div className="mb-4 rounded-lg overflow-hidden bg-black/20 border border-white/5 h-[180px]">
+                    <MiniChart symbol={item.ticker} />
                   </div>
                 )}
 
