@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-latest:generateContent";
 
 const SYSTEM_PROMPT = `You are BOGA AI, an advanced stock analysis assistant powering BogaStock.com — a platform built for retail investors and traders.
 
@@ -22,33 +22,29 @@ Slash command behaviors:
 
 Always respond in the same language the user writes in (Turkish or English).`;
 
+const BUSY_MESSAGE =
+  "Our systems are experiencing high demand right now. Please try again in a moment.";
+
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ error: "API key not configured" }, { status: 500 });
+    return NextResponse.json({ text: BUSY_MESSAGE });
   }
 
   let body: { message: string; history?: { role: string; text: string }[] };
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return NextResponse.json({ text: BUSY_MESSAGE });
   }
 
   const { message, history = [] } = body;
   if (!message?.trim()) {
-    return NextResponse.json({ error: "Empty message" }, { status: 400 });
+    return NextResponse.json({ text: BUSY_MESSAGE });
   }
 
+  // Build conversation turns (no system prompt in contents — use systemInstruction)
   const contents = [
-    {
-      role: "user",
-      parts: [{ text: SYSTEM_PROMPT }],
-    },
-    {
-      role: "model",
-      parts: [{ text: "Understood. I'm BOGA AI, ready to assist with stock analysis." }],
-    },
     ...history.map((h) => ({
       role: h.role === "assistant" ? "model" : "user",
       parts: [{ text: h.text }],
@@ -64,6 +60,9 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        systemInstruction: {
+          parts: [{ text: SYSTEM_PROMPT }],
+        },
         contents,
         generationConfig: {
           temperature: 0.7,
@@ -74,20 +73,20 @@ export async function POST(req: NextRequest) {
     });
 
     if (!res.ok) {
-      const err = await res.text();
-      console.error("Gemini error:", err);
-      return NextResponse.json({ error: "AI service error" }, { status: 502 });
+      const errBody = await res.text();
+      console.error("Gemini API error", res.status, errBody);
+      // Return soft error — client shows friendly message
+      return NextResponse.json({ text: BUSY_MESSAGE });
     }
 
     const data = await res.json();
     const text =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "No response from AI.";
+      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ??
+      BUSY_MESSAGE;
 
     return NextResponse.json({ text });
   } catch (e: any) {
-    if (e?.name === "TimeoutError") {
-      return NextResponse.json({ error: "Request timed out" }, { status: 504 });
-    }
-    return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    console.error("Gemini fetch error:", e?.message);
+    return NextResponse.json({ text: BUSY_MESSAGE });
   }
 }
