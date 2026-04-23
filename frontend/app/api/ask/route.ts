@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
+
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const FINANCIAL_KEYWORDS = [
   "stock", "price", "market", "nasdaq", "nyse", "dow", "s&p", "vix", "spy", "ema",
@@ -85,12 +88,70 @@ export async function POST(req: NextRequest) {
       return handleOutOfScope(message);
     }
 
+    // Use Claude for financial, Gemini for general
+    if (isFinancial) {
+      const claudeRes = await handleClaude(message, history);
+      if (claudeRes) return claudeRes;
+      // Fallback to Gemini if Claude fails
+    }
+
     return await handleGemini(message, history);
   } catch (e: any) {
     console.error("[ask] error:", e?.message);
     return NextResponse.json({
       text: "Our systems are temporarily unavailable. Please try again.",
     });
+  }
+}
+
+async function handleClaude(
+  message: string,
+  history: Message[]
+): Promise<NextResponse | null> {
+  if (!process.env.ANTHROPIC_API_KEY) return null;
+
+  const claudeSystemPrompt = `You are BOGA AI, expert financial analyst for global markets.
+
+Expertise: Stocks, options, technical analysis (EMA, RSI, MACD), commodities (gold, oil), forex, crypto, economic indicators.
+
+Guidelines:
+1. Answer in user's language (Turkish/English)
+2. Be concise, data-driven, specific
+3. Use bullet points
+4. Always cite sources: "Based on technical analysis" or "From market knowledge"
+5. Note data cutoff: "As of April 2025"
+
+Respond professionally about financial markets only.`;
+
+  try {
+    const messages = [
+      ...history.map((m) => ({
+        role: m.role as "user" | "assistant",
+        content: m.text,
+      })),
+      { role: "user" as const, content: message },
+    ];
+
+    const response = await anthropic.messages.create({
+      model: "claude-opus-4-1-20250805",
+      max_tokens: 1024,
+      system: claudeSystemPrompt,
+      messages: messages,
+    });
+
+    const text =
+      response.content[0].type === "text"
+        ? response.content[0].text
+        : "Unable to generate response.";
+
+    return NextResponse.json({
+      text,
+      source: "claude",
+      followUp: [],
+    });
+  } catch (e: any) {
+    console.error("[claude] error:", e?.message);
+    return null; // Fallback to Gemini
   }
 }
 
