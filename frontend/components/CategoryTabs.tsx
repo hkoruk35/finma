@@ -108,6 +108,19 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
               </div>
             </div>
 
+            {/* Price & Change Header */}
+            <div className="flex flex-col mb-2 px-1">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-lg font-mono font-black text-white tracking-tighter">
+                  ${formatPrice(stock.current_price)}
+                </span>
+              </div>
+              <div className={`text-xs font-mono font-bold ${getChangeColor(stock.change_pct)}`}>
+                {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
+                <span className="text-[9px] text-[#64748b] ml-1.5 font-bold uppercase tracking-widest opacity-60">Today</span>
+              </div>
+            </div>
+
             {/* Chart Section */}
             <div className="mb-4 rounded-lg overflow-hidden bg-black/20 border border-white/5 h-[160px]">
                <MiniChart symbol={stock.ticker} height="160" />
