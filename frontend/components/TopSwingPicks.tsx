@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import MiniChart from "./stock/MiniChart";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
+import AddToCartButton from "@/components/AddToCartButton";
 
 interface SwingPick {
   rank: number;
@@ -223,7 +224,28 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                       </div>
                     ))
                   )}
+                {/* Buy/Sell/SL zones section ... */}
                 </div>
+
+                {/* Add to Cart button */}
+                {!isLocked && (
+                  <div className={`mt-3 ${minimal ? '' : 'mt-4'}`}>
+                    <AddToCartButton
+                      pick={{
+                        ticker: item.ticker,
+                        company: item.company,
+                        sector: (item as any).sector || "Unknown",
+                        current_price: item.current_price,
+                        buy_zone: item.buy_zone,
+                        profit_zone: item.profit_zone,
+                        stop_zone: item.stop_zone,
+                        holding_period: item.holding_period,
+                        score: item.score,
+                      }}
+                      compact={minimal}
+                    />
+                  </div>
+                )}
 
                 {/* Detailed mode: Performance strip */}
                 {!minimal && (() => {

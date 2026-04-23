@@ -5,6 +5,7 @@ import PWAInstaller from "@/components/PWAInstaller";
 import Script from "next/script";
 import StructuredData from "@/components/StructuredData";
 import { Inter, Montserrat, JetBrains_Mono } from "next/font/google";
+import { SmartCartProvider } from "@/components/SmartCartContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -136,9 +137,11 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen bg-[#0a0e17] pb-20 lg:pb-0">
-        <PWAInstaller />
-        {children}
-        <BottomNav />
+        <SmartCartProvider>
+          <PWAInstaller />
+          {children}
+          <BottomNav />
+        </SmartCartProvider>
       </body>
     </html>
   );

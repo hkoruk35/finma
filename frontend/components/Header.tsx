@@ -5,11 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
+import { useSmartCart } from "@/components/SmartCartContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const { activeCart } = useSmartCart();
+  const cartCount = activeCart?.positions.filter(p => p.status !== "closed").length ?? 0;
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -118,6 +121,18 @@ export default function Header() {
           <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Performance</NavLink>
           <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
           <NavLink href="/archive" isMemberOnly className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Archive</NavLink>
+          <Link
+            href="/smart-cart"
+            onClick={() => setIsOpen(false)}
+            className="relative flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#10b981] hover:text-white transition-colors"
+          >
+            🛒 Smart Cart
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-3 w-4 h-4 bg-[#10b981] text-white text-[8px] font-black rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </Link>
         </nav>
 
         {/* Auth + Toggle */}
@@ -170,6 +185,18 @@ export default function Header() {
             <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-white">Performance</NavLink>
             <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
             <NavLink href="/archive" isMemberOnly className="text-base font-black uppercase tracking-widest text-white">Archive</NavLink>
+            <Link
+              href="/smart-cart"
+              onClick={() => setIsOpen(false)}
+              className="relative flex items-center gap-2 text-base font-black uppercase tracking-widest text-[#10b981]"
+            >
+              🛒 Smart Cart
+              {cartCount > 0 && (
+                <span className="w-5 h-5 bg-[#10b981] text-white text-[9px] font-black rounded-full flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
             
             {!user && (
               <Link href="/login" onClick={() => setIsOpen(false)} className="mt-4 w-full py-4 bg-[#3b82f6] text-white text-center rounded-2xl font-black uppercase tracking-widest shadow-2xl shadow-blue-500/40">
