@@ -56,14 +56,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     pick.ai_summary?.detail_summary?.[langCode]?.slice(0, 160) ||
     "";
 
-  const titles: Record<LangCode, string> = {
+  const titles: Record<string, string> = {
     en: `${pick.ticker} Stock Analysis — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
     tr: `${pick.ticker} Hisse Analizi — BOGA AI Skor ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
     es: `Análisis de Acciones ${pick.ticker} — BOGA AI Puntuación ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
     pt: `Análise de Ações ${pick.ticker} — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
     fr: `Analyse d'Action ${pick.ticker} — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
     id: `Analisis Saham ${pick.ticker} — Skor BOGA AI ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    de: `${pick.ticker} Aktienanalyse — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    it: `Analisi Azionaria ${pick.ticker} — BOGA AI Punteggio ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    ru: `Анализ акций ${pick.ticker} — Оценка BOGA AI ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    ar: `تحليل سهم ${pick.ticker} — نقاط BOGA AI ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    ja: `${pick.ticker} 株式分析 — BOGA AIスコア ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    ko: `${pick.ticker} 주식 분석 — BOGA AI 점수 ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
   };
+
+  const title = titles[langCode as string] || titles.en;
 
   const langAlternates: Record<string, string> = {};
   for (const [l, cfg] of Object.entries(LANG_CONFIG)) {
@@ -72,14 +80,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     metadataBase: new URL("https://bogastock.com"),
-    title: titles[langCode],
+    title,
     description: summary.slice(0, 160),
     alternates: {
       canonical: `https://bogastock.com/${lang}/${slug}/${ticker}`,
       languages: langAlternates,
     },
     openGraph: {
-      title: titles[langCode],
+    title,
       description: summary.slice(0, 160),
       url: `https://bogastock.com/${lang}/${slug}/${ticker}`,
       images: [{ url: "https://bogastock.com/finmawave.png", width: 1200, height: 630 }],
@@ -302,12 +310,7 @@ export default async function LangAnalysisPage({ params }: Props) {
         {/* Link to full interactive page */}
         <div className="glass-card p-4 mb-5 flex items-center justify-between gap-4">
           <p className="text-xs text-[#00d2ff]">
-            {langCode === "tr" ? "Tüm teknik ve temel veriler için:" :
-             langCode === "es" ? "Para todos los datos técnicos y fundamentales:" :
-             langCode === "pt" ? "Para todos os dados técnicos e fundamentais:" :
-             langCode === "fr" ? "Pour toutes les données techniques et fondamentales:" :
-             langCode === "id" ? "Untuk semua data teknikal dan fundamental:" :
-             "For full technical and fundamental data:"}
+            {labels.fullDataPrompt}
           </p>
           <Link
             href={`/stock/${pick.ticker}`}

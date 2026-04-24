@@ -46,18 +46,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pick = getArchivedAnalysis(ticker.toUpperCase(), date);
   if (!pick) return {};
 
-  const titles: Record<LangCode, string> = {
+  const titles: Record<string, string> = {
     en: `${pick.ticker} Analysis ${date} (Archive) — BOGA AI`,
     tr: `${pick.ticker} Analizi ${date} (Arşiv) — BOGA AI`,
     es: `Análisis ${pick.ticker} ${date} (Archivo) — BOGA AI`,
     pt: `Análise ${pick.ticker} ${date} (Arquivo) — BOGA AI`,
     fr: `Analyse ${pick.ticker} ${date} (Archive) — BOGA AI`,
     id: `Analisis ${pick.ticker} ${date} (Arsip) — BOGA AI`,
+    de: `${pick.ticker} Analyse ${date} (Archiv) — BOGA AI`,
+    it: `Analisi ${pick.ticker} ${date} (Archivio) — BOGA AI`,
+    ru: `${pick.ticker} Анализ ${date} (Архив) — BOGA AI`,
+    ar: `${pick.ticker} تحليل ${date} (الأرشيف) — BOGA AI`,
+    ja: `${pick.ticker} 分析 ${date} (アーカイブ) — BOGA AI`,
+    ko: `${pick.ticker} 분석 ${date} (아카이브) — BOGA AI`,
   };
+
+  const title = titles[langCode as string] || titles.en;
 
   return {
     metadataBase: new URL("https://bogastock.com"),
-    title: titles[langCode],
+    title,
     alternates: {
       canonical: `https://bogastock.com/${lang}/${slug}/${ticker}/${date}`,
     },
@@ -104,12 +112,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
         {/* Archive badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] text-xs font-black uppercase tracking-widest mb-5">
           <span>📁</span>
-          {langCode === "tr" ? "Arşiv" :
-           langCode === "es" ? "Archivo" :
-           langCode === "pt" ? "Arquivo" :
-           langCode === "fr" ? "Archive" :
-           langCode === "id" ? "Arsip" : "Archive"}
-          · {date}
+          {labels.archive} · {date}
         </div>
 
         {/* Language switcher */}
@@ -222,11 +225,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
               href={`/${lang}/${slug}/${ticker}`}
               className="px-3 py-1.5 rounded-lg border border-[#3b82f6]/40 text-xs font-bold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
             >
-              ← {langCode === "tr" ? "Güncel Analiz" :
-                  langCode === "es" ? "Análisis Actual" :
-                  langCode === "pt" ? "Análise Atual" :
-                  langCode === "fr" ? "Analyse Actuelle" :
-                  langCode === "id" ? "Analisis Terkini" : "Current Analysis"}
+              ← {labels.currentAnalysis}
             </Link>
             {allDates.filter((d) => d !== date).map((d) => (
               <Link
