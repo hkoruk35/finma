@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import TopSwingPicks from "@/components/TopSwingPicks";
 import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
+import SectorPerformanceHeatMap from "@/components/SectorPerformanceHeatMap";
 import { Metadata } from "next";
 
 export const revalidate = 60; // ISR: 1 dakikada bir yenile
@@ -40,13 +41,8 @@ export default async function HomePage() {
         <p className="text-white">Loading market data...</p>
       </div>
     );
-  }
-
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Ticker Tape */}
-      <TickerTape data={master} />
-
       {/* Header */}
       <Header />
 
@@ -54,6 +50,9 @@ export default async function HomePage() {
         {/* Swing Performance Stats */}
         <section className="animate-fade-in" style={{ animationDelay: "50ms" }}>
           <SwingPerformanceBanner stats={swingStats?.stats} />
+          
+          {/* Synchronized Sector Profitability Heatmap */}
+          <SectorPerformanceHeatMap history={swingStats?.history || []} />
         </section>
 
         {/* Top 3 Swing of the Day */}

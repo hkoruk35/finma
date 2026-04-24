@@ -140,8 +140,6 @@ export default async function LangAnalysisPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      {master && <TickerTape data={master} />}
       <Header />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-6">

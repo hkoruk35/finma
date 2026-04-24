@@ -79,7 +79,6 @@ export default async function StockDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      {master && <TickerTape data={master} />}
       <Header />
 
       {/* Schema.org */}
