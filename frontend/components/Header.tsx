@@ -116,10 +116,8 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-8">
           <NavLink href="/swing-picks" className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Top Swing Picks</NavLink>
-          <NavLink href="/options" className="text-xs font-black uppercase tracking-widest text-[#f59e0b] hover:text-white transition-colors">🎯 Options</NavLink>
-          <NavLink href="/category/top-scores" isMemberOnly className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Top Scores</NavLink>
           <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Performance</NavLink>
-          <NavLink href="/ai" className="text-xs font-black uppercase tracking-widest text-[#a78bfa] hover:text-white transition-colors">🤖 AI</NavLink>
+          <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
           <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
           <NavLink href="/archive" isMemberOnly className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Archive</NavLink>
           <Link
@@ -181,10 +179,8 @@ export default function Header() {
         <div className="xl:hidden bg-[#0d1117] border-b border-[#1e2a3a] px-4 py-8 animate-in slide-in-from-top duration-300 max-h-[80vh] overflow-y-auto">
           <nav className="flex flex-col gap-6">
             <NavLink href="/swing-picks" className="text-base font-black uppercase tracking-widest text-white">Top Swing Picks</NavLink>
-            <NavLink href="/options" className="text-base font-black uppercase tracking-widest text-[#f59e0b]">🎯 Options</NavLink>
-            <NavLink href="/category/top-scores" isMemberOnly className="text-base font-black uppercase tracking-widest text-white">Top Scores</NavLink>
             <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-white">Performance</NavLink>
-            <NavLink href="/ai" className="text-base font-black uppercase tracking-widest text-[#a78bfa]">🤖 AI</NavLink>
+            <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
             <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
             <NavLink href="/archive" isMemberOnly className="text-base font-black uppercase tracking-widest text-white">Archive</NavLink>
             <Link

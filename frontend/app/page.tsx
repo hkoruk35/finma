@@ -2,14 +2,8 @@ import { getMasterData, getAllTickers, getSwingPicks, getSwingPerformance } from
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
-import IndexCards from "@/components/IndexCards";
-import StatsBar from "@/components/StatsBar";
 import TopSwingPicks from "@/components/TopSwingPicks";
 import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
-import SectorScreener from "@/components/SectorScreener";
-import MarketExplorer from "@/components/MarketExplorer";
-import SectorHeatMap from "@/components/SectorHeatMap";
-import AIWidget from "@/components/AIWidget";
 import { Metadata } from "next";
 
 export const revalidate = 60; // ISR: 1 dakikada bir yenile
@@ -57,16 +51,6 @@ export default async function HomePage() {
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
-        {/* AI Widget */}
-        <section className="mb-10 animate-fade-in">
-          <AIWidget />
-        </section>
-
-        {/* Index Quick View - Temporarily Hidden
-        <section className="mb-8 animate-fade-in">
-          <IndexCards data={master} />
-        </section>
-        */}
         {/* Swing Performance Stats */}
         <section className="animate-fade-in" style={{ animationDelay: "50ms" }}>
           <SwingPerformanceBanner stats={swingStats?.stats} />
@@ -75,44 +59,6 @@ export default async function HomePage() {
         {/* Top 3 Swing of the Day */}
         <section className="mb-10 animate-fade-in" style={{ animationDelay: "100ms" }}>
           <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} minimal={true} />
-        </section>
-
-        {/* Hero - Repositioned */}
-        <section className="text-center mb-10 animate-fade-in">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">
-            Find the Best US Stocks
-            <span className="text-[#3b82f6]"> with BOGA AI</span>
-          </h1>
-        </section>
-
-        {/* Stats Bar */}
-        <section className="mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
-          <StatsBar data={master} />
-        </section>
-
-        {/* Smart Sector Screener */}
-        <section className="mb-12 animate-fade-in" style={{ animationDelay: "225ms" }}>
-          <SectorScreener />
-        </section>
-
-        {/* Market Themes & Category Tabs Explorer */}
-        <section className="mb-12 animate-fade-in" style={{ animationDelay: "250ms" }}>
-           <MarketExplorer master={master} allTickers={allTickers} />
-        </section>
-
-        {/* Sector Heat Map */}
-        <section className="mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
-          <SectorHeatMap data={master} allTickers={allTickers} />
-        </section>
-
-        {/* Ad Slot Placeholder */}
-        <section className="mb-8">
-          <div className="glass-card flex items-center justify-center h-24 text-[#00d2ff] text-sm hidden md:flex">
-            AD-H1 &middot; 728&times;90 Leaderboard
-          </div>
-          <div className="glass-card flex items-center justify-center h-16 text-[#00d2ff] text-[10px] md:hidden">
-            AD-M1 &middot; 320&times;50 Mobile Banner
-          </div>
         </section>
 
         {/* Archive Preview */}
@@ -136,9 +82,10 @@ export default async function HomePage() {
             </a>
           </div>
         </section>
+
         {/* SEO & Topical Authority Content */}
         <section className="mt-16 mb-12 animate-fade-in" style={{ animationDelay: "500ms" }}>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-3xl mx-auto">
             <div className="glass-card p-8 border-l-4 border-l-[#3b82f6]">
               <h2 className="text-2xl font-black text-white mb-4">How BOGA AI Works</h2>
               <p className="text-white leading-relaxed mb-4 text-sm">
@@ -161,29 +108,6 @@ export default async function HomePage() {
                   </li>
                 ))}
               </ul>
-            </div>
-            <div className="glass-card p-8 border-l-4 border-l-[#f59e0b]">
-              <h2 className="text-2xl font-black text-white mb-4">Trading Disciplines</h2>
-              <p className="text-white leading-relaxed text-sm">
-                Our AI categorizes stocks into five distinct trading regimes to suit your strategy:
-              </p>
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                {[
-                  { tag: "Breakout", color: "text-[#22c55e]" },
-                  { tag: "Momentum", color: "text-[#3b82f6]" },
-                  { tag: "Undervalued", color: "text-[#f59e0b]" },
-                  { tag: "Reversal", color: "text-[#8b5cf6]" },
-                  { tag: "Passive Income", color: "text-[#10b981]" }
-                ].map((cat) => (
-                  <div key={cat.tag} className="flex items-center gap-2">
-                    <div className={`w-1.5 h-1.5 rounded-full ${cat.color.replace('text-', 'bg-')}`} />
-                    <span className={`text-[13px] font-black uppercase tracking-wider ${cat.color}`}>{cat.tag}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-8 text-xs text-[#00d2ff] italic">
-                *Note: AI analysis is for informational purposes only. Always conduct your own research before trading.
-              </p>
             </div>
           </div>
         </section>
