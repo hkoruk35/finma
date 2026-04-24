@@ -83,31 +83,76 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* SEO & Topical Authority Content */}
+        {/* How BOGA Finance AI Works */}
         <section className="mt-16 mb-12 animate-fade-in" style={{ animationDelay: "500ms" }}>
-          <div className="max-w-3xl mx-auto">
-            <div className="glass-card p-8 border-l-4 border-l-[#3b82f6]">
-              <h2 className="text-2xl font-black text-white mb-4">How BOGA AI Works</h2>
-              <p className="text-white leading-relaxed mb-4 text-sm">
-                BOGA AI is an advanced analysis engine that scans over 500 US stocks every day. 
-                Using a combination of technical momentum, fundamental valuation, and sentiment analysis, 
-                our system identifies high-probability trading setups.
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tighter">
+                How BOGA Finance AI Works
+              </h2>
+              <p className="text-white/70 max-w-3xl mx-auto leading-relaxed text-sm md:text-base">
+                BOGA Finance AI is an institutional-grade intelligence engine designed for precision swing trading. 
+                Rather than reacting blindly to opening bell noise, our system operates on a rigorous, 
+                three-phase algorithmic pipeline that filters the entire U.S. market down to a highly curated, actively managed portfolio.
               </p>
-              <ul className="space-y-3">
-                {[
-                  { title: "Daily 1D Scans", desc: "Every morning before market open, our engine analyzes the previous day's closing data." },
-                  { title: "Multi-Factor Scoring", desc: "Stocks are scored on a scale of 0-100 based on price action and volume profiles." },
-                  { title: "Risk-Managed Entries", desc: "Every pick includes suggested entry zones, targets, and stop-loss levels." }
-                ].map((item, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="text-[#3b82f6] font-bold">✓</span>
-                    <div>
-                      <h4 className="text-white text-[13px] font-bold">{item.title}</h4>
-                      <p className="text-[#00d2ff] text-[12px]">{item.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 px-2">
+              {/* Phase 1 */}
+              <div className="glass-card p-8 border-t-4 border-t-[#3b82f6] relative overflow-hidden group hover:bg-[#3b82f6]/5 transition-all duration-300">
+                <div className="absolute -right-4 -top-4 text-white/5 text-8xl font-black group-hover:text-[#3b82f6]/10 transition-colors">1</div>
+                <h3 className="text-lg font-black text-white mb-3 uppercase tracking-wider flex items-center gap-2">
+                   <span className="text-[#3b82f6]">✓</span> Phase 1
+                </h3>
+                <h4 className="text-[#3b82f6] text-[13px] font-black mb-4 uppercase tracking-widest border-b border-[#3b82f6]/20 pb-2">Nightly Macro Scan</h4>
+                <p className="text-white/80 text-[13px] leading-relaxed mb-6">
+                  Every night, our engine scans over <strong>7,000 U.S. equities</strong>. We apply strict fundamental filters to isolate the top 500 robust companies, then use proprietary algorithms to distill an elite watchlist of 20 prime candidates.
+                </p>
+                <div className="mt-auto text-[#00d2ff] text-[11px] font-bold bg-[#3b82f6]/10 p-3 rounded-xl border border-[#3b82f6]/30 text-center uppercase tracking-widest">
+                  7,000+ Stocks → 20 Elite
+                </div>
+              </div>
+
+              {/* Phase 2 */}
+              <div className="glass-card p-8 border-t-4 border-t-[#f59e0b] relative overflow-hidden group hover:bg-[#f59e0b]/5 transition-all duration-300">
+                 <div className="absolute -right-4 -top-4 text-white/5 text-8xl font-black group-hover:text-[#f59e0b]/10 transition-colors">2</div>
+                <h3 className="text-lg font-black text-white mb-3 uppercase tracking-wider flex items-center gap-2">
+                   <span className="text-[#f59e0b]">✓</span> Phase 2
+                </h3>
+                <h4 className="text-[#f59e0b] text-[13px] font-black mb-4 uppercase tracking-widest border-b border-[#f59e0b]/20 pb-2">11:00 AM Sniper Execution</h4>
+                <p className="text-white/80 text-[13px] leading-relaxed mb-6">
+                  We bypass the chaotic first 90 minutes. At <strong>11:00 AM (EST)</strong>, our sniper algorithm evaluates the watchlist using intraday volume absorption and Smart Money footprints to pick the top 5 setups.
+                </p>
+                <div className="mt-auto text-[#fbbf24] text-[11px] font-bold bg-[#f59e0b]/10 p-3 rounded-xl border border-[#f59e0b]/30 text-center uppercase tracking-widest">
+                  20 Candidates → Top 5 Picks
+                </div>
+              </div>
+
+              {/* Phase 3 */}
+              <div className="glass-card p-8 border-t-4 border-t-[#10b981] relative overflow-hidden group hover:bg-[#10b981]/5 transition-all duration-300">
+                 <div className="absolute -right-4 -top-4 text-white/5 text-8xl font-black group-hover:text-[#10b981]/10 transition-colors">3</div>
+                <h3 className="text-lg font-black text-white mb-3 uppercase tracking-wider flex items-center gap-2">
+                   <span className="text-[#10b981]">✓</span> Phase 3
+                </h3>
+                <h4 className="text-[#10b981] text-[13px] font-black mb-4 uppercase tracking-widest border-b border-[#10b981]/20 pb-2">360° Smart Rolling Tracking</h4>
+                <p className="text-white/80 text-[13px] leading-relaxed mb-6">
+                   BOGA AI monitors today's 5 selections alongside picks from the previous 4 days, maintaining a <strong>dynamic 25-stock rolling portfolio</strong> with precise Entry, Target, and Stop-Loss levels.
+                </p>
+                <div className="mt-auto text-[#34d399] text-[11px] font-bold bg-[#10b981]/10 p-3 rounded-xl border border-[#10b981]/30 text-center uppercase tracking-widest">
+                  Rolling Matrix: 25 Active
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-10 glass-card p-8 border-l-4 border-l-[#a78bfa] bg-[#a78bfa]/5 relative group overflow-hidden">
+              <div className="absolute right-4 bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <svg className="w-12 h-12 text-[#a78bfa]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C20.1216 16 21.017 16.8954 21.017 18V21C21.017 22.1046 20.1216 23 19.017 23H16.017C14.9124 23 14.017 22.1046 14.017 21ZM14.017 14V11C14.017 9.89543 14.9124 9 16.017 9H19.017C20.1216 9 21.017 9.89543 21.017 11V14C21.017 15.1046 20.1216 16 19.017 16H16.017C14.9124 16 14.017 15.1046 14.017 14ZM5.017 21L5.017 18C5.017 16.8954 5.91242 16 7.017 16H10.017C11.1216 16 12.017 16.8954 12.017 18V21C12.017 22.1046 11.1216 23 10.017 23H7.017C5.91242 23 5.017 22.1046 5.017 21ZM5.017 14V11C5.017 9.89543 5.91242 9 7.017 9H10.017C11.1216 9 12.017 9.89543 12.017 11V14C12.017 15.1046 11.1216 16 10.017 16H7.017C5.91242 16 5.017 15.1046 5.017 14ZM14.017 7V4C14.017 2.89543 14.9124 2 16.017 2H19.017C20.1216 2 21.017 2.89543 21.017 4V7C21.017 8.10457 20.1216 9 19.017 9H16.017C14.9124 9 14.017 8.10457 14.017 7ZM5.017 7V4C5.017 2.89543 5.91242 2 7.017 2H10.017C11.1216 2 12.017 2.89543 12.017 4V7C12.017 8.10457 11.1216 9 10.017 9H7.017C5.91242 9 5.017 8.10457 5.017 7Z" />
+                </svg>
+              </div>
+              <p className="text-white/90 text-[14px] md:text-[15px] leading-relaxed italic pr-12 font-medium">
+                "Each of these 25 stocks is continuously monitored in real-time across all dimensions—fundamental shifts, technical momentum, and breaking news/sentiment. Whether a stop-loss is triggered, a target is hit, or a trend needs adjustment, BOGA AI processes the data and updates you instantly."
+              </p>
             </div>
           </div>
         </section>
