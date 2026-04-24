@@ -1,7 +1,7 @@
 "use client";
 
-// Thin client wrapper so we can use AddToCartButton inside a server-rendered table
-import AddToCartButton from "@/components/AddToCartButton";
+// Thin client wrapper so we can use AddToTrackerButton inside a server-rendered table
+import AddToTrackerButton from "@/components/AddToTrackerButton";
 
 interface Props {
   pick: {
@@ -17,6 +17,6 @@ interface Props {
   };
 }
 
-export default function CartButtonWrapper({ pick }: Props) {
-  return <AddToCartButton pick={pick} compact />;
+export default function TrackerButtonWrapper({ pick }: Props) {
+  return <AddToTrackerButton pick={pick} compact />;
 }

@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useSmartCart } from "@/components/SmartCartContext";
-import { CartPosition, SizeUnit, computePnl } from "@/lib/smartCart";
+import { useSmartTracker } from "@/components/SmartTrackerContext";
+import { TrackerPosition, SizeUnit, computePnl } from "@/lib/smartTracker";
 
 const f = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 const pColor = (v: number) => v > 0 ? "text-emerald-400" : v < 0 ? "text-red-400" : "text-slate-400";
@@ -18,8 +18,8 @@ function StatCard({ label, val, sub, color = "text-white" }: { label: string; va
   );
 }
 
-function PositionCard({ pos, simple }: { pos: CartPosition; simple: boolean }) {
-  const { openTrade, closeTrade, removeFromCart } = useSmartCart();
+function PositionCard({ pos, simple }: { pos: TrackerPosition; simple: boolean }) {
+  const { openTrade, closeTrade, removeFromTracker } = useSmartTracker();
   const [closeInput, setCloseInput] = useState("");
   const [entryInput, setEntryInput] = useState("");
   const pnl = computePnl(pos, pos.currentPrice);
@@ -49,7 +49,7 @@ function PositionCard({ pos, simple }: { pos: CartPosition; simple: boolean }) {
         <div className="flex gap-1 shrink-0">
           {pos.status === "pending" && <button onClick={() => openTrade(pos.id, parseFloat(entryInput) || pos.buyZoneLow)} className="px-2 py-1 text-[9px] font-black uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20">Open</button>}
           {isOpen && <button onClick={() => closeTrade(pos.id, parseFloat(closeInput) || (pos.currentPrice ?? pos.signalPrice))} className="px-2 py-1 text-[9px] font-black uppercase bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500/20">Close</button>}
-          {!isClosed && <button onClick={() => removeFromCart(pos.id)} className="px-2 py-1 text-[9px] text-slate-500 border border-[#1e2a3a] rounded hover:text-red-400">✕</button>}
+          {!isClosed && <button onClick={() => removeFromTracker(pos.id)} className="px-2 py-1 text-[9px] text-slate-500 border border-[#1e2a3a] rounded hover:text-red-400">✕</button>}
         </div>
       </div>
     );
@@ -104,7 +104,7 @@ function PositionCard({ pos, simple }: { pos: CartPosition; simple: boolean }) {
             </>
           )}
           {!isClosed && (
-            <button onClick={() => removeFromCart(pos.id)} className="px-2 py-1 text-[10px] text-slate-500 border border-[#1e2a3a] rounded hover:text-red-400">✕</button>
+            <button onClick={() => removeFromTracker(pos.id)} className="px-2 py-1 text-[10px] text-slate-500 border border-[#1e2a3a] rounded hover:text-red-400">✕</button>
           )}
         </div>
       </div>
@@ -112,34 +112,34 @@ function PositionCard({ pos, simple }: { pos: CartPosition; simple: boolean }) {
   );
 }
 
-export default function SmartCartDashboard() {
-  const { activeCart, stats, store, openBasket, closeBasket, refreshPrices, loading } = useSmartCart();
+export default function SmartTrackerDashboard() {
+  const { activeTracker, stats, store, openTracker, closeTracker, refreshPrices, loading } = useSmartTracker();
   const [showCreate, setShowCreate] = useState(false);
-  const [name, setName] = useState("My Smart Cart");
+  const [name, setName] = useState("My Smart Tracker");
   const [budget, setBudget] = useState(10000);
   const [filter, setFilter] = useState<"all" | "open" | "pending" | "closed">("all");
   const [view, setView] = useState<"card" | "list">("card");
   const refreshed = useRef(false);
 
   useEffect(() => {
-    if (!refreshed.current && activeCart) { refreshed.current = true; refreshPrices(); }
-  }, [activeCart, refreshPrices]);
+    if (!refreshed.current && activeTracker) { refreshed.current = true; refreshPrices(); }
+  }, [activeTracker, refreshPrices]);
 
-  if (!activeCart) return (
+  if (!activeTracker) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-5 py-16">
       <nav className="self-start flex items-center gap-2 text-sm text-[#3b82f6] mb-4">
-        <Link href="/" className="hover:text-white">Home</Link><span className="text-slate-600">/</span><span className="text-white">Smart Cart</span>
+        <Link href="/" className="hover:text-white">Home</Link><span className="text-slate-600">/</span><span className="text-white">Smart Tracker</span>
       </nav>
-      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#3b82f6]/20 to-[#6366f1]/20 border border-[#3b82f6]/20 flex items-center justify-center text-4xl">🛒</div>
-      <h1 className="text-3xl font-black text-white">Smart Cart</h1>
+      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#3b82f6]/20 to-[#6366f1]/20 border border-[#3b82f6]/20 flex items-center justify-center text-4xl">🚀</div>
+      <h1 className="text-3xl font-black text-white">Smart Tracker</h1>
       <p className="text-slate-400 text-center max-w-sm text-sm">Paper-trade your swing picks. Track PnL, sector allocation and stats — no real money.</p>
       <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-blue-500/20">
-        🚀 Create Basket
+        🚀 Create Tracker
       </button>
-      {store.archivedCarts.length > 0 && (
+      {store.archivedTrackers.length > 0 && (
         <div className="w-full max-w-lg mt-2">
-          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-2">Past Baskets</p>
-          {store.archivedCarts.map(c => (
+          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-2">Past Trackers</p>
+          {store.archivedTrackers.map(c => (
             <div key={c.id} className="border border-[#1e2a3a] rounded-xl p-3 mb-2 flex justify-between items-center">
               <div><div className="text-white font-bold text-sm">{c.name}</div><div className="text-slate-500 text-[10px]">{c.positions.length} positions</div></div>
               <span className="text-slate-600 text-[9px] font-black uppercase border border-[#1e2a3a] px-2 py-1 rounded">Archived</span>
@@ -150,43 +150,43 @@ export default function SmartCartDashboard() {
       {showCreate && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => setShowCreate(false)}>
           <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl" onClick={e => e.stopPropagation()}>
-            <h3 className="text-white font-black text-lg mb-4">New Basket</h3>
+            <h3 className="text-white font-black text-lg mb-4">New Tracker</h3>
             <label className="text-[10px] text-[#3b82f6] font-black uppercase tracking-wider block mb-1">Name</label>
             <input value={name} onChange={e => setName(e.target.value)} className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-2.5 text-white text-sm mb-3 focus:outline-none focus:border-[#3b82f6]" />
             <label className="text-[10px] text-[#3b82f6] font-black uppercase tracking-wider block mb-1">Budget (USD)</label>
             <input type="number" value={budget} onChange={e => setBudget(+e.target.value)} className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-2.5 text-white font-mono text-sm mb-4 focus:outline-none focus:border-[#3b82f6]" />
-            <button onClick={() => { openBasket(name, budget); setShowCreate(false); }} className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90">Create</button>
+            <button onClick={() => { openTracker(name, budget); setShowCreate(false); }} className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90">Create</button>
           </div>
         </div>
       )}
     </div>
   );
 
-  const positions = activeCart.positions;
+  const positions = activeTracker.positions;
   const filtered = filter === "all" ? positions : positions.filter(p => p.status === filter);
   const totalPnl = (stats?.totalUnrealizedPnl ?? 0) + (stats?.totalRealizedPnl ?? 0);
   const budgetUsed = stats?.totalInvested ?? 0;
-  const budgetPct = Math.min((budgetUsed / activeCart.totalBudgetUsd) * 100, 100);
+  const budgetPct = Math.min((budgetUsed / activeTracker.totalBudgetUsd) * 100, 100);
   const sectorColors = ["#3b82f6","#10b981","#f59e0b","#8b5cf6","#ef4444","#06b6d4","#ec4899"];
 
   return (
     <div>
       <nav className="flex items-center gap-2 text-sm text-[#3b82f6] mb-5">
-        <Link href="/" className="hover:text-white">Home</Link><span className="text-slate-600">/</span><span className="text-white">Smart Cart</span>
+        <Link href="/" className="hover:text-white">Home</Link><span className="text-slate-600">/</span><span className="text-white">Smart Tracker</span>
       </nav>
 
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-black text-white flex items-center gap-2">🛒 {activeCart.name}</h1>
-          <p className="text-slate-500 text-xs mt-0.5">Paper Trade · Budget: <span className="text-white font-mono">${f(activeCart.totalBudgetUsd, 0)}</span> · {activeCart.updatedAt.split("T")[0]}</p>
+          <h1 className="text-2xl font-black text-white flex items-center gap-2">🚀 {activeTracker.name}</h1>
+          <p className="text-slate-500 text-xs mt-0.5">Paper Trade · Budget: <span className="text-white font-mono">${f(activeTracker.totalBudgetUsd, 0)}</span> · {activeTracker.updatedAt.split("T")[0]}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
           <button onClick={refreshPrices} disabled={loading} className="px-3 py-1.5 bg-[#141924] border border-[#1e2a3a] text-slate-300 text-xs font-bold rounded-lg hover:border-[#3b82f6]/40 disabled:opacity-50">
             {loading ? "⟳..." : "⟳ Refresh"}
           </button>
           <Link href="/swing-picks" className="px-3 py-1.5 bg-[#3b82f6]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-xs font-bold rounded-lg hover:bg-[#3b82f6]/20">+ Add Picks</Link>
-          <button onClick={() => { if (confirm("Archive this basket?")) closeBasket(); }} className="px-3 py-1.5 text-slate-500 border border-[#1e2a3a] text-xs font-bold rounded-lg hover:text-red-400 hover:border-red-500/30">Archive</button>
+          <button onClick={() => { if (confirm("Archive this tracker?")) closeTracker(); }} className="px-3 py-1.5 text-slate-500 border border-[#1e2a3a] text-xs font-bold rounded-lg hover:text-red-400 hover:border-red-500/30">Archive</button>
         </div>
       </div>
 
@@ -202,14 +202,14 @@ export default function SmartCartDashboard() {
       <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-3 mb-5">
         <div className="flex justify-between text-[10px] mb-1.5">
           <span className="text-[#3b82f6] font-bold uppercase tracking-wider">Budget Used</span>
-          <span className="text-white font-mono">${f(budgetUsed,0)} / ${f(activeCart.totalBudgetUsd,0)} · {budgetPct.toFixed(0)}%</span>
+          <span className="text-white font-mono">${f(budgetUsed,0)} / ${f(activeTracker.totalBudgetUsd,0)} · {budgetPct.toFixed(0)}%</span>
         </div>
         <div className="h-2 bg-[#1e2a3a] rounded-full overflow-hidden">
           <div className={`h-full rounded-full ${budgetPct>90?"bg-red-500":budgetPct>70?"bg-amber-500":"bg-gradient-to-r from-[#3b82f6] to-[#6366f1]"}`} style={{width:`${budgetPct}%`}} />
         </div>
         <div className="flex justify-between mt-1 text-[9px] text-slate-600">
           <span>{stats?.openCount} open · {stats?.pendingCount} pending · {stats?.closedCount} closed</span>
-          <span>Free: ${f(Math.max(0,activeCart.totalBudgetUsd-budgetUsed),0)}</span>
+          <span>Free: ${f(Math.max(0,activeTracker.totalBudgetUsd-budgetUsed),0)}</span>
         </div>
       </div>
 
@@ -232,7 +232,7 @@ export default function SmartCartDashboard() {
           {filtered.length===0 ? (
             <div className="border border-dashed border-[#1e2a3a] rounded-xl p-10 text-center">
               <div className="text-3xl mb-2">📭</div>
-              <p className="text-slate-500 text-sm">No positions. Go to <Link href="/swing-picks" className="text-[#3b82f6] hover:underline">Swing Picks</Link> and click <b className="text-white">Add Smart Cart</b>.</p>
+              <p className="text-slate-500 text-sm">No positions. Go to <Link href="/swing-picks" className="text-[#3b82f6] hover:underline">Swing Picks</Link> and click <b className="text-white">Add Smart Tracker</b>.</p>
             </div>
           ) : view==="list" ? (
             <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl overflow-hidden">

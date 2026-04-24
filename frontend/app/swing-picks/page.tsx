@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import TopSwingPicks from "@/components/TopSwingPicks";
-import CartButtonWrapper from "@/components/CartButtonWrapper";
+import TrackerButtonWrapper from "@/components/TrackerButtonWrapper";
 import Link from "next/link";
 import { Metadata } from "next";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
@@ -114,7 +114,7 @@ export default async function SwingPicksPage() {
                     <th className="px-4 py-4 text-right">1M</th>
                     <th className="px-4 py-4 text-right">1Y</th>
                     <th className="px-4 py-4 text-right">5Y</th>
-                    <th className="px-4 py-4 text-right">Cart</th>
+                    <th className="px-4 py-4 text-right">Tracker</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -170,7 +170,7 @@ export default async function SwingPicksPage() {
                         </td>
                       ))}
                       <td className="px-3 py-2.5 text-right">
-                        <CartButtonWrapper pick={pick} />
+                        <TrackerButtonWrapper pick={pick} />
                       </td>
                     </tr>
                   ))}

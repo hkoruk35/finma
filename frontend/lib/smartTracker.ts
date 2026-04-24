@@ -1,18 +1,18 @@
-// Smart Cart — Paper Trade Basket
+// Smart Tracker — Paper Trade Basket
 // 30-day localStorage cache (auth-agnostic until login system is active)
 
-export const CART_STORAGE_KEY = "boga_smart_cart_v1";
-export const CART_TTL_DAYS = 30;
+export const TRACKER_STORAGE_KEY = "boga_smart_tracker_v1";
+export const TRACKER_TTL_DAYS = 30;
 
 export type TradeStatus = "open" | "closed" | "pending";
 export type SizeUnit = "usd" | "lot";
 
-export interface CartPosition {
+export interface TrackerPosition {
   id: string; // uuid-style: ticker + entryDate
   ticker: string;
   company: string;
   sector: string;
-  addedDate: string; // ISO date string (day added to cart)
+  addedDate: string; // ISO date string (day added to tracker)
   entryDate?: string; // ISO date when trade was opened
   closeDate?: string; // ISO date when trade was closed
   status: TradeStatus;
@@ -47,18 +47,18 @@ export interface CartPosition {
   dailyPnlHistory?: Array<{ date: string; pnl: number; price: number }>;
 }
 
-export interface SmartCart {
+export interface SmartTracker {
   id: string; // single basket id
   name: string;
   createdAt: string;
   updatedAt: string;
   totalBudgetUsd: number;
-  positions: CartPosition[];
+  positions: TrackerPosition[];
 }
 
-export interface CartStore {
-  activeCart: SmartCart | null;
-  archivedCarts: SmartCart[]; // closed baskets
+export interface TrackerStore {
+  activeTracker: SmartTracker | null;
+  archivedTrackers: SmartTracker[]; // closed baskets
   lastFetched: string; // ISO
 }
 
@@ -74,42 +74,56 @@ function generateId(ticker: string): string {
 
 // ── Storage ───────────────────────────────────────────────────────────────────
 
-export function loadCartStore(): CartStore {
+export function loadTrackerStore(): TrackerStore {
   if (typeof window === "undefined") {
-    return { activeCart: null, archivedCarts: [], lastFetched: "" };
+    return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
   }
   try {
-    const raw = localStorage.getItem(CART_STORAGE_KEY);
-    if (!raw) return { activeCart: null, archivedCarts: [], lastFetched: "" };
-    const data: CartStore = JSON.parse(raw);
+    const raw = localStorage.getItem(TRACKER_STORAGE_KEY);
+    if (!raw) {
+      // Fallback to old cart key to migrate data if needed, but let's just stick to tracker for clean start
+      // or check "boga_smart_cart_v1"
+      const oldRaw = localStorage.getItem("boga_smart_cart_v1");
+      if (oldRaw) {
+         const data = JSON.parse(oldRaw);
+         // simple migration of property names if they changed
+         return {
+           activeTracker: data.activeCart,
+           archivedTrackers: data.archivedCarts || [],
+           lastFetched: data.lastFetched || ""
+         };
+      }
+      return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
+    }
+    const data: TrackerStore = JSON.parse(raw);
 
     // TTL check — purge data older than 30 days
     if (data.lastFetched) {
       const ageDays =
         (Date.now() - new Date(data.lastFetched).getTime()) /
         (1000 * 60 * 60 * 24);
-      if (ageDays > CART_TTL_DAYS) {
-        localStorage.removeItem(CART_STORAGE_KEY);
-        return { activeCart: null, archivedCarts: [], lastFetched: "" };
+      if (ageDays > TRACKER_TTL_DAYS) {
+        localStorage.removeItem(TRACKER_STORAGE_KEY);
+        return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
       }
     }
     return data;
   } catch {
-    return { activeCart: null, archivedCarts: [], lastFetched: "" };
+    return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
   }
 }
 
-export function saveCartStore(store: CartStore): void {
+export function saveTrackerStore(store: TrackerStore): void {
   if (typeof window === "undefined") return;
   store.lastFetched = now();
-  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(store));
+  localStorage.setItem(TRACKER_STORAGE_KEY, JSON.stringify(store));
 }
 
-// ── Cart Operations ───────────────────────────────────────────────────────────
+// ── Tracker Operations ───────────────────────────────────────────────────────────
 
-export function createCart(name = "My Smart Cart", totalBudgetUsd = 10000): SmartCart {
+export function createTracker(name = "My Smart Tracker", totalBudgetUsd = 10000): SmartTracker {
   return {
-    id: generateId("cart"),
+    id: generateId("tracker"),
     name,
     createdAt: now(),
     updatedAt: now(),
@@ -119,7 +133,7 @@ export function createCart(name = "My Smart Cart", totalBudgetUsd = 10000): Smar
 }
 
 export function addPosition(
-  cart: SmartCart,
+  tracker: SmartTracker,
   pick: {
     ticker: string;
     company: string;
@@ -133,14 +147,14 @@ export function addPosition(
   },
   sizeUnit: SizeUnit = "usd",
   sizeValue = 1000
-): SmartCart {
+): SmartTracker {
   // Prevent duplicates (same ticker, open or pending)
-  const existing = cart.positions.find(
+  const existing = tracker.positions.find(
     (p) => p.ticker === pick.ticker && p.status !== "closed"
   );
-  if (existing) return cart;
+  if (existing) return tracker;
 
-  const position: CartPosition = {
+  const position: TrackerPosition = {
     id: generateId(pick.ticker),
     ticker: pick.ticker,
     company: pick.company,
@@ -162,21 +176,21 @@ export function addPosition(
   };
 
   return {
-    ...cart,
+    ...tracker,
     updatedAt: now(),
-    positions: [...cart.positions, position],
+    positions: [...tracker.positions, position],
   };
 }
 
 export function openPosition(
-  cart: SmartCart,
+  tracker: SmartTracker,
   positionId: string,
   entryPrice: number
-): SmartCart {
+): SmartTracker {
   return {
-    ...cart,
+    ...tracker,
     updatedAt: now(),
-    positions: cart.positions.map((p) =>
+    positions: tracker.positions.map((p) =>
       p.id === positionId
         ? {
             ...p,
@@ -191,14 +205,14 @@ export function openPosition(
 }
 
 export function closePosition(
-  cart: SmartCart,
+  tracker: SmartTracker,
   positionId: string,
   closePrice: number
-): SmartCart {
+): SmartTracker {
   return {
-    ...cart,
+    ...tracker,
     updatedAt: now(),
-    positions: cart.positions.map((p) => {
+    positions: tracker.positions.map((p) => {
       if (p.id !== positionId) return p;
       const pnl = computePnl(p, closePrice);
       return {
@@ -213,24 +227,24 @@ export function closePosition(
   };
 }
 
-export function removePosition(cart: SmartCart, positionId: string): SmartCart {
+export function removePosition(tracker: SmartTracker, positionId: string): SmartTracker {
   return {
-    ...cart,
+    ...tracker,
     updatedAt: now(),
-    positions: cart.positions.filter((p) => p.id !== positionId),
+    positions: tracker.positions.filter((p) => p.id !== positionId),
   };
 }
 
 export function updatePositionSize(
-  cart: SmartCart,
+  tracker: SmartTracker,
   positionId: string,
   sizeUnit: SizeUnit,
   sizeValue: number
-): SmartCart {
+): SmartTracker {
   return {
-    ...cart,
+    ...tracker,
     updatedAt: now(),
-    positions: cart.positions.map((p) =>
+    positions: tracker.positions.map((p) =>
       p.id === positionId ? { ...p, sizeUnit, sizeValue } : p
     ),
   };
@@ -239,7 +253,7 @@ export function updatePositionSize(
 // ── PnL Computation ───────────────────────────────────────────────────────────
 
 export function computePnl(
-  p: CartPosition,
+  p: TrackerPosition,
   currentPrice?: number
 ): { pnlUsd: number; pnlPct: number; shares: number; investedUsd: number } {
   const entry = p.entryPrice ?? p.signalPrice;
@@ -262,9 +276,9 @@ export function computePnl(
   return { pnlUsd, pnlPct, shares, investedUsd };
 }
 
-// ── Basket Stats ──────────────────────────────────────────────────────────────
+// ── Tracker Stats ──────────────────────────────────────────────────────────────
 
-export interface CartStats {
+export interface TrackerStats {
   totalInvested: number;
   totalCurrentValue: number;
   totalUnrealizedPnl: number;
@@ -276,14 +290,14 @@ export interface CartStats {
   winRate: number; // %
   avgHoldingDays: number;
   sectorDistribution: Record<string, number>; // sector -> investedUsd
-  bestPosition: CartPosition | null;
-  worstPosition: CartPosition | null;
+  bestPosition: TrackerPosition | null;
+  worstPosition: TrackerPosition | null;
 }
 
-export function computeCartStats(cart: SmartCart): CartStats {
-  const open = cart.positions.filter((p) => p.status === "open");
-  const closed = cart.positions.filter((p) => p.status === "closed");
-  const pending = cart.positions.filter((p) => p.status === "pending");
+export function computeTrackerStats(tracker: SmartTracker): TrackerStats {
+  const open = tracker.positions.filter((p) => p.status === "open");
+  const closed = tracker.positions.filter((p) => p.status === "closed");
+  const pending = tracker.positions.filter((p) => p.status === "pending");
 
   let totalInvested = 0;
   let totalCurrentValue = 0;
@@ -322,8 +336,8 @@ export function computeCartStats(cart: SmartCart): CartStats {
   const avgHoldingDays = count > 0 ? totalDays / count : 0;
 
   // Best / Worst open positions
-  let best: CartPosition | null = null;
-  let worst: CartPosition | null = null;
+  let best: TrackerPosition | null = null;
+  let worst: TrackerPosition | null = null;
   open.forEach((p) => {
     const { pnlUsd } = computePnl(p);
     if (!best || pnlUsd > computePnl(best).pnlUsd) best = p;

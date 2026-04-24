@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useSmartCart } from "@/components/SmartCartContext";
-import { SizeUnit } from "@/lib/smartCart";
+import { useSmartTracker } from "@/components/SmartTrackerContext";
+import { SizeUnit } from "@/lib/smartTracker";
 
-interface AddToCartButtonProps {
+interface AddToTrackerButtonProps {
   pick: {
     ticker: string;
     company: string;
@@ -19,9 +19,9 @@ interface AddToCartButtonProps {
   compact?: boolean;
 }
 
-export default function AddToCartButton({ pick, compact = false }: AddToCartButtonProps) {
-  const { isInCart, addToCart, activeCart, openBasket } = useSmartCart();
-  const inCart = isInCart(pick.ticker);
+export default function AddToTrackerButton({ pick, compact = false }: AddToTrackerButtonProps) {
+  const { isInTracker, addToTracker, activeTracker, openTracker } = useSmartTracker();
+  const tracked = isInTracker(pick.ticker);
   const [showModal, setShowModal] = useState(false);
   const [sizeUnit, setSizeUnit] = useState<SizeUnit>("usd");
   const [sizeValue, setSizeValue] = useState(1000);
@@ -29,13 +29,13 @@ export default function AddToCartButton({ pick, compact = false }: AddToCartButt
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    if (inCart) return;
+    if (tracked) return;
     setShowModal(true);
   }
 
   function handleConfirm() {
-    if (!activeCart) openBasket();
-    addToCart(
+    if (!activeTracker) openTracker();
+    addToTracker(
       { ...pick, sector: pick.sector || "Unknown", holding_period: pick.holding_period || "—" },
       sizeUnit,
       sizeValue
@@ -50,27 +50,27 @@ export default function AddToCartButton({ pick, compact = false }: AddToCartButt
   return (
     <>
       <button
-        id={`add-cart-${pick.ticker}`}
+        id={`add-tracker-${pick.ticker}`}
         onClick={handleClick}
         className={`${btnBase} ${
-          inCart
+          tracked
             ? "bg-[#10b981]/20 text-[#10b981] border border-[#10b981]/40 cursor-default"
             : "bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6]/25 hover:border-[#3b82f6]/60 hover:text-white active:scale-95"
         }`}
       >
-        {inCart ? (
+        {tracked ? (
           <>
             <svg className={compact ? "w-3 h-3" : "w-3.5 h-3.5"} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
-            {!compact && "In Cart"}
+            {!compact && "Tracked"}
           </>
         ) : (
           <>
             <svg className={compact ? "w-3 h-3" : "w-3.5 h-3.5"} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-9H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
-            {!compact && "Add Smart Cart"}
+            {!compact && "Add Smart Tracker"}
             {compact && "+"}
           </>
         )}
@@ -165,7 +165,7 @@ export default function AddToCartButton({ pick, compact = false }: AddToCartButt
               onClick={handleConfirm}
               className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:from-[#2563eb] hover:to-[#5b21b6] transition-all active:scale-[0.98] shadow-lg shadow-blue-500/20"
             >
-              🛒 Add to Smart Cart
+              🚀 Add to Smart Tracker
             </button>
 
             <p className="text-center text-[10px] text-[#00d2ff] mt-3">

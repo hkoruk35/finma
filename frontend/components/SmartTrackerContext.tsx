@@ -10,60 +10,60 @@ import React, {
   useState,
 } from "react";
 import {
-  CartStore,
-  SmartCart,
-  CartPosition,
+  TrackerStore,
+  SmartTracker,
+  TrackerPosition,
   SizeUnit,
   addPosition,
   closePosition,
-  computeCartStats,
-  createCart,
-  loadCartStore,
+  computeTrackerStats,
+  createTracker,
+  loadTrackerStore,
   openPosition,
   removePosition,
-  saveCartStore,
+  saveTrackerStore,
   updatePositionSize,
-  CartStats,
-} from "@/lib/smartCart";
+  TrackerStats,
+} from "@/lib/smartTracker";
 
 // ── Context shape ─────────────────────────────────────────────────────────────
 
-interface SmartCartCtx {
-  store: CartStore;
-  activeCart: SmartCart | null;
-  stats: CartStats | null;
+interface SmartTrackerCtx {
+  store: TrackerStore;
+  activeTracker: SmartTracker | null;
+  stats: TrackerStats | null;
 
-  // Basket lifecycle
-  openBasket: (name?: string, budget?: number) => void;
-  closeBasket: () => void; // archives active cart
+  // Tracker lifecycle
+  openTracker: (name?: string, budget?: number) => void;
+  closeTracker: () => void; // archives active tracker
 
   // Position management
-  addToCart: (pick: any, sizeUnit?: SizeUnit, sizeValue?: number) => void;
+  addToTracker: (pick: any, sizeUnit?: SizeUnit, sizeValue?: number) => void;
   openTrade: (positionId: string, entryPrice: number) => void;
   closeTrade: (positionId: string, closePrice: number) => void;
-  removeFromCart: (positionId: string) => void;
+  removeFromTracker: (positionId: string) => void;
   updateSize: (positionId: string, unit: SizeUnit, value: number) => void;
 
   // Helpers
-  isInCart: (ticker: string) => boolean;
+  isInTracker: (ticker: string) => boolean;
   refreshPrices: () => Promise<void>;
   loading: boolean;
 }
 
 // ── Context ───────────────────────────────────────────────────────────────────
 
-const SmartCartContext = createContext<SmartCartCtx | null>(null);
+const SmartTrackerContext = createContext<SmartTrackerCtx | null>(null);
 
-export function useSmartCart(): SmartCartCtx {
-  const ctx = useContext(SmartCartContext);
-  if (!ctx) throw new Error("useSmartCart must be used within SmartCartProvider");
+export function useSmartTracker(): SmartTrackerCtx {
+  const ctx = useContext(SmartTrackerContext);
+  if (!ctx) throw new Error("useSmartTracker must be used within SmartTrackerProvider");
   return ctx;
 }
 
 // ── Provider ──────────────────────────────────────────────────────────────────
 
-export function SmartCartProvider({ children }: { children: React.ReactNode }) {
-  const [store, setStore] = useState<CartStore>(() => loadCartStore());
+export function SmartTrackerProvider({ children }: { children: React.ReactNode }) {
+  const [store, setStore] = useState<TrackerStore>(() => loadTrackerStore());
   const [loading, setLoading] = useState(false);
   const initialized = useRef(false);
 
@@ -71,56 +71,56 @@ export function SmartCartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true;
-      setStore(loadCartStore());
+      setStore(loadTrackerStore());
     }
   }, []);
 
   // Persist whenever store changes
   useEffect(() => {
     if (initialized.current) {
-      saveCartStore(store);
+      saveTrackerStore(store);
     }
   }, [store]);
 
-  const activeCart = store.activeCart;
+  const activeTracker = store.activeTracker;
 
   const stats = useMemo(
-    () => (activeCart ? computeCartStats(activeCart) : null),
-    [activeCart]
+    () => (activeTracker ? computeTrackerStats(activeTracker) : null),
+    [activeTracker]
   );
 
-  // ── Basket lifecycle ────────────────────────────────────────────────────────
+  // ── Tracker lifecycle ────────────────────────────────────────────────────────
 
-  const openBasket = useCallback((name = "Smart Cart", budget = 10000) => {
+  const openTracker = useCallback((name = "Smart Tracker", budget = 10000) => {
     setStore((prev) => {
-      if (prev.activeCart) return prev; // only 1 active cart
-      const cart = createCart(name, budget);
-      return { ...prev, activeCart: cart };
+      if (prev.activeTracker) return prev; // only 1 active tracker
+      const tracker = createTracker(name, budget);
+      return { ...prev, activeTracker: tracker };
     });
   }, []);
 
-  const closeBasket = useCallback(() => {
+  const closeTracker = useCallback(() => {
     setStore((prev) => {
-      if (!prev.activeCart) return prev;
+      if (!prev.activeTracker) return prev;
       return {
         ...prev,
-        activeCart: null,
-        archivedCarts: [prev.activeCart, ...prev.archivedCarts],
+        activeTracker: null,
+        archivedTrackers: [prev.activeTracker, ...prev.archivedTrackers],
       };
     });
   }, []);
 
   // ── Position management ─────────────────────────────────────────────────────
 
-  const addToCart = useCallback(
+  const addToTracker = useCallback(
     (pick: any, sizeUnit: SizeUnit = "usd", sizeValue = 1000) => {
       setStore((prev) => {
-        let cart = prev.activeCart;
-        if (!cart) {
-          cart = createCart();
+        let tracker = prev.activeTracker;
+        if (!tracker) {
+          tracker = createTracker();
         }
-        const updated = addPosition(cart, pick, sizeUnit, sizeValue);
-        return { ...prev, activeCart: updated };
+        const updated = addPosition(tracker, pick, sizeUnit, sizeValue);
+        return { ...prev, activeTracker: updated };
       });
     },
     []
@@ -128,30 +128,30 @@ export function SmartCartProvider({ children }: { children: React.ReactNode }) {
 
   const openTrade = useCallback((positionId: string, entryPrice: number) => {
     setStore((prev) => {
-      if (!prev.activeCart) return prev;
+      if (!prev.activeTracker) return prev;
       return {
         ...prev,
-        activeCart: openPosition(prev.activeCart, positionId, entryPrice),
+        activeTracker: openPosition(prev.activeTracker, positionId, entryPrice),
       };
     });
   }, []);
 
   const closeTrade = useCallback((positionId: string, closePrice: number) => {
     setStore((prev) => {
-      if (!prev.activeCart) return prev;
+      if (!prev.activeTracker) return prev;
       return {
         ...prev,
-        activeCart: closePosition(prev.activeCart, positionId, closePrice),
+        activeTracker: closePosition(prev.activeTracker, positionId, closePrice),
       };
     });
   }, []);
 
-  const removeFromCart = useCallback((positionId: string) => {
+  const removeFromTracker = useCallback((positionId: string) => {
     setStore((prev) => {
-      if (!prev.activeCart) return prev;
+      if (!prev.activeTracker) return prev;
       return {
         ...prev,
-        activeCart: removePosition(prev.activeCart, positionId),
+        activeTracker: removePosition(prev.activeTracker, positionId),
       };
     });
   }, []);
@@ -159,29 +159,29 @@ export function SmartCartProvider({ children }: { children: React.ReactNode }) {
   const updateSize = useCallback(
     (positionId: string, unit: SizeUnit, value: number) => {
       setStore((prev) => {
-        if (!prev.activeCart) return prev;
+        if (!prev.activeTracker) return prev;
         return {
           ...prev,
-          activeCart: updatePositionSize(prev.activeCart, positionId, unit, value),
+          activeTracker: updatePositionSize(prev.activeTracker, positionId, unit, value),
         };
       });
     },
     []
   );
 
-  const isInCart = useCallback(
+  const isInTracker = useCallback(
     (ticker: string) =>
-      !!activeCart?.positions.find(
+      !!activeTracker?.positions.find(
         (p) => p.ticker === ticker && p.status !== "closed"
       ),
-    [activeCart]
+    [activeTracker]
   );
 
   // ── Live price refresh ──────────────────────────────────────────────────────
 
   const refreshPrices = useCallback(async () => {
-    if (!activeCart) return;
-    const openTickers = activeCart.positions
+    if (!activeTracker) return;
+    const openTickers = activeTracker.positions
       .filter((p) => p.status === "open")
       .map((p) => p.ticker);
     if (openTickers.length === 0) return;
@@ -194,9 +194,9 @@ export function SmartCartProvider({ children }: { children: React.ReactNode }) {
         await res.json();
 
       setStore((prev) => {
-        if (!prev.activeCart) return prev;
+        if (!prev.activeTracker) return prev;
         const today = new Date().toISOString().split("T")[0];
-        const updatedPositions: CartPosition[] = prev.activeCart.positions.map(
+        const updatedPositions: TrackerPosition[] = prev.activeTracker.positions.map(
           (p) => {
             if (p.status !== "open") return p;
             const q = data[p.ticker];
@@ -227,33 +227,33 @@ export function SmartCartProvider({ children }: { children: React.ReactNode }) {
         );
         return {
           ...prev,
-          activeCart: { ...prev.activeCart, positions: updatedPositions, updatedAt: new Date().toISOString() },
+          activeTracker: { ...prev.activeTracker, positions: updatedPositions, updatedAt: new Date().toISOString() },
         };
       });
     } finally {
       setLoading(false);
     }
-  }, [activeCart]);
+  }, [activeTracker]);
 
-  const value: SmartCartCtx = {
+  const value: SmartTrackerCtx = {
     store,
-    activeCart,
+    activeTracker,
     stats,
-    openBasket,
-    closeBasket,
-    addToCart,
+    openTracker,
+    closeTracker,
+    addToTracker,
     openTrade,
     closeTrade,
-    removeFromCart,
+    removeFromTracker,
     updateSize,
-    isInCart,
+    isInTracker,
     refreshPrices,
     loading,
   };
 
   return (
-    <SmartCartContext.Provider value={value}>
+    <SmartTrackerContext.Provider value={value}>
       {children}
-    </SmartCartContext.Provider>
+    </SmartTrackerContext.Provider>
   );
 }
