@@ -630,7 +630,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             {heatmap.map(s => (
               <button key={s.name}
                 onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
-                className={`rounded-xl border p-4 ${heatColor(s.avgReturn)} flex flex-col gap-2 transition-all hover:scale-105 shadow-xl text-left min-w-[160px] md:min-w-0 ${s.name === selectedSector ? "ring-2 ring-white" : ""}`}>
+                className={`rounded-xl border p-4 ${heatColor(s.avgReturn)} flex flex-col gap-2 transition-colors duration-200 shadow-xl text-left min-w-[160px] md:min-w-0 ${s.name === selectedSector ? "ring-2 ring-white" : "hover:bg-[#1a2030]"}`}>
                 <p className="text-[10px] font-bold text-white uppercase tracking-widest truncate w-full" title={s.name}>{s.name}</p>
                 <div className="flex items-end justify-between w-full">
                   <div>

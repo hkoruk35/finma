@@ -137,7 +137,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
             <div key={item.ticker} className="relative flex flex-col">
               <Link
                 href={isLocked ? redirectUrl : `/stock/${item.ticker}`}
-                className={`glass-card ${minimal ? 'p-4' : 'p-6'} transition-all duration-300 group relative overflow-hidden border-2 border-transparent flex flex-col h-full ${!isLocked ? 'hover:border-[#3b82f6]/50 hover:bg-[#1a2030]' : ''}`}
+                className={`glass-card ${minimal ? 'p-4' : 'p-6'} transition-[border-color,background-color] duration-300 group relative overflow-hidden border-2 border-[#1e2a3a]/50 flex flex-col h-full ${!isLocked ? 'hover:border-[#3b82f6]/50 hover:bg-[#1a2030]' : ''}`}
               >
                 {/* Rank badge */}
                 <div className={`absolute top-0 right-0 ${minimal ? 'w-8 h-8 text-[10px]' : 'w-10 h-10 text-sm'} rounded-bl-2xl flex items-center justify-center font-black text-white shadow-2xl bg-gradient-to-br from-[#3b82f6] to-[#1e3a8a] z-20`}>

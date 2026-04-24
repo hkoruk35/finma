@@ -115,7 +115,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                     <Link
                       key={stock.ticker}
                       href={`/stock/${stock.ticker}`}
-                      className={`relative flex flex-col items-center justify-center py-3 rounded-sm transition-all duration-200 hover:scale-[1.05] hover:z-10 hover:shadow-xl ${s.bg} border ${s.border}`}
+                      className={`relative flex flex-col items-center justify-center py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:z-10 hover:shadow-xl ${s.bg} border ${s.border}`}
                       title={`${stock.ticker}: ${stock.change_pct}%`}
                     >
                       <span className={`text-xs font-black tracking-tighter ${s.text}`}>
