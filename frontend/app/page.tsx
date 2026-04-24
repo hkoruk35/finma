@@ -41,6 +41,8 @@ export default async function HomePage() {
         <p className="text-white">Loading market data...</p>
       </div>
     );
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
