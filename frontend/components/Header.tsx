@@ -136,18 +136,18 @@ export default function Header() {
         {/* Auth + Toggle */}
         <div className="flex items-center gap-3">
           {!user ? (
-            <div className="flex items-center gap-2 md:gap-3">
+            <div className="flex items-center gap-2 md:gap-4">
               <Link
                 href="/login"
-                className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white hover:text-[#3b82f6] transition-colors"
+                className="text-[10px] md:text-xs font-black uppercase tracking-widest text-[#00d2ff] hover:text-white transition-colors"
               >
-                Sign In
+                7 Days Free Trial
               </Link>
               <Link
                 href="/login"
-                className="hidden md:block text-[10px] md:text-xs font-black uppercase tracking-widest bg-[#3b82f6] text-white px-4 py-2 rounded-xl hover:bg-[#2563eb] transition-all shadow-lg shadow-blue-500/20"
+                className="hidden md:block text-[10px] md:text-xs font-black uppercase tracking-widest bg-[#3b82f6] text-white px-5 py-2 rounded-xl hover:bg-[#2563eb] transition-all shadow-lg shadow-blue-500/20"
               >
-                Get Early Access
+                Login
               </Link>
             </div>
           ) : (
