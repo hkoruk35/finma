@@ -56,12 +56,12 @@ export default function SectorPerformanceHeatMap({ history }: Props) {
         Sector Profitability Heatmap
       </h3>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="flex overflow-x-auto md:grid md:grid-cols-3 lg:grid-cols-6 gap-4 pb-4 md:pb-0 scrollbar-hide snap-x">
         {heatmap.map((s) => (
           <Link
             key={s.name}
             href="/swing-performance"
-            className={`glass-card p-4 border rounded-xl flex flex-col gap-3 transition-all hover:border-[#3b82f6]/50 hover:bg-[#1a2030] group ${heatColor(s.avgReturn)}`}
+            className={`glass-card p-4 border rounded-xl flex flex-col gap-3 transition-all hover:border-[#3b82f6]/50 hover:bg-[#1a2030] group shrink-0 w-[160px] md:w-auto snap-center ${heatColor(s.avgReturn)}`}
           >
             <p className="text-[10px] font-black text-white/90 uppercase tracking-[0.15em] truncate">
               {s.name}
