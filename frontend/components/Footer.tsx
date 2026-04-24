@@ -46,27 +46,26 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Categories */}
+          {/* Platform */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-3">Categories</h4>
-            <div className="flex flex-col gap-1.5">
-              <Link href="/category/top-scores" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Top Scores</Link>
-              <Link href="/category/breakout" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Breakout</Link>
-              <Link href="/category/undervalued" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Undervalued</Link>
-              <Link href="/category/momentum" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Momentum</Link>
-              <Link href="/category/reversal" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Reversal</Link>
-              <Link href="/category/passive-income" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Passive Income</Link>
+            <h4 className="text-sm font-semibold text-white mb-3">Platform</h4>
+            <div className="flex flex-col gap-2">
+              <Link href="/swing-picks" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Top Swing Picks</Link>
+              <Link href="/swing-performance" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Performance</Link>
+              <Link href="/academy" className="text-xs text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</Link>
+              <Link href="/archive" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Archive</Link>
+              <Link href="/smart-tracker" className="text-xs text-[#10b981] hover:text-white transition-colors font-bold">🚀 Smart Tracker</Link>
             </div>
           </div>
 
           {/* Resources */}
           <div>
             <h4 className="text-sm font-semibold text-white mb-3">Resources</h4>
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               <Link href="/about" className="text-xs text-[#00d2ff] hover:text-white transition-colors">About BOGA AI</Link>
-              <Link href="/swing-performance" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Performance</Link>
-              <Link href="/archive" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Archive</Link>
-              <Link href="/contact" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Contact</Link>
+              <Link href="/contact" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Contact Support</Link>
+              <Link href="/ai" className="text-xs text-[#00d2ff] hover:text-white transition-colors">BOGA AI Engine</Link>
+              <Link href="/options" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Options Analysis</Link>
             </div>
           </div>
 
