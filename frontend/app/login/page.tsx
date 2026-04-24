@@ -26,11 +26,9 @@ export default function LoginPage() {
   };
 
   const PRO_PERKS = [
-    "10-Stock Smart AI Tracker",
+    "25-Stock Smart AI Tracker",
     "Real-time Performance Monitoring",
     "Exclusive Swing Trade Lists",
-    "Professional Screener Access",
-    "Telegram Signal Alerts",
   ];
 
   const FREE_PERKS = [
@@ -95,17 +93,17 @@ export default function LoginPage() {
             </div>
 
             <div className="mb-8">
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#3b82f6] bg-[#3b82f6]/10 px-3 py-1 rounded-full border border-[#3b82f6]/30">Professional</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#3b82f6] bg-[#3b82f6]/10 px-3 py-1 rounded-full border border-[#3b82f6]/30">Early Access</span>
               <h2 className="text-3xl font-black text-white mt-4">PRO AI</h2>
-              <p className="text-white text-sm mt-3">Advanced algorithmic insights for serious traders.</p>
+              <p className="text-white text-sm mt-3">Full algorithmic intelligence for professional swing trading.</p>
             </div>
 
             <div className="mb-8 relative">
               <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-black text-white">$19</span>
-                <span className="text-white line-through text-lg">$49</span>
+                <span className="text-5xl font-black text-white">$20</span>
+                <span className="text-white line-through text-lg">$50</span>
               </div>
-              <p className="text-[#10b981] text-xs font-bold mt-2 uppercase tracking-tight">Special Offer: 60% OFF First Month</p>
+              <p className="text-[#10b981] text-xs font-bold mt-2 uppercase tracking-tight">Special Offer: $20 / month for first 3 months</p>
             </div>
 
             <ul className="space-y-4 mb-10 flex-1">
