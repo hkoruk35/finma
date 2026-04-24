@@ -1,8 +1,8 @@
 {
   "ticker": "HOLX",
   "company": "Hologic, Inc.",
-  "date": "2026-04-23",
-  "generated_at": "2026-04-23T09:19:03.959120-04:00",
+  "date": "2026-04-24",
+  "generated_at": "2026-04-24T09:19:06.515783-04:00",
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
   "price": {
@@ -19,18 +19,18 @@
     "avg_volume_30d": 6082420
   },
   "scores": {
-    "master_score": 57.15,
+    "master_score": 57.28,
     "technical_score": 75.0,
     "fundamental_score": 12.0,
     "momentum_score": 90.0,
     "sentiment_score": 75.0,
-    "sector_score": 24.0,
+    "sector_score": 25.3,
     "breakout_score": 45.0,
     "value_score": 0.0,
     "reversal_score": 15.0,
     "momentum_cat_score": 100.0,
     "dividend_score": 30.0,
-    "signal_score": 57.15,
+    "signal_score": 57.28,
     "confidence": 0.57,
     "signal_type": "NEUTRAL_STAY"
   },
@@ -42,7 +42,7 @@
     "macd_crossover": "neutral",
     "ema_20": 75.58,
     "ema_50": 75.28,
-    "ema_200": 71.57,
+    "ema_200": 71.55,
     "ema_stack_bullish": true,
     "bb_upper": 76.02,
     "bb_middle": 75.49,
@@ -68,7 +68,7 @@
   },
   "fundamental": {
     "pe_ratio": 31.53942,
-    "sector_pe_median": 25.55964,
+    "sector_pe_median": 25.314626,
     "pb_ratio": 3.2325425,
     "de_ratio": 48.051,
     "fcf_yield": 0.05,
@@ -98,7 +98,7 @@
     "stop_loss": 75.59,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
-    "generated_at": "2026-04-23T09:19:03.959096-04:00",
+    "generated_at": "2026-04-24T09:19:06.515719-04:00",
     "categories": [
       "top_scores",
       "reversal"
@@ -142,7 +142,7 @@
   },
   "sector_context": {
     "sector_etf": "XLV",
-    "sector_performance_5d": -0.16,
+    "sector_performance_5d": -1.72,
     "stock_vs_sector_20d": null,
     "sector_rank": null
   },

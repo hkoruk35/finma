@@ -1,42 +1,42 @@
 [
   {
-    "Tarih": "23 Nisan",
+    "Tarih": "24 Nisan",
     "Sembol": "BLD",
-    "Giriş (Buy_L)": 441.51,
-    "Stop (SL)": 406.9,
-    "Hedef 1 (TP1)": 510.73,
-    "Hedef 2 (TP2)": 528.04
+    "Giriş (Buy_L)": 454.26,
+    "Stop (SL)": 451.62,
+    "Hedef 1 (TP1)": 476.21,
+    "Hedef 2 (TP2)": 481.7
   },
   {
-    "Tarih": "23 Nisan",
-    "Sembol": "ALLY",
-    "Giriş (Buy_L)": 45.38,
-    "Stop (SL)": 45.25,
-    "Hedef 1 (TP1)": 46.74,
-    "Hedef 2 (TP2)": 47.07
+    "Tarih": "24 Nisan",
+    "Sembol": "NOK",
+    "Giriş (Buy_L)": 10.26,
+    "Stop (SL)": 10.21,
+    "Hedef 1 (TP1)": 10.73,
+    "Hedef 2 (TP2)": 10.85
   },
   {
-    "Tarih": "23 Nisan",
-    "Sembol": "OPEN",
-    "Giriş (Buy_L)": 5.29,
-    "Stop (SL)": 5.25,
-    "Hedef 1 (TP1)": 5.65,
-    "Hedef 2 (TP2)": 5.74
+    "Tarih": "24 Nisan",
+    "Sembol": "ELV",
+    "Giriş (Buy_L)": 342.55,
+    "Stop (SL)": 341.51,
+    "Hedef 1 (TP1)": 352.92,
+    "Hedef 2 (TP2)": 355.52
   },
   {
-    "Tarih": "23 Nisan",
-    "Sembol": "MSCI",
-    "Giriş (Buy_L)": 600.04,
-    "Stop (SL)": 583.98,
-    "Hedef 1 (TP1)": 632.16,
-    "Hedef 2 (TP2)": 640.19
+    "Tarih": "24 Nisan",
+    "Sembol": "DOV",
+    "Giriş (Buy_L)": 227.2,
+    "Stop (SL)": 226.57,
+    "Hedef 1 (TP1)": 233.46,
+    "Hedef 2 (TP2)": 235.03
   },
   {
-    "Tarih": "23 Nisan",
-    "Sembol": "CAVA",
-    "Giriş (Buy_L)": 95.15,
-    "Stop (SL)": 94.73,
-    "Hedef 1 (TP1)": 99.32,
-    "Hedef 2 (TP2)": 100.37
+    "Tarih": "24 Nisan",
+    "Sembol": "CMI",
+    "Giriş (Buy_L)": 649.67,
+    "Stop (SL)": 647.87,
+    "Hedef 1 (TP1)": 667.69,
+    "Hedef 2 (TP2)": 672.19
   }
 ]
