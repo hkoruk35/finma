@@ -64,8 +64,6 @@ export default function Footer() {
             <div className="flex flex-col gap-2">
               <Link href="/about" className="text-xs text-[#00d2ff] hover:text-white transition-colors">About BOGA AI</Link>
               <Link href="/contact" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Contact Support</Link>
-              <Link href="/ai" className="text-xs text-[#00d2ff] hover:text-white transition-colors">BOGA AI Engine</Link>
-              <Link href="/options" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Options Analysis</Link>
             </div>
           </div>
 
