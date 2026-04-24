@@ -41,8 +41,8 @@ function getStoredContent(ai: any, lang: LangCode): string {
   for (const key of candidates) {
     if (parsed[key]?.[lang]) return parsed[key][lang];
   }
-  // Fallback to English
-  if (lang !== "en") return getStoredContent(ai, "en");
+  // We do NOT fallback to English here. If the specific language is missing, 
+  // we want it to return empty so the component knows to generate it.
   return "";
 }
 
@@ -208,7 +208,7 @@ export default function AnalysisTabs({ stock }: Props) {
             Analysis Language
           </span>
           <span className="text-[9px] text-white/40 font-bold uppercase tracking-widest">
-            Gemini AI · Daily Briefing
+            BOGA AI · Daily Briefing
           </span>
         </div>
         <div className="flex overflow-x-auto gap-2 pb-1 scrollbar-hide snap-x">
@@ -350,7 +350,7 @@ export default function AnalysisTabs({ stock }: Props) {
         {/* Panel Footer */}
         <div className="px-5 py-3 bg-[#0d1117]/80 border-t border-[#1e2a3a] flex items-center justify-between">
           <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
-            Analysis Engine v5.5 · Gemini 2.5 Flash
+            Analysis Engine v5.5 · BOGA AI
           </span>
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
