@@ -23,42 +23,6 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
           const found = json.portfolio_status?.find((item: any) => item.symbol === stock.ticker);
           if (found) {
             setHourlyData(found);
-            
-            // ── DOM SYNC FOR LIVE OVERRIDE ──
-            setTimeout(() => {
-              const priceEl = document.getElementById("stock-price-current");
-              if (priceEl && found.price) priceEl.innerText = "$" + found.price.toFixed(2);
-              
-              const changeEl = document.getElementById("stock-price-change");
-              if (changeEl && found.change_24h !== undefined) {
-                const sign = found.change_24h >= 0 ? "+" : "";
-                changeEl.innerText = sign + found.change_24h.toFixed(2) + "%";
-                changeEl.className = `text-xl font-mono font-black leading-none ${found.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
-              }
-
-              if (found.entry_zone) {
-                 const parts = found.entry_zone.split("-");
-                 if (parts.length === 2) {
-                   const elow = document.getElementById("stock-entry-range-low");
-                   const ehigh = document.getElementById("stock-entry-range-high");
-                   if (elow) elow.innerText = "$" + parts[0].trim();
-                   if (ehigh) ehigh.innerText = "$" + parts[1].trim();
-                 }
-              }
-              if (found.take_profit) {
-                 const tlow = document.getElementById("stock-target-low");
-                 const thigh = document.getElementById("stock-target-high");
-                 if (tlow) tlow.innerText = "$" + found.take_profit.toFixed(2);
-                 if (thigh) thigh.innerText = "$" + found.take_profit.toFixed(2);
-              }
-              if (found.stop_loss) {
-                 const slow = document.getElementById("stock-stop-low");
-                 const shigh = document.getElementById("stock-stop-high");
-                 if (slow) slow.innerText = "$" + found.stop_loss.toFixed(2);
-                 if (shigh) shigh.innerText = "$" + found.stop_loss.toFixed(2);
-              }
-            }, 50);
-
           } else {
             setHourlyData("not_found");
           }

@@ -1106,14 +1106,14 @@ def _read_symbols_from_path(path: Optional[str], source_name: str) -> List[str]:
         return []
 
 def load_latest_universe_from_txt() -> List[str]:
-    json_path = os.path.join(WATCHLIST_DIR, "bot_analysis_latest.json")
+    json_path = os.path.join(r"C:\Users\afksm\finma\frontend\public", "swing_all_picks.json")
     symbols = []
     try:
         if os.path.exists(json_path):
             import json
             with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                for c in data.get("candidates", []):
+                for c in data.get("picks", []):
                     sym = c.get("ticker")
                     if sym:
                         symbols.append(sym)
