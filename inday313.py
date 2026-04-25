@@ -1620,11 +1620,24 @@ def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
         return {"structure": "ERROR", "1d_score": 0, "1d_notes": [], "invalidation_level": 0}
 
 
-def evaluate_hourly_status(current_price: float, entry_zone: str, target: float, stop_loss: float, rsi_1h: float, rsi_15m: float = 50.0, trend_1h: str = "FLAT") -> dict:
+def evaluate_hourly_status(current_price: float, entry_zone: str, target: float, stop_loss: float, rsi_1h: float, rsi_15m: float = 50.0, trend_1h: str = "FLAT", swing_data: dict = None) -> dict:
     """
     Boga Finance AI - Hourly Direction & Status Evaluation (English Only)
     """
     try:
+        # Check swing trade management first
+        if swing_data:
+            profit_zone = swing_data.get("profit_zone", {})
+            stop_zone = swing_data.get("stop_zone", {})
+            
+            p_low = float(profit_zone.get("low", target))
+            s_high = float(stop_zone.get("high", stop_loss))
+            
+            if current_price >= p_low:
+                return {"status": "🟢 TAKE PROFIT", "msg": f"Price reached swing target zone (${p_low:.2f}+). Consider taking partial or full profits as momentum continues."}
+            if current_price <= s_high:
+                return {"status": "🔴 STOP LOSS HIT", "msg": f"Price broke below swing safety cut-off (${s_high:.2f}). Invalidated."}
+
         # Entry zone parsing (e.g. "150.00 - 152.00")
         parts = entry_zone.replace(" ", "").split("-")
         if len(parts) == 2:
@@ -1636,14 +1649,12 @@ def evaluate_hourly_status(current_price: float, entry_zone: str, target: float,
         dist_stop = ((current_price - stop_loss) / stop_loss) * 100
         dist_target = ((target - current_price) / current_price) * 100
 
-        # 1. SELL / STOP LOSS TRIGGERED
-        if current_price <= stop_loss:
-            return {"status": "🔴 SELL", "msg": f"Stop-loss broken (Price: ${current_price:.2f} <= SL: ${stop_loss:.2f}). Close position immediately."}
+        # 1. STOP LOSS EVALUATION (Intraday Fallback)
+        if current_price <= stop_loss * 1.005:
+            return {"status": "🔴 STOP LOSS / INVALID", "msg": f"Price is at or below the intraday safety cut-off (${stop_loss:.2f}). Setup invalidated."}
 
-        # 2. TAKE PROFIT / TREND EXHAUSTION
-        if current_price >= target * 0.98:
-            return {"status": "🟢 TAKE PROFIT", "msg": f"Price is within 2% of target (${target:.2f}). Secure profits now."}
-        if rsi_1h >= 75:
+        # 2. OVERBOUGHT REJECTION (1H RSI > 75)
+        if rsi_1h > 75:
             return {"status": "⚠️ HOLD (Overbought)", "msg": f"1H RSI is heavily overbought ({rsi_1h:.0f}). Pullback imminent, do not buy."}
 
         # 3. BUY ZONE EVALUATION
@@ -1658,7 +1669,11 @@ def evaluate_hourly_status(current_price: float, entry_zone: str, target: float,
 
         # 4. HOLD / WAIT FOR PULLBACK
         if current_price > entry_high * 1.01 and current_price < target * 0.98:
-            return {"status": "⏳ HOLD (Wait for Pullback)", "msg": f"Price is above entry zone. Wait for a pullback to safely enter."}
+            return {"status": "⚠️ HOLD (Wait Pullback)", "msg": f"Price extended above entry zone (${entry_high:.2f}). Wait for a pullback or consolidation."}
+
+        # 5. TARGET REACHED (Intraday Fallback)
+        if current_price >= target * 0.98:
+            return {"status": "🟢 TAKE PROFIT", "msg": f"Price reached or near intraday target (${target:.2f}). Secure profits."}
 
         # Default fallback
         return {"status": "⏳ NEUTRAL", "msg": f"Price is in a neutral zone. 1H RSI: {rsi_1h:.0f}. No clear action."}
@@ -2107,7 +2122,8 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         stop_loss=scenario["stop_loss"],
         rsi_1h=rsi_val,
         rsi_15m=rsi_15m_val,
-        trend_1h=trend_1h
+        trend_1h=trend_1h,
+        swing_data=AI_SWING_ZONES.get(ticker)
     )
 
     # ================================================

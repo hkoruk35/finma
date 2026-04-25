@@ -23,6 +23,27 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
           const found = json.portfolio_status?.find((item: any) => item.symbol === stock.ticker);
           if (found) {
             setHourlyData(found);
+            
+            // ── DOM SYNC FOR LIVE OVERRIDE (Top Right Price ONLY) ──
+            setTimeout(() => {
+              const priceEl = document.getElementById("stock-price-current");
+              if (priceEl && found.price) priceEl.innerText = "$" + found.price.toFixed(2);
+              
+              const changeEl = document.getElementById("stock-price-change");
+              if (changeEl && found.change_24h !== undefined) {
+                const sign = found.change_24h >= 0 ? "+" : "";
+                changeEl.innerText = sign + found.change_24h.toFixed(2) + "%";
+                changeEl.className = `text-xl font-mono font-black leading-none ${found.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
+              }
+              
+              const returns1dEl = document.getElementById("stock-returns-1d");
+              if (returns1dEl && found.change_24h !== undefined) {
+                const sign = found.change_24h >= 0 ? "+" : "";
+                returns1dEl.innerText = sign + found.change_24h.toFixed(2) + "%";
+                returns1dEl.className = `text-base md:text-lg font-mono font-black ${found.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
+              }
+            }, 50);
+
           } else {
             setHourlyData("not_found");
           }
@@ -140,8 +161,8 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                       <p className="text-lg font-mono font-bold text-white">{hourlyData.entry_zone || 'N/A'}</p>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">BOGA Score</p>
-                      <p className="text-lg font-mono font-bold text-[#3b82f6]">{hourlyData.boga_score}</p>
+                      <p className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Target</p>
+                      <p className="text-lg font-mono font-bold text-[#22c55e]">${hourlyData.take_profit || 'N/A'}</p>
                     </div>
                   </div>
                 </div>

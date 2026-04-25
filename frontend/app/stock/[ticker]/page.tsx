@@ -182,7 +182,7 @@ export default async function StockDetailPage({ params }: Props) {
           ].map((p) => (
             <div key={p.label} className="px-3 py-3 md:px-5 flex flex-col gap-0.5">
               <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-widest">{p.label}</span>
-              <span className={`text-base md:text-lg font-mono font-black ${
+              <span id={p.label === "1D" ? "stock-returns-1d" : undefined} className={`text-base md:text-lg font-mono font-black ${
                 p.value !== undefined && p.value !== null ? getChangeColor(p.value) : "text-[#00d2ff]"
               }`}>
                 {p.value !== undefined && p.value !== null
@@ -227,7 +227,24 @@ export default async function StockDetailPage({ params }: Props) {
               </div>
 
               {/* Trading Zones — Luxury Cards */}
-              <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="lg:col-span-9 flex flex-col gap-3">
+                <div className="flex items-center justify-between px-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-black text-white tracking-widest uppercase">🎯 TRADING PARAMETERS</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="px-3 py-1 rounded-md bg-[#141924] border border-[#1e2a3a]">
+                      <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mr-2">Analysis Date:</span>
+                      <span className="text-xs text-[#00d2ff] font-mono font-bold">{stock.date ? new Date(stock.date).toLocaleDateString() : "—"}</span>
+                    </div>
+                    <div className="px-3 py-1 rounded-md bg-[#141924] border border-[#1e2a3a]">
+                      <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mr-2">Base Price:</span>
+                      <span className="text-xs text-[#22c55e] font-mono font-bold">${formatPrice(stock.price.current)}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {/* Entry Zone */}
                 <div className="relative overflow-hidden bg-gradient-to-br from-[#141924] to-[#0d1117] rounded-2xl p-5 border border-[#1e2a3a] border-l-4 border-l-[#94a3b8] group hover:border-[#94a3b8]/40 transition-all">
                   <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#94a3b8]/5 blur-2xl rounded-full" />
