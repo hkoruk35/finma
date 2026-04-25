@@ -789,38 +789,37 @@ async def analyze_options_sentiment(ticker: str) -> dict:
 
 # ================================================================
 # ================================================================
-# BÖLÜM 4: DESTEK / DİRENÇ HESAPLAMA (1H + ATR BAZLI)
-# ================================================================
+# BÖLÜM 4: DESTEK / DİRENÇ HESAPLAMA (PROFESYONEL SWING FORMATI)
 # ================================================================
 
 def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float) -> dict:
     """
-    ATR ve 1 saatlik zaman dilimine göre destek ve direnç noktaları hesaplar.
-    BUY ZONE, SELL ZONE (TARGET), STOP LOSS ZONE ve R/R 2.5:1 hesaplanır.
+    Profesyonel Swing Trade Formatı:
+    Sadece 1H mikro kıvrımlara değil, 1D makro yapılara (son 10 günün dibi) 
+    ve genişletilmiş ATR tamponlarına (Stop-Hunt koruması) dayanır.
     """
     try:
-        # ── ATR Hesabı (1D) ──────────────────────────────────────────
+        # ── 1. GÜNLÜK (1D) MAKRO YAPI VE ATR ─────────────────────────
         close_1d = df_1d['Close']
         high_1d  = df_1d['High']
         low_1d   = df_1d['Low']
+        
         atr_1d_series = AverageTrueRange(high_1d, low_1d, close_1d, ATR_PERIOD).average_true_range()
-        atr_1d = float(atr_1d_series.iloc[-1]) if not pd.isna(atr_1d_series.iloc[-1]) else current_price * 0.02
+        atr_1d = float(atr_1d_series.iloc[-1]) if not pd.isna(atr_1d_series.iloc[-1]) else current_price * 0.03
         atr_pct = atr_1d / current_price
 
-        # ── 1H Destek / Direnç ───────────────────────────────────────
-        support_1h  = current_price
-        resist_1h   = current_price
+        # Makro Destek: Son 10 günün en düşük seviyesi (Gerçek Swing Dibi)
+        macro_support = float(low_1d.tail(10).min())
+        macro_resist  = float(high_1d.tail(15).max())
+
+        # ── 2. SAATLİK (1H) YAPISAL FİLTRELEME ───────────────────────
+        support_1h = macro_support
+        resist_1h  = macro_resist
 
         if df_1h is not None and len(df_1h) >= 20:
-            close_1h = df_1h['Close']
-            high_1h  = df_1h['High']
             low_1h   = df_1h['Low']
-
-            # 1H ATR
-            atr_1h_s = AverageTrueRange(high_1h, low_1h, close_1h, 14).average_true_range()
-            atr_1h   = float(atr_1h_s.iloc[-1]) if not pd.isna(atr_1h_s.iloc[-1]) else atr_1d * 0.25
-
-            # 1H son 50 barda swing lows / highs
+            high_1h  = df_1h['High']
+            
             lows   = low_1h.tail(50)
             highs  = high_1h.tail(50)
             pivot_lows, pivot_highs = [], []
@@ -831,52 +830,53 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
                 if highs.iloc[i] > highs.iloc[i-1] and highs.iloc[i] > highs.iloc[i+1]:
                     pivot_highs.append(float(highs.iloc[i]))
 
-            # Fiyatın altındaki en yakın pivot low → destek
-            supports_below = [p for p in pivot_lows if p < current_price]
+            # GÜRÜLTÜ FİLTRESİ: Fiyatın hemen dibindeki anlamsız destekleri ele (Min 0.4x ATR mesafe)
+            supports_below = [p for p in pivot_lows if p < current_price - (atr_1d * 0.4)]
             if supports_below:
-                support_1h = max(supports_below)
+                # 1H pivotu, 1D makro desteğinden daha anlamlıysa onu kullan
+                support_1h = max(max(supports_below), macro_support)
 
-            # Fiyatın üstündeki en yakın pivot high → direnç
-            resists_above = [p for p in pivot_highs if p > current_price]
+            resists_above = [p for p in pivot_highs if p > current_price + (atr_1d * 0.5)]
             if resists_above:
-                resist_1h = min(resists_above)
+                resist_1h = min(min(resists_above), macro_resist)
 
-        else:
-            # 1H veri yoksa 1D bazlı yaklaşık destek / direnç
-            support_1h = current_price - atr_1d * 1.5
-            resist_1h  = current_price + atr_1d * 2.0
+        # Olası bir veri hatasına karşı güvenlik: Destek çok yakınsa manuel ATR tamponu
+        if (current_price - support_1h) < (atr_1d * 0.6):
+            support_1h = current_price - (atr_1d * 0.8)
 
-        # ── BUY ZONE ──────────────────────────────────────────────────
-        # Giriş bölgesi: mevcut fiyattan ATR'nin %25'i kadar altında
-        # Destek noktasının biraz üstünde
-        buy_zone_low  = round(max(support_1h, current_price - atr_1d * 0.5), 2)
-        buy_zone_high = round(current_price + atr_1d * 0.2, 2)
+        # ── 3. BUY ZONE (Alım Bölgesi) ────────────────────────────────
+        # Swing trade: Fiyatın anlık seviyesinden başlayıp desteğe doğru süzülme payı bırakır
+        buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
+        buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
+        
+        # Bölge çok genişse daralt (Sermaye verimliliği için)
+        if buy_zone_high - buy_zone_low > (atr_1d * 1.2):
+            buy_zone_low = round(buy_zone_high - (atr_1d * 0.8), 2)
 
-        # ── STOP LOSS ZONE ────────────────────────────────────────────
-        # 1H destek noktasının %1 altında — 1.5x ATR mesafesi
-        stop_low  = round(max(support_1h - atr_1d * 0.5, current_price - atr_1d * 2.0), 2)
-        stop_high = round(support_1h - atr_1d * 0.1, 2)
-        if stop_high >= buy_zone_low:
-            stop_high = round(buy_zone_low - atr_1d * 0.1, 2)
-        if stop_low >= stop_high:
-            stop_low = round(stop_high - atr_1d * 0.2, 2)
+        # ── 4. STOP LOSS ZONE (Kurumsal Stop-Hunt Koruması) ───────────
+        # Profesyonel kural: Stop, Desteğin üstüne konmaz. Desteğin ALTINA bir de volatilite (ATR) payı eklenerek konur.
+        stop_high = round(support_1h - (atr_1d * 0.5), 2)
+        stop_low  = round(stop_high - (atr_1d * 0.2), 2)
 
-        # ── SELL ZONE (TARGET) — R/R 2.5:1 ───────────────────────────
-        # Risk = buy_zone_low - stop_high
-        # Reward = Risk * 2.5
-        risk = max(buy_zone_low - stop_high, atr_1d * 0.5)
+        # ── 5. SELL ZONE (Dinamik Hedefleme) ──────────────────────────
+        # Gerçek Risk = Ortalama Giriş Maliyeti ile Stop arasındaki mesafe
+        avg_entry = (buy_zone_low + buy_zone_high) / 2
+        risk = max(avg_entry - stop_high, atr_1d * 1.0) # Stop en az 1 Günlük ATR uzakta kabul edilir
+        
+        # Minimum hedef 2.5x
         reward = risk * 2.5
+        
+        # Eğer 1D Makro Direnç seviyesi bizim hedefimizden daha büyük bir R/R veriyorsa (örn: 3.2x) hedefi o dirence esnet
+        structural_reward = resist_1h - avg_entry
+        if structural_reward > reward and (structural_reward / risk) <= 3.5:
+            reward = structural_reward
 
-        sell_zone_low  = round(buy_zone_low + reward * 0.8, 2)
-        sell_zone_high = round(buy_zone_low + reward, 2)
+        sell_zone_low  = round(avg_entry + reward * 0.85, 2)
+        sell_zone_high = round(avg_entry + reward, 2)
 
-        # NOTE: Minervini tarzı ATR tabanlı hedefe güveniyoruz.
-        # 1H dirençle cap'leme dar target'lar → kaldırıldı. Dirençten geçen hisseler
-        # daha yüksek potansiyel = daha iyi fırsat. R/R 2.5:1 korunmuş.
-
-        # Gerçek R/R hesapla
-        actual_risk   = buy_zone_low - stop_high
-        actual_reward = sell_zone_high - buy_zone_low
+        # Nihai hesaplamalar
+        actual_risk   = avg_entry - stop_high
+        actual_reward = sell_zone_high - avg_entry
         rr_ratio = round(actual_reward / actual_risk, 2) if actual_risk > 0 else 0.0
 
         return {
@@ -894,23 +894,25 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
 
     except Exception as e:
         logging.error(f"❌ Destek/Direnç hesaplama hatası: {e}")
-        fallback_atr = current_price * 0.025
-        buy_l = round(current_price * 0.985, 2)
+        # Hata durumunda kurtarıcı varsayılan değerler
+        fallback_atr = current_price * 0.03
+        buy_l = round(current_price * 0.98, 2)
         buy_h = round(current_price * 1.01, 2)
-        stop_h = round(current_price * 0.97, 2)
-        stop_l = round(current_price * 0.965, 2)
-        sell_h = round(buy_l + (buy_l - stop_h) * 2.5, 2)
-        sell_l = round(sell_h - fallback_atr, 2)
+        stop_h = round(current_price - fallback_atr * 1.5, 2)
+        stop_l = round(stop_h * 0.99, 2)
+        avg_e = (buy_l + buy_h) / 2
+        sell_h = round(avg_e + ((avg_e - stop_h) * 2.5), 2)
+        sell_l = round(sell_h * 0.98, 2)
         return {
             "buy_zone":  {"low": buy_l,  "high": buy_h},
             "sell_zone": {"low": sell_l, "high": sell_h},
             "stop_zone": {"low": stop_l, "high": stop_h},
             "support_1h": stop_h, "resist_1h": sell_h,
-            "atr_1d": round(fallback_atr, 2), "atr_pct": 2.5,
-            "rr_ratio": 2.5, "risk_usd": round(buy_l - stop_h, 2),
-            "reward_usd": round(sell_h - buy_l, 2),
+            "atr_1d": round(fallback_atr, 2), "atr_pct": 3.0,
+            "rr_ratio": 2.5, "risk_usd": round(avg_e - stop_h, 2),
+            "reward_usd": round(sell_h - avg_e, 2),
         }
-
+        
 # ================================================================
 # ================================================================
 # BÖLÜM 5: PERFORMANS VERİLERİ
@@ -1763,6 +1765,59 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         logging.error(f"🔴 apply_atmaca_filters({ticker}): {e}")
         return None
 
+# ================================================================
+# BÖLÜM 8.5: MİKRO MOMENTUM (15m) ONAY MODÜLÜ
+# ================================================================
+async def analyze_15m_micro_momentum(ticker: str) -> dict:
+    """15 dakikalık grafikte RSI, Fiyat ve Hacim ivmesini ölçer."""
+    try:
+        stock = yf.Ticker(ticker)
+        # Sadece son 5 günlük 15m verisi ağ yükünü hafifletir
+        df_15m = await asyncio.to_thread(stock.history, period="5d", interval="15m")
+
+        if df_15m is None or len(df_15m) < 15:
+            return {"micro_score": 0.0, "msg": "Yetersiz 15m veri"}
+
+        close = df_15m['Close']
+        volume = df_15m['Volume']
+
+        # 1. 15m RSI Eğilimi
+        rsi_15m_series = RSIIndicator(close, 14).rsi()
+        rsi_now = float(rsi_15m_series.iloc[-1])
+        rsi_prev = float(rsi_15m_series.iloc[-2])
+
+        # 2. 15m Fiyat İvmesi (Son kapanış bir öncekinden yüksek mi?)
+        price_up = close.iloc[-1] > close.iloc[-2]
+
+        # 3. 15m Hacim İvmesi (Mevcut hacim son 10 bar ortalamasını aşıyor mu?)
+        vol_ma10 = volume.tail(10).mean()
+        vol_now = float(volume.iloc[-1])
+        vol_up = vol_now > vol_ma10
+
+        # Mikro Skorlama (Max 10 Puan)
+        score = 0.0
+        
+        # RSI dip dönüşü yapmış ve aşırı alımda değilse
+        if 45 <= rsi_now <= 75 and rsi_now > rsi_prev:
+            score += 4.0
+        
+        # Fiyat yukarı yönlü tetiklenmişse
+        if price_up:
+            score += 3.0
+            
+        # Para girişi (hacim) destekliyorsa
+        if vol_up:
+            score += 3.0
+
+        return {
+            "micro_score": score,
+            "rsi_15m": round(rsi_now, 1),
+            "msg": f"15m RSI: {rsi_now:.1f} | Hacim: {'Artıyor' if vol_up else 'Zayıf'}"
+        }
+    except Exception as e:
+        logging.error(f"❌ 15m Analiz Hatası ({ticker}): {e}")
+        return {"micro_score": 0.0, "msg": "Hata"}
+        
 # ================================================================
 # ================================================================
 # BÖLÜM 9: 8-FAKTÖR COMPOSITE SKOR
@@ -3066,9 +3121,32 @@ async def scan_top_stocks():
             if idx < len(high_conviction) - 1:
                 await asyncio.sleep(12)
 
-    # ── ADIM 7: TOP 10 SEÇİMİ ve BOGA AI PUANLAMA ────────────────────
-    top_candidates = build_diversified_toplist(top_50, total=TOP_FINAL_PICKS)
-    logging.info(f"🎯 Top {len(top_candidates)} BOGA AI adayı hazır.")
+    # ── ADIM 7: 20 ADAY SEÇİMİ VE 15m MİKRO ONAY (YENİ) ────────────────
+    # İlk etapta en iyi 20 adayı çeşitlendirerek al (TOP_FINAL_PICKS yerine 20 kullanıyoruz)
+    top_20_candidates = build_diversified_toplist(top_50, total=20)
+    logging.info(f"🔍 Top 20 aday için 15m Mikro Momentum (Zamanlama) analizi başlıyor...")
+
+    # 20 aday için paralel olarak 15m verisi çekip skorla
+    async def fetch_micro(c):
+        micro_data = await analyze_15m_micro_momentum(c["ticker"])
+        c["micro_score"] = micro_data.get("micro_score", 0.0)
+        c["micro_msg"] = micro_data.get("msg", "")
+
+    await asyncio.gather(*(fetch_micro(c) for c in top_20_candidates))
+
+    # Nihai Sıralama Mantığı: 
+    # Önce 15m mikro ivmesi en yüksek olanlar (hemen patlamaya hazır), 
+    # eşitlik durumunda BOGA AI 1D makro skoru yüksek olanlar öne geçer.
+    top_20_candidates.sort(
+        key=lambda x: (x.get("micro_score", 0.0), x.get("boga_score_100", 0.0)), 
+        reverse=True
+    )
+
+    # Nihai top 5 adayı kes (Bunu yine botun orjinal değişkeni olan top_candidates'e ata)
+    top_candidates = top_20_candidates[:TOP_FINAL_PICKS]
+    
+    for c in top_candidates:
+        logging.info(f"🎯 15m ONAY: {c['ticker']} -> Mikro Skor: {c.get('micro_score')}/10 | {c.get('micro_msg')}")
 
     # ── ADIM 8: BOGA AI ZONE HESAPLAMA (ATR + 1H Destek/Direnç) ─────
     for c in top_candidates:
@@ -3259,7 +3337,7 @@ async def run_scanner():
     await send_telegram_message(
         "🐂 <b>BOGA AI SWING TRADE V114 Başlatıldı!</b>\n"
         "📅 Çalışma: Hafta içi her gün New York 13:00\n"
-        "🎯 Hedef: Günün En İyi 10 Swing Trade Fırsatı\n"
+        "🎯 Hedef: Günün En İyi 5 Swing Trade Fırsatı\n"
         "💡 JSON: swing_picks_boga.json\n"
         "📊 R/R: ~2.5:1 hedefi | ATR + 1H Destek/Direnç"
     )

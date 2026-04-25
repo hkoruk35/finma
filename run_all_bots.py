@@ -77,11 +77,11 @@ def main():
 
     os.makedirs(os.path.join(FINMA_DIR, "logs"), exist_ok=True)
 
-    # ── ADIM 1: finma_bot.py (Günlük 100 Hisse Puanlama + Transfer) ──
-    log.info("ADIM 1: finma_bot.py çalıştırılıyor...")
-    step1_ok = run_bot_subprocess("finma_bot.py", ["--run-now"])
-    if not step1_ok:
-        log.warning("⚠️ finma_bot.py başarısız. Devam ediliyor...")
+    # ── ADIM 1: finma_bot.py (Günlük 100 Hisse Puanlama + Transfer) - DISABLED BY USER REQUEST ──
+    # log.info("ADIM 1: finma_bot.py çalıştırılıyor...")
+    # step1_ok = run_bot_subprocess("finma_bot.py", ["--run-now"])
+    # if not step1_ok:
+    #     log.warning("⚠️ finma_bot.py başarısız. Devam ediliyor...")
 
     # ── ADIM 2: swing113_boga_oneshot.py (Core Scanner) ──
     log.info("ADIM 2: swing113_boga_oneshot.py çalıştırılıyor...")
@@ -89,23 +89,23 @@ def main():
     if not step2_ok:
         log.warning("⚠️ swing113_boga_oneshot.py başarısız. Devam ediliyor...")
 
-    # ── ADIM 3: daily_comprehensive_analysis.py (Sektör/Altsektör Analiz) ──
-    log.info("ADIM 3: daily_comprehensive_analysis.py çalıştırılıyor...")
-    step3_ok = run_bot_subprocess("daily_comprehensive_analysis.py")
-    if not step3_ok:
-        log.warning("⚠️ daily_comprehensive_analysis.py başarısız. Devam ediliyor...")
+    # ── ADIM 3: daily_comprehensive_analysis.py (Sektör/Altsektör Analiz) - DISABLED BY USER REQUEST ──
+    # log.info("ADIM 3: daily_comprehensive_analysis.py çalıştırılıyor...")
+    # step3_ok = run_bot_subprocess("daily_comprehensive_analysis.py")
+    # if not step3_ok:
+    #     log.warning("⚠️ daily_comprehensive_analysis.py başarısız. Devam ediliyor...")
 
-    # ── ADIM 4: Veri Tazeleme & Sektör/Zone Düzeltme ──
-    log.info("ADIM 4: refresh_swing_data.py (Sektör ve Zone Düzeltme) çalıştırılıyor...")
-    run_bot_subprocess("refresh_swing_data.py")
+    # ── ADIM 4: Veri Tazeleme & Sektör/Zone Düzeltme - DISABLED BY USER REQUEST ──
+    # log.info("ADIM 4: refresh_swing_data.py (Sektör ve Zone Düzeltme) çalıştırılıyor...")
+    # run_bot_subprocess("refresh_swing_data.py")
 
     # ── ADIM 5: swing_performance (Geçmiş Performans) güncelle ──
     log.info("ADIM 5: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
 
-    # ── ADIM 6: Multilingual AI Summaries (Kritik: Tüm diller için rapor üret) ──
-    log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
-    run_bot_subprocess("update_summaries_now.py")
+    # ── ADIM 6: Multilingual AI Summaries (Kritik: Tüm diller için rapor üret) - DISABLED BY USER REQUEST ──
+    # log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
+    # run_bot_subprocess("update_summaries_now.py")
 
     # ── ADIM 7: Options Scanner (Opsiyon Fırsatları) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 7: opsiyon218v7.py --oneshot (Options Scanner) çalıştırılıyor...")
@@ -113,9 +113,9 @@ def main():
     # if not step7_ok:
     #     log.warning("⚠️ opsiyon218v7.py başarısız. Devam ediliyor...")
 
-    # ── ADIM 8: Options P&L Tracker ──
-    log.info("ADIM 8: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
-    run_bot_subprocess("options_pnl_tracker.py")
+    # ── ADIM 8: Options P&L Tracker - DISABLED BY USER REQUEST ──
+    # log.info("ADIM 8: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
+    # run_bot_subprocess("options_pnl_tracker.py")
 
     # ── ADIM 8.5: SYSTEMATIC DATA SYNC (Kritik: transfer/latest -> frontend) ──
     log.info("ADIM 8.5: Transfer klasörü frontend'e senkronize ediliyor...")
@@ -137,9 +137,9 @@ def main():
     except Exception as e:
         log.error(f"❌ Senkronizasyon hatası: {e}")
 
-    # ── ADIM 9: SYSTEMATIC PRICE SYNC (Kritik: Tüm fiyatları eşitle) ──
-    log.info("ADIM 9: update_all_prices.py (Fiyat Senkronizasyonu) çalıştırılıyor...")
-    run_bot_subprocess("update_all_prices.py")
+    # ── ADIM 9: SYSTEMATIC PRICE SYNC (Kritik: Tüm fiyatları eşitle) - DISABLED BY USER REQUEST ──
+    # log.info("ADIM 9: update_all_prices.py (Fiyat Senkronizasyonu) çalıştırılıyor...")
+    # run_bot_subprocess("update_all_prices.py")
 
     log.info("=" * 60)
     log.info("ADIM 10: Veriler GitHub'a yükleniyor (Git Push)...")

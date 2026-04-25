@@ -1,0 +1,30 @@
+{
+    "timestamp_ny": "2026-04-25 02:12:18",
+    "total_tracked": 2,
+    "portfolio_status": [
+        {
+            "symbol": "VSAT",
+            "price": 61.98,
+            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
+            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "entry_zone": "60.44 - 63.52",
+            "stop_loss": 55.82,
+            "take_profit": 74.3,
+            "boga_score": 11.9,
+            "change_24h": -0.96,
+            "volume_profile": 1.78
+        },
+        {
+            "symbol": "VRT",
+            "price": 323.36,
+            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
+            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "entry_zone": "316.71 - 330.01",
+            "stop_loss": 296.77,
+            "take_profit": 376.55,
+            "boga_score": 8.8,
+            "change_24h": 0.5,
+            "volume_profile": 0.78
+        }
+    ]
+}

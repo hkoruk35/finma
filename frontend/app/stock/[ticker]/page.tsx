@@ -16,7 +16,7 @@ export const revalidate = 300; // ISR: 5 dakikada bir yenile (eski değer: 1 san
 const ChartSection = dynamic(() => import("@/components/stock/ChartSection"), {
   loading: () => <div className="h-[420px] bg-[#141924] animate-pulse rounded-xl" />,
 });
-const AnalysisTabs = dynamic(() => import("@/components/stock/AnalysisTabs"), {
+const DetailTabs = dynamic(() => import("@/components/stock/DetailTabs"), {
   loading: () => <div className="h-48 bg-[#141924] animate-pulse rounded-xl" />,
 });
 const SocialShare = dynamic(() => import("@/components/SocialShare"));
@@ -315,9 +315,9 @@ export default async function StockDetailPage({ params }: Props) {
           companyMismatch={(stock as any)._company_mismatch ?? undefined}
         />
 
-        {/* ── AI Analysis Tabs ── */}
+        {/* ── Tabs (Tracker & Analysis) ── */}
         <div className="mb-4">
-          <AnalysisTabs stock={stock} />
+          <DetailTabs stock={stock} />
         </div>
 
         {/* ── Trading Parameters (for non-swing-pick stocks) ── */}
