@@ -559,16 +559,16 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* Quick Percentile Row */}
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
           <div className="px-5 py-4 text-center">
-            <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-1">Reached +5%</p>
-            <p className="text-xl font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">Reached +5%</p>
+            <p className="text-xl md:text-2xl font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-1">Reached +10%</p>
-            <p className="text-xl font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">Reached +10%</p>
+            <p className="text-xl md:text-2xl font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-1">Reached +15%</p>
-            <p className="text-xl font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">Reached +15%</p>
+            <p className="text-xl md:text-2xl font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
           </div>
         </div>
       </div>
@@ -686,46 +686,46 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             const pnl = pnlFromReturn(effRet);
             const slHit = slTriggered(t);
             return (
-              <div key={i} className={`glass-card p-6 border-l-4 ${slHit ? "border-l-[#ef4444]" : "border-l-[#3b82f6]"} relative overflow-hidden`}>
-                <div className="flex justify-between items-start mb-5">
+              <div key={i} className={`glass-card p-6 border-l-4 ${slHit ? "border-l-[#ef4444]" : "border-l-[#3b82f6]"} relative overflow-hidden bg-[#0d1521]`}>
+                <div className="flex justify-between items-start mb-6">
                   <div>
-                    <Link href={`/stock/${t.ticker}`} className="text-3xl font-black text-[#3b82f6] hover:underline tracking-tighter uppercase">{t.ticker}</Link>
-                    <p className="text-sm font-bold text-[#00d2ff] mt-1.5 uppercase tracking-wide">{t.date} · {t.sector}</p>
+                    <Link href={`/stock/${t.ticker}`} className="text-4xl font-black text-[#3b82f6] hover:underline tracking-tighter uppercase">{t.ticker}</Link>
+                    <p className="text-[13px] font-black text-[#00d2ff] mt-2 uppercase tracking-widest">{t.date} · {t.sector}</p>
                     {t.subsector && t.subsector !== t.sector && (
-                      <p className="text-xs text-white/60 mt-1">{t.subsector}</p>
+                      <p className="text-[11px] font-bold text-white/50 mt-1 uppercase">{t.subsector}</p>
                     )}
                   </div>
                   <div className="flex flex-col items-end gap-2">
-                    <span className={`text-xs font-black px-3 py-1 rounded uppercase tracking-widest ${resultCls}`}>{effRes}</span>
-                    {slHit && <span className="text-[10px] font-black px-2 py-0.5 rounded bg-[#ef4444]/20 text-[#ef4444] border border-[#ef4444]/30">SL HIT</span>}
+                    <span className={`text-[11px] font-black px-4 py-1.5 rounded-lg uppercase tracking-widest border ${resultCls}`}>{effRes}</span>
+                    {slHit && <span className="text-[10px] font-black px-2 py-0.5 rounded bg-[#ef4444]/20 text-[#ef4444] border border-[#ef4444]/40">SL HIT</span>}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 divide-x divide-white/10 border border-white/10 rounded-xl bg-black/20 overflow-hidden mb-5">
-                  <div className="py-3 px-1 text-center">
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Entry</p>
-                    <p className="font-mono font-bold text-white text-sm">${fmt(t.entry)}</p>
+                <div className="grid grid-cols-3 divide-x divide-white/20 border border-white/20 rounded-xl bg-black/40 overflow-hidden mb-6">
+                  <div className="py-4 px-1 text-center">
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Entry</p>
+                    <p className="font-mono font-black text-white text-base">${fmt(t.entry)}</p>
                   </div>
-                  <div className="py-3 px-1 text-center">
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Peak/SL</p>
-                    <p className="font-mono font-bold text-white text-sm">{slHit ? `$${fmt(t.entry * (1 + SL_PCT/100))}` : (t.max_price != null ? `$${fmt(t.max_price)}` : "—")}</p>
+                  <div className="py-4 px-1 text-center">
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Peak/SL</p>
+                    <p className="font-mono font-black text-white text-base">{slHit ? `$${fmt(t.entry * (1 + SL_PCT/100))}` : (t.max_price != null ? `$${fmt(t.max_price)}` : "—")}</p>
                   </div>
-                  <div className="py-3 px-1 text-center">
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Days</p>
-                    <p className="font-mono font-bold text-white text-sm">{t.days != null ? `${t.days}d` : "—"}</p>
+                  <div className="py-4 px-1 text-center">
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Days</p>
+                    <p className="font-mono font-black text-white text-base">{t.days != null ? `${t.days}d` : "—"}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                <div className="flex items-center justify-between pt-4 border-t border-white/20">
                   <div>
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Return (SL adj.)</p>
-                    <p className={`font-mono font-black text-2xl ${retColor(effRet)}`}>
-                      {effRet != null ? `${effRet >= 0 ? "+" : ""}${fmt(effRet, 2)}%` : "—"}
+                    <p className="text-[11px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Return (SL adj.)</p>
+                    <p className={`font-mono font-black text-3xl ${retColor(effRet)}`}>
+                      {effRet != null ? `${effRet >= 0 ? "+" : ""}${fmt(effRet, 1)}%` : "—"}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">PnL/$1000</p>
-                    <p className={`font-mono font-black text-xl ${retColor(pnl)}`}>
+                    <p className="text-[11px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">PnL/$1000</p>
+                    <p className={`font-mono font-black text-2xl ${retColor(pnl)}`}>
                       {pnl != null ? `${pnl >= 0 ? "+" : ""}$${Math.abs(pnl).toFixed(0)}` : "—"}
                     </p>
                   </div>

@@ -1037,73 +1037,14 @@ MAX_PER_SECTOR_OTHERS = 3
 LAST_PRE_GAP_ALERT_DATE = None
 
 # ============================================================
-# 📁 KARTAL YUVASI – CANDIDATE UNIVERSE LOADER
-#
-# Kaynaklar (DEĞİŞMEZ):
-# 1) watchlist_rolling.txt        (family304 / family305a)
-# 2) watchlist_YYYYMMDD.txt       (en güncel tarihli)
-# 3) manual_watchlist.txt         (manuel eklenenler)
 # ============================================================
-
-WATCHLIST_DIR = r"C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists"
-MANUAL_TXT_PATH = os.path.join(WATCHLIST_DIR, "manual_watchlist.txt")
-
-
-def _find_latest_family304_watchlist() -> Optional[str]:
-    """
-    watchlist_YYYYMMDD.txt formatındaki en güncel tarihli dosyayı bulur.
-    """
-    try:
-        if not os.path.exists(WATCHLIST_DIR):
-            logging.warning(f"⚠️ Watchlist dizini bulunamadı: {WATCHLIST_DIR}")
-            return None
-
-        files = [
-            f for f in os.listdir(WATCHLIST_DIR)
-            if f.startswith("watchlist_") and f.endswith(".txt") and any(c.isdigit() for c in f)
-        ]
-
-        if not files:
-            logging.warning("⚠️ Tarihli watchlist dosyası bulunamadı.")
-            return None
-
-        files.sort(reverse=True)
-        latest_path = os.path.join(WATCHLIST_DIR, files[0])
-        
-        # Extract date from filename (watchlist_YYYYMMDD.txt)
-        filename = files[0]
-        date_str = filename.replace("watchlist_", "").replace(".txt", "")
-        
-        logging.info(f"📄 Latest watchlist: {filename} (Date: {date_str})")
-        return latest_path
-
-    except Exception as e:
-        logging.error(f"Watchlist arama hatası: {e}")
-        return None
-
-
-def _read_symbols_from_path(path: Optional[str], source_name: str) -> List[str]:
-    """Ortak dosya okuma yardımcısı."""
-    symbols = set()
-    if not path or not os.path.exists(path):
-        logging.warning(f"⚠️ {source_name} bulunamadı: {path}")
-        return []
-
-    count = 0
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            for line in f:
-                raw = line.split("#")[0].strip().upper()
-                if not raw: continue
-                sym = raw.split()[0]
-                if sym.isalpha() and 1 <= len(sym) <= 6:
-                    symbols.add(sym)
-                    count += 1
-        logging.info(f"✅ {source_name} yüklendi: {count} sembol.")
-        return sorted(list(symbols))
-    except Exception as e:
-        logging.error(f"❌ Dosya okuma hatası ({source_name}): {e}")
-        return []
+# 📁 KARTAL YUVASI – CANDIDATE UNIVERSE LOADER (SWING-ONLY MODE)
+#
+# Amaç:
+# - Sadece son 5 günün "Daily Swing Picks" arşivindeki hisseleri tarar.
+# - Dış kaynaklardan (master list, rolling vs) hisse almaz.
+# - ARCHIVAL INTEGRITY: Hisselerin hedef/stop seviyelerini arşivden çeker.
+# ============================================================
 
 AI_SWING_ZONES = {}
 
@@ -2007,49 +1948,75 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     rvol = float(df_1h["RVOL"].iloc[-1])
     
     # ================================================
-    # 7. ENTRY ZONE & STOP LOSS HESAPLAMA
+    # 7. ENTRY ZONE & STOP LOSS HESAPLAMA (MASTER SYNC)
     # ================================================
-    invalidation = ctx_1d.get("invalidation_level", 0)
+    # ÖNCE: Arşivlenmiş ana swing bölgelerini al (Hallüsinasyon önleyici)
+    swing_info = AI_SWING_ZONES.get(ticker)
     
-    # Entry Zone (ATR bazlı buffer)
-    entry_buffer = atr_abs * 0.5  # ATR'nin yarısı
-    entry_low = current_price - entry_buffer
-    entry_high = current_price + entry_buffer
-    
-    # Stop Loss Belirleme
-    if invalidation > 0:
-        dist_to_invalid = (current_price - invalidation) / current_price
+    if swing_info:
+        bz = swing_info.get("buying_zone", {})
+        pz = swing_info.get("sell_zone", {})
+        sz = swing_info.get("stop_loss_zone", {})
         
-        # Invalidation %1-%8 arasındaysa kullan
-        if 0.01 < dist_to_invalid < 0.08:
-            stop_loss = invalidation * 0.995  # Pivot altı (buffer)
-            stop_type = "Structural (Pivot)"
+        # Arşiv verisi varsa bunları kullan
+        entry_low = bz.get("low")
+        entry_high = bz.get("high")
+        target_val = pz.get("high") or pz.get("low")
+        stop_val = sz.get("high") or sz.get("low")
+        
+        # Eğer arşivde veri eksikse (N/A ise) ATR'ye fallback yap
+        if entry_low is None or entry_high is None:
+            entry_low = current_price - (atr_abs * 0.5)
+            entry_high = current_price + (atr_abs * 0.5)
+        
+        if target_val is None:
+            target_val = current_price + (risk * 2.0)
+            
+        if stop_val is None:
+            stop_val = current_price - (2.0 * atr_abs)
+
+        scenario = {
+            "entry_zone": f"{entry_low:.2f} - {entry_high:.2f}",
+            "stop_loss": round(stop_val, 2),
+            "stop_type": "MASTER_ARCHIVE",
+            "target": round(target_val, 2),
+            "target_agg": round(target_val * 1.1, 2),
+            "potential_pct": round((target_val - current_price) / current_price * 100, 2) if current_price > 0 else 0,
+            "rr_ratio": 2.0
+        }
+    else:
+        # ARŞİVDE YOKSA (HATA DURUMU) - ATR HESAPLA
+        invalidation = ctx_1d.get("invalidation_level", 0)
+        entry_buffer = atr_abs * 0.5
+        entry_low = current_price - entry_buffer
+        entry_high = current_price + entry_buffer
+        
+        if invalidation > 0:
+            dist_to_invalid = (current_price - invalidation) / current_price
+            if 0.01 < dist_to_invalid < 0.08:
+                stop_loss = invalidation * 0.995
+                stop_type = "Structural (Pivot)"
+            else:
+                stop_loss = current_price - (2.0 * atr_abs)
+                stop_type = "Volatility (2ATR)"
         else:
-            # Çok yakın veya çok uzak: ATR kullan
             stop_loss = current_price - (2.0 * atr_abs)
             stop_type = "Volatility (2ATR)"
-    else:
-        # Invalidation yok: ATR kullan
-        stop_loss = current_price - (2.0 * atr_abs)
-        stop_type = "Volatility (2ATR)"
-    
-    # Risk & Target Hesaplama
-    risk = current_price - stop_loss
-    if risk <= 0:
-        risk = current_price * 0.02  # Minimum %2 risk
-    
-    target_conservative = current_price + (risk * 2.0)  # 2R
-    target_aggressive = current_price + (risk * 3.5)    # 3.5R
-    
-    scenario = {
-        "entry_zone": f"{entry_low:.2f} - {entry_high:.2f}",
-        "stop_loss": round(stop_loss, 2),
-        "stop_type": stop_type,
-        "target": round(target_conservative, 2),
-        "target_agg": round(target_aggressive, 2),
-        "potential_pct": round((target_conservative - current_price) / current_price * 100, 2),
-        "rr_ratio": 2.0
-    }
+        
+        risk = current_price - stop_loss
+        if risk <= 0: risk = current_price * 0.02
+        
+        target_cons = current_price + (risk * 2.0)
+        
+        scenario = {
+            "entry_zone": f"{entry_low:.2f} - {entry_high:.2f}",
+            "stop_loss": round(stop_loss, 2),
+            "stop_type": stop_type,
+            "target": round(target_cons, 2),
+            "target_agg": round(current_price + (risk * 3.5), 2),
+            "potential_pct": round((target_cons - current_price) / current_price * 100, 2),
+            "rr_ratio": 2.0
+        }
     
     # ================================================
     # 8. VOLUME VALIDATION (Multi-Timeframe)
@@ -2903,9 +2870,8 @@ Ana tarama fonksiyonu
     
     print(
         f"\n📊 Final Selection:\n"
-        f"   📌 Latest: {len([r for r in final_results if r.get('source_bucket')=='latest'])}\n"
-        f"   📌 Others: {len([r for r in final_results if r.get('source_bucket')=='others'])}\n"
-        f"   👉 Total: {len(final_results)}"
+        f"   📌 Candidates: {len(final_results)}\n"
+        f"   👉 Total Scanned: {len(results)}"
     )
 
     # ================================================
@@ -2916,20 +2882,13 @@ Ana tarama fonksiyonu
     print("=" * 60)
     
     # ------------------------------------------------
-    # STAGE 1: Selection Preparation (10 Latest + 10 Others)
+    # STAGE 1: Selection Preparation (Top 40 Picks)
     # ------------------------------------------------
-    print(f"\n📊 STAGE 1: SELECTION (10 Latest + 10 Others)")
+    print(f"\n📊 STAGE 1: SELECTION (Top 40 Picks)")
     
-    latest_sorted = sorted([c for c in final_results if c.get('source_bucket') == 'latest'], key=lambda x: x['score'], reverse=True)
-    others_sorted = sorted([c for c in final_results if c.get('source_bucket') == 'others'], key=lambda x: x['score'], reverse=True)
+    latest_sorted = sorted(final_results, key=lambda x: x['score'], reverse=True)
     
-    ai_candidates = []
-    
-    # Select Top 20 from Latest (Latest listesinin tamamı)
-    ai_candidates.extend(latest_sorted[:20])
-    
-    # Select Top 20 from Others
-    ai_candidates.extend(others_sorted[:20])
+    ai_candidates = latest_sorted[:40]
     
     print(f"   Selected {len(ai_candidates)} candidates for AI Analysis.")
     if not ai_candidates:
