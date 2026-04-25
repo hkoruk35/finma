@@ -156,9 +156,9 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   </div>
                 </div>
 
-                {/* Minimal: Chart Tool */}
-                {minimal && !isLocked && (
-                  <div className="mb-4 rounded-lg overflow-hidden bg-black/20 border border-white/5 h-[180px]">
+                {/* Mini Chart Tool */}
+                {!isLocked && (
+                  <div className="mb-4 rounded-lg overflow-hidden bg-black/20 border border-white/5 h-[160px] md:h-[180px]">
                     <MiniChart symbol={item.ticker} />
                   </div>
                 )}
