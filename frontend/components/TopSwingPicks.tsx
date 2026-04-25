@@ -134,7 +134,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
           const redirectUrl = isProPick ? "/login?redirect=pro" : "/login";
           
           return (
-            <div key={item.ticker} className="relative flex flex-col">
+            <div key={item.ticker} className={`relative flex flex-col ${idx > 0 ? 'border-t border-white/5 pt-6 md:border-t-0 md:pt-0' : ''}`}>
               <Link
                 href={isLocked ? redirectUrl : `/stock/${item.ticker}`}
                 className={`glass-card ${minimal ? 'p-4' : 'p-6'} transition-[border-color,background-color] duration-300 group relative overflow-hidden border-2 border-[#1e2a3a]/50 flex flex-col h-full ${!isLocked ? 'hover:border-[#3b82f6]/50 hover:bg-[#1a2030]' : ''}`}
@@ -189,8 +189,8 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   </p>
                 </div>
 
-                {/* Visual Buy/Sell/SL points */}
-                <div className={`mt-auto ${minimal ? 'space-y-1' : 'bg-black/40 rounded-lg border border-white/5 shadow-inner overflow-hidden'}`}>
+                {/* Visual Buy/Sell/SL points - Hidden on mobile per request */}
+                <div className={`mt-auto hidden md:block ${minimal ? 'space-y-1' : 'bg-black/40 rounded-lg border border-white/5 shadow-inner overflow-hidden'}`}>
                   {minimal ? (
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between bg-[#10b981]/10 px-2 py-1.5 rounded border border-[#10b981]/20">
@@ -224,7 +224,6 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                       </div>
                     ))
                   )}
-                {/* Buy/Sell/SL zones section ... */}
                 </div>
 
                 {/* Add to Tracker button */}
@@ -243,6 +242,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                         score: item.score,
                       }}
                       compact={minimal}
+                      mobileFull={true}
                     />
                   </div>
                 )}

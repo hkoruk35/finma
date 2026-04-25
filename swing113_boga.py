@@ -3200,8 +3200,8 @@ async def scan_top_stocks():
         public_dir = os.path.join(cwd, "frontend", "public")
         os.makedirs(public_dir, exist_ok=True)
 
-        # 1. swing_picks.json (Top 20 for Sidebar/Homepage)
-        output_20 = build_json_output(top_candidates[:20], generated_at)
+        # 1. swing_picks.json (Top 5 for Sidebar/Homepage)
+        output_20 = build_json_output(top_candidates[:5], generated_at)
         with open(os.path.join(public_dir, "swing_picks.json"), "w", encoding="utf-8") as f:
             json.dump(output_20, f, indent=2, ensure_ascii=False, default=str)
         
@@ -3209,6 +3209,15 @@ async def scan_top_stocks():
         output_all = build_json_output(top_candidates, generated_at)
         with open(os.path.join(public_dir, "swing_all_picks.json"), "w", encoding="utf-8") as f:
             json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
+
+        # Archive to dated folder for inday313 reference
+        date_folder = now_ny.strftime("%Y-%m-%d")
+        archive_dir = os.path.join(public_dir, "data", date_folder)
+        os.makedirs(archive_dir, exist_ok=True)
+        archive_path = os.path.join(archive_dir, "swing_all_picks.json")
+        with open(archive_path, "w", encoding="utf-8") as f:
+            json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
+        logging.info(f"📁 Archived swing picks to: {archive_path}")
 
         # 3. Özel Tablo Formatı (Tarih, Sembol, Giriş, Stop, TP1, TP2)
         turkish_months = ["", "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]

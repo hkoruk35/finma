@@ -1105,33 +1105,66 @@ def _read_symbols_from_path(path: Optional[str], source_name: str) -> List[str]:
         logging.error(f"❌ Dosya okuma hatası ({source_name}): {e}")
         return []
 
-def load_latest_universe_from_txt() -> List[str]:
-    json_path = os.path.join(r"C:\Users\afksm\finma\frontend\public", "swing_all_picks.json")
-    symbols = []
-    try:
+AI_SWING_ZONES = {}
+
+def load_swing_universe() -> List[str]:
+    global AI_SWING_ZONES
+    AI_SWING_ZONES.clear()
+    symbols = set()
+    
+    public_data_base = r"C:\Users\afksm\finma\frontend\public\data"
+    if not os.path.exists(public_data_base):
+        logging.error(f"❌ Public data dizini bulunamadı: {public_data_base}")
+        return []
+
+    # 1. Son 5 günün klasörlerini bul (YYYY-MM-DD formatında olanlar)
+    import re
+    date_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+    dated_dirs = [d for d in os.listdir(public_data_base) 
+                  if os.path.isdir(os.path.join(public_data_base, d)) and date_pattern.match(d)]
+    
+    dated_dirs.sort(reverse=True)
+    recent_dirs = dated_dirs[:5]
+    
+    logging.info(f"📂 Son 5 günün klasörleri taranıyor: {recent_dirs}")
+
+    for d_dir in recent_dirs:
+        # Her klasörde swing_all_picks.json ara
+        json_path = os.path.join(public_data_base, d_dir, "swing_all_picks.json")
         if os.path.exists(json_path):
+            try:
+                import json
+                with open(json_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    for c in data.get("picks", []):
+                        sym = c.get("ticker")
+                        if sym:
+                            symbols.add(sym)
+                            # En güncel hedef verisini sakla
+                            if sym not in AI_SWING_ZONES:
+                                AI_SWING_ZONES[sym] = c.get("boga_zones", {})
+            except Exception as e:
+                logging.warning(f"⚠️ {json_path} okuma hatası: {e}")
+    
+    # 2. Mevcut (Bugünkü) swing_all_picks.json'ı da ekle (Henüz arşivlenmemiş olabilir)
+    live_json = r"C:\Users\afksm\finma\frontend\public\swing_all_picks.json"
+    if os.path.exists(live_json):
+        try:
             import json
-            with open(json_path, "r", encoding="utf-8") as f:
+            with open(live_json, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 for c in data.get("picks", []):
                     sym = c.get("ticker")
                     if sym:
-                        symbols.append(sym)
-            if symbols:
-                logging.info(f"✅ Latest Watchlist (JSON) yüklendi: {len(symbols)} sembol.")
-                return symbols
-    except Exception as e:
-        logging.warning(f"JSON okuma hatası: {e}. Fallback to TXT.")
-        
-    path = _find_latest_family304_watchlist()
-    return _read_symbols_from_path(path, "Latest Watchlist")
+                        symbols.add(sym)
+                        if sym not in AI_SWING_ZONES:
+                            AI_SWING_ZONES[sym] = c.get("boga_zones", {})
+        except Exception as e:
+            logging.warning(f"⚠️ {live_json} okuma hatası: {e}")
 
-def load_manual_universe_from_txt() -> List[str]:
-    return _read_symbols_from_path(MANUAL_TXT_PATH, "Manual Watchlist")
-
-def load_rolling_universe_from_txt() -> List[str]:
-    path = os.path.join(WATCHLIST_DIR, "watchlist_rolling.txt")
-    return _read_symbols_from_path(path, "Rolling Watchlist")
+    final_symbols = sorted(list(symbols))
+    logging.info(f"✅ Toplam {len(final_symbols)} sembol yüklendi (Son 5 Gün Arşivi).")
+    return final_symbols
     
 # ============================================================
 # 3) KARTAL YUVASI – MULTI TIMEFRAME DATA FETCHER
@@ -1901,9 +1934,9 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     # ================================================
     ctx_1d = analyze_1d_context(df_1d)
 
-    # HARD FILTER
-    if ctx_1d.get("1d_score", 0) <= -50:
-        return None
+    # NO FILTERS - User requested all swing picks to be scanned
+    # if ctx_1d.get("1d_score", 0) <= -50:
+    #     return None
 
     st_1h = analyze_1h_structure(df_1h)
     timing_15m = assess_15m_entry_timing(df_15m, df_1h)
@@ -2810,22 +2843,16 @@ Ana tarama fonksiyonu
     await analyze_market_and_sectors()
 
     # ================================================
-    # 2️⃣ Load Watchlists
-    # ================================================
-    latest_universe = load_latest_universe_from_txt()
-    manual_universe = load_manual_universe_from_txt()
-    rolling_universe = load_rolling_universe_from_txt()
+    # 2) Evren (Universe) Seçimi
+    latest_universe = load_swing_universe()
 
-    if not latest_universe and not manual_universe and not rolling_universe:
-        print("❌ All watchlists are empty.")
+    if not latest_universe:
+        print("❌ Swing Watchlist boş.")
         await send_telegram_message("❌ Watchlist boş, tarama yapılamadı")
         return
 
-    print(f"\n📊 Watchlists Loaded:")
-    print(f"   • Latest: {len(latest_universe)} tickers")
-    print(f"   • Manual: {len(manual_universe)} tickers")
-    print(f"   • Rolling: {len(rolling_universe)} tickers")
-    print(f"   • Total: {len(latest_universe) + len(manual_universe) + len(rolling_universe)} tickers\n")
+    print(f"\n📂 Watchlist Loaded:")
+    print(f"     Swing Universe: {len(latest_universe)} tickers\n")
 
     # ================================================
     # 3️⃣ Scan All Universes
@@ -2850,36 +2877,20 @@ Ana tarama fonksiyonu
             await asyncio.sleep(0.5)
         print()
 
-    # Scan all watchlists
+    # Scan the swing universe
     if latest_universe:
-        await scan_universe(latest_universe, "latest")
-    if manual_universe:
-        await scan_universe(manual_universe, "manual")
-    if rolling_universe:
-        await scan_universe(rolling_universe, "rolling")
+        await scan_universe(latest_universe, "swing")
 
     print(f"\n✅ Scan Complete. Raw Candidates: {len(results)}")
 
     # ================================================
-    # 4️⃣ Smart Candidate Selection
+    # 4️⃣ Candidate Selection
     # ================================================
-    latest_results = [r for r in results if r.get("source") == "latest"]
-    other_results = [r for r in results if r.get("source") in ("manual", "rolling")]
+    # Since we only scan swing picks, we take all valid results
+    final_results = results[:50]  # Limit to 50 just in case
     
-    # Allocation targets (boosted for Critical session)
-    t_latest = 20 if session_name == "CRITICAL (14:30)" else 10
-    t_others = 20
-    
-    if session_name == "CRITICAL (14:30)":
-        logging.info("🔥 CRITICAL SESSION: Boosting Latest allocations to 20")
-    
-    final_results = select_final_candidates(
-        latest_results=latest_results,
-        other_results=other_results,
-        target_latest=t_latest,
-        target_others=t_others,
-        max_per_sector=3
-    )
+    # Sort by momentum for better UI presentation
+    final_results.sort(key=lambda x: x.get("momentum_score", 0), reverse=True)
     
     # Deduplication (safety check)
     unique_map = {}

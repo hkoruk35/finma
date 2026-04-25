@@ -178,46 +178,62 @@ export default async function SwingPicksPage() {
             </div>
 
             {/* Mobile Cards */}
-            <div className="md:hidden grid grid-cols-1 gap-4 mb-6">
+            <div className="md:hidden flex flex-col gap-6 mb-6">
               {picks.map((pick: any, idx: number) => (
                 <Link
                   key={pick.ticker}
                   href={`/stock/${pick.ticker}`}
-                  className={`glass-card p-4 block hover:border-[#3b82f6]/40 border-2 border-transparent transition-all ${idx < 5 ? "border-[#3b82f6]/20" : ""}`}
+                  className={`glass-card p-6 block hover:border-[#3b82f6]/40 border-2 border-[#1e2a3a] transition-all relative overflow-hidden ${idx < 5 ? "border-[#3b82f6]/40 shadow-[0_0_20px_rgba(59,130,246,0.1)]" : ""}`}
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <span className="text-[#00d2ff] text-xs font-bold">#{idx + 1}</span>
-                      <div className="text-white font-black text-2xl tracking-tight">{pick.ticker}</div>
-                      <div className="text-[#00d2ff] text-xs">{pick.company}</div>
-                    </div>
-                    <ScoreBadge score={pick.score} />
+                  {/* Rank Badge for Mobile */}
+                  <div className={`absolute top-0 right-0 px-3 py-1 text-[10px] font-black text-white ${idx < 5 ? "bg-[#3b82f6]" : "bg-[#1e2a3a]"} rounded-bl-xl`}>
+                    #{idx + 1}
                   </div>
-                  <div className="grid grid-cols-3 gap-3 text-center">
+
+                  <div className="flex items-start justify-between mb-5">
                     <div>
-                      <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Buy</div>
-                      <div className="text-white font-mono text-xs">${formatPrice(pick.buy_zone.low)}</div>
+                      <div className="text-white font-black text-3xl tracking-tighter uppercase mb-0.5">{pick.ticker}</div>
+                      <div className="text-[#00d2ff] text-xs font-bold uppercase tracking-wider opacity-80">{pick.company}</div>
                     </div>
-                    <div>
-                      <div className="text-[10px] text-[#10b981] uppercase mb-1">Target</div>
-                      <div className="text-[#10b981] font-mono text-xs">${formatPrice(pick.profit_zone.high)}</div>
-                    </div>
-                    <div>
-                      <div className="text-[10px] text-[#ef4444] uppercase mb-1">Stop</div>
-                      <div className="text-[#ef4444] font-mono text-xs">${formatPrice(pick.stop_zone.low)}</div>
+                    <div className="scale-125 origin-right">
+                       <ScoreBadge score={pick.score} />
                     </div>
                   </div>
-                  <div className="mt-3 flex items-center gap-3 text-[11px] text-[#00d2ff] overflow-x-auto whitespace-nowrap">
-                    {[
-                      { label: "1D", val: pick.change_1d },
-                      { label: "1W", val: pick.change_1w },
-                      { label: "1M", val: pick.change_1m },
-                      { label: "1Y", val: pick.change_1y },
-                    ].map(p => (
-                      <span key={p.label} className={p.val !== undefined ? (p.val >= 0 ? "text-[#10b981]" : "text-[#ef4444]") : ""}>
-                        {p.label}: <b>{p.val !== undefined ? (p.val >= 0 ? "+" : "") + p.val.toFixed(1) + "%" : "—"}</b>
-                      </span>
-                    ))}
+
+                  {/* Enhanced Info Blocks with Borders */}
+                  <div className="grid grid-cols-3 divide-x divide-white/10 border border-white/10 rounded-xl bg-black/20 overflow-hidden mb-5">
+                    <div className="py-3 px-2 text-center">
+                      <div className="text-[9px] text-[#00d2ff] font-black uppercase tracking-widest mb-1.5 opacity-60">BUY ZONE</div>
+                      <div className="text-white font-mono text-[13px] font-bold">${formatPrice(pick.buy_zone.low)}</div>
+                    </div>
+                    <div className="py-3 px-2 text-center bg-white/5">
+                      <div className="text-[9px] text-[#10b981] font-black uppercase tracking-widest mb-1.5 opacity-60">TARGET</div>
+                      <div className="text-[#10b981] font-mono text-[13px] font-black">${formatPrice(pick.profit_zone.high)}</div>
+                    </div>
+                    <div className="py-3 px-2 text-center">
+                      <div className="text-[9px] text-[#ef4444] font-black uppercase tracking-widest mb-1.5 opacity-60">STOP LOSS</div>
+                      <div className="text-[#ef4444] font-mono text-[13px] font-bold">${formatPrice(pick.stop_zone.low)}</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-[12px] font-bold text-[#00d2ff]">
+                      {[
+                        { label: "1D", val: pick.change_1d },
+                        { label: "1W", val: pick.change_1w },
+                        { label: "1M", val: pick.change_1m },
+                      ].map(p => (
+                        <div key={p.label} className="flex flex-col">
+                           <span className="text-[8px] uppercase opacity-50 mb-0.5">{p.label}</span>
+                           <span className={p.val !== undefined ? (p.val >= 0 ? "text-[#10b981]" : "text-[#ef4444]") : ""}>
+                             {p.val !== undefined ? (p.val >= 0 ? "+" : "") + p.val.toFixed(1) + "%" : "—"}
+                           </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="px-4 py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 rounded-lg text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">
+                       DETAILS →
+                    </div>
                   </div>
                 </Link>
               ))}

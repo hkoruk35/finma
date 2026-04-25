@@ -341,9 +341,21 @@ export default async function StockDetailPage({ params }: Props) {
         {/* ── Trading Parameters (for non-swing-pick stocks) ── */}
         {!isSwingPick && (
           <div className="glass-card p-5 mb-4">
-            <h3 className="text-[11px] font-black text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-              🎯 Trading Parameters
-            </h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-[11px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                🎯 TRADING PARAMETERS
+              </h3>
+              <div className="flex items-center gap-3">
+                <div className="px-3 py-1 rounded-md bg-[#141924] border border-[#1e2a3a]">
+                  <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mr-2">Analysis Date:</span>
+                  <span className="text-xs text-[#00d2ff] font-mono font-bold">{stock.date ? new Date(stock.date).toLocaleDateString() : "—"}</span>
+                </div>
+                <div className="px-3 py-1 rounded-md bg-[#141924] border border-[#1e2a3a]">
+                  <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mr-2">Base Price:</span>
+                  <span className="text-xs text-[#22c55e] font-mono font-bold">${formatPrice(stock.price.current)}</span>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div className="bg-[#141924] rounded-xl p-3 border border-[#1e2a3a] border-l-4 border-l-[#94a3b8]">
                 <p className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Entry Zone</p>

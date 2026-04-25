@@ -220,8 +220,6 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       { label: "6-10d", min: 6,  max: 10 },
       { label: "11-20d",min: 11, max: 20 },
       { label: "21-30d",min: 21, max: 30 },
-      { label: "31-60d",min: 31, max: 60 },
-      { label: "60d+",  min: 61, max: Infinity },
     ];
 
     return buckets.map(b => {
