@@ -319,6 +319,7 @@ export default async function StockDetailPage({ params }: Props) {
                       </span>
                     </div>
                   </div>
+                  </div>
                 </div>
               </div>
             </div>
