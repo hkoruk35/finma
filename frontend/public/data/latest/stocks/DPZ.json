@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Restaurants",
   "price": {
-    "current": 367.99,
+    "current": 372.39,
     "open": 367.38,
     "high": 372.75,
     "low": 364.0,
@@ -16,8 +16,7 @@
     "change_pct_1m": 3.42,
     "change_pct_1y": -22.1,
     "volume": 846900,
-    "avg_volume_30d": 905060,
-    "last_sync": "2026-04-24T09:41:37.491513"
+    "avg_volume_30d": 905060
   },
   "scores": {
     "master_score": 37.08,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 366.15,
-    "entry_range_high": 369.83,
-    "target_range_low": 386.08,
-    "target_range_high": 413.65,
-    "stop_range_low": 333.15,
-    "stop_range_high": 350.68,
-    "target_price": 393.96,
-    "stop_loss": 350.68,
+    "entry_range_low": 370.53,
+    "entry_range_high": 374.25,
+    "target_range_low": 390.7,
+    "target_range_high": 418.6,
+    "stop_range_low": 337.13,
+    "stop_range_high": 354.87,
+    "target_price": 398.67,
+    "stop_loss": 354.87,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.262157-04:00",

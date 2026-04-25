@@ -6,7 +6,7 @@
   "sector": "Utilities",
   "industry": "Electrical Equipment & Parts",
   "price": {
-    "current": 240.3,
+    "current": 237.57,
     "open": 231.5,
     "high": 241.6,
     "low": 228.14,
@@ -16,8 +16,7 @@
     "change_pct_1m": 62.85,
     "change_pct_1y": 1307.41,
     "volume": 7686900,
-    "avg_volume_30d": 10260140,
-    "last_sync": "2026-04-24T09:41:36.540478"
+    "avg_volume_30d": 10260140
   },
   "scores": {
     "master_score": 50.6,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 167.3,
-    "entry_range_high": 241.5,
-    "target_range_low": 283.11,
-    "target_range_high": 303.33,
-    "stop_range_low": 197.51,
-    "stop_range_high": 207.91,
-    "target_price": 288.88,
-    "stop_loss": 207.91,
+    "entry_range_low": 165.4,
+    "entry_range_high": 238.76,
+    "target_range_low": 279.89,
+    "target_range_high": 299.88,
+    "stop_range_low": 195.27,
+    "stop_range_high": 205.55,
+    "target_price": 285.6,
+    "stop_loss": 205.55,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.740808-04:00",

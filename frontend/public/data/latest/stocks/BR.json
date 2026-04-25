@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Information Technology Services",
   "price": {
-    "current": 154.5,
+    "current": 155.95,
     "open": 158.23,
     "high": 158.64,
     "low": 153.06,
@@ -16,8 +16,7 @@
     "change_pct_1m": -5.27,
     "change_pct_1y": -32.48,
     "volume": 1181100,
-    "avg_volume_30d": 1651226,
-    "last_sync": "2026-04-24T09:41:37.205233"
+    "avg_volume_30d": 1651226
   },
   "scores": {
     "master_score": 40.89,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 153.73,
-    "entry_range_high": 155.27,
-    "target_range_low": 166.53,
-    "target_range_high": 178.43,
-    "stop_range_low": 137.0,
-    "stop_range_high": 144.22,
-    "target_price": 169.93,
-    "stop_loss": 144.22,
+    "entry_range_low": 155.17,
+    "entry_range_high": 156.73,
+    "target_range_low": 168.09,
+    "target_range_high": 180.1,
+    "stop_range_low": 138.29,
+    "stop_range_high": 145.57,
+    "target_price": 171.52,
+    "stop_loss": 145.57,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.651675-04:00",

@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Waste Management",
   "price": {
-    "current": 212.52,
+    "current": 214.04,
     "open": 206.18,
     "high": 214.1,
     "low": 206.18,
@@ -16,8 +16,7 @@
     "change_pct_1m": -0.29,
     "change_pct_1y": -10.79,
     "volume": 1811500,
-    "avg_volume_30d": 1537736,
-    "last_sync": "2026-04-24T09:41:38.707486"
+    "avg_volume_30d": 1537736
   },
   "scores": {
     "master_score": 23.0,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 211.46,
-    "entry_range_high": 213.58,
-    "target_range_low": 220.53,
-    "target_range_high": 236.28,
-    "stop_range_low": 193.97,
-    "stop_range_high": 204.18,
-    "target_price": 225.03,
-    "stop_loss": 204.18,
+    "entry_range_low": 212.97,
+    "entry_range_high": 215.11,
+    "target_range_low": 222.11,
+    "target_range_high": 237.97,
+    "stop_range_low": 195.36,
+    "stop_range_high": 205.64,
+    "target_price": 226.64,
+    "stop_loss": 205.64,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.609976-04:00",

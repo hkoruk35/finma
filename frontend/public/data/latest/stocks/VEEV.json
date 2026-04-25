@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Health Information Services",
   "price": {
-    "current": 156.47,
+    "current": 156.15,
     "open": 159.96,
     "high": 161.0,
     "low": 152.3,
@@ -16,8 +16,7 @@
     "change_pct_1m": -12.82,
     "change_pct_1y": -27.63,
     "volume": 2922800,
-    "avg_volume_30d": 2093916,
-    "last_sync": "2026-04-24T09:41:37.699179"
+    "avg_volume_30d": 2093916
   },
   "scores": {
     "master_score": 34.05,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 155.69,
-    "entry_range_high": 157.25,
-    "target_range_low": 175.79,
-    "target_range_high": 188.35,
-    "stop_range_low": 134.13,
-    "stop_range_high": 141.2,
-    "target_price": 179.38,
-    "stop_loss": 141.2,
+    "entry_range_low": 155.37,
+    "entry_range_high": 156.93,
+    "target_range_low": 175.43,
+    "target_range_high": 187.96,
+    "stop_range_low": 133.86,
+    "stop_range_high": 140.91,
+    "target_price": 179.01,
+    "stop_loss": 140.91,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.090353-04:00",

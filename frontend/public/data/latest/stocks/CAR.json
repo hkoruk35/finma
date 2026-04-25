@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Rental & Leasing Services",
   "price": {
-    "current": 224.89,
+    "current": 229.14,
     "open": 402.01,
     "high": 403.68,
     "low": 207.64,
@@ -16,8 +16,7 @@
     "change_pct_1m": 95.03,
     "change_pct_1y": 169.93,
     "volume": 17235200,
-    "avg_volume_30d": 4042040,
-    "last_sync": "2026-04-24T09:41:36.816375"
+    "avg_volume_30d": 4042040
   },
   "scores": {
     "master_score": 47.12,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 223.76,
-    "entry_range_high": 226.02,
-    "target_range_low": 495.47,
-    "target_range_high": 530.86,
-    "stop_range_low": 35.88,
-    "stop_range_high": 37.77,
-    "target_price": 505.58,
-    "stop_loss": 37.77,
+    "entry_range_low": 227.99,
+    "entry_range_high": 230.29,
+    "target_range_low": 504.83,
+    "target_range_high": 540.89,
+    "stop_range_low": 36.56,
+    "stop_range_high": 38.48,
+    "target_price": 515.13,
+    "stop_loss": 38.48,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.338437-04:00",

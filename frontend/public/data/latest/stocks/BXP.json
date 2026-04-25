@@ -6,7 +6,7 @@
   "sector": "Real Estate",
   "industry": "REIT - Office",
   "price": {
-    "current": 56.97,
+    "current": 57.0,
     "open": 58.47,
     "high": 58.77,
     "low": 56.35,
@@ -16,8 +16,7 @@
     "change_pct_1m": 9.23,
     "change_pct_1y": -6.5,
     "volume": 1715100,
-    "avg_volume_30d": 2054296,
-    "last_sync": "2026-04-24T09:41:37.571687"
+    "avg_volume_30d": 2054296
   },
   "scores": {
     "master_score": 36.14,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 55.82,
-    "entry_range_high": 57.24,
-    "target_range_low": 60.91,
-    "target_range_high": 65.26,
-    "stop_range_low": 50.83,
-    "stop_range_high": 53.51,
-    "target_price": 62.15,
-    "stop_loss": 53.51,
+    "entry_range_low": 55.85,
+    "entry_range_high": 57.28,
+    "target_range_low": 60.95,
+    "target_range_high": 65.3,
+    "stop_range_low": 50.86,
+    "stop_range_high": 53.54,
+    "target_price": 62.19,
+    "stop_loss": 53.54,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.766941-04:00",

@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Conglomerates",
   "price": {
-    "current": 211.58,
+    "current": 214.34,
     "open": 207.87,
     "high": 218.0,
     "low": 207.83,
@@ -16,8 +16,7 @@
     "change_pct_1m": -3.26,
     "change_pct_1y": 17.1,
     "volume": 8018000,
-    "avg_volume_30d": 3844606,
-    "last_sync": "2026-04-24T09:41:38.746409"
+    "avg_volume_30d": 3844606
   },
   "scores": {
     "master_score": 21.91,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 210.52,
-    "entry_range_high": 212.64,
-    "target_range_low": 224.32,
-    "target_range_high": 240.34,
-    "stop_range_low": 190.03,
-    "stop_range_high": 200.03,
-    "target_price": 228.9,
-    "stop_loss": 200.03,
+    "entry_range_low": 213.27,
+    "entry_range_high": 215.41,
+    "target_range_low": 227.25,
+    "target_range_high": 243.48,
+    "stop_range_low": 192.51,
+    "stop_range_high": 202.64,
+    "target_price": 231.89,
+    "stop_loss": 202.64,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.547980-04:00",

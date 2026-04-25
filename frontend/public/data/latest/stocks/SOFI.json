@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Credit Services",
   "price": {
-    "current": 18.37,
+    "current": 18.32,
     "open": 18.77,
     "high": 18.9,
     "low": 17.93,
@@ -16,8 +16,7 @@
     "change_pct_1m": 9.7,
     "change_pct_1y": 62.56,
     "volume": 51557800,
-    "avg_volume_30d": 61812573,
-    "last_sync": "2026-04-24T09:41:38.165447"
+    "avg_volume_30d": 61812573
   },
   "scores": {
     "master_score": 29.34,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 18.28,
-    "entry_range_high": 18.46,
-    "target_range_low": 20.63,
-    "target_range_high": 22.1,
-    "stop_range_low": 15.75,
-    "stop_range_high": 16.59,
-    "target_price": 21.05,
-    "stop_loss": 16.59,
+    "entry_range_low": 18.23,
+    "entry_range_high": 18.41,
+    "target_range_low": 20.57,
+    "target_range_high": 22.04,
+    "stop_range_low": 15.71,
+    "stop_range_high": 16.54,
+    "target_price": 20.99,
+    "stop_loss": 16.54,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.930231-04:00",

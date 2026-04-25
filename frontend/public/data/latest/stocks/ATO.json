@@ -6,7 +6,7 @@
   "sector": "Utilities",
   "industry": "Utilities - Regulated Gas",
   "price": {
-    "current": 186.31,
+    "current": 187.81,
     "open": 183.65,
     "high": 188.54,
     "low": 182.47,
@@ -16,8 +16,7 @@
     "change_pct_1m": 3.44,
     "change_pct_1y": 19.91,
     "volume": 735500,
-    "avg_volume_30d": 928113,
-    "last_sync": "2026-04-24T09:41:37.682413"
+    "avg_volume_30d": 928113
   },
   "scores": {
     "master_score": 34.15,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 180.87,
-    "entry_range_high": 187.24,
-    "target_range_low": 192.26,
-    "target_range_high": 206.0,
-    "stop_range_low": 170.74,
-    "stop_range_high": 179.72,
-    "target_price": 196.19,
-    "stop_loss": 179.72,
+    "entry_range_low": 182.33,
+    "entry_range_high": 188.75,
+    "target_range_low": 193.81,
+    "target_range_high": 207.66,
+    "stop_range_low": 172.11,
+    "stop_range_high": 181.17,
+    "target_price": 197.77,
+    "stop_loss": 181.17,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.698681-04:00",

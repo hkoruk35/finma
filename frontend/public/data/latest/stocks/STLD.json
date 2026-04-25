@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Steel",
   "price": {
-    "current": 223.11,
+    "current": 225.05,
     "open": 228.15,
     "high": 229.0,
     "low": 222.0,
@@ -16,8 +16,7 @@
     "change_pct_1m": 33.03,
     "change_pct_1y": 94.31,
     "volume": 1712400,
-    "avg_volume_30d": 1272520,
-    "last_sync": "2026-04-24T09:41:35.398487"
+    "avg_volume_30d": 1272520
   },
   "scores": {
     "master_score": 63.28,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "POSITIVE_BIAS",
-    "entry_range_low": 185.8,
-    "entry_range_high": 224.23,
-    "target_range_low": 239.08,
-    "target_range_high": 256.15,
-    "stop_range_low": 198.75,
-    "stop_range_high": 209.21,
-    "target_price": 243.96,
-    "stop_loss": 209.21,
+    "entry_range_low": 187.42,
+    "entry_range_high": 226.18,
+    "target_range_low": 241.16,
+    "target_range_high": 258.38,
+    "stop_range_low": 200.48,
+    "stop_range_high": 211.03,
+    "target_price": 246.08,
+    "stop_loss": 211.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.467424-04:00",

@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
   "price": {
-    "current": 834.53,
+    "current": 835.24,
     "open": 817.11,
     "high": 845.27,
     "low": 815.46,
@@ -16,8 +16,7 @@
     "change_pct_1m": 16.77,
     "change_pct_1y": 189.96,
     "volume": 2599500,
-    "avg_volume_30d": 2303916,
-    "last_sync": "2026-04-24T09:41:36.785980"
+    "avg_volume_30d": 2303916
   },
   "scores": {
     "master_score": 47.61,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 728.83,
-    "entry_range_high": 838.7,
-    "target_range_low": 889.78,
-    "target_range_high": 953.33,
-    "stop_range_low": 746.31,
-    "stop_range_high": 785.59,
-    "target_price": 907.93,
-    "stop_loss": 785.59,
+    "entry_range_low": 729.45,
+    "entry_range_high": 839.42,
+    "target_range_low": 890.54,
+    "target_range_high": 954.15,
+    "stop_range_low": 746.95,
+    "stop_range_high": 786.26,
+    "target_price": 908.71,
+    "stop_loss": 786.26,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.522287-04:00",

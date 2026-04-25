@@ -6,7 +6,7 @@
   "sector": "Consumer Staples",
   "industry": "Packaged Foods",
   "price": {
-    "current": 21.78,
+    "current": 21.76,
     "open": 21.39,
     "high": 21.8,
     "low": 21.39,
@@ -16,8 +16,7 @@
     "change_pct_1m": -2.56,
     "change_pct_1y": -25.6,
     "volume": 3992400,
-    "avg_volume_30d": 4716656,
-    "last_sync": "2026-04-24T09:41:38.426936"
+    "avg_volume_30d": 4716656
   },
   "scores": {
     "master_score": 26.7,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 21.67,
-    "entry_range_high": 21.89,
-    "target_range_low": 22.7,
-    "target_range_high": 24.32,
-    "stop_range_low": 19.82,
-    "stop_range_high": 20.86,
-    "target_price": 23.16,
-    "stop_loss": 20.86,
+    "entry_range_low": 21.65,
+    "entry_range_high": 21.87,
+    "target_range_low": 22.68,
+    "target_range_high": 24.3,
+    "stop_range_low": 19.8,
+    "stop_range_high": 20.84,
+    "target_price": 23.14,
+    "stop_loss": 20.84,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.367583-04:00",

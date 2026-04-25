@@ -6,7 +6,7 @@
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
-    "current": 104.99,
+    "current": 105.56,
     "open": 108.92,
     "high": 109.76,
     "low": 105.39,
@@ -16,8 +16,7 @@
     "change_pct_1m": 21.6,
     "change_pct_1y": 0.84,
     "volume": 716500,
-    "avg_volume_30d": 1038826,
-    "last_sync": "2026-04-24T09:41:36.728567"
+    "avg_volume_30d": 1038826
   },
   "scores": {
     "master_score": 49.08,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 97.55,
-    "entry_range_high": 105.52,
-    "target_range_low": 114.18,
-    "target_range_high": 122.34,
-    "stop_range_low": 92.45,
-    "stop_range_high": 97.31,
-    "target_price": 116.51,
-    "stop_loss": 97.31,
+    "entry_range_low": 98.08,
+    "entry_range_high": 106.09,
+    "target_range_low": 114.8,
+    "target_range_high": 123.0,
+    "stop_range_low": 92.95,
+    "stop_range_high": 97.84,
+    "target_price": 117.14,
+    "stop_loss": 97.84,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.495484-04:00",

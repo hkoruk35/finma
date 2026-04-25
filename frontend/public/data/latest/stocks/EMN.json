@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Specialty Chemicals",
   "price": {
-    "current": 71.45,
+    "current": 71.92,
     "open": 72.57,
     "high": 72.87,
     "low": 70.65,
@@ -16,8 +16,7 @@
     "change_pct_1m": 2.82,
     "change_pct_1y": -4.84,
     "volume": 821500,
-    "avg_volume_30d": 1600080,
-    "last_sync": "2026-04-24T09:41:37.657265"
+    "avg_volume_30d": 1600080
   },
   "scores": {
     "master_score": 34.43,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 71.09,
-    "entry_range_high": 71.81,
-    "target_range_low": 77.03,
-    "target_range_high": 82.54,
-    "stop_range_low": 63.34,
-    "stop_range_high": 66.68,
-    "target_price": 78.6,
-    "stop_loss": 66.68,
+    "entry_range_low": 71.56,
+    "entry_range_high": 72.28,
+    "target_range_low": 77.54,
+    "target_range_high": 83.08,
+    "stop_range_low": 63.76,
+    "stop_range_high": 67.12,
+    "target_price": 79.12,
+    "stop_loss": 67.12,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.445785-04:00",

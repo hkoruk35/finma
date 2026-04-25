@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Leisure",
   "price": {
-    "current": 17.9,
+    "current": 18.4,
     "open": 19.0,
     "high": 19.33,
     "low": 18.18,
@@ -16,8 +16,7 @@
     "change_pct_1m": 7.98,
     "change_pct_1y": -46.43,
     "volume": 1200200,
-    "avg_volume_30d": 1748473,
-    "last_sync": "2026-04-24T09:41:38.905061"
+    "avg_volume_30d": 1748473
   },
   "scores": {
     "master_score": 12.48,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 17.32,
-    "entry_range_high": 17.99,
-    "target_range_low": 20.52,
-    "target_range_high": 21.99,
-    "stop_range_low": 15.08,
-    "stop_range_high": 15.88,
-    "target_price": 20.94,
-    "stop_loss": 15.88,
+    "entry_range_low": 17.8,
+    "entry_range_high": 18.49,
+    "target_range_low": 21.09,
+    "target_range_high": 22.6,
+    "stop_range_low": 15.5,
+    "stop_range_high": 16.32,
+    "target_price": 21.52,
+    "stop_loss": 16.32,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.308135-04:00",

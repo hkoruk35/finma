@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Scientific & Technical Instruments",
   "price": {
-    "current": 658.75,
+    "current": 651.75,
     "open": 659.46,
     "high": 663.91,
     "low": 650.19,
@@ -16,8 +16,7 @@
     "change_pct_1m": 4.1,
     "change_pct_1y": 41.35,
     "volume": 599400,
-    "avg_volume_30d": 346720,
-    "last_sync": "2026-04-24T09:41:35.900197"
+    "avg_volume_30d": 346720
   },
   "scores": {
     "master_score": 56.56,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 636.5,
-    "entry_range_high": 662.05,
-    "target_range_low": 698.77,
-    "target_range_high": 748.68,
-    "stop_range_low": 591.43,
-    "stop_range_high": 622.57,
-    "target_price": 713.03,
-    "stop_loss": 622.57,
+    "entry_range_low": 629.74,
+    "entry_range_high": 655.01,
+    "target_range_low": 691.34,
+    "target_range_high": 740.72,
+    "stop_range_low": 585.15,
+    "stop_range_high": 615.95,
+    "target_price": 705.45,
+    "stop_loss": 615.95,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.516769-04:00",

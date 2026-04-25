@@ -6,7 +6,7 @@
   "sector": "Financials",
   "industry": "Asset Management",
   "price": {
-    "current": 115.1,
+    "current": 114.78,
     "open": 119.0,
     "high": 119.04,
     "low": 112.64,
@@ -16,8 +16,7 @@
     "change_pct_1m": 8.24,
     "change_pct_1y": -16.29,
     "volume": 2995300,
-    "avg_volume_30d": 4039630,
-    "last_sync": "2026-04-24T09:41:37.631573"
+    "avg_volume_30d": 4039630
   },
   "scores": {
     "master_score": 34.81,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 114.53,
-    "entry_range_high": 115.67,
-    "target_range_low": 129.43,
-    "target_range_high": 138.67,
-    "stop_range_low": 98.59,
-    "stop_range_high": 103.79,
-    "target_price": 132.07,
-    "stop_loss": 103.79,
+    "entry_range_low": 114.21,
+    "entry_range_high": 115.35,
+    "target_range_low": 129.07,
+    "target_range_high": 138.28,
+    "stop_range_low": 98.32,
+    "stop_range_high": 103.5,
+    "target_price": 131.7,
+    "stop_loss": 103.5,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.773838-04:00",

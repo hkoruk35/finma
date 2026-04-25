@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Other Industrial Metals & Mining",
   "price": {
-    "current": 60.2,
+    "current": 60.75,
     "open": 61.11,
     "high": 63.27,
     "low": 59.54,
@@ -16,8 +16,7 @@
     "change_pct_1m": 25.1,
     "change_pct_1y": 80.66,
     "volume": 7267900,
-    "avg_volume_30d": 3887300,
-    "last_sync": "2026-04-24T09:41:36.026785"
+    "avg_volume_30d": 3887300
   },
   "scores": {
     "master_score": 54.98,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 53.48,
-    "entry_range_high": 60.5,
-    "target_range_low": 65.9,
-    "target_range_high": 70.6,
-    "stop_range_low": 52.73,
-    "stop_range_high": 55.5,
-    "target_price": 67.25,
-    "stop_loss": 55.5,
+    "entry_range_low": 53.97,
+    "entry_range_high": 61.05,
+    "target_range_low": 66.5,
+    "target_range_high": 71.25,
+    "stop_range_low": 53.21,
+    "stop_range_high": 56.01,
+    "target_price": 67.86,
+    "stop_loss": 56.01,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.347464-04:00",

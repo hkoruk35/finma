@@ -6,7 +6,7 @@
   "sector": "Real Estate",
   "industry": "REIT - Hotel & Motel",
   "price": {
-    "current": 13.66,
+    "current": 13.74,
     "open": 13.69,
     "high": 13.8,
     "low": 13.51,
@@ -16,8 +16,7 @@
     "change_pct_1m": 10.01,
     "change_pct_1y": 57.23,
     "volume": 1028700,
-    "avg_volume_30d": 2432946,
-    "last_sync": "2026-04-24T09:41:36.012754"
+    "avg_volume_30d": 2432946
   },
   "scores": {
     "master_score": 55.43,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 12.77,
-    "entry_range_high": 13.73,
-    "target_range_low": 14.58,
-    "target_range_high": 15.63,
-    "stop_range_low": 12.2,
-    "stop_range_high": 12.84,
-    "target_price": 14.88,
-    "stop_loss": 12.84,
+    "entry_range_low": 12.84,
+    "entry_range_high": 13.81,
+    "target_range_low": 14.67,
+    "target_range_high": 15.72,
+    "stop_range_low": 12.27,
+    "stop_range_high": 12.92,
+    "target_price": 14.97,
+    "stop_loss": 12.92,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.875417-04:00",

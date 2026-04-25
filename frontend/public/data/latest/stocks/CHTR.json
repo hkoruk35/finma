@@ -6,7 +6,7 @@
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
-    "current": 215.05,
+    "current": 241.78,
     "open": 249.35,
     "high": 254.11,
     "low": 241.41,
@@ -16,8 +16,7 @@
     "change_pct_1m": 11.11,
     "change_pct_1y": -27.03,
     "volume": 3607800,
-    "avg_volume_30d": 1775110,
-    "last_sync": "2026-04-24T09:41:36.896672"
+    "avg_volume_30d": 1775110
   },
   "scores": {
     "master_score": 45.75,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 198.66,
-    "entry_range_high": 216.13,
-    "target_range_low": 234.63,
-    "target_range_high": 251.39,
-    "stop_range_low": 188.87,
-    "stop_range_high": 198.81,
-    "target_price": 239.42,
-    "stop_loss": 198.81,
+    "entry_range_low": 223.35,
+    "entry_range_high": 242.99,
+    "target_range_low": 263.79,
+    "target_range_high": 282.63,
+    "stop_range_low": 212.34,
+    "stop_range_high": 223.52,
+    "target_price": 269.17,
+    "stop_loss": 223.52,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.173500-04:00",

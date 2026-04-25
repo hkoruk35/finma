@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
-    "current": 312.32,
+    "current": 318.71,
     "open": 321.35,
     "high": 322.95,
     "low": 315.54,
@@ -16,8 +16,7 @@
     "change_pct_1m": -7.52,
     "change_pct_1y": 18.11,
     "volume": 1632800,
-    "avg_volume_30d": 1367526,
-    "last_sync": "2026-04-24T09:41:38.684314"
+    "avg_volume_30d": 1367526
   },
   "scores": {
     "master_score": 23.45,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 310.76,
-    "entry_range_high": 313.88,
-    "target_range_low": 327.57,
-    "target_range_high": 350.96,
-    "stop_range_low": 282.81,
-    "stop_range_high": 297.7,
-    "target_price": 334.25,
-    "stop_loss": 297.7,
+    "entry_range_low": 317.12,
+    "entry_range_high": 320.3,
+    "target_range_low": 334.27,
+    "target_range_high": 358.14,
+    "stop_range_low": 288.6,
+    "stop_range_high": 303.79,
+    "target_price": 341.09,
+    "stop_loss": 303.79,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.501292-04:00",

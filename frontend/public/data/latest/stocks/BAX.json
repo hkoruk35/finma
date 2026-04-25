@@ -6,7 +6,7 @@
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
   "price": {
-    "current": 18.28,
+    "current": 18.41,
     "open": 18.31,
     "high": 18.49,
     "low": 18.08,
@@ -16,8 +16,7 @@
     "change_pct_1m": 10.11,
     "change_pct_1y": -34.8,
     "volume": 4793700,
-    "avg_volume_30d": 7931786,
-    "last_sync": "2026-04-24T09:41:38.003363"
+    "avg_volume_30d": 7931786
   },
   "scores": {
     "master_score": 30.98,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 17.94,
-    "entry_range_high": 18.37,
-    "target_range_low": 19.93,
-    "target_range_high": 21.35,
-    "stop_range_low": 16.07,
-    "stop_range_high": 16.91,
-    "target_price": 20.34,
-    "stop_loss": 16.91,
+    "entry_range_low": 18.07,
+    "entry_range_high": 18.5,
+    "target_range_low": 20.07,
+    "target_range_high": 21.5,
+    "stop_range_low": 16.18,
+    "stop_range_high": 17.03,
+    "target_price": 20.48,
+    "stop_loss": 17.03,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.519581-04:00",

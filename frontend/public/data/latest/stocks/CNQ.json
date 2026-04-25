@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
-    "current": 44.79,
+    "current": 45.43,
     "open": 44.85,
     "high": 45.67,
     "low": 44.79,
@@ -16,8 +16,7 @@
     "change_pct_1m": -7.32,
     "change_pct_1y": 58.42,
     "volume": 8193500,
-    "avg_volume_30d": 12098403,
-    "last_sync": "2026-04-24T09:41:35.436851"
+    "avg_volume_30d": 12098403
   },
   "scores": {
     "master_score": 62.77,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "POSITIVE_BIAS",
-    "entry_range_low": 43.73,
-    "entry_range_high": 45.02,
-    "target_range_low": 48.18,
-    "target_range_high": 51.62,
-    "stop_range_low": 39.78,
-    "stop_range_high": 41.87,
-    "target_price": 49.17,
-    "stop_loss": 41.87,
+    "entry_range_low": 44.35,
+    "entry_range_high": 45.66,
+    "target_range_low": 48.87,
+    "target_range_high": 52.36,
+    "stop_range_low": 40.35,
+    "stop_range_high": 42.47,
+    "target_price": 49.87,
+    "stop_loss": 42.47,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.125271-04:00",

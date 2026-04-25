@@ -6,7 +6,7 @@
   "sector": "Utilities",
   "industry": "Utilities - Independent Power Producers",
   "price": {
-    "current": 294.76,
+    "current": 292.77,
     "open": 289.42,
     "high": 293.7,
     "low": 284.01,
@@ -16,8 +16,7 @@
     "change_pct_1m": -0.71,
     "change_pct_1y": 46.48,
     "volume": 2765100,
-    "avg_volume_30d": 2861020,
-    "last_sync": "2026-04-24T09:41:38.547892"
+    "avg_volume_30d": 2861020
   },
   "scores": {
     "master_score": 25.51,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 293.29,
-    "entry_range_high": 296.23,
-    "target_range_low": 325.09,
-    "target_range_high": 348.31,
-    "stop_range_low": 256.61,
-    "stop_range_high": 270.11,
-    "target_price": 331.73,
-    "stop_loss": 270.11,
+    "entry_range_low": 291.31,
+    "entry_range_high": 294.23,
+    "target_range_low": 322.9,
+    "target_range_high": 345.96,
+    "stop_range_low": 254.88,
+    "stop_range_high": 268.29,
+    "target_price": 329.49,
+    "stop_loss": 268.29,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.709552-04:00",

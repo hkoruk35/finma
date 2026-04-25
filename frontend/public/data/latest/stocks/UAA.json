@@ -6,7 +6,7 @@
   "sector": "Consumer Discretionary",
   "industry": "Apparel Manufacturing",
   "price": {
-    "current": 6.32,
+    "current": 6.38,
     "open": 6.23,
     "high": 6.49,
     "low": 6.21,
@@ -16,8 +16,7 @@
     "change_pct_1m": 5.63,
     "change_pct_1y": 8.87,
     "volume": 5939800,
-    "avg_volume_30d": 8032420,
-    "last_sync": "2026-04-24T09:41:36.850955"
+    "avg_volume_30d": 8032420
   },
   "scores": {
     "master_score": 46.72,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 6.19,
-    "entry_range_high": 6.34,
-    "target_range_low": 7.09,
-    "target_range_high": 7.6,
-    "stop_range_low": 5.41,
-    "stop_range_high": 5.7,
-    "target_price": 7.24,
-    "stop_loss": 5.7,
+    "entry_range_low": 6.25,
+    "entry_range_high": 6.41,
+    "target_range_low": 7.16,
+    "target_range_high": 7.68,
+    "stop_range_low": 5.47,
+    "stop_range_high": 5.76,
+    "target_price": 7.31,
+    "stop_loss": 5.76,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.278160-04:00",

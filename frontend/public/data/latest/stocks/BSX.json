@@ -6,7 +6,7 @@
   "sector": "Healthcare",
   "industry": "Medical Devices",
   "price": {
-    "current": 63.96,
+    "current": 65.69,
     "open": 65.57,
     "high": 66.88,
     "low": 64.93,
@@ -16,8 +16,7 @@
     "change_pct_1m": -3.61,
     "change_pct_1y": -30.89,
     "volume": 31269900,
-    "avg_volume_30d": 16730733,
-    "last_sync": "2026-04-24T09:41:37.249604"
+    "avg_volume_30d": 16730733
   },
   "scores": {
     "master_score": 40.52,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 63.64,
-    "entry_range_high": 64.28,
-    "target_range_low": 69.3,
-    "target_range_high": 74.24,
-    "stop_range_low": 56.49,
-    "stop_range_high": 59.46,
-    "target_price": 70.71,
-    "stop_loss": 59.46,
+    "entry_range_low": 65.36,
+    "entry_range_high": 66.02,
+    "target_range_low": 71.17,
+    "target_range_high": 76.25,
+    "stop_range_low": 58.02,
+    "stop_range_high": 61.07,
+    "target_price": 72.62,
+    "stop_loss": 61.07,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.506529-04:00",

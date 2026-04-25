@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Engineering & Construction",
   "price": {
-    "current": 384.04,
+    "current": 382.88,
     "open": 379.38,
     "high": 388.57,
     "low": 377.74,
@@ -16,8 +16,7 @@
     "change_pct_1m": 18.67,
     "change_pct_1y": 235.12,
     "volume": 748600,
-    "avg_volume_30d": 880466,
-    "last_sync": "2026-04-24T09:41:35.716289"
+    "avg_volume_30d": 880466
   },
   "scores": {
     "master_score": 58.31,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 319.46,
-    "entry_range_high": 385.95,
-    "target_range_low": 413.99,
-    "target_range_high": 443.55,
-    "stop_range_low": 340.51,
-    "stop_range_high": 358.44,
-    "target_price": 422.43,
-    "stop_loss": 358.44,
+    "entry_range_low": 318.5,
+    "entry_range_high": 384.79,
+    "target_range_low": 412.74,
+    "target_range_high": 442.22,
+    "stop_range_low": 339.49,
+    "stop_range_high": 357.36,
+    "target_price": 421.16,
+    "stop_loss": 357.36,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.643020-04:00",

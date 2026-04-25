@@ -6,7 +6,7 @@
   "sector": "Materials",
   "industry": "Chemicals",
   "price": {
-    "current": 64.17,
+    "current": 65.23,
     "open": 65.0,
     "high": 65.28,
     "low": 63.17,
@@ -16,8 +16,7 @@
     "change_pct_1m": 7.29,
     "change_pct_1y": 57.34,
     "volume": 3378500,
-    "avg_volume_30d": 2601423,
-    "last_sync": "2026-04-24T09:41:37.027143"
+    "avg_volume_30d": 2601423
   },
   "scores": {
     "master_score": 43.73,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 57.96,
-    "entry_range_high": 64.49,
-    "target_range_low": 72.4,
-    "target_range_high": 77.58,
-    "stop_range_low": 54.81,
-    "stop_range_high": 57.7,
-    "target_price": 73.88,
-    "stop_loss": 57.7,
+    "entry_range_low": 58.92,
+    "entry_range_high": 65.56,
+    "target_range_low": 73.6,
+    "target_range_high": 78.86,
+    "stop_range_low": 55.72,
+    "stop_range_high": 58.65,
+    "target_price": 75.1,
+    "stop_loss": 58.65,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.433544-04:00",

@@ -6,7 +6,7 @@
   "sector": "Utilities",
   "industry": "Utilities - Regulated Water",
   "price": {
-    "current": 47.32,
+    "current": 47.52,
     "open": 46.98,
     "high": 48.08,
     "low": 46.12,
@@ -16,8 +16,7 @@
     "change_pct_1m": 7.34,
     "change_pct_1y": -4.98,
     "volume": 479300,
-    "avg_volume_30d": 499926,
-    "last_sync": "2026-04-24T09:41:35.837988"
+    "avg_volume_30d": 499926
   },
   "scores": {
     "master_score": 56.95,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 44.95,
-    "entry_range_high": 47.56,
-    "target_range_low": 49.89,
-    "target_range_high": 53.45,
-    "stop_range_low": 42.68,
-    "stop_range_high": 44.93,
-    "target_price": 50.9,
-    "stop_loss": 44.93,
+    "entry_range_low": 45.14,
+    "entry_range_high": 47.76,
+    "target_range_low": 50.1,
+    "target_range_high": 53.68,
+    "stop_range_low": 42.86,
+    "stop_range_high": 45.12,
+    "target_price": 51.12,
+    "stop_loss": 45.12,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.734723-04:00",

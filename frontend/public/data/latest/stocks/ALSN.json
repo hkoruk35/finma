@@ -6,7 +6,7 @@
   "sector": "Industrials",
   "industry": "Auto Parts",
   "price": {
-    "current": 135.1,
+    "current": 136.0,
     "open": 133.49,
     "high": 136.89,
     "low": 133.46,
@@ -16,8 +16,7 @@
     "change_pct_1m": 15.36,
     "change_pct_1y": 55.63,
     "volume": 755800,
-    "avg_volume_30d": 768193,
-    "last_sync": "2026-04-24T09:41:35.759659"
+    "avg_volume_30d": 768193
   },
   "scores": {
     "master_score": 57.91,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 118.47,
-    "entry_range_high": 135.78,
-    "target_range_low": 142.59,
-    "target_range_high": 152.77,
-    "stop_range_low": 121.76,
-    "stop_range_high": 128.17,
-    "target_price": 145.5,
-    "stop_loss": 128.17,
+    "entry_range_low": 119.26,
+    "entry_range_high": 136.68,
+    "target_range_low": 143.54,
+    "target_range_high": 153.79,
+    "stop_range_low": 122.57,
+    "stop_range_high": 129.02,
+    "target_price": 146.47,
+    "stop_loss": 129.02,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.546076-04:00",

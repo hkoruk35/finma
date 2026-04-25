@@ -6,7 +6,7 @@
   "sector": "Energy",
   "industry": "Oil & Gas Refining & Marketing",
   "price": {
-    "current": 232.48,
+    "current": 233.83,
     "open": 235.29,
     "high": 236.26,
     "low": 230.39,
@@ -16,8 +16,7 @@
     "change_pct_1m": -3.28,
     "change_pct_1y": 114.03,
     "volume": 2360400,
-    "avg_volume_30d": 4092276,
-    "last_sync": "2026-04-24T09:41:37.047957"
+    "avg_volume_30d": 4092276
   },
   "scores": {
     "master_score": 43.32,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEGATIVE_BIAS",
-    "entry_range_low": 223.52,
-    "entry_range_high": 233.64,
-    "target_range_low": 255.25,
-    "target_range_high": 273.48,
-    "stop_range_low": 203.14,
-    "stop_range_high": 213.83,
-    "target_price": 260.46,
-    "stop_loss": 213.83,
+    "entry_range_low": 224.82,
+    "entry_range_high": 235.0,
+    "target_range_low": 256.73,
+    "target_range_high": 275.07,
+    "stop_range_low": 204.32,
+    "stop_range_high": 215.07,
+    "target_price": 261.97,
+    "stop_loss": 215.07,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:07.208421-04:00",

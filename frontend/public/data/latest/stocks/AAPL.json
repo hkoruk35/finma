@@ -6,7 +6,7 @@
   "sector": "Technology",
   "industry": "Consumer Electronics",
   "price": {
-    "current": 271.26,
+    "current": 273.43,
     "open": 275.05,
     "high": 275.77,
     "low": 271.65,
@@ -16,8 +16,7 @@
     "change_pct_1m": 8.66,
     "change_pct_1y": 37.49,
     "volume": 33285900,
-    "avg_volume_30d": 41997163,
-    "last_sync": "2026-04-24T09:41:36.348965"
+    "avg_volume_30d": 41997163
   },
   "scores": {
     "master_score": 51.43,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "NEUTRAL_STAY",
-    "entry_range_low": 257.9,
-    "entry_range_high": 272.62,
-    "target_range_low": 283.45,
-    "target_range_high": 303.7,
-    "stop_range_low": 246.31,
-    "stop_range_high": 259.28,
-    "target_price": 289.24,
-    "stop_loss": 259.28,
+    "entry_range_low": 259.96,
+    "entry_range_high": 274.8,
+    "target_range_low": 285.72,
+    "target_range_high": 306.13,
+    "stop_range_low": 248.28,
+    "stop_range_high": 261.35,
+    "target_price": 291.55,
+    "stop_loss": 261.35,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:05.795759-04:00",

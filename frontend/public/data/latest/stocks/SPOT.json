@@ -6,7 +6,7 @@
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
-    "current": 516.61,
+    "current": 515.94,
     "open": 523.0,
     "high": 523.0,
     "low": 502.77,
@@ -16,8 +16,7 @@
     "change_pct_1m": 6.41,
     "change_pct_1y": -12.61,
     "volume": 1628100,
-    "avg_volume_30d": 1535466,
-    "last_sync": "2026-04-24T09:41:37.716968"
+    "avg_volume_30d": 1535466
   },
   "scores": {
     "master_score": 33.7,
@@ -89,14 +88,14 @@
   },
   "scores_detail": {
     "signal_type": "UNDERPERFORM",
-    "entry_range_low": 505.71,
-    "entry_range_high": 519.2,
-    "target_range_low": 563.63,
-    "target_range_high": 603.89,
-    "stop_range_low": 453.72,
-    "stop_range_high": 477.6,
-    "target_price": 575.13,
-    "stop_loss": 477.6,
+    "entry_range_low": 505.05,
+    "entry_range_high": 518.52,
+    "target_range_low": 562.89,
+    "target_range_high": 603.1,
+    "stop_range_low": 453.13,
+    "stop_range_high": 476.98,
+    "target_price": 574.38,
+    "stop_loss": 476.98,
     "risk_reward_ratio": 1.5,
     "ttl_hours": 120,
     "generated_at": "2026-04-24T09:19:06.163753-04:00",
