@@ -153,11 +153,11 @@ export default async function StockDetailPage({ params }: Props) {
             <div className="flex flex-col md:items-end gap-1">
               <div className="flex flex-col md:items-end">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-4xl md:text-5xl font-mono font-black text-white leading-none tracking-tighter">
+                  <span id="stock-price-current" className="text-4xl md:text-5xl font-mono font-black text-white leading-none tracking-tighter">
                     ${formatPrice(stock.price.current)}
                   </span>
                   <div className={`flex flex-col ${getChangeColor(stock.price.change_pct)}`}>
-                    <span className="text-xl font-mono font-black leading-none">
+                    <span id="stock-price-change" className="text-xl font-mono font-black leading-none">
                       {stock.price.change_pct >= 0 ? "+" : ""}{stock.price.change_pct.toFixed(2)}%
                     </span>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-right">Today</span>
@@ -242,11 +242,11 @@ export default async function StockDetailPage({ params }: Props) {
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-[#00d2ff] uppercase mb-1">Buy Range</span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-2xl font-black text-white font-mono tracking-tighter">
+                      <span id="stock-entry-range-low" className="text-2xl font-black text-white font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.entry_range_low)}
                       </span>
                       <span className="text-[#00d2ff] font-black">–</span>
-                      <span className="text-2xl font-black text-white font-mono tracking-tighter">
+                      <span id="stock-entry-range-high" className="text-2xl font-black text-white font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.entry_range_high)}
                       </span>
                     </div>
@@ -268,11 +268,11 @@ export default async function StockDetailPage({ params }: Props) {
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-[#00d2ff] uppercase mb-1">Exit Range</span>
                     <div className="flex items-baseline gap-2 text-[#22c55e]">
-                      <span className="text-2xl font-black font-mono tracking-tighter">
+                      <span id="stock-target-low" className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.target_range_low)}
                       </span>
                       <span className="text-[#00d2ff] font-black">–</span>
-                      <span className="text-2xl font-black font-mono tracking-tighter">
+                      <span id="stock-target-high" className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.target_range_high)}
                       </span>
                     </div>
@@ -293,11 +293,11 @@ export default async function StockDetailPage({ params }: Props) {
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-[#00d2ff] uppercase mb-1">Safety Cut-off</span>
                     <div className="flex items-baseline gap-2 text-[#ef4444]">
-                      <span className="text-2xl font-black font-mono tracking-tighter">
+                      <span id="stock-stop-low" className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.stop_range_low)}
                       </span>
                       <span className="text-[#00d2ff] font-black">–</span>
-                      <span className="text-2xl font-black font-mono tracking-tighter">
+                      <span id="stock-stop-high" className="text-2xl font-black font-mono tracking-tighter">
                         ${formatPrice(stock.scores_detail.stop_range_high)}
                       </span>
                     </div>
