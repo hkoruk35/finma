@@ -1106,6 +1106,23 @@ def _read_symbols_from_path(path: Optional[str], source_name: str) -> List[str]:
         return []
 
 def load_latest_universe_from_txt() -> List[str]:
+    json_path = os.path.join(WATCHLIST_DIR, "bot_analysis_latest.json")
+    symbols = []
+    try:
+        if os.path.exists(json_path):
+            import json
+            with open(json_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                for c in data.get("candidates", []):
+                    sym = c.get("ticker")
+                    if sym:
+                        symbols.append(sym)
+            if symbols:
+                logging.info(f"✅ Latest Watchlist (JSON) yüklendi: {len(symbols)} sembol.")
+                return symbols
+    except Exception as e:
+        logging.warning(f"JSON okuma hatası: {e}. Fallback to TXT.")
+        
     path = _find_latest_family304_watchlist()
     return _read_symbols_from_path(path, "Latest Watchlist")
 
@@ -1603,44 +1620,51 @@ def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
         return {"structure": "ERROR", "1d_score": 0, "1d_notes": [], "invalidation_level": 0}
 
 
-def evaluate_hourly_status(current_price: float, entry_zone: str, target: float, stop_loss: float, rsi_1h: float) -> dict:
+def evaluate_hourly_status(current_price: float, entry_zone: str, target: float, stop_loss: float, rsi_1h: float, rsi_15m: float = 50.0, trend_1h: str = "FLAT") -> dict:
     """
-    Boga Finance AI - Saatlik Yön ve Statü Belirleyici
+    Boga Finance AI - Hourly Direction & Status Evaluation (English Only)
     """
     try:
-        # Entry zone parsing (Örn: "150.00 - 152.00")
+        # Entry zone parsing (e.g. "150.00 - 152.00")
         parts = entry_zone.replace(" ", "").split("-")
         if len(parts) == 2:
             entry_low, entry_high = float(parts[0]), float(parts[1])
         else:
             entry_low, entry_high = current_price * 0.99, current_price * 1.01
 
-        # 1. SATIŞ YAP (Stop Loss Tetiklendi veya Çok Altında)
+        # Calculate distance to levels for justification
+        dist_stop = ((current_price - stop_loss) / stop_loss) * 100
+        dist_target = ((target - current_price) / current_price) * 100
+
+        # 1. SELL / STOP LOSS TRIGGERED
         if current_price <= stop_loss:
-            return {"status": "🔴 SATIŞ YAP", "msg": "Stop-loss seviyesi kırıldı, pozisyonu kapat."}
+            return {"status": "🔴 SELL", "msg": f"Stop-loss broken (Price: ${current_price:.2f} <= SL: ${stop_loss:.2f}). Close position immediately."}
 
-        # 2. TREND BİTİYOR / KÂR AL (Hedefe Ulaştı veya Aşırı Alım)
-        if current_price >= target * 0.98: # Hedefe %2 kalmışsa veya geçmişse
-            return {"status": "⚠️ KÂR AL (Trend Bitiyor)", "msg": "Fiyat hedefe ulaştı veya çok yakın. Kâr realizasyonu yap."}
+        # 2. TAKE PROFIT / TREND EXHAUSTION
+        if current_price >= target * 0.98:
+            return {"status": "🟢 TAKE PROFIT", "msg": f"Price is within 2% of target (${target:.2f}). Secure profits now."}
         if rsi_1h >= 75:
-            return {"status": "⚠️ TREND BİTİYOR (Aşırı Alım)", "msg": "1H RSI çok şişti, geri çekilme an meselesi. Yeni alım yapma, kârı koru."}
+            return {"status": "⚠️ HOLD (Overbought)", "msg": f"1H RSI is heavily overbought ({rsi_1h:.0f}). Pullback imminent, do not buy."}
 
-        # 3. YÜKSELECEK / ALIM BÖLGESİ (Entry Zone İçinde veya Çok Yakınında)
+        # 3. BUY ZONE EVALUATION
         if entry_low * 0.99 <= current_price <= entry_high * 1.01:
-            if rsi_1h < 40:
-                return {"status": "🟢 ALIM BÖLGESİ (Dip Dönüşü)", "msg": "Fiyat alım bölgesinde ve soğumuş, yükseliş tepkisi bekleniyor."}
+            if trend_1h == "DOWN" or rsi_15m < 35:
+                # Price is in zone but crashing (falling knife)
+                return {"status": "⏳ HOLD (Falling Knife)", "msg": f"In entry zone, but 15m RSI is crashing ({rsi_15m:.0f}) and short-term trend is DOWN. Wait for stabilization."}
+            elif rsi_1h < 40:
+                return {"status": "🟢 BUY ZONE (Oversold Bounce)", "msg": f"Price in buy zone. 1H RSI is oversold ({rsi_1h:.0f}). Expecting an upward reaction."}
             else:
-                return {"status": "🟢 ALIM BÖLGESİ (Aktif)", "msg": "Fiyat alım aralığında, trende katılmak için uygun."}
+                return {"status": "🟢 BUY ZONE (Active)", "msg": f"Price is within entry range (${entry_low:.2f}-${entry_high:.2f}). Trend is stable (1H RSI: {rsi_1h:.0f})."}
 
-        # 4. BEKLEMEDE KAL (Arafta veya Pullback Bekleniyor)
+        # 4. HOLD / WAIT FOR PULLBACK
         if current_price > entry_high * 1.01 and current_price < target * 0.98:
-            return {"status": "⏳ BEKLEMEDE KAL (Pozisyonu Koru)", "msg": "Trend devam ediyor. Yeni giriş için pullback bekle, mevcut pozisyonu taşı."}
+            return {"status": "⏳ HOLD (Wait for Pullback)", "msg": f"Price is above entry zone. Wait for a pullback to safely enter."}
 
-        # Varsayılan
-        return {"status": "⏳ BEKLEMEDE KAL (İzleniyor)", "msg": "Fiyat nötr bölgede, net bir aksiyon sinyali yok."}
+        # Default fallback
+        return {"status": "⏳ NEUTRAL", "msg": f"Price is in a neutral zone. 1H RSI: {rsi_1h:.0f}. No clear action."}
 
     except Exception as e:
-        return {"status": "UNKNOWN", "msg": "Hesaplama yapılamadı."}
+        return {"status": "UNKNOWN", "msg": "Failed to calculate status."}
 
 def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
     """
@@ -2057,12 +2081,33 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         rsi_series = 100 - (100 / (1 + rs))
         rsi_val = float(rsi_series.iloc[-1])
         
+    rsi_15m_val = 50.0
+    if df_15m is not None and not df_15m.empty:
+        if "RSI" in df_15m.columns:
+            rsi_15m_val = float(df_15m["RSI"].iloc[-1])
+        elif "Close" in df_15m.columns and len(df_15m) > 14:
+            delta15 = df_15m["Close"].diff()
+            gain15 = (delta15.where(delta15 > 0, 0)).rolling(window=14).mean()
+            loss15 = (-delta15.where(delta15 < 0, 0)).rolling(window=14).mean()
+            rs15 = gain15 / loss15
+            rsi_series15 = 100 - (100 / (1 + rs15))
+            rsi_15m_val = float(rsi_series15.iloc[-1])
+
+    trend_1h = "FLAT"
+    if df_1h is not None and len(df_1h) >= 3:
+        if df_1h["Close"].iloc[-1] < df_1h["Close"].iloc[-3] * 0.99:
+            trend_1h = "DOWN"
+        elif df_1h["Close"].iloc[-1] > df_1h["Close"].iloc[-3] * 1.01:
+            trend_1h = "UP"
+
     hourly_status = evaluate_hourly_status(
         current_price=current_price,
         entry_zone=scenario["entry_zone"],
         target=scenario["target"],
         stop_loss=scenario["stop_loss"],
-        rsi_1h=rsi_val
+        rsi_1h=rsi_val,
+        rsi_15m=rsi_15m_val,
+        trend_1h=trend_1h
     )
 
     # ================================================
@@ -3028,27 +3073,6 @@ def get_next_run_time_ny() -> datetime:
     while next_day.weekday() >= 5: # Hafta sonunu atla
         next_day += timedelta(days=1)
     
-    return next_day.replace(hour=SCHEDULE[0][0], minute=SCHEDULE[0][1])
-    
-    # SADECE 14:30
-    SCHEDULE = [
-        (14, 30)
-    ]
-    
-    # Check today's remaining slots
-    for hour, minute in SCHEDULE:
-        target = now.replace(hour=hour, minute=minute)
-        if target > now:
-            return target
-    
-    # All slots passed today, schedule for tomorrow
-    next_day = now + timedelta(days=1)
-    
-    # Skip weekends (Saturday=5, Sunday=6)
-    while next_day.weekday() >= 5:
-        next_day += timedelta(days=1)
-    
-    # First slot of next trading day
     return next_day.replace(hour=SCHEDULE[0][0], minute=SCHEDULE[0][1])
 
 
