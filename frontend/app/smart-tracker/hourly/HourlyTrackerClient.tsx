@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
 
 export default function HourlyTrackerClient({ initialData }: { initialData: any }) {
   const [data, setData] = useState<any>(initialData);
