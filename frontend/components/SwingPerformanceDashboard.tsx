@@ -678,7 +678,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         </div>
 
         {/* ── Mobile Card View ────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 gap-4 md:hidden">
+        <div className="flex flex-col gap-6 md:hidden">
           {visibleTrades.map((t, i) => {
             const effRet = effectiveReturn(t);
             const effRes = effectiveResult(t);
@@ -686,46 +686,48 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             const pnl = pnlFromReturn(effRet);
             const slHit = slTriggered(t);
             return (
-              <div key={i} className={`glass-card p-4 border-l-4 ${slHit ? "border-l-[#ef4444]" : "border-l-[#3b82f6]"}`}>
-                <div className="flex justify-between items-start mb-3">
+              <div key={i} className={`glass-card p-6 border-l-4 ${slHit ? "border-l-[#ef4444]" : "border-l-[#3b82f6]"} relative overflow-hidden`}>
+                <div className="flex justify-between items-start mb-5">
                   <div>
-                    <Link href={`/stock/${t.ticker}`} className="text-xl font-black text-[#3b82f6] hover:underline">{t.ticker}</Link>
-                    <p className="text-[10px] text-[#00d2ff] mt-0.5">{t.date} · {t.sector}</p>
+                    <Link href={`/stock/${t.ticker}`} className="text-3xl font-black text-[#3b82f6] hover:underline tracking-tighter uppercase">{t.ticker}</Link>
+                    <p className="text-sm font-bold text-[#00d2ff] mt-1.5 uppercase tracking-wide">{t.date} · {t.sector}</p>
                     {t.subsector && t.subsector !== t.sector && (
-                      <p className="text-[9px] text-white">{t.subsector}</p>
+                      <p className="text-xs text-white/60 mt-1">{t.subsector}</p>
                     )}
                   </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded ${resultCls}`}>{effRes}</span>
-                    {slHit && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#ef4444]/10 text-[#ef4444]">SL HIT</span>}
+                  <div className="flex flex-col items-end gap-2">
+                    <span className={`text-xs font-black px-3 py-1 rounded uppercase tracking-widest ${resultCls}`}>{effRes}</span>
+                    {slHit && <span className="text-[10px] font-black px-2 py-0.5 rounded bg-[#ef4444]/20 text-[#ef4444] border border-[#ef4444]/30">SL HIT</span>}
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-2 border-t border-[#1e2a3a]/40 pt-3 text-sm">
-                  <div>
-                    <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Entry</p>
-                    <p className="font-mono font-bold text-white">${fmt(t.entry)}</p>
+
+                <div className="grid grid-cols-3 divide-x divide-white/10 border border-white/10 rounded-xl bg-black/20 overflow-hidden mb-5">
+                  <div className="py-3 px-1 text-center">
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Entry</p>
+                    <p className="font-mono font-bold text-white text-sm">${fmt(t.entry)}</p>
                   </div>
-                  <div>
-                    <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Peak / SL</p>
-                    <p className="font-mono text-white">{slHit ? `$${fmt(t.entry * (1 + SL_PCT/100))}` : (t.max_price != null ? `$${fmt(t.max_price)}` : "—")}</p>
+                  <div className="py-3 px-1 text-center">
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Peak/SL</p>
+                    <p className="font-mono font-bold text-white text-sm">{slHit ? `$${fmt(t.entry * (1 + SL_PCT/100))}` : (t.max_price != null ? `$${fmt(t.max_price)}` : "—")}</p>
                   </div>
-                  <div>
-                    <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Days</p>
-                    <p className="font-mono text-white">{t.days != null ? `${t.days}d` : "—"}</p>
+                  <div className="py-3 px-1 text-center">
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Days</p>
+                    <p className="font-mono font-bold text-white text-sm">{t.days != null ? `${t.days}d` : "—"}</p>
                   </div>
-                  <div className="col-span-3 border-t border-[#1e2a3a]/40 pt-2 flex justify-between">
-                    <div>
-                      <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">Return (SL adj.)</p>
-                      <p className={`font-mono font-black text-sm ${retColor(effRet)}`}>
-                        {effRet != null ? `${effRet >= 0 ? "+" : ""}${fmt(effRet, 2)}%` : "—"}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[9px] text-[#00d2ff] uppercase mb-0.5">PnL/$1000</p>
-                      <p className={`font-mono font-black ${retColor(pnl)}`}>
-                        {pnl != null ? `${pnl >= 0 ? "+" : ""}$${Math.abs(pnl).toFixed(0)}` : "—"}
-                      </p>
-                    </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                  <div>
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">Return (SL adj.)</p>
+                    <p className={`font-mono font-black text-2xl ${retColor(effRet)}`}>
+                      {effRet != null ? `${effRet >= 0 ? "+" : ""}${fmt(effRet, 2)}%` : "—"}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1 opacity-60">PnL/$1000</p>
+                    <p className={`font-mono font-black text-xl ${retColor(pnl)}`}>
+                      {pnl != null ? `${pnl >= 0 ? "+" : ""}$${Math.abs(pnl).toFixed(0)}` : "—"}
+                    </p>
                   </div>
                 </div>
               </div>
