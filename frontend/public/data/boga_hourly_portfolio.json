@@ -1,5 +1,5 @@
 {
-    "timestamp_ny": "2026-04-25 03:21:43",
+    "timestamp_ny": "2026-04-25 03:55:48",
     "total_tracked": 18,
     "portfolio_status": [
         {
@@ -87,18 +87,6 @@
             "volume_profile": 2.35
         },
         {
-            "symbol": "SU",
-            "price": 64.0,
-            "hourly_action": "🟢 BUY ZONE (Active)",
-            "directive_msg": "Price is within entry range ($63.12-$64.88). Trend is stable (1H RSI: 58).",
-            "entry_zone": "63.12 - 64.88",
-            "stop_loss": 58.97,
-            "take_profit": 74.05,
-            "boga_score": 19.2,
-            "change_24h": -0.87,
-            "volume_profile": 1.82
-        },
-        {
             "symbol": "AMX",
             "price": 26.64,
             "hourly_action": "⚠️ HOLD (Overbought)",
@@ -135,18 +123,6 @@
             "volume_profile": 1.88
         },
         {
-            "symbol": "HAL",
-            "price": 40.34,
-            "hourly_action": "🟢 BUY ZONE (Active)",
-            "directive_msg": "Price is within entry range ($39.61-$41.07). Trend is stable (1H RSI: 70).",
-            "entry_zone": "39.61 - 41.07",
-            "stop_loss": 37.43,
-            "take_profit": 46.16,
-            "boga_score": 18.2,
-            "change_24h": 1.74,
-            "volume_profile": 1.61
-        },
-        {
             "symbol": "BG",
             "price": 124.83,
             "hourly_action": "🟢 BUY ZONE (Active)",
@@ -157,18 +133,6 @@
             "boga_score": 18.0,
             "change_24h": -1.26,
             "volume_profile": 1.63
-        },
-        {
-            "symbol": "COP",
-            "price": 121.66,
-            "hourly_action": "🟢 BUY ZONE (Active)",
-            "directive_msg": "Price is within entry range ($119.46-$123.86). Trend is stable (1H RSI: 44).",
-            "entry_zone": "119.46 - 123.86",
-            "stop_loss": 111.65,
-            "take_profit": 141.68,
-            "boga_score": 18.0,
-            "change_24h": -2.18,
-            "volume_profile": 1.73
         },
         {
             "symbol": "ELVN",
@@ -183,16 +147,64 @@
             "volume_profile": 2.87
         },
         {
-            "symbol": "CLS",
-            "price": 410.29,
+            "symbol": "UCTT",
+            "price": 83.06,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($81.05-$85.07). Trend is stable (1H RSI: 68).",
+            "entry_zone": "81.05 - 85.07",
+            "stop_loss": 75.04,
+            "take_profit": 99.11,
+            "boga_score": 17.2,
+            "change_24h": 6.16,
+            "volume_profile": 1.99
+        },
+        {
+            "symbol": "DOV",
+            "price": 224.76,
             "hourly_action": "⏳ HOLD (Falling Knife)",
-            "directive_msg": "In entry zone, but 15m RSI is crashing (33) and short-term trend is DOWN. Wait for stabilization.",
-            "entry_zone": "400.40 - 420.18",
-            "stop_loss": 370.74,
-            "take_profit": 489.39,
-            "boga_score": 13.2,
-            "change_24h": 4.77,
+            "directive_msg": "In entry zone, but 15m RSI is crashing (8) and short-term trend is DOWN. Wait for stabilization.",
+            "entry_zone": "221.73 - 227.79",
+            "stop_loss": 212.65,
+            "take_profit": 248.98,
+            "boga_score": 14.4,
+            "change_24h": -1.49,
             "volume_profile": 1.56
+        },
+        {
+            "symbol": "ELV",
+            "price": 344.76,
+            "hourly_action": "⚠️ HOLD (Overbought)",
+            "directive_msg": "1H RSI is heavily overbought (82). Pullback imminent, do not buy.",
+            "entry_zone": "339.57 - 349.95",
+            "stop_loss": 324.0,
+            "take_profit": 386.28,
+            "boga_score": 13.8,
+            "change_24h": -0.44,
+            "volume_profile": 1.01
+        },
+        {
+            "symbol": "CMI",
+            "price": 660.56,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($651.59-$669.53). Trend is stable (1H RSI: 72).",
+            "entry_zone": "651.59 - 669.53",
+            "stop_loss": 624.67,
+            "take_profit": 732.34,
+            "boga_score": 13.8,
+            "change_24h": 0.55,
+            "volume_profile": 1.24
+        },
+        {
+            "symbol": "BLD",
+            "price": 453.72,
+            "hourly_action": "⏳ HOLD (Falling Knife)",
+            "directive_msg": "In entry zone, but 15m RSI is crashing (24) and short-term trend is DOWN. Wait for stabilization.",
+            "entry_zone": "442.38 - 465.06",
+            "stop_loss": 408.37,
+            "take_profit": 544.42,
+            "boga_score": 12.1,
+            "change_24h": -2.48,
+            "volume_profile": 0.95
         },
         {
             "symbol": "NOK",
@@ -205,18 +217,6 @@
             "boga_score": 9.2,
             "change_24h": 1.16,
             "volume_profile": 0.89
-        },
-        {
-            "symbol": "FORM",
-            "price": 155.07,
-            "hourly_action": "⏳ HOLD (Falling Knife)",
-            "directive_msg": "In entry zone, but 15m RSI is crashing (22) and short-term trend is DOWN. Wait for stabilization.",
-            "entry_zone": "151.00 - 159.15",
-            "stop_loss": 138.77,
-            "take_profit": 187.68,
-            "boga_score": 8.8,
-            "change_24h": 4.52,
-            "volume_profile": 1.2
         }
     ]
 }
