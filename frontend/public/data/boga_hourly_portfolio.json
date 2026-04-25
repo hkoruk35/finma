@@ -1,12 +1,12 @@
 {
-    "timestamp_ny": "2026-04-25 12:06:40",
-    "total_tracked": 18,
+    "timestamp_ny": "2026-04-25 12:06:54",
+    "total_tracked": 23,
     "portfolio_status": [
         {
             "symbol": "E",
             "price": 54.09,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($53.33-$54.85). Trend is stable (1H RSI: 48).",
             "entry_zone": "53.33 - 54.85",
             "stop_loss": 50.48,
             "take_profit": 61.32,
@@ -17,8 +17,8 @@
         {
             "symbol": "AMRZ",
             "price": 57.58,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($56.76-$58.40). Trend is stable (1H RSI: 68).",
             "entry_zone": "56.76 - 58.40",
             "stop_loss": 54.28,
             "take_profit": 64.18,
@@ -29,8 +29,8 @@
         {
             "symbol": "ADEA",
             "price": 30.32,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($29.85-$30.79). Trend is stable (1H RSI: 47).",
             "entry_zone": "29.85 - 30.79",
             "stop_loss": 28.45,
             "take_profit": 34.06,
@@ -41,8 +41,8 @@
         {
             "symbol": "CAPR",
             "price": 35.28,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($34.26-$36.29). Trend is stable (1H RSI: 53).",
             "entry_zone": "34.26 - 36.29",
             "stop_loss": 31.23,
             "take_profit": 43.36,
@@ -53,8 +53,8 @@
         {
             "symbol": "LXU",
             "price": 14.38,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($13.91-$14.85). Trend is stable (1H RSI: 49).",
             "entry_zone": "13.91 - 14.85",
             "stop_loss": 12.51,
             "take_profit": 18.12,
@@ -65,8 +65,8 @@
         {
             "symbol": "OIS",
             "price": 11.06,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($10.84-$11.28). Trend is stable (1H RSI: 70).",
             "entry_zone": "10.84 - 11.28",
             "stop_loss": 10.16,
             "take_profit": 12.86,
@@ -75,10 +75,22 @@
             "volume_profile": 2.35
         },
         {
+            "symbol": "SU",
+            "price": 64.0,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($63.12-$64.88). Trend is stable (1H RSI: 58).",
+            "entry_zone": "63.12 - 64.88",
+            "stop_loss": 58.97,
+            "take_profit": 74.05,
+            "boga_score": 19.2,
+            "change_24h": -0.87,
+            "volume_profile": 1.82
+        },
+        {
             "symbol": "AMX",
             "price": 26.64,
-            "hourly_action": "⚠️ TREND BİTİYOR (Aşırı Alım)",
-            "directive_msg": "1H RSI çok şişti, geri çekilme an meselesi. Yeni alım yapma, kârı koru.",
+            "hourly_action": "⚠️ HOLD (Overbought)",
+            "directive_msg": "1H RSI is heavily overbought (76). Pullback imminent, do not buy.",
             "entry_zone": "26.32 - 26.96",
             "stop_loss": 24.46,
             "take_profit": 31.01,
@@ -89,8 +101,8 @@
         {
             "symbol": "DAN",
             "price": 38.94,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($38.33-$39.55). Trend is stable (1H RSI: 68).",
             "entry_zone": "38.33 - 39.55",
             "stop_loss": 36.51,
             "take_profit": 43.79,
@@ -101,8 +113,8 @@
         {
             "symbol": "ECVT",
             "price": 13.82,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($13.59-$14.05). Trend is stable (1H RSI: 55).",
             "entry_zone": "13.59 - 14.05",
             "stop_loss": 12.67,
             "take_profit": 16.12,
@@ -113,8 +125,8 @@
         {
             "symbol": "HAL",
             "price": 40.34,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($39.61-$41.07). Trend is stable (1H RSI: 70).",
             "entry_zone": "39.61 - 41.07",
             "stop_loss": 37.43,
             "take_profit": 46.16,
@@ -125,8 +137,8 @@
         {
             "symbol": "BG",
             "price": 124.83,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($122.94-$126.72). Trend is stable (1H RSI: 42).",
             "entry_zone": "122.94 - 126.72",
             "stop_loss": 117.15,
             "take_profit": 140.19,
@@ -135,10 +147,34 @@
             "volume_profile": 1.63
         },
         {
+            "symbol": "COP",
+            "price": 121.66,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($119.46-$123.86). Trend is stable (1H RSI: 44).",
+            "entry_zone": "119.46 - 123.86",
+            "stop_loss": 111.65,
+            "take_profit": 141.68,
+            "boga_score": 18.0,
+            "change_24h": -2.18,
+            "volume_profile": 1.73
+        },
+        {
+            "symbol": "INSW",
+            "price": 79.56,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($77.86-$81.26). Trend is stable (1H RSI: 72).",
+            "entry_zone": "77.86 - 81.26",
+            "stop_loss": 72.75,
+            "take_profit": 93.18,
+            "boga_score": 17.8,
+            "change_24h": 3.58,
+            "volume_profile": 2.38
+        },
+        {
             "symbol": "ELVN",
             "price": 44.21,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($42.99-$45.43). Trend is stable (1H RSI: 46).",
             "entry_zone": "42.99 - 45.43",
             "stop_loss": 39.33,
             "take_profit": 53.96,
@@ -147,10 +183,46 @@
             "volume_profile": 2.87
         },
         {
+            "symbol": "UCTT",
+            "price": 83.06,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($81.05-$85.07). Trend is stable (1H RSI: 68).",
+            "entry_zone": "81.05 - 85.07",
+            "stop_loss": 75.04,
+            "take_profit": 99.11,
+            "boga_score": 17.2,
+            "change_24h": 6.16,
+            "volume_profile": 1.99
+        },
+        {
+            "symbol": "CVE",
+            "price": 26.29,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($25.86-$26.72). Trend is stable (1H RSI: 64).",
+            "entry_zone": "25.86 - 26.72",
+            "stop_loss": 24.56,
+            "take_profit": 29.74,
+            "boga_score": 17.2,
+            "change_24h": -0.6,
+            "volume_profile": 2.0
+        },
+        {
+            "symbol": "PBR",
+            "price": 20.88,
+            "hourly_action": "🟢 BUY ZONE (Oversold Bounce)",
+            "directive_msg": "Price in buy zone. 1H RSI is oversold (40). Expecting an upward reaction.",
+            "entry_zone": "20.48 - 21.28",
+            "stop_loss": 19.27,
+            "take_profit": 24.1,
+            "boga_score": 17.2,
+            "change_24h": -1.26,
+            "volume_profile": 1.72
+        },
+        {
             "symbol": "LPG",
             "price": 37.61,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($36.94-$38.28). Trend is stable (1H RSI: 71).",
             "entry_zone": "36.94 - 38.28",
             "stop_loss": 34.94,
             "take_profit": 42.96,
@@ -159,10 +231,22 @@
             "volume_profile": 1.79
         },
         {
+            "symbol": "UMC",
+            "price": 12.28,
+            "hourly_action": "🟢 BUY ZONE (Oversold Bounce)",
+            "directive_msg": "Price in buy zone. 1H RSI is oversold (35). Expecting an upward reaction.",
+            "entry_zone": "12.01 - 12.55",
+            "stop_loss": 11.19,
+            "take_profit": 14.46,
+            "boga_score": 16.5,
+            "change_24h": 2.33,
+            "volume_profile": 1.91
+        },
+        {
             "symbol": "DIOD",
             "price": 104.41,
-            "hourly_action": "⚠️ TREND BİTİYOR (Aşırı Alım)",
-            "directive_msg": "1H RSI çok şişti, geri çekilme an meselesi. Yeni alım yapma, kârı koru.",
+            "hourly_action": "⚠️ HOLD (Overbought)",
+            "directive_msg": "1H RSI is heavily overbought (79). Pullback imminent, do not buy.",
             "entry_zone": "102.38 - 106.44",
             "stop_loss": 96.28,
             "take_profit": 120.67,
@@ -173,8 +257,8 @@
         {
             "symbol": "EQNR",
             "price": 37.95,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($37.08-$38.82). Trend is stable (1H RSI: 50).",
             "entry_zone": "37.08 - 38.82",
             "stop_loss": 34.45,
             "take_profit": 44.94,
@@ -183,40 +267,16 @@
             "volume_profile": 0.64
         },
         {
-            "symbol": "CLS",
-            "price": 410.29,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
-            "entry_zone": "400.40 - 420.18",
-            "stop_loss": 370.74,
-            "take_profit": 489.39,
-            "boga_score": 13.2,
-            "change_24h": 4.77,
-            "volume_profile": 1.56
-        },
-        {
-            "symbol": "NOK",
-            "price": 10.45,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
-            "entry_zone": "10.19 - 10.71",
-            "stop_loss": 9.41,
-            "take_profit": 12.53,
-            "boga_score": 9.2,
-            "change_24h": 1.16,
-            "volume_profile": 0.89
-        },
-        {
-            "symbol": "FORM",
-            "price": 155.07,
-            "hourly_action": "🟢 ALIM BÖLGESİ (Aktif)",
-            "directive_msg": "Fiyat alım aralığında, trende katılmak için uygun.",
-            "entry_zone": "151.00 - 159.15",
-            "stop_loss": 138.77,
-            "take_profit": 187.68,
-            "boga_score": 8.8,
-            "change_24h": 4.52,
-            "volume_profile": 1.2
+            "symbol": "NBR",
+            "price": 89.96,
+            "hourly_action": "🟢 BUY ZONE (Active)",
+            "directive_msg": "Price is within entry range ($87.91-$92.01). Trend is stable (1H RSI: 69).",
+            "entry_zone": "87.91 - 92.01",
+            "stop_loss": 81.76,
+            "take_profit": 106.37,
+            "boga_score": 16.3,
+            "change_24h": 1.6,
+            "volume_profile": 1.67
         }
     ]
 }
