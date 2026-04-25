@@ -92,49 +92,64 @@ export default function HourlyTrackerClient({ initialData }: { initialData: any 
         </div>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {data.portfolio_status.map((item: any, idx: number) => {
-          const statusStyle = getStatusColor(item.hourly_action);
-          const isPositive = (item.change_24h || 0) >= 0;
-          
-          return (
-            <Link href={`/stock/${item.symbol}`} key={idx} className="block group">
-              <div className="bg-[#161b22] border border-[#30363d] group-hover:border-[#8b5cf6] transition-colors rounded-xl p-4 h-full flex flex-col">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors">
-                    {item.symbol}
-                  </h3>
-                  <div className="text-right">
-                    <div className="text-lg font-mono font-bold text-white">${item.price}</div>
-                    <div className={`text-xs font-mono font-medium ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
-                      {isPositive ? '+' : ''}{item.change_24h?.toFixed(2)}%
-                    </div>
-                  </div>
-                </div>
+      {/* List / Table View */}
+      <div className="glass-card overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/5 text-[#00d2ff] text-[11px] uppercase tracking-wider text-left bg-[#161b22]/50">
+                <th className="px-4 py-4 w-32">Ticker</th>
+                <th className="px-4 py-4 text-right">Price</th>
+                <th className="px-4 py-4">Hourly Pulse Status</th>
+                <th className="px-4 py-4">Entry Zone</th>
+                <th className="px-4 py-4">Stop Loss</th>
+                <th className="px-4 py-4">Target</th>
+                <th className="px-4 py-4 hidden md:table-cell">AI Justification</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.portfolio_status.map((item: any, idx: number) => {
+                const statusStyle = getStatusColor(item.hourly_action);
+                const isPositive = (item.change_24h || 0) >= 0;
                 
-                <div className={`mt-auto px-3 py-2 rounded-lg border text-sm font-semibold mb-3 flex items-center justify-center text-center leading-tight ${statusStyle}`}>
-                  {item.hourly_action}
-                </div>
-                
-                <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">
-                  {item.directive_msg}
-                </p>
-                
-                <div className="mt-4 pt-3 border-t border-[#30363d] grid grid-cols-2 gap-2 text-xs">
-                  <div>
-                    <span className="text-gray-500 block mb-0.5">Entry Zone</span>
-                    <span className="text-gray-300 font-mono">{item.entry_zone || 'N/A'}</span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-gray-500 block mb-0.5">Score</span>
-                    <span className="text-white font-mono bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded">{item.boga_score}</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
+                return (
+                  <tr key={idx} className="border-b border-white/5 hover:bg-white/5 transition-colors group">
+                    <td className="px-4 py-4">
+                      <Link href={`/stock/${item.symbol}`} className="block">
+                        <div className="font-black text-white text-base tracking-tight group-hover:text-[#3b82f6] transition-colors">{item.symbol}</div>
+                        <div className={`text-xs font-mono font-medium ${isPositive ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                          {isPositive ? '+' : ''}{item.change_24h?.toFixed(2)}%
+                        </div>
+                      </Link>
+                    </td>
+                    <td className="px-4 py-4 text-right">
+                      <div className="text-[15px] font-mono font-bold text-white">${item.price?.toFixed(2)}</div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className={`inline-flex px-3 py-1 rounded border text-xs font-black uppercase tracking-wider ${statusStyle}`}>
+                        {item.hourly_action}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <span className="text-white font-mono text-[13px]">{item.entry_zone || 'N/A'}</span>
+                    </td>
+                    <td className="px-4 py-4">
+                      <span className="text-[#ef4444] font-mono text-[13px]">${item.stop_loss?.toFixed(2) || 'N/A'}</span>
+                    </td>
+                    <td className="px-4 py-4">
+                      <span className="text-[#10b981] font-mono text-[13px]">${item.take_profit?.toFixed(2) || 'N/A'}</span>
+                    </td>
+                    <td className="px-4 py-4 hidden md:table-cell">
+                      <p className="text-xs text-[#8b949e] leading-relaxed max-w-sm line-clamp-2">
+                        {item.directive_msg}
+                      </p>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
