@@ -134,10 +134,10 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
           const redirectUrl = isProPick ? "/login?redirect=pro" : "/login";
           
           return (
-            <div key={item.ticker} className={`relative flex flex-col ${idx > 0 ? 'border-t border-white/5 pt-6 md:border-t-0 md:pt-0' : ''}`}>
+            <div key={item.ticker} className={`relative flex flex-col ${idx > 0 ? 'border-t border-white/15 pt-8 md:border-t-0 md:pt-0' : ''}`}>
               <Link
                 href={isLocked ? redirectUrl : `/stock/${item.ticker}`}
-                className={`glass-card ${minimal ? 'p-4' : 'p-6'} transition-[border-color,background-color] duration-300 group relative overflow-hidden border-2 border-[#1e2a3a]/50 flex flex-col h-full ${!isLocked ? 'hover:border-[#3b82f6]/50 hover:bg-[#1a2030]' : ''}`}
+                className={`glass-card ${minimal ? 'p-6' : 'p-8'} transition-[border-color,background-color] duration-300 group relative overflow-hidden border-2 border-[#1e2a3a]/50 flex flex-col h-full ${!isLocked ? 'hover:border-[#3b82f6]/50 hover:bg-[#1a2030]' : ''}`}
               >
                 {/* Rank badge */}
                 <div className={`absolute top-0 right-0 ${minimal ? 'w-8 h-8 text-[10px]' : 'w-10 h-10 text-sm'} rounded-bl-2xl flex items-center justify-center font-black text-white shadow-2xl bg-gradient-to-br from-[#3b82f6] to-[#1e3a8a] z-20`}>
@@ -145,11 +145,11 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                 </div>
 
                 {/* Ticker & Company */}
-                <div className={`${minimal ? 'mb-2' : 'mb-3'} min-h-[50px]`}>
-                  <div className={`${minimal ? 'text-xl' : 'text-2xl'} font-black text-white transition-colors tracking-tighter uppercase ${isLocked ? 'blur-[12px] opacity-40 select-none' : 'group-hover:text-[#3b82f6]'}`}>
+                <div className={`${minimal ? 'mb-3' : 'mb-4'} min-h-[60px]`}>
+                  <div className={`${minimal ? 'text-3xl md:text-xl' : 'text-4xl md:text-2xl'} font-black text-white transition-colors tracking-tighter uppercase ${isLocked ? 'blur-[12px] opacity-40 select-none' : 'group-hover:text-[#3b82f6]'}`}>
                     {isLocked ? 'XXXX' : item.ticker}
                   </div>
-                  <div className={`text-[10px] font-bold text-[#00d2ff] tracking-wider mt-0.5 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
+                  <div className={`text-xs md:text-[10px] font-bold text-[#00d2ff] tracking-wider mt-1 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
                     {isLocked 
                       ? (isProPick ? 'PRO ONLY' : 'LOGIN')
                       : item.company}
@@ -165,12 +165,12 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
 
                 {/* Score (Only in detailed mode) */}
                 {!minimal && (
-                  <div className={`flex flex-col gap-2 mb-4 transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
+                  <div className={`flex flex-col gap-2 mb-6 transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
                     <div className="flex items-end gap-2">
-                      <div className="text-3xl md:text-4xl font-mono font-black text-white leading-none">
+                      <div className="text-5xl md:text-4xl font-mono font-black text-white leading-none">
                         {item.score.toFixed(1)}
                       </div>
-                      <div className="text-[9px] text-[#3b82f6] font-black uppercase tracking-[0.15em] mb-1">
+                      <div className="text-[10px] md:text-[9px] text-[#3b82f6] font-black uppercase tracking-[0.15em] mb-1">
                         SCORE
                       </div>
                     </div>
@@ -178,12 +178,12 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                 )}
 
                 {/* AI Summary Box — always English */}
-                <div className={`bg-[#1e293b]/30 rounded-lg ${minimal ? 'p-2' : 'p-3'} border border-[#3b82f6]/10 mb-4`}>
-                  <p className={`${minimal ? 'text-[10px]' : 'text-[11px]'} text-white leading-relaxed font-medium`}>
+                <div className={`bg-[#1e293b]/30 rounded-lg ${minimal ? 'p-3' : 'p-4'} border border-[#3b82f6]/10 mb-6`}>
+                  <p className={`text-sm md:text-[11px] text-white leading-relaxed font-medium`}>
                     {(() => {
                       const raw = item.ai_summary?.homepage_summary?.en || item.reasoning;
                       const enText = sanitizeEn(raw);
-                      const limit = minimal ? 80 : 100;
+                      const limit = minimal ? 100 : 120;
                       return enText.length > limit ? enText.substring(0, limit - 3) + "..." : enText;
                     })()}
                   </p>
