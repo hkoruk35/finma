@@ -13,8 +13,8 @@ MIMARI:
              Fransızca/Endonezya dillerinde özetler üretilir
   ÇIKTI    → JSON formatında kaydedilir + Telegram bildirimi
 
-YENİLİKLER V114:
-  ✅ 100 üzerinden BOGA AI skoru (10 hisse)
+YENİLİKLER V113:
+  ✅ 100 üzerinden BOGA AI skoru (5 hisse)
   ✅ BUY ZONE / SELL ZONE / STOP LOSS ZONE (ATR + 1H destek/direnç)
   ✅ Risk/Reward 2.5:1 hedefi
   ✅ Gemini AI özetleri 6 dilde (teknik indikatörlerin kullanıcı dostu açıklaması)
@@ -250,7 +250,35 @@ async def fetch_all_us_tickers() -> List[str]:
     logging.info(f"✅ Ham sembol sayısı: {len(all_tickers)}")
     return list(all_tickers)
 
+# ================================================================
+# 🛡️ ANTI-REPETITION MODULE (Son 5 gün seçilenleri engelle)
+# ================================================================
+async def get_recently_picked_tickers(days=5) -> set:
+    """Son 5 gün içinde seçilmiş hisseleri engellemek için listeler."""
+    recent_tickers = set()
+    public_dir = os.path.join(os.getcwd(), "frontend", "public", "data")
+    
+    if not os.path.exists(public_dir):
+        return recent_tickers
 
+    try:
+        # Son 'days' kadar klasörü (tarih isimli) tara
+        all_dates = sorted([d for d in os.listdir(public_dir) if os.path.isdir(os.path.join(public_dir, d))], reverse=True)
+        for date_folder in all_dates[:days]:
+            file_path = os.path.join(public_dir, date_folder, "swing_all_picks.json")
+            if os.path.exists(file_path):
+                with open(file_path, "r", encoding="utf-8") as f:
+                    day_data = json.load(f)
+                    for pick in day_data.get("picks", []):
+                        recent_tickers.add(pick["ticker"])
+        
+        if recent_tickers:
+            logging.info(f"🚫 Son {days} gün seçilen ve engellenen hisseler: {recent_tickers}")
+    except Exception as e:
+        logging.error(f"⚠️ Geçmiş seçimleri okuma hatası: {e}")
+        
+    return recent_tickers
+    
 async def build_atmaca_universe_full() -> List[str]:
     """
     KATMAN 1 — Haftalık Evren Oluşturma (En Likit 500 Hisse)
@@ -789,14 +817,15 @@ async def analyze_options_sentiment(ticker: str) -> dict:
 
 # ================================================================
 # ================================================================
-# BÖLÜM 4: DESTEK / DİRENÇ HESAPLAMA (PROFESYONEL SWING FORMATI)
+# BÖLÜM 4: DESTEK / DİRENÇ HESAPLAMA VE TIMING ENGINE
 # ================================================================
 
 def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float) -> dict:
     """
-    Profesyonel Swing Trade Formatı:
-    Sadece 1H mikro kıvrımlara değil, 1D makro yapılara (son 10 günün dibi) 
-    ve genişletilmiş ATR tamponlarına (Stop-Hunt koruması) dayanır.
+    BOGA AI TIMING ENGINE (Keskin Nişancı Modülü): 
+    1D Makro yapı ve 1H mikro fiyat hareketlerini birleştirir.
+    Hisse ne kadar iyi olursa olsun, Smart Money hacmi ve 
+    dönüş onayı yoksa entry_valid = False döner.
     """
     try:
         # ── 1. GÜNLÜK (1D) MAKRO YAPI VE ATR ─────────────────────────
@@ -808,78 +837,115 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
         atr_1d = float(atr_1d_series.iloc[-1]) if not pd.isna(atr_1d_series.iloc[-1]) else current_price * 0.03
         atr_pct = atr_1d / current_price
 
-        # Makro Destek: Son 10 günün en düşük seviyesi (Gerçek Swing Dibi)
         macro_support = float(low_1d.tail(10).min())
         macro_resist  = float(high_1d.tail(15).max())
 
-        # ── 2. SAATLİK (1H) YAPISAL FİLTRELEME ───────────────────────
         support_1h = macro_support
         resist_1h  = macro_resist
+
+        # ── 2. GERÇEK ZAMANLI ZAMANLAMA (1H Verisi Üzerinden) ────────
+        entry_valid = False
+        entry_type = "WAITING_FOR_VOLUME_OR_SWEEP"
+        entry_confidence = 0
 
         if df_1h is not None and len(df_1h) >= 20:
             low_1h   = df_1h['Low']
             high_1h  = df_1h['High']
-            
-            lows   = low_1h.tail(50)
-            highs  = high_1h.tail(50)
-            pivot_lows, pivot_highs = [], []
+            close_1h = df_1h['Close']
+            open_1h  = df_1h['Open']
+            vol_1h   = df_1h['Volume']
 
-            for i in range(2, len(lows) - 2):
-                if lows.iloc[i] < lows.iloc[i-1] and lows.iloc[i] < lows.iloc[i+1]:
-                    pivot_lows.append(float(lows.iloc[i]))
-                if highs.iloc[i] > highs.iloc[i-1] and highs.iloc[i] > highs.iloc[i+1]:
-                    pivot_highs.append(float(highs.iloc[i]))
+            # Anlık Mum Verileri
+            curr_c = float(close_1h.iloc[-1])
+            curr_o = float(open_1h.iloc[-1])
+            curr_h = float(high_1h.iloc[-1])
+            curr_l = float(low_1h.iloc[-1])
+            curr_v = float(vol_1h.iloc[-1])
 
-            # GÜRÜLTÜ FİLTRESİ: Fiyatın hemen dibindeki anlamsız destekleri ele (Min 0.4x ATR mesafe)
+            prev_c = float(close_1h.iloc[-2])
+            prev_o = float(open_1h.iloc[-2])
+
+            # 1H Pivot / Gürültü Filtresi
+            lows, highs = low_1h.tail(50), high_1h.tail(50)
+            pivot_lows = [float(lows.iloc[i]) for i in range(2, len(lows)-2) if lows.iloc[i] < lows.iloc[i-1] and lows.iloc[i] < lows.iloc[i+1]]
+            pivot_highs = [float(highs.iloc[i]) for i in range(2, len(highs)-2) if highs.iloc[i] > highs.iloc[i-1] and highs.iloc[i] > highs.iloc[i+1]]
+
             supports_below = [p for p in pivot_lows if p < current_price - (atr_1d * 0.4)]
             if supports_below:
-                # 1H pivotu, 1D makro desteğinden daha anlamlıysa onu kullan
                 support_1h = max(max(supports_below), macro_support)
-
+            
             resists_above = [p for p in pivot_highs if p > current_price + (atr_1d * 0.5)]
             if resists_above:
                 resist_1h = min(min(resists_above), macro_resist)
 
-        # Olası bir veri hatasına karşı güvenlik: Destek çok yakınsa manuel ATR tamponu
+            # --- SMART MONEY & VOLUME ONAYI ---
+            # Hacim Filtresi: Son 20 saatin ortalamasının 1.8 katı ve YEŞİL mum!
+            vol_avg_20 = float(vol_1h.rolling(20).mean().iloc[-1])
+            is_green_candle = curr_c > curr_o
+            volume_spike = (curr_v > vol_avg_20 * 1.8) and is_green_candle
+
+            # Price Action (Mum Formasyonları)
+            body = abs(curr_c - curr_o)
+            lower_wick = min(curr_c, curr_o) - curr_l
+            upper_wick = curr_h - max(curr_c, curr_o)
+            
+            is_pinbar = (lower_wick > body * 2.0) and (upper_wick < body * 0.5)
+            is_bullish_engulfing = is_green_candle and (prev_c < prev_o) and (curr_c > prev_o) and (curr_o < prev_c)
+
+            # --- GİRİŞ SENARYOLARI (Sinyal Ateşleyiciler) ---
+            is_liquidity_sweep = (curr_l < support_1h) and (curr_c > support_1h)
+            
+            recent_local_high = float(high_1h.tail(10).max())
+            is_bos = (curr_c > recent_local_high) and volume_spike
+
+            is_pullback = (support_1h <= curr_l <= support_1h + (atr_1d * 0.3))
+
+            # --- NİHAİ KARAR ---
+            if is_liquidity_sweep and (is_pinbar or volume_spike):
+                entry_valid = True
+                entry_type = "REVERSAL (Liquidity Sweep)"
+                entry_confidence = 95
+            elif is_bos:
+                entry_valid = True
+                entry_type = "BREAKOUT (BOS)"
+                entry_confidence = 85
+            elif is_pullback and (is_pinbar or is_bullish_engulfing) and volume_spike:
+                entry_valid = True
+                entry_type = "PULLBACK"
+                entry_confidence = 80
+
+        # Güvenlik Tamponu (Destek fiyata çok yakınsa)
         if (current_price - support_1h) < (atr_1d * 0.6):
             support_1h = current_price - (atr_1d * 0.8)
 
-        # ── 3. BUY ZONE (Alım Bölgesi) ────────────────────────────────
-        # Swing trade: Fiyatın anlık seviyesinden başlayıp desteğe doğru süzülme payı bırakır
+        # ── 3. REFERANS BÖLGELERİ (Diğer Bota İletilecek Data) ────────
         buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
         buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
         
-        # Bölge çok genişse daralt (Sermaye verimliliği için)
-        if buy_zone_high - buy_zone_low > (atr_1d * 1.2):
-            buy_zone_low = round(buy_zone_high - (atr_1d * 0.8), 2)
-
-        # ── 4. STOP LOSS ZONE (Kurumsal Stop-Hunt Koruması) ───────────
-        # Profesyonel kural: Stop, Desteğin üstüne konmaz. Desteğin ALTINA bir de volatilite (ATR) payı eklenerek konur.
         stop_high = round(support_1h - (atr_1d * 0.5), 2)
         stop_low  = round(stop_high - (atr_1d * 0.2), 2)
 
-        # ── 5. SELL ZONE (Dinamik Hedefleme) ──────────────────────────
-        # Gerçek Risk = Ortalama Giriş Maliyeti ile Stop arasındaki mesafe
-        avg_entry = (buy_zone_low + buy_zone_high) / 2
-        risk = max(avg_entry - stop_high, atr_1d * 1.0) # Stop en az 1 Günlük ATR uzakta kabul edilir
+        avg_entry = current_price if entry_valid else ((buy_zone_low + buy_zone_high) / 2)
+        risk = max(avg_entry - stop_high, atr_1d * 1.0)
         
-        # Minimum hedef 2.5x
         reward = risk * 2.5
-        
-        # Eğer 1D Makro Direnç seviyesi bizim hedefimizden daha büyük bir R/R veriyorsa (örn: 3.2x) hedefi o dirence esnet
         structural_reward = resist_1h - avg_entry
-        if structural_reward > reward and (structural_reward / risk) <= 3.5:
+        if structural_reward > reward and (structural_reward / risk) <= 4.0:
             reward = structural_reward
 
         sell_zone_low  = round(avg_entry + reward * 0.85, 2)
         sell_zone_high = round(avg_entry + reward, 2)
 
-        # Nihai hesaplamalar
         actual_risk   = avg_entry - stop_high
         actual_reward = sell_zone_high - avg_entry
         rr_ratio = round(actual_reward / actual_risk, 2) if actual_risk > 0 else 0.0
 
         return {
+            "entry_engine": {
+                "valid": entry_valid,
+                "type": entry_type,
+                "confidence": entry_confidence
+            },
             "buy_zone":  {"low": buy_zone_low,  "high": buy_zone_high},
             "sell_zone": {"low": sell_zone_low,  "high": sell_zone_high},
             "stop_zone": {"low": stop_low,        "high": stop_high},
@@ -893,26 +959,16 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
         }
 
     except Exception as e:
-        logging.error(f"❌ Destek/Direnç hesaplama hatası: {e}")
-        # Hata durumunda kurtarıcı varsayılan değerler
-        fallback_atr = current_price * 0.03
-        buy_l = round(current_price * 0.98, 2)
-        buy_h = round(current_price * 1.01, 2)
-        stop_h = round(current_price - fallback_atr * 1.5, 2)
-        stop_l = round(stop_h * 0.99, 2)
-        avg_e = (buy_l + buy_h) / 2
-        sell_h = round(avg_e + ((avg_e - stop_h) * 2.5), 2)
-        sell_l = round(sell_h * 0.98, 2)
+        logging.error(f"❌ Destek/Direnç & Zamanlama hatası: {e}")
         return {
-            "buy_zone":  {"low": buy_l,  "high": buy_h},
-            "sell_zone": {"low": sell_l, "high": sell_h},
-            "stop_zone": {"low": stop_l, "high": stop_h},
-            "support_1h": stop_h, "resist_1h": sell_h,
-            "atr_1d": round(fallback_atr, 2), "atr_pct": 3.0,
-            "rr_ratio": 2.5, "risk_usd": round(avg_e - stop_h, 2),
-            "reward_usd": round(sell_h - avg_e, 2),
-        }
-        
+            "entry_engine": {"valid": False, "type": "DATA_ERROR", "confidence": 0},
+            "buy_zone": {"low": current_price * 0.98, "high": current_price * 1.01},
+            "sell_zone": {"low": current_price * 1.05, "high": current_price * 1.08},
+            "stop_zone": {"low": current_price * 0.94, "high": current_price * 0.95},
+            "support_1h": current_price * 0.95, "resist_1h": current_price * 1.08,
+            "atr_1d": current_price * 0.03, "atr_pct": 3.0,
+            "rr_ratio": 2.5, "risk_usd": current_price * 0.05, "reward_usd": current_price * 0.125
+        }       
 # ================================================================
 # ================================================================
 # BÖLÜM 5: PERFORMANS VERİLERİ
@@ -1070,7 +1126,7 @@ async def analyze_market_and_sectors():
 # ================================================================
 
 def calculate_profit_target(entry_price, atr_value, momentum_score, is_exhausted=False, beta=1.0):
-    """V114 — ATR Bazlı Dinamik TP/SL (Minervini-style: tavan %18-25)"""
+    """V113 — ATR Bazlı Dinamik TP/SL (Minervini-style: tavan %18-25)"""
     if pd.isna(atr_value) or atr_value == 0:
         fallback_tp_pct = 0.10 if not is_exhausted else 0.05
         return entry_price * (1 + fallback_tp_pct), entry_price * 0.98
@@ -1238,9 +1294,29 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             score -= 1.6; details.append("📉 EMA20: Negatif/Yatay eğim")
 
-        # Dead Money Koruması
+        # ── ALPHA MOTORU 1: VOLATILITY SQUEEZE (Patlama Öncesi Daralma) ──
         ema20_slope_numeric = (ema20_1d.iloc[-1] - ema20_1d.iloc[-10]) / ema20_1d.iloc[-10] if len(ema20_1d) >= 10 and ema20_1d.iloc[-10] > 0 else 0.0
         is_ema_flat = abs(ema20_slope_numeric) < 0.008
+
+        # Bollinger Bantları (BB) Genişliği ile Sıkışma Kontrolü
+        bb_1d = BollingerBands(close_1d, 20, 2)
+        bb_width = (bb_1d.bollinger_hband().iloc[-1] - bb_1d.bollinger_lband().iloc[-1]) / ema20_1d.iloc[-1]
+        is_squeeze = bb_width < 0.06  # Bant EMA'nın %6'sına kadar daraldıysa fırtına yakındır!
+
+        # ── ALPHA MOTORU 2: LİKİDİTE AVI (Failed Breakdown / Spring) ─────
+        min_low_10d = low_1d.tail(10).iloc[:-1].min()
+        current_low = low_1d.iloc[-1]
+        # Fiyat son 10 günün dibini delip (stopları patlatıp) hızla açılışın üstüne döndü mü?
+        is_spring = (current_low < min_low_10d) and (current_price > min_low_10d) and (current_price > df_1d['Open'].iloc[-1])
+
+        # ADX hesaplamasından önceki nihai karar mekanizması
+        if is_squeeze:
+            score += 15.0; details.append("🚨 ALPHA EDGE: Volatility Squeeze (Büyük Patlama Hazırlığı)")
+        elif is_spring:
+            score += 12.0; details.append("⚡ ALPHA EDGE: Failed Breakdown (Smart Money Likidite Avı Tamam)")
+        elif is_ema_flat and adx_1d < 15:
+            return None  # Daralma yok, likidite avı yok ve trend yataysa GERÇEKTEN ölü paradır, ele.
+            
 
         # ── ADX ──────────────────────────────────────────────────────
         try:
@@ -2637,7 +2713,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
     return {
         "generated_at": generated_at,
         "date": datetime.now(NY_TZ).strftime("%Y-%m-%d"),
-        "model": "BOGA AI V114",
+        "model": "BOGA AI V113",
         "market_regime": MARKET_STATUS.get("regime", "Bull"),
         "total_picks": len(picks),
         "picks": picks,
@@ -2984,7 +3060,7 @@ def update_swing_performance_stats():
 
 async def scan_top_stocks():
     """
-    BOGA AI MASTER SCANNER V114
+    BOGA AI MASTER SCANNER V113
 
     AKIŞ:
     1. Piyasa + Sektör Analizi
@@ -2992,7 +3068,7 @@ async def scan_top_stocks():
     3. 500 hisse → apply_atmaca_filters → min 50 geçer
     4. Katman 2: En iyi 50 adayı seç
     5. Katman 3: 50 için derin analiz (Insider, Opsiyon, Finansal Sağlık)
-    6. 10 nihai hisse 100 üzerinden BOGA AI skoru
+    6. 5 nihai hisse 100 üzerinden BOGA AI skoru
     7. ATR + 1H destek/direnç: BUY/SELL/STOP ZONE (R/R 2.5:1)
     8. Hisse performans verileri (1G/1H/1A/1Y/5Y)
     9. Gemini AI özetleri (6 dil)
@@ -3001,10 +3077,16 @@ async def scan_top_stocks():
     start_time = time.time()
     scanned_count = 0
 
+    # --- YENİ: TEKRAR ENGELLEME MANTIĞI ---
+    recently_picked = await get_recently_picked_tickers(days=5)
+    # Mevcut manuel engellenenlere son 5 günün seçimlerini ekle
+    CURRENT_EXCLUSIONS = EXCLUDED_STOCKS.union(recently_picked)
+    # -------------------------------------
+    
     await send_telegram_message(
-        "🐂 <b>BOGA AI SWING TRADE V114 Scanner Started!</b>\n"
+        "🐂 <b>BOGA AI SWING TRADE V113 Scanner Started!</b>\n"
         "⏱ Schedule: Weekdays NY 13:00\n"
-        "🎯 Goal: Daily Top 10 Swing Trade Opportunities\n"
+        "🎯 Goal: Daily Top 5 Swing Trade Opportunities\n"
         "📈 Primary Language: English"
     )
 
@@ -3018,8 +3100,9 @@ async def scan_top_stocks():
         await send_telegram_message("❌ Evren oluşturulamadı!")
         return
 
-    tickers_to_scan = [t for t in MASTER_UNIVERSE if t not in EXCLUDED_STOCKS]
-    logging.info(f"📋 Taranacak hisse sayısı: {len(tickers_to_scan)}")
+    # ── KRİTİK DÜZELTME: Taranacak listeyi sadece GÜNCEL listeyle filtrele ──
+    tickers_to_scan = [t for t in MASTER_UNIVERSE if t not in CURRENT_EXCLUSIONS]
+    logging.info(f"📋 Taranacak hisse sayısı (Tekrarlar elendi): {len(tickers_to_scan)}")
 
     # ── ADIM 3: PARALEL ANALİZ (500 hisse → en az 50 geçer) ─────────
     semaphore = asyncio.Semaphore(2)
@@ -3047,7 +3130,6 @@ async def scan_top_stocks():
     if not candidates:
         await send_telegram_message("⚠️ Kriterlere uygun aday bulunamadı.")
         return
-
     # ── ADIM 4: 8-FAKTÖR SKOR + EN İYİ 50 ──────────────────────────
     for c in candidates:
         compute_multi_factor_score(c)
@@ -3249,7 +3331,7 @@ async def scan_top_stocks():
 
     # Özet tablo
     header = (
-        f"🐂 <b>ATMACA SWING V114 – TOP {TOP_FINAL_PICKS} PICKS</b>\n"
+        f"🐂 <b>ATMACA SWING V113 – TOP {TOP_FINAL_PICKS} PICKS</b>\n"
         f"🕒 <i>{now_str}</i> | ⏱ {duration:.1f}s\n"
         f"📊 <i>{len(tickers_to_scan)} scanned → {len(candidates)} candidates → Top {TOP_FINAL_PICKS}</i>\n"
         f"📈 Market: <b>{MARKET_STATUS['regime']}</b>\n\n"
@@ -3273,7 +3355,7 @@ async def scan_top_stocks():
         )
 
     toplist_msg = header + "\n".join(rows) + "\n─────────────────────────────────────────────────────\n</pre>\n"
-    toplist_msg += f"<i>💡 BUY→SELL: R/R~2.5:1 | ATR+1H Support/Resistance | BOGA AI V114</i>\n\n"
+    toplist_msg += f"<i>💡 BUY→SELL: R/R~2.5:1 | ATR+1H Support/Resistance | BOGA AI V113</i>\n\n"
     toplist_msg += "<b>📋 Detailed Analysis Below:</b>\n\n"
 
     # Toplist Özetini gönder
@@ -3344,7 +3426,7 @@ def get_next_weekday_run_time_ny(target_hour=13, target_minute=0):
 async def run_scanner():
     """Ana döngü — Her gün NY 13:00'de çalışır."""
     await send_telegram_message(
-        "🐂 <b>BOGA AI SWING TRADE V114 Başlatıldı!</b>\n"
+        "🐂 <b>BOGA AI SWING TRADE V113 Başlatıldı!</b>\n"
         "📅 Çalışma: Hafta içi her gün New York 13:00\n"
         "🎯 Hedef: Günün En İyi 5 Swing Trade Fırsatı\n"
         "💡 JSON: swing_picks_boga.json\n"

@@ -1,17 +1,77 @@
 {
   "stats": {
-    "total_picks": 1105,
+    "total_picks": 1110,
     "completed_count": 985,
-    "pending_count": 120,
+    "pending_count": 125,
     "win_rate": 98.6,
     "avg_return_pct": 10.5,
     "period_days": 180,
     "above_5pct_rate": 67.3,
     "above_10pct_rate": 40.7,
     "stop_loss_pct": -3.5,
-    "last_updated": "2026-04-25T09:13:48.679564"
+    "last_updated": "2026-04-26T09:13:29.262443"
   },
   "history": [
+    {
+      "date": "2026-04-26",
+      "ticker": "OPEN",
+      "company": "Opendoor Technologies Inc.",
+      "sector": "Real Estate",
+      "subsector": "Real Estate Services",
+      "entry": 5.510000228881836,
+      "max_price": 5.510000228881836,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-26",
+      "ticker": "NTRS",
+      "company": "Northern Trust Corporation",
+      "sector": "Financial Services",
+      "subsector": "Asset Management",
+      "entry": 164.00999450683594,
+      "max_price": 164.00999450683594,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-26",
+      "ticker": "KDP",
+      "company": "Keurig Dr Pepper Inc.",
+      "sector": "Consumer Defensive",
+      "subsector": "Beverages - Non-Alcoholic",
+      "entry": 29.219999313354492,
+      "max_price": 29.219999313354492,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-26",
+      "ticker": "CORZ",
+      "company": "Core Scientific, Inc.",
+      "sector": "Technology",
+      "subsector": "Software - Infrastructure",
+      "entry": 20.8799991607666,
+      "max_price": 20.8799991607666,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-26",
+      "ticker": "AMAT",
+      "company": "Applied Materials, Inc.",
+      "sector": "Technology",
+      "subsector": "Semiconductor Equipment & Materials",
+      "entry": 417.0400085449219,
+      "max_price": 417.0400085449219,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
     {
       "date": "2026-04-25",
       "ticker": "VRSN",
@@ -14373,5 +14433,5 @@
       "peak_date": "2026-01-28"
     }
   ],
-  "generated_at": "2026-04-25T09:13:48.679586"
+  "generated_at": "2026-04-26T09:13:29.262461"
 }

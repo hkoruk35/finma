@@ -813,6 +813,19 @@ export async function getSwingAllPicks(): Promise<any | null> {
   } catch { return null; }
 }
 
+export async function getIntradaySignals(): Promise<any | null> {
+  const t = Date.now();
+  if (typeof window === "undefined") {
+    const mod = await import("./data-server");
+    return mod.readPublicJson("intraday_signals.json");
+  }
+  try {
+    const res = await fetch(`/intraday_signals.json?v=${t}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
+
 // Redeploy trigger: Wed Apr 15 06:15:36 DYS 2026
 
 // ─────────────────────────────────────────────────────────────────────────────

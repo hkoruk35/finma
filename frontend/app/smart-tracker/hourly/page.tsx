@@ -7,22 +7,20 @@ import path from "path";
 
 export const metadata: Metadata = {
   title: "Hourly Intraday Pulse – BOGA AI",
-  description: "Real-time hourly tracking of the 25-stock focus pool. Monitor short-term momentum, entry/exit zones, and active status directives.",
+  description: "Real-time hourly status of last 30 days swing picks. Entry/exit signals updated every hour during market hours.",
 };
 
-export const revalidate = 60; // Revalidate every 60 seconds
+export const revalidate = 60;
 
 export default async function HourlyTrackerPage() {
-  // Fetch the data from the local public folder (server-side for initial render)
   let initialData = null;
   try {
-    const filePath = path.join(process.cwd(), "public", "data", "boga_hourly_portfolio.json");
+    const filePath = path.join(process.cwd(), "public", "intraday_signals.json");
     if (fs.existsSync(filePath)) {
-      const fileContent = fs.readFileSync(filePath, "utf-8");
-      initialData = JSON.parse(fileContent);
+      initialData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
     }
   } catch (error) {
-    console.error("Failed to load hourly portfolio JSON:", error);
+    console.error("Failed to load intraday_signals.json:", error);
   }
 
   return (

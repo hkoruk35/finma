@@ -1,8 +1,29 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import { useSmartTracker } from "@/components/SmartTrackerContext";
 import { TrackerPosition, SizeUnit, computePnl } from "@/lib/smartTracker";
+
+type HourlySignal = {
+  ticker: string;
+  status: string;
+  status_detail: string;
+  alert_level: string;
+  current_price: number;
+  intraday: { rsi_1h: number; trend_1h: string; volume_ratio: number };
+};
+
+const SIGNAL_CFG: Record<string, { label: string; color: string; border: string }> = {
+  ENTRY_NOW:      { label: "Entry Now",      color: "text-emerald-400", border: "border-emerald-500/40" },
+  ENTRY_WATCH:    { label: "Watch",          color: "text-blue-400",    border: "border-blue-500/30" },
+  HOLD:           { label: "Hold",           color: "text-teal-400",    border: "border-teal-500/30" },
+  TIGHTEN_STOP:   { label: "Tighten Stop",   color: "text-cyan-400",    border: "border-cyan-500/30" },
+  PARTIAL_PROFIT: { label: "Partial Profit", color: "text-amber-400",   border: "border-amber-500/40" },
+  TAKE_PROFIT:    { label: "Take Profit",    color: "text-purple-400",  border: "border-purple-500/40" },
+  WAIT:           { label: "Wait",           color: "text-slate-400",   border: "border-slate-500/20" },
+  STOP_ALERT:     { label: "Stop Alert",     color: "text-red-400",     border: "border-red-500/50" },
+  STOP_HIT:       { label: "Stop Hit",       color: "text-red-500",     border: "border-red-600/60" },
+};
 
 const f = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 const pColor = (v: number) => v > 0 ? "text-emerald-400" : v < 0 ? "text-red-400" : "text-slate-400";
@@ -18,7 +39,7 @@ function StatCard({ label, val, sub, color = "text-white" }: { label: string; va
   );
 }
 
-function PositionCard({ pos, simple }: { pos: TrackerPosition; simple: boolean }) {
+function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: boolean; signal?: HourlySignal }) {
   const { openTrade, closeTrade, removeFromTracker } = useSmartTracker();
   const [closeInput, setCloseInput] = useState("");
   const [entryInput, setEntryInput] = useState("");
@@ -31,11 +52,15 @@ function PositionCard({ pos, simple }: { pos: TrackerPosition; simple: boolean }
   const badge = { open: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30", closed: "bg-slate-500/20 text-slate-400 border-slate-500/30", pending: "bg-amber-500/20 text-amber-400 border-amber-500/30" }[pos.status];
 
   if (simple) {
+    const simpleCfg = signal ? (SIGNAL_CFG[signal.status] ?? SIGNAL_CFG.WAIT) : null;
     return (
       <div className={`flex items-center gap-3 px-4 py-2.5 border-b border-[#1e2a3a] hover:bg-white/[0.02] transition-colors ${isClosed ? "opacity-50" : ""}`}>
         <div className="w-16 shrink-0">
           <div className="text-white font-black text-sm">{pos.ticker}</div>
           <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${badge}`}>{pos.status}</span>
+          {simpleCfg && !isClosed && (
+            <div className={`text-[8px] font-bold mt-0.5 ${simpleCfg.color}`}>{simpleCfg.label}</div>
+          )}
         </div>
         <div className="flex-1 grid grid-cols-3 gap-2 text-center text-[11px]">
           <div><div className="text-slate-500 text-[9px] uppercase">Entry</div><div className="text-white font-mono font-bold">${f(pos.entryPrice ?? pos.buyZoneLow)}</div></div>
@@ -82,6 +107,23 @@ function PositionCard({ pos, simple }: { pos: TrackerPosition; simple: boolean }
         ))}
       </div>
 
+      {signal && !isClosed && (() => {
+        const cfg = SIGNAL_CFG[signal.status] ?? SIGNAL_CFG.WAIT;
+        const isAlert = signal.status === "STOP_HIT" || signal.status === "STOP_ALERT";
+        const isProfit = signal.status === "TAKE_PROFIT" || signal.status === "PARTIAL_PROFIT";
+        return (
+          <div className={`rounded-lg px-3 py-2 mb-3 border ${isAlert ? "bg-red-500/5 border-red-500/30" : isProfit ? "bg-amber-500/5 border-amber-500/20" : "bg-[#141924] border-[#1e2a3a]"}`}>
+            <div className="flex items-center justify-between mb-0.5">
+              <span className={`text-[10px] font-black uppercase tracking-wider ${cfg.color}`}>{cfg.label}</span>
+              <span className="text-[9px] text-slate-500 font-mono">RSI {signal.intraday.rsi_1h.toFixed(0)} · {signal.intraday.trend_1h} · Vol {signal.intraday.volume_ratio.toFixed(1)}x</span>
+            </div>
+            {signal.status_detail && (
+              <p className="text-[10px] text-slate-400 leading-relaxed">{signal.status_detail}</p>
+            )}
+          </div>
+        );
+      })()}
+
       <div className="flex items-center justify-between text-[10px]">
         <span className="text-slate-500">Size: <span className="text-white font-mono">{pos.sizeUnit === "usd" ? `$${f(pos.sizeValue, 0)}` : `${pos.sizeValue} sh`}</span>
           {isOpen && pos.currentPrice && <span className="text-slate-500 ml-1">@ ${f(pos.currentPrice)}</span>}
@@ -120,10 +162,27 @@ export default function SmartTrackerDashboard() {
   const [filter, setFilter] = useState<"all" | "open" | "pending" | "closed">("all");
   const [view, setView] = useState<"card" | "list">("card");
   const refreshed = useRef(false);
+  const [signalMap, setSignalMap] = useState<Record<string, HourlySignal>>({});
 
   useEffect(() => {
     if (!refreshed.current && activeTracker) { refreshed.current = true; refreshPrices(); }
   }, [activeTracker, refreshPrices]);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch(`/intraday_signals.json?v=${Date.now()}`, { cache: "no-store" });
+        if (!res.ok) return;
+        const json = await res.json();
+        const map: Record<string, HourlySignal> = {};
+        for (const s of json.signals ?? []) map[s.ticker] = s;
+        setSignalMap(map);
+      } catch { /* no signals available */ }
+    };
+    load();
+    const iv = setInterval(load, 60000);
+    return () => clearInterval(iv);
+  }, []);
 
   if (!activeTracker) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-5 py-16">
@@ -244,11 +303,11 @@ export default function SmartTrackerDashboard() {
                 <div className="w-24 text-right text-[9px] font-black text-[#3b82f6] uppercase">PnL</div>
                 <div className="w-24 text-[9px] font-black text-[#3b82f6] uppercase">Action</div>
               </div>
-              {filtered.map(pos=><PositionCard key={pos.id} pos={pos} simple={true}/>)}
+              {filtered.map(pos=><PositionCard key={pos.id} pos={pos} simple={true} signal={signalMap[pos.ticker]}/>)}
             </div>
           ) : (
             <div className="space-y-3">
-              {filtered.map(pos=><PositionCard key={pos.id} pos={pos} simple={false}/>)}
+              {filtered.map(pos=><PositionCard key={pos.id} pos={pos} simple={false} signal={signalMap[pos.ticker]}/>)}
             </div>
           )}
         </div>

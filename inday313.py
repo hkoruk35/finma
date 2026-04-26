@@ -7,18 +7,6 @@ import html
 import json
 
 
-# ✅ Gemini API - Compatible with both old and new packages
-try:
-    # Try new package first (google-genai)
-    from google import genai as genai_new
-    GEMINI_NEW_API = True
-except ImportError:
-    # Fallback to old package (google.generativeai) 
-    import google.generativeai as genai_old
-    GEMINI_NEW_API = False
-    import warnings
-    warnings.filterwarnings('ignore', category=FutureWarning, module='google.generativeai')
-
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -35,11 +23,11 @@ from ta.volume import ChaikinMoneyFlowIndicator
 
 
 # =====================================================================
-# 🦅 KARTAL YUVASI v3.3 (SENTIMENT+AI) – INSTITUTIONAL SWING ENGINE
+# 🐂 BOGA FINANCE AI – INSTITUTIONAL SWING ENGINE
 #
 # Amaç:
 # - Smart Money (Akıllı Para) ayak izlerini takip etmek.
-# - Family305a + Manual havuzlardan "Kurumsal Birikim" (Accumulation)
+# - Yerel swing havuzundan "Kurumsal Birikim" (Accumulation)
 #   ve "Ayrışma" (Decoupling) gösteren hisseleri seçmek.
 #
 # Zaman Dilimi Disiplini (Institutional Hierarchy):
@@ -62,620 +50,10 @@ from ta.volume import ChaikinMoneyFlowIndicator
 # Notlar:
 # ❌ Basit indikatör kesişimleri (Retail Logic) YOK.
 # ❌ Intraday scalp YOK.
+# ❌ Sosyal medya sentiment gürültüsü (Reddit vb.) YOK.
 # ✅ Hacim/Fiyat analizi (VPA) ve Kurumsal "Footprint" odaklı.
 # =====================================================================
 
-
-
-# ============================================================
-# 📊 SENTIMENT ANALYSIS MODULE (Multi-Source Intelligence)
-# ============================================================
-
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional
-import json
-
-
-# ============================================================
-# 📰 FREE API KEYS (Replace with your own)
-# ============================================================
-
-NEWS_API_KEY = "YOUR_NEWSAPI_KEY"  # https://newsapi.org/register (100 req/day free)
-FINNHUB_API_KEY = "YOUR_FINNHUB_KEY"  # https://finnhub.io/register (60 calls/min free)
-ALPHA_VANTAGE_KEY = "YOUR_ALPHAVANTAGE_KEY"  # https://www.alphavantage.co/support/#api-key (500 req/day free)
-
-
-# ============================================================
-# 1️⃣ NEWS SENTIMENT (NewsAPI + Finnhub)
-# ============================================================
-
-async def fetch_news_sentiment(session: aiohttp.ClientSession, ticker: str) -> Dict:
-    """
-    Fetch recent news and analyze sentiment
-    Sources: NewsAPI (headlines) + Finnhub (company news)
-    """
-    try:
-        news_data = {
-            "news_count": 0,
-            "sentiment": "NEUTRAL",
-            "sentiment_score": 0.0,  # -1 to +1
-            "headlines": []
-        }
-        
-        # NewsAPI - Last 30 days news
-        last_30_days = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
-        newsapi_url = f"https://newsapi.org/v2/everything?q={ticker}&from={last_30_days}&sortBy=publishedAt&apiKey={NEWS_API_KEY}&pageSize=5"
-        
-        try:
-            async with session.get(newsapi_url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    articles = data.get('articles', [])
-                    
-                    news_data["news_count"] = len(articles)
-                    news_data["headlines"] = [
-                        {
-                            "title": art.get('title', ''),
-                            "source": art.get('source', {}).get('name', 'Unknown'),
-                            "published": art.get('publishedAt', '')
-                        }
-                        for art in articles[:3]
-                    ]
-                    
-                    # Simple keyword-based sentiment (can be improved with NLP)
-                    positive_keywords = ['surge', 'profit', 'beat', 'upgrade', 'bullish', 'growth', 'acquisition', 'innovation']
-                    negative_keywords = ['loss', 'miss', 'downgrade', 'bearish', 'lawsuit', 'scandal', 'decline', 'layoff']
-                    
-                    pos_score = 0
-                    neg_score = 0
-                    
-                    for art in articles:
-                        title_lower = art.get('title', '').lower()
-                        pos_score += sum(1 for kw in positive_keywords if kw in title_lower)
-                        neg_score += sum(1 for kw in negative_keywords if kw in title_lower)
-                    
-                    if pos_score > neg_score:
-                        news_data["sentiment"] = "POSITIVE"
-                        news_data["sentiment_score"] = min(1.0, (pos_score - neg_score) / 5.0)
-                    elif neg_score > pos_score:
-                        news_data["sentiment"] = "NEGATIVE"
-                        news_data["sentiment_score"] = max(-1.0, (pos_score - neg_score) / 5.0)
-                    
-        except Exception as e:
-            pass  # Silent fail
-        
-        return news_data
-        
-    except Exception:
-        return {
-            "news_count": 0,
-            "sentiment": "NEUTRAL",
-            "sentiment_score": 0.0,
-            "headlines": []
-        }
-
-
-# ============================================================
-# 2️⃣ INSIDER TRADING (SEC Edgar via Finnhub)
-# ============================================================
-
-async def fetch_insider_activity(session: aiohttp.ClientSession, ticker: str) -> Dict:
-    """
-    Fetch insider trading activity (last 30 days)
-    Free API: Finnhub
-    """
-    try:
-        insider_data = {
-            "insider_buys": 0,
-            "insider_sells": 0,
-            "net_sentiment": "NEUTRAL",
-            "sentiment_score": 0.0,  # -1 to +1
-            "recent_transactions": []
-        }
-        
-        # Finnhub Insider Transactions
-        from_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
-        to_date = datetime.now().strftime('%Y-%m-%d')
-        
-        url = f"https://finnhub.io/api/v1/stock/insider-transactions?symbol={ticker}&from={from_date}&to={to_date}&token={FINNHUB_API_KEY}"
-        
-        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-            if resp.status == 200:
-                data = await resp.json()
-                transactions = data.get('data', [])
-                
-                for txn in transactions[:10]:  # Last 10 transactions
-                    change = txn.get('change', 0)
-                    
-                    if change > 0:
-                        insider_data["insider_buys"] += 1
-                    elif change < 0:
-                        insider_data["insider_sells"] += 1
-                    
-                    insider_data["recent_transactions"].append({
-                        "name": txn.get('name', 'Unknown'),
-                        "change": change,
-                        "filing_date": txn.get('filingDate', '')
-                    })
-                
-                # Calculate net sentiment
-                net = insider_data["insider_buys"] - insider_data["insider_sells"]
-                
-                if net > 2:
-                    insider_data["net_sentiment"] = "BULLISH"
-                    insider_data["sentiment_score"] = min(1.0, net / 5.0)
-                elif net < -2:
-                    insider_data["net_sentiment"] = "BEARISH"
-                    insider_data["sentiment_score"] = max(-1.0, net / 5.0)
-        
-        return insider_data
-        
-    except Exception:
-        return {
-            "insider_buys": 0,
-            "insider_sells": 0,
-            "net_sentiment": "NEUTRAL",
-            "sentiment_score": 0.0,
-            "recent_transactions": []
-        }
-
-
-# ============================================================
-# 3️⃣ SOCIAL SENTIMENT (Reddit WallStreetBets - Pushshift API)
-# ============================================================
-
-async def fetch_social_sentiment(session: aiohttp.ClientSession, ticker: str) -> Dict:
-    """
-    Fetch social media sentiment from Reddit WallStreetBets
-    Free API: Reddit API (no key needed for read-only)
-    """
-    try:
-        social_data = {
-            "mentions": 0,
-            "sentiment": "NEUTRAL",
-            "sentiment_score": 0.0,
-            "trending": False
-        }
-        
-        # Reddit search (last 24h)
-        reddit_url = f"https://www.reddit.com/r/wallstreetbets/search.json?q={ticker}&restrict_sr=1&sort=new&limit=50"
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        
-        async with session.get(reddit_url, headers=headers, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-            if resp.status == 200:
-                data = await resp.json()
-                posts = data.get('data', {}).get('children', [])
-                
-                social_data["mentions"] = len(posts)
-                
-                # Simple sentiment from titles
-                bullish_words = ['moon', 'buy', 'calls', 'yolo', 'rocket', '🚀', 'bullish', 'squeeze']
-                bearish_words = ['puts', 'short', 'crash', 'dump', 'bearish', 'sell']
-                
-                bull_count = 0
-                bear_count = 0
-                
-                for post in posts:
-                    title = post.get('data', {}).get('title', '').lower()
-                    bull_count += sum(1 for w in bullish_words if w in title)
-                    bear_count += sum(1 for w in bearish_words if w in title)
-                
-                if bull_count > bear_count:
-                    social_data["sentiment"] = "BULLISH"
-                    social_data["sentiment_score"] = min(1.0, (bull_count - bear_count) / 10.0)
-                elif bear_count > bull_count:
-                    social_data["sentiment"] = "BEARISH"
-                    social_data["sentiment_score"] = max(-1.0, (bull_count - bear_count) / 10.0)
-                
-                # Trending if > 10 mentions in 24h
-                social_data["trending"] = social_data["mentions"] > 10
-        
-        return social_data
-        
-    except Exception:
-        return {
-            "mentions": 0,
-            "sentiment": "NEUTRAL",
-            "sentiment_score": 0.0,
-            "trending": False
-        }
-
-
-# ============================================================
-# 4️⃣ ANALYST RATINGS (Finnhub Recommendations)
-# ============================================================
-
-async def fetch_analyst_consensus(session: aiohttp.ClientSession, ticker: str) -> Dict:
-    """
-    Fetch analyst recommendations and price targets
-    Free API: Finnhub
-    """
-    try:
-        analyst_data = {
-            "consensus": "HOLD",
-            "buy_ratings": 0,
-            "hold_ratings": 0,
-            "sell_ratings": 0,
-            "sentiment_score": 0.0,
-            "price_target": None
-        }
-        
-        # Finnhub Recommendation Trends
-        url = f"https://finnhub.io/api/v1/stock/recommendation?symbol={ticker}&token={FINNHUB_API_KEY}"
-        
-        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-            if resp.status == 200:
-                data = await resp.json()
-                
-                if data and len(data) > 0:
-                    latest = data[0]  # Most recent month
-                    
-                    analyst_data["buy_ratings"] = latest.get('buy', 0) + latest.get('strongBuy', 0)
-                    analyst_data["hold_ratings"] = latest.get('hold', 0)
-                    analyst_data["sell_ratings"] = latest.get('sell', 0) + latest.get('strongSell', 0)
-                    
-                    # Determine consensus
-                    if analyst_data["buy_ratings"] > analyst_data["hold_ratings"] + analyst_data["sell_ratings"]:
-                        analyst_data["consensus"] = "BUY"
-                        analyst_data["sentiment_score"] = 0.8
-                    elif analyst_data["sell_ratings"] > analyst_data["buy_ratings"]:
-                        analyst_data["consensus"] = "SELL"
-                        analyst_data["sentiment_score"] = -0.8
-        
-        # Price Target
-        target_url = f"https://finnhub.io/api/v1/stock/price-target?symbol={ticker}&token={FINNHUB_API_KEY}"
-        
-        async with session.get(target_url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-            if resp.status == 200:
-                target_data = await resp.json()
-                analyst_data["price_target"] = target_data.get('targetMean')
-        
-        return analyst_data
-        
-    except Exception:
-        return {
-            "consensus": "HOLD",
-            "buy_ratings": 0,
-            "hold_ratings": 0,
-            "sell_ratings": 0,
-            "sentiment_score": 0.0,
-            "price_target": None
-        }
-
-
-# ============================================================
-# 🎯 MASTER SENTIMENT AGGREGATOR
-# ============================================================
-
-async def enrich_with_sentiment(candidate: Dict) -> Dict:
-    """
-    ⚠️ CRITICAL: NO ELIMINATION - Just add sentiment data!
-    
-    Adds comprehensive sentiment analysis to technical candidate
-    Returns: Enhanced candidate with sentiment fields
-    """
-    ticker = candidate['symbol']
-    
-    async with aiohttp.ClientSession() as session:
-        # Parallel fetch all sentiment sources
-        news_data, insider_data, social_data, analyst_data = await asyncio.gather(
-            fetch_news_sentiment(session, ticker),
-            fetch_insider_activity(session, ticker),
-            fetch_social_sentiment(session, ticker),
-            fetch_analyst_consensus(session, ticker),
-            return_exceptions=True
-        )
-        
-        # Handle exceptions
-        if isinstance(news_data, Exception):
-            news_data = {"sentiment_score": 0.0, "sentiment": "NEUTRAL", "news_count": 0, "headlines": []}
-        if isinstance(insider_data, Exception):
-            insider_data = {"sentiment_score": 0.0, "net_sentiment": "NEUTRAL", "insider_buys": 0, "insider_sells": 0}
-        if isinstance(social_data, Exception):
-            social_data = {"sentiment_score": 0.0, "sentiment": "NEUTRAL", "mentions": 0, "trending": False}
-        if isinstance(analyst_data, Exception):
-            analyst_data = {"sentiment_score": 0.0, "consensus": "HOLD", "price_target": None}
-    
-    # Calculate composite sentiment score (weighted average)
-    composite_score = (
-        news_data["sentiment_score"] * 0.35 +      # News: 35%
-        insider_data["sentiment_score"] * 0.30 +   # Insider: 30%
-        social_data["sentiment_score"] * 0.15 +    # Social: 15%
-        analyst_data["sentiment_score"] * 0.20     # Analyst: 20%
-    )
-    
-    # Add sentiment data to candidate (NO ELIMINATION!)
-    candidate['sentiment'] = {
-        "composite_score": round(composite_score, 2),  # -1 to +1
-        "composite_rating": _get_sentiment_rating(composite_score),
-        
-        "news": {
-            "score": news_data["sentiment_score"],
-            "sentiment": news_data["sentiment"],
-            "count": news_data["news_count"],
-            "headlines": news_data["headlines"]
-        },
-        
-        "insider": {
-            "score": insider_data["sentiment_score"],
-            "sentiment": insider_data["net_sentiment"],
-            "buys": insider_data["insider_buys"],
-            "sells": insider_data["insider_sells"]
-        },
-        
-        "social": {
-            "score": social_data["sentiment_score"],
-            "sentiment": social_data["sentiment"],
-            "mentions": social_data["mentions"],
-            "trending": social_data["trending"]
-        },
-        
-        "analyst": {
-            "score": analyst_data["sentiment_score"],
-            "consensus": analyst_data["consensus"],
-            "buy_ratings": analyst_data["buy_ratings"],
-            "price_target": analyst_data["price_target"]
-        }
-    }
-    
-    return candidate
-
-
-def _get_sentiment_rating(score: float) -> str:
-    """Convert sentiment score to human-readable rating"""
-    if score > 0.5:
-        return "VERY POSITIVE"
-    elif score > 0.2:
-        return "POSITIVE"
-    elif score > -0.2:
-        return "NEUTRAL"
-    elif score > -0.5:
-        return "NEGATIVE"
-    else:
-        return "VERY NEGATIVE"
-
-
-# ============================================================
-# 📊 BATCH ENRICHMENT (For multiple candidates)
-# ============================================================
-
-async def enrich_candidates_batch(candidates: List[Dict], max_concurrent: int = 5) -> List[Dict]:
-    """
-    Enrich multiple candidates with sentiment data
-    Rate-limited to avoid API throttling
-    """
-    semaphore = asyncio.Semaphore(max_concurrent)
-    
-    async def enrich_with_limit(candidate):
-        async with semaphore:
-            try:
-                return await enrich_with_sentiment(candidate)
-            except Exception as e:
-                print(f"   ⚠️ Sentiment fetch failed for {candidate['symbol']}: {e}")
-                return candidate  # Hata olsa bile adayı geri döndür (sentimentsiz)
-    
-    print(f"\n📊 Enriching {len(candidates)} candidates with sentiment data...")
-    
-    tasks = [enrich_with_limit(c) for c in candidates]
-    # Hata yönetimi içeride yapıldığı için burada try-except'e gerek yok
-    enriched = await asyncio.gather(*tasks)
-    
-    print(f"✅ Sentiment enrichment complete!\n")
-    return enriched
-
-
-# ============================================================
-# 🤖 AI FINAL SELECTOR (Catalyst-Driven Selection)
-# ============================================================
-
-async def ai_final_selection(
-    enriched_candidates: List[Dict],
-    gemini_client,
-    top_n: int = 20
-) -> List[Dict]:
-    """
-    AŞAMA 3: AI Final Selection - GEMINI 2.0 ONLY
-    
-    Input: Teknik + Sentiment verileriyle zenginleştirilmiş adaylar
-    Output: En kısa vadede en yüksek kazançlı swing trade setup'ları (top N)
-    """
-    
-    print(f"\n🤖 AI FINAL SELECTION: Analyzing {len(enriched_candidates)} enriched candidates...")
-    print(f"   Goal: Select Top {top_n} for highest short-term gain potential\n")
-    
-    # 1. Hazırlık: Aday özetleri
-    candidate_summaries = []
-    
-    for idx, c in enumerate(enriched_candidates):
-        # Haber başlıklarını derle
-        news_headlines = []
-        if 'sentiment' in c and 'news' in c['sentiment']:
-            headlines = c['sentiment']['news'].get('headlines', [])
-            if headlines:
-                news_headlines = [f"{h.get('title', '')} ({h.get('published', '')[:10]})" for h in headlines[:3]]
-        
-        # Sektör Performansı (Global Context'ten)
-        sec = c.get('sector', 'Unknown')
-        sec_perf = SECTOR_CONTEXT.get(sec, 0.0) if 'SECTOR_CONTEXT' in globals() else 0.0
-        
-        summary = {
-            "ticker": c['symbol'],
-            "price": c['price'],
-            "sector": sec,
-            "sector_performance_5d": f"{sec_perf:.2f}%",
-            "technical_score": c['score'],
-            "setup": c.get('setup_type', 'NONE'),
-            "trend": c.get('trend_phase', 'UNKNOWN'),
-            "sentiment_score": c['sentiment']['composite_score'],
-            "news_headlines": news_headlines,
-            "calculated_entry_zone": c.get('entry_zone', 'N/A'),
-            "calculated_target": c.get('target', 0),
-            "calculated_stop_loss": c.get('stop_loss', 0),
-        }
-        candidate_summaries.append(summary)
-    
-    # 2. Gemini Prompt Oluşturma (TÜRKÇE)
-    gemini_prompt = f"""
-ROLE: Senior Quantitative Analyst & Swing Trader (Uzman Borsa Analisti)
-MISSION: Aday hisseleri analiz et ve en iyi {top_n} fırsatı seç.
-LANGUAGE: Yanıtların (reasoning dahil) TAMAMI TÜRKÇE olmalı.
-
-OBJECTIVE:
-En kısa sürede en yüksek getiri potansiyelini (1-7 gün) hedefle.
-Teknik destek/direnç noktalarını dikkate alarak Giriş (Entry), Stop (SL) ve Hedef (TP) belirle.
-
-INPUT DATA (Adaylar):
-{json.dumps(candidate_summaries, indent=2)}
-
-CRITERIA & LOGIC:
-1. SECTOR ANALYSIS (Sektör Analizi):
-   - ABD Borsası sektörel durumuna bak (verilen 'sector_performance_5d' verisi).
-   - YÜKSELEN sektörlerdeki hisselere öncelik ver (Positive Momentum).
-   - DÜŞEN sektörlerdeki hisseler için reasoning kısmına "Düşen Sektör Uyarısı" ekle.
-
-2. TECHNICAL & S/R LEVELS (Teknik ve Destek/Direnç):
-   - Verilen "calculated_" değerleri referans al, ancak grafik formasyonuna göre (Breakout, Pullback) optimize et.
-   - Entry Range: Destek bölgesine yakın alım aralığı ver.
-
-3. CATALYST (Haber/Katalizör): Son 30 günlük haberlerde "Earnings Beat", "Contract", "FDA Approval" gibi pozitif sinyal ara.
-
-OUTPUT FORMAT (JSON):
-tek bir "selections" listesi döndür ({top_n} adet).
-Her obje şunları içermeli:
-- "ticker": Sembol
-- "rank": 1'den {top_n}'e sıralama
-- "confidence": 1-10 arası güven skoru
-- "reasoning": Neden seçildi? (Türkçe, kısa, net. Haber ve Sektörden bahset).
-- "setup_type": Formasyon tipi (Örn: "Earnings Breakout", "Bull Flag").
-- "entry_range": Önerilen giriş aralığı (Örn: "150.50 - 152.00").
-- "stop_loss": Stop seviyesi.
-- "take_profit": Kar al seviyesi.
-- "hold_period": Tahmini vade (Örn: "2-5 Gün").
-
-Example:
-{{
-  "selections": [
-    {{
-        "ticker": "NVDA",
-        "rank": 1,
-        "confidence": 9,
-        "reasoning": "Teknoloji sektörü güçlü (+%3.5). Bilanço beklentisiyle ATH kırılımı yaptı. Haber akışı pozitif.",
-        "setup_type": "ATH Breakout",
-        "entry_range": "145.00 - 146.50",
-        "stop_loss": 142.00,
-        "take_profit": 155.00,
-        "hold_period": "3-7 Gün"
-    }}
-  ]
-}}
-
-RESPOND ONLY WITH VALID JSON. NO MARKDOWN.
-"""
-    
-    print("   🚀 Sending data to Gemini 2.0...")
-    
-    try:
-        response_text = ""
-        
-        # Gemini API Call
-        if GEMINI_NEW_API and gemini_client:
-             response = await asyncio.to_thread(
-                gemini_client.models.generate_content,
-                model="gemini-2.0-flash", # Or pro if available
-                contents=gemini_prompt
-            )
-             response_text = response.text
-        elif not GEMINI_NEW_API and gemini_client: # Old lib logic placeholder if compatible
-             model = genai_old.GenerativeModel('gemini-pro') # Fallback to pro if 2.0 not available in old lib
-             response = await asyncio.to_thread(model.generate_content, gemini_prompt)
-             response_text = response.text
-        else:
-             print("   ⚠️ Gemini Client not initialized.")
-             return enriched_candidates[:top_n]
-
-        # Clean JSON
-        cleaned_text = response_text.replace("```json", "").replace("```", "").strip()
-        
-        try:
-            data = json.loads(cleaned_text)
-            selections = data.get("selections", [])
-            
-            final_selections = []
-            
-            # Map AI results back to full candidate objects
-            for sel in selections:
-                ticker = sel.get('ticker')
-                # Find original candidate
-                orig = next((c for c in enriched_candidates if c['symbol'] == ticker), None)
-                if orig:
-                    # Enrich with AI insights
-                    orig['ai_validation'] = {
-                        "approved": True,
-                        "confidence": sel.get('confidence', 0),
-                        "key_strength": sel.get('reasoning', ''),
-                        "setup_override": sel.get('setup_type', ''),
-                        "hold_period": sel.get('hold_period', 'Unknown'),
-                        "ai_entry": sel.get('entry_range', str(sel.get('entry_zone', 'N/A'))),
-                        "ai_sl": sel.get('stop_loss', 0),
-                        "ai_tp": sel.get('take_profit', 0),
-                        "rank": sel.get('rank', 99)
-                    }
-                    final_selections.append(orig)
-            
-            # Sort by rank
-            final_selections.sort(key=lambda x: x['ai_validation']['rank'])
-            
-            print(f"   ✅ Gemini selected {len(final_selections)} candidates.")
-            return final_selections
-
-        except json.JSONDecodeError:
-            print(f"   ❌ Gemini JSON Parse Error. Response: {cleaned_text[:100]}...")
-            return enriched_candidates[:top_n] # Fallback
-            
-    except Exception as e:
-        print(f"   ❌ Gemini API Error: {e}")
-        return enriched_candidates[:top_n] # Fallback
-
-def generate_ai_report(ai_selections: List[Dict]) -> str:
-    """
-    AI tarafından seçilen adaylar için Türkçe Telegram raporu oluşturur.
-    Format: HİSSE + AI GEREKÇESİ + İŞLEM KURULUMU
-    """
-    if not ai_selections:
-        return "🤖 <b>AI NİHAİ SEÇİM</b>\n\n⚠️ Yapay zeka doğrulamasından geçen aday olmadı."
-    
-    # Başlık Bölümü
-    report = ["🤖 <b>YAPAY ZEKA (AI) SWING FIRSATLARI</b>"]
-    report.append(f"📅 {datetime.now().strftime('%d/%m %H:%M')}\n")
-    report.append(f"🎯 <b>Hedef: Maksimum Kısa Vadeli Getiri Potansiyeli</b>\n")
-    
-    # Adayları Listeleme
-    for idx, c in enumerate(ai_selections[:20], 1):
-        ai_val = c['ai_validation']
-        sent = c['sentiment']
-        
-        # İngilizce gelen bazı terimleri anlık Türkçeleştirme (Opsiyonel ama şık durur)
-        rating_tr = sent['composite_rating'].replace("POSITIVE", "POZİTİF").replace("NEGATIVE", "NEGATİF").replace("NEUTRAL", "NÖTR")
-        hold_tr = str(ai_val['hold_period']).replace("days", "gün").replace("weeks", "hafta")
-
-        block = (
-            f"{idx}. <b>{c['symbol']}</b> | Güven Skoru: {ai_val['confidence']}/10\n"
-            f"   💰 Fiyat: ${c['price']} | Puan: {c['score']}\n"
-            f"   🎯 Katalizör: {ai_val['key_strength']}\n"
-            f"   📊 Algı: {rating_tr} ({sent['composite_score']:+.2f})\n"
-            f"   🟢 Giriş: {c.get('entry_zone', 'N/A')}\n"
-            f"   🛑 Stop: ${c.get('stop_loss', 0)} | 🎯 Hedef: ${c.get('target', 0)}\n"
-            f"   ⏱️ Vade: {hold_tr}\n"
-        )
-        
-        if ai_val.get('key_risk'):
-            block += f"   ⚠️ Risk: {ai_val.get('key_risk')}\n"
-        
-        report.append(block)
-    
-    report.append("\n👉 <i>Yapay Zeka Seçimi: Teknik + Algı + Haber Analizi</i>")
-    
-    return "\n".join(report)
 
 # ============================================================
 # 📊 REAL-TIME DATA VALIDATION (Yahoo Finance)
@@ -929,23 +307,6 @@ logging.basicConfig(
 )
 logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 
-# --- AI API KEYS ---
-GEMINI_API_KEY = "AIzaSyA6cu1eE5xyh2-1eEFEdZcMXY7MSzqIPnM"
-
-# --- SENTIMENT API KEYS ---
-# ... (API Keys stay data) ...
-
-# Configuration
-# Gemini Client Configuration
-if GEMINI_NEW_API:
-    try:
-        gemini_client = genai_new.Client(api_key=GEMINI_API_KEY)
-    except Exception as e:
-        print(f"Gemini Client Init Error: {e}")
-        gemini_client = None
-else:
-    genai_old.configure(api_key=GEMINI_API_KEY)
-    gemini_client = genai_old
 
 # ------------------------------------------------
 # 🔹 TIME SETTINGS (NEW YORK)
@@ -1038,7 +399,7 @@ LAST_PRE_GAP_ALERT_DATE = None
 
 # ============================================================
 # ============================================================
-# 📁 KARTAL YUVASI – CANDIDATE UNIVERSE LOADER (SWING-ONLY MODE)
+# 📁 BOGA FİNANS AI – CANDIDATE UNIVERSE LOADER (SWING-ONLY MODE)
 #
 # Amaç:
 # - Sadece son 5 günün "Daily Swing Picks" arşivindeki hisseleri tarar.
@@ -1046,69 +407,92 @@ LAST_PRE_GAP_ALERT_DATE = None
 # - ARCHIVAL INTEGRITY: Hisselerin hedef/stop seviyelerini arşivden çeker.
 # ============================================================
 
-AI_SWING_ZONES = {}
+BOGA_SWING_ZONES = {}
 
 def load_swing_universe() -> List[str]:
-    global AI_SWING_ZONES
-    AI_SWING_ZONES.clear()
-    symbols = set()
-    
-    public_data_base = r"C:\Users\afksm\finma\frontend\public\data"
-    if not os.path.exists(public_data_base):
-        logging.error(f"❌ Public data dizini bulunamadı: {public_data_base}")
-        return []
+    """
+    Loads unique tickers from the last 5 days of swing picks.
+    Sources:
+      1. swing_all_picks.json  → today's picks with full zone data
+      2. swing_performance.json → last 5 days ticker history
+    Populates BOGA_SWING_ZONES with buy/stop/profit zones for each ticker.
+    """
+    global BOGA_SWING_ZONES
+    BOGA_SWING_ZONES.clear()
 
-    # 1. Son 5 günün klasörlerini bul (YYYY-MM-DD formatında olanlar)
-    import re
-    date_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-    dated_dirs = [d for d in os.listdir(public_data_base) 
-                  if os.path.isdir(os.path.join(public_data_base, d)) and date_pattern.match(d)]
-    
-    dated_dirs.sort(reverse=True)
-    recent_dirs = dated_dirs[:5]
-    
-    logging.info(f"📂 Son 5 günün klasörleri taranıyor: {recent_dirs}")
+    PUBLIC_DIR = r"C:\Users\afksm\finma\frontend\public"
+    cutoff = (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d")
 
-    for d_dir in recent_dirs:
-        # Her klasörde swing_all_picks.json ara
-        json_path = os.path.join(public_data_base, d_dir, "swing_all_picks.json")
-        if os.path.exists(json_path):
-            try:
-                import json
-                with open(json_path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    for c in data.get("picks", []):
-                        sym = c.get("ticker")
-                        if sym:
-                            symbols.add(sym)
-                            # En güncel hedef verisini sakla
-                            if sym not in AI_SWING_ZONES:
-                                AI_SWING_ZONES[sym] = c.get("boga_zones", {})
-            except Exception as e:
-                logging.warning(f"⚠️ {json_path} okuma hatası: {e}")
-    
-    # 2. Mevcut (Bugünkü) swing_all_picks.json'ı da ekle (Henüz arşivlenmemiş olabilir)
-    live_json = r"C:\Users\afksm\finma\frontend\public\swing_all_picks.json"
-    if os.path.exists(live_json):
+    # 1. Today's picks — full zone data from swing_all_picks.json
+    today_path = os.path.join(PUBLIC_DIR, "swing_all_picks.json")
+    if os.path.exists(today_path):
         try:
-            import json
-            with open(live_json, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                for c in data.get("picks", []):
-                    sym = c.get("ticker")
-                    if sym:
-                        symbols.add(sym)
-                        if sym not in AI_SWING_ZONES:
-                            AI_SWING_ZONES[sym] = c.get("boga_zones", {})
+            with open(today_path, encoding="utf-8") as f:
+                today_data = json.load(f)
+            pick_date = today_data.get("date", datetime.now().strftime("%Y-%m-%d"))
+            for pick in today_data.get("picks", []):
+                ticker = pick.get("ticker")
+                if not ticker:
+                    continue
+                bz = pick.get("buy_zone") or pick.get("boga_zones", {}).get("buying_zone", {})
+                pz = pick.get("profit_zone") or pick.get("boga_zones", {}).get("sell_zone", {})
+                sz = pick.get("stop_zone") or pick.get("boga_zones", {}).get("stop_loss_zone", {})
+                BOGA_SWING_ZONES[ticker] = {
+                    "buying_zone": bz,
+                    "sell_zone": pz,
+                    "stop_loss_zone": sz,
+                    # aliases used by evaluate_hourly_status
+                    "profit_zone": pz,
+                    "stop_zone": sz,
+                    "pick_date": pick_date,
+                    "company": pick.get("company", ticker),
+                    "sector": pick.get("sector", "Unknown"),
+                    "score": pick.get("score", 0),
+                }
+            logging.info(f"📂 swing_all_picks.json: {len(today_data.get('picks', []))} today's picks loaded")
         except Exception as e:
-            logging.warning(f"⚠️ {live_json} okuma hatası: {e}")
+            logging.warning(f"⚠️ swing_all_picks.json parse error: {e}")
 
-    final_symbols = sorted(list(symbols))
-    logging.info(f"✅ Toplam {len(final_symbols)} sembol yüklendi (Son 5 Gün Arşivi).")
+    # 2. Last 5-day history from swing_performance.json
+    perf_path = os.path.join(PUBLIC_DIR, "swing_performance.json")
+    if os.path.exists(perf_path):
+        try:
+            with open(perf_path, encoding="utf-8") as f:
+                perf_data = json.load(f)
+            added = 0
+            for record in perf_data.get("history", []):
+                if record.get("date", "") < cutoff:
+                    continue
+                ticker = record.get("ticker")
+                if not ticker or ticker in BOGA_SWING_ZONES:
+                    continue
+                entry = record.get("entry", 0)
+                if entry and entry > 0:
+                    bz = {"low": round(entry * 0.97, 2), "high": round(entry * 1.02, 2)}
+                    pz = {"low": round(entry * 1.08, 2), "high": round(entry * 1.12, 2)}
+                    sz = {"low": round(entry * 0.94, 2), "high": round(entry * 0.965, 2)}
+                    BOGA_SWING_ZONES[ticker] = {
+                        "buying_zone": bz,
+                        "sell_zone": pz,
+                        "stop_loss_zone": sz,
+                        "profit_zone": pz,
+                        "stop_zone": sz,
+                        "pick_date": record.get("date", ""),
+                        "company": record.get("company", ticker),
+                        "sector": record.get("sector", "Unknown"),
+                        "score": 0,
+                    }
+                    added += 1
+            logging.info(f"📂 swing_performance.json: {added} historical tickers added (last 5 days)")
+        except Exception as e:
+            logging.warning(f"⚠️ swing_performance.json parse error: {e}")
+
+    final_symbols = sorted(BOGA_SWING_ZONES.keys())
+    logging.info(f"✅ Swing universe loaded: {len(final_symbols)} tickers (last 5 days)")
     return final_symbols
     
 # ============================================================
-# 3) KARTAL YUVASI – MULTI TIMEFRAME DATA FETCHER
+# 3) BOGA FİNANS AI – MULTI TIMEFRAME DATA FETCHER
 #
 # Amaç:
 # - 1D  → Yapısal bağlam (Kurumsal trend, 52W High, YTD VWAP)
@@ -1123,7 +507,7 @@ def load_swing_universe() -> List[str]:
 YF_SEMAPHORE = asyncio.Semaphore(4)   # Aynı anda max 4 Yahoo çağrısı
 
 
-async def get_kartal_yuvasi_data(
+async def get_boga_data(
     ticker: str
 ) -> Optional[Dict[str, pd.DataFrame]]:
     """
@@ -1234,7 +618,7 @@ async def get_kartal_yuvasi_data(
             return None
             
 # ============================================================
-# 4) KARTAL YUVASI – INDICATOR ENGINE (INSTITUTIONAL)
+# 4) BOGA FİNANS AI – INDICATOR ENGINE (INSTITUTIONAL)
 #
 # Zaman Dilimi Rolleri:
 # - 1D  → Trend Fazı (Phase), Yapısal Eğim, NATR Kalitesi
@@ -1242,11 +626,7 @@ async def get_kartal_yuvasi_data(
 # - 15M → Mikro Kırılım (Micro Break)
 # ============================================================
 
-# ============================================================
-# 4) KARTAL YUVASI – INDICATOR ENGINE (SAFE MODE)
-# ============================================================
-
-def calculate_kartal_indicators(df: pd.DataFrame, tf: str) -> pd.DataFrame:
+def calculate_boga_indicators(df: pd.DataFrame, tf: str) -> pd.DataFrame:
     """
     Master Plan v3.1 - GÜVENLİ İndikatör Seti
     Veri kaybını önlemek için 'dropna' yerine 'fillna' ve manuel hesaplama kullanır.
@@ -1335,7 +715,7 @@ def calculate_kartal_indicators(df: pd.DataFrame, tf: str) -> pd.DataFrame:
     return df
     
 # ================================================================
-# 5) KARTAL YUVASI – 15M TIMING & MICRO STRUCTURE ENGINE
+# 5) BOGA FİNANS AI – 15M TIMING & MICRO STRUCTURE ENGINE
 # ================================================================
 
 def detect_15m_timing_pattern(df_15m: pd.DataFrame) -> tuple[str, float]:
@@ -1425,10 +805,9 @@ def detect_15m_timing_pattern(df_15m: pd.DataFrame) -> tuple[str, float]:
 
     except Exception:
         return "Pattern Error", 0.0
-
-
+        
 # ================================================================
-# 🦅 KARTAL YUVASI – 15M ENTRY TIMING ASSESSMENT
+# 🦅 BOGA FİNANS AI – 15M ENTRY TIMING ASSESSMENT
 # ================================================================
 
 def assess_15m_entry_timing(
@@ -1519,7 +898,7 @@ def assess_15m_entry_timing(
         }
         
 # ================================================================
-# 🧠 KARTAL YUVASI v3.3 (SENTIMENT+AI) – STRATEGIC ANALYSIS ENGINE
+# 🧠 BOGA FİNANS AI – STRATEGIC ANALYSIS ENGINE
 # ================================================================
 
 def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
@@ -1592,72 +971,181 @@ def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
 
     except Exception:
         return {"structure": "ERROR", "1d_score": 0, "1d_notes": [], "invalidation_level": 0}
-
+        
 
 def evaluate_hourly_status(current_price: float, entry_zone: str, target: float, stop_loss: float, rsi_1h: float, rsi_15m: float = 50.0, trend_1h: str = "FLAT", swing_data: dict = None) -> dict:
     """
-    Boga Finance AI - Hourly Direction & Status Evaluation (English Only)
+    BOGA FİNANS AI – Hourly Swing Trade Status Engine (1H + 15M timeframe logic)
+
+    Status codes:
+      ENTRY_NOW       – Price in buy zone, timing confirmed → open position
+      ENTRY_WATCH     – Approaching buy zone, not yet triggered
+      WAIT            – Price extended above entry, wait for pullback
+      HOLD            – In position between entry and TP1, trend intact
+      TIGHTEN_STOP    – Price past mid-range, trail stop to entry
+      PARTIAL_PROFIT  – TP1 reached but 1H/15M momentum still bullish → take 40-50%, let rest run
+      TAKE_PROFIT     – TP2 reached or momentum reversing → close full position
+      STOP_ALERT      – Within 2% of stop zone, prepare to exit
+      STOP_HIT        – Price at/below stop zone → exit immediately
+      SCALE_IN        – Price dipped back into buy zone while already positioned
     """
     try:
-        # Check swing trade management first
-        if swing_data:
-            profit_zone = swing_data.get("profit_zone", {})
-            stop_zone = swing_data.get("stop_zone", {})
-            
-            p_low = float(profit_zone.get("low", target))
-            s_high = float(stop_zone.get("high", stop_loss))
-            
-            if current_price >= p_low:
-                return {"status": "🟢 TAKE PROFIT", "msg": f"Price reached swing target zone (${p_low:.2f}+). Consider taking partial or full profits as momentum continues."}
-            if current_price <= s_high:
-                return {"status": "🔴 STOP LOSS HIT", "msg": f"Price broke below swing safety cut-off (${s_high:.2f}). Invalidated."}
+        # ── Parse zones ───────────────────────────────────────────────────────
+        profit_low  = target
+        profit_high = target
+        stop_high   = stop_loss
 
-        # Entry zone parsing (e.g. "150.00 - 152.00")
+        if swing_data:
+            pz = swing_data.get("profit_zone") or swing_data.get("sell_zone") or {}
+            sz = swing_data.get("stop_zone")   or swing_data.get("stop_loss_zone") or {}
+            profit_low  = float(pz.get("low",  target))
+            profit_high = float(pz.get("high", target))
+            stop_high   = float(sz.get("high", stop_loss))
+
         parts = entry_zone.replace(" ", "").split("-")
         if len(parts) == 2:
-            entry_low, entry_high = float(parts[0]), float(parts[1])
+            try:
+                entry_low, entry_high = float(parts[0]), float(parts[1])
+            except ValueError:
+                entry_low, entry_high = current_price * 0.97, current_price * 1.02
         else:
-            entry_low, entry_high = current_price * 0.99, current_price * 1.01
+            entry_low, entry_high = current_price * 0.97, current_price * 1.02
 
-        # Calculate distance to levels for justification
-        dist_stop = ((current_price - stop_loss) / stop_loss) * 100
-        dist_target = ((target - current_price) / current_price) * 100
+        in_buy_zone     = entry_low * 0.99  <= current_price <= entry_high * 1.01
+        above_buy_zone  = current_price > entry_high * 1.01
+        dist_to_stop_pct = ((current_price - stop_high) / stop_high * 100) if stop_high > 0 else 99
 
-        # 1. STOP LOSS EVALUATION (Intraday Fallback)
-        if current_price <= stop_loss * 1.005:
-            return {"status": "🔴 STOP LOSS / INVALID", "msg": f"Price is at or below the intraday safety cut-off (${stop_loss:.2f}). Setup invalidated."}
+        # ── 1. STOP HIT ────────────────────────────────────────────────────────
+        if current_price <= stop_high * 1.005:
+            return {
+                "status": "STOP_HIT",
+                "msg": f"Price at/below stop zone (${stop_high:.2f}). Exit immediately — setup invalidated."
+            }
 
-        # 2. OVERBOUGHT REJECTION (1H RSI > 75)
-        if rsi_1h > 75:
-            return {"status": "⚠️ HOLD (Overbought)", "msg": f"1H RSI is heavily overbought ({rsi_1h:.0f}). Pullback imminent, do not buy."}
+        # ── 2. STOP ALERT (within 2%) ─────────────────────────────────────────
+        if 0 < dist_to_stop_pct <= 2.0:
+            return {
+                "status": "STOP_ALERT",
+                "msg": f"Price is only {dist_to_stop_pct:.1f}% above stop (${stop_high:.2f}). "
+                       f"Tighten or honor your stop. 1H RSI {rsi_1h:.0f}."
+            }
 
-        # 3. BUY ZONE EVALUATION
-        if entry_low * 0.99 <= current_price <= entry_high * 1.01:
-            if trend_1h == "DOWN" or rsi_15m < 35:
-                # Price is in zone but crashing (falling knife)
-                return {"status": "⏳ HOLD (Falling Knife)", "msg": f"In entry zone, but 15m RSI is crashing ({rsi_15m:.0f}) and short-term trend is DOWN. Wait for stabilization."}
-            elif rsi_1h < 40:
-                return {"status": "🟢 BUY ZONE (Oversold Bounce)", "msg": f"Price in buy zone. 1H RSI is oversold ({rsi_1h:.0f}). Expecting an upward reaction."}
-            else:
-                return {"status": "🟢 BUY ZONE (Active)", "msg": f"Price is within entry range (${entry_low:.2f}-${entry_high:.2f}). Trend is stable (1H RSI: {rsi_1h:.0f})."}
+        # ── 3. PROFIT ZONE ────────────────────────────────────────────────────
+        if current_price >= profit_high:
+            # TP2 reached — check if momentum still ripping
+            if rsi_1h > 68 and trend_1h == "UP" and rsi_15m > 60:
+                return {
+                    "status": "PARTIAL_PROFIT",
+                    "msg": f"TP2 zone reached (${profit_high:.2f}). Momentum still bullish "
+                           f"(1H RSI {rsi_1h:.0f}, 15M RSI {rsi_15m:.0f}, trend UP). "
+                           f"Take 50% off table, trail stop to TP1 (${profit_low:.2f}) for the rest."
+                }
+            return {
+                "status": "TAKE_PROFIT",
+                "msg": f"TP2 zone reached (${profit_high:.2f}). Close full position and lock gains."
+            }
 
-        # 4. HOLD / WAIT FOR PULLBACK
-        if current_price > entry_high * 1.01 and current_price < target * 0.98:
-            return {"status": "⚠️ HOLD (Wait Pullback)", "msg": f"Price extended above entry zone (${entry_high:.2f}). Wait for a pullback or consolidation."}
+        if current_price >= profit_low:
+            # TP1 reached — momentum decides partial vs full
+            if rsi_1h > 60 and trend_1h in ("UP", "FLAT") and rsi_15m > 50:
+                return {
+                    "status": "PARTIAL_PROFIT",
+                    "msg": f"TP1 hit (${profit_low:.2f}). 1H RSI {rsi_1h:.0f} still bullish. "
+                           f"Take 40-50% profit now, move stop to entry, target TP2 at ${profit_high:.2f}."
+                }
+            return {
+                "status": "TAKE_PROFIT",
+                "msg": f"TP1 reached (${profit_low:.2f}). Momentum fading (RSI {rsi_1h:.0f}). "
+                       f"Close position, don't give back gains."
+            }
 
-        # 5. TARGET REACHED (Intraday Fallback)
-        if current_price >= target * 0.98:
-            return {"status": "🟢 TAKE PROFIT", "msg": f"Price reached or near intraday target (${target:.2f}). Secure profits."}
+        # ── 4. IN BUY ZONE ────────────────────────────────────────────────────
+        if in_buy_zone:
+            # Falling knife — price in zone but 15m collapsing
+            if trend_1h == "DOWN" and rsi_15m < 35:
+                return {
+                    "status": "ENTRY_WATCH",
+                    "msg": f"Price in buy zone (${entry_low:.2f}–${entry_high:.2f}) but 15M RSI "
+                           f"collapsing ({rsi_15m:.0f}), 1H trend DOWN. Wait for 15M stabilization before entry."
+                }
+            # Strong entry: 15m recovering from oversold
+            if rsi_15m < 42 and trend_1h in ("UP", "FLAT"):
+                return {
+                    "status": "ENTRY_NOW",
+                    "msg": f"Buy zone active (${entry_low:.2f}–${entry_high:.2f}). 15M RSI recovering "
+                           f"from oversold ({rsi_15m:.0f}), 1H stable. Enter with stop at ${stop_high:.2f}."
+                }
+            # Normal entry: zone active, no red flags
+            if rsi_1h < 68:
+                return {
+                    "status": "ENTRY_NOW",
+                    "msg": f"Buy zone active (${entry_low:.2f}–${entry_high:.2f}). "
+                           f"1H RSI {rsi_1h:.0f}, 15M {rsi_15m:.0f}, trend {trend_1h}. "
+                           f"Enter position. Stop: ${stop_high:.2f}. Target: ${profit_low:.2f}–${profit_high:.2f}."
+                }
+            # Overbought inside zone
+            return {
+                "status": "ENTRY_WATCH",
+                "msg": f"In buy zone but 1H RSI extended ({rsi_1h:.0f}). Wait for 1H RSI to cool "
+                       f"below 65 before adding exposure."
+            }
 
-        # Default fallback
-        return {"status": "⏳ NEUTRAL", "msg": f"Price is in a neutral zone. 1H RSI: {rsi_1h:.0f}. No clear action."}
+        # ── 5. ABOVE BUY ZONE ─────────────────────────────────────────────────
+        if above_buy_zone:
+            # Check how far toward target
+            progress = 0.0
+            if profit_low > entry_high:
+                progress = (current_price - entry_high) / (profit_low - entry_high)
+
+            # Already past 60% toward TP1 — trail stop
+            if progress >= 0.6:
+                if rsi_1h > 70:
+                    return {
+                        "status": "TIGHTEN_STOP",
+                        "msg": f"Position running well ({progress*100:.0f}% to TP1). 1H RSI elevated ({rsi_1h:.0f}). "
+                               f"Trail stop up to ${entry_high:.2f} (entry zone top). Hold for ${profit_low:.2f}."
+                    }
+                return {
+                    "status": "HOLD",
+                    "msg": f"Holding toward TP1 (${profit_low:.2f}). {progress*100:.0f}% of way there. "
+                           f"Stop at ${stop_high:.2f}. 1H RSI {rsi_1h:.0f}."
+                }
+
+            # Early above zone — wait for pullback to enter, or hold if already positioned
+            if rsi_1h > 72:
+                return {
+                    "status": "WAIT",
+                    "msg": f"Price extended above buy zone (${entry_high:.2f}), 1H RSI overbought ({rsi_1h:.0f}). "
+                           f"Wait for pullback to ${entry_low:.2f}–${entry_high:.2f} before entering."
+                }
+            return {
+                "status": "WAIT",
+                "msg": f"Price above entry zone (${entry_high:.2f}). If in position: hold, stop at ${stop_high:.2f}. "
+                       f"If not in: wait for pullback to buy zone."
+            }
+
+        # ── 6. BELOW BUY ZONE (approaching) ──────────────────────────────────
+        dist_to_entry_pct = ((entry_low - current_price) / entry_low * 100) if entry_low > 0 else 99
+        if dist_to_entry_pct <= 3.0:
+            return {
+                "status": "ENTRY_WATCH",
+                "msg": f"Price {dist_to_entry_pct:.1f}% below buy zone entry (${entry_low:.2f}). "
+                       f"Set alert at ${entry_low:.2f}. 1H RSI {rsi_1h:.0f}."
+            }
+
+        return {
+            "status": "ENTRY_WATCH",
+            "msg": f"Monitoring. Price ${current_price:.2f}, buy zone ${entry_low:.2f}–${entry_high:.2f}. "
+                   f"1H RSI {rsi_1h:.0f}."
+        }
 
     except Exception as e:
         return {"status": "UNKNOWN", "msg": "Failed to calculate status."}
-
+        
+        
 def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
     """
-    1H Taktiksel Analiz (Institutional Footprint)
+    1H Taktiksel Analiz (Boga Finans AI - Institutional Footprint)
     Odak: VWAP Savunma Alanı, Absorption, Volatility Squeeze
     """
     try:
@@ -1675,11 +1163,11 @@ def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
         vwap = curr.get("VWAP_Roll", 0.0)
         atr = curr.get("ATR", price * 0.01)
 
-        # ATR bazlı mesafe (kurumsal yaklaşım)
+        # ATR bazlı mesafe (Kurumsal Yaklaşım)
         vwap_dist_atr = abs(price - vwap) / atr if atr > 0 else 99
         ema50_dist_atr = abs(price - ema50) / atr if atr > 0 else 99
 
-        # Savunma / Kabul / Geç kalınmış ayrımı
+        # Savunma / Kabul / Geç Kalınmış Ayrımı
         in_defense_zone = (vwap_dist_atr <= 0.8) or (ema50_dist_atr <= 0.8)
         in_acceptable_zone = (vwap_dist_atr <= 1.5) or (ema50_dist_atr <= 1.5)
 
@@ -1723,17 +1211,16 @@ def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
         # =========================
         adx = curr.get("ADX", 0.0)
 
-        # YENİ: 1H Grafikte devasa kurumsal alım (Taze Para)
+        # 1H Grafikte Devasa Kurumsal Alım (Taze Para)
         if rvol > 2.5 and price > curr.get("Open", price):
             score += 2.5
             setup = "AGGRESSIVE_BUY"
             notes.append("🚀 1H Institutional Sweep (Massive Volume)")
 
-        # ADX tek başına değil, hacimle birlikte (FOMO kuralı: ADX 45 üstüyse geç kaldın)
+        # ADX Momentum Onayı (ADX 45 üstüyse kovalamayı bırak)
         if 18 <= adx <= 45 and (absorption or rvol > 1.3):
             score += 1.0
             notes.append("ADX + Volume Confirmation")
-
 
         return {
             "setup_type": setup,
@@ -1749,43 +1236,40 @@ def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
             "1h_notes": [str(e)],
             "vpa_signal": False
         }
-
-
+        
 def detect_closing_absorption_setup(df_15m: pd.DataFrame, df_1h: pd.DataFrame) -> dict:
     """
-    Kurumsal PRE-GAP (15:30 - 16:00 NY) - "Go-Home Production"
+    Boga Finans AI - Kurumsal PRE-GAP (15:30 - 16:00 NY)
     Kurumlar pozisyonu eve (overnight) götürmeye istekli mi?
     """
     try:
         if len(df_15m) < 8 or len(df_1h) < 2:
             return {"pre_gap": False, "score": 0.0}
 
-        last_bars = df_15m.iloc[-2:]      # Son 30 dk
+        last_bars = df_15m.iloc[-2:]      # Son 30 dakika
         curr_1h = df_1h.iloc[-1]
         
         score = 0.0
 
         # 1️⃣ VWAP Üzerinde Kapanış (ZORUNLU)
-        # Gün sonu VWAP üstü = Bullish Conviction
+        # Gün sonu VWAP üstü kapanış = Güçlü kurumsal inanç
         price = last_bars.iloc[-1]["Close"]
         vwap_1h = curr_1h.get("VWAP_Roll", 0)
         
         if price < vwap_1h:
-            return {"pre_gap": False, "score": 0.0} # VWAP altıysa taşıma
+            return {"pre_gap": False, "score": 0.0}
             
-        score += 1.5 # VWAP Check Pass
+        score += 1.5
 
         # 2️⃣ Gün Tepesine Yakınlık (High of Day)
-        # Günlük en yükseğin %95'i bölgesinde kapatıyorsa
-        day_high = df_15m["High"].iloc[-26:].max() # Son 1 gün (yaklaşık)
+        day_high = df_15m["High"].iloc[-26:].max() 
         if price >= day_high * 0.98:
             score += 2.0
         
-        # 3️⃣ Hacimli ama Dar Range (Absorption) - VURKAÇ GÜNCELLEMESİ
+        # 3️⃣ Kurumsal İz: Son Dakika Hacim Patlaması
         avg_vol = df_15m["Volume"].rolling(10).mean().iloc[-1]
         curr_vol = last_bars["Volume"].mean()
         
-        # Son dakikalarda hacim en az 2 katına çıkmalı (Gerçek kurumsal izi)
         if curr_vol > avg_vol * 2.0: 
              score += 2.0
         elif curr_vol > avg_vol * 1.5: 
@@ -1799,24 +1283,22 @@ def detect_closing_absorption_setup(df_15m: pd.DataFrame, df_1h: pd.DataFrame) -
     except Exception:
         return {"pre_gap": False, "score": 0.0}
 
-
 async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     """
-    KARTAL YUVASI v3.5 - MASTER PROCESSOR
-    Institutional Swing Engine (1–7 gün)
+    BOGA FİNANS AI - MASTER PROCESSOR
+    Institutional Swing Engine (1–7 Günlük Analiz)
     
-    Improvements:
-    - Manual entry zone calculation (removed calculate_entry_zone dependency)
-    - Volume validation integrated
-    - Market cap & sector info added
-    - Safe .get() accessors
-    - NaN/Inf protection
+    Özellikler:
+    - AI ve Sentiment bağımlılıkları tamamen kaldırıldı (Saf Teknik/Hacim).
+    - BOGA_SWING_ZONES (Arşiv) entegrasyonu sağlandı.
+    - Hacim validasyonu ve Market Cap/Sektör bilgisi eklendi.
+    - NaN/Inf korumalı stabil matematiksel altyapı.
     """
 
     # ================================================
     # 1. VERİ ÇEKME
     # ================================================
-    data_pack = await get_kartal_yuvasi_data(ticker)
+    data_pack = await get_boga_data(ticker)
     if not data_pack:
         return None
 
@@ -1824,9 +1306,9 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     # 2. İNDİKATÖR HESAPLARI
     # ================================================
     try:
-        df_1d = calculate_kartal_indicators(data_pack["1d"], "1d")
-        df_1h = calculate_kartal_indicators(data_pack["1h"], "1h")
-        df_15m = calculate_kartal_indicators(data_pack["15m"], "15m")
+        df_1d = calculate_boga_indicators(data_pack["1d"], "1d")
+        df_1h = calculate_boga_indicators(data_pack["1h"], "1h")
+        df_15m = calculate_boga_indicators(data_pack["15m"], "15m")
     except Exception as e:
         logging.warning(f"{ticker}: Indicator calculation failed: {e}")
         return None
@@ -1842,24 +1324,22 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     rs_note = ""
 
     try:
-        # En az 6 bar gerekli (5 gün öncesi için)
-        if len(df_1d) > 5:  # Index 0-5 = 6 bar
+        # En az 6 bar gerekli (5 gün öncesi kıyaslaması için)
+        if len(df_1d) > 5:
             close_curr = df_1d["Close"].iloc[-1]
             close_5d = df_1d["Close"].iloc[-6]
             stock_5d_pct = ((close_curr - close_5d) / close_5d) * 100
 
             spy_5d_pct = MARKET_CONTEXT.get("spy_5d_pct", 0.0)
 
-            # Strong decoupling
+            # Strong decoupling (Piyasa düşerken hisse yükseliyor)
             if spy_5d_pct < -0.5 and stock_5d_pct > 0:
                 rs_score = 3.0
                 rs_note = "🛡️ RS: Strong Decoupling"
-
             # Clear outperformance
             elif stock_5d_pct > spy_5d_pct + 2.0:
                 rs_score = 2.0
                 rs_note = "🚀 RS: Outperformer"
-
             # Relative resilience
             elif stock_5d_pct > spy_5d_pct - 0.5:
                 rs_score = 1.0
@@ -1874,20 +1354,14 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     # 4. ANALİZ BLOKLARI
     # ================================================
     ctx_1d = analyze_1d_context(df_1d)
-
-    # NO FILTERS - User requested all swing picks to be scanned
-    # if ctx_1d.get("1d_score", 0) <= -50:
-    #     return None
-
     st_1h = analyze_1h_structure(df_1h)
     timing_15m = assess_15m_entry_timing(df_15m, df_1h)
 
-    # Pre-Gap Setup Detection
+    # Pre-Gap Setup Detection (Kapanış Öncesi Kurumsal Alım)
     now_ny = datetime.now(NY_TZ)
     pre_gap_setup = {"pre_gap": False, "score": 0.0}
     
-    # Bot artık 14:30'da çalışıyor, bu yüzden saati 14 olarak güncelliyoruz
-    # veya saati kaldırsan da olur çünkü zaten main sadece 14:30'da çalışıyor.
+    # 14:30 Seansında çalışıyorsa kapanış analizini tetikle
     if now_ny.hour == 14: 
         pre_gap_setup = detect_closing_absorption_setup(df_15m, df_1h)
 
@@ -1895,10 +1369,10 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     # 5. AĞIRLIKLI SKORLAMA (KURUMSAL DENGELEME)
     # ================================================
     final_score = (
-        (rs_score * 1.8) +                           # RS yön verici
-        (st_1h.get("1h_score", 0) * 1.1) +          # Para / yapı
-        (ctx_1d.get("1d_score", 0) * 1.1) +         # Trend fazı
-        (timing_15m.get("timing_score", 0) * 0.5)   # Timing = ince ayar
+        (rs_score * 1.8) +                          # RS: En yüksek ağırlık
+        (st_1h.get("1h_score", 0) * 1.1) +          # 1H Yapı ve Para Akışı
+        (ctx_1d.get("1d_score", 0) * 1.1) +          # 1D Trend Fazı
+        (timing_15m.get("timing_score", 0) * 0.5)    # 15M İnce Ayar
     )
 
     if pre_gap_setup.get("pre_gap", False):
@@ -1909,22 +1383,19 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     final_score *= risk_modifier
 
     # ================================================
-    # 6. FİYAT & METRİK HESAPLAMALARI
+    # 6. FİYAT & DEĞİŞİM METRİKLERİ
     # ================================================
     current_price = float(df_15m["Close"].iloc[-1])
-    
-    # --- 1H & 24H Değişim ---
     change_1h = 0.0
     change_24h = 0.0
+
     try:
         import math
-        
         # 1H Değişim
         if len(df_1h) >= 2:
             prev_1h_close = float(df_1h["Close"].iloc[-2])
             if prev_1h_close > 0:
                 change_1h = ((current_price - prev_1h_close) / prev_1h_close) * 100
-        
         # 24H Değişim
         if len(df_1d) >= 2:
             prev_1d_close = float(df_1d["Close"].iloc[-2])
@@ -1932,17 +1403,11 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
                 change_24h = ((current_price - prev_1d_close) / prev_1d_close) * 100
         
         # NaN / Inf Koruma
-        if math.isnan(change_1h) or math.isinf(change_1h):
-            change_1h = 0.0
-        if math.isnan(change_24h) or math.isinf(change_24h):
-            change_24h = 0.0
-
-    except Exception as e:
-        logging.debug(f"{ticker}: Change calculation warning: {e}")
-        change_1h = 0.0
-        change_24h = 0.0
+        if math.isnan(change_1h) or math.isinf(change_1h): change_1h = 0.0
+        if math.isnan(change_24h) or math.isinf(change_24h): change_24h = 0.0
+    except Exception:
+        change_1h = change_24h = 0.0
     
-    # --- ATR & RVOL ---
     atr_val = float(df_1d["NATR"].iloc[-1])
     atr_abs = float(df_1d["ATR"].iloc[-1])
     rvol = float(df_1h["RVOL"].iloc[-1])
@@ -1950,30 +1415,24 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     # ================================================
     # 7. ENTRY ZONE & STOP LOSS HESAPLAMA (MASTER SYNC)
     # ================================================
-    # ÖNCE: Arşivlenmiş ana swing bölgelerini al (Hallüsinasyon önleyici)
-    swing_info = AI_SWING_ZONES.get(ticker)
+    # Arşivlenmiş bölgeleri al (BOGA_SWING_ZONES)
+    swing_info = BOGA_SWING_ZONES.get(ticker)
     
     if swing_info:
         bz = swing_info.get("buying_zone", {})
         pz = swing_info.get("sell_zone", {})
         sz = swing_info.get("stop_loss_zone", {})
         
-        # Arşiv verisi varsa bunları kullan
         entry_low = bz.get("low")
         entry_high = bz.get("high")
         target_val = pz.get("high") or pz.get("low")
         stop_val = sz.get("high") or sz.get("low")
         
-        # Eğer arşivde veri eksikse (N/A ise) ATR'ye fallback yap
+        # Arşiv eksikse ATR Fallback
         if entry_low is None or entry_high is None:
-            entry_low = current_price - (atr_abs * 0.5)
-            entry_high = current_price + (atr_abs * 0.5)
-        
-        if target_val is None:
-            target_val = current_price + (risk * 2.0)
-            
-        if stop_val is None:
-            stop_val = current_price - (2.0 * atr_abs)
+            entry_low, entry_high = current_price - (atr_abs * 0.5), current_price + (atr_abs * 0.5)
+        if target_val is None: target_val = current_price + (atr_abs * 3.0)
+        if stop_val is None: stop_val = current_price - (2.0 * atr_abs)
 
         scenario = {
             "entry_zone": f"{entry_low:.2f} - {entry_high:.2f}",
@@ -1985,135 +1444,72 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
             "rr_ratio": 2.0
         }
     else:
-        # ARŞİVDE YOKSA (HATA DURUMU) - ATR HESAPLA
-        invalidation = ctx_1d.get("invalidation_level", 0)
-        entry_buffer = atr_abs * 0.5
-        entry_low = current_price - entry_buffer
-        entry_high = current_price + entry_buffer
-        
-        if invalidation > 0:
-            dist_to_invalid = (current_price - invalidation) / current_price
-            if 0.01 < dist_to_invalid < 0.08:
-                stop_loss = invalidation * 0.995
-                stop_type = "Structural (Pivot)"
-            else:
-                stop_loss = current_price - (2.0 * atr_abs)
-                stop_type = "Volatility (2ATR)"
-        else:
-            stop_loss = current_price - (2.0 * atr_abs)
-            stop_type = "Volatility (2ATR)"
-        
-        risk = current_price - stop_loss
-        if risk <= 0: risk = current_price * 0.02
-        
-        target_cons = current_price + (risk * 2.0)
-        
+        # Arşivde yoksa (Fallback)
+        entry_low, entry_high = current_price - (atr_abs * 0.5), current_price + (atr_abs * 0.5)
+        stop_loss = current_price - (2.0 * atr_abs)
+        target_cons = current_price + (abs(current_price - stop_loss) * 2.0)
         scenario = {
             "entry_zone": f"{entry_low:.2f} - {entry_high:.2f}",
             "stop_loss": round(stop_loss, 2),
-            "stop_type": stop_type,
+            "stop_type": "Volatility (2ATR)",
             "target": round(target_cons, 2),
-            "target_agg": round(current_price + (risk * 3.5), 2),
-            "potential_pct": round((target_cons - current_price) / current_price * 100, 2),
+            "target_agg": round(current_price + (abs(current_price - stop_loss) * 3.5), 2),
+            "potential_pct": round((target_cons - current_price) / current_price * 100, 2) if current_price > 0 else 0,
             "rr_ratio": 2.0
         }
     
     # ================================================
-    # 8. VOLUME VALIDATION (Multi-Timeframe)
+    # 8. VOLUME VALIDATION
     # ================================================
     setup_type = st_1h.get("setup_type", "NONE")
-    
     volume_check = validate_volume_for_setup(setup_type, rvol, ticker)
-    
     if not volume_check.get('valid', True):
-        # Volume invalid: Score düşür ve not ekle
         final_score -= 2.0
-        # Note sonra eklenecek (all_notes'a)
 
     # ================================================
-    # 9. AKSİYON MANTIĞI (KURUMSAL)
+    # 9. AKSİYON MANTIĞI
     # ================================================
     action = "WATCH"
-
     if final_score >= 7.0:
         action = "BUY"
-        
-        # Pre-gap setup override
         if pre_gap_setup.get("pre_gap") and pre_gap_setup.get("score", 0) >= 4.0:
-            action = "CLOSE"  # Closing absorption play
-    
-    # Final filter: Only BUY and CLOSE allowed
+            action = "CLOSE" # Kapanış aksiyonu
+
     if action not in ["BUY", "CLOSE"]:
         action = "WATCH"
 
     # ================================================
-    # 10. MARKET CAP & SECTOR BİLGİSİ
+    # 10. MARKET CAP & SECTOR
     # ================================================
     market_cap = 0
     sector = "Unknown"
-    
     try:
-        import yfinance as yf
         stock = yf.Ticker(ticker)
         info = stock.info
         market_cap = info.get('marketCap', 0)
         sector = info.get('sector', 'Unknown')
-    except Exception as e:
-        logging.debug(f"{ticker}: Market cap/sector fetch failed: {e}")
-        market_cap = 0
-        sector = "Unknown"
+    except Exception:
+        pass
 
     # ================================================
-    # 11. NOTLARI BİRLEŞTİR
+    # 11. NOTLAR VE DURUM ANALİZİ
     # ================================================
     all_notes = []
-    
-    if rs_note:
-        all_notes.append(rs_note)
-    
+    if rs_note: all_notes.append(rs_note)
     all_notes.extend(ctx_1d.get("1d_notes", []))
     all_notes.extend(st_1h.get("1h_notes", []))
     all_notes.extend(timing_15m.get("notes", []))
-    
-    if pre_gap_setup.get("pre_gap"):
-        all_notes.append("🏦 PRE-GAP BUY")
-    
-    # Volume warning ekle
-    if not volume_check.get('valid', True):
-        all_notes.append(f"⚠️ {volume_check.get('message', 'Volume weak')}")
+    if pre_gap_setup.get("pre_gap"): all_notes.append("🏦 PRE-GAP BUY")
+    if not volume_check.get('valid', True): all_notes.append(f"⚠️ {volume_check.get('message', 'Volume weak')}")
 
-    # ================================================
-    # 11.B SAATLİK DURUM (HOURLY STATUS)
-    # ================================================
-    rsi_val = 50.0
-    if "RSI" in df_1h.columns and len(df_1h) > 0:
-        rsi_val = float(df_1h["RSI"].iloc[-1])
-    elif "Close" in df_1h.columns and len(df_1h) > 14:
-        delta = df_1h["Close"].diff()
-        gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-        loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-        rs = gain / loss
-        rsi_series = 100 - (100 / (1 + rs))
-        rsi_val = float(rsi_series.iloc[-1])
-        
-    rsi_15m_val = 50.0
-    if df_15m is not None and not df_15m.empty:
-        if "RSI" in df_15m.columns:
-            rsi_15m_val = float(df_15m["RSI"].iloc[-1])
-        elif "Close" in df_15m.columns and len(df_15m) > 14:
-            delta15 = df_15m["Close"].diff()
-            gain15 = (delta15.where(delta15 > 0, 0)).rolling(window=14).mean()
-            loss15 = (-delta15.where(delta15 < 0, 0)).rolling(window=14).mean()
-            rs15 = gain15 / loss15
-            rsi_series15 = 100 - (100 / (1 + rs15))
-            rsi_15m_val = float(rsi_series15.iloc[-1])
-
+    # RSI ve Trend Hesaplama (Hourly Status için)
+    rsi_val = float(df_1h["RSI"].iloc[-1]) if "RSI" in df_1h.columns else 50.0
+    rsi_15m_val = float(df_15m["RSI"].iloc[-1]) if "RSI" in df_15m.columns else 50.0
+    
     trend_1h = "FLAT"
-    if df_1h is not None and len(df_1h) >= 3:
-        if df_1h["Close"].iloc[-1] < df_1h["Close"].iloc[-3] * 0.99:
-            trend_1h = "DOWN"
-        elif df_1h["Close"].iloc[-1] > df_1h["Close"].iloc[-3] * 1.01:
-            trend_1h = "UP"
+    if len(df_1h) >= 3:
+        if df_1h["Close"].iloc[-1] < df_1h["Close"].iloc[-3] * 0.99: trend_1h = "DOWN"
+        elif df_1h["Close"].iloc[-1] > df_1h["Close"].iloc[-3] * 1.01: trend_1h = "UP"
 
     hourly_status = evaluate_hourly_status(
         current_price=current_price,
@@ -2123,7 +1519,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         rsi_1h=rsi_val,
         rsi_15m=rsi_15m_val,
         trend_1h=trend_1h,
-        swing_data=AI_SWING_ZONES.get(ticker)
+        swing_data=BOGA_SWING_ZONES.get(ticker)
     )
 
     # ================================================
@@ -2135,46 +1531,35 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         "price": round(current_price, 2),
         "action": action,
         "timing": action,
-        "source_bucket": "latest",  # Watchlist type
+        "source_bucket": "Boga_Universe",
         
         "hourly_action": hourly_status["status"],
         "hourly_msg": hourly_status["msg"],
         
-        # Volatility & Volume
+        "rsi_1h": round(rsi_val, 1),
+        "adx_1h": round(float(df_1h["ADX"].iloc[-1]) if "ADX" in df_1h.columns else 0.0, 1),
+        "trend_1h": trend_1h,
         "atr": round(atr_abs, 2),
         "natr": round(atr_val, 2),
         "rvol": round(rvol, 2),
-        
-        # Performance
         "rs_score": rs_score,
         "change_1h": round(change_1h, 2),
         "change_24h": round(change_24h, 2),
-
-        # Setup
         "setup_type": setup_type,
         "trend_phase": ctx_1d.get("structure", "UNKNOWN"),
-        
-        # Entry & Risk
         "entry_zone": scenario["entry_zone"],
         "stop_loss": scenario["stop_loss"],
         "stop_type": scenario["stop_type"],
         "target": scenario["target"],
         "potential_pct": scenario["potential_pct"],
-        
-        # Company Info
         "sector": sector,
         "market_cap": market_cap,
-
-        # Notes
         "notes": all_notes,
-
-        # Pre-gap
         "pre_gap": pre_gap_setup.get("pre_gap", False),
         "pre_gap_score": pre_gap_setup.get("score", 0.0),
     }
-    
 # ============================================================
-# 5) TELEGRAM YAPILANDIRMASI
+# 5) BOGA FİNANS AI – TELEGRAM YAPILANDIRMASI
 # ============================================================
 
 # 🔹 Telegram Bildirim Ayarları
@@ -2212,19 +1597,20 @@ def tg(text: str) -> str:
     return escaped
 
 async def send_pre_gap_telegram(pre_gap_list: list[dict]) -> None:
+    """Kapanış öncesi kurumsal emilim (Absorption) listesini gönderir."""
     if not pre_gap_list:
         return
 
     msg = (
-        "⏰ <b>15:45 PRE-GAP BUY WATCHLIST</b>\n"
-        "🏦 Institutional Closing Absorption\n"
+        "🐂 <b>BOGA FİNANS AI | PRE-GAP WATCHLIST</b>\n"
+        "🏦 Institutional Closing Absorption Detected\n"
         "📌 Action: BUY INTO CLOSE (LIMIT)\n\n"
     )
 
     for r in pre_gap_list[:8]:
         msg += f"• <b>{r['symbol']}</b> | Score: {r['pre_gap_score']}\n"
 
-    msg += "\n⚠️ Overnight risk – size accordingly."
+    msg += "\n⚠️ <i>Overnight risk – size accordingly.</i>"
 
     await send_telegram_message(msg)
 
@@ -2297,10 +1683,9 @@ async def send_telegram_photo(photo_path: str, caption: str = "") -> None:
 
     except Exception as e:
         logging.error(f"Telegram Photo Exception: {e}")
-
-
+        
 # ============================================================
-# 7) PİYASA & SEKTÖR ANALİZİ — KARTAL YUVASI (INSTITUTIONAL CONTEXT)
+# 7) PİYASA & SEKTÖR ANALİZİ — BOGA FİNANS AI (INSTITUTIONAL CONTEXT)
 # ============================================================
 
 MARKET_SEMAPHORE = asyncio.Semaphore(2)
@@ -2315,16 +1700,16 @@ if "SECTOR_ETF_MAP" not in globals():
 
 async def analyze_market_and_sectors() -> None:
     """
-    Kurumsal Piyasa Analizi.
+    Boga Finans AI Kurumsal Piyasa Analizi.
     Amaç:
-    1. SPY Trend ve Relative Strength verilerini (5D/20D) hesaplamak.
-    2. VIX (Korku Endeksi) ile risk katsayısını belirlemek.
+    1. SPY Trend ve Relative Strength (RS) verilerini (5D/20D) hesaplamak.
+    2. VIX (Korku Endeksi) ile global risk çarpanını belirlemek.
     3. Sektör rotasyonunu (Lider/Geride Kalan) tespit etmek.
     """
     global MARKET_CONTEXT, SECTOR_CONTEXT
 
     async with MARKET_SEMAPHORE:
-        logging.info("🌍 Kurumsal Piyasa ve Sektör Analizi (v3.0)...")
+        logging.info("🌍 Boga Finans AI: Piyasa ve Sektör Analizi Başlatıldı...")
 
         # =====================================================
         # 1. MARKET REGIME (SPY & VIX)
@@ -2344,11 +1729,11 @@ async def analyze_market_and_sectors() -> None:
                 close = spy_hist["Close"]
                 curr_price = float(close.iloc[-1])
                 
-                # EMA Hesapları
+                # EMA Hesapları (Kurumsal Trend Rehberi)
                 ema200 = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
                 ema50 = float(close.ewm(span=50, adjust=False).mean().iloc[-1])
 
-                # Performans Metrikleri (RS Hesabı için)
+                # Performans Metrikleri (RS Hesaplamaları için temel veri)
                 # 5 Günlük Değişim
                 close_5d = close.iloc[-6] if len(close) > 6 else close.iloc[0]
                 spy_5d_pct = ((curr_price - close_5d) / close_5d) * 100
@@ -2359,16 +1744,16 @@ async def analyze_market_and_sectors() -> None:
                 spy_20d_pct = ((curr_price - close_20d) / close_20d) * 100
                 MARKET_CONTEXT["spy_20d_pct"] = spy_20d_pct
 
-                # Rejim Belirleme
+                # Rejim Belirleme (Bull/Bear)
                 if curr_price > ema200:
                     MARKET_CONTEXT["regime"] = "Bull"
                     base_risk = 1.0 if curr_price > ema50 else 0.8
                 else:
                     MARKET_CONTEXT["regime"] = "Bear"
-                    base_risk = 0.5
+                    base_risk = 0.5 # Bear markette pozisyon büyüklüğü ve skorlar yarıya iner
 
             else:
-                logging.warning("⚠️ SPY verisi yetersiz.")
+                logging.warning("⚠️ SPY verisi yetersiz, güvenli moda geçiliyor.")
                 base_risk = 0.5
 
             # --- VIX ANALİZİ (Korku Ayarı) ---
@@ -2376,22 +1761,21 @@ async def analyze_market_and_sectors() -> None:
                 curr_vix = float(vix_hist["Close"].iloc[-1])
                 MARKET_CONTEXT["vix_level"] = curr_vix
                 
-                # VIX < 20: Güvenli (Risk On)
-                # VIX > 25: Korku (Risk Off) -> Risk çarpanını düşür
+                # VIX > 25: Yüksek Korku (Risk Off) -> Risk çarpanını düşür
                 if curr_vix > 25.0:
                     base_risk *= 0.7
-                    logging.info(f"😨 High VIX ({curr_vix:.2f}) -> Risk Reduced")
+                    logging.info(f"😨 Yüksek VIX ({curr_vix:.2f}): Risk Çarpanı Düşürüldü")
                 elif curr_vix < 15.0:
-                    base_risk *= 1.1 # Düşük volatilite, biraz daha agresif olunabilir
+                    base_risk *= 1.1 # Düşük volatilite, güvenli bölge
             
             MARKET_CONTEXT["risk_modifier"] = round(base_risk, 2)
-            logging.info(f"📊 Market: {MARKET_CONTEXT['regime']} | Risk Mod: {MARKET_CONTEXT['risk_modifier']} | SPY 5D: {MARKET_CONTEXT.get('spy_5d_pct',0):.2f}%")
+            logging.info(f"📊 Rejim: {MARKET_CONTEXT['regime']} | Risk Mod: {MARKET_CONTEXT['risk_modifier']} | SPY 5D: {MARKET_CONTEXT.get('spy_5d_pct',0):.2f}%")
 
         except Exception as e:
-            logging.error(f"🚨 Market Context Error: {e}")
+            logging.error(f"🚨 Market Context Hatası: {e}")
 
         # =====================================================
-        # 2. SECTOR ROTATION
+        # 2. SECTOR ROTATION (Sektörel Güç Analizi)
         # =====================================================
         try:
             SECTOR_CONTEXT.clear()
@@ -2409,22 +1793,21 @@ async def analyze_market_and_sectors() -> None:
             tasks = [ _fetch_sector(n, t) for n, t in SECTOR_ETF_MAP.items() ]
             await asyncio.gather(*tasks)
             
-            # Liderleri Logla
+            # Sektör Liderlerini Belirle
             sorted_sectors = sorted(SECTOR_CONTEXT.items(), key=lambda x: x[1], reverse=True)
             if sorted_sectors:
                 top_str = ", ".join([f"{s[0]}: {s[1]}%" for s in sorted_sectors[:3]])
-                logging.info(f"🚀 Sector Leaders (5D): {top_str}")
+                logging.info(f"🚀 Sektör Liderleri (5D): {top_str}")
 
         except Exception as e:
-            logging.error(f"🚨 Sector Analysis Error: {e}")
-
-
+            logging.error(f"🚨 Sektör Analiz Hatası: {e}")
+            
 # ============================================================
-# 8) YARDIMCI FONKSİYONLAR & SEÇİM MOTORU
+# 8) BOGA FİNANS AI – YARDIMCI FONKSİYONLAR & SEÇİM MOTORU
 # ============================================================
 
 def get_stock_info(ticker: str) -> Dict[str, Any]:
-    """Yahoo Finance'den temel verileri çeker (Cache mekanizmalı)"""
+    """Yahoo Finance'den temel verileri çeker (Boga Cache mekanizmalı)"""
     if "STOCK_INFO_CACHE" not in globals():
         global STOCK_INFO_CACHE
         STOCK_INFO_CACHE = {}
@@ -2449,17 +1832,17 @@ def get_stock_info(ticker: str) -> Dict[str, Any]:
 def select_final_candidates(
     latest_results: List[Dict],
     other_results: List[Dict],
-    target_latest: int = 10,
-    target_others: int = 20,
+    target_latest: int = 15,
+    target_others: int = 10,
     max_per_sector: int = 3
 ) -> List[Dict]:
     """
-    KARTAL YUVASI – Institutional Allocation Engine
-    Önce kalite, sonra kaynak, en son sektör dağılımı.
+    BOGA FİNANS AI – Institutional Allocation Engine
+    Önce kalite, sonra kaynak (5 günlük evren), en son sektör dağılımı.
     """
 
     # -----------------------------
-    # 1️⃣ Ön Seçim (Kaynak Bazlı)
+    # 1️⃣ Ön Seçim (Puan Sıralaması)
     # -----------------------------
     latest_sorted = sorted(latest_results, key=lambda x: x["score"], reverse=True)
     others_sorted = sorted(other_results, key=lambda x: x["score"], reverse=True)
@@ -2467,46 +1850,37 @@ def select_final_candidates(
     preselected = []
 
     for item in latest_sorted[:target_latest]:
-        item["source_bucket"] = "latest"
+        item["source_bucket"] = "Boga_Universe"
         preselected.append(item)
 
     for item in others_sorted[:target_others]:
-        item["source_bucket"] = "others"
+        item["source_bucket"] = "Secondary"
         preselected.append(item)
 
     # -----------------------------
-    # 2️⃣ Global Sıralama (KURUMSAL)
+    # 2️⃣ Global Sıralama & Deduplication
     # -----------------------------
     preselected = sorted(preselected, key=lambda x: x["score"], reverse=True)
 
     final_list = []
-    seen = set() # DEDUPLICATION
+    seen = set()
     sector_counts = {}
 
-    # weakest latest skorunu referans al (override için)
-    latest_scores = [x["score"] for x in preselected if x["source_bucket"] == "latest"]
-    weakest_latest_score = min(latest_scores) if latest_scores else 0
-
     # -----------------------------
-    # 3️⃣ Nihai Seçim (20 Latest + 20 Others = 40 Total)
+    # 3️⃣ Nihai Seçim (Institutional Filtering)
     # -----------------------------
-    # Adım 1: Latest listesini koşulsuz ekle (Sektör kotası ve override yok)
-    for item in [x for x in preselected if x["source_bucket"] == "latest"]:
-        if len(final_list) >= target_latest:
-            break
-        if item["symbol"] not in seen:
-            item["sector_info"] = get_stock_info(item["symbol"]).get("sector", "Unknown")
-            final_list.append(item)
-            seen.add(item["symbol"])
-
-    # Adım 2: Kalan boşluğu Others listesiyle doldur (Sektör kotası uygulanır)
-    for item in [x for x in preselected if x["source_bucket"] == "others"]:
+    for item in preselected:
         if len(final_list) >= (target_latest + target_others):
             break
+            
         if item["symbol"] not in seen:
-            sector = get_stock_info(item["symbol"]).get("sector", "Unknown")
+            sector = item.get("sector", "Unknown")
+            if sector == "Unknown":
+                sector = get_stock_info(item["symbol"]).get("sector", "Unknown")
+            
             sec_count = sector_counts.get(sector, 0)
             
+            # Sektör çeşitlendirmesi: Her sektörden max 3 hisse al
             if sec_count < max_per_sector:
                 item["sector_info"] = sector
                 final_list.append(item)
@@ -2516,16 +1890,16 @@ def select_final_candidates(
     return final_list
 
 def generate_telegram_report(results: List[Dict[str, Any]], limit: int = 10) -> str:
-    """Telegram için Kurumsal Rapor Formatı."""
+    """Boga Finans AI - Kurumsal Rapor Formatı."""
     
     if not results:
-        return "🦅 Kartal Yuvası: Uygun kurumsal swing fırsatı bulunamadı."
+        return "🐂 <b>BOGA FİNANS AI:</b> Mevcut piyasa şartlarında kriterlere uygun kurumsal fırsat bulunamadı."
 
-    # En yüksek skorlu 5'i al (Final listeden)
+    # En yüksek skorlu olanları seç
     top_picks = sorted(results, key=lambda x: x["score"], reverse=True)[:limit]
     
-    report = [f"🦅 <b>KARTAL YUVASI v3.3 (SENTIMENT+AI) (INSTITUTIONAL)</b>"]
-    report.append(f"📅 {datetime.now().strftime('%d/%m %H:%M')} | 🌍 {MARKET_CONTEXT.get('regime', '-')}\n")
+    report = [f"🐂 <b>BOGA FİNANS AI | SWING INTELLIGENCE</b>"]
+    report.append(f"📅 {datetime.now().strftime('%d/%m %H:%M')} | 🌍 Regime: {MARKET_CONTEXT.get('regime', '-')}\n")
 
     for i, res in enumerate(top_picks):
         symbol = res['symbol']
@@ -2533,123 +1907,208 @@ def generate_telegram_report(results: List[Dict[str, Any]], limit: int = 10) -> 
         price = res['price']
         action = res.get('action', 'WATCH')
         
-        # ✅ FIXED Format: Ticker + ACTION + Price + Entry + SL + TP
         entry = res.get('entry_zone', 'N/A')
         sl = res.get('stop_loss', 0)
         tp = res.get('target', 0)
         
+        # Action Emoji Mapping
+        act_emoji = "🟢" if action == "BUY" else "🏦" if action == "CLOSE" else "⏳"
+        
         block = (
-            f"{i+1}. <b>{symbol}</b> | {action}\n"
-            f"   💰 Price: ${price}\n"
-            f"   🟢 Entry: {entry}\n"
-            f"   🛑 SL: ${sl}\n"
-            f"   🎯 TP: ${tp}\n"
+            f"{i+1}. {act_emoji} <b>{symbol}</b> | Score: {score}\n"
+            f"   💰 Price: ${price:.2f}\n"
+            f"   🎯 Entry: <code>{entry}</code>\n"
+            f"   🛑 SL: ${sl:.2f} | 🎯 TP: ${tp:.2f}\n"
         )
         report.append(block)
 
-    report.append(f"👉 <i>Detaylar Dashboard'da.</i>")
+    report.append(f"👉 <i>Daha fazla detay ve grafik için Dashboard'u ziyaret edin.</i>")
     return "\n".join(report)
-
-
+    
 def save_json_for_dashboard(results: List[Dict[str, Any]]):
     """
-    Dashboard için genişletilmiş JSON çıktısı.
-    Yeni alanlar: NATR, RS Score, Setup Type, Source Bucket.
+    BOGA FİNANS AI - Dashboard Veri Motoru
+    Çıktılar:
+      - intraday_signals.json         (Anlık snapshot)
+      - intraday_history/{slot}.json   (Saatlik arşiv)
+      - intraday_signals_summary.json (Günlük özet)
     """
-    import os
-    
-    # Son bir sıralama (Dashboard'da en iyiler üstte görünsün)
-    sorted_results = sorted(results, key=lambda x: x["score"], reverse=True)
-    
-    export_data = {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "market_regime": MARKET_CONTEXT.get("regime", "Unknown"),
-        "sector_leaders": list(SECTOR_CONTEXT.keys())[:3],
-        "vix_level": MARKET_CONTEXT.get("vix_level", 0),
-        "candidates": []
-    }
+    import math
+    import subprocess
 
-    seen_tickers = set()
+    PUBLIC_DIR = r"C:\Users\afksm\finma\frontend\public"
+    HISTORY_DIR = os.path.join(PUBLIC_DIR, "intraday_history")
+    os.makedirs(HISTORY_DIR, exist_ok=True)
+
+    now_ny = datetime.now(NY_TZ)
+    hour_slot = now_ny.strftime("%Y-%m-%dT%H")
+    today_str = now_ny.strftime("%Y-%m-%d")
+    generated_at = now_ny.isoformat()
+
+    def safe_float(val, default=0.0):
+        try:
+            f = float(val)
+            return default if (math.isnan(f) or math.isinf(f)) else f
+        except:
+            return default
+
+    def map_status(hourly_action: str) -> str:
+        ha = (hourly_action or "").upper()
+        if "TAKE PROFIT" in ha: return "FULL_EXIT"
+        if "STOP HIT" in ha or "STOP LOSS" in ha: return "STOP_ALERT"
+        if "ENTRY_NOW" in ha: return "ENTRY_NOW"
+        if "WAIT" in ha or "WATCH" in ha: return "ENTRY_WATCH"
+        if "HOLD" in ha: return "ENTRY_WATCH"
+        return "ENTRY_WATCH"
+
+    # Skorlara göre sırala ve mükerrerleri temizle
+    sorted_results = sorted(results, key=lambda x: x.get("score", 0), reverse=True)
+    seen = set()
+    signals = []
 
     for res in sorted_results:
-        ticker = res["symbol"]
-        
-        # --- STRICT DEDUPLICATION ---
-        if ticker in seen_tickers:
+        ticker = res.get("symbol")
+        if not ticker or ticker in seen:
             continue
-        seen_tickers.add(ticker)
+        seen.add(ticker)
 
-        # Fundamental Veri
-        fund = get_stock_info(ticker)
-        
-        # Helper for robust float conversion
-        def safe_float(val, default=0.0):
-            try:
-                f = float(val)
-                import math
-                if math.isnan(f) or math.isinf(f): return default
-                return f
-            except: return default
+        # BOGA_SWING_ZONES (Arşiv) ile eşleştir
+        swing_info = BOGA_SWING_ZONES.get(ticker, {})
+        hourly_action = res.get("hourly_action", "NEUTRAL")
+        status = map_status(hourly_action)
 
-        item = {
+        pick_date = swing_info.get("pick_date", today_str)
+        try:
+            days_since = (datetime.strptime(today_str, "%Y-%m-%d") - datetime.strptime(pick_date, "%Y-%m-%d")).days
+        except:
+            days_since = 0
+
+        # Bölge verilerini standardize et
+        bz = swing_info.get("buying_zone", {})
+        pz = swing_info.get("profit_zone") or swing_info.get("sell_zone", {})
+        sz = swing_info.get("stop_zone") or swing_info.get("stop_loss_zone", {})
+
+        signal = {
             "ticker": ticker,
-            "score": safe_float(res["score"]),
-            "price": safe_float(res["price"]),
-            "current_price": safe_float(res["price"]),
-            
-            # --- INSTITUTIONAL METRICS ---
-            "action": res.get("action", "WATCH"),
-            "timing": res.get("action", "WATCH"),
-            "source_bucket": res.get("source_bucket", "unknown"),
-            
-            "change_1h": safe_float(res.get("change_1h")),
-            "change_24h": safe_float(res.get("change_24h")),
-            
-            "atr": safe_float(res.get("atr")),
-            "natr": safe_float(res.get("natr")),   # Yeni: Volatilite Kalitesi
-            "atr_pct": safe_float(res.get("natr")), # DATA ENGINE UYUMU İÇİN
-            "rvol": safe_float(res.get("rvol")),
-            "rs_score": safe_float(res.get("rs_score")), 
-            
-            "setup": res.get("setup_type", "NONE"),
-            "trend_phase": res.get("trend_phase", "UNKNOWN"),
-            
-            "entry_zone": str(res.get("entry_zone", "-")),
-            "stop_loss": safe_float(res.get("stop_loss")),
-            "stop_type": res.get("stop_type", "Vol"),
-            "target": safe_float(res.get("target")),
-            "potential_pct": safe_float(res.get("potential_pct")),
-            
-            "sector": fund.get("sector", "Unknown"),
-            "market_cap": safe_float(fund.get("market_cap")),
-            "notes": res.get("notes", [])
+            "company": swing_info.get("company", ticker),
+            "sector": swing_info.get("sector") or res.get("sector", "Unknown"),
+            "swing_pick_date": pick_date,
+            "days_since_pick": days_since,
+            "current_price": safe_float(res.get("price")),
+            "buy_zone": bz,
+            "stop_zone": sz,
+            "profit_zone": pz,
+            "status": status,
+            "status_detail": res.get("hourly_msg", ""),
+            "alert_level": (
+                "HIGH" if status in ("STOP_ALERT", "ENTRY_NOW")
+                else "MEDIUM" if status == "FULL_EXIT"
+                else "LOW"
+            ),
+            "intraday": {
+                "rsi_1h": safe_float(res.get("rsi_1h")),
+                "adx_1h": safe_float(res.get("adx_1h")),
+                "volume_ratio": safe_float(res.get("rvol"), 1.0),
+                "change_1h": safe_float(res.get("change_1h")),
+                "change_24h": safe_float(res.get("change_24h")),
+                "trend_1h": res.get("trend_1h", "FLAT"),
+                "setup": res.get("setup_type", "NONE"),
+                "rs_score": safe_float(res.get("rs_score")),
+                "natr": safe_float(res.get("natr")),
+            },
+            "notes": res.get("notes", []),
         }
-        export_data["candidates"].append(item)
+        signals.append(signal)
+
+    export = {
+        "generated_at": generated_at,
+        "hour_slot": hour_slot,
+        "market_regime": MARKET_CONTEXT.get("regime", "Unknown"),
+        "vix_level": safe_float(MARKET_CONTEXT.get("vix_level", 0)),
+        "total_scanned": len(signals),
+        "signals": signals,
+    }
 
     try:
-        if not os.path.exists(WATCHLIST_DIR): os.makedirs(WATCHLIST_DIR, exist_ok=True)
-        json_path = os.path.join(WATCHLIST_DIR, "bot_analysis_latest.json")
-        
-        with open(json_path, "w", encoding="utf-8") as f:
-            json.dump(export_data, f, indent=4)
+        # 1. Anlık Snapshot Kaydı
+        latest_path = os.path.join(PUBLIC_DIR, "intraday_signals.json")
+        with open(latest_path, "w", encoding="utf-8") as f:
+            json.dump(export, f, indent=2, ensure_ascii=False)
+
+        # 2. Arşiv Kaydı
+        archive_path = os.path.join(HISTORY_DIR, f"{hour_slot}.json")
+        with open(archive_path, "w", encoding="utf-8") as f:
+            json.dump(export, f, indent=2, ensure_ascii=False)
+
+        # 3. Günlük Özet Güncelleme
+        summary_path = os.path.join(PUBLIC_DIR, "intraday_signals_summary.json")
+        summary = {}
+        if os.path.exists(summary_path):
+            try:
+                with open(summary_path, encoding="utf-8") as f:
+                    summary = json.load(f)
+            except:
+                summary = {}
+
+        if summary.get("date") != today_str:
+            summary = {"date": today_str, "last_updated": generated_at, "tickers": {}}
+
+        summary["last_updated"] = generated_at
+        hour_label = now_ny.strftime("%H:%M")
+
+        for sig in signals:
+            t_key = sig["ticker"]
+            if t_key not in summary["tickers"]:
+                summary["tickers"][t_key] = {
+                    "status_history": [],
+                    "current_status": sig["status"],
+                    "entry_triggered_at": None,
+                    "entry_price": None,
+                }
+            t = summary["tickers"][t_key]
+            t["current_status"] = sig["status"]
+            t["status_history"].append({"hour": hour_label, "status": sig["status"]})
             
-        logging.info(f"💾 Dashboard JSON Saved: {json_path} ({len(export_data['candidates'])} items)")
+            # Entry takibi
+            if sig["status"] == "ENTRY_NOW" and t["entry_triggered_at"] is None:
+                t["entry_triggered_at"] = generated_at
+                t["entry_price"] = sig["current_price"]
+
+        with open(summary_path, "w", encoding="utf-8") as f:
+            json.dump(summary, f, indent=2, ensure_ascii=False)
+
+        # GitHub Entegrasyonu
+        finma_dir = r"C:\Users\afksm\finma"
+        subprocess.run(
+            ["git", "add", 
+             "frontend/public/intraday_signals.json", 
+             f"frontend/public/intraday_history/{hour_slot}.json", 
+             "frontend/public/intraday_signals_summary.json"],
+            cwd=finma_dir, capture_output=True
+        )
+        subprocess.run(
+            ["git", "commit", "-m", f"Boga AI Hourly Update: {generated_at}"],
+            cwd=finma_dir, capture_output=True
+        )
+        subprocess.run(["git", "push", "origin", "main"], cwd=finma_dir, capture_output=True)
+        logging.info(f"✅ Boga AI: Veriler kaydedildi ve GitHub'a pushlandı ({len(signals)} hisse).")
+
     except Exception as e:
-        logging.error(f"❌ JSON Save Error: {e}")
+        logging.error(f"❌ save_json_for_dashboard hatası: {e}")
+        
+# ============================================================
+# 9) BOGA FİNANS AI – VERİ KAYIT VE ARŞİVLEME SİSTEMİ
+# ============================================================
 
 def save_to_setup_folder(results: List[Dict[str, Any]]):
-    """
-    Belirtilen klasöre versiyonlu ve detaylı JSON kaydı yapar.
-    Format: date + sembol + sector + action + price + entry zone + SL + TP
-    """
-    SETUP_DIR = r"C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists\setup"
+    """Belirtilen klasöre versiyonlu ve detaylı JSON kaydı yapar."""
+    SETUP_DIR = r"C:\Users\afksm\finma\watchlists\setup"
     if not os.path.exists(SETUP_DIR):
         os.makedirs(SETUP_DIR, exist_ok=True)
 
     now = datetime.now()
     date_str = now.strftime("%Y%m%d")
     
-    # Versiyon kontrolü (v1, v2...)
     version = 1
     while os.path.exists(os.path.join(SETUP_DIR, f"{date_str}_v{version}.json")):
         version += 1
@@ -2659,476 +2118,147 @@ def save_to_setup_folder(results: List[Dict[str, Any]]):
 
     export_list = []
     for res in results:
-        # İstenen spesifik alanları map et
-        item = {
+        export_list.append({
             "date": now.strftime("%Y-%m-%d %H:%M"),
             "symbol": res.get("symbol"),
             "sector": res.get("sector", "Unknown"),
-            "action": res.get("action", "BUY"),
+            "action": res.get("action", "WATCH"),
             "price": res.get("price"),
             "entry_zone": res.get("entry_zone"),
             "SL": res.get("stop_loss"),
             "TP": res.get("target")
-        }
-        export_list.append(item)
+        })
 
     with open(full_path, "w", encoding="utf-8") as f:
         json.dump(export_list, f, indent=4)
-    
-    logging.info(f"✅ SETUP JSON KAYDEDİLDİ: {file_name} ({len(export_list)} hisse)")
+    logging.info(f"✅ SETUP JSON KAYDEDİLDİ: {file_name}")
 
 def save_txt_for_archive(results: List[Dict[str, Any]]):
-    """
-    Agresif botuna benzer şekilde TXT formatında arşiv kaydı yapar.
-    """
-    INDAY_DIR = os.path.join(WATCHLIST_DIR, "inday")
+    """Boga Finans AI - Sembol bazlı TXT arşiv kaydı."""
+    INDAY_DIR = r"C:\Users\afksm\finma\watchlists\inday"
     if not os.path.exists(INDAY_DIR):
         os.makedirs(INDAY_DIR, exist_ok=True)
 
     now = datetime.now()
     date_tag = now.strftime("%Y%m%d")
-    
-    daily_path = os.path.join(INDAY_DIR, f"inday_{date_tag}.txt")
-    rolling_path = os.path.join(INDAY_DIR, "inday_rolling.txt")
-
     tickers = [res.get("symbol") for res in results if res.get("symbol")]
 
-    if not tickers:
-        return
+    if not tickers: return
 
-    # Günlük dosya
-    with open(daily_path, "w", encoding="utf-8") as f:
-        f.write(f"# INDAY Swing Watchlist - {now.strftime('%Y-%m-%d %H:%M')}\n")
-        for t in tickers:
-            f.write(f"{t}\n")
+    # Günlük ve Rolling kayıt
+    with open(os.path.join(INDAY_DIR, f"inday_{date_tag}.txt"), "w", encoding="utf-8") as f:
+        f.write(f"# BOGA AI Swing Watchlist - {now.strftime('%Y-%m-%d %H:%M')}\n")
+        for t in tickers: f.write(f"{t}\n")
             
-    # Rolling dosya
-    with open(rolling_path, "a", encoding="utf-8") as f:
+    with open(os.path.join(INDAY_DIR, "inday_rolling.txt"), "a", encoding="utf-8") as f:
         f.write(f"\n# --- {now.strftime('%Y-%m-%d')} ---\n")
-        for t in tickers:
-            f.write(f"{t}\n")
-
-    logging.info(f"✅ INDAY TXT ARŞİV KAYDEDİLDİ: {daily_path}")
-    
-# ============================================================
-# 9) MAIN EXECUTION & SCHEDULER
-# ============================================================
-
-async def send_pre_gap_telegram(pre_gap_list: list[dict]) -> None:
-    if not pre_gap_list: return
-    msg = "⏰ <b>15:45 PRE-GAP BUY ALERT</b>\n🏦 Institutional Closing Absorption\n\n"
-    for r in pre_gap_list[:5]:
-        msg += f"• <b>{r['symbol']}</b> | Score: {r['pre_gap_score']}\n"
-    await send_telegram_message(msg)
-
-def filter_pre_gap_candidates(results: list[dict]) -> list[dict]:
-    return [r for r in results if r.get("pre_gap") is True and r.get("pre_gap_score", 0) >= 4.0]
-
-# --- Telegram Helper Functions (Placeholder - Previous implementations assumed) ---
-# Assuming send_telegram_message and related logic exists from previous context
-# if not, they should be kept as they were in the original file.
-
+        for t in tickers: f.write(f"{t}\n")
 
 # ============================================================
-# 📊 MAIN FUNCTION - KARTAL YUVASI v3.5 SWING ENGINE
+# 📊 MAIN EXECUTION - BOGA FİNANS AI SWING ENGINE
 # ============================================================
-
-def save_hourly_portfolio_json(results: list[dict]):
-    """
-    Boga AI - Saatlik 25 Hisselik Portföy Durum Raporu
-    """
-    import os
-    import json
-    
-    WATCHLIST_DIR = r"C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists"
-    
-    export_data = {
-        "timestamp_ny": datetime.now(NY_TZ).strftime("%Y-%m-%d %H:%M:%S"),
-        "total_tracked": len(results),
-        "portfolio_status": []
-    }
-    
-    # Listeyi aksiyona göre önceliklendir (Alım Bölgesi ve Satış Yap olanlar üstte görünsün)
-    for res in sorted(results, key=lambda x: x.get("score", 0), reverse=True):
-        item = {
-            "symbol": res.get("symbol"),
-            "price": res.get("price"),
-            "hourly_action": res.get("hourly_action", "UNKNOWN"),
-            "directive_msg": res.get("hourly_msg", ""),
-            "entry_zone": res.get("entry_zone"),
-            "stop_loss": res.get("stop_loss"),
-            "take_profit": res.get("target"),
-            "boga_score": res.get("score"),
-            "change_24h": res.get("change_24h"),
-            "volume_profile": res.get("rvol")
-        }
-        export_data["portfolio_status"].append(item)
-        
-    try:
-        json_path = os.path.join(WATCHLIST_DIR, "boga_hourly_portfolio.json")
-        with open(json_path, "w", encoding="utf-8") as f:
-            json.dump(export_data, f, indent=4, ensure_ascii=False)
-        logging.info(f"💾 Saatlik Portföy JSON Kaydedildi: {json_path}")
-        
-        # Frontend'e kopyala ve Github'a pushla
-        import shutil
-        import subprocess
-        frontend_dst = r"C:\Users\afksm\finma\frontend\public\data\boga_hourly_portfolio.json"
-        os.makedirs(os.path.dirname(frontend_dst), exist_ok=True)
-        shutil.copy2(json_path, frontend_dst)
-        logging.info(f"✅ Saatlik JSON Frontend'e kopyalandı.")
-        
-        finma_dir = r"C:\Users\afksm\finma"
-        subprocess.run(["git", "add", "frontend/public/data/boga_hourly_portfolio.json"], cwd=finma_dir)
-        subprocess.run(["git", "commit", "-m", f"Hourly update: {export_data['timestamp_ny']}"], cwd=finma_dir)
-        subprocess.run(["git", "push", "origin", "main"], cwd=finma_dir)
-        logging.info("✅ Saatlik güncelleme Github'a iletildi (Vercel deploy tetiklenecek).")
-        
-    except Exception as e:
-        logging.error(f"❌ Saatlik JSON kayıt/senk hatası: {e}")
 
 async def main():
-    """
-Ana tarama fonksiyonu
-    Çalışma zamanı: Sadece 14:30
-    """
-    global LAST_PRE_GAP_ALERT_DATE
-
+    """Ana tarama döngüsü: Piyasa analizi, Teknik Tarama ve Kayıt."""
     print("\n" + "=" * 60)
-    
-    # 1️⃣ SESSION AYARI (Sabit 14:30)
     now_ny = datetime.now(NY_TZ)
-    session_name = "CRITICAL (14:30)" 
-    
-    print(f"🦅 KARTAL YUVASI v3.5 - {session_name} SESSION")
-    print(f"⏰ Time: {now_ny.strftime('%Y-%m-%d %H:%M')}")
+    print(f"🐂 BOGA FİNANS AI - SWING ENGINE ONLINE")
+    print(f"⏰ Seans Zamanı: {now_ny.strftime('%Y-%m-%d %H:%M')}")
     print("=" * 60 + "\n")
 
-    # ================================================
-    # 1️⃣ Market & Sector Analysis
-    # ================================================
+    # 1️⃣ Piyasa ve Sektör Analizi (Risk Modifikatörü Belirleme)
     await analyze_market_and_sectors()
 
-    # ================================================
-    # 2) Evren (Universe) Seçimi
-    latest_universe = load_swing_universe()
-
-    if not latest_universe:
-        print("❌ Swing Watchlist boş.")
-        await send_telegram_message("❌ Watchlist boş, tarama yapılamadı")
+    # 2️⃣ Evren Yükleme (Son 5 Günün Seçimleri)
+    universe = load_swing_universe()
+    if not universe:
+        print("❌ Boga Swing Universe boş. Tarama iptal.")
         return
 
-    print(f"\n📂 Watchlist Loaded:")
-    print(f"     Swing Universe: {len(latest_universe)} tickers\n")
-
-    # ================================================
-    # 3️⃣ Scan All Universes
-    # ================================================
-    results = []
+    # 3️⃣ Teknik Tarama (Async Paralel)
+    raw_results = []
     chunk_size = 10
+    for i in range(0, len(universe), chunk_size):
+        chunk = universe[i:i + chunk_size]
+        tasks = [process_single_stock(sym) for sym in chunk]
+        chunk_res = await asyncio.gather(*tasks)
+        raw_results.extend([r for r in chunk_res if r])
+        print(f"📊 Tarama İlerleme: {min(i + chunk_size, len(universe))}/{len(universe)}", end="\r")
+    
+    # 4️⃣ Seçim ve Skorlama
+    final_results = select_final_candidates(raw_results, [], target_latest=25)
+    final_results.sort(key=lambda x: x.get("score", 0), reverse=True)
 
-    async def scan_universe(universe, source_name):
-        """Helper: Scan a watchlist in chunks"""
-        nonlocal results
-        for i in range(0, len(universe), chunk_size):
-            chunk = universe[i:i + chunk_size]
-            tasks = [process_single_stock(sym) for sym in chunk]
-            chunk_results = await asyncio.gather(*tasks)
-            
-            for r in chunk_results:
-                if r:
-                    r["source"] = source_name  # Track source
-                    results.append(r)
-            
-            print(f"   {source_name.upper()}: {min(i + chunk_size, len(universe))}/{len(universe)}", end="\r")
-            await asyncio.sleep(0.5)
-        print()
-
-    # Scan the swing universe
-    if latest_universe:
-        await scan_universe(latest_universe, "swing")
-
-    print(f"\n✅ Scan Complete. Raw Candidates: {len(results)}")
-
-    # ================================================
-    # 4️⃣ Candidate Selection
-    # ================================================
-    # Since we only scan swing picks, we take all valid results
-    final_results = results[:50]  # Limit to 50 just in case
-    
-    # Sort by momentum for better UI presentation
-    final_results.sort(key=lambda x: x.get("momentum_score", 0), reverse=True)
-    
-    # Deduplication (safety check)
-    unique_map = {}
-    for r in final_results:
-        symbol = r.get("symbol")
-        if symbol and symbol not in unique_map:
-            unique_map[symbol] = r
-    
-    final_results = list(unique_map.values())
-    
-    print(
-        f"\n📊 Final Selection:\n"
-        f"   📌 Candidates: {len(final_results)}\n"
-        f"   👉 Total Scanned: {len(results)}"
-    )
-
-    # ================================================
-    # 5️⃣ AI PIPELINE (3-STAGE)
-    # ================================================
-    print("\n" + "=" * 60)
-    print("🎯 3-STAGE AI SELECTION PIPELINE")
-    print("=" * 60)
-    
-    # ------------------------------------------------
-    # STAGE 1: Selection Preparation (Top 40 Picks)
-    # ------------------------------------------------
-    print(f"\n📊 STAGE 1: SELECTION (Top 40 Picks)")
-    
-    latest_sorted = sorted(final_results, key=lambda x: x['score'], reverse=True)
-    
-    ai_candidates = latest_sorted[:40]
-    
-    print(f"   Selected {len(ai_candidates)} candidates for AI Analysis.")
-    if not ai_candidates:
-        print("⚠️ No candidates available.")
-        save_json_for_dashboard(final_results)
-        return
-    
-    # ------------------------------------------------
-    # STAGE 2: Sentiment Enrichment
-    # ------------------------------------------------
-    print(f"\n📊 STAGE 2: SENTIMENT ENRICHMENT")
-    
-    try:
-        enriched_candidates = await enrich_candidates_batch(
-            ai_candidates,
-            max_concurrent=5
-        )
-        print(f"   ✅ Sentiment enrichment complete ({len(enriched_candidates)} candidates)")
-    except Exception as e:
-        logging.error(f"Sentiment enrichment failed: {e}")
-        enriched_candidates = ai_candidates  # Fallback
-        print(f"   ⚠️ Sentiment enrichment failed, continuing without sentiment")
-    
-    # ------------------------------------------------
-    # STAGE 2.5: Real-Time Validation (NEW)
-    # ------------------------------------------------
-    print(f"\n📊 STAGE 2.5: REAL-TIME VALIDATION")
-    print(f"   Validating volume & entry zones for {len(enriched_candidates)} candidates...")
-    
-    for candidate in enriched_candidates:
-        symbol = candidate.get('symbol')
-        
-        # Get real-time data
-        rt_data = get_realtime_price_and_volume(symbol)
-        
-        if rt_data:
-            # Add real-time fields
-            candidate['realtime_price'] = rt_data['price']
-            candidate['volume_ratio'] = rt_data.get('volume_ratio', 1.0)
-            candidate['intraday_momentum'] = rt_data.get('weekly_change_pct', 0.0)  # Swing: weekly not intraday
-            candidate['trend_direction'] = rt_data.get('trend', 'UNKNOWN')
-            candidate['data_age'] = 0  # Daily data
-            
-            # Validate entry zone
-            entry_check = validate_entry_zone(
-                rt_data['price'],
-                candidate.get('entry_zone', 'N/A')
-            )
-            candidate['entry_status'] = entry_check['status']
-            candidate['entry_message'] = entry_check['message']
-            
-            # Validate volume (with 15m/1h trend check)
-            volume_check = validate_volume_for_setup(
-                candidate.get('setup_type', 'NONE'),
-                rt_data.get('volume_ratio', 1.0),
-                ticker=symbol  # Enable trend check
-            )
-            candidate['volume_valid'] = volume_check['valid']
-            candidate['volume_message'] = volume_check['message']
-            
-            # Status output
-            status_emoji = "✅" if entry_check['status'] == 'VALID' and volume_check['valid'] else "⚠️"
-            print(f"   {status_emoji} {symbol}: Vol {rt_data.get('volume_ratio', 0):.1f}x, Entry {entry_check['status']}")
-        else:
-            # Fallback if real-time fails
-            candidate['realtime_price'] = candidate.get('price', 0)
-            candidate['volume_ratio'] = 1.0
-            candidate['intraday_momentum'] = 0.0
-            candidate['trend_direction'] = 'UNKNOWN'
-            candidate['entry_status'] = 'UNKNOWN'
-            candidate['entry_message'] = 'Real-time data unavailable'
-            candidate['volume_valid'] = True  # Don't filter
-            candidate['volume_message'] = 'N/A'
-            print(f"   ⚠️ {symbol}: Real-time data failed")
-    
-    # Filter based on validation (RELAXED FOR AI ANALYSIS)
-    # We want to send candidates to AI even if technicals are slightly off, 
-    # to let Gemini find potential setups (e.g. Pullbacks).
-    # Only filter completely INVALIDATED ones if strictly necessary, but for now we pass ALL.
-    
-    warnings_count = 0
-    for c in enriched_candidates:
-         if c.get('entry_status') in ['INVALIDATED', 'EXTENDED'] or not c.get('volume_valid', True):
-             warnings_count += 1
-    
-    print(f"   ℹ️ Real-time validation: {warnings_count} candidates have technical warnings but will be sent to AI.")
-    # enriched_candidates = [ ... ] # FILTER DISABLED
-    
-    print(f"   ✅ {len(enriched_candidates)} candidates ready for AI analysis")
-    
-    if not enriched_candidates:
-        print("⚠️ No candidates remain after real-time validation")
-        save_json_for_dashboard(final_results)
-        return
-    
-    # ================================================
-    # STAGE 3: AI FINAL SELECTION (GEMINI) - KALDIRILDI
-    # ================================================
-    final_results = enriched_candidates
-    
-    print(f"\n✅ Saatlik değerlendirme tamamlandı. {len(final_results)} hisse işlendi.")
-
-    # ================================================
-    # 6️⃣ Save Data (Setup Folder & Dashboard)
-    # ================================================
-    # 🟢 SENİN EKLEDİĞİN FONKSİYONU BURADA ÇAĞIRIYORUZ:
+    # 5️⃣ Veri Kayıt İşlemleri
     try:
         save_to_setup_folder(final_results)
         save_txt_for_archive(final_results)
-    except Exception as e:
-        logging.error(f"Archive export error: {e}")
+        save_json_for_dashboard(final_results)
         
-    # ================================================
-    # 6️⃣ Save Dashboard JSON & Hourly Export
-    # ================================================
-    save_json_for_dashboard(final_results)
-    save_hourly_portfolio_json(final_results)
-
-    # ================================================
-    # 7️⃣ Pre-Gap Alert (Artık 14:30 taramasında çalışacak)
-    # ================================================
-    # Saat kontrolünü kaldırdık, her taramada kontrol etsin:
-    if LAST_PRE_GAP_ALERT_DATE != now_ny.date():
-        pre_gap_list = filter_pre_gap_candidates(final_results)
+        # Kapanış Öncesi Sinyal (15:45 NY Civarı ise Telegram uyarısı atar)
+        pre_gap_list = [r for r in final_results if r.get("pre_gap") and r.get("pre_gap_score", 0) >= 4.0]
         if pre_gap_list:
             await send_pre_gap_telegram(pre_gap_list)
-            LAST_PRE_GAP_ALERT_DATE = now_ny.date()
-            print("✅ Pre-Gap Alert sent (14:30 Check)")
-
-    # ================================================
-    # 8️⃣ Console Preview
-    # ================================================
-    preview = generate_telegram_report(final_results, limit=5)
-    clean_preview = preview.replace("<b>", "").replace("</b>", "").replace("<i>", "").replace("</i>", "")
-    print("\n" + "-" * 60)
-    print(clean_preview)
-    print("-" * 60 + "\n")
-
-# ============================================================
-# 📅 SCHEDULER FUNCTIONS
-# ============================================================
-
-async def scan_top_stocks():
-    """Wrapper for main scan with error handling"""
-    try:
-        await main()
+            
     except Exception as e:
-        logging.exception("Scan Error")
-        await send_telegram_message(f"❌ Scan Error: {e}")
+        logging.error(f"Kayıt Hatası: {e}")
 
+    # 6️⃣ Console Preview
+    report = generate_telegram_report(final_results, limit=5)
+    print("\n" + "-" * 40 + "\n" + report.replace("<b>","").replace("</b>","") + "\n" + "-" * 40)
+    
+    # Otomatik Telegram Raporu
+    await send_telegram_message(report)
 
-def get_next_run_time_ny() -> datetime:
-    """
-    Boga Finance AI - Saatlik Döngü (10:00 - 16:00 arası)
-    """
+# ============================================================
+# 📅 SCHEDULER (ZAMANLAYICI)
+# ============================================================
+
+def get_next_run_ny() -> datetime:
+    """Seans içi saatlik ve kapanış öncesi döngüsünü ayarlar."""
     now = datetime.now(NY_TZ).replace(second=0, microsecond=0)
+    # Her saat başı ve kritik kapanış (15:30) saati
+    SCHEDULE = [10, 11, 12, 13, 14, 15]
     
-    # Piyasa saatleri içinde saat başı tarama
-    SCHEDULE = [(10, 0), (11, 0), (12, 0), (13, 0), (14, 0), (15, 0), (16, 0)]
+    for hour in SCHEDULE:
+        target = now.replace(hour=hour, minute=0)
+        if target > now: return target
     
-    for hour, minute in SCHEDULE:
-        target = now.replace(hour=hour, minute=minute)
-        if target > now:
-            return target
-    
-    # Bugünün seans saatleri bittiyse, bir sonraki iş günü saat 10:00'a ayarla
+    # Ertesi iş gününe geçiş
     next_day = now + timedelta(days=1)
-    while next_day.weekday() >= 5: # Hafta sonunu atla
-        next_day += timedelta(days=1)
-    
-    return next_day.replace(hour=SCHEDULE[0][0], minute=SCHEDULE[0][1])
-
+    while next_day.weekday() >= 5: next_day += timedelta(days=1)
+    return next_day.replace(hour=10, minute=0)
 
 async def run_scheduler():
-    """
-    Main scheduler loop
-    - Runs on startup
-    - Then runs ONLY at 14:30 NY
-    """
-    print("\n🦅 KARTAL YUVASI v3.5 (SWING TRADE ENGINE) ONLINE")
-    await send_telegram_message(
-        "🦅 <b>KARTAL YUVASI v3.5</b> Online!\n"
-        "📊 Swing Trade Mode\n"
-        "⏰ Schedule: DAILY 14:30 NY ONLY"
-    )
+    print("\n🐂 BOGA FİNANS AI Zamanlayıcı Başlatıldı...")
+    await send_telegram_message("🐂 <b>Boga Finans AI</b> Aktif!\n⏰ Döngü: Saatlik Seans Taraması")
     
-    # Run immediately on startup
-    try:
-        print("\n🚀 Initial scan on startup...")
-        await scan_top_stocks()
-    except Exception as e:
-        logging.error(f"Startup scan error: {e}")
-    
-    # Main scheduler loop
     while True:
         try:
-            # ... (geri kalan kod aynı kalacak, sadece yukarıdaki print değişti)
-            # Calculate next run time
-            next_run = get_next_run_time_ny().astimezone(timezone.utc)
-            wait_seconds = (next_run - datetime.now(timezone.utc)).total_seconds()
+            next_run = get_next_run_ny()
+            wait_sec = (next_run - datetime.now(NY_TZ)).total_seconds()
             
-            if wait_seconds < 0: wait_seconds = 60
+            if wait_sec < 0: wait_sec = 60
+            logging.info(f"💤 Bir sonraki tarama: {next_run.strftime('%H:%M')} NY")
             
-            wait_hours = wait_seconds / 3600
-            next_run_ny = next_run.astimezone(NY_TZ)
-            
-            logging.info(f"💤 Next scan: {next_run_ny.strftime('%Y-%m-%d %H:%M')} NY ({wait_hours:.1f}h wait)")
-            
-            await asyncio.sleep(wait_seconds)
-            
-            logging.info("⏰ Scheduled scan starting...")
-            await scan_top_stocks()
+            await asyncio.sleep(wait_sec)
+            await main()
             
         except Exception as e:
-            logging.error(f"Scheduler error: {e}")
-            await asyncio.sleep(1800)
-
-# ============================================================
-# 🚀 ENTRY POINT
-# ============================================================
+            logging.error(f"Scheduler Hatası: {e}")
+            await asyncio.sleep(600)
 
 if __name__ == "__main__":
     import sys
     import io
-    
-    # UTF-8 encoding for Windows console
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
-    
-    # Windows event loop policy
     if os.name == 'nt':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     
     try:
-        # Check for force mode
-        if "--force" in sys.argv or "--force-ai" in sys.argv:
-            print("🔥 Force mode: Running immediate scan...")
-            asyncio.run(scan_top_stocks())
+        if "--force" in sys.argv:
+            asyncio.run(main())
         else:
-            print("📅 Scheduler mode: Running on schedule (DAILY 14:30 NY ONLY)")
             asyncio.run(run_scheduler())
     except KeyboardInterrupt:
-        print("\n⏹️  Stopped by user")
+        print("\n⏹️ Durduruldu.")
