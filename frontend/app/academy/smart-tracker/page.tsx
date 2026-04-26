@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const content = {
+  const enContent = {
     h1: "Smart Tracker Guide",
     intro: "Add a pick to Smart Tracker and get automatic PnL tracking plus hourly intraday signals.",
     sections: [
@@ -21,11 +21,20 @@ export default function Page() {
     cta_btn: "View Picks",
   };
 
+  const content = {
+    en: enContent,
+    es: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    pt: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    fr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    tr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    id: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <AcademyArticleClient articleKey="smart-tracker" content={content as any} breadcrumb={{ label: "Smart Tracker", href: "/academy/smart-tracker" }} relatedArticles={[]} />
+        <AcademyArticleClient articleKey="smart-tracker" content={content} breadcrumb={{ label: "Smart Tracker", href: "/academy/smart-tracker" }} relatedArticles={[]} />
       </main>
       <Footer />
     </div>

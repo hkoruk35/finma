@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const content = {
+  const enContent = {
     h1: "Swing Picks Explained",
     intro: "Every morning BOGA AI selects 5 swing trade candidates from 7,000+ stocks.",
     sections: [
@@ -21,11 +21,20 @@ export default function Page() {
     cta_btn: "View Picks",
   };
 
+  const content = {
+    en: enContent,
+    es: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    pt: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    fr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    tr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    id: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <AcademyArticleClient articleKey="swing-picks" content={content as any} breadcrumb={{ label: "Swing Picks", href: "/academy/swing-picks-explained" }} relatedArticles={[]} />
+        <AcademyArticleClient articleKey="swing-picks" content={content} breadcrumb={{ label: "Swing Picks", href: "/academy/swing-picks-explained" }} relatedArticles={[]} />
       </main>
       <Footer />
     </div>

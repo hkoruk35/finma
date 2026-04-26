@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const content = {
+  const enContent = {
     h1: "How to Read the Performance Dashboard",
     intro: "The Performance Dashboard shows every swing pick from the last 180 days with full transparency.",
     sections: [
@@ -21,11 +21,20 @@ export default function Page() {
     cta_btn: "View Dashboard",
   };
 
+  const content = {
+    en: enContent,
+    es: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    pt: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    fr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    tr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    id: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <AcademyArticleClient articleKey="performance" content={content as any} breadcrumb={{ label: "Performance Dashboard", href: "/academy/performance-dashboard" }} relatedArticles={[]} />
+        <AcademyArticleClient articleKey="performance" content={content} breadcrumb={{ label: "Performance Dashboard", href: "/academy/performance-dashboard" }} relatedArticles={[]} />
       </main>
       <Footer />
     </div>

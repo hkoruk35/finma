@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const content = {
+  const enContent = {
     h1: "How BOGA AI Works: A 3-Layer System for Swing Trade Intelligence",
     intro: "BOGA AI is built around one goal: finding the highest-conviction swing trade opportunities every day and helping you manage them in real time.",
     sections: [
@@ -31,6 +31,15 @@ export default function Page() {
     ],
     cta_text: "Ready to see the system in action?",
     cta_btn: "View Today's 5 Picks",
+  };
+
+  const content = {
+    en: enContent,
+    es: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    pt: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    fr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    tr: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
+    id: { h1: "", intro: "", sections: [], cta_text: "", cta_btn: "" },
   };
 
   return (
