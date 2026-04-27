@@ -99,10 +99,6 @@ def main():
     # log.info("ADIM 4: refresh_swing_data.py (Sektör ve Zone Düzeltme) çalıştırılıyor...")
     # run_bot_subprocess("refresh_swing_data.py")
 
-    # ── ADIM 4.5: swing_performance tekrarlarını temizle (5 günlük kural enforslama) ──
-    log.info("ADIM 4.5: fix_swing_performance.py (Tekrarlı hisseler temizleniyor)...")
-    run_bot_subprocess("fix_swing_performance.py")
-
     # ── ADIM 5: swing_performance (Geçmiş Performans) güncelle ──
     log.info("ADIM 5: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
@@ -110,6 +106,11 @@ def main():
     # ── ADIM 5.5: inday313 tek seferlik tarama (Saatlik Bot) ──
     log.info("ADIM 5.5: inday313.py --force (Kurumsal Swing Analizi)...")
     run_bot_subprocess("inday313.py", ["--force"])
+
+    # ── ADIM 5.7: swing_performance tekrarlarını temizle (5 günlük kural enforslama) ──
+    # NOT: update_swing_performance sonrası çalışır, yeni eklenen tekrarları temizlemek için
+    log.info("ADIM 5.7: fix_swing_performance.py (Tekrarlı hisseler temizleniyor)...")
+    run_bot_subprocess("fix_swing_performance.py")
 
     # ── ADIM 6: Multilingual AI Summaries (Kritik: Tüm diller için rapor üret) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
