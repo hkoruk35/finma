@@ -124,8 +124,8 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
       </div>
 
 
-      <div className={`grid grid-cols-1 ${minimal ? 'md:grid-cols-2 lg:grid-cols-5' : 'md:grid-cols-2 lg:grid-cols-5'} gap-6`}>
-        {picks.slice(0, minimal ? 15 : 5).map((item, idx) => {
+      <div className={`grid grid-cols-1 ${minimal ? 'md:grid-cols-1 lg:grid-cols-5' : 'md:grid-cols-2 lg:grid-cols-5'} gap-6`}>
+        {picks.slice(0, 5).map((item, idx) => {
           const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
           
           // ACCESS LOGIC
