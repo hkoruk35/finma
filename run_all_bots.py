@@ -99,6 +99,10 @@ def main():
     # log.info("ADIM 4: refresh_swing_data.py (Sektör ve Zone Düzeltme) çalıştırılıyor...")
     # run_bot_subprocess("refresh_swing_data.py")
 
+    # ── ADIM 4.5: swing_performance tekrarlarını temizle (5 günlük kural enforslama) ──
+    log.info("ADIM 4.5: fix_swing_performance.py (Tekrarlı hisseler temizleniyor)...")
+    run_bot_subprocess("fix_swing_performance.py")
+
     # ── ADIM 5: swing_performance (Geçmiş Performans) güncelle ──
     log.info("ADIM 5: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
