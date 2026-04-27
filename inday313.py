@@ -399,96 +399,90 @@ LAST_PRE_GAP_ALERT_DATE = None
 
 # ============================================================
 # ============================================================
-# 📁 BOGA FİNANS AI – CANDIDATE UNIVERSE LOADER (SWING-ONLY MODE)
+# 📁 BOGA FİNANS AI – CANDIDATE UNIVERSE LOADER (ARCHIVE 30-DAY MODE)
 #
 # Amaç:
-# - Sadece son 5 günün "Daily Swing Picks" arşivindeki hisseleri tarar.
-# - Dış kaynaklardan (master list, rolling vs) hisse almaz.
-# - ARCHIVAL INTEGRITY: Hisselerin hedef/stop seviyelerini arşivden çeker.
+# - C:\Users\afksm\finma\frontend\public\data\swing2026 (vb.) klasörünü tarar.
+# - Geçmiş 30 günün arşiv dosyalarını (swing_YYYYMMDD.json) okur.
+# - Her hisse için "en güncel" (en son tarihteki) alım/satım bölgelerini hafızaya alır.
+# - Dış kaynaklardan veya eski formattaki dosyalardan hisse çekmez.
 # ============================================================
 
 BOGA_SWING_ZONES = {}
 
 def load_swing_universe() -> List[str]:
     """
-    Loads unique tickers from the last 5 days of swing picks.
-    Sources:
-      1. swing_all_picks.json  → today's picks with full zone data
-      2. swing_performance.json → last 5 days ticker history
-    Populates BOGA_SWING_ZONES with buy/stop/profit zones for each ticker.
+    inday313 için 30 günlük derin arşiv tarayıcı:
+    1. swing{YYYY} klasöründeki swing_YYYYMMDD.json dosyalarını bulur.
+    2. Dosyaları tarihe göre (en yeni en üstte) sıralar ve son 30 dosyayı seçer.
+    3. Hisselerin en güncel zone verilerini BOGA_SWING_ZONES sözlüğüne yükler.
     """
     global BOGA_SWING_ZONES
     BOGA_SWING_ZONES.clear()
 
-    PUBLIC_DIR = r"C:\Users\afksm\finma\frontend\public"
-    cutoff = (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d")
+    # Yıl bilgisini dinamik alarak klasör yolunu oluştur (örneğin: swing2026)
+    current_year = datetime.now().strftime("%Y")
+    DATA_DIR = os.path.join(r"C:\Users\afksm\finma\frontend\public\data", f"swing{current_year}")
 
-    # 1. Today's picks — full zone data from swing_all_picks.json
-    today_path = os.path.join(PUBLIC_DIR, "swing_all_picks.json")
-    if os.path.exists(today_path):
-        try:
-            with open(today_path, encoding="utf-8") as f:
-                today_data = json.load(f)
-            pick_date = today_data.get("date", datetime.now().strftime("%Y-%m-%d"))
-            for pick in today_data.get("picks", []):
-                ticker = pick.get("ticker")
-                if not ticker:
-                    continue
-                bz = pick.get("buy_zone") or pick.get("boga_zones", {}).get("buying_zone", {})
-                pz = pick.get("profit_zone") or pick.get("boga_zones", {}).get("sell_zone", {})
-                sz = pick.get("stop_zone") or pick.get("boga_zones", {}).get("stop_loss_zone", {})
-                BOGA_SWING_ZONES[ticker] = {
-                    "buying_zone": bz,
-                    "sell_zone": pz,
-                    "stop_loss_zone": sz,
-                    # aliases used by evaluate_hourly_status
-                    "profit_zone": pz,
-                    "stop_zone": sz,
-                    "pick_date": pick_date,
-                    "company": pick.get("company", ticker),
-                    "sector": pick.get("sector", "Unknown"),
-                    "score": pick.get("score", 0),
-                }
-            logging.info(f"📂 swing_all_picks.json: {len(today_data.get('picks', []))} today's picks loaded")
-        except Exception as e:
-            logging.warning(f"⚠️ swing_all_picks.json parse error: {e}")
+    if not os.path.exists(DATA_DIR):
+        logging.error(f"❌ Arşiv dizini bulunamadı: {DATA_DIR}")
+        return []
 
-    # 2. Last 5-day history from swing_performance.json
-    perf_path = os.path.join(PUBLIC_DIR, "swing_performance.json")
-    if os.path.exists(perf_path):
-        try:
-            with open(perf_path, encoding="utf-8") as f:
-                perf_data = json.load(f)
-            added = 0
-            for record in perf_data.get("history", []):
-                if record.get("date", "") < cutoff:
-                    continue
-                ticker = record.get("ticker")
-                if not ticker or ticker in BOGA_SWING_ZONES:
-                    continue
-                entry = record.get("entry", 0)
-                if entry and entry > 0:
-                    bz = {"low": round(entry * 0.97, 2), "high": round(entry * 1.02, 2)}
-                    pz = {"low": round(entry * 1.08, 2), "high": round(entry * 1.12, 2)}
-                    sz = {"low": round(entry * 0.94, 2), "high": round(entry * 0.965, 2)}
+    try:
+        # 1. Klasördeki 'swing_' ile başlayan tüm .json dosyalarını filtrele
+        all_files = [f for f in os.listdir(DATA_DIR) if f.startswith("swing_") and f.endswith(".json")]
+        
+        # 2. Dosyaları tarihe göre sırala (Z'den A'ya -> En yeni tarihli dosya ilk sıraya gelir)
+        all_files.sort(reverse=True)
+        
+        # 3. Son 30 dosyayı seç (30 günlük swing periyodu hafızası)
+        target_files = all_files[:30]
+        logging.info(f"📂 inday313 tarama havuzu için {len(target_files)} günlük arşiv dosyası taranıyor...")
+
+        # 4. Dosyaları teker teker oku (En yenisinden eskiye doğru)
+        for file_name in target_files:
+            file_path = os.path.join(DATA_DIR, file_name)
+            try:
+                with open(file_path, encoding="utf-8") as f:
+                    data = json.load(f)
+                
+                pick_date = data.get("date", "Unknown")
+                for pick in data.get("picks", []):
+                    ticker = pick.get("ticker")
+                    if not ticker:
+                        continue
+                    
+                    # KRİTİK: Dosyaları en yenisinden en eskisine doğru okuduğumuz için, 
+                    # bir hisseyi ilk gördüğümüzde o veriler "en güncel" verilerdir. 
+                    # Sözlükte zaten varsa, daha eski bir dosyadaki verisini almamak için es geçiyoruz.
+                    if ticker in BOGA_SWING_ZONES:
+                        continue
+
+                    # V114/V113 standardına göre zone verilerini eşleştir
+                    bz = pick.get("buy_zone") or pick.get("boga_zones", {}).get("buying_zone", {})
+                    pz = pick.get("profit_zone") or pick.get("boga_zones", {}).get("sell_zone", {})
+                    sz = pick.get("stop_zone") or pick.get("boga_zones", {}).get("stop_loss_zone", {})
+
                     BOGA_SWING_ZONES[ticker] = {
                         "buying_zone": bz,
                         "sell_zone": pz,
                         "stop_loss_zone": sz,
-                        "profit_zone": pz,
+                        "profit_zone": pz,  # Geriye dönük uyumluluk takma adları
                         "stop_zone": sz,
-                        "pick_date": record.get("date", ""),
-                        "company": record.get("company", ticker),
-                        "sector": record.get("sector", "Unknown"),
-                        "score": 0,
+                        "pick_date": pick_date,
+                        "company": pick.get("company", ticker),
+                        "sector": pick.get("sector", "Unknown"),
+                        "score": pick.get("score", 0),
                     }
-                    added += 1
-            logging.info(f"📂 swing_performance.json: {added} historical tickers added (last 5 days)")
-        except Exception as e:
-            logging.warning(f"⚠️ swing_performance.json parse error: {e}")
+            except Exception as e:
+                logging.warning(f"⚠️ {file_name} okunurken hata: {e}")
+
+    except Exception as e:
+        logging.error(f"❌ Klasör tarama hatası: {e}")
+        return []
 
     final_symbols = sorted(BOGA_SWING_ZONES.keys())
-    logging.info(f"✅ Swing universe loaded: {len(final_symbols)} tickers (last 5 days)")
+    logging.info(f"✅ inday313 evreni hazır: {len(final_symbols)} aktif hisse (30 günlük arşiv baz alındı).")
     return final_symbols
     
 # ============================================================

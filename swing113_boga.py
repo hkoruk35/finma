@@ -1,6 +1,6 @@
 """
 ================================================================
-🐂 BOGA AI SWING TRADE MODEL — V114
+🐂 BOGA AI SWING TRADE MODEL — V113
 ================================================================
 MIMARI:
   KATMAN 1 → Tüm evren haftalık tarama → en likit 500 hisse
@@ -251,32 +251,50 @@ async def fetch_all_us_tickers() -> List[str]:
     return list(all_tickers)
 
 # ================================================================
-# 🛡️ ANTI-REPETITION MODULE (Son 5 gün seçilenleri engelle)
+# 🛡️ ANTI-REPETITION MODULE (Son 10 gün seçilenleri engelle)
 # ================================================================
-async def get_recently_picked_tickers(days=5) -> set:
-    """Son 5 gün içinde seçilmiş hisseleri engellemek için listeler."""
+async def get_recently_picked_tickers(days=10) -> set:
+    """
+    Son N gün içinde seçilmiş hisseleri engellemek için listeler.
+    SWING2026 yıl klasöründen swing_YYYYMMDD.json formatında dosyaları okur.
+    """
     recent_tickers = set()
-    public_dir = os.path.join(os.getcwd(), "frontend", "public", "data")
-    
-    if not os.path.exists(public_dir):
+    # ✅ DÜZELTME 1: Absolute path kullan
+    base_data_dir = r"C:\Users\afksm\finma\frontend\public\data"
+    current_year = datetime.now(NY_TZ).strftime("%Y")
+    swing_year_dir = os.path.join(base_data_dir, f"swing{current_year}")
+
+    if not os.path.exists(swing_year_dir):
+        logging.warning(f"⚠️ Arşiv klasörü bulunamadı: {swing_year_dir}")
         return recent_tickers
 
     try:
-        # Son 'days' kadar klasörü (tarih isimli) tara
-        all_dates = sorted([d for d in os.listdir(public_dir) if os.path.isdir(os.path.join(public_dir, d))], reverse=True)
-        for date_folder in all_dates[:days]:
-            file_path = os.path.join(public_dir, date_folder, "swing_all_picks.json")
-            if os.path.exists(file_path):
+        # ✅ DÜZELTME 2: swing_YYYYMMDD.json dosyalarını tara
+        all_files = [f for f in os.listdir(swing_year_dir) if f.startswith("swing_") and f.endswith(".json")]
+        all_files.sort(reverse=True)  # En yeni dosya ilk sıraya
+
+        # Son 'days' kadar dosyayı seç
+        target_files = all_files[:days]
+
+        for file_name in target_files:
+            file_path = os.path.join(swing_year_dir, file_name)
+            try:
                 with open(file_path, "r", encoding="utf-8") as f:
                     day_data = json.load(f)
                     for pick in day_data.get("picks", []):
-                        recent_tickers.add(pick["ticker"])
-        
+                        ticker = pick.get("ticker")
+                        if ticker:
+                            recent_tickers.add(ticker)
+            except Exception as e:
+                logging.warning(f"⚠️ {file_name} okunurken hata: {e}")
+
         if recent_tickers:
-            logging.info(f"🚫 Son {days} gün seçilen ve engellenen hisseler: {recent_tickers}")
+            logging.info(f"🚫 Son {days} gün seçilen ve engellenen hisseler ({len(recent_tickers)}): {sorted(recent_tickers)}")
+        else:
+            logging.info(f"ℹ️ Son {days} günde seçilen hisse yok (ilk tarama mı?)")
     except Exception as e:
-        logging.error(f"⚠️ Geçmiş seçimleri okuma hatası: {e}")
-        
+        logging.error(f"❌ Geçmiş seçimleri okuma hatası: {e}")
+
     return recent_tickers
     
 async def build_atmaca_universe_full() -> List[str]:
@@ -3077,11 +3095,11 @@ async def scan_top_stocks():
     start_time = time.time()
     scanned_count = 0
 
-    # --- YENİ: TEKRAR ENGELLEME MANTIĞI ---
-    recently_picked = await get_recently_picked_tickers(days=5)
-    # Mevcut manuel engellenenlere son 5 günün seçimlerini ekle
+    # --- TEKRAR ENGELLEME MANTIĞI ---
+    recently_picked = await get_recently_picked_tickers(days=10)
+    # Mevcut manuel engellenenlere son 10 günün seçimlerini ekle
     CURRENT_EXCLUSIONS = EXCLUDED_STOCKS.union(recently_picked)
-    # -------------------------------------
+    # ---------------------------------
     
     await send_telegram_message(
         "🐂 <b>BOGA AI SWING TRADE V113 Scanner Started!</b>\n"
@@ -3271,37 +3289,45 @@ async def scan_top_stocks():
         c["ai_summary"] = summary
         await asyncio.sleep(0.5)  # Gemini rate limit koruması
 
-    # ── ADIM 12: JSON ÇIKTI ───────────────────────────────────────────
+# ── ADIM 12: JSON ÇIKTI (inday313 ve Arşiv Senkronizasyonu) ──────────
     now_ny = datetime.now(NY_TZ)
     generated_at = now_ny.isoformat()
-    output_json = build_json_output(top_candidates, generated_at)
-
+    
     try:
-        os.makedirs(WATCHLIST_DIR, exist_ok=True)
-        cwd = os.getcwd()
-        public_dir = os.path.join(cwd, "frontend", "public")
+        # 1. Ana Dizin ve Klasör Yapılandırması
+        # Klasör: C:\Users\afksm\finma\frontend\public\data\swing2026
+        year_str = now_ny.strftime("%Y")
+        base_data_dir = r"C:\Users\afksm\finma\frontend\public\data"
+        swing_year_dir = os.path.join(base_data_dir, f"swing{year_str}")
+        os.makedirs(swing_year_dir, exist_ok=True)
+
+        # Dosya ismi: swing_20260426.json formatı
+        file_date_str = now_ny.strftime("%Y%m%d")
+        custom_file_name = f"swing_{file_date_str}.json"
+        full_archive_path = os.path.join(swing_year_dir, custom_file_name)
+
+        # 2. JSON Verilerini Hazırla
+        output_all = build_json_output(top_candidates, generated_at)
+        output_top5 = build_json_output(top_candidates[:5], generated_at)
+
+        # 3. inday313 Referansı İçin Özel Arşivi Kaydet
+        with open(full_archive_path, "w", encoding="utf-8") as f:
+            json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
+        logging.info(f"📁 inday313 için arşivlendi: {full_archive_path}")
+
+        # 4. Frontend Canlı Dashboard Dosyalarını Güncelle
+        public_dir = r"C:\Users\afksm\finma\frontend\public"
         os.makedirs(public_dir, exist_ok=True)
 
-        # 1. swing_picks.json (Top 5 for Sidebar/Homepage)
-        output_20 = build_json_output(top_candidates[:5], generated_at)
+        # swing_picks.json (Dashboard yan panel/Özet)
         with open(os.path.join(public_dir, "swing_picks.json"), "w", encoding="utf-8") as f:
-            json.dump(output_20, f, indent=2, ensure_ascii=False, default=str)
+            json.dump(output_top5, f, indent=2, ensure_ascii=False, default=str)
         
-        # 2. swing_all_picks.json (Full Candidate List)
-        output_all = build_json_output(top_candidates, generated_at)
+        # swing_all_picks.json (Tam liste sayfa görünümü)
         with open(os.path.join(public_dir, "swing_all_picks.json"), "w", encoding="utf-8") as f:
             json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
 
-        # Archive to dated folder for inday313 reference
-        date_folder = now_ny.strftime("%Y-%m-%d")
-        archive_dir = os.path.join(public_dir, "data", date_folder)
-        os.makedirs(archive_dir, exist_ok=True)
-        archive_path = os.path.join(archive_dir, "swing_all_picks.json")
-        with open(archive_path, "w", encoding="utf-8") as f:
-            json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
-        logging.info(f"📁 Archived swing picks to: {archive_path}")
-
-        # 3. Özel Tablo Formatı (Tarih, Sembol, Giriş, Stop, TP1, TP2)
+        # 5. Özel Tablo Formatı (swing_table.json)
         turkish_months = ["", "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
         tarih_str = f"{now_ny.day} {turkish_months[now_ny.month]}"
         
@@ -3311,8 +3337,8 @@ async def scan_top_stocks():
             table_data.append({
                 "Tarih": tarih_str,
                 "Sembol": c.get("ticker", ""),
-                "Giriş (Buy_L)": z.get("buy_zone", {}).get("low", 0.0),
-                "Stop (SL)": z.get("stop_zone", {}).get("high", 0.0),
+                "Giriş (Buy_L)": z.get("buying_zone", {}).get("low", 0.0),
+                "Stop (SL)": z.get("stop_loss_zone", {}).get("high", 0.0),
                 "Hedef 1 (TP1)": z.get("sell_zone", {}).get("low", 0.0),
                 "Hedef 2 (TP2)": z.get("sell_zone", {}).get("high", 0.0)
             })
@@ -3320,10 +3346,11 @@ async def scan_top_stocks():
         with open(os.path.join(public_dir, "swing_table.json"), "w", encoding="utf-8") as f:
             json.dump(table_data, f, indent=2, ensure_ascii=False)
 
-        logging.info(f"🚀 JSON dosyaları (ve swing_table.json) frontend/public klasörüne yerleştirildi.")
-        
+        logging.info(f"🚀 Dashboard ve Arşiv başarıyla güncellendi.")
+
     except Exception as e:
         logging.error(f"❌ JSON kayıt hatası: {e}")
+        
 
     # ── ADIM 13: TELEGRAM RAPOR ───────────────────────────────────────
     duration = time.time() - start_time
