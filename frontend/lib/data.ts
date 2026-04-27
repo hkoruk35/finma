@@ -347,18 +347,37 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
   // 4. Fallback: If deep analysis JSON missing, build a partial profile using data from summary/swing
   const realPrice = swingPick?.current_price ?? summary?.price;
   const mock = getMockStockDetail(t, realPrice);
-  
+
+  // Preserve the actual analysis date from available sources instead of using today's date
+  let analysisDate = mock.date;
+  if (swingPick?.analysis_date) {
+    analysisDate = swingPick.analysis_date;
+  } else if (swingPick?.date) {
+    analysisDate = swingPick.date;
+  } else {
+    // Fallback: use the most recent date from performance history
+    const perfHistory: any[] = perfData?.history || [];
+    const perfEntries = perfHistory.filter((e: any) => e.ticker === t);
+    if (perfEntries.length > 0) {
+      const latest = perfEntries.sort((a: any, b: any) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      )[0];
+      analysisDate = latest.date;
+    }
+  }
+  mock.date = analysisDate;
+
   if (swingPick || summary) {
     mock.company = swingPick?.company ?? summary?.company ?? mock.company;
     mock.sector = swingPick?.sector ?? summary?.sector ?? mock.sector;
     mock.price.current = realPrice ?? mock.price.current;
-    
+
     const target = mock as any;
 
     if (swingPick) {
       target.scores.master_score = swingPick.score;
       target.scores.score_type = swingPick.score >= 80 ? "HIGH_CONVICTION" : "POSITIVE_BIAS";
-      
+
       if (target.scores_detail) {
         target.scores_detail.entry_range_low = swingPick.buy_zone.low;
         target.scores_detail.entry_range_high = swingPick.buy_zone.high;
@@ -368,13 +387,13 @@ export async function getStockData(ticker: string): Promise<(StockDetail & { is_
         target.scores_detail.stop_range_high = swingPick.stop_zone.high;
         target.scores_detail.risk_reward_ratio = swingPick.boga_zones?.risk_reward || 2.5;
       }
-      
+
       if (target.technical) {
         target.technical.rsi_14 = swingPick.rsi;
         target.technical.adx = swingPick.adx;
         target.technical.rvol = swingPick.rvol;
       }
-      
+
       target.price.change_pct = swingPick.change_1d ?? 0;
       target.price.change_pct_1w = swingPick.change_1w;
       target.price.change_pct_1m = swingPick.change_1m;

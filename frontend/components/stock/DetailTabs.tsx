@@ -7,6 +7,21 @@ interface DetailTabsProps {
   stock: any;
 }
 
+const mapStatusToAction = (status: string): string => {
+  const statusMap: Record<string, string> = {
+    ENTRY_NOW: "🟢 ENTRY NOW",
+    ENTRY_WATCH: "🟡 WATCH",
+    HOLD: "🟢 HOLD",
+    TIGHTEN_STOP: "🟠 TIGHTEN STOP",
+    PARTIAL_PROFIT: "🟡 PARTIAL PROFIT",
+    TAKE_PROFIT: "🔴 TAKE PROFIT",
+    WAIT: "⏳ WAIT",
+    STOP_ALERT: "🔴 STOP ALERT",
+    STOP_HIT: "🔴 STOP HIT",
+  };
+  return statusMap[status] || "⏳ TRACKING";
+};
+
 export default function DetailTabs({ stock }: DetailTabsProps) {
   const [activeTab, setActiveTab] = useState<"tracker" | "analysis">("tracker");
   const [hourlyData, setHourlyData] = useState<any>(null);
@@ -16,31 +31,40 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
   useEffect(() => {
     const fetchHourlyData = async () => {
       try {
-        const res = await fetch(`/data/boga_hourly_portfolio.json?t=${new Date().getTime()}`);
+        const res = await fetch(`/intraday_signals.json?t=${new Date().getTime()}`);
         if (res.ok) {
           const json = await res.json();
-          setLastUpdated(json.timestamp_ny || "");
-          const found = json.portfolio_status?.find((item: any) => item.symbol === stock.ticker);
+          setLastUpdated(json.generated_at || "");
+          const found = json.signals?.find((item: any) => item.ticker === stock.ticker);
           if (found) {
-            setHourlyData(found);
-            
+            // Transform intraday_signals data to match expected format
+            const transformed = {
+              price: found.current_price,
+              change_24h: found.intraday.change_24h,
+              hourly_action: mapStatusToAction(found.status),
+              directive_msg: found.status_detail,
+              entry_zone: found.buy_zone ? `${found.buy_zone.low.toFixed(2)} - ${found.buy_zone.high.toFixed(2)}` : 'N/A',
+              take_profit: found.profit_zone?.high || 'N/A',
+            };
+            setHourlyData(transformed);
+
             // ── DOM SYNC FOR LIVE OVERRIDE (Top Right Price ONLY) ──
             setTimeout(() => {
               const priceEl = document.getElementById("stock-price-current");
-              if (priceEl && found.price) priceEl.innerText = "$" + found.price.toFixed(2);
-              
+              if (priceEl && found.current_price) priceEl.innerText = "$" + found.current_price.toFixed(2);
+
               const changeEl = document.getElementById("stock-price-change");
-              if (changeEl && found.change_24h !== undefined) {
-                const sign = found.change_24h >= 0 ? "+" : "";
-                changeEl.innerText = sign + found.change_24h.toFixed(2) + "%";
-                changeEl.className = `text-xl font-mono font-black leading-none ${found.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
+              if (changeEl && found.intraday.change_24h !== undefined) {
+                const sign = found.intraday.change_24h >= 0 ? "+" : "";
+                changeEl.innerText = sign + found.intraday.change_24h.toFixed(2) + "%";
+                changeEl.className = `text-xl font-mono font-black leading-none ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
               }
-              
+
               const returns1dEl = document.getElementById("stock-returns-1d");
-              if (returns1dEl && found.change_24h !== undefined) {
-                const sign = found.change_24h >= 0 ? "+" : "";
-                returns1dEl.innerText = sign + found.change_24h.toFixed(2) + "%";
-                returns1dEl.className = `text-base md:text-lg font-mono font-black ${found.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
+              if (returns1dEl && found.intraday.change_24h !== undefined) {
+                const sign = found.intraday.change_24h >= 0 ? "+" : "";
+                returns1dEl.innerText = sign + found.intraday.change_24h.toFixed(2) + "%";
+                returns1dEl.className = `text-base md:text-lg font-mono font-black ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
               }
             }, 50);
 
@@ -108,7 +132,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
               </div>
             ) : hourlyData === "not_found" ? (
               <div className="text-center py-16">
-                <p className="text-gray-400 font-medium">This stock is not currently in the 25-stock hourly focus pool.</p>
+                <p className="text-gray-400 font-medium">No hourly data available. Stock will appear during market hours (10:00–16:00 NY).</p>
               </div>
             ) : hourlyData === "error" ? (
               <div className="text-center py-16">

@@ -20,7 +20,7 @@ export default async function SmartTrackerPage() {
         <div className="mb-6 flex justify-between items-center bg-[#161b22] border border-[#30363d] p-4 rounded-xl">
           <div>
             <h2 className="text-xl font-bold text-white tracking-tight">Hourly Intraday Pulse</h2>
-            <p className="text-sm text-gray-400 mt-1">Real-time status tracking of the 25-stock focus pool.</p>
+            <p className="text-sm text-gray-400 mt-1">Real-time status tracking of all swing picks, updated hourly during market hours.</p>
           </div>
           <a href="/smart-tracker/hourly" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-lg shadow-blue-900/20 transition-all">
             View Live Status →
