@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-26T21:03:09.936649-04:00",
+  "generated_at": "2026-04-26T21:16:35.109745-04:00",
   "hour_slot": "2026-04-26T21",
   "market_regime": "Bull",
   "vix_level": 18.709999084472656,
-  "total_scanned": 11,
+  "total_scanned": 15,
   "signals": [
     {
       "ticker": "HAL",
@@ -449,6 +449,137 @@
       ]
     },
     {
+      "ticker": "CORZ",
+      "company": "CORZ",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 0,
+      "current_price": 20.87,
+      "buy_zone": {
+        "low": 20.23,
+        "high": 20.99
+      },
+      "stop_zone": {
+        "low": 19.25,
+        "high": 19.47
+      },
+      "profit_zone": {
+        "low": 23.03,
+        "high": 23.46
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($20.23–$20.99). 1H RSI 50, 15M 50, trend DOWN. Enter position. Stop: $19.47. Target: $23.03–$23.46.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 25.6,
+        "volume_ratio": 1.17,
+        "change_1h": -0.48,
+        "change_24h": 0.29,
+        "trend_1h": "DOWN",
+        "setup": "SQUEEZE",
+        "rs_score": 2.0,
+        "natr": 5.16
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚡ Bollinger Squeeze",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (1.2x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "NOK",
+      "company": "NOK",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 2,
+      "current_price": 10.45,
+      "buy_zone": {
+        "low": 10.26,
+        "high": 10.42
+      },
+      "stop_zone": {
+        "low": 10.03,
+        "high": 10.21
+      },
+      "profit_zone": {
+        "low": 10.73,
+        "high": 10.85
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($10.26–$10.42). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $10.21. Target: $10.73–$10.85.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 34.3,
+        "volume_ratio": 0.89,
+        "change_1h": -0.33,
+        "change_24h": 1.16,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 1.0,
+        "natr": 4.97
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.9x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "ETN",
+      "company": "ETN",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 1,
+      "current_price": 423.89,
+      "buy_zone": {
+        "low": 414.97,
+        "high": 425.13
+      },
+      "stop_zone": {
+        "low": 404.07,
+        "high": 406.49
+      },
+      "profit_zone": {
+        "low": 448.87,
+        "high": 453.95
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($414.97–$425.13). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $406.49. Target: $448.87–$453.95.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 46.0,
+        "volume_ratio": 1.29,
+        "change_1h": -0.12,
+        "change_24h": -0.14,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 2.0,
+        "natr": 2.77
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ 15m trend DOWN (-0.3%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
       "ticker": "OPEN",
       "company": "OPEN",
       "sector": "Real Estate",
@@ -489,6 +620,49 @@
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
         "⚠️ Volume yetersiz (0.9x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "BB",
+      "company": "BB",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 1,
+      "current_price": 5.09,
+      "buy_zone": {
+        "low": 4.92,
+        "high": 5.12
+      },
+      "stop_zone": {
+        "low": 4.66,
+        "high": 4.72
+      },
+      "profit_zone": {
+        "low": 5.66,
+        "high": 5.77
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($4.92–$5.12). 1H RSI 50, 15M 50, trend UP. Enter position. Stop: $4.72. Target: $5.66–$5.77.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 34.2,
+        "volume_ratio": 0.66,
+        "change_1h": 0.39,
+        "change_24h": -3.51,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "rs_score": 2.0,
+        "natr": 6.72
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXHAUSTION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "Aligned with 1H EMA50 & 15M Trend",
+        "⚠️ Volume yetersiz (0.7x < 1.0x) ❌"
       ]
     }
   ]
