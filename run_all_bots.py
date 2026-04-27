@@ -107,6 +107,10 @@ def main():
     log.info("ADIM 5: update_swing_performance.py güncelleniyor...")
     run_bot_subprocess("update_swing_performance.py")
 
+    # ── ADIM 5.5: inday313 tek seferlik tarama (Saatlik Bot) ──
+    log.info("ADIM 5.5: inday313.py --force (Kurumsal Swing Analizi)...")
+    run_bot_subprocess("inday313.py", ["--force"])
+
     # ── ADIM 6: Multilingual AI Summaries (Kritik: Tüm diller için rapor üret) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
     # run_bot_subprocess("update_summaries_now.py")
