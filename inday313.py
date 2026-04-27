@@ -2179,26 +2179,25 @@ async def main():
         raw_results.extend([r for r in chunk_res if r])
         print(f"📊 Tarama İlerleme: {min(i + chunk_size, len(universe))}/{len(universe)}", end="\r")
     
-    # 4️⃣ Seçim ve Skorlama
-    final_results = select_final_candidates(raw_results, [], target_latest=25)
-    final_results.sort(key=lambda x: x.get("score", 0), reverse=True)
+    # 4️⃣ Tüm taradığı hisseleri sırala (filtre yok - tüm raw_results kaydedilecek)
+    raw_results.sort(key=lambda x: x.get("score", 0), reverse=True)
 
-    # 5️⃣ Veri Kayıt İşlemleri
+    # 5️⃣ Veri Kayıt İşlemleri (Tüm taradığı hisseleri kaydet)
     try:
-        save_to_setup_folder(final_results)
-        save_txt_for_archive(final_results)
-        save_json_for_dashboard(final_results)
+        save_to_setup_folder(raw_results)
+        save_txt_for_archive(raw_results)
+        save_json_for_dashboard(raw_results)
         
         # Kapanış Öncesi Sinyal (15:45 NY Civarı ise Telegram uyarısı atar)
-        pre_gap_list = [r for r in final_results if r.get("pre_gap") and r.get("pre_gap_score", 0) >= 4.0]
+        pre_gap_list = [r for r in raw_results if r.get("pre_gap") and r.get("pre_gap_score", 0) >= 4.0]
         if pre_gap_list:
             await send_pre_gap_telegram(pre_gap_list)
-            
+
     except Exception as e:
         logging.error(f"Kayıt Hatası: {e}")
 
     # 6️⃣ Console Preview
-    report = generate_telegram_report(final_results, limit=5)
+    report = generate_telegram_report(raw_results, limit=5)
     print("\n" + "-" * 40 + "\n" + report.replace("<b>","").replace("</b>","") + "\n" + "-" * 40)
     
     # Otomatik Telegram Raporu
