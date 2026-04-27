@@ -124,8 +124,8 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
       </div>
 
 
-      <div className={`grid grid-cols-1 ${minimal ? 'md:grid-cols-1 lg:grid-cols-5' : 'md:grid-cols-2 lg:grid-cols-5'} gap-6`}>
-        {picks.slice(0, 5).map((item, idx) => {
+      <div className={`grid grid-cols-1 ${minimal ? 'md:grid-cols-2 lg:grid-cols-5' : 'md:grid-cols-2 lg:grid-cols-5'} gap-6`}>
+        {picks.slice(0, minimal ? 15 : 5).map((item, idx) => {
           const liveData = allTickers?.find((t: any) => t.ticker === item.ticker);
           
           // ACCESS LOGIC
@@ -189,24 +189,9 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   </p>
                 </div>
 
-                {/* Visual Buy/Sell/SL points - Hidden on mobile per request */}
+                {/* Visual Buy/Sell/SL points - Only in detailed mode, not on homepage */}
                 <div className={`mt-auto hidden md:block ${minimal ? 'space-y-1' : 'bg-black/40 rounded-lg border border-white/5 shadow-inner overflow-hidden'}`}>
-                  {minimal ? (
-                    <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center justify-between bg-[#10b981]/10 px-2 py-1.5 rounded border border-[#10b981]/20">
-                         <span className="text-[9px] font-black text-[#10b981] uppercase">TARGET</span>
-                         <span className="text-[11px] font-mono font-bold text-[#10b981]">${formatPrice(item.profit_zone.high)}</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-[#3b82f6]/10 px-2 py-1.5 rounded border border-[#3b82f6]/20">
-                         <span className="text-[9px] font-black text-[#3b82f6] uppercase">BUY ZONE</span>
-                         <span className="text-[11px] font-mono font-bold text-white">${formatPrice(item.buy_zone.low)}–${formatPrice(item.buy_zone.high)}</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-[#ef4444]/10 px-2 py-1.5 rounded border border-[#ef4444]/20">
-                         <span className="text-[9px] font-black text-[#ef4444] uppercase">STOP LOSS</span>
-                         <span className="text-[11px] font-mono font-bold text-[#ef4444]">${formatPrice(item.stop_zone.low)}</span>
-                      </div>
-                    </div>
-                  ) : (
+                  {!minimal && (
                     [
                       { label: "BUY ZONE",    dot: "bg-[#3b82f6]", val: `$${formatPrice(item.buy_zone.low)} – $${formatPrice(item.buy_zone.high)}`,    color: "text-white" },
                       { label: "PROFIT ZONE", dot: "bg-[#10b981]", val: `$${formatPrice(item.profit_zone.low)} – $${formatPrice(item.profit_zone.high)}`, color: "text-[#10b981]" },
