@@ -177,12 +177,15 @@ export default function SmartTrackerDashboard() {
         const map: Record<string, HourlySignal> = {};
         for (const s of json.signals ?? []) map[s.ticker] = s;
         setSignalMap(map);
+
+        // Refresh prices from intraday signals to auto-update stats (live sync with hourly page)
+        await refreshPrices();
       } catch { /* no signals available */ }
     };
     load();
     const iv = setInterval(load, 60000);
     return () => clearInterval(iv);
-  }, []);
+  }, [refreshPrices]);
 
   if (!activeTracker) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-5 py-16">
