@@ -75,6 +75,7 @@ export default function HourlyTrackerClient({ initialData }: { initialData: Intr
   const [data, setData] = useState<IntraData | null>(initialData);
   const [loading, setLoading] = useState(!initialData);
   const [filter, setFilter] = useState<"all" | "tracker" | "entry" | "alert">("all");
+  const [manualRefresh, setManualRefresh] = useState(false);
 
   const { activeTracker } = useSmartTracker();
   const trackedTickers = useMemo(
@@ -82,14 +83,15 @@ export default function HourlyTrackerClient({ initialData }: { initialData: Intr
     [activeTracker]
   );
 
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`/intraday_signals.json?v=${Date.now()}`);
+      if (res.ok) setData(await res.json());
+    } catch { /* keep existing data */ }
+    finally { setLoading(false); setManualRefresh(false); }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`/intraday_signals.json?v=${Date.now()}`);
-        if (res.ok) setData(await res.json());
-      } catch { /* keep existing data */ }
-      finally { setLoading(false); }
-    };
     fetchData();
     const iv = setInterval(fetchData, 60000);
     return () => clearInterval(iv);
@@ -177,6 +179,16 @@ export default function HourlyTrackerClient({ initialData }: { initialData: Intr
               {lastUpdated}
             </div>
           )}
+          <button
+            onClick={() => {
+              setManualRefresh(true);
+              fetchData();
+            }}
+            disabled={manualRefresh}
+            className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 border border-blue-500/50 text-xs font-medium text-white transition-colors"
+          >
+            {manualRefresh ? "Refreshing..." : "Refresh"}
+          </button>
         </div>
       </div>
 
