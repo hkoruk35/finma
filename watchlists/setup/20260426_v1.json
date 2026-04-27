@@ -1,0 +1,112 @@
+[
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "HAL",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 40.34,
+        "entry_zone": "39.52 - 40.50",
+        "SL": 38.53,
+        "TP": 43.71
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "NTRS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 163.94,
+        "entry_zone": "159.74 - 164.44",
+        "SL": 156.7,
+        "TP": 175.57
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "AMAT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 416.92,
+        "entry_zone": "404.12 - 418.47",
+        "SL": 394.11,
+        "TP": 454.26
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "DOV",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 224.76,
+        "entry_zone": "227.20 - 229.40",
+        "SL": 226.57,
+        "TP": 235.03
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "MTSI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 287.99,
+        "entry_zone": "279.88 - 288.84",
+        "SL": 271.46,
+        "TP": 316.61
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "CMI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 660.56,
+        "entry_zone": "649.67 - 660.53",
+        "SL": 647.87,
+        "TP": 672.19
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "ELV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 344.76,
+        "entry_zone": "342.55 - 348.36",
+        "SL": 341.51,
+        "TP": 355.52
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "KDP",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 29.23,
+        "entry_zone": "28.46 - 29.29",
+        "SL": 27.94,
+        "TP": 31.21
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "VRSN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 269.35,
+        "entry_zone": "264.06 - 270.06",
+        "SL": 258.07,
+        "TP": 289.54
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "BLD",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 453.72,
+        "entry_zone": "454.26 - 469.63",
+        "SL": 451.62,
+        "TP": 481.7
+    },
+    {
+        "date": "2026-04-26 21:03",
+        "symbol": "OPEN",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 5.5,
+        "entry_zone": "5.29 - 5.55",
+        "SL": 5.03,
+        "TP": 6.39
+    }
+]

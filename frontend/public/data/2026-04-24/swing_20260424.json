@@ -1,0 +1,504 @@
+{
+  "generated_at": "2026-04-24T09:34:00.000000-04:00",
+  "date": "2026-04-24",
+  "model": "BOGA AI V114",
+  "market_regime": "BULLISH",
+  "total_picks": 5,
+  "picks": [
+    {
+      "rank": 1,
+      "ticker": "BLD",
+      "company": "BLD",
+      "sector": "Industrials",
+      "score": 77.0,
+      "boga_score": 77.0,
+      "market_regime": "BULLISH",
+      "current_price": 465.24,
+      "holding_period": "15-20 Days",
+      "buy_zone": {
+        "low": 454.26,
+        "high": 469.63
+      },
+      "profit_zone": {
+        "low": 476.21,
+        "high": 481.70
+      },
+      "stop_zone": {
+        "low": 442.84,
+        "high": 451.62
+      },
+      "reasoning": "BOGA AI rates BLD at 77/100 with Elite (S) risk class. Strong institutional accumulation with institutional inflow.",
+      "detail_reasoning": "\n### 1. Industry Insight\nBLD is showing strong institutional interest in the Industrials sector. BOGA AI indicates a tactical score of 77/100, aligning with the current Makro Bullish trend.\n\n### 2. Performance Review\nThe stock is currently trading at $465.24. Momentum indicators suggest strong upside potential within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. RSI at 64.4 indicates healthy upside momentum. ADX at 31.4 shows strong trend with institutional interest.\n**Verdict:** STRONG BUY / ACCUMULATE\n\n### 4. Risk Profile\nElite risk class with 10.4:1 risk/reward ratio. Disciplined use of stop losses at $451.62 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $454.26 - $469.63\n- **Short-term Target:** $481.70\n- **Stop Protection:** $451.62\n- **Risk/Reward Reward:** 10.4:1\n\n*Not Financial Advice*\n",
+      "adx": 31.4,
+      "rsi": 64.4,
+      "rvol": 1.0,
+      "change_1d": 2.74,
+      "change_1w": 19.87,
+      "change_1m": 32.46,
+      "change_1y": 52.52,
+      "change_5y": 132.89,
+      "boga_zones": {
+        "buying_zone": {
+          "low": 454.26,
+          "high": 469.63
+        },
+        "sell_zone": {
+          "low": 476.21,
+          "high": 481.70
+        },
+        "stop_loss_zone": {
+          "low": 442.84,
+          "high": 451.62
+        },
+        "risk_reward": 10.4,
+        "support_1h": 453.82,
+        "resistance_1h": 476.57,
+        "atr_1d": 12.48,
+        "atr_pct": 2.68,
+        "risk_usd": 13.62,
+        "reward_usd": 141.68
+      },
+      "trend_status": {
+        "trend": "Makro Bullish",
+        "rsi_14": 64.4,
+        "adx": 31.4,
+        "macd_hist": 13.036,
+        "mfi": 59.2,
+        "cmf": 0.089,
+        "rvol_today": 1.0,
+        "entry_trigger": "Trend Continuation Swing",
+        "is_exhausted": false
+      },
+      "moving_averages": {
+        "ema_20": 411.17,
+        "ema_50": 412.69,
+        "ema_200": 409.81,
+        "price_vs_ema20": 13.2,
+        "price_vs_ema50": 12.7,
+        "price_vs_ema200": 13.5,
+        "ema20_slope": "Positive"
+      },
+      "hourly_analysis": {
+        "rsi_1h": 64.4,
+        "adx_1h": 31.4,
+        "rvol_1h": "1.0x (✅ Normal)",
+        "ema_structure": "Above EMA50",
+        "pivot_structure": "Pivot HL"
+      },
+      "fundamentals": {
+        "gross_margin_pct": 29.4,
+        "operating_margin_pct": 13.8,
+        "net_margin_pct": 9.6,
+        "revenue_growth_pct": 13.2,
+        "pe_ratio": 26.0,
+        "pb_ratio": 5.73,
+        "fcf_yield_pct": 0.0,
+        "market_cap": "$12.87B",
+        "market_cap_usd": 12870000000
+      },
+      "performance": {
+        "1d_pct": 2.74,
+        "1w_pct": 19.87,
+        "1m_pct": 32.46,
+        "1y_pct": 52.52,
+        "5y_pct": 132.89
+      }
+    },
+    {
+      "rank": 2,
+      "ticker": "NOK",
+      "company": "NOK",
+      "sector": "Technology",
+      "score": 66.8,
+      "boga_score": 66.8,
+      "market_regime": "BULLISH",
+      "current_price": 10.33,
+      "holding_period": "15-20 Days",
+      "buy_zone": {
+        "low": 10.26,
+        "high": 10.42
+      },
+      "profit_zone": {
+        "low": 10.73,
+        "high": 10.85
+      },
+      "stop_zone": {
+        "low": 10.03,
+        "high": 10.21
+      },
+      "reasoning": "BOGA AI rates NOK at 66.8/100 with Elite (S) risk class. Strong institutional accumulation with 75.4 MFI.",
+      "detail_reasoning": "\n### 1. Industry Insight\nNOK is showing strong institutional interest in the Technology sector. BOGA AI indicates a tactical score of 66.8/100, aligning with the current Makro Bullish trend.\n\n### 2. Performance Review\nThe stock is currently trading at $10.33. Strong momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. RSI at 64.7 indicates healthy upside momentum. ADX at 37.7 shows strong trend with institutional interest.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nElite risk class with 11.8:1 risk/reward ratio. Disciplined use of stop losses at $10.21 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $10.26 - $10.42\n- **Short-term Target:** $10.85\n- **Stop Protection:** $10.21\n- **Risk/Reward Reward:** 11.8:1\n\n*Not Financial Advice*\n",
+      "adx": 37.7,
+      "rsi": 64.7,
+      "rvol": 1.0,
+      "change_1d": 4.77,
+      "change_1w": 0.39,
+      "change_1m": 25.21,
+      "change_1y": 126.55,
+      "change_5y": 132.79,
+      "boga_zones": {
+        "buying_zone": {
+          "low": 10.26,
+          "high": 10.42
+        },
+        "sell_zone": {
+          "low": 10.73,
+          "high": 10.85
+        },
+        "stop_loss_zone": {
+          "low": 10.03,
+          "high": 10.21
+        },
+        "risk_reward": 11.8,
+        "support_1h": 10.26,
+        "resistance_1h": 10.38,
+        "atr_1d": 0.27,
+        "atr_pct": 2.61,
+        "risk_usd": 0.12,
+        "reward_usd": 1.41
+      },
+      "trend_status": {
+        "trend": "Makro Bullish",
+        "rsi_14": 64.7,
+        "adx": 37.7,
+        "macd_hist": 0.028,
+        "mfi": 75.4,
+        "cmf": 0.142,
+        "rvol_today": 1.0,
+        "entry_trigger": "Trend Continuation Swing",
+        "is_exhausted": false
+      },
+      "moving_averages": {
+        "ema_20": 9.59,
+        "ema_50": 8.67,
+        "ema_200": 6.90,
+        "price_vs_ema20": 7.7,
+        "price_vs_ema50": 19.1,
+        "price_vs_ema200": 49.7,
+        "ema20_slope": "Positive"
+      },
+      "hourly_analysis": {
+        "rsi_1h": 64.7,
+        "adx_1h": 37.7,
+        "rvol_1h": "1.0x (✅ Normal)",
+        "ema_structure": "Above EMA50",
+        "pivot_structure": "Pivot HL"
+      },
+      "fundamentals": {
+        "gross_margin_pct": 44.6,
+        "operating_margin_pct": 13.0,
+        "net_margin_pct": 3.3,
+        "revenue_growth_pct": 2.4,
+        "pe_ratio": 80.1,
+        "pb_ratio": 2.39,
+        "fcf_yield_pct": 0.0,
+        "market_cap": "$58.11B",
+        "market_cap_usd": 58110000000
+      },
+      "performance": {
+        "1d_pct": 4.77,
+        "1w_pct": 0.39,
+        "1m_pct": 25.21,
+        "1y_pct": 126.55,
+        "5y_pct": 132.79
+      }
+    },
+    {
+      "rank": 3,
+      "ticker": "ELV",
+      "company": "ELV",
+      "sector": "Healthcare",
+      "score": 61.4,
+      "boga_score": 61.4,
+      "market_regime": "BULLISH",
+      "current_price": 346.29,
+      "holding_period": "15-20 Days",
+      "buy_zone": {
+        "low": 342.55,
+        "high": 348.36
+      },
+      "profit_zone": {
+        "low": 352.92,
+        "high": 355.52
+      },
+      "stop_zone": {
+        "low": 337.36,
+        "high": 341.51
+      },
+      "reasoning": "BOGA AI rates ELV at 61.4/100 with Elite (S) risk class. Wait for better entry conditions.",
+      "detail_reasoning": "\n### 1. Industry Insight\nELV is showing institutional interest in the Healthcare sector. BOGA AI indicates a tactical score of 61.4/100, aligning with EMA200 trend above.\n\n### 2. Performance Review\nThe stock is currently trading at $346.29. Strong momentum but overbought conditions present with RSI at 73.2.\n\n### 3. Technical Matrix\nTechnical matrix shows active accumulation but RSI is extended. Entry should wait for pullback to support zones.\n**Verdict:** WAIT / ACCUMULATE ON PULLBACK\n\n### 4. Risk Profile\nElite risk class with 12.5:1 risk/reward ratio. Disciplined use of stop losses at $341.51 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $342.55 - $348.36\n- **Short-term Target:** $355.52\n- **Stop Protection:** $341.51\n- **Risk/Reward Reward:** 12.5:1\n\n*Not Financial Advice*\n",
+      "adx": 25.1,
+      "rsi": 73.2,
+      "rvol": 1.0,
+      "change_1d": 5.51,
+      "change_1w": 9.65,
+      "change_1m": 19.27,
+      "change_1y": -17.61,
+      "change_5y": -6.78,
+      "boga_zones": {
+        "buying_zone": {
+          "low": 342.55,
+          "high": 348.36
+        },
+        "sell_zone": {
+          "low": 352.92,
+          "high": 355.52
+        },
+        "stop_loss_zone": {
+          "low": 337.36,
+          "high": 341.51
+        },
+        "risk_reward": 12.5,
+        "support_1h": 342.55,
+        "resistance_1h": 346.29,
+        "atr_1d": 14.27,
+        "atr_pct": 4.12,
+        "risk_usd": 4.78,
+        "reward_usd": 59.73
+      },
+      "trend_status": {
+        "trend": "EMA200 Üstü",
+        "rsi_14": 73.2,
+        "adx": 25.1,
+        "macd_hist": 3.725,
+        "mfi": 72.6,
+        "cmf": 0.129,
+        "rvol_today": 1.0,
+        "entry_trigger": "Trend Continuation Swing",
+        "is_exhausted": true
+      },
+      "moving_averages": {
+        "ema_20": 315.72,
+        "ema_50": 314.31,
+        "ema_200": 332.87,
+        "price_vs_ema20": 9.7,
+        "price_vs_ema50": 10.2,
+        "price_vs_ema200": 4.0,
+        "ema20_slope": "Positive"
+      },
+      "hourly_analysis": {
+        "rsi_1h": 73.2,
+        "adx_1h": 25.1,
+        "rvol_1h": "1.0x (✅ Normal)",
+        "ema_structure": "Above EMA50",
+        "pivot_structure": "Pivot HL"
+      },
+      "fundamentals": {
+        "gross_margin_pct": 25.6,
+        "operating_margin_pct": 1.5,
+        "net_margin_pct": 2.8,
+        "revenue_growth_pct": 9.5,
+        "pe_ratio": 13.0,
+        "pb_ratio": 1.64,
+        "fcf_yield_pct": 0.0,
+        "market_cap": "$72.18B",
+        "market_cap_usd": 72180000000
+      },
+      "performance": {
+        "1d_pct": 5.51,
+        "1w_pct": 9.65,
+        "1m_pct": 19.27,
+        "1y_pct": -17.61,
+        "5y_pct": -6.78
+      }
+    },
+    {
+      "rank": 4,
+      "ticker": "DOV",
+      "company": "DOV",
+      "sector": "Industrials",
+      "score": 59.0,
+      "boga_score": 59.0,
+      "market_regime": "BULLISH",
+      "current_price": 228.15,
+      "holding_period": "15-20 Days",
+      "buy_zone": {
+        "low": 227.20,
+        "high": 229.40
+      },
+      "profit_zone": {
+        "low": 233.46,
+        "high": 235.03
+      },
+      "stop_zone": {
+        "low": 224.07,
+        "high": 226.57
+      },
+      "reasoning": "BOGA AI rates DOV at 59.0/100 with Elite (S) risk class. Wait for better entry conditions.",
+      "detail_reasoning": "\n### 1. Industry Insight\nDOV is showing institutional interest in the Industrials sector. BOGA AI indicates a tactical score of 59.0/100, aligning with the current Makro Bullish trend.\n\n### 2. Performance Review\nThe stock is currently trading at $228.15. Momentum indicators suggest entry is acceptable within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active accumulation with weak trend (ADX 14.9). RSI at 63.8 indicates healthy momentum but requires caution.\n**Verdict:** WAIT / MONITOR\n\n### 4. Risk Profile\nElite risk class with 12.4:1 risk/reward ratio. Disciplined use of stop losses at $226.57 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $227.20 - $229.40\n- **Short-term Target:** $235.03\n- **Stop Protection:** $226.57\n- **Risk/Reward Reward:** 12.4:1\n\n*Not Financial Advice*\n",
+      "adx": 14.9,
+      "rsi": 63.8,
+      "rvol": 1.0,
+      "change_1d": 5.54,
+      "change_1w": 6.53,
+      "change_1m": 5.83,
+      "change_1y": 36.61,
+      "change_5y": 62.25,
+      "boga_zones": {
+        "buying_zone": {
+          "low": 227.20,
+          "high": 229.40
+        },
+        "sell_zone": {
+          "low": 233.46,
+          "high": 235.03
+        },
+        "stop_loss_zone": {
+          "low": 224.07,
+          "high": 226.57
+        },
+        "risk_reward": 12.4,
+        "support_1h": 227.20,
+        "resistance_1h": 232.36,
+        "atr_1d": 7.54,
+        "atr_pct": 3.30,
+        "risk_usd": 1.58,
+        "reward_usd": 19.62
+      },
+      "trend_status": {
+        "trend": "Makro Bullish",
+        "rsi_14": 63.8,
+        "adx": 14.9,
+        "macd_hist": 1.290,
+        "mfi": 76.8,
+        "cmf": 0.173,
+        "rvol_today": 1.0,
+        "entry_trigger": "Trend Continuation Swing",
+        "is_exhausted": false
+      },
+      "moving_averages": {
+        "ema_20": 216.62,
+        "ema_50": 214.06,
+        "ema_200": 197.54,
+        "price_vs_ema20": 5.3,
+        "price_vs_ema50": 6.6,
+        "price_vs_ema200": 15.5,
+        "ema20_slope": "Positive"
+      },
+      "hourly_analysis": {
+        "rsi_1h": 63.8,
+        "adx_1h": 14.9,
+        "rvol_1h": "1.0x (✅ Normal)",
+        "ema_structure": "Above EMA50",
+        "pivot_structure": "Pivot HL"
+      },
+      "fundamentals": {
+        "gross_margin_pct": 40.2,
+        "operating_margin_pct": 18.2,
+        "net_margin_pct": 13.5,
+        "revenue_growth_pct": 8.8,
+        "pe_ratio": 27.7,
+        "pb_ratio": 4.02,
+        "fcf_yield_pct": 0.0,
+        "market_cap": "$29.78B",
+        "market_cap_usd": 29780000000
+      },
+      "performance": {
+        "1d_pct": 5.54,
+        "1w_pct": 6.53,
+        "1m_pct": 5.83,
+        "1y_pct": 36.61,
+        "5y_pct": 62.25
+      }
+    },
+    {
+      "rank": 5,
+      "ticker": "CMI",
+      "company": "CMI",
+      "sector": "Industrials",
+      "score": 47.4,
+      "boga_score": 47.4,
+      "market_regime": "BULLISH",
+      "current_price": 656.93,
+      "holding_period": "15-20 Days",
+      "buy_zone": {
+        "low": 649.67,
+        "high": 660.53
+      },
+      "profit_zone": {
+        "low": 667.69,
+        "high": 672.19
+      },
+      "stop_zone": {
+        "low": 640.66,
+        "high": 647.87
+      },
+      "reasoning": "BOGA AI rates CMI at 47.4/100 with Elite (S) risk class. Weak signal - wait for stronger confirmation.",
+      "detail_reasoning": "\n### 1. Industry Insight\nCMI is showing institutional interest in the Industrials sector. BOGA AI indicates a tactical score of 47.4/100, below optimal threshold.\n\n### 2. Performance Review\nThe stock is currently trading at $656.93. RSI is extended at 74.4, indicating overbought conditions.\n\n### 3. Technical Matrix\nTechnical matrix shows accumulation but with caution. RSI is extremely elevated and suggests pullback is likely.\n**Verdict:** WEAK / WAIT FOR CONFIRMATION\n\n### 4. Risk Profile\nElite risk class with 12.5:1 risk/reward ratio. Disciplined use of stop losses at $647.87 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $649.67 - $660.53\n- **Short-term Target:** $672.19\n- **Stop Protection:** $647.87\n- **Risk/Reward Reward:** 12.5:1\n\n*Not Financial Advice*\n",
+      "adx": 21.1,
+      "rsi": 74.4,
+      "rvol": 1.0,
+      "change_1d": 2.77,
+      "change_1w": 7.89,
+      "change_1m": 18.42,
+      "change_1y": 126.64,
+      "change_5y": 186.41,
+      "boga_zones": {
+        "buying_zone": {
+          "low": 649.67,
+          "high": 660.53
+        },
+        "sell_zone": {
+          "low": 667.69,
+          "high": 672.19
+        },
+        "stop_loss_zone": {
+          "low": 640.66,
+          "high": 647.87
+        },
+        "risk_reward": 12.5,
+        "support_1h": 649.67,
+        "resistance_1h": 663.01,
+        "atr_1d": 24.52,
+        "atr_pct": 3.73,
+        "risk_usd": 9.06,
+        "reward_usd": 113.31
+      },
+      "trend_status": {
+        "trend": "Makro Bullish",
+        "rsi_14": 74.4,
+        "adx": 21.1,
+        "macd_hist": 6.847,
+        "mfi": 85.8,
+        "cmf": 0.186,
+        "rvol_today": 1.0,
+        "entry_trigger": "Trend Continuation Swing",
+        "is_exhausted": true
+      },
+      "moving_averages": {
+        "ema_20": 603.35,
+        "ema_50": 578.88,
+        "ema_200": 494.00,
+        "price_vs_ema20": 8.9,
+        "price_vs_ema50": 13.5,
+        "price_vs_ema200": 33.0,
+        "ema20_slope": "Positive"
+      },
+      "hourly_analysis": {
+        "rsi_1h": 74.4,
+        "adx_1h": 21.1,
+        "rvol_1h": "1.0x (✅ Normal)",
+        "ema_structure": "Above EMA50",
+        "pivot_structure": "Pivot HL"
+      },
+      "fundamentals": {
+        "gross_margin_pct": 0.0,
+        "operating_margin_pct": 0.0,
+        "net_margin_pct": 0.0,
+        "revenue_growth_pct": 0.0,
+        "pe_ratio": 0.0,
+        "pb_ratio": 0.0,
+        "fcf_yield_pct": 0.0,
+        "market_cap": "$85.23B",
+        "market_cap_usd": 85230000000
+      },
+      "performance": {
+        "1d_pct": 2.77,
+        "1w_pct": 7.89,
+        "1m_pct": 18.42,
+        "1y_pct": 126.64,
+        "5y_pct": 186.41
+      }
+    }
+  ]
+}

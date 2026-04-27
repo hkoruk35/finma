@@ -1,15 +1,15 @@
 {
   "stats": {
-    "total_picks": 631,
-    "completed_count": 985,
-    "pending_count": 125,
-    "win_rate": 98.6,
-    "avg_return_pct": 10.5,
+    "total_picks": 635,
+    "completed_count": 530,
+    "pending_count": 106,
+    "win_rate": 98.1,
+    "avg_return_pct": 9.6,
     "period_days": 180,
-    "above_5pct_rate": 67.3,
-    "above_10pct_rate": 40.7,
+    "above_5pct_rate": 63.0,
+    "above_10pct_rate": 36.8,
     "stop_loss_pct": -3.5,
-    "last_updated": "2026-04-26T09:13:29.262443"
+    "last_updated": "2026-04-27T09:13:28.087393"
   },
   "history": [
     {
@@ -8008,19 +8008,6 @@
       "peak_date": "2026-04-24"
     },
     {
-      "date": "2026-04-23",
-      "ticker": "MSCI",
-      "company": "MSCI Inc.",
-      "sector": "Financial Services",
-      "subsector": "Financial Data & Stock Exchanges",
-      "entry": 603.094970703125,
-      "max_price": 611.05,
-      "return_pct": 1.32,
-      "days": 0,
-      "result": "PENDING",
-      "peak_date": "2026-04-23"
-    },
-    {
       "date": "2026-04-24",
       "ticker": "BLD",
       "company": "TopBuild Corp.",
@@ -8204,7 +8191,67 @@
       "return_pct": 0.0,
       "days": 0,
       "result": "PENDING"
+    },
+    {
+      "date": "2026-04-27",
+      "ticker": "APLD",
+      "company": "Applied Digital Corporation",
+      "sector": "Technology",
+      "subsector": "Information Technology Services",
+      "entry": 34.97999954223633,
+      "max_price": 34.97999954223633,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-27",
+      "ticker": "CSCO",
+      "company": "Cisco Systems, Inc.",
+      "sector": "Technology",
+      "subsector": "Communication Equipment",
+      "entry": 89.01000213623047,
+      "max_price": 89.01000213623047,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-27",
+      "ticker": "CSX",
+      "company": "CSX Corporation",
+      "sector": "Industrials",
+      "subsector": "Railroads",
+      "entry": 45.40999984741211,
+      "max_price": 45.40999984741211,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-27",
+      "ticker": "MSCI",
+      "company": "MSCI Inc.",
+      "sector": "Financial Services",
+      "subsector": "Financial Data & Stock Exchanges",
+      "entry": 592.6900024414062,
+      "max_price": 592.6900024414062,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
+    },
+    {
+      "date": "2026-04-27",
+      "ticker": "WMT",
+      "company": "Walmart Inc.",
+      "sector": "Consumer Defensive",
+      "subsector": "Discount Stores",
+      "entry": 129.9199981689453,
+      "max_price": 129.9199981689453,
+      "return_pct": 0.0,
+      "days": 0,
+      "result": "PENDING"
     }
   ],
-  "generated_at": "2026-04-26T09:13:29.262461"
+  "generated_at": "2026-04-27T09:13:28.087417"
 }
