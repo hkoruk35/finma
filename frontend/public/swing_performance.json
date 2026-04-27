@@ -9,7 +9,7 @@
     "above_5pct_rate": 63.0,
     "above_10pct_rate": 36.8,
     "stop_loss_pct": -3.5,
-    "last_updated": "2026-04-27T16:42:13.098438"
+    "last_updated": "2026-04-27T10:40:15.323930"
   },
   "history": [
     {
@@ -97,8 +97,8 @@
       "sector": "Financial Services",
       "subsector": "Asset Management",
       "entry": 164.00999450683594,
-      "max_price": 168.21,
-      "return_pct": 2.56,
+      "max_price": 165.94,
+      "return_pct": 1.18,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-04-27"
@@ -201,8 +201,8 @@
       "sector": "Technology",
       "subsector": "Software - Infrastructure",
       "entry": 5.090000152587891,
-      "max_price": 5.32,
-      "return_pct": 4.52,
+      "max_price": 5.25,
+      "return_pct": 3.14,
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-04-27"
@@ -227,8 +227,8 @@
       "sector": "Healthcare",
       "subsector": "Healthcare Plans",
       "entry": 344.44500732421875,
-      "max_price": 357.97,
-      "return_pct": 3.93,
+      "max_price": 357.94,
+      "return_pct": 3.92,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-04-27"
@@ -538,12 +538,12 @@
       "company": "APi Group Corp",
       "sector": "Industrials",
       "entry": 46.3849983215332,
-      "max_price": 49.63,
-      "return_pct": 7.0,
-      "days": 10,
+      "max_price": 49.45,
+      "return_pct": 6.61,
+      "days": 6,
       "result": "PENDING",
       "subsector": "Specialty Business Services",
-      "peak_date": "2026-04-27"
+      "peak_date": "2026-04-23"
     },
     {
       "date": "2026-04-17",
@@ -721,8 +721,8 @@
       "sector": "Technology",
       "subsector": "Electronic Components",
       "entry": 367.02,
-      "max_price": 423.21,
-      "return_pct": 15.31,
+      "max_price": 422.5,
+      "return_pct": 15.12,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-04-27"
@@ -760,8 +760,8 @@
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 907.58,
-      "max_price": 1070.64,
-      "return_pct": 17.97,
+      "max_price": 1051.77,
+      "return_pct": 15.89,
       "days": 13,
       "result": "PENDING",
       "peak_date": "2026-04-27"
@@ -8268,5 +8268,5 @@
       "peak_date": "2026-01-28"
     }
   ],
-  "generated_at": "2026-04-27T16:42:13.098444"
+  "generated_at": "2026-04-27T10:40:15.323938"
 }
