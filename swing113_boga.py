@@ -1316,10 +1316,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         ema20_slope_numeric = (ema20_1d.iloc[-1] - ema20_1d.iloc[-10]) / ema20_1d.iloc[-10] if len(ema20_1d) >= 10 and ema20_1d.iloc[-10] > 0 else 0.0
         is_ema_flat = abs(ema20_slope_numeric) < 0.008
 
-        # Bollinger Bantları (BB) Genişliği ile Sıkışma Kontrolü
+        # Bollinger Bantları (BB) Genişliği ile Sıkışma Kontrolü (RELATİF SQUEEZE)
         bb_1d = BollingerBands(close_1d, 20, 2)
-        bb_width = (bb_1d.bollinger_hband().iloc[-1] - bb_1d.bollinger_lband().iloc[-1]) / ema20_1d.iloc[-1]
-        is_squeeze = bb_width < 0.06  # Bant EMA'nın %6'sına kadar daraldıysa fırtına yakındır!
+        bb_width_series = (bb_1d.bollinger_hband() - bb_1d.bollinger_lband()) / ema20_1d
+        bb_width = bb_width_series.iloc[-1]
+        bb_width_avg_50 = bb_width_series.tail(50).mean() if len(bb_width_series) >= 50 else bb_width
+        # Mevcut genişlik, son 50 günün ortalamasının %60'ından küçükse VEYA mutlak değer %6'nın altındaysa
+        is_squeeze = (bb_width < (bb_width_avg_50 * 0.60)) or (bb_width < 0.06)
 
         # ── ALPHA MOTORU 2: LİKİDİTE AVI (Failed Breakdown / Spring) ─────
         min_low_10d = low_1d.tail(10).iloc[:-1].min()
@@ -1404,9 +1407,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             cmf_val = 0.0
 
-        # 4. PARA GİRİŞİ ESNETİLDİ: Hafif eksiler tolere edilir (-0.10). Sadece sert mal boşaltmaları elenir.
-        if cmf_val != 0.0 and cmf_val < -0.10:
-            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f}<-0.10")
+        # 4. PARA GİRİŞİ ESNETİLDİ (DİNAMİK CMF): Fiyat EMA20'nin üzerindeyse, dip dönüşü toleransı -0.20'ye esner.
+        cmf_threshold = -0.20 if current_price > last_ema20 else -0.10
+        if cmf_val != 0.0 and cmf_val < cmf_threshold:
+            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f}<{cmf_threshold}")
             
         if not layer2_pass:
             return None
@@ -1764,9 +1768,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         ema9_slope = (ema9_now - ema9_prev) / ema9_prev if ema9_prev > 0 else 0.0
         micro_volume = rvol_today > 1.2
 
+        # Sinsi Kırılım Tanımı: Fiyat EMA20 üstünde, RSI uyanışta, Hacim normal/hafif (0.9 - 1.3)
+        is_early_awakening = (current_price > ema20_now) and (45 <= rsi_1d_val <= 55) and (0.9 <= rvol_today <= 1.3)
+
         if bb_squeeze and ema_stack and rvol_today > 1.3:
             score += 10.0; entry_trigger = "BB Squeeze + EMA Stack + Volume"
             details.append("💥 ENTRY: Squeeze → Breakout (Strong)")
+        elif is_early_awakening:
+            score += 8.8; entry_trigger = "Early Awakening (Stealth Breakout)"
+            details.append("🌅 ENTRY: Erken Uyanış (Hacim öncesi stratejik giriş)")
         elif ema_cross and 1.2 <= rvol_today <= 1.8:
             score += 8.0; entry_trigger = "EMA9/20 Crossover + Micro Volume"
             details.append("🎯 ENTRY: EMA9/20 Cross + Micro Volume")
@@ -3148,6 +3158,7 @@ async def scan_top_stocks():
     if not candidates:
         await send_telegram_message("⚠️ Kriterlere uygun aday bulunamadı.")
         return
+        
     # ── ADIM 4: 8-FAKTÖR SKOR + EN İYİ 50 ──────────────────────────
     for c in candidates:
         compute_multi_factor_score(c)

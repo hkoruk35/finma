@@ -163,7 +163,7 @@ def validate_entry_zone(current_price: float, entry_zone: str) -> dict:
         return {'status': 'UNKNOWN', 'message': str(e)}
         
 
-def validate_volume_for_setup(setup_type: str, volume_ratio: float, ticker: str = None) -> dict:
+def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.DataFrame = None, df_1h: pd.DataFrame = None) -> dict:
     """
     Check if volume supports the setup - ADVANCED SWING TRADE version
     
@@ -200,13 +200,10 @@ def validate_volume_for_setup(setup_type: str, volume_ratio: float, ticker: str 
         }
     
     try:
-        import yfinance as yf
-        stock = yf.Ticker(ticker)
-        
         # ============================================
         # 1. CHECK 15m TREND (Last 4 bars = 1 hour)
         # ============================================
-        hist_15m = stock.history(period="1d", interval="15m")
+        hist_15m = df_15m # Artık API'den çekmiyoruz, hazır veriyi kullanıyoruz.
         
         if hist_15m.empty or len(hist_15m) < 4:
             return {
@@ -246,9 +243,9 @@ def validate_volume_for_setup(setup_type: str, volume_ratio: float, ticker: str 
         # ============================================
         # 2. CHECK 1h TREND (Last 4 bars = 4 hours)
         # ============================================
-        hist_1h = stock.history(period="5d", interval="1h")
+        hist_1h = df_1h  # API'den çekmiyoruz, fonksiyona parametre olarak gelen hazır veriyi kullanıyoruz.
         
-        if hist_1h.empty or len(hist_1h) < 4:
+        if hist_1h is None or hist_1h.empty or len(hist_1h) < 4:
             # 15m passed but 1h unavailable - allow with warning
             return {
                 'valid': True,
@@ -1355,8 +1352,8 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     now_ny = datetime.now(NY_TZ)
     pre_gap_setup = {"pre_gap": False, "score": 0.0}
     
-    # 14:30 Seansında çalışıyorsa kapanış analizini tetikle
-    if now_ny.hour == 14: 
+    # 15:00 Seansında (Kapanışa 1 saat kala "Power Hour") kapanış analizini tetikle
+    if now_ny.hour == 15: 
         pre_gap_setup = detect_closing_absorption_setup(df_15m, df_1h)
 
     # ================================================
@@ -1456,7 +1453,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     # 8. VOLUME VALIDATION
     # ================================================
     setup_type = st_1h.get("setup_type", "NONE")
-    volume_check = validate_volume_for_setup(setup_type, rvol, ticker)
+    volume_check = validate_volume_for_setup(setup_type, rvol, df_15m, df_1h)
     if not volume_check.get('valid', True):
         final_score -= 2.0
 
