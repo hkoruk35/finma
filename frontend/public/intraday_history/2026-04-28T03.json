@@ -1,0 +1,888 @@
+{
+  "generated_at": "2026-04-28T03:23:39.173021-04:00",
+  "hour_slot": "2026-04-28T03",
+  "market_regime": "Bull",
+  "vix_level": 18.020000457763672,
+  "total_scanned": 20,
+  "signals": [
+    {
+      "ticker": "MTSI",
+      "company": "MTSI",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 3,
+      "current_price": 279.69,
+      "buy_zone": {
+        "low": 279.88,
+        "high": 288.84
+      },
+      "stop_zone": {
+        "low": 269.05,
+        "high": 271.46
+      },
+      "profit_zone": {
+        "low": 311.77,
+        "high": 316.61
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($279.88–$288.84). 1H RSI 50, 15M 50, trend UP. Enter position. Stop: $271.46. Target: $311.77–$316.61.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 20.8,
+        "volume_ratio": 1.95,
+        "change_1h": 0.59,
+        "change_24h": -2.76,
+        "trend_1h": "UP",
+        "setup": "ABSORPTION",
+        "rs_score": 0.0,
+        "natr": 4.18
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "15M Trigger: 🚀 HYPER MSB (Smart Money Sweep)",
+        "Aligned with 1H EMA50 & 15M Trend"
+      ]
+    },
+    {
+      "ticker": "CMI",
+      "company": "CMI",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 4,
+      "current_price": 660.56,
+      "buy_zone": {
+        "low": 649.67,
+        "high": 660.53
+      },
+      "stop_zone": {
+        "low": 640.66,
+        "high": 647.87
+      },
+      "profit_zone": {
+        "low": 667.69,
+        "high": 672.19
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price is only 2.0% above stop ($647.87). Tighten or honor your stop. 1H RSI 50.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 21.6,
+        "volume_ratio": 2.01,
+        "change_1h": -0.14,
+        "change_24h": -0.03,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 2.0,
+        "natr": 2.78
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 15m trend DOWN (-0.3%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "NTRS",
+      "company": "NTRS",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 2,
+      "current_price": 167.8,
+      "buy_zone": {
+        "low": 159.74,
+        "high": 164.44
+      },
+      "stop_zone": {
+        "low": 155.83,
+        "high": 156.7
+      },
+      "profit_zone": {
+        "low": 173.54,
+        "high": 175.57
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price above entry zone ($164.44). If in position: hold, stop at $156.70. If not in: wait for pullback to buy zone.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 19.9,
+        "volume_ratio": 2.03,
+        "change_1h": 0.06,
+        "change_24h": 2.31,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 2.0,
+        "natr": 2.56
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
+      ]
+    },
+    {
+      "ticker": "ELV",
+      "company": "ELV",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 4,
+      "current_price": 356.18,
+      "buy_zone": {
+        "low": 342.55,
+        "high": 348.36
+      },
+      "stop_zone": {
+        "low": 337.36,
+        "high": 341.51
+      },
+      "profit_zone": {
+        "low": 352.92,
+        "high": 355.52
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "TP2 zone reached ($355.52). Close full position and lock gains.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 61.5,
+        "volume_ratio": 2.0,
+        "change_1h": 0.06,
+        "change_24h": 3.31,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 2.0,
+        "natr": 2.89
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "CORZ",
+      "company": "CORZ",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 2,
+      "current_price": 21.09,
+      "buy_zone": {
+        "low": 20.23,
+        "high": 20.99
+      },
+      "stop_zone": {
+        "low": 19.25,
+        "high": 19.47
+      },
+      "profit_zone": {
+        "low": 23.03,
+        "high": 23.46
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($20.23–$20.99). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $19.47. Target: $23.03–$23.46.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 26.5,
+        "volume_ratio": 1.61,
+        "change_1h": -0.24,
+        "change_24h": 1.01,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 2.0,
+        "natr": 4.89
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 15m trend DOWN (-0.5%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "company": "AMAT",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 2,
+      "current_price": 404.84,
+      "buy_zone": {
+        "low": 404.12,
+        "high": 418.47
+      },
+      "stop_zone": {
+        "low": 391.25,
+        "high": 394.11
+      },
+      "profit_zone": {
+        "low": 447.81,
+        "high": 454.26
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($404.12–$418.47). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $394.11. Target: $447.81–$454.26.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 23.6,
+        "volume_ratio": 1.3,
+        "change_1h": 0.4,
+        "change_24h": -2.93,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 2.0,
+        "natr": 3.44
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "ADX + Volume Confirmation",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "Aligned with 1H EMA50 & 15M Trend"
+      ]
+    },
+    {
+      "ticker": "NOK",
+      "company": "NOK",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 4,
+      "current_price": 10.76,
+      "buy_zone": {
+        "low": 10.26,
+        "high": 10.42
+      },
+      "stop_zone": {
+        "low": 10.03,
+        "high": 10.21
+      },
+      "profit_zone": {
+        "low": 10.73,
+        "high": 10.85
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "TP1 reached ($10.73). Momentum fading (RSI 50). Close position, don't give back gains.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 40.7,
+        "volume_ratio": 1.5,
+        "change_1h": 0.33,
+        "change_24h": 2.87,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 1.0,
+        "natr": 5.12
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 1h trend DOWN (-0.0%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "MSCI",
+      "company": "MSCI",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-04-27",
+      "days_since_pick": 1,
+      "current_price": 591.13,
+      "buy_zone": {
+        "low": 582.87,
+        "high": 594.33
+      },
+      "stop_zone": {
+        "low": 568.14,
+        "high": 571.41
+      },
+      "profit_zone": {
+        "low": 625.13,
+        "high": 631.58
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($582.87–$594.33). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $571.41. Target: $625.13–$631.58.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 27.5,
+        "volume_ratio": 2.37,
+        "change_1h": -0.25,
+        "change_24h": -0.26,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 2.0,
+        "natr": 2.85
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ 15m trend DOWN (-0.1%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "KDP",
+      "company": "KDP",
+      "sector": "Consumer Defensive",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 2,
+      "current_price": 28.15,
+      "buy_zone": {
+        "low": 28.46,
+        "high": 29.29
+      },
+      "stop_zone": {
+        "low": 27.79,
+        "high": 27.94
+      },
+      "profit_zone": {
+        "low": 30.86,
+        "high": 31.21
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price is only 0.8% above stop ($27.94). Tighten or honor your stop. 1H RSI 50.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 37.9,
+        "volume_ratio": 2.42,
+        "change_1h": -0.48,
+        "change_24h": -3.66,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
+        "rs_score": 2.0,
+        "natr": 2.79
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ 15m trend DOWN (-1.0%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "ETN",
+      "company": "ETN",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 3,
+      "current_price": 416.79,
+      "buy_zone": {
+        "low": 414.97,
+        "high": 425.13
+      },
+      "stop_zone": {
+        "low": 404.07,
+        "high": 406.49
+      },
+      "profit_zone": {
+        "low": 448.87,
+        "high": 453.95
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($414.97–$425.13). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $406.49. Target: $448.87–$453.95.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 28.6,
+        "volume_ratio": 1.33,
+        "change_1h": -0.01,
+        "change_24h": -1.68,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 1.0,
+        "natr": 2.87
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz"
+      ]
+    },
+    {
+      "ticker": "HAL",
+      "company": "HAL",
+      "sector": "Energy",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 3,
+      "current_price": 40.12,
+      "buy_zone": {
+        "low": 39.52,
+        "high": 40.5
+      },
+      "stop_zone": {
+        "low": 38.25,
+        "high": 38.53
+      },
+      "profit_zone": {
+        "low": 43.16,
+        "high": 43.71
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($39.52–$40.50). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $38.53. Target: $43.16–$43.71.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 28.7,
+        "volume_ratio": 1.28,
+        "change_1h": -0.48,
+        "change_24h": -0.59,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 2.0,
+        "natr": 3.52
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ 15m trend DOWN (-0.8%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "CSX",
+      "company": "CSX",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-27",
+      "days_since_pick": 1,
+      "current_price": 45.45,
+      "buy_zone": {
+        "low": 43.82,
+        "high": 45.51
+      },
+      "stop_zone": {
+        "low": 42.91,
+        "high": 43.11
+      },
+      "profit_zone": {
+        "low": 47.97,
+        "high": 48.55
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($43.82–$45.51). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $43.11. Target: $47.97–$48.55.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 22.3,
+        "volume_ratio": 1.14,
+        "change_1h": -0.5,
+        "change_24h": 0.09,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 2.0,
+        "natr": 2.12
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (1.1x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "DOV",
+      "company": "DOV",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 4,
+      "current_price": 226.11,
+      "buy_zone": {
+        "low": 227.2,
+        "high": 229.4
+      },
+      "stop_zone": {
+        "low": 224.07,
+        "high": 226.57
+      },
+      "profit_zone": {
+        "low": 233.46,
+        "high": 235.03
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price at/below stop zone ($226.57). Exit immediately — setup invalidated.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 19.7,
+        "volume_ratio": 1.27,
+        "change_1h": -0.64,
+        "change_24h": 0.59,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 1.0,
+        "natr": 2.74
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ 15m trend DOWN (-0.4%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "BLD",
+      "company": "BLD",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 4,
+      "current_price": 445.75,
+      "buy_zone": {
+        "low": 454.26,
+        "high": 469.63
+      },
+      "stop_zone": {
+        "low": 442.84,
+        "high": 451.62
+      },
+      "profit_zone": {
+        "low": 476.21,
+        "high": 481.7
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price at/below stop zone ($451.62). Exit immediately — setup invalidated.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 12.9,
+        "volume_ratio": 2.28,
+        "change_1h": -0.89,
+        "change_24h": -1.75,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 0.0,
+        "natr": 5.13
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ 15m trend DOWN (-0.9%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "company": "CSCO",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-27",
+      "days_since_pick": 1,
+      "current_price": 88.27,
+      "buy_zone": {
+        "low": 87.82,
+        "high": 89.22
+      },
+      "stop_zone": {
+        "low": 85.97,
+        "high": 86.38
+      },
+      "profit_zone": {
+        "low": 93.07,
+        "high": 93.87
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($87.82–$89.22). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $86.38. Target: $93.07–$93.87.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 27.6,
+        "volume_ratio": 0.78,
+        "change_1h": 0.27,
+        "change_24h": -0.83,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 1.0,
+        "natr": 2.37
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "Aligned with 1H EMA50 & 15M Trend",
+        "⚠️ Volume yetersiz (0.8x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "VRSN",
+      "company": "VRSN",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 3,
+      "current_price": 267.9,
+      "buy_zone": {
+        "low": 264.06,
+        "high": 270.06
+      },
+      "stop_zone": {
+        "low": 256.36,
+        "high": 258.07
+      },
+      "profit_zone": {
+        "low": 286.16,
+        "high": 289.54
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($264.06–$270.06). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $258.07. Target: $286.16–$289.54.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 21.6,
+        "volume_ratio": 1.31,
+        "change_1h": -0.26,
+        "change_24h": -0.48,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 3.27
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 15m trend DOWN (-0.1%) 🔻 Düşen bıçak - RED"
+      ]
+    },
+    {
+      "ticker": "OPEN",
+      "company": "OPEN",
+      "sector": "Real Estate",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 2,
+      "current_price": 5.39,
+      "buy_zone": {
+        "low": 5.29,
+        "high": 5.55
+      },
+      "stop_zone": {
+        "low": 4.96,
+        "high": 5.03
+      },
+      "profit_zone": {
+        "low": 6.25,
+        "high": 6.39
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($5.29–$5.55). 1H RSI 50, 15M 50, trend DOWN. Enter position. Stop: $5.03. Target: $6.25–$6.39.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 25.7,
+        "volume_ratio": 0.87,
+        "change_1h": -0.28,
+        "change_24h": -2.18,
+        "trend_1h": "DOWN",
+        "setup": "NONE",
+        "rs_score": 1.0,
+        "natr": 6.97
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.9x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "BB",
+      "company": "BB",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 3,
+      "current_price": 5.32,
+      "buy_zone": {
+        "low": 4.92,
+        "high": 5.12
+      },
+      "stop_zone": {
+        "low": 4.66,
+        "high": 4.72
+      },
+      "profit_zone": {
+        "low": 5.66,
+        "high": 5.77
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price above entry zone ($5.12). If in position: hold, stop at $4.72. If not in: wait for pullback to buy zone.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 23.0,
+        "volume_ratio": 1.08,
+        "change_1h": 0.85,
+        "change_24h": 4.52,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 6.65
+      },
+      "notes": [
+        "Phase: EXHAUSTION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: 🚀 HYPER MSB (Smart Money Sweep)",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
+      ]
+    },
+    {
+      "ticker": "WMT",
+      "company": "WMT",
+      "sector": "Consumer Defensive",
+      "swing_pick_date": "2026-04-27",
+      "days_since_pick": 1,
+      "current_price": 127.57,
+      "buy_zone": {
+        "low": 128.06,
+        "high": 130.19
+      },
+      "stop_zone": {
+        "low": 125.63,
+        "high": 126.17
+      },
+      "profit_zone": {
+        "low": 135.4,
+        "high": 136.51
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price is only 1.1% above stop ($126.17). Tighten or honor your stop. 1H RSI 50.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 35.0,
+        "volume_ratio": 0.95,
+        "change_1h": -0.08,
+        "change_24h": -1.81,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 2.19
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (1.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "APLD",
+      "company": "APLD",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-27",
+      "days_since_pick": 1,
+      "current_price": 33.69,
+      "buy_zone": {
+        "low": 32.16,
+        "high": 35.25
+      },
+      "stop_zone": {
+        "low": 29.74,
+        "high": 30.28
+      },
+      "profit_zone": {
+        "low": 40.98,
+        "high": 42.27
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($32.16–$35.25). 1H RSI 50, 15M 50, trend DOWN. Enter position. Stop: $30.28. Target: $40.98–$42.27.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 24.1,
+        "volume_ratio": 0.48,
+        "change_1h": -0.33,
+        "change_24h": -3.69,
+        "trend_1h": "DOWN",
+        "setup": "SQUEEZE",
+        "rs_score": 2.0,
+        "natr": 8.5
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "NATR > 7.5% (Gamble)",
+        "VWAP/EMA50 Defense Zone",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.5x < 1.2x) ❌"
+      ]
+    }
+  ]
+}

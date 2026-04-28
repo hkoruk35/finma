@@ -1,0 +1,641 @@
+Date,Ticker,Company,Sector,Subsector,Entry Price,Peak Price,Return % (w/ SL),SL Triggered,Days to Peak,Result (w/ SL)
+2026-04-28,WMT,"Walmart Inc.","Consumer Defensive","Discount Stores",127.58999633789062,127.58999633789062,0,NO,0,PENDING
+2026-04-28,MSCI,"MSCI Inc.","Financial Services","Financial Data & Stock Exchanges",591.02001953125,591.02001953125,0,NO,0,PENDING
+2026-04-28,CSX,"CSX Corporation","Industrials","Railroads",45.459999084472656,45.459999084472656,0,NO,0,PENDING
+2026-04-28,CSCO,"Cisco Systems, Inc.","Technology","Communication Equipment",88.26000213623047,88.26000213623047,0,NO,0,PENDING
+2026-04-28,APLD,"Applied Digital Corporation","Technology","Information Technology Services",33.66999816894531,33.66999816894531,0,NO,0,PENDING
+2026-04-27,WMT,"Walmart Inc.","Consumer Defensive","Discount Stores",129.9199981689453,129.81,-0.08,NO,0,PENDING
+2026-04-27,MSCI,"MSCI Inc.","Financial Services","Financial Data & Stock Exchanges",592.6900024414062,599.71,1.18,NO,0,PENDING
+2026-04-27,CSX,"CSX Corporation","Industrials","Railroads",45.40999984741211,45.77,0.79,NO,0,PENDING
+2026-04-27,CSCO,"Cisco Systems, Inc.","Technology","Communication Equipment",89.01000213623047,89.5,0.55,NO,0,PENDING
+2026-04-27,APLD,"Applied Digital Corporation","Technology","Information Technology Services",34.97999954223633,35.88,2.57,NO,0,PENDING
+2026-04-26,OPEN,"Opendoor Technologies Inc.","Real Estate","Real Estate Services",5.510000228881836,5.72,3.81,NO,1,PENDING
+2026-04-26,NTRS,"Northern Trust Corporation","Financial Services","Asset Management",164.00999450683594,168.25,2.59,NO,1,PENDING
+2026-04-26,KDP,"Keurig Dr Pepper Inc.","Consumer Defensive","Beverages - Non-Alcoholic",29.219999313354492,29.19,-0.1,NO,1,PENDING
+2026-04-26,CORZ,"Core Scientific, Inc.","Technology","Software - Infrastructure",20.8799991607666,21.38,2.39,NO,1,PENDING
+2026-04-26,AMAT,"Applied Materials, Inc.","Technology","Semiconductor Equipment & Materials",417.0400085449219,417,-0.01,NO,1,PENDING
+2026-04-25,VRSN,"VeriSign, Inc.","Technology","Software - Infrastructure",269.20001220703125,271.97,1.03,NO,2,PENDING
+2026-04-25,MTSI,"MACOM Technology Solutions Holdings, Inc.","Technology","Semiconductors",287.6400146484375,288.19,0.19,NO,2,PENDING
+2026-04-25,HAL,"Halliburton Company","Energy","Oil & Gas Equipment & Services",40.36000061035156,40.75,0.97,NO,2,PENDING
+2026-04-25,ETN,"Eaton Corporation plc","Industrials","Specialty Industrial Machinery",423.9200134277344,426.38,0.58,NO,2,PENDING
+2026-04-25,BB,"BlackBerry Limited","Technology","Software - Infrastructure",5.090000152587891,5.32,4.52,NO,2,PENDING
+2026-04-24,NOK,"Nokia Oyj","Technology","Communication Equipment",10.725000381469727,11.3,5.36,NO,3,PENDING
+2026-04-24,ELV,"Elevance Health, Inc.","Healthcare","Healthcare Plans",344.44500732421875,358,3.94,NO,3,PENDING
+2026-04-24,DOV,"Dover Corporation","Industrials","Specialty Industrial Machinery",228.3975067138672,230.53,0.93,NO,0,PENDING
+2026-04-24,CMI,"Cummins Inc.","Industrials","Specialty Industrial Machinery",653.6464233398438,665.13,1.76,NO,3,PENDING
+2026-04-24,BLD,"TopBuild Corp.","Industrials","Engineering & Construction",461.9750061035156,466.79,1.04,NO,0,PENDING
+2026-04-23,CAVA,"CAVA Group, Inc.","Consumer Cyclical","Restaurants",95.4000015258789,96.8,1.47,NO,1,PENDING
+2026-04-23,ALLY,"Ally Financial Inc.","Financial Services","Credit Services",45.36899948120117,45.93,1.24,NO,0,PENDING
+2026-04-22,ONTO,"Onto Innovation Inc.","Technology","Semiconductor Equipment & Materials",295.510009765625,316,6.93,NO,2,PENDING
+2026-04-22,MP,"MP Materials Corp.","Basic Materials","Other Industrial Metals & Mining",66.98999786376953,69.43,3.64,NO,0,PENDING
+2026-04-22,IONQ,"IonQ, Inc.","Technology","Computer Hardware",47.04999923706055,49.13,4.42,NO,0,PENDING
+2026-04-22,ADI,"Analog Devices, Inc.","Technology","Semiconductors",381.4200134277344,408.37,7.07,NO,1,PENDING
+2026-04-21,SIRI,"Sirius XM Holdings Inc.","Communication Services","Entertainment",26.5049991607666,28.77,8.55,NO,2,PENDING
+2026-04-21,QXO,"QXO, Inc.","Industrials","Software—Application",22.825000762939453,24.4,6.9,NO,0,PENDING
+2026-04-21,QBTS,"D-Wave Quantum Inc.","Technology","Computer Hardware",20.655000686645508,21.85,5.79,NO,0,PENDING
+2026-04-20,VIK,"Viking Holdings Ltd","Consumer Cyclical","Travel Services",86.08499908447266,87,1.06,NO,1,PENDING
+2026-04-20,LSCC,"Lattice Semiconductor Corporation","Technology","Semiconductors",118.37999725341797,126.35,6.73,NO,4,PENDING
+2026-04-20,CVNA,"Carvana Co.","Consumer Cyclical","Auto & Truck Dealerships",395.69000244140625,416.88,5.36,NO,2,PENDING
+2026-04-20,CIFR,"Cipher Digital Inc.","Technology","Capital Markets",19.28499984741211,20.24,4.95,NO,3,PENDING
+2026-04-17,SQM,"Sociedad QuÃ­mica y Minera","Basic Materials","Specialty Chemicals",88.72,94.34,6.33,NO,0,PENDING
+2026-04-17,LEG,"Leggett & Platt","Consumer Cyclical","Furnishings, Fixtures & Appliances",11.92,12.24,2.68,NO,0,PENDING
+2026-04-17,JBHT,"J.B. Hunt Transport","Industrials","Integrated Freight & Logistics",241.96,256.18,5.88,NO,4,PENDING
+2026-04-17,JAZZ,"Jazz Pharmaceuticals","Healthcare","Drug Manufacturersâ€”Specialty & Generic",200.77,207.48,3.34,NO,3,PENDING
+2026-04-17,IRM,"Iron Mountain","Real Estate","REITâ€”Specialty",117.62069702148438,121,2.87,NO,4,PENDING
+2026-04-17,CRUS,"Cirrus Logic","Technology","Semiconductors",166.24000549316406,175.78,5.74,NO,7,PENDING
+2026-04-17,CRDO,"Credo Technology","Technology","Semiconductors",156.38999938964844,198.97,27.23,NO,7,PENDING
+2026-04-17,APG,"APi Group Corp","Industrials","Specialty Business Services",46.3849983215332,49.63,7,NO,10,PENDING
+2026-04-17,ALB,"Albemarle Corp","Basic Materials","Specialty Chemicals",200.13999938964844,208.05,3.95,NO,0,PENDING
+2026-04-16,ZM,"Zoom Communications, Inc.","Technology","Software—Application",86.8499984741211,94.5,8.81,NO,5,PENDING
+2026-04-16,OGN,"Organon & Co.","Healthcare","Drug Manufacturers—Specialty & Generic",9.279999732971191,13.24,42.67,NO,11,PENDING
+2026-04-16,LUMN,"Lumen Technologies, Inc.","Communication Services","Telecom Services",8.604999542236328,9.5,10.4,NO,7,PENDING
+2026-04-16,CRWV,"CoreWeave, Inc.","Technology","Software—Infrastructure",117.05999755859375,124.96,6.75,NO,6,PENDING
+2026-04-16,AMKR,"Amkor Technology, Inc.","Technology","Semiconductors",62.849998474121094,79.23,26.06,NO,11,PENDING
+2026-04-15,SGI,"Somnigroup International Inc.","Consumer Cyclical","Specialty Retail",81.06,86.42,6.61,NO,2,PENDING
+2026-04-15,QXO,"QXO, Inc.","Industrials","Softwareâ€”Application",22.85,25.44,11.33,NO,2,PENDING
+2026-04-15,NOK,"Nokia Oyj","Communication Services","Telecom Services",9.79,11.3,15.42,NO,12,PENDING
+2026-04-15,NBIS,"NBIS","Communication Services","Entertainment",156.5,168.71,7.8,NO,1,PENDING
+2026-04-15,GSAT,"Globalstar, Inc.","Communication Services","Telecom Services",79.42,82.1,3.37,NO,9,PENDING
+2026-04-15,FORM,"FormFactor, Inc.","Technology","Semiconductor Equipment",127.11,159.09,25.16,NO,9,PENDING
+2026-04-15,CVNA,"Carvana Co","Consumer Cyclical","Auto & Truck Dealerships",369.89,416.88,12.7,NO,7,PENDING
+2026-04-15,CLS,"Celestica Inc.","Technology","Electronic Components",367.02,423.25,15.32,NO,12,PENDING
+2026-04-15,AVT,"Avnet, Inc.","Consumer Cyclical","Electronics Distribution",70.07,79.88,14,NO,12,PENDING
+2026-04-15,ARW,"Arrow Electronics, Inc.","Consumer Cyclical","Electronics Distribution",168,190.07,13.14,NO,9,PENDING
+2026-04-14,SNDK,"Sandisk Corporation","Technology","Computer Hardware",907.58,1070.66,17.97,NO,13,PENDING
+2026-04-14,MOD,"Modine Manufacturing Company","Consumer Cyclical","Auto Parts",246.19,260.01,5.61,NO,0,PENDING
+2026-04-14,INTC,"Intel Corporation","Technology","Semiconductors",62.22,87.1,39.99,NO,13,PENDING
+2026-04-14,FUTU,"Futu Holdings Limited","Financial Services","Capital Markets",159.33,168.96,6.04,NO,3,PENDING
+2026-04-14,CROX,"Crocs, Inc.","Consumer Cyclical","Footwear & Accessories",100.01,113.16,13.15,NO,7,PENDING
+2026-04-14,BBIO,"BridgeBio Pharma, Inc.","Healthcare","Biotechnology",77.63,79.62,2.56,NO,3,PENDING
+2026-04-13,CAR,"Avis Budget Group, Inc.","Consumer Cyclical","Rental & Leasing Services",336,847.7,152.29,NO,9,PENDING
+2026-04-10,SSSS,"SuRo Capital Corp.","Financial Services","Asset Management",11.98,13.66,14.02,NO,12,PENDING
+2026-04-09,NOK,"Nokia Oyj","Communication Services","Telecom Services",9.52,11.3,18.7,NO,18,PENDING
+2026-04-09,INTC,"Intel Corporation","Technology","Semiconductors",60.48,87.1,44.01,NO,18,PENDING
+2026-04-08,SPIR,"Spire Global, Inc.","Industrials","Aerospace & Defense",20.34,23.59,15.98,NO,5,PENDING
+2026-04-08,HTZ,"Hertz Global Holdings, Inc.","Industrials","Rental & Leasing Services",5.89,8.18,38.88,NO,12,PENDING
+2026-04-08,ATMU,"Atmus Filtration Technologies Inc.","Industrials","Specialty Industrial Machinery",63.48,64.34,1.35,NO,6,PENDING
+2026-04-07,AMLX,"Amylyx Pharmaceuticals, Inc.","Healthcare","Drug Manufacturers - Specialty & Generic",16.13,18.6,15.34,NO,10,PENDING
+2026-04-06,RLAY,"Relay Therapeutics, Inc.","Healthcare","Biotechnology",12.48,17.32,38.78,NO,11,PENDING
+2026-04-06,MGTX,"MeiraGTx Holdings plc","Healthcare","Biotechnology",9.69,11.85,22.29,NO,9,PENDING
+2026-04-06,KODK,"Eastman Kodak Company","Industrials","Specialty Business Services",11.4,13.48,18.25,NO,17,PENDING
+2026-04-06,CTA,"Simplify Managed Futures Strategy ETF","Technology","Information Technology Services",31.2,31.12,-0.24,NO,0,PENDING
+2026-03-30,SOBO,"South Bow Corporation","Energy","Oil & Gas Midstream",34.7,34.39,-0.89,NO,0,PENDING
+2026-03-30,KODK,"Eastman Kodak Company","Industrials","Specialty Business Services",8.76,13.48,53.88,NO,24,PENDING
+2026-03-30,CODI,"Compass Diversified","Industrials","Conglomerates",7.95,11.98,50.69,NO,23,PENDING
+2026-03-26,ELVN,"Enliven Therapeutics, Inc.","Healthcare","Biotechnology",39.65,48.53,22.4,NO,22,PENDING
+2026-03-26,AIR,"AAR Corp.","Industrials","Aerospace & Defense",111.08,127.21,14.52,NO,19,PENDING
+2026-03-25,DOCN,"DigitalOcean Holdings, Inc.","Technology","Software - Infrastructure",84.68,99.23,17.18,NO,29,PENDING
+2026-03-24,BEP,"Brookfield Renewable Partners L.P.","Utilities","Utilities - Renewable",31.3,35.97,14.92,NO,23,PENDING
+2026-03-23,VSAT,"Viasat, Inc.","Technology","Communication Equipment",48.67,64.98,33.51,NO,29,PENDING
+2026-03-23,TS,"Tenaris S.A.","Basic Materials","Steel",56.52,62.5,10.58,NO,30,PENDING
+2026-03-23,SEDG,"SolarEdge Technologies, Inc.","Utilities","Solar",47.14,53.75,14.02,NO,9,PENDING
+2026-03-23,PARR,"Par Pacific Holdings, Inc.","Energy","Oil & Gas Refining & Marketing",58.35,67.39,15.49,NO,15,PENDING
+2026-03-23,OVV,"Ovintiv Inc.","Energy","Oil & Gas E&P",56.97,62.6,9.88,NO,4,PENDING
+2026-03-23,KNF,"Knife River Corporation","Basic Materials","Building Materials",84.33,90.67,7.52,NO,28,PENDING
+2026-03-23,ECVT,"Ecovyst Inc.","Basic Materials","Specialty Chemicals",11.98,14.43,20.48,NO,22,PENDING
+2026-03-23,E,"Eni S.p.A.","Energy","Oil & Gas Integrated",52.79,58,9.87,NO,14,PENDING
+2026-03-23,DTM,"DT Midstream, Inc.","Energy","Oil & Gas Midstream",137.31,139.37,1.5,NO,1,PENDING
+2026-03-23,DAN,"Dana Incorporated","Consumer Cyclical","Auto Parts",32.78,38.6,17.75,NO,30,PENDING
+2026-03-23,CNR,"Core Natural Resources, Inc.","Energy","Thermal Coal",103.63,114.8,10.78,NO,7,PENDING
+2026-03-23,CC,"The Chemours Company","Basic Materials","Specialty Chemicals",18.61,24.4,31.11,NO,30,PENDING
+2026-03-23,BTU,"Peabody Energy Corporation","Energy","Thermal Coal",37.31,40.12,7.53,NO,4,PENDING
+2026-03-23,AROC,"Archrock, Inc.","Energy","Oil & Gas Equipment & Services",35.53,37.73,6.19,NO,1,PENDING
+2026-03-21,WDS,"Woodside Energy Group Ltd","Energy","Oil & Gas E&P",24.14,24.91,3.19,NO,17,PENDING
+2026-03-21,VET,"Vermilion Energy Inc.","Energy","Oil & Gas E&P",13.89,14.28,2.81,NO,10,PENDING
+2026-03-21,SPIR,"Spire Global, Inc.","Industrials","Aerospace & Defense",12.22,23.59,93.04,NO,23,PENDING
+2026-03-21,SNDX,"Syndax Pharmaceuticals, Inc.","Healthcare","Biotechnology",24.23,25.59,5.61,NO,4,PENDING
+2026-03-21,GAIN,"Gladstone Investment Corporation","Financial Services","Asset Management",14.05,16,13.88,NO,27,PENDING
+2026-03-21,FLNG,"FLEX LNG Ltd.","Energy","Oil & Gas Midstream",30.08,31.5,4.72,NO,3,PENDING
+2026-03-21,EGY,"VAALCO Energy, Inc.","Energy","Oil & Gas E&P",6.25,6.72,7.52,NO,9,PENDING
+2026-03-21,DIOD,"Diodes Incorporated","Technology","Semiconductors",64.75,98.18,51.63,NO,27,PENDING
+2026-03-21,AGRO,"Adecoagro S.A.","Consumer Defensive","Farm Products",14.11,15.89,12.62,NO,10,PENDING
+2026-03-16,UTHR,"United Therapeutics Corporation","Healthcare","Drug Manufacturersâ€”Specialty & Generic",533.37,607.89,13.97,NO,14,WIN
+2026-03-16,UNFI,"UNFI","Consumer Defensive","Food Distribution",41.69,48.13,15.45,NO,29,WIN
+2026-03-16,TALK,"TALK","Healthcare","Health Information Services",5.14,5.2,1.17,NO,21,WIN
+2026-03-16,STGW,"STGW","Industrials","Specialty Industrial Machinery",5.95,6.74,13.28,NO,30,WIN
+2026-03-16,RLAY,"RLAY","Healthcare","Biotechnology",10.3,15.89,54.27,NO,29,WIN
+2026-03-16,PSX,"PSX","Energy","Oil & Gas Refining & Marketing",173.67,190.61,9.75,NO,14,WIN
+2026-03-16,PBR,"PBR","Energy","Oil & Gas Integrated",18.57,22.05,18.74,NO,28,WIN
+2026-03-16,OXY,"OXY","Energy","Oil & Gas E&P",57.33,67.45,17.65,NO,15,WIN
+2026-03-16,NSSC,"NSSC","Industrials","Security & Protection Services",42.99,45.09,4.88,NO,29,WIN
+2026-03-16,NOK,"Nokia Oyj","Communication Services","Telecom Services",8.64,10.56,22.22,NO,29,WIN
+2026-03-16,LXU,"LXU","Basic Materials","Specialty Chemicals",14.75,17.22,16.75,NO,10,WIN
+2026-03-16,ERIC,"Telefonaktiebolaget LM Ericsson (publ)","Communication Services","Telecom Services",11.89,12.07,1.51,NO,25,WIN
+2026-03-16,EGY,"EGY","Energy","Oil & Gas E&P",5.49,6.72,22.4,NO,14,WIN
+2026-03-16,DNTH,"DNTH","Healthcare","Biotechnology",78.89,96.05,21.75,NO,29,WIN
+2026-03-16,DAR,"Darling Ingredients Inc.","Consumer Defensive","Consumer Defensive",54.57,64.9,18.93,NO,22,WIN
+2026-03-16,CGON,"CGON","Energy","Oil & Gas E&P",64.82,71.9,10.92,NO,23,WIN
+2026-03-16,CAPR,"CAPR","Healthcare","Biotechnology",30.65,35.99,17.42,NO,28,WIN
+2026-03-16,BP,"BP p.l.c.","Energy","Oil & Gas Integrated",42.67,48.27,13.12,NO,15,WIN
+2026-03-16,APEI,"APEI","Consumer Defensive","Education & Training Services",54.12,59.42,9.79,NO,10,WIN
+2026-03-16,ADEA,"ADEA","Technology","Software - Application",23.1,27.59,19.44,NO,25,WIN
+2026-03-04,VVX,"VVX","Industrials","Aerospace & Defense",73.86,75,1.54,NO,0,WIN
+2026-03-04,VIST,"VIST","Energy","Oil & Gas E&P",58.12,79.2,36.27,NO,26,WIN
+2026-03-04,VIAV,"VIAV","Technology","Communication Equipment",32.26,38.08,18.04,NO,21,WIN
+2026-03-04,VAC,"VAC","Consumer Cyclical","Resorts & Casinos",68.7,73.25,6.62,NO,1,WIN
+2026-03-04,TRS,"TRS","Consumer Cyclical","Packaging & Containers",39.31,39.8,1.25,NO,0,WIN
+2026-03-04,TMDX,"TransMedics Group, Inc.","Healthcare","Healthcare",147.24,151,2.55,NO,0,WIN
+2026-03-04,TDW,"TDW","Energy","Oil & Gas Equipment & Services",85.12,88.14,3.55,NO,0,WIN
+2026-03-04,TDAY,"TDAY","Communication Services","Publishing",6.18,7.32,18.45,NO,28,WIN
+2026-03-04,SRRK,"SRRK","Healthcare","Biotechnology",45.57,50.5,10.82,NO,27,WIN
+2026-03-04,PEB,"PEB","Real Estate","REIT - Hotel & Motel",13.05,13.08,0.23,NO,0,WIN
+2026-03-04,OXY,"OXY","Energy","Oil & Gas E&P",53.38,67.45,26.36,NO,27,WIN
+2026-03-04,NEXA,"NEXA","Basic Materials","Other Industrial Metals & Mining",12.6,13.4,6.35,NO,0,WIN
+2026-03-04,MTZ,"MTZ","Industrials","Engineering & Construction",301.74,341.4,13.14,NO,28,WIN
+2026-03-04,GLNG,"GLNG","Energy","Oil & Gas Midstream",46.41,56.21,21.12,NO,29,WIN
+2026-03-04,EQNR,"EQNR","Energy","Oil & Gas Integrated",31.28,43.46,38.94,NO,27,WIN
+2026-03-04,DELL,"Dell Technologies Inc.","Technology","Computer Hardware",147.24,186.39,26.59,NO,22,WIN
+2026-03-04,CRGY,"CRGY","Energy","Oil & Gas E&P",11.41,14.02,22.87,NO,23,WIN
+2026-03-04,CLDX,"CLDX","Healthcare","Biotechnology",29.84,34.52,15.68,NO,19,WIN
+2026-03-04,BVN,"BVN","Basic Materials","Other Precious Metals & Mining",38.81,39.71,2.32,NO,6,WIN
+2026-03-04,BTSG,"BTSG","Healthcare","Health Information Services",41.67,45.59,9.41,NO,21,WIN
+2026-03-03,TKO,"TKO Group Holdings, Inc.","Communication Services","Communication Services",219.98,221.6,0.74,NO,0,WIN
+2026-03-03,SUPN,"SUPN","Healthcare","Drug Manufacturers - Specialty & Generic",54.87,56.49,2.95,NO,1,WIN
+2026-03-03,MTDR,"MTDR","Energy","Oil & Gas E&P",54.38,66.84,22.91,NO,27,WIN
+2026-03-03,LASR,"LASR","Technology","Semiconductors",64.79,74.1,14.37,NO,22,WIN
+2026-03-03,KNSA,"KNSA","Healthcare","Drug Manufacturers - Specialty & Generic",45.78,49.33,7.75,NO,29,WIN
+2026-03-03,INSW,"INSW","Energy","Oil & Gas Midstream",75.93,75.72,-0.28,NO,30,LOSS
+2026-03-03,GTN,"GTN","Communication Services","Broadcasting",5.33,5.59,4.81,NO,1,WIN
+2026-03-03,EFXT,"EFXT","Energy","Oil & Gas Equipment & Services",22.44,23.3,3.82,NO,0,WIN
+2026-03-03,CNK,"CNK","Communication Services","Entertainment",28.69,29.44,2.61,NO,30,WIN
+2026-03-03,CNA,"CNA","Financial Services","Insurance - Property & Casualty",49.08,49.64,1.14,NO,0,WIN
+2026-03-02,XRAY,"XRAY","Healthcare","Medical Instruments & Supplies",14.68,14.49,-1.29,NO,0,LOSS
+2026-03-02,VICR,"VICR","Technology","Electronic Components",207.61,209.53,0.92,NO,0,WIN
+2026-03-02,UCTT,"UCTT","Technology","Semiconductor Equipment & Materials",62.9,67.28,6.96,NO,23,WIN
+2026-03-02,TIGO,"TIGO","Communication Services","Telecom Services",73.65,75.67,2.74,NO,30,WIN
+2026-03-02,SUI,"SUI","Real Estate","REIT - Residential",136.43,136.63,0.14,NO,0,WIN
+2026-03-02,STRL,"STRL","Industrials","Engineering & Construction",440.95,460.64,4.47,NO,23,WIN
+2026-03-02,PVLA,"PVLA","Healthcare","Biotechnology",134.37,143.76,6.99,NO,8,WIN
+2026-03-02,LNTH,"LNTH","Healthcare","Drug Manufacturers - Specialty & Generic",75,84.38,12.51,NO,9,WIN
+2026-03-02,KNTK,"KNTK","Energy","Oil & Gas Midstream",46.62,49.55,6.28,NO,28,WIN
+2026-03-02,JAZZ,"Jazz Pharmaceuticals","Healthcare","Drug Manufacturersâ€”Specialty & Generic",190.22,192,0.94,NO,30,WIN
+2026-03-02,GLW,"Corning Incorporated","Technology","Technology",158.56,160.45,1.19,NO,0,WIN
+2026-03-02,COHR,"COHR","Technology","Scientific & Technical Instruments",294.93,300.2,1.79,NO,2,WIN
+2026-03-02,CME,"CME","Financial Services","Financial Data & Stock Exchanges",319.5,321.47,0.62,NO,1,WIN
+2026-03-02,CHRD,"CHRD","Energy","Oil & Gas E&P",111.71,148.42,32.86,NO,29,WIN
+2026-03-02,CAVA,"CAVA Group, Inc.","Consumer Cyclical","Consumer Cyclical",78.73,91.83,16.64,NO,16,WIN
+2026-03-01,YOU,"YOU","Technology","Software - Application",48.12,56.51,17.44,NO,25,WIN
+2026-03-01,SLF,"SLF","Financial Services","Insurance - Diversified",65.48,65.74,0.4,NO,4,WIN
+2026-03-01,PBA,"PBA","Energy","Oil & Gas Midstream",44.85,46.2,3.01,NO,26,WIN
+2026-02-27,REZI,"REZI","Industrials","Industrial Distribution",38.56,39.96,3.63,NO,0,WIN
+2026-02-27,PPL,"PPL Corporation","Utilities","Utilities",38.97,39,0.08,NO,18,WIN
+2026-02-27,PLAB,"PLAB","Technology","Semiconductor Equipment & Materials",37.11,43.63,17.57,NO,26,WIN
+2026-02-27,ORIC,"ORIC","Healthcare","Biotechnology",13.48,14.05,4.19,NO,7,WIN
+2026-02-27,NVAX,"NVAX","Healthcare","Biotechnology",10.1,11.15,10.4,NO,0,WIN
+2026-02-27,MTZ,"MTZ","Industrials","Engineering & Construction",288.84,328.69,13.8,NO,26,WIN
+2026-02-27,LNG,"LNG","Energy","Oil & Gas Midstream",235.04,299.49,27.42,NO,20,WIN
+2026-02-27,LIVN,"LIVN","Healthcare","Medical Devices",70.14,71.31,1.67,NO,0,WIN
+2026-02-27,LINC,"LINC","Consumer Defensive","Education & Training Services",35.53,42.42,19.39,NO,26,WIN
+2026-02-27,KRG,"KRG","Real Estate","REIT - Retail",26.22,26.08,-0.55,NO,3,LOSS
+2026-02-27,INVX,"INVX","Energy","Oil & Gas Equipment & Services",26.34,27.95,6.11,NO,10,WIN
+2026-02-27,AXIA,"AXIA","Utilities","Utilities - Renewable",11.97,12.14,1.42,NO,3,WIN
+2026-02-27,AMX,"AMX","Communication Services","Telecom Services",25.63,26.16,2.07,NO,3,WIN
+2026-02-26,TNK,"TNK","Energy","Oil & Gas Midstream",74.77,82.24,9.99,NO,4,WIN
+2026-02-26,SYRE,"SYRE","Healthcare","Biotechnology",42.43,49.31,16.2,NO,28,WIN
+2026-02-26,PRDO,"PRDO","Consumer Defensive","Education & Training Services",33.65,38.5,14.41,NO,28,WIN
+2026-02-26,OUT,"OUT","Real Estate","REIT - Specialty",28.23,29,2.73,NO,8,WIN
+2026-02-26,OII,"OII","Energy","Oil & Gas Equipment & Services",37.38,37.81,1.15,NO,0,WIN
+2026-02-26,LAMR,"LAMR","Real Estate","REIT - Specialty",137.99,138.09,0.07,NO,6,WIN
+2026-02-26,KIM,"KIM","Real Estate","REIT - Retail",23.32,23.65,1.4,NO,1,WIN
+2026-02-26,DTM,"DT Midstream, Inc.","Energy","Oil & Gas Midstream",138.82,142.75,2.83,NO,11,WIN
+2026-02-26,ASO,"Academy Sports and Outdoors, Inc.","Consumer Cyclical","Consumer Cyclical",60.65,62.27,2.67,NO,0,WIN
+2026-02-26,ALSN,"ALSN","Consumer Cyclical","Auto Parts",124.63,128.53,3.13,NO,6,WIN
+2026-02-25,XPRO,"XPRO","Energy","Oil & Gas Equipment & Services",17.17,18.47,7.57,NO,27,WIN
+2026-02-25,XP,"XP","Financial Services","Capital Markets",22.45,22.88,1.92,NO,0,WIN
+2026-02-25,WSC,"WSC","Industrials","Rental & Leasing Services",23.25,24.47,5.24,NO,0,WIN
+2026-02-25,VNOM,"VNOM","Energy","Oil & Gas Midstream",44.95,49.08,9.19,NO,23,WIN
+2026-02-25,UPBD,"UPBD","Technology","Software - Application",21.25,21.85,2.83,NO,1,WIN
+2026-02-25,UCTT,"UCTT","Technology","Semiconductor Equipment & Materials",68.33,73.8,8.01,NO,0,WIN
+2026-02-25,ST,"ST","Technology","Scientific & Technical Instruments",37.72,38.65,2.47,NO,0,WIN
+2026-02-25,RNG,"RNG","Technology","Software - Application",34.7,42.34,22.03,NO,9,WIN
+2026-02-25,POR,"POR","Utilities","Utilities - Regulated Electric",52.94,53.77,1.57,NO,7,WIN
+2026-02-25,OXY,"OXY","Energy","Oil & Gas E&P",51.95,66,27.05,NO,30,WIN
+2026-02-25,OMC,"OMC","Communication Services","Advertising Agencies",82.38,86.31,4.77,NO,8,WIN
+2026-02-25,MAMA,"MAMA","Consumer Defensive","Packaged Foods",17.3,17.85,3.18,NO,1,WIN
+2026-02-25,HG,"HG","Financial Services","Insurance - Reinsurance",31.03,30.1,-3,NO,2,LOSS
+2026-02-25,GTY,"GTY","Real Estate","REIT - Retail",32.58,33.63,3.21,NO,20,WIN
+2026-02-25,FSM,"FSM","Basic Materials","Gold",13.58,13.85,1.99,NO,5,WIN
+2026-02-25,FRPT,"Freshpet, Inc.","Consumer Defensive","Consumer Defensive",78.76,86,9.19,NO,8,WIN
+2026-02-25,FLR,"FLR","Industrials","Engineering & Construction",53.7,54.05,0.65,NO,1,WIN
+2026-02-25,ESTA,"ESTA","Healthcare","Medical Devices",80.41,83.31,3.61,NO,0,WIN
+2026-02-25,DE,"Deere & Company","Industrials","Farm & Heavy Construction Machinery",628.9,645.04,2.57,NO,0,WIN
+2026-02-25,COCO,"COCO","Consumer Defensive","Beverages - Non-Alcoholic",55.01,61.39,11.6,NO,19,WIN
+2026-02-25,BLCO,"BLCO","Healthcare","Medical Instruments & Supplies",18.44,18.92,2.58,NO,0,WIN
+2026-02-25,ATEX,"ATEX","Communication Services","Telecom Services",37.21,41,10.19,NO,29,WIN
+2026-02-24,WH,"WH","Consumer Cyclical","Lodging",84.37,84.9,0.62,NO,2,WIN
+2026-02-24,VICR,"VICR","Technology","Electronic Components",190.3,209.53,10.11,NO,6,WIN
+2026-02-24,UTI,"UTI","Consumer Defensive","Education & Training Services",34.69,40.41,16.49,NO,29,WIN
+2026-02-24,SPNT,"SPNT","Financial Services","Insurance - Reinsurance",21.15,21.81,3.12,NO,6,WIN
+2026-02-24,RHP,"RHP","Real Estate","REIT - Hotel & Motel",102.82,104.36,1.5,NO,0,WIN
+2026-02-24,PRG,"PRG","Industrials","Rental & Leasing Services",37.08,38.14,2.86,NO,0,WIN
+2026-02-24,HCSG,"HCSG","Healthcare","Medical Care Facilities",21.4,22.39,4.63,NO,6,WIN
+2026-02-24,FPI,"FPI","Real Estate","REIT - Specialty",12.62,13.12,3.95,NO,6,WIN
+2026-02-24,FLNG,"FLNG","Energy","Oil & Gas Midstream",27.64,31.99,15.74,NO,23,WIN
+2026-02-24,DHT,"DHT","Energy","Oil & Gas Midstream",18.7,20.55,9.89,NO,6,WIN
+2026-02-24,CDP,"CDP","Real Estate","REIT - Office",32.27,32.48,0.65,NO,0,WIN
+2026-02-24,CAKE,"CAKE","Consumer Cyclical","Restaurants",64.34,66.19,2.87,NO,2,WIN
+2026-02-23,SSRM,"SSRM","Basic Materials","Gold",30.66,33.49,9.23,NO,9,WIN
+2026-02-23,OIS,"OIS","Energy","Oil & Gas Equipment & Services",14.39,14.5,0.76,NO,2,WIN
+2026-02-23,MAC,"MAC","Real Estate","REIT - Retail",20.17,20.74,2.83,NO,4,WIN
+2026-02-23,KOD,"KOD","Healthcare","Biotechnology",27.98,28.85,3.11,NO,2,WIN
+2026-02-23,GOOD,"GOOD","Real Estate","REIT - Diversified",12.51,12.87,2.87,NO,0,WIN
+2026-02-23,GNK,"GNK","Industrials","Marine Shipping",23.75,24.25,2.11,NO,7,WIN
+2026-02-23,EPRT,"EPRT","Real Estate","REIT - Retail",33.27,34.38,3.34,NO,9,WIN
+2026-02-20,TRGP,"Targa Resources Corp.","Energy","Energy",229.7,250,8.84,NO,10,WIN
+2026-02-20,TPL,"TPL","Energy","Oil & Gas E&P",515.72,546.57,5.98,NO,3,WIN
+2026-02-20,PWR,"Quanta Services, Inc.","Industrials","Industrials",554.13,583.62,5.32,NO,26,WIN
+2026-02-20,OXY,"OXY","Energy","Oil & Gas E&P",51.38,61.37,19.44,NO,28,WIN
+2026-02-20,NOK,"Nokia Oyj","Communication Services","Telecom Services",7.7,8.82,14.55,NO,24,WIN
+2026-02-20,MU,"MU","Technology","Semiconductors",425.88,471.14,10.63,NO,26,WIN
+2026-02-20,LYV,"LYV","Communication Services","Entertainment",164.5,168.54,2.46,NO,0,WIN
+2026-02-20,JBL,"Jabil Inc.","Industrials","Electronic Components",270.88,281.37,3.87,NO,6,WIN
+2026-02-20,HWM,"Howmet Aerospace Inc.","Industrials","Industrials",257.98,267.31,3.62,NO,10,WIN
+2026-02-20,GRMN,"Garmin Ltd.","Technology","Technology",244.7,254.92,4.18,NO,10,WIN
+2026-02-20,GE,"GE","Industrials","Aerospace & Defense",341.3,347.97,1.96,NO,5,WIN
+2026-02-20,EQT,"EQT Corporation","Energy","Energy",60.74,67.15,10.55,NO,27,WIN
+2026-02-20,EIX,"Edison International","Utilities","Utilities",73.66,74.6,1.28,NO,4,WIN
+2026-02-20,DLTR,"DLTR","Consumer Defensive","Discount Stores",133.73,138.91,3.87,NO,0,WIN
+2026-02-20,CVE,"Cenovus Energy Inc.","Energy","Energy",22.71,25.39,11.8,NO,27,WIN
+2026-02-20,BHP,"BHP","Basic Materials","Other Industrial Metals & Mining",75.88,81.61,7.56,NO,10,WIN
+2026-02-20,AMRZ,"AMRZ","Basic Materials","Building Materials",64.29,65.94,2.57,NO,4,WIN
+2026-02-20,AMAT,"Applied Materials, Inc.","Technology","Semiconductor Equipment",372.59,395.95,6.27,NO,5,WIN
+2026-02-20,AEM,"Agnico Eagle Mines Limited","Basic Materials","Basic Materials",226.93,255.24,12.48,NO,10,WIN
+2026-02-20,ADI,"Analog Devices, Inc.","Technology","Semiconductors",352.36,362.07,2.75,NO,5,WIN
+2026-02-19,XOM,"XOM","Energy","Oil & Gas Integrated",150.68,162.44,7.8,NO,29,WIN
+2026-02-19,TW,"Tradeweb Markets Inc.","Financial Services","Financial Services",118.12,126.85,7.39,NO,26,WIN
+2026-02-19,SW,"Smurfit Westrock Plc","Consumer Cyclical","Consumer Cyclical",51.84,52.22,0.73,NO,0,WIN
+2026-02-19,SU,"Suncor Energy Inc.","Energy","Oil & Gas Integrated",56.81,64.63,13.77,NO,28,WIN
+2026-02-19,RTX,"RTX","Industrials","Aerospace & Defense",204.81,214.5,4.73,NO,12,WIN
+2026-02-19,OKE,"OKE","Energy","Oil & Gas Midstream",86.79,92.14,6.16,NO,29,WIN
+2026-02-19,NOC,"Northrop Grumman Corporation","Industrials","Industrials",732.6,774,5.65,NO,12,WIN
+2026-02-19,MRK,"MRK","Healthcare","Drug Manufacturersâ€”General",121.7,124.22,2.07,NO,6,WIN
+2026-02-19,LHX,"L3Harris Technologies, Inc.","Industrials","Industrials",354.31,377.91,6.66,NO,11,WIN
+2026-02-19,HUBB,"HUBB","Industrials","Electrical Equipment & Parts",526.36,531.76,1.03,NO,1,WIN
+2026-02-19,FDX,"FDX","Industrials","Integrated Freight & Logistics",382.95,391.27,2.17,NO,8,WIN
+2026-02-19,COP,"COP","Energy","Oil & Gas E&P",112,128.13,14.4,NO,29,WIN
+2026-02-19,AMGN,"AMGN","Healthcare","Drug Manufacturersâ€”General",379.73,391.29,3.04,NO,11,WIN
+2026-02-18,WPM,"Wheaton Precious Metals Corp.","Basic Materials","Basic Materials",145.78,165.5,13.53,NO,12,WIN
+2026-02-18,WDS,"WDS","Energy","Oil & Gas E&P",18.74,25.19,34.42,NO,29,WIN
+2026-02-18,WDC,"WDC","Technology","Computer Hardware",284.11,319.62,12.5,NO,28,WIN
+2026-02-18,WAB,"WAB","Industrials","Railroads",259.69,266.27,2.53,NO,7,WIN
+2026-02-18,VRT,"VRT","Industrials","Electrical Equipment & Parts",246.32,276.71,12.34,NO,21,WIN
+2026-02-18,TGT,"Target Corporation","Consumer Cyclical","Discount Stores",116.24,126,8.4,NO,14,WIN
+2026-02-18,PSA,"PSA","Real Estate","REIT - Industrial",302,309.71,2.55,NO,12,WIN
+2026-02-18,PCG,"PG&E Corporation","Utilities","Utilitiesâ€”Regulated Electric",18.02,19.11,6.02,NO,12,WIN
+2026-02-18,NRG,"NRG Energy, Inc.","Energy","Utilitiesâ€”Independent Power Producers",173.45,189.96,9.52,NO,7,WIN
+2026-02-18,NEE,"NextEra Energy, Inc.","Utilities","Utilitiesâ€”Renewable",92.71,95.26,2.75,NO,7,WIN
+2026-02-18,LRCX,"Lam Research Corporation","Technology","Semiconductor Equipment",242.15,256.37,5.87,NO,7,WIN
+2026-02-18,IRM,"Iron Mountain","Real Estate","REITâ€”Specialty",106.34,114.31,7.49,NO,7,WIN
+2026-02-18,HCA,"HCA Healthcare, Inc.","Healthcare","Healthcare Plans",534.78,555.69,3.91,NO,22,WIN
+2026-02-18,GEV,"GEV","Industrials","Specialty Industrial Machinery",819.15,894.39,9.19,NO,7,WIN
+2026-02-18,FTAI,"FTAI Aviation Ltd.","Industrials","Industrials",296.7,322.96,8.85,NO,8,WIN
+2026-02-18,FERG,"Ferguson Enterprises Inc.","Industrials","Industrials",262.1,265.06,1.13,NO,8,WIN
+2026-02-18,FANG,"Diamondback Energy, Inc.","Energy","Oil & Gas E&P",168.59,194.68,15.48,NO,30,WIN
+2026-02-18,EXC,"Exelon Corporation","Utilities","Utilitiesâ€”Regulated Electric",48.04,50.65,5.43,NO,27,WIN
+2026-02-18,ETN,"Eaton Corporation plc","Industrials","Industrials",391.49,395.77,1.09,NO,0,WIN
+2026-02-18,EQIX,"EQIX","Real Estate","REITâ€”Specialty",951.97,990.98,4.1,NO,26,WIN
+2026-02-18,DLR,"Digital Realty Trust, Inc.","Real Estate","REITâ€”Specialty",179.89,182.95,1.7,NO,26,WIN
+2026-02-18,DG,"Dollar General Corporation","Consumer Defensive","Consumer Defensive",153.11,157.48,2.86,NO,8,WIN
+2026-02-18,CAT,"Caterpillar Inc.","Industrials","Farm & Heavy Construction Machinery",764.76,777.6,1.68,NO,7,WIN
+2026-02-18,BDX,"BDX","Healthcare","Medical Instruments & Supplies",177.38,186.16,4.95,NO,6,WIN
+2026-02-18,BAP,"BAP","Financial Services","Banks - Regional",345.35,360.83,4.48,NO,7,WIN
+2026-02-18,AMX,"AMX","Communication Services","Telecom Services",24.34,26.16,7.48,NO,12,WIN
+2026-02-17,UPS,"UPS","Industrials","Integrated Freight & Logistics",115.97,118.2,1.92,NO,0,WIN
+2026-02-17,SMFG,"SMFG","Financial Services","Banks - Diversified",22.86,23.54,2.97,NO,6,WIN
+2026-02-17,PEP,"PepsiCo, Inc.","Consumer Defensive","Beveragesâ€”Non-Alcoholic",161.11,168.77,4.76,NO,10,WIN
+2026-02-17,MUFG,"MUFG","Financial Services","Banks - Diversified",19.17,19.52,1.83,NO,6,WIN
+2026-02-17,MT,"ArcelorMittal S.A.","Basic Materials","Steel",63.92,67.6,5.76,NO,8,WIN
+2026-02-17,CNQ,"CNQ","Energy","Oil & Gas E&P",40.22,50.88,26.5,NO,30,WIN
+2026-02-17,BIIB,"BIIB","Healthcare","Biotechnology",194.39,200.29,3.04,NO,0,WIN
+2026-02-17,ANET,"ANET","Technology","Computer Hardware",142.76,145,1.57,NO,0,WIN
+2026-02-13,WAB,"WAB","Industrials","Railroads",257.27,266.27,3.5,NO,12,WIN
+2026-02-13,VRT,"VRT","Industrials","Electrical Equipment & Parts",236.51,276.71,17,NO,26,WIN
+2026-02-13,VMC,"VMC","Basic Materials","Building Materials",328.18,328.17,0,NO,0,LOSS
+2026-02-13,STLD,"Steel Dynamics, Inc.","Basic Materials","Steel",191.9,201.14,4.81,NO,17,WIN
+2026-02-13,PCG,"PG&E Corporation","Utilities","Utilitiesâ€”Regulated Electric",18.1,19.11,5.55,NO,17,WIN
+2026-02-13,MLM,"MLM","Basic Materials","Building Materials",684.36,701.52,2.51,NO,12,WIN
+2026-02-13,IRM,"Iron Mountain","Real Estate","REITâ€”Specialty",110.19,114.31,3.74,NO,12,WIN
+2026-02-13,HWM,"Howmet Aerospace Inc.","Industrials","Industrials",251.29,267.31,6.38,NO,17,WIN
+2026-02-13,HCA,"HCA Healthcare, Inc.","Healthcare","Healthcare Plans",540.61,555.69,2.79,NO,27,WIN
+2026-02-13,GILD,"Gilead Sciences, Inc.","Healthcare","Drug Manufacturersâ€”General",151.81,156.06,2.8,NO,0,WIN
+2026-02-13,EXC,"Exelon Corporation","Utilities","Utilitiesâ€”Regulated Electric",48.56,50.38,3.75,NO,28,WIN
+2026-02-13,EQIX,"EQIX","Real Estate","REITâ€”Specialty",956.92,983.38,2.77,NO,28,WIN
+2026-02-13,EIX,"Edison International","Utilities","Utilities",71.42,74.6,4.45,NO,11,WIN
+2026-02-13,DLR,"Digital Realty Trust, Inc.","Real Estate","REITâ€”Specialty",180.93,182.28,0.75,NO,26,WIN
+2026-02-13,DE,"Deere & Company","Industrials","Farm & Heavy Construction Machinery",608.01,672.22,10.56,NO,6,WIN
+2026-02-13,CAT,"Caterpillar Inc.","Industrials","Farm & Heavy Construction Machinery",781.53,784,0.32,NO,0,WIN
+2026-02-13,BHP,"BHP","Basic Materials","Other Industrial Metals & Mining",73.54,81.61,10.98,NO,17,WIN
+2026-02-13,AMX,"AMX","Communication Services","Telecom Services",23.52,26.16,11.22,NO,17,WIN
+2026-02-12,WMB,"WMB","Energy","Oil & Gas Midstream",71.12,76.32,7.31,NO,18,WIN
+2026-02-12,VIV,"VIV","Communication Services","Telecom Services",15.8,16.92,7.12,NO,15,WIN
+2026-02-12,UPS,"UPS","Industrials","Integrated Freight & Logistics",120,120.73,0.61,NO,0,WIN
+2026-02-12,TPR,"TPR","Consumer Cyclical","Luxury Goods",154.67,161.54,4.44,NO,14,WIN
+2026-02-12,TER,"Teradyne, Inc.","Technology","Technology",321.45,344.92,7.3,NO,14,WIN
+2026-02-12,STM,"STM","Technology","Semiconductors",34.95,34.81,-0.4,NO,14,LOSS
+2026-02-12,MAR,"Marriott International, Inc.","Consumer Cyclical","Lodging",358.75,369.29,2.94,NO,0,WIN
+2026-02-12,LITE,"Lumentum Holdings Inc.","Technology","Technology",574.11,783.8,36.52,NO,18,WIN
+2026-02-12,GLW,"Corning Incorporated","Technology","Technology",132.9,161.8,21.74,NO,13,WIN
+2026-02-12,GEV,"GEV","Industrials","Specialty Industrial Machinery",823.67,894.39,8.59,NO,13,WIN
+2026-02-12,FERG,"Ferguson Enterprises Inc.","Industrials","Industrials",267.36,270.63,1.22,NO,0,WIN
+2026-02-12,EMR,"EMR","Industrials","Specialty Industrial Machinery",154.67,157.43,1.78,NO,0,WIN
+2026-02-12,CVE,"Cenovus Energy Inc.","Energy","Energy",22.02,23.91,8.58,NO,28,WIN
+2026-02-12,CNQ,"CNQ","Energy","Oil & Gas E&P",40.63,48.43,19.2,NO,29,WIN
+2026-02-12,BDX,"BDX","Healthcare","Medical Instruments & Supplies",180.62,186.16,3.07,NO,12,WIN
+2026-02-12,AZN,"AZN","Healthcare","Drug Manufacturersâ€”General",204.76,210.52,2.81,NO,6,WIN
+2026-02-12,ASX,"ASX","Financial Services","Banksâ€”Diversified",23.74,25.29,6.53,NO,13,WIN
+2026-02-05,TD,"The Toronto-Dominion Bank","Financial Services","Banksâ€”Diversified",94.81,99.06,4.48,NO,22,WIN
+2026-02-05,SMFG,"SMFG","Financial Services","Banks - Diversified",21.41,24.34,13.69,NO,7,WIN
+2026-02-05,RY,"Royal Bank of Canada","Financial Services","Banksâ€”Diversified",169.07,176.19,4.21,NO,5,WIN
+2026-02-05,ROST,"Ross Stores, Inc.","Consumer Cyclical","Consumer Cyclical",189.7,216.34,14.04,NO,27,WIN
+2026-02-05,PUK,"PUK","Financial Services","Insuranceâ€”Life",33.59,32.39,-3.5,YES,5,LOSS
+2026-02-05,HSBC,"HSBC","Financial Services","Banks - Diversified",86.66,92.2,6.4,NO,21,WIN
+2026-02-05,ET,"ET","Energy","Oil & Gas Midstream",18.18,19.3,6.16,NO,13,WIN
+2026-02-05,ENB,"Enbridge Inc.","Energy","Energy",50.16,54.42,8.49,NO,26,WIN
+2026-02-05,CNP,"CenterPoint Energy, Inc.","Utilities","Utilities",40.35,44.04,9.14,NO,27,WIN
+2026-02-05,CM,"Canadian Imperial Bank of Commerce","Financial Services","Financial Services",94.55,104.14,10.14,NO,21,WIN
+2026-02-05,BNS,"BNS","Financial Services","Banksâ€”Diversified",75.21,78.28,4.08,NO,6,WIN
+2026-02-05,ATO,"Atmos Energy Corporation","Utilities","Utilities",170.83,187.98,10.04,NO,25,WIN
+2026-02-05,AFL,"Aflac Incorporated","Financial Services","Financial Services",113.62,118.69,4.46,NO,0,WIN
+2026-02-04,XOM,"XOM","Energy","Oil & Gas Integrated",146.92,159.61,8.64,NO,26,WIN
+2026-02-04,UPS,"UPS","Industrials","Integrated Freight & Logistics",116.01,120.73,4.07,NO,8,WIN
+2026-02-04,SU,"Suncor Energy Inc.","Energy","Oil & Gas Integrated",53.69,58.63,9.2,NO,30,WIN
+2026-02-04,SCCO,"SCCO","Basic Materials","Copper",194.9,223.89,14.87,NO,23,WIN
+2026-02-04,RCL,"Royal Caribbean Cruises Ltd.","Consumer Cyclical","Consumer Cyclical",323.93,354.5,9.44,NO,6,WIN
+2026-02-04,PSX,"PSX","Energy","Oil & Gas Refining & Marketing",155.45,169.62,9.12,NO,29,WIN
+2026-02-04,PEP,"PepsiCo, Inc.","Consumer Defensive","Beveragesâ€”Non-Alcoholic",166.65,169.96,1.99,NO,8,WIN
+2026-02-04,PBR,"PBR","Energy","Oil & Gas Integrated",15.15,17.83,17.69,NO,30,WIN
+2026-02-04,MRK,"MRK","Healthcare","Drug Manufacturersâ€”General",119.23,124.22,4.19,NO,21,WIN
+2026-02-04,MPC,"MPC","Energy","Oil & Gas Refining & Marketing",196.14,228.55,16.52,NO,29,WIN
+2026-02-04,MO,"Altria Group, Inc.","Consumer Defensive","Tobacco",65.26,69.35,6.26,NO,23,WIN
+2026-02-04,IR,"Ingersoll Rand Inc.","Industrials","Industrials",98.42,100.94,2.56,NO,9,WIN
+2026-02-04,IMO,"IMO","Energy","Oil & Gas Integrated",111.68,122.86,10.01,NO,15,WIN
+2026-02-04,FITB,"Fifth Third Bancorp","Financial Services","Financial Services",54.15,54.94,1.47,NO,7,WIN
+2026-02-04,FCX,"Freeport-McMoRan Inc.","Basic Materials","Copper",61.6,69.6,12.98,NO,21,WIN
+2026-02-04,EPD,"EPD","Energy","Oil & Gas Midstream",35.02,37.77,7.85,NO,30,WIN
+2026-02-04,CVX,"CVX","Energy","Oil & Gas Integrated",181.53,192.41,5.99,NO,30,WIN
+2026-02-04,CAT,"Caterpillar Inc.","Industrials","Farm & Heavy Construction Machinery",681.88,789.81,15.83,NO,8,WIN
+2026-02-04,BTI,"British American Tobacco p.l.c.","Consumer Defensive","Consumer Defensive",61.79,62.31,0.85,NO,21,WIN
+2026-02-04,AZN,"AZN","Healthcare","Drug Manufacturersâ€”General",188.46,210.52,11.7,NO,14,WIN
+2026-02-03,TXN,"Texas Instruments Incorporated","Technology","Semiconductors",223.34,231.32,3.57,NO,8,WIN
+2026-02-03,TEVA,"Teva Pharmaceutical Industries Limited","Healthcare","Drug Manufacturersâ€”Specialty & Generic",36.12,37.35,3.41,NO,0,WIN
+2026-02-03,TAK,"TAK","Healthcare","Drug Manufacturers - Specialty & Generic",17.48,18.82,7.67,NO,20,WIN
+2026-02-03,MNST,"MNST","Consumer Defensive","Beverages - Non-Alcoholic",81.71,87.38,6.94,NO,24,WIN
+2026-02-03,META,"META","Communication Services","Internet Content & Information",688.17,716.39,4.1,NO,0,WIN
+2026-02-03,LYG,"LYG","Financial Services","Banksâ€”Diversified",6.18,6.19,0.13,NO,1,WIN
+2026-02-03,LUV,"Southwest Airlines Co.","Industrials","Industrials",50.9,54.87,7.81,NO,14,WIN
+2026-02-03,ETN,"Eaton Corporation plc","Industrials","Industrials",359.72,407.18,13.19,NO,9,WIN
+2026-02-03,DVN,"DVN","Energy","Oil & Gas E&P",40.66,45.91,12.91,NO,16,WIN
+2026-02-03,AMP,"Ameriprise Financial, Inc.","Financial Services","Financial Services",521.11,548.56,5.27,NO,1,WIN
+2026-02-03,ADM,"Archer-Daniels-Midland Company","Consumer Defensive","Consumer Defensive",67.11,70.48,5.02,NO,27,WIN
+2026-02-02,WDC,"WDC","Technology","Computer Hardware",274.47,309.75,12.85,NO,16,WIN
+2026-02-02,VOD,"VOD","Communication Services","Telecom Services",14.9,15.91,6.78,NO,23,WIN
+2026-02-02,STX,"Seagate Technology Holdings plc","Technology","Computer Hardware",432.18,459.04,6.21,NO,10,WIN
+2026-02-02,SNDK,"Sandisk Corporation","Technology","Computer Hardware",666.53,725,8.77,NO,1,WIN
+2026-02-02,NWG,"NWG","Financial Services","Banksâ€”Diversified",18.75,18.56,-1,NO,2,LOSS
+2026-02-02,MSCI,"MSCI","Financial Services","Financial Data & Stock Exchanges",622.35,623.82,0.24,NO,0,WIN
+2026-02-02,ING,"ING Groep N.V.","Financial Services","Banksâ€”Diversified",30.23,31.18,3.14,NO,2,WIN
+2026-02-02,GLW,"Corning Incorporated","Technology","Technology",109.95,161.8,47.16,NO,23,WIN
+2026-02-02,GEV,"GEV","Industrials","Specialty Industrial Machinery",753.18,894.39,18.75,NO,23,WIN
+2026-02-02,BP,"BP p.l.c.","Energy","Oil & Gas Integrated",37.73,39.56,4.85,NO,29,WIN
+2026-02-02,BMO,"BMO","Financial Services","Banks - Diversified",138.68,149.01,7.45,NO,23,WIN
+2026-02-02,BAP,"BAP","Financial Services","Banks - Regional",365.6,380.2,3.99,NO,1,WIN
+2026-01-31,VZ,"VZ","Communication Services","Telecom Services",44.52,49.73,11.71,NO,23,WIN
+2026-01-31,VALE,"VALE","Basic Materials","Other Industrial Metals & Mining",16.07,17.72,10.27,NO,12,WIN
+2026-01-31,TTE,"TTE","Energy","Oil & Gas Integrated",72.4,81.34,12.34,NO,30,WIN
+2026-01-31,SHEL,"Shell plc","Energy","Energy",77.03,84.55,9.76,NO,30,WIN
+2026-01-31,SAN,"SAN","Financial Services","Banksâ€”Diversified",12.75,13.24,3.84,NO,25,WIN
+2026-01-31,RTX,"RTX","Industrials","Aerospace & Defense",200.93,212.82,5.92,NO,30,WIN
+2026-01-31,RIO,"Rio Tinto Group","Basic Materials","Other Industrial Metals & Mining",91.03,98.77,8.5,NO,25,WIN
+2026-01-31,PUK,"PUK","Financial Services","Insuranceâ€”Life",32.99,33.59,1.8,NO,4,WIN
+2026-01-31,PM,"Philip Morris International Inc.","Consumer Defensive","Tobacco",179.44,189.61,5.67,NO,25,WIN
+2026-01-31,NVS,"Novartis AG","Healthcare","Healthcare",148.68,165.43,11.26,NO,27,WIN
+2026-01-31,MU,"MU","Technology","Semiconductors",414.88,442.24,6.6,NO,2,WIN
+2026-01-31,LRCX,"Lam Research Corporation","Technology","Semiconductor Equipment",233.46,256.37,9.81,NO,25,WIN
+2026-01-31,KO,"The Coca-Cola Company","Consumer Defensive","Beveragesâ€”Non-Alcoholic",74.81,81.44,8.86,NO,27,WIN
+2026-01-31,JNJ,"Johnson & Johnson","Healthcare","Drug Manufacturersâ€”General",227.25,251.71,10.76,NO,30,WIN
+2026-01-31,ITUB,"ItaÃº Unibanco Holding S.A.","Financial Services","Financial Services",8.59,9.51,10.71,NO,11,WIN
+2026-01-31,IBM,"IBM","Technology","IT Services",306.7,314.84,2.66,NO,2,WIN
+2026-01-31,HSBC,"HSBC","Financial Services","Banks - Diversified",88.01,92.2,4.77,NO,26,WIN
+2026-01-31,FANG,"Diamondback Energy, Inc.","Energy","Oil & Gas E&P",163.95,182.27,11.17,NO,30,WIN
+2026-01-31,COP,"COP","Energy","Oil & Gas E&P",104.23,119.3,14.46,NO,30,WIN
+2026-01-31,CCJ,"CCJ","Energy","Uranium",123.39,128.15,3.86,NO,3,WIN
+2026-01-31,BKR,"Baker Hughes Company","Energy","Oil & Gas Equipment & Services",56.04,67,19.56,NO,30,WIN
+2026-01-31,BHP,"BHP","Basic Materials","Other Industrial Metals & Mining",68.73,81.61,18.74,NO,30,WIN
+2026-01-31,BBD,"BBD","Financial Services","Banks - Regional",4.05,4.18,3.25,NO,3,WIN
+2026-01-31,ANET,"ANET","Technology","Computer Hardware",141.74,148.77,4.96,NO,13,WIN
+2026-01-29,WPM,"Wheaton Precious Metals Corp.","Basic Materials","Basic Materials",151.82,164.13,8.11,NO,29,WIN
+2026-01-29,VLO,"Valero Energy Corporation","Energy","Oil & Gas Refining & Marketing",190.65,206.77,8.46,NO,14,WIN
+2026-01-29,SCCO,"SCCO","Basic Materials","Copper",207.64,223.89,7.83,NO,29,WIN
+2026-01-29,PBR,"PBR","Energy","Oil & Gas Integrated",15.57,16.92,8.67,NO,29,WIN
+2026-01-29,PAAS,"PAAS","Basic Materials","Gold",62.79,68.73,9.46,NO,29,WIN
+2026-01-29,KGC,"Kinross Gold Corporation","Basic Materials","Basic Materials",36.1,38.67,7.13,NO,0,WIN
+2026-01-29,FNV,"Franco-Nevada Corporation","Basic Materials","Basic Materials",261.32,284.03,8.69,NO,29,WIN
+2026-01-29,EPD,"EPD","Energy","Oil & Gas Midstream",34.01,37.31,9.7,NO,15,WIN
+2026-01-29,EC,"EC","Energy","Oil & Gas Integrated",12.91,13.25,2.63,NO,0,WIN
+2026-01-29,BTI,"British American Tobacco p.l.c.","Consumer Defensive","Consumer Defensive",60.22,62.31,3.48,NO,27,WIN
+2026-01-29,BIDU,"BIDU","Communication Services","Internet Content & Information",156.83,161.93,3.25,NO,0,WIN
+2026-01-29,B,"B","Basic Materials","Gold",51.71,54.23,4.88,NO,0,WIN
+2026-01-29,AU,"AU","Basic Materials","Gold",105.54,126.42,19.78,NO,27,WIN
+2026-01-28,ZM,"Zoom Communications, Inc.","Technology","Technology",97.45,97.58,0.13,NO,0,WIN
+2026-01-28,UMC,"UMC","Technology","Semiconductors",11.45,11.86,3.58,NO,0,WIN
+2026-01-28,TXN,"Texas Instruments Incorporated","Technology","Semiconductors",214.66,231.32,7.76,NO,14,WIN
+2026-01-28,STX,"Seagate Technology Holdings plc","Technology","Computer Hardware",441.95,459.04,3.87,NO,15,WIN
+2026-01-28,SLB,"SLB","Energy","Oil & Gas Equipment & Services",49.12,52.4,6.68,NO,15,WIN
+2026-01-28,SBUX,"Starbucks Corporation","Consumer Cyclical","Restaurants",96.54,104.15,7.88,NO,0,WIN
+2026-01-28,NWG,"NWG","Financial Services","Banksâ€”Diversified",18.08,18.56,2.67,NO,7,WIN
+2026-01-28,MPWR,"MPWR","Technology","Semiconductors",1159.3,1253.71,8.14,NO,28,WIN
+2026-01-28,MCHP,"MCHP","Technology","Semiconductors",81.28,82.86,1.95,NO,15,WIN
+2026-01-28,GLW,"Corning Incorporated","Technology","Technology",104.41,161.8,54.96,NO,28,WIN
+2026-01-28,GFS,"GLOBALFOUNDRIES Inc.","Technology","Technology",45.99,50.98,10.85,NO,15,WIN
+2026-01-28,ERIC,"Telefonaktiebolaget LM Ericsson (publ)","Communication Services","Telecom Services",10.85,11.47,5.73,NO,30,WIN
+2026-01-28,ASX,"ASX","Financial Services","Banksâ€”Diversified",20.21,25.29,25.14,NO,28,WIN
+2026-01-28,AMAT,"Applied Materials, Inc.","Technology","Semiconductor Equipment",336.45,395.95,17.68,NO,28,WIN
+2026-01-27,TECK,"TECK","Basic Materials","Other Industrial Metals & Mining",55.94,62.3,11.37,NO,29,WIN
+2026-01-27,TDY,"TDY","Technology","Scientific & Technical Instruments",614.66,691.87,12.56,NO,29,WIN
+2026-01-27,NU,"Nu Holdings Ltd.","Financial Services","Financial Services",18.43,18.98,2.98,NO,2,WIN
+2026-01-27,MT,"ArcelorMittal S.A.","Basic Materials","Steel",55.46,67.6,21.89,NO,29,WIN
+2026-01-27,KEP,"KEP","Utilities","Utilities - Regulated Electric",21.35,23.09,8.15,NO,29,WIN
+2026-01-27,GILD,"Gilead Sciences, Inc.","Healthcare","Drug Manufacturersâ€”General",140.55,156.4,11.28,NO,15,WIN
+2026-01-27,AMD,"Advanced Micro Devices, Inc.","Technology","Semiconductors",250.52,260.53,4,NO,2,WIN
+2026-01-26,NEM,"Newmont Corporation","Basic Materials","Gold",125.92,134.61,6.9,NO,3,WIN
+2026-01-26,MU,"MU","Technology","Semiconductors",389.09,455.31,17.02,NO,4,WIN
+2026-01-26,HAL,"Halliburton Company","Energy","Oil & Gas Equipment & Services",34.16,36.01,5.4,NO,30,WIN
+2026-01-26,GFI,"Gold Fields Limited","Basic Materials","Basic Materials",54.68,59.9,9.54,NO,2,WIN
+2026-01-26,FCX,"Freeport-McMoRan Inc.","Basic Materials","Copper",61.17,69.6,13.78,NO,30,WIN
+2026-01-26,BKR,"Baker Hughes Company","Energy","Oil & Gas Equipment & Services",56.29,65.48,16.33,NO,30,WIN
+2026-01-26,AEM,"Agnico Eagle Mines Limited","Basic Materials","Basic Materials",215.41,245.37,13.91,NO,29,WIN
+2026-01-23,XOM,"XOM","Energy","Oil & Gas Integrated",135.3,155.89,15.22,NO,19,WIN
+2026-01-23,TTE,"TTE","Energy","Oil & Gas Integrated",68.66,77.49,12.86,NO,27,WIN
+2026-01-23,SNDK,"Sandisk Corporation","Technology","Computer Hardware",476.01,725,52.31,NO,11,WIN
+2026-01-23,SCCO,"SCCO","Basic Materials","Copper",182.76,216.03,18.2,NO,6,WIN
+2026-01-23,PPG,"PPG Industries, Inc.","Basic Materials","Basic Materials",111.62,132.67,18.86,NO,20,WIN
+2026-01-23,PBR,"PBR","Energy","Oil & Gas Integrated",14.16,16.03,13.21,NO,19,WIN
+2026-01-23,PAAS,"PAAS","Basic Materials","Gold",64.35,69.81,8.48,NO,3,WIN
+2026-01-23,KMI,"Kinder Morgan, Inc.","Energy","Energy",29.6,32.77,10.71,NO,27,WIN
+2026-01-23,FNV,"Franco-Nevada Corporation","Basic Materials","Basic Materials",255.46,273.11,6.91,NO,6,WIN
+2026-01-23,ERIC,"Telefonaktiebolaget LM Ericsson (publ)","Communication Services","Telecom Services",10.51,11.22,6.71,NO,28,WIN
+2026-01-23,CSX,"CSX Corporation","Industrials","Industrials",37.19,42.21,13.5,NO,28,WIN
+2026-01-23,B,"B","Basic Materials","Gold",50.31,54.23,7.8,NO,6,WIN
+2026-01-23,AU,"AU","Basic Materials","Gold",105.07,113.9,8.4,NO,5,WIN
+2026-01-23,AMAT,"Applied Materials, Inc.","Technology","Semiconductor Equipment",321.61,377.11,17.26,NO,28,WIN
+2026-01-23,ALB,"Albemarle Corp","Basic Materials","Specialty Chemicals",191.08,195.21,2.16,NO,4,WIN
+2026-01-22,WMT,"Walmart Inc.","Consumer Defensive","Discount Stores",118.14,134.41,13.78,NO,26,WIN
+2026-01-22,TMO,"TMO","Healthcare","Diagnostics & Research",638.48,643.35,0.76,NO,0,WIN
+2026-01-22,NU,"Nu Holdings Ltd.","Financial Services","Financial Services",17.92,18.98,5.92,NO,7,WIN
+2026-01-22,MT,"ArcelorMittal S.A.","Basic Materials","Steel",53.79,66.81,24.21,NO,20,WIN
+2026-01-22,MNST,"MNST","Consumer Defensive","Beverages - Non-Alcoholic",80.9,83.98,3.81,NO,29,WIN
+2026-01-22,FTAI,"FTAI Aviation Ltd.","Industrials","Industrials",290.51,309.48,6.53,NO,0,WIN
+2026-01-22,EPD,"EPD","Energy","Oil & Gas Midstream",33.19,37.31,12.41,NO,22,WIN
+2026-01-22,CNQ,"CNQ","Energy","Oil & Gas E&P",35.53,42.76,20.35,NO,28,WIN
+2026-01-22,CMI,"Cummins Inc.","Industrials","Industrials",585.53,615.91,5.19,NO,13,WIN
+2026-01-22,CCJ,"CCJ","Energy","Uranium",121.61,135.24,11.21,NO,7,WIN
+2026-01-22,APH,"Amphenol Corporation","Technology","Technology",151.81,166.71,9.82,NO,5,WIN
+2026-01-22,ADM,"Archer-Daniels-Midland Company","Consumer Defensive","Consumer Defensive",67.7,69.57,2.76,NO,21,WIN
+2026-01-21,UMC,"UMC","Technology","Semiconductors",11.07,12.68,14.54,NO,6,WIN
+2026-01-21,TSM,"Taiwan Semiconductor Manufacturing Company Limited","Technology","Technology",328.35,378.93,15.4,NO,22,WIN
+2026-01-21,SQM,"Sociedad QuÃ­mica y Minera","Basic Materials","Specialty Chemicals",81.12,86.13,6.18,NO,5,WIN
+2026-01-21,RBA,"RB Global, Inc.","Industrials","Industrials",114.96,119.33,3.8,NO,21,WIN
+2026-01-21,NTR,"Nutrien Ltd.","Basic Materials","Basic Materials",68.89,73.02,6,NO,22,WIN
+2026-01-21,NI,"NiSource Inc.","Utilities","Utilities",43.49,47.05,8.19,NO,27,WIN
+2026-01-21,LYG,"LYG","Financial Services","Banksâ€”Diversified",5.51,6.19,12.31,NO,14,WIN
+2026-01-21,KTOS,"Kratos Defense & Security Solutions, Inc.","Industrials","Industrials",117.44,128,8.99,NO,0,WIN
+2026-01-21,JNJ,"Johnson & Johnson","Healthcare","Drug Manufacturersâ€”General",215.49,245.65,14,NO,29,WIN
+2026-01-21,IR,"Ingersoll Rand Inc.","Industrials","Industrials",88.61,100.94,13.91,NO,23,WIN
+2026-01-21,GFI,"Gold Fields Limited","Basic Materials","Basic Materials",52.24,59.9,14.65,NO,7,WIN
+2026-01-21,FE,"FirstEnergy Corp.","Utilities","Utilities",47.13,50.44,7.02,NO,27,WIN
+2026-01-21,EQNR,"EQNR","Energy","Oil & Gas Integrated",25.57,29.39,14.94,NO,29,WIN
+2026-01-21,CTVA,"Corteva, Inc.","Basic Materials","Basic Materials",71.43,76.93,7.71,NO,29,WIN
+2026-01-21,AMD,"Advanced Micro Devices, Inc.","Technology","Semiconductors",245.06,266.96,8.94,NO,2,WIN
+2026-01-20,SATS,"EchoStar Corporation","Communication Services","Telecom Services",123.49,131.94,6.84,NO,8,WIN
+2026-01-20,LHX,"L3Harris Technologies, Inc.","Industrials","Industrials",340.97,368.31,8.02,NO,9,WIN
+2026-01-20,HON,"Honeywell International Inc.","Industrials","Diversified Industrials",214.46,244.42,13.97,NO,23,WIN
+2026-01-20,EL,"The EstÃ©e Lauder Companies Inc.","Consumer Defensive","Consumer Defensive",113.9,121.26,6.46,NO,14,WIN
+2026-01-20,DGX,"DGX","Healthcare","Diagnostics & Research",189.98,212.27,11.73,NO,23,WIN
+2026-01-20,BUD,"BUD","Consumer Defensive","Beverages - Brewers",68.71,81.56,18.7,NO,23,WIN
+2026-01-20,BBVA,"BBVA","Financial Services","Banksâ€”Diversified",24.06,25.41,5.6,NO,15,WIN
+2026-01-19,XYL,"Xylem Inc.","Industrials","Industrials",146.13,144.12,-1.37,NO,1,LOSS
+2026-01-19,SAN,"SAN","Financial Services","Banksâ€”Diversified",12.23,13.11,7.2,NO,15,WIN
+2026-01-19,MUFG,"MUFG","Financial Services","Banks - Diversified",18.9,20.15,6.61,NO,24,WIN
+2026-01-19,LMT,"LMT","Industrials","Aerospace & Defense",582.43,657.09,12.82,NO,30,WIN
+2026-01-19,INTC,"Intel Corporation","Technology","Semiconductors",46.96,54.6,16.27,NO,3,WIN
+2026-01-19,HSY,"HSY","Consumer Defensive","Confectioners",197.76,233.34,17.99,NO,21,WIN
+2026-01-19,EMR,"EMR","Industrials","Specialty Industrial Machinery",149.46,164.52,10.07,NO,23,WIN
+2026-01-19,EC,"EC","Energy","Oil & Gas Integrated",12.25,13.27,8.33,NO,8,WIN
+2026-01-19,CNI,"Canadian National Railway Company","Industrials","Industrials",100.11,109.21,9.09,NO,29,WIN
+2026-01-16,XOM,"XOM","Energy","Oil & Gas Integrated",129.87,155.89,20.04,NO,26,WIN
+2026-01-16,WMT,"Walmart Inc.","Consumer Defensive","Discount Stores",118.35,134.37,13.54,NO,28,WIN
+2026-01-16,SCCO,"SCCO","Basic Materials","Copper",180.55,216.03,19.65,NO,13,WIN
+2026-01-16,RTX,"RTX","Industrials","Aerospace & Defense",201.72,205.8,2.02,NO,19,WIN
+2026-01-16,PH,"PH","Industrials","Specialty Industrial Machinery",943.89,1012.49,7.27,NO,26,WIN
+2026-01-16,NOC,"Northrop Grumman Corporation","Industrials","Industrials",667.28,713.33,6.9,NO,24,WIN
+2026-01-16,MT,"ArcelorMittal S.A.","Basic Materials","Steel",48.73,66.81,37.11,NO,26,WIN
+2026-01-16,MMM,"3M Company","Industrials","Industrials",169.88,176.62,3.97,NO,27,WIN
+2026-01-16,LOW,"Lowe's Companies, Inc.","Consumer Cyclical","Home Improvement Retail",277.01,293.06,5.79,NO,27,WIN
+2026-01-16,JNJ,"Johnson & Johnson","Healthcare","Drug Manufacturersâ€”General",218.6,245.05,12.1,NO,27,WIN
+2026-01-16,FNV,"Franco-Nevada Corporation","Basic Materials","Basic Materials",240.32,273.11,13.64,NO,13,WIN
+2026-01-16,DHR,"Danaher Corporation","Healthcare","Healthcare",237.13,242.28,2.17,NO,6,WIN
+2026-01-16,CTVA,"Corteva, Inc.","Basic Materials","Basic Materials",70.5,76.47,8.46,NO,19,WIN
+2026-01-16,CCJ,"CCJ","Energy","Uranium",112.84,135.24,19.85,NO,13,WIN
+2026-01-16,CAT,"Caterpillar Inc.","Industrials","Farm & Heavy Construction Machinery",643.32,789.81,22.77,NO,27,WIN
+2026-01-16,BK,"The Bank of New York Mellon Corporation","Financial Services","Financial Services",122.64,128.76,4.99,NO,25,WIN
+2026-01-16,BHP,"BHP","Basic Materials","Other Industrial Metals & Mining",66.03,73.69,11.6,NO,26,WIN
+2026-01-16,BABA,"BABA","Consumer Cyclical","Internet Retail",165.16,181.1,9.65,NO,6,WIN
+2026-01-16,BA,"BA","Industrials","Aerospace & Defense",247.47,254.35,2.78,NO,11,WIN
+2026-01-16,ADM,"Archer-Daniels-Midland Company","Consumer Defensive","Consumer Defensive",66.57,69.57,4.5,NO,27,WIN
+2026-01-15,TSM,"Taiwan Semiconductor Manufacturing Company Limited","Technology","Technology",343.81,378.93,10.22,NO,28,WIN
+2026-01-15,SQM,"Sociedad QuÃ­mica y Minera","Basic Materials","Specialty Chemicals",80.27,86.13,7.3,NO,11,WIN
+2026-01-15,LHX,"L3Harris Technologies, Inc.","Industrials","Industrials",338.71,368.31,8.74,NO,14,WIN
+2026-01-15,EL,"The EstÃ©e Lauder Companies Inc.","Consumer Defensive","Consumer Defensive",116.79,121.26,3.83,NO,19,WIN
+2026-01-15,CMI,"Cummins Inc.","Industrials","Industrials",577.1,615.91,6.72,NO,20,WIN
+2026-01-14,SNDK,"Sandisk Corporation","Technology","Computer Hardware",380.57,725,90.5,NO,20,WIN
+2026-01-14,SLB,"SLB","Energy","Oil & Gas Equipment & Services",47.12,52.4,11.21,NO,29,WIN
+2026-01-14,SATS,"EchoStar Corporation","Communication Services","Telecom Services",130.63,132.25,1.24,NO,1,WIN
+2026-01-14,PHG,"PHG","Healthcare","Medical Devices",30.05,33.44,11.28,NO,27,WIN
+2026-01-14,NTR,"Nutrien Ltd.","Basic Materials","Basic Materials",65.98,73.02,10.67,NO,29,WIN
+2026-01-14,LMT,"LMT","Industrials","Aerospace & Defense",576.73,652.9,13.21,NO,30,WIN
+2026-01-14,INTC,"Intel Corporation","Technology","Semiconductors",48.37,54.6,12.88,NO,8,WIN
+2026-01-14,FCX,"Freeport-McMoRan Inc.","Basic Materials","Copper",60.41,69.29,14.7,NO,15,WIN
+2026-01-14,BUD,"BUD","Consumer Defensive","Beverages - Brewers",68.71,81.56,18.7,NO,29,WIN
+2026-01-14,AEP,"AEP","Utilities","Utilitiesâ€”Regulated Electric",118.38,130.07,9.87,NO,30,WIN
+2026-01-13,VLO,"Valero Energy Corporation","Energy","Oil & Gas Refining & Marketing",183.31,206.77,12.8,NO,30,WIN
+2026-01-13,VALE,"VALE","Basic Materials","Other Industrial Metals & Mining",14.11,17.72,25.58,NO,30,WIN
+2026-01-13,FTAI,"FTAI Aviation Ltd.","Industrials","Industrials",257,309.48,20.42,NO,9,WIN
+2026-01-13,F,"Ford Motor Company","Consumer Cyclical","Auto Manufacturers",14.02,14.21,1.33,NO,30,WIN
+2026-01-13,BE,"BE","Industrials","Electrical Equipment & Parts",143.64,176.49,22.87,NO,21,WIN
+2026-01-12,TMO,"TMO","Healthcare","Diagnostics & Research",609.13,643.35,5.62,NO,10,WIN
+2026-01-12,ROST,"Ross Stores, Inc.","Consumer Cyclical","Consumer Cyclical",192.35,194.51,1.12,NO,4,WIN
+2026-01-12,NGG,"NGG","Utilities","Utilities - Regulated Electric",79.54,90.89,14.27,NO,30,WIN
+2026-01-12,HLT,"HLT","Consumer Cyclical","Lodging",300.84,330.82,9.97,NO,30,WIN
+2026-01-12,CVX,"CVX","Energy","Oil & Gas Integrated",162.72,184.71,13.52,NO,30,WIN
+2026-01-10,TSM,"Taiwan Semiconductor Manufacturing Company Limited","Technology","Technology",323.63,358.59,10.8,NO,30,WIN
+2026-01-10,TPG,"TPG","Financial Services","Asset Management",66.79,67.4,0.92,NO,6,WIN
+2026-01-10,TJX,"The TJX Companies, Inc.","Consumer Cyclical","Consumer Cyclical",157.81,158.31,0.32,NO,2,WIN
+2026-01-10,SCCO,"SCCO","Basic Materials","Copper",170.52,216.03,26.69,NO,19,WIN
+2026-01-10,RTX,"RTX","Industrials","Aerospace & Defense",188.5,205.8,9.18,NO,25,WIN
+2026-01-10,RKT,"RKT","Financial Services","Mortgage Finance",23.29,24.36,4.59,NO,6,WIN
+2026-01-10,PNC,"The PNC Financial Services Group, Inc.","Financial Services","Financial Services",217.55,242.08,11.28,NO,27,WIN
+2026-01-10,MT,"ArcelorMittal S.A.","Basic Materials","Steel",46.97,62.08,32.16,NO,30,WIN
+2026-01-10,LOW,"Lowe's Companies, Inc.","Consumer Cyclical","Home Improvement Retail",267.21,281.36,5.3,NO,12,WIN
+2026-01-10,HBAN,"Huntington Bancshares Incorporated","Financial Services","Financial Services",18.24,19.26,5.61,NO,27,WIN
+2026-01-10,FNV,"Franco-Nevada Corporation","Basic Materials","Basic Materials",228.77,273.11,19.38,NO,19,WIN
+2026-01-10,DLTR,"DLTR","Consumer Defensive","Discount Stores",132.38,142.4,7.57,NO,5,WIN
+2026-01-10,COP,"COP","Energy","Oil & Gas E&P",97.51,108.05,10.81,NO,30,WIN
+2026-01-10,CCJ,"CCJ","Energy","Uranium",107.56,135.24,25.73,NO,19,WIN
+2026-01-10,ADM,"Archer-Daniels-Midland Company","Consumer Defensive","Consumer Defensive",61.94,69.23,11.77,NO,18,WIN
+2026-01-09,WDC,"WDC","Technology","Computer Hardware",200.46,296.36,47.84,NO,25,WIN
+2026-01-09,URI,"URI","Industrials","Rental & Leasing Services",938.79,959.03,2.16,NO,13,WIN
+2026-01-09,UBS,"UBS Group AG","Financial Services","Capital Markets",47.57,49.36,3.76,NO,18,WIN
+2026-01-09,SLB,"SLB","Energy","Oil & Gas Equipment & Services",45.2,51.37,13.64,NO,14,WIN
+2026-01-09,SATS,"EchoStar Corporation","Communication Services","Telecom Services",120,132.25,10.21,NO,6,WIN
+2026-01-09,PHG,"PHG","Healthcare","Medical Devices",29.58,30.3,2.43,NO,6,WIN
+2026-01-09,ON,"ON Semiconductor Corporation","Technology","Semiconductors",62.16,66.86,7.56,NO,19,WIN
+2026-01-09,MCHP,"MCHP","Technology","Semiconductors",75.22,80.95,7.62,NO,19,WIN
+2026-01-09,LRCX,"Lam Research Corporation","Technology","Semiconductor Equipment",218.36,251.57,15.21,NO,21,WIN
+2026-01-09,IQV,"IQVIA Holdings Inc.","Healthcare","Healthcare",242.41,247.05,1.91,NO,0,WIN
+2026-01-09,FCX,"Freeport-McMoRan Inc.","Basic Materials","Copper",56.53,69.29,22.57,NO,20,WIN
+2026-01-08,VALE,"VALE","Basic Materials","Other Industrial Metals & Mining",14.07,17.34,23.24,NO,21,WIN
+2026-01-08,RF,"RF","Financial Services","Banks - Regional",28.84,30.87,7.05,NO,29,WIN
+2026-01-08,LHX,"L3Harris Technologies, Inc.","Industrials","Industrials",325.74,368.31,13.07,NO,21,WIN
+2026-01-08,IBKR,"IBKR","Financial Services","Capital Markets",70.16,78.72,12.19,NO,18,WIN
+2026-01-08,FTAI,"FTAI Aviation Ltd.","Industrials","Industrials",238.8,309.48,29.6,NO,14,WIN
+2026-01-08,COF,"Capital One Financial Corporation","Financial Services","Credit Services",255.68,256.48,0.31,NO,0,WIN
+2026-01-08,BHP,"BHP","Basic Materials","Other Industrial Metals & Mining",62.95,73.53,16.81,NO,21,WIN
+2026-01-08,ASX,"ASX","Financial Services","Banksâ€”Diversified",17.33,21.42,23.6,NO,29,WIN
+2026-01-08,ASML,"ASML","Technology","Semiconductor Equipment & Materials",1194.32,1491.51,24.88,NO,20,WIN
+2026-01-07,VLO,"Valero Energy Corporation","Energy","Oil & Gas Refining & Marketing",183.86,203.14,10.49,NO,30,WIN
+2026-01-07,TMO,"TMO","Healthcare","Diagnostics & Research",617.15,643.35,4.25,NO,15,WIN
+2026-01-07,STM,"STM","Technology","Semiconductors",28.88,30.32,5,NO,21,WIN
+2026-01-07,RGC,"RGC","Healthcare","Drug Manufacturers - Specialty & Generic",52.88,69,30.48,NO,1,WIN
+2026-01-07,INTC,"Intel Corporation","Technology","Semiconductors",42.63,54.6,28.08,NO,15,WIN
+2026-01-07,HAL,"Halliburton Company","Energy","Oil & Gas Equipment & Services",30.38,35.38,16.45,NO,16,WIN
+2026-01-07,EMR,"EMR","Industrials","Specialty Industrial Machinery",142.15,159.52,12.22,NO,28,WIN
+2026-01-07,CVX,"CVX","Energy","Oil & Gas Integrated",155.2,180.82,16.51,NO,28,WIN
+2026-01-05,TD,"The Toronto-Dominion Bank","Financial Services","Banksâ€”Diversified",96.11,95.68,-0.44,NO,1,LOSS
+2026-01-05,SAN,"SAN","Financial Services","Banksâ€”Diversified",12.09,13.11,8.44,NO,29,WIN
+2026-01-05,RY,"Royal Bank of Canada","Financial Services","Banksâ€”Diversified",173.11,174.61,0.87,NO,1,WIN
+2026-01-05,RKT,"RKT","Financial Services","Mortgage Finance",21.1,24.36,15.45,NO,11,WIN
+2026-01-05,RIO,"Rio Tinto Group","Basic Materials","Other Industrial Metals & Mining",83.21,95.92,15.27,NO,30,WIN
+2026-01-05,NWG,"NWG","Financial Services","Banksâ€”Diversified",18.09,18.56,2.61,NO,30,WIN
+2026-01-05,LYG,"LYG","Financial Services","Banksâ€”Diversified",5.47,6.19,13.13,NO,30,WIN
+2026-01-05,ING,"ING Groep N.V.","Financial Services","Banksâ€”Diversified",28.92,31.18,7.81,NO,30,WIN
+2026-01-05,GE,"GE","Industrials","Aerospace & Defense",324.32,332.31,2.46,NO,1,WIN
+2026-01-05,C,"C","Financial Services","Banksâ€”Diversified",123.3,123.53,0.18,NO,1,WIN
+2026-01-05,BNS,"BNS","Financial Services","Banksâ€”Diversified",74.72,76.56,2.46,NO,24,WIN
+2026-01-05,BCS,"Barclays PLC","Financial Services","Banksâ€”Diversified",26.32,27.37,4,NO,29,WIN
+2026-01-05,BBVA,"BBVA","Financial Services","Banksâ€”Diversified",24.19,25.41,5.03,NO,30,WIN
+2026-01-02,UBS,"UBS Group AG","Financial Services","Capital Markets",47.1,49.36,4.8,NO,25,WIN
+2026-01-02,MU,"MU","Technology","Semiconductors",315.42,455.31,44.35,NO,28,WIN
+2026-01-02,JCI,"Johnson Controls International plc","Industrials","Building Products & Equipment",122.31,123.69,1.13,NO,3,WIN
+2026-01-02,JBL,"Jabil Inc.","Industrials","Electronic Components",240.39,257.97,7.31,NO,20,WIN
+2026-01-02,FCX,"Freeport-McMoRan Inc.","Basic Materials","Copper",51.93,69.29,33.42,NO,27,WIN
+2026-01-02,COF,"Capital One Financial Corporation","Financial Services","Credit Services",247.93,258.65,4.32,NO,4,WIN
+2026-01-02,CAT,"Caterpillar Inc.","Industrials","Farm & Heavy Construction Machinery",598.41,679.99,13.63,NO,27,WIN
+2026-01-02,BHP,"BHP","Basic Materials","Other Industrial Metals & Mining",61.76,73.53,19.06,NO,27,WIN
+2026-01-01,TEVA,"Teva Pharmaceutical Industries Limited","Healthcare","Drug Manufacturersâ€”Specialty & Generic",31.21,34.11,9.29,NO,29,WIN
+2026-01-01,SATS,"EchoStar Corporation","Communication Services","Telecom Services",108.7,132.25,21.67,NO,14,WIN
+2026-01-01,PUK,"PUK","Financial Services","Insuranceâ€”Life",31.12,33.48,7.57,NO,28,WIN
+2026-01-01,NDAQ,"Nasdaq, Inc.","Financial Services","Financial Data & Stock Exchanges",97.13,101.47,4.47,NO,15,WIN
+2026-01-01,MT,"ArcelorMittal S.A.","Basic Materials","Steel",45.57,56.8,24.64,NO,28,WIN
+2026-01-01,FOXA,"Fox Corporation","Communication Services","Entertainment",73.07,76.02,4.03,NO,8,WIN
+2026-01-01,CIEN,"Ciena Corporation","Technology","Communication Equipment",233.87,269.9,15.41,NO,29,WIN
+2026-01-01,ASX,"ASX","Financial Services","Banksâ€”Diversified",16.1,20.49,27.27,NO,27,WIN

@@ -1,42 +1,42 @@
 [
   {
-    "Tarih": "27 Nisan",
-    "Sembol": "APLD",
+    "Tarih": "28 Nisan",
+    "Sembol": "AMKR",
     "Giriş (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 40.98,
-    "Hedef 2 (TP2)": 42.27
+    "Hedef 1 (TP1)": 79.44,
+    "Hedef 2 (TP2)": 81.43
   },
   {
-    "Tarih": "27 Nisan",
-    "Sembol": "CSX",
+    "Tarih": "28 Nisan",
+    "Sembol": "PII",
     "Giriş (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 47.97,
-    "Hedef 2 (TP2)": 48.55
+    "Hedef 1 (TP1)": 74.47,
+    "Hedef 2 (TP2)": 76.35
   },
   {
-    "Tarih": "27 Nisan",
-    "Sembol": "CSCO",
+    "Tarih": "28 Nisan",
+    "Sembol": "CLS",
     "Giriş (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 93.07,
-    "Hedef 2 (TP2)": 93.87
+    "Hedef 1 (TP1)": 400.38,
+    "Hedef 2 (TP2)": 409.6
   },
   {
-    "Tarih": "27 Nisan",
-    "Sembol": "MSCI",
+    "Tarih": "28 Nisan",
+    "Sembol": "INTC",
     "Giriş (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 625.13,
-    "Hedef 2 (TP2)": 631.58
+    "Hedef 1 (TP1)": 91.02,
+    "Hedef 2 (TP2)": 92.71
   },
   {
-    "Tarih": "27 Nisan",
-    "Sembol": "WMT",
+    "Tarih": "28 Nisan",
+    "Sembol": "NUE",
     "Giriş (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 135.4,
-    "Hedef 2 (TP2)": 136.51
+    "Hedef 1 (TP1)": 240.01,
+    "Hedef 2 (TP2)": 243.34
   }
 ]
