@@ -64,6 +64,20 @@ function fmt(n?: number, dec = 2) {
   return n.toFixed(dec);
 }
 
+function loadSwingUniverse(): { days: number; tickers: number } {
+  const swingDir = path.join(process.cwd(), "public", "data", "swing2026");
+  if (!fs.existsSync(swingDir)) return { days: 0, tickers: 0 };
+  const files = fs.readdirSync(swingDir).filter(f => f.startsWith("swing_") && f.endsWith(".json"));
+  const tickerSet = new Set<string>();
+  for (const f of files) {
+    try {
+      const data = JSON.parse(fs.readFileSync(path.join(swingDir, f), "utf-8"));
+      for (const p of data.picks ?? []) tickerSet.add(p.ticker);
+    } catch { /* skip */ }
+  }
+  return { days: files.length, tickers: tickerSet.size };
+}
+
 function loadScans(): ScanFile[] {
   const histDir = path.join(process.cwd(), "public", "intraday_history");
   if (!fs.existsSync(histDir)) return [];
@@ -72,7 +86,7 @@ function loadScans(): ScanFile[] {
     .filter(f => f.endsWith(".json"))
     .sort()
     .reverse()
-    .slice(0, 72); // Son 3 gün (max 72 saat)
+    .slice(0, 720); // Son 30 gün × 24 saat
 
   return files.map(f => {
     try {
@@ -99,6 +113,7 @@ function loadScans(): ScanFile[] {
 export default function HourlyArchivePage() {
   const scans = loadScans();
   const latest = scans[0] ?? null;
+  const universe = loadSwingUniverse();
 
   // Tarihe göre grupla
   const byDate: Record<string, ScanFile[]> = {};
@@ -118,8 +133,13 @@ export default function HourlyArchivePage() {
             <div>
               <h1 className="text-2xl font-extrabold text-white">Hourly Scan Archive</h1>
               <p className="text-gray-400 text-sm mt-1">
-                Son 30 günün swing picks hisseleri her saat taranıyor. Kaynak:{" "}
+                Her gün 5 yeni hisse ekleniyor. Şu an{" "}
+                <span className="text-white font-semibold">{universe.days} gün</span>
+                {" "}×{" "}5 ={" "}
+                <span className="text-blue-400 font-semibold">{universe.tickers} hisse</span>
+                {" "}aktif taranıyor. Kaynak:{" "}
                 <code className="text-blue-400 text-xs bg-blue-400/10 px-1.5 py-0.5 rounded">swing2026/</code>
+                {" "}· Max 30 gün × 5 = 150 hisse
               </p>
             </div>
             {latest && (
