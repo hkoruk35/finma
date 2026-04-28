@@ -163,7 +163,7 @@ def validate_entry_zone(current_price: float, entry_zone: str) -> dict:
         return {'status': 'UNKNOWN', 'message': str(e)}
         
 
-def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.DataFrame = None, df_1h: pd.DataFrame = None) -> dict:
+def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.DataFrame = None, df_1h: pd.DataFrame = None, ticker: str = None) -> dict:
     """
     Check if volume supports the setup - ADVANCED SWING TRADE version
     
@@ -1453,7 +1453,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     # 8. VOLUME VALIDATION
     # ================================================
     setup_type = st_1h.get("setup_type", "NONE")
-    volume_check = validate_volume_for_setup(setup_type, rvol, df_15m, df_1h)
+    volume_check = validate_volume_for_setup(setup_type, rvol, df_15m, df_1h, ticker)
     if not volume_check.get('valid', True):
         final_score -= 2.0
 
