@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -15,11 +15,12 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    revalidateTag(tag);
-    return NextResponse.json({ revalidated: true, tag }, { status: 200 });
+    // Revalidate page cache by path
+    revalidatePath(`/${tag}`);
+    return NextResponse.json({ revalidated: true, path: `/${tag}` }, { status: 200 });
   } catch (err) {
     return NextResponse.json(
-      { error: "Failed to revalidate" },
+      { error: "Failed to revalidate", details: err instanceof Error ? err.message : "Unknown error" },
       { status: 500 }
     );
   }
