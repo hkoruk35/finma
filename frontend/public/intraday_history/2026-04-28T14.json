@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-28T14:00:30.685274-04:00",
+  "generated_at": "2026-04-28T14:00:32.060881-04:00",
   "hour_slot": "2026-04-28T14",
   "market_regime": "Bull",
   "vix_level": 18.280000686645508,
-  "total_scanned": 15,
+  "total_scanned": 25,
   "signals": [
     {
       "ticker": "AMKR",
@@ -98,7 +98,7 @@
       "sector": "Consumer Defensive",
       "swing_pick_date": "2026-04-26",
       "days_since_pick": 2,
-      "current_price": 29.08,
+      "current_price": 29.07,
       "buy_zone": {
         "low": 28.46,
         "high": 29.29
@@ -118,8 +118,8 @@
         "rsi_1h": 50.0,
         "adx_1h": 33.5,
         "volume_ratio": 0.38,
-        "change_1h": -0.31,
-        "change_24h": 3.29,
+        "change_1h": -0.33,
+        "change_24h": 3.27,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "rs_score": 2.0,
@@ -160,7 +160,7 @@
       "intraday": {
         "rsi_1h": 50.0,
         "adx_1h": 28.7,
-        "volume_ratio": 0.27,
+        "volume_ratio": 0.29,
         "change_1h": 0.26,
         "change_24h": -0.79,
         "trend_1h": "FLAT",
@@ -227,7 +227,7 @@
       "sector": "Technology",
       "swing_pick_date": "2026-04-24",
       "days_since_pick": 4,
-      "current_price": 11.09,
+      "current_price": 11.1,
       "buy_zone": {
         "low": 10.26,
         "high": 10.42
@@ -247,8 +247,8 @@
         "rsi_1h": 50.0,
         "adx_1h": 45.3,
         "volume_ratio": 0.23,
-        "change_1h": 0.14,
-        "change_24h": 3.07,
+        "change_1h": 0.18,
+        "change_24h": 3.11,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 2.0,
@@ -444,7 +444,7 @@
       "sector": "Consumer Cyclical",
       "swing_pick_date": "2026-04-28",
       "days_since_pick": 0,
-      "current_price": 64.79,
+      "current_price": 64.78,
       "buy_zone": {
         "low": 61.45,
         "high": 66.15
@@ -463,9 +463,9 @@
       "intraday": {
         "rsi_1h": 50.0,
         "adx_1h": 20.8,
-        "volume_ratio": 0.31,
-        "change_1h": -1.23,
-        "change_24h": 6.13,
+        "volume_ratio": 0.32,
+        "change_1h": -1.25,
+        "change_24h": 6.11,
         "trend_1h": "DOWN",
         "setup": "NONE",
         "rs_score": 2.0,
@@ -522,6 +522,50 @@
         "VWAP Extended",
         "⚡ Bollinger Squeeze",
         "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.3x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "company": "INTC",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-28",
+      "days_since_pick": 0,
+      "current_price": 83.59,
+      "buy_zone": {
+        "low": 79.92,
+        "high": 82.93
+      },
+      "stop_zone": {
+        "low": 76.05,
+        "high": 76.91
+      },
+      "profit_zone": {
+        "low": 91.02,
+        "high": 92.71
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($79.92–$82.93). 1H RSI 50, 15M 50, trend UP. Enter position. Stop: $76.91. Target: $91.02–$92.71.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 51.0,
+        "volume_ratio": 0.29,
+        "change_1h": 1.3,
+        "change_24h": -1.65,
+        "trend_1h": "UP",
+        "setup": "SQUEEZE",
+        "rs_score": 2.0,
+        "natr": 5.43
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXHAUSTION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
         "⚠️ Volume yetersiz (0.3x < 1.2x) ❌"
       ]
     },
@@ -611,6 +655,300 @@
       ]
     },
     {
+      "ticker": "BLD",
+      "company": "BLD",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 4,
+      "current_price": 438.92,
+      "buy_zone": {
+        "low": 454.26,
+        "high": 469.63
+      },
+      "stop_zone": {
+        "low": 442.84,
+        "high": 451.62
+      },
+      "profit_zone": {
+        "low": 476.21,
+        "high": 481.7
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price at/below stop zone ($451.62). Exit immediately — setup invalidated.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 19.5,
+        "volume_ratio": 0.67,
+        "change_1h": 0.22,
+        "change_24h": -1.54,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 4.77
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.7x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CMI",
+      "company": "CMI",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-04-24",
+      "days_since_pick": 4,
+      "current_price": 640.28,
+      "buy_zone": {
+        "low": 649.67,
+        "high": 660.53
+      },
+      "stop_zone": {
+        "low": 640.66,
+        "high": 647.87
+      },
+      "profit_zone": {
+        "low": 667.69,
+        "high": 672.19
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price at/below stop zone ($647.87). Exit immediately — setup invalidated.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 28.0,
+        "volume_ratio": 0.27,
+        "change_1h": 0.37,
+        "change_24h": -3.1,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 2.69
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.3x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "MTSI",
+      "company": "MTSI",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 3,
+      "current_price": 264.6,
+      "buy_zone": {
+        "low": 279.88,
+        "high": 288.84
+      },
+      "stop_zone": {
+        "low": 269.05,
+        "high": 271.46
+      },
+      "profit_zone": {
+        "low": 311.77,
+        "high": 316.61
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price at/below stop zone ($271.46). Exit immediately — setup invalidated.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 26.2,
+        "volume_ratio": 0.35,
+        "change_1h": 0.81,
+        "change_24h": -5.31,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 4.45
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.4x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "company": "AMAT",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 2,
+      "current_price": 382.69,
+      "buy_zone": {
+        "low": 404.12,
+        "high": 418.47
+      },
+      "stop_zone": {
+        "low": 391.25,
+        "high": 394.11
+      },
+      "profit_zone": {
+        "low": 447.81,
+        "high": 454.26
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price at/below stop zone ($394.11). Exit immediately — setup invalidated.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 31.1,
+        "volume_ratio": 0.45,
+        "change_1h": 0.79,
+        "change_24h": -5.48,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 3.5
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.5x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CLS",
+      "company": "CLS",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-28",
+      "days_since_pick": 0,
+      "current_price": 354.32,
+      "buy_zone": {
+        "low": 339.94,
+        "high": 356.33
+      },
+      "stop_zone": {
+        "low": 318.87,
+        "high": 323.55
+      },
+      "profit_zone": {
+        "low": 400.38,
+        "high": 409.6
+      },
+      "status": "ENTRY_NOW",
+      "status_detail": "Buy zone active ($339.94–$356.33). 1H RSI 50, 15M 50, trend FLAT. Enter position. Stop: $323.55. Target: $400.38–$409.60.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 37.0,
+        "volume_ratio": 0.52,
+        "change_1h": -0.09,
+        "change_24h": -16.08,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 6.68
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.5x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CORZ",
+      "company": "CORZ",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-26",
+      "days_since_pick": 2,
+      "current_price": 19.86,
+      "buy_zone": {
+        "low": 20.23,
+        "high": 20.99
+      },
+      "stop_zone": {
+        "low": 19.25,
+        "high": 19.47
+      },
+      "profit_zone": {
+        "low": 23.03,
+        "high": 23.46
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price 1.8% below buy zone entry ($20.23). Set alert at $20.23. 1H RSI 50.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 26.5,
+        "volume_ratio": 0.17,
+        "change_1h": -0.2,
+        "change_24h": -5.88,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 5.46
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.2x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "company": "CSCO",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-27",
+      "days_since_pick": 1,
+      "current_price": 86.33,
+      "buy_zone": {
+        "low": 87.82,
+        "high": 89.22
+      },
+      "stop_zone": {
+        "low": 85.97,
+        "high": 86.38
+      },
+      "profit_zone": {
+        "low": 93.07,
+        "high": 93.87
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price at/below stop zone ($86.38). Exit immediately — setup invalidated.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 31.8,
+        "volume_ratio": 0.39,
+        "change_1h": 0.09,
+        "change_24h": -2.19,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 2.36
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.4x < 1.0x) ❌"
+      ]
+    },
+    {
       "ticker": "WMT",
       "company": "WMT",
       "sector": "Consumer Defensive",
@@ -647,6 +985,89 @@
         "Phase: ACCUMULATION",
         "Vol: Acceptable",
         "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.2x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "BB",
+      "company": "BB",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-25",
+      "days_since_pick": 3,
+      "current_price": 5.18,
+      "buy_zone": {
+        "low": 4.92,
+        "high": 5.12
+      },
+      "stop_zone": {
+        "low": 4.66,
+        "high": 4.72
+      },
+      "profit_zone": {
+        "low": 5.66,
+        "high": 5.77
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price above entry zone ($5.12). If in position: hold, stop at $4.72. If not in: wait for pullback to buy zone.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 17.5,
+        "volume_ratio": 0.2,
+        "change_1h": -0.1,
+        "change_24h": -2.73,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 0.0,
+        "natr": 6.86
+      },
+      "notes": [
+        "Phase: EXHAUSTION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
+        "⚠️ Volume yetersiz (0.2x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "APLD",
+      "company": "APLD",
+      "sector": "Technology",
+      "swing_pick_date": "2026-04-27",
+      "days_since_pick": 1,
+      "current_price": 31.39,
+      "buy_zone": {
+        "low": 32.16,
+        "high": 35.25
+      },
+      "stop_zone": {
+        "low": 29.74,
+        "high": 30.28
+      },
+      "profit_zone": {
+        "low": 40.98,
+        "high": 42.27
+      },
+      "status": "ENTRY_WATCH",
+      "status_detail": "Price 2.4% below buy zone entry ($32.16). Set alert at $32.16. 1H RSI 50.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 27.4,
+        "volume_ratio": 0.19,
+        "change_1h": 1.01,
+        "change_24h": -6.79,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 8.88
+      },
+      "notes": [
+        "NATR > 7.5% (Gamble)",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
         "⚠️ Volume yetersiz (0.2x < 1.0x) ❌"
