@@ -46,7 +46,7 @@ interface SmartTrackerCtx {
 
   // Helpers
   isInTracker: (ticker: string) => boolean;
-  refreshPrices: () => Promise<void>;
+  refreshPrices: (overrides?: Record<string, number>) => Promise<void>;
   loading: boolean;
 }
 
@@ -179,60 +179,84 @@ export function SmartTrackerProvider({ children }: { children: React.ReactNode }
 
   // ── Live price refresh ──────────────────────────────────────────────────────
 
-  const refreshPrices = useCallback(async () => {
+  const refreshPrices = useCallback(async (overrides?: Record<string, number>) => {
     if (!activeTracker) return;
-    const openTickers = activeTracker.positions
-      .filter((p) => p.status === "open")
+    
+    // We want to refresh both OPEN and PENDING positions to see live status
+    const tickersToRefresh = activeTracker.positions
+      .filter((p) => p.status === "open" || p.status === "pending")
       .map((p) => p.ticker);
-    if (openTickers.length === 0) return;
+      
+    if (tickersToRefresh.length === 0 && !overrides) return;
 
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/quote?tickers=${openTickers.join(",")}`);
-      if (!res.ok) return;
-      const data: Record<string, { price?: number; change_1d?: number }> =
-        await res.json();
+    let data: Record<string, { price?: number; change_1d?: number }> = {};
+    
+    if (overrides) {
+      // Use provided prices (e.g. from intraday signals)
+      Object.entries(overrides).forEach(([ticker, price]) => {
+        data[ticker] = { price };
+      });
+    } else {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/quote?tickers=${tickersToRefresh.join(",")}`);
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (err) {
+        console.error("Failed to fetch prices:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-      setStore((prev) => {
-        if (!prev.activeTracker) return prev;
-        const today = new Date().toISOString().split("T")[0];
-        const updatedPositions: TrackerPosition[] = prev.activeTracker.positions.map(
-          (p) => {
-            if (p.status !== "open") return p;
-            const q = data[p.ticker];
-            if (!q?.price) return p;
-            const newPrice = q.price;
-            const entry = p.entryPrice ?? p.signalPrice;
-            const shares =
-              p.sizeUnit === "usd" ? p.sizeValue / entry : p.sizeValue;
-            const pnlUsd = (newPrice - entry) * shares;
-            const pnlPct = entry > 0 ? ((newPrice - entry) / entry) * 100 : 0;
+    if (Object.keys(data).length === 0) return;
+
+    setStore((prev) => {
+      if (!prev.activeTracker) return prev;
+      const today = new Date().toISOString().split("T")[0];
+      const updatedPositions: TrackerPosition[] = prev.activeTracker.positions.map(
+        (p) => {
+          // Only update if it's not closed
+          if (p.status === "closed") return p;
+          
+          const q = data[p.ticker];
+          if (!q?.price) return p;
+          
+          const newPrice = q.price;
+          const entry = p.entryPrice ?? p.signalPrice;
+          
+          // Calculate PnL if it's an open position
+          let pnlUsd = p.unrealizedPnlUsd;
+          let pnlPct = p.unrealizedPnlPct;
+          let history = p.dailyPnlHistory ?? [];
+
+          if (p.status === "open") {
+            const shares = p.sizeUnit === "usd" ? p.sizeValue / entry : p.sizeValue;
+            pnlUsd = (newPrice - entry) * shares;
+            pnlPct = entry > 0 ? ((newPrice - entry) / entry) * 100 : 0;
 
             // Append daily snapshot
-            const history = p.dailyPnlHistory ?? [];
             const lastEntry = history[history.length - 1];
-            const updated =
-              lastEntry?.date === today
+            history = lastEntry?.date === today
                 ? history.slice(0, -1).concat({ date: today, pnl: pnlUsd, price: newPrice })
                 : [...history, { date: today, pnl: pnlUsd, price: newPrice }];
-
-            return {
-              ...p,
-              currentPrice: newPrice,
-              unrealizedPnlUsd: pnlUsd,
-              unrealizedPnlPct: pnlPct,
-              dailyPnlHistory: updated.slice(-90), // keep 90 days max
-            };
           }
-        );
-        return {
-          ...prev,
-          activeTracker: { ...prev.activeTracker, positions: updatedPositions, updatedAt: new Date().toISOString() },
-        };
-      });
-    } finally {
-      setLoading(false);
-    }
+
+          return {
+            ...p,
+            currentPrice: newPrice,
+            unrealizedPnlUsd: pnlUsd,
+            unrealizedPnlPct: pnlPct,
+            dailyPnlHistory: history.slice(-90), // keep 90 days max
+          };
+        }
+      );
+      return {
+        ...prev,
+        activeTracker: { ...prev.activeTracker, positions: updatedPositions, updatedAt: new Date().toISOString() },
+      };
+    });
   }, [activeTracker]);
 
   const value: SmartTrackerCtx = {

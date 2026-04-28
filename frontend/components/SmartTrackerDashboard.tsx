@@ -175,11 +175,17 @@ export default function SmartTrackerDashboard() {
         if (!res.ok) return;
         const json = await res.json();
         const map: Record<string, HourlySignal> = {};
-        for (const s of json.signals ?? []) map[s.ticker] = s;
+        const priceOverrides: Record<string, number> = {};
+        
+        for (const s of json.signals ?? []) {
+          map[s.ticker] = s;
+          priceOverrides[s.ticker] = s.current_price;
+        }
         setSignalMap(map);
 
         // Refresh prices from intraday signals to auto-update stats (live sync with hourly page)
-        await refreshPrices();
+        // This ensures the tracker stays in sync with the data shown on /hourly
+        await refreshPrices(priceOverrides);
       } catch { /* no signals available */ }
     };
     load();

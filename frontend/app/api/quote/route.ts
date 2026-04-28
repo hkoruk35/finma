@@ -14,13 +14,13 @@ export async function GET(req: NextRequest) {
     .split(",")
     .map((t) => t.trim().toUpperCase())
     .filter(Boolean)
-    .slice(0, 10);
+    .slice(0, 50);
 
   if (tickers.length === 0) {
     return NextResponse.json({});
   }
 
-  const results: Record<string, { change_1d: number | null; change_1w: number | null; change_1m: number | null; change_1y: number | null }> = {};
+  const results: Record<string, { price: number | null; change_1d: number | null; change_1w: number | null; change_1m: number | null; change_1y: number | null }> = {};
 
   await Promise.all(
     tickers.map(async (ticker) => {
@@ -52,6 +52,7 @@ export async function GET(req: NextRequest) {
         const pct = (base: number) => base ? +((current - base) / base * 100).toFixed(2) : null;
 
         results[ticker] = {
+          price: current,
           change_1d: pct(prev1d),
           change_1w: pct(prev1w),
           change_1m: pct(prev1m),
@@ -64,6 +65,6 @@ export async function GET(req: NextRequest) {
   );
 
   return NextResponse.json(results, {
-    headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate=60" },
+    headers: { "Cache-Control": "public, max-age=60, stale-while-revalidate=30" },
   });
 }
