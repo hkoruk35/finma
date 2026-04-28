@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-28T13:00:20.036531-04:00",
+  "generated_at": "2026-04-28T13:00:24.665472-04:00",
   "hour_slot": "2026-04-28T13",
   "market_regime": "Bull",
   "vix_level": 18.65999984741211,
-  "total_scanned": 20,
+  "total_scanned": 13,
   "signals": [
     {
       "ticker": "HAL",
@@ -273,7 +273,7 @@
       "sector": "Technology",
       "swing_pick_date": "2026-04-25",
       "days_since_pick": 3,
-      "current_price": 273.46,
+      "current_price": 273.33,
       "buy_zone": {
         "low": 264.06,
         "high": 270.06
@@ -292,9 +292,9 @@
       "intraday": {
         "rsi_1h": 50.0,
         "adx_1h": 20.1,
-        "volume_ratio": 0.14,
-        "change_1h": 0.37,
-        "change_24h": 2.07,
+        "volume_ratio": 0.15,
+        "change_1h": 0.32,
+        "change_24h": 2.03,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 1.0,
@@ -360,7 +360,7 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-04-26",
       "days_since_pick": 2,
-      "current_price": 166.46,
+      "current_price": 166.49,
       "buy_zone": {
         "low": 159.74,
         "high": 164.44
@@ -380,8 +380,8 @@
         "rsi_1h": 50.0,
         "adx_1h": 15.9,
         "volume_ratio": 0.26,
-        "change_1h": 0.15,
-        "change_24h": -0.8,
+        "change_1h": 0.17,
+        "change_24h": -0.78,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "rs_score": 0.0,
@@ -446,7 +446,7 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-04-27",
       "days_since_pick": 1,
-      "current_price": 595.1,
+      "current_price": 595.07,
       "buy_zone": {
         "low": 582.87,
         "high": 594.33
@@ -481,90 +481,6 @@
         "⚡ Bollinger Squeeze",
         "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
         "⚠️ Volume yetersiz (0.5x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "BLD",
-      "company": "BLD",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-04-24",
-      "days_since_pick": 4,
-      "current_price": 437.78,
-      "buy_zone": {
-        "low": 454.26,
-        "high": 469.63
-      },
-      "stop_zone": {
-        "low": 442.84,
-        "high": 451.62
-      },
-      "profit_zone": {
-        "low": 476.21,
-        "high": 481.7
-      },
-      "status": "ENTRY_WATCH",
-      "status_detail": "Price at/below stop zone ($451.62). Exit immediately — setup invalidated.",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 18.6,
-        "volume_ratio": 0.48,
-        "change_1h": -0.05,
-        "change_24h": -1.79,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 4.78
-      },
-      "notes": [
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
-        "⚠️ Volume yetersiz (0.5x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "CMI",
-      "company": "CMI",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-04-24",
-      "days_since_pick": 4,
-      "current_price": 638.88,
-      "buy_zone": {
-        "low": 649.67,
-        "high": 660.53
-      },
-      "stop_zone": {
-        "low": 640.66,
-        "high": 647.87
-      },
-      "profit_zone": {
-        "low": 667.69,
-        "high": 672.19
-      },
-      "status": "ENTRY_WATCH",
-      "status_detail": "Price at/below stop zone ($647.87). Exit immediately — setup invalidated.",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 26.6,
-        "volume_ratio": 0.63,
-        "change_1h": -0.38,
-        "change_24h": -3.31,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 2.68
-      },
-      "notes": [
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
-        "⚠️ Volume yetersiz (0.6x < 1.0x) ❌"
       ]
     },
     {
@@ -610,138 +526,12 @@
       ]
     },
     {
-      "ticker": "AMAT",
-      "company": "AMAT",
-      "sector": "Technology",
-      "swing_pick_date": "2026-04-26",
-      "days_since_pick": 2,
-      "current_price": 379.37,
-      "buy_zone": {
-        "low": 404.12,
-        "high": 418.47
-      },
-      "stop_zone": {
-        "low": 391.25,
-        "high": 394.11
-      },
-      "profit_zone": {
-        "low": 447.81,
-        "high": 454.26
-      },
-      "status": "ENTRY_WATCH",
-      "status_detail": "Price at/below stop zone ($394.11). Exit immediately — setup invalidated.",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 29.8,
-        "volume_ratio": 1.1,
-        "change_1h": -0.84,
-        "change_24h": -6.3,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 3.53
-      },
-      "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
-        "⚠️ 15m trend DOWN (-0.8%) 🔻 Düşen bıçak - RED"
-      ]
-    },
-    {
-      "ticker": "CORZ",
-      "company": "CORZ",
-      "sector": "Technology",
-      "swing_pick_date": "2026-04-26",
-      "days_since_pick": 2,
-      "current_price": 19.93,
-      "buy_zone": {
-        "low": 20.23,
-        "high": 20.99
-      },
-      "stop_zone": {
-        "low": 19.25,
-        "high": 19.47
-      },
-      "profit_zone": {
-        "low": 23.03,
-        "high": 23.46
-      },
-      "status": "ENTRY_WATCH",
-      "status_detail": "Price 1.5% below buy zone entry ($20.23). Set alert at $20.23. 1H RSI 50.",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 26.6,
-        "volume_ratio": 0.43,
-        "change_1h": 0.86,
-        "change_24h": -5.52,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 5.44
-      },
-      "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
-        "⚠️ Volume yetersiz (0.4x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "CSCO",
-      "company": "CSCO",
-      "sector": "Technology",
-      "swing_pick_date": "2026-04-27",
-      "days_since_pick": 1,
-      "current_price": 86.44,
-      "buy_zone": {
-        "low": 87.82,
-        "high": 89.22
-      },
-      "stop_zone": {
-        "low": 85.97,
-        "high": 86.38
-      },
-      "profit_zone": {
-        "low": 93.07,
-        "high": 93.87
-      },
-      "status": "ENTRY_WATCH",
-      "status_detail": "Price at/below stop zone ($86.38). Exit immediately — setup invalidated.",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 30.5,
-        "volume_ratio": 0.49,
-        "change_1h": -0.29,
-        "change_24h": -2.06,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 2.34
-      },
-      "notes": [
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
-        "⚠️ Volume yetersiz (0.5x < 1.0x) ❌"
-      ]
-    },
-    {
       "ticker": "WMT",
       "company": "WMT",
       "sector": "Consumer Defensive",
       "swing_pick_date": "2026-04-27",
       "days_since_pick": 1,
-      "current_price": 127.71,
+      "current_price": 127.7,
       "buy_zone": {
         "low": 128.06,
         "high": 130.19
@@ -761,7 +551,7 @@
         "rsi_1h": 50.0,
         "adx_1h": 27.0,
         "volume_ratio": 0.24,
-        "change_1h": -0.37,
+        "change_1h": -0.38,
         "change_24h": 0.09,
         "trend_1h": "FLAT",
         "setup": "NONE",
@@ -772,89 +562,6 @@
         "Phase: ACCUMULATION",
         "Vol: Acceptable",
         "Slope: Positive",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
-        "⚠️ Volume yetersiz (0.2x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "BB",
-      "company": "BB",
-      "sector": "Technology",
-      "swing_pick_date": "2026-04-25",
-      "days_since_pick": 3,
-      "current_price": 5.18,
-      "buy_zone": {
-        "low": 4.92,
-        "high": 5.12
-      },
-      "stop_zone": {
-        "low": 4.66,
-        "high": 4.72
-      },
-      "profit_zone": {
-        "low": 5.66,
-        "high": 5.77
-      },
-      "status": "ENTRY_WATCH",
-      "status_detail": "Price above entry zone ($5.12). If in position: hold, stop at $4.72. If not in: wait for pullback to buy zone.",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 18.4,
-        "volume_ratio": 0.15,
-        "change_1h": 0.31,
-        "change_24h": -2.63,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "rs_score": 0.0,
-        "natr": 6.85
-      },
-      "notes": [
-        "Phase: EXHAUSTION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP/EMA50 Acceptable Zone",
-        "⚡ Bollinger Squeeze",
-        "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
-        "⚠️ Volume yetersiz (0.2x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "APLD",
-      "company": "APLD",
-      "sector": "Technology",
-      "swing_pick_date": "2026-04-27",
-      "days_since_pick": 1,
-      "current_price": 31.08,
-      "buy_zone": {
-        "low": 32.16,
-        "high": 35.25
-      },
-      "stop_zone": {
-        "low": 29.74,
-        "high": 30.28
-      },
-      "profit_zone": {
-        "low": 40.98,
-        "high": 42.27
-      },
-      "status": "ENTRY_WATCH",
-      "status_detail": "Monitoring. Price $31.08, buy zone $32.16–$35.25. 1H RSI 50.",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 27.0,
-        "volume_ratio": 0.2,
-        "change_1h": 0.91,
-        "change_24h": -7.69,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 8.97
-      },
-      "notes": [
-        "NATR > 7.5% (Gamble)",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Uyumsuz",
         "⚠️ Volume yetersiz (0.2x < 1.0x) ❌"
