@@ -2176,7 +2176,39 @@ async def main():
         chunk = universe[i:i + chunk_size]
         tasks = [process_single_stock(sym) for sym in chunk]
         chunk_res = await asyncio.gather(*tasks)
-        raw_results.extend([r for r in chunk_res if r])
+        for sym, res in zip(chunk, chunk_res):
+            if res is not None:
+                raw_results.append(res)
+            else:
+                # Veri çekilemeyen hisseler için fallback entry (tüm universe'i göster)
+                fallback_price = 0.0
+                try:
+                    tmp = yf.Ticker(sym).history(period="2d", interval="1d")
+                    if not tmp.empty:
+                        fallback_price = round(float(tmp["Close"].iloc[-1]), 2)
+                except Exception:
+                    pass
+                raw_results.append({
+                    "symbol": sym,
+                    "score": 0.0,
+                    "price": fallback_price,
+                    "action": "WAIT",
+                    "timing": "WAIT",
+                    "hourly_action": "WAIT",
+                    "hourly_msg": "Veri yetersiz - teknik analiz yapılamadı",
+                    "rsi_1h": 50.0,
+                    "adx_1h": 0.0,
+                    "rvol": 1.0,
+                    "change_1h": 0.0,
+                    "change_24h": 0.0,
+                    "trend_1h": "FLAT",
+                    "setup_type": "NONE",
+                    "rs_score": 0.0,
+                    "natr": 0.0,
+                    "notes": ["⚠️ Teknik veri yetersiz"],
+                    "source_bucket": "Boga_Universe",
+                })
+                logging.warning(f"⚠️ {sym}: process_single_stock None döndü, fallback eklendi.")
         print(f"📊 Tarama İlerleme: {min(i + chunk_size, len(universe))}/{len(universe)}", end="\r")
     
     # 4️⃣ Tüm taradığı hisseleri sırala (filtre yok - tüm raw_results kaydedilecek)
