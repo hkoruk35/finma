@@ -244,14 +244,54 @@ function MultiScreenOverlay({
   getInstrument: (t: string) => { tvSymbol: string; label: string } | null;
   onClose: () => void;
 }) {
+  const [fullscreenTicker, setFullscreenTicker] = useState<string | null>(null);
   const count = tickers.length;
   const cols = count <= 1 ? 1 : count <= 2 ? 2 : count <= 4 ? 2 : count <= 6 ? 3 : 4;
+
+  // Single-chart fullscreen within the overlay
+  if (fullscreenTicker) {
+    const inst = getInstrument(fullscreenTicker);
+    return (
+      <div className="fixed inset-0 z-50 bg-[#060a12] flex flex-col">
+        <div className="flex items-center justify-between px-4 py-2 bg-[#0a0e17] border-b border-[#1e2a3a] shrink-0">
+          <span className="text-xs font-black text-white uppercase tracking-widest">
+            {fullscreenTicker} <span className="text-slate-400 font-normal">{inst?.label}</span>
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setFullscreenTicker(null)}
+              className="px-3 py-1.5 text-xs font-bold bg-[#141924] border border-[#1e2a3a] rounded text-[#3b82f6] hover:bg-[#1e2a3a] transition-colors"
+            >
+              ⊞ Grid View
+            </button>
+            <button
+              onClick={onClose}
+              className="px-3 py-1.5 text-xs font-bold bg-[#141924] border border-[#1e2a3a] rounded text-white hover:bg-[#1e2a3a] transition-colors"
+            >
+              ← Back to Normal View
+            </button>
+          </div>
+        </div>
+        <div className="flex-1 overflow-hidden">
+          {inst && (
+            <TVChartEmbed
+              tvSymbol={inst.tvSymbol}
+              interval={interval}
+              containerId={`tv_fs_${fullscreenTicker}`}
+              height={null}
+            />
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-[#060a12] flex flex-col">
       <div className="flex items-center justify-between px-4 py-2 bg-[#0a0e17] border-b border-[#1e2a3a] shrink-0">
         <span className="text-xs font-black text-[#3b82f6] uppercase tracking-widest">
-          Multi-Screen View — {count} Chart{count !== 1 ? "s" : ""}
+          Multi-Screen — {count} Chart{count !== 1 ? "s" : ""}
+          <span className="ml-3 text-slate-500 font-normal normal-case">Click ⛶ to expand any chart</span>
         </span>
         <button
           onClick={onClose}
@@ -268,16 +308,25 @@ function MultiScreenOverlay({
           const inst = getInstrument(ticker);
           if (!inst) return null;
           return (
-            <div key={`${ticker}-${i}`} className="bg-[#0a0e17] border border-[#1a2234] rounded overflow-hidden flex flex-col">
-              <div className="px-2 py-1 text-[10px] font-black text-white uppercase tracking-wide border-b border-[#1a2234] shrink-0">
-                {ticker} <span className="text-slate-500 font-normal">{inst.label}</span>
+            <div key={`${ticker}-${i}`} className="bg-[#0a0e17] border border-[#1a2234] rounded overflow-hidden flex flex-col group">
+              <div className="flex items-center justify-between px-2 py-1 border-b border-[#1a2234] shrink-0">
+                <span className="text-[10px] font-black text-white uppercase tracking-wide">
+                  {ticker} <span className="text-slate-500 font-normal">{inst.label}</span>
+                </span>
+                <button
+                  onClick={() => setFullscreenTicker(ticker)}
+                  title="Full screen"
+                  className="text-[11px] text-slate-500 hover:text-white transition-colors px-1"
+                >
+                  ⛶
+                </button>
               </div>
               <div className="flex-1">
                 <TVChartEmbed
                   tvSymbol={inst.tvSymbol}
                   interval={interval}
                   containerId={`tv_multi_${ticker}_${i}`}
-                  height={undefined as any}
+                  height={null}
                   compact
                 />
               </div>
