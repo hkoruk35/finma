@@ -5,7 +5,7 @@ import aiohttp
 import os
 import html
 import json
-
+import requests
 
 import pandas as pd
 import numpy as np
@@ -2068,21 +2068,28 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
         with open(summary_path, "w", encoding="utf-8") as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)
 
-        # GitHub Entegrasyonu
-        finma_dir = r"C:\Users\afksm\finma"
-        subprocess.run(
-            ["git", "add", 
-             "frontend/public/intraday_signals.json", 
-             f"frontend/public/intraday_history/{hour_slot}.json", 
-             "frontend/public/intraday_signals_summary.json"],
-            cwd=finma_dir, capture_output=True
-        )
-        subprocess.run(
-            ["git", "commit", "-m", f"Boga AI Hourly Update: {generated_at}"],
-            cwd=finma_dir, capture_output=True
-        )
-        subprocess.run(["git", "push", "origin", "main"], cwd=finma_dir, capture_output=True)
-        logging.info(f"✅ Boga AI: Veriler kaydedildi ve GitHub'a pushlandı ({len(signals)} hisse).")
+        # Vercel ISR revalidate - GitHub push loop kesiyor, dosyalar local'de kalıyor
+        try:
+            secret = os.getenv("REVALIDATE_SECRET", "")
+            if secret:
+                # On-Demand ISR: /hourly ve /smart-tracker sayfalarını revalidate et
+                isr_tags = ["hourly", "smart-tracker"]
+                for tag in isr_tags:
+                    try:
+                        revalidate_url = f"https://bogastock.com/api/revalidate?tag={tag}&secret={secret}"
+                        resp = requests.get(revalidate_url, timeout=10)
+                        if resp.status_code == 200:
+                            logging.info(f"✅ Revalidate /{tag}")
+                        else:
+                            logging.warning(f"⚠️ Revalidate /{tag}: HTTP {resp.status_code}")
+                    except Exception as e:
+                        logging.warning(f"⚠️ Revalidate /{tag} failed: {e}")
+
+                logging.info(f"✅ Boga AI: Veriler kaydedildi ({len(signals)} hisse). Vercel cache invalidated.")
+            else:
+                logging.warning("⚠️ REVALIDATE_SECRET not set - local update only (no Vercel revalidate)")
+        except Exception as e:
+            logging.error(f"❌ Vercel revalidate hatası: {e}")
 
     except Exception as e:
         logging.error(f"❌ save_json_for_dashboard hatası: {e}")

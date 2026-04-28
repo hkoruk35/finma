@@ -5,6 +5,9 @@ import SmartTrackerDashboard from "@/components/SmartTrackerDashboard";
 import { getMasterData } from "@/lib/data";
 import { Metadata } from "next";
 
+export const revalidate = false; // ISR disabled - revalidate via API
+export const dynamicParams = true;
+
 export const metadata: Metadata = {
   title: "Smart Tracker – Paper Trade Portfolio | BOGA AI",
   description: "Track your swing trade picks in a paper trading portfolio. Monitor PnL, sector distribution, and portfolio statistics — no real money involved.",
