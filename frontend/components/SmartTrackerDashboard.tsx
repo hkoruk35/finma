@@ -250,7 +250,7 @@ export default function SmartTrackerDashboard() {
           <p className="text-slate-500 text-xs mt-0.5">Paper Trade · Budget: <span className="text-white font-mono">${f(activeTracker.totalBudgetUsd, 0)}</span> · {activeTracker.updatedAt.split("T")[0]}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
-          <button onClick={refreshPrices} disabled={loading} className="px-3 py-1.5 bg-[#141924] border border-[#1e2a3a] text-slate-300 text-xs font-bold rounded-lg hover:border-[#3b82f6]/40 disabled:opacity-50">
+          <button onClick={() => refreshPrices()} disabled={loading} className="px-3 py-1.5 bg-[#141924] border border-[#1e2a3a] text-slate-300 text-xs font-bold rounded-lg hover:border-[#3b82f6]/40 disabled:opacity-50">
             {loading ? "⟳..." : "⟳ Refresh"}
           </button>
           <Link href="/swing-picks" className="px-3 py-1.5 bg-[#3b82f6]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-xs font-bold rounded-lg hover:bg-[#3b82f6]/20">+ Add Picks</Link>

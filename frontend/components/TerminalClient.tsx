@@ -308,7 +308,7 @@ export default function TerminalClient() {
   const [signals, setSignals] = useState<Record<string, HourlySignal>>({});
 
   // Chart interval
-  const [interval, setInterval] = useState("15");
+  const [chartInterval, setChartInterval] = useState("15");
 
   // Right panel tab
   const [rightTab, setRightTab] = useState<"watchlist" | "positions">("watchlist");
@@ -515,7 +515,7 @@ export default function TerminalClient() {
                 key={iv.value}
                 onClick={() => setInterval(iv.value)}
                 className={`px-2 py-0.5 text-[9px] font-bold rounded transition-colors ${
-                  interval === iv.value
+                  chartInterval === iv.value
                     ? "bg-[#3b82f6] text-white"
                     : "text-slate-400 hover:text-white"
                 }`}
@@ -549,9 +549,9 @@ export default function TerminalClient() {
         {/* Chart */}
         <div className="flex-1 overflow-hidden">
           <TVChartEmbed
-            key={`${selected.ticker}-${interval}`}
+            key={`${selected.ticker}-${chartInterval}`}
             tvSymbol={selected.tvSymbol}
-            interval={interval}
+            interval={chartInterval}
             containerId="tv_main_chart"
             height={undefined as any}
           />
@@ -674,7 +674,7 @@ export default function TerminalClient() {
       {multiScreen && checked.length > 0 && (
         <MultiScreenOverlay
           tickers={checked}
-          interval={interval}
+          interval={chartInterval}
           getInstrument={getInstrument}
           onClose={() => setMultiScreen(false)}
         />
