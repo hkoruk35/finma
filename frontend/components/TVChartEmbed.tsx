@@ -21,11 +21,12 @@ function loadTVScript(): Promise<void> {
 }
 
 interface Props {
-  tvSymbol: string;   // e.g. "AMEX:SPY", "FX_IDC:EURUSD", "TVC:GOLD"
-  interval?: string;  // "1", "5", "15", "30", "60", "D", "W"
+  tvSymbol: string;
+  interval?: string;
   containerId: string;
   height?: number | null;
-  compact?: boolean;  // hides date ranges toolbar
+  // compact: minimal toolbar, no date ranges, no studies (for multi-screen grid)
+  compact?: boolean;
 }
 
 export default function TVChartEmbed({
@@ -60,12 +61,15 @@ export default function TVChartEmbed({
         toolbar_bg: "#0a0e17",
         enable_publishing: false,
         hide_side_toolbar: true,
-        hide_top_toolbar: false,
+        // In compact mode hide the top toolbar entirely to maximise chart area
+        hide_top_toolbar: compact,
         withdateranges: !compact,
         allow_symbol_change: false,
         save_image: false,
         container_id: containerId,
-        studies: [
+        // Compact = no studies (clean price action only)
+        // Normal = MA + RSI + VWAP
+        studies: compact ? [] : [
           "MASimple@tv-basicstudies",
           "MASimple@tv-basicstudies",
           "RSI@tv-basicstudies",
