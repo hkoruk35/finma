@@ -1,42 +1,42 @@
 [
   {
-    "Tarih": "28 Nisan",
-    "Sembol": "AMKR",
-    "Giriş (Buy_L)": 0.0,
+    "Date": "29 April",
+    "Symbol": "SANM",
+    "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 79.44,
-    "Hedef 2 (TP2)": 81.43
+    "Target 1 (TP1)": 230.21,
+    "Target 2 (TP2)": 235.57
   },
   {
-    "Tarih": "28 Nisan",
-    "Sembol": "PII",
-    "Giriş (Buy_L)": 0.0,
+    "Date": "29 April",
+    "Symbol": "NE",
+    "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 74.47,
-    "Hedef 2 (TP2)": 76.35
+    "Target 1 (TP1)": 54.0,
+    "Target 2 (TP2)": 54.78
   },
   {
-    "Tarih": "28 Nisan",
-    "Sembol": "CLS",
-    "Giriş (Buy_L)": 0.0,
+    "Date": "29 April",
+    "Symbol": "AVB",
+    "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 400.38,
-    "Hedef 2 (TP2)": 409.6
+    "Target 1 (TP1)": 196.76,
+    "Target 2 (TP2)": 199.79
   },
   {
-    "Tarih": "28 Nisan",
-    "Sembol": "INTC",
-    "Giriş (Buy_L)": 0.0,
+    "Date": "29 April",
+    "Symbol": "RMAX",
+    "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 91.02,
-    "Hedef 2 (TP2)": 92.71
+    "Target 1 (TP1)": 12.65,
+    "Target 2 (TP2)": 13.05
   },
   {
-    "Tarih": "28 Nisan",
-    "Sembol": "NUE",
-    "Giriş (Buy_L)": 0.0,
+    "Date": "29 April",
+    "Symbol": "CNC",
+    "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Hedef 1 (TP1)": 240.01,
-    "Hedef 2 (TP2)": 243.34
+    "Target 1 (TP1)": 59.54,
+    "Target 2 (TP2)": 60.94
   }
 ]

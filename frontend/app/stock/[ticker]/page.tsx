@@ -20,6 +20,7 @@ const DetailTabs = dynamic(() => import("@/components/stock/DetailTabs"), {
   loading: () => <div className="h-48 bg-[#141924] animate-pulse rounded-xl" />,
 });
 const SocialShare = dynamic(() => import("@/components/SocialShare"));
+const LivePriceSync = dynamic(() => import("@/components/stock/LivePriceSync"), { ssr: false });
 
 interface Props {
   params: Promise<{ ticker: string }>;
@@ -152,6 +153,10 @@ export default async function StockDetailPage({ params }: Props) {
 
             <div className="flex flex-col md:items-end gap-1">
               <div className="flex flex-col md:items-end">
+                <div className="flex items-center gap-2 mb-1 md:justify-end">
+                   <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+                   <span className="text-[10px] font-black text-[#22c55e] uppercase tracking-widest">Live Market Price</span>
+                </div>
                 <div className="flex items-baseline gap-3">
                   <span id="stock-price-current" className="text-4xl md:text-5xl font-mono font-black text-white leading-none tracking-tighter">
                     ${formatPrice(stock.price.current)}
@@ -169,6 +174,12 @@ export default async function StockDetailPage({ params }: Props) {
               </div>
               <MarketStatus />
             </div>
+            {/* Client-side Live Sync */}
+            <LivePriceSync 
+              ticker={stock.ticker} 
+              initialPrice={stock.price.current} 
+              initialChange={stock.price.change_pct} 
+            />
           </div>
         </div>
 

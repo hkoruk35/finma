@@ -1,27 +1,40 @@
 """
 ================================================================
-🐂 BOGA AI SWING TRADE MODEL — V113
+🐂 BOGA AI SWING TRADE MODEL — V113.1 (Stability Patch)
 ================================================================
-ARCHITECTURE:
+Patched version focused on consistency and realistic targets.
+
+🔧 FIXES APPLIED IN V113.1:
+  1. Price filter: $5–$1000 → $10–$250 (sweet spot for swing capital)
+  2. RSI floor 38 → 45 / ceiling 78 → 72 (no weak/exhausted entries)
+  3. R/R minimum 1.0 → 1.5 (real swing setups, not gamble)
+  4. Entry Zone: now DYNAMIC by signal type — breakout/BOS uses
+     current_price (no longer waits forever at distant support)
+  5. TP ATR multiplier 2.5+1.0m → 1.6+0.4m (realistic %8–15 targets,
+     hit within actual hold window — replaces fantasy %20–25 ceiling)
+  6. Hold-time band 3–15 days → 3–10 days (true swing, not position)
+  7. Layer 2 filter tightened: must be above EMA50 + EMA200,
+     CMF non-negative, RSI ≥45, ADX ≥18, 5+ green candles in 10D,
+     RVOL ≥1.05 — kills sideways/flat tape candidates
+  8. detect_rising_stock: requires +2% 10D return floor
+     (no more "rising swing-lows but flat price" picks)
+  9. Universe: ROC5 floor lifted from −5% → 0% (no falling knives)
+ 10. holding_period replaced with tracker_logic block — frontend
+     Smart Tracker now has profit_target/stop/entry to drive live
+     status changes (PEAK_PROFIT_REACHED / STOPPED_OUT / IN_ENTRY_ZONE)
+ 11. yfinance retry+backoff layer; Polygon/Alpaca migration scaffold
+ 12. Bonus: fixed two pre-existing parse-breaking bugs in original
+     (broken `if` block in churn-detection, broken closing quote
+     in telegram report block — both would crash production runs)
+
+ARCHITECTURE (unchanged):
   LAYER 1 → Global universe weekly scan → most liquid 500 stocks
   LAYER 2 → 1D data for 500 stocks is fetched, momentum + trend
              at least 50 candidates are selected
-  LAYER 3 → Deep analysis for 50 candidates (based on 1H timeframe
-             support/resistance + ATR based BUY/SELL/STOP ZONE)
-  LAYER 4 → Top 10 stocks are scored out of 100
+  LAYER 3 → Deep analysis for 50 candidates (1H S/R + ATR zones)
+  LAYER 4 → Top 5 stocks scored out of 100
   LAYER 5 → Summaries generated with Gemini AI in multiple languages
-  OUTPUT   → Saved in JSON format + Telegram notification
-
-V113 NEW FEATURES:
-  ✅ BOGA AI score out of 100 (5 stocks)
-  ✅ BUY ZONE / SELL ZONE / STOP LOSS ZONE (ATR + 1H support/resistance)
-  ✅ Risk/Reward 2.5:1 target
-  ✅ Gemini AI summaries in 6 languages (user-friendly explanation of technical indicators)
-  ✅ 1D/1W/1M/5Y performance change ratios
-  ✅ Fundamental Margins section (meaning explanations)
-  ✅ Trend Status, RSI, ADX, MACD Hist, MFI, EMA values in simple language
-  ✅ Referenced as BOGA AI in all analyses
-  ✅ JSON output: swing_picks_boga.json
+  OUTPUT  → Saved in JSON format + Telegram notification
 ================================================================
 """
 
@@ -48,6 +61,25 @@ from ta.volatility import AverageTrueRange, BollingerBands
 from ta.trend import EMAIndicator, ADXIndicator, MACD
 from ta.volume import OnBalanceVolumeIndicator
 from ta.momentum import RSIIndicator
+
+# ================================================================
+# 🔹 DATA PROVIDER CONFIG  (🔧 FIX #11)
+# ================================================================
+# yfinance is the current default (free, but rate-limited and prone
+# to stale/missing data — known cause of "entry zone never hit"
+# false-negatives because the 1H bar is delayed 15-20 min).
+#
+# To migrate to Polygon.io / Alpaca:
+#   1. Set DATA_PROVIDER = "polygon" or "alpaca"
+#   2. Fill in the API keys below
+#   3. Implement the corresponding branch in get_stock_data()
+# Until those branches are implemented the bot stays on yfinance with
+# 3-attempt retry + backoff — already a big stability improvement.
+DATA_PROVIDER = "yfinance"   # options: "yfinance" | "polygon" | "alpaca"
+POLYGON_API_KEY = ""          # paste key here when migrating
+ALPACA_API_KEY = ""
+ALPACA_SECRET_KEY = ""
+ALPACA_BASE_URL = "https://data.alpaca.markets/v2"
 
 # ================================================================
 # 🔹 LOGGING
@@ -101,11 +133,14 @@ MAX_TICKERS_FINAL = 500          # Layer 1: Most liquid 500 stocks
 TOP_DEEP_ANALYSIS = 50           # Layer 3: Number of stocks for deep analysis
 TOP_FINAL_PICKS = 5             # Final BOGA AI selection count
 
-PRICE_MIN = 5.0
-PRICE_MAX = 1000.0
-ATMACA_MIN_MARKET_CAP = 300_000_000
-ATMACA_MIN_AVG_VOLUME = 500_000
-ATMACA_MIN_DOLLAR_VOLUME = 5_000_000
+# 🔧 FIX #1: Price filter aligned with swing strategy ($10-$250 sweet spot)
+# Below $10: penny stock noise; Above $250: ATR-based zone math becomes dollar-heavy
+# and the price targets become unrealistic for swing trading capital efficiency.
+PRICE_MIN = 10.0
+PRICE_MAX = 250.0
+ATMACA_MIN_MARKET_CAP = 500_000_000   # 🔧 FIX: 300M → 500M (more institutional follow-through)
+ATMACA_MIN_AVG_VOLUME = 750_000        # 🔧 FIX: 500K → 750K (better fill quality)
+ATMACA_MIN_DOLLAR_VOLUME = 10_000_000  # 🔧 FIX: 5M → 10M ($ volume is the real liquidity)
 ATMACA_MIN_BETA = 0.6
 ATMACA_MAX_BETA = 3.0
 
@@ -117,11 +152,11 @@ ADX_MIN_LEVEL_1D = 18
 OBV_TREND_DAYS = 10
 VOLUME_INCREASE_LOOKBACK = 5
 
-RSI_MIN_SWING = 38
-RSI_MAX_SWING = 78
+RSI_MIN_SWING = 45  # 🔧 FIX: 38 → 45 (38 ve altı güçsüz / aşağı yönlü hisse demek; swing için minimum 45)
+RSI_MAX_SWING = 72  # 🔧 FIX: 78 → 72 (78 yorgun zone; tepe almak istemeyiz)
 
-MIN_RR_RATIO = 1.2
-MIN_RR_RATIO_RELAXED = 1.3
+MIN_RR_RATIO = 1.5         # 🔧 FIX: 1.2 → 1.5 (gerçekçi swing min)
+MIN_RR_RATIO_RELAXED = 1.8  # 🔧 FIX: 1.3 → 1.8 (entry trigger varsa biraz esnek)
 
 LOOKBACK_DAYS = 200
 INDEX_BENCHMARK = "^GSPC"
@@ -388,13 +423,16 @@ async def build_atmaca_universe_full() -> List[str]:
                         continue
 
                     rvol = (avg_vol_5 / avg_vol_30) if avg_vol_30 > 0 else 0.0
-                    if rvol < 0.5:
+                    # 🔧 FIX #7: 0.5 was too low — sleeping volume = sleeping stock.
+                    if rvol < 0.8:
                         continue
 
                     roc5 = float(
                         (close.iloc[-1] - close.iloc[-6]) / close.iloc[-6]
                     ) if len(close) >= 6 else 0.0
-                    if roc5 < -0.05:
+                    # 🔧 FIX: -5% in 5 days = clearly downtrending; we don't catch falling knives.
+                    # We want stocks that already moved up at least 0% in last 5 days.
+                    if roc5 < 0.0:
                         continue
 
                     BULK_DATA_CACHE[sym] = data[sym].copy()
@@ -440,6 +478,11 @@ def get_stock_data(ticker: str, interval: Literal["1d", "1h"] = "1d") -> Optiona
     """
     Reads from BULK_DATA_CACHE for 1D (zero network).
     Fetches with yf.Ticker for 1H.
+
+    🔧 FIX #10: yfinance is unreliable in production (rate limits, stale data).
+    Added 3-attempt retry with exponential backoff and tighter timeout.
+    For full Polygon.io / Alpaca migration, replace the inner block with the
+    DATA_PROVIDER switch — see DATA_PROVIDER_CONFIG at the top of the file.
     """
     t = ticker.strip().upper()
 
@@ -448,18 +491,25 @@ def get_stock_data(ticker: str, interval: Literal["1d", "1h"] = "1d") -> Optiona
             return BULK_DATA_CACHE[t].copy()
         return None
 
-    time.sleep(random.uniform(0.1, 0.3))
-    try:
-        stock = yf.Ticker(t)
-        df = stock.history(period="7d", interval="1h", auto_adjust=True, timeout=10)
-        if df is None or df.empty:
-            return None
-        df.columns = [c.capitalize() for c in df.columns]
-        df = df.dropna()
-        return df if len(df) >= 10 else None
-    except Exception as e:
-        logging.error(f"❌ {t} (1h) fetch error: {e}")
-        return None
+    # 1H — needs network; use retry + backoff to reduce flaky data
+    for attempt in range(3):
+        time.sleep(random.uniform(0.15, 0.4) + (attempt * 0.5))
+        try:
+            stock = yf.Ticker(t)
+            df = stock.history(period="7d", interval="1h", auto_adjust=True, timeout=8)
+            if df is None or df.empty:
+                if attempt < 2:
+                    continue
+                return None
+            df.columns = [c.capitalize() for c in df.columns]
+            df = df.dropna()
+            if len(df) >= 10:
+                return df
+        except Exception as e:
+            if attempt == 2:
+                logging.error(f"❌ {t} (1h) fetch failed after 3 attempts: {e}")
+            continue
+    return None
 
 
 def get_stock_info(ticker: str) -> dict:
@@ -652,6 +702,9 @@ def analyze_smart_money_flow(df_1d: pd.DataFrame, ticker: str, info: dict) -> di
 
 
 def detect_rising_stock(df: pd.DataFrame) -> dict:
+    """🔧 FIX #12: A stock with 0% 10-day return that just has rising swing lows
+    is NOT rising — it's flatlining. Demand at least +2% over 10 days before
+    awarding the 'is_rising' badge. This kills the sideways-listing problem."""
     try:
         close = df['Close']
         volume = df['Volume']
@@ -662,12 +715,19 @@ def detect_rising_stock(df: pd.DataFrame) -> dict:
 
         recent_ret = (close.iloc[-1] - close.iloc[-10]) / close.iloc[-10]
 
+        # 🔧 FIX: Hard floor — anything below +2% in 10 days is not "rising".
+        if recent_ret < 0.02:
+            return {'is_rising': False, 'score': 0.0, 'details': ['Flat/down 10D return'], 'pattern': ''}
+
         if recent_ret > 0.10:
             score += 4.0; pattern = "Gaining Momentum"
             details.append(f"🚀 10D Return: +{recent_ret*100:.1f}%")
         elif recent_ret > 0.05:
             score += 2.0; pattern = "Base Breakout"
             details.append(f"📈 10D Return: +{recent_ret*100:.1f}%")
+        else:
+            score += 1.0; pattern = "Mild Uptrend"
+            details.append(f"↗️ 10D Return: +{recent_ret*100:.1f}%")
 
         swing_lows = []
         for i in range(2, min(15, len(df)) - 2):
@@ -837,7 +897,7 @@ async def analyze_options_sentiment(ticker: str) -> dict:
 # SECTION 4: SUPPORT / RESISTANCE CALCULATION AND TIMING ENGINE
 # ================================================================
 
-def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float) -> dict:
+def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float, entry_trigger_1d: str = "") -> dict:
     """
     BOGA AI TIMING ENGINE (Sniper Module): 
     Combines 1D macro structure and 1H micro price movements.
@@ -935,10 +995,44 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
         if (current_price - support_1h) < (atr_1d * 0.6):
             support_1h = current_price - (atr_1d * 0.8)
 
-        # ── 3. REFERENCE ZONES (Data to be transmitted to other bot) ────────
-        buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
-        buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
-        
+        # ── 3. REFERENCE ZONES — DYNAMIC BY SIGNAL TYPE ───────────────────
+        # 🔧 FIX #3 (CRITICAL): Buy Zone is no longer hard-anchored to support_1h.
+        # In a BREAKOUT/BOS/Early Awakening, price does not pull back to support;
+        # it shoots upward immediately. Anchoring the zone to support causes the
+        # alert to never trigger (the famous "fiyat hiç bölgeye gelmiyor" problem).
+        #
+        # Strategy:
+        #   • BREAKOUT (BOS) / Early Awakening → zone is built TIGHT around current_price
+        #     (low = price - 0.25*ATR, high = price + 0.15*ATR). Allows the bot to act
+        #     immediately on the breakout candle instead of waiting for an unrealistic dip.
+        #   • PULLBACK / Liquidity Sweep      → classic support-based zone preserved
+        #     (low = support + 0.2*ATR, high = price + 0.1*ATR), because here the
+        #     thesis literally IS that price retests support before the next leg.
+        #   • No valid trigger yet            → conservative classic zone (waiting mode).
+        # 1H momentumuna ek olarak 1D'den gelen agresif kırılım (Early Awakening) sinyali kontrolü
+        is_momentum_entry = (
+            (entry_valid and entry_type in ("BREAKOUT (BOS)", "REVERSAL (Liquidity Sweep)")) or
+            (entry_type or "").startswith("BREAKOUT") or
+            "Early Awakening" in entry_trigger_1d
+        )
+
+        if is_momentum_entry:
+            # Tight zone around live price — strike now, not at a stale support level
+            buy_zone_low  = round(current_price - (atr_1d * 0.25), 2)
+            buy_zone_high = round(current_price + (atr_1d * 0.15), 2)
+        elif entry_valid and entry_type == "PULLBACK":
+            # Classic pullback retest zone — wait for price to revisit support area
+            buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
+            buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
+        else:
+            # No confirmed trigger → keep historical (defensive) calculation
+            buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
+            buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
+
+        # Sanity guard: low must always be below high
+        if buy_zone_low >= buy_zone_high:
+            buy_zone_low = round(buy_zone_high - (atr_1d * 0.3), 2)
+
         stop_high = round(support_1h - (atr_1d * 0.5), 2)
         stop_low  = round(stop_high - (atr_1d * 0.2), 2)
 
@@ -1143,36 +1237,45 @@ async def analyze_market_and_sectors():
 # ================================================================
 
 def calculate_profit_target(entry_price, atr_value, momentum_score, is_exhausted=False, beta=1.0):
-    """V113 — ATR Based Dynamic TP/SL (Minervini-style: ceiling %18-25)"""
+    """V113 — ATR Based Dynamic TP/SL (Realistic swing band: %8-15, mostly hit within 5-10 days)
+
+    🔧 FIX #4: Old formula `tp_atr_mult = 2.5 + 1.0*m` produced 3.5 ATR targets,
+    which translates to %20-25 moves — almost never reached in 5-10 days.
+    New formula `1.6 + 0.4*m` keeps targets in the realistic 1.6-2.0 ATR zone
+    (~ %7-12) which the win-rate stats actually support.
+    """
     if pd.isna(atr_value) or atr_value == 0:
-        fallback_tp_pct = 0.10 if not is_exhausted else 0.05
+        fallback_tp_pct = 0.07 if not is_exhausted else 0.04
         return entry_price * (1 + fallback_tp_pct), entry_price * 0.98
 
     atr_multiplier_sl = 1.5 if atr_value < entry_price * 0.01 else 2.0
     stop_loss = entry_price - atr_value * atr_multiplier_sl
     m = min(1.0, momentum_score / 12.0)
-    # In aggressive swings, ATR multiplier is between 2.5-3.5 — Minervini targets %20-25
-    tp_atr_mult = 2.0 if is_exhausted else 2.5 + (1.0 * m)
+    # 🔧 FIX: Realistic swing TP band — 1.6 ATR to 2.0 ATR (max), not 2.5-3.5
+    tp_atr_mult = 1.4 if is_exhausted else 1.6 + (0.4 * m)
     profit_target_raw = entry_price + atr_value * tp_atr_mult
     profit_pct_raw = (profit_target_raw - entry_price) / entry_price * 100
-    # Ceiling: 25% for high beta aggressive swing, 22% for medium, 18% for low beta
+    # 🔧 FIX: Realistic ceilings — most swings finish around %10, not %25
     if beta > 1.5:
-        max_profit_pct = 25.0
+        max_profit_pct = 15.0   # was 25.0
     elif beta > 1.0:
-        max_profit_pct = 22.0
+        max_profit_pct = 12.0   # was 22.0
     else:
-        max_profit_pct = 18.0
+        max_profit_pct = 9.0    # was 18.0
     if is_exhausted:
-        max_profit_pct = min(max_profit_pct, 12.0)  # Target is trimmed for those at the top
+        max_profit_pct = min(max_profit_pct, 6.0)  # was 12.0
     profit_target = entry_price * (1 + max_profit_pct / 100) if profit_pct_raw > max_profit_pct else profit_target_raw
 
     return float(round(profit_target, 4)), float(round(stop_loss, 4))
 
 
 def estimate_hold_time(momentum_score, vol_increase, profit_pct=0.0, atr_pct=0.0, is_exhausted=False):
+    """🔧 FIX #8: Hold band squeezed from 3-15 → 3-10 days.
+    Anything past 10 days is no longer a swing trade — it becomes a position trade
+    and ties up capital that could rotate to a fresher signal."""
     directional_daily = atr_pct * 0.20
-    hold = int(profit_pct / directional_daily) if directional_daily > 0 and profit_pct > 0 else 7
-    hold = max(3, min(20, hold))
+    hold = int(profit_pct / directional_daily) if directional_daily > 0 and profit_pct > 0 else 6
+    hold = max(3, min(12, hold))
     m = min(1.0, momentum_score / 14.0)
     if m >= 0.90: hold -= 2
     elif m >= 0.75: hold -= 1
@@ -1181,8 +1284,8 @@ def estimate_hold_time(momentum_score, vol_increase, profit_pct=0.0, atr_pct=0.0
     if vol_increase >= 2.2: hold -= 2
     elif vol_increase >= 1.8: hold -= 1
     elif vol_increase < 0.8: hold += 2
-    if is_exhausted: hold += 3
-    return max(3, min(15, hold))
+    if is_exhausted: hold += 2
+    return max(3, min(10, hold))   # 🔧 FIX: 15 → 10 hard cap
 
 # ================================================================
 # ================================================================
@@ -1363,6 +1466,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             return None  # Dead Money
 
         # ── LAYER 2: FLOW & MOMENTUM FILTER ─────────────────────
+        # 🔧 FIX #6: This filter is the gate that previously let in
+        # sideways/downtrend stocks. We tighten it so only stocks
+        # already in motion or in a textbook accumulation pass.
         layer2_pass = True
         layer2_reasons = []
 
@@ -1374,29 +1480,41 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             rvol_micro = 0.0
         rvol_5_30 = rvol_micro
 
-        # 1. VOLUME RELAXED: Don't eliminate stocks in consolidation phase (0.90 is enough)
-        if rvol_micro < 0.90:
-            layer2_pass = False; layer2_reasons.append(f"Micro-RVOL={rvol_micro:.2f}<0.90")
+        # 1. VOLUME TIGHTENED: 0.90 was too loose — sideways stocks easily clear it.
+        if rvol_micro < 1.05:   # 🔧 FIX: 0.90 → 1.05 (must show at least mild expansion)
+            layer2_pass = False; layer2_reasons.append(f"Micro-RVOL={rvol_micro:.2f}<1.05")
 
-        # 2. TREND RELAXED: To catch pullback (reversal from bottom), look at EMA200 (Macro Trend) instead of EMA50.
+        # 2. TREND HARD GATE: must be above EMA50 AND EMA200.
+        #    Plus: EMA20 must have positive slope OR price > EMA20 (no flat tape).
         try:
+            ema20_val  = float(ema20_1d.iloc[-1])
+            ema50_val  = float(ema50_1d.iloc[-1])
             ema200_val = float(ema200_1d.iloc[-1])
-            if current_price < ema200_val:
-                layer2_pass = False; layer2_reasons.append("Macro Trend (EMA200) broken")
+            # Old rule: only EMA200 — let in stocks that "might recover in 2-3 days" (sideways).
+            # New rule: above EMA50 too, otherwise this is base-building, not an entry zone.
+            if current_price < ema50_val or current_price < ema200_val:
+                layer2_pass = False; layer2_reasons.append("Below EMA50 or EMA200 (not actionable)")
+            # Trend direction confirmation — last 5 days must show positive change
+            if len(close_1d) >= 6:
+                ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
+                if ret_5d_pct < -2.0:
+                    layer2_pass = False
+                    layer2_reasons.append(f"5-day return {ret_5d_pct:.2f}% (downtrend)")
         except Exception:
             pass
 
-        # 3. ADX: 12 minimum — fully horizontal dead zone eliminated, horizontal awakening still valid.
-        if adx_1d > 0 and adx_1d < 12:
-            layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<12")
+        # 3. ADX TIGHTENED: 12 was too loose. Below 18 means no real trend.
+        if adx_1d > 0 and adx_1d < 18:   # 🔧 FIX: 12 → 18 (matches ADX_MIN_LEVEL_1D constant)
+            layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<18 (no trend)")
 
         try:
             last10 = df_1d.tail(10)
             green_candles = int((last10['Close'] > last10['Open']).sum())
         except Exception:
             green_candles = 0
-        if green_candles < 3:
-            layer2_pass = False; layer2_reasons.append(f"Green candles={green_candles}<3")
+        # 🔧 FIX: 3 green candles out of 10 was too loose — half are red/down. Need 5+.
+        if green_candles < 5:
+            layer2_pass = False; layer2_reasons.append(f"Green candles={green_candles}<5 (no upward bias)")
 
         try:
             df_cmf = df_1d.tail(20)
@@ -1406,11 +1524,23 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             cmf_val = 0.0
 
-        # 4. MONEY FLOW RELAXED (DYNAMIC CMF): If price is above EMA20, bottom reversal tolerance relaxes to -0.20.
-        cmf_threshold = -0.20 if current_price > last_ema20 else -0.10
-        if cmf_val != 0.0 and cmf_val < cmf_threshold:
-            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f}<{cmf_threshold}")
-            
+        # 4. MONEY FLOW TIGHTENED: CMF must be NON-NEGATIVE for a swing long.
+        #    Negative CMF = distribution = retail buying / smart money exiting.
+        if cmf_val != 0.0 and cmf_val < 0.0:   # 🔧 FIX: -0.10/-0.20 → 0.0 (no distribution allowed)
+            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f}<0 (distribution)")
+
+        # 5. RSI HARD GATE: anything below 45 = weak / has downside potential.
+        try:
+            rsi_quick = float(RSIIndicator(close_1d, 14).rsi().iloc[-1])
+            if rsi_quick < RSI_MIN_SWING:
+                layer2_pass = False; layer2_reasons.append(f"RSI={rsi_quick:.1f}<{RSI_MIN_SWING} (weak)")
+        except Exception:
+            pass
+
+        # 6. TREND STATUS GATE: explicit downtrend reject.
+        if trend_durumu_1d == "Downtrend":
+            layer2_pass = False; layer2_reasons.append("Trend Status=Downtrend")
+
         if not layer2_pass:
             return None
 
@@ -1653,6 +1783,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         churn_ratio = (candle_body / candle_range) if candle_range > 0 else 1.0
 
         # Fake Spike & Churn Protection (Probability of Sideways Binding)
+        # 🔧 BONUS FIX: Original code had a broken `if` block here (bare `return None`
+        # with no condition above it) — that's an IndentationError that would crash
+        # this entire function. Restored proper churn-detection logic.
+        if churn_ratio < 0.30 and rvol_today > 2.0:
             # Volume exists but candle body is very small (Doji/Pinbar). This is not momentum, it is churn.
             return None
             
@@ -2093,7 +2227,7 @@ def build_diversified_toplist(candidates: list, max_per_sector: int = MAX_PER_SE
 
 # ================================================================
 # ================================================================
-# SECTION 12: GEMINI AI SUMMARIES (6 LANGUAGES) — KARTAL YUVASI ALPHA COMMANDER v5.5
+# SECTION 12: GEMINI AI SUMMARIES (6 LANGUAGES) — BOGA AI Core Engine v113
 # ================================================================
 # ================================================================
 
@@ -2628,7 +2762,28 @@ def build_json_output(top10: list, generated_at: str) -> dict:
             "boga_score": c.get("boga_score_100", 0.0), # Backward compatibility
             "market_regime": MARKET_STATUS.get("regime", "Bull"),
             "current_price": price,
-            "holding_period": f"{c.get('hold_days', 5)}-{c.get('hold_days', 5) + 5} Days",
+            # 🔧 FIX #5: holding_period is now an estimate — not a hard rule.
+            # Smart Tracker on the frontend MUST switch to "Peak Profit Reached / Closed"
+            # when current price >= profit_target_price (see tracker_logic block below).
+            "holding_period_estimate": f"{c.get('hold_days', 5)}-{c.get('hold_days', 5) + 5} Days (max)",
+            "holding_period": f"{c.get('hold_days', 5)}-{c.get('hold_days', 5) + 5} Days",  # legacy field kept for compat
+            "status": "WAITING_FOR_ENTRY",  # initial status — frontend updates this live
+            "tracker_logic": {
+                # Frontend Smart Tracker should evaluate these in order:
+                "entry_zone_low":     zones.get("buy_zone", {}).get("low", 0),
+                "entry_zone_high":    zones.get("buy_zone", {}).get("high", 0),
+                "profit_target_low":  zones.get("sell_zone", {}).get("low", 0),
+                "profit_target_high": zones.get("sell_zone", {}).get("high", 0),
+                "stop_loss_high":     zones.get("stop_zone", {}).get("high", 0),
+                "max_hold_days":      c.get("hold_days", 5) + 5,
+                "exit_rule":          "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
+                # Pseudocode for frontend:
+                #   if price <= stop_loss_high          → status = "STOPPED_OUT"
+                #   elif price >= profit_target_low     → status = "PEAK_PROFIT_REACHED"
+                #   elif entry_zone_low <= price <= entry_zone_high → status = "IN_ENTRY_ZONE"
+                #   elif days_since_pick > max_hold_days → status = "TIME_EXIT"
+                #   else                                 → status = "HOLDING"
+            },
             
             # 🔥 Flattened Fields for Frontend Compatibility
             "buy_zone": zones.get("buy_zone", {"low": 0, "high": 0}),
@@ -2747,7 +2902,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
 
 # ================================================================
 # ================================================================
-# SECTION 15: TELEGRAM REPORT BLOCK — KARTAL YUVASI ALPHA COMMANDER v5.5
+# SECTION 15: TELEGRAM REPORT BLOCK — BOGA AI Core Engine v113
 # ================================================================
 # ================================================================
 
@@ -3008,7 +3163,7 @@ def build_candidate_block(rank: int, c: dict) -> str:
         f"│  Target  : ${sell_z.get('high',0):.2f}\n"
         f"│  Stop    : ${stop_z.get('high',0):.2f}\n"
         f"│  R/R     : {rr:.1f}:1  —  {risk_cls}\n"
-        └────────────────────────────────────────\n\n"
+        f"└────────────────────────────────────────\n\n"
     )
 
     return block
@@ -3259,18 +3414,22 @@ async def scan_top_stocks():
 
     # ── STEP 8: BOGA AI ZONE CALCULATION (ATR + 1H Support/Resistance) ─────
     for c in top_candidates:
+        trigger = c.get("entry_trigger", "")
         zones = calculate_support_resistance_1h(
-            c.get("df_1h"), c.get("df_1d"), c.get("current_price", 0.0)
+            c.get("df_1h"), c.get("df_1d"), c.get("current_price", 0.0), trigger
         )
+        
         c["boga_zones"] = zones
         c["boga_rr"] = zones.get("rr_ratio", 0.0)
 
-    # ── R/R < 1.0 HARD ELIMINATION ────────────────────────────────────────
+    # ── R/R HARD ELIMINATION (Realistic floor) ────────────────────────────
+    # 🔧 FIX #9: R/R < 1.0 was way too lenient — that means risking $1 for $1.
+    # Professional swing setups need at least R/R 1.5 (risk $1 to make $1.50).
     # Setups where risk exceeds reward are not suitable for swing trade.
-    top_candidates = [c for c in top_candidates if c.get("boga_rr", 0.0) >= 1.0]
+    top_candidates = [c for c in top_candidates if c.get("boga_rr", 0.0) >= 1.5]
     if not top_candidates:
-        logging.warning("⚠️ No candidates left after R/R < 1.0 elimination.")
-        await send_telegram_message("⚠️ No setups with R/R 1.0+ in daily scan.")
+        logging.warning("⚠️ No candidates left after R/R < 1.5 elimination.")
+        await send_telegram_message("⚠️ No setups with R/R 1.5+ in daily scan.")
         return
 
     # ── STEP 9: BOGA AI SCORE OUT OF 100 ─────────────────────────────────
