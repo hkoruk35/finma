@@ -797,7 +797,6 @@ def assess_15m_entry_timing(
     df_1h: pd.DataFrame,
 ) -> Dict[str, Any]:
     """
-    """
     Entry Timing Assessment.
     Doesn't make a trade decision, measures the suitability of the 'Pull the Trigger' moment.
     """
@@ -842,13 +841,11 @@ def assess_15m_entry_timing(
         else:
             timing_score -= 2.0
             timing_notes.append("⚠️ MTF Conflict: 1H vs 15M Mismatch")
-
         # Don't enter if price is too far from 15M EMA20 (Mean Reversion risk).
         ema20_15m = df_15m["Close"].ewm(span=20, adjust=False).mean().iloc[-1]
         atr_15m = float(c15.get("ATR", c15["Close"]*0.01))
-        
-        dist_from_ema = (price - ema20_15m) / atr_15m
-        
+        dist_from_ema = (price - ema20_15m) / (atr_15m + 1e-9)
+        if dist_from_ema > 2.0:
             timing_notes.append("⛔ Extended (Don't Chase)")
             timing_score -= 2.0 # Serious penalty
 
@@ -1490,7 +1487,7 @@ def tg(text: str) -> str:
         escaped = escaped.replace(k, v)
     return escaped
 
-async send_pre_gap_telegram(pre_gap_list: list[dict]) -> None:
+async def send_pre_gap_telegram(pre_gap_list: list[dict]) -> None:
     """Sends the institutional pre-gap absorption list."""
     if not pre_gap_list:
         return
@@ -1974,6 +1971,9 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
         # Push to GitHub (since Vercel revalidate endpoint is not working)
         finma_dir = r"C:\Users\afksm\finma"
         try:
+            # First, pull latest to prevent conflicts
+            subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=finma_dir, capture_output=True)
+            
             subprocess.run(
                 ["git", "add",
                  "frontend/public/intraday_signals.json",
