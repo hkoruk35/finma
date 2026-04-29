@@ -1,0 +1,252 @@
+[
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "HAL",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 40.81,
+        "entry_zone": "39.52 - 40.50",
+        "SL": 38.53,
+        "TP": 43.71
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "DOV",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 224.1,
+        "entry_zone": "227.20 - 229.40",
+        "SL": 226.57,
+        "TP": 235.03
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "NUE",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 225.1,
+        "entry_zone": "216.21 - 226.10",
+        "SL": 212.28,
+        "TP": 243.34
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "KDP",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 28.81,
+        "entry_zone": "28.46 - 29.29",
+        "SL": 27.94,
+        "TP": 31.21
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "NOK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 11.3,
+        "entry_zone": "10.26 - 10.42",
+        "SL": 10.21,
+        "TP": 10.85
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "PII",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 66.5,
+        "entry_zone": "61.45 - 66.15",
+        "SL": 58.78,
+        "TP": 76.35
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "CMI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 642.51,
+        "entry_zone": "649.67 - 660.53",
+        "SL": 647.87,
+        "TP": 672.19
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "NTRS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 166.89,
+        "entry_zone": "159.74 - 164.44",
+        "SL": 156.7,
+        "TP": 175.57
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 45.25,
+        "entry_zone": "43.82 - 45.51",
+        "SL": 43.11,
+        "TP": 48.55
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "BLD",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 435.3,
+        "entry_zone": "454.26 - 469.63",
+        "SL": 451.62,
+        "TP": 481.7
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "MTSI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 265.65,
+        "entry_zone": "279.88 - 288.84",
+        "SL": 271.46,
+        "TP": 316.61
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "MSCI",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 595.03,
+        "entry_zone": "582.87 - 594.33",
+        "SL": 571.41,
+        "TP": 631.58
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "ELV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 362.73,
+        "entry_zone": "342.55 - 348.36",
+        "SL": 341.51,
+        "TP": 355.52
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "AMAT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 381.04,
+        "entry_zone": "404.12 - 418.47",
+        "SL": 394.11,
+        "TP": 454.26
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "VRSN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 270.41,
+        "entry_zone": "264.06 - 270.06",
+        "SL": 258.07,
+        "TP": 289.54
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "ETN",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 413.16,
+        "entry_zone": "414.97 - 425.13",
+        "SL": 406.49,
+        "TP": 453.95
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "INTC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 84.53,
+        "entry_zone": "79.92 - 82.93",
+        "SL": 76.91,
+        "TP": 92.71
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "CSCO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 86.85,
+        "entry_zone": "87.82 - 89.22",
+        "SL": 86.38,
+        "TP": 93.87
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "CORZ",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 20.03,
+        "entry_zone": "20.23 - 20.99",
+        "SL": 19.47,
+        "TP": 23.46
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "OPEN",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 5.48,
+        "entry_zone": "5.29 - 5.55",
+        "SL": 5.03,
+        "TP": 6.39
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "CLS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 361.71,
+        "entry_zone": "339.94 - 356.33",
+        "SL": 323.55,
+        "TP": 409.6
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "AMKR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 71.37,
+        "entry_zone": "65.84 - 70.56",
+        "SL": 62.91,
+        "TP": 81.43
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "WMT",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 127.59,
+        "entry_zone": "128.06 - 130.19",
+        "SL": 126.17,
+        "TP": 136.51
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "BB",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 5.14,
+        "entry_zone": "4.92 - 5.12",
+        "SL": 4.72,
+        "TP": 5.77
+    },
+    {
+        "date": "2026-04-29 03:47",
+        "symbol": "APLD",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 32.12,
+        "entry_zone": "32.16 - 35.25",
+        "SL": 30.28,
+        "TP": 42.27
+    }
+]

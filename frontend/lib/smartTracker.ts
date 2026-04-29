@@ -305,7 +305,7 @@ export function computeTrackerStats(tracker: SmartTracker): TrackerStats {
   let totalRealizedPnl = 0;
   const sectorDist: Record<string, number> = {};
 
-  open.forEach((p) => {
+  [...open, ...pending].forEach((p) => {
     const { pnlUsd, investedUsd } = computePnl(p);
     totalInvested += investedUsd;
     totalCurrentValue += investedUsd + pnlUsd;
@@ -338,7 +338,7 @@ export function computeTrackerStats(tracker: SmartTracker): TrackerStats {
   // Best / Worst open positions
   let best: TrackerPosition | null = null;
   let worst: TrackerPosition | null = null;
-  open.forEach((p) => {
+  [...open, ...pending].forEach((p) => {
     const { pnlUsd } = computePnl(p);
     if (!best || pnlUsd > computePnl(best).pnlUsd) best = p;
     if (!worst || pnlUsd < computePnl(worst).pnlUsd) worst = p;

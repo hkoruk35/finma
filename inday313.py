@@ -15,9 +15,9 @@ from datetime import datetime, timedelta, timezone
 from typing import List, Dict, Any, Optional
 from zoneinfo import ZoneInfo
 
-# --- Teknik İndikatörler (Master Plan v3.0 Gereksinimleri) ---
+# --- Technical Indicators (Master Plan v3.0 Requirements) ---
 from ta.trend import EMAIndicator, ADXIndicator
-from ta.volatility import AverageTrueRange, BollingerBands  # Bollinger eklendi (Squeeze tespiti için)
+from ta.volatility import AverageTrueRange, BollingerBands  # Bollinger added (for Squeeze detection)
 from ta.momentum import RSIIndicator
 from ta.volume import ChaikinMoneyFlowIndicator
 
@@ -25,33 +25,33 @@ from ta.volume import ChaikinMoneyFlowIndicator
 # =====================================================================
 # 🐂 BOGA FINANCE AI – INSTITUTIONAL SWING ENGINE
 #
-# Amaç:
-# - Smart Money (Akıllı Para) ayak izlerini takip etmek.
-# - Yerel swing havuzundan "Kurumsal Birikim" (Accumulation)
-#   ve "Ayrışma" (Decoupling) gösteren hisseleri seçmek.
+# Objective:
+# - Track Smart Money footprints.
+# - Select stocks showing "Institutional Accumulation" and "Decoupling" 
+#   from the local swing pool.
 #
-# Zaman Dilimi Disiplini (Institutional Hierarchy):
-# - 1D  → Yapısal Bağlam & Trend Fazı (Accumulation / Expansion / Exhaustion)
-# - 1H  → Kurumsal Değer Bölgesi (Institutional Value Zone & VWAP Logic)
-# - 15M → Mikro Yapı Kırılımı (Micro Structure Break - Entry Timing)
+# Timeframe Discipline (Institutional Hierarchy):
+# - 1D  → Structural Context & Trend Phase (Accumulation / Expansion / Exhaustion)
+# - 1H  → Institutional Value Zone & VWAP Logic
+# - 15M → Micro Structure Break - Entry Timing
 #
-# Felsefe (Price vs Intent):
-# - Sadece yükselen değil, "Hazırlanan" hisseyi bul.
-# - Fiyat düşerken Hacim/Range analizi ile "Absorption" (Emilim) tespiti.
-# - Relative Strength (RS) ile Endeksten pozitif ayrışanları yakala.
-# - Normalized ATR (NATR) ile volatiliteyi kurumsal filtreye sok.
+# Philosophy (Price vs Intent):
+# - Find the stock that is "Preparing", not just rising.
+# - Detect "Absorption" with Volume/Range analysis while price falls.
+# - Catch outperformers using Relative Strength (RS).
+# - Filter volatility using Normalized ATR (NATR).
 #
-# Çıktı:
+# Output:
 # - Institutional Action (Absorption, Aggressive Buy)
 # - Setup Type (Dip Reversal, Power Trend, Pullback)
-# - Invalidation Level (Yapısal İptal Seviyesi)
-# - Entry Zone (Kurumsal Maliyet Bölgesi)
+# - Invalidation Level (Structural Invalidation Level)
+# - Entry Zone (Institutional Cost Zone)
 #
-# Notlar:
-# ❌ Basit indikatör kesişimleri (Retail Logic) YOK.
-# ❌ Intraday scalp YOK.
-# ❌ Sosyal medya sentiment gürültüsü (Reddit vb.) YOK.
-# ✅ Hacim/Fiyat analizi (VPA) ve Kurumsal "Footprint" odaklı.
+# Notes:
+# ❌ NO simple indicator crossovers (Retail Logic).
+# ❌ NO intraday scalp.
+# ❌ NO social media sentiment noise (Reddit etc.).
+# ✅ Focused on Volume/Price analysis (VPA) and Institutional Footprint.
 # =====================================================================
 
 
@@ -78,7 +78,7 @@ def get_realtime_price_and_volume(ticker: str) -> dict:
         current_price = daily['Close'].iloc[-1]
         current_volume = daily['Volume'].iloc[-1]
         
-        # 20-day average volume - swing111 uyumu: Bugünün eksik mumunu hesaba katma
+        # 20-day average volume - swing111 compatibility: Don't include today's incomplete bar
         volume_avg_20d = daily['Volume'].iloc[-21:-1].mean() if len(daily) >= 21 else daily['Volume'].iloc[:-1].mean()
         
         # Daily change (today vs yesterday CLOSE)
@@ -134,29 +134,29 @@ def validate_entry_zone(current_price: float, entry_zone: str) -> dict:
         if current_price > entry_high * 1.05:  # 5% above zone = too extended
             return {
                 'status': 'EXTENDED',
-                'message': f'Fiyat çok yüksek (${current_price:.2f}), zone ${entry_low:.2f}-${entry_high:.2f}'
+                'message': f'Price too high (${current_price:.2f}), zone ${entry_low:.2f}-${entry_high:.2f}'
             }
         elif current_price < entry_low * 0.95:  # 5% below zone = setup failed
             return {
                 'status': 'INVALIDATED',
-                'message': f'Fiyat çok düşük (${current_price:.2f}), setup geçersiz'
+                'message': f'Price too low (${current_price:.2f}), setup invalidated'
             }
         elif current_price > entry_high * 1.02:  # 2-5% above = wait for pullback
             return {
                 'status': 'WAIT',
-                'message': f'Entry zone üstünde (${current_price:.2f}), pullback bekle'
+                'message': f'Above entry zone (${current_price:.2f}), wait for pullback'
             }
         elif current_price < entry_low * 0.98:  # 2-5% below = caution
             return {
                 'status': 'BELOW',
-                'message': f'Entry zone altında (${current_price:.2f}), dikkatli ol'
+                'message': f'Below entry zone (${current_price:.2f}), be careful'
             }
         else:
             # Within zone ±2% = GOOD for swing trade
             distance_from_mid = abs((current_price - zone_mid) / zone_mid) * 100
             return {
                 'status': 'VALID',
-                'message': f'Entry zone içinde (${entry_low:.2f}-${entry_high:.2f}), GİRİŞ UYGUN ✅ ({distance_from_mid:.1f}% from mid)'
+                'message': f'In entry zone (${entry_low:.2f}-${entry_high:.2f}), ENTRY VALID ✅ ({distance_from_mid:.1f}% from mid)'
             }
             
     except Exception as e:
@@ -188,7 +188,7 @@ def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.D
     if volume_ratio < required:
         return {
             'valid': False,
-            'message': f'Volume yetersiz ({volume_ratio:.1f}x < {required}x) ❌'
+            'message': f'Insufficient volume ({volume_ratio:.1f}x < {required}x) ❌'
         }
     
     # 🔥 CRITICAL: Multi-timeframe trend + volume check
@@ -203,7 +203,7 @@ def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.D
         # ============================================
         # 1. CHECK 15m TREND (Last 4 bars = 1 hour)
         # ============================================
-        hist_15m = df_15m # Artık API'den çekmiyoruz, hazır veriyi kullanıyoruz.
+        hist_15m = df_15m # No longer fetching from API, using ready data.
         
         if hist_15m.empty or len(hist_15m) < 4:
             return {
@@ -230,20 +230,20 @@ def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.D
         if price_trend_15m == "DOWN":
             return {
                 'valid': False,
-                'message': f'15m trend DOWN ({price_change_15m:+.1f}%) 🔻 Düşen bıçak - RED'
+                'message': f'15m trend DOWN ({price_change_15m:+.1f}%) 🔻 Falling knife - RED'
             }
         
-        # YENİ: Sahte yükselişlere sıfır tolerans (Hacim %5 bile düşse dikkat, %10 düşerse RED)
+        # NEW: Zero tolerance for fake rallies (Attention if volume drops 5%, RED if 10%)
         if price_trend_15m == "UP" and volume_trend_15m == "DOWN" and volume_change_15m < -10:
             return {
                 'valid': False,
-                'message': f'15m: Fiyat UP ama hacim DOWN ({volume_change_15m:.0f}%) ⚠️ Sahte Yükseliş Tuzağı - RED'
+                'message': f'15m: Price UP but volume DOWN ({volume_change_15m:.0f}%) ⚠️ Fake Rally Trap - RED'
             }
             
         # ============================================
         # 2. CHECK 1h TREND (Last 4 bars = 4 hours)
         # ============================================
-        hist_1h = df_1h  # API'den çekmiyoruz, fonksiyona parametre olarak gelen hazır veriyi kullanıyoruz.
+        hist_1h = df_1h  # No longer fetching from API, using ready data.
         
         if hist_1h is None or hist_1h.empty or len(hist_1h) < 4:
             # 15m passed but 1h unavailable - allow with warning
@@ -267,11 +267,10 @@ def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.D
         volume_trend_1h = "UP" if vol_second_half_1h >= vol_first_half_1h else "DOWN"
         volume_change_1h = ((vol_second_half_1h - vol_first_half_1h) / vol_first_half_1h) * 100
         
-        # 1h REJECTION RULES
         if price_trend_1h == "DOWN":
             return {
                 'valid': False,
-                'message': f'1h trend DOWN ({price_change_1h:+.1f}%) 🔻 Düşen bıçak - RED'
+                'message': f'1h trend DOWN ({price_change_1h:+.1f}%) 🔻 Falling knife - RED'
             }
         
         if price_trend_1h == "UP" and volume_trend_1h == "DOWN" and volume_change_1h < -15:
@@ -310,26 +309,23 @@ logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 # ------------------------------------------------
 NY_TZ = ZoneInfo("America/New_York")
 
-RUN_START_HOUR = 9      # 09:00 NY (Pre-market sonu)
-RUN_END_HOUR = 16       # 16:00 NY (Kapanış)
+RUN_START_HOUR = 9      # 09:00 NY (Pre-market end)
+RUN_END_HOUR = 16       # 16:00 NY (Closing)
 WEEKDAY_SET = {0, 1, 2, 3, 4}
 
 # ------------------------------------------------
 # 🔹 CACHE SETTINGS
 # ------------------------------------------------
-UNIVERSE_TTL = 168 * 3600       # 1 hafta
+UNIVERSE_TTL = 168 * 3600       # 1 week
 UNIVERSE_CACHE: Dict[str, Any] = {
     "ts": 0.0,
     "data": []
 }
 
-# ------------------------------------------------
-# 🔹 DATA LOOKBACK LIMITS (INSTITUTIONAL MODE)
-# ------------------------------------------------
-# Kurumsal analiz için daha geniş veri setine ihtiyaç var (VWAP & 52W High)
-LOOKBACK_DAYS_1D = 365     # 1 Yıl (Year-to-Date VWAP ve Yapısal Analiz için)
-LOOKBACK_DAYS_1H = 90      # Stabilizasyon ve Kurumsal Maliyet Bölgesi
-LOOKBACK_DAYS_15M = 14     # Entry Timing (Kısa vade yeterli)
+# Institutional analysis requires a wider dataset (VWAP & 52W High)
+LOOKBACK_DAYS_1D = 365     # 1 Year (For Year-to-Date VWAP and Structural Analysis)
+LOOKBACK_DAYS_1H = 90      # Stabilization and Institutional Cost Zone
+LOOKBACK_DAYS_15M = 14     # Entry Timing (Short term sufficient)
 
 MIN_BARS_1D = 200          # EMA200 ve Volatilite hesaplaması için zorunlu
 MIN_BARS_1H = 300
@@ -340,25 +336,21 @@ MIN_BARS_15M = 200
 # ------------------------------------------------
 INSTITUTIONAL_SETTINGS = {
     # --- VOLATILITY QUALITY (NATR) ---
-    "NATR_MIN": 2.0,       # %2'nin altı "Dead Money" (Ölü Para)
+    "NATR_MIN": 2.0,       # Under 2% is "Dead Money"
     "NATR_SWEET_SPOT_MIN": 2.5,
     "NATR_SWEET_SPOT_MAX": 6.0,
-    "NATR_MAX": 7.5,       # %7.5 üzeri "Kumar/Haber Bazlı" (High Risk)
+    "NATR_MAX": 7.5,       # Over 7.5% is "Gamble/News Based" (High Risk)
 
     # --- RELATIVE STRENGTH (RS) ---
-    "RS_LOOKBACK_DAYS": 5, # 1 Haftalık ayrışmaya bakarız
-    "RS_DECOUPLING_THRESHOLD": 0.5, # Endeksten %0.5 pozitif ayrışma şartı
-
-    # --- VOLUME PRICE ANALYSIS (VPA) ---
-    "ABSORPTION_RVOL": 1.8,       # Ortalamanın 1.8 katı hacim
-    "ABSORPTION_RANGE_PCT": 1.5,  # Ama fiyat %1.5 içinde sıkışmış (Emilim)
+    "RS_LOOKBACK_DAYS": 5, # Look at 1-week separation
+    "RS_DECOUPLING_THRESHOLD": 0.5, # Required 0.5% positive decoupling from index
 
     # --- TREND ENERGY (ADX) ---
-    "ADX_MIN_TREND": 20,          # Trend başlangıcı
-    "ADX_MAX_SAFE": 45,           # 45 üzeri "Late Trend" (Geç kalınmış)
+    "ADX_MIN_TREND": 20,          # Trend start
+    "ADX_MAX_SAFE": 45,           # Over 45 is "Late Trend" (Too late)
 
     # --- TARGETS ---
-    "MIN_RR_RATIO": 2.0,          # Risk/Reward en az 1:2 olmalı
+    "MIN_RR_RATIO": 2.0,          # Risk/Reward at least 1:2
 }
 
 # ------------------------------------------------
@@ -368,13 +360,13 @@ INSTITUTIONAL_SETTINGS = {
 PRICE_MIN = 3.0
 PRICE_MAX = 1500.0
 
-MIN_MARKET_CAP = 300_000_000    # Min 300M$ (Small Cap üstü)
-MIN_AVG_VOLUME = 500_000        # Günlük 500k lot
-MIN_DOLLAR_VOLUME = 5_000_000  # Günlük 5 Milyon $ işlem hacmi (Zorunlu)
+MIN_MARKET_CAP = 300_000_000    # Min 300M$ (Above Small Cap)
+MIN_AVG_VOLUME = 500_000        # Daily 500k lots
+MIN_DOLLAR_VOLUME = 5_000_000  # Daily 5 Million $ volume (Required)
 
 MIN_BETA = 0.3
-MAX_BETA = 3.0                  # Aşırı spekülatifleri ele
-MAX_SHORT_FLOAT = 0.30          # Short Squeeze tuzağına düşmemek için limit
+MAX_BETA = 3.0                  # Filter out extreme speculators
+MAX_SHORT_FLOAT = 0.30          # Limit to avoid Short Squeeze trap
 
 # ------------------------------------------------
 # 🔹 GLOBAL MARKET CONTEXT (DYNAMIC)
@@ -409,10 +401,10 @@ BOGA_SWING_ZONES = {}
 
 def load_swing_universe() -> List[str]:
     """
-    inday313 için 30 günlük derin arşiv tarayıcı:
-    1. swing{YYYY} klasöründeki swing_YYYYMMDD.json dosyalarını bulur.
-    2. Dosyaları tarihe göre (en yeni en üstte) sıralar ve son 30 dosyayı seçer.
-    3. Hisselerin en güncel zone verilerini BOGA_SWING_ZONES sözlüğüne yükler.
+    30-day deep archive scanner for inday313:
+    1. Finds swing_YYYYMMDD.json files in the swing{YYYY} folder.
+    2. Sorts files by date (newest first) and selects the last 30 files.
+    3. Loads the most up-to-date zone data for each stock into the BOGA_SWING_ZONES dictionary.
     """
     global BOGA_SWING_ZONES
     BOGA_SWING_ZONES.clear()
@@ -422,7 +414,7 @@ def load_swing_universe() -> List[str]:
     DATA_DIR = os.path.join(r"C:\Users\afksm\finma\frontend\public\data", f"swing{current_year}")
 
     if not os.path.exists(DATA_DIR):
-        logging.error(f"❌ Arşiv dizini bulunamadı: {DATA_DIR}")
+        logging.error(f"❌ Archive directory not found: {DATA_DIR}")
         return []
 
     try:
@@ -432,9 +424,9 @@ def load_swing_universe() -> List[str]:
         # 2. Dosyaları tarihe göre sırala (Z'den A'ya -> En yeni tarihli dosya ilk sıraya gelir)
         all_files.sort(reverse=True)
         
-        # 3. Son 30 dosyayı seç (30 günlük swing periyodu hafızası)
+        # 3. Select the last 30 files (30-day swing period memory)
         target_files = all_files[:30]
-        logging.info(f"📂 inday313 tarama havuzu için {len(target_files)} günlük arşiv dosyası taranıyor...")
+        logging.info(f"📂 Scanning {len(target_files)} daily archive files for inday313 pool...")
 
         # 4. Dosyaları teker teker oku (En yenisinden eskiye doğru)
         for file_name in target_files:
@@ -479,7 +471,7 @@ def load_swing_universe() -> List[str]:
         return []
 
     final_symbols = sorted(BOGA_SWING_ZONES.keys())
-    logging.info(f"✅ inday313 evreni hazır: {len(final_symbols)} aktif hisse (30 günlük arşiv baz alındı).")
+    logging.info(f"✅ inday313 universe ready: {len(final_symbols)} active stocks (based on 30-day archive).")
     return final_symbols
     
 # ============================================================
@@ -513,26 +505,26 @@ async def get_boga_data(
             # -------------------------------------------------
             # 📥 PARALLEL FETCH (THREAD-SAFE)
             # -------------------------------------------------
-            # Not: Kurumsal analiz için 1D'de en az 1 yıl (200MA ve YTD VWAP için),
-            # 1H'de 6 ay (max limit) ve 15M'de 1 ay (yapı kırılımı) verisi çekiyoruz.
+            # Note: For institutional analysis, we fetch at least 1 year in 1D (for 200MA and YTD VWAP),
+            # 6 months in 1H (max limit), and 1 month in 15M (structure break).
             df_1d, df_1h, df_15m = await asyncio.gather(
                 asyncio.to_thread(
                     stock.history,
-                    period="1y",        # 1D: 1 Yıl (~252 bar) -> Trend Fazı Analizi
+                    period="1y",        # 1D: 1 Year (~252 bars) -> Trend Phase Analysis
                     interval="1d",
                     auto_adjust=True,
                     timeout=20,
                 ),
                 asyncio.to_thread(
                     stock.history,
-                    period="6mo",       # 1H: 6 Ay (Max) -> Value Zone tespiti
+                    period="6mo",       # 1H: 6 Months (Max) -> Value Zone detection
                     interval="1h",
                     auto_adjust=True,
                     timeout=20,
                 ),
                 asyncio.to_thread(
                     stock.history,
-                    period="1mo",       # 15M: 1 Ay -> Micro Structure (14g yerine 1 ay)
+                    period="1mo",       # 15M: 1 Month -> Micro Structure (1 month instead of 14d)
                     interval="15m",
                     auto_adjust=True,
                     timeout=20,
@@ -548,13 +540,12 @@ async def get_boga_data(
             if df_1d.empty or df_1h.empty or df_15m.empty:
                 return None
 
-            # Minimum bar gereksinimleri (Global ayarlardan gelir - v3.0)
-            # 1D: Min 200 (SMA200 için), 1H: Min 300, 15M: Min 200
-            if len(df_1d) < MIN_BARS_1D:
+            # Minimum bar requirements (Relaxed - Technical analysis performed as much as possible)
+            if len(df_1d) < 20: # At least 20 days
                 return None
-            if len(df_1h) < MIN_BARS_1H:
+            if len(df_1h) < 20:
                 return None
-            if len(df_15m) < MIN_BARS_15M:
+            if len(df_15m) < 20:
                 return None
 
             # -------------------------------------------------
@@ -806,8 +797,9 @@ def assess_15m_entry_timing(
     df_1h: pd.DataFrame,
 ) -> Dict[str, Any]:
     """
-    Giriş Zamanlaması Değerlendirmesi.
-    Trade kararı vermez, 'Tetiği Çekme' anının uygunluğunu ölçer.
+    """
+    Entry Timing Assessment.
+    Doesn't make a trade decision, measures the suitability of the 'Pull the Trigger' moment.
     """
 
     try:
@@ -818,7 +810,7 @@ def assess_15m_entry_timing(
         timing_score = 0.0
 
         # ------------------------------------------------
-        # 1️⃣ Mikro Yapı (Pattern) Analizi
+        # 1️⃣ Micro Structure (Pattern) Analysis
         # ------------------------------------------------
         pattern, pattern_score = detect_15m_timing_pattern(df_15m)
         timing_score += pattern_score
@@ -827,7 +819,7 @@ def assess_15m_entry_timing(
             timing_notes.append(f"15M Trigger: {pattern}")
 
         # ------------------------------------------------
-        # 2️⃣ 1H ve 15M Trend Uyumu (MTF Alignment)
+        # 2️⃣ 1H and 15M Trend Alignment (MTF Alignment)
         # ------------------------------------------------
         price = float(c15["Close"])
         ema20_1h = float(c1h.get("EMA20", 0))
@@ -836,39 +828,35 @@ def assess_15m_entry_timing(
         
         is_15m_bullish = price > ema20_15m
 
-        # İdeal Senkronizasyon: 15M ve 1H aynı anda yukarı bakıyor
+        # Ideal Synchronization: 15M and 1H looking up at the same time
         if price > ema20_1h > 0 and is_15m_bullish:
             timing_score += 2.0
             timing_notes.append("✅ MTF Aligned: 1H & 15M Bullish")
         
-        # Kabul Edilebilir: 1H Pullback bölgesinde ama 15M dönüş başlatmış
+        # Acceptable: 1H in pullback zone but 15M has started reversal
         elif price > ema50_1h > 0 and is_15m_bullish:
             timing_score += 1.0
             timing_notes.append("Aligned with 1H EMA50 & 15M Trend")
         
-        # Riskli: Çatışma durumu (1H düşüyor veya 15M henüz onay vermemiş)
+        # Risky: Conflict state (1H falling or 15M not yet confirmed)
         else:
             timing_score -= 2.0
-            timing_notes.append("⚠️ MTF Conflict: 1H vs 15M Uyumsuz")
+            timing_notes.append("⚠️ MTF Conflict: 1H vs 15M Mismatch")
 
-        # ------------------------------------------------
-        # 3️⃣ Extension Check (Kovalama Kontrolü)
-        # ------------------------------------------------
-        # Fiyat 15M EMA20'den çok uzaklaştıysa girilmez (Mean Reversion riski).
+        # Don't enter if price is too far from 15M EMA20 (Mean Reversion risk).
         ema20_15m = df_15m["Close"].ewm(span=20, adjust=False).mean().iloc[-1]
         atr_15m = float(c15.get("ATR", c15["Close"]*0.01))
         
         dist_from_ema = (price - ema20_15m) / atr_15m
         
-        if dist_from_ema > 3.0: # 3 ATR uzakta
             timing_notes.append("⛔ Extended (Don't Chase)")
-            timing_score -= 2.0 # Ciddi ceza
+            timing_score -= 2.0 # Serious penalty
 
         # ------------------------------------------------
-        # SONUÇ (STATE MAKİNESİ)
+        # RESULT (STATE MACHINE)
         # ------------------------------------------------
-        # READY: Güçlü bir kırılım var ve ana trendle uyumlu.
-        # FORMING: Yapı oluşuyor ama henüz tam tetiklenmedi.
+        # READY: Strong breakout and aligned with main trend.
+        # FORMING: Structure forming but not yet fully triggered.
         return {
             "timing_score": round(timing_score, 2),
             "timing_state": (
@@ -894,14 +882,14 @@ def assess_15m_entry_timing(
 
 def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
     """
-    1D Yapısal Analiz (Institutional Context)
-    Kontroller: NATR Kalitesi, Trend Fazı, Yapısal Eğim, İptal Seviyesi.
+    1D Structural Analysis (Institutional Context)
+    Checks: NATR Quality, Trend Phase, Structural Slope, Invalidation Level.
     """
     try:
         curr = df_1d.iloc[-1]
         
         # 1️⃣ VOLATILITY QUALITY CHECK (NATR)
-        # Önce hissenin karakterini test et.
+        # Test the stock's character first.
         natr = curr.get("NATR", 0.0)
         vol_score = 0.0
         vol_note = ""
@@ -919,7 +907,7 @@ def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
             vol_note = "Vol: Acceptable"
 
         # 2️⃣ TREND ALIGNMENT (EMA Slope)
-        # EMA200 yukarı bakmıyorsa kurumsal trend yoktur.
+        # NO institutional trend if EMA200 is not sloping up.
         ema200_slope = curr.get("EMA200_Slope", 0)
         price = curr["Close"]
         ema50 = curr.get("EMA50", 0)
@@ -927,7 +915,7 @@ def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
         trend_score = 0.0
         
         if ema200_slope > 0 and price > ema50:
-            trend_score = 3.0 # Güçlü Trend
+            trend_score = 3.0 # Strong Trend
         elif price > ema50:
             trend_score = 1.5 # Recovery / Early Trend
         else:
@@ -940,15 +928,15 @@ def analyze_1d_context(df_1d: pd.DataFrame) -> Dict[str, Any]:
         if phase == "EXPANSION":
             phase_score = 2.5
         elif phase == "ACCUMULATION":
-            phase_score = 1.5 # Erken giriş fırsatı
+            phase_score = 1.5 # Early entry opportunity
         elif phase == "EXHAUSTION":
-            phase_score = -2.0 # Geç kalınmış
+            phase_score = -2.0 # Too late
             
         # 4️⃣ INVALIDATION LEVEL (Pivot Low)
-        # Son 20 günün en düşüğü yapısal stop seviyesidir.
+        # The lowest of the last 20 days is the structural stop level.
         pivot_low = df_1d["Low"].iloc[-20:].min()
 
-        # SONUÇ
+        # RESULT
         total_score = vol_score + trend_score + phase_score
         notes = [f"Phase: {phase}", vol_note]
         if ema200_slope > 0: notes.append("Slope: Positive")
@@ -1006,128 +994,43 @@ def evaluate_hourly_status(current_price: float, entry_zone: str, target: float,
         above_buy_zone  = current_price > entry_high * 1.01
         dist_to_stop_pct = ((current_price - stop_high) / stop_high * 100) if stop_high > 0 else 99
 
-        # ── 1. STOP HIT ────────────────────────────────────────────────────────
-        if current_price <= stop_high * 1.005:
+        # ── 1. STOP HIT (SELL) ────────────────────────────────────────────────
+        if current_price <= stop_high:
             return {
                 "status": "STOP_HIT",
-                "msg": f"Price at/below stop zone (${stop_high:.2f}). Exit immediately — setup invalidated."
+                "msg": f"SELL (STOP) 🔴 Price below stop level (${stop_high:.2f})."
             }
 
-        # ── 2. STOP ALERT (within 2%) ─────────────────────────────────────────
-        if 0 < dist_to_stop_pct <= 2.0:
-            return {
-                "status": "STOP_ALERT",
-                "msg": f"Price is only {dist_to_stop_pct:.1f}% above stop (${stop_high:.2f}). "
-                       f"Tighten or honor your stop. 1H RSI {rsi_1h:.0f}."
-            }
-
-        # ── 3. PROFIT ZONE ────────────────────────────────────────────────────
-        if current_price >= profit_high:
-            # TP2 reached — check if momentum still ripping
-            if rsi_1h > 68 and trend_1h == "UP" and rsi_15m > 60:
-                return {
-                    "status": "PARTIAL_PROFIT",
-                    "msg": f"TP2 zone reached (${profit_high:.2f}). Momentum still bullish "
-                           f"(1H RSI {rsi_1h:.0f}, 15M RSI {rsi_15m:.0f}, trend UP). "
-                           f"Take 50% off table, trail stop to TP1 (${profit_low:.2f}) for the rest."
-                }
-            return {
-                "status": "TAKE_PROFIT",
-                "msg": f"TP2 zone reached (${profit_high:.2f}). Close full position and lock gains."
-            }
-
+        # ── 2. PROFIT REACHED (SELL) ──────────────────────────────────────────
         if current_price >= profit_low:
-            # TP1 reached — momentum decides partial vs full
-            if rsi_1h > 60 and trend_1h in ("UP", "FLAT") and rsi_15m > 50:
-                return {
-                    "status": "PARTIAL_PROFIT",
-                    "msg": f"TP1 hit (${profit_low:.2f}). 1H RSI {rsi_1h:.0f} still bullish. "
-                           f"Take 40-50% profit now, move stop to entry, target TP2 at ${profit_high:.2f}."
-                }
             return {
                 "status": "TAKE_PROFIT",
-                "msg": f"TP1 reached (${profit_low:.2f}). Momentum fading (RSI {rsi_1h:.0f}). "
-                       f"Close position, don't give back gains."
+                "msg": f"SELL (PROFIT) 🟢 Target zone reached (${profit_low:.2f}). Profit realization appropriate."
             }
 
-        # ── 4. IN BUY ZONE ────────────────────────────────────────────────────
+        # ── 3. IN BUY ZONE (BUY/ACCUMULATE) ───────────────────────────────────
         if in_buy_zone:
-            # Falling knife — price in zone but 15m collapsing
-            if trend_1h == "DOWN" and rsi_15m < 35:
-                return {
-                    "status": "ENTRY_WATCH",
-                    "msg": f"Price in buy zone (${entry_low:.2f}–${entry_high:.2f}) but 15M RSI "
-                           f"collapsing ({rsi_15m:.0f}), 1H trend DOWN. Wait for 15M stabilization before entry."
-                }
-            # Strong entry: 15m recovering from oversold
-            if rsi_15m < 42 and trend_1h in ("UP", "FLAT"):
-                return {
-                    "status": "ENTRY_NOW",
-                    "msg": f"Buy zone active (${entry_low:.2f}–${entry_high:.2f}). 15M RSI recovering "
-                           f"from oversold ({rsi_15m:.0f}), 1H stable. Enter with stop at ${stop_high:.2f}."
-                }
-            # Normal entry: zone active, no red flags
-            if rsi_1h < 68:
-                return {
-                    "status": "ENTRY_NOW",
-                    "msg": f"Buy zone active (${entry_low:.2f}–${entry_high:.2f}). "
-                           f"1H RSI {rsi_1h:.0f}, 15M {rsi_15m:.0f}, trend {trend_1h}. "
-                           f"Enter position. Stop: ${stop_high:.2f}. Target: ${profit_low:.2f}–${profit_high:.2f}."
-                }
-            # Overbought inside zone
-            return {
-                "status": "ENTRY_WATCH",
-                "msg": f"In buy zone but 1H RSI extended ({rsi_1h:.0f}). Wait for 1H RSI to cool "
-                       f"below 65 before adding exposure."
-            }
-
-        # ── 5. ABOVE BUY ZONE ─────────────────────────────────────────────────
-        if above_buy_zone:
-            # Check how far toward target
-            progress = 0.0
-            if profit_low > entry_high:
-                progress = (current_price - entry_high) / (profit_low - entry_high)
-
-            # Already past 60% toward TP1 — trail stop
-            if progress >= 0.6:
-                if rsi_1h > 70:
-                    return {
-                        "status": "TIGHTEN_STOP",
-                        "msg": f"Position running well ({progress*100:.0f}% to TP1). 1H RSI elevated ({rsi_1h:.0f}). "
-                               f"Trail stop up to ${entry_high:.2f} (entry zone top). Hold for ${profit_low:.2f}."
-                    }
-                return {
-                    "status": "HOLD",
-                    "msg": f"Holding toward TP1 (${profit_low:.2f}). {progress*100:.0f}% of way there. "
-                           f"Stop at ${stop_high:.2f}. 1H RSI {rsi_1h:.0f}."
-                }
-
-            # Early above zone — wait for pullback to enter, or hold if already positioned
-            if rsi_1h > 72:
+            if trend_1h == "DOWN" and rsi_15m < 30:
                 return {
                     "status": "WAIT",
-                    "msg": f"Price extended above buy zone (${entry_high:.2f}), 1H RSI overbought ({rsi_1h:.0f}). "
-                           f"Wait for pullback to ${entry_low:.2f}–${entry_high:.2f} before entering."
+                    "msg": f"BUY (WAIT) ⏳ In buy zone but 15M trend weak. Wait for stabilization."
                 }
             return {
-                "status": "WAIT",
-                "msg": f"Price above entry zone (${entry_high:.2f}). If in position: hold, stop at ${stop_high:.2f}. "
-                       f"If not in: wait for pullback to buy zone."
+                "status": "ENTRY_NOW",
+                "msg": f"BUY ✅ Buy zone active (${entry_low:.2f}–${entry_high:.2f}). Entry suitable."
             }
 
-        # ── 6. BELOW BUY ZONE (approaching) ──────────────────────────────────
-        dist_to_entry_pct = ((entry_low - current_price) / entry_low * 100) if entry_low > 0 else 99
-        if dist_to_entry_pct <= 3.0:
+        # ── 4. ABOVE BUY ZONE (HOLD) ──────────────────────────────────────────
+        if above_buy_zone:
             return {
-                "status": "ENTRY_WATCH",
-                "msg": f"Price {dist_to_entry_pct:.1f}% below buy zone entry (${entry_low:.2f}). "
-                       f"Set alert at ${entry_low:.2f}. 1H RSI {rsi_1h:.0f}."
+                "status": "HOLD",
+                "msg": f"HOLD 💎 Above buy zone. Progressing towards target. Stop: ${stop_high:.2f}."
             }
 
+        # ── 5. BELOW BUY ZONE (WATCH) ─────────────────────────────────────────
         return {
             "status": "ENTRY_WATCH",
-            "msg": f"Monitoring. Price ${current_price:.2f}, buy zone ${entry_low:.2f}–${entry_high:.2f}. "
-                   f"1H RSI {rsi_1h:.0f}."
+            "msg": f"WATCH 👀 Waiting to enter buy zone. Zone: ${entry_low:.2f}–${entry_high:.2f}."
         }
 
     except Exception as e:
@@ -1136,8 +1039,8 @@ def evaluate_hourly_status(current_price: float, entry_zone: str, target: float,
         
 def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
     """
-    1H Taktiksel Analiz (Boga Finans AI - Institutional Footprint)
-    Odak: VWAP Savunma Alanı, Absorption, Volatility Squeeze
+    1H Tactical Analysis (Boga Finans AI - Institutional Footprint)
+    Focus: VWAP Defense Area, Absorption, Volatility Squeeze
     """
     try:
         curr = df_1h.iloc[-1]
@@ -1154,11 +1057,11 @@ def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
         vwap = curr.get("VWAP_Roll", 0.0)
         atr = curr.get("ATR", price * 0.01)
 
-        # ATR bazlı mesafe (Kurumsal Yaklaşım)
+        # ATR-based distance (Institutional Approach)
         vwap_dist_atr = abs(price - vwap) / atr if atr > 0 else 99
         ema50_dist_atr = abs(price - ema50) / atr if atr > 0 else 99
 
-        # Savunma / Kabul / Geç Kalınmış Ayrımı
+        # Defense / Acceptable / Extended Separation
         in_defense_zone = (vwap_dist_atr <= 0.8) or (ema50_dist_atr <= 0.8)
         in_acceptable_zone = (vwap_dist_atr <= 1.5) or (ema50_dist_atr <= 1.5)
 
@@ -1202,13 +1105,13 @@ def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
         # =========================
         adx = curr.get("ADX", 0.0)
 
-        # 1H Grafikte Devasa Kurumsal Alım (Taze Para)
+        # Massive Institutional Buy (Fresh Money) in 1H Chart
         if rvol > 2.5 and price > curr.get("Open", price):
             score += 2.5
             setup = "AGGRESSIVE_BUY"
             notes.append("🚀 1H Institutional Sweep (Massive Volume)")
 
-        # ADX Momentum Onayı (ADX 45 üstüyse kovalamayı bırak)
+        # ADX Momentum Confirmation (Stop chasing if ADX > 45)
         if 18 <= adx <= 45 and (absorption or rvol > 1.3):
             score += 1.0
             notes.append("ADX + Volume Confirmation")
@@ -1230,20 +1133,20 @@ def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
         
 def detect_closing_absorption_setup(df_15m: pd.DataFrame, df_1h: pd.DataFrame) -> dict:
     """
-    Boga Finans AI - Kurumsal PRE-GAP (15:30 - 16:00 NY)
-    Kurumlar pozisyonu eve (overnight) götürmeye istekli mi?
+    Boga Finans AI - Institutional PRE-GAP (15:30 - 16:00 NY)
+    Are institutions willing to take the position home (overnight)?
     """
     try:
         if len(df_15m) < 8 or len(df_1h) < 2:
             return {"pre_gap": False, "score": 0.0}
 
-        last_bars = df_15m.iloc[-2:]      # Son 30 dakika
+        last_bars = df_15m.iloc[-2:]      # Last 30 minutes
         curr_1h = df_1h.iloc[-1]
         
         score = 0.0
 
-        # 1️⃣ VWAP Üzerinde Kapanış (ZORUNLU)
-        # Gün sonu VWAP üstü kapanış = Güçlü kurumsal inanç
+        # 1️⃣ Closing Above VWAP (MANDATORY)
+        # Closing above VWAP at day end = Strong institutional belief
         price = last_bars.iloc[-1]["Close"]
         vwap_1h = curr_1h.get("VWAP_Roll", 0)
         
@@ -1252,12 +1155,12 @@ def detect_closing_absorption_setup(df_15m: pd.DataFrame, df_1h: pd.DataFrame) -
             
         score += 1.5
 
-        # 2️⃣ Gün Tepesine Yakınlık (High of Day)
+        # 2️⃣ Proximity to Day High (High of Day)
         day_high = df_15m["High"].iloc[-26:].max() 
         if price >= day_high * 0.98:
             score += 2.0
         
-        # 3️⃣ Kurumsal İz: Son Dakika Hacim Patlaması
+        # 3️⃣ Institutional Trace: Last Minute Volume Burst
         avg_vol = df_15m["Volume"].rolling(10).mean().iloc[-1]
         curr_vol = last_bars["Volume"].mean()
         
@@ -1277,24 +1180,24 @@ def detect_closing_absorption_setup(df_15m: pd.DataFrame, df_1h: pd.DataFrame) -
 async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     """
     BOGA FİNANS AI - MASTER PROCESSOR
-    Institutional Swing Engine (1–7 Günlük Analiz)
+    Institutional Swing Engine (1–7 Day Analysis)
     
-    Özellikler:
-    - AI ve Sentiment bağımlılıkları tamamen kaldırıldı (Saf Teknik/Hacim).
-    - BOGA_SWING_ZONES (Arşiv) entegrasyonu sağlandı.
-    - Hacim validasyonu ve Market Cap/Sektör bilgisi eklendi.
-    - NaN/Inf korumalı stabil matematiksel altyapı.
+    Features:
+    - AI and Sentiment dependencies completely removed (Pure Technical/Volume).
+    - BOGA_SWING_ZONES (Archive) integration ensured.
+    - Volume validation and Market Cap/Sector info added.
+    - Stable mathematical infrastructure with NaN/Inf protection.
     """
 
     # ================================================
-    # 1. VERİ ÇEKME
+    # 1. DATA FETCHING
     # ================================================
     data_pack = await get_boga_data(ticker)
     if not data_pack:
         return None
 
     # ================================================
-    # 2. İNDİKATÖR HESAPLARI
+    # 2. INDICATOR CALCULATIONS
     # ================================================
     try:
         df_1d = calculate_boga_indicators(data_pack["1d"], "1d")
@@ -1304,18 +1207,18 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         logging.warning(f"{ticker}: Indicator calculation failed: {e}")
         return None
 
-    # 🛑 HATA ÖNLEYİCİ KONTROL
+    # 🛑 ERROR PREVENTION CHECK
     if df_1d.empty or df_1h.empty or df_15m.empty:
         return None
 
     # ================================================
-    # 3. RELATIVE STRENGTH (RS) – KADEMELİ
+    # 3. RELATIVE STRENGTH (RS) – GRADUAL
     # ================================================
     rs_score = 0.0
     rs_note = ""
 
     try:
-        # En az 6 bar gerekli (5 gün öncesi kıyaslaması için)
+        # At least 6 bars required (for 5-day prior comparison)
         if len(df_1d) > 5:
             close_curr = df_1d["Close"].iloc[-1]
             close_5d = df_1d["Close"].iloc[-6]
@@ -1323,7 +1226,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
 
             spy_5d_pct = MARKET_CONTEXT.get("spy_5d_pct", 0.0)
 
-            # Strong decoupling (Piyasa düşerken hisse yükseliyor)
+            # Strong decoupling (Stock rising while market falls)
             if spy_5d_pct < -0.5 and stock_5d_pct > 0:
                 rs_score = 3.0
                 rs_note = "🛡️ RS: Strong Decoupling"
@@ -1342,28 +1245,28 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         rs_note = ""
 
     # ================================================
-    # 4. ANALİZ BLOKLARI
+    # 4. ANALYSIS BLOCKS
     # ================================================
     ctx_1d = analyze_1d_context(df_1d)
     st_1h = analyze_1h_structure(df_1h)
     timing_15m = assess_15m_entry_timing(df_15m, df_1h)
 
-    # Pre-Gap Setup Detection (Kapanış Öncesi Kurumsal Alım)
+    # Pre-Gap Setup Detection (Institutional Buying Before Close)
     now_ny = datetime.now(NY_TZ)
     pre_gap_setup = {"pre_gap": False, "score": 0.0}
     
-    # 15:00 Seansında (Kapanışa 1 saat kala "Power Hour") kapanış analizini tetikle
+    # Trigger closing analysis during the 15:00 session (1 hour before close, "Power Hour")
     if now_ny.hour == 15: 
         pre_gap_setup = detect_closing_absorption_setup(df_15m, df_1h)
 
     # ================================================
-    # 5. AĞIRLIKLI SKORLAMA (KURUMSAL DENGELEME)
+    # 5. WEIGHTED SCORING (INSTITUTIONAL BALANCING)
     # ================================================
     final_score = (
-        (rs_score * 1.8) +                          # RS: En yüksek ağırlık
-        (st_1h.get("1h_score", 0) * 1.1) +          # 1H Yapı ve Para Akışı
-        (ctx_1d.get("1d_score", 0) * 1.1) +          # 1D Trend Fazı
-        (timing_15m.get("timing_score", 0) * 0.5)    # 15M İnce Ayar
+        (rs_score * 1.8) +                          # RS: Highest weight
+        (st_1h.get("1h_score", 0) * 1.1) +          # 1H Structure and Money Flow
+        (ctx_1d.get("1d_score", 0) * 1.1) +          # 1D Trend Phase
+        (timing_15m.get("timing_score", 0) * 0.5)    # 15M Fine Tuning
     )
 
     if pre_gap_setup.get("pre_gap", False):
@@ -1374,7 +1277,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     final_score *= risk_modifier
 
     # ================================================
-    # 6. FİYAT & DEĞİŞİM METRİKLERİ
+    # 6. PRICE & CHANGE METRICS
     # ================================================
     current_price = float(df_15m["Close"].iloc[-1])
     change_1h = 0.0
@@ -1382,18 +1285,18 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
 
     try:
         import math
-        # 1H Değişim
+        # 1H Change
         if len(df_1h) >= 2:
             prev_1h_close = float(df_1h["Close"].iloc[-2])
             if prev_1h_close > 0:
                 change_1h = ((current_price - prev_1h_close) / prev_1h_close) * 100
-        # 24H Değişim
+        # 24H Change
         if len(df_1d) >= 2:
             prev_1d_close = float(df_1d["Close"].iloc[-2])
             if prev_1d_close > 0:
                 change_24h = ((current_price - prev_1d_close) / prev_1d_close) * 100
         
-        # NaN / Inf Koruma
+        # NaN / Inf Protection
         if math.isnan(change_1h) or math.isinf(change_1h): change_1h = 0.0
         if math.isnan(change_24h) or math.isinf(change_24h): change_24h = 0.0
     except Exception:
@@ -1419,7 +1322,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         target_val = pz.get("high") or pz.get("low")
         stop_val = sz.get("high") or sz.get("low")
         
-        # Arşiv eksikse ATR Fallback
+        # ATR Fallback if archive is missing
         if entry_low is None or entry_high is None:
             entry_low, entry_high = current_price - (atr_abs * 0.5), current_price + (atr_abs * 0.5)
         if target_val is None: target_val = current_price + (atr_abs * 3.0)
@@ -1435,7 +1338,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
             "rr_ratio": 2.0
         }
     else:
-        # Arşivde yoksa (Fallback)
+        # Fallback if not in archive
         entry_low, entry_high = current_price - (atr_abs * 0.5), current_price + (atr_abs * 0.5)
         stop_loss = current_price - (2.0 * atr_abs)
         target_cons = current_price + (abs(current_price - stop_loss) * 2.0)
@@ -1458,13 +1361,13 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         final_score -= 2.0
 
     # ================================================
-    # 9. AKSİYON MANTIĞI
+    # 9. ACTION LOGIC
     # ================================================
     action = "WATCH"
     if final_score >= 7.0:
         action = "BUY"
         if pre_gap_setup.get("pre_gap") and pre_gap_setup.get("score", 0) >= 4.0:
-            action = "CLOSE" # Kapanış aksiyonu
+            action = "CLOSE" # Closing action
 
     if action not in ["BUY", "CLOSE"]:
         action = "WATCH"
@@ -1483,7 +1386,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         pass
 
     # ================================================
-    # 11. NOTLAR VE DURUM ANALİZİ
+    # 11. NOTES AND STATUS ANALYSIS
     # ================================================
     all_notes = []
     if rs_note: all_notes.append(rs_note)
@@ -1493,7 +1396,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     if pre_gap_setup.get("pre_gap"): all_notes.append("🏦 PRE-GAP BUY")
     if not volume_check.get('valid', True): all_notes.append(f"⚠️ {volume_check.get('message', 'Volume weak')}")
 
-    # RSI ve Trend Hesaplama (Hourly Status için)
+    # RSI and Trend Calculation (for Hourly Status)
     rsi_val = float(df_1h["RSI"].iloc[-1]) if "RSI" in df_1h.columns else 50.0
     rsi_15m_val = float(df_15m["RSI"].iloc[-1]) if "RSI" in df_15m.columns else 50.0
     
@@ -1514,7 +1417,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     )
 
     # ================================================
-    # 12. FINAL ÇIKTI
+    # 12. FINAL OUTPUT
     # ================================================
     return {
         "symbol": ticker,
@@ -1553,7 +1456,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
 # 5) BOGA FİNANS AI – TELEGRAM YAPILANDIRMASI
 # ============================================================
 
-# 🔹 Telegram Bildirim Ayarları
+# 🔹 Telegram Notification Settings
 TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
 TELEGRAM_CHAT_ID = "-1003569445341"
 ENABLE_TELEGRAM_NOTIFICATIONS = True
@@ -1587,8 +1490,8 @@ def tg(text: str) -> str:
         escaped = escaped.replace(k, v)
     return escaped
 
-async def send_pre_gap_telegram(pre_gap_list: list[dict]) -> None:
-    """Kapanış öncesi kurumsal emilim (Absorption) listesini gönderir."""
+async send_pre_gap_telegram(pre_gap_list: list[dict]) -> None:
+    """Sends the institutional pre-gap absorption list."""
     if not pre_gap_list:
         return
 
@@ -1607,7 +1510,7 @@ async def send_pre_gap_telegram(pre_gap_list: list[dict]) -> None:
 
 
 def split_html_safe(text: str, max_len: int = 3900) -> list[str]:
-    """Uzun mesajları HTML bozulmadan böler."""
+    """Splits long messages without breaking HTML."""
     if len(text) <= max_len:
         return [text]
 
@@ -1676,7 +1579,7 @@ async def send_telegram_photo(photo_path: str, caption: str = "") -> None:
         logging.error(f"Telegram Photo Exception: {e}")
         
 # ============================================================
-# 7) PİYASA & SEKTÖR ANALİZİ — BOGA FİNANS AI (INSTITUTIONAL CONTEXT)
+# 7) MARKET & SECTOR ANALYSIS — BOGA FINANCE AI (INSTITUTIONAL CONTEXT)
 # ============================================================
 
 MARKET_SEMAPHORE = asyncio.Semaphore(2)
@@ -1694,19 +1597,19 @@ async def analyze_market_and_sectors() -> None:
     Boga Finans AI Kurumsal Piyasa Analizi.
     Amaç:
     1. SPY Trend ve Relative Strength (RS) verilerini (5D/20D) hesaplamak.
-    2. VIX (Korku Endeksi) ile global risk çarpanını belirlemek.
-    3. Sektör rotasyonunu (Lider/Geride Kalan) tespit etmek.
+    2. Determine the global risk multiplier with VIX (Fear Index).
+    3. Detect sector rotation (Leaders/Laggards).
     """
     global MARKET_CONTEXT, SECTOR_CONTEXT
 
     async with MARKET_SEMAPHORE:
-        logging.info("🌍 Boga Finans AI: Piyasa ve Sektör Analizi Başlatıldı...")
+        logging.info("🌍 Boga Finance AI: Market and Sector Analysis Started...")
 
         # =====================================================
         # 1. MARKET REGIME (SPY & VIX)
         # =====================================================
         try:
-            # SPY ve VIX verilerini paralel çek
+            # Fetch SPY and VIX data in parallel
             spy_ticker = yf.Ticker("SPY")
             vix_ticker = yf.Ticker("^VIX")
 
@@ -1715,58 +1618,58 @@ async def analyze_market_and_sectors() -> None:
                 asyncio.to_thread(vix_ticker.history, period="5d", interval="1d", auto_adjust=True)
             )
 
-            # --- SPY ANALİZİ ---
+            # --- SPY ANALYSIS ---
             if len(spy_hist) >= 200:
                 close = spy_hist["Close"]
                 curr_price = float(close.iloc[-1])
                 
-                # EMA Hesapları (Kurumsal Trend Rehberi)
+                # EMA Calculations (Institutional Trend Guide)
                 ema200 = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
                 ema50 = float(close.ewm(span=50, adjust=False).mean().iloc[-1])
 
-                # Performans Metrikleri (RS Hesaplamaları için temel veri)
-                # 5 Günlük Değişim
+                # Performance Metrics (Base data for RS Calculations)
+                # 5-Day Change
                 close_5d = close.iloc[-6] if len(close) > 6 else close.iloc[0]
                 spy_5d_pct = ((curr_price - close_5d) / close_5d) * 100
                 MARKET_CONTEXT["spy_5d_pct"] = spy_5d_pct
 
-                # 20 Günlük Değişim
+                # 20-Day Change
                 close_20d = close.iloc[-21] if len(close) > 21 else close.iloc[0]
                 spy_20d_pct = ((curr_price - close_20d) / close_20d) * 100
                 MARKET_CONTEXT["spy_20d_pct"] = spy_20d_pct
 
-                # Rejim Belirleme (Bull/Bear)
+                # Regime Determination (Bull/Bear)
                 if curr_price > ema200:
                     MARKET_CONTEXT["regime"] = "Bull"
                     base_risk = 1.0 if curr_price > ema50 else 0.8
                 else:
                     MARKET_CONTEXT["regime"] = "Bear"
-                    base_risk = 0.5 # Bear markette pozisyon büyüklüğü ve skorlar yarıya iner
+                    base_risk = 0.5 # In a bear market, position size and scores are halved
 
             else:
-                logging.warning("⚠️ SPY verisi yetersiz, güvenli moda geçiliyor.")
+                logging.warning("⚠️ Insufficient SPY data, switching to safe mode.")
                 base_risk = 0.5
 
-            # --- VIX ANALİZİ (Korku Ayarı) ---
+            # --- VIX ANALYSIS (Fear Adjustment) ---
             if not vix_hist.empty:
                 curr_vix = float(vix_hist["Close"].iloc[-1])
                 MARKET_CONTEXT["vix_level"] = curr_vix
                 
-                # VIX > 25: Yüksek Korku (Risk Off) -> Risk çarpanını düşür
+                # VIX > 25: High Fear (Risk Off) -> Reduce risk multiplier
                 if curr_vix > 25.0:
                     base_risk *= 0.7
-                    logging.info(f"😨 Yüksek VIX ({curr_vix:.2f}): Risk Çarpanı Düşürüldü")
+                    logging.info(f"😨 High VIX ({curr_vix:.2f}): Risk Multiplier Reduced")
                 elif curr_vix < 15.0:
-                    base_risk *= 1.1 # Düşük volatilite, güvenli bölge
+                    base_risk *= 1.1 # Low volatility, safe zone
             
             MARKET_CONTEXT["risk_modifier"] = round(base_risk, 2)
-            logging.info(f"📊 Rejim: {MARKET_CONTEXT['regime']} | Risk Mod: {MARKET_CONTEXT['risk_modifier']} | SPY 5D: {MARKET_CONTEXT.get('spy_5d_pct',0):.2f}%")
+            logging.info(f"📊 Regime: {MARKET_CONTEXT['regime']} | Risk Mod: {MARKET_CONTEXT['risk_modifier']} | SPY 5D: {MARKET_CONTEXT.get('spy_5d_pct',0):.2f}%")
 
         except Exception as e:
-            logging.error(f"🚨 Market Context Hatası: {e}")
+            logging.error(f"🚨 Market Context Error: {e}")
 
         # =====================================================
-        # 2. SECTOR ROTATION (Sektörel Güç Analizi)
+        # 2. SECTOR ROTATION (Sectoral Strength Analysis)
         # =====================================================
         try:
             SECTOR_CONTEXT.clear()
@@ -1784,21 +1687,21 @@ async def analyze_market_and_sectors() -> None:
             tasks = [ _fetch_sector(n, t) for n, t in SECTOR_ETF_MAP.items() ]
             await asyncio.gather(*tasks)
             
-            # Sektör Liderlerini Belirle
+            # Determine Sector Leaders
             sorted_sectors = sorted(SECTOR_CONTEXT.items(), key=lambda x: x[1], reverse=True)
             if sorted_sectors:
                 top_str = ", ".join([f"{s[0]}: {s[1]}%" for s in sorted_sectors[:3]])
-                logging.info(f"🚀 Sektör Liderleri (5D): {top_str}")
+                logging.info(f"🚀 Sector Leaders (5D): {top_str}")
 
         except Exception as e:
-            logging.error(f"🚨 Sektör Analiz Hatası: {e}")
+            logging.error(f"🚨 Sector Analysis Error: {e}")
             
 # ============================================================
-# 8) BOGA FİNANS AI – YARDIMCI FONKSİYONLAR & SEÇİM MOTORU
+# 8) BOGA FINANCE AI – UTILITY FUNCTIONS & SELECTION ENGINE
 # ============================================================
 
 def get_stock_info(ticker: str) -> Dict[str, Any]:
-    """Yahoo Finance'den temel verileri çeker (Boga Cache mekanizmalı)"""
+    """Fetches fundamental data from Yahoo Finance (with Boga Cache mechanism)"""
     if "STOCK_INFO_CACHE" not in globals():
         global STOCK_INFO_CACHE
         STOCK_INFO_CACHE = {}
@@ -1828,12 +1731,12 @@ def select_final_candidates(
     max_per_sector: int = 3
 ) -> List[Dict]:
     """
-    BOGA FİNANS AI – Institutional Allocation Engine
-    Önce kalite, sonra kaynak (5 günlük evren), en son sektör dağılımı.
+    BOGA FINANCE AI – Institutional Allocation Engine
+    Quality first, then source (5-day universe), finally sector distribution.
     """
 
     # -----------------------------
-    # 1️⃣ Ön Seçim (Puan Sıralaması)
+    # 1️⃣ Pre-Selection (Score Ranking)
     # -----------------------------
     latest_sorted = sorted(latest_results, key=lambda x: x["score"], reverse=True)
     others_sorted = sorted(other_results, key=lambda x: x["score"], reverse=True)
@@ -1849,7 +1752,7 @@ def select_final_candidates(
         preselected.append(item)
 
     # -----------------------------
-    # 2️⃣ Global Sıralama & Deduplication
+    # 2️⃣ Global Ranking & Deduplication
     # -----------------------------
     preselected = sorted(preselected, key=lambda x: x["score"], reverse=True)
 
@@ -1858,7 +1761,7 @@ def select_final_candidates(
     sector_counts = {}
 
     # -----------------------------
-    # 3️⃣ Nihai Seçim (Institutional Filtering)
+    # 3️⃣ Final Selection (Institutional Filtering)
     # -----------------------------
     for item in preselected:
         if len(final_list) >= (target_latest + target_others):
@@ -1871,7 +1774,7 @@ def select_final_candidates(
             
             sec_count = sector_counts.get(sector, 0)
             
-            # Sektör çeşitlendirmesi: Her sektörden max 3 hisse al
+            # Sector diversification: Take max 3 stocks per sector
             if sec_count < max_per_sector:
                 item["sector_info"] = sector
                 final_list.append(item)
@@ -1881,15 +1784,15 @@ def select_final_candidates(
     return final_list
 
 def generate_telegram_report(results: List[Dict[str, Any]], limit: int = 10) -> str:
-    """Boga Finans AI - Kurumsal Rapor Formatı."""
+    """Boga Finance AI - Institutional Report Format."""
     
     if not results:
-        return "🐂 <b>BOGA FİNANS AI:</b> Mevcut piyasa şartlarında kriterlere uygun kurumsal fırsat bulunamadı."
+        return "🐂 <b>BOGA FINANCE AI:</b> No institutional opportunities matching criteria found in current market conditions."
 
-    # En yüksek skorlu olanları seç
+    # Select those with the highest scores
     top_picks = sorted(results, key=lambda x: x["score"], reverse=True)[:limit]
     
-    report = [f"🐂 <b>BOGA FİNANS AI | SWING INTELLIGENCE</b>"]
+    report = [f"🐂 <b>BOGA FINANCE AI | SWING INTELLIGENCE</b>"]
     report.append(f"📅 {datetime.now().strftime('%d/%m %H:%M')} | 🌍 Regime: {MARKET_CONTEXT.get('regime', '-')}\n")
 
     for i, res in enumerate(top_picks):
@@ -1913,16 +1816,16 @@ def generate_telegram_report(results: List[Dict[str, Any]], limit: int = 10) -> 
         )
         report.append(block)
 
-    report.append(f"👉 <i>Daha fazla detay ve grafik için Dashboard'u ziyaret edin.</i>")
+    report.append(f"👉 <i>Visit the Dashboard for more details and charts.</i>")
     return "\n".join(report)
     
 def save_json_for_dashboard(results: List[Dict[str, Any]]):
     """
-    BOGA FİNANS AI - Dashboard Veri Motoru
-    Çıktılar:
-      - intraday_signals.json         (Anlık snapshot)
-      - intraday_history/{slot}.json   (Saatlik arşiv)
-      - intraday_signals_summary.json (Günlük özet)
+    BOGA FINANCE AI - Dashboard Data Engine
+    Outputs:
+      - intraday_signals.json         (Instant snapshot)
+      - intraday_history/{slot}.json   (Hourly archive)
+      - intraday_signals_summary.json (Daily summary)
     """
     import math
     import subprocess
@@ -1945,14 +1848,14 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
 
     def map_status(hourly_action: str) -> str:
         ha = (hourly_action or "").upper()
-        if "TAKE PROFIT" in ha: return "FULL_EXIT"
-        if "STOP HIT" in ha or "STOP LOSS" in ha: return "STOP_ALERT"
+        if "TAKE_PROFIT" in ha: return "TAKE_PROFIT"
+        if "STOP_HIT" in ha: return "STOP_HIT"
         if "ENTRY_NOW" in ha: return "ENTRY_NOW"
-        if "WAIT" in ha or "WATCH" in ha: return "ENTRY_WATCH"
-        if "HOLD" in ha: return "ENTRY_WATCH"
+        if "WAIT" in ha: return "WAIT"
+        if "HOLD" in ha: return "HOLD"
         return "ENTRY_WATCH"
 
-    # Skorlara göre sırala ve mükerrerleri temizle
+    # Sort by scores and remove duplicates
     sorted_results = sorted(results, key=lambda x: x.get("score", 0), reverse=True)
     seen = set()
     signals = []
@@ -1963,7 +1866,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
             continue
         seen.add(ticker)
 
-        # BOGA_SWING_ZONES (Arşiv) ile eşleştir
+        # Match with BOGA_SWING_ZONES (Archive)
         swing_info = BOGA_SWING_ZONES.get(ticker, {})
         hourly_action = res.get("hourly_action", "NEUTRAL")
         status = map_status(hourly_action)
@@ -1974,7 +1877,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
         except:
             days_since = 0
 
-        # Bölge verilerini standardize et
+        # Standardize zone data
         bz = swing_info.get("buying_zone", {})
         pz = swing_info.get("profit_zone") or swing_info.get("sell_zone", {})
         sz = swing_info.get("stop_zone") or swing_info.get("stop_loss_zone", {})
@@ -2021,17 +1924,17 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
     }
 
     try:
-        # 1. Anlık Snapshot Kaydı
+        # 1. Instant Snapshot Record
         latest_path = os.path.join(PUBLIC_DIR, "intraday_signals.json")
         with open(latest_path, "w", encoding="utf-8") as f:
             json.dump(export, f, indent=2, ensure_ascii=False)
 
-        # 2. Arşiv Kaydı
+        # 2. Archive Record
         archive_path = os.path.join(HISTORY_DIR, f"{hour_slot}.json")
         with open(archive_path, "w", encoding="utf-8") as f:
             json.dump(export, f, indent=2, ensure_ascii=False)
 
-        # 3. Günlük Özet Güncelleme
+        # 3. Daily Summary Update
         summary_path = os.path.join(PUBLIC_DIR, "intraday_signals_summary.json")
         summary = {}
         if os.path.exists(summary_path):
@@ -2060,7 +1963,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
             t["current_status"] = sig["status"]
             t["status_history"].append({"hour": hour_label, "status": sig["status"]})
             
-            # Entry takibi
+            # Entry tracking
             if sig["status"] == "ENTRY_NOW" and t["entry_triggered_at"] is None:
                 t["entry_triggered_at"] = generated_at
                 t["entry_price"] = sig["current_price"]
@@ -2068,7 +1971,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
         with open(summary_path, "w", encoding="utf-8") as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)
 
-        # GitHub'a push et (Vercel revalidate endpoint çalışmadığı için)
+        # Push to GitHub (since Vercel revalidate endpoint is not working)
         finma_dir = r"C:\Users\afksm\finma"
         try:
             subprocess.run(
@@ -2083,19 +1986,19 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
                 cwd=finma_dir, capture_output=True
             )
             subprocess.run(["git", "push", "origin", "main"], cwd=finma_dir, capture_output=True)
-            logging.info(f"✅ Boga AI: Veriler kaydedildi ve GitHub'a pushlandı ({len(signals)} hisse).")
+            logging.info(f"✅ Boga AI: Data saved and pushed to GitHub ({len(signals)} stocks).")
         except Exception as e:
-            logging.error(f"❌ GitHub push hatası: {e}")
+            logging.error(f"❌ GitHub push error: {e}")
 
     except Exception as e:
-        logging.error(f"❌ save_json_for_dashboard hatası: {e}")
+        logging.error(f"❌ save_json_for_dashboard error: {e}")
         
 # ============================================================
-# 9) BOGA FİNANS AI – VERİ KAYIT VE ARŞİVLEME SİSTEMİ
+# 9) BOGA FINANCE AI – DATA RECORDING AND ARCHIVING SYSTEM
 # ============================================================
 
 def save_to_setup_folder(results: List[Dict[str, Any]]):
-    """Belirtilen klasöre versiyonlu ve detaylı JSON kaydı yapar."""
+    """Creates versioned and detailed JSON records in the specified folder."""
     SETUP_DIR = r"C:\Users\afksm\finma\watchlists\setup"
     if not os.path.exists(SETUP_DIR):
         os.makedirs(SETUP_DIR, exist_ok=True)
@@ -2125,10 +2028,10 @@ def save_to_setup_folder(results: List[Dict[str, Any]]):
 
     with open(full_path, "w", encoding="utf-8") as f:
         json.dump(export_list, f, indent=4)
-    logging.info(f"✅ SETUP JSON KAYDEDİLDİ: {file_name}")
+    logging.info(f"✅ SETUP JSON SAVED: {file_name}")
 
 def save_txt_for_archive(results: List[Dict[str, Any]]):
-    """Boga Finans AI - Sembol bazlı TXT arşiv kaydı."""
+    """Boga Finance AI - Symbol-based TXT archive record."""
     INDAY_DIR = r"C:\Users\afksm\finma\watchlists\inday"
     if not os.path.exists(INDAY_DIR):
         os.makedirs(INDAY_DIR, exist_ok=True)
@@ -2139,7 +2042,7 @@ def save_txt_for_archive(results: List[Dict[str, Any]]):
 
     if not tickers: return
 
-    # Günlük ve Rolling kayıt
+    # Daily and Rolling record
     with open(os.path.join(INDAY_DIR, f"inday_{date_tag}.txt"), "w", encoding="utf-8") as f:
         f.write(f"# BOGA AI Swing Watchlist - {now.strftime('%Y-%m-%d %H:%M')}\n")
         for t in tickers: f.write(f"{t}\n")
@@ -2149,27 +2052,27 @@ def save_txt_for_archive(results: List[Dict[str, Any]]):
         for t in tickers: f.write(f"{t}\n")
 
 # ============================================================
-# 📊 MAIN EXECUTION - BOGA FİNANS AI SWING ENGINE
+# 📊 MAIN EXECUTION - BOGA FINANCE AI SWING ENGINE
 # ============================================================
 
 async def main():
-    """Ana tarama döngüsü: Piyasa analizi, Teknik Tarama ve Kayıt."""
+    """Main scan loop: Market analysis, Technical Scan, and Recording."""
     print("\n" + "=" * 60)
     now_ny = datetime.now(NY_TZ)
-    print(f"🐂 BOGA FİNANS AI - SWING ENGINE ONLINE")
-    print(f"⏰ Seans Zamanı: {now_ny.strftime('%Y-%m-%d %H:%M')}")
+    print(f"🐂 BOGA FINANCE AI - SWING ENGINE ONLINE")
+    print(f"⏰ Session Time: {now_ny.strftime('%Y-%m-%d %H:%M')}")
     print("=" * 60 + "\n")
 
-    # 1️⃣ Piyasa ve Sektör Analizi (Risk Modifikatörü Belirleme)
+    # 1️⃣ Market and Sector Analysis (Determining Risk Modifier)
     await analyze_market_and_sectors()
 
-    # 2️⃣ Evren Yükleme (Son 5 Günün Seçimleri)
+    # 2️⃣ Load Universe (Picks from the last 30 days)
     universe = load_swing_universe()
     if not universe:
-        print("❌ Boga Swing Universe boş. Tarama iptal.")
+        print("❌ Boga Swing Universe empty. Scan cancelled.")
         return
 
-    # 3️⃣ Teknik Tarama (Async Paralel)
+    # 3️⃣ Technical Scan (Async Parallel)
     raw_results = []
     chunk_size = 10
     for i in range(0, len(universe), chunk_size):
@@ -2180,7 +2083,7 @@ async def main():
             if res is not None:
                 raw_results.append(res)
             else:
-                # Veri çekilemeyen hisseler için fallback entry (tüm universe'i göster)
+                # Fallback entry for stocks with no data (show the whole universe)
                 fallback_price = 0.0
                 try:
                     tmp = yf.Ticker(sym).history(period="2d", interval="1d")
@@ -2195,7 +2098,7 @@ async def main():
                     "action": "WAIT",
                     "timing": "WAIT",
                     "hourly_action": "WAIT",
-                    "hourly_msg": "Veri yetersiz - teknik analiz yapılamadı",
+                    "hourly_msg": "Insufficient data - technical analysis could not be performed",
                     "rsi_1h": 50.0,
                     "adx_1h": 0.0,
                     "rvol": 1.0,
@@ -2205,28 +2108,28 @@ async def main():
                     "setup_type": "NONE",
                     "rs_score": 0.0,
                     "natr": 0.0,
-                    "notes": ["⚠️ Teknik veri yetersiz"],
+                    "notes": ["⚠️ Technical data insufficient"],
                     "source_bucket": "Boga_Universe",
                 })
                 logging.warning(f"⚠️ {sym}: process_single_stock None döndü, fallback eklendi.")
-        print(f"📊 Tarama İlerleme: {min(i + chunk_size, len(universe))}/{len(universe)}", end="\r")
+        print(f"📊 Scan Progress: {min(i + chunk_size, len(universe))}/{len(universe)}", end="\r")
     
-    # 4️⃣ Tüm taradığı hisseleri sırala (filtre yok - tüm raw_results kaydedilecek)
+    # 4️⃣ Sort all scanned stocks (no filter - all raw_results will be saved)
     raw_results.sort(key=lambda x: x.get("score", 0), reverse=True)
 
-    # 5️⃣ Veri Kayıt İşlemleri (Tüm taradığı hisseleri kaydet)
+    # 5️⃣ Data Recording Operations (Save all scanned stocks)
     try:
         save_to_setup_folder(raw_results)
         save_txt_for_archive(raw_results)
         save_json_for_dashboard(raw_results)
         
-        # Kapanış Öncesi Sinyal (15:45 NY Civarı ise Telegram uyarısı atar)
+        # Signal Before Close (Sends Telegram alert if around 15:45 NY)
         pre_gap_list = [r for r in raw_results if r.get("pre_gap") and r.get("pre_gap_score", 0) >= 4.0]
         if pre_gap_list:
             await send_pre_gap_telegram(pre_gap_list)
 
     except Exception as e:
-        logging.error(f"Kayıt Hatası: {e}")
+        logging.error(f"Recording Error: {e}")
 
     # 6️⃣ Console Preview
     report = generate_telegram_report(raw_results, limit=5)
@@ -2235,28 +2138,27 @@ async def main():
     # Otomatik Telegram Raporu
     await send_telegram_message(report)
 
-# ============================================================
-# 📅 SCHEDULER (ZAMANLAYICI)
+# 📅 SCHEDULER
 # ============================================================
 
 def get_next_run_ny() -> datetime:
-    """Seans içi saatlik ve kapanış öncesi döngüsünü ayarlar."""
+    """Sets the hourly and pre-close cycle within the session."""
     now = datetime.now(NY_TZ).replace(second=0, microsecond=0)
-    # Her saat başı ve kritik kapanış (15:30) saati
+    # Every hour on the hour and critical close (15:30) time
     SCHEDULE = [10, 11, 12, 13, 14, 15]
     
     for hour in SCHEDULE:
         target = now.replace(hour=hour, minute=0)
         if target > now: return target
     
-    # Ertesi iş gününe geçiş
+    # Switch to the next business day
     next_day = now + timedelta(days=1)
     while next_day.weekday() >= 5: next_day += timedelta(days=1)
     return next_day.replace(hour=10, minute=0)
 
 async def run_scheduler():
-    print("\n🐂 BOGA FİNANS AI Zamanlayıcı Başlatıldı...")
-    await send_telegram_message("🐂 <b>Boga Finans AI</b> Aktif!\n⏰ Döngü: Saatlik Seans Taraması")
+    print("\n🐂 BOGA FINANCE AI Scheduler Started...")
+    await send_telegram_message("🐂 <b>Boga Finance AI</b> Active!\n⏰ Cycle: Hourly Session Scan")
     
     while True:
         try:
@@ -2264,13 +2166,13 @@ async def run_scheduler():
             wait_sec = (next_run - datetime.now(NY_TZ)).total_seconds()
             
             if wait_sec < 0: wait_sec = 60
-            logging.info(f"💤 Bir sonraki tarama: {next_run.strftime('%H:%M')} NY")
+            logging.info(f"💤 Next scan: {next_run.strftime('%H:%M')} NY")
             
             await asyncio.sleep(wait_sec)
             await main()
             
         except Exception as e:
-            logging.error(f"Scheduler Hatası: {e}")
+            logging.error(f"Scheduler Error: {e}")
             await asyncio.sleep(600)
 
 if __name__ == "__main__":
