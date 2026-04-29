@@ -388,13 +388,13 @@ LAST_PRE_GAP_ALERT_DATE = None
 
 # ============================================================
 # ============================================================
-# 📁 BOGA FİNANS AI – CANDIDATE UNIVERSE LOADER (ARCHIVE 30-DAY MODE)
+# 📁 BOGA FINANCE AI – CANDIDATE UNIVERSE LOADER (ARCHIVE 30-DAY MODE)
 #
-# Amaç:
-# - C:\Users\afksm\finma\frontend\public\data\swing2026 (vb.) klasörünü tarar.
-# - Geçmiş 30 günün arşiv dosyalarını (swing_YYYYMMDD.json) okur.
-# - Her hisse için "en güncel" (en son tarihteki) alım/satım bölgelerini hafızaya alır.
-# - Dış kaynaklardan veya eski formattaki dosyalardan hisse çekmez.
+# Objective:
+# - Scans the C:\Users\afksm\finma\frontend\public\data\swing2026 (etc.) folder.
+# - Reads archive files (swing_YYYYMMDD.json) from the past 30 days.
+# - Stores the "most recent" buy/sell zones for each stock.
+# - Does not pull stocks from external sources or old-format files.
 # ============================================================
 
 BOGA_SWING_ZONES = {}
@@ -409,7 +409,7 @@ def load_swing_universe() -> List[str]:
     global BOGA_SWING_ZONES
     BOGA_SWING_ZONES.clear()
 
-    # Yıl bilgisini dinamik alarak klasör yolunu oluştur (örneğin: swing2026)
+    # Dynamically create folder path using year (e.g., swing2026)
     current_year = datetime.now().strftime("%Y")
     DATA_DIR = os.path.join(r"C:\Users\afksm\finma\frontend\public\data", f"swing{current_year}")
 
@@ -418,17 +418,17 @@ def load_swing_universe() -> List[str]:
         return []
 
     try:
-        # 1. Klasördeki 'swing_' ile başlayan tüm .json dosyalarını filtrele
+        # 1. Filter all .json files starting with 'swing_' in the directory
         all_files = [f for f in os.listdir(DATA_DIR) if f.startswith("swing_") and f.endswith(".json")]
         
-        # 2. Dosyaları tarihe göre sırala (Z'den A'ya -> En yeni tarihli dosya ilk sıraya gelir)
+        # 2. Sort files by date (Z to A -> Newest file first)
         all_files.sort(reverse=True)
         
         # 3. Select the last 30 files (30-day swing period memory)
         target_files = all_files[:30]
         logging.info(f"📂 Scanning {len(target_files)} daily archive files for inday313 pool...")
 
-        # 4. Dosyaları teker teker oku (En yenisinden eskiye doğru)
+        # 4. Read files one by one (Newest to oldest)
         for file_name in target_files:
             file_path = os.path.join(DATA_DIR, file_name)
             try:
@@ -2188,4 +2188,4 @@ if __name__ == "__main__":
         else:
             asyncio.run(run_scheduler())
     except KeyboardInterrupt:
-        print("\n⏹️ Durduruldu.")
+        print("\n⏹️ Stopped.")
