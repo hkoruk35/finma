@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-25T02:21:00-04:00",
-  "date": "2026-04-25",
+  "timestamp": "2026-04-24T02:21:00-04:00",
+  "date": "2026-04-24",
   "vix": 18.7,
   "vix_regime": "Orta 🟡",
   "spy_return_60d": 2.9,
@@ -84,7 +84,7 @@
         "theta_delta_ratio": 21.73,
         "sim_gain_pct": 73.0
       },
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 2,
@@ -157,7 +157,7 @@
         "theta_delta_ratio": 15.08,
         "sim_gain_pct": 68.0
       },
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 3,
@@ -210,7 +210,7 @@
         "sim_gain_pct": 55.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 4,
@@ -263,7 +263,7 @@
         "sim_gain_pct": -2.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 5,
@@ -336,7 +336,7 @@
         "theta_delta_ratio": 20.22,
         "sim_gain_pct": 12.0
       },
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 6,
@@ -409,7 +409,7 @@
         "theta_delta_ratio": 24.07,
         "sim_gain_pct": 38.0
       },
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 7,
@@ -462,7 +462,7 @@
         "sim_gain_pct": 6.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 8,
@@ -515,7 +515,7 @@
         "sim_gain_pct": 37.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 9,
@@ -568,7 +568,7 @@
         "sim_gain_pct": 4.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 10,
@@ -641,7 +641,7 @@
         "theta_delta_ratio": 9.68,
         "sim_gain_pct": 17.0
       },
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 11,
@@ -694,7 +694,7 @@
         "sim_gain_pct": 25.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 12,
@@ -747,7 +747,7 @@
         "sim_gain_pct": -2.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 13,
@@ -800,7 +800,7 @@
         "sim_gain_pct": -7.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 14,
@@ -853,7 +853,7 @@
         "sim_gain_pct": 24.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     },
     {
       "rank": 15,
@@ -906,7 +906,7 @@
         "sim_gain_pct": 58.0
       },
       "asymmetric": null,
-      "date": "2026-04-25"
+      "date": "2026-04-24"
     }
   ]
 }
